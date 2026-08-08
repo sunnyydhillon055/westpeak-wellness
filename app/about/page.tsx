@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { site } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
 
@@ -13,16 +14,29 @@ export default function About() {
   return (
     <>
       <section className="hero" style={{ paddingBottom: 48 }}>
-        <div className="container">
-          <p className="eyebrow">Meet your counsellor</p>
-          <h1>{site.counsellor.name}, {site.counsellor.credentials}</h1>
-          <p className="lede">
-            Registered Clinical Counsellor. EMDR-trained. Gottman-trained. Born and raised in Surrey.
-            Fluent in English and Punjabi.
-          </p>
-          <div className="btn-row" style={{ marginTop: 24 }}>
-            <a className="btn btn--primary" href={site.bookingUrl} target="_blank" rel="noopener">Book a Free Consultation</a>
-            <a className="btn btn--ghost" href="/pricing">View Fees</a>
+        <div className="container hero-split">
+          <div>
+            <p className="eyebrow">Meet your counsellor</p>
+            <h1>{site.counsellor.name}, {site.counsellor.credentials}</h1>
+            <p className="lede">
+              Registered Clinical Counsellor. EMDR-trained. Gottman-trained. Born and raised in Surrey.
+              Fluent in English and Punjabi.
+            </p>
+            <div className="btn-row" style={{ marginTop: 24 }}>
+              <a className="btn btn--primary" href={site.bookingUrl} target="_blank" rel="noopener">Book a Free Consultation</a>
+              <a className="btn btn--ghost" href="/pricing">View Fees</a>
+            </div>
+          </div>
+          <div className="portrait">
+            <Image
+              src="/aman-bains-dhillon.jpg"
+              alt={`${site.counsellor.name}, ${site.counsellor.credentials} — ${site.counsellor.title} at ${site.name}`}
+              width={800}
+              height={1000}
+              sizes="(max-width: 860px) 340px, 420px"
+              quality={90}
+              priority
+            />
           </div>
         </div>
       </section>
