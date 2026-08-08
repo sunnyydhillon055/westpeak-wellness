@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { site } from '@/lib/site';
 export default function CtaBand({ heading = 'Therapy starts with one conversation.', text = 'Book a free 15-minute consultation by phone or video. No pressure — just a chance to see if we\u2019re a good fit.' }: { heading?: string; text?: string }) {
   return (
@@ -6,7 +7,7 @@ export default function CtaBand({ heading = 'Therapy starts with one conversatio
         <div className="cta-band">
           <h2>{heading}</h2>
           <p>{text}</p>
-          <a className="btn btn--primary" href={site.bookingUrl} target="_blank" rel="noopener">Book Free Consultation</a>
+          <Link className="btn btn--primary" href={site.bookingPath}>Book Free Consultation</Link>
         </div>
       </div>
     </section>

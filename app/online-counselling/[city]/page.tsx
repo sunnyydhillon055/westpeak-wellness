@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { locations, getLocation } from '@/lib/locations';
 import { featuredServices } from '@/lib/services';
 import { site } from '@/lib/site';
+import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
 
 export function generateStaticParams() {
@@ -14,17 +15,27 @@ export function generateMetadata({ params }: { params: { city: string } }): Meta
   const l = getLocation(params.city);
   if (!l) return {};
   const title = `Online Counselling in ${l.city}, BC`;
-  const description = `Virtual therapy for ${l.city} and the ${l.region} with a Registered Clinical Counsellor. EMDR, trauma, anxiety, depression, and couples counselling in English or Punjabi. Free 15-minute consultation.`;
   return {
-    title, description,
+    // absolute: keeps every city title under 60 chars
+    title: { absolute: `Online Counselling in ${l.city} | ${site.name}` },
+    description: l.metaDescription,
     alternates: { canonical: `${site.domain}/online-counselling/${l.slug}` },
-    openGraph: { title: `${title} | Westpeak Wellness`, description, url: `${site.domain}/online-counselling/${l.slug}` },
+    openGraph: { title: `${title} | ${site.name}`, description: l.metaDescription, url: `${site.domain}/online-counselling/${l.slug}` },
   };
 }
 
 export default function CityPage({ params }: { params: { city: string } }) {
   const l = getLocation(params.city);
   if (!l) notFound();
+  const siblings = (l.nearby ?? []).map(getLocation).filter(Boolean) as typeof locations;
+
+  const faqSchema = l.faqs?.length && {
+    '@context': 'https://schema.org', '@type': 'FAQPage',
+    mainEntity: l.faqs.map((f) => ({
+      '@type': 'Question', name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  };
 
   return (
     <>
@@ -32,46 +43,79 @@ export default function CityPage({ params }: { params: { city: string } }) {
         <div className="container">
           <p className="eyebrow">{l.region} · Online</p>
           <h1>Online counselling in {l.city}, BC</h1>
-          <p className="lede">
-            Therapy for {l.city} residents with {site.counsellor.name}, {site.counsellor.credentials} —
-            a Registered Clinical Counsellor offering secure video sessions in English or Punjabi.
-            {' '}{l.blurb}
-          </p>
+          <p className="lede">{l.blurb}</p>
           <div className="btn-row" style={{ marginTop: 24 }}>
-            <a className="btn btn--primary" href={site.bookingUrl} target="_blank" rel="noopener">Book a Free Consultation</a>
-            <Link className="btn btn--ghost" href="/services">Explore Services</Link>
+            <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
+            <Link className="btn btn--ghost" href="/services">See all services</Link>
           </div>
         </div>
       </section>
 
       <section className="section">
         <div className="container prose">
-          <p className="crumb"><a href="/">Home</a> / <a href="/online-counselling">Online Counselling</a> / {l.city}</p>
-          <h2>Therapy in {l.city}, without the commute</h2>
-          <p>
-            Westpeak Wellness is a fully virtual practice, so you can access experienced counselling
-            from anywhere in {l.city} or the wider {l.region} — no drive, no waiting room, no time
-            lost in traffic. Sessions run over a secure, confidential video platform, and follow the
-            same ethical and privacy standards as in-person therapy.
+          <p className="crumb">
+            <Link href="/">Home</Link> / <Link href="/online-counselling">Online counselling</Link> / {l.city}
           </p>
-          <p>
-            Whether you&rsquo;re working through anxiety, depression, trauma, grief, or challenges in
-            your relationship, Aman offers care that&rsquo;s warm, direct, and culturally grounded —
-            including therapy in Punjabi for the South Asian community in {l.city}.
-          </p>
+
+          {l.intro ? <Paragraphs items={l.intro} /> : (
+            <>
+              <h2>Therapy in {l.city}, without the commute</h2>
+              <p>
+                Westpeak Wellness is a fully virtual practice, so you can access counselling from
+                anywhere in {l.city} or the wider {l.region} — no drive, no waiting room. Sessions run
+                over a secure, confidential video platform and follow the same ethical and privacy
+                standards as in-person therapy. There is more detail on{' '}
+                <Link href="/services/online-counselling-bc">how online counselling works across BC</Link>.
+              </p>
+            </>
+          )}
         </div>
       </section>
 
-      <section className="section section--tint">
+      {l.localReality && (
+        <section className="section section--tint">
+          <div className="container prose" style={{ maxWidth: '70ch' }}>
+            <h2>{l.localReality.h2}</h2>
+            <Paragraphs items={l.localReality.body} />
+          </div>
+        </section>
+      )}
+
+      {l.access && (
+        <section className="section">
+          <div className="container">
+            <p className="eyebrow">Why virtual, specifically here</p>
+            <h2>What changes when distance stops mattering</h2>
+            <div className="grid grid-2" style={{ marginTop: 26 }}>
+              {l.access.map((a) => (
+                <div className="card" key={a.label}>
+                  <h3>{a.label}</h3>
+                  <p style={{ marginBottom: 0 }}>{rich(a.detail)}</p>
+                </div>
+              ))}
+            </div>
+            <div className="crisis" style={{ marginTop: 32 }}>
+              <p style={{ margin: 0 }}>
+                Not sure which kind of support fits? A{' '}
+                <Link href={site.bookingPath}>free 15-minute consultation</Link> is the fastest way
+                to find out — and it is a fine outcome if the answer is a referral somewhere else.
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
+
+      <section className={l.localReality ? 'section section--ghost' : 'section section--tint'}>
         <div className="container">
-          <p className="eyebrow">Popular in {l.city}</p>
-          <h2>Ways Aman can help</h2>
+          <p className="eyebrow">Available in {l.city}</p>
+          <h2>Ways we can help</h2>
           <div className="grid grid-3" style={{ marginTop: 24 }}>
             {featuredServices.map((s) => (
               <div className="card" key={s.slug}>
                 <Link href={`/services/${s.slug}`} className="card-link">
                   <h3>{s.name.replace(' Therapy', '').replace(' Counselling', '')}</h3>
-                  <p>{s.short}</p><span className="more">Learn more →</span>
+                  <p>{s.short}</p>
+                  <span className="more">{s.name} in {l.city} →</span>
                 </Link>
               </div>
             ))}
@@ -79,7 +123,67 @@ export default function CityPage({ params }: { params: { city: string } }) {
         </div>
       </section>
 
-      <CtaBand heading={`Book therapy in ${l.city} today`} text="Start with a free 15-minute consultation by phone or video. No pressure, no commitment." />
+      {l.faqs && (
+        <section className="section">
+          <div className="container">
+            <p className="eyebrow">Questions from {l.city}</p>
+            <h2>Before you book</h2>
+            <div style={{ marginTop: 24, maxWidth: 760 }}>
+              {l.faqs.map((f) => (
+                <details className="faq-item" key={f.q}>
+                  <summary>{f.q}</summary>
+                  <p>{f.a}</p>
+                </details>
+              ))}
+            </div>
+            <p style={{ marginTop: 24 }}>
+              More in the <Link href="/faq">full list of frequently asked questions</Link>, or see{' '}
+              <Link href="/pricing">fees and extended-health coverage</Link>.
+            </p>
+          </div>
+        </section>
+      )}
+
+      {(siblings.length > 0 || l.sources) && (
+        <section className="section section--tint">
+          <div className="container">
+            {siblings.length > 0 && (
+              <>
+                <p className="eyebrow">Elsewhere in BC</p>
+                <div className="chip-grid" style={{ marginBottom: l.sources ? 36 : 0 }}>
+                  {siblings.map((s) => (
+                    <Link className="chip" key={s.slug} href={`/online-counselling/${s.slug}`}>
+                      Online counselling in {s.city}
+                    </Link>
+                  ))}
+                  <Link className="chip" href="/online-counselling">All areas served in BC</Link>
+                </div>
+              </>
+            )}
+            {l.sources && (
+              <>
+                <p className="eyebrow">Sources</p>
+                <ul style={{ color: 'var(--ink-soft)', fontSize: '.94rem', paddingLeft: 20, margin: 0 }}>
+                  {l.sources.map((s) => (
+                    <li key={s.url} style={{ marginBottom: 8 }}>
+                      <a href={s.url} target="_blank" rel="noopener">{s.label}</a>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
+        </section>
+      )}
+
+      <CtaBand
+        heading={`Counselling in ${l.city}, starting with a conversation`}
+        text="A free 15-minute consultation by phone or video. No pressure, no commitment, and no obligation to book a session afterward."
+      />
+
+      {faqSchema && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      )}
     </>
   );
 }

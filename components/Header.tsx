@@ -15,10 +15,11 @@ export default function Header() {
         <ul className={`nav-links${open ? ' open' : ''}`} onClick={() => setOpen(false)}>
           <li><Link href="/about">About</Link></li>
           <li><Link href="/services">Services</Link></li>
+          <li><Link href="/guides">Guides</Link></li>
           <li><Link href="/pricing">Fees</Link></li>
           <li><Link href="/faq">FAQ</Link></li>
           <li><Link href="/contact">Contact</Link></li>
-          <li className="nav-cta"><a className="btn btn--primary" href={site.bookingUrl} target="_blank" rel="noopener">Book Free Consult</a></li>
+          <li className="nav-cta"><Link className="btn btn--primary" href={site.bookingPath}>Book Free Consult</Link></li>
         </ul>
       </div>
     </header>

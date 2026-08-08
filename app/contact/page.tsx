@@ -1,5 +1,7 @@
+import Link from 'next/link';
 import type { Metadata } from 'next';
 import { site } from '@/lib/site';
+import CtaBand from '@/components/CtaBand';
 
 export const metadata: Metadata = {
   title: 'Contact & Book',
@@ -17,7 +19,7 @@ export default function Contact() {
           <h1>Let&rsquo;s see if we&rsquo;re a good fit.</h1>
           <p className="lede">A free 15-minute consultation is the easiest way to start.</p>
           <div className="btn-row" style={{ marginTop: 24 }}>
-            <a className="btn btn--primary" href={site.bookingUrl} target="_blank" rel="noopener">Book Free Consultation</a>
+            <Link className="btn btn--primary" href={site.bookingPath}>Book Free Consultation</Link>
             <a className="btn btn--ghost" href={`mailto:${site.email}`}>Email instead</a>
           </div>
         </div>
@@ -36,7 +38,13 @@ export default function Contact() {
             <div className="info-block"><h3>Instagram</h3><p><a href={site.instagramUrl} target="_blank" rel="noopener">{site.instagram}</a></p></div>
           </div>
 
-          <div className="crisis" style={{ marginTop: 36 }}>
+          <p style={{ marginTop: 32 }}>
+            If you already know you want to start, the fastest route is to{' '}
+            <Link href={site.bookingPath}>book a free 15-minute consultation</Link> directly — email
+            is better for questions you want answered before committing to a call.
+          </p>
+
+          <div className="crisis" style={{ marginTop: 24 }}>
             <p style={{ margin: 0 }}>
               <strong>If you&rsquo;re in crisis:</strong> Westpeak Wellness is not a crisis service. Call or text{' '}
               <strong>9-8-8</strong> (Canada, 24/7) or BC Mental Health at <strong>310-6789</strong>.
@@ -49,12 +57,17 @@ export default function Contact() {
       <section className="section section--tint">
         <div className="container center">
           <h2>Ready when you are</h2>
-          <p className="lede">Tell Aman what you&rsquo;re looking for — a sentence is enough. {site.counsellor.name} is always available and glad to help you find your footing.</p>
+          <p className="lede">Tell us what you&rsquo;re looking for — a sentence is enough. You&rsquo;ll hear back from your counsellor directly, usually within one business day.</p>
           <div className="btn-row" style={{ marginTop: 20 }}>
-            <a className="btn btn--primary" href={site.bookingUrl} target="_blank" rel="noopener">Book Free Consultation</a>
+            <Link className="btn btn--primary" href={site.bookingPath}>Book Free Consultation</Link>
           </div>
         </div>
       </section>
+
+      <CtaBand
+        heading="One conversation is all it takes to start."
+        text="A free 15-minute consultation by phone or video. No pressure, no commitment, and no obligation to book a session afterward."
+      />
     </>
   );
 }

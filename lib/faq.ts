@@ -13,11 +13,11 @@ export const faqs: FAQ[] = [
   },
   {
     q: "Do you offer sessions in Punjabi?",
-    a: "Yes. Aman offers therapy in Punjabi, English, or a mix of both. Some things simply land better in your first language, and you won't have to translate your cultural context to be understood.",
+    a: "Yes. Sessions are available in Punjabi, English, or a mix of both. Some things simply land better in your first language, and you won't have to translate your cultural context to be understood.",
   },
   {
     q: "Are you covered by extended health benefits?",
-    a: "Most extended health plans in BC that include Registered Clinical Counsellors (RCC) will cover counselling with Aman — commonly Pacific Blue Cross, Manulife, Sun Life, Canada Life, and Green Shield. Coverage amounts and per-session limits vary by plan, so it's worth confirming your specific benefits. Note that BC's public MSP does not cover counselling. Virtual sessions are covered the same as in-person by nearly all plans.",
+    a: "Most extended health plans in BC that include Registered Clinical Counsellors (RCC) will cover sessions at Westpeak Wellness — commonly Pacific Blue Cross, Manulife, Sun Life, Canada Life, and Green Shield. Coverage amounts and per-session limits vary by plan, so it's worth confirming your specific benefits. Note that BC's public MSP does not cover counselling. Virtual sessions are covered the same as in-person by nearly all plans.",
   },
   {
     q: "Do you offer a sliding scale?",
@@ -33,11 +33,11 @@ export const faqs: FAQ[] = [
   },
   {
     q: "Is what I share confidential?",
-    a: "Yes. Everything you share is confidential and protected under BCACC's code of ethics and BC privacy law. There are a few legal limits — such as a risk of serious harm to yourself or someone else, or a court order — and Aman will explain these clearly at the start of your work together.",
+    a: "Yes. Everything you share is confidential and protected under BCACC's code of ethics and BC privacy law. There are a few legal limits — such as a risk of serious harm to yourself or someone else, or a court order — and your counsellor will explain these clearly at the start of your work together.",
   },
   {
     q: "What happens in the first session?",
-    a: "The first session is about your story — what brought you in, what you're hoping for, and what \"better\" would look like. It's also a chance to get comfortable with how Aman works. There's no pressure to have everything figured out; that's what the work is for.",
+    a: "The first session is about your story — what brought you in, what you're hoping for, and what \"better\" would look like. It's also a chance to get comfortable with how your counsellor works. There's no pressure to have everything figured out; that's what the work is for.",
   },
   {
     q: "What if I'm in crisis?",

@@ -1,12 +1,17 @@
+import Link from 'next/link';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { site } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
 
+// The counsellor's personal name is intentionally scoped to this file only.
+// Every other page refers to "Westpeak Wellness" or "your counsellor".
+const counsellorName = 'Aman Bains Dhillon';
+
 export const metadata: Metadata = {
   title: 'Meet Aman Bains Dhillon, MA, RCC',
   description:
-    'Aman Bains Dhillon is a Registered Clinical Counsellor offering online therapy across BC in English and Punjabi. EMDR- and Gottman-trained, with a Master\u2019s focused on South Asian intergenerational trauma.',
+    'Aman Bains Dhillon, MA, RCC \u2014 EMDR- and Gottman-trained, offering online therapy across BC in English and Punjabi. Master\u2019s in intergenerational trauma.',
   alternates: { canonical: `${site.domain}/about` },
 };
 
@@ -17,20 +22,20 @@ export default function About() {
         <div className="container hero-split">
           <div>
             <p className="eyebrow">Meet your counsellor</p>
-            <h1>{site.counsellor.name}, {site.counsellor.credentials}</h1>
+            <h1>{counsellorName}, {site.counsellor.credentials}</h1>
             <p className="lede">
               Registered Clinical Counsellor. EMDR-trained. Gottman-trained. Born and raised in Surrey.
               Fluent in English and Punjabi.
             </p>
             <div className="btn-row" style={{ marginTop: 24 }}>
-              <a className="btn btn--primary" href={site.bookingUrl} target="_blank" rel="noopener">Book a Free Consultation</a>
-              <a className="btn btn--ghost" href="/pricing">View Fees</a>
+              <Link className="btn btn--primary" href={site.bookingPath}>Book a Free Consultation</Link>
+              <Link className="btn btn--ghost" href="/pricing">Fees and coverage</Link>
             </div>
           </div>
           <div className="portrait">
             <Image
               src="/aman-bains-dhillon.jpg"
-              alt={`${site.counsellor.name}, ${site.counsellor.credentials} — ${site.counsellor.title} at ${site.name}`}
+              alt={`${counsellorName}, ${site.counsellor.credentials}, ${site.counsellor.title} at ${site.name}`}
               width={800}
               height={1000}
               sizes="(max-width: 860px) 340px, 420px"
@@ -56,6 +61,13 @@ export default function About() {
           <blockquote className="quote" style={{ margin: '32px 0' }}>
             A safe, culturally competent, non-judgmental space for healing.
           </blockquote>
+          <p>
+            The best way to find out whether that translates into a good working fit for you is a{' '}
+            <Link href={site.bookingPath}>free 15-minute consultation</Link> — no pressure, and no
+            obligation to book a session afterward. If you would rather read first, there is a
+            walkthrough of{' '}
+            <Link href="/guides/what-to-expect-first-therapy-session">what actually happens in a first session</Link>.
+          </p>
         </div>
       </section>
 

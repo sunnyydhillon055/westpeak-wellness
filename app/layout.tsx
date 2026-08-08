@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     template: '%s | Westpeak Wellness',
   },
   description:
-    'Online counselling across British Columbia with a Registered Clinical Counsellor. EMDR, trauma, anxiety, depression, and couples therapy in English or Punjabi. Book a free 15-minute consultation.',
+    'Online counselling across BC with a Registered Clinical Counsellor. EMDR, trauma, anxiety, depression, and couples therapy in English or Punjabi.',
   keywords: [
     'online counselling BC', 'virtual therapy BC', 'Registered Clinical Counsellor',
     'Punjabi counselling', 'EMDR therapy BC', 'couples counselling', 'South Asian therapist',
@@ -34,7 +34,7 @@ const orgSchema = {
   areaServed: { '@type': 'State', name: 'British Columbia' },
   availableLanguage: ['English', 'Punjabi'],
   medicalSpecialty: 'Psychiatric',
-  founder: { '@type': 'Person', name: site.counsellor.name, jobTitle: site.counsellor.title },
+  sameAs: [site.instagramUrl],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
