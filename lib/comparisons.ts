@@ -111,7 +111,7 @@ export const comparisons: Comparison[] = [
     ],
     related: [
       { href: "/guides/is-online-therapy-as-effective-as-in-person", label: "Is online therapy as effective as in-person?" },
-      { href: "/pricing", label: "Fees, sliding scale, and extended health coverage" },
+      { href: "/pricing", label: "Fees and extended health coverage" },
       { href: "/services", label: "Counselling services offered across BC" },
       { href: "/faq", label: "Frequently asked questions about starting therapy" },
     ],

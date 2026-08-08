@@ -5,7 +5,7 @@ import { faqs } from '@/lib/faq';
 import CtaBand from '@/components/CtaBand';
 
 const homeFaqs = faqs.filter((f) =>
-  ['Are you taking new clients?', 'Do you offer sessions in Punjabi?', 'Are you covered by extended health benefits?', 'Do you offer a sliding scale?'].includes(f.q)
+  ['Are you taking new clients?', 'Do you offer sessions in Punjabi?', 'Are you covered by extended health benefits?', 'Is this practice fully online?'].includes(f.q)
 );
 
 export default function Home() {
@@ -23,7 +23,7 @@ export default function Home() {
             <Link className="btn btn--primary" href={site.bookingPath}>Book a Free 15-min Consultation</Link>
             <Link className="btn btn--ghost" href="/services">See counselling services</Link>
           </div>
-          <p className="hero-note">Free 15-minute consult · Sliding scale available · {site.languagesNative}</p>
+          <p className="hero-note">Free 15-minute consult · Evenings by request · {site.languagesNative}</p>
         </div>
       </section>
 

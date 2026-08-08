@@ -113,7 +113,7 @@ export const guides: Guide[] = [
       { href: "/services/online-counselling-bc", label: "How online counselling works across BC" },
       { href: "/services/emdr-therapy", label: "EMDR therapy for trauma and PTSD" },
       { href: "/compare/rcc-vs-psychologist-vs-social-worker-bc", label: "RCC, psychologist, or social worker — who to see in BC" },
-      { href: "/pricing", label: "Fees, sliding scale, and extended health coverage" },
+      { href: "/pricing", label: "Fees and extended health coverage" },
     ],
   },
   {
@@ -421,7 +421,7 @@ export const guides: Guide[] = [
       { href: "/book", label: "Book a free 15-minute consultation" },
       { href: "/faq", label: "Frequently asked questions about starting therapy" },
       { href: "/compare/rcc-vs-psychologist-vs-social-worker-bc", label: "RCC, psychologist, or social worker in BC" },
-      { href: "/pricing", label: "Fees, sliding scale, and extended health coverage" },
+      { href: "/pricing", label: "Fees and extended health coverage" },
     ],
   },
   {
@@ -690,7 +690,7 @@ export const guides: Guide[] = [
           { label: "Have you worked with this before?", detail: "Specific experience with what you are actually bringing, not general competence." },
           { label: "How do you work?", detail: "If the answer is jargon you cannot follow, and they do not translate it when asked, that is information." },
           { label: "What would the first few sessions look like?", detail: "A practitioner should be able to describe a rough shape without promising outcomes." },
-          { label: "Fees, cancellation, and receipts", detail: "Including whether they offer a sliding scale, and what their receipt shows for insurance purposes." },
+          { label: "Fees, cancellation, and receipts", detail: "What they charge, what their cancellation policy is, and what their receipt shows for insurance purposes." },
           { label: "Availability", detail: "Whether they have a spot in the timeslot you can actually attend, and whether they have a waitlist." },
         ],
       },
@@ -708,7 +708,7 @@ export const guides: Guide[] = [
       label: "Book a free consultation",
     },
     faqs: [
-      { q: "How much does therapy cost in BC?", a: "Private counselling with an RCC typically runs roughly $120–$180 per session; psychologists are usually considerably more. MSP does not cover private counselling. Many practitioners keep a limited number of sliding-scale spots — it is always worth asking." },
+      { q: "How much does therapy cost in BC?", a: "Private counselling with an RCC typically runs roughly $120–$180 per session; psychologists are usually considerably more. MSP does not cover private counselling, so the cost is met by an extended health plan or out of pocket. Free and low-cost options do exist across BC and are worth checking first." },
       { q: "Will my extended health cover it?", a: "Many BC plans cover Registered Clinical Counsellors, but not all — some list only psychologists and social workers. Check the actual wording of your plan before booking, since this is the most common source of unpleasant surprises." },
       { q: "How long are the waitlists?", a: "Public services vary widely by health authority and urgency. Private practitioners are often able to start within a week or two, which is a large part of why people pay privately." },
       { q: "What if the first therapist is not right?", a: "Change. It is common, it is not a failure, and most practitioners will help you find someone better suited. Staying with a poor fit out of politeness wastes both money and time." },
@@ -723,7 +723,7 @@ export const guides: Guide[] = [
       { href: "/compare/rcc-vs-psychologist-vs-social-worker-bc", label: "RCC, psychologist, or social worker in BC" },
       { href: "/resources/low-cost-counselling-bc", label: "Free and low-cost counselling in BC" },
       { href: "/guides/what-to-expect-first-therapy-session", label: "What to expect in a first session" },
-      { href: "/pricing", label: "Fees, sliding scale, and coverage" },
+      { href: "/pricing", label: "Fees and coverage" },
     ],
   },
 ];

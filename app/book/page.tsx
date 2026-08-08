@@ -93,7 +93,7 @@ export default function Book() {
               <li>Sessions are fully online, anywhere in British Columbia</li>
               <li>Available in English, Punjabi, or a mix of both</li>
               <li>Individual sessions are 50 minutes; couples sessions are 50 or 120</li>
-              <li>A limited number of <Link href="/pricing">sliding-scale spots</Link> are kept open</li>
+              <li>Session fees and payment methods are set out on the <Link href="/pricing">fees page</Link></li>
               <li>Most BC extended health plans that cover RCCs will reimburse</li>
             </ul>
           </div>

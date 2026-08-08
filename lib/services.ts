@@ -77,7 +77,7 @@ export const services: Service[] = [
       { href: "/guides/what-to-expect-first-therapy-session", label: "What to expect in a first session" },
       { href: "/guides/how-to-find-a-therapist-in-bc", label: "How to find a therapist in BC" },
       { href: "/compare/individual-vs-couples-therapy", label: "Individual or couples therapy — which first?" },
-      { href: "/pricing", label: "Fees, sliding scale, and coverage" },
+      { href: "/pricing", label: "Fees and coverage" },
     ],
     sources: [
       { label: "BC Association of Clinical Counsellors", url: "https://bcacc.ca/" },

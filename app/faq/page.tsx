@@ -7,7 +7,7 @@ import CtaBand from '@/components/CtaBand';
 export const metadata: Metadata = {
   title: 'Frequently Asked Questions',
   description:
-    'Answers about online counselling in BC: booking, fees, extended health coverage, sliding scale, Punjabi sessions, confidentiality, and what to expect.',
+    'Answers about online counselling in BC: booking, fees, extended health coverage, Punjabi sessions, confidentiality, and what to expect.',
   alternates: { canonical: `${site.domain}/faq` },
 };
 

@@ -125,7 +125,7 @@ export const locations: Location[] = [
     localReality: {
       h2: "The Vancouver-specific obstacles",
       body: [
-        "**Cost against cost of living.** Vancouver consistently ranks among the least affordable cities in Canada. Therapy competes directly with rent in a way it does not in most of the province, which is why the questions about [extended health coverage](/resources/bc-extended-health-coverage-for-counselling) and sliding scale matter more here, not less. Both are worth asking about before deciding you cannot afford it.",
+        "**Cost against cost of living.** Vancouver consistently ranks among the least affordable cities in Canada. Therapy competes directly with rent in a way it does not in most of the province, which is why it is worth checking [what your extended health plan reimburses](/resources/bc-extended-health-coverage-for-counselling) — and what [free and low-cost options exist across BC](/resources/low-cost-counselling-bc) — before deciding you cannot afford it.",
         "**Time and geography.** A 50-minute session that requires crossing the city at 5pm is not a 50-minute commitment; it is closer to two hours. That is the single most common reason people book therapy and then quietly stop going. Removing the travel changes the arithmetic — a session becomes something that fits in a lunch break or between the end of work and dinner.",
         "**Isolation in density.** Vancouver has a well-documented reputation for being a hard city to make friends in, particularly for people who moved here as adults. A great deal of what comes up in this work is not a diagnosable condition at all — it is loneliness in a place where everyone appears to have arrived with their social life already assembled.",
       ],
@@ -139,7 +139,7 @@ export const locations: Location[] = [
     faqs: [
       { q: "Is virtual therapy cheaper than in-person?", a: "Fees here are the same either way. What virtual removes is the surrounding cost: transit or parking, and the hour or more of travel that an in-person appointment adds to a working day." },
       { q: "I have extended health through work. Will it cover this?", a: "Most BC plans that list Registered Clinical Counsellors will. Some list only psychologists and social workers, so it is worth checking the exact wording — the extended health coverage page explains what to look for." },
-      { q: "Can I get a sliding-scale spot?", a: "A limited number are kept open, and no proof of income is required. Ask on the consultation call — it is a routine question." },
+      { q: "What if I cannot afford private fees?", a: "Vancouver Coastal Health runs free mental-health services, and there is a broader set of free and low-cost options across BC worth checking before paying out of pocket. Those are listed on the free and low-cost counselling page." },
     ],
     sources: [
       { label: "Vancouver Coastal Health — mental health and substance use", url: "https://www.vch.ca/en/service/mental-health-substance-use-services" },

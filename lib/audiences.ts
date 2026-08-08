@@ -119,7 +119,7 @@ export const audiences: Audience[] = [
     related: [
       { href: "/guides/is-online-therapy-as-effective-as-in-person", label: "Is online therapy as effective as in-person?" },
       { href: "/compare/rcc-vs-psychologist-vs-social-worker-bc", label: "RCC, psychologist, or social worker — who to see in BC" },
-      { href: "/pricing", label: "Fees, sliding scale, and extended health coverage" },
+      { href: "/pricing", label: "Fees and extended health coverage" },
       { href: "/faq", label: "Frequently asked questions about starting therapy" },
     ],
   },
@@ -188,7 +188,7 @@ export const audiences: Audience[] = [
     faqs: [
       { q: "Is my campus counselling service not enough?", a: "Often it is, and it is free — start there. Its limits are usually capacity and session caps, so private therapy tends to make sense when the waitlist is longer than you can wait or you need work that runs longer than a fixed number of sessions." },
       { q: "Will my parents find out?", a: "No. If you are 19 or over, counselling is confidential and your family has no access to it. Under 19, confidentiality still generally applies where you are capable of consenting to your own care. The limits are risk of serious harm and court orders — not parental curiosity." },
-      { q: "Can I afford this as a student?", a: "A limited number of sliding-scale spots are kept open, and it is always worth asking. Check your student health plan too — many post-secondary plans include counselling coverage that students never claim." },
+      { q: "Can I afford this as a student?", a: "Check your student health plan first — many post-secondary plans include counselling coverage that students never claim. Here2Talk and your campus counselling service are free and already paid for through your fees, and both are worth using before paying out of pocket." },
       { q: "What if I go home for the summer?", a: "As long as home is in BC, sessions continue unchanged. That continuity is one of the practical advantages of a virtual practice for students." },
     ],
     sources: [

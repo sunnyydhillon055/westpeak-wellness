@@ -84,7 +84,7 @@ export const resources: Resource[] = [
       {
         h2: "If you have no coverage",
         body: [
-          "No extended health plan is a common situation, and it does not mean private therapy is out of reach. Many BC practices — including this one — keep a limited number of sliding-scale spots, usually without requiring proof of income. Asking costs nothing and is entirely routine.",
+          "No extended health plan is a common situation, and it does not mean support is out of reach. Some BC practices keep a limited number of reduced-fee spots, so it is a reasonable question to ask any practitioner you are considering — policies vary, and you will not know without asking.",
           "There is also a substantial free and low-cost landscape in BC that people frequently do not know about, from health authority services to Foundry to post-secondary counselling. That is set out on the [free and low-cost counselling page](/resources/low-cost-counselling-bc).",
         ],
       },
@@ -105,7 +105,7 @@ export const resources: Resource[] = [
       { label: "HereToHelp BC — paying for mental health care", url: "https://www.heretohelp.bc.ca/" },
     ],
     related: [
-      { href: "/pricing", label: "Fees, sliding scale, and payment" },
+      { href: "/pricing", label: "Fees and payment" },
       { href: "/resources/msp-vs-extended-health", label: "MSP vs extended health: what covers what" },
       { href: "/resources/low-cost-counselling-bc", label: "Free and low-cost counselling in BC" },
       { href: "/compare/rcc-vs-psychologist-vs-social-worker-bc", label: "RCC, psychologist, or social worker in BC" },
@@ -155,7 +155,7 @@ export const resources: Resource[] = [
         body: [
           "MSP funds *medically necessary services delivered by physicians*. A Registered Clinical Counsellor is not a physician, so counselling sits outside the scheme regardless of how necessary it is. The same applies to psychologists and social workers in private practice.",
           "That is a structural feature of how the plan is defined rather than a judgement about whether therapy works, and it is why the private and public mental-health systems in BC feel so disconnected. It also explains the odd situation where a psychiatrist is free and a psychologist costs $250 an hour.",
-          "The practical consequence: for most people the route to therapy without a long wait runs through an [extended health plan](/resources/bc-extended-health-coverage-for-counselling), out-of-pocket payment, or a sliding-scale arrangement.",
+          "The practical consequence: for most people the route to therapy without a long wait runs through an [extended health plan](/resources/bc-extended-health-coverage-for-counselling) or out-of-pocket payment — or through the [free and low-cost services](/resources/low-cost-counselling-bc) that do exist, if you can wait.",
         ],
       },
       {
@@ -177,7 +177,7 @@ export const resources: Resource[] = [
     faqs: [
       { q: "Can my GP refer me to a counsellor and have MSP pay?", a: "No. A GP referral does not convert private counselling into an MSP-covered service. A GP can, however, refer you into free health authority programs and to a psychiatrist, both of which are covered." },
       { q: "Does PharmaCare cover therapy?", a: "No — PharmaCare covers eligible prescription medication, not counselling services." },
-      { q: "Is anything covered if I am on income assistance?", a: "Health authority mental-health services are free regardless of income, and some communities have additional no-cost counselling programs. It is also always worth asking private practitioners about sliding-scale spots." },
+      { q: "Is anything covered if I am on income assistance?", a: "Health authority mental-health services are free regardless of income, and some communities have additional no-cost counselling programs. Community and immigrant-serving agencies also run free counselling in many areas." },
       { q: "What about counselling for a crime I experienced?", a: "The Crime Victim Assistance Program may fund counselling for victims of crime in BC, and it operates separately from MSP. Applying is worthwhile if that applies to you." },
     ],
     sources: [
@@ -188,7 +188,7 @@ export const resources: Resource[] = [
     related: [
       { href: "/resources/bc-extended-health-coverage-for-counselling", label: "Extended health coverage for counselling in BC" },
       { href: "/resources/low-cost-counselling-bc", label: "Free and low-cost counselling in BC" },
-      { href: "/pricing", label: "Fees and sliding scale" },
+      { href: "/pricing", label: "Fees and coverage" },
       { href: "/guides/how-to-find-a-therapist-in-bc", label: "How to find a therapist in BC" },
     ],
   },
@@ -203,7 +203,7 @@ export const resources: Resource[] = [
     lede:
       "Private therapy is one option among many, and for a lot of people it should not be the first one tried.",
     shortAnswer:
-      "BC has more free and low-cost mental health support than most people realise: health authority services, Foundry for under-25s, Here2Talk for post-secondary students, CMHA programs, employee assistance programs, university training clinics, and sliding-scale spots at private practices. This page lists what exists and who each option is for.",
+      "BC has more free and low-cost mental health support than most people realise: health authority services, Foundry for under-25s, Here2Talk for post-secondary students, CMHA programs, employee assistance programs, community agencies, and university training clinics. This page lists what exists and who each option is for.",
     updated: "2026-08-08",
     readMinutes: 6,
     sections: [
@@ -227,7 +227,7 @@ export const resources: Resource[] = [
           { label: "University training clinics", detail: "Counselling psychology programs run clinics staffed by supervised student clinicians at substantially reduced rates. Supervision is close, and quality is often high." },
           { label: "Community and immigrant-serving agencies", detail: "Many settlement organisations offer free counselling, frequently in languages other than English, funded for newcomers to Canada." },
           { label: "Crime Victim Assistance Program", detail: "May fund counselling for victims of crime in BC. Applying is worth doing if it applies to you." },
-          { label: "Sliding-scale spots in private practice", detail: "Many practitioners hold a limited number of reduced-fee spots, often without requiring proof of income. It is a routine question to ask and not an awkward one." },
+          { label: "Reduced-fee spots in private practice", detail: "Fee policies vary between practices, so asking what a practitioner charges and whether they have any reduced-fee availability is an ordinary question worth putting to anyone you are considering." },
         ],
       },
       {
@@ -238,7 +238,7 @@ export const resources: Resource[] = [
           "**If you are a post-secondary student**, use Here2Talk and your campus service. Both are already paid for.",
           "**If you are employed**, check whether you have an EAP before paying for anything.",
           "**If cost is the binding constraint and you can wait**, your health authority's service is free and the referral process is straightforward.",
-          "**If you need to start soon, or need a specific language or specialisation**, private practice is usually the faster route — and the sliding-scale question is worth asking up front. There is more on how to compare practitioners in the [guide to finding a therapist in BC](/guides/how-to-find-a-therapist-in-bc).",
+          "**If you need to start soon, or need a specific language or specialisation**, private practice is usually the faster route, and fee policies vary between practitioners. There is more on how to compare them in the [guide to finding a therapist in BC](/guides/how-to-find-a-therapist-in-bc).",
         ],
       },
     ],
@@ -250,7 +250,7 @@ export const resources: Resource[] = [
       { q: "Is free counselling lower quality?", a: "Not inherently. Publicly funded and non-profit services employ qualified clinicians. The usual trade-offs are waiting time, session caps, and not choosing your practitioner — rather than competence." },
       { q: "How long are health authority waitlists?", a: "They vary widely by region and by urgency, and access is generally thinnest in northern and rural communities. Urgent cases are prioritised; non-urgent referrals can take considerably longer." },
       { q: "Do I need a doctor's referral?", a: "Usually not. Most health authority mental-health services accept self-referral, as do Foundry and Here2Talk. A GP referral is required for a psychiatrist." },
-      { q: "How do I ask about a sliding scale without it being awkward?", a: "Ask directly — \"do you have any sliding-scale spots available?\" It is an ordinary question that practitioners field constantly, and most do not ask for proof of income." },
+      { q: "How do I ask a practitioner about cost without it being awkward?", a: "Ask directly — \"what are your fees, and do you have any reduced-fee spots available?\" It is an ordinary question that practitioners field constantly, and policies vary widely between practices." },
     ],
     sources: [
       { label: "Foundry BC — free services for ages 12–24", url: "https://foundrybc.ca/" },
@@ -263,7 +263,7 @@ export const resources: Resource[] = [
       { href: "/resources/bc-crisis-and-support-directory", label: "BC crisis and support directory" },
       { href: "/resources/msp-vs-extended-health", label: "MSP vs extended health" },
       { href: "/guides/how-to-find-a-therapist-in-bc", label: "How to find a therapist in BC" },
-      { href: "/pricing", label: "Fees and sliding scale" },
+      { href: "/pricing", label: "Fees and coverage" },
     ],
   },
 

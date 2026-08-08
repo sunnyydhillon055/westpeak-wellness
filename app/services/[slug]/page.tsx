@@ -150,7 +150,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
             </div>
             <p style={{ marginTop: 24 }}>
               More in the <Link href="/faq">full FAQ</Link>, or see{' '}
-              <Link href="/pricing">fees, sliding scale, and extended health coverage</Link>.
+              <Link href="/pricing">fees and extended health coverage</Link>.
             </p>
           </div>
         </section>

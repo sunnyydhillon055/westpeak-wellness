@@ -103,7 +103,7 @@ export default function LocationsIndex() {
             <div className="card">
               <h3>Fees and coverage</h3>
               <p style={{ marginBottom: 0 }}>
-                Session fees, sliding scale, and{' '}
+                Session fees and{' '}
                 <Link href="/resources/bc-extended-health-coverage-for-counselling">what BC extended health plans reimburse</Link>.
               </p>
             </div>

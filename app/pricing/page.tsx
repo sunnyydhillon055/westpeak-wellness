@@ -6,7 +6,7 @@ import CtaBand from '@/components/CtaBand';
 export const metadata: Metadata = {
   title: 'Fees & Insurance',
   description:
-    'Counselling fees in line with BCACC guidelines, with sliding-scale spots available. Reimbursable through most BC extended health plans that cover RCCs.',
+    'Counselling fees in line with BCACC guidelines. Reimbursable through most BC extended health plans that cover Registered Clinical Counsellors.',
   alternates: { canonical: `${site.domain}/pricing` },
 };
 
@@ -17,7 +17,7 @@ export default function Pricing() {
         <div className="container">
           <p className="eyebrow">Fees & insurance</p>
           <h1>Clear, fair, accessible.</h1>
-          <p className="lede">No hidden fees. A limited number of sliding-scale spots always available.</p>
+          <p className="lede">No hidden fees, no packages, and no surprises on the invoice.</p>
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a Free Consultation</Link>
             <Link className="btn btn--ghost" href="/resources/bc-extended-health-coverage-for-counselling">Check your coverage</Link>
@@ -29,7 +29,7 @@ export default function Pricing() {
         <div className="container">
           <p className="crumb"><a href="/">Home</a> / Fees</p>
           <h2>Session fees</h2>
-          <p className="lede" style={{ marginBottom: 20 }}>In line with BCACC guidelines. Sliding scale available.</p>
+          <p className="lede" style={{ marginBottom: 20 }}>In line with BC Association of Clinical Counsellors guidelines.</p>
           <table className="fee-table">
             <thead><tr><th>Session</th><th>Length</th><th>Fee (CAD)</th></tr></thead>
             <tbody>
@@ -61,19 +61,19 @@ export default function Pricing() {
 
             <h2>If the fee is a barrier</h2>
             <p>
-              Say so. A limited number of sliding-scale spots are kept open at all times, no proof of
-              income is required, and asking is an ordinary question rather than an awkward one. The
-              worst outcome is that they are currently full. The place to ask is a{' '}
-              <Link href={site.bookingPath}>free 15-minute consultation</Link>, which costs nothing
-              either way.
+              Private therapy is not the only route, and it is not always the right first one. BC has a
+              substantial amount of free and low-cost support that people frequently do not know about:
+              health authority mental-health services, Foundry for anyone under 25, Here2Talk for
+              post-secondary students, employee assistance programs through work, and university training
+              clinics offering supervised sessions at reduced rates.
             </p>
             <p>
-              It is also worth knowing that private therapy is not the only route. BC has a substantial
-              amount of free and low-cost support — health authority services, Foundry for under-25s,
-              Here2Talk for post-secondary students, employee assistance programs, and university training
-              clinics. That is all set out on the{' '}
-              <Link href="/resources/low-cost-counselling-bc">free and low-cost counselling page</Link>, and
-              for many people one of those is the better first step.
+              All of that is set out on the{' '}
+              <Link href="/resources/low-cost-counselling-bc">free and low-cost counselling page</Link>,
+              and for a lot of people one of those options is genuinely the better place to start. Saying
+              so on a{' '}
+              <Link href={site.bookingPath}>free 15-minute consultation</Link> is a perfectly good outcome
+              of that call.
             </p>
 
             <h2>How coverage works</h2>
@@ -100,8 +100,8 @@ export default function Pricing() {
         <div className="container">
           <div className="grid grid-2">
             <div className="card">
-              <h3>Sliding scale</h3>
-              <p style={{ marginBottom: 0 }}>A limited number of sliding-scale spots for people for whom the standard fee is a barrier. No proof of income required.</p>
+              <h3>Free consultation</h3>
+              <p style={{ marginBottom: 0 }}>Every working relationship starts with a free 15-minute call. No charge, and no obligation to book a session afterward.</p>
             </div>
             <div className="card">
               <h3>Extended health</h3>
