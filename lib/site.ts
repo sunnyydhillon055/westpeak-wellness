@@ -13,6 +13,13 @@ const DEPLOY =
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : CANONICAL);
 
+/* Cliniko online bookings. `ca1` is the Canadian shard — the account really is
+ * westpeak-wellness.ca1.cliniko.com, not the westpeakwellness.cliniko.com that
+ * was guessed here before it could be checked. */
+const CLINIKO_BOOKINGS = (
+  process.env.NEXT_PUBLIC_CLINIKO_URL || 'https://westpeak-wellness.ca1.cliniko.com/bookings'
+).replace(/\/+$/, '');
+
 export const site = {
   name: "Westpeak Wellness",
   legalName: "Westpeak Wellness Counselling",
@@ -48,16 +55,16 @@ export const site = {
    * TODO (owner): paste the Cliniko online-bookings URL, then flip
    * bookingReady. It looks like https://<practice>.cliniko.com/bookings
    */
-  /* Fallback is the real account subdomain, confirmed from the Cliniko admin on
-   * 2026-08-09. Note the `ca1` region segment: this is a Canadian-region
-   * account, and the guessed `westpeakwellness.cliniko.com` that sat here
-   * before was wrong on both the hyphen and the region.
+  /* The live Cliniko online-bookings page, verified serving 200 on 2026-08-09.
    *
-   * Used for the link-out only. The calendar is embedded solely when
-   * NEXT_PUBLIC_CLINIKO_URL is set, because a dead iframe on a live counselling
-   * site is worse than an honest notice. */
-  bookingsUrl: process.env.NEXT_PUBLIC_CLINIKO_URL || "",
-  bookingsFallbackUrl: "https://westpeak-wellness.ca1.cliniko.com/bookings",
+   * Held here rather than in an environment variable on purpose. It is a public
+   * URL that appears in the page source of every visitor — there is nothing to
+   * keep secret — and putting it in the code means it works in local
+   * development, needs no Vercel configuration, and cannot be silently lost by
+   * a project being recreated. NEXT_PUBLIC_CLINIKO_URL still overrides it if the
+   * account is ever moved. */
+  bookingsUrl: CLINIKO_BOOKINGS,
+  bookingsFallbackUrl: CLINIKO_BOOKINGS,
   bookingPath: "/book",
   portalPath: "/client-portal",
   /* Two gates, not one, because the two pages promise different things.
@@ -74,10 +81,9 @@ export const site = {
    * during booking".
    *
    * Set NEXT_PUBLIC_CLINIKO_PAID=1 at that point. Nothing else needs changing. */
-  bookingReady: Boolean(process.env.NEXT_PUBLIC_CLINIKO_URL),
+  bookingReady: Boolean(CLINIKO_BOOKINGS),
   paidBookingReady:
-    Boolean(process.env.NEXT_PUBLIC_CLINIKO_URL) &&
-    process.env.NEXT_PUBLIC_CLINIKO_PAID === "1",
+    Boolean(CLINIKO_BOOKINGS) && process.env.NEXT_PUBLIC_CLINIKO_PAID === "1",
   /* Hours of free cancellation. Put the same number in Cliniko's "terms of
    * use" for online bookings so clients agree to it as they book. */
   cancellationHours: 24,

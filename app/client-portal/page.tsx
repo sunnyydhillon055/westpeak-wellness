@@ -52,10 +52,14 @@ export default async function ClientPortalPage() {
           <SchedulerEmbed url={site.bookingsUrl} title="Book a session" />
         ) : (
           <div className="crisis">
+            {/* Deliberately does not promise a payment link. Cliniko's card
+                payments run entirely through Stripe, so until that is connected
+                there is no link to send — and this page is read by people
+                deciding whether to trust the practice with money. */}
             <p style={{ margin: 0 }}>
               The booking calendar is being switched on. Until it is, email{' '}
               <a href={`mailto:${site.email}`}>{site.email}</a> with a couple of times that suit
-              you, and you will get a confirmation and a payment link by reply.
+              you. Your session will be confirmed by reply, along with how to pay for it.
             </p>
           </div>
         )}
