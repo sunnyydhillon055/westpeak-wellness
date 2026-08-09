@@ -40,25 +40,9 @@ export default async function ClientPortalPage() {
         <p className="eyebrow">Current clients</p>
         <h1 style={{ fontSize: 'var(--fs-h2)' }}>Client portal</h1>
         <p className="lede" style={{ fontSize: '1.02rem', marginBottom: 34 }}>
-          Book a session and pay in one step. Sessions are paid when booked, and cancelling is
-          free up to {site.cancellationHours} hours before.
-        </p>
-
-        <h2 id="availability">Availability</h2>
-        <table className="avail">
-          <caption className="sr-only">Bookable hours by day, Pacific Time</caption>
-          <tbody>
-            {site.availability.map((a) => (
-              <tr key={a.day}>
-                <th scope="row">{a.day}</th>
-                <td>{a.from} &ndash; {a.to}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <p className="avail-note">
-          Pacific Time. Sessions are 50 minutes. Times outside these windows can sometimes be
-          arranged &mdash; ask.
+          Book a session and pay in one step. Live availability comes from the booking
+          calendar below. Sessions are paid when booked, and cancelling is free up to{' '}
+          {site.cancellationHours} hours before.
         </p>
 
         <h2 id="book" style={{ marginTop: 38 }}>Book and pay</h2>
@@ -67,9 +51,9 @@ export default async function ClientPortalPage() {
         ) : (
           <div className="crisis">
             <p style={{ margin: 0 }}>
-              Online booking is being switched on. Until it is, email{' '}
-              <a href={`mailto:${site.email}`}>{site.email}</a> with a couple of times from the
-              windows above, and you will get a confirmation and a payment link by reply.
+              The booking calendar is being switched on. Until it is, email{' '}
+              <a href={`mailto:${site.email}`}>{site.email}</a> with a couple of times that suit
+              you, and you will get a confirmation and a payment link by reply.
             </p>
           </div>
         )}

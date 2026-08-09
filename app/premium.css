@@ -1226,3 +1226,88 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   border:1px solid var(--line); border-radius:var(--radius-sm); }
 .signin-setup code{ font-size:.92em; background:var(--blue-ghost);
   padding:1px 5px; border-radius:4px; }
+
+/* ===========================================================================
+   ADMIN
+   A working screen rather than a styled page: dense, scannable, and readable
+   on a phone. Tables become stacked cards below 860px via the data-label
+   attributes rather than by hiding columns — an admin on a phone still needs
+   every field.
+   ======================================================================== */
+.admin-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+.admin-stats{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:1px;
+  background:var(--line); border:1px solid var(--line);
+  border-radius:var(--radius); overflow:hidden; margin-top:26px;
+}
+.admin-stats > div{ background:var(--surface-0); padding:14px 16px; display:grid; gap:2px; }
+.admin-stats strong{ font-family:var(--font-display); font-size:1.6rem; line-height:1; color:var(--ink); }
+.admin-stats span{ font-size:.82rem; color:var(--ink-faint); }
+
+.admin-table-wrap{ overflow-x:auto; border:1px solid var(--line);
+  border-radius:var(--radius); background:var(--surface-0); margin-top:18px; }
+.admin-table{ width:100%; border-collapse:collapse; font-size:.92rem; }
+.admin-table th{
+  text-align:left; font-family:var(--font-body); font-weight:600; font-size:.78rem;
+  letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint);
+  padding:11px 14px; background:var(--surface-1); border-bottom:1px solid var(--line);
+  white-space:nowrap;
+}
+.admin-table td{ padding:9px 14px; border-bottom:1px solid var(--line); vertical-align:middle; }
+.admin-table tr:last-child td{ border-bottom:0; }
+.admin-table tr.is-muted td{ background:var(--surface-1); color:var(--ink-faint); }
+.admin-email{ font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:.86rem; }
+.admin-date{ white-space:nowrap; color:var(--ink-faint); font-size:.86rem; }
+
+.admin-table input, .admin-table select,
+.admin-add-row input, .admin-add-row select{
+  font:inherit; font-size:.92rem; padding:8px 10px; min-height:40px; width:100%;
+  border:1px solid var(--line); border-radius:var(--radius-xs);
+  background:var(--surface-0); color:var(--ink);
+}
+.admin-table input:focus-visible, .admin-table select:focus-visible,
+.admin-add-row input:focus-visible, .admin-add-row select:focus-visible{
+  outline:2px solid var(--focus); outline-offset:1px; border-color:var(--blue);
+}
+.admin-actions form{ display:flex; gap:6px; }
+.admin-btn{
+  font:inherit; font-size:.86rem; font-weight:560; cursor:pointer;
+  padding:8px 12px; min-height:40px; white-space:nowrap;
+  background:var(--surface-1); color:var(--ink-soft);
+  border:1px solid var(--line); border-radius:var(--radius-xs);
+  transition:border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.admin-btn:hover{ border-color:var(--blue); color:var(--blue-deep); }
+.admin-btn--danger:hover{ border-color:#b4472f; color:#9a3412; background:#fdf3f0; }
+
+.admin-add{ margin-top:20px; padding:18px 20px; border:1px solid var(--line);
+  border-radius:var(--radius); background:var(--surface-1); }
+.admin-add h3{ margin:0 0 12px; font-size:1.02rem; }
+.admin-add-row{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+.admin-add-row input, .admin-add-row select{ flex:1 1 170px; width:auto; }
+.admin-add-row .btn{ flex:none; }
+
+.admin-panel{ margin-top:16px; padding:18px 20px; border:1px solid var(--line);
+  border-radius:var(--radius); background:var(--surface-0); }
+.admin-panel code{ font-size:.9em; background:var(--blue-ghost); padding:1px 5px; border-radius:4px; }
+.admin-empty{ margin-top:18px; padding:22px; text-align:center; color:var(--ink-faint);
+  border:1px dashed var(--line); border-radius:var(--radius); background:var(--surface-1); }
+.admin-meta{ margin-top:12px; font-size:.85rem; color:var(--ink-faint); }
+
+@media (max-width:860px){
+  /* Stacked cards, not hidden columns — an admin on a phone needs every field. */
+  .admin-table-wrap{ border:0; background:none; }
+  .admin-table, .admin-table tbody, .admin-table tr, .admin-table td{ display:block; width:100%; }
+  .admin-table thead{ display:none; }
+  .admin-table tr{ border:1px solid var(--line); border-radius:var(--radius);
+    background:var(--surface-0); padding:6px 4px; margin-bottom:12px; }
+  .admin-table td{ border-bottom:0; display:grid; grid-template-columns:6.5rem 1fr;
+    gap:10px; align-items:center; padding:7px 12px; }
+  .admin-table td::before{
+    content:attr(data-label); font-size:.76rem; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--ink-faint); font-weight:600;
+  }
+  .admin-table td.admin-actions{ grid-template-columns:1fr; }
+  .admin-table td.admin-actions::before{ display:none; }
+  .admin-actions form{ padding-top:4px; }
+}

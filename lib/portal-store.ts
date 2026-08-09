@@ -94,6 +94,11 @@ export async function isClientAllowed(email: string): Promise<boolean> {
     .split(/[,\s]+/).map(normalizeEmail).filter(Boolean);
   if (fromEnv.includes(e)) return true;
 
+  // Client records are the current source; the flat address list is still read
+  // for anyone configured before /admin gained real records.
+  const { clientCanSignIn } = await import('@/lib/clients');
+  if (await clientCanSignIn(e)) return true;
+
   const { emails } = await readAllowlist();
   if (emails.includes(e)) return true;
 

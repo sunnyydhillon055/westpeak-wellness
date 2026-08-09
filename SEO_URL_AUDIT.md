@@ -16,7 +16,7 @@ Clean pages: **99 / 103**
 | exactly one h1 | 0 |
 | no heading skips | 0 |
 | all images alt | 0 |
-| >= 1 visual | 1 |
+| >= 1 visual | 0 |
 | >= 8 out-links | 0 |
 | >= 3 inbound | 3 |
 | >= 600 words | 4 |
@@ -26,7 +26,7 @@ Clean pages: **99 / 103**
 
 | URL | Score | Words | Imgs | Out | In | Issues |
 |---|--:|--:|--:|--:|--:|---|
-| `/tools` | 10/13 | 248 | 0 | 8 | 5 | desc 1–155, >= 1 visual, >= 600 words |
+| `/tools` | 11/13 | 265 | 1 | 8 | 5 | desc 1–155, >= 600 words |
 | `/tools/stress-check` | 11/13 | 352 | 1 | 8 | 2 | >= 3 inbound, >= 600 words |
 | `/tools/therapy-cost-bc` | 11/13 | 344 | 1 | 8 | 2 | >= 3 inbound, >= 600 words |
 | `/tools/which-service` | 11/13 | 316 | 1 | 11 | 2 | >= 3 inbound, >= 600 words |
@@ -49,7 +49,7 @@ Clean pages: **99 / 103**
 | `/compare/therapy-medication-or-both` | 13/13 | 2006 | 2 | 14 | 9 | — |
 | `/compare/therapy-vs-coaching` | 13/13 | 1966 | 2 | 14 | 6 | — |
 | `/compare/weekly-vs-biweekly-sessions` | 13/13 | 1803 | 2 | 14 | 12 | — |
-| `/contact` | 13/13 | 669 | 1 | 10 | 6 | — |
+| `/contact` | 13/13 | 674 | 1 | 10 | 6 | — |
 | `/editorial-policy` | 13/13 | 1317 | 1 | 8 | 71 | — |
 | `/faq` | 13/13 | 810 | 1 | 14 | 22 | — |
 | `/for` | 13/13 | 641 | 1 | 17 | 10 | — |
