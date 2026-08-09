@@ -49,16 +49,18 @@ export default function Book() {
                 Already a client? Everything to do with sessions, payment and receipts lives
                 in the <Link href={site.portalPath}>client portal</Link>.
               </p>
-              <p style={{ marginBottom: 0 }}>
-                <a className="btn btn--ghost" href={site.bookingsFallbackUrl} target="_blank" rel="noopener">
-                  Try the booking page directly
-                </a>
-              </p>
-              <p style={{ marginBottom: 0 }}>
+              {/* One row, primary first. These were two separate paragraphs,
+                  which stacked them at ragged widths and put the action we
+                  actually want above the fallback in source order but below it
+                  on screen. */}
+              <div className="btn-row" style={{ marginTop: 22 }}>
                 <a className="btn btn--primary" href={`mailto:${site.email}?subject=Free%2015-minute%20consultation`}>
                   Email to book your consultation
                 </a>
-              </p>
+                <a className="btn btn--ghost" href={site.bookingsFallbackUrl} target="_blank" rel="noopener">
+                  Try the booking page directly
+                </a>
+              </div>
             </div>
           )}
         </div>

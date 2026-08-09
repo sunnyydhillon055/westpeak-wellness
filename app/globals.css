@@ -25,7 +25,12 @@
        inner ridge, one CTA state, quote marks. Warmth is the whole point of
        the elevation; more than one accent would make it a palette, not a voice. */
   --clay:          #c07a56;
-  --clay-deep:     #a3603e;
+  /* #a3603e measured 4.455 on --clay-ghost and 4.355 on --surface-4 — under AA
+     on two surfaces of its own palette. The RCC badge on /about was the only
+     place currently failing, but any clay text placed on sand would have too.
+     #9c5a39 clears 4.5 on all of them (ghost 4.87, white 5.34, sand 4.76) and
+     is not a shade the eye separates from the one it replaces. */
+  --clay-deep:     #9c5a39;
   --clay-soft:     #f0dccf;
   --clay-ghost:    #fbf3ee;
 

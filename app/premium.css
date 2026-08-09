@@ -660,7 +660,10 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 
 /* Crisis numbers must read and behave as links — they are the most important
    tappable elements on the site from a phone. */
-.crisis a, .footer-crisis a[href^="tel:"]{ text-decoration: underline; text-underline-offset: 3px }
+/* `:not(.btn)` because this rule is (0,1,1) and `.btn` is (0,1,0): without it,
+   a button placed inside one of these boxes gets its label underlined. It was
+   doing exactly that to both buttons on /book. */
+.crisis a:not(.btn), .footer-crisis a[href^="tel:"]{ text-decoration: underline; text-underline-offset: 3px }
 .footer-crisis a[href^="tel:"]{ color: #e8bfa4 }
 .footer-crisis a[href^="tel:"]:hover{ color: #fff }
 
@@ -1077,6 +1080,17 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 @media (max-width:560px){
   .footer-grid{ grid-template-columns: 1fr; }
   .footer-legal{ gap: 2px 18px; }
+}
+
+/* Footer links are standalone navigation, not links inside a sentence, so the
+   inline-link exemption in WCAG 2.2 SC 2.5.8 does not cover them. At 30px they
+   clear the 24px AA minimum but are well under a comfortable thumb. The 30px is
+   deliberate on desktop, where the pointer is precise and a tall footer would
+   read as padding — so this is scoped to touch widths only. */
+@media (max-width: 767px){
+  .footer-col a,
+  .footer-legal a,
+  .footer-more{ min-height: 44px; }
 }
 
 /* ---- Client portal: gate + availability ---------------------------------- */
