@@ -25,13 +25,37 @@ Vercel will show the exact records. They will be these:
 | `A` | `@` | `76.76.21.21` |
 | `CNAME` | `www` | `cname.vercel-dns.com` |
 
-## 2. Set those records at the registrar
+## 2. Set those records where the DNS actually lives
 
-Wherever the domain's DNS currently lives — if the domain is registered through
-Wix, that is **Wix → Domains → the domain → Advanced → Edit DNS**.
+**Checked 2026-08-09, because this section previously guessed Wix and was
+wrong.** What is actually true:
 
-Replace the existing `A` record for `@` and the `CNAME` for `www` with the two
-values above. Leave `MX` records alone or **email stops working**.
+| | |
+|---|---|
+| Registrar | **Squarespace Domains II LLC** — it acquired Google Domains in 2023 |
+| Nameservers | `ns-cloud-d1…d4.googledomains.com` |
+| Apex `A` | `23.236.62.147` — Wix, hosted on Google Cloud |
+| `www` | CNAME → `www141.wixdns.net` |
+| `MX` | **Google Workspace** (`aspmx.l.google.com` plus four `alt*`) |
+
+Wix is only where the records *point*. It is not where they are edited. Start at
+**https://account.squarespace.com/domains** → the domain → DNS.
+
+The nameservers being Google's usually means Squarespace inherited the zone at
+migration and it is editable there. If that panel is read-only, the zone lives in
+Google Cloud DNS instead and needs access to the GCP project holding it.
+
+Replace the `A` for `@` and the `CNAME` for `www` with the two values above.
+
+**Leave the `MX` records completely alone.** Email on this domain is Google
+Workspace, so info@westpeakwellness.com stops receiving mail if they are changed
+or dropped. It is the most damaging mistake available here and also the easiest
+to make — some panels offer to "replace all existing records" when you add new
+ones.
+
+**Do not transfer the registrar.** Nothing here needs it. The domain shows
+`client transfer prohibited`, which is the ordinary registrar lock: it blocks
+transfers, not DNS edits. Leave it locked.
 
 **Take the TTL down to 300 seconds a few hours beforehand if you can.** It makes
 the switch minutes rather than hours, and it makes backing out just as fast.
