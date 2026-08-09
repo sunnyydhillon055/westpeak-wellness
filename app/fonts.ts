@@ -1,4 +1,4 @@
-import { Fraunces, Inter, Noto_Serif_Gurmukhi } from 'next/font/google';
+import { Fraunces, Inter } from 'next/font/google';
 
 /* Typography system.
  *
@@ -34,20 +34,12 @@ export const body = Inter({
   fallback: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
 });
 
-/* Gurmukhi is deliberately NOT in the global font variables.
+/* Gurmukhi is declared in app/fonts-gurmukhi.ts, not here.
  *
- * It was loading on all 105 pages — 28 kB every time — for text that appears on
- * three of them. It is applied per page instead, via `gurmukhi.variable` on the
- * pages that actually render ਪੰਜਾਬੀ, so the other 102 never fetch it at all.
- *
- * One weight rather than two: the script appears as a heading and a decorative
- * watermark, and the second weight was ~14 kB for a distinction nobody would
- * notice. */
-export const gurmukhi = Noto_Serif_Gurmukhi({
-  subsets: ['gurmukhi'],
-  display: 'swap',
-  variable: '--font-gurmukhi',
-  weight: ['600'],
-});
+ * Keeping it in this module was not enough to keep it off the other pages:
+ * next/font emits its preloads per module, and app/layout.tsx imports this file
+ * for `fontVars`, so every route preloaded and fetched the Gurmukhi face
+ * regardless of where `.variable` was applied. Splitting the module is what
+ * actually scopes it. */
 
 export const fontVars = `${display.variable} ${body.variable}`;

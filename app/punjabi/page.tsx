@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { site } from '@/lib/site';
-import { gurmukhi } from '@/app/fonts';
+import { gurmukhi } from '@/app/fonts-gurmukhi';
 import { abs, orgRef, siteRef } from '@/lib/schema';
 import Figure from '@/components/Figure';
 

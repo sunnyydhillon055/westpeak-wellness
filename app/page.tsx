@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { site } from '@/lib/site';
-import { gurmukhi } from '@/app/fonts';
+import { gurmukhi } from '@/app/fonts-gurmukhi';
 import { featuredServices } from '@/lib/services';
 import { faqs } from '@/lib/faq';
 import CtaBand from '@/components/CtaBand';

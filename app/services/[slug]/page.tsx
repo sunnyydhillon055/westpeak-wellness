@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { services, getService } from '@/lib/services';
 import { site } from '@/lib/site';
-import { gurmukhi } from '@/app/fonts';
+import { gurmukhi } from '@/app/fonts-gurmukhi';
 import { getExtra } from '@/lib/depth';
 import { buildToc, headingId } from '@/lib/toc';
 import { orgRef, siteRef, personRef } from '@/lib/schema';
