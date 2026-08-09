@@ -14,7 +14,7 @@ import ResultCta from '@/components/tools/ResultCta';
  * of the maths and name the two questions that decide the answer.
  */
 
-const FEES = { individual: 150, couples: 170 } as const;
+const FEES = { individual: 140, couples: 170 } as const;
 type Kind = keyof typeof FEES;
 
 export default function CoverageEstimator() {

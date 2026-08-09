@@ -48,18 +48,36 @@ export const site = {
    * TODO (owner): paste the Cliniko online-bookings URL, then flip
    * bookingReady. It looks like https://<practice>.cliniko.com/bookings
    */
-  /* Fallback is the conventional Cliniko subdomain for this practice name and
-   * is UNVERIFIED — see BUILD_LOG.md. It is used for the link-out only; the
-   * calendar is embedded solely when NEXT_PUBLIC_CLINIKO_URL is set, because a
-   * dead iframe on a live counselling site is worse than an honest notice. */
+  /* Fallback is the real account subdomain, confirmed from the Cliniko admin on
+   * 2026-08-09. Note the `ca1` region segment: this is a Canadian-region
+   * account, and the guessed `westpeakwellness.cliniko.com` that sat here
+   * before was wrong on both the hyphen and the region.
+   *
+   * Used for the link-out only. The calendar is embedded solely when
+   * NEXT_PUBLIC_CLINIKO_URL is set, because a dead iframe on a live counselling
+   * site is worse than an honest notice. */
   bookingsUrl: process.env.NEXT_PUBLIC_CLINIKO_URL || "",
-  bookingsFallbackUrl: "https://westpeakwellness.cliniko.com/bookings",
+  bookingsFallbackUrl: "https://westpeak-wellness.ca1.cliniko.com/bookings",
   bookingPath: "/book",
   portalPath: "/client-portal",
-  /* While false, /book and /client-portal explain the process and route to
-   * email instead of embedding a calendar that is not there yet. Do not set
-   * true until bookingsUrl loads AND the appointment type requires payment. */
+  /* Two gates, not one, because the two pages promise different things.
+   *
+   * /book offers the FREE 15-minute consultation. Nothing is charged, so it can
+   * embed the moment there is a URL.
+   *
+   * /client-portal is where an existing client books a PAID session, and the
+   * site states plainly — on /pricing, in the FAQ, and in the booking-payment
+   * diagram — that the card is taken at the moment of booking. Embedding a
+   * calendar that takes a booking without taking payment would make all three
+   * of those false. So the portal stays on its notice until Stripe is actually
+   * connected and the paid appointment types are set to "Require payment
+   * during booking".
+   *
+   * Set NEXT_PUBLIC_CLINIKO_PAID=1 at that point. Nothing else needs changing. */
   bookingReady: Boolean(process.env.NEXT_PUBLIC_CLINIKO_URL),
+  paidBookingReady:
+    Boolean(process.env.NEXT_PUBLIC_CLINIKO_URL) &&
+    process.env.NEXT_PUBLIC_CLINIKO_PAID === "1",
   /* Hours of free cancellation. Put the same number in Cliniko's "terms of
    * use" for online bookings so clients agree to it as they book. */
   cancellationHours: 24,

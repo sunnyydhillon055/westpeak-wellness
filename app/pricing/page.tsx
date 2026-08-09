@@ -38,9 +38,9 @@ export default function Pricing({ searchParams }: { searchParams?: { lead?: stri
             <thead><tr><th>Session</th><th>Length</th><th>Fee (CAD)</th></tr></thead>
             <tbody>
               <tr><td>Free initial consult</td><td>15 min</td><td>$0</td></tr>
-              <tr className="fee-highlight"><td>Individual</td><td>50 min</td><td>$150</td></tr>
+              <tr className="fee-highlight"><td>Individual</td><td>50 min</td><td>$140</td></tr>
               <tr><td>Couples</td><td>50 min</td><td>$170</td></tr>
-              <tr><td>Couples extended</td><td>120 min</td><td>$340</td></tr>
+              <tr><td>Couples extended</td><td>110 min</td><td>$340</td></tr>
               <tr><td>EMDR intensive</td><td>90 min</td><td>$225</td></tr>
             </tbody>
           </table>

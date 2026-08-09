@@ -128,7 +128,7 @@ export const locations: Location[] = [
       "Online counselling for Vancouver, BC. EMDR, trauma, anxiety, depression, and couples therapy by secure video.",
     intro: [
       "Vancouver has more counsellors per capita than anywhere else in British Columbia. It is also the city where people most often report giving up on finding one — which sounds contradictory until you look at what the actual constraint is.",
-      "It is not supply. It is cost, time, and the specific difficulty of finding someone who is both a genuine fit and currently accepting clients. In a city where housing already takes an outsized share of income, a $150 weekly session is a real decision rather than an obvious one.",
+      "It is not supply. It is cost, time, and the specific difficulty of finding someone who is both a genuine fit and currently accepting clients. In a city where housing already takes an outsized share of income, a $140 weekly session is a real decision rather than an obvious one.",
     ],
     localReality: {
       h2: "The Vancouver-specific obstacles",

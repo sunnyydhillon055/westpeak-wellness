@@ -73,7 +73,7 @@ const coreResources: Resource[] = [
         h2: "How the money actually works",
         list: [
           { label: "Annual maximum", detail: "Most plans set a dollar cap per calendar year for mental-health practitioners — commonly somewhere between a few hundred and a few thousand dollars. It usually resets on 1 January, not on your hire date." },
-          { label: "Per-session limit", detail: "Some plans reimburse a set amount per session (say $80) rather than the full fee, so a $150 session leaves $70 out of pocket even while you have annual room left." },
+          { label: "Per-session limit", detail: "Some plans reimburse a set amount per session (say $80) rather than the full fee, so a $140 session leaves $60 out of pocket even while you have annual room left." },
           { label: "Percentage coverage", detail: "Some plans pay a percentage — 80% is common — rather than the full amount up to the cap." },
           { label: "Combined pools", detail: "Watch for a shared limit across practitioner types. If psychology, social work and counselling draw on one pool, seeing two practitioners halves your effective coverage." },
           { label: "Pay and submit", detail: "Direct billing is uncommon for RCCs in BC, so the usual pattern is that you pay at the time of session and submit the receipt. Most insurers now accept submission through an app, and reimbursement typically lands within days." },

@@ -46,7 +46,9 @@ export default async function ClientPortalPage() {
         </p>
 
         <h2 id="book" style={{ marginTop: 38 }}>Book and pay</h2>
-        {site.bookingReady ? (
+        {/* paidBookingReady, not bookingReady: this page books paid sessions and
+            the site promises the card is taken at booking. See lib/site.ts. */}
+        {site.paidBookingReady ? (
           <SchedulerEmbed url={site.bookingsUrl} title="Book a session" />
         ) : (
           <div className="crisis">

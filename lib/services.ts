@@ -135,7 +135,7 @@ export const services: Service[] = [
       h2: "How the work is structured",
       body: [
         "Gottman work starts with a structured assessment rather than diving in: a joint session, an individual session with each partner, and questionnaires covering friendship, conflict, and shared meaning. You then get a shared picture of where the relationship is strong and where it is stuck — often the first time both people have looked at the same map.",
-        "Sessions are 50 minutes, with a 120-minute extended option that suits couples travelling in from a distance or working through something that needs more room. Much of the work happens in the room: structured conversations with the counsellor interrupting patterns in real time, rather than reporting on the week afterwards.",
+        "Sessions are 50 minutes, with a 110-minute extended option that suits couples travelling in from a distance or working through something that needs more room. Much of the work happens in the room: structured conversations with the counsellor interrupting patterns in real time, rather than reporting on the week afterwards.",
         "**On safety:** the individual sessions are partly a screen. Where there is ongoing violence or coercive control, couples therapy is not the safe starting point and can increase risk — a responsible practitioner will say so and redirect. VictimLinkBC is available 24/7 at 1-800-563-0808.",
         "**On sequencing:** if one partner is carrying untreated trauma, depression, or an addiction, individual work alongside or before couples sessions is often the more effective order. [The comparison of individual and couples therapy](/compare/individual-vs-couples-therapy) covers how to decide.",
       ],
