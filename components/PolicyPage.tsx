@@ -3,6 +3,7 @@ import { site } from '@/lib/site';
 import type { Policy } from '@/lib/policies';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import ExtraSections from '@/components/ExtraSections';
 
 const fmt = (iso: string) =>
   new Date(iso + 'T00:00:00Z').toLocaleDateString('en-CA', {
@@ -79,6 +80,8 @@ export default function PolicyPage({ doc }: { doc: Policy }) {
               )}
             </div>
           ))}
+
+          <ExtraSections area="policy" slug={doc.slug} />
 
           {doc.sources && doc.sources.length > 0 && (
             <>
