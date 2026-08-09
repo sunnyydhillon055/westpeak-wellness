@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { site } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
+import Reviews from '@/components/Reviews';
 import Motif from '@/components/brand/Motif';
 import { GraduationCap, Scale, BadgeCheck, Waves, HeartHandshake, Landmark } from 'lucide-react';
 
@@ -247,6 +248,7 @@ export default function About() {
         </div>
       </section>
 
+      <Reviews />
       <CtaBand heading="Curious if we&rsquo;d be a good fit?" text="Book a free 15-minute consultation. No pressure, no commitment." />
 
       <script

@@ -89,7 +89,8 @@ export default function Services() {
             <Link href="/services/south-asian-mental-health">South Asian mental health work</Link> exist
             because for many people the alternative is spending a session translating rather than
             working.
-          </p>
+           Not sure which of these fits?{' '}
+            <Link href="/tools/which-service">Five questions</Link> will suggest a starting point.</p>
           <p>
             And if you are still deciding whether to do this at all, the{' '}
             <Link href="/guides">counselling guides</Link> cover what therapy involves, and{' '}

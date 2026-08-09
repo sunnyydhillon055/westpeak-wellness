@@ -12,8 +12,48 @@ const retiredCitySlugs = [
 ];
 
 /** @type {import('next').NextConfig} */
+/* Content Security Policy, built from what this site actually loads:
+ *   - GA4 needs googletagmanager for the script, google-analytics for beacons
+ *   - the Cliniko booking widget is an iframe, so it needs frame-src
+ *   - Google sign-in posts to accounts.google.com
+ *   - fonts are self-hosted, so no external font host is allowed at all
+ *
+ * 'unsafe-inline' on script-src is required by Next's inline bootstrap and by
+ * GA4's snippet. Nonces would mean giving up static rendering on every page,
+ * which costs more than it buys on a site with no user-generated content.
+ */
+const csp = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com",
+  "font-src 'self' data:",
+  "connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://www.googletagmanager.com",
+  "frame-src 'self' https://*.cliniko.com https://accounts.google.com",
+  "form-action 'self' https://accounts.google.com",
+  "frame-ancestors 'none'",
+  "base-uri 'self'",
+  "object-src 'none'",
+  'upgrade-insecure-requests',
+].join('; ');
+
+const securityHeaders = [
+  { key: 'Content-Security-Policy', value: csp },
+  { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
+  { key: 'X-Content-Type-Options', value: 'nosniff' },
+  { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+  { key: 'X-Frame-Options', value: 'DENY' },
+  // Nothing here needs a camera, microphone or location.
+  { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+];
+
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  poweredByHeader: false,
+  async headers() {
+    return [{ source: '/:path*', headers: securityHeaders }];
+  },
   async redirects() {
     // Preserve old Wix URLs so existing links / Google index don't 404
     return [

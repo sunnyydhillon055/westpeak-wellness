@@ -1143,3 +1143,81 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .signin-or::before, .signin-or::after{
   content:""; flex:1; height:1px; background:var(--line);
 }
+
+/* ---------------------------------------------------------------------------
+   TOOLS
+   One question at a time, generous targets, no motion that needs disabling.
+   ------------------------------------------------------------------------ */
+.quiz{ border:1px solid var(--line); border-radius:var(--radius-lg);
+  background:var(--surface-0); padding:26px 26px 22px; box-shadow:var(--shadow-sm); }
+.quiz-progress{ margin:0 0 8px; font-size:.84rem; color:var(--ink-faint);
+  letter-spacing:.04em; text-transform:uppercase; font-weight:600; }
+.quiz-bar{ height:3px; border-radius:3px; background:var(--line); overflow:hidden; margin-bottom:22px; }
+.quiz-bar span{ display:block; height:100%; background:var(--clay); border-radius:3px;
+  transition:width var(--dur-base) var(--ease); }
+.quiz-set{ border:0; padding:0; margin:0; }
+.quiz-q{ font-family:var(--font-display); font-size:1.22rem; line-height:1.3;
+  color:var(--ink); padding:0; margin:0 0 6px; font-weight:560; }
+.quiz-help{ margin:0 0 14px; font-size:.94rem; color:var(--ink-soft); }
+.quiz-choices, .est-row{ display:grid; gap:10px; margin-top:16px; }
+.est-row{ grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); }
+.quiz-choice{
+  font:inherit; text-align:left; cursor:pointer;
+  padding:15px 18px; min-height:52px;
+  background:var(--surface-1); color:var(--ink);
+  border:1px solid var(--line); border-radius:var(--radius-sm);
+  transition:border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+}
+.quiz-choice:hover{ border-color:var(--blue); background:var(--blue-ghost); }
+.quiz-choice:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
+.quiz-choice.is-on{ border-color:var(--blue-deep); background:var(--blue-mist); font-weight:560; }
+.quiz-back{ font:inherit; background:none; border:0; cursor:pointer; padding:12px 0 0;
+  color:var(--ink-soft); font-size:.92rem; min-height:44px; }
+.quiz-back:hover{ color:var(--blue-deep); }
+.quiz-privacy{ margin:14px 0 0; font-size:.84rem; color:var(--ink-faint); }
+.quiz--result h2{ margin-top:.1em; }
+
+.est-fields{ display:grid; grid-template-columns:auto 1fr; gap:10px 14px;
+  align-items:center; margin-top:14px; max-width:340px; }
+.est-fields label{ font-size:.94rem; color:var(--ink-soft); }
+.est-fields input{ font:inherit; padding:10px 12px; min-height:46px;
+  border:1px solid var(--line); border-radius:var(--radius-sm);
+  background:var(--surface-0); color:var(--ink); }
+.est-fields input:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
+.est-result{ margin-top:26px; padding-top:22px; border-top:1px solid var(--line); }
+
+.tool-cta{ display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-top:24px; }
+.tool-cta-note{ flex-basis:100%; margin:0; font-size:.88rem; color:var(--ink-faint); }
+.tool-disclaimer{ margin-top:20px; font-size:.88rem; color:var(--ink-faint); }
+@media (max-width:560px){ .quiz{ padding:20px 18px 18px; } }
+
+/* Search */
+.search-form{ display:flex; gap:10px; margin-top:20px; flex-wrap:wrap; }
+.search-form input{ flex:1 1 240px; font:inherit; padding:12px 14px; min-height:48px;
+  border:1px solid var(--line); border-radius:var(--radius-sm);
+  background:var(--surface-0); color:var(--ink); }
+.search-form input:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
+.search-results{ list-style:none; padding:0; margin:22px 0 0; }
+.search-results li{ padding:16px 0; border-bottom:1px solid var(--line); }
+.search-results a{ font-family:var(--font-display); font-size:1.08rem; font-weight:560; }
+.search-kind{ margin-left:10px; font-size:.76rem; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--ink-faint); }
+.search-results p{ margin:6px 0 0; color:var(--ink-soft); font-size:.95rem; }
+
+/* Lead capture */
+.lead-form{ border:1px solid var(--line); border-radius:var(--radius);
+  background:var(--surface-2); padding:22px 24px; margin:30px 0; }
+.lead-form-title{ margin:0 0 4px; font-family:var(--font-display); font-size:1.1rem;
+  font-weight:560; color:var(--ink); }
+.lead-form-note{ margin:0; font-size:.88rem; color:var(--ink-faint); }
+.lead-form-row{ display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 10px; }
+.lead-form-row input{ flex:1 1 180px; font:inherit; padding:11px 13px; min-height:46px;
+  border:1px solid var(--line); border-radius:var(--radius-sm);
+  background:var(--surface-0); color:var(--ink); }
+.lead-form-row input:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
+
+/* Reviews */
+.review-card blockquote{ margin:0 0 14px; font-size:1.02rem; line-height:1.6; color:var(--ink); }
+.review-card figcaption{ display:flex; flex-direction:column; gap:2px; font-size:.9rem; }
+.review-card figcaption span{ color:var(--ink-faint); }
+.tool-prose{ margin-top:36px; padding-top:28px; border-top:1px solid var(--line); max-width:none; }

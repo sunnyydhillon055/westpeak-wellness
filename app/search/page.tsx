@@ -1,0 +1,104 @@
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { site } from '@/lib/site';
+import { abs, orgRef, siteRef } from '@/lib/schema';
+import { buildIndex, searchIndex } from '@/lib/search-index';
+
+export const metadata: Metadata = {
+  title: { absolute: 'Search | Westpeak Wellness' },
+  description: 'Search the counselling guides, services, comparisons and BC resources on this site.',
+  alternates: { canonical: `${site.domain}/search` },
+  robots: { index: false, follow: true },
+};
+
+/* Server-side search over a build-time index.
+ *
+ * No JavaScript, no search service, no query logging. The index is assembled
+ * from the same data the pages render from, so it can never drift out of date,
+ * and results are computed per request from the URL — which means a search
+ * result page can be linked, bookmarked and read by a crawler.
+ *
+ * This page is also what makes the WebSite SearchAction in the root layout
+ * honest. It was deliberately omitted before this existed: markup describing a
+ * capability the site does not have is how structured data gets distrusted. */
+export default function SearchPage({ searchParams }: { searchParams?: { q?: string } }) {
+  const q = (searchParams?.q ?? '').trim();
+  const index = buildIndex();
+  const results = q ? searchIndex(index, q) : [];
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'SearchResultsPage',
+            '@id': abs('/search'),
+            name: 'Search',
+            isPartOf: siteRef,
+            publisher: orgRef,
+          }),
+        }}
+      />
+
+      <section className="hero" style={{ paddingBottom: 30 }}>
+        <div className="container" style={{ maxWidth: 720 }}>
+          <p className="eyebrow">{index.length} pages</p>
+          <h1>Search</h1>
+          <form method="GET" action="/search" className="search-form" role="search">
+            <label htmlFor="q" className="sr-only">Search this site</label>
+            <input
+              id="q" name="q" type="search" defaultValue={q} autoComplete="off"
+              placeholder="e.g. EMDR, extended health, burnout"
+            />
+            <button type="submit" className="btn btn--primary">Search</button>
+          </form>
+        </div>
+      </section>
+
+      <section className="section" style={{ paddingTop: 30 }}>
+        <div className="container" style={{ maxWidth: 720 }}>
+          <p className="crumb"><Link href="/">Home</Link> / Search</p>
+
+          {!q && (
+            <p className="lede">
+              Type anything above, or browse the <Link href="/guides">guides</Link>,{' '}
+              <Link href="/services">services</Link>, <Link href="/compare">comparisons</Link>,{' '}
+              <Link href="/resources">BC resources</Link>, <Link href="/tools">tools</Link> and{' '}
+              <Link href="/glossary">glossary</Link>.
+            </p>
+          )}
+
+          {q && results.length === 0 && (
+            <>
+              <h2>Nothing matched &ldquo;{q}&rdquo;</h2>
+              <p>
+                Try a plainer word — this site indexes titles and summaries rather than every
+                sentence. The <Link href="/glossary">glossary</Link> defines sixty terms, and{' '}
+                <Link href="/guides">the guides</Link> cover most of what people arrive looking
+                for. If it is quicker to ask,{' '}
+                <Link href={site.bookingPath}>a free 15-minute consultation</Link> costs nothing.
+              </p>
+            </>
+          )}
+
+          {q && results.length > 0 && (
+            <>
+              <h2>{results.length} {results.length === 1 ? 'result' : 'results'} for &ldquo;{q}&rdquo;</h2>
+              <ul className="search-results">
+                {results.map((r) => (
+                  <li key={r.href}>
+                    <Link href={r.href}>{r.title}</Link>
+                    <span className="search-kind">{r.kind}</span>
+                    <p>{r.summary}</p>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </div>
+      </section>
+    </>
+  );
+}

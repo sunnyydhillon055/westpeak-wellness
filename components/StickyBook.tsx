@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { site } from '@/lib/site';
+import { track } from '@/lib/analytics';
 
 /* Mobile-only booking bar.
  *

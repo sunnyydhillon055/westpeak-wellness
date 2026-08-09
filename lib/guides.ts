@@ -305,7 +305,7 @@ const coreGuides: Guide[] = [
       {
         h2: "Why it goes unnoticed",
         body: [
-          "Most descriptions of anxiety centre on impairment — the person who cannot go to work, cannot leave the house, cannot cope. If your anxiety has produced the opposite, that description does not fit, so you conclude you do not qualify.",
+          "Most descriptions of anxiety centre on impairment — the person who cannot go to work, cannot leave the house, cannot cope. If your anxiety has produced the opposite, that description does not fit, so you conclude you do not qualify. If you want to put words to it first, the [reflection tool](/tools/stress-check) asks six questions and gives no score.",
           "The pattern that gets called high-functioning anxiety runs the other way. The worry becomes fuel. You are early, over-prepared, and reliable. You reply immediately. You reread the message before sending. You are the person others describe as having it together — and none of it feels like competence from inside. It feels like staying just ahead of something.",
           "**The reason to take it seriously is not that it stops you functioning. It is what the functioning costs.** Rest that is not restful, achievement that produces relief rather than satisfaction, and a nervous system that has not been off in years.",
         ],

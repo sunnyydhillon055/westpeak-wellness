@@ -108,7 +108,10 @@ export default function FAQ() {
             explains what BC plans reimburse, and{' '}
             <Link href="/compare/rcc-vs-psychologist-vs-social-worker-bc">the comparison of therapist types</Link>{' '}
             covers who to see for what. Booking, payment and the cancellation policy are set out on
-            the <Link href={site.portalPath}>client portal</Link> page.
+            the <Link href={site.portalPath}>client portal</Link> page. Three free{' '}
+            <Link href="/tools">tools</Link> cover the same questions interactively — which
+            service fits, what it costs after extended health, and a plain reflection on
+            how things have been.
           </p>
         </div>
       </section>

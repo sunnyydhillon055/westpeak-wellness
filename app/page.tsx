@@ -60,6 +60,13 @@ const HUBS = [
     cta: 'Open the BC resource directory →',
   },
   {
+    href: '/tools',
+    icon: HUB_ICONS.compare,
+    title: 'Free tools',
+    body: 'Work out which kind of counselling fits, what it costs in BC after extended health, and a plain reflection on how the last few weeks have been. No sign-up.',
+    cta: 'Open the free tools →',
+  },
+  {
     href: '/for',
     icon: HUB_ICONS.for,
     title: 'Who we work with',

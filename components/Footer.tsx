@@ -55,6 +55,7 @@ export default function Footer() {
               <Link href="/compare">Compare Your Options</Link>
               <Link href="/for">Who We Work With</Link>
               <Link href="/resources">BC Resources</Link>
+              <Link href="/tools">Free Tools</Link>
               <Link href="/glossary">Glossary</Link>
               <Link href="/approaches">Approaches</Link>
             </nav>

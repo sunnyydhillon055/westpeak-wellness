@@ -1,5 +1,6 @@
 import { site } from '@/lib/site';
 import { services } from '@/lib/services';
+import { tools } from '@/lib/tools';
 import { locations } from '@/lib/locations';
 import { guides } from '@/lib/guides';
 import { comparisons } from '@/lib/comparisons';
@@ -42,6 +43,10 @@ export function GET() {
   const entries: Entry[] = [
     ...core,
     { path: '/book', lastmod: now, changefreq: 'monthly', priority: 0.9 },
+    { path: '/tools', lastmod: now, changefreq: 'monthly', priority: 0.7 },
+    ...tools.map((t) => ({
+      path: `/tools/${t.slug}`, lastmod: now, changefreq: 'monthly' as const, priority: 0.7,
+    })),
     ...trust,
     ...services.map((s) => ({
       path: `/services/${s.slug}`, lastmod: now, changefreq: 'monthly' as const,

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState, type CSSProperties } from 'react';
 import { site } from '@/lib/site';
+import { track } from '@/lib/analytics';
 import Motif from '@/components/brand/Motif';
 
 /* Five items, deliberately. With the portal pill and the booking CTA the bar
@@ -96,7 +97,14 @@ export default function Header() {
             </Link>
           </li>
           <li className="nav-cta" style={{ '--i': NAV.length + 1 } as CSSProperties}>
-            <Link className="btn btn--primary" href={site.bookingPath} onClick={() => setOpen(false)}>
+            <Link
+              className="btn btn--primary"
+              href={site.bookingPath}
+              onClick={() => {
+                setOpen(false);
+                track('book_click', { location: 'header' });
+              }}
+            >
               Book Free Consult
             </Link>
           </li>

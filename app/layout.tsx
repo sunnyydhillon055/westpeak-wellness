@@ -5,6 +5,9 @@ import { fontVars, body as bodyFont } from './fonts';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import StickyBook from '@/components/StickyBook';
+import Analytics from '@/components/Analytics';
+import { GoogleAnalytics } from '@next/third-parties/google';
+import { GA_ID } from '@/lib/analytics';
 import { site } from '@/lib/site';
 import { services } from '@/lib/services';
 
@@ -33,6 +36,16 @@ export const metadata: Metadata = {
   },
   twitter: { card: 'summary_large_image', title: 'Online Counselling in BC | Westpeak Wellness',
     description: 'Virtual therapy across BC in English or Punjabi with a Registered Clinical Counsellor.' },
+  /* Search Console / Bing ownership. Emitted only when the token is set, so
+   * nothing ships an empty verification tag. */
+  verification: {
+    ...(process.env.NEXT_PUBLIC_GSC_VERIFICATION
+      ? { google: process.env.NEXT_PUBLIC_GSC_VERIFICATION }
+      : {}),
+    ...(process.env.NEXT_PUBLIC_BING_VERIFICATION
+      ? { other: { 'msvalidate.01': process.env.NEXT_PUBLIC_BING_VERIFICATION } }
+      : {}),
+  },
   alternates: { canonical: site.domain },
   robots: site.isPreview
     ? { index: false, follow: false }
@@ -115,6 +128,17 @@ const siteSchema = {
   url: site.domain,
   inLanguage: 'en-CA',
   publisher: { '@id': `${site.domain}/#organization` },
+  /* Added only once /search existed. It was deliberately omitted before that:
+   * a SearchAction must point at a real endpoint, and markup describing a
+   * capability the site does not have is how structured data gets distrusted. */
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: `${site.domain}/search?q={search_term_string}`,
+    },
+    'query-input': 'required name=search_term_string',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -132,10 +156,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main id="main">{children}</main>
         <Footer />
         <StickyBook />
+        <Analytics />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify([orgSchema, siteSchema]) }}
         />
+        {/* GA4 only when an ID is configured, so local runs and preview
+          * deployments send nothing. @next/third-parties loads it
+          * afterInteractive, off the critical path. */}
+        {GA_ID && <GoogleAnalytics gaId={GA_ID} />}
       </body>
     </html>
   );

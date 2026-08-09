@@ -4,6 +4,7 @@ import { site } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
 import { Wallet, Video, CreditCard, CalendarX } from 'lucide-react';
 import Figure from '@/components/Figure';
+import LeadCapture from '@/components/LeadCapture';
 
 export const metadata: Metadata = {
   title: 'Fees & Insurance',
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `${site.domain}/pricing` },
 };
 
-export default function Pricing() {
+export default function Pricing({ searchParams }: { searchParams?: { lead?: string } }) {
   return (
     <>
       <section className="hero" style={{ paddingBottom: 48 }}>
@@ -190,6 +191,15 @@ export default function Pricing() {
             the 24-hour window, and where your receipts appear.
           </p>
           <Figure name="reimbursement-flow" />
+
+          <LeadCapture done={searchParams?.lead === 'ok'} />
+
+          <p>
+            Want the arithmetic on your own plan? The{' '}
+            <Link href="/tools/therapy-cost-bc">cost and coverage estimator</Link>{' '}
+            works out what you would actually pay after reimbursement, and names the two
+            questions to ask your insurer before booking.
+          </p>
         </div>
       </section>
 

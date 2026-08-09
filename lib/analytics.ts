@@ -1,0 +1,45 @@
+'use client';
+
+/* One place that knows how events are named and sent.
+ *
+ * Components call track('book_click', { location: 'hero' }) and never touch
+ * gtag directly, so renaming an event or swapping the analytics vendor is one
+ * edit rather than a search across the codebase.
+ *
+ * No-ops when GA4 is not configured, which is the normal state locally and on
+ * previews. Nothing here throws — analytics must never be able to break a page.
+ */
+
+type Params = Record<string, string | number | boolean | undefined>;
+
+declare global {
+  interface Window {
+    gtag?: (command: string, event: string, params?: Params) => void;
+  }
+}
+
+export const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+
+export function track(event: string, params: Params = {}): void {
+  try {
+    if (typeof window === 'undefined' || !window.gtag) return;
+    window.gtag('event', event, params);
+  } catch {
+    /* analytics is never load-bearing */
+  }
+}
+
+/* The events this site sends. Kept as a union so a typo is a build error rather
+ * than a silently missing metric. */
+export type TrackedEvent =
+  | 'book_click'
+  | 'book_page_view'
+  | 'booking_widget_loaded'
+  | 'consult_cta_click'
+  | 'email_click'
+  | 'lead_magnet_submit'
+  | 'tool_start'
+  | 'tool_complete'
+  | 'scroll_75'
+  | 'outbound_click'
+  | 'portal_signin';
