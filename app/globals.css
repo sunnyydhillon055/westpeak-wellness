@@ -71,6 +71,10 @@
   --dur-fast:      140ms;
   --dur-base:      260ms;
   --dur-slow:      520ms;
+  /* Scroll reveal. Shorter than --dur-slow on purpose: calm is not the same
+     as slow, and a reader who has already scrolled to a section should not be
+     waiting for it to arrive. */
+  --dur-reveal:    380ms;
 
   /* — Type scale, 1.22 ratio, fluid between 360px and 1280px — */
   --fs-overline:   .76rem;

@@ -190,7 +190,7 @@ a:hover{ text-decoration: none }
 .reveal{ opacity: 1; transform: none }
 html.js-reveal .reveal{
   opacity: 0; transform: translateY(18px);
-  transition: opacity var(--dur-slow) var(--ease), transform var(--dur-slow) var(--ease);
+  transition: opacity var(--dur-reveal) var(--ease), transform var(--dur-reveal) var(--ease);
 }
 html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 
@@ -1341,7 +1341,6 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
    same as slow — a reader who has already scrolled to a section should not be
    waiting for it. Shorter, tighter, and it still eases rather than snaps.
    ------------------------------------------------------------------------ */
-.js-reveal .reveal{ transition-duration:380ms; }
 .btn{ transition:background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease),
       transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease); }
 .btn--primary:active, .btn--ghost:active{ transform:translateY(0); }

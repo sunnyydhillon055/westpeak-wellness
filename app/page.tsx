@@ -135,7 +135,7 @@ export default function Home() {
             {featuredServices.map((s, i) => {
               const Icon = getServiceIcon(s.slug);
               return (
-                <Reveal key={s.slug} delay={i * 90}>
+                <Reveal key={s.slug} delay={i * 55}>
                   <div className="card" style={{ height: '100%' }}>
                     <Link href={`/services/${s.slug}`} className="card-link">
                       <div className="svc-card-head">
@@ -245,7 +245,7 @@ export default function Home() {
             {HUBS.map((h, i) => {
               const Icon = h.icon;
               return (
-                <Reveal key={h.href} delay={i * 80}>
+                <Reveal key={h.href} delay={i * 55}>
                   <div className="card" style={{ height: '100%' }}>
                     <Link href={h.href} className="card-link">
                       <div className="hub-card-head">
