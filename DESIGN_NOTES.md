@@ -1,0 +1,187 @@
+# Westpeak Wellness — Design Notes
+
+The reference for anyone extending this site. Everything visual resolves to a
+token in `app/globals.css`; the component kit lives in `components/`. If you are
+adding a page, compose it from what is here rather than introducing new values.
+
+**Status:** Phase 4 of the premium elevation is complete — foundations, motion
+layer and the Home page. Remaining pages inherit the new typography, palette and
+component refinements but have not yet had their bespoke layout pass.
+
+---
+
+## 1. Typography
+
+Loaded with `next/font` in `app/fonts.ts`, self-hosted at build time. No
+render-blocking request, no layout shift, `display: swap` with matched fallbacks.
+
+| Role | Face | Why |
+|---|---|---|
+| Display / headings | **Fraunces** (variable: `opsz`, `SOFT`, `WONK`) | A serif with warmth and an editorial feel rather than an institutional one. The `SOFT` axis lets large headings round off instead of turning brittle — h1 runs `SOFT 34, WONK 1`, body headings `SOFT 22–28`. |
+| Body / UI | **Inter** (variable) | A humanist sans with a true weight range, chosen for legibility over the long reading lengths this site actually has — many pages run past 1,800 words. |
+| Gurmukhi | **Noto Serif Gurmukhi** | So ਪੰਜਾਬੀ renders in a designed face rather than an OS substitute. On a practice offering sessions in Punjabi, letting that script fall back was a real omission. |
+
+**Type scale** — 1.22 ratio, fluid via `clamp()` between 360px and 1280px:
+`--fs-overline` `--fs-small` `--fs-body` `--fs-lead` `--fs-h4` `--fs-h3` `--fs-h2`
+`--fs-h1` `--fs-display`. Headings carry negative tracking (−0.012em to −0.022em);
+body sits at 1.68 line-height for calm reading.
+
+---
+
+## 2. Colour
+
+The cool blue identity is unchanged. What was added is **warmth and layering** —
+flat white everywhere is what made the previous build read as competent rather
+than considered.
+
+**One warm accent only.** `--clay: #c07a56`, with `--clay-deep`, `--clay-soft`,
+`--clay-ghost`. Used sparingly: the eyebrow rule, hover underlines, the ghost
+button hover, the motif's low sun, quote marks, the stepper's connecting thread.
+A second accent would make it a palette instead of a voice.
+
+**Layered neutrals** replace flat white so sections shift temperature rather than
+meeting at a hard edge: `--surface-0` (white) · `--surface-1` (cool near-white) ·
+`--surface-2` (warm off-white) · `--surface-3` (blue wash) · `--surface-4` (warm
+sand) · `--surface-ink` (deep, for inverted blocks).
+
+**Gradients** — `--grad-brand` (deep blue → soft blue → clay, on the primary CTA
+hover and card accent edges), `--grad-hero`, `--grad-mist`, `--grad-ink` (the
+Punjabi block).
+
+**Grain** — `--grain`, an inline SVG `feTurbulence` data URI. No extra request.
+Applied via `.grained` on large fills and inside `.photo`, at 14–50% opacity —
+deliberately near the threshold of vision. It is what stops big surfaces looking
+like plastic.
+
+**Elevation** — `--shadow-xs` through `--shadow-xl`, each a tight contact shadow
+plus a wide ambient one so cards read as lit rather than outlined. `--shadow-warm`
+for clay-tinted surfaces.
+
+---
+
+## 3. Motion
+
+`--ease: cubic-bezier(.22,.61,.36,1)` — a single gentle ease-out with no
+overshoot, used for everything. Durations `--dur-fast` 140ms, `--dur-base` 260ms,
+`--dur-slow` 520ms.
+
+Nothing bounces, nothing loops, nothing demands attention. Buttons lift 2px and
+bloom a shadow; the primary CTA cross-fades to the brand gradient; cards lift 4px
+and draw an accent edge down their leading side; prose links thicken and warm
+their underline; the nav underline wipes in from the left.
+
+**`prefers-reduced-motion` is honoured globally** — a blanket override kills all
+transitions and animations and forces every reveal visible.
+
+---
+
+## 4. Signature motif — "soft ridgeline"
+
+`components/brand/Motif.tsx`. Variants: `ridge` (hero background), `mark` (brand
+mark), `bloom` (organic contour), `arc` (accent rule).
+
+The name is Westpeak, so the obvious move is a mountain — and the obvious mountain
+is a sharp triangle, which reads alpine and effortful, the opposite of what a
+counselling practice should feel like. So it is a peak drawn as **three
+overlapping ridgelines with rounded shoulders and a low sun**: recognisably a
+summit, but soft, layered and quiet.
+
+The layering does double duty. It is the visual idiom of distance and calm, and
+it is also the site's own argument — that difficulty has depth, and that you work
+through it in stages rather than over it in one push.
+
+`components/brand/SectionDivider.tsx` builds `ridge` / `wave` / `slope` dividers
+from the same language, so section changes read as a landscape shifting rather
+than two coloured boxes meeting.
+
+---
+
+## 5. Iconography
+
+**Lucide** (`lucide-react`), one library, stroke weight 1.6–1.7, 24px grid.
+Mapping is centralised in `lib/icon-map.ts` — `SERVICE_ICONS`, `HUB_ICONS`,
+`PROCESS_ICONS`, `TRUST_ICONS` — so a page never picks an icon ad hoc and the
+vocabulary stays consistent. Icons sit in `.icon-chip` (cool) or
+`.icon-chip--warm` (clay) circular chips.
+
+---
+
+## 6. Photography
+
+Sources — Unsplash Licence (free for commercial use, no attribution required;
+credited anyway):
+
+| File | Subject | Source |
+|---|---|---|
+| `public/img/photo/still-water-bc.jpg` | Lone tree on a mossy rock in mirror-flat lake water, Fairy Lake, Vancouver Island | Unsplash `photo-1518241353330` |
+| `public/img/photo/forest-path.jpg` | Sunlit forest path, warm low light | Unsplash `photo-1441974231531` |
+| `public/img/photo/counsellor-portrait.jpg` | Practice portrait (About page only) | Supplied by owner |
+
+Every photograph goes through `components/ui/Photo.tsx`, which applies the
+**unified treatment**: `saturate(.9) contrast(1.02)` on the image, a blue→clay
+gradient veil matching the palette, and the same grain used on large surfaces —
+plus consistent `--radius-lg` rounding. That treatment is what makes sourced
+photography read as one brand rather than as stock.
+
+All raster imagery goes through `next/image` (WebP/AVIF negotiated, explicit
+sizes, `priority` on the hero only, lazy below the fold). **The 86 SVG diagrams
+deliberately do not** — `next/image` cannot optimise SVG without
+`dangerouslyAllowSVG`, and these are already 2–5 KB each with intrinsic
+dimensions set, so routing them through the optimiser would add risk and cost
+for no gain.
+
+To add a photograph: drop it in `public/img/photo/`, render it through `Photo`,
+give it descriptive alt text, and record it in the table above.
+
+---
+
+## 7. Component kit
+
+| Component | Purpose |
+|---|---|
+| `brand/Motif` | Signature ridgeline, four variants |
+| `brand/SectionDivider` | Ridge / wave / slope transitions |
+| `ui/Photo` | Unified photography treatment |
+| `ui/TrustBar` | Credential strip under hero CTAs |
+| `ui/Stepper` | Connected process timeline |
+| `ui/Reveal` | Scroll-in wrapper, reduced-motion aware |
+| `Figure` | The site's own SVG diagrams |
+| `Byline` | Authorship and review provenance |
+| `CtaBand` `MoreFrom` `ExtraSections` `StickyBook` | Pre-existing, retained |
+
+CSS classes available: `.icon-chip` `.trust-bar` `.stepper` `.pull-quote`
+`.photo` `.grained` `.reveal` `.divider` `.fee-table` `.signature`.
+
+---
+
+## 8. Decisions worth knowing
+
+**The reveal animation is progressive enhancement, not a dependency.** Content is
+visible by default; it is only hidden once an inline script confirms JavaScript is
+running *and* reduced motion is off (`html.js-reveal`). The component also shows
+content immediately when `document.visibilityState !== 'visible'`, and carries a
+2-second failsafe if the observer never fires. On a mental-health site, content
+that can vanish behind a failed bundle is not an acceptable trade for an
+animation.
+
+**The trust bar does not claim insurance coverage.** The brief suggested "Covered
+by most BC plans". That is a prevalence claim this practice cannot substantiate,
+and it contradicts the site's own careful line elsewhere — that whether a plan
+reimburses an RCC is plan-specific and must be confirmed with the insurer. It is
+rendered as the verifiable fact instead: receipts are issued with the RCC
+registration number. The reassurance survives; the unsupported claim does not.
+
+**The Punjabi block is typographic, not photographic.** The brief allowed either a
+warm background image or the brand gradient. A large ਪੰਜਾਬੀ set in Noto Serif
+Gurmukhi at 7% opacity over `--grad-ink` is more ownable than any stock photograph
+would have been, and it makes the language itself the design feature.
+
+**`public/aman-bains-dhillon.jpg` was renamed** to
+`public/img/photo/counsellor-portrait.jpg`. The name rule extends to file names,
+and the old path leaked it into every request for that image.
+
+**Restraint, deliberately:** no parallax, no counters, no carousels, no
+scroll-jacking, no hero video, no testimonial slider (prohibited anyway), no
+gradient text, no glassmorphism beyond a single 3px blur on the Punjabi quote
+card. The bar was "calm, warm and expensive", and most of what reads as expensive
+here is spacing, type and restraint rather than effect.

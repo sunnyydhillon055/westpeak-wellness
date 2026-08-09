@@ -1,0 +1,374 @@
+/* ============================================================================
+   PREMIUM LAYER — motion, elevation, and the reusable component kit.
+   Imported after globals.css so it can refine existing classes without forking
+   them. Every animation here is disabled by the reduced-motion block at the end.
+   ========================================================================= */
+
+/* — Links. In long-form prose an underline is an accessibility affordance
+     rather than decoration, so it is present at rest and thickens and warms on
+     hover instead of appearing from nothing. Outside prose, links use colour
+     and weight plus a drawn underline on hover. — */
+.prose a:not(.btn):not(.chip),
+.byline-meta a{
+  background-image: linear-gradient(var(--blue) 0 0);
+  background-size: 100% 1px;
+  background-position: 0 calc(100% - 0.04em);
+  background-repeat: no-repeat;
+  transition: background-size var(--dur-base) var(--ease),
+              background-image var(--dur-base) var(--ease),
+              color var(--dur-fast) var(--ease);
+  text-decoration: none;
+}
+.prose a:not(.btn):not(.chip):hover,
+.byline-meta a:hover{
+  background-image: linear-gradient(var(--clay) 0 0);
+  background-size: 100% 2px;
+  color: var(--blue-deeper);
+  text-decoration: none;
+}
+a:hover{ text-decoration: none }
+
+/* — Buttons — */
+.btn{
+  position: relative; overflow: hidden; isolation: isolate;
+  transition: transform var(--dur-base) var(--ease),
+              box-shadow var(--dur-base) var(--ease),
+              background-color var(--dur-base) var(--ease),
+              border-color var(--dur-base) var(--ease),
+              color var(--dur-fast) var(--ease);
+}
+.btn--primary{ background: var(--blue-deep); box-shadow: var(--shadow-sm) }
+.btn--primary::before{
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: var(--grad-brand); opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease);
+}
+.btn--primary:hover{ background: var(--blue-deep); transform: translateY(-2px); box-shadow: var(--shadow-md) }
+.btn--primary:hover::before{ opacity: 1 }
+.btn--primary:active{ transform: translateY(0); box-shadow: var(--shadow-xs) }
+.btn--ghost{ background: var(--surface-0); border-color: var(--line); box-shadow: var(--shadow-xs) }
+.btn--ghost:hover{
+  border-color: var(--clay); color: var(--clay-deep);
+  background: var(--clay-ghost); transform: translateY(-2px); box-shadow: var(--shadow-sm);
+}
+.btn--ghost:active{ transform: translateY(0) }
+
+/* — Cards: lift, plus an accent edge that draws down the leading edge — */
+.card{
+  position: relative; overflow: hidden;
+  transition: transform var(--dur-base) var(--ease),
+              box-shadow var(--dur-base) var(--ease),
+              border-color var(--dur-base) var(--ease);
+}
+.card::after{
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  background: var(--grad-brand); transform: scaleY(0); transform-origin: top;
+  transition: transform var(--dur-base) var(--ease);
+}
+.card:hover{ transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: #d6e3f1 }
+.card:hover::after{ transform: scaleY(1) }
+.card .more{
+  display: inline-flex; align-items: center; gap: 7px;
+  transition: gap var(--dur-base) var(--ease), color var(--dur-fast) var(--ease);
+}
+.card:hover .more{ gap: 12px; color: var(--clay-deep) }
+
+/* — Icon chips — */
+.icon-chip{
+  display: inline-flex; align-items: center; justify-content: center; flex: none;
+  width: 46px; height: 46px; border-radius: var(--radius-pill);
+  background: var(--blue-mist); color: var(--blue-deep);
+  box-shadow: inset 0 0 0 1px rgba(63,108,163,.07);
+}
+.icon-chip--warm{
+  background: var(--clay-soft); color: var(--clay-deep);
+  box-shadow: inset 0 0 0 1px rgba(163,96,62,.09);
+}
+.icon-chip--sm{ width: 36px; height: 36px }
+.icon-chip--lg{ width: 58px; height: 58px }
+.icon-chip svg{ width: 21px; height: 21px }
+.icon-chip--sm svg{ width: 17px; height: 17px }
+.icon-chip--lg svg{ width: 26px; height: 26px }
+
+/* — Trust bar — */
+.trust-bar{
+  display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px;
+  margin-top: 30px; padding-top: 24px; border-top: 1px solid var(--line);
+}
+.trust-item{
+  display: inline-flex; align-items: center; gap: 9px;
+  font-size: var(--fs-small); color: var(--ink-soft); line-height: 1.35;
+}
+.trust-item svg{ width: 17px; height: 17px; color: var(--blue-deep); flex: none }
+.trust-item strong{ font-weight: 580; color: var(--ink) }
+
+/* — Stepper: a connected timeline rather than three loose rows — */
+.stepper{ display: grid; gap: 0; position: relative }
+.stepper-item{
+  display: grid; grid-template-columns: 58px 1fr; gap: 22px;
+  position: relative; padding-bottom: 34px;
+}
+.stepper-item:last-child{ padding-bottom: 0 }
+.stepper-item::before{
+  content: ""; position: absolute; left: 28px; top: 62px; bottom: 4px; width: 2px;
+  background: linear-gradient(var(--blue-mist), var(--clay-soft)); border-radius: 2px;
+}
+.stepper-item:last-child::before{ display: none }
+.stepper-num{
+  width: 58px; height: 58px; border-radius: var(--radius-pill);
+  display: flex; align-items: center; justify-content: center; flex: none;
+  background: var(--surface-0); border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm); color: var(--blue-deep); position: relative; z-index: 1;
+}
+.stepper-num svg{ width: 24px; height: 24px }
+.stepper-body h3{ margin-bottom: .3em }
+.stepper-body p{ color: var(--ink-soft); margin: 0 }
+.stepper-step{
+  display: block; font-size: var(--fs-overline); font-weight: 600; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--clay-deep); margin-bottom: 6px;
+}
+
+/* — Pull quote — */
+.pull-quote{
+  position: relative; margin: 38px 0; padding: 34px 34px 34px 62px;
+  background: var(--grad-mist); border-radius: var(--radius-lg);
+  font-family: var(--font-display);
+  font-size: clamp(1.18rem, 1.05rem + .7vw, 1.58rem);
+  line-height: 1.42; letter-spacing: -.015em; color: var(--ink);
+  font-variation-settings: "SOFT" 40, "WONK" 1;
+}
+.pull-quote::before{
+  content: "\201C"; position: absolute; left: 20px; top: 10px;
+  font-size: 4.4rem; line-height: 1; color: var(--clay); opacity: .45;
+  font-family: var(--font-display);
+}
+.pull-quote cite{
+  display: block; font-family: var(--font-body); font-size: var(--fs-small);
+  font-style: normal; font-weight: 600; color: var(--ink-faint);
+  margin-top: 16px; letter-spacing: 0;
+}
+
+/* — Section dividers — */
+.divider{ display: block; width: 100%; line-height: 0 }
+.divider svg{ display: block; width: 100%; height: auto }
+
+/* — Photography treatment: one wrapper so every photo reads as one brand — */
+.photo{
+  position: relative; overflow: hidden; border-radius: var(--radius-lg);
+  background: var(--blue-mist); box-shadow: var(--shadow-lg); isolation: isolate;
+}
+.photo img{
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  filter: saturate(.9) contrast(1.02);
+}
+.photo::after{
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  background: linear-gradient(170deg, rgba(47,85,131,.16) 0%, rgba(47,85,131,.03) 45%, rgba(192,122,86,.13) 100%);
+}
+.photo::before{
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 2;
+  background-image: var(--grain); opacity: .14; mix-blend-mode: multiply;
+}
+.photo--tall{ aspect-ratio: 4/5 }
+.photo--wide{ aspect-ratio: 16/10 }
+.photo--square{ aspect-ratio: 1/1 }
+
+/* — Grained surfaces, for large flat fills — */
+.grained{ position: relative; isolation: isolate }
+.grained::after{
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background-image: var(--grain); opacity: .45; mix-blend-mode: multiply;
+}
+.grained > *{ position: relative; z-index: 1 }
+
+/* — Scroll reveal, as progressive enhancement.
+     Content is visible by default. It is only hidden once an inline script has
+     confirmed that JavaScript is running AND that reduced motion is not set —
+     so a script error, a blocked bundle or a no-JS reader gets the full page
+     rather than a blank one. On a mental-health site, content that can vanish
+     behind a failed bundle is not an acceptable trade for an animation. */
+.reveal{ opacity: 1; transform: none }
+html.js-reveal .reveal{
+  opacity: 0; transform: translateY(18px);
+  transition: opacity var(--dur-slow) var(--ease), transform var(--dur-slow) var(--ease);
+}
+html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
+
+/* — Accordion refinement — */
+.faq-item{ transition: background-color var(--dur-base) var(--ease) }
+.faq-item summary{ gap: 18px; transition: color var(--dur-fast) var(--ease) }
+.faq-item summary:hover{ color: var(--blue-deep) }
+.faq-item[open]{ background: linear-gradient(90deg, var(--blue-ghost), transparent 70%) }
+.faq-item summary::after{
+  transition: transform var(--dur-base) var(--ease), color var(--dur-fast) var(--ease);
+}
+.faq-item[open] summary::after{ color: var(--clay) }
+
+/* — Premium table — */
+.fee-table{
+  border-radius: var(--radius); overflow: hidden;
+  box-shadow: var(--shadow-sm); border: 1px solid var(--line);
+}
+.fee-table th{
+  background: var(--surface-4); color: var(--ink); font-weight: 600;
+  letter-spacing: .09em; text-transform: uppercase; font-size: var(--fs-overline);
+}
+.fee-table tr{ transition: background-color var(--dur-fast) var(--ease) }
+.fee-table tbody tr:hover{ background: var(--blue-ghost) }
+
+/* — Header refinement — */
+.site-header{
+  transition: box-shadow var(--dur-base) var(--ease), background-color var(--dur-base) var(--ease);
+}
+.site-header[data-scrolled="true"]{
+  box-shadow: var(--shadow-sm); background: rgba(251,252,254,.94);
+}
+/* — Nav target size. WCAG 2.2 AA (2.5.8) asks for a 24x24 CSS px minimum, and
+     a bare 19px inline link in a nav bar does not qualify for the in-sentence
+     exception. Padding gives the hit area without changing the visual rhythm. — */
+.nav-links a{ position: relative; padding: 9px 2px; display: inline-flex; align-items: center }
+.nav-links a::after{
+  content: ""; position: absolute; left: 0; right: 0; bottom: -5px; height: 2px;
+  background: var(--clay); border-radius: 2px; transform: scaleX(0); transform-origin: left;
+  transition: transform var(--dur-base) var(--ease);
+}
+.nav-links a:hover::after{ transform: scaleX(1) }
+
+/* — Motion opt-out. Non-negotiable on a mental-health site. — */
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+  html.js-reveal .reveal{ opacity: 1 !important; transform: none !important }
+  .btn:hover, .card:hover{ transform: none !important }
+}
+
+@media (max-width: 680px){
+  .nav-links a::after{ display: none }
+  .pull-quote{ padding: 26px 22px 26px 46px }
+  .pull-quote::before{ font-size: 3.2rem; left: 14px; top: 6px }
+  .stepper-item{ grid-template-columns: 48px 1fr; gap: 16px }
+  .stepper-num{ width: 48px; height: 48px }
+  .stepper-num svg{ width: 20px; height: 20px }
+  .stepper-item::before{ left: 23px; top: 52px }
+}
+
+
+/* ============================================================================
+   HOME — composition-specific styles built on the kit above.
+   ========================================================================= */
+
+.gurmukhi{ font-family: var(--font-gurmukhi), serif }
+
+/* — Hero — */
+.hero--home{
+  position: relative; overflow: hidden; isolation: isolate;
+  background: var(--grad-hero); padding: clamp(56px, 6vw, 92px) 0 clamp(64px, 7vw, 104px);
+}
+.hero-bg{
+  position: absolute; inset: auto 0 0 0; height: 62%; z-index: 0;
+  opacity: .5; pointer-events: none;
+}
+.hero-bg svg{ width: 100%; height: 100% }
+.hero--home::after{
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: var(--grain); opacity: .4; mix-blend-mode: multiply;
+}
+.hero-grid{
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: minmax(0,1.06fr) minmax(0,.94fr);
+  gap: clamp(32px, 5vw, 68px); align-items: center;
+}
+.hero--home h1{ max-width: 15ch; font-size: var(--fs-display) }
+.hero--home .lede{ max-width: 46ch }
+.hero-note{ margin-top: 18px; font-size: var(--fs-small); color: var(--ink-faint) }
+.hero-art{ position: relative }
+.hero-art .photo{ aspect-ratio: 4/5; box-shadow: var(--shadow-xl) }
+.hero-art-mark{
+  position: absolute; left: -26px; bottom: -26px; width: 96px; height: 96px;
+  background: var(--surface-0); border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md); display: grid; place-items: center; z-index: 3;
+}
+.hero-art-mark svg{ width: 52px; height: 52px }
+.photo-credit{
+  position: absolute; right: 10px; bottom: 8px; z-index: 3; margin: 0;
+  font-size: .68rem; letter-spacing: .02em; color: rgba(255,255,255,.82);
+  text-shadow: 0 1px 3px rgba(0,0,0,.5);
+}
+
+/* — Service cards with icon chips — */
+.svc-card-head{ display: flex; align-items: center; gap: 14px; margin-bottom: 12px }
+.svc-card-head h3{ margin: 0 }
+
+/* — The Punjabi block: the emotional centre of the page — */
+.signature{
+  position: relative; overflow: hidden; isolation: isolate;
+  background: var(--grad-ink); color: #eef3f8;
+  padding: clamp(58px, 7vw, 96px) 0;
+}
+.signature::after{
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: var(--grain); opacity: .5; mix-blend-mode: overlay;
+}
+.signature-script{
+  position: absolute; z-index: 0; right: -2%; top: 50%; transform: translateY(-50%);
+  font-family: var(--font-gurmukhi), serif; font-weight: 600;
+  font-size: clamp(9rem, 26vw, 25rem); line-height: .78; letter-spacing: -.02em;
+  color: #ffffff; opacity: .07; pointer-events: none; user-select: none; white-space: nowrap;
+}
+.signature-inner{
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: minmax(0,1.05fr) minmax(0,.95fr);
+  gap: clamp(30px, 5vw, 62px); align-items: center;
+}
+.signature .eyebrow{ color: #d8b49b }
+.signature .eyebrow::before{ background: var(--clay) }
+.signature h2{ color: #ffffff; max-width: 17ch }
+.signature p{ color: #c7d3de }
+.signature .btn--ghost{
+  background: transparent; border-color: rgba(255,255,255,.28); color: #ffffff;
+}
+.signature .btn--ghost:hover{
+  background: rgba(255,255,255,.09); border-color: var(--clay); color: #ffffff;
+}
+.signature-quote{
+  position: relative; padding: 38px 34px 34px 40px;
+  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.13);
+  border-radius: var(--radius-lg); backdrop-filter: blur(3px);
+}
+.signature-quote blockquote{
+  margin: 0; font-family: var(--font-display); color: #ffffff;
+  font-size: clamp(1.3rem, 1.1rem + .9vw, 1.85rem); line-height: 1.34; letter-spacing: -.018em;
+  font-variation-settings: "SOFT" 44, "WONK" 1;
+}
+.signature-quote cite{
+  display: block; font-family: var(--font-body); font-style: normal;
+  font-size: var(--fs-small); font-weight: 600; color: #9fb2c4; margin-top: 18px; letter-spacing: 0;
+}
+.signature-quote::before{
+  content: "C"; position: absolute; left: 16px; top: 2px;
+  font-family: var(--font-display); font-size: 4.6rem; line-height: 1;
+  color: var(--clay); opacity: .55;
+}
+.signature-arc{ position: absolute; left: 40px; bottom: -14px; width: 180px; opacity: .5 }
+
+/* — Hub cards — */
+.hub-card-head{ display: flex; align-items: center; gap: 14px; margin-bottom: 12px }
+.hub-card-head h3{ margin: 0 }
+
+@media (max-width: 900px){
+  .hero-grid{ grid-template-columns: 1fr; gap: 38px }
+  .hero-art{ max-width: 460px; width: 100%; margin: 0 auto }
+  .hero--home h1{ max-width: 18ch }
+  .signature-inner{ grid-template-columns: 1fr; gap: 34px }
+  .signature-script{ font-size: clamp(7rem, 40vw, 14rem); opacity: .06; right: -6% }
+}
+@media (max-width: 680px){
+  .hero-art-mark{ width: 74px; height: 74px; left: -14px; bottom: -18px }
+  .hero-art-mark svg{ width: 40px; height: 40px }
+  .signature-quote{ padding: 32px 22px 26px 30px }
+  .trust-bar{ gap: 10px 16px }
+}

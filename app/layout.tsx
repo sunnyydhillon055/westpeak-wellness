@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import './premium.css';
+import { fontVars } from './fonts';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import StickyBook from '@/components/StickyBook';
@@ -117,8 +119,14 @@ const siteSchema = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-CA">
+    <html lang="en-CA" className={fontVars}>
       <body>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('js-reveal')}catch(e){}",
+          }}
+        />
         <a className="skip-link" href="#main">Skip to main content</a>
         <Header />
         <main id="main">{children}</main>

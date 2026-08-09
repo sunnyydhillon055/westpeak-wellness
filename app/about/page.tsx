@@ -34,7 +34,7 @@ export default function About() {
           </div>
           <div className="portrait">
             <Image
-              src="/aman-bains-dhillon.jpg"
+              src="/img/photo/counsellor-portrait.jpg"
               alt={`${counsellorName}, ${site.counsellor.credentials}, ${site.counsellor.title} at ${site.name}`}
               width={800}
               height={1000}
@@ -247,7 +247,7 @@ export default function About() {
               honorificSuffix: site.counsellor.credentials,
               jobTitle: site.counsellor.title,
               url: `${site.domain}/about`,
-              image: `${site.domain}/aman-bains-dhillon.jpg`,
+              image: `${site.domain}/img/photo/counsellor-portrait.jpg`,
               worksFor: { '@id': `${site.domain}/#organization` },
               knowsLanguage: ['en-CA', 'pa'],
               knowsAbout: [
