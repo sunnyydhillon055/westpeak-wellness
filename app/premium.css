@@ -1112,3 +1112,12 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .portal-alt summary::before{ content:"＋ "; color:var(--blue-deep); }
 .portal-alt[open] summary::before{ content:"－ "; }
 .portal-alt summary:hover{ color:var(--blue-deep); }
+
+/* Admin client-list editor */
+.portal-gate textarea{
+  font:inherit; font-family:ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size:.92rem; line-height:1.6;
+  padding:12px 14px; border:1px solid var(--line); border-radius:var(--radius-sm);
+  background:var(--surface-0); color:var(--ink); resize:vertical; min-height:180px;
+}
+.portal-gate textarea:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; border-color:var(--blue); }

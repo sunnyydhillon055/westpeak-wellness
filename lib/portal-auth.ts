@@ -1,54 +1,29 @@
-/* Email-based access for the client portal.
+/* Signed sign-in links and session cookies for the portal and the admin area.
  *
- * Flow: the client types their email; if it is on the allowlist they are sent a
- * one-click link; the link carries an HMAC-signed token that the server
- * verifies and exchanges for a session cookie.
+ * This module does cryptography only — it never decides who is allowed. That
+ * question needs the stored allowlist, which lives in lib/portal-store.ts and
+ * cannot be read from edge middleware, so the split is deliberate:
  *
- * Two properties worth stating plainly, because they are the reason this is
- * better than a shared code:
+ *   middleware  → is this cookie one we issued, for this area?   (no I/O)
+ *   page/route  → is this person still allowed?                  (reads store)
  *
- *   REVOCATION IS IMMEDIATE. The session cookie holds the signed email, and it
- *   is re-checked against the allowlist on every request. Remove someone from
- *   PORTAL_ALLOWED_EMAILS and their existing cookie stops working at once —
- *   there is no session to expire and no code to rotate for everyone else.
+ * Doing it the other way round would put a blob fetch in front of every request
+ * to the site. Doing only the first would leave revocation to cookie expiry.
+ * Both layers are required, and both are enforced.
  *
- *   IT DOES NOT CONFIRM WHO IS A CLIENT. The enter page returns the same
- *   "check your email" response whether or not the address is on the list. For
- *   a counselling practice that matters: an endpoint that answers "is this
- *   person a client of yours?" leaks clinical information to anyone who can
- *   type an email address.
- *
- * All crypto is Web Crypto so it runs in middleware on the edge runtime.
+ * All crypto is Web Crypto so the middleware half runs on the edge runtime.
  */
 
 export const PORTAL_COOKIE = 'wp_portal';
-const ENC = new TextEncoder();
+export const ADMIN_COOKIE = 'wp_admin';
 
-/** Trim + lowercase. Emails are case-insensitive in practice and clients will
- *  type them inconsistently; the allowlist must not care. */
+export type Scope = 'client' | 'admin';
+
+const ENC = new TextEncoder();
+const LINK_TTL_MS = 30 * 60 * 1000;
+
 export function normalizeEmail(raw: string): string {
   return raw.trim().toLowerCase();
-}
-
-export function allowedEmails(): string[] {
-  return (process.env.PORTAL_ALLOWED_EMAILS ?? '')
-    .split(/[,\s]+/)
-    .map(normalizeEmail)
-    .filter(Boolean);
-}
-
-/* Sentinel identity for the legacy shared-code path. It is not a real address
- * and is never emailed; it exists so both sign-in routes produce the same kind
- * of session. Accepted only while PORTAL_ACCESS_CODE is set, so deleting that
- * variable revokes code-based sessions on the next request, exactly as removing
- * an address revokes an email one. */
-export const SHARED_CODE_IDENTITY = 'shared-code@westpeak.invalid';
-
-export function isAllowed(email: string): boolean {
-  const e = normalizeEmail(email);
-  if (e === SHARED_CODE_IDENTITY) return Boolean(process.env.PORTAL_ACCESS_CODE);
-  const list = allowedEmails();
-  return list.length > 0 && list.includes(e);
 }
 
 async function key(secret: string): Promise<CryptoKey> {
@@ -59,13 +34,20 @@ async function key(secret: string): Promise<CryptoKey> {
 
 function b64url(bytes: ArrayBuffer | Uint8Array): string {
   const view = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes);
-  const s = btoa(String.fromCharCode(...view));
-  return s.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  return btoa(String.fromCharCode(...view))
+    .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+function unb64url(s: string): string | null {
+  try {
+    return atob(s.replace(/-/g, '+').replace(/_/g, '/'));
+  } catch {
+    return null;
+  }
 }
 
 async function sign(payload: string, secret: string): Promise<string> {
-  const sig = await crypto.subtle.sign('HMAC', await key(secret), ENC.encode(payload));
-  return b64url(sig);
+  return b64url(await crypto.subtle.sign('HMAC', await key(secret), ENC.encode(payload)));
 }
 
 /** Length-independent compare, so timing does not reveal how much matched. */
@@ -76,58 +58,59 @@ export function safeEqual(a: string, b: string): boolean {
   return diff === 0;
 }
 
-/* ---- Magic-link tokens: short-lived, single purpose -------------------- */
+/* ---- Magic-link tokens ------------------------------------------------- */
 
-const LINK_TTL_MS = 30 * 60 * 1000; // 30 minutes
-
-export async function createLoginToken(email: string, secret: string): Promise<string> {
-  const payload = `${normalizeEmail(email)}|${Date.now() + LINK_TTL_MS}`;
-  const body = b64url(ENC.encode(payload));
-  return `${body}.${await sign(payload, secret)}`;
+/* The scope sits inside the signed payload, so a link mailed to a client can
+ * never be redeemed for an admin session even if the URL is altered. */
+export async function createLoginToken(
+  email: string, secret: string, scope: Scope
+): Promise<string> {
+  const payload = `${scope}|${normalizeEmail(email)}|${Date.now() + LINK_TTL_MS}`;
+  return `${b64url(ENC.encode(payload))}.${await sign(payload, secret)}`;
 }
 
 export async function readLoginToken(
-  token: string,
-  secret: string
+  token: string, secret: string, scope: Scope
 ): Promise<string | null> {
   const [body, sig] = token.split('.');
   if (!body || !sig) return null;
-  let payload: string;
-  try {
-    payload = atob(body.replace(/-/g, '+').replace(/_/g, '/'));
-  } catch {
-    return null;
-  }
+  const payload = unb64url(body);
+  if (!payload) return null;
   if (!safeEqual(sig, await sign(payload, secret))) return null;
 
-  const [email, expiry] = payload.split('|');
+  const [tokenScope, email, expiry] = payload.split('|');
+  if (tokenScope !== scope) return null;
   if (!email || !expiry || Number(expiry) < Date.now()) return null;
   return email;
 }
 
-/* ---- Session cookie: the signed email, re-checked on every request ------ */
+/* ---- Session cookies --------------------------------------------------- */
 
-export async function createSession(email: string, secret: string): Promise<string> {
+export async function createSession(
+  email: string, secret: string, scope: Scope
+): Promise<string> {
   const e = normalizeEmail(email);
-  return `${b64url(ENC.encode(e))}.${await sign(`session:${e}`, secret)}`;
+  return `${b64url(ENC.encode(`${scope}:${e}`))}.${await sign(`session:${scope}:${e}`, secret)}`;
 }
 
-/** Returns the email if the signature holds AND the address is still allowed. */
+/** Returns the email if the cookie is one we issued for this scope. Says
+ *  nothing about whether that person is still allowed — callers must check the
+ *  allowlist (clients) or the admin list. */
 export async function readSession(
-  cookie: string | undefined,
-  secret: string
+  cookie: string | undefined, secret: string, scope: Scope
 ): Promise<string | null> {
   if (!cookie) return null;
   const [body, sig] = cookie.split('.');
   if (!body || !sig) return null;
-  let email: string;
-  try {
-    email = atob(body.replace(/-/g, '+').replace(/_/g, '/'));
-  } catch {
-    return null;
-  }
-  if (!safeEqual(sig, await sign(`session:${email}`, secret))) return null;
-  // Re-checked every request: removing someone from the list logs them out now.
-  if (!isAllowed(email)) return null;
+  const payload = unb64url(body);
+  if (!payload) return null;
+
+  const sep = payload.indexOf(':');
+  if (sep < 0) return null;
+  const cookieScope = payload.slice(0, sep);
+  const email = payload.slice(sep + 1);
+  if (cookieScope !== scope || !email) return null;
+
+  if (!safeEqual(sig, await sign(`session:${scope}:${email}`, secret))) return null;
   return email;
 }

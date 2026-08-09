@@ -1,7 +1,11 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 import { site } from '@/lib/site';
 import SchedulerEmbed from '@/components/SchedulerEmbed';
+import { readSession, PORTAL_COOKIE } from '@/lib/portal-auth';
+import { isClientAllowed } from '@/lib/portal-store';
 
 /* Gated by middleware.ts — never served without the access code, so it is kept
  * out of the index and out of the sitemap. Deliberately short: this is a place
@@ -12,7 +16,23 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function ClientPortalPage() {
+export const dynamic = 'force-dynamic';
+
+/* Second of the two gates, and the one that makes revocation immediate.
+ *
+ * Middleware proved the cookie is one we issued; it cannot read the stored
+ * allowlist from the edge runtime. So the list is checked HERE, on every
+ * render. Without this, removing someone in /admin would leave their existing
+ * session working until the cookie expired. */
+export default async function ClientPortalPage() {
+  const secret = process.env.PORTAL_SECRET;
+  const email = secret
+    ? await readSession(cookies().get(PORTAL_COOKIE)?.value, secret, 'client')
+    : null;
+  if (!email || !(await isClientAllowed(email))) {
+    redirect('/client-portal/enter?expired=1');
+  }
+
   return (
     <section className="section" style={{ paddingTop: 52 }}>
       <div className="container" style={{ maxWidth: 780 }}>

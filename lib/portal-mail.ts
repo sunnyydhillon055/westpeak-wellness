@@ -10,13 +10,17 @@ import { site } from '@/lib/site';
  * whether or not mail was sent, so a delivery failure cannot be used to probe
  * who is on the allowlist.
  */
-export async function sendLoginLink(to: string, link: string): Promise<boolean> {
+export async function sendLoginLink(
+  to: string, link: string, scope: 'client' | 'admin' = 'client'
+): Promise<boolean> {
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.PORTAL_FROM_EMAIL;
   if (!apiKey || !from) return false;
 
   const text = [
-    'Here is your sign-in link for the Westpeak Wellness client portal:',
+    scope === 'admin'
+      ? 'Here is your sign-in link for the Westpeak Wellness admin area:'
+      : 'Here is your sign-in link for the Westpeak Wellness client portal:',
     '',
     link,
     '',
@@ -36,7 +40,7 @@ export async function sendLoginLink(to: string, link: string): Promise<boolean> 
       body: JSON.stringify({
         from,
         to: [to],
-        subject: 'Your sign-in link',
+        subject: scope === 'admin' ? 'Admin sign-in link' : 'Your sign-in link',
         text,
       }),
     });

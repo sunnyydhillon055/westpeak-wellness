@@ -1,32 +1,33 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { readSession, PORTAL_COOKIE } from '@/lib/portal-auth';
+import { readSession, PORTAL_COOKIE, ADMIN_COOKIE } from '@/lib/portal-auth';
 
-/* Gate on /client-portal.
+/* First of two gates.
  *
- * Runs on the edge before the page renders, so portal markup is never sent to
- * anyone without a valid session. A client-side check on a static site would
- * ship the secret in the bundle; this does not.
+ * Runs on the edge before anything renders, and answers only "is this cookie
+ * one we issued for this area?" — a signature check, no I/O, so it adds nothing
+ * measurable to a request. Whether the person is still ALLOWED is re-checked
+ * against the stored list inside the page, which is what makes removing someone
+ * take effect on their next click.
  *
- * readSession re-checks the address against the allowlist on every request, so
- * removing someone from PORTAL_ALLOWED_EMAILS logs them out immediately rather
- * than whenever their cookie happens to expire.
- *
- * Fails CLOSED: with PORTAL_SECRET unset, nobody gets in. An unconfigured
- * deployment must not silently publish the portal.
+ * Fails CLOSED: with PORTAL_SECRET unset nobody reaches either area.
  */
 export async function middleware(req: NextRequest) {
   const secret = process.env.PORTAL_SECRET;
+  const path = req.nextUrl.pathname;
+  const isAdmin = path === '/admin';
+
   if (secret) {
-    const email = await readSession(req.cookies.get(PORTAL_COOKIE)?.value, secret);
+    const cookie = req.cookies.get(isAdmin ? ADMIN_COOKIE : PORTAL_COOKIE)?.value;
+    const email = await readSession(cookie, secret, isAdmin ? 'admin' : 'client');
     if (email) return NextResponse.next();
   }
 
-  // Rewrite, not redirect: a bookmarked URL keeps working and the client lands
+  // Rewrite, not redirect: a bookmarked URL keeps working and the person lands
   // on the sign-in form rather than an error.
   const url = req.nextUrl.clone();
-  url.pathname = '/client-portal/enter';
+  url.pathname = isAdmin ? '/admin/enter' : '/client-portal/enter';
   url.search = '';
   return NextResponse.rewrite(url);
 }
 
-export const config = { matcher: ['/client-portal'] };
+export const config = { matcher: ['/client-portal', '/admin'] };
