@@ -295,3 +295,105 @@ which categories moved and which are capped by things outside the code —
 deployment and indexing, Google Business Profile, directory listings and real
 reviews. Those are in `GO_LIVE.md`, and on a local practice they matter more
 than anything on this list.
+
+---
+
+# Visual design and performance pass — 2026-08-09
+
+## The instrument changed, and that is most of why this pass found anything
+
+Every earlier pass was made without ever seeing a rendered page: the browser
+pane in this environment never composited a frame, so `getEntriesByType('paint')`
+returned `[]`, `document.visibilityState` was permanently `hidden`, and no
+screenshot was possible. Layout could be inspected through computed styles and
+bounding boxes; paint could not be measured at all, and every performance claim
+had to be scoped to transfer size and TTFB.
+
+`playwright-core` driving the installed Chrome (`C:\Program Files\Google\Chrome\
+Application\chrome.exe`) removes both limits. It is installed in the scratchpad,
+**not** as a project dependency — it is a measuring instrument, not part of the
+site. Scripts live in the session scratchpad; recreate them as needed:
+
+| script | what it answers |
+|---|---|
+| `measure-all.mjs`   | worst unbroken prose run, LCP, CLS, overflow — all 105 pages |
+| `contrast.mjs`      | WCAG contrast against real composited backgrounds |
+| `defects.mjs`       | underlined buttons, tap targets, overflow, heading skips, unnamed links |
+| `align.mjs`         | H1 left edge vs first body H2, per page |
+| `css-coverage.mjs`  | how much of the stylesheet is exercised |
+| `prod.mjs`          | production vitals and per-type transfer weight |
+
+## Four findings worth not rediscovering
+
+**1. `ch` units were the entire cause of the site's CLS.** `ch` is the advance
+width of "0" in whatever font is currently resolved, so every `max-width` set in
+`ch` changes the instant a webfont swaps in — text rewraps and everything below
+moves. Measured: Inter's ch/em is 0.6309 against its fallback's 0.5391, a 17%
+drift. Four pages were failing Core Web Vitals (worst 0.1896); blocking the
+fonts took all of them to exactly zero. All 24 measures are now in `em`, which
+resolves against font-size and never touches glyph metrics.
+**Do not reintroduce `ch` for layout.** Use `em`; the conversion ratios are
+Fraunces 0.6620 and Inter 0.6309.
+
+**2. `next/font` emits preloads per *module*, not per element.** `app/layout.tsx`
+imports `app/fonts.ts` for the global font variables, so while the Gurmukhi face
+was declared in that same file, all 105 routes preloaded and fetched it —
+regardless of where `gurmukhi.variable` was actually applied. Applying
+`.variable` narrowly controls what the font is *used for*, not what is
+*fetched*. It now lives in `app/fonts-gurmukhi.ts`, imported only by the three
+pages that render ਪੰਜਾਬੀ. **Declaring a font beside the global ones re-broadcasts
+it to every page.**
+
+**3. Playwright reports `encodedBodySize === decodedBodySize`.** This reads as
+"nothing is compressed" and is false. Checked against the origin directly with
+curl: CSS 69,812 → 15,954 brotli (78%), JS 172,835 → 55,141 (69%). Any
+"total transfer" figure taken from Playwright resource timing here is a decoded
+size. Font numbers are unaffected — woff2 is already compressed, so for fonts
+the reported size *is* the wire size.
+
+**4. The hero ridgeline SVGs are full-width filled bands.** Each path closes with
+`v…H0…Z` running to the bottom corners, so scaling one to a fraction of the hero
+and pinning it to a side does not crop it to a corner vignette — it plants a band
+with a hard vertical cut where the fill stops. Seven variants each had a visible
+seam at its own x. They now span 100% with the height set explicitly and
+`preserveAspectRatio='none'`; the clay suns were pulled out into their own
+radial-gradient layer sized in px, because a stretched circle is an ellipse and
+that *is* perceptible where a stretched ridge is not.
+
+## Results
+
+```
+                          before        after
+worst unbroken prose run  4,094px       1,734px
+pages over 2,000px        11            0
+pages over 1,600px        22            1
+median unbroken run       ~1,169px      1,147px
+CLS worst / over 0.1      0.1896 / 4    0.0251 / 0
+LCP median / over 2,500   unmeasurable  244ms / 0
+fonts, typical page       193.8 kB      83.6 kB
+contrast failures         1             0
+thin pages (<600 words)   4             0
+tool pages <3 inbound     2             0
+hero left-edge positions  5 ad-hoc      4, tokenised
+```
+
+Zero across all 105 pages, desktop and mobile: broken links, bad anchors,
+missing H1/alt/meta, underlined buttons, text overflow, skipped heading levels,
+links without an accessible name, pages scrolling sideways at 1440 or 390.
+
+## Deliberately not done
+
+- **Trimming the CSS.** 36% is unexercised, but that is only ~5.8 kB brotli and
+  the figure includes hover/focus states never triggered, print rules, and the
+  82 pages the coverage run did not visit. The genuinely-dead subset is a
+  fraction of that and cutting it risks states that are expensive to verify.
+- **More photography.** Three photographs, each used once. Adding stock imagery
+  would work against a visual identity built on original artwork — and a
+  counselling practice showing stock photos of models is its own kind of signal.
+  Real photographs need licensing or a shoot; that is an owner decision.
+
+## Still owner-blocked
+
+`NEXT_PUBLIC_CLINIKO_URL`, `RESEND_API_KEY` + `PORTAL_FROM_EMAIL`,
+`AUTH_GOOGLE_ID`/`AUTH_GOOGLE_SECRET`, `NEXT_PUBLIC_GA_ID`, and the DNS cutover
+in `GO_LIVE.md`.
