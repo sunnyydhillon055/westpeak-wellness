@@ -1409,3 +1409,40 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
   .inline-related{ gap: 6px; margin: 32px 0 }
   .inline-related-kicker{ flex-basis: 100% }
 }
+
+/* — Reminder preferences (client portal) —
+ *
+ * Radios rather than a select: four options, and the trade-off of each is worth
+ * showing at a glance rather than one at a time behind a dropdown. Each row is a
+ * full-width label so the whole card is the target — 30px of radio button is not
+ * a reasonable thing to ask of someone on a phone. */
+.prefs-form{ margin: 18px 0 0 }
+.prefs-form fieldset{ border: 0; padding: 0; margin: 0 0 8px }
+.prefs-legend{
+  padding: 0; margin: 0 0 10px;
+  font-size: .72rem; font-weight: 600; letter-spacing: .09em; text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.prefs-option{
+  display: flex; gap: 13px; align-items: flex-start;
+  padding: 13px 16px; margin-bottom: 8px; min-height: 44px;
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  background: var(--surface-0); cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+}
+.prefs-option:hover{ border-color: var(--blue); background: var(--blue-ghost) }
+.prefs-option:has(input:checked){ border-color: var(--blue-deep); background: var(--blue-ghost) }
+.prefs-option:has(input:focus-visible){ outline: 2px solid var(--focus); outline-offset: 2px }
+.prefs-option input{ margin: 3px 0 0; flex: none; width: 18px; height: 18px; accent-color: var(--blue-deep) }
+.prefs-option > span{ display: grid; gap: 2px }
+.prefs-option strong{ font-weight: 600; color: var(--ink) }
+.prefs-hint{ font-size: .88rem; color: var(--ink-soft) }
+.prefs-option--check{ margin-top: 14px }
+.prefs-note{
+  margin: 14px 0 0; padding: 11px 15px; border-radius: var(--radius-sm);
+  background: var(--clay-ghost); border-left: 3px solid var(--clay);
+  font-size: .92rem; color: var(--ink-soft);
+}
+.prefs-note--ok{ background: var(--blue-ghost); border-left-color: var(--blue-deep) }
+.prefs-foot{ margin: 14px 0 0; font-size: .88rem; color: var(--ink-faint) }
+.prefs-form .btn{ margin-top: 16px }

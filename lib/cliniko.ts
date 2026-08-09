@@ -88,3 +88,139 @@ export async function clinikoHasPatient(email: string): Promise<boolean> {
 export function clinikoConfigured(): boolean {
   return Boolean(process.env.CLINIKO_API_KEY?.trim());
 }
+
+/* ---------------------------------------------------------------------------
+   Reminder preferences.
+
+   Cliniko sends the reminders, so Cliniko is the only place a preference can
+   actually take effect. Storing a choice on this site and leaving Cliniko
+   untouched would produce a setting that appears to work and does nothing —
+   the client picks "text me only", keeps getting emails, and learns that this
+   practice's word is unreliable on exactly the surface where it should not be.
+
+   So the portal writes through to the patient record:
+
+     reminders_communication_channels   [1]=SMS  [2]=Email  [1,2]=both  []=none
+     receives_confirmation_emails       booking confirmations, separately
+
+   `reminder_type` also exists and is writable, but Cliniko's own docs mark it
+   deprecated in favour of the channels array, so it is not used here.
+   --------------------------------------------------------------------------- */
+
+export type ReminderChannels = 'sms' | 'email' | 'both' | 'none';
+
+const TO_CLINIKO: Record<ReminderChannels, number[]> = {
+  sms: [1],
+  email: [2],
+  both: [1, 2],
+  none: [],
+};
+
+export function channelsFromCliniko(v: unknown): ReminderChannels {
+  const a = Array.isArray(v) ? v.map(Number) : [];
+  const sms = a.includes(1);
+  const email = a.includes(2);
+  if (sms && email) return 'both';
+  if (sms) return 'sms';
+  if (email) return 'email';
+  return 'none';
+}
+
+type Api = { key: string; shard: string };
+
+function api(): Api | null {
+  const key = process.env.CLINIKO_API_KEY?.trim();
+  if (!key) return null;
+  const shard = shardOf(key);
+  return shard ? { key, shard } : null;
+}
+
+function headers(key: string) {
+  return {
+    Authorization: `Basic ${btoa(`${key}:`)}`,
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    'User-Agent': userAgent(),
+  };
+}
+
+export type ReminderPrefs = {
+  channels: ReminderChannels;
+  confirmations: boolean;
+};
+
+export type PrefsResult =
+  | { status: 'unconfigured' }
+  | { status: 'not-found' }
+  | { status: 'error'; detail: string }
+  | { status: 'ok'; patientId: string; prefs: ReminderPrefs };
+
+/** Read the signed-in client's current preferences straight from Cliniko, so
+ *  the form always opens showing what is actually set rather than a local copy
+ *  that may have drifted. */
+export async function readReminderPrefs(email: string): Promise<PrefsResult> {
+  const a = api();
+  if (!a) return { status: 'unconfigured' };
+
+  const url =
+    `https://api.${a.shard}.cliniko.com/v1/patients` +
+    `?q[]=${encodeURIComponent(`email:=${email.trim().toLowerCase()}`)}&per_page=1`;
+
+  try {
+    const res = await fetch(url, { headers: headers(a.key), cache: 'no-store' });
+    if (!res.ok) return { status: 'error', detail: `HTTP ${res.status}` };
+
+    const body = (await res.json()) as { patients?: Record<string, unknown>[] };
+    const p = body.patients?.[0];
+    if (!p) return { status: 'not-found' };
+
+    return {
+      status: 'ok',
+      patientId: String(p.id),
+      prefs: {
+        channels: channelsFromCliniko(p.reminders_communication_channels),
+        confirmations: p.receives_confirmation_emails !== false,
+      },
+    };
+  } catch (e) {
+    return { status: 'error', detail: e instanceof Error ? e.message : 'request failed' };
+  }
+}
+
+/** Write the preference back. Returns what Cliniko now holds rather than what
+ *  was requested, so the UI reports the saved state and not an assumption. */
+export async function writeReminderPrefs(
+  email: string,
+  next: ReminderPrefs
+): Promise<PrefsResult> {
+  const a = api();
+  if (!a) return { status: 'unconfigured' };
+
+  const found = await readReminderPrefs(email);
+  if (found.status !== 'ok') return found;
+
+  try {
+    const res = await fetch(`https://api.${a.shard}.cliniko.com/v1/patients/${found.patientId}`, {
+      method: 'PATCH',
+      headers: headers(a.key),
+      cache: 'no-store',
+      body: JSON.stringify({
+        reminders_communication_channels: TO_CLINIKO[next.channels],
+        receives_confirmation_emails: next.confirmations,
+      }),
+    });
+    if (!res.ok) return { status: 'error', detail: `HTTP ${res.status}` };
+
+    const p = (await res.json()) as Record<string, unknown>;
+    return {
+      status: 'ok',
+      patientId: found.patientId,
+      prefs: {
+        channels: channelsFromCliniko(p.reminders_communication_channels),
+        confirmations: p.receives_confirmation_emails !== false,
+      },
+    };
+  } catch (e) {
+    return { status: 'error', detail: e instanceof Error ? e.message : 'request failed' };
+  }
+}

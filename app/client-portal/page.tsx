@@ -5,6 +5,7 @@ import { site } from '@/lib/site';
 import SchedulerEmbed from '@/components/SchedulerEmbed';
 import { auth, signOut } from '@/auth';
 import { isClientAllowed } from '@/lib/portal-store';
+import ReminderPrefs from '@/components/ReminderPrefs';
 
 /* Gated by middleware.ts — never served without the access code, so it is kept
  * out of the index and out of the sitemap. Deliberately short: this is a place
@@ -24,7 +25,11 @@ export const dynamic = 'force-dynamic';
  * allowlist from the edge runtime. So the list is checked HERE, on every
  * render. Without this, removing someone in /admin would leave their existing
  * session working until the cookie expired. */
-export default async function ClientPortalPage() {
+export default async function ClientPortalPage({
+  searchParams,
+}: {
+  searchParams?: Record<string, string | string[] | undefined>;
+}) {
   const session = await auth();
   const email = session?.user?.email ?? '';
   const role = (session?.user as { role?: string } | undefined)?.role;
@@ -63,6 +68,8 @@ export default async function ClientPortalPage() {
             </p>
           </div>
         )}
+
+        <ReminderPrefs email={email} notice={typeof searchParams?.prefs === 'string' ? searchParams.prefs : undefined} />
 
         <h2 id="cancelling" style={{ marginTop: 38 }}>Cancelling</h2>
         <ul className="checklist">
