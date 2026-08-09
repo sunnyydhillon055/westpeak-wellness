@@ -94,6 +94,8 @@
 
   --maxw:          1080px;
   --maxw-wide:     1240px;
+  --maxw-article:   880px;   /* article heroes — one value, was 860 and 880 */
+  --maxw-narrow:    720px;   /* tools and search — a form reads better narrow */
 }
 
 *{box-sizing:border-box}
@@ -116,6 +118,14 @@ img{max-width:100%;display:block}
 
 .container{max-width:var(--maxw);margin:0 auto;padding:0 24px}
 .container--wide{max-width:var(--maxw-wide)}
+/* Two narrower containers, as tokens rather than inline numbers.
+   These widths were set nine separate times as `style={{ maxWidth: N }}`, and
+   had drifted to three values — 860, 880 and 720 — so the hero's left edge
+   landed on a different x depending on which template you were reading. Ten
+   pixels is not something anyone consciously notices; a site where the same
+   block sits in a slightly different place on every page is. */
+.container--article{max-width:var(--maxw-article)}
+.container--narrow{max-width:var(--maxw-narrow)}
 .section{padding:58px 0;position:relative}
 .section--tint{background:var(--surface-3)}
 .section--ghost{background:var(--blue-ghost)}

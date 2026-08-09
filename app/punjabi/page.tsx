@@ -65,7 +65,7 @@ export default function PunjabiPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 
       <section className="hero" style={{ paddingBottom: 36 }}>
-        <div className="container">
+        <div className="container container--article">
           <p className="eyebrow" lang="en">Online across British Columbia</p>
           <h1 className="gurmukhi">ਕੁਝ ਗੱਲਾਂ ਆਪਣੀ ਭਾਸ਼ਾ ਵਿੱਚ ਹੀ ਠੀਕ ਲੱਗਦੀਆਂ ਹਨ।</h1>
           <p className="direct-answer">

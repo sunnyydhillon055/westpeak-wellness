@@ -43,7 +43,7 @@ export default function SearchPage({ searchParams }: { searchParams?: { q?: stri
       />
 
       <section className="hero" style={{ paddingBottom: 30 }}>
-        <div className="container" style={{ maxWidth: 720 }}>
+        <div className="container container--narrow">
           <p className="eyebrow">{index.length} pages</p>
           <h1>Search</h1>
           <form method="GET" action="/search" className="search-form" role="search">
@@ -58,7 +58,7 @@ export default function SearchPage({ searchParams }: { searchParams?: { q?: stri
       </section>
 
       <section className="section" style={{ paddingTop: 30 }}>
-        <div className="container" style={{ maxWidth: 720 }}>
+        <div className="container container--narrow">
           <p className="crumb"><Link href="/">Home</Link> / Search</p>
 
           {!q && (

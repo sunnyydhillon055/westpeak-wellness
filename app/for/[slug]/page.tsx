@@ -100,7 +100,7 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
   return (
     <>
       <section className="hero" style={{ paddingBottom: 44 }}>
-        <div className="container" style={{ maxWidth: 860 }}>
+        <div className="container container--article">
           <p className="eyebrow">{a.eyebrow}</p>
           <h1 style={{ maxWidth: '13.24em' }}>{a.title}</h1>
           <p className="lede">{a.lede}</p>

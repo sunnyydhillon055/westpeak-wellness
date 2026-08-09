@@ -57,7 +57,7 @@ export default function GlossaryPage() {
   return (
     <>
       <section className="hero" style={{ paddingBottom: 40 }}>
-        <div className="container" style={{ maxWidth: 880 }}>
+        <div className="container container--article">
           <p className="eyebrow">Reference · {glossary.length} terms</p>
           <h1 style={{ maxWidth: '13.24em' }}>Counselling terms, defined plainly</h1>
           <p className="lede">

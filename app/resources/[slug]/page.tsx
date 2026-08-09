@@ -97,7 +97,7 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
   return (
     <>
       <section className="hero" style={{ paddingBottom: 44 }}>
-        <div className="container" style={{ maxWidth: 880 }}>
+        <div className="container container--article">
           <p className="eyebrow">{r.eyebrow}</p>
           <h1 style={{ maxWidth: '14.56em' }}>{r.title}</h1>
           <p className="lede">{r.lede}</p>

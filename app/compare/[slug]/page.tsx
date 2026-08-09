@@ -97,7 +97,7 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
   return (
     <>
       <section className="hero" style={{ paddingBottom: 44 }}>
-        <div className="container" style={{ maxWidth: 880 }}>
+        <div className="container container--article">
           <p className="eyebrow">{c.eyebrow}</p>
           <h1 style={{ maxWidth: '15.89em' }}>{c.title}</h1>
           <p className="lede">{c.lede}</p>

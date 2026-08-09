@@ -75,7 +75,7 @@ export default function PolicyPage({ doc }: { doc: Policy }) {
   return (
     <>
       <section className="hero" style={{ paddingBottom: 44 }}>
-        <div className="container" style={{ maxWidth: 860 }}>
+        <div className="container container--article">
           <p className="eyebrow">{doc.eyebrow}</p>
           <h1 style={{ maxWidth: '13.24em' }}>{doc.title}</h1>
           <p className="lede">{doc.lede}</p>

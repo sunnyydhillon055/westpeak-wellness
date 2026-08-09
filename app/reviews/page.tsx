@@ -82,7 +82,7 @@ export default function ReviewsPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 
       <section className="hero" style={{ paddingBottom: 36 }}>
-        <div className="container">
+        <div className="container container--article">
           <p className="eyebrow">Trust</p>
           <h1>Reviews and references</h1>
           <p className="direct-answer">

@@ -103,7 +103,7 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
   return (
     <>
       <section className="hero" style={{ paddingBottom: 44 }}>
-        <div className="container" style={{ maxWidth: 860 }}>
+        <div className="container container--article">
           <p className="eyebrow">{g.eyebrow}</p>
           <h1 style={{ maxWidth: '14.56em' }}>{g.title}</h1>
           <p className="lede">{g.lede}</p>

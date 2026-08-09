@@ -57,7 +57,7 @@ export default function ToolShell({
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 
       <section className="hero" style={{ paddingBottom: 34 }}>
-        <div className="container" style={{ maxWidth: 720 }}>
+        <div className="container container--narrow">
           <p className="eyebrow">Free tool · about {tool.minutes} minutes</p>
           <h1>{tool.title}</h1>
           <p className="direct-answer">{intro}</p>
@@ -65,7 +65,7 @@ export default function ToolShell({
       </section>
 
       <section className="section" style={{ paddingTop: 34 }}>
-        <div className="container" style={{ maxWidth: 720 }}>
+        <div className="container container--narrow">
           <p className="crumb">
             <Link href="/">Home</Link> / <Link href="/tools">Tools</Link> / {tool.title}
           </p>
@@ -89,7 +89,7 @@ export default function ToolShell({
 
       {tool.related && tool.related.length > 0 && (
         <section className="section section--tint">
-          <div className="container" style={{ maxWidth: 720 }}>
+          <div className="container container--narrow">
             <p className="eyebrow">Keep reading</p>
             <h2>If you want the longer version</h2>
             <div className="chip-grid" style={{ marginTop: 20 }}>
