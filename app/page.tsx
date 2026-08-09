@@ -82,14 +82,14 @@ export default function Home() {
               <p className="eyebrow">Westpeak Wellness · Online across BC</p>
               <h1>Counselling that meets you where you are.</h1>
               <p className="lede">
-                Registered Clinical Counsellor offering EMDR, trauma, anxiety, depression, and couples
-                therapy in English or Punjabi — fully online, anywhere in British Columbia.
+                Registered Clinical Counsellor offering EMDR, trauma, anxiety, depression and
+                couples therapy — fully online, anywhere in British Columbia.
               </p>
               <div className="btn-row" style={{ marginTop: 30 }}>
                 <Link className="btn btn--primary" href={site.bookingPath}>Book a Free 15-min Consultation</Link>
                 <Link className="btn btn--ghost" href="/services">See counselling services</Link>
               </div>
-              <p className="hero-note">Free 15-minute consult · Evenings by request · {site.languagesNative}</p>
+              <p className="hero-note">Free 15-minute consult · Evening &amp; weekend times · No referral needed</p>
               <TrustBar />
             </div>
 
@@ -148,28 +148,29 @@ export default function Home() {
 
       {/* -------------------------------------------------- SIGNATURE MOMENT */}
       <section className="signature">
-        <span className="signature-script" aria-hidden="true">ਪੰਜਾਬੀ</span>
+        <span className="signature-script" aria-hidden="true">ਸੰਦਰਭ</span>
         <div className="container container--wide">
           <div className="signature-inner">
             <div>
-              <p className="eyebrow">English · ਪੰਜਾਬੀ</p>
-              <h2>You don&rsquo;t have to translate yourself.</h2>
+              <p className="eyebrow">Cultural context</p>
+              <h2>You shouldn&rsquo;t have to explain the background first.</h2>
               <p>
-                Therapy in English or Punjabi, with deep cultural competency for the South Asian
-                community — including a Master&rsquo;s thesis on intergenerational trauma in the
-                South Asian community.
+                Deep cultural competency for the South Asian community, including a
+                Master&rsquo;s thesis on intergenerational trauma. Family expectations,
+                &ldquo;log kya kahenge,&rdquo; generational silence — talk about it without
+                spending the first session setting the scene.
               </p>
               <p>
-                Family expectations, &ldquo;log kya kahenge,&rdquo; generational silence — talk about it
-                without over-explaining.
+                Sessions are available in Punjabi as well as English, if that makes it easier
+                to say.
               </p>
-              <Link className="btn btn--ghost" href="/services/punjabi-counselling" style={{ marginTop: 8 }}>
-                Punjabi-speaking therapy →
+              <Link className="btn btn--ghost" href="/services/south-asian-mental-health" style={{ marginTop: 8 }}>
+                Counselling for South Asian adults →
               </Link>
             </div>
             <div className="signature-quote">
               <blockquote>
-                Some things only land in your first language.
+                Some things take a long time to explain, and shouldn&rsquo;t.
                 <cite>— Westpeak Wellness</cite>
               </blockquote>
               <Motif variant="arc" className="signature-arc" />

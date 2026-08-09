@@ -8,7 +8,7 @@ import { Mail, MonitorSmartphone, Clock, MapPin, Languages as LangIcon, AtSign }
 export const metadata: Metadata = {
   title: 'Contact & Book',
   description:
-    'Get in touch with Westpeak Wellness. Book a free 15-minute consultation for online counselling anywhere in BC. Sessions in English or Punjabi.',
+    'Get in touch with Westpeak Wellness. Book a free 15-minute consultation for online counselling anywhere in BC.',
   alternates: { canonical: `${site.domain}/contact` },
 };
 

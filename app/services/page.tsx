@@ -9,7 +9,7 @@ import { getServiceIcon } from '@/lib/icon-map';
 export const metadata: Metadata = {
   title: 'Counselling Services (Online, BC-wide)',
   description:
-    'Online counselling across BC: individual, couples, EMDR, trauma, anxiety, depression, and Punjabi-speaking therapy. Book a free consultation.',
+    'Online counselling across BC: individual and couples therapy, EMDR, trauma, anxiety and depression. Book a free consultation.',
   alternates: { canonical: `${site.domain}/services` },
 };
 

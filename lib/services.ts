@@ -28,7 +28,7 @@ export const services: Service[] = [
   {
     slug: "individual-therapy",
     directAnswer:
-      "Individual therapy at Westpeak Wellness is one-to-one counselling delivered by secure video anywhere in British Columbia, provided by a Registered Clinical Counsellor (MA, RCC) registered with the BC Association of Clinical Counsellors. Sessions run 50 minutes, weekly or fortnightly, in English or Punjabi. It suits anxiety, low mood, burnout, self-criticism, life transitions and long-standing patterns that have stopped responding to the obvious fixes. A free 15-minute consultation comes first, and there is no referral, diagnosis or waitlist required.",
+      "Individual therapy at Westpeak Wellness is one-to-one counselling delivered by secure video anywhere in British Columbia, provided by a Registered Clinical Counsellor (MA, RCC) registered with the BC Association of Clinical Counsellors. Sessions run 50 minutes, weekly or fortnightly. It suits anxiety, low mood, burnout, self-criticism, life transitions and long-standing patterns that have stopped responding to the obvious fixes. A free 15-minute consultation comes first, and there is no referral, diagnosis or waitlist required.",
     figure2: "bc-reach",
     figure: "first-session-flow",
     name: "Individual Therapy",
@@ -94,7 +94,7 @@ export const services: Service[] = [
   {
     slug: "couples-therapy",
     directAnswer:
-      "Couples therapy at Westpeak Wellness is Gottman Method-informed relationship counselling delivered by secure video across British Columbia, provided by a Registered Clinical Counsellor (MA, RCC). The work begins with a structured assessment — a joint session, an individual session with each partner, then an agreed treatment plan — rather than with advice. It addresses recurring conflict, drifting apart, rebuilding after a breach of trust, and deciding whether to continue. Sessions are available in English or Punjabi, and separating well is treated as a legitimate outcome rather than a failure.",
+      "Couples therapy at Westpeak Wellness is Gottman Method-informed relationship counselling delivered by secure video across British Columbia, provided by a Registered Clinical Counsellor (MA, RCC). The work begins with a structured assessment — a joint session, an individual session with each partner, then an agreed treatment plan — rather than with advice. It addresses recurring conflict, drifting apart, rebuilding after a breach of trust, and deciding whether to continue. Separating well is treated as a legitimate outcome rather than a failure.",
     figure2: "first-session-flow",
     figure: "gottman-method",
     name: "Couples Therapy",
@@ -225,8 +225,9 @@ export const services: Service[] = [
   },
   {
     slug: "trauma-therapy",
+    featured: true,
     directAnswer:
-      "Trauma therapy at Westpeak Wellness is paced, trauma-informed counselling delivered by secure video across British Columbia by a Registered Clinical Counsellor (MA, RCC) trained in EMDR. The work is sequenced: capacity and regulation are built first, and memory is only approached once you can feel something and still think about it. It addresses single-incident trauma, complex and repeated trauma, and intergenerational patterns. Sessions run in English or Punjabi.",
+      "Trauma therapy at Westpeak Wellness is paced, trauma-informed counselling delivered by secure video across British Columbia by a Registered Clinical Counsellor (MA, RCC) trained in EMDR. The work is sequenced: capacity and regulation are built first, and memory is only approached once you can feel something and still think about it. It addresses single-incident trauma, complex and repeated trauma, and intergenerational patterns.",
     figure2: "first-session-flow",
     figure: "window-of-tolerance",
     name: "Trauma Therapy",
@@ -290,8 +291,9 @@ export const services: Service[] = [
   },
   {
     slug: "anxiety-counselling",
+    featured: true,
     directAnswer:
-      "Anxiety counselling at Westpeak Wellness uses structured cognitive behavioural approaches, delivered by secure video across British Columbia by a Registered Clinical Counsellor (MA, RCC). It targets the mechanisms that keep anxiety running — avoidance, safety behaviours and reassurance-seeking — rather than the content of any individual worry. It suits panic, social anxiety, generalised anxiety, health anxiety and the high-functioning version that presents as capability. Sessions are 50 minutes, in English or Punjabi.",
+      "Anxiety counselling at Westpeak Wellness uses structured cognitive behavioural approaches, delivered by secure video across British Columbia by a Registered Clinical Counsellor (MA, RCC). It targets the mechanisms that keep anxiety running — avoidance, safety behaviours and reassurance-seeking — rather than the content of any individual worry. It suits panic, social anxiety, generalised anxiety, health anxiety and the high-functioning version that presents as capability. Sessions are 50 minutes.",
     figure2: "first-session-flow",
     figure: "anxiety-avoidance-cycle",
     name: "Anxiety Counselling",
@@ -355,6 +357,7 @@ export const services: Service[] = [
   },
   {
     slug: "depression-counselling",
+    featured: true,
     directAnswer:
       "Depression counselling at Westpeak Wellness combines behavioural activation with cognitive work, delivered by secure video across British Columbia by a Registered Clinical Counsellor (MA, RCC). Because low mood removes motivation before it removes activity, the work schedules activity in advance rather than waiting for the desire to return. A counsellor does not diagnose or prescribe: where medication is part of the picture, the work runs alongside your physician or psychiatrist rather than instead of them.",
     figure2: "first-session-flow",
@@ -441,7 +444,6 @@ export const services: Service[] = [
     ],
     approach:
       "The practice is led by a Registered Clinical Counsellor whose Master's thesis focused on intergenerational trauma in the South Asian community. The work is culturally grounded from the start — you won't have to justify your context to be understood.",
-    featured: true,
     whatItIs: {
       h2: "Why first language matters even when your English is fluent",
       body: [
@@ -552,7 +554,7 @@ export const services: Service[] = [
   {
     slug: "online-counselling-bc",
     directAnswer:
-      "Westpeak Wellness is a fully virtual counselling practice serving all of British Columbia by secure video, with no office and no catchment area. A Registered Clinical Counsellor (MA, RCC) registered in BC can work with clients anywhere in the province under the same ethical, legal and privacy standards that apply in person. Research consistently finds video-delivered therapy produces outcomes broadly comparable to in-person work for the concerns most people bring. Sessions are 50 minutes, in English or Punjabi, with evening slots by request.",
+      "Westpeak Wellness is a fully virtual counselling practice serving all of British Columbia by secure video, with no office and no catchment area. A Registered Clinical Counsellor (MA, RCC) registered in BC can work with clients anywhere in the province under the same ethical, legal and privacy standards that apply in person. Research consistently finds video-delivered therapy produces outcomes broadly comparable to in-person work for the concerns most people bring. Sessions are 50 minutes, with evening slots by request.",
     figure2: "first-session-flow",
     figure: "bc-reach",
     name: "Online Counselling BC",

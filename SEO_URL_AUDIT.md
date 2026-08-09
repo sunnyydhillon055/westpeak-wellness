@@ -26,7 +26,7 @@ Clean pages: **99 / 99**
 
 | URL | Score | Words | Imgs | Out | In | Issues |
 |---|--:|--:|--:|--:|--:|---|
-| `/` | 13/13 | 1152 | 2 | 38 | 98 | — |
+| `/` | 13/13 | 1191 | 2 | 41 | 98 | — |
 | `/about` | 13/13 | 1334 | 1 | 17 | 8 | — |
 | `/accessibility` | 13/13 | 1175 | 1 | 9 | 3 | — |
 | `/approaches` | 13/13 | 638 | 1 | 13 | 9 | — |
@@ -97,12 +97,12 @@ Clean pages: **99 / 99**
 | `/guides/when-therapy-isnt-working` | 13/13 | 2201 | 2 | 13 | 12 | — |
 | `/guides/workplace-bullying-in-bc` | 13/13 | 1298 | 2 | 14 | 6 | — |
 | `/online-counselling` | 13/13 | 880 | 2 | 16 | 12 | — |
-| `/online-counselling/abbotsford` | 13/13 | 915 | 2 | 17 | 6 | — |
-| `/online-counselling/kelowna` | 13/13 | 941 | 2 | 17 | 8 | — |
-| `/online-counselling/prince-george` | 13/13 | 1102 | 2 | 18 | 11 | — |
-| `/online-counselling/surrey` | 13/13 | 1010 | 2 | 17 | 7 | — |
-| `/online-counselling/vancouver` | 13/13 | 973 | 2 | 20 | 7 | — |
-| `/online-counselling/victoria` | 13/13 | 917 | 2 | 19 | 6 | — |
+| `/online-counselling/abbotsford` | 13/13 | 944 | 2 | 19 | 6 | — |
+| `/online-counselling/kelowna` | 13/13 | 970 | 2 | 19 | 8 | — |
+| `/online-counselling/prince-george` | 13/13 | 1133 | 2 | 20 | 11 | — |
+| `/online-counselling/surrey` | 13/13 | 1039 | 2 | 20 | 7 | — |
+| `/online-counselling/vancouver` | 13/13 | 984 | 2 | 22 | 7 | — |
+| `/online-counselling/victoria` | 13/13 | 946 | 2 | 22 | 6 | — |
 | `/pricing` | 13/13 | 797 | 1 | 15 | 37 | — |
 | `/privacy` | 13/13 | 1479 | 1 | 8 | 8 | — |
 | `/resources` | 13/13 | 779 | 1 | 13 | 9 | — |
@@ -115,13 +115,13 @@ Clean pages: **99 / 99**
 | `/resources/verify-a-counsellor-in-bc` | 13/13 | 1761 | 2 | 14 | 12 | — |
 | `/resources/workplace-mental-health-bc` | 13/13 | 1970 | 2 | 13 | 13 | — |
 | `/services` | 13/13 | 874 | 1 | 23 | 22 | — |
-| `/services/anxiety-counselling` | 13/13 | 1628 | 2 | 15 | 30 | — |
-| `/services/couples-therapy` | 13/13 | 1645 | 2 | 14 | 31 | — |
-| `/services/depression-counselling` | 13/13 | 1612 | 2 | 16 | 20 | — |
-| `/services/emdr-therapy` | 13/13 | 1672 | 2 | 15 | 31 | — |
-| `/services/individual-therapy` | 13/13 | 1666 | 2 | 14 | 29 | — |
-| `/services/online-counselling-bc` | 13/13 | 1729 | 2 | 18 | 9 | — |
-| `/services/punjabi-counselling` | 13/13 | 1696 | 2 | 16 | 26 | — |
-| `/services/south-asian-mental-health` | 13/13 | 1639 | 2 | 14 | 10 | — |
-| `/services/trauma-therapy` | 13/13 | 1610 | 2 | 16 | 27 | — |
+| `/services/anxiety-counselling` | 13/13 | 1625 | 2 | 15 | 37 | — |
+| `/services/couples-therapy` | 13/13 | 1638 | 2 | 14 | 31 | — |
+| `/services/depression-counselling` | 13/13 | 1613 | 2 | 16 | 27 | — |
+| `/services/emdr-therapy` | 13/13 | 1673 | 2 | 15 | 31 | — |
+| `/services/individual-therapy` | 13/13 | 1663 | 2 | 14 | 29 | — |
+| `/services/online-counselling-bc` | 13/13 | 1726 | 2 | 18 | 9 | — |
+| `/services/punjabi-counselling` | 13/13 | 1697 | 2 | 16 | 22 | — |
+| `/services/south-asian-mental-health` | 13/13 | 1640 | 2 | 14 | 11 | — |
+| `/services/trauma-therapy` | 13/13 | 1605 | 2 | 16 | 33 | — |
 | `/standards` | 13/13 | 1661 | 1 | 9 | 76 | — |

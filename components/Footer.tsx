@@ -25,12 +25,10 @@ export default function Footer() {
               </div>
               <p className="footer-blurb">
                 Online counselling across British Columbia with a {site.counsellor.title}.
-                Therapy in {site.languages}.
               </p>
               <ul className="footer-facts">
                 <li><Credential aria-hidden="true" strokeWidth={1.7} /><span>{site.counsellor.credentials} · BCACC registered</span></li>
                 <li><Region aria-hidden="true" strokeWidth={1.7} /><span>{site.serviceArea}</span></li>
-                <li><Langs aria-hidden="true" strokeWidth={1.7} /><span>{site.languagesNative}</span></li>
                 <li><Hours aria-hidden="true" strokeWidth={1.7} /><span>{site.hours}</span></li>
               </ul>
               <div className="footer-social">
