@@ -87,6 +87,10 @@ export default function Footer() {
             <Link href="/editorial-policy">Editorial policy</Link>
             <Link href="/privacy">Privacy &amp; confidentiality</Link>
             <Link href="/accessibility">Accessibility</Link>
+            {/* Staff entrance. Discreet by placement rather than by secrecy —
+              * the gate is a signed session, so a visible link costs nothing.
+              * nofollow because there is nothing here for a crawler to index. */}
+            <Link href="/admin" rel="nofollow" className="footer-admin">Admin</Link>
           </nav>
 
           <div className="footer-bottom">

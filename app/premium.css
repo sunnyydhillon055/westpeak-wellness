@@ -1121,3 +1121,9 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   background:var(--surface-0); color:var(--ink); resize:vertical; min-height:180px;
 }
 .portal-gate textarea:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; border-color:var(--blue); }
+
+/* Staff entrance in the footer's policy row — present but not competing with
+   anything a client came for. */
+.footer-admin{ margin-left:auto; opacity:.72; }
+.footer-admin:hover{ opacity:1; }
+@media (max-width:560px){ .footer-admin{ margin-left:0; } }
