@@ -23,7 +23,9 @@ export const metadata: Metadata = {
   applicationName: site.name,
   publisher: site.name,
   category: 'Health',
-  formatDetection: { telephone: false, address: false, email: false },
+  /* telephone detection is deliberately left ON: the crisis numbers are the
+   * most important tappable things on this site from a phone. */
+  formatDetection: { address: false, email: false },
   openGraph: {
     type: 'website', locale: 'en_CA', url: site.domain, siteName: site.name,
     title: 'Online Counselling in BC | Westpeak Wellness',

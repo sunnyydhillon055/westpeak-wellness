@@ -659,3 +659,10 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   border: 1px solid var(--line); background: var(--surface-0); box-shadow: var(--shadow-md);
 }
 .contact-banner img{ width: 100%; height: auto; display: block }
+
+
+/* Crisis numbers must read and behave as links — they are the most important
+   tappable elements on the site from a phone. */
+.crisis a, .footer-crisis a[href^="tel:"]{ text-decoration: underline; text-underline-offset: 3px }
+.footer-crisis a[href^="tel:"]{ color: #e8bfa4 }
+.footer-crisis a[href^="tel:"]:hover{ color: #fff }

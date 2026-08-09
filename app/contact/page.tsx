@@ -102,8 +102,9 @@ export default function Contact() {
           <div className="crisis" style={{ marginTop: 24 }}>
             <p style={{ margin: 0 }}>
               <strong>If you&rsquo;re in crisis:</strong> Westpeak Wellness is not a crisis service. Call or text{' '}
-              <strong>9-8-8</strong> (Canada, 24/7) or BC Mental Health at <strong>310-6789</strong>.
-              In immediate danger, call <strong>911</strong>.
+              <a href="tel:988"><strong>9-8-8</strong></a> (Canada, 24/7) or BC Mental Health at{' '}
+              <a href="tel:3106789"><strong>310-6789</strong></a>.
+              In immediate danger, call <a href="tel:911"><strong>911</strong></a>.
             </p>
           </div>
         </div>

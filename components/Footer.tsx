@@ -80,8 +80,10 @@ export default function Footer() {
             <LifeBuoy aria-hidden="true" strokeWidth={1.7} />
             <p>
               <strong>Not a crisis service.</strong> If you are in crisis, call or text{' '}
-              <strong>9-8-8</strong> (Canada, 24/7), or <strong>310-6789</strong> for BC Mental
-              Health Support. In immediate danger, call <strong>9-1-1</strong>.{' '}
+              <a href="tel:988"><strong>9-8-8</strong></a> (Canada, 24/7), or{' '}
+              <a href="tel:3106789"><strong>310-6789</strong></a> for BC Mental
+              Health Support. In immediate danger, call{' '}
+              <a href="tel:911"><strong>9-1-1</strong></a>.{' '}
               <Link href="/resources/bc-crisis-and-support-directory">Full BC directory →</Link>
             </p>
           </div>
