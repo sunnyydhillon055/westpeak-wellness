@@ -11,19 +11,40 @@ below.
 
 ## 1. Add the domain in Vercel
 
-Vercel → project **westpeak-wellness** → **Settings → Domains → Add**:
+Vercel → project **westpeak-wellness** → **Settings → Domains → Add**.
+
+Enter **the apex only**:
 
 ```
 westpeakwellness.com
-www.westpeakwellness.com
 ```
 
-Vercel will show the exact records. They will be these:
+Leave **"Redirect apex domains to www"** ticked and the environment on
+**Production**. That one row creates both hostnames — www serving the site, the
+apex issuing a 308 to it — which matches the canonical the site already
+declares.
+
+Entering the www variant as a second row is rejected with *"Domain overlaps
+another row after adding apex and www variants"*, because the checkbox has
+already expanded the first row into both.
+
+## The records Vercel then asks for
+
+Read off the dashboard on 2026-08-09:
 
 | Type | Name | Value |
 |---|---|---|
-| `A` | `@` | `76.76.21.21` |
-| `CNAME` | `www` | `cname.vercel-dns.com` |
+| `A` | `@` | `216.198.79.1` |
+| `CNAME` | `www` | `c0e48c17f8afdeb8.vercel-dns-017.com.` |
+
+**The CNAME value is project-specific.** It is not the generic
+`cname.vercel-dns.com` this file used to name — that is Vercel's legacy record.
+Both still resolve, but take the values from your own dashboard rather than from
+here, because the per-project host is what Vercel now issues and this file will
+age.
+
+Keep the trailing dot on the CNAME. Google Cloud DNS requires it; some panels
+add it silently.
 
 ## 2. Set those records where the DNS actually lives
 
