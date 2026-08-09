@@ -45,26 +45,31 @@ export default async function ClientPortalPage({
         <p className="eyebrow">Current clients</p>
         <h1 style={{ fontSize: 'var(--fs-h2)' }}>Client portal</h1>
         <p className="lede" style={{ fontSize: '1.02rem', marginBottom: 34 }}>
-          Book a session and pay in one step. Live availability comes from the booking
-          calendar below. Sessions are paid when booked, and cancelling is free up to{' '}
-          {site.cancellationHours} hours before.
+          {site.paidBookingReady
+            ? 'Book a session and pay in one step. Live availability comes from the booking calendar below.'
+            : 'Book any session below — live availability comes straight from the practice calendar.'}{' '}
+          Cancelling is free up to {site.cancellationHours} hours before.
         </p>
 
-        <h2 id="book" style={{ marginTop: 38 }}>Book and pay</h2>
-        {/* paidBookingReady, not bookingReady: this page books paid sessions and
-            the site promises the card is taken at booking. See lib/site.ts. */}
-        {site.paidBookingReady ? (
-          <SchedulerEmbed url={site.bookingsUrl} title="Book a session" />
-        ) : (
-          <div className="crisis">
-            {/* Deliberately does not promise a payment link. Cliniko's card
-                payments run entirely through Stripe, so until that is connected
-                there is no link to send — and this page is read by people
-                deciding whether to trust the practice with money. */}
+        <h2 id="book" style={{ marginTop: 38 }}>
+          {site.paidBookingReady ? 'Book and pay' : 'Book a session'}
+        </h2>
+
+        {/* The full range of sessions, which is why this page is behind sign-in.
+            The public /book page is filtered to the free consultation only. */}
+        <SchedulerEmbed url={site.bookingsPaidUrl} title="Book a session" />
+
+        {/* Payment wording tracks reality rather than intent. Until Stripe is
+            connected Cliniko cannot take a card at all, so promising payment at
+            booking here would be false to the people most entitled to expect it
+            to be true. Flips automatically with NEXT_PUBLIC_CLINIKO_PAID=1. */}
+        {!site.paidBookingReady && (
+          <div className="crisis" style={{ marginTop: 18 }}>
             <p style={{ margin: 0 }}>
-              The booking calendar is being switched on. Until it is, email{' '}
-              <a href={`mailto:${site.email}`}>{site.email}</a> with a couple of times that suit
-              you. Your session will be confirmed by reply, along with how to pay for it.
+              <strong>Paying for these sessions.</strong> Card payment at the moment of booking
+              is being switched on. Until it is, booking here holds the time and an invoice
+              follows &mdash; the fee is settled before the session as usual, and your receipt
+              carries the RCC registration number for your extended health plan.
             </p>
           </div>
         )}

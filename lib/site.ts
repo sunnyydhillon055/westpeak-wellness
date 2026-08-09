@@ -20,6 +20,28 @@ const CLINIKO_BOOKINGS = (
   process.env.NEXT_PUBLIC_CLINIKO_URL || 'https://westpeak-wellness.ca1.cliniko.com/bookings'
 ).replace(/\/+$/, '');
 
+/* Cliniko appointment type IDs, each verified by loading its own filtered
+ * booking URL and reading back the service name, price and duration — the DOM
+ * order on the unfiltered page is not a safe thing to infer a mapping from, and
+ * getting one wrong would put the wrong service on the wrong page.
+ *
+ *   2013349744314681520  Initial Consultation      $0     15 min
+ *   1466854657459489533  Individual Counselling  $140     50 min
+ *   1909558292636502700  Couples Counselling     $170     50 min
+ *   2013350310713493681  Couples Extended        $340    110 min
+ *   2013356655093221554  EMDR Intensive          $225     90 min
+ *
+ * `?appointment_type_id=` takes a comma-separated list and restricts the page to
+ * exactly those services. It is what lets the public page offer the free
+ * consultation and nothing else. */
+const CONSULT_TYPE = '2013349744314681520';
+const PAID_TYPES = [
+  '1466854657459489533',
+  '1909558292636502700',
+  '2013350310713493681',
+  '2013356655093221554',
+].join(',');
+
 export const site = {
   name: "Westpeak Wellness",
   legalName: "Westpeak Wellness Counselling",
@@ -63,8 +85,19 @@ export const site = {
    * development, needs no Vercel configuration, and cannot be silently lost by
    * a project being recreated. NEXT_PUBLIC_CLINIKO_URL still overrides it if the
    * account is ever moved. */
-  bookingsUrl: CLINIKO_BOOKINGS,
-  bookingsFallbackUrl: CLINIKO_BOOKINGS,
+  /* Two filtered calendars, because the two pages serve different people.
+   *
+   * /book is public. It offers the free consultation and nothing else — an
+   * unfiltered calendar there let a stranger book a $340 extended session with
+   * no card taken, since Stripe is not connected yet. Filtering closes that
+   * without needing Stripe first.
+   *
+   * /client-portal is behind sign-in and only reachable by current clients, who
+   * already have a relationship and an invoicing arrangement. That is where the
+   * paid work belongs. */
+  bookingsUrl: `${CLINIKO_BOOKINGS}?appointment_type_id=${CONSULT_TYPE}`,
+  bookingsPaidUrl: `${CLINIKO_BOOKINGS}?appointment_type_id=${PAID_TYPES}`,
+  bookingsFallbackUrl: `${CLINIKO_BOOKINGS}?appointment_type_id=${CONSULT_TYPE}`,
   bookingPath: "/book",
   portalPath: "/client-portal",
   /* Two gates, not one, because the two pages promise different things.
