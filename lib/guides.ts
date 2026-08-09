@@ -588,6 +588,7 @@ const coreGuides: Guide[] = [
       { href: "/guides/high-functioning-anxiety", label: "High-functioning anxiety" },
       { href: "/for/healthcare-and-shift-workers", label: "Counselling for healthcare and shift workers" },
       { href: "/services/anxiety-counselling", label: "Anxiety counselling" },
+      { href: "/tools/stress-check", label: "A reflection on how things have been" },
     ],
   },
 
@@ -751,6 +752,7 @@ const coreGuides: Guide[] = [
       { href: "/resources/low-cost-counselling-bc", label: "Free and low-cost counselling in BC" },
       { href: "/guides/what-to-expect-first-therapy-session", label: "What to expect in a first session" },
       { href: "/pricing", label: "Fees and coverage" },
+      { href: "/tools/which-service", label: "Which kind of counselling fits?" },
     ],
   },
 ];

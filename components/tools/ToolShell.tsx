@@ -41,7 +41,16 @@ export default function ToolShell({
         { '@type': 'ListItem', position: 3, name: tool.title, item: abs(`/tools/${tool.slug}`) },
       ],
     },
-  ];
+    tool.faqs?.length && {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: tool.faqs.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ].filter(Boolean);
 
   return (
     <>
@@ -61,8 +70,36 @@ export default function ToolShell({
             <Link href="/">Home</Link> / <Link href="/tools">Tools</Link> / {tool.title}
           </p>
           {children}
+
+          {tool.faqs && tool.faqs.length > 0 && (
+            <div className="prose tool-prose" style={{ marginTop: 8 }}>
+              <h2 id="common-questions">Common questions</h2>
+              <div style={{ marginTop: 8 }}>
+                {tool.faqs.map((f) => (
+                  <details className="faq-item" key={f.q}>
+                    <summary>{f.q}</summary>
+                    <p>{f.a}</p>
+                  </details>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </section>
+
+      {tool.related && tool.related.length > 0 && (
+        <section className="section section--tint">
+          <div className="container" style={{ maxWidth: 720 }}>
+            <p className="eyebrow">Keep reading</p>
+            <h2>If you want the longer version</h2>
+            <div className="chip-grid" style={{ marginTop: 20 }}>
+              {tool.related.map((r) => (
+                <Link className="chip" key={r.href} href={r.href}>{r.label}</Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </>
   );
 }

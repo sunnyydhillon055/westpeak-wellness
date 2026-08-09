@@ -120,6 +120,7 @@ const coreComparisons: Comparison[] = [
       { href: "/pricing", label: "Fees and extended health coverage" },
       { href: "/services", label: "Counselling services offered across BC" },
       { href: "/faq", label: "Frequently asked questions about starting therapy" },
+      { href: "/tools/therapy-cost-bc", label: "Work out what it costs after coverage" },
     ],
   },
   {
@@ -209,6 +210,7 @@ const coreComparisons: Comparison[] = [
       { href: "/services/individual-therapy", label: "Individual therapy across BC" },
       { href: "/guides/how-the-gottman-method-works", label: "How the Gottman Method works" },
       { href: "/for/new-parents", label: "Counselling for new parents" },
+      { href: "/tools/which-service", label: "Which kind of counselling fits?" },
     ],
   },
 
@@ -289,6 +291,7 @@ const coreComparisons: Comparison[] = [
       { href: "/guides/what-is-emdr-and-how-a-session-works", label: "What is EMDR and how a session works" },
       { href: "/services/trauma-therapy", label: "Trauma therapy and trauma-informed care" },
       { href: "/guides/intergenerational-trauma-explained", label: "Intergenerational trauma explained" },
+      { href: "/tools/which-service", label: "Which kind of counselling fits?" },
     ],
   },
 ];

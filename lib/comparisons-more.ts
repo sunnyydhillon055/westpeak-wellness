@@ -306,6 +306,7 @@ export const moreComparisons: Comparison[] = [
       { href: '/guides/waiting-for-therapy-in-bc', label: 'Waiting for therapy in BC' },
       { href: '/pricing', label: 'Fees and insurance' },
       { href: '/book', label: 'Book a free consultation' },
+      { href: "/tools/therapy-cost-bc", label: "Work out what it costs after coverage" },
     ],
   },
 

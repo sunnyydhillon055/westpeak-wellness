@@ -115,6 +115,7 @@ const coreResources: Resource[] = [
       { href: "/resources/msp-vs-extended-health", label: "MSP vs extended health: what covers what" },
       { href: "/resources/low-cost-counselling-bc", label: "Free and low-cost counselling in BC" },
       { href: "/compare/rcc-vs-psychologist-vs-social-worker-bc", label: "RCC, psychologist, or social worker in BC" },
+      { href: "/tools/therapy-cost-bc", label: "Work out what it costs after coverage" },
     ],
   },
 
@@ -198,6 +199,7 @@ const coreResources: Resource[] = [
       { href: "/resources/low-cost-counselling-bc", label: "Free and low-cost counselling in BC" },
       { href: "/pricing", label: "Fees and coverage" },
       { href: "/guides/how-to-find-a-therapist-in-bc", label: "How to find a therapist in BC" },
+      { href: "/tools/therapy-cost-bc", label: "Work out what it costs after coverage" },
     ],
   },
 
@@ -274,6 +276,7 @@ const coreResources: Resource[] = [
       { href: "/resources/msp-vs-extended-health", label: "MSP vs extended health" },
       { href: "/guides/how-to-find-a-therapist-in-bc", label: "How to find a therapist in BC" },
       { href: "/pricing", label: "Fees and coverage" },
+      { href: "/tools/therapy-cost-bc", label: "Work out what it costs after coverage" },
     ],
   },
 

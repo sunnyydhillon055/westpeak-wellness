@@ -184,6 +184,7 @@ export const moreGuides: Guide[] = [
       { href: '/guides/how-to-find-a-therapist-in-bc', label: 'How to find a therapist in BC' },
       { href: '/resources/bc-crisis-and-support-directory', label: 'BC crisis and support directory' },
       { href: '/book', label: 'Book a free consultation' },
+      { href: "/tools/stress-check", label: "A reflection on how things have been" },
     ],
   },
 
@@ -276,6 +277,7 @@ export const moreGuides: Guide[] = [
       { href: '/guides/intergenerational-trauma-explained', label: 'Intergenerational trauma' },
       { href: '/compare/cbt-vs-emdr-for-trauma', label: 'CBT vs EMDR for trauma' },
       { href: '/glossary', label: 'Counselling glossary' },
+      { href: "/tools/stress-check", label: "A reflection on how things have been" },
     ],
   },
 
