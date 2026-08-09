@@ -286,12 +286,6 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .hero-note{ margin-top: 18px; font-size: var(--fs-small); color: var(--ink-faint) }
 .hero-art{ position: relative }
 .hero-art .photo{ aspect-ratio: 4/5; box-shadow: var(--shadow-xl) }
-.hero-art-mark{
-  position: absolute; left: -26px; bottom: -26px; width: 96px; height: 96px;
-  background: var(--surface-0); border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md); display: grid; place-items: center; z-index: 3;
-}
-.hero-art-mark svg{ width: 52px; height: 52px }
 .photo-credit{
   position: absolute; right: 10px; bottom: 8px; z-index: 3; margin: 0;
   font-size: .68rem; letter-spacing: .02em; color: rgba(255,255,255,.82);
@@ -365,8 +359,6 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   .signature-script{ font-size: clamp(7rem, 40vw, 14rem); opacity: .06; right: -6% }
 }
 @media (max-width: 680px){
-  .hero-art-mark{ width: 74px; height: 74px; left: -14px; bottom: -18px }
-  .hero-art-mark svg{ width: 40px; height: 40px }
   .signature-quote{ padding: 32px 22px 26px 30px }
   .trust-bar{ gap: 10px 16px }
 }
@@ -590,14 +582,15 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
    <Motif> component instead, so it is excluded. */
 .hero:not(.hero--home){
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300' preserveAspectRatio='xMaxYMax slice'%3E%3Cpath d='M0 210c118 0 176-58 268-58s126 42 210 42 132-66 236-66 156 54 250 54 148-26 236-26v144H0V210Z' fill='%23e8f0f9' opacity='.75'/%3E%3Cpath d='M0 246c136 0 190-46 286-46s136 34 224 34 140-54 246-54 152 42 252 42 116-16 192-16v94H0v-54Z' fill='%23dbe7f4' opacity='.6'/%3E%3Ccircle cx='925' cy='86' r='34' fill='%23c07a56' opacity='.14'/%3E%3C/svg%3E"),
+    radial-gradient(circle closest-side, rgba(192,122,86,.14) 100%, transparent 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300' preserveAspectRatio='none'%3E%3Cpath d='M0 210c118 0 176-58 268-58s126 42 210 42 132-66 236-66 156 54 250 54 148-26 236-26v144H0V210Z' fill='%23e8f0f9' opacity='.75'/%3E%3Cpath d='M0 246c136 0 190-46 286-46s136 34 224 34 140-54 246-54 152 42 252 42 116-16 192-16v94H0v-54Z' fill='%23dbe7f4' opacity='.6'/%3E%3C/svg%3E"),
     var(--grad-hero);
-  background-repeat: no-repeat, no-repeat;
-  background-position: right bottom, center;
-  background-size: min(760px, 68%) auto, cover;
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-position: 77.1% calc(100% - 136px), right bottom, center;
+  background-size: 43px 43px, 100% 190px, cover;
 }
 @media (max-width: 680px){
-  .hero:not(.hero--home){ background-size: 130% auto, cover }
+  .hero:not(.hero--home){ background-size: 100% 150px, cover }
 }
 
 
@@ -610,45 +603,51 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
    ========================================================================= */
 .hero--guides{
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300'%3E%3Cpath d='M0 236c150 0 214-84 330-84s150 62 254 62 150-92 268-92 190 74 348 74v104H0v-64Z' fill='%23e8f0f9' opacity='.8'/%3E%3Ccircle cx='300' cy='74' r='40' fill='%23c07a56' opacity='.13'/%3E%3C/svg%3E"),
+    radial-gradient(circle closest-side, rgba(192,122,86,.13) 100%, transparent 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300' preserveAspectRatio='none'%3E%3Cpath d='M0 236c150 0 214-84 330-84s150 62 254 62 150-92 268-92 190 74 348 74v104H0v-64Z' fill='%23e8f0f9' opacity='.8'/%3E%3C/svg%3E"),
     var(--grad-hero);
-  background-position: left bottom, center;
-  background-size: min(820px, 76%) auto, cover;
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-position: 25.0% calc(100% - 154px), left bottom, center;
+  background-size: 55px 55px, 100% 205px, cover;
 }
 .hero--approaches{
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300'%3E%3Cpath d='M0 262c96 0 128-70 208-70s104 50 178 50 106-78 190-78 122 62 208 62 128-30 216-30v104H0v-38Z' fill='%23dbe7f4' opacity='.75'/%3E%3Cpath d='M0 284c120 0 168-40 262-40s124 30 204 30 128-46 224-46 138 36 230 36 100-14 180-14v50H0v-16Z' fill='%23e8f0f9'/%3E%3Ccircle cx='980' cy='96' r='30' fill='%23c07a56' opacity='.16'/%3E%3C/svg%3E"),
+    radial-gradient(circle closest-side, rgba(192,122,86,.16) 100%, transparent 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300' preserveAspectRatio='none'%3E%3Cpath d='M0 262c96 0 128-70 208-70s104 50 178 50 106-78 190-78 122 62 208 62 128-30 216-30v104H0v-38Z' fill='%23dbe7f4' opacity='.75'/%3E%3Cpath d='M0 284c120 0 168-40 262-40s124 30 204 30 128-46 224-46 138 36 230 36 100-14 180-14v50H0v-16Z' fill='%23e8f0f9'/%3E%3C/svg%3E"),
     var(--grad-hero);
-  background-position: right bottom, center;
-  background-size: min(700px, 62%) auto, cover;
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-position: 81.7% calc(100% - 119px), right bottom, center;
+  background-size: 35px 35px, 100% 175px, cover;
 }
 .hero--compare{
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300'%3E%3Cpath d='M0 250c160 0 208-96 320-96s142 74 246 74v72H0v-50Z' fill='%23e8f0f9' opacity='.85'/%3E%3Cpath d='M1200 250c-160 0-208-96-320-96s-142 74-246 74v72h566v-50Z' fill='%23f0e2d8' opacity='.8'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300' preserveAspectRatio='none'%3E%3Cpath d='M0 250c160 0 208-96 320-96s142 74 246 74v72H0v-50Z' fill='%23e8f0f9' opacity='.85'/%3E%3Cpath d='M1200 250c-160 0-208-96-320-96s-142 74-246 74v72h566v-50Z' fill='%23f0e2d8' opacity='.8'/%3E%3C/svg%3E"),
     var(--grad-hero);
   background-position: center bottom, center;
-  background-size: min(980px, 92%) auto, cover;
+  background-size: 100% 245px, cover;
 }
 .hero--resources{
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300'%3E%3Cpath d='M0 274c88 0 118-30 196-30s96 22 166 22 100-34 178-34 116 26 198 26 122-16 214-16v58H0v-26Z' fill='%23e8f0f9'/%3E%3Cpath d='M0 246c110 0 150-44 246-44s118 34 206 34 122-50 216-50 128 42 226 42 84-10 156-10v82H0v-54Z' fill='%23dbe7f4' opacity='.6'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300' preserveAspectRatio='none'%3E%3Cpath d='M0 274c88 0 118-30 196-30s96 22 166 22 100-34 178-34 116 26 198 26 122-16 214-16v58H0v-26Z' fill='%23e8f0f9'/%3E%3Cpath d='M0 246c110 0 150-44 246-44s118 34 206 34 122-50 216-50 128 42 226 42 84-10 156-10v82H0v-54Z' fill='%23dbe7f4' opacity='.6'/%3E%3C/svg%3E"),
     var(--grad-hero);
   background-position: right bottom, center;
-  background-size: min(900px, 84%) auto, cover;
+  background-size: 100% 225px, cover;
 }
 .hero--for{
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300'%3E%3Ccircle cx='210' cy='120' r='54' fill='%23c07a56' opacity='.11'/%3E%3Cpath d='M0 258c130 0 176-72 288-72s148 56 246 56 138-70 250-70 168 56 300 56v72H0v-42Z' fill='%23e8f0f9' opacity='.85'/%3E%3C/svg%3E"),
+    radial-gradient(circle closest-side, rgba(192,122,86,.11) 100%, transparent 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300' preserveAspectRatio='none'%3E%3Cpath d='M0 258c130 0 176-72 288-72s148 56 246 56 138-70 250-70 168 56 300 56v72H0v-42Z' fill='%23e8f0f9' opacity='.85'/%3E%3C/svg%3E"),
     var(--grad-hero);
-  background-position: left bottom, center;
-  background-size: min(880px, 82%) auto, cover;
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-position: 17.5% calc(100% - 132px), left bottom, center;
+  background-size: 79px 79px, 100% 220px, cover;
 }
 .hero--locations{
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300'%3E%3Cpath d='M0 214c74 0 92-64 158-64s76 52 134 52 88-72 156-72 96 66 168 66 92-40 160-40 84 32 158 32 90-20 166-20v132H0V214Z' fill='%23e8f0f9' opacity='.7'/%3E%3Cpath d='M0 268c140 0 192-34 300-34s130 26 224 26 134-32 234-32 142 26 244 26 130-12 198-12v58H0v-32Z' fill='%23dbe7f4' opacity='.55'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300' preserveAspectRatio='none'%3E%3Cpath d='M0 214c74 0 92-64 158-64s76 52 134 52 88-72 156-72 96 66 168 66 92-40 160-40 84 32 158 32 90-20 166-20v132H0V214Z' fill='%23e8f0f9' opacity='.7'/%3E%3Cpath d='M0 268c140 0 192-34 300-34s130 26 224 26 134-32 234-32 142 26 244 26 130-12 198-12v58H0v-32Z' fill='%23dbe7f4' opacity='.55'/%3E%3C/svg%3E"),
     var(--grad-hero);
   background-position: center bottom, center;
-  background-size: min(1100px, 100%) auto, cover;
+  background-size: 100% 275px, cover;
 }
 
 /* Contact: the BC reach diagram as a warm banner rather than a photo */

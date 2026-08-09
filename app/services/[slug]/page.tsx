@@ -16,6 +16,8 @@ import ExtraSections from '@/components/ExtraSections';
 import Toc from '@/components/Toc';
 import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
+import InlineRelated from '@/components/InlineRelated';
+import { deviceSlots } from '@/lib/placement';
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -61,6 +63,17 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
     'Go deeper',
   ]);
   const others = services.filter((x) => x.slug !== s.slug).slice(0, 3);
+
+  /* This page is composed of distinct blocks rather than one section list, so
+     it already breaks up well — except through the depth sections, which ran as
+     a plain column of about 2,000px. These give that stretch something. */
+  const midDevices = [
+    s.related?.[0] ? (
+      <InlineRelated key="rel" href={s.related[0].href} label={s.related[0].label} />
+    ) : null,
+    s.figure2 ? <Figure key="fig2" name={s.figure2} /> : null,
+  ].filter(Boolean);
+  const slots = deviceSlots(getExtra('services', s.slug), midDevices.length);
 
   const schema = [
     {
@@ -195,9 +208,12 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         <section className="section">
           <div className="container">
             <p className="eyebrow">Questions</p>
-            <ExtraSections area="services" slug={s.slug} />
-
-            {s.figure2 && <Figure name={s.figure2} />}
+            <ExtraSections
+              area="services"
+              slug={s.slug}
+              devices={midDevices}
+              slots={slots}
+            />
 
             <h2 id="before-you-book">Before you book</h2>
             <div style={{ marginTop: 24, maxWidth: 760 }}>

@@ -110,9 +110,6 @@ export default function Home() {
                 sizes="(max-width: 900px) 92vw, 44vw"
                 credit="Fairy Lake, Vancouver Island"
               />
-              <div className="hero-art-mark" aria-hidden="true">
-                <Motif variant="mark" />
-              </div>
             </div>
           </div>
         </div>

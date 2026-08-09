@@ -6,6 +6,7 @@ import CtaBand from '@/components/CtaBand';
 import SceneBand from '@/components/SceneBand';
 import Reviews from '@/components/Reviews';
 import Motif from '@/components/brand/Motif';
+import Figure from '@/components/Figure';
 import { GraduationCap, Scale, BadgeCheck, Waves, HeartHandshake, Landmark } from 'lucide-react';
 
 // The counsellor's personal name is intentionally scoped to this file only.
@@ -96,6 +97,8 @@ export default function About() {
             it is what brought you here.
           </p>
 
+          <Figure name="first-session-flow" />
+
           <h2>How I decide what to use</h2>
           <p>
             Being trained in several approaches is only useful if the choice between them is
@@ -116,6 +119,8 @@ export default function About() {
             <Link href="/guides/when-therapy-isnt-working">what to do when therapy is not working</Link>,
             and it applies here as much as anywhere.
           </p>
+
+          <Figure name="approach-selector" />
 
           <h2>On working in Punjabi</h2>
           <p>

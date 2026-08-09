@@ -9,6 +9,9 @@ import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
 import Byline from '@/components/Byline';
 import ExtraSections from '@/components/ExtraSections';
+import InlineRelated from '@/components/InlineRelated';
+import { getExtra } from '@/lib/depth';
+import { deviceSlots } from '@/lib/placement';
 
 const fmt = (iso: string) =>
   new Date(iso + 'T00:00:00Z').toLocaleDateString('en-CA', {
@@ -48,6 +51,26 @@ export default function PolicyPage({ doc }: { doc: Policy }) {
     ...(doc.sources && doc.sources.length > 0 ? ['Sources'] : []),
   ]);
 
+  /* Policy documents are the longest continuous prose on the site — /privacy ran
+     2,153px between anything visual — and they are also where a reader is most
+     likely to be scanning for one specific answer. See lib/placement.ts. */
+  const midDevices = [
+    doc.figure ? <Figure key="fig" name={doc.figure} /> : null,
+    <div className="crisis" key="cta" style={{ margin: '32px 0' }}>
+      <p style={{ margin: 0 }}>
+        Questions about any of this are fair game before you commit to anything —{' '}
+        <Link href={site.bookingPath}>ask them in a free 15-minute consultation</Link>.
+      </p>
+    </div>,
+    doc.related[0] ? (
+      <InlineRelated key="rel" href={doc.related[0].href} label={doc.related[0].label} />
+    ) : null,
+  ].filter(Boolean);
+  const slots = deviceSlots(
+    [...doc.sections, ...getExtra('policy', doc.slug)],
+    midDevices.length
+  );
+
 
   return (
     <>
@@ -86,20 +109,17 @@ export default function PolicyPage({ doc }: { doc: Policy }) {
                 </ul>
               )}
 
-              {i === 0 && doc.figure && <Figure name={doc.figure} />}
-
-              {i === 0 && (
-                <div className="crisis" style={{ margin: '32px 0' }}>
-                  <p style={{ margin: 0 }}>
-                    Questions about any of this are fair game before you commit to anything —{' '}
-                    <Link href={site.bookingPath}>ask them in a free 15-minute consultation</Link>.
-                  </p>
-                </div>
-              )}
+              {midDevices.filter((_, k) => slots[k] === i)}
             </div>
           ))}
 
-          <ExtraSections area="policy" slug={doc.slug} />
+          <ExtraSections
+            area="policy"
+            slug={doc.slug}
+            devices={midDevices}
+            slots={slots}
+            offset={doc.sections.length}
+          />
 
           {doc.sources && doc.sources.length > 0 && (
             <>
