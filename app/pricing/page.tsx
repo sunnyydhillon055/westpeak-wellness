@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { site } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
+import SceneBand from '@/components/SceneBand';
 import { Wallet, Video, CreditCard, CalendarX } from 'lucide-react';
 import Figure from '@/components/Figure';
 import LeadCapture from '@/components/LeadCapture';
@@ -111,7 +112,9 @@ export default function Pricing({ searchParams }: { searchParams?: { lead?: stri
               explains why that is priced completely differently.
             </p>
 
-            <h2>How coverage works</h2>
+            <SceneBand seed={'pricing'} />
+
+          <h2>How coverage works</h2>
             <p>
               BC&rsquo;s Medical Services Plan does not cover private counselling, whatever the
               practitioner&rsquo;s designation — the reasons are explained in the{' '}

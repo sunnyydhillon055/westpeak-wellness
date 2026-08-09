@@ -4,6 +4,7 @@ import { tools } from '@/lib/tools';
 import { site } from '@/lib/site';
 import { abs, orgRef, siteRef } from '@/lib/schema';
 import CtaBand from '@/components/CtaBand';
+import SceneBand from '@/components/SceneBand';
 import Figure from '@/components/Figure';
 
 const TITLE = 'Free counselling tools | Westpeak Wellness';
@@ -92,6 +93,8 @@ export default function ToolsIndex() {
           </p>
         </div>
       </section>
+
+      <SceneBand seed={'tools'} />
 
       <CtaBand />
     </>

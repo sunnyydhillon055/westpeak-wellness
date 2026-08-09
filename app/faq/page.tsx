@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { site } from '@/lib/site';
 import { faqs, FAQ_GROUPS, faqsInGroup } from '@/lib/faq';
 import CtaBand from '@/components/CtaBand';
+import SceneBand from '@/components/SceneBand';
 import Figure from '@/components/Figure';
 import { Compass, Wallet, MessageCircleQuestion, Lock } from 'lucide-react';
 
@@ -115,6 +116,8 @@ export default function FAQ() {
           </p>
         </div>
       </section>
+
+      <SceneBand seed={'faq'} />
 
       <CtaBand />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />

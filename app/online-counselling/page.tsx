@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { locations } from '@/lib/locations';
 import { site } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
+import SceneBand from '@/components/SceneBand';
 import Photo from '@/components/ui/Photo';
 import Figure from '@/components/Figure';
 
@@ -183,6 +184,8 @@ export default function LocationsIndex() {
           </p>
         </div>
       </section>
+      <SceneBand seed={'locations'} />
+
       <CtaBand
         heading="Same care, wherever you are in BC"
         text="A free 15-minute consultation over secure video. No pressure, no commitment."

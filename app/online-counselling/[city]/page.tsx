@@ -6,6 +6,7 @@ import { featuredServices } from '@/lib/services';
 import { site } from '@/lib/site';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import SceneBand from '@/components/SceneBand';
 import ExtraSections from '@/components/ExtraSections';
 import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
@@ -186,6 +187,8 @@ export default function CityPage({ params }: { params: { city: string } }) {
 
 
       <MoreFrom items={locations} currentSlug={l.slug} base="/online-counselling" heading="Other areas served" eyebrow="Keep going" />
+      <SceneBand seed={params.city} />
+
       <CtaBand
         heading={`Counselling in ${l.city}, starting with a conversation`}
         text="A free 15-minute consultation over secure video. No pressure, no commitment, and no obligation to book a session afterward."
