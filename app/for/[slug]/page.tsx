@@ -53,14 +53,20 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
 
   /* This page keeps its opening figure and CTA up in the cards section, where
      they belong. What was missing is anything at all inside the long prose
-     column below them — 4,094px of it on /for/women. See lib/placement.ts. */
+     column below them — 4,094px of it on /for/women. See lib/placement.ts.
+     The depth sections are weighed in and carry devices too: covering only
+     `a.sections` moved the gap to the tail rather than removing it. */
+  const forSections = [...a.sections, ...getExtra('for', a.slug)];
   const midDevices = [
     a.related[0] ? (
       <InlineRelated key="rel" href={a.related[0].href} label={a.related[0].label} />
     ) : null,
     a.figure2 ? <Figure key="fig2" name={a.figure2} /> : null,
+    a.related[1] ? (
+      <InlineRelated key="rel2" href={a.related[1].href} label={a.related[1].label} />
+    ) : null,
   ].filter(Boolean);
-  const slots = deviceSlots(a.sections, midDevices.length);
+  const slots = deviceSlots(forSections, midDevices.length);
 
   const schema = [
     {
@@ -163,7 +169,13 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
       <section className="section section--ghost">
         <div className="container">
           <p className="eyebrow">Where to start</p>
-          <ExtraSections area="for" slug={a.slug} />
+          <ExtraSections
+            area="for"
+            slug={a.slug}
+            devices={midDevices}
+            slots={slots}
+            offset={a.sections.length}
+          />
 
           <h2 id="services-that-tend-to-fit">Services that tend to fit</h2>
           <div className="grid grid-2" style={{ marginTop: 26 }}>

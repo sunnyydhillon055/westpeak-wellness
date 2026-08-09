@@ -81,6 +81,11 @@ export default function CityPage({ params }: { params: { city: string } }) {
           <div className="container prose" style={{ maxWidth: '44.16em' }}>
             <h2>{l.localReality.h2}</h2>
             <Paragraphs items={l.localReality.body} />
+            {/* The figure used to sit further down, inside a section that
+                already has a card grid and a callout. Up here it breaks the
+                only genuinely unbroken stretch these pages have: hero straight
+                into a single prose column, 1,776px of it on /kelowna. */}
+            {l.figure && <Figure name={l.figure} />}
           </div>
         </section>
       )}
@@ -98,7 +103,6 @@ export default function CityPage({ params }: { params: { city: string } }) {
                 </div>
               ))}
             </div>
-            {l.figure && <Figure name={l.figure} />}
             <div className="crisis" style={{ marginTop: 32 }}>
               <p style={{ margin: 0 }}>
                 Not sure which kind of support fits? A{' '}
