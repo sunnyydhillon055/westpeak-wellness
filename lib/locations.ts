@@ -142,7 +142,7 @@ export const locations: Location[] = [
       { label: "No commute attached to the session", detail: "In a city where cross-town travel can double the time cost of an appointment, this is usually what determines whether people keep going." },
       { label: "Lunch-break appointments", detail: "A session from a closed office or a parked car is entirely workable, and removes the need to explain an absence." },
       { label: "Punjabi-language sessions", detail: "Available across the city without needing to travel to where Punjabi-speaking clinicians happen to be concentrated." },
-      { label: "It follows you", detail: "Moving within BC — very common here — does not mean starting again with someone new." },
+      { label: "It follows you", detail: "Moving within BC — common here — does not mean starting again with someone new." },
     ],
     faqs: [
       { q: "Is virtual therapy cheaper than in-person?", a: "Fees here are the same either way. What virtual removes is the surrounding cost: transit or parking, and the hour or more of travel that an in-person appointment adds to a working day." },
@@ -247,13 +247,13 @@ export const locations: Location[] = [
       "Online counselling for Kelowna and the Central Okanagan. EMDR, trauma, anxiety, and couples therapy by secure video, English or Punjabi.",
     intro: [
       "Kelowna has grown quickly, and it has grown in a specific way: retirees, remote workers who left the coast, students at UBC Okanagan, and a large seasonal workforce in agriculture and tourism. Health and social services have not expanded at the same pace, and mental health is where that gap shows most clearly.",
-      "The result is that local options exist but fill up, and the specialist end — a particular modality, a particular language — is thin enough that many people simply do without.",
+      "The result is that local options exist but fill up, and the specialist end — a particular modality, a particular language — is thin enough that many people do without.",
     ],
     localReality: {
       h2: "What the Okanagan gap looks like",
       body: [
-        "**Specialisation is the scarce thing, not counsellors in general.** If what you need is a practitioner trained in a specific approach for what you are carrying, the Central Okanagan list is short — and a short list with waitlists is not really a choice.",
-        "**Language access is scarcer still.** The Okanagan has a long-established South Asian community, particularly through agriculture, and very few Punjabi-speaking clinicians. Virtual sessions are, for most people here, the only realistic route to [counselling in Punjabi](/services/punjabi-counselling).",
+        "**Specialisation is the scarce thing, not counsellors in general.** If what you need is a practitioner trained in a specific approach for what you are carrying, the Central Okanagan list is short — and a short list with waitlists is not a choice.",
+        "**Language access is scarcer still.** The Okanagan has a long-established South Asian community, particularly through agriculture, and few Punjabi-speaking clinicians. Virtual sessions are, for most people here, the only realistic route to [counselling in Punjabi](/services/punjabi-counselling).",
         "**Seasonal work resists standard scheduling.** Agricultural and tourism employment peaks hard, and during a peak a fixed weekly daytime appointment is not attendable. Flexibility about timing, and no travel either side, is what makes therapy possible rather than theoretical during those months.",
         "**Wildfire seasons have left a mark.** Recent years in the Interior have included evacuations, property loss, and repeated summers of smoke and alert. That is a genuine and recurring source of anxiety and trauma in this region, and it is the kind of thing people tend to describe as \"everyone went through it\" rather than as something worth addressing. It is worth addressing — [trauma therapy](/services/trauma-therapy) and [EMDR](/services/emdr-therapy) are both well suited to a specific, identifiable event.",
       ],

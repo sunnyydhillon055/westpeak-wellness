@@ -3,11 +3,14 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { comparisons, getComparison } from '@/lib/comparisons';
 import { site } from '@/lib/site';
+import { getExtra } from '@/lib/depth';
+import { buildToc, headingId } from '@/lib/toc';
 import { orgRef, siteRef, personRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
 import Byline from '@/components/Byline';
 import ExtraSections from '@/components/ExtraSections';
+import Toc from '@/components/Toc';
 import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
 
@@ -35,6 +38,12 @@ const fmt = (iso: string) =>
 export default function ComparePage({ params }: { params: { slug: string } }) {
   const c = getComparison(params.slug);
   if (!c) notFound();
+
+  const toc = buildToc([
+    ...c.sections.map((s) => s.h2),
+    ...getExtra('compare', c.slug).map((s) => s.h2),
+    'Where Westpeak Wellness fits', 'Common questions', 'Sources',
+  ]);
 
   const schema = [
     {
@@ -81,7 +90,8 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
       </section>
 
       <section className="section" style={{ paddingTop: 44 }}>
-        <div className="container">
+        <div className="container reading">
+          <Toc items={toc} />
           <p className="crumb">
             <Link href="/">Home</Link> / <Link href="/compare">Compare</Link> / {c.title}
           </p>
@@ -111,7 +121,7 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
           <div className="prose">
             {c.sections.map((s, i) => (
               <div key={s.h2}>
-                <h2>{s.h2}</h2>
+                <h2 id={headingId(s.h2)}>{s.h2}</h2>
                 {s.body && <Paragraphs items={s.body} />}
                 {s.list && (
                   <ul className="checklist" style={{ margin: '20px 0 28px' }}>
@@ -136,10 +146,10 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
 
             {c.figure2 && <Figure name={c.figure2} />}
 
-            <h2>Where Westpeak Wellness fits</h2>
+            <h2 id="where-westpeak-wellness-fits">Where Westpeak Wellness fits</h2>
             <Paragraphs items={c.howWeFit} />
 
-            <h2>Common questions</h2>
+            <h2 id="common-questions">Common questions</h2>
             <div style={{ marginTop: 8 }}>
               {c.faqs.map((f) => (
                 <details className="faq-item" key={f.q}>
@@ -149,7 +159,7 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
               ))}
             </div>
 
-            <h2>Sources</h2>
+            <h2 id="sources">Sources</h2>
             <ul style={{ color: 'var(--ink-soft)', fontSize: '.94rem', paddingLeft: 20 }}>
               {c.sources.map((s) => (
                 <li key={s.url} style={{ marginBottom: 8 }}>

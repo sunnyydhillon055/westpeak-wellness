@@ -106,13 +106,22 @@ export const figures: Record<string, Figure> = {
     alt: "A diagram of EMDR therapy compressed into four stages: history and treatment planning, preparation and stabilisation resources, assessment through desensitisation and installation, and body scan with closure and re-evaluation.",
     caption: "EMDR’s eight phases, grouped into the four stages you actually experience.",
   },
+  'booking-payment-flow': {
+    key: 'booking-payment-flow',
+    file: 'booking-payment-flow.svg',
+    width: 1040,
+    height: 344,
+    title: "How booking, payment and receipts fit together",
+    alt: "A four-step diagram: booking a time in the calendar, paying by credit card at the moment of booking, attending the fifty-minute session by secure video, and receiving an itemised receipt in the client portal to submit to an extended health plan.",
+    caption: "Payment happens at booking, not at the end of the hour.",
+  },
   'first-session-flow': {
     key: 'first-session-flow',
     file: 'first-session-flow.svg',
     width: 1040,
     height: 344,
     title: "How a first counselling session unfolds",
-    alt: "A four-step diagram: a free fifteen-minute consultation, an intake form sent before the session, the fifty-minute first session covering history and goals, and a decision at the end about whether and how often to continue.",
+    alt: "A four-step diagram: a free fifteen-minute video consultation, an intake form sent before the session, the fifty-minute first session covering history and goals, and a decision at the end about whether and how often to continue.",
     caption: "The path from first contact to the end of session one.",
   },
   'four-decisions': {

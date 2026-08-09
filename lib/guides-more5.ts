@@ -51,7 +51,7 @@ export const moreGuides5: Guide[] = [
         h2: 'When it is more than an intrusive thought',
         body: [
           'Where intrusive thoughts have become the organising feature of a day — hours of checking, mental reviewing, or rituals to neutralise them — that pattern has a name and a specific, well-evidenced treatment, and it is worth getting the right treatment rather than general counselling.',
-          'The relevant approach is exposure and response prevention, a structured protocol delivered by a clinician trained in it. General supportive counselling can inadvertently make this worse by providing reassurance, which is the very behaviour that maintains it. A counsellor who understands this will say so and refer rather than proceed.',
+          'The relevant approach is exposure and response prevention, a structured protocol delivered by a clinician trained in it. General supportive counselling can inadvertently make this worse by providing reassurance, which is the behaviour that maintains it. A counsellor who understands this will say so and refer rather than proceed.',
           'A Registered Clinical Counsellor does not diagnose, so nothing here identifies a condition. What it does is flag the pattern that warrants assessment: a physician, psychiatrist or registered psychologist can make that call — see [psychiatry and assessment in BC](/resources/psychiatry-and-assessment-in-bc).',
           'And to be unambiguous about the fear underneath the question: intrusive thoughts about harming someone are not associated with an increased likelihood of doing so. The distress they cause is the evidence. If you are genuinely concerned about acting on something, that is a reason to speak to someone now — **9-8-8**, or **9-1-1** in immediate danger — and that is a different experience from the one this page describes.',
         ],
@@ -89,7 +89,7 @@ export const moreGuides5: Guide[] = [
       'Why social anxiety is frequently invisible from outside, the safety behaviours that keep it running, and what actually reduces it in adulthood.',
     eyebrow: 'Guide · Anxiety',
     lede:
-      'Most adults with social anxiety are not visibly anxious. They have simply built a life with fewer and fewer situations in it.',
+      'Most adults with social anxiety are not visibly anxious. They have built a life with fewer and fewer situations in it.',
     shortAnswer:
       'Social anxiety is fear of being evaluated, and of the signs of that fear being noticed. In adults it is often invisible, because the avoidance is well managed — declining, arriving late, leaving early, taking the role that requires less exposure. It responds well to structured treatment, and the treatment involves dropping the coping strategies rather than improving them.',
     updated: '2026-08-08',
@@ -122,7 +122,7 @@ export const moreGuides5: Guide[] = [
           'Social anxiety responds well to structured cognitive-behavioural work, and the shape of that work surprises people, because it involves doing less rather than coping better.',
           '**Attention training comes first.** Deliberately moving attention outward in a feared situation — onto what the other person is actually saying, onto details of the room — rather than onto your own performance. This alone changes the experience substantially, and it is trainable.',
           '**Then dropping safety behaviours,** deliberately and one at a time. Speaking without the rehearsed sentence. Not holding the glass. Making eye contact. This is uncomfortable by design, and the discomfort is the mechanism — it is what allows a situation to demonstrate that you were fine without the prop.',
-          '**Then behavioural experiments rather than exposure alone.** Not simply enduring a situation, but testing a specific prediction: "if I pause mid-sentence, people will visibly judge me." Then checking. The predictions are almost never confirmed, and the accumulation of that evidence is what shifts the belief.',
+          '**Then behavioural experiments rather than exposure alone.** Not enduring a situation, but testing a specific prediction: "if I pause mid-sentence, people will visibly judge me." Then checking. The predictions are almost never confirmed, and the accumulation of that evidence is what shifts the belief.',
           '**Video feedback is sometimes used**, and it is startling. People with social anxiety consistently rate their own performance far worse than observers do, and seeing the gap is one of the more powerful single interventions available.',
         ],
       },
@@ -190,7 +190,7 @@ export const moreGuides5: Guide[] = [
         body: [
           'Loneliness carries a particular stigma that other difficulties do not. Saying you are anxious describes a condition; saying you are lonely feels like reporting a verdict — that nobody chose you.',
           'That makes it one of the last things disclosed in counselling, frequently arriving months in and often framed as something else. People will describe low mood, purposelessness, drinking more, or a relationship carrying more weight than it can hold, long before they will say the word.',
-          'There is also a specific bind in it. The state itself makes connection harder: loneliness increases sensitivity to social threat, which means ambiguous signals get read negatively, which produces withdrawal, which deepens the isolation. This is well documented and it means the experience is not simply an absence of people — it actively shapes how the people who are there get perceived.',
+          'There is also a specific bind in it. The state itself makes connection harder: loneliness increases sensitivity to social threat, which means ambiguous signals get read negatively, which produces withdrawal, which deepens the isolation. This is well documented and it means the experience is not an absence of people — it actively shapes how the people who are there get perceived.',
           'Knowing that changes what to do about it, because it means the first move is often not meeting more people. It is noticing the negative reading of the contact you already have.',
         ],
       },
@@ -250,7 +250,7 @@ export const moreGuides5: Guide[] = [
     lede:
       'The tests come back clear, the relief lasts two days, and then it starts again. That loop is the condition, not a failure to be reassured.',
     shortAnswer:
-      'Health anxiety is maintained by the very things that seem to relieve it: checking the body, searching symptoms, and seeking reassurance from doctors or family. Each produces short-lived relief and strengthens the underlying belief that vigilance is necessary. Treatment works by reducing those behaviours rather than by providing better reassurance — and it always runs alongside proper medical care rather than instead of it.',
+      'Health anxiety is maintained by the things that seem to relieve it: checking the body, searching symptoms, and seeking reassurance from doctors or family. Each produces short-lived relief and strengthens the underlying belief that vigilance is necessary. Treatment works by reducing those behaviours rather than by providing better reassurance — and it always runs alongside proper medical care rather than instead of it.',
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'anxiety-avoidance-cycle',
@@ -299,7 +299,7 @@ export const moreGuides5: Guide[] = [
       label: 'a free 15-minute consultation is a reasonable next step',
     },
     faqs: [
-      { q: 'What if something really is wrong?', a: 'Then it needs medical assessment, and this work does not replace that. Treatment for health anxiety always runs alongside appropriate medical care, and establishing what appropriate looks like is part of it.' },
+      { q: 'What if something is wrong?', a: 'Then it needs medical assessment, and this work does not replace that. Treatment for health anxiety always runs alongside appropriate medical care, and establishing what appropriate looks like is part of it.' },
       { q: 'Is it wrong to want to check?', a: 'The urge is understandable. The issue is that checking provides relief that is short-lived and increases the frequency of the urge, so the pattern intensifies over time.' },
       { q: 'Can a counsellor tell me whether my symptoms are anxiety?', a: 'No. A counsellor does not diagnose and cannot assess a physical symptom. That is a physician\'s job, and a counsellor who offers an opinion on it is working outside their scope.' },
       { q: 'How long does treatment take?', a: 'It responds well to structured work and is typically measured in months. The main variable is how much checking and searching has become embedded.' },
@@ -367,7 +367,7 @@ export const moreGuides5: Guide[] = [
         h2: 'The transitions people arrive with most',
         body: [
           '**Retirement** is the largest and the most under-supported. Forty years of structure, status and daily contact ending on a single date, with a cultural script that describes it as a reward and no acknowledgement that it is also a bereavement. Distress here is common and arrives reliably on the delay described above.',
-          '**Career change or job loss** carries the same identity question with financial pressure added. Redundancy in particular tends to produce a shame that is entirely unearned and very hard to argue anyone out of.',
+          '**Career change or job loss** carries the same identity question with financial pressure added. Redundancy in particular tends to produce a shame that is entirely unearned and hard to argue anyone out of.',
           '**Becoming a parent** is a total reorganisation of identity that gets discussed almost exclusively in terms of logistics — see [counselling for new parents](/for/new-parents).',
           '**Children leaving** ends a role that organised twenty years, frequently for the parent who did most of it, and the emptiness is treated as a punchline rather than a loss.',
           '**Migration**, including within Canada, means rebuilding every practical and social structure at once while grieving the one left behind.',
@@ -419,7 +419,7 @@ export const moreGuides5: Guide[] = [
       {
         h2: 'Why it hits mental health so directly',
         body: [
-          'Financial strain is not simply an unpleasant circumstance that makes people sad. It has specific mechanisms, and knowing them makes it easier to treat as a health issue rather than a personal failing.',
+          'Financial strain is not an unpleasant circumstance that makes people sad. It has specific mechanisms, and knowing them makes it easier to treat as a health issue rather than a personal failing.',
           '**It is chronic and inescapable.** Unlike a discrete stressor, money pressure is present every day, in every decision, with no off switch. Chronic stress with no resolution is exactly the pattern most associated with anxiety and depressive presentations.',
           '**It consumes cognitive capacity.** Constant calculation — what can be delayed, what can be covered, what happens if something breaks — occupies working memory continuously. That leaves measurably less capacity for everything else, including for the decisions that might improve the situation.',
           '**It removes options.** The things that reliably help mood — activity, social contact, time off, sometimes treatment itself — frequently cost money. Financial strain restricts exactly the responses that would help.',

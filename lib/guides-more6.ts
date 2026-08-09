@@ -211,7 +211,7 @@ export const moreGuides6: Guide[] = [
           'A necessary caution, because framing this purely as distorted thinking can do real harm.',
           'Sometimes the feeling is an accurate reading of an environment. Being the only person of your background in a room, being consistently interrupted, having contributions attributed to someone else, or receiving different scrutiny than colleagues all produce a well-founded sense of not belonging — and that is information about the room rather than a cognitive error.',
           'Treating a structural problem as a personal one adds self-blame to an already unfair situation, and a counsellor who does that is doing harm. The useful work in that case is separating what is accurate from what is being generalised, and then deciding what to do about a workplace — which may include leaving it.',
-          'It is also legitimate to be genuinely new and genuinely inexperienced. That is not imposter syndrome; that is being early in something, and the answer is time rather than therapy. [Mental health and work in BC](/resources/workplace-mental-health-bc) covers the situations where the environment itself is the problem.',
+          'It is also legitimate to be new and genuinely inexperienced. That is not imposter syndrome; that is being early in something, and the answer is time rather than therapy. [Mental health and work in BC](/resources/workplace-mental-health-bc) covers the situations where the environment itself is the problem.',
         ],
       },
     ],
@@ -268,7 +268,7 @@ export const moreGuides6: Guide[] = [
         h2: 'What reliably does not work',
         list: [
           { label: 'Monitoring and counting', detail: 'Checking bottles, tracking units, searching for hidden supplies. It consumes enormous energy, and it converts you into the enforcement mechanism, which changes the relationship into a surveillance arrangement without changing the drinking.' },
-          { label: 'Pouring it away', detail: 'Produces conflict and, where the person is physically dependent, can be genuinely unsafe. It also reliably escalates concealment.' },
+          { label: 'Pouring it away', detail: 'Produces conflict and, where the person is physically dependent, can be unsafe. It also reliably escalates concealment.' },
           { label: 'Ultimatums you will not enforce', detail: 'The single most damaging move. An unenforced ultimatum teaches that your limits are negotiable, and each one after it is worth less. Do not state a consequence you are not prepared to carry out.' },
           { label: 'Covering for them', detail: 'Calling in sick on their behalf, paying the fine, smoothing it over with family. Understandable, kind, and it removes the consequences that might otherwise register.' },
           { label: 'Arguing while they are drinking', detail: 'Nothing said to an intoxicated person is retained or agreed to in any meaningful way. The conversation has to happen sober or not at all.' },
@@ -325,7 +325,7 @@ export const moreGuides6: Guide[] = [
     title: 'Chronic illness, pain, and what it does to mood',
     metaTitle: 'Chronic Illness and Mood | Westpeak Wellness',
     metaDescription:
-      'Why low mood with a chronic condition is not simply a reaction, the grief involved, and what counselling can address when the illness will not change.',
+      'Why low mood with a chronic condition is not a reaction, the grief involved, and what counselling can address when the illness will not change.',
     eyebrow: 'Guide · Health',
     lede:
       'Being told the distress is understandable is true, and it is not the same as being offered anything.',
@@ -359,7 +359,7 @@ export const moreGuides6: Guide[] = [
       {
         h2: 'What counselling can actually do',
         body: [
-          'Not cure anything, and it is important to say so plainly. What it can do is narrower and genuinely useful.',
+          'Not cure anything, and it is important to say so plainly. What it can do is narrower and useful.',
           '**For chronic pain specifically, the evidence is more than supportive** — psychological approaches, particularly acceptance-based and cognitive-behavioural ones, have a real evidence base for improving function and quality of life, and in some cases pain intensity. That is not a claim that the pain is psychological; it is a claim about how the nervous system processes it, which is a different thing and frequently mistaken for the first.',
           '**Grief work**, for the losses above, which are almost never named as losses by anyone else.',
           '**The relationship to the symptom.** [ACT](/approaches/acceptance-and-commitment-therapy) in particular was developed partly in this context — the aim being to reduce the cost of the struggle against a symptom that will not resolve, and to reclaim the life that the struggle was consuming.',

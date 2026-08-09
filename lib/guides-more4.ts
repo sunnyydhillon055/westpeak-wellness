@@ -11,7 +11,7 @@ export const moreGuides4: Guide[] = [
     lede:
       'The problem is rarely that you got angry. It is that you were already three sentences in before you knew it was happening.',
     shortAnswer:
-      'Anger is fast because it is a threat response, and threat responses are built to outrun deliberation. That means the useful work happens before and after the flashpoint rather than during it — noticing the earlier physical signals, reducing the background load that lowers your threshold, and addressing whatever the anger is standing in front of, which is very often fear, shame or exhaustion.',
+      'Anger is fast because it is a threat response, and threat responses are built to outrun deliberation. That means the useful work happens before and after the flashpoint rather than during it — noticing the earlier physical signals, reducing the background load that lowers your threshold, and addressing whatever the anger is standing in front of, which is often fear, shame or exhaustion.',
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'window-of-tolerance',
@@ -140,7 +140,7 @@ export const moreGuides4: Guide[] = [
           { label: 'Deliberate imperfection, at low stakes', detail: 'Sending the email without the fourth read. Turning something in at good-enough on purpose. Uncomfortable by design, and the discomfort is the point — it demonstrates that the predicted catastrophe does not arrive.' },
           { label: 'Noticing the discounting as it happens', detail: 'Catching the exact moment an achievement gets reclassified as luck. Once visible, it becomes considerably harder to do automatically.' },
           { label: 'Defining "done" in advance', detail: 'Writing down what finished looks like before starting, so completion is a criterion rather than a feeling — which it will otherwise never become.' },
-          { label: 'Working on the self-criticism directly', detail: 'Structured approaches exist for this. It is not simply a matter of positive self-talk, which most perfectionists find hollow and rightly reject.' },
+          { label: 'Working on the self-criticism directly', detail: 'Structured approaches exist for this. It is not a matter of positive self-talk, which most perfectionists find hollow and rightly reject.' },
           { label: 'Treating what it fuels', detail: 'Perfectionism frequently sits underneath anxiety and low mood rather than beside them. See [high-functioning anxiety](/guides/high-functioning-anxiety) and [anxiety counselling](/services/anxiety-counselling).' },
         ],
       },
@@ -198,7 +198,7 @@ export const moreGuides4: Guide[] = [
         body: [
           'Watching someone you love struggle is genuinely painful, and the urge to solve it is an attempt to relieve your own distress as much as theirs. That is not a criticism — it is worth knowing, because it explains why advice arrives so fast and lands so badly.',
           'From the receiving end, unsolicited solutions carry an implicit message: this is straightforward and you have failed to do the obvious thing. Someone who is depressed has already thought of exercise. Someone with anxiety knows the fear is disproportionate. Being told confirms that they are not being understood, and the usual result is that they stop saying anything.',
-          '**What helps more is dull and difficult: staying in the room without fixing.** "That sounds really hard" does more work than any suggestion, largely because it is the only response that does not require them to defend their position.',
+          '**What helps more is dull and difficult: staying in the room without fixing.** "That sounds hard" does more work than any suggestion, largely because it is the only response that does not require them to defend their position.',
         ],
       },
       {
@@ -215,7 +215,7 @@ export const moreGuides4: Guide[] = [
       {
         h2: 'Raising professional help without it becoming a fight',
         body: [
-          'Suggesting therapy is easily heard as "you are too much for me". Framing matters more than content. "I think you deserve support from someone who does this properly, and I would like to help you find it" lands very differently from "you need help."',
+          'Suggesting therapy is easily heard as "you are too much for me". Framing matters more than content. "I think you deserve support from someone who does this properly, and I would like to help you find it" lands differently from "you need help."',
           'Lower the practical barriers rather than pushing the decision. Offer to look up options, to sit with them while they send the email, to drive them, or to take the kids for the hour. A great deal of the resistance to starting is logistical rather than philosophical.',
           'It also helps to normalise what happens next. Most people delay for months over an imagined process that is far more intimidating than the real one — [what actually happens in a first session](/guides/what-to-expect-first-therapy-session) and [signs it might be time for therapy](/guides/signs-it-might-be-time-for-therapy) are both written to be forwarded.',
           'And then accept the limit. You cannot make an adult get help. What you can do is make it easier the day they decide, which is a real contribution rather than a consolation prize.',

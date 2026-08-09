@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Figure from '@/components/Figure';
 import Link from 'next/link';
 import { site } from '@/lib/site';
-import CalendlyEmbed from '@/components/CalendlyEmbed';
+import SchedulerEmbed from '@/components/SchedulerEmbed';
 
 export const metadata: Metadata = {
   title: 'Book a Free 15-Minute Consultation',
@@ -35,7 +35,7 @@ export default function Book() {
           <p className="crumb"><Link href="/">Home</Link> / Book</p>
 
           {site.bookingReady ? (
-            <CalendlyEmbed url={site.bookingUrl} />
+            <SchedulerEmbed url={site.schedulerUrl} title="Book a free 15-minute consultation" />
           ) : (
             <div className="crisis" style={{ marginTop: 8 }}>
               <h2 style={{ marginTop: 0 }}>Online scheduling is being set up</h2>
@@ -44,6 +44,10 @@ export default function Book() {
                 <a href={`mailto:${site.email}`}>{site.email}</a> with a sentence about what
                 you&rsquo;re looking for and a couple of times that suit you, and your
                 consultation will be confirmed by reply.
+              </p>
+              <p>
+                Already a client? Everything to do with sessions, payment and receipts lives
+                in the <Link href={site.portalPath}>client portal</Link>.
               </p>
               <p style={{ marginBottom: 0 }}>
                 <a className="btn btn--primary" href={`mailto:${site.email}?subject=Free%2015-minute%20consultation`}>

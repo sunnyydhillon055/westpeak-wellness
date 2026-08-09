@@ -52,7 +52,7 @@ export const approaches: Approach[] = [
         list: [
           { label: 'When there is no defined target', detail: 'CBT depends on knowing what you are working on. For someone who cannot yet say what the difficulty is, an exploratory phase has to come first — and calling that phase CBT is a misnomer.' },
           { label: 'When the between-session work does not happen', detail: 'Most of the change occurs in the other 167 hours. Where circumstances make that impossible — a crisis, an unstable situation, no capacity — the method loses much of its power and should be adapted rather than repeated.' },
-          { label: 'When the problem is happening now', detail: 'CBT cannot resolve an ongoing stressor. Where the situation is genuinely unsafe or unchanged, examining your thinking about it can shade into implying the problem is your interpretation, which is both untrue and harmful.' },
+          { label: 'When the problem is happening now', detail: 'CBT cannot resolve an ongoing stressor. Where the situation is unsafe or unchanged, examining your thinking about it can shade into implying the problem is your interpretation, which is both untrue and harmful.' },
           { label: 'When the difficulty is relational and old', detail: 'Patterns formed early and rehearsed for decades usually need something that works on the relationship itself, including the one in the room.' },
           { label: 'When it is delivered as advice', detail: 'Badly done CBT becomes a counsellor telling you your thoughts are irrational. Done properly it is collaborative testing, and you reach the conclusions.' },
         ],
@@ -120,7 +120,7 @@ export const approaches: Approach[] = [
         h2: 'What sessions involve',
         body: [
           'ACT is more experiential than CBT and less analytical. Sessions frequently involve exercises and metaphors rather than worksheets, which some people find powerful and others find frustrating — it is worth knowing which you are before starting.',
-          '**Values work comes early and is central.** Not goals — values. What kind of parent, partner, colleague or person you want to be, in terms specific enough to act on. This is genuinely difficult and it is where a lot of the therapy actually happens.',
+          '**Values work comes early and is central.** Not goals — values. What kind of parent, partner, colleague or person you want to be, in terms specific enough to act on. This is difficult and it is where a lot of the therapy actually happens.',
           '**Defusion** techniques create distance from thoughts: noticing "I am having the thought that I will fail" rather than "I will fail". It sounds like word games and it measurably changes how much authority a thought carries.',
           '**Contact with the present moment** — mindfulness in the practical rather than spiritual sense, trained as a skill for stepping out of rumination.',
           '**Committed action**, which is the behavioural half. Small, specific, values-consistent steps taken with the difficult feeling present rather than after it resolves.',
@@ -190,7 +190,7 @@ export const approaches: Approach[] = [
       {
         h2: 'The core idea',
         body: [
-          'The starting observation is ordinary: people routinely describe themselves in plural terms. "Part of me wants to leave." "There is a bit of me that sabotages this." "I do not know why I do that — it is not really me."',
+          'The starting observation is ordinary: people routinely describe themselves in plural terms. "Part of me wants to leave." "There is a bit of me that sabotages this." "I do not know why I do that — it is not me."',
           'IFS takes that language seriously rather than treating it as a figure of speech. It proposes that the mind naturally operates as a system of parts, and that these parts take on roles — often in response to something difficult — and continue playing them long after the circumstances have changed.',
           'The model distinguishes broadly between **protectors**, which work to prevent pain, and **exiles**, which carry it. Protectors come in two flavours: the managerial kind that tries to prevent problems in advance (the perfectionist, the people-pleaser, the one who over-prepares), and the reactive kind that intervenes when something breaks through (the one that drinks, rages, or shuts down).',
           'The crucial move is that no part is treated as the enemy. A part behaving destructively is understood as protecting something, badly, with the only strategy it has. That reframing is what people most often describe as the useful thing — self-criticism becomes considerably harder to sustain toward a part that turns out to be frightened.',
@@ -221,7 +221,7 @@ export const approaches: Approach[] = [
           { label: 'Anyone stuck in self-attack', detail: 'Approaching a self-critical part with curiosity rather than argument frequently shifts something that direct challenging has not.' },
           { label: 'People for whom insight has not translated', detail: 'Understanding a pattern completely and continuing to enact it is a common reason people arrive at parts work.' },
           { label: 'Those who find structured protocols alienating', detail: 'IFS is exploratory rather than manualised in the way CBT is, which suits some people considerably better.' },
-          { label: 'Less suited where stabilisation is the priority', detail: 'In acute crisis, or where regulation capacity is very limited, building that capacity comes first — see [trauma therapy](/services/trauma-therapy).' },
+          { label: 'Less suited where stabilisation is the priority', detail: 'In acute crisis, or where regulation capacity is limited, building that capacity comes first — see [trauma therapy](/services/trauma-therapy).' },
         ],
       },
     ],
@@ -312,7 +312,7 @@ export const approaches: Approach[] = [
       { q: 'Does somatic therapy involve touch?', a: 'Some in-person modalities do. This is a fully virtual practice, so no session here involves physical contact — the work is verbal instruction and your own attention.' },
       { q: 'Is it evidence-based?', a: 'Body-based principles are integrated into several well-evidenced trauma treatments. Specific branded somatic modalities vary considerably in how much research supports them, and it is fair to ask a practitioner directly.' },
       { q: 'Do I need to be good at noticing my body?', a: 'No. Difficulty noticing is common, particularly with a trauma history, and building that capacity is part of the work rather than a prerequisite.' },
-      { q: 'Is this the same as yoga or breathwork?', a: 'No. Those can be genuinely helpful and are not clinical treatment. Somatic therapy is delivered by a registered clinician within a therapeutic frame with defined limits.' },
+      { q: 'Is this the same as yoga or breathwork?', a: 'No. Those can be helpful and are not clinical treatment. Somatic therapy is delivered by a registered clinician within a therapeutic frame with defined limits.' },
     ],
     sources: [
       { label: 'HealthLink BC — mental health and substance use', url: 'https://www.healthlinkbc.ca/mental-health-substance-use' },
@@ -338,7 +338,7 @@ export const approaches: Approach[] = [
     lede:
       'A great many practices advertise DBT. Very few deliver it, and the distinction is not a technicality.',
     shortAnswer:
-      'Full dialectical behaviour therapy is a comprehensive programme — weekly individual sessions, a weekly skills group, between-session phone coaching, and a consultation team for the therapists. Most practices offering "DBT" provide DBT-informed individual work, which uses the skills without the programme around them. That is genuinely useful and it is a different thing, and anyone who needs the full model should be told so.',
+      'Full dialectical behaviour therapy is a comprehensive programme — weekly individual sessions, a weekly skills group, between-session phone coaching, and a consultation team for the therapists. Most practices offering "DBT" provide DBT-informed individual work, which uses the skills without the programme around them. That is useful and it is a different thing, and anyone who needs the full model should be told so.',
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'window-of-tolerance',
@@ -388,7 +388,7 @@ export const approaches: Approach[] = [
       label: 'a free 15-minute consultation will give you an honest answer',
     },
     faqs: [
-      { q: 'Is DBT-informed therapy the same as DBT?', a: 'No. Full DBT includes a skills group, phone coaching and a therapist consultation team alongside individual sessions. DBT-informed work uses the skills without that structure, and is a genuinely different intervention.' },
+      { q: 'Is DBT-informed therapy the same as DBT?', a: 'No. Full DBT includes a skills group, phone coaching and a therapist consultation team alongside individual sessions. DBT-informed work uses the skills without that structure, and is a different intervention.' },
       { q: 'Do I need a diagnosis to use these skills?', a: 'No. The skills are useful across a wide range of difficulties, and a Registered Clinical Counsellor does not diagnose in any case.' },
       { q: 'Where do I find a full DBT programme in BC?', a: 'Usually through a health authority mental health service or a specialised private programme. A referral or assessment is generally required, and waits vary by region.' },
       { q: 'Can DBT skills be taught by video?', a: 'The individual skills work transfers well. The group and coaching components of the full programme are a separate question and depend on the programme.' },

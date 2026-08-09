@@ -101,10 +101,10 @@ export default function GlossaryPage() {
           id={g.key}
           style={{ paddingTop: 44 }}
         >
-          <div className="container">
+          <div className="container container--wide">
             <p className="eyebrow">{termsByGroup(g.key).length} terms</p>
             <h2>{g.name}</h2>
-            <p className="lede" style={{ marginBottom: 30 }}>{g.blurb}</p>
+            <p className="lede" style={{ marginBottom: 20 }}>{g.blurb}</p>
 
             <dl className="glossary">
               {termsByGroup(g.key).map((t) => (

@@ -22,7 +22,7 @@ export const depth2Guides: Record<string, DepthSection[]> = {
         'Reprocessing continues after you close the laptop, which nobody warns people about clearly enough. It is normal to notice more vivid dreams for a night or two, a period of feeling stirred up, or unrelated memories surfacing during the week. That is the process rather than a complication, and it settles.',
         'What helps in that window is unglamorous: keep the week ordinary, use the regulation skills built during preparation rather than saving them for a crisis, and note anything that comes up without trying to work on it. The next session starts with a re-evaluation, and your notes are the raw material for it.',
         'The markers that things are moving are specific and worth knowing, because they are easy to miss. The memory becomes harder to bring up sharply. Recalling it stops recruiting your whole body. The picture loses detail or moves further away. The belief attached to it — it was my fault, I am not safe — starts to feel inaccurate rather than merely disputed. And you find yourself thinking about it less without having decided to.',
-        'What does not indicate progress is feeling nothing at all during a set. Blankness is common, it is information, and it is not failure — a counsellor will simply start the next set from there.',
+        'What does not indicate progress is feeling nothing at all during a set. Blankness is common, it is information, and it is not failure — a counsellor will start the next set from there.',
         'If two or three sessions produce no shift at all on a target, that is worth naming rather than continuing. It usually means either that the target was not the right one, or that more stabilisation is needed first, and both are ordinary adjustments rather than verdicts.',
       ],
     },
@@ -32,9 +32,9 @@ export const depth2Guides: Record<string, DepthSection[]> = {
     {
       h2: 'The first time it happens: what to do about the medical question',
       body: [
-        'A first episode of chest pain, breathlessness or a racing heart should be assessed medically. That is not excessive caution; it is the correct sequence, and it is genuinely useful therapeutically as well.',
+        'A first episode of chest pain, breathlessness or a racing heart should be assessed medically. That is not excessive caution; it is the correct sequence, and it is useful therapeutically as well.',
         'Panic attacks and cardiac events share symptoms, and no amount of reading distinguishes them reliably from the inside. Getting it checked rules out what needs ruling out and produces a clear statement that the heart is fine — which becomes something you can return to later, when the next episode arrives and your body is insisting otherwise.',
-        'A number of physical conditions also produce panic-like episodes and are worth excluding: thyroid problems, certain arrhythmias, low blood sugar, and the effects of some medications, stimulants and withdrawal states. If the pattern changes character, or episodes begin arriving in a genuinely new way, that warrants another look rather than an assumption.',
+        'A number of physical conditions also produce panic-like episodes and are worth excluding: thyroid problems, certain arrhythmias, low blood sugar, and the effects of some medications, stimulants and withdrawal states. If the pattern changes character, or episodes begin arriving in a new way, that warrants another look rather than an assumption.',
         'What is worth avoiding is the loop where reassurance becomes the safety behaviour — repeated visits, repeated tests, brief relief, and a fear that has quietly become dependent on being checked. One thorough assessment is useful. The eighth is feeding the thing it is meant to settle.',
         'Once a physical cause has been excluded, panic is among the more treatable presentations there is, and treatment is typically measured in months rather than years. The strongest predictor of how long it takes is not severity — it is how much avoidance has accumulated around it.',
       ],
@@ -169,7 +169,7 @@ export const depth2Guides: Record<string, DepthSection[]> = {
       list: [
         { label: 'What would be different if this worked?', detail: 'Not "I would feel better" — something observable. You would drive on the highway, or sleep through, or have the conversation you have been avoiding. A concrete answer gives the work a target and gives you a way to judge it later.' },
         { label: 'What am I hoping they will not ask about?', detail: 'Usually the most useful question on this list. Whatever it is, it is probably relevant, and noticing it in advance means you can decide when rather than being caught by it.' },
-        { label: 'What have I already tried?', detail: 'Including previous therapy, and what went wrong with it. This is genuinely useful information for a counsellor and it saves weeks.' },
+        { label: 'What have I already tried?', detail: 'Including previous therapy, and what went wrong with it. This is useful information for a counsellor and it saves weeks.' },
         { label: 'What can I realistically commit?', detail: 'Money and hours, honestly. A plan built without these ends abruptly at exactly the wrong moment.' },
         { label: 'Am I looking for change or for confirmation?', detail: 'Both are human. Only one of them is therapy, and knowing which you are bringing this week is worth the thirty seconds.' },
         { label: 'What would make me leave?', detail: 'Deciding in advance what would count as this not working means you are less likely to drift for six months or bolt after one difficult session.' },

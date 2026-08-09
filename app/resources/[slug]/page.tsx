@@ -3,11 +3,14 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { resources, getResource } from '@/lib/resources';
 import { site } from '@/lib/site';
+import { getExtra } from '@/lib/depth';
+import { buildToc, headingId } from '@/lib/toc';
 import { orgRef, siteRef, personRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
 import Byline from '@/components/Byline';
 import ExtraSections from '@/components/ExtraSections';
+import Toc from '@/components/Toc';
 import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
 
@@ -35,6 +38,12 @@ const fmt = (iso: string) =>
 export default function ResourcePage({ params }: { params: { slug: string } }) {
   const r = getResource(params.slug);
   if (!r) notFound();
+
+  const toc = buildToc([
+    ...r.sections.map((s) => s.h2),
+    ...getExtra('resources', r.slug).map((s) => s.h2),
+    'Common questions', 'Sources',
+  ]);
 
   const schema = [
     {
@@ -81,7 +90,8 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
       </section>
 
       <section className="section" style={{ paddingTop: 44 }}>
-        <div className="container">
+        <div className="container reading">
+          <Toc items={toc} />
           <p className="crumb">
             <Link href="/">Home</Link> / <Link href="/resources">Resources</Link> / {r.title}
           </p>
@@ -95,7 +105,7 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
           {r.sections.map((s, i) => (
             <div key={s.h2}>
               <div className="prose">
-                <h2>{s.h2}</h2>
+                <h2 id={headingId(s.h2)}>{s.h2}</h2>
                 {s.body && <Paragraphs items={s.body} />}
                 {s.list && (
                   <ul className="checklist" style={{ margin: '20px 0 28px' }}>
@@ -142,7 +152,7 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
 
             {r.figure2 && <Figure name={r.figure2} />}
 
-            <h2>Common questions</h2>
+            <h2 id="common-questions">Common questions</h2>
             <div style={{ marginTop: 8 }}>
               {r.faqs.map((f) => (
                 <details className="faq-item" key={f.q}>
@@ -152,7 +162,7 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
               ))}
             </div>
 
-            <h2>Sources</h2>
+            <h2 id="sources">Sources</h2>
             <ul style={{ color: 'var(--ink-soft)', fontSize: '.94rem', paddingLeft: 20 }}>
               {r.sources.map((s) => (
                 <li key={s.url} style={{ marginBottom: 8 }}>

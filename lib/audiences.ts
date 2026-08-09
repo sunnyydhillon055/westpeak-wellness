@@ -35,12 +35,12 @@ const coreAudiences: Audience[] = [
       "Online counselling for new and expecting parents across BC — postpartum depression and anxiety, identity shift, and relationship strain. Free consultation.",
     eyebrow: "For · New and expecting parents",
     lede:
-      "The gap between how you were told this would feel and how it actually feels can be enormous — and there is very little permission to say so out loud.",
+      "The gap between how you were told this would feel and how it actually feels can be enormous — and there is little permission to say so out loud.",
     updated: "2026-08-08",
     readMinutes: 6,
     opening: [
       "Almost a quarter of Canadian parents who have recently given birth report symptoms consistent with postpartum depression or an anxiety disorder, according to [Statistics Canada's 2019 survey](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7910326/). That is not a rare complication. It is roughly one in four — and the figure counts only those who reported it.",
-      "The reason it still feels isolating is that the postpartum period comes with a very narrow script. You are supposed to be tired but grateful. If what you actually feel is flat, or frightened, or resentful, or nothing much at all, the script has no line for it — so most people stop talking rather than risk the reaction.",
+      "The reason it still feels isolating is that the postpartum period comes with a narrow script. You are supposed to be tired but grateful. If what you actually feel is flat, or frightened, or resentful, or nothing much at all, the script has no line for it — so most people stop talking rather than risk the reaction.",
       "Counselling is somewhere the script does not apply. You can say the thing you have not said to your partner, your mother, or your public health nurse, and have it met as information rather than as an alarm.",
     ],
     whatComesUp: [
@@ -49,7 +49,7 @@ const coreAudiences: Audience[] = [
       { label: "Rage that arrives out of nowhere", detail: "Postpartum distress does not always look like sadness. For a lot of people it looks like a short fuse and then guilt about the short fuse." },
       { label: "The relationship has quietly become logistics", detail: "Two people managing shifts. Score-keeping about sleep. Resentment neither of you planned on and both of you feel guilty about." },
       { label: "Losing the person you were", detail: "Career, body, friendships, autonomy, the version of yourself that existed before — grief for that is legitimate and does not compete with loving your child." },
-      { label: "Cultural expectation on top of everything", detail: "Family arriving with strong views on feeding, sleeping, and what a good mother does. Managing that while depleted is its own separate load, and it is heavier when the expectations come in a language and a framework you cannot simply opt out of." },
+      { label: "Cultural expectation on top of everything", detail: "Family arriving with strong views on feeding, sleeping, and what a good mother does. Managing that while depleted is its own separate load, and it is heavier when the expectations come in a language and a framework you cannot opt out of." },
     ],
     sections: [
       {
@@ -160,7 +160,7 @@ const coreAudiences: Audience[] = [
       {
         h2: "The pressure that is specifically about family",
         body: [
-          "For many students in BC — and disproportionately for students from immigrant families — the academic pressure is not really academic. It is about what the degree represents: the reason a family moved, the justification for what a parent gave up, the security everyone is counting on.",
+          "For many students in BC — and disproportionately for students from immigrant families — the academic pressure is not academic. It is about what the degree represents: the reason a family moved, the justification for what a parent gave up, the security everyone is counting on.",
           "That turns an ordinary bad semester into something much heavier. A failed course is not a failed course; it is evidence about whether the whole thing was worth it. And it makes the obvious solutions — switch programmes, take a term off, reduce your course load — feel unavailable, even when they are clearly the right call.",
           "This is workable, and it usually starts with separating the two things that have fused: what you want, and what you owe. Those are different questions, and most people have never been given room to ask the first one. There is more on that pattern in the guide to [intergenerational trauma](/guides/intergenerational-trauma-explained) and on the page for [first- and second-gen South Asian adults](/for/first-gen-south-asian-adults).",
         ],
@@ -227,7 +227,7 @@ const coreAudiences: Audience[] = [
     updated: "2026-08-08",
     readMinutes: 6,
     opening: [
-      "Healthcare and emergency work select for people who function under pressure and keep going. Those are genuine strengths, and they are also the reason distress in this workforce goes unnoticed for years — including by the person carrying it. Competence is very effective camouflage.",
+      "Healthcare and emergency work select for people who function under pressure and keep going. Those are genuine strengths, and they are also the reason distress in this workforce goes unnoticed for years — including by the person carrying it. Competence is effective camouflage.",
       "The pressures here are not the ordinary ones. Rotating shifts that put your body permanently out of phase. Decisions made with insufficient information and real consequences. Exposure to other people's worst days as a routine feature of the job. Short staffing that turns every shift into triage. And a workplace culture where saying you are struggling can feel like admitting you are not up to it.",
       "**A note on cost:** in BC, mental-health conditions arising from work-related traumatic events can be compensable through WorkSafeBC, and for eligible first responders and certain other occupations a presumption applies — meaning the condition may be presumed work-related rather than requiring you to prove it. If your difficulty is connected to what you have seen at work, it is worth finding out what you are entitled to before paying privately. Your union or professional association is usually the fastest route to that answer.",
     ],
@@ -237,7 +237,7 @@ const coreAudiences: Audience[] = [
       { label: "Compassion that has gone flat", detail: "Finding yourself detached from patients or clients you would once have cared about, and then feeling ashamed of that. It is a recognised feature of sustained exposure, not a character defect." },
       { label: "Sleep that never resets", detail: "Nights, then days, then nights. Your circadian rhythm has not been in phase for years, and disrupted sleep both causes and imitates anxiety and depression." },
       { label: "Bringing it home", detail: "Being physically present and mentally still on the ward. Partners noticing before you do. The specific guilt of having nothing left for the people you actually chose." },
-      { label: "The debrief that never happened", detail: "A bad call, a bad outcome, a death that stayed with you — and a shift that simply continued afterward, because there was nobody to cover you." },
+      { label: "The debrief that never happened", detail: "A bad call, a bad outcome, a death that stayed with you — and a shift that continued afterward, because there was nobody to cover you." },
     ],
     sections: [
       {
@@ -303,7 +303,7 @@ const coreAudiences: Audience[] = [
       "Online counselling in Punjabi or English for South Asian adults in BC — family expectation, duty, identity, and generational silence.",
     eyebrow: "For · South Asian adults",
     lede:
-      "Not the therapy where you spend the first twenty minutes explaining why you cannot simply move out.",
+      "Not the therapy where you spend the first twenty minutes explaining why you cannot move out.",
     updated: "2026-08-08",
     readMinutes: 7,
     opening: [

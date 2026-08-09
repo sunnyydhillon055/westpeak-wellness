@@ -3,12 +3,15 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { services, getService } from '@/lib/services';
 import { site } from '@/lib/site';
+import { getExtra } from '@/lib/depth';
+import { buildToc, headingId } from '@/lib/toc';
 import { orgRef, siteRef, personRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
 import { getServiceIcon } from '@/lib/icon-map';
 import { Clock, MonitorSmartphone, Languages as LangIcon, BadgeCheck, CircleDot } from 'lucide-react';
 import ExtraSections from '@/components/ExtraSections';
+import Toc from '@/components/Toc';
 import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
 
@@ -30,6 +33,18 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 export default function ServicePage({ params }: { params: { slug: string } }) {
   const s = getService(params.slug);
   if (!s) notFound();
+
+  /* Heading order as rendered. 'This can help with' lives in the aside
+   * itself, so it is deliberately not a TOC entry. */
+  const toc = buildToc([
+    'How we approach it',
+    ...(s.whatItIs ? [s.whatItIs.h2] : []),
+    'What people tend to arrive with',
+    ...(s.sessionShape ? [s.sessionShape.h2] : []),
+    ...getExtra('services', s.slug).map((x) => x.h2),
+    'Before you book',
+    'Go deeper',
+  ]);
   const others = services.filter((x) => x.slug !== s.slug).slice(0, 3);
 
   const schema = [
@@ -96,11 +111,11 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
           <div className="svc-layout">
             <div className="prose">
               <p className="lede" style={{ marginBottom: 24 }}>{s.intro}</p>
-              <h2>How we approach it</h2>
+              <h2 id="how-we-approach-it">How we approach it</h2>
               <p>{s.approach}</p>
               {s.whatItIs && (
                 <>
-                  <h2>{s.whatItIs.h2}</h2>
+                  <h2 id={headingId(s.whatItIs.h2)}>{s.whatItIs.h2}</h2>
                   <Paragraphs items={s.whatItIs.body} />
                 </>
               )}
@@ -115,6 +130,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                   Book a free consultation
                 </Link>
               </div>
+              <Toc items={toc} />
             </aside>
           </div>
         </div>
@@ -124,7 +140,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         <section className="section">
           <div className="container">
             <p className="eyebrow">Might be a fit if</p>
-            <h2>What people tend to arrive with</h2>
+            <h2 id="what-people-tend-to-arrive-with">What people tend to arrive with</h2>
             <div className="grid grid-2" style={{ marginTop: 26 }}>
               {s.signs.map((x) => (
                 <div className="card cred-card sign-card" key={x.label}>
@@ -154,7 +170,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
       {s.sessionShape && (
         <section className="section section--ghost">
           <div className="container prose" style={{ maxWidth: '70ch' }}>
-            <h2>{s.sessionShape.h2}</h2>
+            <h2 id={headingId(s.sessionShape.h2)}>{s.sessionShape.h2}</h2>
             <Paragraphs items={s.sessionShape.body} />
           </div>
         </section>
@@ -168,7 +184,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
 
             {s.figure2 && <Figure name={s.figure2} />}
 
-            <h2>Before you book</h2>
+            <h2 id="before-you-book">Before you book</h2>
             <div style={{ marginTop: 24, maxWidth: 760 }}>
               {s.faqs.map((f) => (
                 <details className="faq-item" key={f.q}>
@@ -189,7 +205,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         <section className="section section--tint">
           <div className="container">
             <p className="eyebrow">Related reading</p>
-            <h2>Go deeper</h2>
+            <h2 id="go-deeper">Go deeper</h2>
             <div className="chip-grid" style={{ marginTop: 20 }}>
               {s.related.map((r) => <Link className="chip" key={r.href} href={r.href}>{r.label}</Link>)}
             </div>

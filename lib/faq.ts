@@ -4,6 +4,10 @@ export type FAQ = { q: string; a: string };
 // compliant with BCACC advertising standards.
 export const faqs: FAQ[] = [
   {
+    q: "How do I pay, and when?",
+    a: "Sessions are paid by credit card at the time you book, not at the end of the hour. Cancellation is free up to 24 hours before the appointment; inside that window the session is charged, because the time was held and cannot realistically be filled at that notice. The client portal sets out the whole process, including what happens if something unavoidable comes up.",
+  },
+  {
     q: "Are you taking new clients?",
     a: "Yes. Westpeak Wellness is currently accepting new clients across British Columbia. The best first step is a free 15-minute consultation, where we can see if we're a good fit before you commit to anything.",
   },
@@ -13,7 +17,7 @@ export const faqs: FAQ[] = [
   },
   {
     q: "Do you offer sessions in Punjabi?",
-    a: "Yes. Sessions are available in Punjabi, English, or a mix of both. Some things simply land better in your first language, and you won't have to translate your cultural context to be understood.",
+    a: "Yes. Sessions are available in Punjabi, English, or a mix of both. Some things land better in your first language, and you won't have to translate your cultural context to be understood.",
   },
   {
     q: "Are you covered by extended health benefits?",

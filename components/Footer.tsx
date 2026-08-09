@@ -45,34 +45,30 @@ export default function Footer() {
 
             <nav className="footer-col" aria-labelledby="foot-svc">
               <h2 id="foot-svc">Services</h2>
-              {services.slice(0, 6).map((s) => (
+              {services.slice(0, 5).map((s) => (
                 <Link key={s.slug} href={`/services/${s.slug}`}>{s.name}</Link>
               ))}
               <Link href="/services" className="footer-more">All services →</Link>
             </nav>
 
-            <nav className="footer-col" aria-labelledby="foot-practice">
-              <h2 id="foot-practice">Practice</h2>
-              <Link href="/about">About the Counsellor</Link>
-              <Link href="/approaches">Counselling Approaches</Link>
+            <nav className="footer-col" aria-labelledby="foot-read">
+              <h2 id="foot-read">Read</h2>
               <Link href="/guides">Counselling Guides</Link>
               <Link href="/compare">Compare Your Options</Link>
               <Link href="/for">Who We Work With</Link>
               <Link href="/resources">BC Resources</Link>
-              <Link href="/online-counselling">Areas Served in BC</Link>
-              <Link href="/pricing">Fees &amp; Insurance</Link>
-              <Link href="/faq">FAQ</Link>
-              <Link href={site.bookingPath}>Book a Consultation</Link>
+              <Link href="/glossary">Glossary</Link>
+              <Link href="/approaches">Approaches</Link>
             </nav>
 
-            <nav className="footer-col" aria-labelledby="foot-trust">
-              <h2 id="foot-trust">Trust &amp; transparency</h2>
-              <Link href="/standards">Standards &amp; Accountability</Link>
-              <Link href="/editorial-policy">Editorial Policy</Link>
-              <Link href="/privacy">Privacy &amp; Confidentiality</Link>
-              <Link href="/accessibility">Accessibility</Link>
-              <Link href="/glossary">Counselling Glossary</Link>
+            <nav className="footer-col" aria-labelledby="foot-practice">
+              <h2 id="foot-practice">Practice</h2>
+              <Link href="/about">About the Counsellor</Link>
+              <Link href="/pricing">Fees &amp; Insurance</Link>
+              <Link href="/faq">FAQ</Link>
+              <Link href="/online-counselling">Areas Served in BC</Link>
               <Link href="/contact">Contact</Link>
+              <Link href={site.portalPath} className="footer-more">Client Portal &rarr;</Link>
             </nav>
           </div>
 
@@ -87,6 +83,13 @@ export default function Footer() {
               <Link href="/resources/bc-crisis-and-support-directory">Full BC directory →</Link>
             </p>
           </div>
+
+          <nav className="footer-legal" aria-label="Policies">
+            <Link href="/standards">Standards &amp; accountability</Link>
+            <Link href="/editorial-policy">Editorial policy</Link>
+            <Link href="/privacy">Privacy &amp; confidentiality</Link>
+            <Link href="/accessibility">Accessibility</Link>
+          </nav>
 
           <div className="footer-bottom">
             <span>© {new Date().getFullYear()} {site.name} · {site.counsellor.title}</span>

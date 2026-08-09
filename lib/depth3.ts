@@ -6,7 +6,7 @@ export const depth3: Record<string, DepthSection[]> = {
     {
       h2: 'Why the theme is usually the thing you care most about',
       body: [
-        'One of the more revealing features of intrusive thoughts is how reliably their content tracks a person\'s values. This is not a coincidence and it is genuinely useful to understand.',
+        'One of the more revealing features of intrusive thoughts is how reliably their content tracks a person\'s values. This is not a coincidence and it is useful to understand.',
         'A devoted new parent gets thoughts about harm coming to their baby. Someone whose faith matters gets blasphemous content in a place of worship. A person who would never hurt anyone gets violent images. Someone whose sexuality is a settled part of who they are gets thoughts that contradict it.',
         'The pattern is consistent: **the mind produces intrusions on the subject you would find most unbearable.** That is what makes them alarming and, once seen, what makes them interpretable. A thought is disturbing in proportion to how much it violates what you actually care about — which means the distress is a measurement of your values rather than a warning about your intentions.',
         'This also explains why reassurance from other people rarely settles anything. Being told you would never do it addresses the wrong question. The person is not usually seeking evidence about their behaviour; they are trying to resolve an unresolvable question about what having the thought means. Which is exactly why the treatment targets the relationship to the thought rather than the answer to the question.',
@@ -21,7 +21,7 @@ export const depth3: Record<string, DepthSection[]> = {
       list: [
         { label: 'Meetings', detail: 'The fear is usually not of speaking but of the pause before speaking, and of visibly deciding whether to. A useful first target is contributing once, early, on something low-stakes — because the dread compounds across a meeting in which you have said nothing.' },
         { label: 'The unstructured parts', detail: 'Before a meeting starts, the lift, the kitchen. Frequently harder than the meeting itself because there is no role to occupy. These are worth targeting deliberately rather than engineering around.' },
-        { label: 'Video calls', detail: 'A mixed picture. Self-view amplifies the self-focused attention that maintains social anxiety — turning it off is a genuinely useful intervention. Cameras off entirely is a safety behaviour that will make the return harder.' },
+        { label: 'Video calls', detail: 'A mixed picture. Self-view amplifies the self-focused attention that maintains social anxiety — turning it off is a useful intervention. Cameras off entirely is a safety behaviour that will make the return harder.' },
         { label: 'Asking for something', detail: 'A raise, a deadline extension, help. Frequently avoided entirely and quietly expensive over a career. Worth working on directly rather than treating as a separate confidence issue.' },
         { label: 'Being watched working', detail: 'Someone standing behind you, a review, a shared screen. Performance genuinely degrades under observation for most people; social anxiety adds an interpretation of that as exposure.' },
         { label: 'Social events attached to work', detail: 'The obligation to attend combined with no defined role. Declining every one is noticed over time, which adds a second, career-shaped cost to the avoidance.' },

@@ -3,11 +3,14 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { guides, getGuide } from '@/lib/guides';
 import { site } from '@/lib/site';
+import { getExtra } from '@/lib/depth';
+import { buildToc, headingId } from '@/lib/toc';
 import { orgRef, siteRef, personRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
 import Byline from '@/components/Byline';
 import ExtraSections from '@/components/ExtraSections';
+import Toc from '@/components/Toc';
 import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
 import { getFigure } from '@/lib/figures';
@@ -36,6 +39,12 @@ const fmt = (iso: string) =>
 export default function GuidePage({ params }: { params: { slug: string } }) {
   const g = getGuide(params.slug);
   if (!g) notFound();
+
+  const toc = buildToc([
+    ...g.sections.map((s) => s.h2),
+    ...getExtra('guides', g.slug).map((s) => s.h2),
+    'Common questions', 'Sources',
+  ]);
 
   const schema = [
     {
@@ -87,7 +96,9 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
       </section>
 
       <section className="section" style={{ paddingTop: 44 }}>
-        <div className="container prose">
+        <div className="container reading">
+          <Toc items={toc} />
+          <div className="prose">
           <p className="crumb">
             <Link href="/">Home</Link> / <Link href="/guides">Guides</Link> / {g.title}
           </p>
@@ -100,7 +111,7 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
 
           {g.sections.map((s, i) => (
             <div key={s.h2}>
-              <h2>{s.h2}</h2>
+              <h2 id={headingId(s.h2)}>{s.h2}</h2>
               {s.body && <Paragraphs items={s.body} />}
               {s.list && (
                 <ul className="checklist" style={{ margin: '20px 0 28px' }}>
@@ -130,7 +141,7 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
 
           {g.figure2 && <Figure name={g.figure2} />}
 
-          <h2>Common questions</h2>
+          <h2 id="common-questions">Common questions</h2>
           <div style={{ marginTop: 8 }}>
             {g.faqs.map((f) => (
               <details className="faq-item" key={f.q}>
@@ -140,7 +151,7 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
             ))}
           </div>
 
-          <h2>Sources</h2>
+          <h2 id="sources">Sources</h2>
           <ul style={{ color: 'var(--ink-soft)', fontSize: '.94rem', paddingLeft: 20 }}>
             {g.sources.map((s) => (
               <li key={s.url} style={{ marginBottom: 8 }}>
@@ -154,6 +165,7 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
             or replace an assessment. If you are in crisis, call or text <strong>9-8-8</strong>{' '}
             (Canada, 24/7) or BC Mental Health Support at <strong>310-6789</strong>.
           </p>
+          </div>
         </div>
       </section>
 

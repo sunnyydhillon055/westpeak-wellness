@@ -23,7 +23,7 @@ export const moreGuides: Guide[] = [
       {
         h2: 'Why the honest answer is a range',
         body: [
-          'Therapy is not a procedure with a fixed duration. Two people can arrive with the same words — "I have been anxious for a year" — and need very different amounts of work, because the anxiety in one case is attached to a specific situation that is about to change, and in the other it is the surface of something twenty years old.',
+          'Therapy is not a procedure with a fixed duration. Two people can arrive with the same words — "I have been anxious for a year" — and need different amounts of work, because the anxiety in one case is attached to a specific situation that is about to change, and in the other it is the surface of something twenty years old.',
           'The structured therapies give the clearest signal, because they were built and tested with a defined length. Trials of cognitive behavioural therapy for anxiety and depression have typically run somewhere in the range of 8 to 20 sessions. Trauma-focused protocols are often similar. That is where the commonly quoted numbers come from — they are the shape of the research, not a promise about you.',
           '**What actually determines length** is less mysterious than it sounds: how long the pattern has been running, how many areas of your life it touches, whether your circumstances are stable enough to practise anything, and how much support exists outside the room. None of that is a measure of how difficult a person is. It is a description of the job.',
         ],
@@ -67,7 +67,7 @@ export const moreGuides: Guide[] = [
         body: [
           'Most therapy does not end; it fades out. Someone cancels, reschedules, then stops replying. That is understandable and it costs you something — the review, the consolidation, and the plan for what to do if it comes back.',
           'A deliberate ending takes one session. It covers what changed, what did not, what you now know about your own early warning signs, and what would justify coming back. It also makes returning much easier later, because you are resuming rather than starting over.',
-          'You are allowed to end therapy at any time, for any reason, including that you simply do not want to continue. You do not owe an explanation. Saying it out loud rather than disappearing is worth doing for your own sake more than anyone else\'s.',
+          'You are allowed to end therapy at any time, for any reason, including that you do not want to continue. You do not owe an explanation. Saying it out loud rather than disappearing is worth doing for your own sake more than anyone else\'s.',
         ],
       },
     ],
@@ -115,7 +115,7 @@ export const moreGuides: Guide[] = [
         h2: 'The wrong test, and why so many people use it',
         body: [
           'The question people actually ask themselves is comparative: *is this bad enough compared to what other people go through?* It is a decent instinct about resources and a terrible instinct about health. Nobody applies it to a knee that has hurt for eight months.',
-          'The comparison is also rigged, because you are comparing your inside to everyone else\'s outside. The colleague who seems fine is not a control group. And the people whose difficulties are most visible are not the ones who most need help — often they are simply the ones with the least energy left for concealment.',
+          'The comparison is also rigged, because you are comparing your inside to everyone else\'s outside. The colleague who seems fine is not a control group. And the people whose difficulties are most visible are not the ones who most need help — often they are the ones with the least energy left for concealment.',
           '**A better test has three parts:** duration, cost, and direction. How long has this been going on? What is it taking from you — sleep, work, patience with people you love, things you used to do? And is it getting better on its own, or has it settled in? A difficulty that is persistent, costly and static does not need to be severe to be worth addressing.',
         ],
       },
@@ -260,7 +260,7 @@ export const moreGuides: Guide[] = [
       label: 'a free 15-minute consultation is a low-stakes place to start',
     },
     faqs: [
-      { q: 'Do I have to describe what happened in detail?', a: 'No. Effective trauma work does not require a full narrative account, and several approaches deliberately require very little verbal detail. You control what is said and when.' },
+      { q: 'Do I have to describe what happened in detail?', a: 'No. Effective trauma work does not require a full narrative account, and several approaches deliberately require little verbal detail. You control what is said and when.' },
       { q: 'Can something be trauma if I do not remember it clearly?', a: 'Yes. Fragmented, patchy or largely absent memory is common rather than disqualifying — it is one of the things a nervous system does under extreme load.' },
       { q: 'Is trauma therapy going to make me feel worse?', a: 'Approaching difficult material can be temporarily hard, which is exactly why sequencing and pacing are clinical decisions rather than preferences. Well-conducted trauma therapy builds capacity before it opens anything, and closes each session deliberately.' },
       { q: 'What is the difference between trauma and PTSD?', a: 'Post-traumatic stress disorder is a formal diagnosis with defined criteria, made by a qualified professional. Trauma is the broader phenomenon. Many people carry trauma responses without meeting the criteria for the diagnosis, and they are still treatable.' },

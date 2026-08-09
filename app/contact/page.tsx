@@ -83,6 +83,11 @@ export default function Contact() {
               is worth reading beforehand — every question on it is fair game here.
             </p>
 
+            <p>
+              Already a client? Booking, payment, rescheduling and receipts all live in the{' '}
+              <Link href={site.portalPath}>client portal</Link> rather than in email.
+            </p>
+
             <h2>Two practical things before you book</h2>
             <p>
               Sessions run by secure video anywhere in British Columbia, and a counsellor has to be

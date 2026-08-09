@@ -110,7 +110,7 @@ export const moreAudiences2: Audience[] = [
     readMinutes: 7,
     opening: [
       'Family caregiving almost never begins with a decision. It begins with a hospital discharge, or a fall, or a diagnosis, and then a series of small assumptions of responsibility that nobody formally agreed to and that add up over a couple of years into something enormous.',
-      'It is also usually invisible. There is no title, no hours, and no acknowledgement of it as work — which makes it very difficult to say that it has become too much without feeling as though you are complaining about loving someone.',
+      'It is also usually invisible. There is no title, no hours, and no acknowledgement of it as work — which makes it difficult to say that it has become too much without feeling as though you are complaining about loving someone.',
       'What brings people here is rarely the tasks. It is the combination: exhaustion, grief for someone who has not died, anger with nowhere acceptable to put it, and a relationship with a sibling that has quietly become unrecoverable.',
     ],
     whatComesUp: [
@@ -172,7 +172,7 @@ export const moreAudiences2: Audience[] = [
     faqs: [
       { q: 'Is it selfish to get counselling for this?', a: 'No, and the question itself is the thing worth examining. Caregiver exhaustion degrades the quality of care as well as the carer, which is the practical answer; the fuller one is that your own life is not a resource to be spent down without comment.' },
       { q: 'Can my parent come to a session?', a: 'This work is about you rather than about them. Occasionally a joint session is useful, and that is a decision made together — but the default is that this is your hour.' },
-      { q: 'What if the person I care for was not good to me?', a: 'Caring for someone who harmed you is its own specific and very difficult situation, and it comes up more often than people expect. It is workable, and it does not require you to resolve the history first.' },
+      { q: 'What if the person I care for was not good to me?', a: 'Caring for someone who harmed you is its own specific and difficult situation, and it comes up more often than people expect. It is workable, and it does not require you to resolve the history first.' },
       { q: 'I might stop when it ends. Is that a bad idea?', a: 'The period after caregiving ends is frequently harder than people anticipate — the structure disappears, the grief arrives properly, and so does relief. It is worth planning for rather than being surprised by.' },
     ],
     sources: [

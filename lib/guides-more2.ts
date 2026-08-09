@@ -11,7 +11,7 @@ export const moreGuides2: Guide[] = [
     lede:
       'Most couples arrive years later than they meant to, and the delay does more damage than the arguments did.',
     shortAnswer:
-      'The research on structured couples therapy is reasonably encouraging: a majority of couples report meaningful improvement, with the strongest evidence behind approaches built on relationship research rather than general advice. The most consistent predictor of a poor outcome is not the severity of the problems — it is how long the couple waited, and whether both people arrive genuinely willing to look at their own part.',
+      'The research on structured couples therapy is reasonably encouraging: a majority of couples report meaningful improvement, with the strongest evidence behind approaches built on relationship research rather than general advice. The most consistent predictor of a poor outcome is not the severity of the problems — it is how long the couple waited, and whether both people arrive willing to look at their own part.',
     updated: '2026-08-08',
     readMinutes: 8,
     figure: 'gottman-method',
@@ -68,7 +68,7 @@ export const moreGuides2: Guide[] = [
         body: [
           'Couples work by video has one practical complication and one underrated advantage. The complication is logistics: two people, one camera, and the need for genuine privacy from children and housemates — which is harder than it sounds and worth solving before the first session rather than during it.',
           'The advantage is that it removes the commute for two people rather than one, which is often the difference between a couple sustaining weekly sessions and quietly stopping after four. For couples on different shift patterns, or where one partner works away, virtual sessions are frequently the only format that survives contact with real life.',
-          'Sitting side by side on one device works better than two devices in two rooms, which tends to reproduce the distance the therapy is trying to close. Where partners genuinely cannot be in the same place, it can still work — it is simply worth naming as a constraint rather than pretending it is neutral.',
+          'Sitting side by side on one device works better than two devices in two rooms, which tends to reproduce the distance the therapy is trying to close. Where partners genuinely cannot be in the same place, it can still work — it is worth naming as a constraint rather than pretending it is neutral.',
         ],
       },
     ],
@@ -125,7 +125,7 @@ export const moreGuides2: Guide[] = [
         body: [
           'Anxiety affects sleep in specific ways: it delays sleep onset because the body is in a state incompatible with the transition; it fragments sleep with early-hours waking; and it degrades sleep quality even where duration looks normal, which is why some people sleep eight hours and wake unrestored.',
           'Sleep loss then affects anxiety in equally specific ways. Emotional reactivity increases, attention narrows toward threat, and the capacity to hold a difficult feeling without acting on it drops. In practice this means a poor night makes the next day\'s anxiety both more frequent and harder to manage — which then makes the following night worse.',
-          '**Because it is a loop, entry is possible at either point.** That is genuinely good news: you do not have to resolve the anxiety before the sleep can improve, and improving the sleep will usually reduce the anxiety even if nothing else changes.',
+          '**Because it is a loop, entry is possible at either point.** That is good news: you do not have to resolve the anxiety before the sleep can improve, and improving the sleep will usually reduce the anxiety even if nothing else changes.',
         ],
       },
       {
@@ -326,7 +326,7 @@ export const moreGuides2: Guide[] = [
           { label: 'Advice instead of exploration', detail: 'A counsellor who mostly tells you what to do about your life is doing something other than therapy. Occasional directness is fine; a pattern of it is not.' },
           { label: 'Your concerns are always reframed as resistance', detail: 'An approach in which every objection is evidence for the theory is unfalsifiable, and unfalsifiable is not a good property for a treatment.' },
           { label: 'Boundary problems of any kind', detail: 'Chronic lateness, cancellations without notice, excessive self-disclosure, or contact that is not clinical. Anything that looks like a dual relationship is a reason to leave and, if warranted, to raise it with the [BC Association of Clinical Counsellors](/standards).' },
-          { label: 'It has simply run its course', detail: 'Sometimes a counsellor was right for one phase and is not right for the next. That is not a fault in either person and does not require a grievance to justify leaving.' },
+          { label: 'It has run its course', detail: 'Sometimes a counsellor was right for one phase and is not right for the next. That is not a fault in either person and does not require a grievance to justify leaving.' },
         ],
       },
       {

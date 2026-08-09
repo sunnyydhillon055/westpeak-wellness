@@ -39,8 +39,8 @@ export const moreResources: Resource[] = [
       {
         h2: 'Where campus counselling runs out',
         body: [
-          'Campus services are designed for short-term work, and they are genuinely good at it — an acute period, a specific crisis, a decision, adjusting to a first year away from home. For a bounded difficulty, a handful of sessions often does the job.',
-          'The limits show up in three places. Session caps mean long-standing patterns and trauma work rarely fit. Demand peaks exactly when students most need it, which is the fortnight before finals. And continuity is difficult across terms, summers and co-op placements — students frequently change counsellor mid-course simply because of the calendar.',
+          'Campus services are designed for short-term work, and they are good at it — an acute period, a specific crisis, a decision, adjusting to a first year away from home. For a bounded difficulty, a handful of sessions often does the job.',
+          'The limits show up in three places. Session caps mean long-standing patterns and trauma work rarely fit. Demand peaks exactly when students most need it, which is the fortnight before finals. And continuity is difficult across terms, summers and co-op placements — students frequently change counsellor mid-course because of the calendar.',
           'That is not a criticism of a service doing what it was designed to do. It is a reason to know in advance where the ceiling is, and to ask at the first appointment what happens when you reach it.',
         ],
       },
@@ -66,7 +66,7 @@ export const moreResources: Resource[] = [
         h2: 'When private counselling makes sense for a student',
         body: [
           'Private counselling is worth considering when campus sessions have run out mid-course, when you need a specific approach the campus service does not offer, when continuity across terms matters, or when your student health plan covers a meaningful share of the fee anyway.',
-          'It is also worth it when the difficulty is not really about school. Family, relationships, trauma and identity do not respect a semester structure, and a service organised around one is not always the right container.',
+          'It is also worth it when the difficulty is not about school. Family, relationships, trauma and identity do not respect a semester structure, and a service organised around one is not always the right container.',
           'The practical constraints are real, though. Student budgets are tight, and a plan built without reference to the money tends to end abruptly. Being direct about what you can sustain is a normal conversation — see [weekly vs biweekly sessions](/compare/weekly-vs-biweekly-sessions) and [low-cost counselling in BC](/resources/low-cost-counselling-bc).',
         ],
       },
@@ -124,7 +124,7 @@ export const moreResources: Resource[] = [
         list: [
           { label: 'Accommodation (human rights law)', detail: 'A mental-health condition can be a disability under the BC Human Rights Code, and employers have a duty to accommodate to the point of undue hardship. Accommodation is about changing how you work — hours, workload, deadlines, a graduated return, a change of duties — not about time away.' },
           { label: 'Disability benefits (an insurance contract)', detail: 'Short-term and long-term disability are insurance products bought by your employer, governed by a policy rather than by legislation. The insurer decides eligibility using its own definitions, and mental-health claims frequently require more documentation than physical ones.' },
-          { label: 'WorkSafeBC (a claim against work causation)', detail: 'A separate system for injuries caused by work. Mental-health claims are accepted in defined circumstances — most clearly for a traumatic event experienced at work, and in some cases for cumulative work-related stressors. It requires demonstrating that work caused the condition, which is a higher bar than simply having it.' },
+          { label: 'WorkSafeBC (a claim against work causation)', detail: 'A separate system for injuries caused by work. Mental-health claims are accepted in defined circumstances — most clearly for a traumatic event experienced at work, and in some cases for cumulative work-related stressors. It requires demonstrating that work caused the condition, which is a higher bar than having it.' },
         ],
       },
       {

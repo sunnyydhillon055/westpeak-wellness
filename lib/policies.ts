@@ -164,7 +164,7 @@ export const policies: Record<string, Policy> = {
           { label: 'Self-diagnosis quizzes', detail: 'A ten-question widget cannot assess anyone, and dressing one up as a screening tool implies a precision that does not exist.' },
           { label: 'AI-generated clinical content published unreviewed', detail: 'Drafting tools may assist with structure or editing. No clinical claim reaches this site without being checked against its source by a person who is accountable for it.' },
           { label: 'Comparisons naming other practices', detail: 'Pages here compare approaches, designations and delivery formats. They do not name competing clinics or counsellors, because a marketing page is not a fair forum for that.' },
-          { label: 'Keyword pages with nothing in them', detail: 'This site does not publish a page per city or per keyword simply because the phrase gets searched. When a page has nothing specific to say, it is folded into one that does — which is why the location pages were cut from forty-three to six.' },
+          { label: 'Keyword pages with nothing in them', detail: 'This site does not publish a page per city or per keyword because the phrase gets searched. When a page has nothing specific to say, it is folded into one that does — which is why the location pages were cut from forty-three to six.' },
         ],
       },
       {
@@ -212,7 +212,7 @@ export const policies: Record<string, Policy> = {
         list: [
           { label: 'Risk of serious harm', detail: 'If there is a real and imminent risk of serious harm to you or to an identifiable other person, a counsellor is obligated to act — which may mean contacting emergency services or a named person.' },
           { label: 'A child or vulnerable adult at risk', detail: 'Suspected abuse or neglect of someone under nineteen must be reported to child protection under BC law. This duty applies to everyone in the province, not only to counsellors.' },
-          { label: 'A court order or subpoena', detail: 'A court can compel the release of records. A counsellor can and will object where objection is appropriate, but cannot simply refuse a valid order.' },
+          { label: 'A court order or subpoena', detail: 'A court can compel the release of records. A counsellor can and will object where objection is appropriate, but cannot refuse a valid order.' },
           { label: 'Clinical supervision and consultation', detail: 'Counsellors consult on their work as a condition of good practice. Where that happens, identifying details are removed, and the consultant is bound by the same confidentiality.' },
         ],
       },
@@ -307,7 +307,7 @@ export const policies: Record<string, Policy> = {
           { label: 'Camera off', detail: 'You are never required to be on camera to be in a session. It suits camera fatigue, lower bandwidth, and anyone who thinks better without being watched.' },
           { label: 'Sessions in Punjabi', detail: 'Working in the language you think in is an access issue, not a preference. See [Punjabi counselling](/services/punjabi-counselling).' },
           { label: 'Pacing and breaks', detail: 'Sessions can be paused, shortened, or restructured. For trauma work in particular, pacing is a clinical decision made with you rather than to you.' },
-          { label: 'Written summaries on request', detail: 'Where it helps — memory difficulty, attention difficulty, or simply preferring things in writing — key points and between-session plans can be sent in writing afterward.' },
+          { label: 'Written summaries on request', detail: 'Where it helps — memory difficulty, attention difficulty, or preferring things in writing — key points and between-session plans can be sent in writing afterward.' },
           { label: 'Flexible scheduling', detail: 'Evening appointments are available by request, which matters for shift work, caregiving, and jobs without daytime flexibility.' },
         ],
       },

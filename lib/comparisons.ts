@@ -97,7 +97,7 @@ const coreComparisons: Comparison[] = [
       },
       {
         q: "Can an RCC diagnose anxiety or depression?",
-        a: "No. Formal diagnosis in BC sits with psychologists, physicians, psychiatrists, and clinical social workers with the relevant registration. An RCC can absolutely work with anxiety or depression — they simply cannot put a diagnostic label on your file or produce documentation that depends on one.",
+        a: "No. Formal diagnosis in BC sits with psychologists, physicians, psychiatrists, and clinical social workers with the relevant registration. An RCC can absolutely work with anxiety or depression — they cannot put a diagnostic label on your file or produce documentation that depends on one.",
       },
       {
         q: "Why is a psychologist more expensive?",
@@ -154,7 +154,7 @@ const coreComparisons: Comparison[] = [
         h2: "Start with couples therapy when…",
         list: [
           { label: "The same argument keeps happening", detail: "A recurring loop with predictable moves on both sides is the clearest indication for couples work — that pattern is difficult to change from one side alone." },
-          { label: "You have drifted into logistics", detail: "Two competent people running a household with no remaining friendship. Common, unglamorous, and very responsive to structured work." },
+          { label: "You have drifted into logistics", detail: "Two competent people running a household with no remaining friendship. Common, unglamorous, and responsive to structured work." },
           { label: "There has been a rupture and you both want to repair", detail: "An affair, a betrayal, a serious breach. Both words matter: both of you, and want." },
           { label: "You are facing a decision you cannot discuss", detail: "Children, moving, family obligation, money — where every attempt to talk about it ends badly." },
           { label: "You need clarity about whether to stay", detail: "A legitimate goal. Couples therapy is not obliged to produce a reconciliation, and a good practitioner will say so." },
@@ -163,7 +163,7 @@ const coreComparisons: Comparison[] = [
       {
         h2: "Start individually when…",
         list: [
-          { label: "Your partner will not come", detail: "The most common reason. Individual work on a relationship is genuinely useful — changing your side of a pattern changes the pattern, sometimes enough that the other person becomes willing." },
+          { label: "Your partner will not come", detail: "The most common reason. Individual work on a relationship is useful — changing your side of a pattern changes the pattern, sometimes enough that the other person becomes willing." },
           { label: "Something of yours needs attention first", detail: "Untreated trauma, depression, or addiction will limit what couples work can achieve. Sequencing it — or running both in parallel — usually gets further." },
           { label: "You do not know what you want", detail: "Working out whether you want to stay is often better done somewhere your partner is not in the room." },
           { label: "The pattern predates the relationship", detail: "If you recognise this dynamic from previous relationships, or from the house you grew up in, that points to individual work — see [intergenerational trauma](/guides/intergenerational-trauma-explained)." },
@@ -180,7 +180,7 @@ const coreComparisons: Comparison[] = [
       {
         h2: "Doing both",
         body: [
-          "The two are not mutually exclusive, and a common arrangement is couples sessions alongside individual therapy for one or both partners — usually with different counsellors, to keep the individual space genuinely separate and avoid the awkwardness of one practitioner holding private information from one partner.",
+          "The two are not mutually exclusive, and a common arrangement is couples sessions alongside individual therapy for one or both partners — usually with different counsellors, to keep the individual space separate and avoid the awkwardness of one practitioner holding private information from one partner.",
           "It costs more and it is often the most effective structure, particularly where the relationship difficulty and an individual difficulty are feeding each other. The [Gottman Method guide](/guides/how-the-gottman-method-works) covers what the couples side of that involves.",
         ],
       },
@@ -222,7 +222,7 @@ const coreComparisons: Comparison[] = [
       "Two evidence-based trauma treatments compared — how each works, how much you have to talk, and which tends to suit what.",
     eyebrow: "Comparison · Trauma treatment",
     lede:
-      "Both are recommended in clinical guidelines for PTSD. They get there by very different routes.",
+      "Both are recommended in clinical guidelines for PTSD. They get there by different routes.",
     shortAnswer:
       "Trauma-focused CBT works through language — examining thoughts and beliefs about what happened, often with structured written or spoken exposure. EMDR works through reprocessing, using bilateral stimulation while you hold the memory in mind, and requires far less verbal description. Both are recommended for PTSD in major guidelines. The choice is usually about fit rather than efficacy.",
     updated: "2026-08-08",

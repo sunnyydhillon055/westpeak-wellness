@@ -67,7 +67,7 @@ export const depthOther: Record<string, DepthSection[]> = {
     {
       h2: 'What a counsellor can usefully do around medication',
       body: [
-        'A counsellor cannot prescribe, adjust or advise on medication. That leaves a genuinely useful set of things they can do, and it is worth knowing what they are rather than treating the boundary as a dead end.',
+        'A counsellor cannot prescribe, adjust or advise on medication. That leaves a useful set of things they can do, and it is worth knowing what they are rather than treating the boundary as a dead end.',
         '**Preparing for the appointment.** Working out what to ask, assembling an accurate timeline, and getting clear on what you actually want from the conversation. Prescriber appointments are short, and arriving organised changes what comes out of them.',
         '**Tracking what changes.** Two weeks of brief daily notes is far better evidence than recollection, and it is exactly what a prescriber needs to judge whether something is working. A counsellor seeing you weekly is well placed to notice changes you have normalised.',
         '**Working through ambivalence.** A great many people are genuinely torn about medication, for reasons that range from side effects to family attitudes to what it would mean about them. That is legitimate session material, and it is not the same as being talked into or out of anything.',
@@ -170,7 +170,7 @@ export const depthOther: Record<string, DepthSection[]> = {
         '**Mid-October to November and mid-March to April are the peak,** for the obvious reason. Waits lengthen sharply, and the students who most need to be seen are frequently the ones who cannot face booking.',
         '**Reading break is underused.** Services generally continue running while demand drops.',
         '**Summer is complicated.** Some institutions reduce counselling over the summer, and some students lose eligibility if not enrolled. Worth checking in April rather than in July, particularly if you are on a co-op term.',
-        'Two further timing points that catch people out. Student health plan coverage typically runs on a plan year rather than a calendar year, and unused benefit does not carry over — so an unused counselling allowance simply disappears. And academic accommodation requests take time to process, which means starting the conversation before a term goes wrong is worth far more than a retroactive appeal afterwards.',
+        'Two further timing points that catch people out. Student health plan coverage typically runs on a plan year rather than a calendar year, and unused benefit does not carry over — so an unused counselling allowance disappears. And academic accommodation requests take time to process, which means starting the conversation before a term goes wrong is worth far more than a retroactive appeal afterwards.',
       ],
     },
   ],
@@ -209,7 +209,7 @@ export const depthOther: Record<string, DepthSection[]> = {
         'A first psychiatric appointment is frequently shorter than people expect and may be the only one for some time. Preparation changes what comes out of it more than anything else you control.',
         '**Bring a written timeline,** not a summary. When it started, what changed and when, what has been tried, what effect each thing had, and how long each was tried for. One page. Hand it over rather than reciting it — it saves several minutes and it is more accurate than recall under pressure.',
         '**Bring a current medication list,** including anything over the counter, supplements, and alcohol or other substance use. Interactions matter and omissions here are common.',
-        '**Bring family history if you know it.** Whether a relative responded well to a particular treatment is genuinely useful clinical information.',
+        '**Bring family history if you know it.** Whether a relative responded well to a particular treatment is useful clinical information.',
         '**State your question explicitly.** "I want to understand whether medication would help" or "I want a diagnostic opinion" or "I want to know whether this is treatable" all lead to different appointments. Waiting to be told is the least efficient use of the time.',
         '**Ask three things before you leave:** what happens next and when, what would count as this not working, and who to contact in the meantime. Appointments end abruptly and these are the questions people realise afterwards they needed answered.',
         '**And bring someone if you can.** A second person remembers different things, and for anyone whose concentration is affected that is not a small advantage.',
@@ -223,7 +223,7 @@ export const depthOther: Record<string, DepthSection[]> = {
       h2: 'The window that gets missed',
       body: [
         'Perinatal mental health has a specific timing problem. The formal check-ins cluster in the first weeks, and a meaningful share of difficulty arrives later — at four months, at eight, at the return to work, at weaning. By then the appointments have stopped and everyone has moved on to asking how the baby is.',
-        'It is also the period when reaching out is hardest. The practical obstacles are real: an hour is genuinely difficult to find, leaving the house is a project, and a video session during a nap is frequently the only format that exists. That is not a preference; it is the difference between getting support and not.',
+        'It is also the period when reaching out is hardest. The practical obstacles are real: an hour is difficult to find, leaving the house is a project, and a video session during a nap is frequently the only format that exists. That is not a preference; it is the difference between getting support and not.',
         'The other obstacle is what people expect to be told. A great many parents fear that describing intrusive thoughts, or admitting they do not feel what they expected to feel, will trigger a child-protection response. Intrusive thoughts are extremely common in new parents and are not, in themselves, a risk indicator — that distinction is well established clinically and almost never explained to anyone.',
         'What does warrant urgent attention rather than a booking: thoughts of harming yourself, any sense of losing touch with reality, or a rapid change in functioning. Those need same-day medical assessment — **9-8-8**, **310-6789**, or **9-1-1** in immediate danger. Everything else is a normal reason to book something.',
       ],
@@ -294,7 +294,7 @@ export const depthOther: Record<string, DepthSection[]> = {
       h2: 'The between-sessions agreement',
       body: [
         'The most common way couples work is undone is not what happens in the room. It is the conversation on the drive home, where the session gets re-litigated and whatever was said becomes ammunition.',
-        'A short agreement, made in the first session, prevents most of it. **No debriefing the session for twenty-four hours.** Not silence — just not analysing who said what and whether the counsellor agreed with them. Anything genuinely important survives a day and comes back into the room, which is where it can be handled.',
+        'A short agreement, made in the first session, prevents most of it. **No debriefing the session for twenty-four hours.** Not silence — just not analysing who said what and whether the counsellor agreed with them. Anything important survives a day and comes back into the room, which is where it can be handled.',
         '**Nothing said in session gets quoted in an argument.** The moment a disclosure becomes evidence, both of you stop disclosing, and the work becomes a performance.',
         '**Practise the specific thing rather than the general lesson.** Couples work usually produces one concrete thing to try in the week — a repair phrase, a break signal, a particular conversation. One thing, tried badly, is worth more than a resolution to communicate better.',
         '**Report failures rather than successes.** The most useful material a couple brings back is the attempt that went wrong. Bringing only the good week wastes the session, and it is a strong pull for anyone who wants to be doing well at therapy.',
@@ -359,7 +359,7 @@ export const depthOther: Record<string, DepthSection[]> = {
     {
       h2: 'Choice, cost, and the isolation nobody expects',
       body: [
-        'Vancouver has more counsellors per capita than anywhere else in the province, which produces a different problem: not scarcity but selection. Choosing between several hundred profiles is genuinely difficult, and a great many people stall at exactly that point. [How to find a therapist in BC](/guides/how-to-find-a-therapist-in-bc) and [questions worth asking a therapist](/guides/questions-to-ask-a-therapist) are written for that stall specifically.',
+        'Vancouver has more counsellors per capita than anywhere else in the province, which produces a different problem: not scarcity but selection. Choosing between several hundred profiles is difficult, and a great many people stall at exactly that point. [How to find a therapist in BC](/guides/how-to-find-a-therapist-in-bc) and [questions worth asking a therapist](/guides/questions-to-ask-a-therapist) are written for that stall specifically.',
         'The second Vancouver-specific factor is cost pressure. Housing costs mean discretionary spending is genuinely constrained even at high incomes, and counselling frequently competes with rent rather than with leisure. That makes the funding routes worth knowing before paying privately — [EFAP vs private counselling](/compare/efap-vs-private-counselling) and [low-cost counselling in BC](/resources/low-cost-counselling-bc).',
         'The third is the thing residents mention most and outsiders least expect: it is a difficult city to make friends in. Whatever the reasons, adult loneliness here is common, under-discussed, and a significant contributor to low mood — and it is a legitimate reason to book something, rather than a personal failing to be managed privately.',
         'Removing the commute matters here as much as anywhere. A cross-town appointment in rush hour is a two-hour commitment; a session from a home office is fifty minutes.',
@@ -397,7 +397,7 @@ export const depthOther: Record<string, DepthSection[]> = {
       body: [
         'Kelowna has a seasonal economy and a seasonal population, and both shape what arrives in counselling here.',
         'Tourism, hospitality, agriculture and construction produce income that varies substantially across the year, and a fixed weekly financial commitment is genuinely harder to plan around than it is on a salary. Saying so early changes how the work is structured — a concentrated block during a stable stretch frequently works better than a thin year-round schedule.',
-        'The region also has a significant retired and semi-retired population, which brings a particular cluster: loss of role after a career ends, caregiving for a partner, grief, and the specific isolation of having moved somewhere pleasant where you know very few people. That last one is more common than it is discussed and it is a legitimate reason to book something.',
+        'The region also has a significant retired and semi-retired population, which brings a particular cluster: loss of role after a career ends, caregiving for a partner, grief, and the specific isolation of having moved somewhere pleasant where you know few people. That last one is more common than it is discussed and it is a legitimate reason to book something.',
         'Wildfire season has become a recurring feature rather than an occasional event, and its psychological effects are cumulative — evacuation alerts, smoke, and the anticipatory dread that now arrives with the summer. Repeated exposure to that pattern is a genuine stressor and it responds to the same trauma-informed work as any other; see [what trauma actually means](/guides/what-trauma-actually-means).',
       ],
     },

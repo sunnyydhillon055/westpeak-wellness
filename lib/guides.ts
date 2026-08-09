@@ -111,7 +111,7 @@ const coreGuides: Guide[] = [
       },
       {
         q: "What if I try it and it does not suit me?",
-        a: "That is a legitimate outcome and worth saying out loud early. Some people simply work better in a room, and a counsellor who cannot offer that should help you find someone who can.",
+        a: "That is a legitimate outcome and worth saying out loud early. Some people work better in a room, and a counsellor who cannot offer that should help you find someone who can.",
       },
     ],
     sources: [
@@ -239,7 +239,7 @@ const coreGuides: Guide[] = [
         h2: "How they actually differ",
         list: [
           { label: "Onset", detail: "Panic arrives abruptly, often with no identifiable trigger, and can wake people from sleep. Escalating anxiety builds — over an hour, a morning, sometimes days ahead of something." },
-          { label: "Peak", detail: "Panic peaks within roughly ten minutes and then declines, which is genuinely useful to know while it is happening. Anxiety can stay elevated for hours or days without a peak." },
+          { label: "Peak", detail: "Panic peaks within roughly ten minutes and then declines, which is useful to know while it is happening. Anxiety can stay elevated for hours or days without a peak." },
           { label: "Intensity", detail: "Panic is overwhelming and frequently mistaken for a heart attack. Anxiety is usually less acute and more sustained — bad enough to ruin a day rather than to send you to emergency." },
           { label: "Trigger", detail: "Anxiety usually attaches to something identifiable. Panic often attaches to nothing at all, which is part of what makes it frightening." },
           { label: "The fear content", detail: "Panic often carries the fear that you are dying, having a heart attack, or losing your mind. Anxiety is more often about a specific outcome you can name." },
@@ -249,7 +249,7 @@ const coreGuides: Guide[] = [
       {
         h2: "What helps in the moment",
         body: [
-          "The two need genuinely different responses, which is the practical reason the distinction matters.",
+          "The two need different responses, which is the practical reason the distinction matters.",
           "**For panic:** the goal is to ride it out, not to fight it. Fighting it adds fear, and fear is the fuel. It peaks and passes — usually inside ten minutes, always eventually. Slow the exhale rather than the inhale (breathe out for longer than you breathe in). Put your feet on the floor and name five things you can see. Resist the urge to leave the situation if you safely can, because leaving teaches the brain that leaving is what saved you, and that is the mechanism by which your world gets smaller.",
           "**For escalating anxiety:** there is more time and more to work with. Naming the specific fear out loud usually shrinks it. Physical discharge helps — a walk, stairs, anything that uses the mobilisation your body has already prepared. Writing the worry down and separating what is actionable from what is not is more effective than trying to think your way clear.",
           "**For both:** the first time, get it medically checked. Chest pain and breathlessness deserve a real assessment. Being told your heart is fine is also therapeutically useful — it removes a possibility your brain will otherwise keep proposing.",
@@ -400,7 +400,7 @@ const coreGuides: Guide[] = [
           { label: "What brings you here now?", detail: "Not just what is wrong — why now rather than six months ago. The answer often points straight at what matters." },
           { label: "How long has this been going on?", detail: "Whether it is recent, recurring, or lifelong changes what kind of work makes sense." },
           { label: "What does it affect?", detail: "Sleep, work, relationships, appetite, the things you have stopped doing." },
-          { label: "What have you already tried?", detail: "Including previous therapy — what helped, what did not, and what you did not like. This is genuinely useful information, not a test." },
+          { label: "What have you already tried?", detail: "Including previous therapy — what helped, what did not, and what you did not like. This is useful information, not a test." },
           { label: "Some background", detail: "Family, health, major events. Broad strokes in a first session; nobody is expecting a full history." },
           { label: "What would \"better\" look like?", detail: "The hardest question, and often the most important. \"I don't know\" is a completely acceptable answer and is sometimes the starting point." },
         ],
@@ -410,7 +410,7 @@ const coreGuides: Guide[] = [
         body: [
           "You will not be made to describe trauma in detail. A competent counsellor works at your pace, and in trauma-informed practice that pacing is the point — going too fast is a clinical error, not thoroughness. \"I don't want to go into that yet\" is a complete sentence and a reasonable one.",
           "You will not be diagnosed. Counsellors in BC do not diagnose — that sits with psychologists, physicians and psychiatrists, as set out in [the comparison of BC therapist types](/compare/rcc-vs-psychologist-vs-social-worker-bc). You will also not be told what to do; if you get advice-giving in session one, that is worth noticing.",
-          "And you will not be fixed. One session is orientation. Some people leave the first one lighter simply for having said things out loud; others leave stirred up, which is normal and usually settles within a day.",
+          "And you will not be fixed. One session is orientation. Some people leave the first one lighter for having said things out loud; others leave stirred up, which is normal and usually settles within a day.",
         ],
       },
       {

@@ -187,10 +187,10 @@ export default function Home() {
           </Reveal>
           <Figure name="first-session-flow" />
           <Reveal>
-            <div style={{ marginTop: 34, maxWidth: 720 }}>
+            <div style={{ marginTop: 22, maxWidth: 720 }}>
               <Stepper steps={PROCESS} />
             </div>
-            <div className="crisis" style={{ marginTop: 36, maxWidth: 720 }}>
+            <div className="crisis" style={{ marginTop: 26, maxWidth: 720 }}>
               <p style={{ margin: 0 }}>
                 Step one costs nothing.{' '}
                 <Link href={site.bookingPath}>Book a free 15-minute consultation</Link> — and if it
@@ -209,7 +209,7 @@ export default function Home() {
           <Reveal>
             <p className="eyebrow">Frequently asked</p>
             <h2>Good questions to start with</h2>
-            <div style={{ marginTop: 26, maxWidth: 760 }}>
+            <div style={{ marginTop: 20, maxWidth: 760 }}>
               {homeFaqs.map((f) => (
                 <details className="faq-item" key={f.q}>
                   <summary>{f.q}</summary>
@@ -228,7 +228,7 @@ export default function Home() {
           <Reveal>
             <p className="eyebrow">Before you book anything</p>
             <h2>Read first. Decide later.</h2>
-            <p className="lede" style={{ marginBottom: 34 }}>
+            <p className="lede" style={{ marginBottom: 26 }}>
               Most people spend weeks deciding whether to start therapy. These are free, require no
               booking, and several of them will point you somewhere other than here.
             </p>
@@ -259,118 +259,143 @@ export default function Home() {
 
       {/* ------------------------------------------------------ ROUTE BY NEED */}
       <section className="section section--tint">
-        <div className="container prose">
+        <div className="container">
           <Reveal>
             <p className="eyebrow">Start where you actually are</p>
             <h2>Most people arrive with a situation, not a diagnosis</h2>
-            <p>
-              Almost nobody books counselling knowing what they need. They know something has been going
-              on too long, that the obvious fixes stopped working, and that they have been meaning to do
-              something about it for about a year. If that is roughly the position, the fastest way in is
-              to start from whichever of these sounds most like your week.
+            <p className="lede">
+              Almost nobody books counselling knowing what they need — only that something has gone on
+              too long and the obvious fixes stopped working. Start from whichever of these sounds most
+              like your week.
             </p>
-            <p>
-              <strong>Something is wrong and you cannot name it.</strong>{' '}
-              <Link href="/guides/signs-it-might-be-time-for-therapy">Signs it might be time for therapy</Link>{' '}
-              covers the version where nothing has happened and everything is heavy, and{' '}
-              <Link href="/guides/high-functioning-anxiety">high-functioning anxiety</Link> covers the
-              version where it looks from outside like you are doing extremely well.
-            </p>
-            <p>
-              <strong>The nights are the worst part.</strong>{' '}
-              <Link href="/guides/anxiety-and-sleep">Anxiety and sleep</Link> explains why the worry that
-              was manageable at 4 p.m. becomes unanswerable at 2 a.m., and which end of that loop is
-              easiest to break first. If it arrives as sudden surges rather than steady dread,{' '}
-              <Link href="/guides/anxiety-attack-vs-panic-attack">anxiety attack vs panic attack</Link>{' '}
-              and <Link href="/guides/panic-attacks-at-work">panic attacks at work</Link> are the more
-              useful pair.
-            </p>
-            <p>
-              <strong>You are exhausted by your job.</strong>{' '}
-              <Link href="/guides/burnout-vs-depression">Burnout vs depression</Link> is the distinction
-              that changes what to do about it, and{' '}
-              <Link href="/resources/workplace-mental-health-bc">mental health and work in BC</Link>{' '}
-              covers leave, accommodation and what an employer is actually entitled to know.
-            </p>
-            <p>
-              <strong>Something from before is still running.</strong>{' '}
-              <Link href="/guides/what-trauma-actually-means">What trauma actually means</Link> is
-              written for people who have talked themselves out of the word, and{' '}
-              <Link href="/guides/intergenerational-trauma-explained">intergenerational trauma</Link> for
-              when the pattern is older than you are.
-            </p>
-            <p>
-              <strong>It is the relationship.</strong>{' '}
-              <Link href="/guides/does-couples-therapy-work">Does couples therapy work</Link> gives the
-              evidence and the biggest predictor of a poor outcome; if only one of you wants to go,{' '}
-              <Link href="/compare/individual-vs-couples-therapy">individual vs couples therapy</Link>{' '}
-              is the decision to read first.
-            </p>
-            <p>
-              <strong>It is the family.</strong>{' '}
-              <Link href="/guides/setting-boundaries-with-family">Setting boundaries with family</Link>{' '}
-              is written for the case where the other person will never agree to one, and{' '}
-              <Link href="/guides/talking-to-your-family-about-therapy">telling your family you are going to therapy</Link>{' '}
-              for when that conversation is the actual obstacle.
-            </p>
-            <p>
-              <strong>Someone died, or something ended.</strong>{' '}
-              <Link href="/guides/grief-without-a-timeline">Grief that does not follow the timeline</Link>{' '}
-              covers why the five stages were never a schedule, and the losses that get no funeral.
-            </p>
+          </Reveal>
+          <Reveal>
+            <div className="route-grid">
+              <div className="route-cell">
+                <p className="route-k">Something is wrong and you cannot name it</p>
+                <p>
+                  <Link href="/guides/signs-it-might-be-time-for-therapy">Signs it might be time for therapy</Link>{' '}
+                  is the version where nothing has happened and everything is heavy.{' '}
+                  <Link href="/guides/high-functioning-anxiety">High-functioning anxiety</Link> is the
+                  version where it looks from outside like you are doing extremely well.
+                </p>
+              </div>
+              <div className="route-cell">
+                <p className="route-k">The nights are the worst part</p>
+                <p>
+                  <Link href="/guides/anxiety-and-sleep">Anxiety and sleep</Link> explains why 4 p.m.
+                  worry becomes unanswerable at 2 a.m. For sudden surges rather than steady dread,{' '}
+                  <Link href="/guides/anxiety-attack-vs-panic-attack">anxiety attack vs panic attack</Link>{' '}
+                  and <Link href="/guides/panic-attacks-at-work">panic attacks at work</Link>.
+                </p>
+              </div>
+              <div className="route-cell">
+                <p className="route-k">You are exhausted by your job</p>
+                <p>
+                  <Link href="/guides/burnout-vs-depression">Burnout vs depression</Link> is the
+                  distinction that changes what to do about it.{' '}
+                  <Link href="/resources/workplace-mental-health-bc">Mental health and work in BC</Link>{' '}
+                  covers leave, accommodation, and what an employer may actually ask.
+                </p>
+              </div>
+              <div className="route-cell">
+                <p className="route-k">Something from before is still running</p>
+                <p>
+                  <Link href="/guides/what-trauma-actually-means">What trauma actually means</Link> is
+                  for people who have talked themselves out of the word.{' '}
+                  <Link href="/guides/intergenerational-trauma-explained">Intergenerational trauma</Link>{' '}
+                  is for when the pattern is older than you are.
+                </p>
+              </div>
+              <div className="route-cell">
+                <p className="route-k">It is the relationship</p>
+                <p>
+                  <Link href="/guides/does-couples-therapy-work">Does couples therapy work</Link> gives
+                  the evidence and the biggest predictor of a poor outcome. If only one of you wants to
+                  go, read{' '}
+                  <Link href="/compare/individual-vs-couples-therapy">individual vs couples therapy</Link>{' '}
+                  first.
+                </p>
+              </div>
+              <div className="route-cell">
+                <p className="route-k">It is the family</p>
+                <p>
+                  <Link href="/guides/setting-boundaries-with-family">Setting boundaries with family</Link>{' '}
+                  is written for when the other person will never agree to one.{' '}
+                  <Link href="/guides/talking-to-your-family-about-therapy">Telling your family you are going to therapy</Link>{' '}
+                  is for when that conversation is the obstacle.
+                </p>
+              </div>
+              <div className="route-cell">
+                <p className="route-k">Someone died, or something ended</p>
+                <p>
+                  <Link href="/guides/grief-without-a-timeline">Grief that does not follow the timeline</Link>{' '}
+                  covers why the five stages were never a schedule — and the losses that get no funeral.
+                </p>
+              </div>
+            </div>
           </Reveal>
         </div>
       </section>
 
       {/* -------------------------------------------------- PRACTICAL / TRUST */}
       <section className="section">
-        <div className="container prose">
+        <div className="container">
           <Reveal>
             <p className="eyebrow">The practical questions</p>
             <h2>What it costs, who is accountable, and how to check</h2>
-            <p>
-              Counselling in private practice is not covered by MSP, which surprises a great many people
-              —{' '}
-              <Link href="/resources/msp-vs-extended-health">MSP vs extended health</Link> sets out
-              exactly what the public plan does and does not pay for. If you have benefits through work
-              or a student union,{' '}
-              <Link href="/resources/bc-extended-health-coverage-for-counselling">extended health coverage in BC</Link>{' '}
-              explains the detail people most often miss: whether your plan reimburses a Registered
-              Clinical Counsellor specifically, rather than only a psychologist. This practice does not
-              direct-bill, so you pay at the session and claim the receipt back —{' '}
-              <Link href="/pricing">fees and insurance</Link> has the numbers.
-            </p>
-            <p>
-              If cost is the constraint rather than a detail,{' '}
-              <Link href="/resources/low-cost-counselling-bc">low-cost counselling in BC</Link> and{' '}
-              <Link href="/compare/efap-vs-private-counselling">EFAP vs private counselling</Link> are
-              the two worth reading before paying anybody, because a large number of people already have
-              a free entitlement they have never used. If you are already on a public waitlist,{' '}
-              <Link href="/guides/waiting-for-therapy-in-bc">what to do while you wait</Link> covers the
-              interval, which is usually the harder part.
-            </p>
-            <p>
-              On accountability: in British Columbia today, &ldquo;counsellor&rdquo; and
-              &ldquo;therapist&rdquo; are not protected titles, so the designation is what carries a
-              standard behind it.{' '}
-              <Link href="/compare/rcc-vs-psychologist-vs-social-worker-bc">RCC vs psychologist vs social worker</Link>{' '}
-              explains what each can actually do, and{' '}
-              <Link href="/resources/verify-a-counsellor-in-bc">how to verify a counsellor&rsquo;s registration</Link>{' '}
-              takes about four minutes and is worth doing before booking with anyone, including here.
-              What this practice is accountable to, and what it deliberately does not do, is on{' '}
-              <Link href="/standards">standards and accountability</Link>.
-            </p>
-            <p>
-              If the vocabulary itself is the obstacle — EMDR, window of tolerance, RCC, EFAP, CBT-I —
-              the <Link href="/glossary">glossary</Link> defines sixty of these terms in plain language, and{' '}
-              <Link href="/approaches">the approach pages</Link> cover CBT, ACT, parts work, somatic
-              therapy, DBT skills and mindfulness-based programmes in full &mdash; including where each
-              one works poorly.
-              If what you need is a psychiatrist, a diagnosis or a formal assessment rather than
-              counselling,{' '}
-              <Link href="/resources/psychiatry-and-assessment-in-bc">psychiatry and assessment in BC</Link>{' '}
-              explains how those routes work and why a counsellor is not one of them.
-            </p>
+          </Reveal>
+          <Reveal>
+            <div className="route-grid">
+              <div className="route-cell">
+                <p className="route-k">What it costs</p>
+                <p>
+                  Private counselling is not covered by MSP —{' '}
+                  <Link href="/resources/msp-vs-extended-health">MSP vs extended health</Link> sets out
+                  what the public plan does and does not pay for.{' '}
+                  <Link href="/resources/bc-extended-health-coverage-for-counselling">Extended health coverage in BC</Link>{' '}
+                  covers the detail most people miss: whether your plan reimburses a Registered Clinical
+                  Counsellor specifically, or only a psychologist. This practice does not direct-bill;{' '}
+                  <Link href="/pricing">fees and insurance</Link> has the numbers.
+                </p>
+              </div>
+              <div className="route-cell">
+                <p className="route-k">If cost is the constraint</p>
+                <p>
+                  Read{' '}
+                  <Link href="/resources/low-cost-counselling-bc">low-cost counselling in BC</Link> and{' '}
+                  <Link href="/compare/efap-vs-private-counselling">EFAP vs private counselling</Link>{' '}
+                  before paying anybody — a great many people already have a free entitlement they have
+                  never used. Already on a waitlist?{' '}
+                  <Link href="/guides/waiting-for-therapy-in-bc">What to do while you wait</Link> covers
+                  the interval, usually the harder part.
+                </p>
+              </div>
+              <div className="route-cell">
+                <p className="route-k">Who is accountable</p>
+                <p>
+                  In BC, &ldquo;counsellor&rdquo; and &ldquo;therapist&rdquo; are not protected titles,
+                  so the designation carries the standard.{' '}
+                  <Link href="/compare/rcc-vs-psychologist-vs-social-worker-bc">RCC vs psychologist vs social worker</Link>{' '}
+                  explains what each can do, and{' '}
+                  <Link href="/resources/verify-a-counsellor-in-bc">verifying a registration</Link> takes
+                  four minutes — worth doing before booking with anyone, including here. See{' '}
+                  <Link href="/standards">standards and accountability</Link>.
+                </p>
+              </div>
+              <div className="route-cell">
+                <p className="route-k">If the words are the obstacle</p>
+                <p>
+                  EMDR, window of tolerance, RCC, EFAP, CBT-I — the{' '}
+                  <Link href="/glossary">glossary</Link> defines sixty terms in plain language, and{' '}
+                  <Link href="/approaches">the approach pages</Link> cover CBT, ACT, parts work, somatic
+                  therapy and DBT skills in full, including where each works poorly. If you need a
+                  diagnosis or formal assessment instead,{' '}
+                  <Link href="/resources/psychiatry-and-assessment-in-bc">psychiatry and assessment in BC</Link>{' '}
+                  explains why a counsellor is not that route.
+                </p>
+              </div>
+            </div>
           </Reveal>
         </div>
       </section>

@@ -8,8 +8,8 @@ export const depthGuides: Record<string, DepthSection[]> = {
       body: [
         'The averages in the research conceal real variation, and it is worth knowing in advance which side of it you might sit on. Video suits people with a stable private space, a reliable connection, and enough comfort with the format that the technology stops being noticeable within a session or two. That describes most people, which is why the pooled results look the way they do.',
         'It suits some situations considerably less. Where someone is at meaningful risk and might need a physical response, a scheduled video appointment is a poor container — that is a crisis service or an in-person team, and it is the clearest limitation of the format. Where a client dissociates heavily, the loss of a shared physical room removes cues that help re-orient someone, and a counsellor has fewer options for helping them come back.',
-        'It also suits less well where there is nowhere private. A session conducted with one ear on the corridor is not really a session, and this is the single most common practical reason virtual work fails. It has nothing to do with technology and everything to do with housing.',
-        'Finally, some people simply find the screen an obstacle they do not stop noticing. There is no way to predict that in advance, and two or three sessions is usually enough to know. Deciding it is not for you is a legitimate finding rather than a failure of effort.',
+        'It also suits less well where there is nowhere private. A session conducted with one ear on the corridor is not a session, and this is the single most common practical reason virtual work fails. It has nothing to do with technology and everything to do with housing.',
+        'Finally, some people find the screen an obstacle they do not stop noticing. There is no way to predict that in advance, and two or three sessions is usually enough to know. Deciding it is not for you is a legitimate finding rather than a failure of effort.',
       ],
     },
     {
@@ -51,7 +51,7 @@ export const depthGuides: Record<string, DepthSection[]> = {
       body: [
         'This is not a vocabulary exercise. The two patterns respond to different work, and treating one as though it were the other is a common reason people conclude that therapy did not help.',
         'Panic responds primarily to interoceptive and situational exposure — deliberately, gradually re-encountering both the feared situations and the physical sensations themselves, so the body learns that a racing heart is not a catastrophe in progress. The target is the fear of the sensations, not the sensations.',
-        'Generalised anxiety responds to something different: working on the process of worry rather than its content. Because the subject moves, resolving any individual worry produces no lasting relief — the same machinery simply attaches to the next thing. The work is on the relationship to uncertainty, on the belief that worrying is protective, and on tolerating unresolved questions.',
+        'Generalised anxiety responds to something different: working on the process of worry rather than its content. Because the subject moves, resolving any individual worry produces no lasting relief — the same machinery attaches to the next thing. The work is on the relationship to uncertainty, on the belief that worrying is protective, and on tolerating unresolved questions.',
         'Applying panic techniques to generalised anxiety produces someone who can manage a spike but still worries constantly. Applying worry-focused work to panic produces someone with excellent insight who still cannot get on a bus.',
       ],
     },
@@ -82,7 +82,7 @@ export const depthGuides: Record<string, DepthSection[]> = {
       h2: 'What other people see, and what they miss',
       list: [
         { label: 'They see reliability', detail: 'You do not miss things. What they miss is the checking that produced it, and the hour of anticipatory dread before an ordinary meeting.' },
-        { label: 'They see calm', detail: 'The external presentation is frequently flat rather than agitated, which is why people are surprised. Internally the volume is very high.' },
+        { label: 'They see calm', detail: 'The external presentation is frequently flat rather than agitated, which is why people are surprised. Internally the volume is high.' },
         { label: 'They see someone who does not need help', detail: 'Which is a self-reinforcing loop: appearing fine means nobody asks, and nobody asking means the practice of not saying anything gets stronger.' },
         { label: 'They do not see the recovery cost', detail: 'The evening after a demanding day, the weekend spent flattened, the holiday that takes four days before anything relaxes. This is where the bill is paid and none of it is visible.' },
         { label: 'They do not see the body', detail: 'Jaw tension, stomach trouble, headaches, waking at four. Frequently investigated medically for years before anyone connects it to anxiety.' },
@@ -109,7 +109,7 @@ export const depthGuides: Record<string, DepthSection[]> = {
         'First sessions have an afterwards, and nobody warns people about it. Having said several things out loud for the first time frequently produces a delayed reaction — feeling raw, unexpectedly tired, or oddly elated, sometimes several hours later. All of that is ordinary and it settles.',
         'Two practical things help. Do not schedule anything demanding immediately afterwards; an hour with nothing in it is worth protecting. And write down anything that surfaced on the way home, because the useful material frequently arrives after the session rather than during it and is largely gone by the next week.',
         'It is also worth deliberately noticing your reaction to the counsellor, separately from your reaction to the material. Did you feel able to disagree? Did you edit yourself, and if so, about what? Those questions matter more for the next decision than whether the session was comfortable, because a session can be uncomfortable and still be a good fit — and can be pleasant and go nowhere.',
-        'And if you leave certain it is not the right person, that is a useful outcome to have reached in fifty minutes rather than five sessions. Saying so, or simply not booking again, requires no justification.',
+        'And if you leave certain it is not the right person, that is a useful outcome to have reached in fifty minutes rather than five sessions. Saying so, or not booking again, requires no justification.',
       ],
     },
   ],
@@ -141,7 +141,7 @@ export const depthGuides: Record<string, DepthSection[]> = {
     {
       h2: 'Why the distinction matters practically',
       body: [
-        'This is not a taxonomic argument. The two point to genuinely different first moves, and getting it wrong wastes months.',
+        'This is not a taxonomic argument. The two point to different first moves, and getting it wrong wastes months.',
         'If the picture is burnout, the leverage is largely in the situation. Workload, autonomy, recognition, fairness, and the gap between what the job demands and what you value — these are the recognised drivers, and none of them is fixed by a resilience workshop. The uncomfortable implication is that the most effective interventions are frequently structural, and the person experiencing it often has limited control over them. Counselling in that case works on what you can influence: boundaries, the decision about whether to stay, and the recovery.',
         'If the picture is depression, the leverage is different. A holiday will not fix it, because it will follow you onto the holiday. What helps is treatment — structured psychological work with an evidence base, sometimes alongside medication, prescribed by a physician rather than a counsellor. Waiting for circumstances to improve is not a plan.',
         'And the two coexist constantly. Prolonged burnout is a risk factor for depression, which is exactly why "it is just work" becomes a costly conclusion when it stops being accurate.',
@@ -175,7 +175,7 @@ export const depthGuides: Record<string, DepthSection[]> = {
       h2: 'Working on it without putting your family on trial',
       body: [
         'The most common reason people avoid this work is the fear that it requires blaming their parents. That fear is reasonable — a great deal of popular writing on the subject does exactly that — and it is not what the clinical work involves.',
-        'The more useful frame is that adaptations made under duress are not moral failures. A parent who could not tolerate emotional expression very often had no model for it and no capacity to spare. Understanding that is not exoneration and it is not condemnation; it is accuracy, and accuracy is what makes the pattern workable rather than simply painful.',
+        'The more useful frame is that adaptations made under duress are not moral failures. A parent who could not tolerate emotional expression often had no model for it and no capacity to spare. Understanding that is not exoneration and it is not condemnation; it is accuracy, and accuracy is what makes the pattern workable rather than painful.',
         'It also allows both things at once, which is where most people actually live: what happened had real costs to you, **and** the person who caused those costs was carrying something themselves. Therapy that insists you choose one of those is not helping.',
         'Practically, none of this requires a confrontation. Plenty of this work happens without a single conversation with the family, because the target is the pattern operating in your life now — not an apology or an admission. Where a conversation does become useful, it works better after the work than as a substitute for it. [Setting boundaries with family](/guides/setting-boundaries-with-family) and [telling your family you are in therapy](/guides/talking-to-your-family-about-therapy) cover that ground.',
       ],

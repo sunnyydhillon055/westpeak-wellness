@@ -69,7 +69,7 @@ export const services: Service[] = [
       h2: "What the sessions look like",
       body: [
         "Sessions are 50 minutes, usually weekly at first, moving to every other week as things settle. Weekly is not a rule — it is that momentum is hard to build at longer intervals early on, and easy to maintain later.",
-        "The first session is mostly orientation: what brought you, some history, and what you want to be different. You are not expected to arrive with it organised, and \"I don't really know where to start\" is a normal opening. There is a full walkthrough in the guide on [what to expect in a first session](/guides/what-to-expect-first-therapy-session).",
+        "The first session is mostly orientation: what brought you, some history, and what you want to be different. You are not expected to arrive with it organised, and \"I don't know where to start\" is a normal opening. There is a full walkthrough in the guide on [what to expect in a first session](/guides/what-to-expect-first-therapy-session).",
         "After that, sessions tend to alternate between working on what is live that week and returning to the pattern underneath it. Some weeks are practical and skills-focused; some are not. Where the work touches trauma, it slows down deliberately — pacing is a clinical decision, not a delay.",
         "**On length:** some people come for six sessions with a specific stuck problem and finish. Others work for a year. Both are legitimate, and it is a reasonable thing to ask about directly rather than leaving open-ended.",
       ],
@@ -141,7 +141,7 @@ export const services: Service[] = [
       ],
     },
     faqs: [
-      { q: "Does my partner have to be willing?", a: "For couples work, yes — it does not function with one participant. But individual therapy about a relationship is genuinely useful in its own right, and changing your side of a pattern sometimes shifts things enough that the other person reconsiders." },
+      { q: "Does my partner have to be willing?", a: "For couples work, yes — it does not function with one participant. But individual therapy about a relationship is useful in its own right, and changing your side of a pattern sometimes shifts things enough that the other person reconsiders." },
       { q: "Will the counsellor take sides?", a: "No, and the method is explicitly structured to prevent it. If you consistently feel ganged up on, name it — that is a problem with the work rather than a normal feature of it." },
       { q: "Can we attend from different locations?", a: "Yes. Because sessions are virtual, partners can join from separate places when work or travel requires it — which removes one of the most common scheduling obstacles for couples." },
       { q: "How long does couples therapy take?", a: "Assessment alone is typically two to four sessions. Beyond that it depends on what you are working on; a specific stuck pattern usually moves faster than repair after a significant breach." },
@@ -207,7 +207,7 @@ export const services: Service[] = [
       ],
     },
     faqs: [
-      { q: "Do I have to tell you what happened?", a: "Not in detail. Your counsellor needs enough to identify the target — an image, the belief attached to it, where it sits in your body — but the processing itself does not require narration. Many people say very little during a set." },
+      { q: "Do I have to tell you what happened?", a: "Not in detail. Your counsellor needs enough to identify the target — an image, the belief attached to it, where it sits in your body — but the processing itself does not require narration. Many people say little during a set." },
       { q: "Does EMDR work over video?", a: "Yes, with adaptation. On-screen movement, alternating audio, or self-administered tapping all work. The preparation phase matters more online, not less, and a careful practitioner will spend longer there." },
       { q: "How many sessions?", a: "Single-incident trauma in someone otherwise stable can resolve in a handful of processing sessions. Complex or intergenerational trauma is a longer piece of work, and most of the early time goes to stabilisation." },
       { q: "Can EMDR make things worse?", a: "Trauma work paced badly can destabilise anyone — which is what phases 2 and 7 exist to prevent. Distress during a session is normal and temporary; deterioration lasting days is a signal to slow down, and worth saying out loud." },
@@ -256,7 +256,7 @@ export const services: Service[] = [
     },
     signs: [
       { label: "Hypervigilance in safe conditions", detail: "Scanning, startling, waiting for something to go wrong when nothing is." },
-      { label: "Numbness or flatness", detail: "Trauma does not always present as distress. Sometimes it presents as very little — the volume turned down on everything." },
+      { label: "Numbness or flatness", detail: "Trauma does not always present as distress. Sometimes it presents as little — the volume turned down on everything." },
       { label: "Avoidance that keeps expanding", detail: "Places, conversations, people, or situations quietly removed from your life, one at a time." },
       { label: "Reactions out of proportion", detail: "Anger, panic, or shutdown that you can see is disproportionate while it is happening." },
       { label: "Difficulty trusting your own judgement", detail: "Particularly after experiences involving someone you trusted, or where you were told your perception was wrong." },
@@ -324,7 +324,7 @@ export const services: Service[] = [
       { label: "Panic attacks", detail: "Sudden surges of intense fear with strong physical symptoms — often mistaken for a heart problem the first time. See [anxiety attack vs panic attack](/guides/anxiety-attack-vs-panic-attack)." },
       { label: "Your world is getting smaller", detail: "The highway, the supermarket, the meeting, the phone call. Each avoided thing feels reasonable in isolation." },
       { label: "Social situations cost too much", detail: "Rehearsing before, replaying after, and scanning for evidence you said something wrong." },
-      { label: "Intrusive thoughts and checking", detail: "Unwanted thoughts that feel dangerous, and rituals to neutralise them. Very treatable, and very under-reported out of shame." },
+      { label: "Intrusive thoughts and checking", detail: "Unwanted thoughts that feel dangerous, and rituals to neutralise them. Very treatable, and under-reported out of shame." },
       { label: "Nobody can tell", detail: "Anxiety running the whole show underneath a life that looks entirely functional — see [high-functioning anxiety](/guides/high-functioning-anxiety)." },
     ],
     sessionShape: {
@@ -366,7 +366,7 @@ export const services: Service[] = [
       "Online depression counselling across BC for major depression, persistent low mood, postpartum depression, and grief. Book a free 15-minute consultation.",
     hero: "When everything feels heavy, you don't have to carry it alone.",
     intro:
-      "Depression can flatten colour out of things and make small tasks feel enormous. Counselling offers a steady place to be honest about how you're really doing, and to rebuild momentum in a way that's realistic — not toxic positivity. Online across BC.",
+      "Depression can flatten colour out of things and make small tasks feel enormous. Counselling offers a steady place to be honest about how you're doing, and to rebuild momentum in a way that's realistic — not toxic positivity. Online across BC.",
     helps: [
       "Major depression and persistent low mood (dysthymia)",
       "Postpartum depression",
@@ -389,14 +389,14 @@ export const services: Service[] = [
       { label: "Everything costs more than it should", detail: "Ordinary tasks — a shower, an email, a phone call — requiring a disproportionate act of will." },
       { label: "Irritability rather than sadness", detail: "Frequently the presentation that gets missed, and often the thing a partner notices long before the person does." },
       { label: "Sleep and appetite have shifted", detail: "In either direction. Waking at 4am and not getting back, or sleeping ten hours and waking exhausted." },
-      { label: "Harsh internal commentary", detail: "A running narrative about being a burden, a failure, or fundamentally not good enough, delivered as though it were simply factual." },
+      { label: "Harsh internal commentary", detail: "A running narrative about being a burden, a failure, or fundamentally not good enough, delivered as though it were factual." },
       { label: "You are still functioning", detail: "Depression and a full-time job coexist regularly. Functioning is not evidence against it." },
     ],
     sessionShape: {
       h2: "How the work is paced",
       body: [
         "Realistic pacing matters more here than in almost any other presentation, because the condition itself limits capacity. Sessions do not open with a list of things you should have done. If the week was survival, that is the honest starting point and it gets treated as one.",
-        "The work is largely CBT-based, alongside behavioural activation — rebuilding activity in very small, achievable steps, because in depression action reliably precedes motivation rather than following it. Waiting to feel like doing something is waiting for the wrong signal. Alongside that, the work examines the internal narrative: the conclusions about yourself that depression presents as observations.",
+        "The work is largely CBT-based, alongside behavioural activation — rebuilding activity in small, achievable steps, because in depression action reliably precedes motivation rather than following it. Waiting to feel like doing something is waiting for the wrong signal. Alongside that, the work examines the internal narrative: the conclusions about yourself that depression presents as observations.",
         "**On medication:** counsellors in BC cannot prescribe or advise on it. What therapy can do is help you have a clearer conversation with your GP, and the evidence for combining therapy and medication in moderate to severe depression is good. The two are not in competition.",
         "**On urgency:** if you are having thoughts of not wanting to be here, that does not wait for an appointment. Call or text **9-8-8** (Canada, 24/7), or **310-6789** for BC Mental Health Support. In immediate danger, call **911**.",
       ],
@@ -487,7 +487,7 @@ export const services: Service[] = [
   {
     slug: "south-asian-mental-health",
     directAnswer:
-      "Westpeak Wellness provides culturally grounded counselling for South Asian adults across British Columbia by secure video, from a Registered Clinical Counsellor (MA, RCC) whose master's thesis examined intergenerational trauma in the South Asian community. It addresses family obligation, reputation and collective decision-making, the pressure carried by the children of migration, and the specific bind where duty and love are genuinely hard to separate. Sessions run in English or Punjabi.",
+      "Westpeak Wellness provides culturally grounded counselling for South Asian adults across British Columbia by secure video, from a Registered Clinical Counsellor (MA, RCC) whose master's thesis examined intergenerational trauma in the South Asian community. It addresses family obligation, reputation and collective decision-making, the pressure carried by the children of migration, and the specific bind where duty and love are hard to separate. Sessions run in English or Punjabi.",
     figure2: "first-session-flow",
     figure: "window-of-tolerance",
     name: "South Asian Mental Health",

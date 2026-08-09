@@ -183,6 +183,12 @@ export default function Pricing() {
             you. Whether your plan covers a Registered Clinical Counsellor is worth confirming before
             you book &mdash; see <a href="/resources/bc-extended-health-coverage-for-counselling">extended health coverage in BC</a>.
           </p>
+          <p>
+            Sessions are paid by credit card when you book rather than at the end of the hour, and
+            cancellation is free up to 24 hours beforehand. The{' '}
+            <a href="/client-portal">client portal</a> covers how that works, what happens inside
+            the 24-hour window, and where your receipts appear.
+          </p>
           <Figure name="reimbursement-flow" />
         </div>
       </section>

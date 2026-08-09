@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import Toc from '@/components/Toc';
+import { buildToc, headingId } from '@/lib/toc';
 import { site } from '@/lib/site';
 import { orgRef, siteRef, personRef } from '@/lib/schema';
 import type { Policy } from '@/lib/policies';
@@ -39,6 +41,13 @@ export default function PolicyPage({ doc }: { doc: Policy }) {
       ],
     },
   ];
+  /* 'Sources' renders only when the doc has any — /editorial-policy and
+   * /accessibility do not, so listing it unconditionally left a dead anchor. */
+  const toc = buildToc([
+    ...doc.sections.map((s) => s.h2),
+    ...(doc.sources && doc.sources.length > 0 ? ['Sources'] : []),
+  ]);
+
 
   return (
     <>
@@ -56,14 +65,16 @@ export default function PolicyPage({ doc }: { doc: Policy }) {
       </section>
 
       <section className="section" style={{ paddingTop: 44 }}>
-        <div className="container prose">
+        <div className="container reading">
+          <Toc items={toc} />
+          <div className="prose">
           <p className="crumb"><Link href="/">Home</Link> / {doc.title}</p>
 
           <Byline updated={doc.updated} />
 
           {doc.sections.map((s, i) => (
             <div key={s.h2}>
-              <h2>{s.h2}</h2>
+              <h2 id={headingId(s.h2)}>{s.h2}</h2>
               {s.body && <Paragraphs items={s.body} />}
               {s.list && (
                 <ul className="checklist" style={{ margin: '20px 0 28px' }}>
@@ -92,7 +103,7 @@ export default function PolicyPage({ doc }: { doc: Policy }) {
 
           {doc.sources && doc.sources.length > 0 && (
             <>
-              <h2>Sources</h2>
+              <h2 id="sources">Sources</h2>
               <ul style={{ color: 'var(--ink-soft)', fontSize: '.94rem', paddingLeft: 20 }}>
                 {doc.sources.map((s) => (
                   <li key={s.url} style={{ marginBottom: 8 }}>
@@ -108,6 +119,7 @@ export default function PolicyPage({ doc }: { doc: Policy }) {
             advice. If you are in crisis, call or text <strong>9-8-8</strong> (Canada, 24/7) or BC
             Mental Health Support at <strong>310-6789</strong>.
           </p>
+          </div>
         </div>
       </section>
 

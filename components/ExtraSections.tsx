@@ -1,4 +1,5 @@
 import { getExtra } from '@/lib/depth';
+import { headingId } from '@/lib/toc';
 import { Paragraphs, rich } from '@/lib/rich';
 
 /* Renders the additional page sections held in lib/depth-*.ts. */
@@ -10,7 +11,7 @@ export default function ExtraSections({ area, slug }: { area: string; slug: stri
     <>
       {sections.map((s) => (
         <div key={s.h2}>
-          <h2>{s.h2}</h2>
+          <h2 id={headingId(s.h2)}>{s.h2}</h2>
           {s.body && <Paragraphs items={s.body} />}
           {s.list && (
             <ul className="checklist" style={{ margin: '20px 0 28px' }}>

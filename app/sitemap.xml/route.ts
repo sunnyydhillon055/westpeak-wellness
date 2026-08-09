@@ -42,6 +42,7 @@ export function GET() {
   const entries: Entry[] = [
     ...core,
     { path: '/book', lastmod: now, changefreq: 'monthly', priority: 0.9 },
+    { path: '/client-portal', lastmod: now, changefreq: 'monthly', priority: 0.8 },
     ...trust,
     ...services.map((s) => ({
       path: `/services/${s.slug}`, lastmod: now, changefreq: 'monthly' as const,

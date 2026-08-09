@@ -231,7 +231,7 @@ const coreResources: Resource[] = [
       {
         h2: "Free or low-cost, depending on your situation",
         list: [
-          { label: "Employee assistance programs (EAP)", detail: "If you work for a mid-size or larger employer you very likely have one, typically covering a set number of free sessions. A surprising number of people never check." },
+          { label: "Employee assistance programs (EAP)", detail: "If you work for a mid-size or larger employer you likely have one, typically covering a set number of free sessions. A surprising number of people never check." },
           { label: "Post-secondary counselling services", detail: "Included in your student fees if you are enrolled. Session caps and waitlists apply, but the cost is already paid." },
           { label: "CMHA branch programs", detail: "Canadian Mental Health Association branches run free and low-cost groups and counselling that vary considerably by community — worth checking your local branch specifically." },
           { label: "University training clinics", detail: "Counselling psychology programs run clinics staffed by supervised student clinicians at substantially reduced rates. Supervision is close, and quality is often high." },

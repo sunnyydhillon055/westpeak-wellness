@@ -246,7 +246,7 @@ export const moreComparisons: Comparison[] = [
       {
         h2: 'Where the cap bites',
         body: [
-          'Short-term counselling is genuinely useful for a specific, recent, bounded problem: a difficult decision, a workplace conflict, an acute period of stress, an early grief. Six sessions can resolve a great deal when the target is clear.',
+          'Short-term counselling is useful for a specific, recent, bounded problem: a difficult decision, a workplace conflict, an acute period of stress, an early grief. Six sessions can resolve a great deal when the target is clear.',
           'The difficulty arrives when the presenting problem turns out to be the visible part of something older. A pattern that formed in childhood, complex trauma, a relationship in genuine trouble — these do not conclude in six sessions, and the cap frequently arrives at exactly the point where trust has been established and the real work is starting.',
           'That is not a criticism of the model, which was never designed for long-term work. It is a reason to know the cap at the start rather than discovering it at session five, and to plan for what happens afterwards.',
         ],
@@ -342,7 +342,7 @@ export const moreComparisons: Comparison[] = [
         body: [
           'The obvious effect is dose — twice as many sessions in the same period. The less obvious and more important effect is continuity. In fortnightly work, a meaningful share of each session is spent re-establishing where you were, what happened in between, and what state you are both in. In weekly work that overhead largely disappears.',
           'The other effect is on what can safely be opened. Difficult material has a half-life: it stays activated for some days after a session. Weekly sessions mean the next one arrives while it is still live and can be worked with. A fortnight can be long enough for someone to close the subject and arrive having decided not to reopen it.',
-          'This is why frequency is a clinical decision rather than a diary decision, and why a counsellor should have a view about it rather than simply asking what suits you.',
+          'This is why frequency is a clinical decision rather than a diary decision, and why a counsellor should have a view about it rather than asking what suits you.',
         ],
       },
       {

@@ -107,7 +107,8 @@ export default function FAQ() {
             <Link href="/resources/bc-extended-health-coverage-for-counselling">extended health coverage</Link>{' '}
             explains what BC plans reimburse, and{' '}
             <Link href="/compare/rcc-vs-psychologist-vs-social-worker-bc">the comparison of therapist types</Link>{' '}
-            covers who to see for what.
+            covers who to see for what. Booking, payment and the cancellation policy are set out on
+            the <Link href={site.portalPath}>client portal</Link> page.
           </p>
         </div>
       </section>

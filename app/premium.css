@@ -93,7 +93,7 @@ a:hover{ text-decoration: none }
 /* — Trust bar — */
 .trust-bar{
   display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px;
-  margin-top: 30px; padding-top: 24px; border-top: 1px solid var(--line);
+  margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line);
 }
 .trust-item{
   display: inline-flex; align-items: center; gap: 9px;
@@ -106,7 +106,7 @@ a:hover{ text-decoration: none }
 .stepper{ display: grid; gap: 0; position: relative }
 .stepper-item{
   display: grid; grid-template-columns: 58px 1fr; gap: 22px;
-  position: relative; padding-bottom: 34px;
+  position: relative; padding-bottom: 26px;
 }
 .stepper-item:last-child{ padding-bottom: 0 }
 .stepper-item::before{
@@ -130,7 +130,7 @@ a:hover{ text-decoration: none }
 
 /* — Pull quote — */
 .pull-quote{
-  position: relative; margin: 38px 0; padding: 34px 34px 34px 62px;
+  position: relative; margin: 30px 0; padding: 34px 34px 34px 62px;
   background: var(--grad-mist); border-radius: var(--radius-lg);
   font-family: var(--font-display);
   font-size: clamp(1.18rem, 1.05rem + .7vw, 1.58rem);
@@ -266,7 +266,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 /* — Hero — */
 .hero--home{
   position: relative; overflow: hidden; isolation: isolate;
-  background: var(--grad-hero); padding: clamp(56px, 6vw, 92px) 0 clamp(64px, 7vw, 104px);
+  background: var(--grad-hero); padding: clamp(44px, 4.5vw, 70px) 0 clamp(48px, 5vw, 78px);
 }
 .hero-bg{
   position: absolute; inset: auto 0 0 0; height: 62%; z-index: 0;
@@ -307,7 +307,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .signature{
   position: relative; overflow: hidden; isolation: isolate;
   background: var(--grad-ink); color: #eef3f8;
-  padding: clamp(58px, 7vw, 96px) 0;
+  padding: clamp(46px, 5vw, 72px) 0;
 }
 .signature::after{
   content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
@@ -553,7 +553,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 }
 .faq-nav a:hover{ border-color: var(--clay); color: var(--ink) }
 .faq-nav svg{ width: 16px; height: 16px; flex: none; color: var(--blue-deep) }
-.faq-group{ margin-bottom: 40px; scroll-margin-top: 92px }
+.faq-group{ margin-bottom: 30px; scroll-margin-top: 92px }
 .faq-group-head{ display: flex; align-items: center; gap: 13px; margin-bottom: 6px }
 .faq-group-head h2{ margin: 0 }
 
@@ -683,4 +683,401 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .direct-answer{
   max-width: 68ch; margin: 20px 0 0; font-size: var(--fs-lead); line-height: 1.6;
   color: var(--ink); padding-left: 18px; border-left: 3px solid var(--clay);
+}
+
+/* ---------------------------------------------------------------------------
+   ROUTING GRID
+   Replaces stacked link-dense paragraphs. Same links, a third of the height,
+   and scannable — you find your row instead of reading seven paragraphs to
+   locate yourself. The 1px gap over a --line background gives true hairlines
+   rather than doubled borders.
+   ------------------------------------------------------------------------ */
+.route-grid{
+  display:grid; grid-template-columns:repeat(2,1fr); gap:1px;
+  background:var(--line); border:1px solid var(--line);
+  border-radius:var(--radius); overflow:hidden; margin-top:26px;
+}
+.route-cell{
+  background:var(--surface-0); padding:20px 22px;
+  transition:background var(--dur-base) var(--ease);
+}
+.route-cell:hover{ background:var(--blue-ghost); }
+.route-cell:last-child:nth-child(odd){ grid-column:1 / -1; }
+.route-k{
+  display:flex; align-items:baseline; gap:9px; margin:0 0 6px;
+  font-family:var(--font-display); font-weight:560; font-size:1.01rem;
+  letter-spacing:-.01em; color:var(--ink);
+}
+.route-k::before{
+  content:""; width:6px; height:6px; border-radius:50%;
+  background:var(--clay); flex:none; transform:translateY(-2px);
+}
+.route-cell p{ margin:0; font-size:.96rem; line-height:1.54; color:var(--ink-soft); }
+@media (max-width:720px){
+  .route-grid{ grid-template-columns:1fr; }
+  .route-cell{ padding:17px 18px; }
+}
+
+/* ---------------------------------------------------------------------------
+   READING LAYOUT + STICKY TOC
+   Long-form pages were 9,000–12,000px of unbroken column. The TOC sits in the
+   LEFT GUTTER rather than in a rail that squeezes the article: the grid is
+   symmetric (rail / article / equal spacer) so the measure stays centred on the
+   page and the figure break-out — which centres on the article column — still
+   lands centred on the viewport.
+   ------------------------------------------------------------------------ */
+.container.reading{
+  max-width:1140px;
+  display:grid; grid-template-columns:198px minmax(0,620px) 198px;
+  gap:0 38px; align-items:start; justify-content:center;
+}
+.container.reading > *{ grid-column:2; }
+.container.reading > .toc{ grid-column:1; }
+
+.toc{
+  position:sticky; top:86px; align-self:start;
+  max-height:calc(100vh - 118px); overflow-y:auto; overscroll-behavior:contain;
+  padding-right:6px; font-size:.86rem; line-height:1.4;
+}
+.toc-h{
+  margin:0 0 10px; font-family:var(--font-body); font-size:var(--fs-overline);
+  font-weight:600; letter-spacing:.13em; text-transform:uppercase; color:var(--ink-soft);
+}
+.toc ul{ list-style:none; margin:0; padding:0; border-left:1.5px solid var(--line); }
+.toc li{ margin:0; }
+.toc a{
+  display:block; padding:8px 0 8px 14px; margin-left:-1.5px;
+  border-left:1.5px solid transparent; color:var(--ink-soft);
+  transition:color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+.toc a:hover{ color:var(--blue-deep); text-decoration:none; }
+.toc li.is-active > a{ color:var(--blue-deeper); border-left-color:var(--clay); font-weight:560; }
+/* Scroll target clears the sticky header */
+.prose h2[id]{ scroll-margin-top:88px; }
+
+/* Below the gutter width there is nowhere to park a rail — the TOC becomes a
+   compact two-column index card at the top of the article. */
+@media (max-width:1060px){
+  .container.reading{ display:block; }
+  .toc{
+    position:static; max-height:none; overflow:visible;
+    border:1px solid var(--line); border-radius:var(--radius);
+    background:var(--surface-1); padding:16px 18px; margin:0 0 30px;
+  }
+  .toc ul{ border-left:0; columns:2; column-gap:26px; }
+  .toc a{ padding:5px 0; border-left:0; margin-left:0; break-inside:avoid; }
+  .toc li.is-active > a{ border-left:0; }
+}
+@media (max-width:560px){
+  .toc ul{ columns:1; }
+}
+
+/* Card variant — always the boxed index, at any width. Used on pages built from
+   alternating banded sections (/for/*, policy pages), where a rail floating
+   across a background change would read as a mistake rather than a feature. */
+.toc.toc--card{
+  position:static; max-height:none; overflow:visible;
+  border:1px solid var(--line); border-radius:var(--radius);
+  background:var(--surface-1); padding:16px 18px; margin:0 0 30px;
+}
+.toc--card ul{ border-left:0; columns:2; column-gap:26px; }
+.toc--card a{ padding:9px 0; border-left:0; margin-left:0; break-inside:avoid; }
+.toc--card li.is-active > a{ border-left:0; }
+@media (max-width:560px){ .toc--card ul{ columns:1; } }
+
+/* Rail inside the service pages' existing sticky aside */
+.svc-aside .toc{ position:static; max-height:none; overflow:visible; margin-top:22px; }
+.svc-aside .toc ul{ border-left:1.5px solid var(--line); }
+
+/* ---------------------------------------------------------------------------
+   PROSE RHYTHM
+   A 9,000px article with unmarked H2s reads as one undifferentiated column.
+   A short clay rule above each section heading gives the eye a repeating
+   landmark, so scrolling feels like passing sections rather than falling.
+   ------------------------------------------------------------------------ */
+.prose h2{ position:relative; padding-top:20px; }
+.prose h2::before{
+  content:""; position:absolute; top:0; left:0;
+  width:34px; height:2px; border-radius:2px; background:var(--clay);
+}
+
+/* Denser checklists — these run long on guide pages */
+.checklist li{ line-height:1.5; }
+.checklist li strong{ color:var(--ink); }
+
+/* FAQ rows: tighter, and the whole row reads as clickable */
+.faq-item summary{ padding:14px 0; }
+.faq-item p{ padding:0 0 14px; max-width:66ch; }
+.faq-item summary:hover{ color:var(--blue-deep); }
+
+/* ---------------------------------------------------------------------------
+   BUTTON COLOUR SPECIFICITY
+   `.nav-links a` and `.site-footer a` are (0,1,1); `.btn--primary`'s own colour
+   is (0,1,0) and is declared earlier, so the container link colour won. The
+   header's "Book Free Consult" CTA was rendering --ink-soft on --blue-deep —
+   1.37:1, effectively unreadable — on every page. These restore the button's
+   own colour wherever a container sets a link colour.
+   ------------------------------------------------------------------------ */
+.nav-links a.btn--primary,
+.site-footer a.btn--primary,
+.sticky-book a.btn--primary,
+.cta-band a.btn--primary{ color:#fff; }
+.cta-band a.btn--primary{ color:var(--blue-deep); }   /* white button, blue label */
+.nav-links a.btn--ghost{ color:var(--blue-deep); }
+
+/* ===========================================================================
+   NAVIGATION — desktop rail + mobile drawer
+   Replaces the earlier header rules wholesale (this file loads after
+   globals.css). Fixes carried here:
+     · the condense had no height transition, so 70px→62px jumped
+     · the mobile panel was pinned to top:70px while the header condensed to
+       62px, leaving an 8px gap of page showing through
+     · no active-page indicator, despite aria-current already being set
+     · no scrim, so there was no way to dismiss by tapping away
+     · the drawer opened at 680px, but seven items plus a CTA crowd from ~940px
+   ======================================================================== */
+.site-header{
+  --header-h:72px;
+  position:sticky; top:0; z-index:60;
+  background:rgba(251,252,254,.72);
+  backdrop-filter:saturate(180%) blur(14px);
+  -webkit-backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid transparent;
+  transition:background var(--dur-base) var(--ease),
+             border-color var(--dur-base) var(--ease),
+             box-shadow var(--dur-base) var(--ease);
+}
+.site-header[data-scrolled="true"]{
+  --header-h:60px;
+  background:rgba(251,252,254,.88);
+  border-bottom-color:var(--line);
+  box-shadow:0 1px 0 rgba(47,85,131,.04), 0 8px 24px rgba(47,85,131,.06);
+}
+.nav{
+  display:flex; align-items:center; justify-content:space-between;
+  height:var(--header-h);
+  transition:height var(--dur-base) var(--ease);
+}
+
+/* — Brand — */
+.brand{ display:flex; align-items:center; gap:11px; }
+.brand-mark{
+  width:32px; height:32px; flex:none;
+  transition:transform var(--dur-base) var(--ease);
+}
+.brand:hover .brand-mark{ transform:rotate(-6deg) scale(1.05); }
+.site-header[data-scrolled="true"] .brand-mark{ width:28px; height:28px; }
+
+/* — Desktop rail — */
+.nav-links{ display:flex; gap:4px; align-items:center; list-style:none; margin:0; padding:0; }
+.nav-links > li:not(.nav-cta) > a{
+  position:relative; display:block; padding:8px 11px;
+  color:var(--ink-soft); font-size:.95rem; font-weight:500;
+  border-radius:var(--radius-xs);
+  transition:color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+}
+.nav-links > li:not(.nav-cta) > a::after{
+  content:""; position:absolute; left:11px; right:11px; bottom:2px; height:2px;
+  border-radius:2px; background:var(--clay);
+  transform:scaleX(0); transform-origin:left;
+  transition:transform var(--dur-base) var(--ease);
+}
+.nav-links > li:not(.nav-cta) > a:hover{
+  color:var(--ink); background:rgba(47,85,131,.045); text-decoration:none;
+}
+.nav-links > li:not(.nav-cta) > a:hover::after{ transform:scaleX(1); }
+/* Current page — aria-current was already emitted and previously did nothing. */
+.nav-links > li:not(.nav-cta) > a[aria-current="page"]{ color:var(--ink); font-weight:600; }
+.nav-links > li:not(.nav-cta) > a[aria-current="page"]::after{ transform:scaleX(1); }
+.nav-cta{ margin-left:10px; }
+.nav-cta .btn{ padding:10px 20px; font-size:.94rem; }
+
+/* — Toggle: three bars fold into an X — */
+.nav-toggle{
+  display:none; background:none; border:0; cursor:pointer;
+  width:44px; height:44px; padding:0; place-items:center;
+  border-radius:var(--radius-xs);
+  transition:background var(--dur-fast) var(--ease);
+}
+.nav-toggle:hover{ background:rgba(47,85,131,.06); }
+.nav-toggle-bars{ display:block; position:relative; width:22px; height:16px; }
+.nav-toggle-bars span{
+  position:absolute; left:0; width:100%; height:2px; border-radius:2px;
+  background:var(--ink);
+  transition:transform var(--dur-base) var(--ease), opacity var(--dur-fast) var(--ease);
+}
+.nav-toggle-bars span:nth-child(1){ top:0; }
+.nav-toggle-bars span:nth-child(2){ top:7px; }
+.nav-toggle-bars span:nth-child(3){ top:14px; }
+.site-header[data-open="true"] .nav-toggle-bars span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.site-header[data-open="true"] .nav-toggle-bars span:nth-child(2){ opacity:0; transform:scaleX(.4); }
+.site-header[data-open="true"] .nav-toggle-bars span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+/* — Scrim — */
+.nav-scrim{
+  position:fixed; inset:0; z-index:-1;
+  background:rgba(20,30,42,.42); backdrop-filter:blur(2px);
+  opacity:0; pointer-events:none;
+  transition:opacity var(--dur-base) var(--ease);
+}
+
+@media (max-width:1020px){
+  .nav-toggle{ display:grid; }
+
+  .nav-links{
+    position:fixed; left:0; right:0; top:var(--header-h);
+    display:block; padding:10px 20px 22px; gap:0;
+    max-height:calc(100dvh - var(--header-h)); overflow-y:auto; overscroll-behavior:contain;
+    background:var(--surface-1);
+    border-bottom:1px solid var(--line);
+    box-shadow:0 18px 40px rgba(28,39,51,.12);
+    /* clip-path rather than translate: the panel wipes down from under the
+       header instead of flying past it, and nothing overshoots the viewport */
+    clip-path:inset(0 0 100% 0);
+    visibility:hidden;
+    transition:clip-path var(--dur-slow) var(--ease), visibility 0s linear var(--dur-slow);
+  }
+  .nav-links.open{
+    clip-path:inset(0 0 0 0);
+    visibility:visible;
+    transition:clip-path var(--dur-slow) var(--ease), visibility 0s;
+  }
+
+  .nav-links > li{ border-bottom:1px solid var(--line); }
+  .nav-links > li:last-of-type{ border-bottom:0; }
+  .nav-links > li:not(.nav-cta) > a{
+    display:flex; align-items:center; width:100%;
+    padding:15px 6px; min-height:52px; font-size:1.02rem; border-radius:0;
+    /* staggered entrance, driven by --i set on each <li> */
+    opacity:0; transform:translateY(-6px);
+    transition:opacity var(--dur-base) var(--ease), transform var(--dur-base) var(--ease);
+  }
+  .nav-links.open > li:not(.nav-cta) > a{
+    opacity:1; transform:none;
+    transition-delay:calc(70ms + var(--i) * 34ms);
+  }
+  .nav-links > li:not(.nav-cta) > a::after{
+    left:6px; right:auto; top:calc(50% - 10px); bottom:auto;
+    width:3px; height:20px; transform:scaleY(0); transform-origin:center;
+  }
+  .nav-links > li:not(.nav-cta) > a[aria-current="page"]{ padding-left:16px; }
+  .nav-links > li:not(.nav-cta) > a[aria-current="page"]::after{ transform:scaleY(1); }
+  .nav-links > li:not(.nav-cta) > a:hover::after{ transform:scaleY(1); }
+
+  .nav-cta{ margin:16px 0 0; }
+  .nav-cta .btn{
+    display:block; width:100%; text-align:center; padding:14px 20px; font-size:1rem;
+    opacity:0; transform:translateY(-6px);
+    transition:opacity var(--dur-base) var(--ease), transform var(--dur-base) var(--ease);
+  }
+  .nav-links.open .nav-cta .btn{
+    opacity:1; transform:none; transition-delay:calc(70ms + var(--i) * 34ms);
+  }
+
+  .site-header[data-open="true"] .nav-scrim{ opacity:1; pointer-events:auto; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .nav-links, .nav-links > li > a, .nav-cta .btn, .nav-toggle-bars span,
+  .brand-mark, .nav, .nav-scrim{ transition-duration:.01ms !important; transition-delay:0s !important; }
+}
+
+/* Client-portal numbered steps */
+.portal-steps{ list-style:none; margin:22px 0 0; padding:0; }
+.portal-steps > li{ display:flex; gap:16px; padding-bottom:22px; position:relative; }
+.portal-steps > li:not(:last-child)::before{
+  content:""; position:absolute; left:15px; top:34px; bottom:4px;
+  width:1.5px; background:var(--line);
+}
+.portal-step-n{
+  flex:none; width:31px; height:31px; border-radius:50%;
+  display:grid; place-items:center; position:relative; z-index:1;
+  background:var(--blue-deep); color:#fff;
+  font-family:var(--font-body); font-size:.86rem; font-weight:650;
+}
+.portal-steps h3{ margin:4px 0 .3em; font-size:1.05rem; }
+.portal-steps p{ margin:0; color:var(--ink-soft); font-size:.97rem; }
+.route-k svg{ flex:none; color:var(--clay-deep); }
+
+/* Portal link. A utility route for EXISTING clients, so it is set apart from
+   the content nav rather than added as an eighth page link — different job,
+   different weight. */
+.nav-portal > a{
+  display:flex; align-items:center; gap:6px;
+  padding:8px 12px; margin-left:6px;
+  font-size:.9rem; font-weight:560; color:var(--ink-soft);
+  border:1px solid var(--line); border-radius:var(--radius-pill);
+  transition:border-color var(--dur-fast) var(--ease),
+             color var(--dur-fast) var(--ease),
+             background var(--dur-fast) var(--ease);
+}
+.nav-portal > a:hover{
+  color:var(--blue-deep); border-color:var(--blue); background:var(--blue-ghost);
+  text-decoration:none;
+}
+.nav-portal > a[aria-current="page"]{ color:var(--blue-deeper); border-color:var(--blue); }
+
+@media (max-width:1020px){
+  .nav-portal{ border-bottom:0 !important; margin-top:14px; }
+  .nav-portal > a{
+    justify-content:center; width:100%; margin:0; padding:13px 20px;
+    min-height:50px; font-size:1rem;
+    opacity:0; transform:translateY(-6px);
+    transition:opacity var(--dur-base) var(--ease), transform var(--dur-base) var(--ease);
+  }
+  .nav-links.open .nav-portal > a{
+    opacity:1; transform:none; transition-delay:calc(70ms + var(--i) * 34ms);
+  }
+  .nav-cta{ margin-top:10px; }
+}
+
+/* Scheduler embed */
+.scheduler-embed{
+  border:1px solid var(--line); border-radius:var(--radius);
+  overflow:hidden; background:var(--surface-0); box-shadow:var(--shadow-sm);
+}
+.scheduler-embed iframe{
+  display:block; width:100%; height:760px; border:0;
+}
+.scheduler-fallback{
+  margin:0; padding:11px 16px; border-top:1px solid var(--line);
+  background:var(--surface-1); font-size:.88rem; color:var(--ink-soft);
+}
+@media (max-width:680px){ .scheduler-embed iframe{ height:660px; } }
+
+/* ---------------------------------------------------------------------------
+   FOOTER — slimmed
+   Was four link columns (23 links) plus brand, facts, social, crisis and a
+   bottom bar. Policy links now live in the bottom bar instead of holding a
+   whole column, and the remaining rows are tighter, so the footer reads as a
+   closing note rather than a second homepage.
+   ------------------------------------------------------------------------ */
+.site-footer{ padding: clamp(44px, 5vw, 62px) 0 26px; }
+.footer-grid{ grid-template-columns: 1.7fr 1fr 1fr 1fr; margin-bottom: 34px; }
+.footer-col a{ min-height: 30px; font-size: .875rem; }
+.footer-col h2{ margin-bottom: 12px; }
+.footer-facts{ gap: 8px; margin-top: 16px; }
+.footer-social{ margin-top: 14px; }
+.footer-social-link{ min-height: 38px; }
+.footer-crisis{ padding: 13px 17px; margin-bottom: 20px; }
+
+/* Policies: one quiet row above the copyright line. */
+.footer-legal{
+  display: flex; flex-wrap: wrap; gap: 6px 22px;
+  padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1);
+}
+.footer-legal a{
+  color: #8a97a6; font-size: .82rem; display: inline-flex; align-items: center;
+  min-height: 30px; transition: color var(--dur-fast) var(--ease);
+}
+.footer-legal a:hover{ color: #fff; }
+.footer-bottom{ border-top: 0; padding-top: 10px; }
+
+@media (max-width:860px){
+  .footer-grid{ grid-template-columns: 1fr 1fr; gap: 26px 30px; }
+  .footer-brand-col{ grid-column: 1 / -1; }
+}
+@media (max-width:560px){
+  .footer-grid{ grid-template-columns: 1fr; }
+  .footer-legal{ gap: 2px 18px; }
 }

@@ -28,7 +28,7 @@ export const moreGuides3: Guide[] = [
       {
         h2: 'If you do want to tell someone, decide what you are asking for',
         body: [
-          'Most of these conversations go wrong because two different things get bundled together: sharing information, and requesting something. They are separable and they land very differently.',
+          'Most of these conversations go wrong because two different things get bundled together: sharing information, and requesting something. They are separable and they land differently.',
         ],
         list: [
           { label: 'Information only', detail: '"I have started seeing a counsellor." Complete in itself. It does not invite discussion, does not require a reason, and does not obligate you to explain what you are working on.' },
@@ -42,7 +42,7 @@ export const moreGuides3: Guide[] = [
         body: [
           'In plenty of families — and this is common across many cultural contexts rather than specific to any one — going to counselling is not read as looking after yourself. It is read as airing private matters outside the family, as a failure of resilience, or as an accusation levelled at the people who raised you.',
           'That reading is worth taking seriously rather than dismissing, because it usually comes from somewhere. Families that got through migration, instability or poverty by holding together and not complaining have good historical reasons for the belief that difficulties are handled internally. The belief is not stupid; it is out of date.',
-          'You are not required to win this argument, and attempting to is usually a poor use of energy. "I am doing something that helps me" is a complete position, and it does not require anyone else\'s agreement. [Counselling for first-generation South Asian adults](/for/first-gen-south-asian-adults) goes further into the specific version of this bind, where obligation and love are genuinely difficult to separate.',
+          'You are not required to win this argument, and attempting to is usually a poor use of energy. "I am doing something that helps me" is a complete position, and it does not require anyone else\'s agreement. [Counselling for first-generation South Asian adults](/for/first-gen-south-asian-adults) goes further into the specific version of this bind, where obligation and love are difficult to separate.',
         ],
       },
       {
@@ -124,9 +124,9 @@ export const moreGuides3: Guide[] = [
         h2: 'Deciding before you speak',
         list: [
           { label: 'What specifically is the problem?', detail: '"They do not respect me" cannot be acted on. "They comment on my weight at every meal" can. Boundaries need a definable trigger, or you will be enforcing something you cannot identify.' },
-          { label: 'What will you actually do?', detail: 'It has to be something you are genuinely willing to carry out — every time, including at Christmas, including when it is inconvenient. An unenforced boundary is worse than none, because it teaches that the statement is noise.' },
+          { label: 'What will you actually do?', detail: 'It has to be something you are willing to carry out — every time, including at Christmas, including when it is inconvenient. An unenforced boundary is worse than none, because it teaches that the statement is noise.' },
           { label: 'What is it going to cost?', detail: 'Guilt, escalation, other relatives recruited, a period of coldness. Deciding in advance whether that price is worth paying is the real work, and it is why this often takes several sessions rather than one good sentence.' },
-          { label: 'Are you doing it to change them?', detail: 'If the boundary is really a lever intended to produce an apology or a change of heart, it will fail and you will feel it as rejection. A boundary protects you. Any change in them is a bonus, not the objective.' },
+          { label: 'Are you doing it to change them?', detail: 'If the boundary is a lever intended to produce an apology or a change of heart, it will fail and you will feel it as rejection. A boundary protects you. Any change in them is a bonus, not the objective.' },
           { label: 'Is anyone at risk?', detail: 'Where there is violence, coercive control, or financial control, general boundary advice is not the right tool and can be unsafe. That needs specialist support — VictimLinkBC at 1-800-563-0808, twenty-four hours a day, and 9-1-1 in immediate danger.' },
         ],
       },
@@ -163,7 +163,7 @@ export const moreGuides3: Guide[] = [
       { q: 'Is setting a boundary the same as cutting someone off?', a: 'No, and they are frequently confused. A boundary defines the terms of continued contact. Ending contact is a separate and much larger decision.' },
       { q: 'What if the boundary makes things worse?', a: 'A period of escalation is common and usually temporary — it is a test of whether the new position holds. Sustained deterioration, or anything unsafe, is different and worth raising with a counsellor or a specialist service.' },
       { q: 'Do I have to explain my reasons?', a: 'No. Reasons invite debate about whether the reasons are good enough, which is not a debate that helps you. A boundary can be stated without a case.' },
-      { q: 'What if my whole family sides against me?', a: 'That is common where a family system has organised around one person\'s behaviour for a long time. It is one of the more useful things to work on in counselling, because managing it alone is genuinely hard.' },
+      { q: 'What if my whole family sides against me?', a: 'That is common where a family system has organised around one person\'s behaviour for a long time. It is one of the more useful things to work on in counselling, because managing it alone is hard.' },
     ],
     sources: [
       { label: 'Canadian Mental Health Association, BC Division', url: 'https://bc.cmha.ca/' },
@@ -189,7 +189,7 @@ export const moreGuides3: Guide[] = [
     lede:
       'The stages were never a sequence, and almost everyone has been told otherwise.',
     shortAnswer:
-      'Grief does not move through tidy stages and has no correct duration. It also attaches to losses that are not deaths — a marriage, a country, a career, a body that used to work, a future you had assumed. Counselling is worth considering when grief is stuck rather than simply present: when it is unchanged after a long period, or when it cannot be spoken about anywhere.',
+      'Grief does not move through tidy stages and has no correct duration. It also attaches to losses that are not deaths — a marriage, a country, a career, a body that used to work, a future you had assumed. Counselling is worth considering when grief is stuck rather than present: when it is unchanged after a long period, or when it cannot be spoken about anywhere.',
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'window-of-tolerance',
@@ -284,7 +284,7 @@ export const moreGuides3: Guide[] = [
         body: [
           'A panic attack is a full false-alarm activation of the body\'s threat response — adrenaline, heart rate, breathing rate, blood redirected to the large muscles. Every symptom that makes it frightening is a symptom of a system doing its job in the absence of anything to do it about.',
           'The chest tightness is muscular and respiratory. The dizziness and tingling generally come from over-breathing, which shifts carbon dioxide levels. The sense of unreality is a recognised feature of high arousal. The conviction that something catastrophic is happening is produced by the same surge that produces everything else.',
-          '**Panic attacks peak within about ten minutes and then subside**, because the body cannot sustain that level of activation. That fact is worth knowing in advance, because in the middle of one, "this will pass shortly" is very difficult to generate from scratch.',
+          '**Panic attacks peak within about ten minutes and then subside**, because the body cannot sustain that level of activation. That fact is worth knowing in advance, because in the middle of one, "this will pass shortly" is difficult to generate from scratch.',
         ],
       },
       {

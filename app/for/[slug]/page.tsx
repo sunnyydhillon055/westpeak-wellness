@@ -3,11 +3,14 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { audiences, getAudience } from '@/lib/audiences';
 import { site } from '@/lib/site';
+import { getExtra } from '@/lib/depth';
+import { buildToc, headingId } from '@/lib/toc';
 import { orgRef, siteRef, personRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
 import Byline from '@/components/Byline';
 import ExtraSections from '@/components/ExtraSections';
+import Toc from '@/components/Toc';
 import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
 
@@ -35,6 +38,15 @@ const fmt = (iso: string) =>
 export default function AudiencePage({ params }: { params: { slug: string } }) {
   const a = getAudience(params.slug);
   if (!a) notFound();
+
+  const toc = buildToc([
+    'The things people actually say',
+    ...a.sections.map((s) => s.h2),
+    ...getExtra('for', a.slug).map((s) => s.h2),
+    'Services that tend to fit',
+    'Common questions',
+    'Sources and further support',
+  ]);
 
   const schema = [
     {
@@ -88,13 +100,15 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
           <Byline updated={a.updated} readMinutes={a.readMinutes} />
 
           <Paragraphs items={a.opening} />
+
+          <Toc items={toc} variant="card" />
         </div>
       </section>
 
       <section className="section section--tint">
         <div className="container">
           <p className="eyebrow">What comes up</p>
-          <h2>The things people actually say</h2>
+          <h2 id="the-things-people-actually-say">The things people actually say</h2>
           <div className="grid grid-2" style={{ marginTop: 26 }}>
             {a.whatComesUp.map((w) => (
               <div className="card" key={w.label}>
@@ -116,7 +130,7 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
         <div className="container prose">
           {a.sections.map((s) => (
             <div key={s.h2}>
-              <h2>{s.h2}</h2>
+              <h2 id={headingId(s.h2)}>{s.h2}</h2>
               {s.body && <Paragraphs items={s.body} />}
               {s.list && (
                 <ul className="checklist" style={{ margin: '20px 0 28px' }}>
@@ -137,7 +151,7 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
 
           {a.figure2 && <Figure name={a.figure2} />}
 
-          <h2>Services that tend to fit</h2>
+          <h2 id="services-that-tend-to-fit">Services that tend to fit</h2>
           <div className="grid grid-2" style={{ marginTop: 26 }}>
             {a.servicesThatFit.map((s) => (
               <div className="card" key={s.href}>
@@ -154,7 +168,7 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
 
       <section className="section">
         <div className="container prose">
-          <h2>Common questions</h2>
+          <h2 id="common-questions">Common questions</h2>
           <div style={{ marginTop: 8 }}>
             {a.faqs.map((f) => (
               <details className="faq-item" key={f.q}>
@@ -164,7 +178,7 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
             ))}
           </div>
 
-          <h2>Sources and further support</h2>
+          <h2 id="sources-and-further-support">Sources and further support</h2>
           <ul style={{ color: 'var(--ink-soft)', fontSize: '.94rem', paddingLeft: 20 }}>
             {a.sources.map((s) => (
               <li key={s.url} style={{ marginBottom: 8 }}>

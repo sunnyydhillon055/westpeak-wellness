@@ -364,7 +364,7 @@ export const glossary: Term[] = [
     term: 'Referral',
     group: 'process',
     definition:
-      'Being directed to a different service better suited to what you need — a psychiatrist, an assessment, a specialised programme, or simply another counsellor. Offered because a fit is wrong, not because a person is.',
+      'Being directed to a different service better suited to what you need — a psychiatrist, an assessment, a specialised programme, or another counsellor. Offered because a fit is wrong, not because a person is.',
   },
   {
     term: 'Duty to report',

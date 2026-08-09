@@ -15,7 +15,7 @@ export const moreAudiences: Audience[] = [
     updated: '2026-08-08',
     readMinutes: 8,
     opening: [
-      'There is a particular version of struggling that is very hard to get taken seriously, including by the person doing it. Everything is handled. The household runs, the work gets delivered, the family is held together, and the whole structure rests on somebody who has not had an unclaimed hour in four years.',
+      'There is a particular version of struggling that is hard to get taken seriously, including by the person doing it. Everything is handled. The household runs, the work gets delivered, the family is held together, and the whole structure rests on somebody who has not had an unclaimed hour in four years.',
       'Nothing in that picture looks like a problem from outside, which is the problem. Help tends to arrive in response to visible collapse, and a system that only responds to collapse teaches people to hold on until they do.',
       'This is not a claim that these experiences belong only to women, and this practice works with adults of any gender. It is a page about a set of patterns that show up here often enough to be worth naming directly — because the people living inside them are frequently the last to count them as reasons to book anything.',
     ],
@@ -33,9 +33,9 @@ export const moreAudiences: Audience[] = [
       {
         h2: 'Why this is difficult to bring anywhere',
         body: [
-          'There is no incident. Nothing happened that would sound serious if you described it. The honest summary is something like "I am tired and I am angry and I do not know why, and I have a good life" — which is a genuinely hard sentence to say to anyone who is going to try to solve it.',
+          'There is no incident. Nothing happened that would sound serious if you described it. The honest summary is something like "I am tired and I am angry and I do not know why, and I have a good life" — which is a hard sentence to say to anyone who is going to try to solve it.',
           'That is also why the usual responses do not land. Suggestions to take some time for yourself, or to delegate more, mostly add another task to the person who was already holding the list. Advice presumes the problem is organisational. Frequently it is not.',
-          'What tends to be more useful is somewhere the account can be given without being immediately fixed, tidied, or reframed as gratitude. Quite a lot of the early work is simply establishing that the load is real and has a size, because it has usually never been counted.',
+          'What tends to be more useful is somewhere the account can be given without being immediately fixed, tidied, or reframed as gratitude. Quite a lot of the early work is establishing that the load is real and has a size, because it has usually never been counted.',
         ],
       },
       {
@@ -151,7 +151,7 @@ export const moreAudiences: Audience[] = [
       {
         h2: 'When one partner is reluctant',
         body: [
-          'It is very common for one person to book and the other to agree without enthusiasm. Reluctance is not the same as refusal, and it is workable — provided the reluctant partner is there voluntarily rather than as the identified problem.',
+          'It is common for one person to book and the other to agree without enthusiasm. Reluctance is not the same as refusal, and it is workable — provided the reluctant partner is there voluntarily rather than as the identified problem.',
           'Where somebody has been brought to be fixed, that framing has to be dismantled before anything useful can happen, and doing so is usually the first real piece of work. A counsellor who accepts the framing has already lost the session.',
           'If one partner genuinely will not attend, individual therapy focused on the relationship is a real option rather than a consolation. Changing your own half of a pattern changes the pattern, and a number of couples end up in joint work after one person started alone. [Individual vs couples therapy](/compare/individual-vs-couples-therapy) sets out how to choose.',
         ],
