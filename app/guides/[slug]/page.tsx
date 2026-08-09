@@ -8,6 +8,7 @@ import { buildToc, headingId } from '@/lib/toc';
 import { orgRef, siteRef, personRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import SceneBand from '@/components/SceneBand';
 import Byline from '@/components/Byline';
 import ExtraSections from '@/components/ExtraSections';
 import Toc from '@/components/Toc';
@@ -140,6 +141,8 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
           <ExtraSections area="guides" slug={g.slug} />
 
           {g.figure2 && <Figure name={g.figure2} />}
+
+          <SceneBand seed={g.slug} />
 
           <h2 id="common-questions">Common questions</h2>
           <div style={{ marginTop: 8 }}>

@@ -12,24 +12,24 @@ Clean pages: **99 / 105**
 | title 1–60 | 0 |
 | desc 1–155 | 0 |
 | self-canonical | 0 |
-| og:image | 2 |
+| og:image | 0 |
 | exactly one h1 | 0 |
 | no heading skips | 0 |
 | all images alt | 0 |
-| >= 1 visual | 2 |
+| >= 1 visual | 0 |
 | >= 8 out-links | 0 |
 | >= 3 inbound | 4 |
-| >= 600 words | 6 |
+| >= 600 words | 5 |
 | structured data | 0 |
 
 ## Every URL
 
 | URL | Score | Words | Imgs | Out | In | Issues |
 |---|--:|--:|--:|--:|--:|---|
-| `/punjabi` | 9/13 | 555 | 0 | 8 | 0 | og:image, >= 1 visual, >= 3 inbound, >= 600 words |
-| `/reviews` | 9/13 | 491 | 0 | 8 | 0 | og:image, >= 1 visual, >= 3 inbound, >= 600 words |
+| `/reviews` | 11/13 | 509 | 1 | 8 | 0 | >= 3 inbound, >= 600 words |
 | `/tools/stress-check` | 11/13 | 352 | 1 | 8 | 2 | >= 3 inbound, >= 600 words |
 | `/tools/which-service` | 11/13 | 316 | 1 | 11 | 2 | >= 3 inbound, >= 600 words |
+| `/punjabi` | 12/13 | 758 | 1 | 8 | 0 | >= 3 inbound |
 | `/tools` | 12/13 | 265 | 1 | 8 | 5 | >= 600 words |
 | `/tools/therapy-cost-bc` | 12/13 | 344 | 1 | 8 | 3 | >= 600 words |
 | `/` | 13/13 | 1227 | 2 | 42 | 104 | — |

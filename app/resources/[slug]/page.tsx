@@ -8,6 +8,7 @@ import { buildToc, headingId } from '@/lib/toc';
 import { orgRef, siteRef, personRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import SceneBand from '@/components/SceneBand';
 import Byline from '@/components/Byline';
 import ExtraSections from '@/components/ExtraSections';
 import Toc from '@/components/Toc';
@@ -151,6 +152,8 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
             <ExtraSections area="resources" slug={r.slug} />
 
             {r.figure2 && <Figure name={r.figure2} />}
+
+            <SceneBand seed={r.slug} />
 
             <h2 id="common-questions">Common questions</h2>
             <div style={{ marginTop: 8 }}>

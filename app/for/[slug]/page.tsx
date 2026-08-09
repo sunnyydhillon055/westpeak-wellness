@@ -8,6 +8,7 @@ import { buildToc, headingId } from '@/lib/toc';
 import { orgRef, siteRef, personRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import SceneBand from '@/components/SceneBand';
 import Byline from '@/components/Byline';
 import ExtraSections from '@/components/ExtraSections';
 import Toc from '@/components/Toc';
@@ -168,6 +169,8 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
 
       <section className="section">
         <div className="container prose">
+          <SceneBand seed={a.slug} />
+
           <h2 id="common-questions">Common questions</h2>
           <div style={{ marginTop: 8 }}>
             {a.faqs.map((f) => (

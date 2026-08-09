@@ -211,6 +211,34 @@ thin scattering of the word across every English page stays removed, and the
 language now has one real page written *in* it for someone searching in it.
 Concentrated, not diffuse.
 
+## Visual pass, and one metric that should be ignored
+
+The v2 visual review scored 7,510 and named photography breadth as the biggest
+gap. Three of its observations were already stale — the signature block is no
+longer the Punjabi one, `/reviews` now exists — and one was simply wrong: it
+reported "no illustration, diagrams, or supporting visuals on most pages" when
+21 original SVG diagrams were already deployed and the per-URL audit showed zero
+pages without a visual.
+
+The photography gap was real: three images across a hundred pages. Rather than
+stock, six original atmospheric scenes were drawn in the brand palette and are
+assigned deterministically per page slug. Licence provenance for stock cannot be
+verified from inside a build; therapy stock is a recognisable genre readers
+discount on sight; and a 300 KB photograph on every page would cost the
+performance the same review asks to protect. These are 1.4 KB each.
+
+They render as CSS backgrounds, not `<img>` tags. Purely decorative artwork
+should not be in the accessibility tree at all — and the first version, using
+`alt=""`, put 75 empty-alt images into the audit where they would have masked a
+real one.
+
+**A duplication figure to disregard:** `/tools ~ /punjabi` reports 28.1%
+overlap, over the site's own 25% bar. It is an artifact. `/punjabi` contains 144
+English words, 117 of which are shared site chrome — nav, footer, crisis block —
+because the page's actual content is in Gurmukhi and the metric only sees Latin
+tokens. The two pages share nothing meaningful. Padding English onto a Punjabi
+landing page to move the number would make it a worse page, so it stands.
+
 ## Where this run did not reach the directive's bar
 
 Stated plainly rather than papered over.

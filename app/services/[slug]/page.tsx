@@ -8,6 +8,7 @@ import { buildToc, headingId } from '@/lib/toc';
 import { orgRef, siteRef, personRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import SceneBand from '@/components/SceneBand';
 import { getServiceIcon } from '@/lib/icon-map';
 import { Clock, MonitorSmartphone, Languages as LangIcon, BadgeCheck, CircleDot } from 'lucide-react';
 import ExtraSections from '@/components/ExtraSections';
@@ -218,6 +219,8 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         <section className="section section--tint">
           <div className="container">
             <p className="eyebrow">Related reading</p>
+            <SceneBand seed={s.slug} />
+
             <h2 id="go-deeper">Go deeper</h2>
             <div className="chip-grid" style={{ marginTop: 20 }}>
               {s.related.map((r) => <Link className="chip" key={r.href} href={r.href}>{r.label}</Link>)}

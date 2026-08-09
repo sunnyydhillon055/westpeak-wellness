@@ -1311,3 +1311,58 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   .admin-table td.admin-actions::before{ display:none; }
   .admin-actions form{ padding-top:4px; }
 }
+
+/* ---------------------------------------------------------------------------
+   SCENE BANDS
+   Breathing room in a long reading column. Breaks out of the measure the same
+   way figures do, so the eye gets a horizon rather than another paragraph.
+   ------------------------------------------------------------------------ */
+.scene-band{
+  margin:34px 0; border-radius:var(--radius-lg); overflow:hidden;
+  background:var(--surface-3); line-height:0;
+}
+.prose .scene-band{
+  width:min(1032px, calc(100vw - 48px));
+  margin-left:50%; transform:translateX(-50%);
+}
+.scene-band{
+  height:clamp(120px, 16vw, 190px);
+  background-size:cover; background-position:center; background-repeat:no-repeat;
+}
+@media (max-width:680px){
+  .prose .scene-band{ width:calc(100vw - 36px); }
+  .scene-band{ height:110px; }
+}
+
+/* ---------------------------------------------------------------------------
+   MOTION FINISH
+   The reveal was 520ms with a 90ms-per-card stagger, which on a six-card grid
+   meant the last card landed almost a second after the first. Calm is not the
+   same as slow — a reader who has already scrolled to a section should not be
+   waiting for it. Shorter, tighter, and it still eases rather than snaps.
+   ------------------------------------------------------------------------ */
+.js-reveal .reveal{ transition-duration:380ms; }
+.btn{ transition:background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease),
+      transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease); }
+.btn--primary:active, .btn--ghost:active{ transform:translateY(0); }
+.card{ transition:transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease); }
+
+/* Focus is a visible ring everywhere, on one rule, so no control can be added
+   that is keyboard-reachable and invisible. */
+a:focus-visible, button:focus-visible, summary:focus-visible,
+input:focus-visible, select:focus-visible, textarea:focus-visible,
+[tabindex]:focus-visible{
+  outline:2px solid var(--focus); outline-offset:2px; border-radius:var(--radius-xs);
+}
+
+/* One switch that actually covers everything, rather than per-component
+   opt-outs that get forgotten when a component is added. */
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+    transition-delay:0s !important;
+    scroll-behavior:auto !important;
+  }
+}

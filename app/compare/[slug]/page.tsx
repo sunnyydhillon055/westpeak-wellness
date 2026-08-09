@@ -8,6 +8,7 @@ import { buildToc, headingId } from '@/lib/toc';
 import { orgRef, siteRef, personRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import SceneBand from '@/components/SceneBand';
 import Byline from '@/components/Byline';
 import ExtraSections from '@/components/ExtraSections';
 import Toc from '@/components/Toc';
@@ -148,6 +149,8 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
 
             <h2 id="where-westpeak-wellness-fits">Where Westpeak Wellness fits</h2>
             <Paragraphs items={c.howWeFit} />
+
+            <SceneBand seed={c.slug} />
 
             <h2 id="common-questions">Common questions</h2>
             <div style={{ marginTop: 8 }}>
