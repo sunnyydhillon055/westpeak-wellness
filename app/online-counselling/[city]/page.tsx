@@ -6,6 +6,7 @@ import { featuredServices } from '@/lib/services';
 import { site } from '@/lib/site';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import ExtraSections from '@/components/ExtraSections';
 import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
 
@@ -130,6 +131,8 @@ export default function CityPage({ params }: { params: { city: string } }) {
         <section className="section">
           <div className="container">
             <p className="eyebrow">Questions from {l.city}</p>
+            <ExtraSections area="online-counselling" slug={l.slug} />
+
             <h2>Before you book</h2>
             <div style={{ marginTop: 24, maxWidth: 760 }}>
               {l.faqs.map((f) => (

@@ -5,6 +5,7 @@ import { services, getService } from '@/lib/services';
 import { site } from '@/lib/site';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import ExtraSections from '@/components/ExtraSections';
 import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
 
@@ -142,6 +143,8 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         <section className="section">
           <div className="container">
             <p className="eyebrow">Questions</p>
+            <ExtraSections area="services" slug={s.slug} />
+
             <h2>Before you book</h2>
             <div style={{ marginTop: 24, maxWidth: 760 }}>
               {s.faqs.map((f) => (

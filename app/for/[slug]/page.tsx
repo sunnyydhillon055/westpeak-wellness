@@ -5,6 +5,7 @@ import { audiences, getAudience } from '@/lib/audiences';
 import { site } from '@/lib/site';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import ExtraSections from '@/components/ExtraSections';
 import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
 
@@ -125,6 +126,8 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
       <section className="section section--ghost">
         <div className="container">
           <p className="eyebrow">Where to start</p>
+          <ExtraSections area="for" slug={a.slug} />
+
           <h2>Services that tend to fit</h2>
           <div className="grid grid-2" style={{ marginTop: 26 }}>
             {a.servicesThatFit.map((s) => (

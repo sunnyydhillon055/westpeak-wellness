@@ -5,6 +5,7 @@ import { comparisons, getComparison } from '@/lib/comparisons';
 import { site } from '@/lib/site';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import ExtraSections from '@/components/ExtraSections';
 import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
 
@@ -123,6 +124,8 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
                 )}
               </div>
             ))}
+
+            <ExtraSections area="compare" slug={c.slug} />
 
             <h2>Where Westpeak Wellness fits</h2>
             <Paragraphs items={c.howWeFit} />

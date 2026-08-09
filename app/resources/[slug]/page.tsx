@@ -5,6 +5,7 @@ import { resources, getResource } from '@/lib/resources';
 import { site } from '@/lib/site';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import ExtraSections from '@/components/ExtraSections';
 import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
 
@@ -130,6 +131,8 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
           ))}
 
           <div className="prose">
+            <ExtraSections area="resources" slug={r.slug} />
+
             <h2>Common questions</h2>
             <div style={{ marginTop: 8 }}>
               {r.faqs.map((f) => (

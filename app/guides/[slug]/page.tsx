@@ -5,6 +5,7 @@ import { guides, getGuide } from '@/lib/guides';
 import { site } from '@/lib/site';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import ExtraSections from '@/components/ExtraSections';
 import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
 import { getFigure } from '@/lib/figures';
@@ -118,6 +119,8 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
               )}
             </div>
           ))}
+
+          <ExtraSections area="guides" slug={g.slug} />
 
           <h2>Common questions</h2>
           <div style={{ marginTop: 8 }}>
