@@ -65,7 +65,16 @@ export const site = {
   /* Vercel sets this on preview deployments only. Previews are excluded from
    * the index so a branch build can never compete with the real site. */
   isPreview: process.env.VERCEL_ENV === 'preview',
-  hours: "Mon–Fri: 9 AM – 7 PM · evenings by request",
+  /* Real bookable windows. This is the one source of truth for availability —
+   * the footer, the portal and Cliniko must all agree, so change it here and
+   * mirror it in Cliniko rather than editing any page directly. */
+  availability: [
+    { day: "Monday",   from: "9:00 am",  to: "12:00 pm" },
+    { day: "Tuesday",  from: "4:00 pm",  to: "7:00 pm"  },
+    { day: "Saturday", from: "10:00 am", to: "2:00 pm"  },
+    { day: "Sunday",   from: "10:00 am", to: "2:00 pm"  },
+  ],
+  hours: "Mon 9–12 · Tue 4–7 · Sat & Sun 10–2",
   serviceArea: "Virtual counselling across British Columbia",
   languages: "English & Punjabi",
   languagesNative: "English · ਪੰਜਾਬੀ",

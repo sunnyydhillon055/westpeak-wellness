@@ -62,6 +62,8 @@ export default function Book() {
       <section className="section section--tint">
         <div className="container">
           <p className="eyebrow">What happens in the 15 minutes</p>
+          <Figure name="booking-payment-flow" />
+
           <h2>No intake forms, no pressure.</h2>
           <Figure name="first-session-flow" caption="The consultation is step one of four — and stopping after it is a normal outcome." />
           <div className="steps" style={{ marginTop: 26, maxWidth: 760 }}>

@@ -1081,3 +1081,26 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   .footer-grid{ grid-template-columns: 1fr; }
   .footer-legal{ gap: 2px 18px; }
 }
+
+/* ---- Client portal: gate + availability ---------------------------------- */
+.portal-gate{ display:grid; gap:8px; margin-top:26px; }
+.portal-gate label{ font-size:.9rem; font-weight:600; color:var(--ink); }
+.portal-gate input{
+  font:inherit; padding:12px 14px; border:1px solid var(--line);
+  border-radius:var(--radius-sm); background:var(--surface-0); color:var(--ink);
+  min-height:48px; letter-spacing:.08em;
+}
+.portal-gate input:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; border-color:var(--blue); }
+.portal-gate button{ justify-self:start; margin-top:6px; }
+.portal-gate-error{ margin:0; font-size:.9rem; color:#9a3412; }
+
+.avail{ border-collapse:collapse; width:100%; max-width:420px; margin:14px 0 0;
+  border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
+.avail tr + tr{ border-top:1px solid var(--line); }
+.avail th{ text-align:left; font-family:var(--font-body); font-weight:600;
+  font-size:.96rem; color:var(--ink); padding:11px 16px; background:var(--surface-1); width:44%; }
+.avail td{ padding:11px 16px; color:var(--ink-soft); font-size:.96rem;
+  font-variant-numeric:tabular-nums; }
+.avail-note{ margin:10px 0 0; font-size:.88rem; color:var(--ink-faint); }
+.sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }

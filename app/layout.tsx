@@ -71,11 +71,9 @@ const orgSchema = {
   currenciesAccepted: 'CAD',
   paymentAccepted: 'E-transfer, Credit Card',
   openingHoursSpecification: [
-    {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-      opens: '09:00', closes: '19:00',
-    },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday'], opens: '09:00', closes: '12:00' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Tuesday'], opens: '16:00', closes: '19:00' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Saturday', 'Sunday'], opens: '10:00', closes: '14:00' },
   ],
   knowsLanguage: ['en-CA', 'pa'],
   knowsAbout: [

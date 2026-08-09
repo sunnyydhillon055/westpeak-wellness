@@ -1,8 +1,8 @@
 # Per-URL SEO Audit
 
-**100 URLs · 13 checks each · 1300 assertions**
+**99 URLs · 13 checks each · 1287 assertions**
 
-Clean pages: **100 / 100**
+Clean pages: **99 / 99**
 
 ## Failures by check
 
@@ -26,7 +26,7 @@ Clean pages: **100 / 100**
 
 | URL | Score | Words | Imgs | Out | In | Issues |
 |---|--:|--:|--:|--:|--:|---|
-| `/` | 13/13 | 1152 | 2 | 38 | 99 | — |
+| `/` | 13/13 | 1152 | 2 | 38 | 98 | — |
 | `/about` | 13/13 | 1334 | 1 | 17 | 8 | — |
 | `/accessibility` | 13/13 | 1175 | 1 | 9 | 3 | — |
 | `/approaches` | 13/13 | 638 | 1 | 13 | 9 | — |
@@ -36,19 +36,18 @@ Clean pages: **100 / 100**
 | `/approaches/internal-family-systems` | 13/13 | 1279 | 2 | 13 | 6 | — |
 | `/approaches/mindfulness-based-approaches` | 13/13 | 1170 | 2 | 12 | 6 | — |
 | `/approaches/somatic-therapy` | 13/13 | 1283 | 2 | 14 | 6 | — |
-| `/book` | 13/13 | 782 | 1 | 12 | 99 | — |
-| `/client-portal` | 13/13 | 1319 | 1 | 13 | 4 | — |
+| `/book` | 13/13 | 802 | 2 | 12 | 98 | — |
 | `/compare` | 13/13 | 742 | 1 | 12 | 9 | — |
 | `/compare/cbt-vs-emdr-for-trauma` | 13/13 | 1664 | 2 | 15 | 13 | — |
-| `/compare/efap-vs-private-counselling` | 13/13 | 1956 | 2 | 14 | 14 | — |
+| `/compare/efap-vs-private-counselling` | 13/13 | 1956 | 2 | 14 | 13 | — |
 | `/compare/individual-vs-couples-therapy` | 13/13 | 1712 | 2 | 16 | 13 | — |
-| `/compare/rcc-vs-psychologist-vs-social-worker-bc` | 13/13 | 2117 | 2 | 18 | 22 | — |
+| `/compare/rcc-vs-psychologist-vs-social-worker-bc` | 13/13 | 2117 | 2 | 18 | 21 | — |
 | `/compare/therapy-medication-or-both` | 13/13 | 2006 | 2 | 14 | 9 | — |
 | `/compare/therapy-vs-coaching` | 13/13 | 1966 | 2 | 14 | 6 | — |
 | `/compare/weekly-vs-biweekly-sessions` | 13/13 | 1803 | 2 | 14 | 12 | — |
-| `/contact` | 13/13 | 660 | 1 | 10 | 7 | — |
+| `/contact` | 13/13 | 669 | 1 | 10 | 6 | — |
 | `/editorial-policy` | 13/13 | 1317 | 1 | 8 | 71 | — |
-| `/faq` | 13/13 | 783 | 1 | 13 | 23 | — |
+| `/faq` | 13/13 | 783 | 1 | 13 | 22 | — |
 | `/for` | 13/13 | 641 | 1 | 17 | 10 | — |
 | `/for/couples` | 13/13 | 2313 | 2 | 18 | 10 | — |
 | `/for/family-caregivers` | 13/13 | 2173 | 2 | 19 | 9 | — |
@@ -86,13 +85,13 @@ Clean pages: **100 / 100**
 | `/guides/procrastination-that-is-not-laziness` | 13/13 | 1254 | 2 | 14 | 6 | — |
 | `/guides/questions-to-ask-a-therapist` | 13/13 | 2143 | 2 | 15 | 14 | — |
 | `/guides/setting-boundaries-with-family` | 13/13 | 2119 | 2 | 14 | 12 | — |
-| `/guides/signs-it-might-be-time-for-therapy` | 13/13 | 2154 | 2 | 14 | 11 | — |
+| `/guides/signs-it-might-be-time-for-therapy` | 13/13 | 2154 | 2 | 14 | 10 | — |
 | `/guides/social-anxiety-in-adults` | 13/13 | 1543 | 2 | 14 | 7 | — |
 | `/guides/supporting-someone-who-is-struggling` | 13/13 | 1903 | 2 | 15 | 8 | — |
 | `/guides/talking-to-your-family-about-therapy` | 13/13 | 1963 | 2 | 13 | 9 | — |
 | `/guides/waiting-for-therapy-in-bc` | 13/13 | 2181 | 2 | 15 | 11 | — |
 | `/guides/what-is-emdr-and-how-a-session-works` | 13/13 | 2126 | 2 | 14 | 10 | — |
-| `/guides/what-to-expect-first-therapy-session` | 13/13 | 1922 | 2 | 14 | 22 | — |
+| `/guides/what-to-expect-first-therapy-session` | 13/13 | 1922 | 2 | 14 | 21 | — |
 | `/guides/what-trauma-actually-means` | 13/13 | 2227 | 2 | 15 | 13 | — |
 | `/guides/when-someone-you-love-is-drinking` | 13/13 | 1317 | 2 | 14 | 6 | — |
 | `/guides/when-therapy-isnt-working` | 13/13 | 2201 | 2 | 13 | 12 | — |
@@ -104,18 +103,18 @@ Clean pages: **100 / 100**
 | `/online-counselling/surrey` | 13/13 | 1010 | 2 | 17 | 7 | — |
 | `/online-counselling/vancouver` | 13/13 | 973 | 2 | 20 | 7 | — |
 | `/online-counselling/victoria` | 13/13 | 917 | 2 | 19 | 6 | — |
-| `/pricing` | 13/13 | 797 | 1 | 15 | 38 | — |
-| `/privacy` | 13/13 | 1479 | 1 | 8 | 9 | — |
+| `/pricing` | 13/13 | 797 | 1 | 15 | 37 | — |
+| `/privacy` | 13/13 | 1479 | 1 | 8 | 8 | — |
 | `/resources` | 13/13 | 779 | 1 | 13 | 9 | — |
 | `/resources/bc-crisis-and-support-directory` | 13/13 | 1412 | 2 | 14 | 22 | — |
-| `/resources/bc-extended-health-coverage-for-counselling` | 13/13 | 1716 | 2 | 12 | 20 | — |
-| `/resources/low-cost-counselling-bc` | 13/13 | 1507 | 2 | 13 | 20 | — |
+| `/resources/bc-extended-health-coverage-for-counselling` | 13/13 | 1716 | 2 | 12 | 19 | — |
+| `/resources/low-cost-counselling-bc` | 13/13 | 1507 | 2 | 13 | 19 | — |
 | `/resources/msp-vs-extended-health` | 13/13 | 1537 | 2 | 13 | 13 | — |
 | `/resources/psychiatry-and-assessment-in-bc` | 13/13 | 1801 | 2 | 12 | 16 | — |
 | `/resources/student-mental-health-supports-bc` | 13/13 | 1904 | 2 | 14 | 7 | — |
 | `/resources/verify-a-counsellor-in-bc` | 13/13 | 1761 | 2 | 14 | 12 | — |
 | `/resources/workplace-mental-health-bc` | 13/13 | 1970 | 2 | 13 | 13 | — |
-| `/services` | 13/13 | 874 | 1 | 23 | 23 | — |
+| `/services` | 13/13 | 874 | 1 | 23 | 22 | — |
 | `/services/anxiety-counselling` | 13/13 | 1628 | 2 | 15 | 30 | — |
 | `/services/couples-therapy` | 13/13 | 1645 | 2 | 14 | 31 | — |
 | `/services/depression-counselling` | 13/13 | 1612 | 2 | 16 | 20 | — |
