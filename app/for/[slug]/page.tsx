@@ -5,6 +5,7 @@ import { audiences, getAudience } from '@/lib/audiences';
 import { site } from '@/lib/site';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
 
 export function generateStaticParams() {
@@ -172,6 +173,8 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
         </div>
       </section>
 
+
+      <MoreFrom items={audiences} currentSlug={a.slug} base="/for" heading="Written for other situations" eyebrow="Keep going" />
       <CtaBand
         heading="One conversation, no commitment."
         text="A free 15-minute consultation by phone or video — including an honest answer if something other than counselling would serve you better."

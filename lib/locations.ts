@@ -146,7 +146,7 @@ export const locations: Location[] = [
       { q: "What if I cannot afford private fees?", a: "Vancouver Coastal Health runs free mental-health services, and there is a broader set of free and low-cost options across BC worth checking before paying out of pocket. Those are listed on the free and low-cost counselling page." },
     ],
     sources: [
-      { label: "Vancouver Coastal Health — mental health and substance use", url: "https://www.vch.ca/en/service/mental-health-substance-use-services" },
+      { label: "Vancouver Coastal Health — mental health and substance use", url: "https://www.vch.ca/en/health-topics/mental-health" },
       { label: "CMHA BC — programs and services", url: "https://cmha.bc.ca/" },
     ],
     nearby: ["surrey", "victoria"],
@@ -263,7 +263,7 @@ export const locations: Location[] = [
       { q: "Are sessions available in Punjabi?", a: "Yes — in Punjabi, English, or both, without needing to travel to the coast to find it." },
     ],
     sources: [
-      { label: "Interior Health — mental health and substance use services", url: "https://www.interiorhealth.ca/services/mental-health-and-substance-use" },
+      { label: "Interior Health — mental health and substance use services", url: "https://www.interiorhealth.ca/services/access-mental-health-and-substance-use-services" },
       { label: "HereToHelp BC — mental health information", url: "https://www.heretohelp.bc.ca/" },
     ],
     nearby: ["prince-george", "vancouver"],

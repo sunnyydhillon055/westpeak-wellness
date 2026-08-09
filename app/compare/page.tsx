@@ -37,7 +37,7 @@ export default function CompareHub() {
             {comparisons.map((c) => (
               <div className="card" key={c.slug}>
                 <Link href={`/compare/${c.slug}`} className="card-link">
-                  <h3>{c.title}</h3>
+                  <h2 className="card-title">{c.title}</h2>
                   <p>{c.lede}</p>
                   <span className="more">{c.readMinutes} min read →</span>
                 </Link>
@@ -53,11 +53,58 @@ export default function CompareHub() {
             </p>
           </div>
 
-          <p style={{ marginTop: 32 }}>
-            You may also want{' '}
-            <Link href="/guides">the counselling guides</Link>, or the practical detail on{' '}
-            <Link href="/pricing">fees and extended-health coverage</Link>.
-          </p>
+          <div className="prose" style={{ marginTop: 44 }}>
+            <h2>The four decisions people are actually making</h2>
+            <p>
+              Almost everyone arriving at counselling is deciding four things at once, usually without
+              realising they are separable. <strong>Who</strong> — which designation, which is what
+              determines whether there is any complaints process behind the person you are trusting.{' '}
+              <strong>What</strong> — which method, which matters more for some difficulties than
+              others and matters a great deal for trauma. <strong>How much</strong> — what it costs,
+              what a plan reimburses, and which free routes you may already be entitled to. And{' '}
+              <strong>how often</strong>, which people treat as a scheduling question and which quietly
+              determines what the therapy can do.
+            </p>
+            <p>
+              Each page here takes one of those, sets out the options in a table, and says plainly
+              where each option is the wrong answer — including the cases where the wrong answer is
+              this practice. A page that never points anywhere else is advertising, whatever it is
+              labelled.
+            </p>
+
+            <h2>Where to start, depending on what you are stuck on</h2>
+            <p>
+              If you do not yet know who you are supposed to be looking for, start with{' '}
+              <Link href="/compare/rcc-vs-psychologist-vs-social-worker-bc">RCC vs psychologist vs social worker</Link>{' '}
+              — it is the decision that most changes what you can actually get, since only some of
+              those designations can diagnose or assess. If someone has suggested a coach, or you are
+              weighing one, <Link href="/compare/therapy-vs-coaching">therapy vs coaching</Link> sets
+              out the accountability gap the two job titles conceal.
+            </p>
+            <p>
+              If a doctor has raised medication, or you are trying to work out whether to,{' '}
+              <Link href="/compare/therapy-medication-or-both">therapy, medication, or both</Link>{' '}
+              explains what each acts on and who decides — with the plain caveat that a counsellor
+              cannot prescribe or advise on it. If money is the constraint,{' '}
+              <Link href="/compare/efap-vs-private-counselling">EFAP vs private counselling</Link>{' '}
+              is the one to read first, because a great many people have an employer-funded
+              entitlement they have never used.
+            </p>
+            <p>
+              If the question is about the relationship rather than one person,{' '}
+              <Link href="/compare/individual-vs-couples-therapy">individual vs couples therapy</Link>{' '}
+              covers how to choose when only one of you wants to go. If trauma is what brought you
+              here, <Link href="/compare/cbt-vs-emdr-for-trauma">CBT vs EMDR</Link> is the comparison
+              that most often changes what people ask for. And if the work has already started,{' '}
+              <Link href="/compare/weekly-vs-biweekly-sessions">weekly vs biweekly</Link> is the
+              decision most likely to be made by accident.
+            </p>
+            <p>
+              You may also want <Link href="/guides">the counselling guides</Link>, the{' '}
+              <Link href="/glossary">glossary of terms</Link> if the vocabulary is the obstacle, or the
+              practical detail on <Link href="/pricing">fees and extended-health coverage</Link>.
+            </p>
+          </div>
         </div>
       </section>
 

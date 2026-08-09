@@ -38,7 +38,7 @@ export default function GuidesHub() {
             {guides.map((g) => (
               <div className="card" key={g.slug}>
                 <Link href={`/guides/${g.slug}`} className="card-link">
-                  <h3>{g.title}</h3>
+                  <h2 className="card-title">{g.title}</h2>
                   <p>{g.lede}</p>
                   <span className="more">{g.readMinutes} min read →</span>
                 </Link>

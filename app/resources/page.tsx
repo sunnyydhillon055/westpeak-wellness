@@ -47,7 +47,7 @@ export default function ResourcesHub() {
             {resources.map((r) => (
               <div className="card" key={r.slug}>
                 <Link href={`/resources/${r.slug}`} className="card-link">
-                  <h3>{r.title}</h3>
+                  <h2 className="card-title">{r.title}</h2>
                   <p>{r.lede}</p>
                   <span className="more">{r.readMinutes} min read →</span>
                 </Link>

@@ -5,6 +5,7 @@ import { resources, getResource } from '@/lib/resources';
 import { site } from '@/lib/site';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
 
 export function generateStaticParams() {
@@ -168,6 +169,8 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
         </div>
       </section>
 
+
+      <MoreFrom items={resources} currentSlug={r.slug} base="/resources" heading="More BC resources" eyebrow="Keep going" />
       <CtaBand
         heading="Questions about cost or coverage?"
         text="A free 15-minute consultation is a good place to ask them, before committing to anything."

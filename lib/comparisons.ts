@@ -107,7 +107,7 @@ const coreComparisons: Comparison[] = [
       },
     ],
     sources: [
-      { label: "BC Association of Clinical Counsellors — regulation FAQs", url: "https://bcacc.ca/regulatory_faq/" },
+      { label: "College of Health and Care Professionals of BC — the incoming regulator", url: "https://chcpbc.org/" },
       { label: "Province of BC — consultation to designate psychotherapy as a regulated health profession", url: "https://news.gov.bc.ca/releases/2024HLTH0070-000812" },
       { label: "Province of BC — health profession regulation", url: "https://www2.gov.bc.ca/gov/content/health/practitioner-professional-resources/professional-regulation" },
       { label: "BC Laws — Psychologists Regulation (Health Professions Act)", url: "https://www.bclaws.gov.bc.ca/civix/document/id/loo64/loo64/442_99" },
@@ -277,7 +277,7 @@ const coreComparisons: Comparison[] = [
     ],
     sources: [
       { label: "NICE — Post-traumatic stress disorder guideline (NG116)", url: "https://www.nice.org.uk/guidance/ng116" },
-      { label: "EMDR International Association — about EMDR therapy", url: "https://www.emdria.org/about-emdr-therapy/" },
+      { label: "American Psychological Association — EMDR in the PTSD treatment guideline", url: "https://www.apa.org/ptsd-guideline/treatments/eye-movement-reprocessing" },
       { label: "CAMH — trauma", url: "https://www.camh.ca/en/health-info/mental-illness-and-addiction-index/trauma" },
     ],
     related: [

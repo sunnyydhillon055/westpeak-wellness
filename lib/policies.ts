@@ -102,7 +102,7 @@ export const policies: Record<string, Policy> = {
     ],
     sources: [
       { label: 'BC Association of Clinical Counsellors — code of ethics and standards of clinical practice', url: 'https://bcacc.ca/about-bcacc/code-of-ethical-conduct/' },
-      { label: 'College of Health and Care Professionals of BC', url: 'https://chcpbc.ca/' },
+      { label: 'College of Health and Care Professionals of BC', url: 'https://chcpbc.org/' },
       { label: 'Office of the Information and Privacy Commissioner for BC', url: 'https://www.oipc.bc.ca/' },
     ],
     related: [

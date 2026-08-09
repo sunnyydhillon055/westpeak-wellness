@@ -15,13 +15,13 @@ export default function Footer() {
             <p style={{ marginTop: 12 }}><a href={`mailto:${site.email}`}>{site.email}</a></p>
           </div>
           <div>
-            <h4>Services</h4>
+            <h2>Services</h2>
             {services.slice(0, 6).map((s) => (
               <Link key={s.slug} href={`/services/${s.slug}`}>{s.name}</Link>
             ))}
           </div>
           <div>
-            <h4>Practice</h4>
+            <h2>Practice</h2>
             <Link href="/about">About the Counsellor</Link>
             <Link href="/services">All Services</Link>
             <Link href="/guides">Counselling Guides</Link>
@@ -36,7 +36,7 @@ export default function Footer() {
             <a href={site.instagramUrl} target="_blank" rel="noopener">Instagram</a>
           </div>
           <div>
-            <h4>Trust &amp; transparency</h4>
+            <h2>Trust &amp; transparency</h2>
             <Link href="/standards">Standards &amp; Accountability</Link>
             <Link href="/editorial-policy">Editorial Policy</Link>
             <Link href="/privacy">Privacy &amp; Confidentiality</Link>

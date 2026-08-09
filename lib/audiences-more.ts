@@ -7,7 +7,7 @@ export const moreAudiences: Audience[] = [
     title: 'Counselling for women in British Columbia',
     metaTitle: 'Counselling for Women in BC | Westpeak Wellness',
     metaDescription:
-      'Online counselling for women across BC — the invisible load, anger with nowhere to go, caregiving, identity after a transition, and being told you are fine.',
+      'Online counselling for women across BC — the invisible load, anger with nowhere to go, caregiving, and identity after a life transition.',
     eyebrow: 'Who we work with',
     lede:
       'A great deal of what arrives here has been carried competently for years. Competence is exactly why nobody noticed.',

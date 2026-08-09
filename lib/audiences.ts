@@ -277,7 +277,7 @@ const coreAudiences: Audience[] = [
       { q: "Does my EAP not cover this already?", a: "Often it covers a set number of sessions, and for many people that is the right starting point. Its limits are session caps and sometimes limited choice of practitioner — private therapy makes sense when you need longer work or a specific fit." },
     ],
     sources: [
-      { label: "WorkSafeBC — mental health claims and presumptions", url: "https://www.worksafebc.com/en/claims/report-workplace-injury-illness/mental-health-claims" },
+      { label: "WorkSafeBC — mental health claims and presumptions", url: "https://www.worksafebc.com/en/claims/report-workplace-injury-illness/mental-health-injury-claims" },
       { label: "World Health Organization — burn-out as an occupational phenomenon", url: "https://www.who.int/news/item/28-05-2019-burn-out-an-occupational-phenomenon-international-classification-of-diseases" },
       { label: "CMHA BC — workplace mental health", url: "https://cmha.bc.ca/" },
     ],

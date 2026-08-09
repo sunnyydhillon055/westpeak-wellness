@@ -361,7 +361,7 @@ export const moreGuides: Guide[] = [
     ],
     sources: [
       { label: 'BC Association of Clinical Counsellors', url: 'https://bcacc.ca/' },
-      { label: 'College of Health and Care Professionals of BC', url: 'https://chcpbc.ca/' },
+      { label: 'College of Health and Care Professionals of BC', url: 'https://chcpbc.org/' },
       { label: 'BC College of Social Workers', url: 'https://bccsw.ca/' },
     ],
     related: [

@@ -37,7 +37,7 @@ export default function ForHub() {
             {audiences.map((a) => (
               <div className="card" key={a.slug}>
                 <Link href={`/for/${a.slug}`} className="card-link">
-                  <h3>{a.title}</h3>
+                  <h2 className="card-title">{a.title}</h2>
                   <p>{a.lede}</p>
                   <span className="more">{a.readMinutes} min read →</span>
                 </Link>
@@ -53,12 +53,46 @@ export default function ForHub() {
             </p>
           </div>
 
-          <p style={{ marginTop: 32 }}>
-            Not seeing your situation? That does not mean it does not fit — these pages exist for
-            groups with a distinct enough set of pressures to be worth writing about separately.
-            Start with <Link href="/services">the full list of services</Link> or the{' '}
-            <Link href="/guides">counselling guides</Link> instead.
-          </p>
+          <div className="prose" style={{ marginTop: 44 }}>
+            <h2>Why these pages exist at all</h2>
+            <p>
+              Anxiety is anxiety, and a page per demographic can easily be a marketing device rather
+              than a useful distinction. These pages exist where the <em>context</em> genuinely changes
+              the work — not the diagnosis, but what surrounds it.
+            </p>
+            <p>
+              A new parent is not simply an adult with low mood; they are an adult with low mood, no
+              sleep, a body that has recently done something enormous, and a strong cultural script
+              about how they are supposed to feel. A rotating shift worker is not simply someone with
+              insomnia; the standard sleep advice is unusable for them. A first-generation adult
+              weighing an obligation to their parents is not experiencing a boundary problem in the
+              way most boundary advice assumes. In each case the honest starting point is different,
+              and starting in the wrong place wastes sessions.
+            </p>
+            <p>
+              What does not change is the method. The approaches behind these pages are the same ones
+              on <Link href="/services">the services list</Link> — the difference is what gets assumed
+              at the beginning and what has to be established.
+            </p>
+
+            <h2>If none of these is you</h2>
+            <p>
+              Most people who book here do not match one of these pages, and that is entirely normal.
+              These exist for situations with a distinct enough set of pressures to be worth writing
+              about separately, not as a list of who is welcome.
+            </p>
+            <p>
+              A better route in that case is to start from the difficulty rather than the demographic:{' '}
+              <Link href="/services/anxiety-counselling">anxiety</Link>,{' '}
+              <Link href="/services/depression-counselling">depression</Link>,{' '}
+              <Link href="/services/trauma-therapy">trauma</Link>, or{' '}
+              <Link href="/services/couples-therapy">a relationship</Link>. If you are not sure the
+              difficulty even has a name yet,{' '}
+              <Link href="/guides/signs-it-might-be-time-for-therapy">signs it might be time for therapy</Link>{' '}
+              is written for exactly that position, and the{' '}
+              <Link href="/guides">counselling guides</Link> cover the rest.
+            </p>
+          </div>
         </div>
       </section>
 

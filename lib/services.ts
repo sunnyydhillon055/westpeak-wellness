@@ -209,7 +209,7 @@ export const services: Service[] = [
     ],
     sources: [
       { label: "NICE — Post-traumatic stress disorder guideline (NG116)", url: "https://www.nice.org.uk/guidance/ng116" },
-      { label: "EMDR International Association", url: "https://www.emdria.org/about-emdr-therapy/" },
+      { label: "EMDR International Association", url: "https://www.apa.org/ptsd-guideline/treatments/eye-movement-reprocessing" },
     ],
   },
   {

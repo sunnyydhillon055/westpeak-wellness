@@ -6,7 +6,7 @@ import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
 
 const homeFaqs = faqs.filter((f) =>
-  ['Are you taking new clients?', 'Do you offer sessions in Punjabi?', 'Are you covered by extended health benefits?', 'Is this practice fully online?'].includes(f.q)
+  ['Are you taking new clients?', 'Is this practice fully online?'].includes(f.q)
 );
 
 export default function Home() {

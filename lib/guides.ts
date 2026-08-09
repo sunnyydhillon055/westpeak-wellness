@@ -54,7 +54,7 @@ const coreGuides: Guide[] = [
         h2: "The therapeutic relationship — the part people worry about most",
         body: [
           "The usual objection is not about technique. It is that something essential in the relationship gets lost through a screen. That worry is reasonable, because the working relationship between client and counsellor is one of the better predictors of whether therapy helps at all.",
-          "The evidence here is more mixed than the outcome evidence. A [2024 systematic review and meta-analysis in the *Journal of Telemedicine and Telecare*](https://journals.sagepub.com/doi/abs/10.1177/1357633X231161774) examining therapeutic alliance in videoconferencing versus in-person psychotherapy found alliance generally comparable, while noting genuine inconsistency across studies. The honest summary is: most people build a working relationship over video about as well as they do in a room, and some people do not.",
+          "The evidence here is more mixed than the outcome evidence. A [2024 systematic review and meta-analysis in the *Journal of Telemedicine and Telecare*](https://pubmed.ncbi.nlm.nih.gov/36974478/) examining therapeutic alliance in videoconferencing versus in-person psychotherapy found alliance generally comparable, while noting genuine inconsistency across studies. The honest summary is: most people build a working relationship over video about as well as they do in a room, and some people do not.",
         ],
       },
       {
@@ -112,7 +112,7 @@ const coreGuides: Guide[] = [
     sources: [
       { label: "Are videoconferenced mental and behavioral health services just as good as in-person? A meta-analysis — Clinical Psychology Review (2021)", url: "https://ctc-ri.org/sites/default/files/Are%20videoconferenced%20mental%20and%20behavioral%20health%20services%20just%20as%20good%20as%20in-person_%20A%20meta-analysis%20of%20a%20fast-growing%20practice%20(1).pdf" },
       { label: "Effectiveness of videoconference-delivered CBT for adults with psychiatric disorders — systematic and meta-analytic review", url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8713091/" },
-      { label: "Therapeutic alliance in videoconferencing psychotherapy compared to in person — Journal of Telemedicine and Telecare (2024)", url: "https://journals.sagepub.com/doi/abs/10.1177/1357633X231161774" },
+      { label: "Therapeutic alliance in videoconferencing psychotherapy compared to in person — Journal of Telemedicine and Telecare (2024)", url: "https://pubmed.ncbi.nlm.nih.gov/36974478/" },
       { label: "HereToHelp BC — mental health information for British Columbians", url: "https://www.heretohelp.bc.ca/" },
     ],
     related: [
@@ -195,7 +195,7 @@ const coreGuides: Guide[] = [
     ],
     sources: [
       { label: "NICE — Post-traumatic stress disorder guideline (NG116)", url: "https://www.nice.org.uk/guidance/ng116" },
-      { label: "EMDR International Association — about EMDR therapy", url: "https://www.emdria.org/about-emdr-therapy/" },
+      { label: "American Psychological Association — EMDR in the PTSD treatment guideline", url: "https://www.apa.org/ptsd-guideline/treatments/eye-movement-reprocessing" },
       { label: "HereToHelp BC — trauma and mental health", url: "https://www.heretohelp.bc.ca/" },
     ],
     related: [

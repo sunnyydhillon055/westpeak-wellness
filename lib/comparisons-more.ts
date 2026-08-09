@@ -90,7 +90,7 @@ export const moreComparisons: Comparison[] = [
     ],
     sources: [
       { label: 'BC Association of Clinical Counsellors', url: 'https://bcacc.ca/' },
-      { label: 'College of Health and Care Professionals of BC', url: 'https://chcpbc.ca/' },
+      { label: 'College of Health and Care Professionals of BC', url: 'https://chcpbc.org/' },
       { label: 'Canadian Mental Health Association, BC Division', url: 'https://bc.cmha.ca/' },
     ],
     related: [

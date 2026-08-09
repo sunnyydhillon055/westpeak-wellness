@@ -5,6 +5,7 @@ import { guides, getGuide } from '@/lib/guides';
 import { site } from '@/lib/site';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
 import { getFigure } from '@/lib/figures';
 
@@ -157,6 +158,8 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
         </div>
       </section>
 
+
+      <MoreFrom items={guides} currentSlug={g.slug} base="/guides" heading="More counselling guides" eyebrow="Keep going" />
       <CtaBand
         heading="Still deciding?"
         text="A free 15-minute consultation is the least committal way to find out whether this is a fit. No pressure, and no obligation to book a session afterward."

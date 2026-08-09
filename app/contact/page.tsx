@@ -44,6 +44,58 @@ export default function Contact() {
             is better for questions you want answered before committing to a call.
           </p>
 
+          <div className="prose" style={{ marginTop: 36 }}>
+            <h2>What to put in a first email</h2>
+            <p>
+              A sentence is genuinely enough. There is no form to complete and no history to assemble,
+              and nobody is assessing how well you describe it. If it helps to have a starting shape:
+              roughly what is going on, roughly how long it has been going on, and whether you would
+              rather talk in English or Punjabi. That is all that is needed to work out whether a
+              consultation makes sense.
+            </p>
+            <p>
+              Please do not send detailed clinical or personal history by email. Email is convenient
+              and it is not a secure channel, and there is no need to put anything sensitive in writing
+              to get a conversation started. Anything of that kind belongs in a session, where it is
+              covered by the protections set out on{' '}
+              <Link href="/privacy">privacy and confidentiality</Link>.
+            </p>
+
+            <h2>What happens after you get in touch</h2>
+            <p>
+              You will hear back directly, usually within one business day, and the reply will either
+              offer some consultation times or explain honestly why another service would suit you
+              better. Being told the second thing is a normal outcome rather than a brush-off — the
+              limits of what this practice does are set out plainly on{' '}
+              <Link href="/standards">standards and accountability</Link>.
+            </p>
+            <p>
+              The consultation itself is fifteen minutes, by phone or video, at no cost. You describe
+              what is going on in as much or as little detail as you want; you hear how the work would
+              run and roughly what it would involve. There is no obligation to book a session
+              afterwards, and deciding not to is common.{' '}
+              <Link href="/guides/what-to-expect-first-therapy-session">What happens in a first session</Link>{' '}
+              covers the stage after that, and{' '}
+              <Link href="/guides/questions-to-ask-a-therapist">questions worth asking a therapist</Link>{' '}
+              is worth reading beforehand — every question on it is fair game here.
+            </p>
+
+            <h2>Two practical things before you book</h2>
+            <p>
+              Sessions run by secure video anywhere in British Columbia, and a counsellor has to be
+              registered in the jurisdiction where you are physically located during a session — so if
+              you travel or work outside the province, mention it and it can be planned around.
+            </p>
+            <p>
+              What a session costs and how extended-health reimbursement works is on{' '}
+              <Link href="/pricing">fees and insurance</Link>. This practice does not direct-bill: you
+              pay at the session and submit the receipt to your insurer yourself, which means it is
+              worth confirming with your plan that a Registered Clinical Counsellor is an eligible
+              provider before you book. <Link href="/resources/bc-extended-health-coverage-for-counselling">Extended health coverage in BC</Link>{' '}
+              explains what to ask them.
+            </p>
+          </div>
+
           <div className="crisis" style={{ marginTop: 24 }}>
             <p style={{ margin: 0 }}>
               <strong>If you&rsquo;re in crisis:</strong> Westpeak Wellness is not a crisis service. Call or text{' '}

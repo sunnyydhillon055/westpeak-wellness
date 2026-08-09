@@ -5,6 +5,7 @@ import { services, getService } from '@/lib/services';
 import { site } from '@/lib/site';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
 
 export function generateStaticParams() {
@@ -199,6 +200,8 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         </div>
       </section>
 
+
+      <MoreFrom items={services} currentSlug={s.slug} base="/services" heading="Other counselling services" eyebrow="Keep going" />
       <CtaBand />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />

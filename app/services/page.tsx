@@ -33,7 +33,7 @@ export default function Services() {
             {services.map((s) => (
               <div className="card" key={s.slug}>
                 <Link href={`/services/${s.slug}`} className="card-link">
-                  <h3>{s.name}</h3>
+                  <h2 className="card-title">{s.name}</h2>
                   <p>{s.short}</p>
                   <span className="more">{s.name} in BC →</span>
                 </Link>

@@ -175,7 +175,7 @@ export const moreResources: Resource[] = [
     sources: [
       { label: 'BC Employment Standards — leaves and job protection', url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/employment-standards/time-off' },
       { label: 'BC Human Rights Tribunal', url: 'https://www.bchrt.bc.ca/' },
-      { label: 'WorkSafeBC — mental health claims', url: 'https://www.worksafebc.com/en/claims/report-workplace-injury-illness/mental-health-claims' },
+      { label: 'WorkSafeBC — mental health claims', url: 'https://www.worksafebc.com/en/claims/report-workplace-injury-illness/mental-health-injury-claims' },
     ],
     related: [
       { href: '/guides/burnout-vs-depression', label: 'Burnout vs depression' },
@@ -260,7 +260,7 @@ export const moreResources: Resource[] = [
     ],
     sources: [
       { label: 'BC Association of Clinical Counsellors', url: 'https://bcacc.ca/' },
-      { label: 'College of Health and Care Professionals of BC', url: 'https://chcpbc.ca/' },
+      { label: 'College of Health and Care Professionals of BC', url: 'https://chcpbc.org/' },
       { label: 'BC College of Social Workers', url: 'https://bccsw.ca/' },
     ],
     related: [
@@ -344,8 +344,8 @@ export const moreResources: Resource[] = [
     ],
     sources: [
       { label: 'HealthLink BC — call 8-1-1', url: 'https://www.healthlinkbc.ca/' },
-      { label: 'BC Health Connect Registry', url: 'https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/health-connect-registry' },
-      { label: 'College of Health and Care Professionals of BC', url: 'https://chcpbc.ca/' },
+      { label: 'BC Provincial Attachment System — Health Connect Registry', url: 'https://www2.gov.bc.ca/gov/content/health/accessing-health-care/bcs-primary-care-system/provincial-attachment-system' },
+      { label: 'College of Health and Care Professionals of BC', url: 'https://chcpbc.org/' },
     ],
     related: [
       { href: '/compare/therapy-medication-or-both', label: 'Therapy, medication, or both?' },

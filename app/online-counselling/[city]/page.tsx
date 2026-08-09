@@ -6,6 +6,7 @@ import { featuredServices } from '@/lib/services';
 import { site } from '@/lib/site';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
 
 export function generateStaticParams() {
@@ -178,6 +179,8 @@ export default function CityPage({ params }: { params: { city: string } }) {
         </section>
       )}
 
+
+      <MoreFrom items={locations} currentSlug={l.slug} base="/online-counselling" heading="Other areas served" eyebrow="Keep going" />
       <CtaBand
         heading={`Counselling in ${l.city}, starting with a conversation`}
         text="A free 15-minute consultation by phone or video. No pressure, no commitment, and no obligation to book a session afterward."
