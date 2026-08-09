@@ -22,7 +22,7 @@
 }
 
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{
   margin:0;background:var(--bg);color:var(--ink);
   font-family:var(--font-body);font-size:17px;line-height:1.65;
@@ -69,7 +69,7 @@ img{max-width:100%;display:block}
 .nav-links a{color:var(--ink-soft);font-size:.96rem;font-weight:500}
 .nav-links a:hover{color:var(--blue-deep);text-decoration:none}
 .nav-cta{margin-left:8px}
-.nav-toggle{display:none;background:none;border:0;cursor:pointer;padding:8px}
+.nav-toggle{display:none;background:none;border:0;cursor:pointer;padding:11px;min-width:44px;min-height:44px}
 .nav-toggle span{display:block;width:22px;height:2px;background:var(--ink);margin:5px 0;transition:.2s}
 
 /* Hero */
@@ -106,7 +106,7 @@ img{max-width:100%;display:block}
 .figure{margin:34px 0 38px;padding:0}
 .prose .figure{width:min(1032px,calc(100vw - 48px));margin-left:50%;transform:translateX(-50%)}
 .figure-scroll{overflow-x:auto;overflow-y:hidden;border-radius:var(--radius);
-  -webkit-overflow-scrolling:touch}
+  overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
 .figure img{display:block;width:100%;min-width:660px;height:auto;border-radius:var(--radius);
   border:1px solid var(--line);background:var(--blue-ghost);box-shadow:var(--shadow-sm)}
 .figure figcaption{margin-top:12px;font-size:.9rem;line-height:1.5;color:var(--ink-faint);
@@ -180,8 +180,8 @@ img{max-width:100%;display:block}
 
 /* Location chips */
 .chip-grid{display:flex;flex-wrap:wrap;gap:10px}
-.chip{display:inline-block;background:var(--bg-card);border:1px solid var(--line);border-radius:999px;
-  padding:8px 16px;font-size:.92rem;color:var(--ink-soft)}
+.chip{display:inline-flex;align-items:center;min-height:44px;background:var(--bg-card);
+  border:1px solid var(--line);border-radius:999px;padding:10px 18px;font-size:.92rem;color:var(--ink-soft)}
 .chip:hover{border-color:var(--blue);color:var(--blue-deep);text-decoration:none}
 
 /* CTA band */
@@ -202,7 +202,7 @@ img{max-width:100%;display:block}
 .footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:22px;font-size:.85rem;color:#8a97a6;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
 /* Prose */
-.prose{max-width:70ch}
+.prose{max-width:70ch;overflow-wrap:break-word}
 .prose h2{margin-top:1.6em}
 .prose ul{padding-left:0}
 
@@ -235,9 +235,40 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
     border-bottom:1px solid var(--line);padding:18px 24px;gap:4px;transform:translateY(-140%);
     transition:transform .22s ease;box-shadow:var(--shadow-md)}
   .nav-links.open{transform:translateY(0)}
-  .nav-links a{padding:10px 0;width:100%}
+  .nav-links a{padding:12px 0;width:100%;min-height:44px;display:flex;align-items:center}
   .nav-toggle{display:block}
   .grid-2,.grid-3,.info-grid{grid-template-columns:1fr}
   .footer-grid{grid-template-columns:1fr}
 }
+/* Mobile booking bar — hidden above 680px, where the header CTA is visible */
+.sticky-book{display:none}
+.sticky-book-inner{display:flex;align-items:center;gap:14px;
+  max-width:var(--maxw);margin:0 auto;padding:10px 18px}
+.sticky-book-text{margin:0;font-size:.86rem;line-height:1.35;color:var(--ink-soft);flex:1}
+.sticky-book-text span{color:var(--ink-faint)}
+.sticky-book-btn{flex:none;padding:12px 24px;font-size:.96rem;min-height:44px}
+
+@media (max-width:680px){
+  .sticky-book{display:block;position:fixed;left:0;right:0;bottom:0;z-index:60;
+    background:rgba(251,252,254,.97);backdrop-filter:saturate(180%) blur(10px);
+    border-top:1px solid var(--line);box-shadow:0 -4px 18px rgba(63,108,163,.09);
+    padding-bottom:env(safe-area-inset-bottom)}
+  /* keep the bar from covering the last of the footer */
+  .site-footer{padding-bottom:96px}
+}
+
+@media (max-width:420px){
+  .container{padding:0 18px}
+  .hero{padding:60px 0 48px}
+  h1{font-size:1.75rem}
+  .lede{font-size:1.06rem}
+  .btn{padding:13px 20px;font-size:.96rem}
+  .btn-row{gap:10px}
+  .btn-row .btn{flex:1 1 100%;text-align:center}
+  .prose .figure{width:calc(100vw - 36px)}
+  .fee-table th,.fee-table td{padding:11px 13px}
+  .glossary-item{padding:16px 18px}
+  .byline{padding:15px 17px}
+}
+
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}

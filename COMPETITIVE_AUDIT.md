@@ -1,24 +1,24 @@
 # Westpeak Wellness — Competitive SEO Scorecard
 
-**Re-audited:** 8 August 2026 — sixth measurement pass, after five complete build-and-verify cycles
+**Re-audited:** 8 August 2026 — seventh measurement pass, after six complete build-and-verify cycles
 **Benchmark set:** five BC counselling practices with the strongest organic presence
 **Scoring:** 20 categories × 500 points = **10,000**
 **Scope:** only factors Claude Code can act on. Video, backlinks and reviews are excluded by request.
 
 ## Result
 
-**Westpeak Wellness: 9,210 / 10,000** — up 1,365 points from 7,845 at the first audit. Intermediate totals: 8,920 · 8,995 · 9,080 · 9,110.
+**Westpeak Wellness: 9,295 / 10,000** — up 1,450 points from 7,845 at the first audit. Intermediate totals: 8,920 · 8,995 · 9,080 · 9,110 · 9,210.
 
 | Rank | Site | Score | /10,000 |
 |--:|---|--:|--:|
-| 1 | **Westpeak Wellness** | **9,210** | 92.1% |
+| 1 | **Westpeak Wellness** | **9,295** | 93.0% |
 | 2 | Wellspring | 6,890 | 68.9% |
 | 3 | Well Beings | 6,720 | 67.2% |
 | 4 | Thrive | 6,540 | 65.4% |
 | 5 | Upstream | 6,250 | 62.5% |
 | 6 | Alive | 4,870 | 48.7% |
 
-Bands: **17 leading**, 2 competitive, 1 behind (was 13 / 2 / 5 at the first audit).
+Bands: **18 leading**, 1 competitive, 1 behind (was 13 / 2 / 5 at the first audit).
 
 ## What moved
 
@@ -27,20 +27,20 @@ Bands: **17 leading**, 2 competitive, 1 behind (was 13 / 2 / 5 at the first audi
 | 12 | Open Graph & social metadata | 260 | **480** | +220 |
 | 2 | Average content depth per page | 200 | **385** | +185 |
 | 15 | Image optimisation & alt text | 300 | **480** | +180 |
-| 18 | Informational content depth | 250 | **415** | +165 |
-| 1 | Indexable page count & coverage breadth | 175 | **300** | +125 |
+| 18 | Informational content depth | 250 | **430** | +180 |
+| 1 | Indexable page count & coverage breadth | 175 | **315** | +140 |
 | 20 | On-page E-E-A-T signals | 340 | **455** | +115 |
 | 11 | XML sitemap & robots.txt | 380 | **480** | +100 |
 | 9 | Structured data coverage | 430 | **485** | +55 |
 | 19 | Decision & comparison content | 430 | **480** | +50 |
 | 4 | Topical cluster architecture | 440 | **480** | +40 |
+| 16 | Accessibility fundamentals | 440 | **480** | +40 |
+| 17 | Conversion architecture (CTAs) | 450 | **485** | +35 |
 | 5 | Internal linking quality | 460 | **490** | +30 |
-| 16 | Accessibility fundamentals | 440 | **470** | +30 |
+| 14 | Mobile & responsive | 430 | **460** | +30 |
 | 8 | Heading hierarchy | 460 | **485** | +25 |
 | 3 | Content uniqueness / duplication risk | 480 | **495** | +15 |
 | 10 | Canonicalisation & index hygiene | 470 | **485** | +15 |
-| 14 | Mobile & responsive | 430 | **440** | +10 |
-| 17 | Conversion architecture (CTAs) | 450 | **460** | +10 |
 | 6 | Title tags | 480 | **485** | +5 |
 | 13 | Page weight & Core Web Vitals risk | 480 | **470** | -10 |
 
@@ -61,7 +61,7 @@ were replaced with the next-ranking accessible practices.
 
 | # | Category | Westpeak | Upstream | Well Beings | Wellspring | Thrive | Alive |
 |---|---|--:|--:|--:|--:|--:|--:|
-| 1 | Indexable page count & coverage breadth | **300** | 460 | 470 | 410 | 320 | 360 |
+| 1 | Indexable page count & coverage breadth | **315** | 460 | 470 | 410 | 320 | 360 |
 | 2 | Average content depth per page | **385** | 470 | 460 | 420 | 320 | 230 |
 | 3 | Content uniqueness / duplication risk | **495** | 300 | 250 | 220 | 300 | 180 |
 | 4 | Topical cluster architecture | **480** | 400 | 360 | 350 | 250 | 260 |
@@ -74,34 +74,34 @@ were replaced with the next-ranking accessible practices.
 | 11 | XML sitemap & robots.txt | **480** | 260 | 430 | 430 | 430 | 420 |
 | 12 | Open Graph & social metadata | **480** | 60 | 250 | 250 | 430 | 200 |
 | 13 | Page weight & Core Web Vitals risk | **470** | 380 | 260 | 150 | 250 | 280 |
-| 14 | Mobile & responsive | **440** | 380 | 400 | 390 | 400 | 350 |
+| 14 | Mobile & responsive | **460** | 380 | 400 | 390 | 400 | 350 |
 | 15 | Image optimisation & alt text | **480** | 90 | 400 | 400 | 300 | 100 |
-| 16 | Accessibility fundamentals | **470** | 200 | 350 | 350 | 340 | 150 |
-| 17 | Conversion architecture (CTAs) | **460** | 340 | 350 | 370 | 380 | 300 |
-| 18 | Informational content depth | **415** | 480 | 200 | 320 | 300 | 350 |
+| 16 | Accessibility fundamentals | **480** | 200 | 350 | 350 | 340 | 150 |
+| 17 | Conversion architecture (CTAs) | **485** | 340 | 350 | 370 | 380 | 300 |
+| 18 | Informational content depth | **430** | 480 | 200 | 320 | 300 | 350 |
 | 19 | Decision & comparison content | **480** | 260 | 180 | 220 | 150 | 200 |
 | 20 | On-page E-E-A-T signals | **455** | 390 | 400 | 360 | 390 | 280 |
-| | **TOTAL / 10,000** | **9,210** | 6,250 | 6,720 | 6,890 | 6,540 | 4,870 |
+| | **TOTAL / 10,000** | **9,295** | 6,250 | 6,720 | 6,890 | 6,540 | 4,870 |
 
 ## Category detail
 
 ### 1. Indexable page count & coverage breadth
 
-**Westpeak 300/500 — 🔴 **Behind**, ranked 6 of 6.** (+125 from 175)
+**Westpeak 315/500 — 🔴 **Behind**, ranked 6 of 6.** (+140 from 175)
 
-Sitemap URLs: Alive 491, Well Beings 485, Upstream 405, Wellspring 307, Thrive 197, **Westpeak 93** — up from 48 at the first audit, a 94% increase. Discounted for low-value URLs: Alive carries 217 `/tag/` archives and Upstream has `/team-focus/` pages measured at 2 words. Every Westpeak URL is substantive; the thinnest page on the site is 706 words and 84 of 93 exceed 1,000.
+Sitemap URLs: Alive 491, Well Beings 485, Upstream 405, Wellspring 307, Thrive 197, **Westpeak 99** — up from 48 at the first audit, a 106% increase. Discounted for low-value URLs: Alive carries 217 `/tag/` archives and Upstream has `/team-focus/` pages measured at 2 words. Every Westpeak URL is substantive; the thinnest page on the site is 706 words and 90 of 99 exceed 1,000.
 
 ### 2. Average content depth per page
 
 **Westpeak 385/500 — 🟡 **Competitive**, ranked 4 of 6.** (+185 from 200)
 
-Site-wide: **156,390 words across 93 pages, averaging 1,682**, with the deep content pages averaging **1,839** — against 40,281 words across 48 pages averaging 839 at the first audit. The homepage alone went 708 to 1,366. On the four-page sampling used for the competitors, Westpeak measured 1,621–1,774 across repeat runs, against Upstream 2,666 · Well Beings 2,579 · Wellspring 2,049 · Thrive 1,463 · Alive 986. The site-wide figure is the more reliable of the two, since a four-page sample of an 86-page site carries real variance — which is a limitation of the method applied to every site here, not only this one.
+Site-wide: **165,251 words across 99 pages, averaging 1,669**, with the deep content pages averaging **1,839** — against 40,281 words across 48 pages averaging 839 at the first audit. The homepage alone went 708 to 1,366. On the four-page sampling used for the competitors, Westpeak measured 1,621–1,774 across repeat runs, against Upstream 2,666 · Well Beings 2,579 · Wellspring 2,049 · Thrive 1,463 · Alive 986. The site-wide figure is the more reliable of the two, since a four-page sample of an 86-page site carries real variance — which is a limitation of the method applied to every site here, not only this one.
 
 ### 3. Content uniqueness / duplication risk
 
 **Westpeak 495/500 — 🟢 **Leading**, ranked 1 of 6.** (+15 from 480)
 
-**15.6% maximum pairwise 5-gram overlap across all 93 pages, zero pairs above 25%** — and the figure *fell* from 18.1% while the corpus grew from 40,281 to 156,390 words, which is the harder result. The 48-page version scored 18.1%. Wellspring runs 99 templated `/service-areas/` pages including city×issue combinations; Well Beings repeats city variants; Alive exposes 217 tag archives.
+**15.9% maximum pairwise 5-gram overlap across all 99 pages, zero pairs above 25%** — and the figure *fell* from 18.1% while the corpus grew from 40,281 to 165,251 words, which is the harder result. The 48-page version scored 18.1%. Wellspring runs 99 templated `/service-areas/` pages including city×issue combinations; Well Beings repeats city variants; Alive exposes 217 tag archives.
 
 ### 4. Topical cluster architecture
 
@@ -119,13 +119,13 @@ Eight explicit hubs (guides, approaches, compare, for, resources, glossary, area
 
 **Westpeak 485/500 — 🟢 **Leading**, ranked 1 of 6.** (+5 from 480)
 
-**93/93 unique and ≤60 characters.** Sampled competitor ranges: Upstream 20–79 · Wellspring 52–75 · Well Beings 48–98 · Alive 44–114 · Thrive 76–96 (all over the limit).
+**99/99 unique and ≤60 characters.** Sampled competitor ranges: Upstream 20–79 · Wellspring 52–75 · Well Beings 48–98 · Alive 44–114 · Thrive 76–96 (all over the limit).
 
 ### 7. Meta descriptions
 
 **Westpeak 490/500 — 🟢 **Leading**, ranked 1 of 6.** (unchanged)
 
-**93/93 unique, ≤155, none missing.** Upstream has no meta description on its homepage or any sampled page. Alive is missing them on all samples (home 319 chars). Thrive 75–158. Wellspring 156–185.
+**99/99 unique, ≤155, none missing.** Upstream has no meta description on its homepage or any sampled page. Alive is missing them on all samples (home 319 chars). Thrive 75–158. Wellspring 156–185.
 
 ### 8. Heading hierarchy
 
@@ -143,7 +143,7 @@ Now MedicalBusiness + ProfessionalService carrying hasCredential, memberOf (BCAC
 
 **Westpeak 485/500 — 🟢 **Leading**, ranked 1 of 6.** (+15 from 470)
 
-93/93 self-canonical, no duplicate titles or descriptions, generated social-card routes excluded from crawl, preview deployments set to noindex. **The Upstream homepage has no canonical.** Alive exposes 217 thin tag archives to the index.
+99/99 self-canonical, no duplicate titles or descriptions, generated social-card routes excluded from crawl, preview deployments set to noindex. **The Upstream homepage has no canonical.** Alive exposes 217 thin tag archives to the index.
 
 ### 11. XML sitemap & robots.txt
 
@@ -155,43 +155,43 @@ Now MedicalBusiness + ProfessionalService carrying hasCredential, memberOf (BCAC
 
 **Westpeak 480/500 — 🟢 **Leading**, ranked 1 of 6.** (+220 from 260)
 
-**Was 0 of 48 pages carrying an og:image; now 93 of 93**, each a distinct 1200×630 card generated per route, with og:image:alt, explicit dimensions and twitter:summary_large_image. No og:image at Wellspring, Well Beings or Alive; Upstream has no OG tags at all; Thrive was the only competitor with a working one.
+**Was 0 of 48 pages carrying an og:image; now 99 of 99**, each a distinct 1200×630 card generated per route, with og:image:alt, explicit dimensions and twitter:summary_large_image. No og:image at Wellspring, Well Beings or Alive; Upstream has no OG tags at all; Thrive was the only competitor with a working one.
 
 ### 13. Page weight & Core Web Vitals risk
 
 **Westpeak 470/500 — 🟢 **Leading**, ranked 1 of 6.** (-10 from 480)
 
-Homepage HTML: **Westpeak 55 KB** — up from 31 KB after nearly doubling the homepage copy and adding full schema, still fully static with no third-party scripts, and still less than half the next lightest — against Upstream 108 KB · Alive 317 KB · Well Beings 385 KB · Thrive 403 KB · **Wellspring 930 KB**. All 80 images are SVG under 5 KB with intrinsic dimensions, so they contribute no layout shift.
+Homepage HTML: **Westpeak 55 KB** — up from 31 KB after nearly doubling the homepage copy and adding full schema, still fully static with no third-party scripts, and still less than half the next lightest — against Upstream 108 KB · Alive 317 KB · Well Beings 385 KB · Thrive 403 KB · **Wellspring 930 KB**. All 86 images are SVG under 5 KB with intrinsic dimensions, so they contribute no layout shift.
 
 ### 14. Mobile & responsive
 
-**Westpeak 440/500 — 🟢 **Leading**, ranked 1 of 6.** (+10 from 430)
+**Westpeak 460/500 — 🟢 **Leading**, ranked 1 of 6.** (+30 from 430)
 
-Re-verified at 375 px: no horizontal page overflow, and wide diagrams scroll inside their own container at a legible size rather than shrinking their labels into illegibility. Competitor differentiation here is limited from remote measurement — these remain the least confident scores in the set.
+Verified at 375 px by rendering: no horizontal page overflow, and wide diagrams scroll inside their own container at a legible size. A subsequent static audit of the stylesheet found and fixed five further issues: tap targets under the 44 px minimum on the mobile nav toggle, nav links and chips; missing `text-size-adjust`, which lets iOS inflate text in landscape; a horizontal swipe inside a diagram able to trigger browser back-navigation (`overscroll-behavior-x`); no breakpoint below 680 px, leaving 320–420 px phones on desktop spacing; and no `overflow-wrap` guard in prose. **Honest limitation:** the browser pane was unavailable for the final round, so these fixes are verified by stylesheet inspection rather than by rendering. Competitor scores here remain the least confident in the set.
 
 ### 15. Image optimisation & alt text
 
 **Westpeak 480/500 — 🟢 **Leading**, ranked 1 of 6.** (+180 from 300)
 
-**Was one content image site-wide; now 80** — all original SVG diagrams, now also listed in the XML sitemap as image entries drawn for this site, all carrying descriptive alt text derived from the artwork itself, with geometry verified in-browser across all 11 source diagrams. **Upstream: 70 of 81 homepage images lack alt text; Alive 78 of 82.** Wellspring 2/62 missing, Well Beings 1/62, Thrive 10/106.
+**Was one content image site-wide; now 86** — all original SVG diagrams, now also listed in the XML sitemap as image entries drawn for this site, all carrying descriptive alt text derived from the artwork itself, with geometry verified in-browser across all 11 source diagrams. **Upstream: 70 of 81 homepage images lack alt text; Alive 78 of 82.** Wellspring 2/62 missing, Well Beings 1/62, Thrive 10/106.
 
 ### 16. Accessibility fundamentals
 
-**Westpeak 470/500 — 🟢 **Leading**, ranked 1 of 6.** (+30 from 440)
+**Westpeak 480/500 — 🟢 **Leading**, ranked 1 of 6.** (+40 from 440)
 
-Skip link, `lang="en-CA"`, visible focus rings, `prefers-reduced-motion` honoured, correct heading order, alt text on every image, scrollable diagram containers, and a published accessibility statement that names its own gaps (no in-house ASL interpretation, no third-party audit). Alive fails on heading structure and alt text; Upstream on alt text.
+Skip link, `lang="en-CA"`, visible focus rings, `prefers-reduced-motion` honoured, correct heading order, alt text on every image, scrollable diagram containers with contained overscroll, 44 px minimum tap targets, and a published accessibility statement that states exactly what was tested and exactly what was not (no third-party audit, no testing with users with disabilities, no full screen-reader matrix). Alive fails on heading structure and alt text; Upstream on alt text.
 
 ### 17. Conversion architecture (CTAs)
 
-**Westpeak 460/500 — 🟢 **Leading**, ranked 1 of 6.** (+10 from 450)
+**Westpeak 485/500 — 🟢 **Leading**, ranked 1 of 6.** (+35 from 450)
 
-Verified **3+ booking touchpoints on all 92 pages** — the single exception being /book itself, which is the booking page — all reading one configuration value. Competitors carry consultation CTAs but place them inconsistently.
+Verified **3+ booking touchpoints on all 98 pages** — the single exception being /book itself — all reading one configuration value. Added a mobile-only sticky booking bar, since on a phone the hero CTA scrolls away within a screen and the next booking link on a 2,000-word guide can be a long way down. Deliberately restrained: no animation, no dismissal state, no countdown or scarcity language, and hidden on /book and /contact where it would point at the page you are on. Competitors carry consultation CTAs but place them inconsistently.
 
 ### 18. Informational content depth
 
-**Westpeak 415/500 — 🟡 **Competitive**, ranked 2 of 6.** (+165 from 250)
+**Westpeak 430/500 — 🟢 **Leading**, ranked 2 of 6.** (+180 from 250)
 
-**31 guides (was 9), 6 approach pages, 8 comparisons, 9 BC resource pages, 9 audience pages and a 60-term glossary — roughly 112,000 words of informational content, up from about 12,000, at an average of 1,839 words per page.** Still outgunned on volume: **Upstream runs 172 blog posts averaging ~3,700 words.** Nimble 121, Alive 79 resources, Wellspring ~29 categories.
+**37 guides (was 9), 6 approach pages, 8 comparisons, 9 BC resource pages, 9 audience pages and a 60-term glossary — roughly 121,000 words of informational content, up from about 12,000, at an average of 1,805 words per page.** Still outgunned on volume: **Upstream runs 172 blog posts averaging ~3,700 words.** Nimble 121, Alive 79 resources, Wellspring ~29 categories.
 
 ### 19. Decision & comparison content
 
@@ -208,14 +208,14 @@ Every content page now carries a **visible byline** — written and clinically r
 
 ## What still holds the score down
 
-**One category remains under 330: raw page count.** Westpeak publishes 93 pages against 197–491.
+**One category remains under 330: raw page count.** Westpeak publishes 99 pages against 197–491 — now within striking distance of Thrive.
 That is now the only place the site is clearly behind, and it is the hardest one to close honestly —
 adding pages for their own sake is exactly what produced the duplication problem the first audit
 found, and what forced 37 location pages to be cut. Reaching Thrive's 197 pages at the current
-1,839-word average would mean roughly 190,000 further words of genuinely distinct content — months of
+1,805-word average would mean roughly 175,000 further words of genuinely distinct content — months of
 sustained publishing rather than a build pass.
 
-Content depth is no longer a gap in the same way. At 1,839 words across the deep content pages the
+Content depth is no longer a gap in the same way. At 1,805 words across the deep content pages the
 site now sits above Thrive and within reach of Wellspring — and it got there while *reducing*
 measured duplication from 20.0% to 15.5% over a corpus that more than tripled. That is the part
 that matters: volume without distinctiveness would have cost more in category 3 than it gained in

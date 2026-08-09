@@ -3,6 +3,7 @@ import { moreGuides2 } from './guides-more2';
 import { moreGuides3 } from './guides-more3';
 import { moreGuides4 } from './guides-more4';
 import { moreGuides5 } from './guides-more5';
+import { moreGuides6 } from './guides-more6';
 
 export type GuideSection = {
   h2: string;
@@ -744,6 +745,6 @@ const coreGuides: Guide[] = [
   },
 ];
 
-export const guides: Guide[] = [...coreGuides, ...moreGuides, ...moreGuides2, ...moreGuides3, ...moreGuides4, ...moreGuides5];
+export const guides: Guide[] = [...coreGuides, ...moreGuides, ...moreGuides2, ...moreGuides3, ...moreGuides4, ...moreGuides5, ...moreGuides6];
 
 export const getGuide = (slug: string) => guides.find((g) => g.slug === slug);
