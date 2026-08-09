@@ -130,6 +130,8 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
 
             <ExtraSections area="compare" slug={c.slug} />
 
+            {c.figure2 && <Figure name={c.figure2} />}
+
             <h2>Where Westpeak Wellness fits</h2>
             <Paragraphs items={c.howWeFit} />
 

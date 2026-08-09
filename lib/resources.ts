@@ -23,11 +23,13 @@ export type Resource = {
   sources: { label: string; url: string }[];
   related: { href: string; label: string }[];
   figure?: string;         // key into lib/figures.ts — renders the page's diagram
+  figure2?: string;      // second diagram, further down the page
 };
 
 const coreResources: Resource[] = [
   {
     slug: "bc-extended-health-coverage-for-counselling",
+    figure2: "therapy-cost-in-bc",
     figure: "reimbursement-flow",
     title: "Extended health coverage for counselling in BC",
     metaTitle: "BC Extended Health & Counselling | Westpeak Wellness",
@@ -118,6 +120,7 @@ const coreResources: Resource[] = [
 
   {
     slug: "msp-vs-extended-health",
+    figure2: "first-session-flow",
     figure: "therapy-cost-in-bc",
     title: "MSP vs extended health: what actually covers therapy in BC",
     metaTitle: "MSP vs Extended Health for Therapy | Westpeak Wellness",
@@ -200,6 +203,7 @@ const coreResources: Resource[] = [
 
   {
     slug: "low-cost-counselling-bc",
+    figure2: "first-session-flow",
     figure: "therapy-cost-in-bc",
     title: "Free and low-cost counselling in BC",
     metaTitle: "Free & Low-Cost Counselling in BC | Westpeak Wellness",
@@ -275,6 +279,7 @@ const coreResources: Resource[] = [
 
   {
     slug: "bc-crisis-and-support-directory",
+    figure2: "first-session-flow",
     figure: "bc-reach",
     title: "BC crisis and mental health support directory",
     metaTitle: "BC Crisis & Support Directory | Westpeak Wellness",

@@ -3,6 +3,7 @@ import type { Audience } from './audiences';
 export const moreAudiences: Audience[] = [
   {
     slug: 'women',
+    figure2: "first-session-flow",
     figure: 'window-of-tolerance',
     title: 'Counselling for women in British Columbia',
     metaTitle: 'Counselling for Women in BC | Westpeak Wellness',
@@ -104,6 +105,7 @@ export const moreAudiences: Audience[] = [
 
   {
     slug: 'couples',
+    figure2: "first-session-flow",
     figure: 'gottman-method',
     title: 'Counselling for couples at a decision point',
     metaTitle: 'Counselling for Couples in BC | Westpeak Wellness',

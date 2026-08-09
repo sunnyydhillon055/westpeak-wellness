@@ -27,11 +27,13 @@ export type Guide = {
   sources: { label: string; url: string }[];
   related: { href: string; label: string }[];
   figure?: string;         // key into lib/figures.ts — renders the page's diagram
+  figure2?: string;      // second diagram, further down the page
 };
 
 const coreGuides: Guide[] = [
   {
     slug: "is-online-therapy-as-effective-as-in-person",
+    figure2: "first-session-flow",
     figure: "bc-reach",
     title: "Is online therapy as effective as in-person therapy?",
     metaTitle: "Is Online Therapy as Effective? | Westpeak Wellness",
@@ -127,6 +129,7 @@ const coreGuides: Guide[] = [
   },
   {
     slug: "what-is-emdr-and-how-a-session-works",
+    figure2: "first-session-flow",
     figure: "emdr-phases",
     title: "What is EMDR, and what actually happens in a session?",
     metaTitle: "What Is EMDR & How Sessions Work | Westpeak Wellness",
@@ -211,6 +214,7 @@ const coreGuides: Guide[] = [
 
   {
     slug: "anxiety-attack-vs-panic-attack",
+    figure2: "anxiety-avoidance-cycle",
     figure: "panic-vs-anxiety",
     title: "Anxiety attack vs panic attack: what is the difference?",
     metaTitle: "Anxiety Attack vs Panic Attack | Westpeak Wellness",
@@ -284,6 +288,7 @@ const coreGuides: Guide[] = [
 
   {
     slug: "high-functioning-anxiety",
+    figure2: "first-session-flow",
     figure: "anxiety-avoidance-cycle",
     title: "High-functioning anxiety: when everything looks fine from outside",
     metaTitle: "High-Functioning Anxiety: Signs | Westpeak Wellness",
@@ -358,6 +363,7 @@ const coreGuides: Guide[] = [
 
   {
     slug: "what-to-expect-first-therapy-session",
+    figure2: "bc-reach",
     figure: "first-session-flow",
     title: "What actually happens in a first therapy session",
     metaTitle: "What to Expect: First Therapy Session | Westpeak Wellness",
@@ -439,6 +445,7 @@ const coreGuides: Guide[] = [
   },
   {
     slug: "how-the-gottman-method-works",
+    figure2: "first-session-flow",
     figure: "gottman-method",
     title: "How the Gottman Method works in couples therapy",
     metaTitle: "How the Gottman Method Works | Westpeak Wellness",
@@ -512,6 +519,7 @@ const coreGuides: Guide[] = [
 
   {
     slug: "burnout-vs-depression",
+    figure2: "first-session-flow",
     figure: "burnout-vs-depression",
     title: "Burnout or depression: how to tell the difference",
     metaTitle: "Burnout vs Depression: The Difference | Westpeak Wellness",
@@ -585,6 +593,7 @@ const coreGuides: Guide[] = [
 
   {
     slug: "intergenerational-trauma-explained",
+    figure2: "first-session-flow",
     figure: "window-of-tolerance",
     title: "Intergenerational trauma, explained plainly",
     metaTitle: "Intergenerational Trauma Explained | Westpeak Wellness",
@@ -660,6 +669,7 @@ const coreGuides: Guide[] = [
 
   {
     slug: "how-to-find-a-therapist-in-bc",
+    figure2: "first-session-flow",
     figure: "designations-bc",
     title: "How to actually find a therapist in BC",
     metaTitle: "How to Find a Therapist in BC | Westpeak Wellness",

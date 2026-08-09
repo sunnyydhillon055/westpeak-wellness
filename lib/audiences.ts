@@ -21,11 +21,13 @@ export type Audience = {
   sources: { label: string; url: string }[];
   related: { href: string; label: string }[];
   figure?: string;         // key into lib/figures.ts — renders the page's diagram
+  figure2?: string;      // second diagram, further down the page
 };
 
 const coreAudiences: Audience[] = [
   {
     slug: "new-parents",
+    figure2: "bc-reach",
     figure: "first-session-flow",
     title: "Counselling for new parents in BC",
     metaTitle: "Counselling for New Parents in BC | Westpeak Wellness",
@@ -130,6 +132,7 @@ const coreAudiences: Audience[] = [
   },
   {
     slug: "university-students",
+    figure2: "first-session-flow",
     figure: "therapy-cost-in-bc",
     title: "Counselling for university and college students in BC",
     metaTitle: "Counselling for BC Students | Westpeak Wellness",
@@ -212,6 +215,7 @@ const coreAudiences: Audience[] = [
 
   {
     slug: "healthcare-and-shift-workers",
+    figure2: "first-session-flow",
     figure: "burnout-vs-depression",
     title: "Counselling for healthcare and shift workers in BC",
     metaTitle: "Counselling for Shift Workers BC | Westpeak Wellness",
@@ -291,6 +295,7 @@ const coreAudiences: Audience[] = [
   },
   {
     slug: "first-gen-south-asian-adults",
+    figure2: "first-session-flow",
     figure: "window-of-tolerance",
     title: "Counselling for first- and second-generation South Asian adults",
     metaTitle: "South Asian Counselling in BC | Westpeak Wellness",

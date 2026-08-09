@@ -15,6 +15,7 @@ export const moreGuides6: Guide[] = [
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'anxiety-avoidance-cycle',
+    figure2: "bc-support-routes",
     sections: [
       {
         h2: 'The boundary, stated first',
@@ -93,6 +94,7 @@ export const moreGuides6: Guide[] = [
     updated: '2026-08-08',
     readMinutes: 6,
     figure: 'anxiety-avoidance-cycle',
+    figure2: "first-session-flow",
     sections: [
       {
         h2: 'Why time-management advice does not work',
@@ -171,6 +173,7 @@ export const moreGuides6: Guide[] = [
     updated: '2026-08-08',
     readMinutes: 6,
     figure: 'anxiety-avoidance-cycle',
+    figure2: "therapy-cost-in-bc",
     sections: [
       {
         h2: 'The mechanism',
@@ -250,6 +253,7 @@ export const moreGuides6: Guide[] = [
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'window-of-tolerance',
+    figure2: "first-session-flow",
     sections: [
       {
         h2: 'The medical fact that comes first',
@@ -330,6 +334,7 @@ export const moreGuides6: Guide[] = [
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'window-of-tolerance',
+    figure2: "burnout-vs-depression",
     sections: [
       {
         h2: 'Why "understandable" is not enough',
@@ -410,6 +415,7 @@ export const moreGuides6: Guide[] = [
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'window-of-tolerance',
+    figure2: "burnout-vs-depression",
     sections: [
       {
         h2: 'How BC defines it',

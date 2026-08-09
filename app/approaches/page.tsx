@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { site } from '@/lib/site';
 import { approaches } from '@/lib/approaches';
 import CtaBand from '@/components/CtaBand';
+import Figure from '@/components/Figure';
 import { Sparkles } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -62,6 +63,7 @@ export default function ApproachesHub() {
       <section className="section" style={{ paddingTop: 40 }}>
         <div className="container">
           <p className="crumb"><Link href="/">Home</Link> / Approaches</p>
+          <Figure name="approach-selector" />
           <div className="grid grid-2" style={{ marginTop: 20 }}>
             {approaches.map((a) => (
               <div className="card" key={a.slug}>

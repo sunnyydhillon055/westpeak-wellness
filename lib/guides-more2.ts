@@ -15,6 +15,7 @@ export const moreGuides2: Guide[] = [
     updated: '2026-08-08',
     readMinutes: 8,
     figure: 'gottman-method',
+    figure2: "first-session-flow",
     sections: [
       {
         h2: 'What the evidence actually supports',
@@ -109,6 +110,7 @@ export const moreGuides2: Guide[] = [
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'anxiety-avoidance-cycle',
+    figure2: "first-session-flow",
     sections: [
       {
         h2: 'Why night is different',
@@ -192,6 +194,7 @@ export const moreGuides2: Guide[] = [
     updated: '2026-08-08',
     readMinutes: 8,
     figure: 'therapy-cost-in-bc',
+    figure2: "first-session-flow",
     sections: [
       {
         h2: 'Why the wait exists, and what it is not',
@@ -286,6 +289,7 @@ export const moreGuides2: Guide[] = [
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'first-session-flow',
+    figure2: "bc-reach",
     sections: [
       {
         h2: 'Hard is not the same as stuck',

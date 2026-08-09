@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { site } from '@/lib/site';
 import { glossary, glossaryGroups, termsByGroup } from '@/lib/glossary';
 import CtaBand from '@/components/CtaBand';
+import Figure from '@/components/Figure';
 
 export const metadata: Metadata = {
   title: { absolute: 'Counselling Terms Glossary | Westpeak Wellness' },
@@ -73,6 +74,7 @@ export default function GlossaryPage() {
       <section className="section" style={{ paddingTop: 40 }}>
         <div className="container">
           <p className="crumb"><Link href="/">Home</Link> / Glossary</p>
+          <Figure name="designations-bc" />
 
           <div className="chip-grid" style={{ margin: '18px 0 8px' }}>
             {glossaryGroups.map((g) => (

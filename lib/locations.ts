@@ -15,6 +15,7 @@ export type Location = {
   sources?: { label: string; url: string }[];
   nearby?: string[];        // sibling slugs, for across-cluster links
   figure?: string;         // key into lib/figures.ts — renders the page's diagram
+  figure2?: string;      // second diagram, further down the page
 };
 
 /**
@@ -30,6 +31,7 @@ export type Location = {
 export const locations: Location[] = [
   {
     slug: "prince-george",
+    figure2: "first-session-flow",
     figure: "bc-reach",
     city: "Prince George",
     region: "Northern BC",
@@ -78,6 +80,7 @@ export const locations: Location[] = [
 
   {
     slug: "surrey",
+    figure2: "first-session-flow",
     figure: "bc-reach",
     city: "Surrey",
     region: "Lower Mainland",
@@ -116,6 +119,7 @@ export const locations: Location[] = [
 
   {
     slug: "vancouver",
+    figure2: "first-session-flow",
     figure: "bc-reach",
     city: "Vancouver",
     region: "Lower Mainland",
@@ -154,6 +158,7 @@ export const locations: Location[] = [
 
   {
     slug: "abbotsford",
+    figure2: "first-session-flow",
     figure: "bc-reach",
     city: "Abbotsford",
     region: "Fraser Valley",
@@ -193,6 +198,7 @@ export const locations: Location[] = [
 
   {
     slug: "victoria",
+    figure2: "first-session-flow",
     figure: "bc-reach",
     city: "Victoria",
     region: "Vancouver Island",
@@ -232,6 +238,7 @@ export const locations: Location[] = [
 
   {
     slug: "kelowna",
+    figure2: "first-session-flow",
     figure: "bc-reach",
     city: "Kelowna",
     region: "Okanagan",

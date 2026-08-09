@@ -136,6 +136,8 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
           <div className="prose">
             <ExtraSections area="resources" slug={r.slug} />
 
+            {r.figure2 && <Figure name={r.figure2} />}
+
             <h2>Common questions</h2>
             <div style={{ marginTop: 8 }}>
               {r.faqs.map((f) => (

@@ -18,6 +18,7 @@ export const moreGuides: Guide[] = [
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'first-session-flow',
+    figure2: "bc-reach",
     sections: [
       {
         h2: 'Why the honest answer is a range',
@@ -108,6 +109,7 @@ export const moreGuides: Guide[] = [
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'anxiety-avoidance-cycle',
+    figure2: "first-session-flow",
     sections: [
       {
         h2: 'The wrong test, and why so many people use it',
@@ -199,6 +201,7 @@ export const moreGuides: Guide[] = [
     updated: '2026-08-08',
     readMinutes: 8,
     figure: 'window-of-tolerance',
+    figure2: "first-session-flow",
     sections: [
       {
         h2: 'The event is not the measure',
@@ -290,6 +293,7 @@ export const moreGuides: Guide[] = [
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'designations-bc',
+    figure2: "first-session-flow",
     sections: [
       {
         h2: 'Why this feels awkward, and why it should not',

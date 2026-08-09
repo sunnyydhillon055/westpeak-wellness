@@ -83,6 +83,33 @@ export default function Pricing() {
               of that call.
             </p>
 
+            <h2>Where to read next</h2>
+            <p>
+              If you are weighing whether this is affordable at all,{' '}
+              <Link href="/resources/low-cost-counselling-bc">low-cost counselling in BC</Link> and{' '}
+              <Link href="/compare/efap-vs-private-counselling">EFAP vs private counselling</Link>{' '}
+              are the two worth reading first, because a great many people already hold a free
+              entitlement they have never used. If you are on a public waitlist,{' '}
+              <Link href="/guides/waiting-for-therapy-in-bc">what to do while you wait</Link> covers
+              the interval.
+            </p>
+            <p>
+              On what the money buys: <Link href="/about">about the practice</Link> sets out the
+              training behind a session, <Link href="/standards">standards and accountability</Link>{' '}
+              states the scope limits and the complaints route, and{' '}
+              <Link href="/resources/verify-a-counsellor-in-bc">how to verify a registration</Link>{' '}
+              takes about four minutes and is worth doing before paying anyone, here included.
+            </p>
+            <p>
+              On frequency and length — the two things that actually determine total cost —{' '}
+              <Link href="/compare/weekly-vs-biweekly-sessions">weekly vs biweekly sessions</Link>{' '}
+              and <Link href="/guides/how-long-does-therapy-take">how long therapy takes</Link>{' '}
+              are more useful than the per-session number on its own. And if what you need is a
+              formal assessment rather than counselling,{' '}
+              <Link href="/resources/psychiatry-and-assessment-in-bc">psychiatry and assessment in BC</Link>{' '}
+              explains why that is priced completely differently.
+            </p>
+
             <h2>How coverage works</h2>
             <p>
               BC&rsquo;s Medical Services Plan does not cover private counselling, whatever the

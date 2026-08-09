@@ -162,6 +162,8 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
             <p className="eyebrow">Questions</p>
             <ExtraSections area="services" slug={s.slug} />
 
+            {s.figure2 && <Figure name={s.figure2} />}
+
             <h2>Before you book</h2>
             <div style={{ marginTop: 24, maxWidth: 760 }}>
               {s.faqs.map((f) => (

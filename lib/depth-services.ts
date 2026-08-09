@@ -121,7 +121,7 @@ export const depthServices: Record<string, DepthSection[]> = {
         '**Headphones.** The highest-value item on the list, because they remove the counsellor\'s voice from the room. This changes how freely people speak more than any other variable.',
         '**Connection.** A stable connection matters more than a fast one, and turning your camera off reduces the bandwidth a session needs considerably. Agreeing in advance what happens if the connection drops — usually rejoining the same link — removes a background anxiety that otherwise takes up part of every session.',
         '**Jurisdiction.** A counsellor must be registered where you are physically located during a session, which means sessions run while you are in British Columbia. If you travel, work rotationally, or study out of province, say so early so it can be planned around.',
-        '**Afterwards.** The commute home from an in-person session did something useful — it created a transition. Ten unclaimed minutes after a video session replaces it. Going straight from a difficult session into a meeting is the most common complaint about the format, and it is entirely avoidable.',
+        '**Accommodations.** Camera off, written summaries afterwards, adjusted pacing and evening slots are all available on request — the [accessibility statement](/accessibility) lists what is offered and, just as importantly, what is not. **Afterwards.** The commute home from an in-person session did something useful — it created a transition. Ten unclaimed minutes after a video session replaces it. Going straight from a difficult session into a meeting is the most common complaint about the format, and it is entirely avoidable.',
       ],
     },
   ],

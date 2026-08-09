@@ -15,6 +15,7 @@ export const moreGuides4: Guide[] = [
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'window-of-tolerance',
+    figure2: "first-session-flow",
     sections: [
       {
         h2: 'Why it is faster than you are',
@@ -103,6 +104,7 @@ export const moreGuides4: Guide[] = [
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'anxiety-avoidance-cycle',
+    figure2: "first-session-flow",
     sections: [
       {
         h2: 'The scoring system, not the standard',
@@ -189,6 +191,7 @@ export const moreGuides4: Guide[] = [
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'first-session-flow',
+    figure2: "confidentiality-limits",
     sections: [
       {
         h2: 'Why the instinct to fix it backfires',
@@ -273,6 +276,7 @@ export const moreGuides4: Guide[] = [
     updated: '2026-08-08',
     readMinutes: 6,
     figure: 'bc-reach',
+    figure2: "burnout-vs-depression",
     sections: [
       {
         h2: 'Two different winters',

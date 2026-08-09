@@ -3,6 +3,7 @@ import { site } from '@/lib/site';
 import type { Policy } from '@/lib/policies';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import Figure from '@/components/Figure';
 import Byline from '@/components/Byline';
 import ExtraSections from '@/components/ExtraSections';
 
@@ -72,6 +73,8 @@ export default function PolicyPage({ doc }: { doc: Policy }) {
                   ))}
                 </ul>
               )}
+
+              {i === 0 && doc.figure && <Figure name={doc.figure} />}
 
               {i === 0 && (
                 <div className="crisis" style={{ margin: '32px 0' }}>

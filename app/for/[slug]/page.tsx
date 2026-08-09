@@ -131,6 +131,8 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
           <p className="eyebrow">Where to start</p>
           <ExtraSections area="for" slug={a.slug} />
 
+          {a.figure2 && <Figure name={a.figure2} />}
+
           <h2>Services that tend to fit</h2>
           <div className="grid grid-2" style={{ marginTop: 26 }}>
             {a.servicesThatFit.map((s) => (

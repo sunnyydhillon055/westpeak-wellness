@@ -16,6 +16,15 @@ export type Figure = {
 };
 
 export const figures: Record<string, Figure> = {
+  'accountability-chain': {
+    key: 'accountability-chain',
+    file: 'accountability-chain.svg',
+    width: 1040,
+    height: 344,
+    title: "Who a counsellor in British Columbia is accountable to",
+    alt: "A four-step diagram of the accountability chain for a Registered Clinical Counsellor in BC: raising it in session, then the association complaints process, then the privacy commissioner for information concerns, and the incoming college regulator.",
+    caption: "Four routes, none of which require the counsellor’s permission.",
+  },
   'anxiety-avoidance-cycle': {
     key: 'anxiety-avoidance-cycle',
     file: 'anxiety-avoidance-cycle.svg',
@@ -24,6 +33,15 @@ export const figures: Record<string, Figure> = {
     title: "The anxiety avoidance cycle",
     alt: "A four-node loop: a trigger produces anxiety, avoidance brings immediate relief, that relief teaches the brain the threat was real, and the situation becomes more frightening next time, feeding back into the trigger.",
     caption: "Relief is the reward that keeps the loop running.",
+  },
+  'approach-selector': {
+    key: 'approach-selector',
+    file: 'approach-selector.svg',
+    width: 1040,
+    height: 555,
+    title: "Choosing a counselling approach",
+    alt: "Four stacked bands matching a type of difficulty to the approach usually suited to it: current maintaining patterns to cognitive behavioural work, live memories to EMDR, a nervous system pattern to somatic work, and understanding without change to acceptance and commitment therapy.",
+    caption: "A rough map — the consultation is where it gets specific.",
   },
   'bc-reach': {
     key: 'bc-reach',
@@ -34,6 +52,15 @@ export const figures: Record<string, Figure> = {
     alt: "A stylised map of British Columbia with a central video-session hub linked by dotted lines to Prince George, Kamloops, Kelowna, Abbotsford, Surrey, Vancouver, Nanaimo and Victoria, showing that sessions reach every region of the province.",
     caption: "Every region of the province, from one virtual practice.",
   },
+  'bc-support-routes': {
+    key: 'bc-support-routes',
+    file: 'bc-support-routes.svg',
+    width: 1040,
+    height: 451,
+    title: "Routes to mental health support in British Columbia",
+    alt: "Three stacked bands describing routes to mental health support in BC: services that answer immediately with no waitlist, publicly funded services that are free but triaged, and private counselling which has no waitlist and a fee.",
+    caption: "Most people qualify for something in the top two bands.",
+  },
   'burnout-vs-depression': {
     key: 'burnout-vs-depression',
     file: 'burnout-vs-depression.svg',
@@ -43,6 +70,15 @@ export const figures: Record<string, Figure> = {
     alt: "Two overlapping circles. Burnout is tied to a specific context and often lifts on extended leave; depression is present across contexts. Shared features include exhaustion, poor sleep, difficulty concentrating and withdrawal.",
     caption: "Overlapping symptoms, different reach.",
   },
+  'confidentiality-limits': {
+    key: 'confidentiality-limits',
+    file: 'confidentiality-limits.svg',
+    width: 1040,
+    height: 451,
+    title: "The limits of confidentiality in counselling",
+    alt: "A two-column comparison of what stays confidential in counselling against the four legally defined exceptions where a counsellor must act.",
+    caption: "Named in writing before session one, not discovered later.",
+  },
   'designations-bc': {
     key: 'designations-bc',
     file: 'designations-bc.svg',
@@ -51,6 +87,15 @@ export const figures: Record<string, Figure> = {
     title: "Counselling designations in British Columbia",
     alt: "A comparison of regulated and unregulated counselling titles in British Columbia, showing which are held to a public complaints process and which are not.",
     caption: "Regulated titles on the left; unprotected ones on the right.",
+  },
+  'editorial-process': {
+    key: 'editorial-process',
+    file: 'editorial-process.svg',
+    width: 1040,
+    height: 344,
+    title: "How a page on this site is written and reviewed",
+    alt: "A four-step diagram of the editorial process: drafting from primary sources, clinical review by a Registered Clinical Counsellor, checking each claim against its source, and dating the page for later review.",
+    caption: "The standard this site holds itself to.",
   },
   'emdr-phases': {
     key: 'emdr-phases',
@@ -69,6 +114,15 @@ export const figures: Record<string, Figure> = {
     title: "How a first counselling session unfolds",
     alt: "A four-step diagram: a free fifteen-minute consultation, an intake form sent before the session, the fifty-minute first session covering history and goals, and a decision at the end about whether and how often to continue.",
     caption: "The path from first contact to the end of session one.",
+  },
+  'four-decisions': {
+    key: 'four-decisions',
+    file: 'four-decisions.svg',
+    width: 1040,
+    height: 325,
+    title: "The four decisions people make when choosing counselling",
+    alt: "A four-step diagram of the decisions made when choosing counselling: which designation, which method, how it is paid for, and how often sessions happen.",
+    caption: "Four separable decisions, usually made all at once.",
   },
   'gottman-method': {
     key: 'gottman-method',
@@ -96,6 +150,24 @@ export const figures: Record<string, Figure> = {
     title: "How paying for counselling with extended health works",
     alt: "A two-column comparison of direct billing, where the clinic bills the insurer, against pay-and-submit, where the client pays at the session, receives a receipt with the counsellor registration number, and submits it for reimbursement.",
     caption: "Direct billing versus pay-and-submit.",
+  },
+  'service-axes': {
+    key: 'service-axes',
+    file: 'service-axes.svg',
+    width: 1040,
+    height: 451,
+    title: "How counselling services are organised",
+    alt: "A two-column diagram contrasting how services are grouped by the problem a person brings against how they are grouped by the method used, showing that the two are different ways into the same work.",
+    caption: "Two ways in. Both end at the same free consultation.",
+  },
+  'session-requirements': {
+    key: 'session-requirements',
+    file: 'session-requirements.svg',
+    width: 1040,
+    height: 451,
+    title: "What a virtual counselling session requires",
+    alt: "Three stacked bands describing what a virtual session needs: a private hour, a device with a connection, and being physically located in British Columbia.",
+    caption: "A private hour is the part people underestimate.",
   },
   'therapy-cost-in-bc': {
     key: 'therapy-cost-in-bc',

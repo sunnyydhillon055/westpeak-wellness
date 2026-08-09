@@ -26,6 +26,7 @@ export const approaches: Approach[] = [
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'anxiety-avoidance-cycle',
+    figure2: "approach-selector",
     sections: [
       {
         h2: 'What actually happens in a course of CBT',
@@ -104,6 +105,7 @@ export const approaches: Approach[] = [
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'window-of-tolerance',
+    figure2: "approach-selector",
     sections: [
       {
         h2: 'The shift ACT makes',
@@ -183,6 +185,7 @@ export const approaches: Approach[] = [
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'window-of-tolerance',
+    figure2: "confidentiality-limits",
     sections: [
       {
         h2: 'The core idea',
@@ -260,6 +263,7 @@ export const approaches: Approach[] = [
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'window-of-tolerance',
+    figure2: "first-session-flow",
     sections: [
       {
         h2: 'Why the body is involved at all',
@@ -338,6 +342,7 @@ export const approaches: Approach[] = [
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'window-of-tolerance',
+    figure2: "first-session-flow",
     sections: [
       {
         h2: 'What full DBT includes',
@@ -416,6 +421,7 @@ export const approaches: Approach[] = [
     updated: '2026-08-08',
     readMinutes: 6,
     figure: 'window-of-tolerance',
+    figure2: "approach-selector",
     sections: [
       {
         h2: 'What the structured programmes are',

@@ -666,3 +666,13 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .crisis a, .footer-crisis a[href^="tel:"]{ text-decoration: underline; text-underline-offset: 3px }
 .footer-crisis a[href^="tel:"]{ color: #e8bfa4 }
 .footer-crisis a[href^="tel:"]:hover{ color: #fff }
+
+
+.faq-intro-links{
+  max-width: 74ch; margin: 0 0 30px; font-size: var(--fs-small);
+  line-height: 1.7; color: var(--ink-soft);
+  background: var(--blue-ghost); border-left: 3px solid var(--blue-mist);
+  border-radius: var(--radius-sm); padding: 16px 20px;
+}
+.faq-intro-links a{ color: var(--blue-deep); font-weight: 500 }
+.faq-intro-links a:hover{ color: var(--clay-deep) }

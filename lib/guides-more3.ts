@@ -15,6 +15,7 @@ export const moreGuides3: Guide[] = [
     updated: '2026-08-08',
     readMinutes: 6,
     figure: 'window-of-tolerance',
+    figure2: "confidentiality-limits",
     sections: [
       {
         h2: 'First: you do not have to',
@@ -101,6 +102,7 @@ export const moreGuides3: Guide[] = [
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'anxiety-avoidance-cycle',
+    figure2: "confidentiality-limits",
     sections: [
       {
         h2: 'Why the standard advice does not work here',
@@ -191,6 +193,7 @@ export const moreGuides3: Guide[] = [
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'window-of-tolerance',
+    figure2: "first-session-flow",
     sections: [
       {
         h2: 'The stages problem',
@@ -274,6 +277,7 @@ export const moreGuides3: Guide[] = [
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'panic-vs-anxiety',
+    figure2: "first-session-flow",
     sections: [
       {
         h2: 'What is happening in the body',

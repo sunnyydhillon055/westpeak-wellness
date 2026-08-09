@@ -3,6 +3,7 @@ import type { Resource } from './resources';
 export const moreResources: Resource[] = [
   {
     slug: 'student-mental-health-supports-bc',
+    figure2: "first-session-flow",
     figure: 'therapy-cost-in-bc',
     title: 'Mental health supports for students in BC',
     metaTitle: 'Student Mental Health Supports BC | Westpeak',
@@ -96,6 +97,7 @@ export const moreResources: Resource[] = [
 
   {
     slug: 'workplace-mental-health-bc',
+    figure2: "burnout-vs-depression",
     figure: 'reimbursement-flow',
     title: 'Mental health and work in BC: leave, accommodation and coverage',
     metaTitle: 'Mental Health and Work in BC | Westpeak',
@@ -188,6 +190,7 @@ export const moreResources: Resource[] = [
 
   {
     slug: 'verify-a-counsellor-in-bc',
+    figure2: "first-session-flow",
     figure: 'designations-bc',
     title: 'How to verify a counsellor is who they say they are',
     metaTitle: 'Verify a Counsellor in BC | Westpeak Wellness',
@@ -274,6 +277,7 @@ export const moreResources: Resource[] = [
 
   {
     slug: 'psychiatry-and-assessment-in-bc',
+    figure2: "bc-support-routes",
     figure: 'bc-reach',
     title: 'Getting a psychiatrist or a formal assessment in BC',
     metaTitle: 'Psychiatry & Assessment in BC | Westpeak',

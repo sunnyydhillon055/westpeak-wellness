@@ -97,6 +97,12 @@ export default function Contact() {
               provider before you book. <Link href="/resources/bc-extended-health-coverage-for-counselling">Extended health coverage in BC</Link>{' '}
               explains what to ask them.
             </p>
+            <p>
+              If you need an accommodation to make sessions workable — camera off, adjusted
+              pacing, written summaries, evening slots — the{' '}
+              <Link href="/accessibility">accessibility statement</Link> lists what is available
+              and states plainly what is not.
+            </p>
           </div>
 
           <div className="crisis" style={{ marginTop: 24 }}>

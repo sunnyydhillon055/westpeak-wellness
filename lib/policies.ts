@@ -22,6 +22,7 @@ export type Policy = {
   lede: string;
   updated: string;
   sections: PolicySection[];
+  figure?: string;
   sources?: { label: string; url: string }[];
   related: { href: string; label: string }[];
 };
@@ -29,6 +30,7 @@ export type Policy = {
 export const policies: Record<string, Policy> = {
   standards: {
     slug: 'standards',
+    figure: 'accountability-chain',
     title: 'Standards, ethics and accountability',
     metaTitle: 'Standards & Accountability | Westpeak Wellness',
     metaDescription:
@@ -83,7 +85,7 @@ export const policies: Record<string, Policy> = {
         body: [
           'The first route is the simplest one: say so in session. A counsellor who cannot hear that something is not working is not doing the job. Plans get changed, approaches get dropped, and a referral elsewhere is always an available answer.',
           'If that is not possible or not enough, you can raise a concern directly with the **BC Association of Clinical Counsellors**, which administers a complaints process independent of any individual counsellor. You do not need the counsellor\'s agreement or knowledge to do that.',
-          'For privacy-specific concerns — how your information was collected, used, stored or disclosed — the **Office of the Information and Privacy Commissioner for British Columbia** oversees private-sector organisations under the Personal Information Protection Act. See the [privacy page](/privacy) for how information is handled here.',
+          'If any part of this site or of a session is unusable with your assistive technology, the [accessibility statement](/accessibility) sets out what has been tested and what has not, and how to report a problem. For privacy-specific concerns — how your information was collected, used, stored or disclosed — the **Office of the Information and Privacy Commissioner for British Columbia** oversees private-sector organisations under the Personal Information Protection Act. See the [privacy page](/privacy) for how information is handled here.',
         ],
       },
       {
@@ -116,6 +118,7 @@ export const policies: Record<string, Policy> = {
 
   'editorial-policy': {
     slug: 'editorial-policy',
+    figure: 'editorial-process',
     title: 'How these pages are written and reviewed',
     metaTitle: 'Editorial Policy | Westpeak Wellness',
     metaDescription:
@@ -190,6 +193,7 @@ export const policies: Record<string, Policy> = {
 
   privacy: {
     slug: 'privacy',
+    figure: 'confidentiality-limits',
     title: 'Privacy, confidentiality and your records',
     metaTitle: 'Privacy & Confidentiality | Westpeak Wellness',
     metaDescription:
@@ -274,6 +278,7 @@ export const policies: Record<string, Policy> = {
 
   accessibility: {
     slug: 'accessibility',
+    figure: 'session-requirements',
     title: 'Accessibility of this site and of sessions',
     metaTitle: 'Accessibility | Westpeak Wellness',
     metaDescription:

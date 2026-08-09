@@ -20,11 +20,13 @@ export type Service = {
   related?: { href: string; label: string }[];
   sources?: { label: string; url: string }[];
   figure?: string;         // key into lib/figures.ts — renders the page's diagram
+  figure2?: string;      // second diagram, further down the page
 };
 
 export const services: Service[] = [
   {
     slug: "individual-therapy",
+    figure2: "bc-reach",
     figure: "first-session-flow",
     name: "Individual Therapy",
     short: "1:1 for anxiety, depression, life transitions, identity, family dynamics.",
@@ -88,6 +90,7 @@ export const services: Service[] = [
   },
   {
     slug: "couples-therapy",
+    figure2: "first-session-flow",
     figure: "gottman-method",
     name: "Couples Therapy",
     short: "Gottman Method — communication, conflict, connection, repair.",
@@ -151,6 +154,7 @@ export const services: Service[] = [
   },
   {
     slug: "emdr-therapy",
+    figure2: "first-session-flow",
     figure: "emdr-phases",
     name: "EMDR Therapy",
     short: "Evidence-based for trauma, PTSD, anxiety, grief.",
@@ -214,6 +218,7 @@ export const services: Service[] = [
   },
   {
     slug: "trauma-therapy",
+    figure2: "first-session-flow",
     figure: "window-of-tolerance",
     name: "Trauma Therapy",
     short: "Trauma-informed care for single-incident, complex, and intergenerational trauma.",
@@ -276,6 +281,7 @@ export const services: Service[] = [
   },
   {
     slug: "anxiety-counselling",
+    figure2: "first-session-flow",
     figure: "anxiety-avoidance-cycle",
     name: "Anxiety Counselling",
     short: "Practical support for GAD, panic, social anxiety, and OCD.",
@@ -338,6 +344,7 @@ export const services: Service[] = [
   },
   {
     slug: "depression-counselling",
+    figure2: "first-session-flow",
     figure: "burnout-vs-depression",
     name: "Depression Counselling",
     short: "For major depression, dysthymia, postpartum, and grief-related low mood.",
@@ -400,6 +407,7 @@ export const services: Service[] = [
   },
   {
     slug: "punjabi-counselling",
+    figure2: "first-session-flow",
     figure: "bc-reach",
     name: "Punjabi-Speaking Counselling",
     short: "Therapy in Punjabi, English, or both — culturally fluent.",
@@ -463,6 +471,7 @@ export const services: Service[] = [
   },
   {
     slug: "south-asian-mental-health",
+    figure2: "first-session-flow",
     figure: "window-of-tolerance",
     name: "South Asian Mental Health",
     short: "Family expectations, identity, and intergenerational patterns.",
@@ -525,6 +534,7 @@ export const services: Service[] = [
   },
   {
     slug: "online-counselling-bc",
+    figure2: "first-session-flow",
     figure: "bc-reach",
     name: "Online Counselling BC",
     short: "Secure virtual sessions anywhere in British Columbia.",

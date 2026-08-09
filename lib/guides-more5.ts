@@ -15,6 +15,7 @@ export const moreGuides5: Guide[] = [
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'anxiety-avoidance-cycle',
+    figure2: "first-session-flow",
     sections: [
       {
         h2: 'How common they actually are',
@@ -94,6 +95,7 @@ export const moreGuides5: Guide[] = [
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'anxiety-avoidance-cycle',
+    figure2: "first-session-flow",
     sections: [
       {
         h2: 'Why it gets missed',
@@ -172,6 +174,7 @@ export const moreGuides5: Guide[] = [
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'bc-reach',
+    figure2: "first-session-flow",
     sections: [
       {
         h2: 'Why it gets harder, structurally',
@@ -251,6 +254,7 @@ export const moreGuides5: Guide[] = [
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'anxiety-avoidance-cycle',
+    figure2: "first-session-flow",
     sections: [
       {
         h2: 'An important caveat first',
@@ -328,6 +332,7 @@ export const moreGuides5: Guide[] = [
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'window-of-tolerance',
+    figure2: "first-session-flow",
     sections: [
       {
         h2: 'Why good transitions are hard too',
@@ -409,6 +414,7 @@ export const moreGuides5: Guide[] = [
     updated: '2026-08-08',
     readMinutes: 7,
     figure: 'therapy-cost-in-bc',
+    figure2: "first-session-flow",
     sections: [
       {
         h2: 'Why it hits mental health so directly',

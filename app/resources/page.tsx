@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { resources } from '@/lib/resources';
 import { site } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
+import Figure from '@/components/Figure';
 import { LifeBuoy } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -34,6 +35,7 @@ export default function ResourcesHub() {
       <section className="section" style={{ paddingTop: 40 }}>
         <div className="container">
           <p className="crumb"><Link href="/">Home</Link> / Resources</p>
+          <Figure name="bc-support-routes" />
 
           <div className="crisis" style={{ marginBottom: 32 }}>
             <p style={{ margin: 0 }}>

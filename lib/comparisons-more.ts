@@ -3,6 +3,7 @@ import type { Comparison } from './comparisons';
 export const moreComparisons: Comparison[] = [
   {
     slug: 'therapy-vs-coaching',
+    figure2: "first-session-flow",
     figure: 'designations-bc',
     title: 'Therapy or coaching — which one do you actually need?',
     metaTitle: 'Therapy vs Coaching | Westpeak Wellness',
@@ -104,6 +105,7 @@ export const moreComparisons: Comparison[] = [
 
   {
     slug: 'therapy-medication-or-both',
+    figure2: "bc-support-routes",
     figure: 'therapy-cost-in-bc',
     title: 'Therapy, medication, or both?',
     metaTitle: 'Therapy, Medication, or Both? | Westpeak Wellness',
@@ -206,6 +208,7 @@ export const moreComparisons: Comparison[] = [
 
   {
     slug: 'efap-vs-private-counselling',
+    figure2: "first-session-flow",
     figure: 'therapy-cost-in-bc',
     title: 'Your EFAP or a private counsellor?',
     metaTitle: 'EFAP vs Private Counselling | Westpeak Wellness',
@@ -308,6 +311,7 @@ export const moreComparisons: Comparison[] = [
 
   {
     slug: 'weekly-vs-biweekly-sessions',
+    figure2: "bc-reach",
     figure: 'first-session-flow',
     title: 'Weekly or every two weeks?',
     metaTitle: 'Weekly vs Biweekly Therapy | Westpeak Wellness',

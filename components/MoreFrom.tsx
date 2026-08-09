@@ -2,8 +2,8 @@ import Link from 'next/link';
 
 /* Deterministic sibling links.
  *
- * Every item in a collection links to the next three items in that collection,
- * cyclically. That guarantees each page receives at least three inbound links
+ * Every item in a collection links to the next five items in that collection,
+ * cyclically. That guarantees each page receives at least five inbound links
  * from within its own cluster no matter how the curated `related` lists are
  * written — so a newly added page can never land as an orphan, which is what
  * happened the first time this site grew. */
@@ -23,7 +23,7 @@ export default function MoreFrom({
   const i = items.findIndex((x) => x.slug === currentSlug);
   if (i < 0 || items.length < 2) return null;
 
-  const picks = [1, 2, 3]
+  const picks = [1, 2, 3, 4, 5]
     .map((k) => items[(i + k) % items.length])
     .filter((x, idx, arr) => x.slug !== currentSlug && arr.findIndex((y) => y.slug === x.slug) === idx);
 

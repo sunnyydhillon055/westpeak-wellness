@@ -125,6 +125,8 @@ export default function ApproachPage({ params }: { params: { slug: string } }) {
 
           <ExtraSections area="approaches" slug={g.slug} />
 
+          {g.figure2 && <Figure name={g.figure2} />}
+
           <h2>Common questions</h2>
           <div style={{ marginTop: 8 }}>
             {g.faqs.map((f) => (

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { comparisons } from '@/lib/comparisons';
 import { site } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
+import Figure from '@/components/Figure';
 import { Scale } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -34,6 +35,7 @@ export default function CompareHub() {
       <section className="section" style={{ paddingTop: 40 }}>
         <div className="container">
           <p className="crumb"><Link href="/">Home</Link> / Compare</p>
+          <Figure name="four-decisions" />
           <div className="grid grid-2" style={{ marginTop: 20 }}>
             {comparisons.map((c) => (
               <div className="card" key={c.slug}>

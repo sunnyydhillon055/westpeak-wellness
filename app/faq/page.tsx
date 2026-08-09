@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { site } from '@/lib/site';
 import { faqs, FAQ_GROUPS, faqsInGroup } from '@/lib/faq';
 import CtaBand from '@/components/CtaBand';
+import Figure from '@/components/Figure';
 import { Compass, Wallet, MessageCircleQuestion, Lock } from 'lucide-react';
 
 const GROUP_ICON = { start: Compass, money: Wallet, sessions: MessageCircleQuestion, privacy: Lock };
@@ -40,6 +41,19 @@ export default function FAQ() {
       <section className="section">
         <div className="container">
           <p className="crumb"><Link href="/">Home</Link> / FAQ</p>
+          <Figure name="first-session-flow" />
+          <p className="faq-intro-links">
+            Several of these have a page of their own:{' '}
+            <Link href="/pricing">fees and insurance</Link>,{' '}
+            <Link href="/resources/bc-extended-health-coverage-for-counselling">extended health coverage</Link>,{' '}
+            <Link href="/guides/what-to-expect-first-therapy-session">what happens in a first session</Link>,{' '}
+            <Link href="/privacy">privacy and confidentiality</Link>,{' '}
+            <Link href="/services/punjabi-counselling">counselling in Punjabi</Link>,{' '}
+            <Link href="/online-counselling">how online sessions work</Link>, and{' '}
+            <Link href="/resources/bc-crisis-and-support-directory">crisis support in BC</Link>.
+            If a question is not answered here, <Link href="/contact">ask it directly</Link>.
+          </p>
+
           <div className="faq-layout">
             <nav className="faq-nav" aria-label="Jump to a question group">
               <h2>On this page</h2>

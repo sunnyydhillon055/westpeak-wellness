@@ -133,6 +133,8 @@ export default function CityPage({ params }: { params: { city: string } }) {
             <p className="eyebrow">Questions from {l.city}</p>
             <ExtraSections area="online-counselling" slug={l.slug} />
 
+            {l.figure2 && <Figure name={l.figure2} />}
+
             <h2>Before you book</h2>
             <div style={{ marginTop: 24, maxWidth: 760 }}>
               {l.faqs.map((f) => (

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { guides } from '@/lib/guides';
 import { site } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
+import Figure from '@/components/Figure';
 import { BookOpen } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -35,6 +36,7 @@ export default function GuidesHub() {
       <section className="section" style={{ paddingTop: 40 }}>
         <div className="container">
           <p className="crumb"><Link href="/">Home</Link> / Guides</p>
+          <Figure name="first-session-flow" />
           <div className="grid grid-2" style={{ marginTop: 20 }}>
             {guides.map((g) => (
               <div className="card" key={g.slug}>
