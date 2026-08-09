@@ -367,7 +367,7 @@ export const services: Service[] = [
     signs: [
       { label: "Nothing is enjoyable", detail: "Not just the hard things — the things you used to look forward to. Often the clearest signal, and the easiest to miss from inside." },
       { label: "Everything costs more than it should", detail: "Ordinary tasks — a shower, an email, a phone call — requiring a disproportionate act of will." },
-      { label: "Irritability rather than sadness", detail: "Particularly common in men, and frequently the thing a partner notices long before the person does." },
+      { label: "Irritability rather than sadness", detail: "Frequently the presentation that gets missed, and often the thing a partner notices long before the person does." },
       { label: "Sleep and appetite have shifted", detail: "In either direction. Waking at 4am and not getting back, or sleeping ten hours and waking exhausted." },
       { label: "Harsh internal commentary", detail: "A running narrative about being a burden, a failure, or fundamentally not good enough, delivered as though it were simply factual." },
       { label: "You are still functioning", detail: "Depression and a full-time job coexist regularly. Functioning is not evidence against it." },
@@ -390,7 +390,7 @@ export const services: Service[] = [
     related: [
       { href: "/guides/burnout-vs-depression", label: "Burnout or depression — how to tell" },
       { href: "/for/new-parents", label: "Counselling for new parents" },
-      { href: "/for/mens-mental-health", label: "Counselling for men" },
+      { href: "/for/women", label: "Counselling for women" },
       { href: "/resources/bc-crisis-and-support-directory", label: "BC crisis and support directory" },
     ],
     sources: [

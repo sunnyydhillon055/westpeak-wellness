@@ -23,6 +23,8 @@ const nextConfig = {
         destination: '/online-counselling',
         permanent: true,
       })),
+      // Retired audience page — the practice no longer publishes a men's page.
+      { source: '/for/mens-mental-health', destination: '/for', permanent: true },
       { source: '/copy-of-new-page', destination: '/contact', permanent: true },
       { source: '/fees', destination: '/pricing', permanent: true },
       { source: '/copy-of-contact', destination: '/faq', permanent: true },

@@ -1,3 +1,5 @@
+import { moreResources } from './resources-more';
+
 export type ResourceSection = {
   h2: string;
   body?: string[];
@@ -23,7 +25,7 @@ export type Resource = {
   figure?: string;         // key into lib/figures.ts — renders the page's diagram
 };
 
-export const resources: Resource[] = [
+const coreResources: Resource[] = [
   {
     slug: "bc-extended-health-coverage-for-counselling",
     figure: "reimbursement-flow",
@@ -352,5 +354,7 @@ export const resources: Resource[] = [
     ],
   },
 ];
+
+export const resources: Resource[] = [...coreResources, ...moreResources];
 
 export const getResource = (slug: string) => resources.find((r) => r.slug === slug);

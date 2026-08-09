@@ -1,3 +1,5 @@
+import { moreComparisons } from './comparisons-more';
+
 export type Comparison = {
   slug: string;
   title: string;
@@ -22,7 +24,7 @@ export type Comparison = {
   figure?: string;         // key into lib/figures.ts — renders the page's diagram
 };
 
-export const comparisons: Comparison[] = [
+const coreComparisons: Comparison[] = [
   {
     slug: "rcc-vs-psychologist-vs-social-worker-bc",
     figure: "designations-bc",
@@ -286,5 +288,7 @@ export const comparisons: Comparison[] = [
     ],
   },
 ];
+
+export const comparisons: Comparison[] = [...coreComparisons, ...moreComparisons];
 
 export const getComparison = (slug: string) => comparisons.find((c) => c.slug === slug);

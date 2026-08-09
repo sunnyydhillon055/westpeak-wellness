@@ -164,8 +164,8 @@ export default function Home() {
               <Link href="/for" className="card-link">
                 <h3>Who we work with</h3>
                 <p>
-                  Pages written for specific situations — new parents, students, healthcare and shift
-                  workers, South Asian adults, and men who have been putting this off.
+                  Pages written for specific situations — new parents, women, couples, students,
+                  healthcare and shift workers, and first-generation South Asian adults.
                 </p>
                 <span className="more">See who we work with →</span>
               </Link>

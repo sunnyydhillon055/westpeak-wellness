@@ -1,3 +1,5 @@
+import { moreAudiences } from './audiences-more';
+
 export type Audience = {
   slug: string;
   title: string;
@@ -20,7 +22,7 @@ export type Audience = {
   figure?: string;         // key into lib/figures.ts — renders the page's diagram
 };
 
-export const audiences: Audience[] = [
+const coreAudiences: Audience[] = [
   {
     slug: "new-parents",
     figure: "first-session-flow",
@@ -365,85 +367,8 @@ export const audiences: Audience[] = [
       { href: "/for/university-students", label: "Counselling for BC post-secondary students" },
     ],
   },
-
-  {
-    slug: "mens-mental-health",
-    figure: "anxiety-avoidance-cycle",
-    title: "Counselling for men who have been putting this off",
-    metaTitle: "Counselling for Men in BC | Westpeak Wellness",
-    metaDescription:
-      "Online counselling for men across BC — anger, numbness, pressure, and the reasons men delay getting help far longer than they should.",
-    eyebrow: "For · Men's mental health",
-    lede:
-      "Most men who start therapy have been considering it for years. The delay itself is the thing worth understanding.",
-    updated: "2026-08-08",
-    readMinutes: 6,
-    opening: [
-      "Men in Canada are consistently less likely to seek help for mental health, and consistently more likely to die by suicide — the rate among men is roughly three times that among women, according to national statistics. Those two facts are related, and the gap between them is largely made of delay.",
-      "The delay is not stupidity or stoicism for its own sake. It is usually a set of reasonable-sounding calculations: other people have it worse, it will pass, I can manage it, talking about it will not change anything, and — most commonly — I would not know what to say.",
-      "That last one is worth taking seriously rather than dismissing. If you grew up without much practice at identifying what you feel, being asked how you feel is not a gentle opening question. It is a test you have no preparation for. A competent counsellor works with that rather than sitting in silence waiting for you to produce an answer.",
-    ],
-    whatComesUp: [
-      { label: "Anger as the only channel", detail: "Where sadness, fear, and shame were never available, they tend to come out as irritability. Frequently the thing a partner names long before the man does." },
-      { label: "Numbness rather than sadness", detail: "Not distress exactly — an absence. Going through the motions competently and feeling almost nothing about any of it." },
-      { label: "Provider pressure", detail: "Identity welded to earning and to being the one who copes. Job loss, business failure, or a health problem then hits far harder than the practical facts warrant." },
-      { label: "\"I don't know what I'd even say\"", detail: "Not resistance. A genuine lack of practice at naming internal states — and a fair worry about sitting there with nothing." },
-      { label: "Coping that is technically working", detail: "Drinking, weed, work, the gym, gaming, scrolling. Effective enough to prevent a crisis and effective enough to prevent anything changing." },
-      { label: "Nobody to say it to", detail: "Friendships built on activity rather than conversation. Men's social networks tend to thin through the thirties, and there is often literally no one available for this." },
-    ],
-    sections: [
-      {
-        h2: "What therapy actually is, as opposed to what you are picturing",
-        body: [
-          "The image most people have is a couch, a silence, and someone asking how that makes you feel. That is not what this looks like.",
-          "In practice it is more like structured problem-solving with someone whose job is to notice what you are missing. There is a real conversation with real questions. It is direct. You are not required to cry, dig into your childhood, or produce an emotional vocabulary you have never had. Where the difficulty is anger, sleep, or a relationship going sideways, the work usually starts with the mechanics of that rather than with feelings.",
-          "It is also time-limited by nature. Nobody is trying to sign you up for a decade. A lot of what men bring — a specific stuck situation, a decision, a pattern that keeps repeating — is a few months of work.",
-        ],
-      },
-      {
-        h2: "The particular risk of waiting",
-        body: [
-          "The reason to take the delay seriously is what it does to the range of options. Difficulty caught early is usually a conversation and some adjustments. The same difficulty three years later is often a marriage in trouble, a drinking pattern that has become its own problem, and a job that has become unworkable — three problems instead of one.",
-          "There is also a specific and dangerous version of \"I'm fine\": the point at which someone stops feeling distressed and starts feeling resolved. **If you are having thoughts of ending your life, that is not something to work into your schedule.** Call or text **9-8-8** (Canada, 24/7), or **310-6789** for BC Mental Health Support. In immediate danger, call **911**.",
-        ],
-      },
-      {
-        h2: "Why the virtual format lowers the barrier",
-        body: [
-          "For a lot of men the practical obstacles are real ones: no waiting room to be seen in, no time off work to explain, no drive across town. A session from a home office or a parked car during a lunch break removes most of the friction, and the friction is frequently what the delay was actually made of.",
-          "It also makes the first step smaller. A fifteen-minute call is a low-stakes way to find out what this is, without booking a course of anything or committing to a process you cannot picture.",
-        ],
-      },
-    ],
-    servicesThatFit: [
-      { href: "/services/individual-therapy", label: "Individual therapy", why: "For the stuck situation, the decision, or the pattern that keeps repeating." },
-      { href: "/services/anxiety-counselling", label: "Anxiety counselling", why: "For pressure, sleep, and worry that has stopped switching off." },
-      { href: "/services/depression-counselling", label: "Depression counselling", why: "For numbness, irritability, and loss of interest — depression does not always look like sadness." },
-      { href: "/services/trauma-therapy", label: "Trauma therapy", why: "For events that are still with you, including ones you have never described to anyone." },
-      { href: "/services/couples-therapy", label: "Couples therapy", why: "For the relationship that prompted this — often the reason men first make contact." },
-    ],
-    midCta: {
-      text: "If you have been meaning to do this for a couple of years, fifteen minutes is a small way to find out what it involves.",
-      label: "Book a free consultation",
-    },
-    faqs: [
-      { q: "What if I have nothing to say?", a: "Very common, and not a problem. Your counsellor asks questions — you are not expected to arrive with a prepared account. \"I don't really know how to do this\" is a legitimate opening line and a fairly useful one." },
-      { q: "Do I have to talk about my childhood?", a: "Only if it turns out to be relevant to what you are bringing. Plenty of useful work stays firmly in the present. Nobody is going to insist on excavating something you did not come in about." },
-      { q: "Will I be told to stop drinking?", a: "You will be asked about it honestly, because it is relevant information. Whether anything changes is your decision. If substance use has become the primary problem, a counsellor should say so and point you toward specialist support rather than working around it." },
-      { q: "Is this confidential from my employer or my partner?", a: "Yes. Nothing is reported to an employer, and your partner has no access to your sessions. The limits are the standard ones — risk of serious harm, a child at risk, or a court order." },
-    ],
-    sources: [
-      { label: "CMHA — men's mental health", url: "https://cmha.ca/" },
-      { label: "HereToHelp BC — mental health information", url: "https://www.heretohelp.bc.ca/" },
-      { label: "9-8-8 Suicide Crisis Helpline (Canada)", url: "https://988.ca/" },
-    ],
-    related: [
-      { href: "/guides/burnout-vs-depression", label: "Burnout or depression — how to tell" },
-      { href: "/guides/what-to-expect-first-therapy-session", label: "What to expect in a first session" },
-      { href: "/guides/how-to-find-a-therapist-in-bc", label: "How to find a therapist in BC" },
-      { href: "/services/couples-therapy", label: "Couples therapy across BC" },
-    ],
-  },
 ];
+
+export const audiences: Audience[] = [...coreAudiences, ...moreAudiences];
 
 export const getAudience = (slug: string) => audiences.find((a) => a.slug === slug);

@@ -1,3 +1,7 @@
+import { moreGuides } from './guides-more';
+import { moreGuides2 } from './guides-more2';
+import { moreGuides3 } from './guides-more3';
+
 export type GuideSection = {
   h2: string;
   body?: string[];
@@ -22,7 +26,7 @@ export type Guide = {
   figure?: string;         // key into lib/figures.ts — renders the page's diagram
 };
 
-export const guides: Guide[] = [
+const coreGuides: Guide[] = [
   {
     slug: "is-online-therapy-as-effective-as-in-person",
     figure: "bc-reach",
@@ -737,5 +741,7 @@ export const guides: Guide[] = [
     ],
   },
 ];
+
+export const guides: Guide[] = [...coreGuides, ...moreGuides, ...moreGuides2, ...moreGuides3];
 
 export const getGuide = (slug: string) => guides.find((g) => g.slug === slug);
