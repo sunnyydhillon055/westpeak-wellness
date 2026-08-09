@@ -121,6 +121,61 @@ export default function LocationsIndex() {
         </div>
       </section>
 
+
+      <section className="section section--ghost">
+        <div className="container prose">
+          <p className="eyebrow">Before your first video session</p>
+          <h2>What a virtual session actually needs from you</h2>
+          <p>
+            Less than people expect, and one thing more than they expect. The technical requirements
+            are modest: a device with a camera and microphone, a connection good enough for a video
+            call, and headphones, which do more for the quality of a session than any other single
+            item because they keep the conversation from being audible in the next room.
+          </p>
+          <p>
+            The requirement people underestimate is <strong>a private hour</strong>. Not silent, not
+            beautiful — private. A bedroom with the door shut, a parked car, an empty office. If you
+            are managing who might overhear, you are not really in the session, and it is worth solving
+            that before the first appointment rather than discovering it during one.
+          </p>
+          <p>
+            A session can also run by phone rather than video, and that is a genuine option rather than
+            a fallback. It suits low bandwidth, camera fatigue, and anyone who thinks more clearly
+            without being watched. You are never required to be on camera.
+          </p>
+
+          <h2>The part that is a legal requirement, not a preference</h2>
+          <p>
+            A counsellor has to be registered in the jurisdiction where the client is physically
+            located during a session. In practice that means sessions run when you are in British
+            Columbia — so if you travel, work rotationally out of province, or study elsewhere for part
+            of the year, mention it and it can be planned around rather than discovered mid-course.
+            It is also why you are asked where in BC you are, which occasionally surprises people who
+            expected a virtual practice not to care.
+          </p>
+
+          <h2>Where a virtual practice is the wrong answer</h2>
+          <p>
+            Saying this plainly matters more than filling appointments. Without private space, a
+            reliable device or a stable connection, a local in-person service will serve you better,
+            and the{' '}
+            <Link href="/resources/bc-crisis-and-support-directory">BC crisis and support directory</Link>{' '}
+            lists starting points in every health authority. This is also not a crisis service: sessions
+            are scheduled and there is no 24-hour line. And where you need a diagnosis, medication or a
+            formal assessment, that is a different professional entirely —{' '}
+            <Link href="/resources/psychiatry-and-assessment-in-bc">psychiatry and assessment in BC</Link>{' '}
+            explains those routes, and{' '}
+            <Link href="/standards">standards and accountability</Link> sets out the full list of what
+            this practice does not do.
+          </p>
+          <p>
+            On whether video therapy works at all — a fair question, and one with a real research base
+            behind it —{' '}
+            <Link href="/guides/is-online-therapy-as-effective-as-in-person">is online therapy as effective as in person</Link>{' '}
+            sets out the evidence including the places where it is weaker.
+          </p>
+        </div>
+      </section>
       <CtaBand
         heading="Same care, wherever you are in BC"
         text="A free 15-minute consultation by phone or video. No pressure, no commitment."

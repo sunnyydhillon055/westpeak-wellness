@@ -126,6 +126,56 @@ export default function Book() {
           </div>
         </div>
       </section>
+
+      <section className="section">
+        <div className="container prose">
+          <p className="eyebrow">Before and after the call</p>
+          <h2>What you do not need to prepare</h2>
+          <p>
+            Nothing. There is no form to complete before a consultation, no history to assemble, and
+            no requirement to have worked out what the problem is. &ldquo;Something is off and I do not
+            know what&rdquo; is a completely ordinary opening, and a large share of consultations start
+            somewhere close to it.
+          </p>
+          <p>
+            You are also not expected to tell the whole story. Fifteen minutes is not enough for that
+            and it is not what the call is for — it exists to establish whether the work would fit,
+            not to begin it. If it helps to arrive with anything, one sentence on what is going on and
+            one on how long it has been going on is more than sufficient.
+          </p>
+
+          <h2>What you might want to ask</h2>
+          <p>
+            The consultation goes both ways, and the more useful version of it has you asking
+            questions rather than only answering them. What approach would you use for this and why.
+            How would we know it was working. What do you not work with. What does it cost and is that
+            the whole cost.{' '}
+            <Link href="/guides/questions-to-ask-a-therapist">Questions worth asking a therapist</Link>{' '}
+            sets out the full list along with the answers that should make you wary — every one of them
+            is fair game here.
+          </p>
+
+          <h2>Deciding not to book is a normal outcome</h2>
+          <p>
+            A consultation that ends with &ldquo;this is not the right fit&rdquo; is a success, not a
+            failure. Sometimes that means a different counsellor; sometimes it means a physician, a
+            psychologist for a formal assessment, or a specialised service. The limits of what this
+            practice does are listed openly on{' '}
+            <Link href="/standards">standards and accountability</Link>, and being told one of them
+            applies to you is a better result than a booking that was never going to help.
+          </p>
+          <p>
+            If you would rather understand the shape of the whole thing before speaking to anyone,{' '}
+            <Link href="/guides/what-to-expect-first-therapy-session">what happens in a first session</Link>{' '}
+            covers the stage after the consultation,{' '}
+            <Link href="/guides/how-long-does-therapy-take">how long therapy takes</Link> covers the
+            commitment honestly, and <Link href="/pricing">fees and insurance</Link> covers the money.
+            If cost is the obstacle,{' '}
+            <Link href="/resources/low-cost-counselling-bc">low-cost counselling in BC</Link> lists the
+            free and reduced-cost routes, several of which have no waitlist at all.
+          </p>
+        </div>
+      </section>
     </>
   );
 }

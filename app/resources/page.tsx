@@ -71,6 +71,59 @@ export default function ResourcesHub() {
         </div>
       </section>
 
+
+      <section className="section section--ghost">
+        <div className="container prose">
+          <p className="eyebrow">How to use this section</p>
+          <h2>Written to be useful whether or not you ever book here</h2>
+          <p>
+            These pages exist because the systems are genuinely confusing and almost nobody explains
+            them without also selling something. A large number of people pay privately for counselling
+            while holding an unused employer entitlement, or wait months on a public list without
+            knowing which services have no waitlist at all. That is an information problem, and it is
+            fixable in an afternoon of reading.
+          </p>
+          <p>
+            <strong>If the question is money.</strong> Start with{' '}
+            <Link href="/resources/msp-vs-extended-health">MSP vs extended health</Link>, because the
+            single most common misunderstanding is assuming the public plan covers counselling in
+            private practice — it does not. Then{' '}
+            <Link href="/resources/bc-extended-health-coverage-for-counselling">extended health coverage in BC</Link>{' '}
+            for the detail that decides whether your plan actually reimburses you, and{' '}
+            <Link href="/resources/low-cost-counselling-bc">low-cost counselling in BC</Link> for the
+            free and reduced-cost routes.
+          </p>
+          <p>
+            <strong>If the question is access.</strong>{' '}
+            <Link href="/resources/psychiatry-and-assessment-in-bc">Psychiatry and assessment in BC</Link>{' '}
+            covers what to do when you need a diagnosis, a prescriber or a formal assessment rather
+            than counselling — including the route when you have no family doctor.{' '}
+            <Link href="/resources/student-mental-health-supports-bc">Student supports</Link> covers a
+            group that has more free options available than almost anyone and consistently uses one of
+            them.
+          </p>
+          <p>
+            <strong>If the question is work.</strong>{' '}
+            <Link href="/resources/workplace-mental-health-bc">Mental health and work in BC</Link>{' '}
+            separates the three systems people routinely confuse — accommodation under human rights
+            law, disability benefits under an insurance contract, and WorkSafeBC claims — and states
+            plainly what an employer is and is not entitled to know.
+          </p>
+          <p>
+            <strong>If the question is trust.</strong>{' '}
+            <Link href="/resources/verify-a-counsellor-in-bc">How to verify a counsellor</Link> takes
+            about four minutes and is the most useful due diligence available to you in a province
+            where &ldquo;counsellor&rdquo; is not a protected title. It applies to this practice as
+            much as to anyone.
+          </p>
+          <p>
+            <strong>If it is urgent.</strong> The{' '}
+            <Link href="/resources/bc-crisis-and-support-directory">BC crisis and support directory</Link>{' '}
+            lists the services that answer now, at any hour, at no cost. None of them require a
+            referral and none of them have a waitlist.
+          </p>
+        </div>
+      </section>
       <CtaBand
         heading="Still have a question about cost or fit?"
         text="A free 15-minute consultation is the fastest way to get a straight answer — including if the answer points somewhere else."

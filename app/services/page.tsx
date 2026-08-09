@@ -115,6 +115,68 @@ export default function Services() {
         </div>
       </section>
 
+
+      <section className="section section--ghost">
+        <div className="container prose">
+          <p className="eyebrow">Choosing between them</p>
+          <h2>The list is not nine separate products</h2>
+          <p>
+            Nine service pages can imply nine different things being sold, which is not how the work
+            actually runs. Most of these overlap heavily, and a fair number of people end up doing two
+            of them at once. The distinctions that genuinely matter are only three.
+          </p>
+          <p>
+            <strong>Who is in the room.</strong>{' '}
+            <Link href="/services/individual-therapy">Individual therapy</Link> and{' '}
+            <Link href="/services/couples-therapy">couples therapy</Link> are structurally different
+            pieces of work with different assessments, not the same conversation with an extra chair.
+            If you are not sure which your situation calls for,{' '}
+            <Link href="/compare/individual-vs-couples-therapy">individual vs couples therapy</Link>{' '}
+            walks through it, including the common case where only one of you wants to go.
+          </p>
+          <p>
+            <strong>What is being worked on.</strong>{' '}
+            <Link href="/services/anxiety-counselling">Anxiety</Link>,{' '}
+            <Link href="/services/depression-counselling">depression</Link> and{' '}
+            <Link href="/services/trauma-therapy">trauma</Link> are three genuinely different jobs.
+            Anxiety work is largely about interrupting avoidance; depression work often has to move
+            from the outside in, because waiting for motivation is the trap; trauma work is sequenced,
+            building capacity before anything is opened. That sequencing is not a preference, and{' '}
+            <Link href="/guides/what-trauma-actually-means">what trauma actually means</Link> explains
+            why rushing it is the most common way trauma therapy goes wrong.
+          </p>
+          <p>
+            <strong>Which method.</strong>{' '}
+            <Link href="/services/emdr-therapy">EMDR</Link> is a specific eight-phase protocol rather
+            than a general orientation, and it is the more direct route when a memory keeps firing in
+            the present regardless of what you understand intellectually.{' '}
+            <Link href="/compare/cbt-vs-emdr-for-trauma">CBT vs EMDR for trauma</Link> is the
+            comparison most people arrive wanting.
+          </p>
+          <p>
+            <Link href="/services/punjabi-counselling">Counselling in Punjabi</Link> and{' '}
+            <Link href="/services/south-asian-mental-health">South Asian mental health</Link> are not a
+            separate category of therapy — they are the same methods without the translation overhead,
+            and without having to establish the family context from scratch.{' '}
+            <Link href="/services/online-counselling-bc">Online counselling</Link> is the delivery
+            format every one of these uses.
+          </p>
+
+          <h2>If you are still not sure</h2>
+          <p>
+            Working out which service fits is genuinely part of the consultation rather than a
+            prerequisite for it. Arriving and saying &ldquo;I do not know which of these I need&rdquo;
+            is an entirely ordinary opening, and it is a faster route to an answer than another hour of
+            reading. If you would rather read first,{' '}
+            <Link href="/guides/what-to-expect-first-therapy-session">what happens in a first session</Link>{' '}
+            and{' '}
+            <Link href="/guides/questions-to-ask-a-therapist">questions worth asking a therapist</Link>{' '}
+            cover the ground properly, and{' '}
+            <Link href="/for">the pages written for particular situations</Link> may be a better
+            starting point than the service list.
+          </p>
+        </div>
+      </section>
       <CtaBand heading="Not sure where to start?" text="Book a free 15-minute consultation. We&rsquo;ll figure it out together." />
     </>
   );
