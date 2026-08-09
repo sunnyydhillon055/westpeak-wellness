@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { comparisons, getComparison } from '@/lib/comparisons';
 import { site } from '@/lib/site';
+import { orgRef, siteRef, personRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
 import Byline from '@/components/Byline';
@@ -41,7 +42,10 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
       headline: c.title, description: c.metaDescription,
       dateModified: c.updated, datePublished: c.updated, inLanguage: 'en-CA',
       mainEntityOfPage: { '@type': 'WebPage', '@id': `${site.domain}/compare/${c.slug}` },
-      publisher: { '@type': 'Organization', name: site.name, url: site.domain },
+      publisher: orgRef,
+      author: orgRef,
+      reviewedBy: personRef,
+      isPartOf: siteRef,
       isAccessibleForFree: true,
     },
     {

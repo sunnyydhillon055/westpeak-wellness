@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { site } from '@/lib/site';
+import { orgRef, siteRef, personRef } from '@/lib/schema';
 import { glossary, glossaryGroups, termsByGroup } from '@/lib/glossary';
 import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
@@ -33,7 +34,7 @@ export default function GlossaryPage() {
         'Plain-language definitions of counselling approaches, mental-health terms, and British Columbia designations and coverage.',
       url: `${site.domain}/glossary`,
       inLanguage: 'en-CA',
-      publisher: { '@type': 'Organization', name: site.name, url: site.domain },
+      publisher: orgRef,
       hasDefinedTerm: glossary.map((t) => ({
         '@type': 'DefinedTerm',
         name: t.term,

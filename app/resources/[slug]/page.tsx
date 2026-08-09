@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { resources, getResource } from '@/lib/resources';
 import { site } from '@/lib/site';
+import { orgRef, siteRef, personRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
 import Byline from '@/components/Byline';
@@ -41,7 +42,10 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
       headline: r.title, description: r.metaDescription,
       dateModified: r.updated, datePublished: r.updated, inLanguage: 'en-CA',
       mainEntityOfPage: { '@type': 'WebPage', '@id': `${site.domain}/resources/${r.slug}` },
-      publisher: { '@type': 'Organization', name: site.name, url: site.domain },
+      publisher: orgRef,
+      author: orgRef,
+      reviewedBy: personRef,
+      isPartOf: siteRef,
       isAccessibleForFree: true,
     },
     {

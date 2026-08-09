@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { site } from '@/lib/site';
+import { orgRef, siteRef, personRef } from '@/lib/schema';
 import type { Policy } from '@/lib/policies';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
@@ -26,8 +27,8 @@ export default function PolicyPage({ doc }: { doc: Policy }) {
       dateModified: doc.updated,
       lastReviewed: doc.updated,
       isPartOf: { '@type': 'WebSite', name: site.name, url: site.domain },
-      publisher: { '@type': 'Organization', name: site.name, url: site.domain },
-      about: { '@type': 'Organization', name: site.name, url: site.domain },
+      publisher: orgRef,
+      about: orgRef,
     },
     {
       '@context': 'https://schema.org',

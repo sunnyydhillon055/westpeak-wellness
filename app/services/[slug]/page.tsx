@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { services, getService } from '@/lib/services';
 import { site } from '@/lib/site';
+import { orgRef, siteRef, personRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
 import { getServiceIcon } from '@/lib/icon-map';
@@ -34,7 +35,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
   const schema = [
     {
       '@context': 'https://schema.org', '@type': 'Service',
-      name: s.name, description: s.metaDescription,
+      name: s.name, description: s.directAnswer ?? s.metaDescription,
       serviceType: s.name,
       areaServed: { '@type': 'State', name: 'British Columbia' },
       availableChannel: {
@@ -42,7 +43,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         serviceUrl: `${site.domain}/services/${s.slug}`,
         availableLanguage: ['English', 'Punjabi'],
       },
-      provider: { '@type': 'MedicalBusiness', name: site.name, url: site.domain },
+      provider: orgRef,
     },
     {
       '@context': 'https://schema.org', '@type': 'BreadcrumbList',
@@ -67,6 +68,9 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         <div className="container">
           <p className="eyebrow">{s.name}</p>
           <h1>{s.hero}</h1>
+          {s.directAnswer && (
+            <p className="direct-answer">{s.directAnswer}</p>
+          )}
           <ul className="glance">
             <li><Clock aria-hidden="true" strokeWidth={1.7} /><span><strong>50 minutes</strong> per session</span></li>
             <li><MonitorSmartphone aria-hidden="true" strokeWidth={1.7} /><span><strong>Secure video</strong> sessions</span></li>

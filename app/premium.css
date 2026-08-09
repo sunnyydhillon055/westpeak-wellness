@@ -676,3 +676,11 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 }
 .faq-intro-links a{ color: var(--blue-deep); font-weight: 500 }
 .faq-intro-links a:hover{ color: var(--clay-deep) }
+
+
+/* Direct-answer block. Sits under the H1 and is written to stand alone, so an
+   answer engine quoting it in isolation still conveys who, what, where and how. */
+.direct-answer{
+  max-width: 68ch; margin: 20px 0 0; font-size: var(--fs-lead); line-height: 1.6;
+  color: var(--ink); padding-left: 18px; border-left: 3px solid var(--clay);
+}

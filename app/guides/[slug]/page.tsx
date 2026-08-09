@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { guides, getGuide } from '@/lib/guides';
 import { site } from '@/lib/site';
+import { orgRef, siteRef, personRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
 import Byline from '@/components/Byline';
@@ -43,8 +44,10 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
       dateModified: g.updated, datePublished: g.updated,
       inLanguage: 'en-CA',
       mainEntityOfPage: { '@type': 'WebPage', '@id': `${site.domain}/guides/${g.slug}` },
-      publisher: { '@type': 'Organization', name: site.name, url: site.domain },
-      author: { '@type': 'Organization', name: site.name, url: `${site.domain}/about` },
+      publisher: orgRef,
+      author: orgRef,
+      reviewedBy: personRef,
+      isPartOf: siteRef,
       isAccessibleForFree: true,
       image: [
         `${site.domain}/guides/${g.slug}/opengraph-image`,
