@@ -1127,3 +1127,19 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .footer-admin{ margin-left:auto; opacity:.72; }
 .footer-admin:hover{ opacity:1; }
 @media (max-width:560px){ .footer-admin{ margin-left:0; } }
+
+/* Sign-in */
+.signin-google{
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  width:100%; margin-top:22px; padding:12px 20px; min-height:48px;
+  background:var(--surface-0); border-color:var(--line); color:var(--ink);
+  font-weight:560;
+}
+.signin-google:hover{ border-color:var(--blue); background:var(--blue-ghost); }
+.signin-or{
+  display:flex; align-items:center; gap:14px;
+  margin:20px 0 4px; color:var(--ink-faint); font-size:.85rem;
+}
+.signin-or::before, .signin-or::after{
+  content:""; flex:1; height:1px; background:var(--line);
+}

@@ -1,20 +1,19 @@
 import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
-import { readSession, ADMIN_COOKIE } from '@/lib/portal-auth';
+import { auth } from '@/auth';
 import { writeAllowlist, isAdmin } from '@/lib/portal-store';
 
+export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 /* Saves the client list. Re-authenticates from the cookie rather than trusting
  * that middleware ran — an API route must not assume its caller came through a
  * gate. */
 export async function POST(req: Request) {
-  const secret = process.env.PORTAL_SECRET;
-  const cookie = cookies().get(ADMIN_COOKIE)?.value;
-  const email = secret ? await readSession(cookie, secret, 'admin') : null;
+  const session = await auth();
+  const email = session?.user?.email ?? '';
 
   if (!email || !isAdmin(email)) {
-    return NextResponse.redirect(new URL('/admin/enter?expired=1', req.url), 303);
+    return NextResponse.redirect(new URL('/signin?next=%2Fadmin', req.url), 303);
   }
 
   try {

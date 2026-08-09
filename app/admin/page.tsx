@@ -1,14 +1,15 @@
 import type { Metadata } from 'next';
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { readSession, ADMIN_COOKIE } from '@/lib/portal-auth';
+import { auth, signOut } from '@/auth';
 import { readAllowlist, isAdmin } from '@/lib/portal-store';
+import { listPasswordAccounts } from '@/lib/portal-users';
 import { clinikoConfigured } from '@/lib/cliniko';
 
 export const metadata: Metadata = {
   title: { absolute: 'Client list — Westpeak Wellness' },
   robots: { index: false, follow: false },
 };
+export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 /* Second of the two gates. Middleware proved the cookie is one we issued for
@@ -17,17 +18,28 @@ export const dynamic = 'force-dynamic';
 export default async function AdminPage({
   searchParams,
 }: {
-  searchParams?: { saved?: string; error?: string; cliniko?: string };
+  searchParams?: { saved?: string; error?: string; cliniko?: string; pw?: string };
 }) {
-  const secret = process.env.PORTAL_SECRET;
-  const cookie = cookies().get(ADMIN_COOKIE)?.value;
-  const email = secret ? await readSession(cookie, secret, 'admin') : null;
-  if (!email || !isAdmin(email)) redirect('/admin/enter?expired=1');
+  const session = await auth();
+  const email = session?.user?.email ?? '';
+  // Re-checked here, not only at sign-in: removing an administrator takes
+  // effect on their next request rather than when their token expires.
+  if (!email || !isAdmin(email)) redirect('/signin?next=%2Fadmin');
 
   const list = await readAllowlist({ fresh: true });
+  const withPasswords = await listPasswordAccounts();
   const saved = searchParams?.saved === '1';
   const failed = searchParams?.error === '1';
   const probe = searchParams?.cliniko;
+  const pw = searchParams?.pw;
+
+  const PW_RESULT: Record<string, string> = {
+    set: 'Password set. Give it to the client directly — it is not emailed to them.',
+    cleared: 'Password removed. That client can now only sign in with Google.',
+    short: 'Nothing changed: passwords must be at least 10 characters.',
+    missing: 'Nothing changed: no email address was given.',
+    error: 'Could not save that. Nothing changed.',
+  };
 
   /* Plain-language result for the connection test. Each maps to one thing to
    * do next, because "it didn't work" is not actionable. */
@@ -97,6 +109,52 @@ export default async function AdminPage({
             ? `Last changed ${new Date(list.updatedAt).toLocaleString('en-CA')} by ${list.updatedBy}.`
             : 'No changes recorded yet.'}
         </p>
+
+        <section style={{ marginTop: 34, borderTop: '1px solid var(--line)', paddingTop: 24 }}>
+          <h2 style={{ fontSize: '1.1rem' }}>Passwords</h2>
+          <p style={{ fontSize: '.94rem', color: 'var(--ink-soft)' }}>
+            Only needed for clients who are not using Google. Set one here and pass it to
+            them directly — there is no self-service reset, which also means there is no
+            reset link for anyone to intercept. A password does not grant access on its
+            own: the address must still be on the list above.
+          </p>
+
+          {pw && PW_RESULT[pw] && (
+            <div className="crisis" style={{ marginTop: 14 }}>
+              <p style={{ margin: 0 }}>{PW_RESULT[pw]}</p>
+            </div>
+          )}
+
+          <form method="POST" action="/api/admin/password" className="portal-gate" style={{ marginTop: 16 }}>
+            <label htmlFor="target">Client email</label>
+            <input
+              id="target" name="target" type="email" inputMode="email"
+              autoComplete="off" autoCapitalize="none" spellCheck={false} required
+            />
+            <label htmlFor="password" style={{ marginTop: 6 }}>New password</label>
+            <input
+              id="password" name="password" type="text"
+              autoComplete="off" spellCheck={false} minLength={10}
+              placeholder="At least 10 characters"
+            />
+            <p className="avail-note" style={{ marginTop: 0 }}>
+              Shown as plain text on purpose — you have to be able to read it out.
+            </p>
+            <div className="btn-row">
+              <button type="submit" className="btn btn--primary">Set password</button>
+              <button type="submit" name="clear" value="1" className="btn btn--ghost">
+                Remove password
+              </button>
+            </div>
+          </form>
+
+          {withPasswords.length > 0 && (
+            <p style={{ fontSize: '.88rem', color: 'var(--ink-faint)', marginTop: 14 }}>
+              Has a password: {withPasswords.join(', ')}. Everyone else signs in with Google.
+            </p>
+          )}
+        </section>
+
         <section style={{ marginTop: 34, borderTop: '1px solid var(--line)', paddingTop: 24 }}>
           <h2 style={{ fontSize: '1.1rem' }}>Cliniko connection</h2>
           <p style={{ fontSize: '.94rem', color: 'var(--ink-soft)' }}>
@@ -123,7 +181,12 @@ export default async function AdminPage({
           </form>
         </section>
 
-        <form method="POST" action="/api/admin/signout">
+        <form
+          action={async () => {
+            'use server';
+            await signOut({ redirectTo: '/' });
+          }}
+        >
           <button type="submit" className="btn btn--ghost" style={{ marginTop: 6 }}>Sign out</button>
         </form>
       </div>

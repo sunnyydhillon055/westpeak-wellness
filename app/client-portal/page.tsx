@@ -1,10 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { site } from '@/lib/site';
 import SchedulerEmbed from '@/components/SchedulerEmbed';
-import { readSession, PORTAL_COOKIE } from '@/lib/portal-auth';
+import { auth } from '@/auth';
 import { isClientAllowed } from '@/lib/portal-store';
 
 /* Gated by middleware.ts — never served without the access code, so it is kept
@@ -16,6 +15,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
+export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 /* Second of the two gates, and the one that makes revocation immediate.
@@ -25,12 +25,13 @@ export const dynamic = 'force-dynamic';
  * render. Without this, removing someone in /admin would leave their existing
  * session working until the cookie expired. */
 export default async function ClientPortalPage() {
-  const secret = process.env.PORTAL_SECRET;
-  const email = secret
-    ? await readSession(cookies().get(PORTAL_COOKIE)?.value, secret, 'client')
-    : null;
-  if (!email || !(await isClientAllowed(email))) {
-    redirect('/client-portal/enter?expired=1');
+  const session = await auth();
+  const email = session?.user?.email ?? '';
+  const role = (session?.user as { role?: string } | undefined)?.role;
+  // Admins can view the portal; anyone else must still be a current client at
+  // this moment, not merely at the moment they signed in.
+  if (!email || (role !== 'admin' && !(await isClientAllowed(email)))) {
+    redirect('/signin?next=%2Fclient-portal');
   }
 
   return (
