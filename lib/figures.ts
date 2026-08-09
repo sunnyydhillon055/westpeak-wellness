@@ -112,7 +112,7 @@ export const figures: Record<string, Figure> = {
     width: 1040,
     height: 344,
     title: "How booking, payment and receipts fit together",
-    alt: "A four-step diagram: booking a time in the calendar, paying by credit card at the moment of booking, attending the fifty-minute session by secure video, and receiving an itemised receipt in the client portal to submit to an extended health plan.",
+    alt: "A four-step diagram: booking a time in the calendar, paying by credit card at the moment of booking, attending the fifty-minute session by secure video, and receiving an itemised receipt by email to submit to an extended health plan.",
     caption: "Payment happens at booking, not at the end of the hour.",
   },
   'first-session-flow': {

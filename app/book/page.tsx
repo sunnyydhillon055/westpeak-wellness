@@ -35,7 +35,7 @@ export default function Book() {
           <p className="crumb"><Link href="/">Home</Link> / Book</p>
 
           {site.bookingReady ? (
-            <SchedulerEmbed url={site.schedulerUrl} title="Book a free 15-minute consultation" />
+            <SchedulerEmbed url={site.bookingsUrl} title="Book a free 15-minute consultation" />
           ) : (
             <div className="crisis" style={{ marginTop: 8 }}>
               <h2 style={{ marginTop: 0 }}>Online scheduling is being set up</h2>

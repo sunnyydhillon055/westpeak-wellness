@@ -27,39 +27,36 @@ export const site = {
   email: "info@westpeakwellness.com",
   instagram: "@westpeakwellness",
   instagramUrl: "https://www.instagram.com/westpeakwellness",
-  /* ---- Booking & payments (Clio) --------------------------------------
-   * The practice runs on Clio. Two distinct Clio surfaces are used, and they
-   * are NOT the same URL:
+  /* ---- Booking & payments (Cliniko) -----------------------------------
+   * The practice runs on Cliniko, which is the single source of truth for
+   * scheduling, payment and invoicing. Relevant capabilities, as configured:
    *
-   *   schedulerUrl — Clio Scheduler (requires the Clio Grow add-on). A public
-   *                  booking link that can be embedded on this site. Shows live
-   *                  availability, and for a *paid* appointment type it takes
-   *                  the card at the moment of booking. That is what makes
-   *                  "paid before the session" true rather than aspirational.
+   *   · Online bookings can be embedded so the client never leaves this site.
+   *   · The appointment type is set to "Require payment during booking", so
+   *     the session is paid in full before the booking completes. Payment runs
+   *     through the practice's own Stripe account; Cliniko never receives card
+   *     details and neither does this website.
+   *   · On payment, Cliniko creates the invoice and marks it paid. That is why
+   *     no payment path is implemented here — a second one would not reconcile.
    *
-   *   portalUrl    — "Clio for Clients". The ongoing client portal: bills,
-   *                  payment methods, documents, secure messages. Clio Payments
-   *                  is live in Canada and stores cards PCI-compliantly.
+   * IMPORTANT — this shapes the cancellation copy on /client-portal:
+   * Cliniko disables the self-cancel link for appointments paid in full in
+   * advance (self-serve cancelling only survives when a *deposit* was taken).
+   * So the site must not promise self-serve cancellation. Free cancellation
+   * inside the window is honoured by contacting the practice.
    *
-   * Nothing about payment is implemented on this website, deliberately. A
-   * second payment path would not reconcile against Clio's own invoicing, and
-   * this site is static with no server to take a card safely.
-   *
-   * TODO (owner): paste the two real URLs, then flip the *Ready flags.
+   * TODO (owner): paste the Cliniko online-bookings URL, then flip
+   * bookingReady. It looks like https://<practice>.cliniko.com/bookings
    */
-  schedulerUrl: "",
-  portalUrl: "",
+  bookingsUrl: "",
   bookingPath: "/book",
   portalPath: "/client-portal",
-  /* Each flag gates one surface. While false the page explains the process and
-   * routes to email rather than shipping a dead link. Do not set bookingReady
-   * true until schedulerUrl loads AND the appointment type is set to take
-   * payment; do not set portalReady true until portalUrl resolves. */
+  /* While false, /book and /client-portal explain the process and route to
+   * email instead of embedding a calendar that is not there yet. Do not set
+   * true until bookingsUrl loads AND the appointment type requires payment. */
   bookingReady: false,
-  portalReady: false,
-  /* Hours of free cancellation. This is a practice policy the counsellor
-   * applies — Clio Scheduler does not auto-charge late cancellations — so this
-   * number and what the client is told must always agree. */
+  /* Hours of free cancellation. Put the same number in Cliniko's "terms of
+   * use" for online bookings so clients agree to it as they book. */
   cancellationHours: 24,
 
   domain: CANONICAL,

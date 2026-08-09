@@ -23,10 +23,11 @@ export const metadata: Metadata = {
 const DOES = [
   {
     icon: CalendarCheck,
-    title: 'Book and see your schedule',
+    title: 'Book from live availability',
     body:
-      'Pick a time from live availability rather than trading emails. Upcoming and past ' +
-      'appointments are listed in one place, and confirmations and reminders are sent automatically.',
+      'Pick a time from the real calendar rather than trading emails, and get a confirmation ' +
+      'immediately plus a reminder before the session. Booking happens on this site — you are ' +
+      'not sent off to a separate login.',
   },
   {
     icon: CreditCard,
@@ -38,18 +39,19 @@ const DOES = [
   },
   {
     icon: RefreshCw,
-    title: 'Reschedule from your confirmation',
+    title: 'Change or cancel',
     body:
-      `Your confirmation email carries a link to change the time. More than ${site.cancellationHours} ` +
-      'hours out that is free and needs no explanation — see the cancellation policy below.',
+      `Reply to your confirmation email, or write to ${site.email}. More than ` +
+      `${site.cancellationHours} hours before the session that is free and needs no explanation — ` +
+      'see the cancellation policy below.',
   },
   {
     icon: FileText,
-    title: 'Bills, receipts and documents',
+    title: 'Receipts for your insurer',
     body:
-      'Invoices and receipts are issued through the portal, along with any documents shared ' +
-      'between sessions. Receipts carry the practitioner registration number that extended ' +
-      'health plans ask for.',
+      'Paying generates the invoice automatically, already marked paid, and it is emailed to ' +
+      'you. Receipts carry the practitioner registration number that extended health plans ' +
+      'ask for, so there is nothing to request.',
   },
 ];
 
@@ -62,7 +64,7 @@ const STEPS = [
   {
     n: '2',
     h: 'Book your first session in the portal',
-    b: 'The booking calendar takes your card as you choose the time. Entering it is what holds the slot — an unpaid booking is not a held booking.',
+    b: 'The calendar takes payment as you choose the time — the booking does not complete without it. Paying is what holds the slot.',
   },
   {
     n: '3',
@@ -71,8 +73,8 @@ const STEPS = [
   },
   {
     n: '4',
-    h: 'Your receipt appears automatically',
-    b: 'It is issued to the portal for you to submit to your extended health plan yourself. This practice does not direct-bill — see fees and coverage for what that means.',
+    h: 'Your receipt is emailed automatically',
+    b: 'Submit it to your extended health plan yourself. This practice does not direct-bill — see fees and coverage for what that means.',
   },
 ];
 
@@ -81,16 +83,19 @@ const FAQS = [
     q: 'Why do you take payment before the session rather than after?',
     a:
       'Two reasons, and neither is about distrust. It removes the transactional few minutes at the end ' +
-      'of an hour that is often emotionally heavy, and it means the appointment is genuinely held rather ' +
-      'than provisional. It is standard practice in private counselling.',
+      'of an hour that is often emotionally heavy, and it means the appointment is held rather than ' +
+      'provisional. It is standard practice in private counselling. The trade-off is that cancelling ' +
+      'goes through a person rather than a button — see the cancellation policy.',
   },
   {
     q: `What happens if I cancel within ${site.cancellationHours} hours?`,
     a:
-      `Cancellations more than ${site.cancellationHours} hours ahead are free — use the link in your ` +
-      'confirmation email, or reply to it. Inside that window the session is charged, because the time ' +
-      'was reserved and cannot realistically be filled at that notice. Nothing is charged automatically: ' +
-      'if something unavoidable happened — illness, an emergency, a crisis — say so. That is a ' +
+      `More than ${site.cancellationHours} hours ahead it is free and the session is refunded in ` +
+      'full. Reply to your confirmation email or write to the practice — because the session is paid ' +
+      'up front, cancelling goes through a person rather than a self-serve button, and it is ' +
+      'normally actioned the same day. Inside that window the session is not refunded, because the ' +
+      'time was held and cannot realistically be filled at that notice. Nothing is automated: if ' +
+      'something unavoidable happened — illness, an emergency, a crisis — say so. That is a ' +
       'conversation, not a fee.',
   },
   {
@@ -103,9 +108,9 @@ const FAQS = [
   {
     q: 'Can I pay another way?',
     a:
-      'Credit card through the portal is the standard method because it keeps booking, payment and ' +
-      'receipts in one record. If a card is not workable for you, say so before your first session and ' +
-      'it can be discussed.',
+      'Card at the time of booking is the standard method, because it keeps the appointment, the ' +
+      'payment and the receipt as one record rather than three that have to be matched up later. If ' +
+      'a card is not workable for you, say so before your first session and it can be discussed.',
   },
   {
     q: 'Do I need the portal to be a client?',
@@ -116,7 +121,8 @@ const FAQS = [
   {
     q: 'Is what I enter in the portal confidential?',
     a:
-      'Yes. The portal is encrypted, and access to your record is limited to your counsellor. What ' +
+      'Yes. The booking and records system is built for regulated health practices, is encrypted, and ' +
+      'offers Canadian data residency. Access to your record is limited to your counsellor. What ' +
       'confidentiality covers — and the narrow legal limits every counsellor in BC works under — is ' +
       'set out in full on the privacy page.',
   },
@@ -180,26 +186,15 @@ export default function ClientPortalPage() {
           </p>
 
           <div className="btn-row" style={{ marginTop: 24 }}>
-            {site.portalReady ? (
-              <a
-                className="btn btn--primary"
-                href={site.portalUrl}
-                target="_blank"
-                rel="noopener"
-              >
-                Open the client portal
-              </a>
-            ) : (
-              <Link className="btn btn--primary" href={site.bookingPath}>
-                Book a free consultation
-              </Link>
-            )}
+            <Link className="btn btn--primary" href={site.bookingPath}>
+              {site.bookingReady ? 'Book a session' : 'Book a free consultation'}
+            </Link>
             <Link className="btn btn--ghost" href="/pricing">Fees and coverage</Link>
           </div>
 
-          {!site.portalReady && (
+          {!site.bookingReady && (
             <p className="hero-note">
-              Self-serve booking is being switched on. Until it is,{' '}
+              Online booking is being switched on. Until it is,{' '}
               <a href={`mailto:${site.email}`}>{site.email}</a> reaches the counsellor directly.
             </p>
           )}
@@ -215,9 +210,9 @@ export default function ClientPortalPage() {
             <h2 id="what-the-portal-does">What the portal does</h2>
             <p>
               Everything administrative lives in one place, so booking, paying and getting a receipt
-              are not three separate conversations. It is the same system that holds the clinical
-              record, which means your appointment, your payment and your receipt are one entry
-              rather than three that have to be matched up later.
+              are not three separate conversations. Booking runs on the same system that holds the
+              clinical record, which means your appointment, your payment and your receipt are one
+              entry rather than three that have to be reconciled later.
             </p>
 
             <div className="route-grid" style={{ marginBottom: 30 }}>
@@ -266,11 +261,19 @@ export default function ClientPortalPage() {
             <p>
               <strong>
                 Cancel or reschedule free of charge up to {site.cancellationHours} hours before your
-                appointment.
-              </strong>{' '}
-              Use the link in your confirmation email, or just reply to it. You do not have to give a
-              reason. Within {site.cancellationHours} hours the session is charged in full, because the
-              time was held for you and cannot realistically be given to someone else at that notice.
+                appointment</strong> — the session is refunded in full, and you do not have to give a
+              reason. Reply to your confirmation email or write to{' '}
+              <a href={`mailto:${site.email}`}>{site.email}</a>.
+            </p>
+            <p>
+              Because sessions are paid when they are booked, cancelling goes through a person rather
+              than a self-serve button. That is a deliberate trade: paying up front is what removes
+              the administrative conversation from the end of a session, and the cost of it is one
+              email to cancel. Requests are normally actioned the same day.
+            </p>
+            <p>
+              Within {site.cancellationHours} hours the session is not refunded, because the time was
+              held for you and cannot realistically be given to someone else at that notice.
             </p>
             <p>
               That policy exists to make the schedule work, not to catch anyone out. Illness,
@@ -281,15 +284,15 @@ export default function ClientPortalPage() {
             </p>
             <ul className="checklist">
               <li>
-                <strong>More than {site.cancellationHours} hours&rsquo; notice</strong> — free, no
-                reason required, changed from your confirmation email.
+                <strong>More than {site.cancellationHours} hours&rsquo; notice</strong> — refunded in
+                full, no reason required. Reply to your confirmation email.
               </li>
               <li>
-                <strong>Less than {site.cancellationHours} hours&rsquo; notice</strong> — the
-                session fee applies.
+                <strong>Less than {site.cancellationHours} hours&rsquo; notice</strong> — the session
+                is not refunded.
               </li>
               <li>
-                <strong>Missed appointment without notice</strong> — the session fee applies.
+                <strong>Missed appointment without notice</strong> — the session is not refunded.
               </li>
               <li>
                 <strong>Something serious happened</strong> — get in touch. This is a conversation.

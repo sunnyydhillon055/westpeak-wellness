@@ -37,7 +37,7 @@ Clean pages: **100 / 100**
 | `/approaches/mindfulness-based-approaches` | 13/13 | 1170 | 2 | 12 | 6 | — |
 | `/approaches/somatic-therapy` | 13/13 | 1283 | 2 | 14 | 6 | — |
 | `/book` | 13/13 | 782 | 1 | 12 | 99 | — |
-| `/client-portal` | 13/13 | 1176 | 1 | 13 | 4 | — |
+| `/client-portal` | 13/13 | 1319 | 1 | 13 | 4 | — |
 | `/compare` | 13/13 | 742 | 1 | 12 | 9 | — |
 | `/compare/cbt-vs-emdr-for-trauma` | 13/13 | 1664 | 2 | 15 | 13 | — |
 | `/compare/efap-vs-private-counselling` | 13/13 | 1956 | 2 | 14 | 14 | — |
