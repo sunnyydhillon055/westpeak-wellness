@@ -67,6 +67,12 @@ const nextConfig = {
       { source: '/for/mens-mental-health', destination: '/for', permanent: true },
       { source: '/copy-of-new-page', destination: '/contact', permanent: true },
       { source: '/fees', destination: '/pricing', permanent: true },
+      /* /blog was a 404. The guides engine already is the article stack —
+         dated, Article-schema'd and internally linked — so this points at it
+         rather than standing up a second one that would split topic authority
+         and double the maintenance. */
+      { source: '/blog', destination: '/guides', permanent: true },
+      { source: '/blog/:slug', destination: '/guides/:slug', permanent: true },
       { source: '/copy-of-contact', destination: '/faq', permanent: true },
       { source: '/copy-of-fees', destination: '/services/individual-therapy', permanent: true },
       { source: '/copy-of-individual-2', destination: '/services/anxiety-counselling', permanent: true },

@@ -50,6 +50,11 @@ export default function Book() {
                 in the <Link href={site.portalPath}>client portal</Link>.
               </p>
               <p style={{ marginBottom: 0 }}>
+                <a className="btn btn--ghost" href={site.bookingsFallbackUrl} target="_blank" rel="noopener">
+                  Try the booking page directly
+                </a>
+              </p>
+              <p style={{ marginBottom: 0 }}>
                 <a className="btn btn--primary" href={`mailto:${site.email}?subject=Free%2015-minute%20consultation`}>
                   Email to book your consultation
                 </a>

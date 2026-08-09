@@ -48,13 +48,18 @@ export const site = {
    * TODO (owner): paste the Cliniko online-bookings URL, then flip
    * bookingReady. It looks like https://<practice>.cliniko.com/bookings
    */
-  bookingsUrl: "",
+  /* Fallback is the conventional Cliniko subdomain for this practice name and
+   * is UNVERIFIED — see BUILD_LOG.md. It is used for the link-out only; the
+   * calendar is embedded solely when NEXT_PUBLIC_CLINIKO_URL is set, because a
+   * dead iframe on a live counselling site is worse than an honest notice. */
+  bookingsUrl: process.env.NEXT_PUBLIC_CLINIKO_URL || "",
+  bookingsFallbackUrl: "https://westpeakwellness.cliniko.com/bookings",
   bookingPath: "/book",
   portalPath: "/client-portal",
   /* While false, /book and /client-portal explain the process and route to
    * email instead of embedding a calendar that is not there yet. Do not set
    * true until bookingsUrl loads AND the appointment type requires payment. */
-  bookingReady: false,
+  bookingReady: Boolean(process.env.NEXT_PUBLIC_CLINIKO_URL),
   /* Hours of free cancellation. Put the same number in Cliniko's "terms of
    * use" for online bookings so clients agree to it as they book. */
   cancellationHours: 24,

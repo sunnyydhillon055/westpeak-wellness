@@ -44,6 +44,8 @@ export function GET() {
     ...core,
     { path: '/book', lastmod: now, changefreq: 'monthly', priority: 0.9 },
     { path: '/tools', lastmod: now, changefreq: 'monthly', priority: 0.7 },
+    { path: '/reviews', lastmod: now, changefreq: 'yearly', priority: 0.5 },
+    { path: '/punjabi', lastmod: now, changefreq: 'monthly', priority: 0.7 },
     ...tools.map((t) => ({
       path: `/tools/${t.slug}`, lastmod: now, changefreq: 'monthly' as const, priority: 0.7,
     })),

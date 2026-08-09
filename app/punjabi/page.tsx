@@ -1,0 +1,196 @@
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { site } from '@/lib/site';
+import { abs, orgRef, siteRef } from '@/lib/schema';
+import Figure from '@/components/Figure';
+
+const TITLE = 'ਪੰਜਾਬੀ ਵਿੱਚ ਕਾਊਂਸਲਿੰਗ | Punjabi counselling in BC';
+const DESC =
+  'ਬ੍ਰਿਟਿਸ਼ ਕੋਲੰਬੀਆ ਵਿੱਚ ਪੰਜਾਬੀ ਬੋਲਣ ਵਾਲੇ Registered Clinical Counsellor ਨਾਲ ਆਨਲਾਈਨ ਕਾਊਂਸਲਿੰਗ। Online counselling in Punjabi anywhere in BC.';
+
+export const metadata: Metadata = {
+  title: { absolute: TITLE },
+  description: DESC,
+  alternates: {
+    canonical: `${site.domain}/punjabi`,
+    languages: {
+      'en-CA': `${site.domain}/services/punjabi-counselling`,
+      'pa': `${site.domain}/punjabi`,
+    },
+  },
+  openGraph: { title: TITLE, description: DESC, url: `${site.domain}/punjabi`, locale: 'pa_IN' },
+};
+
+/* The Punjabi-language surface.
+ *
+ * The rest of the site had its Punjabi mentions cut back deliberately — they
+ * were spread thinly across every page, which read as a script rather than a
+ * fact. This is the opposite move and the two are consistent: concentrate it
+ * in one page written *in* the language, for someone searching in it, rather
+ * than sprinkling the word everywhere in English.
+ *
+ * Written as a Punjabi speaker would say it, with the English clinical terms
+ * left in English — RCC, EMDR, extended health — because those are the words
+ * people actually use and search for, and translating them would make the page
+ * less useful, not more authentic.
+ *
+ * The counsellor-name rule holds here as everywhere: no name on this page.
+ */
+export default function PunjabiPage() {
+  const schema = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      '@id': abs('/punjabi'),
+      name: TITLE,
+      description: DESC,
+      inLanguage: 'pa',
+      isPartOf: siteRef,
+      about: orgRef,
+      publisher: orgRef,
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: site.domain },
+        { '@type': 'ListItem', position: 2, name: 'ਪੰਜਾਬੀ', item: abs('/punjabi') },
+      ],
+    },
+  ];
+
+  return (
+    <div lang="pa">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+
+      <section className="hero" style={{ paddingBottom: 36 }}>
+        <div className="container">
+          <p className="eyebrow" lang="en">Online across British Columbia</p>
+          <h1 className="gurmukhi">ਕੁਝ ਗੱਲਾਂ ਆਪਣੀ ਭਾਸ਼ਾ ਵਿੱਚ ਹੀ ਠੀਕ ਲੱਗਦੀਆਂ ਹਨ।</h1>
+          <p className="direct-answer">
+            ਬ੍ਰਿਟਿਸ਼ ਕੋਲੰਬੀਆ ਵਿੱਚ ਕਿਤੇ ਵੀ, ਪੰਜਾਬੀ ਬੋਲਣ ਵਾਲੇ Registered Clinical Counsellor (MA, RCC)
+            ਨਾਲ ਸੁਰੱਖਿਅਤ ਵੀਡੀਓ ਰਾਹੀਂ ਕਾਊਂਸਲਿੰਗ। ਸੈਸ਼ਨ ਪੰਜਾਬੀ ਵਿੱਚ, ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ, ਜਾਂ ਦੋਹਾਂ ਵਿੱਚ ਹੋ ਸਕਦੇ ਹਨ —
+            ਤੁਹਾਨੂੰ ਪਹਿਲਾਂ ਤੋਂ ਫ਼ੈਸਲਾ ਕਰਨ ਦੀ ਲੋੜ ਨਹੀਂ। ਪਹਿਲੀ 15 ਮਿੰਟ ਦੀ ਗੱਲਬਾਤ ਮੁਫ਼ਤ ਹੈ।
+          </p>
+          <div className="btn-row" style={{ marginTop: 24 }}>
+            <Link className="btn btn--primary" href={site.bookingPath}>
+              ਮੁਫ਼ਤ ਸਲਾਹ-ਮਸ਼ਵਰਾ ਬੁੱਕ ਕਰੋ
+            </Link>
+            <Link className="btn btn--ghost" href="/services/punjabi-counselling" lang="en">
+              Read this in English
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="section" style={{ paddingTop: 36 }}>
+        <div className="container reading">
+          <div className="prose">
+            <p className="crumb" lang="en">
+              <Link href="/">Home</Link> / ਪੰਜਾਬੀ
+            </p>
+
+            <h2>ਤੁਹਾਨੂੰ ਸਭ ਕੁਝ ਸਮਝਾਉਣ ਦੀ ਲੋੜ ਨਹੀਂ ਪਵੇਗੀ</h2>
+            <p>
+              ਜਦੋਂ ਗੱਲ ਪਰਿਵਾਰ ਦੀ, ਇੱਜ਼ਤ ਦੀ, ਜਾਂ &ldquo;ਲੋਕ ਕੀ ਕਹਿਣਗੇ&rdquo; ਦੀ ਆਉਂਦੀ ਹੈ, ਤਾਂ ਬਹੁਤ ਵਾਰ ਅੱਧਾ
+              ਸਮਾਂ ਸਿਰਫ਼ ਪਿਛੋਕੜ ਸਮਝਾਉਣ ਵਿੱਚ ਹੀ ਲੱਗ ਜਾਂਦਾ ਹੈ। ਇੱਥੇ ਉਹ ਸਮਾਂ ਬਚ ਜਾਂਦਾ ਹੈ। ਪੀੜ੍ਹੀਆਂ ਦੀ ਚੁੱਪ,
+              ਮਾਪਿਆਂ ਦੀਆਂ ਉਮੀਦਾਂ, ਅਤੇ ਪਰਵਾਸ ਦੇ ਬੱਚਿਆਂ ਉੱਤੇ ਪੈਂਦਾ ਬੋਝ — ਇਹ ਸਭ ਪਹਿਲਾਂ ਤੋਂ ਸਮਝਿਆ ਹੋਇਆ ਹੈ।
+            </p>
+            <p>
+              ਕੁਝ ਗੱਲਾਂ ਲਈ ਸਹੀ ਸ਼ਬਦ ਸਿਰਫ਼ ਪੰਜਾਬੀ ਵਿੱਚ ਹੀ ਮਿਲਦੇ ਹਨ। ਜੇ ਤੁਸੀਂ ਸੈਸ਼ਨ ਵਿੱਚ ਅਨੁਵਾਦ ਕਰਦੇ ਰਹੋ, ਤਾਂ
+              ਤੁਸੀਂ ਆਪਣੇ ਅਹਿਸਾਸ ਤੋਂ ਇੱਕ ਕਦਮ ਦੂਰ ਰਹਿ ਜਾਂਦੇ ਹੋ — ਉਸ ਨੂੰ ਮਹਿਸੂਸ ਕਰਨ ਦੀ ਬਜਾਏ ਬਿਆਨ ਕਰਦੇ ਰਹਿੰਦੇ ਹੋ।
+            </p>
+
+            <h2>ਕਿਹੜੀਆਂ ਗੱਲਾਂ ਲਈ ਲੋਕ ਆਉਂਦੇ ਹਨ</h2>
+            <ul className="checklist">
+              <li>
+                <strong>ਚਿੰਤਾ ਅਤੇ ਘਬਰਾਹਟ (anxiety)</strong> — ਲਗਾਤਾਰ ਫ਼ਿਕਰ, ਰਾਤ ਨੂੰ ਨੀਂਦ ਨਾ ਆਉਣਾ,
+                ਸਰੀਰ ਦਾ ਸ਼ਾਂਤ ਨਾ ਹੋਣਾ।
+              </li>
+              <li>
+                <strong>ਉਦਾਸੀ ਅਤੇ ਥਕਾਵਟ (depression, burnout)</strong> — ਕਿਸੇ ਚੀਜ਼ ਵਿੱਚ ਦਿਲ ਨਾ ਲੱਗਣਾ,
+                ਕੰਮ ਤੋਂ ਥੱਕ ਜਾਣਾ।
+              </li>
+              <li>
+                <strong>ਪੁਰਾਣੇ ਸਦਮੇ (trauma, EMDR)</strong> — ਕੋਈ ਗੱਲ ਜੋ ਬਹੁਤ ਪਹਿਲਾਂ ਵਾਪਰੀ ਪਰ ਅਜੇ ਵੀ
+                ਅਸਰ ਕਰਦੀ ਹੈ।
+              </li>
+              <li>
+                <strong>ਰਿਸ਼ਤੇ ਅਤੇ ਵਿਆਹ (couples counselling)</strong> — ਵਾਰ-ਵਾਰ ਉਹੀ ਝਗੜਾ, ਜਾਂ ਦੂਰੀ
+                ਜੋ ਵਧਦੀ ਜਾ ਰਹੀ ਹੈ।
+              </li>
+              <li>
+                <strong>ਪਰਿਵਾਰਕ ਦਬਾਅ</strong> — ਫ਼ਰਜ਼ ਅਤੇ ਆਪਣੀ ਜ਼ਿੰਦਗੀ ਵਿਚਕਾਰ ਫਸ ਜਾਣਾ।
+              </li>
+            </ul>
+
+            <Figure name="bc-reach" />
+
+            <h2>ਇਹ ਕਿਵੇਂ ਚੱਲਦਾ ਹੈ</h2>
+            <p>
+              ਸਾਰੇ ਸੈਸ਼ਨ ਆਨਲਾਈਨ ਹੁੰਦੇ ਹਨ, ਸੁਰੱਖਿਅਤ ਵੀਡੀਓ ਰਾਹੀਂ — ਬ੍ਰਿਟਿਸ਼ ਕੋਲੰਬੀਆ ਵਿੱਚ ਕਿਤੇ ਵੀ। ਕੋਈ ਦਫ਼ਤਰ
+              ਨਹੀਂ, ਇਸ ਲਈ ਕਿਸੇ ਕਲੀਨਿਕ ਦੇ ਬਾਹਰ ਕਿਸੇ ਜਾਣਕਾਰ ਦੇ ਮਿਲਣ ਦਾ ਡਰ ਵੀ ਨਹੀਂ। ਇਹ ਗੱਲ ਬਹੁਤ ਲੋਕਾਂ ਲਈ
+              ਸਭ ਤੋਂ ਵੱਡੀ ਰੁਕਾਵਟ ਹੁੰਦੀ ਹੈ, ਖ਼ਾਸ ਕਰਕੇ ਸਰੀ ਅਤੇ ਐਬਟਸਫ਼ੋਰਡ ਵਰਗੇ ਸ਼ਹਿਰਾਂ ਵਿੱਚ।
+            </p>
+            <p>
+              ਹਰ ਸੈਸ਼ਨ 50 ਮਿੰਟ ਦਾ ਹੁੰਦਾ ਹੈ। ਪਹਿਲਾਂ 15 ਮਿੰਟ ਦੀ ਮੁਫ਼ਤ ਗੱਲਬਾਤ ਹੁੰਦੀ ਹੈ ਤਾਂ ਜੋ ਤੁਸੀਂ ਦੇਖ ਸਕੋ ਕਿ
+              ਇਹ ਤੁਹਾਡੇ ਲਈ ਠੀਕ ਹੈ ਜਾਂ ਨਹੀਂ। ਉਸ ਤੋਂ ਬਾਅਦ ਕੁਝ ਬੁੱਕ ਕਰਨਾ ਜ਼ਰੂਰੀ ਨਹੀਂ।
+            </p>
+
+            <h2>ਖ਼ਰਚਾ ਅਤੇ ਬੀਮਾ (insurance)</h2>
+            <p>
+              MSP ਪ੍ਰਾਈਵੇਟ ਕਾਊਂਸਲਿੰਗ ਦਾ ਖ਼ਰਚਾ ਨਹੀਂ ਦਿੰਦਾ। ਪਰ ਬਹੁਤ ਸਾਰੀਆਂ extended health ਯੋਜਨਾਵਾਂ ਦਿੰਦੀਆਂ
+              ਹਨ। ਬੁੱਕ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਇੱਕ ਗੱਲ ਜ਼ਰੂਰ ਪੁੱਛੋ:{' '}
+              <strong>ਕੀ ਤੁਹਾਡੀ ਯੋਜਨਾ ਖ਼ਾਸ ਤੌਰ ਤੇ &ldquo;Registered Clinical Counsellor&rdquo; ਨੂੰ ਕਵਰ ਕਰਦੀ
+              ਹੈ?</strong>{' '}
+              ਕਈ ਯੋਜਨਾਵਾਂ ਸਿਰਫ਼ psychologist ਨੂੰ ਕਵਰ ਕਰਦੀਆਂ ਹਨ, ਅਤੇ ਲੋਕਾਂ ਨੂੰ ਇਹ ਪਹਿਲੇ ਸੈਸ਼ਨ ਤੋਂ ਬਾਅਦ ਪਤਾ
+              ਲੱਗਦਾ ਹੈ।
+            </p>
+            <p lang="en">
+              Full details in English:{' '}
+              <Link href="/pricing">fees and coverage</Link> ·{' '}
+              <Link href="/resources/bc-extended-health-coverage-for-counselling">
+                extended health coverage in BC
+              </Link>{' '}
+              · <Link href="/tools/therapy-cost-bc">cost estimator</Link>
+            </p>
+
+            <h2>ਗੁਪਤਤਾ (confidentiality)</h2>
+            <p>
+              ਜੋ ਕੁਝ ਸੈਸ਼ਨ ਵਿੱਚ ਕਿਹਾ ਜਾਂਦਾ ਹੈ, ਉਹ ਗੁਪਤ ਰਹਿੰਦਾ ਹੈ। ਪਰਿਵਾਰ ਨੂੰ ਦੱਸਣਾ ਤੁਹਾਡੀ ਮਰਜ਼ੀ ਹੈ, ਕਿਸੇ ਹੋਰ
+              ਦੀ ਨਹੀਂ। ਇਸ ਦੀਆਂ ਕਾਨੂੰਨੀ ਹੱਦਾਂ ਬਹੁਤ ਸੀਮਤ ਹਨ ਅਤੇ{' '}
+              <Link href="/privacy" lang="en">privacy and confidentiality</Link> ਪੰਨੇ ਉੱਤੇ ਪੂਰੀ ਤਰ੍ਹਾਂ
+              ਲਿਖੀਆਂ ਹੋਈਆਂ ਹਨ।
+            </p>
+
+            <div className="crisis" style={{ marginTop: 30 }}>
+              <p style={{ margin: 0 }}>
+                <strong>ਇਹ ਐਮਰਜੈਂਸੀ ਸੇਵਾ ਨਹੀਂ ਹੈ।</strong> ਜੇ ਤੁਸੀਂ ਸੰਕਟ ਵਿੱਚ ਹੋ, ਕੈਨੇਡਾ ਵਿੱਚ ਕਿਸੇ ਵੀ ਵੇਲੇ{' '}
+                <a href="tel:988"><strong>9-8-8</strong></a> ਉੱਤੇ ਕਾਲ ਜਾਂ ਟੈਕਸਟ ਕਰੋ। BC ਵਿੱਚ{' '}
+                <a href="tel:3106789"><strong>310-6789</strong></a>। ਤੁਰੰਤ ਖ਼ਤਰੇ ਵਿੱਚ{' '}
+                <a href="tel:911"><strong>9-1-1</strong></a>।
+              </p>
+            </div>
+
+            <h2>ਅਗਲਾ ਕਦਮ</h2>
+            <p>
+              ਪਹਿਲੀ ਗੱਲਬਾਤ 15 ਮਿੰਟ ਦੀ ਹੈ, ਮੁਫ਼ਤ ਹੈ, ਅਤੇ ਇਸ ਤੋਂ ਬਾਅਦ ਕੁਝ ਵੀ ਕਰਨਾ ਜ਼ਰੂਰੀ ਨਹੀਂ। ਜੇ ਲੱਗੇ ਕਿ ਕੋਈ
+              ਹੋਰ ਤੁਹਾਡੇ ਲਈ ਬਿਹਤਰ ਹੋਵੇਗਾ, ਤਾਂ ਉਹ ਵੀ ਸਾਫ਼ ਦੱਸਿਆ ਜਾਵੇਗਾ।
+            </p>
+            <p>
+              <Link className="btn btn--primary" href={site.bookingPath}>
+                ਮੁਫ਼ਤ ਸਲਾਹ-ਮਸ਼ਵਰਾ ਬੁੱਕ ਕਰੋ
+              </Link>
+            </p>
+            <p lang="en" style={{ fontSize: '.92rem', color: 'var(--ink-faint)', marginTop: 26 }}>
+              This page is written in Punjabi. The same information in English is on{' '}
+              <Link href="/services/punjabi-counselling">Punjabi-speaking counselling</Link>, and{' '}
+              <Link href="/services/south-asian-mental-health">counselling for South Asian adults</Link>{' '}
+              covers the cultural side in more depth.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}

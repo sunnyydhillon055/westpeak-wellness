@@ -58,6 +58,7 @@ export default function Footer() {
               <Link href="/tools">Free Tools</Link>
               <Link href="/glossary">Glossary</Link>
               <Link href="/approaches">Approaches</Link>
+              <Link href="/punjabi" lang="pa">ਪੰਜਾਬੀ</Link>
             </nav>
 
             <nav className="footer-col" aria-labelledby="foot-practice">
@@ -65,6 +66,7 @@ export default function Footer() {
               <Link href="/about">About the Counsellor</Link>
               <Link href="/pricing">Fees &amp; Insurance</Link>
               <Link href="/faq">FAQ</Link>
+              <Link href="/reviews">Reviews &amp; references</Link>
               <Link href="/online-counselling">Areas Served in BC</Link>
               <Link href="/contact">Contact</Link>
               <Link href={site.portalPath} className="footer-more">Client Portal &rarr;</Link>

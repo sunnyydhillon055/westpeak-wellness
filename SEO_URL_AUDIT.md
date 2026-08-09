@@ -1,8 +1,8 @@
 # Per-URL SEO Audit
 
-**103 URLs · 13 checks each · 1339 assertions**
+**105 URLs · 13 checks each · 1365 assertions**
 
-Clean pages: **99 / 103**
+Clean pages: **99 / 105**
 
 ## Failures by check
 
@@ -10,27 +10,29 @@ Clean pages: **99 / 103**
 |---|--:|
 | status 200 | 0 |
 | title 1–60 | 0 |
-| desc 1–155 | 1 |
+| desc 1–155 | 0 |
 | self-canonical | 0 |
-| og:image | 0 |
+| og:image | 2 |
 | exactly one h1 | 0 |
 | no heading skips | 0 |
 | all images alt | 0 |
-| >= 1 visual | 0 |
+| >= 1 visual | 2 |
 | >= 8 out-links | 0 |
-| >= 3 inbound | 3 |
-| >= 600 words | 4 |
+| >= 3 inbound | 4 |
+| >= 600 words | 6 |
 | structured data | 0 |
 
 ## Every URL
 
 | URL | Score | Words | Imgs | Out | In | Issues |
 |---|--:|--:|--:|--:|--:|---|
-| `/tools` | 11/13 | 265 | 1 | 8 | 5 | desc 1–155, >= 600 words |
+| `/punjabi` | 9/13 | 555 | 0 | 8 | 0 | og:image, >= 1 visual, >= 3 inbound, >= 600 words |
+| `/reviews` | 9/13 | 491 | 0 | 8 | 0 | og:image, >= 1 visual, >= 3 inbound, >= 600 words |
 | `/tools/stress-check` | 11/13 | 352 | 1 | 8 | 2 | >= 3 inbound, >= 600 words |
-| `/tools/therapy-cost-bc` | 11/13 | 344 | 1 | 8 | 2 | >= 3 inbound, >= 600 words |
 | `/tools/which-service` | 11/13 | 316 | 1 | 11 | 2 | >= 3 inbound, >= 600 words |
-| `/` | 13/13 | 1227 | 2 | 42 | 102 | — |
+| `/tools` | 12/13 | 265 | 1 | 8 | 5 | >= 600 words |
+| `/tools/therapy-cost-bc` | 12/13 | 344 | 1 | 8 | 3 | >= 600 words |
+| `/` | 13/13 | 1227 | 2 | 42 | 104 | — |
 | `/about` | 13/13 | 1334 | 1 | 17 | 8 | — |
 | `/accessibility` | 13/13 | 1175 | 1 | 9 | 3 | — |
 | `/approaches` | 13/13 | 638 | 1 | 13 | 9 | — |
@@ -40,18 +42,18 @@ Clean pages: **99 / 103**
 | `/approaches/internal-family-systems` | 13/13 | 1279 | 2 | 13 | 6 | — |
 | `/approaches/mindfulness-based-approaches` | 13/13 | 1170 | 2 | 12 | 6 | — |
 | `/approaches/somatic-therapy` | 13/13 | 1283 | 2 | 14 | 6 | — |
-| `/book` | 13/13 | 802 | 2 | 12 | 101 | — |
+| `/book` | 13/13 | 807 | 2 | 12 | 103 | — |
 | `/compare` | 13/13 | 742 | 1 | 12 | 10 | — |
 | `/compare/cbt-vs-emdr-for-trauma` | 13/13 | 1664 | 2 | 15 | 13 | — |
 | `/compare/efap-vs-private-counselling` | 13/13 | 1956 | 2 | 14 | 14 | — |
 | `/compare/individual-vs-couples-therapy` | 13/13 | 1712 | 2 | 16 | 14 | — |
-| `/compare/rcc-vs-psychologist-vs-social-worker-bc` | 13/13 | 2117 | 2 | 18 | 22 | — |
+| `/compare/rcc-vs-psychologist-vs-social-worker-bc` | 13/13 | 2117 | 2 | 18 | 23 | — |
 | `/compare/therapy-medication-or-both` | 13/13 | 2006 | 2 | 14 | 9 | — |
 | `/compare/therapy-vs-coaching` | 13/13 | 1966 | 2 | 14 | 6 | — |
 | `/compare/weekly-vs-biweekly-sessions` | 13/13 | 1803 | 2 | 14 | 12 | — |
-| `/contact` | 13/13 | 674 | 1 | 10 | 6 | — |
-| `/editorial-policy` | 13/13 | 1317 | 1 | 8 | 71 | — |
-| `/faq` | 13/13 | 810 | 1 | 14 | 22 | — |
+| `/contact` | 13/13 | 669 | 1 | 10 | 6 | — |
+| `/editorial-policy` | 13/13 | 1317 | 1 | 8 | 72 | — |
+| `/faq` | 13/13 | 810 | 1 | 14 | 23 | — |
 | `/for` | 13/13 | 641 | 1 | 17 | 10 | — |
 | `/for/couples` | 13/13 | 2313 | 2 | 18 | 10 | — |
 | `/for/family-caregivers` | 13/13 | 2173 | 2 | 19 | 9 | — |
@@ -75,7 +77,7 @@ Clean pages: **99 / 103**
 | `/guides/high-functioning-anxiety` | 13/13 | 1912 | 2 | 14 | 20 | — |
 | `/guides/how-long-does-therapy-take` | 13/13 | 2094 | 2 | 16 | 11 | — |
 | `/guides/how-the-gottman-method-works` | 13/13 | 2023 | 2 | 14 | 12 | — |
-| `/guides/how-to-find-a-therapist-in-bc` | 13/13 | 1910 | 2 | 16 | 17 | — |
+| `/guides/how-to-find-a-therapist-in-bc` | 13/13 | 1910 | 2 | 16 | 18 | — |
 | `/guides/imposter-feelings-at-work` | 13/13 | 1214 | 2 | 15 | 7 | — |
 | `/guides/intergenerational-trauma-explained` | 13/13 | 2102 | 2 | 17 | 22 | — |
 | `/guides/intrusive-thoughts-and-what-they-mean` | 13/13 | 1656 | 2 | 14 | 7 | — |
@@ -107,16 +109,16 @@ Clean pages: **99 / 103**
 | `/online-counselling/surrey` | 13/13 | 1039 | 2 | 20 | 7 | — |
 | `/online-counselling/vancouver` | 13/13 | 984 | 2 | 22 | 7 | — |
 | `/online-counselling/victoria` | 13/13 | 946 | 2 | 22 | 6 | — |
-| `/pricing` | 13/13 | 887 | 1 | 16 | 39 | — |
-| `/privacy` | 13/13 | 1479 | 1 | 8 | 10 | — |
+| `/pricing` | 13/13 | 887 | 1 | 16 | 40 | — |
+| `/privacy` | 13/13 | 1479 | 1 | 8 | 11 | — |
 | `/resources` | 13/13 | 779 | 1 | 13 | 9 | — |
 | `/resources/bc-crisis-and-support-directory` | 13/13 | 1412 | 2 | 14 | 23 | — |
-| `/resources/bc-extended-health-coverage-for-counselling` | 13/13 | 1716 | 2 | 12 | 20 | — |
+| `/resources/bc-extended-health-coverage-for-counselling` | 13/13 | 1716 | 2 | 12 | 21 | — |
 | `/resources/low-cost-counselling-bc` | 13/13 | 1507 | 2 | 13 | 20 | — |
 | `/resources/msp-vs-extended-health` | 13/13 | 1537 | 2 | 13 | 14 | — |
 | `/resources/psychiatry-and-assessment-in-bc` | 13/13 | 1801 | 2 | 12 | 16 | — |
 | `/resources/student-mental-health-supports-bc` | 13/13 | 1904 | 2 | 14 | 7 | — |
-| `/resources/verify-a-counsellor-in-bc` | 13/13 | 1761 | 2 | 14 | 12 | — |
+| `/resources/verify-a-counsellor-in-bc` | 13/13 | 1761 | 2 | 14 | 13 | — |
 | `/resources/workplace-mental-health-bc` | 13/13 | 1970 | 2 | 13 | 13 | — |
 | `/services` | 13/13 | 887 | 1 | 24 | 22 | — |
 | `/services/anxiety-counselling` | 13/13 | 1625 | 2 | 15 | 37 | — |
@@ -125,7 +127,7 @@ Clean pages: **99 / 103**
 | `/services/emdr-therapy` | 13/13 | 1673 | 2 | 15 | 32 | — |
 | `/services/individual-therapy` | 13/13 | 1663 | 2 | 14 | 29 | — |
 | `/services/online-counselling-bc` | 13/13 | 1726 | 2 | 18 | 9 | — |
-| `/services/punjabi-counselling` | 13/13 | 1697 | 2 | 16 | 22 | — |
-| `/services/south-asian-mental-health` | 13/13 | 1640 | 2 | 14 | 11 | — |
+| `/services/punjabi-counselling` | 13/13 | 1697 | 2 | 16 | 23 | — |
+| `/services/south-asian-mental-health` | 13/13 | 1640 | 2 | 14 | 12 | — |
 | `/services/trauma-therapy` | 13/13 | 1605 | 2 | 16 | 34 | — |
-| `/standards` | 13/13 | 1661 | 1 | 9 | 76 | — |
+| `/standards` | 13/13 | 1661 | 1 | 9 | 77 | — |

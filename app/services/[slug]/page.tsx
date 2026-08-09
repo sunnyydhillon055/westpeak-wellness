@@ -25,7 +25,20 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   return {
     title: { absolute: s.metaTitle },
     description: s.metaDescription,
-    alternates: { canonical: `${site.domain}/services/${s.slug}` },
+    alternates: {
+      canonical: `${site.domain}/services/${s.slug}`,
+      /* hreflang has to be reciprocal or search engines ignore it, so the
+       * English page points back at the Punjabi one and vice versa. Only this
+       * pair has a translation, so no other service declares alternates. */
+      ...(s.slug === 'punjabi-counselling'
+        ? {
+            languages: {
+              'en-CA': `${site.domain}/services/punjabi-counselling`,
+              pa: `${site.domain}/punjabi`,
+            },
+          }
+        : {}),
+    },
     openGraph: { title: s.metaTitle, description: s.metaDescription, url: `${site.domain}/services/${s.slug}` },
   };
 }

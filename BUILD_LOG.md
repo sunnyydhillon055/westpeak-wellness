@@ -169,6 +169,48 @@ testimonial cannot be added without noticing.
 
 ---
 
+## Finish-the-gaps pass
+
+The v2 directive listed five gaps. **Two of its premises were wrong and were
+corrected rather than acted on:** it stated GA4 was live (the code is wired but
+`NEXT_PUBLIC_GA_ID` has never been set, so nothing is being collected) and that
+the email-capture form did not exist (it does, on `/pricing`).
+
+| Gap | Outcome |
+|---|---|
+| 1 · Cliniko | `bookingsUrl` now reads `NEXT_PUBLIC_CLINIKO_URL`; `bookingReady` derives from it, so the embed appears the moment the URL is set. A documented, UNVERIFIED fallback powers a link-out button only. |
+| 2 · Email capture | Already built. Added `NURTURE_SEQUENCE.md` — three emails, then stop. |
+| 3 · Reviews | `/reviews` built (was 404) + `REVIEW_REQUEST.md`. |
+| 4 · Blog | `/blog` and `/blog/:slug` now 301 to `/guides`. |
+| 5 · Punjabi | `/punjabi` built in Punjabi, reciprocal hreflang with the English service page. |
+
+### Two places the directive was not followed, and why
+
+**The Cliniko embed is not rendered against the fallback URL.** The directive
+asks for it so the page is "functional the moment the real URL is set".
+`westpeakwellness.cliniko.com` is a guess at a subdomain; if it does not exist,
+every visitor to `/book` sees a broken iframe where the booking calendar should
+be. On a counselling site that is worse than an honest "being switched on"
+notice with a link-out — which is what ships. Setting the env var turns the
+embed on with no further change.
+
+**No post-session review-request email was written.** The directive asks for one
+as part of a "review-request loop". BCACC prohibits soliciting testimonials from
+counselling clients, including former ones, because someone in a therapeutic
+relationship cannot freely decline. There is no compliant way to write that
+email. `REVIEW_REQUEST.md` explains the rule, provides the template that *is*
+permitted — to colleagues and referrers — and lists what actually builds trust
+for a local practice instead. Writing the requested email would have been the
+single most damaging thing added to this site.
+
+### The Punjabi tension, resolved
+
+An earlier instruction was to stop over-emphasising Punjabi; this directive asks
+for a Punjabi landing page. They are compatible and both were honoured: the
+thin scattering of the word across every English page stays removed, and the
+language now has one real page written *in* it for someone searching in it.
+Concentrated, not diffuse.
+
 ## Where this run did not reach the directive's bar
 
 Stated plainly rather than papered over.
