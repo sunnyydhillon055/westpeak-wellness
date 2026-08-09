@@ -3,6 +3,7 @@ import { site } from '@/lib/site';
 import { featuredServices } from '@/lib/services';
 import { faqs } from '@/lib/faq';
 import CtaBand from '@/components/CtaBand';
+import Figure from '@/components/Figure';
 
 const homeFaqs = faqs.filter((f) =>
   ['Are you taking new clients?', 'Do you offer sessions in Punjabi?', 'Are you covered by extended health benefits?', 'Is this practice fully online?'].includes(f.q)
@@ -79,6 +80,7 @@ export default function Home() {
         <div className="container">
           <p className="eyebrow">The process</p>
           <h2>How we work together</h2>
+          <Figure name="first-session-flow" />
           <div className="steps" style={{ marginTop: 28, maxWidth: 720 }}>
             <div className="step"><div className="step-num">1</div><div>
               <h3>Free 15-min consult</h3>

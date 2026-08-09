@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { locations } from '@/lib/locations';
 import { site } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
+import Figure from '@/components/Figure';
 
 export const metadata: Metadata = {
   title: 'Areas Served Across British Columbia',
@@ -32,6 +33,7 @@ export default function LocationsIndex() {
         <div className="container prose">
           <p className="crumb"><Link href="/">Home</Link> / Areas served</p>
           <h2>Anywhere in BC means anywhere in BC</h2>
+          <Figure name="bc-reach" />
           <p>
             Because there is no office, there is no catchment. A Registered Clinical Counsellor
             registered in British Columbia can work with clients anywhere in the province by secure

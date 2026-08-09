@@ -5,6 +5,7 @@ import { audiences, getAudience } from '@/lib/audiences';
 import { site } from '@/lib/site';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import Figure from '@/components/Figure';
 
 export function generateStaticParams() {
   return audiences.map((a) => ({ slug: a.slug }));
@@ -93,6 +94,7 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
               </div>
             ))}
           </div>
+          {a.figure && <Figure name={a.figure} />}
           <div className="crisis" style={{ marginTop: 32 }}>
             <p style={{ margin: 0 }}>
               {a.midCta.text} <Link href={site.bookingPath}>{a.midCta.label}</Link>.

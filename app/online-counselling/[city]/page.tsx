@@ -6,6 +6,7 @@ import { featuredServices } from '@/lib/services';
 import { site } from '@/lib/site';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import Figure from '@/components/Figure';
 
 export function generateStaticParams() {
   return locations.map((l) => ({ city: l.slug }));
@@ -94,6 +95,7 @@ export default function CityPage({ params }: { params: { city: string } }) {
                 </div>
               ))}
             </div>
+            {l.figure && <Figure name={l.figure} />}
             <div className="crisis" style={{ marginTop: 32 }}>
               <p style={{ margin: 0 }}>
                 Not sure which kind of support fits? A{' '}

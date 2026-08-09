@@ -5,6 +5,8 @@ import { guides, getGuide } from '@/lib/guides';
 import { site } from '@/lib/site';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import Figure from '@/components/Figure';
+import { getFigure } from '@/lib/figures';
 
 export function generateStaticParams() {
   return guides.map((g) => ({ slug: g.slug }));
@@ -39,7 +41,12 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
       inLanguage: 'en-CA',
       mainEntityOfPage: { '@type': 'WebPage', '@id': `${site.domain}/guides/${g.slug}` },
       publisher: { '@type': 'Organization', name: site.name, url: site.domain },
+      author: { '@type': 'Organization', name: site.name, url: `${site.domain}/about` },
       isAccessibleForFree: true,
+      image: [
+        `${site.domain}/guides/${g.slug}/opengraph-image`,
+        ...(g.figure && getFigure(g.figure) ? [`${site.domain}/img/${getFigure(g.figure)!.file}`] : []),
+      ],
     },
     {
       '@context': 'https://schema.org', '@type': 'BreadcrumbList',
@@ -96,6 +103,8 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
                   ))}
                 </ul>
               )}
+
+              {i === 0 && g.figure && <Figure name={g.figure} />}
 
               {/* mid-page contextual CTA, placed after the first section */}
               {i === 0 && (

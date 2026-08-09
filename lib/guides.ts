@@ -19,11 +19,13 @@ export type Guide = {
   faqs: { q: string; a: string }[];
   sources: { label: string; url: string }[];
   related: { href: string; label: string }[];
+  figure?: string;         // key into lib/figures.ts — renders the page's diagram
 };
 
 export const guides: Guide[] = [
   {
     slug: "is-online-therapy-as-effective-as-in-person",
+    figure: "bc-reach",
     title: "Is online therapy as effective as in-person therapy?",
     metaTitle: "Is Online Therapy as Effective? | Westpeak Wellness",
     metaDescription:
@@ -118,6 +120,7 @@ export const guides: Guide[] = [
   },
   {
     slug: "what-is-emdr-and-how-a-session-works",
+    figure: "emdr-phases",
     title: "What is EMDR, and what actually happens in a session?",
     metaTitle: "What Is EMDR & How Sessions Work | Westpeak Wellness",
     metaDescription:
@@ -201,6 +204,7 @@ export const guides: Guide[] = [
 
   {
     slug: "anxiety-attack-vs-panic-attack",
+    figure: "panic-vs-anxiety",
     title: "Anxiety attack vs panic attack: what is the difference?",
     metaTitle: "Anxiety Attack vs Panic Attack | Westpeak Wellness",
     metaDescription:
@@ -273,6 +277,7 @@ export const guides: Guide[] = [
 
   {
     slug: "high-functioning-anxiety",
+    figure: "anxiety-avoidance-cycle",
     title: "High-functioning anxiety: when everything looks fine from outside",
     metaTitle: "High-Functioning Anxiety: Signs | Westpeak Wellness",
     metaDescription:
@@ -346,6 +351,7 @@ export const guides: Guide[] = [
 
   {
     slug: "what-to-expect-first-therapy-session",
+    figure: "first-session-flow",
     title: "What actually happens in a first therapy session",
     metaTitle: "What to Expect: First Therapy Session | Westpeak Wellness",
     metaDescription:
@@ -426,6 +432,7 @@ export const guides: Guide[] = [
   },
   {
     slug: "how-the-gottman-method-works",
+    figure: "gottman-method",
     title: "How the Gottman Method works in couples therapy",
     metaTitle: "How the Gottman Method Works | Westpeak Wellness",
     metaDescription:
@@ -498,6 +505,7 @@ export const guides: Guide[] = [
 
   {
     slug: "burnout-vs-depression",
+    figure: "burnout-vs-depression",
     title: "Burnout or depression: how to tell the difference",
     metaTitle: "Burnout vs Depression: The Difference | Westpeak Wellness",
     metaDescription:
@@ -570,6 +578,7 @@ export const guides: Guide[] = [
 
   {
     slug: "intergenerational-trauma-explained",
+    figure: "window-of-tolerance",
     title: "Intergenerational trauma, explained plainly",
     metaTitle: "Intergenerational Trauma Explained | Westpeak Wellness",
     metaDescription:
@@ -644,6 +653,7 @@ export const guides: Guide[] = [
 
   {
     slug: "how-to-find-a-therapist-in-bc",
+    figure: "designations-bc",
     title: "How to actually find a therapist in BC",
     metaTitle: "How to Find a Therapist in BC | Westpeak Wellness",
     metaDescription:

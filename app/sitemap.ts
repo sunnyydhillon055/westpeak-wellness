@@ -11,7 +11,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const url = (p: string) => `${site.domain}${p}`;
 
-  const core = ['', '/about', '/services', '/pricing', '/contact', '/faq', '/online-counselling', '/guides', '/compare', '/for', '/resources'];
+  const core = ['', '/about', '/services', '/pricing', '/contact', '/faq', '/online-counselling', '/guides', '/compare', '/for', '/resources', '/glossary'];
+
+  // Trust-and-transparency pages: indexable, but lower priority than the pages
+  // someone is actually searching for.
+  const trust = ['/standards', '/editorial-policy', '/privacy', '/accessibility'];
 
   return [
     ...core.map((p) => ({
@@ -19,6 +23,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: p === '' ? 1 : 0.8,
     })),
     { url: url('/book'), lastModified: now, changeFrequency: 'monthly' as const, priority: 0.9 },
+    ...trust.map((p) => ({
+      url: url(p), lastModified: now, changeFrequency: 'yearly' as const, priority: 0.4,
+    })),
     ...services.map((s) => ({
       url: url(`/services/${s.slug}`), lastModified: now,
       changeFrequency: 'monthly' as const, priority: 0.8,

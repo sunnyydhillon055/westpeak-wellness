@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Westpeak Wellness">
+  <rect width="64" height="64" rx="14" fill="#3f6ca3"/>
+  <path d="M12 46 L26 20 L34 34 L39 25 L52 46 Z" fill="#ffffff"/>
+  <circle cx="44" cy="17" r="5" fill="#a8c6e6"/>
+</svg>

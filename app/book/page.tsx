@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Figure from '@/components/Figure';
 import Link from 'next/link';
 import { site } from '@/lib/site';
 import CalendlyEmbed from '@/components/CalendlyEmbed';
@@ -58,6 +59,7 @@ export default function Book() {
         <div className="container">
           <p className="eyebrow">What happens in the 15 minutes</p>
           <h2>No intake forms, no pressure.</h2>
+          <Figure name="first-session-flow" caption="The consultation is step one of four — and stopping after it is a normal outcome." />
           <div className="steps" style={{ marginTop: 26, maxWidth: 760 }}>
             <div className="step"><div className="step-num">1</div><div>
               <h3>You say what brought you here</h3>

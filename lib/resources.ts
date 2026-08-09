@@ -20,11 +20,13 @@ export type Resource = {
   faqs: { q: string; a: string }[];
   sources: { label: string; url: string }[];
   related: { href: string; label: string }[];
+  figure?: string;         // key into lib/figures.ts — renders the page's diagram
 };
 
 export const resources: Resource[] = [
   {
     slug: "bc-extended-health-coverage-for-counselling",
+    figure: "reimbursement-flow",
     title: "Extended health coverage for counselling in BC",
     metaTitle: "BC Extended Health & Counselling | Westpeak Wellness",
     metaDescription:
@@ -114,6 +116,7 @@ export const resources: Resource[] = [
 
   {
     slug: "msp-vs-extended-health",
+    figure: "therapy-cost-in-bc",
     title: "MSP vs extended health: what actually covers therapy in BC",
     metaTitle: "MSP vs Extended Health for Therapy | Westpeak Wellness",
     metaDescription:
@@ -195,6 +198,7 @@ export const resources: Resource[] = [
 
   {
     slug: "low-cost-counselling-bc",
+    figure: "therapy-cost-in-bc",
     title: "Free and low-cost counselling in BC",
     metaTitle: "Free & Low-Cost Counselling in BC | Westpeak Wellness",
     metaDescription:
@@ -269,6 +273,7 @@ export const resources: Resource[] = [
 
   {
     slug: "bc-crisis-and-support-directory",
+    figure: "bc-reach",
     title: "BC crisis and mental health support directory",
     metaTitle: "BC Crisis & Support Directory | Westpeak Wellness",
     metaDescription:

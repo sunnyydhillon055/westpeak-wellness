@@ -14,6 +14,7 @@ export type Location = {
   faqs?: { q: string; a: string }[];
   sources?: { label: string; url: string }[];
   nearby?: string[];        // sibling slugs, for across-cluster links
+  figure?: string;         // key into lib/figures.ts — renders the page's diagram
 };
 
 /**
@@ -29,6 +30,7 @@ export type Location = {
 export const locations: Location[] = [
   {
     slug: "prince-george",
+    figure: "bc-reach",
     city: "Prince George",
     region: "Northern BC",
     blurb: "Northern BC has the thinnest counselling coverage in the province — virtual care is how the gap gets closed.",
@@ -76,6 +78,7 @@ export const locations: Location[] = [
 
   {
     slug: "surrey",
+    figure: "bc-reach",
     city: "Surrey",
     region: "Lower Mainland",
     blurb: "Home ground — and the community where the demand for Punjabi-language therapy is highest in the province.",
@@ -113,6 +116,7 @@ export const locations: Location[] = [
 
   {
     slug: "vancouver",
+    figure: "bc-reach",
     city: "Vancouver",
     region: "Lower Mainland",
     blurb: "The most therapists in the province, and still a waitlist — because the constraint here is affordability, not supply.",
@@ -150,6 +154,7 @@ export const locations: Location[] = [
 
   {
     slug: "abbotsford",
+    figure: "bc-reach",
     city: "Abbotsford",
     region: "Fraser Valley",
     blurb: "Fraser Valley distances make virtual sessions less a convenience than the thing that makes attending possible.",
@@ -188,6 +193,7 @@ export const locations: Location[] = [
 
   {
     slug: "victoria",
+    figure: "bc-reach",
     city: "Victoria",
     region: "Vancouver Island",
     blurb: "On the Island, specialist care has often meant a ferry, a day off, and a return sailing. It no longer has to.",
@@ -226,6 +232,7 @@ export const locations: Location[] = [
 
   {
     slug: "kelowna",
+    figure: "bc-reach",
     city: "Kelowna",
     region: "Okanagan",
     blurb: "The Okanagan's population has grown faster than its mental-health services have — and specialist options remain thin.",

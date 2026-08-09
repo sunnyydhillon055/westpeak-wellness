@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { site } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
+import Figure from '@/components/Figure';
 
 export const metadata: Metadata = {
   title: 'Fees & Insurance',
@@ -124,6 +125,20 @@ export default function Pricing() {
               <p style={{ marginBottom: 0 }}>24 hours&rsquo; notice. Late cancels or no-shows are charged the full fee. Exceptions for genuine emergencies.</p>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="section section--tint">
+        <div className="container prose">
+          <p className="eyebrow">How payment works</p>
+          <h2>Paying, and then claiming it back</h2>
+          <p>
+            This practice does not direct-bill. You pay at the time of the session and receive a
+            receipt showing the RCC registration number, which is what an insurer needs to reimburse
+            you. Whether your plan covers a Registered Clinical Counsellor is worth confirming before
+            you book &mdash; see <a href="/resources/bc-extended-health-coverage-for-counselling">extended health coverage in BC</a>.
+          </p>
+          <Figure name="reimbursement-flow" />
         </div>
       </section>
 

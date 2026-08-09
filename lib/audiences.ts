@@ -17,11 +17,13 @@ export type Audience = {
   faqs: { q: string; a: string }[];
   sources: { label: string; url: string }[];
   related: { href: string; label: string }[];
+  figure?: string;         // key into lib/figures.ts — renders the page's diagram
 };
 
 export const audiences: Audience[] = [
   {
     slug: "new-parents",
+    figure: "first-session-flow",
     title: "Counselling for new parents in BC",
     metaTitle: "Counselling for New Parents in BC | Westpeak Wellness",
     metaDescription:
@@ -125,6 +127,7 @@ export const audiences: Audience[] = [
   },
   {
     slug: "university-students",
+    figure: "therapy-cost-in-bc",
     title: "Counselling for university and college students in BC",
     metaTitle: "Counselling for BC Students | Westpeak Wellness",
     metaDescription:
@@ -206,6 +209,7 @@ export const audiences: Audience[] = [
 
   {
     slug: "healthcare-and-shift-workers",
+    figure: "burnout-vs-depression",
     title: "Counselling for healthcare and shift workers in BC",
     metaTitle: "Counselling for Shift Workers BC | Westpeak Wellness",
     metaDescription:
@@ -284,6 +288,7 @@ export const audiences: Audience[] = [
   },
   {
     slug: "first-gen-south-asian-adults",
+    figure: "window-of-tolerance",
     title: "Counselling for first- and second-generation South Asian adults",
     metaTitle: "South Asian Counselling in BC | Westpeak Wellness",
     metaDescription:
@@ -363,6 +368,7 @@ export const audiences: Audience[] = [
 
   {
     slug: "mens-mental-health",
+    figure: "anxiety-avoidance-cycle",
     title: "Counselling for men who have been putting this off",
     metaTitle: "Counselling for Men in BC | Westpeak Wellness",
     metaDescription:

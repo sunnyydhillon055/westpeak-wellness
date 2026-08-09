@@ -19,11 +19,13 @@ export type Comparison = {
   faqs: { q: string; a: string }[];
   sources: { label: string; url: string }[];
   related: { href: string; label: string }[];
+  figure?: string;         // key into lib/figures.ts — renders the page's diagram
 };
 
 export const comparisons: Comparison[] = [
   {
     slug: "rcc-vs-psychologist-vs-social-worker-bc",
+    figure: "designations-bc",
     title: "RCC, psychologist, or social worker: who should you see in BC?",
     metaTitle: "RCC vs Psychologist vs RSW in BC | Westpeak Wellness",
     metaDescription:
@@ -118,6 +120,7 @@ export const comparisons: Comparison[] = [
   },
   {
     slug: "individual-vs-couples-therapy",
+    figure: "gottman-method",
     title: "Individual or couples therapy: which should you start with?",
     metaTitle: "Individual vs Couples Therapy | Westpeak Wellness",
     metaDescription:
@@ -206,6 +209,7 @@ export const comparisons: Comparison[] = [
 
   {
     slug: "cbt-vs-emdr-for-trauma",
+    figure: "emdr-phases",
     title: "CBT or EMDR for trauma: how they differ",
     metaTitle: "CBT vs EMDR for Trauma | Westpeak Wellness",
     metaDescription:

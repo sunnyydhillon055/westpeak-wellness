@@ -35,6 +35,15 @@ export default function Footer() {
             <Link href={site.bookingPath}>Book a Consultation</Link>
             <a href={site.instagramUrl} target="_blank" rel="noopener">Instagram</a>
           </div>
+          <div>
+            <h4>Trust &amp; transparency</h4>
+            <Link href="/standards">Standards &amp; Accountability</Link>
+            <Link href="/editorial-policy">Editorial Policy</Link>
+            <Link href="/privacy">Privacy &amp; Confidentiality</Link>
+            <Link href="/accessibility">Accessibility</Link>
+            <Link href="/glossary">Counselling Glossary</Link>
+            <Link href="/resources/bc-crisis-and-support-directory">Crisis &amp; Support in BC</Link>
+          </div>
         </div>
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} Westpeak Wellness · {site.counsellor.title}</span>

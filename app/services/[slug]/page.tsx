@@ -5,6 +5,7 @@ import { services, getService } from '@/lib/services';
 import { site } from '@/lib/site';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import Figure from '@/components/Figure';
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -114,6 +115,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                 </div>
               ))}
             </div>
+            {s.figure && <Figure name={s.figure} />}
             <div className="crisis" style={{ marginTop: 32 }}>
               <p style={{ margin: 0 }}>
                 Recognise several of these? A{' '}

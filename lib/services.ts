@@ -19,11 +19,13 @@ export type Service = {
   faqs?: { q: string; a: string }[];
   related?: { href: string; label: string }[];
   sources?: { label: string; url: string }[];
+  figure?: string;         // key into lib/figures.ts — renders the page's diagram
 };
 
 export const services: Service[] = [
   {
     slug: "individual-therapy",
+    figure: "first-session-flow",
     name: "Individual Therapy",
     short: "1:1 for anxiety, depression, life transitions, identity, family dynamics.",
     metaTitle: "Individual Counselling in BC (Online) | Westpeak Wellness",
@@ -86,6 +88,7 @@ export const services: Service[] = [
   },
   {
     slug: "couples-therapy",
+    figure: "gottman-method",
     name: "Couples Therapy",
     short: "Gottman Method — communication, conflict, connection, repair.",
     metaTitle: "Online Couples Counselling in BC | Westpeak Wellness",
@@ -148,6 +151,7 @@ export const services: Service[] = [
   },
   {
     slug: "emdr-therapy",
+    figure: "emdr-phases",
     name: "EMDR Therapy",
     short: "Evidence-based for trauma, PTSD, anxiety, grief.",
     metaTitle: "EMDR Therapy in BC (Online) | Westpeak Wellness",
@@ -210,6 +214,7 @@ export const services: Service[] = [
   },
   {
     slug: "trauma-therapy",
+    figure: "window-of-tolerance",
     name: "Trauma Therapy",
     short: "Trauma-informed care for single-incident, complex, and intergenerational trauma.",
     metaTitle: "Trauma Counselling in BC (Online) | Westpeak Wellness",
@@ -271,6 +276,7 @@ export const services: Service[] = [
   },
   {
     slug: "anxiety-counselling",
+    figure: "anxiety-avoidance-cycle",
     name: "Anxiety Counselling",
     short: "Practical support for GAD, panic, social anxiety, and OCD.",
     metaTitle: "Anxiety Counselling in BC (Online) | Westpeak Wellness",
@@ -332,6 +338,7 @@ export const services: Service[] = [
   },
   {
     slug: "depression-counselling",
+    figure: "burnout-vs-depression",
     name: "Depression Counselling",
     short: "For major depression, dysthymia, postpartum, and grief-related low mood.",
     metaTitle: "Depression Counselling in BC (Online) | Westpeak Wellness",
@@ -393,6 +400,7 @@ export const services: Service[] = [
   },
   {
     slug: "punjabi-counselling",
+    figure: "bc-reach",
     name: "Punjabi-Speaking Counselling",
     short: "Therapy in Punjabi, English, or both — culturally fluent.",
     metaTitle: "Punjabi-Speaking Counselling in BC | Westpeak Wellness",
@@ -455,6 +463,7 @@ export const services: Service[] = [
   },
   {
     slug: "south-asian-mental-health",
+    figure: "window-of-tolerance",
     name: "South Asian Mental Health",
     short: "Family expectations, identity, and intergenerational patterns.",
     metaTitle: "South Asian Therapy in BC | Westpeak Wellness",
@@ -516,6 +525,7 @@ export const services: Service[] = [
   },
   {
     slug: "online-counselling-bc",
+    figure: "bc-reach",
     name: "Online Counselling BC",
     short: "Secure virtual sessions anywhere in British Columbia.",
     metaTitle: "Online Counselling Across BC | Westpeak Wellness",

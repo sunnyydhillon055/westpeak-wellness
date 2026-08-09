@@ -5,6 +5,7 @@ import { comparisons, getComparison } from '@/lib/comparisons';
 import { site } from '@/lib/site';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import Figure from '@/components/Figure';
 
 export function generateStaticParams() {
   return comparisons.map((c) => ({ slug: c.slug }));
@@ -110,6 +111,7 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
                     ))}
                   </ul>
                 )}
+                {i === 0 && c.figure && <Figure name={c.figure} />}
                 {i === 0 && (
                   <div className="crisis" style={{ margin: '32px 0' }}>
                     <p style={{ margin: 0 }}>

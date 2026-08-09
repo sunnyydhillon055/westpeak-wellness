@@ -5,6 +5,7 @@ import { resources, getResource } from '@/lib/resources';
 import { site } from '@/lib/site';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import Figure from '@/components/Figure';
 
 export function generateStaticParams() {
   return resources.map((r) => ({ slug: r.slug }));
@@ -116,6 +117,7 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
 
               {i === 0 && (
                 <div className="prose">
+                  {r.figure && <Figure name={r.figure} />}
                   <div className="crisis" style={{ margin: '8px 0 32px' }}>
                     <p style={{ margin: 0 }}>
                       {r.midCta.text} <Link href={site.bookingPath}>{r.midCta.label}</Link>.
