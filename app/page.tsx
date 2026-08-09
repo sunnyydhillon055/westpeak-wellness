@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { site } from '@/lib/site';
+import { gurmukhi } from '@/app/fonts';
 import { featuredServices } from '@/lib/services';
 import { faqs } from '@/lib/faq';
 import CtaBand from '@/components/CtaBand';
@@ -154,7 +155,7 @@ export default function Home() {
       </section>
 
       {/* -------------------------------------------------- SIGNATURE MOMENT */}
-      <section className="signature">
+      <section className={`signature ${gurmukhi.variable}`}>
         <span className="signature-script" aria-hidden="true">ਸੰਦਰਭ</span>
         <div className="container container--wide">
           <div className="signature-inner">

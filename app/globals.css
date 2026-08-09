@@ -99,14 +99,11 @@ body{
   font-synthesis-weight:none;
   -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
 }
-h1,h2,h3,h4{font-family:var(--font-display);color:var(--ink);
-  font-variation-settings:'SOFT' 22,'WONK' 0;font-weight:520;}
-h1{font-size:var(--fs-h1);line-height:1.06;letter-spacing:-.022em;margin:0 0 .32em;
-  font-variation-settings:'SOFT' 34,'WONK' 1}
-h2{font-size:var(--fs-h2);line-height:1.12;letter-spacing:-.018em;margin:0 0 .4em;
-  font-variation-settings:'SOFT' 28,'WONK' 0}
-h3{font-size:var(--fs-h3);line-height:1.26;letter-spacing:-.012em;margin:0 0 .35em;font-weight:560}
-h4{font-size:var(--fs-h4);line-height:1.3;letter-spacing:-.008em;margin:0 0 .3em;font-weight:580}
+h1,h2,h3,h4{font-family:var(--font-display);color:var(--ink);font-weight:500;}
+h1{font-size:var(--fs-h1);line-height:1.06;letter-spacing:-.022em;margin:0 0 .32em;}
+h2{font-size:var(--fs-h2);line-height:1.12;letter-spacing:-.018em;margin:0 0 .4em;}
+h3{font-size:var(--fs-h3);line-height:1.26;letter-spacing:-.012em;margin:0 0 .35em;font-weight:600}
+h4{font-size:var(--fs-h4);line-height:1.3;letter-spacing:-.008em;margin:0 0 .3em;font-weight:600}
 p{margin:0 0 .85em}
 a{color:var(--blue-deep);text-decoration:none}
 img{max-width:100%;display:block}

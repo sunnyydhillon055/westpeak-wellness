@@ -23,7 +23,7 @@ export const display = Fraunces({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-display',
-  axes: ['SOFT', 'WONK', 'opsz'],
+  weight: ['500', '600'],
   fallback: ['Georgia', 'Times New Roman', 'serif'],
 });
 
@@ -34,11 +34,20 @@ export const body = Inter({
   fallback: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', 'sans-serif'],
 });
 
+/* Gurmukhi is deliberately NOT in the global font variables.
+ *
+ * It was loading on all 105 pages — 28 kB every time — for text that appears on
+ * three of them. It is applied per page instead, via `gurmukhi.variable` on the
+ * pages that actually render ਪੰਜਾਬੀ, so the other 102 never fetch it at all.
+ *
+ * One weight rather than two: the script appears as a heading and a decorative
+ * watermark, and the second weight was ~14 kB for a distinction nobody would
+ * notice. */
 export const gurmukhi = Noto_Serif_Gurmukhi({
   subsets: ['gurmukhi'],
   display: 'swap',
   variable: '--font-gurmukhi',
-  weight: ['400', '600'],
+  weight: ['600'],
 });
 
-export const fontVars = `${display.variable} ${body.variable} ${gurmukhi.variable}`;
+export const fontVars = `${display.variable} ${body.variable}`;

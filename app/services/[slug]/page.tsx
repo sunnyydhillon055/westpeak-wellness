@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { services, getService } from '@/lib/services';
 import { site } from '@/lib/site';
+import { gurmukhi } from '@/app/fonts';
 import { getExtra } from '@/lib/depth';
 import { buildToc, headingId } from '@/lib/toc';
 import { orgRef, siteRef, personRef } from '@/lib/schema';
@@ -92,7 +93,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
   ].filter(Boolean);
 
   return (
-    <>
+    <div className={s.slug === 'punjabi-counselling' ? gurmukhi.variable : undefined}>
       <section className="hero" style={{ paddingBottom: 48 }}>
         <div className="container">
           <p className="eyebrow">{s.name}</p>
@@ -263,6 +264,6 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
       <CtaBand />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
-    </>
+    </div>
   );
 }

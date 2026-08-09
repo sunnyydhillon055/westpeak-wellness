@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { site } from '@/lib/site';
+import { gurmukhi } from '@/app/fonts';
 import { abs, orgRef, siteRef } from '@/lib/schema';
 import Figure from '@/components/Figure';
 
@@ -60,7 +61,7 @@ export default function PunjabiPage() {
   ];
 
   return (
-    <div lang="pa">
+    <div lang="pa" className={gurmukhi.variable}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 
       <section className="hero" style={{ paddingBottom: 36 }}>
