@@ -1,99 +1,161 @@
-# Client portal — access and administration
+# Client portal and admin — how access works
 
-## How access works
+Rewritten after the move to real accounts. Earlier versions of this file
+described an emailed-link and shared-code system that no longer exists.
 
-Two gates, both required:
+---
 
-1. **Middleware** (`middleware.ts`) checks that the session cookie is one this
-   site issued, for the area being requested. Signature only, no I/O.
-2. **The page** re-checks the address against the stored list on every render.
+## Sign-in
 
-The split exists because edge middleware cannot read the blob store. It is also
-what makes removal immediate: a signed cookie stays cryptographically valid, so
-if only the signature were checked, a removed client would keep access until
-their cookie expired. The second check is not belt-and-braces — it is the
-mechanism.
+One page, `/signin`, serving both areas. Which one you asked for decides the
+wording and the destination — arriving from `/admin` says "Staff sign in", from
+the portal it says "Client portal" — but there is one form, so there is no
+second page to keep in step.
 
-`/admin` and `/client-portal` use **separate cookies and separate signature
-namespaces**. A client session cannot be replayed against the admin area, and a
-sign-in link mailed to a client cannot be redeemed for an admin session even if
-the URL is edited, because the scope is inside the signed payload.
+Two methods:
+
+- **Google** — appears once `AUTH_GOOGLE_ID` and `AUTH_GOOGLE_SECRET` are set.
+  Nothing secret is stored here, and Google's own 2FA applies.
+- **Email and password** — optional, for people who do not want Google.
+  Self-service from `/forgot`, or set by an administrator at `/admin`.
+
+**Authentication and authorization are separate, deliberately.** The providers
+answer *are you who you say you are*. The `signIn` callback in `auth.ts` answers
+*are you allowed here* — the address must be on the client list, known to
+Cliniko, or an administrator. A valid Google account on its own grants nothing.
+Without that second check every Google account on earth would have access.
+
+Google's unverified-email case is rejected explicitly. Google can assert an
+address it has not confirmed, and that must not be enough to open someone
+else's portal.
+
+## Two gates, and why both are needed
+
+1. **Middleware** checks there is a session with the right role, before
+   anything renders. No I/O.
+2. **The page** re-checks the person against the stored list on every render.
+
+The second is not belt-and-braces. A session token stays valid until it
+expires, so without it, removing someone in `/admin` would not take effect
+until then. This is the mechanism that makes removal immediate.
+
+`/admin` is staff only, enforced in both places. A client who follows a link
+there is told plainly that the account has no admin access — not bounced.
+
+## Password reset
+
+`/forgot` → one-time link → `/reset`. No involvement from the practice.
+
+**Single-use without a database.** The link carries a fingerprint derived from
+the credential it was issued against. Changing the password changes the
+fingerprint, so using a link spends it and cancels every other outstanding link
+for that account. The fingerprint is a hash *of the stored hash*, never the hash
+itself, so a reset URL cannot be worked backwards into anything.
+
+The request step answers identically whether or not the address has an account,
+in the same fixed time. On a counselling site, revealing whether someone has an
+account reveals whether they are a client.
+
+Eligibility is re-checked when the link is redeemed, not only when it is issued,
+so someone removed from the list in between cannot complete a reset.
+
+Needs `RESEND_API_KEY` and `PORTAL_FROM_EMAIL`. Without them the form accepts an
+address and confirms, and no mail is sent.
+
+## ⚠ Vercel Blob is not read-after-write consistent
+
+**This caused two real bugs and is the thing to know before changing any of
+this code.** A read immediately after a write can still return the previous
+object.
+
+Harmless for the client allowlist, where a few seconds of staleness costs
+nothing. Not harmless for credentials:
+
+- `setPassword` wrote and the route reported success unconditionally. When the
+  write did not land, the old password kept working while the person had been
+  told to use a new one — silent on both sides.
+- The single-use check re-reads the credential, so a stale read allowed a used
+  link to be replayed. Testing confirmed a replayed link actually overwrote the
+  password.
+
+Two mitigations, both in place:
+
+1. **A write-through cache** in `lib/portal-users.ts`. A write is immediately
+   visible to the process that made it, which is the case that matters — the
+   reset, the verification and the replay check all happen in one request.
+2. **The reset route reads the new password back and re-verifies it** before
+   reporting success, and says so plainly when it cannot.
+
+**What is still true:** writes propagate between serverless instances at their
+own pace, so a replay landing on a cold instance inside that window could be
+accepted. Closing that properly needs a strongly consistent store. It is a
+narrow window on a low-traffic site, and it is a real limitation rather than a
+theoretical one.
+
+Never add a code path that decides access from a read taken straight after a
+write without accounting for this.
 
 ## Managing clients
 
-Sign in at **`/admin`** and edit the list. One address per line. On save the
-list is lowercased, de-duplicated, sorted, and anything that is not a valid
-address is dropped — what you see after saving is exactly what is stored.
-
-Removing someone takes effect on their next click. There is no session to wait
-out and nothing to rotate for anyone else.
+`/admin` — one address per line. On save the list is lowercased, de-duplicated,
+sorted, and anything invalid is dropped, so what you see after saving is exactly
+what is stored. Removal takes effect on the next click.
 
 `PORTAL_ALLOWED_EMAILS` still works and is merged with the stored list, so
-anyone configured before `/admin` existed keeps access. Prefer the admin screen.
+anyone configured before `/admin` existed keeps access. Prefer the screen.
+
+Administrators live in `PORTAL_ADMIN_EMAILS`, deliberately outside the form that
+manages clients — the screen that removes people must not be able to remove the
+last way in.
+
+## Cliniko
+
+Optional. With `CLINIKO_API_KEY` set, anyone Cliniko knows as a patient can sign
+in without being listed. **Additive, never subtractive**: consulted after the
+stored list, and only a confident match grants access. An outage, a rotated key
+or an unsupported filter all return "no" and let the other sources decide.
+Treating Cliniko as the authority would mean one failed request locking every
+client out at once.
+
+Cliniko's docs do not confirm that `email` is a filterable field on the patients
+endpoint. Use the connection test on `/admin` — it runs one live lookup and
+reports which of seven states occurred.
+
+## Privacy
+
+The client allowlist is *who is receiving counselling*, which is health
+information about identifiable people. The blob store is private, but it lives
+in Vercel's `iad1` region — the United States — and Cliniko already holds the
+same information. That is a second copy of clinical data in another country,
+which for a BC practice under PIPA is a decision to make rather than a default
+to accept.
+
+Once Cliniko lookups are confirmed working, **emptying the stored list is what
+actually removes the second copy.** That is the point of the Cliniko
+integration, and it is a deliberate step.
 
 ## Environment variables
 
 | Variable | Required | What it does |
 |---|---|---|
-| `PORTAL_SECRET` | **yes** | Signs links and sessions. Unset ⇒ nobody gets in, anywhere. |
-| `PORTAL_ADMIN_EMAILS` | **yes** | Who may reach `/admin`. Deliberately *not* editable from `/admin` — that screen must not be able to remove the last way in. |
-| `RESEND_API_KEY`, `PORTAL_FROM_EMAIL` | for email sign-in | Sends the links. Without them the email path accepts an address and sends nothing. |
-| `PORTAL_ADMIN_CODE` | bootstrap only | Opens an admin session for the first address in `PORTAL_ADMIN_EMAILS`. Exists so the owner is not locked out of the access screen before email works. **Delete once email is configured.** |
-| `PORTAL_ACCESS_CODE` | legacy | Shared client code. Delete once clients are on email. |
-| `BLOB_READ_WRITE_TOKEN` | **yes** | Set automatically when the blob store was linked. |
-| `PORTAL_ALLOWED_EMAILS` | optional | Legacy client list, merged with the stored one. |
-| `CLINIKO_API_KEY` | optional | Lets Cliniko patients sign in without being listed here. Must include the shard suffix (`…-au1`, `…-ca1`) — the host is derived from it. |
+| `AUTH_SECRET` | **yes** | Signs session tokens |
+| `PORTAL_SECRET` | **yes** | Signs reset links |
+| `PORTAL_ADMIN_EMAILS` | **yes** | Who may reach `/admin` |
+| `BLOB_READ_WRITE_TOKEN` | **yes** | Set automatically when the store was linked |
+| `AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET` | for Google | Redirect URI must be `https://<domain>/api/auth/callback/google` |
+| `RESEND_API_KEY` / `PORTAL_FROM_EMAIL` | for reset emails | Without them `/forgot` confirms and sends nothing |
+| `CLINIKO_API_KEY` | optional | Cliniko patients sign in without being listed |
+| `PORTAL_ALLOWED_EMAILS` | optional | Legacy list, merged with the stored one |
 
-Changing any of these needs a redeploy to take effect. **Editing the client list
-in `/admin` does not** — that is the point of the blob store.
+All of these need a redeploy to take effect. **Editing the client list in
+`/admin` does not** — that is why it lives in Blob.
 
-## Privacy — read before scaling this up
+## Deliberately not built
 
-The list is *who is receiving counselling*, which is health information about
-identifiable people. Two facts to weigh:
-
-- The blob store is **private** (no public URL; reads are authenticated), but it
-  is in Vercel's **`iad1`** region — **the United States**.
-- The same information already exists in Cliniko, under whatever residency was
-  chosen there.
-
-So this is a **second copy of clinical information, in another country**. For a
-BC practice under PIPA/PIPEDA that is worth a deliberate decision rather than a
-default.
-
-### Cliniko as the source of truth
-
-This is now built. Set `CLINIKO_API_KEY` and a portal sign-in also succeeds for
-anyone Cliniko knows as a patient — add someone in Cliniko and they can sign in;
-discharge them and they cannot. Nobody has to be typed into the list above.
-
-**It is additive, never subtractive.** Cliniko is consulted *after* the env list
-and the stored list, and only a confident match grants access. Every failure —
-outage, rotated key, rate limit, an account where the email filter is not
-available — returns "no" and lets the other sources decide. The alternative,
-treating Cliniko as the authority, would mean one bad request locks every client
-out of the portal at once.
-
-Two things to know before relying on it:
-
-- Cliniko's documentation does not state that `email` is a filterable field on
-  the patients endpoint. It may simply work; it may return a 422. **Use the
-  connection test on `/admin`** — it runs one live lookup and tells you which
-  case you are in.
-- Until you have confirmed a real address matches, keep the stored list
-  populated. It costs nothing and it is what stops a surprise from locking
-  people out.
-
-Once lookups are confirmed working, emptying the stored list is what actually
-removes the second copy of clinical data — that is the point, and it is a
-deliberate step rather than something that happens automatically.
-
-## What is deliberately not here
-
-- **No password login.** Passwords would have to be stored and reset; signed
-  links avoid both, and the mailbox is already the recovery channel.
-- **No client-side gating.** A static site would ship the secret in the bundle.
-- **No enumeration.** Sign-in returns the same response, in the same time,
-  whether or not an address is recognised — an endpoint that answers "is this
-  person a client of yours?" leaks clinical information to anyone who can type
-  an email address.
+- **No self-service registration.** Being a client is decided by the practice.
+- **No password complexity rules beyond a 10-character minimum.** Length beats
+  punctuation, and composition rules mostly produce `Password1!`.
+- **No client-side gating anywhere.** A static site would ship the secret in the
+  bundle.
+- **No account enumeration.** Sign-in and reset both answer the same way, in the
+  same time, whether or not an address is known.

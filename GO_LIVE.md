@@ -87,6 +87,7 @@ something specific, and nothing breaks while one is missing — that is by desig
 | `AUTH_GOOGLE_ID` / `AUTH_GOOGLE_SECRET` | "Continue with Google" on `/signin` | The button is hidden; password sign-in works |
 | `CLINIKO_API_KEY` | Cliniko patients sign in without being listed in `/admin` | The `/admin` list is the only route |
 | `NEXT_PUBLIC_FORM_ENDPOINT` | Lead-magnet emails forwarded to your inbox | The form still confirms; the address is not captured |
+| `RESEND_API_KEY` + `PORTAL_FROM_EMAIL` | Password-reset emails from `/forgot` | The form confirms but no link is sent, so reset is unavailable |
 
 All of them are documented in `.env.example`. **Changing any of them requires a
 redeploy** — Vercel → Deployments → ⋯ → Redeploy.

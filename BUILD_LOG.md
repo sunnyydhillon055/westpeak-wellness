@@ -82,9 +82,34 @@ Cliniko iframe, Google sign-in; no external font host, since fonts are
 self-hosted), plus HSTS, `nosniff`, Referrer-Policy, `X-Frame-Options`,
 Permissions-Policy.
 
-**`.env.example`, `GO_LIVE.md`, this file.**
+**Self-service password reset** — `/forgot` → one-time link → `/reset`, with no
+involvement from the practice. Single-use without a database: the link carries a
+fingerprint of the credential it was issued against, so using one spends it and
+cancels the rest.
+
+**`.env.example`, `GO_LIVE.md`, `ADMIN_NOTES.md`, this file.**
 
 ---
+
+## The bug that mattered most
+
+Vercel Blob reads are **not read-after-write consistent** — a read straight
+after a write can still return the previous object. Harmless for the client
+allowlist. Not harmless for credentials, where it caused two real failures:
+
+- `setPassword` wrote and the reset route reported success unconditionally.
+  When the write did not land, the old password kept working while the person
+  had been told to use a new one — silent on both sides.
+- The single-use check re-reads the credential, so a stale read let a used link
+  be replayed. Testing confirmed a replayed link actually overwrote a password.
+
+Both are fixed: a write-through cache in `lib/portal-users.ts`, and the reset
+route now reads the new password back and re-verifies it before reporting
+success. Cross-instance propagation remains eventually consistent and is
+documented in `ADMIN_NOTES.md` rather than papered over.
+
+Neither would have been caught by reading the code. Both were found by testing
+the flow end to end and checking which password actually worked afterwards.
 
 ## Decisions worth recording
 
