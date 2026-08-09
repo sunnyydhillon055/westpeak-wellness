@@ -274,7 +274,10 @@ export default function Home() {
           </p>
           <p>
             If the vocabulary itself is the obstacle — EMDR, window of tolerance, RCC, EFAP, CBT-I —
-            the <Link href="/glossary">glossary</Link> defines sixty of these terms in plain language.
+            the <Link href="/glossary">glossary</Link> defines sixty of these terms in plain language, and{' '}
+            <Link href="/approaches">the approach pages</Link> cover CBT, ACT, parts work, somatic
+            therapy, DBT skills and mindfulness-based programmes in full &mdash; including where each
+            one works poorly.
             If what you need is a psychiatrist, a diagnosis or a formal assessment rather than
             counselling,{' '}
             <Link href="/resources/psychiatry-and-assessment-in-bc">psychiatry and assessment in BC</Link>{' '}

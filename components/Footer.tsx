@@ -24,6 +24,7 @@ export default function Footer() {
             <h2>Practice</h2>
             <Link href="/about">About the Counsellor</Link>
             <Link href="/services">All Services</Link>
+            <Link href="/approaches">Counselling Approaches</Link>
             <Link href="/guides">Counselling Guides</Link>
             <Link href="/compare">Compare Your Options</Link>
             <Link href="/for">Who We Work With</Link>

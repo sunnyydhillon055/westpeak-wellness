@@ -3,6 +3,7 @@ import { site } from '@/lib/site';
 import type { Policy } from '@/lib/policies';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import Byline from '@/components/Byline';
 import ExtraSections from '@/components/ExtraSections';
 
 const fmt = (iso: string) =>
@@ -55,6 +56,8 @@ export default function PolicyPage({ doc }: { doc: Policy }) {
       <section className="section" style={{ paddingTop: 44 }}>
         <div className="container prose">
           <p className="crumb"><Link href="/">Home</Link> / {doc.title}</p>
+
+          <Byline updated={doc.updated} />
 
           {doc.sections.map((s, i) => (
             <div key={s.h2}>

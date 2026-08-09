@@ -5,6 +5,7 @@ import { audiences, getAudience } from '@/lib/audiences';
 import { site } from '@/lib/site';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import Byline from '@/components/Byline';
 import ExtraSections from '@/components/ExtraSections';
 import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
@@ -80,6 +81,8 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
           <p className="crumb">
             <Link href="/">Home</Link> / <Link href="/for">Who we work with</Link> / {a.title}
           </p>
+          <Byline updated={a.updated} readMinutes={a.readMinutes} />
+
           <Paragraphs items={a.opening} />
         </div>
       </section>

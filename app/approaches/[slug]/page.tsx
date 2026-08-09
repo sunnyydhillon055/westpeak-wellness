@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { guides, getGuide } from '@/lib/guides';
+import { approaches, getApproach } from '@/lib/approaches';
 import { site } from '@/lib/site';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
@@ -12,19 +12,19 @@ import Figure from '@/components/Figure';
 import { getFigure } from '@/lib/figures';
 
 export function generateStaticParams() {
-  return guides.map((g) => ({ slug: g.slug }));
+  return approaches.map((a) => ({ slug: a.slug }));
 }
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const g = getGuide(params.slug);
+  const g = getApproach(params.slug);
   if (!g) return {};
   return {
     title: { absolute: g.metaTitle },
     description: g.metaDescription,
-    alternates: { canonical: `${site.domain}/guides/${g.slug}` },
+    alternates: { canonical: `${site.domain}/approaches/${g.slug}` },
     openGraph: {
       type: 'article', title: g.metaTitle, description: g.metaDescription,
-      url: `${site.domain}/guides/${g.slug}`, modifiedTime: g.updated,
+      url: `${site.domain}/approaches/${g.slug}`, modifiedTime: g.updated,
     },
   };
 }
@@ -32,8 +32,8 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 const fmt = (iso: string) =>
   new Date(iso + 'T00:00:00Z').toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
 
-export default function GuidePage({ params }: { params: { slug: string } }) {
-  const g = getGuide(params.slug);
+export default function ApproachPage({ params }: { params: { slug: string } }) {
+  const g = getApproach(params.slug);
   if (!g) notFound();
 
   const schema = [
@@ -42,12 +42,12 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
       headline: g.title, description: g.metaDescription,
       dateModified: g.updated, datePublished: g.updated,
       inLanguage: 'en-CA',
-      mainEntityOfPage: { '@type': 'WebPage', '@id': `${site.domain}/guides/${g.slug}` },
+      mainEntityOfPage: { '@type': 'WebPage', '@id': `${site.domain}/approaches/${g.slug}` },
       publisher: { '@type': 'Organization', name: site.name, url: site.domain },
       author: { '@type': 'Organization', name: site.name, url: `${site.domain}/about` },
       isAccessibleForFree: true,
       image: [
-        `${site.domain}/guides/${g.slug}/opengraph-image`,
+        `${site.domain}/approaches/${g.slug}/opengraph-image`,
         ...(g.figure && getFigure(g.figure) ? [`${site.domain}/img/${getFigure(g.figure)!.file}`] : []),
       ],
     },
@@ -55,8 +55,8 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
       '@context': 'https://schema.org', '@type': 'BreadcrumbList',
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: site.domain },
-        { '@type': 'ListItem', position: 2, name: 'Guides', item: `${site.domain}/guides` },
-        { '@type': 'ListItem', position: 3, name: g.title, item: `${site.domain}/guides/${g.slug}` },
+        { '@type': 'ListItem', position: 2, name: 'Approaches', item: `${site.domain}/approaches` },
+        { '@type': 'ListItem', position: 3, name: g.title, item: `${site.domain}/approaches/${g.slug}` },
       ],
     },
     g.faqs.length && {
@@ -78,7 +78,7 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
           <p className="hero-note">{g.readMinutes} min read · Reviewed {fmt(g.updated)}</p>
           <div className="btn-row" style={{ marginTop: 22 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
-            <Link className="btn btn--ghost" href="/guides">All guides</Link>
+            <Link className="btn btn--ghost" href="/approaches">All approaches</Link>
           </div>
         </div>
       </section>
@@ -86,7 +86,7 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
       <section className="section" style={{ paddingTop: 44 }}>
         <div className="container prose">
           <p className="crumb">
-            <Link href="/">Home</Link> / <Link href="/guides">Guides</Link> / {g.title}
+            <Link href="/">Home</Link> / <Link href="/approaches">Approaches</Link> / {g.title}
           </p>
 
           <Byline updated={g.updated} readMinutes={g.readMinutes} />
@@ -123,7 +123,7 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
             </div>
           ))}
 
-          <ExtraSections area="guides" slug={g.slug} />
+          <ExtraSections area="approaches" slug={g.slug} />
 
           <h2>Common questions</h2>
           <div style={{ marginTop: 8 }}>
@@ -165,7 +165,7 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
       </section>
 
 
-      <MoreFrom items={guides} currentSlug={g.slug} base="/guides" heading="More counselling guides" eyebrow="Keep going" />
+      <MoreFrom items={approaches} currentSlug={g.slug} base="/approaches" heading="Other approaches" eyebrow="Keep going" />
       <CtaBand
         heading="Still deciding?"
         text="A free 15-minute consultation is the least committal way to find out whether this is a fit. No pressure, and no obligation to book a session afterward."

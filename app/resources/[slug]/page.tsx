@@ -5,6 +5,7 @@ import { resources, getResource } from '@/lib/resources';
 import { site } from '@/lib/site';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import Byline from '@/components/Byline';
 import ExtraSections from '@/components/ExtraSections';
 import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
@@ -82,6 +83,8 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
           </p>
 
           <div className="prose">
+            <Byline updated={r.updated} readMinutes={r.readMinutes} />
+
             <blockquote className="quote" style={{ margin: '0 0 36px' }}>{r.shortAnswer}</blockquote>
           </div>
 

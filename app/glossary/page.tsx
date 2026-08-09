@@ -144,7 +144,8 @@ export default function GlossaryPage() {
             and <Link href="/resources/bc-extended-health-coverage-for-counselling">extended health coverage in BC</Link>{' '}
             cover that ground properly. If it is about a method,{' '}
             <Link href="/compare/cbt-vs-emdr-for-trauma">CBT compared with EMDR</Link> is the most
-            common question people arrive with.
+            common question people arrive with, and{' '}
+            <Link href="/approaches">the approach pages</Link> cover each method in full.
           </p>
         </div>
       </section>

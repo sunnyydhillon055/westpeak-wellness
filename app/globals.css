@@ -113,6 +113,14 @@ img{max-width:100%;display:block}
   padding-left:14px;border-left:3px solid var(--blue-mist)}
 .figure-hint{display:none;margin:8px 0 0;font-size:.8rem;color:var(--ink-faint)}
 
+/* Authorship / review provenance */
+.byline{margin:0 0 34px;padding:18px 22px;background:var(--blue-ghost);
+  border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:var(--radius-sm)}
+.byline-line{margin:0 0 8px;font-size:.97rem;color:var(--ink)}
+.byline-meta{margin:0 0 4px;font-size:.85rem;color:var(--ink-faint);line-height:1.55}
+.byline-meta:last-child{margin-bottom:0}
+.byline-meta a{color:var(--blue-deep)}
+
 /* Glossary */
 .glossary{display:grid;grid-template-columns:1fr 1fr;gap:22px 34px;margin:0}
 .glossary-item{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);

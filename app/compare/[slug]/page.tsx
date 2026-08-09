@@ -5,6 +5,7 @@ import { comparisons, getComparison } from '@/lib/comparisons';
 import { site } from '@/lib/site';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import Byline from '@/components/Byline';
 import ExtraSections from '@/components/ExtraSections';
 import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
@@ -82,6 +83,8 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
           </p>
 
           <div className="prose">
+            <Byline updated={c.updated} readMinutes={c.readMinutes} />
+
             <blockquote className="quote" style={{ margin: '0 0 36px' }}>{c.shortAnswer}</blockquote>
           </div>
 

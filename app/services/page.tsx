@@ -173,7 +173,9 @@ export default function Services() {
             <Link href="/guides/questions-to-ask-a-therapist">questions worth asking a therapist</Link>{' '}
             cover the ground properly, and{' '}
             <Link href="/for">the pages written for particular situations</Link> may be a better
-            starting point than the service list.
+            starting point than the service list &mdash; as may{' '}
+            <Link href="/approaches">the approach pages</Link>, if what you want to understand is the
+            method rather than the problem.
           </p>
         </div>
       </section>
