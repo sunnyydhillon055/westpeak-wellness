@@ -33,6 +33,27 @@ export type Credential = {
 type Store = { credentials: Credential[] };
 const EMPTY: Store = { credentials: [] };
 
+/* Write-through cache.
+ *
+ * Vercel Blob reads are NOT read-after-write consistent — a GET immediately
+ * after a PUT can still return the previous object. That is fine for the client
+ * allowlist, where a few seconds of staleness costs nothing, and not fine here:
+ * a password reset writes a credential and must then be able to verify it, and
+ * a single-use reset link is enforced by re-reading the credential it was
+ * issued against. Both were silently wrong without this.
+ *
+ * Holding the last written value makes a write immediately visible to the
+ * process that made it, which is the case that matters — the reset, the
+ * verification and the replay check all happen in one request.
+ *
+ * It does NOT make writes visible across serverless instances any faster. A
+ * replay landing on a cold instance inside the propagation window could still
+ * be accepted; closing that needs a strongly consistent store, which is noted
+ * in ADMIN_NOTES.md rather than pretended away.
+ */
+let cache: { at: number; value: Store } | null = null;
+const CACHE_MS = 60_000;
+
 const ENC = new TextEncoder();
 
 function toHex(b: ArrayBuffer): string {
@@ -51,12 +72,17 @@ async function derive(password: string, saltHex: string): Promise<string> {
 }
 
 async function read(): Promise<Store> {
+  if (cache && Date.now() - cache.at < CACHE_MS) return cache.value;
   if (!process.env.BLOB_READ_WRITE_TOKEN) return EMPTY;
   try {
     const hit = await get(KEY, { access: 'private' });
     if (!hit || hit.statusCode !== 200 || !hit.stream) return EMPTY;
     const parsed = (await new Response(hit.stream).json()) as Partial<Store>;
-    return { credentials: Array.isArray(parsed.credentials) ? parsed.credentials : [] };
+    const value: Store = {
+      credentials: Array.isArray(parsed.credentials) ? parsed.credentials : [],
+    };
+    cache = { at: Date.now(), value };
+    return value;
   } catch {
     // Never fall open: an unreadable credential store means nobody can sign in
     // with a password, not that anybody can.
@@ -65,6 +91,9 @@ async function read(): Promise<Store> {
 }
 
 async function write(store: Store): Promise<void> {
+  // Cached before the round trip completes, so anything reading later in this
+  // same request sees what was just written rather than the previous object.
+  cache = { at: Date.now(), value: store };
   await put(KEY, JSON.stringify(store, null, 2), {
     access: 'private',
     contentType: 'application/json',
@@ -113,4 +142,21 @@ export async function hasPassword(email: string): Promise<boolean> {
 
 export async function listPasswordAccounts(): Promise<string[]> {
   return (await read()).credentials.map((c) => c.email).sort();
+}
+
+/* A short, non-reversible marker for the current credential.
+ *
+ * Reset tokens carry this rather than the hash, so a reset URL cannot be
+ * worked backwards into anything useful — and because it changes when the
+ * password does, using a link invalidates it and every other outstanding one
+ * for that account. Accounts with no password yet get a stable marker, so a
+ * first-time "set a password" link still works.
+ */
+export async function credentialFingerprint(email: string): Promise<string> {
+  const e = normalizeEmail(email);
+  const store = await read();
+  const rec = store.credentials.find((c) => normalizeEmail(c.email) === e);
+  const basis = rec ? `${rec.hash}:${rec.updatedAt}` : 'no-password-set';
+  const digest = await crypto.subtle.digest('SHA-256', ENC.encode(`fp:${e}:${basis}`));
+  return toHex(digest).slice(0, 24);
 }

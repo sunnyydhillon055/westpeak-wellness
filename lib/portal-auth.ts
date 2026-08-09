@@ -114,3 +114,40 @@ export async function readSession(
   if (!safeEqual(sig, await sign(`session:${scope}:${email}`, secret))) return null;
   return email;
 }
+
+/* ---- Password-reset tokens --------------------------------------------- */
+
+/* Single-use without a database.
+ *
+ * An HMAC token is replayable until it expires, which for a password reset is
+ * not good enough: a link sitting in a mailbox, or in a forwarded email, would
+ * keep working. Binding it to a fingerprint of the CURRENT credential fixes
+ * that statelessly — the moment the password changes, the fingerprint changes,
+ * and every outstanding link for that account stops validating. Using a link
+ * spends it, and requesting a second link does not invalidate the first until
+ * one of them is actually used.
+ *
+ * `fingerprint` is derived from the stored hash by the caller, never the hash
+ * itself, so a reset URL cannot be worked backwards into the credential.
+ */
+export async function createResetToken(
+  email: string, secret: string, fingerprint: string
+): Promise<string> {
+  const payload = `reset|${normalizeEmail(email)}|${fingerprint}|${Date.now() + LINK_TTL_MS}`;
+  return `${b64url(ENC.encode(payload))}.${await sign(payload, secret)}`;
+}
+
+export async function readResetToken(
+  token: string, secret: string
+): Promise<{ email: string; fingerprint: string } | null> {
+  const [body, sig] = token.split('.');
+  if (!body || !sig) return null;
+  const payload = unb64url(body);
+  if (!payload) return null;
+  if (!safeEqual(sig, await sign(payload, secret))) return null;
+
+  const [kind, email, fingerprint, expiry] = payload.split('|');
+  if (kind !== 'reset' || !email || !expiry) return null;
+  if (Number(expiry) < Date.now()) return null;
+  return { email, fingerprint: fingerprint ?? '' };
+}

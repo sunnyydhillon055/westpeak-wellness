@@ -113,10 +113,11 @@ export default async function AdminPage({
         <section style={{ marginTop: 34, borderTop: '1px solid var(--line)', paddingTop: 24 }}>
           <h2 style={{ fontSize: '1.1rem' }}>Passwords</h2>
           <p style={{ fontSize: '.94rem', color: 'var(--ink-soft)' }}>
-            Only needed for clients who are not using Google. Set one here and pass it to
-            them directly — there is no self-service reset, which also means there is no
-            reset link for anyone to intercept. A password does not grant access on its
-            own: the address must still be on the list above.
+            Only needed for clients who are not using Google, and rarely needed at all —
+            anyone on the list can set or reset their own password from{' '}
+            <a href="/forgot">the reset page</a>, which emails them a one-time link. Use
+            this when someone cannot receive that email. A password does not grant access
+            on its own: the address must still be on the list above.
           </p>
 
           {pw && PW_RESULT[pw] && (

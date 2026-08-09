@@ -25,7 +25,7 @@ export const dynamic = 'force-dynamic';
 export default async function SignInPage({
   searchParams,
 }: {
-  searchParams?: { next?: string; error?: string };
+  searchParams?: { next?: string; error?: string; reset?: string };
 }) {
   const next = searchParams?.next;
   const wantsAdmin = next === '/admin';
@@ -80,6 +80,14 @@ export default async function SignInPage({
             ? 'For practice staff. Client accounts cannot reach this area.'
             : 'Book a session, see your availability and manage your appointments.'}
         </p>
+
+        {searchParams?.reset === '1' && (
+          <div className="crisis" style={{ marginTop: 18 }}>
+            <p style={{ margin: 0 }}>
+              Password saved. Sign in with it below.
+            </p>
+          </div>
+        )}
 
         {failed && (
           <p role="alert" className="portal-gate-error" style={{ marginTop: 18 }}>
@@ -145,15 +153,11 @@ export default async function SignInPage({
         </form>
 
         <p style={{ fontSize: '.92rem', color: 'var(--ink-soft)', marginTop: 24 }}>
-          {wantsAdmin ? (
-            <>Locked out? Staff accounts are set in the deployment configuration.</>
-          ) : (
-            <>
-              No password yet, or forgotten it? Email{' '}
-              <a href={`mailto:${site.email}`}>{site.email}</a> and one will be set for you.
-              {hasGoogle && ' Signing in with Google needs no password at all.'}
-            </>
-          )}
+          <>
+            Forgotten your password, or never set one?{' '}
+            <Link href="/forgot">Send yourself a reset link</Link>.
+            {hasGoogle && ' Signing in with Google needs no password at all.'}
+          </>
         </p>
 
         {!wantsAdmin && (
