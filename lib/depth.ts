@@ -18,13 +18,25 @@ import { depthGuides } from './depth-guides';
 import { depthGuides2 } from './depth-guides2';
 import { depthServices } from './depth-services';
 import { depthOther } from './depth-other';
+import { depth2Guides } from './depth2-guides';
+import { depth2Guides2 } from './depth2-guides2';
+import { depth2Other } from './depth2-other';
 
-export const extraSections: Record<string, DepthSection[]> = {
-  ...depthGuides,
-  ...depthGuides2,
-  ...depthServices,
-  ...depthOther,
-};
+const PASSES: Record<string, DepthSection[]>[] = [
+  depthGuides, depthGuides2, depthServices, depthOther,
+  depth2Guides, depth2Guides2, depth2Other,
+];
+
+/* Later passes append to earlier ones rather than replacing them. */
+export const extraSections: Record<string, DepthSection[]> = PASSES.reduce(
+  (acc, pass) => {
+    for (const [key, sections] of Object.entries(pass)) {
+      acc[key] = [...(acc[key] ?? []), ...sections];
+    }
+    return acc;
+  },
+  {} as Record<string, DepthSection[]>
+);
 
 export const getExtra = (area: string, slug: string): DepthSection[] =>
   extraSections[`${area}/${slug}`] ?? [];

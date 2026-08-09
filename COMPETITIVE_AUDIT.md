@@ -1,33 +1,33 @@
 # Westpeak Wellness — Competitive SEO Scorecard
 
-**Re-audited:** 8 August 2026 — third measurement pass, after two complete build-and-verify cycles
+**Re-audited:** 8 August 2026 — fourth measurement pass, after three complete build-and-verify cycles
 **Benchmark set:** five BC counselling practices with the strongest organic presence
 **Scoring:** 20 categories × 500 points = **10,000**
 **Scope:** only factors Claude Code can act on. Video, backlinks and reviews are excluded by request.
 
 ## Result
 
-**Westpeak Wellness: 8,995 / 10,000** — up 1,150 points from 7,845 at the first audit. The intermediate total after cycle one was 8,920.
+**Westpeak Wellness: 9,080 / 10,000** — up 1,235 points from 7,845 at the first audit. Intermediate totals: 8,920 after cycle one, 8,995 after cycle two.
 
 | Rank | Site | Score | /10,000 |
 |--:|---|--:|--:|
-| 1 | **Westpeak Wellness** | **8,995** | 90.0% |
+| 1 | **Westpeak Wellness** | **9,080** | 90.8% |
 | 2 | Wellspring | 6,890 | 68.9% |
 | 3 | Well Beings | 6,720 | 67.2% |
 | 4 | Thrive | 6,540 | 65.4% |
 | 5 | Upstream | 6,250 | 62.5% |
 | 6 | Alive | 4,870 | 48.7% |
 
-Bands: **17 leading**, 1 competitive, 2 behind (was 13 / 2 / 5 at the first audit).
+Bands: **17 leading**, 2 competitive, 1 behind (was 13 / 2 / 5 at the first audit).
 
 ## What moved
 
 | # | Category | Before | After | Change |
 |---|---|--:|--:|--:|
 | 12 | Open Graph & social metadata | 260 | **480** | +220 |
+| 2 | Average content depth per page | 200 | **380** | +180 |
 | 15 | Image optimisation & alt text | 300 | **475** | +175 |
-| 2 | Average content depth per page | 200 | **320** | +120 |
-| 18 | Informational content depth | 250 | **355** | +105 |
+| 18 | Informational content depth | 250 | **375** | +125 |
 | 1 | Indexable page count & coverage breadth | 175 | **275** | +100 |
 | 20 | On-page E-E-A-T signals | 340 | **430** | +90 |
 | 11 | XML sitemap & robots.txt | 380 | **460** | +80 |
@@ -37,8 +37,8 @@ Bands: **17 leading**, 1 competitive, 2 behind (was 13 / 2 / 5 at the first audi
 | 5 | Internal linking quality | 460 | **490** | +30 |
 | 16 | Accessibility fundamentals | 440 | **470** | +30 |
 | 8 | Heading hierarchy | 460 | **485** | +25 |
+| 3 | Content uniqueness / duplication risk | 480 | **495** | +15 |
 | 10 | Canonicalisation & index hygiene | 470 | **485** | +15 |
-| 3 | Content uniqueness / duplication risk | 480 | **490** | +10 |
 | 14 | Mobile & responsive | 430 | **440** | +10 |
 | 17 | Conversion architecture (CTAs) | 450 | **460** | +10 |
 | 6 | Title tags | 480 | **485** | +5 |
@@ -62,8 +62,8 @@ were replaced with the next-ranking accessible practices.
 | # | Category | Westpeak | Upstream | Well Beings | Wellspring | Thrive | Alive |
 |---|---|--:|--:|--:|--:|--:|--:|
 | 1 | Indexable page count & coverage breadth | **275** | 460 | 470 | 410 | 320 | 360 |
-| 2 | Average content depth per page | **320** | 470 | 460 | 420 | 320 | 230 |
-| 3 | Content uniqueness / duplication risk | **490** | 300 | 250 | 220 | 300 | 180 |
+| 2 | Average content depth per page | **380** | 470 | 460 | 420 | 320 | 230 |
+| 3 | Content uniqueness / duplication risk | **495** | 300 | 250 | 220 | 300 | 180 |
 | 4 | Topical cluster architecture | **475** | 400 | 360 | 350 | 250 | 260 |
 | 5 | Internal linking quality | **490** | 380 | 180 | 340 | 320 | 150 |
 | 6 | Title tags | **485** | 340 | 280 | 330 | 210 | 220 |
@@ -78,10 +78,10 @@ were replaced with the next-ranking accessible practices.
 | 15 | Image optimisation & alt text | **475** | 90 | 400 | 400 | 300 | 100 |
 | 16 | Accessibility fundamentals | **470** | 200 | 350 | 350 | 340 | 150 |
 | 17 | Conversion architecture (CTAs) | **460** | 340 | 350 | 370 | 380 | 300 |
-| 18 | Informational content depth | **355** | 480 | 200 | 320 | 300 | 350 |
+| 18 | Informational content depth | **375** | 480 | 200 | 320 | 300 | 350 |
 | 19 | Decision & comparison content | **480** | 260 | 180 | 220 | 150 | 200 |
 | 20 | On-page E-E-A-T signals | **430** | 390 | 400 | 360 | 390 | 280 |
-| | **TOTAL / 10,000** | **8,995** | 6,250 | 6,720 | 6,890 | 6,540 | 4,870 |
+| | **TOTAL / 10,000** | **9,080** | 6,250 | 6,720 | 6,890 | 6,540 | 4,870 |
 
 ## Category detail
 
@@ -93,15 +93,15 @@ Sitemap URLs: Alive 491, Well Beings 485, Upstream 405, Wellspring 307, Thrive 1
 
 ### 2. Average content depth per page
 
-**Westpeak 320/500 — 🔴 **Behind**, ranked 4 of 6.** (+120 from 200)
+**Westpeak 380/500 — 🟡 **Competitive**, ranked 4 of 6.** (+180 from 200)
 
-Identical four-page sampling on every site. Upstream 2,666 · Well Beings 2,579 · Wellspring 2,049 · Thrive 1,463 · **Westpeak 1,342** · Alive 986. The homepage alone went 708 to **1,366 words**, putting it alongside Thrive (1,640) and Well Beings (1,669). Site-wide: **102,735 words across 80 pages, averaging 1,284** — against 40,281 across 48 pages averaging 839 at the first audit.
+Identical four-page sampling on every site. Upstream 2,666 · Well Beings 2,579 · Wellspring 2,049 · **Westpeak 1,774** · Thrive 1,463 · Alive 986 — Westpeak has moved past Thrive and now sits closer to Wellspring than to the bottom of the set. Site-wide: **133,510 words across 80 pages, averaging 1,669**, with the 63 content pages averaging **1,812** — against 40,281 words across 48 pages averaging 839 at the first audit. The homepage alone went 708 to 1,366.
 
 ### 3. Content uniqueness / duplication risk
 
-**Westpeak 490/500 — 🟢 **Leading**, ranked 1 of 6.** (+10 from 480)
+**Westpeak 495/500 — 🟢 **Leading**, ranked 1 of 6.** (+15 from 480)
 
-**20.0% maximum pairwise 5-gram overlap across all 80 pages, zero pairs above 25%** — measured over a corpus 67% larger than the 48-page version that scored 18.1%, which makes it a harder test rather than an easier one. Wellspring runs 99 templated `/service-areas/` pages including city×issue combinations; Well Beings repeats city variants; Alive exposes 217 tag archives.
+**15.5% maximum pairwise 5-gram overlap across all 80 pages, zero pairs above 25%** — and the figure *fell* while the corpus grew from 40,281 to 133,510 words, which is the harder result. The 48-page version scored 18.1%. Wellspring runs 99 templated `/service-areas/` pages including city×issue combinations; Well Beings repeats city variants; Alive exposes 217 tag archives.
 
 ### 4. Topical cluster architecture
 
@@ -189,9 +189,9 @@ Verified **3+ booking touchpoints on all 79 pages** — the single exception bei
 
 ### 18. Informational content depth
 
-**Westpeak 355/500 — 🟡 **Competitive**, ranked 2 of 6.** (+105 from 250)
+**Westpeak 375/500 — 🟡 **Competitive**, ranked 2 of 6.** (+125 from 250)
 
-**26 guides (was 9), 8 comparisons, 9 BC resource pages and a 60-term glossary — roughly 60,000 words of informational content, up from about 12,000.** Still outgunned: **Upstream runs 172 blog posts averaging ~3,700 words** — more blog than this entire site contains. Nimble 121, Alive 79 resources, Wellspring ~29 categories.
+**25 guides (was 9), 8 comparisons, 9 BC resource pages and a 60-term glossary — roughly 85,000 words of informational content, up from about 12,000, at an average of 1,812 words per content page.** Still outgunned on volume: **Upstream runs 172 blog posts averaging ~3,700 words.** Nimble 121, Alive 79 resources, Wellspring ~29 categories.
 
 ### 19. Decision & comparison content
 
@@ -208,10 +208,17 @@ Added Person schema with credential and alumniOf; a standards page stating scope
 
 ## What still holds the score down
 
-The three categories still under 350 are the same gap wearing three hats: **the competitors have far
-more content.** Upstream alone publishes more words of blog than this entire site contains. Closing
-that is a matter of sustained publishing over months, not of a build pass — and it has to be done
-without reintroducing the duplication problem that the first audit found, which is what makes it slow.
+**One category remains under 330: raw page count.** Westpeak publishes 80 pages against 197–491.
+That is now the only place the site is clearly behind, and it is the hardest one to close honestly —
+adding pages for their own sake is exactly what produced the duplication problem the first audit
+found, and what forced 37 location pages to be cut. Reaching Thrive's 197 pages at the current
+1,812-word average would mean roughly 210,000 further words of genuinely distinct content, which is
+months of sustained publishing rather than a build pass.
 
-The fourth constraint is structural rather than fixable: competitors run 32–46 named practitioner bio
-pages, and this site publishes one author name, on one page, by design.
+Content depth is no longer a gap in the same way. At 1,774 words on the sampled pages and 1,812
+across all content pages, the site now sits above Thrive and within reach of Wellspring — and it got
+there while *reducing* measured duplication from 20.0% to 15.5%, which is the part that matters.
+Volume without distinctiveness would have cost more in category 3 than it gained in category 2.
+
+The remaining structural constraint is not fixable and is not a mistake: competitors run 32–46 named
+practitioner bio pages, and this site publishes one author name, on one page, by design.
