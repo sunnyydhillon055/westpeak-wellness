@@ -121,7 +121,7 @@ img{max-width:100%;display:block}
   display:flex;align-items:center;gap:9px}
 .eyebrow::before{content:"";width:20px;height:1.5px;background:var(--clay);border-radius:2px;flex:none}
 .center .eyebrow{justify-content:center}
-.lede{font-size:var(--fs-lead);line-height:1.52;color:var(--ink-soft);max-width:56ch}
+.lede{font-size:var(--fs-lead);line-height:1.52;color:var(--ink-soft);max-width:35.33em}
 .center{text-align:center}
 .center .lede{margin-left:auto;margin-right:auto}
 
@@ -152,7 +152,7 @@ img{max-width:100%;display:block}
 
 /* Hero */
 .hero{background:linear-gradient(180deg,var(--blue-ghost) 0%,var(--bg) 100%);padding:86px 0 70px}
-.hero h1{max-width:16ch}
+.hero h1{max-width:10.59em}
 .hero .lede{margin-top:.5em;margin-bottom:1.8em}
 .hero-note{margin-top:20px;font-size:.92rem;color:var(--ink-faint)}
 
@@ -255,7 +255,7 @@ img{max-width:100%;display:block}
 .faq-item summary::-webkit-details-marker{display:none}
 .faq-item summary::after{content:"+";color:var(--blue);font-size:1.4rem;flex:none;transition:transform .2s}
 .faq-item[open] summary::after{transform:rotate(45deg)}
-.faq-item p{color:var(--ink-soft);padding:0 0 18px;margin:0;max-width:70ch}
+.faq-item p{color:var(--ink-soft);padding:0 0 18px;margin:0;max-width:44.16em}
 
 /* Info rows (contact) */
 .info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
@@ -273,7 +273,7 @@ img{max-width:100%;display:block}
 /* CTA band */
 .cta-band{background:linear-gradient(135deg,#33578a,#4a77ab);color:#fff;text-align:center;border-radius:20px;padding:56px 32px;margin:0 auto}
 .cta-band h2{color:#fff}
-.cta-band p{color:#fff;max-width:48ch;margin:0 auto 24px}
+.cta-band p{color:#fff;max-width:30.28em;margin:0 auto 24px}
 .cta-band .btn--primary{background:#fff;color:var(--blue-deep)}
 .cta-band .btn--primary:hover{background:#f0f6fc}
 
@@ -288,7 +288,7 @@ img{max-width:100%;display:block}
 .footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:22px;font-size:.85rem;color:#8a97a6;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
 /* Prose */
-.prose{max-width:66ch;overflow-wrap:break-word}
+.prose{max-width:41.64em;overflow-wrap:break-word}
 .prose h2{margin-top:1.35em}
 .prose ul{padding-left:0}
 

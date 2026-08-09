@@ -11,9 +11,11 @@ import CtaBand from '@/components/CtaBand';
 import SceneBand from '@/components/SceneBand';
 import Byline from '@/components/Byline';
 import ExtraSections from '@/components/ExtraSections';
+import { deviceSlots } from '@/lib/placement';
 import Toc from '@/components/Toc';
 import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
+import InlineRelated from '@/components/InlineRelated';
 
 export function generateStaticParams() {
   return audiences.map((a) => ({ slug: a.slug }));
@@ -49,6 +51,17 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
     'Sources and further support',
   ]);
 
+  /* This page keeps its opening figure and CTA up in the cards section, where
+     they belong. What was missing is anything at all inside the long prose
+     column below them — 4,094px of it on /for/women. See lib/placement.ts. */
+  const midDevices = [
+    a.related[0] ? (
+      <InlineRelated key="rel" href={a.related[0].href} label={a.related[0].label} />
+    ) : null,
+    a.figure2 ? <Figure key="fig2" name={a.figure2} /> : null,
+  ].filter(Boolean);
+  const slots = deviceSlots(a.sections, midDevices.length);
+
   const schema = [
     {
       '@context': 'https://schema.org', '@type': 'Article',
@@ -83,7 +96,7 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
       <section className="hero" style={{ paddingBottom: 44 }}>
         <div className="container" style={{ maxWidth: 860 }}>
           <p className="eyebrow">{a.eyebrow}</p>
-          <h1 style={{ maxWidth: '20ch' }}>{a.title}</h1>
+          <h1 style={{ maxWidth: '13.24em' }}>{a.title}</h1>
           <p className="lede">{a.lede}</p>
           <p className="hero-note">{a.readMinutes} min read · Reviewed {fmt(a.updated)}</p>
           <div className="btn-row" style={{ marginTop: 22 }}>
@@ -129,7 +142,7 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
 
       <section className="section">
         <div className="container prose">
-          {a.sections.map((s) => (
+          {a.sections.map((s, i) => (
             <div key={s.h2}>
               <h2 id={headingId(s.h2)}>{s.h2}</h2>
               {s.body && <Paragraphs items={s.body} />}
@@ -140,6 +153,8 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
                   ))}
                 </ul>
               )}
+
+              {midDevices.filter((_, k) => slots[k] === i)}
             </div>
           ))}
         </div>
@@ -149,8 +164,6 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
         <div className="container">
           <p className="eyebrow">Where to start</p>
           <ExtraSections area="for" slug={a.slug} />
-
-          {a.figure2 && <Figure name={a.figure2} />}
 
           <h2 id="services-that-tend-to-fit">Services that tend to fit</h2>
           <div className="grid grid-2" style={{ marginTop: 26 }}>

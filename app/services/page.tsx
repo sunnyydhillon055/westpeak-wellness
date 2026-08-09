@@ -61,7 +61,7 @@ export default function Services() {
       </section>
 
       <section className="section section--tint">
-        <div className="container prose" style={{ maxWidth: '70ch' }}>
+        <div className="container prose" style={{ maxWidth: '44.16em' }}>
           <h2>How to tell which one you need</h2>
           <p>
             You do not have to arrive knowing. Most people do not, and working it out is a reasonable

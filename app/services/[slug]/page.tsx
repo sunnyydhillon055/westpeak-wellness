@@ -184,7 +184,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
 
       {s.sessionShape && (
         <section className="section section--ghost">
-          <div className="container prose" style={{ maxWidth: '70ch' }}>
+          <div className="container prose" style={{ maxWidth: '44.16em' }}>
             <h2 id={headingId(s.sessionShape.h2)}>{s.sessionShape.h2}</h2>
             <Paragraphs items={s.sessionShape.body} />
           </div>

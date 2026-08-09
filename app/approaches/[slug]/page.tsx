@@ -11,9 +11,11 @@ import CtaBand from '@/components/CtaBand';
 import SceneBand from '@/components/SceneBand';
 import Byline from '@/components/Byline';
 import ExtraSections from '@/components/ExtraSections';
+import { deviceSlots } from '@/lib/placement';
 import Toc from '@/components/Toc';
 import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
+import InlineRelated from '@/components/InlineRelated';
 import { getFigure } from '@/lib/figures';
 
 export function generateStaticParams() {
@@ -46,6 +48,23 @@ export default function ApproachPage({ params }: { params: { slug: string } }) {
     ...getExtra('approaches', g.slug).map((s) => s.h2),
     'Common questions', 'Sources',
   ]);
+
+  /* Mid-article devices, spread by content weight rather than stacked at the
+     top of the page. See lib/placement.ts. */
+  const midDevices = [
+    g.figure ? <Figure key="fig" name={g.figure} /> : null,
+    <div className="crisis" key="cta" style={{ margin: '32px 0' }}>
+      <p style={{ margin: 0 }}>
+        {g.midCta.text} <Link href={site.bookingPath}>{g.midCta.label}</Link>.
+      </p>
+    </div>,
+    g.related[0] ? (
+      <InlineRelated key="rel" href={g.related[0].href} label={g.related[0].label} />
+    ) : null,
+    g.figure2 ? <Figure key="fig2" name={g.figure2} /> : null,
+  ].filter(Boolean);
+  const articleSections = [...g.sections, ...getExtra('approaches', g.slug)];
+  const slots = deviceSlots(articleSections, midDevices.length);
 
   const schema = [
     {
@@ -86,7 +105,7 @@ export default function ApproachPage({ params }: { params: { slug: string } }) {
       <section className="hero" style={{ paddingBottom: 44 }}>
         <div className="container" style={{ maxWidth: 860 }}>
           <p className="eyebrow">{g.eyebrow}</p>
-          <h1 style={{ maxWidth: '22ch' }}>{g.title}</h1>
+          <h1 style={{ maxWidth: '14.56em' }}>{g.title}</h1>
           <p className="lede">{g.lede}</p>
           <p className="hero-note">{g.readMinutes} min read · Reviewed {fmt(g.updated)}</p>
           <div className="btn-row" style={{ marginTop: 22 }}>
@@ -124,23 +143,18 @@ export default function ApproachPage({ params }: { params: { slug: string } }) {
                 </ul>
               )}
 
-              {i === 0 && g.figure && <Figure name={g.figure} />}
-
-              {/* mid-page contextual CTA, placed after the first section */}
-              {i === 0 && (
-                <div className="crisis" style={{ margin: '32px 0' }}>
-                  <p style={{ margin: 0 }}>
-                    {g.midCta.text}{' '}
-                    <Link href={site.bookingPath}>{g.midCta.label}</Link>.
-                  </p>
-                </div>
-              )}
+                {midDevices.filter((_, k) => slots[k] === i)}
             </div>
           ))}
 
-          <ExtraSections area="approaches" slug={g.slug} />
+          <ExtraSections
+            area="approaches"
+            slug={g.slug}
+            devices={midDevices}
+            slots={slots}
+            offset={g.sections.length}
+          />
 
-          {g.figure2 && <Figure name={g.figure2} />}
 
           <SceneBand seed={g.slug} />
 

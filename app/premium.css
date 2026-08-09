@@ -281,8 +281,8 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   display: grid; grid-template-columns: minmax(0,1.06fr) minmax(0,.94fr);
   gap: clamp(32px, 5vw, 68px); align-items: center;
 }
-.hero--home h1{ max-width: 15ch; font-size: var(--fs-display) }
-.hero--home .lede{ max-width: 46ch }
+.hero--home h1{ max-width: 9.93em; font-size: var(--fs-display) }
+.hero--home .lede{ max-width: 29.02em }
 .hero-note{ margin-top: 18px; font-size: var(--fs-small); color: var(--ink-faint) }
 .hero-art{ position: relative }
 .hero-art .photo{ aspect-ratio: 4/5; box-shadow: var(--shadow-xl) }
@@ -325,7 +325,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 }
 .signature .eyebrow{ color: #d8b49b }
 .signature .eyebrow::before{ background: var(--clay) }
-.signature h2{ color: #ffffff; max-width: 17ch }
+.signature h2{ color: #ffffff; max-width: 11.25em }
 .signature p{ color: #c7d3de }
 .signature .btn--ghost{
   background: transparent; border-color: rgba(255,255,255,.28); color: #ffffff;
@@ -360,7 +360,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 @media (max-width: 900px){
   .hero-grid{ grid-template-columns: 1fr; gap: 38px }
   .hero-art{ max-width: 460px; width: 100%; margin: 0 auto }
-  .hero--home h1{ max-width: 18ch }
+  .hero--home h1{ max-width: 11.92em }
   .signature-inner{ grid-template-columns: 1fr; gap: 34px }
   .signature-script{ font-size: clamp(7rem, 40vw, 14rem); opacity: .06; right: -6% }
 }
@@ -404,7 +404,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .footer-brand span{ color: #9dbbdc }
 .footer-brand-mark{ width: 38px; height: 38px; flex: none }
 .footer-brand-mark svg{ width: 100%; height: 100% }
-.footer-blurb{ max-width: 34ch; color: #9aa9b8; font-size: var(--fs-small); line-height: 1.6 }
+.footer-blurb{ max-width: 21.45em; color: #9aa9b8; font-size: var(--fs-small); line-height: 1.6 }
 .footer-facts{ list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 10px }
 .footer-facts li{ display: flex; align-items: center; gap: 10px; font-size: var(--fs-small); color: #b9c6d3 }
 .footer-facts svg{ width: 16px; height: 16px; color: #7fa3cc; flex: none }
@@ -667,7 +667,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 
 
 .faq-intro-links{
-  max-width: 74ch; margin: 0 0 30px; font-size: var(--fs-small);
+  max-width: 46.69em; margin: 0 0 30px; font-size: var(--fs-small);
   line-height: 1.7; color: var(--ink-soft);
   background: var(--blue-ghost); border-left: 3px solid var(--blue-mist);
   border-radius: var(--radius-sm); padding: 16px 20px;
@@ -679,7 +679,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 /* Direct-answer block. Sits under the H1 and is written to stand alone, so an
    answer engine quoting it in isolation still conveys who, what, where and how. */
 .direct-answer{
-  max-width: 68ch; margin: 20px 0 0; font-size: var(--fs-lead); line-height: 1.6;
+  max-width: 42.9em; margin: 20px 0 0; font-size: var(--fs-lead); line-height: 1.6;
   color: var(--ink); padding-left: 18px; border-left: 3px solid var(--clay);
 }
 
@@ -805,7 +805,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 
 /* FAQ rows: tighter, and the whole row reads as clickable */
 .faq-item summary{ padding:14px 0; }
-.faq-item p{ padding:0 0 14px; max-width:66ch; }
+.faq-item p{ padding:0 0 14px; max-width:41.64em; }
 .faq-item summary:hover{ color:var(--blue-deep); }
 
 /* ---------------------------------------------------------------------------
@@ -1362,4 +1362,37 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
     transition-delay:0s !important;
     scroll-behavior:auto !important;
   }
+}
+
+/* — Inline related: one contextual link, set as a rule in the reading column —
+ *
+ * Deliberately not a card. The middle of an article needs a breath, not another
+ * box competing with the figures and the CTA either side of it. A rule top and
+ * bottom, the kicker in small caps, and the link at reading size: it reads as
+ * part of the article rather than as an advertisement inside it. */
+.inline-related{
+  display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+  margin: 40px 0; padding: 16px 0;
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+}
+.inline-related-kicker{
+  flex: none;
+  font-size: .72rem; font-weight: 600; letter-spacing: .09em; text-transform: uppercase;
+  color: var(--clay-deep);
+}
+.inline-related a{
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.06rem; font-weight: 600; line-height: 1.35;
+  color: var(--ink); text-decoration: none;
+  background-image: linear-gradient(var(--clay-soft), var(--clay-soft));
+  background-size: 100% 1px; background-repeat: no-repeat; background-position: 0 100%;
+  transition: background-size var(--dur, 220ms) ease, color var(--dur, 220ms) ease;
+}
+.inline-related a:hover{
+  color: var(--clay-deep);
+  background-image: linear-gradient(var(--clay), var(--clay));
+}
+@media (max-width: 560px){
+  .inline-related{ gap: 6px; margin: 32px 0 }
+  .inline-related-kicker{ flex-basis: 100% }
 }

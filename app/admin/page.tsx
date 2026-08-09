@@ -115,7 +115,7 @@ export default async function AdminPage({
 
         {/* ---------------------------------------------------------- CLIENTS */}
         <h2 id="clients" style={{ marginTop: 40 }}>Clients</h2>
-        <p style={{ color: 'var(--ink-soft)', maxWidth: '64ch' }}>
+        <p style={{ color: 'var(--ink-soft)', maxWidth: '40.38em' }}>
           Only <strong>active</strong> clients can sign in. <em>Paused</em> keeps the record but
           closes access — for someone between blocks of sessions. <em>Former</em> is for people
           who have finished. Removing deletes the record and any password with it.
@@ -220,7 +220,7 @@ export default async function AdminPage({
 
         {/* ----------------------------------------------------- AVAILABILITY */}
         <h2 id="availability" style={{ marginTop: 44 }}>Availability</h2>
-        <p style={{ color: 'var(--ink-soft)', maxWidth: '64ch' }}>
+        <p style={{ color: 'var(--ink-soft)', maxWidth: '40.38em' }}>
           What the website tells people — the footer, the contact page, the portal, and the
           structured data Google reads. <strong>It does not control booking.</strong> Cliniko
           decides what can actually be reserved, so change both, or the site will advertise hours

@@ -11,9 +11,11 @@ import CtaBand from '@/components/CtaBand';
 import SceneBand from '@/components/SceneBand';
 import Byline from '@/components/Byline';
 import ExtraSections from '@/components/ExtraSections';
+import { deviceSlots } from '@/lib/placement';
 import Toc from '@/components/Toc';
 import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
+import InlineRelated from '@/components/InlineRelated';
 
 export function generateStaticParams() {
   return resources.map((r) => ({ slug: r.slug }));
@@ -45,6 +47,23 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
     ...getExtra('resources', r.slug).map((s) => s.h2),
     'Common questions', 'Sources',
   ]);
+
+  /* Mid-article devices, spread by content weight rather than stacked at the
+     top of the page. See lib/placement.ts. */
+  const midDevices = [
+    r.figure ? <Figure key="fig" name={r.figure} /> : null,
+    <div className="crisis" key="cta" style={{ margin: '8px 0 32px' }}>
+      <p style={{ margin: 0 }}>
+        {r.midCta.text} <Link href={site.bookingPath}>{r.midCta.label}</Link>.
+      </p>
+    </div>,
+    r.related[0] ? (
+      <InlineRelated key="rel" href={r.related[0].href} label={r.related[0].label} />
+    ) : null,
+    r.figure2 ? <Figure key="fig2" name={r.figure2} /> : null,
+  ].filter(Boolean);
+  const articleSections = [...r.sections, ...getExtra('resources', r.slug)];
+  const slots = deviceSlots(articleSections, midDevices.length);
 
   const schema = [
     {
@@ -80,7 +99,7 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
       <section className="hero" style={{ paddingBottom: 44 }}>
         <div className="container" style={{ maxWidth: 880 }}>
           <p className="eyebrow">{r.eyebrow}</p>
-          <h1 style={{ maxWidth: '22ch' }}>{r.title}</h1>
+          <h1 style={{ maxWidth: '14.56em' }}>{r.title}</h1>
           <p className="lede">{r.lede}</p>
           <p className="hero-note">{r.readMinutes} min read · Reviewed {fmt(r.updated)}</p>
           <div className="btn-row" style={{ marginTop: 22 }}>
@@ -135,23 +154,19 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
                 </div>
               )}
 
-              {i === 0 && (
-                <div className="prose">
-                  {r.figure && <Figure name={r.figure} />}
-                  <div className="crisis" style={{ margin: '8px 0 32px' }}>
-                    <p style={{ margin: 0 }}>
-                      {r.midCta.text} <Link href={site.bookingPath}>{r.midCta.label}</Link>.
-                    </p>
-                  </div>
-                </div>
-              )}
+              <div className="prose">{midDevices.filter((_, k) => slots[k] === i)}</div>
             </div>
           ))}
 
           <div className="prose">
-            <ExtraSections area="resources" slug={r.slug} />
+            <ExtraSections
+            area="resources"
+            slug={r.slug}
+            devices={midDevices}
+            slots={slots}
+            offset={r.sections.length}
+          />
 
-            {r.figure2 && <Figure name={r.figure2} />}
 
             <SceneBand seed={r.slug} />
 

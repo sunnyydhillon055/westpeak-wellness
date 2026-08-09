@@ -11,9 +11,11 @@ import CtaBand from '@/components/CtaBand';
 import SceneBand from '@/components/SceneBand';
 import Byline from '@/components/Byline';
 import ExtraSections from '@/components/ExtraSections';
+import { deviceSlots } from '@/lib/placement';
 import Toc from '@/components/Toc';
 import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
+import InlineRelated from '@/components/InlineRelated';
 
 export function generateStaticParams() {
   return comparisons.map((c) => ({ slug: c.slug }));
@@ -45,6 +47,23 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
     ...getExtra('compare', c.slug).map((s) => s.h2),
     'Where Westpeak Wellness fits', 'Common questions', 'Sources',
   ]);
+
+  /* Mid-article devices, spread by content weight rather than stacked at the
+     top of the page. See lib/placement.ts. */
+  const midDevices = [
+    c.figure ? <Figure key="fig" name={c.figure} /> : null,
+    <div className="crisis" key="cta" style={{ margin: '32px 0' }}>
+      <p style={{ margin: 0 }}>
+        {c.midCta.text} <Link href={site.bookingPath}>{c.midCta.label}</Link>.
+      </p>
+    </div>,
+    c.related[0] ? (
+      <InlineRelated key="rel" href={c.related[0].href} label={c.related[0].label} />
+    ) : null,
+    c.figure2 ? <Figure key="fig2" name={c.figure2} /> : null,
+  ].filter(Boolean);
+  const articleSections = [...c.sections, ...getExtra('compare', c.slug)];
+  const slots = deviceSlots(articleSections, midDevices.length);
 
   const schema = [
     {
@@ -80,7 +99,7 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
       <section className="hero" style={{ paddingBottom: 44 }}>
         <div className="container" style={{ maxWidth: 880 }}>
           <p className="eyebrow">{c.eyebrow}</p>
-          <h1 style={{ maxWidth: '24ch' }}>{c.title}</h1>
+          <h1 style={{ maxWidth: '15.89em' }}>{c.title}</h1>
           <p className="lede">{c.lede}</p>
           <p className="hero-note">{c.readMinutes} min read · Reviewed {fmt(c.updated)}</p>
           <div className="btn-row" style={{ marginTop: 22 }}>
@@ -131,21 +150,18 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
                     ))}
                   </ul>
                 )}
-                {i === 0 && c.figure && <Figure name={c.figure} />}
-                {i === 0 && (
-                  <div className="crisis" style={{ margin: '32px 0' }}>
-                    <p style={{ margin: 0 }}>
-                      {c.midCta.text}{' '}
-                      <Link href={site.bookingPath}>{c.midCta.label}</Link>.
-                    </p>
-                  </div>
-                )}
+                {midDevices.filter((_, k) => slots[k] === i)}
               </div>
             ))}
 
-            <ExtraSections area="compare" slug={c.slug} />
+            <ExtraSections
+            area="compare"
+            slug={c.slug}
+            devices={midDevices}
+            slots={slots}
+            offset={c.sections.length}
+          />
 
-            {c.figure2 && <Figure name={c.figure2} />}
 
             <h2 id="where-westpeak-wellness-fits">Where Westpeak Wellness fits</h2>
             <Paragraphs items={c.howWeFit} />

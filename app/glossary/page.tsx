@@ -59,7 +59,7 @@ export default function GlossaryPage() {
       <section className="hero" style={{ paddingBottom: 40 }}>
         <div className="container" style={{ maxWidth: 880 }}>
           <p className="eyebrow">Reference · {glossary.length} terms</p>
-          <h1 style={{ maxWidth: '20ch' }}>Counselling terms, defined plainly</h1>
+          <h1 style={{ maxWidth: '13.24em' }}>Counselling terms, defined plainly</h1>
           <p className="lede">
             Therapy has a vocabulary problem. Referral letters, benefits booklets and therapist
             websites all use words that carry precise meanings nobody explains — so here they are,

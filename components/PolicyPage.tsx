@@ -54,7 +54,7 @@ export default function PolicyPage({ doc }: { doc: Policy }) {
       <section className="hero" style={{ paddingBottom: 44 }}>
         <div className="container" style={{ maxWidth: 860 }}>
           <p className="eyebrow">{doc.eyebrow}</p>
-          <h1 style={{ maxWidth: '20ch' }}>{doc.title}</h1>
+          <h1 style={{ maxWidth: '13.24em' }}>{doc.title}</h1>
           <p className="lede">{doc.lede}</p>
           <p className="hero-note">Last reviewed {fmt(doc.updated)}</p>
           <div className="btn-row" style={{ marginTop: 22 }}>

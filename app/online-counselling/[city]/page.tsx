@@ -78,7 +78,7 @@ export default function CityPage({ params }: { params: { city: string } }) {
 
       {l.localReality && (
         <section className="section section--tint">
-          <div className="container prose" style={{ maxWidth: '70ch' }}>
+          <div className="container prose" style={{ maxWidth: '44.16em' }}>
             <h2>{l.localReality.h2}</h2>
             <Paragraphs items={l.localReality.body} />
           </div>
