@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { site } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
+import Figure from '@/components/Figure';
 import { Mail, MonitorSmartphone, Clock, MapPin, Languages as LangIcon, AtSign } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -30,6 +31,7 @@ export default function Contact() {
         <div className="container">
           <p className="crumb"><a href="/">Home</a> / Contact</p>
           <h2>Reach out</h2>
+          <Figure name="bc-reach" caption="Sessions run by secure video, so the practice reaches every region of the province." />
           <div className="info-grid" style={{ marginTop: 26 }}>
             <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Mail strokeWidth={1.7} /></span><div><h3>Email</h3><p><a href={`mailto:${site.email}`}>{site.email}</a></p></div></div>
             <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><MonitorSmartphone strokeWidth={1.7} /></span><div><h3>Sessions</h3><p>Fully online, anywhere in British Columbia</p></div></div>

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function ResourcesHub() {
   return (
     <>
-      <section className="hero" style={{ paddingBottom: 44 }}>
+      <section className="hero hero--resources" style={{ paddingBottom: 44 }}>
         <div className="container">
           <p className="eyebrow">Resources</p>
           <h1>The practical information, in one place.</h1>

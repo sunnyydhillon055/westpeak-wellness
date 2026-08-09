@@ -213,3 +213,37 @@ here is spacing, type and restraint rather than effect.
 ## 11. Verified
 
 Build clean at 105 routes. Across `/`, `/about`, `/services`, a service detail, `/pricing`, `/faq`, `/contact` and `/guides`: exactly one `h1` each, **zero heading-level skips**, every image carrying alt text and intrinsic dimensions. Fonts self-hosted with variable axes resolving. Contrast measured: hero h1 14.16:1, lede 7.17:1, inverted Punjabi block 15.14:1 / 7.87:1, footer link 7.48:1, footer body 6.33:1, footer meta 5.13:1 — all above AA. Nav targets raised from 19px to 44px. No horizontal overflow. Name grep: `app/about/` only.
+
+
+---
+
+## 12. Measured performance
+
+No headless Chrome is available in this environment, so **Lighthouse was not run
+and no score is claimed**. What was measured directly:
+
+| | |
+|---|---|
+| Shared JS (First Load) | **87.3 kB** — unchanged from before the elevation; Lucide tree-shakes and the two client components add ~0 net |
+| CSS | 43 kB raw → **9 kB gzipped**, one file |
+| Homepage HTML | 96 kB raw → **22 kB gzipped** |
+| Fonts on disk | 540 kB across 13 woff2 files (three families, subset-sliced) |
+| Photos (sources) | still-water 210 kB · forest-path 262 kB · portrait 172 kB — all served resized and re-encoded by `next/image` |
+| Render-blocking | 1 stylesheet, 0 inline style blocks |
+
+**The LCP element is correctly prioritised.** The hero photograph emits
+`rel="preload" as="image"` with a nine-width srcset and `fetchPriority="high"`.
+
+**Fonts are not preloaded** — a real gap, honestly reported. `next/font` marks a
+preloadable file (`…-s.p.woff2`) but emits no `<link rel="preload">`, because the
+fonts are applied through CSS variables on `<html>` and Next cannot statically
+prove usage per route. Adding `body.className` to `<body>` did not change it.
+The practical cost is roughly one round trip before the styled font swaps in;
+it does **not** cause invisible text or layout shift, because `display: swap` is
+set and `next/font` generates a size-adjusted fallback whose metrics match. A
+hand-written preload link is possible but the file hashes change every build, so
+it would need a build-time lookup — not worth the fragility for one round trip.
+
+**CLS risk is structurally low:** every image has intrinsic dimensions or a
+fixed aspect-ratio box, fonts swap against metric-matched fallbacks, and there
+are no late-injected banners, ads or embeds.

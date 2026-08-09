@@ -601,3 +601,61 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 @media (max-width: 680px){
   .hero:not(.hero--home){ background-size: 130% auto, cover }
 }
+
+
+/* ============================================================================
+   HUB HERO VARIANTS
+   The brief asks that hubs not look identical. Each variant re-composes the
+   same ridgeline motif — different crop, scale, ridge count and sun position —
+   rather than introducing new artwork, so they read as one family seen from
+   different distances.
+   ========================================================================= */
+.hero--guides{
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300'%3E%3Cpath d='M0 236c150 0 214-84 330-84s150 62 254 62 150-92 268-92 190 74 348 74v104H0v-64Z' fill='%23e8f0f9' opacity='.8'/%3E%3Ccircle cx='300' cy='74' r='40' fill='%23c07a56' opacity='.13'/%3E%3C/svg%3E"),
+    var(--grad-hero);
+  background-position: left bottom, center;
+  background-size: min(820px, 76%) auto, cover;
+}
+.hero--approaches{
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300'%3E%3Cpath d='M0 262c96 0 128-70 208-70s104 50 178 50 106-78 190-78 122 62 208 62 128-30 216-30v104H0v-38Z' fill='%23dbe7f4' opacity='.75'/%3E%3Cpath d='M0 284c120 0 168-40 262-40s124 30 204 30 128-46 224-46 138 36 230 36 100-14 180-14v50H0v-16Z' fill='%23e8f0f9'/%3E%3Ccircle cx='980' cy='96' r='30' fill='%23c07a56' opacity='.16'/%3E%3C/svg%3E"),
+    var(--grad-hero);
+  background-position: right bottom, center;
+  background-size: min(700px, 62%) auto, cover;
+}
+.hero--compare{
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300'%3E%3Cpath d='M0 250c160 0 208-96 320-96s142 74 246 74v72H0v-50Z' fill='%23e8f0f9' opacity='.85'/%3E%3Cpath d='M1200 250c-160 0-208-96-320-96s-142 74-246 74v72h566v-50Z' fill='%23f0e2d8' opacity='.8'/%3E%3C/svg%3E"),
+    var(--grad-hero);
+  background-position: center bottom, center;
+  background-size: min(980px, 92%) auto, cover;
+}
+.hero--resources{
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300'%3E%3Cpath d='M0 274c88 0 118-30 196-30s96 22 166 22 100-34 178-34 116 26 198 26 122-16 214-16v58H0v-26Z' fill='%23e8f0f9'/%3E%3Cpath d='M0 246c110 0 150-44 246-44s118 34 206 34 122-50 216-50 128 42 226 42 84-10 156-10v82H0v-54Z' fill='%23dbe7f4' opacity='.6'/%3E%3C/svg%3E"),
+    var(--grad-hero);
+  background-position: right bottom, center;
+  background-size: min(900px, 84%) auto, cover;
+}
+.hero--for{
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300'%3E%3Ccircle cx='210' cy='120' r='54' fill='%23c07a56' opacity='.11'/%3E%3Cpath d='M0 258c130 0 176-72 288-72s148 56 246 56 138-70 250-70 168 56 300 56v72H0v-42Z' fill='%23e8f0f9' opacity='.85'/%3E%3C/svg%3E"),
+    var(--grad-hero);
+  background-position: left bottom, center;
+  background-size: min(880px, 82%) auto, cover;
+}
+.hero--locations{
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300'%3E%3Cpath d='M0 214c74 0 92-64 158-64s76 52 134 52 88-72 156-72 96 66 168 66 92-40 160-40 84 32 158 32 90-20 166-20v132H0V214Z' fill='%23e8f0f9' opacity='.7'/%3E%3Cpath d='M0 268c140 0 192-34 300-34s130 26 224 26 134-32 234-32 142 26 244 26 130-12 198-12v58H0v-32Z' fill='%23dbe7f4' opacity='.55'/%3E%3C/svg%3E"),
+    var(--grad-hero);
+  background-position: center bottom, center;
+  background-size: min(1100px, 100%) auto, cover;
+}
+
+/* Contact: the BC reach diagram as a warm banner rather than a photo */
+.contact-banner{
+  margin-top: 30px; border-radius: var(--radius-lg); overflow: hidden;
+  border: 1px solid var(--line); background: var(--surface-0); box-shadow: var(--shadow-md);
+}
+.contact-banner img{ width: 100%; height: auto; display: block }

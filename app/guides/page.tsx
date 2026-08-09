@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function GuidesHub() {
   return (
     <>
-      <section className="hero" style={{ paddingBottom: 44 }}>
+      <section className="hero hero--guides" style={{ paddingBottom: 44 }}>
         <div className="container">
           <p className="eyebrow">Guides</p>
           <h1>Answers, before you have to book anything.</h1>

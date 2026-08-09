@@ -43,7 +43,7 @@ export default function ApproachesHub() {
 
   return (
     <>
-      <section className="hero" style={{ paddingBottom: 44 }}>
+      <section className="hero hero--approaches" style={{ paddingBottom: 44 }}>
         <div className="container">
           <p className="eyebrow">Approaches</p>
           <h1>The methods, and when each one fits.</h1>

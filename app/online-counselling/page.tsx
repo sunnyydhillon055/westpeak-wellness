@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { locations } from '@/lib/locations';
 import { site } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
+import Photo from '@/components/ui/Photo';
 import Figure from '@/components/Figure';
 
 export const metadata: Metadata = {
@@ -18,7 +19,7 @@ export default function LocationsIndex() {
   }, {});
   return (
     <>
-      <section className="hero" style={{ paddingBottom: 40 }}>
+      <section className="hero hero--locations" style={{ paddingBottom: 40 }}>
         <div className="container">
           <p className="eyebrow">Serving all of BC</p>
           <h1>Online counselling across British Columbia</h1>
@@ -33,6 +34,12 @@ export default function LocationsIndex() {
         <div className="container prose">
           <p className="crumb"><Link href="/">Home</Link> / Areas served</p>
           <h2>Anywhere in BC means anywhere in BC</h2>
+          <Photo
+            src="/img/photo/forest-path.jpg"
+            alt="A quiet gravel path curving away through tall sunlit conifers in late afternoon light."
+            ratio="wide"
+            sizes="(max-width: 900px) 92vw, 70vw"
+          />
           <Figure name="bc-reach" />
           <p>
             Because there is no office, there is no catchment. A Registered Clinical Counsellor

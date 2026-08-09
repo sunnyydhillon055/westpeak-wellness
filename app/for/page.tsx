@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function ForHub() {
   return (
     <>
-      <section className="hero" style={{ paddingBottom: 44 }}>
+      <section className="hero hero--for" style={{ paddingBottom: 44 }}>
         <div className="container">
           <p className="eyebrow">Who we work with</p>
           <h1>Written for where you actually are.</h1>

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import './premium.css';
-import { fontVars } from './fonts';
+import { fontVars, body as bodyFont } from './fonts';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import StickyBook from '@/components/StickyBook';
@@ -120,7 +120,7 @@ const siteSchema = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en-CA" className={fontVars}>
-      <body>
+      <body className={bodyFont.className}>
         <script
           dangerouslySetInnerHTML={{
             __html:

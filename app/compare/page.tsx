@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function CompareHub() {
   return (
     <>
-      <section className="hero" style={{ paddingBottom: 44 }}>
+      <section className="hero hero--compare" style={{ paddingBottom: 44 }}>
         <div className="container">
           <p className="eyebrow">Compare</p>
           <h1>Decisions, with the trade-offs stated.</h1>
