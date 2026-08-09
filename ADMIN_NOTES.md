@@ -97,16 +97,48 @@ write without accounting for this.
 
 ## Managing clients
 
-`/admin` — one address per line. On save the list is lowercased, de-duplicated,
-sorted, and anything invalid is dropped, so what you see after saving is exactly
-what is stored. Removal takes effect on the next click.
+`/admin` holds client **records** — name, email, status, note, added date —
+edited one row at a time, so a mistake costs one person rather than the list.
 
-`PORTAL_ALLOWED_EMAILS` still works and is merged with the stored list, so
-anyone configured before `/admin` existed keeps access. Prefer the screen.
+Three states, and the distinction matters:
+
+| Status | Can sign in | For |
+|---|---|---|
+| Active | yes | current clients |
+| Paused | no | someone between blocks of sessions — the record is kept |
+| Former | no | people who have finished |
+
+Removing deletes the record **and clears any password with it**, since leaving a
+credential behind for someone off the books is its own small hazard.
+
+Every save carries the version it was based on. If someone else changed the list
+in the meantime the save is refused with an explanation rather than silently
+overwriting their edit.
+
+Removal takes effect on the person's next request — see the two gates above.
+
+An older flat address list is migrated to records on first read, with names
+left blank — inventing them would be worse. `PORTAL_ALLOWED_EMAILS` also still
+works and is merged in, so nobody configured before this loses access.
 
 Administrators live in `PORTAL_ADMIN_EMAILS`, deliberately outside the form that
 manages clients — the screen that removes people must not be able to remove the
 last way in.
+
+## Availability
+
+Editable from `/admin`, and the single source for the footer, the contact page,
+the LocalBusiness schema and — until Cliniko's calendar is embedded — nothing
+else. It was removed from the client portal deliberately: Cliniko decides what
+is actually bookable, and a second list could contradict it.
+
+**It does not control booking.** Change both, or the site advertises hours that
+cannot be reserved.
+
+Those pages are statically rendered, so a write alone would not reach them until
+the next deploy. The route calls `revalidatePath` after saving, which regenerates
+them in a few seconds. Without that the admin would show the change and the
+public site would not — which is exactly the kind of drift nobody notices.
 
 ## Cliniko
 

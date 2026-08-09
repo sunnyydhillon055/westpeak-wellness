@@ -8,7 +8,7 @@ import Figure from '@/components/Figure';
 
 const TITLE = 'Free counselling tools | Westpeak Wellness';
 const DESC =
-  'Three short, private tools: which kind of counselling fits, what it costs in BC after extended health, and a reflection on how things have been. Nothing stored.';
+  'Three short, private tools: which counselling fits, what it costs in BC after extended health, and a reflection on how things have been. Nothing stored.';
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },

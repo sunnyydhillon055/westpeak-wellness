@@ -182,8 +182,3 @@ export async function clientCanSignIn(email: string): Promise<boolean> {
   const { clients } = await readClients();
   return clients.some((c) => c.email === e && c.status === 'active');
 }
-
-export async function findClient(email: string): Promise<ClientRecord | undefined> {
-  const e = normalizeEmail(email);
-  return (await readClients()).clients.find((c) => c.email === e);
-}

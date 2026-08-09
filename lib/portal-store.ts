@@ -1,4 +1,4 @@
-import { put, get } from '@vercel/blob';
+import { get } from '@vercel/blob';
 import { normalizeEmail } from '@/lib/portal-auth';
 
 /* The client allowlist, stored so it can be edited from /admin without a
@@ -61,28 +61,6 @@ export async function readAllowlist(opts?: { fresh?: boolean }): Promise<Allowli
   }
 }
 
-export async function writeAllowlist(emails: string[], updatedBy: string): Promise<Allowlist> {
-  const clean = Array.from(
-    new Set(emails.map(normalizeEmail).filter((e) => /^[^@\s]+@[^@\s.]+\.[^@\s]+$/.test(e)))
-  ).sort();
-
-  const value: Allowlist = {
-    emails: clean,
-    updatedAt: new Date().toISOString(),
-    updatedBy: normalizeEmail(updatedBy),
-  };
-
-  await put(KEY, JSON.stringify(value, null, 2), {
-    access: 'private',         // must match the store's access mode
-    contentType: 'application/json',
-    addRandomSuffix: false,
-    allowOverwrite: true,
-    cacheControlMaxAge: 0,
-  });
-
-  cache = { at: Date.now(), value };
-  return value;
-}
 
 /** Env var + stored list, combined. The env var stays supported so the portal
  *  does not break for anyone configured before /admin existed. */

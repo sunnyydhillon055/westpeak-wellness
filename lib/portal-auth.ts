@@ -1,23 +1,16 @@
-/* Signed sign-in links and session cookies for the portal and the admin area.
+/* Cryptography for password-reset links.
  *
- * This module does cryptography only — it never decides who is allowed. That
- * question needs the stored allowlist, which lives in lib/portal-store.ts and
- * cannot be read from edge middleware, so the split is deliberate:
+ * Sessions are NextAuth's job — this file used to carry a parallel cookie and
+ * magic-link implementation from before that migration, which has been removed.
+ * Two session systems in one security-sensitive module is an invitation to wire
+ * up the wrong one, and the dead half had no CSRF handling or role checks.
  *
- *   middleware  → is this cookie one we issued, for this area?   (no I/O)
- *   page/route  → is this person still allowed?                  (reads store)
+ * What remains is deliberately narrow: hashing helpers, a constant-time
+ * comparison, and the signed reset token. It decides nothing about who is
+ * allowed — that lives in lib/clients.ts and the signIn callback in auth.ts.
  *
- * Doing it the other way round would put a blob fetch in front of every request
- * to the site. Doing only the first would leave revocation to cookie expiry.
- * Both layers are required, and both are enforced.
- *
- * All crypto is Web Crypto so the middleware half runs on the edge runtime.
+ * Web Crypto throughout, so it runs in any runtime the app uses.
  */
-
-export const PORTAL_COOKIE = 'wp_portal';
-export const ADMIN_COOKIE = 'wp_admin';
-
-export type Scope = 'client' | 'admin';
 
 const ENC = new TextEncoder();
 const LINK_TTL_MS = 30 * 60 * 1000;
@@ -56,63 +49,6 @@ export function safeEqual(a: string, b: string): boolean {
   let diff = 0;
   for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
   return diff === 0;
-}
-
-/* ---- Magic-link tokens ------------------------------------------------- */
-
-/* The scope sits inside the signed payload, so a link mailed to a client can
- * never be redeemed for an admin session even if the URL is altered. */
-export async function createLoginToken(
-  email: string, secret: string, scope: Scope
-): Promise<string> {
-  const payload = `${scope}|${normalizeEmail(email)}|${Date.now() + LINK_TTL_MS}`;
-  return `${b64url(ENC.encode(payload))}.${await sign(payload, secret)}`;
-}
-
-export async function readLoginToken(
-  token: string, secret: string, scope: Scope
-): Promise<string | null> {
-  const [body, sig] = token.split('.');
-  if (!body || !sig) return null;
-  const payload = unb64url(body);
-  if (!payload) return null;
-  if (!safeEqual(sig, await sign(payload, secret))) return null;
-
-  const [tokenScope, email, expiry] = payload.split('|');
-  if (tokenScope !== scope) return null;
-  if (!email || !expiry || Number(expiry) < Date.now()) return null;
-  return email;
-}
-
-/* ---- Session cookies --------------------------------------------------- */
-
-export async function createSession(
-  email: string, secret: string, scope: Scope
-): Promise<string> {
-  const e = normalizeEmail(email);
-  return `${b64url(ENC.encode(`${scope}:${e}`))}.${await sign(`session:${scope}:${e}`, secret)}`;
-}
-
-/** Returns the email if the cookie is one we issued for this scope. Says
- *  nothing about whether that person is still allowed — callers must check the
- *  allowlist (clients) or the admin list. */
-export async function readSession(
-  cookie: string | undefined, secret: string, scope: Scope
-): Promise<string | null> {
-  if (!cookie) return null;
-  const [body, sig] = cookie.split('.');
-  if (!body || !sig) return null;
-  const payload = unb64url(body);
-  if (!payload) return null;
-
-  const sep = payload.indexOf(':');
-  if (sep < 0) return null;
-  const cookieScope = payload.slice(0, sep);
-  const email = payload.slice(sep + 1);
-  if (cookieScope !== scope || !email) return null;
-
-  if (!safeEqual(sig, await sign(`session:${scope}:${email}`, secret))) return null;
-  return email;
 }
 
 /* ---- Password-reset tokens --------------------------------------------- */
