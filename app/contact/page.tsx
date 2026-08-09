@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import { site } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
+import { Mail, MonitorSmartphone, Clock, MapPin, Languages as LangIcon, AtSign } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Contact & Book',
@@ -30,12 +31,12 @@ export default function Contact() {
           <p className="crumb"><a href="/">Home</a> / Contact</p>
           <h2>Reach out</h2>
           <div className="info-grid" style={{ marginTop: 26 }}>
-            <div className="info-block"><h3>Email</h3><p><a href={`mailto:${site.email}`}>{site.email}</a></p></div>
-            <div className="info-block"><h3>Sessions</h3><p>Fully online, anywhere in British Columbia</p></div>
-            <div className="info-block"><h3>Hours</h3><p>Mon–Fri: 9 AM – 7 PM<br/>Evenings & Saturday by request</p></div>
-            <div className="info-block"><h3>Service area</h3><p>Virtual: anywhere in BC</p></div>
-            <div className="info-block"><h3>Languages</h3><p>English & Punjabi</p></div>
-            <div className="info-block"><h3>Instagram</h3><p><a href={site.instagramUrl} target="_blank" rel="noopener">{site.instagram}</a></p></div>
+            <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Mail strokeWidth={1.7} /></span><div><h3>Email</h3><p><a href={`mailto:${site.email}`}>{site.email}</a></p></div></div>
+            <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><MonitorSmartphone strokeWidth={1.7} /></span><div><h3>Sessions</h3><p>Fully online, anywhere in British Columbia</p></div></div>
+            <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Clock strokeWidth={1.7} /></span><div><h3>Hours</h3><p>Mon–Fri: 9 AM – 7 PM<br/>Evenings & Saturday by request</p></div></div>
+            <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><MapPin strokeWidth={1.7} /></span><div><h3>Service area</h3><p>Virtual: anywhere in BC</p></div></div>
+            <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><LangIcon strokeWidth={1.7} /></span><div><h3>Languages</h3><p>English & Punjabi</p></div></div>
+            <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><AtSign strokeWidth={1.7} /></span><div><h3>Instagram</h3><p><a href={site.instagramUrl} target="_blank" rel="noopener">{site.instagram}</a></p></div></div>
           </div>
 
           <p style={{ marginTop: 32 }}>

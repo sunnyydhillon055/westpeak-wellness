@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { site } from '@/lib/site';
 import { approaches } from '@/lib/approaches';
 import CtaBand from '@/components/CtaBand';
+import { Sparkles } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: { absolute: 'Counselling Approaches Explained | Westpeak' },
@@ -65,7 +66,7 @@ export default function ApproachesHub() {
             {approaches.map((a) => (
               <div className="card" key={a.slug}>
                 <Link href={`/approaches/${a.slug}`} className="card-link">
-                  <h2 className="card-title">{a.title}</h2>
+                  <div className="hub-card-head"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Sparkles strokeWidth={1.7} /></span><h2 className="card-title">{a.title}</h2></div>
                   <p>{a.lede}</p>
                   <span className="more">{a.readMinutes} min read →</span>
                 </Link>

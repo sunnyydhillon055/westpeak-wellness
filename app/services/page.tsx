@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { site } from '@/lib/site';
 import { services } from '@/lib/services';
 import CtaBand from '@/components/CtaBand';
+import { getServiceIcon } from '@/lib/icon-map';
 
 export const metadata: Metadata = {
   title: 'Counselling Services (Online, BC-wide)',
@@ -30,15 +31,29 @@ export default function Services() {
         <div className="container">
           <p className="crumb"><Link href="/">Home</Link> / Services</p>
           <div className="grid grid-3">
-            {services.map((s) => (
-              <div className="card" key={s.slug}>
-                <Link href={`/services/${s.slug}`} className="card-link">
-                  <h2 className="card-title">{s.name}</h2>
-                  <p>{s.short}</p>
-                  <span className="more">{s.name} in BC →</span>
-                </Link>
-              </div>
-            ))}
+            {services.map((s, i) => {
+              const Icon = getServiceIcon(s.slug);
+              /* Nine services need to be distinguishable at a glance. The bar
+                 walks the brand ramp rather than introducing new hues. */
+              const ACCENTS = [
+                'var(--blue-deep)', 'var(--clay)', 'var(--blue)',
+                'var(--clay-deep)', 'var(--blue-deeper)', 'var(--clay)',
+                'var(--blue)', 'var(--blue-deep)', 'var(--clay-deep)',
+              ];
+              return (
+                <div className="card svc-tile" key={s.slug}>
+                  <span className="svc-tile-bar" style={{ background: ACCENTS[i % ACCENTS.length] }} aria-hidden="true" />
+                  <Link href={`/services/${s.slug}`} className="card-link">
+                    <div className="svc-card-head">
+                      <span className="icon-chip" aria-hidden="true"><Icon strokeWidth={1.6} /></span>
+                      <h2 className="card-title">{s.name}</h2>
+                    </div>
+                    <p>{s.short}</p>
+                    <span className="more">{s.name} in BC →</span>
+                  </Link>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

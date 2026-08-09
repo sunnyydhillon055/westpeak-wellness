@@ -48,3 +48,29 @@ export const faqs: FAQ[] = [
     a: "Book a free 15-minute consultation. It's a relaxed phone or video call to ask questions, share a bit about what's going on, and see whether working together feels right — no commitment required.",
   },
 ];
+
+/* Grouping for the FAQ page. Questions and answers are untouched — this only
+ * says which heading each one sits under, so a reader can jump rather than
+ * scroll a flat list of eleven. */
+export const FAQ_GROUPS: { key: string; label: string; icon: 'start' | 'money' | 'sessions' | 'privacy' }[] = [
+  { key: 'start',    label: 'Getting started',       icon: 'start' },
+  { key: 'money',    label: 'Fees and coverage',     icon: 'money' },
+  { key: 'sessions', label: 'How sessions work',     icon: 'sessions' },
+  { key: 'privacy',  label: 'Privacy and safety',    icon: 'privacy' },
+];
+
+const GROUP_OF: Record<string, string> = {
+  "Are you taking new clients?": 'start',
+  "Is this practice fully online?": 'start',
+  "How do I get started?": 'start',
+  "Do you offer sessions in Punjabi?": 'sessions',
+  "Are you covered by extended health benefits?": 'money',
+  "What if the fee is more than I can manage?": 'money',
+  "How much do sessions cost?": 'money',
+  "How long are sessions, and how often will we meet?": 'sessions',
+  "Is what I share confidential?": 'privacy',
+  "What happens in the first session?": 'sessions',
+  "What if I'm in crisis?": 'privacy',
+};
+
+export const faqsInGroup = (key: string) => faqs.filter((f) => GROUP_OF[f.q] === key);

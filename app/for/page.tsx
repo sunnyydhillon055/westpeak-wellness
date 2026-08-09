@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { audiences } from '@/lib/audiences';
 import { site } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
+import { Users } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Who We Work With',
@@ -37,7 +38,7 @@ export default function ForHub() {
             {audiences.map((a) => (
               <div className="card" key={a.slug}>
                 <Link href={`/for/${a.slug}`} className="card-link">
-                  <h2 className="card-title">{a.title}</h2>
+                  <div className="hub-card-head"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Users strokeWidth={1.7} /></span><h2 className="card-title">{a.title}</h2></div>
                   <p>{a.lede}</p>
                   <span className="more">{a.readMinutes} min read →</span>
                 </Link>

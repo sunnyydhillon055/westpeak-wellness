@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { site } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
+import Motif from '@/components/brand/Motif';
+import { GraduationCap, Scale, BadgeCheck, Waves, HeartHandshake, Landmark } from 'lucide-react';
 
 // The counsellor's personal name is intentionally scoped to this file only.
 // Every other page refers to "Westpeak Wellness" or "your counsellor".
@@ -31,8 +33,10 @@ export default function About() {
               <Link className="btn btn--primary" href={site.bookingPath}>Book a Free Consultation</Link>
               <Link className="btn btn--ghost" href="/pricing">Fees and coverage</Link>
             </div>
+            <p className="badge-rcc"><BadgeCheck aria-hidden="true" strokeWidth={1.7} />Registered Clinical Counsellor · BCACC · verify at bcacc.ca</p>
           </div>
           <div className="portrait">
+            <span className="portrait-bloom" aria-hidden="true"><Motif variant="bloom" /></span>
             <Image
               src="/img/photo/counsellor-portrait.jpg"
               alt={`${counsellorName}, ${site.counsellor.credentials}, ${site.counsellor.title} at ${site.name}`}
@@ -160,9 +164,19 @@ export default function About() {
               ['EMDR-trained', 'Evidence-based modality for trauma, PTSD, anxiety, and grief.'],
               ['Gottman Method-trained', 'Research-based approach to couples therapy.'],
               ['Fraser Health BC', 'Years of experience in the Mental Health and Substance Use subsector.'],
-            ].map(([t, d]) => (
-              <div className="card" key={t}><h3>{t}</h3><p style={{ marginBottom: 0 }}>{d}</p></div>
-            ))}
+            ].map(([t, d], i) => {
+              const ICONS = [GraduationCap, Scale, BadgeCheck, Waves, HeartHandshake, Landmark];
+              const Icon = ICONS[i % ICONS.length];
+              return (
+                <div className="card cred-card" key={t}>
+                  <span className="icon-chip" aria-hidden="true"><Icon strokeWidth={1.6} /></span>
+                  <div>
+                    <h3>{t}</h3>
+                    <p style={{ marginBottom: 0 }}>{d}</p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

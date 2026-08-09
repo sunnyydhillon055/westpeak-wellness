@@ -372,3 +372,232 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   .signature-quote{ padding: 32px 22px 26px 30px }
   .trust-bar{ gap: 10px 16px }
 }
+
+
+/* ============================================================================
+   GLOBAL CHROME — header and footer
+   ========================================================================= */
+
+/* — Header — */
+.site-header{ background: rgba(251,252,254,.78) }
+.site-header[data-scrolled="true"] .nav{ height: 62px }
+.nav{ transition: height var(--dur-base) var(--ease) }
+.brand{ display: inline-flex; align-items: center; gap: 11px }
+.brand-mark{ width: 34px; height: 34px; flex: none; display: block }
+.brand-mark svg{ width: 100%; height: 100% }
+.brand-word{ font-family: var(--font-display); font-weight: 560; letter-spacing: -.018em }
+.nav-links a[aria-current="page"]{ color: var(--ink); font-weight: 560 }
+.nav-links a[aria-current="page"]::after{ transform: scaleX(1); background: var(--blue-deep) }
+
+/* — Footer — */
+.site-footer{
+  background: var(--surface-ink); color: #b9c6d3;
+  padding: clamp(52px, 6vw, 76px) 0 32px; margin-top: 0;
+}
+.footer-grid{
+  display: grid; grid-template-columns: 1.55fr 1fr 1fr 1fr;
+  gap: clamp(28px, 4vw, 52px); margin-bottom: 42px;
+}
+.footer-brand{
+  display: flex; align-items: center; gap: 12px;
+  font-family: var(--font-display); font-size: 1.32rem; font-weight: 560;
+  letter-spacing: -.02em; color: #fff; margin-bottom: 16px;
+}
+.footer-brand span{ color: #9dbbdc }
+.footer-brand-mark{ width: 38px; height: 38px; flex: none }
+.footer-brand-mark svg{ width: 100%; height: 100% }
+.footer-blurb{ max-width: 34ch; color: #9aa9b8; font-size: var(--fs-small); line-height: 1.6 }
+.footer-facts{ list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 10px }
+.footer-facts li{ display: flex; align-items: center; gap: 10px; font-size: var(--fs-small); color: #b9c6d3 }
+.footer-facts svg{ width: 16px; height: 16px; color: #7fa3cc; flex: none }
+.footer-social{ display: flex; flex-wrap: wrap; gap: 10px 20px; margin-top: 20px }
+.footer-social-link{
+  display: inline-flex; align-items: center; gap: 9px; min-height: 44px;
+  color: #b9c6d3; font-size: var(--fs-small);
+  transition: color var(--dur-fast) var(--ease);
+}
+.footer-social-link svg{ width: 17px; height: 17px; color: #7fa3cc; flex: none }
+.footer-social-link:hover{ color: #fff }
+.footer-col h2{
+  color: #fff; font-family: var(--font-body); font-size: var(--fs-overline);
+  font-weight: 600; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 15px;
+}
+.footer-col a{
+  color: #a9b8c7; font-size: var(--fs-small); display: flex; align-items: center;
+  min-height: 34px; transition: color var(--dur-fast) var(--ease), padding-left var(--dur-fast) var(--ease);
+}
+.footer-col a:hover{ color: #fff; padding-left: 4px }
+.footer-more{ color: #9dbbdc !important; font-weight: 560; margin-top: 4px }
+.footer-crisis{
+  display: flex; align-items: flex-start; gap: 14px;
+  background: rgba(192,122,86,.13); border: 1px solid rgba(192,122,86,.28);
+  border-radius: var(--radius); padding: 16px 20px; margin-bottom: 26px;
+}
+.footer-crisis svg{ width: 20px; height: 20px; color: #e0a480; flex: none; margin-top: 2px }
+.footer-crisis p{ margin: 0; font-size: var(--fs-small); line-height: 1.6; color: #cdd8e3 }
+.footer-crisis strong{ color: #fff }
+.footer-crisis a{ color: #e0a480 }
+.footer-bottom{
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px;
+  border-top: 1px solid rgba(255,255,255,.10); padding-top: 22px;
+  font-size: .82rem; color: #8798a8;
+}
+
+@media (max-width: 900px){
+  .footer-grid{ grid-template-columns: 1fr 1fr; gap: 32px }
+  .footer-brand-col{ grid-column: 1 / -1 }
+}
+@media (max-width: 680px){
+  .footer-grid{ grid-template-columns: 1fr }
+  .site-footer{ padding-bottom: 96px }
+  .nav-links.open{
+    max-height: calc(100vh - 70px); overflow-y: auto; padding-bottom: 26px;
+  }
+}
+
+
+/* ============================================================================
+   PAGE PATTERNS — service detail, about, fees, faq, contact, hubs
+   ========================================================================= */
+
+/* — Interior hero: motif + gradient, lighter than the home hero — */
+.hero{ position: relative; overflow: hidden; isolation: isolate; background: var(--grad-hero) }
+.hero > .container{ position: relative; z-index: 1 }
+.hero-motif{
+  position: absolute; right: -4%; bottom: -18%; width: min(560px, 52%);
+  opacity: .5; z-index: 0; pointer-events: none;
+}
+.hero-motif svg{ width: 100%; height: auto }
+
+/* — At-a-glance chip strip — */
+.glance{
+  display: flex; flex-wrap: wrap; gap: 10px; margin: 26px 0 0; padding: 0; list-style: none;
+}
+.glance li{
+  display: inline-flex; align-items: center; gap: 9px; min-height: 42px;
+  background: var(--surface-0); border: 1px solid var(--line); border-radius: var(--radius-pill);
+  padding: 8px 17px; font-size: var(--fs-small); color: var(--ink-soft);
+  box-shadow: var(--shadow-xs);
+}
+.glance svg{ width: 16px; height: 16px; color: var(--blue-deep); flex: none }
+.glance strong{ color: var(--ink); font-weight: 580 }
+
+/* — Service detail: sticky sidebar at desktop — */
+.svc-layout{ display: grid; grid-template-columns: minmax(0,1fr) 300px; gap: clamp(28px,4vw,52px); align-items: start }
+.svc-aside{ position: sticky; top: 92px }
+.svc-aside-card{
+  background: var(--surface-0); border: 1px solid var(--line); border-radius: var(--radius-lg);
+  padding: 24px 24px 26px; box-shadow: var(--shadow-md);
+}
+.svc-aside-card h2{
+  font-family: var(--font-body); font-size: var(--fs-overline); font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--blue-deep); margin-bottom: 14px;
+}
+.svc-aside-card ul{ list-style: none; padding: 0; margin: 0 0 20px }
+.svc-aside-card li{
+  display: flex; gap: 10px; align-items: flex-start; padding: 7px 0;
+  font-size: var(--fs-small); color: var(--ink-soft); line-height: 1.5;
+}
+.svc-aside-card li::before{
+  content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--clay);
+  flex: none; margin-top: .55em;
+}
+
+/* — Accent bars so nine services are distinguishable — */
+.svc-tile{ position: relative; overflow: hidden }
+.svc-tile-bar{ position: absolute; left: 0; top: 0; bottom: 0; width: 4px; border-radius: 4px 0 0 4px }
+
+/* — About: portrait framing — */
+.portrait{ position: relative; border-radius: var(--radius-lg); box-shadow: var(--shadow-xl) }
+.portrait-bloom{
+  position: absolute; inset: -14% -12% -12% -14%; z-index: -1; opacity: .85; pointer-events: none;
+}
+.portrait-bloom svg{ width: 100%; height: 100% }
+.cred-card{ display: flex; gap: 14px; align-items: flex-start }
+.cred-card .icon-chip{ margin-top: 2px }
+.badge-rcc{
+  display: inline-flex; align-items: center; gap: 10px; margin-top: 18px;
+  background: var(--clay-ghost); border: 1px solid var(--clay-soft);
+  border-radius: var(--radius-pill); padding: 9px 18px 9px 12px;
+  font-size: var(--fs-small); color: var(--clay-deep); font-weight: 560;
+}
+.badge-rcc svg{ width: 19px; height: 19px; flex: none }
+
+/* — Fees — */
+.fee-highlight{ background: var(--blue-ghost) !important; box-shadow: inset 3px 0 0 var(--clay) }
+.fee-callout{
+  display: flex; gap: 16px; align-items: flex-start; margin-top: 30px;
+  background: var(--grad-mist); border-radius: var(--radius-lg); padding: 24px 26px;
+}
+.fee-callout svg{ width: 22px; height: 22px; color: var(--clay-deep); flex: none; margin-top: 3px }
+.coverage-strip{
+  display: flex; flex-wrap: wrap; gap: 9px; list-style: none; padding: 0; margin: 18px 0 0;
+}
+.coverage-strip li{
+  border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface-0);
+  padding: 7px 14px; font-size: .84rem; color: var(--ink-soft);
+}
+
+/* — FAQ categories + jump nav — */
+.faq-layout{ display: grid; grid-template-columns: 232px minmax(0,1fr); gap: clamp(26px,4vw,48px); align-items: start }
+.faq-nav{ position: sticky; top: 92px }
+.faq-nav h2{
+  font-family: var(--font-body); font-size: var(--fs-overline); font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--blue-deep); margin-bottom: 12px;
+}
+.faq-nav a{
+  display: flex; align-items: center; gap: 10px; min-height: 42px;
+  font-size: var(--fs-small); color: var(--ink-soft);
+  border-left: 2px solid var(--line); padding-left: 13px;
+  transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.faq-nav a:hover{ border-color: var(--clay); color: var(--ink) }
+.faq-nav svg{ width: 16px; height: 16px; flex: none; color: var(--blue-deep) }
+.faq-group{ margin-bottom: 40px; scroll-margin-top: 92px }
+.faq-group-head{ display: flex; align-items: center; gap: 13px; margin-bottom: 6px }
+.faq-group-head h2{ margin: 0 }
+
+/* — Contact info blocks — */
+.info-block{
+  display: flex; gap: 14px; align-items: flex-start;
+  background: var(--surface-0); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 20px 22px; box-shadow: var(--shadow-xs);
+}
+.info-block h3{ margin: 0 0 3px; font-size: 1rem }
+.info-block p{ margin: 0; color: var(--ink-soft); font-size: var(--fs-small) }
+
+/* — Crisis box: supportive, never alarming — */
+.crisis{
+  background: var(--clay-ghost); border: 1px solid var(--clay-soft);
+  border-left: 4px solid var(--clay); border-radius: var(--radius);
+  padding: 18px 22px; color: var(--ink-soft);
+}
+.crisis strong{ color: var(--ink) }
+
+@media (max-width: 980px){
+  .svc-layout{ grid-template-columns: 1fr }
+  .svc-aside{ position: static }
+  .faq-layout{ grid-template-columns: 1fr }
+  .faq-nav{ position: static; margin-bottom: 26px }
+  .faq-nav a{ display: inline-flex; border-left: 0; border-bottom: 2px solid var(--line); padding: 0 12px }
+}
+@media (max-width: 680px){
+  .hero-motif{ width: 78%; right: -14%; opacity: .38 }
+  .glance li{ padding: 7px 14px }
+}
+
+
+/* Interior heroes get the ridgeline as a background layer — one rule rather
+   than a component edit in fifteen page files. The home hero uses the full
+   <Motif> component instead, so it is excluded. */
+.hero:not(.hero--home){
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300' preserveAspectRatio='xMaxYMax slice'%3E%3Cpath d='M0 210c118 0 176-58 268-58s126 42 210 42 132-66 236-66 156 54 250 54 148-26 236-26v144H0V210Z' fill='%23e8f0f9' opacity='.75'/%3E%3Cpath d='M0 246c136 0 190-46 286-46s136 34 224 34 140-54 246-54 152 42 252 42 116-16 192-16v94H0v-54Z' fill='%23dbe7f4' opacity='.6'/%3E%3Ccircle cx='925' cy='86' r='34' fill='%23c07a56' opacity='.14'/%3E%3C/svg%3E"),
+    var(--grad-hero);
+  background-repeat: no-repeat, no-repeat;
+  background-position: right bottom, center;
+  background-size: min(760px, 68%) auto, cover;
+}
+@media (max-width: 680px){
+  .hero:not(.hero--home){ background-size: 130% auto, cover }
+}

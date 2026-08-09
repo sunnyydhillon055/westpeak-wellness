@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { resources } from '@/lib/resources';
 import { site } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
+import { LifeBuoy } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'BC Mental Health Resources',
@@ -47,7 +48,7 @@ export default function ResourcesHub() {
             {resources.map((r) => (
               <div className="card" key={r.slug}>
                 <Link href={`/resources/${r.slug}`} className="card-link">
-                  <h2 className="card-title">{r.title}</h2>
+                  <div className="hub-card-head"><span className="icon-chip icon-chip--sm" aria-hidden="true"><LifeBuoy strokeWidth={1.7} /></span><h2 className="card-title">{r.title}</h2></div>
                   <p>{r.lede}</p>
                   <span className="more">{r.readMinutes} min read →</span>
                 </Link>

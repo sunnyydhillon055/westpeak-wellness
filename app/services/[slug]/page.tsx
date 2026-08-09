@@ -5,6 +5,8 @@ import { services, getService } from '@/lib/services';
 import { site } from '@/lib/site';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import { getServiceIcon } from '@/lib/icon-map';
+import { Clock, MonitorSmartphone, Languages as LangIcon, BadgeCheck, CircleDot } from 'lucide-react';
 import ExtraSections from '@/components/ExtraSections';
 import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
@@ -65,6 +67,12 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         <div className="container">
           <p className="eyebrow">{s.name}</p>
           <h1>{s.hero}</h1>
+          <ul className="glance">
+            <li><Clock aria-hidden="true" strokeWidth={1.7} /><span><strong>50 minutes</strong> per session</span></li>
+            <li><MonitorSmartphone aria-hidden="true" strokeWidth={1.7} /><span>Secure <strong>video or phone</strong></span></li>
+            <li><LangIcon aria-hidden="true" strokeWidth={1.7} /><span>English &amp; <span className="gurmukhi">ਪੰਜਾਬੀ</span></span></li>
+            <li><BadgeCheck aria-hidden="true" strokeWidth={1.7} /><span><strong>MA, RCC</strong> · BCACC</span></li>
+          </ul>
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
             <Link className="btn btn--ghost" href="/pricing">Fees and coverage</Link>
@@ -111,9 +119,14 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
             <h2>What people tend to arrive with</h2>
             <div className="grid grid-2" style={{ marginTop: 26 }}>
               {s.signs.map((x) => (
-                <div className="card" key={x.label}>
-                  <h3>{x.label}</h3>
-                  <p style={{ marginBottom: 0 }}>{rich(x.detail)}</p>
+                <div className="card cred-card sign-card" key={x.label}>
+                  <span className="icon-chip icon-chip--sm icon-chip--warm" aria-hidden="true">
+                    <CircleDot strokeWidth={1.7} />
+                  </span>
+                  <div>
+                    <h3>{x.label}</h3>
+                    <p style={{ marginBottom: 0 }}>{rich(x.detail)}</p>
+                  </div>
                 </div>
               ))}
             </div>

@@ -1,56 +1,97 @@
 import Link from 'next/link';
 import { site } from '@/lib/site';
 import { services } from '@/lib/services';
+import Motif from '@/components/brand/Motif';
+import SectionDivider from '@/components/brand/SectionDivider';
+import { TRUST_ICONS } from '@/lib/icon-map';
+import { Mail, AtSign, LifeBuoy } from 'lucide-react';
 
 export default function Footer() {
+  const Credential = TRUST_ICONS.credential;
+  const Region = TRUST_ICONS.region;
+  const Langs = TRUST_ICONS.languages;
+  const Hours = TRUST_ICONS.hours;
+
   return (
-    <footer className="site-footer">
-      <div className="container">
-        <div className="footer-grid">
-          <div>
-            <div className="footer-brand">Westpeak <span>Wellness</span></div>
-            <p style={{ maxWidth: '32ch', color: '#a9b6c4' }}>
-              Online counselling across British Columbia with a {site.counsellor.title}. Therapy in {site.languages}.
+    <>
+      <SectionDivider variant="slope" from="transparent" to="var(--surface-ink)" />
+      <footer className="site-footer grained">
+        <div className="container container--wide">
+          <div className="footer-grid">
+            <div className="footer-brand-col">
+              <div className="footer-brand">
+                <span className="footer-brand-mark" aria-hidden="true"><Motif variant="mark" /></span>
+                Westpeak <span>Wellness</span>
+              </div>
+              <p className="footer-blurb">
+                Online counselling across British Columbia with a {site.counsellor.title}.
+                Therapy in {site.languages}.
+              </p>
+              <ul className="footer-facts">
+                <li><Credential aria-hidden="true" strokeWidth={1.7} /><span>{site.counsellor.credentials} · BCACC registered</span></li>
+                <li><Region aria-hidden="true" strokeWidth={1.7} /><span>{site.serviceArea}</span></li>
+                <li><Langs aria-hidden="true" strokeWidth={1.7} /><span>{site.languagesNative}</span></li>
+                <li><Hours aria-hidden="true" strokeWidth={1.7} /><span>{site.hours}</span></li>
+              </ul>
+              <div className="footer-social">
+                <a href={`mailto:${site.email}`} className="footer-social-link">
+                  <Mail aria-hidden="true" strokeWidth={1.7} /><span>{site.email}</span>
+                </a>
+                <a href={site.instagramUrl} target="_blank" rel="noopener" className="footer-social-link">
+                  <AtSign aria-hidden="true" strokeWidth={1.7} /><span>{site.instagram}</span>
+                </a>
+              </div>
+            </div>
+
+            <nav className="footer-col" aria-labelledby="foot-svc">
+              <h2 id="foot-svc">Services</h2>
+              {services.slice(0, 6).map((s) => (
+                <Link key={s.slug} href={`/services/${s.slug}`}>{s.name}</Link>
+              ))}
+              <Link href="/services" className="footer-more">All services →</Link>
+            </nav>
+
+            <nav className="footer-col" aria-labelledby="foot-practice">
+              <h2 id="foot-practice">Practice</h2>
+              <Link href="/about">About the Counsellor</Link>
+              <Link href="/approaches">Counselling Approaches</Link>
+              <Link href="/guides">Counselling Guides</Link>
+              <Link href="/compare">Compare Your Options</Link>
+              <Link href="/for">Who We Work With</Link>
+              <Link href="/resources">BC Resources</Link>
+              <Link href="/online-counselling">Areas Served in BC</Link>
+              <Link href="/pricing">Fees &amp; Insurance</Link>
+              <Link href="/faq">FAQ</Link>
+              <Link href={site.bookingPath}>Book a Consultation</Link>
+            </nav>
+
+            <nav className="footer-col" aria-labelledby="foot-trust">
+              <h2 id="foot-trust">Trust &amp; transparency</h2>
+              <Link href="/standards">Standards &amp; Accountability</Link>
+              <Link href="/editorial-policy">Editorial Policy</Link>
+              <Link href="/privacy">Privacy &amp; Confidentiality</Link>
+              <Link href="/accessibility">Accessibility</Link>
+              <Link href="/glossary">Counselling Glossary</Link>
+              <Link href="/contact">Contact</Link>
+            </nav>
+          </div>
+
+          <div className="footer-crisis">
+            <LifeBuoy aria-hidden="true" strokeWidth={1.7} />
+            <p>
+              <strong>Not a crisis service.</strong> If you are in crisis, call or text{' '}
+              <strong>9-8-8</strong> (Canada, 24/7), or <strong>310-6789</strong> for BC Mental
+              Health Support. In immediate danger, call <strong>9-1-1</strong>.{' '}
+              <Link href="/resources/bc-crisis-and-support-directory">Full BC directory →</Link>
             </p>
-            <p style={{ marginTop: 12 }}><a href={`mailto:${site.email}`}>{site.email}</a></p>
           </div>
-          <div>
-            <h2>Services</h2>
-            {services.slice(0, 6).map((s) => (
-              <Link key={s.slug} href={`/services/${s.slug}`}>{s.name}</Link>
-            ))}
-          </div>
-          <div>
-            <h2>Practice</h2>
-            <Link href="/about">About the Counsellor</Link>
-            <Link href="/services">All Services</Link>
-            <Link href="/approaches">Counselling Approaches</Link>
-            <Link href="/guides">Counselling Guides</Link>
-            <Link href="/compare">Compare Your Options</Link>
-            <Link href="/for">Who We Work With</Link>
-            <Link href="/resources">BC Resources</Link>
-            <Link href="/online-counselling">Areas Served in BC</Link>
-            <Link href="/pricing">Fees & Insurance</Link>
-            <Link href="/faq">FAQ</Link>
-            <Link href="/contact">Contact</Link>
-            <Link href={site.bookingPath}>Book a Consultation</Link>
-            <a href={site.instagramUrl} target="_blank" rel="noopener">Instagram</a>
-          </div>
-          <div>
-            <h2>Trust &amp; transparency</h2>
-            <Link href="/standards">Standards &amp; Accountability</Link>
-            <Link href="/editorial-policy">Editorial Policy</Link>
-            <Link href="/privacy">Privacy &amp; Confidentiality</Link>
-            <Link href="/accessibility">Accessibility</Link>
-            <Link href="/glossary">Counselling Glossary</Link>
-            <Link href="/resources/bc-crisis-and-support-directory">Crisis &amp; Support in BC</Link>
+
+          <div className="footer-bottom">
+            <span>© {new Date().getFullYear()} {site.name} · {site.counsellor.title}</span>
+            <span>{site.serviceArea}</span>
           </div>
         </div>
-        <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} Westpeak Wellness · {site.counsellor.title}</span>
-          <span>Not a crisis service · In crisis, call or text 9-8-8</span>
-        </div>
-      </div>
-    </footer>
+      </footer>
+    </>
   );
 }

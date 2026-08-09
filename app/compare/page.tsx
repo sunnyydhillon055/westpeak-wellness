@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { comparisons } from '@/lib/comparisons';
 import { site } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
+import { Scale } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Compare Your Options',
@@ -37,7 +38,7 @@ export default function CompareHub() {
             {comparisons.map((c) => (
               <div className="card" key={c.slug}>
                 <Link href={`/compare/${c.slug}`} className="card-link">
-                  <h2 className="card-title">{c.title}</h2>
+                  <div className="hub-card-head"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Scale strokeWidth={1.7} /></span><h2 className="card-title">{c.title}</h2></div>
                   <p>{c.lede}</p>
                   <span className="more">{c.readMinutes} min read →</span>
                 </Link>

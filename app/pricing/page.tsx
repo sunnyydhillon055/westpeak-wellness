@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { site } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
+import { Wallet } from 'lucide-react';
 import Figure from '@/components/Figure';
 
 export const metadata: Metadata = {
@@ -45,6 +46,9 @@ export default function Pricing() {
 
           <div className="prose" style={{ marginTop: 36 }}>
             <h2>What you are actually paying for</h2>
+            <div className="fee-callout">
+              <Wallet aria-hidden="true" strokeWidth={1.7} />
+              <div>
             <p>
               A 50-minute session is not 50 minutes of work. It includes preparation before, notes and
               planning after, ongoing continuing education, professional liability insurance, and the
@@ -60,6 +64,8 @@ export default function Pricing() {
               maximum buys roughly twice as many sessions here.
             </p>
 
+              </div>
+            </div>
             <h2>If the fee is a barrier</h2>
             <p>
               Private therapy is not the only route, and it is not always the right first one. BC has a

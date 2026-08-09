@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { guides } from '@/lib/guides';
 import { site } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
+import { BookOpen } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Counselling Guides',
@@ -38,7 +39,7 @@ export default function GuidesHub() {
             {guides.map((g) => (
               <div className="card" key={g.slug}>
                 <Link href={`/guides/${g.slug}`} className="card-link">
-                  <h2 className="card-title">{g.title}</h2>
+                  <div className="hub-card-head"><span className="icon-chip icon-chip--sm" aria-hidden="true"><BookOpen strokeWidth={1.7} /></span><h2 className="card-title">{g.title}</h2></div>
                   <p>{g.lede}</p>
                   <span className="more">{g.readMinutes} min read →</span>
                 </Link>

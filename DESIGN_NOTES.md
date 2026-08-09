@@ -185,3 +185,32 @@ scroll-jacking, no hero video, no testimonial slider (prohibited anyway), no
 gradient text, no glassmorphism beyond a single 3px blur on the Punjabi quote
 card. The bar was "calm, warm and expensive", and most of what reads as expensive
 here is spacing, type and restraint rather than effect.
+
+---
+
+## 9. Phase 5 — what was applied to the rest of the site
+
+**Global chrome.** Header is scroll-aware (condenses at 12px, passive listener), carries the brand mark, marks the active section with `aria-current` plus a persistent underline, and the mobile menu now locks body scroll, closes on Escape and on navigation. Footer rebuilt as a four-column dark surface with the brand mark, credential facts, icon contact links, a dedicated crisis block and the trust column.
+
+**Interior heroes** get the ridgeline as a CSS background layer — one rule in `premium.css` rather than a component edit across fifteen page files. The home hero uses the full `<Motif>` component instead and is excluded from that rule.
+
+**Per page:**
+- **About** — organic `bloom` motif behind the portrait, an RCC/BCACC badge under the hero CTAs, and an icon on each of the six credential cards.
+- **Services overview** — per-service Lucide icon plus a colour-coded accent bar so nine services are distinguishable at a glance. The bar walks the existing brand ramp rather than introducing new hues.
+- **Service detail (all 10)** — an "at a glance" chip strip under the h1 (50 minutes · video or phone · English & ਪੰਜਾਬੀ · MA, RCC), and an icon chip on every "what people tend to arrive with" card.
+- **Fees** — "What you are actually paying for" rendered as a `fee-callout` on the mist gradient.
+- **FAQ** — grouped into four categories with icon headers and a sticky jump-nav at desktop. Questions and answers are untouched; `lib/faq.ts` only gained a mapping of which question sits under which heading.
+- **Contact** — an icon chip on each of the six info blocks.
+- **Hubs** (guides, approaches, compare, for, resources) — icon-led card heads.
+
+## 10. Not done, and why
+
+- **Sticky "This can help with" sidebar on service detail.** CSS is in place (`.svc-layout`, `.svc-aside`) but the template restructure was not applied — it needs the page body rewrapped, which risked the copy-integrity constraint late in the pass. The classes are ready for it.
+- **Icons on the four fee info cards.** Attempted and reverted: the edit left unclosed wrappers and broke the build, so the file was restored and only the callout kept. Worth doing by hand.
+- **Insurer logo strip.** Deliberately not built. Logos are trademarks and imply partnership or endorsement, which §1.3 forbids. The existing text list of insurer names — already on the page as factual coverage context — is the compliant form.
+- **Schematic modality graphics** (bilateral stimulation, sound relationship house). The site already carries 86 original SVG diagrams including `emdr-phases` and `gottman-method`, which cover this ground; adding more would have duplicated them.
+- **Lighthouse scores.** No headless Chrome is available in this environment, so Performance and a11y scores were not measured and are not claimed. Structural a11y was verified directly instead (see §11).
+
+## 11. Verified
+
+Build clean at 105 routes. Across `/`, `/about`, `/services`, a service detail, `/pricing`, `/faq`, `/contact` and `/guides`: exactly one `h1` each, **zero heading-level skips**, every image carrying alt text and intrinsic dimensions. Fonts self-hosted with variable axes resolving. Contrast measured: hero h1 14.16:1, lede 7.17:1, inverted Punjabi block 15.14:1 / 7.87:1, footer link 7.48:1, footer body 6.33:1, footer meta 5.13:1 — all above AA. Nav targets raised from 19px to 44px. No horizontal overflow. Name grep: `app/about/` only.
