@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { site } from '@/lib/site';
 import SchedulerEmbed from '@/components/SchedulerEmbed';
-import { auth } from '@/auth';
+import { auth, signOut } from '@/auth';
 import { isClientAllowed } from '@/lib/portal-store';
 
 /* Gated by middleware.ts — never served without the access code, so it is kept
@@ -89,8 +89,19 @@ export default async function ClientPortalPage() {
           </li>
         </ul>
 
+        <form
+          action={async () => {
+            'use server';
+            await signOut({ redirectTo: '/' });
+          }}
+        >
+          <button type="submit" className="btn btn--ghost" style={{ marginTop: 30 }}>
+            Sign out
+          </button>
+        </form>
+
         <p style={{ fontSize: '.92rem', color: 'var(--ink-faint)', marginTop: 26 }}>
-          Receipts are emailed automatically and carry the registration number your extended
+          Signed in as {email}. Receipts are emailed automatically and carry the registration number your extended
           health plan needs. <Link href="/pricing">Fees and coverage</Link> &middot;{' '}
           <Link href="/contact">Contact</Link>
         </p>

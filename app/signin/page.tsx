@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { site } from '@/lib/site';
-import { auth, signIn, googleConfigured } from '@/auth';
+import { auth, signIn, signOut, googleConfigured } from '@/auth';
 
 export const metadata: Metadata = {
   title: { absolute: 'Sign in — Westpeak Wellness' },
@@ -11,46 +11,89 @@ export const metadata: Metadata = {
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-/* One sign-in for both areas. Where you land is decided by your role, not by
- * which page you started from, so there is nothing to explain and no way to end
- * up on the wrong form. */
+/* Sign-in for both areas, framed by which one you asked for.
+ *
+ * `next` decides the wording and the destination, so arriving from /admin says
+ * "Staff sign in" and arriving from the portal says "Client portal" — the same
+ * two methods either way, no second page to keep in step.
+ *
+ * The wrong-role case is handled explicitly rather than by redirecting. A
+ * client who follows a link to /admin used to bounce: middleware sent them
+ * here, this page saw a valid session and sent them back, and around again.
+ * Now they are told plainly that the account has no admin access.
+ */
 export default async function SignInPage({
   searchParams,
 }: {
   searchParams?: { next?: string; error?: string };
 }) {
+  const next = searchParams?.next;
+  const wantsAdmin = next === '/admin';
   const session = await auth();
   const role = (session?.user as { role?: string } | undefined)?.role;
-  if (role === 'admin') redirect(searchParams?.next || '/admin');
-  if (role === 'client') redirect(searchParams?.next || '/client-portal');
+  const email = session?.user?.email ?? '';
 
-  const next = searchParams?.next;
+  // Already signed in with sufficient rights — go where they were headed.
+  if (role === 'admin') redirect(next || '/admin');
+  if (role === 'client' && !wantsAdmin) redirect(next || '/client-portal');
+
+  const wrongRole = role === 'client' && wantsAdmin;
   const failed = Boolean(searchParams?.error);
   const hasGoogle = googleConfigured();
+  const destination = next || '/client-portal';
+
+  if (wrongRole) {
+    return (
+      <section className="section" style={{ paddingTop: 64, paddingBottom: 76 }}>
+        <div className="container" style={{ maxWidth: 440 }}>
+          <p className="eyebrow">Staff area</p>
+          <h1 style={{ fontSize: 'var(--fs-h2)' }}>No admin access on this account</h1>
+          <p className="lede" style={{ fontSize: '1rem' }}>
+            You are signed in as {email}, which is a client account. The admin area is for
+            practice staff only.
+          </p>
+          <div className="btn-row" style={{ marginTop: 22 }}>
+            <Link className="btn btn--primary" href="/client-portal">Go to the client portal</Link>
+            <form
+              action={async () => {
+                'use server';
+                await signOut({ redirectTo: '/signin?next=%2Fadmin' });
+              }}
+            >
+              <button type="submit" className="btn btn--ghost">Sign in as someone else</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="section" style={{ paddingTop: 64, paddingBottom: 76 }}>
-      <div className="container" style={{ maxWidth: 430 }}>
-        <p className="eyebrow">Westpeak Wellness</p>
-        <h1 style={{ fontSize: 'var(--fs-h2)' }}>Sign in</h1>
+      <div className="container" style={{ maxWidth: 440 }}>
+        <p className="eyebrow">{wantsAdmin ? 'Staff only' : 'Current clients'}</p>
+        <h1 style={{ fontSize: 'var(--fs-h2)' }}>
+          {wantsAdmin ? 'Staff sign in' : 'Client portal'}
+        </h1>
         <p className="lede" style={{ fontSize: '1rem' }}>
-          For current clients and practice staff. You will be taken to the right place
-          automatically.
+          {wantsAdmin
+            ? 'For practice staff. Client accounts cannot reach this area.'
+            : 'Book a session, see your availability and manage your appointments.'}
         </p>
 
         {failed && (
           <p role="alert" className="portal-gate-error" style={{ marginTop: 18 }}>
-            That did not sign you in. Check the address and password, and note that only
-            current clients and staff have access.
+            That did not sign you in. Check the address and password
+            {wantsAdmin ? ', and note that only staff accounts have access here.' : '.'}
           </p>
         )}
 
-        {hasGoogle && (
+        {hasGoogle ? (
           <>
             <form
               action={async () => {
                 'use server';
-                await signIn('google', { redirectTo: next || '/client-portal' });
+                await signIn('google', { redirectTo: destination });
               }}
             >
               <button type="submit" className="btn btn--ghost signin-google">
@@ -63,8 +106,18 @@ export default async function SignInPage({
                 Continue with Google
               </button>
             </form>
-            <p className="signin-or"><span>or</span></p>
+            <p className="signin-or"><span>or use a password</span></p>
           </>
+        ) : (
+          wantsAdmin && (
+            /* Shown only on the staff form — a client has no use for it and it
+             * would read as something being broken. */
+            <p className="signin-setup">
+              Google sign-in is not switched on yet. Set <code>AUTH_GOOGLE_ID</code> and{' '}
+              <code>AUTH_GOOGLE_SECRET</code> in Vercel and redeploy — see{' '}
+              <code>GO_LIVE.md</code>. Password sign-in works meanwhile.
+            </p>
+          )
         )}
 
         <form
@@ -74,7 +127,7 @@ export default async function SignInPage({
             await signIn('credentials', {
               email: String(formData.get('email') ?? ''),
               password: String(formData.get('password') ?? ''),
-              redirectTo: next || '/client-portal',
+              redirectTo: destination,
             });
           }}
         >
@@ -92,14 +145,24 @@ export default async function SignInPage({
         </form>
 
         <p style={{ fontSize: '.92rem', color: 'var(--ink-soft)', marginTop: 24 }}>
-          No password yet, or forgotten it? Email{' '}
-          <a href={`mailto:${site.email}`}>{site.email}</a> and one will be set for you.
-          {hasGoogle && ' Signing in with Google needs no password at all.'}
+          {wantsAdmin ? (
+            <>Locked out? Staff accounts are set in the deployment configuration.</>
+          ) : (
+            <>
+              No password yet, or forgotten it? Email{' '}
+              <a href={`mailto:${site.email}`}>{site.email}</a> and one will be set for you.
+              {hasGoogle && ' Signing in with Google needs no password at all.'}
+            </>
+          )}
         </p>
-        <p style={{ fontSize: '.92rem', color: 'var(--ink-faint)' }}>
-          Not a client yet? The <Link href={site.bookingPath}>free 15-minute consultation</Link>{' '}
-          is open to everyone and needs no sign-in.
-        </p>
+
+        {!wantsAdmin && (
+          <p style={{ fontSize: '.92rem', color: 'var(--ink-faint)' }}>
+            Not a client yet? The{' '}
+            <Link href={site.bookingPath}>free 15-minute consultation</Link> is open to everyone
+            and needs no sign-in.
+          </p>
+        )}
       </div>
     </section>
   );

@@ -1221,3 +1221,8 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .review-card figcaption{ display:flex; flex-direction:column; gap:2px; font-size:.9rem; }
 .review-card figcaption span{ color:var(--ink-faint); }
 .tool-prose{ margin-top:36px; padding-top:28px; border-top:1px solid var(--line); max-width:none; }
+.signin-setup{ margin:20px 0 0; padding:12px 14px; font-size:.86rem; line-height:1.5;
+  color:var(--ink-soft); background:var(--surface-1);
+  border:1px solid var(--line); border-radius:var(--radius-sm); }
+.signin-setup code{ font-size:.92em; background:var(--blue-ghost);
+  padding:1px 5px; border-radius:4px; }
