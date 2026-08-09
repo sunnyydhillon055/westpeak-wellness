@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { site } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
-import { Wallet, PhoneCall, CreditCard, CalendarX } from 'lucide-react';
+import { Wallet, Video, CreditCard, CalendarX } from 'lucide-react';
 import Figure from '@/components/Figure';
 
 export const metadata: Metadata = {
@@ -107,7 +107,7 @@ export default function Pricing() {
         <div className="container">
           <div className="grid grid-2">
             <div className="card cred-card">
-              <span className="icon-chip" aria-hidden="true"><PhoneCall strokeWidth={1.6} /></span>
+              <span className="icon-chip" aria-hidden="true"><Video strokeWidth={1.6} /></span>
               <div>
                 <h3>Free consultation</h3>
                 <p style={{ marginBottom: 0 }}>Every working relationship starts with a free 15-minute call. No charge, and no obligation to book a session afterward.</p>

@@ -378,7 +378,7 @@ export const glossary: Term[] = [
     also: 'virtual care',
     group: 'process',
     definition:
-      'Health services delivered by secure video or phone. For counselling specifically, research has consistently found outcomes broadly comparable to in-person delivery for the concerns most people bring.',
+      'Health services delivered remotely over secure video. For counselling specifically, research has consistently found outcomes broadly comparable to in-person delivery for the concerns most people bring.',
     href: '/guides/is-online-therapy-as-effective-as-in-person',
   },
 

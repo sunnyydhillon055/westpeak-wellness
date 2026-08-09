@@ -24,8 +24,8 @@ export default function Book() {
           <p className="eyebrow">Free · 15 minutes · No commitment</p>
           <h1>Book a free consultation.</h1>
           <p className="lede">
-            The first step is a short, no-pressure conversation — by phone or video, whichever
-            you prefer. It costs nothing, and there is no obligation to book a session afterward.
+            The first step is a short, no-pressure conversation over secure video. It costs
+            nothing, and there is no obligation to book a session afterward.
           </p>
         </div>
       </section>

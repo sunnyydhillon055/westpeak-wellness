@@ -73,7 +73,7 @@ export default function Contact() {
               <Link href="/standards">standards and accountability</Link>.
             </p>
             <p>
-              The consultation itself is fifteen minutes, by phone or video, at no cost. You describe
+              The consultation itself is fifteen minutes over secure video, at no cost. You describe
               what is going on in as much or as little detail as you want; you hear how the work would
               run and roughly what it would involve. There is no obligation to book a session
               afterwards, and deciding not to is common.{' '}
@@ -122,7 +122,7 @@ export default function Contact() {
 
       <CtaBand
         heading="One conversation is all it takes to start."
-        text="A free 15-minute consultation by phone or video. No pressure, no commitment, and no obligation to book a session afterward."
+        text="A free 15-minute consultation over secure video. No pressure, no commitment, and no obligation to book a session afterward."
       />
     </>
   );

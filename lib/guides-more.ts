@@ -155,7 +155,7 @@ export const moreGuides: Guide[] = [
       {
         h2: 'What the first step actually costs you',
         body: [
-          'The gap between deciding to do something and doing it is where most of the delay lives. It helps to know exactly how small the first step is: a free fifteen-minute consultation, by phone or video, in which you say roughly what is going on and hear how the work would run.',
+          'The gap between deciding to do something and doing it is where most of the delay lives. It helps to know exactly how small the first step is: a free fifteen-minute consultation over secure video, in which you say roughly what is going on and hear how the work would run.',
           'You are not committing to a course of therapy, you are not required to tell the whole story, and deciding afterwards that it is not for you is an entirely normal outcome — including deciding that a different counsellor would suit you better. [What happens in a first session](/guides/what-to-expect-first-therapy-session) covers the stage after that in detail.',
           'The thing most people say afterwards is some version of *I should have done this ages ago*. That is not a sales line; it is what happens when a decision that has been carrying eighteen months of weight turns out to take fifteen minutes.',
         ],

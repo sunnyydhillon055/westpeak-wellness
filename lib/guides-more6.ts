@@ -380,7 +380,7 @@ export const moreGuides6: Guide[] = [
       { q: 'Does this mean my symptoms are psychological?', a: 'No, and a counsellor is not qualified to make that assessment. The work addresses what living with symptoms costs, which requires no position on what causes them.' },
       { q: 'Can counselling help with pain?', a: 'Psychological approaches have a genuine evidence base for improving function and quality of life in chronic pain, and in some cases pain intensity. That is about how pain is processed rather than about it being imagined.' },
       { q: 'I am tired of being told to think positively. Is this that?', a: 'No, and that advice is reasonably resented. The approaches used here are about making room for a difficult reality rather than reframing it as fine.' },
-      { q: 'Can I do sessions on bad days?', a: 'Sessions run by video or phone from wherever you are, camera off if you prefer, and pacing is something to plan around rather than push through.' },
+      { q: 'Can I do sessions on bad days?', a: 'Sessions run by secure video from wherever you are, camera off if you prefer, and pacing is something to plan around rather than push through.' },
     ],
     sources: [
       { label: 'HealthLink BC — mental health and substance use', url: 'https://www.healthlinkbc.ca/mental-health-substance-use' },

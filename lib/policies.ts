@@ -299,8 +299,7 @@ export const policies: Record<string, Policy> = {
       {
         h2: 'Accommodations in sessions',
         list: [
-          { label: 'Phone instead of video', detail: 'Sessions can run by phone. This is a real option, not a fallback — it suits low bandwidth, camera fatigue, and anyone who thinks better without being watched.' },
-          { label: 'Camera off', detail: 'You are never required to be on camera to be in a video session.' },
+          { label: 'Camera off', detail: 'You are never required to be on camera to be in a session. It suits camera fatigue, lower bandwidth, and anyone who thinks better without being watched.' },
           { label: 'Sessions in Punjabi', detail: 'Working in the language you think in is an access issue, not a preference. See [Punjabi counselling](/services/punjabi-counselling).' },
           { label: 'Pacing and breaks', detail: 'Sessions can be paused, shortened, or restructured. For trauma work in particular, pacing is a clinical decision made with you rather than to you.' },
           { label: 'Written summaries on request', detail: 'Where it helps — memory difficulty, attention difficulty, or simply preferring things in writing — key points and between-session plans can be sent in writing afterward.' },

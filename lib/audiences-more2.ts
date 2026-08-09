@@ -33,7 +33,7 @@ export const moreAudiences2: Audience[] = [
         h2: 'How the scheduling actually works here',
         body: [
           'Sessions run by secure video anywhere in British Columbia, which removes the geography problem entirely. That still leaves the rhythm problem, and the answer is to stop pretending a weekly cadence is possible.',
-          'What tends to work is a schedule built around the rotation rather than against it: sessions concentrated in the days at home, or sessions from camp where connectivity allows, or a mixed pattern that changes with the shift. Evening slots are available on request, and a phone session is a genuine option when the bandwidth will not hold video.',
+          'What tends to work is a schedule built around the rotation rather than against it: sessions concentrated in the days at home, or sessions from camp where connectivity allows, or a mixed pattern that changes with the shift. Evening slots are available on request, and turning the camera off cuts what a camp connection has to carry.',
           'It is worth being honest that a fortnight between sessions is not ideal for every kind of work — [trauma reprocessing in particular](/compare/weekly-vs-biweekly-sessions) is difficult to do well with long gaps. Where that is what you need, it is better to plan an intensive block during a stretch at home than to run it thinly across six months.',
         ],
       },
@@ -75,7 +75,7 @@ export const moreAudiences2: Audience[] = [
       label: 'a free 15-minute consultation can be booked around the rotation',
     },
     faqs: [
-      { q: 'Can I do sessions from camp?', a: 'Where the connection allows, yes — and a phone session works when it does not. The bigger constraint is usually privacy rather than bandwidth, so it is worth working out where you can talk uninterrupted before the first appointment.' },
+      { q: 'Can I do sessions from camp?', a: 'Where the connection allows, yes — and turning the camera off cuts what the connection has to carry. The bigger constraint is usually privacy rather than bandwidth, so it is worth working out where you can talk uninterrupted before the first appointment.' },
       { q: 'What if I can only do sessions every two weeks?', a: 'That is workable for a lot of the work and less suited to trauma reprocessing, which prefers shorter gaps. Where an intensive piece is needed, planning a block during a stretch at home usually beats spreading it thin.' },
       { q: 'I work out of province on rotation. Does that matter?', a: 'Yes, and it is worth raising early. A counsellor must be registered where you are physically located during a session, so sessions run while you are in BC. It can be planned around once it is known.' },
       { q: 'Will my employer find out?', a: 'No. Sessions are confidential within the legal limits, and an employer receives nothing — including where an assistance programme funds the sessions, since providers report only aggregate usage.' },

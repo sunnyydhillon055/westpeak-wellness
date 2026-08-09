@@ -45,7 +45,7 @@ export const faqs: FAQ[] = [
   },
   {
     q: "How do I get started?",
-    a: "Book a free 15-minute consultation. It's a relaxed phone or video call to ask questions, share a bit about what's going on, and see whether working together feels right — no commitment required.",
+    a: "Book a free 15-minute consultation. It's a relaxed video call to ask questions, share a bit about what's going on, and see whether working together feels right — no commitment required.",
   },
 ];
 

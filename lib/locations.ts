@@ -182,7 +182,7 @@ export const locations: Location[] = [
     faqs: [
       { q: "Do you serve Mission, Chilliwack, and Hope?", a: "Yes. The practice is virtual and covers all of British Columbia, so anywhere in the Fraser Valley works the same as anywhere else — with no additional travel for you." },
       { q: "Can I have sessions in Punjabi?", a: "Yes, in Punjabi, English, or a mix of both — and without needing to travel to Surrey or Vancouver to find it." },
-      { q: "What if my internet is unreliable out here?", a: "Sessions can run by phone when video is not workable, and it is worth agreeing in advance what happens if a connection drops mid-session so that it is an inconvenience rather than an interruption to the work." },
+      { q: "What if my internet is unreliable out here?", a: "Turning the camera off cuts the bandwidth a session needs considerably, and it is worth agreeing in advance what happens if a connection drops mid-session so that it is an inconvenience rather than an interruption to the work." },
     ],
     sources: [
       { label: "Fraser Health — mental health and substance use services", url: "https://www.fraserhealth.ca/health-topics-a-to-z/mental-health-and-substance-use" },

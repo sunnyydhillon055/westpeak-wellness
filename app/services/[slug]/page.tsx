@@ -69,7 +69,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
           <h1>{s.hero}</h1>
           <ul className="glance">
             <li><Clock aria-hidden="true" strokeWidth={1.7} /><span><strong>50 minutes</strong> per session</span></li>
-            <li><MonitorSmartphone aria-hidden="true" strokeWidth={1.7} /><span>Secure <strong>video or phone</strong></span></li>
+            <li><MonitorSmartphone aria-hidden="true" strokeWidth={1.7} /><span><strong>Secure video</strong> sessions</span></li>
             <li><LangIcon aria-hidden="true" strokeWidth={1.7} /><span>English &amp; <span className="gurmukhi">ਪੰਜਾਬੀ</span></span></li>
             <li><BadgeCheck aria-hidden="true" strokeWidth={1.7} /><span><strong>MA, RCC</strong> · BCACC</span></li>
           </ul>

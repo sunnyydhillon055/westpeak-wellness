@@ -186,7 +186,7 @@ export default function CityPage({ params }: { params: { city: string } }) {
       <MoreFrom items={locations} currentSlug={l.slug} base="/online-counselling" heading="Other areas served" eyebrow="Keep going" />
       <CtaBand
         heading={`Counselling in ${l.city}, starting with a conversation`}
-        text="A free 15-minute consultation by phone or video. No pressure, no commitment, and no obligation to book a session afterward."
+        text="A free 15-minute consultation over secure video. No pressure, no commitment, and no obligation to book a session afterward."
       />
 
       {faqSchema && (

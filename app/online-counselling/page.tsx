@@ -105,7 +105,7 @@ export default function LocationsIndex() {
             <div className="card">
               <h3>Free consultation</h3>
               <p style={{ marginBottom: 0 }}>
-                Fifteen minutes, by phone or video, at no cost — see{' '}
+                Fifteen minutes over secure video, at no cost — see{' '}
                 <Link href="/book">how the free consultation works</Link>.
               </p>
             </div>
@@ -146,9 +146,9 @@ export default function LocationsIndex() {
             that before the first appointment rather than discovering it during one.
           </p>
           <p>
-            A session can also run by phone rather than video, and that is a genuine option rather than
-            a fallback. It suits low bandwidth, camera fatigue, and anyone who thinks more clearly
-            without being watched. You are never required to be on camera.
+            You are never required to be on camera. Turning it off is a real option rather than a
+            concession — it suits camera fatigue, lower bandwidth, and anyone who thinks more
+            clearly without being watched.
           </p>
 
           <h2>The part that is a legal requirement, not a preference</h2>
@@ -185,7 +185,7 @@ export default function LocationsIndex() {
       </section>
       <CtaBand
         heading="Same care, wherever you are in BC"
-        text="A free 15-minute consultation by phone or video. No pressure, no commitment."
+        text="A free 15-minute consultation over secure video. No pressure, no commitment."
       />
     </>
   );

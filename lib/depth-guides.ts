@@ -17,7 +17,7 @@ export const depthGuides: Record<string, DepthSection[]> = {
       list: [
         { label: 'Where you will actually sit', detail: 'A door that closes matters more than a good camera. Work this out before the appointment rather than five minutes into it — a bedroom, a parked car, or a booked meeting room all work.' },
         { label: 'Headphones', detail: 'The single highest-value item. They keep the counsellor\'s side of the conversation from being audible in the next room, which changes how freely you speak more than anything else on this list.' },
-        { label: 'A backup plan', detail: 'Agree in advance what happens if the connection drops — usually a phone call to the same time slot. Knowing this removes a background anxiety that otherwise occupies part of every session.' },
+        { label: 'A backup plan', detail: 'Agree in advance what happens if the connection drops — usually rejoining the same link, or moving to the next slot. Knowing this removes a background anxiety that otherwise occupies part of every session.' },
         { label: 'Whether you want to see yourself', detail: 'Most platforms let you hide your own video while remaining visible. A surprising number of people find self-view distracting, and turning it off is worth trying early.' },
         { label: 'Ten minutes afterwards', detail: 'The commute home from an in-person session did something useful: it created a transition. Scheduling ten unclaimed minutes after a video session replaces it, and going straight from a hard session into a meeting is worth avoiding.' },
       ],

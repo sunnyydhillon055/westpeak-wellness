@@ -23,7 +23,7 @@ const PROCESS = [
   {
     step: 'Step one',
     title: 'Free 15-min consult',
-    body: 'Quick phone or video call to see if it’s a good fit. No pressure.',
+    body: 'A short video call to see if it’s a good fit. No pressure.',
   },
   {
     step: 'Step two',

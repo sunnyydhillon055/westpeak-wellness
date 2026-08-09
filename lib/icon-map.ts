@@ -1,6 +1,6 @@
 import {
   Users, HeartHandshake, Waves, ShieldCheck, Wind, CloudRain, Languages,
-  Home, MonitorSmartphone, PhoneCall, ClipboardList, CalendarCheck, Compass,
+  Home, MonitorSmartphone, Video, ClipboardList, CalendarCheck, Compass,
   BookOpen, Scale, LifeBuoy, MapPin, GraduationCap, Landmark, BadgeCheck,
   Lock, Clock, Wallet, Sparkles, MessageCircleQuestion, FileText,
 } from 'lucide-react';
@@ -32,7 +32,9 @@ export const HUB_ICONS = {
   faq: MessageCircleQuestion,
 } as const;
 
-export const PROCESS_ICONS = [PhoneCall, ClipboardList, CalendarCheck] as const;
+/* Video rather than PhoneCall: the practice does not offer phone sessions,
+   so an icon of a handset would misrepresent what a consultation is. */
+export const PROCESS_ICONS = [Video, ClipboardList, CalendarCheck] as const;
 
 export const TRUST_ICONS = {
   credential: BadgeCheck,

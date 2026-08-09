@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { site } from '@/lib/site';
-export default function CtaBand({ heading = 'Therapy starts with one conversation.', text = 'Book a free 15-minute consultation by phone or video. No pressure — just a chance to see if we\u2019re a good fit.' }: { heading?: string; text?: string }) {
+export default function CtaBand({ heading = 'Therapy starts with one conversation.', text = 'Book a free 15-minute consultation over secure video. No pressure — just a chance to see if we\u2019re a good fit.' }: { heading?: string; text?: string }) {
   return (
     <section className="section">
       <div className="container">
