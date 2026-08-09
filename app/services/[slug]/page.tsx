@@ -85,32 +85,36 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
           <p className="crumb">
             <Link href="/">Home</Link> / <Link href="/services">Services</Link> / {s.name}
           </p>
-          <div className="split">
+          {/* The "this can help with" panel is reparented into a two-column
+              grid with the long body copy so it has something to stick
+              alongside. A sticky aside beside a three-paragraph section would
+              never actually stick. Copy is unchanged — only its parent. */}
+          <div className="svc-layout">
             <div className="prose">
               <p className="lede" style={{ marginBottom: 24 }}>{s.intro}</p>
               <h2>How we approach it</h2>
               <p>{s.approach}</p>
+              {s.whatItIs && (
+                <>
+                  <h2>{s.whatItIs.h2}</h2>
+                  <Paragraphs items={s.whatItIs.body} />
+                </>
+              )}
             </div>
-            <div>
-              <div className="card">
-                <p className="eyebrow">This can help with</p>
-                <ul className="checklist" style={{ marginTop: 8 }}>
+            <aside className="svc-aside">
+              <div className="svc-aside-card">
+                <h2>This can help with</h2>
+                <ul>
                   {s.helps.map((h) => <li key={h}>{h}</li>)}
                 </ul>
+                <Link className="btn btn--primary" href={site.bookingPath} style={{ width: '100%', textAlign: 'center' }}>
+                  Book a free consultation
+                </Link>
               </div>
-            </div>
+            </aside>
           </div>
         </div>
       </section>
-
-      {s.whatItIs && (
-        <section className="section section--tint">
-          <div className="container prose" style={{ maxWidth: '70ch' }}>
-            <h2>{s.whatItIs.h2}</h2>
-            <Paragraphs items={s.whatItIs.body} />
-          </div>
-        </section>
-      )}
 
       {s.signs && (
         <section className="section">

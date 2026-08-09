@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { site } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
-import { Wallet } from 'lucide-react';
+import { Wallet, PhoneCall, CreditCard, CalendarX } from 'lucide-react';
 import Figure from '@/components/Figure';
 
 export const metadata: Metadata = {
@@ -36,7 +36,7 @@ export default function Pricing() {
             <thead><tr><th>Session</th><th>Length</th><th>Fee (CAD)</th></tr></thead>
             <tbody>
               <tr><td>Free initial consult</td><td>15 min</td><td>$0</td></tr>
-              <tr><td>Individual</td><td>50 min</td><td>$150</td></tr>
+              <tr className="fee-highlight"><td>Individual</td><td>50 min</td><td>$150</td></tr>
               <tr><td>Couples</td><td>50 min</td><td>$170</td></tr>
               <tr><td>Couples extended</td><td>120 min</td><td>$340</td></tr>
               <tr><td>EMDR intensive</td><td>90 min</td><td>$225</td></tr>
@@ -106,29 +106,41 @@ export default function Pricing() {
       <section className="section section--tint">
         <div className="container">
           <div className="grid grid-2">
-            <div className="card">
-              <h3>Free consultation</h3>
-              <p style={{ marginBottom: 0 }}>Every working relationship starts with a free 15-minute call. No charge, and no obligation to book a session afterward.</p>
+            <div className="card cred-card">
+              <span className="icon-chip" aria-hidden="true"><PhoneCall strokeWidth={1.6} /></span>
+              <div>
+                <h3>Free consultation</h3>
+                <p style={{ marginBottom: 0 }}>Every working relationship starts with a free 15-minute call. No charge, and no obligation to book a session afterward.</p>
+              </div>
             </div>
-            <div className="card">
-              <h3>Extended health</h3>
-              <p>Most BC plans that cover RCCs reimburse, including:</p>
-              <ul className="checklist" style={{ marginBottom: 12 }}>
-                <li>Pacific Blue Cross</li><li>Manulife</li><li>Sun Life</li><li>Canada Life</li><li>Green Shield</li>
-              </ul>
-              <p style={{ marginBottom: 0, fontSize: '.94rem', color: 'var(--ink-faint)' }}>
-                Pay at session time and submit your receipt for reimbursement.
-              </p>
+            <div className="card cred-card">
+              <span className="icon-chip" aria-hidden="true"><Wallet strokeWidth={1.6} /></span>
+              <div>
+                <h3>Extended health</h3>
+                <p>Most BC plans that cover RCCs reimburse, including:</p>
+                <ul className="checklist" style={{ marginBottom: 12 }}>
+                  <li>Pacific Blue Cross</li><li>Manulife</li><li>Sun Life</li><li>Canada Life</li><li>Green Shield</li>
+                </ul>
+                <p style={{ marginBottom: 0, fontSize: '.94rem', color: 'var(--ink-faint)' }}>
+                  Pay at session time and submit your receipt for reimbursement.
+                </p>
+              </div>
             </div>
-            <div className="card">
-              <h3>Payment</h3>
-              <ul className="checklist" style={{ marginBottom: 0 }}>
-                <li>E-transfer (preferred)</li><li>Credit card (Visa, MC, Amex)</li>
-              </ul>
+            <div className="card cred-card">
+              <span className="icon-chip" aria-hidden="true"><CreditCard strokeWidth={1.6} /></span>
+              <div>
+                <h3>Payment</h3>
+                <ul className="checklist" style={{ marginBottom: 0 }}>
+                  <li>E-transfer (preferred)</li><li>Credit card (Visa, MC, Amex)</li>
+                </ul>
+              </div>
             </div>
-            <div className="card">
-              <h3>Cancellation</h3>
-              <p style={{ marginBottom: 0 }}>24 hours&rsquo; notice. Late cancels or no-shows are charged the full fee. Exceptions for genuine emergencies.</p>
+            <div className="card cred-card">
+              <span className="icon-chip" aria-hidden="true"><CalendarX strokeWidth={1.6} /></span>
+              <div>
+                <h3>Cancellation</h3>
+                <p style={{ marginBottom: 0 }}>24 hours&rsquo; notice. Late cancels or no-shows are charged the full fee. Exceptions for genuine emergencies.</p>
+              </div>
             </div>
           </div>
         </div>

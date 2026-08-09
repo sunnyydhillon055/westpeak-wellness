@@ -4,9 +4,8 @@ The reference for anyone extending this site. Everything visual resolves to a
 token in `app/globals.css`; the component kit lives in `components/`. If you are
 adding a page, compose it from what is here rather than introducing new values.
 
-**Status:** Phase 4 of the premium elevation is complete — foundations, motion
-layer and the Home page. Remaining pages inherit the new typography, palette and
-component refinements but have not yet had their bespoke layout pass.
+**Status:** Phases 2–5 complete — foundations, motion layer, Home, and the
+layout pass across every remaining page.
 
 ---
 
@@ -205,8 +204,8 @@ here is spacing, type and restraint rather than effect.
 
 ## 10. Not done, and why
 
-- **Sticky "This can help with" sidebar on service detail.** CSS is in place (`.svc-layout`, `.svc-aside`) but the template restructure was not applied — it needs the page body rewrapped, which risked the copy-integrity constraint late in the pass. The classes are ready for it.
-- **Icons on the four fee info cards.** Attempted and reverted: the edit left unclosed wrappers and broke the build, so the file was restored and only the callout kept. Worth doing by hand.
+- ~~Sticky sidebar on service detail~~ — **done.** The "This can help with" panel was reparented into a `.svc-layout` grid together with the long body copy, so it has scroll distance to stick against; a sticky aside beside a three-paragraph section would never actually stick. The `whatItIs` block moved into the same main column. Copy unchanged, only its parent.
+- ~~Icons on the four fee info cards~~ — **done**, by hand rather than by pattern-match. The fee table's Individual row is also highlighted.
 - **Insurer logo strip.** Deliberately not built. Logos are trademarks and imply partnership or endorsement, which §1.3 forbids. The existing text list of insurer names — already on the page as factual coverage context — is the compliant form.
 - **Schematic modality graphics** (bilateral stimulation, sound relationship house). The site already carries 86 original SVG diagrams including `emdr-phases` and `gottman-method`, which cover this ground; adding more would have duplicated them.
 - **Lighthouse scores.** No headless Chrome is available in this environment, so Performance and a11y scores were not measured and are not claimed. Structural a11y was verified directly instead (see §11).
