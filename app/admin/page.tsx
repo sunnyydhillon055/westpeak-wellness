@@ -3,6 +3,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { readSession, ADMIN_COOKIE } from '@/lib/portal-auth';
 import { readAllowlist, isAdmin } from '@/lib/portal-store';
+import { clinikoConfigured } from '@/lib/cliniko';
 
 export const metadata: Metadata = {
   title: { absolute: 'Client list — Westpeak Wellness' },
@@ -16,7 +17,7 @@ export const dynamic = 'force-dynamic';
 export default async function AdminPage({
   searchParams,
 }: {
-  searchParams?: { saved?: string; error?: string };
+  searchParams?: { saved?: string; error?: string; cliniko?: string };
 }) {
   const secret = process.env.PORTAL_SECRET;
   const cookie = cookies().get(ADMIN_COOKIE)?.value;
@@ -26,6 +27,27 @@ export default async function AdminPage({
   const list = await readAllowlist({ fresh: true });
   const saved = searchParams?.saved === '1';
   const failed = searchParams?.error === '1';
+  const probe = searchParams?.cliniko;
+
+  /* Plain-language result for the connection test. Each maps to one thing to
+   * do next, because "it didn't work" is not actionable. */
+  const CLINIKO_RESULT: Record<string, string> = {
+    found:
+      'Connected. Cliniko recognised that address as a patient, so anyone in ' +
+      'Cliniko can now sign in without being added to the list below.',
+    'not-found':
+      'Connected, and Cliniko has no patient with that address. The key works — ' +
+      'try an address you know is in Cliniko to confirm matching end to end.',
+    unconfigured: 'No CLINIKO_API_KEY is set, so Cliniko is not being consulted at all.',
+    'bad-key': 'Cliniko rejected the key. Check it was copied whole, including the shard suffix.',
+    'no-shard':
+      'The key has no shard suffix (it should end in something like -au1 or -ca1). ' +
+      'Copy it again from Cliniko without trimming the end.',
+    'unsupported-filter':
+      'Cliniko rejected the email filter, which means searching patients by email ' +
+      'is not available on this account. Keep using the list below.',
+    error: 'Could not reach Cliniko. Nothing changed; client access is unaffected.',
+  };
 
   return (
     <section className="section" style={{ paddingTop: 52 }}>
@@ -75,6 +97,32 @@ export default async function AdminPage({
             ? `Last changed ${new Date(list.updatedAt).toLocaleString('en-CA')} by ${list.updatedBy}.`
             : 'No changes recorded yet.'}
         </p>
+        <section style={{ marginTop: 34, borderTop: '1px solid var(--line)', paddingTop: 24 }}>
+          <h2 style={{ fontSize: '1.1rem' }}>Cliniko connection</h2>
+          <p style={{ fontSize: '.94rem', color: 'var(--ink-soft)' }}>
+            {clinikoConfigured()
+              ? 'A key is set. Enter an address that exists in Cliniko to confirm lookups work.'
+              : 'No key set. While that is true, the list above is the only thing granting access.'}{' '}
+            Cliniko can only ever <em>add</em> a way to qualify — if it is unreachable, everyone
+            on the list above still gets in.
+          </p>
+
+          {probe && CLINIKO_RESULT[probe] && (
+            <div className="crisis" style={{ marginTop: 14 }}>
+              <p style={{ margin: 0 }}>{CLINIKO_RESULT[probe]}</p>
+            </div>
+          )}
+
+          <form method="POST" action="/api/admin/cliniko" className="portal-gate" style={{ marginTop: 16 }}>
+            <label htmlFor="probe">Test an address</label>
+            <input
+              id="probe" name="probe" type="email" inputMode="email"
+              autoComplete="off" autoCapitalize="none" spellCheck={false} required
+            />
+            <button type="submit" className="btn btn--ghost">Test connection</button>
+          </form>
+        </section>
+
         <form method="POST" action="/api/admin/signout">
           <button type="submit" className="btn btn--ghost" style={{ marginTop: 6 }}>Sign out</button>
         </form>

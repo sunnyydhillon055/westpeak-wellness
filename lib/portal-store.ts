@@ -95,7 +95,15 @@ export async function isClientAllowed(email: string): Promise<boolean> {
   if (fromEnv.includes(e)) return true;
 
   const { emails } = await readAllowlist();
-  return emails.includes(e);
+  if (emails.includes(e)) return true;
+
+  // Cliniko last, and only as an extra way to qualify. It never removes access
+  // granted by the other two — see lib/cliniko.ts for why failing this way
+  // round matters.
+  const { clinikoConfigured, clinikoHasPatient } = await import('@/lib/cliniko');
+  if (clinikoConfigured()) return clinikoHasPatient(e);
+
+  return false;
 }
 
 /** Owner accounts. Deliberately an env var, not the editable list: an admin

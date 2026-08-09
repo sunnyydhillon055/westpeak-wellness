@@ -42,6 +42,7 @@ anyone configured before `/admin` existed keeps access. Prefer the admin screen.
 | `PORTAL_ACCESS_CODE` | legacy | Shared client code. Delete once clients are on email. |
 | `BLOB_READ_WRITE_TOKEN` | **yes** | Set automatically when the blob store was linked. |
 | `PORTAL_ALLOWED_EMAILS` | optional | Legacy client list, merged with the stored one. |
+| `CLINIKO_API_KEY` | optional | Lets Cliniko patients sign in without being listed here. Must include the shard suffix (`…-au1`, `…-ca1`) — the host is derived from it. |
 
 Changing any of these needs a redeploy to take effect. **Editing the client list
 in `/admin` does not** — that is the point of the blob store.
@@ -60,12 +61,32 @@ So this is a **second copy of clinical information, in another country**. For a
 BC practice under PIPA/PIPEDA that is worth a deliberate decision rather than a
 default.
 
-The durable fix is to stop keeping a second copy: verify sign-ins against
-Cliniko's patient list over its API, so the practice management system stays the
-only place that knows who is a client. That also removes the list-maintenance
-job entirely — add someone in Cliniko and they can sign in; discharge them and
-they cannot. It needs a Cliniko API key and is the recommended next step if this
-outlives being a stopgap.
+### Cliniko as the source of truth
+
+This is now built. Set `CLINIKO_API_KEY` and a portal sign-in also succeeds for
+anyone Cliniko knows as a patient — add someone in Cliniko and they can sign in;
+discharge them and they cannot. Nobody has to be typed into the list above.
+
+**It is additive, never subtractive.** Cliniko is consulted *after* the env list
+and the stored list, and only a confident match grants access. Every failure —
+outage, rotated key, rate limit, an account where the email filter is not
+available — returns "no" and lets the other sources decide. The alternative,
+treating Cliniko as the authority, would mean one bad request locks every client
+out of the portal at once.
+
+Two things to know before relying on it:
+
+- Cliniko's documentation does not state that `email` is a filterable field on
+  the patients endpoint. It may simply work; it may return a 422. **Use the
+  connection test on `/admin`** — it runs one live lookup and tells you which
+  case you are in.
+- Until you have confirmed a real address matches, keep the stored list
+  populated. It costs nothing and it is what stops a surprise from locking
+  people out.
+
+Once lookups are confirmed working, emptying the stored list is what actually
+removes the second copy of clinical data — that is the point, and it is a
+deliberate step rather than something that happens automatically.
 
 ## What is deliberately not here
 
