@@ -1104,3 +1104,11 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .avail-note{ margin:10px 0 0; font-size:.88rem; color:var(--ink-faint); }
 .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px;
   overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
+
+/* Alternate sign-in disclosure on the portal gate */
+.portal-alt{ margin-top:22px; border-top:1px solid var(--line); padding-top:16px; }
+.portal-alt summary{ cursor:pointer; font-size:.9rem; color:var(--ink-soft); list-style:none; }
+.portal-alt summary::-webkit-details-marker{ display:none; }
+.portal-alt summary::before{ content:"＋ "; color:var(--blue-deep); }
+.portal-alt[open] summary::before{ content:"－ "; }
+.portal-alt summary:hover{ color:var(--blue-deep); }

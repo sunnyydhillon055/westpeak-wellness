@@ -1,29 +1,28 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { portalToken, safeEqual, PORTAL_COOKIE } from '@/lib/portal-token';
+import { readSession, PORTAL_COOKIE } from '@/lib/portal-auth';
 
 /* Gate on /client-portal.
  *
- * Runs on the edge before the page is served, so the access code never reaches
- * the browser and the portal markup is never sent to someone who has not
- * entered it. A client-side check on a static site would ship the secret in the
- * bundle and be theatre; this is not that.
+ * Runs on the edge before the page renders, so portal markup is never sent to
+ * anyone without a valid session. A client-side check on a static site would
+ * ship the secret in the bundle; this does not.
  *
- * Fails CLOSED: if PORTAL_ACCESS_CODE is unset, nobody gets in. An
- * unconfigured deployment should not silently publish the portal.
+ * readSession re-checks the address against the allowlist on every request, so
+ * removing someone from PORTAL_ALLOWED_EMAILS logs them out immediately rather
+ * than whenever their cookie happens to expire.
+ *
+ * Fails CLOSED: with PORTAL_SECRET unset, nobody gets in. An unconfigured
+ * deployment must not silently publish the portal.
  */
 export async function middleware(req: NextRequest) {
-  const expected = process.env.PORTAL_ACCESS_CODE;
-  const supplied = req.cookies.get(PORTAL_COOKIE)?.value;
-
-  if (expected && supplied && safeEqual(supplied, await portalToken(expected))) {
-    return NextResponse.next();
+  const secret = process.env.PORTAL_SECRET;
+  if (secret) {
+    const email = await readSession(req.cookies.get(PORTAL_COOKIE)?.value, secret);
+    if (email) return NextResponse.next();
   }
 
-  // Rewrite rather than redirect, so the URL a client bookmarked keeps working
-  // and they land on the code form instead of an error. Served as 200: the
-  // portal link sits in the main nav, so reaching this page is a normal thing
-  // to do, not a failure. The gate's job is to withhold the portal markup —
-  // which it does — not to return an error status to ordinary visitors.
+  // Rewrite, not redirect: a bookmarked URL keeps working and the client lands
+  // on the sign-in form rather than an error.
   const url = req.nextUrl.clone();
   url.pathname = '/client-portal/enter';
   url.search = '';
