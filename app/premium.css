@@ -1760,3 +1760,17 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
   outline-offset: 1px;
 }
 .nf-search .btn { margin: 0; }
+
+/* Standalone links — a link that is the whole of its container rather than a
+   word inside a sentence. WCAG 2.2 SC 2.5.8 exempts inline links because their
+   height is set by the surrounding line-height; it does not exempt these, and
+   at a 19-20px line box they fall under the 24px minimum.
+
+   Applied by explicit class rather than a `p > a:only-child` rule, because
+   :only-child counts elements and would also match a link sitting inside a
+   sentence of plain text — padding those would be wrong and would look it. */
+.link-standalone {
+  display: inline-block;
+  padding-block: 0.28rem;
+  margin-block: -0.28rem;   /* absorb it back out of the layout */
+}

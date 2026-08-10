@@ -231,7 +231,7 @@ export default function Home() {
                 </details>
               ))}
             </div>
-            <p style={{ marginTop: 26 }}><Link href="/faq">Read all frequently asked questions →</Link></p>
+            <p style={{ marginTop: 26 }}><Link className="link-standalone" href="/faq">Read all frequently asked questions →</Link></p>
           </Reveal>
         </div>
       </section>

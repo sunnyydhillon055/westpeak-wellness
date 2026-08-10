@@ -36,7 +36,7 @@ export default function TrustBar() {
       </span>
       <span className="trust-item">
         <Coverage aria-hidden="true" strokeWidth={1.7} />
-        <Link href="/resources/bc-extended-health-coverage-for-counselling">
+        <Link className="link-standalone" href="/resources/bc-extended-health-coverage-for-counselling">
           Receipts for extended health
         </Link>
       </span>
