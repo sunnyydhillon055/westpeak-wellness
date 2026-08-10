@@ -155,7 +155,7 @@ export const jobs: Job[] = [
 
       { h: 'Where you can work from' },
       { p: 'Anywhere in British Columbia, because this is a work-from-home counselling role and every session runs by secure video. Counsellors in **Vancouver, Surrey, Burnaby, Richmond, Abbotsford and the Fraser Valley** are welcome, and so are counsellors in **Victoria, Nanaimo and Vancouver Island**, in **Kelowna and the Okanagan**, in **Kamloops and the Interior**, and in **Prince George and Northern BC**.' },
-      { p: 'That last group is worth saying out loud. If you are a therapist in a smaller community, virtual practice removes the ceiling that local population puts on a caseload — you are no longer limited to the people who can drive to you. Several of the practice&rsquo;s clients live in places with no counsellor at all within an hour.' },
+      { p: 'That last group is worth saying out loud. If you are a therapist in a smaller community, virtual practice removes the ceiling that local population puts on a caseload — you are no longer limited to the people who can drive to you. Several of the practice’s clients live in places with no counsellor at all within an hour.' },
       { p: 'All you need is a private room, a decent connection and your BC registration.' },
 
       { h: 'What happens after you apply' },

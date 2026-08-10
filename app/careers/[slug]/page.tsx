@@ -6,6 +6,7 @@ import { orgRef } from '@/lib/schema';
 import { jobs, getJob, jobDescriptionHtml, inlineHtml, APPLY_EMAIL } from '@/lib/careers';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import CtaBand from '@/components/CtaBand';
+import ApplyBlock from '@/components/ApplyBlock';
 
 /* A single job posting, on its own URL.
  *
@@ -108,24 +109,21 @@ export default function JobPage({ params }: { params: { slug: string } }) {
     url,
   };
 
-  const mailto =
-    `mailto:${APPLY_EMAIL}?subject=${encodeURIComponent(`Application — ${job.title}`)}` +
-    `&body=${encodeURIComponent(
-      [
-        'Hello,',
-        '',
-        'I would like to apply for the Registered Clinical Counsellor role.',
-        '',
-        'BCACC registration number:',
-        'Hours a week I am looking for:',
-        'Evening availability:',
-        '',
-        'How I actually work — how I decide what to use, and what I do when something is not working:',
-        '',
-        '',
-        '(CV attached)',
-      ].join('\n')
-    )}`;
+  const applySubject = `Application — ${job.title}`;
+  const applyBody = [
+    'Hello,',
+    '',
+    'I would like to apply for the Registered Clinical Counsellor role.',
+    '',
+    'BCACC registration number:',
+    'Hours a week I am looking for:',
+    'Evening availability:',
+    '',
+    'How I actually work — how I decide what to use, and what I do when something is not working:',
+    '',
+    '',
+    '(CV attached)',
+  ].join('\n');
 
   return (
     <>
@@ -135,7 +133,7 @@ export default function JobPage({ params }: { params: { slug: string } }) {
           <h1>{job.title}</h1>
           <p className="lede">{job.summary}</p>
           <div className="btn-row" style={{ marginTop: 24 }}>
-            <a className="btn btn--primary" href={mailto}>Apply by email</a>
+            <a className="btn btn--primary" href="#apply">Apply for this role</a>
             <Link className="btn btn--ghost" href="/about">About the practice</Link>
           </div>
         </div>
@@ -216,9 +214,7 @@ export default function JobPage({ params }: { params: { slug: string } }) {
             held against you.
           </p>
 
-          <p style={{ marginTop: 28 }}>
-            <a className="btn btn--primary" href={mailto}>Apply by email</a>
-          </p>
+          <ApplyBlock email={APPLY_EMAIL} subject={applySubject} body={applyBody} />
 
           <p className="muted" style={{ marginTop: 24, fontSize: '0.9rem' }}>
             Posted {new Date(job.datePosted).toLocaleDateString('en-CA', {

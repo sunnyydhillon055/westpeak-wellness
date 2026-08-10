@@ -1620,3 +1620,51 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
 .cmp-table tbody td:last-child { color: var(--ink); background: rgba(63, 108, 163, 0.05); }
 .cmp-table tbody tr:last-child th,
 .cmp-table tbody tr:last-child td { border-bottom: 0; }
+
+/* Apply block (careers).
+   Deliberately several routes rather than one button — a mailto only works if
+   the device has a mail handler registered, and on a job posting a silent
+   no-op loses applicants invisibly. */
+.apply-block {
+  margin: 2rem 0 1rem;
+  padding: 1.5rem 1.6rem;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--blue-deep);
+  border-radius: 12px;
+  background: var(--bg-card);
+}
+.apply-block h3 { margin: 0 0 0.6rem; }
+.apply-block--compact { margin-top: 0.5rem; padding: 1.1rem 1.2rem; }
+.apply-to { margin: 0 0 1rem; }
+.apply-address {
+  font-weight: 650;
+  font-size: 1.05rem;
+  word-break: break-all;      /* never let a long address widen the page */
+}
+.apply-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 0 0 0.75rem;
+}
+.apply-actions .btn { margin: 0; }
+.apply-actions--minor { gap: 1.25rem; margin-bottom: 0.6rem; }
+.apply-copy {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0.35rem 0;         /* keeps the target at least 24px tall */
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--blue-deep);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.apply-copy:hover { color: var(--ink); }
+.apply-note {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  min-height: 1.2em;          /* reserve the line so feedback cannot shift layout */
+}
