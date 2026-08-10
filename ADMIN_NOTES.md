@@ -191,3 +191,68 @@ All of these need a redeploy to take effect. **Editing the client list in
   bundle.
 - **No account enumeration.** Sign-in and reset both answer the same way, in the
   same time, whether or not an address is known.
+
+---
+
+# Monthly revenue report
+
+An email on the 1st of each month with the previous month's revenue, broken
+down per practitioner. Cliniko cannot do this itself — it has no scheduled or
+emailed reports at all, so every report in it is run by hand and printed.
+
+| | |
+|---|---|
+| Route | `/api/cron/revenue-report` |
+| Schedule | `0 15 1 * *` in `vercel.json` — 08:00 Vancouver in summer, 07:00 in winter |
+| Goes to | `info@westpeakwellness.com`, or `REVENUE_REPORT_TO` if set |
+| Needs | `CRON_SECRET`, `CLINIKO_API_KEY`, `RESEND_API_KEY`, `PORTAL_FROM_EMAIL` |
+
+## What the number actually is
+
+**Invoices closed in the month — not payments.** The Cliniko API has no
+payments endpoint (an open request since 2019), so payments cannot be counted
+directly however the report is written.
+
+For this practice the two converge: payment is taken through Stripe at booking
+and Cliniko closes the invoice in the same movement, so an invoice closes on
+the day it is paid. They would only diverge if invoices were settled by hand
+well after the session. That is why **Outstanding** is reported alongside —
+anything issued in the period and not closed appears there rather than
+vanishing, so the two figures together account for everything billed.
+
+The email states this itself, every month. Nobody should have to open this file
+to know what they are looking at.
+
+To reconcile against real payments: **Cliniko → Reports → Payment summary**,
+which is cash-basis and keyed on the payment date.
+
+## Practitioners
+
+Names come from Cliniko's `/practitioners` at send time, so a new staff member
+appears in the next report with no code change. Invoices with no practitioner
+attached are grouped as **Unassigned** rather than dropped — a missing figure
+is worse than an ugly one.
+
+## Running it by hand
+
+Both need the secret. Vercel Cron sends it automatically as a bearer token;
+by hand, `?key=` is easier.
+
+```
+/api/cron/revenue-report?key=SECRET&period=1            # show the window, touch nothing
+/api/cron/revenue-report?key=SECRET&month=2026-07&dry=1 # build the email, don't send
+/api/cron/revenue-report?key=SECRET&month=2026-07       # send that month
+```
+
+## Why it refuses to run without CRON_SECRET
+
+An unset secret is treated as misconfiguration, not as "no authentication
+required". The fail-open version of this route would publish the practice's
+monthly income at a guessable URL.
+
+## Month boundaries
+
+Computed at local midnight in `America/Vancouver`, not UTC. Bounding in UTC
+would push the first seven hours of the 1st into the wrong month — every month,
+not just at the DST changeover. Verified across both switchovers: March 2026
+opens at UTC-8 and closes at UTC-7, November opens at UTC-7 and closes at UTC-8.

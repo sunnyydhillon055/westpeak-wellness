@@ -126,16 +126,19 @@ export function channelsFromCliniko(v: unknown): ReminderChannels {
   return 'none';
 }
 
-type Api = { key: string; shard: string };
+export type Api = { key: string; shard: string };
 
-function api(): Api | null {
+/** The configured account, or null when the key is missing or has no shard
+ *  suffix. Exported so other Cliniko readers (the revenue report) resolve the
+ *  host exactly the same way rather than re-deriving it. */
+export function api(): Api | null {
   const key = process.env.CLINIKO_API_KEY?.trim();
   if (!key) return null;
   const shard = shardOf(key);
   return shard ? { key, shard } : null;
 }
 
-function headers(key: string) {
+export function headers(key: string) {
   return {
     Authorization: `Basic ${btoa(`${key}:`)}`,
     Accept: 'application/json',

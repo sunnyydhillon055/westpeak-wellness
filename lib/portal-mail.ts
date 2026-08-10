@@ -7,20 +7,36 @@ import { site } from '@/lib/site';
  * every caller must give the same response whether or not mail was sent: a
  * delivery failure must not become a way to probe who has an account.
  */
-async function send(to: string, subject: string, text: string): Promise<boolean> {
+async function send(
+  to: string, subject: string, text: string, html?: string
+): Promise<boolean> {
+  return (await sendDetailed(to, subject, text, html)).ok;
+}
+
+/* The same call, reporting why it failed.
+ *
+ * `send` deliberately swallows the reason: on the password-reset path, telling
+ * the caller anything is a way to probe who has an account. The revenue report
+ * has no such constraint and the opposite need — it runs unattended once a
+ * month, so a silent false would mean nobody finds out until someone notices
+ * the email never came. */
+export async function sendDetailed(
+  to: string, subject: string, text: string, html?: string
+): Promise<{ ok: boolean; detail?: string }> {
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.PORTAL_FROM_EMAIL;
-  if (!apiKey || !from) return false;
+  if (!apiKey || !from) return { ok: false, detail: 'RESEND_API_KEY or PORTAL_FROM_EMAIL is not set' };
 
   try {
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ from, to: [to], subject, text }),
+      body: JSON.stringify({ from, to: [to], subject, text, ...(html ? { html } : {}) }),
     });
-    return res.ok;
-  } catch {
-    return false;
+    if (res.ok) return { ok: true };
+    return { ok: false, detail: `Resend HTTP ${res.status}: ${(await res.text()).slice(0, 200)}` };
+  } catch (e) {
+    return { ok: false, detail: e instanceof Error ? e.message : 'request failed' };
   }
 }
 
