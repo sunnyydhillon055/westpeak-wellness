@@ -71,9 +71,22 @@ export default function JobPage({ params }: { params: { slug: string } }) {
       ...orgRef,
     },
     jobLocationType: 'TELECOMMUTE',
+    /* Country, not State.
+     *
+     * Google's own documentation gives `{"@type": "State", "name": "Michigan,
+     * USA"}` as the example for a region-restricted remote role — and the Rich
+     * Results Test then rejects it with "Invalid object type for field
+     * applicantLocationRequirements". The docs and the validator disagree, and
+     * the validator is the one that decides eligibility.
+     *
+     * Country is unambiguously accepted, and it is true: an applicant must be
+     * in Canada. The narrower requirement — BC registration with the BCACC — is
+     * not weakened by this, because it is stated in the title, the description
+     * and the `qualifications` field, all of which Google reads. Precision that
+     * costs eligibility is not precision worth having. */
     applicantLocationRequirements: {
-      '@type': 'State',
-      name: 'British Columbia, Canada',
+      '@type': 'Country',
+      name: 'Canada',
     },
     baseSalary: {
       '@type': 'MonetaryAmount',

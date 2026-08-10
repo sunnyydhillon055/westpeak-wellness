@@ -1577,3 +1577,46 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
 .faq-list > div:last-child { border-bottom: 0; }
 .faq-list dt { font-weight: 650; margin: 0 0 0.35rem; }
 .faq-list dd { margin: 0; color: var(--ink-soft, #40505f); }
+
+/* Comparison table (careers).
+   Four columns will not fit a phone, so it scrolls inside its own container
+   rather than pushing the page sideways — a body that scrolls horizontally is
+   the single most common way a "responsive" page stops being one. */
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 0 1.5rem;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+}
+.cmp-table {
+  width: 100%;
+  min-width: 620px;
+  border-collapse: collapse;
+  background: var(--bg-card);
+  font-size: 0.94rem;
+}
+.cmp-table th,
+.cmp-table td {
+  padding: 0.8rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+.cmp-table thead th {
+  background: var(--blue-mist);
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+  font-weight: 700;
+}
+/* The final column is the practice's own offer — weighted so the eye lands
+   there without the row becoming a sales shout. */
+.cmp-table thead th:last-child { background: var(--blue-deep); color: #fff; }
+.cmp-table tbody th { font-weight: 650; color: var(--ink); width: 26%; }
+.cmp-table tbody td { color: var(--ink-soft); }
+.cmp-table tbody td:last-child { color: var(--ink); background: rgba(63, 108, 163, 0.05); }
+.cmp-table tbody tr:last-child th,
+.cmp-table tbody tr:last-child td { border-bottom: 0; }

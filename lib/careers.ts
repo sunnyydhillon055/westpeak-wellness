@@ -54,9 +54,9 @@ export const jobs: Job[] = [
   {
     slug: 'registered-clinical-counsellor',
     title: 'Registered Clinical Counsellor (RCC)',
-    seoTitle: 'Registered Clinical Counsellor Job — Remote, BC | Westpeak Wellness',
+    seoTitle: 'RCC Job — Remote Counselling, Part-Time, BC | Westpeak Wellness',
     metaDescription:
-      'Remote RCC contract role anywhere in British Columbia. 70% of every session fee — $95–$120 per clinical hour, 5–25 hours a week, you set your own schedule.',
+      'Remote counselling job for an RCC anywhere in BC. Keep 70% — $95–$120 per clinical hour. Part time, 5–25 hrs a week, work from home, referrals provided.',
     summary:
       'Remote across British Columbia · 70% of every session fee ($95–$120 per clinical hour) · 5–25 hours a week, self-scheduled · independent contractor.',
     identifier: 'WW-RCC-2026-01',
@@ -81,6 +81,7 @@ export const jobs: Job[] = [
     blocks: [
       { p: 'I run a virtual counselling practice serving adults across British Columbia, and I have reached the point where I am turning people away. That is the reason this post exists, and I would rather hand those clients to someone good than keep stretching my own calendar.' },
       { p: 'So: I am looking for one Registered Clinical Counsellor to take referrals alongside me. Fully remote, hours entirely your own, and no expectation that you make this your whole working life unless you want to.' },
+      { p: 'Depending on where you have been looking, this gets advertised under a handful of different names — **counsellor job**, **therapist job**, **RCC job**, **associate counsellor**, **psychotherapist**, or simply a **mental health job** in BC — an **online counselling job**, a **virtual counselling job**, a **clinical counsellor job**, **contract counselling** work. It is all the same thing, and it is described here plainly rather than in the usual job-ad language: remote counselling work, **part time** if you want it, **work from home**, on a **fee split** rather than a wage.' },
 
       { h: 'What the work is' },
       { p: 'Adults, by secure video, anywhere in the province. Anxiety, depression, trauma, burnout, relationship difficulty, life transitions — the ordinary, difficult range of a general adult practice. Couples work too, if that is something you do well and enjoy.' },
@@ -100,6 +101,18 @@ export const jobs: Job[] = [
       { p: '**Between 5 and 25 hours a week, and you set them.**' },
       { p: 'That range is wide on purpose. It means you can start with four or five clients while keeping other work, and grow only if you want to. It also means a permanently part-time caseload is a perfectly good answer — if you tell me you want six hours a week forever, that is a fine thing to want and it will not count against you.' },
       { p: 'Evenings are the most useful, because that is when most people ask to be seen. If you can offer some, say so.' },
+
+      { h: 'What the pay actually works out to' },
+      { p: 'There is no salary here, and no hourly wage — this is **contract counselling** work paid on a fee split. Counselling job ads are usually vague about money, so here is the arithmetic rather than a range and a shrug. You keep **70% of every session fee**. Nothing is deducted underneath that — no lease, no software, no admin or marketing cut.' },
+      { ul: [
+        '**One individual session** (50 minutes, $140 fee) pays you **$98**.',
+        '**One couples session** (50 minutes, $170 fee) pays you **$119**.',
+        '**Ten sessions a week** is roughly **$980 a week**, or about $4,250 a month.',
+        '**Twenty sessions a week** is roughly **$1,960 a week**, or about $8,500 a month.',
+        '**An EMDR intensive** (90 minutes, $190 fee) pays you **$133**.',
+      ] },
+      { p: 'Two honest caveats, because a number without them is a sales pitch. First, **a caseload builds — it does not arrive.** I am not going to promise you twenty sessions in your first month, and anyone who does is guessing. Second, you are a contractor, so tax, CPP and your own insurance and supervision come out of that, the same as any private practice.' },
+      { p: 'What I can say plainly is that the split does not change as you grow, and there is no tier system, no clawback and no minimum you have to hit before the 70% applies.' },
 
       { h: 'The honest part' },
       { p: '**You would be the first counsellor to join me,** and I would rather say what that means than let you find out.' },
@@ -139,6 +152,22 @@ export const jobs: Job[] = [
         '**Yours:** BCACC registration, liability insurance, clinical supervision, your own taxes.',
       ] },
       { p: '**On contractor status, so it is not a surprise:** you set your own availability, you carry your own insurance and supervision, and you are free to see clients elsewhere. That independence is real, not a formality — it is how the arrangement works and it is why it is a contract rather than a job.' },
+
+      { h: 'Where you can work from' },
+      { p: 'Anywhere in British Columbia, because this is a work-from-home counselling role and every session runs by secure video. Counsellors in **Vancouver, Surrey, Burnaby, Richmond, Abbotsford and the Fraser Valley** are welcome, and so are counsellors in **Victoria, Nanaimo and Vancouver Island**, in **Kelowna and the Okanagan**, in **Kamloops and the Interior**, and in **Prince George and Northern BC**.' },
+      { p: 'That last group is worth saying out loud. If you are a therapist in a smaller community, virtual practice removes the ceiling that local population puts on a caseload — you are no longer limited to the people who can drive to you. Several of the practice&rsquo;s clients live in places with no counsellor at all within an hour.' },
+      { p: 'All you need is a private room, a decent connection and your BC registration.' },
+
+      { h: 'What happens after you apply' },
+      { p: 'No black hole, and no six-stage process. In order:' },
+      { ul: [
+        '**I read your email myself,** usually within a few days.',
+        '**You get a reply either way.** If it is a no, you will be told, rather than left wondering.',
+        '**If there is a fit, we talk by video** for about half an hour. Informal. You should be interviewing me at least as hard as I am interviewing you.',
+        '**I verify your registration** on the BCACC public register — the same check clients are told to run on me.',
+        '**We agree terms in writing** and you pick your own starting availability.',
+      ] },
+      { p: 'There is no take-home task, no unpaid trial session, and nothing asked of you that would not also be asked of a client.' },
     ],
   },
 ];

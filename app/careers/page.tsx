@@ -7,9 +7,9 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
 
-const TITLE = 'Counselling Jobs in BC — Careers | Westpeak Wellness';
+const TITLE = 'Counselling Jobs BC — Remote RCC Careers | Westpeak Wellness';
 const DESC =
-  'Remote counselling jobs across British Columbia. Contract RCC roles with referrals provided, no overhead and hours you set yourself. Current openings and how to apply.';
+  'Remote counselling jobs across British Columbia — part-time RCC and therapist roles, work from home, referrals provided, keep 70%. Current openings and how to apply.';
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -76,6 +76,22 @@ export default function CareersPage() {
       q: 'What are the hours like?',
       a: 'Between 5 and 25 hours a week, entirely self-scheduled. Evening availability is the most useful, because that is when most clients ask to be seen, but it is not a condition.',
     },
+    {
+      q: 'What is the salary or pay for this counselling job?',
+      a: 'You keep 70% of every session fee, which works out to $95–$120 per clinical hour: $98 for a 50-minute individual session and $119 for a couples session. Ten sessions a week is roughly $980; twenty is roughly $1,960. There is no tier system and no minimum you have to hit before the 70% applies. As a contractor, tax and your own insurance and supervision come out of that.',
+    },
+    {
+      q: 'Is this a work-from-home counselling job?',
+      a: 'Yes, entirely. Every session runs by secure video and there is no office to attend. All you need is a private room, a reliable connection and your BC registration. Counsellors work from Vancouver, Surrey, Victoria, Kelowna, Kamloops, Prince George and everywhere between.',
+    },
+    {
+      q: 'Do I need telehealth or online therapy experience?',
+      a: 'You need genuine competence delivering therapy by video rather than a specific certificate. If your practice moved online in recent years and you found it worked, that is the experience being asked about.',
+    },
+    {
+      q: 'How quickly would my caseload fill?',
+      a: 'A caseload builds rather than arrives, and anyone promising you a full one in month one is guessing. Referrals are passed on as they come in, at the pace your availability allows. This is why the role starts at 5 hours a week rather than assuming a full schedule.',
+    },
   ];
 
   const faqSchema = {
@@ -114,10 +130,11 @@ export default function CareersPage() {
       <section className="hero" style={{ paddingBottom: 40 }}>
         <div className="container">
           <p className="eyebrow">Careers</p>
-          <h1>Counselling jobs at Westpeak Wellness</h1>
+          <h1>Counselling jobs in BC — remote, part-time, yours to schedule</h1>
           <p className="lede">
-            Remote counselling work across British Columbia — referrals provided, no overhead,
-            and a schedule you set yourself.
+            Work-from-home counselling roles for Registered Clinical Counsellors anywhere in
+            British Columbia. You keep <strong>70% of every session fee</strong>, referrals come
+            to you, and there is no overhead of any kind.
           </p>
         </div>
       </section>
@@ -158,6 +175,18 @@ export default function CareersPage() {
             </ul>
           )}
 
+          <p>
+            Depending where you have been searching, this kind of work gets listed under a
+            handful of different names — <strong>counsellor job</strong>,{' '}
+            <strong>therapist job</strong>, <strong>RCC job</strong>,{' '}
+            <strong>associate counsellor</strong>, <strong>psychotherapist</strong>, or just a{' '}
+            <strong>mental health job</strong> in British Columbia — an <strong>online counselling job</strong>, a <strong>virtual counselling job</strong>, a <strong>clinical counsellor job</strong>. It is all the same role. What
+            is on offer here is remote counselling work, <strong>part time</strong> if that is what
+            you want, <strong>work from home</strong>, on a <strong>fee split</strong> rather than
+            a wage — and a <strong>counselling career</strong> you can grow at your own pace
+            instead of inheriting someone else&rsquo;s schedule.
+          </p>
+
           <h2>What working here is actually like</h2>
           <p>
             Westpeak Wellness is a virtual counselling practice serving adults throughout British
@@ -174,6 +203,73 @@ export default function CareersPage() {
           </p>
 
           <Figure name="bc-reach" />
+
+          <h2 id="compare">Agency, solo private practice, or here</h2>
+          <p>
+            Most counsellors in BC are choosing between three ways of working, and each trades
+            something away. Setting them side by side is more useful than a list of perks:
+          </p>
+          <div className="table-scroll">
+            <table className="cmp-table">
+              <thead>
+                <tr>
+                  <th scope="col">&nbsp;</th>
+                  <th scope="col">Agency or clinic</th>
+                  <th scope="col">Your own private practice</th>
+                  <th scope="col">Here</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Finding clients</th>
+                  <td>Done for you</td>
+                  <td>Entirely on you — the hardest part</td>
+                  <td>Done for you</td>
+                </tr>
+                <tr>
+                  <th scope="row">What you keep</th>
+                  <td>Typically 40–60%</td>
+                  <td>100%, minus every cost</td>
+                  <td><strong>70%, nothing deducted under it</strong></td>
+                </tr>
+                <tr>
+                  <th scope="row">Overhead</th>
+                  <td>None</td>
+                  <td>Lease, software, payments, website</td>
+                  <td><strong>None</strong></td>
+                </tr>
+                <tr>
+                  <th scope="row">Who sets your hours</th>
+                  <td>Usually the clinic</td>
+                  <td>You</td>
+                  <td><strong>You</strong></td>
+                </tr>
+                <tr>
+                  <th scope="row">Minimum caseload</th>
+                  <td>Usually yes</td>
+                  <td>No</td>
+                  <td><strong>No</strong></td>
+                </tr>
+                <tr>
+                  <th scope="row">Admin and invoicing</th>
+                  <td>Handled</td>
+                  <td>Yours, and it is relentless</td>
+                  <td><strong>Handled</strong></td>
+                </tr>
+                <tr>
+                  <th scope="row">Notice to leave</th>
+                  <td>Contractual</td>
+                  <td>n/a</td>
+                  <td>Finish your clients well; that is all</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            The honest summary: this is closest to private practice with the two hardest parts
+            removed — finding clients, and running the business around them. What you give up for
+            that is the 30%.
+          </p>
 
           <h2>Who this tends to suit</h2>
           <ul>
@@ -211,6 +307,39 @@ export default function CareersPage() {
               <Link href="/reviews">this practice does not do it</Link> in any form
             </li>
           </ul>
+
+          <h2 id="where">Counselling jobs across every region of BC</h2>
+          <p>
+            Because this is remote counselling work, where you live does not narrow what is
+            available to you. Counsellors are welcome from:
+          </p>
+          <ul>
+            <li>
+              <strong>Metro Vancouver</strong> — Vancouver, Surrey, Burnaby, Richmond, Coquitlam,
+              Langley, New Westminster, North Vancouver
+            </li>
+            <li>
+              <strong>Fraser Valley</strong> — Abbotsford, Chilliwack, Mission, Maple Ridge
+            </li>
+            <li>
+              <strong>Vancouver Island</strong> — Victoria, Nanaimo, Courtenay, Campbell River,
+              Duncan
+            </li>
+            <li>
+              <strong>Okanagan and Interior</strong> — Kelowna, Vernon, Penticton, Kamloops,
+              Cranbrook, Nelson
+            </li>
+            <li>
+              <strong>Northern BC</strong> — Prince George, Terrace, Fort St. John, Dawson Creek
+            </li>
+          </ul>
+          <p>
+            If you practise outside the Lower Mainland, that last point matters more than it
+            looks. Virtual practice removes the ceiling that local population puts on a caseload —
+            you are no longer limited to people who can drive to you, and a full week&rsquo;s work
+            stops depending on the size of your town. Several of this practice&rsquo;s clients
+            live somewhere with no counsellor at all within an hour.
+          </p>
 
           <h2>How hiring works here</h2>
           <p>
