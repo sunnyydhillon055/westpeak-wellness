@@ -223,3 +223,24 @@ or a git-derived date once Vercel's shallow clone can supply one.
 | 13 | Images "missing dimensions" | **Closed — false finding.** Both are `next/image` with `fill`, which by design carries no width/height; the box is reserved in CSS and CLS measures 0.000 on every page. Adding dimensions would break the fill layout |
 
 Running total: **14 shipped, 7 closed with reasoning, ~79 open.**
+
+## A defect this audit missed entirely
+
+The footer crisis block — the 9-8-8 / 310-6789 / 9-1-1 line that appears on all
+107 pages — was rendering each phone number on its own line with the closing
+full stop orphaned alone on a line. It is the most safety-critical text on the
+site and it looked broken on every page.
+
+**None of the 100 items caught it**, because every check in this audit examines
+structure: link counts, schema blocks, character lengths, contrast ratios,
+target sizes. Broken *line-breaking* is none of those. The markup was valid,
+the contrast passed, the tap targets passed, the schema parsed. It took a
+screenshot.
+
+Recorded here as a limit of the method rather than as an item. A structural
+audit cannot see composition, and the fix for that is not more assertions —
+it is looking at the page.
+
+Footer pass also delivered: mobile height 2,249px → **1,675px** (−26%) with no
+tap target reduced, all three link groups two-up, and the sticky booking bar no
+longer covering the copyright line.
