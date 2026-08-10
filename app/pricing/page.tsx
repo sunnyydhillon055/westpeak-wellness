@@ -41,7 +41,7 @@ export default function Pricing({ searchParams }: { searchParams?: { lead?: stri
               <tr className="fee-highlight"><td>Individual</td><td>50 min</td><td>$140</td></tr>
               <tr><td>Couples</td><td>50 min</td><td>$170</td></tr>
               <tr><td>Couples extended</td><td>110 min</td><td>$340</td></tr>
-              <tr><td>EMDR intensive</td><td>90 min</td><td>$225</td></tr>
+              <tr><td>EMDR intensive</td><td>90 min</td><td>$190</td></tr>
             </tbody>
           </table>
           <p style={{ fontSize: '.92rem', color: 'var(--ink-faint)' }}>GST does not apply to RCC counselling in BC.</p>

@@ -29,7 +29,7 @@ const CLINIKO_BOOKINGS = (
  *   1466854657459489533  Individual Counselling  $140     50 min
  *   1909558292636502700  Couples Counselling     $170     50 min
  *   2013350310713493681  Couples Extended        $340    110 min
- *   2013356655093221554  EMDR Intensive          $225     90 min
+ *   2013356655093221554  EMDR Intensive          $190     90 min
  *
  * `?appointment_type_id=` takes a comma-separated list and restricts the page to
  * exactly those services. It is what lets the public page offer the free
@@ -74,8 +74,10 @@ export const site = {
    * So the site must not promise self-serve cancellation. Free cancellation
    * inside the window is honoured by contacting the practice.
    *
-   * TODO (owner): paste the Cliniko online-bookings URL, then flip
-   * bookingReady. It looks like https://<practice>.cliniko.com/bookings
+   * Status: the bookings URL is live and wired (below). Requiring payment at
+   * booking is the one part still outstanding — it needs the four paid
+   * appointment types set to "Require payment during booking" in Cliniko, and
+   * then NEXT_PUBLIC_CLINIKO_PAID=1 here.
    */
   /* The live Cliniko online-bookings page, verified serving 200 on 2026-08-09.
    *

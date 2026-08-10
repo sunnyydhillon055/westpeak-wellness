@@ -29,7 +29,7 @@ export const faqs: FAQ[] = [
   },
   {
     q: "How much do sessions cost?",
-    a: "Individual sessions are $140 for 50 minutes, couples are $170 for 50 minutes (or $340 for a 110-minute extended session), and EMDR intensives are $225 for 90 minutes. There is no GST on RCC counselling in BC. Full details are on the Fees page.",
+    a: "Individual sessions are $140 for 50 minutes, couples are $170 for 50 minutes (or $340 for a 110-minute extended session), and EMDR intensives are $190 for 90 minutes. There is no GST on RCC counselling in BC. Full details are on the Fees page.",
   },
   {
     q: "How long are sessions, and how often will we meet?",
