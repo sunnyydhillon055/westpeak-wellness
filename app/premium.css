@@ -1507,6 +1507,10 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
   white-space: nowrap;
 }
 
+@media (max-width: 560px) {
+  .job-facts { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 480px) {
   .crumbs { font-size: 0.8125rem; }
   /* On a narrow screen the middle of a long trail is the least useful part.
@@ -1520,7 +1524,10 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
    above the prose rather than buried in it. */
 .job-facts {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  /* Exactly two columns, not auto-fit. There are always four facts, and
+     auto-fit resolved to three at the article width, leaving the fourth alone
+     on its own row beside an empty box. */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1px;
   margin: 0 0 2rem;
   padding: 0;
