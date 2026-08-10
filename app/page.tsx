@@ -97,7 +97,11 @@ export default function Home() {
                 <Link className="btn btn--primary" href={site.bookingPath}>Book a Free 15-min Consultation</Link>
                 <Link className="btn btn--ghost" href="/services">See counselling services</Link>
               </div>
-              <p className="hero-note">Free 15-minute consult · Evening &amp; weekend times · No referral needed</p>
+              {/* Not "weekend times" any more — the schedule moved to Mon–Fri on
+                  2026-08-10 and Saturday and Sunday came off it. Daytime and
+                  evening are both still true: Mon 10–3 and Tue 9–6 are daytime,
+                  Wed–Fri 6–7 is evening. */}
+              <p className="hero-note">Free 15-minute consult · Daytime &amp; evening times · No referral needed</p>
               <TrustBar />
             </div>
 

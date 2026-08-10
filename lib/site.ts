@@ -133,12 +133,13 @@ export const site = {
    * the footer, the portal and Cliniko must all agree, so change it here and
    * mirror it in Cliniko rather than editing any page directly. */
   availability: [
-    { day: "Monday",   from: "9:00 am",  to: "12:00 pm" },
-    { day: "Tuesday",  from: "4:00 pm",  to: "7:00 pm"  },
-    { day: "Saturday", from: "10:00 am", to: "2:00 pm"  },
-    { day: "Sunday",   from: "10:00 am", to: "2:00 pm"  },
+    { day: "Monday",    from: "10:00 am", to: "3:00 pm" },
+    { day: "Tuesday",   from: "9:00 am",  to: "6:00 pm" },
+    { day: "Wednesday", from: "6:00 pm",  to: "7:00 pm" },
+    { day: "Thursday",  from: "6:00 pm",  to: "7:00 pm" },
+    { day: "Friday",    from: "6:00 pm",  to: "7:00 pm" },
   ],
-  hours: "Mon 9–12 · Tue 4–7 · Sat & Sun 10–2",
+  hours: "Mon 10–3 · Tue 9–6 · Wed–Fri 6–7",
   serviceArea: "Virtual counselling across British Columbia",
   languages: "English & Punjabi",
   languagesNative: "English · ਪੰਜਾਬੀ",

@@ -83,10 +83,15 @@ const orgSchema = {
   isAcceptingNewPatients: true,
   currenciesAccepted: 'CAD',
   paymentAccepted: 'E-transfer, Credit Card',
+  /* Must stay in step with site.availability and with Cliniko. This is the
+     copy Google reads, so a stale entry here advertises a slot that cannot be
+     booked — the worst kind of wrong, because the visitor only finds out after
+     arriving at the calendar. Updated 2026-08-10: weekends came off, Wed–Fri
+     evenings went on. */
   openingHoursSpecification: [
-    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday'], opens: '09:00', closes: '12:00' },
-    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Tuesday'], opens: '16:00', closes: '19:00' },
-    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Saturday', 'Sunday'], opens: '10:00', closes: '14:00' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday'], opens: '10:00', closes: '15:00' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Tuesday'], opens: '09:00', closes: '18:00' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Wednesday', 'Thursday', 'Friday'], opens: '18:00', closes: '19:00' },
   ],
   knowsLanguage: ['en-CA', 'pa'],
   knowsAbout: [
