@@ -1774,3 +1774,84 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
   padding-block: 0.28rem;
   margin-block: -0.28rem;   /* absorb it back out of the layout */
 }
+
+/* ── Footer: structure pass ───────────────────────────────────────────────
+   Two problems, both visible in a screenshot before they were visible in the
+   markup.
+
+   1. CRISIS BLOCK. The phone numbers were rendering one per line with the
+      closing full stop orphaned on a line of its own. The links were inheriting
+      a min-height intended for the footer's link COLUMNS — min-height does
+      nothing to an inline box, so something upstream had made them
+      inline-block. These are sentence links: they are forced back inline and
+      exempted from the touch-target minimum, which is correct under WCAG 2.2
+      SC 2.5.8 (targets constrained by the line-height of surrounding text).
+
+   2. MOBILE HEIGHT. Three link columns stacked into a single 2,250px column.
+      The lists now sit two-up on phones, which halves the scroll without
+      shrinking a single tap target. */
+
+.footer-crisis a[href^='tel:'] {
+  display: inline !important;
+  min-height: 0 !important;
+  font-weight: 650;
+}
+.footer-crisis p { text-wrap: pretty; }
+
+/* Keep the legal row and copyright from truncating mid-word */
+.footer-bottom span { min-width: 0; }
+.footer-bottom { row-gap: 6px; }
+
+@media (max-width: 680px) {
+  /* Two columns of links instead of one long stack. The headings span both so
+     each group still reads as a group. */
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 26px 20px; }
+  .footer-brand-col { grid-column: 1 / -1; }
+  .footer-col { grid-column: span 1; }
+  /* "Read" and "Practice" carry the most links, so they get the full width and
+     lay their own links out two-up rather than running to twenty rows. */
+  .footer-col:nth-of-type(2),
+  .footer-col:nth-of-type(3) { grid-column: 1 / -1; }
+  .footer-col:nth-of-type(2) a:not(.footer-more),
+  .footer-col:nth-of-type(3) a:not(.footer-more) {
+    display: inline-flex;
+    align-items: center;
+    width: calc(50% - 8px);
+    margin-right: 8px;
+  }
+  .footer-col h2 { margin-bottom: 6px; }
+  .footer-col a:hover { padding-left: 0; }   /* the nudge misaligns a 2-up grid */
+  .footer-legal { row-gap: 2px; }
+}
+
+@media (max-width: 340px) {
+  /* Only the very narrowest phones fall back to one column. 400px was the
+     first choice and it was wrong: a 390px iPhone — the most common width
+     there is — landed inside it and got the single long stack the two-column
+     rule existed to prevent. */
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-col:nth-of-type(2) a:not(.footer-more),
+  .footer-col:nth-of-type(3) a:not(.footer-more) { width: 100%; margin-right: 0; }
+}
+
+/* Footer, second pass — three things the first pass left.
+
+   · Services stacked while Read and Practice went two-up. nth-of-type counts
+     among same-element siblings, and the three link groups are <nav> while the
+     brand block is a <div> — so Services is nav:nth-of-type(1) and was simply
+     left out of the rule. All three now behave the same way.
+
+   · The sticky booking bar was sitting on top of the copyright line, which is
+     why it read as truncated mid-word. The footer now reserves room for it. */
+@media (max-width: 680px) {
+  .footer-col:nth-of-type(1) { grid-column: 1 / -1; }
+  .footer-col:nth-of-type(1) a:not(.footer-more) {
+    display: inline-flex;
+    align-items: center;
+    width: calc(50% - 8px);
+    margin-right: 8px;
+  }
+  /* Clear the sticky "Book" bar so the last line of the footer is readable. */
+  .site-footer { padding-bottom: calc(26px + 4.5rem); }
+  .footer-bottom { font-size: .78rem; line-height: 1.5; }
+}

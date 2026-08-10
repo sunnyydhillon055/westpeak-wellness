@@ -78,15 +78,19 @@ export default function Footer() {
             </nav>
           </div>
 
+          {/* The numbers were nested <strong> inside <a>, and a min-height rule
+              meant for the footer link columns was reaching them — each number
+              became its own line and the closing full stop was orphaned on a
+              line by itself. The emphasis now lives on the anchor, which is
+              what should carry it anyway. */}
           <div className="footer-crisis">
             <LifeBuoy aria-hidden="true" strokeWidth={1.7} />
             <p>
               <strong>Not a crisis service.</strong> If you are in crisis, call or text{' '}
-              <a href="tel:988"><strong>9-8-8</strong></a> (Canada, 24/7), or{' '}
-              <a href="tel:3106789"><strong>310-6789</strong></a> for BC Mental
-              Health Support. In immediate danger, call{' '}
-              <a href="tel:911"><strong>9-1-1</strong></a>.{' '}
-              <Link href="/resources/bc-crisis-and-support-directory">Full BC directory →</Link>
+              <a href="tel:988">9-8-8</a> (Canada, 24/7), or{' '}
+              <a href="tel:3106789">310-6789</a> for BC Mental Health Support. In immediate
+              danger, call <a href="tel:911">9-1-1</a>.{' '}
+              <Link href="/resources/bc-crisis-and-support-directory">Full BC directory&nbsp;→</Link>
             </p>
           </div>
 
