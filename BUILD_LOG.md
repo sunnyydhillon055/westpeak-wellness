@@ -397,3 +397,44 @@ links without an accessible name, pages scrolling sideways at 1440 or 390.
 `NEXT_PUBLIC_CLINIKO_URL`, `RESEND_API_KEY` + `PORTAL_FROM_EMAIL`,
 `AUTH_GOOGLE_ID`/`AUTH_GOOGLE_SECRET`, `NEXT_PUBLIC_GA_ID`, and the DNS cutover
 in `GO_LIVE.md`.
+
+---
+
+## 2026-08-09 — 50-category audit and remediation
+
+Measured a full crawl of the production build (105 sitemap URLs + 6 unlisted
+routes) plus rendered measurement on 18 pages, desktop and throttled mobile.
+Scores and evidence are in `SCORE_LEDGER.md`. Decisions worth recording:
+
+**The directive's baseline was not this site.** It stated 188 sitemap URLs and
+a 16,270/25,000 prior score. Live and local both return **105**, and `/blog` is
+a 308 rather than the 200 it listed. The prior score was therefore not carried
+forward; every "before" in the ledger comes from my own crawl of this build
+earlier the same day.
+
+**Phase 1.1 (convert rasters to WebP/AVIF) was not done, deliberately.** All 191
+images on the site are hand-built SVG, plus three photographs already served
+through `next/image`. There is no raster to convert, and converting SVG to WebP
+would make the site larger and resolution-dependent. Logged rather than done.
+
+**Two contrast measurements were wrong before one was right.** Walking the DOM
+for a `backgroundColor` cannot see `linear-gradient`, so the first pass read
+white-on-navy as white-on-white — 8 false positives. The second hid the glyphs
+and sampled a pixel, but React re-rendered and dropped the marker attributes,
+so it sampled the glyph. The method that stands samples a grid per text box and
+takes the modal colour, mutating nothing: **0 failures across 329 text runs.**
+
+**A 0.919 CLS turned out to be the 404 page.** Two URLs in the sample list did
+not exist. Real pages measure 0.000 on both viewports.
+
+**Inline prose links were excluded from the tap-target count.** WCAG 2.2
+SC 2.5.8 exempts targets constrained by the line-height of surrounding text.
+Counting them would have produced a large fake defect and a change that damaged
+the prose. The genuine remainder — `Read more →` at 95×18 and the nav links —
+is recorded as outstanding.
+
+**Breadcrumbs now emit visible trail and BreadcrumbList from one argument.**
+The site previously had markup on 87 pages and a visible trail on none. A
+second BreadcrumbList on a page is not an error Google reports, so pages
+carrying their own graph pass `schema={false}` rather than risking a silent
+duplicate.
