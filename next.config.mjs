@@ -78,6 +78,28 @@ const nextConfig = {
       { source: '/copy-of-individual-2', destination: '/services/anxiety-counselling', permanent: true },
       { source: '/copy-of-individual-1', destination: '/services/trauma-therapy', permanent: true },
       { source: '/copy-of-individual', destination: '/services/emdr-therapy', permanent: true },
+
+      /* Careers. Nobody reliably guesses "/careers" — people type /jobs, or
+         /hiring, or whatever the last site they applied to used. Each of these
+         costs nothing and closes a door that would otherwise be a 404, which
+         matters most on the route where somebody retypes a URL from a screenshot
+         or a forwarded message.
+
+         /apply is a 307 rather than a 301 on purpose: it points at whichever
+         role is currently open, so it must not be cached permanently against
+         this one. */
+      { source: '/jobs', destination: '/careers', permanent: true },
+      { source: '/job', destination: '/careers', permanent: true },
+      { source: '/hiring', destination: '/careers', permanent: true },
+      { source: '/join-us', destination: '/careers', permanent: true },
+      { source: '/join', destination: '/careers', permanent: true },
+      { source: '/work-with-us', destination: '/careers', permanent: true },
+      { source: '/employment', destination: '/careers', permanent: true },
+      { source: '/career', destination: '/careers', permanent: true },
+      { source: '/vacancies', destination: '/careers', permanent: true },
+      { source: '/careers/rcc', destination: '/careers/registered-clinical-counsellor', permanent: true },
+      { source: '/jobs/:slug', destination: '/careers/:slug', permanent: true },
+      { source: '/apply', destination: '/careers/registered-clinical-counsellor', permanent: false },
     ];
   },
 };

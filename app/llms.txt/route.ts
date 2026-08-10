@@ -6,6 +6,7 @@ import { comparisons } from '@/lib/comparisons';
 import { resources } from '@/lib/resources';
 import { audiences } from '@/lib/audiences';
 import { locations } from '@/lib/locations';
+import { openJobs } from '@/lib/careers';
 
 export const dynamic = 'force-static';
 
@@ -63,6 +64,16 @@ Health Support, no area code needed), or 9-1-1 in immediate danger.
 - [Contact](${u('/contact')}): email and what to expect after getting in touch.
 - [Areas served across BC](${u('/online-counselling')}): how province-wide virtual counselling works.
 - [Counselling glossary](${u('/glossary')}): 60 plain-language definitions of therapy, mental-health and BC coverage terms.
+
+## Working here (for counsellors, not clients)
+${openJobs().length
+  ? `The practice is hiring. These pages are for job seekers, not for people looking for therapy.
+
+- [Careers](${u('/careers')}): what working here involves — referrals provided, no overhead, self-set hours, contract.
+${openJobs()
+  .map((j) => `- [${j.title}](${u(`/careers/${j.slug}`)}): ${j.summary}`)
+  .join('\n')}`
+  : `- [Careers](${u('/careers')}): nothing is open at the moment; the page explains the arrangement and invites speculative enquiries.`}
 
 ## Trust and accountability
 

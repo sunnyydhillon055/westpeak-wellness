@@ -1513,3 +1513,60 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
      Keep the parent and the current page; drop what is between them. */
   .crumbs li:not(:first-child):not(:last-child):not(:nth-last-child(2)) { display: none; }
 }
+
+/* ── Careers ──────────────────────────────────────────────────────────────
+   The facts strip at the top of a posting. A job seeker scanning ten listings
+   decides in seconds on rate, hours, type and location, so those four sit
+   above the prose rather than buried in it. */
+.job-facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1px;
+  margin: 0 0 2rem;
+  padding: 0;
+  background: var(--line, #e6ebf1);
+  border: 1px solid var(--line, #e6ebf1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.job-facts > div {
+  background: var(--surface, #fff);
+  padding: 0.85rem 1rem;
+}
+.job-facts dt {
+  margin: 0 0 0.15rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft, #5b6b7d);
+  font-weight: 600;
+}
+.job-facts dd {
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.job-list { list-style: none; padding: 0; margin: 0 0 2rem; }
+.job-list > li {
+  border: 1px solid var(--line, #e6ebf1);
+  border-left: 3px solid var(--blue, #3f6ca3);
+  border-radius: 10px;
+  padding: 1.25rem 1.4rem;
+  margin: 0 0 1rem;
+  background: var(--surface, #fff);
+}
+.job-list h3 { margin: 0 0 0.4rem; }
+.job-list h3 a { text-decoration: none; }
+.job-list h3 a:hover { text-decoration: underline; }
+.job-list p { margin: 0 0 0.75rem; }
+.job-list p:last-child { margin-bottom: 0; }
+
+.faq-list { margin: 0 0 1.5rem; }
+.faq-list > div {
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--line, #e6ebf1);
+}
+.faq-list > div:last-child { border-bottom: 0; }
+.faq-list dt { font-weight: 650; margin: 0 0 0.35rem; }
+.faq-list dd { margin: 0; color: var(--ink-soft, #40505f); }

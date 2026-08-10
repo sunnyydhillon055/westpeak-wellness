@@ -6,6 +6,7 @@ import { audiences } from '@/lib/audiences';
 import { approaches } from '@/lib/approaches';
 import { glossary } from '@/lib/glossary';
 import { tools } from '@/lib/tools';
+import { openJobs } from '@/lib/careers';
 
 /* The search index, assembled from the same data the pages render from.
  *
@@ -37,6 +38,14 @@ export function buildIndex(): Entry[] {
     })),
     ...tools.map((t) => ({
       href: `/tools/${t.slug}`, title: t.title, summary: t.short, kind: 'Tool',
+    })),
+    /* Careers. A counsellor who lands on this site looking for work should be
+       able to find the opening from the site's own search, not only from Google. */
+    ...(openJobs().length
+      ? [{ href: '/careers', title: 'Careers — counselling jobs in BC', summary: 'Remote RCC roles across British Columbia. Referrals provided, no overhead, hours you set.', kind: 'Careers' }]
+      : []),
+    ...openJobs().map((j) => ({
+      href: `/careers/${j.slug}`, title: j.title, summary: j.summary, kind: 'Job opening',
     })),
     ...glossary.map((t) => ({
       href: `/glossary#${t.term.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`,

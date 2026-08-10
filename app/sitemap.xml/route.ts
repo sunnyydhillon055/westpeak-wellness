@@ -8,6 +8,7 @@ import { audiences } from '@/lib/audiences';
 import { resources } from '@/lib/resources';
 import { approaches } from '@/lib/approaches';
 import { getFigure } from '@/lib/figures';
+import { openJobs } from '@/lib/careers';
 
 export const dynamic = 'force-static';
 
@@ -46,6 +47,17 @@ export function GET() {
     { path: '/tools', lastmod: now, changefreq: 'monthly', priority: 0.7 },
     { path: '/reviews', lastmod: now, changefreq: 'yearly', priority: 0.5 },
     { path: '/punjabi', lastmod: now, changefreq: 'monthly', priority: 0.7 },
+    /* Careers. Only postings still inside their validThrough are listed: Google
+       penalises stale JobPosting markup, and a sitemap that keeps advertising a
+       closed role is exactly how a careers page turns into a liability. The hub
+       stays listed either way, because it keeps its ranking between hires. */
+    { path: '/careers', lastmod: now, changefreq: 'monthly', priority: 0.6 },
+    ...openJobs().map((j) => ({
+      path: `/careers/${j.slug}`,
+      lastmod: new Date(j.datePosted),
+      changefreq: 'monthly' as const,
+      priority: 0.6,
+    })),
     ...tools.map((t) => ({
       path: `/tools/${t.slug}`, lastmod: now, changefreq: 'monthly' as const, priority: 0.7,
     })),
