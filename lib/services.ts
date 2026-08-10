@@ -434,7 +434,7 @@ export const services: Service[] = [
       "Online Punjabi-speaking therapy across BC — counselling in Punjabi, English, or both, with deep cultural competency. Book a free consultation.",
     hero: "You don't have to translate yourself.",
     intro:
-      "Some things only land in your first language. Sessions are available in Punjabi, English, or a mix of both — with the cultural fluency to understand family expectations, generational silence, and \"log kya kahenge\" without needing it explained. Online across BC.",
+      "Some things only land in your first language. Sessions are available in Punjabi, English, or a mix of both — with the cultural fluency to understand family expectations, generational silence, and \"log kya kahenge\" without needing it explained. Online across BC. There is also a [full page in Punjabi (ਪੰਜਾਬੀ)](/punjabi) covering services, fees and what a first session involves.",
     helps: [
       "Therapy in Punjabi or English (or both in one session)",
       "Family expectations and obligation",

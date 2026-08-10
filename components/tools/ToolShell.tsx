@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { site } from '@/lib/site';
 import { abs, orgRef, siteRef } from '@/lib/schema';
 import type { ToolMeta } from '@/lib/tools';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 /* Shared frame for every tool: heading, schema, and the closing CTA.
  *
@@ -66,9 +67,13 @@ export default function ToolShell({
 
       <section className="section" style={{ paddingTop: 34 }}>
         <div className="container container--narrow">
-          <p className="crumb">
-            <Link href="/">Home</Link> / <Link href="/tools">Tools</Link> / {tool.title}
-          </p>
+          <Breadcrumbs
+            schema={false}
+            trail={[
+              { name: 'Tools', path: '/tools' },
+              { name: tool.title, path: `/tools/${tool.slug}` },
+            ]}
+          />
           {children}
 
           {tool.faqs && tool.faqs.length > 0 && (

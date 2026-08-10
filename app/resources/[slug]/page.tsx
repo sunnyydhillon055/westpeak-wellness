@@ -16,6 +16,7 @@ import Toc from '@/components/Toc';
 import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
 import InlineRelated from '@/components/InlineRelated';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export function generateStaticParams() {
   return resources.map((r) => ({ slug: r.slug }));
@@ -112,9 +113,13 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
       <section className="section" style={{ paddingTop: 44 }}>
         <div className="container reading">
           <Toc items={toc} />
-          <p className="crumb">
-            <Link href="/">Home</Link> / <Link href="/resources">Resources</Link> / {r.title}
-          </p>
+          <Breadcrumbs
+            schema={false}
+            trail={[
+              { name: 'Resources', path: '/resources' },
+              { name: r.title, path: `/resources/${r.slug}` },
+            ]}
+          />
 
           <div className="prose">
             <Byline updated={r.updated} readMinutes={r.readMinutes} />

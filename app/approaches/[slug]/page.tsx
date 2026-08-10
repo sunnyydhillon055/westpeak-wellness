@@ -17,6 +17,7 @@ import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
 import InlineRelated from '@/components/InlineRelated';
 import { getFigure } from '@/lib/figures';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export function generateStaticParams() {
   return approaches.map((a) => ({ slug: a.slug }));
@@ -119,9 +120,13 @@ export default function ApproachPage({ params }: { params: { slug: string } }) {
         <div className="container reading">
           <Toc items={toc} />
           <div className="prose">
-          <p className="crumb">
-            <Link href="/">Home</Link> / <Link href="/approaches">Approaches</Link> / {g.title}
-          </p>
+          <Breadcrumbs
+            schema={false}
+            trail={[
+              { name: 'Approaches', path: '/approaches' },
+              { name: g.title, path: `/approaches/${g.slug}` },
+            ]}
+          />
 
           <Byline updated={g.updated} readMinutes={g.readMinutes} />
 

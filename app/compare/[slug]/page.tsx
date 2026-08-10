@@ -16,6 +16,7 @@ import Toc from '@/components/Toc';
 import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
 import InlineRelated from '@/components/InlineRelated';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export function generateStaticParams() {
   return comparisons.map((c) => ({ slug: c.slug }));
@@ -112,9 +113,13 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
       <section className="section" style={{ paddingTop: 44 }}>
         <div className="container reading">
           <Toc items={toc} />
-          <p className="crumb">
-            <Link href="/">Home</Link> / <Link href="/compare">Compare</Link> / {c.title}
-          </p>
+          <Breadcrumbs
+            schema={false}
+            trail={[
+              { name: 'Compare', path: '/compare' },
+              { name: c.title, path: `/compare/${c.slug}` },
+            ]}
+          />
 
           <div className="prose">
             <Byline updated={c.updated} readMinutes={c.readMinutes} />

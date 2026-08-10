@@ -37,7 +37,7 @@ export const locations: Location[] = [
     region: "Northern BC",
     blurb: "Northern BC has the thinnest counselling coverage in the province — virtual care is how the gap gets closed.",
     metaDescription:
-      "Online counselling for Prince George and Northern BC. EMDR, trauma, anxiety, and couples therapy by secure video.",
+      "Online counselling for Prince George and Northern BC — EMDR, trauma, anxiety, depression and couples therapy by secure video. Book a free 15-minute consultation.",
     intro: [
       "If you live in Prince George and have tried to find a counsellor, you already know the shape of the problem: there are not many, the ones who are here fill up, and the wait for a psychiatrist or specialist is longer than almost anywhere else in the province. That is not a failure of effort on anyone's part. It is arithmetic — Northern Health covers roughly two-thirds of BC's landmass for about 300,000 people, and mental-health clinicians cluster where the population does.",
       "Virtual counselling does not fix that arithmetic. What it does is remove distance from the equation entirely. A [Registered Clinical Counsellor](/compare/rcc-vs-psychologist-vs-social-worker-bc) working out of the Lower Mainland is exactly as available to you in Prince George as to someone in Burnaby — same 50-minute session, same secure platform, same [BCACC](https://bcacc.ca) code of ethics.",
@@ -125,7 +125,7 @@ export const locations: Location[] = [
     region: "Lower Mainland",
     blurb: "The most therapists in the province, and still a waitlist — because the constraint here is affordability, not supply.",
     metaDescription:
-      "Online counselling for Vancouver, BC. EMDR, trauma, anxiety, depression, and couples therapy by secure video.",
+      "Online counselling for Vancouver, BC — EMDR, trauma, anxiety, depression and couples therapy by secure video, in English or Punjabi. Free 15-minute consultation.",
     intro: [
       "Vancouver has more counsellors per capita than anywhere else in British Columbia. It is also the city where people most often report giving up on finding one — which sounds contradictory until you look at what the actual constraint is.",
       "It is not supply. It is cost, time, and the specific difficulty of finding someone who is both a genuine fit and currently accepting clients. In a city where housing already takes an outsized share of income, a $140 weekly session is a real decision rather than an obvious one.",

@@ -8,6 +8,7 @@ import Reviews from '@/components/Reviews';
 import Motif from '@/components/brand/Motif';
 import Figure from '@/components/Figure';
 import { GraduationCap, Scale, BadgeCheck, Waves, HeartHandshake, Landmark } from 'lucide-react';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 // The counsellor's personal name is intentionally scoped to this file only.
 // Every other page refers to "Westpeak Wellness" or "your counsellor".
@@ -55,7 +56,7 @@ export default function About() {
 
       <section className="section">
         <div className="container prose">
-          <p className="crumb"><a href="/">Home</a> / About</p>
+          <Breadcrumbs schema={false} trail={[{ name: 'About', path: '/about' }]} />
           <h2>Why I do this work.</h2>
           <p>
             I was born and raised in Surrey, BC, in a culturally diverse household where mental health
@@ -137,6 +138,8 @@ export default function About() {
             act on them. More on that in{' '}
             <Link href="/services/punjabi-counselling">counselling in Punjabi</Link> and{' '}
             <Link href="/for/first-gen-south-asian-adults">working with first-generation South Asian adults</Link>.
+            There is also a <Link href="/punjabi">version of this practice&rsquo;s pages written in Punjabi</Link>{' '}
+            (ਪੰਜਾਬੀ), for anyone who would rather read it that way or is sending it to a parent.
           </p>
 
           <h2>What I do not do</h2>
@@ -155,6 +158,13 @@ export default function About() {
             me, is set out on <Link href="/standards">standards and accountability</Link>. If you want
             to check my registration independently before booking anything — which you should, with
             anyone — <Link href="/resources/verify-a-counsellor-in-bc">here is how to do that in about four minutes</Link>.
+          </p>
+          <p>
+            You will not find client testimonials here, because soliciting them from counselling
+            clients is prohibited under BCACC advertising standards.{' '}
+            <Link href="/reviews">What this practice publishes instead of reviews</Link> — and why
+            an empty testimonials section is the honest option rather than a missing one — is set
+            out on its own page.
           </p>
         </div>
       </section>

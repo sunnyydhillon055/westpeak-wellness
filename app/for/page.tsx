@@ -5,6 +5,7 @@ import { site } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
 import { Users } from 'lucide-react';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export const metadata: Metadata = {
   title: 'Who We Work With',
@@ -34,7 +35,7 @@ export default function ForHub() {
 
       <section className="section" style={{ paddingTop: 40 }}>
         <div className="container">
-          <p className="crumb"><Link href="/">Home</Link> / Who we work with</p>
+          <Breadcrumbs trail={[{ name: 'Who we work with', path: '/for' }]} />
           <Figure name="bc-reach" />
           <div className="grid grid-2" style={{ marginTop: 20 }}>
             {audiences.map((a) => (

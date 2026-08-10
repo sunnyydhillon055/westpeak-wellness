@@ -5,6 +5,7 @@ import { site } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
 import { LifeBuoy } from 'lucide-react';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export const metadata: Metadata = {
   title: 'BC Mental Health Resources',
@@ -34,7 +35,7 @@ export default function ResourcesHub() {
 
       <section className="section" style={{ paddingTop: 40 }}>
         <div className="container">
-          <p className="crumb"><Link href="/">Home</Link> / Resources</p>
+          <Breadcrumbs trail={[{ name: 'Resources', path: '/resources' }]} />
           <Figure name="bc-support-routes" />
 
           <div className="crisis" style={{ marginBottom: 32 }}>

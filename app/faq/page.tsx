@@ -6,6 +6,7 @@ import CtaBand from '@/components/CtaBand';
 import SceneBand from '@/components/SceneBand';
 import Figure from '@/components/Figure';
 import { Compass, Wallet, MessageCircleQuestion, Lock } from 'lucide-react';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 const GROUP_ICON = { start: Compass, money: Wallet, sessions: MessageCircleQuestion, privacy: Lock };
 
@@ -41,7 +42,7 @@ export default function FAQ() {
 
       <section className="section">
         <div className="container">
-          <p className="crumb"><Link href="/">Home</Link> / FAQ</p>
+          <Breadcrumbs trail={[{ name: 'FAQ', path: '/faq' }]} />
           <Figure name="first-session-flow" />
           <p className="faq-intro-links">
             Several of these have a page of their own:{' '}

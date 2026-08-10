@@ -17,6 +17,7 @@ import Figure from '@/components/Figure';
 import InlineRelated from '@/components/InlineRelated';
 import { getFigure } from '@/lib/figures';
 import { deviceSlots } from '@/lib/placement';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export function generateStaticParams() {
   return guides.map((g) => ({ slug: g.slug }));
@@ -119,9 +120,13 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
         <div className="container reading">
           <Toc items={toc} />
           <div className="prose">
-          <p className="crumb">
-            <Link href="/">Home</Link> / <Link href="/guides">Guides</Link> / {g.title}
-          </p>
+          <Breadcrumbs
+            schema={false}
+            trail={[
+              { name: 'Guides', path: '/guides' },
+              { name: g.title, path: `/guides/${g.slug}` },
+            ]}
+          />
 
           <Byline updated={g.updated} readMinutes={g.readMinutes} />
 

@@ -6,6 +6,7 @@ import CtaBand from '@/components/CtaBand';
 import SceneBand from '@/components/SceneBand';
 import Figure from '@/components/Figure';
 import { BookOpen } from 'lucide-react';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export const metadata: Metadata = {
   title: 'Counselling Guides',
@@ -36,7 +37,7 @@ export default function GuidesHub() {
 
       <section className="section" style={{ paddingTop: 40 }}>
         <div className="container">
-          <p className="crumb"><Link href="/">Home</Link> / Guides</p>
+          <Breadcrumbs trail={[{ name: 'Guides', path: '/guides' }]} />
           <Figure name="first-session-flow" />
           <div className="grid grid-2" style={{ marginTop: 20 }}>
             {guides.map((g) => (

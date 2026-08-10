@@ -10,6 +10,7 @@ import SceneBand from '@/components/SceneBand';
 import ExtraSections from '@/components/ExtraSections';
 import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export function generateStaticParams() {
   return locations.map((l) => ({ city: l.slug }));
@@ -57,9 +58,12 @@ export default function CityPage({ params }: { params: { city: string } }) {
 
       <section className="section">
         <div className="container prose">
-          <p className="crumb">
-            <Link href="/">Home</Link> / <Link href="/online-counselling">Online counselling</Link> / {l.city}
-          </p>
+          <Breadcrumbs
+            trail={[
+              { name: 'Online counselling', path: '/online-counselling' },
+              { name: l.city, path: `/online-counselling/${l.slug}` },
+            ]}
+          />
 
           {l.intro ? <Paragraphs items={l.intro} /> : (
             <>

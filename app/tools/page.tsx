@@ -6,6 +6,7 @@ import { abs, orgRef, siteRef } from '@/lib/schema';
 import CtaBand from '@/components/CtaBand';
 import SceneBand from '@/components/SceneBand';
 import Figure from '@/components/Figure';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 const TITLE = 'Free counselling tools | Westpeak Wellness';
 const DESC =
@@ -61,7 +62,7 @@ export default function ToolsIndex() {
 
       <section className="section" style={{ paddingTop: 36 }}>
         <div className="container">
-          <p className="crumb"><Link href="/">Home</Link> / Tools</p>
+          <Breadcrumbs trail={[{ name: 'Tools', path: '/tools' }]} />
           <div className="grid grid-3">
             {tools.map((t) => (
               <div className="card" key={t.slug} style={{ height: '100%' }}>

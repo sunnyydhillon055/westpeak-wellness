@@ -5,6 +5,7 @@ import { abs, orgRef, siteRef } from '@/lib/schema';
 import { reviews, aggregate } from '@/lib/reviews';
 import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 const TITLE = 'Reviews and references | Westpeak Wellness';
 const DESC =
@@ -98,7 +99,7 @@ export default function ReviewsPage() {
       <section className="section" style={{ paddingTop: 36 }}>
         <div className="container reading">
           <div className="prose">
-            <p className="crumb"><Link href="/">Home</Link> / Reviews</p>
+            <Breadcrumbs trail={[{ name: 'Reviews and references', path: '/reviews' }]} />
 
             <h2 id="why-none">Why there are no client reviews here</h2>
             <p>

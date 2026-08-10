@@ -171,7 +171,11 @@ export default function Home() {
               </p>
               <p>
                 Sessions are available in Punjabi as well as English, if that makes it easier
-                to say.
+                to say — there is a{' '}
+                <Link href="/punjabi" lang="en">
+                  page in Punjabi (ਪੰਜਾਬੀ)
+                </Link>{' '}
+                covering services, fees and what a first session involves.
               </p>
               <Link className="btn btn--ghost" href="/services/south-asian-mental-health" style={{ marginTop: 8 }}>
                 Counselling for South Asian adults →

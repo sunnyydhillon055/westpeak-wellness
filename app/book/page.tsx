@@ -3,6 +3,7 @@ import Figure from '@/components/Figure';
 import Link from 'next/link';
 import { site } from '@/lib/site';
 import SchedulerEmbed from '@/components/SchedulerEmbed';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export const metadata: Metadata = {
   title: 'Book a Free 15-Minute Consultation',
@@ -32,7 +33,7 @@ export default function Book() {
 
       <section className="section" style={{ paddingTop: 40 }}>
         <div className="container">
-          <p className="crumb"><Link href="/">Home</Link> / Book</p>
+          <Breadcrumbs trail={[{ name: 'Book', path: '/book' }]} />
 
           {site.bookingReady ? (
             <SchedulerEmbed url={site.bookingsUrl} title="Book a free 15-minute consultation" />

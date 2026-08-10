@@ -675,7 +675,7 @@ const coreGuides: Guide[] = [
     title: "How to actually find a therapist in BC",
     metaTitle: "How to Find a Therapist in BC | Westpeak Wellness",
     metaDescription:
-      "Where to look, how to check credentials, what free and low-cost options exist in BC, and what to ask before booking.",
+      "Where to look for a therapist in BC, how to verify credentials with the regulator, what free and low-cost options exist, and the questions to ask before booking.",
     eyebrow: "Guide · Getting started",
     lede:
       "The search itself is a barrier — dozens of directory profiles that all sound the same, and no obvious way to compare them.",
@@ -707,6 +707,7 @@ const coreGuides: Guide[] = [
         body: [
           "This matters more in BC than most people realise. Counselling therapy is **not currently a government-regulated profession here** — \"counsellor\" and \"therapist\" are not protected titles, so anyone may use them. That changes when psychotherapy regulation begins on 29 November 2027, but until then verification is on you. The detail is in [the comparison of BC therapist types](/compare/rcc-vs-psychologist-vs-social-worker-bc).",
           "Practically: look for a designation with a body behind it — RCC, CCC, R.Psych, RSW/RCSW — and then check the register directly rather than trusting the website. It takes two minutes. What you are confirming is that there is verifiable training, professional liability insurance, continuing education, and somewhere to complain if something goes wrong.",
+          "One thing you will not find is client reviews, and their absence is not a red flag. Soliciting testimonials from counselling clients is prohibited under BCACC advertising standards, so a therapist with glowing client quotes is more concerning than one with none. [What a practice can honestly publish instead](/reviews) — registration, training, supervision, the complaints route — is the thing worth reading.",
         ],
       },
       {

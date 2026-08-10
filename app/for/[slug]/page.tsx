@@ -16,6 +16,7 @@ import Toc from '@/components/Toc';
 import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
 import InlineRelated from '@/components/InlineRelated';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export function generateStaticParams() {
   return audiences.map((a) => ({ slug: a.slug }));
@@ -114,9 +115,13 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
 
       <section className="section" style={{ paddingTop: 44 }}>
         <div className="container prose">
-          <p className="crumb">
-            <Link href="/">Home</Link> / <Link href="/for">Who we work with</Link> / {a.title}
-          </p>
+          <Breadcrumbs
+            schema={false}
+            trail={[
+              { name: 'Who we work with', path: '/for' },
+              { name: a.title, path: `/for/${a.slug}` },
+            ]}
+          />
           <Byline updated={a.updated} readMinutes={a.readMinutes} />
 
           <Paragraphs items={a.opening} />

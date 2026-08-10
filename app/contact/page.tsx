@@ -5,11 +5,12 @@ import { readAvailability } from '@/lib/availability';
 import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
 import { Mail, MonitorSmartphone, Clock, MapPin, Languages as LangIcon, AtSign } from 'lucide-react';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export const metadata: Metadata = {
   title: 'Contact & Book',
   description:
-    'Get in touch with Westpeak Wellness. Book a free 15-minute consultation for online counselling anywhere in BC.',
+    'Get in touch with Westpeak Wellness. Book a free 15-minute consultation for online counselling anywhere in British Columbia, in English or Punjabi.',
   alternates: { canonical: `${site.domain}/contact` },
 };
 
@@ -31,7 +32,7 @@ export default async function Contact() {
 
       <section className="section">
         <div className="container">
-          <p className="crumb"><a href="/">Home</a> / Contact</p>
+          <Breadcrumbs trail={[{ name: 'Contact', path: '/contact' }]} />
           <h2>Reach out</h2>
           <Figure name="bc-reach" caption="Sessions run by secure video, so the practice reaches every region of the province." />
           <div className="info-grid" style={{ marginTop: 26 }}>

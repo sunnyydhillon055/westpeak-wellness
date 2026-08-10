@@ -4,6 +4,7 @@ import { site } from '@/lib/site';
 import { gurmukhi } from '@/app/fonts-gurmukhi';
 import { abs, orgRef, siteRef } from '@/lib/schema';
 import Figure from '@/components/Figure';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 const TITLE = 'ਪੰਜਾਬੀ ਵਿੱਚ ਕਾਊਂਸਲਿੰਗ | Punjabi counselling in BC';
 const DESC =
@@ -87,9 +88,7 @@ export default function PunjabiPage() {
       <section className="section" style={{ paddingTop: 36 }}>
         <div className="container reading">
           <div className="prose">
-            <p className="crumb" lang="en">
-              <Link href="/">Home</Link> / ਪੰਜਾਬੀ
-            </p>
+            <Breadcrumbs schema={false} trail={[{ name: 'ਪੰਜਾਬੀ', path: '/punjabi' }]} />
 
             <h2>ਤੁਹਾਨੂੰ ਸਭ ਕੁਝ ਸਮਝਾਉਣ ਦੀ ਲੋੜ ਨਹੀਂ ਪਵੇਗੀ</h2>
             <p>

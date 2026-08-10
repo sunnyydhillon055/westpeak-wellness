@@ -12,6 +12,7 @@ import ExtraSections from '@/components/ExtraSections';
 import InlineRelated from '@/components/InlineRelated';
 import { getExtra } from '@/lib/depth';
 import { deviceSlots } from '@/lib/placement';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 const fmt = (iso: string) =>
   new Date(iso + 'T00:00:00Z').toLocaleDateString('en-CA', {
@@ -91,7 +92,7 @@ export default function PolicyPage({ doc }: { doc: Policy }) {
         <div className="container reading">
           <Toc items={toc} />
           <div className="prose">
-          <p className="crumb"><Link href="/">Home</Link> / {doc.title}</p>
+          <Breadcrumbs schema={false} trail={[{ name: doc.title, path: `/${doc.slug}` }]} />
 
           <Byline updated={doc.updated} />
 

@@ -6,6 +6,7 @@ import CtaBand from '@/components/CtaBand';
 import SceneBand from '@/components/SceneBand';
 import Photo from '@/components/ui/Photo';
 import Figure from '@/components/Figure';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export const metadata: Metadata = {
   title: 'Areas Served Across British Columbia',
@@ -33,7 +34,7 @@ export default function LocationsIndex() {
       </section>
       <section className="section">
         <div className="container prose">
-          <p className="crumb"><Link href="/">Home</Link> / Areas served</p>
+          <Breadcrumbs trail={[{ name: 'Areas served', path: '/online-counselling' }]} />
           <h2>Anywhere in BC means anywhere in BC</h2>
           <Photo
             src="/img/photo/forest-path.jpg"

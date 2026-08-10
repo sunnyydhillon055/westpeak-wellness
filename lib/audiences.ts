@@ -309,7 +309,7 @@ const coreAudiences: Audience[] = [
     opening: [
       "The most common reason South Asian clients give for having avoided therapy is not stigma. It is the anticipated effort — the expectation of having to explain the entire cultural architecture before anything useful can happen, and of eventually being told that the obvious answer is to set a boundary, move out, or care less what your family thinks.",
       "That advice is not wrong exactly. It is built for a model of adulthood in which independence is the goal and family obligation is a problem to be solved. In a collectivist frame it lands as a suggestion that you become a worse person.",
-      "This is counselling that starts further along. Family expectation, duty, izzat, *log kya kahenge* — these do not need translating, and they are not treated as pathology to be corrected. They are the context the work happens inside.",
+      "This is counselling that starts further along. Family expectation, duty, izzat, *log kya kahenge* — these do not need translating, and they are not treated as pathology to be corrected. They are the context the work happens inside. Sessions run in English or Punjabi, and there is a [full page in Punjabi (ਪੰਜਾਬੀ)](/punjabi) if that is easier to read or to pass on to a parent.",
     ],
     whatComesUp: [
       { label: "Being the first in the family to do this", detail: "No template, nobody to ask, and often a private worry that seeking help proves something bad about you. Frequently combined with not telling anyone you are going." },

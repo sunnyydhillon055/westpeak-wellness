@@ -5,6 +5,7 @@ import { services } from '@/lib/services';
 import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
 import { getServiceIcon } from '@/lib/icon-map';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export const metadata: Metadata = {
   title: 'Counselling Services (Online, BC-wide)',
@@ -30,7 +31,7 @@ export default function Services() {
 
       <section className="section">
         <div className="container">
-          <p className="crumb"><Link href="/">Home</Link> / Services</p>
+          <Breadcrumbs trail={[{ name: 'Services', path: '/services' }]} />
           <Figure name="service-axes" />
           <div className="grid grid-3">
             {services.map((s, i) => {

@@ -6,6 +6,7 @@ import SceneBand from '@/components/SceneBand';
 import { Wallet, Video, CreditCard, CalendarX } from 'lucide-react';
 import Figure from '@/components/Figure';
 import LeadCapture from '@/components/LeadCapture';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export const metadata: Metadata = {
   title: 'Fees & Insurance',
@@ -31,7 +32,7 @@ export default function Pricing({ searchParams }: { searchParams?: { lead?: stri
 
       <section className="section">
         <div className="container">
-          <p className="crumb"><a href="/">Home</a> / Fees</p>
+          <Breadcrumbs trail={[{ name: 'Fees', path: '/pricing' }]} />
           <h2>Session fees</h2>
           <p className="lede" style={{ marginBottom: 20 }}>In line with BC Association of Clinical Counsellors guidelines.</p>
           <table className="fee-table">

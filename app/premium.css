@@ -1446,3 +1446,70 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
 .prefs-note--ok{ background: var(--blue-ghost); border-left-color: var(--blue-deep) }
 .prefs-foot{ margin: 14px 0 0; font-size: .88rem; color: var(--ink-faint) }
 .prefs-form .btn{ margin-top: 16px }
+
+/* ── Breadcrumbs ──────────────────────────────────────────────────────────
+   Visible trail matching the BreadcrumbList markup. Separators are drawn with
+   ::before on the pseudo-element rather than typed into the markup, so they are
+   never read aloud as "slash" and never copied when the trail is selected.
+
+   Tap targets: the links carry vertical padding so each reaches the 24px
+   minimum of WCAG 2.2 SC 2.5.8 without pushing the crumbs apart visually —
+   negative margin absorbs the padding back out of the layout. */
+.crumbs {
+  margin: 0 0 1.25rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+.crumbs ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 0.15rem;
+}
+.crumbs li {
+  display: flex;
+  align-items: center;
+  color: var(--ink-soft, #5b6b7d);
+  min-width: 0;
+}
+.crumbs li + li::before {
+  content: '';
+  flex: none;
+  width: 0.45rem;
+  height: 0.45rem;
+  margin: 0 0.5rem;
+  border-right: 1.5px solid currentColor;
+  border-top: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  opacity: 0.45;
+}
+.crumbs a {
+  display: inline-block;
+  padding: 0.3rem 0;
+  margin: -0.3rem 0;
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+.crumbs a:hover {
+  color: var(--ink, #1c2733);
+  border-bottom-color: currentColor;
+}
+.crumbs [aria-current='page'] {
+  color: var(--ink, #1c2733);
+  font-weight: 600;
+  /* the current page can be long; let it shrink rather than overflow */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .crumbs { font-size: 0.8125rem; }
+  /* On a narrow screen the middle of a long trail is the least useful part.
+     Keep the parent and the current page; drop what is between them. */
+  .crumbs li:not(:first-child):not(:last-child):not(:nth-last-child(2)) { display: none; }
+}

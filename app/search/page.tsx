@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { site } from '@/lib/site';
 import { abs, orgRef, siteRef } from '@/lib/schema';
 import { buildIndex, searchIndex } from '@/lib/search-index';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export const metadata: Metadata = {
   title: { absolute: 'Search | Westpeak Wellness' },
@@ -59,7 +60,7 @@ export default function SearchPage({ searchParams }: { searchParams?: { q?: stri
 
       <section className="section" style={{ paddingTop: 30 }}>
         <div className="container container--narrow">
-          <p className="crumb"><Link href="/">Home</Link> / Search</p>
+          <Breadcrumbs schema={false} trail={[{ name: 'Search', path: '/search' }]} />
 
           {!q && (
             <p className="lede">

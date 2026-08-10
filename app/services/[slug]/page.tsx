@@ -18,6 +18,7 @@ import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
 import InlineRelated from '@/components/InlineRelated';
 import { deviceSlots } from '@/lib/placement';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -129,9 +130,13 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
 
       <section className="section">
         <div className="container">
-          <p className="crumb">
-            <Link href="/">Home</Link> / <Link href="/services">Services</Link> / {s.name}
-          </p>
+          <Breadcrumbs
+            schema={false}
+            trail={[
+              { name: 'Services', path: '/services' },
+              { name: s.name, path: `/services/${s.slug}` },
+            ]}
+          />
           {/* The "this can help with" panel is reparented into a two-column
               grid with the long body copy so it has something to stick
               alongside. A sticky aside beside a three-paragraph section would
