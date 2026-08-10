@@ -1731,3 +1731,32 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
   .job-layout { grid-template-columns: minmax(0, 42rem) 17.5rem; }
   .job-body > *:first-child { margin-top: 0; }
 }
+
+/* 404 search. The 404 is the one page where a search box earns its place —
+   the visitor already knows what they wanted and the URL failed them. */
+.nf-search { margin: 1.5rem 0 2rem; }
+.nf-search label {
+  display: block;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+.nf-search-row { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.nf-search input[type='search'] {
+  flex: 1 1 16rem;
+  min-width: 0;
+  padding: 0.7rem 0.9rem;
+  font: inherit;
+  color: var(--ink);
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.nf-search input[type='search']:focus-visible {
+  outline: 2px solid var(--blue-deep);
+  outline-offset: 1px;
+}
+.nf-search .btn { margin: 0; }

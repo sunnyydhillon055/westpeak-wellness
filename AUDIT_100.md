@@ -175,3 +175,41 @@ API key.
 
 I would rather hand you 7 verified items and an honest list of 83 than claim
 100 and have you find out later which of them were real.
+
+---
+
+## Corrections to this audit
+
+Found while executing it. Recorded rather than quietly dropped, because an
+audit that only ever confirms itself is not measuring anything.
+
+**Items 22 and 27 (`hreflang` for `/punjabi`) were false findings.** The page
+already declares `en-CA ↔ pa` and Next emits both `<link rel="alternate">`
+tags. My crawler matched `hreflang="` in lowercase; Next writes `hrefLang`.
+HTML attribute names are case-insensitive, so the site was correct and the
+audit tool was wrong. No change needed — crawler regex fixed instead.
+
+**Item 19 (404 page weight) was misconceived.** The ~40 kB is the shared site
+shell — header, footer, JSON-LD graph — not the 404 body. The only way to cut
+it would be to strip the shell from the 404, which would leave a stranded page
+with no navigation at exactly the moment someone needs it. Closed as
+won't-fix, and item 40 taken instead: the 404 is now a real page rather than a
+dead end.
+
+**Items 15, 49 and 60 (`lastmod` / `changefreq` diversity) will not be
+"fixed".** The sitemap already reads a per-entry `updated` field; only three
+distinct values exist because the underlying content dates genuinely are
+uniform. Producing twenty values would mean writing dates that do not
+correspond to edits — cosmetically bumping dates is precisely the practice
+that makes freshness signals worthless. These stay open pending real edits,
+or a git-derived date once Vercel's shallow clone can supply one.
+
+## Shipped in batch 2
+
+| # | Item | Result |
+|---|---|---|
+| 40 | 404 page rebuilt | Search form, 52 outbound links, all six common destinations, crisis numbers, `noindex, follow` |
+| 22 | hreflang | Verified already correct; audit tool corrected |
+| 27 | hreflang pair | Same |
+| 19 | 404 weight | Closed as won't-fix, with reasoning |
+| 15/49/60 | Date diversity | Closed as must-not-fake, with reasoning |
