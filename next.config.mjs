@@ -100,6 +100,20 @@ const nextConfig = {
       { source: '/careers/rcc', destination: '/careers/registered-clinical-counsellor', permanent: true },
       { source: '/jobs/:slug', destination: '/careers/:slug', permanent: true },
       { source: '/apply', destination: '/careers/registered-clinical-counsellor', permanent: false },
+      { source: '/careers/apply', destination: '/careers/registered-clinical-counsellor', permanent: false },
+
+      /* Keyword-shaped entry points. These are REDIRECTS, not pages, and that
+         distinction is the whole point: a set of near-identical city or
+         job-title pages for a single opening is a doorway-page pattern, and
+         Google has penalised that for years. A redirect costs nothing, cannot
+         be thin content, and still catches the URL somebody types after
+         hearing about the role secondhand. */
+      { source: '/counselling-jobs', destination: '/careers', permanent: true },
+      { source: '/counsellor-jobs', destination: '/careers', permanent: true },
+      { source: '/therapist-jobs', destination: '/careers', permanent: true },
+      { source: '/rcc-jobs', destination: '/careers', permanent: true },
+      { source: '/counselling-careers', destination: '/careers', permanent: true },
+      { source: '/work-here', destination: '/careers', permanent: true },
     ];
   },
 };

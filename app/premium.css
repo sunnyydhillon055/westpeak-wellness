@@ -1668,3 +1668,66 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
   color: var(--ink-soft);
   min-height: 1.2em;          /* reserve the line so feedback cannot shift layout */
 }
+
+/* Job posting layout: content + a sticky summary rail.
+   The rail is source-ordered FIRST so that on mobile — where it collapses to a
+   single column — the rate, hours and apply button appear before the prose,
+   which is the order someone scanning a job ad actually wants. On desktop,
+   grid places it to the right without touching the DOM order, so the reading
+   order and the visual order can differ without hurting either. */
+.job-layout { display: block; }
+.job-note {
+  margin-top: 2.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  opacity: 0.75;
+}
+.job-rail-cta { display: inline-block; margin: 0 0 0.5rem; }
+.job-rail-note { margin: 0; font-size: 0.83rem; color: var(--ink-soft); }
+
+@media (min-width: 981px) {
+  .job-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 17.5rem;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  .job-rail {
+    grid-column: 2;
+    grid-row: 1;
+    position: sticky;
+    top: 5.5rem;          /* clears the fixed header */
+    padding: 1.25rem;
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--blue-deep);
+    border-radius: 12px;
+    background: var(--bg-card);
+  }
+  .job-body { grid-column: 1; grid-row: 1; }
+  /* Inside the narrow rail the facts stack rather than sitting two-up. */
+  .job-rail .job-facts {
+    grid-template-columns: 1fr;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+  }
+}
+
+/* Respect a reduced-motion preference: sticky positioning is fine, but pair it
+   with scroll-margin so anchor jumps do not land under the header. */
+#apply { scroll-margin-top: 5.5rem; }
+
+/* The posting page needs a wider container than the rest of the site, because
+   it hosts a reading column AND a rail. Widening the container alone would
+   stretch the prose past a comfortable measure, so everything that is not the
+   two-column layout is held back to reading width. Result: the text stays
+   ~42rem however wide the page gets, and the rail uses the space that opens up
+   beside it rather than stealing from the words. */
+@media (min-width: 981px) {
+  .container.prose.job-page { max-width: 64rem; }
+  .container.prose.job-page > *:not(.job-layout) { max-width: 42rem; }
+  .job-layout { grid-template-columns: minmax(0, 42rem) 17.5rem; }
+  .job-body > *:first-child { margin-top: 0; }
+}

@@ -81,8 +81,6 @@ export const jobs: Job[] = [
     blocks: [
       { p: 'I run a virtual counselling practice serving adults across British Columbia, and I have reached the point where I am turning people away. That is the reason this post exists, and I would rather hand those clients to someone good than keep stretching my own calendar.' },
       { p: 'So: I am looking for one Registered Clinical Counsellor to take referrals alongside me. Fully remote, hours entirely your own, and no expectation that you make this your whole working life unless you want to.' },
-      { p: 'Depending on where you have been looking, this gets advertised under a handful of different names — **counsellor job**, **therapist job**, **RCC job**, **associate counsellor**, **psychotherapist**, or simply a **mental health job** in BC — an **online counselling job**, a **virtual counselling job**, a **clinical counsellor job**, **contract counselling** work. It is all the same thing, and it is described here plainly rather than in the usual job-ad language: remote counselling work, **part time** if you want it, **work from home**, on a **fee split** rather than a wage.' },
-
       { h: 'What the work is' },
       { p: 'Adults, by secure video, anywhere in the province. Anxiety, depression, trauma, burnout, relationship difficulty, life transitions — the ordinary, difficult range of a general adult practice. Couples work too, if that is something you do well and enjoy.' },
       { p: 'There is no office and no catchment area. A client in Prince George gets the same access as one in Vancouver, which is most of the reason I built it this way.' },
@@ -103,7 +101,7 @@ export const jobs: Job[] = [
       { p: 'Evenings are the most useful, because that is when most people ask to be seen. If you can offer some, say so.' },
 
       { h: 'What the pay actually works out to' },
-      { p: 'There is no salary here, and no hourly wage — this is **contract counselling** work paid on a fee split. Counselling job ads are usually vague about money, so here is the arithmetic rather than a range and a shrug. You keep **70% of every session fee**. Nothing is deducted underneath that — no lease, no software, no admin or marketing cut.' },
+      { p: 'No salary and no hourly wage — this is **contract counselling** work on a fee split. You keep **70% of every session fee**, with nothing deducted underneath it. Here is the arithmetic rather than a range and a shrug:' },
       { ul: [
         '**One individual session** (50 minutes, $140 fee) pays you **$98**.',
         '**One couples session** (50 minutes, $170 fee) pays you **$119**.',
@@ -111,14 +109,14 @@ export const jobs: Job[] = [
         '**Twenty sessions a week** is roughly **$1,960 a week**, or about $8,500 a month.',
         '**An EMDR intensive** (90 minutes, $190 fee) pays you **$133**.',
       ] },
-      { p: 'Two honest caveats, because a number without them is a sales pitch. First, **a caseload builds — it does not arrive.** I am not going to promise you twenty sessions in your first month, and anyone who does is guessing. Second, you are a contractor, so tax, CPP and your own insurance and supervision come out of that, the same as any private practice.' },
-      { p: 'What I can say plainly is that the split does not change as you grow, and there is no tier system, no clawback and no minimum you have to hit before the 70% applies.' },
+      { p: 'Two caveats, because a number without them is a sales pitch. **A caseload builds — it does not arrive**, so I will not promise you twenty sessions in month one. And you are a contractor, so tax, CPP, insurance and supervision come out of that.' },
+      { p: 'What I will promise: the split never changes as you grow. No tiers, no clawback, no minimum before the 70% applies.' },
 
       { h: 'The honest part' },
       { p: '**You would be the first counsellor to join me,** and I would rather say what that means than let you find out.' },
-      { p: 'The downside is real: there is no existing team, no ready-made peer group, and some of how this works we will figure out together rather than me handing you a manual.' },
-      { p: 'The upside is also real. Your caseload builds at your pace rather than landing on you at full volume. You have actual say in how this role takes shape, because you are the one shaping it. And you will not be the thirtieth face on a directory page — clients will know who you are.' },
-      { p: 'I am not going to pretend this suits everybody. If you want a finished system to step into, this is not that, and I would rather you knew now.' },
+      { p: '**The downside:** no existing team, no ready-made peer group, and some of how this works we will figure out together rather than me handing you a manual.' },
+      { p: '**The upside:** your caseload builds at your pace instead of landing at full volume, you have real say in how the role takes shape, and you are not the thirtieth face on a directory page.' },
+      { p: 'If you want a finished system to step into, this is not it — and I would rather you knew now than in month three.' },
 
       { h: 'What I am looking for' },
       { p: '**Needed:**' },
@@ -155,8 +153,7 @@ export const jobs: Job[] = [
 
       { h: 'Where you can work from' },
       { p: 'Anywhere in British Columbia, because this is a work-from-home counselling role and every session runs by secure video. Counsellors in **Vancouver, Surrey, Burnaby, Richmond, Abbotsford and the Fraser Valley** are welcome, and so are counsellors in **Victoria, Nanaimo and Vancouver Island**, in **Kelowna and the Okanagan**, in **Kamloops and the Interior**, and in **Prince George and Northern BC**.' },
-      { p: 'That last group is worth saying out loud. If you are a therapist in a smaller community, virtual practice removes the ceiling that local population puts on a caseload — you are no longer limited to the people who can drive to you. Several of the practice’s clients live in places with no counsellor at all within an hour.' },
-      { p: 'All you need is a private room, a decent connection and your BC registration.' },
+      { p: 'That last group matters most. If you are a therapist in a smaller community, virtual practice removes the ceiling local population puts on a caseload — you are no longer limited to people who can drive to you. All you need is a private room, a decent connection and your BC registration.' },
 
       { h: 'What happens after you apply' },
       { p: 'No black hole, and no six-stage process. In order:' },
@@ -168,6 +165,13 @@ export const jobs: Job[] = [
         '**We agree terms in writing** and you pick your own starting availability.',
       ] },
       { p: 'There is no take-home task, no unpaid trial session, and nothing asked of you that would not also be asked of a client.' },
+
+      /* Search variants, kept to one line at the very bottom. This used to be
+         the third paragraph on the page, where it read as keyword stuffing to
+         a human and pushed the actual offer below the fold. It earns its place
+         down here — people do search all of these — but nobody should have to
+         read it before they reach the work. */
+      { note: 'Also listed as: counsellor job · therapist job · RCC job · clinical counsellor job · associate counsellor · psychotherapist · mental health job · online counselling job · virtual counselling job · contract counselling · part time · work from home · fee split — British Columbia.' },
     ],
   },
 ];
@@ -205,6 +209,10 @@ export function jobDescriptionHtml(job: Job): string {
     if ('h' in b) out.push(`<h3>${inlineHtml(b.h)}</h3>`);
     else if ('p' in b) out.push(`<p>${inlineHtml(b.p)}</p>`);
     else if ('ul' in b) out.push(`<ul>${b.ul.map((li) => `<li>${inlineHtml(li)}</li>`).join('')}</ul>`);
+    /* `note` blocks are deliberately excluded. They are search-variant lines
+       for the page, not part of the job description — putting a list of
+       synonyms into the text Google ingests as the posting body is how a
+       JobPosting starts looking like spam to the thing you need to trust it. */
   }
   out.push(
     `<p>To apply, email ${APPLY_EMAIL} with your CV, your BCACC registration number, ` +

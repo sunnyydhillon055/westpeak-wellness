@@ -122,7 +122,9 @@ export default function JobPage({ params }: { params: { slug: string } }) {
     'How I actually work — how I decide what to use, and what I do when something is not working:',
     '',
     '',
-    '(CV attached)',
+    '--',
+    'My CV is attached. (If attaching is awkward, a Drive or Dropbox link is',
+    'completely fine — I am not fussy about the format.)',
   ].join('\n');
 
   return (
@@ -140,7 +142,7 @@ export default function JobPage({ params }: { params: { slug: string } }) {
       </section>
 
       <section className="section">
-        <div className="container prose">
+        <div className="container prose job-page">
           {/* Schema on, unlike the other templates: this page emits JobPosting
               rather than its own breadcrumb node, and BreadcrumbList is
               complementary to it rather than a competing rich-result type. A
@@ -161,27 +163,51 @@ export default function JobPage({ params }: { params: { slug: string } }) {
             </p>
           )}
 
-          <dl className="job-facts">
-            <div><dt>Rate</dt><dd>{job.salaryLabel}</dd></div>
-            <div><dt>Hours</dt><dd>{job.hoursLabel}</dd></div>
-            <div><dt>Type</dt><dd>{job.employmentLabel}</dd></div>
-            <div><dt>Location</dt><dd>{job.locationLabel}</dd></div>
-          </dl>
+          {/* Two columns on desktop, one on mobile. The rail carries the facts
+              and the apply button and sticks as you read, so the decision and
+              the action are never more than a glance apart — on a long posting
+              the CTA otherwise exists only at the very top and the very
+              bottom, and the middle is where people decide. */}
+          <div className="job-layout">
+            <aside className="job-rail" aria-label="Role summary">
+              <dl className="job-facts">
+                <div><dt>Rate</dt><dd>{job.salaryLabel}</dd></div>
+                <div><dt>Hours</dt><dd>{job.hoursLabel}</dd></div>
+                <div><dt>Type</dt><dd>{job.employmentLabel}</dd></div>
+                <div><dt>Location</dt><dd>{job.locationLabel}</dd></div>
+              </dl>
+              <a className="btn btn--primary job-rail-cta" href="#apply">
+                Apply for this role
+              </a>
+              <p className="job-rail-note">
+                Closes{' '}
+                {new Date(job.validThrough).toLocaleDateString('en-CA', {
+                  month: 'long', day: 'numeric',
+                })}
+                . No cover letter needed.
+              </p>
+            </aside>
 
-          {job.blocks.map((b, i) => {
-            if ('h' in b) return <h2 key={i}>{b.h}</h2>;
-            if ('ul' in b) {
-              return (
-                <ul key={i}>
-                  {b.ul.map((li, j) => (
-                    <li key={j} dangerouslySetInnerHTML={{ __html: inlineHtml(li) }} />
-                  ))}
-                </ul>
-              );
-            }
-            if ('p' in b) return <p key={i} dangerouslySetInnerHTML={{ __html: inlineHtml(b.p) }} />;
-            return null;
-          })}
+            <div className="job-body">
+              {job.blocks.map((b, i) => {
+                if ('h' in b) return <h2 key={i}>{b.h}</h2>;
+                if ('ul' in b) {
+                  return (
+                    <ul key={i}>
+                      {b.ul.map((li, j) => (
+                        <li key={j} dangerouslySetInnerHTML={{ __html: inlineHtml(li) }} />
+                      ))}
+                    </ul>
+                  );
+                }
+                if ('p' in b) {
+                  return <p key={i} dangerouslySetInnerHTML={{ __html: inlineHtml(b.p) }} />;
+                }
+                if ('note' in b) return <p key={i} className="job-note">{b.note}</p>;
+                return null;
+              })}
+            </div>
+          </div>
 
           <h2 id="apply">How to apply</h2>
           <p>
