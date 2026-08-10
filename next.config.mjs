@@ -108,6 +108,12 @@ const nextConfig = {
          Google has penalised that for years. A redirect costs nothing, cannot
          be thin content, and still catches the URL somebody types after
          hearing about the role secondhand. */
+      /* Both of these answered 404 with the full 40 kB HTML error page. Next
+         serves the manifest at /manifest.webmanifest; these are the two paths
+         browsers and crawlers try first. */
+      { source: '/manifest.json', destination: '/manifest.webmanifest', permanent: true },
+      { source: '/site.webmanifest', destination: '/manifest.webmanifest', permanent: true },
+
       { source: '/counselling-jobs', destination: '/careers', permanent: true },
       { source: '/counsellor-jobs', destination: '/careers', permanent: true },
       { source: '/therapist-jobs', destination: '/careers', permanent: true },

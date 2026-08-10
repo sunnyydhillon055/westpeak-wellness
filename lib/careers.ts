@@ -54,7 +54,7 @@ export const jobs: Job[] = [
   {
     slug: 'registered-clinical-counsellor',
     title: 'Registered Clinical Counsellor (RCC)',
-    seoTitle: 'RCC Job — Remote Counselling, Part-Time, BC | Westpeak Wellness',
+    seoTitle: 'RCC Job — Remote Counselling in BC | Westpeak Wellness',
     metaDescription:
       'Remote counselling job for an RCC anywhere in BC. Keep 70% — $95–$120 per clinical hour. Part time, 5–25 hrs a week, work from home, referrals provided.',
     summary:

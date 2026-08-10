@@ -166,6 +166,12 @@ export default function About() {
             an empty testimonials section is the honest option rather than a missing one — is set
             out on its own page.
           </p>
+          <p>
+            The practice is also growing. If you are a Registered Clinical Counsellor in British
+            Columbia, there is a full account of{' '}
+            <Link href="/careers">what working here involves</Link> — the arrangement, the split,
+            and the parts of it that would not suit everybody.
+          </p>
         </div>
       </section>
 

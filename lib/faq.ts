@@ -12,6 +12,10 @@ export const faqs: FAQ[] = [
     a: "Yes. Westpeak Wellness is currently accepting new clients across British Columbia. The best first step is a free 15-minute consultation, where we can see if we're a good fit before you commit to anything.",
   },
   {
+    q: "Are you hiring counsellors?",
+    a: "Yes. The practice is taking on a Registered Clinical Counsellor to work remotely anywhere in British Columbia — a contract role with referrals provided, no overhead, and hours you set yourself. The full posting, including the fee split, is on the careers page. This question sits here because counsellors ask it and the answer should be findable; if you are looking for therapy rather than work, you can safely skip it.",
+  },
+  {
     q: "Is this practice fully online?",
     a: "Yes. Westpeak Wellness is a fully virtual practice serving clients anywhere in British Columbia. Sessions take place over a secure, confidential video platform — all you need is a private space and a stable internet connection. Online sessions follow the same ethical, legal, and privacy standards as in-person therapy.",
   },
