@@ -208,6 +208,58 @@ export default function Pricing({ searchParams }: { searchParams?: { lead?: stri
       </section>
 
       <CtaBand heading="Questions about fees?" text="Ask during your free 15-minute consultation." />
+
+      {/* FAQPage for the four cards above.
+        *
+        * The site carries FAQPage markup on 86 pages, and this — the page people
+        * arrive at with the most specific questions — was not one of them.
+        * Every answer below is the visible card copy rather than a variant
+        * written for the markup: schema describing something other than what
+        * the visitor reads is how structured data stops being trusted. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            '@id': `${site.domain}/pricing#faq`,
+            mainEntity: [
+              {
+                '@type': 'Question',
+                name: 'Is the first consultation free?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Yes. Every working relationship starts with a free 15-minute call. There is no charge, and no obligation to book a session afterward.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'Does extended health insurance cover counselling in BC?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'Most BC plans that cover Registered Clinical Counsellors reimburse, including Pacific Blue Cross, Manulife, Sun Life, Canada Life and Green Shield. You pay at the time of the session and submit your receipt for reimbursement. Counselling with an RCC is not covered by MSP.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'How do I pay for a counselling session?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'By e-transfer, which is preferred, or by credit card — Visa, Mastercard or Amex.',
+                },
+              },
+              {
+                '@type': 'Question',
+                name: 'What is the cancellation policy?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: '24 hours’ notice. Late cancellations or no-shows are charged the full fee, because the time was held and cannot realistically be filled at that notice. There are exceptions for genuine emergencies.',
+                },
+              },
+            ],
+          }),
+        }}
+      />
     </>
   );
 }

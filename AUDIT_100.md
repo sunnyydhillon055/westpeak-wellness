@@ -213,3 +213,13 @@ or a git-derived date once Vercel's shallow clone can supply one.
 | 27 | hreflang pair | Same |
 | 19 | 404 weight | Closed as won't-fix, with reasoning |
 | 15/49/60 | Date diversity | Closed as must-not-fake, with reasoning |
+
+## Shipped in batch 3–4
+
+| # | Item | Result |
+|---|---|---|
+| 12 | Tap targets | **0 non-inline targets under 24px** across /, /glossary, /services, /guides, /careers, /pricing, /faq. Two homepage links fixed with an explicit `.link-standalone` class |
+| 44 | FAQPage on `/pricing` | 4 questions, drawn verbatim from the visible card copy. 3 JSON-LD blocks on the page, 0 parse errors |
+| 13 | Images "missing dimensions" | **Closed — false finding.** Both are `next/image` with `fill`, which by design carries no width/height; the box is reserved in CSS and CLS measures 0.000 on every page. Adding dimensions would break the fill layout |
+
+Running total: **14 shipped, 7 closed with reasoning, ~79 open.**
