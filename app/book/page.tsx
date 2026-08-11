@@ -35,6 +35,45 @@ export default function Book() {
         <div className="container">
           <Breadcrumbs trail={[{ name: 'Book', path: '/book' }]} />
 
+          {/* Expectation strip, directly above the calendar.
+            *
+            * Without it a visitor meets the embed cold, and the first thing
+            * they learn is that the next opening is several days away — which
+            * reads as "they are too busy for me" rather than "these are the
+            * hours". Stating the shape of the call and the real windows first
+            * turns a wait into information. Availability comes from
+            * site.availability, so it cannot drift from the footer or Cliniko. */}
+          <div className="book-brief">
+            <div>
+              <h2>Before you pick a time</h2>
+              <p>
+                Fifteen minutes, by secure video. You describe what is going on in your own
+                words, ask anything you want, and we work out together whether this is a good
+                fit. Nothing is diagnosed and nothing is decided on the call.
+              </p>
+              <p className="book-brief-note">
+                No card, no intake form, and no obligation to book a session afterwards —
+                deciding not to is a completely normal outcome.
+              </p>
+            </div>
+            <div className="book-hours">
+              <h3>Consultation hours</h3>
+              <ul>
+                {site.availability.map((a) => (
+                  <li key={a.day}>
+                    <span>{a.day}</span>
+                    <span>{a.from} – {a.to}</span>
+                  </li>
+                ))}
+              </ul>
+              <p>
+                If none of these work,{' '}
+                <a href={`mailto:${site.email}`}>email {site.email}</a> and say roughly when you
+                are free.
+              </p>
+            </div>
+          </div>
+
           {site.bookingReady ? (
             <SchedulerEmbed url={site.bookingsUrl} title="Book a free 15-minute consultation" />
           ) : (
