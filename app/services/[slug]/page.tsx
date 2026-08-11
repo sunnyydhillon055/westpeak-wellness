@@ -9,6 +9,7 @@ import { buildToc, headingId } from '@/lib/toc';
 import { orgRef, siteRef, personRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import BookingCard from '@/components/BookingCard';
 import SceneBand from '@/components/SceneBand';
 import { getServiceIcon } from '@/lib/icon-map';
 import { Clock, MonitorSmartphone, Languages as LangIcon, BadgeCheck, CircleDot } from 'lucide-react';
@@ -47,6 +48,27 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     openGraph: { title: s.metaTitle, description: s.metaDescription, url: `${site.domain}/services/${s.slug}` },
   };
 }
+
+/* One fee per service, and only where a single number is honest.
+ *
+ * The umbrella pages — online-counselling-bc and south-asian-mental-health —
+ * span several session types at different prices, so quoting one figure there
+ * would misrepresent them. Those render the card without a price rather than
+ * with a wrong one. Couples has a 110-minute extended option at $340 that the
+ * card does not attempt to summarise; /pricing carries the full table. */
+const FEE_FOR: Record<string, string | undefined> = {
+  'individual-therapy': '$140',
+  'anxiety-counselling': '$140',
+  'depression-counselling': '$140',
+  'trauma-therapy': '$140',
+  'punjabi-counselling': '$140',
+  'couples-therapy': '$170',
+  'emdr-therapy': '$190',
+};
+
+const DURATION_FOR: Record<string, string | undefined> = {
+  'emdr-therapy': '90 minutes',
+};
 
 export default function ServicePage({ params }: { params: { slug: string } }) {
   const s = getService(params.slug);
@@ -208,6 +230,20 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
           </div>
         </section>
       )}
+
+      {/* Mid-page booking card. Sits after "what a session involves" and before
+          the FAQ, because that is the point a reader has enough information to
+          decide — and without it the next CTA is at the very bottom of a
+          1,600-word page. */}
+      <section className="section">
+        <div className="container prose" style={{ maxWidth: '44.16em' }}>
+          <BookingCard
+            service={s.name}
+            price={FEE_FOR[s.slug]}
+            duration={DURATION_FOR[s.slug] ?? '50 minutes'}
+          />
+        </div>
+      </section>
 
       {s.faqs && (
         <section className="section">

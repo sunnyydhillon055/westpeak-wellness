@@ -1872,3 +1872,25 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
 .answers-list dt a { text-decoration: none; }
 .answers-list dt a:hover { text-decoration: underline; }
 .answers-list dd { margin: 0; color: var(--ink-soft); line-height: 1.65; }
+
+/* ── Mid-page booking card ────────────────────────────────────────────────
+   Restrained on purpose. No countdown, no scarcity, no dismissable overlay —
+   pressure tactics aimed at someone deciding whether to seek help for their
+   mental health would be a harmful pattern, and BCACC advertising standards
+   exist partly to prevent exactly that. The persuasion is "here is what is
+   true, at the moment you are deciding". */
+.booking-card {
+  margin: 0;
+  padding: clamp(1.4rem, 3vw, 2rem);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--blue-deep);
+  border-radius: 14px;
+  background: var(--bg-card);
+}
+.booking-card h2 { margin: 0 0 0.6rem; font-size: clamp(1.25rem, 2.4vw, 1.6rem); }
+.booking-card > .booking-card-main > p { margin: 0 0 1.1rem; color: var(--ink-soft); }
+.booking-card-facts { list-style: none; margin: 0 0 1.4rem; padding: 0; display: grid; gap: 0.7rem; }
+.booking-card-facts li { display: flex; gap: 0.7rem; align-items: flex-start; font-size: 0.95rem; line-height: 1.55; }
+.booking-card-facts svg { width: 19px; height: 19px; flex: none; margin-top: 2px; color: var(--blue-deep); }
+.booking-card .btn-row { margin: 0 0 0.9rem; }
+.booking-card-note { margin: 0; font-size: 0.88rem; color: var(--ink-soft); }
