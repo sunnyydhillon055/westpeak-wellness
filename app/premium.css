@@ -1855,3 +1855,20 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
   .site-footer { padding-bottom: calc(26px + 4.5rem); }
   .footer-bottom { font-size: .78rem; line-height: 1.5; }
 }
+
+/* ── /answers index ────────────────────────────────────────────────────── */
+.answers-jump {
+  display: flex; flex-wrap: wrap; gap: 0.5rem 0.75rem;
+  margin: 0 0 2rem; padding: 0.9rem 1rem;
+  border: 1px solid var(--line); border-radius: 10px; background: var(--bg-card);
+  font-size: 0.9rem;
+}
+.answers-jump a { padding: 0.3rem 0; margin: -0.3rem 0; display: inline-block; }
+.answers-blurb { color: var(--ink-soft); margin-top: -0.4rem; }
+.answers-list { margin: 0 0 2rem; }
+.answers-list > div { padding: 1rem 0; border-bottom: 1px solid var(--line); }
+.answers-list > div:last-child { border-bottom: 0; }
+.answers-list dt { font-weight: 650; margin: 0 0 0.4rem; }
+.answers-list dt a { text-decoration: none; }
+.answers-list dt a:hover { text-decoration: underline; }
+.answers-list dd { margin: 0; color: var(--ink-soft); line-height: 1.65; }

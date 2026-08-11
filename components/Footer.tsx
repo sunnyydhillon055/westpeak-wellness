@@ -51,6 +51,7 @@ export default function Footer() {
 
             <nav className="footer-col" aria-labelledby="foot-read">
               <h2 id="foot-read">Read</h2>
+              <Link href="/answers">Straight Answers</Link>
               <Link href="/guides">Counselling Guides</Link>
               <Link href="/compare">Compare Your Options</Link>
               <Link href="/for">Who We Work With</Link>
