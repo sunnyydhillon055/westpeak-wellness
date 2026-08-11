@@ -279,3 +279,48 @@ Items 9 (TBT to 737 ms) and 8 (mobile LCP ~3.0 s at 4x CPU throttle). Those are
 client-side JavaScript execution and image priority, not payload size, so the
 work is reducing client components and per-template LCP preloads — a different
 change from the one items 10/51 described.
+
+### And item 9 (TBT) cannot be worked against locally
+
+After closing items 10 and 51, I went after TBT properly — attributing long
+tasks to scripts, then adding `optimizePackageImports` for lucide-react.
+
+**The config change was a no-op.** Chunk hashes were byte-identical before and
+after, because Next 14 already includes lucide-react in its default
+optimizePackageImports list. Reverted rather than left in place: config that
+does nothing, sitting under a comment claiming an optimisation, misleads the
+next reader.
+
+But the measurement around it was the real finding. The same page, before and
+after that no-op, read **347 ms then 93 ms**. So I ran it five times on
+identical code:
+
+```
+TBT, 5 identical runs : 517 · 171 · 329 · 139 · 387 ms
+min / median / max    : 139 / 329 / 517 ms
+spread                : 378 ms
+```
+
+**A 378 ms spread on unchanged code.** The original 737 ms reading that put
+this item in the audit was a single run, and single runs are worthless here —
+any "improvement" I made would have been indistinguishable from noise, and I
+could have reported a 70% TBT reduction by measuring twice and picking the
+better number.
+
+**Item 9 is therefore closed as not-actionable**, not as fixed. Working on it
+requires either many-run medians or real field data, and with ~10 impressions
+a day there is no field data yet. Revisit when Search Console has CrUX data or
+Vercel Speed Insights has traffic worth sampling — at that point the numbers
+describe real visitors instead of a throttled headless Chrome on one laptop.
+
+### Performance block: final status
+
+| Item | Status |
+|---|---|
+| 8 · mobile LCP ~3.0 s | Open, same measurement caveat applies |
+| 9 · TBT | **Closed — measurement noise exceeds the effect size** |
+| 10 · inline script | **Closed — it is RSC flight data, not a defect** |
+| 11 · /glossary weight | **Done — 171 kB → 165 kB** |
+| 51 · reduce inline script | **Closed — duplicate of 10** |
+| 52 · split hydration | Open, but unverifiable locally for the same reason as 9 |
+| 53 · trim /glossary | **Done** |
