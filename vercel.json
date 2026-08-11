@@ -4,6 +4,10 @@
     {
       "path": "/api/cron/revenue-report",
       "schedule": "0 15 1 * *"
+    },
+    {
+      "path": "/api/indexnow",
+      "schedule": "0 9 * * 1"
     }
   ]
 }

@@ -46,7 +46,12 @@ export const metadata: Metadata = {
       ? { other: { 'msvalidate.01': process.env.NEXT_PUBLIC_BING_VERIFICATION } }
       : {}),
   },
-  alternates: { canonical: site.domain },
+  alternates: {
+    canonical: site.domain,
+    /* Declared so a reader or crawler finds the feed without guessing at
+       /rss, /feed, /atom.xml and the other half-dozen conventions. */
+    types: { 'application/rss+xml': `${site.domain}/feed.xml` },
+  },
   robots: site.isPreview
     ? { index: false, follow: false }
     : {
