@@ -16,6 +16,14 @@ export const faqs: FAQ[] = [
     a: "Yes. The practice is taking on a Registered Clinical Counsellor to work remotely anywhere in British Columbia — a contract role with referrals provided, no overhead, and hours you set yourself. The full posting, including the fee split, is on the careers page. This question sits here because counsellors ask it and the answer should be findable; if you are looking for therapy rather than work, you can safely skip it.",
   },
   {
+    q: "Why are there no client reviews on this site?",
+    a: "Because soliciting testimonials from counselling clients is prohibited under BCACC advertising standards — someone inside a therapeutic relationship cannot give uncoerced consent to be used as marketing. What this practice publishes instead, and how to check a counsellor's registration on the public register yourself, is set out in full on the [reviews and references page](/reviews).",
+  },
+  {
+    q: "Is the site usable with a screen reader or keyboard?",
+    a: "Yes. It is built to WCAG 2.1 AA and tested for colour contrast, keyboard navigation and touch-target size. The [accessibility page](/accessibility) sets out what has been done and how to report anything that does not work for you. Those reports are welcome and are treated as defects rather than complaints.",
+  },
+  {
     q: "Is this practice fully online?",
     a: "Yes. Westpeak Wellness is a fully virtual practice serving clients anywhere in British Columbia. Sessions take place over a secure, confidential video platform — all you need is a private space and a stable internet connection. Online sessions follow the same ethical, legal, and privacy standards as in-person therapy.",
   },
@@ -79,6 +87,13 @@ const GROUP_OF: Record<string, string> = {
   "Is what I share confidential?": 'privacy',
   "What happens in the first session?": 'sessions',
   "What if I'm in crisis?": 'privacy',
+  /* Without an entry here a question renders nowhere — faqsInGroup filters on
+     this map, so an unmapped question is silently dropped from the page while
+     still appearing in the FAQPage schema. That mismatch is worse than a
+     missing answer: the markup would describe content the visitor cannot see. */
+  "Are you hiring counsellors?": 'start',
+  "Why are there no client reviews on this site?": 'privacy',
+  "Is the site usable with a screen reader or keyboard?": 'privacy',
 };
 
 export const faqsInGroup = (key: string) => faqs.filter((f) => GROUP_OF[f.q] === key);

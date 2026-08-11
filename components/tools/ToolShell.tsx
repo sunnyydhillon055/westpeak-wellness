@@ -33,6 +33,46 @@ export default function ToolShell({
       // Free and with no account — stating it in the markup as well as the copy.
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'CAD' },
     },
+    /* HowTo alongside WebApplication.
+     *
+     * WebApplication says "this is a tool". HowTo says what using it involves,
+     * which is the shape an assistant can answer a question from. The steps are
+     * deliberately the same across all three tools because they are true of all
+     * three — none asks for an account, none stores anything, and each ends by
+     * pointing somewhere rather than selling. Writing per-tool steps that
+     * overstated what a tool does would be worse than the generic truth. */
+    {
+      '@context': 'https://schema.org',
+      '@type': 'HowTo',
+      '@id': `${abs(`/tools/${tool.slug}`)}#howto`,
+      name: `How to use the ${tool.title.toLowerCase()}`,
+      description: tool.metaDescription,
+      totalTime: `PT${tool.minutes}M`,
+      estimatedCost: { '@type': 'MonetaryAmount', currency: 'CAD', value: '0' },
+      step: [
+        {
+          '@type': 'HowToStep',
+          position: 1,
+          name: 'Answer the questions',
+          text: 'Work through the questions on the page. Everything runs in your browser — nothing is sent anywhere, nothing is stored, and no sign-up is asked for.',
+          url: abs(`/tools/${tool.slug}`),
+        },
+        {
+          '@type': 'HowToStep',
+          position: 2,
+          name: 'Read the result',
+          text: 'The result appears immediately on the same page, with the reasoning behind it rather than a score on its own.',
+          url: abs(`/tools/${tool.slug}`),
+        },
+        {
+          '@type': 'HowToStep',
+          position: 3,
+          name: 'Decide what to do next',
+          text: 'Each outcome links onward — sometimes to this practice, sometimes to a different service, or to free and low-cost options in BC where those are the better fit.',
+          url: abs('/book'),
+        },
+      ],
+    },
     {
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',

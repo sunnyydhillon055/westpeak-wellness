@@ -7,6 +7,12 @@ import SceneBand from '@/components/SceneBand';
 import Figure from '@/components/Figure';
 import { Compass, Wallet, MessageCircleQuestion, Lock } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { rich } from '@/lib/rich';
+/* Answers may carry [text](/path) links. The rendered answer resolves them;
+   the FAQPage schema below keeps the PLAIN string, because markdown syntax
+   inside structured data is not something a search engine unwraps — it would
+   publish literal brackets. */
+const plain = (s: string) => s.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
 
 const GROUP_ICON = { start: Compass, money: Wallet, sessions: MessageCircleQuestion, privacy: Lock };
 
@@ -21,7 +27,7 @@ const faqSchema = {
   '@context': 'https://schema.org', '@type': 'FAQPage',
   mainEntity: faqs.map((f) => ({
     '@type': 'Question', name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.a },
+    acceptedAnswer: { '@type': 'Answer', text: plain(f.a) },
   })),
 };
 
@@ -86,7 +92,7 @@ export default function FAQ() {
                     {items.map((f) => (
                       <details className="faq-item" key={f.q}>
                         <summary>{f.q}</summary>
-                        <p>{f.a}</p>
+                        <p>{rich(f.a)}</p>
                       </details>
                     ))}
                   </div>
