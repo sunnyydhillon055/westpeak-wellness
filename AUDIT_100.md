@@ -244,3 +244,38 @@ it is looking at the page.
 Footer pass also delivered: mobile height 2,249px → **1,675px** (−26%) with no
 tap target reduced, all three link groups two-up, and the sticky booking bar no
 longer covering the copyright line.
+
+## Performance investigation — what the "56 kB inline script" actually is
+
+Diagnosed 2026-08-11 by breaking the inline blocks apart on the homepage.
+
+| Block | Size |
+|---|---|
+| `self.__next_f` — React Server Component flight payload | **61 kB** |
+| JSON-LD schema | 10 kB |
+| Everything else | ~0 |
+
+**Items 10 and 51 are therefore not defects and are closed.** The inline weight
+is Next.js App Router hydration data. It is how RSC reconciles the server tree
+on the client, it is not removable without abandoning the App Router, and no
+amount of code tidying reduces it. The audit measured the framework and
+recorded it as a fault.
+
+### One genuine finding did come out of it
+
+`/glossary` was 171 kB — nearly double the 88 kB site median — and ~140 kB of
+that was schema: a 35 kB `DefinedTermSet`, **serialised a second time into the
+flight payload**. Every byte in a rendered block is paid for twice.
+
+Removing the redundant `inDefinedTermSet` property from each of the 63 terms —
+already implied by their nesting inside `hasDefinedTerm` — took the page to
+**165 kB** with the schema still valid. A 3.5% cut, which is honest about its
+size: the page is heavy because it genuinely carries 63 definitions as both
+prose and structured data, and that is the page doing its job.
+
+### What remains genuinely open on performance
+
+Items 9 (TBT to 737 ms) and 8 (mobile LCP ~3.0 s at 4x CPU throttle). Those are
+client-side JavaScript execution and image priority, not payload size, so the
+work is reducing client components and per-template LCP preloads — a different
+change from the one items 10/51 described.

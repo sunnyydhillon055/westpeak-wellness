@@ -42,7 +42,12 @@ export default function GlossaryPage() {
         ...(t.also ? { alternateName: t.also } : {}),
         description: t.definition,
         url: `${site.domain}/glossary#${slugify(t.term)}`,
-        inDefinedTermSet: `${site.domain}/glossary#set`,
+        /* `inDefinedTermSet` deliberately omitted. Each term is already nested
+           inside this set's `hasDefinedTerm`, so the relationship is expressed
+           without it — repeating it added the same 67-character absolute URL 63
+           times over. That matters more here than elsewhere because React
+           serialises the rendered tree into the RSC flight payload as well, so
+           every redundant byte in this block is paid for twice. */
       })),
     },
     {
