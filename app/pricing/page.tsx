@@ -7,6 +7,7 @@ import { Wallet, Video, CreditCard, CalendarX } from 'lucide-react';
 import Figure from '@/components/Figure';
 import LeadCapture from '@/components/LeadCapture';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { readCatalog, money, type CatalogItem } from '@/lib/cliniko-catalog';
 
 export const metadata: Metadata = {
   title: 'Fees & Insurance',
@@ -15,7 +16,28 @@ export const metadata: Metadata = {
   alternates: { canonical: `${site.domain}/pricing` },
 };
 
-export default function Pricing({ searchParams }: { searchParams?: { lead?: string } }) {
+/* Revalidate hourly so a price changed in Cliniko reaches this page without a
+ * redeploy. The nightly cron refreshes the cached catalogue; this decides how
+ * quickly the rendered page picks that up. */
+export const revalidate = 3600;
+
+/* Display order and labels. Cliniko returns types in its own order with its own
+ * names, and the fee table has always read "Individual" rather than "Individual
+ * Counselling". Mapping here keeps the copy while the numbers come from
+ * Cliniko — the numbers are what must never drift, not the wording. */
+const ROWS: { clinikoName: string; label: string; highlight?: boolean }[] = [
+  { clinikoName: 'Initial Consultation', label: 'Free initial consult' },
+  { clinikoName: 'Individual Counselling', label: 'Individual', highlight: true },
+  { clinikoName: 'Couples Counselling', label: 'Couples' },
+  { clinikoName: 'Couples Extended', label: 'Couples extended' },
+  { clinikoName: 'EMDR Intensive', label: 'EMDR intensive' },
+];
+
+export default async function Pricing({ searchParams }: { searchParams?: { lead?: string } }) {
+  const catalog = await readCatalog();
+  const find = (n: string): CatalogItem | undefined =>
+    catalog.items.find((i) => i.name.toLowerCase() === n.toLowerCase());
+
   return (
     <>
       <section className="hero" style={{ paddingBottom: 48 }}>
@@ -38,11 +60,20 @@ export default function Pricing({ searchParams }: { searchParams?: { lead?: stri
           <table className="fee-table">
             <thead><tr><th>Session</th><th>Length</th><th>Fee (CAD)</th></tr></thead>
             <tbody>
-              <tr><td>Free initial consult</td><td>15 min</td><td>$0</td></tr>
-              <tr className="fee-highlight"><td>Individual</td><td>50 min</td><td>$140</td></tr>
-              <tr><td>Couples</td><td>50 min</td><td>$170</td></tr>
-              <tr><td>Couples extended</td><td>110 min</td><td>$340</td></tr>
-              <tr><td>EMDR intensive</td><td>90 min</td><td>$190</td></tr>
+              {ROWS.map((r) => {
+                const item = find(r.clinikoName);
+                /* A row whose Cliniko type has vanished is dropped rather than
+                   rendered with a guess. Showing a stale fee is the failure
+                   this whole change exists to prevent. */
+                if (!item) return null;
+                return (
+                  <tr key={r.clinikoName} className={r.highlight ? 'fee-highlight' : undefined}>
+                    <td>{r.label}</td>
+                    <td>{item.minutes} min</td>
+                    <td>{money(item.cents)}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
           <p style={{ fontSize: '.92rem', color: 'var(--ink-faint)' }}>GST does not apply to RCC counselling in BC.</p>

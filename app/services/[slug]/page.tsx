@@ -20,6 +20,7 @@ import Figure from '@/components/Figure';
 import InlineRelated from '@/components/InlineRelated';
 import { deviceSlots } from '@/lib/placement';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { readCatalog, money } from '@/lib/cliniko-catalog';
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -56,7 +57,25 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
  * would misrepresent them. Those render the card without a price rather than
  * with a wrong one. Couples has a 110-minute extended option at $340 that the
  * card does not attempt to summarise; /pricing carries the full table. */
-const FEE_FOR: Record<string, string | undefined> = {
+/* Which Cliniko appointment type each service is billed as. The fee itself is
+ * NOT written here any more — it comes from Cliniko via lib/cliniko-catalog.ts,
+ * because three hand-maintained copies of a price is three chances to quote a
+ * number the practice does not charge.
+ *
+ * The two umbrella pages are absent on purpose: they span several session types
+ * at different prices, so any single figure would misrepresent them. They render
+ * without a price rather than with a wrong one. */
+const BILLED_AS: Record<string, string | undefined> = {
+  'individual-therapy': 'Individual Counselling',
+  'anxiety-counselling': 'Individual Counselling',
+  'depression-counselling': 'Individual Counselling',
+  'trauma-therapy': 'Individual Counselling',
+  'punjabi-counselling': 'Individual Counselling',
+  'couples-therapy': 'Couples Counselling',
+  'emdr-therapy': 'EMDR Intensive',
+};
+
+const LEGACY_FEE_FOR: Record<string, string | undefined> = {
   'individual-therapy': '$140',
   'anxiety-counselling': '$140',
   'depression-counselling': '$140',
@@ -70,9 +89,21 @@ const DURATION_FOR: Record<string, string | undefined> = {
   'emdr-therapy': '90 minutes',
 };
 
-export default function ServicePage({ params }: { params: { slug: string } }) {
+/* ISR rather than fully dynamic. These nine pages are the fastest on the site
+ * and should stay statically served; an hourly re-render picks up a Cliniko
+ * price change without giving that up. */
+export const revalidate = 3600;
+
+export default async function ServicePage({ params }: { params: { slug: string } }) {
   const s = getService(params.slug);
   if (!s) notFound();
+
+  const catalog = await readCatalog();
+  const billedAs = BILLED_AS[params.slug];
+  const item = billedAs
+    ? catalog.items.find((i) => i.name.toLowerCase() === billedAs.toLowerCase())
+    : undefined;
+  const fee = item ? money(item.cents) : LEGACY_FEE_FOR[params.slug];
 
   /* Heading order as rendered. 'This can help with' lives in the aside
    * itself, so it is deliberately not a TOC entry. */
@@ -239,7 +270,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         <div className="container prose" style={{ maxWidth: '44.16em' }}>
           <BookingCard
             service={s.name}
-            price={FEE_FOR[s.slug]}
+            price={fee}
             duration={DURATION_FOR[s.slug] ?? '50 minutes'}
           />
         </div>

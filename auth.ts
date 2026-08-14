@@ -45,6 +45,26 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       allowDangerousEmailAccountLinking: true,
     }),
     Credentials({
+      id: 'access-code',
+      name: 'Email access code',
+      credentials: {
+        email: { label: 'Email', type: 'email' },
+        code: { label: 'Access code', type: 'text' },
+      },
+      /* The code proves control of the address. Whether that address is
+         allowed here is still the signIn callback's decision, exactly as with
+         the password provider — one provider must never be a way around the
+         authorisation check the others go through. */
+      async authorize(raw) {
+        const email = normalizeEmail(String(raw?.email ?? ''));
+        const code = String(raw?.code ?? '');
+        if (!email || !code) return null;
+        const { verifyCode } = await import('@/lib/portal-otp');
+        if (!(await verifyCode(email, code))) return null;
+        return { id: email, email };
+      },
+    }),
+    Credentials({
       name: 'Email and password',
       credentials: {
         email: { label: 'Email', type: 'email' },
