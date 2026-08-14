@@ -71,6 +71,7 @@ export const links = {
   portal: `${BASE}/client-portal`,
   contact: `${BASE}/contact`,
   guides: `${BASE}/guides`,
+  refer: `${BASE}/refer`,
   punjabi: `${BASE}/punjabi`,
   crisis: `${BASE}/standards#crisis`,
 } as const;

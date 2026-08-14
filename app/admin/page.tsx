@@ -9,6 +9,9 @@ import { listPasswordAccounts } from '@/lib/portal-users';
 import { clinikoConfigured } from '@/lib/cliniko';
 import { recentInbound, markHandled } from '@/lib/inbound';
 import { topSearchTerms, readSearchTerms } from '@/lib/search-log';
+import { readLedger, recordContacted } from '@/lib/lifecycle';
+import { reactivationEmail } from '@/lib/lifecycle-mail';
+import { sendDetailed, mailConfigured } from '@/lib/portal-mail';
 import { site } from '@/lib/site';
 import { revalidatePath } from 'next/cache';
 
@@ -85,6 +88,15 @@ export default async function AdminPage({
   const searches = await topSearchTerms(30);
   const searchTotal = (await readSearchTerms()).total;
 
+  /* Paused and former clients who have never had a reactivation note.
+   * lib/clients.ts keeps these states specifically so the history survives, and
+   * until now nothing ever read them. */
+  const ledger = await readLedger({ fresh: true });
+  const dormant = book.clients
+    .filter((c) => c.status !== 'active')
+    .map((c) => ({ ...c, contactedAt: ledger.reactivation[c.email] ?? null }));
+  const canContact = dormant.filter((d) => !d.contactedAt).length;
+
   const active = book.clients.filter((c) => c.status === 'active').length;
   /* Result of a manual "Sync from Cliniko now". Counts only — the redirect
      deliberately carries no addresses. */
@@ -132,6 +144,7 @@ export default async function AdminPage({
 
         <div className="admin-stats">
           <div><strong>{waiting}</strong><span>awaiting a reply</span></div>
+          <div><strong>{canContact}</strong><span>could be reached back</span></div>
           <div><strong>{active}</strong><span>can sign in</span></div>
           <div><strong>{book.clients.length}</strong><span>on the books</span></div>
           <div><strong>{avail.windows.length}</strong><span>weekly windows</span></div>
@@ -206,6 +219,89 @@ export default async function AdminPage({
                           {i.handled ? 'Reopen' : 'Done'}
                         </button>
                       </form>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {/* ------------------------------------------------------ REACHING BACK */}
+        {/* Deliberately one button per person and not a "send to all".
+            Whether it is appropriate to write to a particular former client is
+            a clinical judgement — they may have finished because the work was
+            done, or because they could not afford it, or because something
+            happened they would rather not revisit. A batch send makes that
+            judgement for all of them at once, which is the one thing it must
+            not do. The ledger then guarantees once, ever. */}
+        <h2 id="reaching-back" style={{ marginTop: 44 }}>Reaching back</h2>
+        <p style={{ color: 'var(--ink-soft)', maxWidth: '40.38em' }}>
+          Paused and former clients. A single, once-only note saying the practice has openings —
+          no urgency, nothing implying they should still be in therapy, and nothing that needs a
+          reply. <strong>One message per person, ever.</strong> Send them one at a time, and only
+          where you judge it appropriate; that judgement is not something this page should make
+          for you.
+        </p>
+
+        {!mailConfigured() && (
+          <div className="crisis" style={{ marginTop: 14 }}>
+            <p style={{ margin: 0 }}>
+              Email is not configured on this deployment, so nothing can be sent.
+            </p>
+          </div>
+        )}
+
+        {dormant.length === 0 ? (
+          <div className="admin-panel">
+            <p style={{ margin: 0 }}>
+              Nobody is paused or former. This fills as clients finish or pause.
+            </p>
+          </div>
+        ) : (
+          <div className="admin-table-wrap">
+            <table className="admin-table">
+              <thead>
+                <tr><th>Client</th><th>Status</th><th>Since</th><th /></tr>
+              </thead>
+              <tbody>
+                {dormant.map((d) => (
+                  <tr key={d.id}>
+                    <td>
+                      {d.name || <em style={{ color: 'var(--ink-faint)' }}>no name</em>}<br />
+                      <span className="admin-email">{d.email}</span>
+                    </td>
+                    <td>{STATUS_LABEL[d.status] ?? d.status}</td>
+                    <td className="admin-date">{d.updatedAt ? d.updatedAt.slice(0, 10) : '—'}</td>
+                    <td>
+                      {d.contactedAt ? (
+                        <span style={{ color: 'var(--ink-faint)', fontSize: '.86rem' }}>
+                          Sent {d.contactedAt.slice(0, 10)}
+                        </span>
+                      ) : (
+                        <form
+                          action={async () => {
+                            'use server';
+                            const sess = await auth();
+                            const who = sess?.user?.email ?? '';
+                            if (!who || !isAdmin(who)) return;
+                            /* Re-checked inside the action, not just on the
+                               page: a server action is its own POST endpoint. */
+                            if (await readLedger({ fresh: true }).then((l) => Boolean(l.reactivation[d.email]))) return;
+                            const mail = reactivationEmail((d.name || '').split(/\s+/)[0] ?? '');
+                            const sent = await sendDetailed(d.email, mail.subject, mail.text, mail.html, { replyTo: site.email });
+                            /* Recorded only on a confirmed send. Recording
+                               first would silently burn somebody's one message
+                               on an email that never arrived. */
+                            if (sent.ok) await recordContacted(d.email);
+                            revalidatePath('/admin');
+                          }}
+                        >
+                          <button type="submit" className="btn btn--ghost btn--sm" disabled={!mailConfigured()}>
+                            Send note
+                          </button>
+                        </form>
+                      )}
                     </td>
                   </tr>
                 ))}

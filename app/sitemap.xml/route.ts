@@ -58,6 +58,7 @@ export function GET() {
     { path: '/book', lastmod: lastmodFor('/book'), changefreq: 'monthly', priority: 0.9 },
     { path: '/tools', lastmod: lastmodFor('/tools'), changefreq: 'monthly', priority: 0.7 },
     { path: '/reviews', lastmod: lastmodFor('/reviews'), changefreq: 'yearly', priority: 0.5 },
+    { path: '/refer', lastmod: lastmodFor('/refer'), changefreq: 'yearly', priority: 0.5 },
     { path: '/punjabi', lastmod: lastmodFor('/punjabi'), changefreq: 'monthly', priority: 0.7 },
     /* The answers index: one URL holding every direct answer on the site.
        High priority because it is the page an answer engine retrieves from. */

@@ -81,6 +81,7 @@ export default function Footer() {
               <Link href="/pricing">Fees &amp; Insurance</Link>
               <Link href="/faq">FAQ</Link>
               <Link href="/reviews">Reviews &amp; references</Link>
+              <Link href="/refer">Passing it on</Link>
               <Link href="/online-counselling">Areas Served in BC</Link>
               <Link href="/contact">Contact</Link>
               {/* Sitewide, so a counsellor who arrives on any page at all can

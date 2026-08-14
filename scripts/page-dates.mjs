@@ -53,6 +53,7 @@ const PAGES = {
   '/book': 'app/book/page.tsx',
   '/tools': 'app/tools/page.tsx',
   '/reviews': 'lib/reviews.ts',
+  '/refer': 'app/refer/page.tsx',
   '/punjabi': 'app/punjabi/page.tsx',
   '/answers': 'app/answers/page.tsx',
   '/careers': 'app/careers/page.tsx',

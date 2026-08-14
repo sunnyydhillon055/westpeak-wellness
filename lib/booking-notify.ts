@@ -2,6 +2,8 @@ import { put, get } from '@vercel/blob';
 import { api, headers } from '@/lib/cliniko';
 import { sendDetailed, mailConfigured } from '@/lib/portal-mail';
 import { confirmationEmail, followUpEmail, consultFollowUpEmail, type Booking } from '@/lib/booking-mail';
+import { missedSessionEmail } from '@/lib/lifecycle-mail';
+import { missedAlreadyNoted, recordMissed } from '@/lib/lifecycle';
 import { site } from '@/lib/site';
 
 /* Polls Cliniko for appointments needing a confirmation or a follow-up.
@@ -76,6 +78,8 @@ export type NotifyResult = {
   ok: boolean;
   confirmations: number;
   followUps: number;
+  /** Gentle notes after a no-show. Never mentions the fee — see the loop. */
+  missed: number;
   skipped: { noEmail: number; alreadySent: number };
   failures: string[];
   reason?: string;
@@ -83,7 +87,7 @@ export type NotifyResult = {
 
 export async function runBookingNotifications(opts: { dry?: boolean } = {}): Promise<NotifyResult> {
   const base: NotifyResult = {
-    ok: false, confirmations: 0, followUps: 0,
+    ok: false, confirmations: 0, followUps: 0, missed: 0,
     skipped: { noEmail: 0, alreadySent: 0 }, failures: [],
   };
 
@@ -139,7 +143,38 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
 
   for (const ap of appts) {
     const id = String(ap.id);
-    if (ap.cancelled_at || ap.archived_at || ap.did_not_arrive) continue;
+    if (ap.cancelled_at || ap.archived_at) continue;
+
+    /* A missed session used to be skipped outright, along with cancellations
+     * and archives. It does not belong in that group: somebody who did not
+     * attend is the person most likely to drop out altogether, and silence
+     * after a no-show reads as disapproval whether or not any is meant.
+     *
+     * The note carries NOTHING ABOUT THE FEE. Whether to charge is a judgement
+     * about a person in a clinical relationship — they may have been unwell, in
+     * crisis, or avoiding the exact thing they came to work on — and a cron job
+     * must not make that call or pre-empt it by raising the subject first. The
+     * practice sees the missed appointment in Cliniko and decides. */
+    if (ap.did_not_arrive) {
+      const ended0 = new Date(ap.starts_at as string).getTime() + (Number(ap.duration_in_minutes ?? 50) * 60_000);
+      const since = now - ended0;
+      if (since > 12 * 3.6e6 && since < 72 * 3.6e6 && !(await missedAlreadyNoted(id))) {
+        const purl0 = ap.patient?.links?.self;
+        if (purl0) {
+          const pt0 = await patient(purl0);
+          if (pt0 && pt0.email) {
+            const mail = missedSessionEmail(pt0.firstName);
+            if (opts.dry) result.missed++;
+            else {
+              const sent = await sendDetailed(pt0.email, mail.subject, mail.text, mail.html, { replyTo: site.email });
+              if (sent.ok) { await recordMissed(id); result.missed++; }
+              else result.failures.push(`missed ${id}: ${sent.detail ?? 'failed'}`);
+            }
+          } else result.skipped.noEmail++;
+        }
+      }
+      continue;
+    }
 
     const startsAt = ap.starts_at as string | undefined;
     if (!startsAt) continue;

@@ -76,6 +76,19 @@ export default async function ClientPortalPage({
           </li>
         </ul>
 
+        {/* Deliberately here and NOT in the post-session follow-up email.
+            Both would be permitted — BCACC bans testimonials, not referrals —
+            but an email arriving the morning after a session asking you to pass
+            the practice on reads as transactional at the one moment it must
+            not. The portal is somewhere a client comes on purpose. */}
+        <h2 id="passing-on" style={{ marginTop: 38 }}>If someone you know is looking</h2>
+        <p style={{ marginBottom: 0 }}>
+          There are openings at the moment. You will never be asked for a review or a
+          testimonial — that is prohibited, and for a good reason — and there is no reward for
+          passing anything on. <Link href="/refer">What is useful to send someone</Link>, if you
+          ever want it.
+        </p>
+
         <form
           action={async () => {
             'use server';

@@ -30,10 +30,10 @@ export const PAGE_DATES: Record<string, string> = {
   "/punjabi": "2026-08-09",
   "/answers": "2026-08-10",
   "/careers": "2026-08-09",
-  "/standards": "2026-08-09",
-  "/editorial-policy": "2026-08-09",
-  "/privacy": "2026-08-09",
-  "/accessibility": "2026-08-09"
+  "/standards": "2026-08-14",
+  "/editorial-policy": "2026-08-14",
+  "/privacy": "2026-08-14",
+  "/accessibility": "2026-08-14"
 };
 
 /** Collections whose items share one source module and so one honest date. */
