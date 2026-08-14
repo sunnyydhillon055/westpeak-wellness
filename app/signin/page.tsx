@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { site } from '@/lib/site';
 import { auth, signIn, signOut, googleConfigured } from '@/auth';
+import AccessCodeForm from '@/components/AccessCodeForm';
 
 export const metadata: Metadata = {
   title: { absolute: 'Sign in — Westpeak Wellness' },
@@ -114,7 +115,7 @@ export default async function SignInPage({
                 Continue with Google
               </button>
             </form>
-            <p className="signin-or"><span>or use a password</span></p>
+            {wantsAdmin && <p className="signin-or"><span>or use a password</span></p>}
           </>
         ) : (
           wantsAdmin && (
@@ -126,6 +127,26 @@ export default async function SignInPage({
               <code>GO_LIVE.md</code>. Password sign-in works meanwhile.
             </p>
           )
+        )}
+
+        {/* Clients get the code route first: they reach this a few times a
+            year and a password set once and never used is the thing they will
+            not have. Staff sign in constantly, so a password is the faster
+            path there and the code form would be friction. */}
+        {!wantsAdmin && (
+          <>
+            <AccessCodeForm
+              onVerify={async (formData: FormData) => {
+                'use server';
+                await signIn('access-code', {
+                  email: String(formData.get('email') ?? ''),
+                  code: String(formData.get('code') ?? ''),
+                  redirectTo: destination,
+                });
+              }}
+            />
+            <p className="signin-or"><span>or use a password</span></p>
+          </>
         )}
 
         <form
@@ -155,7 +176,8 @@ export default async function SignInPage({
         <p style={{ fontSize: '.92rem', color: 'var(--ink-soft)', marginTop: 24 }}>
           <>
             Forgotten your password, or never set one?{' '}
-            <Link href="/forgot">Send yourself a reset link</Link>.
+            <Link href="/forgot">Send yourself a reset link</Link>. A code needs no
+            password at all.
             {hasGoogle && ' Signing in with Google needs no password at all.'}
           </>
         </p>
