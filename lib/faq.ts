@@ -5,7 +5,7 @@ export type FAQ = { q: string; a: string };
 export const faqs: FAQ[] = [
   {
     q: "How do I pay, and when?",
-    a: "Sessions are paid by credit card at the time you book, not at the end of the hour. Cancellation is free up to 24 hours before the appointment; inside that window the session is charged, because the time was held and cannot realistically be filled at that notice. The client portal sets out the whole process, including what happens if something unavoidable comes up.",
+    a: "Sessions are paid by credit card at the time you book, not at the end of the hour. Cancel with at least 24 hours notice and the fee is refunded in full. Inside that window, or for a no-show, 50% of the fee is retained — the time was held and cannot realistically be filled at that notice. The client portal sets out the whole process, including what happens if something unavoidable comes up.",
   },
   {
     q: "Are you taking new clients?",

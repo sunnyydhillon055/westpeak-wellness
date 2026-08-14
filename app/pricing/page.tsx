@@ -202,7 +202,7 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
               <span className="icon-chip" aria-hidden="true"><CalendarX strokeWidth={1.6} /></span>
               <div>
                 <h3>Cancellation</h3>
-                <p style={{ marginBottom: 0 }}>24 hours&rsquo; notice. Late cancels or no-shows are charged the full fee. Exceptions for genuine emergencies.</p>
+                <p style={{ marginBottom: 0 }}>24 hours&rsquo; notice. Cancel earlier and the fee is refunded in full; inside that window, or for a no-show, 50% is retained. Exceptions for genuine emergencies.</p>
               </div>
             </div>
           </div>
@@ -284,7 +284,7 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
                 name: 'What is the cancellation policy?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: '24 hours’ notice. Late cancellations or no-shows are charged the full fee, because the time was held and cannot realistically be filled at that notice. There are exceptions for genuine emergencies.',
+                  text: '24 hours’ notice. Cancel with at least 24 hours notice and the session fee is refunded in full. With less notice, or for a no-show, 50% of the fee is retained, because the time was held and cannot realistically be filled at that notice. There are exceptions for genuine emergencies.',
                 },
               },
             ],

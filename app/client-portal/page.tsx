@@ -68,7 +68,8 @@ export default async function ClientPortalPage({
           </li>
           <li>
             <strong>Less than {site.cancellationHours} hours, or a missed session</strong> &mdash;
-            not refunded, because the time was held and cannot be filled at that notice.
+            half the fee is refunded and half is retained, because the time was held and cannot be
+            filled at that notice. This is the figure in the consent form you signed.
           </li>
           <li>
             <strong>Something serious happened</strong> &mdash; say so. Nothing here is automated.
