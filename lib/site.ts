@@ -109,16 +109,15 @@ export const site = {
    *
    * /client-portal is where an existing client books a PAID session, and the
    * site states plainly — on /pricing, in the FAQ, and in the booking-payment
-   * diagram — that the card is taken at the moment of booking. Embedding a
-   * calendar that takes a booking without taking payment would make all three
-   * of those false. So the portal stays on its notice until Stripe is actually
-   * connected and the paid appointment types are set to "Require payment
-   * during booking".
+   * diagram — that the card is taken at the moment of booking.
    *
-   * Set NEXT_PUBLIC_CLINIKO_PAID=1 at that point. Nothing else needs changing. */
+   * That is now true, and verified against the Cliniko API on 2026-08-14: all
+   * five appointment types report online_payments_enabled=true with
+   * online_payments_mode="required". The NEXT_PUBLIC_CLINIKO_PAID flag that
+   * gated the portal until this was real has been removed rather than left set,
+   * because a flag whose only job was to track a finished transition is a
+   * standing invitation to wonder whether it is still needed. */
   bookingReady: Boolean(CLINIKO_BOOKINGS),
-  paidBookingReady:
-    Boolean(CLINIKO_BOOKINGS) && process.env.NEXT_PUBLIC_CLINIKO_PAID === "1",
   /* Hours of free cancellation. Put the same number in Cliniko's "terms of
    * use" for online bookings so clients agree to it as they book. */
   cancellationHours: 24,
