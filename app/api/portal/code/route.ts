@@ -3,6 +3,9 @@ import { issueCode, CODE_TTL_MINUTES } from '@/lib/portal-otp';
 import { isClientAllowed } from '@/lib/portal-store';
 import { sendDetailed, mailConfigured } from '@/lib/portal-mail';
 import { normalizeEmail } from '@/lib/portal-auth';
+import { hasPassword } from '@/lib/portal-users';
+import { sendInviteEmail } from '@/lib/portal-invite';
+import { readClients } from '@/lib/clients';
 import { site } from '@/lib/site';
 
 /* Requests a one-time access code.
@@ -17,14 +20,31 @@ import { site } from '@/lib/site';
  * The cost of that choice is that a client who typos their address gets a
  * cheerful "check your email" and no email. The sign-in copy says to check the
  * address and try again, which is the honest trade.
+ *
+ * FIRST-TIME CLIENTS GET SET-UP, NOT A CODE.
+ *
+ * This is the whole reason there is no proactive invite sweep. Rather than
+ * emailing the client list about a portal nobody asked for, setup is triggered
+ * by the client: a client who has never set a password is sent the set-a-
+ * password link here, at the moment they first try to sign in. Somebody who
+ * never goes looking never hears about it.
+ *
+ * A client who already has a password gets an access code as normal, so the
+ * password is a one-time setup rather than something they must then remember.
  */
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
+/* Worded to cover both branches. Saying "a code is on its way" would be untrue
+ * for a first-time client, who is sent a set-up link instead -- and wording that
+ * differed per branch would leak exactly what the identical response exists to
+ * hide. */
 const SAME_ANSWER = {
   ok: true,
-  message: `If that address belongs to a client here, a ${''}code is on its way. It expires in ${CODE_TTL_MINUTES} minutes.`,
+  message:
+    'If that address belongs to a client here, an email is on its way. ' +
+    `A sign-in code expires in ${CODE_TTL_MINUTES} minutes; a first-time set-up link lasts longer.`,
 };
 
 export async function POST(req: Request) {
@@ -43,6 +63,18 @@ export async function POST(req: Request) {
   try {
     if (!(await isClientAllowed(email))) {
       console.log('[portal-code] request for a non-client address — no code sent');
+      return NextResponse.json(SAME_ANSWER);
+    }
+
+    /* Never set a password? Send the set-up link instead of a code. Same
+     * silent-response contract -- the caller cannot tell which branch ran, so
+     * this does not become a way to probe who is already registered. */
+    if (!(await hasPassword(email))) {
+      const { clients } = await readClients();
+      const name = clients.find((c) => c.email === email)?.name;
+      const sent = await sendInviteEmail(email, name);
+      if (!sent.ok) console.error('[portal-code] invite send failed:', sent.detail);
+      else console.log('[portal-code] first-time client — sent set-up link rather than a code');
       return NextResponse.json(SAME_ANSWER);
     }
 

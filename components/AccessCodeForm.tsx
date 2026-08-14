@@ -63,7 +63,7 @@ export default function AccessCodeForm({
           onChange={(e) => setEmail(e.target.value)}
         />
         <button type="submit" className="btn btn--primary" disabled={busy}>
-          {busy ? 'Sending…' : 'Email me a code'}
+          {busy ? 'Sending…' : 'Continue with email'}
         </button>
         {note && (
           <p style={{ fontSize: '.9rem', color: 'var(--ink-soft)', marginTop: 12 }}>{note}</p>
@@ -77,6 +77,14 @@ export default function AccessCodeForm({
       {/* Carried forward so the server action has it without a round trip
           through the URL. */}
       <input type="hidden" name="email" value={email} />
+      {/* Both branches land here, because the route deliberately does not say
+          which one ran. A returning client types the code; a first-time client
+          follows the set-up link instead and never fills this in. */}
+      <p style={{ fontSize: '.9rem', color: 'var(--ink-soft)', margin: '0 0 14px' }}>
+        Signed up before? Enter the code we just emailed. If this is your first time
+        using the portal, we have sent a link to choose a password instead — follow
+        that and you will not need a code.
+      </p>
       <label htmlFor="code">Access code</label>
       <input
         id="code"

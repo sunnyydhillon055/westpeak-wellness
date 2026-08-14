@@ -50,10 +50,18 @@ const REINVITE_AFTER_MS = 30 * 864e5;
  * a bounce problem shows up while it is still ten addresses rather than all of
  * them.
  *
- * INVITE_BATCH_LIMIT overrides it; 0 disables invites entirely without needing
- * a deploy, which is the switch to reach for if they should not be going out at
- * all yet. */
-const DEFAULT_BATCH = 10;
+ * DEFAULT IS 0 -- THE PROACTIVE SWEEP IS OFF.
+ *
+ * Emailing a practice's entire client list about a portal they never asked for
+ * is a decision the practice gets to make, and the answer here was no. Setup is
+ * triggered by the client instead: they enter their address at sign-in, and if
+ * they are a client without a password they are sent the link then. Nobody who
+ * does not go looking for the portal ever hears about it.
+ *
+ * The sweep is kept rather than deleted because it is the right tool for a
+ * deliberate, announced rollout later. Set INVITE_BATCH_LIMIT to a number to
+ * switch it on; it stays capped per run for the cold-domain reason above. */
+const DEFAULT_BATCH = 0;
 
 function batchLimit(): number {
   const raw = process.env.INVITE_BATCH_LIMIT?.trim();
@@ -96,6 +104,61 @@ export type InviteResult = {
   failures: string[];
   reason?: string;
 };
+
+/* The invite email itself, in one place. The on-demand path and the batch
+ * sweep must not drift apart -- a client should get the same message
+ * whether they asked for it or a sweep sent it. */
+function inviteBody(first: string, url: string): { text: string; html: string } {
+  const text =
+`Hi ${first},
+
+Westpeak Wellness has a secure client portal where you can book
+sessions, see upcoming appointments and manage your details.
+
+To set it up, choose a password here:
+
+${url}
+
+The link works once and expires. Nobody at the practice can see the
+password you choose — it is stored in a form that cannot be read back,
+so if you forget it we can only send another link like this one.
+
+If you would rather not use the portal, you can ignore this. It changes
+nothing about your appointments.
+
+If you are in immediate danger call 911. For urgent mental-health
+support in BC, call or text 9-8-8 at any hour.
+
+Westpeak Wellness
+${site.domain}`;
+
+  const html =
+`<div style="font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#22262b;max-width:520px;line-height:1.65;">
+  <p style="margin:0 0 14px;font-size:15px;">Hi ${first},</p>
+  <p style="margin:0 0 14px;font-size:15px;">Westpeak Wellness has a secure client portal where you can book sessions, see upcoming appointments and manage your details.</p>
+  <p style="margin:0 0 22px;"><a href="${url}" style="display:inline-block;background:#1f3d4d;color:#fff;text-decoration:none;padding:11px 20px;border-radius:6px;font-weight:600;font-size:15px;">Choose a password</a></p>
+  <p style="margin:0 0 14px;font-size:14px;">The link works once and expires. <strong>Nobody at the practice can see the password you choose</strong> — it is stored in a form that cannot be read back, so if you forget it we can only send another link like this one.</p>
+  <p style="margin:0 0 14px;font-size:14px;">If you would rather not use the portal, ignore this. It changes nothing about your appointments.</p>
+  <p style="margin:22px 0 0;font-size:12px;color:#6b7280;">If you are in immediate danger call 911. For urgent mental-health support in BC, call or text <strong>9-8-8</strong> at any hour.<br>Westpeak Wellness · <a href="${site.domain}" style="color:#6b7280;">${site.domain.replace(/^https?:\/\//, '')}</a></p>
+</div>`;
+  return { text, html };
+}
+
+/* One invite, sent because the client asked for it. Shared with the batch
+ * sweep so there is exactly one definition of the email and the token. */
+export async function sendInviteEmail(
+  email: string, name?: string
+): Promise<{ ok: boolean; detail?: string }> {
+  const secret = process.env.PORTAL_SECRET?.trim();
+  if (!secret) return { ok: false, detail: 'PORTAL_SECRET is not set' };
+  if (!mailConfigured()) return { ok: false, detail: 'mail is not configured' };
+  const fp = await credentialFingerprint(email);
+  const token = await createResetToken(email, secret, fp);
+  const url = `${site.domain}/reset?token=${encodeURIComponent(token)}`;
+  const first = (name || '').trim().split(/\s+/)[0] || 'there';
+  const { text, html } = inviteBody(first, url);
+  return sendDetailed(email, 'Set up your Westpeak Wellness client portal', text, html);
+}
 
 export async function sendPortalInvites(opts: { dry?: boolean } = {}): Promise<InviteResult> {
   const limit = batchLimit();
@@ -141,38 +204,7 @@ export async function sendPortalInvites(opts: { dry?: boolean } = {}): Promise<I
       const url = `${site.domain}/reset?token=${encodeURIComponent(token)}`;
       const first = (c.name || '').trim().split(/\s+/)[0] || 'there';
 
-      const text =
-`Hi ${first},
-
-Westpeak Wellness has a secure client portal where you can book
-sessions, see upcoming appointments and manage your details.
-
-To set it up, choose a password here:
-
-${url}
-
-The link works once and expires. Nobody at the practice can see the
-password you choose — it is stored in a form that cannot be read back,
-so if you forget it we can only send another link like this one.
-
-If you would rather not use the portal, you can ignore this. It changes
-nothing about your appointments.
-
-If you are in immediate danger call 911. For urgent mental-health
-support in BC, call or text 9-8-8 at any hour.
-
-Westpeak Wellness
-${site.domain}`;
-
-      const html =
-`<div style="font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#22262b;max-width:520px;line-height:1.65;">
-  <p style="margin:0 0 14px;font-size:15px;">Hi ${first},</p>
-  <p style="margin:0 0 14px;font-size:15px;">Westpeak Wellness has a secure client portal where you can book sessions, see upcoming appointments and manage your details.</p>
-  <p style="margin:0 0 22px;"><a href="${url}" style="display:inline-block;background:#1f3d4d;color:#fff;text-decoration:none;padding:11px 20px;border-radius:6px;font-weight:600;font-size:15px;">Choose a password</a></p>
-  <p style="margin:0 0 14px;font-size:14px;">The link works once and expires. <strong>Nobody at the practice can see the password you choose</strong> — it is stored in a form that cannot be read back, so if you forget it we can only send another link like this one.</p>
-  <p style="margin:0 0 14px;font-size:14px;">If you would rather not use the portal, ignore this. It changes nothing about your appointments.</p>
-  <p style="margin:22px 0 0;font-size:12px;color:#6b7280;">If you are in immediate danger call 911. For urgent mental-health support in BC, call or text <strong>9-8-8</strong> at any hour.<br>Westpeak Wellness · <a href="${site.domain}" style="color:#6b7280;">${site.domain.replace(/^https?:\/\//, '')}</a></p>
-</div>`;
+      const { text, html } = inviteBody(first, url);
 
       const sent = await sendDetailed(c.email, 'Set up your Westpeak Wellness client portal', text, html);
       if (sent.ok) {
