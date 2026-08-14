@@ -21,17 +21,27 @@ async function send(
  * month, so a silent false would mean nobody finds out until someone notices
  * the email never came. */
 export async function sendDetailed(
-  to: string, subject: string, text: string, html?: string
+  to: string, subject: string, text: string, html?: string,
+  opts?: { replyTo?: string }
 ): Promise<{ ok: boolean; detail?: string }> {
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.PORTAL_FROM_EMAIL;
   if (!apiKey || !from) return { ok: false, detail: 'RESEND_API_KEY or PORTAL_FROM_EMAIL is not set' };
 
+  /* Reply-to matters more than it looks. PORTAL_FROM_EMAIL is a sending address
+   * on the verified subdomain and a reply to it reaches nobody. Cliniko's
+   * confirmations fail in exactly this way — see the header of
+   * lib/booking-mail.ts — so anything a human might answer must carry a
+   * reply-to that lands somewhere a person reads. */
   try {
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ from, to: [to], subject, text, ...(html ? { html } : {}) }),
+      body: JSON.stringify({
+        from, to: [to], subject, text,
+        ...(html ? { html } : {}),
+        ...(opts?.replyTo ? { reply_to: [opts.replyTo] } : {}),
+      }),
     });
     if (res.ok) return { ok: true };
     return { ok: false, detail: `Resend HTTP ${res.status}: ${(await res.text()).slice(0, 200)}` };

@@ -1,3 +1,5 @@
+import SchedulerTelemetry from '@/components/SchedulerTelemetry';
+
 /**
  * Cliniko online-bookings inline embed.
  *
@@ -9,23 +11,32 @@
  * statically rendered, and means a crawler with no JavaScript still gets the
  * fallback link below. The card is taken by Stripe inside the frame — no
  * payment data touches this site, and none reaches Cliniko either.
+ *
+ * The telemetry wrapper is our own code, not a third party, and renders the
+ * same markup — the iframe is still server-rendered and the fallback link is
+ * still in the HTML with JavaScript off. All it adds is two counters that say
+ * whether anyone reached the calendar. See components/SchedulerTelemetry.
  */
-export default function SchedulerEmbed({ url, title }: { url: string; title?: string }) {
+export default function SchedulerEmbed({
+  url, title, page,
+}: { url: string; title?: string; page: string }) {
   return (
-    <div className="scheduler-embed">
-      <iframe
-        src={url}
-        title={title ?? 'Booking calendar'}
-        loading="lazy"
-        /* allow-forms/-scripts/-same-origin are what the booking flow needs;
-           allow-popups covers the card step opening a bank 3-D Secure window. */
-        sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
-        referrerPolicy="no-referrer-when-downgrade"
-      />
-      <p className="scheduler-fallback">
-        Calendar not loading?{' '}
-        <a href={url} target="_blank" rel="noopener">Open the booking page directly</a>.
-      </p>
-    </div>
+    <SchedulerTelemetry page={page}>
+      <div className="scheduler-embed">
+        <iframe
+          src={url}
+          title={title ?? 'Booking calendar'}
+          loading="lazy"
+          /* allow-forms/-scripts/-same-origin are what the booking flow needs;
+             allow-popups covers the card step opening a bank 3-D Secure window. */
+          sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+          referrerPolicy="no-referrer-when-downgrade"
+        />
+        <p className="scheduler-fallback">
+          Calendar not loading?{' '}
+          <a href={url} target="_blank" rel="noopener">Open the booking page directly</a>.
+        </p>
+      </div>
+    </SchedulerTelemetry>
   );
 }

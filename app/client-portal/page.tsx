@@ -56,7 +56,7 @@ export default async function ClientPortalPage({
 
         {/* The full range of sessions, which is why this page is behind sign-in.
             The public /book page is filtered to the free consultation only. */}
-        <SchedulerEmbed url={site.bookingsPaidUrl} title="Book a session" />
+        <SchedulerEmbed url={site.bookingsPaidUrl} title="Book a session" page="/client-portal" />
 
         <ReminderPrefs email={email} notice={typeof searchParams?.prefs === 'string' ? searchParams.prefs : undefined} />
 

@@ -1,40 +1,26 @@
-import { NextResponse } from 'next/server';
+import { handleInbound } from '@/lib/inbound-submit';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-/* Receives a lead-magnet signup.
+/* Receives a lead-magnet signup and, since 2026-08-14, actually keeps it.
  *
- * Forwards to NEXT_PUBLIC_FORM_ENDPOINT when one is configured. When it is
- * not, the submission is still accepted and the person still gets what they
- * asked for — the guide is a page, not an emailed attachment, so nothing is
- * actually withheld pending an email service.
+ * WHAT THIS USED TO DO, BECAUSE IT IS WORTH NOT REPEATING
  *
- * That is the deliberate design: the value is delivered on the page, and the
- * address is a bonus. A form that hands over nothing until an integration
- * exists would lose both the lead and the reader's goodwill.
+ * It validated the address, forwarded to NEXT_PUBLIC_FORM_ENDPOINT if one was
+ * configured, and redirected to ?lead=ok either way. That environment variable
+ * was never set on any deployment. So every person who asked for the checklist
+ * was validated, thanked, and discarded — with no error, no queue backing up,
+ * and nothing anywhere to show it had happened.
+ *
+ * The old comment defended this: the guide is a page, so "nothing is actually
+ * withheld". True about the reader, wrong about the practice. The point of the
+ * form is that somebody raised their hand. Keeping the page and dropping the
+ * hand is not a trade-off, it is just a loss.
+ *
+ * Now: written to Blob first, then the checklist goes to them and an alert to
+ * the practice. Both sends are best-effort and neither can lose the record.
  */
 export async function POST(req: Request) {
-  const form = await req.formData();
-  const email = String(form.get('email') ?? '').trim().toLowerCase();
-  const name = String(form.get('name') ?? '').trim();
-  const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT;
-
-  if (!/^[^@\s]+@[^@\s.]+\.[^@\s]+$/.test(email)) {
-    return NextResponse.redirect(new URL('/pricing?lead=err', req.url), 303);
-  }
-
-  if (endpoint) {
-    try {
-      await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ email, name, source: 'coverage-guide' }),
-      });
-    } catch {
-      // Never fail the user's request because a third party is down.
-    }
-  }
-
-  return NextResponse.redirect(new URL('/pricing?lead=ok', req.url), 303);
+  return handleInbound(req, { kind: 'lead', redirectTo: '/pricing', flag: 'lead' });
 }

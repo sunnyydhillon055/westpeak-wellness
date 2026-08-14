@@ -9,7 +9,9 @@ next-env.d.ts
 
 # Local backup of the Cliniko consent-form template. Contains the counsellor's
 # name and a client-facing legal document — kept on disk for restore, not in git.
-qa/consent-template-backup.json
-qa/consent-form-revised.md
-qa/Westpeak-Consent-Form.docx
-qa/build-consent-docx.js
+# qa/ holds consent-form backups and drafts. Every artifact put there so far
+# has carried the counsellor's real legal name and a client-facing legal
+# document, and one of them was committed by accident on 2026-08-14 and pulled
+# back out before it reached the remote. Ignore the directory rather than
+# naming files: the failure mode is a NEW file nobody remembered to list.
+qa/

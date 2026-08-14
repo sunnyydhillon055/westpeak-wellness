@@ -6,6 +6,7 @@ import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
 import { Mail, MonitorSmartphone, Clock, MapPin, Languages as LangIcon, AtSign } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import InboundForm from '@/components/InboundForm';
 
 export const metadata: Metadata = {
   title: 'Contact & Book',
@@ -14,8 +15,14 @@ export const metadata: Metadata = {
   alternates: { canonical: `${site.domain}/contact` },
 };
 
-export default async function Contact() {
+export default async function Contact({
+  searchParams,
+}: {
+  searchParams?: Record<string, string | string[] | undefined>;
+}) {
   const { windows } = await readAvailability();
+  const sent = searchParams?.sent === 'ok' ? 'ok'
+    : searchParams?.sent === 'err' ? 'err' : undefined;
   return (
     <>
       <section className="hero" style={{ paddingBottom: 48 }}>
@@ -25,7 +32,10 @@ export default async function Contact() {
           <p className="lede">A free 15-minute consultation is the easiest way to start.</p>
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book Free Consultation</Link>
-            <a className="btn btn--ghost" href={`mailto:${site.email}`}>Email instead</a>
+            {/* Was a mailto:, which opens nothing at all on a desktop with no
+                mail client configured — a silent dead end on the one page
+                whose entire job is to be reachable. */}
+            <a className="btn btn--ghost" href="#form">Send a message instead</a>
           </div>
         </div>
       </section>
@@ -44,10 +54,12 @@ export default async function Contact() {
             <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><AtSign strokeWidth={1.7} /></span><div><h3>Instagram</h3><p><a href={site.instagramUrl} target="_blank" rel="noopener">{site.instagram}</a></p></div></div>
           </div>
 
+          <InboundForm kind="enquiry" done={sent} />
+
           <p style={{ marginTop: 32 }}>
             If you already know you want to start, the fastest route is to{' '}
-            <Link href={site.bookingPath}>book a free 15-minute consultation</Link> directly — email
-            is better for questions you want answered before committing to a call.
+            <Link href={site.bookingPath}>book a free 15-minute consultation</Link> directly — the
+            form above is better for questions you want answered before committing to a call.
           </p>
 
           <div className="prose" style={{ marginTop: 36 }}>

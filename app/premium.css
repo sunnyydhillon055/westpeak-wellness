@@ -1227,6 +1227,21 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   background:var(--surface-0); color:var(--ink); }
 .lead-form-row input:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
 
+/* Enquiry and waitlist forms reuse .lead-form; these are the two fields it did
+   not already have. */
+.lead-form-area,
+.lead-form-wide{ width:100%; box-sizing:border-box; font:inherit; padding:11px 13px;
+  min-height:46px; border:1px solid var(--line); border-radius:var(--radius-sm);
+  background:var(--surface-0); color:var(--ink); margin:0 0 10px; }
+.lead-form-area{ resize:vertical; line-height:1.55; }
+.lead-form-area:focus-visible,
+.lead-form-wide:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
+
+/* Honeypot. Positioned off-screen rather than display:none — some bots skip
+   display:none fields precisely because it is the obvious tell. Paired with
+   aria-hidden and tabIndex={-1} in the component so no human ever meets it. */
+.hp{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+
 /* Reviews */
 .review-card blockquote{ margin:0 0 14px; font-size:1.02rem; line-height:1.6; color:var(--ink); }
 .review-card figcaption{ display:flex; flex-direction:column; gap:2px; font-size:.9rem; }
@@ -1269,6 +1284,8 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .admin-table tr.is-muted td{ background:var(--surface-1); color:var(--ink-faint); }
 .admin-email{ font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:.86rem; }
 .admin-date{ white-space:nowrap; color:var(--ink-faint); font-size:.86rem; }
+/* Row-level action button, small enough not to set the row height. */
+.btn--sm{ padding:6px 12px; min-height:0; font-size:.85rem; }
 
 .admin-table input, .admin-table select,
 .admin-add-row input, .admin-add-row select{

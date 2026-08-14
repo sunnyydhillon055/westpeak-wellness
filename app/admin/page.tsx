@@ -7,7 +7,9 @@ import { readClients } from '@/lib/clients';
 import { readAvailability, DAYS } from '@/lib/availability';
 import { listPasswordAccounts } from '@/lib/portal-users';
 import { clinikoConfigured } from '@/lib/cliniko';
+import { recentInbound, markHandled } from '@/lib/inbound';
 import { site } from '@/lib/site';
+import { revalidatePath } from 'next/cache';
 
 export const metadata: Metadata = {
   title: { absolute: 'Practice admin — Westpeak Wellness' },
@@ -77,6 +79,8 @@ export default async function AdminPage({
   const book = await readClients({ fresh: true });
   const avail = await readAvailability({ fresh: true });
   const withPasswords = await listPasswordAccounts();
+  const inbox = await recentInbound(40);
+  const waiting = inbox.filter((i) => !i.handled).length;
 
   const active = book.clients.filter((c) => c.status === 'active').length;
   /* Result of a manual "Sync from Cliniko now". Counts only — the redirect
@@ -124,11 +128,88 @@ export default async function AdminPage({
         ))}
 
         <div className="admin-stats">
+          <div><strong>{waiting}</strong><span>awaiting a reply</span></div>
           <div><strong>{active}</strong><span>can sign in</span></div>
           <div><strong>{book.clients.length}</strong><span>on the books</span></div>
           <div><strong>{avail.windows.length}</strong><span>weekly windows</span></div>
           <div><strong>{withPasswords.length}</strong><span>with a password</span></div>
         </div>
+
+        {/* ------------------------------------------------------------ INBOX */}
+        {/* First on the page, above the client list, because it is the only
+            section that is time-sensitive. Everything below it will still be
+            true tomorrow; a person who wrote in yesterday and heard nothing
+            has already formed a view of the practice. */}
+        <h2 id="inbox" style={{ marginTop: 40 }}>Inbox</h2>
+        <p style={{ color: 'var(--ink-soft)', maxWidth: '40.38em' }}>
+          Messages, waitlist requests and checklist signups from the site. Each one was also
+          emailed to <strong>{site.email}</strong> as it arrived — this is the copy that
+          survives if that email is missed, and the record that a reply is owed.
+        </p>
+
+        {inbox.length === 0 ? (
+          <div className="admin-panel">
+            <p style={{ margin: 0 }}>
+              Nothing yet. The forms on <Link href="/contact">/contact</Link>,{' '}
+              <Link href="/book">/book</Link> and <Link href="/pricing">/pricing</Link> write
+              here.
+            </p>
+          </div>
+        ) : (
+          <div className="admin-table-wrap">
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th>When</th><th>Who</th><th>Kind</th><th>Message</th><th>Page</th><th />
+                </tr>
+              </thead>
+              <tbody>
+                {inbox.map((i) => (
+                  <tr key={i.id} style={i.handled ? { opacity: 0.55 } : undefined}>
+                    <td style={{ whiteSpace: 'nowrap' }}>
+                      {new Date(i.createdAt).toLocaleDateString('en-CA', {
+                        timeZone: 'America/Vancouver', month: 'short', day: 'numeric',
+                      })}
+                    </td>
+                    <td>
+                      {i.name || <em style={{ color: 'var(--ink-faint)' }}>no name</em>}<br />
+                      <a href={`mailto:${i.email}`} style={{ fontSize: '.9em' }}>{i.email}</a>
+                    </td>
+                    <td style={{ whiteSpace: 'nowrap' }}>
+                      {i.kind === 'enquiry' ? 'Message'
+                        : i.kind === 'waitlist' ? 'Waitlist' : 'Checklist'}
+                    </td>
+                    <td style={{ maxWidth: 360 }}>
+                      {i.message || i.windows || (
+                        <em style={{ color: 'var(--ink-faint)' }}>—</em>
+                      )}
+                    </td>
+                    <td style={{ fontSize: '.9em', color: 'var(--ink-faint)' }}>{i.source}</td>
+                    <td>
+                      <form
+                        action={async () => {
+                          'use server';
+                          /* Re-checked inside the action. A server action is a
+                             POST endpoint of its own — the page-level admin
+                             check above does not protect it. */
+                          const s = await auth();
+                          const who = s?.user?.email ?? '';
+                          if (!who || !isAdmin(who)) return;
+                          await markHandled(i.id, !i.handled);
+                          revalidatePath('/admin');
+                        }}
+                      >
+                        <button type="submit" className="btn btn--ghost btn--sm">
+                          {i.handled ? 'Reopen' : 'Done'}
+                        </button>
+                      </form>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
 
         {/* ---------------------------------------------------------- CLIENTS */}
         <h2 id="clients" style={{ marginTop: 40 }}>Clients</h2>

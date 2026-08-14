@@ -38,6 +38,15 @@ export type TrackedEvent =
   | 'consult_cta_click'
   | 'email_click'
   | 'lead_magnet_submit'
+  | 'enquiry_submit'
+  | 'waitlist_submit'
+  /* The booking embed is a third-party iframe and therefore opaque: nothing
+   * inside it can be read from this origin. These two bracket it — reached and
+   * scrolled into view, then interacted with — which is enough to tell
+   * "nobody gets there" apart from "they get there and leave". Without that
+   * distinction every conversion fix is a guess. See components/SchedulerEmbed. */
+  | 'scheduler_visible'
+  | 'scheduler_interact'
   | 'tool_start'
   | 'tool_complete'
   | 'scroll_75'

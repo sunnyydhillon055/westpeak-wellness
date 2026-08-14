@@ -48,6 +48,19 @@ const BASE = site.domain;
 /** Every link the emails use, in one place so they cannot rot separately. */
 export const links = {
   book: `${BASE}${site.bookingPath}`,
+  /* The paid calendar, direct.
+   *
+   * /book is filtered to the free consultation, so pointing a consult
+   * attendee there sends them back to the thing they have already done. The
+   * portal would work but costs them a sign-in at the exact moment they had
+   * decided to go ahead.
+   *
+   * Linking the Cliniko paid calendar straight from the email is safe now in a
+   * way it was not before: all five appointment types are online_payments_mode
+   * "required", verified 2026-08-14, so nobody can take a $340 slot without
+   * paying for it. That was the original reason for the filter, and it no
+   * longer applies. */
+  bookSession: site.bookingsPaidUrl,
   pricing: `${BASE}/pricing`,
   faq: `${BASE}/faq`,
   answers: `${BASE}/answers`,
@@ -62,12 +75,12 @@ export const links = {
   crisis: `${BASE}/standards#crisis`,
 } as const;
 
-const esc = (s: string) =>
+export const esc = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 /* Wrapped at 72 characters. Some mail clients hard-wrap plain text at 78 and
  * a paragraph that wraps twice reads as broken. */
-function wrap(s: string, width = 72): string {
+export function wrap(s: string, width = 72): string {
   return s.split('\n').map((line) => {
     if (line.length <= width) return line;
     const out: string[] = [];
@@ -81,7 +94,7 @@ function wrap(s: string, width = 72): string {
   }).join('\n');
 }
 
-const shell = (heading: string, body: string) => `<!doctype html>
+export const shell = (heading: string, body: string) => `<!doctype html>
 <html><body style="margin:0;padding:0;background:#f4f2ee;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f2ee;padding:28px 12px;">
 <tr><td align="center">
@@ -105,13 +118,13 @@ BC, call or text <strong>9-8-8</strong> at any hour.
 </td></tr></table>
 </body></html>`;
 
-const btn = (href: string, label: string) =>
+export const btn = (href: string, label: string) =>
   `<p style="margin:0 0 22px;"><a href="${href}" style="display:inline-block;background:#1f3d4d;color:#ffffff;text-decoration:none;padding:11px 20px;border-radius:6px;font-weight:600;font-size:15px;">${esc(label)}</a></p>`;
 
-const p = (html: string) =>
+export const p = (html: string) =>
   `<p style="margin:0 0 15px;font-size:15px;line-height:1.65;">${html}</p>`;
 
-const a = (href: string, label: string) =>
+export const a = (href: string, label: string) =>
   `<a href="${href}" style="color:#1f3d4d;">${esc(label)}</a>`;
 
 export type Booking = {
@@ -180,6 +193,71 @@ ${BASE}`);
     btn(links.firstSession, 'What to expect') +
     p(`Also useful: ${a(links.pricing, 'fees and extended health coverage')}, ${a(links.answers, 'common questions')}, and ${a(links.standards, 'how this practice works')}.`) +
     p(`Need to change or cancel? Just reply to this email.`)
+  );
+
+  return { subject, text, html };
+}
+
+/* ---- consultation follow-up ---------------------------------------------- */
+
+/* The consultation is the one point where the practice has already met the
+ * person and nothing at all happens next unless they act. Cliniko's own message
+ * is a receipt for a call that has now been and gone, and the generic follow-up
+ * below says "book your NEXT session" — wrong for someone who has not had a
+ * first one.
+ *
+ * Its restraint is the point. Someone who had a fifteen-minute call and did not
+ * book may be thinking about it, may have decided against it, or may have found
+ * the call itself hard. A nudge written for the first reading is unpleasant for
+ * the other two, and BCACC's advertising standards rule out the usual toolkit
+ * regardless: no urgency, no scarcity, no outcome claims, no spots-filling-up.
+ * What is left is the honest version — here is the link, here is the cost, and
+ * choosing someone else is a fine outcome.
+ *
+ * Sent once, a day after the consultation, and never repeated. */
+export function consultFollowUpEmail(b: Booking) {
+  const subject = 'After your consultation — Westpeak Wellness';
+
+  const text = wrap(
+`Hi ${b.firstName},
+
+Thank you for the call yesterday.
+
+No reply needed, and this is the only message of its kind — there is no
+sequence behind it.
+
+If you would like to go ahead, sessions can be booked here:
+${links.bookSession}
+
+  What sessions cost, and how extended health reimbursement works
+  ${links.pricing}
+
+  What actually happens in a first full session
+  ${links.firstSession}
+
+If you decided this is not the right fit, that is a completely
+reasonable outcome and no explanation is owed to anyone. If it would
+help to be pointed toward something that fits better — a different
+approach, a lower fee, or a service with no fee at all — reply and say
+roughly what you are looking for.
+
+  Common questions, answered directly
+  ${links.answers}
+
+If you are in immediate danger call 911. For urgent mental-health
+support in BC, call or text 9-8-8 at any hour.
+
+${site.name}
+Online counselling across British Columbia
+${BASE}`);
+
+  const html = shell(
+    'After your consultation',
+    p(`Hi ${esc(b.firstName)},`) +
+    p(`Thank you for the call yesterday. No reply needed, and this is the only message of its kind — there is no sequence behind it.`) +
+    btn(links.bookSession, 'Book a session') +
+    p(`Useful either way: ${a(links.pricing, 'what sessions cost and how extended health works')} · ${a(links.firstSession, 'what happens in a first full session')}`) +
+    p(`If you decided this is not the right fit, that is a completely reasonable outcome and no explanation is owed to anyone. If it would help to be pointed toward something that fits better — a different approach, a lower fee, or a service with no fee at all — reply and say roughly what you are looking for.`)
   );
 
   return { subject, text, html };

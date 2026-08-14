@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { site } from '@/lib/site';
 import SchedulerEmbed from '@/components/SchedulerEmbed';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import InboundForm from '@/components/InboundForm';
 
 export const metadata: Metadata = {
   title: 'Book a Free 15-Minute Consultation',
@@ -17,7 +18,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Book() {
+export default function Book({
+  searchParams,
+}: {
+  searchParams?: Record<string, string | string[] | undefined>;
+}) {
+  const waitlist = searchParams?.waitlist === 'ok' ? 'ok'
+    : searchParams?.waitlist === 'err' ? 'err' : undefined;
+
   return (
     <>
       <section className="hero" style={{ paddingBottom: 40 }}>
@@ -75,7 +83,18 @@ export default function Book() {
           </div>
 
           {site.bookingReady ? (
-            <SchedulerEmbed url={site.bookingsUrl} title="Book a free 15-minute consultation" />
+            <>
+              <SchedulerEmbed
+                url={site.bookingsUrl}
+                title="Book a free 15-minute consultation"
+                page="/book"
+              />
+              {/* The calendar offers 17 hours a week, three of the five days
+                  being a single evening hour. For a good share of the people
+                  who get this far, nothing on it is possible — and until now
+                  the entire fallback was a mailto: link in the sidebar. */}
+              <InboundForm kind="waitlist" done={waitlist} />
+            </>
           ) : (
             <div className="crisis" style={{ marginTop: 8 }}>
               <h2 style={{ marginTop: 0 }}>Online scheduling is being set up</h2>

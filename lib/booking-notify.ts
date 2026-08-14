@@ -1,7 +1,8 @@
 import { put, get } from '@vercel/blob';
 import { api, headers } from '@/lib/cliniko';
 import { sendDetailed, mailConfigured } from '@/lib/portal-mail';
-import { confirmationEmail, followUpEmail, type Booking } from '@/lib/booking-mail';
+import { confirmationEmail, followUpEmail, consultFollowUpEmail, type Booking } from '@/lib/booking-mail';
+import { site } from '@/lib/site';
 
 /* Polls Cliniko for appointments needing a confirmation or a follow-up.
  *
@@ -174,17 +175,22 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
       const mail = confirmationEmail(booking);
       if (opts.dry) { result.confirmations++; }
       else {
-        const sent = await sendDetailed(pt.email, mail.subject, mail.text, mail.html);
+        const sent = await sendDetailed(pt.email, mail.subject, mail.text, mail.html, { replyTo: site.email });
         if (sent.ok) { confirmed.add(id); result.confirmations++; }
         else result.failures.push(`confirm ${id}: ${sent.detail ?? 'failed'}`);
       }
     }
 
     if (needsFollowUp) {
-      const mail = followUpEmail(booking);
+      /* The consultation gets its own message. A free 15-minute call that ends
+       * with nothing happening is the single largest leak in the funnel — the
+       * person has already spoken to the practice and is deciding — and the
+       * ordinary follow-up says "book your NEXT session", which is wrong for
+       * someone who has not had a first one. See consultFollowUpEmail. */
+      const mail = booking.isConsult ? consultFollowUpEmail(booking) : followUpEmail(booking);
       if (opts.dry) { result.followUps++; }
       else {
-        const sent = await sendDetailed(pt.email, mail.subject, mail.text, mail.html);
+        const sent = await sendDetailed(pt.email, mail.subject, mail.text, mail.html, { replyTo: site.email });
         if (sent.ok) { followedUp.add(id); result.followUps++; }
         else result.failures.push(`followup ${id}: ${sent.detail ?? 'failed'}`);
       }
