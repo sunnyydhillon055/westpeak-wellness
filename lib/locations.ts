@@ -27,6 +27,27 @@ export type Location = {
  * addresses — and loses. A city page is kept ONLY where something true and
  * specific about accessing care from that place changes what the page says.
  * The other 37 are 301'd to /online-counselling in next.config.mjs.
+ *
+ * AMENDED 2026-08-13. The reasoning above is incomplete, and the correction
+ * matters for when this gets revisited.
+ *
+ * Clearheart Counselling runs ~29 templated /virtual-locations-bc/<city>/
+ * pages and ranks page one for Vancouver, Prince George and Kelowna with them.
+ * Templated city pages do not inherently lose. They lose WHEN THE DOMAIN HAS
+ * NO AUTHORITY TO PUSH THEM — which was, and still is, the situation here.
+ * (Clearheart also holds two physical offices, so they are map-pack eligible
+ * in a way this practice is not. That is a separate advantage, not the
+ * mechanism.)
+ *
+ * So the retirement was right for a zero-authority site: 37 thin pages would
+ * have diluted crawl budget and risked reading as a doorway pattern. But treat
+ * it as STAGED, NOT PERMANENT. As authority accumulates more city pages become
+ * viable. Revisit at the 12-month mark, and only for slugs where a genuinely
+ * deep page can be written — the optional rich fields on Location above are
+ * what keep that honest.
+ *
+ * The strategic response in the meantime is not more city pages. It is query
+ * space where the map pack never triggers at all — see lib/targets.ts.
  */
 export const locations: Location[] = [
   {

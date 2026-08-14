@@ -2,6 +2,7 @@ import { site } from '@/lib/site';
 import { services } from '@/lib/services';
 import { tools } from '@/lib/tools';
 import { locations } from '@/lib/locations';
+import { punjabiRegions } from '@/lib/punjabi-regions';
 import { guides } from '@/lib/guides';
 import { comparisons } from '@/lib/comparisons';
 import { audiences } from '@/lib/audiences';
@@ -92,6 +93,14 @@ export function GET() {
     ...locations.map((l) => ({
       path: `/online-counselling/${l.slug}`, lastmod: now,
       changefreq: 'monthly' as const, priority: 0.6, figure: l.figure,
+    })),
+    /* The Punjabi-by-region cluster. Priority above the city pages on purpose:
+     * these target query space with no map pack, where the practice can rank
+     * outright rather than compete for the two organic slots a no-office
+     * practice can reach. See lib/targets.ts. */
+    ...punjabiRegions.map((r) => ({
+      path: `/punjabi-counselling/${r.slug}`, lastmod: now,
+      changefreq: 'monthly' as const, priority: 0.8,
     })),
   ];
 

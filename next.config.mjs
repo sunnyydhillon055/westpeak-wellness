@@ -114,6 +114,15 @@ const nextConfig = {
       { source: '/manifest.json', destination: '/manifest.webmanifest', permanent: true },
       { source: '/site.webmanifest', destination: '/manifest.webmanifest', permanent: true },
 
+      /* The Punjabi-by-region cluster lives at /punjabi-counselling/<region>,
+         but its hub is /services/punjabi-counselling, which already existed.
+         Pointing the bare prefix there keeps exactly one hub — standing up a
+         second would cannibalise the first for the same query. */
+      { source: '/punjabi-counselling', destination: '/services/punjabi-counselling', permanent: true },
+      { source: '/punjabi-therapist', destination: '/services/punjabi-counselling', permanent: true },
+      { source: '/punjabi-therapy', destination: '/services/punjabi-counselling', permanent: true },
+      { source: '/punjabi-counsellor', destination: '/services/punjabi-counselling', permanent: true },
+
       { source: '/counselling-jobs', destination: '/careers', permanent: true },
       { source: '/counsellor-jobs', destination: '/careers', permanent: true },
       { source: '/therapist-jobs', destination: '/careers', permanent: true },
