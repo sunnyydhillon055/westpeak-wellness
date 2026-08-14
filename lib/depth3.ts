@@ -2,6 +2,34 @@ import type { DepthSection } from './depth';
 
 /* Third-pass sections: the newest guides, and the trust pages. */
 export const depth3: Record<string, DepthSection[]> = {
+  /* EMDR in a first language. Tracked query "punjabi emdr therapy bc",
+   * ceiling 930, and it was the last open Tier-1 intersection.
+   *
+   * This is not the language argument the rest of the site makes. Elsewhere the
+   * case for working in Punjabi is about comfort, nuance and not spending the
+   * first ten minutes explaining a family structure. In EMDR it is mechanical:
+   * the protocol runs on a negative cognition stated in the first person, and
+   * that sentence is language-encoded along with the memory it came from. A
+   * cognition translated on the way in is a different sentence being processed.
+   *
+   * Which is why this sits on the EMDR page rather than only on the Punjabi
+   * one — someone searching for EMDR in Punjabi is asking a clinical question,
+   * not a comfort one, and deserves the clinical answer. */
+  'services/emdr-therapy': [
+    {
+      h2: 'EMDR in a first language, and why it is not a preference',
+      body: [
+        'On most of this site the argument for working in Punjabi is about comfort and precision — not having to translate a family argument, or explain what *log kya kahenge* means before describing how it felt. Real, but a matter of degree.',
+        'In EMDR it is structural. The protocol is built around a **negative cognition**: a short sentence in the first person that the memory still seems to prove — "I am not safe", "it was my fault", "I am not enough". You rate how true it feels, hold it alongside the memory during bilateral stimulation, and work toward a positive cognition that begins to feel true instead. That sentence is the instrument.',
+        'A memory laid down in Punjabi carries its cognition in Punjabi. Translated into English on the way into the session, it becomes a near-equivalent — usually flatter, sometimes carrying a slightly different accusation, occasionally missing the register entirely. English has no single word doing the work of *sharam*, and "shame" and "disgrace" each capture part of it and imply different things about who else is affected. Processing the translation is processing something adjacent to what happened.',
+        'The rating scales have the same problem. Asking how disturbing something feels from nought to ten, in a language the event did not occur in, invites a considered answer rather than an immediate one — and the immediate one is what the protocol needs.',
+        'What this looks like in practice is unremarkable: the cognition stays in whichever language it arrived in, the instructions and the scales are usually in English because those are administrative, and nobody stops to tidy up the switching. Sessions frequently run bilingually within a single sentence, which is how a lot of people think anyway.',
+        'None of this makes EMDR in English wrong for a Punjabi speaker. Plenty of people process in their second language perfectly well, particularly for events that happened in it. It matters most where the memory is old, from childhood, from before migration, or from inside a family — which is a large share of what people bring.',
+        'The edges set out above apply unchanged: stabilisation first, caution with dissociation, and it is not the right tool for a difficulty with no traumatic memory attached. Working in Punjabi does not shorten the preparation phase, and a counsellor offering to skip it is not being accommodating.',
+      ],
+    },
+  ],
+
   'guides/intrusive-thoughts-and-what-they-mean': [
     {
       h2: 'Why the theme is usually the thing you care most about',

@@ -5,6 +5,7 @@ import { abs, orgRef } from '@/lib/schema';
 import { guides } from '@/lib/guides';
 import { comparisons } from '@/lib/comparisons';
 import { resources } from '@/lib/resources';
+import { audiences } from '@/lib/audiences';
 import { approaches } from '@/lib/approaches';
 import { services } from '@/lib/services';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -102,6 +103,14 @@ export default function AnswersPage() {
           a: clean((r as unknown as { shortAnswer: string }).shortAnswer),
           href: `/resources/${r.slug}`,
         })),
+    },
+    {
+      key: 'who',
+      label: 'Who this is for',
+      blurb: 'Written for specific situations rather than for everyone.',
+      rows: audiences
+        .filter((a) => a.shortAnswer)
+        .map((a) => ({ q: a.title, a: clean(a.shortAnswer), href: `/for/${a.slug}` })),
     },
   ].filter((s) => s.rows.length > 0);
 

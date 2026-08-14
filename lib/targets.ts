@@ -58,7 +58,7 @@ export const targets: Target[] = [
   { query: 'punjabi counselling nanaimo vancouver island', tier: 1, ceiling: 940, mapPack: false },
   { query: 'punjabi speaking counsellor kootenays cranbrook', tier: 1, ceiling: 935, mapPack: false },
   { query: 'punjabi speaking counsellor fort st john', tier: 1, ceiling: 935, mapPack: false },
-  { query: 'punjabi emdr therapy bc', tier: 1, ceiling: 930, mapPack: false },
+  { query: 'punjabi emdr therapy bc', tier: 1, ceiling: 930, mapPack: false, page: '/services/emdr-therapy', note: 'Answered by a depth section on the EMDR page rather than a page of its own, because the query is clinical rather than a comfort question: the EMDR protocol runs on a negative cognition stated in the first person, and that sentence is language-encoded along with the memory. Somebody searching this deserves the mechanical answer on the EMDR page, not a language page that mentions EMDR.' },
   { query: 'punjabi couples counselling bc', tier: 1, ceiling: 925, mapPack: false },
   {
     query: 'punjabi therapist intergenerational family conflict',

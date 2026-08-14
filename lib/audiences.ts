@@ -9,6 +9,12 @@ export type Audience = {
   metaDescription: string;
   eyebrow: string;
   lede: string;
+  /* The one-sentence direct answer, written to survive being quoted with no
+   * page around it. Every other dated collection on this site already had one
+   * — these ten did not, which made the pages targeting "counselling for
+   * <group>" the only money pages an answer engine could not lift a sentence
+   * from, and the only ones missing from /answers. */
+  shortAnswer: string;
   updated: string;
   readMinutes: number;
 
@@ -37,6 +43,8 @@ const coreAudiences: Audience[] = [
     eyebrow: "For · New and expecting parents",
     lede:
       "The gap between how you were told this would feel and how it actually feels can be enormous — and there is little permission to say so out loud.",
+    shortAnswer:
+      'Counselling for new and expecting parents in BC, online by secure video in English or Punjabi. Covers the postpartum year, birth that did not go as planned, the identity shift nobody warns you about, and the strain a baby puts on a relationship — with sessions that can be taken during a nap rather than requiring childcare.',
     updated: "2026-08-08",
     readMinutes: 6,
     opening: [
@@ -142,6 +150,8 @@ const coreAudiences: Audience[] = [
     eyebrow: "For · Post-secondary students",
     lede:
       "Everyone says these are the best years of your life, which makes it harder to admit you are barely holding it together.",
+    shortAnswer:
+      'Counselling for BC post-secondary students, online across the province. Campus counselling is free and often has a session cap and a waitlist; private sessions have neither, and this page sets out honestly when the free option is the better one and when it is not.',
     updated: "2026-08-08",
     readMinutes: 6,
     opening: [
@@ -225,6 +235,8 @@ const coreAudiences: Audience[] = [
     eyebrow: "For · Healthcare and shift work",
     lede:
       "You are good in a crisis. That is exactly why nobody notices when you are in one.",
+    shortAnswer:
+      'Counselling for healthcare and shift workers in BC, with evening appointments and sessions by video so a rotation does not end the work. Covers moral injury, the particular exhaustion of caring work, and sleep that never resets — without treating burnout as a personal failure of resilience.',
     updated: "2026-08-08",
     readMinutes: 6,
     opening: [
@@ -305,6 +317,8 @@ const coreAudiences: Audience[] = [
     eyebrow: "For · South Asian adults",
     lede:
       "Not the therapy where you spend the first twenty minutes explaining why you cannot move out.",
+    shortAnswer:
+      'Counselling for first- and second-generation South Asian adults in BC, in Punjabi or English. Family expectation, duty, izzat and log kya kahenge are treated as the context the work happens inside rather than as pathology — and nobody is told the answer is to move out and care less.',
     updated: "2026-08-08",
     readMinutes: 7,
     opening: [

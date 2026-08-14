@@ -12,6 +12,8 @@ export const moreAudiences: Audience[] = [
     eyebrow: 'Who we work with',
     lede:
       'A great deal of what arrives here has been carried competently for years. Competence is exactly why nobody noticed.',
+    shortAnswer:
+      'Counselling for women across BC, online in English or Punjabi. Covers the load that does not show up on any list, anger that has had nowhere to go, and the particular exhaustion of being the person everyone else is fine because of.',
     updated: '2026-08-08',
     readMinutes: 8,
     opening: [
@@ -114,6 +116,8 @@ export const moreAudiences: Audience[] = [
     eyebrow: 'Who we work with',
     lede:
       'Most couples do not arrive after a catastrophe. They arrive after two years of the same conversation going nowhere.',
+    shortAnswer:
+      'Couples counselling in BC by secure video, 50 minutes at $170 or 110 minutes at $340. Gottman-informed and structured, for couples who keep having the same argument — including partners joining from separate locations, which shift work and travel often require.',
     updated: '2026-08-08',
     readMinutes: 8,
     opening: [

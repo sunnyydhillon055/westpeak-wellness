@@ -124,6 +124,12 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
           />
           <Byline updated={a.updated} readMinutes={a.readMinutes} />
 
+          {/* The direct answer, first thing after the byline — same placement
+              as /guides, /compare and /resources. It is what an answer engine
+              lifts, and it is also what a reader who is scanning needs before
+              deciding whether to read the rest. */}
+          <blockquote className="quote" style={{ margin: '0 0 36px' }}>{a.shortAnswer}</blockquote>
+
           <Paragraphs items={a.opening} />
 
           <Toc items={toc} variant="card" />

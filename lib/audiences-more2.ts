@@ -12,6 +12,8 @@ export const moreAudiences2: Audience[] = [
     eyebrow: 'Who we work with',
     lede:
       'Fourteen days on, fourteen days off, and a counselling system that assumes you can make Tuesday at four every week.',
+    shortAnswer:
+      'Counselling for rotational, camp and fly-in-fly-out workers in BC. Sessions by video from camp or from home, scheduled around a rotation rather than a weekday, for the specific strain of a life split between two places and a relationship conducted mostly by phone.',
     updated: '2026-08-08',
     readMinutes: 7,
     opening: [
@@ -106,6 +108,8 @@ export const moreAudiences2: Audience[] = [
     eyebrow: 'Who we work with',
     lede:
       'Nobody applies for this job. It accretes — one appointment, then the medications, then everything.',
+    shortAnswer:
+      'Counselling for family caregivers in BC — people looking after a parent, partner or adult child. Covers resentment that feels unspeakable, anticipatory grief, and the fact that the person doing the caring is usually the last one anybody asks about.',
     updated: '2026-08-08',
     readMinutes: 7,
     opening: [
