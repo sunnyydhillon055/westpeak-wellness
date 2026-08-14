@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { syncClientsFromCliniko } from '@/lib/cliniko-sync';
+import { refreshCatalog } from '@/lib/cliniko-catalog';
 
 /* Nightly Cliniko -> client list sync.
  *
@@ -44,6 +45,15 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
   }
 
+  /* Two independent jobs, deliberately not short-circuited on each other.
+   * A patient-sync failure must not leave prices stale, and vice versa. */
+  const catalog = await refreshCatalog();
+  if (!catalog.ok) {
+    console.error('[cliniko-sync] catalog refresh failed:', catalog.reason);
+  } else if (catalog.changed) {
+    console.log('[cliniko-sync] catalogue CHANGED — prices or durations differ from the last run');
+  }
+
   const result = await syncClientsFromCliniko('cron:cliniko-sync');
 
   if (!result.ok) {
@@ -58,5 +68,5 @@ export async function GET(req: NextRequest) {
     `[cliniko-sync] ${result.totalInCliniko} in Cliniko · ${result.added} added · ` +
     `${result.namesFilled} names filled · ${result.skippedNoEmail} skipped (no email)`
   );
-  return NextResponse.json(result);
+  return NextResponse.json({ ...result, catalog: catalog.ok ? { changed: catalog.changed, items: catalog.catalog.items.length } : { error: catalog.reason } });
 }
