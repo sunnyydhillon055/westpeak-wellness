@@ -68,7 +68,13 @@ export const targets: Target[] = [
   {
     query: 'mental health stigma south asian community bc',
     tier: 1, ceiling: 920, mapPack: false,
-    note: 'Highest-empathy entry point in the cluster. Informational, converts slowly, links well.',
+    page: '/for/first-gen-south-asian-adults',
+    note:
+      'Mapped rather than built, 2026-08-14. The existing page already opens on precisely this — ' +
+      'that the barrier is usually the anticipated effort of explaining rather than stigma as such — ' +
+      'and covers log kya kahenge, silence at home, and inherited migration strain. A second page ' +
+      'would have competed with it for the same query while saying less. Pages that are true beat ' +
+      'pages that are padded, which is the lesson the 37 retired city pages already taught.',
   },
 
   /* ---- Tier 2: winnable with authority --------------------------------- */
@@ -79,7 +85,7 @@ export const targets: Target[] = [
   },
   { query: 'emdr intensive bc', tier: 2, ceiling: 820, mapPack: false, note: 'Already a bookable service at $190/90min. Few practices offer true intensives.' },
   { query: 'punjabi counselling bc', tier: 2, ceiling: 780, mapPack: false, page: '/punjabi' },
-  { query: 'punjabi speaking therapist surrey', tier: 2, ceiling: 780, mapPack: true, note: 'Contested: Atlas, Hundal, Tidal Trauma, plus Psychology Today Punjabi filter pages.' },
+  { query: 'punjabi speaking therapist surrey', tier: 2, ceiling: 780, mapPack: true, page: '/punjabi-counselling/surrey', note: 'Contested, and supply in Surrey is genuinely good — so the page does not argue scarcity, which would be transparently false there. It argues distance: no local office, no overlap with community networks. The head term will not be taken from a young domain; the winnable traffic is the privacy-shaped long tail behind it.' },
   { query: 'online counselling british columbia', tier: 2, ceiling: 760, mapPack: false, page: '/online-counselling' },
   { query: 'low cost counselling bc sliding scale', tier: 2, ceiling: 740, mapPack: false, note: 'Real access content, high volume, already offered.' },
   { query: 'waiting for therapy in bc', tier: 2, ceiling: 730, mapPack: false, page: '/guides/waiting-for-therapy-in-bc', note: 'Already indexed and ranking.' },
