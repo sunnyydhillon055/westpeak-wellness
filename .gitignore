@@ -10,3 +10,4 @@ next-env.d.ts
 # Local backup of the Cliniko consent-form template. Contains the counsellor's
 # name and a client-facing legal document — kept on disk for restore, not in git.
 qa/consent-template-backup.json
+qa/consent-form-revised.md
