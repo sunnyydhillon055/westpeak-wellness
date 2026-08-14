@@ -6,3 +6,7 @@ out
 .vercel
 next-env.d.ts
 .env*
+
+# Local backup of the Cliniko consent-form template. Contains the counsellor's
+# name and a client-facing legal document — kept on disk for restore, not in git.
+qa/consent-template-backup.json
