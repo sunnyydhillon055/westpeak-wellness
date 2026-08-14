@@ -15,9 +15,15 @@ import { site } from '@/lib/site';
  * go to Cliniko rather than the practice. Cliniko does not support a custom
  * sending domain, only a custom reply-to, so this cannot be fixed there.
  *
- * FOLLOW-UPS DO NOT EXIST AT ALL. Cliniko's categories are Confirmation,
- * Reminder, Invoice, Patient Form, Cancellation and Practitioner Notification.
- * There is no post-session message and no feature to build one.
+ * CORRECTED 2026-08-14. An earlier version of this comment claimed Cliniko has
+ * no post-session follow-up at all. That was wrong -- Settings > Communication >
+ * Follow-up messages exists (appointment_follow_up_templates), and the claim was
+ * made from an incomplete list rather than from looking.
+ *
+ * The reason for sending our own is therefore only the envelope, not a missing
+ * feature. If the from-address problem above ever stops mattering -- Cliniko
+ * adding a custom sending domain, say -- then Cliniko's native follow-up is the
+ * simpler option and this module should be retired rather than maintained.
  *
  * So this is additive: Cliniko's confirmation remains the system-of-record
  * receipt, and the practice sends a recognisable one from its own domain plus
