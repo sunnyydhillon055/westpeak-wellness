@@ -20,14 +20,23 @@
  * and later moment. English pages carry the search traffic; the Gurmukhi page
  * carries the reassurance. Both are needed and they are not duplicates.
  *
- * WHY ONLY THREE REGIONS
+ * WHY ONLY THESE REGIONS
  * Every population figure below is from the 2021 census and is checkable at
  * the cited source. Nanaimo, the Kootenays and the Peace are equally real
- * opportunities, but I could not source Punjabi-language or South Asian
- * population figures for them at the same standard, and a page whose central
+ * opportunities, but Punjabi-language or South Asian population figures for
+ * them could not be sourced at the same standard, and a page whose central
  * claim is "there are people like you here" cannot be built on an estimate.
- * They stay out until the numbers are found. Three pages that are true beat
- * seven that are padded — the same lesson the 37 retired city pages taught.
+ * They stay out until the numbers are found. Pages that are true beat pages
+ * that are padded — the same lesson the 37 retired city pages taught.
+ *
+ * SURREY WAS ADDED 2026-08-14 AND DOES NOT FOLLOW THE PATTERN.
+ * The three original pages argue from scarcity. Surrey has the largest
+ * Punjabi-speaking population in Canada and abundant Punjabi-speaking
+ * counsellors, so that argument is unavailable and would be transparently
+ * false. Its entry carries a long comment explaining what it argues instead
+ * and why the distinction matters — read that before editing it, because the
+ * obvious "improvement" is to make it match the others, and that would break
+ * the only page here whose claim survives contact with a Surrey resident.
  *
  * The counsellor-name rule holds here as everywhere: no name on these pages.
  */
@@ -276,6 +285,118 @@ export const punjabiRegions: PunjabiRegion[] = [
       },
     ],
     nearby: ['kamloops', 'prince-george'],
+  },
+
+  /* SURREY IS THE EXCEPTION IN THIS FILE, AND ITS ARGUMENT IS INVERTED.
+   *
+   * The other three pages rest on scarcity: there is no Punjabi-speaking
+   * counsellor within four hours, so virtual is not the cheaper option, it is
+   * the only one. In Surrey that claim is simply false. One Surrey practice
+   * alone lists nine Punjabi-speaking counsellors, and both Psychology Today
+   * and CounsellingBC run Punjabi filters that return page after page of Lower
+   * Mainland results. Writing the scarcity page for Surrey would be dishonest,
+   * and anybody who lives there would know it inside a sentence.
+   *
+   * So this page argues what is actually true, which turns out to be the
+   * stronger argument anyway: in a community of that density the counsellor is
+   * inside the same networks you are. Confidentiality is guaranteed in writing
+   * and felt differently when your counsellor's cousin knows your mother. A
+   * practice with no Surrey office and no local community overlap offers a
+   * structural distance a local practice cannot, however good it is.
+   *
+   * "However good it is" is not a throwaway. Nothing here disparages another
+   * practitioner, names one, or implies local care is worse. BCACC's
+   * advertising standards forbid it and it would also be false — the local
+   * practitioners are not the problem this page is about.
+   *
+   * The niche is therefore not "Punjabi counselling Surrey", a crowded term a
+   * young domain will not win. It is "Punjabi-speaking counselling for someone
+   * in Surrey who does not want to be seen walking in" — a real and
+   * underserved thing to want. */
+  {
+    slug: 'surrey',
+    region: 'Surrey',
+    wider: 'the Lower Mainland',
+    blurb:
+      'Surrey has more Punjabi speakers than anywhere else in Canada, and no shortage of Punjabi-speaking counsellors. What it is short of is distance.',
+    metaDescription:
+      'Punjabi-speaking online counselling for Surrey, from outside Surrey. No local office, no waiting room, no shared community networks. Free 15-minute consultation.',
+    demography: {
+      stat: '128,305 Surrey residents learned Punjabi first — the largest Punjabi-speaking population of any city in Canada.',
+      body: [
+        'In the 2021 census **128,305 Surrey residents reported Punjabi as their mother tongue**, out of a population of 568,322, and Punjabi is spoken at home by roughly 18% of the city. There is nowhere else in the country like it.',
+        'That density is why Surrey is the one place in British Columbia where finding a Punjabi-speaking counsellor is genuinely easy. It is also why this page makes a different argument from the others on this site.',
+        'The barrier in Surrey is not supply. It is that the community is interconnected enough that the counsellor who comes recommended is often connected to the very people you would least want to know you are going.',
+      ],
+    },
+    localReality: {
+      h2: 'Surrey is not short of counsellors — so what is this for?',
+      body: [
+        'There are a good number of Punjabi-speaking clinical counsellors working in Surrey, several practices built specifically around South Asian clients, and Fraser Health runs public mental-health services across the region. If what you want is a Punjabi-speaking counsellor with a Surrey office, that exists and it is not hard to find. This page is not an argument against any of it.',
+        'The reason people write in from Surrey is narrower and harder to say out loud: **they do not want to be seen going.** A car parked outside a known clinic. A waiting room where somebody recognises you. A counsellor whose family knows your family — whose confidentiality is real and complete and still does not stop the feeling of being one degree of separation from home.',
+        'That feeling is not irrational and it is not something to be talked out of. In a community where reputation is genuinely load-bearing — for you, for a marriage, for a sibling who has not married yet — the calculation people make about privacy is a reasonable one.',
+        'This practice has no office in Surrey, no waiting room anywhere, and no professional or social overlap with Surrey\'s South Asian community. That is not a claim to be better. It is a structural difference, and for some people it is the difference between starting counselling and not starting.',
+      ],
+    },
+    access: [
+      {
+        label: 'No local office, deliberately',
+        detail: 'Nobody sees you arrive, because there is nowhere to arrive. Sessions happen wherever you have a private room and a connection — including a parked car, which is more common than you would think.',
+      },
+      {
+        label: 'Outside the community network',
+        detail: 'No shared gurdwara, no overlapping family circles, no chance of meeting your counsellor at a wedding. Confidentiality is a legal duty everywhere; distance is what makes it feel true.',
+      },
+      {
+        label: 'Punjabi, English, or both',
+        detail: 'Most sessions move between the two without anyone deciding to. Clinical and administrative terms usually stay in English, because those are the words people actually use.',
+      },
+      {
+        label: 'Cultural context without the preamble',
+        detail: 'Family expectations, generational silence, a marriage question, "log kya kahenge" — none of it needs explaining from first principles before the work can start.',
+      },
+      {
+        label: 'Evening appointments',
+        detail: 'Weekday evenings, which matters for shift work, for parents, and for anyone whose absence on a weekday afternoon would itself be a conversation at home.',
+      },
+    ],
+    faqs: [
+      {
+        q: 'There are Punjabi-speaking counsellors in Surrey. Why go virtual?',
+        a: 'For plenty of people there is no reason to — if a Surrey office suits you, seeing someone locally is a perfectly good choice, and you would be told so on a consultation call. The people who come here from Surrey are usually those for whom the local option carries a privacy cost: a familiar waiting room, a counsellor connected to the same community, a car recognised outside a clinic. If none of that applies to you, book locally with a clear conscience.',
+      },
+      {
+        q: 'Will anyone in my family find out I am going to counselling?',
+        a: 'Not from this practice. Sessions are held by secure video, nothing is posted to a home address, and confidentiality carries the same legal limits set out on the standards page regardless of who asks. What cannot be controlled from this end is your own device — a shared computer, or a phone somebody else opens, is much the most common way people are found out, and it is worth thinking about before the first session rather than after.',
+      },
+      {
+        q: 'Can the whole session be in Punjabi?',
+        a: 'Yes. Sessions run in Punjabi, in English, or moving between the two — whichever the moment calls for. Most people switch without planning to, and that is fine.',
+      },
+      {
+        q: 'Is virtual counselling as effective as sitting in a room?',
+        a: 'For most presenting concerns the research finds no meaningful difference in outcome between video and in-person counselling. Fit and consistency matter considerably more than the medium, which is the honest reason to choose on whether you will actually attend rather than on format.',
+      },
+      {
+        q: 'Will my extended health cover this?',
+        a: 'Most BC extended-health plans that cover a Registered Clinical Counsellor cover virtual sessions on the same terms as in-person ones. Coverage varies by plan, so it is worth checking your specific policy before booking.',
+      },
+    ],
+    sources: [
+      {
+        label: 'Statistics Canada, Census Profile, 2021 Census — Surrey, City (CY), British Columbia',
+        url: 'https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?LANG=E&DGUIDlist=2021A00055915004&SearchText=surrey',
+      },
+      {
+        label: 'Statistics Canada — non-official languages spoken at home, Surrey (City), 2021',
+        url: 'https://www12.statcan.gc.ca/census-recensement/2021/as-sa/fogs-spg/alternative.cfm?topic=6&lang=e&dguid=2021A00055915004&objectId=6',
+      },
+      {
+        label: 'Fraser Health — mental health and substance use services',
+        url: 'https://www.fraserhealth.ca/health-topics-a-to-z/mental-health-and-substance-use',
+      },
+    ],
+    nearby: ['kamloops', 'kelowna'],
   },
 ];
 

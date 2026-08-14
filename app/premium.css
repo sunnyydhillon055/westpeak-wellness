@@ -1017,8 +1017,38 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 }
 .nav-portal > a[aria-current="page"]{ color:var(--blue-deeper); border-color:var(--blue); }
 
+/* ਪੰਜਾਬੀ language link. Same pill shape as the portal so the two read as one
+   group of utilities rather than two competing ideas, but in the clay accent
+   so it is findable at a glance by someone scanning for the script. Slightly
+   larger, because Gurmukhi at .9rem sits visually smaller than Latin at the
+   same size and would otherwise look like a footnote. */
+.nav-lang > a{
+  display:flex; align-items:center;
+  padding:7px 14px; margin-left:6px;
+  font-size:1rem; line-height:1.2; font-weight:600; color:var(--clay-deep);
+  border:1px solid var(--line); border-radius:var(--radius-pill);
+  transition:border-color var(--dur-fast) var(--ease),
+             color var(--dur-fast) var(--ease),
+             background var(--dur-fast) var(--ease);
+}
+.nav-lang > a:hover{
+  color:var(--clay-deep); border-color:var(--clay); background:var(--clay-ghost);
+  text-decoration:none;
+}
+.nav-lang > a[aria-current="page"]{ border-color:var(--clay); background:var(--clay-ghost); }
+
 @media (max-width:1020px){
-  .nav-portal{ border-bottom:0 !important; margin-top:14px; }
+  .nav-lang{ border-bottom:0 !important; margin-top:14px; }
+  .nav-lang > a{
+    justify-content:center; width:100%; margin:0; padding:13px 20px;
+    min-height:50px; font-size:1.05rem;
+    opacity:0; transform:translateY(-6px);
+    transition:opacity var(--dur-base) var(--ease), transform var(--dur-base) var(--ease);
+  }
+  .nav-links.open .nav-lang > a{
+    opacity:1; transform:none; transition-delay:calc(70ms + var(--i) * 34ms);
+  }
+  .nav-portal{ border-bottom:0 !important; margin-top:10px; }
   .nav-portal > a{
     justify-content:center; width:100%; margin:0; padding:13px 20px;
     min-height:50px; font-size:1rem;

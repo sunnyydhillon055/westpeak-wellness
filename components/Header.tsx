@@ -87,7 +87,31 @@ export default function Header() {
               </Link>
             </li>
           ))}
-          <li className="nav-portal" style={{ '--i': NAV.length } as CSSProperties}>
+          {/* ਪੰਜਾਬੀ, in Gurmukhi, rather than a sixth English nav item.
+            *
+            * Punjabi is the practice's clearest differentiator and it appeared
+            * in no menu at all — site.languagesNative existed and was surfaced
+            * nowhere, so the one thing separating this practice from every
+            * other BC counsellor was invisible unless you went looking.
+            *
+            * A sixth English label would crowd a bar the comment above capped
+            * at five deliberately. The script solves both problems at once:
+            * someone who reads Punjabi spots it instantly and needs no label,
+            * and someone who does not passes over it at no cost. It is also
+            * the more honest signal — a page written *in* Punjabi is a
+            * different promise from the English word "Punjabi" on a menu. */}
+          <li className="nav-lang" style={{ '--i': NAV.length } as CSSProperties}>
+            <Link
+              href="/punjabi"
+              lang="pa"
+              hrefLang="pa"
+              aria-current={isActive('/punjabi') ? 'page' : undefined}
+              onClick={() => setOpen(false)}
+            >
+              ਪੰਜਾਬੀ
+            </Link>
+          </li>
+          <li className="nav-portal" style={{ '--i': NAV.length + 1 } as CSSProperties}>
             <Link
               href={site.portalPath}
               aria-current={isActive(site.portalPath) ? 'page' : undefined}
@@ -96,7 +120,7 @@ export default function Header() {
               Client portal
             </Link>
           </li>
-          <li className="nav-cta" style={{ '--i': NAV.length + 1 } as CSSProperties}>
+          <li className="nav-cta" style={{ '--i': NAV.length + 2 } as CSSProperties}>
             <Link
               className="btn btn--primary"
               href={site.bookingPath}
