@@ -10,6 +10,7 @@ import { resources } from '@/lib/resources';
 import { approaches } from '@/lib/approaches';
 import { getFigure } from '@/lib/figures';
 import { openJobs } from '@/lib/careers';
+import { lastmodFor, collectionLastmod } from '@/lib/page-dates';
 
 export const dynamic = 'force-static';
 
@@ -19,9 +20,21 @@ export const dynamic = 'force-static';
  * artwork, and an image sitemap is the only way image search reliably
  * associates it with the page it illustrates. */
 
+/* `lastmod` is nullable on purpose.
+ *
+ * It used to be `Date` and every page without its own `updated` field was given
+ * `new Date()` — the build timestamp. That made 45 of 113 URLs claim to have
+ * changed at every deployment, which is not merely useless: Google decides per
+ * site whether lastmod can be trusted, and dates that move on an unrelated
+ * deploy teach it to ignore the field entirely, taking the 66 URLs with real
+ * dates down with them.
+ *
+ * Real dates now come from git via lib/page-dates.ts. Where there is genuinely
+ * no date, the element is omitted. A sitemap entry without lastmod is valid and
+ * honest; one with an invented lastmod is neither. */
 type Entry = {
   path: string;
-  lastmod: Date;
+  lastmod: string | null;
   changefreq: 'monthly' | 'yearly';
   priority: number;
   figure?: string;
@@ -31,67 +44,65 @@ const esc = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 export function GET() {
-  const now = new Date();
-
   const core: Entry[] = [
     '', '/about', '/services', '/approaches', '/pricing', '/contact', '/faq',
     '/online-counselling', '/guides', '/compare', '/for', '/resources', '/glossary',
-  ].map((p) => ({ path: p, lastmod: now, changefreq: 'monthly', priority: p === '' ? 1 : 0.8 }));
+  ].map((p) => ({ path: p, lastmod: lastmodFor(p), changefreq: 'monthly', priority: p === '' ? 1 : 0.8 }));
 
   const trust: Entry[] = ['/standards', '/editorial-policy', '/privacy', '/accessibility'].map(
-    (p) => ({ path: p, lastmod: now, changefreq: 'yearly', priority: 0.4 })
+    (p) => ({ path: p, lastmod: lastmodFor(p), changefreq: 'yearly', priority: 0.4 })
   );
 
   const entries: Entry[] = [
     ...core,
-    { path: '/book', lastmod: now, changefreq: 'monthly', priority: 0.9 },
-    { path: '/tools', lastmod: now, changefreq: 'monthly', priority: 0.7 },
-    { path: '/reviews', lastmod: now, changefreq: 'yearly', priority: 0.5 },
-    { path: '/punjabi', lastmod: now, changefreq: 'monthly', priority: 0.7 },
+    { path: '/book', lastmod: lastmodFor('/book'), changefreq: 'monthly', priority: 0.9 },
+    { path: '/tools', lastmod: lastmodFor('/tools'), changefreq: 'monthly', priority: 0.7 },
+    { path: '/reviews', lastmod: lastmodFor('/reviews'), changefreq: 'yearly', priority: 0.5 },
+    { path: '/punjabi', lastmod: lastmodFor('/punjabi'), changefreq: 'monthly', priority: 0.7 },
     /* The answers index: one URL holding every direct answer on the site.
        High priority because it is the page an answer engine retrieves from. */
-    { path: '/answers', lastmod: now, changefreq: 'monthly', priority: 0.8 },
+    { path: '/answers', lastmod: lastmodFor('/answers'), changefreq: 'monthly', priority: 0.8 },
     /* Careers. Only postings still inside their validThrough are listed: Google
        penalises stale JobPosting markup, and a sitemap that keeps advertising a
        closed role is exactly how a careers page turns into a liability. The hub
        stays listed either way, because it keeps its ranking between hires. */
-    { path: '/careers', lastmod: now, changefreq: 'monthly', priority: 0.6 },
+    { path: '/careers', lastmod: lastmodFor('/careers'), changefreq: 'monthly', priority: 0.6 },
     ...openJobs().map((j) => ({
       path: `/careers/${j.slug}`,
-      lastmod: new Date(j.datePosted),
+      lastmod: new Date(j.datePosted).toISOString(),
       changefreq: 'monthly' as const,
       priority: 0.6,
     })),
     ...tools.map((t) => ({
-      path: `/tools/${t.slug}`, lastmod: now, changefreq: 'monthly' as const, priority: 0.7,
+      path: `/tools/${t.slug}`, lastmod: collectionLastmod('tools'), changefreq: 'monthly' as const, priority: 0.7,
     })),
     ...trust,
     ...services.map((s) => ({
-      path: `/services/${s.slug}`, lastmod: now, changefreq: 'monthly' as const,
+      path: `/services/${s.slug}`, lastmod: collectionLastmod('services'), changefreq: 'monthly' as const,
       priority: 0.8, figure: s.figure,
     })),
     ...approaches.map((a) => ({
-      path: `/approaches/${a.slug}`, lastmod: new Date(a.updated),
+      path: `/approaches/${a.slug}`, lastmod: new Date(a.updated).toISOString(),
       changefreq: 'monthly' as const, priority: 0.7, figure: a.figure,
     })),
     ...guides.map((g) => ({
-      path: `/guides/${g.slug}`, lastmod: new Date(g.updated),
+      path: `/guides/${g.slug}`, lastmod: new Date(g.updated).toISOString(),
       changefreq: 'monthly' as const, priority: 0.7, figure: g.figure,
     })),
     ...comparisons.map((c) => ({
-      path: `/compare/${c.slug}`, lastmod: new Date(c.updated),
+      path: `/compare/${c.slug}`, lastmod: new Date(c.updated).toISOString(),
       changefreq: 'monthly' as const, priority: 0.7, figure: c.figure,
     })),
     ...audiences.map((a) => ({
-      path: `/for/${a.slug}`, lastmod: new Date(a.updated),
+      path: `/for/${a.slug}`, lastmod: new Date(a.updated).toISOString(),
       changefreq: 'monthly' as const, priority: 0.7, figure: a.figure,
     })),
     ...resources.map((r) => ({
-      path: `/resources/${r.slug}`, lastmod: new Date(r.updated),
+      path: `/resources/${r.slug}`, lastmod: new Date(r.updated).toISOString(),
       changefreq: 'monthly' as const, priority: 0.7, figure: r.figure,
     })),
     ...locations.map((l) => ({
-      path: `/online-counselling/${l.slug}`, lastmod: now,
+      path: `/online-counselling/${l.slug}`, lastmod: collectionLastmod('locations'),
       changefreq: 'monthly' as const, priority: 0.6, figure: l.figure,
     })),
     /* The Punjabi-by-region cluster. Priority above the city pages on purpose:
@@ -99,7 +110,7 @@ export function GET() {
      * outright rather than compete for the two organic slots a no-office
      * practice can reach. See lib/targets.ts. */
     ...punjabiRegions.map((r) => ({
-      path: `/punjabi-counselling/${r.slug}`, lastmod: now,
+      path: `/punjabi-counselling/${r.slug}`, lastmod: collectionLastmod('punjabiRegions'),
       changefreq: 'monthly' as const, priority: 0.8,
     })),
   ];
@@ -110,9 +121,10 @@ export function GET() {
       const image = f
         ? `\n    <image:image>\n      <image:loc>${esc(`${site.domain}/img/${f.file}`)}</image:loc>\n      <image:title>${esc(f.title)}</image:title>\n      <image:caption>${esc(f.alt)}</image:caption>\n    </image:image>`
         : '';
+      const lastmod = e.lastmod ? `
+    <lastmod>${e.lastmod}</lastmod>` : '';
       return `  <url>
-    <loc>${esc(site.domain + e.path)}</loc>
-    <lastmod>${e.lastmod.toISOString()}</lastmod>
+    <loc>${esc(site.domain + e.path)}</loc>${lastmod}
     <changefreq>${e.changefreq}</changefreq>
     <priority>${e.priority}</priority>${image}
   </url>`;

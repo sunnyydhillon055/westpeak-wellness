@@ -370,6 +370,7 @@ const coreAudiences: Audience[] = [
     related: [
       { href: "/guides/intergenerational-trauma-explained", label: "Intergenerational trauma explained" },
       { href: "/services/punjabi-counselling", label: "Punjabi-speaking counselling in BC" },
+      { href: "/for/punjabi-speaking-couples", label: "Punjabi-speaking couples counselling" },
       { href: "/guides/high-functioning-anxiety", label: "High-functioning anxiety" },
       { href: "/for/university-students", label: "Counselling for BC post-secondary students" },
     ],

@@ -10,24 +10,44 @@ import { site } from '@/lib/site';
  * trust a health page should not have to open the source to find it. */
 export default function Byline({
   updated,
+  reviewed,
   readMinutes,
 }: {
+  /** When the text last changed. */
   updated: string;
+  /** When a clinician last checked it for accuracy, where that happened
+   *  separately from an edit. Optional — absent is the honest default. */
+  reviewed?: string;
   readMinutes?: number;
 }) {
-  const reviewed = new Date(updated + 'T00:00:00Z').toLocaleDateString('en-CA', {
+  /* "Updated" and "Clinically reviewed" are different claims, and this
+   * component used to manufacture the heavier one out of the lighter one's
+   * data: it took `updated`, the date the prose last changed, and printed it
+   * under the word "Reviewed".
+   *
+   * On a page about trauma or anxiety that distinction carries weight. A reader
+   * takes "reviewed 8 August" to mean a clinician read it that day and stood
+   * behind it — not that a sentence was rephrased. Every dated page on this
+   * site was making the stronger claim from the weaker fact.
+   *
+   * Now the strong claim appears only where there is a real review date. The
+   * date itself does not move; only the word does, which is the entire point.
+   * Set `reviewed` on an item when the counsellor has actually re-read it. */
+  const stamp = reviewed ?? updated;
+  const label = reviewed ? 'Clinically reviewed' : 'Updated';
+  const shown = new Date(stamp + 'T00:00:00Z').toLocaleDateString('en-CA', {
     year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC',
   });
 
   return (
     <aside className="byline">
       <p className="byline-line">
-        Written and clinically reviewed by a{' '}
+        Written by a{' '}
         <strong>{site.counsellor.title} ({site.counsellor.credentials})</strong> in independent
         practice in British Columbia.
       </p>
       <p className="byline-meta">
-        Reviewed <time dateTime={updated}>{reviewed}</time>
+        {label} <time dateTime={stamp}>{shown}</time>
         {readMinutes ? ` · ${readMinutes} min read` : ''} ·{' '}
         <Link href="/editorial-policy">How these pages are written</Link> ·{' '}
         <Link href="/standards">Scope and accountability</Link>

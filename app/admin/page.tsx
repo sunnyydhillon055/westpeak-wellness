@@ -8,6 +8,7 @@ import { readAvailability, DAYS } from '@/lib/availability';
 import { listPasswordAccounts } from '@/lib/portal-users';
 import { clinikoConfigured } from '@/lib/cliniko';
 import { recentInbound, markHandled } from '@/lib/inbound';
+import { topSearchTerms, readSearchTerms } from '@/lib/search-log';
 import { site } from '@/lib/site';
 import { revalidatePath } from 'next/cache';
 
@@ -81,6 +82,8 @@ export default async function AdminPage({
   const withPasswords = await listPasswordAccounts();
   const inbox = await recentInbound(40);
   const waiting = inbox.filter((i) => !i.handled).length;
+  const searches = await topSearchTerms(30);
+  const searchTotal = (await readSearchTerms()).total;
 
   const active = book.clients.filter((c) => c.status === 'active').length;
   /* Result of a manual "Sync from Cliniko now". Counts only — the redirect
@@ -208,6 +211,41 @@ export default async function AdminPage({
                 ))}
               </tbody>
             </table>
+          </div>
+        )}
+
+        {/* ----------------------------------------------------- SEARCH TERMS */}
+        {/* The only first-party keyword research this practice will ever get:
+            the words visitors use for their own problem, before Google rewrites
+            them. Counts, not logs — no timestamps, no sessions, nothing that
+            joins two searches to one person. See lib/search-log.ts. */}
+        <h2 id="searches" style={{ marginTop: 44 }}>What people search for</h2>
+        <p style={{ color: 'var(--ink-soft)', maxWidth: '40.38em' }}>
+          Submitted terms from the site&rsquo;s own search box, counted rather than logged —
+          there is no record of who searched or when, only how often a term has been used.
+          A term with no matching page is a page worth writing.
+        </p>
+        {searches.length === 0 ? (
+          <div className="admin-panel">
+            <p style={{ margin: 0 }}>
+              Nothing counted yet. Terms appear here once people use{' '}
+              <Link href="/search">the search box</Link>.
+            </p>
+          </div>
+        ) : (
+          <div className="admin-panel">
+            <p style={{ marginTop: 0, color: 'var(--ink-faint)', fontSize: '.92rem' }}>
+              {searchTotal} search{searchTotal === 1 ? '' : 'es'} counted · {searches.length} distinct
+              term{searches.length === 1 ? '' : 's'} shown, most used first
+            </p>
+            <ul className="admin-terms">
+              {searches.map((t) => (
+                <li key={t.term}>
+                  <Link href={`/search?q=${encodeURIComponent(t.term)}`}>{t.term}</Link>
+                  <span>{t.n}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         )}
 

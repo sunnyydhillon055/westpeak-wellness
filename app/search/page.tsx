@@ -4,6 +4,7 @@ import { site } from '@/lib/site';
 import { abs, orgRef, siteRef } from '@/lib/schema';
 import { buildIndex, searchIndex } from '@/lib/search-index';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import SearchBeacon from '@/components/SearchBeacon';
 
 export const metadata: Metadata = {
   title: { absolute: 'Search | Westpeak Wellness' },
@@ -14,10 +15,22 @@ export const metadata: Metadata = {
 
 /* Server-side search over a build-time index.
  *
- * No JavaScript, no search service, no query logging. The index is assembled
+ * No JavaScript and no search service. The index is assembled
  * from the same data the pages render from, so it can never drift out of date,
  * and results are computed per request from the URL — which means a search
  * result page can be linked, bookmarked and read by a crawler.
+ *
+ * ON QUERY LOGGING. This comment used to say "no query logging", and that was
+ * the right instinct — a search box on a counselling site receives things like
+ * "can my therapist tell my husband", and a log of individual searches is a log
+ * of people's worst moments waiting to be subpoenaed.
+ *
+ * What happens now is not logging. SearchBeacon increments a COUNT per term:
+ * no timestamp, no IP, no session, no ordering, nothing joining two searches to
+ * one person. A tally of words, not a record of events, and terms long enough
+ * to be a sentence rather than a query are dropped rather than truncated. See
+ * lib/search-log.ts, which explains the distinction at length because it is the
+ * part that has to be got right.
  *
  * This page is also what makes the WebSite SearchAction in the root layout
  * honest. It was deliberately omitted before this existed: markup describing a
@@ -42,6 +55,8 @@ export default function SearchPage({ searchParams }: { searchParams?: { q?: stri
           }),
         }}
       />
+
+      {q ? <SearchBeacon q={q} /> : null}
 
       <section className="hero" style={{ paddingBottom: 30 }}>
         <div className="container container--narrow">

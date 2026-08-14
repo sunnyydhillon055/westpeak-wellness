@@ -258,6 +258,8 @@ export const moreGuides3: Guide[] = [
       { href: '/services/individual-therapy', label: 'Individual therapy' },
       { href: '/services/trauma-therapy', label: 'Trauma therapy' },
       { href: '/guides/what-trauma-actually-means', label: 'What trauma actually means' },
+      { href: '/guides/when-someone-you-love-is-drinking', label: 'When someone you love is drinking' },
+      { href: '/guides/chronic-illness-and-mood', label: 'Chronic illness, pain and mood' },
       { href: '/resources/bc-crisis-and-support-directory', label: 'BC crisis and support directory' },
       { href: '/book', label: 'Book a free consultation' },
     ],

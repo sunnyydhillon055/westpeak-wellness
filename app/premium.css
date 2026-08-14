@@ -1317,6 +1317,19 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 /* Row-level action button, small enough not to set the row height. */
 .btn--sm{ padding:6px 12px; min-height:0; font-size:.85rem; }
 
+/* Search-term tally. A wrapping list rather than a table — it is read by
+   scanning for a term nobody has written a page for, not row by row. */
+.admin-terms{ list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:8px; }
+.admin-terms li{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:5px 10px; border:1px solid var(--line); border-radius:var(--radius-pill);
+  background:var(--surface-0); font-size:.9rem;
+}
+.admin-terms li span{
+  font-variant-numeric:tabular-nums; font-size:.8rem; color:var(--ink-faint);
+  border-left:1px solid var(--line); padding-left:8px;
+}
+
 .admin-table input, .admin-table select,
 .admin-add-row input, .admin-add-row select{
   font:inherit; font-size:.92rem; padding:8px 10px; min-height:40px; width:100%;

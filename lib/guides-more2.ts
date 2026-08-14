@@ -175,6 +175,7 @@ export const moreGuides2: Guide[] = [
       { href: '/services/anxiety-counselling', label: 'Anxiety counselling' },
       { href: '/guides/high-functioning-anxiety', label: 'High-functioning anxiety' },
       { href: '/guides/anxiety-attack-vs-panic-attack', label: 'Anxiety attack vs panic attack' },
+      { href: '/guides/health-anxiety', label: 'Health anxiety' },
       { href: '/for/healthcare-and-shift-workers', label: 'Counselling for shift workers' },
       { href: '/glossary', label: 'Counselling glossary' },
     ],

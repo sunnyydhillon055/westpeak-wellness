@@ -241,9 +241,10 @@ export const policies: Record<string, Policy> = {
         ],
         list: [
           { label: 'No advertising or tracking pixels', detail: 'There is no Meta pixel, no Google Ads remarketing tag, and no third-party advertising script anywhere on this site.' },
-          { label: 'No cookies set by this site', detail: 'The site does not set cookies, so there is no consent banner to dismiss. A banner that only exists to be clicked away is theatre.' },
+          { label: 'No cookies unless you sign in', detail: 'Browsing this site sets no cookies, so there is no consent banner to dismiss — a banner that exists only to be clicked away is theatre. Signing in to the client portal does set one session cookie, because that is what keeps you signed in; it is removed when you sign out.' },
           { label: 'No fonts or scripts loaded from other companies', detail: 'Typography uses fonts already on your device. Nothing on a page you load here reports your visit to a third party by loading an asset from them.' },
-          { label: 'No contact form', detail: 'Contact is by email, which means your first message goes directly to the practice rather than through a form processor that also keeps a copy.' },
+          { label: 'Forms go to the practice, not to a form processor', detail: 'The message, waitlist and checklist forms are handled by this site and by the practice’s own email provider. There is no third-party form service holding a copy. What you write is stored so that it cannot be lost if an email fails to send, is visible only to the practice, and is not used for anything else.' },
+          { label: 'Search terms are counted, not logged', detail: 'When the site’s search box is used, the term is added to a tally — the word, and how many times it has been submitted. No timestamp, no IP address, no session, and nothing that connects two searches to the same person. There is no record that any particular search happened, only that a term has been used some number of times, and anything long enough to be a sentence rather than a search term is discarded instead of counted.' },
           { label: 'Standard server logs', detail: 'The hosting provider records ordinary request data — IP address, time, page, user agent — as every web server does. It is used for security and reliability, not for profiling, and it is not combined with any clinical record.' },
         ],
       },

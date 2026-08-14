@@ -196,6 +196,7 @@ export const moreAudiences: Audience[] = [
       { label: 'Canadian Mental Health Association, BC Division', url: 'https://bc.cmha.ca/' },
     ],
     related: [
+      { href: '/for/punjabi-speaking-couples', label: 'Punjabi-speaking couples counselling' },
       { href: '/services/couples-therapy', label: 'Couples therapy' },
       { href: '/guides/does-couples-therapy-work', label: 'Does couples therapy work?' },
       { href: '/guides/how-the-gottman-method-works', label: 'How the Gottman Method works' },

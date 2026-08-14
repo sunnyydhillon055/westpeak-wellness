@@ -233,6 +233,7 @@ export const moreGuides6: Guide[] = [
     related: [
       { href: '/guides/perfectionism-and-self-criticism', label: 'Perfectionism and self-criticism' },
       { href: '/guides/high-functioning-anxiety', label: 'High-functioning anxiety' },
+      { href: '/guides/workplace-bullying-in-bc', label: 'Workplace bullying' },
       { href: '/for/women', label: 'Counselling for women' },
       { href: '/for/first-gen-south-asian-adults', label: 'First-generation South Asian adults' },
       { href: '/book', label: 'Book a free consultation' },
