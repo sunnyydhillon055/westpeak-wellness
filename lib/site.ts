@@ -52,6 +52,26 @@ export const site = {
   counsellor: {
     credentials: "MA, RCC",
     title: "Registered Clinical Counsellor",
+    /* The BCACC registration number, and the register it can be checked in.
+     *
+     * The most load-bearing fact on the site, and it appeared nowhere on it
+     * until 2026-08-14. It was on the consent form and on every receipt — and
+     * nobody sees either of those before deciding whether to book.
+     *
+     * It matters more here than on an ordinary professional site. BCACC
+     * advertising standards prohibit testimonials, client reviews, star
+     * ratings and outcome claims, so the whole conventional trust toolkit is
+     * unavailable — see lib/reviews.ts, which ships empty on purpose and
+     * explains why. What remains is verifiable credentials, and a number a
+     * stranger can look up in a public register is a stronger signal than any
+     * review, because it cannot be bought, invented, or quietly curated.
+     *
+     * Stated with the register beside it rather than alone. A number nobody
+     * can check is just a claim; a number with the register next to it is an
+     * invitation to check, and making that easy is the entire point. */
+    registration: "20111",
+    registerName: "BC Association of Clinical Counsellors",
+    registerUrl: "https://bc-counsellors.org/counsellors/",
   },
   email: "info@westpeakwellness.com",
   instagram: "@westpeakwellness",

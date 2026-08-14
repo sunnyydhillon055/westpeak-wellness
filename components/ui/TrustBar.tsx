@@ -26,9 +26,24 @@ export default function TrustBar() {
         <Credential aria-hidden="true" strokeWidth={1.7} />
         <span><strong>{site.counsellor.title}</strong> · {site.counsellor.credentials}</span>
       </span>
+      {/* The registration number, beside the register it can be checked in.
+        * "Registered with the BCACC" was an assertion. A number next to a
+        * public register is something a stranger can verify in twenty seconds,
+        * and on a site that cannot show a single review that difference is the
+        * whole trust argument — see the comment in lib/site.ts. */}
       <span className="trust-item">
         <Association aria-hidden="true" strokeWidth={1.7} />
-        <span>Registered with the <strong>BCACC</strong></span>
+        <span>
+          <strong>BCACC #{site.counsellor.registration}</strong> ·{' '}
+          <a
+            className="link-standalone"
+            href={site.counsellor.registerUrl}
+            target="_blank"
+            rel="noopener"
+          >
+            verify
+          </a>
+        </span>
       </span>
       <span className="trust-item">
         <Langs aria-hidden="true" strokeWidth={1.7} />

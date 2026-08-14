@@ -87,7 +87,13 @@ const orgSchema = {
   medicalSpecialty: 'Psychiatric',
   isAcceptingNewPatients: true,
   currenciesAccepted: 'CAD',
-  paymentAccepted: 'E-transfer, Credit Card',
+  /* Credit card only. This said "E-transfer, Credit Card" until 2026-08-14,
+     which contradicted the practice: all five Cliniko appointment types are
+     online_payments_mode "required", so the card is taken at booking and no
+     path ends in an e-transfer. Structured data is what a search engine
+     repeats in a result, so a wrong value here is a wrong answer given to
+     somebody who never visits the page to find out otherwise. */
+  paymentAccepted: 'Credit Card',
   /* Must stay in step with site.availability and with Cliniko. This is the
      copy Google reads, so a stale entry here advertises a slot that cannot be
      booked — the worst kind of wrong, because the visitor only finds out after
@@ -114,6 +120,17 @@ const orgSchema = {
     '@type': 'EducationalOccupationalCredential',
     credentialCategory: 'Professional designation',
     name: 'Registered Clinical Counsellor (RCC)',
+    /* The registration number, machine-readable. BCACC advertising standards
+       forbid Review and AggregateRating markup here — see lib/reviews.ts — so
+       this entity has none of the signals that normally carry trust in
+       structured data. A verifiable professional identifier is the one it can
+       legitimately emit, and it is the honest substitute rather than a
+       consolation prize. */
+    identifier: {
+      '@type': 'PropertyValue',
+      name: 'BCACC registration number',
+      value: site.counsellor.registration,
+    },
     recognizedBy: { '@type': 'Organization', name: 'BC Association of Clinical Counsellors', url: 'https://bcacc.ca/' },
   },
   availableService: services.map((s) => ({

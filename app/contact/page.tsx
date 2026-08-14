@@ -46,7 +46,12 @@ export default async function Contact({
           <h2>Reach out</h2>
           <Figure name="bc-reach" caption="Sessions run by secure video, so the practice reaches every region of the province." />
           <div className="info-grid" style={{ marginTop: 26 }}>
-            <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Mail strokeWidth={1.7} /></span><div><h3>Email</h3><p><a href={`mailto:${site.email}`}>{site.email}</a></p></div></div>
+            {/* The reply time, stated. It is the most common unspoken worry
+                when emailing a stranger about therapy — not whether they will
+                answer well, but whether they will answer at all — and it costs
+                nothing to say. Every enquiry acknowledgement makes the same
+                promise, so the two must be changed together. */}
+            <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Mail strokeWidth={1.7} /></span><div><h3>Email</h3><p><a href={`mailto:${site.email}`}>{site.email}</a><br /><span style={{ color: 'var(--ink-faint)', fontSize: '.92em' }}>Replies within one business day</span></p></div></div>
             <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><MonitorSmartphone strokeWidth={1.7} /></span><div><h3>Sessions</h3><p>Fully online, anywhere in British Columbia</p></div></div>
             <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Clock strokeWidth={1.7} /></span><div><h3>Hours</h3><p>{windows.map((a) => `${a.day} ${a.from}–${a.to}`).join(' · ')}</p></div></div>
             <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><MapPin strokeWidth={1.7} /></span><div><h3>Service area</h3><p>Virtual: anywhere in BC</p></div></div>

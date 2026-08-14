@@ -20,7 +20,7 @@ declare global {
 
 export const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
-export function track(event: string, params: Params = {}): void {
+export function track(event: TrackedEvent, params: Params = {}): void {
   try {
     if (typeof window === 'undefined' || !window.gtag) return;
     window.gtag('event', event, params);
@@ -29,14 +29,19 @@ export function track(event: string, params: Params = {}): void {
   }
 }
 
-/* The events this site sends. Kept as a union so a typo is a build error rather
- * than a silently missing metric. */
+/* The events this site sends.
+ *
+ * The parameter on `track` is this union, not `string`. It used to be `string`
+ * while the comment here claimed a typo would be a build error — which it was
+ * not, and `tool_share` had already been shipping for some time without ever
+ * being listed. A misspelled event does not fail; it just never appears in the
+ * reports, and the absence looks exactly like nobody doing the thing.
+ *
+ * Every entry below is fired by real code. Do not add one speculatively: an
+ * event declared and never sent reads in the dashboard as a metric at zero,
+ * which is indistinguishable from a broken funnel. */
 export type TrackedEvent =
   | 'book_click'
-  | 'book_page_view'
-  | 'booking_widget_loaded'
-  | 'consult_cta_click'
-  | 'email_click'
   | 'lead_magnet_submit'
   | 'enquiry_submit'
   | 'waitlist_submit'
@@ -49,6 +54,6 @@ export type TrackedEvent =
   | 'scheduler_interact'
   | 'tool_start'
   | 'tool_complete'
+  | 'tool_share'
   | 'scroll_75'
-  | 'outbound_click'
-  | 'portal_signin';
+  | 'outbound_click';

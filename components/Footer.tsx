@@ -27,7 +27,20 @@ export default function Footer() {
                 Online counselling across British Columbia with a {site.counsellor.title}.
               </p>
               <ul className="footer-facts">
-                <li><Credential aria-hidden="true" strokeWidth={1.7} /><span>{site.counsellor.credentials} · BCACC registered</span></li>
+                {/* The registration number on every page rather than only the
+                    two that discuss credentials. Somebody working out whether a
+                    counselling site is real checks the footer, and with
+                    testimonials and ratings ruled out by BCACC a number they
+                    can look up is the strongest thing that can go there. */}
+                <li>
+                  <Credential aria-hidden="true" strokeWidth={1.7} />
+                  <span>
+                    {site.counsellor.credentials} · BCACC{' '}
+                    <a href={site.counsellor.registerUrl} target="_blank" rel="noopener">
+                      #{site.counsellor.registration}
+                    </a>
+                  </span>
+                </li>
                 <li><Region aria-hidden="true" strokeWidth={1.7} /><span>{site.serviceArea}</span></li>
                 <li><Hours aria-hidden="true" strokeWidth={1.7} /><span>{site.hours}</span></li>
               </ul>
