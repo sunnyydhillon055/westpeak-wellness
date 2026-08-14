@@ -56,6 +56,21 @@ export type Inbound = {
   windows?: string;
   /** Which page it came from, for working out what earns enquiries. */
   source: string;
+  /* Explicit, separate consent to be written to again after the three-email
+   * sequence ends.
+   *
+   * It exists because two items in CLIENT_GROWTH_20_MORE.md contradicted each
+   * other and only one of them was right. Item 8 says the sequence is three
+   * emails then permanent silence — asking for a checklist is CASL consent to
+   * receive the checklist and material about it, not to an indefinite mailing
+   * list. Item 16 then proposed a monthly email to the same people, which is
+   * exactly the thing item 8 rules out.
+   *
+   * A separate ticked box is the only way both can be true. Unticked by
+   * default and it must stay that way: a pre-ticked consent box is not consent
+   * under CASL, and on a counselling site it is worse than merely
+   * non-compliant. */
+  monthlyOptIn?: boolean;
   createdAt: string;
   handled: boolean;
 };
@@ -119,6 +134,7 @@ export async function addInbound(
     message: clip(rec.message, 4000),
     windows: clip(rec.windows, 300) || undefined,
     source: clip(rec.source, 120) || '/',
+    monthlyOptIn: rec.monthlyOptIn === true ? true : undefined,
     createdAt: new Date().toISOString(),
     handled: false,
   };

@@ -29,7 +29,7 @@ export const PAGE_DATES: Record<string, string> = {
   "/reviews": "2026-08-09",
   "/refer": "2026-08-14",
   "/punjabi": "2026-08-09",
-  "/answers": "2026-08-10",
+  "/answers": "2026-08-14",
   "/careers": "2026-08-09",
   "/standards": "2026-08-14",
   "/editorial-policy": "2026-08-14",

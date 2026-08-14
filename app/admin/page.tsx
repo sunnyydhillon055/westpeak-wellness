@@ -85,6 +85,7 @@ export default async function AdminPage({
   const withPasswords = await listPasswordAccounts();
   const inbox = await recentInbound(40);
   const waiting = inbox.filter((i) => !i.handled).length;
+  const monthlyOptIns = inbox.filter((i) => i.monthlyOptIn).length;
   const searches = await topSearchTerms(30);
   const searchTotal = (await readSearchTerms()).total;
 
@@ -162,6 +163,17 @@ export default async function AdminPage({
           emailed to <strong>{site.email}</strong> as it arrived — this is the copy that
           survives if that email is missed, and the record that a reply is owed.
         </p>
+        {/* Shown so the list is visible before anybody builds a monthly send.
+            A monthly email to four people is not a channel, and starting one
+            and stopping is worse than never starting. */}
+        {monthlyOptIns > 0 && (
+          <p style={{ color: 'var(--ink-soft)', maxWidth: '40.38em' }}>
+            <strong>{monthlyOptIns}</strong> {monthlyOptIns === 1 ? 'person has' : 'people have'}{' '}
+            separately opted in to a monthly email. Nothing sends to them yet — that is a
+            standing commitment to write something worth reading every month, and it is
+            deliberately your call rather than a switch that got flipped.
+          </p>
+        )}
 
         {inbox.length === 0 ? (
           <div className="admin-panel">

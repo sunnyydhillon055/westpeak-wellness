@@ -44,6 +44,19 @@ export default function LeadCapture({ done }: { done?: boolean }) {
         />
         <button type="submit" className="btn btn--primary">Send it</button>
       </div>
+      {/* Unticked, and it must stay unticked. A pre-ticked consent box is not
+          consent under CASL, and asking for a checklist is not agreement to an
+          indefinite mailing list — see the comment on `monthlyOptIn` in
+          lib/inbound.ts. Without this box the honest answer is that no monthly
+          email may be sent to these people at all. */}
+      <label className="lead-form-check">
+        <input type="checkbox" name="monthly" value="yes" />
+        <span>
+          Also send me something useful about once a month. Separate from the checklist, and one
+          click stops it at any time.
+        </span>
+      </label>
+
       <p className="lead-form-note">
         Your address is used to send this once. It is not shared, and it does not create a
         client record.

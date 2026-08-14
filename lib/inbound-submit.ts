@@ -67,7 +67,13 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
    * kinds legitimately carry nothing but an address. */
   if (o.kind === 'enquiry' && message.length < 2) return back('err');
 
-  const item = await addInbound({ kind: o.kind, name, email, message, windows, source: returnTo });
+  /* Ticked box only. String comparison rather than truthiness, so a browser
+   * that submits an unchecked box as an empty string cannot register consent. */
+  const monthlyOptIn = String(form.get('monthly') ?? '') === 'yes';
+
+  const item = await addInbound({
+    kind: o.kind, name, email, message, windows, source: returnTo, monthlyOptIn,
+  });
   if (!item) return back('err');
 
   /* Everything below this line is best-effort. The person is already saved. */

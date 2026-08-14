@@ -1264,6 +1264,13 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   min-height:46px; border:1px solid var(--line); border-radius:var(--radius-sm);
   background:var(--surface-0); color:var(--ink); margin:0 0 10px; }
 .lead-form-area{ resize:vertical; line-height:1.55; }
+/* Consent checkbox. Generous hit area and a full-width label, because a
+   consent control that is fiddly to tick is a consent control people tick by
+   accident. */
+.lead-form-check{ display:flex; gap:10px; align-items:flex-start; margin:0 0 12px;
+  font-size:.9rem; color:var(--ink-soft); cursor:pointer; }
+.lead-form-check input{ margin:2px 0 0; width:17px; height:17px; flex:0 0 auto; accent-color:var(--blue-deep); }
+.lead-form-check input:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
 .lead-form-area:focus-visible,
 .lead-form-wide:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
 
