@@ -78,9 +78,9 @@ export async function GET(req: NextRequest) {
   const invites = await sendPortalInvites({ dry });
   if (!invites.ok) console.error('[portal-invite] did not run:', invites.reason);
   else console.log(
-    `[portal-invite]${dry ? ' DRY' : ''} ${invites.sent} invited · ` +
-    `${invites.alreadyHavePassword} already set · ${invites.recentlyInvited} recently invited · ` +
-    `${invites.failures.length} failure(s)`
+    `[portal-invite]${dry ? ' DRY' : ''} ${invites.sent}/${invites.limit} invited · ` +
+    `${invites.deferred} deferred to next run · ${invites.alreadyHavePassword} already set · ` +
+    `${invites.recentlyInvited} recently invited · ${invites.failures.length} failure(s)`
   );
   return NextResponse.json({ ...result, invites, catalog: catalog.ok ? { changed: catalog.changed, items: catalog.catalog.items.length } : { error: catalog.reason } });
 }

@@ -35,6 +35,33 @@ const KEY = 'portal/invited.json';
  * short enough that it is not effectively "once, ever". */
 const REINVITE_AFTER_MS = 30 * 864e5;
 
+/* Per-run cap, and it is a deliverability control rather than politeness.
+ *
+ * The first run after the Cliniko sync lands has every client on the books and
+ * none of them holding a password, so without a cap it would send the practice's
+ * entire client list in one burst -- from a sending domain with no history at
+ * all. That is the exact shape spam filters are built to catch: a cold domain
+ * whose first ever traffic is a large simultaneous batch. Getting flagged on day
+ * one would poison every later email, including the booking confirmations that
+ * actually matter.
+ *
+ * Spreading it means the domain earns a reputation on small volume first. At ten
+ * per two-hour run a list of any realistic size clears within a day or two, and
+ * a bounce problem shows up while it is still ten addresses rather than all of
+ * them.
+ *
+ * INVITE_BATCH_LIMIT overrides it; 0 disables invites entirely without needing
+ * a deploy, which is the switch to reach for if they should not be going out at
+ * all yet. */
+const DEFAULT_BATCH = 10;
+
+function batchLimit(): number {
+  const raw = process.env.INVITE_BATCH_LIMIT?.trim();
+  if (raw === undefined || raw === '') return DEFAULT_BATCH;
+  const n = Number(raw);
+  return Number.isFinite(n) && n >= 0 ? Math.floor(n) : DEFAULT_BATCH;
+}
+
 type Ledger = Record<string, string>; // email -> ISO timestamp of last invite
 
 async function read(): Promise<Ledger> {
@@ -63,14 +90,23 @@ export type InviteResult = {
   sent: number;
   alreadyHavePassword: number;
   recentlyInvited: number;
+  /** Eligible but held back by the per-run cap; they go out next run. */
+  deferred: number;
+  limit: number;
   failures: string[];
   reason?: string;
 };
 
 export async function sendPortalInvites(opts: { dry?: boolean } = {}): Promise<InviteResult> {
+  const limit = batchLimit();
   const base: InviteResult = {
-    ok: false, sent: 0, alreadyHavePassword: 0, recentlyInvited: 0, failures: [],
+    ok: false, sent: 0, alreadyHavePassword: 0, recentlyInvited: 0,
+    deferred: 0, limit, failures: [],
   };
+
+  if (limit === 0) {
+    return { ...base, ok: true, reason: 'INVITE_BATCH_LIMIT=0 — invites are switched off' };
+  }
 
   const secret = process.env.PORTAL_SECRET?.trim();
   if (!secret) return { ...base, reason: 'PORTAL_SECRET is not set — cannot sign invite links' };
@@ -92,6 +128,10 @@ export async function sendPortalInvites(opts: { dry?: boolean } = {}): Promise<I
 
     const last = ledger[c.email] ? Date.parse(ledger[c.email]) : 0;
     if (last && now - last < REINVITE_AFTER_MS) { result.recentlyInvited++; continue; }
+
+    /* Cap reached: count the rest as deferred rather than silently stopping,
+       so the log says how much is still queued instead of looking finished. */
+    if (result.sent >= limit) { result.deferred++; continue; }
 
     if (opts.dry) { result.sent++; continue; }
 
