@@ -62,7 +62,11 @@ const STATUS_LABEL: Record<string, string> = {
 export default async function AdminPage({
   searchParams,
 }: {
-  searchParams?: { c?: string; a?: string; pw?: string; cliniko?: string };
+  searchParams?: {
+    c?: string; a?: string; pw?: string; cliniko?: string;
+    sync?: string; added?: string; total?: string; named?: string;
+    noemail?: string; why?: string;
+  };
 }) {
   const session = await auth();
   const email = session?.user?.email ?? '';
@@ -75,6 +79,19 @@ export default async function AdminPage({
   const withPasswords = await listPasswordAccounts();
 
   const active = book.clients.filter((c) => c.status === 'active').length;
+  /* Result of a manual "Sync from Cliniko now". Counts only — the redirect
+     deliberately carries no addresses. */
+  const syncOk = searchParams?.sync === 'ok';
+  const syncNote = searchParams?.sync
+    ? syncOk
+      ? `Synced. ${searchParams.total ?? '0'} active patient(s) in Cliniko · ` +
+        `${searchParams.added ?? '0'} newly added · ${searchParams.named ?? '0'} name(s) filled` +
+        (Number(searchParams.noemail ?? 0) > 0
+          ? ` · ${searchParams.noemail} skipped with no email on file`
+          : '')
+      : `Sync failed: ${searchParams.why ?? 'unknown'}`
+    : null;
+
   const notices = [
     searchParams?.c && CLIENT_MSG[searchParams.c],
     searchParams?.a && AVAIL_MSG[searchParams.a],
@@ -341,6 +358,22 @@ export default async function AdminPage({
               autoComplete="off" autoCapitalize="none" spellCheck={false}
             />
             <button type="submit" className="btn btn--ghost">Test connection</button>
+          </form>
+
+          <hr style={{ border: 'none', borderTop: '1px solid var(--rule)', margin: '22px 0 18px' }} />
+
+          <p style={{ marginTop: 0 }}>
+            Every active Cliniko patient is pulled onto the list automatically every two hours,
+            along with session prices and durations. Use this to pull now rather than waiting —
+            after adding someone in Cliniko, or after changing a fee.
+          </p>
+          {syncNote && (
+            <p role="status" className={syncOk ? 'admin-ok' : 'portal-gate-error'} style={{ marginTop: 0 }}>
+              {syncNote}
+            </p>
+          )}
+          <form method="POST" action="/api/admin/sync">
+            <button type="submit" className="btn btn--primary">Sync from Cliniko now</button>
           </form>
         </div>
 
