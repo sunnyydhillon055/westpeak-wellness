@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { syncClientsFromCliniko } from '@/lib/cliniko-sync';
 import { refreshCatalog } from '@/lib/cliniko-catalog';
+import { sendPortalInvites } from '@/lib/portal-invite';
 
 /* Nightly Cliniko -> client list sync.
  *
@@ -54,6 +55,7 @@ export async function GET(req: NextRequest) {
     console.log('[cliniko-sync] catalogue CHANGED — prices or durations differ from the last run');
   }
 
+  const dry = req.nextUrl.searchParams.get('dry') === '1';
   const result = await syncClientsFromCliniko('cron:cliniko-sync');
 
   if (!result.ok) {
@@ -68,5 +70,17 @@ export async function GET(req: NextRequest) {
     `[cliniko-sync] ${result.totalInCliniko} in Cliniko · ${result.added} added · ` +
     `${result.namesFilled} names filled · ${result.skippedNoEmail} skipped (no email)`
   );
-  return NextResponse.json({ ...result, catalog: catalog.ok ? { changed: catalog.changed, items: catalog.catalog.items.length } : { error: catalog.reason } });
+
+  /* Invites run AFTER the sync, in the same job, because they read the client
+   * list the sync just wrote. Running them on their own schedule would mean a
+   * client added to Cliniko could wait a full cycle longer than necessary, and
+   * would risk inviting from a list that had not been refreshed yet. */
+  const invites = await sendPortalInvites({ dry });
+  if (!invites.ok) console.error('[portal-invite] did not run:', invites.reason);
+  else console.log(
+    `[portal-invite]${dry ? ' DRY' : ''} ${invites.sent} invited · ` +
+    `${invites.alreadyHavePassword} already set · ${invites.recentlyInvited} recently invited · ` +
+    `${invites.failures.length} failure(s)`
+  );
+  return NextResponse.json({ ...result, invites, catalog: catalog.ok ? { changed: catalog.changed, items: catalog.catalog.items.length } : { error: catalog.reason } });
 }
