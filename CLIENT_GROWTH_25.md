@@ -4,6 +4,47 @@
 
 ---
 
+## STATUS — updated 2026-08-14, after building
+
+**Done: 1, 2, 3, 5, 6, 7, 13, 14, 16, 17, 21.** Roughly 470 of the 850 points.
+
+**Four items were already finished before this list was written, and scoring
+them as work was a mistake in the audit rather than a change of plan:**
+
+| # | What I claimed | What was actually there |
+|---|---|---|
+| 11 | Psychology Today profile needs writing | `kits/KIT-3-psychology-today.md` — complete, with the three-box statement written |
+| 12 | Directory pack needs writing | `kits/KIT-2`, `KIT-4-6-8` — complete, with a canonical NAP block |
+| 19 | Cost tool needs a booking CTA | `components/tools/ResultCta.tsx` already ends every tool on one |
+| 22 | GBP copy needs writing | `kits/KIT-1-google-business-profile.md` — complete |
+
+The lesson is the one this repo keeps teaching: **check before scoring.** Three
+of those four cost nothing to verify and I asserted them from a directory
+listing rather than from opening the files.
+
+### Still open
+
+| # | Item | Pts | Blocked on |
+|---|---|---:|---|
+| 4 | GA4 | 45 | **You** — create the property, send the ID |
+| 22 | Claim the GBP | 40 | **You** — Kit 1 is written and waiting |
+| 11 / 12 / 14 | Submit the profiles and panel applications | 115 | **You** — all copy written, incl. the new Kit 9 |
+| 8 | Punjabi × Delta / Abbotsford / Vancouver | 35 | Needs sourced census figures per region |
+| 9 | Punjabi × EMDR, × intergenerational | 30 | Buildable now |
+| 10 | Gurmukhi landing page | 20 | Needs a fluent reviewer — do not skip |
+| 18 | "Is this right for me" objection page | 25 | Buildable now |
+| 20 | Exit paths on the 39 guides | 20 | Buildable now |
+| 23 | EMDR intensive deepened | 30 | Buildable now |
+| 24 | Low-cost / sliding scale | 25 | Buildable now — "sliding" appears nowhere in `lib/resources*.ts` |
+| 25 | Stress leave / short-term disability | 15 | Buildable now |
+
+**What changed materially:** the site can now keep the people who arrive. Before
+today every lead-magnet address was discarded, there was no way to contact the
+practice except a `mailto:`, no waitlist, no analytics, and no registration
+number anywhere a visitor could see it.
+
+---
+
 ## 0. Read this first — the scale, and two things it cannot fix
 
 **Points here are not ranking points.** `SESSION_BUILD_LIST.md` scores *ceiling* — what query
