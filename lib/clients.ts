@@ -38,6 +38,11 @@ export type ClientRecord = {
   note?: string;
   addedAt: string;
   updatedAt: string;
+  /** Where the record came from. Absent means added by hand before the Cliniko
+   *  sync existed, and is treated as 'manual'. Provenance matters because the
+   *  sync must never overwrite a decision an administrator made deliberately —
+   *  see lib/cliniko-sync.ts. */
+  source?: 'cliniko' | 'manual';
 };
 
 export type ClientBook = {
@@ -94,6 +99,7 @@ function clean(rec: Partial<ClientRecord>): ClientRecord | null {
     note: String(rec.note ?? '').trim().slice(0, 200) || undefined,
     addedAt: rec.addedAt || now,
     updatedAt: now,
+    source: rec.source === 'cliniko' ? 'cliniko' : undefined,
   };
 }
 
