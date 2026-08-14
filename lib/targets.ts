@@ -97,6 +97,16 @@ export const targets: Target[] = [
   { query: 'rcc vs psychologist vs social worker bc', tier: 2, ceiling: 720, mapPack: false, page: '/compare/rcc-vs-psychologist-vs-social-worker-bc' },
   { query: 'extended health coverage counselling bc', tier: 2, ceiling: 700, mapPack: false, page: '/resources/bc-extended-health-coverage-for-counselling' },
 
+  {
+    query: 'stress leave bc how to get', tier: 2, ceiling: 690, mapPack: false,
+    page: '/guides/stress-leave-bc',
+    note:
+      'Highest commercial intent of the ten gaps VISIBILITY_30 measured — somebody searching it ' +
+      'needs documentation and a counsellor, in that order, usually this month. The page leads ' +
+      'with the fact that an RCC CANNOT certify a leave, which is what makes it credible rather ' +
+      'than self-serving, and is the thing most counselling sites on this query leave vague.',
+  },
+
   /* ---- Tier 3: structurally capped -------------------------------------
    * Keep every one of these pages. They are built, they cost nothing to
    * maintain, and they carry real volume. Just do not read the score here as

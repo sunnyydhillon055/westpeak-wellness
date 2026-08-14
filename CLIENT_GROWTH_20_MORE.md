@@ -6,8 +6,7 @@
 
 ## STATUS — updated 2026-08-14, after building
 
-**Built and pushed: 1, 2, 3, 4, 5, 6, 7, 8, 17 (half), 19.** Ten of twenty, and
-the four highest-scoring items in the list.
+**Built and pushed: 1–8, 11, 14–19.** Sixteen of twenty.
 
 | # | Item | State |
 |---|---|---|
@@ -23,11 +22,40 @@ the four highest-scoring items in the list.
 | 17 | Punjabi × need | **Half done.** Intergenerational conflict built. Punjabi × EMDR still open |
 | 19 | Conversion report | **Done.** Monthly, emailed, counts not percentages |
 
+**Since first writing this: 11, 14, 15, 16, 17, 18 also done.** Sixteen of
+twenty built.
+
+| # | Item | State |
+|---|---|---|
+| 11 | Stress leave / STD | **Done.** `/guides/stress-leave-bc`. Leads with the fact an RCC *cannot* certify a leave — which is what makes it credible rather than self-serving, and what most counselling pages on this query leave vague |
+| 14 | Seasonal planning | **Done.** `CONTENT_CALENDAR.md`. Eleven slots, each with a publish date six to eight weeks ahead of its peak, and four of them covered by pages that need a refresh rather than a rewrite |
+| 15 | Social atomisation | **Done.** `npm run social` → `SOCIAL_QUEUE.md`, 52 dated posts built from `shortAnswer` rather than chopped-up paragraphs |
+| 16 | Monthly email | **Consent built, send deliberately not built.** It contradicted item 8 — see below |
+| 17 | Punjabi × need | **Done.** Intergenerational conflict page, plus EMDR-in-a-first-language on the EMDR page |
+| 18 | Answer-engine pass | **Done.** The ten audience pages were the only money pages with no `shortAnswer`; all ten now have one and appear in `/answers` |
+
+### Item 16 contradicted item 8, and item 8 was right
+
+Item 8 says the sequence is three emails then permanent silence, because asking
+for a checklist is CASL consent to receive the checklist — not to an indefinite
+mailing list. Item 16 then proposed a monthly email to exactly those people.
+
+What shipped is the separate consent: an unticked box on the lead form, its own
+field on the record, and a count in `/admin`. **The send is not built**, and that
+is a decision rather than an omission — a monthly email is a standing commitment
+to write something worth reading every month, starting one and stopping is worse
+than never starting, and a monthly email to four people is not a channel.
+
 ### Still to build
 
-**10–14** the ten measured content gaps and seasonal planning · **15** guide
-atomisation for social · **16** the monthly list email · **17** Punjabi × EMDR ·
-**18** answer-engine formatting pass.
+**10, 12, 13** — nine of the ten measured content gaps. PTSD and postpartum
+depression as their own pages; separation and divorce, anxiety in relationships,
+supporting a partner with anxiety; attachment styles, OCD and intrusive
+thoughts, insomnia, seasonal affective disorder.
+
+Each is a full guide, and each needs your clinical read before publishing. That
+is the one part of this that should not be delegated — `VISIBILITY_30.md` said
+so when it first measured the gap and it is still true.
 
 **20 is blocked and I will not fake it.** Rank tracking needs a position data
 source. There is no free reliable rank API, scraping Google is against its terms

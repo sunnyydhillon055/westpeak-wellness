@@ -2,6 +2,99 @@ import type { Guide } from './guides';
 
 export const moreGuides6: Guide[] = [
   {
+    slug: 'stress-leave-bc',
+    title: 'Stress leave in BC: what it actually takes',
+    metaTitle: 'Stress Leave in BC | Westpeak',
+    metaDescription:
+      'Who can certify a stress leave in BC, how EI sickness benefits and short-term disability differ, what a return-to-work plan involves, and what counselling does and cannot do.',
+    eyebrow: 'Guide · Work',
+    lede:
+      'The paperwork question and the clinical question are different, and most pages about this answer neither.',
+    shortAnswer:
+      'A stress leave in BC needs certification from a physician or nurse practitioner — a Registered Clinical Counsellor cannot sign one, and any counsellor implying otherwise is misleading you. Income during leave usually comes from either EI sickness benefits (up to 26 weeks, 55% of insurable earnings to a maximum of $729 a week in 2026) or an employer short-term disability plan, and which applies depends on your plan rather than on your diagnosis. Counselling runs alongside that process; it is not the route into it.',
+    updated: '2026-08-14',
+    readMinutes: 8,
+    figure: 'burnout-vs-depression',
+    sections: [
+      {
+        h2: 'The part most pages get wrong',
+        body: [
+          'A Registered Clinical Counsellor **cannot certify a medical leave in British Columbia.** Not for an employer, not for a short-term disability insurer, and not for EI. That requires a physician or a nurse practitioner, and it is worth saying plainly on a counselling website because a page that leaves it vague is quietly implying otherwise to somebody who is unwell and looking for the shortest route.',
+          'So the first call is to a doctor or a nurse practitioner, not to a counsellor. If you do not have a family doctor, a walk-in clinic, an urgent and primary care centre, or a virtual visit through your provincial coverage can all assess and certify. It is not necessary to have been seeing that clinician for years.',
+          'What counselling does do is run alongside. In practice it is often what the leave is *for* — a leave with nothing happening inside it tends to end with the same person returning to the same conditions in the same state. Insurers also frequently want to see that a person on a mental-health leave is engaged in treatment, and counselling records that engagement even where the counsellor is not the certifying clinician.',
+        ],
+      },
+      {
+        h2: 'What "stress leave" actually means, legally',
+        body: [
+          'It is not a category in BC employment law. The phrase covers a medical leave taken for a mental-health reason, and which protections apply depends on the route.',
+          'The BC **Employment Standards Act** provides unpaid, job-protected illness or injury leave of up to five days a year for most employees who have worked 90 days. That is the floor and it is short — it is not the mechanism for a leave of weeks or months.',
+          'Longer leave usually sits under a combination of your employer\'s policies, an insurance plan, and the duty to accommodate a disability under the **BC Human Rights Code**. That duty is the substantive protection for a longer absence: an employer must accommodate a disability to the point of undue hardship, and a mental-health condition supported by medical documentation is a disability for these purposes.',
+          'None of this is legal advice, and where an employer is disputing a leave or a termination follows one, an employment lawyer is the right call rather than a counsellor. Many offer a free initial consultation.',
+        ],
+      },
+      {
+        h2: 'Where the money comes from',
+        list: [
+          { label: 'EI sickness benefits', detail: 'Federal. Up to 26 weeks, paying 55% of average insurable weekly earnings to a maximum of $729 a week in 2026. Requires a medical certificate and enough insurable hours. There is a waiting period, and some employers top it up.' },
+          { label: 'Short-term disability (STD)', detail: 'An employer plan, if you have one. Typically pays a higher percentage than EI and starts sooner, and the insurer sets its own forms and its own definition of disability. Where an STD plan exists it usually comes first and EI follows if the leave outlasts it.' },
+          { label: 'Long-term disability (LTD)', detail: 'Picks up where STD ends, on a stricter definition that often changes at the two-year mark from "your own occupation" to "any occupation". Worth knowing about early rather than discovering at the transition.' },
+          { label: 'Sick days and vacation', detail: 'Often used to bridge the waiting period. Whether that is wise depends on how long the leave is likely to be — spending them early can leave nothing for the return, which is when flexibility matters most.' },
+          { label: 'Nothing at all', detail: 'A real outcome for contractors, the self-employed without EI special benefits, and people short of insurable hours. Worth establishing before the leave starts rather than three weeks in.' },
+        ],
+      },
+      {
+        h2: 'What the certifying clinician actually needs to say',
+        body: [
+          'Insurers and employers are not entitled to your diagnosis or your clinical detail. What they are entitled to is functional information: that you are unable to perform the duties of your job, what limitations exist, and an expected timeframe for review.',
+          'This distinction is worth holding onto, because forms are often written as though full disclosure were required and people frequently give far more than they need to. "Unable to sustain concentration for extended periods; unable to work in high-conflict settings; review in six weeks" is the shape of a useful medical note. A diagnosis is not required on it.',
+          'If a form appears to demand clinical detail, that is a question for the certifying clinician rather than something to fill in yourself. They deal with these forms constantly and know what is standard.',
+        ],
+      },
+      {
+        h2: 'The return is the part nobody plans',
+        body: [
+          'Most difficulty with stress leave happens at the end rather than the beginning. A leave that removes someone from an intolerable situation without changing anything about it produces a return to exactly the same conditions, and a second leave inside a year is common.',
+          'A graduated return — reduced hours building back over four to eight weeks — is standard and is usually an accommodation an employer is required to consider. So are changes to duties, reporting line, or schedule where those are what made the work unsustainable. These are negotiated through the certifying clinician and the insurer rather than informally, and getting them in writing matters.',
+          'This is the part counselling is genuinely useful for, and it is worth starting well before the return date: what actually needs to be different, what can be asked for, what happens if the answer is no, and how to notice early signs rather than at the point of another collapse.',
+        ],
+      },
+      {
+        h2: 'If you are still working and reading this',
+        body: [
+          'A large share of people who search for this are not on leave and are trying to work out whether they need one. There is no test that settles it, but a few markers are worth taking seriously: sleep that no longer restores, physical symptoms with no medical explanation, mistakes at work that are not like you, dread that starts the evening before rather than in the morning, and drinking more to come down.',
+          'The question is worth taking to a doctor before it is urgent. A leave arranged in advance is a different experience from one arranged in a week where you could not go in — and the second is far more common, because most people wait for permission that never arrives.',
+          'If you are in immediate danger, call 9-1-1. For urgent mental-health support in BC at any hour, call or text 9-8-8, or call 310-6789.',
+        ],
+      },
+    ],
+    midCta: {
+      text: 'Counselling does not certify a leave, and it is frequently what makes one worth taking. A free 15-minute consultation can work out whether that is what you need — including if the answer is a doctor first.',
+      label: 'Book a free consultation',
+    },
+    faqs: [
+      { q: 'Can a counsellor sign my stress leave forms?', a: 'No. In British Columbia a medical leave is certified by a physician or a nurse practitioner. A Registered Clinical Counsellor cannot sign for an employer, an insurer or EI, and any counsellor suggesting otherwise is misleading you. Counselling runs alongside the leave rather than being the route into it.' },
+      { q: 'How long can a stress leave last?', a: 'It depends on the funding route rather than on a fixed rule. EI sickness benefits run to a maximum of 26 weeks. An employer short-term disability plan sets its own limit, commonly between 15 and 26 weeks, after which long-term disability may apply. The medical certificate itself usually sets a review date rather than an end date.' },
+      { q: 'Does my employer get told my diagnosis?', a: 'No. An employer is entitled to functional information — that you cannot perform your duties, what the limitations are, and when this will be reviewed. They are not entitled to your diagnosis or your clinical notes. Insurers can ask for more than employers can, but still less than people usually give them.' },
+      { q: 'Will taking a leave hurt my career?', a: 'That is a real question and it deserves a real answer rather than reassurance. It varies enormously by employer and industry, and the honest position is that people are frequently right to weigh it. What is also true is that an unmanaged deterioration ending in a longer absence is the more common career cost, and it is the one people notice too late.' },
+      { q: 'What if I do not have a family doctor?', a: 'A walk-in clinic, an urgent and primary care centre, or a virtual visit covered by MSP can all assess and certify a leave. You do not need an established relationship with the clinician signing it.' },
+    ],
+    sources: [
+      { label: 'Government of Canada — EI sickness benefits', url: 'https://www.canada.ca/en/services/benefits/ei/ei-sickness.html' },
+      { label: 'BC Employment Standards Act — illness or injury leave', url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/employment-standards/time-off/illness-or-injury-leave' },
+      { label: 'BC Human Rights Code — duty to accommodate', url: 'https://bchumanrights.ca/' },
+      { label: 'WorkSafeBC — mental health', url: 'https://www.worksafebc.com/en/health-safety/hazards-exposures/mental-health' },
+    ],
+    related: [
+      { href: '/guides/burnout-vs-depression', label: 'Burnout or depression?' },
+      { href: '/guides/workplace-bullying-in-bc', label: 'Workplace bullying in BC' },
+      { href: '/resources/workplace-mental-health-bc', label: 'Mental health and work in BC' },
+      { href: '/for/healthcare-and-shift-workers', label: 'For healthcare and shift workers' },
+      { href: '/book', label: 'Book a free consultation' },
+    ],
+  },
+
+  {
     slug: 'adhd-in-adults-and-what-counselling-can-do',
     title: 'Adult ADHD: assessment, and what counselling can and cannot do',
     metaTitle: 'Adult ADHD in BC | Westpeak Wellness',
@@ -234,6 +327,7 @@ export const moreGuides6: Guide[] = [
       { href: '/guides/perfectionism-and-self-criticism', label: 'Perfectionism and self-criticism' },
       { href: '/guides/high-functioning-anxiety', label: 'High-functioning anxiety' },
       { href: '/guides/workplace-bullying-in-bc', label: 'Workplace bullying' },
+      { href: '/guides/stress-leave-bc', label: 'Stress leave in BC' },
       { href: '/for/women', label: 'Counselling for women' },
       { href: '/for/first-gen-south-asian-adults', label: 'First-generation South Asian adults' },
       { href: '/book', label: 'Book a free consultation' },
