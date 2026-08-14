@@ -25,11 +25,20 @@ You will need your BCACC registration number to verify.
 | Sliding scale | **No** — do not tick this |
 | Free consultation | **Yes, 15 minutes** |
 | Accepting new clients | Yes |
-| Payment methods | Credit card, e-transfer |
+| Payment methods | Credit card **only** |
 
 > **Do not tick sliding scale.** The website does not offer one, and a
 > directory promising something the site does not is the kind of mismatch that
 > produces an awkward first conversation.
+
+> **Credit card only — corrected 2026-08-14.** This row said "credit card,
+> e-transfer" until an audit found it contradicted the practice. All five
+> Cliniko appointment types are `online_payments_mode: "required"`: the card is
+> taken at the moment of booking and there is no path that ends in an
+> e-transfer. Ticking e-transfer here would advertise a payment method that
+> does not exist, and the person who picked the listing *because* of it finds
+> out at the checkout step. The same contradiction, between the consent form
+> and the live setup, is what sent 12 of 18 consent forms back incomplete.
 
 ---
 

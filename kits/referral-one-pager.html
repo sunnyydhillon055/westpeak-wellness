@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Westpeak Wellness — referral information for clinicians</title>
+<!--
+  PRINTABLE LEAVE-BEHIND FOR REFERRING CLINICIANS.
+
+  Kit 6(e) already has a referral email. This is the different half of the same
+  job: a GP does not act on an email, they put a sheet in the folder by the desk
+  and read it off when a patient in front of them needs a name. The email opens
+  the relationship; this is what survives it.
+
+  Open in a browser, then Print → Save as PDF. Sized to one sheet of Letter.
+
+  WHY THE SCOPE BOX IS THE LARGEST THING ON THE PAGE
+
+  A referring clinician's risk is not "is this counsellor any good". It is
+  "will this person bounce back to me in three weeks, or worse, be held by
+  someone who should have escalated". Every other counselling flyer leads with
+  approach and modality, which answers a question the GP was not asking.
+  Leading with the limits — no diagnosis, no prescribing, not a crisis service,
+  not a fit for these presentations — is what makes the rest of the sheet
+  credible. It is copied verbatim from the scope section of lib/policies.ts so
+  the two cannot drift.
+
+  NO TESTIMONIALS, NO OUTCOME CLAIMS, NO SUCCESS RATES. BCACC advertising
+  standards apply to a printed sheet exactly as they do to the website.
+-->
+<style>
+  @page { size: letter; margin: 12mm; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font: 9.4pt/1.38 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #22262b; -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .sheet { max-width: 190mm; margin: 0 auto; padding: 0; }
+  header { border-bottom: 2px solid #1f3d4d; padding-bottom: 6px; margin-bottom: 10px; }
+  .eyebrow { margin: 0 0 2px; font-size: 8pt; letter-spacing: .1em; text-transform: uppercase; color: #6b7280; }
+  h1 { margin: 0 0 2px; font-size: 15.5pt; color: #1f3d4d; letter-spacing: -.01em; }
+  .sub { margin: 0; font-size: 10pt; color: #45505c; }
+  h2 {
+    margin: 10px 0 4px; font-size: 9pt; color: #1f3d4d;
+    letter-spacing: .04em; text-transform: uppercase;
+  }
+  p { margin: 0 0 5px; }
+  .cols { display: flex; gap: 14px; }
+  .cols > * { flex: 1 1 0; min-width: 0; }
+  dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 2px 9px; }
+  dt { color: #6b7280; white-space: nowrap; }
+  dd { margin: 0; }
+  ul { margin: 0 0 5px; padding-left: 15px; }
+  li { margin: 0 0 2px; }
+  .scope { border: 1.5px solid #1f3d4d; border-radius: 5px; padding: 8px 11px; background: #f7f9fa; }
+  .scope h2 { margin-top: 0; }
+  .scope li strong { color: #1f3d4d; }
+  .crisis { border-left: 3px solid #b4472e; padding: 5px 0 5px 10px; margin: 7px 0 0; background: #fdf6f4; }
+  .how { border: 1px solid #d8dde2; border-radius: 5px; padding: 8px 11px; background: #fbfaf8; margin-top: 9px; }
+  footer {
+    margin-top: 10px; padding-top: 6px; border-top: 1px solid #d8dde2;
+    font-size: 8.5pt; color: #6b7280; display: flex; justify-content: space-between; gap: 10px;
+  }
+  a { color: #1f3d4d; }
+  /* No font-size override here. An earlier version bumped body to 10pt at print
+     time, which silently undid the sizing the on-screen layout was measured
+     against and pushed the sheet onto a second page — the one failure mode this
+     document cannot have, since nobody proofreads a PDF they are about to hand
+     to a GP. Screen and print must render identically. */
+  @media print { .noprint { display: none !important; } }
+  .noprint {
+    background: #fff8e6; border: 1px solid #e6d9b0; border-radius: 5px;
+    padding: 9px 13px; margin: 0 auto 14px; max-width: 190mm; font-size: 9.5pt; color: #6b5b2e;
+  }
+</style>
+</head>
+<body>
+
+<div class="noprint">
+  <strong>Print → Save as PDF.</strong> Sized to one sheet of US Letter. This box does not print.
+  Check the fee and wait-time lines against reality before handing it to anyone — those are the two
+  that go stale.
+</div>
+
+<div class="sheet">
+  <header>
+    <p class="eyebrow">Referral information for clinicians</p>
+    <h1>Westpeak Wellness</h1>
+    <p class="sub">Virtual clinical counselling across British Columbia &middot; English and Punjabi</p>
+  </header>
+
+  <div class="cols">
+    <div>
+      <h2>The practitioner</h2>
+      <dl>
+        <dt>Name</dt><dd>Aman Bains Dhillon, MA, RCC</dd>
+        <dt>Designation</dt><dd>Registered Clinical Counsellor</dd>
+        <dt>Registration</dt><dd>#20111, BC Association of Clinical Counsellors</dd>
+        <dt>Verify</dt><dd>bcacc.ca &rarr; Find a Counsellor</dd>
+        <dt>Delivery</dt><dd>Secure video only &mdash; no in-person option</dd>
+        <dt>Serves</dt><dd>Anyone physically in BC at session time</dd>
+        <dt>Languages</dt><dd>English, Punjabi</dd>
+      </dl>
+    </div>
+    <div>
+      <h2>Fees and coverage</h2>
+      <dl>
+        <dt>Consultation</dt><dd>15 min, no charge</dd>
+        <dt>Individual</dt><dd>$140 &middot; 50 min</dd>
+        <dt>Couples</dt><dd>$170 &middot; 50 min</dd>
+        <dt>Couples, extended</dt><dd>$340 &middot; 110 min</dd>
+        <dt>EMDR intensive</dt><dd>$190 &middot; 90 min</dd>
+        <dt>Payment</dt><dd>Card, taken at booking</dd>
+        <dt>Coverage</dt><dd>Most BC extended health plans listing RCCs. No MSP, no direct billing &mdash; patient pays and submits. Receipts carry the registration number.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <h2>Commonly seen</h2>
+  <p>
+    Anxiety and depression &middot; trauma and PTSD, including EMDR &middot; burnout, including
+    healthcare and shift workers &middot; couples work &middot; grief &middot; life transitions
+    &middot; intergenerational and cultural conflict in South Asian families.
+  </p>
+
+  <div class="scope">
+    <h2>Scope &mdash; what this practice does not do</h2>
+    <ul>
+      <li><strong>No diagnosis.</strong> An RCC does not diagnose mental disorders. A formal diagnosis for a disability claim, an accommodation or a medication decision needs a physician, psychiatrist or registered psychologist.</li>
+      <li><strong>No prescribing.</strong> Where medication is part of the picture the work runs alongside the prescriber, not instead.</li>
+      <li><strong>No formal psychological assessment.</strong> Psychoeducational, ADHD, autism and cognitive testing all require a registered psychologist.</li>
+      <li><strong>No court-ordered or forensic work.</strong> No custody evaluations, parenting assessments, or anything intended as evidence.</li>
+      <li><strong>Not a crisis service.</strong> Sessions are scheduled and there is no on-call line.</li>
+      <li><strong>Not a fit for every presentation.</strong> Active psychosis, an eating disorder needing medical monitoring, or substance dependence needing withdrawal management are better held by a specialised team. Saying so at the consultation is a normal outcome, not a rejection &mdash; and the referral back to you will be explicit.</li>
+    </ul>
+    <div class="crisis">
+      <strong>In crisis:</strong> 9-1-1 if in immediate danger &middot; 9-8-8 call or text, any hour
+      &middot; BC Mental Health Support 310-6789, no area code needed.
+    </div>
+  </div>
+
+  <div class="how">
+    <h2>How to refer</h2>
+    <p>
+      <strong>No referral form, no letter, and no referral is required</strong> &mdash; counselling
+      is not a referred service in BC. The patient books the free 15-minute consultation themselves
+      at <strong>westpeakwellness.com/book</strong>, which is also where they can see real
+      availability before committing to anything.
+    </p>
+    <p style="margin-bottom:0">
+      If it would help to speak first &mdash; scope, fit, or whether the wait is realistic for
+      someone &mdash; email <strong>info@westpeakwellness.com</strong>. Replies within one business
+      day. With the patient's written consent, information can be shared both ways; without it,
+      nothing about a patient can be confirmed, including whether they attended.
+    </p>
+  </div>
+
+  <footer>
+    <span>
+      <strong>Westpeak Wellness</strong> &middot; westpeakwellness.com &middot; info@westpeakwellness.com
+    </span>
+    <span>Virtual, BC-wide &middot; English &amp; Punjabi</span>
+  </footer>
+</div>
+
+</body>
+</html>
