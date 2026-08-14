@@ -4,6 +4,40 @@
 
 ---
 
+## STATUS — updated 2026-08-14, after building
+
+**Built and pushed: 1, 2, 3, 4, 5, 6, 7, 8, 17 (half), 19.** Ten of twenty, and
+the four highest-scoring items in the list.
+
+| # | Item | State |
+|---|---|---|
+| 1 | Sitemap `lastmod` | **Done.** 0 build timestamps, 113/113 URLs carry a real date from git |
+| 2 | Uniform dates | **Done differently, and the premise was half wrong.** The dates were honest — the content genuinely was written in one push. The real defect was next to it: `Byline` took `updated` and printed it under the word "Reviewed", making a clinical-review claim out of an edit date on every dated page. Now `reviewed` is optional and the label says what actually happened |
+| 3 | Search terms | **Done.** Counted, not logged — no timestamp, no session, nothing joining two searches to a person. Visible in `/admin` |
+| 4 | Orphans | **Done.** 5 → 0 |
+| 5 | Reactivation | **Done.** One button per person in `/admin`, once ever, recorded only on a confirmed send |
+| 6 | Referrals | **Done.** `/refer` exists. No incentive and no tracking, both argued in the file |
+| 7 | No-show recovery | **Done.** Says nothing about the fee, deliberately |
+| 8 | Nurture sequence | **Done.** Days 4 and 11, one-click unsubscribe, drops anyone who becomes a client or writes in |
+| 9 | Cliniko follow-ups | **Not doing it, and the list was wrong.** It would send every client two follow-ups — `lib/booking-mail.ts` already sends one. The list said it "costs nothing"; it costs a duplicate email |
+| 17 | Punjabi × need | **Half done.** Intergenerational conflict built. Punjabi × EMDR still open |
+| 19 | Conversion report | **Done.** Monthly, emailed, counts not percentages |
+
+### Still to build
+
+**10–14** the ten measured content gaps and seasonal planning · **15** guide
+atomisation for social · **16** the monthly list email · **17** Punjabi × EMDR ·
+**18** answer-engine formatting pass.
+
+**20 is blocked and I will not fake it.** Rank tracking needs a position data
+source. There is no free reliable rank API, scraping Google is against its terms
+and unreliable, and the Search Console API needs OAuth credentials only you can
+create. A tracker with no data source is theatre — `scripts/targets.mjs` already
+reports whether a *page* exists, and pretending that is a rank check would be
+worse than the gap.
+
+---
+
 ## 0. What is different about this list
 
 The first list took the obvious levers. This one comes from a **measured sweep**
