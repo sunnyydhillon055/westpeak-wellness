@@ -63,7 +63,12 @@ export const targets: Target[] = [
   {
     query: 'punjabi therapist intergenerational family conflict',
     tier: 1, ceiling: 930, mapPack: false,
-    note: 'Culturally specific, genuinely underserved, high intent. No directory filter covers it.',
+    page: '/for/south-asian-intergenerational-conflict',
+    note:
+      'Culturally specific, genuinely underserved, high intent. No directory filter covers it. ' +
+      'Distinct from /for/first-gen-south-asian-adults on purpose: that page is about a person ' +
+      '(identity, guilt, two selves) and this one is about a relationship that is not working. ' +
+      'The obvious later edit is to merge them; do not.',
   },
   {
     query: 'mental health stigma south asian community bc',

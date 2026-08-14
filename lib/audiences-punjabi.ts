@@ -202,4 +202,132 @@ export const punjabiAudiences: Audience[] = [
       { href: '/book', label: 'Book a free consultation' },
     ],
   },
+
+  /* Intergenerational conflict. Tracked query "punjabi therapist
+   * intergenerational family conflict", ceiling 930, and it was open.
+   *
+   * The distinction from /for/first-gen-south-asian-adults is real and worth
+   * stating, because the obvious edit later will be to merge the two. That page
+   * is about a person: identity, guilt, two selves, being the first in the
+   * family to do this. This one is about a RELATIONSHIP that is not working,
+   * usually with a parent, and usually where both people are behaving
+   * reasonably by their own lights. Those need different work — the first is
+   * largely individual, and this frequently turns out to be about what can be
+   * said out loud and what cannot.
+   *
+   * The trap this page has to avoid is the one nearly every article on the
+   * subject falls into: casting the parents as the problem and the adult child
+   * as the one with insight. That reading is popular, occasionally true, and
+   * useless as a starting position — partly because it is often wrong, and
+   * partly because anybody who loves their parents will close the tab.
+   */
+  {
+    slug: 'south-asian-intergenerational-conflict',
+    figure: 'window-of-tolerance',
+    title: 'When you and your parents cannot find each other',
+    metaTitle: 'Intergenerational Conflict Counselling in Punjabi | BC',
+    metaDescription:
+      'Counselling in Punjabi or English for intergenerational conflict in South Asian families — where both sides are reasonable and neither can hear the other. Online across BC.',
+    eyebrow: 'For · Families across a generation',
+    lede:
+      'Not a page about difficult parents. A page about two people who love each other and have stopped being able to hear one another.',
+    updated: '2026-08-14',
+    readMinutes: 7,
+
+    opening: [
+      'Almost everything written about this treats it as a problem with the parents — they are controlling, they have not adapted, they need to accept who you are. Sometimes that is accurate. As a place to start it is close to useless, because the person reading usually loves their parents and will not accept a frame that makes them the antagonist, and because it explains nothing about how the situation actually arose.',
+      'A more useful starting point: your parents made their decisions under conditions you did not live through, and you are making yours under conditions they cannot really picture. Migration is a rupture. It hands the next generation a life the previous one worked for and could not themselves have lived, and there is no version of that which does not produce this exact conflict.',
+      'The reframe does not resolve anything by itself. It changes what the work is about — from who is right, to what can be said out loud and what each of you is protecting.',
+    ],
+
+    whatComesUp: [
+      {
+        label: 'A conversation that has been had forty times',
+        detail: 'Same subject, same shape, same ending. Both people know the script and neither can get out of it. Usually marriage, career, money, religion, or moving out.',
+      },
+      {
+        label: 'Being managed rather than known',
+        detail: 'Editing what you report at home until the version your family holds of your life is substantially fictional — and the particular loneliness of being loved as that version.',
+      },
+      {
+        label: 'Duty that is real, not imagined',
+        detail: 'Not everyone wants to be released from obligation. Many people want to meet it and find the cost has quietly become unpayable. Those are different problems, and the advice for one harms the other.',
+      },
+      {
+        label: 'Something that cannot be said at all',
+        detail: 'A relationship, a sexuality, a faith that changed, a diagnosis, a marriage that is failing. Where disclosure carries a real risk rather than an imagined one, the work is about the risk before it is about the disclosure.',
+      },
+      {
+        label: 'Anger that arrives out of proportion',
+        detail: 'A small remark producing a response neither of you recognised. Usually the accumulated weight of the previous forty conversations, arriving at once.',
+      },
+      {
+        label: 'Grief for a relationship you can see but not reach',
+        detail: 'Knowing roughly what a good version would look like and not being able to get there from here. This is grief, and it is rarely named as such.',
+      },
+    ],
+
+    sections: [
+      {
+        h2: 'What this is not',
+        body: [
+          'It is not family therapy — your parents are not in the room and usually are not going to be. That is a normal starting condition rather than a failure of the work, and a good deal changes in a relationship when one person changes how they participate in it.',
+          'It is also not a process aimed at getting you to set boundaries and care less. That is the standard advice, it is built for a model of adulthood in which independence is the goal, and applied to a family that operates collectively it reads as a suggestion that you become a worse person. Some people do end up drawing firmer lines. Others end up meeting their obligations more deliberately and with less resentment. Both are legitimate, and the work does not begin with a view about which you should reach.',
+        ],
+      },
+      {
+        h2: 'What language changes here',
+        body: [
+          'More than on most pages of this site. The conversations at issue happened in Punjabi, and the exact word your mother used is frequently the whole point — its tone, who is entitled to say it, what it implies about your standing in the family. Translated into English for a counsellor it becomes a paraphrase, and the counsellor then works on the paraphrase.',
+          'There is also a category of thing that does not survive translation at all. *Log kya kahenge* is not "what will people think" — the English is lighter and more optional, and misses that it names a real social mechanism with real consequences for people other than you. Sessions here run in Punjabi, English, or both, and none of it needs explaining from first principles before the work can start.',
+        ],
+      },
+      {
+        h2: 'Where this touches culture, and where it does not',
+        body: [
+          'Not everything difficult in a South Asian family is cultural, and treating it as though it were is its own error. Untreated depression in a parent, a drinking problem, a controlling marriage, or the long shadow of something that happened before you were born are not cultural features. They are the same things they would be in any family, and they need naming as such rather than being absorbed into "that is just how the family is".',
+          'Part of the work is telling those apart: what is a cultural difference to be negotiated, what is an ordinary family difficulty, and what is genuinely harmful and needs to be called harmful. Those three get bundled together in most conversations about this — including in most counselling rooms that lack the context to separate them.',
+        ],
+      },
+      {
+        h2: 'If something at home is not safe',
+        body: [
+          'This page assumes a difficult relationship rather than a dangerous one. If there is violence, threat, financial control, or coercion around a marriage, that is a different situation, and it is not one to work through slowly in weekly sessions while it continues.',
+          'VictimLink BC is 1-800-563-0808, any hour, in many languages including Punjabi. For immediate danger, 9-1-1. Nothing on this page should be read as a reason to stay somewhere unsafe in order to preserve a relationship.',
+        ],
+      },
+    ],
+
+    servicesThatFit: [
+      { href: '/services/individual-therapy', label: 'Individual counselling', why: 'Where most of this work happens — one person, weekly or biweekly, in Punjabi or English.' },
+      { href: '/services/punjabi-counselling', label: 'Punjabi-speaking counselling', why: 'How language actually works in sessions, including moving between the two mid-sentence.' },
+      { href: '/services/emdr-therapy', label: 'EMDR', why: 'Where one specific event keeps arriving in the present instead of staying in the past.' },
+    ],
+
+    midCta: {
+      text: 'A free 15-minute consultation is a conversation about whether this is the right fit. Nothing is assessed, and there is no obligation afterwards.',
+      label: 'Book a free consultation',
+    },
+
+    faqs: [
+      { q: 'Do my parents need to be involved?', a: 'No, and usually they are not. This is individual work. A relationship often shifts a good deal when one person changes how they take part in it — which is fortunate, because waiting for the other person to agree to counselling can mean waiting indefinitely.' },
+      { q: 'Will I be told to cut off my family?', a: 'No. That advice is built for a model of adulthood in which independence is the goal, and it lands badly on a family that operates collectively. Some people do draw firmer lines; others meet their obligations more deliberately and with less resentment. The work does not start with a view about which you should reach.' },
+      { q: 'Can we talk about this in Punjabi?', a: 'Yes, and here it matters more than usual — the conversations at issue happened in Punjabi, and the exact word somebody used is often the entire point. Sessions move between Punjabi and English as needed.' },
+      { q: 'What if I am not sure it is bad enough to bring?', a: 'That doubt is the most common reason people wait, and it is not a useful test. A relationship taking up this much of your attention is worth an hour of a counsellor’s attention, whether or not it would sound serious described to a stranger.' },
+      { q: 'Is this the same as the page for first-generation South Asian adults?', a: 'They overlap and are not the same. That page is about being the person in the middle — identity, guilt, two selves. This one is about a specific relationship that is not working. Most people find one of them fits better than the other, and either is a reasonable place to start.' },
+    ],
+
+    sources: [
+      { label: 'VictimLink BC — 24/7 support, multilingual', url: 'https://www2.gov.bc.ca/gov/content/justice/criminal-justice/victims-of-crime/victimlinkbc' },
+      { label: 'BC Association of Clinical Counsellors — Find a Counsellor', url: 'https://bc-counsellors.org/counsellors/' },
+    ],
+
+    related: [
+      { href: '/for/first-gen-south-asian-adults', label: 'For first- and second-generation South Asian adults' },
+      { href: '/guides/intergenerational-trauma-explained', label: 'Intergenerational trauma explained' },
+      { href: '/for/punjabi-speaking-couples', label: 'Punjabi-speaking couples counselling' },
+      { href: '/punjabi', label: 'ਪੰਜਾਬੀ ਵਿੱਚ' },
+      { href: '/book', label: 'Book a free consultation' },
+    ],
+  },
 ];
