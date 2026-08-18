@@ -9,14 +9,42 @@ import { track } from '@/lib/analytics';
  * and on a counselling site, gating useful information behind an email address
  * is a bad look at exactly the moment someone is deciding whether to trust the
  * practice. */
-export default function LeadCapture({ done }: { done?: boolean }) {
+/* The magnets. Adding one means adding an entry here and an email in
+ * lib/inbound-mail.ts — the value is allow-listed server-side in
+ * lib/inbound-submit.ts, so an unrecognised key falls back to the checklist
+ * rather than sending nobody anything. */
+const MAGNETS = {
+  'coverage-checklist': {
+    title: 'Want the one-page checklist version?',
+    note: 'The questions to ask your insurer, on a single page. No newsletter, no sequence — this is a one-off, and the guide above is complete without it.',
+    button: 'Send it',
+    doneBody:
+      'The full guide is on this page already, so there is nothing to wait for. If you would like to talk any of it through, a free 15-minute consultation is the next step and carries no obligation.',
+  },
+  'icbc-after-a-crash': {
+    title: 'Injured in a crash? You may already have twelve funded sessions.',
+    note: 'ICBC pre-approves twelve counselling sessions with a Registered Clinical Counsellor in the first twelve weeks, with no doctor’s note needed to start. Most people never use it because nobody tells them. The one-pager explains how to claim it — with any counsellor, including ones that are not this practice.',
+    button: 'Send me the one-pager',
+    doneBody:
+      'It is on its way. It explains how to use the entitlement with any registered counsellor — this practice is not currently an ICBC vendor, and the one-pager says so.',
+  },
+} as const;
+
+export type MagnetKey = keyof typeof MAGNETS;
+
+export default function LeadCapture({
+  done,
+  magnet = 'coverage-checklist',
+}: {
+  done?: boolean;
+  magnet?: MagnetKey;
+}) {
+  const m = MAGNETS[magnet];
   if (done) {
     return (
       <div className="crisis" style={{ marginTop: 8 }}>
         <p style={{ margin: 0 }}>
-          <strong>Thank you — that is noted.</strong> The full guide is on this page already, so
-          there is nothing to wait for. If you would like to talk any of it through, a free
-          15-minute consultation is the next step and carries no obligation.
+          <strong>Thank you — that is noted.</strong> {m.doneBody}
         </p>
       </div>
     );
@@ -27,13 +55,12 @@ export default function LeadCapture({ done }: { done?: boolean }) {
       method="POST"
       action="/api/lead"
       className="lead-form"
-      onSubmit={() => track('lead_magnet_submit', { magnet: 'coverage-guide' })}
+      onSubmit={() => track('lead_magnet_submit', { magnet })}
     >
-      <p className="lead-form-title">Want the one-page checklist version?</p>
-      <p className="lead-form-note">
-        The questions to ask your insurer, on a single page. No newsletter, no sequence — this
-        is a one-off, and the guide above is complete without it.
-      </p>
+      {/* Which one-pager. Allow-listed server-side; see lib/inbound-submit.ts. */}
+      <input type="hidden" name="magnet" value={magnet} />
+      <p className="lead-form-title">{m.title}</p>
+      <p className="lead-form-note">{m.note}</p>
       <div className="lead-form-row">
         <label htmlFor="lead-name" className="sr-only">First name</label>
         <input id="lead-name" name="name" type="text" placeholder="First name" autoComplete="given-name" />
@@ -42,7 +69,7 @@ export default function LeadCapture({ done }: { done?: boolean }) {
           id="lead-email" name="email" type="email" required placeholder="you@example.com"
           autoComplete="email" autoCapitalize="none" spellCheck={false}
         />
-        <button type="submit" className="btn btn--primary">Send it</button>
+        <button type="submit" className="btn btn--primary">{m.button}</button>
       </div>
       {/* Unticked, and it must stay unticked. A pre-ticked consent box is not
           consent under CASL, and asking for a checklist is not agreement to an

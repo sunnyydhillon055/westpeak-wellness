@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { addInbound, type InboundKind } from '@/lib/inbound';
 import { sendDetailed } from '@/lib/portal-mail';
-import { checklistEmail, enquiryAck, waitlistAck, practiceAlert } from '@/lib/inbound-mail';
+import { checklistEmail, icbcEmail, enquiryAck, waitlistAck, practiceAlert } from '@/lib/inbound-mail';
 import { site } from '@/lib/site';
 
 /* One submit path for all three inbound forms.
@@ -48,8 +48,23 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
   } catch {
     return NextResponse.redirect(new URL(`${o.redirectTo}?${o.flag}=err#form`, req.url), 303);
   }
+  /* Where the record says it came from. Always the real page, so /admin can
+     show which pages actually earn enquiries. */
+  const source = safePath(String(form.get('source') ?? '').trim(), o.redirectTo);
 
-  const returnTo = safePath(String(form.get('source') ?? '').trim(), o.redirectTo);
+  /* Where the person is sent afterwards, which is NOT always the same place.
+   *
+   * A form on /contact can bounce back to /contact and read ?sent=ok, because
+   * /contact is rendered on demand anyway. The same form embedded sitewide
+   * cannot: reading a query param inside a page opts it out of static
+   * generation, and doing that to 94 prerendered pages to show one confirmation
+   * banner is a bad trade. Those post to /message-sent instead, which is a
+   * static page that says the same thing.
+   *
+   * Validated exactly like `source` — a redirect target taken from a request
+   * body is an open redirect the moment it is trusted. */
+  const returnTo = safePath(String(form.get('returnTo') ?? '').trim(), source);
+
   const back = (state: string) =>
     NextResponse.redirect(new URL(`${returnTo}?${o.flag}=${state}#form`, req.url), 303);
 
@@ -71,8 +86,14 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
    * that submits an unchecked box as an empty string cannot register consent. */
   const monthlyOptIn = String(form.get('monthly') ?? '') === 'yes';
 
+  /* Which one-pager was asked for. Allow-listed rather than trusted, because
+     this value selects which email gets sent and an unrecognised magnet must
+     fall back to a real one rather than sending nothing at all. */
+  const asked = String(form.get('magnet') ?? '').trim();
+  const magnet = asked === 'icbc-after-a-crash' ? asked : 'coverage-checklist';
+
   const item = await addInbound({
-    kind: o.kind, name, email, message, windows, source: returnTo, monthlyOptIn,
+    kind: o.kind, name, email, message, windows, source, monthlyOptIn, magnet,
   });
   if (!item) return back('err');
 
@@ -80,7 +101,8 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
   const firstName = name.split(/\s+/)[0] ?? '';
 
   const ack =
-    o.kind === 'lead' ? checklistEmail(firstName)
+    o.kind === 'lead'
+      ? (magnet === 'icbc-after-a-crash' ? icbcEmail(firstName) : checklistEmail(firstName))
     : o.kind === 'waitlist' ? waitlistAck(firstName)
     : enquiryAck(firstName);
 

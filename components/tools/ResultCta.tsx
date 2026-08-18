@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { site } from '@/lib/site';
 import { track } from '@/lib/analytics';
+import AskInstead from '@/components/AskInstead';
 
 /* Closing action on a tool result. Share is a Web Share sheet where the browser
  * supports it and a clipboard copy where it does not — no third-party buttons,
@@ -37,6 +38,15 @@ export default function ResultCta({ tool, label }: { tool: string; label?: strin
         Share this
       </button>
       <p className="tool-cta-note">Free · secure video · no obligation, and no sign-up to use this.</p>
+
+      {/* Finishing a tool is the most qualified moment on this site, and until
+          now the only thing offered here was the largest possible ask. Someone
+          who has just worked out what therapy would cost them, or that their
+          answers point at couples work, is warm — and may still not be ready to
+          put a video call in the diary. */}
+      <div className="tool-cta-ask">
+        <AskInstead />
+      </div>
     </div>
   );
 }

@@ -19,6 +19,30 @@ import { getFigure } from '@/lib/figures';
 import { deviceSlots } from '@/lib/placement';
 import Breadcrumbs from '@/components/Breadcrumbs';
 
+/* Guides where "Still deciding? Book a free consultation!" is the wrong note.
+ *
+ * These are the pages somebody reaches while frightened, bereaved, or watching
+ * somebody they love come apart — not while comparing providers. The same
+ * consultation is still offered and the same form still works; only the
+ * register changes, and the ask stops assuming the reader is in a position to
+ * decide anything today.
+ *
+ * Kept as an explicit list rather than inferred from the topic, because the
+ * judgement of which pages these are is a clinical one and should be visible
+ * and editable in one place. */
+const GENTLE_CTA = new Set([
+  'intrusive-thoughts-and-what-they-mean',
+  'grief-without-a-timeline',
+  'what-trauma-actually-means',
+  'when-someone-you-love-is-drinking',
+  'supporting-someone-who-is-struggling',
+  'when-therapy-isnt-working',
+  'signs-it-might-be-time-for-therapy',
+  'workplace-bullying-in-bc',
+  'stress-leave-bc',
+  'anger-that-arrives-too-fast',
+]);
+
 export function generateStaticParams() {
   return guides.map((g) => ({ slug: g.slug }));
 }
@@ -211,6 +235,7 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
 
       <MoreFrom items={guides} currentSlug={g.slug} base="/guides" heading="More counselling guides" eyebrow="Keep going" />
       <CtaBand
+        tone={GENTLE_CTA.has(g.slug) ? 'gentle' : 'default'}
         heading="Still deciding?"
         text="A free 15-minute consultation is the least committal way to find out whether this is a fit. No pressure, and no obligation to book a session afterward."
       />

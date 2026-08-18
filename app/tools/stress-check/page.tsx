@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Figure from '@/components/Figure';
 import { getTool, STRESS_CHECK } from '@/lib/tools';
 import ToolShell from '@/components/tools/ToolShell';
+import CtaBand from '@/components/CtaBand';
 import StressCheckTool from '@/components/tools/StressCheckTool';
 import { site } from '@/lib/site';
 
@@ -37,6 +38,7 @@ const REFLECTIONS: Record<string, string> = {
 
 export default function Page() {
   return (
+    <>
     <ToolShell
       tool={tool}
       intro={
@@ -81,5 +83,9 @@ export default function Page() {
           </p>
       </div>
     </ToolShell>
+      {/* Someone who abandons the tool halfway had nowhere to go: the
+          result CTA only renders on completion, and only client-side. */}
+      <CtaBand />
+    </>
   );
 }

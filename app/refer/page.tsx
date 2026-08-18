@@ -4,6 +4,7 @@ import { site } from '@/lib/site';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import Figure from '@/components/Figure';
 import CtaBand from '@/components/CtaBand';
+import LeadCapture from '@/components/LeadCapture';
 
 export const metadata: Metadata = {
   title: 'Passing on a counsellor’s details',
@@ -46,7 +47,12 @@ export const metadata: Metadata = {
  * they did, because the alternative means anyone who refers is identifiable as
  * a client to anyone who reads the analytics.
  */
-export default function ReferPage() {
+/* Reads one query parameter so the one-pager confirmation appears in place
+ * rather than on a separate page. That opts this route out of static
+ * generation, which is an acceptable trade for ONE page and would not be for
+ * the ~94 that carry the sitewide ask form. */
+export default function ReferPage({ searchParams }: { searchParams?: { lead?: string } }) {
+  const sent = searchParams?.lead;
   return (
     <>
       <section className="hero" style={{ paddingBottom: 40 }}>
@@ -196,6 +202,11 @@ export default function ReferPage() {
               usually the reason that assumption is wrong.
             </p>
 
+            {/* The ICBC entitlement is the single most underused funded route
+                in the province, and this is the page where somebody is already
+                thinking about how to help another person pay for counselling. */}
+            <LeadCapture magnet="icbc-after-a-crash" done={sent === 'ok'} />
+
             <h2>If you are in crisis right now</h2>
             <p>
               This is not the page for that, and nor is this practice — sessions are scheduled
@@ -208,7 +219,7 @@ export default function ReferPage() {
         </div>
       </section>
 
-      <CtaBand />
+      <CtaBand ask={false} />
     </>
   );
 }

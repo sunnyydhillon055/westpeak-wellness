@@ -110,6 +110,99 @@ ${site.domain}`);
   return { subject: 'Your coverage checklist', text, html };
 }
 
+
+/* ---- the ICBC entitlement, which almost nobody knows they have ------------ */
+
+/* SECOND LEAD MAGNET, AND A DELIBERATELY UNSELFISH ONE.
+ *
+ * Anyone injured in a crash in BC is pre-approved for twelve counselling
+ * sessions with a Registered Clinical Counsellor in the first twelve weeks,
+ * with no doctor's note needed to start. It is the largest funded stream for
+ * counselling in the province and the overwhelming majority of people entitled
+ * to it never use it, because nobody tells them.
+ *
+ * THE HONEST CONSTRAINT, WHICH IS ALSO WHY THIS WORKS.
+ *
+ * A provider has to be registered with ICBC for the pre-approved route to be
+ * billed directly, and this practice is not currently on that list. So this
+ * email tells people how to use the entitlement with ANY counsellor, and says
+ * so plainly. Implying the twelve sessions can be used here today would be a
+ * lie that unravels at the first phone call — and a one-pager that genuinely
+ * helps somebody claim what they are owed elsewhere is worth more, to a
+ * practice built on being straight with people, than one that does not.
+ */
+const ICBC_STEPS: { q: string; why: string }[] = [
+  {
+    q: 'Open a claim with ICBC, if you have not already.',
+    why: 'The entitlement attaches to a claim. You can open one online or by phone, and doing so does not commit you to any decision about the rest of the claim.',
+  },
+  {
+    q: 'Ask for the pre-approved treatment for counselling.',
+    why: 'Twelve sessions with a Registered Clinical Counsellor within the first twelve weeks of the crash. No doctor\u2019s note is required to begin, which is the part almost nobody is told.',
+  },
+  {
+    q: 'Find a counsellor registered with ICBC as a vendor.',
+    why: 'Not every counsellor is, including this practice at present. Ask the question before the first session rather than after it \u2014 a registered provider can usually bill ICBC directly.',
+  },
+  {
+    q: 'Check the clock, not the calendar.',
+    why: 'The twelve weeks run from the date of the crash. If time has already passed, the sessions do not vanish \u2014 but the pre-approved route may need a treatment plan submitted instead, so ask rather than assume you are too late.',
+  },
+  {
+    q: 'Keep every receipt, even where billing is direct.',
+    why: 'A receipt needs the practitioner\u2019s name, designation, registration number, date, amount and service. A missing registration number is the most common reason a claim stalls.',
+  },
+  {
+    q: 'If it is not a crash, there may still be a funded route.',
+    why: 'The Crime Victim Assistance Program funds counselling after a violent crime, employer assistance programmes cover a set number of sessions, and many extended health plans reimburse an RCC directly.',
+  },
+];
+
+export function icbcEmail(firstName: string) {
+  const hi = firstName ? `Hi ${firstName},` : 'Hi,';
+
+  const text = wrap(
+`${hi}
+
+Here is the one-pager you asked for \u2014 how the ICBC counselling
+entitlement works, and how to actually use it.
+
+The short version: if you were injured in a crash in British Columbia,
+you are pre-approved for twelve counselling sessions with a Registered
+Clinical Counsellor in the first twelve weeks, and you do not need a
+doctor\u2019s note to start.
+
+One thing worth saying plainly: this practice is not currently registered
+with ICBC as a vendor, so those pre-approved sessions cannot be billed
+here. This is written so you can use the entitlement wherever you like.
+It is yours either way.
+
+${ICBC_STEPS.map((c, i) => `${i + 1}. ${c.q}\n   ${c.why}`).join('\n\n')}
+
+That is everything \u2014 this is a one-off, not a sequence, and there is
+nothing else coming.`
+  );
+
+  const html = shell(
+    'The ICBC counselling entitlement',
+    p(esc(hi)) +
+    p('Here is the one-pager you asked for \u2014 how the ICBC counselling entitlement works, and how to actually use it.') +
+    p('<strong>The short version:</strong> if you were injured in a crash in British Columbia, you are pre-approved for <strong>twelve counselling sessions</strong> with a Registered Clinical Counsellor in the first twelve weeks, and <strong>no doctor\u2019s note is required</strong> to start.') +
+    p('<span style="color:#5a6470;font-size:14px;">One thing worth saying plainly: this practice is <strong>not</strong> currently registered with ICBC as a vendor, so those pre-approved sessions cannot be billed here. This is written so you can use the entitlement wherever you like \u2014 it is yours either way.</span>') +
+    `<ol style="padding-left:18px;margin:18px 0;">` +
+    ICBC_STEPS.map((c) =>
+      `<li style="margin:0 0 14px;"><strong style="color:#1f3d4d;">${esc(c.q)}</strong><br>
+       <span style="color:#5a6470;font-size:14px;">${esc(c.why)}</span></li>`
+    ).join('') +
+    `</ol>` +
+    p('That is everything \u2014 this is a one-off, not a sequence, and there is nothing else coming.') +
+    btn(links.book, 'Book a free 15-minute consultation') +
+    p('<span style="color:#5a6470;font-size:14px;">No obligation, and deciding not to book is a completely normal outcome.</span>')
+  );
+
+  return { subject: 'The ICBC counselling entitlement', text, html };
+}
+
 /* ---- acknowledgement of a message ---------------------------------------- */
 
 export function enquiryAck(firstName: string) {

@@ -22,9 +22,18 @@ export default function StickyBook() {
   return (
     <div className="sticky-book" role="complementary" aria-label="Book a consultation">
       <div className="sticky-book-inner">
-        <p className="sticky-book-text">
-          Free 15-minute consult · <span>no obligation</span>
-        </p>
+        <div>
+          <p className="sticky-book-text">
+            Free 15-minute consult · <span>no obligation</span>
+          </p>
+          {/* The bar followed people down every page offering only the biggest
+              ask. A text link rather than a second button, so the primary
+              action stays unambiguous — but there is now somewhere to go for
+              anyone not ready to schedule a call with a stranger. */}
+          <Link className="sticky-book-ask" href="/contact#form">
+            or send a message instead
+          </Link>
+        </div>
         <Link className="btn btn--primary sticky-book-btn" href={site.bookingPath}>
           Book
         </Link>

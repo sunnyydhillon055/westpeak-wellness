@@ -71,6 +71,10 @@ export type Inbound = {
    * under CASL, and on a counselling site it is worse than merely
    * non-compliant. */
   monthlyOptIn?: boolean;
+  /* Which lead magnet was asked for. There was one, so nothing needed to say
+   * which; there are now two, and a second magnet with no way to tell them
+   * apart in /admin is a queue of people whose request you cannot answer. */
+  magnet?: string;
   createdAt: string;
   handled: boolean;
 };
@@ -135,6 +139,7 @@ export async function addInbound(
     windows: clip(rec.windows, 300) || undefined,
     source: clip(rec.source, 120) || '/',
     monthlyOptIn: rec.monthlyOptIn === true ? true : undefined,
+    magnet: clip(rec.magnet, 40) || undefined,
     createdAt: new Date().toISOString(),
     handled: false,
   };

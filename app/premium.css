@@ -2002,3 +2002,48 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
 @media (max-width: 760px) {
   .book-brief { grid-template-columns: 1fr; }
 }
+
+/* ===========================================================================
+   ASK INSTEAD
+   The small rung inside the CTA band. The band is a blue gradient with white
+   text, so these controls are built for a dark ground rather than reusing
+   .lead-form, which is built for a light card. Same shapes, inverted palette.
+   ======================================================================== */
+.cta-band-ask{ margin:30px auto 0; max-width:33em; text-align:left;
+  padding-top:26px; border-top:1px solid rgba(255,255,255,.24); }
+
+.ask-instead{ margin:0; }
+.ask-instead-title{ margin:0 0 4px !important; max-width:none !important;
+  font-family:var(--font-display); font-size:1.05rem; font-weight:600; color:#fff; }
+.ask-instead-note{ margin:0 0 12px !important; max-width:none !important;
+  font-size:.9rem; line-height:1.55; color:rgba(255,255,255,.86); }
+
+.ask-instead-area,
+.ask-instead-row input{ width:100%; box-sizing:border-box; font:inherit;
+  padding:11px 13px; min-height:46px; border-radius:var(--radius-sm);
+  border:1px solid rgba(255,255,255,.4); background:rgba(255,255,255,.12);
+  color:#fff; }
+.ask-instead-area{ resize:vertical; line-height:1.55; margin:0 0 10px; }
+.ask-instead-area::placeholder,
+.ask-instead-row input::placeholder{ color:rgba(255,255,255,.66); }
+/* A translucent field on a gradient loses its edge when focused unless the
+   ring is drawn on the light side. */
+.ask-instead-area:focus-visible,
+.ask-instead-row input:focus-visible{ outline:2px solid #fff; outline-offset:2px;
+  background:rgba(255,255,255,.2); }
+
+.ask-instead-row{ display:flex; gap:10px; flex-wrap:wrap; align-items:stretch; }
+.ask-instead-row input{ flex:1 1 200px; width:auto; }
+.ask-instead-row .btn--primary{ flex:0 0 auto; }
+
+.ask-instead-fine{ margin:12px 0 0 !important; max-width:none !important;
+  font-size:.8rem; line-height:1.5; color:rgba(255,255,255,.72); }
+
+.cta-band-alt{ margin:24px auto 0 !important; max-width:33em !important;
+  font-size:.9rem; color:rgba(255,255,255,.86); }
+.cta-band-alt a{ color:#fff; text-decoration:underline; text-underline-offset:2px; }
+
+/* The sticky bar carried only the largest ask. The second rung is a text link
+   rather than a second button, so the primary action stays unambiguous. */
+.sticky-book-ask{ display:block; margin:2px 0 0; font-size:.78rem; line-height:1.2;
+  color:var(--ink-faint); text-decoration:underline; text-underline-offset:2px; }

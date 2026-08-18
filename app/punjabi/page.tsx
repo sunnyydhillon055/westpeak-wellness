@@ -38,7 +38,15 @@ export const metadata: Metadata = {
  *
  * The counsellor-name rule holds here as everywhere: no name on this page.
  */
-export default function PunjabiPage() {
+/* Reads one query parameter so the confirmation can appear here, in Punjabi.
+ * That opts this single route out of static generation, which is the same
+ * trade already made for /refer and is not the trade made for the ~94 pages
+ * carrying the sitewide English form — those post to /message-sent.
+ *
+ * Sending a Punjabi speaker to an English confirmation page would undo the
+ * one thing this page exists to do. */
+export default function PunjabiPage({ searchParams }: { searchParams?: { sent?: string } }) {
+  const sent = searchParams?.sent;
   const schema = [
     {
       '@context': 'https://schema.org',
@@ -205,6 +213,53 @@ export default function PunjabiPage() {
                 ਮੁਫ਼ਤ ਸਲਾਹ-ਮਸ਼ਵਰਾ ਬੁੱਕ ਕਰੋ
               </Link>
             </p>
+            {/* The only page on the site where booking was still the sole route
+                to contact. The sitewide English form would have been the wrong
+                fix here, so this is the same machinery with Punjabi copy.
+                THE PUNJABI WORDING SHOULD BE READ BY THE COUNSELLOR before it
+                is relied on — it is written to match the register of the rest
+                of this page, but it is the practice's own language and voice,
+                not mine to finalise. */}
+            {sent === 'ok' ? (
+              <div className="crisis" id="form" style={{ marginTop: 30 }}>
+                <p lang="pa" style={{ margin: 0 }}>
+                  <strong>ਤੁਹਾਡਾ ਸੁਨੇਹਾ ਪਹੁੰਚ ਗਿਆ ਹੈ।</strong>{' '}
+                  ਇੱਕ ਕੰਮ-ਕਾਜੀ ਦਿਨ ਦੇ ਅੰਦਰ ਜਵਾਬ ਮਿਲੇਗਾ, ਅਤੇ ਇੱਕ ਕਾਪੀ ਤੁਹਾਡੇ ਈਮੇਲ ਵਿੱਚ ਹੈ।
+                  ਤੁਹਾਨੂੰ ਹੋਰ ਕੁਝ ਕਰਨ ਦੀ ਲੋੜ ਨਹੀਂ।
+                </p>
+              </div>
+            ) : (
+              <form method="POST" action="/api/enquiry" className="lead-form" id="form"
+                style={{ marginTop: 30 }}>
+                <input type="hidden" name="source" value="/punjabi" />
+                <input type="hidden" name="returnTo" value="/punjabi" />
+                <div className="hp" aria-hidden="true">
+                  <label htmlFor="hp-pa">Company</label>
+                  <input id="hp-pa" name="company" type="text" tabIndex={-1} autoComplete="off" />
+                </div>
+                <p className="lead-form-title" lang="pa">ਜਾਂ ਬੱਸ ਲਿਖ ਕੇ ਦੱਸੋ।</p>
+                <p className="lead-form-note" lang="pa">
+                  ਇੱਕ ਲਾਈਨ ਕਾਫ਼ੀ ਹੈ। ਇਹ ਸਿੱਧਾ ਤੁਹਾਡੇ ਕਾਊਂਸਲਰ ਕੋਲ ਜਾਂਦਾ ਹੈ, ਕਿਸੇ ਸਹਾਇਕ ਕੋਲ ਨਹੀਂ,
+                  ਅਤੇ ਇੱਕ ਕੰਮ-ਕਾਜੀ ਦਿਨ ਦੇ ਅੰਦਰ ਜਵਾਬ ਮਿਲੇਗਾ।
+                </p>
+                <label htmlFor="pa-message" className="sr-only">ਸੁਨੇਹਾ</label>
+                <textarea id="pa-message" name="message" required rows={3} lang="pa"
+                  className="lead-form-area" placeholder="ਜੋ ਵੀ ਤੁਸੀਂ ਲਿਖ ਸਕਦੇ ਹੋ।" />
+                <div className="lead-form-row">
+                  <label htmlFor="pa-email" className="sr-only">ਈਮੇਲ</label>
+                  <input id="pa-email" name="email" type="email" required
+                    placeholder="you@example.com" autoComplete="email"
+                    autoCapitalize="none" spellCheck={false} />
+                  <button type="submit" className="btn btn--primary" lang="pa">ਭੇਜੋ</button>
+                </div>
+                <p className="lead-form-note" lang="pa">
+                  ਕੋਈ ਮੇਲਿੰਗ ਲਿਸਟ ਨਹੀਂ, ਅਤੇ ਕੋਈ ਕਲਾਇੰਟ ਰਿਕਾਰਡ ਨਹੀਂ ਬਣਦਾ। ਕਿਰਪਾ ਕਰਕੇ ਕਲੀਨਿਕਲ ਗੱਲਾਂ
+                  ਸੈਸ਼ਨ ਲਈ ਰੱਖੋ &mdash; ਆਮ ਈਮੇਲ ਸੁਰੱਖਿਅਤ ਨਹੀਂ ਹੁੰਦੀ। ਜੇ ਤੁਸੀਂ ਤੁਰੰਤ ਖ਼ਤਰੇ ਵਿੱਚ ਹੋ ਤਾਂ
+                  911 &rsquo;ਤੇ ਕਾਲ ਕਰੋ, ਜਾਂ 9-8-8 &rsquo;ਤੇ ਕਾਲ ਜਾਂ ਟੈਕਸਟ ਕਰੋ।
+                </p>
+              </form>
+            )}
+
             <p lang="pa" style={{ marginTop: 30 }}>
               ਖੇਤਰ ਅਨੁਸਾਰ:{' '}
               <Link href="/punjabi-counselling/surrey">ਸਰੀ</Link> ·{' '}

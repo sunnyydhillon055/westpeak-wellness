@@ -12,7 +12,7 @@ import CtaBand from '@/components/CtaBand';
 import BookingCard from '@/components/BookingCard';
 import SceneBand from '@/components/SceneBand';
 import { getServiceIcon } from '@/lib/icon-map';
-import { Clock, MonitorSmartphone, Languages as LangIcon, BadgeCheck, CircleDot } from 'lucide-react';
+import { Clock, MonitorSmartphone, Languages as LangIcon, BadgeCheck, CircleDot, Wallet } from 'lucide-react';
 import ExtraSections from '@/components/ExtraSections';
 import Toc from '@/components/Toc';
 import MoreFrom from '@/components/MoreFrom';
@@ -187,6 +187,15 @@ export default async function ServicePage({ params }: { params: { slug: string }
             <li><Clock aria-hidden="true" strokeWidth={1.7} /><span><strong>50 minutes</strong> per session</span></li>
             <li><MonitorSmartphone aria-hidden="true" strokeWidth={1.7} /><span><strong>Secure video</strong> sessions</span></li>
             <li><LangIcon aria-hidden="true" strokeWidth={1.7} /><span><strong>Free</strong> 15-min consult</span></li>
+            {/* The fee, at the top, on the page where the question is asked.
+                It lived on /pricing — three clicks away — and price silence
+                reads as expensive. The number already reaches the page for the
+                mid-page booking card and for the Offer in structured data;
+                this is the same figure, where a human meets it first.
+                Undefined on the two umbrella services, which span session
+                types at different prices, so the item simply does not render
+                rather than showing a figure that would misrepresent them. */}
+            {fee && <li><Wallet aria-hidden="true" strokeWidth={1.7} /><span><strong>{fee}</strong> per session</span></li>}
             <li><BadgeCheck aria-hidden="true" strokeWidth={1.7} /><span><strong>MA, RCC</strong> · BCACC</span></li>
           </ul>
           <div className="btn-row" style={{ marginTop: 24 }}>

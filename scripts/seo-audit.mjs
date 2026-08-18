@@ -111,6 +111,10 @@ for (const f of files) {
     price: html.includes('"priceCurrency"'),
     speakable: html.includes('"speakable"'),
     lang: /["']inLanguage["']\s*:/.test(html),
+    /* A page telling crawlers not to index it is not a page that should
+       be linked from body copy, carry a long description, or run to a
+       word count. Form destinations and confirmations live here. */
+    noindex: /<meta[^>]+name=["']robots["'][^>]+noindex/i.test(html),
     links,
   });
 }
@@ -161,7 +165,7 @@ for (const p of pages.values()) {
   const { route } = p;
   if (route === '/_not-found') continue;
   const hub = HUBS.has(route);
-  const util = UTILITY.has(route);
+  const util = UTILITY.has(route) || p.noindex;
 
   if (!p.title) err('title-missing', route, '');
   else if (p.title.length > TITLE_MAX) err('title-too-long', route, `${p.title.length} chars — ${p.title}`);
@@ -172,12 +176,15 @@ for (const p of pages.values()) {
 
   if (!p.desc) err('desc-missing', route, '');
   else if (p.desc.length > DESC_MAX) err('desc-too-long', route, `${p.desc.length} chars`);
-  else if (p.desc.length < DESC_MIN) warn('desc-short', route, `${p.desc.length} chars`);
+  else if (p.desc.length < DESC_MIN && !p.noindex)
+    warn('desc-short', route, `${p.desc.length} chars`);
 
-  if (inbound.get(route) === 0 && !hub && route !== '/')
-    err('no-inbound-links', route, 'nothing links to it from page content');
-  else if (inbound.get(route) <= 2 && !hub && route !== '/')
-    warn('weak-inbound', route, `${inbound.get(route)} in-body inbound`);
+  if (!p.noindex) {
+    if (inbound.get(route) === 0 && !hub && route !== '/')
+      err('no-inbound-links', route, 'nothing links to it from page content');
+    else if (inbound.get(route) <= 2 && !hub && route !== '/')
+      warn('weak-inbound', route, `${inbound.get(route)} in-body inbound`);
+  }
 
   if (!p.crumbs && route !== '/') err('no-breadcrumbs', route, '');
 
