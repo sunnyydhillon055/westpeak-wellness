@@ -62,7 +62,10 @@ export default function GuidesHub() {
             Looking for something more specific? Browse{' '}
             <Link href="/services">the full list of counselling services</Link>, compare{' '}
             <Link href="/compare/rcc-vs-psychologist-vs-social-worker-bc">the different kinds of therapist in BC</Link>,
-            or see <Link href="/pricing">fees and extended-health coverage</Link>.
+            or see <Link href="/pricing">fees and extended-health coverage</Link>. If you want
+            the answer without the guide,{' '}
+            <Link href="/answers">the short answers page</Link> carries the opening paragraph of
+            every one of these in a single list.
           </p>
         </div>
       </section>

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { site } from '@/lib/site';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import Figure from '@/components/Figure';
 import CtaBand from '@/components/CtaBand';
 
 export const metadata: Metadata = {
@@ -64,6 +65,11 @@ export default function ReferPage() {
           <Breadcrumbs trail={[{ name: 'Passing it on', path: '/refer' }]} />
 
           <div className="prose">
+            {/* A referrer's real question is "if this goes wrong, what recourse
+                does the person I sent have". This diagram answers it directly,
+                and none of the four routes needs the counsellor's cooperation. */}
+            <Figure name="accountability-chain" />
+
             <h2>What you will never be asked for</h2>
             <p>
               <strong>A review, a testimonial, or a rating.</strong> Not now and not later, and
@@ -136,6 +142,58 @@ export default function ReferPage() {
                 free and low-cost counselling in BC
               </Link>{' '}
               is a real list rather than a gesture, and worth sending on its own.
+            </p>
+
+            <h2>Routes where somebody else pays</h2>
+            <p>
+              Cost is the most common reason a recommendation goes nowhere, and a surprising
+              amount of counselling in British Columbia is funded by somebody other than the
+              person attending. Most people do not know these exist, which makes them worth
+              mentioning when you pass something on.
+            </p>
+            <ul>
+              <li>
+                <strong>After a motor vehicle crash — ICBC.</strong> Anyone injured in a crash
+                in BC is pre-approved for <strong>twelve counselling sessions</strong> with a
+                Registered Clinical Counsellor in the first twelve weeks, and{' '}
+                <strong>no doctor's note is required</strong> to start. This is the single most
+                underused entitlement in the province. It does not need a lawyer, and using it
+                does not commit anybody to a claim decision.
+              </li>
+              <li>
+                <strong>Through an employer — EAP.</strong> Most mid-size and large Canadian
+                employers carry an employee assistance programme covering a set number of
+                sessions at no cost to the employee, usually without the employer being told
+                who used it. Worth checking before assuming there is no coverage.
+              </li>
+              <li>
+                <strong>Extended health.</strong> Many BC plans reimburse a Registered Clinical
+                Counsellor specifically, and a good number now direct-bill.{' '}
+                <Link href="/resources/bc-extended-health-coverage-for-counselling">
+                  what BC extended health plans actually cover
+                </Link>{' '}
+                sets out how to check a plan in about five minutes, and{' '}
+                <Link href="/tools/therapy-cost-bc">the cost estimator</Link> does the
+                arithmetic once the numbers are known.
+              </li>
+              <li>
+                <strong>After a crime — the Crime Victim Assistance Program.</strong> CVAP
+                funds counselling for victims of violent crime, and for immediate family
+                members in some circumstances. It funds a course of treatment rather than a
+                handful of sessions.
+              </li>
+              <li>
+                <strong>First Nations and Inuit clients.</strong> The First Nations Health
+                Authority and the federal Non-Insured Health Benefits programme both cover
+                mental-health counselling and both maintain approved-provider lists.
+              </li>
+            </ul>
+            <p>
+              Not every route above is one this practice is currently on a panel for, and it is
+              worth asking rather than assuming in either direction. But the point of listing
+              them is broader than this practice: if the person you are thinking of is not
+              going to see anybody at all because of what it costs, one of these five is
+              usually the reason that assumption is wrong.
             </p>
 
             <h2>If you are in crisis right now</h2>

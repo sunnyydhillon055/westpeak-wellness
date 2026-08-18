@@ -8,7 +8,7 @@ import { readAvailability, DAYS } from '@/lib/availability';
 import { listPasswordAccounts } from '@/lib/portal-users';
 import { clinikoConfigured } from '@/lib/cliniko';
 import { recentInbound, markHandled } from '@/lib/inbound';
-import { topSearchTerms, readSearchTerms } from '@/lib/search-log';
+import { topSearchTerms, readSearchTerms, searchGaps } from '@/lib/search-log';
 import { readLedger, recordContacted } from '@/lib/lifecycle';
 import { reactivationEmail } from '@/lib/lifecycle-mail';
 import { sendDetailed, mailConfigured } from '@/lib/portal-mail';
@@ -87,6 +87,7 @@ export default async function AdminPage({
   const waiting = inbox.filter((i) => !i.handled).length;
   const monthlyOptIns = inbox.filter((i) => i.monthlyOptIn).length;
   const searches = await topSearchTerms(30);
+  const gaps = await searchGaps();
   const searchTotal = (await readSearchTerms()).total;
 
   /* Paused and former clients who have never had a reactivation note.
@@ -355,6 +356,34 @@ export default async function AdminPage({
               ))}
             </ul>
           </div>
+        )}
+
+        {/* The inverse of the list above, and the more useful half. A popular
+            term is usually something the site already answers; a term that
+            returns nothing is somebody who wanted a page that does not exist
+            and left. These are content briefs, written by the people who
+            wanted the content. See searchGaps() in lib/search-log.ts. */}
+        {gaps.length > 0 && (
+          <>
+            <h3 style={{ marginTop: 30 }}>Searched for, and not found here</h3>
+            <p style={{ color: 'var(--ink-soft)', maxWidth: '40.38em' }}>
+              Terms where this site&rsquo;s own search returns nothing, or a single weak match.
+              Each one is a visitor who looked for something and hit a dead end. Ordered by how
+              many people asked.
+            </p>
+            <div className="admin-panel">
+              <ul className="admin-terms">
+                {gaps.map((g) => (
+                  <li key={g.term}>
+                    <Link href={`/search?q=${encodeURIComponent(g.term)}`}>{g.term}</Link>
+                    <span>
+                      {g.count}&times; · {g.hits === 0 ? 'no match' : '1 weak match'}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </>
         )}
 
         {/* ---------------------------------------------------------- CLIENTS */}

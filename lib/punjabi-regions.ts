@@ -273,6 +273,18 @@ export const punjabiRegions: PunjabiRegion[] = [
         q: 'Will my extended health cover this?',
         a: 'Most BC extended-health plans that cover a Registered Clinical Counsellor cover virtual sessions on the same terms as in-person ones. Coverage varies by plan, so check your specific policy before booking.',
       },
+      {
+        q: 'I work seasonally. Can sessions stop and start?',
+        a: 'Yes, and in the Okanagan that is the normal pattern rather than the exception. Agricultural and hospitality work here runs on a season, and a schedule that assumes the same weekday at the same time for six months straight does not survive contact with it. Booking block by block, with gaps, works — and nothing is lost by pausing. It is better to plan for that from the start than to book weekly, miss three, and conclude that counselling did not suit you.',
+      },
+      {
+        q: 'Can I have some sessions in Punjabi and some in English?',
+        a: 'Yes, and you do not need to decide in advance. Most people move between the two inside a single session without noticing — usually into Punjabi when the subject is family, shame or something a parent said, and back into English for practical planning. That switch is worth paying attention to rather than correcting: the language a memory is stored in is often the language it has to be worked in.',
+      },
+      {
+        q: 'Is a counsellor three hours away really as good as one here?',
+        a: 'For the work itself, the evidence says yes — outcomes for video counselling are comparable to in-person for anxiety, depression and trauma. Distance costs you two real things: a counsellor cannot be an in-person crisis response, and there is no local waiting room. This practice does not do crisis work regardless of distance, so if that is what is needed, 9-8-8 or 310-6789 is the right call rather than a booking. What distance gains you here is the language, which no amount of proximity in the Okanagan currently provides.',
+      },
     ],
     sources: [
       {

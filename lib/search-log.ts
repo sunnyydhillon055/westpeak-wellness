@@ -1,4 +1,5 @@
 import { put, get } from '@vercel/blob';
+import { buildIndex, searchIndex } from './search-index';
 
 /* What people search for on this site — as counts, never as events.
  *
@@ -132,5 +133,48 @@ export async function topSearchTerms(limit = 40): Promise<{ term: string; n: num
   return Object.entries(terms)
     .map(([term, n]) => ({ term, n }))
     .sort((a, b) => b.n - a.n || a.term.localeCompare(b.term))
+    .slice(0, limit);
+}
+
+/* ============================================================================
+   WHAT PEOPLE SEARCHED FOR AND DID NOT FIND
+   ----------------------------------------------------------------------------
+   The term counts have been accumulating since they were built and nobody has
+   read them, which makes them the only first-party demand data this practice
+   has and the least used.
+
+   A raw list of popular terms is not actually the useful artefact, because the
+   popular ones are mostly things the site already answers well. The useful
+   question is the inverse: which terms did somebody type that the site has
+   nothing good for. Those are content briefs written by the people who wanted
+   the content.
+
+   The test is deliberately the site's own search. If the on-site search returns
+   nothing for a term, a visitor who typed it hit a dead end — that is a fact
+   about this site rather than a guess about Google.
+   ========================================================================= */
+
+export type SearchGap = { term: string; count: number; hits: number };
+
+/**
+ * Terms people searched for that the site answers poorly or not at all,
+ * most-searched first.
+ *
+ * `maxHits` is the threshold for "poorly": 0 means nothing matched at all, 1
+ * means a single page did and the topic has no real coverage. Anything above
+ * that is a topic the site does cover, where a low ranking is a different
+ * problem from a missing page.
+ */
+export async function searchGaps(maxHits = 1, limit = 40): Promise<SearchGap[]> {
+  const terms = await topSearchTerms(300);
+  if (!terms.length) return [];
+  const index = buildIndex();
+  return terms
+    .map((t) => ({
+      term: t.term,
+      count: t.n,
+      hits: searchIndex(index, t.term, 5).length,
+    }))
+    .filter((g) => g.hits <= maxHits)
     .slice(0, limit);
 }

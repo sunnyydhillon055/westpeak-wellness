@@ -125,6 +125,10 @@ export default async function Contact({
             <p>
               If you need an accommodation to make sessions workable — camera off, adjusted
               pacing, written summaries, evening slots — the{' '}
+              <Link href="/refer">passing this practice on to someone else</Link> covers what a
+              referral involves, including the funded routes — ICBC, employee assistance
+              programmes and extended health — that most people do not know they qualify for.
+              The{' '}
               <Link href="/accessibility">accessibility statement</Link> lists what is available
               and states plainly what is not.
             </p>

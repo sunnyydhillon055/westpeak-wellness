@@ -21,7 +21,7 @@
  * Thresholds are deliberately the ones Google actually truncates at, not round
  * numbers: ~60 characters of title and ~158 of description survive on desktop.
  */
-import { readdirSync, readFileSync, statSync } from 'node:fs';
+import { readdirSync, readFileSync, statSync, existsSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 
 const ROOT = join(process.cwd(), '.next', 'server', 'app');
@@ -45,6 +45,10 @@ const UTILITY = new Set([
   '/careers', '/contact', '/book', '/signin', '/forgot', '/reset',
   '/client-portal', '/admin', '/_not-found',
 ]);
+/* Job postings. Real content, but a hiring page needs neither a clinical
+ * review date nor a diagram, and manufacturing either to satisfy a check
+ * would be the gate driving the content instead of the reverse. */
+const IS_JOB = (r) => r.startsWith('/careers/');
 /* Health content — the pages that should carry MedicalWebPage + a review date. */
 const CLINICAL = (r) =>
   r.startsWith('/guides/') || r.startsWith('/services/') ||
@@ -116,6 +120,37 @@ const inbound = new Map([...pages.keys()].map((r) => [r, 0]));
 for (const p of pages.values())
   for (const l of p.links) if (inbound.has(l) && l !== p.route) inbound.set(l, inbound.get(l) + 1);
 
+/* COVERAGE, STATED OUT LOUD.
+ *
+ * This gate can only see routes Next prerendered to disk. Anything rendered on
+ * demand — /pricing and /contact read live Cliniko data, /book is a redirect —
+ * has no .html file, so it is not audited and, worse, its outgoing links are
+ * invisible to the inbound-link count. That silently made /refer look like it
+ * had one inbound link when three pages point at it.
+ *
+ * An audit that quietly skips pages is how you end up confidently wrong, so the
+ * skipped set is printed every run rather than assumed empty. */
+const MANIFEST = join(process.cwd(), '.next', 'app-path-routes-manifest.json');
+let notPrerendered = [];
+if (existsSync(MANIFEST)) {
+  try {
+    const m = JSON.parse(readFileSync(MANIFEST, 'utf8'));
+    notPrerendered = [...new Set(Object.values(m))]
+      .filter(
+        (r) =>
+          typeof r === 'string' &&
+          !r.startsWith('/api/') &&        // endpoints, not pages
+          !r.includes('/opengraph-image') && // generated images
+          !r.includes('[') &&              // dynamic patterns, not concrete URLs
+          !/\.[a-z0-9]+$/i.test(r) &&      // robots.txt, sitemap.xml, icon.svg …
+          !pages.has(r)
+      )
+      .sort();
+  } catch {
+    /* manifest unreadable — the report simply says nothing rather than guessing */
+  }
+}
+
 const ERR = [];
 const WARN = [];
 const err = (rule, route, detail) => ERR.push({ rule, route, detail });
@@ -146,7 +181,7 @@ for (const p of pages.values()) {
 
   if (!p.crumbs && route !== '/') err('no-breadcrumbs', route, '');
 
-  if (!hub && !util) {
+  if (!hub && !util && !IS_JOB(route)) {
     if (p.words < THIN_WORDS) warn('thin', route, `${p.words} words`);
     if (p.imgs === 0) warn('no-image', route, '');
   }
@@ -157,7 +192,12 @@ for (const p of pages.values()) {
     if (!p.reviewed) warn('no-lastreviewed', route, '');
     if (!p.speakable) warn('no-speakable', route, '');
   }
-  if (route.startsWith('/services/') && !p.price) warn('no-price-schema', route, '');
+  /* These two span several session types at different prices, so any single
+     figure would misrepresent them. Showing no price is the correct
+     behaviour, so the gate must not nag about it. */
+  const UMBRELLA = ['/services/online-counselling-bc', '/services/south-asian-mental-health'];
+  if (route.startsWith('/services/') && !p.price && !UMBRELLA.includes(route))
+    warn('no-price-schema', route, '');
   if ((route.startsWith('/punjabi') || route === '/punjabi') && !p.lang)
     warn('no-inlanguage', route, 'Punjabi page with no language annotation');
 }
@@ -183,6 +223,12 @@ if (AS_JSON) {
     if (xs.length > 8) console.log(`   …and ${xs.length - 8} more`);
   }
   console.log(`\n${'='.repeat(46)}`);
+  if (notPrerendered.length) {
+    console.log(
+      `not audited (rendered on demand, no static file): ${notPrerendered.join(', ')}\n` +
+      `their outgoing links are invisible here, so inbound counts are a floor, not a total`
+    );
+  }
   console.log(`${ERR.length} error(s), ${WARN.length} warning(s)`);
   if (!ERR.length && !WARN.length) console.log('clean.');
 }

@@ -12,7 +12,8 @@
     "drift": "node scripts/price-drift.mjs",
     "social": "node scripts/social-queue.mjs",
     "seo": "node scripts/seo-audit.mjs",
-    "seo:warn": "node scripts/seo-audit.mjs --warn"
+    "seo:warn": "node scripts/seo-audit.mjs --warn",
+    "indexnow": "node scripts/indexnow.mjs"
   },
   "dependencies": {
     "@next/third-parties": "^16.3.0",

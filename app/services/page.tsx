@@ -193,6 +193,8 @@ export default function Services() {
             cover the ground properly, and{' '}
             <Link href="/for">the pages written for particular situations</Link> may be a better
             starting point than the service list &mdash; as may{' '}
+            <Link href="/answers">short answers to the questions people ask most</Link> covers
+            cost, coverage and what a first session involves without reading a full page, and{' '}
             <Link href="/approaches">the approach pages</Link>, if what you want to understand is the
             method rather than the problem.
           </p>

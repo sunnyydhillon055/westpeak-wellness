@@ -7,6 +7,7 @@ import { abs, orgRef, siteRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import Figure from '@/components/Figure';
 
 /* The English-language Punjabi cluster.
  *
@@ -117,6 +118,14 @@ export default function PunjabiRegionPage({ params }: { params: { region: string
         <div className="container prose" style={{ maxWidth: '44.16em' }}>
           <h2>{r.localReality.h2}</h2>
           <Paragraphs items={r.localReality.body} />
+          {/* These four pages rendered no image at all, which is a real gap on
+              the cluster that carries the practice's differentiator. bc-reach is
+              the diagram that makes their argument: the counsellor is not local,
+              and that is the point rather than a compromise. */}
+          <Figure
+            name="bc-reach"
+            caption={`Sessions reach ${r.region} the same way they reach everywhere else in BC.`}
+          />
         </div>
       </section>
 

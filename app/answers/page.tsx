@@ -9,6 +9,7 @@ import { audiences } from '@/lib/audiences';
 import { approaches } from '@/lib/approaches';
 import { services } from '@/lib/services';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import Figure from '@/components/Figure';
 import CtaBand from '@/components/CtaBand';
 
 const TITLE = 'Straight Answers About Counselling in BC | Westpeak Wellness';
@@ -177,6 +178,11 @@ export default function AnswersPage() {
             <Link href="/contact">ask it directly</Link> or raise it on a{' '}
             <Link href={site.bookingPath}>free 15-minute consultation</Link>.
           </p>
+
+          {/* This page collected 100+ answers and rendered no image. The four
+              decisions are the frame most of these questions sit inside, so the
+              diagram orients someone scanning rather than decorating the page. */}
+          <Figure name="four-decisions" />
 
           <nav className="answers-jump" aria-label="Jump to a section">
             {sections.map((s) => (

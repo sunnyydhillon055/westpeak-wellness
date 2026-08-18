@@ -87,6 +87,21 @@ export async function GET(req: NextRequest) {
 
   const body = JSON.stringify({ host, key: KEY, keyLocation: `${site.domain}/${KEY}.txt`, urlList: urls });
 
+  /* ?dry=1 reads the sitemap and reports exactly what would be sent without
+     sending it. Submitting to a real index is not an action worth discovering
+     you got wrong afterwards, and it is the only way to check the URL list
+     from a script without spending a submission to do it. */
+  if (req.nextUrl.searchParams.get('dry') === '1') {
+    return NextResponse.json({
+      ok: true,
+      dry: true,
+      wouldSubmit: urls.length,
+      host,
+      endpoints: ENDPOINTS,
+      sample: urls.slice(0, 10),
+    });
+  }
+
   const results: Record<string, string> = {};
   for (const endpoint of ENDPOINTS) {
     try {
