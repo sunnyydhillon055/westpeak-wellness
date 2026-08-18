@@ -98,14 +98,31 @@ export default function Footer() {
               became its own line and the closing full stop was orphaned on a
               line by itself. The emphasis now lives on the anchor, which is
               what should carry it anyway. */}
+          {/* NATIONAL NUMBERS ONLY, DELIBERATELY.
+              This block used to name the BC Mental Health Support Line on every
+              page. That was right while the site served only BC. With Alberta
+              pages published it put a BC-only number in the footer of a page
+              written for somebody in Calgary, where 310-6789 does not reach — a
+              crisis number that does not connect is worse than none, because it
+              costs the attempt.
+
+              A province-aware footer was tried first and does not work: the
+              footer is prerendered into every static page, so a client-side
+              path check resolves to nothing at build time and the BC number
+              shipped anyway. Rather than make the whole footer dynamic for one
+              line, the footer now carries only what is true everywhere in
+              Canada. The province-correct numbers live in the body of every
+              regional page (components/CrisisBlock.tsx) and on the BC
+              directory page. */}
           <div className="footer-crisis">
             <LifeBuoy aria-hidden="true" strokeWidth={1.7} />
             <p>
               <strong>Not a crisis service.</strong> If you are in crisis, call or text{' '}
-              <a href="tel:988">9-8-8</a> (Canada, 24/7), or{' '}
-              <a href="tel:3106789">310-6789</a> for BC Mental Health Support. In immediate
-              danger, call <a href="tel:911">9-1-1</a>.{' '}
-              <Link href="/resources/bc-crisis-and-support-directory">Full BC directory&nbsp;→</Link>
+              <a href="tel:988">9-8-8</a> — the Suicide Crisis Helpline, anywhere in Canada,
+              24/7. In immediate danger, call <a href="tel:911">9-1-1</a>.{' '}
+              <Link href="/resources/bc-crisis-and-support-directory">
+                Crisis and support directory&nbsp;&rarr;
+              </Link>
             </p>
           </div>
 

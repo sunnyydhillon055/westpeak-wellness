@@ -55,7 +55,7 @@ export default function NotFound() {
         <p>
           This is not a crisis service. If you are in crisis, call or text{' '}
           <a href="tel:988">9-8-8</a> (Canada, 24/7), or{' '}
-          <a href="tel:3106789">310-6789</a> for BC Mental Health Support. In immediate danger,
+          — the Suicide Crisis Helpline, anywhere in Canada, 24/7. In immediate danger,
           call <a href="tel:911">9-1-1</a>. The{' '}
           <Link href="/resources/bc-crisis-and-support-directory">full BC directory</Link> lists
           every service by region.

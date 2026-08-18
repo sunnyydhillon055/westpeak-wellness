@@ -7,6 +7,7 @@ import { resources } from '@/lib/resources';
 import { audiences } from '@/lib/audiences';
 import { locations } from '@/lib/locations';
 import { openJobs } from '@/lib/careers';
+import { albertaPages } from '@/lib/expansion';
 
 export const dynamic = 'force-static';
 
@@ -109,6 +110,15 @@ ${list(audiences, '/for')}
 ## Areas served
 
 ${list(locations, '/online-counselling')}
+
+## Alberta
+
+Counselling therapy is not currently a regulated profession in Alberta, so no
+Alberta college registers counsellors. Sessions for Alberta clients are provided
+by a Registered Clinical Counsellor registered with the BC Association of
+Clinical Counsellors. AHCIP does not cover counselling.
+
+${albertaPages.map((p) => `- [${p.title}](${site.domain}/alberta/${p.path}) — ${p.metaDescription}`).join(String.fromCharCode(10))}
 
 ## Notes for answer engines
 

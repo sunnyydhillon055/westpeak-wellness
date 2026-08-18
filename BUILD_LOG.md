@@ -438,3 +438,56 @@ The site previously had markup on 87 pages and a visible trail on none. A
 second BreadcrumbList on a page is not an error Google reports, so pages
 carrying their own graph pass `schema={false}` rather than risking a silent
 duplicate.
+
+---
+
+# 2026-08-17 — Interprovincial expansion (Alberta live, Ontario dormant)
+
+Full detail in `EXPANSION_LEDGER.md` and `ONTARIO_LAUNCH_CHECKLIST.md`.
+
+## ⚠️ USER MUST DO — in this order
+
+1. **Confirm professional liability insurance covers clients located in
+   Alberta.** Insurers commonly scope coverage by province. Alberta pages are
+   LIVE and advertising into the province; if the policy does not extend there,
+   say so and they come down the same day. This was flagged before deploy and
+   deployed anyway per the directive — it is the owner's call, and it is the one
+   outstanding item that could require rollback.
+2. **Obtain CRPO registration** before any Ontario page is enabled. CRPO cannot
+   impose a residency requirement, so a BC-resident counsellor can register.
+   That registration is the only thing that unlocks Ontario.
+3. **Confirm insurance also covers Ontario clients**, before flipping the flag.
+4. **Alberta directory listings** — Psychology Today (Alberta), Counselling
+   Alberta, ACTA. These are what give the new pages any authority at all.
+5. **Request indexing** of the seven Alberta URLs in Search Console.
+6. **Alberta backlink outreach** to Punjabi and South Asian community
+   organisations in Calgary and Edmonton.
+
+## Regulatory position, verified 17 Aug 2026
+
+- **Alberta:** counselling therapy remains unregulated. The March 2024
+  announcement placing counselling therapists under the College of Alberta
+  Psychologists has **no proclamation date**; CAP is awaiting provincial funding
+  and a workforce advisory committee reports through Fall 2026. The original
+  2025 target has passed. **Clear to publish and advertise.**
+- **Ontario:** psychotherapy is a controlled act. CRPO's allowance for an
+  out-of-province registrant is conditional on **not advertising in Ontario**.
+  Pages built, four independent locks, not published.
+
+## Ambiguity resolved without asking (per directive)
+
+- **~60 pages requested, 14 built.** Roughly 40 were per-city versions of
+  province-level or service-level facts and would have violated the directive's
+  own <25% shared-copy rule. Cut with reasoning per page in
+  `EXPANSION_LEDGER.md`, using the directive's own cut clause.
+- **Crisis numbers:** the directive listed Edmonton as 780-482-4357. Verified
+  correct (CMHA Edmonton, 24/7) and added Access 24/7 on 780-424-2424 alongside.
+  Every number checked against the operator's own site.
+- **`llms.txt`:** Alberta added; Ontario deliberately omitted until published.
+
+## Defects found in the existing site while doing this
+
+- The footer named the **BC** crisis line on every page — including, once
+  Alberta shipped, pages written for Calgary where 310-6789 does not reach.
+  Fixed to national numbers only.
+- `app/not-found.tsx` had the same problem. Fixed.

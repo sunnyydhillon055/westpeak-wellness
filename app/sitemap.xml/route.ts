@@ -11,6 +11,8 @@ import { approaches } from '@/lib/approaches';
 import { getFigure } from '@/lib/figures';
 import { openJobs } from '@/lib/careers';
 import { lastmodFor, collectionLastmod } from '@/lib/page-dates';
+import { albertaPages, ontarioPages } from '@/lib/expansion';
+import { ONTARIO_LIVE } from '@/lib/regions';
 
 export const dynamic = 'force-static';
 
@@ -78,6 +80,35 @@ export function GET() {
       path: `/tools/${t.slug}`, lastmod: collectionLastmod('tools'), changefreq: 'monthly' as const, priority: 0.7,
     })),
     ...trust,
+    /* ALBERTA — published. Counselling therapy is not a regulated profession
+       in Alberta (verified 17 Aug 2026); these may be indexed and advertised. */
+    { path: '/alberta', lastmod: lastmodFor('/alberta'), changefreq: 'monthly' as const, priority: 0.8 },
+    ...albertaPages.map((a) => ({
+      path: `/alberta/${a.path}`,
+      lastmod: new Date(a.updated).toISOString(),
+      changefreq: 'monthly' as const,
+      priority: 0.7,
+    })),
+
+    /* ONTARIO — deliberately absent.
+       Psychotherapy is a controlled act in Ontario, and CRPO's allowance for an
+       out-of-province registrant to see the occasional Ontario client is
+       conditional on NOT advertising in Ontario. A sitemap entry is advertising.
+       This spread stays empty until CRPO registration exists; the pages are
+       already noindex and unrouted, and this is the fourth lock rather than the
+       only one. See ONTARIO_LAUNCH_CHECKLIST.md. */
+    ...(ONTARIO_LIVE
+      ? [
+          { path: '/ontario', lastmod: lastmodFor('/ontario'), changefreq: 'monthly' as const, priority: 0.8 },
+          ...ontarioPages.map((o) => ({
+            path: `/ontario/${o.path}`,
+            lastmod: new Date(o.updated).toISOString(),
+            changefreq: 'monthly' as const,
+            priority: 0.7,
+          })),
+        ]
+      : []),
+
     ...services.map((s) => ({
       path: `/services/${s.slug}`, lastmod: collectionLastmod('services'), changefreq: 'monthly' as const,
       priority: 0.8, figure: s.figure,

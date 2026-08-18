@@ -115,6 +115,10 @@ for (const f of files) {
        be linked from body copy, carry a long description, or run to a
        word count. Form destinations and confirmations live here. */
     noindex: /<meta[^>]+name=["']robots["'][^>]+noindex/i.test(html),
+    /* VISIBLE content only. The not-found boundary is serialised into the
+       RSC payload of EVERY page, so testing raw html marked all 121 pages
+       as 404s and silently emptied the report. */
+    notFound: /page could not be found|page not found/i.test(main),
     links,
   });
 }
@@ -164,6 +168,15 @@ const seenTitles = new Map();
 for (const p of pages.values()) {
   const { route } = p;
   if (route === '/_not-found') continue;
+  /* A route that renders the not-found shell is a deliberately gated page
+     (the Ontario cluster) or a genuine 404. Neither should be audited for
+     breadcrumbs, depth or schema — it is not the page it is named after. */
+  if (p.notFound) continue;
+  /* The Ontario cluster is deliberately gated and renders a 404 shell. It is
+     governed by scripts/expansion-verify.mjs, which checks the things that
+     actually matter there — that it stays unindexed and out of the sitemap.
+     Auditing a 404 shell for breadcrumbs would be noise. */
+  if (route === '/ontario' || route.startsWith('/ontario/')) continue;
   const hub = HUBS.has(route);
   const util = UTILITY.has(route) || p.noindex;
 
