@@ -4,6 +4,7 @@ import { moreGuides3 } from './guides-more3';
 import { moreGuides4 } from './guides-more4';
 import { moreGuides5 } from './guides-more5';
 import { moreGuides6 } from './guides-more6';
+import { draftGuides } from './guides-drafts';
 
 export type GuideSection = {
   h2: string;
@@ -28,6 +29,18 @@ export type Guide = {
   related: { href: string; label: string }[];
   figure?: string;         // key into lib/figures.ts — renders the page's diagram
   figure2?: string;      // second diagram, further down the page
+
+  /* Written, not yet cleared to publish.
+   *
+   * Clinical content on this site does not go live on the strength of being
+   * well written. A draft is excluded from `guides`, which is what every
+   * consumer imports — so it is absent from the sitemap, the search index,
+   * llms.txt, the feed, the hub listing and generateStaticParams, and its URL
+   * 404s. It exists only in the repository, for the counsellor to read.
+   *
+   * Delete the flag to publish. That is deliberately the entire mechanism:
+   * anything more elaborate is something that can be got wrong. */
+  draft?: boolean;
 };
 
 const coreGuides: Guide[] = [
@@ -758,6 +771,18 @@ const coreGuides: Guide[] = [
   },
 ];
 
-export const guides: Guide[] = [...coreGuides, ...moreGuides, ...moreGuides2, ...moreGuides3, ...moreGuides4, ...moreGuides5, ...moreGuides6];
+/* Everything written, drafts included. Only review tooling should import this. */
+export const allGuides: Guide[] = [
+  ...coreGuides, ...moreGuides, ...moreGuides2, ...moreGuides3,
+  ...moreGuides4, ...moreGuides5, ...moreGuides6, ...draftGuides,
+];
+
+/* What the site publishes. Filtering here rather than at each of the nine call
+ * sites means a draft cannot leak by somebody adding a tenth consumer and
+ * forgetting the filter — the safe thing is the default thing. */
+export const guides: Guide[] = allGuides.filter((g) => !g.draft);
 
 export const getGuide = (slug: string) => guides.find((g) => g.slug === slug);
+
+/** Drafts awaiting a clinical read, newest intent first. */
+export const pendingReview = (): Guide[] => allGuides.filter((g) => g.draft);
