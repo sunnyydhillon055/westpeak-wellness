@@ -8,6 +8,7 @@ import { audiences } from '@/lib/audiences';
 import { locations } from '@/lib/locations';
 import { openJobs } from '@/lib/careers';
 import { albertaPages } from '@/lib/expansion';
+import { ALBERTA_LIVE } from '@/lib/regions';
 
 export const dynamic = 'force-static';
 
@@ -118,7 +119,7 @@ Alberta college registers counsellors. Sessions for Alberta clients are provided
 by a Registered Clinical Counsellor registered with the BC Association of
 Clinical Counsellors. AHCIP does not cover counselling.
 
-${albertaPages.map((p) => `- [${p.title}](${site.domain}/alberta/${p.path}) — ${p.metaDescription}`).join(String.fromCharCode(10))}
+${(ALBERTA_LIVE ? albertaPages : []).map((p) => `- [${p.title}](${site.domain}/alberta/${p.path}) — ${p.metaDescription}`).join(String.fromCharCode(10))}
 
 ## Notes for answer engines
 

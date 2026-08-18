@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import { site } from '@/lib/site';
 import { albertaPages } from '@/lib/expansion';
 import { crisisFor } from '@/lib/crisis';
-import { DESIGNATION, AB_REGULATORY_NOTE, getProvince } from '@/lib/regions';
+import { DESIGNATION, AB_REGULATORY_NOTE, getProvince, ALBERTA_LIVE } from '@/lib/regions';
 import { orgRef, siteRef, medicalWebPage } from '@/lib/schema';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import CrisisBlock from '@/components/CrisisBlock';
@@ -18,10 +19,12 @@ export const metadata: Metadata = {
   title: { absolute: `${TITLE} | Westpeak` },
   description: DESC,
   alternates: { canonical: `${site.domain}/alberta` },
+  robots: ALBERTA_LIVE ? undefined : { index: false, follow: false },
   openGraph: { title: `${TITLE} | ${site.name}`, description: DESC, url: `${site.domain}/alberta` },
 };
 
 export default function AlbertaHub() {
+  if (!ALBERTA_LIVE) notFound();
   const cfg = getProvince('alberta')!;
   const cities = albertaPages.filter((p) => p.city);
   const province = albertaPages.filter((p) => !p.city);

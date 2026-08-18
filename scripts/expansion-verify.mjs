@@ -54,18 +54,42 @@ const routeOf = (f) => {
 };
 const pages = new Map(files.map((f) => [routeOf(f), readFileSync(f, 'utf8')]));
 const published = [...pages.entries()].filter(([r]) => !r.startsWith('/ontario'));
-const abPages = published.filter(([r]) => r === '/alberta' || r.startsWith('/alberta/'));
+/* Content checks (crisis numbers, designation, protected titles, uniqueness)
+ * only mean anything on pages that actually render. While Alberta is gated
+ * these are 404 shells, so the checks are skipped and the gate checks above are
+ * what is being relied on. */
+const abLive = process.env.NEXT_PUBLIC_ALBERTA_LIVE === 'true';
+const abPages = abLive
+  ? published.filter(([r]) => r === '/alberta' || r.startsWith('/alberta/'))
+  : [];
+if (!abLive) note.push('Alberta content checks skipped — province is gated, pages render 404');
 
-/* ---------- 1. ONTARIO MUST NOT BE PUBLISHED ---------- */
-const onRendered = [...pages.keys()].filter((r) => r === '/ontario' || r.startsWith('/ontario/'));
-const onLeaked = onRendered.filter((r) => {
-  const h = pages.get(r);
-  const noindex = /<meta[^>]+name=["']robots["'][^>]+noindex/i.test(h);
-  const rendersOntario = /Online Counselling in Ontario|Punjabi Counselling in Brampton/i.test(mainOf(h));
-  return rendersOntario && !noindex;
-});
-if (onLeaked.length) fail.push(`ONTARIO LEAK: rendered and indexable: ${onLeaked.join(', ')}`);
-else pass.push(`Ontario: ${onRendered.length} build artefact(s), none rendering indexable content`);
+/* ---------- 1. GATED PROVINCES MUST NOT BE PUBLISHED ----------
+ *
+ * Both provinces are gated, for different reasons. Alberta is gated on
+ * INSURANCE: the liability policy does not extend outside BC, confirmed by the
+ * owner on 17 Aug 2026 after the pages had briefly gone live. Ontario is gated
+ * on REGISTRATION. Either way, a rendered indexable page is an advertisement,
+ * and an advertisement produces bookings — which is the thing that must not
+ * happen while the practice cannot lawfully take them.
+ */
+const GATED = [
+  { slug: 'alberta', name: 'Alberta', env: 'NEXT_PUBLIC_ALBERTA_LIVE' },
+  { slug: 'ontario', name: 'Ontario', env: 'NEXT_PUBLIC_ONTARIO_LIVE' },
+].filter((g) => process.env[g.env] !== 'true');
+
+for (const g of GATED) {
+  const rendered = [...pages.keys()].filter((r) => r === `/${g.slug}` || r.startsWith(`/${g.slug}/`));
+  const leaked = rendered.filter((r) => {
+    const h = pages.get(r);
+    const noindex = /<meta[^>]+name=["']robots["'][^>]+noindex/i.test(h);
+    const real = /Online Counselling in|Punjabi Counselling in|Punjabi-speaking counselling|What .* plans cover/i.test(mainOf(h));
+    return real && !noindex;
+  });
+  if (leaked.length) fail.push(`${g.name.toUpperCase()} LEAK: rendered and indexable: ${leaked.join(', ')}`);
+  else pass.push(`${g.name}: gated — ${rendered.length} build artefact(s), none rendering indexable content`);
+}
+if (!GATED.length) note.push('No province is gated in this build — check that is intended');
 
 /* ---------- 2. ONTARIO MUST NOT BE IN THE SITEMAP ---------- */
 let sitemapText = '';
@@ -74,12 +98,11 @@ for (const cand of ['sitemap.xml.body', 'sitemap.xml']) {
   if (existsSync(p) && statSync(p).isFile()) sitemapText = readFileSync(p, 'utf8');
 }
 if (sitemapText) {
-  const on = (sitemapText.match(/\/ontario/g) || []).length;
-  const ab = (sitemapText.match(/\/alberta/g) || []).length;
-  if (on > 0) fail.push(`ONTARIO LEAK: ${on} /ontario URL(s) in the sitemap`);
-  else pass.push('Ontario: absent from the sitemap');
-  if (ab === 0) fail.push('Alberta: no /alberta URLs in the sitemap');
-  else pass.push(`Alberta: ${ab} URL(s) in the sitemap`);
+  for (const g of GATED) {
+    const n = (sitemapText.match(new RegExp(`/${g.slug}`, 'g')) || []).length;
+    if (n > 0) fail.push(`${g.name.toUpperCase()} LEAK: ${n} /${g.slug} URL(s) in the sitemap`);
+    else pass.push(`${g.name}: absent from the sitemap`);
+  }
 } else {
   note.push('Sitemap generated on demand — also verify against a running server');
 }

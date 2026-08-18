@@ -12,7 +12,7 @@ import { getFigure } from '@/lib/figures';
 import { openJobs } from '@/lib/careers';
 import { lastmodFor, collectionLastmod } from '@/lib/page-dates';
 import { albertaPages, ontarioPages } from '@/lib/expansion';
-import { ONTARIO_LIVE } from '@/lib/regions';
+import { ALBERTA_LIVE, ONTARIO_LIVE } from '@/lib/regions';
 
 export const dynamic = 'force-static';
 
@@ -80,15 +80,22 @@ export function GET() {
       path: `/tools/${t.slug}`, lastmod: collectionLastmod('tools'), changefreq: 'monthly' as const, priority: 0.7,
     })),
     ...trust,
-    /* ALBERTA — published. Counselling therapy is not a regulated profession
-       in Alberta (verified 17 Aug 2026); these may be indexed and advertised. */
-    { path: '/alberta', lastmod: lastmodFor('/alberta'), changefreq: 'monthly' as const, priority: 0.8 },
-    ...albertaPages.map((a) => ({
-      path: `/alberta/${a.path}`,
-      lastmod: new Date(a.updated).toISOString(),
-      changefreq: 'monthly' as const,
-      priority: 0.7,
-    })),
+    /* ALBERTA — gated on INSURANCE, not on regulation.
+       Regulation is clear; the liability policy does not extend outside BC
+       (owner-confirmed 17 Aug 2026). A sitemap entry is advertising, and an
+       advertisement produces bookings that cannot be insured. Empty until
+       cover exists. See ALBERTA_LAUNCH_CHECKLIST.md. */
+    ...(ALBERTA_LIVE
+      ? [
+          { path: '/alberta', lastmod: lastmodFor('/alberta'), changefreq: 'monthly' as const, priority: 0.8 },
+          ...albertaPages.map((a) => ({
+            path: `/alberta/${a.path}`,
+            lastmod: new Date(a.updated).toISOString(),
+            changefreq: 'monthly' as const,
+            priority: 0.7,
+          })),
+        ]
+      : []),
 
     /* ONTARIO — deliberately absent.
        Psychotherapy is a controlled act in Ontario, and CRPO's allowance for an

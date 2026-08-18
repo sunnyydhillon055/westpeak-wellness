@@ -1,50 +1,58 @@
 import type { Province } from './crisis';
 
-/* INTERPROVINCIAL EXPANSION — the model, and the gate.
+/* INTERPROVINCIAL EXPANSION — the model, and the gates.
  *
  * ============================================================================
- * THE REGULATORY POSITION, WHICH IS THE WHOLE REASON THIS FILE EXISTS
+ * BOTH PROVINCES ARE GATED. THEY ARE GATED FOR DIFFERENT REASONS.
  * ============================================================================
  *
  * Counselling is regulated provincially, and the service is deemed to be
  * delivered where the CLIENT is sitting, not where the counsellor is. A
- * BC-registered RCC seeing someone in Toronto by video is practising in
- * Ontario. That single fact decides what may be published.
+ * BC-registered RCC seeing someone in Calgary by video is practising in
+ * Alberta. That single fact decides what may be published.
  *
- * ALBERTA — CLEAR.
- * Counselling therapy is not a regulated profession in Alberta. The March 2024
- * announcement that counselling therapists will come under the College of
- * Alberta Psychologists has no proclamation date; as of August 2026 CAP is
- * still awaiting provincial funding to develop standards and the Mental Health
- * and Addiction Workforce Advisory Committee reports through Fall 2026.
- * Verified 17 Aug 2026. Alberta pages may be built, published and advertised.
+ * ALBERTA — GATED ON INSURANCE, not on regulation.
  *
- * Two things Alberta still forbids:
- *   - the titles "psychologist" and "psychological" are protected. Never used.
- *   - nothing may imply Alberta registration or an Alberta college.
+ *   Regulation is genuinely clear. Counselling therapy is not a regulated
+ *   profession in Alberta; the March 2024 announcement placing counselling
+ *   therapists under the College of Alberta Psychologists has no proclamation
+ *   date, CAP is awaiting provincial funding, and a workforce advisory
+ *   committee reports through Fall 2026. Verified 17 Aug 2026.
  *
- * ONTARIO — GATED.
- * Psychotherapy is a controlled act in Ontario. CRPO permits an out-of-province
- * regulated therapist to see the occasional Ontario client, but that allowance
- * is explicitly conditional on NOT advertising or promoting services in
- * Ontario. Publishing thirty SEO pages targeting Toronto, Brampton and Oshawa
- * IS advertising in Ontario, and would remove the exemption the practice would
- * otherwise rely on — as well as breaching BCACC advertising standards, which
- * require advertising not to mislead about services a registrant may lawfully
- * provide.
+ *   What is NOT clear is cover. The practice's professional liability policy
+ *   does not extend outside British Columbia — confirmed by the owner on
+ *   17 Aug 2026, hours after these pages first went live. They were taken down
+ *   the same day.
  *
- * So the Ontario pages exist, fully written, and do not publish. They are
- * noindex, absent from the sitemap, and rendered only when
- * NEXT_PUBLIC_ONTARIO_LIVE === 'true'. The unlock is CRPO registration, which a
- * BC resident can hold — CRPO cannot impose a residency requirement.
+ *   A live Alberta page is an advertisement, and an advertisement produces
+ *   bookings. An uninsured session with a distressed stranger in another
+ *   province is not a marketing risk; it is the risk the whole profession
+ *   carries insurance for. So Alberta publishes when there is cover — either
+ *   the policy is extended, or an insured clinician who can take Alberta
+ *   clients is hired. Either unlocks it. See ALBERTA_LAUNCH_CHECKLIST.md.
  *
- * DO NOT flip the default. See ONTARIO_LAUNCH_CHECKLIST.md.
+ * ONTARIO — GATED ON REGISTRATION.
+ *
+ *   Psychotherapy is a controlled act in Ontario. CRPO permits an
+ *   out-of-province regulated therapist to see the occasional Ontario client,
+ *   but that allowance is explicitly conditional on NOT advertising or
+ *   promoting services in Ontario. Publishing SEO pages targeting Toronto,
+ *   Brampton and Oshawa IS advertising, and would remove the exemption — as
+ *   well as breaching BCACC advertising standards, which require advertising
+ *   not to mislead about services a registrant may lawfully provide.
+ *
+ *   Ontario needs CRPO registration AND insurance. Two gates, not one.
+ *   See ONTARIO_LAUNCH_CHECKLIST.md.
+ *
+ * DO NOT flip either default without the corresponding checklist complete.
+ * `node scripts/expansion-verify.mjs` fails the run if a gated province leaks.
  * ============================================================================
  */
 
-/* Read once. A string comparison rather than a truthiness check, so that an
- * empty string, "false", "0" or an unset variable all mean the same thing:
- * not live. The safe state must be the default state. */
+/* Read once, per province. A string comparison rather than a truthiness check,
+ * so an unset variable, an empty string, "false" and "0" all mean the same
+ * thing: not live. The safe state has to be the default state. */
+export const ALBERTA_LIVE = process.env.NEXT_PUBLIC_ALBERTA_LIVE === 'true';
 export const ONTARIO_LIVE = process.env.NEXT_PUBLIC_ONTARIO_LIVE === 'true';
 
 export type RegionStatus = 'published' | 'gated';
@@ -55,6 +63,8 @@ export type ProvinceConfig = {
   /** URL segment: /alberta/..., /ontario/... */
   slug: string;
   status: RegionStatus;
+  /** Why it is gated, in one line, for the docs and the log. */
+  gateReason?: string;
   /** Timezone shown to a client in this province. */
   tz: string;
   tzLabel: string;
@@ -67,7 +77,9 @@ export const PROVINCES: ProvinceConfig[] = [
     code: 'AB',
     name: 'Alberta',
     slug: 'alberta',
-    status: 'published',
+    status: 'gated',
+    gateReason:
+      'Professional liability insurance does not extend outside British Columbia. Unlocks when cover exists — policy extended, or an insured clinician hired.',
     tz: 'America/Edmonton',
     tzLabel: 'Mountain Time',
     publicPlan: 'Alberta Health Care Insurance Plan',
@@ -77,6 +89,8 @@ export const PROVINCES: ProvinceConfig[] = [
     name: 'Ontario',
     slug: 'ontario',
     status: 'gated',
+    gateReason:
+      'Psychotherapy is a controlled act; advertising in Ontario removes the CRPO out-of-province allowance. Needs CRPO registration AND insurance.',
     tz: 'America/Toronto',
     tzLabel: 'Eastern Time',
     publicPlan: 'OHIP',
@@ -85,8 +99,17 @@ export const PROVINCES: ProvinceConfig[] = [
 
 export const getProvince = (slug: string) => PROVINCES.find((p) => p.slug === slug);
 
+/** Per-province flag. Explicit rather than clever: a lookup table means adding a
+ *  province cannot accidentally inherit another province's permission. */
+const LIVE_FLAG: Record<Province, boolean> = {
+  BC: true,
+  AB: ALBERTA_LIVE,
+  ON: ONTARIO_LIVE,
+};
+
 /** Whether a province's pages may render at all in this deployment. */
-export const provinceLive = (p: ProvinceConfig) => p.status === 'published' || ONTARIO_LIVE;
+export const provinceLive = (p: ProvinceConfig) =>
+  p.status === 'published' || LIVE_FLAG[p.code] === true;
 
 /** Whether a province's pages may appear in the sitemap and be indexed. */
 export const provinceIndexable = provinceLive;
