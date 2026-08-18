@@ -29,14 +29,32 @@
  * They stay out until the numbers are found. Pages that are true beat pages
  * that are padded — the same lesson the 37 retired city pages taught.
  *
- * SURREY WAS ADDED 2026-08-14 AND DOES NOT FOLLOW THE PATTERN.
- * The three original pages argue from scarcity. Surrey has the largest
- * Punjabi-speaking population in Canada and abundant Punjabi-speaking
- * counsellors, so that argument is unavailable and would be transparently
- * false. Its entry carries a long comment explaining what it argues instead
- * and why the distinction matters — read that before editing it, because the
- * obvious "improvement" is to make it match the others, and that would break
- * the only page here whose claim survives contact with a Surrey resident.
+ * VICTORIA WAS CONSIDERED AND REJECTED ON 2026-08-18, FOR EXACTLY THAT REASON.
+ * A Greater Victoria page was planned and the argument for it already exists
+ * on /online-counselling/victoria — Island residents have the thinnest
+ * Punjabi-language access in the province. The only figure that could be found
+ * for the Capital Regional District traced back to a secondary source, and the
+ * Statistics Canada page for that geography returned a 404. So the page was
+ * not built. Build it the day the census figure is sourced properly, and not
+ * before.
+ *
+ * THERE ARE NOW TWO KINDS OF PAGE IN THIS FILE. DO NOT MAKE THEM MATCH.
+ *
+ * The three original pages — Prince George, Kamloops, Kelowna — argue from
+ * SCARCITY: the nearest Punjabi-speaking counsellor with an office is hours
+ * away, so virtual is not the cheaper option, it is the only one.
+ *
+ * Surrey (added 2026-08-14), Abbotsford and Vancouver (both 2026-08-18) argue
+ * from DISTANCE instead, because scarcity would be transparently false in all
+ * three and anybody who lives there would know it inside a sentence. Each
+ * carries a comment explaining what it argues and why its version differs from
+ * the other two — Surrey is anonymity inside scale, Abbotsford is the same
+ * density in a city a third the size, Vancouver is a dispersed community whose
+ * services went to the larger language groups.
+ *
+ * Read those comments before editing any of them. The obvious "improvement" is
+ * to make the six pages consistent, and it would break the three whose claims
+ * survive contact with a resident.
  *
  * The counsellor-name rule holds here as everywhere: no name on these pages.
  */
@@ -85,6 +103,7 @@ export const punjabiRegions: PunjabiRegion[] = [
         'Interior Health runs mental-health and substance-use services in Kamloops, including assessment, treatment and referral. If you are already connected to those services, staying connected is worth doing — private virtual counselling is a parallel option, not a replacement for public care you already have.',
         'There are private counsellors in Kamloops, and a number of them are very good. The question this page answers is narrower: whether you can be counselled **in Punjabi**, and for that the local answer is almost always no.',
         'That matters more than it sounds. People do not experience grief, shame, or a parent\'s disapproval in their second language. They translate it afterwards. Therapy conducted entirely in translation costs something real — nuance, speed, and the particular relief of not having to explain the context before you can describe the feeling.',
+        'Language is one dimension of access here and not the only one. [Online counselling for Kamloops](/online-counselling/kamloops) covers the rest — what it means that the whole Thompson-Nicola drives into this city for its services, and what happens to a weekly appointment when the highway closes.',
       ],
     },
     access: [
@@ -159,6 +178,7 @@ export const punjabiRegions: PunjabiRegion[] = [
         'CMHA Northern BC has also said plainly that in-person one-to-one services across the north remain sparse, and that people seeking a specialist or psychiatrist in the region routinely wait longer than elsewhere in BC.',
         'Those figures describe counselling in English. Add the requirement that the counsellor speak Punjabi and the local supply does not thin out — it disappears. Every Punjabi-speaking counsellor in BC with an office is in the Lower Mainland, roughly eight hours south.',
         'Northern Health does run mental-health and substance-use services in Prince George, delivered in person, by phone and by video. If you are connected to them, stay connected. Private virtual counselling is most useful when the wait for a public service is longer than you can comfortably hold, or when you want continuity that does not depend on a pilot\'s funding cycle.',
+        'If language is not the barrier you are trying to solve, [online counselling for Prince George](/online-counselling/prince-george) covers the same access gap in English, with the same figures behind it.',
       ],
     },
     access: [
@@ -236,6 +256,7 @@ export const punjabiRegions: PunjabiRegion[] = [
         'Interior Health provides mental-health and substance-use services across the Okanagan, and CMHA Kelowna runs a free virtual counselling programme for adults 25 and over. Both are real options and both are worth knowing about — this page is not an argument against using them.',
         'What neither reliably provides is a counsellor who speaks Punjabi. Nor do the private clinics: the Punjabi-language filters on the major counselling directories return Lower Mainland results almost exclusively.',
         'For agricultural and seasonal work in particular, there is a second problem underneath the language one. Schedules do not fit a clinic\'s hours, and a session that requires driving into Kelowna during daylight is a session that does not happen.',
+        'The wider picture of getting counselling in this region — the thin specialist end, the seasonal work, the mark the wildfire years left — is on [online counselling for Kelowna](/online-counselling/kelowna).',
       ],
     },
     access: [
@@ -348,6 +369,7 @@ export const punjabiRegions: PunjabiRegion[] = [
         'The reason people write in from Surrey is narrower and harder to say out loud: **they do not want to be seen going.** A car parked outside a known clinic. A waiting room where somebody recognises you. A counsellor whose family knows your family — whose confidentiality is real and complete and still does not stop the feeling of being one degree of separation from home.',
         'That feeling is not irrational and it is not something to be talked out of. In a community where reputation is genuinely load-bearing — for you, for a marriage, for a sibling who has not married yet — the calculation people make about privacy is a reasonable one.',
         'This practice has no office in Surrey, no waiting room anywhere, and no professional or social overlap with Surrey\'s South Asian community. That is not a claim to be better. It is a structural difference, and for some people it is the difference between starting counselling and not starting.',
+        'If language is not the thing you are looking for, [online counselling for Surrey](/online-counselling/surrey) covers the same ground in English — including why the second generation tends to arrive first, and what that is like without a template.',
       ],
     },
     access: [
@@ -408,7 +430,226 @@ export const punjabiRegions: PunjabiRegion[] = [
         url: 'https://www.fraserhealth.ca/health-topics-a-to-z/mental-health-and-substance-use',
       },
     ],
-    nearby: ['kamloops', 'kelowna'],
+    nearby: ['kamloops', 'kelowna', 'abbotsford'],
+  },
+
+  /* ABBOTSFORD, ADDED 2026-08-18. SECOND PAGE IN THE "DISTANCE" GROUP.
+   *
+   * Two of this repository's own files already argued for it. locations.ts
+   * says Abbotsford has "one of the largest Punjabi-speaking communities in
+   * Canada, with much the same dynamic as Surrey", and the header of this file
+   * names Abbotsford as one of the three places every Punjabi-speaking
+   * counsellor in BC with an office actually is. It was simply never built.
+   *
+   * IT MUST NOT BE A COPY OF SURREY, AND THE FIGURE IS WHY.
+   *
+   * Surrey's argument is anonymity inside scale: 128,305 mother-tongue
+   * speakers in a city of 568,322, where a counsellor can be inside your
+   * networks. Abbotsford is the same barrier under different arithmetic —
+   * 34,280 speakers, but 22.6% of the city rather than Surrey's 23%, in a
+   * municipality less than a third the size. The community is not smaller in
+   * proportion; the city is smaller in absolute terms, which is a different
+   * experience of the same density. There are fewer degrees of separation
+   * available, not more.
+   *
+   * That is the distinction the page rests on, and it is the honest one. */
+  {
+    slug: 'abbotsford',
+    region: 'Abbotsford',
+    wider: 'the Fraser Valley',
+    blurb:
+      'Punjabi is the mother tongue of nearly a quarter of Abbotsford. In a city this size, that is not anonymity — it is a community where most people are two conversations apart.',
+    metaDescription:
+      'Punjabi-speaking online counselling for Abbotsford and the Fraser Valley, from outside the Valley. No local office, no waiting room. Free consultation.',
+    demography: {
+      stat: 'Punjabi is the mother tongue of 34,280 people in Abbotsford — 22.6% of the city, and second only to English.',
+      body: [
+        'In the 2021 census **Punjabi was the mother tongue of 34,280 Abbotsford residents, 22.6% of the population** — second only to English at 61%, and ahead of every one of the other fifty-plus languages spoken in the city.',
+        'Nearly a quarter of a city is not a minority community in any ordinary sense. Abbotsford has had a Punjabi-speaking population since the first sawmills and berry farms, which is to say for well over a century, and the Gur Sikh Temple on South Fraser Way is the oldest standing Sikh temple in North America.',
+        'So this page cannot argue what the Kamloops and Prince George pages argue. There is no shortage of Punjabi-speaking counsellors in Abbotsford, and saying otherwise would be false to anybody who lives here.',
+      ],
+    },
+    localReality: {
+      h2: 'Abbotsford is not Surrey, and the difference is the size of the city',
+      body: [
+        'Surrey has a comparable share of Punjabi speakers and more than three times the population. That difference matters more than it sounds. In a city of 568,000 there is somewhere to be anonymous; in a city of roughly 153,000 there are fewer degrees of separation available, not more.',
+        'The concern people raise from here is rarely whether counselling works. It is **who will see the car.** A clinic on a main road in a city this size, in a community where families have known each other for generations, is not a private place to be seen going — and that assessment is a realistic reading of how information moves, not anxiety to be talked out of.',
+        'There are good Punjabi-speaking counsellors in Abbotsford, several practices built specifically around South Asian clients, and Fraser Health runs public mental-health services across the region. **This page is not an argument against any of it.** If a local office suits you, book locally with a clear conscience.',
+        'What this practice offers instead is structural: no office in Abbotsford, no waiting room anywhere, no professional or social overlap with the Valley\'s South Asian community. That is not a claim to be better. For some people it is the difference between starting counselling and not starting.',
+        'The second pattern specific here is agricultural. The Valley\'s berry and greenhouse economy runs on a season, and during a peak a fixed weekday-afternoon appointment is not attendable by anyone working it. Evening sessions, and no travel either side, are what make therapy possible rather than theoretical in those months.',
+        'If language is not the barrier you are solving for, [online counselling for Abbotsford](/online-counselling/abbotsford) covers the rest — the distances across the Valley, and what they cost a course of therapy.',
+      ],
+    },
+    access: [
+      {
+        label: 'No local office, deliberately',
+        detail: 'Nobody sees you arrive, because there is nowhere to arrive. Sessions happen wherever you have a private room and a connection — a parked car included, which is more common than you would think.',
+      },
+      {
+        label: 'Outside the Valley\'s networks',
+        detail: 'No shared gurdwara, no overlapping family circles, no chance of meeting your counsellor at a wedding in Abbotsford or Mission.',
+      },
+      {
+        label: 'Punjabi, English, or both',
+        detail: 'Most sessions move between the two without anyone deciding to. Clinical and administrative terms usually stay in English, because those are the words people actually use.',
+      },
+      {
+        label: 'Fits around the season',
+        detail: 'Weekday evenings by request. For agricultural and greenhouse work, a fixed daytime clinic slot is often the reason counselling never starts.',
+      },
+      {
+        label: 'The wider Valley on the same terms',
+        detail: 'Mission, Chilliwack, Agassiz, Hope and the rural areas east — no travel penalty for being further out, which is the whole point.',
+      },
+    ],
+    faqs: [
+      {
+        q: 'There are Punjabi-speaking counsellors in Abbotsford. Why go virtual?',
+        a: 'For plenty of people there is no reason to, and you would be told so on a consultation call. The people who write in from Abbotsford are usually those for whom the local option carries a privacy cost — a familiar waiting room, a counsellor connected to the same community, a car recognised outside a clinic. If none of that applies to you, seeing somebody locally is a perfectly good outcome.',
+      },
+      {
+        q: 'Is Abbotsford really different from Surrey for this?',
+        a: 'In share of the population, barely — both are around a quarter Punjabi mother tongue. In practice, yes: Abbotsford is less than a third the size, so the same density means fewer people between you and anyone who might recognise you. People who have lived in both usually describe Abbotsford as the harder place to be private.',
+      },
+      {
+        q: 'Will anyone in my family find out I am going to counselling?',
+        a: 'Not from this practice. Sessions are by secure video, nothing is posted to a home address, and confidentiality carries the same legal limits set out on the standards page regardless of who asks. What cannot be controlled from this end is your own device — a shared computer, or a phone somebody else opens, is much the most common way people are found out, and it is worth thinking about before the first session rather than after.',
+      },
+      {
+        q: 'Can the whole session be in Punjabi?',
+        a: 'Yes. Sessions run in Punjabi, in English, or moving between the two — whichever the moment calls for. Most people switch without planning to, and that is fine.',
+      },
+      {
+        q: 'Do you work with people in Mission, Chilliwack or Hope?',
+        a: 'Yes, and on identical terms. The practice is virtual and registered across British Columbia, so anywhere in the Fraser Valley is the same session — with no drive, which for the eastern Valley is the difference that matters most.',
+      },
+      {
+        q: 'Will my extended health cover this?',
+        a: 'Most BC extended-health plans that cover a Registered Clinical Counsellor cover virtual sessions on the same terms as in-person ones. Coverage varies by plan, so it is worth checking your specific policy before booking.',
+      },
+    ],
+    sources: [
+      {
+        label: 'City of Abbotsford — Diversity (2021 Census language data)',
+        url: 'https://www.abbotsford.ca/people-community/diversity',
+      },
+      {
+        label: 'Statistics Canada, Focus on Geography Series, 2021 Census — Abbotsford (Census subdivision)',
+        url: 'https://www12.statcan.gc.ca/census-recensement/2021/as-sa/fogs-spg/page.cfm?lang=E&topic=1&dguid=2021A00055909052',
+      },
+      {
+        label: 'Fraser Health — mental health and substance use services',
+        url: 'https://www.fraserhealth.ca/health-topics-a-to-z/mental-health-and-substance-use',
+      },
+    ],
+    nearby: ['surrey', 'vancouver'],
+  },
+
+  /* VANCOUVER, ADDED 2026-08-18. THIRD IN THE "DISTANCE" GROUP, AND THE ONE
+   * WHOSE ARGUMENT IS LEAST OBVIOUS.
+   *
+   * Vancouver is named in this file's header as one of the three places
+   * Punjabi-speaking counsellors with offices actually are, so the scarcity
+   * argument is unavailable. But the Surrey argument does not transfer either:
+   * Surrey's barrier is density, and Vancouver's Punjabi-speaking population
+   * is neither dense nor concentrated. It is 2.0% of the city and FIFTH among
+   * mother tongues, behind Cantonese and Mandarin.
+   *
+   * That is the page's actual subject, and it is a real thing people
+   * experience: in Vancouver, "services in your language" overwhelmingly means
+   * Chinese-language services, because that is where the numbers are. A
+   * Punjabi speaker here is a minority inside a multilingual majority, and the
+   * community infrastructure that exists for them is in Surrey. */
+  {
+    slug: 'vancouver',
+    region: 'Vancouver',
+    wider: 'the city proper, not the suburbs',
+    blurb:
+      'Punjabi is the fifth mother tongue in Vancouver, behind Cantonese and Mandarin. Being multilingual as a city is not the same as being multilingual in your language.',
+    metaDescription:
+      'Punjabi-speaking online counselling for Vancouver. Sessions in Punjabi, English, or both, with an RCC — without the trip to Surrey. Free consultation.',
+    demography: {
+      stat: 'Punjabi is the mother tongue of 13,305 Vancouver residents — 2.0%, and fifth in the city behind English, Cantonese, Mandarin and Tagalog.',
+      body: [
+        'In the 2021 census **Punjabi was the mother tongue of 13,305 people in the City of Vancouver, about 2.0% of the population**. It ranked fifth, behind English at 50.7%, Cantonese at 11.8%, Mandarin at 6.4% and Tagalog at 2.9%.',
+        'Vancouver is one of the most linguistically diverse cities in the country — at least 190 languages are spoken here. That is exactly why this page exists: **a city being multilingual is not the same as it being multilingual in your language.**',
+        'The provincial picture inverts the city one. British Columbia has roughly 315,000 Punjabi speakers, and Surrey alone has 128,305. The community, its institutions and nearly all its Punjabi-speaking clinicians are across the river.',
+      ],
+    },
+    localReality: {
+      h2: 'Dispersed, not concentrated — and that changes what is available',
+      body: [
+        'There is no Punjabi neighbourhood in Vancouver proper in the way there is in Surrey or Abbotsford. The 13,305 people are spread across the city rather than gathered in it, which has a specific and under-discussed consequence: **the services that grow around a concentrated community do not grow around a dispersed one.**',
+        'When a Vancouver organisation advertises counselling "in your language", the languages in question are usually Cantonese and Mandarin. That is not a failure on anyone\'s part — it follows the numbers, and those services are good. It does mean that a Punjabi speaker in Vancouver is a minority inside the multilingual majority, and routinely finds that the multilingual option on offer is not theirs.',
+        'The practical answer for years has been to go to Surrey. That works, and for some people it is the right call. It also means a bridge or a tunnel, transit at rush hour, and an appointment that costs most of an evening — which is the same arithmetic that quietly ends courses of therapy everywhere, applied to language access specifically.',
+        'Vancouver Coastal Health runs free mental-health services and they are worth knowing about before paying for anything. What they do not reliably provide is a counsellor who works in Punjabi.',
+        'There is a second thing specific to this city, and it is not about language at all. Vancouver has a well-documented reputation as a hard place to make friends, particularly for people who arrived as adults. For somebody carrying both that isolation and a family context nobody around them recognises, the loneliness is doubled rather than added.',
+        'The cost side of counselling in this city — and it is the real constraint here rather than supply — is covered on [online counselling for Vancouver](/online-counselling/vancouver).',
+      ],
+    },
+    access: [
+      {
+        label: 'No trip to Surrey',
+        detail: 'The most common practical reason people here choose virtual. A bridge, transit at rush hour, and most of an evening is what a Punjabi-language appointment has historically cost from Vancouver.',
+      },
+      {
+        label: 'Punjabi, English, or both',
+        detail: 'Sessions move between the two as needed. Clinical and administrative terms usually stay in English, because those are the words people actually use.',
+      },
+      {
+        label: 'Cultural context without the preamble',
+        detail: 'Family expectations, generational silence and "log kya kahenge" do not need explaining from first principles before the work can start.',
+      },
+      {
+        label: 'Lunch-break appointments',
+        detail: 'A session from a closed office or a parked car is entirely workable, and removes the need to explain an absence — which matters if you live with family.',
+      },
+      {
+        label: 'Outside the community network',
+        detail: 'No overlapping family circles, and no chance of meeting your counsellor at a wedding. Confidentiality is a legal duty everywhere; distance is what makes it feel true.',
+      },
+    ],
+    faqs: [
+      {
+        q: 'Why not just see somebody in Surrey?',
+        a: 'You can, and for some people that is the right answer — the choice is wider there and you would be told so on a consultation call. What Surrey costs from Vancouver is the travel: a bridge or tunnel, rush-hour transit, and an appointment that takes most of an evening rather than fifty minutes. That cost is the single most common reason weekly therapy quietly stops.',
+      },
+      {
+        q: 'Are there really few Punjabi-speaking counsellors in Vancouver itself?',
+        a: 'Fewer than the city\'s reputation for diversity would suggest, and the reason is arithmetic rather than neglect. Punjabi is the fifth mother tongue here at 2.0%; Cantonese and Mandarin are several times larger. Services follow the numbers, so Vancouver\'s multilingual mental-health provision is genuinely strong and mostly not in Punjabi.',
+      },
+      {
+        q: 'Can the whole session be in Punjabi?',
+        a: 'Yes. Sessions run in Punjabi, in English, or moving between the two — whichever the moment calls for. Most people switch without planning to, usually into Punjabi when the subject is family and back into English for practical planning, and that switch is worth paying attention to rather than correcting.',
+      },
+      {
+        q: 'Is there a free option I should try first?',
+        a: 'Vancouver Coastal Health runs free mental-health services and there is a broader set of free and low-cost options across BC worth checking before paying out of pocket. They are delivered in English. If language is the barrier you are trying to solve, that is where this practice is different.',
+      },
+      {
+        q: 'I live with family and have no private space. What do people do?',
+        a: 'This is one of the most common practical questions, and there are workable answers — a parked car, a session scheduled during a work break from the office, headphones and a closed door. It is worth raising on the consultation call so it is solved before the first session rather than during it.',
+      },
+      {
+        q: 'Will my extended health cover this?',
+        a: 'Most BC extended-health plans that cover a Registered Clinical Counsellor cover virtual sessions on the same terms as in-person ones. Coverage varies by plan, so it is worth checking your specific policy before booking.',
+      },
+    ],
+    sources: [
+      {
+        label: 'City of Vancouver — 2021 Census: Indigenous Peoples and Language',
+        url: 'https://vancouver.ca/files/cov/2022-12-19-city-of-vancouver-2021-census-indigenous-peoples-and-language.pdf',
+      },
+      {
+        label: 'Statistics Canada, Census Profile, 2021 Census — Vancouver, City (CY), British Columbia',
+        url: 'https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&SearchText=vancouver&DGUIDlist=2021A00055915022',
+      },
+      {
+        label: 'Vancouver Coastal Health — mental health and substance use',
+        url: 'https://www.vch.ca/en/health-topics/mental-health',
+      },
+    ],
+    nearby: ['surrey', 'abbotsford'],
   },
 ];
 

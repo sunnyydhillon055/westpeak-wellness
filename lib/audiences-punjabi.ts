@@ -327,6 +327,7 @@ export const punjabiAudiences: Audience[] = [
     ],
 
     related: [
+      { href: '/punjabi-counselling/abbotsford', label: 'Punjabi-speaking counselling for Abbotsford' },
       { href: '/for/first-gen-south-asian-adults', label: 'For first- and second-generation South Asian adults' },
       { href: '/guides/intergenerational-trauma-explained', label: 'Intergenerational trauma explained' },
       { href: '/for/punjabi-speaking-couples', label: 'Punjabi-speaking couples counselling' },

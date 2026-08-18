@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { site } from '@/lib/site';
 import { gurmukhi } from '@/app/fonts-gurmukhi';
 import { featuredServices } from '@/lib/services';
+import { locations } from '@/lib/locations';
+import { punjabiRegions } from '@/lib/punjabi-regions';
 import { faqs } from '@/lib/faq';
 import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
@@ -410,6 +412,66 @@ export default function Home() {
                 </p>
               </div>
             </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* WHERE YOU ARE.
+          Added 2026-08-18 after a link crawl found the homepage linked to ZERO
+          city pages — as did /services. Every route to a city page ran through
+          the /online-counselling hub or a sibling, which put them three
+          editorial clicks from here and is the crawl profile that produces
+          "discovered, currently not indexed".
+
+          Full anchor text rather than bare place names, because a row of city
+          names is a navigation element and a row of sentences is a link. */}
+      <section className="section section--tint">
+        <div className="container">
+          <Reveal>
+            <p className="eyebrow">Where you are</p>
+            <h2>Anywhere in BC — but a few places have their own page</h2>
+            <p style={{ maxWidth: '68ch' }}>
+              The practice is virtual and registered across British Columbia, so where you live
+              makes no difference to the session itself. It makes a considerable difference to
+              what is available to you locally, and these are the places where that gap changes
+              what there is to say — the scarcity of clinicians in the north, the cost of a
+              ferry, the drive into a regional hub, the concentration of Punjabi-speaking
+              counsellors in the Lower Mainland.
+            </p>
+          </Reveal>
+          <Reveal>
+            <div className="chip-grid" style={{ marginTop: 22 }}>
+              {locations.map((l) => (
+                <Link key={l.slug} className="chip" href={`/online-counselling/${l.slug}`}>
+                  Online counselling in {l.city}
+                </Link>
+              ))}
+            </div>
+          </Reveal>
+          <Reveal>
+            <p style={{ marginTop: 26, maxWidth: '68ch' }}>
+              What is available locally <em>in Punjabi</em> is a different question, and across
+              most of the province the answer is very different — which is why those regions have{' '}
+              <Link href="/punjabi-counselling">their own set of pages</Link>, each carrying the
+              local census figure it rests on.
+            </p>
+          </Reveal>
+          <Reveal>
+            <div className="chip-grid" style={{ marginTop: 18 }}>
+              {punjabiRegions.map((r) => (
+                <Link key={r.slug} className="chip" href={`/punjabi-counselling/${r.slug}`}>
+                  Punjabi counselling for {r.region}
+                </Link>
+              ))}
+            </div>
+          </Reveal>
+          <Reveal>
+            <p style={{ marginTop: 24, color: 'var(--ink-soft)' }}>
+              Not listed? Nothing changes —{' '}
+              <Link href="/online-counselling">everywhere else in BC</Link> is served on exactly
+              the same terms, and the page for the nearest listed city will usually still be the
+              closest thing to your situation.
+            </p>
           </Reveal>
         </div>
       </section>

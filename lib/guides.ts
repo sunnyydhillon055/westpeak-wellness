@@ -134,6 +134,7 @@ const coreGuides: Guide[] = [
       { label: "HereToHelp BC — mental health information for British Columbians", url: "https://www.heretohelp.bc.ca/" },
     ],
     related: [
+      { href: '/online-counselling/victoria', label: 'Online counselling in Victoria' },
       { href: "/services/online-counselling-bc", label: "How online counselling works across BC" },
       { href: "/services/emdr-therapy", label: "EMDR therapy for trauma and PTSD" },
       { href: "/compare/rcc-vs-psychologist-vs-social-worker-bc", label: "RCC, psychologist, or social worker — who to see in BC" },
@@ -367,6 +368,7 @@ const coreGuides: Guide[] = [
       { label: "HereToHelp BC — anxiety information", url: "https://www.heretohelp.bc.ca/infosheet/anxiety-disorders" },
     ],
     related: [
+      { href: '/online-counselling/vancouver', label: 'Online counselling in Vancouver' },
       { href: "/services/anxiety-counselling", label: "Anxiety counselling across BC" },
       { href: "/guides/burnout-vs-depression", label: "Burnout or depression — how to tell" },
       { href: "/guides/anxiety-attack-vs-panic-attack", label: "Anxiety attack vs panic attack" },
@@ -674,6 +676,7 @@ const coreGuides: Guide[] = [
       { label: "CAMH — trauma", url: "https://www.camh.ca/en/health-info/mental-illness-and-addiction-index/trauma" },
     ],
     related: [
+      { href: '/online-counselling/abbotsford', label: 'Online counselling in Abbotsford' },
       { href: "/services/south-asian-mental-health", label: "South Asian mental health counselling" },
       { href: "/services/punjabi-counselling", label: "Punjabi-speaking counselling" },
       { href: "/for/first-gen-south-asian-adults", label: "For first- and second-gen South Asian adults" },
@@ -762,6 +765,7 @@ const coreGuides: Guide[] = [
       { label: "CMHA BC — programs and services", url: "https://cmha.bc.ca/" },
     ],
     related: [
+      { href: '/online-counselling/victoria', label: 'Online counselling in Victoria' },
       { href: "/compare/rcc-vs-psychologist-vs-social-worker-bc", label: "RCC, psychologist, or social worker in BC" },
       { href: "/resources/low-cost-counselling-bc", label: "Free and low-cost counselling in BC" },
       { href: "/guides/what-to-expect-first-therapy-session", label: "What to expect in a first session" },

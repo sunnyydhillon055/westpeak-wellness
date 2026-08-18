@@ -330,6 +330,7 @@ export const moreGuides4: Guide[] = [
       { label: 'BC government — mental health and substance use support', url: 'https://www2.gov.bc.ca/gov/content/health/managing-your-health/mental-health-substance-use' },
     ],
     related: [
+      { href: '/online-counselling/kamloops', label: 'Online counselling in Kamloops' },
       { href: '/services/depression-counselling', label: 'Depression counselling' },
       { href: '/guides/burnout-vs-depression', label: 'Burnout vs depression' },
       { href: '/guides/anxiety-and-sleep', label: 'Anxiety and sleep' },

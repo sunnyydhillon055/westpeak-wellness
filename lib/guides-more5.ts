@@ -474,6 +474,7 @@ export const moreGuides5: Guide[] = [
       { label: 'Canadian Mental Health Association, BC Division', url: 'https://bc.cmha.ca/' },
     ],
     related: [
+      { href: '/online-counselling/vancouver', label: 'Online counselling in Vancouver' },
       { href: '/resources/low-cost-counselling-bc', label: 'Low-cost counselling in BC' },
       { href: '/services/anxiety-counselling', label: 'Anxiety counselling' },
       { href: '/guides/burnout-vs-depression', label: 'Burnout vs depression' },

@@ -69,6 +69,7 @@ export const locations: Location[] = [
         "The gap is documented, not anecdotal. In February 2026 the Canadian Mental Health Association's Northern BC branch reported that its no-barrier counselling program in Prince George — funded as a Northern Health pilot — had supported **103 clients across 519 appointments in ten months and still carried a waitlist of 30 people**. The program paused on 31 March 2026 when the pilot funding concluded.",
         "CMHA Northern BC has also said plainly that in-person, one-to-one services across the north remain sparse, and that people seeking a specialist or psychiatrist in the region routinely wait longer than elsewhere in BC.",
         "None of that means there is nothing available. Northern Health runs mental-health and substance-use services in Prince George — assessment, treatment, counselling, education and referral — delivered in person, by phone, and by video. If you are already connected to those services, staying connected to them is worth doing. Private virtual counselling is a parallel option, not a replacement, and it is most useful when the wait for a public service is longer than you can comfortably hold, or when you want continuity that does not depend on a pilot's funding cycle.",
+        "Those figures describe counselling in English. Add the requirement that the counsellor speak Punjabi and the local supply does not thin out — it disappears, and the nearest with an office is roughly eight hours south. [Punjabi-speaking counselling for Prince George](/punjabi-counselling/prince-george) covers that specifically, with the local numbers.",
       ],
     },
     access: [
@@ -89,6 +90,18 @@ export const locations: Location[] = [
       {
         q: "What if I am in crisis tonight?",
         a: "Westpeak Wellness is not a crisis service and cannot respond to emergencies. Call or text 9-8-8 (Canada, 24/7), or 310-6789 for BC Mental Health Support — no area code needed. In immediate danger, call 911.",
+      },
+      {
+        q: "I am on a Northern Health waitlist already. Should I come off it?",
+        a: "No — stay on it. Public and private care are not mutually exclusive, and the public services are worth keeping regardless of what you do here. Private virtual counselling is most useful as something that starts now rather than something that replaces what you are waiting for. If the public service comes through and suits you better, that is a good outcome.",
+      },
+      {
+        q: "I work a camp rotation. Can I have sessions from site?",
+        a: "Often yes, and it is worth testing the connection before booking rather than discovering it mid-session. Camp internet varies enormously. Turning the camera off cuts the bandwidth a session needs considerably, and scheduling around a rotation — blocks with gaps rather than the same weekday for six months — is the normal pattern here rather than the exception.",
+      },
+      {
+        q: "Winter here is long. Does that actually come up in counselling?",
+        a: "Frequently, and it is not a small thing. Prince George gets meaningfully less daylight in December than the south coast, and low mood that arrives every year on roughly the same schedule is a real pattern rather than a character flaw. It responds to treatment, and it is worth naming rather than waiting out.",
       },
     ],
     sources: [
@@ -130,6 +143,9 @@ export const locations: Location[] = [
       { q: "Will anyone in my family find out?", a: "No. Counselling is confidential, and whether you tell anyone is entirely your decision. Because sessions are virtual there is no clinic to be seen entering. The only limits on confidentiality are risk of serious harm and a court order." },
       { q: "Can I have sessions in Punjabi?", a: "Yes — in Punjabi, English, or moving between them within a session. You do not need to decide in advance which you want." },
       { q: "I live with family and have no private space. What do people do?", a: "This is one of the most common practical questions here, and there are workable answers — a parked car, a session scheduled during a work break from the office, headphones and a closed door. It is worth raising on the consultation call so it can be solved before the first session rather than during it." },
+      { q: "Surrey has plenty of Punjabi-speaking counsellors. Why look outside it?", a: "For many people there is no reason to, and you would be told so on a consultation call. The reason people write in from Surrey is narrower: in a community this interconnected, the counsellor who comes recommended is often connected to the very people you would least want to know you are going. Confidentiality is a legal duty everywhere — distance is what makes it feel true." },
+      { q: "I am the first person in my family to consider therapy. Where do I even start?", a: "That is the most common position people arrive in from Surrey, and there is no template because the generation before did not have one either. A free 15-minute consultation is a reasonable place to work out what you are actually looking for, with no obligation attached — and if somebody else would be a better fit, you would be told that plainly." },
+      { q: "Do my parents have to be involved if the problem is my parents?", a: "No. Individual counselling is yours, and what you discuss stays confidential within the usual legal limits. Some people later choose to bring a family member into a session and some never do; both are ordinary. Nothing is disclosed to family because they asked." },
     ],
     sources: [
       { label: "Fraser Health — mental health and substance use services", url: "https://www.fraserhealth.ca/health-topics-a-to-z/mental-health-and-substance-use" },
@@ -154,7 +170,8 @@ export const locations: Location[] = [
     localReality: {
       h2: "The Vancouver-specific obstacles",
       body: [
-        "**Cost against cost of living.** Vancouver consistently ranks among the least affordable cities in Canada. Therapy competes directly with rent in a way it does not in most of the province, which is why it is worth checking [what your extended health plan reimburses](/resources/bc-extended-health-coverage-for-counselling) — and what [free and low-cost options exist across BC](/resources/low-cost-counselling-bc) — before deciding you cannot afford it.",
+        "**Cost against cost of living, with the actual number attached.** In the first quarter of 2025 Vancouver had **the highest average asking rent for a two-bedroom apartment in Canada, at $3,170** — ahead of Toronto, Victoria and Ottawa. Against a figure like that, a $140 weekly session is not an obvious decision, and treating it as one would be dishonest. Therapy competes directly with rent here in a way it does not in most of the province, which is exactly why it is worth checking [what your extended health plan reimburses](/resources/bc-extended-health-coverage-for-counselling) — and what [free and low-cost options exist across BC](/resources/low-cost-counselling-bc) — before deciding you cannot afford it.",
+        "**Language access is quietly harder here than the city's reputation suggests.** Vancouver is one of the most linguistically diverse cities in the country, but Punjabi is only the fifth mother tongue at 2.0%, well behind Cantonese and Mandarin — so services offered \"in your language\" here usually are not. [Punjabi-speaking counselling for Vancouver](/punjabi-counselling/vancouver) covers what that means in practice, and why the answer has historically been a trip to Surrey.",
         "**Time and geography.** A 50-minute session that requires crossing the city at 5pm is not a 50-minute commitment; it is closer to two hours. That is the single most common reason people book therapy and then quietly stop going. Removing the travel changes the arithmetic — a session becomes something that fits in a lunch break or between the end of work and dinner.",
         "**Isolation in density.** Vancouver has a well-documented reputation for being a hard city to make friends in, particularly for people who moved here as adults. A great deal of what comes up in this work is not a diagnosable condition at all — it is loneliness in a place where everyone appears to have arrived with their social life already assembled.",
       ],
@@ -168,6 +185,9 @@ export const locations: Location[] = [
       { q: "Is virtual therapy cheaper than in-person?", a: "Fees here are the same either way. What virtual removes is the surrounding cost: transit or parking, and the hour or more of travel that an in-person appointment adds to a working day." },
       { q: "I have extended health through work. Will it cover this?", a: "Most BC plans that list Registered Clinical Counsellors will. Some list only psychologists and social workers, so it is worth checking the exact wording — the extended health coverage page explains what to look for." },
       { q: "What if I cannot afford private fees?", a: "Vancouver Coastal Health runs free mental-health services, and there is a broader set of free and low-cost options across BC worth checking before paying out of pocket. Those are listed on the free and low-cost counselling page." },
+      { q: "Can I have sessions in Punjabi without going to Surrey?", a: "Yes, and that is most of why the Vancouver Punjabi page exists. Punjabi is the fifth mother tongue in Vancouver proper and the community's clinicians and institutions are largely across the river, so the historic answer has been a bridge and most of an evening. Sessions here run in Punjabi, English, or moving between them, from wherever you are." },
+      { q: "I just moved here and do not know anyone. Is that a reason to come?", a: "Yes, and it is one of the more common ones. Vancouver has a well-documented reputation as a hard city to build a social life in, particularly for people who arrived as adults, and a great deal of what comes up in this work is not a diagnosable condition at all — it is loneliness in a place where everyone appears to have arrived with their friendships already assembled. That is worth working on rather than waiting out." },
+      { q: "Does a session have to be from home? I have roommates.", a: "No, and in this city that question comes up constantly. A closed office, a booked meeting room, a parked car — all of them work, and headphones do more for privacy than most people expect. It is worth raising on the consultation call so it is solved before the first session rather than during it." },
     ],
     sources: [
       { label: "Vancouver Coastal Health — mental health and substance use", url: "https://www.vch.ca/en/health-topics/mental-health" },
@@ -187,14 +207,14 @@ export const locations: Location[] = [
       "Online counselling for Abbotsford and the Fraser Valley. Therapy in Punjabi or English — EMDR, trauma, anxiety, and couples sessions.",
     intro: [
       "Abbotsford sits in a particular gap. It is large enough to have services, far enough from Vancouver that accessing the Lower Mainland's depth of specialists means a real commitment of a day, and spread out enough that even a local appointment can involve a significant drive.",
-      "It also has one of the largest Punjabi-speaking communities in Canada, with much the same dynamic as Surrey — a strong community, and a corresponding concern about privacy that keeps people from walking into a local clinic.",
+      "It also has one of the largest Punjabi-speaking communities in Canada, and the scale of it is easy to underestimate from outside: in the 2021 census **Punjabi was the mother tongue of 34,280 Abbotsford residents — 22.6% of the city**, second only to English at 61%. Nearly a quarter of a city is not a minority community in any ordinary sense. It brings much the same dynamic as Surrey — a strong community, and a corresponding concern about privacy that keeps people from walking into a local clinic.",
     ],
     localReality: {
       h2: "Distance, agriculture, and privacy",
       body: [
         "**The Valley is spread out.** For people in Abbotsford's rural areas, or in Mission, Chilliwack, or further east, a counselling appointment has historically meant driving — and that drive is the reason a lot of courses of therapy quietly end after three or four sessions. Virtual sessions remove that variable entirely.",
         "**Agricultural and seasonal work does not fit a 9-to-5 appointment slot.** The Valley's economy includes a significant agricultural workforce with seasonal peaks and long days during them. Evening availability, and the ability to attend without losing travel time either side, is the practical difference between possible and not.",
-        "**Privacy operates the same way it does in Surrey.** In a community where families know each other, being seen entering a counselling office carries a weight that is entirely rational to want to avoid. A virtual practice removes the question.",
+        "**Privacy operates the way it does in Surrey, only with less room.** In a community where families know each other, being seen entering a counselling office carries a weight that is entirely rational to want to avoid. What makes Abbotsford its own case rather than a smaller Surrey is the arithmetic: a comparable share of the population in a city less than a third the size means fewer degrees of separation available, not more. [Punjabi-speaking counselling for Abbotsford](/punjabi-counselling/abbotsford) is written about that specifically. A virtual practice removes the question entirely — there is no building to be seen at.",
         "For the broader picture of what this work involves within South Asian families, [the guide on intergenerational trauma](/guides/intergenerational-trauma-explained) covers the patterns that come up most.",
       ],
     },
@@ -208,6 +228,9 @@ export const locations: Location[] = [
       { q: "Do you serve Mission, Chilliwack, and Hope?", a: "Yes. The practice is virtual and covers all of British Columbia, so anywhere in the Fraser Valley works the same as anywhere else — with no additional travel for you." },
       { q: "Can I have sessions in Punjabi?", a: "Yes, in Punjabi, English, or a mix of both — and without needing to travel to Surrey or Vancouver to find it." },
       { q: "What if my internet is unreliable out here?", a: "Turning the camera off cuts the bandwidth a session needs considerably, and it is worth agreeing in advance what happens if a connection drops mid-session so that it is an inconvenience rather than an interruption to the work." },
+      { q: "There are Punjabi-speaking counsellors in Abbotsford already. Why this?", a: "For plenty of people there is no reason, and you would be told so on a consultation call — if a local office suits you, book locally with a clear conscience. The people who write in from Abbotsford are usually those for whom the local option carries a privacy cost: a familiar waiting room, a counsellor connected to the same community, a car recognised outside a clinic on a main road." },
+      { q: "I work the berry season. Can counselling fit around that?", a: "Yes, and planning for it from the start works far better than discovering it in July. Agricultural and greenhouse work here runs on a season, and a schedule assuming the same weekday at the same time for six months does not survive contact with a peak. Booking block by block, with gaps, is a normal pattern and nothing is lost by pausing." },
+      { q: "Is Abbotsford close enough to Surrey that I should just look there?", a: "You can, and the choice is wider. What it costs is the drive and the same privacy question one city over — the Fraser Valley and Surrey's South Asian communities are not separate worlds, and for some people a counsellor in Surrey is closer to home socially than geographically. A practice with no office in either place is a different proposition." },
     ],
     sources: [
       { label: "Fraser Health — mental health and substance use services", url: "https://www.fraserhealth.ca/health-topics-a-to-z/mental-health-and-substance-use" },
@@ -233,6 +256,7 @@ export const locations: Location[] = [
       h2: "What the water actually costs",
       body: [
         "The Strait is not a minor inconvenience for continuity of care. Weekly therapy requiring a return sailing is not something most people can sustain financially or logistically, so Island residents have effectively been choosing from a smaller pool than mainland residents — not because of anything about the clinicians here, but because of geography.",
+        "**Start with what is free, because in Victoria it is unusually good.** Island Health runs Central Access and Rapid Engagement Services (CARES) at 1119 Pembroke Street, offering **same-day assessment and walk-in counselling** for South Island residents whose mental-health or substance-use concern does not need a hospital — in person or virtually, Monday to Friday, 8:30am to 4:30pm. There is no wait and no referral. If that fits what you need, use it; a practice that did not tell you it exists would not be worth trusting on anything else. Where it runs out is ongoing specialist work, and non-urgent psychiatric care in Victoria has become harder rather than easier as recruitment has failed to keep pace with retirements.",
         "Virtual sessions remove that constraint entirely. A counsellor on the mainland is exactly as available as one in Fairfield: same 50 minutes, same platform, same [BCACC](https://bcacc.ca) obligations, no sailing.",
         "**Language access is the sharpest version of this.** Punjabi-speaking clinicians in BC are concentrated overwhelmingly in the Lower Mainland. For Island residents wanting [therapy in Punjabi](/services/punjabi-counselling), virtual sessions are not a convenience — they are realistically the only route. The same argument, with the local numbers, is on the [Kamloops](/punjabi-counselling/kamloops) and [Prince George](/punjabi-counselling/prince-george) pages.",
         "The same applies further up-Island. Nanaimo, the Comox Valley, Campbell River, and the west coast communities have thinner local coverage again, and the gap widens the further north you go.",
@@ -248,6 +272,9 @@ export const locations: Location[] = [
       { q: "Can a mainland counsellor see me on the Island?", a: "Yes. Registration is province-wide, so a BC-registered counsellor can work with clients anywhere in British Columbia by secure video, under the same ethical and privacy standards as in person." },
       { q: "Do you work with people further up-Island?", a: "Yes — Nanaimo, Duncan, the Comox Valley, Campbell River, and smaller communities. Distance from Victoria makes no difference to a virtual session." },
       { q: "Is online therapy actually as good as in-person?", a: "The research finds outcomes broadly comparable for the concerns most people bring, with some genuine trade-offs. The guide on online versus in-person therapy sets out both sides." },
+      { q: "Is there something free I should try first?", a: "Yes, and it is genuinely good. Island Health's CARES service at 1119 Pembroke Street offers same-day assessment and walk-in counselling, in person or virtually, with no referral and no wait. If that meets what you need, use it. Private counselling is the better fit when the work is ongoing rather than immediate, or when what you need is specific enough that the local list is short." },
+      { q: "Can I have sessions in Punjabi from the Island?", a: "Yes. Punjabi-speaking clinicians in BC are concentrated overwhelmingly in the Lower Mainland, so for Island residents virtual sessions are not a convenience — they are realistically the only route. There is no Island-specific page for this yet, deliberately: the population figure needed to write one honestly could not be sourced, and a page resting on an estimate is not worth having." },
+      { q: "I am moving off-Island soon. Is it worth starting?", a: "Yes, and that is one of the better arguments for working this way. Registration covers all of British Columbia, so a move from Victoria to the mainland — or back, which is just as common — does not end the work or mean repeating your history to somebody new. Continuity is worth more to most people than proximity ever was." },
     ],
     sources: [
       { label: "Island Health — mental health and substance use services", url: "https://www.islandhealth.ca/our-services/mental-health-substance-use-services" },
@@ -287,13 +314,101 @@ export const locations: Location[] = [
     faqs: [
       { q: "Do you work with people in Vernon, Penticton, or West Kelowna?", a: "Yes. The practice covers all of British Columbia, so anywhere in the Okanagan works identically — and smaller communities gain the most, since local options are thinnest there." },
       { q: "Can I get counselling about wildfire evacuation or loss?", a: "Yes. Evacuation, property loss, and repeated seasons of alert are legitimate reasons to seek support, and the fact that a whole community experienced it does not make your response to it less real." },
-      { q: "Are sessions available in Punjabi?", a: "Yes — in Punjabi, English, or both, without needing to travel to the coast to find it." },
+      { q: "Are sessions available in Punjabi?", a: "Yes — in Punjabi, English, or both, without needing to travel to the coast to find it. The Kelowna Punjabi page covers what is and is not available locally, with the census figures behind it." },
+      { q: "I work the season. Can sessions stop and start?", a: "Yes, and in the Okanagan that is the normal pattern rather than the exception. Agricultural and hospitality work here runs on a season, and a schedule assuming the same weekday at the same time for six months straight does not survive contact with it. Booking block by block, with gaps, works — and nothing is lost by pausing. Better to plan for that than to book weekly, miss three, and conclude counselling did not suit you." },
+      { q: "Is there a free option I should try first?", a: "CMHA Kelowna runs a free virtual counselling programme for adults 25 and over, and it is worth looking at before paying for anything. Interior Health also provides mental-health and substance-use services across the Okanagan. Both are real options and this page is not an argument against using them." },
+      { q: "Everyone here went through the fires. Does mine really count?", a: "Yes. A shared experience does not become less real for being shared, and \"other people had it worse\" is one of the most reliable ways people talk themselves out of getting help. Evacuation, property loss and repeated seasons of alert are legitimate reasons to seek support — and a specific, identifiable event is precisely the kind of thing trauma therapy and EMDR are well suited to." },
     ],
     sources: [
       { label: "Interior Health — mental health and substance use services", url: "https://www.interiorhealth.ca/services/access-mental-health-and-substance-use-services" },
       { label: "HereToHelp BC — mental health information", url: "https://www.heretohelp.bc.ca/" },
     ],
-    nearby: ["prince-george", "vancouver"],
+    nearby: ["prince-george", "vancouver", "kamloops"],
+  },
+
+  /* KAMLOOPS, ADDED 2026-08-18.
+   *
+   * Kamloops was the only city on the site present in one cluster and not the
+   * other — it had /punjabi-counselling/kamloops and no city page, which meant
+   * the whole English-language query space for the Thompson-Nicola was
+   * uncovered.
+   *
+   * ITS ARGUMENT IS NOT PRINCE GEORGE'S, AND THAT MATTERS.
+   *
+   * Prince George argues scarcity: there is almost nothing here. Kamloops
+   * cannot argue that and should not try — it is a genuine regional centre with
+   * Interior Health services, a university and a real private sector. The true
+   * thing about Kamloops is the opposite and less obvious: it is the HUB, and
+   * a hub is defined by how far people drive to reach it. For Clearwater,
+   * Barriere, Merritt, Ashcroft, Logan Lake, Chase and Cache Creek, "services
+   * are available in Kamloops" already means an hour each way on a highway that
+   * is not always open.
+   *
+   * The Punjabi page for Kamloops carries the census figure and argues language
+   * scarcity. This page must not repeat that argument — it links to it instead. */
+  {
+    slug: "kamloops",
+    figure2: "first-session-flow",
+    figure: "bc-reach",
+    city: "Kamloops",
+    region: "Thompson-Nicola",
+    blurb: "Kamloops is where the region's services are — which means everyone else in the region drives here for them.",
+    metaDescription:
+      "Online counselling for Kamloops and the Thompson-Nicola — EMDR, trauma, anxiety, depression and couples therapy by secure video. Free 15-minute consultation.",
+    intro: [
+      "Kamloops is a regional centre, and it is worth being straightforward about what that means: there are counsellors here, Interior Health runs mental-health and substance-use services from Lansdowne Street, and Thompson Rivers University brings a steady population of students and staff with it. If you live in the city and want to see somebody in person, that is a real and reasonable option.",
+      "The thing that is specific about this region is not scarcity in Kamloops. It is that Kamloops is the place the rest of the Thompson-Nicola drives to. For anyone in Clearwater, Barriere, Merritt, Ashcroft, Logan Lake, Chase or Cache Creek, \"available in Kamloops\" already means an hour or more each way — on highways that close.",
+    ],
+    localReality: {
+      h2: "What a hub looks like from outside it",
+      body: [
+        "The Thompson-Nicola Regional District covers roughly 45,000 square kilometres for about 140,000 people, and rather more than half of them live in Kamloops itself. That distribution is the whole story: the services concentrate where the population does, and the remaining communities are spread across an area larger than several countries.",
+        "A weekly appointment that requires a 90-minute drive each way is not a 50-minute commitment; it is most of a day. That is the single most common reason a course of counselling ends after three or four sessions — not because it was not working, but because the travel stopped being sustainable in February. Removing the drive removes the variable.",
+        "**Winter is not a footnote here.** The Coquihalla and Highway 5 close, and the 2021 floods took out sections of highway across this region for months. Continuity of care that depends on a road is continuity that stops when the road does.",
+        "**Language access is the sharpest version of the same problem.** South Asian residents are the largest racialized group in Kamloops and Punjabi is the most commonly spoken non-official language in the city's homes — but Punjabi-speaking clinical counsellors in the Thompson-Nicola are close to absent, and the nearest with an office is roughly four hours down the Coquihalla. That is covered properly on [Punjabi-speaking counselling for Kamloops](/punjabi-counselling/kamloops).",
+        "**Seasonal and shift work resists a standing appointment.** Ranching, forestry, the mills, the mines and the tourism season all peak, and during a peak a fixed weekday-afternoon slot is not attendable by anyone working it.",
+      ],
+    },
+    access: [
+      { label: "No drive, in any weather", detail: "Highway closures, winter conditions and a two-hour round trip stop being scheduling problems. For the communities outside Kamloops this is usually the whole difference." },
+      { label: "Covers the whole Thompson-Nicola", detail: "Merritt, Clearwater, Barriere, Chase, Ashcroft, Logan Lake and Cache Creek on identical terms — distance is not a factor in a virtual practice." },
+      { label: "Punjabi, English, or both", detail: "Without the four-hour drive to the Lower Mainland that has historically been the only route to therapy in Punjabi from here." },
+      { label: "Works around shifts and seasons", detail: "Weekday evenings by request, which matters for mill and mine rotations, ranching, and the tourism season." },
+      { label: "Continuity through a move", detail: "Registration covers all of BC, so leaving Kamloops — for the coast, for school, for work — does not mean starting again with somebody new." },
+    ],
+    faqs: [
+      {
+        q: "There are counsellors in Kamloops. Why would I do this online?",
+        a: "If you live in the city and an in-person appointment suits you, that is a perfectly good choice and you would be told so on a consultation call. Virtual makes the clearest difference in two situations: when you are outside Kamloops and the appointment carries an hour of highway each way, and when what you need is specific — a particular approach, or a session in Punjabi — and the local list for that is short.",
+      },
+      {
+        q: "Do you work with people in Merritt, Clearwater or Barriere?",
+        a: "Yes, and on identical terms. The practice is registered across British Columbia, so anywhere in the Thompson-Nicola is the same session. The smaller communities gain the most from it, because they are the ones currently paying for access in driving time.",
+      },
+      {
+        q: "What happens if the highway closes or the power goes out?",
+        a: "Sessions carry on as long as you have a connection, which is the point — a closed Coquihalla no longer cancels an appointment. If your connection drops mid-session it is worth agreeing in advance what happens, so it is an inconvenience rather than an interruption to the work. Turning the camera off cuts the bandwidth a session needs considerably.",
+      },
+      {
+        q: "Can I have sessions in Punjabi?",
+        a: "Yes — in Punjabi, English, or moving between them within a session, without the drive to the Lower Mainland that has historically been the only way to find it from here. The Kamloops Punjabi page covers what is and is not available locally.",
+      },
+      {
+        q: "I am a student at TRU. Is there something cheaper first?",
+        a: "Very possibly, and it is worth checking before paying out of pocket. TRU has its own counselling provision, Foundry serves ages 12 to 24 across BC including a virtual service, and there is a broader set of free and low-cost options on the low-cost counselling page. None of that is a sales pitch against them — if a free service fits, use it.",
+      },
+      {
+        q: "I work a rotation. Can sessions stop and start?",
+        a: "Yes, and in this region that is the normal pattern rather than the exception. Booking block by block, with gaps, works, and nothing is lost by pausing. It is better to plan for that from the start than to book weekly, miss three, and conclude that counselling did not suit you.",
+      },
+    ],
+    sources: [
+      { label: "Interior Health — Kamloops Mental Health & Substance Use", url: "https://www.interiorhealth.ca/locations/kamloops-mental-health-substance-use" },
+      { label: "Interior Health — access mental health and substance use services", url: "https://www.interiorhealth.ca/services/access-mental-health-and-substance-use-services" },
+      { label: "Statistics Canada, Focus on Geography Series, 2021 Census — Kamloops (Census subdivision)", url: "https://www12.statcan.gc.ca/census-recensement/2021/as-sa/fogs-spg/page.cfm?lang=E&topic=10&dguid=2021A00055933042" },
+      { label: "CMHA Kamloops Branch", url: "https://kamloops.cmha.bc.ca/" },
+    ],
+    nearby: ["kelowna", "prince-george"],
   },
 ];
 

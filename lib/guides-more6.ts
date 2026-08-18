@@ -324,6 +324,7 @@ export const moreGuides6: Guide[] = [
       { label: 'Anxiety Canada', url: 'https://www.anxietycanada.com/' },
     ],
     related: [
+      { href: '/online-counselling/vancouver', label: 'Online counselling in Vancouver' },
       { href: '/guides/perfectionism-and-self-criticism', label: 'Perfectionism and self-criticism' },
       { href: '/guides/high-functioning-anxiety', label: 'High-functioning anxiety' },
       { href: '/guides/workplace-bullying-in-bc', label: 'Workplace bullying' },
@@ -488,6 +489,7 @@ export const moreGuides6: Guide[] = [
       { label: 'Pain BC', url: 'https://painbc.ca/' },
     ],
     related: [
+      { href: '/online-counselling/kelowna', label: 'Online counselling in Kelowna' },
       { href: '/approaches/acceptance-and-commitment-therapy', label: 'Acceptance and commitment therapy' },
       { href: '/guides/grief-without-a-timeline', label: 'Grief without a timeline' },
       { href: '/guides/life-transitions-and-identity', label: 'Life transitions and identity' },

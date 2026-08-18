@@ -93,8 +93,14 @@ export default function LocationsIndex() {
             </div>
           ))}
           <p style={{ marginTop: 24, color: 'var(--ink-soft)' }}>
-            Not on the list? Nothing changes — Burnaby, Kamloops, Nanaimo, Terrace, Fort St. John and
+            Not on the list? Nothing changes — Burnaby, Nanaimo, Terrace, Fort St. John and
             everywhere else in the province are served on exactly the same terms.
+          </p>
+          <p style={{ marginTop: 14 }}>
+            There is a separate set of pages for{' '}
+            <Link href="/punjabi-counselling">Punjabi-speaking counselling by region</Link>, because
+            what is available locally in Punjabi is a different question from what is available
+            locally in English — and across most of the province the answer is very different.
           </p>
         </div>
       </section>

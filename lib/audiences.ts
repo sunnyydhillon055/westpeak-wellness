@@ -217,6 +217,7 @@ const coreAudiences: Audience[] = [
       { label: "HereToHelp BC — mental health information", url: "https://www.heretohelp.bc.ca/" },
     ],
     related: [
+      { href: '/online-counselling/vancouver', label: 'Online counselling in Vancouver' },
       { href: "/guides/high-functioning-anxiety", label: "High-functioning anxiety" },
       { href: "/guides/what-to-expect-first-therapy-session", label: "What to expect in a first session" },
       { href: "/resources/low-cost-counselling-bc", label: "Free and low-cost counselling in BC" },
@@ -300,6 +301,7 @@ const coreAudiences: Audience[] = [
       { label: "CMHA BC — workplace mental health", url: "https://cmha.bc.ca/" },
     ],
     related: [
+      { href: '/online-counselling/victoria', label: 'Online counselling in Victoria' },
       { href: "/guides/burnout-vs-depression", label: "Burnout or depression — how to tell" },
       { href: "/services/emdr-therapy", label: "EMDR therapy across BC" },
       { href: "/guides/what-is-emdr-and-how-a-session-works", label: "What is EMDR and how a session works" },
@@ -382,6 +384,7 @@ const coreAudiences: Audience[] = [
       { label: "BC Association of Clinical Counsellors — find a counsellor", url: "https://bcacc.ca/" },
     ],
     related: [
+      { href: '/online-counselling/surrey', label: 'Online counselling in Surrey' },
       { href: "/guides/intergenerational-trauma-explained", label: "Intergenerational trauma explained" },
       { href: "/services/punjabi-counselling", label: "Punjabi-speaking counselling in BC" },
       { href: "/for/punjabi-speaking-couples", label: "Punjabi-speaking couples counselling" },

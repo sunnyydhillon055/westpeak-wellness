@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { site } from '@/lib/site';
 import { services } from '@/lib/services';
+import { locations } from '@/lib/locations';
 import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
 import { getServiceIcon } from '@/lib/icon-map';
@@ -192,11 +193,42 @@ export default function Services() {
             <Link href="/guides/questions-to-ask-a-therapist">questions worth asking a therapist</Link>{' '}
             cover the ground properly, and{' '}
             <Link href="/for">the pages written for particular situations</Link> may be a better
-            starting point than the service list &mdash; as may{' '}
-            <Link href="/answers">short answers to the questions people ask most</Link> covers
+            starting point than the service list.{' '}
+            <Link href="/answers">Short answers to the questions people ask most</Link> covers
             cost, coverage and what a first session involves without reading a full page, and{' '}
-            <Link href="/approaches">the approach pages</Link>, if what you want to understand is the
-            method rather than the problem.
+            <Link href="/approaches">the approach pages</Link> are the place to start if what you
+            want to understand is the method rather than the problem.
+          </p>
+        </div>
+      </section>
+
+      {/* AREAS SERVED.
+          Added 2026-08-18. This page linked to no city page at all, and neither
+          did the homepage — so every city page sat behind a single hub. It
+          belongs here specifically because the service pages are province-wide
+          and the city pages are where "province-wide" is made concrete. */}
+      <section className="section section--tint">
+        <div className="container prose">
+          <h2>Every service on this page, anywhere in BC</h2>
+          <p>
+            None of the services above is limited by where you live. The practice is virtual and
+            registered across British Columbia, so a session from Prince George is the same
+            session as one from Surrey. What does change by location is what is available to you
+            locally, and a few places have their own page because that gap changes what there is
+            to say.
+          </p>
+          <div className="chip-grid" style={{ marginTop: 20 }}>
+            {locations.map((l) => (
+              <Link key={l.slug} className="chip" href={`/online-counselling/${l.slug}`}>
+                Online counselling in {l.city}
+              </Link>
+            ))}
+          </div>
+          <p style={{ marginTop: 24 }}>
+            What is available locally <em>in Punjabi</em> is a separate question with a very
+            different answer in most of the province — those regions have{' '}
+            <Link href="/punjabi-counselling">their own pages</Link>, and the full provincial
+            picture is on <Link href="/online-counselling">areas served</Link>.
           </p>
         </div>
       </section>

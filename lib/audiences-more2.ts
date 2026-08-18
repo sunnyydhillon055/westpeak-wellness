@@ -89,6 +89,7 @@ export const moreAudiences2: Audience[] = [
       { label: 'HealthLink BC — mental health and substance use', url: 'https://www.healthlinkbc.ca/mental-health-substance-use' },
     ],
     related: [
+      { href: '/online-counselling/kamloops', label: 'Online counselling in Kamloops' },
       { href: '/for/healthcare-and-shift-workers', label: 'Counselling for healthcare and shift workers' },
       { href: '/resources/workplace-mental-health-bc', label: 'Mental health and work in BC' },
       { href: '/online-counselling/prince-george', label: 'Online counselling in Prince George' },
@@ -185,6 +186,7 @@ export const moreAudiences2: Audience[] = [
       { label: 'HealthLink BC — call 8-1-1', url: 'https://www.healthlinkbc.ca/' },
     ],
     related: [
+      { href: '/online-counselling/abbotsford', label: 'Online counselling in Abbotsford' },
       { href: '/for/women', label: 'Counselling for women' },
       { href: '/guides/grief-without-a-timeline', label: 'Grief without a timeline' },
       { href: '/guides/setting-boundaries-with-family', label: 'Setting boundaries with family' },

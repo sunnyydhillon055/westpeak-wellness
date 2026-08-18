@@ -38,15 +38,20 @@ export const metadata: Metadata = {
  *
  * The counsellor-name rule holds here as everywhere: no name on this page.
  */
-/* Reads one query parameter so the confirmation can appear here, in Punjabi.
- * That opts this single route out of static generation, which is the same
- * trade already made for /refer and is not the trade made for the ~94 pages
- * carrying the sitewide English form — those post to /message-sent.
+/* THIS PAGE USED TO READ ?sent AND WAS THEREFORE RENDERED PER REQUEST.
  *
- * Sending a Punjabi speaker to an English confirmation page would undo the
- * one thing this page exists to do. */
-export default function PunjabiPage({ searchParams }: { searchParams?: { sent?: string } }) {
-  const sent = searchParams?.sent;
+ * The reason given was sound — sending a Punjabi speaker to an English
+ * confirmation page would undo the one thing this page exists to do — but the
+ * cost was larger than it looked. An on-demand route leaves no file in
+ * .next/server/app, so `npm run seo` skipped this page entirely and could not
+ * see that it links to all the region pages. That made the Punjabi cluster look
+ * orphaned in a link audit when it is not, and it meant this page was never
+ * checked by the gate that checks every other page on the site.
+ *
+ * The confirmation now lives at /punjabi/sent, in Punjabi, built entirely from
+ * the strings that were already here. The reasoning is preserved and the route
+ * is static again. */
+export default function PunjabiPage() {
   const schema = [
     {
       '@context': 'https://schema.org',
@@ -220,19 +225,12 @@ export default function PunjabiPage({ searchParams }: { searchParams?: { sent?: 
                 is relied on — it is written to match the register of the rest
                 of this page, but it is the practice's own language and voice,
                 not mine to finalise. */}
-            {sent === 'ok' ? (
-              <div className="crisis" id="form" style={{ marginTop: 30 }}>
-                <p lang="pa" style={{ margin: 0 }}>
-                  <strong>ਤੁਹਾਡਾ ਸੁਨੇਹਾ ਪਹੁੰਚ ਗਿਆ ਹੈ।</strong>{' '}
-                  ਇੱਕ ਕੰਮ-ਕਾਜੀ ਦਿਨ ਦੇ ਅੰਦਰ ਜਵਾਬ ਮਿਲੇਗਾ, ਅਤੇ ਇੱਕ ਕਾਪੀ ਤੁਹਾਡੇ ਈਮੇਲ ਵਿੱਚ ਹੈ।
-                  ਤੁਹਾਨੂੰ ਹੋਰ ਕੁਝ ਕਰਨ ਦੀ ਲੋੜ ਨਹੀਂ।
-                </p>
-              </div>
-            ) : (
-              <form method="POST" action="/api/enquiry" className="lead-form" id="form"
+            <form method="POST" action="/api/enquiry" className="lead-form" id="form"
                 style={{ marginTop: 30 }}>
                 <input type="hidden" name="source" value="/punjabi" />
-                <input type="hidden" name="returnTo" value="/punjabi" />
+                {/* The confirmation is its own Punjabi page, which is what lets
+                    this route stay static. See the note at the top. */}
+                <input type="hidden" name="returnTo" value="/punjabi/sent" />
                 <div className="hp" aria-hidden="true">
                   <label htmlFor="hp-pa">Company</label>
                   <input id="hp-pa" name="company" type="text" tabIndex={-1} autoComplete="off" />
@@ -258,11 +256,12 @@ export default function PunjabiPage({ searchParams }: { searchParams?: { sent?: 
                   911 &rsquo;ਤੇ ਕਾਲ ਕਰੋ, ਜਾਂ 9-8-8 &rsquo;ਤੇ ਕਾਲ ਜਾਂ ਟੈਕਸਟ ਕਰੋ।
                 </p>
               </form>
-            )}
 
             <p lang="pa" style={{ marginTop: 30 }}>
               ਖੇਤਰ ਅਨੁਸਾਰ:{' '}
               <Link href="/punjabi-counselling/surrey">ਸਰੀ</Link> ·{' '}
+              <Link href="/punjabi-counselling/abbotsford">ਐਬਟਸਫੋਰਡ</Link> ·{' '}
+              <Link href="/punjabi-counselling/vancouver">ਵੈਨਕੂਵਰ</Link> ·{' '}
               <Link href="/punjabi-counselling/kelowna">ਕੈਲੋਨਾ</Link> ·{' '}
               <Link href="/punjabi-counselling/kamloops">ਕੈਮਲੂਪਸ</Link> ·{' '}
               <Link href="/punjabi-counselling/prince-george">ਪ੍ਰਿੰਸ ਜਾਰਜ</Link>
@@ -271,8 +270,11 @@ export default function PunjabiPage({ searchParams }: { searchParams?: { sent?: 
               This page is written in Punjabi. The same information in English is on{' '}
               <Link href="/services/punjabi-counselling">Punjabi-speaking counselling</Link>, and{' '}
               <Link href="/services/south-asian-mental-health">counselling for South Asian adults</Link>{' '}
-              covers the cultural side in more depth. Region pages, in English, for{' '}
+              covers the cultural side in more depth. There is a{' '}
+              <Link href="/punjabi-counselling">full index of the region pages</Link>, in English —{' '}
               <Link href="/punjabi-counselling/surrey">Surrey</Link>,{' '}
+              <Link href="/punjabi-counselling/abbotsford">Abbotsford</Link>,{' '}
+              <Link href="/punjabi-counselling/vancouver">Vancouver</Link>,{' '}
               <Link href="/punjabi-counselling/kelowna">Kelowna</Link>,{' '}
               <Link href="/punjabi-counselling/kamloops">Kamloops</Link> and{' '}
               <Link href="/punjabi-counselling/prince-george">Prince George</Link>.

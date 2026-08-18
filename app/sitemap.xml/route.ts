@@ -148,6 +148,14 @@ export function GET() {
      * these target query space with no map pack, where the practice can rank
      * outright rather than compete for the two organic slots a no-office
      * practice can reach. See lib/targets.ts. */
+    /* The cluster hub, added 2026-08-18 with the page itself. The region pages
+       were listed here from the day they existed; there was no index for them
+       to sit under, which is most of why they were the least-linked pages on
+       the site. */
+    {
+      path: '/punjabi-counselling', lastmod: collectionLastmod('punjabiRegions'),
+      changefreq: 'monthly' as const, priority: 0.8,
+    },
     ...punjabiRegions.map((r) => ({
       path: `/punjabi-counselling/${r.slug}`, lastmod: collectionLastmod('punjabiRegions'),
       changefreq: 'monthly' as const, priority: 0.8,
