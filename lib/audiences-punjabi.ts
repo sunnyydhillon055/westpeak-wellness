@@ -42,7 +42,7 @@ export const punjabiAudiences: Audience[] = [
     title: 'Punjabi-speaking couples counselling in BC',
     metaTitle: 'Punjabi Couples Counselling in BC | Westpeak Wellness',
     metaDescription:
-      'Couples counselling in Punjabi or English, online across BC. For couples whose marriage involves two families, not just two people. Free 15-minute consultation.',
+      'Couples counselling in Punjabi or English, online across BC — for a marriage that involves two families, not just two people.',
     eyebrow: 'For · Punjabi-speaking couples',
     lede:
       'Where the argument can happen in the language the argument happened in — and the in-laws do not have to be explained first.',
@@ -229,7 +229,7 @@ export const punjabiAudiences: Audience[] = [
     title: 'When you and your parents cannot find each other',
     metaTitle: 'Intergenerational Conflict Counselling in Punjabi | BC',
     metaDescription:
-      'Counselling in Punjabi or English for intergenerational conflict in South Asian families — where both sides are reasonable and neither can hear the other. Online across BC.',
+      'Counselling in Punjabi or English for South Asian families where both sides are reasonable and neither can hear the other. Online across BC.',
     eyebrow: 'For · Families across a generation',
     lede:
       'Not a page about difficult parents. A page about two people who love each other and have stopped being able to hear one another.',

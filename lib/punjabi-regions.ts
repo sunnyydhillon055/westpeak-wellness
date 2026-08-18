@@ -320,7 +320,7 @@ export const punjabiRegions: PunjabiRegion[] = [
     blurb:
       'Surrey has more Punjabi speakers than anywhere else in Canada, and no shortage of Punjabi-speaking counsellors. What it is short of is distance.',
     metaDescription:
-      'Punjabi-speaking online counselling for Surrey, from outside Surrey. No local office, no waiting room, no shared community networks. Free 15-minute consultation.',
+      'Punjabi-speaking online counselling for Surrey, from outside Surrey. No local office, no waiting room, no shared community networks. Free consultation.',
     demography: {
       stat: '128,305 Surrey residents learned Punjabi first — the largest Punjabi-speaking population of any city in Canada.',
       body: [

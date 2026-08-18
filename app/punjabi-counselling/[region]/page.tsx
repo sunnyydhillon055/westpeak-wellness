@@ -29,7 +29,7 @@ export function generateMetadata({ params }: { params: { region: string } }): Me
   const r = getPunjabiRegion(params.region);
   if (!r) return {};
   return {
-    title: { absolute: `Punjabi-Speaking Counselling in ${r.region}, BC | ${site.name}` },
+    title: { absolute: `Punjabi Counselling in ${r.region}, BC | Westpeak` },
     description: r.metaDescription,
     alternates: {
       canonical: `${site.domain}/punjabi-counselling/${r.slug}`,

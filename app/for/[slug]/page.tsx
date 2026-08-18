@@ -5,7 +5,7 @@ import { audiences, getAudience } from '@/lib/audiences';
 import { site } from '@/lib/site';
 import { getExtra } from '@/lib/depth';
 import { buildToc, headingId } from '@/lib/toc';
-import { orgRef, siteRef, personRef } from '@/lib/schema';
+import { orgRef, siteRef, personRef, medicalWebPage } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
 import SceneBand from '@/components/SceneBand';
@@ -70,6 +70,12 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
   const slots = deviceSlots(forSections, midDevices.length);
 
   const schema = [
+    medicalWebPage({
+      path: `/for/${a.slug}`,
+      name: a.title,
+      description: a.metaDescription,
+      reviewed: a.updated,
+    }),
     {
       '@context': 'https://schema.org', '@type': 'Article',
       headline: a.title, description: a.metaDescription,

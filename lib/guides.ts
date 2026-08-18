@@ -675,7 +675,7 @@ const coreGuides: Guide[] = [
     title: "How to actually find a therapist in BC",
     metaTitle: "How to Find a Therapist in BC | Westpeak Wellness",
     metaDescription:
-      "Where to look for a therapist in BC, how to verify credentials with the regulator, what free and low-cost options exist, and the questions to ask before booking.",
+      "Where to look for a therapist in BC, how to verify a credential with the regulator, what free options exist, and what to ask before booking.",
     eyebrow: "Guide · Getting started",
     lede:
       "The search itself is a barrier — dozens of directory profiles that all sound the same, and no obvious way to compare them.",

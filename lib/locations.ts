@@ -58,7 +58,7 @@ export const locations: Location[] = [
     region: "Northern BC",
     blurb: "Northern BC has the thinnest counselling coverage in the province — virtual care is how the gap gets closed.",
     metaDescription:
-      "Online counselling for Prince George and Northern BC — EMDR, trauma, anxiety, depression and couples therapy by secure video. Book a free 15-minute consultation.",
+      "Online counselling for Prince George and Northern BC — EMDR, trauma, anxiety, depression and couples therapy by secure video. Free 15-minute consultation.",
     intro: [
       "If you live in Prince George and have tried to find a counsellor, you already know the shape of the problem: there are not many, the ones who are here fill up, and the wait for a psychiatrist or specialist is longer than almost anywhere else in the province. That is not a failure of effort on anyone's part. It is arithmetic — Northern Health covers roughly two-thirds of BC's landmass for about 300,000 people, and mental-health clinicians cluster where the population does.",
       "Virtual counselling does not fix that arithmetic. What it does is remove distance from the equation entirely. A [Registered Clinical Counsellor](/compare/rcc-vs-psychologist-vs-social-worker-bc) working out of the Lower Mainland is exactly as available to you in Prince George as to someone in Burnaby — same 50-minute session, same secure platform, same [BCACC](https://bcacc.ca) code of ethics.",
@@ -115,7 +115,7 @@ export const locations: Location[] = [
     localReality: {
       h2: "What is specific about seeking therapy in Surrey",
       body: [
-        "The barrier here is usually not availability — Surrey has more Punjabi-speaking counsellors than anywhere else in BC. It is **privacy**. In a community this interconnected, the concern people voice most often is not whether therapy works. It is who might see them walking into a clinic, and whether it will get back to family.",
+        "The barrier here is usually not availability — Surrey has more Punjabi-speaking counsellors than anywhere else in BC. It is **privacy**. [Punjabi-speaking counselling for Surrey](/punjabi-counselling/surrey) is written about that specifically — why the counsellor who comes recommended is often the one connected to the people you would least want to know. In a community this interconnected, the concern people voice most often is not whether therapy works. It is who might see them walking into a clinic, and whether it will get back to family.",
         "That concern is not paranoia, and it is not something to be talked out of. It is a realistic assessment of how information moves in a tight community. A fully virtual practice answers it directly: there is no waiting room, no parking lot, and no building. Nobody sees you arrive because there is nowhere to arrive.",
         "The second pattern specific to this community is who tends to come first. Frequently it is the second generation — adults in their twenties and thirties who grew up here, carry the family's expectations, and are the first in the family to consider therapy at all. There is often no template and nobody to ask. That is covered in more depth on the page for [first- and second-generation South Asian adults](/for/first-gen-south-asian-adults).",
       ],
@@ -146,7 +146,7 @@ export const locations: Location[] = [
     region: "Lower Mainland",
     blurb: "The most therapists in the province, and still a waitlist — because the constraint here is affordability, not supply.",
     metaDescription:
-      "Online counselling for Vancouver, BC — EMDR, trauma, anxiety, depression and couples therapy by secure video, in English or Punjabi. Free 15-minute consultation.",
+      "Online counselling for Vancouver, BC — EMDR, trauma, anxiety, depression and couples therapy by secure video, in English or Punjabi. Free consultation.",
     intro: [
       "Vancouver has more counsellors per capita than anywhere else in British Columbia. It is also the city where people most often report giving up on finding one — which sounds contradictory until you look at what the actual constraint is.",
       "It is not supply. It is cost, time, and the specific difficulty of finding someone who is both a genuine fit and currently accepting clients. In a city where housing already takes an outsized share of income, a $140 weekly session is a real decision rather than an obvious one.",
@@ -234,7 +234,7 @@ export const locations: Location[] = [
       body: [
         "The Strait is not a minor inconvenience for continuity of care. Weekly therapy requiring a return sailing is not something most people can sustain financially or logistically, so Island residents have effectively been choosing from a smaller pool than mainland residents — not because of anything about the clinicians here, but because of geography.",
         "Virtual sessions remove that constraint entirely. A counsellor on the mainland is exactly as available as one in Fairfield: same 50 minutes, same platform, same [BCACC](https://bcacc.ca) obligations, no sailing.",
-        "**Language access is the sharpest version of this.** Punjabi-speaking clinicians in BC are concentrated overwhelmingly in the Lower Mainland. For Island residents wanting [therapy in Punjabi](/services/punjabi-counselling), virtual sessions are not a convenience — they are realistically the only route.",
+        "**Language access is the sharpest version of this.** Punjabi-speaking clinicians in BC are concentrated overwhelmingly in the Lower Mainland. For Island residents wanting [therapy in Punjabi](/services/punjabi-counselling), virtual sessions are not a convenience — they are realistically the only route. The same argument, with the local numbers, is on the [Kamloops](/punjabi-counselling/kamloops) and [Prince George](/punjabi-counselling/prince-george) pages.",
         "The same applies further up-Island. Nanaimo, the Comox Valley, Campbell River, and the west coast communities have thinner local coverage again, and the gap widens the further north you go.",
       ],
     },
@@ -273,7 +273,7 @@ export const locations: Location[] = [
       h2: "What the Okanagan gap looks like",
       body: [
         "**Specialisation is the scarce thing, not counsellors in general.** If what you need is a practitioner trained in a specific approach for what you are carrying, the Central Okanagan list is short — and a short list with waitlists is not a choice.",
-        "**Language access is scarcer still.** The Okanagan has a long-established South Asian community, particularly through agriculture, and few Punjabi-speaking clinicians. Virtual sessions are, for most people here, the only realistic route to [counselling in Punjabi](/services/punjabi-counselling).",
+        "**Language access is scarcer still.** The Okanagan has a long-established South Asian community, particularly through agriculture, and few Punjabi-speaking clinicians. Virtual sessions are, for most people here, the only realistic route to [counselling in Punjabi](/services/punjabi-counselling) — and [Punjabi-speaking counselling for Kelowna](/punjabi-counselling/kelowna) covers what is and is not available locally.",
         "**Seasonal work resists standard scheduling.** Agricultural and tourism employment peaks hard, and during a peak a fixed weekly daytime appointment is not attendable. Flexibility about timing, and no travel either side, is what makes therapy possible rather than theoretical during those months.",
         "**Wildfire seasons have left a mark.** Recent years in the Interior have included evacuations, property loss, and repeated summers of smoke and alert. That is a genuine and recurring source of anxiety and trauma in this region, and it is the kind of thing people tend to describe as \"everyone went through it\" rather than as something worth addressing. It is worth addressing — [trauma therapy](/services/trauma-therapy) and [EMDR](/services/emdr-therapy) are both well suited to a specific, identifiable event.",
       ],

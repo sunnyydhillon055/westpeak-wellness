@@ -6,7 +6,7 @@ export const moreGuides6: Guide[] = [
     title: 'Stress leave in BC: what it actually takes',
     metaTitle: 'Stress Leave in BC | Westpeak',
     metaDescription:
-      'Who can certify a stress leave in BC, how EI sickness benefits and short-term disability differ, what a return-to-work plan involves, and what counselling does and cannot do.',
+      'A counsellor cannot certify a stress leave in BC — a doctor or nurse practitioner does. How EI sickness benefits and short-term disability differ.',
     eyebrow: 'Guide · Work',
     lede:
       'The paperwork question and the clinical question are different, and most pages about this answer neither.',

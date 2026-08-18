@@ -121,6 +121,12 @@ export default function FAQ() {
             service fits, what it costs after extended health, and a plain reflection on
             how things have been.
           </p>
+          <p>
+            These are the questions asked most often about this practice.{' '}
+            <Link href="/answers">Short answers to the questions people ask about therapy in BC</Link>{' '}
+            is the wider version — the same format, but covering cost, coverage, EMDR, couples
+            work and finding a counsellor generally rather than here specifically.
+          </p>
         </div>
       </section>
 

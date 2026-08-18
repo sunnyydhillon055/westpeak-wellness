@@ -6,7 +6,7 @@ import { site } from '@/lib/site';
 import { gurmukhi } from '@/app/fonts-gurmukhi';
 import { getExtra } from '@/lib/depth';
 import { buildToc, headingId } from '@/lib/toc';
-import { orgRef, siteRef, personRef } from '@/lib/schema';
+import { orgRef, siteRef, personRef, medicalWebPage, priceOffer } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
 import BookingCard from '@/components/BookingCard';
@@ -104,6 +104,15 @@ export default async function ServicePage({ params }: { params: { slug: string }
     ? catalog.items.find((i) => i.name.toLowerCase() === billedAs.toLowerCase())
     : undefined;
   const fee = item ? money(item.cents) : LEGACY_FEE_FOR[params.slug];
+  /* The same number the card shows, as a machine-readable Offer. Cliniko is
+     the source when the catalogue resolves; the legacy map is the fallback,
+     parsed rather than restated so there is still only one figure per
+     service in this file. Undefined on the two umbrella pages, which is why
+     the Offer is conditional rather than defaulted — a default here would
+     publish a price the practice does not charge. */
+  const feeDollars = item
+    ? item.cents / 100
+    : Number(String(LEGACY_FEE_FOR[params.slug] ?? '').replace(/[^0-9.]/g, '')) || undefined;
 
   /* Heading order as rendered. 'This can help with' lives in the aside
    * itself, so it is deliberately not a TOC entry. */
@@ -130,6 +139,11 @@ export default async function ServicePage({ params }: { params: { slug: string }
   const slots = deviceSlots(getExtra('services', s.slug), midDevices.length);
 
   const schema = [
+    medicalWebPage({
+      path: `/services/${s.slug}`,
+      name: s.name,
+      description: s.directAnswer ?? s.metaDescription,
+    }),
     {
       '@context': 'https://schema.org', '@type': 'Service',
       name: s.name, description: s.directAnswer ?? s.metaDescription,
@@ -141,6 +155,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
         availableLanguage: ['English', 'Punjabi'],
       },
       provider: orgRef,
+      ...(feeDollars ? { offers: priceOffer(feeDollars, `/services/${s.slug}`) } : {}),
     },
     {
       '@context': 'https://schema.org', '@type': 'BreadcrumbList',

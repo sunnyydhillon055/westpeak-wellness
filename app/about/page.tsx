@@ -172,6 +172,13 @@ export default function About() {
             <Link href="/careers">what working here involves</Link> — the arrangement, the split,
             and the parts of it that would not suit everybody.
           </p>
+          <p>
+            If you are a physician, nurse practitioner or another clinician wondering whether to
+            send someone here,{' '}
+            <Link href="/refer">what referring to this practice actually involves</Link>{' '}
+            sets out what happens to a referral, what you will and will not hear back, and the
+            cases this practice is the wrong fit for.
+          </p>
         </div>
       </section>
 

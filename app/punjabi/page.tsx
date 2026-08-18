@@ -205,11 +205,22 @@ export default function PunjabiPage() {
                 ਮੁਫ਼ਤ ਸਲਾਹ-ਮਸ਼ਵਰਾ ਬੁੱਕ ਕਰੋ
               </Link>
             </p>
+            <p lang="pa" style={{ marginTop: 30 }}>
+              ਖੇਤਰ ਅਨੁਸਾਰ:{' '}
+              <Link href="/punjabi-counselling/surrey">ਸਰੀ</Link> ·{' '}
+              <Link href="/punjabi-counselling/kelowna">ਕੈਲੋਨਾ</Link> ·{' '}
+              <Link href="/punjabi-counselling/kamloops">ਕੈਮਲੂਪਸ</Link> ·{' '}
+              <Link href="/punjabi-counselling/prince-george">ਪ੍ਰਿੰਸ ਜਾਰਜ</Link>
+            </p>
             <p lang="en" style={{ fontSize: '.92rem', color: 'var(--ink-faint)', marginTop: 26 }}>
               This page is written in Punjabi. The same information in English is on{' '}
               <Link href="/services/punjabi-counselling">Punjabi-speaking counselling</Link>, and{' '}
               <Link href="/services/south-asian-mental-health">counselling for South Asian adults</Link>{' '}
-              covers the cultural side in more depth.
+              covers the cultural side in more depth. Region pages, in English, for{' '}
+              <Link href="/punjabi-counselling/surrey">Surrey</Link>,{' '}
+              <Link href="/punjabi-counselling/kelowna">Kelowna</Link>,{' '}
+              <Link href="/punjabi-counselling/kamloops">Kamloops</Link> and{' '}
+              <Link href="/punjabi-counselling/prince-george">Prince George</Link>.
             </p>
           </div>
         </div>

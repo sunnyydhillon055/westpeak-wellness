@@ -9,7 +9,7 @@ import Figure from '@/components/Figure';
 
 const TITLE = 'Counselling Jobs BC — Remote RCC Careers | Westpeak Wellness';
 const DESC =
-  'Remote counselling jobs across British Columbia — part-time RCC and therapist roles, work from home, referrals provided, keep 70%. Current openings and how to apply.';
+  'Remote counselling jobs across BC — part-time RCC roles, work from home, referrals provided, keep 70%. Current openings and how to apply.';
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },

@@ -5,7 +5,7 @@ import { approaches, getApproach } from '@/lib/approaches';
 import { site } from '@/lib/site';
 import { getExtra } from '@/lib/depth';
 import { buildToc, headingId } from '@/lib/toc';
-import { orgRef, siteRef, personRef } from '@/lib/schema';
+import { orgRef, siteRef, personRef, medicalWebPage } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
 import SceneBand from '@/components/SceneBand';
@@ -68,6 +68,12 @@ export default function ApproachPage({ params }: { params: { slug: string } }) {
   const slots = deviceSlots(articleSections, midDevices.length);
 
   const schema = [
+    medicalWebPage({
+      path: `/approaches/${g.slug}`,
+      name: g.title,
+      description: g.metaDescription,
+      reviewed: g.updated,
+    }),
     {
       '@context': 'https://schema.org', '@type': 'Article',
       headline: g.title, description: g.metaDescription,

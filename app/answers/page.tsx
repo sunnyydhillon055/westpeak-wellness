@@ -13,7 +13,7 @@ import CtaBand from '@/components/CtaBand';
 
 const TITLE = 'Straight Answers About Counselling in BC | Westpeak Wellness';
 const DESC =
-  'Short, direct answers to the questions people actually ask about therapy in British Columbia — cost, coverage, EMDR, couples work, first sessions and finding a counsellor.';
+  'Direct answers to what people actually ask about therapy in BC — cost, coverage, EMDR, couples work, first sessions and how to find a counsellor.';
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },

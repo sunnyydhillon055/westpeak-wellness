@@ -5,7 +5,7 @@ import { guides, getGuide } from '@/lib/guides';
 import { site } from '@/lib/site';
 import { getExtra } from '@/lib/depth';
 import { buildToc, headingId } from '@/lib/toc';
-import { orgRef, siteRef, personRef } from '@/lib/schema';
+import { orgRef, siteRef, personRef, medicalWebPage } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
 import SceneBand from '@/components/SceneBand';
@@ -68,6 +68,12 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
   const slots = deviceSlots(articleSections, midDevices.length);
 
   const schema = [
+    medicalWebPage({
+      path: `/guides/${g.slug}`,
+      name: g.title,
+      description: g.metaDescription,
+      reviewed: g.updated,
+    }),
     {
       '@context': 'https://schema.org', '@type': 'Article',
       headline: g.title, description: g.metaDescription,
@@ -130,7 +136,7 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
 
           <Byline updated={g.updated} readMinutes={g.readMinutes} />
 
-          <blockquote className="quote" style={{ margin: '0 0 40px' }}>
+          <blockquote className="quote short-answer" style={{ margin: '0 0 40px' }}>
             {g.shortAnswer}
           </blockquote>
 

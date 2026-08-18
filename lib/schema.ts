@@ -91,3 +91,76 @@ export const faqSchema = (faqs: { q: string; a: string }[], path: string) => ({
     acceptedAnswer: { '@type': 'Answer', text: f.a },
   })),
 });
+
+/* ============================================================================
+   MEDICAL PAGE TYPE
+   ----------------------------------------------------------------------------
+   Every clinical page here was typed as a generic `Article`, which is what a
+   blog post is. This content is health information that somebody may act on,
+   and schema.org has a type that says exactly that — `MedicalWebPage`, a
+   WebPage subtype carrying `lastReviewed` and `reviewedBy`.
+
+   The two coexist deliberately. `Article` describes the writing; MedicalWebPage
+   describes the page as a piece of health information, and it is the node that
+   makes the review date machine-readable. `reviewedBy` was already emitted on
+   69 pages; `lastReviewed` existed on 4, so the review date was visible to a
+   human in the byline and invisible to everything else.
+
+   `speakable` points at the short-answer block, which is already written to be
+   the sentence worth quoting. It is the closest thing in schema to "if you are
+   going to read one part of this page aloud, read this."
+   ========================================================================= */
+export const medicalWebPage = ({
+  path, name, description, reviewed, lang = 'en-CA', specialty,
+}: {
+  path: string;
+  name: string;
+  description: string;
+  /** ISO date of the last clinical review. Drives `lastReviewed`.
+   *  Optional because service pages carry no review date, and inventing one
+   *  would put a fabricated clinical claim into structured data. Omitted is
+   *  correct there; wrong is not. */
+  reviewed?: string;
+  /** BCP-47. Punjabi pages pass 'pa'. */
+  lang?: string;
+  specialty?: string;
+}) => ({
+  '@context': 'https://schema.org',
+  '@type': 'MedicalWebPage',
+  '@id': `${abs(path)}#webpage`,
+  url: abs(path),
+  name,
+  description,
+  inLanguage: lang,
+  isPartOf: siteRef,
+  about: orgRef,
+  ...(reviewed ? { lastReviewed: reviewed } : {}),
+  reviewedBy: personRef,
+  publisher: orgRef,
+  ...(specialty ? { medicalAudience: 'Patient', specialty } : {}),
+  /* Both selectors, because guides render the answer as .short-answer and
+     service pages as .direct-answer. A selector that matches nothing is not an
+     error in schema, it is just silently useless — so name both rather than
+     assume the markup is uniform. */
+  speakable: {
+    '@type': 'SpeakableSpecification',
+    cssSelector: ['.short-answer', '.direct-answer'],
+  },
+});
+
+/**
+ * Offer node for a service that has one honest price.
+ *
+ * Only call this where a single figure is true. Several services span session
+ * types at different prices and the page deliberately shows no figure rather
+ * than a misleading one — passing a made-up number here would put that wrong
+ * number into search results, where nobody visits the page to be corrected.
+ */
+export const priceOffer = (dollars: number, url: string) => ({
+  '@type': 'Offer',
+  price: dollars.toFixed(2),
+  priceCurrency: 'CAD',
+  availability: 'https://schema.org/InStock',
+  url: abs(url),
+  seller: orgRef,
+});
