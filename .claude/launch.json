@@ -6,6 +6,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev", "--", "--port", "4310"],
       "port": 4310
+    },
+    {
+      "name": "westpeak-prod",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "start", "--", "--port", "4311"],
+      "port": 4311
     }
   ]
 }
