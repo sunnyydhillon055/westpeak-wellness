@@ -42,6 +42,9 @@ type Counts = {
   paidSessions: number;
   searches: number;
   topTerms: { term: string; n: number }[];
+  /** Pages people were reading when they decided to write. The only
+   *  first-party attribution this practice has. */
+  topSources: { path: string; n: number }[];
 };
 
 const startOfMonthsAgo = (n: number) => {
@@ -118,6 +121,25 @@ export async function gather(): Promise<{ counts: Counts; from: Date; to: Date; 
       paidSessions: ck?.paid ?? 0,
       searches: terms.total,
       topTerms,
+      /* WHICH PAGES ACTUALLY EARNED THE MESSAGES.
+       *
+       * `source` has been stored on every inbound record since the capture
+       * store was built and had never been read by anything. It is the only
+       * first-party attribution this practice has — the page somebody was
+       * reading when they decided to write — and it costs nothing to surface.
+       *
+       * Windowed, unlike `unanswered`, because the question here is "what
+       * worked last month" rather than "what is outstanding". */
+      topSources: Object.entries(
+        inWindow.reduce<Record<string, number>>((acc, i) => {
+          const src = i.source || '/';
+          acc[src] = (acc[src] ?? 0) + 1;
+          return acc;
+        }, {})
+      )
+        .map(([path, n]) => ({ path, n }))
+        .sort((a, b) => b.n - a.n)
+        .slice(0, 8),
     },
   };
 }
@@ -144,6 +166,17 @@ export function render(counts: Counts, from: Date, to: Date, clinikoOk: boolean)
       : '  Nothing awaiting a reply.',
     '',
   ];
+
+  if (counts.topSources.length) {
+    lines.push('Pages that earned a message or signup this month:', '');
+    for (const t of counts.topSources) lines.push(`  ${String(t.n).padStart(4)}  ${t.path}`);
+    lines.push(
+      '',
+      'This is the page somebody was reading when they decided to write. It is the',
+      'closest thing to attribution this practice has, and it is first-party.',
+      ''
+    );
+  }
 
   if (counts.topTerms.length) {
     lines.push('What people searched for on the site (all time):', '');

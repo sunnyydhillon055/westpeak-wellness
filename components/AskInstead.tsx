@@ -110,6 +110,20 @@ export default function AskInstead({
         </button>
       </div>
 
+      {/* THE CREDENTIAL, AT THE FORM.
+          It sits in the page body and in the footer, which is 900 words from
+          where somebody actually decides whether to type. BCACC registration is
+          the strongest permitted trust signal this practice has — testimonials
+          are forbidden, so this is what there is — and it was nowhere near the
+          ask. */}
+      <p className="ask-instead-fine">
+        Replies come from a <strong>Registered Clinical Counsellor</strong>, BCACC #20111 —
+        a registration you can{' '}
+        <a href="https://bc-counsellors.org/counsellors/" rel="nofollow noopener" target="_blank">
+          check yourself in about two minutes
+        </a>
+        .
+      </p>
       <p className="ask-instead-fine">
         You get a reply and nothing else — no mailing list, and no client record is
         created. Please keep anything clinical for the session itself; ordinary email is not a

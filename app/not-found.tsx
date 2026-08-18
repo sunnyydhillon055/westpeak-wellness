@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { site } from '@/lib/site';
+import AskInstead from '@/components/AskInstead';
 
 export const metadata: Metadata = {
   title: 'Page not found',
@@ -51,12 +52,16 @@ export default function NotFound() {
           <li><Link href="/punjabi" lang="pa">ਪੰਜਾਬੀ</Link> — this practice&rsquo;s pages in Punjabi</li>
         </ul>
 
+        {/* A 404 is not an error page, it is a person who wanted something and
+            did not find it. It offered a list of links and no way to say what
+            they were actually after. */}
+        <AskInstead />
+
         <h2>If you were looking for help right now</h2>
         <p>
           This is not a crisis service. If you are in crisis, call or text{' '}
-          <a href="tel:988">9-8-8</a> (Canada, 24/7), or{' '}
-          — the Suicide Crisis Helpline, anywhere in Canada, 24/7. In immediate danger,
-          call <a href="tel:911">9-1-1</a>. The{' '}
+          <a href="tel:988">9-8-8</a> — the Suicide Crisis Helpline, anywhere in Canada,
+          24/7. In immediate danger, call <a href="tel:911">9-1-1</a>. The{' '}
           <Link href="/resources/bc-crisis-and-support-directory">full BC directory</Link> lists
           every service by region.
         </p>
