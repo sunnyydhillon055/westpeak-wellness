@@ -41,7 +41,7 @@ state is the default state.
 
 ## The order. Do not reorder it.
 
-### 1. Obtain CRPO registration — **the only real gate**
+### 1. Obtain CRPO registration — **the first of two gates**
 CRPO **cannot impose a residency requirement**, so a counsellor resident in BC
 can register in Ontario. That is the unlock. Everything below is mechanical.
 
@@ -52,9 +52,17 @@ is aimed at one of the largest Punjabi-speaking populations in Canada.
 Until the registration number exists, stop here.
 
 ### 2. Confirm professional liability insurance covers Ontario clients
-Insurers commonly scope coverage by province. Confirm in writing that the policy
-extends to clients located in Ontario. This is the same confirmation Alberta
-needs and it is listed in `BUILD_LOG.md` as an owner action.
+**This is a second, independent gate — not a formality.**
+
+Confirmed on 17 Aug 2026: the practice's policy **does not extend outside
+British Columbia.** That is what took the Alberta pages down the day they went
+up, and it applies to Ontario identically.
+
+So Ontario needs **both** CRPO registration **and** cover. Registration without
+cover does not unlock it. Either extend the policy, or have the work done by an
+insured clinician who can take Ontario clients — the same two routes set out in
+`ALBERTA_LAUNCH_CHECKLIST.md`, including the three questions to put to a broker
+before relying on a hire's own policy.
 
 ### 3. Set the flag
 ```

@@ -1,18 +1,24 @@
 # Interprovincial expansion ledger
 
-**17 August 2026.** Alberta live. Ontario built and dormant pending CRPO
-registration.
+**17 August 2026.** Both clusters built. **Neither is published.**
+
+Alberta went live and came back down the same day: the owner confirmed the
+professional liability policy does not extend outside British Columbia. See
+`ALBERTA_LAUNCH_CHECKLIST.md`.
 
 ## What shipped
 
-| Cluster | Built | Published | Indexed |
+| Cluster | Built | Published | Gated on |
 |---|--:|---|---|
-| Alberta | **7** | yes | yes |
-| Ontario | **7** | **no** | **no** |
+| Alberta | **7** | **no** | Insurance. Regulation is clear; cover is not. |
+| Ontario | **7** | **no** | CRPO registration **and** insurance. |
 | **Total** | **14** | | |
 
-`node scripts/expansion-verify.mjs` — **all checks pass**, including the four
-Ontario locks, province-correct crisis numbers, no protected titles, no premises
+Nothing was deleted. Both clusters are complete and reverse with one environment
+variable each.
+
+`node scripts/expansion-verify.mjs` — **all checks pass**, including the four locks on
+each gated province, province-correct crisis numbers, no protected titles, no premises
 claimed where there is none, and a uniqueness worst-pair of **23%** against a
 25% limit.
 
@@ -66,7 +72,7 @@ count."*
 
 ## Pages built, and the query each targets
 
-### Alberta — live
+### Alberta — built, gated on insurance
 
 | Page | Target query | Why it can win |
 |---|---|---|

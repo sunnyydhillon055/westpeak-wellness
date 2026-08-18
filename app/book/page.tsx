@@ -63,6 +63,21 @@ export default function Book({
                 No card, no intake form, and no obligation to book a session afterwards —
                 deciding not to is a completely normal outcome.
               </p>
+              {/* WHERE THE CLIENT IS SITTING DECIDES WHICH PROVINCE THE SESSION
+                  HAPPENS IN. Counselling is regulated provincially and the
+                  service is delivered where the client is, not where the
+                  counsellor is. The scheduler cannot know that, and the practice
+                  is registered and insured in British Columbia only. This is the
+                  cheapest place to catch it — before a booking rather than in
+                  the session. Added 17 Aug 2026 after confirming the liability
+                  policy does not extend outside BC. */}
+              <p className="book-brief-note">
+                <strong>Sessions are for people located in British Columbia.</strong> Counselling
+                is regulated province by province, and a session counts as happening where you are
+                sitting rather than where your counsellor is — so this is a registration and
+                insurance boundary rather than a preference. If you are elsewhere in Canada, say so
+                on the consultation and you will be pointed toward someone who can properly see you.
+              </p>
             </div>
             <div className="book-hours">
               <h3>Consultation hours</h3>

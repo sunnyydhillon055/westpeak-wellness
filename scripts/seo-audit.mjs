@@ -172,11 +172,11 @@ for (const p of pages.values()) {
      (the Ontario cluster) or a genuine 404. Neither should be audited for
      breadcrumbs, depth or schema — it is not the page it is named after. */
   if (p.notFound) continue;
-  /* The Ontario cluster is deliberately gated and renders a 404 shell. It is
-     governed by scripts/expansion-verify.mjs, which checks the things that
-     actually matter there — that it stays unindexed and out of the sitemap.
-     Auditing a 404 shell for breadcrumbs would be noise. */
-  if (route === '/ontario' || route.startsWith('/ontario/')) continue;
+  /* Both expansion clusters are deliberately gated and render 404 shells.
+     They are governed by scripts/expansion-verify.mjs, which checks what
+     actually matters there — that they stay unindexed and out of the
+     sitemap. Auditing a 404 shell for breadcrumbs would be noise. */
+  if (['/ontario', '/alberta'].some((g) => route === g || route.startsWith(g + '/'))) continue;
   const hub = HUBS.has(route);
   const util = UTILITY.has(route) || p.noindex;
 

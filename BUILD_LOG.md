@@ -491,3 +491,38 @@ Full detail in `EXPANSION_LEDGER.md` and `ONTARIO_LAUNCH_CHECKLIST.md`.
   Alberta shipped, pages written for Calgary where 310-6789 does not reach.
   Fixed to national numbers only.
 - `app/not-found.tsx` had the same problem. Fixed.
+
+## 2026-08-17, same day — Alberta taken back down
+
+**Owner confirmed the professional liability policy does not extend outside
+British Columbia.** The Alberta pages had been live for a few hours. They are
+now gated by the identical four-lock mechanism used for Ontario, verified in
+production: `/alberta` and all six child pages return 404, and the sitemap is
+back to 116 URLs with zero `/alberta` and zero `/ontario`.
+
+Regulation was never the Alberta problem and still is not. Cover is.
+
+### The two gates now, and they unlock differently
+
+- **Alberta — needs cover only.** Either the policy is extended, or an insured
+  clinician who can take Alberta clients is hired. The owner notes that hires
+  would carry their own insurance; that is a real route, with three questions
+  for a broker first (entity vs individual cover, vicarious exposure, who holds
+  the clinical relationship). See `ALBERTA_LAUNCH_CHECKLIST.md`.
+- **Ontario — needs CRPO registration AND cover.** Two independent gates.
+  Registration alone does not unlock it.
+
+### ⚠️ The exposure this does NOT fix
+
+Taking the pages down stops the practice **advertising** into Alberta. It does
+not stop an Alberta resident finding the BC site and booking, because **nothing
+in the booking flow asks where the client is sitting** — and the session counts
+as happening where they are, not where the counsellor is.
+
+- Done: `/book` now states plainly that sessions are for people located in
+  British Columbia, and why.
+- **Owner action, and now the top one:** add a client-location question to
+  Cliniko intake, asked at booking rather than discovered in session.
+
+This gap predates the expansion work and applies to every province. It is the
+largest remaining risk on the site.
