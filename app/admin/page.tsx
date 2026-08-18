@@ -9,6 +9,8 @@ import { listPasswordAccounts } from '@/lib/portal-users';
 import { clinikoConfigured } from '@/lib/cliniko';
 import { recentInbound, markHandled } from '@/lib/inbound';
 import { topSearchTerms, readSearchTerms, searchGaps } from '@/lib/search-log';
+import { REPLY_TEMPLATES, mailtoFor, businessDaysWaiting } from '@/lib/reply-templates';
+import { eventTotals, topPagesFor } from '@/lib/conversion-log';
 import { readLedger, recordContacted } from '@/lib/lifecycle';
 import { reactivationEmail } from '@/lib/lifecycle-mail';
 import { sendDetailed, mailConfigured } from '@/lib/portal-mail';
@@ -88,6 +90,9 @@ export default async function AdminPage({
   const monthlyOptIns = inbox.filter((i) => i.monthlyOptIn).length;
   const searches = await topSearchTerms(30);
   const gaps = await searchGaps();
+  const totals = await eventTotals();
+  const enquiryPages = await topPagesFor('enquiry_submit');
+  const bookPages = await topPagesFor('book_click');
   const searchTotal = (await readSearchTerms()).total;
 
   /* Paused and former clients who have never had a reactivation note.
@@ -203,6 +208,38 @@ export default async function AdminPage({
                     <td>
                       {i.name || <em style={{ color: 'var(--ink-faint)' }}>no name</em>}<br />
                       <a href={`mailto:${i.email}`} style={{ fontSize: '.9em' }}>{i.email}</a>
+                      {/* Every page promises a reply within one business day.
+                          reply-watch emails when that slips; this makes it
+                          visible here, where the reply actually gets written.
+                          Business days, so a Saturday-old message is not late. */}
+                      {!i.handled && businessDaysWaiting(i.createdAt) >= 1 && (
+                        <>
+                          <br />
+                          <strong style={{ fontSize: '.82em', color: 'var(--clay-deep)' }}>
+                            waiting {businessDaysWaiting(i.createdAt)} business day
+                            {businessDaysWaiting(i.createdAt) === 1 ? '' : 's'}
+                          </strong>
+                        </>
+                      )}
+                      {!i.handled && (
+                        <>
+                          <br />
+                          {/* Drafts, not sends. Opens the mail client with the
+                              reply already written; nothing leaves without a
+                              person reading it. See lib/reply-templates.ts. */}
+                          <span style={{ fontSize: '.8em', color: 'var(--ink-faint)' }}>
+                            reply:{' '}
+                            {REPLY_TEMPLATES.map((t, n) => (
+                              <span key={t.key}>
+                                {n > 0 && ' · '}
+                                <a href={mailtoFor(i, t.key)} title={t.when}>
+                                  {t.label.split(' —')[0].split(' -')[0]}
+                                </a>
+                              </span>
+                            ))}
+                          </span>
+                        </>
+                      )}
                     </td>
                     <td style={{ whiteSpace: 'nowrap' }}>
                       {i.kind === 'enquiry' ? 'Message'
@@ -328,6 +365,64 @@ export default async function AdminPage({
             the words visitors use for their own problem, before Google rewrites
             them. Counts, not logs — no timestamps, no sessions, nothing that
             joins two searches to one person. See lib/search-log.ts. */}
+        {/* WHICH PAGES ACTUALLY PRODUCE CONTACT.
+            Every track() call on this site went through gtag, and gtag only
+            exists when NEXT_PUBLIC_GA_ID is set — which it was not. So every
+            conversion event was being discarded, and "which page earns
+            enquiries" had never been answerable. lib/conversion-log.ts now
+            counts them first-party. Counts only: no session, no identifier,
+            nothing that joins two actions to one person. */}
+        <h2 id="conversions" style={{ marginTop: 44 }}>What actually produces contact</h2>
+        <p style={{ color: 'var(--ink-soft)', maxWidth: '40.38em' }}>
+          Counted on this site rather than in Google Analytics, so it works whether or not
+          GA is configured. Counts only &mdash; no sessions and no identifiers.
+        </p>
+        {totals.length === 0 ? (
+          <div className="admin-panel">
+            <p style={{ margin: 0 }}>
+              Nothing counted yet. Events appear here once people use the forms, the booking
+              links or the tools.
+            </p>
+          </div>
+        ) : (
+          <div className="admin-panel">
+            <ul className="admin-terms">
+              {totals.map((t) => (
+                <li key={t.event}>
+                  <span>{t.event.replace(/_/g, ' ')}</span>
+                  <span>{t.count}</span>
+                </li>
+              ))}
+            </ul>
+            {enquiryPages.length > 0 && (
+              <>
+                <h3 style={{ marginTop: 22 }}>Pages that earn messages</h3>
+                <ul className="admin-terms">
+                  {enquiryPages.map((p) => (
+                    <li key={p.path}>
+                      <Link href={p.path}>{p.path}</Link>
+                      <span>{p.count}</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+            {bookPages.length > 0 && (
+              <>
+                <h3 style={{ marginTop: 22 }}>Pages that earn booking clicks</h3>
+                <ul className="admin-terms">
+                  {bookPages.map((p) => (
+                    <li key={p.path}>
+                      <Link href={p.path}>{p.path}</Link>
+                      <span>{p.count}</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
+        )}
+
         <h2 id="searches" style={{ marginTop: 44 }}>What people search for</h2>
         <p style={{ color: 'var(--ink-soft)', maxWidth: '40.38em' }}>
           Submitted terms from the site&rsquo;s own search box, counted rather than logged —

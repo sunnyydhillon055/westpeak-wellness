@@ -21,11 +21,37 @@ declare global {
 export const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 export function track(event: TrackedEvent, params: Params = {}): void {
+  if (typeof window === 'undefined') return;
+
+  /* GA, when it is configured. */
   try {
-    if (typeof window === 'undefined' || !window.gtag) return;
-    window.gtag('event', event, params);
+    if (window.gtag) window.gtag('event', event, params);
   } catch {
     /* analytics is never load-bearing */
+  }
+
+  /* AND the first-party counter, which does not depend on anybody's Google
+   * account. Until NEXT_PUBLIC_GA_ID was set, the gtag guard above meant every
+   * event on this site was discarded — all of it instrumented, none of it
+   * recorded, which is why "which page earns enquiries" had never been
+   * answerable. See lib/conversion-log.ts.
+   *
+   * sendBeacon so it survives the page unloading, which is exactly when a
+   * book_click fires. Falls back to keepalive fetch where beacon is missing. */
+  try {
+    const body = JSON.stringify({ event, path: window.location.pathname });
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon('/api/track', new Blob([body], { type: 'application/json' }));
+    } else {
+      void fetch('/api/track', {
+        method: 'POST',
+        body,
+        headers: { 'Content-Type': 'application/json' },
+        keepalive: true,
+      }).catch(() => {});
+    }
+  } catch {
+    /* same rule: never load-bearing */
   }
 }
 

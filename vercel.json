@@ -28,6 +28,10 @@
     {
       "path": "/api/cron/reply-watch",
       "schedule": "0 16 * * 1-5"
+    },
+    {
+      "path": "/api/cron/waitlist-checkin",
+      "schedule": "0 17 * * 2"
     }
   ]
 }
