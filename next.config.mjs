@@ -1,12 +1,28 @@
-// The 37 near-duplicate city pages retired in the Phase 1 SEO audit
+// The near-duplicate city pages retired in the Phase 1 SEO audit
 // (see SEO_AUDIT.md §2). Kept here rather than imported from lib/locations.ts
 // because next.config.mjs is loaded by Node and cannot import TypeScript.
+//
+// KAMLOOPS WAS REMOVED FROM THIS LIST ON 2026-08-18, AND THE WAY IT WAS FOUND
+// IS THE REASON THIS COMMENT EXISTS.
+//
+// A real /online-counselling/kamloops page was written and shipped that day.
+// It built correctly, appeared in .next/server/app, passed `npm run seo`, and
+// scored 500/1000 — and in production it 308'd straight to /online-counselling,
+// because a redirect declared here beats a route that exists. Nothing local
+// catches that: `npm run build` does not exercise redirects, and a gate that
+// scans built HTML finds a file that is genuinely there.
+//
+// It surfaced only from a curl against production after deploy. scripts/
+// redirect-shadow.mjs now checks for it, and `npm run seo` runs it.
+//
+// So: BEFORE ADDING A PAGE WHOSE SLUG APPEARS BELOW, remove it from this list
+// in the same change. And before adding a slug here, check no page owns it.
 const retiredCitySlugs = [
   'burnaby', 'richmond', 'coquitlam', 'langley', 'chilliwack', 'mission',
   'maple-ridge', 'delta', 'white-rock', 'new-westminster', 'north-vancouver',
   'west-vancouver', 'port-coquitlam', 'port-moody', 'pitt-meadows', 'nanaimo',
   'victoria-saanich', 'courtenay', 'campbell-river', 'duncan', 'parksville',
-  'vernon', 'penticton', 'kamloops', 'west-kelowna', 'salmon-arm',
+  'vernon', 'penticton', 'west-kelowna', 'salmon-arm',
   'fort-st-john', 'cranbrook', 'nelson', 'prince-rupert', 'terrace',
   'squamish', 'whistler', 'powell-river', 'sechelt', 'fort-langley', 'hope',
 ];
@@ -114,11 +130,18 @@ const nextConfig = {
       { source: '/manifest.json', destination: '/manifest.webmanifest', permanent: true },
       { source: '/site.webmanifest', destination: '/manifest.webmanifest', permanent: true },
 
-      /* The Punjabi-by-region cluster lives at /punjabi-counselling/<region>,
-         but its hub is /services/punjabi-counselling, which already existed.
-         Pointing the bare prefix there keeps exactly one hub — standing up a
-         second would cannibalise the first for the same query. */
-      { source: '/punjabi-counselling', destination: '/services/punjabi-counselling', permanent: true },
+      /* THE /punjabi-counselling REDIRECT WAS REMOVED ON 2026-08-18.
+         It read: "its hub is /services/punjabi-counselling, which already
+         existed — standing up a second would cannibalise the first for the
+         same query." That was reasonable when there was no hub at the bare
+         prefix, and it stopped being true the moment one was built. The new
+         hub 308'd to the service page in production while passing every local
+         check, for the same reason the Kamloops page did.
+
+         The two pages do different jobs and do not compete: the service page
+         answers "what is Punjabi-speaking counselling", the hub answers "what
+         is available where I live". The variants below still point at the
+         service page, which is the right destination for them. */
       { source: '/punjabi-therapist', destination: '/services/punjabi-counselling', permanent: true },
       { source: '/punjabi-therapy', destination: '/services/punjabi-counselling', permanent: true },
       { source: '/punjabi-counsellor', destination: '/services/punjabi-counselling', permanent: true },

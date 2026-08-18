@@ -11,8 +11,9 @@
     "dates": "node scripts/page-dates.mjs",
     "drift": "node scripts/price-drift.mjs",
     "social": "node scripts/social-queue.mjs",
-    "seo": "node scripts/seo-audit.mjs",
+    "seo": "node scripts/redirect-shadow.mjs && node scripts/seo-audit.mjs",
     "seo:warn": "node scripts/seo-audit.mjs --warn",
+    "redirect-shadow": "node scripts/redirect-shadow.mjs",
     "indexnow": "node scripts/indexnow.mjs"
   },
   "dependencies": {
