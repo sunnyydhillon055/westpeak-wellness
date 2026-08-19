@@ -36,7 +36,7 @@ strangers who find nothing there, and risks suspension. Say no.
 | Primary category | **Counselor** |
 | Additional category | **Mental health service** |
 | Additional category | **Psychotherapist** |
-| Service areas | `British Columbia, Canada` — then add `Vancouver`, `Surrey`, `Abbotsford`, `Victoria`, `Kelowna`, `Prince George` |
+| Service areas | `British Columbia, Canada` — then add `Vancouver`, `Surrey`, `Abbotsford`, `Victoria`, `Kelowna`, `Prince George`, `Kamloops` |
 | Website | `https://www.westpeakwellness.com` |
 | Appointment link | `https://www.westpeakwellness.com/book` |
 | Phone | Leave blank — see the README |

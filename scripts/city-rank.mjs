@@ -33,7 +33,7 @@
  * Every number below that came from a search is dated and marked `measured`.
  */
 
-import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
 const ROOT = process.cwd();
@@ -53,6 +53,16 @@ const BUILT = join(ROOT, '.next', 'server', 'app');
  * ──────────────────────────────────────────────────────────────────────────── */
 const MEASURED = {
   date: '2026-08-18',
+  /* Recorded so a future reader can tell an unchanged 0 that means "still
+     absent" from one that means "nobody looked this time". */
+  queriesRun: [
+    'online counselling {city} BC — for all six original cities',
+    'online counselling Kamloops BC therapist — new page, day-zero baseline',
+    'punjabi speaking counsellor {Surrey|Kamloops|Prince George|Kelowna}',
+    'punjabi speaking counsellor Abbotsford BC — new page, day-zero baseline',
+    'punjabi counselling Vancouver BC therapist — new page, day-zero baseline',
+    'site-restricted: city terms + exact phrases unique to each page',
+  ],
   serp: {
     abbotsford:      { primary: null, punjabi: null, siteRestricted: false },
     kelowna:         { primary: null, punjabi: null, siteRestricted: false },
@@ -343,6 +353,78 @@ for (const [band, gap] of lost) console.log(`  ${pad(band, 22)} ${lpad(gap, 4)} 
 console.log('\nPER-CITY NOTE\n');
 for (const r of results) console.log(`  ${pad(r.name, 15)} ${r.note}`);
 console.log();
+
+/* ────────────────────────────────────────────────────────────────────────────
+ * HISTORY — `--record` appends today's scores, every run shows the delta.
+ *
+ * Part 14 of CITY_PLAN_15.md, and the reason it is part of the tool rather
+ * than a document: the August 17 competitive audit was hand-assembled and
+ * could not be re-run, so "did anything move" became a memory exercise. A
+ * score with no history is a number; a score with history is evidence.
+ *
+ * The file is committed on purpose. It is small, it is the record, and a
+ * gitignored one would be lost the first time somebody cleaned a working copy.
+ * ──────────────────────────────────────────────────────────────────────────── */
+const HISTORY = join(ROOT, 'data', 'rank-history.json');
+
+function readHistory() {
+  if (!existsSync(HISTORY)) return [];
+  try {
+    const v = JSON.parse(readFileSync(HISTORY, 'utf8'));
+    return Array.isArray(v) ? v : [];
+  } catch {
+    /* Fails loud rather than silently starting a new history over the top of
+       an unreadable one — losing the record is worse than not writing to it. */
+    console.error('rank-history.json exists but could not be parsed. Refusing to overwrite it.');
+    process.exit(1);
+  }
+}
+
+const labelArg = process.argv.indexOf('--label');
+const thisLabel = labelArg > -1 ? process.argv[labelArg + 1] : undefined;
+
+const history = readHistory();
+/* The most recent entry that is NOT the one this run would write. Comparing
+   against itself would report "no change" forever, and two entries on the same
+   day is the normal case when a phase ships. */
+const prior = history.filter((h) => !(h.date === MEASURED.date && h.label === thisLabel)).slice(-1)[0];
+
+if (prior) {
+  console.log(`DELTA SINCE ${prior.date}${prior.label ? ` (${prior.label})` : ''}\n`);
+  const w = pad('City', 15) + lpad('then', 8) + lpad('now', 8) + lpad('change', 9);
+  console.log(w);
+  console.log('-'.repeat(w.length));
+  for (const r of results) {
+    const was = prior.cities?.[r.slug];
+    const d = was == null ? null : r.total - was;
+    const arrow = d == null ? 'new' : d > 0 ? `+${d}` : d < 0 ? `${d}` : 'no change';
+    console.log(pad(r.name, 15) + lpad(was ?? '—', 8) + lpad(r.total, 8) + lpad(arrow, 9));
+  }
+  const nowMean = Math.round(results.reduce((n, r) => n + r.total, 0) / results.length);
+  const wasMean = prior.mean;
+  console.log('-'.repeat(w.length));
+  console.log(pad('mean', 15) + lpad(wasMean ?? '—', 8) + lpad(nowMean, 8) +
+    lpad(wasMean == null ? '—' : (nowMean - wasMean > 0 ? `+${nowMean - wasMean}` : `${nowMean - wasMean}`), 9));
+  console.log();
+}
+
+if (process.argv.includes('--record')) {
+  const entry = {
+    date: MEASURED.date,
+    label: thisLabel,
+    mean: Math.round(results.reduce((n, r) => n + r.total, 0) / results.length),
+    cities: Object.fromEntries(results.map((r) => [r.slug, r.total])),
+    bands: Object.fromEntries(results.map((r) => [r.slug, { A: r.A, B: r.B, C: r.C, D: r.D, E: r.E, F: r.F }])),
+    /* What was actually searched to produce band A, so a future reader knows
+       whether an unchanged 0 means "still absent" or "nobody looked". */
+    serpQueriesRun: MEASURED.queriesRun ?? null,
+  };
+  const next = history.filter((h) => !(h.date === entry.date && h.label === thisLabel));
+  next.push(entry);
+  if (!existsSync(join(ROOT, 'data'))) mkdirSync(join(ROOT, 'data'));
+  writeFileSync(HISTORY, JSON.stringify(next, null, 2) + '\n');
+  console.log(`recorded ${entry.date}${entry.label ? ` (${entry.label})` : ''} to data/rank-history.json — ${next.length} entries\n`);
+}
 
 /* ────────────────────────────────────────────────────────────────────────────
  * `--plan` — WHAT THE PLAN IS ACTUALLY WORTH, PHASE BY PHASE.
