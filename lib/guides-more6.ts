@@ -505,6 +505,7 @@ export const moreGuides6: Guide[] = [
       { label: 'Pain BC', url: 'https://painbc.ca/' },
     ],
     related: [
+      { href: '/guides/stress-leave-bc', label: 'How to get stress leave in BC' },
       { href: '/online-counselling/kelowna', label: 'Online counselling in Kelowna' },
       { href: '/approaches/acceptance-and-commitment-therapy', label: 'Acceptance and commitment therapy' },
       { href: '/guides/grief-without-a-timeline', label: 'Grief without a timeline' },
@@ -588,6 +589,7 @@ export const moreGuides6: Guide[] = [
       { label: 'WorkSafeBC — mental health injury claims', url: 'https://www.worksafebc.com/en/claims/report-workplace-injury-illness/mental-health-injury-claims' },
     ],
     related: [
+      { href: '/guides/stress-leave-bc', label: 'How to get stress leave in BC' },
       { href: '/resources/workplace-mental-health-bc', label: 'Mental health and work in BC' },
       { href: '/guides/burnout-vs-depression', label: 'Burnout vs depression' },
       { href: '/guides/imposter-feelings-at-work', label: 'Imposter feelings at work' },

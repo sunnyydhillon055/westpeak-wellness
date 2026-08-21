@@ -73,6 +73,7 @@ export const moreGuides5: Guide[] = [
       { label: 'HealthLink BC — mental health and substance use', url: 'https://www.healthlinkbc.ca/mental-health-substance-use' },
     ],
     related: [
+      { href: '/approaches/acceptance-and-commitment-therapy', label: 'Acceptance and Commitment Therapy' },
       { href: '/services/anxiety-counselling', label: 'Anxiety counselling' },
       { href: '/for/new-parents', label: 'Counselling for new parents' },
       { href: '/guides/high-functioning-anxiety', label: 'High-functioning anxiety' },
@@ -310,6 +311,7 @@ export const moreGuides5: Guide[] = [
       { label: 'Canadian Mental Health Association, BC Division', url: 'https://bc.cmha.ca/' },
     ],
     related: [
+      { href: '/approaches/acceptance-and-commitment-therapy', label: 'Acceptance and Commitment Therapy' },
       { href: '/services/anxiety-counselling', label: 'Anxiety counselling' },
       { href: '/guides/intrusive-thoughts-and-what-they-mean', label: 'Intrusive thoughts' },
       { href: '/guides/anxiety-and-sleep', label: 'Anxiety and sleep' },

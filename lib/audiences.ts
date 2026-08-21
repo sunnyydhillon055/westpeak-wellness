@@ -301,6 +301,7 @@ const coreAudiences: Audience[] = [
       { label: "CMHA BC — workplace mental health", url: "https://cmha.bc.ca/" },
     ],
     related: [
+      { href: '/guides/stress-leave-bc', label: 'How to get stress leave in BC' },
       { href: '/online-counselling/victoria', label: 'Online counselling in Victoria' },
       { href: "/guides/burnout-vs-depression", label: "Burnout or depression — how to tell" },
       { href: "/services/emdr-therapy", label: "EMDR therapy across BC" },

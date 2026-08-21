@@ -368,6 +368,7 @@ const coreGuides: Guide[] = [
       { label: "HereToHelp BC — anxiety information", url: "https://www.heretohelp.bc.ca/infosheet/anxiety-disorders" },
     ],
     related: [
+      { href: '/approaches/acceptance-and-commitment-therapy', label: 'Acceptance and Commitment Therapy' },
       { href: '/online-counselling/vancouver', label: 'Online counselling in Vancouver' },
       { href: "/services/anxiety-counselling", label: "Anxiety counselling across BC" },
       { href: "/guides/burnout-vs-depression", label: "Burnout or depression — how to tell" },
@@ -599,6 +600,7 @@ const coreGuides: Guide[] = [
       { label: "HereToHelp BC — depression info sheet", url: "https://www.heretohelp.bc.ca/infosheet/depression" },
     ],
     related: [
+      { href: '/guides/stress-leave-bc', label: 'How to get stress leave in BC' },
       { href: "/services/depression-counselling", label: "Depression counselling across BC" },
       { href: "/guides/high-functioning-anxiety", label: "High-functioning anxiety" },
       { href: "/for/healthcare-and-shift-workers", label: "Counselling for healthcare and shift workers" },

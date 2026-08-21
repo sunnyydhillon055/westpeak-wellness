@@ -180,6 +180,7 @@ export const moreResources: Resource[] = [
       { label: 'WorkSafeBC — mental health claims', url: 'https://www.worksafebc.com/en/claims/report-workplace-injury-illness/mental-health-injury-claims' },
     ],
     related: [
+      { href: '/guides/stress-leave-bc', label: 'How to get stress leave in BC' },
       { href: '/guides/burnout-vs-depression', label: 'Burnout vs depression' },
       { href: '/for/healthcare-and-shift-workers', label: 'Counselling for healthcare and shift workers' },
       { href: '/compare/efap-vs-private-counselling', label: 'EFAP vs private counselling' },

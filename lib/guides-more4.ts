@@ -169,6 +169,7 @@ export const moreGuides4: Guide[] = [
       { label: 'HealthLink BC — mental health and substance use', url: 'https://www.healthlinkbc.ca/mental-health-substance-use' },
     ],
     related: [
+      { href: '/approaches/acceptance-and-commitment-therapy', label: 'Acceptance and Commitment Therapy' },
       { href: '/guides/high-functioning-anxiety', label: 'High-functioning anxiety' },
       { href: '/for/women', label: 'Counselling for women' },
       { href: '/services/anxiety-counselling', label: 'Anxiety counselling' },
