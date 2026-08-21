@@ -102,7 +102,7 @@ export const moreResources: Resource[] = [
     title: 'Mental health and work in BC: leave, accommodation and coverage',
     metaTitle: 'Mental Health and Work in BC | Westpeak',
     metaDescription:
-      'Sick leave, accommodation, short-term disability and WorkSafeBC claims — how the BC systems fit together, and what your employer is entitled to know.',
+      'What your employer may and may not ask, how accommodation actually works, and where sick leave, short-term disability and a WorkSafeBC claim differ.',
     eyebrow: 'BC resource',
     lede:
       'Most people discover how any of this works at the exact moment they are least able to research it. This is the map, in advance.',
@@ -195,7 +195,7 @@ export const moreResources: Resource[] = [
     title: 'How to verify a counsellor is who they say they are',
     metaTitle: 'Verify a Counsellor in BC | Westpeak Wellness',
     metaDescription:
-      'Titles like counsellor and therapist are unprotected in BC. How to check a registration in a few minutes, and what to do if something is wrong.',
+      'In BC anyone may call themselves a counsellor. The BCACC, CPBC and BCCSW registers are public and free — how to search each one in about two minutes.',
     eyebrow: 'BC resource',
     lede:
       'This takes about four minutes and almost nobody does it. It is the single most useful piece of due diligence available to you.',
@@ -282,7 +282,7 @@ export const moreResources: Resource[] = [
     title: 'Getting a psychiatrist or a formal assessment in BC',
     metaTitle: 'Psychiatry & Assessment in BC | Westpeak',
     metaDescription:
-      'When you need a psychiatrist rather than a counsellor, how referrals work in BC, what a psychological assessment costs, and what to do without a GP.',
+      'How to get a psychiatric referral in BC without a family doctor, what a private ADHD or psychological assessment costs, and the wait for each route.',
     eyebrow: 'BC resource',
     lede:
       'Counselling cannot diagnose, cannot prescribe, and cannot assess. Here is what to do when one of those is what you actually need.',

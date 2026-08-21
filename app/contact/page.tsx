@@ -11,7 +11,7 @@ import InboundForm from '@/components/InboundForm';
 export const metadata: Metadata = {
   title: 'Contact & Book',
   description:
-    'Get in touch with Westpeak Wellness. Book a free 15-minute consultation for online counselling anywhere in British Columbia, in English or Punjabi.',
+    'One line is enough to start, and the reply comes from your counsellor rather than an assistant — within one business day. English or Punjabi, anywhere in BC.',
   alternates: { canonical: `${site.domain}/contact` },
 };
 

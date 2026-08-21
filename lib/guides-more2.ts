@@ -186,7 +186,7 @@ export const moreGuides2: Guide[] = [
     title: 'What to do while you are waiting for therapy in BC',
     metaTitle: 'Waiting for Therapy in BC | Westpeak Wellness',
     metaDescription:
-      'Public waitlists in BC can run for months. What actually helps in the meantime, which free services have no wait, and how to hold your place.',
+      'Public waitlists in BC run for months. The services with no wait at all, what genuinely helps in the interval, and how to keep your place while you use them.',
     eyebrow: 'Guide · BC systems',
     lede:
       'Being told the wait is four to eight months is its own kind of blow. There is more available in the meantime than most people are told.',

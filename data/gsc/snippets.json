@@ -1,0 +1,484 @@
+{
+  "2026-08-21": {
+    "/about": {
+      "title": "Meet Aman Bains Dhillon, MA, RCC | Westpeak Wellness",
+      "desc": "Aman Bains Dhillon, MA, RCC — EMDR- and Gottman-trained, offering online therapy across BC in English and Punjabi. Master’s in intergenerational trauma."
+    },
+    "/accessibility": {
+      "title": "Accessibility | Westpeak Wellness",
+      "desc": "How this website is built for assistive technology, and the practical accommodations available in sessions — including what this practice cannot yet do."
+    },
+    "/alberta": {
+      "title": "Page not found | Westpeak Wellness",
+      "desc": "Online counselling across BC with a Registered Clinical Counsellor. EMDR, trauma, anxiety, depression, and couples therapy in English or Punjabi."
+    },
+    "/answers": {
+      "title": "Straight Answers About Counselling in BC | Westpeak Wellness",
+      "desc": "Direct answers to what people actually ask about therapy in BC — cost, coverage, EMDR, couples work, first sessions and how to find a counsellor."
+    },
+    "/approaches/acceptance-and-commitment-therapy": {
+      "title": "ACT Therapy Explained | Westpeak Wellness",
+      "desc": "What ACT does differently from CBT, why it targets the struggle rather than the symptom, and who it tends to suit when other approaches have stalled."
+    },
+    "/approaches/cognitive-behavioural-therapy": {
+      "title": "CBT Explained | Westpeak Wellness",
+      "desc": "What CBT actually involves session by session, what the evidence supports it for, where it works poorly, and how to tell it is being done properly."
+    },
+    "/approaches/dbt-informed-skills": {
+      "title": "DBT-Informed Skills | Westpeak Wellness",
+      "desc": "The difference between full DBT and DBT-informed individual work, which skills transfer, and when the full programme is what you actually need."
+    },
+    "/approaches/internal-family-systems": {
+      "title": "Internal Family Systems (IFS) | Westpeak",
+      "desc": "What parts work involves, why it suits people who feel divided against themselves, and an honest account of where its evidence base currently stands."
+    },
+    "/approaches/mindfulness-based-approaches": {
+      "title": "Mindfulness-Based Therapy | Westpeak",
+      "desc": "What MBCT and MBSR actually are, what the evidence supports them for, and the specific situations where mindfulness practice is a poor idea."
+    },
+    "/approaches/somatic-therapy": {
+      "title": "Somatic Therapy Explained | Westpeak",
+      "desc": "Why trauma work involves the body, what somatic sessions actually consist of, and how to tell a careful body-based practitioner from an unqualified one."
+    },
+    "/approaches": {
+      "title": "Counselling Approaches Explained | Westpeak",
+      "desc": "What CBT, ACT, IFS, somatic work, DBT skills and mindfulness-based programmes actually involve — including where each one works poorly."
+    },
+    "/careers": {
+      "title": "Counselling Jobs BC — Remote RCC Careers | Westpeak Wellness",
+      "desc": "Remote counselling jobs across BC — part-time RCC roles, work from home, referrals provided, keep 70%. Current openings and how to apply."
+    },
+    "/compare/cbt-vs-emdr-for-trauma": {
+      "title": "CBT vs EMDR for Trauma | Westpeak Wellness",
+      "desc": "Two evidence-based trauma treatments compared — how each works, how much you have to talk, and which tends to suit what."
+    },
+    "/compare/efap-vs-private-counselling": {
+      "title": "EFAP vs Private Counselling | Westpeak Wellness",
+      "desc": "What an employee assistance programme actually gives you, where the session cap bites, and how to use both routes in the right order."
+    },
+    "/compare/individual-vs-couples-therapy": {
+      "title": "Individual vs Couples Therapy | Westpeak Wellness",
+      "desc": "When relationship difficulty is better addressed individually, when couples sessions make more sense, and when to do both."
+    },
+    "/compare/rcc-vs-psychologist-vs-social-worker-bc": {
+      "title": "RCC vs Psychologist vs RSW in BC | Westpeak Wellness",
+      "desc": "The real differences between an RCC, a psychologist, and a clinical social worker in BC — training, diagnosis, cost, coverage, and regulation."
+    },
+    "/compare/therapy-medication-or-both": {
+      "title": "Therapy, Medication, or Both? | Westpeak Wellness",
+      "desc": "What each option does, who decides, and how the choice is usually made. General information only — medication decisions belong with a prescriber."
+    },
+    "/compare/therapy-vs-coaching": {
+      "title": "Therapy vs Coaching | Westpeak Wellness",
+      "desc": "Coaching and counselling overlap in the room and differ completely in accountability. What each is for, and the questions that separate them."
+    },
+    "/compare/weekly-vs-biweekly-sessions": {
+      "title": "Weekly vs Biweekly Therapy | Westpeak Wellness",
+      "desc": "Session frequency is a clinical decision, not an administrative one. When weekly matters, when fortnightly is fine, and how cost fits in honestly."
+    },
+    "/compare": {
+      "title": "Compare Your Options | Westpeak Wellness",
+      "desc": "Straight comparisons for people deciding about therapy in BC — types of therapist, formats, and approaches, with the trade-offs stated plainly."
+    },
+    "/editorial-policy": {
+      "title": "Editorial Policy | Westpeak Wellness",
+      "desc": "Who writes the guides on this site, what counts as a source, how often pages are reviewed, and what this site will never publish."
+    },
+    "/faq": {
+      "title": "Frequently Asked Questions | Westpeak Wellness",
+      "desc": "Answers about online counselling in BC: booking, fees, extended health coverage, Punjabi sessions, confidentiality, and what to expect."
+    },
+    "/for/couples": {
+      "title": "Counselling for Couples in BC | Westpeak Wellness",
+      "desc": "Online couples counselling across BC — the same fight on repeat, drifting apart, rebuilding after a breach, and deciding whether to continue."
+    },
+    "/for/family-caregivers": {
+      "title": "Counselling for Family Caregivers BC | Westpeak",
+      "desc": "Online counselling for people caring for an aging or ill parent in BC — the anticipatory grief, the resentment nobody admits to, and the sibling problem."
+    },
+    "/for/first-gen-south-asian-adults": {
+      "title": "South Asian Counselling in BC | Westpeak Wellness",
+      "desc": "Online counselling in Punjabi or English for South Asian adults in BC — family expectation, duty, identity, and generational silence."
+    },
+    "/for/healthcare-and-shift-workers": {
+      "title": "Counselling for Shift Workers BC | Westpeak Wellness",
+      "desc": "Online counselling for nurses, care aides, first responders, and shift workers across BC — burnout, moral injury, and sleep disruption."
+    },
+    "/for/new-parents": {
+      "title": "Counselling for New Parents in BC | Westpeak Wellness",
+      "desc": "Online counselling for new and expecting parents across BC — postpartum depression and anxiety, identity shift, and relationship strain. Free consultation."
+    },
+    "/for/punjabi-speaking-couples": {
+      "title": "Punjabi Couples Counselling in BC | Westpeak Wellness",
+      "desc": "Couples counselling in Punjabi or English, online across BC — for a marriage that involves two families, not just two people."
+    },
+    "/for/rotational-and-camp-workers": {
+      "title": "Counselling for Camp Workers BC | Westpeak",
+      "desc": "Online counselling built around rotation schedules — two weeks in, two weeks out, no local counsellor, and the re-entry problem nobody warns you about."
+    },
+    "/for/south-asian-intergenerational-conflict": {
+      "title": "Intergenerational Conflict Counselling in Punjabi | BC",
+      "desc": "Counselling in Punjabi or English for South Asian families where both sides are reasonable and neither can hear the other. Online across BC."
+    },
+    "/for/university-students": {
+      "title": "Counselling for BC Students | Westpeak Wellness",
+      "desc": "Online counselling for post-secondary students across BC — anxiety, burnout, family expectation, and the free options worth using first."
+    },
+    "/for/women": {
+      "title": "Counselling for Women in BC | Westpeak Wellness",
+      "desc": "Online counselling for women across BC — the invisible load, anger with nowhere to go, caregiving, and identity after a life transition."
+    },
+    "/for": {
+      "title": "Who We Work With | Westpeak Wellness",
+      "desc": "Online counselling across BC for new parents, students, shift workers, and others — written for the specific pressures each group carries."
+    },
+    "/glossary": {
+      "title": "Counselling Terms Glossary | Westpeak Wellness",
+      "desc": "Plain-language definitions of the therapy, mental-health and BC coverage terms you will meet when looking for a counsellor — without the jargon."
+    },
+    "/guides/adhd-in-adults-and-what-counselling-can-do": {
+      "title": "Adult ADHD in BC | Westpeak Wellness",
+      "desc": "How assessment works in BC, what it costs, and the honest boundary between what a counsellor can help with and what needs a psychologist or physician."
+    },
+    "/guides/anger-that-arrives-too-fast": {
+      "title": "Anger That Arrives Too Fast | Westpeak Wellness",
+      "desc": "Why anger outruns thought, what it is usually protecting, and what actually reduces it — beyond counting to ten, which does not work."
+    },
+    "/guides/anxiety-and-sleep": {
+      "title": "Anxiety and Sleep | Westpeak Wellness",
+      "desc": "Why anxiety peaks at night, how sleep loss feeds it back, and which parts of the loop are actually treatable rather than just endured."
+    },
+    "/guides/anxiety-attack-vs-panic-attack": {
+      "title": "Anxiety Attack vs Panic Attack | Westpeak Wellness",
+      "desc": "Panic attacks are a defined clinical term; anxiety attacks are not. What separates them, why it matters, and what helps in the moment."
+    },
+    "/guides/burnout-vs-depression": {
+      "title": "Burnout vs Depression: The Difference | Westpeak Wellness",
+      "desc": "Burnout is an occupational phenomenon, not a medical diagnosis. How it differs from depression, where they overlap, and what each needs."
+    },
+    "/guides/chronic-illness-and-mood": {
+      "title": "Chronic Illness and Mood | Westpeak Wellness",
+      "desc": "Why low mood with a chronic condition is not a reaction, the grief involved, and what counselling can address when the illness will not change."
+    },
+    "/guides/does-couples-therapy-work": {
+      "title": "Does Couples Therapy Work? | Westpeak Wellness",
+      "desc": "What the research shows about couples therapy, what makes it more or less likely to help, and the single biggest predictor of a poor outcome."
+    },
+    "/guides/grief-without-a-timeline": {
+      "title": "Grief Without a Timeline | Westpeak Wellness",
+      "desc": "Why the five stages are not a schedule, what disenfranchised grief is, and when grief is worth bringing to counselling rather than waiting out."
+    },
+    "/guides/health-anxiety": {
+      "title": "Health Anxiety | Westpeak Wellness",
+      "desc": "Why reassurance stops working, how checking and searching maintain health anxiety, and what treatment involves — with the medical caveats stated properly."
+    },
+    "/guides/high-functioning-anxiety": {
+      "title": "High-Functioning Anxiety: Signs | Westpeak Wellness",
+      "desc": "High-functioning anxiety is not a diagnosis, but the pattern is real — driven, capable, and exhausted. What it looks like and what helps."
+    },
+    "/guides/how-long-does-therapy-take": {
+      "title": "How Long Does Therapy Take? | Westpeak Wellness",
+      "desc": "Why session counts vary so much, what makes therapy shorter or longer, and how to tell whether you are making progress or just attending."
+    },
+    "/guides/how-the-gottman-method-works": {
+      "title": "How the Gottman Method Works | Westpeak Wellness",
+      "desc": "The research behind the Gottman Method, the Four Horsemen, what an assessment involves, and what couples actually do in session."
+    },
+    "/guides/how-to-find-a-therapist-in-bc": {
+      "title": "How to Find a Therapist in BC | Westpeak Wellness",
+      "desc": "Where to look for a therapist in BC, how to verify a credential with the regulator, what free options exist, and what to ask before booking."
+    },
+    "/guides/imposter-feelings-at-work": {
+      "title": "Imposter Feelings at Work | Westpeak",
+      "desc": "Why achievement does not resolve imposter feelings, the specific costs they carry, and what changes them when reassurance does not."
+    },
+    "/guides/intergenerational-trauma-explained": {
+      "title": "Intergenerational Trauma Explained | Westpeak Wellness",
+      "desc": "How trauma travels between generations through behaviour, silence, and family rules — and what can be worked with in therapy."
+    },
+    "/guides/intrusive-thoughts-and-what-they-mean": {
+      "title": "Intrusive Thoughts Explained | Westpeak",
+      "desc": "Why almost everyone has disturbing unwanted thoughts, why the content is not the problem, and what makes them stick for some people and not others."
+    },
+    "/guides/is-online-therapy-as-effective-as-in-person": {
+      "title": "Is Online Therapy as Effective? | Westpeak Wellness",
+      "desc": "What the research says about video therapy versus in-person, where the evidence is strongest, and the trade-offs worth knowing before you book."
+    },
+    "/guides/life-transitions-and-identity": {
+      "title": "Life Transitions &amp; Identity | Westpeak",
+      "desc": "Why transitions that look positive can be destabilising, why the difficult part often arrives months later, and what the work actually involves."
+    },
+    "/guides/loneliness-in-adulthood": {
+      "title": "Loneliness in Adulthood | Westpeak Wellness",
+      "desc": "Why adult friendship gets harder after thirty, why loneliness is so difficult to admit, and what actually rebuilds connection rather than just advising it."
+    },
+    "/guides/low-mood-through-a-bc-winter": {
+      "title": "Low Mood in a BC Winter | Westpeak Wellness",
+      "desc": "Why the coast and the north produce different winter problems, what actually helps with seasonal low mood, and when it is more than the weather."
+    },
+    "/guides/money-stress-and-mental-health": {
+      "title": "Money Stress &amp; Mental Health | Westpeak",
+      "desc": "Why financial strain affects mental health so directly, why shame keeps it unspoken, and what counselling can and cannot do about it."
+    },
+    "/guides/panic-attacks-at-work": {
+      "title": "Panic Attacks at Work | Westpeak Wellness",
+      "desc": "Getting through one without leaving, why the fear of the next one becomes the real problem, and what to say to a manager if you decide to say anything."
+    },
+    "/guides/perfectionism-and-self-criticism": {
+      "title": "Perfectionism &amp; Self-Criticism | Westpeak",
+      "desc": "Why perfectionism is so hard to give up when the world keeps rewarding it, and why the standard is rarely the part that needs to change."
+    },
+    "/guides/procrastination-that-is-not-laziness": {
+      "title": "Procrastination Explained | Westpeak Wellness",
+      "desc": "Why procrastination is an emotion-regulation problem rather than a time-management one, and what actually works once you know that."
+    },
+    "/guides/questions-to-ask-a-therapist": {
+      "title": "Questions to Ask a Therapist | Westpeak Wellness",
+      "desc": "A consultation goes both ways. The questions that actually tell you something, the answers to be wary of, and what you never have to justify."
+    },
+    "/guides/setting-boundaries-with-family": {
+      "title": "Boundaries with Family | Westpeak Wellness",
+      "desc": "Why boundary advice usually fails with families, what a boundary actually is, and how to set one when the other person will not agree to it."
+    },
+    "/guides/signs-it-might-be-time-for-therapy": {
+      "title": "Signs It Might Be Time for Therapy | Westpeak",
+      "desc": "Most people wait far longer than they needed to. The signals worth taking seriously, and why &quot;it is not bad enough&quot; is the wrong test."
+    },
+    "/guides/social-anxiety-in-adults": {
+      "title": "Social Anxiety in Adults | Westpeak Wellness",
+      "desc": "Why social anxiety is frequently invisible from outside, the safety behaviours that keep it running, and what actually reduces it in adulthood."
+    },
+    "/guides/stress-leave-bc": {
+      "title": "Stress Leave in BC | Westpeak",
+      "desc": "A counsellor cannot certify a stress leave in BC — a doctor or nurse practitioner does. How EI sickness benefits and short-term disability differ."
+    },
+    "/guides/supporting-someone-who-is-struggling": {
+      "title": "Supporting Someone Struggling | Westpeak",
+      "desc": "What actually helps when someone you love is not coping, what to say instead of advice, and how to raise the subject of professional help."
+    },
+    "/guides/talking-to-your-family-about-therapy": {
+      "title": "Telling Family About Therapy | Westpeak Wellness",
+      "desc": "You do not owe anyone this information. If you decide to share it, here is how to do it without handing over more than you meant to."
+    },
+    "/guides/waiting-for-therapy-in-bc": {
+      "title": "Waiting for Therapy in BC | Westpeak Wellness",
+      "desc": "Public waitlists in BC can run for months. What actually helps in the meantime, which free services have no wait, and how to hold your place."
+    },
+    "/guides/what-is-emdr-and-how-a-session-works": {
+      "title": "What Is EMDR &amp; How Sessions Work | Westpeak Wellness",
+      "desc": "A plain explanation of EMDR therapy — the eight phases, what bilateral stimulation is, how it works online, and who it suits."
+    },
+    "/guides/what-to-expect-first-therapy-session": {
+      "title": "What to Expect: First Therapy Session | Westpeak Wellness",
+      "desc": "What a first counselling session involves, what you will be asked, what you do not have to share, and how to tell whether it is a fit."
+    },
+    "/guides/what-trauma-actually-means": {
+      "title": "What Trauma Actually Means | Westpeak Wellness",
+      "desc": "The word has stretched to cover everything and therefore nothing. What clinicians mean by trauma, why the event is not the measure, and what follows."
+    },
+    "/guides/when-someone-you-love-is-drinking": {
+      "title": "When Someone You Love Is Drinking | Westpeak",
+      "desc": "What helps and what reliably does not when a family member is drinking, why ultimatums usually fail, and support available to you in your own right."
+    },
+    "/guides/when-therapy-isnt-working": {
+      "title": "When Therapy Is Not Working | Westpeak Wellness",
+      "desc": "How to tell the difference between therapy that is hard and therapy that is stuck, how to raise it, and when changing counsellor is the right call."
+    },
+    "/guides/workplace-bullying-in-bc": {
+      "title": "Workplace Bullying in BC | Westpeak",
+      "desc": "How BC defines workplace bullying, what employers are legally required to do, how to document it, and what counselling can address while it continues."
+    },
+    "/guides": {
+      "title": "Counselling Guides | Westpeak Wellness",
+      "desc": "Plain-language guides to therapy in BC — what the research says, what to expect, and how to decide. Written by a Registered Clinical Counsellor."
+    },
+    "/": {
+      "title": "Online Counselling in BC | Westpeak Wellness",
+      "desc": "Online counselling across BC with a Registered Clinical Counsellor. EMDR, trauma, anxiety, depression, and couples therapy in English or Punjabi."
+    },
+    "/message-sent": {
+      "title": "Your message has arrived | Westpeak Wellness",
+      "desc": "Confirmation that your message reached Westpeak Wellness."
+    },
+    "/online-counselling/abbotsford": {
+      "title": "Online Counselling in Abbotsford | Westpeak Wellness",
+      "desc": "Online counselling for Abbotsford and the Fraser Valley. Therapy in Punjabi or English — EMDR, trauma, anxiety, and couples sessions."
+    },
+    "/online-counselling/kamloops": {
+      "title": "Online Counselling in Kamloops | Westpeak Wellness",
+      "desc": "Online counselling for Kamloops and the Thompson-Nicola — EMDR, trauma, anxiety, depression and couples therapy by secure video. Free 15-minute consultation."
+    },
+    "/online-counselling/kelowna": {
+      "title": "Online Counselling in Kelowna | Westpeak Wellness",
+      "desc": "Online counselling for Kelowna and the Central Okanagan. EMDR, trauma, anxiety, and couples therapy by secure video, English or Punjabi."
+    },
+    "/online-counselling/prince-george": {
+      "title": "Online Counselling in Prince George | Westpeak Wellness",
+      "desc": "Online counselling for Prince George and Northern BC — EMDR, trauma, anxiety, depression and couples therapy by secure video. Free 15-minute consultation."
+    },
+    "/online-counselling/surrey": {
+      "title": "Online Counselling in Surrey | Westpeak Wellness",
+      "desc": "Online counselling for Surrey, BC. Therapy in Punjabi or English — EMDR, trauma, anxiety, and couples counselling by secure video."
+    },
+    "/online-counselling/vancouver": {
+      "title": "Online Counselling in Vancouver | Westpeak Wellness",
+      "desc": "Online counselling for Vancouver, BC — EMDR, trauma, anxiety, depression and couples therapy by secure video, in English or Punjabi. Free consultation."
+    },
+    "/online-counselling/victoria": {
+      "title": "Online Counselling in Victoria | Westpeak Wellness",
+      "desc": "Online counselling for Victoria and Vancouver Island. EMDR, trauma, anxiety, and couples therapy by secure video, in English or Punjabi."
+    },
+    "/online-counselling": {
+      "title": "Areas Served Across British Columbia | Westpeak Wellness",
+      "desc": "Virtual therapy anywhere in BC — Vancouver, Surrey, Victoria, Kelowna, Prince George and beyond. Sessions in English or Punjabi."
+    },
+    "/ontario": {
+      "title": "Page not found | Westpeak Wellness",
+      "desc": "Online counselling across BC with a Registered Clinical Counsellor. EMDR, trauma, anxiety, depression, and couples therapy in English or Punjabi."
+    },
+    "/privacy": {
+      "title": "Privacy &amp; Confidentiality | Westpeak Wellness",
+      "desc": "What is collected, where session records are kept, the legal limits of confidentiality, and how this website handles your data — in plain language."
+    },
+    "/punjabi/sent": {
+      "title": "ਤੁਹਾਡਾ ਸੁਨੇਹਾ ਪਹੁੰਚ ਗਿਆ ਹੈ | Westpeak Wellness",
+      "desc": "Confirmation, in Punjabi, that your message reached Westpeak Wellness."
+    },
+    "/punjabi-counselling/abbotsford": {
+      "title": "Punjabi Counselling in Abbotsford, BC | Westpeak",
+      "desc": "Punjabi-speaking online counselling for Abbotsford and the Fraser Valley, from outside the Valley. No local office, no waiting room. Free consultation."
+    },
+    "/punjabi-counselling/kamloops": {
+      "title": "Punjabi Counselling in Kamloops, BC | Westpeak",
+      "desc": "Punjabi-speaking online counselling for Kamloops and the Thompson-Nicola. Sessions in Punjabi, English, or both, with an RCC. Free 15-minute consultation."
+    },
+    "/punjabi-counselling/kelowna": {
+      "title": "Punjabi Counselling in Kelowna, BC | Westpeak",
+      "desc": "Punjabi-speaking online counselling for Kelowna and the Okanagan. Sessions in Punjabi, English, or both, with an RCC. Free 15-minute consultation."
+    },
+    "/punjabi-counselling/prince-george": {
+      "title": "Punjabi Counselling in Prince George, BC | Westpeak",
+      "desc": "Punjabi-speaking online counselling for Prince George and Northern BC. Sessions in Punjabi, English, or both, with an RCC. Free 15-minute consultation."
+    },
+    "/punjabi-counselling/surrey": {
+      "title": "Punjabi Counselling in Surrey, BC | Westpeak",
+      "desc": "Punjabi-speaking online counselling for Surrey, from outside Surrey. No local office, no waiting room, no shared community networks. Free consultation."
+    },
+    "/punjabi-counselling/vancouver": {
+      "title": "Punjabi Counselling in Vancouver, BC | Westpeak",
+      "desc": "Punjabi-speaking online counselling for Vancouver. Sessions in Punjabi, English, or both, with an RCC — without the trip to Surrey. Free consultation."
+    },
+    "/punjabi-counselling": {
+      "title": "Punjabi Counselling by Region in BC | Westpeak Wellness",
+      "desc": "Punjabi-speaking online counselling across BC — Surrey, Abbotsford, Vancouver, Kelowna, Kamloops and Prince George. Sessions in Punjabi, English, or both."
+    },
+    "/punjabi": {
+      "title": "ਪੰਜਾਬੀ ਵਿੱਚ ਕਾਊਂਸਲਿੰਗ | Punjabi counselling in BC",
+      "desc": "ਬ੍ਰਿਟਿਸ਼ ਕੋਲੰਬੀਆ ਵਿੱਚ ਪੰਜਾਬੀ ਬੋਲਣ ਵਾਲੇ Registered Clinical Counsellor ਨਾਲ ਆਨਲਾਈਨ ਕਾਊਂਸਲਿੰਗ। Online counselling in Punjabi anywhere in BC."
+    },
+    "/resources/bc-crisis-and-support-directory": {
+      "title": "BC Crisis &amp; Support Directory | Westpeak Wellness",
+      "desc": "Crisis lines and mental health support across British Columbia — who to call, when, and what each service actually does."
+    },
+    "/resources/bc-extended-health-coverage-for-counselling": {
+      "title": "BC Extended Health &amp; Counselling | Westpeak Wellness",
+      "desc": "Which BC extended health plans cover Registered Clinical Counsellors, how reimbursement works, and the exact wording to check first."
+    },
+    "/resources/low-cost-counselling-bc": {
+      "title": "Free &amp; Low-Cost Counselling in BC | Westpeak Wellness",
+      "desc": "A working list of free and reduced-cost mental health support in British Columbia — who qualifies, what it covers, and how to access it."
+    },
+    "/resources/msp-vs-extended-health": {
+      "title": "MSP vs Extended Health for Therapy | Westpeak Wellness",
+      "desc": "Why MSP does not cover private counselling, what it does cover, and how the public and private mental-health systems in BC differ."
+    },
+    "/resources/psychiatry-and-assessment-in-bc": {
+      "title": "Psychiatry &amp; Assessment in BC | Westpeak",
+      "desc": "When you need a psychiatrist rather than a counsellor, how referrals work in BC, what a psychological assessment costs, and what to do without a GP."
+    },
+    "/resources/student-mental-health-supports-bc": {
+      "title": "Student Mental Health Supports BC | Westpeak",
+      "desc": "What is free and available to post-secondary and secondary students in British Columbia, what the campus limits are, and where to go when they run out."
+    },
+    "/resources/verify-a-counsellor-in-bc": {
+      "title": "Verify a Counsellor in BC | Westpeak Wellness",
+      "desc": "Titles like counsellor and therapist are unprotected in BC. How to check a registration in a few minutes, and what to do if something is wrong."
+    },
+    "/resources/workplace-mental-health-bc": {
+      "title": "Mental Health and Work in BC | Westpeak",
+      "desc": "Sick leave, accommodation, short-term disability and WorkSafeBC claims — how the BC systems fit together, and what your employer is entitled to know."
+    },
+    "/resources": {
+      "title": "BC Mental Health Resources | Westpeak Wellness",
+      "desc": "Practical reference for mental health in BC — insurance coverage, MSP, free and low-cost counselling, and crisis support numbers."
+    },
+    "/reviews": {
+      "title": "Reviews and references | Westpeak Wellness",
+      "desc": "Why this practice publishes no client testimonials, what can be verified instead, and how to check a counsellor’s registration in BC yourself."
+    },
+    "/services/anxiety-counselling": {
+      "title": "Anxiety Counselling in BC (Online) | Westpeak Wellness",
+      "desc": "Online anxiety counselling across BC — evidence-based support for generalized anxiety, panic, social anxiety, and OCD. Book a free consultation."
+    },
+    "/services/couples-therapy": {
+      "title": "Online Couples Counselling in BC | Westpeak Wellness",
+      "desc": "Online couples counselling across BC using the research-based Gottman Method — communication, conflict, and repair. Book a free consultation."
+    },
+    "/services/depression-counselling": {
+      "title": "Depression Counselling in BC (Online) | Westpeak Wellness",
+      "desc": "Online depression counselling across BC for major depression, persistent low mood, postpartum depression, and grief. Book a free 15-minute consultation."
+    },
+    "/services/emdr-therapy": {
+      "title": "EMDR Therapy in BC (Online) | Westpeak Wellness",
+      "desc": "Online EMDR therapy across BC for trauma, PTSD, anxiety, and grief. EMDR-trained Registered Clinical Counsellor. Book a free 15-minute consultation."
+    },
+    "/services/individual-therapy": {
+      "title": "Individual Counselling in BC (Online) | Westpeak Wellness",
+      "desc": "One-on-one online counselling across BC for anxiety, depression, life transitions, identity, and family dynamics. Book a free 15-minute consultation."
+    },
+    "/services/online-counselling-bc": {
+      "title": "Online Counselling Across BC | Westpeak Wellness",
+      "desc": "Secure online counselling anywhere in BC. Virtual therapy with a Registered Clinical Counsellor — same standards as in-person care."
+    },
+    "/services/punjabi-counselling": {
+      "title": "Punjabi-Speaking Counselling in BC | Westpeak Wellness",
+      "desc": "Online Punjabi-speaking therapy across BC — counselling in Punjabi, English, or both, with deep cultural competency. Book a free consultation."
+    },
+    "/services/south-asian-mental-health": {
+      "title": "South Asian Therapy in BC | Westpeak Wellness",
+      "desc": "Culturally grounded online counselling for the South Asian community in BC — family expectations, identity, and generational patterns."
+    },
+    "/services/trauma-therapy": {
+      "title": "Trauma Counselling in BC (Online) | Westpeak Wellness",
+      "desc": "Online trauma therapy across BC — trauma-informed care for single-incident, complex, and intergenerational trauma. Book a free consultation."
+    },
+    "/services": {
+      "title": "Counselling Services (Online, BC-wide) | Westpeak Wellness",
+      "desc": "Online counselling across BC: individual and couples therapy, EMDR, trauma, anxiety and depression. Book a free consultation."
+    },
+    "/standards": {
+      "title": "Standards &amp; Accountability | Westpeak Wellness",
+      "desc": "The registration, ethical code, scope limits and complaints route this practice works under — and how to verify any of it yourself."
+    },
+    "/tools/stress-check": {
+      "title": "How have things been? A reflection | Westpeak Wellness",
+      "desc": "Six calm questions to help put words to how the last few weeks have been. Not a screening tool, not a diagnosis, and nothing is stored."
+    },
+    "/tools/therapy-cost-bc": {
+      "title": "BC counselling cost estimator | Westpeak Wellness",
+      "desc": "Estimate what counselling costs in British Columbia after extended health reimbursement, and the two questions to ask your plan before booking."
+    },
+    "/tools/which-service": {
+      "title": "Which kind of counselling fits? | Westpeak Wellness",
+      "desc": "A short, private questionnaire that suggests where to start — individual, couples, EMDR or something outside counselling. No sign-up, nothing stored."
+    },
+    "/tools": {
+      "title": "Free counselling tools | Westpeak Wellness",
+      "desc": "Three short, private tools: which counselling fits, what it costs in BC after extended health, and a reflection on how things have been. Nothing stored."
+    },
+    "/_not-found": {
+      "title": "Page not found | Westpeak Wellness",
+      "desc": "Online counselling across BC with a Registered Clinical Counsellor. EMDR, trauma, anxiety, depression, and couples therapy in English or Punjabi."
+    }
+  }
+}

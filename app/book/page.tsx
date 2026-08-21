@@ -9,7 +9,7 @@ import InboundForm from '@/components/InboundForm';
 export const metadata: Metadata = {
   title: 'Book a Free 15-Minute Consultation',
   description:
-    'Book a free 15-minute consultation for online counselling anywhere in BC. No pressure, no commitment — just a chance to see if it is a good fit.',
+    'A free 15-minute video call — no card, no obligation, and if someone else would suit you better you will be told so. Anywhere in BC, English or Punjabi.',
   alternates: { canonical: `${site.domain}/book` },
   openGraph: {
     title: `Book a Free 15-Minute Consultation | ${site.name}`,

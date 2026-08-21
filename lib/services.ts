@@ -496,7 +496,7 @@ export const services: Service[] = [
     short: "Family expectations, identity, and intergenerational patterns.",
     metaTitle: "South Asian Therapy in BC | Westpeak Wellness",
     metaDescription:
-      "Culturally grounded online counselling for the South Asian community in BC — family expectations, identity, and generational patterns.",
+      "Therapy in Punjabi or English with someone who already knows what log kya kahenge means — so the family context is the starting point, not the preamble.",
     hero: "Holding two cultural worlds, without splitting yourself in two.",
     intro:
       "For many first- and second-generation South Asian folks, the pressure isn't one big thing — it's the daily negotiation between family, culture, and the life you're building. This is counselling that already speaks that language. Online across BC.",

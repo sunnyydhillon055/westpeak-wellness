@@ -4,9 +4,9 @@ export const moreGuides6: Guide[] = [
   {
     slug: 'stress-leave-bc',
     title: 'Stress leave in BC: what it actually takes',
-    metaTitle: 'Stress Leave in BC | Westpeak',
+    metaTitle: 'How to Get Stress Leave in BC | Westpeak Wellness',
     metaDescription:
-      'A counsellor cannot certify a stress leave in BC — a doctor or nurse practitioner does. How EI sickness benefits and short-term disability differ.',
+      'Who can actually sign one, and it is not a counsellor. How long leaves usually run, whether yours is paid, and where EI sickness benefits fit.',
     eyebrow: 'Guide · Work',
     lede:
       'The paperwork question and the clinical question are different, and most pages about this answer neither.',
@@ -60,6 +60,18 @@ export const moreGuides6: Guide[] = [
         ],
       },
       {
+        h2: 'How to actually apply for one, in order',
+        body: [
+          'Most of what is written about stress leave explains what it *is*. The question people actually search is how to start, so this is the sequence — and the first step is one a lot of people never use.',
+          '**1. Know what you already have.** Under the BC Employment Standards Act an employee who has been with an employer for 90 consecutive days is entitled to **five paid and three unpaid days of illness or injury leave each calendar year**. No diagnosis is required, and mental health counts. For a bad week this may be the whole answer, and it is job-protected.',
+          '**2. Book with a physician or nurse practitioner.** For anything longer, someone medically qualified has to certify it. A counsellor cannot, whatever your relationship with them. If you have no family doctor, a walk-in clinic or a virtual-care service can do this — it does not have to be somebody who knows you.',
+          '**3. Tell your employer you need a medical leave, not why.** They are entitled to know that you are unable to work and roughly for how long. They are not entitled to your diagnosis, your symptoms, or what you discuss in therapy.',
+          '**4. Work out where the money comes from before you go, not after.** If your employer has short-term disability, that is usually the first route and the plan has its own forms and its own deadlines. If not, EI sickness benefits pay **55% of insurable earnings up to $729 a week in 2026, for as much as 26 weeks** — and there is normally a one-week unpaid waiting period, which is the detail that catches people out.',
+          '**5. Ask for the note to describe function, not diagnosis.** "Unable to perform duties until [date], review on [date]" is what an employer and an insurer need. A named condition is neither required nor advisable on a document that will be read by several people at your work.',
+          'The order matters more than it looks. People commonly do step two first, discover in week three that they have no income, and go back to work before they are ready — which is how a leave ends up making things worse.',
+        ],
+      },
+      {
         h2: 'If you are still working and reading this',
         body: [
           'A large share of people who search for this are not on leave and are trying to work out whether they need one. There is no test that settles it, but a few markers are worth taking seriously: sleep that no longer restores, physical symptoms with no medical explanation, mistakes at work that are not like you, dread that starts the evening before rather than in the morning, and drinking more to come down.',
@@ -73,6 +85,10 @@ export const moreGuides6: Guide[] = [
       label: 'Book a free consultation',
     },
     faqs: [
+      { q: 'Is stress leave paid in BC?', a: 'Partly, and it depends how long you are off. The first five days in a calendar year are paid by your employer under the Employment Standards Act once you have 90 days service. Beyond that there is no automatic pay — you are relying on your employer\'s short-term disability plan if one exists, or on EI sickness benefits, which replace 55% of insurable earnings to a maximum of $729 a week in 2026 for up to 26 weeks. Many people are worse off than they expect, which is worth knowing before the leave starts rather than during it.' },
+      { q: 'Can I get EI sickness benefits for a mental-health leave?', a: 'Yes. EI sickness benefits do not distinguish between a physical and a mental-health condition — what matters is that a medical practitioner certifies you are unable to work. Claims established since December 2022 can run to 26 weeks. Apply as soon as the leave is certified rather than waiting, because there is normally a one-week unpaid waiting period and benefits are not backdated indefinitely.' },
+      { q: 'Is my job protected while I am off?', a: 'The Employment Standards Act leave is job-protected, and for longer absences the BC Human Rights Code requires an employer to accommodate a disability — which a mental-health condition can be — to the point of undue hardship. That is a real protection and it is not unlimited. If you are being pressured to return, or your role changes while you are away, that is an employment-law question rather than a counselling one, and worth getting proper advice on early.' },
+      { q: 'Does WorkSafeBC cover stress leave?', a: 'Only when the cause is the work itself. A WorkSafeBC claim for a mental-health injury generally requires either a traumatic event at work or a significant work-related stressor such as bullying or harassment — not the accumulated strain of a demanding job. It is a different process from EI or short-term disability, with its own evidence requirements, and the two are not interchangeable.' },
       { q: 'Can a counsellor sign my stress leave forms?', a: 'No. In British Columbia a medical leave is certified by a physician or a nurse practitioner. A Registered Clinical Counsellor cannot sign for an employer, an insurer or EI, and any counsellor suggesting otherwise is misleading you. Counselling runs alongside the leave rather than being the route into it.' },
       { q: 'How long can a stress leave last?', a: 'It depends on the funding route rather than on a fixed rule. EI sickness benefits run to a maximum of 26 weeks. An employer short-term disability plan sets its own limit, commonly between 15 and 26 weeks, after which long-term disability may apply. The medical certificate itself usually sets a review date rather than an end date.' },
       { q: 'Does my employer get told my diagnosis?', a: 'No. An employer is entitled to functional information — that you cannot perform your duties, what the limitations are, and when this will be reviewed. They are not entitled to your diagnosis or your clinical notes. Insurers can ask for more than employers can, but still less than people usually give them.' },

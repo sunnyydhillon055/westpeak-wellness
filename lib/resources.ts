@@ -124,9 +124,9 @@ const coreResources: Resource[] = [
     figure2: "first-session-flow",
     figure: "therapy-cost-in-bc",
     title: "MSP vs extended health: what actually covers therapy in BC",
-    metaTitle: "MSP vs Extended Health for Therapy | Westpeak Wellness",
+    metaTitle: "Does MSP Cover Therapy in BC? | Westpeak Wellness",
     metaDescription:
-      "Why MSP does not cover private counselling, what it does cover, and how the public and private mental-health systems in BC differ.",
+      "MSP does not pay for private counselling — but three public routes are free, and most extended-health plans reimburse an RCC. What each one covers.",
     eyebrow: "Resource · Coverage",
     lede:
       "British Columbians are used to health care being covered. Mental health is the place where that assumption breaks.",
