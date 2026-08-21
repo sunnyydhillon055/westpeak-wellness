@@ -103,7 +103,15 @@ const nextConfig = {
 
          /apply is a 307 rather than a 301 on purpose: it points at whichever
          role is currently open, so it must not be cached permanently against
-         this one. */
+         this one.
+
+         THE RCC POSTING WAS CLOSED 2026-08-20, and that foresight is why this
+         block needed so little changing. Everything that pointed at the posting
+         now points at /careers, and every one of those is a 307 — the slug may
+         be reused when the role reopens, and a 301 cached in a browser or an
+         index would then send people away from the very page they wanted.
+         /careers itself is unaffected: it was written to be useful when nothing
+         is open. */
       { source: '/jobs', destination: '/careers', permanent: true },
       { source: '/job', destination: '/careers', permanent: true },
       { source: '/hiring', destination: '/careers', permanent: true },
@@ -113,10 +121,14 @@ const nextConfig = {
       { source: '/employment', destination: '/careers', permanent: true },
       { source: '/career', destination: '/careers', permanent: true },
       { source: '/vacancies', destination: '/careers', permanent: true },
-      { source: '/careers/rcc', destination: '/careers/registered-clinical-counsellor', permanent: true },
+      { source: '/careers/rcc', destination: '/careers', permanent: false },
       { source: '/jobs/:slug', destination: '/careers/:slug', permanent: true },
-      { source: '/apply', destination: '/careers/registered-clinical-counsellor', permanent: false },
-      { source: '/careers/apply', destination: '/careers/registered-clinical-counsellor', permanent: false },
+      { source: '/apply', destination: '/careers', permanent: false },
+      { source: '/careers/apply', destination: '/careers', permanent: false },
+      /* The closed posting. It was indexed and carried JobPosting markup, so
+         sending it somewhere useful beats a 404 — /careers still explains the
+         arrangement to anyone who arrives from an old link or a screenshot. */
+      { source: '/careers/registered-clinical-counsellor', destination: '/careers', permanent: false },
 
       /* Keyword-shaped entry points. These are REDIRECTS, not pages, and that
          distinction is the whole point: a set of near-identical city or

@@ -170,9 +170,8 @@ export default function About() {
             The practice is also growing. If you are a Registered Clinical Counsellor in British
             Columbia, there is a full account of{' '}
             <Link href="/careers">what working here involves</Link> — the arrangement, the split,
-            and the parts of it that would not suit everybody, with{' '}
-            <Link href="/careers/registered-clinical-counsellor">the current RCC posting</Link>{' '}
-            setting out the actual terms.
+            and the parts of it that would not suit everybody. Nothing is open at the moment,
+            and speculative enquiries are still read.
           </p>
           <p>
             If you are a physician, nurse practitioner or another clinician wondering whether to

@@ -13,7 +13,7 @@ export const faqs: FAQ[] = [
   },
   {
     q: "Are you hiring counsellors?",
-    a: "Yes. The practice is taking on a Registered Clinical Counsellor to work remotely anywhere in British Columbia — a contract role with referrals provided, no overhead, and hours you set yourself. The full posting, including the fee split, is on the careers page. This question sits here because counsellors ask it and the answer should be findable; if you are looking for therapy rather than work, you can safely skip it.",
+    a: "Not at the moment — there is no open posting. The practice does take on Registered Clinical Counsellors working remotely anywhere in British Columbia as it grows, on a contract basis with referrals provided, no overhead, and hours you set yourself. The [careers page](/careers) sets out the whole arrangement including the fee split, and speculative enquiries are read. This question sits here because counsellors ask it and the answer should be findable; if you are looking for therapy rather than work, you can safely skip it.",
   },
   {
     q: "Why are there no client reviews on this site?",
