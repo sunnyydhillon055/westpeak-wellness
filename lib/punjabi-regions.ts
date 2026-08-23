@@ -149,7 +149,7 @@ export const punjabiRegions: PunjabiRegion[] = [
       },
       {
         label: 'Interior Health — mental health and substance use services',
-        url: 'https://www.interiorhealth.ca/services/mental-health-substance-use',
+        url: 'https://www.interiorhealth.ca/health-and-wellness/mental-health-and-substance-use/mental-health',
       },
     ],
     nearby: ['kelowna', 'prince-george'],

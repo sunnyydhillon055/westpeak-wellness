@@ -97,9 +97,9 @@ export const moreGuides6: Guide[] = [
     ],
     sources: [
       { label: 'Government of Canada — EI sickness benefits', url: 'https://www.canada.ca/en/services/benefits/ei/ei-sickness.html' },
-      { label: 'BC Employment Standards Act — illness or injury leave', url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/employment-standards/time-off/illness-or-injury-leave' },
+      { label: 'BC Employment Standards Act — illness or injury leave', url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/paid-sick-leave' },
       { label: 'BC Human Rights Code — duty to accommodate', url: 'https://bchumanrights.ca/' },
-      { label: 'WorkSafeBC — mental health', url: 'https://www.worksafebc.com/en/health-safety/hazards-exposures/mental-health' },
+      { label: 'WorkSafeBC — mental health', url: 'https://www.worksafebc.com/en/claims/report-workplace-injury-illness/mental-health-injury-claims' },
     ],
     related: [
       { href: '/guides/burnout-vs-depression', label: 'Burnout or depression?' },

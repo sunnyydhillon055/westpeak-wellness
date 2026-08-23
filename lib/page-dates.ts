@@ -11,26 +11,26 @@
  */
 
 export const PAGE_DATES: Record<string, string> = {
-  "": "2026-08-09",
-  "/about": "2026-08-09",
-  "/services": "2026-08-09",
+  "": "2026-08-18",
+  "/about": "2026-08-20",
+  "/services": "2026-08-18",
   "/approaches": "2026-08-09",
-  "/pricing": "2026-08-14",
-  "/contact": "2026-08-14",
-  "/faq": "2026-08-14",
-  "/online-counselling": "2026-08-09",
-  "/guides": "2026-08-09",
+  "/pricing": "2026-08-23",
+  "/contact": "2026-08-20",
+  "/faq": "2026-08-20",
+  "/online-counselling": "2026-08-18",
+  "/guides": "2026-08-17",
   "/compare": "2026-08-09",
   "/for": "2026-08-09",
   "/resources": "2026-08-09",
   "/glossary": "2026-08-08",
-  "/book": "2026-08-14",
+  "/book": "2026-08-20",
   "/tools": "2026-08-09",
   "/reviews": "2026-08-09",
-  "/refer": "2026-08-14",
-  "/punjabi": "2026-08-09",
-  "/answers": "2026-08-14",
-  "/careers": "2026-08-09",
+  "/refer": "2026-08-17",
+  "/punjabi": "2026-08-18",
+  "/answers": "2026-08-17",
+  "/careers": "2026-08-17",
   "/standards": "2026-08-14",
   "/editorial-policy": "2026-08-14",
   "/privacy": "2026-08-14",
@@ -39,10 +39,10 @@ export const PAGE_DATES: Record<string, string> = {
 
 /** Collections whose items share one source module and so one honest date. */
 export const COLLECTION_DATES: Record<string, string> = {
-  "services": "2026-08-09",
+  "services": "2026-08-20",
   "tools": "2026-08-09",
-  "locations": "2026-08-14",
-  "punjabiRegions": "2026-08-14"
+  "locations": "2026-08-18",
+  "punjabiRegions": "2026-08-18"
 };
 
 /** ISO-8601 for the sitemap, or null when we do not honestly know. */

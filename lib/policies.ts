@@ -264,7 +264,7 @@ export const policies: Record<string, Policy> = {
       },
     ],
     sources: [
-      { label: 'Personal Information Protection Act (British Columbia)', url: 'https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/03063_01' },
+      { label: 'Personal Information Protection Act (British Columbia)', url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/employment-standards' },
       { label: 'Office of the Information and Privacy Commissioner for BC', url: 'https://www.oipc.bc.ca/' },
       { label: 'BC child protection — duty to report', url: 'https://www2.gov.bc.ca/gov/content/safety/public-safety/protecting-children/reporting-child-abuse' },
     ],
