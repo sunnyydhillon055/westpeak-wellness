@@ -69,6 +69,16 @@ export type PunjabiRegion = {
   /** The demographic fact the page rests on. Must be sourced. */
   demography: { stat: string; body: string[] };
 
+  /* The same fact, reduced to the number itself.
+   *
+   * `demography.stat` is a sentence and reads as one. This is the figure alone,
+   * for the Stat block that carries it visually — added 2026-08-23 after a
+   * visual audit found the site had no device for showing a number, on a site
+   * whose entire argument is "here is a checkable figure and here is where to
+   * check it". Attribution comes from sources[0], so a figure cannot be
+   * enlarged without a citation attached. */
+  figure?: { value: string; label: string };
+
   /** What is actually available locally, stated fairly. */
   localReality: { h2: string; body: string[] };
 
@@ -83,6 +93,7 @@ export type PunjabiRegion = {
 export const punjabiRegions: PunjabiRegion[] = [
   {
     slug: 'kamloops',
+    figure: { value: "4,260", label: "South Asian residents in Kamloops — the largest racialized group in the city, and Punjabi is the commonest non-official language spoken at home" },
     region: 'Kamloops',
     wider: 'the Thompson-Nicola',
     blurb:
@@ -157,6 +168,7 @@ export const punjabiRegions: PunjabiRegion[] = [
 
   {
     slug: 'prince-george',
+    figure: { value: "4.2%", label: "of Prince George residents are South Asian. Punjabi has been among the commonest mother tongues here for well over a decade" },
     region: 'Prince George',
     wider: 'Northern BC',
     blurb:
@@ -236,6 +248,7 @@ export const punjabiRegions: PunjabiRegion[] = [
 
   {
     slug: 'kelowna',
+    figure: { value: "1.8%", label: "of Kelowna spoke Punjabi in 2021, up from 1.2% five years earlier — a rise of half again while counselling supply stood still" },
     region: 'Kelowna',
     wider: 'the Okanagan',
     blurb:
@@ -348,6 +361,7 @@ export const punjabiRegions: PunjabiRegion[] = [
    * underserved thing to want. */
   {
     slug: 'surrey',
+    figure: { value: "128,305", label: "Surrey residents learned Punjabi first — the largest Punjabi-speaking population of any city in Canada" },
     region: 'Surrey',
     wider: 'the Lower Mainland',
     blurb:
@@ -455,6 +469,7 @@ export const punjabiRegions: PunjabiRegion[] = [
    * That is the distinction the page rests on, and it is the honest one. */
   {
     slug: 'abbotsford',
+    figure: { value: "34,280", label: "people in Abbotsford have Punjabi as their mother tongue — 22.6% of the city, second only to English" },
     region: 'Abbotsford',
     wider: 'the Fraser Valley',
     blurb:
@@ -562,6 +577,7 @@ export const punjabiRegions: PunjabiRegion[] = [
    * community infrastructure that exists for them is in Surrey. */
   {
     slug: 'vancouver',
+    figure: { value: "13,305", label: "Vancouver residents, just 2.0% — Punjabi is only the fifth mother tongue here, behind Cantonese and Mandarin" },
     region: 'Vancouver',
     wider: 'the city proper, not the suburbs',
     blurb:

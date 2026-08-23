@@ -186,7 +186,9 @@ export default function AnswersPage() {
 
           <nav className="answers-jump" aria-label="Jump to a section">
             {sections.map((s) => (
-              <a key={s.key} href={`#${s.key}`}>{s.label}</a>
+              <a key={s.key} href={`#${s.key}`}>
+                {s.label} <span className="answers-count">{s.rows.length}</span>
+              </a>
             ))}
           </nav>
 
@@ -194,6 +196,9 @@ export default function AnswersPage() {
             <section key={s.key} aria-labelledby={`h-${s.key}`}>
               <h2 id={s.key}>
                 <span id={`h-${s.key}`}>{s.label}</span>
+                {/* The size of the section, stated. On a 29-screen page a
+                    heading with no count is an unknown quantity of scrolling. */}
+                <span className="answers-count">{s.rows.length}</span>
               </h2>
               <p className="answers-blurb">{s.blurb}</p>
               <dl className="answers-list">

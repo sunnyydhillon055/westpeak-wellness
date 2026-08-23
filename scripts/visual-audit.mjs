@@ -55,13 +55,18 @@ for (const { url, html } of pages) {
     callout: count(body, /class="[^"]*(crisis|callout|note-box|admin-panel|card)\b/gi),
     list: count(body, /<[ou]l\b/gi),
     quote: count(body, /<blockquote\b/gi),
+    /* A definition term breaks a column exactly as a heading does, and the
+       first version of this script did not count them. That made /answers —
+       78 <dt> elements — look like an unbroken 5,700-word slab when it is a
+       directory. The number was wrong, not the page. */
+    dt: count(body, /<dt\b/gi),
     h2: count(body, /<h2\b/gi),
     h3: count(body, /<h3\b/gi),
   };
   /* A "break" is anything that stops the column. Headings count for less —
      they rest the eye without giving it anything to look at. */
   const strong = v.figure + v.img + v.svg + v.table + v.callout + v.quote;
-  const breaks = strong + v.list * 0.5 + (v.h2 + v.h3) * 0.35;
+  const breaks = strong + v.list * 0.5 + v.dt * 0.5 + (v.h2 + v.h3) * 0.35;
   rows.push({ url, words, ...v, strong, wpb: Math.round(words / Math.max(breaks, 0.5)) });
 }
 
@@ -72,11 +77,11 @@ const lp = (s, n) => String(s).padStart(n);
 
 console.log(`\nVISUAL DENSITY — ${rows.length} pages over 300 words\n`);
 console.log(pad('page', 46) + lp('words', 6) + lp('fig', 5) + lp('img', 5) + lp('tbl', 5) +
-  lp('box', 5) + lp('list', 5) + lp('h2/3', 6) + lp('w/break', 9));
+  lp('box', 5) + lp('list', 5) + lp('dt', 5) + lp('h2/3', 6) + lp('w/break', 9));
 console.log('-'.repeat(92));
 for (const r of rows.slice(0, 26)) {
   console.log(pad(r.url, 46) + lp(r.words, 6) + lp(r.figure, 5) + lp(r.img, 5) + lp(r.table, 5) +
-    lp(r.callout, 5) + lp(r.list, 5) + lp(`${r.h2}/${r.h3}`, 6) + lp(r.wpb, 9));
+    lp(r.callout, 5) + lp(r.list, 5) + lp(r.dt, 5) + lp(`${r.h2}/${r.h3}`, 6) + lp(r.wpb, 9));
 }
 
 const noVisual = rows.filter((r) => r.strong === 0);

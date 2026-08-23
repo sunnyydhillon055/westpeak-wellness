@@ -8,6 +8,7 @@ import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import Figure from '@/components/Figure';
+import Stat from '@/components/Stat';
 
 /* The English-language Punjabi cluster.
  *
@@ -110,6 +111,17 @@ export default function PunjabiRegionPage({ params }: { params: { region: string
           <p className="lede" style={{ marginTop: 8 }}>
             <strong>{r.demography.stat}</strong>
           </p>
+          {/* The number on its own, with its source attached. The sentence above
+              gives it meaning; this gives it weight. Both, because a figure with
+              no context misleads and context with no figure does not land. */}
+          {r.figure && (
+            <Stat
+              value={r.figure.value}
+              label={r.figure.label}
+              source={r.sources[0]?.label ?? 'Statistics Canada, 2021 Census'}
+              href={r.sources[0]?.url}
+            />
+          )}
           <Paragraphs items={r.demography.body} />
         </div>
       </section>
