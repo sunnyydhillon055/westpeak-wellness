@@ -77,6 +77,19 @@ export type Inbound = {
   magnet?: string;
   createdAt: string;
   handled: boolean;
+  /* WHEN it was answered, not just whether.
+   *
+   * Added 2026-08-23. The site promises "a reply within one business day" on
+   * every page carrying a form, and until now there was no way to know whether
+   * that was true — `handled` recorded only that a reply happened, never when.
+   * An unverifiable promise on a counselling site is worth less than a smaller
+   * one that can be shown.
+   *
+   * Optional because every record written before this date has no value for
+   * it, and back-filling would be inventing history. The median only becomes
+   * meaningful once a month of real data exists; until then /admin says so
+   * rather than reporting a figure drawn from three replies. */
+  handledAt?: string;
 };
 
 export type InboundBook = { items: Inbound[]; version: number; updatedAt: string };
@@ -171,7 +184,9 @@ export async function markHandled(id: string, handled = true): Promise<boolean> 
   const idx = current.items.findIndex((i) => i.id === id);
   if (idx < 0) return false;
 
-  const items = current.items.map((i, n) => (n === idx ? { ...i, handled } : i));
+  const items = current.items.map((i, n) =>
+    n === idx ? { ...i, handled, handledAt: handled ? new Date().toISOString() : undefined } : i
+  );
   const value: InboundBook = {
     items, version: current.version + 1, updatedAt: new Date().toISOString(),
   };

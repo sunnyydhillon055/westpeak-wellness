@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import './premium.css';
 import { fontVars, body as bodyFont } from './fonts';
@@ -10,6 +10,19 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import { GA_ID } from '@/lib/analytics';
 import { site } from '@/lib/site';
 import { services } from '@/lib/services';
+
+/* The browser chrome around the page — the strip above the address bar on
+ * Android, the status area on iOS. Without this it stays a default grey while
+ * the page below is either near-white or near-black, which is the small tell
+ * that a site was built for one theme and adapted afterwards.
+ *
+ * Two values, matching --bg in each theme, so the seam disappears either way. */
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#fbfcfe' },
+    { media: '(prefers-color-scheme: dark)', color: '#131a22' },
+  ],
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.domain),

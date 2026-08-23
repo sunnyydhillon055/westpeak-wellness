@@ -97,6 +97,19 @@ export default function SearchPage({ searchParams }: { searchParams?: { q?: stri
                 for. If it is quicker to ask,{' '}
                 <Link href={site.bookingPath}>a free 15-minute consultation</Link> costs nothing.
               </p>
+              {/* A dead end that only says "try again" wastes the one thing this
+                  person has given you, which is their attention. These are the
+                  pages people actually arrive on, offered as a starting point
+                  rather than a consolation. */}
+              <p className="lead-form-title" style={{ marginTop: 26 }}>Or start from one of these</p>
+              <ul className="chip-grid" style={{ listStyle: 'none', padding: 0, marginTop: 12 }}>
+                <li><Link className="chip" href="/answers">Short answers to the commonest questions</Link></li>
+                <li><Link className="chip" href="/pricing">What it costs and what insurance covers</Link></li>
+                <li><Link className="chip" href="/services">The nine kinds of counselling offered</Link></li>
+                <li><Link className="chip" href="/resources/low-cost-counselling-bc">Free and low-cost counselling in BC</Link></li>
+                <li><Link className="chip" href="/guides/what-to-expect-first-therapy-session">What happens in a first session</Link></li>
+                <li><Link className="chip" href="/resources/bc-crisis-and-support-directory">Crisis lines and urgent support</Link></li>
+              </ul>
               {/* Somebody searched, found nothing, and is one click from leaving.
                   That is the highest-intent moment on the site and it offered
                   only a calendar link. The term they typed is prefilled, so the
