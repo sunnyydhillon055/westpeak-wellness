@@ -213,7 +213,7 @@ export const moreComparisons: Comparison[] = [
     title: 'Your EFAP or a private counsellor?',
     metaTitle: 'EFAP vs Private Counselling | Westpeak Wellness',
     metaDescription:
-      'What an employee assistance programme actually gives you, where the session cap bites, and how to use both routes in the right order.',
+      'What an EAP or EFAP actually gives you, where the session cap bites, and how to use the free route and a private counsellor in the right order.',
     eyebrow: 'Compare · Paying for it',
     lede:
       'A free, fast option and a paid, open-ended one. Most people should probably use both, and in a particular order.',

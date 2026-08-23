@@ -14,6 +14,7 @@ import { eventTotals, topPagesFor } from '@/lib/conversion-log';
 import { readLedger, recordContacted } from '@/lib/lifecycle';
 import { reactivationEmail } from '@/lib/lifecycle-mail';
 import { sendDetailed, mailConfigured } from '@/lib/portal-mail';
+import { healthProblems } from '@/lib/health';
 import { site } from '@/lib/site';
 import { revalidatePath } from 'next/cache';
 
@@ -148,6 +149,50 @@ export default async function AdminPage({
             <p style={{ margin: 0 }}>{n}</p>
           </div>
         ))}
+
+        {/* --------------------------------------------------- IS IT WORKING?
+            Above everything, including the inbox, because if the answer is no
+            then the empty inbox below is not information — it is a symptom.
+
+            The 23 August audit could not determine from outside whether
+            enquiries were being stored or whether anyone was being told about
+            them. Both fail silently. This is that question, answered on sight.
+
+            Renders nothing when all is well: a permanent green tick is a thing
+            you stop reading. */}
+        {healthProblems().length > 0 && (
+          <div className="admin-panel" style={{ marginTop: 20, borderLeft: '3px solid var(--danger, #b4553f)' }}>
+            <h2 style={{ marginTop: 0, fontSize: '1.05rem' }}>
+              {healthProblems().some((c) => c.severity === 'critical')
+                ? 'Something here can lose an enquiry'
+                : 'Some things are not switched on'}
+            </h2>
+            <p style={{ color: 'var(--ink-soft)', maxWidth: '40.38em' }}>
+              Each of these fails quietly — nothing errors, nothing bounces, and the only way to
+              notice is to look. Nothing below reports a password or a key, only whether one is set.
+            </p>
+            <ul style={{ listStyle: 'none', padding: 0, margin: '18px 0 0', display: 'grid', gap: 14 }}>
+              {healthProblems().map((c) => (
+                <li key={c.id} style={{ paddingLeft: 14, borderLeft: '2px solid var(--line)' }}>
+                  <p style={{ margin: 0, fontWeight: 600 }}>
+                    {c.severity === 'critical' ? '✕ ' : '• '}{c.title} — <em>no</em>
+                    {c.severity !== 'critical' && (
+                      <span style={{ color: 'var(--ink-faint)', fontWeight: 400, fontSize: '.86rem' }}>
+                        {' '}({c.severity === 'degraded' ? 'degraded' : 'optional'})
+                      </span>
+                    )}
+                  </p>
+                  <p style={{ margin: '4px 0 0', color: 'var(--ink-soft)', fontSize: '.92rem' }}>
+                    {c.consequence}
+                  </p>
+                  <p style={{ margin: '4px 0 0', fontSize: '.86rem', color: 'var(--ink-faint)' }}>
+                    <strong>Fix:</strong> {c.fix}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         <div className="admin-stats">
           <div><strong>{waiting}</strong><span>awaiting a reply</span></div>

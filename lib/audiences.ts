@@ -39,7 +39,7 @@ const coreAudiences: Audience[] = [
     title: "Counselling for new parents in BC",
     metaTitle: "Counselling for New Parents in BC | Westpeak Wellness",
     metaDescription:
-      "Online counselling for new and expecting parents across BC — postpartum depression and anxiety, identity shift, and relationship strain. Free consultation.",
+      "Counselling for new moms and dads across BC — postpartum depression and anxiety, identity shift, and relationship strain. Free 15-minute consultation.",
     eyebrow: "For · New and expecting parents",
     lede:
       "The gap between how you were told this would feel and how it actually feels can be enormous — and there is little permission to say so out loud.",

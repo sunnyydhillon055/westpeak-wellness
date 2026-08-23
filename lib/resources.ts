@@ -287,7 +287,7 @@ const coreResources: Resource[] = [
     title: "BC crisis and mental health support directory",
     metaTitle: "BC Crisis & Support Directory | Westpeak Wellness",
     metaDescription:
-      "Crisis lines and mental health support across British Columbia — who to call, when, and what each service actually does.",
+      "Every crisis line and mental health hotline covering British Columbia — who to call, when, and what each service actually does.",
     eyebrow: "Resource · Crisis support",
     lede:
       "Keep this one somewhere findable. The time to look it up is not the time you need it.",

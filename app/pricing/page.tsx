@@ -44,7 +44,7 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
         <div className="container">
           <p className="eyebrow">Fees & insurance</p>
           <h1>Clear, fair, accessible.</h1>
-          <p className="lede">No hidden fees, no packages, and no surprises on the invoice.</p>
+          <p className="lede">Session prices and counselling rates in full — no hidden fees, no packages, and no surprises on the invoice.</p>
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a Free Consultation</Link>
             <Link className="btn btn--ghost" href="/resources/bc-extended-health-coverage-for-counselling">Check your coverage</Link>
