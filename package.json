@@ -17,6 +17,7 @@
     "rank": "node scripts/city-rank.mjs",
     "links": "node scripts/link-rot.mjs",
     "quality": "node scripts/quality-audit.mjs",
+    "visual": "node scripts/visual-audit.mjs",
     "rank:plan": "node scripts/city-rank.mjs --plan",
     "indexnow": "node scripts/indexnow.mjs"
   },
