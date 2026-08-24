@@ -328,7 +328,15 @@ export function practiceAlert(item: Inbound) {
     (item.message
       ? `<div style="background:#f7f5f1;border-radius:8px;padding:16px 18px;margin:0 0 18px;font-size:15px;line-height:1.65;white-space:pre-wrap;">${esc(item.message)}</div>`
       : '') +
-    p('<span style="color:#5a6470;font-size:14px;">Reply directly to this email to answer them.</span>')
+    p('<span style="color:#5a6470;font-size:14px;">Reply directly to this email to answer them.</span>'),
+    /* The inbox preview line, and it obeys the same rule as the subject above:
+       no name, no message, no service. A preheader is displayed in exactly the
+       list a subject is, so anything unsafe for one is unsafe for the other.
+       The page and the time are not identifying, and they are what makes the
+       difference between "another alert" and "worth opening now". */
+    `Received ${new Date(item.createdAt).toLocaleString('en-CA', {
+      timeZone: 'America/Vancouver', dateStyle: 'medium', timeStyle: 'short',
+    })} · from ${item.source}`
   );
 
   return {

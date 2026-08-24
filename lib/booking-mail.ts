@@ -95,8 +95,33 @@ export function wrap(s: string, width = 72): string {
   }).join('\n');
 }
 
-export const shell = (heading: string, body: string) => `<!doctype html>
-<html><body style="margin:0;padding:0;background:#f4f2ee;">
+/* The shared HTML shell for every email this practice sends.
+ *
+ * TWO THINGS ADDED 2026-08-23, both invisible until they are missing.
+ *
+ * `color-scheme: light` — without it, Apple Mail and Outlook in dark mode
+ * force-invert a light template. They do it crudely: backgrounds flip, inline
+ * colours often do not, and the result is grey-on-grey text in a message from a
+ * counsellor. Declaring the scheme means the client leaves it alone.
+ *
+ * The preheader is the grey line an inbox shows after the subject. With nothing
+ * there, clients scrape the first text they find — which for these templates was
+ * the words "Westpeak Wellness" followed by the heading again. It defaults to
+ * the heading, so no existing caller has to change, and the zero-width spaces
+ * stop a client dragging body copy into the preview after it. */
+export const shell = (heading: string, body: string, preheader?: string) => `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="supported-color-schemes" content="light">
+<title>${esc(heading)}</title>
+</head>
+<body style="margin:0;padding:0;background:#f4f2ee;">
+<div style="display:none;font-size:1px;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all;">
+${esc(preheader ?? heading)}${'&#8203;&nbsp;'.repeat(60)}
+</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f2ee;padding:28px 12px;">
 <tr><td align="center">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:10px;padding:32px;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#22262b;">
