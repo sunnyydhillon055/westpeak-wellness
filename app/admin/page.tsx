@@ -15,6 +15,7 @@ import { readLedger, recordContacted } from '@/lib/lifecycle';
 import { reactivationEmail } from '@/lib/lifecycle-mail';
 import { sendDetailed, mailConfigured } from '@/lib/portal-mail';
 import { healthProblems } from '@/lib/health';
+import { readCronHealth, cronProblems } from '@/lib/cron-health';
 import { site } from '@/lib/site';
 import { revalidatePath } from 'next/cache';
 
@@ -95,6 +96,9 @@ export default async function AdminPage({
   const enquiryPages = await topPagesFor('enquiry_submit');
   const bookPages = await topPagesFor('book_click');
   const searchTotal = (await readSearchTerms()).total;
+  /* Jobs that failed, or that have not reported in twice their expected
+     interval — which looks identical to "fine" without the second check. */
+  const cronTrouble = cronProblems(await readCronHealth());
 
   /* Paused and former clients who have never had a reactivation note.
    * lib/clients.ts keeps these states specifically so the history survives, and
@@ -149,6 +153,29 @@ export default async function AdminPage({
             <p style={{ margin: 0 }}>{n}</p>
           </div>
         ))}
+
+        {/* Scheduled jobs. Eight of them run unattended, and until 2026-08-23
+            none had a try/catch — a throw was a 500 in a log nobody reads. The
+            ones that fail invisibly are the ones that matter: reply-watch is
+            the only thing verifying the reply promise printed on every page,
+            and funnel-report is the summary that would have shown the rest had
+            stopped. */}
+        {cronTrouble.length > 0 && (
+          <div className="admin-panel" style={{ marginTop: 20, borderLeft: '3px solid var(--clay)' }}>
+            <h2 style={{ marginTop: 0, fontSize: '1.05rem' }}>Scheduled jobs needing a look</h2>
+            <ul style={{ listStyle: 'none', padding: 0, margin: '14px 0 0', display: 'grid', gap: 10 }}>
+              {cronTrouble.map((c) => (
+                <li key={c.job} style={{ paddingLeft: 12, borderLeft: '2px solid var(--line)' }}>
+                  <p style={{ margin: 0, fontWeight: 600 }}>{c.job}</p>
+                  <p style={{ margin: '2px 0 0', color: 'var(--ink-soft)', fontSize: '.92rem' }}>
+                    {c.detail}
+                    {c.at ? ` · last reported ${new Date(c.at).toLocaleString('en-CA')}` : ''}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {/* --------------------------------------------------- IS IT WORKING?
             Above everything, including the inbox, because if the answer is no

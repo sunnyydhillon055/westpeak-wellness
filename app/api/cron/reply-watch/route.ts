@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { runReplyWatch } from '@/lib/reply-watch';
+import { withCronHealth } from '@/lib/cron-health';
 
 /* Checks that the reply promise is being kept. See lib/reply-watch.ts.
  *
@@ -36,7 +37,13 @@ export async function GET(req: NextRequest) {
   }
 
   const dry = req.nextUrl.searchParams.get('dry') === '1';
-  const result = await runReplyWatch({ dry });
+  /* Wrapped so a throw becomes a recorded failure rather than a 500 that
+     nobody reads. See lib/cron-health.ts. */
+  const run = await withCronHealth('reply-watch', () => runReplyWatch({ dry }));
+  if (!run.ok) {
+    return NextResponse.json({ ok: false, job: 'reply-watch', error: run.error }, { status: 500 });
+  }
+  const result = run.result;
 
   if (!result.ok) {
     console.error('[reply-watch] did not run:', result.reason);

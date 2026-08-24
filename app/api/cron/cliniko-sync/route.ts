@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { syncClientsFromCliniko } from '@/lib/cliniko-sync';
 import { refreshCatalog } from '@/lib/cliniko-catalog';
 import { sendPortalInvites } from '@/lib/portal-invite';
+import { withCronHealth } from '@/lib/cron-health';
 
 /* Nightly Cliniko -> client list sync.
  *
@@ -56,7 +57,13 @@ export async function GET(req: NextRequest) {
   }
 
   const dry = req.nextUrl.searchParams.get('dry') === '1';
-  const result = await syncClientsFromCliniko('cron:cliniko-sync');
+  /* Wrapped so a throw becomes a recorded failure rather than a 500 that
+     nobody reads. See lib/cron-health.ts. */
+  const run = await withCronHealth('cliniko-sync', () => syncClientsFromCliniko('cron:cliniko-sync'));
+  if (!run.ok) {
+    return NextResponse.json({ ok: false, job: 'cliniko-sync', error: run.error }, { status: 500 });
+  }
+  const result = run.result;
 
   if (!result.ok) {
     console.error('[cliniko-sync] failed:', result.reason);

@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { runNurture } from '@/lib/nurture';
+import { withCronHealth } from '@/lib/cron-health';
 
 /* Emails 2 and 3 of the checklist sequence. See lib/nurture.ts.
  *
@@ -38,7 +39,13 @@ export async function GET(req: NextRequest) {
   }
 
   const dry = req.nextUrl.searchParams.get('dry') === '1';
-  const result = await runNurture({ dry });
+  /* Wrapped so a throw becomes a recorded failure rather than a 500 that
+     nobody reads. See lib/cron-health.ts. */
+  const run = await withCronHealth('nurture', () => runNurture({ dry }));
+  if (!run.ok) {
+    return NextResponse.json({ ok: false, job: 'nurture', error: run.error }, { status: 500 });
+  }
+  const result = run.result;
 
   if (!result.ok) {
     console.error('[nurture] did not run:', result.reason);

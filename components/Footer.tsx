@@ -73,6 +73,10 @@ export default function Footer() {
               <Link href="/glossary">Glossary</Link>
               <Link href="/approaches">Approaches</Link>
               <Link href="/punjabi" lang="pa">ਪੰਜਾਬੀ</Link>
+              {/* The by-region index, added when the hub was built on 18 Aug and
+                  missed here — the cluster it indexes was the least-linked on the
+                  site partly because of this. */}
+              <Link href="/punjabi-counselling">Punjabi counselling by region</Link>
             </nav>
 
             <nav className="footer-col" aria-labelledby="foot-practice">

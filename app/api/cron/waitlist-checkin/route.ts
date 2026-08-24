@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { runWaitlistCheckin } from '@/lib/waitlist-checkin';
+import { withCronHealth } from '@/lib/cron-health';
 
 /* One check-in for people who joined the waitlist 30+ days ago and have heard
  * nothing. See lib/waitlist-checkin.ts for why this is legitimate where an
@@ -32,7 +33,13 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
   }
   const dry = req.nextUrl.searchParams.get('dry') === '1';
-  const result = await runWaitlistCheckin({ dry });
+  /* Wrapped so a throw becomes a recorded failure rather than a 500 that
+     nobody reads. See lib/cron-health.ts. */
+  const run = await withCronHealth('waitlist-checkin', () => runWaitlistCheckin({ dry }));
+  if (!run.ok) {
+    return NextResponse.json({ ok: false, job: 'waitlist-checkin', error: run.error }, { status: 500 });
+  }
+  const result = run.result;
   if (!result.ok) {
     console.error('[waitlist-checkin] did not run:', result.reason);
     return NextResponse.json({ ...result, dry }, { status: 200 });

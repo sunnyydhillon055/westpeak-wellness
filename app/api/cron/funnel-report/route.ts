@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { runFunnelReport } from '@/lib/funnel-report';
+import { withCronHealth } from '@/lib/cron-health';
 
 /* Monthly conversion report. See lib/funnel-report.ts for why it is emailed
  * rather than left on a dashboard — the month a number goes to zero is exactly
@@ -31,7 +32,13 @@ export async function GET(req: NextRequest) {
   }
 
   const dry = req.nextUrl.searchParams.get('dry') === '1';
-  const result = await runFunnelReport({ dry });
+  /* Wrapped so a throw becomes a recorded failure rather than a 500 that
+     nobody reads. See lib/cron-health.ts. */
+  const run = await withCronHealth('funnel-report', () => runFunnelReport({ dry }));
+  if (!run.ok) {
+    return NextResponse.json({ ok: false, job: 'funnel-report', error: run.error }, { status: 500 });
+  }
+  const result = run.result;
   if (!result.ok) console.error('[funnel-report] did not send:', result.reason);
   else console.log('[funnel-report]', dry ? 'DRY' : 'sent', JSON.stringify(result.counts));
   return NextResponse.json({ ...result, dry }, { status: 200 });
