@@ -9,7 +9,7 @@ import { listPasswordAccounts } from '@/lib/portal-users';
 import { clinikoConfigured } from '@/lib/cliniko';
 import { recentInbound, markHandled } from '@/lib/inbound';
 import { topSearchTerms, readSearchTerms, searchGaps } from '@/lib/search-log';
-import { REPLY_TEMPLATES, mailtoFor, businessDaysWaiting } from '@/lib/reply-templates';
+import { REPLY_TEMPLATES, mailtoFor, businessDaysWaiting, replyTimeStats } from '@/lib/reply-templates';
 import { eventTotals, topPagesFor } from '@/lib/conversion-log';
 import { readLedger, recordContacted } from '@/lib/lifecycle';
 import { reactivationEmail } from '@/lib/lifecycle-mail';
@@ -99,6 +99,9 @@ export default async function AdminPage({
   /* Jobs that failed, or that have not reported in twice their expected
      interval — which looks identical to "fine" without the second check. */
   const cronTrouble = cronProblems(await readCronHealth());
+  /* Whether the reply promise printed on every page is actually being kept.
+     Stays quiet below five answered messages — see lib/reply-templates.ts. */
+  const replyTime = replyTimeStats(inbox);
 
   /* Paused and former clients who have never had a reactivation note.
    * lib/clients.ts keeps these states specifically so the history survives, and
@@ -218,6 +221,28 @@ export default async function AdminPage({
                 </li>
               ))}
             </ul>
+          </div>
+        )}
+
+        {/* The promise, measured. Every page says "a reply within one business
+            day"; this is the only thing that can tell you whether that is true.
+            Silent until there are five answered messages to draw on. */}
+        {replyTime.ready && (
+          <div className="admin-panel" style={{ marginTop: 20 }}>
+            <h2 style={{ marginTop: 0, fontSize: '1.05rem' }}>Are you keeping the reply promise?</h2>
+            <p style={{ margin: '8px 0 0', color: 'var(--ink-soft)' }}>
+              Median reply <strong>{replyTime.medianHours < 1
+                ? `${Math.round(replyTime.medianHours * 60)} minutes`
+                : `${replyTime.medianHours} hours`}</strong>{' '}
+              across {replyTime.sample} answered {replyTime.sample === 1 ? 'message' : 'messages'} ·{' '}
+              <strong>{replyTime.withinOneBusinessDay} of {replyTime.sample}</strong> inside 24 hours.
+            </p>
+            {replyTime.withinOneBusinessDay < replyTime.sample && (
+              <p style={{ margin: '8px 0 0', fontSize: '.92rem', color: 'var(--ink-faint)' }}>
+                The site promises one business day on every page that carries a form. If that stops
+                being true, the honest fix is to change the sentence rather than the record.
+              </p>
+            )}
           </div>
         )}
 

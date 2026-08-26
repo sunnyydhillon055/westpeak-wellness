@@ -179,3 +179,47 @@ export function businessDaysWaiting(createdAt: string, now = new Date()): number
   }
   return days;
 }
+
+
+/* HOW LONG REPLIES ACTUALLY TAKE.
+ *
+ * Every page carrying a form promises "a reply within one business day". Until
+ * `handledAt` was added on 2026-08-23 there was no way to check that even
+ * privately — `handled` was a boolean, so the site made a claim nothing could
+ * verify.
+ *
+ * Reports nothing until there are at least five answered messages with a
+ * timestamp. A median drawn from two replies is not a median, and a practice
+ * that starts quoting a response time on the strength of one good week will
+ * eventually quote one it cannot keep.
+ */
+export type ReplyTimeStats = {
+  /** Answered messages that have a handledAt to measure. */
+  sample: number;
+  medianHours: number;
+  withinOneBusinessDay: number;
+  ready: boolean;
+};
+
+export function replyTimeStats(items: { createdAt: string; handledAt?: string }[]): ReplyTimeStats {
+  const hours = items
+    .filter((i) => i.handledAt)
+    .map((i) => (new Date(i.handledAt as string).getTime() - new Date(i.createdAt).getTime()) / 3_600_000)
+    .filter((h) => h >= 0)
+    .sort((a, b) => a - b);
+
+  if (hours.length === 0) {
+    return { sample: 0, medianHours: 0, withinOneBusinessDay: 0, ready: false };
+  }
+  const mid = Math.floor(hours.length / 2);
+  const median = hours.length % 2 ? hours[mid] : (hours[mid - 1] + hours[mid]) / 2;
+  /* One business day, generously: anything answered inside 24 hours counts,
+     which is the promise a reader would understand from the wording. */
+  const within = hours.filter((h) => h <= 24).length;
+  return {
+    sample: hours.length,
+    medianHours: Math.round(median * 10) / 10,
+    withinOneBusinessDay: within,
+    ready: hours.length >= 5,
+  };
+}

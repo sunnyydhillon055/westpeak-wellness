@@ -35,3 +35,34 @@ Because westpeakwellness.com currently points at Wix, transfer with NO downtime:
 
 ## Ongoing edits
 Any change: edit files → `git commit` → `git push`. Vercel auto-deploys every push to `main` in ~1 minute.
+
+## Before you deploy — one command
+
+```
+npm run build && npm run verify
+```
+
+`verify` runs, in order:
+
+| | what fails it |
+|---|---|
+| `redirect-shadow` | a page exists that a redirect makes unreachable |
+| `seo-audit` | title/description limits, missing schema, orphan pages |
+| `expansion-verify` | Alberta or Ontario content became reachable, or the counsellor's name appeared outside `/about` |
+| `link-rot` | an external citation now 404s |
+| `quality-audit` | accessibility and metadata defects (reports, does not fail) |
+| `visual-audit` | pages that have become walls of text (reports) |
+| `price-drift` | the fees on the site no longer match Cliniko |
+
+The first four fail the chain. The last three report and continue.
+
+`price-drift` is deliberately non-fatal here even though it exits non-zero
+on its own: without `CLINIKO_API_KEY` it cannot compare at all, and a
+verify step that fails on every machine without a key is a step people
+learn to ignore. Run `npm run drift` directly, with the key set, when you
+want that answer.
+
+**Run `npm run dates` whenever page content changes.** The sitemap's
+`lastmod` comes from `lib/page-dates.ts`, and a stale one tells Google
+nothing has changed — which on 23 August was suppressing recrawl of a
+week's work, including twelve rewritten snippets.
