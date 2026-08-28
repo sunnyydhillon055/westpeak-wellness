@@ -310,6 +310,11 @@ export function practiceAlert(item: Inbound) {
     `Name:   ${item.name || '(not given)'}`,
     `Email:  ${item.email}`,
     ...(item.windows ? [`Windows: ${item.windows}`] : []),
+    /* A number only appears here when the person asked to be phoned. It stays
+     * out of the subject and the preheader for the same reason the message
+     * does — those two lines are visible without opening the email. */
+    ...(item.phone ? [`Phone:  ${item.phone}  (asked to be called)`] : []),
+    ...(item.callWindow ? [`Call:   ${item.callWindow}`] : []),
     `Page:   ${item.source}`,
     `Time:   ${new Date(item.createdAt).toLocaleString('en-CA', { timeZone: 'America/Vancouver' })}`,
     '',
@@ -323,6 +328,8 @@ export function practiceAlert(item: Inbound) {
       <tr><td style="color:#6b7280;padding-right:14px;">Name</td><td>${esc(item.name || '(not given)')}</td></tr>
       <tr><td style="color:#6b7280;padding-right:14px;">Email</td><td><a href="mailto:${esc(item.email)}" style="color:#1f3d4d;">${esc(item.email)}</a></td></tr>
       ${item.windows ? `<tr><td style="color:#6b7280;padding-right:14px;">Windows</td><td>${esc(item.windows)}</td></tr>` : ''}
+      ${item.phone ? `<tr><td style="color:#6b7280;padding-right:14px;">Phone</td><td><a href="tel:${esc(item.phone.replace(/[^\d+]/g, ''))}" style="color:#1f3d4d;">${esc(item.phone)}</a> <span style="color:#6b7280;">&mdash; asked to be called</span></td></tr>` : ''}
+      ${item.callWindow ? `<tr><td style="color:#6b7280;padding-right:14px;">Best time</td><td>${esc(item.callWindow)}</td></tr>` : ''}
       <tr><td style="color:#6b7280;padding-right:14px;">Page</td><td>${esc(item.source)}</td></tr>
      </table>` +
     (item.message

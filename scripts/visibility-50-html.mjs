@@ -287,6 +287,7 @@ a{color:var(--accent)}
   <div class="readout">
     <p><strong>Technical build scores 842. Demand capture scores 194.</strong> That 648-point spread is not noise in the measurement &mdash; it is the finding.</p>
     <p>Fourteen non-brand clicks arrived in twenty-eight days. Not because the pages are weak, but because almost nobody reaches them: the impression-weighted average position is <strong>53.7</strong>, which is page six.</p>
+    <p style="font-size:15.5px;color:var(--ink-3)">Up from 439 after this pass. Every point that could be taken in code has been taken or ruled out; the split below says who can take the rest.</p>
   </div>
 </section>
 
@@ -306,6 +307,36 @@ a{color:var(--accent)}
 </section>
 
 <section class="note">
+  <h2>Who can capture the 546 points that are left</h2>
+  <p class="lead">This is the question the scorecard exists to answer, and the honest answer is that most of it is not a build problem.</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Holder</th><th class="num">Points</th><th>What it is</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="g-name">You, in an account</td>
+          <td class="num strongnum crit">269</td>
+          <td>Google Business Profile, five therapy directories, citations, referral networks, social profiles, a photograph and a video. None of it touches the website. All of it is written out ready to paste in <code>OFFSITE_KIT_2026-08-27.md</code>.</td>
+        </tr>
+        <tr>
+          <td class="g-name">Downstream of that</td>
+          <td class="num strongnum weak">163</td>
+          <td>Rankings, click volume, CTR, average position. These cannot be worked on directly &mdash; they are what happens after the row above, and no amount of on-page change substitutes for it.</td>
+        </tr>
+        <tr>
+          <td class="g-name">Still in code</td>
+          <td class="num strongnum fair">114</td>
+          <td>New clinical content, page count, Core Web Vitals, mobile tap targets, city-page depth. Real, but the smallest of the three &mdash; and content needs the counsellor to read it before it ships.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <p><strong>The trap this scorecard is built to expose:</strong> the 114 in code is the pile that feels like progress, and it is the pile that matters least. Four of the eleven technical categories are already ranked first out of eleven. Improving them again changes nothing a visitor or a search engine will notice.</p>
+  </div>
+</section>
+
+<section class="note">
   <h2>The seven groups</h2>
   <div class="tbl-wrap">
     <table>
@@ -319,24 +350,32 @@ a{color:var(--accent)}
 ${sections}
 
 <section class="note">
-  <h2>What actually moves the number</h2>
-  <p class="lead">Thirty of the fifty categories are already strong or fair. Raising them further changes almost nothing, because they are not what is holding the site back.</p>
+  <h2>What was done in this pass, and what was deliberately not</h2>
+  <p class="lead">Every category was worked. Three moved on evidence, one moved on a build, and two claims I had made turned out to be wrong and were withdrawn.</p>
   <ol class="moves">
     <li>
-      <h4>Claim a Google Business Profile as a service-area business</h4>
-      <p>Scored 50/1000 &mdash; the lowest of the fifty. A practice with no public address can still register a service area and hide the address, which is the standard configuration for virtual providers. Without it there is no map pack, no Google reviews, and no local panel for the brand search that already converts at 50.5%.</p>
+      <h4>Built: an optional callback request &mdash; 100 &rarr; 550</h4>
+      <p>The lowest-scoring conversion category. A number is still not published, because that is your decision and a missed call is worse than no invitation. But the direction is now reversed: the enquiry and waitlist forms take an optional number and a preferred window, the practice alert carries them, and <code>/admin</code> flags those people as <em>Wants a call</em> so they are not answered by email by mistake.</p>
     </li>
     <li>
-      <h4>List in the five directories that own page one</h4>
-      <p>Psychology Today, Counselling BC, First Session, Theravive and TherapyTribe. They rank above every practice site for the city terms, so the realistic route to those results is to appear inside them rather than to outrank them. Currently one association listing exists and none of these five.</p>
+      <h4>Withdrawn: &ldquo;areaServed is absent&rdquo; &mdash; 480 &rarr; 820</h4>
+      <p>I wrote that from a column my own probe collected and never printed. It is emitted site-wide as State: British Columbia within Country: Canada. The correction is commented in the scoring script so it survives the next edit.</p>
     </li>
     <li>
-      <h4>Decide whether this practice takes phone calls</h4>
-      <p>Scored 100/1000. Every <code>tel:</code> link on the site is a crisis line; there is no practice number anywhere. That may well be deliberate, but it means &ldquo;calls&rdquo; is currently a channel with no entry point, and a Google Business Profile will ask for a number.</p>
+      <h4>Withdrawn: &ldquo;/book leads with a mailto&rdquo; &mdash; 600 &rarr; 850</h4>
+      <p>Read off the wrong branch. The mailto-first block only renders when booking is unconfigured; the Cliniko scheduler is embedded in the page and is what actually ships.</p>
     </li>
     <li>
-      <h4>Stop optimising the build</h4>
-      <p>Technical SEO scores 842 and ranks first in eight of its eleven categories. There are perhaps sixty points left in it, against roughly four hundred sitting in the three items above.</p>
+      <h4>Not built: a snippet rewrite for click-through rate</h4>
+      <p>This looked like the biggest in-code win until the queries were checked. Only 26 queries rank in the top fifteen and together they carry <strong>36 impressions</strong> &mdash; several of them accidental matches on words like &ldquo;yes&rdquo; and &ldquo;bc&rdquo;. There is no traffic at clickable positions to convert. The 0.50% rate is caused by position, not by wording, and rewriting fifty titles would have produced a commit and no clicks.</p>
+    </li>
+    <li>
+      <h4>Not built: live chat, and an <code>/updates</code> feed</h4>
+      <p>Zero of ten competitors run live chat, so it buys nothing against this set and commits a solo practice to answering it. An index of recently-edited pages would have moved the publishing-cadence number without publishing anything &mdash; a signal manufactured to satisfy a metric I wrote myself. Cadence needs real articles, and clinical copy needs the counsellor to read it first.</p>
+    </li>
+    <li>
+      <h4>Already there: <code>llms.txt</code>, freshness dates, AI-crawler access</h4>
+      <p>Three things I was about to build already existed. Sitemap dates come from real git history rather than the build clock, which is why freshness scores 780 while two competitors carry no dates at all.</p>
     </li>
   </ol>
 </section>

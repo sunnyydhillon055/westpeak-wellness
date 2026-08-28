@@ -107,6 +107,39 @@ export default function InboundForm({ kind, done }: { kind: Kind; done?: 'ok' | 
         </>
       )}
 
+      {/* OPTIONAL callback, on both kinds.
+          The practice publishes no phone number, so until now nobody could ask
+          to be phoned — the only ways in were email and a calendar. Plenty of
+          people will not write a paragraph about why they want counselling but
+          will leave a number and a window.
+
+          A <details> rather than two more visible inputs. Closed it costs one
+          line and reads as an offer; opened, it is entirely the visitor's
+          choice. That keeps faith with the rule at the top of this file: the
+          objection there is to a REQUIRED phone field, and to fields that greet
+          everyone whether they want them or not.
+
+          type="tel" and no pattern. See lib/inbound-submit.ts for why nothing
+          here validates the number. */}
+      <details className="lead-form-callback">
+        <summary>Would rather be phoned than emailed?</summary>
+        <div className="lead-form-row" style={{ marginTop: 10 }}>
+          <label htmlFor={`in-phone-${kind}`} className="sr-only">Phone number (optional)</label>
+          <input id={`in-phone-${kind}`} name="phone" type="tel" inputMode="tel"
+            autoComplete="tel" placeholder="Phone number (optional)" />
+          <label htmlFor={`in-callwindow-${kind}`} className="sr-only">
+            Best time to call (optional)
+          </label>
+          <input id={`in-callwindow-${kind}`} name="callWindow" type="text"
+            placeholder="Best time to call" />
+        </div>
+        <p className="lead-form-note" style={{ marginTop: 8 }}>
+          Leave these blank and you will be answered by email as usual. If you fill them in,
+          the call comes from a private number and no message is left unless you say it is
+          safe to leave one.
+        </p>
+      </details>
+
       {done === 'err' && (
         <p className="lead-form-note" role="alert" style={{ color: 'var(--clay-deep)' }}>
           That did not go through — please check the email address and try again.

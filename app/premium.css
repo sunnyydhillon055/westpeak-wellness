@@ -2277,3 +2277,33 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
 @media (prefers-reduced-motion: reduce) {
   .answers-list dt a::after { transition: none; }
 }
+
+/* ---- Optional callback disclosure -----------------------------------------
+   The practice publishes no phone number, so the only way a call can happen is
+   if the visitor asks for one. This has to read as an offer rather than as
+   another field standing between somebody and sending their message — closed
+   it is one line, and nothing about the default path changes for anyone who
+   walks past it.
+
+   The marker is drawn by hand because the native triangle sits at a different
+   size and baseline in every engine, and this line has to align with the form
+   note above it. */
+.lead-form-callback{ margin:4px 0 12px; }
+.lead-form-callback > summary{
+  cursor:pointer; list-style:none; display:inline-flex; align-items:center; gap:8px;
+  font-size:.9rem; color:var(--ink-soft); padding:6px 2px; min-height:44px;
+  -webkit-tap-highlight-color:transparent;
+}
+.lead-form-callback > summary::-webkit-details-marker{ display:none; }
+.lead-form-callback > summary::before{
+  content:""; width:7px; height:7px; flex:none;
+  border-right:2px solid currentColor; border-bottom:2px solid currentColor;
+  transform:rotate(-45deg); transition:transform .18s ease;
+}
+.lead-form-callback[open] > summary::before{ transform:rotate(45deg); }
+.lead-form-callback > summary:hover{ color:var(--ink); }
+.lead-form-callback > summary:focus-visible{ outline:2px solid var(--focus); outline-offset:3px; border-radius:4px; }
+.lead-form-callback .lead-form-row{ margin-top:0; }
+@media (prefers-reduced-motion:reduce){
+  .lead-form-callback > summary::before{ transition:none; }
+}

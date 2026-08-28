@@ -54,6 +54,30 @@ export type Inbound = {
   message: string;
   /** Waitlist only: roughly when they can actually attend. */
   windows?: string;
+  /* OPTIONAL callback number, and when the person will take a call.
+   *
+   * The practice publishes no phone number anywhere — every tel: link on this
+   * site is a crisis line — so "phone" has never been a way in. The visibility
+   * audit of 27 Aug 2026 scored that channel 100/1000, last of eleven
+   * practices, and it is the only channel with no entry point at all.
+   *
+   * Publishing a number is the owner's call and not one a build should make
+   * for them: it creates an expectation of being answered, and a solo practice
+   * that misses calls is worse off than one that never invited them. What a
+   * build can do is reverse the direction — let the person who wants a call
+   * ask for one, on their own terms, at a time they nominate.
+   *
+   * Deliberately optional and deliberately last in the form. The note at the
+   * top of InboundForm.tsx rules out a REQUIRED phone field and it is right:
+   * every extra field on a first approach to a counsellor is a reason to close
+   * the tab. An optional one that says why it is there does not carry that
+   * cost, because the default path is unchanged for anyone who skips it.
+   *
+   * Never echoed into an email subject or preheader. A practice inbox is still
+   * an inbox and may be read on a phone in public. */
+  phone?: string;
+  /** Free text: when they will take a call. Never parsed, only read. */
+  callWindow?: string;
   /** Which page it came from, for working out what earns enquiries. */
   source: string;
   /* Explicit, separate consent to be written to again after the three-email

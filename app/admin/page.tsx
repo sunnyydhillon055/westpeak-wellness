@@ -341,10 +341,28 @@ export default async function AdminPage({
                     <td style={{ whiteSpace: 'nowrap' }}>
                       {i.kind === 'enquiry' ? 'Message'
                         : i.kind === 'waitlist' ? 'Waitlist' : 'Checklist'}
+                      {/* Someone who left a number asked for a different kind of
+                          reply than everyone else in this queue, and answering
+                          by email is the wrong answer. It has to be visible in
+                          the list, not one click away. */}
+                      {i.phone && (
+                        <>
+                          <br />
+                          <strong style={{ fontSize: '.85em' }}>Wants a call</strong>
+                        </>
+                      )}
                     </td>
                     <td style={{ maxWidth: 360 }}>
+                      {i.phone && (
+                        <div style={{ marginBottom: 6, fontSize: '.92em' }}>
+                          <a href={`tel:${i.phone.replace(/[^\d+]/g, '')}`}>{i.phone}</a>
+                          {i.callWindow && (
+                            <span style={{ color: 'var(--ink-faint)' }}> · {i.callWindow}</span>
+                          )}
+                        </div>
+                      )}
                       {i.message || i.windows || (
-                        <em style={{ color: 'var(--ink-faint)' }}>—</em>
+                        !i.phone && <em style={{ color: 'var(--ink-faint)' }}>—</em>
                       )}
                     </td>
                     <td style={{ fontSize: '.9em', color: 'var(--ink-faint)' }}>{i.source}</td>

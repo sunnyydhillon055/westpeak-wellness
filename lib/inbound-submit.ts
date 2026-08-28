@@ -77,6 +77,18 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
   const message = String(form.get('message') ?? '').trim();
   const windows = String(form.get('windows') ?? '').trim();
 
+  /* Optional callback details. See the note on `phone` in lib/inbound.ts for
+   * why the practice accepts a number without publishing one.
+   *
+   * Kept as the person typed it, minus obvious padding. No formatting, no
+   * country-code guessing, no validation beyond a length ceiling: a number
+   * this practice will dial by hand once does not need to be parsed, and a
+   * regex that rejects a valid Canadian number someone typed with an extension
+   * costs a callback to save nothing. The ceiling exists only so a paste
+   * accident cannot write an essay into the field. */
+  const phone = String(form.get('phone') ?? '').trim().slice(0, 40);
+  const callWindow = String(form.get('callWindow') ?? '').trim().slice(0, 120);
+
   if (!/^[^@\s]+@[^@\s.]+\.[^@\s]+$/.test(email)) return back('err');
   /* An enquiry with no message is a mis-click, not a message. The other two
    * kinds legitimately carry nothing but an address. */
@@ -93,7 +105,7 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
   const magnet = asked === 'icbc-after-a-crash' ? asked : 'coverage-checklist';
 
   const item = await addInbound({
-    kind: o.kind, name, email, message, windows, source, monthlyOptIn, magnet,
+    kind: o.kind, name, email, message, windows, phone, callWindow, source, monthlyOptIn, magnet,
   });
   if (!item) return back('err');
 

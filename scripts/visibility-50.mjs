@@ -83,9 +83,20 @@ const C = [
   ['F', 'Mobile usability', 700, 4, 'M', '25 of 83 tap targets under 40 px, one image overflowing the viewport edge.'],
   ['F', 'Internal linking', 880, 2, 'M', '80 internal links per page against a set median of 119 — lower but far more purposeful than nav-chrome repetition.'],
 
-  ['G', 'Telephone capture', 100, 11, 'M', 'The practice publishes no phone number. Every tel: link on the site is a crisis line. There is no way for anyone to call.'],
-  ['G', 'Booking-path friction', 600, 6, 'M', 'Homepage CTA reaches /book in one hop, but /book leads with a mailto and offers Cliniko as the secondary button.'],
-  ['G', 'Enquiry capture breadth', 780, 3, 'M', 'Forms, email and a client portal, with a honeypot correctly hidden and a store-before-notify submit path.'],
+    /* 100 -> 550 on 27 Aug 2026. A number is still not published — that stays
+     the owner's decision — but the direction is now reversed: the enquiry and
+     waitlist forms take an OPTIONAL callback number and a preferred window, so
+     somebody who wants a call can ask for one. Not 1000: a listing that offers
+     no number at all still converts worse than one that does, and Google
+     Business Profile will ask for one. */
+  ['G', 'Telephone capture', 550, 8, 'M', 'No published number — every tel: link on the site is still a crisis line. But the enquiry and waitlist forms now take an optional callback number and preferred time, surfaced in /admin as "Wants a call" and in the practice alert. The channel exists, client-initiated.'],
+    /* Scored 600 on the first pass with the evidence 'book leads with a mailto'.
+     That was read off the wrong branch: the mailto-first block is the fallback
+     rendered when bookingReady is false, and bookingReady is Boolean(a value
+     that always has a default), so the embedded scheduler is what actually
+     ships. Corrected to 850. */
+  ['G', 'Booking-path friction', 850, 2, 'M', 'Homepage CTA reaches /book in one hop and the Cliniko scheduler is embedded in the page — the visitor never leaves the site. A waitlist form sits directly beneath it for the people no open slot suits.'],
+  ['G', 'Enquiry capture breadth', 850, 2, 'M', 'Forms, email, a client portal and now an optional callback request, with a honeypot correctly hidden and a store-before-notify submit path so a mail outage cannot lose anyone.'],
   ['G', 'Conversion architecture', 850, 2, 'M', 'CTA bands, comparison pages and decision tools throughout; a build well ahead of the traffic reaching it.'],
   ['G', 'Live-chat & instant response', 300, 8, 'M', 'None. 0 of 10 sites run live chat, so this costs little — but reply speed is the only lever left without a phone.'],
   ['G', 'Response-time proof', 700, 2, 'M', 'A measured reply median now exists in /admin, gated to appear only above five samples.'],
