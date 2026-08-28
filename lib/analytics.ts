@@ -18,7 +18,12 @@ declare global {
   }
 }
 
-export const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+/* Deliberately no GA_ID export. This is a 'use client' module: a server
+ * component importing a value from it receives a client-reference proxy, which
+ * is truthy even when the env var is unset. The layout once guarded
+ * `GA_ID && <GoogleAnalytics/>` on exactly that proxy and shipped
+ * gtag/js?id=undefined on all 193 pages. Server code must read
+ * process.env.NEXT_PUBLIC_GA_ID directly. */
 
 export function track(event: TrackedEvent, params: Params = {}): void {
   if (typeof window === 'undefined') return;

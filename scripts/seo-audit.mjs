@@ -119,6 +119,21 @@ for (const f of files) {
        RSC payload of EVERY page, so testing raw html marked all 121 pages
        as 404s and silently emptied the report. */
     notFound: /page could not be found|page not found/i.test(main),
+    /* A URL with "undefined" in it is never content — it is an interpolation
+       bug that shipped. gtag/js?id=undefined sat in the head of every page
+       for weeks because the layout guarded on a value imported from a
+       'use client' module, and a server component importing from one gets a
+       truthy client-reference proxy, not the value. Attribute URLs only:
+       the RSC payload serialises attributes as JSON, not href="…", so prose
+       that merely mentions the word cannot trip this. */
+    junkUrls: [...html.matchAll(/(?:href|src)="([^"]*)"/g)]
+      .map((m) => m[1])
+      .filter(
+        (u) =>
+          /(^|[/=?&])(undefined|NaN)([/=?&.]|$)/.test(u) ||
+          /(^|[/=?&])null([/=?&]|$)/.test(u) ||
+          /\[object(%20| )Object\]/.test(u)
+      ),
     links,
   });
 }
@@ -167,6 +182,9 @@ const warn = (rule, route, detail) => WARN.push({ rule, route, detail });
 const seenTitles = new Map();
 for (const p of pages.values()) {
   const { route } = p;
+  /* Checked before every skip below: a junk URL is a shipped bug wherever
+     it appears, including on gated shells and the 404 boundary. */
+  for (const u of p.junkUrls) err('junk-url', route, u);
   if (route === '/_not-found') continue;
   /* A route that renders the not-found shell is a deliberately gated page
      (the Ontario cluster) or a genuine 404. Neither should be audited for
