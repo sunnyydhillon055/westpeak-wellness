@@ -145,6 +145,26 @@ export const depth4: Record<string, DepthSection[]> = {
     },
   ],
 
+  'resources/msp-vs-extended-health': [
+    {
+      h2: 'Does MSP cover therapy?',
+      body: [
+        'The forty-word version, since this is the exact question that brings most people here: **no — MSP does not cover counselling or therapy in private practice.** It covers physician care, which includes psychiatrists reached by referral, and that is the whole of its mental-health reach for most adults.',
+        'What pays for therapy in BC instead: extended health benefits through work or school (the common route for Registered Clinical Counsellor sessions), specific entitlements where they apply — ICBC after a crash, CVAP for victims of crime, FNHA coverage — and the genuinely [free and low-cost services](/resources/low-cost-counselling-bc) that exist outside the fee system entirely. The rest of this page draws the boundary precisely, insurer by situation.',
+      ],
+    },
+  ],
+
+  'resources/verify-a-counsellor-in-bc': [
+    {
+      h2: 'Using BCACC’s find-a-counsellor register',
+      body: [
+        'The register at bc-counsellors.org does two jobs, and people mostly know only one. It **verifies** — type any counsellor’s name and confirm their registration is current, which is this page’s four-minute check. It also **finds**: the same search filters by community, language and area of focus, which makes it one of the few counsellor directories in BC where every single listing is, by construction, a registered and insured practitioner. A directory that cannot contain an unregistered listing is worth more than one that merely tends not to.',
+        'The register covers RCCs only; psychologists and social workers have their own colleges’ registers, linked in the sections above. And for the fuller how-to-choose process — shortlisting, free consultations, the questions worth asking — the [finding a therapist guide](/guides/how-to-find-a-therapist-in-bc) picks up where verification ends.',
+      ],
+    },
+  ],
+
   'resources/workplace-mental-health-bc': [
     {
       h2: 'The work-and-money cluster, mapped',
