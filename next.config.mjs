@@ -72,6 +72,13 @@ const securityHeaders = [
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  /* CRITICAL-CSS INLINING WAS TRIED HERE AND DOES NOT WORK — 2026-08-28.
+   * experimental.optimizeCss (critters) was enabled and built cleanly, and
+   * the prerendered App Router HTML came out unchanged: zero inlined style
+   * blocks, the same four render-blocking stylesheet links. The optimisation
+   * targets the pages router. Recorded so the next session doesn't spend a
+   * build cycle rediscovering it; the render-path lever that DID measure out
+   * is content-visibility on below-fold sections (globals.css). */
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }];
   },

@@ -73,6 +73,7 @@ const BILLED_AS: Record<string, string | undefined> = {
   'punjabi-counselling': 'Individual Counselling',
   'couples-therapy': 'Couples Counselling',
   'emdr-therapy': 'EMDR Intensive',
+  'emdr-intensive': 'EMDR Intensive',
 };
 
 const LEGACY_FEE_FOR: Record<string, string | undefined> = {
@@ -83,10 +84,12 @@ const LEGACY_FEE_FOR: Record<string, string | undefined> = {
   'punjabi-counselling': '$140',
   'couples-therapy': '$170',
   'emdr-therapy': '$190',
+  'emdr-intensive': '$190',
 };
 
 const DURATION_FOR: Record<string, string | undefined> = {
   'emdr-therapy': '90 minutes',
+  'emdr-intensive': '90 minutes',
 };
 
 /* ISR rather than fully dynamic. These nine pages are the fastest on the site

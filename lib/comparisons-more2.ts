@@ -79,6 +79,7 @@ export const moreComparisons2: Comparison[] = [
       { label: 'NICE — Post-traumatic stress disorder guideline (NG116)', url: 'https://www.nice.org.uk/guidance/ng116' },
     ],
     related: [
+      { href: '/services/emdr-intensive', label: 'The EMDR intensive — booking and structure' },
       { href: '/services/emdr-therapy', label: 'EMDR therapy across BC' },
       { href: '/guides/what-is-emdr-and-how-a-session-works', label: 'What is EMDR and how a session works' },
       { href: '/compare/cbt-vs-emdr-for-trauma', label: 'CBT vs EMDR for trauma' },

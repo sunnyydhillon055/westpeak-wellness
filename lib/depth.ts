@@ -22,11 +22,12 @@ import { depth2Guides } from './depth2-guides';
 import { depth2Guides2 } from './depth2-guides2';
 import { depth2Other } from './depth2-other';
 import { depth3 } from './depth3';
+import { depth4 } from './depth4';
 
 const PASSES: Record<string, DepthSection[]>[] = [
   depthGuides, depthGuides2, depthServices, depthOther,
   depth2Guides, depth2Guides2, depth2Other,
-  depth3,
+  depth3, depth4,
 ];
 
 /* Later passes append to earlier ones rather than replacing them. */

@@ -213,6 +213,7 @@ export const services: Service[] = [
       { q: "Can EMDR make things worse?", a: "Trauma work paced badly can destabilise anyone — which is what phases 2 and 7 exist to prevent. Distress during a session is normal and temporary; deterioration lasting days is a signal to slow down, and worth saying out loud." },
     ],
     related: [
+      { href: "/services/emdr-intensive", label: "EMDR intensives — the 90-minute format" },
       { href: "/guides/what-is-emdr-and-how-a-session-works", label: "What is EMDR and how a session works" },
       { href: "/compare/cbt-vs-emdr-for-trauma", label: "CBT or EMDR for trauma — how they differ" },
       { href: "/services/trauma-therapy", label: "Trauma therapy and trauma-informed care" },
@@ -614,6 +615,77 @@ export const services: Service[] = [
     sources: [
       { label: "Are videoconferenced mental and behavioral health services just as good as in-person? — Clinical Psychology Review (2021)", url: "https://ctc-ri.org/sites/default/files/Are%20videoconferenced%20mental%20and%20behavioral%20health%20services%20just%20as%20good%20as%20in-person_%20A%20meta-analysis%20of%20a%20fast-growing%20practice%20(1).pdf" },
       { label: "Effectiveness of videoconference-delivered CBT — systematic and meta-analytic review", url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8713091/" },
+    ],
+  },
+
+  /* The tenth service, added 2026-08-28. The EMDR intensive existed as a
+   * Cliniko appointment type ($190 / 90 min, verified) and as half of a
+   * comparison page — but had no service page of its own, so the query class
+   * "emdr intensive bc" (a named target in PATH_TO_950.md, ceiling 820) had
+   * nothing to land on. Three lenses, three pages, no overlap: what EMDR is
+   * (/services/emdr-therapy), which format fits (/compare/emdr-intensive-
+   * vs-weekly-emdr), and this — the intensive as an offering. */
+  {
+    slug: "emdr-intensive",
+    figure: "emdr-phases",
+    figure2: "session-requirements",
+    name: "EMDR Intensive",
+    short: "A 90-minute extended EMDR session for a specific target, with stability in place.",
+    metaTitle: "EMDR Intensives in BC (90 min, Online) | Westpeak",
+    metaDescription:
+      "Extended 90-minute EMDR sessions by video across BC — for a specific target memory, with preparation done first. $190, insurance-eligible.",
+    hero: "The same therapy, given room to finish what it starts.",
+    directAnswer:
+      "An EMDR intensive at Westpeak Wellness is a single extended session — 90 minutes rather than 50 — delivered by secure video anywhere in BC by an EMDR-trained Registered Clinical Counsellor. The longer arc lets preparation, reprocessing and proper closing happen in one sitting instead of being cut to fit the hour. Intensives suit people with a specific target memory and stable day-to-day footing; suitability is assessed first, in an ordinary session, and a free 15-minute consultation comes before anything. The session is $190 and reimbursable wherever a plan covers RCC counselling.",
+    intro:
+      "Standard EMDR sessions pay a fixed cost every week: settling in at the start, closing down safely at the end. Both are non-negotiable — but in a 50-minute container they can leave a processing window too short for a memory network that takes twenty minutes just to access. The intensive format exists to fix that arithmetic. One 90-minute sitting more than doubles the usable middle, because the fixed costs are paid once.",
+    helps: [
+      "A specific incident or target memory, identified and ready to work on",
+      "Processing that keeps being cut short by the standard hour",
+      "Schedules that make weekly attendance genuinely hard — shift work, rotations, travel",
+      "Continuing work at depth after stabilisation is established",
+    ],
+    approach:
+      "Nothing about the method changes — the same eight phases, the same safeguards, the same closing-down discipline. What changes is the container. Suitability is a clinical decision made together first: intensives are offered when a target is clear and stability is in place, and weekly pacing is recommended honestly when it is not.",
+    whatItIs: {
+      h2: "What an intensive is — and is not",
+      body: [
+        "An intensive is not faster therapy, and it is worth being precise about that before any money changes hands. A single extended session can cover ground that would take several weekly ones, but the total course of treatment is set by what your history requires, not by the format. Nobody can promise that concentrating the schedule concentrates the result.",
+        "It is also not a first appointment. History-taking, preparation, and the resourcing work that makes reprocessing safe happen before an intensive is booked, in an ordinary session — an intensive that spends its length on groundwork has stopped being one. That sequencing is not upsell; it is what makes the format work.",
+        "**Where stabilisation is still the main work — common with complex or long-standing trauma — weekly pacing is the better choice**, and you will be told so plainly. The [comparison page](/compare/emdr-intensive-vs-weekly-emdr) sets out both formats side by side.",
+      ],
+    },
+    signs: [
+      { label: "One incident keeps its grip", detail: "A crash, an assault, a medical event, a loss — a single identifiable memory that stays live no matter how thoroughly you understand it." },
+      { label: "The hour keeps ending mid-work", detail: "In standard sessions the processing window opens late and closes early, and the same target takes weeks of approaches." },
+      { label: "The calendar is the obstacle", detail: "Camp rotations, shift patterns, seasonal work, travel — the practical realities that make same-time-weekly a fiction for a lot of BC." },
+      { label: "Stability is already in place", detail: "Day-to-day life is holding: sleep, work, support, no active crisis. That footing is what makes concentrated work appropriate." },
+    ],
+    sessionShape: {
+      h2: "How the 90 minutes are structured",
+      body: [
+        "The arc is the standard EMDR session arc with room to breathe: settling and check-in, accessing the agreed target, reprocessing in sets with breaks as needed, and a full, unhurried closing so you leave regulated — the final stretch is protected no matter where the processing has reached.",
+        "Expect to be tired afterwards. Processing is effortful and a longer session means more of it; it is sensible not to schedule anything demanding immediately after, and continued settling over the following days — dreams, memories surfacing, small shifts — is expected rather than concerning.",
+        "Over video, the same adaptations as weekly virtual EMDR carry over: an on-screen moving target, alternating audio, or self-administered tapping. A private room, headphones and a stable connection are the practical requirements, and the [session-requirements diagram](/services/online-counselling-bc) covers the setup.",
+      ],
+    },
+    faqs: [
+      { q: "How much does an EMDR intensive cost?", a: "$190 for the 90-minute session, paid at booking. Wherever an extended-health plan reimburses Registered Clinical Counsellor sessions it applies here too — with one caution: some plans cap the amount per session, and a longer session with a higher fee can exceed a per-session cap even with annual room left. Check that wording before booking." },
+      { q: "Can I book an intensive as my first appointment?", a: "No — and a practice that would let you is worth being wary of. A free 15-minute consultation comes first, then an ordinary session for history, preparation and a suitability check. The intensive works because that groundwork is already done." },
+      { q: "How many intensives will I need?", a: "It depends entirely on the target and the history behind it. Some single-incident work resolves in one or two extended sittings alongside ordinary sessions; anything complex takes the course it takes. A rough sense after assessment is a fair thing to ask for; a fixed number quoted before meeting you is a guess." },
+      { q: "Is a 90-minute session safe?", a: "Run properly, yes. The format keeps every safeguard of weekly EMDR — preparation beforehand, monitoring throughout, and protected closing-down time inside the session. The suitability check exists precisely so that people still building stability are steered to weekly pacing instead." },
+      { q: "Does the intensive work over video?", a: "Yes. Bilateral stimulation adapts to video with an on-screen target, alternating audio or self-tapping, and the longer arc is if anything easier to hold without a commute on either side. What matters is the same as in-person: privacy, and a plan for the hour after." },
+    ],
+    related: [
+      { href: "/compare/emdr-intensive-vs-weekly-emdr", label: "EMDR intensives vs weekly EMDR" },
+      { href: "/services/emdr-therapy", label: "EMDR therapy — the full picture" },
+      { href: "/guides/what-is-emdr-and-how-a-session-works", label: "What is EMDR and how a session works" },
+      { href: "/services/trauma-therapy", label: "Trauma therapy" },
+      { href: "/pricing", label: "Fees and coverage" },
+    ],
+    sources: [
+      { label: "EMDR International Association — about EMDR therapy", url: "https://www.emdria.org/about-emdr-therapy/" },
+      { label: "NICE — Post-traumatic stress disorder guideline (NG116)", url: "https://www.nice.org.uk/guidance/ng116" },
     ],
   },
 ];

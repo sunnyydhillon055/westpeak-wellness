@@ -21,6 +21,26 @@ export default async function Contact({
   searchParams?: Record<string, string | string[] | undefined>;
 }) {
   const { windows } = await readAvailability();
+
+  /* The measured version of the reply promise. /admin has tracked median
+   * reply time since 2026-08-23, gated behind five real samples so one good
+   * week can never mint a claim (see lib/reply-templates.ts). Once it is
+   * ready, the person deciding whether to write deserves the number more
+   * than the dashboard does. Best-effort: if the store is unreadable the
+   * page keeps the plain promise rather than failing. */
+  let replyLine = 'Replies within one business day';
+  try {
+    const { readInbound } = await import('@/lib/inbound');
+    const { replyTimeStats } = await import('@/lib/reply-templates');
+    const stats = replyTimeStats((await readInbound()).items);
+    if (stats.ready) {
+      replyLine = `Replies within one business day — median so far: ${
+        stats.medianHours < 24 ? `${stats.medianHours} hours` : 'one business day'
+      }, measured across ${stats.sample} messages`;
+    }
+  } catch {
+    /* store unreachable — the unmeasured promise stands */
+  }
   const sent = searchParams?.sent === 'ok' ? 'ok'
     : searchParams?.sent === 'err' ? 'err' : undefined;
   return (
@@ -55,7 +75,7 @@ export default async function Contact({
             {site.phone && (
               <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Phone strokeWidth={1.7} /></span><div><h3>Phone</h3><p><a href={`tel:${site.phoneTel}`}>{site.phone}</a><br /><span style={{ color: 'var(--ink-faint)', fontSize: '.92em' }}>Voicemail outside session hours — leave a first name and a good time to call back</span></p></div></div>
             )}
-            <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Mail strokeWidth={1.7} /></span><div><h3>Email</h3><p><a href={`mailto:${site.email}`}>{site.email}</a><br /><span style={{ color: 'var(--ink-faint)', fontSize: '.92em' }}>Replies within one business day</span></p></div></div>
+            <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Mail strokeWidth={1.7} /></span><div><h3>Email</h3><p><a href={`mailto:${site.email}`}>{site.email}</a><br /><span style={{ color: 'var(--ink-faint)', fontSize: '.92em' }}>{replyLine}</span></p></div></div>
             <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><MonitorSmartphone strokeWidth={1.7} /></span><div><h3>Sessions</h3><p>Fully online, anywhere in British Columbia</p></div></div>
             <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Clock strokeWidth={1.7} /></span><div><h3>Hours</h3><p>{windows.map((a) => `${a.day} ${a.from}–${a.to}`).join(' · ')}</p></div></div>
             <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><MapPin strokeWidth={1.7} /></span><div><h3>Service area</h3><p>Virtual: anywhere in BC</p></div></div>
