@@ -70,6 +70,45 @@ Evidence in parentheses is from the 2026-08-28 Search Console export unless note
 49. **[me]** Cross-sell the intensive: the EMDR service page and trauma guide mention the 90-minute format inline where "the hour keeps ending mid-work" pain appears.
 50. **[me]** Measured-funnel review cadence: monthly /admin funnel read (which pages → which enquiries) checked into a dated note, so plays 1–49 get judged by enquiries, not impressions.
 
+---
+
+# Round 2 — twenty more (evening, 28 August)
+
+Found after Round 1 shipped. Same rules: nothing already done, evidence cited,
+gated items say so.
+
+## F · New measured-demand surfaces (8)
+
+51. **[me]** Compare: *Psychologist vs psychiatrist in BC* — completes the who-do-I-see trilogy; the query family is in the export ("registered psychologist bc", "psychiatrist vancouver" at pos 2, "bc psychologist").
+52. **[me]** Resource: *Becoming a counsellor in BC* — career-intent queries reach the site now ("how to become a registered psychologist in bc", "virtual counselling jobs bc" pos 9) and earn clicks; the page serves searchers, earns education links, and feeds the PATH_TO_950 second-practitioner pipeline.
+53. **[me]** Couples service retarget: "online couples counselling bc" sits at **position 37** and the couples page never says it in a heading — the same fix that just went onto trauma/EMDR/anxiety.
+54. **[me]** Depression service retarget: "depression counselling online bc" (pos 65), same treatment.
+55. **[me]** High-functioning-anxiety guide: a "what therapy for this looks like" section — "high functioning anxiety therapy" (pos 85) is the commercial phrasing of the site's own top guide topic.
+56. **[me]** /faq gains two query-verbatim answers already ranking without a target: "Is therapy considered a medical appointment?" (**pos 8**) and "Can a counsellor refer you to a psychiatrist?" (**pos 7**).
+57. **[me]** Online-counselling hub: a "'counsellor near me', when the answer is virtual" section — "punjabi therapist near me" reached the site at **position 7**, proving near-me demand lands here despite no location.
+58. **[me]** Stress-check tool FAQ: "mental health check-up" phrasing (pos 80) — the tool *is* one and never says the words.
+
+## G · Indexing & instrumentation (4)
+
+59. **[both]** GitHub Action pinging `/api/indexnow` on every production push — same-day indexing of every change instead of waiting for Monday's cron. I write the workflow; owner pastes `CRON_SECRET` into repo secrets once.
+60. **[me]** Zero-result site-search mining added to the FUNNEL_REVIEWS ritual — the search log already records what visitors looked for and didn't find; that list is a content roadmap written by your own audience.
+61. **[me]** Author-entity audit: verify every guide/Article emits the Person authorship reference for E-E-A-T; fix any that don't.
+62. **[recorded insight]** FAQ rich results were restricted by Google in 2023 to government/authority health sites — the 86 pages of FAQPage schema still earn AI-answer extraction but will not earn SERP accordions. Documented so nobody chases a dead feature; no action needed.
+
+## H · Conversion & CTA (5)
+
+63. **[me]** Live consult-hours line on /book, read from the same availability source the footer uses — truthful availability at the decision moment, no scarcity theatre.
+64. **[me]** Trust strip directly above the scheduler embed — the credentials at the exact moment of commitment, not two scrolls earlier.
+65. **[me]** LeadCapture on the money-adjacent compare and resource pages (EAP, coverage, cost) with the starting-counselling magnet — currently the form lives on guides only.
+66. **[me]** Punjabi CtaBand variant on the Punjabi surfaces, built exclusively from already-reviewed Gurmukhi strings ("ਮੁਫ਼ਤ ਸਲਾਹ-ਮਸ਼ਵਰਾ ਬੁੱਕ ਕਰੋ").
+67. **[me]** 404 recovery audit: confirm the not-found page offers search + the top routes; a 404 on a 211-page site is a navigation moment, not a dead end.
+
+## I · Distribution (3)
+
+68. **[owner]** Bing Places for Business — separate from Bing Webmaster Tools (item 37); a full second local-listing surface on the index where this site demonstrably ranks best.
+69. **[both]** Punjabi print and community media (Indo-Canadian Voice, Asian Journal, local gurdwara newsletters) — the radio pitch from the outreach kit, adapted; I draft, owner sends.
+70. **[both]** A written Reddit protocol for r/vancouver / r/britishcolumbia mental-health threads: answer-only, no links unless asked, practice named only in profile — written down precisely so helpfulness can never drift into spam, which on Reddit is both an ethics line and a ban line.
+
 ## Order of attack
 
 Items **1–6 + 13–17** are one focused build (the practicalities cluster + snippet pass) and
