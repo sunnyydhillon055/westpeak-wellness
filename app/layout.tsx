@@ -117,6 +117,16 @@ const orgSchema = {
     { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Wednesday', 'Thursday', 'Friday'], opens: '18:00', closes: '19:00' },
   ],
   knowsLanguage: ['en-CA', 'pa'],
+  /* Entity disambiguation, added 2026-08-28. The brand SERP carries scraper
+     directories asserting a White Rock location, a Surrey street address, and
+     a "holistic wellness center" categorisation — none of it from this
+     practice, all of it wrong. This is the machine-readable correction: the
+     one description of what this entity is that the practice itself asserts,
+     for knowledge-graph consumers weighing conflicting sources. */
+  disambiguatingDescription:
+    'A fully virtual Registered Clinical Counsellor practice serving all of ' +
+    'British Columbia by secure video, in English and Punjabi. It has no ' +
+    'physical office or walk-in location.',
   knowsAbout: [
     'Eye Movement Desensitization and Reprocessing', 'Cognitive Behavioural Therapy',
     'Gottman Method Couples Therapy', 'Trauma-informed care', 'Anxiety disorders',

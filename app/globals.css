@@ -150,6 +150,15 @@ img{max-width:100%;display:block}
 .container--article{max-width:var(--maxw-article)}
 .container--narrow{max-width:var(--maxw-narrow)}
 .section{padding:58px 0;position:relative}
+/* Below-fold sections skip style/layout work until scrolled near. Measured
+   2026-08-28: style & layout was the largest main-thread cost on mobile
+   (~1.4 s under Lighthouse throttle) and it scales with DOM the visitor has
+   not seen yet. contain-intrinsic-size keeps the scrollbar honest; the
+   browser re-renders on demand for anchors, find-in-page and :target.
+   Screen only — print must always lay out the whole document. */
+@media screen{
+  main>.section:nth-of-type(n+3){content-visibility:auto;contain-intrinsic-size:auto 900px}
+}
 .section--tint{background:var(--surface-3)}
 .section--ghost{background:var(--blue-ghost)}
 .section--warm{background:var(--surface-2)}

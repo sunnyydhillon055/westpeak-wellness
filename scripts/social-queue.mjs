@@ -43,9 +43,19 @@ const libDir = new URL('../lib/', import.meta.url);
 const SOURCES = [
   { match: /^guides(-more\d*)?\.ts$/, base: '/guides' },
   { match: /^resources(-more)?\.ts$/, base: '/resources' },
-  { match: /^comparisons(-more)?\.ts$/, base: '/compare' },
+  /* -more\d*: the second expansion file (comparisons-more2.ts) silently fell
+     outside the old (-more)? pattern — a queue that skips the newest pages
+     is the opposite of a posting queue. */
+  { match: /^comparisons(-more\d*)?\.ts$/, base: '/compare' },
   { match: /^audiences(-more\d*|-punjabi)?\.ts$/, base: '/for' },
 ];
+
+/* Pulled to the front of the queue, ahead of the interleave, in this order.
+ * The 28 Aug 25-category audit recorded the site's first page-1 positions —
+ * all on Punjabi-intersection terms — and its action item was to put the
+ * Punjabi surfaces at the front of this queue while those positions are
+ * establishing. Deterministic, so regeneration still diffs cleanly. */
+const PRIORITY = (url) => /punjabi|south-asian/.test(url);
 
 /* Flat-field parse, same approach as scripts/targets.mjs and for the same
  * reason: these are TypeScript modules and this runs under plain node. Only
@@ -85,6 +95,10 @@ const ordered = [];
 for (let n = 0; ordered.length < items.length; n++) {
   for (const b of buckets) if (b[n]) ordered.push(b[n]);
 }
+
+/* Stable partition: priority items first, everyone keeping their relative
+ * order within their half. */
+ordered.sort((a, b) => Number(PRIORITY(b.url)) - Number(PRIORITY(a.url)));
 
 /* Dates are computed from a fixed start passed in, or from today. Today is
  * fine here — this file is a working document rather than build output, so a

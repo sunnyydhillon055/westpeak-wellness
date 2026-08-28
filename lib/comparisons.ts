@@ -125,7 +125,10 @@ const coreComparisons: Comparison[] = [
     ],
     sources: [
       { label: "College of Health and Care Professionals of BC — the incoming regulator", url: "https://chcpbc.org/" },
-      { label: "Province of BC — consultation to designate psychotherapy as a regulated health profession", url: "https://news.gov.bc.ca/releases/2024HLTH0070-000812" },
+      /* A news.gov.bc.ca release announcing the psychotherapy-designation
+         consultation was cited here until 2026-08-28, when it 404ed — press
+         releases rot. The two remaining provincial sources carry the same
+         claim from pages built to persist. */
       { label: "Province of BC — health profession regulation", url: "https://www2.gov.bc.ca/gov/content/health/practitioner-professional-resources/professional-regulation" },
       { label: "BC Laws — Psychologists Regulation (Health Professions Act)", url: "https://www.bclaws.gov.bc.ca/civix/document/id/loo64/loo64/442_99" },
       { label: "Kelty Mental Health — psychologists and registered clinical counsellors", url: "https://keltymentalhealth.ca/what-difference-between-psychologists-and-registered-clinical-counsellors" },

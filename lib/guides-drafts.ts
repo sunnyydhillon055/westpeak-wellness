@@ -354,33 +354,307 @@ export const draftGuides: Guide[] = [
       { href: '/guides/signs-it-might-be-time-for-therapy', label: 'Signs it might be time for therapy' },
     ],
   },
-];
 
-/* STILL TO WRITE — the remaining seven measured content gaps.
- *
- * Ordered by search volume against how well the site currently covers the
- * ground. Each needs the same treatment as the two above: full guide, sourced,
- * and read clinically before the draft flag comes off.
- *
- *   1. separation-and-divorce            — no coverage at all; high volume
- *   2. anxiety-in-relationships          — adjacent to /services/couples-therapy
- *   3. supporting-a-partner-with-anxiety — the searcher is not the client, which
- *                                          changes the whole register
- *   4. attachment-styles                 — very high volume, heavily written
- *                                          elsewhere; only worth doing if it
- *                                          says something the listicles do not
- *   5. ocd-and-intrusive-thoughts        — partial overlap with the existing
- *                                          intrusive-thoughts guide; decide
- *                                          whether to expand that instead of
- *                                          adding a competing page
- *   6. insomnia                          — overlaps /guides/anxiety-and-sleep;
- *                                          same question
- *   7. seasonal-affective-disorder       — overlaps
- *                                          /guides/low-mood-through-a-bc-winter;
- *                                          likely an expansion, not a new page
- *
- * Note the pattern in 4-7: four of the seven may be better served by deepening
- * a page that already ranks than by adding a near-duplicate that competes with
- * it. That is a judgement about this site's existing coverage, not a general
- * rule, and it should be made before writing rather than after.
- */
+  /* Items 1–4 of the still-to-write list, drafted 2026-08-28. Items 5–7 were
+   * checked before writing, per the note that used to sit at the bottom of
+   * this file, and all three resolved to "already absorbed": the intrusive-
+   * thoughts guide carries the OCD threshold and treatment sections (depth3),
+   * anxiety-and-sleep carries CBT-I, and low-mood-through-a-bc-winter carries
+   * the is-it-actually-seasonal section. Writing competing pages would have
+   * split what already ranks. That closes the list: everything measured as
+   * missing is now either published or below, awaiting clinical read. */
+  {
+    draft: true,
+    slug: 'separation-and-divorce',
+    title: 'Separation and divorce: the part nobody plans for',
+    metaTitle: 'Separation & Divorce Counselling | Westpeak',
+    metaDescription:
+      'The emotional work of ending a marriage — deciding, telling people, grieving a future — and where counselling fits at each stage. BC resources included.',
+    eyebrow: 'Guide · Relationships',
+    lede:
+      'There is a version of this page about lawyers and paperwork. This is the other one — about the two years of feeling that surround the paperwork on every side.',
+    shortAnswer:
+      'Separation is usually lived in three overlapping stretches: the deciding, which can take years and is often the loneliest part; the ending itself, which runs on logistics while the feelings queue up behind them; and the after, which is a grief — for the marriage there was, and for the future that had been assumed. Counselling has a different job in each: clarity work while deciding, steadying work through the ending, and grief work after. None of it requires the divorce to be anyone’s fault, and none of it requires you to be coping badly to deserve support.',
+    updated: '2026-08-28',
+    readMinutes: 7,
+    sections: [
+      {
+        h2: 'The deciding, which is its own long season',
+        body: [
+          'Most marriages do not end at a single moment. They end across a long stretch of private arithmetic — should I stay, is this fixable, what would it do to the kids, who would I even be — conducted mostly alone, often for years, usually while performing normal at work and at dinner. If you are in that stretch now, the isolation of it is worth naming: you are carrying a decision you cannot discuss with the person you usually discuss things with.',
+          'Counselling during this stretch is not a commitment to leaving. It is a place to think at full volume — to say the unsayable versions out loud and find out which ones survive being spoken. Some people discover the marriage is worth another real attempt, and arrive at couples work with something to work with. Others discover the decision was already made and what they needed was permission to know it. Both are successes.',
+          'One distinction does real work here: the difference between *I am unhappy in this marriage* and *I am unhappy, and I am in this marriage*. Depression, burnout and midlife grief can all wear a marriage as their explanation. Untangling which is which — before acting on it — is precisely the kind of thing a counsellor who has no stake in your answer is for.',
+        ],
+      },
+      {
+        h2: 'The ending, which runs on logistics',
+        body: [
+          'Once a separation is spoken, life becomes procedural for a while: who lives where, what the money does, what the children are told, who gets told next and in what order. The feelings do not go away during this stretch — they queue. Many people describe functioning eerily well for months and then being levelled by something small, long after everyone assumed they were fine. That is the queue emptying, and it is normal.',
+          'Two practical notes for this stretch. First, the legal and the emotional run on different clocks and should be kept apart deliberately: decisions with long consequences — parenting arrangements, property — deserve to be made slowly and advised properly, not settled in the heat of the worst week. Legal Aid BC’s family-law site is the standard free starting point for the BC legal side, and nothing on this page is legal advice.',
+          'Second, if there are children, the research consensus is blunt and useful: children’s outcomes track the *conflict they are exposed to* far more than the separation itself. The single most protective thing separating parents control is what the children see and overhear. Counselling — individual or co-parenting focused — earns its keep here more than anywhere.',
+        ],
+      },
+      {
+        h2: 'The after, which is a grief',
+        body: [
+          'Divorce grief is real grief with two complications. It is grief for someone still alive — possibly someone you must co-parent with on Tuesdays — and it is grief for a future rather than only a past: the retirement that will not happen, the family table that will not look that way, the version of yourself that existed inside the marriage. The future-loss is the part that blindsides people, because nothing in the paperwork names it.',
+          'It is also one of the few griefs that arrives with an audience holding scorecards. People will want to know whose fault it was, will take sides, will offer congratulations or condolences on a schedule that has nothing to do with yours. Feeling relief and devastation in the same afternoon is not confusion — it is the accurate response to losing something that was both loved and unlivable.',
+          'The timeline is longer than the culture pretends. A year of acute upheaval and a second year of rebuilding is a perfectly ordinary course, and "shouldn’t I be over this by now" is the most common opening sentence in post-separation counselling. The answer is usually no, and that nothing has gone wrong.',
+        ],
+      },
+      {
+        h2: 'Where counselling fits, stage by stage',
+        list: [
+          { label: 'While deciding', detail: 'Individual work, for clarity rather than a verdict. A counsellor’s job is not to save the marriage or end it, and one who arrives with either agenda is doing something other than counselling.' },
+          { label: 'Considering a last real attempt', detail: 'Couples work can be honest about its own limits: it requires two people who both want to be in the room. Where one foot is already out the door, some couples use structured sessions to decide *whether* to try — which is a legitimate use, stated openly.' },
+          { label: 'Through the ending', detail: 'Steadying work: sleep, functioning, the conversations with children and family, and keeping the long-consequence decisions out of the worst weeks.' },
+          { label: 'Afterwards', detail: 'Grief work, identity work, and — often later than expected — the question of what you want the next stretch of life to be, asked as a real question rather than a slogan.' },
+          { label: 'If there was violence or control', detail: 'That changes the picture: safety planning comes before any joint anything, and VictimLinkBC (1-800-563-0808, 24/7) is the provincial line for confidential support and referrals.' },
+        ],
+      },
+    ],
+    midCta: {
+      text: 'Wherever you are in this — still deciding, mid-upheaval, or a year out and not "over it" — a free 15-minute consultation is a low-stakes way to start.',
+      label: 'Book a free consultation',
+    },
+    faqs: [
+      { q: 'Can counselling help me decide whether to leave?', a: 'Yes — that is one of its most common uses, and the counsellor’s job is to help you think clearly, not to steer you toward staying or leaving. Sessions are a place to test the unsayable versions of the question and to untangle the marriage from anything else (depression, burnout) that might be wearing it as an explanation.' },
+      { q: 'Should we try couples counselling before separating?', a: 'If both of you genuinely want to try, it is often worth one honest attempt — couples work has the most to offer while both people are still in the room. If one of you has already decided, sessions can still be useful for ending well, especially where children are involved, but that intention should be stated rather than smuggled.' },
+      { q: 'How do I tell the children?', a: 'Together if at all possible, briefly, honestly, and without assigning blame — with the emphasis on what stays the same and the explicit message that it is not their fault and not their job to fix. What protects children most over time is not the wording of one conversation; it is how much conflict they are exposed to afterwards.' },
+      { q: 'Is it normal to grieve a marriage I chose to leave?', a: 'Completely. Choosing an ending does not cancel the loss — you still lose the future you had assumed, the daily shape of a life, and a version of yourself. Relief and grief in the same week is the standard experience, not a sign you made the wrong call.' },
+      { q: 'Do you handle the legal side?', a: 'No — counselling and legal advice are deliberately separate, and this page is not legal advice. For the BC legal side, Legal Aid BC’s family-law resources are the standard free starting point, and a family lawyer is the right person for anything with long consequences.' },
+    ],
+    sources: [
+      { label: 'Legal Aid BC — Family law in BC', url: 'https://family.legalaid.bc.ca/' },
+      { label: 'Canadian Mental Health Association, BC Division', url: 'https://cmha.bc.ca/' },
+      { label: 'VictimLinkBC', url: 'https://www2.gov.bc.ca/gov/content/justice/criminal-justice/victims-of-crime/victimlinkbc' },
+    ],
+    related: [
+      { href: '/services/couples-therapy', label: 'Couples therapy' },
+      { href: '/guides/grief-without-a-timeline', label: 'Grief without a timeline' },
+      { href: '/guides/life-transitions-and-identity', label: 'Life transitions and identity' },
+      { href: '/compare/individual-vs-couples-therapy', label: 'Individual vs couples therapy' },
+      { href: '/guides/setting-boundaries-with-family', label: 'Setting boundaries with family' },
+    ],
+  },
+
+  {
+    draft: true,
+    slug: 'anxiety-in-relationships',
+    title: 'Anxiety in relationships: when worry moves in with you',
+    metaTitle: 'Anxiety in Relationships | Westpeak Wellness',
+    metaDescription:
+      'Reassurance loops, checked phones, the fear underneath the fight — how anxiety operates inside couples, and what individual and couples work each fix.',
+    eyebrow: 'Guide · Relationships · Anxiety',
+    lede:
+      'Relationship anxiety rarely announces itself as anxiety. It shows up as one more question, one more check, one more fight about nothing that was really about everything.',
+    shortAnswer:
+      'Anxiety inside a relationship usually runs on a loop: a surge of doubt or dread, a bid for relief — reassurance, checking, testing — and a short-lived calm that teaches the anxiety to come back sooner. The other partner, meanwhile, learns their own loop: soothe, comply, or withdraw. None of this means the relationship is wrong; anxious systems attack whatever matters most, and for most adults that is their closest attachment. The work is partly individual (the loop itself) and sometimes joint (what the loop has trained the couple to do), and which one to start with is a genuinely answerable question.',
+    updated: '2026-08-28',
+    readMinutes: 7,
+    sections: [
+      {
+        h2: 'The reassurance loop, drawn once',
+        body: [
+          'The engine of most relationship anxiety is small and consistent. A trigger — an unanswered text, a flat tone, a colleague’s name — produces a spike of dread. The dread demands relief *now*, and the fastest relief available is the partner: "are we okay?", "do you still love me?", a scan of their face, a check of their phone activity. The answer soothes. For about a day.',
+          'The problem is what the soothing teaches. Each cycle confirms that the dread was worth taking seriously and that relief lives outside you, in somebody else’s response. So the interval shortens, the questions need to be stronger to work, and a partner who answered warmly the first hundred times starts answering wearily — which the anxiety reads as evidence, which starts the loop again with better fuel.',
+          'It matters to say this cleanly: nobody in this loop is behaving badly. The anxious partner is doing the thing that works, short-term, exactly the way scratching works on an itch. The other partner is being kind, then being tired, in the order anyone would. The loop is the problem — which is good news, because loops can be worked on directly.',
+        ],
+      },
+      {
+        h2: 'The other costumes it wears',
+        list: [
+          { label: 'The prosecutor', detail: 'Checking, testing, cross-referencing stories — sometimes about fidelity, often about nothing nameable. This is the dread trying to get certainty, and certainty is the one thing no relationship can supply. The demand for it is the symptom.' },
+          { label: 'The mind-reader', detail: '"They said it’s fine but I know it isn’t." Anxiety scans faces and tones for threat and reliably finds it, because a scanner tuned that sensitively produces false positives by design.' },
+          { label: 'The pre-emptive griever', detail: 'Rehearsing the breakup, imagining the funeral, holding back from closeness because losing it later would hurt too much. Distance dressed as self-protection.' },
+          { label: 'The fight about nothing', detail: 'A recurring argument with no stable content — the dishwasher, the tone, the weekend — that is really the loop discharging. Couples often know these fights are strange while having them.' },
+          { label: 'The avoider', detail: 'Not all relationship anxiety pursues. Some of it goes quiet, agrees with everything, and disappears by inches — because any honest statement feels like a risk to the attachment. Peace-keeping that costs the self is still anxiety.' },
+        ],
+      },
+      {
+        h2: 'If you are the anxious one',
+        body: [
+          'The counterintuitive core of the work: the target is not the dread, it is the *relief-seeking*. Dread that is not fed with checking and reassurance genuinely does shrink over time — this is the best-established finding in the treatment of anxiety — but it shrinks by being tolerated, not by being answered. That means the work has an uncomfortable middle, and knowing that in advance is half of getting through it.',
+          'Practically, this looks like: noticing the urge as an urge ("I want to ask if we’re okay for the third time today") rather than as information; delaying the ask and letting the wave crest without it; and telling your partner what you are working on, so that their not-reassuring can be teamwork instead of coldness. A counsellor adds structure, pacing, and a place to work on where the sensitivity was trained — which for many people leads back well before this relationship.',
+          'Worth ruling out with a professional rather than a quiz: when the doubt is constant, contentless and compulsive — endlessly checking *whether you really love them* or *whether they are The One*, with rituals of comparison and confession attached — that pattern sits closer to obsessive-compulsive processes than to ordinary relationship worry, and the treatment differs. The existing guide on intrusive thoughts covers the neighbouring ground.',
+        ],
+      },
+      {
+        h2: 'If you are the partner — and when it becomes couples work',
+        body: [
+          'The partner’s dilemma is real: reassure and feed the loop, or hold back and feel cruel. The workable middle is warmth toward the person and neutrality toward the ritual — "I love you, and I’m not going to answer that for the fourth time tonight" — agreed on in a calm moment rather than improvised mid-spiral. What does not work, at either extreme: organising the whole relationship around preventing the anxiety, or contempt for it.',
+          'It becomes couples work when the loop has trained *both* of you — when pursue-and-withdraw has become the couple’s default choreography, when resentment has compounded, or when the reassurance economy has crowded out ordinary intimacy. Couples approaches read that choreography directly: the pursuing is protest, the withdrawing is self-protection, and both are aimed at the same fear from opposite ends. Individual work on the loop and couples work on the choreography are not rivals; sequencing them is a normal consultation question.',
+        ],
+      },
+    ],
+    midCta: {
+      text: 'Whether this is your loop or your household’s, fifteen minutes is enough to work out which kind of help fits first.',
+      label: 'Book a free consultation',
+    },
+    faqs: [
+      { q: 'Does relationship anxiety mean I’m with the wrong person?', a: 'Not by itself. Anxiety attacks what matters most, and a secure-seeming relationship can host severe relationship anxiety while a poor one hosts none. The more useful question is what the anxiety does — how it behaves, what feeds it — which is answerable, unlike "is this The One", which is exactly the unanswerable question the anxiety keeps asking.' },
+      { q: 'Is constant reassurance-seeking really that bad?', a: 'It is less that it is bad and more that it does not work: each reassurance buys shorter relief and teaches the dread to return, while slowly exhausting the person providing it. Reducing it — gradually, as teamwork, with the partner warm toward you and neutral toward the ritual — is uncomfortable and genuinely effective.' },
+      { q: 'Should I look at my partner’s phone if it would put my mind at rest?', a: 'The relief would be real and brief, and the checking would become the new floor. Surveillance feeds the same loop as reassurance, with the added cost of eroding the trust the anxiety claims to be protecting. If the urge is constant, that is a signal about the anxiety — or occasionally about the relationship — and both deserve better tools than a phone check.' },
+      { q: 'Individual or couples counselling first?', a: 'A fair rule of thumb: if the loop lives mainly in one person’s head, individual work first; if it has become the couple’s choreography — pursue and withdraw, fights about nothing, a reassurance economy — couples work addresses what individual work cannot reach. A consultation can sort this in one conversation, and getting it "wrong" first is not fatal.' },
+      { q: 'What if my anxiety is about real behaviour — lying, an affair?', a: 'Then it is not an anxiety disorder, it is information. Anxiety work applies when the alarm keeps sounding without a fire. Where there has been a real breach, the work is trust repair, which is different, slower, and also something couples therapy explicitly does.' },
+    ],
+    sources: [
+      { label: 'Anxiety Canada', url: 'https://www.anxietycanada.com/' },
+      { label: 'The Gottman Institute — the Gottman Method', url: 'https://www.gottman.com/about/the-gottman-method/' },
+    ],
+    related: [
+      { href: '/services/couples-therapy', label: 'Couples therapy' },
+      { href: '/services/anxiety-counselling', label: 'Anxiety counselling' },
+      { href: '/guides/intrusive-thoughts-and-what-they-mean', label: 'Intrusive thoughts and what they mean' },
+      { href: '/compare/individual-vs-couples-therapy', label: 'Individual vs couples therapy' },
+      { href: '/guides/high-functioning-anxiety', label: 'High-functioning anxiety' },
+    ],
+  },
+
+  {
+    draft: true,
+    slug: 'supporting-a-partner-with-anxiety',
+    title: 'Supporting a partner with anxiety, without disappearing',
+    metaTitle: 'Supporting an Anxious Partner | Westpeak',
+    metaDescription:
+      'For the partner: what helps in the moment, the accommodation trap, staying a partner rather than becoming a carer — and when to suggest professional help.',
+    eyebrow: 'Guide · For the partner',
+    lede:
+      'Almost everything written about anxiety is addressed to the person who has it. You are the person beside them — and your version of this is real, largely unspoken, and worth a page of its own.',
+    shortAnswer:
+      'Loving someone with anxiety usually means learning three things nobody teaches: how to be steady in the moment without arguing with the fear or agreeing with it; how to notice when helpful adjustments have quietly become an architecture of avoidance built around the anxiety; and how to stay a partner rather than becoming a full-time carer. You cannot make their anxiety go away, and it is not your job to. What is yours: your steadiness, your limits, honesty about the cost, and the encouragement — not the ultimatum — toward proper help.',
+    updated: '2026-08-28',
+    readMinutes: 7,
+    sections: [
+      {
+        h2: 'In the moment: steady beats soothing',
+        body: [
+          'When the spiral is happening, two instincts arrive and both make it longer. The first is logic — "there’s nothing to worry about, we checked, remember?" — which invites the anxiety to debate, and anxiety is an excellent debater. The second is total accommodation — cancel the thing, answer the fiftieth question, take over — which relieves tonight and enlarges tomorrow.',
+          'What tends to actually help is duller than either: presence without argument. Slow your own voice and body first, because a nervous system in the room that is not escalating is the most useful thing you can offer. Acknowledge the feeling without endorsing the forecast — "this is really gripping you tonight" rather than "you’re right, it might all go wrong" or "that’s ridiculous". Ask "do you want help thinking, or company?" — the answer is usually company, and the question itself dignifies them as the expert on what they need.',
+          'And afterwards, when it has passed, is when the real conversations belong — what helped, what didn’t, what you will each try next time. Mid-spiral is for steadiness; design happens in peacetime.',
+        ],
+      },
+      {
+        h2: 'The accommodation trap',
+        body: [
+          'Here is the mechanism most partners are inside before they can name it. Out of love, you adjust: you drive because highways are hard, you answer the "are you sure it’s fine" texts, you make the phone calls they dread, you stop suggesting the trips that trigger the spiral. Each adjustment is kind, reasonable, and relieving — for both of you.',
+          'The cost only shows at the scale of years: the anxiety’s territory grows, because everything it was protected from it never had to face; your territory shrinks; and the relationship slowly reorganises itself around what the anxiety will permit. Clinicians call the pattern accommodation, and reducing it — gradually, warmly, and ideally with the anxious partner’s agreement — is one of the best-supported things families and partners can do to help.',
+          'The operative word is *gradually*. Withdrawing every accommodation at once is not therapy, it is an ambush. The workable version is chosen together in a calm moment: one accommodation at a time, named out loud — "I’m going to stop texting you confirmations from the road, because we both know it feeds the worry" — held with warmth, and expected to be uncomfortable for a while before it is better.',
+        ],
+      },
+      {
+        h2: 'Staying a partner, not becoming a carer',
+        list: [
+          { label: 'Keep your own life load-bearing', detail: 'Friendships, work you care about, things you do without them — these are not disloyalty, they are the structure that lets you keep showing up. A support system of one collapses on both people.' },
+          { label: 'Honesty about the cost is allowed', detail: '"I love you and I’m worn out tonight" is not an accusation. Partners who hide the cost until it becomes resentment do the relationship no favour; anxiety can hear honest limits far better than it can survive quiet contempt.' },
+          { label: 'You are allowed to decline the rituals', detail: 'Warm toward the person, neutral toward the ritual: "I’m not going to re-answer that one, love you" — agreed in peacetime — is support, not cruelty. Feeding the ritual forever is neither.' },
+          { label: 'Watch your own weather', detail: 'Partners of anxious people quite often develop their own anxiety or low mood, by contagion and by load. Your own counselling is a legitimate thing to want, on its own merits, not only as logistics support for theirs.' },
+          { label: 'Know what is beyond this page', detail: 'Panic that ends in the ER, agoraphobia that has closed the front door, drinking that has become the treatment, or talk of not wanting to be here — those need professional involvement, not better partner technique. In crisis: 9-8-8 by call or text, or BC’s line at 310-6789.' },
+        ],
+      },
+      {
+        h2: 'Suggesting therapy without it landing as a verdict',
+        body: [
+          'The sentence to avoid is any version of "you need help", delivered mid-fight — it arrives as a character judgement and gets defended against accordingly. What tends to land better: a calm moment, "I" rather than "you", the cost named honestly, and the ask made small. "I love you, I watch how hard this is, and it’s wearing on both of us. Would you try one conversation with someone? Fifteen minutes, free, and I’ll sit with you while you book it if you want."',
+          'Two realities to hold at once. Adults get to decline help, and pushing harder usually entrenches the refusal — what you control is your steadiness, your accommodations, and your limits, which themselves often shift the system enough that help starts to look appealing. And: you asking is not overstepping. Partners are usually the first people to see the true size of an anxiety problem, and saying what you see, kindly, is part of the job description.',
+          'If they will not go, going yourself is not a consolation prize. It is often the single most effective move available — for your own footing, and because one person changing their steps reliably changes the dance.',
+        ],
+      },
+    ],
+    midCta: {
+      text: 'If you are the steady one and running low, that is a complete reason to talk to someone — with your partner or on your own.',
+      label: 'Book a free consultation',
+    },
+    faqs: [
+      { q: 'My partner’s anxiety is exhausting me. Is it wrong to say so?', a: 'It is wrong not to, eventually. Hidden costs come out as resentment, which anxiety reads far more accurately than it reads reassurance. "I love you and I’m tired tonight," said plainly and without blame, is a form of intimacy — and it models the honesty you are hoping the anxiety will eventually allow them.' },
+      { q: 'Should I answer my partner’s constant "are you okay / are we okay" checks?', a: 'Warmly, a reasonable number of times — and then, by agreement made in a calm moment, stop feeding the ritual while staying warm to the person. Endless reassurance genuinely worsens anxiety over time; the middle path is love for them and neutrality toward the checking.' },
+      { q: 'What if they refuse to get help?', a: 'Adults are allowed to refuse, and pressure usually entrenches it. What remains in your control: your steadiness in the moment, a gradual reduction of the accommodations that keep the anxiety comfortable, honest limits, and your own support. Systems change when one person changes; partners who start their own counselling often report the standoff moving within months.' },
+      { q: 'Is it my job to calm my partner down?', a: 'It is a thing you can offer; it is not a job you can hold. The distinction matters: a partner who has become the sole regulation strategy is an accommodation, and both people feel the weight of it. The aim over time is that your steadiness is one resource among several — alongside their own skills, and ideally a professional.' },
+      { q: 'Can I come to a session about my partner’s anxiety?', a: 'You can book one for yourself about exactly that — how to support them, where your limits are, what the load is doing to you — without your partner attending or even knowing the content. Where the anxiety has reshaped the couple’s whole pattern, couples sessions with both of you are the other route.' },
+    ],
+    sources: [
+      { label: 'Anxiety Canada', url: 'https://www.anxietycanada.com/' },
+      { label: 'Canadian Mental Health Association, BC Division', url: 'https://cmha.bc.ca/' },
+    ],
+    related: [
+      { href: '/guides/supporting-someone-who-is-struggling', label: 'Supporting someone who is struggling' },
+      { href: '/guides/anxiety-in-relationships', label: 'Anxiety in relationships' },
+      { href: '/services/anxiety-counselling', label: 'Anxiety counselling' },
+      { href: '/services/couples-therapy', label: 'Couples therapy' },
+      { href: '/guides/talking-to-your-family-about-therapy', label: 'Talking to your family about therapy' },
+    ],
+  },
+
+  {
+    draft: true,
+    slug: 'attachment-styles',
+    title: 'Attachment styles: a useful lens, not a life sentence',
+    metaTitle: 'Attachment Styles, Honestly | Westpeak',
+    metaDescription:
+      'What attachment styles actually describe, what the quizzes get wrong, why "anxious" and "avoidant" are not diagnoses — and how earned security works.',
+    eyebrow: 'Guide · Relationships',
+    lede:
+      'The internet has turned four research categories into a personality horoscope and a way to lose arguments. Underneath the content mill sits an idea that is genuinely worth having — if it is held the right way round.',
+    shortAnswer:
+      'Attachment theory describes how early caregiving tends to shape adult expectations of closeness: whether other people are experienced as reliably there (secure), unreliably there (anxious patterns), reliably not-there (avoidant patterns), or frighteningly unpredictable (disorganised patterns). Four things the quiz culture drops: these are dimensions, not boxes; they describe *strategies that once worked*, not character; they vary across relationships and under stress rather than being a fixed type; and they change — "earned security" is one of the best-documented ideas in the field. Used as a lens, attachment is clarifying. Used as a label — especially on a partner — it is usually just a new vocabulary for an old fight.',
+    updated: '2026-08-28',
+    readMinutes: 8,
+    sections: [
+      {
+        h2: 'What the theory actually says',
+        body: [
+          'The core claim is modest and well-supported: infants form expectations about whether comfort comes when they signal for it, and those expectations — carried forward as working models — tilt how adults approach closeness, conflict and separation. Someone whose signals were answered reliably tends to find closeness unremarkable. Someone whose signals were answered unpredictably tends to signal louder and monitor harder. Someone whose signals were consistently unanswered tends to stop signalling and to experience need itself as a liability. And someone for whom the source of comfort was also the source of fear can carry both strategies at once, pulling close and pushing away in the same motion.',
+          'Notice what this framing does: it describes *strategies that were rational* under the conditions they were learned in. The child who stopped asking was right to stop asking, then. The adult pattern is yesterday’s solution applied to today’s relationship — which is a far kinder and more accurate story than "I’m broken" or "they’re incapable of love", and it is the story the actual research tells.',
+          'It is also why the patterns are activated by *stakes*. Plenty of people are serenely secure with friends and colleagues and markedly anxious or avoidant with the one person whose leaving would matter. That is not hypocrisy; it is the system doing what it was built for — attachment strategies run on threat to the bond, and only the important bonds qualify.',
+        ],
+      },
+      {
+        h2: 'What the quiz culture gets wrong',
+        list: [
+          { label: 'Boxes instead of dimensions', detail: 'The research measures two continuous dimensions — roughly, anxiety about abandonment and discomfort with closeness. Most people sit somewhere in the middle of both. The four "types" are regions of that map, not species of person.' },
+          { label: 'Identity instead of strategy', detail: '"I’m an avoidant" does different work than "I learned to manage closeness by keeping distance." The first is a fixed trait to be accommodated; the second is a pattern with a history, which is exactly the kind of thing therapy changes.' },
+          { label: 'A weapon instead of a lens', detail: 'The most common misuse is diagnostic warfare: "you’re so avoidant" as the sophisticated version of "you never let me in." Labelling a partner mid-argument is pursuit wearing a lab coat, and it reliably produces more of the distance it complains about.' },
+          { label: 'Destiny instead of statistics', detail: 'Early attachment tilts the odds; it does not write the script. Adult security is influenced by later relationships, chosen partners, therapy, and plain reflection — the research on "earned security" exists because substantial numbers of people move.' },
+          { label: 'An excuse instead of an explanation', detail: '"That’s just my attachment style" explains a pattern; it does not license it. Understanding why you shut down mid-conflict is the beginning of the work, not a substitute for it.' },
+        ],
+      },
+      {
+        h2: 'Earned security, which is the actual point',
+        body: [
+          'The most hopeful finding in the attachment literature is the least shared on social media: working models update. Researchers coined "earned security" for adults whose early conditions predicted insecure patterns but who function securely — and the routes there are unglamorous and consistent. A long relationship with someone steady, in which the old forecast keeps failing to come true. A therapeutic relationship, which is partly *designed* to be that disconfirming experience. And the slower work of making sense of your own history until it is a story you can tell coherently — which, intriguingly, is what the gold-standard adult attachment research actually measures: not a happy childhood, but a coherent account of the one you had.',
+          'That last point deserves underlining, because it relocates the whole project. The goal is not to have had secure attachment; that ship has sailed for everyone by about age two. The goal is to relate honestly to what happened — neither dismissing it ("it was fine, I never think about it") nor still drowning in it — and the patterns tend to loosen as the story becomes tellable. That is much of what longer-term individual therapy is, described from the inside.',
+          'In couples, the lens earns its keep when it is turned on the *dance* rather than the dancers: pursue-and-withdraw is two attachment strategies interlocking, each triggering the other, each making perfect sense from inside. Couples approaches built on exactly this reading exist, and the comparison page on Gottman and EFT covers how they work with it differently.',
+        ],
+      },
+      {
+        h2: 'Using the lens without the label',
+        body: [
+          'A practical translation, if the quiz vocabulary has already moved into your house. Replace "what’s your attachment style?" with three questions that do the same work better: *What do I do when I feel the bond is threatened — pursue, shut down, or both?* *What was that strategy protecting me from, and when did it start?* *What does my partner’s strategy look like from inside their history rather than from inside my hurt?*',
+          'Those questions convert a typology into curiosity, which is the register change that makes the idea useful. They are also, not coincidentally, the opening questions of a decent first month of therapy — individual where the pattern follows you across relationships, couples where the interlock is the problem. A free consultation is a reasonable place to say "I keep reading about attachment and recognising myself" and find out what the non-horoscope version of the work looks like.',
+        ],
+      },
+    ],
+    midCta: {
+      text: 'If you recognised your own dance in this page, the working version of the question fits in fifteen minutes.',
+      label: 'Book a free consultation',
+    },
+    faqs: [
+      { q: 'What are the four attachment styles?', a: 'Secure, anxious-preoccupied, dismissive-avoidant and fearful-avoidant (disorganised) — but the research behind the labels measures two continuous dimensions, attachment anxiety and attachment avoidance, and most people sit between the corners. The four names are regions on a map, useful for orientation and misleading as identities.' },
+      { q: 'Can my attachment style change?', a: 'Yes — this is one of the better-documented ideas in the field, under the name "earned security". The consistent routes are a sustained relationship with someone steady, a therapeutic relationship, and making coherent sense of your own history. Change is gradual and real; the styles are strategies, not wiring.' },
+      { q: 'Are online attachment quizzes accurate?', a: 'They vary from research-adjacent to horoscope. Even the good ones share a limit: they measure your self-report on a calm day, while attachment strategies show themselves under threat, with the person who matters most. Treat any result as a conversation starter, not a diagnosis — no attachment style is a clinical diagnosis at all.' },
+      { q: 'My partner is avoidant and I’m anxious. Are we doomed?', a: 'No — the anxious-avoidant pairing is common precisely because the strategies attract, and the research on couples work is clear that the *cycle* between two people is workable even when neither person’s history changes. What predicts trouble is not the pairing but an untouched cycle plus contempt. Naming the dance together, without weaponising the labels, is the actual first step.' },
+      { q: 'Is attachment theory about blaming parents?', a: 'No. Most insecure attachment traces to ordinary, non-abusive mismatches — stressed households, depressed caregivers, temperament, circumstance — and most parents were running their own inherited strategies. The point of the lens is coherence about what happened, which is compatible with compassion for the people it happened with. Blame is optional and usually unhelpful; the intergenerational trauma guide covers the wider frame.' },
+    ],
+    sources: [
+      { label: 'ICEEFT — attachment science in couples therapy', url: 'https://iceeft.com/' },
+      { label: 'CAMH — mental illness and addiction index', url: 'https://www.camh.ca/en/health-info/mental-illness-and-addiction-index' },
+    ],
+    related: [
+      { href: '/guides/anxiety-in-relationships', label: 'Anxiety in relationships' },
+      { href: '/guides/intergenerational-trauma-explained', label: 'Intergenerational trauma explained' },
+      { href: '/compare/gottman-method-vs-eft-for-couples', label: 'Gottman Method vs EFT' },
+      { href: '/services/couples-therapy', label: 'Couples therapy' },
+      { href: '/guides/what-trauma-actually-means', label: 'What trauma actually means' },
+    ],
+  },
+];
