@@ -87,4 +87,7 @@ export type TrackedEvent =
   | 'tool_complete'
   | 'tool_share'
   | 'scroll_75'
-  | 'outbound_click';
+  | 'outbound_click'
+  /* Only fires once NEXT_PUBLIC_PHONE is set and the tel: links exist —
+   * see lib/site.ts. Until then it reads as zero, which is accurate. */
+  | 'phone_click';

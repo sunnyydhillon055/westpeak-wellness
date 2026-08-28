@@ -124,7 +124,21 @@ export default function Header() {
               Client portal
             </Link>
           </li>
-          <li className="nav-cta" style={{ '--i': NAV.length + 2 } as CSSProperties}>
+          {/* Appears only once NEXT_PUBLIC_PHONE is set — see lib/site.ts. */}
+          {site.phone && (
+            <li className="nav-portal" style={{ '--i': NAV.length + 2 } as CSSProperties}>
+              <a
+                href={`tel:${site.phoneTel}`}
+                onClick={() => {
+                  setOpen(false);
+                  track('phone_click', { location: 'header' });
+                }}
+              >
+                {site.phone}
+              </a>
+            </li>
+          )}
+          <li className="nav-cta" style={{ '--i': NAV.length + 3 } as CSSProperties}>
             <Link
               className="btn btn--primary"
               href={site.bookingPath}

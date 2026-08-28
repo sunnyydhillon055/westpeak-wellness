@@ -74,6 +74,21 @@ export const site = {
     registerUrl: "https://bc-counsellors.org/counsellors/",
   },
   email: "info@westpeakwellness.com",
+  /* ---- Phone (dark until a number exists) --------------------------------
+   * The practice currently publishes NO number — a deliberate decision
+   * recorded in OFFSITE_KIT_2026-08-27.md, with callback-request capture on
+   * the enquiry form as the interim channel. Every audit since 9 Aug has
+   * scored contact accessibility last because of it, so the site is wired to
+   * flip the moment the decision lands: set NEXT_PUBLIC_PHONE (e.g.
+   * "+1-604-555-0123") in Vercel and redeploy, and the footer link, header
+   * link, sticky-bar Call button, ContactPoint schema, vCard TEL line and
+   * contact-page block all appear at once. Unset, every one of them renders
+   * nothing — never a placeholder, never a fake number.
+   *
+   * phone      — display form, exactly as typed in the env var
+   * phoneTel   — tel: form, digits and leading + only */
+  phone: process.env.NEXT_PUBLIC_PHONE || "",
+  phoneTel: (process.env.NEXT_PUBLIC_PHONE || "").replace(/[^+\d]/g, ""),
   instagram: "@westpeakwellness",
   instagramUrl: "https://www.instagram.com/westpeakwellness",
   /* ---- Booking & payments (Cliniko) -----------------------------------

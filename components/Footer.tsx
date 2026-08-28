@@ -4,7 +4,7 @@ import { services } from '@/lib/services';
 import Motif from '@/components/brand/Motif';
 import SectionDivider from '@/components/brand/SectionDivider';
 import { TRUST_ICONS } from '@/lib/icon-map';
-import { Mail, AtSign, LifeBuoy } from 'lucide-react';
+import { Mail, AtSign, LifeBuoy, Phone } from 'lucide-react';
 
 export default function Footer() {
   const Credential = TRUST_ICONS.credential;
@@ -45,6 +45,14 @@ export default function Footer() {
                 <li><Hours aria-hidden="true" strokeWidth={1.7} /><span>{site.hours}</span></li>
               </ul>
               <div className="footer-social">
+                {/* Renders only once NEXT_PUBLIC_PHONE is set — see lib/site.ts.
+                    Not a crisis line: those live in the crisis block below,
+                    which is why this one carries the practice name context. */}
+                {site.phone && (
+                  <a href={`tel:${site.phoneTel}`} className="footer-social-link">
+                    <Phone aria-hidden="true" strokeWidth={1.7} /><span>{site.phone}</span>
+                  </a>
+                )}
                 <a href={`mailto:${site.email}`} className="footer-social-link">
                   <Mail aria-hidden="true" strokeWidth={1.7} /><span>{site.email}</span>
                 </a>

@@ -4,7 +4,7 @@ import { site } from '@/lib/site';
 import { readAvailability } from '@/lib/availability';
 import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
-import { Mail, MonitorSmartphone, Clock, MapPin, Languages as LangIcon, AtSign } from 'lucide-react';
+import { Mail, MonitorSmartphone, Clock, MapPin, Languages as LangIcon, AtSign, Phone } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import InboundForm from '@/components/InboundForm';
 
@@ -51,6 +51,10 @@ export default async function Contact({
                 answer well, but whether they will answer at all — and it costs
                 nothing to say. Every enquiry acknowledgement makes the same
                 promise, so the two must be changed together. */}
+            {/* Renders only once NEXT_PUBLIC_PHONE is set — see lib/site.ts. */}
+            {site.phone && (
+              <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Phone strokeWidth={1.7} /></span><div><h3>Phone</h3><p><a href={`tel:${site.phoneTel}`}>{site.phone}</a><br /><span style={{ color: 'var(--ink-faint)', fontSize: '.92em' }}>Voicemail outside session hours — leave a first name and a good time to call back</span></p></div></div>
+            )}
             <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Mail strokeWidth={1.7} /></span><div><h3>Email</h3><p><a href={`mailto:${site.email}`}>{site.email}</a><br /><span style={{ color: 'var(--ink-faint)', fontSize: '.92em' }}>Replies within one business day</span></p></div></div>
             <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><MonitorSmartphone strokeWidth={1.7} /></span><div><h3>Sessions</h3><p>Fully online, anywhere in British Columbia</p></div></div>
             <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Clock strokeWidth={1.7} /></span><div><h3>Hours</h3><p>{windows.map((a) => `${a.day} ${a.from}–${a.to}`).join(' · ')}</p></div></div>

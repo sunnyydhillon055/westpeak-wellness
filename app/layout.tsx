@@ -117,6 +117,19 @@ const orgSchema = {
     { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Wednesday', 'Thursday', 'Friday'], opens: '18:00', closes: '19:00' },
   ],
   knowsLanguage: ['en-CA', 'pa'],
+  /* Telephone, only once a real number exists — see the phone note in
+   * lib/site.ts. An empty telephone field in schema is worse than none. */
+  ...(site.phone
+    ? {
+        telephone: site.phone,
+        contactPoint: {
+          '@type': 'ContactPoint',
+          telephone: site.phone,
+          contactType: 'customer service',
+          availableLanguage: ['en', 'pa'],
+        },
+      }
+    : {}),
   /* Entity disambiguation, added 2026-08-28. The brand SERP carries scraper
      directories asserting a White Rock location, a Surrey street address, and
      a "holistic wellness center" categorisation — none of it from this

@@ -20,6 +20,7 @@ export function GET() {
     'VERSION:3.0',
     `FN:${site.name}`,
     `ORG:${site.legalName}`,
+    ...(site.phone ? [`TEL;TYPE=WORK,VOICE:${site.phoneTel}`] : []),
     `EMAIL;TYPE=INTERNET:${site.email}`,
     `URL:${site.domain}`,
     `NOTE:${site.serviceArea} — ${site.languages}. Free 15-minute consultation: ${site.domain}${site.bookingPath}`,

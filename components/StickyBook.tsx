@@ -34,6 +34,18 @@ export default function StickyBook() {
             or send a message instead
           </Link>
         </div>
+        {/* Appears only once NEXT_PUBLIC_PHONE is set (lib/site.ts). For the
+            caller-first person the phone is the whole decision, so it sits
+            beside Book rather than in a menu — but Book stays primary. */}
+        {site.phone && (
+          <a
+            className="btn btn--ghost sticky-book-btn"
+            href={`tel:${site.phoneTel}`}
+            onClick={() => track('phone_click', { location: 'sticky' })}
+          >
+            Call
+          </a>
+        )}
         <Link className="btn btn--primary sticky-book-btn" href={site.bookingPath}>
           Book
         </Link>
