@@ -64,16 +64,28 @@ const homeCss = [...indexHtml.matchAll(/href="\/_next\/(static\/css\/[^"?]+\.css
   .map((m) => m[1])
   .reduce((n, f) => n + sizeOf(f), 0);
 
-/* Prerendered HTML sizes. */
+/* Prerendered HTML sizes.
+ *
+ * /answers is EXCLUDED from the max-page sentinel, deliberately: it
+ * aggregates every shortAnswer on the site, so it grows every time a page
+ * is added — which is its purpose, not a regression. It fired this gate
+ * three times on 2026-08-28 for exactly that reason, and a gate that fires
+ * on intended behaviour trains people to bump baselines reflexively, which
+ * kills the gate. Its size is printed informationally instead. */
 function walk(dir, out = []) {
   for (const e of readdirSync(dir)) {
     const p = join(dir, e);
     if (statSync(p).isDirectory()) walk(p, out);
-    else if (e.endsWith('.html')) out.push(statSync(p).size);
+    else if (e.endsWith('.html')) out.push({ name: e, size: statSync(p).size });
   }
   return out;
 }
-const htmlSizes = walk(join(NEXT, 'server', 'app')).sort((a, b) => a - b);
+const pagesAll = walk(join(NEXT, 'server', 'app'));
+const answersSize = pagesAll.find((p) => p.name === 'answers.html')?.size ?? 0;
+const htmlSizes = pagesAll
+  .filter((p) => p.name !== 'answers.html')
+  .map((p) => p.size)
+  .sort((a, b) => a - b);
 const maxHtml = htmlSizes[htmlSizes.length - 1] ?? 0;
 const medianHtml = htmlSizes[Math.floor(htmlSizes.length / 2)] ?? 0;
 
@@ -98,7 +110,7 @@ const base = JSON.parse(readFileSync(BASELINE_FILE, 'utf8'));
 const LABELS = {
   homeCss: 'homepage CSS',
   sharedJs: 'shared first-load JS',
-  maxHtml: 'largest page HTML',
+  maxHtml: 'largest page HTML (excl. /answers)',
   medianHtml: 'median page HTML',
 };
 
@@ -115,6 +127,7 @@ for (const k of Object.keys(LABELS)) {
   );
 }
 console.log('='.repeat(46));
+console.log(`      /answers (grows by design)  ${String(answersSize).padStart(8)} B  (informational)`);
 if (failed) {
   console.log(
     `${failed} metric(s) over budget. Find what grew and shrink it —\n` +

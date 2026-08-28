@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Figure from '@/components/Figure';
 import Link from 'next/link';
 import { site } from '@/lib/site';
+import { gurmukhi } from '@/app/fonts-gurmukhi';
 import SchedulerEmbed from '@/components/SchedulerEmbed';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import InboundForm from '@/components/InboundForm';
@@ -77,6 +78,27 @@ export default function Book({
                 sitting rather than where your counsellor is — so this is a registration and
                 insurance boundary rather than a preference. If you are elsewhere in Canada, say so
                 on the consultation and you will be pointed toward someone who can properly see you.
+              </p>
+              {/* Punjabi searchers reach this page directly from Punjabi-language
+                  SERPs and previously met a wall of English at the highest-intent
+                  moment on the site. The Gurmukhi sentence is reused VERBATIM
+                  from /punjabi (already reviewed) — nothing here is newly
+                  composed Punjabi, per the fluent-review rule. */}
+              <p className="book-brief-note">
+                <span className={gurmukhi.className} lang="pa">
+                  ਸੈਸ਼ਨ ਪੰਜਾਬੀ ਵਿੱਚ, ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ, ਜਾਂ ਦੋਹਾਂ ਵਿੱਚ ਹੋ ਸਕਦੇ ਹਨ
+                </span>{' '}
+                — the consultation itself can be in Punjabi, English, or both.{' '}
+                <Link href="/punjabi">ਪੰਜਾਬੀ ਵਿੱਚ ਜਾਣਕਾਰੀ</Link>
+              </p>
+              {/* The last-mile objections, answered where they strike rather
+                  than three clicks away on /pricing and /client-portal. */}
+              <p className="book-brief-note">
+                <strong>After you book:</strong> a confirmation email arrives with the video link —
+                nothing to install, any device with a camera works. Rescheduling or cancelling is
+                free up to {site.cancellationHours} hours ahead. And nothing about the call requires
+                a diagnosis, a referral, or a decision on the spot. The full shape of the call is on{' '}
+                <Link href="/resources/before-your-first-consultation">the consultation-prep page</Link>.
               </p>
             </div>
             <div className="book-hours">

@@ -454,6 +454,7 @@ const coreGuides: Guide[] = [
       { label: "CMHA BC — finding help", url: "https://cmha.bc.ca/" },
     ],
     related: [
+      { href: "/resources/before-your-first-consultation", label: "Before your first consultation — the 15-minute version" },
       { href: "/book", label: "Book a free 15-minute consultation" },
       { href: "/faq", label: "Frequently asked questions about starting therapy" },
       { href: "/compare/rcc-vs-psychologist-vs-social-worker-bc", label: "RCC, psychologist, or social worker in BC" },

@@ -80,6 +80,7 @@ export const depth4: Record<string, DepthSection[]> = {
       body: [
         'The phrase people actually search is "online trauma therapist", and it deserves a direct answer: trauma therapy over secure video is an established practice, not a pandemic improvisation. The structured trauma protocols — EMDR with on-screen or self-administered bilateral stimulation, cognitive processing work, stabilisation and resourcing — all adapt to video, and the [research on video-delivered therapy](/guides/is-online-therapy-as-effective-as-in-person) includes trauma-focused work specifically.',
         'Two things matter more online than in a room, and both are manageable. The first is your space: trauma work needs privacy and a plan for the hour after the session — not a car in a work parking lot before a shift. The second is pacing, which is a clinical skill rather than a format property: a trauma therapist who rushes is a problem in any medium, and one who paces well loses nothing over video. For some people the screen genuinely helps — being in your own home, with your own exits, changes what feels sayable.',
+        'And where the work keeps being cut short by the standard hour — a target memory that takes twenty minutes just to access — the [90-minute EMDR intensive](/services/emdr-intensive) exists for exactly that arithmetic, once stability is in place.',
       ],
     },
   ],
@@ -149,7 +150,7 @@ export const depth4: Record<string, DepthSection[]> = {
       h2: 'The work-and-money cluster, mapped',
       body: [
         'This page is the hub of a set that now covers the whole arc, each piece written to stand alone: [sick days and mental-health days](/guides/sick-days-and-mental-health-days-bc) for the single-day entitlement; [stress leave](/guides/stress-leave-bc) for the full certified-leave picture; [getting the doctor’s note](/guides/doctors-note-for-a-mental-health-leave) for the appointment the leave hinges on; [EI sickness benefits](/guides/ei-sickness-benefits-and-therapy) for the money during it; [returning to work](/guides/return-to-work-after-a-mental-health-leave) for the stretch where leaves either consolidate or unravel; [WorkSafeBC psychological-injury claims](/resources/worksafebc-psychological-injury-claims) for when work caused the injury; and [disability benefits](/resources/disability-benefits-and-counselling-bc) for when 26 weeks is not enough.',
-        'If you are reading this in advance of needing it: that is the best time, and the two pages worth reading first are the sick-days one and the stress-leave one — the entitlement you will use casually, and the map you will want ready.',
+        'If you are reading this in advance of needing it: that is the best time, and the two pages worth reading first are the sick-days one and the stress-leave one — the entitlement you will use casually, and the map you will want ready. And if you are reading it as the employer rather than the employee, the [counselling support for BC teams](/resources/counselling-support-for-bc-teams) page is this cluster from your side of the desk.',
       ],
     },
   ],

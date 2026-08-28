@@ -585,4 +585,130 @@ export const moreResources: Resource[] = [
       { href: '/resources/psychiatry-and-assessment-in-bc', label: 'Psychiatry and assessment in BC' },
     ],
   },
+
+  /* Conversion-side pages, 2026-08-28: the consult-prep page (linked from the
+   * booking flow — fewer no-shows, deeper intent) and the employer page (a
+   * client channel no competitor in the measured set serves). */
+  {
+    slug: 'before-your-first-consultation',
+    figure: 'first-session-flow',
+    title: 'Before your first consultation: what to expect, what to bring',
+    metaTitle: 'Before Your First Consultation | Westpeak',
+    metaDescription:
+      'What actually happens on the free 15-minute call, the one thing worth preparing, the tech checklist, and every version of nervous that is normal.',
+    eyebrow: 'Resource · Getting started',
+    lede:
+      'Fifteen minutes, no card, no couch. Here is the whole shape of it, so the only unknown left is whether the fit feels right — which is the one thing the call exists to find out.',
+    shortAnswer:
+      'The free consultation is a 15-minute video call with your counsellor — not a therapy session, not an intake interview, and not a commitment. You will be asked, gently, what brings you; you can ask anything about how the work runs; and both of you are deciding fit. Preparation is one sentence: what you would want to be different. The tech is any device with a camera and a private-enough corner. Nerves are the normal state on this call, and mentioning them is allowed — it tends to help.',
+    updated: '2026-08-28',
+    readMinutes: 4,
+    sections: [
+      {
+        h2: 'What the fifteen minutes actually contain',
+        body: [
+          'The shape is consistent: a hello that is allowed to be awkward, a question like "what has you reaching out now?", space for whatever version of an answer you have, your questions about how sessions work, and — if you want it — a concrete next step. Nothing is diagnosed, nothing is decided on the call, and "I want to think about it" is a fully respectable ending. So is "I don’t think this is the right fit," said by either of you; the call exists to make that discovery cheap.',
+          'You do not need a tidy story. "Things have been heavy and I don’t know exactly why" is a complete and common opening. If it helps to prepare something, prepare one sentence: what you would want to be different in three months. Everything else can be found together later.',
+          'Questions worth asking, if you want a list to steal from: how sessions typically run, experience with what you are bringing, fees and how [coverage works](/resources/bc-extended-health-coverage-for-counselling), and anything from the [questions-to-ask guide](/guides/questions-to-ask-a-therapist). A counsellor who bristles at being interviewed is answering a question too.',
+        ],
+      },
+      {
+        h2: 'The practical checklist',
+        list: [
+          { label: 'A device with a camera', detail: 'Phone, tablet or laptop — nothing to install; the confirmation email carries the video link. Headphones help more than people expect, for privacy and for feeling less like a broadcast.' },
+          { label: 'A private-enough corner', detail: 'A bedroom, a parked car, an office with a door. It needs to be private for fifteen minutes, not soundproofed for a lifetime — and saying "I only have semi-privacy today" is fine.' },
+          { label: 'The location question', detail: 'Sessions are for people physically in British Columbia — a registration and insurance boundary, not a preference. If you are elsewhere in Canada, say so and you will be pointed to someone who can properly see you.' },
+          { label: 'Language', detail: 'The consultation can run in English, Punjabi, or both. Nothing needs translating for the counsellor’s benefit.' },
+          { label: 'If the time stops working', detail: 'Rescheduling is free up to 24 hours ahead — a life that needed counselling is exactly the kind of life that sometimes needs to move an appointment.' },
+        ],
+      },
+      {
+        h2: 'On being nervous',
+        body: [
+          'Almost everyone is. Reaching out took most people months, and the call carries a weight far beyond its fifteen minutes — which is worth saying because the nervousness is often read, from inside, as evidence of not being ready. It is evidence of the opposite: things that do not matter do not make people nervous.',
+          'Two reframes that help. The call is mutual — you are assessing fit as much as being assessed, and [fit predicts outcomes](/guides/questions-to-ask-a-therapist) better than credentials do. And the worst realistic outcome is a slightly awkward quarter-hour that cost nothing and taught you what you are looking for. People survive far worse Tuesdays.',
+        ],
+      },
+    ],
+    midCta: {
+      text: 'That is the whole shape of it. The only remaining step is the fifteen minutes.',
+      label: 'Book a free consultation',
+    },
+    faqs: [
+      { q: 'Is the consultation actually free?', a: 'Yes — no card is taken and nothing is billed. It exists because fit matters and should be testable before money changes hands, and because deciding not to proceed is a normal outcome the practice plans for.' },
+      { q: 'Will I have to talk about the hardest thing?', a: 'No. You choose what to share on the call, and a one-line version — "family stuff", "anxiety, mostly" — is plenty. The hard material belongs to actual sessions, at a pace set clinically, once you have decided to work together.' },
+      { q: 'What if I freeze or cry?', a: 'Both happen on these calls regularly and neither is a problem — a counsellor’s working day contains more tears than most professions’ working years. Freezing usually passes with one gentle question. There is no performance standard to meet.' },
+      { q: 'Can someone join me on the call?', a: 'For individual work, the consultation is best one-to-one, though a support person nearby is fine. For couples work, both partners on the call is the normal arrangement — say so when booking.' },
+      { q: 'What happens after the call?', a: 'If it felt right, you book a first session — usually offered on the call or by email after. If you want to think, you think; a follow-up nudge is not part of the model. If it was not the right fit, you will be told honestly and, where possible, pointed somewhere better.' },
+    ],
+    sources: [
+      { label: 'BC Association of Clinical Counsellors', url: 'https://bcacc.ca' },
+    ],
+    related: [
+      { href: '/book', label: 'Book the consultation' },
+      { href: '/guides/what-to-expect-first-therapy-session', label: 'What to expect in a first full session' },
+      { href: '/guides/questions-to-ask-a-therapist', label: 'Questions to ask a therapist' },
+      { href: '/pricing', label: 'Fees and coverage' },
+      { href: '/faq', label: 'Frequently asked questions' },
+    ],
+  },
+
+  {
+    slug: 'counselling-support-for-bc-teams',
+    figure: 'accountability-chain',
+    figure2: 'reimbursement-flow',
+    title: 'Counselling support for BC teams: what employers can actually offer',
+    metaTitle: 'Counselling Support for BC Teams | Westpeak',
+    metaDescription:
+      'What a small BC employer can actually do about mental health — benefits that cover RCCs, how EFAPs fall short, leave handled properly, and honest referral.',
+    eyebrow: 'Resource · For employers',
+    lede:
+      'Somebody on your team is struggling right now — statistically, several somebodies. Most employers genuinely want to help and have been sold exactly one tool. This page is the fuller toolbox.',
+    shortAnswer:
+      'For a BC employer, real mental-health support is mostly plumbing, not posters: an extended-health plan whose wording actually covers Registered Clinical Counsellors at a meaningful annual maximum; an EAP understood honestly as triage rather than treatment; sick days and leave handled the way the Employment Standards Act and Human Rights Code require, without diagnosis-fishing; and managers who can say "you seem underwater — what do you need?" without practising medicine. A practice like this one fits at the referral end: somewhere concrete to point a struggling employee, bookable that week, in English or Punjabi.',
+    updated: '2026-08-28',
+    readMinutes: 6,
+    sections: [
+      {
+        h2: 'The plumbing that actually moves the needle',
+        list: [
+          { label: 'Check your plan’s counselling wording', detail: 'The single highest-leverage employer action costs a phone call: confirm the extended-health plan reimburses "Registered Clinical Counsellors" (not only psychologists), and look hard at the annual maximum — a $300 cap funds two sessions and is a gesture, not a benefit. Raising the paramedical maximum is often surprisingly cheap at renewal.' },
+        { label: 'Know what your EAP is for', detail: 'Employee-assistance programs are genuinely useful triage: fast, free, confidential first conversations. They are also capped at a handful of sessions and staffed for generalist short-term work. Presenting the EAP as "we provide counselling" oversells it; presenting it as "a free first step, with real coverage behind it" is honest and works. The EAP comparison on this site is written for employees; it reads just as well for the people buying the program.' },
+          { label: 'Handle leave lawfully and gracefully', detail: 'The ESA sick days apply to mental health without qualification; medical notes need functional information, never diagnosis; and the Human Rights Code’s duty to accommodate covers psychological disability. The work-and-money cluster on this site maps the whole terrain — sending a struggling employee a link costs nothing and signals everything.' },
+          { label: 'Train the sentence, not the diagnosis', detail: 'Managers do not need mental-health-first-aid certification to say: "You seem like you are carrying a lot. What would help?" The skill is noticing plus asking plus not prescribing. Everything after that sentence belongs to professionals and to the employee’s own choices.' },
+        ],
+      },
+      {
+        h2: 'Where a practice like this one fits',
+        body: [
+          'Not as your EAP — this is a solo Registered Clinical Counsellor practice, and pretending otherwise would be the kind of overclaim this site is allergic to. Where it fits is the referral end of your toolbox: a concrete answer to "where would someone actually go?" — online across all of BC, evening availability that hourly and shift staff can use, sessions in English or Punjabi, fees published, receipts that work with every plan that covers RCCs, and a free 15-minute consultation an employee can book without telling anyone at work.',
+          'For Fraser Valley and Surrey employers specifically, the Punjabi-language capability may be the most useful line on this page: a meaningful share of the region’s workforce carries its hardest conversations in Punjabi, and English-only support quietly excludes them. Pointing to a bilingual option is a concrete act of inclusion that costs a bookmark.',
+          'What this page deliberately does not offer: workshops, lunch-and-learns, or wellness-week content. Those have their place; they are also the tool most often used *instead of* the plumbing above, and the plumbing is what your people will actually feel.',
+        ],
+      },
+    ],
+    midCta: {
+      text: 'The useful employer move costs a bookmark: know where you would point someone before the Tuesday you need to.',
+      label: 'See how the consultation works',
+    },
+    faqs: [
+      { q: 'Can we pay for an employee’s counselling directly?', a: 'The cleaner routes are the ones already built for it: a healthy paramedical maximum on your plan, or a health-spending account the employee draws on privately. Direct employer payment creates confidentiality tangles nobody wants — the employee’s counselling should never be visible to the employer, including in gratitude.' },
+      { q: 'Will we be told if an employee books here?', a: 'No, categorically. Counselling is confidential from employers regardless of who suggested it, what benefits reimburse it, or how supportive the intent. What you get instead is the thing you actually wanted: a team member getting help.' },
+      { q: 'What should a manager do in the moment with a struggling employee?', a: 'Ask, listen, and point — "what would help?", genuine attention, and knowledge of the concrete options: the EAP for today, the benefits plan for treatment, the sick days without interrogation, and a real practice’s booking page. Managers go wrong by diagnosing or by fixing; the job is noticing and routing.' },
+      { q: 'Is an EAP enough on its own?', a: 'As triage, yes; as treatment, usually not — session caps mean anything beyond a rough patch needs a handoff to ongoing care, which is where plan coverage of RCCs becomes the load-bearing benefit. The honest employer framing: "free first conversations through the EAP, real coverage for ongoing counselling through the plan."' },
+      { q: 'Do you run workplace workshops?', a: 'No — this practice does one thing, which is counselling. For workplace education, CMHA BC offers established programs. What this practice offers your team is a concrete, bookable place to send someone, which in practice is the piece most toolboxes are missing.' },
+    ],
+    sources: [
+      { label: 'Province of BC — employment standards: leaves and sick days', url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/employment-standards/time-off/leaves-of-absence' },
+      { label: 'BC Office of the Human Rights Commissioner', url: 'https://bchumanrights.ca/' },
+      { label: 'Canadian Mental Health Association, BC Division — workplace programs', url: 'https://cmha.bc.ca/' },
+    ],
+    related: [
+      { href: '/compare/efap-vs-private-counselling', label: 'Your EAP vs a private counsellor' },
+      { href: '/resources/workplace-mental-health-bc', label: 'Workplace mental health in BC — the map' },
+      { href: '/resources/bc-extended-health-coverage-for-counselling', label: 'Extended health coverage for counselling' },
+      { href: '/guides/sick-days-and-mental-health-days-bc', label: 'Sick days and mental-health days in BC' },
+      { href: '/services/punjabi-counselling', label: 'Punjabi-language counselling' },
+    ],
+  },
 ];
