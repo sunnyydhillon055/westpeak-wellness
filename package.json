@@ -20,7 +20,10 @@
     "visual": "node scripts/visual-audit.mjs",
     "rank:plan": "node scripts/city-rank.mjs --plan",
     "indexnow": "node scripts/indexnow.mjs",
-    "verify": "npm run seo && node scripts/expansion-verify.mjs && npm run links && npm run quality && npm run visual && (npm run drift || echo \"  (price drift not checked - CLINIKO_API_KEY not set on this machine)\")"
+    "verify": "npm run seo && node scripts/expansion-verify.mjs && npm run links && npm run quality && npm run visual && (npm run drift || echo \"  (price drift not checked - CLINIKO_API_KEY not set on this machine)\")",
+    "scan": "node scripts/competitor-scan.mjs",
+    "offsite": "node scripts/offsite-probe.mjs",
+    "visibility": "node scripts/visibility-50.mjs"
   },
   "dependencies": {
     "@next/third-parties": "^16.3.0",
