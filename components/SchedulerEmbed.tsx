@@ -20,9 +20,15 @@ import SchedulerTelemetry from '@/components/SchedulerTelemetry';
 export default function SchedulerEmbed({
   url, title, page,
 }: { url: string; title?: string; page: string }) {
+  const origin = new URL(url).origin;
   return (
     <SchedulerTelemetry page={page}>
       <div className="scheduler-embed">
+        {/* Browsers honour preconnect from body markup, and this component only
+            renders on pages that embed the calendar — so the DNS + TLS setup to
+            Cliniko's shard starts before the lazy iframe asks for it, on
+            exactly the pages that will. */}
+        <link rel="preconnect" href={origin} />
         <iframe
           src={url}
           title={title ?? 'Booking calendar'}

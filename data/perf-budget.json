@@ -1,0 +1,8 @@
+{
+  "note": "Perf budget baseline — a ratchet. Never raise to silence the gate; lower when a real win lands. See scripts/perf-budget.mjs.",
+  "set": "2026-08-28",
+  "homeCss": 90482,
+  "sharedJs": 301437,
+  "maxHtml": 187541,
+  "medianHtml": 87641
+}
