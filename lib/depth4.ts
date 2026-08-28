@@ -70,6 +70,90 @@ export const depth4: Record<string, DepthSection[]> = {
     },
   ],
 
+  /* --- Retargeting pass, 2026-08-28 evening. Each section below aims an
+   * existing page at query phrasings Search Console proves it is being shown
+   * for but never says in a heading. Exact-match H2s, direct answers first. */
+
+  'services/trauma-therapy': [
+    {
+      h2: 'Working with an online trauma therapist',
+      body: [
+        'The phrase people actually search is "online trauma therapist", and it deserves a direct answer: trauma therapy over secure video is an established practice, not a pandemic improvisation. The structured trauma protocols — EMDR with on-screen or self-administered bilateral stimulation, cognitive processing work, stabilisation and resourcing — all adapt to video, and the [research on video-delivered therapy](/guides/is-online-therapy-as-effective-as-in-person) includes trauma-focused work specifically.',
+        'Two things matter more online than in a room, and both are manageable. The first is your space: trauma work needs privacy and a plan for the hour after the session — not a car in a work parking lot before a shift. The second is pacing, which is a clinical skill rather than a format property: a trauma therapist who rushes is a problem in any medium, and one who paces well loses nothing over video. For some people the screen genuinely helps — being in your own home, with your own exits, changes what feels sayable.',
+      ],
+    },
+  ],
+
+  'services/emdr-therapy': [
+    {
+      h2: 'EMDR online: how the therapy works over video',
+      body: [
+        'EMDR online replaces the therapist’s moving hand with an on-screen target, alternating audio tones, or self-administered tapping — adaptations with years of clinical use behind them, not workarounds. Everything else about the method is unchanged: the same eight phases, the same preparation before processing, the same closing discipline at the end of every session.',
+        'Practically, online EMDR asks for a private room, headphones, and a stable connection — and it removes the commute that would otherwise bracket an emotionally heavy hour on both sides. For the longer [90-minute intensive format](/services/emdr-intensive), that absence of a commute turns out to matter more, not less: the session can end with proper closing and then simply… end, in your own space.',
+      ],
+    },
+  ],
+
+  'services/anxiety-counselling': [
+    {
+      h2: 'Anxiety counselling online: why the format fits this problem',
+      body: [
+        'For anxiety specifically, online counselling solves a problem the condition itself creates: the appointment is reachable on the days the anxiety says the drive, the waiting room, or the unfamiliar building is too much. Nobody white-knuckles a commute to get help with the thing the commute triggers.',
+        'The evidence base for video-delivered anxiety treatment is among the strongest in all of online therapy — structured approaches like CBT translate almost without loss, and the skills-practice between sessions happens in the exact environment the anxiety lives in, which is a quiet advantage over learning calm in an office you will never be anxious in. The [effectiveness guide](/guides/is-online-therapy-as-effective-as-in-person) covers the research; the free consultation is how you test the fit for yourself.',
+      ],
+    },
+  ],
+
+  'guides/grief-without-a-timeline': [
+    {
+      h2: 'How long should you wait for bereavement counselling?',
+      body: [
+        'The question gets asked as if there were a mandatory quarantine, and there is not. The old advice to "wait six months or a year" is a distortion of something true: acute grief in the early weeks is not a disorder, most people move through it carried by their own people, and counselling is not a required part of normal grieving. Nothing about that makes early support wrong — it makes it optional.',
+        'A more honest rule: come when the grief is not moving, whenever that is. Right away, if the death was traumatic, if the relationship was complicated, or if there is simply no one to fall apart in front of. Months later, if the numbness never thawed or the wave pattern never started spacing out. Years later, if it calcified into something you walk around. There is no too early that a decent counsellor cannot simply say "this is normal grieving, you may not need me yet" — and no too late.',
+      ],
+    },
+  ],
+
+  'guides/how-the-gottman-method-works': [
+    {
+      h2: 'Finding Gottman Method couples counselling in British Columbia',
+      body: [
+        'The Gottman Method is a training, not a franchise — any BC couples therapist may have completed Gottman training levels, and the practical way to find one is to ask directly: which level of training, and how the method structures their assessment and sessions. The Gottman Institute’s own referral directory lists clinicians by region, and "Gottman-trained" is a claim a practitioner should be able to make specific.',
+        'At Westpeak Wellness, [couples counselling](/services/couples-therapy) is Gottman-informed and delivered by video across all of BC — which for this method matters less than couples expect, since the assessment questionnaires, the structured conversations and the between-session work translate directly. For how it compares to the other major evidence-based couples approach, the [Gottman vs EFT comparison](/compare/gottman-method-vs-eft-for-couples) sets the two side by side.',
+      ],
+    },
+  ],
+
+  'resources/low-cost-counselling-bc': [
+    {
+      h2: 'Is therapy free in BC?',
+      body: [
+        'Some of it, genuinely — and the honest map has three territories. **Free:** health-authority mental-health services, Foundry centres for ages 12–24, Here2Talk for post-secondary students, crisis lines, and community agencies with grant-funded programs. These are real services with real clinicians; their cost is usually time — intake processes and waitlists. **Effectively free:** counselling your extended-health plan reimburses, employee assistance sessions, ICBC- or claim-funded treatment where an entitlement exists. **Paid:** private practice, where the fee buys you choice of counsellor and no waitlist.',
+        'What MSP itself covers is narrower than people hope: physician care — including psychiatrists, with a referral — but not counselling in private practice. The [MSP vs extended health explainer](/resources/msp-vs-extended-health) draws that boundary precisely, and everything below on this page is the free-and-low-cost territory itemised.',
+      ],
+    },
+  ],
+
+  'resources/student-mental-health-supports-bc': [
+    {
+      h2: 'Student counselling in BC: the short version',
+      body: [
+        'Every post-secondary student in BC has two guaranteed layers before money enters the picture: **campus counselling**, funded by fees at every major institution, and **Here2Talk**, the provincial 24/7 single-session service, free by app, phone or chat for all registered students. High-school students have school counsellors and, for ages 12–24, the Foundry network. None of these require a diagnosis, a referral, or a parent’s involvement for adults.',
+        'The honest limits: campus services are short-term models with late-semester waits, and Here2Talk is single-session by design. When a student needs ongoing weekly work, the usual route is private counselling reimbursed through the student union’s extended-health plan — most plans cover Registered Clinical Counsellors, and the annual cap typically funds a meaningful stretch of sessions. Therapists for students, in other words, exist at every price point including zero; the sections below map who qualifies for what.',
+      ],
+    },
+  ],
+
+  'resources/workplace-mental-health-bc': [
+    {
+      h2: 'The work-and-money cluster, mapped',
+      body: [
+        'This page is the hub of a set that now covers the whole arc, each piece written to stand alone: [sick days and mental-health days](/guides/sick-days-and-mental-health-days-bc) for the single-day entitlement; [stress leave](/guides/stress-leave-bc) for the full certified-leave picture; [getting the doctor’s note](/guides/doctors-note-for-a-mental-health-leave) for the appointment the leave hinges on; [EI sickness benefits](/guides/ei-sickness-benefits-and-therapy) for the money during it; [returning to work](/guides/return-to-work-after-a-mental-health-leave) for the stretch where leaves either consolidate or unravel; [WorkSafeBC psychological-injury claims](/resources/worksafebc-psychological-injury-claims) for when work caused the injury; and [disability benefits](/resources/disability-benefits-and-counselling-bc) for when 26 weeks is not enough.',
+        'If you are reading this in advance of needing it: that is the best time, and the two pages worth reading first are the sick-days one and the stress-leave one — the entitlement you will use casually, and the map you will want ready.',
+      ],
+    },
+  ],
+
   'online-counselling/langley': [
     {
       h2: 'Langley has counsellors. Here is when virtual still wins.',

@@ -100,7 +100,9 @@ export const moreResources: Resource[] = [
     figure2: "burnout-vs-depression",
     figure: 'reimbursement-flow',
     title: 'Mental health and work in BC: leave, accommodation and coverage',
-    metaTitle: 'Mental Health and Work in BC | Westpeak',
+    /* Retitled 2026-08-28: 230 impressions at 0.87% CTR, and the queries
+       finding this page are stress-leave-family — lead with their words. */
+    metaTitle: 'Stress Leave & Mental Health at Work BC | Westpeak',
     metaDescription:
       'What your employer may and may not ask, how accommodation actually works, and where sick leave, short-term disability and a WorkSafeBC claim differ.',
     eyebrow: 'BC resource',
@@ -443,6 +445,144 @@ export const moreResources: Resource[] = [
       { href: '/resources/bc-extended-health-coverage-for-counselling', label: 'Extended health coverage for counselling' },
       { href: '/about', label: 'About this practice — and its registration number' },
       { href: '/guides/how-to-find-a-therapist-in-bc', label: 'How to find a therapist in BC' },
+    ],
+  },
+
+  /* The two system-navigation resources of the work-and-money cluster,
+   * 2026-08-28 — companions to the four guides in guides-more7.ts. Same
+   * discipline: BC-specific, procedural, sourced, no clinical content and
+   * no invented figures. Where a number depends on a specific plan or
+   * policy, the page says "check the wording" instead of guessing. */
+  {
+    slug: 'worksafebc-psychological-injury-claims',
+    figure: 'bc-support-routes',
+    title: 'WorkSafeBC psychological-injury claims, explained',
+    metaTitle: 'WorkSafeBC Mental-Health Claims | Westpeak',
+    metaDescription:
+      'When work-related mental injury is compensable in BC, what the claim requires, the exclusion everyone trips over, and where counselling fits alongside it.',
+    eyebrow: 'Resource · Work & money',
+    lede:
+      'A stress leave says "I am unwell and need time." A WorkSafeBC claim says something stronger: "work injured me." Different systems, different tests, and mixing them up costs people months.',
+    shortAnswer:
+      'WorkSafeBC compensates psychological injury in two situations: a reaction to one or more traumatic events at work, or a mental disorder predominantly caused by significant work-related stressors — which includes bullying and harassment. Two hard edges define the system: the condition must be diagnosed by a psychologist or psychiatrist (not self-described burnout), and injuries caused by ordinary employer decisions — workload changes, discipline, termination — are excluded by statute. A claim is not a lawsuit and costs nothing to file; it is also not the right tool for every bad workplace, and this page is honest about which is which.',
+    updated: '2026-08-28',
+    readMinutes: 7,
+    sections: [
+      {
+        h2: 'The two doors into a claim',
+        body: [
+          'The first door is **traumatic events**: a worker experiences or witnesses something at work of the kind nobody is expected to absorb — violence, a serious accident, a death, a threat. First responders and health-care workers are the obvious cases, but the door is not restricted to them; a bank teller in a robbery or a transit worker after a fatality stands in the same doorway.',
+          'The second door is **significant work-related stressors**: a mental disorder predominantly caused by ongoing, exceptional workplace stressors — and BC explicitly includes **bullying and harassment** here. "Significant" is doing legal work in that sentence: it means beyond the ordinary pressures of employment, sustained or severe, and documented well enough to be found as fact.',
+          'Both doors require the same key: a **diagnosis by a psychologist or psychiatrist** of a recognised condition. Distress, burnout, and "my doctor said stress" do not open either door on their own — which is not a comment on how real they are, only on what this particular system requires. Getting that assessment is usually the first practical step of a serious claim.',
+        ],
+      },
+      {
+        h2: 'The exclusion everyone trips over',
+        body: [
+          'The statute excludes mental disorders caused by **decisions of the employer relating to the employment** — changes to workload, deadlines, performance management, discipline, transfers, termination. A depression caused by an unbearable workload or a demotion, however genuine, is generally not compensable through this system. That single sentence sorts most workplace-mental-health situations out of WorkSafeBC and into other tools.',
+          'The line is genuinely fine and worth stating carefully: a crushing workload is excluded as an employer decision — but harassment dressed up as performance management is not, and adjudicators do look behind labels. If what happened to you sits near that line, it is worth a conversation with the Workers’ Advisers Office — a free, government-funded service that advises workers on claims — before deciding anything.',
+          'If the exclusion applies to your situation, you are not without tools; you are holding different ones: the [stress-leave path](/guides/stress-leave-bc) with [EI sickness benefits](/guides/ei-sickness-benefits-and-therapy), your [extended-health coverage](/resources/bc-extended-health-coverage-for-counselling) for treatment, the ESA and Human Rights Code for the employment side, and — where bullying is the issue — WorkSafeBC’s separate prevention lane for bullying-and-harassment complaints, which is about stopping conduct rather than compensating injury.',
+        ],
+      },
+      {
+        h2: 'How a claim actually runs, and where counselling fits',
+        list: [
+          { label: 'Report early', detail: 'Tell your employer, see a doctor, and report to WorkSafeBC promptly — there is a one-year time limit on filing, and contemporaneous records beat reconstructed ones in every adjudication ever run.' },
+          { label: 'Expect a psychological assessment', detail: 'The diagnosis requirement means an assessment by a psychologist or psychiatrist is part of the process. Waits for these are real; the claim can be filed while the assessment is pending.' },
+          { label: 'Accepted claims fund treatment', detail: 'An accepted psychological-injury claim can cover treatment and wage-loss benefits — one of the few routes in BC where therapy for the injury is paid rather than reimbursed. The treatment itself runs through WorkSafeBC’s provider arrangements.' },
+          { label: 'This practice’s honest position', detail: 'Westpeak Wellness is not a WorkSafeBC provider, and claim-funded treatment happens inside their network. Where this practice fits is everything around the claim: the parallel private counselling many workers want during a long adjudication, and the situations the exclusion sorts out of the system altogether.' },
+          { label: 'Denials are appealable', detail: 'Psychological claims are denied more often than physical ones and overturned on review often enough to matter. The Workers’ Advisers Office exists for exactly this and costs nothing.' },
+      ],
+      },
+    ],
+    midCta: {
+      text: 'If your situation sits in the excluded middle — injured by work but outside the claim system — that is precisely the territory ordinary counselling serves.',
+      label: 'Book a free consultation',
+    },
+    faqs: [
+      { q: 'Can I claim WorkSafeBC for stress or burnout?', a: 'Not for ordinary job stress or burnout as such. Compensable psychological injury requires either work-related traumatic events or significant work-related stressors — including bullying and harassment — plus a psychologist’s or psychiatrist’s diagnosis of a recognised disorder. Ordinary workload pressure and employer decisions like discipline or termination are excluded by statute.' },
+      { q: 'Does bullying at work qualify?', a: 'It can — bullying and harassment are named examples of significant work-related stressors. The claim still needs the formal diagnosis and evidence that the conduct was beyond ordinary employment pressures, which is where documentation (dates, messages, witnesses) becomes decisive. There is also a separate WorkSafeBC prevention route aimed at stopping the conduct itself.' },
+      { q: 'Do I need a lawyer to file?', a: 'No — filing is free and the system is designed to be used without one. For advice, the Workers’ Advisers Office is a free government service for exactly these questions, including whether your situation clears the "significant stressor" bar and how to handle a denial.' },
+      { q: 'Can I see my own counsellor during a claim?', a: 'You can always see whoever you choose privately — through extended health or out of pocket — including while a claim is adjudicated. Treatment funded by an accepted claim runs through WorkSafeBC’s own provider network, which this practice is not part of, and the two can coexist.' },
+      { q: 'What if my claim is denied?', a: 'Ask for a review — psychological claims are denied at meaningful rates and succeed on review often enough that giving up at the first letter is a mistake. Time limits apply to reviews too, so move promptly, and take the file to the Workers’ Advisers Office before deciding it is over.' },
+    ],
+    sources: [
+      { label: 'WorkSafeBC', url: 'https://www.worksafebc.com/en' },
+      { label: 'Province of BC — Workers’ Advisers Office', url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/personal-injury-and-workplace-safety' },
+      { label: 'Canadian Mental Health Association, BC Division', url: 'https://cmha.bc.ca/' },
+    ],
+    related: [
+      { href: '/guides/workplace-bullying-in-bc', label: 'Workplace bullying in BC' },
+      { href: '/guides/stress-leave-bc', label: 'Stress leave in BC' },
+      { href: '/guides/ei-sickness-benefits-and-therapy', label: 'EI sickness benefits and therapy' },
+      { href: '/resources/workplace-mental-health-bc', label: 'Workplace mental health in BC' },
+      { href: '/resources/psychiatry-and-assessment-in-bc', label: 'Psychiatry and assessment in BC' },
+    ],
+  },
+
+  {
+    slug: 'disability-benefits-and-counselling-bc',
+    figure: 'reimbursement-flow',
+    title: 'Short-term disability, long-term disability, and counselling in BC',
+    metaTitle: 'Disability Benefits & Counselling in BC | Westpeak',
+    metaDescription:
+      'How STD and LTD work for mental-health claims in BC — timelines, the treatment expectation, the own-occupation switch, and where counselling fits.',
+    eyebrow: 'Resource · Work & money',
+    lede:
+      'Mental-health conditions are among the most common reasons for disability claims in Canada — and the system that pays them is the one working people understand least, because nobody reads the booklet until they need it.',
+    shortAnswer:
+      'Short-term disability is an employer or insurer plan that replaces part of your income for the early months of a medical absence; long-term disability takes over when STD ends, typically replacing a percentage of salary while you remain unable to work. Three things decide mental-health claims more than anything else: whether you are under regular, appropriate care — which usually includes counselling or psychiatric treatment; the definition switch, where "unable to do your own job" becomes "unable to do any job" (commonly around the two-year mark); and paperwork discipline. None of this is uniform: the plan wording, not this page, is the contract.',
+    updated: '2026-08-28',
+    readMinutes: 7,
+    sections: [
+      {
+        h2: 'The relay: sick days → STD → LTD',
+        body: [
+          'The income side of a long medical absence is a relay with handoffs. The [ESA sick days](/guides/sick-days-and-mental-health-days-bc) cover the first week-ish. Then either your employer’s **short-term disability plan** (where one exists) or [EI sickness benefits](/guides/ei-sickness-benefits-and-therapy) carries the next stretch — STD plans commonly run around 15 to 26 weeks at a percentage of salary set by the plan. **Long-term disability**, where the employer offers it, picks up when STD or EI exhausts, typically replacing somewhere in the range of half to two-thirds of salary, with the exact figure, caps and taxability set by the policy.',
+          'Every handoff is an application, not an automatic transfer — and the LTD application in particular rewards being started well before STD ends, because insurer decisions take weeks. The single most preventable disaster in this system is an income gap caused by applying late to the next leg.',
+          'Two structural notes: if premiums for LTD were paid by you (check your pay stub), benefits are usually non-taxable; employer-paid premiums usually mean taxable benefits. And most LTD policies require you to apply for other benefits you may be entitled to — CPP disability chief among them — with the LTD amount offset against them. This is normal, not the insurer cheating; the *sum* is what the policy promises.',
+        ],
+      },
+      {
+        h2: 'What mental-health claims turn on',
+        list: [
+          { label: 'Regular, appropriate care', detail: 'Every policy requires it, and for psychological claims insurers read it as: a physician involved, treatment underway, and usually counselling or psychiatric care consistent with the condition’s severity. A claim that says "too unwell to work" with no treatment record is the claim that gets denied — and honestly, treatment is also the route back.' },
+          { label: 'Function, documented', detail: 'Like everything in this cluster, the currency is function: what you cannot sustain — concentration, reliability, interaction — attested consistently by the people treating you. Vague letters lose to specific ones.' },
+          { label: 'The own-occupation switch', detail: 'Most policies pay for the first period (commonly two years) if you cannot do YOUR job, then switch to paying only if you cannot do ANY job you are reasonably suited for. Mental-health claims are re-examined hard at that switch, and knowing the date matters.' },
+          { label: 'Surveillance-proof honesty', detail: 'Insurers investigate. The claimant who is consistent — with their doctors, their forms and their actual life — has nothing to manage. Exaggeration sinks valid claims; so does the heroic minimising that says "fine, coping" to the insurer’s nurse on a bad week.' },
+        ],
+      },
+      {
+        h2: 'Where counselling sits, practically',
+        body: [
+          'For an STD/LTD mental-health claim, counselling is usually part of the "appropriate treatment" picture — often alongside a family doctor and sometimes psychiatry. Some insurers cover or arrange treatment; more commonly you fund it through [extended health](/resources/bc-extended-health-coverage-for-counselling), which typically continues during an approved leave. Receipts and attendance records from a Registered Clinical Counsellor are ordinary supporting evidence insurers accept.',
+          'Worth saying from this side of the desk: therapy during a disability leave has a different job than the paperwork it also feeds. The claim needs documentation; you need treatment. When those are the same sessions, good — but a claim managed so carefully that treatment becomes performance is treating the insurer, not the person. A counsellor’s notes stay confidential; what goes to an insurer is what you and your clinicians agree goes, usually via forms addressed to function.',
+          'And if a claim is denied or cut off — common at the own-occupation switch — the sequence is: internal appeal with better functional evidence, then advice. Community legal resources and plaintiff-side disability lawyers (most consult free) exist precisely for LTD terminations, and limitation periods make speed matter.',
+        ],
+      },
+    ],
+    midCta: {
+      text: 'Whether the claim is starting, dragging, or being fought — the treatment half of it can begin this week, from home.',
+      label: 'Book a free consultation',
+    },
+    faqs: [
+      { q: 'Can I get disability benefits for depression or anxiety in BC?', a: 'Yes — mental-health conditions are among the most common bases for STD and LTD claims in Canada. What the claims turn on is a diagnosed condition, documented functional limitations, and being under regular appropriate care, which usually includes counselling or psychiatric treatment.' },
+      { q: 'Do I have to be in therapy to keep LTD benefits?', a: 'Policies require appropriate treatment for the condition, and for psychological claims insurers generally expect ongoing care — commonly a physician plus counselling or psychiatry. Refusing all treatment is a standard reason for termination of benefits. The wording of your policy governs; "appropriate" is judged against your condition’s severity.' },
+      { q: 'What is the two-year change in my LTD?', a: 'The own-occupation to any-occupation switch: many policies pay first because you cannot do your own job, and later only if you cannot do any job you are reasonably suited to by education and experience. Claims are commonly reassessed and sometimes terminated at that point — diarise the date and tighten the functional evidence before it.' },
+      { q: 'Does counselling with an RCC count as treatment for my claim?', a: 'Generally yes as part of a care picture — receipts, attendance and functional letters from a Registered Clinical Counsellor are ordinary evidence, usually alongside a physician’s involvement. Some policies specify practitioner types for particular purposes, so as always, the plan wording wins.' },
+      { q: 'My LTD was cut off. Now what?', a: 'Appeal internally with stronger functional documentation, and get advice quickly — plaintiff-side disability lawyers mostly consult free, and limitation periods apply to court action. Do not let a termination letter become the end of treatment either; the condition does not read the insurer’s mail.' },
+    ],
+    sources: [
+      { label: 'Government of Canada — EI sickness benefits (the STD fallback)', url: 'https://www.canada.ca/en/services/benefits/ei/ei-sickness.html' },
+      { label: 'Government of Canada — CPP disability benefits', url: 'https://www.canada.ca/en/services/benefits/publicpensions/cpp/cpp-disability-benefit.html' },
+      { label: 'Canadian Mental Health Association, BC Division', url: 'https://cmha.bc.ca/' },
+    ],
+    related: [
+      { href: '/guides/ei-sickness-benefits-and-therapy', label: 'EI sickness benefits and therapy' },
+      { href: '/guides/stress-leave-bc', label: 'Stress leave in BC' },
+      { href: '/guides/return-to-work-after-a-mental-health-leave', label: 'Return to work after a leave' },
+      { href: '/resources/bc-extended-health-coverage-for-counselling', label: 'Extended health coverage for counselling' },
+      { href: '/resources/psychiatry-and-assessment-in-bc', label: 'Psychiatry and assessment in BC' },
     ],
   },
 ];

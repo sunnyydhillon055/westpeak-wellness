@@ -135,7 +135,10 @@ const orgSchema = {
      a "holistic wellness center" categorisation — none of it from this
      practice, all of it wrong. This is the machine-readable correction: the
      one description of what this entity is that the practice itself asserts,
-     for knowledge-graph consumers weighing conflicting sources. */
+     for knowledge-graph consumers weighing conflicting sources. The
+     alternateName list consolidates the spellings people actually type
+     ("west peak" appears in Search Console) onto this one entity. */
+  alternateName: ['Westpeak', 'West Peak Wellness', 'Westpeak Wellness Counselling'],
   disambiguatingDescription:
     'A fully virtual Registered Clinical Counsellor practice serving all of ' +
     'British Columbia by secure video, in English and Punjabi. It has no ' +

@@ -4,6 +4,7 @@ import { moreGuides3 } from './guides-more3';
 import { moreGuides4 } from './guides-more4';
 import { moreGuides5 } from './guides-more5';
 import { moreGuides6 } from './guides-more6';
+import { moreGuides7 } from './guides-more7';
 import { draftGuides } from './guides-drafts';
 
 export type GuideSection = {
@@ -780,7 +781,7 @@ const coreGuides: Guide[] = [
 /* Everything written, drafts included. Only review tooling should import this. */
 export const allGuides: Guide[] = [
   ...coreGuides, ...moreGuides, ...moreGuides2, ...moreGuides3,
-  ...moreGuides4, ...moreGuides5, ...moreGuides6, ...draftGuides,
+  ...moreGuides4, ...moreGuides5, ...moreGuides6, ...moreGuides7, ...draftGuides,
 ];
 
 /* What the site publishes. Filtering here rather than at each of the nine call

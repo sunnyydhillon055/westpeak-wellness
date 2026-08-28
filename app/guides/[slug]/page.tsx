@@ -42,6 +42,13 @@ const GENTLE_CTA = new Set([
   'workplace-bullying-in-bc',
   'stress-leave-bc',
   'anger-that-arrives-too-fast',
+  /* The work-and-money cluster, added 2026-08-28. Same reasoning as
+     stress-leave-bc: the reader is mid-difficulty, not comparison-shopping.
+     sick-days-and-mental-health-days-bc stays on the normal register — it is
+     a rights-information page people read in advance. */
+  'ei-sickness-benefits-and-therapy',
+  'doctors-note-for-a-mental-health-leave',
+  'return-to-work-after-a-mental-health-leave',
 ]);
 
 /* Which one-pager the email form at the end of a guide offers, if any.

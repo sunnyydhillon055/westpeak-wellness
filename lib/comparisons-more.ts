@@ -210,8 +210,11 @@ export const moreComparisons: Comparison[] = [
     slug: 'efap-vs-private-counselling',
     figure2: "first-session-flow",
     figure: 'therapy-cost-in-bc',
-    title: 'Your EFAP or a private counsellor?',
-    metaTitle: 'EFAP vs Private Counselling | Westpeak Wellness',
+    /* Retitled 2026-08-28: searchers say "EAP" ("eap vs therapy", "is an eap
+       the same as therapy" in the query export); the page said only "EFAP".
+       Both terms now carry, EAP first since it is the searched one. */
+    title: 'Your EAP (or EFAP) vs a private counsellor',
+    metaTitle: 'EAP vs Therapy: Which to Use | Westpeak Wellness',
     metaDescription:
       'What an EAP or EFAP actually gives you, where the session cap bites, and how to use the free route and a private counsellor in the right order.',
     eyebrow: 'Compare · Paying for it',
