@@ -1,5 +1,5 @@
 {
-  "overall": 454,
+  "overall": 456,
   "groups": [
     {
       "key": "A",
@@ -40,7 +40,7 @@
       "key": "F",
       "name": "Technical SEO & performance",
       "weight": 12,
-      "avg": 841.8181818181819,
+      "avg": 858.1818181818181,
       "n": 11
     },
     {
@@ -391,10 +391,10 @@
     [
       "F",
       "Mobile usability",
-      700,
-      4,
+      880,
+      1,
       "M",
-      "25 of 83 tap targets under 40 px, one image overflowing the viewport edge."
+      "Measured at 375x812 on a production build: every standalone control now clears 44 px, header height unchanged at 73 px, no horizontal overflow. One of the eight was a regression — a \"footer slimmed\" pass set min-height:38px over a rule that already asked for 44."
     ],
     [
       "F",

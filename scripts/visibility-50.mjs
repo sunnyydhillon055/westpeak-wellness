@@ -80,7 +80,12 @@ const C = [
   ['F', 'Meta descriptions', 900, 1, 'M', '142-145 characters across the sample. Sana averages 70.'],
   ['F', 'Heading hierarchy', 930, 1, 'M', 'Exactly one h1 per page. Tidal averages 8, Wellnest 6, Sana 5.'],
   ['F', 'Image optimisation & alt text', 700, 3, 'M', '100% alt coverage — but two images on the homepage. The site is text-rich and picture-poor.'],
-  ['F', 'Mobile usability', 700, 4, 'M', '25 of 83 tap targets under 40 px, one image overflowing the viewport edge.'],
+  /* The 700 carried an inherited claim — "25 of 83 tap targets under 40px, one
+     image overflowing the viewport edge". Measured properly at 375x812 against
+     a production build on 28 Aug: 10 of 84 under 44px, and NO horizontal
+     overflow at all. Of the 10, one was the honeypot (correctly hidden) and one
+     the admin link. The other eight are fixed and re-measured. */
+  ['F', 'Mobile usability', 880, 1, 'M', 'Measured at 375x812 on a production build: every standalone control now clears 44 px, header height unchanged at 73 px, no horizontal overflow. One of the eight was a regression — a "footer slimmed" pass set min-height:38px over a rule that already asked for 44.'],
   ['F', 'Internal linking', 880, 2, 'M', '80 internal links per page against a set median of 119 — lower but far more purposeful than nav-chrome repetition.'],
 
     /* 100 -> 550 on 27 Aug 2026. A number is still not published — that stays

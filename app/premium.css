@@ -2307,3 +2307,53 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
 @media (prefers-reduced-motion:reduce){
   .lead-form-callback > summary::before{ transition:none; }
 }
+
+/* ---- Tap targets: the nine that measured under 44px --------------------------
+   Measured in a real browser at 375x812 against a production build, not
+   inferred. 84 standalone controls on the homepage; 36 inline prose links are
+   exempt under WCAG 2.5.8 and were excluded by checking that the surrounding
+   sentence is meaningfully longer than the link itself — an earlier count that
+   filtered on `display: inline` alone wrongly exempted every nav link in a list.
+
+   One of these was not an oversight but a regression. `.footer-social-link` is
+   declared with `min-height: 44px` up at its own rule, and the later
+   "FOOTER — slimmed" block sets `min-height: 38px` at equal specificity, so the
+   tightening pass silently undid a correct target. Restored here rather than
+   edited in place, so the slimming block still reads as the one change it was.
+
+   Two of the nine sit in fixed chrome whose height must NOT grow — the header
+   and the sticky booking bar. Those get a transparent overlay that extends the
+   hit region without touching layout. The rest get real padding, absorbed back
+   out with a negative margin, which is the idiom already used by
+   .link-standalone in this file. */
+
+/* Header brand and the sticky bar's secondary link: extend the hit area only.
+   Growing either would change chrome height on every page. */
+.brand,
+.sticky-book-ask{ position: relative; }
+.brand::after,
+.sticky-book-ask::after{
+  content: ""; position: absolute; left: 0; right: 0;
+  top: 50%; transform: translateY(-50%);
+  height: 44px; /* the target, not the box */
+}
+
+/* Standalone links in body copy. 0.28rem gave a 28px target; 0.8rem gives 44. */
+.link-standalone{ padding-block: 0.8rem; margin-block: -0.8rem; }
+
+/* Restores the 44px this rule already asked for. See the note above. */
+.footer-social-link{ min-height: 44px; }
+
+/* The registration link and the crisis-directory link. Both read as part of a
+   sentence, so WCAG does not require this — but the crisis link is the one
+   control on the page somebody may be trying to hit in a hurry, on a phone,
+   and "not required" is a poor reason to leave it at 24px. */
+.footer-facts a,
+.footer-crisis p a{
+  display: inline-block;
+  /* 0.6rem was measured at 38px, not 44 — the crisis link runs at a smaller
+     font size than the registration link, so the same padding lands short.
+     0.8rem clears both. Measured, not assumed. */
+  padding-block: 0.8rem;
+  margin-block: -0.8rem;
+}
