@@ -39,7 +39,7 @@ export const PAGE_DATES: Record<string, string> = {
 
 /** Collections whose items share one source module and so one honest date. */
 export const COLLECTION_DATES: Record<string, string> = {
-  "services": "2026-08-20",
+  "services": "2026-08-28",
   "tools": "2026-08-09",
   "locations": "2026-08-27",
   "punjabiRegions": "2026-08-23"
