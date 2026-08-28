@@ -1,5 +1,5 @@
 {
-  "overall": 456,
+  "overall": 462,
   "groups": [
     {
       "key": "A",
@@ -33,7 +33,7 @@
       "key": "E",
       "name": "Content & topical authority",
       "weight": 14,
-      "avg": 673.75,
+      "avg": 713.75,
       "n": 8
     },
     {
@@ -255,10 +255,10 @@
     [
       "E",
       "Indexable page count",
-      380,
-      9,
+      700,
+      5,
       "M",
-      "119 URLs. Set median is 406; Crossroads 494, Wellbeings 485, Tidal 547."
+      "172 URLs in the sitemap, up from 119. Set median is 406; Crossroads 494, Wellbeings 485, Tidal 547. The gap to the leaders is now a deliberate ceiling rather than an absence — a uniqueness gate blocks any page that cannot carry its own argument."
     ],
     [
       "E",

@@ -17,8 +17,13 @@
 //
 // So: BEFORE ADDING A PAGE WHOSE SLUG APPEARS BELOW, remove it from this list
 // in the same change. And before adding a slug here, check no page owns it.
+/* Burnaby, Langley and Chilliwack left this list on 2026-08-28, when real city
+   pages were written for them in lib/locations.ts. A slug must never appear
+   both here and there: that combination builds a page and then 308s it, which
+   has already shipped once on this site and was reported as live off a green
+   local gate. `npm run redirect-shadow` now fails the build on it. */
 const retiredCitySlugs = [
-  'burnaby', 'richmond', 'coquitlam', 'langley', 'chilliwack', 'mission',
+  'richmond', 'coquitlam', 'mission',
   'maple-ridge', 'delta', 'white-rock', 'new-westminster', 'north-vancouver',
   'west-vancouver', 'port-coquitlam', 'port-moody', 'pitt-meadows', 'nanaimo',
   'victoria-saanich', 'courtenay', 'campbell-river', 'duncan', 'parksville',

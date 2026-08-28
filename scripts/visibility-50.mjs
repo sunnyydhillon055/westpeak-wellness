@@ -62,7 +62,11 @@ const C = [
   ['D', 'Trust architecture', 880, 1, 'M', '/standards and a /reviews page that explains the absence of testimonials rather than faking them.'],
   ['D', 'Third-party validation', 220, 9, 'S', 'Thin. Association membership is the only external corroboration.'],
 
-  ['E', 'Indexable page count', 380, 9, 'M', '119 URLs. Set median is 406; Crossroads 494, Wellbeings 485, Tidal 547.'],
+  /* 380 -> 700 on 28 Aug. 119 URLs became 172: fifty city x service pages plus
+     three restored city hubs. Not 1000, and deliberately not — Tidal carries
+     547 and Crossroads 494, and matching them would mean building pages this
+     practice cannot write an argument for. */
+  ['E', 'Indexable page count', 700, 5, 'M', '172 URLs in the sitemap, up from 119. Set median is 406; Crossroads 494, Wellbeings 485, Tidal 547. The gap to the leaders is now a deliberate ceiling rather than an absence — a uniqueness gate blocks any page that cannot carry its own argument.'],
   ['E', 'Average content depth', 720, 3, 'M', '2,086 words per sampled page. Set median 1,590. Only Crossroads (7,297) and Wellbeings (3,746) are deeper.'],
   ['E', 'Topical cluster architecture', 850, 1, 'M', 'Services, approaches, guides, resources, compare, for-audience and city clusters, all cross-linked.'],
   ['E', 'Content uniqueness', 900, 1, 'M', 'Hand-written throughout. Upstream and Wellbeings show clear programmatic templating across 400+ URLs.'],

@@ -2,6 +2,7 @@ import { site } from '@/lib/site';
 import { services } from '@/lib/services';
 import { tools } from '@/lib/tools';
 import { locations } from '@/lib/locations';
+import { pairs } from '@/lib/city-services';
 import { punjabiRegions } from '@/lib/punjabi-regions';
 import { guides } from '@/lib/guides';
 import { comparisons } from '@/lib/comparisons';
@@ -143,6 +144,15 @@ export function GET() {
     ...locations.map((l) => ({
       path: `/online-counselling/${l.slug}`, lastmod: collectionLastmod('locations'),
       changefreq: 'monthly' as const, priority: 0.6, figure: l.figure,
+    })),
+    /* City x service. Priority 0.7 — ABOVE the city hubs they sit under,
+     * because these match the query somebody actually types ("emdr therapy
+     * kelowna") while the hub matches a vaguer one. A hub ranked above its own
+     * leaves tells the crawler to prefer the less specific page. */
+    ...pairs.map((p) => ({
+      path: `/online-counselling/${p.city}/${p.service}`,
+      lastmod: collectionLastmod('locations'),
+      changefreq: 'monthly' as const, priority: 0.7,
     })),
     /* The Punjabi-by-region cluster. Priority above the city pages on purpose:
      * these target query space with no map pack, where the practice can rank

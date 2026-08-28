@@ -410,8 +410,148 @@ export const locations: Location[] = [
     ],
     nearby: ["kelowna", "prince-george"],
   },
+
+  /* ── Three cities brought back, 2026-08-28 ────────────────────────────────
+   *
+   * The amendment at the top of this file sets one condition for restoring a
+   * retired slug: a genuinely deep page must be writable for it. These three
+   * meet it, and each for a different reason rather than because a template
+   * could be filled in.
+   *
+   *   Burnaby     public intake runs through FRASER Health, not Vancouver
+   *               Coastal, which routinely surprises people who work downtown
+   *               and costs them weeks in the wrong queue.
+   *   Langley     two municipalities sharing one name, so "a counsellor in
+   *               Langley" tells a resident of Aldergrove almost nothing.
+   *   Chilliwack  the point where the valley stops being commutable, and where
+   *               specific modalities are absent rather than merely busy.
+   *
+   * All three are removed from retiredCitySlugs in next.config.mjs in the same
+   * change. Leaving a slug in that list while building a page for it produces a
+   * page that exists and 308s — which has already happened on this site, was
+   * shipped, and was reported as live off a green local gate. `npm run
+   * redirect-shadow` now fails the build on exactly that. */
+  {
+    slug: "burnaby",
+    figure: "bc-reach",
+    city: "Burnaby",
+    region: "Metro Vancouver",
+    blurb: "Burnaby looks west for services and is covered by Fraser Health — a mismatch that costs people weeks.",
+    metaDescription:
+      "Online counselling for Burnaby. Therapy in Punjabi or English — anxiety, trauma, EMDR and couples sessions, with no commute across the city.",
+    intro: [
+      "Burnaby is a city that mostly faces west. People work in Vancouver, look for services in Vancouver, and reasonably assume the health authority covering downtown covers them too.",
+      "It does not. **Public mental-health intake for a Burnaby address runs through Fraser Health, not Vancouver Coastal.** That is a small administrative fact with a real cost: people discover it at the wrong end of a referral, having already waited, and start again in a different queue.",
+    ],
+    localReality: {
+      h2: "The authority mismatch, and what it does not affect",
+      body: [
+        "**The public route depends on your address, not your commute.** If you live in Burnaby, Fraser Health is the intake route regardless of where you work. Checking that before making a referral request saves the weeks most commonly lost in this city.",
+        "**None of it applies to private counselling.** Registration with the BC Association of Clinical Counsellors is provincial. An RCC may work with any client in British Columbia, and no health-authority boundary, referral or diagnosis enters into it. For someone who has just lost a month to the wrong queue, that is worth saying plainly rather than leaving to be inferred.",
+        "**Specialised private practice here is thinner than the population suggests.** Burnaby's private sector does not scale with its size, which is why the default for anything specific has long been to travel west — adding a commute to the appointment least suited to having one afterwards.",
+        "What sessions cost, and what extended health will and will not reimburse, is set out on [the fees page](/pricing).",
+      ],
+    },
+    access: [
+      { label: "No trip across the city", detail: "The commute west is the most common reason a course of sessions here ends early." },
+      { label: "No referral, no diagnosis", detail: "Counselling with an RCC is accessed directly, whichever authority covers your address." },
+      { label: "Punjabi or English", detail: "Including moving between both inside a single session." },
+      { label: "Evening availability", detail: "Sessions on four evenings, so an appointment need not cost a working afternoon as well." },
+    ],
+    faqs: [
+      { q: "Which health authority covers Burnaby?", a: "Fraser Health, not Vancouver Coastal — which surprises a lot of people who work in Vancouver. It determines the public intake route for your address, and has no bearing at all on seeing a Registered Clinical Counsellor privately." },
+      { q: "Do I need a doctor's referral?", a: "No. Counselling with an RCC is accessed directly. There is no referral, no diagnosis, and no waiting for a physician appointment first." },
+      { q: "Is counselling covered by MSP?", a: "No. MSP does not cover counselling with an RCC. Most extended health plans reimburse it, and receipts carry the registration number insurers ask for." },
+      { q: "Can I have a session on a work day?", a: "There are evening slots Tuesday through Friday and daytime hours Monday and Tuesday. Because there is no travel, an evening session costs the evening rather than the afternoon as well." },
+    ],
+    sources: [
+      { label: "Fraser Health — mental health and substance use services", url: "https://www.fraserhealth.ca/health-topics-a-to-z/mental-health-and-substance-use" },
+      { label: "BC Association of Clinical Counsellors — find a counsellor", url: "https://bc-counsellors.org/counsellors/" },
+    ],
+    nearby: ["vancouver", "surrey"],
+  },
+  {
+    slug: "langley",
+    figure: "bc-reach",
+    city: "Langley",
+    region: "Fraser Valley",
+    blurb: "Two municipalities share the name, so a practice “in Langley” may be nowhere near you.",
+    metaDescription:
+      "Online counselling for Langley City and the Township. Therapy in Punjabi or English — anxiety, trauma, EMDR and couples sessions across BC.",
+    intro: [
+      "Langley is two municipalities that share a name: the City of Langley, and the Township that surrounds it. A directory listing saying “Langley” therefore tells you very little about whether a practice is anywhere near you.",
+      "For a resident of Aldergrove, a counsellor in Willoughby is a drive. For someone in Brookswood, half the listings are on the far side of the Township. It is the kind of detail that looks pedantic until it is the reason a third appointment was missed.",
+    ],
+    localReality: {
+      h2: "Well served in general, thin in particular",
+      body: [
+        "**Langley does not look underserved, and for general counselling it is not.** Practices exist, they advertise, and a straightforward course of talking therapy is genuinely available locally.",
+        "**The gap appears when you need something specific.** Trauma-focused work, EMDR and structured couples work are a narrower field here, and the usual advice is to look toward Surrey or Abbotsford. That produces the characteristic Langley false start: several weeks with a counsellor who is capable, but not trained for what you brought.",
+        "**The corridor competes for the same clinicians.** Practitioners with specific training around Langley absorb demand from Surrey through to Abbotsford, which is why a search for a specialism so often ends in a waitlist rather than an opening. A virtual practice widens the pool from whoever is within driving distance to whoever is registered in British Columbia.",
+        "If you are weighing up who you actually need, [the comparison of RCCs, psychologists and social workers](/compare/rcc-vs-psychologist-vs-social-worker-bc) is the place to start.",
+      ],
+    },
+    access: [
+      { label: "City or Township, no difference", detail: "Aldergrove, Brookswood, Willoughby and Fort Langley all get identical access." },
+      { label: "Specialisms without the corridor drive", detail: "EMDR and structured couples work, without looking to Surrey or Abbotsford." },
+      { label: "Punjabi or English", detail: "Available without travelling west to find it." },
+      { label: "No waiting room", detail: "In a community where people know each other, this matters more than it sounds." },
+    ],
+    faqs: [
+      { q: "Do you cover both the City of Langley and the Township?", a: "Both, and the distinction stops mattering. Sessions are by secure video anywhere in British Columbia, so where in Langley you live has no bearing on access." },
+      { q: "How do I check a counsellor is trained for what I need?", a: "Ask directly and expect a specific answer rather than a reassuring one. This practice is EMDR- and Gottman-trained, and the BCACC registration number is published so you can verify it in the public register yourself." },
+      { q: "What if it turns out not to be the right fit?", a: "Say so. A referral onward is a normal outcome and a better one than continuing out of politeness." },
+      { q: "Is there a free consultation first?", a: "Yes — 15 minutes by video, no charge, no card, and no obligation to book anything afterwards." },
+    ],
+    sources: [
+      { label: "Fraser Health — mental health and substance use services", url: "https://www.fraserhealth.ca/health-topics-a-to-z/mental-health-and-substance-use" },
+      { label: "BC Association of Clinical Counsellors — find a counsellor", url: "https://bc-counsellors.org/counsellors/" },
+    ],
+    nearby: ["surrey", "abbotsford"],
+  },
+  {
+    slug: "chilliwack",
+    figure: "bc-reach",
+    city: "Chilliwack",
+    region: "Eastern Fraser Valley",
+    blurb: "Chilliwack is where the Fraser Valley stops being commutable — and where specific modalities stop being available.",
+    metaDescription:
+      "Online counselling for Chilliwack and the eastern Fraser Valley. EMDR, trauma, anxiety and couples therapy across BC — no drive, in any weather.",
+    intro: [
+      "West of Chilliwack the Fraser Valley is commutable. At Chilliwack it stops. A Surrey appointment is a two-hour round trip in good conditions, and between November and March Highway 1 does not reliably provide good conditions.",
+      "That is the honest reason a great many people here have never seriously pursued counselling — not reluctance, but a standing arrangement that was never realistic to sustain through a winter.",
+    ],
+    localReality: {
+      h2: "Absent rather than busy",
+      body: [
+        "**There is a difference between a service being oversubscribed and a service not being present.** Chilliwack usually meets the second. EMDR and structured couples work require specific training that a smaller local sector may simply not contain, so a search does not end in a waitlist — it ends in nothing.",
+        "**Travelling for it inverts the arrangement.** Where people have travelled, the pattern is a demanding session followed immediately by an hour of highway, often in the dark. People manage that by managing the session, keeping it lighter than it needs to be. The drive quietly sets a ceiling on the work.",
+        "**Weather is a clinical variable here, not a footnote.** A course of counselling that depends on the highway has a seasonal failure mode built into it, and the season it fails in is the one when people most need it to hold.",
+        "For what a first session actually involves, [the guide on what to expect](/guides/what-to-expect-first-therapy-session) sets it out plainly.",
+      ],
+    },
+    access: [
+      { label: "No highway, in any weather", detail: "A closed road does not cancel a video session. In this part of the valley that is the whole argument." },
+      { label: "Modalities not available locally", detail: "EMDR and Gottman-informed couples work, without travelling west for them." },
+      { label: "Serves the eastern valley", detail: "Sardis, Rosedale, Agassiz and Hope, with no travel penalty for being further out." },
+      { label: "Phone fallback", detail: "Where a connection is unreliable, sessions run by phone — agreed in advance rather than improvised." },
+    ],
+    faqs: [
+      { q: "Is there anything available locally in Chilliwack?", a: "There is local practice, and for general counselling it may well be the right answer. This practice is virtual and covers the whole province, which matters most when what you need is specific rather than general." },
+      { q: "What happens if my internet is unreliable?", a: "Sessions can run by phone instead, and turning the camera off cuts the bandwidth needed considerably. It is worth agreeing in advance what happens if a connection drops, so it is an inconvenience rather than an interruption to the work." },
+      { q: "Do you cover Hope and Agassiz?", a: "Yes — anywhere in British Columbia. Being further east carries no penalty at all, which is the one respect in which virtual care is genuinely different from the alternative." },
+      { q: "What does a session cost?", a: "$140 for 50 minutes, after a free 15-minute consultation. Most extended health plans reimburse sessions with a Registered Clinical Counsellor; MSP does not cover them." },
+    ],
+    sources: [
+      { label: "Fraser Health — mental health and substance use services", url: "https://www.fraserhealth.ca/health-topics-a-to-z/mental-health-and-substance-use" },
+      { label: "BC Association of Clinical Counsellors — find a counsellor", url: "https://bc-counsellors.org/counsellors/" },
+    ],
+    nearby: ["abbotsford", "langley"],
+  },
 ];
 
 export const getLocation = (slug: string) => locations.find((l) => l.slug === slug);
 
-// The 37 retired city slugs and their 301s live in next.config.mjs.
+// The remaining retired city slugs and their 301s live in next.config.mjs.
+// Burnaby, Langley and Chilliwack were removed from that list on 2026-08-28
+// when the records above were written — see the note beside them.
