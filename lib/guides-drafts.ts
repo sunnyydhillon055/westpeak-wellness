@@ -657,4 +657,81 @@ export const draftGuides: Guide[] = [
       { href: '/guides/what-trauma-actually-means', label: 'What trauma actually means' },
     ],
   },
+
+  /* The late-October calendar slot, written 2026-08-28 so one clinical read
+   * can clear the whole season at once. CONTENT_CALENDAR.md calls this "the
+   * highest-shareability piece in the year for this practice". Publish
+   * target: late October, ahead of the Nov–Jan peak. */
+  {
+    draft: true,
+    slug: 'holidays-with-family-you-find-difficult',
+    title: 'When the holidays mean seeing family you find difficult',
+    metaTitle: 'Difficult Family at the Holidays | Westpeak',
+    metaDescription:
+      'Not general holiday stress — the specific dread of a room you have to be in. Preparation that works, exits that preserve dignity, and what counselling adds.',
+    eyebrow: 'Guide · Seasonal',
+    lede:
+      'This is not a page about holiday stress in general. It is about the specific arithmetic of a season that puts you in a room with people you have history with — and no meeting agenda.',
+    shortAnswer:
+      'Dreading holiday gatherings with difficult family is one of the most common things counsellors hear about from October onward, and it is rarely about the turkey. The dread is anticipatory: old dynamics reassert themselves within minutes, and adults find themselves playing a part they retired years ago. What actually helps is specific preparation — limits decided before the drive, exits that preserve everyone’s dignity, and one realistic goal for the visit that is not "finally fix it". Attending is a choice, limits are allowed, and so is not going.',
+    updated: '2026-08-28',
+    readMinutes: 7,
+    sections: [
+      {
+        h2: 'Why a grown adult regresses in one particular living room',
+        body: [
+          'The most disorienting part of a difficult family gathering is not what anyone says — it is who you become while they say it. People with mortgages and teams and considered opinions find themselves, within an hour of arriving, thirteen again: defensive at the old triggers, silent in the old places, playing a role they did not choose and thought they had quit.',
+          'This is ordinary human machinery, not weakness. Families are systems with long-rehearsed choreography, and a room containing the original cast, in the original configuration, at an occasion loaded with expectation, is the most powerful cue that choreography will ever get. Everyone regresses somewhat at these tables; the differences are how much it costs you, and what happens in the room when you decline your old part.',
+          'Naming the specific dynamic in advance — the comparisons, the criticism dressed as concern, the topic that always detonates, the person whose drinking changes the evening at nine o’clock — is worth more than any general resolution to "stay calm". You cannot prepare for weather; you can prepare for a forecast.',
+        ],
+      },
+      {
+        h2: 'Preparation that actually works',
+        list: [
+          { label: 'Decide your limits before the drive, not during the argument', detail: 'The two or three things you will not discuss, the behaviour that ends the evening for you, and what you will do when they occur. A limit invented mid-conflict sounds like an attack; one decided calmly in advance is just a fact about you.' },
+          { label: 'Have an exit that preserves dignity — everyone’s', detail: 'Your own transport, a stated end time on arrival, and a rehearsed sentence for leaving early that assigns no blame. The point of an exit is not to use it; it is that a person who can leave is a different person in the room.' },
+          { label: 'Set one realistic goal', detail: '"Get through the evening with my own self intact" is achievable. "Finally get Dad to acknowledge it" is a script for the drive home you have already had a hundred times. The gathering is the wrong venue for the reckoning — not because the reckoning does not matter, but because it deserves a better one.' },
+          { label: 'Plan the decompression before you need it', detail: 'The hour after matters as much as the hours during: the walk, the debrief with someone safe, the deliberate return to your own life. Budget for it the way you budget for the traffic.' },
+          { label: 'Rehearse the two sentences you always need', detail: 'One for deflecting the intrusive question ("we’re not discussing that today — how’s the new place?") and one for exiting an escalation ("I’m going to step outside for a bit"). Under stress, people fall to the level of their preparation, not the height of their intentions.' },
+        ],
+      },
+      {
+        h2: 'The permission section',
+        body: [
+          'Some things adults are allowed to do at the holidays, listed because permission is often the missing piece: attend for two hours instead of two days. Book a hotel instead of the childhood bedroom. Bring an ally. Skip the event that always goes badly and see the safe subset of the family separately. Alternate years. And — the one people circle for a decade — not go, this year or at all, because attendance at a gathering that reliably damages you is not a moral obligation, whatever the family narrative says.',
+          'For readers navigating this inside cultures where the family claim runs deeper — where skipping the gathering reads as rejecting the family itself — the calculation is genuinely different, and pretending otherwise would be advice written for someone else. The work there is usually not attendance-or-not but building a self that can be in the room without being consumed; the pages on [intergenerational conflict](/for/south-asian-intergenerational-conflict) and [boundaries with family](/guides/setting-boundaries-with-family) are written from inside that reality.',
+          'And if the difficulty in the room is grief — a first holiday season after a loss — that is its own terrain with its own page: [grief without a timeline](/guides/grief-without-a-timeline). Dread and grief often share a table in December.',
+        ],
+      },
+      {
+        h2: 'Where counselling fits, seasonally and otherwise',
+        body: [
+          'The October-to-December stretch is when family material walks into counselling rooms on its own schedule. Useful work before the season: mapping the specific dynamics, rehearsing the limits out loud — they hold better spoken than imagined — and separating what you can control in that room from what you have spent years trying to. Useful work after: the January conversations, when the visit has clarified, sometimes painfully, what the ongoing relationship can and cannot be.',
+          'The deeper version, when you are ready for it, is not about December at all. The gathering is two days; the dynamics are decades. Working on your side of a lifelong pattern — what it built in you, what it still triggers, what boundaries would make the relationship sustainable at any time of year — is standard counselling terrain, and it tends to make every subsequent December cheaper.',
+        ],
+      },
+    ],
+    midCta: {
+      text: 'If the dread has already started, a session before the season is preparation — and one booked for early January is honest planning.',
+      label: 'Book a free consultation',
+    },
+    faqs: [
+      { q: 'Is it wrong to skip a family holiday gathering?', a: 'It is a choice with costs, not a moral failing. Where a gathering reliably harms you and limits have not held, declining is a legitimate act of self-protection. Middle paths exist — shorter visits, hotels, alternate years, seeing safe family members separately — and so does the full no.' },
+      { q: 'How do I handle the relative who always starts something?', a: 'With decisions made in advance rather than reflexes in the moment: which topics you will not engage, a rehearsed deflection, and an exit you are genuinely willing to use. You cannot control their opening move; you can retire your half of the routine, which changes the game more than winning it would.' },
+      { q: 'Why do I feel awful for days after these visits?', a: 'A visit like that is hours of vigilance, role-strain and old material — a genuine exertion, whatever it looks like from outside. The post-visit crash is the bill arriving. Planning decompression, and taking the crash as information about the dynamics rather than about your resilience, both help.' },
+      { q: 'Can one counselling session before the holidays actually help?', a: 'One session can realistically produce a concrete plan: named dynamics, decided limits, rehearsed sentences, an exit. That is preparation, and preparation measurably changes how these evenings go. The longer pattern behind the dread takes longer — but the season does not require the whole renovation, just a working door.' },
+      { q: 'What if the clash is between my partner and my family?', a: 'Then the preparation is a couples conversation before the season: agreed signals, a united front on limits, and clarity about whose family gets which days. Couples work sees a reliable December spike for exactly this, and the planning version in November beats the repair version in January.' },
+    ],
+    sources: [
+      { label: 'Canadian Mental Health Association, BC Division', url: 'https://cmha.bc.ca/' },
+      { label: 'Anxiety Canada', url: 'https://www.anxietycanada.com/' },
+    ],
+    related: [
+      { href: '/guides/setting-boundaries-with-family', label: 'Setting boundaries with family' },
+      { href: '/for/south-asian-intergenerational-conflict', label: 'Intergenerational and cultural family conflict' },
+      { href: '/guides/grief-without-a-timeline', label: 'Grief without a timeline' },
+      { href: '/guides/talking-to-your-family-about-therapy', label: 'Talking to your family about therapy' },
+      { href: '/services/couples-therapy', label: 'Couples therapy' },
+    ],
+  },
 ];

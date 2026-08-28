@@ -28,7 +28,7 @@ Evidence in parentheses is from the 2026-08-28 Search Console export unless note
 16. **[me]** Title CTR fix on workplace-mental-health-bc: 230 imps at 0.87% — lead the title with "Stress Leave &" since that's the query family finding it.
 17. **[me]** Exact-anchor internal-link pass: home and services pages link the five page-2 pages with query-phrase anchors ("stress leave in BC", "what an RCC is").
 18. **[me]** `alternateName` on the WebSite/Organization schema ("Westpeak", "West Peak Wellness") — consolidates the brand entity against the scraper confusion.
-19. **[me]** Diagram image surface: 20+ hand-built SVGs are invisible to Google Images; export the ten best as descriptively-named WebP with rich alt, served alongside.
+19. **[deferred 28 Aug]** Diagram image surface: examined and deliberately deferred — the SVGs are the superior display format (crisp, ~10 kB), and surfacing WebP copies to Google Images requires *replacing* them in page markup, a quality-for-traffic trade the owner should approve rather than inherit. Revisit if image-SERP demand shows up in GSC.
 20. **[me]** EAP retarget: queries say "eap vs therapy" / "is an eap the same as therapy" (pos 83–85); the page says "EFAP". Add the EAP phrasing to title, H2 and FAQ.
 21. **[me]** Student retarget: "student counselling", "therapists for students", "student mental health services" — direct-answer blocks on the student resource + /for page.
 22. **[me]** Anxiety-online retarget: "online counselling for anxiety" / "anxiety counsellor online" (pos 77–88) — heading + section on the anxiety service.
