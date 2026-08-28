@@ -14,7 +14,7 @@ Evidence in parentheses is from the 2026-08-28 Search Console export unless note
 5. **[me]** Resource: *Short-term disability, long-term disability, and counselling in BC*.
 6. **[me]** Guide: *Mental-health days and sick days in BC — what you're actually entitled to* ("bc sick days mental health" pos 14, "mental health days bc" pos 17 — page 2 with no page aimed at it).
 7. **[me]** Retarget the low-cost page at "is therapy free in bc" (5 imps, pos 25) — exact-phrase H2 + FAQ, not a new page.
-8. **[me]** Glossary upgrade: the data shows pure glossary demand ("therapist terms", "counselling terms", "common therapy terms", "counseling terminology") — add DefinedTerm/DefinedTermSet schema and a direct-answer intro.
+8. **[already done — verified 28 Aug]** Glossary DefinedTerm/DefinedTermSet schema: checked before building, and a prior session already ships the full set for all 64 terms, with the exact-match title. The check-first rule, again.
 9. **[me]** Grief guide: add the exact-match section for "how long should you wait for bereavement counselling" (15 imps, pos 52 — nothing on the page targets the phrasing).
 10. **[me]** Gottman BC section: "gottman method marriage counselling british columbia" (11 imps, pos 44) — a BC-specific H2 + FAQ on the Gottman guide and couples service.
 11. **[me]** Trauma-online retarget: "online therapist trauma" + "trauma therapist online" (~30 imps, pos 80+) — the trauma service page never says "online trauma therapist" in a heading; make it.
@@ -46,7 +46,7 @@ Evidence in parentheses is from the 2026-08-28 Search Console export unless note
 
 ## D · Authority and distribution (12)
 
-31. **[me]** Build v1 of the *BC Counselling Access Report* (PATH_TO_950's linkable-asset play) from public data — health-authority waitlists, counsellor density, language availability. The one honest way a review-less practice earns citations.
+31. **[me — own session]** Build v1 of the *BC Counselling Access Report* from public data — health-authority waitlists, counsellor density, language availability. The one honest way a review-less practice earns citations. **Deliberately not rushed on 28 Aug:** the report's entire value is verifiable data, and gathering it honestly is a research session of its own. The no-invented-figures rule outranks completionism.
 32. **[both]** Journalist-request pipeline (Qwoted/press queries): I draft the standing bio + three pitch templates; owner responds to BC mental-health queries. Each placement = a referring domain.
 33. **[both]** Guest-piece pitches to BC outlets (The Tyee, Daily Hive, Fraser Valley Current) on the 2027 regulation change — I draft; owner sends under their name.
 34. **[both]** University outreach: student-supports page is genuinely link-worthy; I draft emails to BC campus counselling-resource pages.
