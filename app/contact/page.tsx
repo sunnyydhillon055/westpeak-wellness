@@ -58,6 +58,13 @@ export default async function Contact({
             <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><LangIcon strokeWidth={1.7} /></span><div><h3>Languages</h3><p>English & Punjabi</p></div></div>
             <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><AtSign strokeWidth={1.7} /></span><div><h3>Instagram</h3><p><a href={site.instagramUrl} target="_blank" rel="noopener">{site.instagram}</a></p></div></div>
           </div>
+          {/* Saving a contact is the low-commitment action for the person who is
+              not ready to write yet. The card carries the practice details only —
+              the counsellor's name stays on /about (see app/westpeak.vcf). */}
+          <p style={{ marginTop: 18 }}>
+            Not ready to reach out today? <a href="/westpeak.vcf" download>Save the practice to your contacts</a>{' '}
+            and it will be there when you are.
+          </p>
 
           <InboundForm kind="enquiry" done={sent} />
 

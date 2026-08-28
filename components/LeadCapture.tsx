@@ -28,6 +28,13 @@ const MAGNETS = {
     doneBody:
       'It is on its way. It explains how to use the entitlement with any registered counsellor — this practice is not currently an ICBC vendor, and the one-pager says so.',
   },
+  'starting-counselling': {
+    title: 'Want the one-page "how to start" version?',
+    note: 'Seven steps from first thought to first session — coverage, registers, consultations, and what a first session actually involves. It applies with any counsellor, not just this practice. One email, no sequence, and this page is complete without it.',
+    button: 'Send it',
+    doneBody:
+      'It is on its way — seven steps, one page, usable with any counsellor. If you would rather talk it through, a free 15-minute consultation is the next step and carries no obligation.',
+  },
 } as const;
 
 export type MagnetKey = keyof typeof MAGNETS;
@@ -35,9 +42,17 @@ export type MagnetKey = keyof typeof MAGNETS;
 export default function LeadCapture({
   done,
   magnet = 'coverage-checklist',
+  source,
+  returnTo,
 }: {
   done?: boolean;
   magnet?: MagnetKey;
+  /** Page the form sits on, for /admin's which-page-earns-enquiries view. */
+  source?: string;
+  /** Where to land after submitting. Statically generated pages cannot read
+   *  the ?lead=ok flag, so they pass '/message-sent' here — see the returnTo
+   *  note in lib/inbound-submit.ts. Pages rendered on demand omit it. */
+  returnTo?: string;
 }) {
   const m = MAGNETS[magnet];
   if (done) {
@@ -59,6 +74,8 @@ export default function LeadCapture({
     >
       {/* Which one-pager. Allow-listed server-side; see lib/inbound-submit.ts. */}
       <input type="hidden" name="magnet" value={magnet} />
+      {source && <input type="hidden" name="source" value={source} />}
+      {returnTo && <input type="hidden" name="returnTo" value={returnTo} />}
       <p className="lead-form-title">{m.title}</p>
       <p className="lead-form-note">{m.note}</p>
       <div className="lead-form-row">

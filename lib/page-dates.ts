@@ -11,7 +11,7 @@
  */
 
 export const PAGE_DATES: Record<string, string> = {
-  "": "2026-08-18",
+  "": "2026-08-23",
   "/about": "2026-08-20",
   "/services": "2026-08-18",
   "/approaches": "2026-08-09",
@@ -29,20 +29,20 @@ export const PAGE_DATES: Record<string, string> = {
   "/reviews": "2026-08-09",
   "/refer": "2026-08-17",
   "/punjabi": "2026-08-18",
-  "/answers": "2026-08-17",
+  "/answers": "2026-08-23",
   "/careers": "2026-08-17",
-  "/standards": "2026-08-14",
-  "/editorial-policy": "2026-08-14",
-  "/privacy": "2026-08-14",
-  "/accessibility": "2026-08-14"
+  "/standards": "2026-08-23",
+  "/editorial-policy": "2026-08-23",
+  "/privacy": "2026-08-23",
+  "/accessibility": "2026-08-23"
 };
 
 /** Collections whose items share one source module and so one honest date. */
 export const COLLECTION_DATES: Record<string, string> = {
   "services": "2026-08-20",
   "tools": "2026-08-09",
-  "locations": "2026-08-18",
-  "punjabiRegions": "2026-08-18"
+  "locations": "2026-08-27",
+  "punjabiRegions": "2026-08-23"
 };
 
 /** ISO-8601 for the sitemap, or null when we do not honestly know. */

@@ -1,4 +1,5 @@
 import { moreComparisons } from './comparisons-more';
+import { moreComparisons2 } from './comparisons-more2';
 
 export type Comparison = {
   slug: string;
@@ -310,6 +311,6 @@ const coreComparisons: Comparison[] = [
   },
 ];
 
-export const comparisons: Comparison[] = [...coreComparisons, ...moreComparisons];
+export const comparisons: Comparison[] = [...coreComparisons, ...moreComparisons, ...moreComparisons2];
 
 export const getComparison = (slug: string) => comparisons.find((c) => c.slug === slug);

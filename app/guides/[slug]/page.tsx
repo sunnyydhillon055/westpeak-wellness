@@ -18,6 +18,7 @@ import InlineRelated from '@/components/InlineRelated';
 import { getFigure } from '@/lib/figures';
 import { deviceSlots } from '@/lib/placement';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import LeadCapture, { type MagnetKey } from '@/components/LeadCapture';
 
 /* Guides where "Still deciding? Book a free consultation!" is the wrong note.
  *
@@ -42,6 +43,21 @@ const GENTLE_CTA = new Set([
   'stress-leave-bc',
   'anger-that-arrives-too-fast',
 ]);
+
+/* Which one-pager the email form at the end of a guide offers, if any.
+ *
+ * The GENTLE_CTA pages get no form at all: an email-capture box under a guide
+ * about grief or watching someone drink reads as working a person in
+ * difficulty as a lead, which is exactly the tone lib/inbound-mail.ts
+ * promises never to take. Everyone else gets the one-pager nearest their
+ * question — the coverage checklist on the money guide, the how-to-start
+ * steps elsewhere. Same rule as GENTLE_CTA: an explicit list, because which
+ * pages are sensitive is a judgement that should be visible in one place. */
+function guideMagnet(slug: string): MagnetKey | null {
+  if (GENTLE_CTA.has(slug)) return null;
+  if (slug === 'money-stress-and-mental-health') return 'coverage-checklist';
+  return 'starting-counselling';
+}
 
 export function generateStaticParams() {
   return guides.map((g) => ({ slug: g.slug }));
@@ -216,6 +232,16 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
             or replace an assessment. If you are in crisis, call or text <strong>9-8-8</strong>{' '}
             (Canada, 24/7) or BC Mental Health Support at <strong>310-6789</strong>.
           </p>
+
+          {/* Statically generated page, so the confirmation lands on
+              /message-sent rather than trying to read a query param here. */}
+          {guideMagnet(g.slug) && (
+            <LeadCapture
+              magnet={guideMagnet(g.slug) as MagnetKey}
+              source={`/guides/${g.slug}`}
+              returnTo="/message-sent"
+            />
+          )}
           </div>
         </div>
       </section>

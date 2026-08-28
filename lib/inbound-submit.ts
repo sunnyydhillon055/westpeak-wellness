@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { addInbound, type InboundKind } from '@/lib/inbound';
 import { sendDetailed } from '@/lib/portal-mail';
-import { checklistEmail, icbcEmail, enquiryAck, waitlistAck, practiceAlert } from '@/lib/inbound-mail';
+import { checklistEmail, icbcEmail, startingEmail, enquiryAck, waitlistAck, practiceAlert } from '@/lib/inbound-mail';
 import { site } from '@/lib/site';
 
 /* One submit path for all three inbound forms.
@@ -102,7 +102,8 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
      this value selects which email gets sent and an unrecognised magnet must
      fall back to a real one rather than sending nothing at all. */
   const asked = String(form.get('magnet') ?? '').trim();
-  const magnet = asked === 'icbc-after-a-crash' ? asked : 'coverage-checklist';
+  const MAGNETS = new Set(['icbc-after-a-crash', 'starting-counselling']);
+  const magnet = MAGNETS.has(asked) ? asked : 'coverage-checklist';
 
   const item = await addInbound({
     kind: o.kind, name, email, message, windows, phone, callWindow, source, monthlyOptIn, magnet,
@@ -114,7 +115,9 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
 
   const ack =
     o.kind === 'lead'
-      ? (magnet === 'icbc-after-a-crash' ? icbcEmail(firstName) : checklistEmail(firstName))
+      ? (magnet === 'icbc-after-a-crash' ? icbcEmail(firstName)
+        : magnet === 'starting-counselling' ? startingEmail(firstName)
+        : checklistEmail(firstName))
     : o.kind === 'waitlist' ? waitlistAck(firstName)
     : enquiryAck(firstName);
 

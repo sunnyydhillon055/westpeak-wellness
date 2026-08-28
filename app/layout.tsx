@@ -6,7 +6,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import StickyBook from '@/components/StickyBook';
 import Analytics from '@/components/Analytics';
-import { GoogleAnalytics } from '@next/third-parties/google';
+import ConsentGate from '@/components/ConsentGate';
 import { site } from '@/lib/site';
 import { services } from '@/lib/services';
 
@@ -201,14 +201,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify([orgSchema, siteSchema]) }}
         />
         {/* GA4 only when an ID is configured, so local runs and preview
-          * deployments send nothing. Read directly from the env here: this is
-          * a server component, and importing GA_ID from the 'use client'
-          * analytics module hands back a client-reference proxy — truthy even
-          * with the env var unset, which shipped gtag/js?id=undefined on every
-          * page. @next/third-parties loads it afterInteractive, off the
-          * critical path. */}
+          * deployments send nothing — and even then only after the visitor
+          * consents (see ConsentGate: banner, equal buttons, decline
+          * remembered). Read the env directly here: this is a server
+          * component, and importing GA_ID from the 'use client' analytics
+          * module hands back a client-reference proxy — truthy even with the
+          * env var unset, which shipped gtag/js?id=undefined on every page. */}
         {process.env.NEXT_PUBLIC_GA_ID && (
-          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+          <ConsentGate gaId={process.env.NEXT_PUBLIC_GA_ID} />
         )}
       </body>
     </html>

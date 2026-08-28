@@ -203,6 +203,89 @@ nothing else coming.`
   return { subject: 'The ICBC counselling entitlement', text, html };
 }
 
+/* ---- how to start counselling in BC, on one page -------------------------- */
+
+/* Sourced from /guides/what-to-expect-first-therapy-session,
+ * /guides/questions-to-ask-a-therapist and /pricing rather than written
+ * fresh, so the email and the pages cannot drift apart. Deliberately generic
+ * about fees — dollar figures live in Cliniko and on /pricing, and a stale
+ * number in an email someone saved is worse than a link. */
+const STARTING: { q: string; why: string }[] = [
+  {
+    q: 'Name what you want help with — one sentence is enough.',
+    why: '"I keep snapping at people I love" is a complete answer. A diagnosis, a theory, or a tidy story is not required to start, and arriving without one is the normal case.',
+  },
+  {
+    q: 'Check your extended health plan before you book.',
+    why: 'Plans list professions, not services. Confirm the plan reimburses a Registered Clinical Counsellor (RCC) in BC, and ask what the annual maximum is. MSP does not cover private counselling.',
+  },
+  {
+    q: 'Shortlist two or three counsellors, and check each one in a public register.',
+    why: 'BCACC, the College of Health and Care Professionals of BC, and the BC College of Social Workers each run a free searchable register. A registration number that checks out is a stronger signal than any website.',
+  },
+  {
+    q: 'Use the free consultations — plural.',
+    why: 'Fit between you and the counsellor is one of the better-supported predictors of whether therapy helps. Talking to two or three people before choosing is normal, slightly awkward, and entirely reasonable.',
+  },
+  {
+    q: 'Ask direct questions on that call.',
+    why: 'Training and registration, experience with what you are bringing, fees and cancellation terms, and what a typical session looks like. A good counsellor welcomes all of these.',
+  },
+  {
+    q: 'Expect the first session to be mostly questions.',
+    why: 'History, what brings you in, what you want to be different, and logistics. You are not expected to open with the hardest thing — and you are allowed to decide afterwards that the fit is wrong.',
+  },
+  {
+    q: 'Review honestly after a few sessions.',
+    why: 'Therapy should hold up to the same question as anything else you pay for: is this helping? Raising doubts with the counsellor is part of the work, and changing counsellors is common and not rude.',
+  },
+];
+
+export function startingEmail(firstName: string) {
+  const hi = firstName ? `Hi ${firstName},` : 'Hi,';
+
+  const text = wrap(
+`${hi}
+
+Here is the one-pager you asked for — how to start counselling in BC,
+from first thought to first session. It applies with any counsellor,
+not just this practice.
+
+${STARTING.map((c, i) => `${i + 1}. ${c.q}\n   ${c.why}`).join('\n\n')}
+
+Current fees and how reimbursement works are here:
+${site.domain}/pricing
+
+That is everything — this is a one-off, not a sequence, and there is
+nothing else coming.
+
+If you would like to talk any of it through, a free 15-minute
+consultation carries no obligation:
+${links.book}
+
+${site.name}
+Online counselling across British Columbia
+${site.domain}`);
+
+  const html = shell(
+    'Starting counselling in BC',
+    p(esc(hi)) +
+    p('Here is the one-pager you asked for — how to start counselling in BC, from first thought to first session. It applies with any counsellor, not just this practice.') +
+    `<ol style="margin:0 0 20px;padding-left:20px;font-size:15px;line-height:1.6;">` +
+    STARTING.map((c) =>
+      `<li style="margin:0 0 14px;"><strong style="color:#1f3d4d;">${esc(c.q)}</strong><br>
+       <span style="color:#5a6470;font-size:14px;">${esc(c.why)}</span></li>`
+    ).join('') +
+    `</ol>` +
+    p(`Current fees and how reimbursement works are ${a(`${site.domain}/pricing`, 'on the fees page')}.`) +
+    p('That is everything — this is a one-off, not a sequence, and there is nothing else coming.') +
+    btn(links.book, 'Book a free 15-minute consultation') +
+    p('<span style="color:#5a6470;font-size:14px;">No obligation, and deciding not to book is a completely normal outcome.</span>')
+  );
+
+  return { subject: 'Starting counselling in BC — the one-pager', text, html };
+}
+
 /* ---- acknowledgement of a message ---------------------------------------- */
 
 export function enquiryAck(firstName: string) {

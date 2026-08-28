@@ -202,6 +202,158 @@ export const draftGuides: Guide[] = [
       { href: '/resources/bc-crisis-and-support-directory', label: 'BC crisis and support directory' },
     ],
   },
+
+  /* The first two entries from CONTENT_CALENDAR.md, written on schedule
+   * (2026-08-28; the calendar calls for early and late August). Same deal as
+   * the drafts above: written, sourced, and waiting on a clinical read. The
+   * calendar is explicit that seasonal pieces publish six-to-eight weeks
+   * before their peak — so these lose value each week the flag stays on. */
+  {
+    draft: true,
+    slug: 'back-to-school-for-the-parent',
+    title: 'Back to school, for the parent',
+    metaTitle: 'Back to School, for the Parent | Westpeak Wellness',
+    metaDescription:
+      'Everything written about September is addressed to children. This is for the parent whose own anxiety returns with the routine — and the household that tightens with it.',
+    eyebrow: 'Guide · Seasonal',
+    lede:
+      'Every September article is about helping your child adjust. Almost none of them ask how you are — which is strange, because the school year restarts the whole household, not just the child.',
+    shortAnswer:
+      'The September shift is real for adults: mornings recompress, the family calendar refills, work and school schedules collide, and long-running household arguments that summer suspended come back on schedule. If your own anxiety, irritability or dread rises with the routine, that is a common and understandable response to a genuine load increase — not a failure of parenting. It becomes worth attention when the tension stops lifting on weekends, when you are snapping at people over the logistics rather than the problem, or when you notice you have stopped being anyone other than the coordinator.',
+    updated: '2026-08-28',
+    readMinutes: 6,
+    sections: [
+      {
+        h2: 'Why September lands on the parent',
+        body: [
+          'Summer, whatever its chaos, suspends the machine: no lunches at 7:10, no forms due Friday, no negotiation about screens on a school night, no standing arguments about whose turn the pickup is. September switches the machine back on all at once — and the switch is thrown mostly by one or two adults, on top of jobs that never paused.',
+          'There is also a quieter layer underneath the logistics. The school year is the calendar most of us grew up inside, and its return can reactivate old material with surprising precision: your own school dread, a childhood home where September meant tension, the standards you were measured against now waiting at the school gate for your child. Feeling more raw in September than August is not random.',
+          'And for parents of anxious children there is a particular loop worth naming: your child’s school worry feeds yours, yours leaks back to them — children are exceptional detectors of parental tension — and each of you is trying to manage the other’s state. Breaking that loop from the parent’s side is often the most effective place to start, which is the opposite of how the advice columns frame it.',
+        ],
+      },
+      {
+        h2: 'Ordinary September strain, named',
+        list: [
+          { label: 'The coordinator problem', detail: 'One adult usually holds the entire system — forms, fees, lessons, appointments, who needs shoes. The load is real, largely invisible, and rarely negotiated explicitly. Resentment about it is a September fixture in couples, and it is a workload problem before it is a relationship problem.' },
+          { label: 'The morning compression', detail: 'The hour before school concentrates the whole household into its worst window: everyone tired, everyone on a deadline, every friction surfacing at once. Households that fight at 7:40 a.m. and nowhere else do not have a conflict problem so much as a design problem.' },
+          { label: 'The re-entry of comparison', detail: 'School restarts the parent-comparison economy — the volunteering, the extracurricular arms race, the parents who appear to be managing effortlessly. If your self-criticism spikes in September, this is part of the mechanism.' },
+          { label: 'The suspended arguments', detail: 'Couples often table their structural disagreements — money, division of labour, in-laws, schooling itself — for the summer. September un-tables them on a fixed schedule. If the same fight returns every fall, it was never about fall.' },
+        ],
+      },
+      {
+        h2: 'What actually helps, before anyone books anything',
+        body: [
+          'Renegotiate the machine explicitly, once, in September — not mid-argument at 7:40. Who owns which mornings, who is the school’s point of contact, what happens when a child is sick on a day neither of you can absorb. Most households run on an implicit division that was never actually agreed to, and a thirty-minute explicit version removes a surprising amount of ambient resentment.',
+          'Put your own state on the list you are already keeping. The parent version of the oxygen-mask rule is unglamorous: sleep protected first, one thing in the week that is yours and not logistics, and honesty with yourself about whether coffee and pushing through is a September strategy or a permanent one.',
+          'And let the standard be a September standard. The first weeks of the school year are a load spike; running the household at summer’s emotional temperature through a load spike is not a realistic target, and treating the gap as personal failure just adds a second problem.',
+        ],
+      },
+      {
+        h2: 'When it is more than the season',
+        body: [
+          'Some September strain is simply September, and settles as the routine beds in. It is worth taking more seriously when the pattern outlasts the adjustment: dread on Sunday nights that does not fade by October, irritability that the weekend no longer resets, sleep that stays broken after the schedule has stabilised, or the realisation that you have been running on vigilance so long that calm itself feels unfamiliar.',
+          'It is also worth attention if September has merely exposed something that was there all year — a marriage conducted entirely in logistics, anxiety that was managed only because summer made fewer demands, or a version of yourself you do not recognise and do not like at 7:40 a.m. The season did not cause that; it removed the slack that was hiding it. That is unwelcome information, and useful.',
+          'Counselling for this does not require a crisis to justify it. A parent who wants to stop white-knuckling the school year is a complete reason to book, and sessions by video — after drop-off, in a lunch hour — were more or less designed for this stage of life.',
+        ],
+      },
+    ],
+    midCta: {
+      text: 'If the school year is running you rather than the reverse, one session after drop-off is a reasonable place to start — no crisis required.',
+      label: 'Book a free consultation',
+    },
+    faqs: [
+      { q: 'Is it normal to dread September as an adult?', a: 'Common enough that it deserves less embarrassment than it gets. The return of structure, scrutiny and load is a genuine change in demands, and calendars carry memory — the school year is the oldest calendar most of us have. Dread that fades as the routine beds in is ordinary; dread that deepens through October is worth attention.' },
+      { q: 'My child is anxious about school and now I am too. Which of us needs the help?', a: 'They tangle, but the parent’s side is more in your control and often the more effective place to start — children calibrate to the adult’s state far more than to the adult’s advice. Working on your own regulation is not instead of supporting your child; it is frequently the strongest form of it. Kelty Mental Health is BC’s hub for the child’s side.' },
+      { q: 'Every September my partner and I have the same fight. Why?', a: 'Because September re-runs the same structural collision — usually about the division of the invisible workload — and unresolved structure produces the same argument on the same schedule. That predictability is actually good news: a fight with a known trigger and a known shape is exactly the kind couples work handles well.' },
+      { q: 'I only feel like this a few weeks a year. Does that justify counselling?', a: 'A recurring, predictable strain is a legitimate and rather efficient thing to bring to counselling — the pattern is visible, the trigger is known, and the work can be timed to precede it. You do not need year-round misery to qualify for help with a seasonal collapse.' },
+    ],
+    sources: [
+      { label: 'Kelty Mental Health Resource Centre (BC)', url: 'https://keltymentalhealth.ca/' },
+      { label: 'Anxiety Canada', url: 'https://www.anxietycanada.com/' },
+      { label: 'Canadian Mental Health Association, BC Division', url: 'https://cmha.bc.ca/' },
+    ],
+    related: [
+      { href: '/for/new-parents', label: 'Counselling for new parents' },
+      { href: '/guides/high-functioning-anxiety', label: 'High-functioning anxiety' },
+      { href: '/guides/anxiety-and-sleep', label: 'Anxiety and sleep' },
+      { href: '/services/couples-therapy', label: 'Couples therapy' },
+      { href: '/services/anxiety-counselling', label: 'Anxiety counselling' },
+    ],
+  },
+
+  {
+    draft: true,
+    slug: 'starting-university-away-from-home',
+    title: 'Starting university away from home',
+    metaTitle: 'Starting University Away From Home | Westpeak Wellness',
+    metaDescription:
+      'Homesickness, the friendship gap, and the first-year dip nobody warns you about — plus the BC supports every student already has, including free 24/7 counselling.',
+    eyebrow: 'Guide · Seasonal',
+    lede:
+      'The move-in photos get taken in the first week. This guide is about weeks four through ten — the stretch where it stops being an event and starts being your life.',
+    shortAnswer:
+      'Struggling in first term while living away from home for the first time is closer to the rule than the exception: homesickness is normal and usually eases, the deep friendships take months rather than weeks to form, and a dip in mood once the novelty fades is common enough to be predictable. It deserves more than waiting out when low mood settles in for weeks, when you have stopped attending or leaving your room, or when coping has drifted into heavy drinking or disappearing into a screen. Every BC post-secondary student also has free, immediate support already paid for — Here2Talk offers 24/7 counselling to all of them, and campus counselling exists precisely for this.',
+    updated: '2026-08-28',
+    readMinutes: 6,
+    sections: [
+      {
+        h2: 'The timeline nobody puts on the poster',
+        body: [
+          'Orientation compresses the advertised version of university — instant friends, constant activity — into two weeks, and then withdraws it. What follows, for a large share of first-years, is quieter and longer: lectures where nobody knows your name, a residence room that is yours but not home, and the discovery that the people from orientation week were allies of convenience rather than friends.',
+          'The dip that often arrives around week four to six has an unremarkable explanation. Novelty has worn off, the workload has become real, the weather in most of BC has turned, and the friendships that will eventually carry you have not formed yet — because they take repeated, unforced contact over months. You are, briefly, between support systems: no longer inside the old one, not yet inside the new one. Feeling the gap is not failing at university. It is the gap.',
+          'Knowing the timeline matters because the comparison everyone runs — *everyone else has found their people* — is mostly a misread. The groups that form instantly in September are frequently gone by December; the durable ones assemble slowly out of labs, clubs, part-time jobs and corridors, without announcing themselves.',
+        ],
+      },
+      {
+        h2: 'Homesickness, without the embarrassment',
+        body: [
+          'Homesickness gets treated as a childish word, so students rename it — restlessness, "just tired", not liking the city. Underneath, it is a grief-shaped response to a real loss: daily contact with the people and routines that regulated you. Missing that is not immaturity; it is evidence you had something worth missing.',
+          'Two opposite mistakes make it worse. Going home every weekend keeps the old system on life support and quietly starves the new one — the weekends are when the new place becomes yours. Cutting contact entirely to force independence usually backfires too; regular, scheduled contact with home tends to steady people better than either extreme.',
+          'For students from close families — and in many Punjabi and wider South Asian households this is the explicit design — leaving can also carry a layer nobody on campus talks about: guilt about leaving, parents for whom your absence is their own loss, and daily calls that are both an anchor and a leash. Holding real closeness *and* a growing separate life is genuinely hard, and it is a legitimate thing to work on rather than a disloyalty to either side.',
+        ],
+      },
+      {
+        h2: 'The support you already have, as a BC student',
+        list: [
+          { label: 'Here2Talk — free, 24/7, already yours', detail: 'Every student registered at a BC post-secondary institution has free single-session counselling by app, phone or chat, day and night, in multiple languages. No diagnosis, no referral, no cost. For a hard night in residence, this is the shortest path to a real person.' },
+          { label: 'Campus counselling and health services', detail: 'Every major BC campus runs a counselling service covered by your fees. Demand peaks late in term, so booking when you first notice the slide — rather than at the December cliff — is the practical move.' },
+          { label: 'Your student health and dental plan', detail: 'Most student unions carry extended health coverage that reimburses private counselling, commonly including Registered Clinical Counsellors. If campus waitlists are long, the plan usually funds an alternative — check its wording for the professions covered and the annual cap.' },
+          { label: 'Structure as treatment', detail: 'The undramatic levers still carry most of the load: a sleep schedule that survives weekends, food at intervals, one activity with repeated contact (club, gym, job, faith community), and daylight — which in a BC October must be sought on purpose.' },
+        ],
+      },
+      {
+        h2: 'When it has stopped being an adjustment',
+        body: [
+          'Adjustment is uncomfortable but moves — bad weeks alternate with better ones, and small things still land. It has become something else when the line goes flat: weeks of low mood without a better stretch, sleep broken or endless, attendance quietly stopping, the room becoming the whole map, or alcohol, cannabis or the phone doing all of the regulating. Panic attacks arriving out of nowhere, or anxiety that makes ordinary tasks feel structurally impossible, belong on the same list.',
+          'The move at that point is not more willpower; it is telling someone with an obligation to help — Here2Talk tonight if it is tonight, campus counselling this week, a doctor at student health if sleep, appetite and energy have been gone for weeks. If cost or waitlists are the obstacle to ongoing support, private counselling by video fits student life unusually well and is often partly covered by the student plan; it also does not care which town your campus is in.',
+          'One more thing, for the student reading this in November having told their parents everything is fine: the version where you ask for help earlier is not the weaker version of you. Every term, a share of students quietly repair a bad start and finish well — the common feature is that they stopped managing it alone.',
+        ],
+      },
+    ],
+    midCta: {
+      text: 'Sessions by video fit between lectures and do not care which campus you are on. A free 15-minute consultation is the least committal way to start.',
+      label: 'Book a free consultation',
+    },
+    faqs: [
+      { q: 'How long is homesickness supposed to last?', a: 'For most students it eases substantially across the first term as the new place accumulates its own routines and people — usually with wobbles rather than a straight line, and often with a spike after winter break. Homesickness still at full strength deep into second term, or getting worse rather than moving, is a signal to talk to someone rather than wait longer.' },
+      { q: 'Is it bad to go home every weekend?', a: 'It is usually self-defeating during first term, because weekends are when a campus becomes yours — the unstructured time where friendships actually form. Regular contact with home helps; wholesale retreat to it postpones the adjustment you are trying to make. A middle setting, like scheduled calls plus occasional visits, steadies most people better than either extreme.' },
+      { q: 'What is Here2Talk and is it actually free?', a: 'A provincially funded service giving every BC post-secondary student free 24/7 single-session counselling and community referral, by app, phone or web chat, with service available in multiple languages. There is no cost, no referral and no minimum severity — a homesick 2 a.m. absolutely qualifies.' },
+      { q: 'Can I do therapy with someone back home, or in Punjabi?', a: 'Virtual counselling works wherever you and a stable internet connection are, which for students means the counsellor no longer has to be in your campus town. Sessions here run in English, Punjabi, or both — and for a student negotiating family expectations about the degree itself, working in the language the family speaks can matter more than expected.' },
+      { q: 'My marks are collapsing along with my mood. Which do I deal with first?', a: 'Together, and sooner than feels comfortable — universities have academic-concession processes for exactly this, and they work much better before finals than after. A doctor’s or counsellor’s documentation usually supports the concession, which is one more reason the appointment is worth booking now rather than in exam week.' },
+    ],
+    sources: [
+      { label: 'Here2Talk — 24/7 counselling for BC post-secondary students', url: 'https://here2talk.ca' },
+      { label: 'Anxiety Canada', url: 'https://www.anxietycanada.com/' },
+      { label: 'Canadian Mental Health Association, BC Division', url: 'https://cmha.bc.ca/' },
+    ],
+    related: [
+      { href: '/resources/student-mental-health-supports-bc', label: 'Student mental-health supports in BC' },
+      { href: '/guides/loneliness-in-adulthood', label: 'Loneliness in adulthood' },
+      { href: '/guides/life-transitions-and-identity', label: 'Life transitions and identity' },
+      { href: '/guides/talking-to-your-family-about-therapy', label: 'Talking to your family about therapy' },
+      { href: '/guides/signs-it-might-be-time-for-therapy', label: 'Signs it might be time for therapy' },
+    ],
+  },
 ];
 
 /* STILL TO WRITE — the remaining seven measured content gaps.
