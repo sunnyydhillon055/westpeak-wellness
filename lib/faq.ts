@@ -3,6 +3,17 @@ export type FAQ = { q: string; a: string };
 // Answers written to be accurate for a fully-virtual BC RCC practice and
 // compliant with BCACC advertising standards.
 export const faqs: FAQ[] = [
+  /* The two questions below use searchers' exact phrasings on purpose:
+   * Search Console (2026-08-28 export) shows both ranking on page 1 —
+   * positions 8 and 7 — with no page targeting either. */
+  {
+    q: "Is therapy considered a medical appointment?",
+    a: "For most practical purposes in BC, yes. A counselling session is a health-care appointment for sick-leave purposes — the Employment Standards Act's sick days cover attending to your health, and you never owe an employer the detail. For taxes, fees paid to a Registered Clinical Counsellor qualify as a medical expense on the federal return for BC residents. What it is not: an MSP-billed physician visit, which is why payment runs through you or your extended health plan rather than your CareCard.",
+  },
+  {
+    q: "Can a counsellor refer you to a psychiatrist?",
+    a: "Not directly — psychiatric referrals in BC route through a physician or nurse practitioner. What a counsellor does in practice: recognises when psychiatric assessment is needed, says so plainly, writes a summary you can hand your doctor, and with your written consent communicates with them directly. The referral letter carries more weight when the GP can see months of documented counselling behind it, so the counsellor is often the reason the referral happens — just not the signature on it.",
+  },
   {
     q: "How do I pay, and when?",
     a: "Sessions are paid by credit card at the time you book, not at the end of the hour. Cancel with at least 24 hours notice and the fee is refunded in full. Inside that window, or for a no-show, 50% of the fee is retained — the time was held and cannot realistically be filled at that notice. The client portal sets out the whole process, including what happens if something unavoidable comes up.",

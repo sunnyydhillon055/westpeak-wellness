@@ -11,6 +11,12 @@ import CtaBand from '@/components/CtaBand';
 import SceneBand from '@/components/SceneBand';
 import Byline from '@/components/Byline';
 import ExtraSections from '@/components/ExtraSections';
+import LeadCapture, { type MagnetKey } from '@/components/LeadCapture';
+
+/* Money-adjacent comparisons only; the clinical ones stay form-free. */
+const COMPARE_MAGNET: Record<string, MagnetKey | undefined> = {
+  'efap-vs-private-counselling': 'coverage-checklist',
+};
 import { deviceSlots } from '@/lib/placement';
 import Toc from '@/components/Toc';
 import MoreFrom from '@/components/MoreFrom';
@@ -197,6 +203,17 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
               ranges and vary by practitioner. Confirm any practitioner&rsquo;s registration directly with the
               relevant college or association.
             </p>
+
+            {/* The EAP page's reader has benefits by definition — the coverage
+                checklist is the natural next step when the session cap bites.
+                Explicit map, static page, /message-sent confirmation. */}
+            {COMPARE_MAGNET[c.slug] && (
+              <LeadCapture
+                magnet={COMPARE_MAGNET[c.slug]}
+                source={`/compare/${c.slug}`}
+                returnTo="/message-sent"
+              />
+            )}
           </div>
         </div>
       </section>

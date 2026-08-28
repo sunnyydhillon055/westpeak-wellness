@@ -121,6 +121,16 @@ export default function Book({
 
           {site.bookingReady ? (
             <>
+              {/* The credentials at the moment of commitment. Everything here
+                  is verifiable and already published elsewhere on the site —
+                  this is placement, not new claims. */}
+              <p className="book-brief-note" style={{ textAlign: 'center', marginBottom: 10 }}>
+                <strong>{site.counsellor.title} ({site.counsellor.credentials})</strong> · BCACC{' '}
+                <a href={site.counsellor.registerUrl} target="_blank" rel="noopener">
+                  #{site.counsellor.registration}
+                </a>{' '}
+                — check the register · EMDR-trained · Gottman-trained · English &amp; ਪੰਜਾਬੀ
+              </p>
               <SchedulerEmbed
                 url={site.bookingsUrl}
                 title="Book a free 15-minute consultation"

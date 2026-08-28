@@ -145,6 +145,46 @@ export const depth4: Record<string, DepthSection[]> = {
     },
   ],
 
+  'services/couples-therapy': [
+    {
+      h2: 'Online couples counselling in BC: how two people share one session',
+      body: [
+        'The phrase people search is "online couples counselling bc", and the practical question inside it is simple: does couples work survive the screen? The structured approaches used here translate directly — assessment questionnaires, guided conversations, between-session practice — and the format solves the scheduling problem that sinks more couples therapy than any clinical issue does: two working adults, one appointment, no babysitter needed for the commute portion of the evening.',
+        'The setup that works: both partners on one couch and one camera where possible — the therapist reads the space between you, and sharing a frame keeps that visible. Where life requires it (a rotation, a work trip, a separation-in-progress), three-way video from two locations is workable and sometimes clinically useful. The one non-negotiable is the same as in-person: a private hour, phones down, door shut.',
+      ],
+    },
+  ],
+
+  'services/depression-counselling': [
+    {
+      h2: 'Depression counselling online: when leaving the house is the barrier',
+      body: [
+        'For depression specifically, online counselling removes the tax the condition itself levies on getting help: the shower-dress-drive-waiting-room sequence that can consume a whole day’s capacity. A session you can attend from the corner of the couch is not a lesser session — it is the one that actually happens during the weeks when the alternative was cancelling.',
+        'Video-delivered treatment for depression carries one of the stronger evidence bases in online therapy, and behavioural approaches adapt naturally: the work happens in the environment where the patterns live. The honest caveat runs the other way — where isolation is a driver, sessions should be a bridge back toward the world, not a reason never to re-enter it, and a decent counsellor holds that line deliberately. The [effectiveness research](/guides/is-online-therapy-as-effective-as-in-person) covers the evidence in full.',
+      ],
+    },
+  ],
+
+  'guides/high-functioning-anxiety': [
+    {
+      h2: 'What therapy for high-functioning anxiety actually looks like',
+      body: [
+        'The searched phrase is "high functioning anxiety therapy", and it deserves a concrete answer rather than reassurance. The work usually starts somewhere counterintuitive: not with relaxing, but with mapping what the anxiety is currently *doing for you* — the deadlines it meets, the standards it enforces, the disasters it believes it is preventing. High-functioning anxiety persists precisely because it pays; therapy that ignores the payment gets politely outperformed by the symptom.',
+        'From there the work is specific: separating standards from threats (you can keep the excellence and retire the dread that powers it), practising sub-maximal effort on purpose in low-stakes places, letting the body’s alarm complete instead of overriding it, and — often the deepest layer — the history of where performing became the price of safety. Approaches drawn on here include CBT and, where the roots are older than the job, [EMDR](/services/emdr-therapy). None of it requires your performance to collapse first; arriving while everything still looks fine from outside is the standard entry, not the exception.',
+      ],
+    },
+  ],
+
+  'online-counselling/index': [
+    {
+      h2: '“Counsellor near me”, when the answer is virtual',
+      body: [
+        'A meaningful share of the people reading this arrived through some version of "counsellor near me" — and for a virtual practice, the honest response is to take the question seriously rather than dodge it. What "near me" is usually asking for is *reachable, soon, and legitimate*: an appointment that fits your week, a practitioner accountable to a real register, sessions that do not require rearranging life to attend. Distance was always a proxy for those things, not the point of them.',
+        'Video sessions answer the underlying asks directly — bookable this week, [verifiable in the BCACC register](/resources/verify-a-counsellor-in-bc), attended from wherever you are in BC — and they beat "near" precisely where near fails: evenings, small towns, mobility limits, privacy from a small community, and therapy in Punjabi outside the Lower Mainland. Where an office genuinely matters to you, that is a real preference and the city pages below link honestly to what each community offers locally. For everyone else, "near" turns out to mean "on my laptop, at 7 pm, with someone I checked out in two minutes."',
+      ],
+    },
+  ],
+
   'resources/msp-vs-extended-health': [
     {
       h2: 'Does MSP cover therapy?',

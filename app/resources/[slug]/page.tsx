@@ -17,6 +17,18 @@ import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
 import InlineRelated from '@/components/InlineRelated';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import LeadCapture, { type MagnetKey } from '@/components/LeadCapture';
+
+/* Which resource pages carry the email one-pager, and which pager. Money
+ * pages only: the coverage checklist where the reader has a plan to check,
+ * the how-to-start pager where they may not. The crisis directory and the
+ * clinical-system pages deliberately get nothing — same reasoning as the
+ * guides' GENTLE_CTA list. */
+const RESOURCE_MAGNET: Record<string, MagnetKey | undefined> = {
+  'bc-extended-health-coverage-for-counselling': 'coverage-checklist',
+  'msp-vs-extended-health': 'coverage-checklist',
+  'low-cost-counselling-bc': 'starting-counselling',
+};
 
 export function generateStaticParams() {
   return resources.map((r) => ({ slug: r.slug }));
@@ -200,6 +212,18 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
               in crisis, call or text <strong>9-8-8</strong> (Canada, 24/7) or <strong>310-6789</strong> for
               BC Mental Health Support.
             </p>
+
+            {/* The one-pager offer, on the money pages only — an explicit map,
+                like the guides' GENTLE_CTA, because which resource pages suit
+                an email form is a judgement worth seeing in one place. Static
+                pages, so confirmations land on /message-sent. */}
+            {RESOURCE_MAGNET[r.slug] && (
+              <LeadCapture
+                magnet={RESOURCE_MAGNET[r.slug]}
+                source={`/resources/${r.slug}`}
+                returnTo="/message-sent"
+              />
+            )}
           </div>
         </div>
       </section>

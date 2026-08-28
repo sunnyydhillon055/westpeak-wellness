@@ -24,7 +24,7 @@ export const PAGE_DATES: Record<string, string> = {
   "/for": "2026-08-09",
   "/resources": "2026-08-09",
   "/glossary": "2026-08-08",
-  "/book": "2026-08-20",
+  "/book": "2026-08-28",
   "/tools": "2026-08-09",
   "/reviews": "2026-08-09",
   "/refer": "2026-08-17",

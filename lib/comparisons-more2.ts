@@ -407,4 +407,83 @@ export const moreComparisons2: Comparison[] = [
       { href: '/resources/msp-vs-extended-health', label: 'MSP vs extended health' },
     ],
   },
+
+  /* Round 2, item 51 (2026-08-28): completes the who-do-I-see trilogy. The
+   * other two pages cover counsellor-vs-psychologist-vs-RSW and
+   * psychiatrist-vs-counsellor; this one takes the pairing people conflate
+   * most — the two "psych" titles — and stays off the ground the others own. */
+  {
+    slug: 'psychologist-vs-psychiatrist-bc',
+    figure: 'designations-bc',
+    title: 'Psychologist vs psychiatrist in BC: the two “psychs”, untangled',
+    metaTitle: 'Psychologist vs Psychiatrist in BC | Westpeak',
+    metaDescription:
+      'One is a physician reached by referral and covered by MSP; one is a doctoral clinician you book privately. Who does what in BC, and who to see first.',
+    eyebrow: 'Comparison · Choosing a professional',
+    lede:
+      'Two titles that share four letters and almost nothing else about how you reach them, what they cost, and what happens in the room.',
+    shortAnswer:
+      'A psychiatrist is a medical doctor: reached by physician referral, covered by MSP, able to prescribe, and focused in BC’s system on diagnosis, medication and complex conditions. A psychologist holds a doctorate in psychology: booked privately (or via extended health), unable to prescribe, and the one profession that performs formal psychological assessments — ADHD, learning disabilities, cognitive testing. The practical sorting question is not "which is more serious" but which door your situation needs: medication and medical diagnosis point to psychiatry; assessment on paper points to a psychologist; ongoing talk therapy is done by both far less often than people assume — that is mostly counsellors’ and psychologists’ territory, at very different price points.',
+    updated: '2026-08-28',
+    readMinutes: 6,
+    table: {
+      columns: ['', 'Psychiatrist', 'Registered Psychologist'],
+      rows: [
+        ['What they are', 'A physician (MD) with specialty training in psychiatry', 'A doctoral-level clinician (PhD/PsyD) registered with the College of Health and Care Professionals of BC'],
+        ['How you reach one', 'Referral from a doctor or nurse practitioner', 'Directly — no referral needed (some insurers ask for a doctor’s note)'],
+        ['Cost in BC', 'MSP-covered', 'Private fee, commonly ~$225–$300+/session; extended health often reimburses'],
+        ['Prescribes medication', 'Yes', 'No'],
+        ['Formal assessments (ADHD, psychoeducational, cognitive)', 'Diagnoses clinically; formal psychometric testing is not the usual role', 'Yes — this is the thing only psychologists do'],
+        ['Ongoing weekly psychotherapy', 'Uncommon in the BC public system; many consult and hand care back to the GP', 'Some offer it; many focus on assessment. Ask directly'],
+        ['Typical wait', 'Often long via referral, varies by urgency and region', 'Weeks in many private practices; assessment waitlists can be longer'],
+      ],
+    },
+    sections: [
+      {
+        h2: 'The conflation, and why it costs people months',
+        body: [
+          'The two titles get used interchangeably in conversation, and the cost of the mix-up is concrete: someone needing an ADHD assessment waits months for a psychiatric referral that ends in a fifteen-minute medication consult, or someone needing medication review books a psychologist who cannot write a prescription. Same four letters, different systems, different doors.',
+          'The clean division: **psychiatry is medicine** — diagnosis, medication, the complex and higher-risk end of mental health, reached through the referral system and paid by MSP. **Psychology is assessment and doctoral-level therapy** — formal testing that produces documentation (for accommodations, benefits, diagnosis-dependent decisions), plus psychotherapy from some practitioners, reached directly and paid privately.',
+          'Neither is the "more advanced counsellor". They are different professions solving different problems, and for the most common situation of all — wanting ongoing weekly talk therapy for anxiety, depression, or a relationship — the honest answer is frequently *neither*: that work is largely done by counsellors and those psychologists who practice therapy, and the [three-way comparison](/compare/rcc-vs-psychologist-vs-social-worker-bc) covers that choice, including cost.',
+        ],
+      },
+      {
+        h2: 'Which door, by situation',
+        list: [
+          { label: 'Medication is the question', detail: 'Psychiatry’s territory — though in BC the family doctor handles the common cases, and the psychiatric referral is for the harder ones. Start with your GP either way; that is how the system routes.' },
+          { label: 'You need an assessment on paper', detail: 'ADHD, learning disability, cognitive or psychoeducational testing for school, work or benefits: a registered psychologist, privately, with a written report at the end. Budget for the assessment cost and the waitlist.' },
+          { label: 'Something serious is unfolding', detail: 'Psychosis, mania, severe depression with risk: medical first — GP urgently, or emergency services. If safety is immediate: 9-8-8 by call or text.' },
+          { label: 'You want ongoing weekly therapy', detail: 'Counsellors and therapy-practising psychologists do this work; psychiatrists in BC mostly do not. The price difference between an RCC and a psychologist for the same weekly hour is substantial, and the fit question matters more than the title.' },
+          { label: 'You are not sure', detail: 'A GP visit sorts the medical question in one appointment, and a free counselling consultation sorts the therapy question in fifteen minutes. Neither commits you to anything, and the two roads run in parallel without conflict.' },
+        ],
+      },
+    ],
+    howWeFit: [
+      'Westpeak Wellness is neither of these professions, and this page exists because the practice keeps meeting people who spent months in the wrong queue. What this practice is: a Registered Clinical Counsellor doing the ongoing therapy work, bookable this week, that neither psychiatry’s waitlist nor a psychologist’s assessment calendar is built for.',
+      'Where the medical or assessment door is yours, the [psychiatry and assessment resource](/resources/psychiatry-and-assessment-in-bc) maps the referral road honestly — and therapy here can start now and coordinate with whichever specialist arrives later, with your written consent.',
+    ],
+    midCta: {
+      text: 'Fifteen free minutes sorts which of the three doors — psychiatry, psychology, counselling — your situation actually needs. Including when the answer is not this one.',
+      label: 'Book a free consultation',
+    },
+    faqs: [
+      { q: 'Is a psychologist a doctor?', a: 'A doctoral-level clinician, yes — PhD or PsyD — but not a medical doctor. Psychologists in BC diagnose and perform formal assessments; they do not prescribe. "Doctor" on a psychologist’s door refers to the doctorate, and the profession is regulated under the College of Health and Care Professionals of BC.' },
+      { q: 'Do I need a referral to see a psychologist in BC?', a: 'No — psychologists are booked directly. Some extended-health plans require a physician’s recommendation before they will reimburse sessions, which is a plan rule rather than a legal one. Psychiatrists are the referral-only profession.' },
+      { q: 'Who can diagnose ADHD in BC?', a: 'Physicians (including psychiatrists) diagnose clinically, and registered psychologists diagnose through formal psychoeducational assessment — the version that produces the documented report schools, universities and some workplaces require. Counsellors cannot diagnose it, and will say so.' },
+      { q: 'Why is the psychiatrist free and the psychologist expensive?', a: 'Because psychiatry is physician care inside MSP, and psychology is a private-pay profession outside it. The trade is the classic one: the MSP road is free and gated by referral and waiting; the private road is fast and costs money, some of which extended health returns.' },
+      { q: 'Which one does talk therapy?', a: 'Fewer of each than people expect. BC psychiatrists mostly assess, prescribe and consult; some psychologists offer psychotherapy and many concentrate on assessment. The bulk of ongoing talk therapy in the province is delivered by counsellors — which is a statement about how the system is arranged, not about who is qualified for what.' },
+    ],
+    sources: [
+      { label: 'CAMH — mental illness and addiction index', url: 'https://www.camh.ca/en/health-info/mental-illness-and-addiction-index' },
+      { label: 'Canadian Psychiatric Association', url: 'https://www.cpa-apc.org/' },
+      { label: 'College of Health and Care Professionals of BC', url: 'https://chcpbc.org/' },
+    ],
+    related: [
+      { href: '/compare/psychiatrist-vs-counsellor-bc', label: 'Psychiatrist vs counsellor' },
+      { href: '/compare/rcc-vs-psychologist-vs-social-worker-bc', label: 'RCC vs psychologist vs social worker' },
+      { href: '/resources/psychiatry-and-assessment-in-bc', label: 'Psychiatry and assessment in BC' },
+      { href: '/compare/therapy-medication-or-both', label: 'Therapy, medication, or both' },
+      { href: '/resources/what-is-a-registered-clinical-counsellor', label: 'What is an RCC?' },
+    ],
+  },
 ];

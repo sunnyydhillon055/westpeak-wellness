@@ -92,16 +92,16 @@ gated items say so.
 
 59. **[both]** GitHub Action pinging `/api/indexnow` on every production push — same-day indexing of every change instead of waiting for Monday's cron. I write the workflow; owner pastes `CRON_SECRET` into repo secrets once.
 60. **[me]** Zero-result site-search mining added to the FUNNEL_REVIEWS ritual — the search log already records what visitors looked for and didn't find; that list is a content roadmap written by your own audience.
-61. **[me]** Author-entity audit: verify every guide/Article emits the Person authorship reference for E-E-A-T; fix any that don't.
+61. **[verified done — 28 Aug]** Author-entity audit: checked the built HTML — every guide's Article schema already carries the Person authorship reference. Nothing to fix.
 62. **[recorded insight]** FAQ rich results were restricted by Google in 2023 to government/authority health sites — the 86 pages of FAQPage schema still earn AI-answer extraction but will not earn SERP accordions. Documented so nobody chases a dead feature; no action needed.
 
 ## H · Conversion & CTA (5)
 
-63. **[me]** Live consult-hours line on /book, read from the same availability source the footer uses — truthful availability at the decision moment, no scarcity theatre.
+63. **[already done — verified 28 Aug]** /book already renders live consultation hours from the Cliniko-synced availability store, in the sidebar beside the scheduler. Stale ledger item; the check-first rule again.
 64. **[me]** Trust strip directly above the scheduler embed — the credentials at the exact moment of commitment, not two scrolls earlier.
 65. **[me]** LeadCapture on the money-adjacent compare and resource pages (EAP, coverage, cost) with the starting-counselling magnet — currently the form lives on guides only.
 66. **[me]** Punjabi CtaBand variant on the Punjabi surfaces, built exclusively from already-reviewed Gurmukhi strings ("ਮੁਫ਼ਤ ਸਲਾਹ-ਮਸ਼ਵਰਾ ਬੁੱਕ ਕਰੋ").
-67. **[me]** 404 recovery audit: confirm the not-found page offers search + the top routes; a 404 on a 211-page site is a navigation moment, not a dead end.
+67. **[already done — verified 28 Aug]** The 404 was rebuilt in a prior session — real links out plus the ask-instead path, index off, follow deliberately on. Nothing to add.
 
 ## I · Distribution (3)
 

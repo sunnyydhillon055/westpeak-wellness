@@ -711,4 +711,76 @@ export const moreResources: Resource[] = [
       { href: '/services/punjabi-counselling', label: 'Punjabi-language counselling' },
     ],
   },
+
+  /* Round 2, item 52 (2026-08-28). Career-intent queries already reach the
+   * site and earn clicks ("virtual counselling jobs bc" pos 9, the closed
+   * RCC posting still drawing traffic). This page serves those searchers
+   * honestly, earns the education-site links no service page can, and
+   * quietly feeds PATH_TO_950's second-practitioner pipeline. */
+  {
+    slug: 'becoming-a-counsellor-in-bc',
+    figure: 'designations-bc',
+    figure2: 'accountability-chain',
+    title: 'Becoming a counsellor in BC: the actual path',
+    metaTitle: 'Becoming a Counsellor in BC | Westpeak',
+    metaDescription:
+      'The real route to practising as a counsellor in BC — the master’s, supervised hours, RCC or CCC registration, what it costs, and how 2027 changes the field.',
+    eyebrow: 'Resource · The profession',
+    lede:
+      'Career-changers ask this more than school-leavers do — usually after their own therapy made the work visible. Here is the honest map: the years, the money, and the parts nobody mentions.',
+    shortAnswer:
+      'The standard route to practising as a clinical counsellor in BC: an undergraduate degree, then a master’s in counselling psychology or a close equivalent (typically two to three years), supervised clinical hours during and after it, then registration — RCC through BCACC or CCC through the national association — bringing insurance, ethics obligations and a public register entry. Total time from a standing start is commonly six to eight years part of it part-time; the master’s is the major cost. From 29 November 2027, psychotherapy becomes a regulated profession under a provincial college, which raises the floor and formalises the title. The unlicensed shortcut — practising as an unregistered "counsellor", currently legal — exists, and this page is frank about why it is a bad idea that is about to get worse.',
+    updated: '2026-08-28',
+    readMinutes: 7,
+    sections: [
+      {
+        h2: 'The route, stage by stage',
+        list: [
+          { label: 'An undergraduate degree — the field matters less than people fear', detail: 'Psychology is the obvious road but not a gate: master’s programs admit from education, social work, nursing, criminology and further afield, usually asking for some psychology coursework and, more heavily, for relevant human-facing experience. Volunteer crisis-line work is the classic portfolio piece, and it doubles as a self-test for whether you can sit with distress.' },
+          { label: 'The master’s — the real gate', detail: 'A counselling psychology or clinical-stream master’s: two to three years, thesis or course-based, including a supervised practicum with real clients. BC options include UBC, SFU, UVic, TWU, Adler and City University in Canada, alongside reputable distance programs (Yorkville is the common one). Check any program against the registration body’s current requirements BEFORE enrolling — this single check is the most expensive lesson in the field.' },
+          { label: 'Supervised hours', detail: 'Registration requires documented client hours under approved supervision — the practicum provides part, post-degree work the rest. Expect the early supervised years to pay modestly at agencies and clinics; this is the profession’s residency, in effect if not in name.' },
+          { label: 'Registration: RCC or CCC', detail: 'RCC (BCACC) is the BC-recognised designation this whole site describes; CCC (CCPA) is the national equivalent. Both verify education and hours, require insurance and continuing education, and bind you to a code of ethics with a complaints process. Most BC extended-health plans list one or both — which is what makes registration economically load-bearing, not just principled.' },
+          { label: 'Then the actual career decision', detail: 'Agency, health authority, school district, EAP network, or private practice — the last being a small business with everything that implies. The realistic private-practice arithmetic: a caseload builds over one to two years, not one to two months, and the clinical training contained zero hours of bookkeeping.' },
+        ],
+      },
+      {
+        h2: 'The parts the brochures skip',
+        body: [
+          'The money, plainly: a master’s commonly runs tens of thousands of dollars, the supervised years pay like the apprenticeship they are, and established private-practice income depends directly on caseload, fee and overhead — the fee tables on sites like this one are public, and the arithmetic from them is honest homework. Nobody sensible enters this field for the economics; nobody honest hides them either.',
+          'The work itself selects hard. Sitting with other people’s pain, daily, without absorbing it or armouring against it, is a trained capacity with real limits — which is why supervision, personal therapy and workload boundaries are treated as professional obligations rather than self-care extras. Career-changers often arrive with an advantage here: they have usually been the client, and know what the chair is for.',
+          'And the unregistered shortcut deserves a straight paragraph: it is currently legal in BC to practise as a "counsellor" with no training at all, and some do. It is also how you end up uninsurable, unreimbursable by any benefits plan, invisible to every referral network — and, from 29 November 2027, on the wrong side of a regulated title under the [College of Health and Care Professionals of BC](https://chcpbc.org/). The [what-is-an-RCC page](/resources/what-is-a-registered-clinical-counsellor) explains the register from the client’s side; from the practitioner’s side, registration is simply what makes you part of the profession rather than adjacent to it.',
+        ],
+      },
+      {
+        h2: 'If you are exploring rather than deciding',
+        body: [
+          'Useful first moves that cost little: a crisis-line volunteer training (BC’s lines train continuously and the skills are the profession in miniature), an information interview with a working counsellor — most will give a genuine thirty minutes to a serious asker — and reading a registration body’s requirements end to end, which tells you exactly what the road costs before you pay anything.',
+          'And if the pull toward the field came from your own counselling: that origin is common, legitimate, and worth examining in counselling before you rebuild your career on it — "do I want to do this work, or do I want more of what receiving it gave me?" is a real question with two respectable answers. When this practice hires, openings appear at [/careers](/careers); the arrangement there describes what associate work actually looks like from inside.',
+        ],
+      },
+    ],
+    midCta: {
+      text: 'If what pulled you here was your own therapy — or the wish for it — that thread is worth following in a consultation before a career plan.',
+      label: 'Book a free consultation',
+    },
+    faqs: [
+      { q: 'How long does it take to become a counsellor in BC?', a: 'From a standing start: commonly six to eight years — an undergraduate degree, a two-to-three-year master’s, and supervised hours that overlap the degree’s end. Career-changers with a completed bachelor’s are looking at roughly three to five years to registration, part of it feasible alongside work.' },
+      { q: 'Can I practise without a master’s degree?', a: 'Legally, today, yes — "counsellor" is not yet a protected title in BC. Practically, no: registration (which requires the master’s) is what unlocks insurance, extended-health reimbursement, referral networks and, from late 2027, the regulated title itself. The unregistered route is a shrinking island.' },
+      { q: 'RCC or CCC — which should I get?', a: 'In BC, RCC is the designation clients and insurers most commonly look for, and this site is one long demonstration of how it is used in practice. CCC travels better nationally. Requirements overlap heavily, some practitioners hold both, and the honest answer is: check the current requirements of each against your program before choosing the program.' },
+      { q: 'What changes for the profession in 2027?', a: 'Psychotherapy comes under the College of Health and Care Professionals of BC on 29 November 2027, on a protected-title model — the voluntary accountability of the associations becomes statutory regulation. For anyone entering training now, the practical advice is to qualify as if regulation already applied, because by graduation it will.' },
+      { q: 'Is counselling a good second career?', a: 'It is one of the classic ones — the maturity, work history and lived experience career-changers bring are genuine clinical assets, and admissions committees know it. The honest checks: the multi-year timeline, the tuition, the apprenticeship-wage years, and whether the pull is toward doing the work or toward staying near what receiving it felt like. All four are answerable before you apply.' },
+    ],
+    sources: [
+      { label: 'BC Association of Clinical Counsellors', url: 'https://bcacc.ca' },
+      { label: 'Canadian Counselling and Psychotherapy Association', url: 'https://www.ccpa-accp.ca/' },
+      { label: 'College of Health and Care Professionals of BC', url: 'https://chcpbc.org/' },
+    ],
+    related: [
+      { href: '/resources/what-is-a-registered-clinical-counsellor', label: 'What is a Registered Clinical Counsellor?' },
+      { href: '/resources/verify-a-counsellor-in-bc', label: 'How to verify a counsellor in BC' },
+      { href: '/careers', label: 'Working at this practice' },
+      { href: '/compare/rcc-vs-psychologist-vs-social-worker-bc', label: 'RCC vs psychologist vs social worker' },
+      { href: '/standards', label: 'Standards and accountability here' },
+    ],
+  },
 ];

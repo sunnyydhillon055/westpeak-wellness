@@ -376,7 +376,19 @@ export default async function ServicePage({ params }: { params: { slug: string }
 
 
       <MoreFrom items={services} currentSlug={s.slug} base="/services" heading="Other counselling services" eyebrow="Keep going" />
-      <CtaBand />
+      {/* The Punjabi service page closes in Punjabi. The Gurmukhi heading is
+          reused VERBATIM from /punjabi (already reviewed) — the fluent-review
+          rule permits reuse, not fresh composition. */}
+      {params.slug === 'punjabi-counselling' ? (
+        <CtaBand
+          heading="ਮੁਫ਼ਤ ਸਲਾਹ-ਮਸ਼ਵਰਾ ਬੁੱਕ ਕਰੋ"
+          headingLang="pa"
+          headingClassName={gurmukhi.className}
+          text="Book a free 15-minute consultation — in Punjabi, English, or both. No pressure, and no obligation afterward."
+        />
+      ) : (
+        <CtaBand />
+      )}
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
     </div>

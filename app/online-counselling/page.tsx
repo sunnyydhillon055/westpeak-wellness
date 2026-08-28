@@ -7,6 +7,7 @@ import SceneBand from '@/components/SceneBand';
 import Photo from '@/components/ui/Photo';
 import Figure from '@/components/Figure';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import ExtraSections from '@/components/ExtraSections';
 
 export const metadata: Metadata = {
   title: 'Areas Served Across British Columbia',
@@ -189,6 +190,9 @@ export default function LocationsIndex() {
             <Link href="/guides/is-online-therapy-as-effective-as-in-person">is online therapy as effective as in person</Link>{' '}
             sets out the evidence including the places where it is weaker.
           </p>
+          {/* The hub is a static page, not a [city] route, so it takes its
+              extra sections under the synthetic slug 'index'. */}
+          <ExtraSections area="online-counselling" slug="index" />
         </div>
       </section>
       <SceneBand seed={'locations'} />

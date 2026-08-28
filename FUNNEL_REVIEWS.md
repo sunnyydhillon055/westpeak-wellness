@@ -11,6 +11,10 @@ and the calendar stays empty, the model is measuring the wrong thing.
 2. Fill a row in the table below from what it shows. The `source` field on every
    enquiry records **which page earned it** — that column is the entire point.
 3. Export fresh GSC pages + queries CSVs into `data/gsc/` (dated).
+3b. Read the site-search log (`/admin` — fed by `/api/search-log`) for terms
+    visitors searched and did not find. A zero-result query from a real visitor
+    outranks any keyword tool: it is demand already on the site with nothing to
+    land on. Add candidates to the month's decision.
 4. One decision per month, written in the last column: what gets more effort, what
    gets retired, what gets tested. One. A review that produces five decisions
    produces zero.

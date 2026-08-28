@@ -134,6 +134,13 @@ export const tools: ToolMeta[] = [
         q: 'Is anything stored?',
         a: 'Nothing. It runs entirely in your browser, there is no account or email field, and nothing you enter is transmitted or saved. Closing the tab is the end of it, and reopening the page starts from nothing.',
       },
+      /* Exact searched phrasing — "mental health check up" reaches the site
+       * (pos 80, 2026-08-28 export) and this page is the closest honest
+       * answer BC has to offer for it. */
+      {
+        q: 'Is there such a thing as a mental health check-up?',
+        a: 'Not as a standardised service the way a physical or a dental cleaning is — which is partly why people search for one. The nearest real equivalents in BC: raising mental health at your regular GP visit (a legitimate use of it, and where formal screening lives), a one-off counselling session used as exactly this kind of stocktake, or a free 15-minute consultation to talk through whether anything needs attention. This reflection is the self-serve version: language for how things have been, with no score pretending to be medicine.',
+      },
     ],
     related: [
       { href: '/guides/signs-it-might-be-time-for-therapy', label: 'Signs it might be time for therapy' },

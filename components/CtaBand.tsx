@@ -38,12 +38,18 @@ export default function CtaBand({
   tone = 'default',
   forSomeoneElse = true,
   ask = true,
+  headingLang,
+  headingClassName,
 }: {
   heading?: string;
   text?: string;
   tone?: 'default' | 'gentle';
   forSomeoneElse?: boolean;
   ask?: boolean;
+  /** For a heading in another script (the Punjabi surfaces pass Gurmukhi):
+   *  the lang attribute and the font class that actually renders it. */
+  headingLang?: string;
+  headingClassName?: string;
 }) {
   const gentle = tone === 'gentle';
 
@@ -51,7 +57,9 @@ export default function CtaBand({
     <section className="section">
       <div className="container">
         <div className="cta-band">
-          <h2>{gentle ? 'There is no wrong way to start.' : heading}</h2>
+          <h2 lang={gentle ? undefined : headingLang} className={gentle ? undefined : headingClassName}>
+            {gentle ? 'There is no wrong way to start.' : heading}
+          </h2>
           <p>
             {gentle
               ? 'A free 15-minute consultation over secure video, whenever you are ready for one. Nothing is committed by having it, and no card is needed to book it.'
