@@ -245,6 +245,7 @@ export const moreGuides: Guide[] = [
           'There is a persistent folk belief that trauma is resolved by describing it in enough detail. Sometimes that helps. Sometimes it re-floods a nervous system that had no capacity to tolerate the flooding, and the person leaves the session worse than they arrived, having learned that opening the subject is dangerous.',
           'This is why competent trauma therapy is sequenced, and why the sequence is not optional. The first phase builds capacity — regulation skills, grounding, resources you can actually reach for under load. Only then is the memory approached, and even then in controlled amounts with a deliberate close so you leave settled rather than raw.',
           'The [window of tolerance](/services/trauma-therapy) is the working concept here: the band of arousal in which you can feel something and still think about it. Outside that band, the thinking part of the brain is not fully online, and nothing therapeutic is happening no matter how much is being said. Widening the window is a large part of the treatment.',
+          'Sequencing is also why the length of a session sometimes becomes the constraint rather than the material. Approaching a memory, working with it, and closing properly is a lot to fit into fifty minutes once twenty of them have gone into settling — which is the arithmetic the [90-minute EMDR intensive](/services/emdr-intensive) exists for, and only once the capacity phase is genuinely in place. It is a format decision, not a shortcut past the sequence.',
         ],
       },
       {
@@ -276,6 +277,7 @@ export const moreGuides: Guide[] = [
       { href: '/services/emdr-therapy', label: 'EMDR therapy' },
       { href: '/guides/intergenerational-trauma-explained', label: 'Intergenerational trauma' },
       { href: '/compare/cbt-vs-emdr-for-trauma', label: 'CBT vs EMDR for trauma' },
+      { href: '/services/emdr-intensive', label: 'EMDR intensives — the 90-minute format' },
       { href: '/glossary', label: 'Counselling glossary' },
       { href: "/tools/stress-check", label: "A reflection on how things have been" },
     ],

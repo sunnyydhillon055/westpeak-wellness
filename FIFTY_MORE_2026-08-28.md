@@ -37,7 +37,7 @@ Evidence in parentheses is from the 2026-08-28 Search Console export unless note
 
 23. **[owner]** Publish the six finished drafts — one clinical read. Still the single highest-value hour available.
 24. **[me]** Write the October calendar pieces now (winter low-mood refresh companion, difficult-family holidays) into drafts so the clinical read happens once, ahead of season.
-25. **[me]** New audience page: */for/healthcare-workers* — BC nurses and paramedics, a large searcher group with zero coverage.
+25. **[not a gap — verified 28 Aug]** */for/healthcare-workers* was listed as missing and is not: `/for/healthcare-and-shift-workers` has existed since `lib/audiences.ts`. Recorded here as well as in the header of `lib/audiences-more3.ts`, because a ledger line that still reads "zero coverage" will get built a second time by the next session that trusts it.
 26. **[me]** New audience page: */for/teachers* — September-cyclical demand, pairs with the back-to-school draft.
 27. **[me]** New audience page: */for/tech-workers* — layoffs, RSU stress, remote isolation; Vancouver-heavy demand.
 28. **[me]** "Work & mental health in BC" hub page tying stress-leave, workplace, EI, WCB and disability pages into one cluster with descriptive anchors.
@@ -63,11 +63,11 @@ Evidence in parentheses is from the 2026-08-28 Search Console export unless note
 
 43. **[me]** Punjabi strip on /book: Punjabi SERP visitors currently land on an English-only booking page; add a Gurmukhi reassurance line + consult-in-Punjabi note (reuses already-reviewed strings from /punjabi).
 44. **[me]** Employer/HR page: *Counselling benefits for BC teams* — the EFAP-alternative angle; a B2B client channel no competitor page serves.
-45. **[me]** "Bring this to your GP" printable: a one-page PDF-style page a client hands their doctor — referral loop + genuinely linkable.
+45. **[shipped]** "Bring this to your GP" printable: `/refer/doctor`. Two readers, one page — the searcher asking whether a referral is even needed in BC (it is not, and the reason is that MSP never funded RCCs, so there is no gate to be let through), and the bordered one-pager below it that a patient prints and hands over. Weighted toward scope limits and the BCACC register rather than anything persuasive, because that is what a physician needs to decide with; fees come from the Cliniko catalogue so they cannot drift.
 46. **[me]** Draft the first monthly opt-in email (the CASL-compliant list exists, captures exist, nothing has ever been sent) — owner approves, then it ships.
 47. **[me]** Booking-page reassurance block: what happens after you book, cancellation terms, "no diagnosis needed" — the last-mile objections, on the page where they strike.
 48. **[me]** Consult-prep page: *Before your first consultation* — linked from the booking confirmation email; reduces no-shows, deepens intent.
-49. **[me]** Cross-sell the intensive: the EMDR service page and trauma guide mention the 90-minute format inline where "the hour keeps ending mid-work" pain appears.
+49. **[shipped]** Cross-sell the intensive. The EMDR service page already carried it (`lib/depth4.ts`, added with the EMDR-online retarget); the trauma guide did not, and now does — inside the sequencing section, where the point lands as an argument about format rather than an upsell, and with the "only once the capacity phase is in place" caveat attached so it cannot read as a shortcut past the sequence.
 50. **[me]** Measured-funnel review cadence: monthly /admin funnel read (which pages → which enquiries) checked into a dated note, so plays 1–49 get judged by enquiries, not impressions.
 
 ---

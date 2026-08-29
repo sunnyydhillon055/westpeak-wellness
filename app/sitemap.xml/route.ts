@@ -62,6 +62,10 @@ export function GET() {
     { path: '/tools', lastmod: lastmodFor('/tools'), changefreq: 'monthly', priority: 0.7 },
     { path: '/reviews', lastmod: lastmodFor('/reviews'), changefreq: 'yearly', priority: 0.5 },
     { path: '/refer', lastmod: lastmodFor('/refer'), changefreq: 'yearly', priority: 0.5 },
+    /* The GP one-pager. Listed separately from /refer because it answers a
+       query of its own — whether a referral is needed to see a counsellor in
+       BC — rather than being a subsection of the word-of-mouth page. */
+    { path: '/refer/doctor', lastmod: lastmodFor('/refer/doctor'), changefreq: 'yearly', priority: 0.5 },
     { path: '/punjabi', lastmod: lastmodFor('/punjabi'), changefreq: 'monthly', priority: 0.7 },
     /* The answers index: one URL holding every direct answer on the site.
        High priority because it is the page an answer engine retrieves from. */

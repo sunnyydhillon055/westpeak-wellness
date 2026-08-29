@@ -360,6 +360,7 @@ export const moreResources: Resource[] = [
       { href: '/resources/msp-vs-extended-health', label: 'MSP vs extended health' },
       { href: '/guides/waiting-for-therapy-in-bc', label: 'Waiting for therapy in BC' },
       { href: '/resources/bc-crisis-and-support-directory', label: 'BC crisis and support directory' },
+      { href: '/refer/doctor', label: 'A one-page summary to take to your doctor' },
     ],
   },
 

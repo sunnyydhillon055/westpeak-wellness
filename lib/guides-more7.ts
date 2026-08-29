@@ -154,6 +154,7 @@ export const moreGuides7: Guide[] = [
       { href: '/guides/return-to-work-after-a-mental-health-leave', label: 'Return to work after a leave' },
       { href: '/guides/sick-days-and-mental-health-days-bc', label: 'Sick days and mental-health days in BC' },
       { href: '/resources/workplace-mental-health-bc', label: 'Workplace mental health in BC' },
+      { href: '/refer/doctor', label: 'A one-page summary to take to your doctor' },
     ],
   },
 

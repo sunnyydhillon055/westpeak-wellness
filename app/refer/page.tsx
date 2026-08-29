@@ -150,6 +150,17 @@ export default function ReferPage({ searchParams }: { searchParams?: { lead?: st
               is a real list rather than a gesture, and worth sending on its own.
             </p>
 
+            <h2>If the person wants their doctor in the loop</h2>
+            <p>
+              No referral is needed to see a counsellor in BC — a point worth making early,
+              because plenty of people wait months for a permission nobody was ever going to be
+              asked for. Where somebody does want their GP involved, about medication, a leave or
+              an assessment,{' '}
+              <Link href="/refer/doctor">the one-page summary to take to a doctor</Link> is
+              written to be printed and handed over: designation, scope limits, fees, and how
+              information sharing works.
+            </p>
+
             <h2>Routes where somebody else pays</h2>
             <p>
               Cost is the most common reason a recommendation goes nowhere, and a surprising

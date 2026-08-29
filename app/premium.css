@@ -2180,6 +2180,10 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
   .figure--decorative, .photo, .motif, .section-divider,
   form, video, iframe { display: none !important; }
 
+  /* Screen-only instructions — "press Ctrl+P", and anything else that reads as
+     absurd once the reader is holding the paper it was describing. */
+  .no-print { display: none !important; }
+
   html, body { background: #fff !important; color: #000 !important; font-size: 11.5pt; }
   main { max-width: none !important; padding: 0 !important; }
   .container, .container--wide, .container--article { max-width: none !important; padding: 0 !important; }

@@ -17,8 +17,8 @@ export const PAGE_DATES: Record<string, string> = {
   "/approaches": "2026-08-09",
   "/pricing": "2026-08-23",
   "/contact": "2026-08-28",
-  "/faq": "2026-08-20",
-  "/online-counselling": "2026-08-18",
+  "/faq": "2026-08-28",
+  "/online-counselling": "2026-08-28",
   "/guides": "2026-08-17",
   "/compare": "2026-08-09",
   "/for": "2026-08-09",
@@ -40,7 +40,7 @@ export const PAGE_DATES: Record<string, string> = {
 /** Collections whose items share one source module and so one honest date. */
 export const COLLECTION_DATES: Record<string, string> = {
   "services": "2026-08-28",
-  "tools": "2026-08-09",
+  "tools": "2026-08-28",
   "locations": "2026-08-27",
   "punjabiRegions": "2026-08-23"
 };
