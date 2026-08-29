@@ -10,27 +10,36 @@ import Figure from '@/components/Figure';
 import { GraduationCap, Scale, BadgeCheck, Waves, HeartHandshake, Landmark } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
 
-/* THE COUNSELLOR'S NAME APPEARS EXACTLY ONCE ON THIS SITE: in the <h1> below.
+/* THE COUNSELLOR'S PERSONAL NAME IS NOT ON THIS SITE. NOT ONCE.
  *
- * It used to appear five times on this page \u2014 title, meta description, h1,
- * portrait alt text and the Person schema node \u2014 which is precisely the set of
- * surfaces a search engine reads when it decides whether a name query should
- * return this website. That was an owner decision made on 28 August 2026 and
- * reversed the same day: the practice is what should be findable, not the
- * person behind it.
+ * It used to be here five times \u2014 title, meta description, h1, portrait alt
+ * text and the Person schema node \u2014 which is exactly the set of surfaces a
+ * search engine reads when deciding whether a query for a person's name should
+ * return a company's website. Search Console confirmed it was working: the
+ * partial "aman bains" was already drawing impressions at position 22\u201326.
  *
- * The four removed occurrences were the machine-readable ones. What is left is
- * the one a human reads on the page where they have come to find out who they
- * would be talking to \u2014 which is the only place the name was ever doing honest
- * work. Do not reintroduce it into a title, a description, an alt attribute or
- * a JSON-LD block; `scripts/expansion-verify.mjs` fails the build if you do.
+ * The owner's decision, 28 August 2026: the practice should be findable, the
+ * person should not. A half-measure does not achieve that \u2014 leaving the name in
+ * the h1 leaves the strongest on-page text signal in place, and partial-name
+ * queries keep matching it. So it is gone from the rendered page entirely.
  *
- * This cannot make the name unsearchable. The BCACC public register lists every
- * Registered Clinical Counsellor by name and is the thing this site's whole
- * trust argument points at. What it does do is stop this site from being the
- * thing that builds the connection.
+ * THIS COSTS NO VISIBILITY, and it is worth being precise about why. Nobody
+ * searching for counselling in BC searches a counsellor's name \u2014 they search
+ * the problem, the city, the modality, the language. /about is one page of 194
+ * and ranks for none of the commercial terms. Its job is trust, and trust here
+ * has never run on the name: it runs on registration #20111 against a public
+ * register anyone can check, which is the stronger signal precisely because it
+ * cannot be invented. That is now the sole identity anchor, and the hero states
+ * it outright rather than deferring to bcacc.ca.
+ *
+ * WHAT IT CANNOT DO. The BCACC register is public and lists every RCC by name.
+ * This stops the site from building the association. It cannot unbuild one that
+ * already exists elsewhere.
+ *
+ * The forbidden tokens live in `.name-guard`, which is gitignored, because a
+ * guard that spells out the name it protects has published it. See check 8 in
+ * scripts/expansion-verify.mjs \u2014 the build fails if the name reaches any page.
  */
-const counsellorName = 'Aman Bains Dhillon';
 
 export const metadata: Metadata = {
   title: 'Meet your counsellor',
@@ -46,7 +55,7 @@ export default function About() {
         <div className="container hero-split">
           <div>
             <p className="eyebrow">Meet your counsellor</p>
-            <h1>{counsellorName}, {site.counsellor.credentials}</h1>
+            <h1>Who you would be working with.</h1>
             <p className="lede">
               Registered Clinical Counsellor. EMDR-trained. Gottman-trained. Born and raised in Surrey.
               Fluent in English and Punjabi.
@@ -55,7 +64,11 @@ export default function About() {
               <Link className="btn btn--primary" href={site.bookingPath}>Book a Free Consultation</Link>
               <Link className="btn btn--ghost" href="/pricing">Fees and coverage</Link>
             </div>
-            <p className="badge-rcc"><BadgeCheck aria-hidden="true" strokeWidth={1.7} />Registered Clinical Counsellor · BCACC · verify at bcacc.ca</p>
+            {/* With the name gone, this is the identity anchor. State the number
+                rather than pointing vaguely at the register: a figure a stranger
+                can look up is the whole trust argument on a site that is barred
+                from carrying reviews. */}
+            <p className="badge-rcc"><BadgeCheck aria-hidden="true" strokeWidth={1.7} />{site.counsellor.title} · {site.counsellor.registerName} #{site.counsellor.registration} · verify at bcacc.ca</p>
           </div>
           <div className="portrait">
             <span className="portrait-bloom" aria-hidden="true"><Motif variant="bloom" /></span>

@@ -15,3 +15,6 @@ next-env.d.ts
 # back out before it reached the remote. Ignore the directory rather than
 # naming files: the failure mode is a NEW file nobody remembered to list.
 qa/
+
+# The counsellor-name guard tokens (see scripts/expansion-verify.mjs check 8).
+.name-guard

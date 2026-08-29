@@ -12,7 +12,7 @@
 
 export const PAGE_DATES: Record<string, string> = {
   "": "2026-08-23",
-  "/about": "2026-08-20",
+  "/about": "2026-08-28",
   "/services": "2026-08-18",
   "/approaches": "2026-08-09",
   "/pricing": "2026-08-23",

@@ -200,51 +200,52 @@ for (let i = 0; i < sig.length; i++) {
 }
 if (sig.length > 1) pass.push(`Uniqueness: worst pair ${worst.pct}% (${worst.a} vs ${worst.b}), limit 25%`);
 
-/* ---------- 8. THE COUNSELLOR'S NAME STAYS ON /about ----------
+/* ---------- 8. THE COUNSELLOR'S NAME IS NOT ON THIS SITE ----------
  *
- * The name tokens are read out of app/about/page.tsx rather than written here.
- * That is not tidiness: this repository is public, and a gate that protects a
- * name by spelling it out in a second file has published the thing it guards.
- * One source, which is also the one place the name is allowed to appear. */
-const NAME_TOKENS = (readFileSync(new URL('../app/about/page.tsx', import.meta.url), 'utf8')
-  .match(/const counsellorName = '([^']+)'/) || [, ''])[1]
-  .split(/\s+/).filter((w) => w.length > 2);
-if (!NAME_TOKENS.length) fail.push('name gate: could not read counsellorName from app/about/page.tsx');
-const NAME = new RegExp(`\\b(${NAME_TOKENS.join('|')})\\b`, 'i');
+ * This check used to say "the name stays on /about", and that phrasing hid the
+ * problem it was meant to catch: /about carried the name five times — title,
+ * meta description, h1, portrait alt text and the Person schema node — and the
+ * check skipped /about entirely, so all five passed. Being on one page is not
+ * the same as being one occurrence, and four of those five were the exact
+ * surfaces a search engine reads to decide whether a query for a person's name
+ * should return a company's website. Search Console showed it working: the
+ * partial "aman bains" was drawing impressions at position 22–26.
+ *
+ * The rule is now the simple one. The name appears on no page, in no form.
+ *
+ * THE TOKENS ARE NOT IN THIS REPOSITORY. They are read from `.name-guard`,
+ * which is gitignored, because a guard that spells out the name it protects has
+ * published the thing it guards — the exact mistake the previous version made
+ * by keeping the tokens in a regex right here. `.name-guard.example` shows the
+ * format. Without the file the check cannot run, and it says so loudly as a
+ * note rather than passing silently: a green tick from a check that did nothing
+ * is worse than no check, and this repo keeps a lesson file about that. */
+const guardPath = new URL('../.name-guard', import.meta.url);
+const NAME_TOKENS = existsSync(guardPath)
+  ? readFileSync(guardPath, 'utf8').split('\n').map((l) => l.trim())
+      .filter((l) => l && !l.startsWith('#') && l.length > 2)
+  : [];
 
-let nameFail = false;
-for (const [route, html] of published) {
-  if (route === '/about') continue;
-  if (NAME.test(html)) { fail.push(`${route}: counsellor name outside /about`); nameFail = true; }
-}
-if (!nameFail && NAME_TOKENS.length) pass.push('Counsellor name appears only under /about');
-
-/* ---------- 8b. AND ON /about, ONLY WHERE A HUMAN READS IT ----------
- *
- * Being on one page is not the same as being one occurrence. Until 28 August
- * 2026 the name sat in /about's <title>, meta description, portrait alt text
- * and Person schema as well as its <h1> — five occurrences, four of them the
- * exact surfaces a search engine reads to decide that a query for the name
- * should return this website. The owner asked for the opposite outcome.
- *
- * So this check does not count occurrences — the RSC flight payload duplicates
- * the whole component tree, so any count is meaningless. It asserts the thing
- * that actually matters: the name is absent from every machine-readable
- * surface. The visible <h1> is the one place it is allowed to live.
- *
- * This cannot make the name unsearchable — the BCACC register is public and
- * lists every RCC by name. It stops this site from being what builds the link. */
-const about = pages.get('/about');
-if (about) {
-  const surfaces = [
-    ['<title>', (about.match(/<title[^>]*>[\s\S]*?<\/title>/i) || [''])[0]],
-    ['meta description', (about.match(/<meta[^>]+name=["']description["'][^>]*>/i) || [''])[0]],
-    ['alt text', (about.match(/\balt\s*=\s*["'][^"']*["']/gi) || []).join(' ')],
-    ['JSON-LD', (about.match(/application\/ld\+json[^>]*>[\s\S]*?<\/script>/gi) || []).join(' ')],
-  ];
-  const hits = surfaces.filter(([, s]) => NAME.test(s)).map(([w]) => w);
-  if (hits.length) fail.push(`/about: counsellor name in ${hits.join(', ')} — visible copy only`);
-  else pass.push('Counsellor name on /about is in visible copy only, not title/description/alt/schema');
+if (!NAME_TOKENS.length) {
+  note.push('name guard: .name-guard absent or empty — the counsellor-name check did NOT run');
+} else {
+  const NAME = new RegExp(`\\b(${NAME_TOKENS.join('|')})\\b`, 'i');
+  let nameFail = false;
+  for (const [route, html] of published) {
+    if (NAME.test(html)) {
+      /* Name the surface, because "somewhere on this page" sends the next
+         person hunting through an RSC payload for a string they cannot see. */
+      const where = [
+        ['<title>', (html.match(/<title[^>]*>[\s\S]*?<\/title>/i) || [''])[0]],
+        ['meta description', (html.match(/<meta[^>]+name=["']description["'][^>]*>/i) || [''])[0]],
+        ['alt text', (html.match(/\balt\s*=\s*["'][^"']*["']/gi) || []).join(' ')],
+        ['JSON-LD', (html.match(/application\/ld\+json[^>]*>[\s\S]*?<\/script>/gi) || []).join(' ')],
+      ].filter(([, s]) => NAME.test(s)).map(([w]) => w);
+      fail.push(`${route}: counsellor name present${where.length ? ` (${where.join(', ')})` : ''}`);
+      nameFail = true;
+    }
+  }
+  if (!nameFail) pass.push(`Counsellor name absent from all ${published.length} published pages`);
 }
 
 /* ---------- REPORT ---------- */

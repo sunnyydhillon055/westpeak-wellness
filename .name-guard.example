@@ -1,0 +1,5 @@
+# One token per line. Any of these appearing in a built page fails the build.
+# Real file is .name-guard and is gitignored on purpose: a guard that spells out
+# the name it protects has published the thing it guards.
+Firstname
+Surname
