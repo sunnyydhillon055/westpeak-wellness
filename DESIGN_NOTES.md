@@ -175,7 +175,7 @@ warm background image or the brand gradient. A large ਪੰਜਾਬੀ set in N
 Gurmukhi at 7% opacity over `--grad-ink` is more ownable than any stock photograph
 would have been, and it makes the language itself the design feature.
 
-**`public/aman-bains-dhillon.jpg` was renamed** to
+**`public/[counsellor-name].jpg` was renamed** to
 `public/img/photo/counsellor-portrait.jpg`. The name rule extends to file names,
 and the old path leaked it into every request for that image.
 

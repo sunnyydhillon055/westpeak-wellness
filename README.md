@@ -1,6 +1,6 @@
 # Westpeak Wellness — Website
 
-Fully virtual counselling practice for Aman Bains Dhillon, MA, RCC. Serving all of British Columbia. Built with Next.js 14 (App Router) + TypeScript. No database, no external services — deploys free on Vercel.
+Fully virtual counselling practice for [COUNSELLOR NAME], MA, RCC. Serving all of British Columbia. Built with Next.js 14 (App Router) + TypeScript. No database, no external services — deploys free on Vercel.
 
 ## What's in here
 
@@ -18,9 +18,9 @@ Fully virtual counselling practice for Aman Bains Dhillon, MA, RCC. Serving all 
 
 ## ⚠️ Before going live — edit these
 
-1. **Calendly link** — in `lib/site.ts`, set `bookingUrl` to Aman's real Calendly URL. Every "Book" button uses it.
+1. **Calendly link** — in `lib/site.ts`, set `bookingUrl` to the counsellor's real Calendly URL. Every "Book" button uses it.
 2. **Instagram URL** — confirm `instagramUrl` in `lib/site.ts` is correct.
-3. **Direct billing line** — `app/pricing/page.tsx` and `lib/faq.ts` mention Pacific Blue Cross direct billing. Keep only if Aman is enrolled; otherwise delete that sentence.
+3. **Direct billing line** — `app/pricing/page.tsx` and `lib/faq.ts` mention Pacific Blue Cross direct billing. Keep only if the counsellor is enrolled; otherwise delete that sentence.
 4. **Fees** — confirm the fee table in `app/pricing/page.tsx` matches current pricing.
 
 ## Editing content

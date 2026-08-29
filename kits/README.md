@@ -23,7 +23,7 @@ Booking:         https://www.westpeakwellness.com/book
 Email:           info@westpeakwellness.com
 Service area:    British Columbia, Canada (virtual — all of BC)
 Languages:       English, Punjabi
-Practitioner:    Aman Bains Dhillon, MA, RCC
+Practitioner:    [COUNSELLOR NAME], MA, RCC
 Designation:     Registered Clinical Counsellor (RCC), BC Association of
                  Clinical Counsellors
 ```

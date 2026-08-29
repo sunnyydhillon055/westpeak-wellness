@@ -36,6 +36,6 @@ and the calendar stays empty, the model is measuring the wrong thing.
   are the candidates) — these get the next content investment.
 - **The reply-time median** (surfaces on /contact at 5+ samples) — conversion work
   upstream is wasted if replies slow down.
-- **Consult → client conversion** is Aman's number, not the site's. If consults
+- **Consult → client conversion** is the counsellor's number, not the site's. If consults
   book but clients do not start, that is a fit/fee/expectation conversation, and
   no amount of SEO touches it.

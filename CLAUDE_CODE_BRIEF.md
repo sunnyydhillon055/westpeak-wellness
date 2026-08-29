@@ -4,7 +4,7 @@
 This folder is a complete, ready-to-deploy Next.js 14 website. It is a NEW project — it has never been pushed to GitHub or deployed to Vercel. Your job is to set it up as a brand-new project from scratch: install, verify, make a couple of edits, push to a new GitHub repo, and deploy to a new Vercel project on a temporary URL. Everything you need already exists in this folder. Do not scaffold a new Next.js app — this one is done and builds cleanly.
 
 ## What the site is
-Fully virtual counselling website for **Aman Bains Dhillon, MA, RCC**, serving all of British Columbia. Practice name **Westpeak Wellness**. Next.js 14 App Router + TypeScript, no database, ~64 statically generated pages, free to host on Vercel.
+Fully virtual counselling website for **[COUNSELLOR NAME], MA, RCC**, serving all of British Columbia. Practice name **Westpeak Wellness**. Next.js 14 App Router + TypeScript, no database, ~64 statically generated pages, free to host on Vercel.
 
 ## Files already in this folder
 - `app/` — Home (`page.tsx`), About, Services (overview + dynamic `[slug]`), Fees (`pricing`), FAQ, Contact, Online Counselling (index + dynamic `[city]`), `layout.tsx`, `globals.css`, `sitemap.ts`, `robots.ts`, `not-found.tsx`
@@ -25,7 +25,7 @@ Run:
 Expect a clean compile generating ~64 static pages (7 core + 9 `/services/[slug]` + 45 `/online-counselling/[city]` + sitemap + robots). If any error appears, fix it minimally without changing design or copy, then rebuild until clean.
 
 ### 2. Pre-launch edits (these specific ones)
-- In `lib/faq.ts`: DELETE the entire FAQ object whose question is "Can you direct-bill my insurance?" (Aman is not enrolled in direct billing). Remove the whole `{ q: ..., a: ... }` entry.
+- In `lib/faq.ts`: DELETE the entire FAQ object whose question is "Can you direct-bill my insurance?" (the counsellor is not enrolled in direct billing). Remove the whole `{ q: ..., a: ... }` entry.
 - In `app/pricing/page.tsx`: in the "Extended health" card, DELETE the sentence that begins "Pacific Blue Cross now offers direct billing for RCCs." Keep the rest of that card (the pay-and-submit reimbursement line stays).
 - In `lib/site.ts`: LEAVE `bookingUrl` as the placeholder. The user is adding the real Calendly link later. Do not ask about it.
 - Do not change any fees, credentials, service copy, or the light-blue theme.

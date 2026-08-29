@@ -10,14 +10,32 @@ import Figure from '@/components/Figure';
 import { GraduationCap, Scale, BadgeCheck, Waves, HeartHandshake, Landmark } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
 
-// The counsellor's personal name is intentionally scoped to this file only.
-// Every other page refers to "Westpeak Wellness" or "your counsellor".
+/* THE COUNSELLOR'S NAME APPEARS EXACTLY ONCE ON THIS SITE: in the <h1> below.
+ *
+ * It used to appear five times on this page \u2014 title, meta description, h1,
+ * portrait alt text and the Person schema node \u2014 which is precisely the set of
+ * surfaces a search engine reads when it decides whether a name query should
+ * return this website. That was an owner decision made on 28 August 2026 and
+ * reversed the same day: the practice is what should be findable, not the
+ * person behind it.
+ *
+ * The four removed occurrences were the machine-readable ones. What is left is
+ * the one a human reads on the page where they have come to find out who they
+ * would be talking to \u2014 which is the only place the name was ever doing honest
+ * work. Do not reintroduce it into a title, a description, an alt attribute or
+ * a JSON-LD block; `scripts/expansion-verify.mjs` fails the build if you do.
+ *
+ * This cannot make the name unsearchable. The BCACC public register lists every
+ * Registered Clinical Counsellor by name and is the thing this site's whole
+ * trust argument points at. What it does do is stop this site from being the
+ * thing that builds the connection.
+ */
 const counsellorName = 'Aman Bains Dhillon';
 
 export const metadata: Metadata = {
-  title: 'Meet Aman Bains Dhillon, MA, RCC',
+  title: 'Meet your counsellor',
   description:
-    'Aman Bains Dhillon, MA, RCC \u2014 EMDR- and Gottman-trained, offering online therapy across BC in English and Punjabi. Master\u2019s in intergenerational trauma.',
+    'The Registered Clinical Counsellor behind Westpeak Wellness \u2014 EMDR- and Gottman-trained, offering online therapy across BC in English and Punjabi.',
   alternates: { canonical: `${site.domain}/about` },
 };
 
@@ -43,7 +61,7 @@ export default function About() {
             <span className="portrait-bloom" aria-hidden="true"><Motif variant="bloom" /></span>
             <Image
               src="/img/photo/counsellor-portrait.jpg"
-              alt={`${counsellorName}, ${site.counsellor.credentials}, ${site.counsellor.title} at ${site.name}`}
+              alt={`${site.counsellor.title} at ${site.name}`}
               width={800}
               height={1000}
               sizes="(max-width: 860px) 340px, 420px"
@@ -291,7 +309,14 @@ export default function About() {
               '@context': 'https://schema.org',
               '@type': 'Person',
               '@id': `${site.domain}/about#person`,
-              name: counsellorName,
+              /* Deliberately no `name`. Around 190 pages reference this node as
+                 their `reviewedBy`, so it has to keep existing — the credentials,
+                 languages and training below are the substance of what that
+                 reference is claiming. Naming it as well is what would let a
+                 search engine build a person entity and answer a name query with
+                 this practice, which is the one thing the owner asked not to
+                 happen. An entity with verifiable credentials and no personal
+                 name is the honest shape of that request. */
               honorificSuffix: site.counsellor.credentials,
               jobTitle: site.counsellor.title,
               url: `${site.domain}/about`,

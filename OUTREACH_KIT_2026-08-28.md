@@ -14,10 +14,10 @@ business name.
 
 ## 1 · Standing press bio (for journalist requests — Qwoted, press queries, direct)
 
-> Aman Bains Dhillon, MA, RCC, is a Registered Clinical Counsellor (BCACC #20111)
+> [COUNSELLOR NAME], MA, RCC, is a Registered Clinical Counsellor (BCACC #20111)
 > running Westpeak Wellness, a fully virtual counselling practice serving all of
 > British Columbia in English and Punjabi. Practice areas include anxiety, trauma
-> and EMDR, couples work (Gottman-trained), and South Asian mental health. Aman can
+> and EMDR, couples work (Gottman-trained), and South Asian mental health. the counsellor can
 > comment on: access to counselling outside BC's major cities, therapy in Punjabi
 > and heritage languages, the 2027 regulation of psychotherapy in BC, and workplace
 > mental-health topics (stress leave, return-to-work).
@@ -44,7 +44,7 @@ Subject: **In 2027, "counsellor" finally becomes a regulated title in BC — mos
 > A explainer on my site covers the ground if useful background helps:
 > westpeakwellness.com/resources/what-is-a-registered-clinical-counsellor
 >
-> — Aman Bains Dhillon, MA, RCC (BCACC #20111)
+> — [COUNSELLOR NAME], MA, RCC (BCACC #20111)
 
 ## 3 · University outreach (campus counselling-resource pages)
 
@@ -88,8 +88,8 @@ counsellor's registration — service journalism, not advertising.
 > any counsellor in two minutes. No client stories, no promotion beyond the name —
 > the register check works for finding any counsellor, not just me.
 
-(**Note:** the on-air conversation is Aman's own Punjabi — the fluent-review rule
-applies to *published site copy*, not to Aman speaking.)
+(**Note:** the on-air conversation is the counsellor's own Punjabi — the fluent-review rule
+applies to *published site copy*, not to the counsellor speaking.)
 
 ## 6 · GP / clinic referral letter (print `/refer`, attach this cover note)
 

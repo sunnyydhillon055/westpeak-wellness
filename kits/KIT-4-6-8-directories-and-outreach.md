@@ -83,7 +83,7 @@ There is nothing gated behind it and nothing to sign up for. If there is
 something missing that your community would need, I would genuinely like to
 know and will add it.
 
-Aman Bains Dhillon, MA, RCC
+[COUNSELLOR NAME], MA, RCC
 Registered Clinical Counsellor
 Westpeak Wellness · https://www.westpeakwellness.com
 ```
@@ -115,7 +115,7 @@ therapy cost" is genuinely complicated in BC and most pages answer it badly.
 If it is useful for anything you are writing on mental health access or cost,
 please use it. Happy to answer questions about the underlying numbers.
 
-Aman Bains Dhillon, MA, RCC
+[COUNSELLOR NAME], MA, RCC
 Westpeak Wellness · https://www.westpeakwellness.com
 ```
 
@@ -131,7 +131,7 @@ mental health, burnout.
 Template — **stay under 200 words and never reference a client**:
 
 ```
-Aman Bains Dhillon, MA, RCC — Registered Clinical Counsellor, Westpeak Wellness
+[COUNSELLOR NAME], MA, RCC — Registered Clinical Counsellor, Westpeak Wellness
 (virtual practice, British Columbia). Website: https://www.westpeakwellness.com
 
 [Two or three tight paragraphs answering exactly what was asked. Speak from
@@ -167,7 +167,7 @@ community. I am happy to speak to the access gap, why first-language therapy
 changes what is possible in a session, and what the stigma actually looks like
 generationally — without discussing any individual.
 
-Aman Bains Dhillon, MA, RCC
+[COUNSELLOR NAME], MA, RCC
 Westpeak Wellness · https://www.westpeakwellness.com
 ```
 
@@ -197,7 +197,7 @@ have.
 If you keep a resource list, my details are below and the site sets out fees
 and approach in full.
 
-Aman Bains Dhillon, MA, RCC
+[COUNSELLOR NAME], MA, RCC
 Westpeak Wellness · https://www.westpeakwellness.com
 ```
 
@@ -240,7 +240,7 @@ Set up [Google Alerts](https://www.google.com/alerts) for:
 ```
 "Westpeak Wellness"
 "West Peak Wellness"
-"Aman Bains Dhillon"
+"[COUNSELLOR NAME]"
 ```
 
 The middle one is the useful alert — it catches anyone citing the practice

@@ -144,7 +144,7 @@ straightforward once registered.
 Every application above asks the same nine things. Fill these in once:
 
 ```
-Practitioner:        Aman Bains Dhillon, MA, RCC
+Practitioner:        [COUNSELLOR NAME], MA, RCC
 Designation:         Registered Clinical Counsellor
 Registration:        #20111, BC Association of Clinical Counsellors
 Practice:            Westpeak Wellness

@@ -44,7 +44,7 @@ closing `CtaBand` component, so shared chrome is not inflating any count.
 |---|--:|--:|---|--:|--:|--:|:-:|---|
 | `/` | 44 | 145 | Counselling that meets you where you are. | 452 | 9 | 60 | y | MedBiz |
 | `/_not-found` | 44 | 145 | This page moved or never existed. | 17 | 1 | 0 | y | MedBiz |
-| `/about` | 52 | 152 | Aman Bains Dhillon , MA, RCC | 243 | 4 | 0 | y | MedBiz |
+| `/about` | 52 | 152 | [COUNSELLOR NAME] , MA, RCC | 243 | 4 | 0 | y | MedBiz |
 | `/book` | 54 | 144 | Book a free consultation. | 332 | 4 | 59 | y | MedBiz |
 | `/contact` | 38 | 142 | Let’s see if we’re a good fit. | 123 | 3 | 0 | y | MedBiz |
 | `/faq` | 46 | 150 | Frequently asked questions | 558 | 2 | 3 | y | FAQPage,MedBiz |

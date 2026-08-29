@@ -30,7 +30,7 @@ Counselling" and "Westpeak Wellness" are two different businesses to a crawler.
 |---|---|
 | Business name | `Westpeak Wellness` |
 | Legal name | `Westpeak Wellness Counselling` |
-| Practitioner | `Aman Bains Dhillon, MA, RCC` |
+| Practitioner | `[COUNSELLOR NAME], MA, RCC` |
 | Registration | `BCACC #20111` |
 | Register URL | `https://bc-counsellors.org/counsellors/` |
 | Website | `https://www.westpeakwellness.com` |

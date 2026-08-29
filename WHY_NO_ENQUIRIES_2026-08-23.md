@@ -142,7 +142,7 @@ without it. There is no warning, no log, no fallback.
 
 **25. Booking works.** I drove it live: seven open days, real slots at 9:00am,
 10:30am, 12:00pm, 1:30pm, 3:00pm, 4:30pm, 6:00pm and 7:30pm, with morning,
-afternoon and evening tabs, under "Select a time with Aman Bains Dhillon". **The
+afternoon and evening tabs, under "Select a time with [COUNSELLOR NAME]". **The
 booking funnel is not your problem.**
 
 **26. The booking deep-link is being dropped.** `/book` embeds

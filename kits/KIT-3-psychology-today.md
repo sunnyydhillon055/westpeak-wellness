@@ -12,7 +12,7 @@ You will need your BCACC registration number to verify.
 
 | Field | Value |
 |---|---|
-| Display name | `Aman Bains Dhillon` |
+| Display name | `[COUNSELLOR NAME]` |
 | Credentials shown | `MA, RCC` |
 | Practice name | `Westpeak Wellness` |
 | Website | `https://www.westpeakwellness.com` |

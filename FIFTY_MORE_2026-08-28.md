@@ -2,7 +2,7 @@
 
 **Written:** 28 August 2026. Fifty distinct actions not yet taken, none already shipped,
 none violating the repo's standing rules (the two that are gated say so). Tags:
-**[me]** executable in Claude Code · **[owner]** needs Sunny/Aman · **[both]** I prep, owner sends.
+**[me]** executable in Claude Code · **[owner]** needs Sunny/the counsellor · **[both]** I prep, owner sends.
 Evidence in parentheses is from the 2026-08-28 Search Console export unless noted.
 
 ## A · Capture demand the data already proves (12)
@@ -112,7 +112,7 @@ gated items say so.
 ## Order of attack
 
 Items **1–6 + 13–17** are one focused build (the practicalities cluster + snippet pass) and
-directly compound the site's proven strongest genre. Then **23** (Aman's hour), **31** (the
+directly compound the site's proven strongest genre. Then **23** (the counsellor's hour), **31** (the
 report — the only real backlink engine), **43–48** (conversion), with **D** running in
 parallel as owner time allows. Everything **[me]** is executable on request; nothing here
 requires new tooling.

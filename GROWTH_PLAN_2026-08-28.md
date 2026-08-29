@@ -73,7 +73,7 @@ workplace-mental-health (17), rcc-vs-psychologist compare (17), verify-a-counsel
 (31). On-page these are done; what moves them is freshness signals, internal anchors,
 IndexNow pings — and above all play 4.
 
-**3. Publish the six drafts (Aman, one hour).** Every guide is a new query surface;
+**3. Publish the six drafts (the counsellor, one hour).** Every guide is a new query surface;
 the two seasonal pieces are aimed at the exact Sept–Oct demand window now opening.
 This is still the highest points-per-minute action anyone can take.
 

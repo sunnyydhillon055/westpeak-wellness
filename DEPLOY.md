@@ -17,7 +17,7 @@ This is a SEPARATE Vercel project from your other sites. Follow in order.
 2. Import the `westpeak-wellness` repo.
 3. Framework preset auto-detects **Next.js**. Leave build settings default.
 4. Click **Deploy**. In ~1 min you'll get a temporary URL like `westpeak-wellness.vercel.app`.
-5. **Review the whole site on that temp URL** with Aman before touching the domain — zero risk, current live site stays up.
+5. **Review the whole site on that temp URL** with the counsellor before touching the domain — zero risk, current live site stays up.
 
 ## Step 3 — Add the domain (do this only after review)
 Because westpeakwellness.com currently points at Wix, transfer with NO downtime:
