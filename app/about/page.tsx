@@ -9,6 +9,7 @@ import Motif from '@/components/brand/Motif';
 import Figure from '@/components/Figure';
 import { GraduationCap, Scale, BadgeCheck, Waves, HeartHandshake, Landmark } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { ogBase } from '@/lib/og-meta';
 
 /* THE COUNSELLOR'S PERSONAL NAME IS NOT ON THIS SITE. NOT ONCE.
  *
@@ -42,6 +43,11 @@ import Breadcrumbs from '@/components/Breadcrumbs';
  */
 
 export const metadata: Metadata = {
+  /* Its own og:url. Without an openGraph object this page inherited the
+     root one from layout.tsx, whose `url` is the homepage - so a link to
+     this page unfurled announcing a different URL than its own canonical
+     tag. See lib/og-meta.ts. */
+  openGraph: { ...ogBase('/about') },
   title: 'Meet your counsellor',
   description:
     'The Registered Clinical Counsellor behind Westpeak Wellness \u2014 EMDR- and Gottman-trained, offering online therapy across BC in English and Punjabi.',

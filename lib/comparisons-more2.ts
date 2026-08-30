@@ -170,6 +170,12 @@ export const moreComparisons2: Comparison[] = [
 
   {
     slug: 'therapy-apps-ai-vs-counselling',
+    /* accountability-chain, added 2026-08-30. This page's load-bearing claim is
+       that no app is accountable to a regulator, bound by a code of ethics, or
+       responsible for you in a crisis — and the site already had a diagram of
+       exactly that chain, drawn for /standards. The page was one of the last
+       three carrying no in-body image; it did not need a new one. */
+    figure: 'accountability-chain',
     title: 'Mental-health apps and AI chatbots vs counselling',
     metaTitle: 'Therapy Apps & AI vs Counselling | Westpeak Wellness',
     metaDescription:
@@ -251,6 +257,7 @@ export const moreComparisons2: Comparison[] = [
 
   {
     slug: 'therapy-in-punjabi-vs-english',
+    figure: 'language-in-therapy',
     title: 'Therapy in Punjabi or in English: does the language matter?',
     metaTitle: 'Therapy in Punjabi vs English | Westpeak Wellness',
     metaDescription:

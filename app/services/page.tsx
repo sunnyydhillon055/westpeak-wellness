@@ -7,8 +7,14 @@ import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
 import { getServiceIcon } from '@/lib/icon-map';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { ogBase } from '@/lib/og-meta';
 
 export const metadata: Metadata = {
+  /* Its own og:url. Without an openGraph object this page inherited the
+     root one from layout.tsx, whose `url` is the homepage - so a link to
+     this page unfurled announcing a different URL than its own canonical
+     tag. See lib/og-meta.ts. */
+  openGraph: { ...ogBase('/services') },
   title: 'Counselling Services (Online, BC-wide)',
   description:
     'Online counselling across BC: individual and couples therapy, EMDR, trauma, anxiety and depression. Book a free consultation.',

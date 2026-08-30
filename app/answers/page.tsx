@@ -11,6 +11,7 @@ import { services } from '@/lib/services';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import Figure from '@/components/Figure';
 import CtaBand from '@/components/CtaBand';
+import { ogBase } from '@/lib/og-meta';
 
 const TITLE = 'Straight Answers About Counselling in BC | Westpeak Wellness';
 const DESC =
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
   title: { absolute: TITLE },
   description: DESC,
   alternates: { canonical: `${site.domain}/answers` },
-  openGraph: { title: TITLE, description: DESC, url: `${site.domain}/answers` },
+  openGraph: { ...ogBase(`/answers`), title: TITLE, description: DESC, url: `${site.domain}/answers` },
 };
 
 export const dynamic = 'force-static';

@@ -142,6 +142,21 @@ export const figures: Record<string, Figure> = {
     alt: "A four-step diagram of Gottman Method couples therapy: a joint assessment session, individual sessions, a shared feedback session setting the treatment plan, and ongoing work on friendship, conflict and shared meaning.",
     caption: "Assessment first, treatment plan second, skills third.",
   },
+  /* Drawn 2026-08-30, for /compare/therapy-in-punjabi-vs-english - the last
+     page on the site carrying no in-body image once the matrix pages and
+     /refer/doctor were served from the existing set. Nothing already drawn
+     was about language, and hanging an unrelated diagram on the page to clear
+     a warning would have been worse than the warning.
+     The content is the page's own short answer and adds no claim to it. */
+  'language-in-therapy': {
+    key: 'language-in-therapy',
+    file: 'language-in-therapy.svg',
+    width: 1040,
+    height: 474,
+    title: "What each language tends to hold in therapy",
+    alt: "Two overlapping circles for a bilingual client. The first language tends to hold childhood memory, family relationships and emotion, including words with no English equivalent; the second language tends to offer distance, analysis and the vocabulary of work and diagnosis. The overlap holds what a bilingual counsellor allows: moving between the two mid-session, without choosing in advance.",
+    caption: "The overlap is the point — the choice is not made in advance.",
+  },
   'panic-vs-anxiety': {
     key: 'panic-vs-anxiety',
     file: 'panic-vs-anxiety.svg',

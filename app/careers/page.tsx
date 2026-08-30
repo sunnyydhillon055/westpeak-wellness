@@ -6,6 +6,7 @@ import { openJobs, jobs, APPLY_EMAIL } from '@/lib/careers';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
+import { ogBase } from '@/lib/og-meta';
 
 const TITLE = 'Counselling Jobs BC — Remote RCC Careers | Westpeak Wellness';
 const DESC =
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
   title: { absolute: TITLE },
   description: DESC,
   alternates: { canonical: `${site.domain}/careers` },
-  openGraph: { title: TITLE, description: DESC, url: `${site.domain}/careers` },
+  openGraph: { ...ogBase(`/careers`), title: TITLE, description: DESC, url: `${site.domain}/careers` },
 };
 
 /* The careers hub.

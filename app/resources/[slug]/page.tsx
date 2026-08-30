@@ -18,6 +18,7 @@ import Figure from '@/components/Figure';
 import InlineRelated from '@/components/InlineRelated';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import LeadCapture, { type MagnetKey } from '@/components/LeadCapture';
+import { ogBase } from '@/lib/og-meta';
 
 /* Which resource pages carry the email one-pager, and which pager. Money
  * pages only: the coverage checklist where the reader has a plan to check,
@@ -41,9 +42,8 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     title: { absolute: r.metaTitle },
     description: r.metaDescription,
     alternates: { canonical: `${site.domain}/resources/${r.slug}` },
-    openGraph: {
-      type: 'article', title: r.metaTitle, description: r.metaDescription,
-      url: `${site.domain}/resources/${r.slug}`, modifiedTime: r.updated,
+    openGraph: { ...ogBase(`/resources/${r.slug}`),
+      type: 'article', title: r.metaTitle, description: r.metaDescription, modifiedTime: r.updated,
     },
   };
 }

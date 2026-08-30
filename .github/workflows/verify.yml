@@ -1,0 +1,68 @@
+# Builds the site and runs every offline gate, on push and on pull request.
+#
+# WHY THIS EXISTS
+#
+# Before 30 August 2026 this repo had eleven gates and no CI that ran any of
+# them. `npm run verify` existed and was excellent and fired only when somebody
+# remembered to type it. The repo's own scar tissue is the argument: the
+# kamloops redirect shadow shipped to production off a green local check that
+# had not been run against the change, and next.config.mjs still carries the
+# comment about it. A gate nobody runs is documentation.
+#
+# WHAT IS DELIBERATELY NOT HERE
+#
+# `npm run links` makes 95 requests to government and health-authority sites.
+# link-rot.mjs says in its own header to run it monthly, and that it is kept
+# out of `npm run seo` so a build never fails because a health authority
+# reorganised its URLs overnight. Same reasoning applies here, so it runs on a
+# schedule instead - see link-rot.yml - and not on every push.
+#
+# `npm run drift` needs CLINIKO_API_KEY and compares live prices. That belongs
+# to a person watching the output, not to a job that goes red at 3am.
+name: verify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: verify-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # page-dates.mjs and the SEO gate read real commit dates. A shallow
+          # clone gives every page the same date, which is the exact failure
+          # lib/page-dates.ts exists to prevent.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      # site.isPreview keys off VERCEL_ENV, which is unset here, so the build
+      # is treated as production and the pages carry their real robots policy.
+      # If that ever changes, the gates would be auditing a site that says
+      # do not index it, and the SEO gate would go red for the wrong reason.
+      - name: Build
+        run: npm run build
+
+      - name: Gates
+        run: npm run verify:ci
+
+      # The only step that starts the server and asks it for URLs. Everything
+      # above reads files off disk, and the failure next.config.mjs warns about
+      # - a redirect quietly beating a page that exists - is invisible to all
+      # of it. Runs last because it needs the build the gates just checked.
+      - name: Smoke
+        run: npm run smoke

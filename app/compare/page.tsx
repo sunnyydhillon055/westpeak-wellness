@@ -6,8 +6,14 @@ import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
 import { Scale } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { ogBase } from '@/lib/og-meta';
 
 export const metadata: Metadata = {
+  /* Its own og:url. Without an openGraph object this page inherited the
+     root one from layout.tsx, whose `url` is the homepage - so a link to
+     this page unfurled announcing a different URL than its own canonical
+     tag. See lib/og-meta.ts. */
+  openGraph: { ...ogBase('/compare') },
   title: 'Compare Your Options',
   description:
     'Straight comparisons for people deciding about therapy in BC — types of therapist, formats, and approaches, with the trade-offs stated plainly.',

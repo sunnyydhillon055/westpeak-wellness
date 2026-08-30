@@ -7,6 +7,7 @@ import CtaBand from '@/components/CtaBand';
 import SceneBand from '@/components/SceneBand';
 import Figure from '@/components/Figure';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { ogBase } from '@/lib/og-meta';
 
 const TITLE = 'Free counselling tools | Westpeak Wellness';
 const DESC =
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
   title: { absolute: TITLE },
   description: DESC,
   alternates: { canonical: `${site.domain}/tools` },
-  openGraph: { title: TITLE, description: DESC, url: `${site.domain}/tools` },
+  openGraph: { ...ogBase(`/tools`), title: TITLE, description: DESC, url: `${site.domain}/tools` },
 };
 
 export default function ToolsIndex() {

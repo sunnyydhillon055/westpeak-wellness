@@ -1,0 +1,50 @@
+# Checks the external citations once a month, and opens nothing if they pass.
+#
+# WHY THIS IS SEPARATE FROM verify.yml
+#
+# link-rot.mjs says it in its own header: run it monthly, and keep it out of
+# the build gate, because a build must not fail because a health authority
+# reorganised its URLs overnight. Both halves of that are respected here - it
+# runs on a schedule rather than on a push, and its failure blocks nothing.
+#
+# WHY IT MATTERS ENOUGH TO AUTOMATE
+#
+# The sweep of 23 August 2026 found four dead citations, three of them on
+# pages making claims about people's legal entitlements, and one of them the
+# source behind a paid-sick-days figure written three days earlier. This site's
+# whole argument is "do not take my word for it, here is where to check", so a
+# citation that 404s costs more here than a broken link usually does.
+#
+# The 1st at 07:00 UTC is midnight Pacific, which puts the run before anyone
+# looks at the repo and after the month it is reporting on.
+name: link-rot
+
+on:
+  schedule:
+    - cron: '0 7 1 * *'
+  workflow_dispatch:
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      # --slow: one request at a time. A scheduled job has no deadline, and
+      # six parallel workers against a single government host is the kind of
+      # thing that earns a rate-limit and then reports it as rot.
+      - name: Check external citations
+        run: npm run links -- --slow

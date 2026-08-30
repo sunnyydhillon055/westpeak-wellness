@@ -12,7 +12,7 @@ export const faqs: FAQ[] = [
   },
   {
     q: "Can a counsellor refer you to a psychiatrist?",
-    a: "Not directly — psychiatric referrals in BC route through a physician or nurse practitioner. What a counsellor does in practice: recognises when psychiatric assessment is needed, says so plainly, writes a summary you can hand your doctor, and with your written consent communicates with them directly. The referral letter carries more weight when the GP can see months of documented counselling behind it, so the counsellor is often the reason the referral happens — just not the signature on it.",
+    a: "Not directly — psychiatric referrals in BC route through a physician or nurse practitioner. What a counsellor does in practice: recognises when psychiatric assessment is needed, says so plainly, writes a summary you can hand your doctor ([there is one already written](/refer/doctor)), and with your written consent communicates with them directly. The referral letter carries more weight when the GP can see months of documented counselling behind it, so the counsellor is often the reason the referral happens — just not the signature on it.",
   },
   {
     q: "How do I pay, and when?",
@@ -103,8 +103,39 @@ const GROUP_OF: Record<string, string> = {
      still appearing in the FAQPage schema. That mismatch is worse than a
      missing answer: the markup would describe content the visitor cannot see. */
   "Are you hiring counsellors?": 'start',
+  /* These three were unmapped and therefore invisible: they appeared in the
+     FAQPage schema on /faq and in no group on the page itself, which is the
+     exact mismatch the note above warns about. Found 2026-08-30 while adding
+     an in-body link to one of them and noticing the link never rendered.
+     Google's structured-data policy asks that FAQ markup describe content
+     visible on the page, so this was not merely three missing answers - it
+     was three answers the markup claimed a reader could see and could not,
+     one of them the question about how and when to pay. */
+  "Is therapy considered a medical appointment?": 'money',
+  "Can a counsellor refer you to a psychiatrist?": 'sessions',
+  "How do I pay, and when?": 'money',
   "Why are there no client reviews on this site?": 'privacy',
   "Is the site usable with a screen reader or keyboard?": 'privacy',
 };
 
 export const faqsInGroup = (key: string) => faqs.filter((f) => GROUP_OF[f.q] === key);
+
+/* THE COMMENT ABOVE WAS TRUE AND UNENFORCED.
+ *
+ * GROUP_OF has carried a warning about unmapped questions since it was
+ * written, and three questions were unmapped anyway - which is what a comment
+ * alone is worth against a list two people edit. A question added to `faqs`
+ * without a group still renders in the FAQPage schema, so the failure is
+ * silent in exactly the place a person would look to check.
+ *
+ * Evaluated at module load, so an unmapped question fails `npm run build`
+ * with the question in the message rather than shipping. Nothing here is
+ * dynamic; if it throws, it throws on the first build after the mistake. */
+const UNGROUPED = faqs.filter((f) => !GROUP_OF[f.q]).map((f) => f.q);
+if (UNGROUPED.length) {
+  throw new Error(
+    `lib/faq.ts: ${UNGROUPED.length} question(s) have no entry in GROUP_OF, so they ` +
+    `would appear in the FAQPage schema and render nowhere on /faq — ` +
+    UNGROUPED.map((q) => `"${q}"`).join('; ')
+  );
+}

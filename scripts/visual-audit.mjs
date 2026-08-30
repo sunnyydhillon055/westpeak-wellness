@@ -46,6 +46,13 @@ for (const { url, html } of pages) {
 
   const words = body.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
   if (words < 300) continue;   // short pages are not wall-of-text candidates
+  /* A confirmation page is not a wall of text, whatever its word count says.
+     /message-sent is the one page left on the "nothing visual at all" list
+     after the fifty city x service pages got their diagrams, and it is there
+     because it repeats the crisis numbers and what happens next -- prose that
+     should stay prose. Illustrating a receipt would be decoration.
+     Same routes cta-audit.mjs exempts, for the same reason. */
+  if (url === '/message-sent' || url === '/punjabi/sent') continue;
 
   const v = {
     figure: count(body, /<figure\b/gi),

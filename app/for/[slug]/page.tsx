@@ -17,6 +17,7 @@ import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
 import InlineRelated from '@/components/InlineRelated';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { ogBase } from '@/lib/og-meta';
 
 export function generateStaticParams() {
   return audiences.map((a) => ({ slug: a.slug }));
@@ -29,9 +30,8 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     title: { absolute: a.metaTitle },
     description: a.metaDescription,
     alternates: { canonical: `${site.domain}/for/${a.slug}` },
-    openGraph: {
-      type: 'article', title: a.metaTitle, description: a.metaDescription,
-      url: `${site.domain}/for/${a.slug}`, modifiedTime: a.updated,
+    openGraph: { ...ogBase(`/for/${a.slug}`),
+      type: 'article', title: a.metaTitle, description: a.metaDescription, modifiedTime: a.updated,
     },
   };
 }

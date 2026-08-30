@@ -21,6 +21,7 @@ import InlineRelated from '@/components/InlineRelated';
 import { deviceSlots } from '@/lib/placement';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { readCatalog, money } from '@/lib/cliniko-catalog';
+import { ogBase } from '@/lib/og-meta';
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -46,7 +47,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
           }
         : {}),
     },
-    openGraph: { title: s.metaTitle, description: s.metaDescription, url: `${site.domain}/services/${s.slug}` },
+    openGraph: { ...ogBase(`/services/${s.slug}`), title: s.metaTitle, description: s.metaDescription, url: `${site.domain}/services/${s.slug}` },
   };
 }
 

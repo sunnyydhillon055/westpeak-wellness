@@ -227,7 +227,21 @@ for (const p of pages.values()) {
 
   if (CLINICAL(route)) {
     if (!p.medical) warn('no-medicalwebpage', route, '');
-    if (!p.reviewed) warn('no-lastreviewed', route, '');
+    /* SERVICE PAGES CARRY NO REVIEW DATE, AND THAT IS THE CORRECT STATE.
+     *
+     * This warned on all ten of them, every run, and the fix it implied was
+     * to add a date. lib/schema.ts says why that must not happen: `reviewed`
+     * is optional "because service pages carry no review date, and inventing
+     * one would put a fabricated clinical claim into structured data."
+     *
+     * A warning nobody can action without lying is worse than silence. It
+     * trains a reader to skim the warnings, and these ten were 70% of them -
+     * enough to bury a real finding underneath. If a clinical review of the
+     * service pages is ever actually done, the date goes in the page data and
+     * this stops being relevant; until then the honest report is a note, not
+     * a nag. */
+    const REVIEW_EXEMPT = route.startsWith('/services/');
+    if (!p.reviewed && !REVIEW_EXEMPT) warn('no-lastreviewed', route, '');
     if (!p.speakable) warn('no-speakable', route, '');
   }
   /* These two span several session types at different prices, so any single

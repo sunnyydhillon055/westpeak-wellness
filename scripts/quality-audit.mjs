@@ -36,6 +36,27 @@ const pages = [];
   }
 })(BUILT);
 
+/* GATED PROVINCES ARE NOT PAGES — 2026-08-30.
+ *
+ * /alberta and /ontario build a shell that renders the 404 boundary on
+ * purpose: the province is not open, and expansion-verify.mjs passes only
+ * while they stay that way. Their build artefacts are therefore empty of
+ * content by design, and this sweep was reading them as ordinary pages —
+ * scoring them for a missing H1, a missing lang attribute, zero words, no
+ * links out, and a title and description duplicated off the 404 shell.
+ *
+ * That is eight findings, none of them a defect, and between them they
+ * accounted for every entry in five of this sweep's categories. A category
+ * whose only members are false positives reads as a solved category, which
+ * is worse than a noisy one.
+ *
+ * seo-audit.mjs has skipped these routes since the gate was written
+ * (see its comment at the `/ontario` check); this file never learned.
+ */
+const GATED = ['/alberta', '/ontario'];
+const isGated = (u) => GATED.some((g) => u === g || u.startsWith(g + '/'));
+const gatedSkipped = pages.filter((p) => isGated(p.url)).length;
+
 const strip = (h) => h.replace(/<script\b[\s\S]*?<\/script>/gi, ' ').replace(/<style\b[\s\S]*?<\/style>/gi, ' ');
 const mainOf = (h) => (strip(h).match(/<main\b[^>]*>([\s\S]*?)<\/main>/i) || [, ''])[1];
 const text = (f) => f.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
@@ -47,6 +68,7 @@ const titles = new Map(), descs = new Map();
 const VAGUE = /^(click here|here|read more|learn more|more|this|link|see more)\.?$/i;
 
 for (const { url, html } of pages) {
+  if (isGated(url)) continue;
   const body = mainOf(html);
   const head = html.slice(0, html.indexOf('</head>') + 7);
 
@@ -79,7 +101,22 @@ for (const { url, html } of pages) {
       const alt = (attrs.match(/alt="([^"]*)"/) || [, ''])[1];
       if (alt && alt.length < 8 && !/^(|\s)$/.test(alt)) add('img-thin-alt', url, `alt="${alt}"`);
     }
-    if (!/\b(width|height)=/.test(attrs) && !/\bstyle="[^"]*aspect/.test(attrs)) {
+    /* FILL-LAYOUT IMAGES ARE NOT UNDIMENSIONED — 2026-08-30.
+     *
+     * This flagged the two photographs on / and /online-counselling as
+     * layout-shift risks. Both are <Image fill> inside components/ui/Photo,
+     * and a fill image never carries width/height by design — Next marks it
+     * data-nimg="fill" and sizes it to its parent, and the box is reserved by the
+     * aspect-ratio on the .photo--wide / .photo--tall wrapper
+     * (app/premium.css:171-173).
+     *
+     * The box IS reserved before the file arrives, which is the thing this
+     * check exists to verify; it was reading for one particular spelling of
+     * the answer. Accept the fill signature too, and keep flagging any <img>
+     * that genuinely leaves its height to the bytes.
+     */
+    const filled = /data-nimg="fill"/.test(attrs);
+    if (!/\b(width|height)=/.test(attrs) && !/\bstyle="[^"]*aspect/.test(attrs) && !filled) {
       add('img-no-dimensions', url, attrs.slice(0, 60));
     }
   }
@@ -106,20 +143,54 @@ for (const { url, html } of pages) {
     const attrs = m[2];
     if (/type="(hidden|submit|button)"/.test(attrs)) continue;
     const id = (attrs.match(/id="([^"]*)"/) || [, ''])[1];
-    const labelled = id && new RegExp(`<label[^>]*for="${id}"`).test(body);
-    if (!labelled && !/aria-label(ledby)?=/.test(attrs)) {
+    const explicit = id && new RegExp(`<label[^>]*for="${id}"`).test(body);
+    /* IMPLICIT LABELS COUNT — 2026-08-30.
+     *
+     * This test knew only the explicit form, `<label for=id>`, and reported
+     * 33 pages carrying "a form field with no label". Every one of them was
+     * the monthly-email consent box in components/LeadCapture.tsx, which is
+     * written as
+     *
+     *     <label class="lead-form-check"><input type="checkbox" …><span>…
+     *
+     * An input nested inside its own label is associated with it under the
+     * HTML standard, exposed correctly by every screen reader, and needs no
+     * id at all. The markup was already right; the instrument was wrong, and
+     * it was wrong loudly enough to be the largest accessibility number this
+     * sweep printed.
+     *
+     * Detected by span rather than by parser: take the slice of the document
+     * before the field, and if the nearest preceding <label> has not been
+     * closed by then, the field is inside it.
+     */
+    const before = body.slice(0, m.index);
+    const lastOpen = before.lastIndexOf('<label');
+    const implicit = lastOpen !== -1 && !before.slice(lastOpen).includes('</label>');
+    if (!explicit && !implicit && !/aria-label(ledby)?=/.test(attrs)) {
       add('input-no-label', url, attrs.slice(0, 60));
     }
   }
 
   /* ---- head hygiene ---------------------------------------------------- */
-  if (!/rel="canonical"/.test(head)) add('no-canonical', url);
+  /* A noindex page correctly has no canonical, and /_not-found had one until
+     30 August 2026: inherited from the root metadata and pointing at the
+     homepage, so every 404 URL on the site declared it was really /. Removing
+     it is the fix; this check must not then report the fix as the defect.
+     Same exemption metadata-audit.mjs makes. */
+  const noindex = /<meta name="robots"[^>]+content="[^"]*noindex/i.test(head);
+  if (!/rel="canonical"/.test(head) && !noindex) add('no-canonical', url);
   if (!/property="og:image"/.test(head)) add('no-og-image', url);
   if (!/<html[^>]+lang=/.test(html)) add('no-lang', url);
 
   /* ---- substance ------------------------------------------------------- */
   const words = text(body).split(/\s+/).filter(Boolean).length;
-  if (words < 250) add('very-thin', url, `${words} words`);
+  /* /_not-found is the 404 boundary, and the two /sent routes are
+     confirmations. A 404 padded to 250 words to satisfy a thin-content rule
+     would be a worse 404, and a confirmation page that kept talking after the
+     action was taken would be a worse confirmation. Exempt rather than fixed,
+     for the same reason cta-audit.mjs exempts the same routes. */
+  const SHORT_BY_DESIGN = ['/_not-found', '/punjabi/sent', '/message-sent'];
+  if (words < 250 && !SHORT_BY_DESIGN.includes(url)) add('very-thin', url, `${words} words`);
 }
 
 for (const [t, urls] of titles) if (urls.length > 1) add('duplicate-title', urls.join(', '), `"${t.slice(0, 50)}"`);
@@ -127,7 +198,8 @@ for (const [d, urls] of descs) if (urls.length > 1) add('duplicate-description',
 
 /* ---- external citations, for the rot check that follows ---------------- */
 const externals = new Set();
-for (const { html } of pages) {
+for (const { url, html } of pages) {
+  if (isGated(url)) continue;
   for (const m of mainOf(html).matchAll(/href="(https?:\/\/[^"]+)"/g)) externals.add(m[1]);
 }
 

@@ -6,16 +6,16 @@ import { gurmukhi } from '@/app/fonts-gurmukhi';
 import SchedulerEmbed from '@/components/SchedulerEmbed';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import InboundForm from '@/components/InboundForm';
+import { ogBase } from '@/lib/og-meta';
 
 export const metadata: Metadata = {
   title: 'Book a Free 15-Minute Consultation',
   description:
     'A free 15-minute video call — no card, no obligation, and if someone else would suit you better you will be told so. Anywhere in BC, English or Punjabi.',
   alternates: { canonical: `${site.domain}/book` },
-  openGraph: {
+  openGraph: { ...ogBase(`/book`),
     title: `Book a Free 15-Minute Consultation | ${site.name}`,
     description: 'Free 15-minute consultation for online counselling anywhere in British Columbia.',
-    url: `${site.domain}/book`,
   },
 };
 

@@ -7,8 +7,14 @@ import SceneBand from '@/components/SceneBand';
 import Figure from '@/components/Figure';
 import { BookOpen } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { ogBase } from '@/lib/og-meta';
 
 export const metadata: Metadata = {
+  /* Its own og:url. Without an openGraph object this page inherited the
+     root one from layout.tsx, whose `url` is the homepage - so a link to
+     this page unfurled announcing a different URL than its own canonical
+     tag. See lib/og-meta.ts. */
+  openGraph: { ...ogBase('/guides') },
   title: 'Counselling Guides',
   description:
     'Plain-language guides to therapy in BC — what the research says, what to expect, and how to decide. Written by a Registered Clinical Counsellor.',

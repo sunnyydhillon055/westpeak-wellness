@@ -11,6 +11,7 @@ import ExtraSections from '@/components/ExtraSections';
 import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { ogBase } from '@/lib/og-meta';
 
 export function generateStaticParams() {
   return locations.map((l) => ({ city: l.slug }));
@@ -25,7 +26,7 @@ export function generateMetadata({ params }: { params: { city: string } }): Meta
     title: { absolute: `Online Counselling in ${l.city} | ${site.name}` },
     description: l.metaDescription,
     alternates: { canonical: `${site.domain}/online-counselling/${l.slug}` },
-    openGraph: { title: `${title} | ${site.name}`, description: l.metaDescription, url: `${site.domain}/online-counselling/${l.slug}` },
+    openGraph: { ...ogBase(`/online-counselling/${l.slug}`), title: `${title} | ${site.name}`, description: l.metaDescription, url: `${site.domain}/online-counselling/${l.slug}` },
   };
 }
 

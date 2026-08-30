@@ -6,18 +6,18 @@ import { glossary, glossaryGroups, termsByGroup } from '@/lib/glossary';
 import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { ogBase } from '@/lib/og-meta';
 
 export const metadata: Metadata = {
   title: { absolute: 'Counselling Terms Glossary | Westpeak Wellness' },
   description:
     'Plain-language definitions of the therapy, mental-health and BC coverage terms you will meet when looking for a counsellor — without the jargon.',
   alternates: { canonical: `${site.domain}/glossary` },
-  openGraph: {
+  openGraph: { ...ogBase(`/glossary`),
     type: 'article',
     title: 'Counselling Terms Glossary | Westpeak Wellness',
     description:
       'What EMDR, the window of tolerance, RCC, EFAP and forty other counselling terms actually mean, defined plainly.',
-    url: `${site.domain}/glossary`,
   },
 };
 

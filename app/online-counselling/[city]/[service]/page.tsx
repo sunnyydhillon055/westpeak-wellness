@@ -11,6 +11,8 @@ import { pairs, getPair, pairsForCity, pairsForService } from '@/lib/city-servic
 import CtaBand from '@/components/CtaBand';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import AskInstead from '@/components/AskInstead';
+import Figure from '@/components/Figure';
+import { ogBase } from '@/lib/og-meta';
 
 /* CITY × SERVICE — fifty pages, each with its own argument.
  *
@@ -57,6 +59,36 @@ function load(params: Params) {
 /** "Anxiety Counselling" -> "anxiety counselling", for mid-sentence use. */
 const lower = (s: string) => s.charAt(0).toLowerCase() + s.slice(1);
 
+/* THE DIAGRAM THAT ALREADY EXISTED — 2026-08-30.
+ *
+ * scripts/visual-audit.mjs found these fifty pages were the largest block of
+ * long-form text on the site carrying nothing visual at all: 1,050-1,170 words
+ * each, no figure, no image, no table, no boxed block, a break every 158 words
+ * and all of those breaks headings. They were the top twenty entries on the
+ * "nothing visual at all" list and forty-nine of the fifty-one entries overall.
+ *
+ * Nothing new had to be drawn. Each of the five services in this matrix
+ * already has a diagram on the site, drawn for its own service page, with its
+ * alt text taken from the SVG's <desc> — so the picture and its accessible
+ * description cannot drift. The matrix route simply never used them.
+ *
+ * The figure goes in section 3, with the service content, and not in section 1
+ * or 2: the pair argument and the city reality are the parts unique to this
+ * page, and putting a shared illustration above them would give the reader a
+ * shared impression of a page whose whole design is to lead with what is not.
+ *
+ * A service without a diagram renders no figure rather than a placeholder —
+ * Figure returns null on an unknown key, so a sixth service added to the
+ * matrix degrades quietly instead of building a broken image.
+ */
+const SERVICE_FIGURE: Record<string, string> = {
+  'anxiety-counselling': 'anxiety-avoidance-cycle',
+  'couples-therapy': 'gottman-method',
+  'depression-counselling': 'burnout-vs-depression',
+  'emdr-therapy': 'emdr-phases',
+  'trauma-therapy': 'window-of-tolerance',
+};
+
 export function generateMetadata({ params }: { params: Params }): Metadata {
   const d = load(params);
   if (!d) return {};
@@ -88,10 +120,16 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
     title: { absolute: `${title} | ${site.name}` },
     description: desc,
     alternates: { canonical: `${site.domain}${path}` },
-    openGraph: {
-      title: `${svc.name} in ${ctx.city}, BC (Online) | ${site.name}`,
+    openGraph: { ...ogBase(`${path}`),
+      /* The same string as the page title, and for the same reason the page
+         title stopped being this one. The comment above records that
+         "<service> in <city>, BC (Online) | Westpeak Wellness" ran to 69
+         characters on the longest pairs and was cut back; og:title kept the
+         rejected version, so the fix landed on the search result and not on
+         the share card. Prince George x depression counselling reached 72
+         characters here - truncated in every unfurl that renders it. */
+      title: `${title} | ${site.name}`,
       description: desc,
-      url: `${site.domain}${path}`,
     },
   };
 }
@@ -231,6 +269,9 @@ export default function CityServicePage({ params }: { params: Params }) {
             </>
           ) : null}
           <p>{svc.approach}</p>
+
+          {SERVICE_FIGURE[svc.slug] ? <Figure name={SERVICE_FIGURE[svc.slug]} /> : null}
+
           <p>
             The full picture — how sessions are structured, what the first one is like, and what
             it does not do — is on{' '}

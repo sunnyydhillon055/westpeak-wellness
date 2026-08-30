@@ -9,6 +9,7 @@ import CtaBand from '@/components/CtaBand';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import Figure from '@/components/Figure';
 import Stat from '@/components/Stat';
+import { ogBase } from '@/lib/og-meta';
 
 /* The English-language Punjabi cluster.
  *
@@ -37,10 +38,9 @@ export function generateMetadata({ params }: { params: { region: string } }): Me
       canonical: `${site.domain}/punjabi-counselling/${r.slug}`,
       languages: { 'pa': `${site.domain}/punjabi` },
     },
-    openGraph: {
+    openGraph: { ...ogBase(`/punjabi-counselling/${r.slug}`),
       title: `Punjabi-speaking counselling in ${r.region}, BC`,
       description: r.metaDescription,
-      url: `${site.domain}/punjabi-counselling/${r.slug}`,
     },
   };
 }

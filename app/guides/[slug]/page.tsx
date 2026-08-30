@@ -19,6 +19,7 @@ import { getFigure } from '@/lib/figures';
 import { deviceSlots } from '@/lib/placement';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import LeadCapture, { type MagnetKey } from '@/components/LeadCapture';
+import { ogBase } from '@/lib/og-meta';
 
 /* Guides where "Still deciding? Book a free consultation!" is the wrong note.
  *
@@ -77,9 +78,8 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     title: { absolute: g.metaTitle },
     description: g.metaDescription,
     alternates: { canonical: `${site.domain}/guides/${g.slug}` },
-    openGraph: {
-      type: 'article', title: g.metaTitle, description: g.metaDescription,
-      url: `${site.domain}/guides/${g.slug}`, modifiedTime: g.updated,
+    openGraph: { ...ogBase(`/guides/${g.slug}`),
+      type: 'article', title: g.metaTitle, description: g.metaDescription, modifiedTime: g.updated,
     },
   };
 }

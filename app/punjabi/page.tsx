@@ -5,6 +5,7 @@ import { gurmukhi } from '@/app/fonts-gurmukhi';
 import { abs, orgRef, siteRef } from '@/lib/schema';
 import Figure from '@/components/Figure';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { ogBasePunjabi } from '@/lib/og-meta';
 
 const TITLE = 'ਪੰਜਾਬੀ ਵਿੱਚ ਕਾਊਂਸਲਿੰਗ | Punjabi counselling in BC';
 const DESC =
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
       'pa': `${site.domain}/punjabi`,
     },
   },
-  openGraph: { title: TITLE, description: DESC, url: `${site.domain}/punjabi`, locale: 'pa_IN' },
+  openGraph: { ...ogBasePunjabi(`/punjabi`), title: TITLE, description: DESC, locale: 'pa_IN' },
 };
 
 /* The Punjabi-language surface.

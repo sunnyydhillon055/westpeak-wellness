@@ -8,6 +8,7 @@ import Figure from '@/components/Figure';
 import { Compass, Wallet, MessageCircleQuestion, Lock } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { rich } from '@/lib/rich';
+import { ogBase } from '@/lib/og-meta';
 /* Answers may carry [text](/path) links. The rendered answer resolves them;
    the FAQPage schema below keeps the PLAIN string, because markdown syntax
    inside structured data is not something a search engine unwraps — it would
@@ -17,6 +18,11 @@ const plain = (s: string) => s.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
 const GROUP_ICON = { start: Compass, money: Wallet, sessions: MessageCircleQuestion, privacy: Lock };
 
 export const metadata: Metadata = {
+  /* Its own og:url. Without an openGraph object this page inherited the
+     root one from layout.tsx, whose `url` is the homepage - so a link to
+     this page unfurled announcing a different URL than its own canonical
+     tag. See lib/og-meta.ts. */
+  openGraph: { ...ogBase('/faq') },
   title: 'Frequently Asked Questions',
   description:
     'Answers about online counselling in BC: booking, fees, extended health coverage, Punjabi sessions, confidentiality, and what to expect.',

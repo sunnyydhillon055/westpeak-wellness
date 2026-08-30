@@ -18,6 +18,7 @@ import Figure from '@/components/Figure';
 import InlineRelated from '@/components/InlineRelated';
 import { getFigure } from '@/lib/figures';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { ogBase } from '@/lib/og-meta';
 
 export function generateStaticParams() {
   return approaches.map((a) => ({ slug: a.slug }));
@@ -30,9 +31,8 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     title: { absolute: g.metaTitle },
     description: g.metaDescription,
     alternates: { canonical: `${site.domain}/approaches/${g.slug}` },
-    openGraph: {
-      type: 'article', title: g.metaTitle, description: g.metaDescription,
-      url: `${site.domain}/approaches/${g.slug}`, modifiedTime: g.updated,
+    openGraph: { ...ogBase(`/approaches/${g.slug}`),
+      type: 'article', title: g.metaTitle, description: g.metaDescription, modifiedTime: g.updated,
     },
   };
 }

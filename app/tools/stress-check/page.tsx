@@ -6,9 +6,15 @@ import ToolShell from '@/components/tools/ToolShell';
 import CtaBand from '@/components/CtaBand';
 import StressCheckTool from '@/components/tools/StressCheckTool';
 import { site } from '@/lib/site';
+import { ogBase } from '@/lib/og-meta';
 
 const tool = getTool('stress-check')!;
 export const metadata: Metadata = {
+  /* Its own og:url. Without an openGraph object this page inherited the
+     root one from layout.tsx, whose `url` is the homepage - so a link to
+     this page unfurled announcing a different URL than its own canonical
+     tag. See lib/og-meta.ts. */
+  openGraph: { ...ogBase('/tools/stress-check') },
   title: { absolute: tool.metaTitle },
   description: tool.metaDescription,
   alternates: { canonical: `${site.domain}/tools/${tool.slug}` },

@@ -6,6 +6,7 @@ import { abs, orgRef, siteRef } from '@/lib/schema';
 import CtaBand from '@/components/CtaBand';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import Figure from '@/components/Figure';
+import { ogBase } from '@/lib/og-meta';
 
 /* THE HUB THE PUNJABI CLUSTER NEVER HAD.
  *
@@ -47,7 +48,7 @@ export const metadata: Metadata = {
       pa: `${site.domain}/punjabi`,
     },
   },
-  openGraph: { title: TITLE, description: DESC, url: `${site.domain}/punjabi-counselling` },
+  openGraph: { ...ogBase(`/punjabi-counselling`), title: TITLE, description: DESC, url: `${site.domain}/punjabi-counselling` },
 };
 
 /* Which argument each region page actually makes. Kept here rather than in

@@ -6,6 +6,13 @@ out
 .vercel
 next-env.d.ts
 .env*
+# ...but not the example, which has no values in it and is the only written
+# record of which variables this project needs. `.env*` swallowed it, so a
+# 5 KB documented contract - every variable, what it drives, what happens when
+# it is unset - lived on one laptop and in no repository. Verified before
+# un-ignoring: the single non-empty line is the public canonical origin, which
+# is on every page of the site already.
+!.env.example
 
 # Local backup of the Cliniko consent-form template. Contains the counsellor's
 # name and a client-facing legal document — kept on disk for restore, not in git.

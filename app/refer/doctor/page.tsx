@@ -3,7 +3,9 @@ import Link from 'next/link';
 import { site } from '@/lib/site';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import CtaBand from '@/components/CtaBand';
+import Figure from '@/components/Figure';
 import { readCatalog, money, type CatalogItem } from '@/lib/cliniko-catalog';
+import { ogBase } from '@/lib/og-meta';
 
 export const revalidate = 3600;
 
@@ -15,7 +17,7 @@ export const metadata: Metadata = {
   title: TITLE,
   description: DESC,
   alternates: { canonical: `${site.domain}/refer/doctor` },
-  openGraph: { title: `${TITLE} | ${site.name}`, description: DESC, url: `${site.domain}/refer/doctor` },
+  openGraph: { ...ogBase(`/refer/doctor`), title: `${TITLE} | ${site.name}`, description: DESC, url: `${site.domain}/refer/doctor` },
 };
 
 /* WHY THIS PAGE EXISTS
@@ -26,7 +28,7 @@ export const metadata: Metadata = {
  *      real, repeated question with a short and slightly surprising answer:
  *      no, because MSP does not fund Registered Clinical Counsellors in the
  *      first place, and a gate nobody is standing at needs no key. That
- *      answer is currently spread across /compare/msp-vs-extended-health and
+ *      answer is currently spread across /resources/msp-vs-extended-health and
  *      the RCC resource; nothing on the site says it in the words people use.
  *
  *   2. The GP appointment. A client who wants their doctor in the loop —
@@ -106,7 +108,7 @@ export default async function BringToYourDoctor() {
               psychiatry, for instance, which is a medical specialty billed to MSP. Counselling
               by an RCC is not billed to MSP at all; it is paid privately or through extended
               health. There is no gate, because nobody is standing at one.{' '}
-              <Link href="/compare/msp-vs-extended-health">
+              <Link href="/resources/msp-vs-extended-health">
                 What MSP covers and what it does not
               </Link>{' '}
               sets out the division in full.
@@ -121,6 +123,14 @@ export default async function BringToYourDoctor() {
               </Link>
               .
             </p>
+
+            {/* designations-bc, added 2026-08-30. This was the only page on the
+                site carrying no in-body image, and it is the page most likely
+                to be read by somebody who is not a prospective client: a GP,
+                a nurse practitioner, an EFAP coordinator. The single thing
+                that audience most often has wrong is which BC designation
+                does what, and the diagram answering that already existed. */}
+            <Figure name="designations-bc" />
 
             <h2>What is worth asking your GP for</h2>
             <p>

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { site } from '@/lib/site';
 import { gurmukhi } from '@/app/fonts-gurmukhi';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { ogBasePunjabi } from '@/lib/og-meta';
 
 /* The Punjabi confirmation.
  *
@@ -38,6 +39,11 @@ const TITLE = 'ਤੁਹਾਡਾ ਸੁਨੇਹਾ ਪਹੁੰਚ ਗਿਆ �
 const DESC = 'Confirmation, in Punjabi, that your message reached Westpeak Wellness.';
 
 export const metadata: Metadata = {
+  /* Its own og:url. Without an openGraph object this page inherited the
+     root one from layout.tsx, whose `url` is the homepage - so a link to
+     this page unfurled announcing a different URL than its own canonical
+     tag. See lib/og-meta.ts. */
+  openGraph: { ...ogBasePunjabi('/punjabi/sent') },
   title: { absolute: `${TITLE} | ${site.name}` },
   description: DESC,
   robots: { index: false, follow: true },

@@ -7,6 +7,7 @@ import { jobs, getJob, jobDescriptionHtml, inlineHtml, APPLY_EMAIL } from '@/lib
 import Breadcrumbs from '@/components/Breadcrumbs';
 import CtaBand from '@/components/CtaBand';
 import ApplyBlock from '@/components/ApplyBlock';
+import { ogBase } from '@/lib/og-meta';
 
 /* A single job posting, on its own URL.
  *
@@ -29,7 +30,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     title: { absolute: job.seoTitle },
     description: job.metaDescription,
     alternates: { canonical: url },
-    openGraph: { title: job.seoTitle, description: job.metaDescription, url, type: 'article' },
+    openGraph: { ...ogBase(`/careers/${job.slug}`), title: job.seoTitle, description: job.metaDescription, type: 'article' },
   };
 }
 

@@ -8,8 +8,14 @@ import Photo from '@/components/ui/Photo';
 import Figure from '@/components/Figure';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import ExtraSections from '@/components/ExtraSections';
+import { ogBase } from '@/lib/og-meta';
 
 export const metadata: Metadata = {
+  /* Its own og:url. Without an openGraph object this page inherited the
+     root one from layout.tsx, whose `url` is the homepage - so a link to
+     this page unfurled announcing a different URL than its own canonical
+     tag. See lib/og-meta.ts. */
+  openGraph: { ...ogBase('/online-counselling') },
   title: 'Areas Served Across British Columbia',
   description:
     'Virtual therapy anywhere in BC — Vancouver, Surrey, Victoria, Kelowna, Prince George and beyond. Sessions in English or Punjabi.',

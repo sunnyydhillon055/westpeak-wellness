@@ -5,6 +5,22 @@ import AskInstead from '@/components/AskInstead';
 
 export const metadata: Metadata = {
   title: 'Page not found',
+  /* Its own description, added 2026-08-30. Without one the page inherited the
+     homepage's from layout.tsx, so the quality sweep reported / and /_not-found
+     sharing a description and it was right to: a 404 was describing itself to
+     anything that read metadata as "online counselling across BC with a
+     Registered Clinical Counsellor". Nothing indexes this page, but plenty
+     reads it — link unfurls in a chat app, and increasingly the models that
+     summarise a URL without fetching twice. */
+  description:
+    'That page has moved or never existed. Search the site, or jump to services, ' +
+    'fees, guides or booking.',
+  /* No canonical, deliberately. Without this the page inherited the root
+     canonical from layout.tsx and every 404 URL on the site declared itself
+     to really be the homepage - a consolidation signal pointing the wrong way,
+     emitted by the one page that should make no claim about its own identity.
+     `null` removes the inherited tag; omitting the key would keep it. */
+  alternates: { canonical: null },
   robots: { index: false, follow: true },
 };
 

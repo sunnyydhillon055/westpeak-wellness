@@ -6,6 +6,7 @@ import { reviews, aggregate } from '@/lib/reviews';
 import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { ogBase } from '@/lib/og-meta';
 
 const TITLE = 'Reviews and references | Westpeak Wellness';
 const DESC =
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
   title: { absolute: TITLE },
   description: DESC,
   alternates: { canonical: `${site.domain}/reviews` },
-  openGraph: { title: TITLE, description: DESC, url: `${site.domain}/reviews` },
+  openGraph: { ...ogBase(`/reviews`), title: TITLE, description: DESC, url: `${site.domain}/reviews` },
 };
 
 /* A page about the absence of testimonials.

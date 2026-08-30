@@ -23,6 +23,7 @@ import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
 import InlineRelated from '@/components/InlineRelated';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { ogBase } from '@/lib/og-meta';
 
 export function generateStaticParams() {
   return comparisons.map((c) => ({ slug: c.slug }));
@@ -35,9 +36,8 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     title: { absolute: c.metaTitle },
     description: c.metaDescription,
     alternates: { canonical: `${site.domain}/compare/${c.slug}` },
-    openGraph: {
-      type: 'article', title: c.metaTitle, description: c.metaDescription,
-      url: `${site.domain}/compare/${c.slug}`, modifiedTime: c.updated,
+    openGraph: { ...ogBase(`/compare/${c.slug}`),
+      type: 'article', title: c.metaTitle, description: c.metaDescription, modifiedTime: c.updated,
     },
   };
 }

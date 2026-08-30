@@ -6,17 +6,17 @@ import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
 import { Sparkles } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { ogBase } from '@/lib/og-meta';
 
 export const metadata: Metadata = {
   title: { absolute: 'Counselling Approaches Explained | Westpeak' },
   description:
     'What CBT, ACT, IFS, somatic work, DBT skills and mindfulness-based programmes actually involve — including where each one works poorly.',
   alternates: { canonical: `${site.domain}/approaches` },
-  openGraph: {
+  openGraph: { ...ogBase(`/approaches`),
     type: 'website',
     title: 'Counselling Approaches Explained | Westpeak',
     description: 'The methods behind the therapy, what the evidence supports each for, and when each is the wrong choice.',
-    url: `${site.domain}/approaches`,
   },
 };
 
