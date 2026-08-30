@@ -122,14 +122,61 @@ Worth recording so a later pass does not "improve" it:
 - **The sticky consultation bar.** Present, unobtrusive, offers the smaller
   ask beside the larger one.
 
-## Re-scoring, honestly
+## Second pass, same day
 
-Findings A and B are fixed and deployed. On the same scale that would move
-categories 17, 19 and 20, and the mean would land near **760**.
+After the audit above, the work continued. What changed, and what it was worth:
 
-That number is not claimed here. The scale is editorial, the same person
-scored before and after within an hour, and re-measuring your own repair
-immediately is how audits flatter themselves. The scores above are the ones
-recorded. A re-score is worth doing when somebody else looks, or after the
-long-form structure in finding C is addressed — which is the change that would
-actually move the number.
+| category | was | now | what actually changed |
+|---|--:|--:|---|
+| Section transitions | 300 | **840** | One masked wave rule. Every hero on the site now dissolves into the page; only the homepage did before. |
+| Interior heroes | 380 | **800** | Twelve URL-encoded values repainted, ridge opacities down a quarter. |
+| Palette coherence | 520 | **880** | Every colour on the site is now a token or a listed exception, enforced by a gate. |
+| Vertical rhythm | 640 | **800** | 160 declarations snapped to a 4px grid; the scale exists as tokens. |
+| Tables | 640 | **760** | A scroll container that says it scrolls. |
+
+Nothing else was touched, so nothing else moves. That puts the mean at **773**.
+
+**The number is still me marking my own work.** It is recorded because a
+direction is more useful than a level, and because the five rows above are the
+only ones where the change is objectively checkable — a gate passes or it does
+not, a wave renders or it does not. Rows 1-13 of the original table are
+unchanged and unaudited by anyone else.
+
+## What the palette gate found once it existed
+
+Worth listing, because none of it was visible before and all of it was live:
+
+- the **CTA band**, on nearly every page, still on the previous blues
+- the **footer links**, still a cool grey chosen for a navy that no longer exists
+- the **PWA manifest** — an Android user opening this from a home-screen icon
+  got a splash screen in the old blue-grey and the old blue
+- the **sticky booking bar**, the most prominent conversion element on a phone,
+  on every page, still near-white on a cream site
+- the **nav scrim**, three stale `var()` fallbacks, and one `rgba()` written
+  with spaces that a previous sweep had searched for without them
+
+And then the gate itself was wrong. Its first version scraped every hex between
+`:root{` and the radii comment — a range that is mostly prose, because the token
+block carries long comments explaining what the previous palette was and quoting
+it by name. It harvested the old palette out of the paragraphs explaining that
+the old palette was wrong, allowlisted all of it, and passed a file with
+`#5b8bc4` injected into it. That was caught by injecting exactly that and
+watching it report success.
+
+Six instrument errors this session, all the same shape. The gates are worth
+having and none of them should be believed without a test that fails.
+
+## What remains, and who it belongs to
+
+**1. Long-form hierarchy** — the guides carry 3,247 words under twelve
+same-level headings. Unchanged, and still the largest single item. The fix is
+subheadings inside clinical copy, which is the counsellor's editorial call. I
+can draft them for review; I will not invent them silently.
+
+**2. Transactional email** — 86 colour literals across eleven templates, all
+still on the pre-repaint palette. An HTML email cannot read a CSS variable, so
+these are literal by necessity and the gate reports them without failing. It is
+a real brand inconsistency and a genuinely different surface: the changes cannot
+be verified without sending test mail through real clients.
+
+Neither is blocked on design judgement. Both are blocked on a decision.
