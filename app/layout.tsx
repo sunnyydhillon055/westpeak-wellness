@@ -15,12 +15,15 @@ import { services } from '@/lib/services';
  * the page below is either near-white or near-black, which is the small tell
  * that a site was built for one theme and adapted afterwards.
  *
- * Two values, matching --bg in each theme, so the seam disappears either way. */
+ * One value now, not two. The site went light-only on 30 August 2026 (the
+ * reasoning is recorded where the dark theme was removed, at the foot of
+ * app/premium.css), so a second entry keyed to prefers-color-scheme: dark
+ * would tint a phone's address bar #131a22 above a cream page — the same
+ * class of seam this export exists to prevent, just inverted.
+ *
+ * Matches --bg exactly. */
 export const viewport: Viewport = {
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#fbfcfe' },
-    { media: '(prefers-color-scheme: dark)', color: '#131a22' },
-  ],
+  themeColor: '#faf7f1',
 };
 
 export const metadata: Metadata = {

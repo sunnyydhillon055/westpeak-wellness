@@ -89,6 +89,15 @@ const PAIRS = [
   ['--ink-faint', '--surface-1', 'captions on the cool near-white'],
   ['--ink-faint', '--surface-3', 'captions on the blue wash'],
   ['--ink-faint', '--surface-4', 'captions on the warm sand'],
+  /* Added 30 August 2026 with the oatmeal repaint. --blue-mist turned out to
+     be the tightest ground on the whole site for faint text (4.76) and was
+     not being measured at all; --clay-ghost carries the pull-quote sources. */
+  ['--ink-faint', '--blue-mist', 'captions on the blue mist'],
+  ['--ink-faint', '--clay-ghost', 'sources on the clay ghost band'],
+  ['--ink-soft', '--surface-2', 'lede on the warmer oatmeal'],
+  ['--ink', '--bg', 'body text on the page ground'],
+  ['--clay-deep', '--surface-4', 'the warm accent as text on sand'],
+  ['--clay-deep', '--clay-ghost', 'the warm accent on its own ghost band'],
 
   ['--blue-deep', '--surface-0', 'links on white'],
   ['--blue-deep', '--surface-1', 'links on the cool near-white'],

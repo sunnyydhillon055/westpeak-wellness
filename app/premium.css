@@ -65,7 +65,7 @@ a:hover{ text-decoration: none }
   background: var(--grad-brand); transform: scaleY(0); transform-origin: top;
   transition: transform var(--dur-base) var(--ease);
 }
-.card:hover{ transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: #d6e3f1 }
+.card:hover{ transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--blue) }
 .card:hover::after{ transform: scaleY(1) }
 .card .more{
   display: inline-flex; align-items: center; gap: 7px;
@@ -78,11 +78,11 @@ a:hover{ text-decoration: none }
   display: inline-flex; align-items: center; justify-content: center; flex: none;
   width: 46px; height: 46px; border-radius: var(--radius-pill);
   background: var(--blue-mist); color: var(--blue-deep);
-  box-shadow: inset 0 0 0 1px rgba(63,108,163,.07);
+  box-shadow: inset 0 0 0 1px rgba(61,108,146,.07);
 }
 .icon-chip--warm{
   background: var(--clay-soft); color: var(--clay-deep);
-  box-shadow: inset 0 0 0 1px rgba(163,96,62,.09);
+  box-shadow: inset 0 0 0 1px rgba(138,98,68,.09);
 }
 .icon-chip--sm{ width: 36px; height: 36px }
 .icon-chip--lg{ width: 58px; height: 58px }
@@ -154,15 +154,23 @@ a:hover{ text-decoration: none }
 /* — Photography treatment: one wrapper so every photo reads as one brand — */
 .photo{
   position: relative; overflow: hidden; border-radius: var(--radius-lg);
-  background: var(--blue-mist); box-shadow: var(--shadow-lg); isolation: isolate;
+  background: var(--surface-2); box-shadow: var(--shadow-lg); isolation: isolate;
 }
 .photo img{
   width: 100%; height: 100%; object-fit: cover; display: block;
-  filter: saturate(.9) contrast(1.02);
+  /* A touch less desaturation than before: with the blue veil lightened, the
+     photographs no longer need to be pulled down to sit quietly. */
+  filter: saturate(.94) contrast(1.01);
 }
 .photo::after{
   content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
-  background: linear-gradient(170deg, rgba(47,85,131,.16) 0%, rgba(47,85,131,.03) 45%, rgba(192,122,86,.13) 100%);
+  /* Warm-led, and lighter than it was. The old veil put 16% of a deep blue
+     over the top of every photograph, which on a cool page merely read as
+     atmosphere and on a cream one reads as a cold film — it was a good part of
+     why the hero photo looked teal. Blue now opens at 9% and the warm end
+     carries the weight, so a photograph settles onto the cream rather than
+     sitting on it. */
+  background: linear-gradient(170deg, rgba(46,84,116,.09) 0%, rgba(176,135,104,.05) 45%, rgba(176,135,104,.16) 100%);
 }
 .photo::before{
   content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 2;
@@ -220,7 +228,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   transition: box-shadow var(--dur-base) var(--ease), background-color var(--dur-base) var(--ease);
 }
 .site-header[data-scrolled="true"]{
-  box-shadow: var(--shadow-sm); background: rgba(251,252,254,.94);
+  box-shadow: var(--shadow-sm); background: var(--header-bg-scrolled);
 }
 /* — Nav target size. WCAG 2.2 AA (2.5.8) asks for a 24x24 CSS px minimum, and
      a bare 19px inline link in a nav bar does not qualify for the in-sentence
@@ -299,7 +307,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 /* — The Punjabi block: the emotional centre of the page — */
 .signature{
   position: relative; overflow: hidden; isolation: isolate;
-  background: var(--grad-ink); color: #eef3f8;
+  background: var(--grad-ink); color: var(--on-ink);
   padding: clamp(46px, 5vw, 72px) 0;
 }
 .signature::after{
@@ -317,10 +325,10 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   display: grid; grid-template-columns: minmax(0,1.05fr) minmax(0,.95fr);
   gap: clamp(30px, 5vw, 62px); align-items: center;
 }
-.signature .eyebrow{ color: #d8b49b }
+.signature .eyebrow{ color: var(--on-ink-clay) }
 .signature .eyebrow::before{ background: var(--clay) }
 .signature h2{ color: #ffffff; max-width: 11.25em }
-.signature p{ color: #c7d3de }
+.signature p{ color: var(--on-ink-soft) }
 .signature .btn--ghost{
   background: transparent; border-color: rgba(255,255,255,.28); color: #ffffff;
 }
@@ -338,7 +346,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 }
 .signature-quote cite{
   display: block; font-family: var(--font-body); font-style: normal;
-  font-size: var(--fs-small); font-weight: 600; color: #9fb2c4; margin-top: 18px; letter-spacing: 0;
+  font-size: var(--fs-small); font-weight: 600; color: var(--on-ink-faint); margin-top: 18px; letter-spacing: 0;
 }
 .signature-quote::before{
   content: "C"; position: absolute; left: 16px; top: 2px;
@@ -369,7 +377,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
    ========================================================================= */
 
 /* — Header — */
-.site-header{ background: rgba(251,252,254,.78) }
+.site-header{ background: var(--header-bg) }
 .site-header[data-scrolled="true"] .nav{ height: 62px }
 .nav{ transition: height var(--dur-base) var(--ease) }
 .brand{ display: inline-flex; align-items: center; gap: 11px }
@@ -381,7 +389,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 
 /* — Footer — */
 .site-footer{
-  background: var(--surface-ink); color: #b9c6d3;
+  background: var(--surface-ink); color: var(--on-ink-soft);
   padding: clamp(52px, 6vw, 76px) 0 32px; margin-top: 0;
 }
 .footer-grid{
@@ -393,44 +401,50 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   font-family: var(--font-display); font-size: 1.32rem; font-weight: 600;
   letter-spacing: -.02em; color: #fff; margin-bottom: 16px;
 }
-.footer-brand span{ color: #9dbbdc }
+.footer-brand span{ color: var(--on-ink-blue) }
 .footer-brand-mark{ width: 38px; height: 38px; flex: none }
 .footer-brand-mark svg{ width: 100%; height: 100% }
-.footer-blurb{ max-width: 21.45em; color: #9aa9b8; font-size: var(--fs-small); line-height: 1.6 }
+.footer-blurb{ max-width: 21.45em; color: var(--on-ink-faint); font-size: var(--fs-small); line-height: 1.6 }
 .footer-facts{ list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 10px }
-.footer-facts li{ display: flex; align-items: center; gap: 10px; font-size: var(--fs-small); color: #b9c6d3 }
-.footer-facts svg{ width: 16px; height: 16px; color: #7fa3cc; flex: none }
+.footer-facts li{ display: flex; align-items: center; gap: 10px; font-size: var(--fs-small); color: var(--on-ink-soft) }
+.footer-facts svg{ width: 16px; height: 16px; color: var(--on-ink-blue); flex: none }
 .footer-social{ display: flex; flex-wrap: wrap; gap: 10px 20px; margin-top: 20px }
 .footer-social-link{
   display: inline-flex; align-items: center; gap: 9px; min-height: 44px;
-  color: #b9c6d3; font-size: var(--fs-small);
+  color: var(--on-ink-soft); font-size: var(--fs-small);
   transition: color var(--dur-fast) var(--ease);
 }
-.footer-social-link svg{ width: 17px; height: 17px; color: #7fa3cc; flex: none }
+.footer-social-link svg{ width: 17px; height: 17px; color: var(--on-ink-blue); flex: none }
 .footer-social-link:hover{ color: #fff }
 .footer-col h2{
   color: #fff; font-family: var(--font-body); font-size: var(--fs-overline);
   font-weight: 600; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 15px;
 }
 .footer-col a{
-  color: #a9b8c7; font-size: var(--fs-small); display: flex; align-items: center;
+  color: var(--on-ink-soft); font-size: var(--fs-small); display: flex; align-items: center;
   min-height: 34px; transition: color var(--dur-fast) var(--ease), padding-left var(--dur-fast) var(--ease);
 }
 .footer-col a:hover{ color: #fff; padding-left: 4px }
-.footer-more{ color: #9dbbdc !important; font-weight: 600; margin-top: 4px }
+.footer-more{ color: var(--on-ink-blue) !important; font-weight: 600; margin-top: 4px }
 .footer-crisis{
   display: flex; align-items: flex-start; gap: 14px;
-  background: rgba(192,122,86,.13); border: 1px solid rgba(192,122,86,.28);
+  background: rgba(176,135,104,.13);
+  /* Solid, not a 28% wash. WCAG asks 3:1 for the visual boundary of a UI
+     component; the translucent version measured 1.43:1 against its own
+     panel — the crisis block had the faintest border on the site. Solid
+     --clay measures 3.34:1. This is the one element here that must not
+     recede, and it was receding. */
+  border: 1px solid var(--clay);
   border-radius: var(--radius); padding: 16px 20px; margin-bottom: 26px;
 }
-.footer-crisis svg{ width: 20px; height: 20px; color: #e0a480; flex: none; margin-top: 2px }
-.footer-crisis p{ margin: 0; font-size: var(--fs-small); line-height: 1.6; color: #cdd8e3 }
+.footer-crisis svg{ width: 20px; height: 20px; color: var(--on-ink-clay); flex: none; margin-top: 2px }
+.footer-crisis p{ margin: 0; font-size: var(--fs-small); line-height: 1.6; color: var(--on-ink-soft) }
 .footer-crisis strong{ color: #fff }
-.footer-crisis a{ color: #e0a480 }
+.footer-crisis a{ color: var(--on-ink-clay) }
 .footer-bottom{
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px;
   border-top: 1px solid rgba(255,255,255,.10); padding-top: 22px;
-  font-size: .82rem; color: #8798a8;
+  font-size: .82rem; color: var(--on-ink-faint);
 }
 
 @media (max-width: 900px){
@@ -582,7 +596,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
    <Motif> component instead, so it is excluded. */
 .hero:not(.hero--home){
   background-image:
-    radial-gradient(circle closest-side, rgba(192,122,86,.14) 100%, transparent 100%),
+    radial-gradient(circle closest-side, rgba(176,135,104,.14) 100%, transparent 100%),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300' preserveAspectRatio='none'%3E%3Cpath d='M0 210c118 0 176-58 268-58s126 42 210 42 132-66 236-66 156 54 250 54 148-26 236-26v144H0V210Z' fill='%23e8f0f9' opacity='.75'/%3E%3Cpath d='M0 246c136 0 190-46 286-46s136 34 224 34 140-54 246-54 152 42 252 42 116-16 192-16v94H0v-54Z' fill='%23dbe7f4' opacity='.6'/%3E%3C/svg%3E"),
     var(--grad-hero);
   background-repeat: no-repeat, no-repeat, no-repeat;
@@ -603,7 +617,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
    ========================================================================= */
 .hero--guides{
   background-image:
-    radial-gradient(circle closest-side, rgba(192,122,86,.13) 100%, transparent 100%),
+    radial-gradient(circle closest-side, rgba(176,135,104,.13) 100%, transparent 100%),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300' preserveAspectRatio='none'%3E%3Cpath d='M0 236c150 0 214-84 330-84s150 62 254 62 150-92 268-92 190 74 348 74v104H0v-64Z' fill='%23e8f0f9' opacity='.8'/%3E%3C/svg%3E"),
     var(--grad-hero);
   background-repeat: no-repeat, no-repeat, no-repeat;
@@ -612,7 +626,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 }
 .hero--approaches{
   background-image:
-    radial-gradient(circle closest-side, rgba(192,122,86,.16) 100%, transparent 100%),
+    radial-gradient(circle closest-side, rgba(176,135,104,.16) 100%, transparent 100%),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300' preserveAspectRatio='none'%3E%3Cpath d='M0 262c96 0 128-70 208-70s104 50 178 50 106-78 190-78 122 62 208 62 128-30 216-30v104H0v-38Z' fill='%23dbe7f4' opacity='.75'/%3E%3Cpath d='M0 284c120 0 168-40 262-40s124 30 204 30 128-46 224-46 138 36 230 36 100-14 180-14v50H0v-16Z' fill='%23e8f0f9'/%3E%3C/svg%3E"),
     var(--grad-hero);
   background-repeat: no-repeat, no-repeat, no-repeat;
@@ -635,7 +649,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 }
 .hero--for{
   background-image:
-    radial-gradient(circle closest-side, rgba(192,122,86,.11) 100%, transparent 100%),
+    radial-gradient(circle closest-side, rgba(176,135,104,.11) 100%, transparent 100%),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300' preserveAspectRatio='none'%3E%3Cpath d='M0 258c130 0 176-72 288-72s148 56 246 56 138-70 250-70 168 56 300 56v72H0v-42Z' fill='%23e8f0f9' opacity='.85'/%3E%3C/svg%3E"),
     var(--grad-hero);
   background-repeat: no-repeat, no-repeat, no-repeat;
@@ -664,7 +678,9 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
    a button placed inside one of these boxes gets its label underlined. It was
    doing exactly that to both buttons on /book. */
 .crisis a:not(.btn), .footer-crisis a[href^="tel:"]{ text-decoration: underline; text-underline-offset: 3px }
-.footer-crisis a[href^="tel:"]{ color: #e8bfa4 }
+/* Brighter than the rest of the block on purpose: this is the number.
+   9.18:1 on the footer ground, 7.69:1 on the panel. */
+.footer-crisis a[href^="tel:"]{ color: #f0d3b4 }
 .footer-crisis a[href^="tel:"]:hover{ color: #fff }
 
 
@@ -839,7 +855,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .site-header{
   --header-h:72px;
   position:sticky; top:0; z-index:60;
-  background:rgba(251,252,254,.72);
+  background:var(--header-bg);
   backdrop-filter:saturate(180%) blur(14px);
   -webkit-backdrop-filter:saturate(180%) blur(14px);
   border-bottom:1px solid transparent;
@@ -849,9 +865,9 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 }
 .site-header[data-scrolled="true"]{
   --header-h:60px;
-  background:rgba(251,252,254,.88);
+  background:var(--header-bg-scrolled);
   border-bottom-color:var(--line);
-  box-shadow:0 1px 0 rgba(47,85,131,.04), 0 8px 24px rgba(47,85,131,.06);
+  box-shadow:0 1px 0 rgba(46,84,116,.04), 0 8px 24px rgba(46,84,116,.06);
 }
 .nav{
   display:flex; align-items:center; justify-content:space-between;
@@ -883,7 +899,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   transition:transform var(--dur-base) var(--ease);
 }
 .nav-links > li:not(.nav-cta) > a:hover{
-  color:var(--ink); background:rgba(47,85,131,.045); text-decoration:none;
+  color:var(--ink); background:rgba(46,84,116,.045); text-decoration:none;
 }
 .nav-links > li:not(.nav-cta) > a:hover::after{ transform:scaleX(1); }
 /* Current page — aria-current was already emitted and previously did nothing. */
@@ -899,7 +915,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   border-radius:var(--radius-xs);
   transition:background var(--dur-fast) var(--ease);
 }
-.nav-toggle:hover{ background:rgba(47,85,131,.06); }
+.nav-toggle:hover{ background:rgba(46,84,116,.06); }
 .nav-toggle-bars{ display:block; position:relative; width:22px; height:16px; }
 .nav-toggle-bars span{
   position:absolute; left:0; width:100%; height:2px; border-radius:2px;
@@ -1097,7 +1113,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1);
 }
 .footer-legal a{
-  color: #8a97a6; font-size: .82rem; display: inline-flex; align-items: center;
+  color: var(--on-ink-faint); font-size: .82rem; display: inline-flex; align-items: center;
   min-height: 30px; transition: color var(--dur-fast) var(--ease);
 }
 .footer-legal a:hover{ color: #fff; }
@@ -1539,7 +1555,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
 .crumbs li {
   display: flex;
   align-items: center;
-  color: var(--ink-soft, #5b6b7d);
+  color: var(--ink-soft);
   min-width: 0;
 }
 .crumbs li + li::before {
@@ -1562,11 +1578,11 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
   border-bottom: 1px solid transparent;
 }
 .crumbs a:hover {
-  color: var(--ink, #1c2733);
+  color: var(--ink);
   border-bottom-color: currentColor;
 }
 .crumbs [aria-current='page'] {
-  color: var(--ink, #1c2733);
+  color: var(--ink);
   font-weight: 600;
   /* the current page can be long; let it shrink rather than overflow */
   overflow: hidden;
@@ -1598,8 +1614,8 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
   gap: 1px;
   margin: 0 0 2rem;
   padding: 0;
-  background: var(--line, #e6ebf1);
-  border: 1px solid var(--line, #e6ebf1);
+  background: var(--line);
+  border: 1px solid var(--line);
   border-radius: 10px;
   overflow: hidden;
 }
@@ -1612,7 +1628,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--ink-soft, #5b6b7d);
+  color: var(--ink-soft);
   font-weight: 600;
 }
 .job-facts dd {
@@ -1623,7 +1639,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
 
 .job-list { list-style: none; padding: 0; margin: 0 0 2rem; }
 .job-list > li {
-  border: 1px solid var(--line, #e6ebf1);
+  border: 1px solid var(--line);
   border-left: 3px solid var(--blue, #3f6ca3);
   border-radius: 10px;
   padding: 1.25rem 1.4rem;
@@ -1639,7 +1655,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
 .faq-list { margin: 0 0 1.5rem; }
 .faq-list > div {
   padding: 0.9rem 0;
-  border-bottom: 1px solid var(--line, #e6ebf1);
+  border-bottom: 1px solid var(--line);
 }
 .faq-list > div:last-child { border-bottom: 0; }
 .faq-list dt { font-weight: 650; margin: 0 0 0.35rem; }
@@ -2088,69 +2104,45 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
    trauma guide at two in the morning — the site's own words — has already told
    their phone they want a dark screen.
    ══════════════════════════════════════════════════════════════════════════ */
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* — Core — */
-    --bg:            #131a22;
-    --bg-tint:       #182029;
-    --bg-card:       #1a232d;
-    --ink:           #e8eef5;
-    --ink-soft:      #b6c3d2;
-    --ink-faint:     #98a7b8;   /* ~7:1 on --bg, clears AA on every surface below */
-    --line:          #29343f;
+/* ══════════════════════════════════════════════════════════════════════════
+   THE DARK THEME WAS REMOVED HERE — 30 August 2026.
 
-    /* — Blues lift rather than deepen: on a dark ground "deeper" means more
-         contrast, which means lighter. — */
-    --blue:          #7fa8d9;
-    --blue-deep:     #9cc0e9;
-    --blue-deeper:   #bad7f3;
-    --blue-mist:     #1e2c3c;
-    --blue-ghost:    #172230;
-    --focus:         #8fbcee;
+   A full dark palette lived at this point: inverted neutrals, blues that
+   lifted rather than deepened, a compressed surface ladder, black-based
+   shadows. It was carefully built and it shipped broken, in a way nothing
+   here could see.
 
-    /* — The clay accent survives the inversion; it is the practice's warmth
-         and losing it would make the dark theme generic. — */
-    --clay:          #d99b76;
-    --clay-deep:     #ebb494;
-    --clay-soft:     #3b2b22;
-    --clay-ghost:    #241b16;
+   `.site-header` hardcoded rgba(251,252,254,...) in four separate rules in
+   this file and the dark block overrode none of them. So a dark-mode visitor
+   got a near-white bar on a near-black page, wearing the dark palette's light
+   text. Measured at rest:
 
-    /* — Layered neutrals keep the same cool/warm alternation, compressed. — */
-    --surface-0:     #1a232d;
-    --surface-1:     #151d26;
-    --surface-2:     #1c2029;   /* the warm one */
-    --surface-3:     #182231;   /* the blue wash */
-    --surface-4:     #221e1a;   /* the sand */
-    --surface-ink:   #0d1319;   /* stays deepest — the footer lives here */
+       header as rendered   #babdc0
+       --ink        on it     1.62:1
+       --ink-soft   on it     1.05:1
+       --blue-deep  on it     1.00:1   <- the nav CTA. Invisible.
 
-    --grad-brand:    linear-gradient(135deg, #2a4a75 0%, #3d6395 42%, #8a5f45 100%);
-    --grad-hero:     linear-gradient(168deg, #151d26 0%, #171f28 46%, #1d1a17 100%);
-    --grad-mist:     linear-gradient(160deg, #1e2c3c 0%, #251f1a 100%);
-    --grad-ink:      linear-gradient(150deg, #16202c 0%, #0d1319 55%, #17181c 100%);
+   Against the page body two pixels below, those same colours score 7-15:1.
+   The primary navigation was unreadable for every visitor whose phone was in
+   dark mode. The header is tokenised now (--header-bg in globals.css), so the
+   specific bug is fixed either way.
 
-    /* Same noise, a third of the strength. At full opacity a light-grey grain
-       reads as dust on a dark ground. */
-    --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.11'/%3E%3C/svg%3E");
+   The decision to go light-only is the practice owner's, taken on 30 August
+   2026 after seeing the dark rendering. It is a real trade: some readers set
+   dark for eye strain or light sensitivity, and this overrides their stated
+   preference. What it buys is one palette that is actually checked — the
+   contrast gate measures the light tokens, and a second palette that nothing
+   measured is how the header above ended up at 1.00:1.
 
-    /* Shadows on a dark ground come from black, not from the brand blue, and
-       need more of it to register at all. */
-    --shadow-xs:     0 1px 1px rgba(0,0,0,.30), 0 1px 3px rgba(0,0,0,.24);
-    --shadow-sm:     0 1px 2px rgba(0,0,0,.34), 0 3px 10px rgba(0,0,0,.30);
-    --shadow-md:     0 2px 4px rgba(0,0,0,.36), 0 10px 28px rgba(0,0,0,.38);
-    --shadow-lg:     0 4px 8px rgba(0,0,0,.40), 0 20px 48px rgba(0,0,0,.44);
-    --shadow-xl:     0 8px 16px rgba(0,0,0,.44), 0 36px 80px rgba(0,0,0,.50);
-    --shadow-warm:   0 2px 6px rgba(0,0,0,.34), 0 16px 40px rgba(120,70,40,.22);
-  }
+   `color-scheme: light` on :root in globals.css is the other half: it tells
+   the browser to paint scrollbars, form controls and the address-bar tint
+   light too, rather than inverting them under a cream page.
 
-  /* Photographs and diagrams are lit for a white page. A slight knock-down
-     stops them glaring out of a dark one, and reverts the moment you hover a
-     figure you actually want to look at. */
-  .photo img, .figure img { filter: brightness(.92) contrast(1.02); }
-  .photo:hover img, .figure:hover img { filter: none; }
-
-  /* The one thing a dark theme must not soften. */
-  .crisis { border-color: var(--clay); }
-}
+   To bring dark back: restore a `@media (prefers-color-scheme: dark)` block
+   here, drop the `color-scheme` declaration, restore the dark themeColor in
+   app/layout.tsx, and extend scripts/contrast-audit.mjs to measure the dark
+   pairs before trusting any of it.
+   ══════════════════════════════════════════════════════════════════════════ */
 
 /* ══════════════════════════════════════════════════════════════════════════
    PRINT — added 2026-08-23.
