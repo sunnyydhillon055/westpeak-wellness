@@ -176,6 +176,32 @@ const COMPOSITES = [
     at: (s) => ratio('#ffffff', s) },
 ];
 
+/* The mobile drawer's own header, which is a composite of three things: the
+   page, the scrim over it, and the header bar over that. It measured 4.33 for
+   --blue-deep while the bar was still translucent, and 2.01 before the scrim
+   was moved out of the header entirely. Both are one-off geometries rather
+   than gradients, so they are checked directly. */
+const OPEN_HEADER = [
+  { label: 'Mobile drawer: brand mark on the open header', need: 4.5,
+    r: () => ratio('--blue-deep', '--surface-1') },
+  { label: 'Mobile drawer: wordmark on the open header', need: 4.5,
+    r: () => ratio('--ink', '--surface-1') },
+];
+
+/* A CHECK THAT WAS WRITTEN AND THEN DELETED, recorded so it is not re-added.
+ *
+ * The first draft of this block also asserted the scrim reach 3:1 against the
+ * page behind it, and it failed at 2.57. That is not a WCAG criterion and it
+ * should not be one: 1.4.11 governs the boundaries of user-interface
+ * components and meaningful graphics, and a scrim is neither. Its entire
+ * function is to de-emphasise what is behind it, so a LOW contrast ratio is
+ * the feature.
+ *
+ * Satisfying it would have meant darkening the scrim for no reason other than
+ * a number this file made up. A gate is only worth what its criteria are
+ * worth, and inventing one is how a gate starts producing work instead of
+ * finding it. */
+
 const LARGE = new Set(); // none of the pairs above are large-text-only
 
 let fails = 0, warns = 0;
@@ -189,6 +215,14 @@ for (const [fg, bg, what] of PAIRS) {
   rows.push({ fg, bg, what, r, need, state });
 }
 
+for (const c of OPEN_HEADER) {
+  const r = c.r();
+  const state = r >= 7 ? 'AAA' : r >= c.need ? 'AA ' : 'FAIL';
+  if (state === 'FAIL') fails++;
+  else if (r < c.need + 0.25) warns++;
+  rows.push({ fg: 'composite', bg: `min ${c.need}`, what: c.label, r, need: c.need, state });
+}
+
 for (const c of COMPOSITES) {
   const r = Math.min(...BAND.map((stop) => c.at(stop)));
   const state = r >= 7 ? 'AAA' : r >= c.need ? 'AA ' : 'FAIL';
@@ -198,7 +232,7 @@ for (const c of COMPOSITES) {
 }
 
 console.log(
-  `\nCONTRAST - ${PAIRS.length} pairs and ${COMPOSITES.length} composites from app/globals.css\n`
+  `\nCONTRAST - ${PAIRS.length} pairs and ${COMPOSITES.length + OPEN_HEADER.length} composites from app/globals.css\n`
 );
 console.log('  ratio   AA?   pair');
 console.log('  ' + '-'.repeat(86));
@@ -215,7 +249,7 @@ if (fails) {
   console.log('  /accessibility and the FAQ both tell readers this site meets AA.');
   console.log('  Fix the palette or change what those pages claim - in that order.\n');
 } else {
-  console.log(`\n  All ${PAIRS.length + COMPOSITES.length} pairs and composites meet WCAG 2.1 AA.`);
+  console.log(`\n  All ${PAIRS.length + COMPOSITES.length + OPEN_HEADER.length} pairs and composites meet WCAG 2.1 AA.`);
   if (warns) console.log(`  ${warns} sit within 0.25 of the threshold - treat those as load-bearing.`);
   console.log('  The claim on /accessibility and /faq is currently true.\n');
 }

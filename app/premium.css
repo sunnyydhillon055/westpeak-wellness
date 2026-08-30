@@ -976,8 +976,29 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .site-header[data-open="true"] .nav-toggle-bars span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
 
 /* — Scrim — */
+/* THE SCRIM DIMS THE PAGE, NOT THE HEADER — corrected 30 August 2026.
+ *
+ * This was `inset:0`, so it covered the header too. And because it is a child
+ * of .site-header with z-index:-1, and the header creates a stacking context
+ * (position:sticky, z-index:60), a negative-z child paints ABOVE its parent's
+ * background and BELOW its parent's content. The dark scrim therefore covered
+ * the header's cream bar while the wordmark and the close button stayed on top
+ * of it.
+ *
+ * Measured with the menu open:
+ *
+ *   the bar, closed   #faf6f0     the bar, open   #9b9b9b
+ *   wordmark on it    12.20  ->    4.72
+ *   --blue-deep on it  5.19  ->    2.01     under AA
+ *
+ * Which is the same failure as the dark-mode header this palette replaced: a
+ * translucent bar composited over a backdrop nobody had accounted for. Found by
+ * opening the mobile menu and looking at it, which had not been done.
+ *
+ * Starting the scrim below the header fixes it and is also what the scrim is
+ * for — the header stays legible because it is still the way out. */
 .nav-scrim{
-  position:fixed; inset:0; z-index:-1;
+  position:fixed; inset:0; z-index:50;
   background:rgba(43,49,56,.46); backdrop-filter:blur(2px);
   opacity:0; pointer-events:none;
   transition:opacity var(--dur-base) var(--ease);
@@ -1036,7 +1057,17 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
     opacity:1; transform:none; transition-delay:calc(70ms + var(--i) * 34ms);
   }
 
-  .site-header[data-open="true"] .nav-scrim{ opacity:1; pointer-events:auto; }
+  .nav-scrim[data-open="true"]{ opacity:1; pointer-events:auto; }
+
+  /* OPAQUE WHILE THE DRAWER IS OPEN.
+     The bar is 78% cream, and with the scrim behind it that composites to
+     #e5e2de — on which --blue-deep, the colour of the brand mark, measures
+     4.33 and misses AA. A drawer's own header should not be see-through
+     anyway: it is the way out. Opaque puts it back to 5.19. */
+  .site-header[data-open="true"]{
+    background:var(--surface-1);
+    -webkit-backdrop-filter:none; backdrop-filter:none;
+  }
 }
 
 @media (prefers-reduced-motion:reduce){

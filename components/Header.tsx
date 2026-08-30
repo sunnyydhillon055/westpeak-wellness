@@ -56,6 +56,7 @@ export default function Header() {
     pathname === href || (href !== '/' && pathname?.startsWith(`${href}/`));
 
   return (
+    <>
     <header
       className="site-header"
       data-scrolled={scrolled ? 'true' : 'false'}
@@ -153,10 +154,30 @@ export default function Header() {
         </ul>
       </div>
 
-      {/* Scrim. Always rendered so it can transition, and only hit-testable
-        * when open. Tapping outside a drawer to dismiss it is the behaviour
-        * people expect, and nothing here provided it. */}
-      <div className="nav-scrim" onClick={() => setOpen(false)} aria-hidden="true" />
     </header>
+
+    {/* Scrim. Always rendered so it can transition, and only hit-testable when
+      * open. Tapping outside a drawer to dismiss it is the behaviour people
+      * expect, and nothing here provided it.
+      *
+      * A SIBLING OF THE HEADER, NOT A CHILD — 30 August 2026, and this is the
+      * whole reason it now works. .site-header carries a backdrop-filter, and
+      * a backdrop-filter makes an element the containing block for any
+      * position:fixed descendant. So while this lived inside the header, its
+      * `inset:0` resolved against the 72px-tall header rather than against the
+      * viewport: it never dimmed the page at all. What it did instead was
+      * paint over the header's own background — it is z-index:-1, and a
+      * negative-z child paints above its parent's background and below its
+      * content — turning the cream bar #9b9b9b with the wordmark still on top
+      * of it, and taking anything in --blue-deep there from 5.19 to 2.01.
+      *
+      * Found by opening the mobile menu and looking at it. */}
+    <div
+      className="nav-scrim"
+      data-open={open ? 'true' : 'false'}
+      onClick={() => setOpen(false)}
+      aria-hidden="true"
+    />
+    </>
   );
 }
