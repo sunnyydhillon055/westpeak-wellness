@@ -144,7 +144,11 @@
        now warms toward the top of the page and cools toward the content,
        which is the direction a reader's eye travels. — */
   --grad-brand:    linear-gradient(135deg, #3d6c92 0%, #7ba7cb 45%, #d3bb9d 100%);
-  --grad-hero:     linear-gradient(168deg, #f6f1e7 0%, #faf7f1 48%, #edf3f8 100%);
+  /* The hero stays warm the whole way down. The first version of this ran to
+     the blue wash at 100%, which across a 770px hero put a cold steely band
+     under everything and was most of why the top of the page still felt cool
+     after the repaint. The cool note survives as a hint in the last stop. */
+  --grad-hero:     linear-gradient(168deg, #f7f2e8 0%, #faf7f1 52%, #f4f2ec 100%);
   --grad-mist:     linear-gradient(160deg, #e2edf4 0%, #f4ecdf 100%);
   --grad-ink:      linear-gradient(150deg, #343b43 0%, #2b3138 55%, #302b25 100%);
 

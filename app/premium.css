@@ -160,7 +160,17 @@ a:hover{ text-decoration: none }
   width: 100%; height: 100%; object-fit: cover; display: block;
   /* A touch less desaturation than before: with the blue veil lightened, the
      photographs no longer need to be pulled down to sit quietly. */
-  filter: saturate(.94) contrast(1.01);
+  /* WARMED, NOT JUST DESATURATED — 30 August 2026, and this one was found by
+     looking rather than by measuring.
+     The hero photograph is a lake: its subject is genuinely cyan, around hue
+     180, and on the old blue-grey page that read as atmosphere. On oatmeal
+     cream it read as a cold rectangle pasted onto a warm page — the single
+     most jarring thing left on the site after the repaint.
+     Desaturation alone does not fix a hue clash, it just makes it grey. The
+     sepia pass rotates the whole image toward the warm end before the
+     saturation is pulled back, so the photograph sits in the same light as
+     the page instead of arguing with it. */
+  filter: saturate(.62) sepia(.26) contrast(1.03) brightness(1.02);
 }
 .photo::after{
   content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
@@ -170,7 +180,7 @@ a:hover{ text-decoration: none }
      why the hero photo looked teal. Blue now opens at 9% and the warm end
      carries the weight, so a photograph settles onto the cream rather than
      sitting on it. */
-  background: linear-gradient(170deg, rgba(46,84,116,.09) 0%, rgba(176,135,104,.05) 45%, rgba(176,135,104,.16) 100%);
+  background: linear-gradient(170deg, rgba(46,84,116,.05) 0%, rgba(176,135,104,.10) 45%, rgba(176,135,104,.22) 100%);
 }
 .photo::before{
   content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 2;

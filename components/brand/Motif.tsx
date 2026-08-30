@@ -104,17 +104,27 @@ export default function Motif({ variant = 'ridge', className, style }: MotifProp
       focusable="false"
     >
       <defs>
+        {/* RIDGES, SOFTENED — 30 August 2026.
+            These carried the hero on the old cool palette and overpowered it on
+            the cream one. The near ridge was --blue-deep at 42%, which is a
+            near-solid steely band across the width of the page directly under
+            the headline; the middle was --blue at 30% over it. Against a
+            blue-grey ground that read as depth. Against oatmeal it read as a
+            different site showing through.
+            Both are now light blue opening into the warm tertiary, at roughly
+            half the weight, and the far ridge is warm rather than blue — so
+            the ridges suggest a horizon instead of drawing one. */}
         <linearGradient id="wp-ridge-far" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="var(--blue-mist)" />
-          <stop offset="100%" stopColor="var(--blue-ghost)" />
+          <stop offset="0%" stopColor="var(--surface-2)" />
+          <stop offset="100%" stopColor="var(--surface-1)" />
         </linearGradient>
         <linearGradient id="wp-ridge-mid" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="var(--blue)" stopOpacity="0.30" />
-          <stop offset="100%" stopColor="var(--clay)" stopOpacity="0.16" />
+          <stop offset="0%" stopColor="var(--blue)" stopOpacity="0.14" />
+          <stop offset="100%" stopColor="var(--clay)" stopOpacity="0.13" />
         </linearGradient>
         <linearGradient id="wp-ridge-near" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="var(--blue-deep)" stopOpacity="0.42" />
-          <stop offset="100%" stopColor="var(--blue)" stopOpacity="0.26" />
+          <stop offset="0%" stopColor="var(--blue)" stopOpacity="0.20" />
+          <stop offset="100%" stopColor="var(--clay)" stopOpacity="0.15" />
         </linearGradient>
       </defs>
 
