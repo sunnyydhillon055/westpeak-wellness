@@ -266,7 +266,7 @@ const albertaCore: RegionPage[] = [
       {
         h2: 'What this practice is, stated plainly',
         body: [
-          'Sessions are provided by a **Registered Clinical Counsellor (RCC)** registered with the **BC Association of Clinical Counsellors**, registration number **20111**. That is a British Columbia registration. It is not an Alberta registration, because no such thing currently exists.',
+          'Sessions are provided by a **Registered Clinical Counsellor (RCC)** registered with the **BC Association of Clinical Counsellors**. That is a British Columbia registration. It is not an Alberta registration, because no such thing currently exists.',
           'The register is public. You can search it at bc-counsellors.org without contacting anyone here, and you should — [how to verify a counsellor in BC](/resources/verify-a-counsellor-in-bc) walks through it step by step, and applies equally whether or not you end up booking here.',
           'What that registration carries: a master\'s-level educational requirement, supervised clinical hours, a code of ethics, mandatory continuing education, and a complaints process that a client can start without the counsellor\'s agreement. Those obligations do not weaken because a client is sitting in Calgary rather than Kelowna.',
         ],

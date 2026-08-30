@@ -26,15 +26,18 @@ export default function TrustBar() {
         <Credential aria-hidden="true" strokeWidth={1.7} />
         <span><strong>{site.counsellor.title}</strong> · {site.counsellor.credentials}</span>
       </span>
-      {/* The registration number, beside the register it can be checked in.
-        * "Registered with the BCACC" was an assertion. A number next to a
-        * public register is something a stranger can verify in twenty seconds,
-        * and on a site that cannot show a single review that difference is the
-        * whole trust argument — see the comment in lib/site.ts. */}
+      {/* THE NUMBER COMES OFF EVERY PAGE BUT /about — owner's decision,
+        * 30 August 2026, and it applies to every counsellor the practice adds.
+        * The registration remains real and remains verifiable; it is simply
+        * not published beside the credential on every page of the site.
+        * What stays is the association and a link into the public register,
+        * which is still something a stranger can act on — they search the
+        * register rather than being handed the row. scripts/expansion-verify.mjs
+        * fails the build if the number reappears outside /about. */}
       <span className="trust-item">
         <Association aria-hidden="true" strokeWidth={1.7} />
         <span>
-          <strong>BCACC #{site.counsellor.registration}</strong> ·{' '}
+          <strong>BCACC registered</strong> ·{' '}
           <a
             className="link-standalone"
             href={site.counsellor.registerUrl}

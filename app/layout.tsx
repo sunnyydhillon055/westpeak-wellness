@@ -167,11 +167,11 @@ const orgSchema = {
        structured data. A verifiable professional identifier is the one it can
        legitimately emit, and it is the honest substitute rather than a
        consolation prize. */
-    identifier: {
-      '@type': 'PropertyValue',
-      name: 'BCACC registration number',
-      value: site.counsellor.registration,
-    },
+    /* The registration number is NOT emitted here. It used to be, on every
+       page of the site; from 30 August 2026 it appears on /about only — the
+       owner's decision, and it applies to every counsellor the practice adds.
+       It still exists in the structured data, on the Person node in
+       app/about/page.tsx, which is the one page allowed to carry it. */
     recognizedBy: { '@type': 'Organization', name: 'BC Association of Clinical Counsellors', url: 'https://bcacc.ca/' },
   },
   availableService: services.map((s) => ({

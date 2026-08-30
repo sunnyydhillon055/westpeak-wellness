@@ -338,6 +338,19 @@ export default function About() {
                  name is the honest shape of that request. */
               honorificSuffix: site.counsellor.credentials,
               jobTitle: site.counsellor.title,
+              /* The registration number lives HERE and only here, in the
+                 structured data as on the page. It used to be emitted in the
+                 site-wide graph in app/layout.tsx, which put it on all ~190
+                 pages; from 30 August 2026 it is confined to /about by the
+                 owner's decision, and that applies to every counsellor the
+                 practice adds. Keeping it on this node means the claim is
+                 still machine-verifiable against the public register — it is
+                 simply attached to the one page that carries the person. */
+              identifier: {
+                '@type': 'PropertyValue',
+                name: 'BCACC registration number',
+                value: site.counsellor.registration,
+              },
               url: `${site.domain}/about`,
               image: `${site.domain}/img/photo/counsellor-portrait.jpg`,
               worksFor: { '@id': `${site.domain}/#organization` },

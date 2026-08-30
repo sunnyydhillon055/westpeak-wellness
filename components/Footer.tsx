@@ -35,9 +35,9 @@ export default function Footer() {
                 <li>
                   <Credential aria-hidden="true" strokeWidth={1.7} />
                   <span>
-                    {site.counsellor.credentials} · BCACC{' '}
+                    {site.counsellor.credentials} ·{' '}
                     <a href={site.counsellor.registerUrl} target="_blank" rel="noopener">
-                      #{site.counsellor.registration}
+                      BCACC register
                     </a>
                   </span>
                 </li>

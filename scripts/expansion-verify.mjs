@@ -248,6 +248,61 @@ if (!NAME_TOKENS.length) {
   if (!nameFail) pass.push(`Counsellor name absent from all ${published.length} published pages`);
 }
 
+/* ---------- REGISTRATION NUMBER: /about AND NOWHERE ELSE ----------
+ *
+ * Owner's decision, 30 August 2026, and it applies to every counsellor the
+ * practice adds — not just the current one. The registration remains real and
+ * remains verifiable; it is simply not published on every page.
+ *
+ * It came off six surfaces that day: the hero trust bar, the footer, the
+ * AskInstead block above every footer, /book, /refer/doctor, and the
+ * site-wide JSON-LD graph in app/layout.tsx — which alone had been emitting
+ * it on roughly 190 pages. It now lives on the Person node in
+ * app/about/page.tsx and in the badge on that page.
+ *
+ * Enforced here rather than trusted to memory, for the same reason the
+ * counsellor's name is: a trust signal is exactly the kind of thing a future
+ * session re-adds in good faith, having read that a verifiable number is the
+ * strongest permitted signal on a site that cannot show reviews. That is true
+ * and it is not the decision. This check is the answer.
+ *
+ * Reads the number from lib/site.ts so it cannot go stale, and matches the
+ * bare digits so `#20111`, `20111` and a JSON-LD value are all caught. */
+const REG = (() => {
+  try {
+    const src = readFileSync(join(process.cwd(), 'lib', 'site.ts'), 'utf8');
+    return (src.match(/registration:\s*["']([^"']+)["']/) || [, ''])[1];
+  } catch { return ''; }
+})();
+
+if (!REG) {
+  note.push('registration guard: could not read the number from lib/site.ts — the check did NOT run');
+} else {
+  /* `\\b`, not `\b`. Inside a template literal `\b` is the backspace
+     character U+0008, so the first version of this line compiled to
+     /[backspace]20111[backspace]/ and matched nothing — the guard passed a
+     build with the number injected into the footer of all 192 pages. Caught
+     by injecting exactly that and watching it report success. */
+  const digits = new RegExp(`\\b${REG}\\b`);
+  let regFail = false;
+  for (const [route, html] of published) {
+    if (route === '/about') continue;          // the one page allowed to carry it
+    if (digits.test(html)) {
+      const where = [
+        ['visible text', (html.match(/<main[\s\S]*?<\/main>/i) || [''])[0]],
+        ['JSON-LD', (html.match(/application\/ld\+json[^>]*>[\s\S]*?<\/script>/gi) || []).join(' ')],
+        ['<title>', (html.match(/<title[^>]*>[\s\S]*?<\/title>/i) || [''])[0]],
+        ['meta description', (html.match(/<meta[^>]+name=["']description["'][^>]*>/i) || [''])[0]],
+      ].filter(([, str]) => digits.test(str)).map(([w]) => w);
+      fail.push(`${route}: registration number present${where.length ? ` (${where.join(', ')})` : ''} — /about only`);
+      regFail = true;
+    }
+  }
+  if (!regFail) {
+    pass.push(`Registration number confined to /about across all ${published.length} published pages`);
+  }
+}
+
 /* ---------- REPORT ---------- */
 console.log('\nINTERPROVINCIAL EXPANSION — PRE-DEPLOY GATE\n' + '='.repeat(52));
 for (const p of pass) console.log(`  PASS  ${p}`);

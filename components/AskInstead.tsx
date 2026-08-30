@@ -117,8 +117,8 @@ export default function AskInstead({
           are forbidden, so this is what there is — and it was nowhere near the
           ask. */}
       <p className="ask-instead-fine">
-        Replies come from a <strong>Registered Clinical Counsellor</strong>, BCACC #20111 —
-        a registration you can{' '}
+        Replies come from a <strong>Registered Clinical Counsellor</strong> registered with
+        the BCACC — a registration you can{' '}
         <a href="https://bc-counsellors.org/counsellors/" rel="nofollow noopener" target="_blank">
           check yourself in about two minutes
         </a>

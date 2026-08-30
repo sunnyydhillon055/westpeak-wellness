@@ -125,11 +125,11 @@ export default function Book({
                   is verifiable and already published elsewhere on the site —
                   this is placement, not new claims. */}
               <p className="book-brief-note" style={{ textAlign: 'center', marginBottom: 10 }}>
-                <strong>{site.counsellor.title} ({site.counsellor.credentials})</strong> · BCACC{' '}
+                <strong>{site.counsellor.title} ({site.counsellor.credentials})</strong> ·{' '}
                 <a href={site.counsellor.registerUrl} target="_blank" rel="noopener">
-                  #{site.counsellor.registration}
+                  check the BCACC register
                 </a>{' '}
-                — check the register · EMDR-trained · Gottman-trained · English &amp; ਪੰਜਾਬੀ
+                · EMDR-trained · Gottman-trained · English &amp; ਪੰਜਾਬੀ
               </p>
               <SchedulerEmbed
                 url={site.bookingsUrl}

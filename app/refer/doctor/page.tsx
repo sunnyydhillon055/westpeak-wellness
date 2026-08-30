@@ -188,7 +188,7 @@ export default async function BringToYourDoctor() {
             <p>
               Virtual counselling practice serving adults across British Columbia. Sessions are
               provided by a <strong>{site.counsellor.title}</strong> ({site.counsellor.credentials}
-              ), registration <strong>#{site.counsellor.registration}</strong>, verifiable in the{' '}
+              ), verifiable in the{' '}
               <a href={site.counsellor.registerUrl} rel="noreferrer">
                 {site.counsellor.registerName} register
               </a>
