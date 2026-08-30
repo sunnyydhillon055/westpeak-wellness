@@ -118,25 +118,25 @@ export const shell = (heading: string, body: string, preheader?: string) => `<!d
 <meta name="supported-color-schemes" content="light">
 <title>${esc(heading)}</title>
 </head>
-<body style="margin:0;padding:0;background:#f4f2ee;">
+<body style="margin:0;padding:0;background:#faf7f1;">
 <div style="display:none;font-size:1px;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all;">
 ${esc(preheader ?? heading)}${'&#8203;&nbsp;'.repeat(60)}
 </div>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f2ee;padding:28px 12px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#faf7f1;padding:28px 12px;">
 <tr><td align="center">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:10px;padding:32px;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#22262b;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:10px;padding:32px;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#2b3138;">
 <tr><td>
-<p style="margin:0 0 4px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#6b7280;">Westpeak Wellness</p>
-<h1 style="margin:0 0 18px;font-size:21px;line-height:1.3;color:#1f3d4d;">${esc(heading)}</h1>
+<p style="margin:0 0 4px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#545e69;">Westpeak Wellness</p>
+<h1 style="margin:0 0 18px;font-size:21px;line-height:1.3;color:#3d6c92;">${esc(heading)}</h1>
 ${body}
-<hr style="border:none;border-top:1px solid #e5e7eb;margin:28px 0 16px;">
-<p style="margin:0 0 6px;font-size:12px;line-height:1.6;color:#6b7280;">
+<hr style="border:none;border-top:1px solid #e6ddce;margin:28px 0 16px;">
+<p style="margin:0 0 6px;font-size:12px;line-height:1.6;color:#545e69;">
 Westpeak Wellness · Online counselling across British Columbia<br>
-<a href="${links.contact}" style="color:#6b7280;">Contact</a> ·
-<a href="${links.privacy}" style="color:#6b7280;">Privacy</a> ·
-<a href="${links.standards}" style="color:#6b7280;">Standards &amp; scope</a>
+<a href="${links.contact}" style="color:#545e69;">Contact</a> ·
+<a href="${links.privacy}" style="color:#545e69;">Privacy</a> ·
+<a href="${links.standards}" style="color:#545e69;">Standards &amp; scope</a>
 </p>
-<p style="margin:0;font-size:12px;line-height:1.6;color:#6b7280;">
+<p style="margin:0;font-size:12px;line-height:1.6;color:#545e69;">
 If you are in immediate danger call 911. For urgent mental-health support in
 BC, call or text <strong>9-8-8</strong> at any hour.
 </p>
@@ -145,13 +145,13 @@ BC, call or text <strong>9-8-8</strong> at any hour.
 </body></html>`;
 
 export const btn = (href: string, label: string) =>
-  `<p style="margin:0 0 22px;"><a href="${href}" style="display:inline-block;background:#1f3d4d;color:#ffffff;text-decoration:none;padding:11px 20px;border-radius:6px;font-weight:600;font-size:15px;">${esc(label)}</a></p>`;
+  `<p style="margin:0 0 22px;"><a href="${href}" style="display:inline-block;background:#3d6c92;color:#ffffff;text-decoration:none;padding:11px 20px;border-radius:6px;font-weight:600;font-size:15px;">${esc(label)}</a></p>`;
 
 export const p = (html: string) =>
   `<p style="margin:0 0 15px;font-size:15px;line-height:1.65;">${html}</p>`;
 
 export const a = (href: string, label: string) =>
-  `<a href="${href}" style="color:#1f3d4d;">${esc(label)}</a>`;
+  `<a href="${href}" style="color:#3d6c92;">${esc(label)}</a>`;
 
 export type Booking = {
   firstName: string;
@@ -207,10 +207,10 @@ ${BASE}`);
   const html = shell(
     b.isConsult ? 'Your free consultation is booked' : 'Your session is booked',
     p(`Hi ${esc(b.firstName)},`) +
-    `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 20px;background:#f7f5f1;border-radius:8px;padding:16px 18px;width:100%;">
+    `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 20px;background:#f7f2e8;border-radius:8px;padding:16px 18px;width:100%;">
        <tr><td style="font-size:15px;line-height:1.6;">
-         <strong style="color:#1f3d4d;">${esc(b.whenText)}</strong><br>
-         <span style="color:#5a6470;">${b.minutes} minutes · secure video</span>
+         <strong style="color:#3d6c92;">${esc(b.whenText)}</strong><br>
+         <span style="color:#545e69;">${b.minutes} minutes · secure video</span>
        </td></tr></table>` +
     p(`You will get a separate email from Cliniko, our booking system, carrying the video link and calendar invite. It arrives from <strong>notifications@cliniko.com</strong> — worth checking spam if it is not there, and marking it safe so future ones land.`) +
     (b.isConsult

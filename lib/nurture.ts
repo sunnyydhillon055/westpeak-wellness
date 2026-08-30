@@ -103,9 +103,9 @@ export async function optOut(email: string): Promise<void> {
 /* ---- the two remaining emails --------------------------------------------- */
 
 const footerNote = (email: string) =>
-  `<p style="margin:18px 0 0;font-size:12px;line-height:1.6;color:#6b7280;">
+  `<p style="margin:18px 0 0;font-size:12px;line-height:1.6;color:#545e69;">
      You are getting this because you asked for the coverage checklist on our website.
-     <a href="${unsubLink(email)}" style="color:#6b7280;">Unsubscribe</a> — one click, no questions.
+     <a href="${unsubLink(email)}" style="color:#545e69;">Unsubscribe</a> — one click, no questions.
    </p>`;
 
 function email2(firstName: string, to: string) {

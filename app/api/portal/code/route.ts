@@ -103,11 +103,11 @@ Westpeak Wellness
 ${site.domain}`;
 
     const html =
-`<div style="font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#22262b;max-width:460px;">
+`<div style="font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#2b3138;max-width:460px;">
   <p style="margin:0 0 14px;font-size:15px;">Your Westpeak Wellness access code:</p>
-  <p style="margin:0 0 16px;font-size:34px;letter-spacing:7px;font-weight:700;color:#1f3d4d;">${issued.code}</p>
+  <p style="margin:0 0 16px;font-size:34px;letter-spacing:7px;font-weight:700;color:#3d6c92;">${issued.code}</p>
   <p style="margin:0 0 14px;font-size:14px;line-height:1.6;">It expires in ${CODE_TTL_MINUTES} minutes and can be used once.</p>
-  <p style="margin:0;font-size:13px;line-height:1.6;color:#6b7280;">If you did not ask for this, ignore it — nobody can reach your portal without the code, and it stops working shortly.</p>
+  <p style="margin:0;font-size:13px;line-height:1.6;color:#545e69;">If you did not ask for this, ignore it — nobody can reach your portal without the code, and it stops working shortly.</p>
 </div>`;
 
     const sent = await sendDetailed(email, 'Your Westpeak Wellness access code', text, html);

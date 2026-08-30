@@ -201,27 +201,27 @@ export function render(counts: Counts, from: Date, to: Date, clinikoOk: boolean)
 
   const text = lines.join('\n');
 
-  const cell = 'padding:7px 10px;border-bottom:1px solid #e5e7eb;font-size:15px;';
-  const html = `<!doctype html><html><body style="margin:0;background:#f4f2ee;padding:26px 12px;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#22262b;">
+  const cell = 'padding:7px 10px;border-bottom:1px solid #e6ddce;font-size:15px;';
+  const html = `<!doctype html><html><body style="margin:0;background:#faf7f1;padding:26px 12px;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#2b3138;">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#fff;border-radius:10px;padding:30px;">
 <tr><td>
-<p style="margin:0 0 4px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#6b7280;">Westpeak Wellness</p>
-<h1 style="margin:0 0 18px;font-size:21px;color:#1f3d4d;">${month}</h1>
+<p style="margin:0 0 4px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#545e69;">Westpeak Wellness</p>
+<h1 style="margin:0 0 18px;font-size:21px;color:#3d6c92;">${month}</h1>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 18px;">
-${rows.map(([k, v]) => `<tr><td style="${cell}color:#5a6470;">${k}</td><td style="${cell}text-align:right;font-weight:600;font-variant-numeric:tabular-nums;">${v}</td></tr>`).join('')}
+${rows.map(([k, v]) => `<tr><td style="${cell}color:#545e69;">${k}</td><td style="${cell}text-align:right;font-weight:600;font-variant-numeric:tabular-nums;">${v}</td></tr>`).join('')}
 </table>
 ${counts.unanswered > 0
-  ? `<p style="margin:0 0 16px;padding:11px 14px;background:#fdf6f4;border-left:3px solid #b4472e;font-size:15px;"><strong>${counts.unanswered} message${counts.unanswered === 1 ? '' : 's'} still awaiting a reply.</strong> <a href="${site.domain}/admin#inbox" style="color:#1f3d4d;">Open the inbox</a></p>`
-  : `<p style="margin:0 0 16px;font-size:15px;color:#5a6470;">Nothing awaiting a reply.</p>`}
+  ? `<p style="margin:0 0 16px;padding:11px 14px;background:#f8f2ea;border-left:3px solid #b4472f;font-size:15px;"><strong>${counts.unanswered} message${counts.unanswered === 1 ? '' : 's'} still awaiting a reply.</strong> <a href="${site.domain}/admin#inbox" style="color:#3d6c92;">Open the inbox</a></p>`
+  : `<p style="margin:0 0 16px;font-size:15px;color:#545e69;">Nothing awaiting a reply.</p>`}
 ${counts.topTerms.length
-  ? `<p style="margin:0 0 8px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#6b7280;">Searched on the site</p>
-     <p style="margin:0 0 16px;font-size:15px;line-height:1.8;">${counts.topTerms.map((t) => `${t.term} <span style="color:#6b7280;">(${t.n})</span>`).join(' · ')}</p>
-     <p style="margin:0 0 16px;font-size:14px;color:#5a6470;">A term with no page behind it is a page worth writing.</p>`
+  ? `<p style="margin:0 0 8px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#545e69;">Searched on the site</p>
+     <p style="margin:0 0 16px;font-size:15px;line-height:1.8;">${counts.topTerms.map((t) => `${t.term} <span style="color:#545e69;">(${t.n})</span>`).join(' · ')}</p>
+     <p style="margin:0 0 16px;font-size:14px;color:#545e69;">A term with no page behind it is a page worth writing.</p>`
   : ''}
-${!clinikoOk ? `<p style="margin:0 0 16px;font-size:14px;color:#5a6470;">Cliniko could not be reached, so booking counts are missing. The rest is from this site and is complete.</p>` : ''}
-<hr style="border:none;border-top:1px solid #e5e7eb;margin:22px 0 14px;">
-<p style="margin:0;font-size:12px;line-height:1.6;color:#6b7280;">
+${!clinikoOk ? `<p style="margin:0 0 16px;font-size:14px;color:#545e69;">Cliniko could not be reached, so booking counts are missing. The rest is from this site and is complete.</p>` : ''}
+<hr style="border:none;border-top:1px solid #e6ddce;margin:22px 0 14px;">
+<p style="margin:0;font-size:12px;line-height:1.6;color:#545e69;">
 Counts, not percentages. At these volumes a percentage change is noise — two enquiries to three
 is one extra person, not a 50% improvement.
 </p>

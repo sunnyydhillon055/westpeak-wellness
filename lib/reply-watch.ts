@@ -145,7 +145,7 @@ export async function runReplyWatch(
       .join('')}</ul>` +
     `<p>Reply to each person, then mark them handled at ` +
     `<a href="${site.domain}/admin#inbound">${site.domain}/admin</a>.</p>` +
-    `<p style="color:#667">This is the only reminder. Nobody is being chased on your behalf.</p>`;
+    `<p style="color:#545e69">This is the only reminder. Nobody is being chased on your behalf.</p>`;
 
   await sendDetailed(site.email, subject, text, html);
 

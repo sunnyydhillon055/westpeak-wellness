@@ -110,6 +110,25 @@ const PAIRS = [
   ['#ffffff', '--blue-deep', 'primary button label'],
   ['#ffffff', '--blue-deeper', 'primary button label, hover'],
   ['#ffffff', '--surface-ink', 'text on the inverted footer'],
+
+  /* TRANSACTIONAL EMAIL — added 30 August 2026, when the templates were brought
+     onto the site palette. An HTML email cannot read a CSS variable, so these
+     are written as literals in eleven templates and were, until now, the one
+     surface with no contrast check at all. They are spelled out here rather
+     than read from tokens on purpose: if someone changes a template and not
+     this list, the gate should go red, which is the whole point.
+     Values must match lib/booking-mail.ts and its siblings. */
+  ['#2b3138', '#ffffff', 'email: heading on white'],
+  ['#2b3138', '#faf7f1', 'email: heading on the cream ground'],
+  ['#2b3138', '#f7f2e8', 'email: heading on the warm panel'],
+  ['#545e69', '#ffffff', 'email: body text on white'],
+  ['#545e69', '#faf7f1', 'email: body text on the cream ground'],
+  ['#545e69', '#f7f2e8', 'email: body text on the warm panel'],
+  ['#3d6c92', '#ffffff', 'email: links on white'],
+  ['#3d6c92', '#faf7f1', 'email: links on the cream ground'],
+  ['#3d6c92', '#f7f2e8', 'email: links on the warm panel'],
+  ['#b4472f', '#f8f2ea', 'email: the alert red on its tint'],
+  ['#ffffff', '#3d6c92', 'email: button label'],
 ];
 
 const LARGE = new Set(); // none of the pairs above are large-text-only

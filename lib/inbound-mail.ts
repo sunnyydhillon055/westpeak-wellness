@@ -97,14 +97,14 @@ ${site.domain}`);
     p('These are the questions worth asking your extended health plan before booking counselling with anyone — not just with this practice. Call the number on your benefits card, ask them in order, and note down who you spoke to.') +
     `<ol style="margin:0 0 20px;padding-left:20px;font-size:15px;line-height:1.6;">` +
     CHECKLIST.map((c) =>
-      `<li style="margin:0 0 14px;"><strong style="color:#1f3d4d;">${esc(c.q)}</strong><br>
-       <span style="color:#5a6470;font-size:14px;">${esc(c.why)}</span></li>`
+      `<li style="margin:0 0 14px;"><strong style="color:#3d6c92;">${esc(c.q)}</strong><br>
+       <span style="color:#545e69;font-size:14px;">${esc(c.why)}</span></li>`
     ).join('') +
     `</ol>` +
     p(`The longer version, with the insurer-by-insurer table, is ${a(links.coverage, 'on the site')}.`) +
     p('That is everything — this is a one-off, not a sequence, and there is nothing else coming.') +
     btn(links.book, 'Book a free 15-minute consultation') +
-    p('<span style="color:#5a6470;font-size:14px;">No obligation, and deciding not to book is a completely normal outcome.</span>')
+    p('<span style="color:#545e69;font-size:14px;">No obligation, and deciding not to book is a completely normal outcome.</span>')
   );
 
   return { subject: 'Your coverage checklist', text, html };
@@ -188,16 +188,16 @@ nothing else coming.`
     p(esc(hi)) +
     p('Here is the one-pager you asked for \u2014 how the ICBC counselling entitlement works, and how to actually use it.') +
     p('<strong>The short version:</strong> if you were injured in a crash in British Columbia, you are pre-approved for <strong>twelve counselling sessions</strong> with a Registered Clinical Counsellor in the first twelve weeks, and <strong>no doctor\u2019s note is required</strong> to start.') +
-    p('<span style="color:#5a6470;font-size:14px;">One thing worth saying plainly: this practice is <strong>not</strong> currently registered with ICBC as a vendor, so those pre-approved sessions cannot be billed here. This is written so you can use the entitlement wherever you like \u2014 it is yours either way.</span>') +
+    p('<span style="color:#545e69;font-size:14px;">One thing worth saying plainly: this practice is <strong>not</strong> currently registered with ICBC as a vendor, so those pre-approved sessions cannot be billed here. This is written so you can use the entitlement wherever you like \u2014 it is yours either way.</span>') +
     `<ol style="padding-left:18px;margin:18px 0;">` +
     ICBC_STEPS.map((c) =>
-      `<li style="margin:0 0 14px;"><strong style="color:#1f3d4d;">${esc(c.q)}</strong><br>
-       <span style="color:#5a6470;font-size:14px;">${esc(c.why)}</span></li>`
+      `<li style="margin:0 0 14px;"><strong style="color:#3d6c92;">${esc(c.q)}</strong><br>
+       <span style="color:#545e69;font-size:14px;">${esc(c.why)}</span></li>`
     ).join('') +
     `</ol>` +
     p('That is everything \u2014 this is a one-off, not a sequence, and there is nothing else coming.') +
     btn(links.book, 'Book a free 15-minute consultation') +
-    p('<span style="color:#5a6470;font-size:14px;">No obligation, and deciding not to book is a completely normal outcome.</span>')
+    p('<span style="color:#545e69;font-size:14px;">No obligation, and deciding not to book is a completely normal outcome.</span>')
   );
 
   return { subject: 'The ICBC counselling entitlement', text, html };
@@ -273,14 +273,14 @@ ${site.domain}`);
     p('Here is the one-pager you asked for — how to start counselling in BC, from first thought to first session. It applies with any counsellor, not just this practice.') +
     `<ol style="margin:0 0 20px;padding-left:20px;font-size:15px;line-height:1.6;">` +
     STARTING.map((c) =>
-      `<li style="margin:0 0 14px;"><strong style="color:#1f3d4d;">${esc(c.q)}</strong><br>
-       <span style="color:#5a6470;font-size:14px;">${esc(c.why)}</span></li>`
+      `<li style="margin:0 0 14px;"><strong style="color:#3d6c92;">${esc(c.q)}</strong><br>
+       <span style="color:#545e69;font-size:14px;">${esc(c.why)}</span></li>`
     ).join('') +
     `</ol>` +
     p(`Current fees and how reimbursement works are ${a(`${site.domain}/pricing`, 'on the fees page')}.`) +
     p('That is everything — this is a one-off, not a sequence, and there is nothing else coming.') +
     btn(links.book, 'Book a free 15-minute consultation') +
-    p('<span style="color:#5a6470;font-size:14px;">No obligation, and deciding not to book is a completely normal outcome.</span>')
+    p('<span style="color:#545e69;font-size:14px;">No obligation, and deciding not to book is a completely normal outcome.</span>')
   );
 
   return { subject: 'Starting counselling in BC — the one-pager', text, html };
@@ -324,7 +324,7 @@ Online counselling across British Columbia`);
     p('Thank you for writing. Your message has reached the practice and you will have a reply <strong>within one business day</strong>. Nothing further is needed from you in the meantime.') +
     p(`Two things that usually come up next: ${a(links.pricing, 'what sessions cost and how extended health works')}, and ${a(links.standards, 'how this practice works')}.`) +
     btn(links.book, 'Or pick a time for a free consultation') +
-    p('<span style="color:#5a6470;font-size:14px;">If you are in immediate danger call 911. For urgent mental-health support in BC, call or text <strong>9-8-8</strong> at any hour.</span>')
+    p('<span style="color:#545e69;font-size:14px;">If you are in immediate danger call 911. For urgent mental-health support in BC, call or text <strong>9-8-8</strong> at any hour.</span>')
   );
 
   return { subject: 'We have your message — Westpeak Wellness', text, html };
@@ -364,9 +364,9 @@ ${site.name}`);
     p(esc(hi)) +
     p('Thank you — your availability is noted.') +
     p('The practice runs a small number of hours, so this is a real waitlist rather than a formality. When something opens that fits the times you gave, you will hear directly.') +
-    `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 20px;background:#f7f5f1;border-radius:8px;padding:14px 18px;width:100%;">
-       <tr><td style="font-size:14px;line-height:1.7;color:#22262b;">
-       <strong style="color:#1f3d4d;">Current consultation hours</strong><br>
+    `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 20px;background:#f7f2e8;border-radius:8px;padding:14px 18px;width:100%;">
+       <tr><td style="font-size:14px;line-height:1.7;color:#2b3138;">
+       <strong style="color:#3d6c92;">Current consultation hours</strong><br>
        ${site.availability.map((v) => `${esc(v.day)} &mdash; ${esc(v.from)} to ${esc(v.to)}`).join('<br>')}
        </td></tr></table>` +
     btn(links.book, 'See live availability') +
@@ -408,17 +408,17 @@ export function practiceAlert(item: Inbound) {
   const html = shell(
     KIND_LABEL[item.kind],
     `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 18px;font-size:14px;line-height:1.7;">
-      <tr><td style="color:#6b7280;padding-right:14px;">Name</td><td>${esc(item.name || '(not given)')}</td></tr>
-      <tr><td style="color:#6b7280;padding-right:14px;">Email</td><td><a href="mailto:${esc(item.email)}" style="color:#1f3d4d;">${esc(item.email)}</a></td></tr>
-      ${item.windows ? `<tr><td style="color:#6b7280;padding-right:14px;">Windows</td><td>${esc(item.windows)}</td></tr>` : ''}
-      ${item.phone ? `<tr><td style="color:#6b7280;padding-right:14px;">Phone</td><td><a href="tel:${esc(item.phone.replace(/[^\d+]/g, ''))}" style="color:#1f3d4d;">${esc(item.phone)}</a> <span style="color:#6b7280;">&mdash; asked to be called</span></td></tr>` : ''}
-      ${item.callWindow ? `<tr><td style="color:#6b7280;padding-right:14px;">Best time</td><td>${esc(item.callWindow)}</td></tr>` : ''}
-      <tr><td style="color:#6b7280;padding-right:14px;">Page</td><td>${esc(item.source)}</td></tr>
+      <tr><td style="color:#545e69;padding-right:14px;">Name</td><td>${esc(item.name || '(not given)')}</td></tr>
+      <tr><td style="color:#545e69;padding-right:14px;">Email</td><td><a href="mailto:${esc(item.email)}" style="color:#3d6c92;">${esc(item.email)}</a></td></tr>
+      ${item.windows ? `<tr><td style="color:#545e69;padding-right:14px;">Windows</td><td>${esc(item.windows)}</td></tr>` : ''}
+      ${item.phone ? `<tr><td style="color:#545e69;padding-right:14px;">Phone</td><td><a href="tel:${esc(item.phone.replace(/[^\d+]/g, ''))}" style="color:#3d6c92;">${esc(item.phone)}</a> <span style="color:#545e69;">&mdash; asked to be called</span></td></tr>` : ''}
+      ${item.callWindow ? `<tr><td style="color:#545e69;padding-right:14px;">Best time</td><td>${esc(item.callWindow)}</td></tr>` : ''}
+      <tr><td style="color:#545e69;padding-right:14px;">Page</td><td>${esc(item.source)}</td></tr>
      </table>` +
     (item.message
-      ? `<div style="background:#f7f5f1;border-radius:8px;padding:16px 18px;margin:0 0 18px;font-size:15px;line-height:1.65;white-space:pre-wrap;">${esc(item.message)}</div>`
+      ? `<div style="background:#f7f2e8;border-radius:8px;padding:16px 18px;margin:0 0 18px;font-size:15px;line-height:1.65;white-space:pre-wrap;">${esc(item.message)}</div>`
       : '') +
-    p('<span style="color:#5a6470;font-size:14px;">Reply directly to this email to answer them.</span>'),
+    p('<span style="color:#545e69;font-size:14px;">Reply directly to this email to answer them.</span>'),
     /* The inbox preview line, and it obeys the same rule as the subject above:
        no name, no message, no service. A preheader is displayed in exactly the
        list a subject is, so anything unsafe for one is unsafe for the other.

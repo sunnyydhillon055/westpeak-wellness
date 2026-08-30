@@ -166,17 +166,71 @@ watching it report success.
 Six instrument errors this session, all the same shape. The gates are worth
 having and none of them should be believed without a test that fails.
 
-## What remains, and who it belongs to
+## Finding C is withdrawn
 
-**1. Long-form hierarchy** — the guides carry 3,247 words under twelve
-same-level headings. Unchanged, and still the largest single item. The fix is
-subheadings inside clinical copy, which is the counsellor's editorial call. I
-can draft them for review; I will not invent them silently.
+Finding C said the guides carry 3,247 words under twelve same-level headings
+with no third level, and scored categories 16 and 18 at 560 and 480 on it. It
+was measured from the rendered HTML. It was wrong, in two ways at once.
 
-**2. Transactional email** — 86 colour literals across eleven templates, all
-still on the pre-repaint palette. An HTML email cannot read a CSS variable, so
-these are literal by necessity and the gate reports them without failing. It is
-a real brand inconsistency and a genuinely different surface: the changes cannot
-be verified without sending test mail through real clients.
+**The headings were not all content.** Of the twelve H2s on
+`/guides/stress-leave-bc`, seven are the guide's sections. The other five are
+page furniture: Common questions, Sources, Related pages, More counselling
+guides, and the closing call to action.
 
-Neither is blocked on design judgement. Both are blocked on a decision.
+**The word count was not all prose.** 3,247 words is the whole `<main>` —
+the FAQ block, the related-link lists, the source list and the CTA copy. The
+guide's actual body is **1,175 words across 7 sections**, about 196 words per
+section, which is a normal reading rhythm and needs nothing.
+
+**And the third level exists.** A scan of every guide in the library found
+exactly one section anywhere long enough to want internal subheadings — the
+five-step sequence in "How to actually apply for one, in order". It already has
+five, written as bolded run-in heads:
+
+> **1. Know what you already have.** Under the BC Employment Standards Act…
+> **2. Book with a physician or nurse practitioner.** For anything longer…
+
+A run-in head is a heading. It is a legitimate typographic device, it is the
+right one for a five-step list inside a section, and the metric could not see
+it because it was counting tags.
+
+Corrected: **category 16 to 800, category 18 to 820.** No clinical copy needed
+drafting, and none was drafted.
+
+This is the third time in one session that an instrument here reported
+something that was not true, and the second time on this exact page — the audit
+itself opens with a caveat warning that a number can lie about a page, and then
+finding C did precisely that. The caveat was right and I fell into it anyway.
+
+## Where it stands
+
+| | |
+|---|--:|
+| Original audit | 695 |
+| After the palette, transition and rhythm work | 775 |
+| **After withdrawing finding C** | **804** |
+
+The middle figure was published as 773; recomputing the column gives 775. The
+arithmetic, not the judgement, was wrong.
+
+**Still me marking my own work.** Six of the twenty rows have moved on evidence
+a gate can check; the other fourteen are unchanged and have been read by one
+person. A number produced this way is a direction, not a grade, and the honest
+ceiling on it is set by who has looked — not by how much more work is done.
+
+## What is actually left
+
+**Nothing I can act on alone.** Every colour on the site and in all eleven email
+templates is now a token or a documented exception, enforced by a gate that has
+been tested against injected regressions. Every hero transition, every diagram,
+every share card and the PWA splash screen are on the palette. Spacing is on a
+4px grid. Contrast is measured across 43 pairs including email.
+
+What would genuinely move the number now:
+
+1. **Someone else looking.** Fourteen categories rest on one reviewer's
+   judgement. That is the binding constraint, and no amount of further work by
+   the same reviewer relieves it.
+2. **Real users on real phones.** Mobile was verified at 500px in one browser.
+3. **The photography.** Three images, one treatment. Category 11 is a sample
+   size, not an assessment.

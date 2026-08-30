@@ -119,8 +119,12 @@ const ALLOWED_RGB = new Set(['255,255,255', '0,0,0']);
    email cannot read a CSS variable, and enough clients strip <style> that every
    colour in a template is inline and literal by necessity. Those files are
    reported separately and do not fail the gate.
-   They are, as of 30 August 2026, still on the pre-repaint palette. That is a
-   real thing to fix and a different job from this one. */
+   Brought onto the site palette on 30 August 2026 - 85 values across ten
+   templates, colour only, no structural change, because a colour swap cannot
+   break how a mail client lays a table out and a structural edit can. Their
+   eleven foreground/background pairs are spelled out in
+   scripts/contrast-audit.mjs and gated with everything else, so this surface
+   is measured now rather than merely reported. */
 const EMAIL_SURFACE =
   /(mail|invite|nurture|funnel-report|reply-watch|waitlist-checkin)\.tsx?$|^app\/api\/(unsubscribe|portal)\//;
 
@@ -185,7 +189,7 @@ if (!enforced.length) {
   const emails = findings.length - enforced.length;
   if (emails) {
     console.log(`\n  ${emails} literal(s) in transactional email templates, which cannot use`);
-    console.log('  tokens and are not enforced. Still on the pre-repaint palette.');
+    console.log('  tokens. Not enforced here; their contrast pairs are gated separately.');
   }
   console.log();
   process.exit(0);

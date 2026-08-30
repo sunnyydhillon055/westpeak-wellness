@@ -39,12 +39,12 @@ export async function GET(req: Request) {
 <meta name="robots" content="noindex">
 <title>Unsubscribed — Westpeak Wellness</title>
 <style>
-  body{margin:0;background:#f4f2ee;font:16px/1.6 -apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:#22262b}
+  body{margin:0;background:#faf7f1;font:16px/1.6 -apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:#2b3138}
   .card{max-width:520px;margin:12vh auto;background:#fff;border-radius:10px;padding:34px 32px}
-  h1{margin:0 0 14px;font-size:22px;color:#1f3d4d}
+  h1{margin:0 0 14px;font-size:22px;color:#3d6c92}
   p{margin:0 0 12px}
-  a{color:#1f3d4d}
-  .muted{color:#6b7280;font-size:14px}
+  a{color:#3d6c92}
+  .muted{color:#545e69;font-size:14px}
 </style></head>
 <body><div class="card">
 <h1>Done — you are unsubscribed.</h1>

@@ -103,7 +103,7 @@ ${site.domain}/guides/how-to-find-a-therapist-in-bc`
     'Still on the waitlist?',
     para(esc(hi)) +
     para('You joined the waitlist here about a month ago, and I said it was a real list rather than a formality — so this is me keeping that promise rather than letting it go quiet.') +
-    (i.windows ? para(`<span style="color:#5a6470;font-size:14px;">You said you were free around: ${esc(i.windows)}</span>`) : '') +
+    (i.windows ? para(`<span style="color:#545e69;font-size:14px;">You said you were free around: ${esc(i.windows)}</span>`) : '') +
     para('Nothing has opened yet that fits. I am not writing to sell you anything — just to ask one question, and <strong>either answer is completely fine</strong>:') +
     para('<strong>Would you like to stay on the list, or shall I take you off?</strong>') +
     para('If you want to stay on, you do not need to do anything at all. If you would rather come off, reply saying so and it is done. <strong>This is the only check-in</strong> — I will not write again either way.') +

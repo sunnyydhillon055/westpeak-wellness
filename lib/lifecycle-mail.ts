@@ -72,7 +72,7 @@ ${site.domain}`);
     btn(links.bookSession, 'Book a session') +
     p('There is nothing to reply to and nothing you need to do. Finishing when you did was a decision you were entitled to make, and this is not a suggestion that it was the wrong one. It is only so you know the door is open, and where it is.') +
     p(`If it would help to talk about whether now is a sensible time first, the ${a(links.book, 'free 15-minute consultation')} is still free for people who have worked with the practice before.`) +
-    p('<span style="color:#5a6470;font-size:14px;">If circumstances have changed and the fee is the obstacle, say so in a reply — there are lower-cost and no-cost options in BC and it is worth being pointed at the right one rather than going without.</span>')
+    p('<span style="color:#545e69;font-size:14px;">If circumstances have changed and the fee is the obstacle, say so in a reply — there are lower-cost and no-cost options in BC and it is worth being pointed at the right one rather than going without.</span>')
   );
 
   return { subject: 'A one-off note from Westpeak Wellness', text, html };
