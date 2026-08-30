@@ -115,6 +115,26 @@ const ALLOWED_HEX = new Set([
 ]);
 const ALLOWED_RGB = new Set(['255,255,255', '0,0,0']);
 
+/* ARTWORK TINTS — the intermediate shades inside the 29 SVGs: the mid-blues of
+ * a ridge in a scene band, the two fill weights of overlapping circles in a
+ * diagram, the sun on the logo. They are legitimate and they are not palette:
+ * promoting twenty of them to :root would make the token block a colour picker.
+ *
+ * BE CLEAR ABOUT WHAT THIS DOES AND DOES NOT BUY. Listing them here means the
+ * gate stops shouting about them. It does NOT mean they follow the palette —
+ * nothing cross-checks a tint against a token, because "is this blue a member
+ * of that blue's family" is not a question arithmetic answers honestly.
+ *
+ * So: if the palette is ever repainted again, these twenty values and the
+ * twenty-nine files holding them must be repainted by hand in the same change,
+ * and this list regenerated. The count is printed on every run so it cannot go
+ * quiet. That is the real protection here, and it is weaker than a token. */
+const ARTWORK_TINTS = new Set([
+  '#6b8fae', '#8faec8', '#8fb2d0', '#94aec4', '#9cbcd6', '#a6c8e0', '#b0cbdf',
+  '#c2a88d', '#c2d9ea', '#c9a98c', '#cbdcea', '#dbe9f2', '#dcc9b6', '#e2c9b0',
+  '#e6eef7', '#e6eff5', '#eaf0f4', '#eff4f8', '#f2f6f8', '#f4ecdf',
+]);
+
 /* Transactional email is a different surface with a hard constraint: an HTML
    email cannot read a CSS variable, and enough clients strip <style> that every
    colour in a template is inline and literal by necessity. Those files are
@@ -130,13 +150,23 @@ const EMAIL_SURFACE =
 
 /* ---- scan ---------------------------------------------------------------- */
 
+/* SVG IS WHERE MOST OF THIS SITE'S COLOUR LIVES, AND THIS FILE USED TO SKIP IT.
+ *
+ * The first version scanned .css/.ts/.tsx and excluded public/ outright, which
+ * left 29 SVG files unscanned: 22 diagrams, 6 scene bands, the logo — plus
+ * app/icon.svg, the favicon in every browser tab and on every Android home
+ * screen. The repaint missed all three of icon.svg's colours and three inside
+ * window-of-tolerance.svg, and the guard reported the repo clean anyway.
+ *
+ * A gate that excludes the directory holding most of the artwork is not a
+ * palette gate. SVG is in scope now, in both trees. */
 const files = [];
 (function walk(dir) {
   for (const e of readdirSync(dir)) {
-    if (['node_modules', '.next', '.git', 'public'].includes(e)) continue;
+    if (['node_modules', '.next', '.git'].includes(e)) continue;
     const p = join(dir, e);
     if (statSync(p).isDirectory()) { walk(p); continue; }
-    if (/\.(css|tsx|ts)$/.test(e)) files.push(p);
+    if (/\.(css|tsx|ts|svg)$/.test(e)) files.push(p);
   }
 })(ROOT);
 
@@ -157,10 +187,12 @@ for (const f of files) {
        belongs. lib/og.tsx duplicates them for the edge runtime and says so. */
     const inTokens = rel === 'app/globals.css' && i < 280;
     const isEmail = EMAIL_SURFACE.test(rel);
+    const isArt = rel.endsWith('.svg');
 
     for (const m of line.matchAll(/(?<!%23)#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})\b/g)) {
       const hex = ('#' + m[1]).toLowerCase();
       if (inTokens || ALLOWED_HEX.has(hex) || tokenHex.has(hex)) continue;
+      if (isArt && ARTWORK_TINTS.has(hex)) { findings.push({ rel, line: i + 1, spelling: 'artwork', value: hex }); continue; }
       findings.push({ rel, line: i + 1, spelling: isEmail ? 'email' : 'hex', value: hex });
     }
     for (const m of line.matchAll(/%23([0-9a-fA-F]{6}|[0-9a-fA-F]{3})\b/g)) {
@@ -180,13 +212,20 @@ for (const f of files) {
 
 console.log(`\nPALETTE GUARD - ${files.length} files, ${tokenHex.size} token colours\n`);
 
-const enforced = findings.filter((f) => f.spelling !== 'email');
+const SOFT = new Set(['email', 'artwork']);
+const enforced = findings.filter((f) => !SOFT.has(f.spelling));
 
 if (!enforced.length) {
   console.log('  Every colour on the site is a token, a token at an alpha, or one of');
   console.log('  the documented exceptions. Nothing is written in a spelling the next');
   console.log('  repaint would miss.');
-  const emails = findings.length - enforced.length;
+  const emails = findings.filter((f) => f.spelling === 'email').length;
+  const art = findings.filter((f) => f.spelling === 'artwork').length;
+  if (art) {
+    console.log(`
+  ${art} artwork tint(s) across the SVGs, listed in this file and not`);
+    console.log('  cross-checked against the palette. Repainting means repainting them too.');
+  }
   if (emails) {
     console.log(`\n  ${emails} literal(s) in transactional email templates, which cannot use`);
     console.log('  tokens. Not enforced here; their contrast pairs are gated separately.');
@@ -204,6 +243,7 @@ for (const [spelling, list] of Object.entries(bySpelling)) {
     'url-encoded': 'URL-ENCODED (inside data URIs - a "#" search will never find these)',
     rgb: 'RGB / RGBA TRIPLES',
     email: 'EMAIL TEMPLATES - inline by necessity, reported not enforced',
+    artwork: 'ARTWORK TINTS inside SVGs - listed, not enforced against the palette',
   }[spelling];
   console.log(`  ${String(list.length).padStart(3)}  ${label}`);
   for (const f of list.slice(0, 12)) {
