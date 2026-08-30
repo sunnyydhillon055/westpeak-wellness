@@ -13,12 +13,16 @@ export const OG_SIZE = { width: 1200, height: 630 };
 export const OG_CONTENT_TYPE = 'image/png';
 export const OG_ALT = 'Westpeak Wellness — online counselling across British Columbia';
 
-const INK = '#1f2a37';
-const INK_SOFT = '#4a5768';
-const BLUE = '#5b8bc4';
-const BLUE_DEEP = '#3f6ca3';
-const BG = '#fbfcfe';
-const LINE = '#e3ebf4';
+/* Repainted 30 August 2026 to the oatmeal-cream palette. These are duplicated
+   from app/globals.css rather than imported, because this file runs on the
+   edge runtime and never sees the stylesheet — so if the palette moves again,
+   it moves here too. Kept in the same order as the tokens they mirror. */
+const INK = '#2b3138';        /* --ink */
+const INK_SOFT = '#545e69';   /* --ink-soft */
+const BLUE = '#7ba7cb';       /* --blue */
+const BLUE_DEEP = '#3d6c92';  /* --blue-deep */
+const BG = '#faf7f1';         /* --bg, oatmeal cream */
+const LINE = '#e6ddce';       /* --line */
 
 /** Title sizing steps down as the headline gets longer so it never overflows. */
 function titleSize(title: string) {
@@ -61,7 +65,7 @@ export function ogImage({
             width: 720,
             height: 720,
             borderRadius: 720,
-            background: '#e8f0f9',
+            background: '#e2edf4',
             display: 'flex',
           }}
         />
@@ -73,7 +77,7 @@ export function ogImage({
             width: 380,
             height: 380,
             borderRadius: 380,
-            background: '#f2f6fb',
+            background: '#f7f2e8',
             display: 'flex',
           }}
         />
@@ -81,7 +85,7 @@ export function ogImage({
         {/* Header row: peak mark + practice name */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
           <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
-            <rect x="0.5" y="0.5" width="43" height="43" rx="11" fill="#e8f0f9" stroke={LINE} />
+            <rect x="0.5" y="0.5" width="43" height="43" rx="11" fill="#e2edf4" stroke={LINE} />
             <path d="M9 31.5 L18.5 15 L24 24 L27.5 18.5 L35 31.5 Z" fill={BLUE_DEEP} />
             <circle cx="30.5" cy="12.5" r="3.4" fill={BLUE} />
           </svg>

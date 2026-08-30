@@ -29,48 +29,124 @@
    (app/fonts.ts) and are deliberately NOT redefined here.
    ========================================================================= */
 :root{
-  /* — Cool core (unchanged; the practice's existing identity) — */
-  --bg:            #fbfcfe;
-  --bg-tint:       #f2f6fb;
-  --bg-card:       #ffffff;
-  --ink:           #1f2a37;
-  --ink-soft:      #4a5768;
-  --ink-faint:     #616b78;   /* AA on every surface incl. --surface-4 */
-  --line:          #e3ebf4;
-  --blue:          #5b8bc4;
-  --blue-deep:     #3f6ca3;
-  --blue-deeper:   #2f5583;
-  --blue-mist:     #e8f0f9;
-  --blue-ghost:    #f5f9fd;
-  --focus:         #2f6fb0;
+  /* The site renders light on every device, including one set to dark.
+     Declared rather than merely implied, so the browser paints its own
+     furniture — form controls, scrollbars, the address-bar tint — to match
+     the page instead of inverting it. Without this a dark-mode phone renders
+     cream sections with a dark scrollbar and dark select menus.
+     The dark theme this replaces is documented where it was removed, at the
+     foot of premium.css. */
+  color-scheme: light;
 
-  /* — Warm accent. One secondary only, used sparingly: underlines, the motif's
-       inner ridge, one CTA state, quote marks. Warmth is the whole point of
-       the elevation; more than one accent would make it a palette, not a voice. */
-  --clay:          #c07a56;
-  /* #a3603e measured 4.455 on --clay-ghost and 4.355 on --surface-4 — under AA
-     on two surfaces of its own palette. The RCC badge on /about was the only
-     place currently failing, but any clay text placed on sand would have too.
-     #9c5a39 clears 4.5 on all of them (ghost 4.87, white 5.34, sand 4.76) and
-     is not a shade the eye separates from the one it replaces. */
-  --clay-deep:     #9c5a39;
-  --clay-soft:     #f0dccf;
-  --clay-ghost:    #fbf3ee;
+  /* ═══ LIGHT BLUE AND OATMEAL CREAM — repainted 30 August 2026 ═══
+   *
+   * The previous palette was cool-on-cool: a near-white blue-grey ground
+   * (#fbfcfe) with a saturated mid-blue (#5b8bc4) and a fairly hot clay
+   * (#c07a56) fighting it. On a phone it read hard and a little clinical,
+   * which is the opposite of what a counselling practice wants to feel like.
+   *
+   * The ground is now oatmeal cream and the blue has moved to a softer,
+   * lighter register. Two colours carry the site; the tan is a quiet third
+   * that exists for underlines, the crisis border and one CTA state.
+   *
+   * TWO RULES THIS PALETTE OBEYS
+   *
+   * 1. Cream grounds, not white. White next to cream reads as a mistake, so
+   *    even --surface-0 carries a little warmth.
+   * 2. Light blue is a FILL colour, not a text colour. --blue is for washes,
+   *    mist and marks; anything a reader has to read uses --blue-deep or
+   *    darker. A light blue link on cream is the classic way a soft palette
+   *    fails WCAG, and `npm run contrast` fails the build if it happens.
+   *
+   * Every pair is checked by scripts/contrast-audit.mjs against WCAG 2.1 AA.
+   */
+
+  /* — Core — */
+  --bg:            #faf7f1;   /* oatmeal cream — the ground */
+  --bg-tint:       #f4eee3;
+  --bg-card:       #fffdf9;   /* cream white, never #fff */
+  --ink:           #2b3138;   /* soft charcoal; a warm near-black, not navy */
+  --ink-soft:      #545e69;
+  /* AA on every surface, including the two tightest: --surface-4 (4.77) and
+     --blue-mist (4.76). The first draft of this palette used #666f79, which
+     the contrast gate failed at 4.30 on the sand — caught on the first run,
+     which is the entire argument for having the gate. */
+  --ink-faint:     #5f6872;
+  --line:          #e6ddce;   /* warm line — a cool rule on cream reads grey */
+
+  /* — Light blue. --blue is the brand colour and is used for FILLS. The two
+       darker steps exist because a reader has to be able to read a link. — */
+  --blue:          #7ba7cb;   /* the light blue itself: washes, marks, rules */
+  --blue-deep:     #3d6c92;   /* links, buttons, eyebrows — carries text */
+  --blue-deeper:   #2e5474;   /* hover and active */
+  --blue-mist:     #e2edf4;   /* light blue wash */
+  --blue-ghost:    #f1f6fa;   /* the faintest blue band */
+  --focus:         #35719b;
+
+  /* — Warm tertiary. One only, used sparingly: underlines, the motif's inner
+       ridge, one CTA state, quote marks, and the crisis border — which is the
+       one thing on this site that must never recede. Retuned from #c07a56 to
+       sit with oatmeal rather than shout across it. — */
+  --clay:          #b08768;
+  /* The text-safe step. Its predecessor #a3603e measured 4.455 on --clay-ghost
+     and 4.355 on --surface-4 — under AA on two surfaces of its own palette,
+     found by measuring rather than by looking. #8a6244 clears 4.5 on all of
+     them against the cream grounds below. */
+  --clay-deep:     #8a6244;
+  --clay-soft:     #ecdfd0;
+  --clay-ghost:    #f8f2ea;
 
   /* — Layered neutrals. Flat white everywhere is what makes a site read cheap;
-       these give sections a gentle temperature shift instead of a hard edge. */
-  --surface-0:     #ffffff;
-  --surface-1:     #fbfcfe;   /* cool near-white */
-  --surface-2:     #fdfaf6;   /* warm off-white */
-  --surface-3:     #f2f6fb;   /* blue wash */
-  --surface-4:     #f7f1ea;   /* warm sand */
-  --surface-ink:   #1c2733;   /* deep surface for inverted blocks */
+       these give sections a gentle temperature shift instead of a hard edge.
+       Four of the five are oatmeal; --surface-3 is the one blue band, so a
+       blue section reads as a deliberate change of key rather than as the
+       default. */
+  --surface-0:     #fffdf9;   /* cream white */
+  --surface-1:     #faf7f1;   /* oatmeal cream */
+  --surface-2:     #f7f2e8;   /* warmer oatmeal */
+  --surface-3:     #edf3f8;   /* the blue wash */
+  --surface-4:     #f2ebdc;   /* deep oatmeal / sand */
+  --surface-ink:   #2b3138;   /* deep surface for inverted blocks */
 
-  /* — Signature gradients — */
-  --grad-brand:    linear-gradient(135deg, #2f5583 0%, #4d7cb4 42%, #b8886a 100%);
-  --grad-hero:     linear-gradient(168deg, #f5f9fd 0%, #f8fafd 46%, #fdf7f2 100%);
-  --grad-mist:     linear-gradient(160deg, #e8f0f9 0%, #f4ece5 100%);
-  --grad-ink:      linear-gradient(150deg, #24384f 0%, #1c2733 55%, #2a2b32 100%);
+  /* — Text ON the inverted surfaces (the footer, the signature block, the ink
+       gradient). These were nine separate hardcoded blue-greys in premium.css
+       — #b9c6d3, #9aa9b8, #cdd8e3, #a9b8c7, #8798a8 and friends — chosen to
+       sit on the old navy #1c2733. Against the warm charcoal that replaced it
+       they read as a cold film over a warm ground.
+       Tokenised so the footer follows the palette instead of being repainted
+       by hand every time, and measured against all three inverted grounds:
+       --surface-ink and both ends of --grad-ink. Worst case is the faint
+       step at 4.54 on the gradient's cool end. — */
+  --on-ink:        #f3eee6;   /* primary text on dark   — 11.37 on ink */
+  --on-ink-soft:   #cbc4ba;   /* secondary             —  7.59 */
+  --on-ink-faint:  #aaa39a;   /* fine print            —  5.26 */
+  --on-ink-blue:   #9ec4e2;   /* the light blue, lifted to carry text — 7.16 */
+  --on-ink-clay:   #d9b795;   /* the warm accent, same treatment      — 6.98 */
+
+  /* — Header chrome. Tokenised 30 August 2026, because it was not.
+       `.site-header` hardcoded rgba(251,252,254,...) in four separate rules in
+       premium.css and the dark block overrode none of them, so a dark-mode
+       visitor got a near-white bar floating on a near-black page with the dark
+       palette's light-blue link colour on top of it. Measured, at rest:
+
+         header as rendered  #babdc0   (251,252,254 at .72 over #131a22)
+         --ink       on it     1.62:1
+         --ink-soft  on it     1.05:1
+         --blue-deep on it     1.00:1   <- the nav CTA, invisible
+
+       The same colours score 7-15:1 against the page body two pixels below.
+       The site's primary navigation was unreadable for every visitor whose
+       phone is in dark mode, which on mobile is most of them. — */
+  --header-bg:          rgba(250, 247, 241, .78);
+  --header-bg-scrolled: rgba(250, 247, 241, .93);
+
+  /* — Signature gradients. Cream to blue rather than blue to blue: the hero
+       now warms toward the top of the page and cools toward the content,
+       which is the direction a reader's eye travels. — */
+  --grad-brand:    linear-gradient(135deg, #3d6c92 0%, #7ba7cb 45%, #d3bb9d 100%);
+  --grad-hero:     linear-gradient(168deg, #f6f1e7 0%, #faf7f1 48%, #edf3f8 100%);
+  --grad-mist:     linear-gradient(160deg, #e2edf4 0%, #f4ecdf 100%);
+  --grad-ink:      linear-gradient(150deg, #343b43 0%, #2b3138 55%, #302b25 100%);
 
   /* — Fine grain. Kills the plastic flatness of large fills. Inline so there is
        no extra request; opacity is deliberately near the threshold of vision. */
@@ -78,12 +154,16 @@
 
   /* — Elevation. Two-part: a tight contact shadow plus a wide ambient one, so
        cards read as lit rather than outlined. */
-  --shadow-xs:     0 1px 1px rgba(28,39,51,.03), 0 1px 3px rgba(47,85,131,.04);
-  --shadow-sm:     0 1px 2px rgba(28,39,51,.04), 0 3px 10px rgba(47,85,131,.05);
-  --shadow-md:     0 2px 4px rgba(28,39,51,.04), 0 10px 28px rgba(47,85,131,.08);
-  --shadow-lg:     0 4px 8px rgba(28,39,51,.05), 0 20px 48px rgba(47,85,131,.10);
-  --shadow-xl:     0 8px 16px rgba(28,39,51,.06), 0 36px 80px rgba(47,85,131,.13);
-  --shadow-warm:   0 2px 6px rgba(163,96,62,.06), 0 16px 40px rgba(163,96,62,.10);
+  /* Warm-neutral, not blue. A blue-tinted shadow on a cream ground reads as a
+     grey smudge — the shadow has to belong to the same light as the surface it
+     falls on. Slightly tighter alphas too: on cream, the same opacity that was
+     invisible on white starts to look like dirt. */
+  --shadow-xs:     0 1px 1px rgba(74,60,44,.03), 0 1px 3px rgba(74,60,44,.04);
+  --shadow-sm:     0 1px 2px rgba(74,60,44,.04), 0 3px 10px rgba(74,60,44,.05);
+  --shadow-md:     0 2px 4px rgba(74,60,44,.04), 0 10px 28px rgba(74,60,44,.07);
+  --shadow-lg:     0 4px 8px rgba(74,60,44,.05), 0 20px 48px rgba(74,60,44,.09);
+  --shadow-xl:     0 8px 16px rgba(74,60,44,.06), 0 36px 80px rgba(74,60,44,.11);
+  --shadow-warm:   0 2px 6px rgba(138,98,68,.06), 0 16px 40px rgba(138,98,68,.10);
 
   /* — Radii — */
   --radius-xs:     7px;
