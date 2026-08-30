@@ -131,6 +131,51 @@ const PAIRS = [
   ['#ffffff', '#3d6c92', 'email: button label'],
 ];
 
+/* ============================================================================
+   COMPOSITES — colour painted over colour, which is where this gate was blind.
+
+   Everything above is a flat pair: one token on another. The CTA band is not
+   flat. It is a gradient, with a translucent field on it, with white text
+   inside that. On 30 August 2026 six values on it measured under threshold,
+   including the text somebody types into the site's smaller-ask form at 4.32,
+   and that same text at 3.69 once the field was focused — because focusing it
+   made the fill LIGHTER underneath white text.
+
+   None of it was measurable here, because none of it is a pair of tokens.
+   Compositing first makes it one.
+
+   Evaluated at all three gradient stops; the worst is what counts.
+   ========================================================================= */
+const over = (fg, bg, alpha) => {
+  const f = srgb(hex(fg));
+  const b = srgb(hex(bg));
+  const mix = f.map((c, i) => Math.round(c * alpha + b[i] * (1 - alpha)));
+  return '#' + mix.map((c) => c.toString(16).padStart(2, '0')).join('');
+};
+
+/* .cta-band is linear-gradient(135deg, --blue-deeper, --blue-deep). */
+const BAND = ['--blue-deeper', '#35607f', '--blue-deep'];
+
+const COMPOSITES = [
+  { label: 'CTA band: typed text in the ask-instead field', need: 4.5,
+    at: (s) => ratio('#ffffff', over('#000000', s, 0.14)) },
+  { label: 'CTA band: typed text, field focused', need: 4.5,
+    at: (s) => ratio('#ffffff', over('#000000', s, 0.20)) },
+  { label: 'CTA band: placeholder in that field', need: 4.5,
+    at: (s) => ratio(over('#ffffff', over('#000000', s, 0.14), 0.78),
+                     over('#000000', s, 0.14)) },
+  { label: 'CTA band: field border against the band', need: 3.0,
+    at: (s) => ratio(over('#ffffff', s, 0.60), s) },
+  { label: 'CTA band: field border against the field', need: 3.0,
+    at: (s) => ratio(over('#ffffff', s, 0.60), over('#000000', s, 0.14)) },
+  { label: 'CTA band: body copy, white .86', need: 4.5,
+    at: (s) => ratio(over('#ffffff', s, 0.86), s) },
+  { label: 'CTA band: fine print, white .88', need: 4.5,
+    at: (s) => ratio(over('#ffffff', s, 0.88), s) },
+  { label: 'CTA band: solid white heading', need: 4.5,
+    at: (s) => ratio('#ffffff', s) },
+];
+
 const LARGE = new Set(); // none of the pairs above are large-text-only
 
 let fails = 0, warns = 0;
@@ -144,7 +189,17 @@ for (const [fg, bg, what] of PAIRS) {
   rows.push({ fg, bg, what, r, need, state });
 }
 
-console.log(`\nCONTRAST - ${PAIRS.length} foreground/background pairs from app/globals.css\n`);
+for (const c of COMPOSITES) {
+  const r = Math.min(...BAND.map((stop) => c.at(stop)));
+  const state = r >= 7 ? 'AAA' : r >= c.need ? 'AA ' : 'FAIL';
+  if (state === 'FAIL') fails++;
+  else if (r < c.need + 0.25) warns++;
+  rows.push({ fg: 'composite', bg: `min ${c.need}`, what: c.label, r, need: c.need, state });
+}
+
+console.log(
+  `\nCONTRAST - ${PAIRS.length} pairs and ${COMPOSITES.length} composites from app/globals.css\n`
+);
 console.log('  ratio   AA?   pair');
 console.log('  ' + '-'.repeat(86));
 for (const row of rows.sort((a, b) => a.r - b.r)) {
@@ -160,7 +215,7 @@ if (fails) {
   console.log('  /accessibility and the FAQ both tell readers this site meets AA.');
   console.log('  Fix the palette or change what those pages claim - in that order.\n');
 } else {
-  console.log(`\n  All ${PAIRS.length} pairs meet WCAG 2.1 AA.`);
+  console.log(`\n  All ${PAIRS.length + COMPOSITES.length} pairs and composites meet WCAG 2.1 AA.`);
   if (warns) console.log(`  ${warns} sit within 0.25 of the threshold - treat those as load-bearing.`);
   console.log('  The claim on /accessibility and /faq is currently true.\n');
 }
