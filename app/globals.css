@@ -169,6 +169,53 @@
   --shadow-xl:     0 8px 16px rgba(74,60,44,.06), 0 36px 80px rgba(74,60,44,.11);
   --shadow-warm:   0 2px 6px rgba(138,98,68,.06), 0 16px 40px rgba(138,98,68,.10);
 
+  /* — RIDGE COLOURS, and why they are tokens at all.
+   *
+   * The eight interior hero variants in premium.css draw their ridgeline as an
+   * inline SVG data URI, and a data URI cannot read a CSS variable. So these
+   * three values are hardcoded there whatever we do — which is exactly how the
+   * previous palette survived a full repaint inside them, URL-encoded as
+   * %23e8f0f9 where no search for "#e8f0f9" would ever look.
+   *
+   * Declaring them here does not remove the duplication. It makes the
+   * duplication checkable: scripts/palette-guard.mjs decodes every %23 value
+   * it finds and fails unless it matches a token. Change one of these and the
+   * gate will tell you the eight heroes still disagree with it.
+   *
+   * Not used by any rule directly. That is the point. — */
+  --ridge-blue:    #e9eff5;
+  --ridge-blue-2:  #dde8ef;
+  --ridge-warm:    #eee0cf;
+
+  /* — SPACING SCALE — added 30 August 2026.
+   *
+   * There was no scale. A count across both stylesheets found 36 distinct
+   * pixel values in 386 spacing declarations, including 13, 15, 17, 22, 26,
+   * 34, 38, 42, 58 and 62 — values that arrive one at a time when each block
+   * is nudged until it looks right on the page being worked on, and which
+   * together are why the vertical rhythm reads as approximate.
+   *
+   * 160 declarations were snapped to the 4px grid below. Only values of 12px
+   * and up were touched, and only where the nearest step was within 2px, so
+   * nothing moved perceptibly: 14 to 16, 26 to 24, 58 to 56. Below 12px the
+   * values are hairlines, icon gaps and optical nudges, where 2px is a third
+   * of the measurement and snapping would be vandalism rather than tidying.
+   *
+   * Use these for anything new. The grid is worth more than any individual
+   * value on it. — */
+  --space-1:       4px;
+  --space-2:       8px;
+  --space-3:       12px;
+  --space-4:       16px;
+  --space-5:       20px;
+  --space-6:       24px;
+  --space-8:       32px;
+  --space-10:      40px;
+  --space-12:      48px;
+  --space-14:      56px;
+  --space-16:      64px;
+  --space-20:      80px;
+
   /* — Radii — */
   --radius-xs:     7px;
   --radius-sm:     11px;
@@ -233,7 +280,7 @@ img{max-width:100%;display:block}
    block sits in a slightly different place on every page is. */
 .container--article{max-width:var(--maxw-article)}
 .container--narrow{max-width:var(--maxw-narrow)}
-.section{padding:58px 0;position:relative}
+.section{padding:56px 0;position:relative}
 /* Below-fold sections skip style/layout work until scrolled near. Measured
    2026-08-28: style & layout was the largest main-thread cost on mobile
    (~1.4 s under Lighthouse throttle) and it scales with DOM the visitor has
@@ -258,14 +305,14 @@ img{max-width:100%;display:block}
 
 /* Buttons */
 .btn{display:inline-block;font-family:var(--font-body);font-weight:600;font-size:1rem;
-  padding:13px 26px;border-radius:999px;border:1.5px solid transparent;cursor:pointer;
+  padding:12px 24px;border-radius:999px;border:1.5px solid transparent;cursor:pointer;
   transition:all .18s ease;text-decoration:none}
 .btn:hover{text-decoration:none}
 .btn--primary{background:var(--blue-deep);color:#fff;box-shadow:var(--shadow-sm)}
 .btn--primary:hover{background:var(--blue-deeper);transform:translateY(-1px);box-shadow:var(--shadow-md)}
 .btn--ghost{background:transparent;color:var(--blue-deep);border-color:var(--line)}
 .btn--ghost:hover{border-color:var(--blue);background:var(--blue-ghost)}
-.btn-row{display:flex;gap:14px;flex-wrap:wrap}
+.btn-row{display:flex;gap:16px;flex-wrap:wrap}
 .center .btn-row{justify-content:center}
 
 /* Header */
@@ -286,7 +333,7 @@ img{max-width:100%;display:block}
 .grid-2{grid-template-columns:repeat(2,1fr)}
 .grid-3{grid-template-columns:repeat(3,1fr)}
 .card{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);
-  padding:26px;box-shadow:var(--shadow-sm);transition:transform .18s ease,box-shadow .18s ease}
+  padding:24px;box-shadow:var(--shadow-sm);transition:transform .18s ease,box-shadow .18s ease}
 .card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
 .card h3{margin-bottom:.4em}
 .card h2.card-title{font-size:1.22rem;margin:0 0 .4em}
@@ -306,18 +353,18 @@ img{max-width:100%;display:block}
    container width, because a 1040-wide diagram squeezed into 70ch is unreadable.
    Below that width the diagram scrolls sideways inside its own box rather than
    shrinking its labels into illegibility — the page itself never scrolls. */
-.figure{margin:34px 0 38px;padding:0}
+.figure{margin:32px 0 40px;padding:0}
 .prose .figure{width:min(1032px,calc(100vw - 48px));margin-left:50%;transform:translateX(-50%)}
 .figure-scroll{overflow-x:auto;overflow-y:hidden;border-radius:var(--radius);
   overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
 .figure img{display:block;width:100%;min-width:660px;height:auto;border-radius:var(--radius);
   border:1px solid var(--line);background:var(--blue-ghost);box-shadow:var(--shadow-sm)}
 .figure figcaption{margin-top:12px;font-size:.9rem;line-height:1.5;color:var(--ink-faint);
-  padding-left:14px;border-left:3px solid var(--blue-mist)}
+  padding-left:16px;border-left:3px solid var(--blue-mist)}
 .figure-hint{display:none;margin:8px 0 0;font-size:.8rem;color:var(--ink-faint)}
 
 /* Authorship / review provenance */
-.byline{margin:0 0 34px;padding:18px 22px;background:var(--blue-ghost);
+.byline{margin:0 0 32px;padding:16px 24px;background:var(--blue-ghost);
   border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:var(--radius-sm)}
 .byline-line{margin:0 0 8px;font-size:.97rem;color:var(--ink)}
 .byline-meta{margin:0 0 4px;font-size:.85rem;color:var(--ink-faint);line-height:1.55}
@@ -331,7 +378,7 @@ img{max-width:100%;display:block}
    same content in roughly half the height. */
 .glossary{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin:0;
   background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
-.glossary-item{background:var(--bg-card);padding:15px 17px;scroll-margin-top:88px;
+.glossary-item{background:var(--bg-card);padding:16px 16px;scroll-margin-top:88px;
   transition:background var(--dur-base) var(--ease)}
 .glossary-item:hover{background:var(--blue-ghost)}
 .glossary dt{font-family:var(--font-display);font-size:1.01rem;font-weight:600;color:var(--ink);margin:0 0 5px}
@@ -344,13 +391,13 @@ img{max-width:100%;display:block}
 /* Feature blocks */
 .split{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
 .quote{font-family:var(--font-display);font-size:1.5rem;line-height:1.4;color:var(--ink);
-  border-left:3px solid var(--blue);padding-left:22px;margin:0}
+  border-left:3px solid var(--blue);padding-left:24px;margin:0}
 .quote cite{display:block;font-family:var(--font-body);font-size:.92rem;font-style:normal;
   color:var(--ink-faint);margin-top:12px;font-weight:600}
 
 /* Steps */
 .steps{counter-reset:step;display:grid;gap:20px}
-.step{display:flex;gap:18px;align-items:flex-start}
+.step{display:flex;gap:16px;align-items:flex-start}
 .step-num{flex:none;width:40px;height:40px;border-radius:50%;background:var(--blue-mist);
   color:var(--blue-deep);font-weight:700;display:flex;align-items:center;justify-content:center;font-size:1.05rem}
 
@@ -366,7 +413,7 @@ img{max-width:100%;display:block}
 /* Table */
 .fee-table{width:100%;border-collapse:collapse;margin:8px 0 4px;background:var(--bg-card);
   border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
-.fee-table th,.fee-table td{padding:14px 18px;text-align:left;border-bottom:1px solid var(--line)}
+.fee-table th,.fee-table td{padding:16px 16px;text-align:left;border-bottom:1px solid var(--line)}
 .fee-table th{background:var(--blue-mist);font-family:var(--font-body);font-size:.82rem;
   letter-spacing:.06em;text-transform:uppercase;color:var(--blue-deep);font-weight:700}
 .fee-table td{color:var(--ink-soft)}
@@ -375,12 +422,12 @@ img{max-width:100%;display:block}
 
 /* FAQ */
 .faq-item{border-bottom:1px solid var(--line);padding:4px 0}
-.faq-item summary{cursor:pointer;padding:18px 0;font-family:var(--font-display);
+.faq-item summary{cursor:pointer;padding:16px 0;font-family:var(--font-display);
   font-size:1.12rem;color:var(--ink);list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center}
 .faq-item summary::-webkit-details-marker{display:none}
 .faq-item summary::after{content:"+";color:var(--blue);font-size:1.4rem;flex:none;transition:transform .2s}
 .faq-item[open] summary::after{transform:rotate(45deg)}
-.faq-item p{color:var(--ink-soft);padding:0 0 18px;margin:0;max-width:44.16em}
+.faq-item p{color:var(--ink-soft);padding:0 0 16px;margin:0;max-width:44.16em}
 
 /* Info rows (contact) */
 .info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
@@ -392,19 +439,19 @@ img{max-width:100%;display:block}
 /* Location chips */
 .chip-grid{display:flex;flex-wrap:wrap;gap:10px}
 .chip{display:inline-flex;align-items:center;min-height:44px;background:var(--bg-card);
-  border:1px solid var(--line);border-radius:999px;padding:10px 18px;font-size:.92rem;color:var(--ink-soft)}
+  border:1px solid var(--line);border-radius:999px;padding:10px 16px;font-size:.92rem;color:var(--ink-soft)}
 .chip:hover{border-color:var(--blue);color:var(--blue-deep);text-decoration:none}
 
 /* CTA band */
-.cta-band{background:linear-gradient(135deg,#33578a,#4a77ab);color:#fff;text-align:center;border-radius:20px;padding:56px 32px;margin:0 auto}
+.cta-band{background:linear-gradient(135deg,var(--blue-deeper),var(--blue-deep));color:#fff;text-align:center;border-radius:20px;padding:56px 32px;margin:0 auto}
 .cta-band h2{color:#fff}
 .cta-band p{color:#fff;max-width:30.28em;margin:0 auto 24px}
 .cta-band .btn--primary{background:#fff;color:var(--blue-deep)}
-.cta-band .btn--primary:hover{background:#f0f6fc}
+.cta-band .btn--primary:hover{background:var(--blue-ghost)}
 
 /* Footer */
 .site-footer h2{color:#fff;font-family:var(--font-body);font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}
-.site-footer a{color:#c4cfdb;font-size:.95rem;display:block;margin-bottom:8px}
+.site-footer a{color:var(--on-ink-soft);font-size:.95rem;display:block;margin-bottom:8px}
 .site-footer a:hover{color:#fff}
 .footer-brand span{color:var(--blue)}
 /* Prose */
@@ -419,7 +466,7 @@ img{max-width:100%;display:block}
 
 /* Accessibility */
 a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:4px}
-.skip-link{position:absolute;left:-9999px;top:0;background:var(--blue-deep);color:#fff;padding:10px 18px;z-index:100;border-radius:0 0 8px 0}
+.skip-link{position:absolute;left:-9999px;top:0;background:var(--blue-deep);color:#fff;padding:10px 16px;z-index:100;border-radius:0 0 8px 0}
 .skip-link:focus{left:0}
 
 @media (max-width:740px){
@@ -442,7 +489,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 }
 /* Mobile booking bar — hidden above 680px, where the header CTA is visible */
 .sticky-book{display:none}
-.sticky-book-inner{display:flex;align-items:center;gap:14px;
+.sticky-book-inner{display:flex;align-items:center;gap:16px;
   max-width:var(--maxw);margin:0 auto;padding:10px 18px}
 .sticky-book-text{margin:0;font-size:.86rem;line-height:1.35;color:var(--ink-soft);flex:1}
 .sticky-book-text span{color:var(--ink-faint)}
@@ -450,8 +497,8 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 
 @media (max-width:680px){
   .sticky-book{display:block;position:fixed;left:0;right:0;bottom:0;z-index:60;
-    background:rgba(251,252,254,.97);backdrop-filter:saturate(180%) blur(10px);
-    border-top:1px solid var(--line);box-shadow:0 -4px 18px rgba(63,108,163,.09);
+    background:rgba(250,247,241,.97);backdrop-filter:saturate(180%) blur(10px);
+    border-top:1px solid var(--line);box-shadow:0 -4px 18px rgba(61,108,146,.09);
     padding-bottom:env(safe-area-inset-bottom)}
   /* keep the bar from covering the last of the footer */
   .site-footer{padding-bottom:96px}
@@ -462,7 +509,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
   .hero{padding:60px 0 48px}
   h1{font-size:1.75rem}
   .lede{font-size:1.06rem}
-  .btn{padding:13px 20px;font-size:.96rem}
+  .btn{padding:12px 20px;font-size:.96rem}
   .btn-row{gap:10px}
   .btn-row .btn{flex:1 1 100%;text-align:center}
   .prose .figure{width:calc(100vw - 36px)}

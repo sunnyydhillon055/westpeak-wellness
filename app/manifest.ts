@@ -27,8 +27,11 @@ export default function manifest(): MetadataRoute.Manifest {
     start_url: '/',
     scope: '/',
     display: 'browser',
-    background_color: '#fbfcfe',
-    theme_color: '#3f6ca3',
+    /* Both match the site, and both were the previous palette until 30 August
+       2026: the splash screen an Android user saw when opening this from a
+       home-screen icon was painting the old blue-grey and the old blue. */
+    background_color: '#faf7f1',
+    theme_color: '#faf7f1',
     lang: 'en-CA',
     dir: 'ltr',
     categories: ['health', 'medical', 'lifestyle'],

@@ -191,7 +191,7 @@ export default async function AdminPage({
             Renders nothing when all is well: a permanent green tick is a thing
             you stop reading. */}
         {healthProblems().length > 0 && (
-          <div className="admin-panel" style={{ marginTop: 20, borderLeft: '3px solid var(--danger, #b4553f)' }}>
+          <div className="admin-panel" style={{ marginTop: 20, borderLeft: '3px solid var(--danger, #b4472f)' }}>
             <h2 style={{ marginTop: 0, fontSize: '1.05rem' }}>
               {healthProblems().some((c) => c.severity === 'critical')
                 ? 'Something here can lose an enquiry'

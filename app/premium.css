@@ -105,8 +105,8 @@ a:hover{ text-decoration: none }
 /* — Stepper: a connected timeline rather than three loose rows — */
 .stepper{ display: grid; gap: 0; position: relative }
 .stepper-item{
-  display: grid; grid-template-columns: 58px 1fr; gap: 22px;
-  position: relative; padding-bottom: 26px;
+  display: grid; grid-template-columns: 58px 1fr; gap: 24px;
+  position: relative; padding-bottom: 24px;
 }
 .stepper-item:last-child{ padding-bottom: 0 }
 .stepper-item::before{
@@ -130,7 +130,7 @@ a:hover{ text-decoration: none }
 
 /* — Pull quote — */
 .pull-quote{
-  position: relative; margin: 30px 0; padding: 34px 34px 34px 62px;
+  position: relative; margin: 32px 0; padding: 32px 32px 32px 64px;
   background: var(--grad-mist); border-radius: var(--radius-lg);
   font-family: var(--font-display);
   font-size: clamp(1.18rem, 1.05rem + .7vw, 1.58rem);
@@ -213,7 +213,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 
 /* — Accordion refinement — */
 .faq-item{ transition: background-color var(--dur-base) var(--ease) }
-.faq-item summary{ gap: 18px; transition: color var(--dur-fast) var(--ease) }
+.faq-item summary{ gap: 16px; transition: color var(--dur-fast) var(--ease) }
 .faq-item summary:hover{ color: var(--blue-deep) }
 .faq-item[open]{ background: linear-gradient(90deg, var(--blue-ghost), transparent 70%) }
 .faq-item summary::after{
@@ -283,7 +283,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 /* — Hero — */
 .hero--home{
   position: relative; overflow: hidden; isolation: isolate;
-  background: var(--grad-hero); padding: clamp(44px, 4.5vw, 70px) 0 clamp(48px, 5vw, 78px);
+  background: var(--grad-hero); padding: clamp(44px, 4.5vw, 72px) 0 clamp(48px, 5vw, 80px);
 }
 .hero-bg{
   position: absolute; inset: auto 0 0 0; height: 62%; z-index: 0;
@@ -301,7 +301,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 }
 .hero--home h1{ max-width: 9.93em; font-size: var(--fs-display) }
 .hero--home .lede{ max-width: 29.02em }
-.hero-note{ margin-top: 18px; font-size: var(--fs-small); color: var(--ink-faint) }
+.hero-note{ margin-top: 16px; font-size: var(--fs-small); color: var(--ink-faint) }
 .hero-art{ position: relative }
 .hero-art .photo{ aspect-ratio: 4/5; box-shadow: var(--shadow-xl) }
 .photo-credit{
@@ -311,14 +311,14 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 }
 
 /* — Service cards with icon chips — */
-.svc-card-head{ display: flex; align-items: center; gap: 14px; margin-bottom: 12px }
+.svc-card-head{ display: flex; align-items: center; gap: 16px; margin-bottom: 12px }
 .svc-card-head h3{ margin: 0 }
 
 /* — The Punjabi block: the emotional centre of the page — */
 .signature{
   position: relative; overflow: hidden; isolation: isolate;
   background: var(--grad-ink); color: var(--on-ink);
-  padding: clamp(46px, 5vw, 72px) 0;
+  padding: clamp(48px, 5vw, 72px) 0;
 }
 .signature::after{
   content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
@@ -333,7 +333,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .signature-inner{
   position: relative; z-index: 1;
   display: grid; grid-template-columns: minmax(0,1.05fr) minmax(0,.95fr);
-  gap: clamp(30px, 5vw, 62px); align-items: center;
+  gap: clamp(32px, 5vw, 64px); align-items: center;
 }
 .signature .eyebrow{ color: var(--on-ink-clay) }
 .signature .eyebrow::before{ background: var(--clay) }
@@ -346,7 +346,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   background: rgba(255,255,255,.09); border-color: var(--clay); color: #ffffff;
 }
 .signature-quote{
-  position: relative; padding: 38px 34px 34px 40px;
+  position: relative; padding: 40px 32px 32px 40px;
   background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.13);
   border-radius: var(--radius-lg); backdrop-filter: blur(3px);
 }
@@ -356,7 +356,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 }
 .signature-quote cite{
   display: block; font-family: var(--font-body); font-style: normal;
-  font-size: var(--fs-small); font-weight: 600; color: var(--on-ink-faint); margin-top: 18px; letter-spacing: 0;
+  font-size: var(--fs-small); font-weight: 600; color: var(--on-ink-faint); margin-top: 16px; letter-spacing: 0;
 }
 .signature-quote::before{
   content: "C"; position: absolute; left: 16px; top: 2px;
@@ -366,7 +366,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .signature-arc{ position: absolute; left: 40px; bottom: -14px; width: 180px; opacity: .5 }
 
 /* — Hub cards — */
-.hub-card-head{ display: flex; align-items: center; gap: 14px; margin-bottom: 12px }
+.hub-card-head{ display: flex; align-items: center; gap: 16px; margin-bottom: 12px }
 .hub-card-head h3{ margin: 0 }
 
 @media (max-width: 900px){
@@ -404,7 +404,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 }
 .footer-grid{
   display: grid; grid-template-columns: 1.55fr 1fr 1fr 1fr;
-  gap: clamp(28px, 4vw, 52px); margin-bottom: 42px;
+  gap: clamp(28px, 4vw, 52px); margin-bottom: 40px;
 }
 .footer-brand{
   display: flex; align-items: center; gap: 12px;
@@ -428,7 +428,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .footer-social-link:hover{ color: #fff }
 .footer-col h2{
   color: #fff; font-family: var(--font-body); font-size: var(--fs-overline);
-  font-weight: 600; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 15px;
+  font-weight: 600; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 16px;
 }
 .footer-col a{
   color: var(--on-ink-soft); font-size: var(--fs-small); display: flex; align-items: center;
@@ -437,7 +437,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .footer-col a:hover{ color: #fff; padding-left: 4px }
 .footer-more{ color: var(--on-ink-blue) !important; font-weight: 600; margin-top: 4px }
 .footer-crisis{
-  display: flex; align-items: flex-start; gap: 14px;
+  display: flex; align-items: flex-start; gap: 16px;
   background: rgba(176,135,104,.13);
   /* Solid, not a 28% wash. WCAG asks 3:1 for the visual boundary of a UI
      component; the translucent version measured 1.43:1 against its own
@@ -445,7 +445,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
      --clay measures 3.34:1. This is the one element here that must not
      recede, and it was receding. */
   border: 1px solid var(--clay);
-  border-radius: var(--radius); padding: 16px 20px; margin-bottom: 26px;
+  border-radius: var(--radius); padding: 16px 20px; margin-bottom: 24px;
 }
 .footer-crisis svg{ width: 20px; height: 20px; color: var(--on-ink-clay); flex: none; margin-top: 2px }
 .footer-crisis p{ margin: 0; font-size: var(--fs-small); line-height: 1.6; color: var(--on-ink-soft) }
@@ -453,7 +453,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .footer-crisis a{ color: var(--on-ink-clay) }
 .footer-bottom{
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px;
-  border-top: 1px solid rgba(255,255,255,.10); padding-top: 22px;
+  border-top: 1px solid rgba(255,255,255,.10); padding-top: 24px;
   font-size: .82rem; color: var(--on-ink-faint);
 }
 
@@ -465,7 +465,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   .footer-grid{ grid-template-columns: 1fr }
   .site-footer{ padding-bottom: 96px }
   .nav-links.open{
-    max-height: calc(100vh - 70px); overflow-y: auto; padding-bottom: 26px;
+    max-height: calc(100vh - 70px); overflow-y: auto; padding-bottom: 24px;
   }
 }
 
@@ -485,12 +485,12 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 
 /* — At-a-glance chip strip — */
 .glance{
-  display: flex; flex-wrap: wrap; gap: 10px; margin: 26px 0 0; padding: 0; list-style: none;
+  display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 0; padding: 0; list-style: none;
 }
 .glance li{
   display: inline-flex; align-items: center; gap: 9px; min-height: 42px;
   background: var(--surface-0); border: 1px solid var(--line); border-radius: var(--radius-pill);
-  padding: 8px 17px; font-size: var(--fs-small); color: var(--ink-soft);
+  padding: 8px 16px; font-size: var(--fs-small); color: var(--ink-soft);
   box-shadow: var(--shadow-xs);
 }
 .glance svg{ width: 16px; height: 16px; color: var(--blue-deep); flex: none }
@@ -501,11 +501,11 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .svc-aside{ position: sticky; top: 92px }
 .svc-aside-card{
   background: var(--surface-0); border: 1px solid var(--line); border-radius: var(--radius-lg);
-  padding: 24px 24px 26px; box-shadow: var(--shadow-md);
+  padding: 24px 24px 24px; box-shadow: var(--shadow-md);
 }
 .svc-aside-card h2{
   font-family: var(--font-body); font-size: var(--fs-overline); font-weight: 600;
-  letter-spacing: .12em; text-transform: uppercase; color: var(--blue-deep); margin-bottom: 14px;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--blue-deep); margin-bottom: 16px;
 }
 .svc-aside-card ul{ list-style: none; padding: 0; margin: 0 0 20px }
 .svc-aside-card li{
@@ -527,12 +527,12 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   position: absolute; inset: -14% -12% -12% -14%; z-index: -1; opacity: .85; pointer-events: none;
 }
 .portrait-bloom svg{ width: 100%; height: 100% }
-.cred-card{ display: flex; gap: 14px; align-items: flex-start }
+.cred-card{ display: flex; gap: 16px; align-items: flex-start }
 .cred-card .icon-chip{ margin-top: 2px }
 .badge-rcc{
-  display: inline-flex; align-items: center; gap: 10px; margin-top: 18px;
+  display: inline-flex; align-items: center; gap: 10px; margin-top: 16px;
   background: var(--clay-ghost); border: 1px solid var(--clay-soft);
-  border-radius: var(--radius-pill); padding: 9px 18px 9px 12px;
+  border-radius: var(--radius-pill); padding: 9px 16px 9px 12px;
   font-size: var(--fs-small); color: var(--clay-deep); font-weight: 600;
 }
 .badge-rcc svg{ width: 19px; height: 19px; flex: none }
@@ -540,20 +540,20 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 /* — Fees — */
 .fee-highlight{ background: var(--blue-ghost) !important; box-shadow: inset 3px 0 0 var(--clay) }
 .fee-callout{
-  display: flex; gap: 16px; align-items: flex-start; margin-top: 30px;
-  background: var(--grad-mist); border-radius: var(--radius-lg); padding: 24px 26px;
+  display: flex; gap: 16px; align-items: flex-start; margin-top: 32px;
+  background: var(--grad-mist); border-radius: var(--radius-lg); padding: 24px 24px;
 }
 .fee-callout svg{ width: 22px; height: 22px; color: var(--clay-deep); flex: none; margin-top: 3px }
 .coverage-strip{
-  display: flex; flex-wrap: wrap; gap: 9px; list-style: none; padding: 0; margin: 18px 0 0;
+  display: flex; flex-wrap: wrap; gap: 9px; list-style: none; padding: 0; margin: 16px 0 0;
 }
 .coverage-strip li{
   border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface-0);
-  padding: 7px 14px; font-size: .84rem; color: var(--ink-soft);
+  padding: 7px 16px; font-size: .84rem; color: var(--ink-soft);
 }
 
 /* — FAQ categories + jump nav — */
-.faq-layout{ display: grid; grid-template-columns: 232px minmax(0,1fr); gap: clamp(26px,4vw,48px); align-items: start }
+.faq-layout{ display: grid; grid-template-columns: 232px minmax(0,1fr); gap: clamp(24px,4vw,48px); align-items: start }
 .faq-nav{ position: sticky; top: 92px }
 .faq-nav h2{
   font-family: var(--font-body); font-size: var(--fs-overline); font-weight: 600;
@@ -562,20 +562,20 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .faq-nav a{
   display: flex; align-items: center; gap: 10px; min-height: 42px;
   font-size: var(--fs-small); color: var(--ink-soft);
-  border-left: 2px solid var(--line); padding-left: 13px;
+  border-left: 2px solid var(--line); padding-left: 12px;
   transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
 }
 .faq-nav a:hover{ border-color: var(--clay); color: var(--ink) }
 .faq-nav svg{ width: 16px; height: 16px; flex: none; color: var(--blue-deep) }
-.faq-group{ margin-bottom: 30px; scroll-margin-top: 92px }
-.faq-group-head{ display: flex; align-items: center; gap: 13px; margin-bottom: 6px }
+.faq-group{ margin-bottom: 32px; scroll-margin-top: 92px }
+.faq-group-head{ display: flex; align-items: center; gap: 12px; margin-bottom: 6px }
 .faq-group-head h2{ margin: 0 }
 
 /* — Contact info blocks — */
 .info-block{
-  display: flex; gap: 14px; align-items: flex-start;
+  display: flex; gap: 16px; align-items: flex-start;
   background: var(--surface-0); border: 1px solid var(--line); border-radius: var(--radius);
-  padding: 20px 22px; box-shadow: var(--shadow-xs);
+  padding: 20px 24px; box-shadow: var(--shadow-xs);
 }
 .info-block h3{ margin: 0 0 3px; font-size: 1rem }
 .info-block p{ margin: 0; color: var(--ink-soft); font-size: var(--fs-small) }
@@ -584,7 +584,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .crisis{
   background: var(--clay-ghost); border: 1px solid var(--clay-soft);
   border-left: 4px solid var(--clay); border-radius: var(--radius);
-  padding: 18px 22px; color: var(--ink-soft);
+  padding: 16px 24px; color: var(--ink-soft);
 }
 .crisis strong{ color: var(--ink) }
 
@@ -712,7 +712,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 
 /* Contact: the BC reach diagram as a warm banner rather than a photo */
 .contact-banner{
-  margin-top: 30px; border-radius: var(--radius-lg); overflow: hidden;
+  margin-top: 32px; border-radius: var(--radius-lg); overflow: hidden;
   border: 1px solid var(--line); background: var(--surface-0); box-shadow: var(--shadow-md);
 }
 .contact-banner img{ width: 100%; height: auto; display: block }
@@ -731,7 +731,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 
 
 .faq-intro-links{
-  max-width: 46.69em; margin: 0 0 30px; font-size: var(--fs-small);
+  max-width: 46.69em; margin: 0 0 32px; font-size: var(--fs-small);
   line-height: 1.7; color: var(--ink-soft);
   background: var(--blue-ghost); border-left: 3px solid var(--blue-mist);
   border-radius: var(--radius-sm); padding: 16px 20px;
@@ -744,7 +744,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
    answer engine quoting it in isolation still conveys who, what, where and how. */
 .direct-answer{
   max-width: 42.9em; margin: 20px 0 0; font-size: var(--fs-lead); line-height: 1.6;
-  color: var(--ink); padding-left: 18px; border-left: 3px solid var(--clay);
+  color: var(--ink); padding-left: 16px; border-left: 3px solid var(--clay);
 }
 
 /* ---------------------------------------------------------------------------
@@ -757,10 +757,10 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .route-grid{
   display:grid; grid-template-columns:repeat(2,1fr); gap:1px;
   background:var(--line); border:1px solid var(--line);
-  border-radius:var(--radius); overflow:hidden; margin-top:26px;
+  border-radius:var(--radius); overflow:hidden; margin-top:24px;
 }
 .route-cell{
-  background:var(--surface-0); padding:20px 22px;
+  background:var(--surface-0); padding:20px 24px;
   transition:background var(--dur-base) var(--ease);
 }
 .route-cell:hover{ background:var(--blue-ghost); }
@@ -777,7 +777,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .route-cell p{ margin:0; font-size:.96rem; line-height:1.54; color:var(--ink-soft); }
 @media (max-width:720px){
   .route-grid{ grid-template-columns:1fr; }
-  .route-cell{ padding:17px 18px; }
+  .route-cell{ padding:16px 16px; }
 }
 
 /* ---------------------------------------------------------------------------
@@ -791,7 +791,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .container.reading{
   max-width:1140px;
   display:grid; grid-template-columns:198px minmax(0,620px) 198px;
-  gap:0 38px; align-items:start; justify-content:center;
+  gap:0 40px; align-items:start; justify-content:center;
 }
 .container.reading > *{ grid-column:2; }
 .container.reading > .toc{ grid-column:1; }
@@ -808,7 +808,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .toc ul{ list-style:none; margin:0; padding:0; border-left:1.5px solid var(--line); }
 .toc li{ margin:0; }
 .toc a{
-  display:block; padding:8px 0 8px 14px; margin-left:-1.5px;
+  display:block; padding:8px 0 8px 16px; margin-left:-1.5px;
   border-left:1.5px solid transparent; color:var(--ink-soft);
   transition:color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
 }
@@ -824,9 +824,9 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   .toc{
     position:static; max-height:none; overflow:visible;
     border:1px solid var(--line); border-radius:var(--radius);
-    background:var(--surface-1); padding:16px 18px; margin:0 0 30px;
+    background:var(--surface-1); padding:16px 16px; margin:0 0 32px;
   }
-  .toc ul{ border-left:0; columns:2; column-gap:26px; }
+  .toc ul{ border-left:0; columns:2; column-gap:24px; }
   .toc a{ padding:5px 0; border-left:0; margin-left:0; break-inside:avoid; }
   .toc li.is-active > a{ border-left:0; }
 }
@@ -840,15 +840,15 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .toc.toc--card{
   position:static; max-height:none; overflow:visible;
   border:1px solid var(--line); border-radius:var(--radius);
-  background:var(--surface-1); padding:16px 18px; margin:0 0 30px;
+  background:var(--surface-1); padding:16px 16px; margin:0 0 32px;
 }
-.toc--card ul{ border-left:0; columns:2; column-gap:26px; }
+.toc--card ul{ border-left:0; columns:2; column-gap:24px; }
 .toc--card a{ padding:9px 0; border-left:0; margin-left:0; break-inside:avoid; }
 .toc--card li.is-active > a{ border-left:0; }
 @media (max-width:560px){ .toc--card ul{ columns:1; } }
 
 /* Rail inside the service pages' existing sticky aside */
-.svc-aside .toc{ position:static; max-height:none; overflow:visible; margin-top:22px; }
+.svc-aside .toc{ position:static; max-height:none; overflow:visible; margin-top:24px; }
 .svc-aside .toc ul{ border-left:1.5px solid var(--line); }
 
 /* ---------------------------------------------------------------------------
@@ -868,8 +868,8 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .checklist li strong{ color:var(--ink); }
 
 /* FAQ rows: tighter, and the whole row reads as clickable */
-.faq-item summary{ padding:14px 0; }
-.faq-item p{ padding:0 0 14px; max-width:41.64em; }
+.faq-item summary{ padding:16px 0; }
+.faq-item p{ padding:0 0 16px; max-width:41.64em; }
 .faq-item summary:hover{ color:var(--blue-deep); }
 
 /* ---------------------------------------------------------------------------
@@ -978,7 +978,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 /* — Scrim — */
 .nav-scrim{
   position:fixed; inset:0; z-index:-1;
-  background:rgba(20,30,42,.42); backdrop-filter:blur(2px);
+  background:rgba(43,49,56,.46); backdrop-filter:blur(2px);
   opacity:0; pointer-events:none;
   transition:opacity var(--dur-base) var(--ease);
 }
@@ -988,11 +988,11 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 
   .nav-links{
     position:fixed; left:0; right:0; top:var(--header-h);
-    display:block; padding:10px 20px 22px; gap:0;
+    display:block; padding:10px 20px 24px; gap:0;
     max-height:calc(100dvh - var(--header-h)); overflow-y:auto; overscroll-behavior:contain;
     background:var(--surface-1);
     border-bottom:1px solid var(--line);
-    box-shadow:0 18px 40px rgba(28,39,51,.12);
+    box-shadow:0 18px 40px rgba(43,49,56,.12);
     /* clip-path rather than translate: the panel wipes down from under the
        header instead of flying past it, and nothing overshoots the viewport */
     clip-path:inset(0 0 100% 0);
@@ -1009,7 +1009,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   .nav-links > li:last-of-type{ border-bottom:0; }
   .nav-links > li:not(.nav-cta) > a{
     display:flex; align-items:center; width:100%;
-    padding:15px 6px; min-height:52px; font-size:1.02rem; border-radius:0;
+    padding:16px 6px; min-height:52px; font-size:1.02rem; border-radius:0;
     /* staggered entrance, driven by --i set on each <li> */
     opacity:0; transform:translateY(-6px);
     transition:opacity var(--dur-base) var(--ease), transform var(--dur-base) var(--ease);
@@ -1028,7 +1028,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 
   .nav-cta{ margin:16px 0 0; }
   .nav-cta .btn{
-    display:block; width:100%; text-align:center; padding:14px 20px; font-size:1rem;
+    display:block; width:100%; text-align:center; padding:16px 20px; font-size:1rem;
     opacity:0; transform:translateY(-6px);
     transition:opacity var(--dur-base) var(--ease), transform var(--dur-base) var(--ease);
   }
@@ -1045,8 +1045,8 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 }
 
 /* Client-portal numbered steps */
-.portal-steps{ list-style:none; margin:22px 0 0; padding:0; }
-.portal-steps > li{ display:flex; gap:16px; padding-bottom:22px; position:relative; }
+.portal-steps{ list-style:none; margin:24px 0 0; padding:0; }
+.portal-steps > li{ display:flex; gap:16px; padding-bottom:24px; position:relative; }
 .portal-steps > li:not(:last-child)::before{
   content:""; position:absolute; left:15px; top:34px; bottom:4px;
   width:1.5px; background:var(--line);
@@ -1086,7 +1086,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
    same size and would otherwise look like a footnote. */
 .nav-lang > a{
   display:flex; align-items:center;
-  padding:7px 14px; margin-left:6px;
+  padding:7px 16px; margin-left:6px;
   font-size:1rem; line-height:1.2; font-weight:600; color:var(--clay-deep);
   border:1px solid var(--line); border-radius:var(--radius-pill);
   transition:border-color var(--dur-fast) var(--ease),
@@ -1100,9 +1100,9 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .nav-lang > a[aria-current="page"]{ border-color:var(--clay); background:var(--clay-ghost); }
 
 @media (max-width:1020px){
-  .nav-lang{ border-bottom:0 !important; margin-top:14px; }
+  .nav-lang{ border-bottom:0 !important; margin-top:16px; }
   .nav-lang > a{
-    justify-content:center; width:100%; margin:0; padding:13px 20px;
+    justify-content:center; width:100%; margin:0; padding:12px 20px;
     min-height:50px; font-size:1.05rem;
     opacity:0; transform:translateY(-6px);
     transition:opacity var(--dur-base) var(--ease), transform var(--dur-base) var(--ease);
@@ -1112,7 +1112,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   }
   .nav-portal{ border-bottom:0 !important; margin-top:10px; }
   .nav-portal > a{
-    justify-content:center; width:100%; margin:0; padding:13px 20px;
+    justify-content:center; width:100%; margin:0; padding:12px 20px;
     min-height:50px; font-size:1rem;
     opacity:0; transform:translateY(-6px);
     transition:opacity var(--dur-base) var(--ease), transform var(--dur-base) var(--ease);
@@ -1144,18 +1144,18 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
    whole column, and the remaining rows are tighter, so the footer reads as a
    closing note rather than a second homepage.
    ------------------------------------------------------------------------ */
-.site-footer{ padding: clamp(44px, 5vw, 62px) 0 26px; }
-.footer-grid{ grid-template-columns: 1.7fr 1fr 1fr 1fr; margin-bottom: 34px; }
+.site-footer{ padding: clamp(44px, 5vw, 64px) 0 24px; }
+.footer-grid{ grid-template-columns: 1.7fr 1fr 1fr 1fr; margin-bottom: 32px; }
 .footer-col a{ min-height: 30px; font-size: .875rem; }
 .footer-col h2{ margin-bottom: 12px; }
 .footer-facts{ gap: 8px; margin-top: 16px; }
-.footer-social{ margin-top: 14px; }
+.footer-social{ margin-top: 16px; }
 .footer-social-link{ min-height: 38px; }
-.footer-crisis{ padding: 13px 17px; margin-bottom: 20px; }
+.footer-crisis{ padding: 12px 16px; margin-bottom: 20px; }
 
 /* Policies: one quiet row above the copyright line. */
 .footer-legal{
-  display: flex; flex-wrap: wrap; gap: 6px 22px;
+  display: flex; flex-wrap: wrap; gap: 6px 24px;
   padding-top: 20px; border-top: 1px solid rgba(255,255,255,.1);
 }
 .footer-legal a{
@@ -1166,12 +1166,12 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .footer-bottom{ border-top: 0; padding-top: 10px; }
 
 @media (max-width:860px){
-  .footer-grid{ grid-template-columns: 1fr 1fr; gap: 26px 30px; }
+  .footer-grid{ grid-template-columns: 1fr 1fr; gap: 24px 32px; }
   .footer-brand-col{ grid-column: 1 / -1; }
 }
 @media (max-width:560px){
   .footer-grid{ grid-template-columns: 1fr; }
-  .footer-legal{ gap: 2px 18px; }
+  .footer-legal{ gap: 2px 16px; }
 }
 
 /* Footer links are standalone navigation, not links inside a sentence, so the
@@ -1186,10 +1186,10 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 }
 
 /* ---- Client portal: gate + availability ---------------------------------- */
-.portal-gate{ display:grid; gap:8px; margin-top:26px; }
+.portal-gate{ display:grid; gap:8px; margin-top:24px; }
 .portal-gate label{ font-size:.9rem; font-weight:600; color:var(--ink); }
 .portal-gate input{
-  font:inherit; padding:12px 14px; border:1px solid var(--line);
+  font:inherit; padding:12px 16px; border:1px solid var(--line);
   border-radius:var(--radius-sm); background:var(--surface-0); color:var(--ink);
   min-height:48px; letter-spacing:.08em;
 }
@@ -1197,7 +1197,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .portal-gate button{ justify-self:start; margin-top:6px; }
 .portal-gate-error{ margin:0; font-size:.9rem; color:#9a3412; }
 
-.avail{ border-collapse:collapse; width:100%; max-width:420px; margin:14px 0 0;
+.avail{ border-collapse:collapse; width:100%; max-width:420px; margin:16px 0 0;
   border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
 .avail tr + tr{ border-top:1px solid var(--line); }
 .avail th{ text-align:left; font-family:var(--font-body); font-weight:600;
@@ -1209,7 +1209,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
 
 /* Alternate sign-in disclosure on the portal gate */
-.portal-alt{ margin-top:22px; border-top:1px solid var(--line); padding-top:16px; }
+.portal-alt{ margin-top:24px; border-top:1px solid var(--line); padding-top:16px; }
 .portal-alt summary{ cursor:pointer; font-size:.9rem; color:var(--ink-soft); list-style:none; }
 .portal-alt summary::-webkit-details-marker{ display:none; }
 .portal-alt summary::before{ content:"＋ "; color:var(--blue-deep); }
@@ -1220,7 +1220,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .portal-gate textarea{
   font:inherit; font-family:ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size:.92rem; line-height:1.6;
-  padding:12px 14px; border:1px solid var(--line); border-radius:var(--radius-sm);
+  padding:12px 16px; border:1px solid var(--line); border-radius:var(--radius-sm);
   background:var(--surface-0); color:var(--ink); resize:vertical; min-height:180px;
 }
 .portal-gate textarea:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; border-color:var(--blue); }
@@ -1234,13 +1234,13 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 /* Sign-in */
 .signin-google{
   display:flex; align-items:center; justify-content:center; gap:10px;
-  width:100%; margin-top:22px; padding:12px 20px; min-height:48px;
+  width:100%; margin-top:24px; padding:12px 20px; min-height:48px;
   background:var(--surface-0); border-color:var(--line); color:var(--ink);
   font-weight:600;
 }
 .signin-google:hover{ border-color:var(--blue); background:var(--blue-ghost); }
 .signin-or{
-  display:flex; align-items:center; gap:14px;
+  display:flex; align-items:center; gap:16px;
   margin:20px 0 4px; color:var(--ink-faint); font-size:.85rem;
 }
 .signin-or::before, .signin-or::after{
@@ -1252,21 +1252,21 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
    One question at a time, generous targets, no motion that needs disabling.
    ------------------------------------------------------------------------ */
 .quiz{ border:1px solid var(--line); border-radius:var(--radius-lg);
-  background:var(--surface-0); padding:26px 26px 22px; box-shadow:var(--shadow-sm); }
+  background:var(--surface-0); padding:24px 24px 24px; box-shadow:var(--shadow-sm); }
 .quiz-progress{ margin:0 0 8px; font-size:.84rem; color:var(--ink-faint);
   letter-spacing:.04em; text-transform:uppercase; font-weight:600; }
-.quiz-bar{ height:3px; border-radius:3px; background:var(--line); overflow:hidden; margin-bottom:22px; }
+.quiz-bar{ height:3px; border-radius:3px; background:var(--line); overflow:hidden; margin-bottom:24px; }
 .quiz-bar span{ display:block; height:100%; background:var(--clay); border-radius:3px;
   transition:width var(--dur-base) var(--ease); }
 .quiz-set{ border:0; padding:0; margin:0; }
 .quiz-q{ font-family:var(--font-display); font-size:1.22rem; line-height:1.3;
   color:var(--ink); padding:0; margin:0 0 6px; font-weight:600; }
-.quiz-help{ margin:0 0 14px; font-size:.94rem; color:var(--ink-soft); }
+.quiz-help{ margin:0 0 16px; font-size:.94rem; color:var(--ink-soft); }
 .quiz-choices, .est-row{ display:grid; gap:10px; margin-top:16px; }
 .est-row{ grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); }
 .quiz-choice{
   font:inherit; text-align:left; cursor:pointer;
-  padding:15px 18px; min-height:52px;
+  padding:16px 16px; min-height:52px;
   background:var(--surface-1); color:var(--ink);
   border:1px solid var(--line); border-radius:var(--radius-sm);
   transition:border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
@@ -1277,30 +1277,30 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .quiz-back{ font:inherit; background:none; border:0; cursor:pointer; padding:12px 0 0;
   color:var(--ink-soft); font-size:.92rem; min-height:44px; }
 .quiz-back:hover{ color:var(--blue-deep); }
-.quiz-privacy{ margin:14px 0 0; font-size:.84rem; color:var(--ink-faint); }
+.quiz-privacy{ margin:16px 0 0; font-size:.84rem; color:var(--ink-faint); }
 .quiz--result h2{ margin-top:.1em; }
 
-.est-fields{ display:grid; grid-template-columns:auto 1fr; gap:10px 14px;
-  align-items:center; margin-top:14px; max-width:340px; }
+.est-fields{ display:grid; grid-template-columns:auto 1fr; gap:10px 16px;
+  align-items:center; margin-top:16px; max-width:340px; }
 .est-fields label{ font-size:.94rem; color:var(--ink-soft); }
 .est-fields input{ font:inherit; padding:10px 12px; min-height:46px;
   border:1px solid var(--line); border-radius:var(--radius-sm);
   background:var(--surface-0); color:var(--ink); }
 .est-fields input:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
-.est-result{ margin-top:26px; padding-top:22px; border-top:1px solid var(--line); }
+.est-result{ margin-top:24px; padding-top:24px; border-top:1px solid var(--line); }
 
 .tool-cta{ display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-top:24px; }
 .tool-cta-note{ flex-basis:100%; margin:0; font-size:.88rem; color:var(--ink-faint); }
 .tool-disclaimer{ margin-top:20px; font-size:.88rem; color:var(--ink-faint); }
-@media (max-width:560px){ .quiz{ padding:20px 18px 18px; } }
+@media (max-width:560px){ .quiz{ padding:20px 16px 16px; } }
 
 /* Search */
 .search-form{ display:flex; gap:10px; margin-top:20px; flex-wrap:wrap; }
-.search-form input{ flex:1 1 240px; font:inherit; padding:12px 14px; min-height:48px;
+.search-form input{ flex:1 1 240px; font:inherit; padding:12px 16px; min-height:48px;
   border:1px solid var(--line); border-radius:var(--radius-sm);
   background:var(--surface-0); color:var(--ink); }
 .search-form input:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
-.search-results{ list-style:none; padding:0; margin:22px 0 0; }
+.search-results{ list-style:none; padding:0; margin:24px 0 0; }
 .search-results li{ padding:16px 0; border-bottom:1px solid var(--line); }
 .search-results a{ font-family:var(--font-display); font-size:1.08rem; font-weight:600; }
 .search-kind{ margin-left:10px; font-size:.76rem; letter-spacing:.08em;
@@ -1309,12 +1309,12 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 
 /* Lead capture */
 .lead-form{ border:1px solid var(--line); border-radius:var(--radius);
-  background:var(--surface-2); padding:22px 24px; margin:30px 0; }
+  background:var(--surface-2); padding:24px 24px; margin:32px 0; }
 .lead-form-title{ margin:0 0 4px; font-family:var(--font-display); font-size:1.1rem;
   font-weight:600; color:var(--ink); }
 .lead-form-note{ margin:0; font-size:.88rem; color:var(--ink-faint); }
-.lead-form-row{ display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 10px; }
-.lead-form-row input{ flex:1 1 180px; font:inherit; padding:11px 13px; min-height:46px;
+.lead-form-row{ display:flex; gap:10px; flex-wrap:wrap; margin:16px 0 10px; }
+.lead-form-row input{ flex:1 1 180px; font:inherit; padding:11px 12px; min-height:46px;
   border:1px solid var(--line); border-radius:var(--radius-sm);
   background:var(--surface-0); color:var(--ink); }
 .lead-form-row input:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
@@ -1322,7 +1322,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 /* Enquiry and waitlist forms reuse .lead-form; these are the two fields it did
    not already have. */
 .lead-form-area,
-.lead-form-wide{ width:100%; box-sizing:border-box; font:inherit; padding:11px 13px;
+.lead-form-wide{ width:100%; box-sizing:border-box; font:inherit; padding:11px 12px;
   min-height:46px; border:1px solid var(--line); border-radius:var(--radius-sm);
   background:var(--surface-0); color:var(--ink); margin:0 0 10px; }
 .lead-form-area{ resize:vertical; line-height:1.55; }
@@ -1342,11 +1342,11 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .hp{ position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
 
 /* Reviews */
-.review-card blockquote{ margin:0 0 14px; font-size:1.02rem; line-height:1.6; color:var(--ink); }
+.review-card blockquote{ margin:0 0 16px; font-size:1.02rem; line-height:1.6; color:var(--ink); }
 .review-card figcaption{ display:flex; flex-direction:column; gap:2px; font-size:.9rem; }
 .review-card figcaption span{ color:var(--ink-faint); }
 .tool-prose{ margin-top:36px; padding-top:28px; border-top:1px solid var(--line); max-width:none; }
-.signin-setup{ margin:20px 0 0; padding:12px 14px; font-size:.86rem; line-height:1.5;
+.signin-setup{ margin:20px 0 0; padding:12px 16px; font-size:.86rem; line-height:1.5;
   color:var(--ink-soft); background:var(--surface-1);
   border:1px solid var(--line); border-radius:var(--radius-sm); }
 .signin-setup code{ font-size:.92em; background:var(--blue-ghost);
@@ -1363,22 +1363,22 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .admin-stats{
   display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:1px;
   background:var(--line); border:1px solid var(--line);
-  border-radius:var(--radius); overflow:hidden; margin-top:26px;
+  border-radius:var(--radius); overflow:hidden; margin-top:24px;
 }
-.admin-stats > div{ background:var(--surface-0); padding:14px 16px; display:grid; gap:2px; }
+.admin-stats > div{ background:var(--surface-0); padding:16px 16px; display:grid; gap:2px; }
 .admin-stats strong{ font-family:var(--font-display); font-size:1.6rem; line-height:1; color:var(--ink); }
 .admin-stats span{ font-size:.82rem; color:var(--ink-faint); }
 
 .admin-table-wrap{ overflow-x:auto; border:1px solid var(--line);
-  border-radius:var(--radius); background:var(--surface-0); margin-top:18px; }
+  border-radius:var(--radius); background:var(--surface-0); margin-top:16px; }
 .admin-table{ width:100%; border-collapse:collapse; font-size:.92rem; }
 .admin-table th{
   text-align:left; font-family:var(--font-body); font-weight:600; font-size:.78rem;
   letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint);
-  padding:11px 14px; background:var(--surface-1); border-bottom:1px solid var(--line);
+  padding:11px 16px; background:var(--surface-1); border-bottom:1px solid var(--line);
   white-space:nowrap;
 }
-.admin-table td{ padding:9px 14px; border-bottom:1px solid var(--line); vertical-align:middle; }
+.admin-table td{ padding:9px 16px; border-bottom:1px solid var(--line); vertical-align:middle; }
 .admin-table tr:last-child td{ border-bottom:0; }
 .admin-table tr.is-muted td{ background:var(--surface-1); color:var(--ink-faint); }
 .admin-email{ font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:.86rem; }
@@ -1420,17 +1420,17 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .admin-btn:hover{ border-color:var(--blue); color:var(--blue-deep); }
 .admin-btn--danger:hover{ border-color:#b4472f; color:#9a3412; background:#fdf3f0; }
 
-.admin-add{ margin-top:20px; padding:18px 20px; border:1px solid var(--line);
+.admin-add{ margin-top:20px; padding:16px 20px; border:1px solid var(--line);
   border-radius:var(--radius); background:var(--surface-1); }
 .admin-add h3{ margin:0 0 12px; font-size:1.02rem; }
 .admin-add-row{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
 .admin-add-row input, .admin-add-row select{ flex:1 1 170px; width:auto; }
 .admin-add-row .btn{ flex:none; }
 
-.admin-panel{ margin-top:16px; padding:18px 20px; border:1px solid var(--line);
+.admin-panel{ margin-top:16px; padding:16px 20px; border:1px solid var(--line);
   border-radius:var(--radius); background:var(--surface-0); }
 .admin-panel code{ font-size:.9em; background:var(--blue-ghost); padding:1px 5px; border-radius:4px; }
-.admin-empty{ margin-top:18px; padding:22px; text-align:center; color:var(--ink-faint);
+.admin-empty{ margin-top:16px; padding:24px; text-align:center; color:var(--ink-faint);
   border:1px dashed var(--line); border-radius:var(--radius); background:var(--surface-1); }
 .admin-meta{ margin-top:12px; font-size:.85rem; color:var(--ink-faint); }
 
@@ -1458,7 +1458,7 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
    way figures do, so the eye gets a horizon rather than another paragraph.
    ------------------------------------------------------------------------ */
 .scene-band{
-  margin:34px 0; border-radius:var(--radius-lg); overflow:hidden;
+  margin:32px 0; border-radius:var(--radius-lg); overflow:hidden;
   background:var(--surface-3); line-height:0;
 }
 .prose .scene-band{
@@ -1513,7 +1513,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
  * bottom, the kicker in small caps, and the link at reading size: it reads as
  * part of the article rather than as an advertisement inside it. */
 .inline-related{
-  display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+  display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap;
   margin: 40px 0; padding: 16px 0;
   border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
 }
@@ -1553,8 +1553,8 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
   color: var(--ink-faint);
 }
 .prefs-option{
-  display: flex; gap: 13px; align-items: flex-start;
-  padding: 13px 16px; margin-bottom: 8px; min-height: 44px;
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 12px 16px; margin-bottom: 8px; min-height: 44px;
   border: 1px solid var(--line); border-radius: var(--radius-sm);
   background: var(--surface-0); cursor: pointer;
   transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
@@ -1568,12 +1568,12 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
 .prefs-hint{ font-size: .88rem; color: var(--ink-soft) }
 .prefs-option--check{ margin-top: 14px }
 .prefs-note{
-  margin: 14px 0 0; padding: 11px 15px; border-radius: var(--radius-sm);
+  margin: 16px 0 0; padding: 11px 16px; border-radius: var(--radius-sm);
   background: var(--clay-ghost); border-left: 3px solid var(--clay);
   font-size: .92rem; color: var(--ink-soft);
 }
 .prefs-note--ok{ background: var(--blue-ghost); border-left-color: var(--blue-deep) }
-.prefs-foot{ margin: 14px 0 0; font-size: .88rem; color: var(--ink-faint) }
+.prefs-foot{ margin: 16px 0 0; font-size: .88rem; color: var(--ink-faint) }
 .prefs-form .btn{ margin-top: 16px }
 
 /* ── Breadcrumbs ──────────────────────────────────────────────────────────
@@ -1686,7 +1686,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
 .job-list { list-style: none; padding: 0; margin: 0 0 2rem; }
 .job-list > li {
   border: 1px solid var(--line);
-  border-left: 3px solid var(--blue, #3f6ca3);
+  border-left: 3px solid var(--blue);
   border-radius: 10px;
   padding: 1.25rem 1.4rem;
   margin: 0 0 1rem;
@@ -1705,7 +1705,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
 }
 .faq-list > div:last-child { border-bottom: 0; }
 .faq-list dt { font-weight: 650; margin: 0 0 0.35rem; }
-.faq-list dd { margin: 0; color: var(--ink-soft, #40505f); }
+.faq-list dd { margin: 0; color: var(--ink-soft); }
 
 /* Comparison table (careers).
    Four columns will not fit a phone, so it scrolls inside its own container
@@ -1717,6 +1717,21 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
   margin: 0 0 1.5rem;
   border-radius: 10px;
   border: 1px solid var(--line);
+  /* A TABLE THAT SCROLLS HAS TO SAY SO — 30 August 2026.
+     The container worked and was silent about it: at any width between "fits"
+     and "obviously cut off", a reader saw a column ending near the border and
+     no reason to think there was more of it. These two fades are painted on
+     the scroll container itself and pinned with background-attachment:local,
+     so each one appears only while there is content past that edge and
+     disappears when you reach it. No script, and nothing to keep in sync. */
+  background:
+    linear-gradient(to right, var(--bg-card) 30%, rgba(255,253,249,0)) left center,
+    linear-gradient(to left,  var(--bg-card) 30%, rgba(255,253,249,0)) right center,
+    radial-gradient(farthest-side at 0 50%, rgba(43,49,56,.10), rgba(43,49,56,0)) left center,
+    radial-gradient(farthest-side at 100% 50%, rgba(43,49,56,.10), rgba(43,49,56,0)) right center;
+  background-repeat: no-repeat;
+  background-size: 44px 100%, 44px 100%, 15px 100%, 15px 100%;
+  background-attachment: local, local, scroll, scroll;
 }
 .cmp-table {
   width: 100%;
@@ -1746,7 +1761,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
 .cmp-table thead th:last-child { background: var(--blue-deep); color: #fff; }
 .cmp-table tbody th { font-weight: 650; color: var(--ink); width: 26%; }
 .cmp-table tbody td { color: var(--ink-soft); }
-.cmp-table tbody td:last-child { color: var(--ink); background: rgba(63, 108, 163, 0.05); }
+.cmp-table tbody td:last-child { color: var(--ink); background: rgba(61, 108, 146, 0.05); }
 .cmp-table tbody tr:last-child th,
 .cmp-table tbody tr:last-child td { border-bottom: 0; }
 
@@ -1934,7 +1949,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
 @media (max-width: 680px) {
   /* Two columns of links instead of one long stack. The headings span both so
      each group still reads as a group. */
-  .footer-grid { grid-template-columns: 1fr 1fr; gap: 26px 20px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px 20px; }
   .footer-brand-col { grid-column: 1 / -1; }
   .footer-col { grid-column: span 1; }
   /* "Read" and "Practice" carry the most links, so they get the full width and
@@ -1981,7 +1996,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
     margin-right: 8px;
   }
   /* Clear the sticky "Book" bar so the last line of the footer is readable. */
-  .site-footer { padding-bottom: calc(26px + 4.5rem); }
+  .site-footer { padding-bottom: calc(24px + 4.5rem); }
   .footer-bottom { font-size: .78rem; line-height: 1.5; }
 }
 
@@ -2071,8 +2086,8 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
    text, so these controls are built for a dark ground rather than reusing
    .lead-form, which is built for a light card. Same shapes, inverted palette.
    ======================================================================== */
-.cta-band-ask{ margin:30px auto 0; max-width:33em; text-align:left;
-  padding-top:26px; border-top:1px solid rgba(255,255,255,.24); }
+.cta-band-ask{ margin:32px auto 0; max-width:33em; text-align:left;
+  padding-top:24px; border-top:1px solid rgba(255,255,255,.24); }
 
 .ask-instead{ margin:0; }
 .ask-instead-title{ margin:0 0 4px !important; max-width:none !important;
@@ -2082,7 +2097,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
 
 .ask-instead-area,
 .ask-instead-row input{ width:100%; box-sizing:border-box; font:inherit;
-  padding:11px 13px; min-height:46px; border-radius:var(--radius-sm);
+  padding:11px 12px; min-height:46px; border-radius:var(--radius-sm);
   border:1px solid rgba(255,255,255,.4); background:rgba(255,255,255,.12);
   color:#fff; }
 .ask-instead-area{ resize:vertical; line-height:1.55; margin:0 0 10px; }
@@ -2111,11 +2126,11 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
   color:var(--ink-faint); text-decoration:underline; text-underline-offset:2px; }
 
 /* Regional pages — Alberta and Ontario */
-.designation-note{ margin:0 0 26px; padding:14px 16px; font-size:.92rem; line-height:1.55;
+.designation-note{ margin:0 0 24px; padding:16px 16px; font-size:.92rem; line-height:1.55;
   color:var(--ink-soft); background:var(--surface-1);
   border:1px solid var(--line); border-left:3px solid var(--blue-deep);
   border-radius:var(--radius-sm); }
-.punjabi-block{ margin:34px 0; padding:24px 26px; background:var(--surface-1);
+.punjabi-block{ margin:32px 0; padding:24px 24px; background:var(--surface-1);
   border:1px solid var(--line); border-radius:var(--radius); }
 .punjabi-block h2{ margin-top:0; }
 
