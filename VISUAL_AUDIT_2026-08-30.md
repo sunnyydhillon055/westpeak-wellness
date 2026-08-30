@@ -218,19 +218,75 @@ a gate can check; the other fourteen are unchanged and have been read by one
 person. A number produced this way is a direction, not a grade, and the honest
 ceiling on it is set by who has looked — not by how much more work is done.
 
+## Third pass: what looking at things found
+
+Everything above was found by measuring. This round came from opening things.
+
+**The mobile drawer's scrim never worked.** `.nav-scrim` lived inside
+`<header>`, and `.site-header` carries a `backdrop-filter` — which makes an
+element the containing block for any `position:fixed` descendant. Its
+`inset:0` therefore resolved against the 72px header, not the viewport. It had
+never dimmed the page; it could not. What it did instead was paint over the
+header's own cream bar, because at `z-index:-1` a child paints above its
+parent's background and below its content:
+
+| the bar, with the drawer open | |
+|---|--:|
+| background | `#9b9b9b`, from `#faf6f0` |
+| wordmark on it | 12.20 → **4.72** |
+| `--blue-deep` on it | 5.19 → **2.01** |
+
+Same failure as the dark-mode header this palette replaced, and as the eight
+interior heroes: a translucent surface composited over a backdrop nobody had
+accounted for. Third instance in one day. Found by opening the menu and
+looking at it, which had not been done.
+
+**Six values on the CTA band were under threshold.** The ask-instead form —
+the site's smaller ask — sits on a blue gradient, and every value on it was a
+translucent *white* over that. Typed text measured 4.32, and 3.69 once the
+field was focused, because focusing it made the fill lighter underneath white
+text. The fill is black now: darkening the field raises its contrast with the
+white inside it. 4.32 → 6.97, and 3.69 → 7.72 focused.
+
+**The palette guard was skipping the directory with the artwork in it.** It
+scanned `.css/.ts/.tsx` and excluded `public/`, leaving 29 SVGs unchecked —
+including `app/icon.svg`, the favicon, which had all three of its colours on
+the old palette and had silently disagreed with `logo.svg` for a day.
+
+### Two gates learned something
+
+`contrast-audit` now composites. Everything it checked before was a flat pair
+of tokens, and none of the CTA band is a pair of tokens — it is white, over a
+percentage of white, over a gradient. It evaluates at all three gradient stops
+and takes the worst. 53 pairs and composites now, up from 26 this morning.
+
+`palette-guard` now reads SVG, in both trees, and both changes were verified by
+injecting the exact regression and watching the gate exit 1.
+
+### And one check written, then deleted
+
+The new block also asserted that the scrim reach 3:1 against the page behind
+it. It failed at 2.57. That is not a WCAG criterion and should not be one:
+1.4.11 governs the boundaries of user-interface components, and a scrim is the
+opposite of one — its whole function is to de-emphasise, so a low ratio is the
+feature. Satisfying it would have meant darkening the scrim to please a number
+this repo invented. Removed, with the reasoning left where it was, so it is
+not added back.
+
 ## What is actually left
 
-**Nothing I can act on alone.** Every colour on the site and in all eleven email
-templates is now a token or a documented exception, enforced by a gate that has
-been tested against injected regressions. Every hero transition, every diagram,
-every share card and the PWA splash screen are on the palette. Spacing is on a
-4px grid. Contrast is measured across 43 pairs including email.
+**Nothing I can act on alone.** Every colour on the site, in all eleven email
+templates, and in all 29 SVGs is a token or a documented exception, enforced by
+a gate tested against injected regressions. Contrast is measured across 53
+pairs and composites, including the ones that are not pairs.
 
-What would genuinely move the number now:
+What would move the number now:
 
-1. **Someone else looking.** Fourteen categories rest on one reviewer's
-   judgement. That is the binding constraint, and no amount of further work by
-   the same reviewer relieves it.
-2. **Real users on real phones.** Mobile was verified at 500px in one browser.
+1. **Someone else looking.** Fourteen of twenty categories rest on one
+   reviewer's judgement. Two of today's three best findings came from opening
+   something rather than measuring it — the drawer, and the hero at phone
+   width — which is the argument for a second pair of eyes rather than more
+   passes by the same one.
+2. **Real users on real phones.** Verified at 500px in one browser.
 3. **The photography.** Three images, one treatment. Category 11 is a sample
    size, not an assessment.
