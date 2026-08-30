@@ -39,9 +39,79 @@ export default function Header() {
 
   /* Close the mobile menu on navigation, and stop the page scrolling behind it. */
   useEffect(() => setOpen(false), [pathname]);
+
+  /* THE DRAWER HAD NO FLOOR — fixed 30 August 2026.
+   *
+   * Opening the menu locked the body scroll and dimmed the page, and left all
+   * of it in the tab order. Counted on the homepage with the drawer open: 11
+   * focusable elements inside the drawer and 113 behind the scrim, none of
+   * them inert or aria-hidden.
+   *
+   * So a keyboard user who tabbed past the last menu item went into page
+   * content that was dimmed, covered, and — because the body scroll is locked
+   * — could not be brought into view. Focus disappeared. A screen reader
+   * likewise read straight through the drawer into the page underneath it.
+   *
+   * `inert` on everything that is not the header or the scrim removes it from
+   * both the tab order and the accessibility tree for as long as the drawer is
+   * open, which is what a modal surface is supposed to do. Where inert is not
+   * supported the behaviour is exactly what it was before, so this cannot make
+   * anything worse.
+   */
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
+
+    const outside = [...document.body.children].filter(
+      (el) => !el.classList.contains('site-header') && !el.classList.contains('nav-scrim')
+    );
+    for (const el of outside) {
+      if (open) el.setAttribute('inert', '');
+      else el.removeAttribute('inert');
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+      for (const el of outside) el.removeAttribute('inert');
+    };
+  }, [open]);
+
+  /* AND THE DRAWER HAD NO LID EITHER — 30 August 2026.
+   *
+   * The panel is hidden with `clip-path` plus `visibility:hidden`, and the
+   * visibility change is deferred with `transition:visibility 0s linear
+   * var(--dur-slow)` so the wipe-up animation is visible before the panel
+   * leaves the accessibility tree. On a fresh page load that works: measured
+   * hidden, zero focusable links.
+   *
+   * It does not come back. Measured after opening and closing once:
+   *
+   *   fresh load            visibility hidden    0 of 9 links focusable
+   *   drawer open           visible              9 of 9
+   *   300ms after closing   visible              9 of 9   (expected, mid-delay)
+   *   1200ms after closing  visible              9 of 9   (not expected)
+   *
+   * So for the rest of that page's life a keyboard user tabs through nine
+   * invisible menu items on the way to the content, and a screen reader reads
+   * them. Only after opening the menu once — which is why a fresh-load check
+   * would have missed it, and did.
+   *
+   * `inert` rather than another attempt at the CSS: the transition is what
+   * makes the animation work and what makes the hiding unreliable, and those
+   * cannot both be fixed in the same declaration. This states the intent
+   * directly. Desktop is excluded — above 1020px the same <ul> is the visible
+   * navigation bar and must stay focusable.
+   */
+  useEffect(() => {
+    const nav = document.getElementById('primary-nav');
+    if (!nav) return;
+    const mq = window.matchMedia('(max-width: 1020px)');
+    const apply = () => {
+      if (mq.matches && !open) nav.setAttribute('inert', '');
+      else nav.removeAttribute('inert');
+    };
+    apply();
+    mq.addEventListener('change', apply);
+    return () => { mq.removeEventListener('change', apply); nav.removeAttribute('inert'); };
   }, [open]);
 
   /* Escape closes the menu — expected of any overlay. */
