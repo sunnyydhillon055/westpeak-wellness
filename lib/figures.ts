@@ -154,8 +154,8 @@ export const figures: Record<string, Figure> = {
     width: 1040,
     height: 474,
     title: "What each language tends to hold in therapy",
-    alt: "Two overlapping circles for a bilingual client. The first language tends to hold childhood memory, family relationships and emotion, including words with no English equivalent; the second language tends to offer distance, analysis and the vocabulary of work and diagnosis. The overlap holds what a bilingual counsellor allows: moving between the two mid-session, without choosing in advance.",
-    caption: "The overlap is the point — the choice is not made in advance.",
+    alt: "Three columns for a bilingual client. The first language tends to hold childhood memory, family relationships and emotion, including words with no English equivalent. The second language tends to offer distance from the same material, analysis, and the vocabulary of work and diagnosis. Between them, a third column: a bilingual counsellor lets the session move between the two mid-sentence, so the choice does not have to be made in advance.",
+    caption: "The middle column is the point — the choice is not made in advance.",
   },
   'panic-vs-anxiety': {
     key: 'panic-vs-anxiety',

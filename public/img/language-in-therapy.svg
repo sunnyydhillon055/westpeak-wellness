@@ -1,15 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 474" width="1040" height="474" role="img" aria-labelledby="t d" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
-<title id="t">What each language tends to hold in therapy</title><desc id="d">Two overlapping circles for a bilingual client. The first language tends to hold childhood memory, family relationships and emotion, including words with no English equivalent; the second language tends to offer distance, analysis and the vocabulary of work and diagnosis. The overlap holds what a bilingual counsellor allows: moving between the two mid-session, without choosing in advance.</desc>
+<title id="t">What each language tends to hold in therapy</title><desc id="d">Three columns for a bilingual client. The first language tends to hold childhood memory, family relationships and emotion, including words with no English equivalent. The second language tends to offer distance from the same material, analysis, and the vocabulary of work and diagnosis. Between them, a third column: a bilingual counsellor lets the session move between the two mid-sentence, so the choice does not have to be made in advance.</desc>
 <rect width="1040" height="474" rx="14" fill="#f7f2e8"/>
 <text x="34" y="46" font-size="21" font-weight="700" fill="#2b3138">Two languages, and they do not hold the same things</text><line x1="34" y1="66" x2="1006" y2="66" stroke="#e6ddce"/>
-<circle cx="400" cy="262" r="132" fill="#e2edf4" fill-opacity="0.85" stroke="#7ba7cb" stroke-width="1.6"/>
-<circle cx="640" cy="262" r="132" fill="#dbe9f2" fill-opacity="0.7" stroke="#3d6c92" stroke-width="1.6"/>
-<text x="338" y="112" font-size="16.5" font-weight="700" fill="#3d6c92" text-anchor="middle">Punjabi</text><text x="338" y="133" font-size="13" fill="#5f6872" text-anchor="middle">the first language</text>
-<text x="702" y="112" font-size="16.5" font-weight="700" fill="#3d6c92" text-anchor="middle">English</text><text x="702" y="133" font-size="13" fill="#5f6872" text-anchor="middle">the second language</text>
-<rect x="428" y="176" width="184" height="172" rx="12" fill="#f7f2e8" fill-opacity="0.94"/>
-<text x="520" y="198" font-size="12.5" font-weight="700" fill="#3d6c92" text-anchor="middle" letter-spacing="1.4">EITHER, MID-SESSION</text>
-<text x="330" y="230" font-size="14" fill="#2b3138" text-anchor="middle">Childhood memory</text><text x="330" y="256" font-size="14" fill="#2b3138" text-anchor="middle">Family relationships</text><text x="330" y="282" font-size="14" fill="#2b3138" text-anchor="middle">Feeling, as it happened</text><text x="330" y="308" font-size="14" fill="#2b3138" text-anchor="middle">Words with no</text><text x="330" y="330" font-size="14" fill="#2b3138" text-anchor="middle">English equivalent</text>
-<text x="520" y="230" font-size="13.5" fill="#545e69" text-anchor="middle">The counsellor</text><text x="520" y="252" font-size="13.5" fill="#545e69" text-anchor="middle">speaks both</text><text x="520" y="282" font-size="13.5" fill="#545e69" text-anchor="middle">Switching is allowed</text><text x="520" y="304" font-size="13.5" fill="#545e69" text-anchor="middle">and needs no</text><text x="520" y="326" font-size="13.5" fill="#545e69" text-anchor="middle">explanation</text>
-<text x="710" y="230" font-size="14" fill="#2b3138" text-anchor="middle">Distance from</text><text x="710" y="252" font-size="14" fill="#2b3138" text-anchor="middle">the same material</text><text x="710" y="282" font-size="14" fill="#2b3138" text-anchor="middle">Analysis and naming</text><text x="710" y="308" font-size="14" fill="#2b3138" text-anchor="middle">Work, diagnosis,</text><text x="710" y="330" font-size="14" fill="#2b3138" text-anchor="middle">the clinical vocabulary</text>
+
+<!-- Drawn as three columns rather than as a Venn. The first version overlapped
+     two circles, which gave the shared middle a 24px window to hold 180px of
+     text: every line in it crossed both strokes. The content is not really an
+     intersection anyway - the middle column is a fact about the counsellor,
+     not about the languages - so the shape now says what the words say. -->
+<circle cx="310" cy="262" r="128" fill="#e2edf4" fill-opacity="0.85" stroke="#7ba7cb" stroke-width="1.6"/>
+<circle cx="730" cy="262" r="128" fill="#dbe9f2" fill-opacity="0.7" stroke="#3d6c92" stroke-width="1.6"/>
+<rect x="442" y="168" width="156" height="188" rx="14" fill="#fffdf9" stroke="#e6ddce" stroke-width="1.4"/>
+
+<text x="310" y="100" font-size="16.5" font-weight="700" fill="#3d6c92" text-anchor="middle">Punjabi</text><text x="310" y="120" font-size="13" fill="#5f6872" text-anchor="middle">the first language</text>
+<text x="730" y="100" font-size="16.5" font-weight="700" fill="#3d6c92" text-anchor="middle">English</text><text x="730" y="120" font-size="13" fill="#5f6872" text-anchor="middle">the second language</text>
+
+<text x="310" y="222" font-size="14" fill="#2b3138" text-anchor="middle">Childhood memory</text><text x="310" y="248" font-size="14" fill="#2b3138" text-anchor="middle">Family relationships</text><text x="310" y="274" font-size="14" fill="#2b3138" text-anchor="middle">Feeling, as it happened</text><text x="310" y="300" font-size="14" fill="#2b3138" text-anchor="middle">Words with no</text><text x="310" y="322" font-size="14" fill="#2b3138" text-anchor="middle">English equivalent</text>
+
+<text x="520" y="200" font-size="11.5" font-weight="700" fill="#3d6c92" text-anchor="middle" letter-spacing="1.2">EITHER</text><text x="520" y="216" font-size="11.5" font-weight="700" fill="#3d6c92" text-anchor="middle" letter-spacing="1.2">MID-SESSION</text>
+<text x="520" y="252" font-size="13" fill="#545e69" text-anchor="middle">The counsellor</text><text x="520" y="272" font-size="13" fill="#545e69" text-anchor="middle">speaks both, so</text><text x="520" y="298" font-size="13" fill="#545e69" text-anchor="middle">switching needs</text><text x="520" y="318" font-size="13" fill="#545e69" text-anchor="middle">no explanation</text>
+
+<text x="730" y="222" font-size="14" fill="#2b3138" text-anchor="middle">Distance from</text><text x="730" y="248" font-size="14" fill="#2b3138" text-anchor="middle">the same material</text><text x="730" y="274" font-size="14" fill="#2b3138" text-anchor="middle">Analysis and naming</text><text x="730" y="300" font-size="14" fill="#2b3138" text-anchor="middle">Work, diagnosis,</text><text x="730" y="322" font-size="14" fill="#2b3138" text-anchor="middle">the clinical vocabulary</text>
+
 <text font-size="13" fill="#5f6872"><tspan x="34" y="434">Neither language is the correct choice in general, and this is not a rule about which to pick. It describes a pattern bilingual clients</tspan><tspan x="34" y="451">commonly report - which is why the decision does not have to be made in advance.</tspan></text>
 </svg>
