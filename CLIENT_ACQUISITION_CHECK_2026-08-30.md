@@ -18,7 +18,7 @@ across all of them, condensed:
 
 | # | What converts | This site | State |
 |--:|---|---|---|
-| 1 | Therapist's face, high on the page | Portrait beside the fit heading, linking to /about — **added today**. Was two clicks deep. | ✅ fixed |
+| 1 | Therapist's face, high on the page | **Declined by the owner.** A portrait was added for one deploy and reverted the same day: the homepage pushes the brand, and the counsellor's visibility is deliberately limited to /about — the same boundary that keeps her name off the site. The conversion argument was made and the answer was no. | ➖ owner's call |
 | 2 | One clear CTA above the fold | "Book a Free 15-min Consultation", first element after the lede; also in the header on every page | ✅ |
 | 3 | ≤3 clicks to book | 2: any page → /book → select a time | ✅ |
 | 4 | Lower-commitment route beside the big ask | The sticky bar offers "or send a message instead" on every page; AskInstead sits above every footer | ✅ |

@@ -1154,32 +1154,6 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   .nav-cta{ margin-top:10px; }
 }
 
-/* Meet-your-counsellor row on the homepage. The portrait is deliberately
-   modest — a face beside the claim, not a banner — and the whole tile is one
-   link to /about. Stacks under the text on a phone, where it sits left-aligned
-   at a size that reads as a person rather than an avatar. */
-.meet-row{
-  display:flex; gap:clamp(24px, 4vw, 48px); align-items:flex-start;
-  justify-content:space-between; margin-bottom:38px;
-}
-.meet-row > div:first-child{ flex:1 1 auto; min-width:0; }
-.meet-row .lede{ margin-bottom:0; }
-.meet-portrait{
-  flex:0 0 200px; display:block; text-decoration:none;
-  transition:transform var(--dur-base) var(--ease);
-}
-.meet-portrait:hover{ transform:translateY(-3px); }
-.meet-portrait .photo{ box-shadow:var(--shadow-md); border-radius:var(--radius); }
-.meet-caption{
-  display:block; margin-top:10px; text-align:center;
-  font-size:var(--fs-small); font-weight:600; color:var(--blue-deep);
-}
-.meet-portrait:hover .meet-caption{ color:var(--blue-deeper); }
-@media (max-width:900px){
-  .meet-row{ flex-direction:column; gap:20px; margin-bottom:32px; }
-  .meet-portrait{ flex-basis:auto; width:min(180px, 44vw); }
-}
-
 /* Scheduler embed */
 .scheduler-embed{
   border:1px solid var(--line); border-radius:var(--radius);

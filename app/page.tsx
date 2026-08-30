@@ -127,40 +127,25 @@ export default function Home() {
       <section className="section">
         <div className="container">
           <Reveal>
-            {/* THE FACE, NEAR THE FOLD — 30 August 2026.
+            {/* NO PORTRAIT HERE, BY THE OWNER'S DECISION — 30 August 2026.
               *
-              * Every piece of guidance on what converts a therapy-site visitor
-              * into a client puts the same item first: a human photograph of
-              * the person, high on the page. This homepage had a lake. The
-              * portrait already lives publicly on /about — the counsellor's
-              * face is not private, only the name is — so showing it here
-              * crosses no line the practice has drawn; it simply stops hiding
-              * the strongest trust signal the site owns two clicks deep.
-              * The photo IS the link to /about: the natural gesture on a face
-              * is "who is this", and the caption under it answers where that
-              * gesture leads. */}
-            <div className="meet-row">
-              <div>
-                <p className="eyebrow">A different kind of fit</p>
-                <h2>Safe, culturally competent, built for real life.</h2>
-                <p className="lede">
-                  Work with a {site.counsellor.title} — Master&rsquo;s in Counselling, years of
-                  Fraser Health BC experience, EMDR- and Gottman-trained.{' '}
-                  <Link href="/about">More about your counsellor</Link>.
-                </p>
-              </div>
-              <Link href="/about" className="meet-portrait" aria-label="Meet your counsellor">
-                {/* 4:5 rather than square — the same framing /about uses.
-                    The square crop put the top of the head against the edge. */}
-                <Photo
-                  src="/img/photo/counsellor-portrait.jpg"
-                  alt="Your counsellor, seated outdoors on a park bench, smiling."
-                  ratio="tall"
-                  sizes="(max-width: 900px) 44vw, 200px"
-                />
-                <span className="meet-caption">Meet your counsellor →</span>
-              </Link>
-            </div>
+              * A portrait was added to this section for one deploy, on the
+              * strength of conversion research that puts a human photograph
+              * high on the page. The owner reverted it the same day: the
+              * homepage pushes the BRAND, and the counsellor's visibility is
+              * deliberately limited to /about — consistent with the same
+              * boundary that keeps her name off the site entirely
+              * (expansion-verify.mjs enforces the name; this comment records
+              * the face). Do not re-add a photo of her to this page, however
+              * good the conversion argument is. The argument was made, and
+              * the answer was no. */}
+            <p className="eyebrow">A different kind of fit</p>
+            <h2>Safe, culturally competent, built for real life.</h2>
+            <p className="lede" style={{ marginBottom: 38 }}>
+              Work with a {site.counsellor.title} — Master&rsquo;s in Counselling, years of
+              Fraser Health BC experience, EMDR- and Gottman-trained.{' '}
+              <Link href="/about">More about your counsellor</Link>.
+            </p>
           </Reveal>
           <div className="grid grid-3">
             {featuredServices.map((s, i) => {
