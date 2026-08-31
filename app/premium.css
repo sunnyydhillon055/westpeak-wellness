@@ -2057,6 +2057,16 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
   font-size: 0.9rem;
 }
 .answers-jump a { padding: 0.3rem 0; margin: -0.3rem 0; display: inline-block; }
+/* ONE PER ROW ON A PHONE — 30 August 2026.
+   Six labels of unequal length in a flex-wrap produce four rows of one and a
+   fifth row of two, purely because the last two happened to fit together. It
+   reads as a mistake rather than as a list. Below 620px each label takes its
+   own row, which is what five of the six were doing anyway. */
+@media (max-width: 620px){
+  .answers-jump{ display: grid; grid-template-columns: 1fr; gap: 0 }
+  .answers-jump a{ padding: 0.45rem 0; margin: 0 }
+  .answers-jump a + a{ border-top: 1px solid var(--line) }
+}
 .answers-blurb { color: var(--ink-soft); margin-top: -0.4rem; }
 .answers-list { margin: 0 0 2rem; }
 .answers-list > div { padding: 1rem 0; border-bottom: 1px solid var(--line); }
