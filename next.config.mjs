@@ -23,12 +23,15 @@
    has already shipped once on this site and was reported as live off a green
    local gate. `npm run redirect-shadow` now fails the build on it. */
 const retiredCitySlugs = [
-  'richmond', 'coquitlam', 'mission',
+  /* richmond, coquitlam, delta and nanaimo removed 31 Aug 2026 — each now has
+     a deep page. A slug left here while a page exists produces a page that
+     renders and 308s; `npm run redirect-shadow` fails the build on it. */
+  'mission',
   /* 'white-rock' removed 31 Aug 2026: it now has a deep page. It is the one
      city where the practice holds a Google Business Profile, so a URL that
      308'd to the index was throwing away the only local entity it has. */
-  'maple-ridge', 'delta', 'new-westminster', 'north-vancouver',
-  'west-vancouver', 'port-coquitlam', 'port-moody', 'pitt-meadows', 'nanaimo',
+  'maple-ridge', 'new-westminster', 'north-vancouver',
+  'west-vancouver', 'port-coquitlam', 'port-moody', 'pitt-meadows',
   'victoria-saanich', 'courtenay', 'campbell-river', 'duncan', 'parksville',
   'vernon', 'penticton', 'west-kelowna', 'salmon-arm',
   'fort-st-john', 'cranbrook', 'nelson', 'prince-rupert', 'terrace',

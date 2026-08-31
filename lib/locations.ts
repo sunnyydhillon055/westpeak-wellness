@@ -584,6 +584,194 @@ export const locations: Location[] = [
     nearby: ["surrey", "langley"],
   },
 
+  /* FOUR CITIES ADDED 31 AUG 2026, at the owner's explicit instruction.
+   *
+   * The note at the head of this file argues against exactly this: a 24-day-old
+   * domain has no authority to push more city pages, and thin ones read as a
+   * doorway pattern. That argument was put to the owner and the answer was to
+   * build them. It is their call and this comment is not a hedge against it —
+   * but the reasoning stays on the page so the next person sees both halves.
+   *
+   * The condition the file sets is met for each: a page is kept ONLY where
+   * something true and specific about accessing care from that place changes
+   * what the page says. Richmond's counselling supply is oriented to languages
+   * this practice does not offer. The Tri-Cities lose their evenings to a
+   * commute. Delta is three communities sharing a municipality and nothing
+   * else. Nanaimo is across water, which turns "see a Lower Mainland
+   * specialist" into a full day and a ferry.
+   *
+   * NO INVENTED STATISTICS, same rule as White Rock. Where a number would help
+   * and was not verified, the sentence is written without one. */
+  {
+    slug: "richmond",
+    figure2: 'first-session-flow',
+    figure: "bc-reach",
+    city: "Richmond",
+    region: "Metro Vancouver",
+    blurb: "A large city whose counselling supply is organised around languages this practice does not offer — which thins the field more than the population suggests.",
+    metaDescription:
+      "Online counselling for Richmond, BC. Therapy in English or Punjabi — EMDR, trauma, anxiety, depression and couples sessions by secure video.",
+    intro: [
+      "Richmond is one of the larger cities in Metro Vancouver, and on paper that should mean a wide choice of counsellors. In practice the choice narrows quickly depending on what you need it in. A great deal of Richmond's mental-health provision is built, correctly and deliberately, around its Chinese-speaking communities — Cantonese and Mandarin services are a genuine local strength.",
+      "If you are looking in English or Punjabi, the field is thinner than the city's size implies, and people routinely end up searching in Vancouver or Surrey instead. That is the gap this page is about. It is worth saying plainly that **this practice offers English and Punjabi and not Cantonese or Mandarin** — if those are what you need, Richmond is a better place to look locally than almost anywhere in the province, and you should.",
+    ],
+    localReality: {
+      h2: "Language, the airport, and a bridge",
+      body: [
+        "**Language shapes the local supply more than distance does.** Richmond's counselling capacity is real; the question is whether it exists in the language you want to be understood in. For English or Punjabi speakers here, \"local\" often means crossing a bridge anyway — at which point the drive is buying nothing that a video call does not.",
+        "**Shift work at YVR and the port does not fit a 9-to-5 slot.** Airport operations, ground handling, freight and hospitality run on rosters that change, and a standing weekly appointment at 2pm is not something those schedules survive. Evening availability, and the ability to attend from wherever you are between shifts, is the practical difference.",
+        "**Public intake runs through Vancouver Coastal Health**, not Fraser Health — which matters if you have been given a referral or joined a waitlist and are trying to work out which queue you are actually in.",
+        "**Punjabi-speaking counselling is the specific case.** Richmond's Punjabi-speaking community is smaller than Surrey's or Abbotsford's and the local provision reflects that. [Punjabi-speaking counselling](/services/punjabi-counselling) covers what sessions in Punjabi actually involve, and [counselling in Surrey](/online-counselling/surrey) covers the larger picture one bridge east.",
+      ],
+    },
+    access: [
+      { label: "No bridge, no tunnel", detail: "The Massey Tunnel and the Oak Street bridge stop being part of the appointment." },
+      { label: "English or Punjabi", detail: "Including both within one session. Cantonese and Mandarin are not offered here — Richmond is genuinely well served for those locally." },
+      { label: "Built for shift rosters", detail: "Evening appointments, and no travel time either side of a session." },
+      { label: "Serves all of Richmond", detail: "Steveston, Brighouse, Hamilton and the island's east side on identical terms." },
+    ],
+    faqs: [
+      { q: "Do you offer counselling in Cantonese or Mandarin?", a: "No. Sessions are in English or Punjabi, or a mix of the two. If you want to work in Cantonese or Mandarin, Richmond is one of the better places in BC to look locally, and doing so is the right call rather than a compromise — this page is not trying to talk you out of it." },
+      { q: "Can I have sessions in Punjabi?", a: "Yes — in Punjabi, English, or both within the same session, with no need to travel to Surrey or Vancouver to find it." },
+      { q: "I work rotating shifts at the airport. Can therapy fit around that?", a: "Yes, and it works far better if it is planned for from the start rather than discovered in month two. Booking block by block around a roster, with gaps, is a normal pattern and nothing is lost by pausing between blocks." },
+      { q: "Which health authority covers Richmond?", a: "Vancouver Coastal Health, not Fraser Health. It is worth knowing before joining a public waitlist, because a referral into the wrong authority's queue is a delay nobody tells you about until you ask." },
+      { q: "Is there a free consultation first?", a: "Yes — 15 minutes by video, no charge, no card, and no obligation afterwards. If it turns out someone else is a better fit, you will be told that on the call." },
+    ],
+    sources: [
+      { label: "Vancouver Coastal Health — mental health and substance use", url: "https://www.vch.ca/en/service/mental-health-substance-use-services" },
+      { label: "BC Association of Clinical Counsellors — find a counsellor", url: "https://bc-counsellors.org/counsellors/" },
+    ],
+    nearby: ["vancouver", "surrey"],
+  },
+
+  {
+    slug: "coquitlam",
+    figure2: 'first-session-flow',
+    figure: "bc-reach",
+    city: "Coquitlam",
+    region: "Metro Vancouver",
+    blurb: "The Tri-Cities commute takes the evenings a weekly appointment would have to live in.",
+    metaDescription:
+      "Online counselling for Coquitlam and the Tri-Cities. Therapy in English or Punjabi — EMDR, trauma, anxiety, depression and couples sessions.",
+    intro: [
+      "The thing that ends courses of therapy in the Tri-Cities is rarely the therapy. It is the commute. A working day that starts with a drive or a SkyTrain ride into Vancouver or Burnaby and ends with the same in reverse leaves an evening with very little slack in it, and a 6pm appointment on the other side of a bridge is a commitment that survives about four weeks.",
+      "Coquitlam, Port Coquitlam and Port Moody function as one place for most purposes and are three municipalities for administrative ones, which is its own small source of confusion when you are trying to work out what you are entitled to and where.",
+    ],
+    localReality: {
+      h2: "A commute, three municipalities, and a growing population",
+      body: [
+        "**The commute is the constraint, and it is not a soft one.** Removing travel from either side of a session is worth more here than the session time itself — it is the difference between an appointment costing an hour and costing three. That is the variable that decides whether week six happens.",
+        "**Three municipalities, one lived reality.** Someone in Port Coquitlam searching \"counsellor in Coquitlam\" is doing the sensible thing; the boundaries do not describe how anyone lives. Availability here does not change across them.",
+        "**Public intake runs through Fraser Health.** The Tri-Cities sit in Fraser Health despite looking west for work and for most services — the same mismatch that costs [Burnaby](/online-counselling/burnaby) residents weeks in the wrong queue, and worth checking before joining a waitlist.",
+        "**The population has grown faster than the provision.** New density along the Evergreen extension arrived quicker than local services expanded to meet it, which is felt as waitlists rather than as absence.",
+      ],
+    },
+    access: [
+      { label: "No commute on top of the commute", detail: "The single largest reason a course of therapy quietly stops here." },
+      { label: "Covers all three cities", detail: "Coquitlam, Port Coquitlam and Port Moody on identical terms, plus Anmore and Belcarra." },
+      { label: "Evening appointments", detail: "Weekday evenings by request, which is when a commuting schedule actually has room." },
+      { label: "English or Punjabi", detail: "Including both within a session." },
+    ],
+    faqs: [
+      { q: "Do you cover Port Coquitlam and Port Moody?", a: "Yes, and on the same terms. The practice is virtual and covers all of British Columbia, so which of the three municipalities you live in changes nothing about availability or fee." },
+      { q: "Which health authority covers the Tri-Cities?", a: "Fraser Health, despite most people here looking west to Vancouver and Burnaby for work and for a lot of services. It is worth confirming before joining a public waitlist — a referral into the wrong authority's queue costs weeks that nobody flags." },
+      { q: "I get home late. What is the latest appointment?", a: "Evening slots run on weekdays by request. The current bookable windows are listed on the booking page, and if none of them work it is worth saying so on the consultation call rather than forcing a time that will not survive a busy month." },
+      { q: "Does virtual therapy actually work as well?", a: "For the concerns most people bring — anxiety, depression, trauma, relationship difficulty — the research on video-delivered therapy shows outcomes broadly comparable to in-person work. The trade-offs are real and worth talking through on a consultation." },
+      { q: "Is there a free consultation first?", a: "Yes — 15 minutes by video, no charge, no card, and no obligation to book anything afterwards." },
+    ],
+    sources: [
+      { label: "Fraser Health — mental health and substance use services", url: "https://www.fraserhealth.ca/health-topics-a-to-z/mental-health-and-substance-use" },
+      { label: "BC Association of Clinical Counsellors — find a counsellor", url: "https://bc-counsellors.org/counsellors/" },
+    ],
+    nearby: ["burnaby", "vancouver"],
+  },
+
+  {
+    slug: "delta",
+    figure2: 'first-session-flow',
+    figure: "bc-reach",
+    city: "Delta",
+    region: "Metro Vancouver",
+    blurb: "Three communities sharing a municipality and almost nothing else — including how hard it is to reach a counsellor.",
+    metaDescription:
+      "Online counselling for Delta, BC — North Delta, Ladner and Tsawwassen. Therapy in English or Punjabi, by secure video across the province.",
+    intro: [
+      "Delta is one municipality containing three places that do not much resemble each other. North Delta sits against Surrey and shares its communities and its pace. Ladner is a smaller, older river town. Tsawwassen is at the end of a peninsula with a ferry terminal on it. \"A counsellor in Delta\" tells a resident of any of the three almost nothing about whether that counsellor is reachable.",
+      "What they have in common is that local provision is thin relative to the population, and that reaching the Lower Mainland's depth of specialists means a drive that is longer than the map suggests — through a tunnel that decides how long your evening takes.",
+    ],
+    localReality: {
+      h2: "A tunnel, a ferry terminal, and North Delta's own case",
+      body: [
+        "**The Massey Tunnel is the local variable everything else is scheduled around.** An appointment in Vancouver or Richmond is a different proposition at 4pm than at 11am, and a weekly commitment that depends on the tunnel behaving is a weekly commitment that will eventually be missed.",
+        "**North Delta's situation is Surrey's situation.** The Punjabi-speaking community here is substantial and continuous with Surrey's, and it brings the same dynamic: a strong community, and a corresponding concern about privacy that keeps people from walking into a local clinic where they may be recognised. [Punjabi-speaking counselling for Surrey](/punjabi-counselling/surrey) is written about that specifically, and applies directly across the boundary.",
+        "**Ladner and Tsawwassen are small towns for these purposes.** Fewer counsellors, less choice of modality, and the same privacy arithmetic that applies in any place where people know each other. For anything specific — EMDR, structured couples work — the local field narrows to very little.",
+        "**Shift work at Deltaport and the ferry terminal does not fit a standing slot.** Port and terminal rosters change, and evening availability with no travel either side is what makes attendance realistic rather than aspirational.",
+        "**Public intake runs through Fraser Health.**",
+      ],
+    },
+    access: [
+      { label: "The tunnel stops mattering", detail: "No appointment is scheduled around traffic that cannot be predicted a week ahead." },
+      { label: "All three communities", detail: "North Delta, Ladner and Tsawwassen on identical terms — the municipal boundary changes nothing." },
+      { label: "English or Punjabi", detail: "Including both within one session, without driving into Surrey to find it." },
+      { label: "No local clinic to be seen at", detail: "The privacy concern that keeps many people in a close community from booking at all." },
+    ],
+    faqs: [
+      { q: "Do you cover North Delta, Ladner and Tsawwassen?", a: "Yes, all three and on the same terms. The practice is virtual and covers all of British Columbia, so where in Delta you live changes nothing about availability or fee." },
+      { q: "Can I have sessions in Punjabi?", a: "Yes — in Punjabi, English, or a mix of both. North Delta's Punjabi-speaking community is continuous with Surrey's, and a great many people here have been searching one city over for what is available from home." },
+      { q: "I work shifts at the port. Can counselling fit around that?", a: "Yes, and planning for it from the start works better than discovering it later. Booking block by block around a roster, with gaps between blocks, is a normal pattern and pausing costs nothing." },
+      { q: "There are counsellors in Delta already. Why this?", a: "For plenty of people there is no reason, and you would be told so on a consultation call. What a local option costs some people here is the privacy question — a familiar waiting room in a community where families know each other. A practice with no office anywhere removes the question." },
+      { q: "Which health authority covers Delta?", a: "Fraser Health. Worth confirming before joining a public waitlist, since a referral into the wrong authority's queue is a delay that tends to surface only when you chase it." },
+    ],
+    sources: [
+      { label: "Fraser Health — mental health and substance use services", url: "https://www.fraserhealth.ca/health-topics-a-to-z/mental-health-and-substance-use" },
+      { label: "BC Association of Clinical Counsellors — find a counsellor", url: "https://bc-counsellors.org/counsellors/" },
+    ],
+    nearby: ["surrey", "richmond"],
+  },
+
+  {
+    slug: "nanaimo",
+    figure2: 'first-session-flow',
+    figure: "bc-reach",
+    city: "Nanaimo",
+    region: "Vancouver Island",
+    blurb: "Everything the Lower Mainland offers is across water — which turns a specialist appointment into a whole day and a ferry.",
+    metaDescription:
+      "Online counselling for Nanaimo and central Vancouver Island. EMDR, trauma, anxiety, depression and couples therapy in English or Punjabi, by video.",
+    intro: [
+      "Nanaimo has counsellors. What it does not have, in the depth the Lower Mainland does, is choice within a specific modality — and the moment you need something particular, the shortlist gets very short. The usual answer to that is to look across the water, and the water is the problem: a ferry each way turns a 50-minute appointment into most of a day, at a cost that makes a weekly course of therapy unaffordable long before the session fee does.",
+      "That is the case for virtual work here, and it is a stronger one than in most of the province. Distance stops being a variable entirely: a counsellor on the mainland is exactly as available to you in Nanaimo as to someone in Burnaby.",
+    ],
+    localReality: {
+      h2: "Water, a regional catchment, and Island Health",
+      body: [
+        "**The ferry is not an inconvenience, it is a budget.** Sailings, parking, and the walk-on-versus-drive-on decision are all things a weekly appointment would have to survive. Almost none do. Removing the crossing does not make therapy easier at the margin — it makes a sustained course of it possible at all.",
+        "**Nanaimo is the catchment for a large stretch of the Island.** People travel in from Parksville, Ladysmith, Lantzville, Gabriola and further up-Island, which means the local waitlists carry more than the city's own population. If you are on one, you are queueing behind a region.",
+        "**Specific modalities are the gap, not counselling in general.** For [EMDR](/services/emdr-therapy) or structured couples work, the local field narrows quickly. That is where the mainland's depth was worth the ferry, and where it is now worth nothing extra at all.",
+        "**Public intake runs through Island Health**, and its services are real and worth staying connected to if you already are. Private virtual counselling is a parallel option rather than a replacement — most useful when the public wait is longer than you can comfortably hold.",
+        "**Gabriola and the smaller islands add a second crossing.** For anyone there, a mainland appointment is two ferries, and even a Nanaimo appointment is one.",
+      ],
+    },
+    access: [
+      { label: "No ferry, no sailing schedule", detail: "The single largest cost of accessing mainland specialists disappears — not reduced, removed." },
+      { label: "Modalities the Island field is thin on", detail: "EMDR and structured couples work, without the crossing that used to be the price of them." },
+      { label: "Serves central Vancouver Island", detail: "Nanaimo, Parksville, Ladysmith, Lantzville and Gabriola on identical terms." },
+      { label: "English or Punjabi", detail: "Punjabi-speaking counsellors are concentrated in the Lower Mainland; virtual access is the realistic route to it from here." },
+    ],
+    faqs: [
+      { q: "Can a mainland counsellor legally see me in Nanaimo?", a: "Yes. Registration applies province-wide, so a BC-registered Registered Clinical Counsellor can work with clients anywhere in British Columbia by secure video, under the same ethical, legal and privacy standards that would apply in person." },
+      { q: "Do you cover Parksville, Ladysmith and Gabriola?", a: "Yes, and on the same terms. Anywhere in British Columbia works identically — being further out, or across another crossing, carries no travel penalty and no difference in fee." },
+      { q: "What if my connection is unreliable?", a: "Turning the camera off cuts the bandwidth a session needs considerably, and it is worth agreeing in advance what happens if a connection drops mid-session so that it is an inconvenience rather than an interruption to the work." },
+      { q: "Which health authority covers Nanaimo?", a: "Island Health. Its mental-health and substance-use services are worth staying connected to if you already are — private counselling alongside them is a parallel route, not a replacement for one." },
+      { q: "Is virtual counselling as effective as in person?", a: "For the concerns most people bring — anxiety, depression, trauma, relationship difficulty — the research on video-delivered therapy shows outcomes broadly comparable to in-person work. There are real trade-offs and they are worth talking through on a consultation call." },
+    ],
+    sources: [
+      { label: "Island Health — mental health and substance use services", url: "https://www.islandhealth.ca/our-services/mental-health-substance-use-services" },
+      { label: "BC Association of Clinical Counsellors — find a counsellor", url: "https://bc-counsellors.org/counsellors/" },
+    ],
+    nearby: ["victoria", "vancouver"],
+  },
+
   {
     slug: "chilliwack",
     figure2: 'first-session-flow',

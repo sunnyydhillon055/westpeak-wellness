@@ -155,7 +155,19 @@ const orgSchema = {
      for knowledge-graph consumers weighing conflicting sources. The
      alternateName list consolidates the spellings people actually type
      ("west peak" appears in Search Console) onto this one entity. */
-  alternateName: ['Westpeak', 'West Peak Wellness', 'Westpeak Wellness Counselling'],
+  /* 'WestPeak Wellness Inc.' added 31 Aug 2026. It is not a typo anyone
+     invented — it is the spelling the practice's own job postings carry on
+     Indeed, Workopolis and SimplyHired, so a real set of third-party citations
+     points at a name this entity did not claim. Off-site NAP consistency is
+     the owner's to fix at the source; claiming the variant here is the half
+     that can be done from the site, and it stops those listings corroborating
+     nothing. */
+  alternateName: [
+    'Westpeak',
+    'West Peak Wellness',
+    'Westpeak Wellness Counselling',
+    'WestPeak Wellness Inc.',
+  ],
   disambiguatingDescription:
     'A fully virtual Registered Clinical Counsellor practice serving all of ' +
     'British Columbia by secure video, in English and Punjabi. It has no ' +
