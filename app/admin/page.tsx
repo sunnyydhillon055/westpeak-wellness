@@ -305,6 +305,47 @@ export default async function AdminPage({
                     <td>
                       {i.name || <em style={{ color: 'var(--ink-faint)' }}>no name</em>}<br />
                       <a href={`mailto:${i.email}`} style={{ fontSize: '.9em' }}>{i.email}</a>
+
+                      {/* Triage chip. A hint about the submission, never a
+                          verdict about the person — see the header of
+                          lib/triage.ts. Read the message anyway; the flags say
+                          what looked automated, not who is not worth a reply.
+                          Records written before 30 Aug 2026 carry no verdict
+                          and correctly show nothing. */}
+                      {i.triage && i.triage.band !== 'clear' && (
+                        <>
+                          <br />
+                          <span
+                            title={i.triage.why}
+                            style={{
+                              display: 'inline-block', marginTop: 3, padding: '1px 7px',
+                              borderRadius: 2, fontSize: '.72em', fontWeight: 600,
+                              letterSpacing: '.04em', textTransform: 'uppercase',
+                              color: `var(${i.triage.band === 'quarantine' ? '--flag-ink' : '--check-ink'})`,
+                              background: `var(${i.triage.band === 'quarantine' ? '--flag-bg' : '--check-bg'})`,
+                            }}
+                          >
+                            {i.triage.band === 'quarantine' ? 'bot' : 'check'}
+                          </span>{' '}
+                          <span style={{ fontSize: '.78em', color: 'var(--ink-faint)' }}>
+                            {i.triage.why}
+                          </span>
+                        </>
+                      )}
+
+                      {/* Someone asked to be phoned. Until 30 Aug 2026 this was
+                          collected and then dropped before the store, so it
+                          never reached here or the alert email. */}
+                      {i.phone && (
+                        <>
+                          <br />
+                          <strong style={{ fontSize: '.82em', color: 'var(--blue-deep)' }}>
+                            asked to be called:{' '}
+                            <a href={`tel:${i.phone.replace(/[^\d+]/g, '')}`}>{i.phone}</a>
+                            {i.callWindow ? ` · ${i.callWindow}` : ''}
+                          </strong>
+                        </>
+                      )}
                       {/* Every page promises a reply within one business day.
                           reply-watch emails when that slips; this makes it
                           visible here, where the reply actually gets written.

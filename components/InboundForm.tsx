@@ -1,4 +1,5 @@
 'use client';
+import FormStamp from '@/components/FormStamp';
 
 import { usePathname } from 'next/navigation';
 import { track } from '@/lib/analytics';
@@ -74,6 +75,8 @@ export default function InboundForm({ kind, done }: { kind: Kind; done?: 'ok' | 
           out which pages actually earn enquiries. Server-validated as a
           same-site path; see safePath() in lib/inbound-submit.ts. */}
       <input type="hidden" name="source" value={pathname ?? '/'} />
+      <FormStamp />
+
 
       {/* Honeypot. Hidden from sight and from screen readers, and skipped by
           the tab order, so no human ever meets it. Bots fill it and are

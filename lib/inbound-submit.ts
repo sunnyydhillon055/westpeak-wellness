@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { addInbound, type InboundKind } from '@/lib/inbound';
+import { addInbound, readInbound, annotateTriage, type InboundKind } from '@/lib/inbound';
+import { triage, hasMailExchanger, withMx } from '@/lib/triage';
 import { sendDetailed } from '@/lib/portal-mail';
 import { checklistEmail, icbcEmail, startingEmail, enquiryAck, waitlistAck, practiceAlert } from '@/lib/inbound-mail';
 import { site } from '@/lib/site';
@@ -68,9 +69,7 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
   const back = (state: string) =>
     NextResponse.redirect(new URL(`${returnTo}?${o.flag}=${state}#form`, req.url), 303);
 
-  /* Silently accepted, deliberately. Telling a bot it was caught just teaches
-   * whoever wrote it to stop filling the field. */
-  if (String(form.get(HONEYPOT) ?? '').trim()) return back('ok');
+  const honeypot = String(form.get(HONEYPOT) ?? '');
 
   const email = String(form.get('email') ?? '').trim().toLowerCase();
   const name = String(form.get('name') ?? '').trim();
@@ -105,10 +104,37 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
   const MAGNETS = new Set(['icbc-after-a-crash', 'starting-counselling']);
   const magnet = MAGNETS.has(asked) ? asked : 'coverage-checklist';
 
+  /* How automated does this look? Synchronous signals only — see lib/triage.ts
+     for what is deliberately NOT measured (names, IP addresses, geography).
+     Scored before the store so the verdict is written with the record, using
+     the store as it stood at the moment the submission arrived: "duplicate"
+     and "burst" are claims about that instant and cannot be recomputed later.
+
+     `fillMs` comes from <FormStamp />, which sets it on mount. A form posted
+     without JavaScript sends nothing and is treated as neutral. */
+  const stampedAt = Number(form.get('renderedAt'));
+  const verdict = triage(
+    {
+      kind: o.kind, email, message, honeypot,
+      fillMs: Number.isFinite(stampedAt) && stampedAt > 0 ? Date.now() - stampedAt : undefined,
+    },
+    (await readInbound()).items
+  );
+
   const item = await addInbound({
-    kind: o.kind, name, email, message, windows, phone, callWindow, source, monthlyOptIn, magnet,
+    kind: o.kind, name, email, message, windows, phone, callWindow, source,
+    monthlyOptIn, magnet, triage: verdict,
   });
   if (!item) return back('err');
+
+  /* A tripped honeypot is the one unambiguous case: a field no human can see
+     was filled in. Stored so it is countable in /admin, and silently accepted
+     so whoever wrote the bot is not taught to stop filling the field — but no
+     mail is sent for it in either direction.
+
+     Nothing else stops here. A `review` verdict is a chip in /admin, never a
+     reason to withhold a message from a counsellor. */
+  if (verdict.band === 'quarantine') return back('ok');
 
   /* Everything below this line is best-effort. The person is already saved. */
   const firstName = name.split(/\s+/)[0] ?? '';
@@ -121,10 +147,23 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
     : o.kind === 'waitlist' ? waitlistAck(firstName)
     : enquiryAck(firstName);
 
+  /* Can this address receive mail at all? A network call, so it happens here —
+     after the store — and fails open: a DNS timeout means "unknown", never
+     "fake". See hasMailExchanger() for why a false answer skips only the
+     acknowledgement and never the practice alert. */
+  const mx = await hasMailExchanger(email);
+  const finalVerdict = withMx(verdict, mx);
+
   await Promise.allSettled([
-    sendDetailed(email, ack.subject, ack.text, ack.html, { replyTo: site.email }),
+    /* No mail exchanger means the acknowledgement can only bounce. The person
+       still reached the practice; they just cannot be written back to at this
+       address, which is what the alert now says. */
+    mx === false
+      ? Promise.resolve()
+      : sendDetailed(email, ack.subject, ack.text, ack.html, { replyTo: site.email }),
+    finalVerdict === verdict ? Promise.resolve() : annotateTriage(item.id, finalVerdict),
     (async () => {
-      const alert = practiceAlert(item);
+      const alert = practiceAlert({ ...item, triage: finalVerdict });
       /* Reply-to is the person who wrote in, so the practice can answer by
        * hitting reply rather than copying an address out of the body. */
       return sendDetailed(site.email, alert.subject, alert.text, alert.html, { replyTo: email });

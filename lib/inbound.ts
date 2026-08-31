@@ -114,6 +114,16 @@ export type Inbound = {
    * meaningful once a month of real data exists; until then /admin says so
    * rather than reporting a figure drawn from three replies. */
   handledAt?: string;
+  /* How the submission scored on lib/triage.ts at the moment it arrived.
+   *
+   * Stored rather than recomputed, because two of the signals — "identical
+   * message already received" and "third message from this address today" —
+   * are only true relative to what the store held at the time. Recomputing
+   * them a week later gives a different answer about the same event.
+   *
+   * Optional: everything written before 30 Aug 2026 has no verdict, and
+   * back-filling one would be inventing a judgement that was never made. */
+  triage?: import('./triage').TriageVerdict;
 };
 
 export type InboundBook = { items: Inbound[]; version: number; updatedAt: string };
@@ -174,6 +184,15 @@ export async function addInbound(
     email,
     message: clip(rec.message, 4000),
     windows: clip(rec.windows, 300) || undefined,
+    /* CARRIED, not dropped. These were in the type, collected by the form,
+       passed in by handleInbound and rendered by practiceAlert() — and never
+       written here, so `item.phone` was always undefined and the "asked to be
+       called" row never appeared in a single alert email. Someone who ticked
+       the one box asking to be phoned got no call and left no trace of having
+       asked. Found 30 Aug 2026 while adding triage. */
+    phone: clip(rec.phone, 40) || undefined,
+    callWindow: clip(rec.callWindow, 120) || undefined,
+    triage: rec.triage,
     source: clip(rec.source, 120) || '/',
     monthlyOptIn: rec.monthlyOptIn === true ? true : undefined,
     magnet: clip(rec.magnet, 40) || undefined,
@@ -211,6 +230,37 @@ export async function markHandled(id: string, handled = true): Promise<boolean> 
   const items = current.items.map((i, n) =>
     n === idx ? { ...i, handled, handledAt: handled ? new Date().toISOString() : undefined } : i
   );
+  const value: InboundBook = {
+    items, version: current.version + 1, updatedAt: new Date().toISOString(),
+  };
+  cache = { at: Date.now(), value };
+  lastWrite = { at: Date.now(), value };
+
+  if (process.env.BLOB_READ_WRITE_TOKEN) {
+    await put(KEY, JSON.stringify(value, null, 2), {
+      access: 'private', contentType: 'application/json',
+      addRandomSuffix: false, allowOverwrite: true, cacheControlMaxAge: 0,
+    });
+  }
+  return true;
+}
+
+/* Attaches the MX result once it comes back.
+ *
+ * Separate from addInbound because the DNS lookup happens AFTER the record is
+ * stored — the store must never wait on the network. Same read-modify-write
+ * shape as markHandled. Returns false for an unknown id rather than throwing:
+ * the caller is in a best-effort block and a failure here must not surface to
+ * the person who submitted the form. */
+export async function annotateTriage(
+  id: string,
+  verdict: import('./triage').TriageVerdict
+): Promise<boolean> {
+  const current = await readInbound({ fresh: true });
+  const idx = current.items.findIndex((i) => i.id === id);
+  if (idx < 0) return false;
+
+  const items = current.items.map((i, n) => (n === idx ? { ...i, triage: verdict } : i));
   const value: InboundBook = {
     items, version: current.version + 1, updatedAt: new Date().toISOString(),
   };

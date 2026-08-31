@@ -1,5 +1,7 @@
 'use client';
 
+import FormStamp from '@/components/FormStamp';
+
 import { track } from '@/lib/analytics';
 
 /* Email capture that does not hold anything hostage.
@@ -76,6 +78,19 @@ export default function LeadCapture({
       <input type="hidden" name="magnet" value={magnet} />
       {source && <input type="hidden" name="source" value={source} />}
       {returnTo && <input type="hidden" name="returnTo" value={returnTo} />}
+      <FormStamp />
+
+      {/* Honeypot. This form did not have one — the other two inbound forms
+          have carried it since they were written, and the lead-magnet form,
+          which sits on the coverage and cost pages, was posting to the same
+          endpoint with no bot check at all. Same field name and same silent
+          acceptance as InboundForm and AskInstead; see the note on HONEYPOT in
+          lib/inbound-submit.ts. */}
+      <div className="hp" aria-hidden="true">
+        <label htmlFor="hp-lead">Company</label>
+        <input id="hp-lead" name="company" type="text" tabIndex={-1} autoComplete="off" />
+      </div>
+
       <p className="lead-form-title">{m.title}</p>
       <p className="lead-form-note">{m.note}</p>
       <div className="lead-form-row">

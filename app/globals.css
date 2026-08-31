@@ -96,6 +96,17 @@
   --clay-soft:     #ecdfd0;
   --clay-ghost:    #f8f2ea;
 
+  /* STATUS — /admin only, and deliberately quiet.
+     Added for the inbound triage chips (see lib/triage.ts). Kept out of the
+     public palette on purpose: nothing a visitor sees should be red, and a
+     counselling site has no use for an alarm colour. These are muted enough to
+     read as a note in a table rather than a warning, and both clear 4.5:1 on
+     their own ghost ground. */
+  --flag-ink:      #8a2f2a;   /* "bot" — the honeypot case, unambiguous */
+  --flag-bg:       #f3dedd;
+  --check-ink:     #7a5312;   /* "check" — a hint for a human, not a verdict */
+  --check-bg:      #f6ebd6;
+
   /* — Layered neutrals. Flat white everywhere is what makes a site read cheap;
        these give sections a gentle temperature shift instead of a hard edge.
        Four of the five are oatmeal; --surface-3 is the one blue band, so a

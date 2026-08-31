@@ -1,4 +1,5 @@
 'use client';
+import FormStamp from '@/components/FormStamp';
 
 import { usePathname } from 'next/navigation';
 import { track } from '@/lib/analytics';
@@ -62,6 +63,8 @@ export default function AskInstead({
       {/* The page it came from, for the record and for working out which pages
           actually earn enquiries. */}
       <input type="hidden" name="source" value={pathname ?? '/'} />
+      <FormStamp />
+
       {/* See the note above: this page is static and cannot render a
           confirmation, so the confirmation gets its own page. */}
       <input type="hidden" name="returnTo" value="/message-sent" />
