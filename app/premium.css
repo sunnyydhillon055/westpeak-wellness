@@ -2312,17 +2312,81 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
     --line: #bbb; --grain: none;
     --shadow-xs: none; --shadow-sm: none; --shadow-md: none;
     --shadow-lg: none; --shadow-xl: none; --shadow-warm: none;
+
+    /* THE GRADIENTS WERE NOT ON THIS LIST — found 30 August 2026.
+       Every surface token above resolves to white for paper, and the four
+       gradient tokens did not, because they are literal gradients rather than
+       colours. The consequence was not subtle: .signature sets
+       `background: var(--grad-ink)` with `color: var(--on-ink)`, so printing
+       any page carrying it laid down a full-width dark charcoal block with
+       pale cream text on it — an ink dump that is close to unreadable on
+       paper. Every hero printed a cream wash for the same reason. */
+    --grad-hero: none; --grad-ink: none; --grad-mist: none; --grad-brand: none;
+
+    /* The tinted bands were not on the list either. --surface-0..4 were
+       whitened and the four accent tints were not, so every callout, byline
+       box, FAQ intro and quote block still printed with a blue or clay wash
+       behind it. On a page somebody prints BECAUSE they need the phone
+       numbers, that is ink spent on decoration.
+       --surface-ink goes too: the only elements using it are hidden or
+       overridden for print, and leaving a near-black token live is how one
+       reappears later as a solid panel. */
+    --blue-ghost: #fff; --blue-mist: #fff;
+    --clay-ghost: #fff; --clay-soft: #fff;
+    --surface-ink: #fff;
+  }
+
+  /* Belt and braces for the two that carried inverted text: a `none` gradient
+     leaves the element's own colour, and .signature's was written for a dark
+     ground. */
+  .signature, .hero { background: #fff !important; }
+  .signature, .signature * { color: #000 !important; }
+  .hero:not(.hero--home)::after { display: none !important; }
+
+  /* A SCROLL CONTAINER IS A LIE ON PAPER.
+     .table-scroll is overflow-x:auto with tables at min-width 640-720px
+     inside it. On screen the reader scrolls; on paper there is nowhere to
+     scroll to, so everything past the container edge was simply cut off —
+     silently, on the comparison and resource pages whose tables are the
+     reason someone prints them. Let the table set the width and drop the
+     minimum so it can reflow to the page.
+     The edge fades go too: their gradients are hardcoded rgba(43,49,56,.10)
+     and would print as grey smudges down both sides of a table. */
+  .table-scroll {
+    overflow: visible !important;
+    background: none !important;
+    border: 0 !important;
+  }
+  .table-scroll table, .fee-table, .cmp-table {
+    min-width: 0 !important; width: 100% !important;
   }
 
   /* Chrome, prompts and anything that cannot be acted on from paper. */
   .site-header, .site-footer, .cta-band, .ask-instead, .lead-form,
-  .sticky-book, .nav-toggle, .breadcrumbs, .reveal-init,
+  /* `.crumbs`, not `.breadcrumbs` — the component renders class="crumbs" and
+     every style rule in this file targets `.crumbs`. The print rule named a
+     class that exists nowhere, so it had never hidden anything and breadcrumb
+     trails have printed on every page since this stylesheet was written.
+     A selector that matches nothing fails silently, which is the same shape as
+     the four other spelling mismatches found today. */
+  .sticky-book, .nav-toggle, .crumbs, .reveal-init,
   .figure--decorative, .photo, .motif, .section-divider,
   form, video, iframe { display: none !important; }
 
   /* Screen-only instructions — "press Ctrl+P", and anything else that reads as
      absurd once the reader is holding the paper it was describing. */
   .no-print { display: none !important; }
+
+  /* A BUTTON IS A BLOCK OF INK FOR AN ACTION NOBODY CAN TAKE.
+     "Book a free consultation" printed as a filled pill in --blue-deep. The
+     sentence is still worth having on paper; the fill is not. Printed as
+     plain underlined text, which is what every other link here becomes. */
+  .btn, .btn--primary, .btn--ghost {
+    background: none !important; color: #000 !important;
+    border: 0 !important; box-shadow: none !important;
+    padding: 0 !important; font-weight: 600;
+    text-decoration: underline;
+  }
 
   html, body { background: #fff !important; color: #000 !important; font-size: 11.5pt; }
   main { max-width: none !important; padding: 0 !important; }
