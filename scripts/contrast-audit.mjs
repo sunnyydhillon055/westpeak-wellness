@@ -254,4 +254,62 @@ if (fails) {
   console.log('  The claim on /accessibility and /faq is currently true.\n');
 }
 
+
+/* ---------------------------------------------------------------------------
+ * DARK-BAND LINK GUARD
+ *
+ * The pairs above are palette maths: they prove the tokens can meet AA. They
+ * cannot prove a given element actually *uses* the right token, and on
+ * 2026-08-30 two did not. A prose link inside .cta-band and another inside
+ * .signature both inherited the global link colour (--blue-deep, #3d6c92),
+ * which is tuned for a cream page and renders as near-invisible dark blue on
+ * an ink ground. Every static pair here passed while the page was wrong.
+ *
+ * Catching that properly needs a rendering engine measuring computed styles,
+ * which this repo deliberately does not carry. This is the cheap structural
+ * substitute: for each container painted on ink, assert premium.css still
+ * carries a rule that re-colours non-button links inside it. It does not
+ * verify the colour is right - the pairs above do that - only that the rule
+ * scoping links away from the light-page default has not been deleted.
+ * ------------------------------------------------------------------------- */
+const inkCss =
+  readFileSync(new URL('../app/premium.css', import.meta.url), 'utf8') +
+  readFileSync(new URL('../app/globals.css', import.meta.url), 'utf8');
+
+/* Split into { selector, body } pairs after stripping comments, rather than
+   matching a regex across the whole file - a selector list and its declaration
+   block are the two things this needs to see together, and a naive pattern
+   spanning `{` happily matches across an unrelated rule boundary. */
+const rules = inkCss
+  .replace(/\/\*[\s\S]*?\*\//g, '')
+  .split('}')
+  .map((chunk) => {
+    const i = chunk.indexOf('{');
+    return i === -1 ? null : { sel: chunk.slice(0, i), body: chunk.slice(i + 1) };
+  })
+  .filter(Boolean);
+
+const INK_CONTAINERS = ['.cta-band', '.signature', '.site-footer'];
+const unguarded = INK_CONTAINERS.filter(
+  (name) =>
+    !rules.some(
+      (r) =>
+        r.sel.includes(name) &&
+        /* `a` must be the bare element, not `a.btn--primary`. Written loosely
+           the first time, and `.cta-band a.btn--primary` - a *button* rule -
+           satisfied the guard on its own, so removing the prose-link rule
+           still passed. Excluding a `.` after the `a` is what makes this
+           check mean what it says. */
+        /(^|[\s>+~])a([\s:,[]|$)/.test(r.sel) &&
+        /(^|[;{\s])color\s*:/.test(r.body)
+    )
+);
+
+if (unguarded.length) {
+  console.log('\n  DARK-BAND LINKS: no link colour rule found for ' + unguarded.join(', '));
+  console.log('  Links there fall back to --blue-deep, unreadable on an ink ground.\n');
+  process.exit(1);
+}
+console.log(`  Dark-band link rules present for ${INK_CONTAINERS.join(', ')}.\n`);
+
 process.exit(fails ? 1 : 0);

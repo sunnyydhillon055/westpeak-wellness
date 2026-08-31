@@ -483,7 +483,11 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 }
 @media (max-width:680px){
   body{font-size:16px}
-  .section{padding:52px 0}
+  /* 52 top AND bottom put 104px of nothing between every pair of sections on
+     a phone, and the hero's own 48px made the first gap 100px. At this width
+     a section change is already signalled by the background shift and the
+     eyebrow; it does not also need three finger-widths of air. */
+  .section{padding:34px 0}
   .grid-2,.grid-3,.info-grid{grid-template-columns:1fr}
   .footer-grid{grid-template-columns:1fr}
 }
@@ -506,7 +510,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 
 @media (max-width:420px){
   .container{padding:0 18px}
-  .hero{padding:60px 0 48px}
+  .hero{padding:40px 0 36px}
   h1{font-size:1.75rem}
   .lede{font-size:1.06rem}
   .btn{padding:12px 20px;font-size:.96rem}

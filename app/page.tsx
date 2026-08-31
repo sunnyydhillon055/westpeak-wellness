@@ -239,7 +239,12 @@ export default function Home() {
             <p className="eyebrow">The process</p>
             <h2>How we work together</h2>
           </Reveal>
-          <Figure name="first-session-flow" />
+          {/* Wrapped so the phone rule in premium.css can reach it: the
+              Stepper directly below says the same four things, readably,
+              without a sideways drag. See .process-flow there. */}
+          <div className="process-flow">
+            <Figure name="first-session-flow" />
+          </div>
           <Reveal>
             <div style={{ marginTop: 22, maxWidth: 720 }}>
               <Stepper steps={PROCESS} />

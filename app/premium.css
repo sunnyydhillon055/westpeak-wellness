@@ -383,10 +383,15 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   font-size: var(--fs-small); font-weight: 600; color: var(--on-ink-faint); margin-top: 16px; letter-spacing: 0;
 }
 .signature-quote::before{
-  content: "C"; position: absolute; left: 16px; top: 2px;
+  /* Measured at 500px: the glyph is 73.6px wide starting at x=40, and the
+     blockquote starts at x=55 — 58px of the opening quote mark sat directly on
+     top of the word "Some". It is decorative, so it goes behind the text and
+     gets out of its way rather than being made smaller everywhere. */
+  content: "C"; position: absolute; left: 16px; top: 2px; z-index: 0;
   font-family: var(--font-display); font-size: 4.6rem; line-height: 1;
-  color: var(--clay); opacity: .55;
+  color: var(--clay); opacity: .55; pointer-events: none;
 }
+.signature-quote blockquote{ position: relative; z-index: 1 }
 .signature-arc{ position: absolute; left: 40px; bottom: -14px; width: 180px; opacity: .5 }
 
 /* — Hub cards — */
@@ -417,6 +422,26 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   .signature-script{ font-size: clamp(7rem, 40vw, 14rem); opacity: .06; right: -6% }
 }
 @media (max-width: 620px){
+  /* The hero's own padding outranks the .hero rule in globals.css, so the
+     first gap on the page stayed at 48px of hero + 38px of section + the
+     trust bar's own margin: 124px of nothing between the last thing in the
+     hero and the first word of the next section. Measured, not estimated. */
+  .hero--home{ padding: 30px 0 26px }
+  .trust-bar{ margin-top: 18px; padding-top: 16px }
+}
+
+@media (max-width: 620px){
+  /* THE PROCESS DIAGRAM SAYS WHAT THE LIST BELOW IT SAYS.
+     first-session-flow renders four numbered cards at about 7pt inside a
+     sideways-scrolling box, and directly underneath it the same four steps are
+     set as a readable vertical stepper. On a desktop the diagram is a summary
+     you take in at a glance; at 500px it is unreadable, needs a horizontal
+     drag, and duplicates the thing you can already read. The stepper is the
+     better version of the two on a phone, so the diagram stands down. */
+  .process-flow .figure{ display: none }
+}
+
+@media (max-width: 620px){
   /* Still a float on a phone. It was briefly made to stack here, and stacking
      is exactly what produced the "two separate blocks" the owner objected to.
      Narrower and squarer instead, so a couple of lines still run beside it and
@@ -426,7 +451,19 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 }
 
 @media (max-width: 680px){
-  .signature-quote{ padding: 32px 22px 26px 30px }
+  /* The quote mark sits ABOVE the text on a phone, not beside it. Behind it
+     (z-index) stopped it hiding words but it still ran through the first line,
+     which reads as a smudge rather than as a flourish. Smaller, higher, and
+     the text starts below it. */
+  .signature-quote{ padding: 58px 22px 26px 24px }
+  .signature-quote::before{ font-size: 2.9rem; left: 22px; top: 6px; opacity: .45 }
+  /* The Gurmukhi watermark is set at .06 for a wide column; on a narrow one it
+     lands directly behind body copy at a size where it competes with it. */
+  .signature-script{ opacity: .04 }
+  /* The arc is positioned to sweep out from under a wide quote card. On a
+     narrow one it crosses the card's own rounded bottom-left corner and reads
+     as a stray line rather than as a flourish. */
+  .signature-arc{ display: none }
   /* TIDY COLUMNS AT THE AWKWARD WIDTHS — 30 August 2026.
      Five items of unequal width in a flex-wrap land 3-then-2 on a tablet, with
      a ragged right edge and the third item pressed against it. Below 900px
@@ -526,8 +563,18 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 @media (max-width: 680px){
   .footer-grid{ grid-template-columns: 1fr }
   .site-footer{ padding-bottom: 96px }
+  /* Fill the viewport, do not merely cap at it. Sized by content alone the
+     drawer stopped just under the last button and left a band of dimmed page
+     showing beneath it, which reads as a panel that failed to finish rather
+     than as a sheet. min and max together make it exactly one screen.
+     dvh first so the mobile URL bar collapsing does not leave a gap; the vh
+     line stays as the fallback for engines without dvh. */
   .nav-links.open{
-    max-height: calc(100vh - 70px); overflow-y: auto; padding-bottom: 24px;
+    min-height: calc(100vh - 70px);
+    max-height: calc(100vh - 70px);
+    min-height: calc(100dvh - 70px);
+    max-height: calc(100dvh - 70px);
+    overflow-y: auto; padding-bottom: 24px;
   }
 }
 
@@ -1130,6 +1177,14 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
     background:var(--surface-1);
     -webkit-backdrop-filter:none; backdrop-filter:none;
   }
+
+  /* The sticky booking bar is z-index 60, above the drawer's scrim, so with
+     the drawer open it painted its own "Book" on top of the drawer's "Book
+     Free Consult" - two competing primary actions, one covering the other.
+     It is already marked inert while the drawer is open (see the focus-trap
+     effect in components/Header.tsx), so keying off that needs no new state:
+     the same condition that makes it unreachable makes it invisible. */
+  .sticky-book[inert]{ display:none }
 }
 
 @media (prefers-reduced-motion:reduce){
@@ -1689,7 +1744,11 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0 0.15rem;
+  /* Row gap, not just column gap. It wraps on narrow screens - a long final
+     crumb like "Counselling for women in British Columbia" takes a second
+     line - and at a zero row gap the underline of the link above sat against
+     the row below it. */
+  gap: 0.3rem 0.15rem;
 }
 .crumbs li {
   display: flex;
@@ -2250,6 +2309,22 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
 .cta-band-alt{ margin:24px auto 0 !important; max-width:33em !important;
   font-size:.9rem; color:rgba(255,255,255,.86); }
 .cta-band-alt a{ color:#fff; text-decoration:underline; text-underline-offset:2px; }
+
+/* Links written into prose on a dark band inherit the global link colour,
+   which is tuned for cream and reads as almost-black-blue on ink. Two had
+   slipped through this way: the BCACC "check yourself" link inside
+   .ask-instead-fine, and the Punjabi-page link in the homepage signature.
+   Scope every non-button link on an ink ground to the on-ink blue. Buttons
+   and the links already given an explicit colour are excluded. */
+.cta-band a:not(.btn):not([class*="cta-band-alt"]),
+.signature a:not(.btn){
+  color: var(--on-ink-blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+}
+.cta-band a:not(.btn):hover,
+.signature a:not(.btn):hover{ color: #fff }
 
 /* The sticky bar carried only the largest ask. The second rung is a text link
    rather than a second button, so the primary action stays unambiguous. */
