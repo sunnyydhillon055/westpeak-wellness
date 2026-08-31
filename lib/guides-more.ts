@@ -322,7 +322,7 @@ export const moreGuides: Guide[] = [
         h2: 'Questions about the practical shape',
         list: [
           { label: '"What does a session cost, and is that the whole cost?"', detail: 'Session fee, cancellation policy, whether letters or forms are charged separately, whether the rate changes. No surprises later.' },
-          { label: '"Do you direct-bill, or do I pay and submit?"', detail: 'A material difference to cash flow. Where a practice does not direct-bill, you pay at the session and claim reimbursement yourself — see [extended health coverage in BC](/resources/bc-extended-health-coverage-for-counselling).' },
+          { label: '"Do you direct-bill, or do I pay and submit?"', detail: 'A material difference to cash flow. Where a practice does not direct-bill, you pay the practice directly and claim reimbursement yourself — see [extended health coverage in BC](/resources/bc-extended-health-coverage-for-counselling).' },
           { label: '"Will my insurer cover your designation specifically?"', detail: 'The critical detail people miss. Plenty of plans cover a psychologist and not a Registered Clinical Counsellor, or vice versa. Confirm the designation with your insurer, not just the dollar amount.' },
           { label: '"How often would we meet, and for how long is that likely to run?"', detail: 'Expect a range with reasoning rather than a number. Be wary of anyone quoting a precise session count before they know you.' },
           { label: '"What is your availability, and what happens if I need to reschedule?"', detail: 'Evening availability, waitlists, and cancellation terms are all easier to establish now than to discover in month two.' },

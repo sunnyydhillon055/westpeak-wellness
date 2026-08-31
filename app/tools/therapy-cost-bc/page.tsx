@@ -59,7 +59,7 @@ export default function Page() {
             per-session rate does.
           </p>
           <p>
-            This practice does not direct-bill, so you pay at the session and claim it back —{' '}
+            This practice does not direct-bill, so you pay the practice directly and claim it back —{' '}
             <Link href="/resources/bc-extended-health-coverage-for-counselling">extended health coverage in BC</Link>{' '}
             covers how that works. If cost is the constraint rather than a detail,{' '}
             <Link href="/resources/low-cost-counselling-bc">low-cost counselling in BC</Link> and{' '}

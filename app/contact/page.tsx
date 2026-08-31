@@ -148,7 +148,7 @@ export default async function Contact({
             <p>
               What a session costs and how extended-health reimbursement works is on{' '}
               <Link href="/pricing">fees and insurance</Link>. This practice does not direct-bill: you
-              pay at the session and submit the receipt to your insurer yourself, which means it is
+              pay the practice directly and submit the receipt to your insurer yourself, which means it is
               worth confirming with your plan that a Registered Clinical Counsellor is an eligible
               provider before you book. <Link href="/resources/bc-extended-health-coverage-for-counselling">Extended health coverage in BC</Link>{' '}
               explains what to ask them.

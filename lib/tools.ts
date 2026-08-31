@@ -90,7 +90,7 @@ export const tools: ToolMeta[] = [
       },
       {
         q: 'Do you direct-bill?',
-        a: 'No. You pay at the session and claim it back, and a receipt with the registration number on it is issued each time. That means you need the money at the point of the session even when the plan will return most of it — a real constraint, and one worth knowing before booking rather than after.',
+        a: 'No. You pay the practice directly and claim it back, and a receipt with the registration number on it is issued each time. That means you need the money at the point of booking even when the plan will return most of it — a real constraint, and one worth knowing before booking rather than after.',
       },
       {
         q: 'What if the answer is that I cannot afford it?',

@@ -172,7 +172,7 @@ export const figures: Record<string, Figure> = {
     width: 1040,
     height: 451,
     title: "How paying for counselling with extended health works",
-    alt: "A two-column comparison of direct billing, where the clinic bills the insurer, against pay-and-submit, where the client pays at the session, receives a receipt with the counsellor registration number, and submits it for reimbursement.",
+    alt: "A two-column comparison of direct billing, where the clinic bills the insurer, against pay-and-submit, where the client pays the practice directly, receives a receipt with the counsellor registration number, and submits it for reimbursement.",
     caption: "Direct billing versus pay-and-submit.",
   },
   'service-axes': {

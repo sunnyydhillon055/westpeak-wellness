@@ -44,7 +44,7 @@ export const albertaMore: RegionPage[] = [
         h2: 'What a receipt has to show',
         body: [
           'Practitioner name, designation, registration number, practice details, date, amount and service. **A missing registration number is the single most common reason a claim bounces.** Receipts here carry all of it.',
-          'This practice does not direct-bill, so you pay at the session and submit. That is ordinary for RCCs across Canada rather than a limitation of working with someone out of province.',
+          'This practice does not direct-bill, so you pay the practice directly and claim it back yourself. That is ordinary for RCCs across Canada rather than a limitation of working with someone out of province.',
         ],
       },
       {

@@ -125,9 +125,16 @@ export const site = {
   /* Two filtered calendars, because the two pages serve different people.
    *
    * /book is public. It offers the free consultation and nothing else — an
-   * unfiltered calendar there let a stranger book a $340 extended session with
-   * no card taken, since Stripe is not connected yet. Filtering closes that
-   * without needing Stripe first.
+   * unfiltered calendar there let a stranger book a $340 extended session
+   * before payment was wired up, and filtering closed that.
+   *
+   * The "since Stripe is not connected yet" clause that used to end the line
+   * above was stale and contradicted the dated note further down this file,
+   * which records payment verified against the Cliniko API on 2026-08-14.
+   * Two comments in one file disagreeing about whether the practice can take
+   * money is worse than no comment: it was read on 30 Aug 2026 as evidence
+   * that card payment was broken. The filter is still right, for the reason
+   * now given, but it is not waiting on Stripe.
    *
    * /client-portal is behind sign-in and only reachable by current clients, who
    * already have a relationship and an invoicing arrangement. That is where the

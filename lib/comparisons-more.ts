@@ -286,7 +286,7 @@ export const moreComparisons: Comparison[] = [
     howWeFit: [
       'This practice is private and is not part of any EFAP network. If you have an EFAP and your difficulty is bounded, using it first is genuinely the sensible move and a consultation here will say so.',
       'Where an EFAP has run out partway through something that needs longer, continuing privately is common. Ask your EFAP counsellor for a transfer summary so the work resumes rather than restarts.',
-      'Sessions are paid at the time of the session, with a receipt showing the RCC registration number for your insurer. Whether your plan reimburses a Registered Clinical Counsellor is worth confirming before you book — see the [fees page](/pricing).',
+      'Sessions are paid by card when you book, with a receipt showing the RCC registration number for your insurer. Whether your plan reimburses a Registered Clinical Counsellor is worth confirming before you book — see the [fees page](/pricing).',
     ],
     midCta: {
       text: 'If your EFAP sessions have run out and the work was not finished,',

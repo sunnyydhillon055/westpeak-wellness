@@ -27,8 +27,8 @@
     "visual": "node scripts/visual-audit.mjs",
     "rank:plan": "node scripts/city-rank.mjs --plan",
     "indexnow": "node scripts/indexnow.mjs",
-    "verify:ci": "npm run seo && node scripts/expansion-verify.mjs && npm run schema && npm run budget && npm run uniqueness && npm run cta && npm run internal && npm run parity && npm run meta && npm run contrast && npm run palette && npm run triage && npm run quality && npm run visual",
-    "verify": "npm run seo && node scripts/expansion-verify.mjs && npm run schema && npm run budget && npm run uniqueness && npm run cta && npm run internal && npm run parity && npm run meta && npm run contrast && npm run palette && npm run triage && npm run links && npm run quality && npm run visual && (npm run drift || echo \"  (price drift not checked - CLINIKO_API_KEY not set on this machine)\")",
+    "verify:ci": "npm run seo && node scripts/expansion-verify.mjs && npm run schema && npm run budget && npm run uniqueness && npm run cta && npm run internal && npm run parity && npm run meta && npm run contrast && npm run palette && npm run triage && npm run payment && npm run quality && npm run visual",
+    "verify": "npm run seo && node scripts/expansion-verify.mjs && npm run schema && npm run budget && npm run uniqueness && npm run cta && npm run internal && npm run parity && npm run meta && npm run contrast && npm run palette && npm run triage && npm run payment && npm run links && npm run quality && npm run visual && (npm run drift || echo \"  (price drift not checked - CLINIKO_API_KEY not set on this machine)\")",
     "scan": "node scripts/competitor-scan.mjs",
     "offsite": "node scripts/offsite-probe.mjs",
     "visibility": "node scripts/visibility-50.mjs",
@@ -37,7 +37,8 @@
     "budget": "node scripts/perf-budget.mjs",
     "cta": "node scripts/cta-audit.mjs",
     "cta:live": "node scripts/cta-audit.mjs --live http://127.0.0.1:4399",
-    "triage": "node --experimental-strip-types --no-warnings scripts/triage-guard.mjs"
+    "triage": "node --experimental-strip-types --no-warnings scripts/triage-guard.mjs",
+    "payment": "node scripts/payment-consistency.mjs"
   },
   "dependencies": {
     "@next/third-parties": "^16.3.0",

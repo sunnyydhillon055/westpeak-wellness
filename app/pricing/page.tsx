@@ -221,7 +221,7 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
           <p className="eyebrow">How payment works</p>
           <h2>Paying, and then claiming it back</h2>
           <p>
-            This practice does not direct-bill. You pay at the time of the session and receive a
+            This practice does not direct-bill. You pay the practice directly and receive a
             receipt showing the RCC registration number, which is what an insurer needs to reimburse
             you. Whether your plan covers a Registered Clinical Counsellor is worth confirming before
             you book &mdash; see <a href="/resources/bc-extended-health-coverage-for-counselling">extended health coverage in BC</a>.
@@ -275,7 +275,7 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
                 name: 'Does extended health insurance cover counselling in BC?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'Most BC plans that cover Registered Clinical Counsellors reimburse, including Pacific Blue Cross, Manulife, Sun Life, Canada Life and Green Shield. You pay at the time of the session and submit your receipt for reimbursement. Counselling with an RCC is not covered by MSP.',
+                  text: 'Most BC plans that cover Registered Clinical Counsellors reimburse, including Pacific Blue Cross, Manulife, Sun Life, Canada Life and Green Shield. You pay the practice directly and submit your receipt for reimbursement. Counselling with an RCC is not covered by MSP.',
                 },
               },
               {
@@ -283,7 +283,19 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
                 name: 'How do I pay for a counselling session?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'By e-transfer, which is preferred, or by credit card — Visa, Mastercard or Amex.',
+                  /* Card at booking, confirmed by the owner 30 Aug 2026.
+                   *
+                   * This answer used to read "By e-transfer, which is preferred, or by
+                   * credit card" — which contradicted lib/faq.ts, the /client-portal copy
+                   * and the Cliniko configuration, all of which say the card is taken as
+                   * the booking completes. It survived because it lives ONLY in this
+                   * JSON-LD: no reader ever sees it, so no amount of proofreading the
+                   * rendered page would have caught it. Structured data is exactly what
+                   * Google lifts into a rich result and what an assistant quotes back, so
+                   * the wrong answer was the one most likely to be shown.
+                   *
+                   * Keep this wording and lib/faq.ts saying the same thing. */
+                  text: 'By credit card — Visa, Mastercard or Amex — taken at the time you book, not at the end of the session. Cancel with at least 24 hours notice and the fee is refunded in full.',
                 },
               },
               {

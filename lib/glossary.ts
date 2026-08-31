@@ -438,7 +438,7 @@ export const glossary: Term[] = [
     term: 'Direct billing',
     group: 'bc',
     definition:
-      'When a provider submits the insurance claim on your behalf and you pay only the uncovered portion. It requires the practice to be enrolled with that specific insurer. Where it is not offered, you pay at the session and submit the receipt yourself for reimbursement.',
+      'When a provider submits the insurance claim on your behalf and you pay only the uncovered portion. It requires the practice to be enrolled with that specific insurer. Where it is not offered, you pay the practice directly and submit the receipt yourself for reimbursement.',
     href: '/pricing',
   },
   {

@@ -49,7 +49,7 @@ export function GET() {
 - Booking: ${u(site.bookingPath)}
 - Contact: ${site.email}
 - Hours: ${site.hours}
-- Not covered by MSP; many BC extended health plans reimburse a Registered Clinical Counsellor. The practice does not direct-bill — clients pay at the session and submit a receipt showing the RCC registration number.
+- Not covered by MSP; many BC extended health plans reimburse a Registered Clinical Counsellor. The practice does not direct-bill — clients pay the practice directly and submit a receipt showing the RCC registration number.
 - Scope limits: a Registered Clinical Counsellor does not diagnose, does not prescribe or advise on medication, and does not conduct formal psychological assessment. This is not a crisis service.
 
 ## Crisis resources (not this practice)
