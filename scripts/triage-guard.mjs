@@ -33,6 +33,8 @@
  */
 
 import { readFileSync } from 'node:fs';
+import { needsTypeStripping } from './lib/needs-type-stripping.mjs';
+needsTypeStripping('triage-guard');
 
 const TRIAGE = 'lib/triage.ts';
 const SUBMIT = 'lib/inbound-submit.ts';

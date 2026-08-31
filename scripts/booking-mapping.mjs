@@ -32,6 +32,8 @@
  */
 
 import { readFileSync } from 'node:fs';
+import { needsTypeStripping } from './lib/needs-type-stripping.mjs';
+needsTypeStripping('booking-mapping');
 
 const ROOT = new URL('..', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
 const fails = [];

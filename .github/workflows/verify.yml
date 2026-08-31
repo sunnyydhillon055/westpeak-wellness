@@ -43,9 +43,17 @@ jobs:
           # lib/page-dates.ts exists to prevent.
           fetch-depth: 0
 
+      # Read from .nvmrc rather than pinned here, so the version lives in ONE
+      # place. It was pinned to 20 and two gates were added that run TypeScript
+      # directly (`--experimental-strip-types`, Node 22.6+). On 20 that flag is
+      # not merely ignored — it is unrecognised, so node exits with "bad option"
+      # before running anything, and `npm run verify:ci` went red on every push
+      # for three commits. Locally it passed the whole time: Node 24 strips
+      # types natively, so the missing support was invisible on the machine the
+      # gates were written on. package.json `engines` states the floor.
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version-file: .nvmrc
           cache: npm
 
       - run: npm ci
