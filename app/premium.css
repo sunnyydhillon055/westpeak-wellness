@@ -296,8 +296,13 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 }
 .hero-grid{
   position: relative; z-index: 1;
-  display: grid; grid-template-columns: minmax(0,1.06fr) minmax(0,.94fr);
-  gap: clamp(32px, 5vw, 68px); align-items: center;
+  /* Weighted toward the text since the hero moved onto the 1080 rail with the
+     rest of the page (see app/page.tsx). At 1.06/.94 the copy column lost
+     enough width that the two hero buttons stacked, which reads as a wrap
+     rather than a pair. 1.22/.78 keeps them side by side and still leaves the
+     photograph a full column. */
+  display: grid; grid-template-columns: minmax(0,1.22fr) minmax(0,.78fr);
+  gap: clamp(28px, 4vw, 56px); align-items: center;
 }
 .hero--home h1{ max-width: 9.93em; font-size: var(--fs-display) }
 .hero--home .lede{ max-width: 29.02em }
@@ -378,7 +383,20 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 }
 @media (max-width: 680px){
   .signature-quote{ padding: 32px 22px 26px 30px }
+  /* TIDY COLUMNS AT THE AWKWARD WIDTHS — 30 August 2026.
+     Five items of unequal width in a flex-wrap land 3-then-2 on a tablet, with
+     a ragged right edge and the third item pressed against it. Below 900px
+     they go into a two-column grid, so they read as an aligned block; below
+     560px one column, which is what a phone already produced by wrapping and
+     is now explicit rather than incidental. */
   .trust-bar{ gap: 10px 16px }
+}
+
+@media (max-width: 900px){
+  .trust-bar{ display: grid; grid-template-columns: 1fr 1fr; gap: 12px 20px; align-items: start }
+}
+@media (max-width: 560px){
+  .trust-bar{ grid-template-columns: 1fr }
 }
 
 

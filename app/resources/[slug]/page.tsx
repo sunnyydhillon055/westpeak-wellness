@@ -153,8 +153,11 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
                 )}
               </div>
 
+              {/* .table-scroll, not an inline overflowX — see the note in
+                  app/compare/[slug]/page.tsx. A comment cannot sit directly
+                  inside the `&&` expression below, which is why it is here. */}
               {s.table && (
-                <div style={{ overflowX: 'auto', margin: '8px 0 36px' }}>
+                <div className="table-scroll" style={{ margin: '8px 0 36px' }}>
                   <table className="fee-table" style={{ minWidth: 640 }}>
                     <thead>
                       <tr>{s.table.columns.map((h) => <th key={h}>{h}</th>)}</tr>

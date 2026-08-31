@@ -86,7 +86,19 @@ export default function Home() {
         <div className="hero-bg" aria-hidden="true">
           <Motif variant="ridge" />
         </div>
-        <div className="container container--wide">
+        {/* ONE LEFT RAIL — 30 August 2026.
+          *
+          * This was `container--wide` (1240px), while every other section on
+          * this page and on the other ~190 pages uses `container` (1080px).
+          * Measured at 1264px: the hero h1 began at x=29 and every heading
+          * below it at x=109. An 80px step in the left margin, once, right at
+          * the top of the page — the eye reads that as the page shifting
+          * under it rather than as a hierarchy.
+          *
+          * The wide container stays where it belongs: the header and footer,
+          * which are chrome and are meant to span further than the content
+          * they frame. Page CONTENT now shares one rail everywhere. */}
+        <div className="container">
           <div className="hero-grid">
             <div>
               <p className="eyebrow">Westpeak Wellness · Online across BC</p>
@@ -172,7 +184,8 @@ export default function Home() {
       {/* -------------------------------------------------- SIGNATURE MOMENT */}
       <section className={`signature ${gurmukhi.variable}`}>
         <span className="signature-script" aria-hidden="true">ਸੰਦਰਭ</span>
-        <div className="container container--wide">
+        {/* Same rail as everything else — see the note on the hero above. */}
+        <div className="container">
           <div className="signature-inner">
             <div>
               <p className="eyebrow">Cultural context</p>

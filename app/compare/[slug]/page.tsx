@@ -133,7 +133,13 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
             <blockquote className="quote" style={{ margin: '0 0 36px' }}>{c.shortAnswer}</blockquote>
           </div>
 
-          <div style={{ overflowX: 'auto', margin: '0 0 40px' }}>
+          {/* .table-scroll rather than an inline overflowX — 30 August 2026.
+              An inline style scrolls but says nothing about it: at any phone
+              width this table is 720px wide in a 354px column, and a reader
+              saw a column ending at the edge with no reason to think there was
+              more. The shared class carries the edge fades that appear only
+              while there is content past that edge. */}
+          <div className="table-scroll" style={{ margin: '0 0 40px' }}>
             <table className="fee-table" style={{ minWidth: 720 }}>
               <thead>
                 <tr>{c.table.columns.map((h) => <th key={h}>{h}</th>)}</tr>
