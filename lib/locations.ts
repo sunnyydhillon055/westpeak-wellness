@@ -433,6 +433,7 @@ export const locations: Location[] = [
    * redirect-shadow` now fails the build on exactly that. */
   {
     slug: "burnaby",
+    figure2: 'first-session-flow',
     figure: "bc-reach",
     city: "Burnaby",
     region: "Metro Vancouver",
@@ -472,6 +473,7 @@ export const locations: Location[] = [
   },
   {
     slug: "langley",
+    figure2: 'first-session-flow',
     figure: "bc-reach",
     city: "Langley",
     region: "Fraser Valley",
@@ -511,6 +513,7 @@ export const locations: Location[] = [
   },
   {
     slug: "chilliwack",
+    figure2: 'first-session-flow',
     figure: "bc-reach",
     city: "Chilliwack",
     region: "Eastern Fraser Valley",

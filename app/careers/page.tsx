@@ -204,6 +204,8 @@ export default function CareersPage() {
           </p>
 
           <Figure name="bc-reach" />
+          {/* A counsellor deciding whether to contract here is asking what they would be accountable to, and to whom. */}
+          <Figure name="accountability-chain" />
 
           <h2 id="compare">Agency, solo private practice, or here</h2>
           <p>

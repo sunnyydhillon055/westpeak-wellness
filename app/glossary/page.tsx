@@ -82,6 +82,8 @@ export default function GlossaryPage() {
         <div className="container">
           <Breadcrumbs schema={false} trail={[{ name: 'Glossary', path: '/glossary' }]} />
           <Figure name="designations-bc" />
+          {/* Sixty-three terms with one drawing. The designations chart covers who; this covers what the work is for, which is the other half of the vocabulary. */}
+          <Figure name="service-axes" />
 
           <div className="chip-grid" style={{ margin: '18px 0 8px' }}>
             {glossaryGroups.map((g) => (

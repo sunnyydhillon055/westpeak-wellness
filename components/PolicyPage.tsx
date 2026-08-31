@@ -57,6 +57,7 @@ export default function PolicyPage({ doc }: { doc: Policy }) {
      likely to be scanning for one specific answer. See lib/placement.ts. */
   const midDevices = [
     doc.figure ? <Figure key="fig" name={doc.figure} /> : null,
+    doc.figure2 ? <Figure key="fig2" name={doc.figure2} /> : null,
     <div className="crisis" key="cta" style={{ margin: '32px 0' }}>
       <p style={{ margin: 0 }}>
         Questions about any of this are fair game before you commit to anything —{' '}

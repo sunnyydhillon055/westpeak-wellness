@@ -131,6 +131,8 @@ export default async function BringToYourDoctor() {
                 that audience most often has wrong is which BC designation
                 does what, and the diagram answering that already existed. */}
             <Figure name="designations-bc" />
+          {/* The other question a referring clinician has: what the public routes are, and where private counselling sits beside them. */}
+          <Figure name="bc-support-routes" />
 
             <h2>What is worth asking your GP for</h2>
             <p>

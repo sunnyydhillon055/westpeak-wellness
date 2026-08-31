@@ -37,6 +37,9 @@ export default function Page() {
 
       <div className="prose tool-prose">
           <Figure name="therapy-cost-in-bc" />
+          {/* Second diagram, added 30 August 2026: the tool answers one axis of
+              the question and this draws the other. */}
+          <Figure name="reimbursement-flow" caption="What the estimate looks like once an extended-health plan is involved." />
           <h2 id="how-it-works">Why the answer is never a single number</h2>
           <p>
             Counselling in BC private practice is not covered by MSP —{' '}

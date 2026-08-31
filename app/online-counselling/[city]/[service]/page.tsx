@@ -230,6 +230,15 @@ export default function CityServicePage({ params }: { params: Params }) {
           <h2>Getting counselling {ctx.inCity}</h2>
           <p>{ctx.travel}</p>
           <p>{ctx.inPerson}</p>
+
+          {/* The second figure on these fifty pages, added 30 August 2026.
+              bc-reach rather than a decorative one: this section's whole
+              argument is that the catchment a reader would normally be
+              constrained by does not apply, and that map is the drawing of
+              exactly that claim. It is the same image on all fifty because it
+              is the same claim on all fifty — the pair-specific argument is
+              carried by the text above it and by the service diagram below. */}
+          <Figure name="bc-reach" caption={`Anywhere in BC includes ${ctx.city}. There is no catchment, because there is no office.`} />
           <p>
             Public mental-health intake for {ctx.city} runs through{' '}
             <a href={AUTHORITY_URL[ctx.authority]} target="_blank" rel="noopener">

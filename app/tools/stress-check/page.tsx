@@ -59,6 +59,9 @@ export default function Page() {
 
       <div className="prose tool-prose">
           <Figure name="window-of-tolerance" />
+          {/* Second diagram, added 30 August 2026: the tool answers one axis of
+              the question and this draws the other. */}
+          <Figure name="bc-support-routes" caption="Where the routes go if the check suggests more than self-management." />
           <h2 id="how-it-works">Why there is no score</h2>
           <p>
             This deliberately produces no number and no category. A score would be read as a

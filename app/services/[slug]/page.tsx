@@ -315,6 +315,20 @@ export default async function ServicePage({ params }: { params: { slug: string }
               slots={slots}
             />
 
+            {/* DEVICES WITH NOWHERE TO GO STILL HAVE TO GO SOMEWHERE.
+                deviceSlots() interleaves these between the depth sections and
+                returns [] when a service has none — so on any page without
+                depth content the devices were computed, passed in, and
+                silently dropped. /services/emdr-intensive was the one page in
+                that state: it declares figure2: "session-requirements" in
+                lib/services.ts, the template reads it, and the diagram had
+                never rendered. Nine other services declare a figure2 and show
+                it, which is exactly why the gap was invisible.
+                Placed here when there was nothing to interleave with. */}
+            {slots.length === 0 && midDevices.length > 0 && (
+              <div style={{ marginBottom: 32 }}>{midDevices}</div>
+            )}
+
             <h2 id="before-you-book">Before you book</h2>
             <div style={{ marginTop: 24, maxWidth: 760 }}>
               {s.faqs.map((f) => (

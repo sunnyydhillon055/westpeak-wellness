@@ -374,13 +374,41 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .hub-card-head{ display: flex; align-items: center; gap: 16px; margin-bottom: 12px }
 .hub-card-head h3{ margin: 0 }
 
+/* THE PHOTOGRAPH STAYS BESIDE THE WORDS — 30 August 2026, owner's request.
+ *
+ * It used to stack at 900px: text, then a 460px-wide 4:5 portrait centred
+ * under it. On a phone that portrait is about 500px tall, so the hero became
+ * a screen of words followed by most of a screen of photograph, with the
+ * first service card pushed below two folds.
+ *
+ * It now holds two columns all the way down, with the image column shrinking
+ * rather than the page reflowing: .78fr at tablet, .62fr on a phone, and the
+ * aspect ratio going 4:5 -> 3:4 -> 1:1 so a narrow column does not become a
+ * tall slot. The headline's max-width comes off at the same time, because a
+ * measure written for a full-width column reads as a stack of two-word lines
+ * in a narrow one. */
 @media (max-width: 900px){
-  .hero-grid{ grid-template-columns: 1fr; gap: 38px }
-  .hero-art{ max-width: 460px; width: 100%; margin: 0 auto }
-  .hero--home h1{ max-width: 11.92em }
+  .hero-grid{ grid-template-columns: minmax(0,1fr) minmax(0,.78fr); gap: clamp(16px, 3vw, 28px) }
+  .hero-art{ max-width: none; width: 100%; margin: 0 }
+  .hero-art .photo{ aspect-ratio: 3/4 }
+  .hero--home h1{ max-width: none }
   .signature-inner{ grid-template-columns: 1fr; gap: 34px }
   .signature-script{ font-size: clamp(7rem, 40vw, 14rem); opacity: .06; right: -6% }
 }
+@media (max-width: 620px){
+  /* AND BELOW ABOUT 600px IT STACKS AGAIN — measured, not assumed.
+     Two columns were tried all the way down and at 500px the result was a
+     four-line headline in a narrow column, a wrapped button, and an 80px
+     photograph with its own caption overflowing it. A display serif needs
+     width; a phone does not have it to spare.
+     So the photograph goes back under the words here — but wide and shallow
+     (16:10) rather than the 4:5 portrait it used to be, which is what made
+     the old stacked hero cost most of a second screen. */
+  .hero-grid{ grid-template-columns: 1fr; gap: 20px }
+  .hero-art{ max-width: none; margin: 0 }
+  .hero-art .photo{ aspect-ratio: 16/10 }
+}
+
 @media (max-width: 680px){
   .signature-quote{ padding: 32px 22px 26px 30px }
   /* TIDY COLUMNS AT THE AWKWARD WIDTHS — 30 August 2026.

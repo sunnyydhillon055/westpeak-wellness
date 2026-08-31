@@ -37,6 +37,9 @@ export default function Page() {
 
       <div className="prose tool-prose">
           <Figure name="approach-selector" />
+          {/* Second diagram, added 30 August 2026: the tool answers one axis of
+              the question and this draws the other. */}
+          <Figure name="service-axes" caption="The same choice seen the other way round: by what the work is for." />
           <h2 id="how-it-works">How this works, and what it cannot do</h2>
           <p>
             Five questions, weighted so urgency wins. If an answer indicates you are not safe,

@@ -23,6 +23,9 @@ export type Policy = {
   updated: string;
   sections: PolicySection[];
   figure?: string;
+  /* A second diagram, placed further down. Policy documents are the longest
+     continuous prose on the site; one drawing does not carry 1,800 words. */
+  figure2?: string;
   sources?: { label: string; url: string }[];
   related: { href: string; label: string }[];
 };
@@ -31,6 +34,7 @@ export const policies: Record<string, Policy> = {
   standards: {
     slug: 'standards',
     figure: 'accountability-chain',
+    figure2: 'designations-bc',
     title: 'Standards, ethics and accountability',
     metaTitle: 'Standards & Accountability | Westpeak Wellness',
     metaDescription:
@@ -119,6 +123,7 @@ export const policies: Record<string, Policy> = {
   'editorial-policy': {
     slug: 'editorial-policy',
     figure: 'editorial-process',
+    figure2: 'accountability-chain',
     title: 'How these pages are written and reviewed',
     metaTitle: 'Editorial Policy | Westpeak Wellness',
     metaDescription:
@@ -194,6 +199,7 @@ export const policies: Record<string, Policy> = {
   privacy: {
     slug: 'privacy',
     figure: 'confidentiality-limits',
+    figure2: 'accountability-chain',
     title: 'Privacy, confidentiality and your records',
     metaTitle: 'Privacy & Confidentiality | Westpeak Wellness',
     metaDescription:

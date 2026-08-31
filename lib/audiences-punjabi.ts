@@ -38,6 +38,7 @@ import type { Audience } from './audiences';
 export const punjabiAudiences: Audience[] = [
   {
     slug: 'punjabi-speaking-couples',
+    figure2: 'gottman-method',
     figure: 'first-session-flow',
     title: 'Punjabi-speaking couples counselling in BC',
     metaTitle: 'Punjabi Couples Counselling in BC | Westpeak Wellness',
@@ -225,6 +226,7 @@ export const punjabiAudiences: Audience[] = [
    */
   {
     slug: 'south-asian-intergenerational-conflict',
+    figure2: 'window-of-tolerance',
     figure: 'window-of-tolerance',
     title: 'When you and your parents cannot find each other',
     metaTitle: 'Intergenerational Conflict Counselling in Punjabi | BC',

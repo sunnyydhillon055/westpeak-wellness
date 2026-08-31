@@ -456,6 +456,7 @@ export const moreResources: Resource[] = [
    * policy, the page says "check the wording" instead of guessing. */
   {
     slug: 'worksafebc-psychological-injury-claims',
+    figure2: 'bc-support-routes',
     figure: 'bc-support-routes',
     title: 'WorkSafeBC psychological-injury claims, explained',
     metaTitle: 'WorkSafeBC Mental-Health Claims | Westpeak',
@@ -523,6 +524,7 @@ export const moreResources: Resource[] = [
 
   {
     slug: 'disability-benefits-and-counselling-bc',
+    figure2: 'reimbursement-flow',
     figure: 'reimbursement-flow',
     title: 'Short-term disability, long-term disability, and counselling in BC',
     metaTitle: 'Disability Benefits & Counselling in BC | Westpeak',
@@ -592,6 +594,7 @@ export const moreResources: Resource[] = [
    * client channel no competitor in the measured set serves). */
   {
     slug: 'before-your-first-consultation',
+    figure2: 'first-session-flow',
     figure: 'first-session-flow',
     title: 'Before your first consultation: what to expect, what to bring',
     metaTitle: 'Before Your First Consultation | Westpeak',

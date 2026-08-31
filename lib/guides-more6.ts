@@ -3,6 +3,7 @@ import type { Guide } from './guides';
 export const moreGuides6: Guide[] = [
   {
     slug: 'stress-leave-bc',
+    figure2: 'reimbursement-flow',
     title: 'Stress leave in BC: what it actually takes',
     metaTitle: 'How to Get Stress Leave in BC | Westpeak Wellness',
     metaDescription:

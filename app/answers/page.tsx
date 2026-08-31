@@ -184,6 +184,8 @@ export default function AnswersPage() {
               decisions are the frame most of these questions sit inside, so the
               diagram orients someone scanning rather than decorating the page. */}
           <Figure name="four-decisions" />
+          {/* 8,400 words under one diagram. This one maps difficulty to method, which is what a large block of these questions is asking. */}
+          <Figure name="approach-selector" />
 
           <nav className="answers-jump" aria-label="Jump to a section">
             {sections.map((s) => (

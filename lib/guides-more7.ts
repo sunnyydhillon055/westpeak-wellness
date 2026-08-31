@@ -12,6 +12,7 @@ import type { Guide } from './guides';
 export const moreGuides7: Guide[] = [
   {
     slug: 'ei-sickness-benefits-and-therapy',
+    figure2: 'reimbursement-flow',
     figure: 'bc-support-routes',
     title: 'EI sickness benefits and therapy: how the 26 weeks work',
     metaTitle: 'EI Sickness Benefits & Therapy in BC | Westpeak',
@@ -86,6 +87,7 @@ export const moreGuides7: Guide[] = [
 
   {
     slug: 'doctors-note-for-a-mental-health-leave',
+    figure2: 'bc-support-routes',
     figure: 'session-requirements',
     title: 'Getting a doctor’s note for a mental-health leave in BC',
     metaTitle: 'Doctor’s Note for Stress Leave in BC | Westpeak',
@@ -160,6 +162,7 @@ export const moreGuides7: Guide[] = [
 
   {
     slug: 'return-to-work-after-a-mental-health-leave',
+    figure2: 'window-of-tolerance',
     figure: 'four-decisions',
     title: 'Returning to work after a mental-health leave',
     metaTitle: 'Return to Work After a Mental-Health Leave | Westpeak',
@@ -227,6 +230,7 @@ export const moreGuides7: Guide[] = [
 
   {
     slug: 'sick-days-and-mental-health-days-bc',
+    figure2: 'bc-support-routes',
     figure: 'accountability-chain',
     title: 'Sick days and mental-health days in BC: what you’re actually entitled to',
     metaTitle: 'Sick Days & Mental Health Days in BC | Westpeak',

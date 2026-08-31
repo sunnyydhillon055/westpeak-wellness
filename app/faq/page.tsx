@@ -56,6 +56,9 @@ export default function FAQ() {
         <div className="container">
           <Breadcrumbs trail={[{ name: 'FAQ', path: '/faq' }]} />
           <Figure name="first-session-flow" />
+          {/* Second diagram: a large share of these questions are about money
+              and what happens between booking and being charged. */}
+          <Figure name="booking-payment-flow" />
           <p className="faq-intro-links">
             Several of these have a page of their own:{' '}
             <Link href="/pricing">fees and insurance</Link>,{' '}

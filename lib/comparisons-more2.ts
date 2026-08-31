@@ -10,6 +10,7 @@ import type { Comparison } from './comparisons';
 export const moreComparisons2: Comparison[] = [
   {
     slug: 'emdr-intensive-vs-weekly-emdr',
+    figure2: 'window-of-tolerance',
     figure: 'emdr-phases',
     title: 'EMDR intensives vs weekly EMDR: which format fits?',
     metaTitle: 'EMDR Intensives vs Weekly EMDR | Westpeak Wellness',
@@ -90,6 +91,7 @@ export const moreComparisons2: Comparison[] = [
 
   {
     slug: 'gottman-method-vs-eft-for-couples',
+    figure2: 'four-decisions',
     figure: 'gottman-method',
     title: 'Gottman Method vs EFT: two roads into couples therapy',
     metaTitle: 'Gottman Method vs EFT for Couples | Westpeak Wellness',
@@ -170,6 +172,7 @@ export const moreComparisons2: Comparison[] = [
 
   {
     slug: 'therapy-apps-ai-vs-counselling',
+    figure2: 'confidentiality-limits',
     /* accountability-chain, added 2026-08-30. This page's load-bearing claim is
        that no app is accountable to a regulator, bound by a code of ethics, or
        responsible for you in a crisis — and the site already had a diagram of
@@ -257,6 +260,7 @@ export const moreComparisons2: Comparison[] = [
 
   {
     slug: 'therapy-in-punjabi-vs-english',
+    figure2: 'first-session-flow',
     figure: 'language-in-therapy',
     title: 'Therapy in Punjabi or in English: does the language matter?',
     metaTitle: 'Therapy in Punjabi vs English | Westpeak Wellness',
@@ -336,6 +340,7 @@ export const moreComparisons2: Comparison[] = [
 
   {
     slug: 'psychiatrist-vs-counsellor-bc',
+    figure2: 'designations-bc',
     figure: 'bc-support-routes',
     title: 'Psychiatrist or counsellor: which door first, in BC?',
     metaTitle: 'Psychiatrist vs Counsellor in BC | Westpeak Wellness',
@@ -421,6 +426,7 @@ export const moreComparisons2: Comparison[] = [
    * most — the two "psych" titles — and stays off the ground the others own. */
   {
     slug: 'psychologist-vs-psychiatrist-bc',
+    figure2: 'therapy-cost-in-bc',
     figure: 'designations-bc',
     title: 'Psychologist vs psychiatrist in BC: the two “psychs”, untangled',
     metaTitle: 'Psychologist vs Psychiatrist in BC | Westpeak',
