@@ -158,9 +158,27 @@ export type Booking = {
   email: string;
   /** Localised, already formatted for America/Vancouver. */
   whenText: string;
-  minutes: number;
+  /* Null when the booking did not say. Renders as nothing rather than as a
+     guess — a confirmation that states the wrong length is worse than one that
+     states no length. See the header of lib/booking-notify.ts for the 30 Aug
+     2026 incident that made this nullable. */
+  minutes: number | null;
   isConsult: boolean;
 };
+
+/* The ONLY two places a booking's length may be turned into words. Both take
+   null and print no length at all rather than a guess. Nothing else in this
+   file may interpolate b.minutes: scripts/booking-mapping.mjs fails the build
+   if it finds a bare one, because a null rendered directly reads "null
+   minutes" to a client. */
+
+/** "15 minutes, by secure video" — or just "by secure video". */
+const lengthPhrase = (m: number | null) =>
+  m ? `${m} minutes, by secure video` : 'by secure video';
+
+/** "15 minutes · secure video" — or just "secure video". */
+const lengthChip = (m: number | null) =>
+  m ? `${m} minutes &middot; secure video` : 'secure video';
 
 /* ---- confirmation -------------------------------------------------------- */
 
@@ -174,7 +192,7 @@ export function confirmationEmail(b: Booking) {
 
 Your appointment with Westpeak Wellness is confirmed for:
 
-  ${b.whenText}  (${b.minutes} minutes, by secure video)
+  ${b.whenText}  (${lengthPhrase(b.minutes)})
 
 You will receive a separate email from Cliniko, our booking system, with
 the video link and calendar details. It arrives from notifications@
@@ -210,7 +228,7 @@ ${BASE}`);
     `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 20px;background:#f7f2e8;border-radius:8px;padding:16px 18px;width:100%;">
        <tr><td style="font-size:15px;line-height:1.6;">
          <strong style="color:#3d6c92;">${esc(b.whenText)}</strong><br>
-         <span style="color:#545e69;">${b.minutes} minutes · secure video</span>
+         <span style="color:#545e69;">${lengthChip(b.minutes)}</span>
        </td></tr></table>` +
     p(`You will get a separate email from Cliniko, our booking system, carrying the video link and calendar invite. It arrives from <strong>notifications@cliniko.com</strong> — worth checking spam if it is not there, and marking it safe so future ones land.`) +
     (b.isConsult

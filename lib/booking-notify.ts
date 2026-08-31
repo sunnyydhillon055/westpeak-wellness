@@ -4,7 +4,10 @@ import { sendDetailed, mailConfigured } from '@/lib/portal-mail';
 import { confirmationEmail, followUpEmail, consultFollowUpEmail, type Booking } from '@/lib/booking-mail';
 import { missedSessionEmail } from '@/lib/lifecycle-mail';
 import { missedAlreadyNoted, recordMissed } from '@/lib/lifecycle';
-import { site } from '@/lib/site';
+import { site, CONSULT_TYPE } from '@/lib/site';
+/* Pure mapping, kept in its own module so a gate can exercise it without a
+ * Cliniko key or a mail server. See the header there. */
+import { durationOf, isConsultAppointment } from '@/lib/booking-shape';
 
 /* Polls Cliniko for appointments needing a confirmation or a follow-up.
  *
@@ -184,7 +187,10 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
     /* Follow-up window: ended between 12 and 72 hours ago. The lower bound
      * stops a message landing the same evening; the upper bound stops a
      * backfill emailing months of history the first time this runs. */
-    const ended = start + (Number(ap.duration_in_minutes ?? 50) * 60_000);
+    /* Falls back to 50 only for deciding WHEN a session ended, which shifts a
+       follow-up window by a few minutes at worst. Never used for anything the
+       client is told — see durationOf(). */
+    const ended = start + ((durationOf(ap) ?? 50) * 60_000);
     const sinceEnd = now - ended;
     const needsFollowUp = sinceEnd > 12 * 3.6e6 && sinceEnd < 72 * 3.6e6 && !followedUp.has(id);
 
@@ -202,8 +208,8 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
       firstName: pt.firstName,
       email: pt.email,
       whenText: fmt(startsAt),
-      minutes: Number(ap.duration_in_minutes ?? 50),
-      isConsult: Number(ap.duration_in_minutes ?? 50) <= 20,
+      minutes: durationOf(ap),
+      isConsult: isConsultAppointment(ap, CONSULT_TYPE),
     };
 
     if (needsConfirm) {

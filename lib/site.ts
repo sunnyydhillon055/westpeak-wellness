@@ -34,7 +34,11 @@ const CLINIKO_BOOKINGS = (
  * `?appointment_type_id=` takes a comma-separated list and restricts the page to
  * exactly those services. It is what lets the public page offer the free
  * consultation and nothing else. */
-const CONSULT_TYPE = '2013349744314681520';
+/* Exported because it is the ONLY reliable way to tell a free consultation
+ * from a paid session. lib/booking-notify.ts used to infer it from the
+ * appointment's duration, which the /v1/appointments endpoint does not return
+ * — see the note there. Identity comes from the appointment type. */
+export const CONSULT_TYPE = '2013349744314681520';
 const PAID_TYPES = [
   '1466854657459489533',
   '1909558292636502700',
