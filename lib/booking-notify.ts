@@ -159,7 +159,14 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
      * must not make that call or pre-empt it by raising the subject first. The
      * practice sees the missed appointment in Cliniko and decides. */
     if (ap.did_not_arrive) {
-      const ended0 = new Date(ap.starts_at as string).getTime() + (Number(ap.duration_in_minutes ?? 50) * 60_000);
+      /* durationOf(), not the raw field. This line kept the original
+         `duration_in_minutes ?? 50` after the confirmation path was fixed on
+         30 Aug 2026 — the field is never returned by /v1/appointments, so it
+         always evaluated to 50. For a 15-minute consult that put the no-show
+         window 35 minutes late, which shifts who falls inside the 12–72 hour
+         band near its edges. Nothing a client reads, but the same dead field
+         and worth removing rather than leaving one copy behind. */
+      const ended0 = new Date(ap.starts_at as string).getTime() + ((durationOf(ap) ?? 50) * 60_000);
       const since = now - ended0;
       if (since > 12 * 3.6e6 && since < 72 * 3.6e6 && !(await missedAlreadyNoted(id))) {
         const purl0 = ap.patient?.links?.self;

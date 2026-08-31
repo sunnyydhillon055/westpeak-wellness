@@ -107,6 +107,19 @@ export async function refreshCatalog(): Promise<
        * appointment type with no billable item is legitimate — so a missing
        * price becomes 0 rather than throwing and losing the whole catalogue. */
       let cents = 0;
+      /* Did we actually READ a price, or merely fail to?
+       *
+       * `cents` starts at 0 and money() renders 0 as "Free". So a transient
+       * failure on one item's billable-item lookup — the whole types request
+       * having succeeded — published "Free" beside Individual Counselling on
+       * /pricing. Not a stale fee: an invented one, and the most damaging
+       * direction to invent in.
+       *
+       * The wholesale fallback below covers an unreachable Cliniko. This
+       * covers the partial case it does not: one item resolving badly while
+       * the rest resolve fine. Unknown is not zero, so the item is dropped and
+       * /pricing omits the row rather than pricing it at nothing. */
+      let priceKnown = false;
       try {
         const relUrl = t.appointment_type_billable_items?.links?.self;
         if (relUrl) {
@@ -115,17 +128,29 @@ export async function refreshCatalog(): Promise<
           const itemUrl = first?.billable_item?.links?.self;
           if (itemUrl) {
             const item = await json(itemUrl, conn.key);
-            cents = Math.round(Number(item.price ?? 0) * 100);
+            const price = Number(item.price);
+            if (Number.isFinite(price) && price >= 0) {
+              cents = Math.round(price * 100);
+              priceKnown = true;
+            }
           }
         }
       } catch {
-        // Leave at 0 and let the drift check surface it.
+        // Leave priceKnown false and let the drift check surface it.
+      }
+
+      const minutes = Number(t.duration_in_minutes);
+      if (!priceKnown || !Number.isFinite(minutes) || minutes <= 0) {
+        /* Dropped, not published at zero. A row missing from the fee table is
+           a gap someone notices; a row saying "Free" or "0 min" is a promise
+           the practice did not make. */
+        continue;
       }
 
       items.push({
         id: String(t.id),
         name: String(t.name ?? '').trim(),
-        minutes: Number(t.duration_in_minutes ?? 0),
+        minutes,
         cents,
         onlineBookable: t.show_in_online_bookings !== false,
       });

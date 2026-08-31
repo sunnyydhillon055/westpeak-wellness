@@ -142,3 +142,22 @@ if (!keys.length) {
     console.log();
   }
 }
+
+/* ---------------------------------------------------------------------------
+ * THIS GATE CAN FAIL.
+ *
+ * Until 31 Aug 2026 it could not. It printed its findings and ended, so the
+ * process exited 0 and `npm run verify:ci` stayed green no matter what it
+ * found. Four of the seventeen gates in that chain were like this - reports
+ * wearing a gate's clothes.
+ *
+ * It surfaced the way these always do: a broken internal link
+ * (/services/grief-counselling, written into the White Rock page) shipped to
+ * production and 404'd for readers, while the gate whose entire job is to
+ * catch that printed it and passed.
+ * ------------------------------------------------------------------------- */
+if (keys.length) {
+  console.log('  Link metadata must be complete and consistent on every page.');
+  console.log('');
+  process.exit(1);
+}

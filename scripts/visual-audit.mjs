@@ -104,3 +104,22 @@ if (noVisual.length) {
   if (noVisual.length > 20) console.log(`     …and ${noVisual.length - 20} more`);
   console.log();
 }
+
+/* ---------------------------------------------------------------------------
+ * THIS GATE CAN FAIL.
+ *
+ * Until 31 Aug 2026 it could not. It printed its findings and ended, so the
+ * process exited 0 and `npm run verify:ci` stayed green no matter what it
+ * found. Four of the seventeen gates in that chain were like this - reports
+ * wearing a gate's clothes.
+ *
+ * It surfaced the way these always do: a broken internal link
+ * (/services/grief-counselling, written into the White Rock page) shipped to
+ * production and 404'd for readers, while the gate whose entire job is to
+ * catch that printed it and passed.
+ * ------------------------------------------------------------------------- */
+if (noVisual.length) {
+  console.log('  A page over 300 words with nothing visual is a wall of text.');
+  console.log('');
+  process.exit(1);
+}
