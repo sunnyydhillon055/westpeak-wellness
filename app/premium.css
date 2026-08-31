@@ -153,6 +153,12 @@ a:hover{ text-decoration: none }
 
 /* — Photography treatment: one wrapper so every photo reads as one brand — */
 .photo{
+  /* margin:0 because <figure> carries a UA default of `1em 40px`, and this
+     component is a figure. Nothing noticed while every Photo sat in a wide
+     grid cell — the 80px of horizontal margin was simply absorbed. Put one in
+     a 175px float and it renders at 95px: the picture had lost 45% of its
+     width to a browser default nobody had overridden. */
+  margin: 0;
   position: relative; overflow: hidden; border-radius: var(--radius-lg);
   background: var(--surface-2); box-shadow: var(--shadow-lg); isolation: isolate;
 }
@@ -296,23 +302,36 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 }
 .hero-grid{
   position: relative; z-index: 1;
-  /* Weighted toward the text since the hero moved onto the 1080 rail with the
-     rest of the page (see app/page.tsx). At 1.06/.94 the copy column lost
-     enough width that the two hero buttons stacked, which reads as a wrap
-     rather than a pair. 1.22/.78 keeps them side by side and still leaves the
-     photograph a full column. */
-  display: grid; grid-template-columns: minmax(0,1.22fr) minmax(0,.78fr);
-  gap: clamp(28px, 4vw, 56px); align-items: center;
+  /* Not a grid any more, despite the name — kept so ~nothing else has to be
+     renamed. The photograph is a float inside this block (see app/page.tsx),
+     so the hero is one column of content with an image set into it rather
+     than two columns sitting next to each other. */
+  display: block;
+}
+.hero-grid::after{ content: ""; display: block; clear: both }
+.hero-art{
+  float: right;
+  width: min(46%, 420px);
+  margin: 4px 0 20px clamp(24px, 3.5vw, 44px);
+  shape-margin: 18px;
 }
 .hero--home h1{ max-width: 9.93em; font-size: var(--fs-display) }
 .hero--home .lede{ max-width: 29.02em }
 .hero-note{ margin-top: 16px; font-size: var(--fs-small); color: var(--ink-faint) }
-.hero-art{ position: relative }
 .hero-art .photo{ aspect-ratio: 4/5; box-shadow: var(--shadow-xl) }
 .photo-credit{
-  position: absolute; right: 10px; bottom: 8px; z-index: 3; margin: 0;
+  position: absolute; right: 10px; bottom: 8px; left: 10px; z-index: 3; margin: 0;
   font-size: .68rem; letter-spacing: .02em; color: rgba(255,255,255,.82);
   text-shadow: 0 1px 3px rgba(0,0,0,.5);
+  /* One line, ellipsised. It is a location credit, not information anyone
+     needs in full — and unconstrained it wrapped to three lines and spilled
+     out of a small picture, which is how it looked on a phone once the hero
+     photograph became a float. */
+  text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+/* Below this the picture is small enough that a credit across it is noise. */
+@media (max-width: 620px){
+  .hero-art .photo-credit{ display: none }
 }
 
 /* — Service cards with icon chips — */
@@ -388,25 +407,22 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
  * measure written for a full-width column reads as a stack of two-word lines
  * in a narrow one. */
 @media (max-width: 900px){
-  .hero-grid{ grid-template-columns: minmax(0,1fr) minmax(0,.78fr); gap: clamp(16px, 3vw, 28px) }
-  .hero-art{ max-width: none; width: 100%; margin: 0 }
+  /* The float simply gets narrower. No breakpoint changes the shape of this
+     block, which is the point — it reads the same on a phone as on a desktop,
+     text wrapped around a picture. */
+  .hero-art{ width: min(42%, 300px); margin: 4px 0 16px 22px }
   .hero-art .photo{ aspect-ratio: 3/4 }
   .hero--home h1{ max-width: none }
   .signature-inner{ grid-template-columns: 1fr; gap: 34px }
   .signature-script{ font-size: clamp(7rem, 40vw, 14rem); opacity: .06; right: -6% }
 }
 @media (max-width: 620px){
-  /* AND BELOW ABOUT 600px IT STACKS AGAIN — measured, not assumed.
-     Two columns were tried all the way down and at 500px the result was a
-     four-line headline in a narrow column, a wrapped button, and an 80px
-     photograph with its own caption overflowing it. A display serif needs
-     width; a phone does not have it to spare.
-     So the photograph goes back under the words here — but wide and shallow
-     (16:10) rather than the 4:5 portrait it used to be, which is what made
-     the old stacked hero cost most of a second screen. */
-  .hero-grid{ grid-template-columns: 1fr; gap: 20px }
-  .hero-art{ max-width: none; margin: 0 }
-  .hero-art .photo{ aspect-ratio: 16/10 }
+  /* Still a float on a phone. It was briefly made to stack here, and stacking
+     is exactly what produced the "two separate blocks" the owner objected to.
+     Narrower and squarer instead, so a couple of lines still run beside it and
+     the block stays one thing. */
+  .hero-art{ width: 44%; margin: 2px 0 14px 18px }
+  .hero-art .photo{ aspect-ratio: 1/1 }
 }
 
 @media (max-width: 680px){

@@ -103,6 +103,30 @@ export default function Home() {
             <div>
               <p className="eyebrow">Westpeak Wellness · Online across BC</p>
               <h1>Counselling that meets you where you are.</h1>
+
+              {/* THE PHOTOGRAPH SITS INSIDE THE TEXT, NOT BESIDE IT.
+                *
+                * It used to be the second cell of a two-column grid. A grid
+                * gives each cell its own column for its full height, so on a
+                * phone the hero read as two stacked blocks — a tall column of
+                * words and a shorter column with a photograph floating in the
+                * middle of its own empty space — rather than as one section.
+                *
+                * It is a float now, and it lives after the headline in the
+                * DOM because a float only wraps what follows it. The lede,
+                * the buttons and the trust list flow around it, which is what
+                * makes the whole thing read as a single block of content
+                * instead of two columns that happen to be adjacent. */}
+              <div className="hero-art">
+                <Photo
+                  src="/img/photo/still-water-bc.jpg"
+                  alt="A small tree growing from a mossy rock in still, mirror-flat lake water, surrounded by soft reflected forest light."
+                  ratio="tall"
+                  priority
+                  sizes="(max-width: 900px) 92vw, 44vw"
+                  credit="Fairy Lake, Vancouver Island"
+                />
+              </div>
               <p className="lede">
                 Registered Clinical Counsellor offering EMDR, trauma, anxiety, depression and
                 couples therapy — fully online, anywhere in British Columbia.
@@ -117,17 +141,6 @@ export default function Home() {
                   Wed–Fri 6–7 is evening. */}
               <p className="hero-note">Free 15-minute consult · Daytime &amp; evening times · No referral needed</p>
               <TrustBar />
-            </div>
-
-            <div className="hero-art">
-              <Photo
-                src="/img/photo/still-water-bc.jpg"
-                alt="A small tree growing from a mossy rock in still, mirror-flat lake water, surrounded by soft reflected forest light."
-                ratio="tall"
-                priority
-                sizes="(max-width: 900px) 92vw, 44vw"
-                credit="Fairy Lake, Vancouver Island"
-              />
             </div>
           </div>
         </div>
