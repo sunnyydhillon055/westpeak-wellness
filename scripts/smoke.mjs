@@ -189,3 +189,9 @@ if (failures.length) {
   process.exit(1);
 }
 console.log('  Every route answers what it should, redirects included.\n');
+
+/* Backstop. Everything above should let the loop drain on its own; if some
+   handle still holds it open, exit anyway rather than burning the job's
+   timeout on a run that already passed. Unref'd, so a clean exit never waits
+   for it, and it only fires if something else is keeping the process alive. */
+setTimeout(() => process.exit(process.exitCode ?? 0), 5000).unref();
