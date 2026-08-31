@@ -4,6 +4,7 @@ import './premium.css';
 import { fontVars, body as bodyFont } from './fonts';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { AREA_SERVED } from '@/lib/area-served';
 import StickyBook from '@/components/StickyBook';
 import Analytics from '@/components/Analytics';
 import ConsentGate from '@/components/ConsentGate';
@@ -94,7 +95,20 @@ const orgSchema = {
   description:
     'Virtual counselling practice serving all of British Columbia, offering individual, couples, trauma and EMDR therapy in English and Punjabi with a Registered Clinical Counsellor.',
   slogan: site.tagline,
-  areaServed: { '@type': 'State', name: 'British Columbia', containedInPlace: { '@type': 'Country', name: 'Canada' } },
+  /* The province, AND the places named as served.
+   *
+   * A single State node says "somewhere in BC" and leaves a search engine to
+   * infer the rest. Naming the cities and regions the practice actually writes
+   * pages for gives the entity something to match a "counselling in <place>"
+   * query against — which matters more here than usual, because the Google
+   * Business Profile is pinned to one address in White Rock and everywhere
+   * else is served remotely. Kept in step with lib/locations.ts by
+   * scripts/area-served.mjs, which fails the build if a city has a page and is
+   * missing here. */
+  areaServed: [
+    { '@type': 'State', name: 'British Columbia', containedInPlace: { '@type': 'Country', name: 'Canada' } },
+    ...AREA_SERVED,
+  ],
   availableLanguage: [
     { '@type': 'Language', name: 'English', alternateName: 'en' },
     { '@type': 'Language', name: 'Punjabi', alternateName: 'pa' },
@@ -185,7 +199,25 @@ const orgSchema = {
     name: 'Book a free 15-minute consultation',
     target: { '@type': 'EntryPoint', urlTemplate: `${site.domain}${site.bookingPath}` },
   },
-  sameAs: [site.instagramUrl],
+  /* Every profile that independently confirms this practice exists.
+   *
+   * Was Instagram alone. A single sameAs is a weak entity signal: reconciling
+   * "is this the same business?" is exactly what this array is for, and the
+   * audit on 30 Aug 2026 found the practice already carried more corroboration
+   * than it was claiming — a Google Business Profile with four reviews, a
+   * BCACC register entry, and job listings. Naming them here ties the loose
+   * profiles to one entity instead of leaving them scattered. */
+  sameAs: [
+    site.instagramUrl,
+    'https://www.google.com/maps/search/Westpeak+Wellness+White+Rock+BC',
+    /* NOT the BCACC profile URL. That link carries the counsellor's name in
+       its path, and the name appears nowhere on this site by the owner's
+       standing decision — scripts/expansion-verify.mjs failed the build on
+       exactly that when it was added here, which is the gate working. The
+       public register is the honest substitute: it corroborates the practice
+       without publishing the person. */
+    site.counsellor.registerUrl,
+  ],
 };
 
 const siteSchema = {

@@ -118,14 +118,26 @@ export default function AnswersPage() {
 
   const total = sections.reduce((n, s) => n + s.rows.length, 0);
 
-  /* QAPage rather than FAQPage.
+  /* NOT FAQPage, and the reason still holds.
    *
-   * FAQPage is for questions the site itself answers as an FAQ; QAPage
-   * describes a page collecting question-and-answer pairs. Google restricted
-   * FAQPage rich results to authoritative health and government sites, so
-   * claiming it here would be markup that cannot earn what it asks for.
-   * ItemList is what actually describes this page: an ordered index pointing
-   * at the canonical source of each answer. */
+   * Google restricted FAQPage rich results to authoritative health and
+   * government sites, so claiming it here would be markup that cannot earn
+   * what it asks for. CollectionPage + ItemList is what this page honestly is:
+   * an index pointing at the canonical source of each answer.
+   *
+   * AMENDED 31 Aug 2026, twice.
+   *
+   * The comment above used to open "QAPage rather than FAQPage" and then emit
+   * neither — the code has always been CollectionPage. Renamed to match what
+   * is actually here.
+   *
+   * The answers are deliberately NOT repeated in the JSON-LD. Embedding all 97
+   * as Question/acceptedAnswer was tried on 31 Aug 2026 and reverted: it added
+   * 146 KB to this page — 218 KB to 364 KB — to restate what the markup
+   * already says. The answers render in a description list, where <dt> is the
+   * question and <dd> is its answer; that IS the machine-readable association,
+   * and duplicating it in a script tag buys a crawler nothing it could not
+   * already read. The perf budget caught it, correctly. */
   const schema = [
     {
       '@context': 'https://schema.org',

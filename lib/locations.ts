@@ -21,10 +21,21 @@ export type Location = {
 /**
  * Six cities, not forty-three.
  *
- * Westpeak is a fully virtual practice with no office anywhere in BC, so the
- * local map pack is structurally unreachable and a templated "counselling in
- * <city>" page competes only against directories and clinics with real
- * addresses — and loses. A city page is kept ONLY where something true and
+ * Westpeak is a fully virtual practice, so a templated "counselling in <city>"
+ * page competes against directories and clinics with real addresses — and
+ * loses.
+ *
+ * CORRECTED 31 Aug 2026. This used to say the practice has "no office anywhere
+ * in BC, so the local map pack is structurally unreachable". The second half
+ * was false and had been for years: the practice holds a Google Business
+ * Profile registered in White Rock, with four reviews, older than this
+ * website. The map pack is reachable — from one pin, in one city.
+ *
+ * That does not resurrect the other 36 slugs. It does mean the reasoning below
+ * rests on authority, not on eligibility, and that WHITE ROCK is a different
+ * case from every other city here: it is where the practice already has a
+ * local entity a search engine recognises. Its page was written the same day
+ * this note was. A city page is kept ONLY where something true and
  * specific about accessing care from that place changes what the page says.
  * The other 37 are 301'd to /online-counselling in next.config.mjs.
  *
@@ -511,6 +522,68 @@ export const locations: Location[] = [
     ],
     nearby: ["surrey", "abbotsford"],
   },
+
+  /* WHITE ROCK — added 31 Aug 2026, and the one city on this list with a
+   * reason unlike any of the others.
+   *
+   * The practice's Google Business Profile is registered at an address in
+   * White Rock, carries four reviews, and predates this website by years. That
+   * makes White Rock the single place in BC where the practice has a local
+   * entity a search engine already recognises — and until today it was the
+   * only such place with no page, because 'white-rock' sat in
+   * retiredCitySlugs and the URL 308'd to the index. It is removed from that
+   * list in the same change; see the note at the head of this file about what
+   * happens when a page exists and a redirect still points away from it.
+   *
+   * NO CENSUS FIGURES HERE, deliberately. The Abbotsford and Surrey entries
+   * quote exact mother-tongue counts because those were looked up. Nothing
+   * equivalent was verified for White Rock, and a plausible-sounding invented
+   * statistic on a counselling site is worse than no statistic — every other
+   * number on this site can be checked, and that has to stay true. What is
+   * written below is qualitative and verifiable. */
+  {
+    slug: "white-rock",
+    figure2: 'first-session-flow',
+    figure: "bc-reach",
+    city: "White Rock",
+    region: "Metro Vancouver",
+    blurb: "A small city on the border where the counsellor you can reach may be someone you will see again at the pier.",
+    metaDescription:
+      "Online counselling for White Rock and the Semiahmoo Peninsula. Therapy in English or Punjabi — EMDR, trauma, anxiety, grief and couples sessions.",
+    intro: [
+      "White Rock is small in a way that changes what privacy means. A city of a few square kilometres wrapped around one hill, one promenade and one main street is a place where the person in the waiting room is quite often someone you know — and where the counsellor you would be booking with may share a grocery store, a beach walk and a dentist with you.",
+      "It is also a city that skews older than almost anywhere else in Metro Vancouver, and that shapes what people actually come to therapy for here: retirement that turned out to be harder than expected, caregiving for a partner, grief after a long marriage, health anxiety with a real diagnosis underneath it, and adult children who moved away. Those are not the presentations a general \"anxiety and depression\" page is written for.",
+    ],
+    localReality: {
+      h2: "A small city, an older population, and a border",
+      body: [
+        "**Small enough that discretion is a real constraint.** In a city this size the ordinary privacy of a counselling office is thinner than it looks. Being seen going in is not paranoia — it is arithmetic. A virtual practice has no doorway on Johnston Road to be noticed at, which for some people here is the difference between starting and not.",
+        "**An older population needs different work, not gentler work.** Grief, retirement, chronic illness and caregiver exhaustion are the substance of a great deal of counselling on the Peninsula, and they are frequently treated as things to be endured rather than worked on. [Grief and loss](/services/grief-counselling) and the guide on [counselling later in life](/for/family-caregivers) cover what that work actually involves.",
+        "**South Surrey is next door, and is not the same thing.** White Rock is its own municipality entirely surrounded by Surrey, and residents move between the two without thinking about it — but the services, the intake queues and the counsellor listings are organised by boundaries that do not match how anyone actually lives here. [Counselling in Surrey](/online-counselling/surrey) covers the larger picture, including the Punjabi-speaking practice that many Peninsula residents are looking for and searching one city over to find.",
+        "**Public intake runs through Fraser Health.** Not Vancouver Coastal, despite the Metro Vancouver address — the same mismatch that costs Burnaby residents weeks in the wrong queue. Worth knowing before joining a waitlist.",
+      ],
+    },
+    access: [
+      { label: "No doorway to be seen at", detail: "In a city where the pier, the pharmacy and the main street are shared, that is the practical privacy concern rather than an abstract one." },
+      { label: "No drive up the hill", detail: "Sessions from home matter more where mobility, weather or a steep grade are part of the calculation." },
+      { label: "Serves the whole Peninsula", detail: "White Rock, South Surrey, Crescent Beach and Ocean Park, on identical terms — municipal boundaries do not change availability." },
+      { label: "English or Punjabi", detail: "Including both within one session, without travelling into Surrey to find it." },
+    ],
+    faqs: [
+      { q: "Do you have an office in White Rock?", a: "No. The practice is fully virtual and every session happens by secure video, wherever you are. You may find the business listed with a White Rock address — that is the registered address, not a clinic you would attend, and there is no waiting room." },
+      { q: "Do you cover South Surrey, Crescent Beach and Ocean Park?", a: "Yes, and on exactly the same terms. The practice covers all of British Columbia, so which side of the White Rock–Surrey boundary you live on changes nothing about availability or fee." },
+      { q: "I am retired. Is counselling still worth starting?", a: "Yes, and the question comes up here more than almost anywhere. Grief, the shape of retirement, caregiving and health worry are ordinary reasons to start and respond to the work as well as anything else does. A free 15-minute consultation is a reasonable way to find out whether it is worth your time, and saying no afterwards costs nothing." },
+      { q: "I am not confident with video calls. Is that a problem?", a: "No. The link opens in a browser with nothing to install and no account to create, and the first few minutes of a first session are routinely spent making sure it works. If the video is the obstacle, say so on the consultation call and it can be sorted out then rather than on the day." },
+      { q: "Can I have sessions in Punjabi?", a: "Yes — in Punjabi, English, or a mix of the two. The Peninsula's Punjabi-speaking community is substantial and continuous with South Surrey's, and a great many people here have been searching in Surrey for what is available from home." },
+      { q: "Is it better to look for someone local?", a: "Sometimes, and you would be told so on a consultation call. A counsellor you can drive to suits plenty of people. What a local option costs in a city this small is the privacy question — and White Rock has few enough counsellors that \"local\" frequently means Surrey or Langley anyway, at which point the drive is buying you nothing." },
+    ],
+    sources: [
+      { label: "Fraser Health — mental health and substance use services", url: "https://www.fraserhealth.ca/health-topics-a-to-z/mental-health-and-substance-use" },
+      { label: "BC Association of Clinical Counsellors — find a counsellor", url: "https://bc-counsellors.org/counsellors/" },
+    ],
+    nearby: ["surrey", "langley"],
+  },
+
   {
     slug: "chilliwack",
     figure2: 'first-session-flow',

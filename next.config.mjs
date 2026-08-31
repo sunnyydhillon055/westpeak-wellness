@@ -24,7 +24,10 @@
    local gate. `npm run redirect-shadow` now fails the build on it. */
 const retiredCitySlugs = [
   'richmond', 'coquitlam', 'mission',
-  'maple-ridge', 'delta', 'white-rock', 'new-westminster', 'north-vancouver',
+  /* 'white-rock' removed 31 Aug 2026: it now has a deep page. It is the one
+     city where the practice holds a Google Business Profile, so a URL that
+     308'd to the index was throwing away the only local entity it has. */
+  'maple-ridge', 'delta', 'new-westminster', 'north-vancouver',
   'west-vancouver', 'port-coquitlam', 'port-moody', 'pitt-meadows', 'nanaimo',
   'victoria-saanich', 'courtenay', 'campbell-river', 'duncan', 'parksville',
   'vernon', 'penticton', 'west-kelowna', 'salmon-arm',
