@@ -84,32 +84,58 @@ export default function PractitionersPage() {
             </p>
           </div>
 
-          <div className="grid grid-2" style={{ marginTop: 24 }}>
+          {/* ONE PER ROW, photo left, detail right — not a grid of cards.
+              Two people in a two-column grid reads as a pair of thumbnails and
+              gives neither of them room to say anything. Stacked, each row has
+              space for the credentials and the focus areas, which is what
+              somebody choosing between counsellors actually needs.
+
+              THE WHOLE ROW IS THE LINK. The <a> on the name is stretched over
+              the card with a positioned ::after, so clicking anywhere in the
+              box navigates — while the accessible name, the tab stop and the
+              right-click target all stay on the real anchor. A div with an
+              onClick would have needed a keyboard handler, a role and a
+              tabindex to be equivalent, and would still not be a link. */}
+          <div className="practitioner-list">
             {practitioners.map((p) => (
-              <article className="card" key={p.slug}>
+              <article className="practitioner-row" key={p.slug}>
                 {p.photos?.portrait && (
                   <Image
+                    className="practitioner-row-photo"
                     src={p.photos.portrait.src}
                     alt={p.photos.portrait.alt}
                     width={p.photos.portrait.width}
                     height={p.photos.portrait.height}
-                    sizes="(max-width: 700px) 100vw, 420px"
-                    style={{ width: '100%', height: 'auto', borderRadius: 8, marginBottom: 16 }}
+                    sizes="(max-width: 700px) 40vw, 240px"
                   />
                 )}
-                <h2 style={{ fontSize: '1.25rem', margin: '0 0 2px' }}>
-                  <Link href={`/practitioners/${p.slug}`}>{p.name}</Link>
-                </h2>
-                <p style={{ margin: '0 0 10px', color: 'var(--ink-soft)', fontSize: '.94rem' }}>
-                  {p.role} · {p.postNominals}
-                </p>
-                <p style={{ marginBottom: 10 }}>{p.tagline}</p>
-                <p style={{ margin: '0 0 10px', fontSize: '.92rem', color: 'var(--ink-soft)' }}>
-                  Works in {p.languages.map((l) => l.name).join(' and ')}.
-                </p>
-                <p style={{ marginBottom: 0 }}>
-                  <Link href={`/practitioners/${p.slug}`}>Read more about {p.name.split(' ')[0]} →</Link>
-                </p>
+                <div className="practitioner-row-body">
+                  <h2>
+                    <Link className="practitioner-row-link" href={`/practitioners/${p.slug}`}>
+                      {p.name}
+                    </Link>
+                  </h2>
+                  <p className="practitioner-row-role">{p.role} · {p.postNominals}</p>
+                  <p className="practitioner-row-tagline">{p.tagline}</p>
+                  <ul className="practitioner-row-focus">
+                    {p.focus.map((f) => <li key={f.label}>{f.label}</li>)}
+                  </ul>
+                  <p className="practitioner-row-langs">
+                    {/* Languages and designations only — NO registration
+                        numbers. Those are confined to /about and each
+                        counsellor's own profile, and expansion-verify fails the
+                        build if one appears anywhere else. It caught this card
+                        on the first build. The number belongs where somebody is
+                        deciding, not on a routing page. */}
+                    Works in {p.languages.map((l) => l.name).join(' and ')}
+                    {p.credentials.length
+                      ? ` · ${p.credentials.map((c) => c.short).join(', ')} — verifiable on her profile`
+                      : ''}
+                  </p>
+                  <span className="practitioner-row-more" aria-hidden="true">
+                    Read more about {p.name.split(' ')[0]} &rarr;
+                  </span>
+                </div>
               </article>
             ))}
           </div>

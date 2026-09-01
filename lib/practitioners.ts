@@ -112,6 +112,71 @@ export type Practitioner = {
 
 export const practitioners: Practitioner[] = [
   {
+    slug: 'aman-bains-dhillon',
+    name: 'Aman Bains Dhillon',
+    postNominals: 'MA, RCC',
+    role: 'Registered Clinical Counsellor · Founder',
+    credentials: [
+      {
+        short: 'RCC',
+        full: 'Registered Clinical Counsellor',
+        body: 'BC Association of Clinical Counsellors',
+        number: '20111',
+        verifyUrl: 'https://bc-counsellors.org/counsellors/',
+      },
+    ],
+    provinces: ['BC'],
+    languages: [
+      { tag: 'en-CA', name: 'English', nativeName: 'English' },
+      { tag: 'pa', name: 'Punjabi', nativeName: 'ਪੰਜਾਬੀ' },
+    ],
+    photos: {
+      portrait: {
+        src: '/img/photo/counsellor-portrait.jpg',
+        width: 800,
+        height: 1000,
+        alt: 'Aman Bains Dhillon, Registered Clinical Counsellor and founder of Westpeak Wellness',
+      },
+    },
+    tagline: 'Counselling in English or Punjabi, without having to explain the background first.',
+    intro: [
+      'I started Westpeak because too many people I knew were putting off therapy for reasons that had nothing to do with whether they needed it — the drive, the waiting room, the worry that someone would see them going in.',
+      'I was born and raised in Surrey, in a household where mental health was rarely discussed openly and the weight of it was always there anyway. That shapes how I work. You should not have to explain your family before you can talk about them.',
+      'My approach is warm and direct, and grounded in what the evidence actually supports rather than in one school of thought. We work at your pace, and I will tell you plainly if I think someone else is a better fit.',
+    ],
+    focus: [
+      {
+        label: 'Trauma and EMDR',
+        detail:
+          'EMDR-trained, for the experiences that are still shaping how you feel and react long after they ended.',
+      },
+      {
+        label: 'Couples work',
+        detail:
+          'Gottman-trained. The patterns underneath the arguments, and what to do about the ones that will not resolve.',
+      },
+      {
+        label: 'Culture, family and identity',
+        detail:
+          'South Asian family expectations, generational silence, and the space between who you are at home and everywhere else.',
+      },
+    ],
+    suits: [
+      'Anxious, low, or worn down and not sure why',
+      'Carrying something from before that has not settled',
+      'Stuck in the same argument with someone who matters',
+      'Caught between what your family expects and what you want',
+      'Wanting to work in Punjabi, or move between Punjabi and English',
+    ],
+    sessionNote:
+      'The first fifteen minutes are free and there is no obligation attached to them. If it turns out I am not the right fit, I will say so and point you somewhere better.',
+    services: ['individual-therapy', 'couples-therapy', 'emdr-therapy', 'punjabi-counselling'],
+    /* Bookable: the practice's existing Cliniko types are hers. */
+    bookable: true,
+    /* ONE PAGE TOTAL. See the note on the field. */
+    placePages: false,
+  },
+  {
     slug: 'camille-granda',
     name: 'Camille Granda',
     postNominals: 'RCC, CCC',
@@ -244,71 +309,6 @@ export const practitioners: Practitioner[] = [
        which is the failure mode the whole booking-mail incident came from.
        Flip it after the Cliniko steps in CAMILLE_ONBOARDING.md are done. */
     bookable: false,
-  },
-  {
-    slug: 'aman-bains-dhillon',
-    name: 'Aman Bains Dhillon',
-    postNominals: 'MA, RCC',
-    role: 'Registered Clinical Counsellor · Founder',
-    credentials: [
-      {
-        short: 'RCC',
-        full: 'Registered Clinical Counsellor',
-        body: 'BC Association of Clinical Counsellors',
-        number: '20111',
-        verifyUrl: 'https://bc-counsellors.org/counsellors/',
-      },
-    ],
-    provinces: ['BC'],
-    languages: [
-      { tag: 'en-CA', name: 'English', nativeName: 'English' },
-      { tag: 'pa', name: 'Punjabi', nativeName: 'ਪੰਜਾਬੀ' },
-    ],
-    photos: {
-      portrait: {
-        src: '/img/photo/counsellor-portrait.jpg',
-        width: 800,
-        height: 1000,
-        alt: 'Aman Bains Dhillon, Registered Clinical Counsellor and founder of Westpeak Wellness',
-      },
-    },
-    tagline: 'Counselling in English or Punjabi, without having to explain the background first.',
-    intro: [
-      'I started Westpeak because too many people I knew were putting off therapy for reasons that had nothing to do with whether they needed it — the drive, the waiting room, the worry that someone would see them going in.',
-      'I was born and raised in Surrey, in a household where mental health was rarely discussed openly and the weight of it was always there anyway. That shapes how I work. You should not have to explain your family before you can talk about them.',
-      'My approach is warm and direct, and grounded in what the evidence actually supports rather than in one school of thought. We work at your pace, and I will tell you plainly if I think someone else is a better fit.',
-    ],
-    focus: [
-      {
-        label: 'Trauma and EMDR',
-        detail:
-          'EMDR-trained, for the experiences that are still shaping how you feel and react long after they ended.',
-      },
-      {
-        label: 'Couples work',
-        detail:
-          'Gottman-trained. The patterns underneath the arguments, and what to do about the ones that will not resolve.',
-      },
-      {
-        label: 'Culture, family and identity',
-        detail:
-          'South Asian family expectations, generational silence, and the space between who you are at home and everywhere else.',
-      },
-    ],
-    suits: [
-      'Anxious, low, or worn down and not sure why',
-      'Carrying something from before that has not settled',
-      'Stuck in the same argument with someone who matters',
-      'Caught between what your family expects and what you want',
-      'Wanting to work in Punjabi, or move between Punjabi and English',
-    ],
-    sessionNote:
-      'The first fifteen minutes are free and there is no obligation attached to them. If it turns out I am not the right fit, I will say so and point you somewhere better.',
-    services: ['individual-therapy', 'couples-therapy', 'emdr-therapy', 'punjabi-counselling'],
-    /* Bookable: the practice's existing Cliniko types are hers. */
-    bookable: true,
-    /* ONE PAGE TOTAL. See the note on the field. */
-    placePages: false,
   },
 ];
 
