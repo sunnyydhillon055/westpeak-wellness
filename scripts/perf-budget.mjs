@@ -17,7 +17,7 @@
  *
  * WHY THESE NUMBERS AND NOT SMALLER ONES. The 2026-08-28 analysis found the
  * stylesheet is ~88% genuinely shared design system: the cleanly page-scoped
- * remainder (admin, sign-in, careers, glossary — ~15 kB source, ~2 kB on the
+ * remainder (admin, sign-in, glossary — ~15 kB source, ~2 kB on the
  * wire) was judged not worth a multi-surface refactor. What matters is that
  * the payload never grows by accident, which is this file's whole job.
  *

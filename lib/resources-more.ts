@@ -759,7 +759,7 @@ export const moreResources: Resource[] = [
         h2: 'If you are exploring rather than deciding',
         body: [
           'Useful first moves that cost little: a crisis-line volunteer training (BC’s lines train continuously and the skills are the profession in miniature), an information interview with a working counsellor — most will give a genuine thirty minutes to a serious asker — and reading a registration body’s requirements end to end, which tells you exactly what the road costs before you pay anything.',
-          'And if the pull toward the field came from your own counselling: that origin is common, legitimate, and worth examining in counselling before you rebuild your career on it — "do I want to do this work, or do I want more of what receiving it gave me?" is a real question with two respectable answers. When this practice hires, openings appear at [/careers](/careers); the arrangement there describes what associate work actually looks like from inside.',
+          'And if the pull toward the field came from your own counselling: that origin is common, legitimate, and worth examining in counselling before you rebuild your career on it — "do I want to do this work, or do I want more of what receiving it gave me?" is a real question with two respectable answers.',
         ],
       },
     ],
@@ -782,7 +782,6 @@ export const moreResources: Resource[] = [
     related: [
       { href: '/resources/what-is-a-registered-clinical-counsellor', label: 'What is a Registered Clinical Counsellor?' },
       { href: '/resources/verify-a-counsellor-in-bc', label: 'How to verify a counsellor in BC' },
-      { href: '/careers', label: 'Working at this practice' },
       { href: '/compare/rcc-vs-psychologist-vs-social-worker-bc', label: 'RCC vs psychologist vs social worker' },
       { href: '/standards', label: 'Standards and accountability here' },
     ],

@@ -98,11 +98,6 @@ export default function Footer() {
               <Link href="/refer">Passing it on</Link>
               <Link href="/online-counselling">Areas Served in BC</Link>
               <Link href="/contact">Contact</Link>
-              {/* Sitewide, so a counsellor who arrives on any page at all can
-                  find the opening. It is the only footer link addressed to
-                  someone other than a client, which is why it is labelled
-                  plainly rather than as "Join us". */}
-              <Link href="/careers">Careers &amp; counselling jobs</Link>
               <Link href={site.portalPath} className="footer-more">Client Portal &rarr;</Link>
             </nav>
           </div>

@@ -42,13 +42,9 @@ const HUBS = new Set([
 ]);
 const UTILITY = new Set([
   '/privacy', '/accessibility', '/editorial-policy', '/standards', '/reviews',
-  '/careers', '/contact', '/book', '/signin', '/forgot', '/reset',
+  '/contact', '/book', '/signin', '/forgot', '/reset',
   '/client-portal', '/admin', '/_not-found',
 ]);
-/* Job postings. Real content, but a hiring page needs neither a clinical
- * review date nor a diagram, and manufacturing either to satisfy a check
- * would be the gate driving the content instead of the reverse. */
-const IS_JOB = (r) => r.startsWith('/careers/');
 /* Health content — the pages that should carry MedicalWebPage + a review date. */
 const CLINICAL = (r) =>
   r.startsWith('/guides/') || r.startsWith('/services/') ||
@@ -228,7 +224,7 @@ for (const p of pages.values()) {
 
   if (!p.crumbs && route !== '/') err('no-breadcrumbs', route, '');
 
-  if (!hub && !util && !IS_JOB(route)) {
+  if (!hub && !util) {
     if (p.words < THIN_WORDS) warn('thin', route, `${p.words} words`);
     if (p.imgs === 0) warn('no-image', route, '');
   }

@@ -23,10 +23,6 @@ export const faqs: FAQ[] = [
     a: "Yes. Westpeak Wellness is currently accepting new clients across British Columbia. The best first step is a free 15-minute consultation, where we can see if we're a good fit before you commit to anything.",
   },
   {
-    q: "Are you hiring counsellors?",
-    a: "Not at the moment — there is no open posting. The practice does take on Registered Clinical Counsellors working remotely anywhere in British Columbia as it grows, on a contract basis with referrals provided, no overhead, and hours you set yourself. The [careers page](/careers) sets out the whole arrangement including the fee split, and speculative enquiries are read. This question sits here because counsellors ask it and the answer should be findable; if you are looking for therapy rather than work, you can safely skip it.",
-  },
-  {
     q: "Why are there no client reviews on this site?",
     a: "Because soliciting testimonials from counselling clients is prohibited under BCACC advertising standards — someone inside a therapeutic relationship cannot give uncoerced consent to be used as marketing. What this practice publishes instead, and how to check a counsellor's registration on the public register yourself, is set out in full on the [reviews and references page](/reviews).",
   },

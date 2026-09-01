@@ -57,7 +57,6 @@ const PAGES = {
   '/refer/doctor': 'app/refer/doctor/page.tsx',
   '/punjabi': 'app/punjabi/page.tsx',
   '/answers': 'app/answers/page.tsx',
-  '/careers': 'app/careers/page.tsx',
   '/standards': 'lib/policies.ts',
   '/editorial-policy': 'lib/policies.ts',
   '/privacy': 'lib/policies.ts',

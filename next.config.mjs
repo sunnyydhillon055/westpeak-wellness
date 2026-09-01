@@ -107,6 +107,17 @@ const nextConfig = {
          external link land on /faq instead of a 404. */
       { source: '/answers', destination: '/faq', permanent: true },
 
+      /* CAREERS RETIRED 1 Sep 2026 at the owner's request — the practice is not
+         recruiting, and does not want speculative applications either.
+
+         Redirected rather than left to 404 because /careers was indexed and
+         ranking for BC counselling-job queries, so the URL carries inbound
+         equity and live external links. /about is the nearest surviving page
+         about the practice itself. The retired job postings under
+         /careers/:slug go the same way. */
+      { source: '/careers', destination: '/about', permanent: true },
+      { source: '/careers/:slug', destination: '/about', permanent: true },
+
       /* SERVICES REDUCED TO FIVE, 31 Aug 2026, at the owner's request:
          individual, couples, EMDR, family, and Punjabi-speaking.
          Six service pages retired. None are deleted — each 301s to the

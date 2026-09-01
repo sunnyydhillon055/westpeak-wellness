@@ -14,7 +14,6 @@ import { audiences } from '@/lib/audiences';
 import { resources } from '@/lib/resources';
 import { approaches } from '@/lib/approaches';
 import { getFigure } from '@/lib/figures';
-import { openJobs } from '@/lib/careers';
 import { lastmodFor, collectionLastmod } from '@/lib/page-dates';
 import { albertaPages, ontarioPages } from '@/lib/expansion';
 import { ALBERTA_LIVE, ONTARIO_LIVE } from '@/lib/regions';
@@ -114,19 +113,6 @@ export function GET() {
        BC — rather than being a subsection of the word-of-mouth page. */
     { path: '/refer/doctor', lastmod: lastmodFor('/refer/doctor'), changefreq: 'yearly', priority: 0.5 },
     { path: '/punjabi', lastmod: lastmodFor('/punjabi'), changefreq: 'monthly', priority: 0.7 },
-    /* The answers index: one URL holding every direct answer on the site.
-       High priority because it is the page an answer engine retrieves from. */
-    /* Careers. Only postings still inside their validThrough are listed: Google
-       penalises stale JobPosting markup, and a sitemap that keeps advertising a
-       closed role is exactly how a careers page turns into a liability. The hub
-       stays listed either way, because it keeps its ranking between hires. */
-    { path: '/careers', lastmod: lastmodFor('/careers'), changefreq: 'monthly', priority: 0.6 },
-    ...openJobs().map((j) => ({
-      path: `/careers/${j.slug}`,
-      lastmod: new Date(j.datePosted).toISOString(),
-      changefreq: 'monthly' as const,
-      priority: 0.6,
-    })),
     ...tools.map((t) => ({
       path: `/tools/${t.slug}`, lastmod: collectionLastmod('tools'), changefreq: 'monthly' as const, priority: 0.7,
     })),
