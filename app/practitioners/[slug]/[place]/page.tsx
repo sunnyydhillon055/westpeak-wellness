@@ -30,6 +30,13 @@ import { TAGALOG, TAGALOG_READY } from '@/lib/practitioner-tl';
  * THE TAGALOG PAGE IS GATED. See lib/practitioner-tl.ts: it does not publish
  * until the counsellor who speaks the language has read it. */
 
+/* ONLY the params generated below may serve. Without this, Next renders any
+ * /practitioners/<slug>/<anything> on demand — so the founder, who is meant to
+ * have one page total, had fifteen live city pages that were simply not
+ * prerendered. `placePages: false` controlled the build output and nothing
+ * else. A smoke assertion caught it: expected 404, got 200. */
+export const dynamicParams = false;
+
 type Params = { slug: string; place: string };
 
 export function generateStaticParams() {
