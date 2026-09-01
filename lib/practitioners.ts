@@ -124,15 +124,32 @@ export const practitioners: Practitioner[] = [
         validTo: '2029-10-01',
       },
     ],
-    /* BC ONLY, for now, and the reason is insurance rather than credentials.
-       Her CCC would permit practice in provinces where counselling is not
-       regulated — Alberta among them — but ALBERTA_LAUNCH_CHECKLIST.md records
-       that the practice's professional liability policy does not extend
-       outside BC, and that a live Alberta page produces bookings the policy
-       may not cover. Adding 'AB' here is a one-word change once her insurance
-       is confirmed to cover Alberta clients. It is not a judgement call to
-       make on her behalf. */
-    provinces: ['BC'],
+    /* BC AND ALBERTA — and the second one is now evidenced, not assumed.
+     *
+     * Her BMS/Berkley certificate (CCPA-00111023-001, policy BC05211-2506,
+     * period 1 Oct 2025 – 1 Oct 2026, $5M per claim) was supplied on
+     * 1 Sep 2026. Three things on it settle the Alberta question:
+     *
+     *   · it is a CCPA NATIONAL member policy — "active and practicing members
+     *     of the Canadian Counselling and Psychotherapy Association" — with no
+     *     provincial restriction anywhere on the certificate
+     *   · the wording that does bound it is national: "Out of Country 90 days"
+     *     and loss of earnings "Canada only"
+     *   · her own named-insured address is in CALGARY, ALBERTA. A policy that
+     *     did not cover Alberta would not cover her at her own desk.
+     *
+     * With counselling therapy unregulated in Alberta and her CCC current to
+     * 2029, that is the gate in ALBERTA_LAUNCH_CHECKLIST.md satisfied for HER —
+     * the checklist's own exit was "an insured clinician who can take Alberta
+     * clients".
+     *
+     * IT IS NOT SATISFIED FOR THE PRACTICE. The founder's policy still does not
+     * extend outside BC, so the site-wide /alberta section stays gated. Alberta
+     * is unlocked per practitioner, not globally — see lib/practitioner-places.ts.
+     *
+     * This reads an insurance certificate; it is not insurance advice. If
+     * certainty is wanted, BMS confirms scope in one email. */
+    provinces: ['BC', 'AB'],
     languages: [
       { tag: 'en-CA', name: 'English', nativeName: 'English' },
       { tag: 'tl', name: 'Tagalog', nativeName: 'Tagalog' },
@@ -143,14 +160,18 @@ export const practitioners: Practitioner[] = [
          The standing shot became the secondary. */
       portrait: {
         src: '/img/photo/camille-chin.jpg',
-        width: 1200,
-        height: 1800,
+        /* Native size of the file supplied. Smaller than ideal for a hero on a
+           retina screen — the originals were HEIC and arrived truncated, so
+           these are the downsized copies. Replace with full-resolution exports
+           and bump these numbers if it ever looks soft. */
+        width: 462,
+        height: 645,
         alt: 'Camille Granda, Registered Clinical Counsellor, seated and listening',
       },
       warm: {
         src: '/img/photo/camille-chair.jpg',
-        width: 1200,
-        height: 1800,
+        width: 432,
+        height: 652,
         alt: 'Camille Granda smiling, leaning forward in conversation',
       },
       candid: {

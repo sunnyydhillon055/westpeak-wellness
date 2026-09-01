@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { site } from '@/lib/site';
 import { practitioners, getPractitioner } from '@/lib/practitioners';
-import { locations } from '@/lib/locations';
+import { placesFor } from '@/lib/practitioner-places';
 import { getService } from '@/lib/services';
 import { abs, orgRef, siteRef } from '@/lib/schema';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -49,7 +49,7 @@ export default function PractitionerPage({ params }: { params: { slug: string } 
   if (!p) notFound();
 
   const first = p.name.split(' ')[0];
-  const cities = locations.filter((l) => p.provinces.includes('BC'));
+  const cities = placesFor(p.provinces);
   /* Only languages whose page is actually published. Tagalog is written but
      gated until Camille has reviewed it (lib/practitioner-tl.ts), and linking
      to a gated route means a reader hits a 404 — which the internal-link gate

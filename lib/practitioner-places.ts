@@ -1,5 +1,4 @@
 import { locations } from './locations';
-import { ALBERTA_LIVE } from './regions';
 import type { Province } from './crisis';
 
 /* ============================================================================
@@ -13,21 +12,24 @@ import type { Province } from './crisis';
      AB      the table below, added 1 Sep 2026 when the practice took on a
              counsellor whose certification permits Alberta.
 
-   ALBERTA IS GATED AND STAYS GATED UNTIL INSURANCE IS CONFIRMED.
+   ALBERTA IS UNLOCKED PER PRACTITIONER, NOT SITE-WIDE.
 
    Not regulation — counselling therapy is not a regulated profession in
-   Alberta, and a CCC covers it. The block is professional liability cover.
-   ALBERTA_LAUNCH_CHECKLIST.md records that these pages were live for a few
-   hours on 17 Aug 2026 and came straight back down because the practice's
-   policy does not extend outside BC. A live page is an advertisement, an
-   advertisement produces bookings, and Cliniko has no idea which province
-   somebody is sitting in.
+   Alberta. The block was always professional liability cover, and
+   ALBERTA_LAUNCH_CHECKLIST.md records these pages going live for a few hours
+   on 17 Aug 2026 and coming straight back down because the practice's policy
+   stops at the BC border.
 
-   The checklist's own exit is "an insured clinician who can take Alberta
-   clients". Camille may be exactly that — but that turns on HER insurance,
-   which is not stated on a BCACC card or a CCPA record. So the pages are
-   built, complete, and behind `NEXT_PUBLIC_ALBERTA_LIVE`. One environment
-   variable publishes them the moment someone can answer the question.
+   Resolved 1 Sep 2026 for ONE counsellor. Camille Granda's BMS/Berkley
+   certificate is a CCPA national member policy with no provincial restriction,
+   its only geographic wording is national ("Canada only", "Out of Country
+   90 days"), and her named-insured address is in Calgary. That is the
+   checklist's own exit condition — "an insured clinician who can take Alberta
+   clients" — met by evidence rather than assumption.
+
+   The practice as a whole is still not covered outside BC, so the site-wide
+   /alberta section stays gated and NEXT_PUBLIC_ALBERTA_LIVE stays off. What is
+   published is her pages, because they are true about her.
 
    NO INVENTED STATISTICS, same rule as every city page on this site. The
    Surrey and Abbotsford entries quote exact census counts because those were
@@ -117,10 +119,30 @@ const BC: PractitionerPlace[] = locations.map((l) => ({
   faqs: (l.faqs ?? []).slice(0, 5),
 }));
 
-/** Every place a practitioner page can exist for. Alberta only when unlocked. */
+/* PER PRACTITIONER, NOT SITE-WIDE — and the distinction is the point.
+ *
+ * ALBERTA_LIVE ungates the whole /alberta section, which advertises THE
+ * PRACTICE in Alberta. The founder's liability policy still does not extend
+ * outside BC, so that flag stays off.
+ *
+ * What changed on 1 Sep 2026 is narrower and real: one counsellor holds a CCPA
+ * national policy, lives in Calgary, and can take Alberta clients. Her pages
+ * can say so. The practice's cannot.
+ *
+ * So places are resolved against the PRACTITIONER's own provinces. Camille gets
+ * Calgary and Edmonton; anybody added later gets whatever their own insurance
+ * and registration actually support, which is the only honest way to do this. */
+export function placesFor(provinces: string[]): PractitionerPlace[] {
+  return [
+    ...(provinces.includes('BC') ? BC : []),
+    ...(provinces.includes('AB') ? ALBERTA : []),
+  ];
+}
+
+/** Every place any practitioner can have a page for. Used for route generation. */
 export const practitionerPlaces: PractitionerPlace[] = [
   ...BC,
-  ...(ALBERTA_LIVE ? ALBERTA : []),
+  ...ALBERTA,
 ];
 
 /** Built regardless of the gate, for the checklist and for previews. */

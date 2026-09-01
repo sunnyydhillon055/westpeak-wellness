@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { site } from '@/lib/site';
 import { practitioners, getPractitioner, type Practitioner } from '@/lib/practitioners';
-import { practitionerPlaces, getPractitionerPlace } from '@/lib/practitioner-places';
+import { practitionerPlaces, getPractitionerPlace, placesFor } from '@/lib/practitioner-places';
 import { crisisFor } from '@/lib/crisis';
 import Figure from '@/components/Figure';
 import { abs, orgRef, siteRef } from '@/lib/schema';
@@ -35,7 +35,8 @@ type Params = { slug: string; place: string };
 export function generateStaticParams() {
   const out: Params[] = [];
   for (const p of practitioners) {
-    for (const l of practitionerPlaces) out.push({ slug: p.slug, place: l.slug });
+    /* Only the places this practitioner can actually serve. */
+    for (const l of placesFor(p.provinces)) out.push({ slug: p.slug, place: l.slug });
     for (const lang of p.languages) {
       if (lang.tag === 'en-CA') continue;
       if (lang.tag === 'tl' && !TAGALOG_READY) continue;
@@ -270,11 +271,17 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
               {p.languages.map((l) => l.name).join(' or ')}, including moving between them within
               one session.
             </p>
-            <p>
-              For the fuller picture of accessing counselling from {loc.city} — waitlists, the
-              health authority, and what is available locally — see{' '}
-              <Link href={`/online-counselling/${loc.slug}`}>counselling in {loc.city}</Link>.
-            </p>
+            {/* Only BC cities have a practice-level page to point at.
+                /online-counselling is the BC hub, so linking an Alberta city
+                there sends a reader to a 404 — which the internal-link gate
+                caught the moment Calgary and Edmonton went in. */}
+            {loc.province === 'BC' && (
+              <p>
+                For the fuller picture of accessing counselling from {loc.city} — waitlists, the
+                health authority, and what is available locally — see{' '}
+                <Link href={`/online-counselling/${loc.slug}`}>counselling in {loc.city}</Link>.
+              </p>
+            )}
           </div>
 
           {p.photos?.candid && (

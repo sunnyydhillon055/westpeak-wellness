@@ -13,11 +13,11 @@ that needs a human: Cliniko, one insurance question, and one review.
 | Profile page `/practitioners/camille-granda` | **Live** |
 | 15 city pages under her profile | **Live** |
 | Tagalog page | **Written, not published** — needs her review |
-| Portrait | **Live** — `public/img/photo/camille-granda.jpg` |
+| Photos | **Live** — three, placed one per location |
 | Nav + footer entry | **Live** — "Counsellors" |
 | Sitemap | **Live** — derived, so it updates itself |
 | Cliniko | **Not done** — steps below |
-| Alberta pages | **Blocked** — insurance question below |
+| Alberta pages (Calgary, Edmonton) | **Live for her** — insurance verified |
 | `bookable: false` | **Deliberate** — flip after Cliniko |
 
 ---
@@ -76,37 +76,53 @@ failure this practice has already had once in the other direction.
 
 ---
 
-## 2. The insurance question — this one blocks Alberta
+## 2. Insurance — verified, and Alberta is open for her
 
-You asked for **BC + Alberta**. The website is BC only, and the reason is not
-her credentials.
+Her BMS/Berkley certificate was supplied on 1 Sep 2026 and answers it.
 
-Her CCC would permit practice in Alberta, because counselling is not a
-regulated profession there. That part is fine. But `ALBERTA_LAUNCH_CHECKLIST.md`
-records why the Alberta pages came down within hours of going live on
-17 August 2026:
+| | |
+|---|---|
+| Certificate | CCPA-00111023-001 |
+| Policy | Berkley BC05211-2506 / BC05212-2506, via BMS Canada |
+| Period | **1 Oct 2025 – 1 Oct 2026** |
+| Limit | $5,000,000 per claim / $5,000,000 aggregate |
+| Named insured address | **Calgary, Alberta** |
+| Privacy & Data Protection | **Not covered** on the base policy — hence the cyber add-on |
 
-> The practice's professional liability policy does not extend outside British
-> Columbia. A live page is an advertisement; an advertisement produces
-> bookings; and the Cliniko scheduler has no idea which province a person is
-> sitting in.
+**Three things make Alberta defensible for her:**
 
-The checklist names the two ways out, and **one of them is hiring an insured
-clinician who can take Alberta clients.** That may be exactly what has just
-happened — but it depends on a fact neither her BCACC card nor her CCPA record
-states.
+1. It is a **CCPA national member policy** — "active and practicing members of
+   the Canadian Counselling and Psychotherapy Association" — with no
+   provincial restriction anywhere on the certificate.
+2. Its only geographic wording is national: loss of earnings "Canada only",
+   "Out of Country 90 days".
+3. **She lives in Calgary.** A policy that excluded Alberta would not cover her
+   at her own desk.
 
-**The question to answer:** does Camille's professional liability insurance
-cover clients located in Alberta?
+With counselling therapy unregulated in Alberta and her CCC current to 2029,
+that is the exit condition `ALBERTA_LAUNCH_CHECKLIST.md` already named — "an
+insured clinician who can take Alberta clients."
 
-- **Yes** → tell me. It is a one-word change (`provinces: ['BC', 'AB']`) plus
-  setting `NEXT_PUBLIC_ALBERTA_LIVE=true`, and I will build her Alberta city
-  pages the same way as the BC ones.
-- **No / not sure** → leave it. Her insurer will answer in one email.
+**Her Calgary and Edmonton pages are live.**
 
-I did not make this call on her behalf. An uninsured session with a distressed
-stranger in another province is the risk the whole profession carries
-insurance for.
+### What did NOT change, and why it matters
+
+The site-wide `/alberta` section is **still gated**, and
+`NEXT_PUBLIC_ALBERTA_LIVE` is still off. Those pages advertise *the practice*
+in Alberta, and the founder's policy still stops at the BC border. Alberta is
+now unlocked **per practitioner**, against each person's own insurance and
+registration — see `placesFor()` in `lib/practitioner-places.ts`. Anyone added
+later gets what their own documents actually support.
+
+### Two dates worth putting in a calendar
+
+- **Her liability policy expires 1 October 2026** — about a month away. Alberta
+  pages advertise a service that policy underwrites, so this is the more urgent
+  of the two renewals.
+- **Her BCACC registration expires 31 December 2026.**
+
+*This reads an insurance certificate; it is not insurance advice. If you want
+certainty rather than a careful reading, BMS will confirm scope in one email.*
 
 ---
 
@@ -149,34 +165,19 @@ her entry rather than editing around it.
 
 ---
 
-## 5. Two photos are missing — the files arrived truncated
+## 5. Photos — supplied and in place
 
-The chin-in-hand shot and the seated-smiling shot were uploaded as `.jpg` but
-are actually **HEIC** (iPhone) files, and every copy on disk is **incomplete** —
-the decoder runs off the end of the file:
+All three are live and each appears in one place only:
 
-```
-2025-05-10 0191.jpg   4,941,462 bytes   truncated
-2025-05-10 0189.jpg   7,693,857 bytes   truncated
-```
+| File | Where it appears |
+|---|---|
+| `camille-chin.jpg` | Profile hero and roster card — her main image |
+| `camille-chair.jpg` | Partway down her profile, and the Tagalog hub |
+| `camille-granda.jpg` | The city pages |
 
-Both duplicate copies are truncated at exactly the same byte counts, so the
-upload was cut short rather than the originals being damaged.
-
-**What the site is doing meanwhile:** `camille-chin.jpg` and
-`camille-chair.jpg` exist as copies of the standing photo, so every page builds
-and nothing is broken — but she currently appears three times in the same
-frame, which is the opposite of what was asked for.
-
-**To fix:** save both as JPEG or PNG and drop them at
-
-```
-public/img/photo/camille-chin.jpg     <- the chin-in-hand one (her main image)
-public/img/photo/camille-chair.jpg    <- the seated, smiling one
-```
-
-Any size at or above 1200px wide. Nothing else needs changing — the placement,
-alt text and schema already point at those two filenames.
-
-On a Mac: open in Preview, File → Export, Format: JPEG. On Windows: open in
-Photos, then "Save as" a JPG.
+**One caveat.** The two new files came through at 462x645 and 432x652, which is
+smaller than ideal for a hero on a high-resolution screen. The originals were
+HEIC and arrived truncated, so these are downsized copies. If the hero ever
+looks soft, export the originals at 1200px or wider, drop them at the same two
+paths, and update the `width`/`height` in `lib/practitioners.ts` to match.
+Nothing else needs touching.
