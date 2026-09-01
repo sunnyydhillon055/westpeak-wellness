@@ -130,6 +130,14 @@ const CHECKS = [
   ['/practitioners/camille-granda/surrey', 200],
   ['/practitioners/camille-granda/vancouver', 200],
   ['/practitioners/camille-granda/tl', 404],
+  ['/practitioners/camille-granda/calgary', 200],
+  ['/practitioners/camille-granda/edmonton', 200],
+  ['/practitioners/aman-bains-dhillon', 200],
+  /* One page for her, at the owner's instruction. A city page appearing here
+     means placePages was ignored somewhere. */
+  ['/practitioners/aman-bains-dhillon/surrey', 404],
+  ['/tagalog-counselling', 200],
+  ['/tagalog-counselling/surrey', 200],
 
   /* And the counter-case: a city that WAS retired and then given a real page
      must not redirect. Getting this wrong is how the original bug shipped. */

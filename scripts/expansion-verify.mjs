@@ -229,9 +229,30 @@ const NAME_TOKENS = existsSync(guardPath)
 if (!NAME_TOKENS.length) {
   note.push('name guard: .name-guard absent or empty — the counsellor-name check did NOT run');
 } else {
+  /* ONE PAGE MAY CARRY THE NAME. EVERY OTHER PAGE MAY NOT.
+   *
+   * The founder's name was kept off this site entirely from 28 Aug 2026, and
+   * this check enforced that. On 1 Sep 2026 the owner asked for a counsellor
+   * profile for her — "keep it at one page for her total" — which retires the
+   * blanket rule but not the intent behind it.
+   *
+   * So the guard is scoped rather than deleted. Her profile is allowed to name
+   * her; the other ~185 pages still cannot, which is what stops the name
+   * leaking back into titles, alt text and JSON-LD the way it had before —
+   * Search Console was already drawing impressions on the partial name at
+   * position 22-26 when it was removed.
+   *
+   * Deleting the check instead would have been the easy version and would have
+   * given up the part that still matters. */
+  /* Her own profile, and the roster index that links to it. The roster card
+     carries her name in the heading and the alt text, which is what a roster
+     is. Everywhere else still fails the build. */
+  const NAME_ALLOWED_ON = ['/practitioners', '/practitioners/aman-bains-dhillon'];
+
   const NAME = new RegExp(`\\b(${NAME_TOKENS.join('|')})\\b`, 'i');
   let nameFail = false;
   for (const [route, html] of published) {
+    if (NAME_ALLOWED_ON.includes(route)) continue;
     if (NAME.test(html)) {
       /* Name the surface, because "somewhere on this page" sends the next
          person hunting through an RSC payload for a string they cannot see. */
@@ -245,7 +266,7 @@ if (!NAME_TOKENS.length) {
       nameFail = true;
     }
   }
-  if (!nameFail) pass.push(`Counsellor name absent from all ${published.length} published pages`);
+  if (!nameFail) pass.push(`Counsellor name confined to her own profile across all ${published.length} published pages`);
 }
 
 /* ---------- REGISTRATION NUMBER: /about AND NOWHERE ELSE ----------
@@ -285,8 +306,16 @@ if (!REG) {
      by injecting exactly that and watching it report success. */
   const digits = new RegExp(`\\b${REG}\\b`);
   let regFail = false;
+
+const REG_ALLOWED_ON = ['/about', '/practitioners/aman-bains-dhillon'];
+
   for (const [route, html] of published) {
-    if (route === '/about') continue;          // the one page allowed to carry it
+    /* Two pages now, not one. /about carries it as the practice's identity
+       anchor; her own profile carries it because a counsellor profile without
+       a checkable registration number is the weaker page, and the number is
+       the whole trust argument on a site barred from showing reviews.
+       Everywhere else is still a failure. */
+    if (REG_ALLOWED_ON.includes(route)) continue;
     if (digits.test(html)) {
       const where = [
         ['visible text', (html.match(/<main[\s\S]*?<\/main>/i) || [''])[0]],

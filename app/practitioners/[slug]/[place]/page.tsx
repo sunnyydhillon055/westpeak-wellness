@@ -35,19 +35,31 @@ type Params = { slug: string; place: string };
 export function generateStaticParams() {
   const out: Params[] = [];
   for (const p of practitioners) {
-    /* Only the places this practitioner can actually serve. */
-    for (const l of placesFor(p.provinces)) out.push({ slug: p.slug, place: l.slug });
-    for (const lang of p.languages) {
-      if (lang.tag === 'en-CA') continue;
-      if (lang.tag === 'tl' && !TAGALOG_READY) continue;
-      out.push({ slug: p.slug, place: lang.tag });
+    /* Only the places this practitioner can actually serve, and only for those
+       who have per-city pages at all — see `placePages` in lib/practitioners.ts. */
+    if (p.placePages) {
+      for (const l of placesFor(p.provinces)) out.push({ slug: p.slug, place: l.slug });
+    }
+    /* ONLY Tagalog, and only when its copy is signed off.
+     *
+     * The language branch below renders lib/practitioner-tl.ts, which is
+     * Tagalog. Generating a page for every non-English language put the founder
+     * at /practitioners/aman-bains-dhillon/pa rendering TAGALOG copy under a
+     * Punjabi URL — caught on the first build after she was added.
+     *
+     * Punjabi already has its own section at /punjabi and does not need a
+     * second one here. If another language is ever added, it needs its own copy
+     * file and its own entry in this list, not a fallthrough. */
+    if (p.languages.some((l) => l.tag === 'tl') && TAGALOG_READY) {
+      out.push({ slug: p.slug, place: 'tl' });
     }
   }
   return out;
 }
 
+/* Tagalog is the only language with a page here — see generateStaticParams. */
 const isLang = (p: Practitioner, place: string) =>
-  p.languages.some((l) => l.tag === place && l.tag !== 'en-CA');
+  place === 'tl' && p.languages.some((l) => l.tag === 'tl');
 
 export function generateMetadata({ params }: { params: Params }): Metadata {
   const p = getPractitioner(params.slug);

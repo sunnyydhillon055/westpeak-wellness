@@ -1,6 +1,7 @@
 import { site } from '@/lib/site';
 import { TAGALOG_CITIES } from '@/lib/tagalog';
 import { practitioners } from '@/lib/practitioners';
+import { placesFor } from '@/lib/practitioner-places';
 import { TAGALOG_READY } from '@/lib/practitioner-tl';
 import { services } from '@/lib/services';
 import { tools } from '@/lib/tools';
@@ -64,21 +65,26 @@ export function GET() {
    * that 404s is worse than no entry, and this repo has shipped that once. */
   const people: Entry[] = practitioners.flatMap((pr) => [
     { path: `/practitioners/${pr.slug}`, lastmod: lastmodFor('/practitioners'), changefreq: 'monthly' as const, priority: 0.8 },
-    ...locations.map((l) => ({
-      path: `/practitioners/${pr.slug}/${l.slug}`,
-      lastmod: lastmodFor('/practitioners'),
-      changefreq: 'monthly' as const,
-      priority: 0.6,
-    })),
-    ...(TAGALOG_READY
-      ? pr.languages
-          .filter((l) => l.tag !== 'en-CA')
-          .map((l) => ({
-            path: `/practitioners/${pr.slug}/${l.tag}`,
-            lastmod: lastmodFor('/practitioners'),
-            changefreq: 'monthly' as const,
-            priority: 0.7,
-          }))
+    /* Only what is actually built: the places this person serves, and only if
+       they have per-city pages at all. Listing a URL that was never generated
+       is the "listed but not built" failure sitemap-parity.mjs exists to catch,
+       and Search Console reports it against the whole file rather than the one
+       row. */
+    ...(pr.placePages
+      ? placesFor(pr.provinces).map((l) => ({
+          path: `/practitioners/${pr.slug}/${l.slug}`,
+          lastmod: lastmodFor('/practitioners'),
+          changefreq: 'monthly' as const,
+          priority: 0.6,
+        }))
+      : []),
+    ...(TAGALOG_READY && pr.languages.some((l) => l.tag === 'tl')
+      ? [{
+          path: `/practitioners/${pr.slug}/tl`,
+          lastmod: lastmodFor('/practitioners'),
+          changefreq: 'monthly' as const,
+          priority: 0.7,
+        }]
       : []),
   ]);
 

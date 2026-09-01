@@ -49,15 +49,17 @@ export default function PractitionerPage({ params }: { params: { slug: string } 
   if (!p) notFound();
 
   const first = p.name.split(' ')[0];
-  const cities = placesFor(p.provinces);
+  const cities = p.placePages ? placesFor(p.provinces) : [];
   /* Only languages whose page is actually published. Tagalog is written but
      gated until Camille has reviewed it (lib/practitioner-tl.ts), and linking
      to a gated route means a reader hits a 404 — which the internal-link gate
      caught on the first build. The language section disappears entirely rather
      than advertising something that is not there. */
-  const secondLanguages = p.languages.filter(
-    (l) => l.tag !== 'en-CA' && (l.tag !== 'tl' || TAGALOG_READY)
-  );
+  /* Languages with a real page behind them. Only Tagalog has one; Punjabi has
+     its own section at /punjabi and is linked from the nav, not from here. A
+     chip pointing at a route that does not exist is a 404 for a reader. */
+  const secondLanguages = p.languages.filter((l) => l.tag === 'tl' && TAGALOG_READY);
+
 
   const schema = [
     {
@@ -238,6 +240,7 @@ export default function PractitionerPage({ params }: { params: { slug: string } 
         </section>
       )}
 
+      {cities.length > 0 && (
       <section className="section">
         <div className="container">
           <p className="eyebrow">Where {first} works</p>
@@ -255,6 +258,7 @@ export default function PractitionerPage({ params }: { params: { slug: string } 
           </div>
         </div>
       </section>
+      )}
 
       <section className="section section--ghost">
         <div className="container prose">

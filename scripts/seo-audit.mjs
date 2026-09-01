@@ -118,7 +118,16 @@ for (const f of files) {
     /* VISIBLE content only. The not-found boundary is serialised into the
        RSC payload of EVERY page, so testing raw html marked all 121 pages
        as 404s and silently emptied the report. */
-    notFound: /page could not be found|page not found/i.test(main),
+    /* Title OR visible body. smoke.mjs established the same thing for the
+       same reason: "the title is the one place it appears only when the 404
+       is what was actually served". A gated route that renders a 404 shell —
+       /practitioners/<slug>/tl while the Tagalog copy is unpublished — has the
+       not-found TITLE but not always the not-found body text, so testing
+       `main` alone audited a 404 shell for breadcrumbs and reported a defect
+       on a page that does not exist. */
+    notFound:
+      /page could not be found|page not found/i.test(main) ||
+      /page not found/i.test((html.match(/<title[^>]*>([\s\S]*?)<\/title>/i) || ['', ''])[1]),
     /* A URL with "undefined" in it is never content — it is an interpolation
        bug that shipped. gtag/js?id=undefined sat in the head of every page
        for weeks because the layout guarded on a value imported from a
