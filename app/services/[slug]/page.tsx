@@ -314,11 +314,17 @@ export default async function ServicePage({ params }: { params: { slug: string }
         <section className="section">
           <div className="container">
             <p className="eyebrow">Questions</p>
+            {/* Folded on service pages. A service page is where someone is
+                deciding whether to book, and these sections were 483 words
+                between them and the button on /services/individual-therapy.
+                Still in the HTML, still indexed — just not in the way. */}
             <ExtraSections
               area="services"
               slug={s.slug}
               devices={midDevices}
               slots={slots}
+              collapsible
+              summary="More on how this work runs"
             />
 
             {/* DEVICES WITH NOWHERE TO GO STILL HAVE TO GO SOMEWHERE.

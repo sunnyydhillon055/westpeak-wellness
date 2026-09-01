@@ -2684,3 +2684,11 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
   padding-block: 0.8rem;
   margin-block: -0.8rem;
 }
+
+/* The folded depth block on service pages. It reuses .faq-item for the
+   disclosure chrome, but its contents are full article sections rather than a
+   single answer, so the inner headings need their spacing back. */
+.extra-fold > h2,
+.extra-fold h2{ margin-top: 26px }
+.extra-fold > summary{ font-weight: 650 }
+.extra-fold[open] > summary{ margin-bottom: 8px }
