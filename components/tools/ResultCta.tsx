@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { site } from '@/lib/site';
 import { track } from '@/lib/analytics';
-import AskInstead from '@/components/AskInstead';
 
 /* Closing action on a tool result. Share is a Web Share sheet where the browser
  * supports it and a clipboard copy where it does not — no third-party buttons,
@@ -45,7 +44,6 @@ export default function ResultCta({ tool, label }: { tool: string; label?: strin
           answers point at couples work, is warm — and may still not be ready to
           put a video call in the diary. */}
       <div className="tool-cta-ask">
-        <AskInstead />
       </div>
     </div>
   );

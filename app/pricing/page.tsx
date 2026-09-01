@@ -245,7 +245,7 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
         </div>
       </section>
 
-      <CtaBand ask={false} heading="Questions about fees?" text="Ask during your free 15-minute consultation." />
+      <CtaBand heading="Questions about fees?" text="Ask during your free 15-minute consultation." />
 
       {/* FAQPage for the four cards above.
         *

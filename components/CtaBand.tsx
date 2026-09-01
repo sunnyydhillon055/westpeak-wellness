@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import BookLink from '@/components/BookLink';
-import AskInstead from '@/components/AskInstead';
 
 /* The closing call to action, on 27 route files and therefore on nearly every
  * page of the site.
@@ -29,15 +28,15 @@ import AskInstead from '@/components/AskInstead';
  * site was addressed to the person who needs therapy, and a real share of the
  * traffic is not that person.
  *
- * `ask` turns the form off on the handful of pages that already carry a fuller
- * one — /contact, /book, /pricing — where two forms would compete.
+ * The band carried a second, smaller email form until 1 Sep 2026. The owner had
+ * it removed as a waste of a reader's time: the page already offers the free
+ * consultation, and a form asking for an email instead competed with it.
  */
 export default function CtaBand({
   heading = 'Therapy starts with one conversation.',
   text = 'Book a free 15-minute consultation over secure video. No pressure — just a chance to see if we’re a good fit.',
   tone = 'default',
   forSomeoneElse = true,
-  ask = true,
   headingLang,
   headingClassName,
 }: {
@@ -45,7 +44,6 @@ export default function CtaBand({
   text?: string;
   tone?: 'default' | 'gentle';
   forSomeoneElse?: boolean;
-  ask?: boolean;
   /** For a heading in another script (the Punjabi surfaces pass Gurmukhi):
    *  the lang attribute and the font class that actually renders it. */
   headingLang?: string;
@@ -66,12 +64,6 @@ export default function CtaBand({
               : text}
           </p>
           <BookLink location="cta-band">Book Free Consultation</BookLink>
-
-          {ask && (
-            <div className="cta-band-ask">
-              <AskInstead tone={tone} />
-            </div>
-          )}
 
           {forSomeoneElse && (
             <p className="cta-band-alt">

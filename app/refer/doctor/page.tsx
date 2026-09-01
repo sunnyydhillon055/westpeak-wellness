@@ -312,7 +312,7 @@ export default async function BringToYourDoctor() {
         </div>
       </section>
 
-      <CtaBand ask />
+      <CtaBand />
     </>
   );
 }

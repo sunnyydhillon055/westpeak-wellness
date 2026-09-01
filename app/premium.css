@@ -2248,72 +2248,14 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
    text, so these controls are built for a dark ground rather than reusing
    .lead-form, which is built for a light card. Same shapes, inverted palette.
    ======================================================================== */
-.cta-band-ask{ margin:32px auto 0; max-width:33em; text-align:left;
-  /* .24 measured 1.64 against the band — a rule nobody could see.
-     Decorative, so 3.0 is the aim rather than an obligation. */
-  padding-top:24px; border-top:1px solid rgba(255,255,255,.55); }
-
-.ask-instead{ margin:0; }
-.ask-instead-title{ margin:0 0 4px !important; max-width:none !important;
-  font-family:var(--font-display); font-size:1.05rem; font-weight:600; color:#fff; }
-.ask-instead-note{ margin:0 0 12px !important; max-width:none !important;
-  font-size:.9rem; line-height:1.55; color:rgba(255,255,255,.86); }
-
-/* MEASURED AGAINST THE BAND IT SITS ON — 30 August 2026.
- *
- * This form is the site's smaller ask: the thing offered to the larger number
- * of readers who will not book a video call with a stranger but will send a
- * sentence. It sits on the .cta-band gradient, which runs --blue-deeper to
- * --blue-deep, and every value here was a translucent WHITE over that. Nothing
- * measured it, because the contrast gate compares flat token pairs and this is
- * a composite: white, over a percentage of white, over a gradient.
- *
- * Measured at all three gradient stops, worst case:
- *
- *   typed text, white on a .12 white fill        4.32   under AA
- *   ...and on the .20 fill it switched to ON FOCUS   3.69   worse while typing
- *   placeholder, white .66 on that fill          2.83   badly under
- *   field border, white .40 against the band     2.23   under the 3.0 a control needs
- *
- * The fill is now BLACK rather than white. That is the whole fix: darkening
- * the field increases its contrast with the white text inside it, where
- * lightening it — which is what focusing the field used to do — reduced it.
- * Focus now darkens further, so the field gets more legible at the moment
- * somebody is actually using it, not less.
- *
- *   typed text on the .14 black fill             6.97
- *   focused, .20 black                           7.72
- *   placeholder, white .78                       4.97
- *   border, white .60 vs band / vs field    3.11 / 3.89
- */
-.ask-instead-area,
-.ask-instead-row input{ width:100%; box-sizing:border-box; font:inherit;
-  padding:11px 12px; min-height:46px; border-radius:var(--radius-sm);
-  border:1px solid rgba(255,255,255,.6); background:rgba(0,0,0,.14);
-  color:#fff; }
-.ask-instead-area{ resize:vertical; line-height:1.55; margin:0 0 10px; }
-.ask-instead-area::placeholder,
-.ask-instead-row input::placeholder{ color:rgba(255,255,255,.78); }
-.ask-instead-area:focus-visible,
-.ask-instead-row input:focus-visible{ outline:2px solid #fff; outline-offset:2px;
-  background:rgba(0,0,0,.2); }
-
-.ask-instead-row{ display:flex; gap:10px; flex-wrap:wrap; align-items:stretch; }
-.ask-instead-row input{ flex:1 1 200px; width:auto; }
-.ask-instead-row .btn--primary{ flex:0 0 auto; }
-
-/* .72 measured 3.77 against the band. .88 is 4.74. */
-.ask-instead-fine{ margin:12px 0 0 !important; max-width:none !important;
-  font-size:.8rem; line-height:1.5; color:rgba(255,255,255,.88); }
-
 .cta-band-alt{ margin:24px auto 0 !important; max-width:33em !important;
   font-size:.9rem; color:rgba(255,255,255,.86); }
 .cta-band-alt a{ color:#fff; text-decoration:underline; text-underline-offset:2px; }
 
 /* Links written into prose on a dark band inherit the global link colour,
    which is tuned for cream and reads as almost-black-blue on ink. Two had
-   slipped through this way: the BCACC "check yourself" link inside
-   .ask-instead-fine, and the Punjabi-page link in the homepage signature.
+   slipped through this way: a BCACC "check yourself" link inside the band's
+   fine print, and the Punjabi-page link in the homepage signature.
    Scope every non-button link on an ink ground to the on-ink blue. Buttons
    and the links already given an explicit colour are excluded. */
 .cta-band a:not(.btn):not([class*="cta-band-alt"]),
@@ -2481,7 +2423,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
   }
 
   /* Chrome, prompts and anything that cannot be acted on from paper. */
-  .site-header, .site-footer, .cta-band, .ask-instead, .lead-form,
+  .site-header, .site-footer, .cta-band, .lead-form,
   /* `.crumbs`, not `.breadcrumbs` — the component renders class="crumbs" and
      every style rule in this file targets `.crumbs`. The print rule named a
      class that exists nowhere, so it had never hidden anything and breadcrumb

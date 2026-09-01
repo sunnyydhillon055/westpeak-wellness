@@ -10,7 +10,6 @@ import { cityContexts, AUTHORITY_URL } from '@/lib/city-context';
 import { pairs, getPair, pairsForCity, pairsForService } from '@/lib/city-services';
 import CtaBand from '@/components/CtaBand';
 import Breadcrumbs from '@/components/Breadcrumbs';
-import AskInstead from '@/components/AskInstead';
 import Figure from '@/components/Figure';
 import { ogBase } from '@/lib/og-meta';
 
@@ -36,9 +35,7 @@ import { ogBase } from '@/lib/og-meta';
  * BOOKING LINKS
  *
  * Deliberately several, at the points where somebody actually decides: under
- * the opening argument, after the access reality, and in the closing band —
- * plus the smaller ask (AskInstead) for the larger number of readers who will
- * not book a video call with a stranger but will send a sentence.
+ * the opening argument, after the access reality, and in the closing band.
  */
 
 type Params = { city: string; service: string };
@@ -371,7 +368,6 @@ export default function CityServicePage({ params }: { params: Params }) {
 
       {/* The smaller ask. Booking a video call with a stranger is the highest
           commitment on this site; a sentence by email is not. */}
-      <AskInstead />
 
       <CtaBand
         heading={`${svc.name} in ${ctx.city}, without the travel`}

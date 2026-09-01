@@ -84,7 +84,7 @@ export default function LeadCapture({
           have carried it since they were written, and the lead-magnet form,
           which sits on the coverage and cost pages, was posting to the same
           endpoint with no bot check at all. Same field name and same silent
-          acceptance as InboundForm and AskInstead; see the note on HONEYPOT in
+          acceptance as InboundForm; see the note on HONEYPOT in
           lib/inbound-submit.ts. */}
       <div className="hp" aria-hidden="true">
         <label htmlFor="hp-lead">Company</label>

@@ -19,9 +19,8 @@
  *   primary   booking — /book, the scheduler, the consultation. High commitment:
  *             a scheduled video call with a stranger.
  *   secondary the smaller ask — an enquiry form, a mailto, /contact. This is the
- *             one most readers will actually take, which is why AskInstead
- *             exists and why a page with only a booking button is weaker than
- *             it looks rather than fine.
+ *             one most readers will actually take, and why a page with only a
+ *             booking button is weaker than it looks rather than fine.
  *
  * STATIC FILES ARE NOT THE WHOLE SITE
  *

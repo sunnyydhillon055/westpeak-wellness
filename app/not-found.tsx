@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { site } from '@/lib/site';
-import AskInstead from '@/components/AskInstead';
 
 export const metadata: Metadata = {
   title: 'Page not found',
@@ -71,7 +70,6 @@ export default function NotFound() {
         {/* A 404 is not an error page, it is a person who wanted something and
             did not find it. It offered a list of links and no way to say what
             they were actually after. */}
-        <AskInstead />
 
         <h2>If you were looking for help right now</h2>
         <p>

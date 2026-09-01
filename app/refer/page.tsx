@@ -230,7 +230,7 @@ export default function ReferPage({ searchParams }: { searchParams?: { lead?: st
         </div>
       </section>
 
-      <CtaBand ask={false} />
+      <CtaBand />
     </>
   );
 }

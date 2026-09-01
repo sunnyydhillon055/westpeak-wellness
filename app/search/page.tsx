@@ -5,7 +5,6 @@ import { abs, orgRef, siteRef } from '@/lib/schema';
 import { buildIndex, searchIndex } from '@/lib/search-index';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import SearchBeacon from '@/components/SearchBeacon';
-import AskInstead from '@/components/AskInstead';
 
 export const metadata: Metadata = {
   title: { absolute: 'Search | Westpeak Wellness' },
@@ -114,7 +113,6 @@ export default function SearchPage({ searchParams }: { searchParams?: { q?: stri
                   That is the highest-intent moment on the site and it offered
                   only a calendar link. The term they typed is prefilled, so the
                   question they could not find an answer to becomes the message. */}
-              <AskInstead />
             </>
           )}
 

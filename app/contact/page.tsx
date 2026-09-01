@@ -186,7 +186,7 @@ export default async function Contact({
         </div>
       </section>
 
-      <CtaBand ask={false}         heading="One conversation is all it takes to start."
+      <CtaBand heading="One conversation is all it takes to start."
         text="A free 15-minute consultation over secure video. No pressure, no commitment, and no obligation to book a session afterward."
       />
     </>
