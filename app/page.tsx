@@ -217,7 +217,7 @@ export default function Home() {
                 </Link>{' '}
                 covering services, fees and what a first session involves.
               </p>
-              <Link className="btn btn--ghost" href="/services/south-asian-mental-health" style={{ marginTop: 8 }}>
+              <Link className="btn btn--ghost" href="/services/punjabi-counselling" style={{ marginTop: 8 }}>
                 Counselling for South Asian adults →
               </Link>
             </div>

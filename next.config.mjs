@@ -106,6 +106,36 @@ const nextConfig = {
          so it is redirected rather than deleted — the inbound equity and any
          external link land on /faq instead of a 404. */
       { source: '/answers', destination: '/faq', permanent: true },
+
+      /* SERVICES REDUCED TO FIVE, 31 Aug 2026, at the owner's request:
+         individual, couples, EMDR, family, and Punjabi-speaking.
+         Six service pages retired. None are deleted — each 301s to the
+         service that absorbed it, so the ranking equity and every inbound
+         link land somewhere that answers the same question.
+
+         Anxiety, depression and trauma are not "not offered". They are what
+         individual counselling is FOR, and the page says so. Folding three
+         thin pillars into one strong one is the point of the change. */
+      { source: '/services/anxiety-counselling', destination: '/services/individual-therapy', permanent: true },
+      { source: '/services/depression-counselling', destination: '/services/individual-therapy', permanent: true },
+      { source: '/services/trauma-therapy', destination: '/services/individual-therapy', permanent: true },
+      { source: '/services/emdr-intensive', destination: '/services/emdr-therapy', permanent: true },
+      { source: '/services/south-asian-mental-health', destination: '/services/punjabi-counselling', permanent: true },
+      { source: '/services/online-counselling-bc', destination: '/online-counselling', permanent: true },
+
+      /* The 30 city x service pages built on the three retired services go to
+         their CITY page rather than to individual-therapy. Someone searching
+         "anxiety counselling in Surrey" wants Surrey kept, not swapped for a
+         generic service page — the local intent is the more valuable half of
+         that query. */
+      ...['surrey', 'vancouver', 'burnaby', 'abbotsford', 'langley', 'chilliwack',
+          'victoria', 'kelowna', 'kamloops', 'prince-george'].flatMap((city) =>
+        ['anxiety-counselling', 'depression-counselling', 'trauma-therapy'].map((svc) => ({
+          source: `/online-counselling/${city}/${svc}`,
+          destination: `/online-counselling/${city}`,
+          permanent: true,
+        }))
+      ),
       /* /blog was a 404. The guides engine already is the article stack —
          dated, Article-schema'd and internally linked — so this points at it
          rather than standing up a second one that would split topic authority

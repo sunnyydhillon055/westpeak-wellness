@@ -200,8 +200,8 @@ export const moreComparisons: Comparison[] = [
     related: [
       { href: '/resources/msp-vs-extended-health', label: 'MSP vs extended health' },
       { href: '/standards', label: 'Standards and accountability' },
-      { href: '/services/depression-counselling', label: 'Depression counselling' },
-      { href: '/services/anxiety-counselling', label: 'Anxiety counselling' },
+      { href: '/services/individual-therapy', label: 'Depression counselling' },
+      { href: '/services/individual-therapy', label: 'Anxiety counselling' },
       { href: '/resources/bc-crisis-and-support-directory', label: 'BC crisis and support directory' },
     ],
   },

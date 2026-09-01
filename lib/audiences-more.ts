@@ -60,9 +60,9 @@ export const moreAudiences: Audience[] = [
         h2: 'What the work tends to involve',
         body: [
           'Early sessions are usually about getting an accurate picture rather than an efficient one — what is actually being carried, by whom, and at what cost. That sounds obvious and it is often the first time anyone has laid it out, including the person carrying it.',
-          'From there the work varies. Where the difficulty is anxiety or low mood, structured approaches with a good evidence base apply directly — see [anxiety counselling](/services/anxiety-counselling) and [depression counselling](/services/depression-counselling). Where the pattern is older than the current situation, the work goes further back, because a difficulty with saying no at thirty-eight usually did not begin at thirty-eight.',
+          'From there the work varies. Where the difficulty is anxiety or low mood, structured approaches with a good evidence base apply directly — see [anxiety counselling](/services/individual-therapy) and [depression counselling](/services/individual-therapy). Where the pattern is older than the current situation, the work goes further back, because a difficulty with saying no at thirty-eight usually did not begin at thirty-eight.',
           'Boundaries come up constantly and are rarely as simple as being told to set them. Setting a boundary with people who have never encountered one has consequences, and doing it well involves deciding what you are prepared to absorb. That is a strategy conversation as much as a therapeutic one.',
-          'And where something has been carried from an earlier period — a relationship, an assault, a childhood organised around someone else\'s state — [trauma therapy](/services/trauma-therapy) or [EMDR](/services/emdr-therapy) may be the more direct route than talking around it for another year.',
+          'And where something has been carried from an earlier period — a relationship, an assault, a childhood organised around someone else\'s state — [trauma therapy](/services/individual-therapy) or [EMDR](/services/emdr-therapy) may be the more direct route than talking around it for another year.',
         ],
       },
       {
@@ -76,8 +76,8 @@ export const moreAudiences: Audience[] = [
     ],
     servicesThatFit: [
       { href: '/services/individual-therapy', label: 'Individual therapy', why: 'The general container for load, boundaries, identity and the things that have been carried too long.' },
-      { href: '/services/anxiety-counselling', label: 'Anxiety counselling', why: 'For the version that presents as capability — planning, over-preparing, and never quite switching off.' },
-      { href: '/services/trauma-therapy', label: 'Trauma therapy', why: 'Where something older is still shaping how safe it feels to take up room.' },
+      { href: '/services/individual-therapy', label: 'Anxiety counselling', why: 'For the version that presents as capability — planning, over-preparing, and never quite switching off.' },
+      { href: '/services/individual-therapy', label: 'Trauma therapy', why: 'Where something older is still shaping how safe it feels to take up room.' },
       { href: '/services/couples-therapy', label: 'Couples therapy', why: 'When the asymmetry is in the relationship and needs both people present to change.' },
       { href: '/services/punjabi-counselling', label: 'Counselling in Punjabi', why: 'For working in the language the family conversation actually happens in.' },
     ],
@@ -180,9 +180,9 @@ export const moreAudiences: Audience[] = [
     servicesThatFit: [
       { href: '/services/couples-therapy', label: 'Couples therapy', why: 'The main container — assessment first, then structured work on conflict, friendship and shared meaning.' },
       { href: '/services/individual-therapy', label: 'Individual therapy', why: 'Where one partner is not attending, or where an individual difficulty needs its own space first.' },
-      { href: '/services/trauma-therapy', label: 'Trauma therapy', why: 'When something one partner is carrying keeps overwhelming the couple work.' },
+      { href: '/services/individual-therapy', label: 'Trauma therapy', why: 'When something one partner is carrying keeps overwhelming the couple work.' },
       { href: '/services/punjabi-counselling', label: 'Counselling in Punjabi', why: 'For couples whose family conversations happen in Punjabi and lose something in translation.' },
-      { href: '/services/anxiety-counselling', label: 'Anxiety counselling', why: 'Where anxiety in one partner is driving the pursuing-and-withdrawing pattern.' },
+      { href: '/services/individual-therapy', label: 'Anxiety counselling', why: 'Where anxiety in one partner is driving the pursuing-and-withdrawing pattern.' },
     ],
     midCta: {
       text: 'If the same conversation has been going nowhere for a while,',

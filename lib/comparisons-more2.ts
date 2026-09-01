@@ -80,11 +80,11 @@ export const moreComparisons2: Comparison[] = [
       { label: 'NICE — Post-traumatic stress disorder guideline (NG116)', url: 'https://www.nice.org.uk/guidance/ng116' },
     ],
     related: [
-      { href: '/services/emdr-intensive', label: 'The EMDR intensive — booking and structure' },
+      { href: '/services/emdr-therapy', label: 'The EMDR intensive — booking and structure' },
       { href: '/services/emdr-therapy', label: 'EMDR therapy across BC' },
       { href: '/guides/what-is-emdr-and-how-a-session-works', label: 'What is EMDR and how a session works' },
       { href: '/compare/cbt-vs-emdr-for-trauma', label: 'CBT vs EMDR for trauma' },
-      { href: '/services/trauma-therapy', label: 'Trauma therapy' },
+      { href: '/services/individual-therapy', label: 'Trauma therapy' },
       { href: '/pricing', label: 'Fees & insurance' },
     ],
   },
@@ -332,7 +332,7 @@ export const moreComparisons2: Comparison[] = [
     related: [
       { href: '/services/punjabi-counselling', label: 'Punjabi counselling across BC' },
       { href: '/punjabi', label: 'ਪੰਜਾਬੀ ਵਿੱਚ — in Punjabi' },
-      { href: '/services/south-asian-mental-health', label: 'South Asian mental health' },
+      { href: '/services/punjabi-counselling', label: 'South Asian mental health' },
       { href: '/guides/talking-to-your-family-about-therapy', label: 'Talking to your family about therapy' },
       { href: '/guides/setting-boundaries-with-family', label: 'Setting boundaries with family' },
     ],

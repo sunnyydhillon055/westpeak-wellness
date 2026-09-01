@@ -236,7 +236,7 @@ export const moreGuides3: Guide[] = [
         h2: 'What grief counselling involves',
         body: [
           'It is not a technique for accelerating grief, and any approach promising to speed it up is misrepresenting itself. What it offers is somewhere the loss can be given its full size, in front of someone whose relationship with you does not depend on you being alright.',
-          'Practically, that often means telling the story properly — including the parts that are unacceptable elsewhere, such as the anger, the relief, or the fact that the relationship was not good. It usually involves working out what continuing relationship you want with the person or thing that is gone, since the goal is rarely severance. And where the death was traumatic, it may involve trauma-focused work, because an intrusive image of how someone died can block the grieving entirely. [Trauma therapy](/services/trauma-therapy) and [EMDR](/services/emdr-therapy) both apply here.',
+          'Practically, that often means telling the story properly — including the parts that are unacceptable elsewhere, such as the anger, the relief, or the fact that the relationship was not good. It usually involves working out what continuing relationship you want with the person or thing that is gone, since the goal is rarely severance. And where the death was traumatic, it may involve trauma-focused work, because an intrusive image of how someone died can block the grieving entirely. [Trauma therapy](/services/individual-therapy) and [EMDR](/services/emdr-therapy) both apply here.',
           'For anyone who wants support that is not one-to-one, BC has bereavement services, hospice-based groups and peer support in most regions, much of it free. A group of people who are not surprised by anything you say is a different and sometimes better resource than a counsellor.',
         ],
       },
@@ -260,7 +260,7 @@ export const moreGuides3: Guide[] = [
     ],
     related: [
       { href: '/services/individual-therapy', label: 'Individual therapy' },
-      { href: '/services/trauma-therapy', label: 'Trauma therapy' },
+      { href: '/services/individual-therapy', label: 'Trauma therapy' },
       { href: '/guides/what-trauma-actually-means', label: 'What trauma actually means' },
       { href: '/guides/when-someone-you-love-is-drinking', label: 'When someone you love is drinking' },
       { href: '/guides/chronic-illness-and-mood', label: 'Chronic illness, pain and mood' },
@@ -308,7 +308,7 @@ export const moreGuides3: Guide[] = [
         h2: 'The part that matters more: what happens next',
         body: [
           'One panic attack is unpleasant. What turns it into a pattern is the perfectly sensible response to it — never being in that situation again. Not chairing the meeting. Taking the stairs so the lift is never involved. Working from home on presentation days. Sitting near the door, then near the door on the ground floor, then not going in.',
-          'Each of those brings immediate relief, and the relief is exactly the problem. Escaping teaches the brain that escape was necessary, which means the situation is more frightening next time and the range of avoided situations quietly expands. This is the [avoidance cycle](/services/anxiety-counselling), and it is the mechanism that converts a single episode into a condition.',
+          'Each of those brings immediate relief, and the relief is exactly the problem. Escaping teaches the brain that escape was necessary, which means the situation is more frightening next time and the range of avoided situations quietly expands. This is the [avoidance cycle](/services/individual-therapy), and it is the mechanism that converts a single episode into a condition.',
           'The counter-move is not heroics. It is graded, planned re-entry — deliberately staying in situations at a level you can tolerate until the fear comes down on its own, which it reliably does given time. That is the core of the best-evidenced treatment for panic, and it works considerably better with someone structuring it than alone.',
         ],
       },
@@ -346,7 +346,7 @@ export const moreGuides3: Guide[] = [
     ],
     related: [
       { href: '/guides/anxiety-attack-vs-panic-attack', label: 'Anxiety attack vs panic attack' },
-      { href: '/services/anxiety-counselling', label: 'Anxiety counselling' },
+      { href: '/services/individual-therapy', label: 'Anxiety counselling' },
       { href: '/resources/workplace-mental-health-bc', label: 'Mental health and work in BC' },
       { href: '/guides/anxiety-and-sleep', label: 'Anxiety and sleep' },
       { href: '/book', label: 'Book a free consultation' },

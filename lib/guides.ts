@@ -136,7 +136,7 @@ const coreGuides: Guide[] = [
     ],
     related: [
       { href: '/online-counselling/victoria', label: 'Online counselling in Victoria' },
-      { href: "/services/online-counselling-bc", label: "How online counselling works across BC" },
+      { href: "/online-counselling", label: "How online counselling works across BC" },
       { href: "/services/emdr-therapy", label: "EMDR therapy for trauma and PTSD" },
       { href: "/compare/rcc-vs-psychologist-vs-social-worker-bc", label: "RCC, psychologist, or social worker — who to see in BC" },
       { href: "/pricing", label: "Fees and extended health coverage" },
@@ -221,7 +221,7 @@ const coreGuides: Guide[] = [
     ],
     related: [
       { href: "/services/emdr-therapy", label: "EMDR therapy across BC" },
-      { href: "/services/trauma-therapy", label: "Trauma therapy and trauma-informed care" },
+      { href: "/services/individual-therapy", label: "Trauma therapy and trauma-informed care" },
       { href: "/guides/intergenerational-trauma-explained", label: "Intergenerational trauma explained" },
       { href: "/guides/is-online-therapy-as-effective-as-in-person", label: "Is online therapy as effective as in-person?" },
     ],
@@ -274,7 +274,7 @@ const coreGuides: Guide[] = [
         h2: "When it is worth getting support",
         body: [
           "One panic attack in a stressful period is common and not necessarily a sign of anything ongoing. The pattern worth acting on is when the fear of the next one starts shaping your decisions — avoiding the highway, the supermarket, the meeting, being alone. That avoidance is what converts an unpleasant experience into a condition that narrows your life.",
-          "Panic responds well to structured treatment, particularly CBT-based approaches that work directly on the catastrophic interpretation of body sensations. That is the core of [anxiety counselling](/services/anxiety-counselling). If the anxiety instead runs quietly underneath a life that looks entirely functional from outside, [the guide on high-functioning anxiety](/guides/high-functioning-anxiety) is the more relevant one.",
+          "Panic responds well to structured treatment, particularly CBT-based approaches that work directly on the catastrophic interpretation of body sensations. That is the core of [anxiety counselling](/services/individual-therapy). If the anxiety instead runs quietly underneath a life that looks entirely functional from outside, [the guide on high-functioning anxiety](/guides/high-functioning-anxiety) is the more relevant one.",
         ],
       },
     ],
@@ -294,7 +294,7 @@ const coreGuides: Guide[] = [
       { label: "HereToHelp BC — anxiety disorders info sheet", url: "https://www.heretohelp.bc.ca/infosheet/anxiety-disorders" },
     ],
     related: [
-      { href: "/services/anxiety-counselling", label: "Anxiety counselling across BC" },
+      { href: "/services/individual-therapy", label: "Anxiety counselling across BC" },
       { href: "/guides/high-functioning-anxiety", label: "High-functioning anxiety: signs and what helps" },
       { href: "/guides/what-to-expect-first-therapy-session", label: "What to expect in a first therapy session" },
       { href: "/services/emdr-therapy", label: "EMDR therapy for anxiety and panic" },
@@ -349,7 +349,7 @@ const coreGuides: Guide[] = [
         body: [
           "CBT-based work is effective here, though the target differs from panic-focused work. Rather than the catastrophic interpretation of body sensations, the targets are the rules — *if I stop, it falls apart*, *good enough is not safe*, *other people's disappointment is intolerable* — and the behaviours that keep them untested.",
           "The behavioural side is usually the uncomfortable part: deliberately sending the email without the fourth reread, leaving something at good-enough, saying no once and sitting with it. These are small and they are not easy, because each one is an experiment your anxiety has spent years preventing you from running.",
-          "If this is where you are, the work is described in more detail on the [anxiety counselling page](/services/anxiety-counselling). If it has already tipped into exhaustion and detachment rather than drive, [burnout and depression](/guides/burnout-vs-depression) may be the closer fit.",
+          "If this is where you are, the work is described in more detail on the [anxiety counselling page](/services/individual-therapy). If it has already tipped into exhaustion and detachment rather than drive, [burnout and depression](/guides/burnout-vs-depression) may be the closer fit.",
         ],
       },
     ],
@@ -371,7 +371,7 @@ const coreGuides: Guide[] = [
     related: [
       { href: '/approaches/acceptance-and-commitment-therapy', label: 'Acceptance and Commitment Therapy' },
       { href: '/online-counselling/vancouver', label: 'Online counselling in Vancouver' },
-      { href: "/services/anxiety-counselling", label: "Anxiety counselling across BC" },
+      { href: "/services/individual-therapy", label: "Anxiety counselling across BC" },
       { href: "/guides/burnout-vs-depression", label: "Burnout or depression — how to tell" },
       { href: "/guides/anxiety-attack-vs-panic-attack", label: "Anxiety attack vs panic attack" },
       { href: "/for/first-gen-south-asian-adults", label: "Counselling for first- and second-gen South Asian adults" },
@@ -581,7 +581,7 @@ const coreGuides: Guide[] = [
         h2: "What each actually needs",
         body: [
           "**Burnout responds to changes in conditions,** which is unwelcome news when the conditions are not fully yours to change. The work usually involves recovering the capacity to notice your own limits, rebuilding boundaries that eroded gradually, and being honest about which parts of the load are structural. Therapy helps with the psychology of that — particularly the beliefs that made overwork feel obligatory, which is where it overlaps with [high-functioning anxiety](/guides/high-functioning-anxiety). It cannot reduce your caseload.",
-          "**Depression responds to treatment,** and the evidence base is strong for therapy, medication, or both depending on severity. [Depression counselling](/services/depression-counselling) works on the patterns and the meaning; a physician handles the medical question. The two run perfectly well in parallel.",
+          "**Depression responds to treatment,** and the evidence base is strong for therapy, medication, or both depending on severity. [Depression counselling](/services/individual-therapy) works on the patterns and the meaning; a physician handles the medical question. The two run perfectly well in parallel.",
           "For people in caregiving and shift-based work — healthcare, first response, social services — the picture is usually both at once, plus a workplace culture that treats the exhaustion as a personal failing. That is covered on the page for [healthcare and shift workers](/for/healthcare-and-shift-workers).",
         ],
       },
@@ -603,10 +603,10 @@ const coreGuides: Guide[] = [
     ],
     related: [
       { href: '/guides/stress-leave-bc', label: 'How to get stress leave in BC' },
-      { href: "/services/depression-counselling", label: "Depression counselling across BC" },
+      { href: "/services/individual-therapy", label: "Depression counselling across BC" },
       { href: "/guides/high-functioning-anxiety", label: "High-functioning anxiety" },
       { href: "/for/healthcare-and-shift-workers", label: "Counselling for healthcare and shift workers" },
-      { href: "/services/anxiety-counselling", label: "Anxiety counselling" },
+      { href: "/services/individual-therapy", label: "Anxiety counselling" },
       { href: "/tools/stress-check", label: "A reflection on how things have been" },
     ],
   },
@@ -652,7 +652,7 @@ const coreGuides: Guide[] = [
         body: [
           "For many South Asian families in BC, the parent generation carried migration, partition histories, financial precarity, or racism in a new country — and metabolised it by working relentlessly and saying little. That was frequently the correct strategy at the time. It is also a strategy with a cost, paid partly by the next generation.",
           "The second-generation position is specific: enough distance to see the pattern, enough loyalty to feel disloyal naming it. Add a cultural frame in which mental health has historically not been discussed, and the phrase *log kya kahenge* — what will people say — and you get people who recognise every word of this and have never said any of it out loud.",
-          "Working on this does not require rejecting your family or your culture, and any approach that pushes you toward that has misunderstood the problem. Most people are trying to keep the connection and stop carrying the parts that are not theirs — which is harder, and possible. This is the substance of [South Asian mental health work](/services/south-asian-mental-health) and, where language matters, [counselling in Punjabi](/services/punjabi-counselling).",
+          "Working on this does not require rejecting your family or your culture, and any approach that pushes you toward that has misunderstood the problem. Most people are trying to keep the connection and stop carrying the parts that are not theirs — which is harder, and possible. This is the substance of [South Asian mental health work](/services/punjabi-counselling) and, where language matters, [counselling in Punjabi](/services/punjabi-counselling).",
         ],
       },
       {
@@ -681,10 +681,10 @@ const coreGuides: Guide[] = [
     ],
     related: [
       { href: '/online-counselling/abbotsford', label: 'Online counselling in Abbotsford' },
-      { href: "/services/south-asian-mental-health", label: "South Asian mental health counselling" },
+      { href: "/services/punjabi-counselling", label: "South Asian mental health counselling" },
       { href: "/services/punjabi-counselling", label: "Punjabi-speaking counselling" },
       { href: "/for/first-gen-south-asian-adults", label: "For first- and second-gen South Asian adults" },
-      { href: "/services/trauma-therapy", label: "Trauma therapy across BC" },
+      { href: "/services/individual-therapy", label: "Trauma therapy across BC" },
     ],
   },
 

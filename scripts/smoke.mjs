@@ -107,6 +107,21 @@ const CHECKS = [
      redirects rather than 404s. */
   ['/answers', 308, '/faq'],
 
+  /* Services reduced to five, 31 Aug 2026. Each retired service must land on
+     the one that absorbed it, and the five that remain must serve. */
+  ['/services/anxiety-counselling', 308, '/services/individual-therapy'],
+  ['/services/depression-counselling', 308, '/services/individual-therapy'],
+  ['/services/trauma-therapy', 308, '/services/individual-therapy'],
+  ['/services/emdr-intensive', 308, '/services/emdr-therapy'],
+  ['/services/south-asian-mental-health', 308, '/services/punjabi-counselling'],
+  ['/services/online-counselling-bc', 308, '/online-counselling'],
+  ['/online-counselling/surrey/anxiety-counselling', 308, '/online-counselling/surrey'],
+  ['/services/individual-therapy', 200],
+  ['/services/couples-therapy', 200],
+  ['/services/emdr-therapy', 200],
+  ['/services/family-counselling', 200],
+  ['/services/punjabi-counselling', 200],
+
   /* And the counter-case: a city that WAS retired and then given a real page
      must not redirect. Getting this wrong is how the original bug shipped. */
   ['/online-counselling/kamloops', 200],

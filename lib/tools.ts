@@ -241,7 +241,7 @@ export const WHICH_SERVICE_OUTCOMES: Outcome[] = [
     heading: 'Trauma-informed work, and possibly EMDR',
     body:
       'When something older is still active, the sequence matters more than the method: capacity and regulation first, memory only once you can feel something and still think about it. EMDR is one route through that, with a strong evidence base for post-traumatic stress.',
-    href: '/services/trauma-therapy',
+    href: '/services/individual-therapy',
     hrefLabel: 'Trauma therapy',
   },
   {
@@ -257,7 +257,7 @@ export const WHICH_SERVICE_OUTCOMES: Outcome[] = [
     heading: 'Anxiety counselling',
     body:
       'Structured cognitive behavioural work targets the mechanisms keeping anxiety running — avoidance, safety behaviours, reassurance-seeking — rather than arguing with the content of any individual worry.',
-    href: '/services/anxiety-counselling',
+    href: '/services/individual-therapy',
     hrefLabel: 'Anxiety counselling',
   },
   {
@@ -273,7 +273,7 @@ export const WHICH_SERVICE_OUTCOMES: Outcome[] = [
     heading: 'Depression counselling',
     body:
       'Behavioural activation plus cognitive work. Because low mood removes motivation before it removes activity, the work schedules activity in advance rather than waiting for the desire to return.',
-    href: '/services/depression-counselling',
+    href: '/services/individual-therapy',
     hrefLabel: 'Depression counselling',
   },
   {

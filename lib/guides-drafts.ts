@@ -197,7 +197,7 @@ export const draftGuides: Guide[] = [
     related: [
       { href: '/for/new-parents', label: 'Counselling for new parents' },
       { href: '/guides/intrusive-thoughts-and-what-they-mean', label: 'Intrusive thoughts and what they mean' },
-      { href: '/services/anxiety-counselling', label: 'Anxiety counselling' },
+      { href: '/services/individual-therapy', label: 'Anxiety counselling' },
       { href: '/guides/anxiety-and-sleep', label: 'Anxiety and sleep' },
       { href: '/resources/bc-crisis-and-support-directory', label: 'BC crisis and support directory' },
     ],
@@ -277,7 +277,7 @@ export const draftGuides: Guide[] = [
       { href: '/guides/high-functioning-anxiety', label: 'High-functioning anxiety' },
       { href: '/guides/anxiety-and-sleep', label: 'Anxiety and sleep' },
       { href: '/services/couples-therapy', label: 'Couples therapy' },
-      { href: '/services/anxiety-counselling', label: 'Anxiety counselling' },
+      { href: '/services/individual-therapy', label: 'Anxiety counselling' },
     ],
   },
 
@@ -504,7 +504,7 @@ export const draftGuides: Guide[] = [
     ],
     related: [
       { href: '/services/couples-therapy', label: 'Couples therapy' },
-      { href: '/services/anxiety-counselling', label: 'Anxiety counselling' },
+      { href: '/services/individual-therapy', label: 'Anxiety counselling' },
       { href: '/guides/intrusive-thoughts-and-what-they-mean', label: 'Intrusive thoughts and what they mean' },
       { href: '/compare/individual-vs-couples-therapy', label: 'Individual vs couples therapy' },
       { href: '/guides/high-functioning-anxiety', label: 'High-functioning anxiety' },
@@ -579,7 +579,7 @@ export const draftGuides: Guide[] = [
     related: [
       { href: '/guides/supporting-someone-who-is-struggling', label: 'Supporting someone who is struggling' },
       { href: '/guides/anxiety-in-relationships', label: 'Anxiety in relationships' },
-      { href: '/services/anxiety-counselling', label: 'Anxiety counselling' },
+      { href: '/services/individual-therapy', label: 'Anxiety counselling' },
       { href: '/services/couples-therapy', label: 'Couples therapy' },
       { href: '/guides/talking-to-your-family-about-therapy', label: 'Talking to your family about therapy' },
     ],

@@ -123,7 +123,13 @@ export default async function ServicePage({ params }: { params: { slug: string }
   const toc = buildToc([
     'How we approach it',
     ...(s.whatItIs ? [s.whatItIs.h2] : []),
-    'What people tend to arrive with',
+    /* Conditional, like every other optional section. It was unconditional,
+       while the section it points at renders only when `signs` exists — so any
+       service without `signs` published a table of contents linking to an
+       anchor that was not on the page. It never showed because every service
+       written before 31 Aug 2026 happened to have signs; family-counselling
+       did not, and the internal-link gate caught it on the first build. */
+    ...(s.signs?.length ? ['What people tend to arrive with'] : []),
     ...(s.sessionShape ? [s.sessionShape.h2] : []),
     ...getExtra('services', s.slug).map((x) => x.h2),
     'Before you book',
@@ -319,7 +325,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
                 deviceSlots() interleaves these between the depth sections and
                 returns [] when a service has none — so on any page without
                 depth content the devices were computed, passed in, and
-                silently dropped. /services/emdr-intensive was the one page in
+                silently dropped. /services/emdr-therapy was the one page in
                 that state: it declares figure2: "session-requirements" in
                 lib/services.ts, the template reads it, and the diagram had
                 never rendered. Nine other services declare a figure2 and show

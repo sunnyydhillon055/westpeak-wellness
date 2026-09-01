@@ -62,7 +62,7 @@ export const moreGuides4: Guide[] = [
         body: [
           'If anger has become physical toward a partner, a child or anyone else — including throwing things, blocking a doorway, or damaging property — that is beyond what a general counselling page should be addressing, and it needs specialised intervention rather than skills practice. It is also, importantly, still addressable: programmes exist for exactly this and people do change. In immediate danger, **9-1-1**; VictimLinkBC is available at **1-800-563-0808** twenty-four hours a day for anyone affected.',
           'Anger that arrived suddenly and out of character, particularly alongside changes in sleep, memory or personality, warrants a medical assessment first. Several physical conditions and some medications present this way.',
-          'And where anger is the visible surface of something older — hypervigilance, a nervous system that never stood down, a childhood organised around someone else\'s temper — the more direct route is usually [trauma therapy](/services/trauma-therapy) rather than anger-specific work. [What trauma actually means](/guides/what-trauma-actually-means) covers why insight alone so often fails to shift it.',
+          'And where anger is the visible surface of something older — hypervigilance, a nervous system that never stood down, a childhood organised around someone else\'s temper — the more direct route is usually [trauma therapy](/services/individual-therapy) rather than anger-specific work. [What trauma actually means](/guides/what-trauma-actually-means) covers why insight alone so often fails to shift it.',
         ],
       },
     ],
@@ -141,7 +141,7 @@ export const moreGuides4: Guide[] = [
           { label: 'Noticing the discounting as it happens', detail: 'Catching the exact moment an achievement gets reclassified as luck. Once visible, it becomes considerably harder to do automatically.' },
           { label: 'Defining "done" in advance', detail: 'Writing down what finished looks like before starting, so completion is a criterion rather than a feeling — which it will otherwise never become.' },
           { label: 'Working on the self-criticism directly', detail: 'Structured approaches exist for this. It is not a matter of positive self-talk, which most perfectionists find hollow and rightly reject.' },
-          { label: 'Treating what it fuels', detail: 'Perfectionism frequently sits underneath anxiety and low mood rather than beside them. See [high-functioning anxiety](/guides/high-functioning-anxiety) and [anxiety counselling](/services/anxiety-counselling).' },
+          { label: 'Treating what it fuels', detail: 'Perfectionism frequently sits underneath anxiety and low mood rather than beside them. See [high-functioning anxiety](/guides/high-functioning-anxiety) and [anxiety counselling](/services/individual-therapy).' },
         ],
       },
       {
@@ -172,7 +172,7 @@ export const moreGuides4: Guide[] = [
       { href: '/approaches/acceptance-and-commitment-therapy', label: 'Acceptance and Commitment Therapy' },
       { href: '/guides/high-functioning-anxiety', label: 'High-functioning anxiety' },
       { href: '/for/women', label: 'Counselling for women' },
-      { href: '/services/anxiety-counselling', label: 'Anxiety counselling' },
+      { href: '/services/individual-therapy', label: 'Anxiety counselling' },
       { href: '/guides/burnout-vs-depression', label: 'Burnout vs depression' },
       { href: '/book', label: 'Book a free consultation' },
     ],
@@ -311,7 +311,7 @@ export const moreGuides4: Guide[] = [
         body: [
           'Counselling does not change the daylight, and it is worth saying that plainly rather than implying otherwise. What it works on is the part that is not weather: the withdrawal that compounds it, the thinking patterns that a flat mood makes more convincing, and the practical structure of a season that has to be planned for rather than endured.',
           'For a genuinely seasonal pattern, the most useful sessions are frequently the ones in October — building the structure before the descent rather than trying to construct it in January with no energy. People who have been through three or four of these usually know their own onset window better than any general guidance.',
-          'Where it turns out not to be seasonal, [depression counselling](/services/depression-counselling) and [burnout vs depression](/guides/burnout-vs-depression) are the more relevant places to start. And if it reaches thoughts of not wanting to be here, that needs support now: **9-8-8** by call or text, or **310-6789**, both twenty-four hours a day.',
+          'Where it turns out not to be seasonal, [depression counselling](/services/individual-therapy) and [burnout vs depression](/guides/burnout-vs-depression) are the more relevant places to start. And if it reaches thoughts of not wanting to be here, that needs support now: **9-8-8** by call or text, or **310-6789**, both twenty-four hours a day.',
         ],
       },
     ],
@@ -332,7 +332,7 @@ export const moreGuides4: Guide[] = [
     ],
     related: [
       { href: '/online-counselling/kamloops', label: 'Online counselling in Kamloops' },
-      { href: '/services/depression-counselling', label: 'Depression counselling' },
+      { href: '/services/individual-therapy', label: 'Depression counselling' },
       { href: '/guides/burnout-vs-depression', label: 'Burnout vs depression' },
       { href: '/guides/anxiety-and-sleep', label: 'Anxiety and sleep' },
       { href: '/online-counselling/prince-george', label: 'Online counselling in Prince George' },

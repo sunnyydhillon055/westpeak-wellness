@@ -190,7 +190,7 @@ export default function PunjabiCounsellingIndex() {
             The service page on{' '}
             <Link href="/services/punjabi-counselling">Punjabi-speaking counselling</Link>{' '}
             covers how sessions run,{' '}
-            <Link href="/services/south-asian-mental-health">counselling for South Asian adults</Link>{' '}
+            <Link href="/services/punjabi-counselling">counselling for South Asian adults</Link>{' '}
             covers the cultural ground in more depth, and{' '}
             <Link href="/for/punjabi-speaking-couples">Punjabi-speaking couples</Link>{' '}
             covers work with two people rather than one. There is also a{' '}

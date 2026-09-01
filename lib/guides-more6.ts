@@ -211,7 +211,7 @@ export const moreGuides6: Guide[] = [
         body: [
           'If procrastination were a planning problem, planning tools would solve it. Most chronic procrastinators have tried a great many of them, and the pattern persists — which is reasonably strong evidence that the diagnosis is wrong.',
           'The better account is that procrastination is about **how the task makes you feel right now**. Approaching it produces something unpleasant: dread, boredom, confusion about where to start, or the specific discomfort of possibly producing something inadequate. Turning away removes that feeling instantly.',
-          'That is a genuine reward, delivered immediately, every single time. The cost arrives later and is heavily discounted by a brain that treats now as more real than Thursday. This is the same architecture as any avoidance loop — see [the avoidance cycle](/services/anxiety-counselling).',
+          'That is a genuine reward, delivered immediately, every single time. The cost arrives later and is heavily discounted by a brain that treats now as more real than Thursday. This is the same architecture as any avoidance loop — see [the avoidance cycle](/services/individual-therapy).',
           'It also explains the specific and otherwise baffling observation that people will do genuinely unpleasant things — cleaning the oven, reorganising files — in order to avoid the task. It is not that they want to be idle. It is that the avoided task carries a particular feeling the alternatives do not.',
         ],
       },
@@ -263,7 +263,7 @@ export const moreGuides6: Guide[] = [
     related: [
       { href: '/guides/perfectionism-and-self-criticism', label: 'Perfectionism and self-criticism' },
       { href: '/guides/adhd-in-adults-and-what-counselling-can-do', label: 'Adult ADHD' },
-      { href: '/services/anxiety-counselling', label: 'Anxiety counselling' },
+      { href: '/services/individual-therapy', label: 'Anxiety counselling' },
       { href: '/guides/imposter-feelings-at-work', label: 'Imposter feelings at work' },
       { href: '/book', label: 'Book a free consultation' },
     ],
@@ -594,7 +594,7 @@ export const moreGuides6: Guide[] = [
       { href: '/resources/workplace-mental-health-bc', label: 'Mental health and work in BC' },
       { href: '/guides/burnout-vs-depression', label: 'Burnout vs depression' },
       { href: '/guides/imposter-feelings-at-work', label: 'Imposter feelings at work' },
-      { href: '/services/trauma-therapy', label: 'Trauma therapy' },
+      { href: '/services/individual-therapy', label: 'Trauma therapy' },
       { href: '/book', label: 'Book a free consultation' },
     ],
   },

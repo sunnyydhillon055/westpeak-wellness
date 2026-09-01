@@ -286,7 +286,7 @@ const coreComparisons: Comparison[] = [
       },
     ],
     howWeFit: [
-      "Westpeak Wellness offers [EMDR therapy](/services/emdr-therapy) and draws on CBT within broader [trauma therapy](/services/trauma-therapy) and [anxiety counselling](/services/anxiety-counselling). In practice most courses of work here are not purely one or the other — stabilisation skills first, then whichever processing approach fits what you are bringing.",
+      "Westpeak Wellness offers [EMDR therapy](/services/emdr-therapy) and draws on CBT within broader [trauma therapy](/services/individual-therapy) and [anxiety counselling](/services/individual-therapy). In practice most courses of work here are not purely one or the other — stabilisation skills first, then whichever processing approach fits what you are bringing.",
       "If what you actually need is a formal PTSD diagnosis for a benefits claim or a legal process, that requires a psychologist or physician rather than a counsellor — [the comparison of BC therapist types](/compare/rcc-vs-psychologist-vs-social-worker-bc) sets out why.",
     ],
     midCta: {
@@ -307,7 +307,7 @@ const coreComparisons: Comparison[] = [
     related: [
       { href: "/services/emdr-therapy", label: "EMDR therapy across BC" },
       { href: "/guides/what-is-emdr-and-how-a-session-works", label: "What is EMDR and how a session works" },
-      { href: "/services/trauma-therapy", label: "Trauma therapy and trauma-informed care" },
+      { href: "/services/individual-therapy", label: "Trauma therapy and trauma-informed care" },
       { href: "/guides/intergenerational-trauma-explained", label: "Intergenerational trauma explained" },
       { href: "/tools/which-service", label: "Which kind of counselling fits?" },
     ],

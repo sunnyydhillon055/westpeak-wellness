@@ -78,8 +78,8 @@ export default function Services() {
           </p>
           <p>
             <strong>Start with the problem, not the modality.</strong>{' '}
-            <Link href="/services/anxiety-counselling">Anxiety counselling</Link> and{' '}
-            <Link href="/services/depression-counselling">depression counselling</Link> are named for
+            <Link href="/services/individual-therapy">Anxiety counselling</Link> and{' '}
+            <Link href="/services/individual-therapy">depression counselling</Link> are named for
             what you are experiencing.{' '}
             <Link href="/services/emdr-therapy">EMDR</Link> and the Gottman Method are named for how
             the work is done — they are approaches used within the others rather than separate
@@ -94,7 +94,7 @@ export default function Services() {
           <p>
             <strong>Language and cultural context</strong> are not an add-on.{' '}
             <Link href="/services/punjabi-counselling">Sessions in Punjabi</Link> and{' '}
-            <Link href="/services/south-asian-mental-health">South Asian mental health work</Link> exist
+            <Link href="/services/punjabi-counselling">South Asian mental health work</Link> exist
             because for many people the alternative is spending a session translating rather than
             working.
            Not sure which of these fits?{' '}
@@ -162,9 +162,9 @@ export default function Services() {
           </p>
           <p>
             <strong>What is being worked on.</strong>{' '}
-            <Link href="/services/anxiety-counselling">Anxiety</Link>,{' '}
-            <Link href="/services/depression-counselling">depression</Link> and{' '}
-            <Link href="/services/trauma-therapy">trauma</Link> are three genuinely different jobs.
+            <Link href="/services/individual-therapy">Anxiety</Link>,{' '}
+            <Link href="/services/individual-therapy">depression</Link> and{' '}
+            <Link href="/services/individual-therapy">trauma</Link> are three genuinely different jobs.
             Anxiety work is largely about interrupting avoidance; depression work often has to move
             from the outside in, because waiting for motivation is the trap; trauma work is sequenced,
             building capacity before anything is opened. That sequencing is not a preference, and{' '}
@@ -181,10 +181,10 @@ export default function Services() {
           </p>
           <p>
             <Link href="/services/punjabi-counselling">Counselling in Punjabi</Link> and{' '}
-            <Link href="/services/south-asian-mental-health">South Asian mental health</Link> are not a
+            <Link href="/services/punjabi-counselling">South Asian mental health</Link> are not a
             separate category of therapy — they are the same methods without the translation overhead,
             and without having to establish the family context from scratch.{' '}
-            <Link href="/services/online-counselling-bc">Online counselling</Link> is the delivery
+            <Link href="/online-counselling">Online counselling</Link> is the delivery
             format every one of these uses.
           </p>
 

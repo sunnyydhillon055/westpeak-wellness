@@ -93,9 +93,9 @@ export default function ForHub() {
             </p>
             <p>
               A better route in that case is to start from the difficulty rather than the demographic:{' '}
-              <Link href="/services/anxiety-counselling">anxiety</Link>,{' '}
-              <Link href="/services/depression-counselling">depression</Link>,{' '}
-              <Link href="/services/trauma-therapy">trauma</Link>, or{' '}
+              <Link href="/services/individual-therapy">anxiety</Link>,{' '}
+              <Link href="/services/individual-therapy">depression</Link>,{' '}
+              <Link href="/services/individual-therapy">trauma</Link>, or{' '}
               <Link href="/services/couples-therapy">a relationship</Link>. If you are not sure the
               difficulty even has a name yet,{' '}
               <Link href="/guides/signs-it-might-be-time-for-therapy">signs it might be time for therapy</Link>{' '}

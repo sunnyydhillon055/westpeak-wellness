@@ -53,7 +53,7 @@ export const moreAudiences2: Audience[] = [
         body: [
           'Three things come up more than anything else. The first is the re-entry transition itself, which is a skill rather than a mood — there are concrete things that make the first forty-eight hours home go better, and most of them involve lowering expectations on both sides rather than trying harder.',
           'The second is sleep, because rotation wrecks it and because sleep loss makes everything else worse in a measurable way. [Anxiety and sleep](/guides/anxiety-and-sleep) covers the loop, with the caveat that standard sleep-hygiene advice is largely unusable on a rotating schedule and has to be adapted rather than repeated.',
-          'The third is whatever has been carried from work and never unpacked. Where that is a specific incident, [trauma therapy](/services/trauma-therapy) and [EMDR](/services/emdr-therapy) are the direct routes; where it is cumulative — years of near misses and a body that never fully stands down — the work looks more like widening capacity than processing a single memory.',
+          'The third is whatever has been carried from work and never unpacked. Where that is a specific incident, [trauma therapy](/services/individual-therapy) and [EMDR](/services/emdr-therapy) are the direct routes; where it is cumulative — years of near misses and a body that never fully stands down — the work looks more like widening capacity than processing a single memory.',
           'Where the strain has landed on the relationship rather than the individual, [couples work](/for/couples) by video is often the only format two schedules can actually sustain.',
         ],
       },
@@ -68,10 +68,10 @@ export const moreAudiences2: Audience[] = [
     ],
     servicesThatFit: [
       { href: '/services/individual-therapy', label: 'Individual therapy', why: 'The main container for re-entry, isolation, sleep and what the job has cost.' },
-      { href: '/services/trauma-therapy', label: 'Trauma therapy', why: 'For incidents at work that got a debrief and never got processed.' },
+      { href: '/services/individual-therapy', label: 'Trauma therapy', why: 'For incidents at work that got a debrief and never got processed.' },
       { href: '/services/couples-therapy', label: 'Couples therapy', why: 'When the rotation has quietly turned two people into parallel operations.' },
-      { href: '/services/online-counselling-bc', label: 'Online counselling', why: 'The format that makes any of this possible from camp or a remote community.' },
-      { href: '/services/depression-counselling', label: 'Depression counselling', why: 'When the days off have stopped feeling like time off.' },
+      { href: '/online-counselling', label: 'Online counselling', why: 'The format that makes any of this possible from camp or a remote community.' },
+      { href: '/services/individual-therapy', label: 'Depression counselling', why: 'When the days off have stopped feeling like time off.' },
     ],
     midCta: {
       text: 'If the schedule is the reason you have never started,',
@@ -150,7 +150,7 @@ export const moreAudiences2: Audience[] = [
         body: [
           'Early sessions are largely about counting the load, because it has usually never been counted. What is actually being carried, by whom, and at what cost — laid out rather than absorbed. People are often surprised by the size of it written down.',
           'From there the work is practical as much as emotional. Deciding what to ask siblings for, and what to do when they decline. Working out which decisions are genuinely yours to make. Distinguishing what you can change from what you can only survive, because a great deal of caregiving distress comes from trying to solve something that is not solvable.',
-          'Where it has tipped into sustained low mood or anxiety, the structured approaches apply directly — see [depression counselling](/services/depression-counselling) and [anxiety counselling](/services/anxiety-counselling). Where a hospital experience or a crisis has left something intrusive, [trauma therapy](/services/trauma-therapy) may be the more direct route.',
+          'Where it has tipped into sustained low mood or anxiety, the structured approaches apply directly — see [depression counselling](/services/individual-therapy) and [anxiety counselling](/services/individual-therapy). Where a hospital experience or a crisis has left something intrusive, [trauma therapy](/services/individual-therapy) may be the more direct route.',
           'And it is worth saying plainly: sessions run by video, which for someone who cannot leave the house for an hour is frequently the difference between having support and not.',
         ],
       },
@@ -165,8 +165,8 @@ export const moreAudiences2: Audience[] = [
     ],
     servicesThatFit: [
       { href: '/services/individual-therapy', label: 'Individual therapy', why: 'The main container for load, grief, resentment and the decisions nobody else will make.' },
-      { href: '/services/depression-counselling', label: 'Depression counselling', why: 'When it has tipped from exhausting into flat, and the days have stopped varying.' },
-      { href: '/services/anxiety-counselling', label: 'Anxiety counselling', why: 'For the hypervigilance of waiting for the next phone call.' },
+      { href: '/services/individual-therapy', label: 'Depression counselling', why: 'When it has tipped from exhausting into flat, and the days have stopped varying.' },
+      { href: '/services/individual-therapy', label: 'Anxiety counselling', why: 'For the hypervigilance of waiting for the next phone call.' },
       { href: '/services/couples-therapy', label: 'Couples therapy', why: 'When caring for one family has quietly cost another.' },
       { href: '/services/punjabi-counselling', label: 'Counselling in Punjabi', why: 'For families where the obligation, and the conversation about it, happens in Punjabi.' },
     ],

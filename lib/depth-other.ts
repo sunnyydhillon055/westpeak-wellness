@@ -350,7 +350,7 @@ export const depthOther: Record<string, DepthSection[]> = {
         'Surrey is one of the most linguistically diverse cities in Canada, and the practical shortage is not counsellors in general — it is counsellors who can work in the language a family argument actually happened in. Being able to run a session in Punjabi is not a convenience here; it removes an entire layer of translation from material that is hard enough to say once.',
         'The second thing a virtual practice changes in Surrey is time. Commutes across the region are substantial, and a weekly appointment requiring travel and parking is realistically a two-hour commitment rather than a fifty-minute one. That is frequently the difference between sustaining counselling and abandoning it in week five — which is a scheduling problem masquerading as a motivation problem.',
         'The third is privacy within a community. Where extended family and community networks are dense, attending a local clinic can be a disclosure in itself. A session from home, with no waiting room, removes that consideration entirely.',
-        '[Counselling in Punjabi](/services/punjabi-counselling), [South Asian mental health](/services/south-asian-mental-health) and [counselling for first-generation South Asian adults](/for/first-gen-south-asian-adults) cover the specific ground this comes up on most.',
+        '[Counselling in Punjabi](/services/punjabi-counselling), [South Asian mental health](/services/punjabi-counselling) and [counselling for first-generation South Asian adults](/for/first-gen-south-asian-adults) cover the specific ground this comes up on most.',
       ],
     },
   ],

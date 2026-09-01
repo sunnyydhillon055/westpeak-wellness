@@ -83,8 +83,8 @@ export const approaches: Approach[] = [
       { label: 'Canadian Mental Health Association, BC Division', url: 'https://bc.cmha.ca/' },
     ],
     related: [
-      { href: '/services/anxiety-counselling', label: 'Anxiety counselling' },
-      { href: '/services/depression-counselling', label: 'Depression counselling' },
+      { href: '/services/individual-therapy', label: 'Anxiety counselling' },
+      { href: '/services/individual-therapy', label: 'Depression counselling' },
       { href: '/compare/cbt-vs-emdr-for-trauma', label: 'CBT vs EMDR for trauma' },
       { href: '/approaches', label: 'All approaches' },
       { href: '/book', label: 'Book a free consultation' },
@@ -221,7 +221,7 @@ export const approaches: Approach[] = [
           { label: 'Anyone stuck in self-attack', detail: 'Approaching a self-critical part with curiosity rather than argument frequently shifts something that direct challenging has not.' },
           { label: 'People for whom insight has not translated', detail: 'Understanding a pattern completely and continuing to enact it is a common reason people arrive at parts work.' },
           { label: 'Those who find structured protocols alienating', detail: 'IFS is exploratory rather than manualised in the way CBT is, which suits some people considerably better.' },
-          { label: 'Less suited where stabilisation is the priority', detail: 'In acute crisis, or where regulation capacity is limited, building that capacity comes first — see [trauma therapy](/services/trauma-therapy).' },
+          { label: 'Less suited where stabilisation is the priority', detail: 'In acute crisis, or where regulation capacity is limited, building that capacity comes first — see [trauma therapy](/services/individual-therapy).' },
         ],
       },
     ],
@@ -241,7 +241,7 @@ export const approaches: Approach[] = [
       { label: 'BC Association of Clinical Counsellors', url: 'https://bcacc.ca/' },
     ],
     related: [
-      { href: '/services/trauma-therapy', label: 'Trauma therapy' },
+      { href: '/services/individual-therapy', label: 'Trauma therapy' },
       { href: '/guides/perfectionism-and-self-criticism', label: 'Perfectionism and self-criticism' },
       { href: '/approaches/somatic-therapy', label: 'Somatic therapy' },
       { href: '/approaches', label: 'All approaches' },
@@ -271,7 +271,7 @@ export const approaches: Approach[] = [
           'The rationale is straightforward once stated. A threat response is a whole-body event — heart rate, muscle tension, breathing, digestion, posture, the impulse to fight, flee or freeze. When that response completes, the system returns to baseline. When it does not, elements of it can persist long after the situation has passed.',
           'That is why someone can understand perfectly well that a past event is over and still find their shoulders up around their ears, their sleep broken, and their body braced in a room where nothing is happening. Insight operates on one system; the pattern is running in another.',
           'It is also why purely verbal approaches sometimes stall on trauma. Talking about an event can be useful, and it does not necessarily reach a nervous system that is not primarily linguistic.',
-          'The [window of tolerance](/services/trauma-therapy) is the working concept: the band of arousal in which you can feel something and still think about it. Somatic work is largely about noticing where you are in relation to that band, and building the capacity to come back into it deliberately.',
+          'The [window of tolerance](/services/individual-therapy) is the working concept: the band of arousal in which you can feel something and still think about it. Somatic work is largely about noticing where you are in relation to that band, and building the capacity to come back into it deliberately.',
         ],
       },
       {
@@ -320,7 +320,7 @@ export const approaches: Approach[] = [
       { label: 'BC Association of Clinical Counsellors', url: 'https://bcacc.ca/' },
     ],
     related: [
-      { href: '/services/trauma-therapy', label: 'Trauma therapy' },
+      { href: '/services/individual-therapy', label: 'Trauma therapy' },
       { href: '/services/emdr-therapy', label: 'EMDR therapy' },
       { href: '/guides/what-trauma-actually-means', label: 'What trauma actually means' },
       { href: '/approaches', label: 'All approaches' },
@@ -456,7 +456,7 @@ export const approaches: Approach[] = [
         body: [
           'Individual sessions here are not MBCT, and it would be inaccurate to describe them as such — that is a defined group programme delivered by trained facilitators.',
           'What individual work does use is mindfulness as a practical skill, in small and specific forms: noticing a thought as a thought rather than as a fact, bringing attention back to the present when rumination starts, and tracking what is happening in the body during a difficult conversation. These are minutes rather than half-hours, applied to a particular difficulty rather than practised generally.',
-          'Those elements appear across several approaches — they are central to [ACT](/approaches/acceptance-and-commitment-therapy), foundational in [DBT skills](/approaches/dbt-informed-skills), and part of the stabilisation phase in [trauma therapy](/services/trauma-therapy).',
+          'Those elements appear across several approaches — they are central to [ACT](/approaches/acceptance-and-commitment-therapy), foundational in [DBT skills](/approaches/dbt-informed-skills), and part of the stabilisation phase in [trauma therapy](/services/individual-therapy).',
           'Where the structured programme is genuinely what you need — recurrent depression in particular — a consultation should say so and point you toward one rather than offering a diluted version.',
         ],
       },
@@ -478,7 +478,7 @@ export const approaches: Approach[] = [
     ],
     related: [
       { href: '/approaches/acceptance-and-commitment-therapy', label: 'Acceptance and commitment therapy' },
-      { href: '/services/depression-counselling', label: 'Depression counselling' },
+      { href: '/services/individual-therapy', label: 'Depression counselling' },
       { href: '/approaches/dbt-informed-skills', label: 'DBT-informed skills' },
       { href: '/approaches', label: 'All approaches' },
       { href: '/book', label: 'Book a free consultation' },

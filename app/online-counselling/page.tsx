@@ -61,7 +61,7 @@ export default function LocationsIndex() {
             The one requirement is that you are physically in British Columbia at the time of your
             appointment. Registration is provincial — travelling within BC is fine, travelling outside
             it is not. There is more on how virtual sessions run on the{' '}
-            <Link href="/services/online-counselling-bc">online counselling service page</Link>, and on
+            <Link href="/online-counselling">online counselling service page</Link>, and on
             the evidence behind them in the guide to{' '}
             <Link href="/guides/is-online-therapy-as-effective-as-in-person">whether online therapy is as effective as in-person</Link>.
           </p>

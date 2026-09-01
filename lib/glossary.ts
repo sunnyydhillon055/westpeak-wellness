@@ -93,7 +93,7 @@ export const glossary: Term[] = [
     group: 'approaches',
     definition:
       'A family of approaches that treat the body as a source of information rather than a passenger — tracking tension, breath, posture and impulse as part of the work. Frequently used in trauma treatment, where the nervous system holds a pattern that talking about it does not reach.',
-    href: '/services/trauma-therapy',
+    href: '/services/individual-therapy',
   },
   {
     term: 'Narrative therapy',
@@ -126,7 +126,7 @@ export const glossary: Term[] = [
     group: 'approaches',
     definition:
       'Deliberate, graded, planned contact with what is feared — never a surprise, never a stunt. The mechanism is not "proving nothing bad happens" so much as building tolerance for the fear itself. It is among the most effective treatments for anxiety disorders and among the most misunderstood.',
-    href: '/services/anxiety-counselling',
+    href: '/services/individual-therapy',
   },
   {
     term: 'Cognitive processing therapy',
@@ -140,7 +140,7 @@ export const glossary: Term[] = [
     group: 'approaches',
     definition:
       'A deceptively simple treatment for depression: because withdrawal deepens low mood and low mood drives further withdrawal, activity is scheduled deliberately rather than waiting for motivation. Works from the outside in, which is why it helps when insight-based work stalls.',
-    href: '/services/depression-counselling',
+    href: '/services/individual-therapy',
   },
   {
     term: 'Mindfulness-based approaches',
@@ -161,7 +161,7 @@ export const glossary: Term[] = [
     group: 'experience',
     definition:
       'Anticipation of threat — the body preparing for something that has not happened. It becomes a clinical problem not when it is intense but when it is persistent, out of proportion, and shrinking your life. Ordinary anxiety before a hard conversation is the system working.',
-    href: '/services/anxiety-counselling',
+    href: '/services/individual-therapy',
   },
   {
     term: 'Panic attack',
@@ -194,7 +194,7 @@ export const glossary: Term[] = [
     group: 'experience',
     definition:
       'Persistently low mood or loss of interest and pleasure, lasting weeks rather than days, with changes in sleep, appetite, energy and concentration. Distinct from sadness in duration and in reach: it follows you across contexts rather than tracking events.',
-    href: '/services/depression-counselling',
+    href: '/services/individual-therapy',
   },
   {
     term: 'Burnout',
@@ -209,7 +209,7 @@ export const glossary: Term[] = [
     group: 'experience',
     definition:
       'A cluster that can follow exposure to a traumatic event: intrusive re-experiencing, avoidance of reminders, negative changes in thinking and mood, and a nervous system stuck in a raised state. It is not a measure of how bad the event was — it is about how the memory got stored.',
-    href: '/services/trauma-therapy',
+    href: '/services/individual-therapy',
   },
   {
     term: 'Complex trauma',
@@ -241,7 +241,7 @@ export const glossary: Term[] = [
     group: 'experience',
     definition:
       'The band of arousal in which you can feel something and still think about it. Above it is hyperarousal — panic, rage, no off switch. Below it is hypoarousal — numb, flat, far away. Therapy that changes anything happens inside the window, which is why capacity is built before memory is opened.',
-    href: '/services/trauma-therapy',
+    href: '/services/individual-therapy',
   },
   {
     term: 'Rumination',

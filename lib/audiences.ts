@@ -99,11 +99,11 @@ const coreAudiences: Audience[] = [
       },
     ],
     servicesThatFit: [
-      { href: "/services/depression-counselling", label: "Depression counselling", why: "For postpartum depression, persistent low mood, and the flatness that does not lift." },
-      { href: "/services/anxiety-counselling", label: "Anxiety counselling", why: "For postpartum anxiety, intrusive thoughts, and checking behaviour." },
+      { href: "/services/individual-therapy", label: "Depression counselling", why: "For postpartum depression, persistent low mood, and the flatness that does not lift." },
+      { href: "/services/individual-therapy", label: "Anxiety counselling", why: "For postpartum anxiety, intrusive thoughts, and checking behaviour." },
       { href: "/services/couples-therapy", label: "Couples therapy", why: "For the relationship strain that arrives with a newborn and the resentment neither of you planned on." },
       { href: "/services/punjabi-counselling", label: "Punjabi-speaking counselling", why: "For navigating family expectation around new motherhood without having to translate the context first." },
-      { href: "/services/trauma-therapy", label: "Trauma therapy", why: "For a birth that was frightening, or a medical experience that has not settled." },
+      { href: "/services/individual-therapy", label: "Trauma therapy", why: "For a birth that was frightening, or a medical experience that has not settled." },
     ],
     midCta: {
       text: "If you have read this far, some of it probably landed. Fifteen minutes on a call costs nothing and commits you to nothing.",
@@ -196,11 +196,11 @@ const coreAudiences: Audience[] = [
       },
     ],
     servicesThatFit: [
-      { href: "/services/anxiety-counselling", label: "Anxiety counselling", why: "For exam anxiety, panic, social anxiety, and worry that has stopped switching off." },
-      { href: "/services/depression-counselling", label: "Depression counselling", why: "For low mood, loss of motivation, and the flatness that outlasts the semester." },
+      { href: "/services/individual-therapy", label: "Anxiety counselling", why: "For exam anxiety, panic, social anxiety, and worry that has stopped switching off." },
+      { href: "/services/individual-therapy", label: "Depression counselling", why: "For low mood, loss of motivation, and the flatness that outlasts the semester." },
       { href: "/services/individual-therapy", label: "Individual therapy", why: "For identity, direction, and working out what you actually want." },
       { href: "/services/punjabi-counselling", label: "Punjabi-speaking counselling", why: "For talking about family expectation without translating the cultural context first." },
-      { href: "/services/south-asian-mental-health", label: "South Asian mental health", why: "For the specific weight of being the one the family's plans depend on." },
+      { href: "/services/punjabi-counselling", label: "South Asian mental health", why: "For the specific weight of being the one the family's plans depend on." },
     ],
     midCta: {
       text: "If the free campus service has a three-week waitlist and three weeks is too long, a free 15-minute call is a reasonable next step.",
@@ -280,10 +280,10 @@ const coreAudiences: Audience[] = [
       },
     ],
     servicesThatFit: [
-      { href: "/services/trauma-therapy", label: "Trauma therapy", why: "For critical incidents, cumulative exposure, and the calls that stayed with you." },
+      { href: "/services/individual-therapy", label: "Trauma therapy", why: "For critical incidents, cumulative exposure, and the calls that stayed with you." },
       { href: "/services/emdr-therapy", label: "EMDR therapy", why: "For specific incidents that still intrude — and it requires less detailed retelling than talk-based approaches." },
-      { href: "/services/depression-counselling", label: "Depression counselling", why: "For the flatness, detachment, and loss of meaning that follow sustained exposure." },
-      { href: "/services/anxiety-counselling", label: "Anxiety counselling", why: "For hypervigilance, dread before shifts, and sleep that will not come." },
+      { href: "/services/individual-therapy", label: "Depression counselling", why: "For the flatness, detachment, and loss of meaning that follow sustained exposure." },
+      { href: "/services/individual-therapy", label: "Anxiety counselling", why: "For hypervigilance, dread before shifts, and sleep that will not come." },
       { href: "/services/couples-therapy", label: "Couples therapy", why: "For the strain that shift work and emotional depletion put on a relationship." },
     ],
     midCta: {
@@ -365,8 +365,8 @@ const coreAudiences: Audience[] = [
     ],
     servicesThatFit: [
       { href: "/services/punjabi-counselling", label: "Punjabi-speaking counselling", why: "Sessions in Punjabi, English, or both — without translating your context first." },
-      { href: "/services/south-asian-mental-health", label: "South Asian mental health", why: "Family expectation, identity, and intergenerational patterns as the main work." },
-      { href: "/services/anxiety-counselling", label: "Anxiety counselling", why: "For the vigilance and performance pressure that often come with this territory." },
+      { href: "/services/punjabi-counselling", label: "South Asian mental health", why: "Family expectation, identity, and intergenerational patterns as the main work." },
+      { href: "/services/individual-therapy", label: "Anxiety counselling", why: "For the vigilance and performance pressure that often come with this territory." },
       { href: "/services/individual-therapy", label: "Individual therapy", why: "For identity, direction, and working out what you want separately from what you owe." },
       { href: "/services/couples-therapy", label: "Couples therapy", why: "For relationships navigating two families' expectations alongside their own." },
     ],

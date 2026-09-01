@@ -41,7 +41,7 @@ export const moreGuides: Guide[] = [
         h2: 'What tends to take longer',
         list: [
           { label: 'Patterns that formed early', detail: 'Ways of relating learned in childhood have decades of rehearsal behind them. They change, but not on the timeline of a skills course.' },
-          { label: 'Complex or repeated trauma', detail: 'Where harm was prolonged and relational, a large part of the work is building capacity before anything is processed. Rushing that stage is the most common way trauma therapy goes wrong. See [trauma therapy](/services/trauma-therapy).' },
+          { label: 'Complex or repeated trauma', detail: 'Where harm was prolonged and relational, a large part of the work is building capacity before anything is processed. Rushing that stage is the most common way trauma therapy goes wrong. See [trauma therapy](/services/individual-therapy).' },
           { label: 'Several things at once', detail: 'Anxiety plus a difficult relationship plus a job that is making both worse. Each is workable; together they take more sessions, because they keep re-triggering each other.' },
           { label: 'An ongoing situation that has not changed', detail: 'Therapy cannot resolve a stressor that is still happening. Where the situation is fixed for now, the work shifts to surviving it well, which is slower and more open-ended.' },
         ],
@@ -244,8 +244,8 @@ export const moreGuides: Guide[] = [
         body: [
           'There is a persistent folk belief that trauma is resolved by describing it in enough detail. Sometimes that helps. Sometimes it re-floods a nervous system that had no capacity to tolerate the flooding, and the person leaves the session worse than they arrived, having learned that opening the subject is dangerous.',
           'This is why competent trauma therapy is sequenced, and why the sequence is not optional. The first phase builds capacity — regulation skills, grounding, resources you can actually reach for under load. Only then is the memory approached, and even then in controlled amounts with a deliberate close so you leave settled rather than raw.',
-          'The [window of tolerance](/services/trauma-therapy) is the working concept here: the band of arousal in which you can feel something and still think about it. Outside that band, the thinking part of the brain is not fully online, and nothing therapeutic is happening no matter how much is being said. Widening the window is a large part of the treatment.',
-          'Sequencing is also why the length of a session sometimes becomes the constraint rather than the material. Approaching a memory, working with it, and closing properly is a lot to fit into fifty minutes once twenty of them have gone into settling — which is the arithmetic the [90-minute EMDR intensive](/services/emdr-intensive) exists for, and only once the capacity phase is genuinely in place. It is a format decision, not a shortcut past the sequence.',
+          'The [window of tolerance](/services/individual-therapy) is the working concept here: the band of arousal in which you can feel something and still think about it. Outside that band, the thinking part of the brain is not fully online, and nothing therapeutic is happening no matter how much is being said. Widening the window is a large part of the treatment.',
+          'Sequencing is also why the length of a session sometimes becomes the constraint rather than the material. Approaching a memory, working with it, and closing properly is a lot to fit into fifty minutes once twenty of them have gone into settling — which is the arithmetic the [90-minute EMDR intensive](/services/emdr-therapy) exists for, and only once the capacity phase is genuinely in place. It is a format decision, not a shortcut past the sequence.',
         ],
       },
       {
@@ -273,11 +273,11 @@ export const moreGuides: Guide[] = [
       { label: 'World Health Organization — ICD-11 browser', url: 'https://icd.who.int/browse11/l-m/en' },
     ],
     related: [
-      { href: '/services/trauma-therapy', label: 'Trauma therapy' },
+      { href: '/services/individual-therapy', label: 'Trauma therapy' },
       { href: '/services/emdr-therapy', label: 'EMDR therapy' },
       { href: '/guides/intergenerational-trauma-explained', label: 'Intergenerational trauma' },
       { href: '/compare/cbt-vs-emdr-for-trauma', label: 'CBT vs EMDR for trauma' },
-      { href: '/services/emdr-intensive', label: 'EMDR intensives — the 90-minute format' },
+      { href: '/services/emdr-therapy', label: 'EMDR intensives — the 90-minute format' },
       { href: '/glossary', label: 'Counselling glossary' },
       { href: "/tools/stress-check", label: "A reflection on how things have been" },
     ],

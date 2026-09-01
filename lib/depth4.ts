@@ -80,7 +80,7 @@ export const depth4: Record<string, DepthSection[]> = {
       body: [
         'The phrase people actually search is "online trauma therapist", and it deserves a direct answer: trauma therapy over secure video is an established practice, not a pandemic improvisation. The structured trauma protocols — EMDR with on-screen or self-administered bilateral stimulation, cognitive processing work, stabilisation and resourcing — all adapt to video, and the [research on video-delivered therapy](/guides/is-online-therapy-as-effective-as-in-person) includes trauma-focused work specifically.',
         'Two things matter more online than in a room, and both are manageable. The first is your space: trauma work needs privacy and a plan for the hour after the session — not a car in a work parking lot before a shift. The second is pacing, which is a clinical skill rather than a format property: a trauma therapist who rushes is a problem in any medium, and one who paces well loses nothing over video. For some people the screen genuinely helps — being in your own home, with your own exits, changes what feels sayable.',
-        'And where the work keeps being cut short by the standard hour — a target memory that takes twenty minutes just to access — the [90-minute EMDR intensive](/services/emdr-intensive) exists for exactly that arithmetic, once stability is in place.',
+        'And where the work keeps being cut short by the standard hour — a target memory that takes twenty minutes just to access — the [90-minute EMDR intensive](/services/emdr-therapy) exists for exactly that arithmetic, once stability is in place.',
       ],
     },
   ],
@@ -90,7 +90,7 @@ export const depth4: Record<string, DepthSection[]> = {
       h2: 'EMDR online: how the therapy works over video',
       body: [
         'EMDR online replaces the therapist’s moving hand with an on-screen target, alternating audio tones, or self-administered tapping — adaptations with years of clinical use behind them, not workarounds. Everything else about the method is unchanged: the same eight phases, the same preparation before processing, the same closing discipline at the end of every session.',
-        'Practically, online EMDR asks for a private room, headphones, and a stable connection — and it removes the commute that would otherwise bracket an emotionally heavy hour on both sides. For the longer [90-minute intensive format](/services/emdr-intensive), that absence of a commute turns out to matter more, not less: the session can end with proper closing and then simply… end, in your own space.',
+        'Practically, online EMDR asks for a private room, headphones, and a stable connection — and it removes the commute that would otherwise bracket an emotionally heavy hour on both sides. For the longer [90-minute intensive format](/services/emdr-therapy), that absence of a commute turns out to matter more, not less: the session can end with proper closing and then simply… end, in your own space.',
       ],
     },
   ],

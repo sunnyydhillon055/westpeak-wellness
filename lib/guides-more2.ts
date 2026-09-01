@@ -134,7 +134,7 @@ export const moreGuides2: Guide[] = [
           { label: 'A consistent wake time', detail: 'Far more powerful than a consistent bedtime, and the single most useful change most people can make. Waking at the same hour anchors the body clock even when the night was poor; sleeping in to compensate keeps the clock unstable and pushes the next night later.' },
           { label: 'Getting out of bed when you are not sleeping', detail: 'Counter-intuitive, and it is the core of the best-evidenced treatment for insomnia. Lying awake for an hour teaches the brain that bed is a place for thinking. Getting up, doing something dull in low light, and returning when sleepy re-associates the bed with sleep.' },
           { label: 'A deliberate worry slot earlier in the day', detail: 'Fifteen minutes, same time each day, written down, sitting up. It sounds artificial and it works better than trying to suppress worry at night — largely because it gives the mind a credible answer to "we need to think about this now": we already did.' },
-          { label: 'Treating the anxiety itself', detail: 'Where the sleep problem is downstream of an anxiety problem, sleep hygiene alone tends to plateau. Working on the anxiety usually improves both. See [anxiety counselling](/services/anxiety-counselling).' },
+          { label: 'Treating the anxiety itself', detail: 'Where the sleep problem is downstream of an anxiety problem, sleep hygiene alone tends to plateau. Working on the anxiety usually improves both. See [anxiety counselling](/services/individual-therapy).' },
           { label: 'Light in the morning, less at night', detail: 'Daylight early in the day is the strongest signal your body clock receives. In a BC winter this is a genuine constraint and worth compensating for deliberately.' },
           { label: 'Naming the 2 a.m. state as a state', detail: 'Not a technique so much as a stance: at 2 a.m. your judgement is unreliable and you know it in advance. Deciding nothing at that hour is a rule worth setting in daylight.' },
         ],
@@ -172,7 +172,7 @@ export const moreGuides2: Guide[] = [
       { label: 'Canadian Sleep Society', url: 'https://css-scs.ca/' },
     ],
     related: [
-      { href: '/services/anxiety-counselling', label: 'Anxiety counselling' },
+      { href: '/services/individual-therapy', label: 'Anxiety counselling' },
       { href: '/guides/high-functioning-anxiety', label: 'High-functioning anxiety' },
       { href: '/guides/anxiety-attack-vs-panic-attack', label: 'Anxiety attack vs panic attack' },
       { href: '/guides/health-anxiety', label: 'Health anxiety' },

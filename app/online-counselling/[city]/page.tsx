@@ -74,7 +74,7 @@ export default function CityPage({ params }: { params: { city: string } }) {
                 anywhere in {l.city} or the wider {l.region} — no drive, no waiting room. Sessions run
                 over a secure, confidential video platform and follow the same ethical and privacy
                 standards as in-person therapy. There is more detail on{' '}
-                <Link href="/services/online-counselling-bc">how online counselling works across BC</Link>.
+                <Link href="/online-counselling">how online counselling works across BC</Link>.
               </p>
             </>
           )}

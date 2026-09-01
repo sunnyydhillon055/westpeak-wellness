@@ -51,7 +51,7 @@ export default function Page() {
           <p>
             Otherwise it looks for the pattern people most often arrive with. Something older
             that is still active points toward{' '}
-            <Link href="/services/trauma-therapy">trauma-informed work</Link> and possibly{' '}
+            <Link href="/services/individual-therapy">trauma-informed work</Link> and possibly{' '}
             <Link href="/services/emdr-therapy">EMDR</Link>. Conflict or distance points to{' '}
             <Link href="/services/couples-therapy">couples counselling</Link>, and if only one of
             you wants to come,{' '}

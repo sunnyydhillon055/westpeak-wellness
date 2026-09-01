@@ -51,8 +51,8 @@ export const moreAudiences3: Audience[] = [
     ],
     servicesThatFit: [
       { href: '/services/individual-therapy', label: 'Individual therapy', why: 'The core fit: burnout, anxiety, the staying question, and the perfectionism the profession selects for.' },
-      { href: '/services/anxiety-counselling', label: 'Anxiety counselling', why: 'For the Sunday-night dread and the performance anxiety that never fully leaves the room.' },
-      { href: '/services/depression-counselling', label: 'Depression counselling', why: 'For the Octobers that do not lift, and the flatness that outlasts the term.' },
+      { href: '/services/individual-therapy', label: 'Anxiety counselling', why: 'For the Sunday-night dread and the performance anxiety that never fully leaves the room.' },
+      { href: '/services/individual-therapy', label: 'Depression counselling', why: 'For the Octobers that do not lift, and the flatness that outlasts the term.' },
     ],
     midCta: {
       text: 'A free 15-minute consultation fits in a spare block — and July exists. Either works.',
@@ -122,7 +122,7 @@ export const moreAudiences3: Audience[] = [
       },
     ],
     servicesThatFit: [
-      { href: '/services/anxiety-counselling', label: 'Anxiety counselling', why: 'The review-cycle dread, the layoff vigilance, and the panic that arrives at 2 am between sprints.' },
+      { href: '/services/individual-therapy', label: 'Anxiety counselling', why: 'The review-cycle dread, the layoff vigilance, and the panic that arrives at 2 am between sprints.' },
       { href: '/services/individual-therapy', label: 'Individual therapy', why: 'The golden-handcuffs question, identity beyond the title, and what you actually want.' },
       { href: '/services/couples-therapy', label: 'Couples therapy', why: 'For when the layoff weather, the RSU math and the remote years have moved into the relationship.' },
     ],

@@ -270,7 +270,7 @@ export default function PunjabiPage() {
             <p lang="en" style={{ fontSize: '.92rem', color: 'var(--ink-faint)', marginTop: 26 }}>
               This page is written in Punjabi. The same information in English is on{' '}
               <Link href="/services/punjabi-counselling">Punjabi-speaking counselling</Link>, and{' '}
-              <Link href="/services/south-asian-mental-health">counselling for South Asian adults</Link>{' '}
+              <Link href="/services/punjabi-counselling">counselling for South Asian adults</Link>{' '}
               covers the cultural side in more depth. There is a{' '}
               <Link href="/punjabi-counselling">full index of the region pages</Link>, in English —{' '}
               <Link href="/punjabi-counselling/surrey">Surrey</Link>,{' '}

@@ -289,7 +289,7 @@ export const ontarioPages: RegionPage[] = [
       { href: '/ontario/brampton/punjabi-speaking-counselling', label: 'Punjabi counselling in Brampton' },
       { href: '/for/first-gen-south-asian-adults', label: 'For first-generation South Asian adults' },
       { href: '/for/south-asian-intergenerational-conflict', label: 'Intergenerational conflict' },
-      { href: '/services/south-asian-mental-health', label: 'South Asian mental health' },
+      { href: '/services/punjabi-counselling', label: 'South Asian mental health' },
     ],
   },
 

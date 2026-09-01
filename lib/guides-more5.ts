@@ -33,7 +33,7 @@ export const moreGuides5: Guide[] = [
           'Most people register an odd thought, register it as odd, and move on. The mind produces a great deal of noise and most of it is discarded without inspection.',
             'The pattern that produces trouble is different. The thought is treated as **meaningful** — as a signal about what kind of person you are, or as a warning. That interpretation produces alarm. Alarm makes the thought salient. Salience makes it recur. And then the person begins working to prevent it: suppressing it, checking, avoiding situations that might trigger it, seeking reassurance, mentally reviewing whether they would ever actually do it.',
           'Every one of those responses increases the frequency. Thought suppression in particular is well studied and reliably backfires — instructing yourself not to think something is an instruction that requires monitoring for the thought, which guarantees you find it.',
-          'This is the same architecture as any anxiety loop: a short-term relief behaviour that teaches the system the threat was real. See [the avoidance cycle](/services/anxiety-counselling).',
+          'This is the same architecture as any anxiety loop: a short-term relief behaviour that teaches the system the threat was real. See [the avoidance cycle](/services/individual-therapy).',
         ],
       },
       {
@@ -74,7 +74,7 @@ export const moreGuides5: Guide[] = [
     ],
     related: [
       { href: '/approaches/acceptance-and-commitment-therapy', label: 'Acceptance and Commitment Therapy' },
-      { href: '/services/anxiety-counselling', label: 'Anxiety counselling' },
+      { href: '/services/individual-therapy', label: 'Anxiety counselling' },
       { href: '/for/new-parents', label: 'Counselling for new parents' },
       { href: '/guides/high-functioning-anxiety', label: 'High-functioning anxiety' },
       { href: '/resources/psychiatry-and-assessment-in-bc', label: 'Psychiatry and assessment in BC' },
@@ -153,7 +153,7 @@ export const moreGuides5: Guide[] = [
       { label: 'HealthLink BC — mental health and substance use', url: 'https://www.healthlinkbc.ca/mental-health-substance-use' },
     ],
     related: [
-      { href: '/services/anxiety-counselling', label: 'Anxiety counselling' },
+      { href: '/services/individual-therapy', label: 'Anxiety counselling' },
       { href: '/guides/panic-attacks-at-work', label: 'Panic attacks at work' },
       { href: '/guides/perfectionism-and-self-criticism', label: 'Perfectionism and self-criticism' },
       { href: '/guides/loneliness-in-adulthood', label: 'Loneliness in adulthood' },
@@ -211,7 +211,7 @@ export const moreGuides5: Guide[] = [
         body: [
           'The two overlap heavily and pull in opposite directions for treatment, so the distinction matters.',
           'Circumstantial loneliness responds to changing the circumstances: more repeated contact, deliberately built. Someone in this position generally wants connection and finds the logistics hard.',
-          'Where depression is driving it, the desire itself has gone. Invitations are declined not because of logistics but because nothing appeals, and the withdrawal is a symptom rather than a cause. Advice to socialise more lands as another failure. In that case the loop has to be entered elsewhere — see [depression counselling](/services/depression-counselling) and the reasoning on why [activity precedes motivation](/services/depression-counselling).',
+          'Where depression is driving it, the desire itself has gone. Invitations are declined not because of logistics but because nothing appeals, and the withdrawal is a symptom rather than a cause. Advice to socialise more lands as another failure. In that case the loop has to be entered elsewhere — see [depression counselling](/services/individual-therapy) and the reasoning on why [activity precedes motivation](/services/individual-therapy).',
           'The two frequently coexist, with circumstance producing the isolation and low mood then removing the capacity to reverse it. Where that is the picture, working on both simultaneously is usually necessary — a scheduled minimum of contact regardless of desire, alongside treatment for the mood.',
           'And in a province where a great many people have moved from somewhere else, this is more common than it is discussed. It is a legitimate reason to book something, not a complaint too small to bring.',
         ],
@@ -234,7 +234,7 @@ export const moreGuides5: Guide[] = [
     ],
     related: [
       { href: '/guides/social-anxiety-in-adults', label: 'Social anxiety in adults' },
-      { href: '/services/depression-counselling', label: 'Depression counselling' },
+      { href: '/services/individual-therapy', label: 'Depression counselling' },
       { href: '/online-counselling/vancouver', label: 'Online counselling in Vancouver' },
       { href: '/guides/life-transitions-and-identity', label: 'Life transitions and identity' },
       { href: '/book', label: 'Book a free consultation' },
@@ -312,7 +312,7 @@ export const moreGuides5: Guide[] = [
     ],
     related: [
       { href: '/approaches/acceptance-and-commitment-therapy', label: 'Acceptance and Commitment Therapy' },
-      { href: '/services/anxiety-counselling', label: 'Anxiety counselling' },
+      { href: '/services/individual-therapy', label: 'Anxiety counselling' },
       { href: '/guides/intrusive-thoughts-and-what-they-mean', label: 'Intrusive thoughts' },
       { href: '/guides/anxiety-and-sleep', label: 'Anxiety and sleep' },
       { href: '/resources/psychiatry-and-assessment-in-bc', label: 'Psychiatry and assessment in BC' },
@@ -478,7 +478,7 @@ export const moreGuides5: Guide[] = [
     related: [
       { href: '/online-counselling/vancouver', label: 'Online counselling in Vancouver' },
       { href: '/resources/low-cost-counselling-bc', label: 'Low-cost counselling in BC' },
-      { href: '/services/anxiety-counselling', label: 'Anxiety counselling' },
+      { href: '/services/individual-therapy', label: 'Anxiety counselling' },
       { href: '/guides/burnout-vs-depression', label: 'Burnout vs depression' },
       { href: '/compare/efap-vs-private-counselling', label: 'EFAP vs private counselling' },
       { href: '/book', label: 'Book a free consultation' },
