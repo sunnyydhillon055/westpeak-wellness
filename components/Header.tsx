@@ -11,15 +11,25 @@ import Motif from '@/components/brand/Motif';
  * read as a list rather than a route. Approaches and FAQ come off the top
  * level — Approaches is a subtopic of Services and FAQ is linked from Fees,
  * Contact and the guides — and both keep prominent footer placement. */
+/* Order set by the owner, 31 Aug 2026:
+ *   Services, About, Fees, Guides, FAQ, Contact
+ * then Punjabi, Client portal and Book Free Consult, which render after this
+ * list rather than in it — see the nav-portal and nav-cta blocks below.
+ *
+ * It reads as a decision path now: what we do, who we are, what it costs, then
+ * the reading material, then how to reach us. The previous order put both
+ * content hubs second and third, ahead of the two things somebody weighing a
+ * booking actually wants.
+ *
+ * The FAQ keeps its place in the menu for the reason it was added: it ranked
+ * at position 1.8 on four inbound links with no menu entry at all, which made
+ * it the cheapest thing on the site to make findable. */
 const NAV = [
   { href: '/services', label: 'Services' },
-  { href: '/guides', label: 'Guides' },
-  /* 78 questions, each answered in a paragraph. It ranked at position 1.8
-     with four inbound links and no place in the menu — the cheapest thing
-     on the site to make findable. */
-  { href: '/faq', label: 'FAQ' },
-  { href: '/pricing', label: 'Fees' },
   { href: '/about', label: 'About' },
+  { href: '/pricing', label: 'Fees' },
+  { href: '/guides', label: 'Guides' },
+  { href: '/faq', label: 'FAQ' },
   { href: '/contact', label: 'Contact' },
 ];
 
