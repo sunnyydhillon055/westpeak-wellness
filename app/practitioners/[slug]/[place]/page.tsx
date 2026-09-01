@@ -4,7 +4,9 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { site } from '@/lib/site';
 import { practitioners, getPractitioner, type Practitioner } from '@/lib/practitioners';
-import { locations, getLocation } from '@/lib/locations';
+import { practitionerPlaces, getPractitionerPlace } from '@/lib/practitioner-places';
+import { crisisFor } from '@/lib/crisis';
+import Figure from '@/components/Figure';
 import { abs, orgRef, siteRef } from '@/lib/schema';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import CtaBand from '@/components/CtaBand';
@@ -33,7 +35,7 @@ type Params = { slug: string; place: string };
 export function generateStaticParams() {
   const out: Params[] = [];
   for (const p of practitioners) {
-    for (const l of locations) out.push({ slug: p.slug, place: l.slug });
+    for (const l of practitionerPlaces) out.push({ slug: p.slug, place: l.slug });
     for (const lang of p.languages) {
       if (lang.tag === 'en-CA') continue;
       if (lang.tag === 'tl' && !TAGALOG_READY) continue;
@@ -67,7 +69,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
     };
   }
 
-  const loc = getLocation(params.place);
+  const loc = getPractitionerPlace(params.place);
   if (!loc) return {};
   /* Kept inside the limits the SEO gate enforces: 60 for a title, 158 for a
      description. The first version ran 76-79 and 174-177, which Google
@@ -116,9 +118,10 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
                 <Link className="btn btn--ghost" href={`/practitioners/${p.slug}`}>In English</Link>
               </div>
             </div>
-            {p.photo && (
+            {p.photos?.warm && (
               <div className="portrait">
-                <Image src={p.photo.src} alt={p.photo.alt} width={p.photo.width} height={p.photo.height}
+                <Image src={p.photos.warm.src} alt={p.photos.warm.alt}
+                  width={p.photos.warm.width} height={p.photos.warm.height}
                   sizes="(max-width: 860px) 340px, 420px" quality={88} priority />
               </div>
             )}
@@ -163,7 +166,7 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
   }
 
   /* ---- the city variant ------------------------------------------------ */
-  const loc = getLocation(params.place);
+  const loc = getPractitionerPlace(params.place);
   if (!loc) notFound();
   const first = p.name.split(' ')[0];
 
@@ -187,7 +190,39 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
         { '@type': 'ListItem', position: 4, name: loc.city, item: `${site.domain}/practitioners/${p.slug}/${loc.slug}` },
       ],
     },
+    /* A Service node naming the person, the place and the language. This is
+       what a search engine matches "Tagalog counselling in <city>" against —
+       the Person node says who, this says what and where. */
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: `Online counselling in ${loc.city} with ${p.name}`,
+      serviceType: 'Counselling',
+      provider: { '@id': `${site.domain}/practitioners/${p.slug}#person` },
+      areaServed: { '@type': 'City', name: loc.city, containedInPlace: { '@type': 'AdministrativeArea', name: loc.region } },
+      availableChannel: {
+        '@type': 'ServiceChannel',
+        serviceUrl: `${site.domain}/practitioners/${p.slug}/${loc.slug}`,
+        availableLanguage: p.languages.map((l) => l.name),
+      },
+    },
+    ...(loc.faqs.length
+      ? [{
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: loc.faqs.map((f) => ({
+            '@type': 'Question',
+            name: f.q,
+            acceptedAnswer: { '@type': 'Answer', text: f.a },
+          })),
+        }]
+      : []),
   ];
+
+  /* Province-correct crisis lines. A BC number on an Alberta page is the exact
+     error scripts/expansion-verify.mjs was written to catch — it happened once,
+     on all seven Alberta pages. */
+  const crisis = crisisFor(loc.province, loc.slug).slice(0, 2);
 
   return (
     <>
@@ -229,7 +264,7 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
               what getting to an appointment in person would have cost you — and that is the part
               this removes.
             </p>
-            {loc.intro?.[0] && <p>{loc.intro[0]}</p>}
+            {loc.local.map((x) => <p key={x.slice(0, 24)}>{x}</p>)}
             <p>
               Her focus is {p.focus.map((f) => f.label.toLowerCase()).join(', ')}. Sessions run in{' '}
               {p.languages.map((l) => l.name).join(' or ')}, including moving between them within
@@ -242,13 +277,13 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
             </p>
           </div>
 
-          {p.photo && (
+          {p.photos?.candid && (
             <figure className="photo" style={{ margin: '28px 0 0', maxWidth: 340 }}>
               <Image
-                src={p.photo.src}
-                alt={p.photo.alt}
-                width={p.photo.width}
-                height={p.photo.height}
+                src={p.photos.candid.src}
+                alt={`${p.name}, ${p.postNominals} — online counselling for ${loc.city}`}
+                width={p.photos.candid.width}
+                height={p.photos.candid.height}
                 sizes="(max-width: 700px) 60vw, 340px"
                 style={{ width: '100%', height: 'auto', borderRadius: 8 }}
               />
@@ -292,9 +327,45 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
             ))}
           </div>
 
+          {/* TWO DIAGRAMS, and both earn their place rather than decorating.
+              `bc-reach` answers "can someone outside my city actually see me",
+              which is the first objection on a page like this. `first-session-flow`
+              answers "what happens if I book", which is the last one. */}
+          <Figure name="bc-reach" />
+
           <div className="prose" style={{ marginTop: 30 }}>
             <blockquote className="quote">{p.sessionNote}</blockquote>
           </div>
+
+          <Figure name="first-session-flow" />
+
+          {loc.faqs.length > 0 && (
+            <div className="prose" style={{ marginTop: 34 }}>
+              <h2>Questions people in {loc.city} ask</h2>
+              {loc.faqs.map((f) => (
+                <details className="faq-item" key={f.q}>
+                  <summary>{f.q}</summary>
+                  <p>{f.a}</p>
+                </details>
+              ))}
+            </div>
+          )}
+
+          {crisis.length > 0 && (
+            <div className="crisis" style={{ marginTop: 30 }}>
+              <p style={{ margin: 0 }}>
+                <strong>This is not a crisis service.</strong> If you need urgent support in{' '}
+                {loc.region === 'Alberta' ? 'Alberta' : 'BC'} right now:{' '}
+                {crisis.map((c, i) => (
+                  <span key={c.name}>
+                    {i > 0 ? ' · ' : ''}
+                    {c.name} <strong>{c.number}</strong>
+                  </span>
+                ))}
+                . In immediate danger, call 911.
+              </p>
+            </div>
+          )}
         </div>
       </section>
 

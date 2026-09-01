@@ -85,6 +85,7 @@ export default function Footer() {
                   missed here — the cluster it indexes was the least-linked on the
                   site partly because of this. */}
               <Link href="/punjabi-counselling">Punjabi counselling by region</Link>
+              <Link href="/tagalog-counselling">Tagalog-speaking counselling</Link>
             </nav>
 
             <nav className="footer-col" aria-labelledby="foot-practice">

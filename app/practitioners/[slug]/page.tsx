@@ -69,7 +69,7 @@ export default function PractitionerPage({ params }: { params: { slug: string } 
       url: abs(`/practitioners/${p.slug}`),
       worksFor: orgRef,
       knowsLanguage: p.languages.map((l) => l.tag),
-      ...(p.photo ? { image: `${site.domain}${p.photo.src}` } : {}),
+      ...(p.photos?.portrait ? { image: `${site.domain}${p.photos.portrait.src}` } : {}),
       knowsAbout: p.focus.map((f) => f.label),
       hasCredential: p.credentials.map((c) => ({
         '@type': 'EducationalOccupationalCredential',
@@ -125,13 +125,13 @@ export default function PractitionerPage({ params }: { params: { slug: string } 
               </p>
             )}
           </div>
-          {p.photo && (
+          {p.photos?.portrait && (
             <div className="portrait">
               <Image
-                src={p.photo.src}
-                alt={p.photo.alt}
-                width={p.photo.width}
-                height={p.photo.height}
+                src={p.photos.portrait.src}
+                alt={p.photos.portrait.alt}
+                width={p.photos.portrait.width}
+                height={p.photos.portrait.height}
                 sizes="(max-width: 860px) 340px, 420px"
                 quality={88}
                 priority
@@ -187,6 +187,23 @@ export default function PractitionerPage({ params }: { params: { slug: string } 
               </div>
             ))}
           </div>
+
+          {/* The second photo, and the only other one on this page. It sits
+              here because the list below is long and a face restarts attention
+              exactly where it starts to flag — not because the page needed
+              decorating. */}
+          {p.photos?.warm && (
+            <figure className="photo" style={{ margin: '34px 0 0', maxWidth: 380 }}>
+              <Image
+                src={p.photos.warm.src}
+                alt={p.photos.warm.alt}
+                width={p.photos.warm.width}
+                height={p.photos.warm.height}
+                sizes="(max-width: 700px) 70vw, 380px"
+                style={{ width: '100%', height: 'auto', borderRadius: 8 }}
+              />
+            </figure>
+          )}
 
           <div className="prose" style={{ marginTop: 36 }}>
             <h2>You may be</h2>

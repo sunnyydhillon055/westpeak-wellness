@@ -146,3 +146,37 @@ the founder's name is kept off the site by the owner's standing decision and
 enforced by `.name-guard`. Camille's marketing document was supplied for this
 purpose, which is the consent the roster rests on. If that ever changes, remove
 her entry rather than editing around it.
+
+---
+
+## 5. Two photos are missing — the files arrived truncated
+
+The chin-in-hand shot and the seated-smiling shot were uploaded as `.jpg` but
+are actually **HEIC** (iPhone) files, and every copy on disk is **incomplete** —
+the decoder runs off the end of the file:
+
+```
+2025-05-10 0191.jpg   4,941,462 bytes   truncated
+2025-05-10 0189.jpg   7,693,857 bytes   truncated
+```
+
+Both duplicate copies are truncated at exactly the same byte counts, so the
+upload was cut short rather than the originals being damaged.
+
+**What the site is doing meanwhile:** `camille-chin.jpg` and
+`camille-chair.jpg` exist as copies of the standing photo, so every page builds
+and nothing is broken — but she currently appears three times in the same
+frame, which is the opposite of what was asked for.
+
+**To fix:** save both as JPEG or PNG and drop them at
+
+```
+public/img/photo/camille-chin.jpg     <- the chin-in-hand one (her main image)
+public/img/photo/camille-chair.jpg    <- the seated, smiling one
+```
+
+Any size at or above 1200px wide. Nothing else needs changing — the placement,
+alt text and schema already point at those two filenames.
+
+On a Mac: open in Preview, File → Export, Format: JPEG. On Windows: open in
+Photos, then "Save as" a JPG.

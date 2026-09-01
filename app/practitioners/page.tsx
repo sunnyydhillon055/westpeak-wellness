@@ -87,12 +87,12 @@ export default function PractitionersPage() {
           <div className="grid grid-2" style={{ marginTop: 24 }}>
             {practitioners.map((p) => (
               <article className="card" key={p.slug}>
-                {p.photo && (
+                {p.photos?.portrait && (
                   <Image
-                    src={p.photo.src}
-                    alt={p.photo.alt}
-                    width={p.photo.width}
-                    height={p.photo.height}
+                    src={p.photos.portrait.src}
+                    alt={p.photos.portrait.alt}
+                    width={p.photos.portrait.width}
+                    height={p.photos.portrait.height}
                     sizes="(max-width: 700px) 100vw, 420px"
                     style={{ width: '100%', height: 'auto', borderRadius: 8, marginBottom: 16 }}
                   />

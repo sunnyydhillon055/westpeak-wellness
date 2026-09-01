@@ -1,4 +1,5 @@
 import { site } from '@/lib/site';
+import { TAGALOG_CITIES } from '@/lib/tagalog';
 import { practitioners } from '@/lib/practitioners';
 import { TAGALOG_READY } from '@/lib/practitioner-tl';
 import { services } from '@/lib/services';
@@ -52,7 +53,7 @@ export function GET() {
   const core: Entry[] = [
     '', '/about', '/services', '/approaches', '/pricing', '/contact', '/faq',
     '/online-counselling', '/guides', '/compare', '/for', '/resources', '/glossary',
-    '/practitioners',
+    '/practitioners', '/tagalog-counselling',
   ].map((p) => ({ path: p, lastmod: lastmodFor(p), changefreq: 'monthly', priority: p === '' ? 1 : 0.8 }));
 
   /* Practitioner profiles and their per-city pages.
@@ -85,9 +86,19 @@ export function GET() {
     (p) => ({ path: p, lastmod: lastmodFor(p), changefreq: 'yearly', priority: 0.4 })
   );
 
+  /* The Tagalog city pages. English pages about Tagalog counselling — the
+     page written IN Tagalog is gated separately, see lib/practitioner-tl.ts. */
+  const tagalog: Entry[] = TAGALOG_CITIES.map((c) => ({
+    path: `/tagalog-counselling/${c.slug}`,
+    lastmod: lastmodFor('/tagalog-counselling'),
+    changefreq: 'monthly' as const,
+    priority: 0.7,
+  }));
+
   const entries: Entry[] = [
     ...core,
     ...people,
+    ...tagalog,
     { path: '/book', lastmod: lastmodFor('/book'), changefreq: 'monthly', priority: 0.9 },
     { path: '/tools', lastmod: lastmodFor('/tools'), changefreq: 'monthly', priority: 0.7 },
     { path: '/reviews', lastmod: lastmodFor('/reviews'), changefreq: 'yearly', priority: 0.5 },
