@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState, type CSSProperties } from 'react';
 import { site } from '@/lib/site';
+import { practitioners } from '@/lib/practitioners';
 import { track } from '@/lib/analytics';
 import Motif from '@/components/brand/Motif';
 
@@ -163,7 +164,11 @@ export default function Header() {
 
         <ul id="primary-nav" className={`nav-links${open ? ' open' : ''}`}>
           {NAV.map((n, i) => (
-            <li key={n.href} style={{ '--i': i } as CSSProperties}>
+            <li
+              key={n.href}
+              style={{ '--i': i } as CSSProperties}
+              className={n.href === '/practitioners' ? 'nav-has-sub' : undefined}
+            >
               <Link
                 href={n.href}
                 aria-current={isActive(n.href) ? 'page' : undefined}
@@ -171,6 +176,43 @@ export default function Header() {
               >
                 {n.label}
               </Link>
+
+              {/* THE COUNSELLORS SUBMENU.
+                *
+                * Opens on hover AND on focus-within, and that second half is
+                * the part that matters. A hover-only menu is unreachable by
+                * keyboard entirely, and on a touch screen the first tap fires
+                * hover while the second navigates — so the items would flash
+                * and vanish. Because it is CSS-driven rather than JS state, it
+                * also works before hydration.
+                *
+                * On the mobile drawer (<=1020px) it is not a dropdown at all:
+                * the names render as an indented list, always visible, because
+                * there is no hover to open anything with.
+                *
+                * The parent link still goes to /practitioners. Nothing here is
+                * only reachable by hovering. */}
+              {n.href === '/practitioners' && practitioners.length > 0 && (
+                <ul className="nav-sub">
+                  {practitioners.map((p) => (
+                    <li key={p.slug}>
+                      <Link
+                        href={`/practitioners/${p.slug}`}
+                        onClick={() => setOpen(false)}
+                        aria-current={isActive(`/practitioners/${p.slug}`) ? 'page' : undefined}
+                      >
+                        <span className="nav-sub-name">{p.name}</span>
+                        <span className="nav-sub-role">{p.postNominals}</span>
+                      </Link>
+                    </li>
+                  ))}
+                  <li className="nav-sub-all">
+                    <Link href="/practitioners" onClick={() => setOpen(false)}>
+                      All counsellors &rarr;
+                    </Link>
+                  </li>
+                </ul>
+              )}
             </li>
           ))}
           {/* ਪੰਜਾਬੀ, in Gurmukhi, rather than a sixth English nav item.

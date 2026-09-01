@@ -2733,3 +2733,69 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
   .practitioner-row{ grid-template-columns:120px 1fr; gap:18px; padding:16px }
   .practitioner-row-body h2{ font-size:1.15rem }
 }
+
+/* THE COUNSELLORS DROPDOWN.
+
+   Opens on hover AND on focus-within. The second half is the part that
+   matters: hover alone is unreachable by keyboard, and on a touch screen the
+   first tap fires hover while the second navigates, so the panel would flash
+   and vanish. CSS-driven rather than JS state, so it also works before
+   hydration.
+
+   The 10px bridge above the panel is deliberate — without it the pointer
+   crosses a gap between the tab and the menu, the :hover drops, and the menu
+   closes while you are moving toward it. */
+@media (min-width: 1021px){
+  .nav-has-sub{ position: relative }
+
+  .nav-sub{
+    position:absolute; top:100%; left:50%; transform:translateX(-50%) translateY(6px);
+    z-index:70; min-width:270px; margin:0; padding:8px;
+    list-style:none;
+    background:var(--surface-0);
+    border:1px solid var(--line);
+    border-radius:10px;
+    box-shadow:0 14px 40px -22px rgba(43,49,56,.55);
+    opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity var(--dur-base) var(--ease), transform var(--dur-base) var(--ease),
+               visibility 0s linear var(--dur-base);
+  }
+  /* The bridge. */
+  .nav-sub::before{ content:""; position:absolute; left:0; right:0; top:-10px; height:10px }
+
+  .nav-has-sub:hover > .nav-sub,
+  .nav-has-sub:focus-within > .nav-sub{
+    opacity:1; visibility:visible; pointer-events:auto;
+    transform:translateX(-50%) translateY(0);
+    transition:opacity var(--dur-base) var(--ease), transform var(--dur-base) var(--ease),
+               visibility 0s;
+  }
+
+  .nav-sub > li{ margin:0 }
+  .nav-sub a{
+    display:flex; flex-direction:column; gap:1px;
+    padding:9px 12px; border-radius:7px;
+    text-decoration:none; background-image:none; color:var(--ink);
+    white-space:nowrap;
+  }
+  .nav-sub a:hover, .nav-sub a:focus-visible{ background:var(--blue-ghost); color:var(--blue-deeper) }
+  .nav-sub-name{ font-weight:600; font-size:.95rem }
+  .nav-sub-role{ font-size:.8rem; color:var(--ink-soft) }
+  .nav-sub-all{ border-top:1px solid var(--line); margin-top:6px; padding-top:4px }
+  .nav-sub-all a{ font-size:.88rem; color:var(--blue-deep); font-weight:600 }
+}
+
+/* In the mobile drawer there is no hover, so it is not a dropdown: the names
+   sit indented under Counsellors and are always visible. */
+@media (max-width: 1020px){
+  .nav-sub{
+    list-style:none; margin:2px 0 6px; padding:0 0 0 16px;
+    border-left:2px solid var(--line);
+  }
+  /* 10px vertical, not 7 — at 7 the rows measured 39px tall, under the 44px
+     minimum touch target, and these sit close together in a drawer. */
+  .nav-sub a{ display:flex; gap:8px; align-items:baseline; padding:10px 0; min-height:44px; text-decoration:none }
+  .nav-sub-name{ font-weight:600 }
+  .nav-sub-role{ font-size:.8rem; color:var(--ink-soft) }
+  .nav-sub-all a{ color:var(--blue-deep); font-weight:600 }
+}

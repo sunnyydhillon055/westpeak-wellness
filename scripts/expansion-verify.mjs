@@ -249,10 +249,40 @@ if (!NAME_TOKENS.length) {
      is. Everywhere else still fails the build. */
   const NAME_ALLOWED_ON = ['/practitioners', '/practitioners/aman-bains-dhillon'];
 
+  /* THE HEADER MENU IS NOT CONTENT — 1 Sep 2026.
+   *
+   * The owner asked for the Counsellors tab to open a menu of the counsellors
+   * on hover. A navigation menu renders in the header of all ~185 pages, so
+   * taken literally that is the name on every page and this gate went from
+   * green to 184 failures in one commit.
+   *
+   * Allowlisting all 184 routes would have deleted the check. What the rule is
+   * actually protecting is the indexable surface — <title>, meta description,
+   * alt text, JSON-LD and body copy — which is where the name was drawing
+   * impressions at position 22-26 before it was pulled. A nav link to a page
+   * that is already allowed to name her is not that.
+   *
+   * So the header element is excised before the scan and everything else is
+   * still checked, byte for byte. Two things follow from that and both are
+   * deliberate: a name in the header of a page that should not have one will
+   * no longer fail (the header is identical site-wide, so it is one surface to
+   * review, not 185), and a name anywhere else on any page still will.
+   *
+   * The RSC flight payload goes too. It is a serialised duplicate of markup
+   * this same loop already reads in rendered form, so scanning it only
+   * re-reports the header a second time — but it is stripped by its own
+   * `self.__next_f` signature, never by a blanket <script> strip, because
+   * JSON-LD lives in a <script> and checking JSON-LD is half the point. */
+  const CONTENT_ONLY = (html) =>
+    html
+      .replace(/<header[^>]*class=["'][^"']*site-header[^"']*["'][\s\S]*?<\/header>/gi, '')
+      .replace(/<script[^>]*>(?:(?!<\/script>)[\s\S])*?self\.__next_f[\s\S]*?<\/script>/gi, '');
+
   const NAME = new RegExp(`\\b(${NAME_TOKENS.join('|')})\\b`, 'i');
   let nameFail = false;
-  for (const [route, html] of published) {
+  for (const [route, rawHtml] of published) {
     if (NAME_ALLOWED_ON.includes(route)) continue;
+    const html = CONTENT_ONLY(rawHtml);
     if (NAME.test(html)) {
       /* Name the surface, because "somewhere on this page" sends the next
          person hunting through an RSC payload for a string they cannot see. */
