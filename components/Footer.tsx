@@ -89,7 +89,8 @@ export default function Footer() {
 
             <nav className="footer-col" aria-labelledby="foot-practice">
               <h2 id="foot-practice">Practice</h2>
-              <Link href="/about">About the Counsellor</Link>
+              <Link href="/about">About us</Link>
+              <Link href="/practitioners">Our counsellors</Link>
               <Link href="/pricing">Fees &amp; Insurance</Link>
               <Link href="/faq">FAQ</Link>
               <Link href="/reviews">Reviews &amp; references</Link>

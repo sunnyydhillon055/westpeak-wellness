@@ -129,6 +129,12 @@ export default function About() {
           <div className="prose" style={{ marginBottom: 8 }}>
             <h2>What we are here for</h2>
             <p>
+              Westpeak is a small practice of registered counsellors working online across British
+              Columbia. You can{' '}
+              <Link href="/practitioners">read about each of our counsellors</Link> — their
+              training, what they work with, and the languages they practise in.
+            </p>
+            <p>
               Most people arrive having managed on their own for a long time, and having decided
               that managing is not the same as being alright. The work is not about being fixed. It
               is about understanding what keeps happening, and having something to do about it.

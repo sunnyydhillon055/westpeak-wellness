@@ -122,6 +122,15 @@ const CHECKS = [
   ['/services/family-counselling', 200],
   ['/services/punjabi-counselling', 200],
 
+  /* The practitioner roster, added 1 Sep 2026. The Tagalog page must 404 while
+     TAGALOG_READY is false — a gated page that quietly starts serving is the
+     same class of failure as the Alberta pages going live unnoticed. */
+  ['/practitioners', 200],
+  ['/practitioners/camille-granda', 200],
+  ['/practitioners/camille-granda/surrey', 200],
+  ['/practitioners/camille-granda/vancouver', 200],
+  ['/practitioners/camille-granda/tl', 404],
+
   /* And the counter-case: a city that WAS retired and then given a real page
      must not redirect. Getting this wrong is how the original bug shipped. */
   ['/online-counselling/kamloops', 200],

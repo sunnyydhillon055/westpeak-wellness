@@ -1,4 +1,6 @@
 import { site } from '@/lib/site';
+import { practitioners } from '@/lib/practitioners';
+import { TAGALOG_READY } from '@/lib/practitioner-tl';
 import { services } from '@/lib/services';
 import { tools } from '@/lib/tools';
 import { locations } from '@/lib/locations';
@@ -50,7 +52,34 @@ export function GET() {
   const core: Entry[] = [
     '', '/about', '/services', '/approaches', '/pricing', '/contact', '/faq',
     '/online-counselling', '/guides', '/compare', '/for', '/resources', '/glossary',
+    '/practitioners',
   ].map((p) => ({ path: p, lastmod: lastmodFor(p), changefreq: 'monthly', priority: p === '' ? 1 : 0.8 }));
+
+  /* Practitioner profiles and their per-city pages.
+   *
+   * Derived from the roster and lib/locations.ts rather than listed, so adding
+   * a counsellor or a city updates the sitemap in the same commit. The Tagalog
+   * pages are absent while TAGALOG_READY is false — a sitemap entry for a route
+   * that 404s is worse than no entry, and this repo has shipped that once. */
+  const people: Entry[] = practitioners.flatMap((pr) => [
+    { path: `/practitioners/${pr.slug}`, lastmod: lastmodFor('/practitioners'), changefreq: 'monthly' as const, priority: 0.8 },
+    ...locations.map((l) => ({
+      path: `/practitioners/${pr.slug}/${l.slug}`,
+      lastmod: lastmodFor('/practitioners'),
+      changefreq: 'monthly' as const,
+      priority: 0.6,
+    })),
+    ...(TAGALOG_READY
+      ? pr.languages
+          .filter((l) => l.tag !== 'en-CA')
+          .map((l) => ({
+            path: `/practitioners/${pr.slug}/${l.tag}`,
+            lastmod: lastmodFor('/practitioners'),
+            changefreq: 'monthly' as const,
+            priority: 0.7,
+          }))
+      : []),
+  ]);
 
   const trust: Entry[] = ['/standards', '/editorial-policy', '/privacy', '/accessibility'].map(
     (p) => ({ path: p, lastmod: lastmodFor(p), changefreq: 'yearly', priority: 0.4 })
@@ -58,6 +87,7 @@ export function GET() {
 
   const entries: Entry[] = [
     ...core,
+    ...people,
     { path: '/book', lastmod: lastmodFor('/book'), changefreq: 'monthly', priority: 0.9 },
     { path: '/tools', lastmod: lastmodFor('/tools'), changefreq: 'monthly', priority: 0.7 },
     { path: '/reviews', lastmod: lastmodFor('/reviews'), changefreq: 'yearly', priority: 0.5 },

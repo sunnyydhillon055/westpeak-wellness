@@ -27,6 +27,7 @@ import Motif from '@/components/brand/Motif';
 const NAV = [
   { href: '/services', label: 'Services' },
   { href: '/about', label: 'About' },
+  { href: '/practitioners', label: 'Counsellors' },
   { href: '/pricing', label: 'Fees' },
   { href: '/guides', label: 'Guides' },
   { href: '/faq', label: 'FAQ' },
