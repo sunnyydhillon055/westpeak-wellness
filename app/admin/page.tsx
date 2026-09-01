@@ -848,6 +848,35 @@ export default async function AdminPage({
           )}
         </div>
 
+        {/* ----------------------------------------------------- PAID SESSIONS */}
+        <h2 id="paid-sessions" style={{ marginTop: 44 }}>Paid sessions</h2>
+        <div className="admin-panel">
+          <p style={{ marginTop: 0 }}>
+            The detail behind the monthly report&rsquo;s &ldquo;paid sessions&rdquo; line: one tab
+            per practitioner, listing every session that <strong>received funds</strong> in the
+            period, plus a summary tab. Free consultations are excluded &mdash; they belong to
+            &ldquo;consultations booked&rdquo;.
+          </p>
+          <p style={{ color: 'var(--ink-soft)', fontSize: '.94rem' }}>
+            Counted as invoices <em>closed</em> in the month, because that is when the money
+            arrived. A session that happened and was never paid does not appear; an invoice paid
+            this month for last month&rsquo;s session does.
+          </p>
+          <form method="GET" action="/api/admin/paid-sessions" className="admin-add-row">
+            <label htmlFor="ps-month" className="sr-only">Month</label>
+            <input
+              id="ps-month"
+              name="month"
+              type="month"
+              defaultValue={new Date(Date.now() - 15 * 864e5).toISOString().slice(0, 7)}
+            />
+            <button className="btn btn--primary" type="submit">Download spreadsheet</button>
+          </form>
+          <p style={{ fontSize: '.88rem', color: 'var(--ink-faint)', marginBottom: 0 }}>
+            The file contains client names against amounts. Treat it like the client list.
+          </p>
+        </div>
+
         {/* ---------------------------------------------------------- CLINIKO */}
         <h2 id="cliniko" style={{ marginTop: 44 }}>Cliniko connection</h2>
         <div className="admin-panel">

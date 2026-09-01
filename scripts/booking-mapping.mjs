@@ -31,7 +31,8 @@
  * that mapping fails here.
  */
 
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { join, relative } from 'node:path';
 import { needsTypeStripping } from './lib/needs-type-stripping.mjs';
 needsTypeStripping('booking-mapping');
 
@@ -120,6 +121,56 @@ const notify = readFileSync(`${ROOT}lib/booking-notify.ts`, 'utf8');
 const mapping = notify.slice(notify.indexOf('const booking: Booking'), notify.indexOf('if (needsConfirm)'));
 if (/\?\?\s*\d/.test(mapping)) {
   fails.push('lib/booking-notify.ts the Booking mapping contains a numeric ?? default - that is the original bug');
+}
+
+/* ---------------------------------------------------------------------------
+ * NOBODY MAY DEFAULT duration_in_minutes, ANYWHERE.
+ *
+ * The field is not returned by GET /v1/appointments. Three separate places
+ * defaulted it to 50 and each produced a different wrong answer:
+ *
+ *   booking-notify.ts   confirmations said "50 minutes" for a 15-minute
+ *                       consult, under the wrong subject line
+ *   booking-notify.ts   the no-show window sat 35 minutes late
+ *   funnel-report.ts    `50 <= 20` is false, so consultations reported 0
+ *                       every month and every free consult was counted as a
+ *                       paid session. The owner spotted it in the August 2026
+ *                       report: 0 consultations, 12 paid.
+ *
+ * Two were found only because someone read the output and did not believe it.
+ * The check below is cheap and would have caught all three.
+ * ------------------------------------------------------------------------- */
+const SRC = [];
+(function walk(dir) {
+  for (const name of readdirSync(dir)) {
+    if (['node_modules', '.next', '.git'].includes(name)) continue;
+    const full = join(dir, name);
+    if (statSync(full).isDirectory()) walk(full);
+    else if (/\.(ts|tsx)$/.test(full)) SRC.push(full);
+  }
+})(join(ROOT, 'lib'));
+(function walk(dir) {
+  for (const name of readdirSync(dir)) {
+    if (['node_modules', '.next', '.git'].includes(name)) continue;
+    const full = join(dir, name);
+    if (statSync(full).isDirectory()) walk(full);
+    else if (/\.(ts|tsx)$/.test(full)) SRC.push(full);
+  }
+})(join(ROOT, 'app'));
+
+for (const f of SRC) {
+  /* Comments STRIPPED before scanning, not skipped by line prefix.
+     The first version tested line.startsWith('*'), which misses indented code
+     samples inside a block comment — and the notes explaining this very bug
+     quote `duration_in_minutes ?? 50` in three files. It reported those as
+     defects. A guard that flags the comment describing the fix is a guard
+     nobody keeps. */
+  const src = readFileSync(f, 'utf8')
+    .replace(/\/\*[\s\S]*?\*\//g, ' ')
+    .replace(/(^|[^:])\/\/.*$/gm, '$1');
+  if (/duration_in_minutes\s*\?\?/.test(src)) {
+    fails.push(`${relative(ROOT, f)} defaults duration_in_minutes — the field is never returned, so the default is the only value it ever has`);
+  }
 }
 
 if (fails.length) {

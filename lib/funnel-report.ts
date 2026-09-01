@@ -1,5 +1,6 @@
 import { sendDetailed, mailConfigured } from '@/lib/portal-mail';
-import { site } from '@/lib/site';
+import { site, CONSULT_TYPE } from '@/lib/site';
+import { isConsultAppointment } from '@/lib/booking-shape';
 import { readInbound } from '@/lib/inbound';
 import { readClients } from '@/lib/clients';
 import { readSearchTerms } from '@/lib/search-log';
@@ -73,9 +74,19 @@ async function clinikoCounts(from: Date, to: Date): Promise<{ consults: number; 
     if (!res.ok) return null;
     const appts = ((await res.json()).appointments ?? []) as any[];
     const live = appts.filter((a) => !a.cancelled_at && !a.archived_at);
-    /* The consultation is the only appointment type at or under 20 minutes —
-     * see the type table in lib/site.ts. */
-    const consults = live.filter((a) => Number(a.duration_in_minutes ?? 50) <= 20).length;
+    /* By APPOINTMENT TYPE, not by duration.
+     *
+     * This read `Number(a.duration_in_minutes ?? 50) <= 20`. /v1/appointments
+     * does not return duration_in_minutes, so the field was always undefined,
+     * the ?? 50 always fired, and `50 <= 20` was false for every appointment
+     * ever counted. Consultations reported 0 forever and every free consult
+     * was counted as a paid session — which is exactly what the August 2026
+     * report said: 0 consultations, 12 paid.
+     *
+     * Third instance of the same dead field. The other two were in
+     * lib/booking-notify.ts. Everything now goes through booking-shape.ts so
+     * there is one implementation to be wrong. */
+    const consults = live.filter((a) => isConsultAppointment(a, CONSULT_TYPE)).length;
     return { consults, paid: live.length - consults };
   } catch {
     return null;
@@ -146,11 +157,18 @@ export async function gather(): Promise<{ counts: Counts; from: Date; to: Date; 
 
 export function render(counts: Counts, from: Date, to: Date, clinikoOk: boolean) {
   const month = from.toLocaleDateString('en-CA', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+  /* YYYY-MM for the workbook link, so the spreadsheet covers the same period
+     the email describes rather than whatever month it is opened in. */
+  const periodKey = `${from.getUTCFullYear()}-${String(from.getUTCMonth() + 1).padStart(2, '0')}`;
 
   const rows: [string, string][] = [
     ['Checklist requests', String(counts.leads)],
     ['Messages sent', String(counts.enquiries)],
     ['Waitlist signups', String(counts.waitlist)],
+    /* "booked" is exact and load-bearing. These count APPOINTMENTS that
+       started in the window, not money. The paid-sessions workbook linked
+       below counts invoices that CLOSED — which is a different number, on
+       purpose, and the one to use when asking what was earned. */
     ['Consultations booked', clinikoOk ? String(counts.consults) : 'unavailable'],
     ['Paid sessions booked', clinikoOk ? String(counts.paidSessions) : 'unavailable'],
     ['New client records', String(counts.newClients)],
@@ -160,6 +178,9 @@ export function render(counts: Counts, from: Date, to: Date, clinikoOk: boolean)
     `Westpeak Wellness — ${month}`,
     '',
     ...rows.map(([k, v]) => `  ${k.padEnd(24)} ${v}`),
+    '',
+    '  Paid sessions in detail (one tab per practitioner, sign-in required):',
+    `  ${site.domain}/api/admin/paid-sessions?month=${periodKey}`,
     '',
     counts.unanswered > 0
       ? `  ${counts.unanswered} message(s) still awaiting a reply — ${site.domain}/admin#inbox`
@@ -211,6 +232,11 @@ export function render(counts: Counts, from: Date, to: Date, clinikoOk: boolean)
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 18px;">
 ${rows.map(([k, v]) => `<tr><td style="${cell}color:#545e69;">${k}</td><td style="${cell}text-align:right;font-weight:600;font-variant-numeric:tabular-nums;">${v}</td></tr>`).join('')}
 </table>
+<p style="margin:0 0 16px;padding:11px 14px;background:#edf3f8;border-left:3px solid #3d6c92;font-size:15px;">
+<strong>Paid sessions, in detail.</strong> A spreadsheet with one tab per practitioner, listing
+every session that received funds this period.
+<a href="${site.domain}/api/admin/paid-sessions?month=${periodKey}" style="color:#3d6c92;">Download the workbook</a>
+<span style="color:#545e69;"> — sign in required.</span></p>
 ${counts.unanswered > 0
   ? `<p style="margin:0 0 16px;padding:11px 14px;background:#f8f2ea;border-left:3px solid #b4472f;font-size:15px;"><strong>${counts.unanswered} message${counts.unanswered === 1 ? '' : 's'} still awaiting a reply.</strong> <a href="${site.domain}/admin#inbox" style="color:#3d6c92;">Open the inbox</a></p>`
   : `<p style="margin:0 0 16px;font-size:15px;color:#545e69;">Nothing awaiting a reply.</p>`}
