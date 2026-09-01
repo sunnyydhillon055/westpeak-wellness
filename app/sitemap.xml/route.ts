@@ -69,7 +69,6 @@ export function GET() {
     { path: '/punjabi', lastmod: lastmodFor('/punjabi'), changefreq: 'monthly', priority: 0.7 },
     /* The answers index: one URL holding every direct answer on the site.
        High priority because it is the page an answer engine retrieves from. */
-    { path: '/answers', lastmod: lastmodFor('/answers'), changefreq: 'monthly', priority: 0.8 },
     /* Careers. Only postings still inside their validThrough are listed: Google
        penalises stale JobPosting markup, and a sitemap that keeps advertising a
        closed role is exactly how a careers page turns into a liability. The hub

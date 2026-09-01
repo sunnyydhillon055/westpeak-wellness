@@ -446,7 +446,7 @@ export default function Home() {
                 <p className="route-k">If the words are the obstacle</p>
                 <p>
                   EMDR, window of tolerance, RCC, EFAP, CBT-I — the{' '}
-                  <Link href="/answers">short answers to the questions people ask most</Link>{' '}
+                  <Link href="/faq">the FAQ</Link>{' '}
                   covers cost, coverage and what a first session involves in a paragraph each. The{' '}
                   <Link href="/glossary">glossary</Link> defines sixty terms in plain language, and{' '}
                   <Link href="/approaches">the approach pages</Link> cover CBT, ACT, parts work, somatic

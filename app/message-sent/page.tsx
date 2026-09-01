@@ -108,7 +108,7 @@ export default function MessageSentPage() {
             <h2>While you wait</h2>
             <p>
               Nothing here needs reading, and there is no next step to complete.{' '}
-              <Link href="/answers">Short answers to the questions people ask most</Link> covers
+              <Link href="/faq">The FAQ</Link> covers
               cost, coverage and what a first session involves.{' '}
               <Link href="/pricing">Fees and coverage</Link> sets out what sessions cost and what
               BC extended health plans typically reimburse. And{' '}

@@ -103,7 +103,7 @@ export default function SearchPage({ searchParams }: { searchParams?: { q?: stri
                   rather than a consolation. */}
               <p className="lead-form-title" style={{ marginTop: 26 }}>Or start from one of these</p>
               <ul className="chip-grid" style={{ listStyle: 'none', padding: 0, marginTop: 12 }}>
-                <li><Link className="chip" href="/answers">Short answers to the commonest questions</Link></li>
+                <li><Link className="chip" href="/faq">Frequently asked questions</Link></li>
                 <li><Link className="chip" href="/pricing">What it costs and what insurance covers</Link></li>
                 <li><Link className="chip" href="/services">The nine kinds of counselling offered</Link></li>
                 <li><Link className="chip" href="/resources/low-cost-counselling-bc">Free and low-cost counselling in BC</Link></li>

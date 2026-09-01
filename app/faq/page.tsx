@@ -132,7 +132,7 @@ export default function FAQ() {
           </p>
           <p>
             These are the questions asked most often about this practice.{' '}
-            <Link href="/answers">Short answers to the questions people ask about therapy in BC</Link>{' '}
+            <Link href="/guides">The counselling guides</Link>{' '}
             is the wider version — the same format, but covering cost, coverage, EMDR, couples
             work and finding a counsellor generally rather than here specifically.
           </p>

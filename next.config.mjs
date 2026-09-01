@@ -101,6 +101,11 @@ const nextConfig = {
       { source: '/for/mens-mental-health', destination: '/for', permanent: true },
       { source: '/copy-of-new-page', destination: '/contact', permanent: true },
       { source: '/fees', destination: '/pricing', permanent: true },
+      /* /answers retired 31 Aug 2026 at the owner's request: one FAQ, not two
+         pages answering questions. It held 97 entries and 196 internal links,
+         so it is redirected rather than deleted — the inbound equity and any
+         external link land on /faq instead of a 404. */
+      { source: '/answers', destination: '/faq', permanent: true },
       /* /blog was a 404. The guides engine already is the article stack —
          dated, Article-schema'd and internally linked — so this points at it
          rather than standing up a second one that would split topic authority

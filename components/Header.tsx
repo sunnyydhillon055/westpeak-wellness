@@ -17,7 +17,7 @@ const NAV = [
   /* 78 questions, each answered in a paragraph. It ranked at position 1.8
      with four inbound links and no place in the menu — the cheapest thing
      on the site to make findable. */
-  { href: '/answers', label: 'Answers' },
+  { href: '/faq', label: 'FAQ' },
   { href: '/pricing', label: 'Fees' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },

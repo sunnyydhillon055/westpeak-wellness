@@ -103,6 +103,9 @@ const CHECKS = [
   ['/online-counselling/nanaimo', 200],
   ['/online-counselling/white-rock', 200],
   ['/for/mens-mental-health', 308, '/for'],
+  /* /answers retired 31 Aug 2026. 196 internal links pointed at it, so it
+     redirects rather than 404s. */
+  ['/answers', 308, '/faq'],
 
   /* And the counter-case: a city that WAS retired and then given a real page
      must not redirect. Getting this wrong is how the original bug shipped. */
