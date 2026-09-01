@@ -52,6 +52,20 @@ export const figures: Record<string, Figure> = {
     alt: "A stylised map of British Columbia with a central video-session hub linked by dotted lines to Prince George, Kamloops, Kelowna, Abbotsford, Surrey, Vancouver, Nanaimo and Victoria, showing that sessions reach every region of the province.",
     caption: "Every region of the province, from one virtual practice.",
   },
+  /* The Alberta counterpart to bc-reach. Camille's Calgary and Edmonton pages
+     carried the BC map, captioned "Every region of the province" and listing
+     eight BC cities — the wrong province as the page's central illustration.
+     Taller box than bc-reach because Alberta is, and a squat Alberta on an
+     Alberta page is the same error in a smaller size. */
+  'ab-reach': {
+    key: 'ab-reach',
+    file: 'ab-reach.svg',
+    width: 1040,
+    height: 560,
+    title: "Virtual counselling reach across Alberta",
+    alt: "A stylised map of Alberta with a central video-session hub linked by dotted lines to Fort McMurray, Grande Prairie, Edmonton, Red Deer, Calgary, Medicine Hat and Lethbridge, showing that sessions reach every region of the province.",
+    caption: "Every corner of Alberta, from one virtual practice.",
+  },
   'bc-support-routes': {
     key: 'bc-support-routes',
     file: 'bc-support-routes.svg',

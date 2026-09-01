@@ -3,8 +3,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { site } from '@/lib/site';
-import { practitioners, getPractitioner, type Practitioner } from '@/lib/practitioners';
-import { practitionerPlaces, getPractitionerPlace, placesFor } from '@/lib/practitioner-places';
+import { practitioners, getPractitioner, type Practitioner, type Credential } from '@/lib/practitioners';
+import { practitionerPlaces, getPractitionerPlace, placesFor, resolvePlace } from '@/lib/practitioner-places';
 import { crisisFor } from '@/lib/crisis';
 import Figure from '@/components/Figure';
 import { abs, orgRef, siteRef } from '@/lib/schema';
@@ -64,6 +64,14 @@ export function generateStaticParams() {
   return out;
 }
 
+/* Credentials in the order that makes sense where the reader is. */
+const credentialsFor = (p: { credentials: Credential[] }, province: string) =>
+  province === 'BC'
+    ? p.credentials
+    : [...p.credentials].sort((a, b) =>
+        a.scope === b.scope ? 0 : a.scope === 'national' ? -1 : 1
+      );
+
 /* Tagalog is the only language with a page here — see generateStaticParams. */
 const isLang = (p: Practitioner, place: string) =>
   place === 'tl' && p.languages.some((l) => l.tag === 'tl');
@@ -97,7 +105,16 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
      leads and the boilerplate goes. */
   const first0 = p.name.split(' ')[0];
   const title = `Counselling in ${loc.city} — ${p.name}, ${p.postNominals}`;
-  const description = `${p.name}, ${p.postNominals}, offers online counselling to ${loc.city} in ${p.languages.map((l) => l.name).join(' or ')}. Free 15-minute consultation.`;
+  /* The description ran 112-120 characters, where Google renders about 155 —
+     roughly a third of every city page's search snippet was going unused. The
+     added clause is the part a reader is actually deciding on: what the work
+     covers, and that the first conversation is free. Trimmed at a word boundary
+     to stay inside the 158 the SEO gate enforces, so a long city name cannot
+     push it over. */
+  const langs = p.languages.map((l) => l.name).join(' or ');
+  const full = `${p.name}, ${p.postNominals} — online counselling for ${loc.city} in ${langs}. Trauma, anxiety, grief and couples work. Free 15-minute consultation.`;
+  const description =
+    full.length <= 158 ? full : `${full.slice(0, full.lastIndexOf(' ', 157))}…`;
   return {
     title: { absolute: title },
     description,
@@ -186,8 +203,13 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
   }
 
   /* ---- the city variant ------------------------------------------------ */
-  const loc = getPractitionerPlace(params.place);
-  if (!loc) notFound();
+  /* resolvePlace, not the raw record: the shared city copy was written for the
+     founder's practice and states her languages. Rendered under a different
+     counsellor it promises something untrue about her — see the note in
+     lib/practitioner-places.ts. */
+  const raw = getPractitionerPlace(params.place);
+  if (!raw) notFound();
+  const loc = resolvePlace(raw, p);
   const first = p.name.split(' ')[0];
 
   const schema = [
@@ -268,8 +290,14 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
             ]}
           />
 
+          {/* Outside BC the national certification leads. A provincial college
+              means everything in its own province and nothing much beyond it,
+              and an Albertan reading "BC Association of Clinical Counsellors"
+              as the first fact about a counsellor is reasonably left wondering
+              whether she can see them at all. Both are still shown, with
+              numbers, on every page. */}
           <div className="trust-bar" style={{ marginTop: 4 }}>
-            {p.credentials.map((c) => (
+            {credentialsFor(p, loc.province).map((c) => (
               <span key={c.short}>
                 <BadgeCheck aria-hidden="true" strokeWidth={1.7} />
                 {c.full} · {c.body} #{c.number}
@@ -354,10 +382,16 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
           </div>
 
           {/* TWO DIAGRAMS, and both earn their place rather than decorating.
-              `bc-reach` answers "can someone outside my city actually see me",
-              which is the first objection on a page like this. `first-session-flow`
-              answers "what happens if I book", which is the last one. */}
-          <Figure name="bc-reach" />
+              The reach map answers "can someone outside my city actually see
+              me", which is the first objection on a page like this.
+              `first-session-flow` answers "what happens if I book", which is
+              the last one.
+
+              THE MAP FOLLOWS THE PROVINCE. Calgary and Edmonton shipped with
+              `bc-reach` — a map of British Columbia, captioned "Every region of
+              the province", listing eight BC cities, as the central image on an
+              Alberta page. */}
+          <Figure name={loc.province === 'BC' ? 'bc-reach' : 'ab-reach'} />
 
           <div className="prose" style={{ marginTop: 30 }}>
             <blockquote className="quote">{p.sessionNote}</blockquote>

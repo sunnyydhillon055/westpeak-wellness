@@ -49,6 +49,17 @@ export type Credential = {
   number: string;
   /** Public register a stranger can check, if there is one. */
   verifyUrl?: string;
+  /* WHERE THIS CREDENTIAL CARRIES WEIGHT.
+   *
+   * A provincial college means everything in its own province and is a
+   * curiosity outside it. Camille's Alberta pages led with "BC Association of
+   * Clinical Counsellors", so the first thing an Albertan read about her was a
+   * body with no standing where they live, while the national certification
+   * that does apply there sat underneath it.
+   *
+   * Ordered per page from this, rather than by the order they happen to be
+   * listed in. */
+  scope: 'national' | 'provincial';
   /** ISO date the registration runs to, when the document states one. */
   validTo?: string;
 };
@@ -123,6 +134,7 @@ export const practitioners: Practitioner[] = [
         body: 'BC Association of Clinical Counsellors',
         number: '20111',
         verifyUrl: 'https://bc-counsellors.org/counsellors/',
+        scope: 'provincial',
       },
     ],
     provinces: ['BC'],
@@ -189,6 +201,7 @@ export const practitioners: Practitioner[] = [
         number: '26894',
         verifyUrl: 'https://bc-counsellors.org/counsellors/',
         validTo: '2026-12-31',
+        scope: 'provincial',
       },
       {
         short: 'CCC',
@@ -197,6 +210,7 @@ export const practitioners: Practitioner[] = [
         number: '11263060',
         verifyUrl: 'https://www.ccpa-accp.ca/',
         validTo: '2029-10-01',
+        scope: 'national',
       },
     ],
     /* BC AND ALBERTA — and the second one is now evidenced, not assumed.

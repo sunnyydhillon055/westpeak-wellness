@@ -139,6 +139,133 @@ export function placesFor(provinces: string[]): PractitionerPlace[] {
   ];
 }
 
+/* ============================================================================
+   THE CITY COPY IS SHARED. THE LANGUAGE IS NOT.
+   ----------------------------------------------------------------------------
+   The BC entries above are adapted from lib/locations.ts, which was written for
+   the founder's practice — she works in English and Punjabi, and the copy says
+   so in the access list, in the FAQs, and in a few of the local paragraphs.
+
+   Rendered under a different counsellor's name, that copy makes a promise about
+   her that is not true. Camille Granda works in English and Tagalog. Before this
+   existed, 14 of her 17 city pages offered counselling in Punjabi — Richmond
+   said "English and Tagalog, including moving between them" and "English or
+   Punjabi — Including both within one session" about four hundred words apart,
+   and Delta answered "Can I have sessions in Punjabi? Yes" inside FAQPage
+   schema, which is eligible to appear in a search result.
+
+   Filtering at render time rather than forking the city data: the local
+   substance — the ferry, the tunnel, the highway, the census figures — is true
+   about the city whoever is speaking, and duplicating it per counsellor would
+   mean fifteen more copies to keep in step. What is practitioner-specific is
+   exactly the language, so that is what gets resolved per practitioner.
+
+   Three cities argue their whole case through the founder's language and
+   community, and filtering a sentence out of those would leave a hole rather
+   than a page. Those carry their own copy in LOCAL_OVERRIDES below.
+   ========================================================================= */
+
+type Speaker = {
+  slug: string;
+  languages: { tag: string; name: string }[];
+};
+
+/* Every language the shared city copy can claim, with the words that signal it.
+   Cultural shorthand counts: "log kya kahenge" is a Punjabi-practice promise as
+   surely as the word Punjabi is. */
+const LANGUAGE_CLAIMS: { name: string; rx: RegExp }[] = [
+  { name: 'punjabi', rx: /punjabi|log kya kahenge|south asian/i },
+  { name: 'tagalog', rx: /tagalog|filipino/i },
+];
+
+/* Any mention of a language at all, used to strip the access list down to one
+   language line that is then rebuilt from the practitioner. Matching English
+   too is deliberate: "English or Punjabi" must go as a unit, not be left as a
+   half-sentence about English. */
+const ANY_LANGUAGE = /punjabi|tagalog|filipino|english|log kya kahenge|south asian/i;
+
+const foreignTo = (p: Speaker) => {
+  const speaks = new Set(p.languages.map((l) => l.name.toLowerCase()));
+  const foreign = LANGUAGE_CLAIMS.filter((c) => !speaks.has(c.name));
+  return (text: string) => foreign.some((c) => c.rx.test(text));
+};
+
+/* One access line, built from the practitioner's own record. Every city gets
+   exactly one of these — including the cities whose shared copy never had a
+   language line — so the claim is consistent across her pages and comes from
+   one place. */
+const languageAccess = (p: Speaker) => {
+  const names = p.languages.map((l) => l.name);
+  return names.length > 1
+    ? {
+        label: names.join(' or '),
+        detail: 'Including moving between them inside one session, which is how most bilingual people actually think.',
+      }
+    : { label: `Sessions in ${names[0]}`, detail: 'Plain language, no jargon to decode.' };
+};
+
+const languageFaq = (p: Speaker) => {
+  const names = p.languages.map((l) => l.name);
+  const second = names[1] ?? names[0];
+  return {
+    q: `Can sessions be in ${second}?`,
+    a: `Yes — in ${names.join(' or ')}, or moving between them as the conversation needs. Most people switch without planning to, particularly when something is hard to say, and nothing about the session requires picking one and staying there.`,
+  };
+};
+
+/* Cities whose shared copy argues its case through the founder's language and
+   community. Camille's version keeps the local problem and drops the claim. */
+const LOCAL_OVERRIDES: Record<string, Record<string, { blurb?: string; local?: string[] }>> = {
+  'camille-granda': {
+    surrey: {
+      blurb: 'A city big enough to have counsellors, and still short of the ones people are actually looking for.',
+      local: [
+        'Surrey is one of the fastest-growing cities in Canada, and the counselling here has not grown with it at the same rate. The lists are long, and the people who get seen quickest are usually the ones who can take a weekday afternoon off to do it.',
+        'It is also a city that works shifts — healthcare, the airport, warehousing, care work. A standing Tuesday at two does not survive a rotating roster, and an appointment you keep missing turns into an appointment you stop booking. Sessions by video, in the evening if that is what fits, remove the part that was breaking.',
+      ],
+    },
+    abbotsford: {
+      local: [
+        'Abbotsford is far enough from the Lower Mainland that an in-person appointment can mean a real drive, and close enough that people are told to make it anyway. An hour each way around a working day is the reason a lot of counselling here stops after session three.',
+        'A great deal of the valley also works to seasons and shifts rather than to office hours. Booking in blocks with gaps between them is an ordinary pattern rather than a compromise, and pausing between blocks costs nothing.',
+      ],
+    },
+    richmond: {
+      local: [
+        "Richmond has real counselling capacity, and much of it is built — correctly — around the city's Chinese-speaking communities. If that is not what you are looking for, the field narrows fast, and people routinely end up searching Vancouver or Surrey instead.",
+        'The airport and the port are also large local employers, on rosters that change. A session you can attend from home between shifts is worth more than one you could theoretically drive to and keep missing.',
+      ],
+    },
+  },
+};
+
+/* Resolve a shared city record against the counsellor whose page it is. */
+export function resolvePlace(place: PractitionerPlace, p: Speaker): PractitionerPlace {
+  const isForeign = foreignTo(p);
+  const ov = LOCAL_OVERRIDES[p.slug]?.[place.slug];
+
+  const local = ov?.local ?? place.local.filter((t) => !isForeign(t));
+  const blurb =
+    ov?.blurb ??
+    (isForeign(place.blurb)
+      ? `Online counselling for ${place.city}, on the same terms as anywhere else in ${place.region}.`
+      : place.blurb);
+
+  /* Exactly one language line, rebuilt from the practitioner. */
+  const access = [
+    ...place.access.filter((a) => !ANY_LANGUAGE.test(`${a.label} ${a.detail}`)),
+    languageAccess(p),
+  ];
+
+  /* A dropped language FAQ is replaced rather than simply removed — the
+     question is one people genuinely ask, and the honest answer is still
+     useful. */
+  const keptFaqs = place.faqs.filter((f) => !isForeign(`${f.q} ${f.a}`));
+  const faqs = keptFaqs.length === place.faqs.length ? keptFaqs : [...keptFaqs, languageFaq(p)];
+
+  return { ...place, blurb, local, access, faqs };
+}
+
 /** Every place any practitioner can have a page for. Used for route generation. */
 export const practitionerPlaces: PractitionerPlace[] = [
   ...BC,
