@@ -211,6 +211,10 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
   if (!raw) notFound();
   const loc = resolvePlace(raw, p);
   const first = p.name.split(' ')[0];
+  /* Every call to action on this page names the counsellor it came from, so
+     /book can state her provinces and languages rather than the practice's.
+     Without it a Calgary reader was told they were ineligible. */
+  const bookHref = `${site.bookingPath}?with=${p.slug}`;
 
   const schema = [
     {
@@ -274,7 +278,7 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
           <h1>Counselling for {loc.city}, with {first}</h1>
           <p className="lede">{loc.blurb}</p>
           <div className="btn-row" style={{ marginTop: 22 }}>
-            <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
+            <Link className="btn btn--primary" href={bookHref}>Book a free consultation</Link>
             <Link className="btn btn--ghost" href={`/practitioners/${p.slug}`}>More about {first}</Link>
           </div>
         </div>
@@ -430,6 +434,7 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
       </section>
 
       <CtaBand
+        bookHref={bookHref}
         heading={`Counselling in ${loc.city}, without the drive`}
         text="A free 15-minute consultation by video. No card, and no obligation afterwards."
       />

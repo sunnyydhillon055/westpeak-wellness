@@ -396,6 +396,7 @@ export function practiceAlert(item: Inbound) {
     /* A number only appears here when the person asked to be phoned. It stays
      * out of the subject and the preheader for the same reason the message
      * does — those two lines are visible without opening the email. */
+    ...(item.practitioner ? [`Asked for: ${item.practitioner}`] : []),
     ...(item.phone ? [`Phone:  ${item.phone}  (asked to be called)`] : []),
     ...(item.callWindow ? [`Call:   ${item.callWindow}`] : []),
     `Page:   ${item.source}`,
@@ -413,6 +414,7 @@ export function practiceAlert(item: Inbound) {
       ${item.windows ? `<tr><td style="color:#545e69;padding-right:14px;">Windows</td><td>${esc(item.windows)}</td></tr>` : ''}
       ${item.phone ? `<tr><td style="color:#545e69;padding-right:14px;">Phone</td><td><a href="tel:${esc(item.phone.replace(/[^\d+]/g, ''))}" style="color:#3d6c92;">${esc(item.phone)}</a> <span style="color:#545e69;">&mdash; asked to be called</span></td></tr>` : ''}
       ${item.callWindow ? `<tr><td style="color:#545e69;padding-right:14px;">Best time</td><td>${esc(item.callWindow)}</td></tr>` : ''}
+      ${item.practitioner ? `<tr><td style="color:#545e69;padding-right:14px;">Asked for</td><td><strong>${esc(item.practitioner)}</strong></td></tr>` : ''}
       <tr><td style="color:#545e69;padding-right:14px;">Page</td><td>${esc(item.source)}</td></tr>
      </table>` +
     (item.message

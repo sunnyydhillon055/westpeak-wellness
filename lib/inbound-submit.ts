@@ -4,6 +4,7 @@ import { triage, hasMailExchanger, withMx } from '@/lib/triage';
 import { sendDetailed } from '@/lib/portal-mail';
 import { checklistEmail, icbcEmail, startingEmail, enquiryAck, waitlistAck, practiceAlert } from '@/lib/inbound-mail';
 import { site } from '@/lib/site';
+import { practitioners } from '@/lib/practitioners';
 
 /* One submit path for all three inbound forms.
  *
@@ -85,6 +86,13 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
    * regex that rejects a valid Canadian number someone typed with an extension
    * costs a callback to save nothing. The ceiling exists only so a paste
    * accident cannot write an essay into the field. */
+  /* Only a slug that names a real counsellor is kept. The field is hidden and
+     therefore trivially forgeable, and a stored value that is not a real
+     practitioner would put an unanswerable name in front of whoever reads the
+     alert. */
+  const askedFor = String(form.get('practitioner') ?? '').trim().slice(0, 60);
+  const practitioner = practitioners.some((p) => p.slug === askedFor) ? askedFor : '';
+
   const phone = String(form.get('phone') ?? '').trim().slice(0, 40);
   const callWindow = String(form.get('callWindow') ?? '').trim().slice(0, 120);
 
@@ -123,7 +131,7 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
 
   const item = await addInbound({
     kind: o.kind, name, email, message, windows, phone, callWindow, source,
-    monthlyOptIn, magnet, triage: verdict,
+    monthlyOptIn, magnet, triage: verdict, practitioner,
   });
   if (!item) return back('err');
 

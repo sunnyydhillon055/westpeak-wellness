@@ -6,6 +6,7 @@ import { site } from '@/lib/site';
 import { practitioners } from '@/lib/practitioners';
 import { track } from '@/lib/analytics';
 import Motif from '@/components/brand/Motif';
+import { bookHrefFor } from '@/components/StickyBook';
 
 /* Five items, deliberately. With the portal pill and the booking CTA the bar
  * carries seven objects as it is; nine was crowded and made the whole header
@@ -265,7 +266,7 @@ export default function Header() {
           <li className="nav-cta" style={{ '--i': NAV.length + 3 } as CSSProperties}>
             <Link
               className="btn btn--primary"
-              href={site.bookingPath}
+              href={bookHrefFor(pathname)}
               onClick={() => {
                 setOpen(false);
                 track('book_click', { location: 'header' });

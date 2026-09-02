@@ -37,6 +37,7 @@ export default function CtaBand({
   text = 'Book a free 15-minute consultation over secure video. No pressure — just a chance to see if we’re a good fit.',
   tone = 'default',
   forSomeoneElse = true,
+  bookHref,
   headingLang,
   headingClassName,
 }: {
@@ -44,6 +45,10 @@ export default function CtaBand({
   text?: string;
   tone?: 'default' | 'gentle';
   forSomeoneElse?: boolean;
+  /* Booking href, when the band sits on a counsellor's page and the
+     consultation should be attached to them rather than to the practice
+     in general. See the ?with= note in app/book/page.tsx. */
+  bookHref?: string;
   /** For a heading in another script (the Punjabi surfaces pass Gurmukhi):
    *  the lang attribute and the font class that actually renders it. */
   headingLang?: string;
@@ -63,7 +68,7 @@ export default function CtaBand({
               ? 'A free 15-minute consultation over secure video, whenever you are ready for one. Nothing is committed by having it, and no card is needed to book it.'
               : text}
           </p>
-          <BookLink location="cta-band">Book Free Consultation</BookLink>
+          <BookLink location="cta-band" href={bookHref}>Book Free Consultation</BookLink>
 
           {forSomeoneElse && (
             <p className="cta-band-alt">

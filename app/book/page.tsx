@@ -7,6 +7,8 @@ import SchedulerEmbed from '@/components/SchedulerEmbed';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import InboundForm from '@/components/InboundForm';
 import { ogBase } from '@/lib/og-meta';
+import { getPractitioner } from '@/lib/practitioners';
+import { PROVINCE_NAME, type Province } from '@/lib/crisis';
 
 export const metadata: Metadata = {
   title: 'Book a Free 15-Minute Consultation',
@@ -26,6 +28,33 @@ export default function Book({
 }) {
   const waitlist = searchParams?.waitlist === 'ok' ? 'ok'
     : searchParams?.waitlist === 'err' ? 'err' : undefined;
+
+  /* WHO THE READER CAME FOR — ?with=<slug>.
+   *
+   * Until 1 Sep 2026 every call to action on Camille's 24 pages pointed here
+   * with nothing attached, and this page is written for the founder. So a
+   * reader who had just spent a thousand words on Camille's Calgary page was
+   * told "Sessions are for people located in British Columbia" and "Available
+   * in English, Punjabi, or a mix of both" — ineligible on the first line and,
+   * if they came for Tagalog, offered the wrong language on the second.
+   *
+   * The province and language lines below now come from whoever the reader
+   * actually arrived for. With no ?with= the page is exactly what it was. */
+  const withSlug = typeof searchParams?.with === 'string' ? searchParams.with : '';
+  const who = withSlug ? getPractitioner(withSlug) : undefined;
+
+  /* The founder is on the Cliniko calendar; a counsellor who is not yet on it
+     cannot be booked by an embed that books somebody else. For them the page
+     offers a request instead of a calendar, which is the honest version — and
+     the request carries their name so whoever answers it knows. */
+  const schedulable = !who || who.bookable;
+
+  const provinceList = who
+    ? who.provinces.map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and ')
+    : 'British Columbia';
+  const languageList = who
+    ? who.languages.map((l) => l.name).join(' or ')
+    : 'English, Punjabi, or a mix of both';
 
   return (
     <>
@@ -73,24 +102,40 @@ export default function Book({
                   the session. Added 17 Aug 2026 after confirming the liability
                   policy does not extend outside BC. */}
               <p className="book-brief-note">
-                <strong>Sessions are for people located in British Columbia.</strong> Counselling
-                is regulated province by province, and a session counts as happening where you are
-                sitting rather than where your counsellor is — so this is a registration and
-                insurance boundary rather than a preference. If you are elsewhere in Canada, say so
-                on the consultation and you will be pointed toward someone who can properly see you.
+                <strong>
+                  Sessions {who ? `with ${who.name.split(' ')[0]} ` : ''}are for people located in {provinceList}.
+                </strong>{' '}
+                Counselling is regulated province by province, and a session counts as happening
+                where you are sitting rather than where your counsellor is — so this is a
+                registration and insurance boundary rather than a preference. If you are elsewhere
+                in Canada, say so on the consultation and you will be pointed toward someone who
+                can properly see you.
               </p>
               {/* Punjabi searchers reach this page directly from Punjabi-language
                   SERPs and previously met a wall of English at the highest-intent
                   moment on the site. The Gurmukhi sentence is reused VERBATIM
                   from /punjabi (already reviewed) — nothing here is newly
-                  composed Punjabi, per the fluent-review rule. */}
-              <p className="book-brief-note">
-                <span className={gurmukhi.className} lang="pa">
-                  ਸੈਸ਼ਨ ਪੰਜਾਬੀ ਵਿੱਚ, ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ, ਜਾਂ ਦੋਹਾਂ ਵਿੱਚ ਹੋ ਸਕਦੇ ਹਨ
-                </span>{' '}
-                — the consultation itself can be in Punjabi, English, or both.{' '}
-                <Link href="/punjabi">ਪੰਜਾਬੀ ਵਿੱਚ ਜਾਣਕਾਰੀ</Link>
-              </p>
+                  composed Punjabi, per the fluent-review rule.
+
+                  Shown only when the consultation can actually be in Punjabi.
+                  Offering it to somebody who arrived for a Tagalog-speaking
+                  counsellor is the same false promise this page was fixed for
+                  at the other end. */}
+              {(!who || who.languages.some((l) => l.tag === 'pa')) && (
+                <p className="book-brief-note">
+                  <span className={gurmukhi.className} lang="pa">
+                    ਸੈਸ਼ਨ ਪੰਜਾਬੀ ਵਿੱਚ, ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ, ਜਾਂ ਦੋਹਾਂ ਵਿੱਚ ਹੋ ਸਕਦੇ ਹਨ
+                  </span>{' '}
+                  — the consultation itself can be in Punjabi, English, or both.{' '}
+                  <Link href="/punjabi">ਪੰਜਾਬੀ ਵਿੱਚ ਜਾਣਕਾਰੀ</Link>
+                </p>
+              )}
+              {who && !who.languages.some((l) => l.tag === 'pa') && (
+                <p className="book-brief-note">
+                  <strong>The consultation can be in {languageList}</strong> — including moving
+                  between them, which is what most bilingual people end up doing.
+                </p>
+              )}
               {/* The last-mile objections, answered where they strike rather
                   than three clicks away on /pricing and /client-portal. */}
               <p className="book-brief-note">
@@ -119,7 +164,24 @@ export default function Book({
             </div>
           </div>
 
-          {site.bookingReady ? (
+          {/* A counsellor who is not on the calendar yet gets a request path
+              rather than an embed that would book somebody else. */}
+          {who && !schedulable ? (
+            <div className="crisis" style={{ marginTop: 8 }}>
+              <h2 style={{ marginTop: 0 }}>Ask for a consultation with {who.name.split(' ')[0]}</h2>
+              <p>
+                {who.name.split(' ')[0]} is not on the online calendar yet, so this one is arranged
+                by reply rather than by picking a slot. Leave your name and email with a line about
+                what you are looking for and roughly when you are free, and you will hear back
+                within one business day to fix a time.
+              </p>
+              <p>
+                {who.name} · {who.postNominals} — sessions in {languageList}, anywhere in{' '}
+                {provinceList}. <Link href={`/practitioners/${who.slug}`}>More about {who.name.split(' ')[0]}</Link>.
+              </p>
+              <InboundForm kind="waitlist" done={waitlist} practitioner={who.slug} />
+            </div>
+          ) : site.bookingReady ? (
             <>
               {/* The credentials at the moment of commitment. Everything here
                   is verifiable and already published elsewhere on the site —
@@ -131,6 +193,13 @@ export default function Book({
                 </a>{' '}
                 · EMDR-trained · Gottman-trained · English &amp; ਪੰਜਾਬੀ
               </p>
+              {who && (
+                <p className="book-brief-note" style={{ textAlign: 'center', marginBottom: 10 }}>
+                  You arrived from {who.name}&rsquo;s page. The calendar below books the
+                  consultation; say on the call that you were looking for{' '}
+                  {who.name.split(' ')[0]} and it will be arranged.
+                </p>
+              )}
               <SchedulerEmbed
                 url={site.bookingsUrl}
                 title="Book a free 15-minute consultation"
@@ -211,8 +280,8 @@ export default function Book({
           <div>
             <p className="eyebrow">Before you book</p>
             <ul className="checklist">
-              <li>Sessions are fully online, anywhere in British Columbia</li>
-              <li>Available in English, Punjabi, or a mix of both</li>
+              <li>Sessions are fully online, anywhere in {provinceList}</li>
+              <li>Available in {languageList}</li>
               <li>Individual sessions are 50 minutes; couples sessions are 50 or 110</li>
               <li>Session fees and payment methods are set out on the <Link href="/pricing">fees page</Link></li>
               <li>Most BC extended health plans that cover RCCs will reimburse</li>

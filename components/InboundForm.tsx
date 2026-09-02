@@ -51,7 +51,18 @@ const COPY = {
   },
 } as const;
 
-export default function InboundForm({ kind, done }: { kind: Kind; done?: 'ok' | 'err' }) {
+export default function InboundForm({
+  kind,
+  done,
+  practitioner,
+}: {
+  kind: Kind;
+  done?: 'ok' | 'err';
+  /* Slug of the counsellor this request is for, when the reader arrived from
+     one of their pages. Server-validated against the roster; see
+     lib/inbound-submit.ts. */
+  practitioner?: string;
+}) {
   const pathname = usePathname();
   const c = COPY[kind];
 
@@ -75,6 +86,7 @@ export default function InboundForm({ kind, done }: { kind: Kind; done?: 'ok' | 
           out which pages actually earn enquiries. Server-validated as a
           same-site path; see safePath() in lib/inbound-submit.ts. */}
       <input type="hidden" name="source" value={pathname ?? '/'} />
+      {practitioner && <input type="hidden" name="practitioner" value={practitioner} />}
       <FormStamp />
 
 

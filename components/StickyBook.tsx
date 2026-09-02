@@ -4,6 +4,27 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { site } from '@/lib/site';
 import { track } from '@/lib/analytics';
+import { practitioners } from '@/lib/practitioners';
+
+/* THE BOOKING LINK FOLLOWS THE PAGE.
+ *
+ * On a counsellor's own pages the consultation should be attached to that
+ * counsellor, so /book can state her provinces and languages instead of the
+ * practice's. Camille works in Alberta and in Tagalog; a reader who clicked a
+ * bare /book from her Calgary page was told "Sessions are for people located
+ * in British Columbia" and offered English or Punjabi.
+ *
+ * Derived from the path rather than passed down, because these two components
+ * are rendered by the layout and never see the page's own data. Anything that
+ * is not a real counsellor's page falls through to the plain booking path. */
+export const bookHrefFor = (pathname: string | null): string => {
+  const m = /^\/practitioners\/([^/]+)/.exec(pathname ?? '');
+  const slug = m?.[1];
+  return slug && practitioners.some((p) => p.slug === slug)
+    ? `${site.bookingPath}?with=${slug}`
+    : site.bookingPath;
+};
+
 
 /* Mobile-only booking bar.
  *
@@ -46,7 +67,7 @@ export default function StickyBook() {
             Call
           </a>
         )}
-        <Link className="btn btn--primary sticky-book-btn" href={site.bookingPath}>
+        <Link className="btn btn--primary sticky-book-btn" href={bookHrefFor(pathname)}>
           Book
         </Link>
       </div>

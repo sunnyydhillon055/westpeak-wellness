@@ -50,6 +50,9 @@ export default function PractitionerPage({ params }: { params: { slug: string } 
 
   const first = p.name.split(' ')[0];
   const cities = p.placePages ? placesFor(p.provinces) : [];
+  /* See the note on the city pages: the consultation is attached to this
+     counsellor so /book can speak for her. */
+  const bookHref = `${site.bookingPath}?with=${p.slug}`;
   /* Only languages whose page is actually published. Tagalog is written but
      gated until Camille has reviewed it (lib/practitioner-tl.ts), and linking
      to a gated route means a reader hits a 404 — which the internal-link gate
@@ -114,9 +117,9 @@ export default function PractitionerPage({ params }: { params: { slug: string } 
             </p>
             <div className="btn-row" style={{ marginTop: 22 }}>
               {p.bookable ? (
-                <Link className="btn btn--primary" href={site.bookingPath}>Book with {first}</Link>
+                <Link className="btn btn--primary" href={bookHref}>Book with {first}</Link>
               ) : (
-                <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
+                <Link className="btn btn--primary" href={bookHref}>Book a free consultation</Link>
               )}
               <Link className="btn btn--ghost" href="/pricing">Fees and coverage</Link>
             </div>
@@ -277,6 +280,7 @@ export default function PractitionerPage({ params }: { params: { slug: string } 
       </section>
 
       <CtaBand
+        bookHref={bookHref}
         heading={`Talk to ${first} first`}
         text="A free 15-minute consultation, by video. No card, and no obligation to book anything afterwards."
       />

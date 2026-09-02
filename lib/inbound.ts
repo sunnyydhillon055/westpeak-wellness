@@ -80,6 +80,17 @@ export type Inbound = {
   callWindow?: string;
   /** Which page it came from, for working out what earns enquiries. */
   source: string;
+  /* WHICH COUNSELLOR THEY ASKED FOR.
+   *
+   * Every call to action on Camille's 24 pages pointed at a bare /book with no
+   * practitioner attached, and the form had no field for one — so somebody who
+   * read a thousand words about her, in Calgary, arrived at a page addressed to
+   * the founder and had no way to say who they came for. Whoever answered the
+   * enquiry could not tell either.
+   *
+   * A slug from lib/practitioners, validated server-side; anything unrecognised
+   * is dropped rather than stored. */
+  practitioner?: string;
   /* Explicit, separate consent to be written to again after the three-email
    * sequence ends.
    *
@@ -192,6 +203,7 @@ export async function addInbound(
        asked. Found 30 Aug 2026 while adding triage. */
     phone: clip(rec.phone, 40) || undefined,
     callWindow: clip(rec.callWindow, 120) || undefined,
+    practitioner: clip(rec.practitioner, 60) || undefined,
     triage: rec.triage,
     source: clip(rec.source, 120) || '/',
     monthlyOptIn: rec.monthlyOptIn === true ? true : undefined,
