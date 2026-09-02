@@ -316,7 +316,11 @@ export const practitioners: Practitioner[] = [
     ],
     sessionNote:
       'You do not need to have everything figured out before you start. Sometimes knowing that something is not working any more is enough of a reason to begin.',
-    services: ['individual-therapy', 'emdr-therapy', 'family-counselling'],
+    /* Couples added 1 Sep 2026 at the owner's request. It was asked for when
+       she was onboarded and never reached this array, so her profile listed
+       three services while her Tagalog pages and her own "better relationships
+       and boundaries" line both implied four. */
+    services: ['individual-therapy', 'couples-therapy', 'emdr-therapy', 'family-counselling'],
     placePages: true,
     /* FALSE UNTIL CLINIKO IS SET UP. This gates the Book button on her pages,
        so the site cannot advertise a bookable slot that does not exist —
