@@ -34,10 +34,10 @@ export const metadata: Metadata = {
     template: '%s | Westpeak Wellness',
   },
   description:
-    'Online counselling across BC with a Registered Clinical Counsellor. EMDR, trauma, anxiety, depression, and couples therapy in English or Punjabi.',
+    'Online counselling across BC with a Registered Clinical Counsellor. EMDR, trauma, anxiety, depression, and couples therapy in English, Punjabi or Tagalog.',
   keywords: [
     'online counselling BC', 'virtual therapy BC', 'Registered Clinical Counsellor',
-    'Punjabi counselling', 'EMDR therapy BC', 'couples counselling', 'South Asian therapist',
+    'Punjabi counselling', 'Tagalog counselling', 'EMDR therapy BC', 'couples counselling',
   ],
   applicationName: site.name,
   publisher: site.name,
@@ -48,10 +48,10 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website', locale: 'en_CA', url: site.domain, siteName: site.name,
     title: 'Online Counselling in BC | Westpeak Wellness',
-    description: 'Virtual therapy across British Columbia in English or Punjabi. EMDR, trauma, anxiety, depression, and couples counselling.',
+    description: 'Virtual therapy across British Columbia in English, Punjabi or Tagalog. EMDR, trauma, anxiety, depression, and couples counselling.',
   },
   twitter: { card: 'summary_large_image', title: 'Online Counselling in BC | Westpeak Wellness',
-    description: 'Virtual therapy across BC in English or Punjabi with a Registered Clinical Counsellor.' },
+    description: 'Virtual therapy across BC in English, Punjabi or Tagalog with a Registered Clinical Counsellor.' },
   /* Search Console / Bing ownership. Emitted only when the token is set, so
    * nothing ships an empty verification tag. */
   verification: {
@@ -93,7 +93,7 @@ const orgSchema = {
   logo: { '@type': 'ImageObject', url: `${site.domain}/img/logo.svg`, width: 512, height: 512 },
   image: `${site.domain}/opengraph-image`,
   description:
-    'Virtual counselling practice serving all of British Columbia, offering individual, couples, trauma and EMDR therapy in English and Punjabi with a Registered Clinical Counsellor.',
+    'Virtual counselling practice serving all of British Columbia, offering individual, couples, trauma and EMDR therapy in English, Punjabi and Tagalog with Registered Clinical Counsellors.',
   slogan: site.tagline,
   /* The province, AND the places named as served.
    *
@@ -109,9 +109,13 @@ const orgSchema = {
     { '@type': 'State', name: 'British Columbia', containedInPlace: { '@type': 'Country', name: 'Canada' } },
     ...AREA_SERVED,
   ],
+  /* Three languages since 1 Sep 2026. Punjabi is the founder's; Tagalog
+     arrived with Camille Granda and was missing here, so the practice was
+     advertising one fewer language than it offers. */
   availableLanguage: [
     { '@type': 'Language', name: 'English', alternateName: 'en' },
     { '@type': 'Language', name: 'Punjabi', alternateName: 'pa' },
+    { '@type': 'Language', name: 'Tagalog', alternateName: 'tl' },
   ],
   medicalSpecialty: 'Psychiatric',
   isAcceptingNewPatients: true,
@@ -133,7 +137,7 @@ const orgSchema = {
     { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Tuesday'], opens: '09:00', closes: '18:00' },
     { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Wednesday', 'Thursday', 'Friday'], opens: '18:00', closes: '19:00' },
   ],
-  knowsLanguage: ['en-CA', 'pa'],
+  knowsLanguage: ['en-CA', 'pa', 'tl'],
   /* Telephone, only once a real number exists — see the phone note in
    * lib/site.ts. An empty telephone field in schema is worse than none. */
   ...(site.phone
@@ -143,7 +147,7 @@ const orgSchema = {
           '@type': 'ContactPoint',
           telephone: site.phone,
           contactType: 'customer service',
-          availableLanguage: ['en', 'pa'],
+          availableLanguage: ['en', 'pa', 'tl'],
         },
       }
     : {}),
@@ -170,7 +174,7 @@ const orgSchema = {
   ],
   disambiguatingDescription:
     'A fully virtual Registered Clinical Counsellor practice serving all of ' +
-    'British Columbia by secure video, in English and Punjabi. It has no ' +
+    'British Columbia by secure video, in English, Punjabi and Tagalog. It has no ' +
     'physical office or walk-in location.',
   knowsAbout: [
     'Eye Movement Desensitization and Reprocessing', 'Cognitive Behavioural Therapy',

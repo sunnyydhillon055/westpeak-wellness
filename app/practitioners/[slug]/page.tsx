@@ -30,6 +30,8 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     description,
     alternates: { canonical: `${site.domain}/practitioners/${p.slug}` },
     openGraph: { ...ogBase(`/practitioners/${p.slug}`), title, description, url: `${site.domain}/practitioners/${p.slug}` },
+    /* Own twitter card — see the note on the city pages. */
+    twitter: { card: 'summary_large_image', title, description },
   };
 }
 

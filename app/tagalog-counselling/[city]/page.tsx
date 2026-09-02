@@ -113,7 +113,7 @@ export default function TagalogCityPage({ params }: { params: { city: string } }
             </p>
           </div>
 
-          <Figure name="language-in-therapy" />
+          <Figure name="language-in-therapy-tl" />
 
           {speaker && (
             <div className="prose" style={{ marginTop: 28 }}>

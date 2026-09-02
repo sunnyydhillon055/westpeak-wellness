@@ -120,6 +120,11 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
     description,
     alternates: { canonical: `${site.domain}/practitioners/${p.slug}/${loc.slug}` },
     openGraph: { ...ogBase(`/practitioners/${p.slug}/${loc.slug}`), title, description },
+    /* Set explicitly, because Next replaces the root `twitter` object only when
+       a page declares one — otherwise the page inherits the site-wide card. On
+       Camille's pages that card read "in English or Punjabi", which is the same
+       false claim this page was corrected for, surfacing on every share. */
+    twitter: { card: 'summary_large_image', title, description },
   };
 }
 

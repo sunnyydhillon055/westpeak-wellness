@@ -111,7 +111,7 @@ export default function TagalogCounsellingHub() {
             </p>
           </div>
 
-          <Figure name="language-in-therapy" />
+          <Figure name="language-in-therapy-tl" />
 
           {speaker && (
             <div className="prose" style={{ marginTop: 28 }}>

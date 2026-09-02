@@ -162,6 +162,18 @@ export const figures: Record<string, Figure> = {
      was about language, and hanging an unrelated diagram on the page to clear
      a warning would have been worse than the warning.
      The content is the page's own short answer and adds no claim to it. */
+  /* The Tagalog twin. The original names Punjabi in its left column, and it was
+     rendering on the Tagalog pages — telling a Tagalog-speaking reader that the
+     first language in question was Punjabi. Same diagram, one word. */
+  'language-in-therapy-tl': {
+    key: 'language-in-therapy-tl',
+    file: 'language-in-therapy-tl.svg',
+    width: 1040,
+    height: 474,
+    title: "What each language tends to hold in therapy",
+    alt: "Three columns: Tagalog holding memory, family and feeling; English offering distance and the vocabulary of work; and between them a session that can move between the two mid-sentence.",
+    caption: "The middle column is the point — the choice is not made in advance.",
+  },
   'language-in-therapy': {
     key: 'language-in-therapy',
     file: 'language-in-therapy.svg',
