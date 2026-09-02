@@ -1,8 +1,18 @@
 /* ============================================================================
-   TAGALOG COPY — WRITTEN, NOT YET PUBLISHED
+   TAGALOG COPY — PUBLISHED 1 SEP 2026, REVIEW STILL OUTSTANDING
    ----------------------------------------------------------------------------
-   TAGALOG_READY IS FALSE ON PURPOSE. Flip it to true only after Camille has
-   read every string in this file and said it reads naturally.
+   TAGALOG_READY WAS FALSE UNTIL 1 SEP 2026, when the owner published these
+   pages having been told plainly that the Tagalog is unreviewed and written by
+   someone who does not speak it natively. That was their call to make and it
+   reverses the "Camille reviews before publish" decision taken earlier the
+   same day. The rest of this note is kept rather than deleted, because the
+   reason for the gate did not stop being true when the gate came off:
+
+   Camille should still read every string here and in
+   lib/practitioner-places-tl.ts. What changed is that she is now reading live
+   pages instead of a draft, so a correction is a fix rather than a release
+   step. Send her CAMILLE_ONBOARDING.md, and when she marks something off,
+   change it to what she wrote — do not machine-translate a correction back.
 
    WHY IT IS GATED
 
@@ -34,7 +44,7 @@
    it changes to what she wrote.
    ========================================================================= */
 
-export const TAGALOG_READY = false;
+export const TAGALOG_READY = true;
 
 export const TAGALOG = {
   eyebrow: 'Sa Tagalog',

@@ -122,14 +122,22 @@ const CHECKS = [
   ['/services/family-counselling', 200],
   ['/services/punjabi-counselling', 200],
 
-  /* The practitioner roster, added 1 Sep 2026. The Tagalog page must 404 while
-     TAGALOG_READY is false — a gated page that quietly starts serving is the
-     same class of failure as the Alberta pages going live unnoticed. */
+  /* The practitioner roster, added 1 Sep 2026.
+
+     The Tagalog pages asserted 404 here until the owner published them on
+     1 Sep, reversing the earlier "Camille reviews before publish" decision on
+     being told the copy is unreviewed. They now assert 200 for the same reason
+     they asserted 404: a gated page that quietly changes what it serves is the
+     failure this list exists to catch, in either direction. If TAGALOG_READY
+     goes back to false these turn red, which is correct — it would mean 18
+     indexed pages had started 404ing. */
   ['/practitioners', 200],
   ['/practitioners/camille-granda', 200],
   ['/practitioners/camille-granda/surrey', 200],
   ['/practitioners/camille-granda/vancouver', 200],
-  ['/practitioners/camille-granda/tl', 404],
+  ['/practitioners/camille-granda/tl', 200],
+  ['/practitioners/camille-granda/surrey/tl', 200],
+  ['/practitioners/camille-granda/calgary/tl', 200],
   ['/practitioners/camille-granda/calgary', 200],
   ['/practitioners/camille-granda/edmonton', 200],
   ['/practitioners/aman-bains-dhillon', 200],

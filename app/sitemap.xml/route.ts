@@ -77,13 +77,28 @@ export function GET() {
           priority: 0.6,
         }))
       : []),
+    /* The Tagalog profile and, since 1 Sep 2026, a Tagalog twin for every one
+       of that person's city pages. Listed only when the flag is on and only
+       for a counsellor who actually works in the language — a sitemap entry
+       for a route that was never generated is the "listed but not built"
+       failure sitemap-parity.mjs exists to catch. */
     ...(TAGALOG_READY && pr.languages.some((l) => l.tag === 'tl')
-      ? [{
-          path: `/practitioners/${pr.slug}/tl`,
-          lastmod: lastmodFor('/practitioners'),
-          changefreq: 'monthly' as const,
-          priority: 0.7,
-        }]
+      ? [
+          {
+            path: `/practitioners/${pr.slug}/tl`,
+            lastmod: lastmodFor('/practitioners'),
+            changefreq: 'monthly' as const,
+            priority: 0.7,
+          },
+          ...(pr.placePages
+            ? placesFor(pr.provinces).map((l) => ({
+                path: `/practitioners/${pr.slug}/${l.slug}/tl`,
+                lastmod: lastmodFor('/practitioners'),
+                changefreq: 'monthly' as const,
+                priority: 0.6,
+              }))
+            : []),
+        ]
       : []),
   ]);
 
