@@ -118,7 +118,20 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   return {
     title: { absolute: title },
     description,
-    alternates: { canonical: `${site.domain}/practitioners/${p.slug}/${loc.slug}` },
+    alternates: {
+      canonical: `${site.domain}/practitioners/${p.slug}/${loc.slug}`,
+      /* Paired with the Tagalog twin so the two read as one page in two
+         languages rather than two thin pages about the same city. Only while
+         the twin actually exists — an hreflang to a 404 is worse than none. */
+      ...(TAGALOG_READY && p.languages.some((l) => l.tag === 'tl')
+        ? {
+            languages: {
+              'en-CA': `${site.domain}/practitioners/${p.slug}/${loc.slug}`,
+              tl: `${site.domain}/practitioners/${p.slug}/${loc.slug}/tl`,
+            },
+          }
+        : {}),
+    },
     openGraph: { ...ogBase(`/practitioners/${p.slug}/${loc.slug}`), title, description },
     /* Set explicitly, because Next replaces the root `twitter` object only when
        a page declares one — otherwise the page inherits the site-wide card. On
@@ -157,7 +170,7 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
               <p className="lede" lang="tl">{t.lede}</p>
               <div className="btn-row" style={{ marginTop: 22 }}>
                 <Link className="btn btn--primary" href={site.bookingPath}>{t.cta}</Link>
-                <Link className="btn btn--ghost" href={`/practitioners/${p.slug}`}>In English</Link>
+                <Link className="btn btn--ghost" href={`/practitioners/${p.slug}`} hrefLang="en-CA">{t.englishLink}</Link>
               </div>
             </div>
             {p.photos?.warm && (
@@ -431,6 +444,16 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
                   <p>{f.a}</p>
                 </details>
               ))}
+            </div>
+          )}
+
+          {TAGALOG_READY && p.languages.some((l) => l.tag === 'tl') && (
+            <div className="prose" style={{ marginTop: 30 }}>
+              <p>
+                <Link href={`/practitioners/${p.slug}/${loc.slug}/tl`} hrefLang="tl" lang="tl">
+                  Basahin ang pahinang ito sa Tagalog
+                </Link>
+              </p>
             </div>
           )}
 

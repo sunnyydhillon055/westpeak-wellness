@@ -40,7 +40,9 @@ export const TAGALOG = {
   eyebrow: 'Sa Tagalog',
   crumb: 'Tagalog',
 
-  metaTitle: 'Payong Pangkalusugan sa Tagalog — Camille Granda, RCC',
+  /* 44 characters. The previous line ran to 73 once the site suffix was
+     appended, which the SEO gate rejects. */
+  metaTitle: 'Counselling sa Tagalog — Camille Granda',
   metaDescription:
     'Counselling sa Tagalog o Ingles kasama si Camille Granda, RCC, CCC. Online sa buong British Columbia. Libreng 15 minutong konsultasyon.',
 

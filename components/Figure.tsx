@@ -9,10 +9,17 @@ import { getFigure } from '@/lib/figures';
 export default function Figure({
   name,
   caption,
+  alt,
+  hint,
   eager = false,
 }: {
   name: string;
   caption?: string;
+  /* Overrides for a page in another language. The figure's own alt and caption
+     live in lib/figures.ts in English; a Tagalog page that used them would be
+     an English caption under a translated diagram. */
+  alt?: string;
+  hint?: string;
   eager?: boolean;
 }) {
   const f = getFigure(name);
@@ -23,14 +30,16 @@ export default function Figure({
       <div className="figure-scroll">
         <img
           src={`/img/${f.file}`}
-          alt={f.alt}
+          alt={alt ?? f.alt}
           width={f.width}
           height={f.height}
           loading={eager ? 'eager' : 'lazy'}
           decoding="async"
         />
       </div>
-      <p className="figure-hint" aria-hidden="true">Scroll the diagram sideways to see all of it.</p>
+      <p className="figure-hint" aria-hidden="true">
+        {hint ?? 'Scroll the diagram sideways to see all of it.'}
+      </p>
       {(caption ?? f.caption) && (
         <figcaption>{caption ?? f.caption}</figcaption>
       )}
