@@ -2741,3 +2741,23 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
   .nav-sub-role{ font-size:.8rem; color:var(--ink-soft) }
   .nav-sub-all a{ color:var(--blue-deep); font-weight:600 }
 }
+
+/* Sibling-city links on a counsellor's place page. A row of chips rather than
+   a bulleted list: it is navigation between seventeen near-identical
+   destinations, and a stacked list of city names reads as content the reader
+   is expected to work through. */
+.place-siblings{
+  list-style:none; margin:14px 0 0; padding:0;
+  display:flex; flex-wrap:wrap; gap:8px;
+}
+.place-siblings a{
+  display:inline-block; padding:7px 14px;
+  border:1px solid var(--line); border-radius:999px;
+  background:var(--surface-0); color:var(--ink);
+  font-size:.92rem; text-decoration:none; background-image:none;
+}
+.place-siblings a:hover,
+.place-siblings a:focus-visible{
+  border-color:var(--blue-deep); color:var(--blue-deeper);
+  background:var(--blue-ghost);
+}

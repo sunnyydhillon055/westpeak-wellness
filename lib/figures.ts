@@ -168,7 +168,11 @@ export const figures: Record<string, Figure> = {
     width: 1040,
     height: 474,
     title: "What each language tends to hold in therapy",
-    alt: "Three columns for a bilingual client. The first language tends to hold childhood memory, family relationships and emotion, including words with no English equivalent. The second language tends to offer distance from the same material, analysis, and the vocabulary of work and diagnosis. Between them, a third column: a bilingual counsellor lets the session move between the two mid-sentence, so the choice does not have to be made in advance.",
+    /* Trimmed from 455 characters on 1 Sep 2026. The long version read the
+       whole diagram aloud, which a screen reader user cannot skim and cannot
+       stop partway through — and every point in it is already made in the
+       prose beside the figure. This says what the picture shows. */
+    alt: "Three columns: the first language holding memory, family and feeling; the second offering distance and the vocabulary of work; and between them a session that can move between the two mid-sentence.",
     caption: "The middle column is the point — the choice is not made in advance.",
   },
   'panic-vs-anxiety': {

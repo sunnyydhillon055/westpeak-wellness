@@ -216,6 +216,20 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
      Without it a Calgary reader was told they were ineligible. */
   const bookHref = `${site.bookingPath}?with=${p.slug}`;
 
+  /* NEIGHBOURING CITIES, SAME COUNSELLOR.
+   *
+   * These pages carried five or six internal links each and not one to a
+   * sibling — Surrey did not link Delta, Calgary did not link Edmonton — so
+   * seventeen pages sat as seventeen dead ends and whatever authority reached
+   * one of them stopped there.
+   *
+   * Same province only: an Albertan has no use for Nanaimo, and pretending the
+   * set is one region is how a city page stops being about a city. Ordered as
+   * the roster lists them and capped at six so the row stays a row. */
+  const nearby = placesFor(p.provinces)
+    .filter((o) => o.slug !== loc.slug && o.province === loc.province)
+    .slice(0, 6);
+
   const schema = [
     {
       '@context': 'https://schema.org',
@@ -412,6 +426,23 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
                   <p>{f.a}</p>
                 </details>
               ))}
+            </div>
+          )}
+
+          {nearby.length > 0 && (
+            <div className="prose" style={{ marginTop: 34 }}>
+              <h2>{first} also works with</h2>
+              <p>
+                The same practice, the same fee and the same availability — only the
+                journey you are not making changes.
+              </p>
+              <ul className="place-siblings">
+                {nearby.map((o) => (
+                  <li key={o.slug}>
+                    <Link href={`/practitioners/${p.slug}/${o.slug}`}>{o.city}</Link>
+                  </li>
+                ))}
+              </ul>
             </div>
           )}
 
