@@ -3,6 +3,7 @@ import { TAGALOG_CITIES } from '@/lib/tagalog';
 import { practitioners } from '@/lib/practitioners';
 import { placesFor } from '@/lib/practitioner-places';
 import { TAGALOG_READY } from '@/lib/practitioner-tl';
+import { tagalogGuides } from '@/lib/tagalog-guides';
 import { services } from '@/lib/services';
 import { tools } from '@/lib/tools';
 import { locations } from '@/lib/locations';
@@ -132,7 +133,15 @@ export function GET() {
        Listed only when the language is published, same rule as everything
        else under the flag. */
     ...(TAGALOG_READY
-      ? [{ path: '/tagalog', lastmod: lastmodFor('/tagalog-counselling'), changefreq: 'monthly' as const, priority: 0.7 }]
+      ? [
+          { path: '/tagalog', lastmod: lastmodFor('/tagalog-counselling'), changefreq: 'monthly' as const, priority: 0.7 },
+          ...tagalogGuides.map((g) => ({
+            path: `/tagalog/gabay/${g.slug}`,
+            lastmod: lastmodFor('/tagalog-counselling'),
+            changefreq: 'monthly' as const,
+            priority: 0.6,
+          })),
+        ]
       : []),
     ...tools.map((t) => ({
       path: `/tools/${t.slug}`, lastmod: collectionLastmod('tools'), changefreq: 'monthly' as const, priority: 0.7,

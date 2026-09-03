@@ -60,6 +60,10 @@ export const TAGALOG_LANDING = {
   citiesNote:
     'Pareho ang serbisyo saanman sa lalawigan. Ang bawat pahina sa ibaba ay tungkol sa kung ano ang partikular sa lugar na iyon.',
 
+  guidesHeading: 'Mga gabay sa Tagalog',
+  guidesNote:
+    'Maiikling babasahin tungkol sa mga bagay na pinakamadalas itanong. Nakasulat sa Tagalog, hindi isinalin mula sa Ingles.',
+
   startHeading: 'Paano magsimula',
   start: [
     'Labinlimang minuto sa video, walang bayad. Sasabihin mo kung ano ang nangyayari sa sarili mong salita, at titingnan ninyo kung magkasundo kayo.',

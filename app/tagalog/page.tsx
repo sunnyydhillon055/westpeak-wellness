@@ -12,6 +12,7 @@ import { TAGALOG_READY } from '@/lib/practitioner-tl';
 import { TAGALOG_LANDING as T, } from '@/lib/tagalog-landing';
 import { TL_PLACE_SHARED, getTagalogPlace } from '@/lib/practitioner-places-tl';
 import { practitioners } from '@/lib/practitioners';
+import { tagalogGuides } from '@/lib/tagalog-guides';
 import { placesFor } from '@/lib/practitioner-places';
 
 /* ============================================================================
@@ -180,6 +181,20 @@ export default function TagalogPage() {
               </ul>
             </div>
           )}
+
+          {/* The reading material. Without this the section had somebody to
+              book and nothing to read, which is the gap these guides close. */}
+          <div className="prose" style={{ marginTop: 34 }}>
+            <h2>{T.guidesHeading}</h2>
+            <p>{T.guidesNote}</p>
+            <ul>
+              {tagalogGuides.map((g) => (
+                <li key={g.slug}>
+                  <Link href={`/tagalog/gabay/${g.slug}`}>{g.title}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
           <div className="prose" style={{ marginTop: 34 }}>
             <h2>{T.startHeading}</h2>
