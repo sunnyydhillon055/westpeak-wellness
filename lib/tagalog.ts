@@ -119,6 +119,90 @@ export const TAGALOG_CITIES: TagalogCity[] = [
       { q: 'Can sessions run in Tagalog?', a: 'Yes — in Tagalog, English, or both within one session.' },
     ],
   },
+  {
+    slug: 'delta',
+    city: 'Delta',
+    angle: 'Greenhouse and agricultural work runs to its own hours, and a tunnel sits between here and most of the counselling.',
+    body: [
+      'A great deal of the agricultural and greenhouse work in Delta is done by Filipino workers, and it runs to hours that were not designed around appointments — early, long, and seasonal. An evening slot on the other side of the tunnel is not a small ask after a day like that; it is another hour each way at exactly the time the tunnel is worst.',
+      'A session by video removes the crossing entirely. It also removes the part people mention less: arriving at a counselling office tired, late and already braced, which is not the state anybody does useful work in.',
+    ],
+    faqs: [
+      { q: 'Can the session be in Tagalog?', a: 'Yes — in Tagalog, in English, or moving between them as the conversation needs. Nothing has to be decided in advance.' },
+      { q: 'Does it matter which part of Delta I am in?', a: 'No. North Delta, Ladner and Tsawwassen are served on identical terms, and the municipal boundary changes nothing about the fee or the availability.' },
+      { q: 'I work seasonally. Can I stop and start?', a: 'Yes, and it is better to plan for that at the beginning than discover it in month two. Booking in blocks with gaps between them is an ordinary pattern and pausing costs nothing.' },
+    ],
+  },
+  {
+    slug: 'langley',
+    city: 'Langley',
+    angle: 'Families move out from Surrey for space, and frequently leave the community that came with being close together.',
+    body: [
+      'A common Langley story in Filipino families: the move outward for a bigger place, a yard, a bedroom each — and a quiet loss of the density that made everything else work. The church that was ten minutes away is now forty. The relatives who dropped in do not. The support that was never organised because it never needed to be organised has to be arranged now, by people with less time than before.',
+      'That is a real loss rather than an ungrateful complaint about a good decision, and it is worth naming as one. A session in Tagalog does not require that context to be explained from the beginning, which for a lot of people is most of why they finally book.',
+    ],
+    faqs: [
+      { q: 'Is Aldergrove covered?', a: 'Yes, on identical terms. No part of the service depends on distance inside the province.' },
+      { q: 'Do I have to explain Filipino family expectations first?', a: 'No. Utang na loob, hiya and the weight of what relatives will say are the starting context rather than something to be taught at the start of a session.' },
+      { q: 'Can I bring my partner?', a: 'Couples sessions are available, and the language works the same way in them. Whether that or individual work fits better is one of the things the free consultation is for.' },
+    ],
+  },
+  {
+    slug: 'abbotsford',
+    city: 'Abbotsford',
+    angle: 'Food processing and agriculture employ a large Filipino workforce on shifts that do not fit a weekday appointment.',
+    body: [
+      'Abbotsford runs on agriculture, food processing and transport, and a substantial part of that workforce is Filipino. Those are jobs with early starts, long days and seasonal peaks, and none of that arranges itself around a counsellor with weekday afternoon availability. The appointment that assumes a free Tuesday is the appointment missed twice and then abandoned.',
+      'The distance compounds it. Tagalog-speaking counsellors in BC are concentrated in the Lower Mainland, so the local answer has usually been a drive west at the end of a shift — which is why so many people here start and stop rather than never start.',
+    ],
+    faqs: [
+      { q: 'Are there Tagalog-speaking counsellors in Abbotsford?', a: 'Very few. Most in the province are in the Lower Mainland, and video is what removes the drive rather than the shortage.' },
+      { q: 'Does this cover Mission and the eastern valley?', a: 'Yes, on the same terms and with no distance penalty for being further out.' },
+      { q: 'Can I book around a seasonal schedule?', a: 'Yes. Blocks with gaps between them are normal here and there is no cost to pausing.' },
+    ],
+  },
+  {
+    slug: 'white-rock',
+    city: 'White Rock',
+    angle: 'A great deal of the care work in this area is done by Filipino staff, and care work is its own kind of exposure.',
+    body: [
+      'White Rock and South Surrey hold a concentration of long-term care and assisted living, and a large share of that workforce is Filipino. It is work that involves loss regularly, at close range, and with a professional expectation of composure — which is a specific combination and not the same thing as an ordinary difficult job.',
+      'It also carries a particular silence. Talking about how heavy the work is can feel like a complaint about people you are fond of, so it goes unsaid, and the accumulation is invisible until it is not. Naming it in the language you think in, with somebody who does not need the setting explained, is frequently the whole of what makes it possible to say.',
+    ],
+    faqs: [
+      { q: 'Is this different from ordinary work stress?', a: 'Repeated exposure to loss at close range is its own pattern rather than a stronger version of stress, and it responds to being treated as what it is.' },
+      { q: 'Would my employer know?', a: 'No. This is a private practice, nothing is reported anywhere, and the limits of confidentiality are narrow and set out on the standards page.' },
+      { q: 'Is South Surrey covered?', a: 'Yes — in practice it is one area, and the terms are identical.' },
+    ],
+  },
+  {
+    slug: 'victoria',
+    city: 'Victoria',
+    angle: 'Care work and hospitality run on rotations here, and the nearest Tagalog-speaking counsellor is usually across the water.',
+    body: [
+      'Greater Victoria has a long-established Filipino community working substantially in care, health services and hospitality — sectors that run on rotating schedules rather than office hours. A standing weekday appointment does not survive a roster that changes, which is the ordinary reason a course of counselling stops after the third session rather than any lack of willingness.',
+      'The language makes it harder again. Tagalog-speaking clinicians in BC are concentrated on the mainland, so the traditional answer for somebody on the Island has been a ferry and most of a day. For weekly work that is not an answer at all.',
+    ],
+    faqs: [
+      { q: 'Are there Tagalog-speaking counsellors on the Island?', a: 'Few, and fewer taking new clients. Video is what makes the whole provincial field available rather than only the local one.' },
+      { q: 'I work rotating shifts. Can this fit?', a: 'Yes, and it is worth saying so in the first conversation. Booking in blocks around a roster is a normal pattern rather than a special arrangement.' },
+      { q: 'Are Saanich and Sooke covered?', a: 'Yes, on identical terms, with no penalty for being outside the core.' },
+    ],
+  },
+  {
+    slug: 'kelowna',
+    city: 'Kelowna',
+    angle: 'Agricultural work in the Okanagan brings people here for seasons, sometimes a long way from anybody who speaks the language.',
+    body: [
+      'The Okanagan\'s agricultural sector draws workers seasonally, including people here on work permits and a long way from home. That combination — temporary, working hard, isolated by language — is one of the harder ones there is, and it is also the one least likely to reach counselling, because everything about the situation says this is temporary and will be endured.',
+      'There is very little counselling delivered in Tagalog anywhere in the Interior. Video does not fix the isolation, but it does mean the person you talk to does not have to be found locally, which in the Okanagan is the difference between an option and none.',
+    ],
+    faqs: [
+      { q: 'I am here on a work permit. Can I still see a counsellor?', a: 'Yes. Access to a private counsellor does not depend on immigration status. What it depends on is being located in the province during the session.' },
+      { q: 'Is anything reported to my employer?', a: 'No. This is a private practice with no connection to any employer, and nothing is reported to anybody. The limits of confidentiality are set out on the standards page.' },
+      { q: 'Are West Kelowna and Vernon covered?', a: 'Yes, on identical terms across the province.' },
+    ],
+  },
 ];
 
 export const getTagalogCity = (slug: string) => TAGALOG_CITIES.find((c) => c.slug === slug);
