@@ -5,6 +5,7 @@ import { sendDetailed } from '@/lib/portal-mail';
 import { checklistEmail, icbcEmail, startingEmail, enquiryAck, waitlistAck, practiceAlert } from '@/lib/inbound-mail';
 import { site } from '@/lib/site';
 import { practitioners } from '@/lib/practitioners';
+import { clientKey, rateCheck } from '@/lib/rate-limit';
 
 /* One submit path for all three inbound forms.
  *
@@ -129,6 +130,13 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
     (await readInbound()).items
   );
 
+  /* How much has this source posted lately? Deliberately checked AFTER
+     validation and BEFORE the store, so a malformed request costs nothing and
+     a well-formed flood is counted exactly once each. See lib/rate-limit.ts
+     for why the ceiling suppresses mail rather than refusing the person. */
+  const rate = await rateCheck(await clientKey(req));
+  if (rate === 'drop') return back('ok');
+
   const item = await addInbound({
     kind: o.kind, name, email, message, windows, phone, callWindow, source,
     monthlyOptIn, magnet, triage: verdict, practitioner,
@@ -143,6 +151,12 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
      Nothing else stops here. A `review` verdict is a chip in /admin, never a
      reason to withhold a message from a counsellor. */
   if (verdict.band === 'quarantine') return back('ok');
+
+  /* Over the soft ceiling. The record is written, /admin shows it, and the
+     person gets the same confirmation they would have got — the two emails are
+     what is skipped, because those are the part that costs the practice its
+     mail reputation and that nobody at this volume is reading anyway. */
+  if (rate === 'throttle') return back('ok');
 
   /* Everything below this line is best-effort. The person is already saved. */
   const firstName = name.split(/\s+/)[0] ?? '';
