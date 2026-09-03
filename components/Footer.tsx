@@ -23,8 +23,11 @@ export default function Footer() {
                 <span className="footer-brand-mark" aria-hidden="true"><Motif variant="mark" /></span>
                 Westpeak <span>Wellness</span>
               </div>
+              {/* Was "with a {site.counsellor.title}" — singular, and pointed at
+                  the founder's credential specifically. There have been two
+                  Registered Clinical Counsellors here since 1 Sep 2026. */}
               <p className="footer-blurb">
-                Online counselling across British Columbia with a {site.counsellor.title}.
+                Online counselling with Registered Clinical Counsellors. {site.serviceArea}.
               </p>
               <ul className="footer-facts">
                 {/* The registration number on every page rather than only the

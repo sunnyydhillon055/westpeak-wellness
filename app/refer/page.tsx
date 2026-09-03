@@ -173,7 +173,7 @@ export default function ReferPage({ searchParams }: { searchParams?: { lead?: st
                 <strong>After a motor vehicle crash — ICBC.</strong> Anyone injured in a crash
                 in BC is pre-approved for <strong>twelve counselling sessions</strong> with a
                 Registered Clinical Counsellor in the first twelve weeks, and{' '}
-                <strong>no doctor's note is required</strong> to start. This is the single most
+                <strong>no doctor&rsquo;s note is required</strong> to start. This is the single most
                 underused entitlement in the province. It does not need a lawyer, and using it
                 does not commit anybody to a claim decision.
               </li>

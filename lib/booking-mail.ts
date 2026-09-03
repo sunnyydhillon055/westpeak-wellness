@@ -68,12 +68,13 @@ export const links = {
   coverage: `${BASE}/resources/bc-extended-health-coverage-for-counselling`,
   standards: `${BASE}/standards`,
   privacy: `${BASE}/privacy`,
-  portal: `${BASE}/client-portal`,
   contact: `${BASE}/contact`,
   guides: `${BASE}/guides`,
-  refer: `${BASE}/refer`,
-  punjabi: `${BASE}/punjabi`,
-  crisis: `${BASE}/standards#crisis`,
+  /* portal, refer, punjabi and crisis were removed on 3 Sep 2026 — no email in
+     this file or in lib/inbound-mail.ts referenced any of them. `coverage`
+     looked equally dead from inside this file and is used twice by
+     inbound-mail, which is the reason to grep the repository rather than the
+     module. Adding one back is a single line. */
 } as const;
 
 export const esc = (s: string) =>

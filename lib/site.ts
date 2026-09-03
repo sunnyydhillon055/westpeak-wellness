@@ -185,7 +185,12 @@ export const site = {
     { day: "Friday",    from: "6:00 pm",  to: "7:00 pm" },
   ],
   hours: "Mon 10–3 · Tue 9–6 · Wed–Fri 6–7",
-  serviceArea: "Virtual counselling across British Columbia",
+  /* TWO PROVINCES SINCE 1 SEP 2026, and this said one until 3 Sep. It feeds
+     the footer, the vCard and the organisation schema. Worded to stay true of
+     the practice as a whole: BC is served by both counsellors, Alberta by the
+     one whose certification and insurance reach there. The counsellor pages
+     state which is which; a summary line cannot. */
+  serviceArea: "Virtual counselling across British Columbia and Alberta",
   /* THREE LANGUAGES SINCE 1 SEP 2026, and this string said two until 3 Sep.
      Tagalog arrived with Camille Granda and reached the organisation schema and
      the root metadata that week; this constant was missed, and it feeds the GP

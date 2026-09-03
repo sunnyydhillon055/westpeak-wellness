@@ -145,7 +145,7 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
             </p>
             <p>
               Some of this is covered without you paying the fee at all. ICBC pre-approves twelve
-              counselling sessions after a crash with no doctor's note, and several employer and
+              counselling sessions after a crash with no doctor&rsquo;s note, and several employer and
               extended health plans pay a counsellor directly.{' '}
               <Link href="/refer">How referrals to this practice work</Link>{' '}
               covers the funded routes and who can start one.

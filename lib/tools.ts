@@ -593,7 +593,7 @@ export const ACCESS_ROUTES: Record<string, AccessRoute> = {
   publicab: {
     label: 'The public system in Alberta',
     detail:
-      'Access Mental Health is the Alberta Health Services navigation line and can tell you what you qualify for. 211 Alberta lists community services including free and sliding-scale counselling. Both are free to call.',
+      'Alberta Health Services runs a province-wide line on 1-844-944-4744, and Health Link on 811, for non-urgent advice and referral. Around Calgary the intake service is Access Mental Health. 211 Alberta lists community services including free and sliding-scale counselling. All of them are free to call.',
     href: '/resources/counselling-coverage-in-alberta',
   },
   private: {

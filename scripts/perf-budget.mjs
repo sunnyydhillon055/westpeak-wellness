@@ -66,12 +66,13 @@ const homeCss = [...indexHtml.matchAll(/href="\/_next\/(static\/css\/[^"?]+\.css
 
 /* Prerendered HTML sizes.
  *
- * /answers is EXCLUDED from the max-page sentinel, deliberately: it
- * aggregates every shortAnswer on the site, so it grows every time a page
- * is added — which is its purpose, not a regression. It fired this gate
- * three times on 2026-08-28 for exactly that reason, and a gate that fires
- * on intended behaviour trains people to bump baselines reflexively, which
- * kills the gate. Its size is printed informationally instead. */
+ * /answers was EXCLUDED from the max-page sentinel until 3 Sep 2026, because
+ * it grew by design — one page holding every direct answer on the site.
+ *
+ * It was retired on 31 Aug and now redirects to /faq, so no answers.html is
+ * built, the reported size was permanently zero, and the exclusion filtered
+ * nothing. Removed rather than left as a comment describing a page that does
+ * not exist. */
 function walk(dir, out = []) {
   for (const e of readdirSync(dir)) {
     const p = join(dir, e);
@@ -81,9 +82,7 @@ function walk(dir, out = []) {
   return out;
 }
 const pagesAll = walk(join(NEXT, 'server', 'app'));
-const answersSize = pagesAll.find((p) => p.name === 'answers.html')?.size ?? 0;
 const htmlSizes = pagesAll
-  .filter((p) => p.name !== 'answers.html')
   .map((p) => p.size)
   .sort((a, b) => a - b);
 const maxHtml = htmlSizes[htmlSizes.length - 1] ?? 0;
@@ -110,7 +109,7 @@ const base = JSON.parse(readFileSync(BASELINE_FILE, 'utf8'));
 const LABELS = {
   homeCss: 'homepage CSS',
   sharedJs: 'shared first-load JS',
-  maxHtml: 'largest page HTML (excl. /answers)',
+  maxHtml: 'largest page HTML',
   medianHtml: 'median page HTML',
 };
 
@@ -127,7 +126,6 @@ for (const k of Object.keys(LABELS)) {
   );
 }
 console.log('='.repeat(46));
-console.log(`      /answers (grows by design)  ${String(answersSize).padStart(8)} B  (informational)`);
 if (failed) {
   console.log(
     `${failed} metric(s) over budget. Find what grew and shrink it —\n` +

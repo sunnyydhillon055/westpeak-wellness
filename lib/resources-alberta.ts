@@ -69,9 +69,9 @@ export const albertaResources: Resource[] = [
         h2: 'The free and lower-cost routes first',
         list: [
           {
-            label: 'Access Mental Health',
+            label: 'Alberta Health Services addiction and mental health',
             detail:
-              'Alberta Health Services runs a navigation line that can point you toward publicly funded options and assess what you qualify for. It is a routing service rather than a therapy service, and it is free.',
+              'A province-wide line on 1-844-944-4744, and Health Link on 811, for non-urgent advice and referral into publicly funded services. In the Calgary area the intake service is Access Mental Health on 403-943-1500. All of them are free, and all of them route rather than treat.',
           },
           {
             label: '211 Alberta',
@@ -122,7 +122,10 @@ export const albertaResources: Resource[] = [
     ],
     sources: [
       { label: 'Alberta Health Care Insurance Plan — Government of Alberta', url: 'https://www.alberta.ca/ahcip.aspx' },
-      { label: 'Access Mental Health — Alberta Health Services', url: 'https://www.albertahealthservices.ca/info/Page9985.aspx' },
+      /* The Page9985 URL cited here until 3 Sep answered 200 and redirected to
+         NotFound.aspx — a soft 404, which link-rot.mjs catches and a status
+         check alone would not. */
+      { label: 'Addiction and mental health — Alberta Health Services', url: 'https://www.albertahealthservices.ca/amh/amh.aspx' },
       { label: '211 Alberta', url: 'https://ab.211.ca/' },
       { label: 'Canadian Counselling and Psychotherapy Association', url: 'https://www.ccpa-accp.ca/' },
     ],
@@ -223,7 +226,12 @@ export const albertaResources: Resource[] = [
     sources: [
       { label: 'Canadian Counselling and Psychotherapy Association — certification', url: 'https://www.ccpa-accp.ca/' },
       { label: 'College of Alberta Psychologists', url: 'https://cap.ab.ca/' },
-      { label: 'Health Professions Act — Government of Alberta', url: 'https://www.alberta.ca/health-professions-act.aspx' },
+      /* The .aspx URL cited here until 3 Sep returned 404. This page is also the
+         better source for the claim: it lists the professions Alberta does
+         regulate and the colleges that govern them, and counselling therapy is
+         not among them — which is the point being made. */
+      { label: 'Regulated health professions and regulatory colleges — Government of Alberta', url: 'https://www.alberta.ca/regulated-health-professions' },
+      { label: 'Health Professions Act — Open Government, Alberta', url: 'https://open.alberta.ca/publications/h07' },
     ],
     related: [
       { href: '/practitioners', label: 'The counsellors here, with their registration numbers' },
