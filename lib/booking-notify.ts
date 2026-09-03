@@ -215,8 +215,21 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
      * the easiest one to forget, and on this calendar it costs an hour that
      * cannot be resold. */
     const untilStart = start - now;
-    const needsReminder =
-      untilStart > 18 * 3.6e6 && untilStart < 30 * 3.6e6 && !reminded.has(id);
+    const inReminderWindow = untilStart > 18 * 3.6e6 && untilStart < 30 * 3.6e6;
+
+    /* NOT IN THE SAME RUN AS THE CONFIRMATION.
+     *
+     * Somebody booking 18 to 30 hours ahead trips both conditions on the very
+     * next cron run: never confirmed, and inside the reminder window. Without
+     * this they would receive a confirmation and a "your appointment is
+     * tomorrow" minutes apart — which reads as automated and careless, the
+     * exact failure the header of this file warns about for duplicates.
+     *
+     * When both are true the confirmation IS the reminder: it states the same
+     * time and offers the same reply-to-move. So the reminder is marked sent
+     * without being sent, which also stops one arriving on the next run. */
+    const needsReminder = inReminderWindow && !needsConfirm && !reminded.has(id);
+    if (inReminderWindow && needsConfirm) reminded.add(id);
     /* Follow-up window: ended between 12 and 72 hours ago. The lower bound
      * stops a message landing the same evening; the upper bound stops a
      * backfill emailing months of history the first time this runs. */
