@@ -50,12 +50,24 @@ type Entry = {
 const esc = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
+/* Diagrams these pages render and did not declare. An image entry only appears
+   when the sitemap Entry names a figure, so a diagram can be live on a page and
+   invisible to image search — which was true of four of them. */
+const PAGE_FIGURES: Record<string, string> = {
+  '/editorial-policy': 'editorial-process',
+  '/faq': 'booking-payment-flow',
+  '/services': 'service-axes',
+};
+
 export function GET() {
   const core: Entry[] = [
     '', '/about', '/services', '/approaches', '/pricing', '/contact', '/faq',
     '/online-counselling', '/guides', '/compare', '/for', '/resources', '/glossary',
     '/practitioners', '/tagalog-counselling',
-  ].map((p) => ({ path: p, lastmod: lastmodFor(p), changefreq: 'monthly', priority: p === '' ? 1 : 0.8 }));
+  ].map((p) => ({
+    path: p, lastmod: lastmodFor(p), changefreq: 'monthly' as const,
+    priority: p === '' ? 1 : 0.8, figure: PAGE_FIGURES[p],
+  }));
 
   /* Practitioner profiles and their per-city pages.
    *
@@ -76,6 +88,10 @@ export function GET() {
           lastmod: lastmodFor('/practitioners'),
           changefreq: 'monthly' as const,
           priority: 0.6,
+          /* The reach map these pages actually render. Without it the diagram
+             was live on seventeen pages and absent from the image sitemap, so
+             image search had no way to associate it with any of them. */
+          figure: l.province === 'BC' ? 'bc-reach' : 'ab-reach',
         }))
       : []),
     /* The Tagalog profile and, since 1 Sep 2026, a Tagalog twin for every one
@@ -97,6 +113,7 @@ export function GET() {
                 lastmod: lastmodFor('/practitioners'),
                 changefreq: 'monthly' as const,
                 priority: 0.6,
+                figure: 'language-in-therapy-tl',
               }))
             : []),
         ]
@@ -104,7 +121,7 @@ export function GET() {
   ]);
 
   const trust: Entry[] = ['/standards', '/editorial-policy', '/privacy', '/accessibility'].map(
-    (p) => ({ path: p, lastmod: lastmodFor(p), changefreq: 'yearly', priority: 0.4 })
+    (p) => ({ path: p, lastmod: lastmodFor(p), changefreq: 'yearly', priority: 0.4, figure: PAGE_FIGURES[p] })
   );
 
   /* The Tagalog city pages. English pages about Tagalog counselling — the
