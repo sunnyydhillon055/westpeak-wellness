@@ -176,6 +176,33 @@ export const tools: ToolMeta[] = [
       },
     ],
   },
+  {
+    slug: 'what-can-i-access',
+    title: 'What can you actually get, and how soon?',
+    short: 'Five questions, then the routes open to you in the order they tend to move — including the free ones most people never use.',
+    metaTitle: 'What counselling can you access? | Westpeak Wellness',
+    metaDescription:
+      'Five questions that sort the routes to counselling in BC and Alberta by what you qualify for, including free options people already have. Nothing stored.',
+    minutes: 3,
+    faqs: [
+      {
+        q: 'Does this tell me how long I will wait?',
+        a: 'No, and anything quoting you a number would be guessing. Waits vary by region, by service and by month, and a figure published today is wrong by winter. What this does is sort the routes by how quickly they tend to move relative to each other, which is the comparison people actually need and cannot easily make.',
+      },
+      {
+        q: 'Why does it suggest things that are not this practice?',
+        a: 'Because for a lot of people the right answer is not a private counsellor. An employee assistance programme you already pay for through work, campus counselling included in your fees, or a community agency with a sliding scale are all better first moves than paying privately, and a tool that never said so would be an advertisement wearing a quiz\'s clothes.',
+      },
+      {
+        q: 'Does it work if I am in Alberta?',
+        a: 'Yes. The public and free routes differ by province — Alberta has its own navigation line and its own health plan rules — so the answers change depending on where you say you are. One counsellor at this practice can see Alberta clients; the pages say which.',
+      },
+      {
+        q: 'Is anything stored?',
+        a: 'No. It runs in your browser, nothing is sent anywhere and closing the tab discards it. There is no sign-up and no email box at the end.',
+      },
+    ],
+  },
 ];
 
 export const getTool = (slug: string) => tools.find((t) => t.slug === slug);
@@ -456,4 +483,134 @@ export const BURNOUT_REFLECTIONS: Record<string, string> = {
     'The clearest thing in your answers is that there has been no gap long enough to tell. That is not an evasion of the question — it is the answer. Without a period of genuine rest there is no way to know which of these it is, and arranging one is both the diagnostic step and, quite often, the first thing that helps.',
   mixed:
     'Your answers point both ways, which is common and not a failure of the questions. Burnout that has run long enough frequently becomes depression, and the two coexist more often than either is described alone. The useful next step is not deciding between them but describing the pattern accurately to somebody who can help you sort it.',
+};
+
+/* WHAT CAN I ACTUALLY ACCESS.
+ *
+ * Deliberately not a wait-time calculator. Waits vary by region, service and
+ * month, no reliable public dataset covers counselling across BC and Alberta,
+ * and this repository does not publish invented figures. Quoting "six to eight
+ * weeks" would be a number with nothing behind it.
+ *
+ * What it does instead is eligibility routing: which doors are actually open to
+ * this person, in the order those doors tend to move. That is the comparison
+ * people cannot make for themselves, and it is answerable honestly.
+ *
+ * It recommends against paying privately where a free entitlement already
+ * exists. A tool whose every outcome is "book with us" is an advertisement, and
+ * the site already says so about the other ones. */
+export const ACCESS_CHECK: Question[] = [
+  {
+    q: 'Where will you be sitting during sessions?',
+    choices: [
+      { label: 'British Columbia', tag: 'bc' },
+      { label: 'Alberta', tag: 'ab' },
+      { label: 'Somewhere else in Canada', tag: 'other' },
+    ],
+  },
+  {
+    q: 'Do you have benefits through work, or a partner\'s work?',
+    choices: [
+      { label: 'Yes, with an employee assistance programme', tag: 'eap' },
+      { label: 'Yes, extended health but no EAP that I know of', tag: 'extended' },
+      { label: 'No', tag: 'nobenefits' },
+      { label: 'I genuinely do not know', tag: 'checkbenefits' },
+    ],
+  },
+  {
+    q: 'Are you enrolled at a college or university?',
+    choices: [
+      { label: 'Yes', tag: 'student' },
+      { label: 'No', tag: '' },
+    ],
+  },
+  {
+    q: 'Could you pay for a session out of pocket if you had to?',
+    choices: [
+      { label: 'Yes', tag: 'canpay' },
+      { label: 'Maybe, for a few', tag: 'canpay' },
+      { label: 'No', tag: 'lowcost' },
+    ],
+  },
+  {
+    q: 'How soon do you need something?',
+    choices: [
+      { label: 'I can wait for the right fit', tag: '' },
+      { label: 'Weeks rather than months', tag: 'soon' },
+      { label: 'I am struggling now', tag: 'urgent' },
+    ],
+  },
+];
+
+export type AccessRoute = { label: string; detail: string; href?: string };
+
+/* Ordered by how quickly each tends to move, not by preference. The free
+   entitlements come first for anybody who has them, because an unused EAP is
+   the most common thing people pay to replace. */
+export const ACCESS_ROUTES: Record<string, AccessRoute> = {
+  urgent: {
+    label: 'Right now, before anything else',
+    detail:
+      'If things are worse than a waiting list can hold, 9-8-8 is the Suicide Crisis Helpline anywhere in Canada, by call or text, at any hour. It is not only for the worst moment — it is a place to talk when it is bad. In immediate danger, 911.',
+    href: '/resources/bc-crisis-and-support-directory',
+  },
+  eap: {
+    label: 'Your employee assistance programme',
+    detail:
+      'Usually the fastest route open to anybody who has one, frequently within days, and already paid for. It typically covers a set number of sessions and is confidential from your employer. A great many people pay privately for something they already had.',
+    href: '/resources/counselling-support-for-bc-teams',
+  },
+  student: {
+    label: 'Campus counselling',
+    detail:
+      'Included in fees you have already paid, and generally quicker to reach than a public community service. Session limits are real, and it is still the sensible first call while you are enrolled.',
+    href: '/resources/student-mental-health-supports-bc',
+  },
+  checkbenefits: {
+    label: 'Find out what your benefits include',
+    detail:
+      'Worth one call before anything else. Plenty of people have an employee assistance programme and do not know it, and the difference between having one and not is usually weeks and several hundred dollars.',
+    href: '/resources/bc-extended-health-coverage-for-counselling',
+  },
+  extended: {
+    label: 'Your extended health plan',
+    detail:
+      'It will not remove a wait, but it changes what a private session costs you. Ask which designation the plan names and what the annual maximum is — those two answers decide the real price.',
+    href: '/tools/therapy-cost-bc',
+  },
+  lowcost: {
+    label: 'Low-cost and sliding-scale counselling',
+    detail:
+      'Community agencies, training clinics and non-profits offer counselling free or on a sliding scale. Training clinics in particular are frequently better supervised than private practice, because every session is reviewed.',
+    href: '/resources/low-cost-counselling-bc',
+  },
+  publicbc: {
+    label: 'The public system in BC',
+    detail:
+      'Your family doctor is the usual door, and there are community mental health teams in every health authority. It is free and the waits are real; staying in that queue while starting somewhere else costs nothing.',
+    href: '/resources/psychiatry-and-assessment-in-bc',
+  },
+  publicab: {
+    label: 'The public system in Alberta',
+    detail:
+      'Access Mental Health is the Alberta Health Services navigation line and can tell you what you qualify for. 211 Alberta lists community services including free and sliding-scale counselling. Both are free to call.',
+    href: '/resources/counselling-coverage-in-alberta',
+  },
+  private: {
+    label: 'Private counselling',
+    detail:
+      'The route with no waitlist and no eligibility test, and the one you pay for. Worth it if the free options do not fit, are full, or have already been tried — and worth checking the free ones first if they have not.',
+    href: '/pricing',
+  },
+  privateab: {
+    label: 'Private counselling in Alberta',
+    detail:
+      'No waitlist and no eligibility test. AHCIP does not cover it, so an extended health plan or your own pocket pays. Ask your insurer about the CCC designation rather than the RCC — in Alberta that is the one plans name.',
+    href: '/resources/counselling-coverage-in-alberta',
+  },
+  other: {
+    label: 'Outside BC and Alberta',
+    detail:
+      'This practice can only see clients located in British Columbia and, through one counsellor, Alberta. Counselling is regulated province by province and a session counts as happening where you are sitting. Your provincial college or association keeps a directory of registrants who can.',
+  },
 };
