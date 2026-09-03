@@ -46,6 +46,42 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
  * with online booking, the page says so and offers the consultation instead.
  * Advertising a slot that does not exist is the failure this practice has
  * already had once, from the other direction. */
+/* Where each language's own pages live. Gated on TAGALOG_READY for Tagalog,
+   because those pages do not exist while the flag is off and a link to a 404
+   is worse than no link. */
+const LANGUAGE_HUBS: {
+  tag: string;
+  href: string;
+  linkLabel: string;
+  secondHref?: string;
+  secondLabel?: string;
+  heading: (first: string) => string;
+  body: (first: string) => string;
+}[] = [
+  {
+    tag: 'pa',
+    href: '/punjabi',
+    linkLabel: 'ਪੰਜਾਬੀ ਵਿੱਚ ਜਾਣਕਾਰੀ',
+    secondHref: '/punjabi-counselling',
+    secondLabel: 'Punjabi counselling by region',
+    heading: (first) => `Sessions in Punjabi with ${first}`,
+    body: (first) =>
+      `${first} works in Punjabi and English, including moving between them inside a session — which is how a great many people actually think and speak. It also removes an explaining step: what relatives will say, what is owed to a family, and what gets carried down are the starting context rather than something to be taught at the beginning of a session.`,
+  },
+  ...(TAGALOG_READY
+    ? [{
+        tag: 'tl',
+        href: '/tagalog',
+        linkLabel: 'Basahin ito sa Tagalog',
+        secondHref: '/tagalog-counselling',
+        secondLabel: 'Tagalog-speaking counselling by city',
+        heading: (first: string) => `Sessions in Tagalog with ${first}`,
+        body: (first: string) =>
+          `${first} works in Tagalog and English, including moving between them inside one session. For a lot of people that is the difference between describing a feeling and translating one — and utang na loob, hiya and the weight of what relatives will say are context here rather than something to explain from scratch.`,
+      }]
+    : []),
+];
+
 export default function PractitionerPage({ params }: { params: { slug: string } }) {
   const p = getPractitioner(params.slug);
   if (!p) notFound();
@@ -264,6 +300,34 @@ export default function PractitionerPage({ params }: { params: { slug: string } 
         </div>
       </section>
       )}
+
+      {/* THE LANGUAGE SECTION, added 2 Sep 2026.
+          The counsellor who works in Punjabi had zero links to the Punjabi
+          section — seven region pages and a landing page written in the
+          language, and the person who actually speaks it did not point at any
+          of them. The same was true of Tagalog. A cluster nothing authoritative
+          links into is a cluster search engines discount, and the practitioner
+          page is the most authoritative thing that could link it.
+
+          Rendered from the roster rather than hardcoded, so a counsellor added
+          later with a third language routes correctly without an edit here. */}
+      {LANGUAGE_HUBS.filter((h) => p.languages.some((l) => l.tag === h.tag)).map((hub) => (
+        <section className="section" key={hub.tag}>
+          <div className="container prose">
+            <h2>{hub.heading(first)}</h2>
+            <p>{hub.body(first)}</p>
+            <p>
+              <Link href={hub.href} lang={hub.tag} hrefLang={hub.tag}>{hub.linkLabel}</Link>
+              {hub.secondHref && (
+                <>
+                  {' · '}
+                  <Link href={hub.secondHref}>{hub.secondLabel}</Link>
+                </>
+              )}
+            </p>
+          </div>
+        </section>
+      ))}
 
       <section className="section section--ghost">
         <div className="container prose">

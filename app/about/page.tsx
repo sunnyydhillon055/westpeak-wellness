@@ -155,6 +155,56 @@ export default function About() {
         </div>
       </section>
 
+      <section className="section">
+        <div className="container prose">
+          {/* ADDED 2 Sep 2026. The page was 499 words and among the most
+              visited on the site, and it said nothing about the two facts that
+              most distinguish this practice from the others somebody is
+              comparing it against: the languages, and the second province.
+              Both were true and documented elsewhere and neither was here. */}
+          <h2>The languages we work in</h2>
+          <p>
+            Sessions run in English, Punjabi or Tagalog, and in plenty of them the conversation
+            moves between two of those without anybody planning it. That is not a feature bolted
+            on — for a lot of people it is the difference between describing a feeling and
+            translating one, and translating a feeling while you are still struggling to name it
+            in your first language is its own kind of work.
+          </p>
+          <p>
+            It also removes an explaining step. What relatives will say, what is owed to a family,
+            what gets carried down — those are the starting context of a session rather than
+            something to be taught at the beginning of one. There are pages written in{' '}
+            <Link href="/punjabi" lang="pa" hrefLang="pa">ਪੰਜਾਬੀ</Link> and in{' '}
+            <Link href="/tagalog" lang="tl" hrefLang="tl">Tagalog</Link> rather than about them.
+          </p>
+
+          <h2>Where we can see you, and where we cannot</h2>
+          <p>
+            Counselling is regulated province by province, and a session counts as happening where
+            you are sitting rather than where your counsellor is. This practice works across all of
+            British Columbia. One counsellor — Camille Granda, who holds the national CCC
+            certification alongside her BC registration — can also see clients located in Alberta.
+          </p>
+          <p>
+            The rest of the country we cannot, and the pages say so rather than taking a booking
+            and sorting it out later. If you are elsewhere in Canada, your provincial college or
+            association keeps a directory of registrants who can.{' '}
+            <Link href="/practitioners">Each counsellor&rsquo;s page</Link> states their
+            registration numbers, the provinces they cover and the languages they work in.
+          </p>
+
+          <h2>Why there are no reviews here</h2>
+          <p>
+            The BC Association of Clinical Counsellors prohibits client testimonials, so this site
+            publishes none — not for modesty and not because there is nothing to say. Where
+            reviews would normally sit, there are registration numbers you can check yourself on a
+            public register in about two minutes.{' '}
+            <Link href="/reviews">Reviews and references</Link> explains the rule and what can be
+            verified instead.
+          </p>
+        </div>
+      </section>
+
       <section className="section section--tint">
         <div className="container prose">
           <h2>What we will tell you straight</h2>
