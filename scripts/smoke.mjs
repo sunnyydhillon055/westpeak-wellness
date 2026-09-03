@@ -115,7 +115,16 @@ const CHECKS = [
   ['/services/emdr-intensive', 308, '/services/emdr-therapy'],
   ['/services/south-asian-mental-health', 308, '/services/punjabi-counselling'],
   ['/services/online-counselling-bc', 308, '/online-counselling'],
-  ['/online-counselling/surrey/anxiety-counselling', 308, '/online-counselling/surrey'],
+  /* Anxiety x city came back on 2 Sep 2026, rebuilt through lib/conditions.ts.
+     The assertion flips with the redirect rather than being deleted: a 308 here
+     now would mean ten live pages had started redirecting away, which is the
+     failure this list exists to catch. The two conditions still retired keep
+     their assertions, so removing one of those redirects without writing its
+     pages turns this red. */
+  ['/online-counselling/surrey/anxiety-counselling', 200],
+  ['/online-counselling/prince-george/anxiety-counselling', 200],
+  ['/online-counselling/surrey/trauma-therapy', 308, '/online-counselling/surrey'],
+  ['/online-counselling/surrey/depression-counselling', 308, '/online-counselling/surrey'],
   ['/services/individual-therapy', 200],
   ['/services/couples-therapy', 200],
   ['/services/emdr-therapy', 200],

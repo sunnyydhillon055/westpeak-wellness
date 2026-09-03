@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getLocation } from '@/lib/locations';
-import { getService } from '@/lib/services';
+import { getCityTopic } from '@/lib/conditions';
 import { site } from '@/lib/site';
 import { abs, orgRef, siteRef, breadcrumbs } from '@/lib/schema';
 import { Paragraphs } from '@/lib/rich';
@@ -47,7 +47,10 @@ export function generateStaticParams() {
 function load(params: Params) {
   const pair = getPair(params.city, params.service);
   const ctx = cityContexts.find((c) => c.slug === params.city);
-  const svc = getService(params.service);
+  /* A service OR a condition. Anxiety, trauma and depression are what people
+     search for and stopped being services in the five-service consolidation;
+     see lib/conditions.ts. The page renders either without knowing which. */
+  const svc = getCityTopic(params.service);
   const loc = getLocation(params.city);
   if (!pair || !ctx || !svc || !loc) return null;
   return { pair, ctx, svc, loc };
@@ -187,7 +190,7 @@ export default function CityServicePage({ params }: { params: Params }) {
             <Link className="btn btn--primary" href={site.bookingPath}>
               Book a free 15-minute consultation
             </Link>
-            <Link className="btn btn--ghost" href={`/services/${svc.slug}`}>
+            <Link className="btn btn--ghost" href={`/services/${svc.bookingService}`}>
               What {lower(svc.name)} involves
             </Link>
           </div>
@@ -281,7 +284,7 @@ export default function CityServicePage({ params }: { params: Params }) {
           <p>
             The full picture — how sessions are structured, what the first one is like, and what
             it does not do — is on{' '}
-            <Link href={`/services/${svc.slug}`}>the {lower(svc.name)} page</Link>. If you are
+            <Link href={`/services/${svc.bookingService}`}>the {lower(svc.name)} page</Link>. If you are
             still working out what you need,{' '}
             <Link href="/tools/which-service">the short questionnaire</Link> is a quicker route
             than reading all of them, and{' '}
@@ -322,7 +325,7 @@ export default function CityServicePage({ params }: { params: Params }) {
           <h2>Other counselling {ctx.inCity}</h2>
           <ul>
             {otherHere.map((p) => {
-              const s = getService(p.service)!;
+              const s = getCityTopic(p.service)!;
               return (
                 <li key={p.service}>
                   <Link href={`/online-counselling/${ctx.slug}/${p.service}`}>

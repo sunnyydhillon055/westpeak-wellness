@@ -314,6 +314,132 @@ export const pairs: Pair[] = [
       { q: 'What if my connection drops mid-session?', a: 'It is agreed in advance what happens — normally a phone call to finish, and never leaving a session unresolved because of a technical failure.' },
     ],
   },
+  /* ---- ANXIETY x CITY, added 2 Sep 2026 -----------------------------------
+     Thirty of the fifty pages this file was designed for could not be built
+     after anxiety, trauma and depression stopped being services in the
+     five-service consolidation. They resolve through lib/conditions.ts now.
+     These ten are the first of the three sets. Same rule as everything above:
+     if a pair cannot be given its own argument it does not get a page. */
+  {
+    city: 'surrey', service: 'anxiety-counselling',
+    angle: 'The barrier here is rarely finding somebody. It is being seen walking in.',
+    body: [
+      'Surrey has more counsellors than most of the province and a genuine shortage of privacy. In a community where families know each other, the counsellor who comes recommended is often connected to the very people you would least want to know you are going — and for anxiety specifically, that is not a small problem. Worrying about being seen at the appointment is itself a reason the appointment does not happen.',
+      'A virtual practice removes the building, the car outside it, and the waiting room. What is left is the session. For a lot of people here that is the difference between starting in March and starting eventually.',
+    ],
+    faqs: [
+      { q: 'Will anyone find out I am seeing a counsellor?', a: 'Not from this practice. Confidentiality is a legal duty and its limits are set out on the standards page. There is also no office anybody could see you enter, which is the part people actually ask about.' },
+      { q: 'Is anxiety counselling different from general counselling?', a: 'The frame is narrower. Anxiety maintains itself through avoidance and checking, so the work targets those directly rather than talking around the worry — which is why it tends to be shorter than people expect.' },
+    ],
+  },
+  {
+    city: 'vancouver', service: 'anxiety-counselling',
+    angle: 'A city that rewards looking fine, and charges the difference privately.',
+    body: [
+      'Vancouver runs on a lot of jobs where visible composure is part of the work — tech, film, hospitality, health care, anything client-facing. High-functioning anxiety is not a lesser version of the condition; it is the version that gets no help, because everybody around you can see the delivery and nobody can see the cost of producing it.',
+      'The other Vancouver pattern is cost. Anxiety about money in an expensive city is a rational response to an expensive city, and treating it as a disorder misses the point. What can change is the part that has stopped being proportionate — the checking, the sleeplessness, the planning that never converts into rest.',
+    ],
+    faqs: [
+      { q: 'I am functioning fine. Is that still worth bringing?', a: 'Yes, and it is the most common version seen here. Functioning is not the same as being alright, and the gap between the two is usually where the work is.' },
+      { q: 'Can sessions fit around shift work?', a: 'Yes. Booking in blocks around a rotating roster, with gaps between them, is an ordinary pattern rather than a compromise, and pausing between blocks costs nothing.' },
+    ],
+  },
+  {
+    city: 'burnaby', service: 'anxiety-counselling',
+    angle: 'The appointment becomes the third journey of the day, and the third one is the one that gets cancelled.',
+    body: [
+      'A great many people in Burnaby live in one city and work in another, so the day already contains two commutes before anything optional is added. An anxiety appointment in a third location, at a fixed hour, competes with the two journeys that are not negotiable — and loses, quietly, in about week five.',
+      'That matters more for anxiety than for most things, because anxiety treatment depends on continuity. A course that stops after three sessions has usually stopped just before the part that works. Removing the journey removes the most common reason it stops.',
+    ],
+    faqs: [
+      { q: 'Does it matter that I work outside Burnaby?', a: 'No. What matters is where you are sitting during the session, and that can be home, a car, or a quiet room at work — as long as it is private enough for you.' },
+      { q: 'How many sessions does anxiety usually take?', a: 'Fewer than most people expect for focused anxiety work, and the honest answer depends on how long the pattern has been running. It is one of the things the free consultation is for.' },
+    ],
+  },
+  {
+    city: 'langley', service: 'anxiety-counselling',
+    angle: 'The population grew faster than the number of people qualified to treat this.',
+    body: [
+      'Langley has added residents at a rate the local counselling capacity has not matched, and the effect shows up as waiting rather than as absence. There are counsellors; the ones taking new clients for anxiety specifically, at hours that suit somebody working, are a much shorter list than the size of the community implies.',
+      'Waiting is its own problem here. Anxiety left alone tends to widen — the avoidance grows to cover more situations, and each one is harder to reverse than it would have been in month one. A virtual practice widens the field to the whole province without adding a drive west at the wrong hour.',
+    ],
+    faqs: [
+      { q: 'Is Aldergrove covered?', a: 'Yes, on identical terms. Nothing about the service depends on distance inside the province.' },
+      { q: 'How soon could I start?', a: 'Usually sooner than a public waitlist. The first step is a free fifteen-minute consultation, and the real timeline gets discussed there rather than promised here.' },
+    ],
+  },
+  {
+    city: 'abbotsford', service: 'anxiety-counselling',
+    angle: 'For a lot of people here, the drive to the appointment is itself the anxious part.',
+    body: [
+      'Abbotsford sits far enough out that in-person counselling usually means a real drive, and close enough that people are told to make it anyway. For anxiety that is a specific trap rather than a general inconvenience: if driving, traffic or being far from home is part of what you are anxious about, the treatment has been placed on the other side of the symptom.',
+      'It is also a valley that works to seasons and shifts more than to office hours. Booking in blocks with gaps between them is the normal pattern here, and it works better for anxiety than a rigid weekly slot that gets missed twice and then abandoned.',
+    ],
+    faqs: [
+      { q: 'What if driving or leaving the house is part of the problem?', a: 'Then starting from home is not avoidance — it is a sensible first step, and one of the things the work can build outward from later if you want it to.' },
+      { q: 'Does this cover Mission and the eastern valley?', a: 'Yes, on the same terms, with no distance penalty for being further out.' },
+    ],
+  },
+  {
+    city: 'chilliwack', service: 'anxiety-counselling',
+    angle: 'A single highway decides whether you attend, which is a poor foundation for weekly work.',
+    body: [
+      'Travelling west from Chilliwack is a plan until it is not — the weather, a closure, an accident at the wrong point of Highway 1. An appointment that depends on one road is an appointment cancelled repeatedly, and repeated cancellation is corrosive for anxiety work specifically, because the gap between sessions is when the avoidance quietly rebuilds.',
+      'Nothing about weather changes a video session. For somebody in the eastern valley that is not a convenience argument; it is the difference between a course of sessions that finishes and one that stops in February.',
+    ],
+    faqs: [
+      { q: 'Are Agassiz and Hope covered?', a: 'Yes, on the same terms. There is no distance penalty inside the province.' },
+      { q: 'What if my connection is poor?', a: 'The session can continue by voice. It is not a lesser session — most of the work is the conversation, not the picture.' },
+    ],
+  },
+  {
+    city: 'kelowna', service: 'anxiety-counselling',
+    angle: 'Seasonal work makes anxiety loudest in the months when the least is happening.',
+    body: [
+      'A great deal of work in the Central Okanagan is seasonal, and the shape of the year matters for anxiety in a way it does not elsewhere. The busy months bury it under activity; the quiet months take the activity away and leave the anxiety with nothing to hide behind. People here frequently arrive in the off-season convinced something has suddenly got worse, when what has changed is the distraction.',
+      'Booking that follows the year rather than fighting it works better. Blocks during the heavy months, more regular work when the season turns, and no cost to pausing in between.',
+    ],
+    faqs: [
+      { q: 'Can I pause during my busy season?', a: 'Yes, and it is better to plan that at the start than discover it in month two. Pausing between blocks costs nothing.' },
+      { q: 'Are West Kelowna and Vernon covered?', a: 'Yes, on identical terms — the whole province is served on the same basis.' },
+    ],
+  },
+  {
+    city: 'kamloops', service: 'anxiety-counselling',
+    angle: 'Shift work keeps the body braced, and a braced body reads as anxiety long after the shift ends.',
+    body: [
+      'Rotating shifts are ordinary in Kamloops, and they do something specific to anxiety: sleep goes first, and once sleep is unreliable the physical symptoms arrive on their own — the racing heart, the shallow breathing, the sense of being permanently about to react. People often reach for a psychological explanation for something a schedule is producing.',
+      'That does not mean the anxiety is imaginary; it means the work has to include the pattern that is feeding it. Sessions booked around a rotation, rather than a rotation forced around a standing appointment, are the version that survives past week four.',
+    ],
+    faqs: [
+      { q: 'I work rotating shifts. Can this fit?', a: 'Yes, and say so in the first conversation. Booking in blocks around a rotation is a normal pattern here rather than a special arrangement.' },
+      { q: 'Are Merritt and Salmon Arm covered?', a: 'Yes, on the same terms, with no distance penalty for being further out.' },
+    ],
+  },
+  {
+    city: 'prince-george', service: 'anxiety-counselling',
+    angle: 'A short local list and a long winter, which is a harder combination than either alone.',
+    body: [
+      'There are counsellors in Prince George, the ones taking clients fill quickly, and the wait for anything specialised is longer than almost anywhere else in the province. That is the arithmetic rather than a complaint about the place. For anxiety it bites twice, because the waiting itself becomes something to be anxious about.',
+      'The winters are the other half. Months of darkness and limited movement narrow the range of things a person does, and a narrowed range is exactly the condition in which anxiety consolidates. A course of sessions that does not depend on a road or the weather is, for much of Northern BC, the only version that finishes.',
+    ],
+    faqs: [
+      { q: 'Are Quesnel, Vanderhoof and Mackenzie covered?', a: 'Yes, on identical terms. No part of the service depends on distance within the province.' },
+      { q: 'Should I stay on the public waitlist?', a: 'Generally yes. It costs nothing to stay in that queue while starting privately, and the two are parallel routes rather than alternatives.' },
+    ],
+  },
+  {
+    city: 'victoria', service: 'anxiety-counselling',
+    angle: 'A city with real services, where the specific thing you need is still across the water.',
+    body: [
+      'Victoria is not short of counselling in general. It is short of the particular — a specific approach, an evening hour, somebody taking new clients this month — and for anxiety the particular is usually what matters, because the version that responds fastest to structured work is easy to mistreat with general support.',
+      'The traditional answer has been a ferry, which for weekly work is not an answer at all. A virtual practice turns the question from who happens to be on the Island into who is right, which is the question that should have been asked first.',
+    ],
+    faqs: [
+      { q: 'Are Saanich and Sooke covered?', a: 'Yes, on the same terms, with no penalty for being outside the core.' },
+      { q: 'Will I have to travel for anything?', a: 'No. Everything including the first free consultation happens by video.' },
+    ],
+  },
 ];
 
 /** Cities that carry paired pages. Every one must exist in cityContexts. */

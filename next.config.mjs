@@ -134,14 +134,24 @@ const nextConfig = {
       { source: '/services/south-asian-mental-health', destination: '/services/punjabi-counselling', permanent: true },
       { source: '/services/online-counselling-bc', destination: '/online-counselling', permanent: true },
 
-      /* The 30 city x service pages built on the three retired services go to
-         their CITY page rather than to individual-therapy. Someone searching
-         "anxiety counselling in Surrey" wants Surrey kept, not swapped for a
-         generic service page — the local intent is the more valuable half of
-         that query. */
+      /* City x topic pages for the retired services went to their CITY page
+         rather than to individual-therapy: somebody searching "anxiety
+         counselling in Surrey" wants Surrey kept, not swapped for a generic
+         service page, because the local intent is the more valuable half of
+         that query.
+
+         ANXIETY CAME OFF THIS LIST ON 2 SEP 2026, because those ten pages now
+         exist again — rebuilt through lib/conditions.ts, which lets a city page
+         resolve a condition without it becoming a service. A redirect standing
+         in front of a page that exists is a page nobody can reach, and the
+         link-integrity gate fails the build on exactly that, which is how this
+         was caught rather than shipped.
+
+         Depression and trauma stay redirected until their pairs are written.
+         Remove each from this list in the same commit that adds its pages. */
       ...['surrey', 'vancouver', 'burnaby', 'abbotsford', 'langley', 'chilliwack',
           'victoria', 'kelowna', 'kamloops', 'prince-george'].flatMap((city) =>
-        ['anxiety-counselling', 'depression-counselling', 'trauma-therapy'].map((svc) => ({
+        ['depression-counselling', 'trauma-therapy'].map((svc) => ({
           source: `/online-counselling/${city}/${svc}`,
           destination: `/online-counselling/${city}`,
           permanent: true,
