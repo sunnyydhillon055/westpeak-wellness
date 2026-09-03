@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { services, getService } from '@/lib/services';
+import { pairsForService } from '@/lib/city-services';
+import { getLocation } from '@/lib/locations';
 import { site } from '@/lib/site';
 import { gurmukhi } from '@/app/fonts-gurmukhi';
 import { getExtra } from '@/lib/depth';
@@ -401,6 +403,27 @@ export default async function ServicePage({ params }: { params: { slug: string }
         </div>
       </section>
 
+
+      {/* THE CITY PAGES FOR THIS SERVICE.
+          Written, indexed, and linked to by nothing except each other — 32 of
+          them sat at 1-2 in-body inbound links in the SEO gate. The service
+          they belong to is the other natural place to link from, and it is the
+          page with the authority to pass. */}
+      {pairsForService(s.slug).length > 0 && (
+        <section className="section">
+          <div className="container">
+            <p className="eyebrow">{s.name} by area</p>
+            <div className="chip-grid">
+              {pairsForService(s.slug).map((pr) => (
+                <Link className="chip" key={pr.city} href={`/online-counselling/${pr.city}/${s.slug}`}>
+                  {getLocation(pr.city)?.city ?? pr.city}
+                </Link>
+              ))}
+              <Link className="chip" href="/online-counselling">All areas served</Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       <MoreFrom items={services} currentSlug={s.slug} base="/services" heading="Other counselling services" eyebrow="Keep going" />
       {/* The Punjabi service page closes in Punjabi. The Gurmukhi heading is

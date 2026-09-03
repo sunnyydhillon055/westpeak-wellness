@@ -13,6 +13,7 @@ import CtaBand from '@/components/CtaBand';
 import { BadgeCheck } from 'lucide-react';
 import { ogBase } from '@/lib/og-meta';
 import { TAGALOG, TAGALOG_READY } from '@/lib/practitioner-tl';
+import { TL_PLACE_SHARED } from '@/lib/practitioner-places-tl';
 
 /* Two kinds of page share this route, because they are the same page in two
  * languages and splitting them would duplicate the schema, the breadcrumbs and
@@ -208,9 +209,27 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
               <ul className="checklist">{t.suits.map((x) => <li key={x.slice(0, 22)}>{x}</li>)}</ul>
               <blockquote className="quote">{t.closing}</blockquote>
               <p>
-                <Link href={`/practitioners/${p.slug}`}>{t.englishLink}</Link>
+                <Link href={`/practitioners/${p.slug}`} hrefLang="en-CA">{t.englishLink}</Link>
               </p>
             </div>
+
+            {/* THE TAGALOG CITY PAGES, LISTED FROM THE TAGALOG PROFILE.
+                The English profile lists all seventeen of her city pages; this
+                one listed none, so each Tagalog city page had its English twin
+                and a sibling chip for inbound links and nothing else. They were
+                the bulk of what the SEO gate still reports as weak-inbound. */}
+            {p.placePages && (
+              <div className="prose" style={{ marginTop: 30 }} lang="tl">
+                <h2>{TL_PLACE_SHARED.nearbyHeading}</h2>
+                <ul className="place-siblings">
+                  {placesFor(p.provinces).map((c) => (
+                    <li key={c.slug}>
+                      <Link href={`/practitioners/${p.slug}/${c.slug}/tl`}>{c.city}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </section>
 

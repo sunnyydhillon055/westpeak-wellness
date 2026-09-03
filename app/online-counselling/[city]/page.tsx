@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { locations, getLocation } from '@/lib/locations';
+import { pairsForCity } from '@/lib/city-services';
+import { getService } from '@/lib/services';
 import { featuredServices } from '@/lib/services';
 import { site } from '@/lib/site';
 import { Paragraphs, rich } from '@/lib/rich';
@@ -34,6 +36,14 @@ export default function CityPage({ params }: { params: { city: string } }) {
   const l = getLocation(params.city);
   if (!l) notFound();
   const siblings = (l.nearby ?? []).map(getLocation).filter(Boolean) as typeof locations;
+  /* THE SERVICE PAGES FOR THIS CITY.
+   *
+   * They existed and nothing linked to them from outside their own set: the
+   * city-service pages linked each other and no city hub or service page
+   * linked in, which is why 32 of them showed 1-2 in-body inbound links in the
+   * SEO gate. A page nothing links to is treated as unimportant however good
+   * it is. The city that owns them is the most natural place to link from. */
+  const here = pairsForCity(l.slug);
 
   const faqSchema = l.faqs?.length && {
     '@context': 'https://schema.org', '@type': 'FAQPage',
@@ -158,6 +168,21 @@ export default function CityPage({ params }: { params: { city: string } }) {
               More in the <Link href="/faq">full list of frequently asked questions</Link>, or see{' '}
               <Link href="/pricing">fees and extended-health coverage</Link>.
             </p>
+          </div>
+        </section>
+      )}
+
+      {here.length > 0 && (
+        <section className="section">
+          <div className="container">
+            <p className="eyebrow">In {l.city} specifically</p>
+            <div className="chip-grid">
+              {here.map((p) => (
+                <Link className="chip" key={p.service} href={`/online-counselling/${l.slug}/${p.service}`}>
+                  {getService(p.service)?.name ?? p.service} in {l.city}
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
       )}
