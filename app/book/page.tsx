@@ -275,6 +275,69 @@ export default function Book({
         </div>
       </section>
 
+      {/* WHAT COMES AFTER THE CONSULTATION.
+        *
+        * The site described the consultation and the first session well and
+        * said nothing about what follows. The unspoken question at the end of
+        * a fifteen-minute call is not "was that useful" — it is "how much of my
+        * life and money is this going to take", and leaving it unanswered is
+        * one of the reasons a good consultation does not become a booking.
+        *
+        * Descriptive, never predictive. BCACC advertising standards prohibit
+        * outcome claims, so nothing here says the work will help, how much or
+        * how fast — only what the shape of it usually is. */}
+      <section className="section section--tint">
+        <div className="container prose" style={{ maxWidth: '46rem' }}>
+          <p className="eyebrow">If you carry on</p>
+          <h2>What the first few sessions usually look like</h2>
+          <p>
+            Nobody asks this on the call and almost everybody wants to know it. There is no
+            standard programme and no minimum number of sessions, and the shape below is a
+            description of what commonly happens rather than a plan you are agreeing to.
+          </p>
+          <div className="steps" style={{ marginTop: 24 }}>
+            <div className="step"><div className="step-num">1</div><div>
+              <h3>Session one — the whole picture</h3>
+              <p style={{ color: 'var(--ink-soft)', margin: 0 }}>
+                Fifty minutes on your history and what you want to be different. More listening
+                than questions, and no requirement to start with the hardest thing.
+              </p>
+            </div></div>
+            <div className="step"><div className="step-num">2</div><div>
+              <h3>Sessions two and three — finding the pattern</h3>
+              <p style={{ color: 'var(--ink-soft)', margin: 0 }}>
+                Working out what is actually keeping the thing going, rather than only how it
+                feels. This is usually where something you have not named before gets named.
+              </p>
+            </div></div>
+            <div className="step"><div className="step-num">3</div><div>
+              <h3>Around session four — a deliberate check</h3>
+              <p style={{ color: 'var(--ink-soft)', margin: 0 }}>
+                Is this working, is it the right approach, and is it the right person? Asked
+                out loud rather than left to you to raise. Stopping here is a normal outcome
+                and so is changing direction.
+              </p>
+            </div></div>
+            <div className="step"><div className="step-num">4</div><div>
+              <h3>After that — your call, every time</h3>
+              <p style={{ color: 'var(--ink-soft)', margin: 0 }}>
+                Weekly at first for most people, then fortnightly, then further apart. Nothing
+                is booked in advance beyond what you have agreed, there is no package, and
+                pausing costs nothing.
+              </p>
+            </div></div>
+          </div>
+          <p style={{ marginTop: 22 }}>
+            How long any of it takes depends on what you bring, and anybody who quotes you a
+            number before meeting you is guessing.{' '}
+            <Link href="/guides/how-long-does-therapy-take">How long therapy takes</Link> is the
+            honest version, and{' '}
+            <Link href="/guides/when-therapy-isnt-working">when therapy is not working</Link>{' '}
+            covers what to do if it is not.
+          </p>
+        </div>
+      </section>
+
       <section className="section">
         <div className="container split">
           <div>

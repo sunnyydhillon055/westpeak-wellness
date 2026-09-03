@@ -353,6 +353,12 @@ ${links.bookSession}
   What actually happens in a first full session
   ${links.firstSession}
 
+The question almost nobody asks on the call is how much of your life and
+money this takes. There is no package and no minimum number of sessions:
+weekly at first for most people, then further apart, with a deliberate
+check around session four about whether it is working and whether it is
+the right person. Stopping there is a normal outcome.
+
 If you decided this is not the right fit, that is a completely
 reasonable outcome and no explanation is owed to anyone. If it would
 help to be pointed toward something that fits better — a different
@@ -373,6 +379,11 @@ ${BASE}`);
     'After your consultation',
     p(`Hi ${esc(b.firstName)},`) +
     p(`Thank you for the call yesterday. No reply needed, and this is the only message of its kind — there is no sequence behind it.`) +
+    /* The commitment question, answered without being asked. It is the one
+       thing somebody is weighing the day after a consultation, and leaving it
+       unanswered is a reason a good call does not become a booking. Descriptive
+       only — BCACC prohibits outcome claims. */
+    p(`One thing that rarely gets asked on the call: there is no package and no minimum number of sessions. Weekly at first for most people, then further apart, with a deliberate check around session four about whether it is working and whether it is the right person. Stopping there is a normal outcome.`) +
     btn(links.bookSession, 'Book a session') +
     p(`Useful either way: ${a(links.pricing, 'what sessions cost and how extended health works')} · ${a(links.firstSession, 'what happens in a first full session')}`) +
     p(`If you decided this is not the right fit, that is a completely reasonable outcome and no explanation is owed to anyone. If it would help to be pointed toward something that fits better — a different approach, a lower fee, or a service with no fee at all — reply and say roughly what you are looking for.`)
