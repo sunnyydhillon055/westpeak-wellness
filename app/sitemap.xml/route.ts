@@ -128,6 +128,12 @@ export function GET() {
        BC — rather than being a subsection of the word-of-mouth page. */
     { path: '/refer/doctor', lastmod: lastmodFor('/refer/doctor'), changefreq: 'yearly', priority: 0.5 },
     { path: '/punjabi', lastmod: lastmodFor('/punjabi'), changefreq: 'monthly', priority: 0.7 },
+    /* The Tagalog front door, paired with /tagalog-counselling by hreflang.
+       Listed only when the language is published, same rule as everything
+       else under the flag. */
+    ...(TAGALOG_READY
+      ? [{ path: '/tagalog', lastmod: lastmodFor('/tagalog-counselling'), changefreq: 'monthly' as const, priority: 0.7 }]
+      : []),
     ...tools.map((t) => ({
       path: `/tools/${t.slug}`, lastmod: collectionLastmod('tools'), changefreq: 'monthly' as const, priority: 0.7,
     })),

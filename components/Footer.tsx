@@ -86,6 +86,7 @@ export default function Footer() {
                   site partly because of this. */}
               <Link href="/punjabi-counselling">Punjabi counselling by region</Link>
               <Link href="/tagalog-counselling">Tagalog-speaking counselling</Link>
+              <Link href="/tagalog" lang="tl" hrefLang="tl">Tagalog</Link>
             </nav>
 
             <nav className="footer-col" aria-labelledby="foot-practice">

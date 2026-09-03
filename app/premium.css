@@ -2761,3 +2761,18 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
   border-color:var(--blue-deep); color:var(--blue-deeper);
   background:var(--blue-ghost);
 }
+
+/* THE WORDMARK MUST NOT WRAP, AND THE BAR NEEDED ROOM FOR A THIRD LANGUAGE.
+   Adding the Tagalog entry on 2 Sep 2026 took the desktop nav from 925px to
+   979px, which pushed "Westpeak Wellness" onto two lines at a 1280px viewport —
+   an ordinary laptop. A wordmark that reflows is a broken wordmark, so it is
+   pinned, and the 54px is recovered from the link padding in the band where
+   the bar is tightest rather than by dropping an item or moving the
+   breakpoint. Above 1300px nothing changes. */
+.brand-word{ white-space: nowrap }
+
+@media (min-width: 1021px) and (max-width: 1300px){
+  .nav-links{ gap: 2px }
+  .nav-links > li:not(.nav-cta) > a{ padding-left: 8px; padding-right: 8px; font-size: .92rem }
+  .nav-portal > a{ padding-left: 10px !important; padding-right: 10px !important }
+}

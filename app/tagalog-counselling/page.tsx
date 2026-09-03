@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { site } from '@/lib/site';
+import { TAGALOG_READY } from '@/lib/practitioner-tl';
 import { TAGALOG_CITIES, TAGALOG_SPEAKERS } from '@/lib/tagalog';
 import { abs, orgRef, siteRef } from '@/lib/schema';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -16,7 +17,19 @@ const DESC =
 export const metadata: Metadata = {
   title: { absolute: TITLE },
   description: DESC,
-  alternates: { canonical: `${site.domain}/tagalog-counselling` },
+  alternates: {
+    canonical: `${site.domain}/tagalog-counselling`,
+    /* Reciprocal with /tagalog, the page written in the language. hreflang that
+       only points one way is ignored, so both ends declare the pair. */
+    ...(TAGALOG_READY
+      ? {
+          languages: {
+            'en-CA': `${site.domain}/tagalog-counselling`,
+            tl: `${site.domain}/tagalog`,
+          },
+        }
+      : {}),
+  },
   openGraph: { ...ogBase('/tagalog-counselling'), title: TITLE, description: DESC, url: `${site.domain}/tagalog-counselling` },
 };
 
@@ -80,6 +93,14 @@ export default function TagalogCounsellingHub() {
             {speaker && (
               <Link className="btn btn--ghost" href={`/practitioners/${speaker.slug}`}>
                 Meet {speaker.name.split(' ')[0]}
+              </Link>
+            )}
+            {/* The page written IN Tagalog. This hub is the English one about
+                it, and somebody who reads Tagalog should not have to find the
+                other page through the header alone. */}
+            {TAGALOG_READY && (
+              <Link className="btn btn--ghost" href="/tagalog" hrefLang="tl" lang="tl">
+                Basahin ito sa Tagalog
               </Link>
             )}
           </div>

@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState, type CSSProperties } from 'react';
 import { site } from '@/lib/site';
 import { practitioners } from '@/lib/practitioners';
+import { TAGALOG_READY } from '@/lib/practitioner-tl';
 import { track } from '@/lib/analytics';
 import Motif from '@/components/brand/Motif';
 import { bookHrefFor } from '@/components/StickyBook';
@@ -240,7 +241,24 @@ export default function Header() {
               ਪੰਜਾਬੀ
             </Link>
           </li>
-          <li className="nav-portal" style={{ '--i': NAV.length + 1 } as CSSProperties}>
+          {/* Tagalog, beside ਪੰਜਾਬੀ and for the same reason. The practice now
+            * works in three languages and the header advertised two. Unlike
+            * Gurmukhi the word is its own label — "Tagalog" is what a Tagalog
+            * speaker looks for — so it needs no translation to be recognised. */}
+          {TAGALOG_READY && (
+            <li className="nav-lang" style={{ '--i': NAV.length + 1 } as CSSProperties}>
+              <Link
+                href="/tagalog"
+                lang="tl"
+                hrefLang="tl"
+                aria-current={isActive('/tagalog') ? 'page' : undefined}
+                onClick={() => setOpen(false)}
+              >
+                Tagalog
+              </Link>
+            </li>
+          )}
+          <li className="nav-portal" style={{ '--i': NAV.length + 2 } as CSSProperties}>
             <Link
               href={site.portalPath}
               aria-current={isActive(site.portalPath) ? 'page' : undefined}
@@ -263,7 +281,7 @@ export default function Header() {
               </a>
             </li>
           )}
-          <li className="nav-cta" style={{ '--i': NAV.length + 3 } as CSSProperties}>
+          <li className="nav-cta" style={{ '--i': NAV.length + 4 } as CSSProperties}>
             <Link
               className="btn btn--primary"
               href={bookHrefFor(pathname)}
