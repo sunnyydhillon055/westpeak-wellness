@@ -52,11 +52,20 @@ export default function CoverageEstimator() {
 
       <fieldset className="quiz-set">
         <legend className="quiz-q">
-          Does your plan cover a Registered Clinical Counsellor?
+          Does your plan cover a Registered Clinical Counsellor or a Canadian Certified
+          Counsellor?
         </legend>
+        {/* BOTH DESIGNATIONS, SINCE 2 SEP 2026. The practice added a counsellor
+            holding CCC as well as RCC, and in Alberta the CCC is the one that
+            applies — counselling therapy is not regulated there, so there is no
+            provincial college and plans name the national certification
+            instead. Asking only about the RCC sent an Alberta reader to check
+            the wrong word. */}
         <p className="quiz-help">
-          This is the question that catches people out — a plan can cover a psychologist and not
-          an RCC. It is worth a call before booking anything.
+          This is the question that catches people out — a plan can cover a psychologist and
+          neither of the above. Worth one call before booking anything. Ask about both: plans
+          differ on which designations they name, and outside BC it is usually the CCC that
+          appears.
         </p>
         <div className="est-row">
           {([
@@ -146,7 +155,7 @@ export default function CoverageEstimator() {
                 Ask your plan: <strong>does it cover a Registered Clinical Counsellor
                 specifically</strong>, and <strong>what is the per-session and annual
                 maximum</strong>. Those two answers decide everything else. A plan that covers
-                only a psychologist will not reimburse an RCC, and that is the detail people
+                only a psychologist will not reimburse an RCC or a CCC, and that is the detail people
                 most often discover after their first session rather than before it.
               </p>
             </>

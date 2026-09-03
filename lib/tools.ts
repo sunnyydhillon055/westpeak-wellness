@@ -149,6 +149,33 @@ export const tools: ToolMeta[] = [
       { href: '/resources/bc-crisis-and-support-directory', label: 'BC crisis and support directory' },
     ],
   },
+  {
+    slug: 'burnout-or-depression',
+    title: 'Burnout, or depression?',
+    short: 'Seven questions on the one difference that actually separates them — and what each points toward.',
+    metaTitle: 'Burnout or depression? A short check | Westpeak Wellness',
+    metaDescription:
+      'They look identical from inside and respond to different things. Seven questions on what separates them. Not a test, not a diagnosis, nothing stored.',
+    minutes: 3,
+    faqs: [
+      {
+        q: 'Does this tell me which one I have?',
+        a: 'No, and anything that claimed to would be lying to you. It has no score and reaches no verdict. What it does is show you which pattern your own answers lean toward and explain what separates the two, so that if you do speak to someone you are starting from a clearer description rather than from "I am exhausted".',
+      },
+      {
+        q: 'What actually separates burnout from depression?',
+        a: 'Mostly whether it travels. Burnout is bound to a context — it eases measurably when you are genuinely away from the source, and the enjoyment of things outside that context is usually intact. Depression comes with you. A fortnight away lifts one of them noticeably and leaves the other largely where it was, which is the cleanest distinguishing test most people already have data on.',
+      },
+      {
+        q: 'Why does the difference matter if both feel the same?',
+        a: 'Because what helps differs. Burnout responds to changing the load and the conditions producing it, and treating it as an individual pathology tends to make people feel worse for failing to cope with something unreasonable. Depression does not resolve by fixing the job, and treating it as a workload problem delays help. Getting the frame right early saves months.',
+      },
+      {
+        q: 'Is anything stored?',
+        a: 'No. It runs entirely in your browser, nothing is sent anywhere, and closing the tab discards it. There is no sign-up and no email box at the end.',
+      },
+    ],
+  },
 ];
 
 export const getTool = (slug: string) => tools.find((t) => t.slug === slug);
@@ -342,3 +369,91 @@ export const STRESS_CHECK: Question[] = [
     ],
   },
 ];
+
+/* THE BURNOUT / DEPRESSION CHECK.
+ *
+ * Same rule as STRESS_CHECK above: no score, no category, no verdict. A number
+ * would be read as a diagnosis however it were captioned, this is not a
+ * validated instrument, and BCACC advertising standards do not permit implying
+ * otherwise. It reflects the pattern back and explains the distinction.
+ *
+ * The questions are built around the one difference that actually separates the
+ * two — whether the state is bound to a context or travels with the person —
+ * because that is the distinction people cannot make for themselves and the one
+ * that changes what helps. */
+export const BURNOUT_CHECK: Question[] = [
+  {
+    q: 'On a genuinely free weekend — no work, nothing owed — how do you feel by Sunday evening?',
+    choices: [
+      { label: 'Noticeably better. It is the week that does it', tag: 'context' },
+      { label: 'A bit better, but it comes back within an hour of Monday', tag: 'context' },
+      { label: 'About the same as any other day', tag: 'travels' },
+      { label: 'I cannot remember the last genuinely free weekend', tag: 'load' },
+    ],
+  },
+  {
+    q: 'Think of the last time you were properly away for a week or more.',
+    choices: [
+      { label: 'I felt like myself again by about day three', tag: 'context' },
+      { label: 'I never really switched off, but it helped', tag: 'context' },
+      { label: 'I felt much the same there as here', tag: 'travels' },
+      { label: 'It has been long enough that I genuinely do not know', tag: 'load' },
+    ],
+  },
+  {
+    q: 'The things you enjoy that have nothing to do with work — how are they?',
+    choices: [
+      { label: 'Still enjoyable when I have the energy for them', tag: 'context' },
+      { label: 'I do them and they feel flat', tag: 'travels' },
+      { label: 'I have stopped, and I do not really miss them', tag: 'travels' },
+      { label: 'There is no time for any of them', tag: 'load' },
+    ],
+  },
+  {
+    q: 'How do you talk about yourself when something goes wrong?',
+    choices: [
+      { label: 'Fairly, most of the time', tag: '' },
+      { label: 'I am hard on myself about work specifically', tag: 'context' },
+      { label: 'It is a general verdict on me as a person', tag: 'travels' },
+      { label: 'I do not really register it any more', tag: 'travels' },
+    ],
+  },
+  {
+    q: 'And the people you deal with — colleagues, clients, patients, students?',
+    choices: [
+      { label: 'Much as usual', tag: '' },
+      { label: 'I have less patience than I used to', tag: 'context' },
+      { label: 'I have gone cold on them in a way that is not like me', tag: 'context' },
+      { label: 'I have withdrawn from most people, not only those ones', tag: 'travels' },
+    ],
+  },
+  {
+    q: 'How long has this been running?',
+    choices: [
+      { label: 'Weeks, and it tracks something specific that started', tag: 'context' },
+      { label: 'Months, and it has become the normal setting', tag: 'load' },
+      { label: 'Longer than a year', tag: 'travels' },
+      { label: 'On and off for as long as I can remember', tag: 'travels' },
+    ],
+  },
+  {
+    q: 'If the pressure lifted tomorrow and stayed lifted, what do you think would happen?',
+    choices: [
+      { label: 'I would recover. I know what this is', tag: 'context' },
+      { label: 'I would recover slowly, but I would', tag: 'context' },
+      { label: 'Honestly, I do not think it would change much', tag: 'travels' },
+      { label: 'I cannot picture the pressure lifting', tag: 'load' },
+    ],
+  },
+];
+
+export const BURNOUT_REFLECTIONS: Record<string, string> = {
+  context:
+    'Most of your answers describe something bound to a situation rather than to you: it eases when you are genuinely away from the source, and the parts of life outside it are still intact. That is the shape burnout takes, and it matters because burnout responds to changing the conditions producing it. Treating it as a personal failure to cope is both inaccurate and the thing that tends to make it worse.',
+  travels:
+    'Several answers describe something that comes with you — present on the free weekend, present on the week away, and reaching the parts of life that have nothing to do with the pressure. That pattern is closer to depression than to burnout, and it matters because it does not resolve by fixing the job. Waiting for the workload to change is the most common way people lose a year to this.',
+  load:
+    'The clearest thing in your answers is that there has been no gap long enough to tell. That is not an evasion of the question — it is the answer. Without a period of genuine rest there is no way to know which of these it is, and arranging one is both the diagnostic step and, quite often, the first thing that helps.',
+  mixed:
+    'Your answers point both ways, which is common and not a failure of the questions. Burnout that has run long enough frequently becomes depression, and the two coexist more often than either is described alone. The useful next step is not deciding between them but describing the pattern accurately to somebody who can help you sort it.',
+};
