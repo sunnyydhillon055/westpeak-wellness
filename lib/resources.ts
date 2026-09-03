@@ -1,5 +1,7 @@
 import { moreResources } from './resources-more';
 
+import { albertaResources } from './resources-alberta';
+
 export type ResourceSection = {
   h2: string;
   body?: string[];
@@ -363,6 +365,11 @@ const coreResources: Resource[] = [
   },
 ];
 
-export const resources: Resource[] = [...coreResources, ...moreResources];
+/* Alberta joins the set on 2 Sep 2026. Every page before this was
+   BC-specific — MSP, WorkSafeBC, the BC crisis directory — which was right
+   while the practice served only BC and stopped being right when a counsellor
+   who can see Alberta clients joined. See lib/resources-alberta.ts for why
+   these are resources rather than part of the gated /alberta section. */
+export const resources: Resource[] = [...coreResources, ...moreResources, ...albertaResources];
 
 export const getResource = (slug: string) => resources.find((r) => r.slug === slug);
