@@ -103,6 +103,7 @@ export const moreGuides6: Guide[] = [
       { label: 'WorkSafeBC — mental health', url: 'https://www.worksafebc.com/en/claims/report-workplace-injury-illness/mental-health-injury-claims' },
     ],
     related: [
+      { href: "/services/individual-therapy", label: "Individual counselling during stress leave" },
       { href: '/guides/burnout-vs-depression', label: 'Burnout or depression?' },
       { href: '/guides/workplace-bullying-in-bc', label: 'Workplace bullying in BC' },
       { href: '/resources/workplace-mental-health-bc', label: 'Mental health and work in BC' },
@@ -182,6 +183,7 @@ export const moreGuides6: Guide[] = [
       { label: 'Canadian Mental Health Association, BC Division', url: 'https://bc.cmha.ca/' },
     ],
     related: [
+      { href: "/services/individual-therapy", label: "Individual counselling for adult ADHD traits" },
       { href: '/resources/psychiatry-and-assessment-in-bc', label: 'Psychiatry and assessment in BC' },
       { href: '/guides/perfectionism-and-self-criticism', label: 'Perfectionism and self-criticism' },
       { href: '/guides/procrastination-that-is-not-laziness', label: 'Procrastination that is not laziness' },
@@ -341,6 +343,7 @@ export const moreGuides6: Guide[] = [
       { label: 'Anxiety Canada', url: 'https://www.anxietycanada.com/' },
     ],
     related: [
+      { href: "/services/individual-therapy", label: "Individual counselling for self-doubt at work" },
       { href: '/online-counselling/vancouver', label: 'Online counselling in Vancouver' },
       { href: '/guides/perfectionism-and-self-criticism', label: 'Perfectionism and self-criticism' },
       { href: '/guides/high-functioning-anxiety', label: 'High-functioning anxiety' },
@@ -425,6 +428,7 @@ export const moreGuides6: Guide[] = [
       { label: 'VictimLinkBC', url: 'https://www2.gov.bc.ca/gov/content/justice/criminal-justice/victims-of-crime/victimlinkbc' },
     ],
     related: [
+      { href: "/services/family-counselling", label: "Family counselling for the people around it" },
       { href: '/guides/supporting-someone-who-is-struggling', label: 'Supporting someone who is struggling' },
       { href: '/guides/setting-boundaries-with-family', label: 'Setting boundaries with family' },
       { href: '/resources/bc-crisis-and-support-directory', label: 'BC crisis and support directory' },
@@ -506,6 +510,7 @@ export const moreGuides6: Guide[] = [
       { label: 'Pain BC', url: 'https://painbc.ca/' },
     ],
     related: [
+      { href: "/services/individual-therapy", label: "Individual counselling for illness and mood" },
       { href: '/guides/stress-leave-bc', label: 'How to get stress leave in BC' },
       { href: '/online-counselling/kelowna', label: 'Online counselling in Kelowna' },
       { href: '/approaches/acceptance-and-commitment-therapy', label: 'Acceptance and commitment therapy' },

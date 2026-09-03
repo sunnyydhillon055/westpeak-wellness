@@ -179,6 +179,7 @@ export const moreGuides: Guide[] = [
       { label: '9-8-8 Suicide Crisis Helpline (Canada)', url: 'https://988.ca/' },
     ],
     related: [
+      { href: "/services/individual-therapy", label: "Where individual counselling starts" },
       { href: '/guides/high-functioning-anxiety', label: 'High-functioning anxiety' },
       { href: '/guides/what-to-expect-first-therapy-session', label: 'What happens in a first session' },
       { href: '/guides/how-to-find-a-therapist-in-bc', label: 'How to find a therapist in BC' },
@@ -373,6 +374,7 @@ export const moreGuides: Guide[] = [
       { label: 'BC College of Social Workers', url: 'https://bccsw.ca/' },
     ],
     related: [
+      { href: "/services", label: "What is offered here, and what it costs" },
       { href: '/guides/how-to-find-a-therapist-in-bc', label: 'How to find a therapist in BC' },
       { href: '/compare/rcc-vs-psychologist-vs-social-worker-bc', label: 'RCC vs psychologist vs social worker' },
       { href: '/standards', label: 'Standards and accountability' },

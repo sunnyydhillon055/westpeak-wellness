@@ -80,6 +80,7 @@ export const moreGuides3: Guide[] = [
       { label: 'HealthLink BC — mental health and substance use', url: 'https://www.healthlinkbc.ca/mental-health-substance-use' },
     ],
     related: [
+      { href: "/services/family-counselling", label: "Family counselling, if it turns out to be all of you" },
       { href: '/online-counselling/surrey', label: 'Online counselling in Surrey' },
       { href: '/privacy', label: 'Privacy and confidentiality' },
       { href: '/for/first-gen-south-asian-adults', label: 'First-generation South Asian adults' },
@@ -172,6 +173,7 @@ export const moreGuides3: Guide[] = [
       { label: 'HealthLink BC — mental health and substance use', url: 'https://www.healthlinkbc.ca/mental-health-substance-use' },
     ],
     related: [
+      { href: "/services/family-counselling", label: "Family counselling for the pattern between you" },
       { href: '/online-counselling/abbotsford', label: 'Online counselling in Abbotsford' },
       { href: '/for/first-gen-south-asian-adults', label: 'First-generation South Asian adults' },
       { href: '/guides/intergenerational-trauma-explained', label: 'Intergenerational trauma' },

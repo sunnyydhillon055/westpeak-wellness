@@ -255,6 +255,7 @@ export const moreGuides4: Guide[] = [
       { label: 'HealthLink BC — mental health and substance use', url: 'https://www.healthlinkbc.ca/mental-health-substance-use' },
     ],
     related: [
+      { href: "/services/family-counselling", label: "Family counselling when it is the household" },
       { href: '/resources/bc-crisis-and-support-directory', label: 'BC crisis and support directory' },
       { href: '/for/family-caregivers', label: 'Counselling for family caregivers' },
       { href: '/guides/signs-it-might-be-time-for-therapy', label: 'Signs it might be time for therapy' },

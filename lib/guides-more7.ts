@@ -77,6 +77,7 @@ export const moreGuides7: Guide[] = [
       { label: 'Canadian Mental Health Association, BC Division', url: 'https://cmha.bc.ca/' },
     ],
     related: [
+      { href: "/services/individual-therapy", label: "Individual counselling while you are off work" },
       { href: '/guides/stress-leave-bc', label: 'Stress leave in BC — the full picture' },
       { href: '/guides/doctors-note-for-a-mental-health-leave', label: 'Getting the doctor’s note' },
       { href: '/guides/return-to-work-after-a-mental-health-leave', label: 'Return to work after a leave' },
@@ -151,6 +152,7 @@ export const moreGuides7: Guide[] = [
       { label: 'BC Office of the Human Rights Commissioner', url: 'https://bchumanrights.ca/' },
     ],
     related: [
+      { href: "/services/individual-therapy", label: "Individual counselling during a leave" },
       { href: '/guides/stress-leave-bc', label: 'Stress leave in BC — the full picture' },
       { href: '/guides/ei-sickness-benefits-and-therapy', label: 'EI sickness benefits and therapy' },
       { href: '/guides/return-to-work-after-a-mental-health-leave', label: 'Return to work after a leave' },
@@ -220,6 +222,7 @@ export const moreGuides7: Guide[] = [
       { label: 'Canadian Mental Health Association, BC Division', url: 'https://cmha.bc.ca/' },
     ],
     related: [
+      { href: "/services/individual-therapy", label: "Individual counselling through a return to work" },
       { href: '/guides/stress-leave-bc', label: 'Stress leave in BC — the full picture' },
       { href: '/guides/ei-sickness-benefits-and-therapy', label: 'EI sickness benefits and therapy' },
       { href: '/guides/burnout-vs-depression', label: 'Burnout vs depression' },
@@ -286,6 +289,7 @@ export const moreGuides7: Guide[] = [
       { label: 'Canadian Mental Health Association, BC Division', url: 'https://cmha.bc.ca/' },
     ],
     related: [
+      { href: "/services/individual-therapy", label: "Individual counselling for burnout and stress" },
       { href: '/guides/stress-leave-bc', label: 'Stress leave in BC — the full picture' },
       { href: '/guides/burnout-vs-depression', label: 'Burnout vs depression' },
       { href: '/guides/doctors-note-for-a-mental-health-leave', label: 'Getting the doctor’s note' },

@@ -454,6 +454,7 @@ const coreGuides: Guide[] = [
       { label: "CMHA BC — finding help", url: "https://cmha.bc.ca/" },
     ],
     related: [
+      { href: "/services/individual-therapy", label: "Where individual counselling begins" },
       { href: "/resources/before-your-first-consultation", label: "Before your first consultation — the 15-minute version" },
       { href: "/book", label: "Book a free 15-minute consultation" },
       { href: "/faq", label: "Frequently asked questions about starting therapy" },
@@ -769,6 +770,7 @@ const coreGuides: Guide[] = [
       { label: "CMHA BC — programs and services", url: "https://cmha.bc.ca/" },
     ],
     related: [
+      { href: "/services", label: "The counselling services offered here" },
       { href: '/online-counselling/victoria', label: 'Online counselling in Victoria' },
       { href: "/compare/rcc-vs-psychologist-vs-social-worker-bc", label: "RCC, psychologist, or social worker in BC" },
       { href: "/resources/low-cost-counselling-bc", label: "Free and low-cost counselling in BC" },

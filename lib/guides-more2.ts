@@ -268,6 +268,7 @@ export const moreGuides2: Guide[] = [
       { label: 'Canadian Mental Health Association, BC Division — Bounce Back', url: 'https://bouncebackbc.ca/' },
     ],
     related: [
+      { href: "/services", label: "What is available here, and when" },
       { href: '/online-counselling/victoria', label: 'Online counselling in Victoria' },
       { href: '/resources/low-cost-counselling-bc', label: 'Low-cost counselling in BC' },
       { href: '/resources/bc-crisis-and-support-directory', label: 'BC crisis and support directory' },
@@ -364,6 +365,7 @@ export const moreGuides2: Guide[] = [
       { label: 'HealthLink BC — mental health and substance use', url: 'https://www.healthlinkbc.ca/mental-health-substance-use' },
     ],
     related: [
+      { href: "/services/individual-therapy", label: "Individual counselling, and changing direction" },
       { href: '/guides/questions-to-ask-a-therapist', label: 'Questions to ask a therapist' },
       { href: '/guides/how-long-does-therapy-take', label: 'How long does therapy take' },
       { href: '/standards', label: 'Standards and accountability' },
