@@ -123,8 +123,10 @@ const CHECKS = [
      pages turns this red. */
   ['/online-counselling/surrey/anxiety-counselling', 200],
   ['/online-counselling/prince-george/anxiety-counselling', 200],
-  ['/online-counselling/surrey/trauma-therapy', 308, '/online-counselling/surrey'],
-  ['/online-counselling/surrey/depression-counselling', 308, '/online-counselling/surrey'],
+  ['/online-counselling/surrey/trauma-therapy', 200],
+  ['/online-counselling/surrey/depression-counselling', 200],
+  ['/online-counselling/victoria/trauma-therapy', 200],
+  ['/online-counselling/kamloops/depression-counselling', 200],
   ['/services/individual-therapy', 200],
   ['/services/couples-therapy', 200],
   ['/services/emdr-therapy', 200],

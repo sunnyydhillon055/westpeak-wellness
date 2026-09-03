@@ -134,29 +134,18 @@ const nextConfig = {
       { source: '/services/south-asian-mental-health', destination: '/services/punjabi-counselling', permanent: true },
       { source: '/services/online-counselling-bc', destination: '/online-counselling', permanent: true },
 
-      /* City x topic pages for the retired services went to their CITY page
-         rather than to individual-therapy: somebody searching "anxiety
-         counselling in Surrey" wants Surrey kept, not swapped for a generic
-         service page, because the local intent is the more valuable half of
-         that query.
+      /* THE CITY x TOPIC REDIRECTS ARE GONE, 2 Sep 2026.
+         All thirty pages exist again — anxiety, trauma and depression across
+         ten cities — rebuilt through lib/conditions.ts, which lets a city page
+         resolve a condition without it becoming a service again. A redirect in
+         front of a page that exists is a page nobody can reach; the top of this
+         file records the Kamloops incident where exactly that shipped, and
+         `npm run redirect-shadow` fails the build on it now.
 
-         ANXIETY CAME OFF THIS LIST ON 2 SEP 2026, because those ten pages now
-         exist again — rebuilt through lib/conditions.ts, which lets a city page
-         resolve a condition without it becoming a service. A redirect standing
-         in front of a page that exists is a page nobody can reach, and the
-         link-integrity gate fails the build on exactly that, which is how this
-         was caught rather than shipped.
-
-         Depression and trauma stay redirected until their pairs are written.
-         Remove each from this list in the same commit that adds its pages. */
-      ...['surrey', 'vancouver', 'burnaby', 'abbotsford', 'langley', 'chilliwack',
-          'victoria', 'kelowna', 'kamloops', 'prince-george'].flatMap((city) =>
-        ['depression-counselling', 'trauma-therapy'].map((svc) => ({
-          source: `/online-counselling/${city}/${svc}`,
-          destination: `/online-counselling/${city}`,
-          permanent: true,
-        }))
-      ),
+         The /services/* redirects for the same three slugs stay. Those services
+         really were retired and really do belong to individual therapy — it is
+         only the LOCAL intent that got its pages back, because "anxiety
+         counselling in Surrey" wants Surrey. */
       /* /blog was a 404. The guides engine already is the article stack —
          dated, Article-schema'd and internally linked — so this points at it
          rather than standing up a second one that would split topic authority
