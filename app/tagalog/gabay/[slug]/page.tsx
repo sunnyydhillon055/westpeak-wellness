@@ -166,6 +166,12 @@ export default function TagalogGuidePage({ params }: { params: Params }) {
             <Link className="btn btn--primary" href={`${site.bookingPath}?with=${speaker?.slug ?? ''}`}>
               {TAGALOG_LANDING.cta}
             </Link>
+            <p className="cta-band-alt">
+              {TL_PLACE_SHARED.notReady}{' '}
+              <Link href="/contact">{TL_PLACE_SHARED.notReadyWrite}</Link> &mdash;{' '}
+              {TL_PLACE_SHARED.notReadyReply}, {TL_PLACE_SHARED.notReadyOr}{' '}
+              <Link href="/tagalog#gabay">{TL_PLACE_SHARED.notReadyGuides}</Link>.
+            </p>
           </div>
         </div>
       </section>

@@ -58,6 +58,7 @@ export async function GET(req: NextRequest) {
 
   console.log(
     `[booking-mail]${dry ? ' DRY' : ''} ${result.confirmations} confirmation(s) · ` +
+    `${result.reminders} reminder(s) · ` +
     `${result.followUps} follow-up(s) · ${result.skipped.noEmail} without an email · ` +
     `${result.failures.length} failure(s)`
   );

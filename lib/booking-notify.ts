@@ -1,7 +1,7 @@
 import { put, get } from '@vercel/blob';
 import { api, headers } from '@/lib/cliniko';
 import { sendDetailed, mailConfigured } from '@/lib/portal-mail';
-import { confirmationEmail, followUpEmail, consultFollowUpEmail, type Booking } from '@/lib/booking-mail';
+import { confirmationEmail, reminderEmail, followUpEmail, consultFollowUpEmail, type Booking } from '@/lib/booking-mail';
 import { missedSessionEmail } from '@/lib/lifecycle-mail';
 import { missedAlreadyNoted, recordMissed } from '@/lib/lifecycle';
 import { site, CONSULT_TYPE } from '@/lib/site';
@@ -35,8 +35,13 @@ import { durationOf, isConsultAppointment } from '@/lib/booking-shape';
 const KEY = 'portal/notified.json';
 const TZ = 'America/Vancouver';
 
-type Ledger = { confirmed: string[]; followedUp: string[]; updatedAt: string };
-const EMPTY: Ledger = { confirmed: [], followedUp: [], updatedAt: '' };
+/* `reminded` added 3 Sep 2026. A confirmation went out at booking and a
+   follow-up the day after the session, and between them there was nothing — so
+   a free consultation booked a week ahead had no reminder at all. That is an
+   easy no-show, and on a calendar with three evening hours a week a no-show on
+   a free consult costs a third of the week's out-of-hours capacity. */
+type Ledger = { confirmed: string[]; followedUp: string[]; reminded: string[]; updatedAt: string };
+const EMPTY: Ledger = { confirmed: [], followedUp: [], reminded: [], updatedAt: '' };
 
 async function readLedger(): Promise<Ledger> {
   if (!process.env.BLOB_READ_WRITE_TOKEN) return EMPTY;
@@ -47,6 +52,10 @@ async function readLedger(): Promise<Ledger> {
     return {
       confirmed: Array.isArray(v.confirmed) ? v.confirmed : [],
       followedUp: Array.isArray(v.followedUp) ? v.followedUp : [],
+      /* Absent in ledgers written before 3 Sep. Defaulting to empty means the
+         first run after deploy reminds only appointments still inside the
+         window ahead, never a backfill of past ones. */
+      reminded: Array.isArray(v.reminded) ? v.reminded : [],
       updatedAt: v.updatedAt ?? '',
     };
   } catch {
@@ -61,7 +70,7 @@ async function writeLedger(l: Ledger): Promise<void> {
   const trim = (a: string[]) => a.slice(-2000);
   await put(
     KEY,
-    JSON.stringify({ confirmed: trim(l.confirmed), followedUp: trim(l.followedUp), updatedAt: new Date().toISOString() }, null, 2),
+    JSON.stringify({ confirmed: trim(l.confirmed), followedUp: trim(l.followedUp), reminded: trim(l.reminded), updatedAt: new Date().toISOString() }, null, 2),
     { access: 'private', contentType: 'application/json', addRandomSuffix: false, allowOverwrite: true, cacheControlMaxAge: 0 }
   );
 }
@@ -80,6 +89,7 @@ const fmt = (iso: string) => {
 export type NotifyResult = {
   ok: boolean;
   confirmations: number;
+  reminders: number;
   followUps: number;
   /** Gentle notes after a no-show. Never mentions the fee — see the loop. */
   missed: number;
@@ -90,7 +100,7 @@ export type NotifyResult = {
 
 export async function runBookingNotifications(opts: { dry?: boolean } = {}): Promise<NotifyResult> {
   const base: NotifyResult = {
-    ok: false, confirmations: 0, followUps: 0, missed: 0,
+    ok: false, confirmations: 0, reminders: 0, followUps: 0, missed: 0,
     skipped: { noEmail: 0, alreadySent: 0 }, failures: [],
   };
 
@@ -125,6 +135,7 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
   const ledger = await readLedger();
   const confirmed = new Set(ledger.confirmed);
   const followedUp = new Set(ledger.followedUp);
+  const reminded = new Set(ledger.reminded);
 
   const patientCache = new Map<string, { firstName: string; email: string } | null>();
   async function patient(url: string) {
@@ -191,6 +202,21 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
     const start = new Date(startsAt).getTime();
 
     const needsConfirm = start > now && !confirmed.has(id);
+
+    /* REMINDER, 18 to 30 hours ahead.
+     *
+     * The cron runs every two hours, so a twelve-hour window is hit six times
+     * and the ledger stops the other five sending anything. The lower bound is
+     * deliberately not two hours: a reminder that arrives the same evening is
+     * too late to rearrange around, and rearranging is the point — a slot
+     * released a day ahead can be taken by somebody else, and a no-show cannot.
+     *
+     * Applies to consultations as much as to sessions. A free appointment is
+     * the easiest one to forget, and on this calendar it costs an hour that
+     * cannot be resold. */
+    const untilStart = start - now;
+    const needsReminder =
+      untilStart > 18 * 3.6e6 && untilStart < 30 * 3.6e6 && !reminded.has(id);
     /* Follow-up window: ended between 12 and 72 hours ago. The lower bound
      * stops a message landing the same evening; the upper bound stops a
      * backfill emailing months of history the first time this runs. */
@@ -201,8 +227,8 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
     const sinceEnd = now - ended;
     const needsFollowUp = sinceEnd > 12 * 3.6e6 && sinceEnd < 72 * 3.6e6 && !followedUp.has(id);
 
-    if (!needsConfirm && !needsFollowUp) {
-      if (confirmed.has(id) || followedUp.has(id)) result.skipped.alreadySent++;
+    if (!needsConfirm && !needsReminder && !needsFollowUp) {
+      if (confirmed.has(id) || reminded.has(id) || followedUp.has(id)) result.skipped.alreadySent++;
       continue;
     }
 
@@ -229,6 +255,16 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
       }
     }
 
+    if (needsReminder) {
+      const mail = reminderEmail(booking);
+      if (opts.dry) { result.reminders++; }
+      else {
+        const sent = await sendDetailed(pt.email, mail.subject, mail.text, mail.html, { replyTo: site.email });
+        if (sent.ok) { reminded.add(id); result.reminders++; }
+        else result.failures.push(`reminder ${id}: ${sent.detail ?? 'failed'}`);
+      }
+    }
+
     if (needsFollowUp) {
       /* The consultation gets its own message. A free 15-minute call that ends
        * with nothing happening is the single largest leak in the funnel — the
@@ -245,8 +281,8 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
     }
   }
 
-  if (!opts.dry && (result.confirmations > 0 || result.followUps > 0)) {
-    await writeLedger({ confirmed: [...confirmed], followedUp: [...followedUp], updatedAt: '' });
+  if (!opts.dry && (result.confirmations > 0 || result.reminders > 0 || result.followUps > 0)) {
+    await writeLedger({ confirmed: [...confirmed], followedUp: [...followedUp], reminded: [...reminded], updatedAt: '' });
   }
 
   return result;

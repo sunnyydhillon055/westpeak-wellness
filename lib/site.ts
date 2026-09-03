@@ -186,6 +186,11 @@ export const site = {
   ],
   hours: "Mon 10–3 · Tue 9–6 · Wed–Fri 6–7",
   serviceArea: "Virtual counselling across British Columbia",
-  languages: "English & Punjabi",
-  languagesNative: "English · ਪੰਜਾਬੀ",
+  /* THREE LANGUAGES SINCE 1 SEP 2026, and this string said two until 3 Sep.
+     Tagalog arrived with Camille Granda and reached the organisation schema and
+     the root metadata that week; this constant was missed, and it feeds the GP
+     referral sheet, the vCard and llms.txt — so the practice was still
+     under-describing itself in three places a machine reads. */
+  languages: "English, Punjabi & Tagalog",
+  languagesNative: "English · ਪੰਜਾਬੀ · Tagalog",
 } as const;

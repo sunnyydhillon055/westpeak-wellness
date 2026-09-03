@@ -274,6 +274,12 @@ export default function TagalogPlacePage({ params }: { params: Params }) {
             <h2>{t.ctaHeading(raw.city)}</h2>
             <p>{t.ctaText}</p>
             <Link className="btn btn--primary" href={bookHref}>{t.cta}</Link>
+            <p className="cta-band-alt">
+              {TL_PLACE_SHARED.notReady}{' '}
+              <Link href="/contact">{TL_PLACE_SHARED.notReadyWrite}</Link> &mdash;{' '}
+              {TL_PLACE_SHARED.notReadyReply}, {TL_PLACE_SHARED.notReadyOr}{' '}
+              <Link href="/tagalog#gabay">{TL_PLACE_SHARED.notReadyGuides}</Link>.
+            </p>
           </div>
         </div>
       </section>

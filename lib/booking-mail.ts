@@ -242,6 +242,80 @@ ${BASE}`);
   return { subject, text, html };
 }
 
+/* ---- reminder, the day before ------------------------------------------- */
+
+/* THE STAGE THAT WAS MISSING.
+ *
+ * A confirmation went out at booking and a follow-up the day after the session.
+ * Between them, nothing — so an appointment booked a week ahead had no reminder
+ * at all, which is the definition of an easy no-show.
+ *
+ * It matters more here than at most practices. There are three bookable hours a
+ * week outside working hours; a no-show on one of them costs a third of the
+ * week's out-of-hours capacity and cannot be resold at an hour's notice.
+ *
+ * Written to make rearranging as easy as attending, and deliberately not
+ * written to guilt anybody into turning up. The most useful outcome of a
+ * reminder is frequently somebody moving the appointment rather than keeping
+ * it — a slot released a day ahead can go to somebody else, and a slot
+ * abandoned on the hour cannot. So the reschedule line comes before the
+ * what-to-expect one, and there is no mention of a fee: this reaches people
+ * attending a free consultation as often as a paid session. */
+export function reminderEmail(b: Booking) {
+  const subject = b.isConsult
+    ? 'Tomorrow: your free consultation — Westpeak Wellness'
+    : 'Tomorrow: your session — Westpeak Wellness';
+
+  const text = wrap(
+`Hi ${b.firstName},
+
+A short reminder that your appointment is tomorrow:
+
+  ${b.whenText}  (${lengthPhrase(b.minutes)})
+
+The video link is in the email from Cliniko, our booking system, sent
+when you booked. It comes from notifications@cliniko.com, so it is worth
+a look in spam if you cannot find it.
+
+If tomorrow no longer works, reply to this email and we will move it.
+Rearranging is genuinely easier for everybody than a missed appointment,
+and there is nothing awkward about asking.
+
+${b.isConsult
+  ? `This is a free 15-minute conversation. Nothing to prepare, nothing to
+bring, and no obligation to book anything afterwards.`
+  : `Nothing to prepare. If there is something you want to start with, it
+is a good thing to arrive with, and it is equally fine not to have one.`}
+
+What actually happens, if it is your first time:
+${links.firstSession}
+
+If you are in immediate danger call 911. For urgent mental-health
+support in BC, call or text 9-8-8 at any hour.
+
+Westpeak Wellness
+${BASE}`);
+
+  const html = shell(
+    b.isConsult ? 'Your free consultation is tomorrow' : 'Your session is tomorrow',
+    p(`Hi ${esc(b.firstName)},`) +
+    `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 20px;background:#f7f2e8;border-radius:8px;padding:16px 18px;width:100%;">
+       <tr><td style="font-size:15px;line-height:1.6;">
+         <strong style="color:#3d6c92;">${esc(b.whenText)}</strong><br>
+         <span style="color:#545e69;">${lengthChip(b.minutes)}</span>
+       </td></tr></table>` +
+    p(`The video link is in the email Cliniko sent when you booked, from <strong>notifications@cliniko.com</strong> — worth checking spam if it is not in your inbox.`) +
+    p(`<strong>If tomorrow no longer works, just reply.</strong> Moving it is easier for everybody than a missed appointment, and there is nothing awkward about asking.`) +
+    (b.isConsult
+      ? p(`This is a free 15-minute conversation. Nothing to prepare, nothing to bring, and no obligation to book anything afterwards.`)
+      : p(`Nothing to prepare. If there is something you want to start with, it is a good thing to arrive with — and equally fine not to have one.`)) +
+    btn(links.firstSession, 'What actually happens') +
+    p(`Need to change or cancel? Just reply to this email.`)
+  );
+
+  return { subject, text, html };
+}
+
 /* ---- consultation follow-up ---------------------------------------------- */
 
 /* The consultation is the one point where the practice has already met the

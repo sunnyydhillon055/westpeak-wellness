@@ -119,6 +119,16 @@ export const TL_PLACE_SHARED = {
   ctaText:
     'Isang libreng labinlimang minutong konsultasyon sa video. Walang card, at walang obligasyon pagkatapos.',
   cta: 'Humiling ng libreng konsultasyon',
+  /* The smaller ask, in Tagalog. Every page in this language offered only the
+     booking button — the high-commitment one — because the shared CtaBand that
+     carries the English version is not used here. The guides are in Tagalog;
+     the contact page is in English, and a reply can be in either. */
+  notReady: 'Hindi pa handa mag-book?',
+  notReadyWrite: 'Magsulat ng isang linya tungkol sa nangyayari',
+  notReadyReply: 'may sagot sa loob ng isang araw ng trabaho',
+  notReadyOr: 'o basahin muna ang',
+  notReadyGuides: 'mga gabay sa Tagalog',
+
   nearbyHeading: 'Pinagsisilbihan din ni Camille',
   nearbyNote:
     'Parehong praktis, parehong bayad, parehong oras — ang biyaheng hindi mo na gagawin lamang ang nagbabago.',

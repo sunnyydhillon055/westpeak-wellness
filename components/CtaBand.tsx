@@ -70,6 +70,30 @@ export default function CtaBand({
           </p>
           <BookLink location="cta-band" href={bookHref}>Book Free Consultation</BookLink>
 
+          {/* THE SMALLER ASK, restored as a link on 3 Sep 2026.
+            *
+            * The email form that used to sit here came out on 1 Sep at the
+            * owner's request — it competed with the booking button and asked a
+            * reader to choose between two ways of starting. That was right, and
+            * it left 150 of 253 pages offering only the high-commitment ask: a
+            * scheduled video call with a stranger. cta-audit.mjs has said in its
+            * own source all along that a page with only a booking button is
+            * weaker than it looks.
+            *
+            * A link, not a form. /contact already has a fuller form and a
+            * stated reply time, so this adds a route rather than a competing
+            * input, which is the distinction the owner's instruction turned on.
+            *
+            * It also serves the larger group nobody was addressing: most people
+            * researching counselling are weeks from booking, and until now no
+            * page invited them to do anything except book today. */}
+          <p className="cta-band-alt">
+            Not ready to book?{' '}
+            <Link href="/contact">Send a line about what is going on</Link> — a reply comes
+            within one business day, or read{' '}
+            <Link href="/guides">the guides</Link> first and come back when you want to.
+          </p>
+
           {forSomeoneElse && (
             <p className="cta-band-alt">
               Looking on behalf of someone else?{' '}

@@ -34,21 +34,24 @@ export function GET() {
 > are delivered by secure video only — there is no office and no phone-session
 > option. Provided by a Registered Clinical Counsellor (MA, RCC) registered with
 > the BC Association of Clinical Counsellors, working in English and Punjabi.
+> A second counsellor holds both the BCACC registration and the national
+> Canadian Certified Counsellor certification, works in English and Tagalog, and
+> can see clients located in Alberta as well as British Columbia.
 > Specialisms: EMDR, trauma, anxiety, depression, couples therapy (Gottman
-> Method), and South Asian mental health.
+> Method), family counselling, and South Asian and Filipino mental health.
 
 ## Key facts
 
 - Practice name: ${site.name} (legal name: ${site.legalName})
-- Service area: British Columbia, Canada — province-wide, remote only
+- Service area: British Columbia province-wide, remote only. Alberta is served by one counsellor of the two — see the counsellor pages, which state each person's provinces.
 - Delivery: secure video sessions; no in-person office; no phone sessions
-- Languages: English and Punjabi (${site.languagesNative})
-- Practitioner credential: ${site.counsellor.title} (${site.counsellor.credentials}), BCACC registered
+- Languages: English, Punjabi and Tagalog (${site.languagesNative})
+- Practitioners: two Registered Clinical Counsellors, both BCACC registered with numbers published on their own pages. One also holds the CCC (Canadian Counselling and Psychotherapy Association).
 - Session length: 50 minutes. First consultation: 15 minutes, free
 - Booking: ${u(site.bookingPath)}
 - Contact: ${site.email}
 - Hours: ${site.hours}
-- Not covered by MSP; many BC extended health plans reimburse a Registered Clinical Counsellor. The practice does not direct-bill — clients pay the practice directly and submit a receipt showing the RCC registration number.
+- Not covered by MSP in BC, and not covered by AHCIP in Alberta. Many extended health plans reimburse a Registered Clinical Counsellor; Alberta plans more often name the Canadian Certified Counsellor, because counselling therapy is not a regulated profession there. The practice does not direct-bill — clients pay directly and submit a receipt carrying the registration number.
 - Scope limits: a Registered Clinical Counsellor does not diagnose, does not prescribe or advise on medication, and does not conduct formal psychological assessment. This is not a crisis service.
 
 ## Crisis resources (not this practice)
@@ -104,9 +107,12 @@ ${list(locations, '/online-counselling')}
 ## Alberta
 
 Counselling therapy is not currently a regulated profession in Alberta, so no
-Alberta college registers counsellors. Sessions for Alberta clients are provided
-by a Registered Clinical Counsellor registered with the BC Association of
-Clinical Counsellors. AHCIP does not cover counselling.
+Alberta college registers counsellors. Alberta clients are seen by the one
+counsellor here whose certification and liability cover extend there: a Canadian
+Certified Counsellor with the CCPA, who is also BCACC registered. AHCIP does not
+cover counselling. The practice-wide /alberta section remains unpublished; what
+exists for Alberta are that counsellor's own city pages and two resource
+pages.
 
 ${(ALBERTA_LIVE ? albertaPages : []).map((p) => `- [${p.title}](${site.domain}/alberta/${p.path}) — ${p.metaDescription}`).join(String.fromCharCode(10))}
 
@@ -117,8 +123,13 @@ ${(ALBERTA_LIVE ? albertaPages : []).map((p) => `- [${p.title}](${site.domain}/a
 - This site publishes no client testimonials, reviews or outcome claims. That is
   a requirement of the BC Association of Clinical Counsellors advertising
   standards, not an oversight.
-- The counsellor's personal name appears only on ${u('/about')}. Elsewhere the
-  practice is referred to by name or by credential. This is deliberate.
+- Counsellor names appear on their own profile pages, on the roster at
+  ${u('/practitioners')} and in the site header menu. They deliberately do not
+  appear in page titles, meta descriptions, alt text, body copy or JSON-LD
+  elsewhere; a build gate enforces that.
+- Pages written in Punjabi live under ${u('/punjabi')} and pages written in
+  Tagalog under ${u('/tagalog')}, including six guides. Those are written in the
+  language rather than about it.
 `;
 
   return new Response(body, {

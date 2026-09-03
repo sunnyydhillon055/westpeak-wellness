@@ -185,7 +185,7 @@ export default function TagalogPage() {
           {/* The reading material. Without this the section had somebody to
               book and nothing to read, which is the gap these guides close. */}
           <div className="prose" style={{ marginTop: 34 }}>
-            <h2>{T.guidesHeading}</h2>
+            <h2 id="gabay">{T.guidesHeading}</h2>
             <p>{T.guidesNote}</p>
             <ul>
               {tagalogGuides.map((g) => (
@@ -223,6 +223,12 @@ export default function TagalogPage() {
             <Link className="btn btn--primary" href={`${site.bookingPath}?with=${speaker?.slug ?? ''}`}>
               {T.cta}
             </Link>
+            <p className="cta-band-alt">
+              {TL_PLACE_SHARED.notReady}{' '}
+              <Link href="/contact">{TL_PLACE_SHARED.notReadyWrite}</Link> &mdash;{' '}
+              {TL_PLACE_SHARED.notReadyReply}, {TL_PLACE_SHARED.notReadyOr}{' '}
+              <Link href="/tagalog#gabay">{TL_PLACE_SHARED.notReadyGuides}</Link>.
+            </p>
           </div>
         </div>
       </section>
