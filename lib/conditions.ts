@@ -1,5 +1,5 @@
-import type { Service } from './services';
-import { getService } from './services';
+import type { Service } from './services.ts';
+import { getService } from './services.ts';
 
 /* ============================================================================
    CONDITIONS — WHAT PEOPLE SEARCH FOR, WHICH IS NOT WHAT THE PRACTICE SELLS

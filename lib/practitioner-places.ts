@@ -1,5 +1,5 @@
-import { locations } from './locations';
-import type { Province } from './crisis';
+import { locations } from './locations.ts';
+import type { Province } from './crisis.ts';
 
 /* ============================================================================
    WHERE A PRACTITIONER'S CITY PAGES EXIST, AND WHAT MAKES EACH ONE DIFFERENT
@@ -215,9 +215,25 @@ const languageFaq = (p: Speaker) => {
 
 /* Cities whose shared copy argues its case through the founder's language and
    community. Camille's version keeps the local problem and drops the claim. */
-const LOCAL_OVERRIDES: Record<string, Record<string, { blurb?: string; local?: string[] }>> = {
+const LOCAL_OVERRIDES: Record<string, Record<string, {
+  blurb?: string;
+  local?: string[];
+  /* Four cities carried TWO language questions in their shared FAQ set rather
+     than one. The resolver replaces a dropped language FAQ with a single
+     correct one, so those four ended a question shorter than every other city —
+     found by the test suite, not by reading them. These are the second
+     replacements, answering what the dropped one did: why look outside a city
+     that already has counsellors. */
+  faqs?: { q: string; a: string }[];
+}>> = {
   'camille-granda': {
     surrey: {
+      faqs: [
+        {
+          q: "Surrey has plenty of counsellors. Why look outside it?",
+          a: "For many people there is no reason to, and you would be told so on the consultation. The reason people write in from Surrey is narrower: in a community this interconnected, the counsellor who comes recommended is often connected to the very people you would least want to know you are going. Confidentiality is a legal duty everywhere — distance is what makes it feel true.",
+        },
+      ],
       blurb: 'A city big enough to have counsellors, and still short of the ones people are actually looking for.',
       local: [
         'Surrey is one of the fastest-growing cities in Canada, and the counselling here has not grown with it at the same rate. The lists are long, and the people who get seen quickest are usually the ones who can take a weekday afternoon off to do it.',
@@ -225,12 +241,32 @@ const LOCAL_OVERRIDES: Record<string, Record<string, { blurb?: string; local?: s
       ],
     },
     abbotsford: {
+      faqs: [
+        {
+          q: "There are counsellors in Abbotsford already. Why this?",
+          a: "For plenty of people there is no reason, and if a local office suits you, book locally with a clear conscience. The people who write in from here are usually those for whom the local option carries a privacy cost: a familiar waiting room, or a car recognised outside a clinic on a main road.",
+        },
+      ],
       local: [
         'Abbotsford is far enough from the Lower Mainland that an in-person appointment can mean a real drive, and close enough that people are told to make it anyway. An hour each way around a working day is the reason a lot of counselling here stops after session three.',
         'A great deal of the valley also works to seasons and shifts rather than to office hours. Booking in blocks with gaps between them is an ordinary pattern rather than a compromise, and pausing between blocks costs nothing.',
       ],
     },
+    kamloops: {
+      faqs: [
+        {
+          q: "Why not simply see somebody in Kamloops?",
+          a: "If a local counsellor is taking clients and suits you, that is the better option and you would be told so. It matters when what you need is specific — a particular approach, or a session in a language other than English — because the local list for that is short and fills quickly.",
+        },
+      ],
+    },
     richmond: {
+      faqs: [
+        {
+          q: "Richmond has real counselling capacity. Why look further?",
+          a: "It does, and much of it is built around the city's Chinese-speaking communities, which is a genuine local strength. If that is not the fit you need the field narrows quickly, and a virtual practice makes the whole province available rather than only the part within driving distance.",
+        },
+      ],
       local: [
         "Richmond has real counselling capacity, and much of it is built — correctly — around the city's Chinese-speaking communities. If that is not what you are looking for, the field narrows fast, and people routinely end up searching Vancouver or Surrey instead.",
         'The airport and the port are also large local employers, on rosters that change. A session you can attend from home between shifts is worth more than one you could theoretically drive to and keep missing.',
@@ -261,7 +297,9 @@ export function resolvePlace(place: PractitionerPlace, p: Speaker): Practitioner
      question is one people genuinely ask, and the honest answer is still
      useful. */
   const keptFaqs = place.faqs.filter((f) => !isForeign(`${f.q} ${f.a}`));
-  const faqs = keptFaqs.length === place.faqs.length ? keptFaqs : [...keptFaqs, languageFaq(p)];
+  const faqs = keptFaqs.length === place.faqs.length
+    ? keptFaqs
+    : [...keptFaqs, languageFaq(p), ...(ov?.faqs ?? [])];
 
   return { ...place, blurb, local, access, faqs };
 }

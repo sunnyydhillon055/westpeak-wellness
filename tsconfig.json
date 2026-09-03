@@ -9,6 +9,11 @@
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "bundler",
+    /* So lib modules can import each other with an explicit .ts extension, which
+       is what Node's type stripping needs to resolve them. The gates and the
+       test suite import the real modules rather than a copy, and that only
+       works if the whole chain resolves outside the bundler. */
+    "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
