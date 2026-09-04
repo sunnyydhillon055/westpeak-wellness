@@ -669,7 +669,7 @@ export const moreResources: Resource[] = [
     lede:
       'Somebody on your team is struggling right now, statistically, several somebodies. Most employers genuinely want to help and have been sold exactly one tool. This page is the fuller toolbox.',
     shortAnswer:
-      'For a BC employer, real mental-health support is mostly plumbing, not posters: an extended-health plan whose wording actually covers Registered Clinical Counsellors at a meaningful annual maximum; an EAP understood honestly as triage rather than treatment; sick days and leave handled the way the Employment Standards Act and Human Rights Code require, without diagnosis-fishing; and managers who can say "you seem underwater, what do you need?" without practising medicine. A practice like this one fits at the referral end: somewhere concrete to point a struggling employee, bookable that week, in English or Punjabi.',
+      'For a BC employer, real mental-health support is mostly plumbing, not posters: an extended-health plan whose wording actually covers Registered Clinical Counsellors at a meaningful annual maximum; an EAP understood honestly as triage rather than treatment; sick days and leave handled the way the Employment Standards Act and Human Rights Code require, without diagnosis-fishing; and managers who can say "you seem underwater, what do you need?" without practising medicine. A practice like this one fits at the referral end: somewhere concrete to point a struggling employee, bookable that week, in English, Punjabi or Tagalog.',
     updated: '2026-08-28',
     readMinutes: 6,
     sections: [
@@ -685,7 +685,7 @@ export const moreResources: Resource[] = [
       {
         h2: 'Where a practice like this one fits',
         body: [
-          'Not as your EAP. This is a solo Registered Clinical Counsellor practice, and pretending otherwise would be the kind of overclaim this site is allergic to. Where it fits is the referral end of your toolbox: a concrete answer to "where would someone actually go?": online across all of BC, evening availability that hourly and shift staff can use, sessions in English or Punjabi, fees published, receipts that work with every plan that covers RCCs, and a free 15-minute consultation an employee can book without telling anyone at work.',
+          'Not as your EAP. This is a solo Registered Clinical Counsellor practice, and pretending otherwise would be the kind of overclaim this site is allergic to. Where it fits is the referral end of your toolbox: a concrete answer to "where would someone actually go?": online across all of BC, evening availability that hourly and shift staff can use, sessions in English, Punjabi or Tagalog, fees published, receipts that work with every plan that covers RCCs, and a free 15-minute consultation an employee can book without telling anyone at work.',
           'For Fraser Valley and Surrey employers specifically, the Punjabi-language capability may be the most useful line on this page: a meaningful share of the region’s workforce carries its hardest conversations in Punjabi, and English-only support quietly excludes them. Pointing to a bilingual option is a concrete act of inclusion that costs a bookmark.',
           'What this page deliberately does not offer: workshops, lunch-and-learns, or wellness-week content. Those have their place; they are also the tool most often used *instead of* the plumbing above, and the plumbing is what your people will actually feel.',
         ],

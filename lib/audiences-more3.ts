@@ -117,7 +117,7 @@ export const moreAudiences3: Audience[] = [
         h2: 'The practical fit',
         body: [
           'Evening and flexible session times fit sprint reality, and video sessions fit a population that has no anxiety about video. Tech benefits packages, including the health-spending accounts many companies layer on, commonly reimburse Registered Clinical Counsellor sessions at generous annual maximums; the [coverage page](/resources/bc-extended-health-coverage-for-counselling) covers how to check yours in two minutes. If a layoff is already the situation, the [work-and-money cluster](/resources/workplace-mental-health-bc) maps EI and the practical scaffolding, and sessions do not require an employer to exist.',
-          'And for the specific case where everything is attached to a visa: that pressure is carried by a lot of people in this industry’s Vancouver and it is under-discussed everywhere. It is a normal thing to bring here, in English or Punjabi, and it changes what "just leave the toxic job" advice is worth, which a counsellor should know before offering any.',
+          'And for the specific case where everything is attached to a visa: that pressure is carried by a lot of people in this industry’s Vancouver and it is under-discussed everywhere. It is a normal thing to bring here, in English, Punjabi or Tagalog, and it changes what "just leave the toxic job" advice is worth, which a counsellor should know before offering any.',
         ],
       },
     ],

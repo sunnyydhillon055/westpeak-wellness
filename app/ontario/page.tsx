@@ -15,7 +15,7 @@ import CtaBand from '@/components/CtaBand';
 
 const TITLE = 'Online Counselling in Ontario';
 const DESC =
-  'Counselling by secure video across Ontario, in English or Punjabi, with a Registered Clinical Counsellor.';
+  'Counselling by secure video across Ontario, in English, Punjabi or Tagalog, with a Registered Clinical Counsellor.';
 
 /* The province gate is enforced in middleware.ts, not here, and the long
  * comment there explains why: notFound() from a matched route renders the
@@ -67,7 +67,7 @@ export default function OntarioHub() {
           <p className="eyebrow">Ontario</p>
           <h1>{TITLE}</h1>
           <p className="direct-answer">
-            Counselling by secure video across Ontario, in English or Punjabi. Sessions are
+            Counselling by secure video across Ontario, in English, Punjabi or Tagalog. Sessions are
             provided by a Registered Clinical Counsellor. The first 15 minutes are free and carry
             no obligation.
           </p>
