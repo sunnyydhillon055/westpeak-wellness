@@ -41,6 +41,45 @@ export type TagalogPlaceCopy = {
 /* The parts that are the same wherever the reader is. Kept in one place so a
    correction from Camille lands on all seventeen pages at once rather than
    seventeen times. */
+/* ============================================================================
+   THE CHROME, IN TAGALOG
+   ----------------------------------------------------------------------------
+   The 26 Tagalog pages rendered Tagalog body copy inside an entirely English
+   frame: Services, About, Counsellors, Fees, Guides, FAQ, Contact, Client
+   portal, Book Free Consult, and a footer to match. Somebody reading in Tagalog
+   because English is effort met the language they came here to avoid the moment
+   they looked at the navigation.
+
+   Short, high-frequency words rather than prose, which is the one category
+   where a translation is least likely to go subtly wrong. Two are reused
+   verbatim from copy already on the site: `bayad` from "Bayad at insurance" on
+   the Tagalog landing page, and `gabay`, which is already the URL segment every
+   Tagalog guide lives under.
+
+   These are covered by the same review the rest of the Tagalog section is
+   waiting on. Nothing here is a clinical claim; the worst case is a menu item
+   that reads slightly formally.
+   ========================================================================= */
+export const TL_CHROME = {
+  nav: {
+    '/services': 'Mga serbisyo',
+    '/about': 'Tungkol sa amin',
+    '/practitioners': 'Mga counsellor',
+    '/pricing': 'Bayad',
+    '/guides': 'Mga gabay',
+    '/faq': 'Mga tanong',
+    '/contact': 'Makipag-ugnayan',
+  } as Record<string, string>,
+  allCounsellors: 'Lahat ng counsellor',
+  portal: 'Portal ng kliyente',
+  book: 'Libreng konsultasyon',
+  menu: 'Menu',
+  /** Footer. */
+  footerTagline: 'Counselling sa pamamagitan ng ligtas na video, sa buong British Columbia.',
+  hours: 'Mga oras',
+  backToEnglishSite: 'English',
+};
+
 export const TL_PLACE_SHARED = {
   eyebrow: 'Sa Tagalog',
   crumb: 'Tagalog',

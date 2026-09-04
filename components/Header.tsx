@@ -5,6 +5,7 @@ import { useEffect, useState, type CSSProperties } from 'react';
 import { site } from '@/lib/site';
 import { practitioners } from '@/lib/practitioners';
 import { TAGALOG_READY } from '@/lib/practitioner-tl';
+import { TL_CHROME } from '@/lib/practitioner-places-tl';
 import { track } from '@/lib/analytics';
 import Motif from '@/components/brand/Motif';
 import { bookHrefFor } from '@/components/StickyBook';
@@ -41,6 +42,28 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+
+  /* IS THIS A TAGALOG PAGE?
+   *
+   * The 26 Tagalog pages rendered Tagalog body copy inside an English header.
+   * Somebody reading in Tagalog because English is effort met the language they
+   * came here to avoid the moment they looked at the navigation.
+   *
+   * Matched on the path rather than passed in as a prop: this is a client
+   * component in the root layout, so it has no access to the page's own data,
+   * and the routes that are Tagalog are all identifiable from their URL. The
+   * /tl suffix covers a counsellor's Tagalog pages, which live under the
+   * English practitioner path rather than under /tagalog. */
+  const isTagalog =
+    pathname === '/tagalog' ||
+    pathname.startsWith('/tagalog/') ||
+    pathname.startsWith('/tagalog-counselling') ||
+    pathname.endsWith('/tl');
+
+  /* Label lookup. Falls back to the English label if a key is ever missing,
+     which is a menu item in the wrong language rather than a blank one. */
+  const t = (href: string, english: string) =>
+    isTagalog ? (TL_CHROME.nav[href] ?? english) : english;
 
   /* Scroll-aware condense. Passive listener, and the state only flips at the
    * threshold rather than on every frame, so this costs nothing. */
@@ -176,7 +199,7 @@ export default function Header() {
                 aria-current={isActive(n.href) ? 'page' : undefined}
                 onClick={() => setOpen(false)}
               >
-                {n.label}
+                {t(n.href, n.label)}
               </Link>
 
               {/* THE COUNSELLORS SUBMENU.
@@ -210,7 +233,7 @@ export default function Header() {
                   ))}
                   <li className="nav-sub-all">
                     <Link href="/practitioners" onClick={() => setOpen(false)}>
-                      All counsellors &rarr;
+                      {isTagalog ? TL_CHROME.allCounsellors : 'All counsellors'} &rarr;
                     </Link>
                   </li>
                 </ul>
@@ -264,7 +287,7 @@ export default function Header() {
               aria-current={isActive(site.portalPath) ? 'page' : undefined}
               onClick={() => setOpen(false)}
             >
-              Client portal
+              {isTagalog ? TL_CHROME.portal : 'Client portal'}
             </Link>
           </li>
           {/* Appears only once NEXT_PUBLIC_PHONE is set — see lib/site.ts. */}
@@ -290,7 +313,7 @@ export default function Header() {
                 track('book_click', { location: 'header' });
               }}
             >
-              Book Free Consult
+              {isTagalog ? TL_CHROME.book : 'Book Free Consult'}
             </Link>
           </li>
         </ul>
