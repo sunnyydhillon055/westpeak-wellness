@@ -48,7 +48,14 @@ export type CronHealth = Record<string, CronRun>;
 export const EXPECTED_EVERY_HOURS: Record<string, number> = {
   'cliniko-sync': 2,
   'booking-mail': 2,
-  'reply-watch': 24,      // weekdays; 24 keeps a Monday from alarming after a weekend
+  /* WEEKDAYS ONLY, AND THE ARITHMETIC HAS TO ALLOW FOR IT. This said 24 with
+     a comment claiming that kept Monday quiet. It did not: the grace is twice
+     the interval, Friday 16:00 to Monday 16:00 is 72 hours, and 48 is less
+     than 72 — so every Monday would have produced a false alarm the moment
+     anything acted on this. Harmless while nothing did; a weekly cry of wolf
+     the day a watchdog was wired in. 48 gives four days, which clears a
+     weekend and still catches a genuine stop inside the week. */
+  'reply-watch': 48,
   nurture: 24,
   'waitlist-checkin': 168,
   'funnel-report': 744,   // monthly
@@ -122,4 +129,106 @@ export function cronProblems(health: CronHealth, now = Date.now()): CronRun[] {
     }
   }
   return out;
+}
+
+/* ============================================================================
+   TELLING SOMEBODY, WHICH IS THE PART THAT WAS MISSING
+   ----------------------------------------------------------------------------
+   Everything above this line detects a stopped job. Nothing acted on it. The
+   verdict was rendered in /admin and /admin is a page somebody has to decide
+   to open — which, on the day every job silently stops, nobody does, because
+   there is no symptom to send them there. A monitor that only answers when
+   asked is a monitor for a problem you already suspect.
+
+   So the watchdog emails. It is called from booking-mail, which runs every two
+   hours and is therefore the job most likely to still be alive.
+
+   WHO WATCHES THIS ONE. Nothing here does, and pretending otherwise would be
+   worse than saying it: if booking-mail is the job that dies, the watchdog
+   dies with it and the silence is complete. Two things make that less bad than
+   it sounds — booking-mail is one of two jobs on the shortest schedule, so it
+   is the least likely to be the one that stops, and its own absence is still
+   visible in /admin next to everything else. A genuinely external check is
+   uptime monitoring, which is a separate item and a separate kind of thing.
+
+   IT DOES NOT EMAIL EVERY TWO HOURS. A monitor that repeats itself twelve
+   times a day is a monitor that gets filtered to a folder, and then it has
+   made things worse than no monitor at all. One alert per job, then silence
+   for a day, then one more if it is still broken.
+   ========================================================================= */
+
+const ALERT_KEY = 'ops/cron-alerts.json';
+const REALERT_AFTER_MS = 24 * 3_600_000;
+
+type AlertLog = Record<string, string>;
+
+async function readAlertLog(): Promise<AlertLog> {
+  if (!process.env.BLOB_READ_WRITE_TOKEN) return {};
+  try {
+    const hit = await get(ALERT_KEY, { access: 'private' });
+    if (!hit || hit.statusCode !== 200 || !hit.stream) return {};
+    return (await new Response(hit.stream).json()) as AlertLog;
+  } catch {
+    return {};
+  }
+}
+
+/**
+ * Checks every job, emails the practice about any that are newly broken, and
+ * returns what it decided. Never throws — see the note at the top of the file.
+ *
+ * `send` is injected rather than imported so this module stays free of the
+ * mail client. lib/cron-health.ts is imported by six route handlers; making it
+ * pull in the mailer would put the mailer in all six.
+ */
+export async function runCronWatchdog(
+  send: (subject: string, text: string) => Promise<unknown>,
+  now = Date.now()
+): Promise<{ problems: string[]; alerted: string[] }> {
+  try {
+    const problems = cronProblems(await readCronHealth(), now);
+    if (!problems.length) return { problems: [], alerted: [] };
+
+    const log = await readAlertLog();
+    const due = problems.filter((p) => {
+      const last = log[p.job];
+      if (!last) return true;
+      const since = now - new Date(last).getTime();
+      return !Number.isFinite(since) || since > REALERT_AFTER_MS;
+    });
+
+    if (due.length) {
+      const lines = due.map((p) => `  ${p.job} — ${p.detail}`).join('\n');
+      const subject =
+        due.length === 1
+          ? `Scheduled job not running: ${due[0]!.job}`
+          : `${due.length} scheduled jobs are not running`;
+      await send(
+        subject,
+        'One or more background jobs on westpeakwellness.com have stopped ' +
+          'reporting, or reported a failure.\n\n' +
+          `${lines}\n\n` +
+          'What this can mean in practice: confirmations and follow-ups may not ' +
+          'be going out, the reply-time check may not be running, and the ' +
+          'monthly report may not arrive.\n\n' +
+          'The full picture is at /admin. This message is sent once per job, ' +
+          'then at most once a day while the problem lasts.'
+      );
+
+      const next: AlertLog = { ...log };
+      for (const p of due) next[p.job] = new Date(now).toISOString();
+      /* Written only after the send resolves. If the mail throws, nothing is
+         recorded and the next run tries again — the failure mode of an alert
+         system must be repeating itself, never swallowing itself. */
+      await put(ALERT_KEY, JSON.stringify(next, null, 2), {
+        access: 'private', contentType: 'application/json',
+        addRandomSuffix: false, allowOverwrite: true, cacheControlMaxAge: 0,
+      });
+    }
+
+    return { problems: problems.map((p) => p.job), alerted: due.map((p) => p.job) };
+  } catch (e) {
+    console.error('[cron-watchdog] failed:', e instanceof Error ? e.message : e);
+    return { problems: [], alerted: [] };
+  }
 }

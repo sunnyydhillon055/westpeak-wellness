@@ -237,6 +237,7 @@ export const policies: Record<string, Policy> = {
         body: [
           'Records are stored in encrypted, access-controlled systems, and video sessions are conducted over a platform that supports the privacy obligations of a BC health professional. Sessions are **never recorded** — not for notes, not for supervision, not for training.',
           'Records are retained for the period required by professional standards and applicable law, then securely destroyed. You are entitled to ask how long your specific file will be kept, and to receive that answer in writing.',
+          'Anything sent through a form on this website — a message, a waitlist note, a request for a guide — is held separately from clinical records and is **deleted automatically after 24 months**. That is a fixed period rather than a judgement call: the purpose it was collected for is answering you, and that purpose expires. Two years leaves room for someone who enquired, waited and came back, which is a real pattern, without the practice quietly accumulating an archive of what people wrote before they had met anyone.',
           'You have the right to request access to your own records and to request correction of factual errors in them. Requests go to the address on the [contact page](/contact). Where a portion of a file cannot be released — for example, because it contains information about another person — you are told that, and told why.',
         ],
       },
@@ -265,12 +266,14 @@ export const policies: Record<string, Policy> = {
         h2: 'Your rights, and where to complain',
         body: [
           'In British Columbia, private organisations handling personal information are governed by the **Personal Information Protection Act (PIPA)**. Under it you have the right to know what personal information is held about you, to access it, to request correction, and to withdraw consent to further collection or use — recognising that withdrawing consent may make it impossible to continue providing the service.',
+          'You can also ask for anything you sent through this website to be erased before the 24 months are up, and it will be — every message from your address, not only the one you happen to remember. Write to the address on the [contact page](/contact) and say so; you will be told when it is done. This is deliberately a request to a person rather than a button on this site: a self-service delete would have to confirm whether an address is in the system before removing it, and on a counselling website confirming that somebody wrote in is itself a disclosure — one available to anyone who could guess an address.',
+          'Clinical records are the exception, and not a discretionary one. Once counselling has begun, a counsellor is required by professional standards to keep the file for a set period; it cannot be erased on request, and anyone who tells you otherwise is describing a different kind of service. Erasure here means website enquiries.',
           'If you believe your information has been mishandled, you can raise it with the practice directly, and you can complain independently to the **Office of the Information and Privacy Commissioner for British Columbia**. You do not need this practice\'s agreement to do so.',
         ],
       },
     ],
     sources: [
-      { label: 'Personal Information Protection Act (British Columbia)', url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/employment-standards' },
+      { label: 'Personal Information Protection Act (British Columbia)', url: 'https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/03063_01' },
       { label: 'Office of the Information and Privacy Commissioner for BC', url: 'https://www.oipc.bc.ca/' },
       { label: 'BC child protection — duty to report', url: 'https://www2.gov.bc.ca/gov/content/safety/public-safety/protecting-children/reporting-child-abuse' },
     ],

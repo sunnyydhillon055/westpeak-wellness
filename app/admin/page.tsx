@@ -7,7 +7,8 @@ import { readClients } from '@/lib/clients';
 import { readAvailability, DAYS } from '@/lib/availability';
 import { listPasswordAccounts } from '@/lib/portal-users';
 import { clinikoConfigured } from '@/lib/cliniko';
-import { recentInbound, markHandled } from '@/lib/inbound';
+import { recentInbound, markHandled, deleteInbound } from '@/lib/inbound';
+import { recordAudit, recentAudit } from '@/lib/admin-audit';
 import { topSearchTerms, readSearchTerms, searchGaps } from '@/lib/search-log';
 import { REPLY_TEMPLATES, mailtoFor, businessDaysWaiting, replyTimeStats } from '@/lib/reply-templates';
 import { eventTotals, topPagesFor } from '@/lib/conversion-log';
@@ -88,6 +89,7 @@ export default async function AdminPage({
   const avail = await readAvailability({ fresh: true });
   const withPasswords = await listPasswordAccounts();
   const inbox = await recentInbound(40);
+  const audit = await recentAudit(30);
   const waiting = inbox.filter((i) => !i.handled).length;
   const monthlyOptIns = inbox.filter((i) => i.monthlyOptIn).length;
   const searches = await topSearchTerms(30);
@@ -423,6 +425,42 @@ export default async function AdminPage({
                       >
                         <button type="submit" className="btn btn--ghost btn--sm">
                           {i.handled ? 'Reopen' : 'Done'}
+                        </button>
+                      </form>
+                      {/* Erasure, for somebody who has asked to be forgotten.
+                          Separate from Done deliberately: one is workflow, the
+                          other is irreversible, and putting them side by side
+                          without a confirm is how the wrong one gets pressed.
+                          The record is removed outright rather than flagged —
+                          a "deleted" row still in the file has not been
+                          deleted, and saying otherwise to the person who asked
+                          would be untrue. */}
+                      <form
+                        action={async () => {
+                          'use server';
+                          const s = await auth();
+                          const who = s?.user?.email ?? '';
+                          if (!who || !isAdmin(who)) return;
+                          const gone = await deleteInbound(i.id);
+                          if (gone) {
+                            /* The id and kind only. An audit line that quoted
+                               what was deleted would have moved the data, not
+                               removed it. */
+                            await recordAudit({
+                              actor: who,
+                              action: 'delete enquiry',
+                              subject: `${i.kind} ${i.id}`,
+                            });
+                          }
+                          revalidatePath('/admin');
+                        }}
+                      >
+                        <button
+                          type="submit"
+                          className="btn btn--ghost btn--sm"
+                          style={{ marginTop: 4, color: 'var(--danger, #9a3412)' }}
+                        >
+                          Erase
                         </button>
                       </form>
                     </td>
@@ -912,6 +950,40 @@ export default async function AdminPage({
             <button type="submit" className="btn btn--primary">Sync from Cliniko now</button>
           </form>
         </div>
+
+        <h2 id="audit" style={{ marginTop: 44 }}>Recent changes</h2>
+        {/* Not a security control — anyone who can reach this page can reach
+            the store behind it. It answers the ordinary question instead: two
+            people share this login, something is missing, and nobody could say
+            what happened. Actions and identifiers only; never what changed,
+            because an erasure log that quoted what was erased would have moved
+            the data rather than removed it. */}
+        {audit.length === 0 ? (
+          <p className="admin-meta">
+            Nothing recorded yet. Adding, editing, removing a client and erasing an enquiry
+            are logged here from now on.
+          </p>
+        ) : (
+          <div className="admin-table-wrap">
+            <table className="admin-table">
+              <thead>
+                <tr><th>When</th><th>Who</th><th>Action</th><th>What</th></tr>
+              </thead>
+              <tbody>
+                {audit.map((a, n) => (
+                  <tr key={`${a.at}-${n}`}>
+                    <td style={{ whiteSpace: 'nowrap' }}>
+                      {new Date(a.at).toLocaleString('en-CA', { timeZone: 'America/Vancouver' })}
+                    </td>
+                    <td>{a.actor}</td>
+                    <td>{a.action}</td>
+                    <td style={{ fontSize: '.9em', color: 'var(--ink-faint)' }}>{a.subject}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
 
         <p className="admin-meta" style={{ marginTop: 34 }}>
           Signed in as {email}. Client changes take effect on the person&rsquo;s next request.

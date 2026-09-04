@@ -4,6 +4,7 @@ import { isAdmin } from '@/lib/portal-store';
 import { readClients, writeClients, newId, type ClientRecord, type ClientStatus } from '@/lib/clients';
 import { normalizeEmail } from '@/lib/portal-auth';
 import { clearPassword } from '@/lib/portal-users';
+import { recordAudit } from '@/lib/admin-audit';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -65,5 +66,13 @@ export async function POST(req: Request) {
 
   const res = await writeClients(next, admin, version >= 0 ? version : book.version);
   if (!res.ok) return back('c=conflict');
+  /* Logged after the write succeeds, never before. An audit line for a change
+     that was refused by the version check would be a record of something that
+     did not happen, which is worse than no record. */
+  await recordAudit({
+    actor: admin,
+    action: `client ${action}`,
+    subject: String(form.get('email') ?? form.get('id') ?? ''),
+  });
   return back(`c=${action}`);
 }

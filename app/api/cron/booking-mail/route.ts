@@ -1,6 +1,8 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { runBookingNotifications } from '@/lib/booking-notify';
-import { withCronHealth } from '@/lib/cron-health';
+import { withCronHealth, runCronWatchdog } from '@/lib/cron-health';
+import { sendDetailed } from '@/lib/portal-mail';
+import { site } from '@/lib/site';
 
 /* Confirmation and follow-up email from westpeakwellness.com.
  *
@@ -44,6 +46,27 @@ export async function GET(req: NextRequest) {
   /* Wrapped so a throw becomes a recorded failure rather than a 500 that
      nobody reads. See lib/cron-health.ts. */
   const run = await withCronHealth('booking-mail', () => runBookingNotifications({ dry }));
+
+  /* Every other job is checked from here, because this one runs every two
+     hours and is therefore the likeliest to still be alive. Deliberately
+     AFTER the job's own work and never awaited into its result: the watchdog
+     is an observer and must not be able to change what booking-mail did.
+     Skipped on a dry run — a rehearsal must not send real mail. */
+  const watchdog = dry
+    ? { problems: [], alerted: [] }
+    : await runCronWatchdog((subject, text) =>
+        /* Escaped, not interpolated raw. The body carries error-message text
+           from whatever threw, and a mail client renders HTML — an error
+           containing a tag would otherwise reshape the alert. */
+        sendDetailed(
+          site.email,
+          subject,
+          text,
+          `<pre>${text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</pre>`
+        ));
+  if (watchdog.alerted.length) {
+    console.warn('[cron-watchdog] alerted about:', watchdog.alerted.join(', '));
+  }
   if (!run.ok) {
     return NextResponse.json({ ok: false, job: 'booking-mail', error: run.error }, { status: 500 });
   }

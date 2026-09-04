@@ -213,9 +213,7 @@ export async function addInbound(
   };
 
   const current = await readInbound({ fresh: true });
-  /* Bounded, newest last. 1,000 is years for a solo practice, and anything
-   * older has either been answered or is long past being answerable. */
-  const items = [...current.items, item].slice(-1000);
+  const items = prune([...current.items, item]);
   const value: InboundBook = { items, version: current.version + 1, updatedAt: item.createdAt };
 
   cache = { at: Date.now(), value };
@@ -234,6 +232,96 @@ export async function addInbound(
 }
 
 /** Marks one item answered. Returns false if the id is unknown. */
+/* ============================================================================
+   HOW LONG THIS IS KEPT, WHICH USED TO BE "UNTIL THERE ARE A THOUSAND"
+   ----------------------------------------------------------------------------
+   The cap was a count, and a count is not a retention policy. A thousand
+   records at this practice's volume is several years, so the oldest entry in
+   the store had no fixed age at all — it depended entirely on how busy the
+   intervening period happened to be. A quiet year meant messages from 2026
+   still sitting there in 2030.
+
+   That matters more than an ordinary contact form because of what is in these
+   records. The message field is where somebody describes, in their own words
+   and before they have met anyone, what is wrong. Under BC's Personal
+   Information Protection Act that is personal information kept for a purpose,
+   and the purpose — answering them — expires. Keeping it afterwards is not
+   caution, it is accumulating a liability that grows on its own.
+
+   TWO BOUNDS, EITHER OF WHICH CAN BITE. Twenty-four months, and a thousand
+   records. The age bound is the policy; the count is a backstop against a
+   burst that a limiter did not catch, so the file cannot grow without limit
+   between two slow days.
+
+   TWENTY-FOUR MONTHS AND NOT LESS. PIPA requires information used to make a
+   decision about someone be kept a minimum of one year so they can ask what
+   was decided. Doubling that leaves room for a person who enquired, waited,
+   and came back — which is a real pattern here — without the store becoming an
+   archive. Anyone who became a client is in Cliniko, which is the record
+   system; this is an inbox.
+   ========================================================================= */
+
+const RETAIN_MONTHS = 24;
+const MAX_RECORDS = 1000;
+
+export function prune(items: Inbound[], now = Date.now()): Inbound[] {
+  const cutoff = now - RETAIN_MONTHS * 30.44 * 24 * 3_600_000;
+  const kept = items.filter((i) => {
+    const t = Date.parse(i.createdAt);
+    /* An unparseable date is kept, not dropped. A malformed record is a bug to
+       find, and silently deleting somebody's message because a timestamp did
+       not parse is the worse of the two failures. */
+    return !Number.isFinite(t) || t >= cutoff;
+  });
+  return kept.slice(-MAX_RECORDS);
+}
+
+/**
+ * Deletes one record outright, for somebody who has asked to be forgotten.
+ *
+ * Removes the row rather than flagging it: a "deleted" flag on a record that
+ * is still in the file is not a deletion, and answering a deletion request
+ * with one would be untrue.
+ *
+ * Returns false if there was nothing to delete, which the caller must NOT
+ * distinguish to an unauthenticated user — see app/privacy for why the request
+ * route is a human one rather than a self-serve endpoint.
+ */
+export async function deleteInbound(id: string): Promise<boolean> {
+  const current = await readInbound({ fresh: true });
+  const items = current.items.filter((i) => i.id !== id);
+  if (items.length === current.items.length) return false;
+  await commit(items);
+  return true;
+}
+
+/** Every record from one address. A person asking to be forgotten means all of
+ *  them, not the one they happen to remember. */
+export async function deleteInboundByEmail(email: string): Promise<number> {
+  const target = email.trim().toLowerCase();
+  if (!target) return 0;
+  const current = await readInbound({ fresh: true });
+  const items = current.items.filter((i) => i.email.trim().toLowerCase() !== target);
+  const removed = current.items.length - items.length;
+  if (removed) await commit(items);
+  return removed;
+}
+
+async function commit(items: Inbound[]): Promise<void> {
+  const current = await readInbound({ fresh: true });
+  const value: InboundBook = {
+    items, version: current.version + 1, updatedAt: new Date().toISOString(),
+  };
+  cache = { at: Date.now(), value };
+  lastWrite = { at: Date.now(), value };
+  if (process.env.BLOB_READ_WRITE_TOKEN) {
+    await put(KEY, JSON.stringify(value, null, 2), {
+      access: 'private', contentType: 'application/json',
+      addRandomSuffix: false, allowOverwrite: true, cacheControlMaxAge: 0,
+    });
+  }
+}
+
 export async function markHandled(id: string, handled = true): Promise<boolean> {
   const current = await readInbound({ fresh: true });
   const idx = current.items.findIndex((i) => i.id === id);
