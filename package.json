@@ -27,7 +27,7 @@
     "visual": "node scripts/visual-audit.mjs",
     "rank:plan": "node scripts/city-rank.mjs --plan",
     "indexnow": "node scripts/indexnow.mjs",
-    "verify:ci": "npm run lint && npm run test && npm run fresh && npm run seo && node scripts/expansion-verify.mjs && npm run schema && npm run budget && npm run uniqueness && npm run cta && npm run internal && npm run parity && npm run meta && npm run contrast && npm run palette && npm run triage && npm run payment && npm run booking && npm run quality && npm run visual && npm run redirect-shadow && node scripts/soft-gate.mjs 2 npm run price-drift",
+    "verify:ci": "npm run lint && npm run test && npm run fresh && npm run seo && node scripts/expansion-verify.mjs && npm run schema && npm run budget && npm run composition && npm run uniqueness && npm run cta && npm run internal && npm run parity && npm run meta && npm run contrast && npm run palette && npm run triage && npm run payment && npm run booking && npm run quality && npm run visual && npm run redirect-shadow && node scripts/soft-gate.mjs 2 npm run price-drift && npm run smoke",
     "verify": "npm run fresh && npm run seo && node scripts/expansion-verify.mjs && npm run schema && npm run budget && npm run uniqueness && npm run cta && npm run internal && npm run parity && npm run meta && npm run contrast && npm run palette && npm run triage && npm run payment && npm run booking && npm run links && npm run quality && npm run visual && (npm run drift || echo \"  (price drift not checked - CLINIKO_API_KEY not set on this machine)\")",
     "scan": "node scripts/competitor-scan.mjs",
     "offsite": "node scripts/offsite-probe.mjs",
@@ -43,8 +43,10 @@
     "fresh": "node scripts/build-freshness.mjs",
     "link-rot": "node scripts/link-rot.mjs",
     "price-drift": "node --experimental-strip-types --no-warnings scripts/price-drift.mjs",
-    "verify:weekly": "npm run link-rot && npm run offsite",
-    "test": "node --import ./test/resolve-alias.mjs --experimental-strip-types --test test/**/*.test.mts"
+    "verify:weekly": "npm run link-rot && npm run offsite && npm run audit",
+    "test": "node --import ./test/resolve-alias.mjs --experimental-strip-types --test test/**/*.test.mts",
+    "audit": "npm audit --omit=dev --audit-level=high",
+    "composition": "node scripts/bundle-composition.mjs"
   },
   "dependencies": {
     "@next/third-parties": "^16.3.0",
@@ -65,5 +67,8 @@
   },
   "engines": {
     "node": ">=22.6.0"
+  },
+  "overrides": {
+    "postcss": "^8.5.28"
   }
 }
