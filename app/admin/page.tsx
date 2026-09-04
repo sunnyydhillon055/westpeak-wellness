@@ -9,6 +9,7 @@ import { listPasswordAccounts } from '@/lib/portal-users';
 import { clinikoConfigured } from '@/lib/cliniko';
 import { recentInbound, markHandled, deleteInbound } from '@/lib/inbound';
 import { recordAudit, recentAudit } from '@/lib/admin-audit';
+import { readCatalog } from '@/lib/cliniko-catalog';
 import { topSearchTerms, readSearchTerms, searchGaps } from '@/lib/search-log';
 import { REPLY_TEMPLATES, mailtoFor, businessDaysWaiting, replyTimeStats } from '@/lib/reply-templates';
 import { eventTotals, topPagesFor } from '@/lib/conversion-log';
@@ -90,6 +91,7 @@ export default async function AdminPage({
   const withPasswords = await listPasswordAccounts();
   const inbox = await recentInbound(40);
   const audit = await recentAudit(30);
+  const catalog = await readCatalog();
   const waiting = inbox.filter((i) => !i.handled).length;
   const monthlyOptIns = inbox.filter((i) => i.monthlyOptIn).length;
   const searches = await topSearchTerms(30);
@@ -935,6 +937,31 @@ export default async function AdminPage({
           </form>
 
           <hr style={{ border: 'none', borderTop: '1px solid var(--rule)', margin: '22px 0 18px' }} />
+
+          {/* WHETHER THE PUBLIC FEES ARE THE REAL ONES.
+              readCatalog() has always returned `live` — true when the prices
+              came from Cliniko, false when they are the hardcoded fallback —
+              and nothing anywhere read it. So a lapsed API key showed as a
+              working site: /pricing kept rendering, from a copy of the fees
+              that stops being checked the moment the connection stops working.
+              Silent, and on the page where being wrong costs the most. */}
+          <p role="status" className={catalog.live ? 'admin-ok' : 'portal-gate-error'} style={{ marginTop: 0 }}>
+            {catalog.live ? (
+              <>
+                <strong>Fees on /pricing are live from Cliniko.</strong>{' '}
+                {catalog.fetchedAt
+                  ? `Last read ${new Date(catalog.fetchedAt).toLocaleString('en-CA', { timeZone: 'America/Vancouver' })}.`
+                  : ''}
+              </>
+            ) : (
+              <>
+                <strong>Fees on /pricing are the built-in fallback, not Cliniko.</strong>{' '}
+                The page still works and the numbers still match what was last verified, but
+                a fee changed in Cliniko will not appear until the connection is working.
+                Check the key, then use Sync now.
+              </>
+            )}
+          </p>
 
           <p style={{ marginTop: 0 }}>
             Every active Cliniko patient is pulled onto the list automatically every two hours,

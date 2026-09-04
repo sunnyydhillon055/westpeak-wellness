@@ -47,6 +47,11 @@ export type CronHealth = Record<string, CronRun>;
  *  running at all — which looks identical to "never failed" without this. */
 export const EXPECTED_EVERY_HOURS: Record<string, number> = {
   'cliniko-sync': 2,
+  /* The price catalogue, watched separately from the patient sync it rides
+     with. They fail independently and for different reasons, and folding them
+     together meant a catalogue that had failed for a month still reported
+     healthy because the patient half succeeded. */
+  'cliniko-catalog': 2,
   'booking-mail': 2,
   /* WEEKDAYS ONLY, AND THE ARITHMETIC HAS TO ALLOW FOR IT. This said 24 with
      a comment claiming that kept Monday quiet. It did not: the grace is twice

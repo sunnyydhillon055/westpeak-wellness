@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { syncClientsFromCliniko } from '@/lib/cliniko-sync';
 import { refreshCatalog } from '@/lib/cliniko-catalog';
 import { sendPortalInvites } from '@/lib/portal-invite';
-import { withCronHealth } from '@/lib/cron-health';
+import { withCronHealth, recordCronRun } from '@/lib/cron-health';
 
 /* Nightly Cliniko -> client list sync.
  *
@@ -52,8 +52,28 @@ export async function GET(req: NextRequest) {
   const catalog = await refreshCatalog();
   if (!catalog.ok) {
     console.error('[cliniko-sync] catalog refresh failed:', catalog.reason);
+    /* RECORDED AS A JOB FAILURE, WHICH IT WAS NOT BEING.
+     *
+     * This ran before withCronHealth and outside it, so a catalogue refresh
+     * could fail on every run for a month and cron health would report
+     * cliniko-sync as fine — the patient sync below succeeded, and that was
+     * the only half being watched. Meanwhile /pricing quietly served the
+     * built-in fallback fees with nothing anywhere saying so.
+     *
+     * Recorded under its own job name rather than folded into cliniko-sync,
+     * because they fail independently and for different reasons: this one is
+     * usually the key, that one is usually a patient record. Two names means
+     * the alert email says which. */
+    await recordCronRun({
+      job: 'cliniko-catalog',
+      ok: false,
+      detail: String(catalog.reason ?? 'catalog refresh failed').slice(0, 200),
+    });
   } else if (catalog.changed) {
     console.log('[cliniko-sync] catalogue CHANGED — prices or durations differ from the last run');
+    await recordCronRun({ job: 'cliniko-catalog', ok: true, detail: 'prices changed' });
+  } else {
+    await recordCronRun({ job: 'cliniko-catalog', ok: true, detail: 'unchanged' });
   }
 
   const dry = req.nextUrl.searchParams.get('dry') === '1';

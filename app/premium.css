@@ -2422,6 +2422,35 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
     min-width: 0 !important; width: 100% !important;
   }
 
+  /* THE DIAGRAMS HAD THE SAME BUG THE TABLES DID, AND IT WAS NOT FIXED WITH
+     THEM. .table-scroll is handled sixteen lines above with a comment about a
+     scroll container being a lie on paper. .figure-scroll is the identical
+     construction — overflow-x:auto around an image with min-width:660px — and
+     it was left out. Every diagram on this site is 1040 pixels wide, so on
+     paper the right-hand third was silently cut off: on panic-vs-anxiety that
+     is the anxiety curve and its legend, which is half the comparison the
+     picture exists to make.
+
+     A person printing a guide about panic is usually printing it for somebody
+     who is not going to read it on a screen. */
+  .figure-scroll {
+    overflow: visible !important;
+    background: none !important;
+    border: 0 !important;
+  }
+  .figure img {
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* "Scroll the diagram sideways to see all of it." — a screen-only
+     instruction, printed on paper, describing a gesture the reader cannot
+     make. It is hidden on desktop and shown on narrow screens, so it prints
+     on exactly the pages somebody printed from a phone. The stylesheet already
+     has a rule for this class of thing and the hint was not in it. */
+  .figure-hint { display: none !important; }
+
   /* Chrome, prompts and anything that cannot be acted on from paper. */
   .site-header, .site-footer, .cta-band, .lead-form,
   /* `.crumbs`, not `.breadcrumbs` — the component renders class="crumbs" and
@@ -2775,4 +2804,36 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
   .nav-links{ gap: 2px }
   .nav-links > li:not(.nav-cta) > a{ padding-left: 8px; padding-right: 8px; font-size: .92rem }
   .nav-portal > a{ padding-left: 10px !important; padding-right: 10px !important }
+}
+
+
+/* ============================================================================
+   A METERED OR SLOW CONNECTION
+   ----------------------------------------------------------------------------
+   prefers-reduced-data is the browser telling you the visitor is paying for
+   this by the megabyte, or is on something slow enough that they have asked
+   for less. Some of this site's audience reaches it on mobile data, and the
+   pages people arrive on in a bad moment are the ones carrying the artwork.
+
+   The DIAGRAMS STAY. They are content — the comparison a guide is making, in
+   the form some readers take it in — and dropping them would be answering
+   "send me less" with "understand less". They are also SVG, so they are
+   kilobytes, not megabytes.
+
+   What goes is the decoration: the scene bands, the motifs, the grain overlay
+   and the photographic portraits, which are the actual weight on the page and
+   carry no information. Nothing here changes layout enough to move content
+   around; the space simply stops being filled.
+   ========================================================================= */
+@media (prefers-reduced-data: reduce) {
+  .figure--decorative, .motif, .section-divider img, .portrait-bloom {
+    display: none !important;
+  }
+  :root { --grain: none; }
+  .scene, .hero::after, .hero::before {
+    background-image: none !important;
+  }
+  /* Portraits become the space they occupied rather than vanishing, so a
+     profile page does not reflow into something unrecognisable. */
+  .photo img { visibility: hidden; }
 }
