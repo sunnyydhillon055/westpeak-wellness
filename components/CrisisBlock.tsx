@@ -32,7 +32,7 @@ export default function CrisisBlock({
       <ul>
         {lines.map((l) => (
           <li key={l.number}>
-            <strong>{l.name}</strong> —{' '}
+            <strong>{l.name}</strong>, {' '}
             <a href={`tel:${l.dial}`}>{l.number}</a>
             <br />
             <span style={{ color: 'var(--ink-faint)', fontSize: '.92em' }}>{l.detail}</span>

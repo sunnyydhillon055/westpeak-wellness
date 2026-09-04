@@ -31,7 +31,7 @@ const COPY = {
     action: '/api/enquiry',
     title: 'Rather ask a question first?',
     note: 'Send a message instead of booking. It reaches the practice directly and you will have a reply within one business day.',
-    placeholder: 'A sentence is genuinely enough — what is going on, or what you want to know.',
+    placeholder: 'A sentence is genuinely enough, what is going on, or what you want to know.',
     button: 'Send message',
     doneTitle: 'Your message has arrived.',
     doneBody:
@@ -46,7 +46,7 @@ const COPY = {
     button: 'Add me to the waitlist',
     doneTitle: 'Your availability is noted.',
     doneBody:
-      'This is a real waitlist rather than a formality — when something opens that fits, you will hear directly. A confirmation is in your inbox.',
+      'This is a real waitlist rather than a formality, when something opens that fits, you will hear directly. A confirmation is in your inbox.',
     event: 'waitlist_submit',
   },
 } as const;
@@ -157,7 +157,7 @@ export default function InboundForm({
 
       {done === 'err' && (
         <p className="lead-form-note" role="alert" style={{ color: 'var(--clay-deep)' }}>
-          That did not go through — please check the email address and try again.
+          That did not go through, please check the email address and try again.
         </p>
       )}
 
@@ -167,7 +167,7 @@ export default function InboundForm({
 
       <p className="lead-form-note">
         {kind === 'enquiry'
-          ? 'Please keep anything clinical for the session itself — ordinary email is not a secure channel. If you are in immediate danger call 911, or call or text 9-8-8 for urgent mental-health support in BC.'
+          ? 'Please keep anything clinical for the session itself, ordinary email is not a secure channel. If you are in immediate danger call 911, or call or text 9-8-8 for urgent mental-health support in BC.'
           : 'Your address is used for this and nothing else. It does not create a client record and there is no mailing list.'}
       </p>
     </form>

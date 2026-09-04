@@ -29,11 +29,11 @@ export const metadata: Metadata = {
  * useful for deciding whether to talk to someone. */
 const REFLECTIONS: Record<string, string> = {
   arousal:
-    'Several answers point at a nervous system that has not been getting the chance to settle — sleep that will not come, a body that stays tense, a mind that replays things. That is a recognisable pattern and it responds well to being worked on directly.',
+    'Several answers point at a nervous system that has not been getting the chance to settle: sleep that will not come, a body that stays tense, a mind that replays things. That is a recognisable pattern and it responds well to being worked on directly.',
   low:
     'Several answers describe flatness rather than distress: less enjoyment, more weight, less motivation. That is worth taking as seriously as anxiety, and it tends to be quieter about announcing itself.',
   load:
-    'What stands out is load rather than any single symptom — the sense that the current arrangement is not sustainable for another six months. That is useful information on its own.',
+    'What stands out is load rather than any single symptom. The sense that the current arrangement is not sustainable for another six months. That is useful information on its own.',
   self:
     'One answer stands out: when things go wrong, the explanation you reach for is that it is your fault. That habit is one of the more changeable things in this list.',
   seen:
@@ -51,7 +51,7 @@ export default function Page() {
         <>
           Six questions to help put words to how the last few weeks have actually been. This is
           not a screening test, it produces no score, and it cannot tell you whether you have
-          anything — it just reflects back what you said. Nothing is stored.
+          anything. It just reflects back what you said. Nothing is stored.
         </>
       }
     >
@@ -66,7 +66,7 @@ export default function Page() {
           <p>
             This deliberately produces no number and no category. A score would be read as a
             diagnosis however carefully it were captioned, and this is not a validated screening
-            instrument — it has no research behind it, and implying otherwise would breach the
+            instrument. It has no research behind it, and implying otherwise would breach the
             advertising standards a Registered Clinical Counsellor works under. What it does
             instead is reflect your answers back, which is genuinely useful for deciding whether
             to talk to someone.
@@ -82,7 +82,7 @@ export default function Page() {
             distinction that changes what helps.
           </p>
           <p>
-            Nothing you enter is stored, sent or logged — it lives in the page and is gone when you
+            Nothing you enter is stored, sent or logged. It lives in the page and is gone when you
             close it, which is set out in full on{' '}
             <Link href="/privacy">privacy and confidentiality</Link>. If any of it lands, that is a
             reasonable thing to bring to a{' '}

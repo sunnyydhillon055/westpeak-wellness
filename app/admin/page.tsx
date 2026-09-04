@@ -22,7 +22,7 @@ import { site } from '@/lib/site';
 import { revalidatePath } from 'next/cache';
 
 export const metadata: Metadata = {
-  title: { absolute: 'Practice admin — Westpeak Wellness' },
+  title: { absolute: 'Practice admin | Westpeak Wellness' },
   robots: { index: false, follow: false },
 };
 export const runtime = 'nodejs';
@@ -36,10 +36,10 @@ const CLIENT_MSG: Record<string, string> = {
   remove: 'Removed, and any password for that address was cleared with it.',
   duplicate: 'That email is already on the list. Nothing was changed.',
   bademail: 'That does not look like an email address. Nothing was changed.',
-  missing: 'That client no longer exists — the list may have changed in another tab.',
+  missing: 'That client no longer exists. The list may have changed in another tab.',
   conflict:
     'Someone else changed the list while this page was open, so nothing was saved. ' +
-    'The table below is now current — make the change again.',
+    'The table below is now current, make the change again.',
   unknown: 'Nothing was changed.',
 };
 const AVAIL_MSG: Record<string, string> = {
@@ -49,14 +49,14 @@ const AVAIL_MSG: Record<string, string> = {
   missing: 'That entry no longer exists.',
 };
 const PW_MSG: Record<string, string> = {
-  set: 'Password set. Give it to the client directly — it is not emailed to them.',
+  set: 'Password set. Give it to the client directly. It is not emailed to them.',
   cleared: 'Password removed. That client can now only sign in with Google.',
   short: 'Nothing changed: passwords must be at least 10 characters.',
   missing: 'Nothing changed: no email address was given.',
   error: 'Could not save that. Nothing changed.',
 };
 const CLINIKO_MSG: Record<string, string> = {
-  found: 'Connected, and Cliniko recognised that address — Cliniko patients can sign in without being listed here.',
+  found: 'Connected, and Cliniko recognised that address, Cliniko patients can sign in without being listed here.',
   'not-found': 'Connected, and Cliniko has no patient with that address. The key works; try one you know is in Cliniko.',
   unconfigured: 'No CLINIKO_API_KEY is set, so Cliniko is not consulted at all.',
   'bad-key': 'Cliniko rejected the key. Check it was copied whole, including the shard suffix.',
@@ -202,14 +202,14 @@ export default async function AdminPage({
                 : 'Some things are not switched on'}
             </h2>
             <p style={{ color: 'var(--ink-soft)', maxWidth: '40.38em' }}>
-              Each of these fails quietly — nothing errors, nothing bounces, and the only way to
+              Each of these fails quietly. Nothing errors, nothing bounces, and the only way to
               notice is to look. Nothing below reports a password or a key, only whether one is set.
             </p>
             <ul style={{ listStyle: 'none', padding: 0, margin: '18px 0 0', display: 'grid', gap: 14 }}>
               {healthProblems().map((c) => (
                 <li key={c.id} style={{ paddingLeft: 14, borderLeft: '2px solid var(--line)' }}>
                   <p style={{ margin: 0, fontWeight: 600 }}>
-                    {c.severity === 'critical' ? '✕ ' : '• '}{c.title} — <em>no</em>
+                    {c.severity === 'critical' ? '✕ ' : '• '}{c.title}, <em>no</em>
                     {c.severity !== 'critical' && (
                       <span style={{ color: 'var(--ink-faint)', fontWeight: 400, fontSize: '.86rem' }}>
                         {' '}({c.severity === 'degraded' ? 'degraded' : 'optional'})
@@ -267,7 +267,7 @@ export default async function AdminPage({
         <h2 id="inbox" style={{ marginTop: 40 }}>Inbox</h2>
         <p style={{ color: 'var(--ink-soft)', maxWidth: '40.38em' }}>
           Messages, waitlist requests and checklist signups from the site. Each one was also
-          emailed to <strong>{site.email}</strong> as it arrived — this is the copy that
+          emailed to <strong>{site.email}</strong> as it arrived. This is the copy that
           survives if that email is missed, and the record that a reply is owed.
         </p>
         {/* Shown so the list is visible before anybody builds a monthly send.
@@ -276,7 +276,7 @@ export default async function AdminPage({
         {monthlyOptIns > 0 && (
           <p style={{ color: 'var(--ink-soft)', maxWidth: '40.38em' }}>
             <strong>{monthlyOptIns}</strong> {monthlyOptIns === 1 ? 'person has' : 'people have'}{' '}
-            separately opted in to a monthly email. Nothing sends to them yet — that is a
+            separately opted in to a monthly email. Nothing sends to them yet. That is a
             standing commitment to write something worth reading every month, and it is
             deliberately your call rather than a switch that got flipped.
           </p>
@@ -407,7 +407,7 @@ export default async function AdminPage({
                         </div>
                       )}
                       {i.message || i.windows || (
-                        !i.phone && <em style={{ color: 'var(--ink-faint)' }}>—</em>
+                        !i.phone && <em style={{ color: 'var(--ink-faint)' }}>, </em>
                       )}
                     </td>
                     <td style={{ fontSize: '.9em', color: 'var(--ink-faint)' }}>{i.source}</td>
@@ -483,8 +483,8 @@ export default async function AdminPage({
             not do. The ledger then guarantees once, ever. */}
         <h2 id="reaching-back" style={{ marginTop: 44 }}>Reaching back</h2>
         <p style={{ color: 'var(--ink-soft)', maxWidth: '40.38em' }}>
-          Paused and former clients. A single, once-only note saying the practice has openings —
-          no urgency, nothing implying they should still be in therapy, and nothing that needs a
+          Paused and former clients. A single, once-only note saying the practice has openings.
+          No urgency, nothing implying they should still be in therapy, and nothing that needs a
           reply. <strong>One message per person, ever.</strong> Send them one at a time, and only
           where you judge it appropriate; that judgement is not something this page should make
           for you.
@@ -621,8 +621,8 @@ export default async function AdminPage({
 
         <h2 id="searches" style={{ marginTop: 44 }}>What people search for</h2>
         <p style={{ color: 'var(--ink-soft)', maxWidth: '40.38em' }}>
-          Submitted terms from the site&rsquo;s own search box, counted rather than logged —
-          there is no record of who searched or when, only how often a term has been used.
+          Submitted terms from the site&rsquo;s own search box, counted rather than logged.
+          There is no record of who searched or when, only how often a term has been used.
           A term with no matching page is a page worth writing.
         </p>
         {searches.length === 0 ? (
@@ -681,13 +681,13 @@ export default async function AdminPage({
         <h2 id="clients" style={{ marginTop: 40 }}>Clients</h2>
         <p style={{ color: 'var(--ink-soft)', maxWidth: '40.38em' }}>
           Only <strong>active</strong> clients can sign in. <em>Paused</em> keeps the record but
-          closes access — for someone between blocks of sessions. <em>Former</em> is for people
+          closes access, for someone between blocks of sessions. <em>Former</em> is for people
           who have finished. Removing deletes the record and any password with it.
         </p>
 
         {book.clients.length === 0 ? (
           <p className="admin-empty">
-            No clients yet. Add the first one below — they can sign in as soon as you do.
+            No clients yet. Add the first one below. They can sign in as soon as you do.
           </p>
         ) : (
           <div className="admin-table-wrap">
@@ -726,7 +726,7 @@ export default async function AdminPage({
                     <td data-label="Note">
                       <input
                         form={`f-${c.id}`} name="note" defaultValue={c.note ?? ''}
-                        placeholder="Admin only — not clinical"
+                        placeholder="Admin only, not clinical"
                         aria-label={`Note for ${c.email}`}
                       />
                     </td>
@@ -785,7 +785,7 @@ export default async function AdminPage({
         {/* ----------------------------------------------------- AVAILABILITY */}
         <h2 id="availability" style={{ marginTop: 44 }}>Availability</h2>
         <p style={{ color: 'var(--ink-soft)', maxWidth: '40.38em' }}>
-          What the website tells people — the footer, the contact page, the portal, and the
+          What the website tells people. The footer, the contact page, the portal, and the
           structured data Google reads. <strong>It does not control booking.</strong> Cliniko
           decides what can actually be reserved, so change both, or the site will advertise hours
           you cannot offer.
@@ -839,8 +839,8 @@ export default async function AdminPage({
         <h2 id="bookings" style={{ marginTop: 44 }}>Bookings</h2>
         <div className="admin-panel">
           <p style={{ marginTop: 0 }}>
-            <strong>Bookings are not held here, deliberately.</strong> Cliniko is the record —
-            it takes the payment, issues the invoice and holds the clinical file. A copy on this
+            <strong>Bookings are not held here, deliberately.</strong> Cliniko is the record.
+            It takes the payment, issues the invoice and holds the clinical file. A copy on this
             site would drift out of step within a day, and would put clinical information in a
             second system in another country for no benefit.
           </p>
@@ -924,7 +924,7 @@ export default async function AdminPage({
             {clinikoConfigured()
               ? 'A key is set. Enter an address that exists in Cliniko to confirm lookups work.'
               : 'No key set, so the client list above is the only thing granting access.'}{' '}
-            Cliniko can only ever <em>add</em> a way to qualify — if it is unreachable, everyone
+            Cliniko can only ever <em>add</em> a way to qualify, if it is unreachable, everyone
             on the list still gets in.
           </p>
           <form method="POST" action="/api/admin/cliniko" className="admin-add-row">
@@ -965,7 +965,7 @@ export default async function AdminPage({
 
           <p style={{ marginTop: 0 }}>
             Every active Cliniko patient is pulled onto the list automatically every two hours,
-            along with session prices and durations. Use this to pull now rather than waiting —
+            along with session prices and durations. Use this to pull now rather than waiting,
             after adding someone in Cliniko, or after changing a fee.
           </p>
           {syncNote && (

@@ -42,7 +42,7 @@ export default function BookingCard({
       <div className="booking-card-main">
         <h2 id="bk-h">{heading}</h2>
         <p>
-          A free 15-minute video call{service ? ` about ${service.toLowerCase()}` : ''} — no
+          A free 15-minute video call{service ? ` about ${service.toLowerCase()}` : ''}. No
           charge, no card, and no obligation to book anything afterwards. It exists so you can
           find out whether this is a good fit before spending money on it.
         </p>
@@ -51,7 +51,7 @@ export default function BookingCard({
           <li>
             <BadgeCheck aria-hidden="true" strokeWidth={1.7} />
             <span>
-              {site.counsellor.credentials} · registered with the BCACC —{' '}
+              {site.counsellor.credentials} · registered with the BCACC, {' '}
               <Link href="/resources/verify-a-counsellor-in-bc">check the register yourself</Link>
             </span>
           </li>
@@ -69,7 +69,7 @@ export default function BookingCard({
           <li>
             <ShieldCheck aria-hidden="true" strokeWidth={1.7} />
             <span>
-              Most BC extended health plans reimburse RCC sessions —{' '}
+              Most BC extended health plans reimburse RCC sessions, {' '}
               <Link href="/pricing">what that works out to</Link>.
             </span>
           </li>
@@ -86,7 +86,7 @@ export default function BookingCard({
 
         <p className="booking-card-note">
           Prefer to ask something before booking?{' '}
-          <Link href="/contact">Email works too</Link> — questions cost nothing and are welcome.
+          <Link href="/contact">Email works too</Link>, questions cost nothing and are welcome.
         </p>
       </div>
     </aside>

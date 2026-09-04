@@ -40,7 +40,7 @@ export default function NotFound() {
         <p className="eyebrow">Page not found</p>
         <h1>That page moved, or never existed.</h1>
         <p className="lede">
-          Most links still work — this one did not. Here is where people usually meant to go.
+          Most links still work. This one did not. Here is where people usually meant to go.
         </p>
 
         <form action="/search" method="get" role="search" className="nf-search">
@@ -59,12 +59,12 @@ export default function NotFound() {
 
         <h2>Common destinations</h2>
         <ul>
-          <li><Link href="/services">All counselling services</Link> — individual, couples, EMDR, trauma</li>
-          <li><Link href="/pricing">Fees and insurance</Link> — what a session costs and how coverage works</li>
+          <li><Link href="/services">All counselling services</Link>: individual, couples, EMDR, trauma</li>
+          <li><Link href="/pricing">Fees and insurance</Link>, what a session costs and how coverage works</li>
           <li><Link href={site.bookingPath}>Book a free 15-minute consultation</Link></li>
-          <li><Link href="/guides">Counselling guides</Link> — plain answers to common questions</li>
+          <li><Link href="/guides">Counselling guides</Link>, plain answers to common questions</li>
           <li><Link href="/faq">FAQ</Link> · <Link href="/contact">Contact</Link> · <Link href="/about">About the counsellor</Link></li>
-          <li><Link href="/punjabi" lang="pa">ਪੰਜਾਬੀ</Link> — this practice&rsquo;s pages in Punjabi</li>
+          <li><Link href="/punjabi" lang="pa">ਪੰਜਾਬੀ</Link>, this practice&rsquo;s pages in Punjabi</li>
         </ul>
 
         {/* A 404 is not an error page, it is a person who wanted something and
@@ -74,7 +74,7 @@ export default function NotFound() {
         <h2>If you were looking for help right now</h2>
         <p>
           This is not a crisis service. If you are in crisis, call or text{' '}
-          <a href="tel:988">9-8-8</a> — the Suicide Crisis Helpline, anywhere in Canada,
+          <a href="tel:988">9-8-8</a>, the Suicide Crisis Helpline, anywhere in Canada,
           24/7. In immediate danger, call <a href="tel:911">9-1-1</a>. The{' '}
           <Link href="/resources/bc-crisis-and-support-directory">full BC directory</Link> lists
           every service by region.

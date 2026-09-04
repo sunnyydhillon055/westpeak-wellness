@@ -107,7 +107,7 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
   const conn = api();
   if (!conn) return { ...base, reason: 'CLINIKO_API_KEY is not set on this deployment' };
   if (!mailConfigured() && !opts.dry) {
-    return { ...base, reason: 'RESEND_API_KEY or PORTAL_FROM_EMAIL is not set — cannot send' };
+    return { ...base, reason: 'RESEND_API_KEY or PORTAL_FROM_EMAIL is not set, cannot send' };
   }
 
   const now = Date.now();

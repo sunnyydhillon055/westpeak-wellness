@@ -37,7 +37,7 @@ export async function GET(req: Request) {
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Unsubscribed — Westpeak Wellness</title>
+<title>Unsubscribed: Westpeak Wellness</title>
 <style>
   body{margin:0;background:#faf7f1;font:16px/1.6 -apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:#2b3138}
   .card{max-width:520px;margin:12vh auto;background:#fff;border-radius:10px;padding:34px 32px}
@@ -47,10 +47,10 @@ export async function GET(req: Request) {
   .muted{color:#545e69;font-size:14px}
 </style></head>
 <body><div class="card">
-<h1>Done — you are unsubscribed.</h1>
+<h1>Done. You are unsubscribed.</h1>
 <p>You will not get any more of those emails. Nothing else changes, and no reply is needed.</p>
 <p class="muted">This does not affect appointment confirmations or anything to do with a booking
-you have made — those are not marketing and are not part of this list.</p>
+you have made. Those are not marketing and are not part of this list.</p>
 <p><a href="https://www.westpeakwellness.com/">Back to the site</a></p>
 </div></body></html>`;
 

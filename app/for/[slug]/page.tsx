@@ -111,7 +111,15 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
           <p className="eyebrow">{a.eyebrow}</p>
           <h1 style={{ maxWidth: '13.24em' }}>{a.title}</h1>
           <p className="lede">{a.lede}</p>
-          <p className="hero-note">{a.readMinutes} min read · Reviewed {fmt(a.updated)}</p>
+          {/* "Updated", not "Reviewed". components/Byline.tsx was fixed for exactly
+              this in August: it was printing the word "Reviewed" over the date the
+              prose last CHANGED, which is a claim that a clinician read the page
+              that day and stood behind it. The fix never reached these hero notes,
+              so the heavier claim carried on being made above the fold on every
+              guide, comparison, approach, audience and resource page while the
+              byline lower down said the honest thing. The date does not move; only
+              the word does, which was the whole point the first time. */}
+          <p className="hero-note">{a.readMinutes} min read · Updated {fmt(a.updated)}</p>
           <div className="btn-row" style={{ marginTop: 22 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
             <Link className="btn btn--ghost" href="/for">Who we work with</Link>
@@ -172,7 +180,7 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
               {s.list && (
                 <ul className="checklist" style={{ margin: '20px 0 28px' }}>
                   {s.list.map((item) => (
-                    <li key={item.label}><strong>{item.label}</strong> — {rich(item.detail)}</li>
+                    <li key={item.label}><strong>{item.label}</strong>, {rich(item.detail)}</li>
                   ))}
                 </ul>
               )}
@@ -248,7 +256,7 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
       <MoreFrom items={audiences} currentSlug={a.slug} base="/for" heading="Written for other situations" eyebrow="Keep going" />
       <CtaBand
         heading="One conversation, no commitment."
-        text="A free 15-minute consultation over secure video — including an honest answer if something other than counselling would serve you better."
+        text="A free 15-minute consultation over secure video, including an honest answer if something other than counselling would serve you better."
       />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />

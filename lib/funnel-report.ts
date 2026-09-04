@@ -175,7 +175,7 @@ export function render(counts: Counts, from: Date, to: Date, clinikoOk: boolean)
   ];
 
   const lines = [
-    `Westpeak Wellness — ${month}`,
+    `Westpeak Wellness, ${month}`,
     '',
     ...rows.map(([k, v]) => `  ${k.padEnd(24)} ${v}`),
     '',
@@ -183,7 +183,7 @@ export function render(counts: Counts, from: Date, to: Date, clinikoOk: boolean)
     `  ${site.domain}/api/admin/paid-sessions?month=${periodKey}`,
     '',
     counts.unanswered > 0
-      ? `  ${counts.unanswered} message(s) still awaiting a reply — ${site.domain}/admin#inbox`
+      ? `  ${counts.unanswered} message(s) still awaiting a reply, ${site.domain}/admin#inbox`
       : '  Nothing awaiting a reply.',
     '',
   ];
@@ -214,7 +214,7 @@ export function render(counts: Counts, from: Date, to: Date, clinikoOk: boolean)
   }
 
   lines.push(
-    'Counts, not percentages. At these volumes a percentage change is noise —',
+    'Counts, not percentages. At these volumes a percentage change is noise: ',
     'two enquiries to three is one extra person, not a 50% improvement.',
     '',
     site.name
@@ -236,7 +236,7 @@ ${rows.map(([k, v]) => `<tr><td style="${cell}color:#545e69;">${k}</td><td style
 <strong>Paid sessions, in detail.</strong> A spreadsheet with one tab per practitioner, listing
 every session that received funds this period.
 <a href="${site.domain}/api/admin/paid-sessions?month=${periodKey}" style="color:#3d6c92;">Download the workbook</a>
-<span style="color:#545e69;"> — sign in required.</span></p>
+<span style="color:#545e69;">, sign in required.</span></p>
 ${counts.unanswered > 0
   ? `<p style="margin:0 0 16px;padding:11px 14px;background:#f8f2ea;border-left:3px solid #b4472f;font-size:15px;"><strong>${counts.unanswered} message${counts.unanswered === 1 ? '' : 's'} still awaiting a reply.</strong> <a href="${site.domain}/admin#inbox" style="color:#3d6c92;">Open the inbox</a></p>`
   : `<p style="margin:0 0 16px;font-size:15px;color:#545e69;">Nothing awaiting a reply.</p>`}
@@ -248,12 +248,12 @@ ${counts.topTerms.length
 ${!clinikoOk ? `<p style="margin:0 0 16px;font-size:14px;color:#545e69;">Cliniko could not be reached, so booking counts are missing. The rest is from this site and is complete.</p>` : ''}
 <hr style="border:none;border-top:1px solid #e6ddce;margin:22px 0 14px;">
 <p style="margin:0;font-size:12px;line-height:1.6;color:#545e69;">
-Counts, not percentages. At these volumes a percentage change is noise — two enquiries to three
+Counts, not percentages. At these volumes a percentage change is noise, two enquiries to three
 is one extra person, not a 50% improvement.
 </p>
 </td></tr></table></td></tr></table></body></html>`;
 
-  return { subject: `Westpeak — ${month}`, text, html };
+  return { subject: `Westpeak: ${month}`, text, html };
 }
 
 export type FunnelResult = { ok: boolean; sent: boolean; reason?: string; counts?: Counts };

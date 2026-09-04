@@ -82,7 +82,7 @@ export default function AccessCodeForm({
           follows the set-up link instead and never fills this in. */}
       <p style={{ fontSize: '.9rem', color: 'var(--ink-soft)', margin: '0 0 14px' }}>
         Signed up before? Enter the code we just emailed. If this is your first time
-        using the portal, we have sent a link to choose a password instead — follow
+        using the portal, we have sent a link to choose a password instead, follow
         that and you will not need a code.
       </p>
       <label htmlFor="code">Access code</label>

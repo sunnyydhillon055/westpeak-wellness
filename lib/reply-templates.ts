@@ -39,12 +39,12 @@ const greeting = (i: Inbound) => (firstName(i) ? `Hi ${firstName(i)},` : 'Hi,');
 export const REPLY_TEMPLATES: ReplyTemplate[] = [
   {
     key: 'book',
-    label: 'Yes — here is how to book',
+    label: 'Yes, here is how to book',
     when: 'It sounds like a fit and they are ready.',
     subject: 'Re: your message',
     body: (i) => `${greeting(i)}
 
-Thank you for writing — and for saying as much as you did.
+Thank you for writing, and for saying as much as you did.
 
 The next step, if you want it, is a free 15-minute consultation by video. It is
 a conversation rather than an assessment: you say what is going on in your own
@@ -57,14 +57,14 @@ ${site.domain}${site.bookingPath}
 If none of those times work, tell me roughly when you are free and I will let
 you know when something opens up.
 
-And if you read this and change your mind, that is completely fine — you do not
+And if you read this and change your mind, that is completely fine. You do not
 need to reply to say so.
 
 `,
   },
   {
     key: 'not-a-fit',
-    label: 'Not the right fit — here is who is',
+    label: 'Not the right fit, here is who is',
     when: 'Outside scope: assessments, court work, under 19, crisis, or a modality not offered.',
     subject: 'Re: your message',
     body: (i) => `${greeting(i)}
@@ -73,12 +73,12 @@ Thank you for writing, and for trusting me with that.
 
 I want to be straight with you rather than take a booking that would not help:
 based on what you have described, I do not think this practice is the right
-place for it. [ — say briefly why: outside scope / needs an assessment / needs
+place for it. [, say briefly why: outside scope / needs an assessment / needs
 in-person / needs a specialism I do not hold ]
 
 What I would suggest instead:
 
-[ — one or two concrete places, with links. Useful starting points:
+[, one or two concrete places, with links. Useful starting points:
   ${site.domain}/resources/low-cost-counselling-bc
   ${site.domain}/guides/how-to-find-a-therapist-in-bc
   ${site.domain}/resources/psychiatry-and-assessment-in-bc ]
@@ -94,20 +94,20 @@ If your situation changes, you are very welcome to write again.
     key: 'urgent',
     label: 'This sounds urgent',
     when: 'Anything suggesting risk. Send this first, then decide about a booking.',
-    subject: 'Re: your message — please read this part first',
+    subject: 'Re: your message, please read this part first',
     body: (i) => `${greeting(i)}
 
 Thank you for writing. I am reading what you sent carefully, and I want to give
 you the immediate things first, because this practice runs scheduled sessions
-and has no on-call line — so I am not able to be the fastest help available to
+and has no on-call line, so I am not able to be the fastest help available to
 you tonight.
 
 If you are in immediate danger, call 911.
 
 For urgent mental-health support in BC, at any hour:
-  9-8-8 — Suicide Crisis Helpline, call or text
-  310-6789 — BC Mental Health Support Line, no area code needed
-  8-1-1 — HealthLink BC, free advice from a nurse
+  9-8-8: Suicide Crisis Helpline, call or text
+  310-6789: BC Mental Health Support Line, no area code needed
+  8-1-1: HealthLink BC, free advice from a nurse
 
 More, including what each service actually does:
 ${site.domain}/resources/bc-crisis-and-support-directory
@@ -115,13 +115,13 @@ ${site.domain}/resources/bc-crisis-and-support-directory
 None of that is me passing you along. It is what I would want somebody to tell
 me, and it is available right now in a way a scheduled appointment is not.
 
-[ — then, if appropriate: and here is what I can offer, and when ]
+[, then, if appropriate: and here is what I can offer, and when ]
 
 `,
   },
   {
     key: 'waitlist',
-    label: 'I am full — waitlist?',
+    label: 'I am full, waitlist?',
     when: 'No capacity right now, but it would otherwise be a fit.',
     subject: 'Re: your message',
     body: (i) => `${greeting(i)}
@@ -129,7 +129,7 @@ me, and it is available right now in a way a scheduled appointment is not.
 Thank you for writing.
 
 I want to be honest about timing rather than book you into something distant
-and vague: I do not have regular openings at the moment. [ — add the real
+and vague: I do not have regular openings at the moment. [: add the real
 picture: roughly when you expect one, if you know. ]
 
 Two options, and neither is better than the other:
@@ -138,7 +138,7 @@ If you are happy to wait, tell me roughly when you are free during a week and I
 will get in touch directly when something opens that fits. It is a real list
 rather than a formality, and there is no obligation attached to being on it.
 
-If waiting is not workable — and for a lot of people it is not — these are
+If waiting is not workable, and for a lot of people it is not. These are
 genuinely good places to look now:
   ${site.domain}/resources/low-cost-counselling-bc
   ${site.domain}/guides/how-to-find-a-therapist-in-bc

@@ -42,7 +42,7 @@ export default function Page() {
           <Figure name="reimbursement-flow" caption="What the estimate looks like once an extended-health plan is involved." />
           <h2 id="how-it-works">Why the answer is never a single number</h2>
           <p>
-            Counselling in BC private practice is not covered by MSP —{' '}
+            Counselling in BC private practice is not covered by MSP, {' '}
             <Link href="/resources/msp-vs-extended-health">MSP vs extended health</Link> sets out
             what the public plan does and does not pay for. What you actually pay therefore
             depends on an extended health plan, and those differ per employer rather than per
@@ -50,7 +50,7 @@ export default function Page() {
           </p>
           <p>
             Two questions decide it. First, <strong>does the plan cover a Registered Clinical
-            Counsellor specifically</strong> — a plan can cover a psychologist and not an RCC, and
+            Counsellor specifically</strong>. A plan can cover a psychologist and not an RCC, and
             that is the detail people most often discover after a first session rather than before
             it.{' '}
             <Link href="/compare/rcc-vs-psychologist-vs-social-worker-bc">RCC vs psychologist vs social worker</Link>{' '}
@@ -59,7 +59,7 @@ export default function Page() {
             per-session rate does.
           </p>
           <p>
-            This practice does not direct-bill, so you pay the practice directly and claim it back —{' '}
+            This practice does not direct-bill, so you pay the practice directly and claim it back, {' '}
             <Link href="/resources/bc-extended-health-coverage-for-counselling">extended health coverage in BC</Link>{' '}
             covers how that works. If cost is the constraint rather than a detail,{' '}
             <Link href="/resources/low-cost-counselling-bc">low-cost counselling in BC</Link> and{' '}

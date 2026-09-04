@@ -46,12 +46,12 @@ const coreComparisons: Comparison[] = [
       columns: ["", "Registered Clinical Counsellor (RCC)", "Registered Psychologist (R.Psych)", "Registered Clinical Social Worker (RCSW/RSW)"],
       rows: [
         ["Minimum training", "Master's in counselling or equivalent, plus supervised clinical hours", "Doctorate (PhD/PsyD/EdD) plus supervised practice and examination", "Master of Social Work, plus supervised hours for clinical registration"],
-        ["Oversight in BC", "BCACC — a voluntary professional association, not a statutory college", "College of Health and Care Professionals of BC — statutory; \"psychologist\" is a protected title", "BC College of Social Workers — statutory; \"social worker\" is a protected title"],
+        ["Oversight in BC", "BCACC, a voluntary professional association, not a statutory college", "College of Health and Care Professionals of BC, statutory; \"psychologist\" is a protected title", "BC College of Social Workers, statutory; \"social worker\" is a protected title"],
         ["Can formally diagnose", "No", "Yes", "Clinical registration permits assessment and diagnosis of mental disorders"],
-        ["Psychoeducational / cognitive assessments", "No", "Yes — the main thing only psychologists do", "No"],
+        ["Psychoeducational / cognitive assessments", "No", "Yes. The main thing only psychologists do", "No"],
         ["Typical BC private fee", "Roughly $120–$180 per session", "Roughly $225–$300+ per session", "Roughly $120–$180 per session"],
         ["Covered by MSP", "No", "No (outside public settings)", "No (outside public settings)"],
-        ["Listed by extended health plans", "Commonly, but not universally — check the wording", "Almost always", "Commonly"],
+        ["Listed by extended health plans", "Commonly, but not universally, check the wording", "Almost always", "Commonly"],
       ],
     },
     sections: [
@@ -61,62 +61,62 @@ const coreComparisons: Comparison[] = [
           'Worth settling before the comparison, because the phrase is doing more work than it looks and the search traffic for it is mostly people who have just seen the letters after somebody\'s name.',
           'RCC is a designation awarded by the **BC Association of Clinical Counsellors**, a professional association. It is not a government licence, and that distinction matters in BC more than it would elsewhere: **the words "counsellor" and "therapist" are not protected here.** Anyone may use them, with no training whatsoever and no consequence. That is not a scare tactic, it is the current state of the law.',
           'What the designation requires is a master\'s degree in counselling or a closely related field, a period of supervised clinical practice, ongoing continuing education, liability insurance, and adherence to a code of ethics with a complaints process behind it. The register is public and free to search, so the claim is checkable in a couple of minutes by anybody.',
-          '**"Licensed counsellor" is not a British Columbian term.** It appears in searches constantly because it is the American phrasing, and there is no BC licence that matches it. The nearest equivalent signal here is a registration with a regulatory college or a professional association — RCC through BCACC, R.Psych through the College of Psychologists, or RSW/RCSW through the BC College of Social Workers.',
-          'So when the three are compared below, the comparison is between three different routes to the same broad work, with genuinely different training, scope and cost — not between a licensed professional and an unlicensed one.',
+          '**"Licensed counsellor" is not a British Columbian term.** It appears in searches constantly because it is the American phrasing, and there is no BC licence that matches it. The nearest equivalent signal here is a registration with a regulatory college or a professional association: RCC through BCACC, R.Psych through the College of Psychologists, or RSW/RCSW through the BC College of Social Workers.',
+          'So when the three are compared below, the comparison is between three different routes to the same broad work, with genuinely different training, scope and cost, not between a licensed professional and an unlicensed one.',
         ],
       },
       {
-        h2: "The regulation question — and what changes in 2027",
+        h2: "The regulation question, and what changes in 2027",
         body: [
           "This is the part most comparisons get wrong or leave out, so it is worth being precise.",
-          "In British Columbia today, **counselling therapy is not a government-regulated profession**. \"Counsellor\" and \"therapist\" are not protected titles — legally, anyone may use them. \"Psychologist\" and \"social worker\" *are* protected, under their respective statutory colleges.",
-          "The **RCC** designation is how counsellors have addressed that gap voluntarily. It is granted by the [BC Association of Clinical Counsellors](https://bcacc.ca), which is a professional association rather than a statutory college. To hold it, a counsellor must meet education and supervised-practice requirements, carry insurance, complete continuing education, and be bound by a code of ethics with a complaints process. It is real accountability — it just is not government accountability.",
+          "In British Columbia today, **counselling therapy is not a government-regulated profession**. \"Counsellor\" and \"therapist\" are not protected titles: legally, anyone may use them. \"Psychologist\" and \"social worker\" *are* protected, under their respective statutory colleges.",
+          "The **RCC** designation is how counsellors have addressed that gap voluntarily. It is granted by the [BC Association of Clinical Counsellors](https://bcacc.ca), which is a professional association rather than a statutory college. To hold it, a counsellor must meet education and supervised-practice requirements, carry insurance, complete continuing education, and be bound by a code of ethics with a complaints process. It is real accountability. It just is not government accountability.",
           "**That is changing.** The Health Professions and Occupations Act replaced the old Health Professions Act on **1 April 2026**, and psychotherapy is being brought in as a regulated profession under the **College of Health and Care Professionals of BC**, with regulation of the profession beginning **29 November 2027**. It is a protected-title model, following the approach taken in New Brunswick, Nova Scotia, and PEI.",
-          "**What this means for you right now:** until late 2027, the letters after someone's name are the main signal you have. An RCC, a CCC, or a clinical social worker has verifiable training, insurance, and somewhere to complain. Someone calling themselves a \"therapist\" with nothing after their name may be excellent — but there is no body you can check them against, and no process if something goes wrong. That is the distinction worth caring about, far more than which of the three registered designations you pick.",
+          "**What this means for you right now:** until late 2027, the letters after someone's name are the main signal you have. An RCC, a CCC, or a clinical social worker has verifiable training, insurance, and somewhere to complain. Someone calling themselves a \"therapist\" with nothing after their name may be excellent, but there is no body you can check them against, and no process if something goes wrong. That is the distinction worth caring about, far more than which of the three registered designations you pick.",
         ],
       },
       {
         h2: "When the difference genuinely matters",
         list: [
           { label: "You need a formal diagnosis on paper", detail: "For disability benefits, academic accommodation, a workplace process, or a legal matter, you likely need a psychologist. An RCC cannot diagnose, and should tell you so rather than working around it." },
-          { label: "You need psychoeducational or cognitive testing", detail: "ADHD assessments, learning-disability assessments, IQ testing — this is the one area only psychologists do, and it is usually a separate piece of work from ongoing therapy." },
+          { label: "You need psychoeducational or cognitive testing", detail: "ADHD assessments, learning-disability assessments, IQ testing. This is the one area only psychologists do, and it is usually a separate piece of work from ongoing therapy." },
           { label: "Cost is a real constraint", detail: "A psychologist can run twice an RCC's hourly fee. If your benefit cap is $800 a year, that is roughly three psychologist sessions or six with an RCC. For ongoing weekly therapy, that difference compounds fast." },
-          { label: "Your plan only lists certain professions", detail: "Some plans reimburse psychologists and social workers but not RCCs. Read the actual wording before you book — this is the single most common source of unpleasant surprises." },
+          { label: "Your plan only lists certain professions", detail: "Some plans reimburse psychologists and social workers but not RCCs. Read the actual wording before you book. This is the single most common source of unpleasant surprises." },
           { label: "You want a specific modality", detail: "EMDR, the Gottman Method, and most other approaches are training-based, not profession-based. Practitioners of any of the three designations may hold them. Ask about the training directly rather than inferring it from the letters." },
         ],
       },
       {
         h2: "What matters more than the designation",
         body: [
-          "Across decades of psychotherapy research, one of the better predictors of whether therapy helps is the working relationship between client and therapist — how well you two fit, whether you feel understood, whether you can be honest. That is not determined by which of these three registers someone sits on.",
-          "Which is why nearly every private practitioner in BC offers a free consultation. It exists precisely so you can test fit before spending money. Use it, and use it more than once if you need to — talking to two or three people before choosing is normal and slightly awkward and entirely reasonable.",
+          "Across decades of psychotherapy research, one of the better predictors of whether therapy helps is the working relationship between client and therapist: how well you two fit, whether you feel understood, whether you can be honest. That is not determined by which of these three registers someone sits on.",
+          "Which is why nearly every private practitioner in BC offers a free consultation. It exists precisely so you can test fit before spending money. Use it, and use it more than once if you need to, talking to two or three people before choosing is normal and slightly awkward and entirely reasonable.",
         ],
       },
     ],
     howWeFit: [
       "Westpeak Wellness is a Registered Clinical Counsellor practice, which places it in the first column: master's-level training, BCACC-bound, able to provide therapy but not formal diagnosis or psychoeducational assessment.",
-      "So if what you need is an ADHD assessment or a diagnosis for a benefits claim, this is not the right door, and saying so on a consultation call takes about a minute. If what you need is ongoing therapy for anxiety, depression, trauma, or a relationship under strain — [particularly in Punjabi](/services/punjabi-counselling), where the options in BC are genuinely limited — then it may be.",
+      "So if what you need is an ADHD assessment or a diagnosis for a benefits claim, this is not the right door, and saying so on a consultation call takes about a minute. If what you need is ongoing therapy for anxiety, depression, trauma, or a relationship under strain, [particularly in Punjabi](/services/punjabi-counselling), where the options in BC are genuinely limited, then it may be.",
     ],
     midCta: {
       text: "Not sure which of the three you need? That is a reasonable thing to work out on a free 15-minute call, including if the answer is someone else.",
       label: "Book a free consultation",
     },
     faqs: [
-      { q: 'What does RCC stand for?', a: 'Registered Clinical Counsellor — a designation held through the BC Association of Clinical Counsellors. It signals a master\'s-level counselling qualification, supervised clinical hours, continuing education, insurance and a code of ethics with a complaints process. It is not a government licence, because counselling is not yet a regulated profession in British Columbia.' },
-      { q: 'Is a "licensed counsellor" the same thing in BC?', a: 'No, and strictly there is no such thing here. "Licensed counsellor" is American phrasing and there is no British Columbian licence that corresponds to it. What exists in BC is registration — with the BC Association of Clinical Counsellors, the College of Psychologists of BC, or the BC College of Social Workers. Somebody advertising as a "licensed counsellor" in BC may be perfectly well qualified, but the word is not carrying the meaning it appears to.' },
+      { q: 'What does RCC stand for?', a: 'Registered Clinical Counsellor. A designation held through the BC Association of Clinical Counsellors. It signals a master\'s-level counselling qualification, supervised clinical hours, continuing education, insurance and a code of ethics with a complaints process. It is not a government licence, because counselling is not yet a regulated profession in British Columbia.' },
+      { q: 'Is a "licensed counsellor" the same thing in BC?', a: 'No, and strictly there is no such thing here. "Licensed counsellor" is American phrasing and there is no British Columbian licence that corresponds to it. What exists in BC is registration: with the BC Association of Clinical Counsellors, the College of Psychologists of BC, or the BC College of Social Workers. Somebody advertising as a "licensed counsellor" in BC may be perfectly well qualified, but the word is not carrying the meaning it appears to.' },
       { q: 'What does BCACC require to become an RCC?', a: 'A master\'s degree in counselling psychology or a closely related field, a period of supervised clinical practice, evidence of continuing education, professional liability insurance, and agreement to a code of ethics that includes a public complaints process. Requirements are set by the association and do change, so the current version is on the BCACC site rather than reproduced here.' },
-      { q: 'How do I check that someone is actually registered?', a: 'Search the public register directly rather than trusting a website. BCACC, the College of Psychologists of BC and the BC College of Social Workers each publish a free searchable register, and each will confirm whether a registration is current and in good standing. It takes about two minutes and is worth doing before booking with anybody — including this practice.' },
+      { q: 'How do I check that someone is actually registered?', a: 'Search the public register directly rather than trusting a website. BCACC, the College of Psychologists of BC and the BC College of Social Workers each publish a free searchable register, and each will confirm whether a registration is current and in good standing. It takes about two minutes and is worth doing before booking with anybody, including this practice.' },
       {
         q: "Is an RCC a \"real\" therapist?",
-        a: "Yes. An RCC holds a master's degree in counselling or an equivalent field, has completed supervised clinical hours, carries professional liability insurance, completes ongoing continuing education, and is bound by the BCACC code of ethics with a formal complaints process. The distinction is that BCACC is a professional association rather than a government college — and that is changing, with psychotherapy regulation beginning in BC on 29 November 2027.",
+        a: "Yes. An RCC holds a master's degree in counselling or an equivalent field, has completed supervised clinical hours, carries professional liability insurance, completes ongoing continuing education, and is bound by the BCACC code of ethics with a formal complaints process. The distinction is that BCACC is a professional association rather than a government college, and that is changing, with psychotherapy regulation beginning in BC on 29 November 2027.",
       },
       {
         q: "Can an RCC diagnose anxiety or depression?",
-        a: "No. Formal diagnosis in BC sits with psychologists, physicians, psychiatrists, and clinical social workers with the relevant registration. An RCC can absolutely work with anxiety or depression — they cannot put a diagnostic label on your file or produce documentation that depends on one.",
+        a: "No. Formal diagnosis in BC sits with psychologists, physicians, psychiatrists, and clinical social workers with the relevant registration. An RCC can absolutely work with anxiety or depression. They cannot put a diagnostic label on your file or produce documentation that depends on one.",
       },
       {
         q: "Why is a psychologist more expensive?",
-        a: "Longer training — a doctorate rather than a master's — and a scope that includes formal assessment. It reflects the cost of the credential and the breadth of the scope, not a difference in how much someone cares about your outcome.",
+        a: "Longer training. A doctorate rather than a master's, and a scope that includes formal assessment. It reflects the cost of the credential and the breadth of the scope, not a difference in how much someone cares about your outcome.",
       },
       {
         q: "Does MSP cover any of them?",
@@ -124,14 +124,14 @@ const coreComparisons: Comparison[] = [
       },
     ],
     sources: [
-      { label: "College of Health and Care Professionals of BC — the incoming regulator", url: "https://chcpbc.org/" },
+      { label: "College of Health and Care Professionals of BC, the incoming regulator", url: "https://chcpbc.org/" },
       /* A news.gov.bc.ca release announcing the psychotherapy-designation
          consultation was cited here until 2026-08-28, when it 404ed — press
          releases rot. The two remaining provincial sources carry the same
          claim from pages built to persist. */
-      { label: "Province of BC — health profession regulation", url: "https://www2.gov.bc.ca/gov/content/health/practitioner-professional-resources/professional-regulation" },
-      { label: "BC Laws — Psychologists Regulation (Health Professions Act)", url: "https://www.bclaws.gov.bc.ca/civix/document/id/loo64/loo64/442_99" },
-      { label: "Kelty Mental Health — psychologists and registered clinical counsellors", url: "https://keltymentalhealth.ca/what-difference-between-psychologists-and-registered-clinical-counsellors" },
+      { label: "Province of BC, health profession regulation", url: "https://www2.gov.bc.ca/gov/content/health/practitioner-professional-resources/professional-regulation" },
+      { label: "BC Laws, Psychologists Regulation (Health Professions Act)", url: "https://www.bclaws.gov.bc.ca/civix/document/id/loo64/loo64/442_99" },
+      { label: "Kelty Mental Health, psychologists and registered clinical counsellors", url: "https://keltymentalhealth.ca/what-difference-between-psychologists-and-registered-clinical-counsellors" },
     ],
     related: [
       { href: "/guides/is-online-therapy-as-effective-as-in-person", label: "Is online therapy as effective as in-person?" },
@@ -151,7 +151,7 @@ const coreComparisons: Comparison[] = [
       "When relationship difficulty is better addressed individually, when couples sessions make more sense, and when to do both.",
     eyebrow: "Comparison · Choosing a format",
     lede:
-      "Relationship trouble does not automatically mean couples therapy — and starting in the wrong format wastes months.",
+      "Relationship trouble does not automatically mean couples therapy, and starting in the wrong format wastes months.",
     shortAnswer:
       "Start with couples therapy when the problem lives in the pattern between you and both of you are willing to work on it. Start individually when what is driving the difficulty is largely yours to work on, when your partner is unwilling, or when something needs stabilising first. When there is ongoing violence or coercive control, couples sessions are not the safe starting point.",
     updated: "2026-08-09",
@@ -161,31 +161,31 @@ const coreComparisons: Comparison[] = [
       rows: [
         ["Who attends", "You", "Both partners, together"],
         ["What it works on", "Your patterns, history, reactions, and choices", "The pattern that happens between you"],
-        ["Needs partner buy-in", "No", "Yes — it does not function with one willing participant"],
+        ["Needs partner buy-in", "No", "Yes. It does not function with one willing participant"],
         ["Confidentiality", "Yours alone", "Shared; the relationship is effectively the client"],
         ["Typical session length", "50 minutes", "50 minutes, or a longer extended format"],
         ["Best when", "The difficulty is largely yours to work on, or your partner will not attend", "Both of you want change and keep failing to get there alone"],
-        ["Not appropriate when", "Rarely — individual work is almost always available", "Ongoing violence or coercive control is present"],
+        ["Not appropriate when", "Rarely, individual work is almost always available", "Ongoing violence or coercive control is present"],
       ],
     },
     sections: [
       {
         h2: "Start with couples therapy when…",
         list: [
-          { label: "The same argument keeps happening", detail: "A recurring loop with predictable moves on both sides is the clearest indication for couples work — that pattern is difficult to change from one side alone." },
+          { label: "The same argument keeps happening", detail: "A recurring loop with predictable moves on both sides is the clearest indication for couples work. That pattern is difficult to change from one side alone." },
           { label: "You have drifted into logistics", detail: "Two competent people running a household with no remaining friendship. Common, unglamorous, and responsive to structured work." },
           { label: "There has been a rupture and you both want to repair", detail: "An affair, a betrayal, a serious breach. Both words matter: both of you, and want." },
-          { label: "You are facing a decision you cannot discuss", detail: "Children, moving, family obligation, money — where every attempt to talk about it ends badly." },
+          { label: "You are facing a decision you cannot discuss", detail: "Children, moving, family obligation, money, where every attempt to talk about it ends badly." },
           { label: "You need clarity about whether to stay", detail: "A legitimate goal. Couples therapy is not obliged to produce a reconciliation, and a good practitioner will say so." },
         ],
       },
       {
         h2: "Start individually when…",
         list: [
-          { label: "Your partner will not come", detail: "The most common reason. Individual work on a relationship is useful — changing your side of a pattern changes the pattern, sometimes enough that the other person becomes willing." },
-          { label: "Something of yours needs attention first", detail: "Untreated trauma, depression, or addiction will limit what couples work can achieve. Sequencing it — or running both in parallel — usually gets further." },
+          { label: "Your partner will not come", detail: "The most common reason. Individual work on a relationship is useful, changing your side of a pattern changes the pattern, sometimes enough that the other person becomes willing." },
+          { label: "Something of yours needs attention first", detail: "Untreated trauma, depression, or addiction will limit what couples work can achieve. Sequencing it, or running both in parallel, usually gets further." },
           { label: "You do not know what you want", detail: "Working out whether you want to stay is often better done somewhere your partner is not in the room." },
-          { label: "The pattern predates the relationship", detail: "If you recognise this dynamic from previous relationships, or from the house you grew up in, that points to individual work — see [intergenerational trauma](/guides/intergenerational-trauma-explained)." },
+          { label: "The pattern predates the relationship", detail: "If you recognise this dynamic from previous relationships, or from the house you grew up in, that points to individual work, see [intergenerational trauma](/guides/intergenerational-trauma-explained)." },
           { label: "You need somewhere entirely your own", detail: "Couples therapy is shared space. Sometimes what is needed first is space that is not." },
         ],
       },
@@ -193,20 +193,20 @@ const coreComparisons: Comparison[] = [
         h2: "The safety exception",
         body: [
           "This needs stating plainly. **Where there is ongoing intimate partner violence or coercive control, couples therapy is not the right starting point and can increase risk.** Sessions require honesty, and honesty is not safe when there are consequences afterward.",
-          "A responsible practitioner screens for this — which is one reason a proper couples assessment includes individual sessions with each partner. If this is your situation, individual support and a specialist service are the safer route. **VictimLinkBC is available 24/7 at 1-800-563-0808**, and in immediate danger, call 911.",
+          "A responsible practitioner screens for this, which is one reason a proper couples assessment includes individual sessions with each partner. If this is your situation, individual support and a specialist service are the safer route. **VictimLinkBC is available 24/7 at 1-800-563-0808**, and in immediate danger, call 911.",
         ],
       },
       {
         h2: "Doing both",
         body: [
-          "The two are not mutually exclusive, and a common arrangement is couples sessions alongside individual therapy for one or both partners — usually with different counsellors, to keep the individual space separate and avoid the awkwardness of one practitioner holding private information from one partner.",
+          "The two are not mutually exclusive, and a common arrangement is couples sessions alongside individual therapy for one or both partners, usually with different counsellors, to keep the individual space separate and avoid the awkwardness of one practitioner holding private information from one partner.",
           "It costs more and it is often the most effective structure, particularly where the relationship difficulty and an individual difficulty are feeding each other. The [Gottman Method guide](/guides/how-the-gottman-method-works) covers what the couples side of that involves.",
         ],
       },
     ],
     howWeFit: [
       "Westpeak Wellness offers both [individual therapy](/services/individual-therapy) and [couples therapy](/services/couples-therapy) using the Gottman Method, virtually across BC. Because sessions are online, partners can even join from different locations when work makes that necessary.",
-      "If you are unsure which to book, that is a reasonable thing to work out on the consultation call rather than in advance — and if the answer is individual therapy with someone else while couples work happens here, that is a fine outcome too.",
+      "If you are unsure which to book, that is a reasonable thing to work out on the consultation call rather than in advance, and if the answer is individual therapy with someone else while couples work happens here, that is a fine outcome too.",
     ],
     midCta: {
       text: "Not sure which format fits? Fifteen minutes on a call usually settles it.",
@@ -214,14 +214,14 @@ const coreComparisons: Comparison[] = [
     },
     faqs: [
       { q: "Can one counsellor do both our individual therapy and our couples therapy?", a: "Some practitioners will; many decline, and for good reason. Holding private individual information from one partner while also working with the couple creates a genuine conflict. Separate counsellors for individual work is the cleaner arrangement." },
-      { q: "What if my partner refuses to come?", a: "Start individually. Relationship-focused individual therapy is real work, not a consolation prize — and partners who initially refuse sometimes reconsider once they see change rather than pressure." },
+      { q: "What if my partner refuses to come?", a: "Start individually. Relationship-focused individual therapy is real work, not a consolation prize, and partners who initially refuse sometimes reconsider once they see change rather than pressure." },
       { q: "Is couples therapy only for people in crisis?", a: "No. Couples who come before things are dire generally have an easier time of it. Arriving early is an advantage, not an overreaction." },
-      { q: "Will the counsellor tell us to break up?", a: "No. That is not a counsellor's call. The work helps you both see the pattern clearly enough to make your own decision — whatever that turns out to be." },
+      { q: "Will the counsellor tell us to break up?", a: "No. That is not a counsellor's call. The work helps you both see the pattern clearly enough to make your own decision, whatever that turns out to be." },
     ],
     sources: [
-      { label: "The Gottman Institute — research on couples", url: "https://www.gottman.com/about/research/" },
-      { label: "VictimLinkBC — 24/7 support, 1-800-563-0808", url: "https://www2.gov.bc.ca/gov/content/justice/criminal-justice/victims-of-crime/victimlinkbc" },
-      { label: "HereToHelp BC — relationships and mental health", url: "https://www.heretohelp.bc.ca/" },
+      { label: "The Gottman Institute, research on couples", url: "https://www.gottman.com/about/research/" },
+      { label: "VictimLinkBC, 24/7 support, 1-800-563-0808", url: "https://www2.gov.bc.ca/gov/content/justice/criminal-justice/victims-of-crime/victimlinkbc" },
+      { label: "HereToHelp BC, relationships and mental health", url: "https://www.heretohelp.bc.ca/" },
     ],
     related: [
       { href: "/services/couples-therapy", label: "Couples therapy across BC" },
@@ -239,20 +239,20 @@ const coreComparisons: Comparison[] = [
     title: "CBT or EMDR for trauma: how they differ",
     metaTitle: "CBT vs EMDR for Trauma | Westpeak Wellness",
     metaDescription:
-      "Two evidence-based trauma treatments compared — how each works, how much you have to talk, and which tends to suit what.",
+      "Two evidence-based trauma treatments compared: how each works, how much you have to talk, and which tends to suit what.",
     eyebrow: "Comparison · Trauma treatment",
     lede:
       "Both are recommended in clinical guidelines for PTSD. They get there by different routes.",
     shortAnswer:
-      "Trauma-focused CBT works through language — examining thoughts and beliefs about what happened, often with structured written or spoken exposure. EMDR works through reprocessing, using bilateral stimulation while you hold the memory in mind, and requires far less verbal description. Both are recommended for PTSD in major guidelines. The choice is usually about fit rather than efficacy.",
+      "Trauma-focused CBT works through language, examining thoughts and beliefs about what happened, often with structured written or spoken exposure. EMDR works through reprocessing, using bilateral stimulation while you hold the memory in mind, and requires far less verbal description. Both are recommended for PTSD in major guidelines. The choice is usually about fit rather than efficacy.",
     updated: "2026-08-31",
     readMinutes: 6,
     table: {
       columns: ["", "Trauma-focused CBT", "EMDR"],
       rows: [
         ["Core mechanism", "Identifying and re-examining thoughts and beliefs; structured exposure", "Reprocessing memories with bilateral stimulation while holding them in mind"],
-        ["How much you must describe", "Substantial — the work happens largely through language", "Considerably less; detailed narration is not required"],
-        ["Homework between sessions", "Usually yes — thought records, structured practice", "Usually minimal; some journalling between sessions"],
+        ["How much you must describe", "Substantial. The work happens largely through language", "Considerably less; detailed narration is not required"],
+        ["Homework between sessions", "Usually yes, thought records, structured practice", "Usually minimal; some journalling between sessions"],
         ["Session structure", "Agenda-led, collaborative, skills-oriented", "Eight-phase protocol with defined processing sets"],
         ["Guideline status for PTSD", "Recommended", "Recommended"],
         ["Often suits", "People who find it useful to talk things through and like structure and practice", "People who find describing it unbearable, or who understand it intellectually but still feel it"],
@@ -264,15 +264,15 @@ const coreComparisons: Comparison[] = [
         h2: "The genuine difference: how much you have to say",
         body: [
           "For most people choosing between these, this is the deciding factor.",
-          "**Trauma-focused CBT is a talking treatment in the fullest sense.** You examine what you believe about the event and about yourself because of it — *I should have stopped it*, *it was my fault*, *I cannot trust my judgement* — and test those beliefs against evidence. Structured exposure to the memory, written or spoken, is often part of it. It requires putting the experience into words, repeatedly.",
-          "**EMDR requires far less of that.** Your counsellor needs enough to identify the target — an image, a belief, a body sensation, a distress rating — but the processing itself happens largely internally. You are not obliged to narrate what is passing through your mind. For people who have avoided therapy specifically because they cannot face describing what happened, this is frequently the deciding factor.",
+          "**Trauma-focused CBT is a talking treatment in the fullest sense.** You examine what you believe about the event and about yourself because of it: *I should have stopped it*, *it was my fault*, *I cannot trust my judgement*, and test those beliefs against evidence. Structured exposure to the memory, written or spoken, is often part of it. It requires putting the experience into words, repeatedly.",
+          "**EMDR requires far less of that.** Your counsellor needs enough to identify the target, an image, a belief, a body sensation, a distress rating, but the processing itself happens largely internally. You are not obliged to narrate what is passing through your mind. For people who have avoided therapy specifically because they cannot face describing what happened, this is frequently the deciding factor.",
         ],
       },
       {
         h2: "The head-versus-body gap",
         body: [
           "A pattern that shows up constantly in trauma work: people who fully understand, intellectually, that it was not their fault, and who still feel the whole weight of it.",
-          "Where that gap is the main problem, EMDR is often the better-fitting tool, because it works on how the memory is stored rather than on what you consciously believe about it. Where the beliefs themselves are the live problem — persistent guilt, ongoing self-blame that has not been examined — CBT's direct engagement with those beliefs is well suited.",
+          "Where that gap is the main problem, EMDR is often the better-fitting tool, because it works on how the memory is stored rather than on what you consciously believe about it. Where the beliefs themselves are the live problem, persistent guilt, ongoing self-blame that has not been examined, CBT's direct engagement with those beliefs is well suited.",
           "This is a tendency rather than a rule. Plenty of people do well with either, and many courses of therapy end up drawing on both.",
         ],
       },
@@ -286,8 +286,8 @@ const coreComparisons: Comparison[] = [
       },
     ],
     howWeFit: [
-      "Westpeak Wellness offers [EMDR therapy](/services/emdr-therapy) and draws on CBT within broader [trauma therapy](/services/individual-therapy) and [anxiety counselling](/services/individual-therapy). In practice most courses of work here are not purely one or the other — stabilisation skills first, then whichever processing approach fits what you are bringing.",
-      "If what you actually need is a formal PTSD diagnosis for a benefits claim or a legal process, that requires a psychologist or physician rather than a counsellor — [the comparison of BC therapist types](/compare/rcc-vs-psychologist-vs-social-worker-bc) sets out why.",
+      "Westpeak Wellness offers [EMDR therapy](/services/emdr-therapy) and draws on CBT within broader [trauma therapy](/services/individual-therapy) and [anxiety counselling](/services/individual-therapy). In practice most courses of work here are not purely one or the other, stabilisation skills first, then whichever processing approach fits what you are bringing.",
+      "If what you actually need is a formal PTSD diagnosis for a benefits claim or a legal process, that requires a psychologist or physician rather than a counsellor, [the comparison of BC therapist types](/compare/rcc-vs-psychologist-vs-social-worker-bc) sets out why.",
     ],
     midCta: {
       text: "Unsure which fits what you are carrying? That is a good use of a free 15-minute call, before committing to either.",
@@ -297,12 +297,12 @@ const coreComparisons: Comparison[] = [
       { q: "Can I do both?", a: "Yes, and it is common. CBT-derived skills are often used to build stability before EMDR processing, and many practitioners move between them depending on what a given piece of the work needs." },
       { q: "Which one is faster?", a: "EMDR has a reputation for being faster with single-incident trauma, and for some people it is. With complex or long-standing trauma both are slower, because most of the early work is stabilisation rather than processing." },
       { q: "Does EMDR work over video?", a: "Yes, using an on-screen moving target, alternating audio, or self-administered tapping. The guide on what EMDR is covers the adaptations in detail." },
-      { q: "What if I have tried one and it did not help?", a: "Worth trying the other. It is also worth considering whether the issue was the modality, the pacing, or the fit with that particular practitioner — those are three different problems with three different fixes." },
+      { q: "What if I have tried one and it did not help?", a: "Worth trying the other. It is also worth considering whether the issue was the modality, the pacing, or the fit with that particular practitioner. Those are three different problems with three different fixes." },
     ],
     sources: [
-      { label: "NICE — Post-traumatic stress disorder guideline (NG116)", url: "https://www.nice.org.uk/guidance/ng116" },
-      { label: "American Psychological Association — EMDR in the PTSD treatment guideline", url: "https://www.apa.org/ptsd-guideline/treatments/eye-movement-reprocessing" },
-      { label: "CAMH — trauma", url: "https://www.camh.ca/en/health-info/mental-illness-and-addiction-index/trauma" },
+      { label: "NICE, Post-traumatic stress disorder guideline (NG116)", url: "https://www.nice.org.uk/guidance/ng116" },
+      { label: "American Psychological Association, EMDR in the PTSD treatment guideline", url: "https://www.apa.org/ptsd-guideline/treatments/eye-movement-reprocessing" },
+      { label: "CAMH, trauma", url: "https://www.camh.ca/en/health-info/mental-illness-and-addiction-index/trauma" },
     ],
     related: [
       { href: "/services/emdr-therapy", label: "EMDR therapy across BC" },

@@ -86,7 +86,7 @@ export const cityContexts: CityContext[] = [
     region: 'Metro Vancouver',
     authority: 'Vancouver Coastal Health',
     travel:
-      'Vancouver has more counsellors per resident than anywhere else in the province, and the constraint is almost never distance — it is that the ones taking new clients are booked, and the commute to a downtown or Kitsilano office at 5pm costs more time than the session itself.',
+      'Vancouver has more counsellors per resident than anywhere else in the province, and the constraint is almost never distance. It is that the ones taking new clients are booked, and the commute to a downtown or Kitsilano office at 5pm costs more time than the session itself.',
     inPerson:
       'There is no shortage of private practices here. What there is a shortage of is openings: the practices with the strongest reputations tend to hold waitlists, and a clinic that can see you this month is often one you found because nobody else could take you.',
     unlock:
@@ -114,7 +114,7 @@ export const cityContexts: CityContext[] = [
     region: 'Metro Vancouver',
     authority: 'Fraser Health',
     travel:
-      'Burnaby sits between two health authorities in practice if not on paper — residents routinely look for care in Vancouver and end up on a different intake route than they expected.',
+      'Burnaby sits between two health authorities in practice if not on paper, residents routinely look for care in Vancouver and end up on a different intake route than they expected.',
     inPerson:
       'Public mental-health intake for Burnaby runs through Fraser Health, not Vancouver Coastal, which surprises people who work downtown and assume the city they commute to is the one that covers them. Private practices here are fewer than the population would suggest, and many people simply travel west.',
     unlock:
@@ -128,7 +128,7 @@ export const cityContexts: CityContext[] = [
     region: 'Fraser Valley',
     authority: 'Fraser Health',
     travel:
-      'Abbotsford is far enough east that Metro Vancouver practices are a genuine drive rather than a nuisance — Highway 1 at the wrong hour turns a session into most of an afternoon.',
+      'Abbotsford is far enough east that Metro Vancouver practices are a genuine drive rather than a nuisance, Highway 1 at the wrong hour turns a session into most of an afternoon.',
     inPerson:
       'The Fraser Valley has fewer counsellors per resident than Metro Vancouver, and specialised work in particular thins out quickly east of Langley. People here are used to being told the nearest option is in Surrey.',
     unlock:
@@ -142,7 +142,7 @@ export const cityContexts: CityContext[] = [
     region: 'Fraser Valley',
     authority: 'Fraser Health',
     travel:
-      'Langley is two municipalities that share a name, and a practice "in Langley" may be in the City or anywhere across the Township — which for a resident of Aldergrove or Brookswood is not the same thing at all.',
+      'Langley is two municipalities that share a name, and a practice "in Langley" may be in the City or anywhere across the Township, which for a resident of Aldergrove or Brookswood is not the same thing at all.',
     inPerson:
       'Langley is well served for general counselling and thin for specialised work. The usual advice is to look toward Surrey or Abbotsford, both of which are a real drive at the end of a working day.',
     unlock:
@@ -158,7 +158,7 @@ export const cityContexts: CityContext[] = [
     travel:
       'Chilliwack is the point where the Fraser Valley stops being commutable. A Metro Vancouver appointment is a two-hour round trip in good conditions, and winter on Highway 1 does not offer good conditions reliably.',
     inPerson:
-      'Local private practice exists but is small, and a specific modality — EMDR, structured couples work — often is not available locally at all. Fraser Health covers public intake, with the nearest specialist services generally further west.',
+      'Local private practice exists but is small, and a specific modality: EMDR, structured couples work, often is not available locally at all. Fraser Health covers public intake, with the nearest specialist services generally further west.',
     unlock:
       'Access that does not degrade with distance from Vancouver. The same counsellor, the same modality, whether you are in Sardis or downtown.',
     nearby: ['abbotsford', 'langley'],
@@ -186,7 +186,7 @@ export const cityContexts: CityContext[] = [
     travel:
       'Kelowna serves as the referral hub for much of the Okanagan, which means local practices absorb demand from Vernon, West Kelowna and Penticton as well as the city itself.',
     inPerson:
-      'Interior Health covers public intake across the region. Private practice in Kelowna is comparatively strong for the Interior, which is precisely why it is busy — being the best-served city in a thinly-served region is not the same as being well served.',
+      'Interior Health covers public intake across the region. Private practice in Kelowna is comparatively strong for the Interior, which is precisely why it is busy, being the best-served city in a thinly-served region is not the same as being well served.',
     unlock:
       'Not competing with the whole Okanagan for the same handful of local appointments.',
     nearby: ['kamloops'],

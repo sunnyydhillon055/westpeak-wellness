@@ -64,7 +64,7 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
    * banner is a bad trade. Those post to /message-sent instead, which is a
    * static page that says the same thing.
    *
-   * Validated exactly like `source` — a redirect target taken from a request
+   * Validated exactly like `source`. A redirect target taken from a request
    * body is an open redirect the moment it is trusted. */
   const returnTo = safePath(String(form.get('returnTo') ?? '').trim(), source);
 
@@ -113,7 +113,7 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
   const MAGNETS = new Set(['icbc-after-a-crash', 'starting-counselling']);
   const magnet = MAGNETS.has(asked) ? asked : 'coverage-checklist';
 
-  /* How automated does this look? Synchronous signals only — see lib/triage.ts
+  /* How automated does this look? Synchronous signals only. See lib/triage.ts
      for what is deliberately NOT measured (names, IP addresses, geography).
      Scored before the store so the verdict is written with the record, using
      the store as it stood at the moment the submission arrived: "duplicate"
@@ -145,7 +145,7 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
 
   /* A tripped honeypot is the one unambiguous case: a field no human can see
      was filled in. Stored so it is countable in /admin, and silently accepted
-     so whoever wrote the bot is not taught to stop filling the field — but no
+     so whoever wrote the bot is not taught to stop filling the field, but no
      mail is sent for it in either direction.
 
      Nothing else stops here. A `review` verdict is a chip in /admin, never a
@@ -153,7 +153,7 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
   if (verdict.band === 'quarantine') return back('ok');
 
   /* Over the soft ceiling. The record is written, /admin shows it, and the
-     person gets the same confirmation they would have got — the two emails are
+     person gets the same confirmation they would have got. The two emails are
      what is skipped, because those are the part that costs the practice its
      mail reputation and that nobody at this volume is reading anyway. */
   if (rate === 'throttle') return back('ok');
@@ -169,8 +169,8 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
     : o.kind === 'waitlist' ? waitlistAck(firstName)
     : enquiryAck(firstName);
 
-  /* Can this address receive mail at all? A network call, so it happens here —
-     after the store — and fails open: a DNS timeout means "unknown", never
+  /* Can this address receive mail at all? A network call, so it happens here.
+     after the store, and fails open: a DNS timeout means "unknown", never
      "fake". See hasMailExchanger() for why a false answer skips only the
      acknowledgement and never the practice alert. */
   const mx = await hasMailExchanger(email);

@@ -13,7 +13,7 @@ import { PROVINCE_NAME, type Province } from '@/lib/crisis';
 export const metadata: Metadata = {
   title: 'Book a Free 15-Minute Consultation',
   description:
-    'A free 15-minute video call — no card, no obligation, and if someone else would suit you better you will be told so. Anywhere in BC, English or Punjabi.',
+    'A free 15-minute video call. No card, no obligation, and if someone else would suit you better you will be told so. Anywhere in BC, English or Punjabi.',
   alternates: { canonical: `${site.domain}/book` },
   openGraph: { ...ogBase(`/book`),
     title: `Book a Free 15-Minute Consultation | ${site.name}`,
@@ -90,7 +90,7 @@ export default function Book({
                 fit. Nothing is diagnosed and nothing is decided on the call.
               </p>
               <p className="book-brief-note">
-                No card, no intake form, and no obligation to book a session afterwards —
+                No card, no intake form, and no obligation to book a session afterwards,
                 deciding not to is a completely normal outcome.
               </p>
               {/* WHERE THE CLIENT IS SITTING DECIDES WHICH PROVINCE THE SESSION
@@ -106,7 +106,7 @@ export default function Book({
                   Sessions {who ? `with ${who.name.split(' ')[0]} ` : ''}are for people located in {provinceList}.
                 </strong>{' '}
                 Counselling is regulated province by province, and a session counts as happening
-                where you are sitting rather than where your counsellor is — so this is a
+                where you are sitting rather than where your counsellor is, so this is a
                 registration and insurance boundary rather than a preference. If you are elsewhere
                 in Canada, say so on the consultation and you will be pointed toward someone who
                 can properly see you.
@@ -126,20 +126,20 @@ export default function Book({
                   <span className={gurmukhi.className} lang="pa">
                     ਸੈਸ਼ਨ ਪੰਜਾਬੀ ਵਿੱਚ, ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ, ਜਾਂ ਦੋਹਾਂ ਵਿੱਚ ਹੋ ਸਕਦੇ ਹਨ
                   </span>{' '}
-                  — the consultation itself can be in Punjabi, English, or both.{' '}
+. The consultation itself can be in Punjabi, English, or both.{' '}
                   <Link href="/punjabi">ਪੰਜਾਬੀ ਵਿੱਚ ਜਾਣਕਾਰੀ</Link>
                 </p>
               )}
               {who && !who.languages.some((l) => l.tag === 'pa') && (
                 <p className="book-brief-note">
-                  <strong>The consultation can be in {languageList}</strong> — including moving
+                  <strong>The consultation can be in {languageList}</strong>, including moving
                   between them, which is what most bilingual people end up doing.
                 </p>
               )}
               {/* The last-mile objections, answered where they strike rather
                   than three clicks away on /pricing and /client-portal. */}
               <p className="book-brief-note">
-                <strong>After you book:</strong> a confirmation email arrives with the video link —
+                <strong>After you book:</strong> a confirmation email arrives with the video link.
                 nothing to install, any device with a camera works. Rescheduling or cancelling is
                 free up to {site.cancellationHours} hours ahead. And nothing about the call requires
                 a diagnosis, a referral, or a decision on the spot. The full shape of the call is on{' '}
@@ -176,7 +176,7 @@ export default function Book({
                 within one business day to fix a time.
               </p>
               <p>
-                {who.name} · {who.postNominals} — sessions in {languageList}, anywhere in{' '}
+                {who.name} · {who.postNominals}, sessions in {languageList}, anywhere in{' '}
                 {provinceList}. <Link href={`/practitioners/${who.slug}`}>More about {who.name.split(' ')[0]}</Link>.
               </p>
               <InboundForm kind="waitlist" done={waitlist} practitioner={who.slug} />
@@ -247,7 +247,7 @@ export default function Book({
           <Figure name="booking-payment-flow" />
 
           <h2>No intake forms, no pressure.</h2>
-          <Figure name="first-session-flow" caption="The consultation is step one of four — and stopping after it is a normal outcome." />
+          <Figure name="first-session-flow" caption="The consultation is step one of four, and stopping after it is a normal outcome." />
           <div className="steps" style={{ marginTop: 26, maxWidth: 760 }}>
             <div className="step"><div className="step-num">1</div><div>
               <h3>You say what brought you here</h3>
@@ -260,7 +260,7 @@ export default function Book({
               <h3>You hear how the work would go</h3>
               <p style={{ color: 'var(--ink-soft)', margin: 0 }}>
                 Which approach fits what you&rsquo;ve described, what a session looks like, and
-                roughly how often people usually meet. Questions are welcome — that&rsquo;s the point
+                roughly how often people usually meet. Questions are welcome. That&rsquo;s the point
                 of the call.
               </p>
             </div></div>
@@ -268,7 +268,7 @@ export default function Book({
               <h3>You decide, in your own time</h3>
               <p style={{ color: 'var(--ink-soft)', margin: 0 }}>
                 If it feels like a fit, you can book a first session. If it doesn&rsquo;t, that is a
-                completely fine outcome — and a referral in a better direction can be suggested.
+                completely fine outcome, and a referral in a better direction can be suggested.
               </p>
             </div></div>
           </div>
@@ -297,21 +297,21 @@ export default function Book({
           </p>
           <div className="steps" style={{ marginTop: 24 }}>
             <div className="step"><div className="step-num">1</div><div>
-              <h3>Session one — the whole picture</h3>
+              <h3>Session one, the whole picture</h3>
               <p style={{ color: 'var(--ink-soft)', margin: 0 }}>
                 Fifty minutes on your history and what you want to be different. More listening
                 than questions, and no requirement to start with the hardest thing.
               </p>
             </div></div>
             <div className="step"><div className="step-num">2</div><div>
-              <h3>Sessions two and three — finding the pattern</h3>
+              <h3>Sessions two and three, finding the pattern</h3>
               <p style={{ color: 'var(--ink-soft)', margin: 0 }}>
                 Working out what is actually keeping the thing going, rather than only how it
                 feels. This is usually where something you have not named before gets named.
               </p>
             </div></div>
             <div className="step"><div className="step-num">3</div><div>
-              <h3>Around session four — a deliberate check</h3>
+              <h3>Around session four, a deliberate check</h3>
               <p style={{ color: 'var(--ink-soft)', margin: 0 }}>
                 Is this working, is it the right approach, and is it the right person? Asked
                 out loud rather than left to you to raise. Stopping here is a normal outcome
@@ -319,7 +319,7 @@ export default function Book({
               </p>
             </div></div>
             <div className="step"><div className="step-num">4</div><div>
-              <h3>After that — your call, every time</h3>
+              <h3>After that, your call, every time</h3>
               <p style={{ color: 'var(--ink-soft)', margin: 0 }}>
                 Weekly at first for most people, then fortnightly, then further apart. Nothing
                 is booked in advance beyond what you have agreed, there is no package, and
@@ -355,7 +355,7 @@ export default function Book({
             <p>
               If you&rsquo;d rather read first, the{' '}
               <Link href="/faq">frequently asked questions</Link> cover fees, confidentiality,
-              and what a first session is actually like — or there is a full walkthrough of{' '}
+              and what a first session is actually like, or there is a full walkthrough of{' '}
               <Link href="/guides/what-to-expect-first-therapy-session">what happens in a first session</Link>.
               You can also browse{' '}
               <Link href="/services">the full list of services</Link> to see which approach
@@ -390,7 +390,7 @@ export default function Book({
           </p>
           <p>
             You are also not expected to tell the whole story. Fifteen minutes is not enough for that
-            and it is not what the call is for — it exists to establish whether the work would fit,
+            and it is not what the call is for. It exists to establish whether the work would fit,
             not to begin it. If it helps to arrive with anything, one sentence on what is going on and
             one on how long it has been going on is more than sufficient.
           </p>
@@ -402,7 +402,7 @@ export default function Book({
             How would we know it was working. What do you not work with. What does it cost and is that
             the whole cost.{' '}
             <Link href="/guides/questions-to-ask-a-therapist">Questions worth asking a therapist</Link>{' '}
-            sets out the full list along with the answers that should make you wary — every one of them
+            sets out the full list along with the answers that should make you wary. Every one of them
             is fair game here.
           </p>
 

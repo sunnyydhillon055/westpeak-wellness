@@ -166,7 +166,7 @@ export default function TagalogGuidePage({ params }: { params: Params }) {
                 <Link href={g.englishHref} hrefLang="en-CA" lang="en">
                   {g.englishLabel}
                 </Link>{' '}
-                — ang kaugnay na pahina sa Ingles.
+, ang kaugnay na pahina sa Ingles.
               </p>
             )}
 

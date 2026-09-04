@@ -62,7 +62,7 @@ export async function POST(req: Request) {
    * is logged for the practice and never surfaced to the caller. */
   try {
     if (!(await isClientAllowed(email))) {
-      console.log('[portal-code] request for a non-client address — no code sent');
+      console.log('[portal-code] request for a non-client address, no code sent');
       return NextResponse.json(SAME_ANSWER);
     }
 
@@ -74,7 +74,7 @@ export async function POST(req: Request) {
       const name = clients.find((c) => c.email === email)?.name;
       const sent = await sendInviteEmail(email, name);
       if (!sent.ok) console.error('[portal-code] invite send failed:', sent.detail);
-      else console.log('[portal-code] first-time client — sent set-up link rather than a code');
+      else console.log('[portal-code] first-time client, sent set-up link rather than a code');
       return NextResponse.json(SAME_ANSWER);
     }
 
@@ -85,7 +85,7 @@ export async function POST(req: Request) {
     }
 
     if (!mailConfigured()) {
-      console.error('[portal-code] RESEND_API_KEY or PORTAL_FROM_EMAIL is not set — code generated but cannot be sent');
+      console.error('[portal-code] RESEND_API_KEY or PORTAL_FROM_EMAIL is not set, code generated but cannot be sent');
       return NextResponse.json(SAME_ANSWER);
     }
 
@@ -96,7 +96,7 @@ export async function POST(req: Request) {
 
 It expires in ${CODE_TTL_MINUTES} minutes and can be used once.
 
-If you did not ask for this, you can ignore it — nobody can reach your
+If you did not ask for this, you can ignore it. Nobody can reach your
 portal without the code, and it stops working shortly.
 
 Westpeak Wellness
@@ -107,7 +107,7 @@ ${site.domain}`;
   <p style="margin:0 0 14px;font-size:15px;">Your Westpeak Wellness access code:</p>
   <p style="margin:0 0 16px;font-size:34px;letter-spacing:7px;font-weight:700;color:#3d6c92;">${issued.code}</p>
   <p style="margin:0 0 14px;font-size:14px;line-height:1.6;">It expires in ${CODE_TTL_MINUTES} minutes and can be used once.</p>
-  <p style="margin:0;font-size:13px;line-height:1.6;color:#545e69;">If you did not ask for this, ignore it — nobody can reach your portal without the code, and it stops working shortly.</p>
+  <p style="margin:0;font-size:13px;line-height:1.6;color:#545e69;">If you did not ask for this, ignore it. Nobody can reach your portal without the code, and it stops working shortly.</p>
 </div>`;
 
     const sent = await sendDetailed(email, 'Your Westpeak Wellness access code', text, html);

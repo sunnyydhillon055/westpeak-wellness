@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: { ...ogBase('/online-counselling') },
   title: 'Areas Served Across British Columbia',
   description:
-    'Virtual therapy anywhere in BC — Vancouver, Surrey, Victoria, Kelowna, Prince George and beyond. Sessions in English or Punjabi.',
+    'Virtual therapy anywhere in BC: Vancouver, Surrey, Victoria, Kelowna, Prince George and beyond. Sessions in English or Punjabi.',
   alternates: { canonical: `${site.domain}/online-counselling` },
 };
 
@@ -32,7 +32,7 @@ export default function LocationsIndex() {
         <div className="container">
           <p className="eyebrow">Serving all of BC</p>
           <h1>Online counselling across British Columbia</h1>
-          <p className="lede">Westpeak Wellness is fully virtual — wherever you are in BC, you can work with a Registered Clinical Counsellor from the comfort of your own space.</p>
+          <p className="lede">Westpeak Wellness is fully virtual, wherever you are in BC, you can work with a Registered Clinical Counsellor from the comfort of your own space.</p>
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
             <Link className="btn btn--ghost" href="/services">See counselling services</Link>
@@ -59,7 +59,7 @@ export default function LocationsIndex() {
           </p>
           <p>
             The one requirement is that you are physically in British Columbia at the time of your
-            appointment. Registration is provincial — travelling within BC is fine, travelling outside
+            appointment. Registration is provincial, travelling within BC is fine, travelling outside
             it is not. There is more on how virtual sessions run on the{' '}
             <Link href="/online-counselling">online counselling service page</Link>, and on
             the evidence behind them in the guide to{' '}
@@ -70,14 +70,14 @@ export default function LocationsIndex() {
           <p>
             Most counselling websites list every city in the province. This one does not, deliberately.
             A page about &ldquo;counselling in [city]&rdquo; that is identical to forty others with the
-            place name swapped is not useful to anyone reading it — and search engines treat that
+            place name swapped is not useful to anyone reading it, and search engines treat that
             pattern as exactly what it is.
           </p>
           <p>
             So there are pages for the six places where something true and specific about accessing
             care there actually changes what the page says: the scarcity of clinicians in the north,
             the cost of a ferry for weekly appointments, the concentration of Punjabi-speaking
-            counsellors in the Lower Mainland. Everywhere else is served identically — there is simply
+            counsellors in the Lower Mainland. Everywhere else is served identically. There is simply
             nothing distinct to write, and pretending otherwise would waste your time.
           </p>
         </div>
@@ -100,14 +100,14 @@ export default function LocationsIndex() {
             </div>
           ))}
           <p style={{ marginTop: 24, color: 'var(--ink-soft)' }}>
-            Not on the list? Nothing changes — Burnaby, Nanaimo, Terrace, Fort St. John and
+            Not on the list? Nothing changes: Burnaby, Nanaimo, Terrace, Fort St. John and
             everywhere else in the province are served on exactly the same terms.
           </p>
           <p style={{ marginTop: 14 }}>
             There is a separate set of pages for{' '}
             <Link href="/punjabi-counselling">Punjabi-speaking counselling by region</Link>, because
             what is available locally in Punjabi is a different question from what is available
-            locally in English — and across most of the province the answer is very different.
+            locally in English, and across most of the province the answer is very different.
           </p>
         </div>
       </section>
@@ -120,7 +120,7 @@ export default function LocationsIndex() {
             <div className="card">
               <h3>Free consultation</h3>
               <p style={{ marginBottom: 0 }}>
-                Fifteen minutes over secure video, at no cost — see{' '}
+                Fifteen minutes over secure video, at no cost. See{' '}
                 <Link href="/book">how the free consultation works</Link>.
               </p>
             </div>
@@ -156,13 +156,13 @@ export default function LocationsIndex() {
           </p>
           <p>
             The requirement people underestimate is <strong>a private hour</strong>. Not silent, not
-            beautiful — private. A bedroom with the door shut, a parked car, an empty office. If you
+            beautiful: private. A bedroom with the door shut, a parked car, an empty office. If you
             are managing who might overhear, you are not really in the session, and it is worth solving
             that before the first appointment rather than discovering it during one.
           </p>
           <p>
             You are never required to be on camera. Turning it off is a real option rather than a
-            concession — it suits camera fatigue, lower bandwidth, and anyone who thinks more
+            concession. It suits camera fatigue, lower bandwidth, and anyone who thinks more
             clearly without being watched.
           </p>
 
@@ -170,7 +170,7 @@ export default function LocationsIndex() {
           <p>
             A counsellor has to be registered in the jurisdiction where the client is physically
             located during a session. In practice that means sessions run when you are in British
-            Columbia — so if you travel, work rotationally out of province, or study elsewhere for part
+            Columbia, so if you travel, work rotationally out of province, or study elsewhere for part
             of the year, mention it and it can be planned around rather than discovered mid-course.
             It is also why you are asked where in BC you are, which occasionally surprises people who
             expected a virtual practice not to care.
@@ -184,15 +184,15 @@ export default function LocationsIndex() {
             <Link href="/resources/bc-crisis-and-support-directory">BC crisis and support directory</Link>{' '}
             lists starting points in every health authority. This is also not a crisis service: sessions
             are scheduled and there is no 24-hour line. And where you need a diagnosis, medication or a
-            formal assessment, that is a different professional entirely —{' '}
+            formal assessment, that is a different professional entirely, {' '}
             <Link href="/resources/psychiatry-and-assessment-in-bc">psychiatry and assessment in BC</Link>{' '}
             explains those routes, and{' '}
             <Link href="/standards">standards and accountability</Link> sets out the full list of what
             this practice does not do.
           </p>
           <p>
-            On whether video therapy works at all — a fair question, and one with a real research base
-            behind it —{' '}
+            On whether video therapy works at all. A fair question, and one with a real research base
+            behind it, {' '}
             <Link href="/guides/is-online-therapy-as-effective-as-in-person">is online therapy as effective as in person</Link>{' '}
             sets out the evidence including the places where it is weaker.
           </p>

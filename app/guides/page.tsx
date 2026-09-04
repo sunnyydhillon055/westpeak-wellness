@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   openGraph: { ...ogBase('/guides') },
   title: 'Counselling Guides',
   description:
-    'Plain-language guides to therapy in BC — what the research says, what to expect, and how to decide. Written by a Registered Clinical Counsellor.',
+    'Plain-language guides to therapy in BC: what the research says, what to expect, and how to decide. Written by a Registered Clinical Counsellor.',
   alternates: { canonical: `${site.domain}/guides` },
 };
 
@@ -60,7 +60,7 @@ export default function GuidesHub() {
           <div className="crisis" style={{ marginTop: 32 }}>
             <p style={{ margin: 0 }}>
               Read enough? A <Link href={site.bookingPath}>free 15-minute consultation</Link> answers
-              the question no guide can — whether this particular counsellor is a fit for you.
+              the question no guide can, whether this particular counsellor is a fit for you.
             </p>
           </div>
 

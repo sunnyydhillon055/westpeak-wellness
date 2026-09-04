@@ -24,7 +24,7 @@ export default function Page() {
       tool={tool}
       intro={
         <>
-          Most people looking for counselling compare two options — wait for the public system,
+          Most people looking for counselling compare two options: wait for the public system,
           or pay. There are usually five or six doors open, several of them free, and the one
           people most often miss is an entitlement they already have through work.
         </>
@@ -44,7 +44,7 @@ export default function Page() {
           generalised it, or made it up.
         </p>
         <p>
-          What can be said honestly is the relative order — which routes tend to open in days,
+          What can be said honestly is the relative order, which routes tend to open in days,
           which in weeks, which in months. That is also the comparison that changes what you do
           next, which a single number never does.
         </p>
@@ -54,7 +54,7 @@ export default function Page() {
           An employee assistance programme. It is confidential from your employer, it usually
           moves within days, it covers a set number of sessions, and it is already paid for
           through your benefits. A significant number of people pay privately for something they
-          were entitled to and did not know about — and the way to find out is one call to HR or
+          were entitled to and did not know about, and the way to find out is one call to HR or
           one look at the benefits booklet.
         </p>
         <p>

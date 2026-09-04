@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   openGraph: { ...ogBase('/about') },
   title: 'About us',
   description:
-    'Westpeak Wellness is a virtual counselling practice serving all of British Columbia — therapy in English or Punjabi with Registered Clinical Counsellors.',
+    'Westpeak Wellness is a virtual counselling practice serving all of British Columbia, therapy in English or Punjabi with Registered Clinical Counsellors.',
   alternates: { canonical: `${site.domain}/about` },
 };
 
@@ -72,7 +72,7 @@ const BLOCKS: { h: string; p: string; href: string; cta: string }[] = [
   },
   {
     h: 'A free first call',
-    p: 'Fifteen minutes by video, no card and no obligation. It is for working out fit — and if someone else is a better fit, we will say so on the call.',
+    p: 'Fifteen minutes by video, no card and no obligation. It is for working out fit, and if someone else is a better fit, we will say so on the call.',
     href: site.bookingPath,
     cta: 'Book the consultation',
   },
@@ -131,7 +131,7 @@ export default function About() {
             <p>
               Westpeak is a small practice of registered counsellors working online across British
               Columbia. You can{' '}
-              <Link href="/practitioners">read about each of our counsellors</Link> — their
+              <Link href="/practitioners">read about each of our counsellors</Link>. Their
               training, what they work with, and the languages they practise in.
             </p>
             <p>
@@ -166,13 +166,13 @@ export default function About() {
           <p>
             Sessions run in English, Punjabi or Tagalog, and in plenty of them the conversation
             moves between two of those without anybody planning it. That is not a feature bolted
-            on — for a lot of people it is the difference between describing a feeling and
+            on, for a lot of people it is the difference between describing a feeling and
             translating one, and translating a feeling while you are still struggling to name it
             in your first language is its own kind of work.
           </p>
           <p>
             It also removes an explaining step. What relatives will say, what is owed to a family,
-            what gets carried down — those are the starting context of a session rather than
+            what gets carried down. Those are the starting context of a session rather than
             something to be taught at the beginning of one. There are pages written in{' '}
             <Link href="/punjabi" lang="pa" hrefLang="pa">ਪੰਜਾਬੀ</Link> and in{' '}
             <Link href="/tagalog" lang="tl" hrefLang="tl">Tagalog</Link> rather than about them.
@@ -182,8 +182,8 @@ export default function About() {
           <p>
             Counselling is regulated province by province, and a session counts as happening where
             you are sitting rather than where your counsellor is. This practice works across all of
-            British Columbia. One counsellor — Camille Granda, who holds the national CCC
-            certification alongside her BC registration — can also see clients located in Alberta.
+            British Columbia. One counsellor, Camille Granda, who holds the national CCC
+            certification alongside her BC registration, can also see clients located in Alberta.
           </p>
           <p>
             The rest of the country we cannot, and the pages say so rather than taking a booking
@@ -196,7 +196,7 @@ export default function About() {
           <h2>Why there are no reviews here</h2>
           <p>
             The BC Association of Clinical Counsellors prohibits client testimonials, so this site
-            publishes none — not for modesty and not because there is nothing to say. Where
+            publishes none, not for modesty and not because there is nothing to say. Where
             reviews would normally sit, there are registration numbers you can check yourself on a
             public register in about two minutes.{' '}
             <Link href="/reviews">Reviews and references</Link> explains the rule and what can be

@@ -4,7 +4,7 @@ import { site } from '@/lib/site';
 import { mailConfigured } from '@/lib/portal-mail';
 
 export const metadata: Metadata = {
-  title: { absolute: 'Reset your password — Westpeak Wellness' },
+  title: { absolute: 'Reset your password | Westpeak Wellness' },
   robots: { index: false, follow: false },
 };
 export const runtime = 'nodejs';
@@ -34,7 +34,7 @@ export default function ForgotPage({ searchParams }: { searchParams?: { sent?: s
             <div className="crisis" style={{ marginTop: 20 }}>
               <p style={{ margin: 0 }}>
                 Nothing after a few minutes? Check the spam folder. It may also be that a
-                different address is on file — if so, email{' '}
+                different address is on file. If so, email{' '}
                 <a href={`mailto:${site.email}`}>{site.email}</a>.
               </p>
             </div>
@@ -55,7 +55,7 @@ export default function ForgotPage({ searchParams }: { searchParams?: { sent?: s
               <p className="signin-setup">
                 Email delivery is not configured, so no message will actually arrive. Set{' '}
                 <code>RESEND_API_KEY</code> and <code>PORTAL_FROM_EMAIL</code> in Vercel and
-                redeploy — see <code>GO_LIVE.md</code>.
+                redeploy, see <code>GO_LIVE.md</code>.
               </p>
             )}
 
@@ -69,7 +69,7 @@ export default function ForgotPage({ searchParams }: { searchParams?: { sent?: s
             </form>
 
             <p style={{ fontSize: '.92rem', color: 'var(--ink-soft)', marginTop: 24 }}>
-              Signing in with Google instead? That needs no password at all —{' '}
+              Signing in with Google instead? That needs no password at all, {' '}
               <Link href="/signin">go back to sign in</Link>.
             </p>
           </>

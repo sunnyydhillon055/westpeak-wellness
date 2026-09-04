@@ -20,13 +20,13 @@ export const glossaryGroups = [
     key: 'approaches',
     name: 'Approaches and methods',
     blurb:
-      'The named ways of working. A therapist trained in several of these is not being vague — different problems respond to different methods, and the choice should be explained to you rather than applied silently.',
+      'The named ways of working. A therapist trained in several of these is not being vague, different problems respond to different methods, and the choice should be explained to you rather than applied silently.',
   },
   {
     key: 'experience',
     name: 'What people are describing',
     blurb:
-      'Words for experiences, not labels for people. Several of these are also clinical diagnoses, which only a qualified professional can make — a definition here is an orientation aid, not an assessment.',
+      'Words for experiences, not labels for people. Several of these are also clinical diagnoses, which only a qualified professional can make. A definition here is an orientation aid, not an assessment.',
   },
   {
     key: 'process',
@@ -38,7 +38,7 @@ export const glossaryGroups = [
     key: 'bc',
     name: 'Designations, coverage and BC systems',
     blurb:
-      'The specifically British Columbian part — who is registered with whom, what pays for what, and which door to knock on when private counselling is not the right answer.',
+      'The specifically British Columbian part, who is registered with whom, what pays for what, and which door to knock on when private counselling is not the right answer.',
   },
 ] as const;
 
@@ -49,7 +49,7 @@ export const glossary: Term[] = [
     also: 'CBT',
     group: 'approaches',
     definition:
-      'A structured, present-focused approach built on the idea that thoughts, feelings and behaviour hold each other in place, so changing one changes the others. Sessions tend to be organised around a specific target, with practice between them. It has the largest evidence base of any talk therapy, which is why it is often the first thing offered — not because it suits everyone.',
+      'A structured, present-focused approach built on the idea that thoughts, feelings and behaviour hold each other in place, so changing one changes the others. Sessions tend to be organised around a specific target, with practice between them. It has the largest evidence base of any talk therapy, which is why it is often the first thing offered, not because it suits everyone.',
     href: '/compare/cbt-vs-emdr-for-trauma',
   },
   {
@@ -57,14 +57,14 @@ export const glossary: Term[] = [
     also: 'Eye Movement Desensitization and Reprocessing',
     group: 'approaches',
     definition:
-      'A structured eight-phase therapy for distressing memories, in which you attend briefly to a memory while doing something that occupies attention at the same time — typically following a moving target with your eyes. The aim is not to erase the memory but to reduce how loudly it fires in the present. Most of the protocol is preparation, not eye movements.',
+      'A structured eight-phase therapy for distressing memories, in which you attend briefly to a memory while doing something that occupies attention at the same time, typically following a moving target with your eyes. The aim is not to erase the memory but to reduce how loudly it fires in the present. Most of the protocol is preparation, not eye movements.',
     href: '/services/emdr-therapy',
   },
   {
     term: 'Gottman Method',
     group: 'approaches',
     definition:
-      'A couples therapy built on decades of observational research into how partners actually argue. It begins with a formal assessment of the relationship — joint and individual sessions — before any treatment plan is agreed, and works on friendship, conflict management and shared meaning rather than on winning disagreements.',
+      'A couples therapy built on decades of observational research into how partners actually argue. It begins with a formal assessment of the relationship: joint and individual sessions: before any treatment plan is agreed, and works on friendship, conflict management and shared meaning rather than on winning disagreements.',
     href: '/guides/how-the-gottman-method-works',
   },
   {
@@ -79,27 +79,27 @@ export const glossary: Term[] = [
     also: 'ACT',
     group: 'approaches',
     definition:
-      'Works on your relationship to difficult thoughts and feelings rather than on their content — the goal is to stop the struggle consuming your life, and to move toward what you actually value while the difficulty is still present. Often a good fit for people who have already "figured out" their patterns and are still stuck.',
+      'Works on your relationship to difficult thoughts and feelings rather than on their content. The goal is to stop the struggle consuming your life, and to move toward what you actually value while the difficulty is still present. Often a good fit for people who have already "figured out" their patterns and are still stuck.',
   },
   {
     term: 'Internal Family Systems',
     also: 'IFS, parts work',
     group: 'approaches',
     definition:
-      'Treats the mind as made up of parts — the part that wants to leave the job, the part that is terrified of leaving — each with a protective intention, however unhelpful its strategy. Work involves getting to know those parts rather than overruling them. Often useful where someone feels genuinely divided against themselves.',
+      'Treats the mind as made up of parts. The part that wants to leave the job, the part that is terrified of leaving, each with a protective intention, however unhelpful its strategy. Work involves getting to know those parts rather than overruling them. Often useful where someone feels genuinely divided against themselves.',
   },
   {
     term: 'Somatic therapy',
     group: 'approaches',
     definition:
-      'A family of approaches that treat the body as a source of information rather than a passenger — tracking tension, breath, posture and impulse as part of the work. Frequently used in trauma treatment, where the nervous system holds a pattern that talking about it does not reach.',
+      'A family of approaches that treat the body as a source of information rather than a passenger: tracking tension, breath, posture and impulse as part of the work. Frequently used in trauma treatment, where the nervous system holds a pattern that talking about it does not reach.',
     href: '/services/individual-therapy',
   },
   {
     term: 'Narrative therapy',
     group: 'approaches',
     definition:
-      'Starts from the position that the story you tell about a problem is not the same as the problem, and that stories can be examined and rewritten. Often includes externalising language — "the anxiety" rather than "my anxiety" — to create enough distance to work.',
+      'Starts from the position that the story you tell about a problem is not the same as the problem, and that stories can be examined and rewritten. Often includes externalising language, "the anxiety" rather than "my anxiety", to create enough distance to work.',
   },
   {
     term: 'Solution-focused brief therapy',
@@ -111,7 +111,7 @@ export const glossary: Term[] = [
     term: 'Psychodynamic therapy',
     group: 'approaches',
     definition:
-      'Works with patterns formed early and repeated since — in relationships, at work, and often in the therapy room itself. Less structured and usually longer than CBT, and more interested in why a pattern keeps recurring than in the technique for interrupting it.',
+      'Works with patterns formed early and repeated since: in relationships, at work, and often in the therapy room itself. Less structured and usually longer than CBT, and more interested in why a pattern keeps recurring than in the technique for interrupting it.',
   },
   {
     term: 'Emotionally focused therapy',
@@ -125,7 +125,7 @@ export const glossary: Term[] = [
     term: 'Exposure therapy',
     group: 'approaches',
     definition:
-      'Deliberate, graded, planned contact with what is feared — never a surprise, never a stunt. The mechanism is not "proving nothing bad happens" so much as building tolerance for the fear itself. It is among the most effective treatments for anxiety disorders and among the most misunderstood.',
+      'Deliberate, graded, planned contact with what is feared, never a surprise, never a stunt. The mechanism is not "proving nothing bad happens" so much as building tolerance for the fear itself. It is among the most effective treatments for anxiety disorders and among the most misunderstood.',
     href: '/services/individual-therapy',
   },
   {
@@ -133,7 +133,7 @@ export const glossary: Term[] = [
     also: 'CPT',
     group: 'approaches',
     definition:
-      'A structured, trauma-focused therapy that concentrates on the beliefs formed in the aftermath of an event — about safety, trust, control, and one\'s own responsibility. Strong evidence base for post-traumatic stress, and one of the protocols shown to transfer well to video delivery.',
+      'A structured, trauma-focused therapy that concentrates on the beliefs formed in the aftermath of an event: about safety, trust, control, and one\'s own responsibility. Strong evidence base for post-traumatic stress, and one of the protocols shown to transfer well to video delivery.',
   },
   {
     term: 'Behavioural activation',
@@ -146,13 +146,13 @@ export const glossary: Term[] = [
     term: 'Mindfulness-based approaches',
     group: 'approaches',
     definition:
-      'Structured programmes — MBCT and MBSR are the best known — that train sustained, non-reactive attention to present experience. The evidence is strongest for preventing depressive relapse. Distinct from a meditation app, which offers the practice without the clinical structure around it.',
+      'Structured programmes, MBCT and MBSR are the best known. That train sustained, non-reactive attention to present experience. The evidence is strongest for preventing depressive relapse. Distinct from a meditation app, which offers the practice without the clinical structure around it.',
   },
   {
     term: 'Trauma-informed practice',
     group: 'approaches',
     definition:
-      'Not a therapy, a stance: assume any client may have a trauma history, and design everything — pacing, choice, predictability, how consent is handled — so the process itself does not repeat the dynamics of harm. A trauma-informed counsellor is not automatically a trauma therapist.',
+      'Not a therapy, a stance: assume any client may have a trauma history, and design everything: pacing, choice, predictability, how consent is handled, so the process itself does not repeat the dynamics of harm. A trauma-informed counsellor is not automatically a trauma therapist.',
   },
 
   /* ---------------- experience ---------------- */
@@ -160,27 +160,27 @@ export const glossary: Term[] = [
     term: 'Anxiety',
     group: 'experience',
     definition:
-      'Anticipation of threat — the body preparing for something that has not happened. It becomes a clinical problem not when it is intense but when it is persistent, out of proportion, and shrinking your life. Ordinary anxiety before a hard conversation is the system working.',
+      'Anticipation of threat. The body preparing for something that has not happened. It becomes a clinical problem not when it is intense but when it is persistent, out of proportion, and shrinking your life. Ordinary anxiety before a hard conversation is the system working.',
     href: '/services/individual-therapy',
   },
   {
     term: 'Panic attack',
     group: 'experience',
     definition:
-      'An abrupt surge of intense fear with strong physical symptoms — racing heart, breathlessness, chest tightness, a sense of unreality — that typically peaks within about ten minutes and then subsides. Terrifying, and not dangerous in itself. The fear of the next one is often the bigger problem.',
+      'An abrupt surge of intense fear with strong physical symptoms: racing heart, breathlessness, chest tightness, a sense of unreality. That typically peaks within about ten minutes and then subsides. Terrifying, and not dangerous in itself. The fear of the next one is often the bigger problem.',
     href: '/guides/anxiety-attack-vs-panic-attack',
   },
   {
     term: 'Generalized anxiety',
     group: 'experience',
     definition:
-      'Worry that moves. Resolve one topic and it attaches to the next, with the physical residue — tension, poor sleep, difficulty concentrating — persisting underneath regardless of subject. The content is rarely the point.',
+      'Worry that moves. Resolve one topic and it attaches to the next, with the physical residue: tension, poor sleep, difficulty concentrating, persisting underneath regardless of subject. The content is rarely the point.',
   },
   {
     term: 'Social anxiety',
     group: 'experience',
     definition:
-      'Fear of being evaluated, and of the visible signs of that fear being noticed. Frequently mislabelled as shyness, and frequently invisible from outside because the avoidance is so well-managed — declining the presentation, arriving late, leaving early.',
+      'Fear of being evaluated, and of the visible signs of that fear being noticed. Frequently mislabelled as shyness, and frequently invisible from outside because the avoidance is so well-managed: declining the presentation, arriving late, leaving early.',
   },
   {
     term: 'High-functioning anxiety',
@@ -200,7 +200,7 @@ export const glossary: Term[] = [
     term: 'Burnout',
     group: 'experience',
     definition:
-      'Classified in the ICD-11 as an occupational phenomenon rather than a medical condition: exhaustion, mental distance or cynicism about the work, and reduced effectiveness, arising from chronic unmanaged workplace stress. Its defining feature is context — it is attached to a situation.',
+      'Classified in the ICD-11 as an occupational phenomenon rather than a medical condition: exhaustion, mental distance or cynicism about the work, and reduced effectiveness, arising from chronic unmanaged workplace stress. Its defining feature is context. It is attached to a situation.',
     href: '/guides/burnout-vs-depression',
   },
   {
@@ -208,7 +208,7 @@ export const glossary: Term[] = [
     also: 'PTSD',
     group: 'experience',
     definition:
-      'A cluster that can follow exposure to a traumatic event: intrusive re-experiencing, avoidance of reminders, negative changes in thinking and mood, and a nervous system stuck in a raised state. It is not a measure of how bad the event was — it is about how the memory got stored.',
+      'A cluster that can follow exposure to a traumatic event: intrusive re-experiencing, avoidance of reminders, negative changes in thinking and mood, and a nervous system stuck in a raised state. It is not a measure of how bad the event was. It is about how the memory got stored.',
     href: '/services/individual-therapy',
   },
   {
@@ -221,33 +221,33 @@ export const glossary: Term[] = [
     term: 'Intergenerational trauma',
     group: 'experience',
     definition:
-      'The transmission of the effects of trauma across generations — through parenting, silence, migration, vigilance, and what a family treats as normal. What is inherited is usually not the event but the adaptation to it.',
+      'The transmission of the effects of trauma across generations: through parenting, silence, migration, vigilance, and what a family treats as normal. What is inherited is usually not the event but the adaptation to it.',
     href: '/guides/intergenerational-trauma-explained',
   },
   {
     term: 'Dissociation',
     group: 'experience',
     definition:
-      'Disconnection from thoughts, feelings, body or surroundings — going blank, watching yourself from outside, losing stretches of time. A protective response, not a failure of effort, and common enough that most people have experienced a mild version.',
+      'Disconnection from thoughts, feelings, body or surroundings: going blank, watching yourself from outside, losing stretches of time. A protective response, not a failure of effort, and common enough that most people have experienced a mild version.',
   },
   {
     term: 'Hypervigilance',
     group: 'experience',
     definition:
-      'A threat-detection system running permanently above baseline: scanning rooms, tracking tone of voice, unable to settle with your back to a door. Exhausting precisely because it works — the cost is that it does not switch off when the danger is over.',
+      'A threat-detection system running permanently above baseline: scanning rooms, tracking tone of voice, unable to settle with your back to a door. Exhausting precisely because it works. The cost is that it does not switch off when the danger is over.',
   },
   {
     term: 'Window of tolerance',
     group: 'experience',
     definition:
-      'The band of arousal in which you can feel something and still think about it. Above it is hyperarousal — panic, rage, no off switch. Below it is hypoarousal — numb, flat, far away. Therapy that changes anything happens inside the window, which is why capacity is built before memory is opened.',
+      'The band of arousal in which you can feel something and still think about it. Above it is hyperarousal: panic, rage, no off switch. Below it is hypoarousal: numb, flat, far away. Therapy that changes anything happens inside the window, which is why capacity is built before memory is opened.',
     href: '/services/individual-therapy',
   },
   {
     term: 'Rumination',
     group: 'experience',
     definition:
-      'Repetitive thinking about the past that produces no new information — replaying, re-litigating, rehearsing. Feels like problem-solving and functions as avoidance. Strongly associated with both depression and anxiety.',
+      'Repetitive thinking about the past that produces no new information: replaying, re-litigating, rehearsing. Feels like problem-solving and functions as avoidance. Strongly associated with both depression and anxiety.',
   },
   {
     term: 'Intrusive thoughts',
@@ -259,26 +259,26 @@ export const glossary: Term[] = [
     term: 'Avoidance',
     group: 'experience',
     definition:
-      'Anything done to prevent contact with what is feared — not going, not saying, not opening the email. It works immediately, which is exactly the problem: the relief teaches the brain the threat was real, so the fear grows.',
+      'Anything done to prevent contact with what is feared, not going, not saying, not opening the email. It works immediately, which is exactly the problem: the relief teaches the brain the threat was real, so the fear grows.',
   },
   {
     term: 'Moral injury',
     group: 'experience',
     definition:
-      'The lasting effect of doing, witnessing or failing to prevent something that violates your own moral code — common in healthcare, emergency services and the military. Distinct from post-traumatic stress: the dominant feeling is guilt or shame rather than fear.',
+      'The lasting effect of doing, witnessing or failing to prevent something that violates your own moral code, common in healthcare, emergency services and the military. Distinct from post-traumatic stress: the dominant feeling is guilt or shame rather than fear.',
     href: '/for/healthcare-and-shift-workers',
   },
   {
     term: 'Compassion fatigue',
     group: 'experience',
     definition:
-      'The gradual erosion of empathy in people whose work requires it continuously. Not callousness — depletion. Frequently arrives alongside burnout and is often noticed first by the people at home.',
+      'The gradual erosion of empathy in people whose work requires it continuously. Not callousness, depletion. Frequently arrives alongside burnout and is often noticed first by the people at home.',
   },
   {
     term: 'Grief',
     group: 'experience',
     definition:
-      'The response to loss, which does not move through tidy stages and does not have a schedule. It also attaches to losses that are not deaths — a marriage, a country, a body that used to work, a future that had been assumed.',
+      'The response to loss, which does not move through tidy stages and does not have a schedule. It also attaches to losses that are not deaths. A marriage, a country, a body that used to work, a future that had been assumed.',
   },
   {
     term: 'Perfectionism',
@@ -292,7 +292,7 @@ export const glossary: Term[] = [
     term: 'Therapeutic alliance',
     group: 'process',
     definition:
-      'The working bond between client and counsellor — agreement on goals, agreement on tasks, and a relationship that can hold both. One of the more consistent predictors of whether therapy helps, across every method. If it is not there by session three or four, that is information worth acting on.',
+      'The working bond between client and counsellor: agreement on goals, agreement on tasks, and a relationship that can hold both. One of the more consistent predictors of whether therapy helps, across every method. If it is not there by session three or four, that is information worth acting on.',
   },
   {
     term: 'Intake',
@@ -305,14 +305,14 @@ export const glossary: Term[] = [
     term: 'Informed consent',
     group: 'process',
     definition:
-      'Being told what an approach involves, what it might stir up, what the alternatives are and what the limits of confidentiality are — before agreeing to it. It is ongoing rather than a form signed once, and you can withdraw it at any point without justifying yourself.',
+      'Being told what an approach involves, what it might stir up, what the alternatives are and what the limits of confidentiality are, before agreeing to it. It is ongoing rather than a form signed once, and you can withdraw it at any point without justifying yourself.',
     href: '/standards',
   },
   {
     term: 'Scope of practice',
     group: 'process',
     definition:
-      'The boundary of what a professional is qualified and permitted to do. A counsellor working outside it — diagnosing, advising on medication, conducting a formal assessment — is a problem regardless of how confident they sound.',
+      'The boundary of what a professional is qualified and permitted to do. A counsellor working outside it: diagnosing, advising on medication, conducting a formal assessment, is a problem regardless of how confident they sound.',
     href: '/standards',
   },
   {
@@ -325,19 +325,19 @@ export const glossary: Term[] = [
     term: 'Psychoeducation',
     group: 'process',
     definition:
-      'Teaching the mechanics — why panic peaks and falls, what avoidance trains, how sleep and mood interact. Often the fastest relief available in early sessions, because a frightening experience becomes considerably less frightening once it is explicable.',
+      'Teaching the mechanics: why panic peaks and falls, what avoidance trains, how sleep and mood interact. Often the fastest relief available in early sessions, because a frightening experience becomes considerably less frightening once it is explicable.',
   },
   {
     term: 'Grounding',
     group: 'process',
     definition:
-      'Deliberate techniques for re-establishing contact with the present when you have left it — orienting to the room, temperature, weight, breath. A skill practised when calm so it is available when not.',
+      'Deliberate techniques for re-establishing contact with the present when you have left it: orienting to the room, temperature, weight, breath. A skill practised when calm so it is available when not.',
   },
   {
     term: 'Resourcing',
     group: 'process',
     definition:
-      'Building internal and external supports before difficult material is approached — regulation skills, safe imagery, people, structure. In trauma work the sequence matters: resourcing first, then reprocessing.',
+      'Building internal and external supports before difficult material is approached: regulation skills, safe imagery, people, structure. In trauma work the sequence matters: resourcing first, then reprocessing.',
     href: '/guides/what-is-emdr-and-how-a-session-works',
   },
   {
@@ -345,7 +345,7 @@ export const glossary: Term[] = [
     also: 'homework',
     group: 'process',
     definition:
-      'The part of the work that happens in the other 167 hours of the week. Usually small and specific — tracking something, trying one different response. Structured therapies rely on it, and it is negotiable rather than assigned.',
+      'The part of the work that happens in the other 167 hours of the week. Usually small and specific: tracking something, trying one different response. Structured therapies rely on it, and it is negotiable rather than assigned.',
   },
   {
     term: 'Containment',
@@ -358,19 +358,19 @@ export const glossary: Term[] = [
     also: 'termination',
     group: 'process',
     definition:
-      'The planned close of counselling — reviewing what changed, naming what would signal a need to return, and finishing deliberately rather than by attrition. A good ending is part of the work, not the absence of it.',
+      'The planned close of counselling: reviewing what changed, naming what would signal a need to return, and finishing deliberately rather than by attrition. A good ending is part of the work, not the absence of it.',
   },
   {
     term: 'Referral',
     group: 'process',
     definition:
-      'Being directed to a different service better suited to what you need — a psychiatrist, an assessment, a specialised programme, or another counsellor. Offered because a fit is wrong, not because a person is.',
+      'Being directed to a different service better suited to what you need, a psychiatrist, an assessment, a specialised programme, or another counsellor. Offered because a fit is wrong, not because a person is.',
   },
   {
     term: 'Duty to report',
     group: 'process',
     definition:
-      'The legal obligation in British Columbia — on everyone, not only professionals — to report suspected abuse or neglect of a person under nineteen to child protection. One of the named limits of confidentiality.',
+      'The legal obligation in British Columbia, on everyone, not only professionals, to report suspected abuse or neglect of a person under nineteen to child protection. One of the named limits of confidentiality.',
     href: '/privacy',
   },
   {
@@ -388,7 +388,7 @@ export const glossary: Term[] = [
     also: 'RCC',
     group: 'bc',
     definition:
-      'A designation held through the BC Association of Clinical Counsellors, requiring a master\'s degree in counselling or a closely related field, supervised clinical hours, continuing education, liability insurance and adherence to a code of ethics — with a complaints process behind it.',
+      'A designation held through the BC Association of Clinical Counsellors, requiring a master\'s degree in counselling or a closely related field, supervised clinical hours, continuing education, liability insurance and adherence to a code of ethics, with a complaints process behind it.',
     href: '/compare/rcc-vs-psychologist-vs-social-worker-bc',
   },
   {
@@ -416,7 +416,7 @@ export const glossary: Term[] = [
     term: 'Unprotected titles',
     group: 'bc',
     definition:
-      '"Counsellor", "therapist", "psychotherapist" and "life coach" carry no legal entry requirement in British Columbia today — no mandatory training, insurance or complaints route. This changes as counselling therapy comes under the College of Health and Care Professionals of BC.',
+      '"Counsellor", "therapist", "psychotherapist" and "life coach" carry no legal entry requirement in British Columbia today, no mandatory training, insurance or complaints route. This changes as counselling therapy comes under the College of Health and Care Professionals of BC.',
     href: '/guides/how-to-find-a-therapist-in-bc',
   },
   {
@@ -431,7 +431,7 @@ export const glossary: Term[] = [
     term: 'Extended health benefits',
     group: 'bc',
     definition:
-      'Private insurance, usually through an employer, a spouse\'s employer or a student plan, typically with an annual maximum for counselling. The critical detail is which designations the plan reimburses — some cover an RCC, some only a psychologist.',
+      'Private insurance, usually through an employer, a spouse\'s employer or a student plan, typically with an annual maximum for counselling. The critical detail is which designations the plan reimburses. Some cover an RCC, some only a psychologist.',
     href: '/resources/bc-extended-health-coverage-for-counselling',
   },
   {
@@ -446,7 +446,7 @@ export const glossary: Term[] = [
     also: 'employee and family assistance program',
     group: 'bc',
     definition:
-      'An employer-funded programme offering a limited number of counselling sessions at no cost to the employee, usually through a contracted network. Fast and free, and capped — often six to eight sessions, with limited choice of counsellor.',
+      'An employer-funded programme offering a limited number of counselling sessions at no cost to the employee, usually through a contracted network. Fast and free, and capped, often six to eight sessions, with limited choice of counsellor.',
     href: '/resources/low-cost-counselling-bc',
   },
   {
@@ -466,7 +466,7 @@ export const glossary: Term[] = [
     term: 'Health authority',
     group: 'bc',
     definition:
-      'BC\'s regional health bodies — Fraser Health, Vancouver Coastal, Island Health, Interior Health, Northern Health — each running publicly funded mental-health and substance-use services. Free, and generally with waitlists and eligibility criteria.',
+      'BC\'s regional health bodies: Fraser Health, Vancouver Coastal, Island Health, Interior Health, Northern Health, each running publicly funded mental-health and substance-use services. Free, and generally with waitlists and eligibility criteria.',
   },
   {
     term: 'PIPA',

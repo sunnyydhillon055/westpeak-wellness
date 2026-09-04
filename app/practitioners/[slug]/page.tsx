@@ -24,7 +24,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   /* Under 158. The first version listed the role, the practice, the province,
      both languages and all three focus areas, and ran to 205 characters —
      Google would have cut it mid-clause. */
-  const description = `${p.name}, ${p.postNominals} — online counselling across BC in ${p.languages.map((l) => l.name).join(' or ')}. ${p.focus.map((f) => f.label).join(', ')}.`;
+  const description = `${p.name}, ${p.postNominals}, online counselling across BC in ${p.languages.map((l) => l.name).join(' or ')}. ${p.focus.map((f) => f.label).join(', ')}.`;
   return {
     title: { absolute: title },
     description,
@@ -66,7 +66,7 @@ const LANGUAGE_HUBS: {
     secondLabel: 'Punjabi counselling by region',
     heading: (first) => `Sessions in Punjabi with ${first}`,
     body: (first) =>
-      `${first} works in Punjabi and English, including moving between them inside a session — which is how a great many people actually think and speak. It also removes an explaining step: what relatives will say, what is owed to a family, and what gets carried down are the starting context rather than something to be taught at the beginning of a session.`,
+      `${first} works in Punjabi and English, including moving between them inside a session, which is how a great many people actually think and speak. It also removes an explaining step: what relatives will say, what is owed to a family, and what gets carried down are the starting context rather than something to be taught at the beginning of a session.`,
   },
   ...(TAGALOG_READY
     ? [{
@@ -77,7 +77,7 @@ const LANGUAGE_HUBS: {
         secondLabel: 'Tagalog-speaking counselling by city',
         heading: (first: string) => `Sessions in Tagalog with ${first}`,
         body: (first: string) =>
-          `${first} works in Tagalog and English, including moving between them inside one session. For a lot of people that is the difference between describing a feeling and translating one — and utang na loob, hiya and the weight of what relatives will say are context here rather than something to explain from scratch.`,
+          `${first} works in Tagalog and English, including moving between them inside one session. For a lot of people that is the difference between describing a feeling and translating one, and utang na loob, hiya and the weight of what relatives will say are context here rather than something to explain from scratch.`,
       }]
     : []),
 ];
@@ -163,7 +163,7 @@ export default function PractitionerPage({ params }: { params: { slug: string } 
             </div>
             {!p.bookable && (
               <p style={{ fontSize: '.9rem', color: 'var(--ink-soft)', marginTop: 12 }}>
-                {first} is taking new clients. Online booking directly with her is being set up —
+                {first} is taking new clients. Online booking directly with her is being set up.
                 until then the free consultation is the way in, and it goes to the practice.
               </p>
             )}
@@ -337,7 +337,7 @@ export default function PractitionerPage({ params }: { params: { slug: string } 
               const svc = getService(s);
               return svc ? (
                 <li key={s}>
-                  <Link href={`/services/${svc.slug}`}>{svc.name}</Link> — {svc.short}
+                  <Link href={`/services/${svc.slug}`}>{svc.name}</Link>, {svc.short}
                 </li>
               ) : null;
             })}

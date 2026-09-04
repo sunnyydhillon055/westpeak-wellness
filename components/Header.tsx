@@ -147,7 +147,7 @@ export default function Header() {
       data-open={open ? 'true' : 'false'}
     >
       <div className="container container--wide nav">
-        <Link href="/" className="brand" aria-label={`${site.name} — home`}>
+        <Link href="/" className="brand" aria-label={`${site.name}, home`}>
           <span className="brand-mark" aria-hidden="true"><Motif variant="mark" /></span>
           <span className="brand-word">Westpeak <span>Wellness</span></span>
         </Link>

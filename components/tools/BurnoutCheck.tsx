@@ -55,7 +55,7 @@ export default function BurnoutCheck() {
               <p>
                 Your answers do not lean strongly either way, which is worth knowing rather than
                 a failure of the questions. If you came looking anyway, that is usually the more
-                useful signal — people do not check this at random.
+                useful signal, people do not check this at random.
               </p>
             )}
             <p>
@@ -71,7 +71,7 @@ export default function BurnoutCheck() {
               <Link href="/guides/stress-leave-bc">how stress leave works in BC</Link> covers the
               practical side.
             </p>
-            <ResultCta tool="burnout-or-depression" label="Talk it through — free 15 minutes" />
+            <ResultCta tool="burnout-or-depression" label="Talk it through, free 15 minutes" />
             <div className="crisis" style={{ marginTop: 22 }}>
               <p style={{ margin: 0 }}>
                 <strong>If things are worse than this page can hold:</strong> call or text{' '}

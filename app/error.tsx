@@ -56,7 +56,7 @@ export default function Error({
         <h2>If you were looking for help right now</h2>
         <p>
           This is not a crisis service. If you are in crisis, call or text{' '}
-          <a href="tel:988">9-8-8</a> — the Suicide Crisis Helpline, anywhere in Canada,
+          <a href="tel:988">9-8-8</a>, the Suicide Crisis Helpline, anywhere in Canada,
           24/7. In immediate danger, call <a href="tel:911">9-1-1</a>.
         </p>
 

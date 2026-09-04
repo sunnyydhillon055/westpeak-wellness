@@ -11,7 +11,7 @@ import InboundForm from '@/components/InboundForm';
 export const metadata: Metadata = {
   title: 'Contact & Book',
   description:
-    'One line is enough to start, and the reply comes from your counsellor rather than an assistant — within one business day. English or Punjabi, anywhere in BC.',
+    'One line is enough to start, and the reply comes from your counsellor rather than an assistant, within one business day. English or Punjabi, anywhere in BC.',
   alternates: { canonical: `${site.domain}/contact` },
 };
 
@@ -34,7 +34,7 @@ export default async function Contact({
     const { replyTimeStats } = await import('@/lib/reply-templates');
     const stats = replyTimeStats((await readInbound()).items);
     if (stats.ready) {
-      replyLine = `Replies within one business day — median so far: ${
+      replyLine = `Replies within one business day, median so far: ${
         stats.medianHours < 24 ? `${stats.medianHours} hours` : 'one business day'
       }, measured across ${stats.sample} messages`;
     }
@@ -73,7 +73,7 @@ export default async function Contact({
                 promise, so the two must be changed together. */}
             {/* Renders only once NEXT_PUBLIC_PHONE is set — see lib/site.ts. */}
             {site.phone && (
-              <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Phone strokeWidth={1.7} /></span><div><h3>Phone</h3><p><a href={`tel:${site.phoneTel}`}>{site.phone}</a><br /><span style={{ color: 'var(--ink-faint)', fontSize: '.92em' }}>Voicemail outside session hours — leave a first name and a good time to call back</span></p></div></div>
+              <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Phone strokeWidth={1.7} /></span><div><h3>Phone</h3><p><a href={`tel:${site.phoneTel}`}>{site.phone}</a><br /><span style={{ color: 'var(--ink-faint)', fontSize: '.92em' }}>Voicemail outside session hours, leave a first name and a good time to call back</span></p></div></div>
             )}
             <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Mail strokeWidth={1.7} /></span><div><h3>Email</h3><p><a href={`mailto:${site.email}`}>{site.email}</a><br /><span style={{ color: 'var(--ink-faint)', fontSize: '.92em' }}>{replyLine}</span></p></div></div>
             <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><MonitorSmartphone strokeWidth={1.7} /></span><div><h3>Sessions</h3><p>Fully online, anywhere in British Columbia</p></div></div>
@@ -94,7 +94,7 @@ export default async function Contact({
 
           <p style={{ marginTop: 32 }}>
             If you already know you want to start, the fastest route is to{' '}
-            <Link href={site.bookingPath}>book a free 15-minute consultation</Link> directly — the
+            <Link href={site.bookingPath}>book a free 15-minute consultation</Link> directly. The
             form above is better for questions you want answered before committing to a call.
           </p>
 
@@ -119,7 +119,7 @@ export default async function Contact({
             <p>
               You will hear back directly, usually within one business day, and the reply will either
               offer some consultation times or explain honestly why another service would suit you
-              better. Being told the second thing is a normal outcome rather than a brush-off — the
+              better. Being told the second thing is a normal outcome rather than a brush-off. The
               limits of what this practice does are set out plainly on{' '}
               <Link href="/standards">standards and accountability</Link>.
             </p>
@@ -131,7 +131,7 @@ export default async function Contact({
               <Link href="/guides/what-to-expect-first-therapy-session">What happens in a first session</Link>{' '}
               covers the stage after that, and{' '}
               <Link href="/guides/questions-to-ask-a-therapist">questions worth asking a therapist</Link>{' '}
-              is worth reading beforehand — every question on it is fair game here.
+              is worth reading beforehand. Every question on it is fair game here.
             </p>
 
             <p>
@@ -142,7 +142,7 @@ export default async function Contact({
             <h2>Two practical things before you book</h2>
             <p>
               Sessions run by secure video anywhere in British Columbia, and a counsellor has to be
-              registered in the jurisdiction where you are physically located during a session — so if
+              registered in the jurisdiction where you are physically located during a session, so if
               you travel or work outside the province, mention it and it can be planned around.
             </p>
             <p>
@@ -154,11 +154,11 @@ export default async function Contact({
               explains what to ask them.
             </p>
             <p>
-              If you need an accommodation to make sessions workable — camera off, adjusted
-              pacing, written summaries, evening slots — the{' '}
+              If you need an accommodation to make sessions workable: camera off, adjusted
+              pacing, written summaries, evening slots, the{' '}
               <Link href="/refer">passing this practice on to someone else</Link> covers what a
-              referral involves, including the funded routes — ICBC, employee assistance
-              programmes and extended health — that most people do not know they qualify for.
+              referral involves, including the funded routes, ICBC, employee assistance
+              programmes and extended health. That most people do not know they qualify for.
               The{' '}
               <Link href="/accessibility">accessibility statement</Link> lists what is available
               and states plainly what is not.
@@ -179,7 +179,7 @@ export default async function Contact({
       <section className="section section--tint">
         <div className="container center">
           <h2>Ready when you are</h2>
-          <p className="lede">Tell us what you&rsquo;re looking for — a sentence is enough. You&rsquo;ll hear back from your counsellor directly, usually within one business day.</p>
+          <p className="lede">Tell us what you&rsquo;re looking for. A sentence is enough. You&rsquo;ll hear back from your counsellor directly, usually within one business day.</p>
           <div className="btn-row" style={{ marginTop: 20 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book Free Consultation</Link>
           </div>

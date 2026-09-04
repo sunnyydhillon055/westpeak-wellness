@@ -20,7 +20,7 @@
    ========================================================================= */
 
 export const TAGALOG_LANDING = {
-  metaTitle: 'Counselling sa Tagalog — Westpeak Wellness',
+  metaTitle: 'Counselling sa Tagalog | Westpeak Wellness',
   metaDescription:
     'Counselling sa Tagalog o Ingles sa buong British Columbia at Alberta. Libreng 15 minutong konsultasyon, walang bayad at walang obligasyon.',
 
@@ -35,17 +35,17 @@ export const TAGALOG_LANDING = {
   whyHeading: 'Bakit mahalaga ang wika sa terapiya',
   why: [
     'Kayang-kaya ng marami ang Ingles sa trabaho, sa doktor, sa buong araw. Ibang usapan ang pagsasalin ng isang damdamin habang hirap ka pa ngang pangalanan ito sa unang wika mo.',
-    'Ang nangyayari sa maraming pamilya ay nagiging tagasalin ang isang kaanak — para sa magulang, sa asawa, minsan para sa buong sambahayan. Umuubra iyon sa isang appointment sa klinika. Hindi iyon umuubra kapag ang pinag-uusapan ay ang mismong pamilya.',
+    'Ang nangyayari sa maraming pamilya ay nagiging tagasalin ang isang kaanak: para sa magulang, sa asawa, minsan para sa buong sambahayan. Umuubra iyon sa isang appointment sa klinika. Hindi iyon umuubra kapag ang pinag-uusapan ay ang mismong pamilya.',
     'Sa isang sesyon na maaaring lumipat sa pagitan ng Tagalog at Ingles, hindi mo kailangang pumili nang maaga. Karamihan ay lumilipat nang hindi sinasadya, lalo na kapag mabigat ang paksa, at walang bahagi ng sesyon na humihingi sa iyong pumili ng isa at manatili roon.',
   ],
 
   contextHeading: 'Hindi kailangang ipaliwanag mula sa simula',
   context:
-    'Ang utang na loob, ang hiya, ang bigat ng sasabihin ng mga kamag-anak, ang pagiging panganay — konteksto ang mga ito, hindi aralin na kailangang ituro sa unang sesyon. Doon nagsisimula ang usapan, hindi kung saan ito natatapos.',
+    'Ang utang na loob, ang hiya, ang bigat ng sasabihin ng mga kamag-anak, ang pagiging panganay: konteksto ang mga ito, hindi aralin na kailangang ituro sa unang sesyon. Doon nagsisimula ang usapan, hindi kung saan ito natatapos.',
 
   whoHeading: 'Sino ang makakausap mo',
   who:
-    'Si Camille Granda, RCC, CCC, ay nagtatrabaho sa Tagalog at Ingles. Nakarehistro siya sa BC Association of Clinical Counsellors at sertipikado bilang Canadian Certified Counsellor sa CCPA — pareho silang pampublikong rehistro na maaari mong tingnan.',
+    'Si Camille Granda, RCC, CCC, ay nagtatrabaho sa Tagalog at Ingles. Nakarehistro siya sa BC Association of Clinical Counsellors at sertipikado bilang Canadian Certified Counsellor sa CCPA, pareho silang pampublikong rehistro na maaari mong tingnan.',
   whoCta: 'Tungkol kay Camille',
 
   worksHeading: 'Mga pinagtatrabahuhan',
@@ -72,7 +72,7 @@ export const TAGALOG_LANDING = {
 
   feesHeading: 'Bayad at insurance',
   fees:
-    'Nakalista ang buong bayad sa pahina ng mga bayarin. Maraming extended health plan ang nagbabalik-bayad sa isang Registered Clinical Counsellor o Canadian Certified Counsellor — sulit itanong sa insurer mo bago magsimula, dahil iba-iba ang tinatanggap ng bawat plano.',
+    'Nakalista ang buong bayad sa pahina ng mga bayarin. Maraming extended health plan ang nagbabalik-bayad sa isang Registered Clinical Counsellor o Canadian Certified Counsellor, sulit itanong sa insurer mo bago magsimula, dahil iba-iba ang tinatanggap ng bawat plano.',
   feesCta: 'Tingnan ang mga bayarin',
 
   ctaHeading: 'Mag-usap muna tayo',

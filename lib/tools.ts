@@ -29,19 +29,19 @@ export const tools: ToolMeta[] = [
   {
     slug: 'which-service',
     title: 'Which kind of counselling fits?',
-    short: 'Five questions, then a suggested starting point — including when that is not therapy.',
+    short: 'Five questions, then a suggested starting point, including when that is not therapy.',
     metaTitle: 'Which kind of counselling fits? | Westpeak Wellness',
     metaDescription:
-      'A short, private questionnaire that suggests where to start — individual, couples, EMDR or something outside counselling. No sign-up, nothing stored.',
+      'A short, private questionnaire that suggests where to start: individual, couples, EMDR or something outside counselling. No sign-up, nothing stored.',
     minutes: 2,
     faqs: [
       {
         q: 'Is this an assessment?',
-        a: 'No. It sorts your answers towards a starting point, which is a different job from assessing anything. A Registered Clinical Counsellor does not diagnose in any case — where a formal diagnosis is what you need, that is a physician, psychiatrist or registered psychologist. What this can do is stop you spending a first session working out which door you should have walked through.',
+        a: 'No. It sorts your answers towards a starting point, which is a different job from assessing anything. A Registered Clinical Counsellor does not diagnose in any case, where a formal diagnosis is what you need, that is a physician, psychiatrist or registered psychologist. What this can do is stop you spending a first session working out which door you should have walked through.',
       },
       {
         q: 'What if the result is not what I expected?',
-        a: 'That is worth paying attention to rather than overriding. It usually means one answer carried more weight than you thought it would — often the question about whether the difficulty sits inside one person or between two. You can run it again and change that answer to see how much it was driving. If the result still feels wrong, it is wrong: five questions cannot know what you know.',
+        a: 'That is worth paying attention to rather than overriding. It usually means one answer carried more weight than you thought it would, often the question about whether the difficulty sits inside one person or between two. You can run it again and change that answer to see how much it was driving. If the result still feels wrong, it is wrong: five questions cannot know what you know.',
       },
       {
         q: 'Can it tell me counselling is not the answer?',
@@ -78,23 +78,23 @@ export const tools: ToolMeta[] = [
       },
       {
         q: 'Does MSP cover counselling?',
-        a: 'Not in private practice. MSP covers physician-delivered mental-health care — your GP, and psychiatry on referral — but not sessions with a Registered Clinical Counsellor. This is the single most common misunderstanding people arrive with, and it is worth settling before you budget anything.',
+        a: 'Not in private practice. MSP covers physician-delivered mental-health care, your GP, and psychiatry on referral, but not sessions with a Registered Clinical Counsellor. This is the single most common misunderstanding people arrive with, and it is worth settling before you budget anything.',
       },
       {
         q: 'My plan covers a psychologist. Is that the same thing?',
-        a: 'No, and this is the detail people most often discover after a first session rather than before it. Registered Clinical Counsellor, registered psychologist and registered social worker are separate designations, and a plan can name one and not the others. Ask specifically whether "Registered Clinical Counsellor" or "RCC" is listed — not whether the plan covers "counselling", which is a word insurers use loosely.',
+        a: 'No, and this is the detail people most often discover after a first session rather than before it. Registered Clinical Counsellor, registered psychologist and registered social worker are separate designations, and a plan can name one and not the others. Ask specifically whether "Registered Clinical Counsellor" or "RCC" is listed, not whether the plan covers "counselling", which is a word insurers use loosely.',
       },
       {
-        q: 'Which cap actually binds — per session or per year?',
+        q: 'Which cap actually binds, per session or per year?',
         a: 'Usually the annual maximum. A plan paying $120 per session with an $800 annual cap does not fund seven sessions at a comfortable rate; it funds under seven sessions and then stops. Working out how many sessions the annual figure buys is more useful than the per-session number, and the estimator does that rather than reporting a percentage.',
       },
       {
         q: 'Do you direct-bill?',
-        a: 'No. You pay the practice directly and claim it back, and a receipt with the registration number on it is issued each time. That means you need the money at the point of booking even when the plan will return most of it — a real constraint, and one worth knowing before booking rather than after.',
+        a: 'No. You pay the practice directly and claim it back, and a receipt with the registration number on it is issued each time. That means you need the money at the point of booking even when the plan will return most of it, a real constraint, and one worth knowing before booking rather than after.',
       },
       {
         q: 'What if the answer is that I cannot afford it?',
-        a: 'Then that is worth finding out here rather than three sessions in. A great many people already hold a free entitlement they have never used — an EFAP through work, a student counselling service, a community agency with sliding-scale places. The low-cost counselling page and the EFAP comparison cover those, and they are the right first stop if cost is the constraint rather than a detail.',
+        a: 'Then that is worth finding out here rather than three sessions in. A great many people already hold a free entitlement they have never used, an EFAP through work, a student counselling service, a community agency with sliding-scale places. The low-cost counselling page and the EFAP comparison cover those, and they are the right first stop if cost is the constraint rather than a detail.',
       },
     ],
     related: [
@@ -120,7 +120,7 @@ export const tools: ToolMeta[] = [
       },
       {
         q: 'So what does it actually give me?',
-        a: 'Language. Most people arrive at counselling able to say that something is wrong and unable to say what — and that gap is not a failure of insight, it is what happens when something has been going on long enough to become the weather rather than an event. The reflection hands back what you described in words you can use, whether that is in a first session, with a GP, or with someone you have not told yet.',
+        a: 'Language. Most people arrive at counselling able to say that something is wrong and unable to say what, and that gap is not a failure of insight, it is what happens when something has been going on long enough to become the weather rather than an event. The reflection hands back what you described in words you can use, whether that is in a first session, with a GP, or with someone you have not told yet.',
       },
       {
         q: 'Is this a depression or anxiety test?',
@@ -128,7 +128,7 @@ export const tools: ToolMeta[] = [
       },
       {
         q: 'What if answering it makes me feel worse?',
-        a: 'That happens sometimes, and it is worth knowing in advance. Putting words to something you have been managing by not looking at it directly can be its own small shock. If that is where you land, it is information rather than a setback — and if things feel genuinely unsafe rather than uncomfortable, call or text 9-8-8, which is free, 24/7 and staffed by people whose job is exactly this.',
+        a: 'That happens sometimes, and it is worth knowing in advance. Putting words to something you have been managing by not looking at it directly can be its own small shock. If that is where you land, it is information rather than a setback, and if things feel genuinely unsafe rather than uncomfortable, call or text 9-8-8, which is free, 24/7 and staffed by people whose job is exactly this.',
       },
       {
         q: 'Is anything stored?',
@@ -139,7 +139,7 @@ export const tools: ToolMeta[] = [
        * answer BC has to offer for it. */
       {
         q: 'Is there such a thing as a mental health check-up?',
-        a: 'Not as a standardised service the way a physical or a dental cleaning is — which is partly why people search for one. The nearest real equivalents in BC: raising mental health at your regular GP visit (a legitimate use of it, and where formal screening lives), a one-off counselling session used as exactly this kind of stocktake, or a free 15-minute consultation to talk through whether anything needs attention. This reflection is the self-serve version: language for how things have been, with no score pretending to be medicine.',
+        a: 'Not as a standardised service the way a physical or a dental cleaning is, which is partly why people search for one. The nearest real equivalents in BC: raising mental health at your regular GP visit (a legitimate use of it, and where formal screening lives), a one-off counselling session used as exactly this kind of stocktake, or a free 15-minute consultation to talk through whether anything needs attention. This reflection is the self-serve version: language for how things have been, with no score pretending to be medicine.',
       },
     ],
     related: [
@@ -152,7 +152,7 @@ export const tools: ToolMeta[] = [
   {
     slug: 'burnout-or-depression',
     title: 'Burnout, or depression?',
-    short: 'Seven questions on the one difference that actually separates them — and what each points toward.',
+    short: 'Seven questions on the one difference that actually separates them, and what each points toward.',
     metaTitle: 'Burnout or depression? A short check | Westpeak Wellness',
     metaDescription:
       'They look identical from inside and respond to different things. Seven questions on what separates them. Not a test, not a diagnosis, nothing stored.',
@@ -164,7 +164,7 @@ export const tools: ToolMeta[] = [
       },
       {
         q: 'What actually separates burnout from depression?',
-        a: 'Mostly whether it travels. Burnout is bound to a context — it eases measurably when you are genuinely away from the source, and the enjoyment of things outside that context is usually intact. Depression comes with you. A fortnight away lifts one of them noticeably and leaves the other largely where it was, which is the cleanest distinguishing test most people already have data on.',
+        a: 'Mostly whether it travels. Burnout is bound to a context. It eases measurably when you are genuinely away from the source, and the enjoyment of things outside that context is usually intact. Depression comes with you. A fortnight away lifts one of them noticeably and leaves the other largely where it was, which is the cleanest distinguishing test most people already have data on.',
       },
       {
         q: 'Why does the difference matter if both feel the same?',
@@ -179,7 +179,7 @@ export const tools: ToolMeta[] = [
   {
     slug: 'what-can-i-access',
     title: 'What can you actually get, and how soon?',
-    short: 'Five questions, then the routes open to you in the order they tend to move — including the free ones most people never use.',
+    short: 'Five questions, then the routes open to you in the order they tend to move, including the free ones most people never use.',
     metaTitle: 'What counselling can you access? | Westpeak Wellness',
     metaDescription:
       'Five questions that sort the routes to counselling in BC and Alberta by what you qualify for, including free options people already have. Nothing stored.',
@@ -195,7 +195,7 @@ export const tools: ToolMeta[] = [
       },
       {
         q: 'Does it work if I am in Alberta?',
-        a: 'Yes. The public and free routes differ by province — Alberta has its own navigation line and its own health plan rules — so the answers change depending on where you say you are. One counsellor at this practice can see Alberta clients; the pages say which.',
+        a: 'Yes. The public and free routes differ by province, Alberta has its own navigation line and its own health plan rules, so the answers change depending on where you say you are. One counsellor at this practice can see Alberta clients; the pages say which.',
       },
       {
         q: 'Is anything stored?',
@@ -247,7 +247,7 @@ export const WHICH_SERVICE: Question[] = [
     choices: [
       { label: 'Weeks', tag: '' },
       { label: 'Months', tag: '' },
-      { label: 'Years — it comes and goes', tag: 'trauma' },
+      { label: 'Years. It comes and goes', tag: 'trauma' },
       { label: 'As long as I can remember', tag: 'trauma' },
     ],
   },
@@ -256,7 +256,7 @@ export const WHICH_SERVICE: Question[] = [
     help: 'There is no need to be specific, and "I am not sure" is a real answer.',
     choices: [
       { label: 'Yes, clearly', tag: 'trauma' },
-      { label: 'Maybe — I have wondered', tag: 'trauma' },
+      { label: 'Maybe. I have wondered', tag: 'trauma' },
       { label: 'No', tag: '' },
       { label: 'I would rather not say yet', tag: '' },
     ],
@@ -277,7 +277,7 @@ export const WHICH_SERVICE_OUTCOMES: Outcome[] = [
     tag: 'crisis',
     heading: 'Please start somewhere faster than a website',
     body:
-      'Counselling is not the right speed for what you have just described. In Canada you can call or text 9-8-8 at any hour, and in BC the Mental Health Support line is 310-6789 with no area code needed. If you are in immediate danger, 9-1-1. None of this means therapy is not for you later — it means today needs something more immediate.',
+      'Counselling is not the right speed for what you have just described. In Canada you can call or text 9-8-8 at any hour, and in BC the Mental Health Support line is 310-6789 with no area code needed. If you are in immediate danger, 9-1-1. None of this means therapy is not for you later. It means today needs something more immediate.',
     href: '/resources/bc-crisis-and-support-directory',
     hrefLabel: 'BC crisis and support directory',
     elsewhere: true,
@@ -286,7 +286,7 @@ export const WHICH_SERVICE_OUTCOMES: Outcome[] = [
     tag: 'thirdparty',
     heading: 'Counselling for someone else has to start with them',
     body:
-      'A counsellor cannot work with a person who has not chosen to come, and being the one who notices is its own weight. Support for the supporter is a legitimate reason to book for yourself — and often the more useful move.',
+      'A counsellor cannot work with a person who has not chosen to come, and being the one who notices is its own weight. Support for the supporter is a legitimate reason to book for yourself, and often the more useful move.',
     href: '/for/family-caregivers',
     hrefLabel: 'Read: supporting someone else',
   },
@@ -302,7 +302,7 @@ export const WHICH_SERVICE_OUTCOMES: Outcome[] = [
     tag: 'couples',
     heading: 'Couples counselling',
     body:
-      'Gottman Method-informed work starts with a structured assessment rather than advice — a joint session, an individual session each, then an agreed plan. If only one of you wants to come, that is workable too, and worth reading about first.',
+      'Gottman Method-informed work starts with a structured assessment rather than advice, a joint session, an individual session each, then an agreed plan. If only one of you wants to come, that is workable too, and worth reading about first.',
     href: '/services/couples-therapy',
     hrefLabel: 'Couples therapy',
   },
@@ -310,7 +310,7 @@ export const WHICH_SERVICE_OUTCOMES: Outcome[] = [
     tag: 'anxiety',
     heading: 'Anxiety counselling',
     body:
-      'Structured cognitive behavioural work targets the mechanisms keeping anxiety running — avoidance, safety behaviours, reassurance-seeking — rather than arguing with the content of any individual worry.',
+      'Structured cognitive behavioural work targets the mechanisms keeping anxiety running: avoidance, safety behaviours, reassurance-seeking, rather than arguing with the content of any individual worry.',
     href: '/services/individual-therapy',
     hrefLabel: 'Anxiety counselling',
   },
@@ -363,7 +363,7 @@ export const STRESS_CHECK: Question[] = [
     q: 'How is your body, physically?',
     choices: [
       { label: 'Normal', tag: '' },
-      { label: 'Tense — jaw, shoulders, stomach', tag: 'arousal' },
+      { label: 'Tense: jaw, shoulders, stomach', tag: 'arousal' },
       { label: 'Wired and tired at the same time', tag: 'arousal' },
       { label: 'Heavy and slow', tag: 'low' },
     ],
@@ -410,7 +410,7 @@ export const STRESS_CHECK: Question[] = [
  * that changes what helps. */
 export const BURNOUT_CHECK: Question[] = [
   {
-    q: 'On a genuinely free weekend — no work, nothing owed — how do you feel by Sunday evening?',
+    q: 'On a genuinely free weekend. No work, nothing owed, how do you feel by Sunday evening?',
     choices: [
       { label: 'Noticeably better. It is the week that does it', tag: 'context' },
       { label: 'A bit better, but it comes back within an hour of Monday', tag: 'context' },
@@ -428,7 +428,7 @@ export const BURNOUT_CHECK: Question[] = [
     ],
   },
   {
-    q: 'The things you enjoy that have nothing to do with work — how are they?',
+    q: 'The things you enjoy that have nothing to do with work, how are they?',
     choices: [
       { label: 'Still enjoyable when I have the energy for them', tag: 'context' },
       { label: 'I do them and they feel flat', tag: 'travels' },
@@ -446,7 +446,7 @@ export const BURNOUT_CHECK: Question[] = [
     ],
   },
   {
-    q: 'And the people you deal with — colleagues, clients, patients, students?',
+    q: 'And the people you deal with: colleagues, clients, patients, students?',
     choices: [
       { label: 'Much as usual', tag: '' },
       { label: 'I have less patience than I used to', tag: 'context' },
@@ -478,9 +478,9 @@ export const BURNOUT_REFLECTIONS: Record<string, string> = {
   context:
     'Most of your answers describe something bound to a situation rather than to you: it eases when you are genuinely away from the source, and the parts of life outside it are still intact. That is the shape burnout takes, and it matters because burnout responds to changing the conditions producing it. Treating it as a personal failure to cope is both inaccurate and the thing that tends to make it worse.',
   travels:
-    'Several answers describe something that comes with you — present on the free weekend, present on the week away, and reaching the parts of life that have nothing to do with the pressure. That pattern is closer to depression than to burnout, and it matters because it does not resolve by fixing the job. Waiting for the workload to change is the most common way people lose a year to this.',
+    'Several answers describe something that comes with you: present on the free weekend, present on the week away, and reaching the parts of life that have nothing to do with the pressure. That pattern is closer to depression than to burnout, and it matters because it does not resolve by fixing the job. Waiting for the workload to change is the most common way people lose a year to this.',
   load:
-    'The clearest thing in your answers is that there has been no gap long enough to tell. That is not an evasion of the question — it is the answer. Without a period of genuine rest there is no way to know which of these it is, and arranging one is both the diagnostic step and, quite often, the first thing that helps.',
+    'The clearest thing in your answers is that there has been no gap long enough to tell. That is not an evasion of the question. It is the answer. Without a period of genuine rest there is no way to know which of these it is, and arranging one is both the diagnostic step and, quite often, the first thing that helps.',
   mixed:
     'Your answers point both ways, which is common and not a failure of the questions. Burnout that has run long enough frequently becomes depression, and the two coexist more often than either is described alone. The useful next step is not deciding between them but describing the pattern accurately to somebody who can help you sort it.',
 };
@@ -551,7 +551,7 @@ export const ACCESS_ROUTES: Record<string, AccessRoute> = {
   urgent: {
     label: 'Right now, before anything else',
     detail:
-      'If things are worse than a waiting list can hold, 9-8-8 is the Suicide Crisis Helpline anywhere in Canada, by call or text, at any hour. It is not only for the worst moment — it is a place to talk when it is bad. In immediate danger, 911.',
+      'If things are worse than a waiting list can hold, 9-8-8 is the Suicide Crisis Helpline anywhere in Canada, by call or text, at any hour. It is not only for the worst moment. It is a place to talk when it is bad. In immediate danger, 911.',
     href: '/resources/bc-crisis-and-support-directory',
   },
   eap: {
@@ -575,7 +575,7 @@ export const ACCESS_ROUTES: Record<string, AccessRoute> = {
   extended: {
     label: 'Your extended health plan',
     detail:
-      'It will not remove a wait, but it changes what a private session costs you. Ask which designation the plan names and what the annual maximum is — those two answers decide the real price.',
+      'It will not remove a wait, but it changes what a private session costs you. Ask which designation the plan names and what the annual maximum is, those two answers decide the real price.',
     href: '/tools/therapy-cost-bc',
   },
   lowcost: {
@@ -599,13 +599,13 @@ export const ACCESS_ROUTES: Record<string, AccessRoute> = {
   private: {
     label: 'Private counselling',
     detail:
-      'The route with no waitlist and no eligibility test, and the one you pay for. Worth it if the free options do not fit, are full, or have already been tried — and worth checking the free ones first if they have not.',
+      'The route with no waitlist and no eligibility test, and the one you pay for. Worth it if the free options do not fit, are full, or have already been tried, and worth checking the free ones first if they have not.',
     href: '/pricing',
   },
   privateab: {
     label: 'Private counselling in Alberta',
     detail:
-      'No waitlist and no eligibility test. AHCIP does not cover it, so an extended health plan or your own pocket pays. Ask your insurer about the CCC designation rather than the RCC — in Alberta that is the one plans name.',
+      'No waitlist and no eligibility test. AHCIP does not cover it, so an extended health plan or your own pocket pays. Ask your insurer about the CCC designation rather than the RCC, in Alberta that is the one plans name.',
     href: '/resources/counselling-coverage-in-alberta',
   },
   other: {

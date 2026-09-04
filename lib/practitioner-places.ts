@@ -61,19 +61,19 @@ const ALBERTA: PractitionerPlace[] = [
     blurb:
       'A city that works long hours and moves fast, with counselling waitlists that do neither.',
     local: [
-      'Calgary has counsellors. What it has less of is availability at the hours the city actually works — and a great deal of Calgary works rotational, on-call, or to a schedule set somewhere else. An appointment that assumes a free weekday afternoon is an appointment most people here miss twice and then stop booking.',
-      'The other Calgary pattern is the downturn one. Energy-sector employment moves in cycles, and the anxiety that comes with a cycle is not the same thing as an anxiety disorder — it is a rational response to an uncertain year, and it responds to different work. So does the burnout that follows a stretch of holding a household together through one.',
+      'Calgary has counsellors. What it has less of is availability at the hours the city actually works, and a great deal of Calgary works rotational, on-call, or to a schedule set somewhere else. An appointment that assumes a free weekday afternoon is an appointment most people here miss twice and then stop booking.',
+      'The other Calgary pattern is the downturn one. Energy-sector employment moves in cycles, and the anxiety that comes with a cycle is not the same thing as an anxiety disorder. It is a rational response to an uncertain year, and it responds to different work. So does the burnout that follows a stretch of holding a household together through one.',
     ],
     access: [
       { label: 'No commute across the city', detail: 'A session from wherever you are, rather than a drive across Deerfoot at the exact hour it does not move.' },
       { label: 'Built for rotational schedules', detail: 'Block-by-block booking with gaps is a normal pattern here, and pausing between blocks costs nothing.' },
-      { label: 'Evening appointments', detail: 'Weekday evenings by request — Mountain Time, so the hour on the page is the hour you attend.' },
+      { label: 'Evening appointments', detail: 'Weekday evenings by request, Mountain Time, so the hour on the page is the hour you attend.' },
       { label: 'English or Tagalog', detail: 'Including both within one session, without needing to find it locally.' },
     ],
     faqs: [
-      { q: 'Is the counsellor registered in Alberta?', a: 'Counselling therapy is not a regulated profession in Alberta, so there is no provincial college a counsellor can register with. What can be checked is the certification: Canadian Certified Counsellor with the CCPA, plus Registered Clinical Counsellor with the BCACC — both public registers, both listed with numbers on this page.' },
+      { q: 'Is the counsellor registered in Alberta?', a: 'Counselling therapy is not a regulated profession in Alberta, so there is no provincial college a counsellor can register with. What can be checked is the certification: Canadian Certified Counsellor with the CCPA, plus Registered Clinical Counsellor with the BCACC, both public registers, both listed with numbers on this page.' },
       { q: 'What time zone are appointments in?', a: 'Times shown to you are Mountain Time. Sessions run from British Columbia, an hour behind, which is handled at the booking end so nothing needs converting.' },
-      { q: 'Does Alberta Health Care cover counselling?', a: 'No. AHCIP does not cover private counselling. Many Alberta extended health plans do reimburse a Canadian Certified Counsellor — worth confirming the designation with your insurer before booking, because plans vary on which credentials they accept.' },
+      { q: 'Does Alberta Health Care cover counselling?', a: 'No. AHCIP does not cover private counselling. Many Alberta extended health plans do reimburse a Canadian Certified Counsellor, worth confirming the designation with your insurer before booking, because plans vary on which credentials they accept.' },
       { q: 'I work a rotation. Can therapy fit around it?', a: 'Yes, and planning for it at the start works far better than discovering it in month two. Booking in blocks around a rotation, with gaps between them, is an ordinary pattern rather than a compromise.' },
       { q: 'What if I am in crisis tonight?', a: 'This is not a crisis service. In Alberta, call or text 9-8-8 at any hour, or the Alberta Mental Health Help Line at 1-877-303-2642, which is province-wide and 24/7. If you are in immediate danger, call 911.' },
     ],
@@ -86,19 +86,19 @@ const ALBERTA: PractitionerPlace[] = [
     blurb:
       'Public services with real waitlists, a hard winter, and a lot of shift work that does not fit an appointment.',
     local: [
-      'Edmonton is a government, health and university city, which means a large share of the workforce runs on shifts, terms and rotations rather than a standard week. It also means a lot of people are already inside a public system and waiting — and the interval between a referral and a first appointment is precisely where a private option is worth considering, not as a replacement but as something that starts now.',
+      'Edmonton is a government, health and university city, which means a large share of the workforce runs on shifts, terms and rotations rather than a standard week. It also means a lot of people are already inside a public system and waiting, and the interval between a referral and a first appointment is precisely where a private option is worth considering, not as a replacement but as something that starts now.',
       'Winter is a practical variable rather than a poetic one. A course of therapy that requires a drive in January is a course of therapy with attendance built on the weather, and the sessions that get missed are rarely the easy ones.',
     ],
     access: [
       { label: 'January stops being a factor', detail: 'No drive, no parking, no cancelled session because the roads are bad.' },
       { label: 'Fits shifts and terms', detail: 'Evening appointments by request, and pausing between blocks rather than dropping out entirely.' },
-      { label: 'Something that starts now', detail: 'Useful alongside a public waitlist rather than instead of it — staying in that queue is generally worth doing.' },
+      { label: 'Something that starts now', detail: 'Useful alongside a public waitlist rather than instead of it, staying in that queue is generally worth doing.' },
       { label: 'English or Tagalog', detail: 'Including moving between the two inside a session.' },
     ],
     faqs: [
       { q: 'Can a BC-based counsellor work with me in Edmonton?', a: 'Counselling therapy is not regulated in Alberta, so practice there is not restricted to a provincial college. The credentials that do apply are stated on this page with their numbers: CCC with the CCPA, and RCC with the BCACC. Both are publicly checkable.' },
       { q: 'Should I come off the public waitlist?', a: 'Generally not. Alberta Health Services runs real services and staying in that queue costs nothing while you start elsewhere. Private counselling alongside a public wait is a parallel route, not a replacement for one.' },
-      { q: 'Will my extended health plan reimburse this?', a: 'Many Alberta plans reimburse a Canadian Certified Counsellor, but coverage varies by which designations a plan recognises. Confirm the designation with your insurer before booking — it takes one phone call and it is the answer that decides the real cost.' },
+      { q: 'Will my extended health plan reimburse this?', a: 'Many Alberta plans reimburse a Canadian Certified Counsellor, but coverage varies by which designations a plan recognises. Confirm the designation with your insurer before booking. It takes one phone call and it is the answer that decides the real cost.' },
       { q: 'What are the sessions like?', a: 'Fifty minutes by secure video, collaborative and practical. The work looks at what is actually maintaining a pattern rather than only at how it feels, and you leave with something to use.' },
       { q: 'What if I need urgent help?', a: 'This is not a crisis service. In Alberta, call or text 9-8-8 at any hour, or the Alberta Mental Health Help Line at 1-877-303-2642. If you are in immediate danger, call 911.' },
     ],
@@ -209,7 +209,7 @@ const languageFaq = (p: Speaker) => {
   const second = names[1] ?? names[0];
   return {
     q: `Can sessions be in ${second}?`,
-    a: `Yes — in ${names.join(' or ')}, or moving between them as the conversation needs. Most people switch without planning to, particularly when something is hard to say, and nothing about the session requires picking one and staying there.`,
+    a: `Yes: in ${names.join(' or ')}, or moving between them as the conversation needs. Most people switch without planning to, particularly when something is hard to say, and nothing about the session requires picking one and staying there.`,
   };
 };
 
@@ -231,13 +231,13 @@ const LOCAL_OVERRIDES: Record<string, Record<string, {
       faqs: [
         {
           q: "Surrey has plenty of counsellors. Why look outside it?",
-          a: "For many people there is no reason to, and you would be told so on the consultation. The reason people write in from Surrey is narrower: in a community this interconnected, the counsellor who comes recommended is often connected to the very people you would least want to know you are going. Confidentiality is a legal duty everywhere — distance is what makes it feel true.",
+          a: "For many people there is no reason to, and you would be told so on the consultation. The reason people write in from Surrey is narrower: in a community this interconnected, the counsellor who comes recommended is often connected to the very people you would least want to know you are going. Confidentiality is a legal duty everywhere, distance is what makes it feel true.",
         },
       ],
       blurb: 'A city big enough to have counsellors, and still short of the ones people are actually looking for.',
       local: [
         'Surrey is one of the fastest-growing cities in Canada, and the counselling here has not grown with it at the same rate. The lists are long, and the people who get seen quickest are usually the ones who can take a weekday afternoon off to do it.',
-        'It is also a city that works shifts — healthcare, the airport, warehousing, care work. A standing Tuesday at two does not survive a rotating roster, and an appointment you keep missing turns into an appointment you stop booking. Sessions by video, in the evening if that is what fits, remove the part that was breaking.',
+        'It is also a city that works shifts: healthcare, the airport, warehousing, care work. A standing Tuesday at two does not survive a rotating roster, and an appointment you keep missing turns into an appointment you stop booking. Sessions by video, in the evening if that is what fits, remove the part that was breaking.',
       ],
     },
     abbotsford: {
@@ -256,7 +256,7 @@ const LOCAL_OVERRIDES: Record<string, Record<string, {
       faqs: [
         {
           q: "Why not simply see somebody in Kamloops?",
-          a: "If a local counsellor is taking clients and suits you, that is the better option and you would be told so. It matters when what you need is specific — a particular approach, or a session in a language other than English — because the local list for that is short and fills quickly.",
+          a: "If a local counsellor is taking clients and suits you, that is the better option and you would be told so. It matters when what you need is specific, a particular approach, or a session in a language other than English, because the local list for that is short and fills quickly.",
         },
       ],
     },
@@ -268,7 +268,7 @@ const LOCAL_OVERRIDES: Record<string, Record<string, {
         },
       ],
       local: [
-        "Richmond has real counselling capacity, and much of it is built — correctly — around the city's Chinese-speaking communities. If that is not what you are looking for, the field narrows fast, and people routinely end up searching Vancouver or Surrey instead.",
+        "Richmond has real counselling capacity, and much of it is built, correctly: around the city's Chinese-speaking communities. If that is not what you are looking for, the field narrows fast, and people routinely end up searching Vancouver or Surrey instead.",
         'The airport and the port are also large local employers, on rosters that change. A session you can attend from home between shifts is worth more than one you could theoretically drive to and keep missing.',
       ],
     },

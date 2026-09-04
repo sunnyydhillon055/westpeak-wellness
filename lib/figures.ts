@@ -41,7 +41,7 @@ export const figures: Record<string, Figure> = {
     height: 555,
     title: "Choosing a counselling approach",
     alt: "Four stacked bands matching a type of difficulty to the approach usually suited to it: current maintaining patterns to cognitive behavioural work, live memories to EMDR, a nervous system pattern to somatic work, and understanding without change to acceptance and commitment therapy.",
-    caption: "A rough map — the consultation is where it gets specific.",
+    caption: "A rough map. The consultation is where it gets specific.",
   },
   'bc-reach': {
     key: 'bc-reach',
@@ -172,7 +172,7 @@ export const figures: Record<string, Figure> = {
     height: 474,
     title: "What each language tends to hold in therapy",
     alt: "Three columns: Tagalog holding memory, family and feeling; English offering distance and the vocabulary of work; and between them a session that can move between the two mid-sentence.",
-    caption: "The middle column is the point — the choice is not made in advance.",
+    caption: "The middle column is the point. The choice is not made in advance.",
   },
   'language-in-therapy': {
     key: 'language-in-therapy',
@@ -185,7 +185,7 @@ export const figures: Record<string, Figure> = {
        stop partway through — and every point in it is already made in the
        prose beside the figure. This says what the picture shows. */
     alt: "Three columns: the first language holding memory, family and feeling; the second offering distance and the vocabulary of work; and between them a session that can move between the two mid-sentence.",
-    caption: "The middle column is the point — the choice is not made in advance.",
+    caption: "The middle column is the point. The choice is not made in advance.",
   },
   /* ==========================================================================
      THE TAGALOG DIAGRAMS, AND WHAT WAS WRONG WITH THE FIRST ONE
@@ -212,7 +212,7 @@ export const figures: Record<string, Figure> = {
     height: 430,
     title: 'Panic attack laban sa pagkabalisa sa paglipas ng oras',
     alt: 'Isang line chart: ang panic attack ay biglang umaakyat sa rurok sa loob ng mga sampung minuto at humuhupa; ang pagkabalisa ay dahan-dahang umaakyat at nananatili nang matagal.',
-    caption: 'Hindi ang bigat ng pakiramdam ang pinakamalinaw na pagkakaiba — kundi ang hugis ng kurba.',
+    caption: 'Hindi ang bigat ng pakiramdam ang pinakamalinaw na pagkakaiba, kundi ang hugis ng kurba.',
   },
   'burnout-vs-depression-tl': {
     key: 'burnout-vs-depression-tl',
@@ -221,7 +221,7 @@ export const figures: Record<string, Figure> = {
     height: 474,
     title: 'Pagkaubos kumpara sa depresyon',
     alt: 'Dalawang magkapatong na bilog. Ang pagkaubos ay nakatali sa isang bahagi ng buhay at madalas gumagaan sa mahabang pahinga; ang depresyon ay nasa lahat ng bahagi. Magkapareho sila sa pagkapagod, putol-putol na tulog at paglayo sa mga tao.',
-    caption: 'Ang tanong ay hindi kung gaano kabigat — kundi kung saan ka nito sinusundan.',
+    caption: 'Ang tanong ay hindi kung gaano kabigat, kundi kung saan ka nito sinusundan.',
   },
   'first-session-flow-tl': {
     key: 'first-session-flow-tl',
@@ -239,7 +239,7 @@ export const figures: Record<string, Figure> = {
     height: 430,
     title: "Panic attack versus anxiety over time",
     alt: "A line chart contrasting a panic attack, which spikes to peak intensity within about ten minutes and then falls away, with generalised anxiety, which rises slowly and stays at a moderate plateau for a long period.",
-    caption: "The clearest difference is not how bad it feels — it is the shape of the curve.",
+    caption: "The clearest difference is not how bad it feels. It is the shape of the curve.",
   },
   'reimbursement-flow': {
     key: 'reimbursement-flow',
@@ -284,7 +284,7 @@ export const figures: Record<string, Figure> = {
     height: 451,
     title: "The window of tolerance in trauma therapy",
     alt: "Three stacked bands describing nervous-system states: hyperarousal above the window, the window of tolerance where thinking and feeling work together, and hypoarousal below it.",
-    caption: "Therapy works inside the middle band — which is why capacity is built before memory is opened.",
+    caption: "Therapy works inside the middle band, which is why capacity is built before memory is opened.",
   },
 };
 

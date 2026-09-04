@@ -105,7 +105,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
      truncates — the practitioner's name is the part that must survive, so it
      leads and the boilerplate goes. */
   const first0 = p.name.split(' ')[0];
-  const title = `Counselling in ${loc.city} — ${p.name}, ${p.postNominals}`;
+  const title = `Counselling in ${loc.city} | ${p.name}, ${p.postNominals}`;
   /* The description ran 112-120 characters, where Google renders about 155 —
      roughly a third of every city page's search snippet was going unused. The
      added clause is the part a reader is actually deciding on: what the work
@@ -113,7 +113,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
      to stay inside the 158 the SEO gate enforces, so a long city name cannot
      push it over. */
   const langs = p.languages.map((l) => l.name).join(' or ');
-  const full = `${p.name}, ${p.postNominals} — online counselling for ${loc.city} in ${langs}. Trauma, anxiety, grief and couples work. Free 15-minute consultation.`;
+  const full = `${p.name}, ${p.postNominals}: online counselling for ${loc.city} in ${langs}. Trauma, anxiety, grief and couples work. Free 15-minute consultation.`;
   const description =
     full.length <= 158 ? full : `${full.slice(0, full.lastIndexOf(' ', 157))}…`;
   return {
@@ -364,7 +364,7 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
             <p>
               {first} works with clients in {loc.city} entirely by secure video, so nothing about
               the fee, the availability or the work changes with where you live. What changes is
-              what getting to an appointment in person would have cost you — and that is the part
+              what getting to an appointment in person would have cost you, and that is the part
               this removes.
             </p>
             {loc.local.map((x) => <p key={x.slice(0, 24)}>{x}</p>)}
@@ -379,8 +379,8 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
                 caught the moment Calgary and Edmonton went in. */}
             {loc.province === 'BC' && (
               <p>
-                For the fuller picture of accessing counselling from {loc.city} — waitlists, the
-                health authority, and what is available locally — see{' '}
+                For the fuller picture of accessing counselling from {loc.city}: waitlists, the
+                health authority, and what is available locally. See{' '}
                 <Link href={`/online-counselling/${loc.slug}`}>counselling in {loc.city}</Link>.
               </p>
             )}
@@ -390,7 +390,7 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
             <figure className="photo" style={{ margin: '28px 0 0', maxWidth: 340 }}>
               <Image
                 src={p.photos.candid.src}
-                alt={`${p.name}, ${p.postNominals} — online counselling for ${loc.city}`}
+                alt={`${p.name}, ${p.postNominals}, online counselling for ${loc.city}`}
                 width={p.photos.candid.width}
                 height={p.photos.candid.height}
                 sizes="(max-width: 700px) 60vw, 340px"
@@ -405,7 +405,7 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
             {loc.access?.length ? (
               <ul className="checklist">
                 {loc.access.slice(0, 4).map((a) => (
-                  <li key={a.label}><strong>{a.label}</strong> — {a.detail}</li>
+                  <li key={a.label}><strong>{a.label}</strong>, {a.detail}</li>
                 ))}
               </ul>
             ) : (
@@ -421,7 +421,7 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
             <p>
               {first} works in {p.languages.map((l) => l.name).join(' and ')}, including moving
               between them inside one session. For a lot of people that is the difference between
-              explaining a feeling and being understood the first time — and it does not require
+              explaining a feeling and being understood the first time, and it does not require
               travelling to a bigger city to find it.
             </p>
           </div>
@@ -480,7 +480,7 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
             <div className="prose" style={{ marginTop: 34 }}>
               <h2>{first} also works with</h2>
               <p>
-                The same practice, the same fee and the same availability — only the
+                The same practice, the same fee and the same availability, only the
                 journey you are not making changes.
               </p>
               <ul className="place-siblings">

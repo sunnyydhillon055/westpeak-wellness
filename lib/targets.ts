@@ -75,8 +75,8 @@ export const targets: Target[] = [
     tier: 1, ceiling: 920, mapPack: false,
     page: '/for/first-gen-south-asian-adults',
     note:
-      'Mapped rather than built, 2026-08-14. The existing page already opens on precisely this — ' +
-      'that the barrier is usually the anticipated effort of explaining rather than stigma as such — ' +
+      'Mapped rather than built, 2026-08-14. The existing page already opens on precisely this, ' +
+      'that the barrier is usually the anticipated effort of explaining rather than stigma as such: ' +
       'and covers log kya kahenge, silence at home, and inherited migration strain. A second page ' +
       'would have competed with it for the same query while saying less. Pages that are true beat ' +
       'pages that are padded, which is the lesson the 37 retired city pages already taught.',
@@ -90,7 +90,7 @@ export const targets: Target[] = [
   },
   { query: 'emdr intensive bc', tier: 2, ceiling: 820, mapPack: false, note: 'Already a bookable service at $190/90min. Few practices offer true intensives.' },
   { query: 'punjabi counselling bc', tier: 2, ceiling: 780, mapPack: false, page: '/punjabi' },
-  { query: 'punjabi speaking therapist surrey', tier: 2, ceiling: 780, mapPack: true, page: '/punjabi-counselling/surrey', note: 'Contested, and supply in Surrey is genuinely good — so the page does not argue scarcity, which would be transparently false there. It argues distance: no local office, no overlap with community networks. The head term will not be taken from a young domain; the winnable traffic is the privacy-shaped long tail behind it.' },
+  { query: 'punjabi speaking therapist surrey', tier: 2, ceiling: 780, mapPack: true, page: '/punjabi-counselling/surrey', note: 'Contested, and supply in Surrey is genuinely good, so the page does not argue scarcity, which would be transparently false there. It argues distance: no local office, no overlap with community networks. The head term will not be taken from a young domain; the winnable traffic is the privacy-shaped long tail behind it.' },
   { query: 'online counselling british columbia', tier: 2, ceiling: 760, mapPack: false, page: '/online-counselling' },
   { query: 'low cost counselling bc sliding scale', tier: 2, ceiling: 740, mapPack: false, note: 'Real access content, high volume, already offered.' },
   { query: 'waiting for therapy in bc', tier: 2, ceiling: 730, mapPack: false, page: '/guides/waiting-for-therapy-in-bc', note: 'Already indexed and ranking.' },
@@ -101,7 +101,7 @@ export const targets: Target[] = [
     query: 'stress leave bc how to get', tier: 2, ceiling: 690, mapPack: false,
     page: '/guides/stress-leave-bc',
     note:
-      'Highest commercial intent of the ten gaps VISIBILITY_30 measured — somebody searching it ' +
+      'Highest commercial intent of the ten gaps VISIBILITY_30 measured, somebody searching it ' +
       'needs documentation and a counsellor, in that order, usually this month. The page leads ' +
       'with the fact that an RCC CANNOT certify a leave, which is what makes it credible rather ' +
       'than self-serving, and is the thing most counselling sites on this query leave vague.',

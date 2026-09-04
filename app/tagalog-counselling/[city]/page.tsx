@@ -108,7 +108,7 @@ export default function TagalogCityPage({ params }: { params: { city: string } }
             {c.body.map((t) => <p key={t.slice(0, 24)}>{t}</p>)}
             <p>
               Sessions run in Tagalog, in English, or moving between the two as the conversation
-              needs — which is what most bilingual people do without planning to. Nothing about
+              needs, which is what most bilingual people do without planning to. Nothing about
               the fee or the availability changes with the language.
             </p>
           </div>
@@ -120,7 +120,7 @@ export default function TagalogCityPage({ params }: { params: { city: string } }
               <h2>Who you would be working with</h2>
               <p>
                 <Link href={`/practitioners/${speaker.slug}`}>{speaker.name}</Link>,{' '}
-                {speaker.postNominals} — {speaker.role}. She works with{' '}
+                {speaker.postNominals}: {speaker.role}. She works with{' '}
                 {speaker.focus.map((f) => f.label.toLowerCase()).join(', ')}, and her registration
                 numbers are published in full on her profile so you can check them before booking
                 anything.
@@ -163,8 +163,8 @@ export default function TagalogCityPage({ params }: { params: { city: string } }
 
           <div className="prose" style={{ marginTop: 26 }}>
             <p>
-              For the wider picture of accessing counselling from {c.city} — waitlists, the health
-              authority, and what exists locally —{' '}
+              For the wider picture of accessing counselling from {c.city}: waitlists, the health
+              authority, and what exists locally, {' '}
               <Link href={`/online-counselling/${c.slug}`}>counselling in {c.city}</Link> covers
               it. {loc ? loc.blurb : ''}
             </p>

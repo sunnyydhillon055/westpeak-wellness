@@ -43,10 +43,10 @@ export const punjabiAudiences: Audience[] = [
     title: 'Punjabi-speaking couples counselling in BC',
     metaTitle: 'Punjabi Couples Counselling in BC | Westpeak Wellness',
     metaDescription:
-      'Couples counselling in Punjabi or English, online across BC — for a marriage that involves two families, not just two people.',
+      'Couples counselling in Punjabi or English, online across BC, for a marriage that involves two families, not just two people.',
     eyebrow: 'For · Punjabi-speaking couples',
     lede:
-      'Where the argument can happen in the language the argument happened in — and the in-laws do not have to be explained first.',
+      'Where the argument can happen in the language the argument happened in, and the in-laws do not have to be explained first.',
     shortAnswer:
       'Couples counselling in Punjabi or English, online across BC, for couples whose marriage involves two families rather than two people. The argument can happen in the language it happened in, in-laws are not treated as the diagnosis, and an arranged marriage is not treated as a problem to be fixed.',
     updated: '2026-08-30',
@@ -55,14 +55,14 @@ export const punjabiAudiences: Audience[] = [
     opening: [
       'Most couples counselling is built around a two-person system: two partners, each with their own needs, negotiating with each other. It is a good model, and for a lot of couples it is the right one.',
       'It is also not what many Punjabi-speaking couples walk in with. The marriage sits inside two families, often inside a shared household, and frequently inside two sets of expectations about what a good husband, wife, son and daughter-in-law owe. Nobody in the room chose that arrangement and it does not go away because a counsellor finds it inconvenient to model.',
-      'This is couples work that starts from there rather than arriving at it in session six. Sessions run in Punjabi, English, or moving between the two — which matters more in couples work than anywhere else, because the fight you are trying to describe already happened in one of them.',
+      'This is couples work that starts from there rather than arriving at it in session six. Sessions run in Punjabi, English, or moving between the two, which matters more in couples work than anywhere else, because the fight you are trying to describe already happened in one of them.',
     ],
 
     whatComesUp: [
       {
         label: 'Arguments that get translated before they get discussed',
         detail:
-          'A row that happened in Punjabi, reconstructed in English for a counsellor, arrives flattened — the tone, the exact word, the thing that actually stung. Both partners then spend the session arguing about the translation rather than the argument.',
+          'A row that happened in Punjabi, reconstructed in English for a counsellor, arrives flattened. The tone, the exact word, the thing that actually stung. Both partners then spend the session arguing about the translation rather than the argument.',
       },
       {
         label: 'In-laws as a third party in the marriage',
@@ -96,14 +96,14 @@ export const punjabiAudiences: Audience[] = [
         h2: 'What language changes in couples work specifically',
         body: [
           'In individual counselling, working in a second language costs precision. In couples counselling it costs something more: the ability to show your partner what you meant.',
-          'A couple who argue in Punjabi and then describe it in English are doing simultaneous translation in the middle of a difficult conversation, while upset, in front of a third person. The version that reaches the counsellor is the calm, edited one — and the counsellor then works on the edited version, which is not the marriage.',
+          'A couple who argue in Punjabi and then describe it in English are doing simultaneous translation in the middle of a difficult conversation, while upset, in front of a third person. The version that reaches the counsellor is the calm, edited one, and the counsellor then works on the edited version, which is not the marriage.',
           'Sessions here can move between languages mid-sentence, including one partner speaking mostly Punjabi and the other mostly English, which is a very common pattern and not a problem to be fixed. Nothing has to be tidied up on the way in.',
         ],
       },
       {
         h2: 'The family is not treated as the diagnosis',
         body: [
-          'A great deal of counselling written for Western couples treats extended-family involvement as enmeshment — a boundary problem, with the healthy outcome being more separation. Applied without thought to a family that lives together by choice and by culture, that reads as being told your family is the illness.',
+          'A great deal of counselling written for Western couples treats extended-family involvement as enmeshment. A boundary problem, with the healthy outcome being more separation. Applied without thought to a family that lives together by choice and by culture, that reads as being told your family is the illness.',
           'The working position here is narrower and more useful: family involvement is neither healthy nor unhealthy in itself. What matters is whether the two of you agree about it, whether the arrangement is one you both actually chose, and whether either of you is carrying a cost you have never said aloud. Sometimes the answer is a change in the family arrangement. Often it is a change in what the two of you have agreed between yourselves about it.',
           'What will not happen is being told that the obvious solution is to move out and care less. That advice ends the conversation, and most people who have heard it once do not come back for more of it.',
         ],
@@ -112,16 +112,16 @@ export const punjabiAudiences: Audience[] = [
         h2: 'Arranged and family-introduced marriages',
         body: [
           'A marriage that began through families is not a marriage with a problem in it, and it is not what the work is about unless you say it is.',
-          'What does come up, and is worth naming, is that couples who married this way sometimes arrive without a shared history of having negotiated things privately — the practice of working out what the two of you want, separately from what either family expects, may simply not have been established. That is a skill rather than a flaw, and it is learnable.',
+          'What does come up, and is worth naming, is that couples who married this way sometimes arrive without a shared history of having negotiated things privately, the practice of working out what the two of you want, separately from what either family expects, may simply not have been established. That is a skill rather than a flaw, and it is learnable.',
         ],
       },
       {
         h2: 'How the sessions actually run',
         list: [
-          { label: 'Both partners, together', detail: 'Couples work is joint. Individual sessions may occasionally make sense alongside it, but the practice will not hold private information from one partner about the other — that arrangement damages the work and is declined rather than negotiated.' },
+          { label: 'Both partners, together', detail: 'Couples work is joint. Individual sessions may occasionally make sense alongside it, but the practice will not hold private information from one partner about the other. That arrangement damages the work and is declined rather than negotiated.' },
           { label: 'Gottman-informed', detail: 'A structured method for how conflict actually goes between two people, adapted to the situation in front of it rather than applied off the shelf. Named as an approach used, not as a promise about outcomes.' },
           { label: '50 or 110 minutes', detail: 'The extended session exists because couples work often needs longer than fifty minutes to get anywhere and come back. Many couples do the first session extended and then move to the standard length.' },
-          { label: 'Two rooms is fine', detail: 'Partners can join from separate locations — different houses, one on shift, one travelling. For couples separated by immigration timelines this is sometimes the only way the work can happen at all.' },
+          { label: 'Two rooms is fine', detail: 'Partners can join from separate locations: different houses, one on shift, one travelling. For couples separated by immigration timelines this is sometimes the only way the work can happen at all.' },
           { label: 'Nothing is diagnosed', detail: 'Counselling is not assessment. If something in the picture needs a physician or a psychologist, that is said plainly and pointed toward.' },
         ],
       },
@@ -165,7 +165,7 @@ export const punjabiAudiences: Audience[] = [
       },
       {
         q: 'Will we be told to move out or cut off family?',
-        a: 'No. Family involvement is not treated as the diagnosis. What matters is whether the two of you agree about the arrangement and whether either of you is carrying a cost that has never been said out loud — and the answer to that is often a change between the two of you rather than a change to the family.',
+        a: 'No. Family involvement is not treated as the diagnosis. What matters is whether the two of you agree about the arrangement and whether either of you is carrying a cost that has never been said out loud, and the answer to that is often a change between the two of you rather than a change to the family.',
       },
       {
         q: 'Is an arranged marriage treated as a problem?',
@@ -181,17 +181,17 @@ export const punjabiAudiences: Audience[] = [
       },
       {
         q: 'What does it cost, and is it covered?',
-        a: 'Couples counselling is $170 for 50 minutes, or $340 for the 110-minute extended session. Many BC extended health plans that cover a Registered Clinical Counsellor cover couples sessions, though some exclude them specifically — it is worth checking the wording before booking. Receipts carry the RCC registration number.',
+        a: 'Couples counselling is $170 for 50 minutes, or $340 for the 110-minute extended session. Many BC extended health plans that cover a Registered Clinical Counsellor cover couples sessions, though some exclude them specifically. It is worth checking the wording before booking. Receipts carry the RCC registration number.',
       },
     ],
 
     sources: [
       {
-        label: 'Statistics Canada, Census Profile, 2021 Census — Surrey, City (CY), British Columbia',
+        label: 'Statistics Canada, Census Profile, 2021 Census: Surrey, City (CY), British Columbia',
         url: 'https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?LANG=E&DGUIDlist=2021A00055915004&SearchText=surrey',
       },
       {
-        label: 'BC Association of Clinical Counsellors — Find a Counsellor',
+        label: 'BC Association of Clinical Counsellors, Find a Counsellor',
         url: 'https://bc-counsellors.org/counsellors/',
       },
     ],
@@ -236,14 +236,14 @@ export const punjabiAudiences: Audience[] = [
     lede:
       'Not a page about difficult parents. A page about two people who love each other and have stopped being able to hear one another.',
     shortAnswer:
-      'Counselling in Punjabi or English for intergenerational conflict in South Asian families — where both people are reasonable by their own lights and neither can hear the other. Parents are not cast as the problem, and nobody is told the answer is to set boundaries and care less.',
+      'Counselling in Punjabi or English for intergenerational conflict in South Asian families, where both people are reasonable by their own lights and neither can hear the other. Parents are not cast as the problem, and nobody is told the answer is to set boundaries and care less.',
     updated: '2026-08-18',
     readMinutes: 7,
 
     opening: [
-      'Almost everything written about this treats it as a problem with the parents — they are controlling, they have not adapted, they need to accept who you are. Sometimes that is accurate. As a place to start it is close to useless, because the person reading usually loves their parents and will not accept a frame that makes them the antagonist, and because it explains nothing about how the situation actually arose.',
+      'Almost everything written about this treats it as a problem with the parents. They are controlling, they have not adapted, they need to accept who you are. Sometimes that is accurate. As a place to start it is close to useless, because the person reading usually loves their parents and will not accept a frame that makes them the antagonist, and because it explains nothing about how the situation actually arose.',
       'A more useful starting point: your parents made their decisions under conditions you did not live through, and you are making yours under conditions they cannot really picture. Migration is a rupture. It hands the next generation a life the previous one worked for and could not themselves have lived, and there is no version of that which does not produce this exact conflict.',
-      'The reframe does not resolve anything by itself. It changes what the work is about — from who is right, to what can be said out loud and what each of you is protecting.',
+      'The reframe does not resolve anything by itself. It changes what the work is about, from who is right, to what can be said out loud and what each of you is protecting.',
     ],
 
     whatComesUp: [
@@ -253,7 +253,7 @@ export const punjabiAudiences: Audience[] = [
       },
       {
         label: 'Being managed rather than known',
-        detail: 'Editing what you report at home until the version your family holds of your life is substantially fictional — and the particular loneliness of being loved as that version.',
+        detail: 'Editing what you report at home until the version your family holds of your life is substantially fictional, and the particular loneliness of being loved as that version.',
       },
       {
         label: 'Duty that is real, not imagined',
@@ -277,22 +277,22 @@ export const punjabiAudiences: Audience[] = [
       {
         h2: 'What this is not',
         body: [
-          'It is not family therapy — your parents are not in the room and usually are not going to be. That is a normal starting condition rather than a failure of the work, and a good deal changes in a relationship when one person changes how they participate in it.',
+          'It is not family therapy. Your parents are not in the room and usually are not going to be. That is a normal starting condition rather than a failure of the work, and a good deal changes in a relationship when one person changes how they participate in it.',
           'It is also not a process aimed at getting you to set boundaries and care less. That is the standard advice, it is built for a model of adulthood in which independence is the goal, and applied to a family that operates collectively it reads as a suggestion that you become a worse person. Some people do end up drawing firmer lines. Others end up meeting their obligations more deliberately and with less resentment. Both are legitimate, and the work does not begin with a view about which you should reach.',
         ],
       },
       {
         h2: 'What language changes here',
         body: [
-          'More than on most pages of this site. The conversations at issue happened in Punjabi, and the exact word your mother used is frequently the whole point — its tone, who is entitled to say it, what it implies about your standing in the family. Translated into English for a counsellor it becomes a paraphrase, and the counsellor then works on the paraphrase.',
-          'There is also a category of thing that does not survive translation at all. *Log kya kahenge* is not "what will people think" — the English is lighter and more optional, and misses that it names a real social mechanism with real consequences for people other than you. Sessions here run in Punjabi, English, or both, and none of it needs explaining from first principles before the work can start.',
+          'More than on most pages of this site. The conversations at issue happened in Punjabi, and the exact word your mother used is frequently the whole point. Its tone, who is entitled to say it, what it implies about your standing in the family. Translated into English for a counsellor it becomes a paraphrase, and the counsellor then works on the paraphrase.',
+          'There is also a category of thing that does not survive translation at all. *Log kya kahenge* is not "what will people think". The English is lighter and more optional, and misses that it names a real social mechanism with real consequences for people other than you. Sessions here run in Punjabi, English, or both, and none of it needs explaining from first principles before the work can start.',
         ],
       },
       {
         h2: 'Where this touches culture, and where it does not',
         body: [
           'Not everything difficult in a South Asian family is cultural, and treating it as though it were is its own error. Untreated depression in a parent, a drinking problem, a controlling marriage, or the long shadow of something that happened before you were born are not cultural features. They are the same things they would be in any family, and they need naming as such rather than being absorbed into "that is just how the family is".',
-          'Part of the work is telling those apart: what is a cultural difference to be negotiated, what is an ordinary family difficulty, and what is genuinely harmful and needs to be called harmful. Those three get bundled together in most conversations about this — including in most counselling rooms that lack the context to separate them.',
+          'Part of the work is telling those apart: what is a cultural difference to be negotiated, what is an ordinary family difficulty, and what is genuinely harmful and needs to be called harmful. Those three get bundled together in most conversations about this, including in most counselling rooms that lack the context to separate them.',
         ],
       },
       {
@@ -305,7 +305,7 @@ export const punjabiAudiences: Audience[] = [
     ],
 
     servicesThatFit: [
-      { href: '/services/individual-therapy', label: 'Individual counselling', why: 'Where most of this work happens — one person, weekly or biweekly, in Punjabi or English.' },
+      { href: '/services/individual-therapy', label: 'Individual counselling', why: 'Where most of this work happens, one person, weekly or biweekly, in Punjabi or English.' },
       { href: '/services/punjabi-counselling', label: 'Punjabi-speaking counselling', why: 'How language actually works in sessions, including moving between the two mid-sentence.' },
       { href: '/services/emdr-therapy', label: 'EMDR', why: 'Where one specific event keeps arriving in the present instead of staying in the past.' },
     ],
@@ -316,16 +316,16 @@ export const punjabiAudiences: Audience[] = [
     },
 
     faqs: [
-      { q: 'Do my parents need to be involved?', a: 'No, and usually they are not. This is individual work. A relationship often shifts a good deal when one person changes how they take part in it — which is fortunate, because waiting for the other person to agree to counselling can mean waiting indefinitely.' },
+      { q: 'Do my parents need to be involved?', a: 'No, and usually they are not. This is individual work. A relationship often shifts a good deal when one person changes how they take part in it, which is fortunate, because waiting for the other person to agree to counselling can mean waiting indefinitely.' },
       { q: 'Will I be told to cut off my family?', a: 'No. That advice is built for a model of adulthood in which independence is the goal, and it lands badly on a family that operates collectively. Some people do draw firmer lines; others meet their obligations more deliberately and with less resentment. The work does not start with a view about which you should reach.' },
-      { q: 'Can we talk about this in Punjabi?', a: 'Yes, and here it matters more than usual — the conversations at issue happened in Punjabi, and the exact word somebody used is often the entire point. Sessions move between Punjabi and English as needed.' },
+      { q: 'Can we talk about this in Punjabi?', a: 'Yes, and here it matters more than usual. The conversations at issue happened in Punjabi, and the exact word somebody used is often the entire point. Sessions move between Punjabi and English as needed.' },
       { q: 'What if I am not sure it is bad enough to bring?', a: 'That doubt is the most common reason people wait, and it is not a useful test. A relationship taking up this much of your attention is worth an hour of a counsellor’s attention, whether or not it would sound serious described to a stranger.' },
-      { q: 'Is this the same as the page for first-generation South Asian adults?', a: 'They overlap and are not the same. That page is about being the person in the middle — identity, guilt, two selves. This one is about a specific relationship that is not working. Most people find one of them fits better than the other, and either is a reasonable place to start.' },
+      { q: 'Is this the same as the page for first-generation South Asian adults?', a: 'They overlap and are not the same. That page is about being the person in the middle: identity, guilt, two selves. This one is about a specific relationship that is not working. Most people find one of them fits better than the other, and either is a reasonable place to start.' },
     ],
 
     sources: [
-      { label: 'VictimLink BC — 24/7 support, multilingual', url: 'https://www2.gov.bc.ca/gov/content/justice/criminal-justice/victims-of-crime/victimlinkbc' },
-      { label: 'BC Association of Clinical Counsellors — Find a Counsellor', url: 'https://bc-counsellors.org/counsellors/' },
+      { label: 'VictimLink BC, 24/7 support, multilingual', url: 'https://www2.gov.bc.ca/gov/content/justice/criminal-justice/victims-of-crime/victimlinkbc' },
+      { label: 'BC Association of Clinical Counsellors, Find a Counsellor', url: 'https://bc-counsellors.org/counsellors/' },
     ],
 
     related: [

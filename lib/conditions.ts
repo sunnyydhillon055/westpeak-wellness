@@ -50,7 +50,7 @@ export const conditions: Condition[] = [
     name: 'Anxiety Counselling',
     metaNoun: 'anxiety counselling',
     intro:
-      'Anxiety is the most common reason people contact a counsellor, and the most commonly described as something that should be manageable alone. It rarely is, and the version that hides best — functioning, delivering, and privately exhausted — is the one that goes longest without help.',
+      'Anxiety is the most common reason people contact a counsellor, and the most commonly described as something that should be manageable alone. It rarely is, and the version that hides best: functioning, delivering, and privately exhausted, is the one that goes longest without help.',
     helps: [
       'Worry that runs constantly in the background',
       'Panic, and the fear of the next one',
@@ -68,14 +68,14 @@ export const conditions: Condition[] = [
     name: 'Trauma Therapy',
     metaNoun: 'trauma therapy',
     intro:
-      'Trauma is not only the events people expect to count. It is anything that overwhelmed you at the time and did not finish being processed — which is why it can follow a single incident, a childhood, or a job you were good at.',
+      'Trauma is not only the events people expect to count. It is anything that overwhelmed you at the time and did not finish being processed, which is why it can follow a single incident, a childhood, or a job you were good at.',
     helps: [
       'A memory that intrudes, or a stretch of time that will not come back at all',
       'Reactions out of proportion to what is in front of you',
       'Feeling numb, distant, or watching yourself from outside',
       'Sleep, nightmares, and a body that will not settle',
       'What got carried down through a family rather than happening to you',
-      'Vicarious trauma from work — healthcare, first response, care',
+      'Vicarious trauma from work: healthcare, first response, care',
     ],
     approach:
       'Pacing first. Nothing here starts with the hardest thing: the early sessions build enough safety and enough control that the harder work is possible, and you decide what gets approached and when. EMDR is one of the tools, not the whole of it.',
@@ -86,7 +86,7 @@ export const conditions: Condition[] = [
     name: 'Depression Counselling',
     metaNoun: 'depression counselling',
     intro:
-      'Depression is often described as sadness and is more often an absence — of energy, of interest, of the sense that any of it matters. It gets called laziness by the person experiencing it more than by anybody else.',
+      'Depression is often described as sadness and is more often an absence: of energy, of interest, of the sense that any of it matters. It gets called laziness by the person experiencing it more than by anybody else.',
     helps: [
       'Low mood that has outlasted whatever started it',
       'Losing interest in things that used to matter',

@@ -70,7 +70,7 @@ export function healthChecks(): Check[] {
       title: 'The booking page points at your Cliniko',
       consequence:
         'Falls back to a hard-coded URL. That URL currently works, so this is a warning rather ' +
-        'than a fault — but if the Cliniko address ever changes, every booking button on the site breaks at once.',
+        'than a fault, but if the Cliniko address ever changes, every booking button on the site breaks at once.',
       fix: 'Set NEXT_PUBLIC_CLINIKO_URL to your bookings URL.',
     },
     {
@@ -89,7 +89,7 @@ export function healthChecks(): Check[] {
       severity: 'info',
       title: 'Appointment sync is connected',
       consequence:
-        'Booking still works without it — this only affects the client and revenue figures on this page.',
+        'Booking still works without it, this only affects the client and revenue figures on this page.',
       fix: 'Set CLINIKO_API_KEY.',
     },
     {
@@ -98,7 +98,7 @@ export function healthChecks(): Check[] {
       severity: 'info',
       title: 'Analytics is recording',
       consequence:
-        'Conversion counts on this page still work — they are first-party. What is missing is ' +
+        'Conversion counts on this page still work. They are first-party. What is missing is ' +
         'everything about how people move through the site: where they arrive, how far they read, where they leave.',
       fix: 'Set NEXT_PUBLIC_GA_ID.',
     },

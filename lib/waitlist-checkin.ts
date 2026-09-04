@@ -76,7 +76,7 @@ function checkinEmail(i: Inbound) {
 `${hi}
 
 You joined the waitlist here about a month ago, and I said it was a real list
-rather than a formality — so this is me keeping that promise rather than
+rather than a formality, so this is me keeping that promise rather than
 letting it go quiet.
 
 ${when}
@@ -87,7 +87,7 @@ writing to ask one question, and either answer is completely fine:
   Would you like to stay on the list, or shall I take you off?
 
 If you want to stay on, you do not need to do anything at all. If you would
-rather come off, just reply saying so and it is done — no follow-up, and I
+rather come off, just reply saying so and it is done. No follow-up, and I
 will not write again either way. This is the only check-in.
 
 If you have found somebody else in the meantime, that is genuinely a good
@@ -102,11 +102,11 @@ ${site.domain}/guides/how-to-find-a-therapist-in-bc`
   const html = shell(
     'Still on the waitlist?',
     para(esc(hi)) +
-    para('You joined the waitlist here about a month ago, and I said it was a real list rather than a formality — so this is me keeping that promise rather than letting it go quiet.') +
+    para('You joined the waitlist here about a month ago, and I said it was a real list rather than a formality, so this is me keeping that promise rather than letting it go quiet.') +
     (i.windows ? para(`<span style="color:#545e69;font-size:14px;">You said you were free around: ${esc(i.windows)}</span>`) : '') +
-    para('Nothing has opened yet that fits. I am not writing to sell you anything — just to ask one question, and <strong>either answer is completely fine</strong>:') +
+    para('Nothing has opened yet that fits. I am not writing to sell you anything, just to ask one question, and <strong>either answer is completely fine</strong>:') +
     para('<strong>Would you like to stay on the list, or shall I take you off?</strong>') +
-    para('If you want to stay on, you do not need to do anything at all. If you would rather come off, reply saying so and it is done. <strong>This is the only check-in</strong> — I will not write again either way.') +
+    para('If you want to stay on, you do not need to do anything at all. If you would rather come off, reply saying so and it is done. <strong>This is the only check-in</strong>. I will not write again either way.') +
     para('If you have found somebody else in the meantime, that is genuinely a good outcome and I am glad.') +
     para(`If waiting is not workable, these are real starting points rather than a gesture: ${a(`${site.domain}/resources/low-cost-counselling-bc`, 'free and low-cost counselling in BC')} and ${a(`${site.domain}/guides/how-to-find-a-therapist-in-bc`, 'how to find a therapist in BC')}.`) +
     btn(links.book, 'See current consultation times')
@@ -126,7 +126,7 @@ export async function runWaitlistCheckin(
   const now = opts.now ?? new Date();
 
   const ledger = await readSent();
-  if (!ledger) return { ok: false, reason: 'ledger unreadable — refusing to risk duplicates' };
+  if (!ledger) return { ok: false, reason: 'ledger unreadable, refusing to risk duplicates' };
 
   const { items } = await readInbound({ fresh: true });
 

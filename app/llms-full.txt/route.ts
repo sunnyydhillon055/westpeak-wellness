@@ -59,10 +59,10 @@ function page({
 export function GET() {
   const chunks: string[] = [];
 
-  chunks.push(`# ${site.name} — full text
+  chunks.push(`# ${site.name}: full text
 
 Virtual counselling practice serving all of British Columbia, Canada. Secure
-video sessions only — no office, no phone sessions. Provided by a ${site.counsellor.title}
+video sessions only, no office, no phone sessions. Provided by a ${site.counsellor.title}
 (${site.counsellor.credentials}) registered with the BC Association of Clinical
 Counsellors, working in English and Punjabi.
 
@@ -72,7 +72,7 @@ Service area: British Columbia. Session length: 50 minutes. First consultation:
 Not covered by MSP. Many BC extended health plans reimburse a Registered
 Clinical Counsellor; the practice does not direct-bill. A Registered Clinical
 Counsellor does not diagnose, prescribe, or conduct formal psychological
-assessment, and this is not a crisis service — in crisis, 9-8-8 (Canada, 24/7),
+assessment, and this is not a crisis service: in crisis, 9-8-8 (Canada, 24/7),
 310-6789 (BC), or 9-1-1 in immediate danger.
 
 This document is the substantive prose of the site in one file. It contains no

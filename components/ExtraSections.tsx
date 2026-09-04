@@ -59,7 +59,7 @@ export default function ExtraSections({
             <ul className="checklist" style={{ margin: '20px 0 28px' }}>
               {s.list.map((item) => (
                 <li key={item.label}>
-                  <strong>{item.label}</strong> — {rich(item.detail)}
+                  <strong>{item.label}</strong>, {rich(item.detail)}
                 </li>
               ))}
             </ul>

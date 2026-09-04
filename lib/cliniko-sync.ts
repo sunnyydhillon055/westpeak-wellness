@@ -154,6 +154,6 @@ export async function syncClientsFromCliniko(actor: string): Promise<SyncResult>
 
   return {
     ok: false, added: 0, namesFilled: 0, skippedNoEmail, totalInCliniko: patients.length,
-    reason: 'write conflict — another edit landed first; the next run will pick it up',
+    reason: 'write conflict, another edit landed first; the next run will pick it up',
   };
 }

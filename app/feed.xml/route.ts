@@ -22,7 +22,7 @@ const esc = (s: string) =>
 type Item = { slug: string; title: string; shortAnswer?: string; metaDescription?: string; updated?: string };
 
 export function GET() {
-  /* `guides` is already the combined export of all six guide files — importing
+  /* `guides` is already the combined export of all six guide files, importing
      any of them individually would double-count. */
   const items = (guides as unknown as Item[])
     .filter((g) => g?.slug && g?.title)
@@ -33,7 +33,7 @@ export function GET() {
   const body = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>${esc(site.name)} — Counselling guides</title>
+    <title>${esc(site.name)}, Counselling guides</title>
     <link>${site.domain}/guides</link>
     <description>Plain-language guides on counselling, therapy and mental-health coverage in British Columbia, from a Registered Clinical Counsellor.</description>
     <language>en-CA</language>

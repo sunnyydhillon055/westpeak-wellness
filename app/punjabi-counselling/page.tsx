@@ -36,7 +36,7 @@ import { ogBase } from '@/lib/og-meta';
    suffix, description <= 158. The first draft of this page failed both. */
 const TITLE = 'Punjabi Counselling by Region in BC';
 const DESC =
-  'Punjabi-speaking online counselling across BC — Surrey, Abbotsford, Vancouver, Kelowna, Kamloops and Prince George. Sessions in Punjabi, English, or both.';
+  'Punjabi-speaking online counselling across BC: Surrey, Abbotsford, Vancouver, Kelowna, Kamloops and Prince George. Sessions in Punjabi, English, or both.';
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -120,7 +120,7 @@ export default function PunjabiCounsellingIndex() {
           <p className="eyebrow">Punjabi and English, anywhere in BC</p>
           <h1>Punjabi-speaking counselling, by region</h1>
           <p className="lede">
-            Sessions run in Punjabi, in English, or moving between the two — whichever the
+            Sessions run in Punjabi, in English, or moving between the two, whichever the
             moment calls for. Because the practice is virtual, where you live changes what is
             available to you locally, but not what is available here.
           </p>
@@ -137,8 +137,8 @@ export default function PunjabiCounsellingIndex() {
 
           <h2>These pages do not all make the same argument</h2>
           <p>
-            That is worth saying at the top, because the obvious assumption — that a page for
-            each region says the same thing with the place name swapped — is wrong here, and
+            That is worth saying at the top, because the obvious assumption. That a page for
+            each region says the same thing with the place name swapped, is wrong here, and
             a reader who assumes it will read the wrong page for where they live.
           </p>
           <p>
@@ -153,14 +153,14 @@ export default function PunjabiCounsellingIndex() {
           <h2>Where the nearest Punjabi-speaking counsellor is hours away</h2>
           <p>
             In these regions a virtual practice is not a cheaper alternative to seeing
-            somebody in person. It is realistically the only option that exists — every one of
+            somebody in person. It is realistically the only option that exists. Every one of
             these pages carries the local population figure and the source it came from.
           </p>
           <div className="grid grid-3" style={{ marginTop: 24, marginBottom: 8 }}>
             {scarcity.map((r) => <Card key={r.slug} r={r} />)}
           </div>
 
-          <h2>Where there is no shortage — and the barrier is something else</h2>
+          <h2>Where there is no shortage, and the barrier is something else</h2>
           <p>
             Surrey has the largest Punjabi-speaking population of any city in Canada and no
             shortage of Punjabi-speaking counsellors. Abbotsford and Vancouver are not far
@@ -180,7 +180,7 @@ export default function PunjabiCounsellingIndex() {
           <h2>If your region is not listed</h2>
           <p>
             It makes no difference to the session. The practice is registered across British
-            Columbia and works with clients anywhere in the province — the regions above have
+            Columbia and works with clients anywhere in the province. The regions above have
             pages because a checkable population figure could be found for them, not because
             they are the only places served. Nanaimo, the Kootenays and the Peace are equally
             real, and they stay off this list until the numbers can be sourced properly rather

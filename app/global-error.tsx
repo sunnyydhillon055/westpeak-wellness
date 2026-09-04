@@ -67,7 +67,7 @@ export default function GlobalError({
           {/* The reason this file is worth having at all. */}
           <p style={{ margin: '0 0 0.75rem' }}>
             <strong>If you need help right now:</strong> this is not a crisis service.
-            Call or text <a href="tel:988">9-8-8</a>, the Suicide Crisis Helpline —
+            Call or text <a href="tel:988">9-8-8</a>, the Suicide Crisis Helpline:
             anywhere in Canada, 24 hours a day. In immediate danger, call{' '}
             <a href="tel:911">9-1-1</a>.
           </p>

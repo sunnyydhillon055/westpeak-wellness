@@ -9,7 +9,7 @@ import LeadCapture from '@/components/LeadCapture';
 export const metadata: Metadata = {
   title: 'Passing on a counsellor’s details',
   description:
-    'How to pass Westpeak Wellness on to someone who is looking for a counsellor in BC — what to send, and what this practice will never ask you for.',
+    'How to pass Westpeak Wellness on to someone who is looking for a counsellor in BC, what to send, and what this practice will never ask you for.',
   alternates: { canonical: `${site.domain}/refer` },
 };
 
@@ -61,7 +61,7 @@ export default function ReferPage({ searchParams }: { searchParams?: { lead?: st
           <h1>If someone you know is looking.</h1>
           <p className="lede">
             The practice has openings. If you know someone trying to find a counsellor in BC,
-            here is what is useful to send them — and what you will never be asked for.
+            here is what is useful to send them, and what you will never be asked for.
           </p>
         </div>
       </section>
@@ -94,7 +94,7 @@ export default function ReferPage({ searchParams }: { searchParams?: { lead?: st
             <p>
               No discount, no free session, no credit. If a recommendation came with something
               in it for the person making it, the person receiving it would have no way of
-              knowing that — and for a health service that is a conflict of interest rather than
+              knowing that, and for a health service that is a conflict of interest rather than
               a growth tactic. A recommendation is worth something precisely because there is
               nothing behind it.
             </p>
@@ -108,7 +108,7 @@ export default function ReferPage({ searchParams }: { searchParams?: { lead?: st
             <ul className="checklist">
               <li>
                 <strong>&ldquo;What does it cost, and will my benefits cover it?&rdquo;</strong>{' '}
-                <Link href="/pricing">Fees and coverage</Link> — with the questions to ask an
+                <Link href="/pricing">Fees and coverage</Link>, with the questions to ask an
                 insurer before booking anything.
               </li>
               <li>
@@ -116,15 +116,15 @@ export default function ReferPage({ searchParams }: { searchParams?: { lead?: st
                 <Link href="/guides/what-to-expect-first-therapy-session">
                   What to expect in a first session
                 </Link>{' '}
-                — for someone who has never done this before.
+, for someone who has never done this before.
               </li>
               <li>
                 <strong>&ldquo;Is it even worth booking?&rdquo;</strong>{' '}
-                <Link href={site.bookingPath}>The free 15-minute consultation</Link> — no card, no
+                <Link href={site.bookingPath}>The free 15-minute consultation</Link>. No card, no
                 intake form, and deciding not to continue is a normal outcome.
               </li>
               <li>
-                <strong>Someone who would rather work in Punjabi</strong> —{' '}
+                <strong>Someone who would rather work in Punjabi</strong>, {' '}
                 <Link href="/punjabi" lang="pa" hrefLang="pa">
                   ਪੰਜਾਬੀ ਵਿੱਚ
                 </Link>
@@ -137,7 +137,7 @@ export default function ReferPage({ searchParams }: { searchParams?: { lead?: st
             <p>
               That is a perfectly good outcome and worth saying to whoever you pass this to.
               This practice is virtual only, works with adults, and does not do assessments,
-              diagnoses, court-related work or crisis response — the full list is on{' '}
+              diagnoses, court-related work or crisis response. The full list is on{' '}
               <Link href="/standards">standards and scope</Link>. Where it is not the right
               place, saying so and pointing somewhere better is the normal result of a
               consultation, not a failure of one.
@@ -152,7 +152,7 @@ export default function ReferPage({ searchParams }: { searchParams?: { lead?: st
 
             <h2>If the person wants their doctor in the loop</h2>
             <p>
-              No referral is needed to see a counsellor in BC — a point worth making early,
+              No referral is needed to see a counsellor in BC, a point worth making early,
               because plenty of people wait months for a permission nobody was ever going to be
               asked for. Where somebody does want their GP involved, about medication, a leave or
               an assessment,{' '}
@@ -170,7 +170,7 @@ export default function ReferPage({ searchParams }: { searchParams?: { lead?: st
             </p>
             <ul>
               <li>
-                <strong>After a motor vehicle crash — ICBC.</strong> Anyone injured in a crash
+                <strong>After a motor vehicle crash, ICBC.</strong> Anyone injured in a crash
                 in BC is pre-approved for <strong>twelve counselling sessions</strong> with a
                 Registered Clinical Counsellor in the first twelve weeks, and{' '}
                 <strong>no doctor&rsquo;s note is required</strong> to start. This is the single most
@@ -178,7 +178,7 @@ export default function ReferPage({ searchParams }: { searchParams?: { lead?: st
                 does not commit anybody to a claim decision.
               </li>
               <li>
-                <strong>Through an employer — EAP.</strong> Most mid-size and large Canadian
+                <strong>Through an employer, EAP.</strong> Most mid-size and large Canadian
                 employers carry an employee assistance programme covering a set number of
                 sessions at no cost to the employee, usually without the employer being told
                 who used it. Worth checking before assuming there is no coverage.
@@ -194,7 +194,7 @@ export default function ReferPage({ searchParams }: { searchParams?: { lead?: st
                 arithmetic once the numbers are known.
               </li>
               <li>
-                <strong>After a crime — the Crime Victim Assistance Program.</strong> CVAP
+                <strong>After a crime, the Crime Victim Assistance Program.</strong> CVAP
                 funds counselling for victims of violent crime, and for immediate family
                 members in some circumstances. It funds a course of treatment rather than a
                 handful of sessions.
@@ -220,7 +220,7 @@ export default function ReferPage({ searchParams }: { searchParams?: { lead?: st
 
             <h2>If you are in crisis right now</h2>
             <p>
-              This is not the page for that, and nor is this practice — sessions are scheduled
+              This is not the page for that, and nor is this practice, sessions are scheduled
               and there is no on-call line. If you are in immediate danger call{' '}
               <strong>9-1-1</strong>. For urgent mental-health support in BC at any hour, call or
               text <strong>9-8-8</strong>, or call <strong>310-6789</strong>, no area code

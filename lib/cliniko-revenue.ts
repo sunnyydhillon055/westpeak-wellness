@@ -142,7 +142,7 @@ async function paginate(
   for (let i = 0; url && i < max; i++) {
     const res: Response = await fetch(url, { headers: headers(key), cache: 'no-store' });
     if (!res.ok) {
-      return { rows, error: `HTTP ${res.status} on ${collection}${res.status === 422 ? ` — ${(await res.text()).slice(0, 160)}` : ''}` };
+      return { rows, error: `HTTP ${res.status} on ${collection}${res.status === 422 ? `: ${(await res.text()).slice(0, 160)}` : ''}` };
     }
     const body = (await res.json()) as Record<string, unknown> & { links?: { next?: string } };
     const page = body[collection];

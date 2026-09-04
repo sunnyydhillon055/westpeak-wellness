@@ -10,7 +10,7 @@ import { ogBase } from '@/lib/og-meta';
 
 const TITLE = 'Our Counsellors | Westpeak Wellness';
 const DESC =
-  'The Registered Clinical Counsellors at Westpeak Wellness — credentials, areas of focus, and the languages each of them works in.';
+  'The Registered Clinical Counsellors at Westpeak Wellness: credentials, areas of focus, and the languages each of them works in.';
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -72,15 +72,15 @@ export default function PractitionersPage() {
             </p>
             <p>
               Each profile below sets out what that counsellor works with, how they work, and the
-              languages they practise in — including sessions that move between two languages
+              languages they practise in, including sessions that move between two languages
               within the hour. Registration numbers are shown in full so you can check them
               against a public register before booking anything, here or anywhere else.
             </p>
             <p>
               If you are not sure who to choose, the{' '}
               <Link href="/book">free 15-minute consultation</Link> is for exactly that, and it
-              carries no obligation. Where somebody else would be a better fit — including outside
-              this practice — you will be told so on the call.
+              carries no obligation. Where somebody else would be a better fit, including outside
+              this practice. You will be told so on the call.
             </p>
           </div>
 
@@ -129,7 +129,7 @@ export default function PractitionersPage() {
                         deciding, not on a routing page. */}
                     Works in {p.languages.map((l) => l.name).join(' and ')}
                     {p.credentials.length
-                      ? ` · ${p.credentials.map((c) => c.short).join(', ')} — verifiable on her profile`
+                      ? ` · ${p.credentials.map((c) => c.short).join(', ')}, verifiable on her profile`
                       : ''}
                   </p>
                   <span className="practitioner-row-more" aria-hidden="true">

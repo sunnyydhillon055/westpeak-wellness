@@ -23,7 +23,7 @@ export function GET() {
     ...(site.phone ? [`TEL;TYPE=WORK,VOICE:${site.phoneTel}`] : []),
     `EMAIL;TYPE=INTERNET:${site.email}`,
     `URL:${site.domain}`,
-    `NOTE:${site.serviceArea} — ${site.languages}. Free 15-minute consultation: ${site.domain}${site.bookingPath}`,
+    `NOTE:${site.serviceArea}, ${site.languages}. Free 15-minute consultation: ${site.domain}${site.bookingPath}`,
     'END:VCARD',
   ];
   return new Response(lines.join('\r\n') + '\r\n', {

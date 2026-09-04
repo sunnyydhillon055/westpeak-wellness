@@ -39,14 +39,14 @@ export function renderRevenueEmail(r: Extract<RevenueReport, { status: 'ok' }>):
   subject: string; text: string; html: string;
 } {
   const { period, lines, total, totalNet, totalTax, invoiceCount, outstanding } = r;
-  const subject = `${site.name} — revenue for ${period.label} — ${money(total)}`;
+  const subject = `${site.name}, revenue for ${period.label}, ${money(total)}`;
 
   const avg = invoiceCount ? Math.round(total / invoiceCount) : 0;
 
   /* ---- plain text ---- */
   const nameW = Math.max(12, ...lines.map((l) => l.name.length));
   const t: string[] = [];
-  t.push(`${site.name} — monthly revenue`);
+  t.push(`${site.name}, monthly revenue`);
   t.push(period.label);
   t.push('='.repeat(46));
   t.push('');
@@ -86,7 +86,7 @@ export function renderRevenueEmail(r: Extract<RevenueReport, { status: 'ok' }>):
 
   /* ---- html ---- */
   /* Colour is set explicitly on every cell rather than inherited. iOS Mail and
-   * Gmail detect bare numbers as phone numbers and restyle them as blue links —
+   * Gmail detect bare numbers as phone numbers and restyle them as blue links:
    * which turns an invoice count into something that looks tappable and, worse,
    * makes the figures look like they mean something they do not. */
   const ink = 'color:#2b3138;';
@@ -103,7 +103,7 @@ export function renderRevenueEmail(r: Extract<RevenueReport, { status: 'ok' }>):
 
   const html = `${NO_DETECT}<div style="font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#2b3138;max-width:640px;margin:0 auto;padding:24px;">
 <p style="margin:0 0 4px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#545e69;">${esc(site.name)}</p>
-<h1 style="margin:0 0 2px;font-size:22px;">Revenue — ${esc(period.label)}</h1>
+<h1 style="margin:0 0 2px;font-size:22px;">Revenue, ${esc(period.label)}</h1>
 <p style="margin:0 0 20px;font-size:28px;font-weight:700;color:#343b43;">${money(total)}</p>
 
 <table class="rev" style="width:100%;border-collapse:collapse;font-size:14px;margin-bottom:22px;">

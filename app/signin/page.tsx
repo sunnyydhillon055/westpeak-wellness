@@ -6,7 +6,7 @@ import { auth, signIn, signOut, googleConfigured } from '@/auth';
 import AccessCodeForm from '@/components/AccessCodeForm';
 
 export const metadata: Metadata = {
-  title: { absolute: 'Sign in — Westpeak Wellness' },
+  title: { absolute: 'Sign in | Westpeak Wellness' },
   robots: { index: false, follow: false },
 };
 export const runtime = 'nodejs';
@@ -123,7 +123,7 @@ export default async function SignInPage({
              * would read as something being broken. */
             <p className="signin-setup">
               Google sign-in is not switched on yet. Set <code>AUTH_GOOGLE_ID</code> and{' '}
-              <code>AUTH_GOOGLE_SECRET</code> in Vercel and redeploy — see{' '}
+              <code>AUTH_GOOGLE_SECRET</code> in Vercel and redeploy, see{' '}
               <code>GO_LIVE.md</code>. Password sign-in works meanwhile.
             </p>
           )

@@ -65,7 +65,7 @@ export async function sendResetLink(to: string, link: string, isNew: boolean): P
     'The link works once and expires in 30 minutes. Using it cancels any other',
     'reset links for this account.',
     '',
-    'If this was not you, you can ignore this email — nothing has changed, and',
+    'If this was not you, you can ignore this email. Nothing has changed, and',
     'no one can use this link without opening it from your inbox.',
     '',
     site.name,

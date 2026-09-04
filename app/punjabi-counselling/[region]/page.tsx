@@ -157,7 +157,7 @@ export default function PunjabiRegionPage({ params }: { params: { region: string
             <p style={{ margin: 0 }}>
               Not sure whether this is the right fit? A{' '}
               <Link href={site.bookingPath}>free 15-minute consultation</Link> is the fastest way to
-              find out — and it is a perfectly good outcome if the answer turns out to be a referral
+              find out, and it is a perfectly good outcome if the answer turns out to be a referral
               somewhere else.
             </p>
           </div>

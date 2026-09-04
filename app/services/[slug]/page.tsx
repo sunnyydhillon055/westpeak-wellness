@@ -281,7 +281,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
               <p style={{ margin: 0 }}>
                 Recognise several of these? A{' '}
                 <Link href={site.bookingPath}>free 15-minute consultation</Link> is the least
-                committal way to find out whether this is the right approach — including if the
+                committal way to find out whether this is the right approach, including if the
                 answer turns out to be something else.
               </p>
             </div>
@@ -434,7 +434,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
           heading="ਮੁਫ਼ਤ ਸਲਾਹ-ਮਸ਼ਵਰਾ ਬੁੱਕ ਕਰੋ"
           headingLang="pa"
           headingClassName={gurmukhi.className}
-          text="Book a free 15-minute consultation — in Punjabi, English, or both. No pressure, and no obligation afterward."
+          text="Book a free 15-minute consultation: in Punjabi, English, or both. No pressure, and no obligation afterward."
         />
       ) : (
         <CtaBand />

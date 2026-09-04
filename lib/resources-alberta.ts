@@ -47,7 +47,7 @@ export const albertaResources: Resource[] = [
         h2: 'What AHCIP does and does not pay for',
         body: [
           'Alberta Health Care Insurance Plan coverage for mental health follows the same logic as most provincial plans: it pays for physicians. A visit to your family doctor about low mood is covered. A psychiatrist, if you can get a referral and wait for one, is covered. A counsellor or psychotherapist in private practice is not.',
-          'That is not a gap specific to Alberta and it is not a judgement about whether counselling works. It is a consequence of how provincial plans are structured — they insure medical services delivered by physicians, and counselling is not delivered by one. The practical effect is the same either way: the cost of private counselling falls to you or to an extended health plan.',
+          'That is not a gap specific to Alberta and it is not a judgement about whether counselling works. It is a consequence of how provincial plans are structured. They insure medical services delivered by physicians, and counselling is not delivered by one. The practical effect is the same either way: the cost of private counselling falls to you or to an extended health plan.',
         ],
       },
       {
@@ -117,20 +117,20 @@ export const albertaResources: Resource[] = [
       },
       {
         q: 'Do I need a referral?',
-        a: 'Not to see a counsellor — you can approach one directly. You may need one for your insurer to reimburse, which is a separate question and worth asking on the same call.',
+        a: 'Not to see a counsellor. You can approach one directly. You may need one for your insurer to reimburse, which is a separate question and worth asking on the same call.',
       },
     ],
     sources: [
-      { label: 'Alberta Health Care Insurance Plan — Government of Alberta', url: 'https://www.alberta.ca/ahcip.aspx' },
+      { label: 'Alberta Health Care Insurance Plan, Government of Alberta', url: 'https://www.alberta.ca/ahcip.aspx' },
       /* The Page9985 URL cited here until 3 Sep answered 200 and redirected to
          NotFound.aspx — a soft 404, which link-rot.mjs catches and a status
          check alone would not. */
-      { label: 'Addiction and mental health — Alberta Health Services', url: 'https://www.albertahealthservices.ca/amh/amh.aspx' },
+      { label: 'Addiction and mental health, Alberta Health Services', url: 'https://www.albertahealthservices.ca/amh/amh.aspx' },
       { label: '211 Alberta', url: 'https://ab.211.ca/' },
       { label: 'Canadian Counselling and Psychotherapy Association', url: 'https://www.ccpa-accp.ca/' },
     ],
     related: [
-      { href: '/practitioners/camille-granda', label: 'Camille Granda, RCC, CCC — Alberta and BC' },
+      { href: '/practitioners/camille-granda', label: 'Camille Granda, RCC, CCC, Alberta and BC' },
       { href: '/practitioners/camille-granda/calgary', label: 'Counselling in Calgary' },
       { href: '/practitioners/camille-granda/edmonton', label: 'Counselling in Edmonton' },
       { href: '/tools/therapy-cost-bc', label: 'Work out what a session would actually cost you' },
@@ -146,7 +146,7 @@ export const albertaResources: Resource[] = [
       'Counselling therapy is not regulated in Alberta, so there is no college to search. What can be verified instead, and the registers that let you do it.',
     eyebrow: 'Alberta',
     lede:
-      'In British Columbia you can look a counsellor up in a public register in about two minutes. In Alberta there is no equivalent college, which does not mean nothing can be checked — it means checking a different thing.',
+      'In British Columbia you can look a counsellor up in a public register in about two minutes. In Alberta there is no equivalent college, which does not mean nothing can be checked. It means checking a different thing.',
     shortAnswer:
       'Counselling therapy is not a regulated profession in Alberta, so there is no provincial college and no licence to verify. What you can verify is national certification: a Canadian Certified Counsellor is listed on the CCPA register, and anyone claiming the title can be confirmed there. Psychologists are separately regulated and appear on their own college register.',
     updated: '2026-09-03',
@@ -156,7 +156,7 @@ export const albertaResources: Resource[] = [
         h2: 'What "unregulated" actually means',
         body: [
           'It means the title is not protected. In Alberta, no law reserves the words counsellor or therapist for people with particular training, so somebody with a weekend certificate and somebody with a master’s degree and a decade of supervised practice can use the same word on the same website.',
-          'It does not mean nobody is accountable. It means accountability is voluntary and comes from certification bodies rather than from a provincial college — so the useful question is not "are they licensed", which has no Alberta answer, but "what have they voluntarily submitted themselves to, and can I see it".',
+          'It does not mean nobody is accountable. It means accountability is voluntary and comes from certification bodies rather than from a provincial college, so the useful question is not "are they licensed", which has no Alberta answer, but "what have they voluntarily submitted themselves to, and can I see it".',
         ],
       },
       {
@@ -175,7 +175,7 @@ export const albertaResources: Resource[] = [
           {
             label: 'An out-of-province registration',
             detail:
-              'A counsellor may hold a designation from another province — an RCC from British Columbia, for instance. That is checkable on that province’s register and tells you the standard they meet, though it is not an Alberta licence and should not be described as one.',
+              'A counsellor may hold a designation from another province. An RCC from British Columbia, for instance. That is checkable on that province’s register and tells you the standard they meet, though it is not an Alberta licence and should not be described as one.',
           },
           {
             label: 'Professional liability insurance',
@@ -197,7 +197,7 @@ export const albertaResources: Resource[] = [
         h2: 'What this practice publishes',
         body: [
           'Both counsellors here list their credentials with numbers on their own pages, and both bodies hold public registers you can search yourself. The counsellor who can see Alberta clients holds the CCC as well as a BC registration, and the Alberta-relevant one is named first on her Alberta pages for that reason.',
-          'The site also publishes no client testimonials, which is not modesty — the BC association prohibits them. Where reviews would normally sit, checkable credentials do instead.',
+          'The site also publishes no client testimonials, which is not modesty. The BC association prohibits them. Where reviews would normally sit, checkable credentials do instead.',
         ],
       },
     ],
@@ -220,18 +220,18 @@ export const albertaResources: Resource[] = [
       },
       {
         q: 'Where do I complain if something goes wrong?',
-        a: 'To the certification body the counsellor belongs to — the CCPA for a CCC, or the relevant provincial college for a psychologist or an out-of-province registrant. If they belong to nothing, there is no external route, which is the strongest argument for checking at the start.',
+        a: 'To the certification body the counsellor belongs to, the CCPA for a CCC, or the relevant provincial college for a psychologist or an out-of-province registrant. If they belong to nothing, there is no external route, which is the strongest argument for checking at the start.',
       },
     ],
     sources: [
-      { label: 'Canadian Counselling and Psychotherapy Association — certification', url: 'https://www.ccpa-accp.ca/' },
+      { label: 'Canadian Counselling and Psychotherapy Association, certification', url: 'https://www.ccpa-accp.ca/' },
       { label: 'College of Alberta Psychologists', url: 'https://cap.ab.ca/' },
       /* The .aspx URL cited here until 3 Sep returned 404. This page is also the
          better source for the claim: it lists the professions Alberta does
          regulate and the colleges that govern them, and counselling therapy is
          not among them — which is the point being made. */
-      { label: 'Regulated health professions and regulatory colleges — Government of Alberta', url: 'https://www.alberta.ca/regulated-health-professions' },
-      { label: 'Health Professions Act — Open Government, Alberta', url: 'https://open.alberta.ca/publications/h07' },
+      { label: 'Regulated health professions and regulatory colleges, Government of Alberta', url: 'https://www.alberta.ca/regulated-health-professions' },
+      { label: 'Health Professions Act, Open Government, Alberta', url: 'https://open.alberta.ca/publications/h07' },
     ],
     related: [
       { href: '/practitioners', label: 'The counsellors here, with their registration numbers' },

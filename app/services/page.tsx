@@ -28,7 +28,7 @@ export default function Services() {
         <div className="container">
           <p className="eyebrow">Our services</p>
           <h1>Counselling matched to what you need.</h1>
-          <p className="lede">Focused services rooted in evidence-based modalities — all offered online, anywhere in British Columbia.</p>
+          <p className="lede">Focused services rooted in evidence-based modalities, all offered online, anywhere in British Columbia.</p>
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a Free Consultation</Link>
             <Link className="btn btn--ghost" href="/pricing">Fees and coverage</Link>
@@ -82,12 +82,12 @@ export default function Services() {
             <Link href="/services/individual-therapy">depression counselling</Link> are named for
             what you are experiencing.{' '}
             <Link href="/services/emdr-therapy">EMDR</Link> and the Gottman Method are named for how
-            the work is done — they are approaches used within the others rather than separate
+            the work is done. They are approaches used within the others rather than separate
             destinations. If you know the difficulty but not the method, that is the right way round.
           </p>
           <p>
             <strong>Individual or couples</strong> is usually the first real fork, and it is not
-            always obvious — <Link href="/compare/individual-vs-couples-therapy">the comparison of the two</Link>{' '}
+            always obvious, <Link href="/compare/individual-vs-couples-therapy">the comparison of the two</Link>{' '}
             sets out when each makes more sense, including when relationship difficulty is better
             addressed on your own.
           </p>
@@ -116,7 +116,7 @@ export default function Services() {
             <div className="card">
               <h3>Fully virtual, BC-wide</h3>
               <p style={{ marginBottom: 0 }}>
-                Secure video from anywhere in the province — see{' '}
+                Secure video from anywhere in the province, see{' '}
                 <Link href="/online-counselling">the areas served across BC</Link>.
               </p>
             </div>
@@ -135,7 +135,7 @@ export default function Services() {
             </div>
           </div>
           <p style={{ marginTop: 28 }}>
-            All sessions are provided by a Registered Clinical Counsellor —{' '}
+            All sessions are provided by a Registered Clinical Counsellor, {' '}
             <Link href="/about">background and training here</Link>.
           </p>
         </div>
@@ -182,7 +182,7 @@ export default function Services() {
           <p>
             <Link href="/services/punjabi-counselling">Counselling in Punjabi</Link> and{' '}
             <Link href="/services/punjabi-counselling">South Asian mental health</Link> are not a
-            separate category of therapy — they are the same methods without the translation overhead,
+            separate category of therapy. They are the same methods without the translation overhead,
             and without having to establish the family context from scratch.{' '}
             <Link href="/online-counselling">Online counselling</Link> is the delivery
             format every one of these uses.
@@ -232,7 +232,7 @@ export default function Services() {
           </div>
           <p style={{ marginTop: 24 }}>
             What is available locally <em>in Punjabi</em> is a separate question with a very
-            different answer in most of the province — those regions have{' '}
+            different answer in most of the province. Those regions have{' '}
             <Link href="/punjabi-counselling">their own pages</Link>, and the full provincial
             picture is on <Link href="/online-counselling">areas served</Link>.
           </p>

@@ -81,7 +81,7 @@ export default function CityPage({ params }: { params: { city: string } }) {
               <h2>Therapy in {l.city}, without the commute</h2>
               <p>
                 Westpeak Wellness is a fully virtual practice, so you can access counselling from
-                anywhere in {l.city} or the wider {l.region} — no drive, no waiting room. Sessions run
+                anywhere in {l.city} or the wider {l.region}, no drive, no waiting room. Sessions run
                 over a secure, confidential video platform and follow the same ethical and privacy
                 standards as in-person therapy. There is more detail on{' '}
                 <Link href="/online-counselling">how online counselling works across BC</Link>.
@@ -122,7 +122,7 @@ export default function CityPage({ params }: { params: { city: string } }) {
               <p style={{ margin: 0 }}>
                 Not sure which kind of support fits? A{' '}
                 <Link href={site.bookingPath}>free 15-minute consultation</Link> is the fastest way
-                to find out — and it is a fine outcome if the answer is a referral somewhere else.
+                to find out, and it is a fine outcome if the answer is a referral somewhere else.
               </p>
             </div>
           </div>

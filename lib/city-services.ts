@@ -57,13 +57,13 @@ export type Pair = {
 export const pairs: Pair[] = [
   {
     city: 'vancouver', service: 'couples-therapy',
-    angle: 'Two people, two commutes, one appointment — the logistics defeat more Vancouver couples than the therapy does.',
+    angle: 'Two people, two commutes, one appointment. The logistics defeat more Vancouver couples than the therapy does.',
     body: [
       'Couples counselling has a scheduling problem that individual work does not: it needs two people free at the same time. In Vancouver that frequently means two different commutes converging on a third location at an hour that suits neither, and the first appointment either of them cannot make becomes the one that ends the attempt.',
-      'Joining from home, or from two different places when that is what the week allows, removes the single most common practical reason couples work stops. It also changes the texture of the session — you are having a difficult conversation in the room where you actually have difficult conversations, rather than in a neutral office you both leave immediately afterwards.',
+      'Joining from home, or from two different places when that is what the week allows, removes the single most common practical reason couples work stops. It also changes the texture of the session. You are having a difficult conversation in the room where you actually have difficult conversations, rather than in a neutral office you both leave immediately afterwards.',
     ],
     faqs: [
-      { q: 'Can we join from two separate locations?', a: 'Yes, and some couples deliberately do — occasionally because one partner travels, occasionally because separate rooms make a particular conversation more possible rather than less.' },
+      { q: 'Can we join from two separate locations?', a: 'Yes, and some couples deliberately do, occasionally because one partner travels, occasionally because separate rooms make a particular conversation more possible rather than less.' },
       { q: 'How long is a couples session?', a: 'Fifty minutes at $170, with a 110-minute extended session at $340 for work that genuinely needs the longer run. The extended format is usually a considered choice rather than the starting point.' },
     ],
   },
@@ -72,7 +72,7 @@ export const pairs: Pair[] = [
     city: 'vancouver', service: 'emdr-therapy',
     angle: 'Vancouver has EMDR-trained clinicians; what it does not have is many with an opening this month.',
     body: [
-      'EMDR is not rare in Vancouver in the sense that it is rare in most of the province — trained clinicians exist here in numbers. The constraint is different: EMDR tends to be offered by practitioners who are already established, which means the search usually ends in a waitlist rather than in an absence.',
+      'EMDR is not rare in Vancouver in the sense that it is rare in most of the province, trained clinicians exist here in numbers. The constraint is different: EMDR tends to be offered by practitioners who are already established, which means the search usually ends in a waitlist rather than in an absence.',
       'It is also a modality where the schedule matters more than usual. EMDR processing works best with a predictable rhythm, and a session that has to be moved because of traffic is more disruptive here than it would be in ordinary talk therapy. Removing the journey removes the most common reason the rhythm breaks.',
     ],
     faqs: [
@@ -86,7 +86,7 @@ export const pairs: Pair[] = [
     angle: 'Couples work in Surrey often has a third party in the room whether or not anyone has named them: the wider family.',
     body: [
       'A large share of couples counselling here involves questions that a Metro Vancouver practice may not think to ask. Whether you live with parents or in-laws. Whether a decision is genuinely yours to make alone. How much of the current pressure originates between the two of you and how much arrives from outside and lands on you both.',
-      'None of that means the answer is more separation from family, and a counsellor who assumes it is will not be useful. The work is about being clear on which pressures are shared and which are inherited, and what the two of you actually want — which is a different conversation from the one that starts by treating obligation as the problem.',
+      'None of that means the answer is more separation from family, and a counsellor who assumes it is will not be useful. The work is about being clear on which pressures are shared and which are inherited, and what the two of you actually want, which is a different conversation from the one that starts by treating obligation as the problem.',
     ],
     faqs: [
       { q: 'What if only one of us wants to come?', a: 'Start anyway. Individual work on a relationship is legitimate and often useful, and it is not unusual for the second person to join later once it is clear what the sessions are actually like.' },
@@ -99,7 +99,7 @@ export const pairs: Pair[] = [
     angle: 'Finding an EMDR clinician in Surrey is possible; finding one who also works in Punjabi has been close to impossible.',
     body: [
       'EMDR is available in Surrey. The combination of EMDR training and Punjabi has been another matter, and for anyone who wants both, the historical options have been to accept one or the other or to travel and still not find it.',
-      'That combination is a specific thing rather than a general claim about cultural fit. EMDR involves identifying the memory and the belief attached to it, and beliefs about shame, duty and reputation frequently sit in a first language. Working in the language the belief was formed in is not a nicety in this modality — it is closer to a working requirement.',
+      'That combination is a specific thing rather than a general claim about cultural fit. EMDR involves identifying the memory and the belief attached to it, and beliefs about shame, duty and reputation frequently sit in a first language. Working in the language the belief was formed in is not a nicety in this modality. It is closer to a working requirement.',
     ],
     faqs: [
       { q: 'Can EMDR be done in Punjabi?', a: 'Yes. The protocol is the same; what changes is that the belief attached to a memory can be named in the language it belongs to rather than approximated in translation.' },
@@ -111,7 +111,7 @@ export const pairs: Pair[] = [
     city: 'burnaby', service: 'couples-therapy',
     angle: 'Two Burnaby commutes rarely converge anywhere convenient, which is why couples work here so often stalls at scheduling.',
     body: [
-      'Couples in Burnaby frequently work in two different directions — one toward Vancouver, one east into Fraser Health territory — and an in-person appointment has to find a time and a place that defeats neither commute. That is a harder problem than it sounds, and it is the reason a lot of couples counselling here never gets past the enquiry.',
+      'Couples in Burnaby frequently work in two different directions, one toward Vancouver, one east into Fraser Health territory, and an in-person appointment has to find a time and a place that defeats neither commute. That is a harder problem than it sounds, and it is the reason a lot of couples counselling here never gets past the enquiry.',
       'Removing the location from the equation leaves only the time, which is a solvable problem. It also means a session can happen on an evening when one of you is still at work and the other is at home, which is a compromise that in-person scheduling cannot offer at all.',
     ],
     faqs: [
@@ -124,24 +124,24 @@ export const pairs: Pair[] = [
     city: 'burnaby', service: 'emdr-therapy',
     angle: 'EMDR in Burnaby usually means an appointment in Vancouver, and a modality that rewards routine does not suit a long journey.',
     body: [
-      'Practically speaking, looking for EMDR in Burnaby produces results in Vancouver. That is workable, but EMDR is a modality where consistency does real work — processing benefits from a predictable interval, and sessions that get moved because of traffic or a delayed bus interrupt something more specific than a chat would be.',
+      'Practically speaking, looking for EMDR in Burnaby produces results in Vancouver. That is workable, but EMDR is a modality where consistency does real work, processing benefits from a predictable interval, and sessions that get moved because of traffic or a delayed bus interrupt something more specific than a chat would be.',
       'Delivered remotely, the interval is the only thing being scheduled. The bilateral stimulation is provided on screen or through self-administered tapping, both established remote protocols, and the preparation that makes EMDR safe is unchanged.',
     ],
     faqs: [
-      { q: 'What if I feel destabilised after a session?', a: 'Preparation for exactly that comes before any processing begins — grounding you have practised, and an agreed plan for a difficult evening. This practice runs scheduled sessions with no on-call line, so that plan includes which crisis lines to use and when.' },
+      { q: 'What if I feel destabilised after a session?', a: 'Preparation for exactly that comes before any processing begins, grounding you have practised, and an agreed plan for a difficult evening. This practice runs scheduled sessions with no on-call line, so that plan includes which crisis lines to use and when.' },
       { q: 'Can EMDR be combined with ordinary talking therapy?', a: 'Commonly, yes. Many courses of work use EMDR for specific stuck material inside a broader piece of counselling.' },
     ],
   },
 
   {
     city: 'abbotsford', service: 'couples-therapy',
-    angle: 'Two people, one highway, one appointment — Fraser Valley couples usually lose the attempt to the drive rather than to the work.',
+    angle: 'Two people, one highway, one appointment, Fraser Valley couples usually lose the attempt to the drive rather than to the work.',
     body: [
       'Couples counselling requires two people free simultaneously. In Abbotsford that has often meant two people free simultaneously and both willing to drive to Surrey, which is a materially harder condition to satisfy and the one on which most attempts fail.',
       'There is also a rhythm point. Couples work benefits from sessions close enough together to keep momentum; a fortnightly cadence chosen because weekly was logistically impossible changes what the work can do. Removing the drive makes the interval a genuine choice rather than a consequence of geography.',
     ],
     faqs: [
-      { q: 'Do you do premarital or pre-commitment work?', a: 'Yes, and it is generally more straightforward than work begun in a crisis — largely because nobody arrives already keeping score.' },
+      { q: 'Do you do premarital or pre-commitment work?', a: 'Yes, and it is generally more straightforward than work begun in a crisis, largely because nobody arrives already keeping score.' },
       { q: 'Can we book a longer first session?', a: 'A 110-minute extended session is available at $340 where there is a lot to lay out. Most couples start with the standard 50 minutes and decide from there.' },
     ],
   },
@@ -150,7 +150,7 @@ export const pairs: Pair[] = [
     city: 'abbotsford', service: 'emdr-therapy',
     angle: 'EMDR is one of the modalities the Fraser Valley most reliably does not have locally.',
     body: [
-      'Ask for EMDR in Abbotsford and the answer has commonly been that the nearest trained clinician is west of you. It is a specific enough training that a smaller local sector simply may not contain it, which is different from a service being busy — it is a service being absent.',
+      'Ask for EMDR in Abbotsford and the answer has commonly been that the nearest trained clinician is west of you. It is a specific enough training that a smaller local sector simply may not contain it, which is different from a service being busy. It is a service being absent.',
       'Delivered by video, that absence stops being geographic. The protocol is unchanged, the bilateral stimulation is delivered on screen or by self-administered tapping, and the preparation phase that makes EMDR safe to do happens exactly as it would in a room.',
     ],
     faqs: [
@@ -167,7 +167,7 @@ export const pairs: Pair[] = [
       'Video removes the geography and leaves the scheduling, which is a much easier problem. It also permits a session where one of you joins from a car park at the end of a shift, which is not ideal and is considerably better than the alternative of not going.',
     ],
     faqs: [
-      { q: 'Is it too late for counselling if we are already talking about separating?', a: 'No. Some couples work is about deciding rather than repairing, and doing that deliberately — particularly where children are involved — is a legitimate use of the sessions.' },
+      { q: 'Is it too late for counselling if we are already talking about separating?', a: 'No. Some couples work is about deciding rather than repairing, and doing that deliberately, particularly where children are involved, is a legitimate use of the sessions.' },
       { q: 'Do you take sides?', a: 'No. Where something needs saying plainly it gets said plainly, which is a different thing from adjudicating between you.' },
     ],
   },
@@ -176,7 +176,7 @@ export const pairs: Pair[] = [
     city: 'langley', service: 'emdr-therapy',
     angle: 'EMDR in Langley is available in principle and hard to book in practice, because the trained clinicians serve the whole eastern corridor.',
     body: [
-      'The handful of EMDR-trained practitioners around Langley are absorbing demand from Surrey to Abbotsford, which is why the search so often ends in a waitlist. That is not a local failing — it is what happens when a specific training is thinly distributed across a wide corridor.',
+      'The handful of EMDR-trained practitioners around Langley are absorbing demand from Surrey to Abbotsford, which is why the search so often ends in a waitlist. That is not a local failing. It is what happens when a specific training is thinly distributed across a wide corridor.',
       'Remote delivery widens the pool from whoever is within driving distance to whoever is registered in British Columbia. For a modality this specific, that is the difference between choosing a clinician and taking whoever has an opening.',
     ],
     faqs: [
@@ -193,17 +193,17 @@ export const pairs: Pair[] = [
       'Two people travelling together for two hours to discuss a difficult subject also has an obvious problem: the car journey home. Joining from your own kitchen at eight in the evening is not a downgrade from that arrangement.',
     ],
     faqs: [
-      { q: 'What approach do you use with couples?', a: 'Gottman-trained, which is structured rather than open-ended — patterns of interaction are looked at directly rather than circled around.' },
+      { q: 'What approach do you use with couples?', a: 'Gottman-trained, which is structured rather than open-ended, patterns of interaction are looked at directly rather than circled around.' },
       { q: 'Can we do this if we are in different places some weeks?', a: 'Yes. Partners joining from two locations is workable and reasonably common where shift patterns or travel make it necessary.' },
     ],
   },
 
   {
     city: 'chilliwack', service: 'emdr-therapy',
-    angle: 'In the eastern Fraser Valley, EMDR is not a service that is busy — it is a service that is absent.',
+    angle: 'In the eastern Fraser Valley, EMDR is not a service that is busy. It is a service that is absent.',
     body: [
       'There is a difference between a modality being oversubscribed and a modality not being present, and Chilliwack usually meets the second. EMDR requires specific training that a smaller local sector may simply not contain, so the search does not end in a waitlist; it ends in nothing.',
-      'This is the clearest case in the province for remote delivery. The protocol does not lose anything to video — bilateral stimulation is delivered on screen or by self-administered tapping, both established remote practice — and the alternative is not a different local option but no option at all.',
+      'This is the clearest case in the province for remote delivery. The protocol does not lose anything to video, bilateral stimulation is delivered on screen or by self-administered tapping, both established remote practice, and the alternative is not a different local option but no option at all.',
     ],
     faqs: [
       { q: 'Is remote EMDR a compromise version?', a: 'No. Remote protocols are established practice, and the phases are the same. What changes is that the preparation and grounding happen in the room you are actually going to be in afterwards.' },
@@ -216,7 +216,7 @@ export const pairs: Pair[] = [
     angle: 'Victoria is small enough that couples counselling carries a visibility problem the mainland does not have.',
     body: [
       'In a city this size, professional and social circles overlap more than people expect. Couples arriving at a counselling office on a weekday afternoon are reasonably likely to encounter somebody they know, and for some couples that is genuinely the reason they have not started.',
-      'A session joined from home removes the question. That is not a minor point in a place where the relevant concern is not confidentiality in the formal sense — which any registered practice provides — but simply not being seen walking through a door.',
+      'A session joined from home removes the question. That is not a minor point in a place where the relevant concern is not confidentiality in the formal sense, which any registered practice provides, but simply not being seen walking through a door.',
     ],
     faqs: [
       { q: 'Is what we say in couples sessions confidential?', a: 'Yes, within the limits every RCC works under, which are explained at the start rather than buried. Those limits apply equally to both partners.' },
@@ -228,7 +228,7 @@ export const pairs: Pair[] = [
     city: 'victoria', service: 'emdr-therapy',
     angle: 'When EMDR is not represented on the Island, the historical options have been to travel for it or to go without.',
     body: [
-      'The Island EMDR pool is finite in a way a mainland pool is not. When the trained clinicians here are full, there is no adjacent city to try — the next option involves a sailing, and an intensive scheduled around ferry availability is a different piece of work from a weekly session.',
+      'The Island EMDR pool is finite in a way a mainland pool is not. When the trained clinicians here are full, there is no adjacent city to try, the next option involves a sailing, and an intensive scheduled around ferry availability is a different piece of work from a weekly session.',
       'Remote delivery makes the entire provincial pool reachable from Victoria on the same terms as from Vancouver. For a modality this specific, being able to choose the clinician rather than take the one with the opening is most of the value.',
     ],
     faqs: [
@@ -241,7 +241,7 @@ export const pairs: Pair[] = [
     city: 'kelowna', service: 'couples-therapy',
     angle: 'Okanagan seasonal work puts a strain on relationships that a Metro Vancouver counsellor may not think to ask about.',
     body: [
-      'A large part of this economy runs on seasons — tourism, agriculture, construction, hospitality. That produces relationships where one partner is absent for months and then abruptly present, where income arrives unevenly, and where the winter conversation is entirely different from the summer one.',
+      'A large part of this economy runs on seasons: tourism, agriculture, construction, hospitality. That produces relationships where one partner is absent for months and then abruptly present, where income arrives unevenly, and where the winter conversation is entirely different from the summer one.',
       'Those pressures get misread as commitment problems when they are structural. A counsellor who asks about the shape of your year rather than assuming a uniform one is asking a more useful question, and it is a question the answer to which is specific to living here.',
     ],
     faqs: [
@@ -267,7 +267,7 @@ export const pairs: Pair[] = [
     city: 'kamloops', service: 'couples-therapy',
     angle: 'Rotational and camp work reshapes a relationship in ways a nine-to-five counsellor may not think to ask about.',
     body: [
-      'A significant share of this region works away — camps, rotations, long shifts on the road. That produces relationships with a specific rhythm: intense reunion, awkward recalibration, departure, repeat. The difficulties it creates are structural rather than a sign that either person is doing something wrong.',
+      'A significant share of this region works away: camps, rotations, long shifts on the road. That produces relationships with a specific rhythm: intense reunion, awkward recalibration, departure, repeat. The difficulties it creates are structural rather than a sign that either person is doing something wrong.',
       'Counselling that fits that pattern has to be able to run when one partner is away, which in-person work fundamentally cannot. Video sessions with a partner joining from camp are not a workaround; for a rotational couple they are the only arrangement that keeps the work continuous.',
     ],
     faqs: [
@@ -280,7 +280,7 @@ export const pairs: Pair[] = [
     city: 'kamloops', service: 'emdr-therapy',
     angle: 'Specialised modalities are not reliably represented in the Thompson-Nicola, and EMDR is among the least reliably available.',
     body: [
-      'The private sector in Kamloops is small relative to the area it effectively serves, and specific trainings are not evenly distributed across small sectors. EMDR is frequently one of the gaps — not oversubscribed, simply not present in the numbers a region this size would need.',
+      'The private sector in Kamloops is small relative to the area it effectively serves, and specific trainings are not evenly distributed across small sectors. EMDR is frequently one of the gaps, not oversubscribed, simply not present in the numbers a region this size would need.',
       'Remote access changes the question from "who here is trained in this" to "who in British Columbia is". For a region where the honest local answer has often been that the modality is unavailable, that is a categorical change rather than an improvement in convenience.',
     ],
     faqs: [
@@ -307,11 +307,11 @@ export const pairs: Pair[] = [
     angle: 'EMDR in northern BC has meant a flight south, an intensive, and a long gap before the next one.',
     body: [
       'Where northern residents have accessed EMDR at all, the shape has usually been travel-based: a trip to the Lower Mainland, work compressed into a few days, then months before the next opportunity. That is a considerable commitment and a structure the modality does not particularly want.',
-      'EMDR benefits from a predictable interval — processing, then time to settle, then more. Delivered remotely, a northern client gets the ordinary weekly or fortnightly rhythm rather than an intensive built around flight availability.',
+      'EMDR benefits from a predictable interval: processing, then time to settle, then more. Delivered remotely, a northern client gets the ordinary weekly or fortnightly rhythm rather than an intensive built around flight availability.',
     ],
     faqs: [
       { q: 'Is remote EMDR established practice?', a: 'Yes. Remote protocols are well established, with bilateral stimulation delivered on screen or by self-administered tapping.' },
-      { q: 'What if my connection drops mid-session?', a: 'It is agreed in advance what happens — normally a phone call to finish, and never leaving a session unresolved because of a technical failure.' },
+      { q: 'What if my connection drops mid-session?', a: 'It is agreed in advance what happens, normally a phone call to finish, and never leaving a session unresolved because of a technical failure.' },
     ],
   },
   /* ---- ANXIETY x CITY, added 2 Sep 2026 -----------------------------------
@@ -324,20 +324,20 @@ export const pairs: Pair[] = [
     city: 'surrey', service: 'anxiety-counselling',
     angle: 'The barrier here is rarely finding somebody. It is being seen walking in.',
     body: [
-      'Surrey has more counsellors than most of the province and a genuine shortage of privacy. In a community where families know each other, the counsellor who comes recommended is often connected to the very people you would least want to know you are going — and for anxiety specifically, that is not a small problem. Worrying about being seen at the appointment is itself a reason the appointment does not happen.',
+      'Surrey has more counsellors than most of the province and a genuine shortage of privacy. In a community where families know each other, the counsellor who comes recommended is often connected to the very people you would least want to know you are going, and for anxiety specifically, that is not a small problem. Worrying about being seen at the appointment is itself a reason the appointment does not happen.',
       'A virtual practice removes the building, the car outside it, and the waiting room. What is left is the session. For a lot of people here that is the difference between starting in March and starting eventually.',
     ],
     faqs: [
       { q: 'Will anyone find out I am seeing a counsellor?', a: 'Not from this practice. Confidentiality is a legal duty and its limits are set out on the standards page. There is also no office anybody could see you enter, which is the part people actually ask about.' },
-      { q: 'Is anxiety counselling different from general counselling?', a: 'The frame is narrower. Anxiety maintains itself through avoidance and checking, so the work targets those directly rather than talking around the worry — which is why it tends to be shorter than people expect.' },
+      { q: 'Is anxiety counselling different from general counselling?', a: 'The frame is narrower. Anxiety maintains itself through avoidance and checking, so the work targets those directly rather than talking around the worry, which is why it tends to be shorter than people expect.' },
     ],
   },
   {
     city: 'vancouver', service: 'anxiety-counselling',
     angle: 'A city that rewards looking fine, and charges the difference privately.',
     body: [
-      'Vancouver runs on a lot of jobs where visible composure is part of the work — tech, film, hospitality, health care, anything client-facing. High-functioning anxiety is not a lesser version of the condition; it is the version that gets no help, because everybody around you can see the delivery and nobody can see the cost of producing it.',
-      'The other Vancouver pattern is cost. Anxiety about money in an expensive city is a rational response to an expensive city, and treating it as a disorder misses the point. What can change is the part that has stopped being proportionate — the checking, the sleeplessness, the planning that never converts into rest.',
+      'Vancouver runs on a lot of jobs where visible composure is part of the work: tech, film, hospitality, health care, anything client-facing. High-functioning anxiety is not a lesser version of the condition; it is the version that gets no help, because everybody around you can see the delivery and nobody can see the cost of producing it.',
+      'The other Vancouver pattern is cost. Anxiety about money in an expensive city is a rational response to an expensive city, and treating it as a disorder misses the point. What can change is the part that has stopped being proportionate. The checking, the sleeplessness, the planning that never converts into rest.',
     ],
     faqs: [
       { q: 'I am functioning fine. Is that still worth bringing?', a: 'Yes, and it is the most common version seen here. Functioning is not the same as being alright, and the gap between the two is usually where the work is.' },
@@ -348,11 +348,11 @@ export const pairs: Pair[] = [
     city: 'burnaby', service: 'anxiety-counselling',
     angle: 'The appointment becomes the third journey of the day, and the third one is the one that gets cancelled.',
     body: [
-      'A great many people in Burnaby live in one city and work in another, so the day already contains two commutes before anything optional is added. An anxiety appointment in a third location, at a fixed hour, competes with the two journeys that are not negotiable — and loses, quietly, in about week five.',
+      'A great many people in Burnaby live in one city and work in another, so the day already contains two commutes before anything optional is added. An anxiety appointment in a third location, at a fixed hour, competes with the two journeys that are not negotiable, and loses, quietly, in about week five.',
       'That matters more for anxiety than for most things, because anxiety treatment depends on continuity. A course that stops after three sessions has usually stopped just before the part that works. Removing the journey removes the most common reason it stops.',
     ],
     faqs: [
-      { q: 'Does it matter that I work outside Burnaby?', a: 'No. What matters is where you are sitting during the session, and that can be home, a car, or a quiet room at work — as long as it is private enough for you.' },
+      { q: 'Does it matter that I work outside Burnaby?', a: 'No. What matters is where you are sitting during the session, and that can be home, a car, or a quiet room at work, as long as it is private enough for you.' },
       { q: 'How many sessions does anxiety usually take?', a: 'Fewer than most people expect for focused anxiety work, and the honest answer depends on how long the pattern has been running. It is one of the things the free consultation is for.' },
     ],
   },
@@ -361,7 +361,7 @@ export const pairs: Pair[] = [
     angle: 'The population grew faster than the number of people qualified to treat this.',
     body: [
       'Langley has added residents at a rate the local counselling capacity has not matched, and the effect shows up as waiting rather than as absence. There are counsellors; the ones taking new clients for anxiety specifically, at hours that suit somebody working, are a much shorter list than the size of the community implies.',
-      'Waiting is its own problem here. Anxiety left alone tends to widen — the avoidance grows to cover more situations, and each one is harder to reverse than it would have been in month one. A virtual practice widens the field to the whole province without adding a drive west at the wrong hour.',
+      'Waiting is its own problem here. Anxiety left alone tends to widen. The avoidance grows to cover more situations, and each one is harder to reverse than it would have been in month one. A virtual practice widens the field to the whole province without adding a drive west at the wrong hour.',
     ],
     faqs: [
       { q: 'Is Aldergrove covered?', a: 'Yes, on identical terms. Nothing about the service depends on distance inside the province.' },
@@ -376,7 +376,7 @@ export const pairs: Pair[] = [
       'It is also a valley that works to seasons and shifts more than to office hours. Booking in blocks with gaps between them is the normal pattern here, and it works better for anxiety than a rigid weekly slot that gets missed twice and then abandoned.',
     ],
     faqs: [
-      { q: 'What if driving or leaving the house is part of the problem?', a: 'Then starting from home is not avoidance — it is a sensible first step, and one of the things the work can build outward from later if you want it to.' },
+      { q: 'What if driving or leaving the house is part of the problem?', a: 'Then starting from home is not avoidance. It is a sensible first step, and one of the things the work can build outward from later if you want it to.' },
       { q: 'Does this cover Mission and the eastern valley?', a: 'Yes, on the same terms, with no distance penalty for being further out.' },
     ],
   },
@@ -384,12 +384,12 @@ export const pairs: Pair[] = [
     city: 'chilliwack', service: 'anxiety-counselling',
     angle: 'A single highway decides whether you attend, which is a poor foundation for weekly work.',
     body: [
-      'Travelling west from Chilliwack is a plan until it is not — the weather, a closure, an accident at the wrong point of Highway 1. An appointment that depends on one road is an appointment cancelled repeatedly, and repeated cancellation is corrosive for anxiety work specifically, because the gap between sessions is when the avoidance quietly rebuilds.',
+      'Travelling west from Chilliwack is a plan until it is not. The weather, a closure, an accident at the wrong point of Highway 1. An appointment that depends on one road is an appointment cancelled repeatedly, and repeated cancellation is corrosive for anxiety work specifically, because the gap between sessions is when the avoidance quietly rebuilds.',
       'Nothing about weather changes a video session. For somebody in the eastern valley that is not a convenience argument; it is the difference between a course of sessions that finishes and one that stops in February.',
     ],
     faqs: [
       { q: 'Are Agassiz and Hope covered?', a: 'Yes, on the same terms. There is no distance penalty inside the province.' },
-      { q: 'What if my connection is poor?', a: 'The session can continue by voice. It is not a lesser session — most of the work is the conversation, not the picture.' },
+      { q: 'What if my connection is poor?', a: 'The session can continue by voice. It is not a lesser session. Most of the work is the conversation, not the picture.' },
     ],
   },
   {
@@ -401,14 +401,14 @@ export const pairs: Pair[] = [
     ],
     faqs: [
       { q: 'Can I pause during my busy season?', a: 'Yes, and it is better to plan that at the start than discover it in month two. Pausing between blocks costs nothing.' },
-      { q: 'Are West Kelowna and Vernon covered?', a: 'Yes, on identical terms — the whole province is served on the same basis.' },
+      { q: 'Are West Kelowna and Vernon covered?', a: 'Yes, on identical terms. The whole province is served on the same basis.' },
     ],
   },
   {
     city: 'kamloops', service: 'anxiety-counselling',
     angle: 'Shift work keeps the body braced, and a braced body reads as anxiety long after the shift ends.',
     body: [
-      'Rotating shifts are ordinary in Kamloops, and they do something specific to anxiety: sleep goes first, and once sleep is unreliable the physical symptoms arrive on their own — the racing heart, the shallow breathing, the sense of being permanently about to react. People often reach for a psychological explanation for something a schedule is producing.',
+      'Rotating shifts are ordinary in Kamloops, and they do something specific to anxiety: sleep goes first, and once sleep is unreliable the physical symptoms arrive on their own. The racing heart, the shallow breathing, the sense of being permanently about to react. People often reach for a psychological explanation for something a schedule is producing.',
       'That does not mean the anxiety is imaginary; it means the work has to include the pattern that is feeding it. Sessions booked around a rotation, rather than a rotation forced around a standing appointment, are the version that survives past week four.',
     ],
     faqs: [
@@ -432,7 +432,7 @@ export const pairs: Pair[] = [
     city: 'victoria', service: 'anxiety-counselling',
     angle: 'A city with real services, where the specific thing you need is still across the water.',
     body: [
-      'Victoria is not short of counselling in general. It is short of the particular — a specific approach, an evening hour, somebody taking new clients this month — and for anxiety the particular is usually what matters, because the version that responds fastest to structured work is easy to mistreat with general support.',
+      'Victoria is not short of counselling in general. It is short of the particular, a specific approach, an evening hour, somebody taking new clients this month, and for anxiety the particular is usually what matters, because the version that responds fastest to structured work is easy to mistreat with general support.',
       'The traditional answer has been a ferry, which for weekly work is not an answer at all. A virtual practice turns the question from who happens to be on the Island into who is right, which is the question that should have been asked first.',
     ],
     faqs: [
@@ -447,7 +447,7 @@ export const pairs: Pair[] = [
     city: 'surrey', service: 'trauma-therapy',
     angle: 'A great deal of what people carry here arrived with them, or with their parents.',
     body: [
-      'Surrey holds one of the largest immigrant and second-generation populations in the country, and a significant share of what turns up in a counselling room here did not happen in Surrey. Migration itself can be traumatic — what was left, what was survived to get here, and what nobody spoke about afterwards because there was work to do. The second generation frequently arrives carrying a shape they cannot account for, because the events belong to somebody else.',
+      'Surrey holds one of the largest immigrant and second-generation populations in the country, and a significant share of what turns up in a counselling room here did not happen in Surrey. Migration itself can be traumatic: what was left, what was survived to get here, and what nobody spoke about afterwards because there was work to do. The second generation frequently arrives carrying a shape they cannot account for, because the events belong to somebody else.',
       'There is also a vocabulary problem. In plenty of families here there is no word for this that is not an insult, so it gets described as being sensitive, or difficult, or ungrateful. Naming it accurately is often the first useful thing that happens, and it can be done in Punjabi or English, or moving between them.',
     ],
     faqs: [
@@ -495,7 +495,7 @@ export const pairs: Pair[] = [
     city: 'abbotsford', service: 'trauma-therapy',
     angle: 'Agricultural and industrial work produces incidents, and the claim route for the psychological half is the part that gets missed.',
     body: [
-      'Abbotsford works in agriculture, food processing, transport and trades, and those are sectors where serious incidents happen — to the person, or in front of them. The physical injury gets treated because it is visible and the process for it is well worn. The psychological injury from the same event frequently gets nothing, because the person assumes it is not covered and nobody corrects them.',
+      'Abbotsford works in agriculture, food processing, transport and trades, and those are sectors where serious incidents happen, to the person, or in front of them. The physical injury gets treated because it is visible and the process for it is well worn. The psychological injury from the same event frequently gets nothing, because the person assumes it is not covered and nobody corrects them.',
       'It usually is. A psychological injury arising from work can be claimed in BC, and the claim is separate from how the physical recovery went. People also present here long after the incident, having decided at the time that they were fine, which is ordinary rather than late.',
     ],
     faqs: [
@@ -544,7 +544,7 @@ export const pairs: Pair[] = [
     angle: 'Serious incidents in the resource sector, a long way from anybody trained to treat the aftermath.',
     body: [
       'Forestry, milling, heavy transport and camp work carry real risk, and Northern BC is where a great deal of that work happens. When something goes wrong the physical response is well organised. The psychological one is not, because trauma-trained clinicians are concentrated in the south and the nearest one may be a long drive or a flight away.',
-      'That gap is why so much of this goes untreated here rather than because people are unwilling. Virtual sessions remove the distance from the equation entirely, which for trauma work matters more than for most things — it needs continuity, and continuity is exactly what an eight-hour round trip destroys.',
+      'That gap is why so much of this goes untreated here rather than because people are unwilling. Virtual sessions remove the distance from the equation entirely, which for trauma work matters more than for most things. It needs continuity, and continuity is exactly what an eight-hour round trip destroys.',
     ],
     faqs: [
       { q: 'Can this work be done properly over video?', a: 'Yes, including EMDR, which is delivered by video routinely. The requirement is a private space and a workable connection rather than a shared room.' },
@@ -556,7 +556,7 @@ export const pairs: Pair[] = [
     angle: 'A large service and veteran population, and a specific reluctance to be seen using local services.',
     body: [
       'Greater Victoria holds a substantial naval, military and veteran population, and with it a particular reluctance: a real concern about career consequences, and about being recognised in a waiting room by somebody who works alongside you. Whether or not that concern is justified in a given case, it reliably delays people from getting help, sometimes by years.',
-      'Distance solves the visibility problem completely. There is no local waiting room, no car outside a building, and no chance of meeting a colleague on the way in — which for this population is frequently the difference between starting and continuing to manage it alone.',
+      'Distance solves the visibility problem completely. There is no local waiting room, no car outside a building, and no chance of meeting a colleague on the way in, which for this population is frequently the difference between starting and continuing to manage it alone.',
     ],
     faqs: [
       { q: 'Will this affect my career or my file?', a: 'This is a private practice and nothing is reported anywhere. The limits of confidentiality are set out on the standards page and they are narrow, specific, and the same as they would be anywhere.' },
@@ -570,7 +570,7 @@ export const pairs: Pair[] = [
     city: 'surrey', service: 'depression-counselling',
     angle: 'It gets called laziness first, usually by the person experiencing it.',
     body: [
-      'In households built on effort — the family that arrived and worked, the parents who did without so the next generation would not have to — depression is unusually hard to name. The vocabulary available for somebody who cannot get out of bed is moral rather than clinical, and the person applies it to themselves long before anybody else does. Ungrateful is the word that comes up most.',
+      'In households built on effort. The family that arrived and worked, the parents who did without so the next generation would not have to, depression is unusually hard to name. The vocabulary available for somebody who cannot get out of bed is moral rather than clinical, and the person applies it to themselves long before anybody else does. Ungrateful is the word that comes up most.',
       'That framing is the obstacle, not the depression. What tends to help first is separating the symptom from the character judgement attached to it, and that conversation can happen in Punjabi or English, without the background needing to be explained from scratch.',
     ],
     faqs: [
@@ -583,7 +583,7 @@ export const pairs: Pair[] = [
     angle: 'Grieving a future that got priced out is not the same as failing at it.',
     body: [
       'A particular version of low mood shows up in Vancouver: people who are working hard, earning reasonably, and watching the life they assumed they were building become arithmetically impossible. The house, the space, the timeline for children. That is a real loss rather than a distorted thought, and treating it as faulty thinking is both wrong and insulting.',
-      'What the work can do is separate the grief, which is proportionate, from what has grown around it — the withdrawal, the comparison, the conclusion that the shortfall is a personal failure rather than a market. The first is worked with. The second is what tends to be doing the damage.',
+      'What the work can do is separate the grief, which is proportionate, from what has grown around it. The withdrawal, the comparison, the conclusion that the shortfall is a personal failure rather than a market. The first is worked with. The second is what tends to be doing the damage.',
     ],
     faqs: [
       { q: 'Is it depression if my situation is genuinely difficult?', a: 'It can be both. A reasonable response to hard circumstances and a depressive pattern can run at the same time, and the second is the part that responds to this work.' },
@@ -598,7 +598,7 @@ export const pairs: Pair[] = [
       'It compounds quietly. Low mood reduces the energy available for the effort of seeing people, seeing fewer people lowers the mood further, and by the time somebody notices the pattern it has usually been running for months. Naming it as a loop rather than a personality is generally more useful than any advice about socialising more.',
     ],
     faqs: [
-      { q: 'I am not sad exactly, just flat. Is that this?', a: 'Frequently, yes. Depression presents as absence at least as often as sadness — of energy, interest and the sense that anything matters — and the flat version is easy to dismiss for years.' },
+      { q: 'I am not sad exactly, just flat. Is that this?', a: 'Frequently, yes. Depression presents as absence at least as often as sadness, of energy, interest and the sense that anything matters, and the flat version is easy to dismiss for years.' },
       { q: 'How quickly would I notice anything?', a: 'That varies and nobody honest will promise a timeline. What can be said is that the early work is deliberately small and concrete, because depression removes exactly the energy that large plans require.' },
     ],
   },
@@ -606,7 +606,7 @@ export const pairs: Pair[] = [
     city: 'langley', service: 'depression-counselling',
     angle: 'People move here for room, and sometimes trade away the network that came with being crowded.',
     body: [
-      'A common Langley story: a move outward for space, a garden, a bedroom per child — and a quiet loss of the incidental contact that came with living closer in. Nobody drops by any more, the friendships require planning, and the social life that used to happen by accident now has to be organised by somebody who has less energy than they used to.',
+      'A common Langley story: a move outward for space, a garden, a bedroom per child, and a quiet loss of the incidental contact that came with living closer in. Nobody drops by any more, the friendships require planning, and the social life that used to happen by accident now has to be organised by somebody who has less energy than they used to.',
       'That is a structural change rather than a character flaw, and it is worth treating as one. The work looks at what actually rebuilds contact at a scale that is possible right now, rather than at the version that assumes the energy has already returned.',
     ],
     faqs: [
@@ -622,7 +622,7 @@ export const pairs: Pair[] = [
       'People often arrive in January convinced something has gone suddenly wrong. Usually nothing has changed except the amount of activity available to sit on top of it. Building some deliberate structure into the off-season is unglamorous and tends to be the thing that matters most.',
     ],
     faqs: [
-      { q: 'It only happens in winter. Is that different?', a: 'It may be seasonal, and that is worth naming precisely because the pattern is predictable — which means it can be planned for before it arrives rather than only responded to.' },
+      { q: 'It only happens in winter. Is that different?', a: 'It may be seasonal, and that is worth naming precisely because the pattern is predictable, which means it can be planned for before it arrives rather than only responded to.' },
       { q: 'Can I stop during my busy season?', a: 'Yes, and better to plan that at the start. Booking in blocks with gaps between them is normal here and pausing costs nothing.' },
     ],
   },
@@ -642,7 +642,7 @@ export const pairs: Pair[] = [
     city: 'kelowna', service: 'depression-counselling',
     angle: 'Moving somewhere beautiful and feeling worse is more common here than anybody admits.',
     body: [
-      'A lot of people arrive in the Okanagan on purpose — for the lake, the pace, the retirement, the fresh start. What is less discussed is how many find the first year harder rather than easier. The move removes the routines and the incidental company that were holding things together, and the setting makes that difficult to say out loud without sounding ungrateful.',
+      'A lot of people arrive in the Okanagan on purpose, for the lake, the pace, the retirement, the fresh start. What is less discussed is how many find the first year harder rather than easier. The move removes the routines and the incidental company that were holding things together, and the setting makes that difficult to say out loud without sounding ungrateful.',
       'That silence is the problem worth addressing. Relocation depression is a described pattern, it is not a verdict on the decision to move, and it is usually more about the loss of structure and contact than about the place itself.',
     ],
     faqs: [
@@ -654,7 +654,7 @@ export const pairs: Pair[] = [
     city: 'kamloops', service: 'depression-counselling',
     angle: 'Night shifts flatten mood through the body clock, and it gets read as a character problem.',
     body: [
-      'Shift work is ordinary in Kamloops, and prolonged night and rotating shifts do measurable things to sleep and daylight exposure — both of which sit close to mood. People working those patterns frequently describe flatness, irritability and a loss of interest, and then conclude something is wrong with them rather than with the schedule.',
+      'Shift work is ordinary in Kamloops, and prolonged night and rotating shifts do measurable things to sleep and daylight exposure, both of which sit close to mood. People working those patterns frequently describe flatness, irritability and a loss of interest, and then conclude something is wrong with them rather than with the schedule.',
       'The schedule is often not negotiable, so the work is not about advising a different job. It is about what can be protected inside the pattern that exists: light, timing, and the small number of things that hold a day together when the day starts at four in the afternoon.',
     ],
     faqs: [
@@ -666,7 +666,7 @@ export const pairs: Pair[] = [
     city: 'prince-george', service: 'depression-counselling',
     angle: 'The darkest winter in the province, and the least local capacity to treat what it does.',
     body: [
-      'Northern BC gets meaningfully less winter daylight than the south, and the effect on mood is well described rather than anecdotal. Combine that with months where getting anywhere is difficult and the range of things a person does contracts sharply — and a contracted range is one of the conditions in which low mood entrenches.',
+      'Northern BC gets meaningfully less winter daylight than the south, and the effect on mood is well described rather than anecdotal. Combine that with months where getting anywhere is difficult and the range of things a person does contracts sharply, and a contracted range is one of the conditions in which low mood entrenches.',
       'The local counselling capacity is also the thinnest in the province, so the season with the highest need coincides with the longest wait. Sessions that do not depend on a road or the weather are, for a great many people here, the only version that runs through the months when it is actually needed.',
     ],
     faqs: [
@@ -678,11 +678,11 @@ export const pairs: Pair[] = [
     city: 'victoria', service: 'depression-counselling',
     angle: 'Feeling low in a place everybody else calls idyllic makes the feeling harder to say.',
     body: [
-      'Victoria is mild, attractive and widely envied, and that produces a particular difficulty for anybody depressed in it. The setting invalidates the complaint before it is made — by family elsewhere, and more effectively by the person themselves, who concludes there is no legitimate reason to feel this way and therefore says nothing.',
+      'Victoria is mild, attractive and widely envied, and that produces a particular difficulty for anybody depressed in it. The setting invalidates the complaint before it is made: by family elsewhere, and more effectively by the person themselves, who concludes there is no legitimate reason to feel this way and therefore says nothing.',
       'Depression does not require a legitimate reason and does not respond to being argued out of one. What it responds to is being treated as a condition rather than as a failure of perspective, which is where the work starts.',
     ],
     faqs: [
-      { q: 'I have no reason to feel like this. Does that matter?', a: 'No. Depression frequently arrives without a cause you can point to, and the absence of one is not evidence against it — it is one of the most common features.' },
+      { q: 'I have no reason to feel like this. Does that matter?', a: 'No. Depression frequently arrives without a cause you can point to, and the absence of one is not evidence against it. It is one of the most common features.' },
       { q: 'Are Saanich and Sooke covered?', a: 'Yes, on identical terms, with no penalty for being outside the core.' },
     ],
   },

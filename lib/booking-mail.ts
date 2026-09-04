@@ -100,13 +100,13 @@ export function wrap(s: string, width = 72): string {
  *
  * TWO THINGS ADDED 2026-08-23, both invisible until they are missing.
  *
- * `color-scheme: light` — without it, Apple Mail and Outlook in dark mode
+ * `color-scheme: light`: without it, Apple Mail and Outlook in dark mode
  * force-invert a light template. They do it crudely: backgrounds flip, inline
  * colours often do not, and the result is grey-on-grey text in a message from a
  * counsellor. Declaring the scheme means the client leaves it alone.
  *
  * The preheader is the grey line an inbox shows after the subject. With nothing
- * there, clients scrape the first text they find — which for these templates was
+ * there, clients scrape the first text they find, which for these templates was
  * the words "Westpeak Wellness" followed by the heading again. It defaults to
  * the heading, so no existing caller has to change, and the zero-width spaces
  * stop a client dragging body copy into the preview after it. */
@@ -160,7 +160,7 @@ export type Booking = {
   /** Localised, already formatted for America/Vancouver. */
   whenText: string;
   /* Null when the booking did not say. Renders as nothing rather than as a
-     guess — a confirmation that states the wrong length is worse than one that
+     guess. A confirmation that states the wrong length is worse than one that
      states no length. See the header of lib/booking-notify.ts for the 30 Aug
      2026 incident that made this nullable. */
   minutes: number | null;
@@ -173,11 +173,11 @@ export type Booking = {
    if it finds a bare one, because a null rendered directly reads "null
    minutes" to a client. */
 
-/** "15 minutes, by secure video" — or just "by secure video". */
+/** "15 minutes, by secure video", or just "by secure video". */
 const lengthPhrase = (m: number | null) =>
   m ? `${m} minutes, by secure video` : 'by secure video';
 
-/** "15 minutes · secure video" — or just "secure video". */
+/** "15 minutes · secure video", or just "secure video". */
 const lengthChip = (m: number | null) =>
   m ? `${m} minutes &middot; secure video` : 'secure video';
 
@@ -185,8 +185,8 @@ const lengthChip = (m: number | null) =>
 
 export function confirmationEmail(b: Booking) {
   const subject = b.isConsult
-    ? 'Your free consultation is booked — Westpeak Wellness'
-    : 'Your session is booked — Westpeak Wellness';
+    ? 'Your free consultation is booked | Westpeak Wellness'
+    : 'Your session is booked | Westpeak Wellness';
 
   const text = wrap(
 `Hi ${b.firstName},
@@ -197,7 +197,7 @@ Your appointment with Westpeak Wellness is confirmed for:
 
 You will receive a separate email from Cliniko, our booking system, with
 the video link and calendar details. It arrives from notifications@
-cliniko.com — worth checking your spam folder if you do not see it, and
+cliniko.com, worth checking your spam folder if you do not see it, and
 marking it as safe so future ones arrive.
 
 If it is your first time, this walks through what actually happens:
@@ -231,7 +231,7 @@ ${BASE}`);
          <strong style="color:#3d6c92;">${esc(b.whenText)}</strong><br>
          <span style="color:#545e69;">${lengthChip(b.minutes)}</span>
        </td></tr></table>` +
-    p(`You will get a separate email from Cliniko, our booking system, carrying the video link and calendar invite. It arrives from <strong>notifications@cliniko.com</strong> — worth checking spam if it is not there, and marking it safe so future ones land.`) +
+    p(`You will get a separate email from Cliniko, our booking system, carrying the video link and calendar invite. It arrives from <strong>notifications@cliniko.com</strong>, worth checking spam if it is not there, and marking it safe so future ones land.`) +
     (b.isConsult
       ? p(`This is a free 15-minute conversation to work out whether this is the right fit. There is no obligation to book anything afterwards, and a referral elsewhere is a perfectly good outcome.`)
       : '') +
@@ -248,7 +248,7 @@ ${BASE}`);
 /* THE STAGE THAT WAS MISSING.
  *
  * A confirmation went out at booking and a follow-up the day after the session.
- * Between them, nothing — so an appointment booked a week ahead had no reminder
+ * Between them, nothing, so an appointment booked a week ahead had no reminder
  * at all, which is the definition of an easy no-show.
  *
  * It matters more here than at most practices. There are three bookable hours a
@@ -258,14 +258,14 @@ ${BASE}`);
  * Written to make rearranging as easy as attending, and deliberately not
  * written to guilt anybody into turning up. The most useful outcome of a
  * reminder is frequently somebody moving the appointment rather than keeping
- * it — a slot released a day ahead can go to somebody else, and a slot
+ * it. A slot released a day ahead can go to somebody else, and a slot
  * abandoned on the hour cannot. So the reschedule line comes before the
  * what-to-expect one, and there is no mention of a fee: this reaches people
  * attending a free consultation as often as a paid session. */
 export function reminderEmail(b: Booking) {
   const subject = b.isConsult
-    ? 'Tomorrow: your free consultation — Westpeak Wellness'
-    : 'Tomorrow: your session — Westpeak Wellness';
+    ? 'Tomorrow: your free consultation | Westpeak Wellness'
+    : 'Tomorrow: your session | Westpeak Wellness';
 
   const text = wrap(
 `Hi ${b.firstName},
@@ -305,11 +305,11 @@ ${BASE}`);
          <strong style="color:#3d6c92;">${esc(b.whenText)}</strong><br>
          <span style="color:#545e69;">${lengthChip(b.minutes)}</span>
        </td></tr></table>` +
-    p(`The video link is in the email Cliniko sent when you booked, from <strong>notifications@cliniko.com</strong> — worth checking spam if it is not in your inbox.`) +
+    p(`The video link is in the email Cliniko sent when you booked, from <strong>notifications@cliniko.com</strong>, worth checking spam if it is not in your inbox.`) +
     p(`<strong>If tomorrow no longer works, just reply.</strong> Moving it is easier for everybody than a missed appointment, and there is nothing awkward about asking.`) +
     (b.isConsult
       ? p(`This is a free 15-minute conversation. Nothing to prepare, nothing to bring, and no obligation to book anything afterwards.`)
-      : p(`Nothing to prepare. If there is something you want to start with, it is a good thing to arrive with — and equally fine not to have one.`)) +
+      : p(`Nothing to prepare. If there is something you want to start with, it is a good thing to arrive with, and equally fine not to have one.`)) +
     btn(links.firstSession, 'What actually happens') +
     p(`Need to change or cancel? Just reply to this email.`)
   );
@@ -322,7 +322,7 @@ ${BASE}`);
 /* The consultation is the one point where the practice has already met the
  * person and nothing at all happens next unless they act. Cliniko's own message
  * is a receipt for a call that has now been and gone, and the generic follow-up
- * below says "book your NEXT session" — wrong for someone who has not had a
+ * below says "book your NEXT session", wrong for someone who has not had a
  * first one.
  *
  * Its restraint is the point. Someone who had a fifteen-minute call and did not
@@ -330,19 +330,19 @@ ${BASE}`);
  * the call itself hard. A nudge written for the first reading is unpleasant for
  * the other two, and BCACC's advertising standards rule out the usual toolkit
  * regardless: no urgency, no scarcity, no outcome claims, no spots-filling-up.
- * What is left is the honest version — here is the link, here is the cost, and
+ * What is left is the honest version: here is the link, here is the cost, and
  * choosing someone else is a fine outcome.
  *
  * Sent once, a day after the consultation, and never repeated. */
 export function consultFollowUpEmail(b: Booking) {
-  const subject = 'After your consultation — Westpeak Wellness';
+  const subject = 'After your consultation | Westpeak Wellness';
 
   const text = wrap(
 `Hi ${b.firstName},
 
 Thank you for the call yesterday.
 
-No reply needed, and this is the only message of its kind — there is no
+No reply needed, and this is the only message of its kind. There is no
 sequence behind it.
 
 If you would like to go ahead, sessions can be booked here:
@@ -362,8 +362,8 @@ the right person. Stopping there is a normal outcome.
 
 If you decided this is not the right fit, that is a completely
 reasonable outcome and no explanation is owed to anyone. If it would
-help to be pointed toward something that fits better — a different
-approach, a lower fee, or a service with no fee at all — reply and say
+help to be pointed toward something that fits better, a different
+approach, a lower fee, or a service with no fee at all, reply and say
 roughly what you are looking for.
 
   Common questions, answered directly
@@ -379,15 +379,15 @@ ${BASE}`);
   const html = shell(
     'After your consultation',
     p(`Hi ${esc(b.firstName)},`) +
-    p(`Thank you for the call yesterday. No reply needed, and this is the only message of its kind — there is no sequence behind it.`) +
+    p(`Thank you for the call yesterday. No reply needed, and this is the only message of its kind. There is no sequence behind it.`) +
     /* The commitment question, answered without being asked. It is the one
        thing somebody is weighing the day after a consultation, and leaving it
        unanswered is a reason a good call does not become a booking. Descriptive
-       only — BCACC prohibits outcome claims. */
+       only, BCACC prohibits outcome claims. */
     p(`One thing that rarely gets asked on the call: there is no package and no minimum number of sessions. Weekly at first for most people, then further apart, with a deliberate check around session four about whether it is working and whether it is the right person. Stopping there is a normal outcome.`) +
     btn(links.bookSession, 'Book a session') +
     p(`Useful either way: ${a(links.pricing, 'what sessions cost and how extended health works')} · ${a(links.firstSession, 'what happens in a first full session')}`) +
-    p(`If you decided this is not the right fit, that is a completely reasonable outcome and no explanation is owed to anyone. If it would help to be pointed toward something that fits better — a different approach, a lower fee, or a service with no fee at all — reply and say roughly what you are looking for.`)
+    p(`If you decided this is not the right fit, that is a completely reasonable outcome and no explanation is owed to anyone. If it would help to be pointed toward something that fits better, a different approach, a lower fee, or a service with no fee at all, reply and say roughly what you are looking for.`)
   );
 
   return { subject, text, html };
@@ -400,7 +400,7 @@ export function followUpEmail(b: Booking) {
    * testimonial (BCACC prohibits soliciting these), imply progress should
    * have happened, or mention anything clinical. It exists to make the next
    * step easy and to be a door left open. */
-  const subject = 'After your session — Westpeak Wellness';
+  const subject = 'After your session | Westpeak Wellness';
 
   const text = wrap(
 `Hi ${b.firstName},
@@ -433,7 +433,7 @@ ${BASE}`);
     'After your session',
     p(`Hi ${esc(b.firstName)},`) +
     p(`Thanks for making the time yesterday.`) +
-    p(`No reply needed — this is just the practical bits in one place so you are not hunting for them.`) +
+    p(`No reply needed. This is just the practical bits in one place so you are not hunting for them.`) +
     btn(links.book, 'Book your next session') +
     p(`Also: ${a(links.pricing, 'fees, receipts and extended health')} · ${a(links.guides, 'reading, if you want it')}`) +
     p(`If something came up afterwards you would rather raise before next time, replying here reaches the practice directly.`)

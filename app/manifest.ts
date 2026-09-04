@@ -20,7 +20,7 @@ import { site } from '@/lib/site';
  */
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: `${site.name} — Online Counselling in BC`,
+    name: `${site.name}, Online Counselling in BC`,
     short_name: site.name,
     description:
       'Online counselling across British Columbia with a Registered Clinical Counsellor. EMDR, trauma, anxiety, depression and couples therapy, in English or Punjabi.',

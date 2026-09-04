@@ -52,7 +52,7 @@ const esc = (s: string) =>
 
 /* Diagrams these pages render and did not declare. An image entry only appears
    when the sitemap Entry names a figure, so a diagram can be live on a page and
-   invisible to image search — which was true of four of them. */
+   invisible to image search, which was true of four of them. */
 const PAGE_FIGURES: Record<string, string> = {
   '/editorial-policy': 'editorial-process',
   '/faq': 'booking-payment-flow',
@@ -73,7 +73,7 @@ export function GET() {
    *
    * Derived from the roster and lib/locations.ts rather than listed, so adding
    * a counsellor or a city updates the sitemap in the same commit. The Tagalog
-   * pages are absent while TAGALOG_READY is false — a sitemap entry for a route
+   * pages are absent while TAGALOG_READY is false. A sitemap entry for a route
    * that 404s is worse than no entry, and this repo has shipped that once. */
   const people: Entry[] = practitioners.flatMap((pr) => [
     { path: `/practitioners/${pr.slug}`, lastmod: lastmodFor('/practitioners'), changefreq: 'monthly' as const, priority: 0.8 },
@@ -96,7 +96,7 @@ export function GET() {
       : []),
     /* The Tagalog profile and, since 1 Sep 2026, a Tagalog twin for every one
        of that person's city pages. Listed only when the flag is on and only
-       for a counsellor who actually works in the language — a sitemap entry
+       for a counsellor who actually works in the language. A sitemap entry
        for a route that was never generated is the "listed but not built"
        failure sitemap-parity.mjs exists to catch. */
     ...(TAGALOG_READY && pr.languages.some((l) => l.tag === 'tl')
@@ -124,7 +124,7 @@ export function GET() {
     (p) => ({ path: p, lastmod: lastmodFor(p), changefreq: 'yearly', priority: 0.4, figure: PAGE_FIGURES[p] })
   );
 
-  /* The Tagalog city pages. English pages about Tagalog counselling — the
+  /* The Tagalog city pages. English pages about Tagalog counselling. The
      page written IN Tagalog is gated separately, see lib/practitioner-tl.ts. */
   const tagalog: Entry[] = TAGALOG_CITIES.map((c) => ({
     path: `/tagalog-counselling/${c.slug}`,
@@ -142,8 +142,8 @@ export function GET() {
     { path: '/reviews', lastmod: lastmodFor('/reviews'), changefreq: 'yearly', priority: 0.5 },
     { path: '/refer', lastmod: lastmodFor('/refer'), changefreq: 'yearly', priority: 0.5 },
     /* The GP one-pager. Listed separately from /refer because it answers a
-       query of its own — whether a referral is needed to see a counsellor in
-       BC — rather than being a subsection of the word-of-mouth page. */
+       query of its own, whether a referral is needed to see a counsellor in
+       BC, rather than being a subsection of the word-of-mouth page. */
     { path: '/refer/doctor', lastmod: lastmodFor('/refer/doctor'), changefreq: 'yearly', priority: 0.5 },
     { path: '/punjabi', lastmod: lastmodFor('/punjabi'), changefreq: 'monthly', priority: 0.7 },
     /* The Tagalog front door, paired with /tagalog-counselling by hreflang.
@@ -164,7 +164,7 @@ export function GET() {
       path: `/tools/${t.slug}`, lastmod: collectionLastmod('tools'), changefreq: 'monthly' as const, priority: 0.7,
     })),
     ...trust,
-    /* ALBERTA — gated on INSURANCE, not on regulation.
+    /* ALBERTA, gated on INSURANCE, not on regulation.
        Regulation is clear; the liability policy does not extend outside BC
        (owner-confirmed 17 Aug 2026). A sitemap entry is advertising, and an
        advertisement produces bookings that cannot be insured. Empty until
@@ -181,7 +181,7 @@ export function GET() {
         ]
       : []),
 
-    /* ONTARIO — deliberately absent.
+    /* ONTARIO, deliberately absent.
        Psychotherapy is a controlled act in Ontario, and CRPO's allowance for an
        out-of-province registrant to see the occasional Ontario client is
        conditional on NOT advertising in Ontario. A sitemap entry is advertising.
@@ -228,7 +228,7 @@ export function GET() {
       path: `/online-counselling/${l.slug}`, lastmod: collectionLastmod('locations'),
       changefreq: 'monthly' as const, priority: 0.6, figure: l.figure,
     })),
-    /* City x service. Priority 0.7 — ABOVE the city hubs they sit under,
+    /* City x service. Priority 0.7, ABOVE the city hubs they sit under,
      * because these match the query somebody actually types ("emdr therapy
      * kelowna") while the hub matches a vaguer one. A hub ranked above its own
      * leaves tells the crawler to prefer the less specific page. */

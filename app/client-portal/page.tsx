@@ -12,7 +12,7 @@ import ReminderPrefs from '@/components/ReminderPrefs';
  * to do two things, not a page to read. The explanatory material that used to
  * live here belongs on /pricing and /faq, which are public. */
 export const metadata: Metadata = {
-  title: { absolute: 'Client portal — Westpeak Wellness' },
+  title: { absolute: 'Client portal | Westpeak Wellness' },
   robots: { index: false, follow: false },
 };
 
@@ -84,7 +84,7 @@ export default async function ClientPortalPage({
         <h2 id="passing-on" style={{ marginTop: 38 }}>If someone you know is looking</h2>
         <p style={{ marginBottom: 0 }}>
           There are openings at the moment. You will never be asked for a review or a
-          testimonial — that is prohibited, and for a good reason — and there is no reward for
+          testimonial. That is prohibited, and for a good reason, and there is no reward for
           passing anything on. <Link href="/refer">What is useful to send someone</Link>, if you
           ever want it.
         </p>

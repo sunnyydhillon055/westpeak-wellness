@@ -34,7 +34,7 @@ import BookLink from '@/components/BookLink';
  */
 export default function CtaBand({
   heading = 'Therapy starts with one conversation.',
-  text = 'Book a free 15-minute consultation over secure video. No pressure — just a chance to see if we’re a good fit.',
+  text = 'Book a free 15-minute consultation over secure video. No pressure, just a chance to see if we’re a good fit.',
   tone = 'default',
   forSomeoneElse = true,
   bookHref,
@@ -89,7 +89,7 @@ export default function CtaBand({
             * page invited them to do anything except book today. */}
           <p className="cta-band-alt">
             Not ready to book?{' '}
-            <Link href="/contact">Send a line about what is going on</Link> — a reply comes
+            <Link href="/contact">Send a line about what is going on</Link>. A reply comes
             within one business day, or read{' '}
             <Link href="/guides">the guides</Link> first and come back when you want to.
           </p>
@@ -97,7 +97,7 @@ export default function CtaBand({
           {forSomeoneElse && (
             <p className="cta-band-alt">
               Looking on behalf of someone else?{' '}
-              <Link href="/refer">What to send them, and what not to</Link> — including the
+              <Link href="/refer">What to send them, and what not to</Link>, including the
               funded routes most people do not know they qualify for.
             </p>
           )}

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: { ...ogBase('/resources') },
   title: 'BC Mental Health Resources',
   description:
-    'Practical reference for mental health in BC — insurance coverage, MSP, free and low-cost counselling, and crisis support numbers.',
+    'Practical reference for mental health in BC: insurance coverage, MSP, free and low-cost counselling, and crisis support numbers.',
   alternates: { canonical: `${site.domain}/resources` },
 };
 
@@ -28,7 +28,7 @@ export default function ResourcesHub() {
           <p className="eyebrow">Resources</p>
           <h1>The practical information, in one place.</h1>
           <p className="lede">
-            Coverage, cost, and crisis numbers — the things people need to look up quickly and
+            Coverage, cost, and crisis numbers, the things people need to look up quickly and
             usually end up piecing together from six different websites. Free to use, no booking
             required, and several of these will point you somewhere other than here.
           </p>
@@ -97,7 +97,7 @@ export default function ResourcesHub() {
             <strong>If the question is money.</strong> Start with{' '}
             <Link href="/resources/msp-vs-extended-health">MSP vs extended health</Link>, because the
             single most common misunderstanding is assuming the public plan covers counselling in
-            private practice — it does not. Then{' '}
+            private practice. It does not. Then{' '}
             <Link href="/resources/bc-extended-health-coverage-for-counselling">extended health coverage in BC</Link>{' '}
             for the detail that decides whether your plan actually reimburses you, and{' '}
             <Link href="/resources/low-cost-counselling-bc">low-cost counselling in BC</Link> for the
@@ -107,7 +107,7 @@ export default function ResourcesHub() {
             <strong>If the question is access.</strong>{' '}
             <Link href="/resources/psychiatry-and-assessment-in-bc">Psychiatry and assessment in BC</Link>{' '}
             covers what to do when you need a diagnosis, a prescriber or a formal assessment rather
-            than counselling — including the route when you have no family doctor.{' '}
+            than counselling, including the route when you have no family doctor.{' '}
             <Link href="/resources/student-mental-health-supports-bc">Student supports</Link> covers a
             group that has more free options available than almost anyone and consistently uses one of
             them.
@@ -115,8 +115,8 @@ export default function ResourcesHub() {
           <p>
             <strong>If the question is work.</strong>{' '}
             <Link href="/resources/workplace-mental-health-bc">Mental health and work in BC</Link>{' '}
-            separates the three systems people routinely confuse — accommodation under human rights
-            law, disability benefits under an insurance contract, and WorkSafeBC claims — and states
+            separates the three systems people routinely confuse: accommodation under human rights
+            law, disability benefits under an insurance contract, and WorkSafeBC claims, and states
             plainly what an employer is and is not entitled to know.
           </p>
           <p>
@@ -136,7 +136,7 @@ export default function ResourcesHub() {
       </section>
       <CtaBand
         heading="Still have a question about cost or fit?"
-        text="A free 15-minute consultation is the fastest way to get a straight answer — including if the answer points somewhere else."
+        text="A free 15-minute consultation is the fastest way to get a straight answer, including if the answer points somewhere else."
       />
     </>
   );

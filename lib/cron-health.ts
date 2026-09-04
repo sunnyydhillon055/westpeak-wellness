@@ -203,7 +203,7 @@ export async function runCronWatchdog(
     });
 
     if (due.length) {
-      const lines = due.map((p) => `  ${p.job} — ${p.detail}`).join('\n');
+      const lines = due.map((p) => `  ${p.job}, ${p.detail}`).join('\n');
       const subject =
         due.length === 1
           ? `Scheduled job not running: ${due[0]!.job}`

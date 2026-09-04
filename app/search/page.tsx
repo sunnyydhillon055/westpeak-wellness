@@ -90,7 +90,7 @@ export default function SearchPage({ searchParams }: { searchParams?: { q?: stri
             <>
               <h2>Nothing matched &ldquo;{q}&rdquo;</h2>
               <p>
-                Try a plainer word — this site indexes titles and summaries rather than every
+                Try a plainer word, this site indexes titles and summaries rather than every
                 sentence. The <Link href="/glossary">glossary</Link> defines sixty terms, and{' '}
                 <Link href="/guides">the guides</Link> cover most of what people arrive looking
                 for. If it is quicker to ask,{' '}

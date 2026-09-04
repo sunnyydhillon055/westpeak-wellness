@@ -54,7 +54,7 @@ export default function ToolShell({
           '@type': 'HowToStep',
           position: 1,
           name: 'Answer the questions',
-          text: 'Work through the questions on the page. Everything runs in your browser — nothing is sent anywhere, nothing is stored, and no sign-up is asked for.',
+          text: 'Work through the questions on the page. Everything runs in your browser. Nothing is sent anywhere, nothing is stored, and no sign-up is asked for.',
           url: abs(`/tools/${tool.slug}`),
         },
         {
@@ -68,7 +68,7 @@ export default function ToolShell({
           '@type': 'HowToStep',
           position: 3,
           name: 'Decide what to do next',
-          text: 'Each outcome links onward — sometimes to this practice, sometimes to a different service, or to free and low-cost options in BC where those are the better fit.',
+          text: 'Each outcome links onward, sometimes to this practice, sometimes to a different service, or to free and low-cost options in BC where those are the better fit.',
           url: abs('/book'),
         },
       ],

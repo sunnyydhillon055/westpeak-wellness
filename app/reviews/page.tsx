@@ -91,7 +91,7 @@ export default function ReviewsPage() {
             Westpeak Wellness publishes no client testimonials. That is not modesty and not an
             oversight: the BC Association of Clinical Counsellors prohibits soliciting them,
             because someone in a therapeutic relationship is not in a position to freely decline.
-            What can be verified instead is below — and it is checkable by you rather than
+            What can be verified instead is below, and it is checkable by you rather than
             asserted by us.
           </p>
         </div>
@@ -112,7 +112,7 @@ export default function ReviewsPage() {
             </p>
             <p>
               It follows that a counselling practice showing you a wall of five-star client
-              reviews is telling you something — just not what it intends to. Worth knowing
+              reviews is telling you something, just not what it intends to. Worth knowing
               before you compare practices on that basis.
             </p>
 
@@ -124,7 +124,7 @@ export default function ReviewsPage() {
                 <strong>The registration.</strong> A Registered Clinical Counsellor appears on
                 the BCACC register, which is public and searchable.{' '}
                 <Link href="/resources/verify-a-counsellor-in-bc">How to verify a counsellor in BC</Link>{' '}
-                walks through it, and it is worth doing before booking with anyone — here
+                walks through it, and it is worth doing before booking with anyone, here
                 included.
               </li>
               <li>
@@ -137,7 +137,7 @@ export default function ReviewsPage() {
               <li>
                 <strong>What this practice holds itself to.</strong>{' '}
                 <Link href="/standards">Standards and accountability</Link> states the scope
-                limits, what is deliberately not offered, and the complaints route — which runs
+                limits, what is deliberately not offered, and the complaints route, which runs
                 to the association, not to us.
               </li>
               <li>

@@ -102,7 +102,7 @@ export default function OntarioHub() {
           <p>
             Sessions run in Punjabi or English.{' '}
             <Link href="/ontario/punjabi-counselling">Punjabi counselling across Ontario</Link>{' '}
-            covers the two quite different problems the province has — concentration in the west
+            covers the two quite different problems the province has: concentration in the west
             GTA, and almost nothing outside it.
           </p>
 

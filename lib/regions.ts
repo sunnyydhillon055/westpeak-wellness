@@ -79,7 +79,7 @@ export const PROVINCES: ProvinceConfig[] = [
     slug: 'alberta',
     status: 'gated',
     gateReason:
-      'Professional liability insurance does not extend outside British Columbia. Unlocks when cover exists — policy extended, or an insured clinician hired.',
+      'Professional liability insurance does not extend outside British Columbia. Unlocks when cover exists, policy extended, or an insured clinician hired.',
     tz: 'America/Edmonton',
     tzLabel: 'Mountain Time',
     publicPlan: 'Alberta Health Care Insurance Plan',
@@ -124,7 +124,7 @@ export const DESIGNATION =
 /* Said on every Alberta page. Accurate, neutral, and more useful to a reader
  * than a claim of local registration would be. */
 export const AB_REGULATORY_NOTE =
-  'Counselling therapy is not currently a regulated profession in Alberta, so no Alberta college registers counsellors. That makes checking a counsellor’s home-province registration more important, not less — this practice is registered in British Columbia and the registration is public and verifiable.';
+  'Counselling therapy is not currently a regulated profession in Alberta, so no Alberta college registers counsellors. That makes checking a counsellor’s home-province registration more important, not less. This practice is registered in British Columbia and the registration is public and verifiable.';
 
 export const ON_REGULATORY_NOTE =
   'Psychotherapy is a controlled act in Ontario, regulated by the College of Registered Psychotherapists of Ontario.';

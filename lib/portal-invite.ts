@@ -120,7 +120,7 @@ To set it up, choose a password here:
 ${url}
 
 The link works once and expires. Nobody at the practice can see the
-password you choose — it is stored in a form that cannot be read back,
+password you choose. It is stored in a form that cannot be read back,
 so if you forget it we can only send another link like this one.
 
 If you would rather not use the portal, you can ignore this. It changes
@@ -137,7 +137,7 @@ ${site.domain}`;
   <p style="margin:0 0 14px;font-size:15px;">Hi ${first},</p>
   <p style="margin:0 0 14px;font-size:15px;">Westpeak Wellness has a secure client portal where you can book sessions, see upcoming appointments and manage your details.</p>
   <p style="margin:0 0 22px;"><a href="${url}" style="display:inline-block;background:#3d6c92;color:#fff;text-decoration:none;padding:11px 20px;border-radius:6px;font-weight:600;font-size:15px;">Choose a password</a></p>
-  <p style="margin:0 0 14px;font-size:14px;">The link works once and expires. <strong>Nobody at the practice can see the password you choose</strong> — it is stored in a form that cannot be read back, so if you forget it we can only send another link like this one.</p>
+  <p style="margin:0 0 14px;font-size:14px;">The link works once and expires. <strong>Nobody at the practice can see the password you choose</strong>. It is stored in a form that cannot be read back, so if you forget it we can only send another link like this one.</p>
   <p style="margin:0 0 14px;font-size:14px;">If you would rather not use the portal, ignore this. It changes nothing about your appointments.</p>
   <p style="margin:22px 0 0;font-size:12px;color:#545e69;">If you are in immediate danger call 911. For urgent mental-health support in BC, call or text <strong>9-8-8</strong> at any hour.<br>Westpeak Wellness · <a href="${site.domain}" style="color:#545e69;">${site.domain.replace(/^https?:\/\//, '')}</a></p>
 </div>`;
@@ -168,13 +168,13 @@ export async function sendPortalInvites(opts: { dry?: boolean } = {}): Promise<I
   };
 
   if (limit === 0) {
-    return { ...base, ok: true, reason: 'INVITE_BATCH_LIMIT=0 — invites are switched off' };
+    return { ...base, ok: true, reason: 'INVITE_BATCH_LIMIT=0, invites are switched off' };
   }
 
   const secret = process.env.PORTAL_SECRET?.trim();
-  if (!secret) return { ...base, reason: 'PORTAL_SECRET is not set — cannot sign invite links' };
+  if (!secret) return { ...base, reason: 'PORTAL_SECRET is not set, cannot sign invite links' };
   if (!mailConfigured() && !opts.dry) {
-    return { ...base, reason: 'RESEND_API_KEY or PORTAL_FROM_EMAIL is not set — cannot send' };
+    return { ...base, reason: 'RESEND_API_KEY or PORTAL_FROM_EMAIL is not set, cannot send' };
   }
 
   const { clients } = await readClients({ fresh: true });

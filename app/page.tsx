@@ -52,7 +52,7 @@ const HUBS = [
     href: '/compare',
     icon: HUB_ICONS.compare,
     title: 'Compare your options',
-    body: 'RCC, psychologist, or social worker in BC. Individual or couples therapy. CBT or EMDR for trauma — with the trade-offs stated plainly.',
+    body: 'RCC, psychologist, or social worker in BC. Individual or couples therapy. CBT or EMDR for trauma, with the trade-offs stated plainly.',
     cta: 'Compare therapist types and formats →',
   },
   {
@@ -73,7 +73,7 @@ const HUBS = [
     href: '/for',
     icon: HUB_ICONS.for,
     title: 'Who we work with',
-    body: 'Pages written for specific situations — new parents, women, couples, students, healthcare and shift workers, and first-generation South Asian adults.',
+    body: 'Pages written for specific situations: new parents, women, couples, students, healthcare and shift workers, and first-generation South Asian adults.',
     cta: 'See who we work with →',
   },
 ];
@@ -129,7 +129,7 @@ export default function Home() {
               </div>
               <p className="lede">
                 Registered Clinical Counsellor offering EMDR, trauma, anxiety, depression and
-                couples therapy — fully online, anywhere in British Columbia.
+                couples therapy, fully online, anywhere in British Columbia.
               </p>
               <div className="btn-row" style={{ marginTop: 30 }}>
                 <Link className="btn btn--primary" href={site.bookingPath}>Book a Free 15-min Consultation</Link>
@@ -167,7 +167,7 @@ export default function Home() {
             <p className="eyebrow">A different kind of fit</p>
             <h2>Safe, culturally competent, built for real life.</h2>
             <p className="lede" style={{ marginBottom: 38 }}>
-              Work with a {site.counsellor.title} — Master&rsquo;s in Counselling, years of
+              Work with a {site.counsellor.title}: Master&rsquo;s in Counselling, years of
               Fraser Health BC experience, EMDR- and Gottman-trained.{' '}
               <Link href="/about">More about your counsellor</Link>.
             </p>
@@ -206,12 +206,12 @@ export default function Home() {
               <p>
                 Deep cultural competency for the South Asian community, including a
                 Master&rsquo;s thesis on intergenerational trauma. Family expectations,
-                &ldquo;log kya kahenge,&rdquo; generational silence — talk about it without
+                &ldquo;log kya kahenge,&rdquo; generational silence, talk about it without
                 spending the first session setting the scene.
               </p>
               <p>
                 Sessions are available in Punjabi as well as English, if that makes it easier
-                to say — there is a{' '}
+                to say. There is a{' '}
                 <Link href="/punjabi" lang="en">
                   page in Punjabi (ਪੰਜਾਬੀ)
                 </Link>{' '}
@@ -224,7 +224,7 @@ export default function Home() {
             <div className="signature-quote">
               <blockquote>
                 Some things take a long time to explain, and shouldn&rsquo;t.
-                <cite>— Westpeak Wellness</cite>
+                <cite> | Westpeak Wellness</cite>
               </blockquote>
               <Motif variant="arc" className="signature-arc" />
             </div>
@@ -252,7 +252,7 @@ export default function Home() {
             <div className="crisis" style={{ marginTop: 26, maxWidth: 720 }}>
               <p style={{ margin: 0 }}>
                 Step one costs nothing.{' '}
-                <Link href={site.bookingPath}>Book a free 15-minute consultation</Link> — and if it
+                <Link href={site.bookingPath}>Book a free 15-minute consultation</Link>, and if it
                 turns out someone else is a better fit, you&rsquo;ll get told that too.
               </p>
             </div>
@@ -465,12 +465,12 @@ export default function Home() {
         <div className="container">
           <Reveal>
             <p className="eyebrow">Where you are</p>
-            <h2>Anywhere in BC — but a few places have their own page</h2>
+            <h2>Anywhere in BC, but a few places have their own page</h2>
             <p style={{ maxWidth: '68ch' }}>
               The practice is virtual and registered across British Columbia, so where you live
               makes no difference to the session itself. It makes a considerable difference to
               what is available to you locally, and these are the places where that gap changes
-              what there is to say — the scarcity of clinicians in the north, the cost of a
+              what there is to say. The scarcity of clinicians in the north, the cost of a
               ferry, the drive into a regional hub, the concentration of Punjabi-speaking
               counsellors in the Lower Mainland.
             </p>
@@ -487,7 +487,7 @@ export default function Home() {
           <Reveal>
             <p style={{ marginTop: 26, maxWidth: '68ch' }}>
               What is available locally <em>in Punjabi</em> is a different question, and across
-              most of the province the answer is very different — which is why those regions have{' '}
+              most of the province the answer is very different, which is why those regions have{' '}
               <Link href="/punjabi-counselling">their own set of pages</Link>, each carrying the
               local census figure it rests on.
             </p>
@@ -503,7 +503,7 @@ export default function Home() {
           </Reveal>
           <Reveal>
             <p style={{ marginTop: 24, color: 'var(--ink-soft)' }}>
-              Not listed? Nothing changes —{' '}
+              Not listed? Nothing changes, {' '}
               <Link href="/online-counselling">everywhere else in BC</Link> is served on exactly
               the same terms, and the page for the nearest listed city will usually still be the
               closest thing to your situation.

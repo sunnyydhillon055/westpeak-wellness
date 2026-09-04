@@ -11,7 +11,7 @@ export const revalidate = 3600;
 
 const TITLE = 'Bring this to your doctor';
 const DESC =
-  'A one-page summary to print or take to your GP in BC — designation, scope limits, fees, and why no referral is needed to see a counsellor.';
+  'A one-page summary to print or take to your GP in BC: designation, scope limits, fees, and why no referral is needed to see a counsellor.';
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -80,7 +80,7 @@ export default async function BringToYourDoctor() {
           <h1>Bring this to your doctor.</h1>
           <p className="lede">
             You do not need a referral to see a counsellor in British Columbia. You may still
-            want your doctor in the loop — and family-practice appointments are short. This is
+            want your doctor in the loop, and family-practice appointments are short. This is
             the page to print and hand over.
           </p>
         </div>
@@ -104,7 +104,7 @@ export default async function BringToYourDoctor() {
             </p>
             <p>
               The reason is worth understanding, because it explains a lot of the confusion.
-              Referrals exist where a public payer or a specialist&rsquo;s office requires one —
+              Referrals exist where a public payer or a specialist&rsquo;s office requires one:
               psychiatry, for instance, which is a medical specialty billed to MSP. Counselling
               by an RCC is not billed to MSP at all; it is paid privately or through extended
               health. There is no gate, because nobody is standing at one.{' '}

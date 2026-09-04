@@ -152,7 +152,7 @@ export const practitioners: Practitioner[] = [
     },
     tagline: 'Counselling in English or Punjabi, without having to explain the background first.',
     intro: [
-      'I started Westpeak because too many people I knew were putting off therapy for reasons that had nothing to do with whether they needed it — the drive, the waiting room, the worry that someone would see them going in.',
+      'I started Westpeak because too many people I knew were putting off therapy for reasons that had nothing to do with whether they needed it. The drive, the waiting room, the worry that someone would see them going in.',
       'I was born and raised in Surrey, in a household where mental health was rarely discussed openly and the weight of it was always there anyway. That shapes how I work. You should not have to explain your family before you can talk about them.',
       'My approach is warm and direct, and grounded in what the evidence actually supports rather than in one school of thought. We work at your pace, and I will tell you plainly if I think someone else is a better fit.',
     ],
@@ -283,7 +283,7 @@ export const practitioners: Practitioner[] = [
     tagline: 'Therapy in English or Tagalog, for people who have been holding it together for a long time.',
     intro: [
       'Most of the people I work with are doing fine on paper. They are capable, other people rely on them, and somewhere along the way managing became the same thing as being alright. It usually is not.',
-      'I work with adults and young adults who are thoughtfully self-aware and ready to understand themselves better — even if they are not at all sure where to begin. You do not need the words for it yet.',
+      'I work with adults and young adults who are thoughtfully self-aware and ready to understand themselves better, even if they are not at all sure where to begin. You do not need the words for it yet.',
       'Sessions are collaborative and practical. We look at what is actually keeping the pattern going, and you leave with something you can use, not just something you understood in the room.',
       'I work in English and in Tagalog, and plenty of sessions move between the two. There is no need to explain your family before you can talk about them.',
     ],
@@ -291,7 +291,7 @@ export const practitioners: Practitioner[] = [
       {
         label: 'Trauma',
         detail:
-          'Difficult or overwhelming experiences, worked through at a pace you set — building safety and a sense of control first, rather than going straight at the hardest thing.',
+          'Difficult or overwhelming experiences, worked through at a pace you set, building safety and a sense of control first, rather than going straight at the hardest thing.',
       },
       {
         label: 'Anxiety and chronic stress',
@@ -301,12 +301,12 @@ export const practitioners: Practitioner[] = [
       {
         label: 'Grief, loss and life transitions',
         detail:
-          'Room for the changes you chose and the ones you did not — endings, identity shifts, and the uncertainty that arrives with them.',
+          'Room for the changes you chose and the ones you did not: endings, identity shifts, and the uncertainty that arrives with them.',
       },
     ],
     suits: [
       'Anxious, overwhelmed, burnt out, or running on empty',
-      'In the middle of a big change — a relationship, a move, a loss',
+      'In the middle of a big change, a relationship, a move, a loss',
       'Carrying something from before that still shapes how you feel and how you are with people',
       'Tired of perfectionism, people-pleasing, or never quite feeling like enough',
       'Trying to make sense of yourself alongside culture, family expectations, and what got handed down',

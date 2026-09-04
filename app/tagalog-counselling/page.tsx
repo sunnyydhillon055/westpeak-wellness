@@ -85,7 +85,7 @@ export default function TagalogCounsellingHub() {
           <h1>Therapy in the language you think in.</h1>
           <p className="lede">
             Counselling in Tagalog or English, anywhere in British Columbia, by secure video.
-            Some things only land in your first language — and nobody should have to translate
+            Some things only land in your first language, and nobody should have to translate
             themselves to be understood.
           </p>
           <div className="btn-row" style={{ marginTop: 22 }}>
@@ -116,7 +116,7 @@ export default function TagalogCounsellingHub() {
             <p>
               Plenty of people who speak excellent English still find that the words for what is
               actually wrong live somewhere else. Describing grief, shame or fear in a second
-              language adds a step — you feel it, translate it, then say it — and that step is
+              language adds a step. You feel it, translate it, then say it, and that step is
               exactly where the meaning gets rounded off.
             </p>
             <p>
@@ -128,7 +128,7 @@ export default function TagalogCounsellingHub() {
             <p>
               And it means the context does not have to be taught first. Utang na loob, hiya, and
               the weight of what relatives will say are not exotic details to be explained at the
-              start of a session — they are the ordinary furniture of the conversation.
+              start of a session. They are the ordinary furniture of the conversation.
             </p>
           </div>
 
@@ -140,7 +140,7 @@ export default function TagalogCounsellingHub() {
               <p>
                 Sessions in Tagalog are with{' '}
                 <Link href={`/practitioners/${speaker.slug}`}>{speaker.name}</Link>,{' '}
-                {speaker.postNominals} — registered with the BC Association of Clinical
+                {speaker.postNominals}, registered with the BC Association of Clinical
                 Counsellors and certified with the Canadian Counselling and Psychotherapy
                 Association. Both numbers are on her profile, and both registers are public.
               </p>
@@ -186,7 +186,7 @@ export default function TagalogCounsellingHub() {
         <div className="container prose">
           <h2>What it costs, and what is covered</h2>
           <p>
-            Fees are the same in either language — there is no premium for working in Tagalog.
+            Fees are the same in either language. There is no premium for working in Tagalog.
             The full table is on <Link href="/pricing">fees and insurance</Link>, and many BC
             extended health plans reimburse a Registered Clinical Counsellor. If cost is the
             obstacle,{' '}

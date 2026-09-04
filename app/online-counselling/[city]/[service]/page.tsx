@@ -217,7 +217,7 @@ export default function CityServicePage({ params }: { params: Params }) {
 
           <p>
             Sessions are $140 for 50 minutes and start with a{' '}
-            <Link href={site.bookingPath}>free 15-minute video call</Link> — no charge, no card,
+            <Link href={site.bookingPath}>free 15-minute video call</Link>, no charge, no card,
             and no obligation to book anything afterwards.{' '}
             <Link href="/pricing">Fees and extended-health cover</Link> are set out in full.
           </p>
@@ -246,7 +246,7 @@ export default function CityServicePage({ params }: { params: Params }) {
             </a>
             . That route matters if you are seeking publicly funded care. It has no bearing on
             seeing a Registered Clinical Counsellor privately, which needs no referral and no
-            diagnosis — see{' '}
+            diagnosis. See{' '}
             <Link href="/compare/rcc-vs-psychologist-vs-social-worker-bc">
               how RCCs, psychologists and social workers differ
             </Link>
@@ -282,8 +282,8 @@ export default function CityServicePage({ params }: { params: Params }) {
           {SERVICE_FIGURE[svc.slug] ? <Figure name={SERVICE_FIGURE[svc.slug]} /> : null}
 
           <p>
-            The full picture — how sessions are structured, what the first one is like, and what
-            it does not do — is on{' '}
+            The full picture: how sessions are structured, what the first one is like, and what
+            it does not do, is on{' '}
             <Link href={`/services/${svc.bookingService}`}>the {lower(svc.name)} page</Link>. If you are
             still working out what you need,{' '}
             <Link href="/tools/which-service">the short questionnaire</Link> is a quicker route
@@ -331,7 +331,7 @@ export default function CityServicePage({ params }: { params: Params }) {
                   <Link href={`/online-counselling/${ctx.slug}/${p.service}`}>
                     {s.name} in {ctx.city}
                   </Link>{' '}
-                  — {p.angle}
+, {p.angle}
                 </li>
               );
             })}
@@ -353,7 +353,7 @@ export default function CityServicePage({ params }: { params: Params }) {
           )}
 
           <p>
-            The practice is virtual and covers all of British Columbia — see{' '}
+            The practice is virtual and covers all of British Columbia. See{' '}
             <Link href="/online-counselling">every city page</Link>, or{' '}
             <Link href="/services">the full list of services</Link>.
             {loc.faqs?.length ? (

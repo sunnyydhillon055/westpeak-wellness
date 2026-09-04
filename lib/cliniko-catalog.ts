@@ -162,7 +162,7 @@ export async function refreshCatalog(): Promise<
   if (items.length === 0) {
     /* Never overwrite a good catalogue with an empty one. An API change that
      * returned nothing would otherwise wipe every price on the site. */
-    return { ok: false, reason: 'Cliniko returned no appointment types — refusing to overwrite' };
+    return { ok: false, reason: 'Cliniko returned no appointment types, refusing to overwrite' };
   }
 
   const previous = await readCatalog();

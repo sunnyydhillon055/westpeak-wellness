@@ -52,7 +52,7 @@ export default function AccessCheck() {
             <ul className="checklist">
               {routes.map((r) => (
                 <li key={r.label}>
-                  <strong>{r.href ? <Link href={r.href}>{r.label}</Link> : r.label}</strong> — {r.detail}
+                  <strong>{r.href ? <Link href={r.href}>{r.label}</Link> : r.label}</strong>, {r.detail}
                 </li>
               ))}
             </ul>
@@ -65,13 +65,13 @@ export default function AccessCheck() {
             {!elsewhere && (
               <p>
                 Starting somewhere free does not mean giving up a place in a public queue. Staying
-                in both is normal and costs nothing —{' '}
+                in both is normal and costs nothing, {' '}
                 <Link href="/guides/waiting-for-therapy-in-bc">what to do while waiting</Link>{' '}
                 covers that in more detail.
               </p>
             )}
             {!elsewhere && (
-              <ResultCta tool="what-can-i-access" label="Ask about the private route — free 15 minutes" />
+              <ResultCta tool="what-can-i-access" label="Ask about the private route, free 15 minutes" />
             )}
             <div className="crisis" style={{ marginTop: 22 }}>
               <p style={{ margin: 0 }}>

@@ -11,7 +11,7 @@ import { ImageResponse } from 'next/og';
 
 export const OG_SIZE = { width: 1200, height: 630 };
 export const OG_CONTENT_TYPE = 'image/png';
-export const OG_ALT = 'Westpeak Wellness — online counselling across British Columbia';
+export const OG_ALT = 'Westpeak Wellness, online counselling across British Columbia';
 
 /* Repainted 30 August 2026 to the oatmeal-cream palette. These are duplicated
    from app/globals.css rather than imported, because this file runs on the

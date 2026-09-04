@@ -78,7 +78,7 @@ export default function ConsentGate({ gaId }: { gaId: string }) {
       >
         <p style={{ margin: 0, flex: '1 1 320px', fontSize: '.95em' }}>
           May this site use Google Analytics to understand which pages help people? Anonymous
-          usage only — nothing you type in a form is ever sent to it, and declining changes
+          usage only. Nothing you type in a form is ever sent to it, and declining changes
           nothing about how the site works. Details in the{' '}
           <a href="/privacy">privacy policy</a>.
         </p>

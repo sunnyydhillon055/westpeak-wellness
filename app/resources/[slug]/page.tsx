@@ -114,7 +114,15 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
           <p className="eyebrow">{r.eyebrow}</p>
           <h1 style={{ maxWidth: '14.56em' }}>{r.title}</h1>
           <p className="lede">{r.lede}</p>
-          <p className="hero-note">{r.readMinutes} min read · Reviewed {fmt(r.updated)}</p>
+          {/* "Updated", not "Reviewed". components/Byline.tsx was fixed for exactly
+              this in August: it was printing the word "Reviewed" over the date the
+              prose last CHANGED, which is a claim that a clinician read the page
+              that day and stood behind it. The fix never reached these hero notes,
+              so the heavier claim carried on being made above the fold on every
+              guide, comparison, approach, audience and resource page while the
+              byline lower down said the honest thing. The date does not move; only
+              the word does, which was the whole point the first time. */}
+          <p className="hero-note">{r.readMinutes} min read · Updated {fmt(r.updated)}</p>
           <div className="btn-row" style={{ marginTop: 22 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
             <Link className="btn btn--ghost" href="/resources">All resources</Link>
@@ -147,7 +155,7 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
                 {s.list && (
                   <ul className="checklist" style={{ margin: '20px 0 28px' }}>
                     {s.list.map((item) => (
-                      <li key={item.label}><strong>{item.label}</strong> — {rich(item.detail)}</li>
+                      <li key={item.label}><strong>{item.label}</strong>, {rich(item.detail)}</li>
                     ))}
                   </ul>
                 )}
@@ -211,7 +219,7 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
 
             <p style={{ color: 'var(--ink-faint)', fontSize: '.9rem', marginTop: 28 }}>
               General information, not clinical, financial, or legal advice. Coverage and service details
-              change — verify anything decision-critical directly with the provider or insurer. If you are
+              change, verify anything decision-critical directly with the provider or insurer. If you are
               in crisis, call or text <strong>9-8-8</strong> (Canada, 24/7) or <strong>310-6789</strong> for
               BC Mental Health Support.
             </p>

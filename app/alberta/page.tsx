@@ -105,7 +105,7 @@ export default function AlbertaHub() {
           <p className="direct-answer">
             Counselling by secure video is available anywhere in Alberta, in English or Punjabi.
             Sessions are provided by a Registered Clinical Counsellor registered in British
-            Columbia — counselling therapy is not currently a regulated profession in Alberta, so
+            Columbia, counselling therapy is not currently a regulated profession in Alberta, so
             no Alberta college registers counsellors. The first 15 minutes are free.
           </p>
           <p className="lede">

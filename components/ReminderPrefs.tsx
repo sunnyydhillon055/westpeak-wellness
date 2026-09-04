@@ -28,14 +28,14 @@ export default async function ReminderPrefs({
 
   const MESSAGES: Record<string, { tone: 'ok' | 'warn'; text: string }> = {
     saved: { tone: 'ok', text: 'Saved. Your reminder settings are updated.' },
-    invalid: { tone: 'warn', text: 'That option was not recognised — nothing was changed.' },
+    invalid: { tone: 'warn', text: 'That option was not recognised. Nothing was changed.' },
     nomatch: {
       tone: 'warn',
       text: 'That change could not be saved: this email does not match a client record.',
     },
     unconfigured: {
       tone: 'warn',
-      text: 'That change could not be saved — reminder settings are not connected yet.',
+      text: 'That change could not be saved, reminder settings are not connected yet.',
     },
     error: {
       tone: 'warn',

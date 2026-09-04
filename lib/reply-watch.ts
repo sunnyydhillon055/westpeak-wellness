@@ -110,12 +110,12 @@ export async function runReplyWatch(
   const worst = overdue[0].businessDaysWaiting;
   const subject =
     overdue.length === 1
-      ? `Unanswered message — waiting ${worst} business day${worst === 1 ? '' : 's'}`
-      : `${overdue.length} unanswered messages — longest ${worst} business days`;
+      ? `Unanswered message, waiting ${worst} business day${worst === 1 ? '' : 's'}`
+      : `${overdue.length} unanswered messages, longest ${worst} business days`;
 
   const lines = overdue.map(
     (o) =>
-      `• ${o.name || '(no name given)'} <${o.email}> — ${o.kind}, from ${o.source}, ` +
+      `• ${o.name || '(no name given)'} <${o.email}>: ${o.kind}, from ${o.source}, ` +
       `waiting ${o.businessDaysWaiting} business day${o.businessDaysWaiting === 1 ? '' : 's'}`
   );
 
@@ -128,7 +128,7 @@ export async function runReplyWatch(
     `Reply directly to each person, then mark them handled at ${site.domain}/admin#inbound.`,
     '',
     `This is the only reminder. Nobody is being chased on your behalf, and the ` +
-      `people above have not been contacted again — that is deliberate.`,
+      `people above have not been contacted again. That is deliberate.`,
   ].join('\n');
 
   const html =
@@ -137,7 +137,7 @@ export async function runReplyWatch(
     `<ul>${overdue
       .map(
         (o) =>
-          `<li><strong>${o.name || '(no name given)'}</strong> &lt;${o.email}&gt; — ${o.kind}, ` +
+          `<li><strong>${o.name || '(no name given)'}</strong> &lt;${o.email}&gt;: ${o.kind}, ` +
           `from <code>${o.source}</code>, waiting ${o.businessDaysWaiting} business day${
             o.businessDaysWaiting === 1 ? '' : 's'
           }</li>`

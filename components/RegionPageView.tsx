@@ -125,7 +125,7 @@ export default function RegionPageView({
                 <ul>
                   {s.list.map((l) => (
                     <li key={l.label}>
-                      <strong>{l.label}</strong> — {rich(l.detail)}
+                      <strong>{l.label}</strong>, {rich(l.detail)}
                     </li>
                   ))}
                 </ul>

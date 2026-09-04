@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: { ...ogBase('/compare') },
   title: 'Compare Your Options',
   description:
-    'Straight comparisons for people deciding about therapy in BC — types of therapist, formats, and approaches, with the trade-offs stated plainly.',
+    'Straight comparisons for people deciding about therapy in BC: types of therapist, formats, and approaches, with the trade-offs stated plainly.',
   alternates: { canonical: `${site.domain}/compare` },
 };
 
@@ -30,7 +30,7 @@ export default function CompareHub() {
           <p className="lede">
             Choosing a therapist means making several decisions at once, usually with incomplete
             information and often while you are not at your best. These comparisons lay out the
-            real differences — including the ones that point away from this practice.
+            real differences, including the ones that point away from this practice.
           </p>
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
@@ -67,17 +67,17 @@ export default function CompareHub() {
             <h2>The four decisions people are actually making</h2>
             <p>
               Almost everyone arriving at counselling is deciding four things at once, usually without
-              realising they are separable. <strong>Who</strong> — which designation, which is what
+              realising they are separable. <strong>Who</strong>, which designation, which is what
               determines whether there is any complaints process behind the person you are trusting.{' '}
-              <strong>What</strong> — which method, which matters more for some difficulties than
-              others and matters a great deal for trauma. <strong>How much</strong> — what it costs,
+              <strong>What</strong>, which method, which matters more for some difficulties than
+              others and matters a great deal for trauma. <strong>How much</strong>: what it costs,
               what a plan reimburses, and which free routes you may already be entitled to. And{' '}
               <strong>how often</strong>, which people treat as a scheduling question and which quietly
               determines what the therapy can do.
             </p>
             <p>
               Each page here takes one of those, sets out the options in a table, and says plainly
-              where each option is the wrong answer — including the cases where the wrong answer is
+              where each option is the wrong answer, including the cases where the wrong answer is
               this practice. A page that never points anywhere else is advertising, whatever it is
               labelled.
             </p>
@@ -86,7 +86,7 @@ export default function CompareHub() {
             <p>
               If you do not yet know who you are supposed to be looking for, start with{' '}
               <Link href="/compare/rcc-vs-psychologist-vs-social-worker-bc">RCC vs psychologist vs social worker</Link>{' '}
-              — it is the decision that most changes what you can actually get, since only some of
+. It is the decision that most changes what you can actually get, since only some of
               those designations can diagnose or assess. If someone has suggested a coach, or you are
               weighing one, <Link href="/compare/therapy-vs-coaching">therapy vs coaching</Link> sets
               out the accountability gap the two job titles conceal.
@@ -94,7 +94,7 @@ export default function CompareHub() {
             <p>
               If a doctor has raised medication, or you are trying to work out whether to,{' '}
               <Link href="/compare/therapy-medication-or-both">therapy, medication, or both</Link>{' '}
-              explains what each acts on and who decides — with the plain caveat that a counsellor
+              explains what each acts on and who decides, with the plain caveat that a counsellor
               cannot prescribe or advise on it. If money is the constraint,{' '}
               <Link href="/compare/efap-vs-private-counselling">EFAP vs private counselling</Link>{' '}
               is the one to read first, because a great many people have an employer-funded

@@ -86,7 +86,7 @@ const albertaCore: RegionPage[] = [
     lede:
       'Therapy in the language the feeling actually happened in, without needing anybody in the community to know you are going.',
     directAnswer:
-      'Counselling in Punjabi or English is available to anyone located in Calgary by secure video. Sessions are provided by a Registered Clinical Counsellor registered in British Columbia — counselling therapy is not a regulated profession in Alberta, so no Alberta college registers counsellors. A free 15-minute consultation comes first.',
+      'Counselling in Punjabi or English is available to anyone located in Calgary by secure video. Sessions are provided by a Registered Clinical Counsellor registered in British Columbia, counselling therapy is not a regulated profession in Alberta, so no Alberta college registers counsellors. A free 15-minute consultation comes first.',
     updated: U,
     figure: 'bc-reach',
     sections: [
@@ -94,16 +94,16 @@ const albertaCore: RegionPage[] = [
         h2: 'What language does to a session',
         body: [
           'Most people who ask for counselling in Punjabi are not asking because their English is poor. They are usually fluent, often more comfortable in English at work, and perfectly able to describe their week in it. The request is about something narrower and harder to explain: the sentences that carry the actual weight were not formed in English.',
-          '**Shame is the clearest example.** *Sharam* is not "shame" and it is not "embarrassment". It carries a public dimension — what this does to the family, what will be said — that neither English word holds. A person can spend three sessions circling that in English and land on it in one sentence of Punjabi. That is not a translation problem. It is the difference between describing a feeling and being inside it.',
+          '**Shame is the clearest example.** *Sharam* is not "shame" and it is not "embarrassment". It carries a public dimension, what this does to the family, what will be said. That neither English word holds. A person can spend three sessions circling that in English and land on it in one sentence of Punjabi. That is not a translation problem. It is the difference between describing a feeling and being inside it.',
           'The same is true of the things a parent said twenty years ago, of *izzat*, and of the specific weight of being the one who was supposed to make it worth it. Those are stored in the language they arrived in, and they surface fastest in that language.',
-          'It also works the other way, and this matters just as much. Plenty of people find the practical parts — planning, boundaries, what to actually say on Sunday — easier in English. Moving between the two inside one session is normal here rather than something to apologise for, and there is no requirement to pick one at the start.',
+          'It also works the other way, and this matters just as much. Plenty of people find the practical parts: planning, boundaries, what to actually say on Sunday, easier in English. Moving between the two inside one session is normal here rather than something to apologise for, and there is no requirement to pick one at the start.',
         ],
       },
       {
         h2: 'Why distance is the point, not the compromise',
         body: [
-          'Calgary\'s South Asian community is large, established and connected — through gurdwaras, through business networks, through the family networks that came with migration in the 1970s and 80s and again more recently. That connectedness is a genuine strength and it is also, for this particular decision, a problem.',
-          'The counsellor who comes recommended in a connected community is frequently connected to the very people you would least want informed. Not through any breach — simply because the recommendation travelled through the same network the difficulty lives in. People who would otherwise book do not book, and the reason is almost never cost.',
+          'Calgary\'s South Asian community is large, established and connected: through gurdwaras, through business networks, through the family networks that came with migration in the 1970s and 80s and again more recently. That connectedness is a genuine strength and it is also, for this particular decision, a problem.',
+          'The counsellor who comes recommended in a connected community is frequently connected to the very people you would least want informed. Not through any breach, simply because the recommendation travelled through the same network the difficulty lives in. People who would otherwise book do not book, and the reason is almost never cost.',
           'A counsellor several provinces away, with no Calgary practice, no shared gurdwara and no mutual acquaintances, removes that calculation entirely. There is no waiting room in which to be seen. The session happens in your own home, at a time nobody else has to know about.',
         ],
       },
@@ -127,19 +127,19 @@ const albertaCore: RegionPage[] = [
     faqs: [
       {
         q: 'Is the counsellor registered in Alberta?',
-        a: 'No, and no counsellor is — counselling therapy is not currently a regulated profession in Alberta, so there is no Alberta college that registers counsellors. Sessions are provided by a Registered Clinical Counsellor registered with the BC Association of Clinical Counsellors, and that registration is public and can be checked in about two minutes.',
+        a: 'No, and no counsellor is, counselling therapy is not currently a regulated profession in Alberta, so there is no Alberta college that registers counsellors. Sessions are provided by a Registered Clinical Counsellor registered with the BC Association of Clinical Counsellors, and that registration is public and can be checked in about two minutes.',
       },
       {
         q: 'Can we switch between Punjabi and English?',
-        a: 'Yes, and most people do without planning to. It is common to move into Punjabi when the subject is family, shame or something a parent said, and back into English for practical planning. That switch is worth paying attention to rather than correcting — the language a memory is held in is often the language it has to be worked in.',
+        a: 'Yes, and most people do without planning to. It is common to move into Punjabi when the subject is family, shame or something a parent said, and back into English for practical planning. That switch is worth paying attention to rather than correcting. The language a memory is held in is often the language it has to be worked in.',
       },
       {
         q: 'Will anyone in Calgary know I am doing this?',
-        a: 'No. There is no office, no waiting room, and no connection to any Calgary community network. Nothing is shared with family, employers or anyone else. The limits on confidentiality are the standard clinical ones — risk of serious harm, and legal obligations — and they are set out in full before a first session.',
+        a: 'No. There is no office, no waiting room, and no connection to any Calgary community network. Nothing is shared with family, employers or anyone else. The limits on confidentiality are the standard clinical ones, risk of serious harm, and legal obligations, and they are set out in full before a first session.',
       },
       {
         q: 'Is it covered by Alberta Health Care?',
-        a: 'No. AHCIP does not cover counselling from a Registered Clinical Counsellor. Many workplace extended health plans do reimburse, and the amount varies by plan — the Alberta coverage page sets out what to ask your insurer before booking.',
+        a: 'No. AHCIP does not cover counselling from a Registered Clinical Counsellor. Many workplace extended health plans do reimburse, and the amount varies by plan, the Alberta coverage page sets out what to ask your insurer before booking.',
       },
     ],
     related: [
@@ -150,8 +150,8 @@ const albertaCore: RegionPage[] = [
       { href: '/alberta/is-my-therapist-registered', label: 'How to check a counsellor in Alberta' },
     ],
     sources: [
-      { label: 'Government of Alberta — counselling therapy regulation announcement', url: 'https://www.alberta.ca/' },
-      { label: 'BC Association of Clinical Counsellors — find a counsellor', url: 'https://bc-counsellors.org/counsellors/' },
+      { label: 'Government of Alberta, counselling therapy regulation announcement', url: 'https://www.alberta.ca/' },
+      { label: 'BC Association of Clinical Counsellors, find a counsellor', url: 'https://bc-counsellors.org/counsellors/' },
     ],
   },
 
@@ -168,7 +168,7 @@ const albertaCore: RegionPage[] = [
     lede:
       'A long-settled community, a shortage of Punjabi-speaking clinicians, and a winter that makes getting anywhere harder than it sounds.',
     directAnswer:
-      'Counselling in Punjabi or English is available to anyone located in Edmonton by secure video. Sessions are provided by a Registered Clinical Counsellor registered in British Columbia — counselling therapy is not a regulated profession in Alberta, so no Alberta college registers counsellors. A free 15-minute consultation comes first.',
+      'Counselling in Punjabi or English is available to anyone located in Edmonton by secure video. Sessions are provided by a Registered Clinical Counsellor registered in British Columbia, counselling therapy is not a regulated profession in Alberta, so no Alberta college registers counsellors. A free 15-minute consultation comes first.',
     updated: U,
     figure: 'bc-reach',
     sections: [
@@ -176,7 +176,7 @@ const albertaCore: RegionPage[] = [
         h2: 'Edmonton\'s Punjabi community is older than most people assume',
         body: [
           'Edmonton has one of the longest-established South Asian populations in western Canada, with families whose arrival dates to the 1960s and 70s and whose third generation is now adult. That length of settlement changes what people bring to counselling.',
-          'The presenting difficulty is less often the migration itself and more often what accumulated across it. A grandparent\'s silence about why they left. A parent who was never able to be unwell because there was no room for it. An adult child who is, by every external measure, the outcome the family sacrificed for — and who cannot say out loud that it has not felt like enough.',
+          'The presenting difficulty is less often the migration itself and more often what accumulated across it. A grandparent\'s silence about why they left. A parent who was never able to be unwell because there was no room for it. An adult child who is, by every external measure, the outcome the family sacrificed for, and who cannot say out loud that it has not felt like enough.',
           'This is different from the newer-arrival picture, and a page written for that picture will miss it. Intergenerational work here is frequently three generations deep rather than two, and the person in the room is often trying to hold a line without becoming the one who broke something.',
         ],
       },
@@ -191,7 +191,7 @@ const albertaCore: RegionPage[] = [
         h2: 'Winter, daylight, and the months this gets harder',
         body: [
           'Edmonton sits far enough north that December daylight runs to about seven and a half hours, and the effect on mood is not imaginary. Low mood that arrives in November and lifts in March is common enough here to be worth naming rather than treating as a personal failing.',
-          'It also changes what is realistic. Getting across the city to an appointment in February, in the dark, after work, is a genuine barrier — and it is the barrier that quietly ends a course of counselling around week four. Sessions from home remove it, and the camera can be off on the days when being seen is too much.',
+          'It also changes what is realistic. Getting across the city to an appointment in February, in the dark, after work, is a genuine barrier, and it is the barrier that quietly ends a course of counselling around week four. Sessions from home remove it, and the camera can be off on the days when being seen is too much.',
           '[Low mood through a BC winter](/guides/low-mood-through-a-bc-winter) covers the mechanism and what actually helps; the latitude argument applies to Edmonton more strongly than to anywhere it was written for.',
         ],
       },
@@ -215,11 +215,11 @@ const albertaCore: RegionPage[] = [
       },
       {
         q: 'Is the counsellor registered in Alberta?',
-        a: 'No, and no counsellor is — counselling therapy is not currently a regulated profession in Alberta and there is no Alberta college that registers counsellors. Sessions are provided by a Registered Clinical Counsellor registered with the BC Association of Clinical Counsellors, and that registration is public and checkable.',
+        a: 'No, and no counsellor is, counselling therapy is not currently a regulated profession in Alberta and there is no Alberta college that registers counsellors. Sessions are provided by a Registered Clinical Counsellor registered with the BC Association of Clinical Counsellors, and that registration is public and checkable.',
       },
       {
         q: 'Can sessions pause over the winter or a trip to India?',
-        a: 'Yes. Booking block by block with gaps is a normal pattern rather than a lack of commitment, and an extended trip does not end anything. Sessions cannot be held while you are outside Canada, which is a regulatory matter rather than a preference — say so in advance and the gap is simply planned around.',
+        a: 'Yes. Booking block by block with gaps is a normal pattern rather than a lack of commitment, and an extended trip does not end anything. Sessions cannot be held while you are outside Canada, which is a regulatory matter rather than a preference, say so in advance and the gap is simply planned around.',
       },
     ],
     related: [
@@ -257,7 +257,7 @@ const albertaCore: RegionPage[] = [
       {
         h2: 'The four-minute check',
         list: [
-          { label: 'Ask which regulator, in which province', detail: 'Not "are you registered" — which invites a yes — but "with which regulatory college, and what is your registration number". A regulated professional answers this immediately and without friction.' },
+          { label: 'Ask which regulator, in which province', detail: 'Not "are you registered", which invites a yes, but "with which regulatory college, and what is your registration number". A regulated professional answers this immediately and without friction.' },
           { label: 'Look the number up yourself', detail: 'Every provincial regulator publishes a public register. Do not accept a screenshot or a logo on a website; go to the regulator\'s own site and search the name.' },
           { label: 'Check that the title matches the register', detail: 'A voluntary association membership is not the same as regulatory registration. Both can be legitimate; only one carries a complaints process with teeth.' },
           { label: 'Ask what happens if something goes wrong', detail: 'A regulated counsellor can tell you exactly who to complain to and that the process does not require their cooperation. If the answer is vague, that is the answer.' },
@@ -267,7 +267,7 @@ const albertaCore: RegionPage[] = [
         h2: 'What this practice is, stated plainly',
         body: [
           'Sessions are provided by a **Registered Clinical Counsellor (RCC)** registered with the **BC Association of Clinical Counsellors**. That is a British Columbia registration. It is not an Alberta registration, because no such thing currently exists.',
-          'The register is public. You can search it at bc-counsellors.org without contacting anyone here, and you should — [how to verify a counsellor in BC](/resources/verify-a-counsellor-in-bc) walks through it step by step, and applies equally whether or not you end up booking here.',
+          'The register is public. You can search it at bc-counsellors.org without contacting anyone here, and you should, [how to verify a counsellor in BC](/resources/verify-a-counsellor-in-bc) walks through it step by step, and applies equally whether or not you end up booking here.',
           'What that registration carries: a master\'s-level educational requirement, supervised clinical hours, a code of ethics, mandatory continuing education, and a complaints process that a client can start without the counsellor\'s agreement. Those obligations do not weaken because a client is sitting in Calgary rather than Kelowna.',
         ],
       },
@@ -275,14 +275,14 @@ const albertaCore: RegionPage[] = [
         h2: 'Two words you should not see',
         body: [
           '**"Psychologist"** is a protected title in Alberta. Only someone registered with the College of Alberta Psychologists may use it, or the word "psychological", to describe their services. A counsellor using either is misrepresenting themselves and it is worth treating as disqualifying.',
-          '**"Psychotherapist"** is protected in some provinces and not others. In Ontario it is restricted to CRPO registrants; in Alberta it is not currently restricted. Someone using it in Alberta is not necessarily doing anything improper — but it is a reasonable prompt to ask the registration question.',
+          '**"Psychotherapist"** is protected in some provinces and not others. In Ontario it is restricted to CRPO registrants; in Alberta it is not currently restricted. Someone using it in Alberta is not necessarily doing anything improper, but it is a reasonable prompt to ask the registration question.',
         ],
       },
     ],
     faqs: [
       {
         q: 'Is it legal to see a counsellor registered in another province?',
-        a: 'In Alberta, yes. Because counselling therapy is not currently regulated there, there is no Alberta registration to hold and no restriction on who may provide counselling to someone located in the province. This is not true everywhere — Ontario, for instance, treats psychotherapy as a controlled act — which is why the answer is province-specific rather than general.',
+        a: 'In Alberta, yes. Because counselling therapy is not currently regulated there, there is no Alberta registration to hold and no restriction on who may provide counselling to someone located in the province. This is not true everywhere: Ontario, for instance, treats psychotherapy as a controlled act, which is why the answer is province-specific rather than general.',
       },
       {
         q: 'What is the difference between ACTA and a college?',
@@ -300,9 +300,9 @@ const albertaCore: RegionPage[] = [
       { href: '/alberta', label: 'Online counselling across Alberta' },
     ],
     sources: [
-      { label: 'CCPA — regulation in Alberta', url: 'https://www.ccpa-accp.ca/regulation-in-alberta/' },
+      { label: 'CCPA, regulation in Alberta', url: 'https://www.ccpa-accp.ca/regulation-in-alberta/' },
       { label: 'Association of Counselling Therapy of Alberta', url: 'https://www.acta-alberta.ca/' },
-      { label: 'BCACC — public register', url: 'https://bc-counsellors.org/counsellors/' },
+      { label: 'BCACC, public register', url: 'https://bc-counsellors.org/counsellors/' },
     ],
   },
 ];

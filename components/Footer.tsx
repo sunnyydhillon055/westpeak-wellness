@@ -131,7 +131,7 @@ export default function Footer() {
             <LifeBuoy aria-hidden="true" strokeWidth={1.7} />
             <p>
               <strong>Not a crisis service.</strong> If you are in crisis, call or text{' '}
-              <a href="tel:988">9-8-8</a> — the Suicide Crisis Helpline, anywhere in Canada,
+              <a href="tel:988">9-8-8</a>, the Suicide Crisis Helpline, anywhere in Canada,
               24/7. In immediate danger, call <a href="tel:911">9-1-1</a>.{' '}
               <Link href="/resources/bc-crisis-and-support-directory">
                 Crisis and support directory&nbsp;&rarr;

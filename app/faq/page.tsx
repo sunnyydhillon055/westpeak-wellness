@@ -113,7 +113,7 @@ export default function FAQ() {
           <div className="crisis" style={{ marginTop: 32 }}>
             <p style={{ margin: 0 }}>
               Question not answered here? Ask it on a{' '}
-              <Link href={site.bookingPath}>free 15-minute consultation</Link> — there is no
+              <Link href={site.bookingPath}>free 15-minute consultation</Link>. There is no
               obligation to book a session afterward.
             </p>
           </div>
@@ -126,14 +126,14 @@ export default function FAQ() {
             <Link href="/compare/rcc-vs-psychologist-vs-social-worker-bc">the comparison of therapist types</Link>{' '}
             covers who to see for what. Booking, payment and the cancellation policy are set out on
             the <Link href={site.portalPath}>client portal</Link> page. Three free{' '}
-            <Link href="/tools">tools</Link> cover the same questions interactively — which
+            <Link href="/tools">tools</Link> cover the same questions interactively, which
             service fits, what it costs after extended health, and a plain reflection on
             how things have been.
           </p>
           <p>
             These are the questions asked most often about this practice.{' '}
             <Link href="/guides">The counselling guides</Link>{' '}
-            is the wider version — the same format, but covering cost, coverage, EMDR, couples
+            is the wider version. The same format, but covering cost, coverage, EMDR, couples
             work and finding a counsellor generally rather than here specifically.
           </p>
         </div>

@@ -24,7 +24,7 @@ export default function Page() {
       tool={tool}
       intro={
         <>
-          They produce almost identical days from the inside — flat, tired, short-tempered,
+          They produce almost identical days from the inside: flat, tired, short-tempered,
           nothing landing. They respond to very different things, which is why the distinction
           is worth making early rather than after a year of treating one as the other.
         </>
@@ -45,14 +45,14 @@ export default function Page() {
         <p>
           That is not a perfect test and it is not offered as one. Plenty of people cannot
           remember their last genuine break, which makes the question unanswerable rather than
-          answered — and that is its own finding. Burnout left running long enough also tends to
+          answered, and that is its own finding. Burnout left running long enough also tends to
           become depression, so the two coexist more often than either is described alone.
         </p>
 
         <h2 id="why-it-matters">Why getting it wrong costs time</h2>
         <p>
           Burnout responds to changing the conditions producing it. Treating it as an individual
-          pathology — as a failure to cope with something that is genuinely unreasonable — tends
+          pathology, as a failure to cope with something that is genuinely unreasonable, tends
           to make people feel worse rather than better, because it locates the fault in the
           person rather than in the load.
         </p>
@@ -71,7 +71,7 @@ export default function Page() {
         <p>
           Not a screening instrument, not validated, and not a diagnosis. It has no score, and a
           tool that produced one would be read as a verdict however it were captioned. A
-          Registered Clinical Counsellor does not diagnose in any case — where a formal diagnosis
+          Registered Clinical Counsellor does not diagnose in any case. Where a formal diagnosis
           is what you need, that is a physician, psychiatrist or registered psychologist, and the{' '}
           <Link href="/resources/psychiatry-and-assessment-in-bc">assessment routes in BC</Link>{' '}
           page sets out how to get one. Nothing you enter here is stored or sent anywhere.

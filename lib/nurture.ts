@@ -105,7 +105,7 @@ export async function optOut(email: string): Promise<void> {
 const footerNote = (email: string) =>
   `<p style="margin:18px 0 0;font-size:12px;line-height:1.6;color:#545e69;">
      You are getting this because you asked for the coverage checklist on our website.
-     <a href="${unsubLink(email)}" style="color:#545e69;">Unsubscribe</a> — one click, no questions.
+     <a href="${unsubLink(email)}" style="color:#545e69;">Unsubscribe</a>, one click, no questions.
    </p>`;
 
 function email2(firstName: string, to: string) {
@@ -114,7 +114,7 @@ function email2(firstName: string, to: string) {
 `${hi}
 
 One of the most common reasons people put off booking is not cost. It
-is not knowing what a first session is like — and imagining something
+is not knowing what a first session is like, and imagining something
 more exposing than it is.
 
 Briefly: you will not be asked to lie on anything. You will not have to
@@ -126,8 +126,8 @@ question than what is wrong.
 The longer version:
 ${links.firstSession}
 
-And if you are not sure which kind of counselling fits — or whether it
-is counselling you need at all — this takes about two minutes, and
+And if you are not sure which kind of counselling fits, or whether it
+is counselling you need at all. This takes about two minutes, and
 several of its answers point somewhere other than here:
 ${site.domain}/tools/which-service
 
@@ -139,10 +139,10 @@ Unsubscribe: ${unsubLink(to)}`);
   const html = shell(
     'What actually happens in a first session',
     p(esc(hi)) +
-    p('One of the most common reasons people put off booking is not cost. It is not knowing what a first session is like — and imagining something more exposing than it is.') +
+    p('One of the most common reasons people put off booking is not cost. It is not knowing what a first session is like, and imagining something more exposing than it is.') +
     p('Briefly: you will not be asked to lie on anything. You will not have to start at the beginning of your life. &ldquo;I don&rsquo;t want to go into that yet&rdquo; is a complete sentence and a reasonable one. Most of a first session is working out what you want to be different, which is a more useful question than what is wrong.') +
     btn(links.firstSession, 'The longer version') +
-    p(`And if you are not sure which kind of counselling fits — or whether it is counselling you need at all — ${a(`${site.domain}/tools/which-service`, 'this takes about two minutes')}, and several of its answers point somewhere other than here.`) +
+    p(`And if you are not sure which kind of counselling fits, or whether it is counselling you need at all, ${a(`${site.domain}/tools/which-service`, 'this takes about two minutes')}, and several of its answers point somewhere other than here.`) +
     footerNote(to)
   );
   return { subject: 'What actually happens in a first session', text, html };
@@ -166,7 +166,7 @@ It is also a perfectly good outcome of that call to conclude that
 someone else is a better fit, or that now is not the time. If that is
 where it lands, you will be told so plainly rather than sold to.
 
-If the timing is wrong, that is completely fine — the guides stay up
+If the timing is wrong, that is completely fine. The guides stay up
 and cost nothing:
 ${links.guides}
 
@@ -181,10 +181,10 @@ Unsubscribe: ${unsubLink(to)}`);
     'Fifteen minutes, if it is useful',
     p(esc(hi)) +
     p('Last one from me.') +
-    p('If you have been turning this over since you downloaded that checklist, a free fifteen-minute consultation is the least committal way to find out whether it is worth going further. It is a conversation, not an intake — nothing to prepare, and no obligation to book afterwards.') +
+    p('If you have been turning this over since you downloaded that checklist, a free fifteen-minute consultation is the least committal way to find out whether it is worth going further. It is a conversation, not an intake, nothing to prepare, and no obligation to book afterwards.') +
     btn(links.book, 'Book a free consultation') +
     p('It is also a perfectly good outcome of that call to conclude that someone else is a better fit, or that now is not the time. If that is where it lands, you will be told so plainly rather than sold to.') +
-    p(`If the timing is wrong, that is completely fine — ${a(links.guides, 'the guides stay up and cost nothing')}.`) +
+    p(`If the timing is wrong, that is completely fine, ${a(links.guides, 'the guides stay up and cost nothing')}.`) +
     footerNote(to)
   );
   return { subject: 'Fifteen minutes, if it is useful', text, html };
@@ -212,7 +212,7 @@ export async function runNurture(opts: { dry?: boolean } = {}): Promise<NurtureR
   const { items } = await readInbound({ fresh: true });
   const sent = await readSent();
   if (sent.updatedAt === 'unreadable') {
-    return { ...base, reason: 'nurture ledger unreadable — refusing to send rather than risk re-sending' };
+    return { ...base, reason: 'nurture ledger unreadable, refusing to send rather than risk re-sending' };
   }
 
   /* Rule 3: anyone who became a client drops out of the sequence. The client

@@ -30,7 +30,7 @@ import type { Inbound } from '@/lib/inbound';
 const CHECKLIST: { q: string; why: string }[] = [
   {
     q: 'Does my plan reimburse a Registered Clinical Counsellor (RCC) in British Columbia?',
-    why: 'The one that catches most people. Plans list professions, not services — a plan can cover "Psychologist" and "Registered Social Worker" and not RCCs, and then no amount of it being obviously counselling makes it reimbursable.',
+    why: 'The one that catches most people. Plans list professions, not services. A plan can cover "Psychologist" and "Registered Social Worker" and not RCCs, and then no amount of it being obviously counselling makes it reimbursable.',
   },
   {
     q: 'What is my annual maximum for mental-health practitioners, and when does it reset?',
@@ -68,7 +68,7 @@ export function checklistEmail(firstName: string) {
   const text = wrap(
 `${hi}
 
-Here is the checklist you asked for — the questions worth asking your
+Here is the checklist you asked for, the questions worth asking your
 extended health plan before booking counselling with anyone, not just
 with this practice.
 
@@ -80,7 +80,7 @@ ${CHECKLIST.map((c, i) => `${i + 1}. ${c.q}\n   ${c.why}`).join('\n\n')}
 The longer version, with the insurer-by-insurer table, is here:
 ${links.coverage}
 
-That is everything — this is a one-off, not a sequence, and there is
+That is everything. This is a one-off, not a sequence, and there is
 nothing else coming.
 
 If you would like to talk any of it through, a free 15-minute
@@ -94,7 +94,7 @@ ${site.domain}`);
   const html = shell(
     'Your coverage checklist',
     p(esc(hi)) +
-    p('These are the questions worth asking your extended health plan before booking counselling with anyone — not just with this practice. Call the number on your benefits card, ask them in order, and note down who you spoke to.') +
+    p('These are the questions worth asking your extended health plan before booking counselling with anyone, not just with this practice. Call the number on your benefits card, ask them in order, and note down who you spoke to.') +
     `<ol style="margin:0 0 20px;padding-left:20px;font-size:15px;line-height:1.6;">` +
     CHECKLIST.map((c) =>
       `<li style="margin:0 0 14px;"><strong style="color:#3d6c92;">${esc(c.q)}</strong><br>
@@ -102,7 +102,7 @@ ${site.domain}`);
     ).join('') +
     `</ol>` +
     p(`The longer version, with the insurer-by-insurer table, is ${a(links.coverage, 'on the site')}.`) +
-    p('That is everything — this is a one-off, not a sequence, and there is nothing else coming.') +
+    p('That is everything. This is a one-off, not a sequence, and there is nothing else coming.') +
     btn(links.book, 'Book a free 15-minute consultation') +
     p('<span style="color:#545e69;font-size:14px;">No obligation, and deciding not to book is a completely normal outcome.</span>')
   );
@@ -212,7 +212,7 @@ nothing else coming.`
  * number in an email someone saved is worse than a link. */
 const STARTING: { q: string; why: string }[] = [
   {
-    q: 'Name what you want help with — one sentence is enough.',
+    q: 'Name what you want help with. One sentence is enough.',
     why: '"I keep snapping at people I love" is a complete answer. A diagnosis, a theory, or a tidy story is not required to start, and arriving without one is the normal case.',
   },
   {
@@ -224,7 +224,7 @@ const STARTING: { q: string; why: string }[] = [
     why: 'BCACC, the College of Health and Care Professionals of BC, and the BC College of Social Workers each run a free searchable register. A registration number that checks out is a stronger signal than any website.',
   },
   {
-    q: 'Use the free consultations — plural.',
+    q: 'Use the free consultations, plural.',
     why: 'Fit between you and the counsellor is one of the better-supported predictors of whether therapy helps. Talking to two or three people before choosing is normal, slightly awkward, and entirely reasonable.',
   },
   {
@@ -233,7 +233,7 @@ const STARTING: { q: string; why: string }[] = [
   },
   {
     q: 'Expect the first session to be mostly questions.',
-    why: 'History, what brings you in, what you want to be different, and logistics. You are not expected to open with the hardest thing — and you are allowed to decide afterwards that the fit is wrong.',
+    why: 'History, what brings you in, what you want to be different, and logistics. You are not expected to open with the hardest thing, and you are allowed to decide afterwards that the fit is wrong.',
   },
   {
     q: 'Review honestly after a few sessions.',
@@ -247,7 +247,7 @@ export function startingEmail(firstName: string) {
   const text = wrap(
 `${hi}
 
-Here is the one-pager you asked for — how to start counselling in BC,
+Here is the one-pager you asked for: how to start counselling in BC,
 from first thought to first session. It applies with any counsellor,
 not just this practice.
 
@@ -256,7 +256,7 @@ ${STARTING.map((c, i) => `${i + 1}. ${c.q}\n   ${c.why}`).join('\n\n')}
 Current fees and how reimbursement works are here:
 ${site.domain}/pricing
 
-That is everything — this is a one-off, not a sequence, and there is
+That is everything. This is a one-off, not a sequence, and there is
 nothing else coming.
 
 If you would like to talk any of it through, a free 15-minute
@@ -270,7 +270,7 @@ ${site.domain}`);
   const html = shell(
     'Starting counselling in BC',
     p(esc(hi)) +
-    p('Here is the one-pager you asked for — how to start counselling in BC, from first thought to first session. It applies with any counsellor, not just this practice.') +
+    p('Here is the one-pager you asked for: how to start counselling in BC, from first thought to first session. It applies with any counsellor, not just this practice.') +
     `<ol style="margin:0 0 20px;padding-left:20px;font-size:15px;line-height:1.6;">` +
     STARTING.map((c) =>
       `<li style="margin:0 0 14px;"><strong style="color:#3d6c92;">${esc(c.q)}</strong><br>
@@ -278,12 +278,12 @@ ${site.domain}`);
     ).join('') +
     `</ol>` +
     p(`Current fees and how reimbursement works are ${a(`${site.domain}/pricing`, 'on the fees page')}.`) +
-    p('That is everything — this is a one-off, not a sequence, and there is nothing else coming.') +
+    p('That is everything. This is a one-off, not a sequence, and there is nothing else coming.') +
     btn(links.book, 'Book a free 15-minute consultation') +
     p('<span style="color:#545e69;font-size:14px;">No obligation, and deciding not to book is a completely normal outcome.</span>')
   );
 
-  return { subject: 'Starting counselling in BC — the one-pager', text, html };
+  return { subject: 'Starting counselling in BC, the one-pager', text, html };
 }
 
 /* ---- acknowledgement of a message ---------------------------------------- */
@@ -327,7 +327,7 @@ Online counselling across British Columbia`);
     p('<span style="color:#545e69;font-size:14px;">If you are in immediate danger call 911. For urgent mental-health support in BC, call or text <strong>9-8-8</strong> at any hour.</span>')
   );
 
-  return { subject: 'We have your message — Westpeak Wellness', text, html };
+  return { subject: 'We have your message | Westpeak Wellness', text, html };
 }
 
 /* ---- acknowledgement of a waitlist request -------------------------------- */
@@ -338,7 +338,7 @@ export function waitlistAck(firstName: string) {
   const text = wrap(
 `${hi}
 
-Thank you — your availability is noted.
+Thank you. Your availability is noted.
 
 The practice runs a small number of hours, so this is a real waitlist
 rather than a formality: when something opens that fits the times you
@@ -347,7 +347,7 @@ into a queue.
 
 Current consultation hours, in case something here does work after all:
 
-${site.availability.map((v) => `  ${v.day} — ${v.from} to ${v.to}`).join('\n')}
+${site.availability.map((v) => `  ${v.day}, ${v.from} to ${v.to}`).join('\n')}
 
   ${links.book}
 
@@ -362,7 +362,7 @@ ${site.name}`);
   const html = shell(
     'Your availability is noted',
     p(esc(hi)) +
-    p('Thank you — your availability is noted.') +
+    p('Thank you. Your availability is noted.') +
     p('The practice runs a small number of hours, so this is a real waitlist rather than a formality. When something opens that fits the times you gave, you will hear directly.') +
     `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 20px;background:#f7f2e8;border-radius:8px;padding:14px 18px;width:100%;">
        <tr><td style="font-size:14px;line-height:1.7;color:#2b3138;">
@@ -373,7 +373,7 @@ ${site.name}`);
     p('If your situation changes or becomes urgent, replying here reaches the practice directly.')
   );
 
-  return { subject: 'Your availability is noted — Westpeak Wellness', text, html };
+  return { subject: 'Your availability is noted | Westpeak Wellness', text, html };
 }
 
 /* ---- the alert to the practice ------------------------------------------- */
@@ -412,7 +412,7 @@ export function practiceAlert(item: Inbound) {
       <tr><td style="color:#545e69;padding-right:14px;">Name</td><td>${esc(item.name || '(not given)')}</td></tr>
       <tr><td style="color:#545e69;padding-right:14px;">Email</td><td><a href="mailto:${esc(item.email)}" style="color:#3d6c92;">${esc(item.email)}</a></td></tr>
       ${item.windows ? `<tr><td style="color:#545e69;padding-right:14px;">Windows</td><td>${esc(item.windows)}</td></tr>` : ''}
-      ${item.phone ? `<tr><td style="color:#545e69;padding-right:14px;">Phone</td><td><a href="tel:${esc(item.phone.replace(/[^\d+]/g, ''))}" style="color:#3d6c92;">${esc(item.phone)}</a> <span style="color:#545e69;">&mdash; asked to be called</span></td></tr>` : ''}
+      ${item.phone ? `<tr><td style="color:#545e69;padding-right:14px;">Phone</td><td><a href="tel:${esc(item.phone.replace(/[^\d+]/g, ''))}" style="color:#3d6c92;">${esc(item.phone)}</a> <span style="color:#545e69;">, asked to be called</span></td></tr>` : ''}
       ${item.callWindow ? `<tr><td style="color:#545e69;padding-right:14px;">Best time</td><td>${esc(item.callWindow)}</td></tr>` : ''}
       ${item.practitioner ? `<tr><td style="color:#545e69;padding-right:14px;">Asked for</td><td><strong>${esc(item.practitioner)}</strong></td></tr>` : ''}
       <tr><td style="color:#545e69;padding-right:14px;">Page</td><td>${esc(item.source)}</td></tr>
@@ -434,7 +434,7 @@ export function practiceAlert(item: Inbound) {
   return {
     /* No name, no message, no service in the subject — a practice inbox is
      * still an inbox and may be read on a phone in public. */
-    subject: `${KIND_LABEL[item.kind]} — Westpeak Wellness`,
+    subject: `${KIND_LABEL[item.kind]}: Westpeak Wellness`,
     text: wrap(lines.join('\n')),
     html,
   };

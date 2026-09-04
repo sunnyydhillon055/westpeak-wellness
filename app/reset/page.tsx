@@ -3,18 +3,18 @@ import Link from 'next/link';
 import { readResetToken } from '@/lib/portal-auth';
 
 export const metadata: Metadata = {
-  title: { absolute: 'Set a new password — Westpeak Wellness' },
+  title: { absolute: 'Set a new password | Westpeak Wellness' },
   robots: { index: false, follow: false },
 };
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 const ERRORS: Record<string, string> = {
-  expired: 'That link has expired, or it was not valid. Request a new one — they last 30 minutes.',
+  expired: 'That link has expired, or it was not valid. Request a new one. They last 30 minutes.',
   used: 'That link has already been used. Each one works once; request a new one if you need it.',
   short: 'Passwords need to be at least 10 characters. Nothing was changed.',
   match: 'Those two passwords did not match. Nothing was changed.',
-  failed: 'The new password could not be saved, so your old one still works. Try again — if it keeps happening, that is a fault worth reporting.',
+  failed: 'The new password could not be saved, so your old one still works. Try again, if it keeps happening, that is a fault worth reporting.',
 };
 
 export default async function ResetPage({
@@ -51,7 +51,7 @@ export default async function ResetPage({
         ) : (
           <>
             <p className="lede" style={{ fontSize: '1rem' }}>
-              Choose a password for {parsed.email}. At least 10 characters — length matters far
+              Choose a password for {parsed.email}. At least 10 characters, length matters far
               more than punctuation.
             </p>
 

@@ -75,7 +75,7 @@ export const tagalogGuides: TagalogGuide[] = [
     metaDescription:
       'Bakit parang atake sa puso ang panic attack, ano ang nangyayari sa katawan, at kailan ito nagiging bahagi ng mas malaking pattern.',
     lede:
-      'Karamihan sa unang panic attack ay napupunta sa emergency room. Hindi iyon kahihiyan — magkatulad talaga ang pakiramdam nila, at ang katawan ay walang paraan para sabihin sa iyo kung alin ito.',
+      'Karamihan sa unang panic attack ay napupunta sa emergency room. Hindi iyon kahihiyan, magkatulad talaga ang pakiramdam nila, at ang katawan ay walang paraan para sabihin sa iyo kung alin ito.',
     shortAnswer:
       'Ang panic attack ay biglaang pagsabog ng tugon ng katawan sa panganib kahit walang aktuwal na panganib. Umaabot ito sa rurok sa loob ng ilang minuto at humuhupa nang mag-isa. Hindi ito mapanganib sa sarili nito, kahit na hindi iyon ang pakiramdam habang nangyayari.',
     readMinutes: 5,
@@ -84,7 +84,7 @@ export const tagalogGuides: TagalogGuide[] = [
         h2: 'Ano ang nangyayari sa katawan',
         body: [
           'May sistema ang katawan para sa panganib: bumibilis ang puso para magdala ng dugo sa mga kalamnan, bumibilis ang paghinga, umiigting ang mga kalamnan, at humihigpit ang atensyon. Ginagawa ang lahat ng ito nang wala kang desisyon, at mabuti iyon kapag may tunay na panganib.',
-          'Sa isang panic attack, umaandar ang buong sistemang ito nang walang panganib na kailangan nito. Ang resulta ay isang katawan na handang tumakbo mula sa isang bagay na wala roon — at dahil walang mapagtakbuhan, ang mga sintomas ang nagiging paksa ng atensyon mo.',
+          'Sa isang panic attack, umaandar ang buong sistemang ito nang walang panganib na kailangan nito. Ang resulta ay isang katawan na handang tumakbo mula sa isang bagay na wala roon, at dahil walang mapagtakbuhan, ang mga sintomas ang nagiging paksa ng atensyon mo.',
           'Iyon ang dahilan kung bakit mahirap paniwalaan ang paliwanag habang nangyayari ito. Hindi ito nararamdaman bilang pagkabalisa. Nararamdaman ito bilang isang bagay na seryosong nangyayari sa katawan mo.',
         ],
       },
@@ -105,7 +105,7 @@ export const tagalogGuides: TagalogGuide[] = [
       {
         h2: 'Kailan ito dapat tingnan ng doktor',
         body: [
-          'Palaging ipatingin ang unang pagkakataon. May ibang kondisyon na kamukha nito, at hindi trabaho ng counsellor na ibukod ang mga iyon — trabaho iyon ng manggagamot. Ang isang counsellor sa BC o Alberta ay hindi nagbibigay ng diagnosis.',
+          'Palaging ipatingin ang unang pagkakataon. May ibang kondisyon na kamukha nito, at hindi trabaho ng counsellor na ibukod ang mga iyon, trabaho iyon ng manggagamot. Ang isang counsellor sa BC o Alberta ay hindi nagbibigay ng diagnosis.',
           'Kapag nasuri ka na at nasabihang panic ito, doon nagiging kapaki-pakinabang ang trabaho sa counselling.',
         ],
       },
@@ -144,21 +144,21 @@ export const tagalogGuides: TagalogGuide[] = [
       {
         h2: 'Ang pinakamalinaw na pagkakaiba',
         body: [
-          'Tumutugon ang pagod sa pahinga. Isang mahabang tulog, isang bakasyon, isang linggong walang dagdag na trabaho — kung gumagaan ang lahat pagkatapos noon, pagod iyon, at ang sagot ay nasa iskedyul mo.',
+          'Tumutugon ang pagod sa pahinga. Isang mahabang tulog, isang bakasyon, isang linggong walang dagdag na trabaho: kung gumagaan ang lahat pagkatapos noon, pagod iyon, at ang sagot ay nasa iskedyul mo.',
           'Ang depresyon ay hindi umuubra nang ganoon. Kayang matulog ng tao ng sampung oras at gumising na parang hindi natulog. Kayang matapos ang bakasyon at bumalik na pareho pa rin. Hindi iyon dahil kulang ang pahinga. Ibang bagay iyon.',
         ],
       },
       {
         h2: 'Kadalasan ay kawalan, hindi kalungkutan',
         body: [
-          'Inaasahan ng maraming tao na ang depresyon ay pag-iyak. Madalas ay hindi. Mas madalas itong kawalan — kawalan ng gana, ng interes, ng pakiramdam na may kahulugan ang anuman. Nagagawa mo pa rin ang mga bagay. Wala lang silang laman.',
+          'Inaasahan ng maraming tao na ang depresyon ay pag-iyak. Madalas ay hindi. Mas madalas itong kawalan: kawalan ng gana, ng interes, ng pakiramdam na may kahulugan ang anuman. Nagagawa mo pa rin ang mga bagay. Wala lang silang laman.',
           'Iyon ang dahilan kung bakit napakatagal bago ito napapansin. Walang sandali na malinaw na nagsimula ito, at dahil tumatakbo pa rin ang lahat sa labas, walang ibang nakakapansin.',
         ],
       },
       {
         h2: 'Bakit ito tinatawag na katamaran',
         body: [
-          'Sa mga pamilyang itinayo sa sipag — ang mga magulang na nagtiis para may mas magandang buhay ang susunod na henerasyon — walang komportableng salita para sa isang taong hindi makabangon. Ang mga salitang available ay tungkol sa ugali, hindi tungkol sa kalusugan.',
+          'Sa mga pamilyang itinayo sa sipag, ang mga magulang na nagtiis para may mas magandang buhay ang susunod na henerasyon, walang komportableng salita para sa isang taong hindi makabangon. Ang mga salitang available ay tungkol sa ugali, hindi tungkol sa kalusugan.',
           'Kaya inilalapat ng tao ang mga salitang iyon sa sarili niya bago pa may ibang magsabi. Walang utang na loob. Tamad. Sayang ang pinaghirapan nila.',
           'Ang balakid na iyon, hindi ang depresyon, ang madalas na unang hinaharap. Ang paghihiwalay ng sintomas sa hatol tungkol sa pagkatao ay kadalasang ang unang bagay na nakakatulong.',
         ],
@@ -219,14 +219,14 @@ export const tagalogGuides: TagalogGuide[] = [
       {
         h2: 'Kapag masama ang reaksyon',
         body: [
-          'Minsan hindi maganda ang tugon. Sabi nila ay hindi ito para sa mga tulad natin, o na dapat sa pamilya mo lang sasabihin ang mga ganito, o na sinasayang mo ang pera. Kadalasan hindi iyon tungkol sa iyo — tungkol iyon sa kung ano ang naitanim sa kanila tungkol sa pag-amin ng hirap.',
+          'Minsan hindi maganda ang tugon. Sabi nila ay hindi ito para sa mga tulad natin, o na dapat sa pamilya mo lang sasabihin ang mga ganito, o na sinasayang mo ang pera. Kadalasan hindi iyon tungkol sa iyo, tungkol iyon sa kung ano ang naitanim sa kanila tungkol sa pag-amin ng hirap.',
           'Hindi mo kailangang manalo sa usapang iyon para magpatuloy. Ang pinakakaraniwang pagkakamali ay ang paghihintay ng pahintulot na hindi naman kailangan.',
         ],
       },
       {
         h2: 'Kung ang pamilya mismo ang paksa',
         body: [
-          'Kung ang mga inaasahan ng pamilya ang bahagi ng bigat, hindi iyon kailangang ipaliwanag mula sa simula sa isang sesyon na sa Tagalog. Ang utang na loob, ang hiya, ang tungkulin ng panganay — konteksto ang mga ito at hindi aralin.',
+          'Kung ang mga inaasahan ng pamilya ang bahagi ng bigat, hindi iyon kailangang ipaliwanag mula sa simula sa isang sesyon na sa Tagalog. Ang utang na loob, ang hiya, ang tungkulin ng panganay, konteksto ang mga ito at hindi aralin.',
           'Iyon ang pagkakaiba na madalas na dahilan kung bakit sa wakas ay nag-book ang tao: hindi ang wika mismo, kundi ang hindi na paggugol ng unang tatlong sesyon sa paglalarawan ng isang bagay na dapat ay pamilyar na.',
         ],
       },
@@ -265,21 +265,21 @@ export const tagalogGuides: TagalogGuide[] = [
       {
         h2: 'Ang libreng labinlimang minuto',
         body: [
-          'Isang maikling pag-uusap sa secure na video. Sasabihin mo kung ano ang nangyayari — kahit hindi maayos ang pagkakasabi, at kadalasan nga ay hindi. Magtatanong siya ng ilang bagay, at makakapagtanong ka rin ng kahit ano.',
+          'Isang maikling pag-uusap sa secure na video. Sasabihin mo kung ano ang nangyayari: kahit hindi maayos ang pagkakasabi, at kadalasan nga ay hindi. Magtatanong siya ng ilang bagay, at makakapagtanong ka rin ng kahit ano.',
           'Walang binabayaran, walang card na hinihingi, at walang obligasyon pagkatapos. Ang magpasyang hindi ipagpatuloy ay isang normal na resulta at hindi isang problema.',
         ],
       },
       {
         h2: 'Ang unang buong sesyon',
         body: [
-          'Limampung minuto. Mas marami itong pakikinig kaysa pagtatanong. Ang layunin ay maunawaan ang hugis ng nangyayari at kung ano ang gusto mong maging kaibahan — hindi ang makakuha ng kumpletong kasaysayan sa unang araw.',
+          'Limampung minuto. Mas marami itong pakikinig kaysa pagtatanong. Ang layunin ay maunawaan ang hugis ng nangyayari at kung ano ang gusto mong maging kaibahan, hindi ang makakuha ng kumpletong kasaysayan sa unang araw.',
           'Hindi mo kailangang magsimula sa pinakamabigat. Kung may bagay na ayaw mo pang pag-usapan, sabihin lang, at hindi iyon pipilitin.',
         ],
       },
       {
         h2: 'Ang hindi mangyayari',
         body: [
-          'Walang diagnosis. Ang isang Registered Clinical Counsellor ay hindi nagbibigay ng diagnosis — doktor, psychiatrist o registered psychologist ang gumagawa niyan.',
+          'Walang diagnosis. Ang isang Registered Clinical Counsellor ay hindi nagbibigay ng diagnosis, doktor, psychiatrist o registered psychologist ang gumagawa niyan.',
           'Walang form bago ang konsultasyon, walang kailangang ihanda, at walang tamang paraan ng pagsasalita tungkol dito. Kung hindi mo alam kung saan magsisimula, sabihin mo iyon at doon na magsisimula.',
         ],
       },
@@ -303,7 +303,7 @@ export const tagalogGuides: TagalogGuide[] = [
       },
       {
         q: 'Paano kung hindi kami magkasundo?',
-        a: 'Sasabihin niya iyon nang diretso at ituturo ka sa mas angkop na lugar. Para mismo doon ang libreng labinlimang minuto — para malaman iyon bago ka magbayad ng kahit ano.',
+        a: 'Sasabihin niya iyon nang diretso at ituturo ka sa mas angkop na lugar. Para mismo doon ang libreng labinlimang minuto, para malaman iyon bago ka magbayad ng kahit ano.',
       },
     ],
     englishHref: '/guides/what-to-expect-first-therapy-session',
@@ -318,7 +318,7 @@ export const tagalogGuides: TagalogGuide[] = [
     lede:
       'Ang ilan sa mga bagay na dala ng tao ay dumating kasama nila, o kasama ng kanilang mga magulang, at hindi kailanman napag-usapan sa bahay.',
     shortAnswer:
-      'Hindi ang alaala ang naipapasa. Ang naipapasa ay ang tugon dito — ang pagiging alerto, ang katahimikan sa ilang paksa, ang paraan ng pagharap sa panganib. Iyon ang bahaging kayang pagtrabahuhan.',
+      'Hindi ang alaala ang naipapasa. Ang naipapasa ay ang tugon dito: ang pagiging alerto, ang katahimikan sa ilang paksa, ang paraan ng pagharap sa panganib. Iyon ang bahaging kayang pagtrabahuhan.',
     readMinutes: 5,
     sections: [
       {
@@ -332,21 +332,21 @@ export const tagalogGuides: TagalogGuide[] = [
         h2: 'Ang karanasan ng paglipat',
         body: [
           'Ang paglipat mismo ay maaaring maging mabigat: kung ano ang iniwan, kung ano ang tiniis para makarating dito, at kung ano ang hindi napag-usapan pagkatapos dahil may trabahong kailangang gawin.',
-          'Bihirang ilarawan ito ng henerasyong dumaan doon sa mga salitang klinikal. Ang trabaho ay ginawa, ang mga bata ay napag-aral, at ang paksa ay isinara. Ang mabigat na bahagi ay hindi nawala — hindi lang ito napangalanan.',
+          'Bihirang ilarawan ito ng henerasyong dumaan doon sa mga salitang klinikal. Ang trabaho ay ginawa, ang mga bata ay napag-aral, at ang paksa ay isinara. Ang mabigat na bahagi ay hindi nawala, hindi lang ito napangalanan.',
         ],
       },
       {
         h2: 'Bakit walang salita para dito',
         body: [
           'Sa maraming pamilya, walang salita para sa ganito na hindi insulto. Kaya inilalarawan ito bilang pagiging sensitibo, o mahina, o walang utang na loob.',
-          'Ang tumpak na pagpapangalan dito ay kadalasang ang unang bagay na nakakatulong, at kaya itong gawin sa Tagalog o Ingles — o sa paglipat sa pagitan ng dalawa, na siyang natural para sa marami.',
+          'Ang tumpak na pagpapangalan dito ay kadalasang ang unang bagay na nakakatulong, at kaya itong gawin sa Tagalog o Ingles, o sa paglipat sa pagitan ng dalawa, na siyang natural para sa marami.',
         ],
       },
       {
         h2: 'Hindi kailangang ikuwento ang lahat',
         body: [
           'Karaniwang tanong: paano kung hindi ko alam ang buong nangyari? Karaniwan iyon at hindi ito balakid. Ang EMDR sa partikular ay hindi nangangailangan ng buong salaysay, kaya angkop ito sa mga taong walang kumpletong kuwento o ayaw pang sabihin ito nang detalyado.',
-          'Hindi rin ito tungkol sa pagsisi sa mga magulang. Ang pagkilala na may naipasa ay hindi paratang — kadalasan ang mismong tugon na iyon ang nagligtas sa kanila.',
+          'Hindi rin ito tungkol sa pagsisi sa mga magulang. Ang pagkilala na may naipasa ay hindi paratang, kadalasan ang mismong tugon na iyon ang nagligtas sa kanila.',
         ],
       },
     ],
@@ -378,13 +378,13 @@ export const tagalogGuides: TagalogGuide[] = [
     lede:
       'Malaking bahagi ng care work at healthcare sa BC ay ginagawa ng mga Pilipino, at may sariling hugis ang pagod na kaakibat nito.',
     shortAnswer:
-      'Naiiba ang pagkaubos sa pag-aalaga dahil naiipon ito sa halip na dumating. Walang iisang pangyayaring maituturo, kaya madalas itong hindi napapansin nang matagal — kahit ng mismong nakakaranas.',
+      'Naiiba ang pagkaubos sa pag-aalaga dahil naiipon ito sa halip na dumating. Walang iisang pangyayaring maituturo, kaya madalas itong hindi napapansin nang matagal, kahit ng mismong nakakaranas.',
     readMinutes: 5,
     sections: [
       {
         h2: 'Bakit ito naiipon',
         body: [
-          'Sa karamihan ng trabaho, may nangyayari at pagkatapos ay tapos na. Sa pag-aalaga, ang mabigat na bahagi ay paulit-ulit at malapitan — sakit, pagkawala, pamilyang nasa pinakamahirap nilang araw — at inaasahan ang komposura habang ginagawa ito.',
+          'Sa karamihan ng trabaho, may nangyayari at pagkatapos ay tapos na. Sa pag-aalaga, ang mabigat na bahagi ay paulit-ulit at malapitan: sakit, pagkawala, pamilyang nasa pinakamahirap nilang araw, at inaasahan ang komposura habang ginagawa ito.',
           'Dahil walang iisang pangyayaring maituturo, walang malinaw na sandali kung kailan naging masyadong marami. Kadalasan ay napapansin lamang ito ng ibang tao bago mismo ng nakakaranas.',
         ],
       },
@@ -423,7 +423,7 @@ export const tagalogGuides: TagalogGuide[] = [
       },
       {
         q: 'Burnout ba ito o depresyon?',
-        a: 'Magkatulad sila mula sa loob at magkaiba ang tugon nila. Ang pinakamalinaw na pagkakaiba ay kung gumagaan ito kapag talagang malayo ka sa trabaho — at kung hindi mo matandaan ang huling tunay na pahinga, iyon ay sagot din.',
+        a: 'Magkatulad sila mula sa loob at magkaiba ang tugon nila. Ang pinakamalinaw na pagkakaiba ay kung gumagaan ito kapag talagang malayo ka sa trabaho, at kung hindi mo matandaan ang huling tunay na pahinga, iyon ay sagot din.',
       },
     ],
     englishHref: '/guides/burnout-vs-depression',

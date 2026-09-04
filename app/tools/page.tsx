@@ -55,7 +55,7 @@ export default function ToolsIndex() {
             Three short tools for the questions people ask before they book anything: which kind
             of counselling fits, what it costs in British Columbia once extended health is taken
             into account, and a plain reflection on how the last few weeks have been. Each runs
-            entirely in your browser — nothing is stored, nothing is sent, and none of them ask
+            entirely in your browser. Nothing is stored, nothing is sent, and none of them ask
             for an email address.
           </p>
         </div>
@@ -112,14 +112,14 @@ export default function ToolsIndex() {
               None of these screens, scores or diagnoses, and that is a design decision rather than
               a limitation to apologise for. Validated screening instruments exist, they are
               administered in a clinical context, and their results mean something because of that
-              context — six questions on a website have none of it. A score here would carry the
+              context, six questions on a website have none of it. A score here would carry the
               appearance of measurement with none of the substance, and people remember numbers
               long after they forget the caveat printed underneath.
             </p>
             <p>
               A Registered Clinical Counsellor does not diagnose in any case. Where a formal
               diagnosis is what you need, that is a physician, psychiatrist or registered
-              psychologist —{' '}
+              psychologist, {' '}
               <Link href="/resources/psychiatry-and-assessment-in-bc">psychiatry and assessment in BC</Link>{' '}
               covers how those routes work, and{' '}
               <Link href="/standards">this practice&rsquo;s stated scope</Link> sets out where the
@@ -129,7 +129,7 @@ export default function ToolsIndex() {
             <h2 id="which-one">Which one to start with</h2>
             <p>
               If you are not sure counselling is the right thing at all, start with the{' '}
-              <Link href="/tools/stress-check">reflection on how things have been</Link> — it is
+              <Link href="/tools/stress-check">reflection on how things have been</Link>. It is
               the least committal of the three, and its job is to hand you language rather than a
               conclusion. If you have decided to go ahead but not what kind,{' '}
               <Link href="/tools/which-service">which kind of counselling fits</Link> sorts that in

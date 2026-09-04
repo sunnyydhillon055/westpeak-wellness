@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: { ...ogBase('/for') },
   title: 'Who We Work With',
   description:
-    'Online counselling across BC for new parents, students, shift workers, and others — written for the specific pressures each group carries.',
+    'Online counselling across BC for new parents, students, shift workers, and others, written for the specific pressures each group carries.',
   alternates: { canonical: `${site.domain}/for` },
 };
 
@@ -68,7 +68,7 @@ export default function ForHub() {
             <p>
               Anxiety is anxiety, and a page per demographic can easily be a marketing device rather
               than a useful distinction. These pages exist where the <em>context</em> genuinely changes
-              the work — not the diagnosis, but what surrounds it.
+              the work, not the diagnosis, but what surrounds it.
             </p>
             <p>
               A new parent is not simply an adult with low mood; they are an adult with low mood, no
@@ -81,7 +81,7 @@ export default function ForHub() {
             </p>
             <p>
               What does not change is the method. The approaches behind these pages are the same ones
-              on <Link href="/services">the services list</Link> — the difference is what gets assumed
+              on <Link href="/services">the services list</Link>. The difference is what gets assumed
               at the beginning and what has to be established.
             </p>
 

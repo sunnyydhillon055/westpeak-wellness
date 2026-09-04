@@ -70,7 +70,7 @@ export async function GET(req: NextRequest) {
       detail: String(catalog.reason ?? 'catalog refresh failed').slice(0, 200),
     });
   } else if (catalog.changed) {
-    console.log('[cliniko-sync] catalogue CHANGED — prices or durations differ from the last run');
+    console.log('[cliniko-sync] catalogue CHANGED, prices or durations differ from the last run');
     await recordCronRun({ job: 'cliniko-catalog', ok: true, detail: 'prices changed' });
   } else {
     await recordCronRun({ job: 'cliniko-catalog', ok: true, detail: 'unchanged' });

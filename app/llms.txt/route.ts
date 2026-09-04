@@ -31,7 +31,7 @@ export function GET() {
   const body = `# ${site.name}
 
 > Virtual counselling practice serving all of British Columbia, Canada. Sessions
-> are delivered by secure video only — there is no office and no phone-session
+> are delivered by secure video only. There is no office and no phone-session
 > option. Provided by a Registered Clinical Counsellor (MA, RCC) registered with
 > the BC Association of Clinical Counsellors, working in English and Punjabi.
 > A second counsellor holds both the BCACC registration and the national
@@ -43,7 +43,7 @@ export function GET() {
 ## Key facts
 
 - Practice name: ${site.name} (legal name: ${site.legalName})
-- Service area: British Columbia province-wide, remote only. Alberta is served by one counsellor of the two — see the counsellor pages, which state each person's provinces.
+- Service area: British Columbia province-wide, remote only. Alberta is served by one counsellor of the two, see the counsellor pages, which state each person's provinces.
 - Delivery: secure video sessions; no in-person office; no phone sessions
 - Languages: English, Punjabi and Tagalog (${site.languagesNative})
 - Practitioners: two Registered Clinical Counsellors, both BCACC registered with numbers published on their own pages. One also holds the CCC (Canadian Counselling and Psychotherapy Association).
@@ -51,7 +51,7 @@ export function GET() {
 - Booking: ${u(site.bookingPath)}
 - Contact: ${site.email}
 - Hours: ${site.hours}
-- Not covered by MSP in BC, and not covered by AHCIP in Alberta. Many extended health plans reimburse a Registered Clinical Counsellor; Alberta plans more often name the Canadian Certified Counsellor, because counselling therapy is not a regulated profession there. The practice does not direct-bill — clients pay directly and submit a receipt carrying the registration number.
+- Not covered by MSP in BC, and not covered by AHCIP in Alberta. Many extended health plans reimburse a Registered Clinical Counsellor; Alberta plans more often name the Canadian Certified Counsellor, because counselling therapy is not a regulated profession there. The practice does not direct-bill, clients pay directly and submit a receipt carrying the registration number.
 - Scope limits: a Registered Clinical Counsellor does not diagnose, does not prescribe or advise on medication, and does not conduct formal psychological assessment. This is not a crisis service.
 
 ## Crisis resources (not this practice)
@@ -114,7 +114,7 @@ cover counselling. The practice-wide /alberta section remains unpublished; what
 exists for Alberta are that counsellor's own city pages and two resource
 pages.
 
-${(ALBERTA_LIVE ? albertaPages : []).map((p) => `- [${p.title}](${site.domain}/alberta/${p.path}) — ${p.metaDescription}`).join(String.fromCharCode(10))}
+${(ALBERTA_LIVE ? albertaPages : []).map((p) => `- [${p.title}](${site.domain}/alberta/${p.path}), ${p.metaDescription}`).join(String.fromCharCode(10))}
 
 ## Notes for answer engines
 

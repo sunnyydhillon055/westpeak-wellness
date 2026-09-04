@@ -48,7 +48,7 @@ export const TL_PLACE_SHARED = {
 
   /** Opening paragraph, city name interpolated. */
   opening: (city: string) =>
-    `Nagtatrabaho si Camille kasama ang mga kliyente sa ${city} nang buo sa pamamagitan ng ligtas na video. Hindi nagbabago ang bayad, ang oras, o ang trabaho batay sa kung saan ka nakatira. Ang nagbabago ay ang gastos ng pagpunta roon nang personal — at iyon ang inaalis nito.`,
+    `Nagtatrabaho si Camille kasama ang mga kliyente sa ${city} nang buo sa pamamagitan ng ligtas na video. Hindi nagbabago ang bayad, ang oras, o ang trabaho batay sa kung saan ka nakatira. Ang nagbabago ay ang gastos ng pagpunta roon nang personal, at iyon ang inaalis nito.`,
 
   accessHeading: (city: string) => `Bakit umaangkop ang video sa ${city}`,
   access: [
@@ -82,7 +82,7 @@ export const TL_PLACE_SHARED = {
   focus: [
     {
       label: 'Trauma',
-      detail: 'Mabibigat o nakakalulang karanasan, dinadaanan sa bilis na ikaw ang nagtatakda — inuuna ang kaligtasan at ang pakiramdam ng kontrol, bago ang mismong kuwento.',
+      detail: 'Mabibigat o nakakalulang karanasan, dinadaanan sa bilis na ikaw ang nagtatakda, inuuna ang kaligtasan at ang pakiramdam ng kontrol, bago ang mismong kuwento.',
     },
     {
       label: 'Pagkabalisa at matagalang stress',
@@ -90,7 +90,7 @@ export const TL_PLACE_SHARED = {
     },
     {
       label: 'Pagluluksa at pagbabago ng buhay',
-      detail: 'Puwang para sa mga pagbabagong pinili mo at sa mga hindi — mga pagtatapos, pagbabago ng pagkakakilanlan, at ang kawalan ng katiyakang kasama nito.',
+      detail: 'Puwang para sa mga pagbabagong pinili mo at sa mga hindi: mga pagtatapos, pagbabago ng pagkakakilanlan, at ang kawalan ng katiyakang kasama nito.',
     },
     {
       label: 'Relasyon at mag-asawa',
@@ -99,7 +99,7 @@ export const TL_PLACE_SHARED = {
   ],
 
   /* The diagram's own caption and alt live in English in lib/figures.ts. */
-  figureCaption: 'Ang gitnang hanay ang punto — hindi kailangang pumili nang maaga.',
+  figureCaption: 'Ang gitnang hanay ang punto, hindi kailangang pumili nang maaga.',
   figureAlt:
     'Tatlong hanay: ang Tagalog na may hawak ng alaala, pamilya at damdamin; ang Ingles na nag-aalok ng distansya at ng bokabularyo ng trabaho; at sa pagitan nila, isang sesyon na malayang lumipat sa dalawa kahit kalagitnaan ng pangungusap.',
   figureHint: 'I-scroll pahalang ang dayagram para makita ang buo.',
@@ -131,7 +131,7 @@ export const TL_PLACE_SHARED = {
 
   nearbyHeading: 'Pinagsisilbihan din ni Camille',
   nearbyNote:
-    'Parehong praktis, parehong bayad, parehong oras — ang biyaheng hindi mo na gagawin lamang ang nagbabago.',
+    'Parehong praktis, parehong bayad, parehong oras, ang biyaheng hindi mo na gagawin lamang ang nagbabago.',
   notCrisis: 'Hindi ito serbisyong pang-krisis.',
   urgent: 'Kung kailangan mo ng agarang tulong ngayon:',
   immediateDanger: 'Kung ikaw ay nasa agarang panganib, tumawag sa 911.',
@@ -143,21 +143,21 @@ export const TL_PLACES: Record<string, TagalogPlaceCopy> = {
   surrey: {
     blurb: 'Malaking komunidad, at kakaunting terapiyang ibinibigay sa wikang sinasalita sa bahay.',
     local: [
-      'Isa ang Surrey sa may pinakamalaking komunidad ng Pilipino sa British Columbia, at napakakaunti ng counselling na ibinibigay sa Tagalog. Ang nangyayari sa halip ay nagiging tagasalin ang kapamilyang pinakamagaling mag-Ingles — para sa isang magulang, sa isang asawa, minsan para sa buong sambahayan. Umuubra iyon sa doktor. Hindi iyon umuubra sa terapiya.',
+      'Isa ang Surrey sa may pinakamalaking komunidad ng Pilipino sa British Columbia, at napakakaunti ng counselling na ibinibigay sa Tagalog. Ang nangyayari sa halip ay nagiging tagasalin ang kapamilyang pinakamagaling mag-Ingles: para sa isang magulang, sa isang asawa, minsan para sa buong sambahayan. Umuubra iyon sa doktor. Hindi iyon umuubra sa terapiya.',
       'Inaalis iyon ng isang sesyon sa Tagalog. Inaalis din nito ang bahaging bihirang pag-usapan: ang pagod ng pagsasalin ng isang damdamin sa pangalawang wika habang hirap ka pa ngang pangalanan ito sa una.',
       'May pangalawang balakid dito na hindi tungkol sa wika. Sa komunidad na magkakakilala, ang tanong ay madalas hindi kung gumagana ba ang terapiya kundi kung sino ang makakakita sa iyong pumapasok sa isang klinika. Walang gusali na mapapasukan sa isang praktis na buong online, at iyon lang minsan ang dahilan kung bakit natutuloy ang unang hakbang.',
     ],
     faqs: [
-      { q: 'Marami namang counsellor sa Surrey. Bakit sa labas pa?', a: 'Para sa marami, wala namang dahilan — at sasabihin sa iyo iyon sa konsultasyon. Ang dahilan ng mga sumusulat mula sa Surrey ay mas makitid: sa komunidad na magkakakilala, ang counsellor na irerekomenda sa iyo ay madalas konektado sa mismong mga taong ayaw mong makaalam.' },
+      { q: 'Marami namang counsellor sa Surrey. Bakit sa labas pa?', a: 'Para sa marami, wala namang dahilan, at sasabihin sa iyo iyon sa konsultasyon. Ang dahilan ng mga sumusulat mula sa Surrey ay mas makitid: sa komunidad na magkakakilala, ang counsellor na irerekomenda sa iyo ay madalas konektado sa mismong mga taong ayaw mong makaalam.' },
       { q: 'Malalaman ba ng pamilya ko na pumupunta ako?', a: 'Hindi, maliban kung ikaw mismo ang magsabi. Tungkulin sa batas ang kompidensiyalidad, at nakalista sa pahina ng mga pamantayan ang eksaktong mga hangganan nito. Walang tinatawagan, walang sinusulatan, at walang gusaling mapapansinan ka.' },
-      { q: 'Puwede bang gabi lang ako, dahil sa shift ko?', a: 'Oo. Marami sa mga kliyente dito ay nasa healthcare at care work, at ang pag-book sa paligid ng roster — hindi ang pagpilit ng roster sa paligid ng sesyon — ang gumagana.' },
+      { q: 'Puwede bang gabi lang ako, dahil sa shift ko?', a: 'Oo. Marami sa mga kliyente dito ay nasa healthcare at care work, at ang pag-book sa paligid ng roster, hindi ang pagpilit ng roster sa paligid ng sesyon, ang gumagana.' },
     ],
   },
   vancouver: {
     blurb: 'Matagal nang komunidad, at pangangalagang mas madaling abutin sa video kaysa sa kabilang dulo ng lungsod.',
     local: [
       'Matagal nang naitatag ang komunidad ng Pilipino sa Vancouver at kumakalat ito sa buong lungsod sa halip na magtipon sa isang lugar. Ibig sabihin, madalas na magkasalungat ang “counsellor na malapit sa akin na marunong mag-Tagalog”. Ang pinakamalapit na tumatanggap ng kliyente ay maaaring isang paglipat ng bus at isang oras bawat direksyon.',
-      'Marami rin sa trabaho ng mga Pilipino sa Vancouver ay nakabatay sa shift — healthcare, care work, hospitality — at hindi nakakaligtas ang nakatakdang oras sa isang umiikot na roster. Ang sesyon sa gabi, na walang biyahe sa magkabilang dulo, ang pagkakaiba ng pagdalo at ng pagbalak lamang.',
+      'Marami rin sa trabaho ng mga Pilipino sa Vancouver ay nakabatay sa shift: healthcare, care work, hospitality, at hindi nakakaligtas ang nakatakdang oras sa isang umiikot na roster. Ang sesyon sa gabi, na walang biyahe sa magkabilang dulo, ang pagkakaiba ng pagdalo at ng pagbalak lamang.',
       'Ang laki ng lungsod ay hindi rin palaging katumbas ng dami ng pagpipilian. Marami sa serbisyong pangkaisipan dito ay nakatuon sa ibang wika, at ang listahan ng nagsasalita ng Tagalog na tumatanggap pa ng bagong kliyente ay mas maikli kaysa sa inaasahan ng karamihan.',
     ],
     faqs: [
@@ -169,14 +169,14 @@ export const TL_PLACES: Record<string, TagalogPlaceCopy> = {
   richmond: {
     blurb: 'Nakatuon ang lokal na serbisyo sa Cantonese at Mandarin; ibang lugar ang hinahanap ng mga nagsasalita ng Tagalog.',
     local: [
-      'May tunay na kapasidad ang Richmond sa counselling, at nakabuo ito — nang tama — sa paligid ng mga komunidad ng lungsod na nagsasalita ng Chinese. Para sa isang nagsasalita ng Tagalog, mas manipis ang larangan kaysa sa ipinapahiwatig ng laki ng lungsod, at karaniwang napupunta ang mga tao sa paghahanap sa Vancouver o Surrey.',
+      'May tunay na kapasidad ang Richmond sa counselling, at nakabuo ito, nang tama, sa paligid ng mga komunidad ng lungsod na nagsasalita ng Chinese. Para sa isang nagsasalita ng Tagalog, mas manipis ang larangan kaysa sa ipinapahiwatig ng laki ng lungsod, at karaniwang napupunta ang mga tao sa paghahanap sa Vancouver o Surrey.',
       'Malalaking employer din dito ang paliparan at ang daungan, na may nagbabagong roster. Ang sesyon na kaya mong dalhan mula sa bahay sa pagitan ng shift ay mas may halaga kaysa sa isang teoretikal na kayang puntahan.',
       'Ang pagtawid ng tulay para sa isang oras na sesyon ay dalawang oras na hindi mo binalak ibigay. Iyon ang unang bagay na nawawala kapag naging abala ang buwan, at iyon ang dahilan kung bakit maraming serye ng terapiya ang natitigil bago pa man ito magsimulang gumana.',
     ],
     faqs: [
-      { q: 'May mga counsellor ba sa Richmond na marunong mag-Tagalog?', a: 'Mayroon, at mas kakaunti kaysa sa ipinapahiwatig ng laki ng komunidad — karamihan sa serbisyong maraming wika sa Richmond ay nakatuon sa Cantonese at Mandarin. Tunay na lakas iyon ng lugar, at hindi iyon ang wikang kailangan ng lahat.' },
+      { q: 'May mga counsellor ba sa Richmond na marunong mag-Tagalog?', a: 'Mayroon, at mas kakaunti kaysa sa ipinapahiwatig ng laki ng komunidad, karamihan sa serbisyong maraming wika sa Richmond ay nakatuon sa Cantonese at Mandarin. Tunay na lakas iyon ng lugar, at hindi iyon ang wikang kailangan ng lahat.' },
       { q: 'Nagtatrabaho ako sa paliparan at nagbabago ang shift ko. Puwede ba?', a: 'Oo. Normal dito ang pag-book nang paunti-unti sa paligid ng roster, at walang gastos ang paghinto sa pagitan ng mga bloke.' },
-      { q: 'Ano ang nangyayari sa unang sesyon?', a: 'Labinlimang minuto muna, walang bayad, para lang malaman kung magkasundo kayo. Kung tuloy, ang unang buong sesyon ay tungkol sa kuwento mo at sa gusto mong maging kaibahan — hindi isang form na sasagutan.' },
+      { q: 'Ano ang nangyayari sa unang sesyon?', a: 'Labinlimang minuto muna, walang bayad, para lang malaman kung magkasundo kayo. Kung tuloy, ang unang buong sesyon ay tungkol sa kuwento mo at sa gusto mong maging kaibahan, hindi isang form na sasagutan.' },
     ],
   },
   burnaby: {
@@ -184,10 +184,10 @@ export const TL_PLACES: Record<string, TagalogPlaceCopy> = {
     local: [
       'Nasa gitna ng Metro Vancouver ang Burnaby, at ang ibig sabihin madalas ay malapit ka sa lahat maliban sa isang takdang oras na kasya sa araw mo. Mahaba ang listahan ng paghihintay, at ang oras na inaalok ay karaniwang hapon ng karaniwang araw.',
       'Kapag idinagdag mo ang kondisyon na dapat maintindihan ng counsellor ang Tagalog, lalong lumiliit ang bilang. Inaalis ng video ang parehong problema nang sabay: hindi mo kailangang pumili sa pagitan ng malapit at ng nakakaunawa.',
-      'Marami rin ang nakatira dito at nagtatrabaho sa ibang lungsod, kaya ang araw ay may dalawang biyahe na bago pa magdagdag ng pangatlo. Ang sesyon mula sa bahay ay hindi lamang kaginhawahan — ito ang pagkakaiba ng isang serye na natatapos at isang natigil sa gitna.',
+      'Marami rin ang nakatira dito at nagtatrabaho sa ibang lungsod, kaya ang araw ay may dalawang biyahe na bago pa magdagdag ng pangatlo. Ang sesyon mula sa bahay ay hindi lamang kaginhawahan, ito ang pagkakaiba ng isang serye na natatapos at isang natigil sa gitna.',
     ],
     faqs: [
-      { q: 'Nasa Burnaby ako pero nagtatrabaho sa ibang lungsod. May pagkakaiba ba?', a: 'Wala. Ang mahalaga ay kung saan ka nakaupo sa oras ng sesyon, at maaari iyong maging bahay, kotse, o isang tahimik na silid sa trabaho — hangga\'t ligtas at pribado ito para sa iyo.' },
+      { q: 'Nasa Burnaby ako pero nagtatrabaho sa ibang lungsod. May pagkakaiba ba?', a: 'Wala. Ang mahalaga ay kung saan ka nakaupo sa oras ng sesyon, at maaari iyong maging bahay, kotse, o isang tahimik na silid sa trabaho, hangga\'t ligtas at pribado ito para sa iyo.' },
       { q: 'Ano ang kailangan kong kagamitan?', a: 'Kahit anong device na may camera at koneksyon. Walang ini-install, at padadalhan ka ng link bago ang oras ninyo.' },
       { q: 'Sakop ba nito ang New Westminster?', a: 'Oo, sa parehong mga tuntunin. Walang binabago ang hangganan ng munisipyo sa bayad, oras, o pagkuha ng serbisyo.' },
     ],
@@ -196,8 +196,8 @@ export const TL_PLACES: Record<string, TagalogPlaceCopy> = {
     blurb: 'Isang lungsod na binibiyahe, at isang takdang oras na hindi na dapat maging isa pang biyahe.',
     local: [
       'Marami sa Coquitlam ang nagbibiyahe palabas ng lungsod para magtrabaho, at ang takdang oras na nangangailangan ng ikatlong biyahe sa isang araw ay ang unang nawawala kapag naging abala ang linggo.',
-      'Ang sesyon sa gabi na hindi na nangangailangan ng pag-alis sa bahay ay hindi lamang mas maginhawa — ito ang pagkakaiba ng isang serye ng terapiyang natatapos at isang natigil pagkatapos ng ikatlong sesyon.',
-      'Lumaki ang Tri-Cities nang mabilis at hindi sumabay ang bilang ng counsellor na tumatanggap ng bagong kliyente. Kapag mas tiyak ang hinahanap mo — isang partikular na paraan ng pagtatrabaho, o isang sesyon sa Tagalog — mas maikli pa ang lokal na listahan kaysa sa inaasahan.',
+      'Ang sesyon sa gabi na hindi na nangangailangan ng pag-alis sa bahay ay hindi lamang mas maginhawa, ito ang pagkakaiba ng isang serye ng terapiyang natatapos at isang natigil pagkatapos ng ikatlong sesyon.',
+      'Lumaki ang Tri-Cities nang mabilis at hindi sumabay ang bilang ng counsellor na tumatanggap ng bagong kliyente. Kapag mas tiyak ang hinahanap mo, isang partikular na paraan ng pagtatrabaho, o isang sesyon sa Tagalog, mas maikli pa ang lokal na listahan kaysa sa inaasahan.',
     ],
     faqs: [
       { q: 'Sakop ba nito ang Port Coquitlam at Port Moody?', a: 'Oo, at sa parehong mga tuntunin. Walang binabago ang hangganan ng munisipyo sa oras, bayad, o pagkuha ng serbisyo.' },
@@ -214,7 +214,7 @@ export const TL_PLACES: Record<string, TagalogPlaceCopy> = {
     ],
     faqs: [
       { q: 'Nasa Ladner ako, hindi North Delta. Mahalaga ba iyon?', a: 'Hindi. Pareho ang serbisyo sa buong Delta, at walang binabago ang lokasyon sa oras o bayad.' },
-      { q: 'Puwede ba akong magsimula habang naghihintay sa pampublikong serbisyo?', a: 'Oo, at karaniwan iyong magandang ideya. Katabing ruta ito, hindi kapalit — walang gastos ang manatili sa pila habang nagsisimula ka.' },
+      { q: 'Puwede ba akong magsimula habang naghihintay sa pampublikong serbisyo?', a: 'Oo, at karaniwan iyong magandang ideya. Katabing ruta ito, hindi kapalit, walang gastos ang manatili sa pila habang nagsisimula ka.' },
       { q: 'Makakakuha ba ako ng resibo para sa insurance?', a: 'Oo. May resibong may numero ng rehistro pagkatapos ng bawat sesyon, na siyang hinihingi ng karamihan sa mga extended health plan.' },
     ],
   },
@@ -222,7 +222,7 @@ export const TL_PLACES: Record<string, TagalogPlaceCopy> = {
     blurb: 'Lumalagong lugar na hindi kasing bilis lumago ang bilang ng counsellor.',
     local: [
       'Mabilis lumago ang Langley, at hindi sumabay ang bilang ng counsellor na tumatanggap ng bagong kliyente. Ang resulta ay isang listahan ng paghihintay na mas mahaba kaysa sa inaasahan ng laki ng lugar.',
-      'Kapag ang hinahanap mo ay tiyak — isang partikular na paraan ng pagtatrabaho, o isang sesyon sa Tagalog — mas maikli pa ang lokal na listahan. Pinapalawak ng video ang larangan sa buong lalawigan nang hindi nagdaragdag ng biyahe.',
+      'Kapag ang hinahanap mo ay tiyak, isang partikular na paraan ng pagtatrabaho, o isang sesyon sa Tagalog, mas maikli pa ang lokal na listahan. Pinapalawak ng video ang larangan sa buong lalawigan nang hindi nagdaragdag ng biyahe.',
       'Malawak din ang Langley: magkaibang distansya ang Township at ang City sa halos lahat, at ang isang harapang sesyon ay madalas nangangahulugan ng biyahe pakanluran sa oras na hindi gumagalaw ang trapiko. Ang oras na iyon ang unang nagiging dahilan para hindi na ituloy.',
     ],
     faqs: [
@@ -235,13 +235,13 @@ export const TL_PLACES: Record<string, TagalogPlaceCopy> = {
     blurb: 'Isang maliit na lugar na may maliit na listahan, at isang praktis na hindi nakasalalay sa laki nito.',
     local: [
       'Maliit ang White Rock at South Surrey, at maliit din ang listahan ng mga counsellor na tumatanggap ng bagong kliyente. Kapag isinama mo ang wika, madalas walang natitira.',
-      'Ang isang praktis na buong online ay hindi nakasalalay sa laki ng bayan. Ang tanong ay hindi kung sino ang malapit, kundi kung sino ang tama — at iyon ang tanong na dapat sagutin ng isang libreng konsultasyon.',
+      'Ang isang praktis na buong online ay hindi nakasalalay sa laki ng bayan. Ang tanong ay hindi kung sino ang malapit, kundi kung sino ang tama, at iyon ang tanong na dapat sagutin ng isang libreng konsultasyon.',
       'May kasama ring bagay ang maliit na bayan na bihirang banggitin: magkakakilala ang mga tao. Ang pagpasok sa isang lokal na klinika ay may bigat na makatuwirang iwasan, at walang gusaling mapapasukan sa isang praktis na nasa video lamang.',
     ],
     faqs: [
       { q: 'Sakop ba nito ang South Surrey?', a: 'Oo, sa parehong mga tuntunin. Iisang lugar ito sa praktika, at walang binabago ang hangganan sa bayad o oras.' },
       { q: 'Makikita ba ako ng iba na pumapasok sa isang klinika?', a: 'Wala kang papasukang klinika. Nasa video ang lahat ng sesyon, at wala kang kailangang puntahan.' },
-      { q: 'Puwede ba ang sesyon sa Tagalog dito?', a: 'Oo. Hindi nakadepende sa lokasyon ang wika — pareho ang magagamit saanman sa lalawigan.' },
+      { q: 'Puwede ba ang sesyon sa Tagalog dito?', a: 'Oo. Hindi nakadepende sa lokasyon ang wika, pareho ang magagamit saanman sa lalawigan.' },
     ],
   },
   abbotsford: {
@@ -249,7 +249,7 @@ export const TL_PLACES: Record<string, TagalogPlaceCopy> = {
     local: [
       'Sapat ang layo ng Abbotsford mula sa Lower Mainland para mangahulugan ng tunay na pagmamaneho ang isang harapang pagpapatingin, at sapat ang lapit para sabihin sa iyong gawin pa rin. Ang isang oras sa bawat direksyon sa paligid ng trabaho ang dahilan kung bakit maraming counselling dito ang natatapos pagkatapos ng ikatlong sesyon.',
       'Sumusunod din ang malaking bahagi ng trabaho sa lambak sa panahon at shift kaysa sa oras ng opisina. Ang pag-book nang paunti-unti na may puwang sa pagitan ay karaniwang paraan at hindi kompromiso.',
-      'Mahalaga rin dito ang pagkapribado sa paraang bihirang pag-usapan. Sa lugar na magkakakilala ang mga pamilya, ang makitang pumapasok sa isang opisina ng counselling ay may bigat na makatuwirang iwasan — at nawawala nang buo ang tanong kapag walang gusaling mapapasukan.',
+      'Mahalaga rin dito ang pagkapribado sa paraang bihirang pag-usapan. Sa lugar na magkakakilala ang mga pamilya, ang makitang pumapasok sa isang opisina ng counselling ay may bigat na makatuwirang iwasan, at nawawala nang buo ang tanong kapag walang gusaling mapapasukan.',
     ],
     faqs: [
       { q: 'Sakop ba nito ang Mission at ang silangang lambak?', a: 'Oo, sa parehong mga tuntunin, at walang parusa sa distansya para sa mga nasa mas malayo.' },
@@ -260,7 +260,7 @@ export const TL_PLACES: Record<string, TagalogPlaceCopy> = {
   chilliwack: {
     blurb: 'Isang highway na hindi laging maaasahan, at isang sesyon na hindi nakadepende rito.',
     local: [
-      'Ang biyahe pakanluran mula sa Chilliwack ay isang plano hanggang sa hindi na ito plano — ang panahon, ang pagsasara, ang isang aksidente sa maling bahagi ng highway. Ang takdang oras na nakasalalay sa isang kalsada ay takdang oras na kanselado nang paulit-ulit.',
+      'Ang biyahe pakanluran mula sa Chilliwack ay isang plano hanggang sa hindi na ito plano: ang panahon, ang pagsasara, ang isang aksidente sa maling bahagi ng highway. Ang takdang oras na nakasalalay sa isang kalsada ay takdang oras na kanselado nang paulit-ulit.',
       'Walang binabago ang panahon sa isang sesyon sa video. Iyon ang buong pagkakaiba para sa isang taong nakatira sa silangang bahagi ng lambak.',
       'Maikli rin ang lokal na listahan. Ang mga espesyalistang serbisyo ay nakatuon pakanluran, at ang karaniwang sagot para sa Chilliwack ay isang biyaheng hindi kayang ulitin linggu-linggo. Inaalis ng video ang biyahe sa tanong nang buo.',
     ],
@@ -286,14 +286,14 @@ export const TL_PLACES: Record<string, TagalogPlaceCopy> = {
   victoria: {
     blurb: 'Isang lungsod na may sariling serbisyo, at isang wikang mahirap pa ring hanapin dito.',
     local: [
-      'May sariling mga counsellor ang Victoria, at para sa marami sapat na iyon. Kapag mas tiyak ang hinahanap mo — isang partikular na paraan ng pagtatrabaho, o isang sesyon sa Tagalog — mas maikli ang listahan kaysa sa inaasahan ng laki ng lungsod.',
+      'May sariling mga counsellor ang Victoria, at para sa marami sapat na iyon. Kapag mas tiyak ang hinahanap mo, isang partikular na paraan ng pagtatrabaho, o isang sesyon sa Tagalog, mas maikli ang listahan kaysa sa inaasahan ng laki ng lungsod.',
       'Ang video ang tanging makatotohanang ruta para sa maraming naninirahan sa isla, at hindi ito kaginhawahan lamang kundi ang pagkakaiba ng pagkakaroon ng pagpipilian at ng wala.',
       'Malaki rin ang bahagi ng trabaho dito na nasa pampublikong serbisyo at sa pangangalaga, na may sariling iskedyul. Ang sesyon na kasya sa gabi, nang walang biyahe sa magkabilang dulo, ang kadalasang natutuloy.',
     ],
     faqs: [
       { q: 'Sakop ba nito ang Saanich at Sooke?', a: 'Oo, sa parehong mga tuntunin, at walang parusa sa distansya para sa mga nasa labas ng sentro.' },
       { q: 'May mga nagsasalita ba ng Tagalog na counsellor sa isla?', a: 'Kakaunti, at karamihan ay nasa Lower Mainland. Para sa marami rito, ang video ang tanging makatotohanang paraan para makakuha ng sesyon sa sariling wika.' },
-      { q: 'Puwede ba akong magpalit ng counsellor kung hindi kami magkasundo?', a: 'Oo, at hindi iyon dapat ikahiya. Para mismo doon ang libreng konsultasyon — para malaman ito bago ka magpasya sa kahit ano.' },
+      { q: 'Puwede ba akong magpalit ng counsellor kung hindi kami magkasundo?', a: 'Oo, at hindi iyon dapat ikahiya. Para mismo doon ang libreng konsultasyon, para malaman ito bago ka magpasya sa kahit ano.' },
     ],
   },
   kelowna: {
@@ -301,7 +301,7 @@ export const TL_PLACES: Record<string, TagalogPlaceCopy> = {
     local: [
       'Mabilis lumago ang Kelowna at ang Central Okanagan, at hindi sumabay ang bilang ng counsellor. Kapag idinagdag mo ang wika sa hinahanap, kakaunti ang natitira sa loob ng makatuwirang biyahe.',
       'Hindi ito problemang malulutas ng paghihintay. Ang video ang naglilipat ng tanong mula sa kung sino ang nandito patungo sa kung sino ang tama para sa iyo.',
-      'Marami rin sa trabaho dito ay sumusunod sa panahon — mas mabigat ang tag-init kaysa sa taglamig, at iba ang hitsura ng linggo depende sa buwan. Ang pag-book nang paunti-unti, na may puwang kapag mataas ang trabaho, ay karaniwang paraan dito at hindi kompromiso.',
+      'Marami rin sa trabaho dito ay sumusunod sa panahon, mas mabigat ang tag-init kaysa sa taglamig, at iba ang hitsura ng linggo depende sa buwan. Ang pag-book nang paunti-unti, na may puwang kapag mataas ang trabaho, ay karaniwang paraan dito at hindi kompromiso.',
     ],
     faqs: [
       { q: 'Sakop ba nito ang West Kelowna at Vernon?', a: 'Oo, sa parehong mga tuntunin. Walang parusa sa distansya sa loob ng lalawigan.' },
@@ -314,7 +314,7 @@ export const TL_PLACES: Record<string, TagalogPlaceCopy> = {
     local: [
       'Ang mga espesyalistang serbisyo ay nakatuon sa Lower Mainland, at ang tradisyonal na sagot para sa Kamloops ay isang mahabang biyahe. Kakaunti ang taong kayang gawin iyon linggu-linggo, at kakaunti ang serye ng terapiyang nakakaligtas dito.',
       'Sumusunod din ang malaking bahagi ng trabaho dito sa shift at panahon. Ang pag-book sa paligid ng iskedyul, kaysa sa pagpilit ng iskedyul sa paligid ng takdang oras, ang gumagana.',
-      'Ang bilang ng counsellor dito ay maliit at mabilis mapuno, at mas maliit pa kapag may kondisyon ka sa wika. Hindi ito reklamo tungkol sa lugar — ito ang aritmetika nito, at hindi ito nagbabago sa paghihintay.',
+      'Ang bilang ng counsellor dito ay maliit at mabilis mapuno, at mas maliit pa kapag may kondisyon ka sa wika. Hindi ito reklamo tungkol sa lugar, ito ang aritmetika nito, at hindi ito nagbabago sa paghihintay.',
     ],
     faqs: [
       { q: 'Sakop ba nito ang Merritt at Salmon Arm?', a: 'Oo, sa parehong mga tuntunin, at walang parusa sa distansya para sa mga nasa mas malayo.' },
@@ -325,34 +325,34 @@ export const TL_PLACES: Record<string, TagalogPlaceCopy> = {
   'prince-george': {
     blurb: 'Ang pinakamalapit na espesyalista ay maaaring nasa walong oras ang layo. Ang video ang tunay na ruta.',
     local: [
-      'Kakaunti ang counsellor sa Prince George, mabilis mapuno ang mga tumatanggap, at ang paghihintay para sa espesyalista ay mas mahaba kaysa halos saanman sa lalawigan. Hindi ito reklamo tungkol sa lugar — ito ang aritmetika nito.',
+      'Kakaunti ang counsellor sa Prince George, mabilis mapuno ang mga tumatanggap, at ang paghihintay para sa espesyalista ay mas mahaba kaysa halos saanman sa lalawigan. Hindi ito reklamo tungkol sa lugar, ito ang aritmetika nito.',
       'Kapag idinagdag mo ang kondisyon ng wika, hindi lamang lumiliit ang lokal na bilang, nawawala ito. Para sa halos buong Hilagang BC, ang video ay hindi kaginhawahan kundi ang tanging makatotohanang ruta.',
       'Mahaba rin ang taglamig dito at totoo ang epekto nito sa kalooban ng marami. Ang serye ng sesyon na hindi nakadepende sa kalsada o sa panahon ay ang uri lamang na natatapos sa mga buwang iyon.',
     ],
     faqs: [
       { q: 'Sakop ba nito ang Quesnel, Vanderhoof at Mackenzie?', a: 'Oo, sa parehong mga tuntunin. Walang parusa sa distansya sa loob ng lalawigan.' },
-      { q: 'Dapat ba akong manatili sa pampublikong listahan?', a: 'Karaniwan, oo. Katabing ruta ito at hindi kapalit — walang gastos ang manatili sa pila habang nagsisimula ka sa ibang lugar.' },
+      { q: 'Dapat ba akong manatili sa pampublikong listahan?', a: 'Karaniwan, oo. Katabing ruta ito at hindi kapalit, walang gastos ang manatili sa pila habang nagsisimula ka sa ibang lugar.' },
       { q: 'Puwede bang sa Tagalog ang buong sesyon dito?', a: 'Oo. Walang kinalaman ang lokasyon mo sa kung anong wika ang magagamit sa sesyon.' },
     ],
   },
   calgary: {
     blurb: 'Isang lungsod na mahaba ang oras ng trabaho at mabilis gumalaw, na may listahan ng paghihintay na hindi.',
     local: [
-      'May mga counsellor ang Calgary. Ang mas kakaunti ay ang mga oras na talagang pinapasok ng lungsod — marami sa Calgary ang nasa rotation, on-call, o sumusunod sa iskedyul na itinakda sa ibang lugar. Ang takdang oras na nag-aakalang libre ka ng hapon ng karaniwang araw ay takdang oras na dalawang beses mong makakaligtaan bago ka tumigil sa pag-book.',
-      'May pangalawang pattern ang Calgary: ang pag-ikot ng industriya. Ang pagkabalisa na kasama ng isang mahinang taon ay hindi katulad ng anxiety disorder — makatuwirang tugon ito sa isang hindi tiyak na taon, at ibang trabaho ang kailangan nito.',
+      'May mga counsellor ang Calgary. Ang mas kakaunti ay ang mga oras na talagang pinapasok ng lungsod: marami sa Calgary ang nasa rotation, on-call, o sumusunod sa iskedyul na itinakda sa ibang lugar. Ang takdang oras na nag-aakalang libre ka ng hapon ng karaniwang araw ay takdang oras na dalawang beses mong makakaligtaan bago ka tumigil sa pag-book.',
+      'May pangalawang pattern ang Calgary: ang pag-ikot ng industriya. Ang pagkabalisa na kasama ng isang mahinang taon ay hindi katulad ng anxiety disorder, makatuwirang tugon ito sa isang hindi tiyak na taon, at ibang trabaho ang kailangan nito.',
       'Malaki rin ang komunidad ng Pilipino dito, karamihan sa pangangalaga at sa serbisyo, at kakaunti ang counselling na naibibigay sa Tagalog. Ang resulta ay pamilyar: ang kaanak na pinakamagaling mag-Ingles ang nagiging tagasalin, na hindi umuubra sa terapiya.',
     ],
     faqs: [
       { q: 'Anong time zone ang mga oras ng sesyon?', a: 'Ang mga oras na ipinapakita sa iyo ay Mountain Time. Ang sesyon ay pinapatakbo mula sa British Columbia, isang oras ang pagkakaiba, at inaayos iyon sa dulo ng booking kaya walang kailangang i-convert.' },
-      { q: 'Rehistrado ba ang counsellor sa Alberta?', a: 'Hindi regulated na propesyon ang counselling therapy sa Alberta, kaya walang panlalawigang kolehiyo na maaaring salihan. Ang masusuri ay ang sertipikasyon: Canadian Certified Counsellor sa CCPA, at Registered Clinical Counsellor sa BCACC — pareho silang pampublikong rehistro at nakalista ang mga numero sa pahinang ito.' },
+      { q: 'Rehistrado ba ang counsellor sa Alberta?', a: 'Hindi regulated na propesyon ang counselling therapy sa Alberta, kaya walang panlalawigang kolehiyo na maaaring salihan. Ang masusuri ay ang sertipikasyon: Canadian Certified Counsellor sa CCPA, at Registered Clinical Counsellor sa BCACC, pareho silang pampublikong rehistro at nakalista ang mga numero sa pahinang ito.' },
       { q: 'Sagot ba ito ng Alberta Health Care?', a: 'Hindi. Walang saklaw ang AHCIP sa pribadong counselling. Marami sa mga extended health plan dito ang nagbabalik-bayad sa isang Canadian Certified Counsellor, kaya sulit itanong sa insurer bago magsimula.' },
     ],
   },
   edmonton: {
     blurb: 'Isang matagal nang komunidad, at isang listahan ng paghihintay na hindi sumasabay.',
     local: [
-      'May malaki at matagal nang komunidad ng Pilipino ang Edmonton, karamihan sa healthcare at care work — mga trabahong sumusunod sa shift at hindi sa oras ng opisina. Ang nakatakdang oras sa hapon ay ang unang bagay na nawawala sa isang umiikot na roster.',
-      'Tunay ang mga pampublikong serbisyo dito at may sariling listahan ng paghihintay. Ang pribadong counselling na kasabay ng pampublikong paghihintay ay isang katabing ruta, hindi kapalit nito — at walang gastos ang manatili sa pila habang nagsisimula ka sa ibang lugar.',
+      'May malaki at matagal nang komunidad ng Pilipino ang Edmonton, karamihan sa healthcare at care work, mga trabahong sumusunod sa shift at hindi sa oras ng opisina. Ang nakatakdang oras sa hapon ay ang unang bagay na nawawala sa isang umiikot na roster.',
+      'Tunay ang mga pampublikong serbisyo dito at may sariling listahan ng paghihintay. Ang pribadong counselling na kasabay ng pampublikong paghihintay ay isang katabing ruta, hindi kapalit nito, at walang gastos ang manatili sa pila habang nagsisimula ka sa ibang lugar.',
       'Mahaba at mabigat ang taglamig dito, at totoo ang epekto nito. Ang isang serye ng sesyon na hindi nangangailangan ng pag-alis sa bahay sa gabi ng Enero ay ang uri lamang na natutuloy hanggang sa dulo.',
     ],
     faqs: [

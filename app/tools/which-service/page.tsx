@@ -45,7 +45,7 @@ export default function Page() {
             Five questions, weighted so urgency wins. If an answer indicates you are not safe,
             the result says so and points at{' '}
             <Link href="/resources/bc-crisis-and-support-directory">crisis services</Link>{' '}
-            rather than a service page — a website should not be triaging that, and counselling
+            rather than a service page. A website should not be triaging that, and counselling
             is the wrong speed for it.
           </p>
           <p>
@@ -63,7 +63,7 @@ export default function Page() {
           <p>
             What it cannot do is assess anything. It has no validation behind it, it does not know
             your history, and five questions cannot outperform a conversation. Treat it as a
-            signpost — a <Link href="/book">free 15-minute consultation</Link> costs nothing and
+            signpost, a <Link href="/book">free 15-minute consultation</Link> costs nothing and
             will get you a better answer. If you would rather read first,{' '}
             <Link href="/guides/signs-it-might-be-time-for-therapy">signs it might be time for therapy</Link>{' '}
             covers the same ground at length.

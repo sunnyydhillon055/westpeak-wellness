@@ -11,7 +11,7 @@ import { ogBase } from '@/lib/og-meta';
 export const metadata: Metadata = {
   title: { absolute: 'Counselling Terms Glossary | Westpeak Wellness' },
   description:
-    'Plain-language definitions of the therapy, mental-health and BC coverage terms you will meet when looking for a counsellor — without the jargon.',
+    'Plain-language definitions of the therapy, mental-health and BC coverage terms you will meet when looking for a counsellor, without the jargon.',
   alternates: { canonical: `${site.domain}/glossary` },
   openGraph: { ...ogBase(`/glossary`),
     type: 'article',
@@ -68,7 +68,7 @@ export default function GlossaryPage() {
           <h1 style={{ maxWidth: '13.24em' }}>Counselling terms, defined plainly</h1>
           <p className="lede">
             Therapy has a vocabulary problem. Referral letters, benefits booklets and therapist
-            websites all use words that carry precise meanings nobody explains — so here they are,
+            websites all use words that carry precise meanings nobody explains, so here they are,
             in the plainest language they will survive.
           </p>
           <div className="btn-row" style={{ marginTop: 22 }}>
@@ -93,7 +93,7 @@ export default function GlossaryPage() {
 
           <div className="crisis" style={{ margin: '28px 0 0' }}>
             <p style={{ margin: 0 }}>
-              Definitions describe concepts — none of them assesses or diagnoses anyone. If a term
+              Definitions describe concepts, none of them assesses or diagnoses anyone. If a term
               here matches something you are living with,{' '}
               <Link href={site.bookingPath}>a free 15-minute consultation</Link> is a better next
               step than more reading.
@@ -141,7 +141,7 @@ export default function GlossaryPage() {
         <div className="container prose">
           <h2>A note on the words that are also diagnoses</h2>
           <p>
-            Several entries above — depression, post-traumatic stress, social anxiety — name both an
+            Several entries above: depression, post-traumatic stress, social anxiety: name both an
             everyday experience and a clinical diagnosis, and the two are not interchangeable.
             Recognising yourself in a definition is a reason to talk to someone qualified, not a
             reason to conclude anything. A Registered Clinical Counsellor does not diagnose; where a

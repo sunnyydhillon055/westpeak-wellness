@@ -52,7 +52,7 @@ export const TAGALOG = {
 
   /* 44 characters. The previous line ran to 73 once the site suffix was
      appended, which the SEO gate rejects. */
-  metaTitle: 'Counselling sa Tagalog — Camille Granda',
+  metaTitle: 'Counselling sa Tagalog, Camille Granda',
   metaDescription:
     'Counselling sa Tagalog o Ingles kasama si Camille Granda, RCC, CCC. Online sa buong British Columbia. Libreng 15 minutong konsultasyon.',
 
@@ -64,15 +64,15 @@ export const TAGALOG = {
 
   intro: [
     'Si Camille Granda ay isang Registered Clinical Counsellor (RCC) at Canadian Certified Counsellor (CCC). Nagtatrabaho siya online sa buong British Columbia, kasama ang mga matatanda at kabataang matatanda na matagal nang kinakaya ang lahat nang mag-isa.',
-    'Ang mga sesyon ay magkatuwang at praktikal. Titingnan natin kung ano talaga ang nagpapatuloy sa suliranin — ang iniisip, ang nararamdaman, at ang mga kilos sa ilalim nito — at bubuo tayo ng mga kasanayang magagamit mo, hindi lamang pang-unawa na maiiwan sa loob ng silid.',
+    'Ang mga sesyon ay magkatuwang at praktikal. Titingnan natin kung ano talaga ang nagpapatuloy sa suliranin: ang iniisip, ang nararamdaman, at ang mga kilos sa ilalim nito, at bubuo tayo ng mga kasanayang magagamit mo, hindi lamang pang-unawa na maiiwan sa loob ng silid.',
     'Walang kailangang ipaliwanag mula sa simula tungkol sa pamilya, kultura, o inaasahan ng iba. Iyon ang bahagi ng konteksto na dala na niya.',
   ],
 
   focusHeading: 'Mga larangan ng espesyalisasyon',
   focus: [
-    'Trauma — pagproseso ng mahihirap o labis na karanasan habang bumubuo ng kaligtasan, regulasyon, at higit na kontrol.',
-    'Pagkabalisa at talamak na stress — ang mga huwarang nasa ilalim ng high-functioning anxiety, perfectionism, at pagkaubos ng damdamin.',
-    'Pagluluksa, pagkawala, at malalaking pagbabago sa buhay — kabilang ang mga pagbabagong hindi inaasahan.',
+    'Trauma: pagproseso ng mahihirap o labis na karanasan habang bumubuo ng kaligtasan, regulasyon, at higit na kontrol.',
+    'Pagkabalisa at talamak na stress: ang mga huwarang nasa ilalim ng high-functioning anxiety, perfectionism, at pagkaubos ng damdamin.',
+    'Pagluluksa, pagkawala, at malalaking pagbabago sa buhay, kabilang ang mga pagbabagong hindi inaasahan.',
   ],
 
   suitsHeading: 'Maaaring ikaw ay',

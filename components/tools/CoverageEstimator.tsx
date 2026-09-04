@@ -44,7 +44,7 @@ export default function CoverageEstimator() {
               aria-pressed={kind === k}
               onClick={() => setKind(k)}
             >
-              {k === 'individual' ? 'Individual' : 'Couples'} — ${FEES[k]}
+              {k === 'individual' ? 'Individual' : 'Couples'}, ${FEES[k]}
             </button>
           ))}
         </div>
@@ -62,7 +62,7 @@ export default function CoverageEstimator() {
             instead. Asking only about the RCC sent an Alberta reader to check
             the wrong word. */}
         <p className="quiz-help">
-          This is the question that catches people out — a plan can cover a psychologist and
+          This is the question that catches people out. A plan can cover a psychologist and
           neither of the above. Worth one call before booking anything. Ask about both: plans
           differ on which designations they name, and outside BC it is usually the CCC that
           appears.
@@ -134,7 +134,7 @@ export default function CoverageEstimator() {
                 )}
               </p>
               <p>
-                You pay at the time of the session and claim it back — this practice does not
+                You pay at the time of the session and claim it back. This practice does not
                 direct-bill, so the money leaves your account first and returns after.
               </p>
             </>
@@ -144,7 +144,7 @@ export default function CoverageEstimator() {
               <h2>${fee} per session, and worth checking the alternatives first</h2>
               <p>
                 Before paying privately it is worth ruling out the free entitlements a lot of
-                people already have and never use — an EFAP through work, or a student plan.
+                people already have and never use, an EFAP through work, or a student plan.
               </p>
             </>
           ) : (

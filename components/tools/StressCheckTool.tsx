@@ -13,11 +13,11 @@ import { STRESS_CHECK } from '@/lib/tools';
  * words is both honest and more useful for deciding whether to talk to someone. */
 const REFLECTIONS: Record<string, string> = {
   arousal:
-    'Several answers point at a nervous system that has not been getting the chance to settle — sleep that will not come, a body that stays tense, a mind that replays things. That is a recognisable pattern, and it responds well to being worked on directly.',
+    'Several answers point at a nervous system that has not been getting the chance to settle: sleep that will not come, a body that stays tense, a mind that replays things. That is a recognisable pattern, and it responds well to being worked on directly.',
   low:
     'Several answers describe flatness rather than distress: less enjoyment, more weight, less motivation. That is worth taking as seriously as anxiety, and it tends to be quieter about announcing itself.',
   load:
-    'What stands out is load rather than any single symptom — the sense that the current arrangement is not sustainable for another six months. That is useful information on its own.',
+    'What stands out is load rather than any single symptom. The sense that the current arrangement is not sustainable for another six months. That is useful information on its own.',
   self:
     'One answer stands out: when things go wrong, the explanation you reach for is that it is your fault. That habit is one of the more changeable things in this list.',
   seen:
@@ -43,7 +43,7 @@ export default function StressCheckTool() {
             ) : (
               <p>
                 Nothing in your answers points to a particular pattern, which is worth knowing
-                too. If you came here anyway, that impulse is worth paying attention to — people
+                too. If you came here anyway, that impulse is worth paying attention to, people
                 rarely look up counselling tools at random.
               </p>
             )}
@@ -53,7 +53,7 @@ export default function StressCheckTool() {
               reasonable thing to bring to a free 15-minute consultation, and there is no
               obligation attached to one.
             </p>
-            <ResultCta tool="stress-check" label="Talk it through — free 15 minutes" />
+            <ResultCta tool="stress-check" label="Talk it through, free 15 minutes" />
             <div className="crisis" style={{ marginTop: 22 }}>
               <p style={{ margin: 0 }}>
                 <strong>If things are worse than this page can hold:</strong> call or text{' '}

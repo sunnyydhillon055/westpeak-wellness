@@ -44,7 +44,7 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
         <div className="container">
           <p className="eyebrow">Fees & insurance</p>
           <h1>Clear, fair, accessible.</h1>
-          <p className="lede">Session prices and counselling rates in full — no hidden fees, no packages, and no surprises on the invoice.</p>
+          <p className="lede">Session prices and counselling rates in full, no hidden fees, no packages, and no surprises on the invoice.</p>
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a Free Consultation</Link>
             <Link className="btn btn--ghost" href="/resources/bc-extended-health-coverage-for-counselling">Check your coverage</Link>
@@ -92,8 +92,8 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
               guidance, and they are in line with what most RCCs across the province charge.
             </p>
             <p>
-              For comparison, a registered psychologist in BC typically charges considerably more — often
-              close to double — because of a longer training path and a broader scope that includes formal
+              For comparison, a registered psychologist in BC typically charges considerably more, often
+              close to double, because of a longer training path and a broader scope that includes formal
               assessment. That difference matters most if your benefit cap is limited: the same annual
               maximum buys roughly twice as many sessions here.
             </p>
@@ -135,7 +135,7 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
               takes about four minutes and is worth doing before paying anyone, here included.
             </p>
             <p>
-              On frequency and length — the two things that actually determine total cost —{' '}
+              On frequency and length. The two things that actually determine total cost, {' '}
               <Link href="/compare/weekly-vs-biweekly-sessions">weekly vs biweekly sessions</Link>{' '}
               and <Link href="/guides/how-long-does-therapy-take">how long therapy takes</Link>{' '}
               are more useful than the per-session number on its own. And if what you need is a
@@ -156,7 +156,7 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
           <h2>How coverage works</h2>
             <p>
               BC&rsquo;s Medical Services Plan does not cover private counselling, whatever the
-              practitioner&rsquo;s designation — the reasons are explained in the{' '}
+              practitioner&rsquo;s designation. The reasons are explained in the{' '}
               <Link href="/resources/msp-vs-extended-health">comparison of MSP and extended health</Link>.
               What most people use instead is an extended health plan through work.
             </p>
@@ -164,7 +164,7 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
               The critical detail: plans list <em>professions</em>, not services. Some cover
               &ldquo;Registered Clinical Counsellor&rdquo; and some list only psychologists and social
               workers, in which case sessions here are not reimbursable no matter how clearly they are
-              counselling. Check that wording before your first session — it is the single most common
+              counselling. Check that wording before your first session. It is the single most common
               source of unpleasant surprises, and the{' '}
               <Link href="/resources/bc-extended-health-coverage-for-counselling">extended health coverage page</Link>{' '}
               sets out exactly what to look for and what a claimable receipt must contain.
@@ -295,7 +295,7 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
                    * the wrong answer was the one most likely to be shown.
                    *
                    * Keep this wording and lib/faq.ts saying the same thing. */
-                  text: 'By credit card — Visa, Mastercard or Amex — taken at the time you book, not at the end of the session. Cancel with at least 24 hours notice and the fee is refunded in full.',
+                  text: 'By credit card: Visa, Mastercard or Amex, taken at the time you book, not at the end of the session. Cancel with at least 24 hours notice and the fee is refunded in full.',
                 },
               },
               {

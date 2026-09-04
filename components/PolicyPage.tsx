@@ -60,7 +60,7 @@ export default function PolicyPage({ doc }: { doc: Policy }) {
     doc.figure2 ? <Figure key="fig2" name={doc.figure2} /> : null,
     <div className="crisis" key="cta" style={{ margin: '32px 0' }}>
       <p style={{ margin: 0 }}>
-        Questions about any of this are fair game before you commit to anything —{' '}
+        Questions about any of this are fair game before you commit to anything, {' '}
         <Link href={site.bookingPath}>ask them in a free 15-minute consultation</Link>.
       </p>
     </div>,
@@ -105,7 +105,7 @@ export default function PolicyPage({ doc }: { doc: Policy }) {
                 <ul className="checklist" style={{ margin: '20px 0 28px' }}>
                   {s.list.map((item) => (
                     <li key={item.label}>
-                      <strong>{item.label}</strong> — {rich(item.detail)}
+                      <strong>{item.label}</strong>, {rich(item.detail)}
                     </li>
                   ))}
                 </ul>

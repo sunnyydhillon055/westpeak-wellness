@@ -67,7 +67,7 @@ export default function MessageSentPage() {
                 Check spam if it has not appeared within a few minutes.
               </li>
               <li>
-                <strong>The reply will be a real answer</strong> — including, where it is the
+                <strong>The reply will be a real answer</strong>, including, where it is the
                 honest one, that this practice is not the right fit and where to look instead.
                 That happens reasonably often and it is a good outcome rather than a failed one.
               </li>
@@ -95,7 +95,7 @@ export default function MessageSentPage() {
             <h2>If you need something before then</h2>
             <p>
               A reply within one business day is not fast enough for an emergency, and this
-              practice does not do crisis work — sessions are scheduled and there is no on-call
+              practice does not do crisis work, sessions are scheduled and there is no on-call
               line. If you are in immediate danger call <strong>911</strong>. For urgent
               mental-health support in BC at any hour, call or text <strong>9-8-8</strong>, or
               call <strong>310-6789</strong>.{' '}

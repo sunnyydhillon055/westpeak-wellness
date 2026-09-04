@@ -63,7 +63,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   /* Under the 60 the SEO gate enforces. With the post-nominals appended this
      ran 61-66 on the longer city names and the gate failed the build, which is
      what it is for. The name survives; the letters are on the page itself. */
-  const title = `Counselling sa Tagalog sa ${raw.city} — ${p.name}`;
+  const title = `Counselling sa Tagalog sa ${raw.city} | ${p.name}`;
   const description = `Mga sesyon sa Tagalog o Ingles kasama si ${p.name}, ${p.postNominals}, para sa ${raw.city}. Trauma, pagkabalisa, pagluluksa. Libreng 15 minutong konsultasyon.`;
 
   return {
@@ -156,7 +156,7 @@ export default function TagalogPlacePage({ params }: { params: Params }) {
             <div className="portrait">
               <Image
                 src={p.photos.portrait.src}
-                alt={`${p.name}, ${p.postNominals} — counselling sa Tagalog para sa ${raw.city}`}
+                alt={`${p.name}, ${p.postNominals}, counselling sa Tagalog para sa ${raw.city}`}
                 width={p.photos.portrait.width}
                 height={p.photos.portrait.height}
                 sizes="(max-width: 860px) 340px, 420px"
@@ -214,7 +214,7 @@ export default function TagalogPlacePage({ params }: { params: Params }) {
             <ul className="checklist">
               {t.access.map((a) => (
                 <li key={a.label}>
-                  <strong>{a.label}</strong> — {a.detail}
+                  <strong>{a.label}</strong>, {a.detail}
                 </li>
               ))}
             </ul>
