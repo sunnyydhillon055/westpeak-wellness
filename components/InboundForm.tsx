@@ -46,7 +46,7 @@ const COPY = {
     button: 'Add me to the waitlist',
     doneTitle: 'Your availability is noted.',
     doneBody:
-      'This is a real waitlist rather than a formality, when something opens that fits, you will hear directly. A confirmation is in your inbox.',
+      'This is a real waitlist rather than a formality. When something opens that fits, you will hear directly. A confirmation is in your inbox.',
     event: 'waitlist_submit',
   },
 } as const;

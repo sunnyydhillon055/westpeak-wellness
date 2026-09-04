@@ -503,8 +503,8 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
                     {i > 0 ? ' · ' : ''}
                     {c.name} <strong>{c.number}</strong>
                   </span>
-                ))}
-                . In immediate danger, call 911.
+                ))}.
+                In immediate danger, call 911.
               </p>
             </div>
           )}

@@ -85,8 +85,8 @@ export default function CompareHub() {
             <h2>Where to start, depending on what you are stuck on</h2>
             <p>
               If you do not yet know who you are supposed to be looking for, start with{' '}
-              <Link href="/compare/rcc-vs-psychologist-vs-social-worker-bc">RCC vs psychologist vs social worker</Link>{' '}
-. It is the decision that most changes what you can actually get, since only some of
+              <Link href="/compare/rcc-vs-psychologist-vs-social-worker-bc">RCC vs psychologist vs social worker</Link>.{' '}
+It is the decision that most changes what you can actually get, since only some of
               those designations can diagnose or assess. If someone has suggested a coach, or you are
               weighing one, <Link href="/compare/therapy-vs-coaching">therapy vs coaching</Link> sets
               out the accountability gap the two job titles conceal.

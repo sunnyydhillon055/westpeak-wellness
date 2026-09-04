@@ -52,120 +52,73 @@ export default function Book({
   const provinceList = who
     ? who.provinces.map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and ')
     : 'British Columbia';
+  /* WITH NO ?with=, THIS IS THE WHOLE PRACTICE, NOT THE FOUNDER.
+     The fallback said "English, Punjabi, or a mix of both", which was true
+     when there was one counsellor and stopped being true the day Camille
+     joined: she works in English and Tagalog. A Tagalog speaker reaching the
+     booking page was told the consultation could be in two languages, neither
+     of which was theirs. Taken from site.languages so it cannot drift again.
+
+     Note for whoever picks this up: the same stale pair is still in about 45
+     other places, /about and /contact among them. Not swept here because those
+     strings sit next to the per-practitioner resolver in
+     lib/practitioner-places.ts and its tests, and that is a change worth
+     making deliberately rather than at the end of an unrelated one. */
   const languageList = who
     ? who.languages.map((l) => l.name).join(' or ')
-    : 'English, Punjabi, or a mix of both';
+    : site.languages;
 
   return (
     <>
-      <section className="hero" style={{ paddingBottom: 40 }}>
+      {/* ======================================================================
+          SLIMMED 3 Sep 2026, AND THE REASON IS THE ORDER, NOT THE LENGTH.
+
+          This page had nine sections, two diagrams and about 860 words of
+          prose, and the calendar sat behind roughly 500 of them. Somebody who
+          arrives here has already decided to book: the click that got them
+          here was the decision. Everything before the calendar was reassurance
+          offered to a person who had stopped needing it, and on a phone it was
+          several screens of scrolling to reach the one control the page exists
+          for.
+
+          The content is not gone. What was five paragraphs above the calendar
+          is now a strip of facts and one boundary note; the four long
+          explanatory sections are behind disclosures below it, where the person
+          who wants them can still get them and the person who does not is not
+          made to scroll past them. The crisis block stays open, always, because
+          it is the one thing nobody should have to expand to find.
+
+          One of the two diagrams went. booking-payment-flow and
+          first-session-flow sat in the same section saying overlapping things,
+          and the payment one belongs on /pricing.
+          ====================================================================== */}
+
+      <section className="hero" style={{ paddingBottom: 24 }}>
         <div className="container">
           <p className="eyebrow">Free · 15 minutes · No commitment</p>
-          <h1>Book a free consultation.</h1>
-          <p className="lede">
-            The first step is a short, no-pressure conversation over secure video. It costs
-            nothing, and there is no obligation to book a session afterward.
+          <h1 style={{ marginBottom: 10 }}>Book a free consultation.</h1>
+          <p className="lede" style={{ marginBottom: 0 }}>
+            A short conversation over secure video to work out whether this is a fit. Nothing is
+            diagnosed, and there is no obligation to book a session afterwards.
           </p>
         </div>
       </section>
 
-      <section className="section" style={{ paddingTop: 40 }}>
+      <section className="section" style={{ paddingTop: 24 }}>
         <div className="container">
           <Breadcrumbs trail={[{ name: 'Book', path: '/book' }]} />
 
-          {/* Expectation strip, directly above the calendar.
-            *
-            * Without it a visitor meets the embed cold, and the first thing
-            * they learn is that the next opening is several days away — which
-            * reads as "they are too busy for me" rather than "these are the
-            * hours". Stating the shape of the call and the real windows first
-            * turns a wait into information. Availability comes from
-            * site.availability, so it cannot drift from the footer or Cliniko. */}
-          <div className="book-brief">
-            <div>
-              <h2>Before you pick a time</h2>
-              <p>
-                Fifteen minutes, by secure video. You describe what is going on in your own
-                words, ask anything you want, and we work out together whether this is a good
-                fit. Nothing is diagnosed and nothing is decided on the call.
-              </p>
-              <p className="book-brief-note">
-                No card, no intake form, and no obligation to book a session afterwards,
-                deciding not to is a completely normal outcome.
-              </p>
-              {/* WHERE THE CLIENT IS SITTING DECIDES WHICH PROVINCE THE SESSION
-                  HAPPENS IN. Counselling is regulated provincially and the
-                  service is delivered where the client is, not where the
-                  counsellor is. The scheduler cannot know that, and the practice
-                  is registered and insured in British Columbia only. This is the
-                  cheapest place to catch it — before a booking rather than in
-                  the session. Added 17 Aug 2026 after confirming the liability
-                  policy does not extend outside BC. */}
-              <p className="book-brief-note">
-                <strong>
-                  Sessions {who ? `with ${who.name.split(' ')[0]} ` : ''}are for people located in {provinceList}.
-                </strong>{' '}
-                Counselling is regulated province by province, and a session counts as happening
-                where you are sitting rather than where your counsellor is, so this is a
-                registration and insurance boundary rather than a preference. If you are elsewhere
-                in Canada, say so on the consultation and you will be pointed toward someone who
-                can properly see you.
-              </p>
-              {/* Punjabi searchers reach this page directly from Punjabi-language
-                  SERPs and previously met a wall of English at the highest-intent
-                  moment on the site. The Gurmukhi sentence is reused VERBATIM
-                  from /punjabi (already reviewed) — nothing here is newly
-                  composed Punjabi, per the fluent-review rule.
+          {/* Five paragraphs became five facts. Every one was already true and
+              already on this page; what changed is that they can be taken in at
+              a glance instead of read. */}
+          <ul className="book-facts">
+            <li>15 minutes</li>
+            <li>Secure video</li>
+            <li>No card</li>
+            <li>No intake form</li>
+            <li>Free cancellation up to {site.cancellationHours}h</li>
+          </ul>
 
-                  Shown only when the consultation can actually be in Punjabi.
-                  Offering it to somebody who arrived for a Tagalog-speaking
-                  counsellor is the same false promise this page was fixed for
-                  at the other end. */}
-              {(!who || who.languages.some((l) => l.tag === 'pa')) && (
-                <p className="book-brief-note">
-                  <span className={gurmukhi.className} lang="pa">
-                    ਸੈਸ਼ਨ ਪੰਜਾਬੀ ਵਿੱਚ, ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ, ਜਾਂ ਦੋਹਾਂ ਵਿੱਚ ਹੋ ਸਕਦੇ ਹਨ
-                  </span>{' '}
-. The consultation itself can be in Punjabi, English, or both.{' '}
-                  <Link href="/punjabi">ਪੰਜਾਬੀ ਵਿੱਚ ਜਾਣਕਾਰੀ</Link>
-                </p>
-              )}
-              {who && !who.languages.some((l) => l.tag === 'pa') && (
-                <p className="book-brief-note">
-                  <strong>The consultation can be in {languageList}</strong>, including moving
-                  between them, which is what most bilingual people end up doing.
-                </p>
-              )}
-              {/* The last-mile objections, answered where they strike rather
-                  than three clicks away on /pricing and /client-portal. */}
-              <p className="book-brief-note">
-                <strong>After you book:</strong> a confirmation email arrives with the video link.
-                nothing to install, any device with a camera works. Rescheduling or cancelling is
-                free up to {site.cancellationHours} hours ahead. And nothing about the call requires
-                a diagnosis, a referral, or a decision on the spot. The full shape of the call is on{' '}
-                <Link href="/resources/before-your-first-consultation">the consultation-prep page</Link>.
-              </p>
-            </div>
-            <div className="book-hours">
-              <h3>Consultation hours</h3>
-              <ul>
-                {site.availability.map((a) => (
-                  <li key={a.day}>
-                    <span>{a.day}</span>
-                    <span>{a.from} – {a.to}</span>
-                  </li>
-                ))}
-              </ul>
-              <p>
-                If none of these work,{' '}
-                <a href={`mailto:${site.email}`}>email {site.email}</a> and say roughly when you
-                are free.
-              </p>
-            </div>
-          </div>
-
-          {/* A counsellor who is not on the calendar yet gets a request path
-              rather than an embed that would book somebody else. */}
           {who && !schedulable ? (
             <div className="crisis" style={{ marginTop: 8 }}>
               <h2 style={{ marginTop: 0 }}>Ask for a consultation with {who.name.split(' ')[0]}</h2>
@@ -177,24 +130,25 @@ export default function Book({
               </p>
               <p>
                 {who.name} · {who.postNominals}, sessions in {languageList}, anywhere in{' '}
-                {provinceList}. <Link href={`/practitioners/${who.slug}`}>More about {who.name.split(' ')[0]}</Link>.
+                {provinceList}.{' '}
+                <Link href={`/practitioners/${who.slug}`}>More about {who.name.split(' ')[0]}</Link>.
               </p>
               <InboundForm kind="waitlist" done={waitlist} practitioner={who.slug} />
             </div>
           ) : site.bookingReady ? (
             <>
-              {/* The credentials at the moment of commitment. Everything here
-                  is verifiable and already published elsewhere on the site —
-                  this is placement, not new claims. */}
-              <p className="book-brief-note" style={{ textAlign: 'center', marginBottom: 10 }}>
+              {/* The credentials at the moment of commitment. Everything here is
+                  verifiable and already published elsewhere on the site: this is
+                  placement, not new claims. */}
+              <p className="book-credential">
                 <strong>{site.counsellor.title} ({site.counsellor.credentials})</strong> ·{' '}
                 <a href={site.counsellor.registerUrl} target="_blank" rel="noopener">
                   check the BCACC register
                 </a>{' '}
-                · EMDR-trained · Gottman-trained · English &amp; ਪੰਜਾਬੀ
+                · EMDR-trained · Gottman-trained
               </p>
               {who && (
-                <p className="book-brief-note" style={{ textAlign: 'center', marginBottom: 10 }}>
+                <p className="book-credential">
                   You arrived from {who.name}&rsquo;s page. The calendar below books the
                   consultation; say on the call that you were looking for{' '}
                   {who.name.split(' ')[0]} and it will be arranged.
@@ -205,11 +159,6 @@ export default function Book({
                 title="Book a free 15-minute consultation"
                 page="/book"
               />
-              {/* The calendar offers 17 hours a week, three of the five days
-                  being a single evening hour. For a good share of the people
-                  who get this far, nothing on it is possible — and until now
-                  the entire fallback was a mailto: link in the sidebar. */}
-              <InboundForm kind="waitlist" done={waitlist} />
             </>
           ) : (
             <div className="crisis" style={{ marginTop: 8 }}>
@@ -217,17 +166,9 @@ export default function Book({
               <p>
                 The booking calendar goes live here shortly. In the meantime, email{' '}
                 <a href={`mailto:${site.email}`}>{site.email}</a> with a sentence about what
-                you&rsquo;re looking for and a couple of times that suit you, and your
-                consultation will be confirmed by reply.
+                you&rsquo;re looking for and a couple of times that suit you, and your consultation
+                will be confirmed by reply.
               </p>
-              <p>
-                Already a client? Everything to do with sessions, payment and receipts lives
-                in the <Link href={site.portalPath}>client portal</Link>.
-              </p>
-              {/* One row, primary first. These were two separate paragraphs,
-                  which stacked them at ragged widths and put the action we
-                  actually want above the fallback in source order but below it
-                  on screen. */}
               <div className="btn-row" style={{ marginTop: 22 }}>
                 <a className="btn btn--primary" href={`mailto:${site.email}?subject=Free%2015-minute%20consultation`}>
                   Email to book your consultation
@@ -238,192 +179,208 @@ export default function Book({
               </div>
             </div>
           )}
-        </div>
-      </section>
 
-      <section className="section section--tint">
-        <div className="container">
-          <p className="eyebrow">What happens in the 15 minutes</p>
-          <Figure name="booking-payment-flow" />
-
-          <h2>No intake forms, no pressure.</h2>
-          <Figure name="first-session-flow" caption="The consultation is step one of four, and stopping after it is a normal outcome." />
-          <div className="steps" style={{ marginTop: 26, maxWidth: 760 }}>
-            <div className="step"><div className="step-num">1</div><div>
-              <h3>You say what brought you here</h3>
-              <p style={{ color: 'var(--ink-soft)', margin: 0 }}>
-                As much or as little as you want. You do not need it organised, and you will not
-                be asked to tell the whole story on a first call.
-              </p>
-            </div></div>
-            <div className="step"><div className="step-num">2</div><div>
-              <h3>You hear how the work would go</h3>
-              <p style={{ color: 'var(--ink-soft)', margin: 0 }}>
-                Which approach fits what you&rsquo;ve described, what a session looks like, and
-                roughly how often people usually meet. Questions are welcome. That&rsquo;s the point
-                of the call.
-              </p>
-            </div></div>
-            <div className="step"><div className="step-num">3</div><div>
-              <h3>You decide, in your own time</h3>
-              <p style={{ color: 'var(--ink-soft)', margin: 0 }}>
-                If it feels like a fit, you can book a first session. If it doesn&rsquo;t, that is a
-                completely fine outcome, and a referral in a better direction can be suggested.
-              </p>
-            </div></div>
-          </div>
-        </div>
-      </section>
-
-      {/* WHAT COMES AFTER THE CONSULTATION.
-        *
-        * The site described the consultation and the first session well and
-        * said nothing about what follows. The unspoken question at the end of
-        * a fifteen-minute call is not "was that useful" — it is "how much of my
-        * life and money is this going to take", and leaving it unanswered is
-        * one of the reasons a good consultation does not become a booking.
-        *
-        * Descriptive, never predictive. BCACC advertising standards prohibit
-        * outcome claims, so nothing here says the work will help, how much or
-        * how fast — only what the shape of it usually is. */}
-      <section className="section section--tint">
-        <div className="container prose" style={{ maxWidth: '46rem' }}>
-          <p className="eyebrow">If you carry on</p>
-          <h2>What the first few sessions usually look like</h2>
-          <p>
-            Nobody asks this on the call and almost everybody wants to know it. There is no
-            standard programme and no minimum number of sessions, and the shape below is a
-            description of what commonly happens rather than a plan you are agreeing to.
-          </p>
-          <div className="steps" style={{ marginTop: 24 }}>
-            <div className="step"><div className="step-num">1</div><div>
-              <h3>Session one, the whole picture</h3>
-              <p style={{ color: 'var(--ink-soft)', margin: 0 }}>
-                Fifty minutes on your history and what you want to be different. More listening
-                than questions, and no requirement to start with the hardest thing.
-              </p>
-            </div></div>
-            <div className="step"><div className="step-num">2</div><div>
-              <h3>Sessions two and three, finding the pattern</h3>
-              <p style={{ color: 'var(--ink-soft)', margin: 0 }}>
-                Working out what is actually keeping the thing going, rather than only how it
-                feels. This is usually where something you have not named before gets named.
-              </p>
-            </div></div>
-            <div className="step"><div className="step-num">3</div><div>
-              <h3>Around session four, a deliberate check</h3>
-              <p style={{ color: 'var(--ink-soft)', margin: 0 }}>
-                Is this working, is it the right approach, and is it the right person? Asked
-                out loud rather than left to you to raise. Stopping here is a normal outcome
-                and so is changing direction.
-              </p>
-            </div></div>
-            <div className="step"><div className="step-num">4</div><div>
-              <h3>After that, your call, every time</h3>
-              <p style={{ color: 'var(--ink-soft)', margin: 0 }}>
-                Weekly at first for most people, then fortnightly, then further apart. Nothing
-                is booked in advance beyond what you have agreed, there is no package, and
-                pausing costs nothing.
-              </p>
-            </div></div>
-          </div>
-          <p style={{ marginTop: 22 }}>
-            How long any of it takes depends on what you bring, and anybody who quotes you a
-            number before meeting you is guessing.{' '}
-            <Link href="/guides/how-long-does-therapy-take">How long therapy takes</Link> is the
-            honest version, and{' '}
-            <Link href="/guides/when-therapy-isnt-working">when therapy is not working</Link>{' '}
-            covers what to do if it is not.
-          </p>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container split">
-          <div>
-            <p className="eyebrow">Before you book</p>
-            <ul className="checklist">
-              <li>Sessions are fully online, anywhere in {provinceList}</li>
-              <li>Available in {languageList}</li>
-              <li>Individual sessions are 50 minutes; couples sessions are 50 or 110</li>
-              <li>Session fees and payment methods are set out on the <Link href="/pricing">fees page</Link></li>
-              <li>Most BC extended health plans that cover RCCs will reimburse</li>
-            </ul>
-          </div>
-          <div>
-            <p className="eyebrow">Not sure yet?</p>
+          {/* WHERE THE CLIENT IS SITTING DECIDES WHICH PROVINCE THE SESSION
+              HAPPENS IN. Counselling is regulated provincially and a session
+              counts as happening where the client is, not where the counsellor
+              is. Kept immediately UNDER the calendar rather than above it: it is
+              a correction for the minority who are outside the province, and it
+              should not be the first thing the majority read. */}
+          <div className="book-notes">
             <p>
-              If you&rsquo;d rather read first, the{' '}
-              <Link href="/faq">frequently asked questions</Link> cover fees, confidentiality,
-              and what a first session is actually like, or there is a full walkthrough of{' '}
-              <Link href="/guides/what-to-expect-first-therapy-session">what happens in a first session</Link>.
-              You can also browse{' '}
-              <Link href="/services">the full list of services</Link> to see which approach
-              matches what you&rsquo;re carrying, or read{' '}
-              <Link href="/about">about your counsellor</Link> first.
+              <strong>
+                Sessions {who ? `with ${who.name.split(' ')[0]} ` : ''}are for people located in {provinceList}.
+              </strong>{' '}
+              A session counts as happening where you are sitting, so this is a registration and
+              insurance boundary rather than a preference. If you are elsewhere in Canada, say so on
+              the call and you will be pointed toward someone who can properly see you.
             </p>
-            <p>
-              Prefer to ask a question before booking anything? The{' '}
-              <Link href="/contact">contact page</Link> has an email address and a reply usually
-              comes within one business day.
-            </p>
-            <div className="crisis" style={{ marginTop: 20 }}>
-              <p style={{ margin: 0 }}>
-                <strong>If you&rsquo;re in crisis:</strong> Westpeak Wellness is not a crisis
-                service. Call or text <strong>9-8-8</strong> (Canada, 24/7) or BC Mental Health
-                at <strong>310-6789</strong>. In immediate danger, call <strong>911</strong>.
+
+            {/* The Gurmukhi sentence is reused verbatim from /punjabi, which has
+                been reviewed. Nothing here is newly composed Punjabi. Shown only
+                when the consultation can actually be in Punjabi: offering it to
+                somebody who arrived for a Tagalog-speaking counsellor is the
+                same false promise this page was fixed for at the other end. */}
+            {(!who || who.languages.some((l) => l.tag === 'pa')) && (
+              <p>
+                <span className={gurmukhi.className} lang="pa">
+                  ਸੈਸ਼ਨ ਪੰਜਾਬੀ ਵਿੱਚ, ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ, ਜਾਂ ਦੋਹਾਂ ਵਿੱਚ ਹੋ ਸਕਦੇ ਹਨ।
+                </span>{' '}
+                The consultation can be in Punjabi, English, or both.{' '}
+                <Link href="/punjabi">ਪੰਜਾਬੀ ਵਿੱਚ ਜਾਣਕਾਰੀ</Link>
               </p>
+            )}
+            {who && !who.languages.some((l) => l.tag === 'pa') && (
+              <p>
+                <strong>The consultation can be in {languageList}</strong>, including moving between
+                them, which is what most bilingual people end up doing.
+              </p>
+            )}
+
+            <p>
+              <strong>After you book,</strong> a confirmation email arrives with the video link.
+              Nothing to install, and any device with a camera works. No diagnosis, referral or
+              decision on the spot is needed.{' '}
+              <Link href="/resources/before-your-first-consultation">More on the call itself</Link>.
+            </p>
+          </div>
+
+          {/* THE CALENDAR OFFERS 17 HOURS A WEEK, three of the five days being a
+              single evening hour. For a good share of the people who get this far
+              nothing on it is possible, so the hours and the waitlist belong
+              together: the list is what makes somebody realise they need the form
+              beside it. */}
+          <div className="book-brief" style={{ marginTop: 28 }}>
+            <div className="book-hours">
+              <h3>Consultation hours</h3>
+              <ul>
+                {site.availability.map((a) => (
+                  <li key={a.day}>
+                    <span>{a.day}</span>
+                    <span>{a.from} – {a.to}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              {/* No heading and no intro here. InboundForm already renders both
+                  for the waitlist kind, and writing my own produced two
+                  headings and two near-identical sentences stacked on top of
+                  each other. Caught by reading the rendered page rather than
+                  the source, where the component's copy is not visible. */}
+              <InboundForm kind="waitlist" done={waitlist} practitioner={who?.slug} />
             </div>
           </div>
+
+          {/* Always open, never behind a disclosure. */}
+          <div className="crisis" style={{ marginTop: 28 }}>
+            <p style={{ margin: 0 }}>
+              <strong>If you are in crisis:</strong> this is not a crisis service. Call or text{' '}
+              <a href="tel:988"><strong>9-8-8</strong></a> (Canada, 24/7) or BC Mental Health at{' '}
+              <a href="tel:3106789"><strong>310-6789</strong></a>. In immediate danger, call{' '}
+              <a href="tel:911"><strong>911</strong></a>.
+            </p>
+          </div>
         </div>
       </section>
 
-      <section className="section">
-        <div className="container prose">
-          <p className="eyebrow">Before and after the call</p>
-          <h2>What you do not need to prepare</h2>
-          <p>
-            Nothing. There is no form to complete before a consultation, no history to assemble, and
-            no requirement to have worked out what the problem is. &ldquo;Something is off and I do not
-            know what&rdquo; is a completely ordinary opening, and a large share of consultations start
-            somewhere close to it.
-          </p>
-          <p>
-            You are also not expected to tell the whole story. Fifteen minutes is not enough for that
-            and it is not what the call is for. It exists to establish whether the work would fit,
-            not to begin it. If it helps to arrive with anything, one sentence on what is going on and
-            one on how long it has been going on is more than sufficient.
-          </p>
+      {/* ======================================================================
+          WHAT WAS FOUR FULL SECTIONS.
 
-          <h2>What you might want to ask</h2>
-          <p>
-            The consultation goes both ways, and the more useful version of it has you asking
-            questions rather than only answering them. What approach would you use for this and why.
-            How would we know it was working. What do you not work with. What does it cost and is that
-            the whole cost.{' '}
-            <Link href="/guides/questions-to-ask-a-therapist">Questions worth asking a therapist</Link>{' '}
-            sets out the full list along with the answers that should make you wary. Every one of them
-            is fair game here.
-          </p>
+          Closed by default, and each summary is a real question rather than a
+          heading, so the line is worth reading on its own. Native details, so it
+          works with no JavaScript, is keyboard-operable for free, and is opened
+          by a browser's find-in-page when the answer is inside it.
+          ====================================================================== */}
+      <section className="section section--tint">
+        <div className="container container--article">
+          <h2 style={{ marginTop: 0 }}>Before you decide</h2>
 
-          <h2>Deciding not to book is a normal outcome</h2>
-          <p>
-            A consultation that ends with &ldquo;this is not the right fit&rdquo; is a success, not a
-            failure. Sometimes that means a different counsellor; sometimes it means a physician, a
-            psychologist for a formal assessment, or a specialised service. The limits of what this
-            practice does are listed openly on{' '}
-            <Link href="/standards">standards and accountability</Link>, and being told one of them
-            applies to you is a better result than a booking that was never going to help.
-          </p>
-          <p>
-            If you would rather understand the shape of the whole thing before speaking to anyone,{' '}
-            <Link href="/guides/what-to-expect-first-therapy-session">what happens in a first session</Link>{' '}
-            covers the stage after the consultation,{' '}
-            <Link href="/guides/how-long-does-therapy-take">how long therapy takes</Link> covers the
-            commitment honestly, and <Link href="/pricing">fees and insurance</Link> covers the money.
-            If cost is the obstacle,{' '}
-            <Link href="/resources/low-cost-counselling-bc">low-cost counselling in BC</Link> lists the
-            free and reduced-cost routes, several of which have no waitlist at all.
+          <details className="faq-item">
+            <summary>What actually happens in the 15 minutes?</summary>
+            <div className="prose">
+              <p>
+                You say what brought you here, in your own words. There is no form and no history
+                to assemble. &ldquo;Something is off and I do not know what&rdquo; is an ordinary
+                opening, and a large share of consultations start close to it.
+              </p>
+              <p>
+                You hear how the work would go: the approach that fits what you have described,
+                roughly how long that tends to take, and what it costs. Then you decide, in your
+                own time. Nobody is asked to commit on the call.
+              </p>
+              <Figure
+                name="first-session-flow"
+                caption="The consultation is step one of four, and stopping after it is a normal outcome."
+              />
+            </div>
+          </details>
+
+          <details className="faq-item">
+            <summary>What do the first few sessions look like if I carry on?</summary>
+            <div className="prose">
+              <p>
+                <strong>Session one</strong> is the whole picture: what is going on, how long it has
+                been going on, and what you want to be different.
+              </p>
+              <p>
+                <strong>Sessions two and three</strong> look for the pattern underneath the episodes
+                rather than working through them one at a time.
+              </p>
+              <p>
+                <strong>Around session four</strong> there is a deliberate check on whether this is
+                working, asked out loud rather than left to you to raise.
+              </p>
+              <p>
+                <strong>After that it is your call, every time.</strong>{' '}
+                <Link href="/guides/how-long-does-therapy-take">How long therapy takes</Link> covers
+                the commitment honestly, and{' '}
+                <Link href="/guides/when-therapy-isnt-working">when therapy is not working</Link>{' '}
+                covers what to do if it is not.
+              </p>
+            </div>
+          </details>
+
+          <details className="faq-item">
+            <summary>Is there anything I should prepare?</summary>
+            <div className="prose">
+              <p>
+                No. You are also not expected to tell the whole story: fifteen minutes is not enough
+                for that and it is not what the call is for. If it helps to arrive with anything,
+                one sentence on what is going on and one on how long it has been going on is more
+                than sufficient.
+              </p>
+            </div>
+          </details>
+
+          <details className="faq-item">
+            <summary>What should I ask on the call?</summary>
+            <div className="prose">
+              <p>
+                The consultation goes both ways, and the more useful version has you asking rather
+                than only answering. What approach would you use for this and why. How would we know
+                it was working. What do you not work with. What does it cost and is that the whole
+                cost.{' '}
+                <Link href="/guides/questions-to-ask-a-therapist">Questions worth asking a therapist</Link>{' '}
+                sets out the full list along with the answers that should make you wary. Every one
+                of them is fair game here.
+              </p>
+            </div>
+          </details>
+
+          <details className="faq-item">
+            <summary>What if it turns out not to be a fit?</summary>
+            <div className="prose">
+              <p>
+                A consultation that ends with &ldquo;this is not the right fit&rdquo; is a success,
+                not a failure. Sometimes that means a different counsellor; sometimes a physician, a
+                psychologist for a formal assessment, or a specialised service. The limits of what
+                this practice does are listed openly on{' '}
+                <Link href="/standards">standards and accountability</Link>, and being told one of
+                them applies to you is a better result than a booking that was never going to help.
+              </p>
+              <p>
+                If cost is the obstacle,{' '}
+                <Link href="/resources/low-cost-counselling-bc">low-cost counselling in BC</Link>{' '}
+                lists the free and reduced-cost routes, several of which have no waitlist at all.
+              </p>
+            </div>
+          </details>
+
+          <ul className="checklist" style={{ marginTop: 26 }}>
+            <li>Sessions are fully online, anywhere in {provinceList}</li>
+            <li>Available in {languageList}</li>
+            <li>Individual sessions are 50 minutes; couples sessions are 50 or 110</li>
+            <li>Fees and payment are on the <Link href="/pricing">fees page</Link></li>
+            <li>Most BC extended health plans that cover RCCs will reimburse</li>
+          </ul>
+
+          <p style={{ marginTop: 18 }}>
+            Would rather read first? The <Link href="/faq">FAQ</Link> covers fees and
+            confidentiality, <Link href="/services">services</Link> covers the approaches, and{' '}
+            <Link href="/about">about your counsellor</Link> covers who you would be speaking to.
+            To ask something before booking anything, the <Link href="/contact">contact page</Link>{' '}
+            gets a reply within one business day.
           </p>
         </div>
       </section>

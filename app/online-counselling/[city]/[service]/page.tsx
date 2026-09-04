@@ -243,8 +243,8 @@ export default function CityServicePage({ params }: { params: Params }) {
             Public mental-health intake for {ctx.city} runs through{' '}
             <a href={AUTHORITY_URL[ctx.authority]} target="_blank" rel="noopener">
               {ctx.authority}
-            </a>
-            . That route matters if you are seeking publicly funded care. It has no bearing on
+            </a>.
+            That route matters if you are seeking publicly funded care. It has no bearing on
             seeing a Registered Clinical Counsellor privately, which needs no referral and no
             diagnosis. See{' '}
             <Link href="/compare/rcc-vs-psychologist-vs-social-worker-bc">
@@ -330,8 +330,8 @@ export default function CityServicePage({ params }: { params: Params }) {
                 <li key={p.service}>
                   <Link href={`/online-counselling/${ctx.slug}/${p.service}`}>
                     {s.name} in {ctx.city}
-                  </Link>{' '}
-, {p.angle}
+                  </Link>,{' '}
+{p.angle}
                 </li>
               );
             })}

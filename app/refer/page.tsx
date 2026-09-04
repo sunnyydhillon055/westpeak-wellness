@@ -115,8 +115,8 @@ export default function ReferPage({ searchParams }: { searchParams?: { lead?: st
                 <strong>&ldquo;What actually happens?&rdquo;</strong>{' '}
                 <Link href="/guides/what-to-expect-first-therapy-session">
                   What to expect in a first session
-                </Link>{' '}
-, for someone who has never done this before.
+                </Link>,{' '}
+for someone who has never done this before.
               </li>
               <li>
                 <strong>&ldquo;Is it even worth booking?&rdquo;</strong>{' '}
@@ -127,8 +127,8 @@ export default function ReferPage({ searchParams }: { searchParams?: { lead?: st
                 <strong>Someone who would rather work in Punjabi</strong>, {' '}
                 <Link href="/punjabi" lang="pa" hrefLang="pa">
                   ਪੰਜਾਬੀ ਵਿੱਚ
-                </Link>
-                , or the English page on{' '}
+                </Link>,
+                or the English page on{' '}
                 <Link href="/services/punjabi-counselling">Punjabi-speaking counselling</Link>.
               </li>
             </ul>

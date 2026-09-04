@@ -2242,6 +2242,80 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
   .book-brief { grid-template-columns: 1fr; }
 }
 
+/* ── /book: the facts strip, the credential line, the notes under the calendar
+   ────────────────────────────────────────────────────────────────────────────
+   These replace the five-paragraph block that used to sit between the heading
+   and the calendar. The point of a strip rather than prose is that it is read
+   in one pass: somebody on this page has already decided to book, and what
+   they want confirmed is that it is short, free and reversible.
+
+   The hours column comes FIRST on a narrow screen and second on a wide one.
+   On desktop the eye reaches the waitlist heading before the list, which is
+   the right order for a person who has just failed to find a slot; on mobile
+   a column of five times is a much cheaper thing to scroll past than a
+   paragraph plus a form, and putting the form first would bury the list that
+   explains why the form is there. */
+
+.book-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 0 0 1.25rem;
+  padding: 0;
+}
+.book-facts li {
+  padding: 6px 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg-card);
+  font-size: 0.86rem;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.book-credential {
+  margin: 0 0 10px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+
+.book-notes {
+  margin: 1.5rem 0 0;
+  padding: clamp(1rem, 2.5vw, 1.4rem);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--bg-card);
+}
+.book-notes p {
+  margin: 0 0 0.75rem;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+.book-notes p:last-child { margin-bottom: 0; }
+
+/* The waitlist pair. Hours are the narrow column on desktop and the first
+   thing on mobile. */
+.book-brief .book-hours { order: 0; }
+@media (min-width: 761px) {
+  .book-brief { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr); }
+  .book-brief .book-hours { order: 1; }
+  .book-brief > div:not(.book-hours) { order: 0; }
+}
+
+/* A disclosure is a tap target. On a phone the default line height puts two
+   summaries close enough together to mis-hit, and a mis-hit here opens the
+   wrong answer and scrolls the page under the reader's thumb. */
+.faq-item summary { padding-top: 14px; padding-bottom: 14px; min-height: 44px; }
+
+@media (max-width: 520px) {
+  .book-facts { gap: 6px; }
+  .book-facts li { font-size: 0.8rem; padding: 5px 11px; }
+}
+
 /* ===========================================================================
    ASK INSTEAD
    The small rung inside the CTA band. The band is a blue gradient with white

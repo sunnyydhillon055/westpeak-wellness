@@ -193,8 +193,8 @@ export default async function BringToYourDoctor() {
               ), verifiable in the{' '}
               <a href={site.counsellor.registerUrl} rel="noreferrer">
                 {site.counsellor.registerName} register
-              </a>
-              . No physician referral is required for a patient to book.
+              </a>.
+              No physician referral is required for a patient to book.
             </p>
 
             <h3>Delivery and access</h3>
@@ -282,8 +282,8 @@ export default async function BringToYourDoctor() {
                 <>
                   {' '}&middot; <strong>{site.phone}</strong>
                 </>
-              ) : null}
-              . Clinical information is released only with the patient&rsquo;s written consent;
+              ) : null}.
+              Clinical information is released only with the patient&rsquo;s written consent;
               a request for a consent form can be made through the same address. Standards,
               ethics and the complaints route are published in full at{' '}
               <strong>{site.domain.replace(/^https?:\/\//, '')}/standards</strong>.
