@@ -38,10 +38,30 @@ export type TagalogGuide = {
   readMinutes: number;
   sections: TagalogGuideSection[];
   faqs: { q: string; a: string }[];
-  /* Only 'language-in-therapy-tl' is available here. Every other diagram on
-     the site carries English labels, and these pages carry none by
-     instruction — an English diagram would defeat the point of the page. */
-  figure?: 'language-in-therapy-tl';
+  /* Four Tagalog diagrams exist now, not one. Each is the English original
+     with every text node translated and no coordinate moved, so a change to
+     the shape of an idea cannot drift between the two languages.
+
+     The rule this field used to enforce by being narrow still stands and is
+     now enforced by the name: an English diagram on these pages would defeat
+     the point of the page, so only -tl figures belong here. */
+  figure?:
+    | 'language-in-therapy-tl'
+    | 'panic-vs-anxiety-tl'
+    | 'burnout-vs-depression-tl'
+    | 'first-session-flow-tl';
+  /* WHICH TWO GUIDES TO READ NEXT, chosen by hand rather than generated.
+   *
+   * These six pages had exactly one in-body inbound link each — from the
+   * Tagalog index and nowhere else. That is a reader with nowhere to go at the
+   * end of a page and a crawler with one route in, and it is why every one of
+   * them sat below the thin-content threshold on inbound links.
+   *
+   * A generated "every other guide" list would have fixed the count and not
+   * the reading: panic and inherited trauma are not a next step from each
+   * other. Each pair here is the question the previous page tends to leave
+   * behind. */
+  related?: [string, string];
   /** The English page on the same subject, for a bilingual reader. */
   englishHref?: string;
   englishLabel?: string;
@@ -90,6 +110,8 @@ export const tagalogGuides: TagalogGuide[] = [
         ],
       },
     ],
+    figure: 'panic-vs-anxiety-tl',
+    related: ['depresyon-o-pagod-lang', 'ano-ang-mangyayari-sa-unang-sesyon'],
     faqs: [
       {
         q: 'Delikado ba ang panic attack?',
@@ -149,6 +171,8 @@ export const tagalogGuides: TagalogGuide[] = [
         ],
       },
     ],
+    figure: 'burnout-vs-depression-tl',
+    related: ['pagod-sa-pag-aalaga', 'ano-ang-panic-attack'],
     faqs: [
       {
         q: 'Paano ko malalaman kung alin ito?',
@@ -207,6 +231,7 @@ export const tagalogGuides: TagalogGuide[] = [
         ],
       },
     ],
+    related: ['ano-ang-mangyayari-sa-unang-sesyon', 'trauma-na-naipapasa-sa-pamilya'],
     faqs: [
       {
         q: 'Malalaman ba ng asawa o magulang ko?',
@@ -265,6 +290,8 @@ export const tagalogGuides: TagalogGuide[] = [
         ],
       },
     ],
+    figure: 'first-session-flow-tl',
+    related: ['pag-uusap-sa-pamilya-tungkol-sa-therapy', 'ano-ang-panic-attack'],
     faqs: [
       {
         q: 'Ano ang isusuot ko o ihahanda?',
@@ -323,6 +350,7 @@ export const tagalogGuides: TagalogGuide[] = [
         ],
       },
     ],
+    related: ['pag-uusap-sa-pamilya-tungkol-sa-therapy', 'depresyon-o-pagod-lang'],
     faqs: [
       {
         q: 'Puwede bang trauma ito kung sa magulang ko nangyari?',
@@ -382,6 +410,8 @@ export const tagalogGuides: TagalogGuide[] = [
         ],
       },
     ],
+    figure: 'burnout-vs-depression-tl',
+    related: ['depresyon-o-pagod-lang', 'trauma-na-naipapasa-sa-pamilya'],
     faqs: [
       {
         q: 'Malalaman ba ng employer ko?',

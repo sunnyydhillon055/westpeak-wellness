@@ -187,6 +187,51 @@ export const figures: Record<string, Figure> = {
     alt: "Three columns: the first language holding memory, family and feeling; the second offering distance and the vocabulary of work; and between them a session that can move between the two mid-sentence.",
     caption: "The middle column is the point — the choice is not made in advance.",
   },
+  /* ==========================================================================
+     THE TAGALOG DIAGRAMS, AND WHAT WAS WRONG WITH THE FIRST ONE
+     --------------------------------------------------------------------------
+     'language-in-therapy-tl' shipped as the English diagram with a single word
+     changed — the comment on it said so plainly ("Same diagram, one word") and
+     nobody read that as the problem it was. Every other label on it was
+     English: Childhood memory, Family relationships, MID-SESSION, the whole
+     footnote. lib/tagalog-guides.ts states the rule in its own type
+     definition — "an English diagram would defeat the point of the page" — and
+     the one diagram those pages had was breaking it.
+
+     These are built by translating the text nodes of the English original and
+     touching no coordinate, so the two read as one family and a change to the
+     shape of an idea cannot drift between languages. Checked by extracting
+     every text, tspan, title and desc node and looking for English words;
+     what remains are loanwords Tagalog genuinely uses — intake, video, normal,
+     counsellor, diagnosis.
+     ======================================================================= */
+  'panic-vs-anxiety-tl': {
+    key: 'panic-vs-anxiety-tl',
+    file: 'panic-vs-anxiety-tl.svg',
+    width: 1040,
+    height: 430,
+    title: 'Panic attack laban sa pagkabalisa sa paglipas ng oras',
+    alt: 'Isang line chart: ang panic attack ay biglang umaakyat sa rurok sa loob ng mga sampung minuto at humuhupa; ang pagkabalisa ay dahan-dahang umaakyat at nananatili nang matagal.',
+    caption: 'Hindi ang bigat ng pakiramdam ang pinakamalinaw na pagkakaiba — kundi ang hugis ng kurba.',
+  },
+  'burnout-vs-depression-tl': {
+    key: 'burnout-vs-depression-tl',
+    file: 'burnout-vs-depression-tl.svg',
+    width: 1040,
+    height: 474,
+    title: 'Pagkaubos kumpara sa depresyon',
+    alt: 'Dalawang magkapatong na bilog. Ang pagkaubos ay nakatali sa isang bahagi ng buhay at madalas gumagaan sa mahabang pahinga; ang depresyon ay nasa lahat ng bahagi. Magkapareho sila sa pagkapagod, putol-putol na tulog at paglayo sa mga tao.',
+    caption: 'Ang tanong ay hindi kung gaano kabigat — kundi kung saan ka nito sinusundan.',
+  },
+  'first-session-flow-tl': {
+    key: 'first-session-flow-tl',
+    file: 'first-session-flow-tl.svg',
+    width: 1040,
+    height: 344,
+    title: 'Ang daloy mula sa unang ugnayan hanggang sa unang sesyon',
+    alt: 'Apat na hakbang: libreng labinlimang minutong konsultasyon, intake at pahintulot, ang unang buong sesyon, at ang pagpapasya kung ano ang susunod.',
+    caption: 'Normal na resulta ang hindi magpatuloy pagkatapos ng alinman sa mga hakbang na ito.',
+  },
   'panic-vs-anxiety': {
     key: 'panic-vs-anxiety',
     file: 'panic-vs-anxiety.svg',

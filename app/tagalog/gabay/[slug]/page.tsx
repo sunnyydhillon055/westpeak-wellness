@@ -58,6 +58,13 @@ export default function TagalogGuidePage({ params }: { params: Params }) {
   const g = getTagalogGuide(params.slug);
   if (!g) notFound();
 
+  /* Resolved here rather than in the template so a related slug that no longer
+     names a guide disappears instead of rendering a link to a 404. The gates
+     would catch a dead internal link, but only after it shipped to a build. */
+  const related = (g.related ?? [])
+    .map((slug) => getTagalogGuide(slug))
+    .filter((r): r is NonNullable<typeof r> => Boolean(r) && r!.slug !== g.slug);
+
   const speaker = practitioners.find((p) => p.languages.some((l) => l.tag === 'tl'));
 
   const schema = [
@@ -118,12 +125,14 @@ export default function TagalogGuidePage({ params }: { params: Params }) {
             ))}
 
             {g.figure && (
-              <Figure
-                name={g.figure}
-                alt={TL_PLACE_SHARED.figureAlt}
-                caption={TL_PLACE_SHARED.figureCaption}
-                hint={TL_PLACE_SHARED.figureHint}
-              />
+              /* Alt and caption come from the figure's own registry entry,
+                 which is written in Tagalog for every -tl diagram. They used
+                 to be taken from TL_PLACE_SHARED, which describes the LANGUAGE
+                 diagram specifically — correct while that was the only one,
+                 and a wrong description under three of the four now. Only the
+                 scroll hint stays shared, because it says the same thing
+                 whatever the picture is. */
+              <Figure name={g.figure} hint={TL_PLACE_SHARED.figureHint} />
             )}
 
             <h2>Mga karaniwang tanong</h2>
@@ -133,6 +142,24 @@ export default function TagalogGuidePage({ params }: { params: Params }) {
                 <p>{f.a}</p>
               </details>
             ))}
+
+            {/* Where to go next, in Tagalog. Two hand-picked guides rather
+                than a list of everything else — see the note on `related` in
+                lib/tagalog-guides.ts for why the pairing is editorial. Placed
+                before the English link deliberately: a reader on this page
+                chose Tagalog, and the next Tagalog page should come first. */}
+            {related.length > 0 && (
+              <>
+                <h2>Ano ang susunod na basahin</h2>
+                <ul>
+                  {related.map((r) => (
+                    <li key={r.slug}>
+                      <Link href={`/tagalog/gabay/${r.slug}`}>{r.title}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
 
             {g.englishHref && (
               <p style={{ marginTop: 26 }}>

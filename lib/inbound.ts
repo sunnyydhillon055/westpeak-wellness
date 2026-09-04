@@ -212,14 +212,45 @@ export async function addInbound(
     handled: false,
   };
 
-  const current = await readInbound({ fresh: true });
-  const items = prune([...current.items, item]);
-  const value: InboundBook = { items, version: current.version + 1, updatedAt: item.createdAt };
+  /* ==========================================================================
+     TWO WRITES AT ONCE, AND WHY THIS IS RETRY RATHER THAN A LOCK
+     --------------------------------------------------------------------------
+     This is read, modify, write against a blob, and a blob has no
+     compare-and-swap. Two submissions arriving together both read version N,
+     both write N+1, and the second silently erases the first. On this store
+     that is not a lost counter — it is somebody who wrote to a counsellor,
+     was told their message had been received, and does not exist anywhere.
 
-  cache = { at: Date.now(), value };
-  lastWrite = { at: Date.now(), value };
+     There is no way to make it genuinely atomic at this layer, and pretending
+     otherwise with a version field that nothing enforces would be worse than
+     the current state, because it would look solved. lib/clients.ts CAN refuse
+     a conflicting write, because behind it is an admin at a form who can press
+     the button again. Nobody can press this button again.
 
-  if (process.env.BLOB_READ_WRITE_TOKEN) {
+     So: write, read back, and check the record is actually there. If it is
+     not, another writer landed on top, and this retries against the store as
+     it now stands. That does not close the window — a collision during the
+     read-back is still possible — it makes it small and, crucially, makes the
+     loss detectable instead of silent. A remaining failure logs loudly rather
+     than returning as though it had worked.
+
+     Three attempts, not more. At this practice's volume a genuine collision is
+     already unlikely; a run of three is a store that is broken in some other
+     way, and hammering it will not help.
+     ======================================================================= */
+  const ATTEMPTS = 3;
+  for (let attempt = 1; attempt <= ATTEMPTS; attempt++) {
+    const current = await readInbound({ fresh: true });
+    const items = prune([...current.items, item]);
+    const value: InboundBook = {
+      items, version: current.version + 1, updatedAt: item.createdAt,
+    };
+
+    cache = { at: Date.now(), value };
+    lastWrite = { at: Date.now(), value };
+
+    if (!process.env.BLOB_READ_WRITE_TOKEN) return item;
+
     await put(KEY, JSON.stringify(value, null, 2), {
       access: 'private',
       contentType: 'application/json',
@@ -227,7 +258,26 @@ export async function addInbound(
       allowOverwrite: true,
       cacheControlMaxAge: 0,
     });
+
+    /* The read-back has to bypass the in-process cache, which was just set to
+       our own value above and would confirm the write no matter what actually
+       landed. */
+    cache = null;
+    lastWrite = null;
+    const after = await readInbound({ fresh: true });
+    if (after.items.some((i) => i.id === item.id)) return item;
+
+    console.warn(
+      `[inbound] write for ${item.id} was overwritten by a concurrent write ` +
+      `(attempt ${attempt}/${ATTEMPTS})`
+    );
   }
+
+  /* Never silent. The caller still gets the record — the alert email and the
+     acknowledgement are worth sending even when storage lost the row, because
+     the practice reading its own inbox is the fallback the whole design leans
+     on. */
+  console.error(`[inbound] FAILED to persist ${item.id} after ${ATTEMPTS} attempts`);
   return item;
 }
 
