@@ -6,6 +6,8 @@ import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
 import { readCatalog, money, type CatalogItem } from '@/lib/cliniko-catalog';
 import { ogBase } from '@/lib/og-meta';
+import { webPage } from '@/lib/schema';
+import { COLLECTION_DATES } from '@/lib/page-dates';
 
 export const revalidate = 3600;
 
@@ -74,6 +76,25 @@ export default async function BringToYourDoctor() {
 
   return (
     <>
+      {/* This page carried no page-level entity. The layout's organisation and
+          website nodes were on it, so a validator saw structured data and
+          reported nothing wrong, while nothing described the page itself: no
+          name, no description, no language, no date, no author. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            webPage({
+              path: "/refer/doctor",
+              name: "Information for referring physicians",
+              description:
+                "A one-page summary for a GP in BC: designation, scope limits, fees, and why no physician referral is required to book.",
+              updated: COLLECTION_DATES["services"],
+              type: "WebPage",
+            })
+          ),
+        }}
+      />
       <section className="hero" style={{ paddingBottom: 40 }}>
         <div className="container container--narrow">
           <p className="eyebrow">For the appointment</p>

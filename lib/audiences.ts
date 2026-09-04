@@ -45,7 +45,7 @@ const coreAudiences: Audience[] = [
     lede:
       "The gap between how you were told this would feel and how it actually feels can be enormous, and there is little permission to say so out loud.",
     shortAnswer:
-      'Counselling for new and expecting parents in BC, online by secure video in English or Punjabi. Covers the postpartum year, birth that did not go as planned, the identity shift nobody warns you about, and the strain a baby puts on a relationship, with sessions that can be taken during a nap rather than requiring childcare.',
+      'Counselling for new and expecting parents in BC, online by secure video in English, Punjabi or Tagalog. Covers the postpartum year, birth that did not go as planned, the identity shift nobody warns you about, and the strain a baby puts on a relationship, with sessions that can be taken during a nap rather than requiring childcare.',
     updated: "2026-08-31",
     readMinutes: 6,
     opening: [

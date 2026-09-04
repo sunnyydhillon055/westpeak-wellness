@@ -8,6 +8,8 @@ import Figure from '@/components/Figure';
 import { BookOpen } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
+import { webPage } from '@/lib/schema';
+import { COLLECTION_DATES } from '@/lib/page-dates';
 
 export const metadata: Metadata = {
   /* Its own og:url. Without an openGraph object this page inherited the
@@ -24,6 +26,23 @@ export const metadata: Metadata = {
 export default function GuidesHub() {
   return (
     <>
+      {/* An index page with no entity of its own. It lists dozens of pages a
+          crawler will follow, and described itself as nothing. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            webPage({
+              path: "/guides",
+              name: "Counselling guides",
+              description:
+                "Plain-language guides to therapy, mental health and getting started with counselling in British Columbia.",
+              updated: COLLECTION_DATES["faq"],
+              type: "CollectionPage",
+            })
+          ),
+        }}
+      />
       <section className="hero hero--guides" style={{ paddingBottom: 44 }}>
         <div className="container">
           <p className="eyebrow">Guides</p>

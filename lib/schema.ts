@@ -93,6 +93,47 @@ export const faqSchema = (faqs: { q: string; a: string }[], path: string) => ({
 });
 
 /* ============================================================================
+   THE ORDINARY PAGE TYPE, WHICH FIVE COMMERCIAL PAGES DID NOT HAVE AT ALL
+   ----------------------------------------------------------------------------
+   /about, /services, /online-counselling, /refer and /refer/doctor emitted no
+   page-level entity of any kind. The layout's organisation and website nodes
+   were on them, so a validator saw structured data and said nothing was wrong,
+   but nothing described the PAGE: no name, no description, no language, no
+   date, no author. A retrieval system had the practice and the site, and for
+   the page in front of it, nothing.
+
+   Deliberately not MedicalWebPage. That type carries `lastReviewed` and
+   `reviewedBy` and says "this is health information a clinician stands
+   behind". /services is a menu and /refer is a form. Claiming clinical review
+   for them would be the same over-claim the byline was fixed for.
+   ========================================================================= */
+export const webPage = ({
+  path, name, description, updated, lang = 'en-CA', type = 'WebPage',
+}: {
+  path: string;
+  name: string;
+  description: string;
+  /** From lib/page-dates.ts, so it is a real commit date and not a guess. */
+  updated?: string;
+  lang?: string;
+  /** CollectionPage for an index, AboutPage for /about, WebPage otherwise. */
+  type?: 'WebPage' | 'CollectionPage' | 'AboutPage' | 'ContactPage';
+}) => ({
+  '@context': 'https://schema.org',
+  '@type': type,
+  '@id': `${abs(path)}#webpage`,
+  url: abs(path),
+  name,
+  description,
+  inLanguage: lang,
+  isPartOf: siteRef,
+  about: orgRef,
+  author: orgRef,
+  publisher: orgRef,
+  ...(updated ? { datePublished: updated, dateModified: updated } : {}),
+});
+
+/* ============================================================================
    MEDICAL PAGE TYPE
    ----------------------------------------------------------------------------
    Every clinical page here was typed as a generic `Article`, which is what a
@@ -111,11 +152,27 @@ export const faqSchema = (faqs: { q: string; a: string }[], path: string) => ({
    going to read one part of this page aloud, read this."
    ========================================================================= */
 export const medicalWebPage = ({
-  path, name, description, reviewed, lang = 'en-CA', specialty,
+  path, name, description, reviewed, updated, lang = 'en-CA', specialty,
 }: {
   path: string;
   name: string;
   description: string;
+  /* WHEN THIS PAGE LAST CHANGED, which 157 of 250 pages were not saying.
+   *
+   * `lastReviewed` above is a CLINICAL claim and stays optional and rare:
+   * inventing one would put a fabricated statement into structured data.
+   * `dateModified` is a different and much weaker claim — this text changed on
+   * this date — and every page can make it honestly, because git knows.
+   *
+   * The pages that were missing it were not a random sample. They were all 66
+   * city pages, all 38 counsellor pages and all 19 Tagalog pages: the ones
+   * somebody would actually cite. When two sources say the same thing, recency
+   * is one of the few tie-breakers a retrieval system can apply cheaply, and no
+   * date does not read as fresh, it reads as unknown.
+   *
+   * Sourced from lib/page-dates.ts, which is generated from real commit
+   * history, so it cannot drift into a claim nobody checked. */
+  updated?: string;
   /** ISO date of the last clinical review. Drives `lastReviewed`.
    *  Optional because service pages carry no review date, and inventing one
    *  would put a fabricated clinical claim into structured data. Omitted is
@@ -135,7 +192,13 @@ export const medicalWebPage = ({
   isPartOf: siteRef,
   about: orgRef,
   ...(reviewed ? { lastReviewed: reviewed } : {}),
+  ...(updated ? { datePublished: updated, dateModified: updated } : {}),
   reviewedBy: personRef,
+  /* The practice, not a person. Every page on this site is published by the
+     practice and the byline says so in words; this makes the same statement
+     machine-readable. Naming an individual is a separate decision recorded in
+     DECISIONS.md and not one a schema helper should make. */
+  author: orgRef,
   publisher: orgRef,
   ...(specialty ? { medicalAudience: 'Patient', specialty } : {}),
   /* Both selectors, because guides render the answer as .short-answer and

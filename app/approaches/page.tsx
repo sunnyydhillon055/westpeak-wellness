@@ -7,6 +7,8 @@ import Figure from '@/components/Figure';
 import { Sparkles } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
+import { COLLECTION_DATES } from '@/lib/page-dates';
+import { webPage } from '@/lib/schema';
 
 export const metadata: Metadata = {
   title: { absolute: 'Counselling Approaches Explained | Westpeak' },
@@ -22,6 +24,14 @@ export const metadata: Metadata = {
 
 export default function ApproachesHub() {
   const schema = [
+    webPage({
+      path: '/approaches',
+      name: 'Therapy approaches',
+      description:
+        'What CBT, ACT, EMDR, IFS, DBT-informed skills and mindfulness-based programmes actually involve, including where each one works poorly.',
+      updated: COLLECTION_DATES['services'],
+      type: 'CollectionPage',
+    }),
     {
       '@context': 'https://schema.org',
       '@type': 'ItemList',

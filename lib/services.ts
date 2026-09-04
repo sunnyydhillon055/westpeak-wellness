@@ -247,7 +247,7 @@ export const services: Service[] = [
     short: "For the pattern between you, not the person you think is the problem.",
     metaTitle: "Online Family Counselling in BC | Westpeak Wellness",
     metaDescription:
-      "Online family counselling across BC in English or Punjabi. Conflict, communication, and the gap between generations. Free 15-minute consultation.",
+      "Online family counselling across BC in English, Punjabi or Tagalog. Conflict, communication, and the gap between generations. Free 15-minute consultation.",
     hero: "When the difficulty lives between people, not inside one of them.",
     directAnswer:
       "Family counselling at Westpeak Wellness is relationship work involving more than one family member, delivered by secure video across British Columbia by a Registered Clinical Counsellor (MA, RCC), in English or Punjabi. It treats the pattern between people rather than one person's behaviour, and is used for recurring conflict, communication that has broken down, adult children and parents who cannot talk, blended-family adjustment, and the distance that opens between generations in immigrant families. Not everyone needs to attend every session.",

@@ -70,6 +70,21 @@ const COLLECTIONS = {
   tools: 'lib/tools.ts',
   locations: 'lib/locations.ts',
   punjabiRegions: 'lib/punjabi-regions.ts',
+  /* ADDED 3 Sep 2026. These four cover 143 pages that had no date on any
+     surface: no <lastmod> in the sitemap and no dateModified in their
+     structured data. They are the pages an answer engine would cite for
+     "counselling in Surrey" or for either counsellor by name, so they were
+     precisely the wrong ones to leave undated. All four existed as modules
+     before this; nobody had added them to the map. */
+  cityServices: 'lib/city-services.ts',
+  practitioners: 'lib/practitioners.ts',
+  practitionerPlaces: 'lib/practitioner-places.ts',
+  tagalog: 'lib/tagalog-guides.ts',
+  tagalogPlaces: 'lib/practitioner-places-tl.ts',
+  tagalogLanding: 'lib/tagalog-landing.ts',
+  conditions: 'lib/conditions.ts',
+  glossary: 'lib/glossary.ts',
+  faq: 'lib/faq.ts',
 };
 
 const lastCommit = (file) => {

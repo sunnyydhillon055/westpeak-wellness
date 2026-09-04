@@ -9,6 +9,8 @@ import Figure from '@/components/Figure';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import ExtraSections from '@/components/ExtraSections';
 import { ogBase } from '@/lib/og-meta';
+import { webPage } from '@/lib/schema';
+import { COLLECTION_DATES } from '@/lib/page-dates';
 
 export const metadata: Metadata = {
   /* Its own og:url. Without an openGraph object this page inherited the
@@ -18,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: { ...ogBase('/online-counselling') },
   title: 'Areas Served Across British Columbia',
   description:
-    'Virtual therapy anywhere in BC: Vancouver, Surrey, Victoria, Kelowna, Prince George and beyond. Sessions in English or Punjabi.',
+    'Virtual therapy anywhere in BC: Vancouver, Surrey, Victoria, Kelowna, Prince George and beyond. Sessions in English, Punjabi or Tagalog.',
   alternates: { canonical: `${site.domain}/online-counselling` },
 };
 
@@ -28,6 +30,25 @@ export default function LocationsIndex() {
   }, {});
   return (
     <>
+      {/* This page carried no page-level entity. The layout's organisation and
+          website nodes were on it, so a validator saw structured data and
+          reported nothing wrong, while nothing described the page itself: no
+          name, no description, no language, no date, no author. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            webPage({
+              path: "/online-counselling",
+              name: "Online counselling across British Columbia",
+              description:
+                "How province-wide virtual counselling works, and the cities and regions served by secure video from anywhere in BC.",
+              updated: COLLECTION_DATES["locations"],
+              type: "CollectionPage",
+            })
+          ),
+        }}
+      />
       <section className="hero hero--locations" style={{ paddingBottom: 40 }}>
         <div className="container">
           <p className="eyebrow">Serving all of BC</p>

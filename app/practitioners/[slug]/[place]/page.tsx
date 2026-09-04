@@ -14,6 +14,7 @@ import { BadgeCheck } from 'lucide-react';
 import { ogBase } from '@/lib/og-meta';
 import { TAGALOG, TAGALOG_READY } from '@/lib/practitioner-tl';
 import { TL_PLACE_SHARED } from '@/lib/practitioner-places-tl';
+import { COLLECTION_DATES } from '@/lib/page-dates';
 
 /* Two kinds of page share this route, because they are the same page in two
  * languages and splitting them would duplicate the schema, the breadcrumbs and
@@ -157,6 +158,13 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
       '@type': 'ProfilePage',
       '@id': `${site.domain}/practitioners/${p.slug}/${params.place}#page`,
       inLanguage: params.place,
+      /* The one page in this route that the date pass missed, because it sets
+         inLanguage from a variable rather than a literal and the pattern was
+         matching literals. Worth the note: a page found by measuring the built
+         output, not by reading the source. */
+      datePublished: COLLECTION_DATES['tagalogPlaces'],
+      dateModified: COLLECTION_DATES['tagalogPlaces'],
+      author: orgRef,
       isPartOf: siteRef,
       mainEntity: { '@id': `${site.domain}/practitioners/${p.slug}#person` },
     };
@@ -275,6 +283,12 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
       mainEntity: { '@id': `${site.domain}/practitioners/${p.slug}#person` },
       isPartOf: siteRef,
       inLanguage: 'en-CA',
+      /* Real commit date for the module this page's copy lives in, from
+         lib/page-dates.ts. Without it this page made no freshness claim at
+         all, which a retrieval system reads as unknown rather than fresh. */
+      datePublished: COLLECTION_DATES['practitionerPlaces'],
+      dateModified: COLLECTION_DATES['practitionerPlaces'],
+      author: orgRef,
       about: orgRef,
     },
     {

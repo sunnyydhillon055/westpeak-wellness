@@ -1,4 +1,10 @@
 import { site } from '@/lib/site';
+import { practitioners } from '@/lib/practitioners';
+import { punjabiRegions } from '@/lib/punjabi-regions';
+import { tools } from '@/lib/tools';
+import { TAGALOG_CITIES } from '@/lib/tagalog';
+import { TAGALOG_READY } from '@/lib/practitioner-tl';
+import { PROVINCE_NAME, type Province } from '@/lib/crisis';
 import { services } from '@/lib/services';
 import { approaches } from '@/lib/approaches';
 import { guides } from '@/lib/guides';
@@ -33,7 +39,7 @@ export function GET() {
 > Virtual counselling practice serving all of British Columbia, Canada. Sessions
 > are delivered by secure video only. There is no office and no phone-session
 > option. Provided by a Registered Clinical Counsellor (MA, RCC) registered with
-> the BC Association of Clinical Counsellors, working in English and Punjabi.
+> the BC Association of Clinical Counsellors. Languages across the practice: English, Punjabi and Tagalog, per counsellor.
 > A second counsellor holds both the BCACC registration and the national
 > Canadian Certified Counsellor certification, works in English and Tagalog, and
 > can see clients located in Alberta as well as British Columbia.
@@ -103,6 +109,27 @@ ${list(audiences, '/for')}
 ## Areas served
 
 ${list(locations, '/online-counselling')}
+
+## The counsellors
+
+${practitioners.map((p) => `- [${p.name}, ${p.postNominals}](${site.domain}/practitioners/${p.slug}): ${p.credentials.map((c) => `${c.short} ${c.number}`).join(', ')}. Works in ${p.languages.map((l) => l.name).join(' and ')}. Sees clients located in ${p.provinces.map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and ')}.`).join(String.fromCharCode(10))}
+
+Each counsellor has city pages of their own under the same path. Which language
+and which province applies is stated per counsellor, never practice-wide, because
+the two differ.
+
+## Counselling in Tagalog
+
+${TAGALOG_READY ? `- [Sa Tagalog](${site.domain}/tagalog): the Tagalog section, written in Tagalog.
+${TAGALOG_CITIES.map((c) => `- [Tagalog counselling in ${c.city}](${site.domain}/tagalog-counselling/${c.slug}): ${c.angle}`).join(String.fromCharCode(10))}` : '(not currently published)'}
+
+## Counselling in Punjabi
+
+${punjabiRegions.map((r) => `- [Punjabi-speaking counselling in ${r.region}](${site.domain}/punjabi-counselling/${r.slug}): ${r.blurb}`).join(String.fromCharCode(10))}
+
+## Tools
+
+${tools.map((t) => `- [${t.title}](${site.domain}/tools/${t.slug}): ${t.short} About ${t.minutes} minutes, stores nothing, not a diagnosis.`).join(String.fromCharCode(10))}
 
 ## Alberta
 

@@ -14,6 +14,7 @@ import { TL_PLACE_SHARED, getTagalogPlace } from '@/lib/practitioner-places-tl';
 import { practitioners } from '@/lib/practitioners';
 import { tagalogGuides } from '@/lib/tagalog-guides';
 import { placesFor } from '@/lib/practitioner-places';
+import { COLLECTION_DATES } from '@/lib/page-dates';
 
 /* ============================================================================
    THE TAGALOG FRONT DOOR
@@ -67,6 +68,12 @@ export default function TagalogPage() {
       name: TITLE,
       description: DESC,
       inLanguage: 'tl',
+      /* Real commit date for the module this page's copy lives in, from
+         lib/page-dates.ts. Without it this page made no freshness claim at
+         all, which a retrieval system reads as unknown rather than fresh. */
+      datePublished: COLLECTION_DATES['tagalogLanding'],
+      dateModified: COLLECTION_DATES['tagalogLanding'],
+      author: orgRef,
       isPartOf: siteRef,
       about: orgRef,
       publisher: orgRef,

@@ -12,6 +12,7 @@ import CtaBand from '@/components/CtaBand';
 import { BadgeCheck, Languages as LangIcon, MonitorSmartphone } from 'lucide-react';
 import { ogBase } from '@/lib/og-meta';
 import { TAGALOG_READY } from '@/lib/practitioner-tl';
+import { COLLECTION_DATES } from '@/lib/page-dates';
 
 export function generateStaticParams() {
   return practitioners.map((p) => ({ slug: p.slug }));
@@ -130,6 +131,12 @@ export default function PractitionerPage({ params }: { params: { slug: string } 
       mainEntity: { '@id': `${site.domain}/practitioners/${p.slug}#person` },
       isPartOf: siteRef,
       inLanguage: 'en-CA',
+      /* Real commit date for the module this page's copy lives in, from
+         lib/page-dates.ts. Without it this page made no freshness claim at
+         all, which a retrieval system reads as unknown rather than fresh. */
+      datePublished: COLLECTION_DATES['practitioners'],
+      dateModified: COLLECTION_DATES['practitioners'],
+      author: orgRef,
     },
     {
       '@context': 'https://schema.org',

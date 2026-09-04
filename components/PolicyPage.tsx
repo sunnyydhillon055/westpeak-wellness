@@ -31,9 +31,14 @@ export default function PolicyPage({ doc }: { doc: Policy }) {
       url,
       inLanguage: 'en-CA',
       dateModified: doc.updated,
+      /* The practice, machine-readable. These four pages are the ones a
+         retrieval system checks to decide whether a health site is accountable
+         to anyone, and they were the ones not naming a publisher of the page
+         itself. */
+      author: orgRef,
+      publisher: orgRef,
       lastReviewed: doc.updated,
       isPartOf: { '@type': 'WebSite', name: site.name, url: site.domain },
-      publisher: orgRef,
       about: orgRef,
     },
     {

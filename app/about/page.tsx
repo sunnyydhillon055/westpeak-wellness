@@ -7,6 +7,8 @@ import Motif from '@/components/brand/Motif';
 import { BadgeCheck } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
+import { webPage } from '@/lib/schema';
+import { COLLECTION_DATES } from '@/lib/page-dates';
 
 /* ABOUT US — rewritten 31 Aug 2026, at the owner's request, from ~1,720 words
  * to roughly 500.
@@ -39,7 +41,7 @@ export const metadata: Metadata = {
   openGraph: { ...ogBase('/about') },
   title: 'About us',
   description:
-    'Westpeak Wellness is a virtual counselling practice serving all of British Columbia, therapy in English or Punjabi with Registered Clinical Counsellors.',
+    'A virtual counselling practice serving all of British Columbia. Therapy in English, Punjabi or Tagalog with Registered Clinical Counsellors.',
   alternates: { canonical: `${site.domain}/about` },
 };
 
@@ -59,7 +61,7 @@ const BLOCKS: { h: string; p: string; href: string; cta: string }[] = [
     cta: 'Areas we serve',
   },
   {
-    h: 'English or Punjabi',
+    h: 'English, Punjabi or Tagalog',
     p: 'Any session can run in either language, or move between the two. For a lot of people that is the difference between explaining a feeling and actually having it understood.',
     href: '/punjabi',
     cta: 'ਪੰਜਾਬੀ ਵਿੱਚ',
@@ -87,6 +89,25 @@ const BLOCKS: { h: string; p: string; href: string; cta: string }[] = [
 export default function About() {
   return (
     <>
+      {/* This page carried no page-level entity. The layout's organisation and
+          website nodes were on it, so a validator saw structured data and
+          reported nothing wrong, while nothing described the page itself: no
+          name, no description, no language, no date, no author. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            webPage({
+              path: "/about",
+              name: "About Westpeak Wellness",
+              description:
+                "Who the counsellors are, how the practice works, and the limits of what it does. Online counselling across British Columbia.",
+              updated: COLLECTION_DATES["practitioners"],
+              type: "AboutPage",
+            })
+          ),
+        }}
+      />
       <section className="hero" style={{ paddingBottom: 48 }}>
         <div className="container hero-split">
           <div>
@@ -94,7 +115,7 @@ export default function About() {
             <h1>Counselling that meets you where you are.</h1>
             <p className="lede">
               Westpeak Wellness is a virtual counselling practice serving all of British Columbia,
-              working in English and Punjabi with Registered Clinical Counsellors.
+              working in English, Punjabi and Tagalog with Registered Clinical Counsellors.
             </p>
             <div className="btn-row" style={{ marginTop: 24 }}>
               <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>

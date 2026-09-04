@@ -11,7 +11,7 @@ import InboundForm from '@/components/InboundForm';
 export const metadata: Metadata = {
   title: 'Contact & Book',
   description:
-    'One line is enough to start, and the reply comes from your counsellor rather than an assistant, within one business day. English or Punjabi, anywhere in BC.',
+    'One line is enough to start, and the reply comes from your counsellor rather than an assistant, within one business day. English, Punjabi or Tagalog, anywhere in BC.',
   alternates: { canonical: `${site.domain}/contact` },
 };
 
@@ -104,7 +104,7 @@ export default async function Contact({
               A sentence is genuinely enough. There is no form to complete and no history to assemble,
               and nobody is assessing how well you describe it. If it helps to have a starting shape:
               roughly what is going on, roughly how long it has been going on, and whether you would
-              rather talk in English or Punjabi. That is all that is needed to work out whether a
+              rather talk in English, Punjabi or Tagalog. That is all that is needed to work out whether a
               consultation makes sense.
             </p>
             <p>

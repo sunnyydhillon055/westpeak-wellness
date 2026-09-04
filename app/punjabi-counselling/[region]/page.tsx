@@ -10,6 +10,7 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import Figure from '@/components/Figure';
 import Stat from '@/components/Stat';
 import { ogBase } from '@/lib/og-meta';
+import { COLLECTION_DATES } from '@/lib/page-dates';
 
 /* The English-language Punjabi cluster.
  *
@@ -56,6 +57,13 @@ export default function PunjabiRegionPage({ params }: { params: { region: string
     {
       '@context': 'https://schema.org',
       '@type': 'Service',
+      /* Real commit date for the module this page is built from. Without
+         it the page made no freshness claim, which reads as unknown
+         rather than current. See lib/page-dates.ts. */
+      datePublished: COLLECTION_DATES["punjabiRegions"],
+      dateModified: COLLECTION_DATES["punjabiRegions"],
+      provider: orgRef,
+      author: orgRef,
       '@id': abs(`${path}#service`),
       name: `Punjabi-speaking counselling in ${r.region}, BC`,
       description: r.metaDescription,
@@ -68,7 +76,6 @@ export default function PunjabiRegionPage({ params }: { params: { region: string
         { '@type': 'Language', name: 'Punjabi', alternateName: 'pa' },
         { '@type': 'Language', name: 'English', alternateName: 'en' },
       ],
-      provider: orgRef,
       isPartOf: siteRef,
     },
     {

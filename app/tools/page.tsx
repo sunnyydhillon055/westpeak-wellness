@@ -8,6 +8,7 @@ import SceneBand from '@/components/SceneBand';
 import Figure from '@/components/Figure';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
+import { COLLECTION_DATES } from '@/lib/page-dates';
 
 const TITLE = 'Free counselling tools | Westpeak Wellness';
 const DESC =
@@ -25,11 +26,17 @@ export default function ToolsIndex() {
     {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
+      /* Real commit date for the module this page is built from. Without
+         it the page made no freshness claim, which reads as unknown
+         rather than current. See lib/page-dates.ts. */
+      datePublished: COLLECTION_DATES["tools"],
+      dateModified: COLLECTION_DATES["tools"],
+      author: orgRef,
+      publisher: orgRef,
       '@id': abs('/tools'),
       name: TITLE,
       description: DESC,
       isPartOf: siteRef,
-      publisher: orgRef,
     },
     {
       '@context': 'https://schema.org',

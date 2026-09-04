@@ -7,6 +7,7 @@ import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
+import { COLLECTION_DATES } from '@/lib/page-dates';
 
 const TITLE = 'Reviews and references | Westpeak Wellness';
 const DESC =
@@ -37,12 +38,18 @@ export default function ReviewsPage() {
     {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
+      /* Real commit date for the module this page is built from. Without
+         it the page made no freshness claim, which reads as unknown
+         rather than current. See lib/page-dates.ts. */
+      datePublished: COLLECTION_DATES["services"],
+      dateModified: COLLECTION_DATES["services"],
+      author: orgRef,
+      publisher: orgRef,
       '@id': abs('/reviews'),
       name: TITLE,
       description: DESC,
       isPartOf: siteRef,
       about: orgRef,
-      publisher: orgRef,
     },
     {
       '@context': 'https://schema.org',

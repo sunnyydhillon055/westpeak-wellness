@@ -7,6 +7,7 @@ import { abs, orgRef } from '@/lib/schema';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import CtaBand from '@/components/CtaBand';
 import { ogBase } from '@/lib/og-meta';
+import { COLLECTION_DATES } from '@/lib/page-dates';
 
 const TITLE = 'Our Counsellors | Westpeak Wellness';
 const DESC =
@@ -36,6 +37,12 @@ export default function PractitionersPage() {
     url: `${site.domain}/practitioners`,
     about: orgRef,
     inLanguage: 'en-CA',
+    /* Real commit date for the module this page's copy lives in, from
+       lib/page-dates.ts. Without it this page made no freshness claim at
+       all, which a retrieval system reads as unknown rather than fresh. */
+    datePublished: COLLECTION_DATES['practitioners'],
+    dateModified: COLLECTION_DATES['practitioners'],
+    author: orgRef,
     hasPart: practitioners.map((p) => ({
       '@type': 'Person',
       name: p.name,

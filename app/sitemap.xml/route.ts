@@ -63,9 +63,23 @@ export function GET() {
   const core: Entry[] = [
     '', '/about', '/services', '/approaches', '/pricing', '/contact', '/faq',
     '/online-counselling', '/guides', '/compare', '/for', '/resources', '/glossary',
+    /* These two were in the static route list, so they looked up PAGE_DATES by
+       route and found nothing: neither is a page component whose file history
+       means anything, because their copy lives in lib/practitioners.ts and
+       lib/tagalog-guides.ts. Every URL underneath them inherited the same miss,
+       which is why 57 of 251 sitemap entries carried no lastmod and all 57 were
+       the newest content on the site. */
     '/practitioners', '/tagalog-counselling',
   ].map((p) => ({
-    path: p, lastmod: lastmodFor(p), changefreq: 'monthly' as const,
+    path: p,
+    /* /practitioners and /tagalog-counselling have no page-file history worth
+       reading; their content is in lib modules, so they take the collection
+       date like every URL beneath them. */
+    lastmod:
+      p === '/practitioners' ? collectionLastmod('practitioners')
+      : p === '/tagalog-counselling' ? collectionLastmod('tagalog')
+      : lastmodFor(p),
+    changefreq: 'monthly' as const,
     priority: p === '' ? 1 : 0.8, figure: PAGE_FIGURES[p],
   }));
 
@@ -76,7 +90,7 @@ export function GET() {
    * pages are absent while TAGALOG_READY is false. A sitemap entry for a route
    * that 404s is worse than no entry, and this repo has shipped that once. */
   const people: Entry[] = practitioners.flatMap((pr) => [
-    { path: `/practitioners/${pr.slug}`, lastmod: lastmodFor('/practitioners'), changefreq: 'monthly' as const, priority: 0.8 },
+    { path: `/practitioners/${pr.slug}`, lastmod: collectionLastmod('practitioners'), changefreq: 'monthly' as const, priority: 0.8 },
     /* Only what is actually built: the places this person serves, and only if
        they have per-city pages at all. Listing a URL that was never generated
        is the "listed but not built" failure sitemap-parity.mjs exists to catch,
@@ -85,7 +99,7 @@ export function GET() {
     ...(pr.placePages
       ? placesFor(pr.provinces).map((l) => ({
           path: `/practitioners/${pr.slug}/${l.slug}`,
-          lastmod: lastmodFor('/practitioners'),
+          lastmod: collectionLastmod('practitioners'),
           changefreq: 'monthly' as const,
           priority: 0.6,
           /* The reach map these pages actually render. Without it the diagram
@@ -103,14 +117,14 @@ export function GET() {
       ? [
           {
             path: `/practitioners/${pr.slug}/tl`,
-            lastmod: lastmodFor('/practitioners'),
+            lastmod: collectionLastmod('practitioners'),
             changefreq: 'monthly' as const,
             priority: 0.7,
           },
           ...(pr.placePages
             ? placesFor(pr.provinces).map((l) => ({
                 path: `/practitioners/${pr.slug}/${l.slug}/tl`,
-                lastmod: lastmodFor('/practitioners'),
+                lastmod: collectionLastmod('practitioners'),
                 changefreq: 'monthly' as const,
                 priority: 0.6,
                 figure: 'language-in-therapy-tl',
@@ -128,7 +142,7 @@ export function GET() {
      page written IN Tagalog is gated separately, see lib/practitioner-tl.ts. */
   const tagalog: Entry[] = TAGALOG_CITIES.map((c) => ({
     path: `/tagalog-counselling/${c.slug}`,
-    lastmod: lastmodFor('/tagalog-counselling'),
+    lastmod: collectionLastmod('tagalog'),
     changefreq: 'monthly' as const,
     priority: 0.7,
   }));
@@ -151,10 +165,10 @@ export function GET() {
        else under the flag. */
     ...(TAGALOG_READY
       ? [
-          { path: '/tagalog', lastmod: lastmodFor('/tagalog-counselling'), changefreq: 'monthly' as const, priority: 0.7 },
+          { path: '/tagalog', lastmod: collectionLastmod('tagalog'), changefreq: 'monthly' as const, priority: 0.7 },
           ...tagalogGuides.map((g) => ({
             path: `/tagalog/gabay/${g.slug}`,
-            lastmod: lastmodFor('/tagalog-counselling'),
+            lastmod: collectionLastmod('tagalog'),
             changefreq: 'monthly' as const,
             priority: 0.6,
           })),

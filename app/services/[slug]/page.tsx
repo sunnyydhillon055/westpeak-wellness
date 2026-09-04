@@ -24,6 +24,7 @@ import { deviceSlots } from '@/lib/placement';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { readCatalog, money } from '@/lib/cliniko-catalog';
 import { ogBase } from '@/lib/og-meta';
+import { COLLECTION_DATES } from '@/lib/page-dates';
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -155,6 +156,10 @@ export default async function ServicePage({ params }: { params: { slug: string }
       path: `/services/${s.slug}`,
       name: s.name,
       description: s.directAnswer ?? s.metaDescription,
+      /* Real commit date for lib/services.ts, which is where this page's copy
+         lives. Without it the page made no freshness claim at all, which a
+         retrieval system reads as unknown rather than current. */
+      updated: COLLECTION_DATES['services'],
     }),
     {
       '@context': 'https://schema.org', '@type': 'Service',

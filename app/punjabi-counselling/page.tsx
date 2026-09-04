@@ -7,6 +7,7 @@ import CtaBand from '@/components/CtaBand';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import Figure from '@/components/Figure';
 import { ogBase } from '@/lib/og-meta';
+import { COLLECTION_DATES } from '@/lib/page-dates';
 
 /* THE HUB THE PUNJABI CLUSTER NEVER HAD.
  *
@@ -75,6 +76,12 @@ export default function PunjabiCounsellingIndex() {
       name: TITLE,
       description: DESC,
       inLanguage: 'en-CA',
+      /* Real commit date for the module this page's copy lives in, from
+         lib/page-dates.ts. Without it this page made no freshness claim at
+         all, which a retrieval system reads as unknown rather than fresh. */
+      datePublished: COLLECTION_DATES['punjabiRegions'],
+      dateModified: COLLECTION_DATES['punjabiRegions'],
+      author: orgRef,
       isPartOf: siteRef,
       about: orgRef,
       publisher: orgRef,

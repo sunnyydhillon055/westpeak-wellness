@@ -13,7 +13,7 @@ import Figure from '@/components/Figure';
 
 const TITLE = 'Online Counselling in Alberta';
 const DESC =
-  'Counselling by secure video anywhere in Alberta, in English or Punjabi, with a Registered Clinical Counsellor registered in British Columbia.';
+  'Counselling by secure video anywhere in Alberta, in English or Tagalog, with a Canadian Certified Counsellor who is also BCACC registered.';
 
 /* The province gate is enforced in middleware.ts, not here, and the long
  * comment there explains why: notFound() from a matched route renders the
@@ -103,7 +103,7 @@ export default function AlbertaHub() {
           <p className="eyebrow">Alberta</p>
           <h1>{TITLE}</h1>
           <p className="direct-answer">
-            Counselling by secure video is available anywhere in Alberta, in English or Punjabi.
+            Counselling by secure video is available anywhere in Alberta, in English or Tagalog.
             Sessions are provided by a Registered Clinical Counsellor registered in British
             Columbia, counselling therapy is not currently a regulated profession in Alberta, so
             no Alberta college registers counsellors. The first 15 minutes are free.

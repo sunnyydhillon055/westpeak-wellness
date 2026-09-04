@@ -45,7 +45,10 @@ export default function MessageSentPage() {
           <p className="eyebrow">Message sent</p>
           <h1>That&rsquo;s arrived.</h1>
           <p className="lede">
-            Writing the first message is the part most people find hardest, and it is done.
+            Writing the first message is the part most people find hardest, and it is done. A
+            reply comes from a counsellor rather than an assistant, usually within one business
+            day and always within two. Nothing else is needed from you in the meantime, and there
+            is no form to complete before anyone reads it.
           </p>
         </div>
       </section>

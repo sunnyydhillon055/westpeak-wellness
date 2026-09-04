@@ -13,7 +13,7 @@ import { PROVINCE_NAME, type Province } from '@/lib/crisis';
 export const metadata: Metadata = {
   title: 'Book a Free 15-Minute Consultation',
   description:
-    'A free 15-minute video call. No card, no obligation, and if someone else would suit you better you will be told so. Anywhere in BC, English or Punjabi.',
+    'A free 15-minute video call. No card, no obligation, and if someone else would suit you better you will be told so. Anywhere in BC, in English, Punjabi or Tagalog.',
   alternates: { canonical: `${site.domain}/book` },
   openGraph: { ...ogBase(`/book`),
     title: `Book a Free 15-Minute Consultation | ${site.name}`,

@@ -10,6 +10,7 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
 import { ogBase } from '@/lib/og-meta';
+import { COLLECTION_DATES } from '@/lib/page-dates';
 
 export function generateStaticParams() {
   return TAGALOG_CITIES.map((c) => ({ city: c.slug }));
@@ -78,6 +79,12 @@ export default function TagalogCityPage({ params }: { params: { city: string } }
       '@id': `${site.domain}/tagalog-counselling/${c.slug}#page`,
       isPartOf: siteRef,
       inLanguage: 'en-CA',
+      /* Real commit date for the module this page's copy lives in, from
+         lib/page-dates.ts. Without it this page made no freshness claim at
+         all, which a retrieval system reads as unknown rather than fresh. */
+      datePublished: COLLECTION_DATES['tagalogPlaces'],
+      dateModified: COLLECTION_DATES['tagalogPlaces'],
+      author: orgRef,
     },
   ];
 

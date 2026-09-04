@@ -11,37 +11,46 @@
  */
 
 export const PAGE_DATES: Record<string, string> = {
-  "": "2026-08-23",
-  "/about": "2026-08-28",
-  "/services": "2026-08-18",
-  "/approaches": "2026-08-09",
-  "/pricing": "2026-08-23",
-  "/contact": "2026-08-28",
-  "/faq": "2026-08-28",
-  "/online-counselling": "2026-08-28",
-  "/guides": "2026-08-17",
-  "/compare": "2026-08-09",
-  "/for": "2026-08-09",
-  "/resources": "2026-08-09",
-  "/glossary": "2026-08-08",
-  "/book": "2026-08-28",
-  "/tools": "2026-08-09",
+  "": "2026-09-03",
+  "/about": "2026-09-03",
+  "/services": "2026-09-03",
+  "/approaches": "2026-09-03",
+  "/pricing": "2026-09-03",
+  "/contact": "2026-09-03",
+  "/faq": "2026-09-03",
+  "/online-counselling": "2026-09-03",
+  "/guides": "2026-09-03",
+  "/compare": "2026-09-03",
+  "/for": "2026-09-03",
+  "/resources": "2026-09-03",
+  "/glossary": "2026-09-03",
+  "/book": "2026-09-03",
+  "/tools": "2026-09-03",
   "/reviews": "2026-08-09",
-  "/refer": "2026-08-28",
-  "/refer/doctor": "2026-08-28",
-  "/punjabi": "2026-08-18",
-  "/standards": "2026-08-23",
-  "/editorial-policy": "2026-08-23",
-  "/privacy": "2026-08-23",
-  "/accessibility": "2026-08-23"
+  "/refer": "2026-09-03",
+  "/refer/doctor": "2026-09-03",
+  "/punjabi": "2026-09-03",
+  "/standards": "2026-09-03",
+  "/editorial-policy": "2026-09-03",
+  "/privacy": "2026-09-03",
+  "/accessibility": "2026-09-03"
 };
 
 /** Collections whose items share one source module and so one honest date. */
 export const COLLECTION_DATES: Record<string, string> = {
-  "services": "2026-08-28",
-  "tools": "2026-08-28",
-  "locations": "2026-08-27",
-  "punjabiRegions": "2026-08-23"
+  "services": "2026-09-03",
+  "tools": "2026-09-03",
+  "locations": "2026-09-03",
+  "punjabiRegions": "2026-09-03",
+  "cityServices": "2026-09-03",
+  "practitioners": "2026-09-03",
+  "practitionerPlaces": "2026-09-03",
+  "tagalog": "2026-09-03",
+  "tagalogPlaces": "2026-09-03",
+  "tagalogLanding": "2026-09-03",
+  "conditions": "2026-09-03",
+  "glossary": "2026-09-03",
+  "faq": "2026-09-03"
 };
 
 /** ISO-8601 for the sitemap, or null when we do not honestly know. */

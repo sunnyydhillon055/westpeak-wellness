@@ -3,6 +3,7 @@ import { site } from '@/lib/site';
 import { abs, orgRef, siteRef } from '@/lib/schema';
 import type { ToolMeta } from '@/lib/tools';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { COLLECTION_DATES } from '@/lib/page-dates';
 
 /* Shared frame for every tool: heading, schema, and the closing CTA.
  *
@@ -30,6 +31,14 @@ export default function ToolShell({
       browserRequirements: 'Requires JavaScript',
       isPartOf: siteRef,
       publisher: orgRef,
+      /* The five tool pages carried a WebApplication node with no author and no
+         date. WebApplication is the right type and it says nothing about who
+         made the thing or when it last changed, which is what a retrieval
+         system reads to decide whether a health calculator is current. */
+      author: orgRef,
+      inLanguage: 'en-CA',
+      datePublished: COLLECTION_DATES['tools'],
+      dateModified: COLLECTION_DATES['tools'],
       // Free and with no account — stating it in the markup as well as the copy.
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'CAD' },
     },

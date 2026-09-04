@@ -6,6 +6,7 @@ import { abs, orgRef, siteRef } from '@/lib/schema';
 import Figure from '@/components/Figure';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBasePunjabi } from '@/lib/og-meta';
+import { COLLECTION_DATES } from '@/lib/page-dates';
 
 const TITLE = 'ਪੰਜਾਬੀ ਵਿੱਚ ਕਾਊਂਸਲਿੰਗ | Punjabi counselling in BC';
 const DESC =
@@ -61,6 +62,12 @@ export default function PunjabiPage() {
       name: TITLE,
       description: DESC,
       inLanguage: 'pa',
+      /* Real commit date for the module this page's copy lives in, from
+         lib/page-dates.ts. Without it this page made no freshness claim at
+         all, which a retrieval system reads as unknown rather than fresh. */
+      datePublished: COLLECTION_DATES['punjabiRegions'],
+      dateModified: COLLECTION_DATES['punjabiRegions'],
+      author: orgRef,
       isPartOf: siteRef,
       about: orgRef,
       publisher: orgRef,

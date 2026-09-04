@@ -9,9 +9,10 @@ import { TAGALOG_READY } from '@/lib/practitioner-tl';
 import { TL_PLACE_SHARED, getTagalogPlace } from '@/lib/practitioner-places-tl';
 import Figure from '@/components/Figure';
 import Breadcrumbs from '@/components/Breadcrumbs';
-import { abs, siteRef } from '@/lib/schema';
+import { abs, siteRef, orgRef } from '@/lib/schema';
 import { BadgeCheck } from 'lucide-react';
 import { ogBase } from '@/lib/og-meta';
+import { COLLECTION_DATES } from '@/lib/page-dates';
 
 /* ============================================================================
    THE TAGALOG CITY PAGES — /practitioners/<slug>/<city>/tl
@@ -116,6 +117,12 @@ export default function TagalogPlacePage({ params }: { params: Params }) {
       '@type': 'ProfilePage',
       '@id': `${site.domain}${tlPath}#page`,
       inLanguage: 'tl',
+      /* Real commit date for the module this page's copy lives in, from
+         lib/page-dates.ts. Without it this page made no freshness claim at
+         all, which a retrieval system reads as unknown rather than fresh. */
+      datePublished: COLLECTION_DATES['tagalogPlaces'],
+      dateModified: COLLECTION_DATES['tagalogPlaces'],
+      author: orgRef,
       isPartOf: siteRef,
       mainEntity: { '@id': `${site.domain}/practitioners/${p.slug}#person` },
     },
@@ -124,6 +131,12 @@ export default function TagalogPlacePage({ params }: { params: Params }) {
       '@type': 'FAQPage',
       '@id': `${site.domain}${tlPath}#faq`,
       inLanguage: 'tl',
+      /* Real commit date for the module this page's copy lives in, from
+         lib/page-dates.ts. Without it this page made no freshness claim at
+         all, which a retrieval system reads as unknown rather than fresh. */
+      datePublished: COLLECTION_DATES['tagalogPlaces'],
+      dateModified: COLLECTION_DATES['tagalogPlaces'],
+      author: orgRef,
       mainEntity: faqs.map((f) => ({
         '@type': 'Question',
         name: f.q,

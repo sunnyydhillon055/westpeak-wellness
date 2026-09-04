@@ -8,6 +8,8 @@ import Figure from '@/components/Figure';
 import { getServiceIcon } from '@/lib/icon-map';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
+import { webPage } from '@/lib/schema';
+import { COLLECTION_DATES } from '@/lib/page-dates';
 
 export const metadata: Metadata = {
   /* Its own og:url. Without an openGraph object this page inherited the
@@ -24,6 +26,25 @@ export const metadata: Metadata = {
 export default function Services() {
   return (
     <>
+      {/* This page carried no page-level entity. The layout's organisation and
+          website nodes were on it, so a validator saw structured data and
+          reported nothing wrong, while nothing described the page itself: no
+          name, no description, no language, no date, no author. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            webPage({
+              path: "/services",
+              name: "Counselling services",
+              description:
+                "Individual, couples, EMDR and family counselling, delivered online anywhere in British Columbia. What each one involves and who it suits.",
+              updated: COLLECTION_DATES["services"],
+              type: "CollectionPage",
+            })
+          ),
+        }}
+      />
       <section className="hero" style={{ paddingBottom: 48 }}>
         <div className="container">
           <p className="eyebrow">Our services</p>
@@ -121,7 +142,7 @@ export default function Services() {
               </p>
             </div>
             <div className="card">
-              <h3>English or Punjabi</h3>
+              <h3>English, Punjabi or Tagalog</h3>
               <p style={{ marginBottom: 0 }}>
                 Any service can run in either language, or both within a session.
               </p>

@@ -11,6 +11,7 @@ import { TAGALOG_READY } from '@/lib/practitioner-tl';
 import { tagalogGuides, getTagalogGuide } from '@/lib/tagalog-guides';
 import { TAGALOG_LANDING } from '@/lib/tagalog-landing';
 import { practitioners } from '@/lib/practitioners';
+import { COLLECTION_DATES } from '@/lib/page-dates';
 
 /* ============================================================================
    GABAY — the Tagalog guides.
@@ -75,6 +76,12 @@ export default function TagalogGuidePage({ params }: { params: Params }) {
       headline: g.title,
       description: g.metaDescription,
       inLanguage: 'tl',
+      /* Real commit date for the module this page's copy lives in, from
+         lib/page-dates.ts. Without it this page made no freshness claim at
+         all, which a retrieval system reads as unknown rather than fresh. */
+      datePublished: COLLECTION_DATES['tagalog'],
+      dateModified: COLLECTION_DATES['tagalog'],
+      author: orgRef,
       isPartOf: siteRef,
       publisher: orgRef,
     },
@@ -83,6 +90,12 @@ export default function TagalogGuidePage({ params }: { params: Params }) {
       '@type': 'FAQPage',
       '@id': abs(`/tagalog/gabay/${g.slug}#faq`),
       inLanguage: 'tl',
+      /* Real commit date for the module this page's copy lives in, from
+         lib/page-dates.ts. Without it this page made no freshness claim at
+         all, which a retrieval system reads as unknown rather than fresh. */
+      datePublished: COLLECTION_DATES['tagalog'],
+      dateModified: COLLECTION_DATES['tagalog'],
+      author: orgRef,
       mainEntity: g.faqs.map((f) => ({
         '@type': 'Question',
         name: f.q,

@@ -13,7 +13,7 @@ export const moreAudiences: Audience[] = [
     lede:
       'A great deal of what arrives here has been carried competently for years. Competence is exactly why nobody noticed.',
     shortAnswer:
-      'Counselling for women across BC, online in English or Punjabi. Covers the load that does not show up on any list, anger that has had nowhere to go, and the particular exhaustion of being the person everyone else is fine because of.',
+      'Counselling for women across BC, online in English, Punjabi or Tagalog. Covers the load that does not show up on any list, anger that has had nowhere to go, and the particular exhaustion of being the person everyone else is fine because of.',
     updated: '2026-08-31',
     readMinutes: 8,
     opening: [
@@ -70,7 +70,7 @@ export const moreAudiences: Audience[] = [
         body: [
           'The most common obstacle is not ambivalence about therapy. It is the hour. A weekly appointment requiring travel, parking and childcare is a fourth commitment on top of three, and it is usually the first thing to be cancelled when something else gives.',
           'Sessions here are online across British Columbia, which removes the commute rather than the appointment, and evening slots are available on request. For people whose only reliable private hour is after the house is asleep or in a parked car outside the school, that is frequently the difference between attending and intending to.',
-          'Sessions run in English or Punjabi. Where family expectations are part of the picture, and they often are, being able to describe them without translating the context first saves a considerable amount of session time. [Counselling in Punjabi](/services/punjabi-counselling) covers that in more detail.',
+          'Sessions run in English, Punjabi or Tagalog. Where family expectations are part of the picture, and they often are, being able to describe them without translating the context first saves a considerable amount of session time. [Counselling in Punjabi](/services/punjabi-counselling) covers that in more detail.',
         ],
       },
     ],

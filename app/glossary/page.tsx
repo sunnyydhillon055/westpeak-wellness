@@ -7,6 +7,7 @@ import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
+import { COLLECTION_DATES } from '@/lib/page-dates';
 
 export const metadata: Metadata = {
   title: { absolute: 'Counselling Terms Glossary | Westpeak Wellness' },
@@ -35,6 +36,12 @@ export default function GlossaryPage() {
         'Plain-language definitions of counselling approaches, mental-health terms, and British Columbia designations and coverage.',
       url: `${site.domain}/glossary`,
       inLanguage: 'en-CA',
+      /* Real commit date for the module this page's copy lives in, from
+         lib/page-dates.ts. Without it this page made no freshness claim at
+         all, which a retrieval system reads as unknown rather than fresh. */
+      datePublished: COLLECTION_DATES['glossary'],
+      dateModified: COLLECTION_DATES['glossary'],
+      author: orgRef,
       publisher: orgRef,
       hasDefinedTerm: glossary.map((t) => ({
         '@type': 'DefinedTerm',

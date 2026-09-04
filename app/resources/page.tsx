@@ -7,6 +7,8 @@ import Figure from '@/components/Figure';
 import { LifeBuoy } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
+import { webPage } from '@/lib/schema';
+import { COLLECTION_DATES } from '@/lib/page-dates';
 
 export const metadata: Metadata = {
   /* Its own og:url. Without an openGraph object this page inherited the
@@ -23,6 +25,23 @@ export const metadata: Metadata = {
 export default function ResourcesHub() {
   return (
     <>
+      {/* An index page with no entity of its own. It lists dozens of pages a
+          crawler will follow, and described itself as nothing. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            webPage({
+              path: "/resources",
+              name: "Mental health resources in BC",
+              description:
+                "Practical reference for mental health in BC: insurance coverage, MSP, free and low-cost counselling, and crisis lines by region.",
+              updated: COLLECTION_DATES["services"],
+              type: "CollectionPage",
+            })
+          ),
+        }}
+      />
       <section className="hero hero--resources" style={{ paddingBottom: 44 }}>
         <div className="container">
           <p className="eyebrow">Resources</p>

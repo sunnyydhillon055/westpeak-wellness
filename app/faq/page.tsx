@@ -9,6 +9,8 @@ import { Compass, Wallet, MessageCircleQuestion, Lock } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { rich } from '@/lib/rich';
 import { ogBase } from '@/lib/og-meta';
+import { webPage } from '@/lib/schema';
+import { COLLECTION_DATES } from '@/lib/page-dates';
 /* Answers may carry [text](/path) links. The rendered answer resolves them;
    the FAQPage schema below keeps the PLAIN string, because markdown syntax
    inside structured data is not something a search engine unwraps — it would
@@ -28,6 +30,17 @@ export const metadata: Metadata = {
     'Answers about online counselling in BC: booking, fees, extended health coverage, Punjabi sessions, confidentiality, and what to expect.',
   alternates: { canonical: `${site.domain}/faq` },
 };
+
+/* The page itself, which had no entity of its own. FAQPage describes the
+   question set; it does not describe the page as a document, so /faq carried
+   no name, description, language, date or author for anything reading it. */
+const pageSchema = webPage({
+  path: '/faq',
+  name: 'Frequently asked questions',
+  description:
+    'Answers about online counselling in BC: booking, fees, extended health coverage, Punjabi and Tagalog sessions, confidentiality, and what to expect.',
+  updated: COLLECTION_DATES['faq'],
+});
 
 const faqSchema = {
   '@context': 'https://schema.org', '@type': 'FAQPage',
@@ -142,6 +155,7 @@ export default function FAQ() {
       <SceneBand seed={'faq'} />
 
       <CtaBand />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
     </>
   );

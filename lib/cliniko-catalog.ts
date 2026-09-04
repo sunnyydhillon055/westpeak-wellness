@@ -46,7 +46,14 @@ export type Catalog = {
 
 /* The values verified against Cliniko on 2026-08-14. Used when the cache is
  * cold or Cliniko cannot be reached. Keep in step with lib/site.ts. */
-const FALLBACK: Catalog = {
+/* Exported so llms-full.txt can state the fees.
+ *
+ * Safe to publish precisely because scripts/price-drift.mjs compares these
+ * numbers against Cliniko on every build: if they ever diverge, the build tells
+ * you rather than the AI feed quietly carrying a stale price. Using the live
+ * catalogue here instead would make a static file depend on a network call at
+ * build time, which is a worse trade for the same number. */
+export const FALLBACK_CATALOG: Catalog = {
   items: [
     { id: '2013349744314681520', name: 'Initial Consultation', minutes: 15, cents: 0, onlineBookable: true },
     { id: '1466854657459489533', name: 'Individual Counselling', minutes: 50, cents: 14000, onlineBookable: true },
@@ -66,16 +73,16 @@ const CACHE_MS = 60_000;
 
 export async function readCatalog(): Promise<Catalog> {
   if (cache && Date.now() - cache.at < CACHE_MS) return cache.value;
-  if (!process.env.BLOB_READ_WRITE_TOKEN) return FALLBACK;
+  if (!process.env.BLOB_READ_WRITE_TOKEN) return FALLBACK_CATALOG;
   try {
     const hit = await get(KEY, { access: 'private' });
-    if (!hit || hit.statusCode !== 200 || !hit.stream) return FALLBACK;
+    if (!hit || hit.statusCode !== 200 || !hit.stream) return FALLBACK_CATALOG;
     const value = (await new Response(hit.stream).json()) as Catalog;
-    if (!Array.isArray(value.items) || value.items.length === 0) return FALLBACK;
+    if (!Array.isArray(value.items) || value.items.length === 0) return FALLBACK_CATALOG;
     cache = { at: Date.now(), value };
     return value;
   } catch {
-    return FALLBACK;
+    return FALLBACK_CATALOG;
   }
 }
 

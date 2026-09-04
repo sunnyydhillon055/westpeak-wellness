@@ -173,7 +173,7 @@ export const locations: Location[] = [
     region: "Lower Mainland",
     blurb: "The most therapists in the province, and still a waitlist, because the constraint here is affordability, not supply.",
     metaDescription:
-      "Online counselling for Vancouver, BC: EMDR, trauma, anxiety, depression and couples therapy by secure video, in English or Punjabi. Free consultation.",
+      "Online counselling for Vancouver, BC: EMDR, trauma, anxiety, couples therapy by secure video, in English, Punjabi or Tagalog. Free consultation.",
     intro: [
       "Vancouver has more counsellors per capita than anywhere else in British Columbia. It is also the city where people most often report giving up on finding one, which sounds contradictory until you look at what the actual constraint is.",
       "It is not supply. It is cost, time, and the specific difficulty of finding someone who is both a genuine fit and currently accepting clients. In a city where housing already takes an outsized share of income, a $140 weekly session is a real decision rather than an obvious one.",
@@ -258,7 +258,7 @@ export const locations: Location[] = [
     region: "Vancouver Island",
     blurb: "On the Island, specialist care has often meant a ferry, a day off, and a return sailing. It no longer has to.",
     metaDescription:
-      "Online counselling for Victoria and Vancouver Island. EMDR, trauma, anxiety, and couples therapy by secure video, in English or Punjabi.",
+      "Online counselling for Victoria and Vancouver Island. EMDR, trauma, anxiety, and couples therapy by secure video, in English, Punjabi or Tagalog.",
     intro: [
       "Victoria has a solid local counselling community, and for a lot of people it covers what they need. Where it runs out is specialisation, a particular modality, a particular language, or a practitioner with specific experience in what you are bringing.",
       "Historically the answer was a ferry. A single appointment on the mainland means a sailing each way, a day given up, and a cost that turns weekly therapy into an impossibility. Which meant the practical choice was usually not \"which practitioner is the best fit\" but \"which practitioner is on this side of the water\".",
@@ -302,7 +302,7 @@ export const locations: Location[] = [
     region: "Okanagan",
     blurb: "The Okanagan's population has grown faster than its mental-health services have, and specialist options remain thin.",
     metaDescription:
-      "Online counselling for Kelowna and the Central Okanagan. EMDR, trauma, anxiety, and couples therapy by secure video, English or Punjabi.",
+      "Online counselling for Kelowna and the Central Okanagan. EMDR, trauma, anxiety, and couples therapy by secure video, English, Punjabi or Tagalog.",
     intro: [
       "Kelowna has grown quickly, and it has grown in a specific way: retirees, remote workers who left the coast, students at UBC Okanagan, and a large seasonal workforce in agriculture and tourism. Health and social services have not expanded at the same pace, and mental health is where that gap shows most clearly.",
       "The result is that local options exist but fill up, and the specialist end. A particular modality, a particular language, is thin enough that many people do without.",
@@ -549,7 +549,7 @@ export const locations: Location[] = [
     region: "Metro Vancouver",
     blurb: "A small city on the border where the counsellor you can reach may be someone you will see again at the pier.",
     metaDescription:
-      "Online counselling for White Rock and the Semiahmoo Peninsula. Therapy in English or Punjabi: EMDR, trauma, anxiety, grief and couples sessions.",
+      "Online counselling for White Rock and the Semiahmoo Peninsula. Therapy in English, Punjabi or Tagalog: EMDR, trauma, anxiety, grief and couples sessions.",
     intro: [
       "White Rock is small in a way that changes what privacy means. A city of a few square kilometres wrapped around one hill, one promenade and one main street is a place where the person in the waiting room is quite often someone you know, and where the counsellor you would be booking with may share a grocery store, a beach walk and a dentist with you.",
       "It is also a city that skews older than almost anywhere else in Metro Vancouver, and that shapes what people actually come to therapy for here: retirement that turned out to be harder than expected, caregiving for a partner, grief after a long marriage, health anxiety with a real diagnosis underneath it, and adult children who moved away. Those are not the presentations a general \"anxiety and depression\" page is written for.",
@@ -567,7 +567,7 @@ export const locations: Location[] = [
       { label: "No doorway to be seen at", detail: "In a city where the pier, the pharmacy and the main street are shared, that is the practical privacy concern rather than an abstract one." },
       { label: "No drive up the hill", detail: "Sessions from home matter more where mobility, weather or a steep grade are part of the calculation." },
       { label: "Serves the whole Peninsula", detail: "White Rock, South Surrey, Crescent Beach and Ocean Park, on identical terms, municipal boundaries do not change availability." },
-      { label: "English or Punjabi", detail: "Including both within one session, without travelling into Surrey to find it." },
+      { label: "English, Punjabi or Tagalog", detail: "Which of the three depends on the counsellor. Moving between a language and English mid-session is normal, and needs no travel into Surrey to find." },
     ],
     faqs: [
       { q: "Do you have an office in White Rock?", a: "No. The practice is fully virtual and every session happens by secure video, wherever you are. You may find the business listed with a White Rock address. That is the registered address, not a clinic you would attend, and there is no waiting room." },
@@ -610,15 +610,15 @@ export const locations: Location[] = [
     region: "Metro Vancouver",
     blurb: "A large city whose counselling supply is organised around languages this practice does not offer, which thins the field more than the population suggests.",
     metaDescription:
-      "Online counselling for Richmond, BC. Therapy in English or Punjabi: EMDR, trauma, anxiety, depression and couples sessions by secure video.",
+      "Online counselling for Richmond, BC. Therapy in English, Punjabi or Tagalog: EMDR, trauma, anxiety, depression and couples sessions by secure video.",
     intro: [
       "Richmond is one of the larger cities in Metro Vancouver, and on paper that should mean a wide choice of counsellors. In practice the choice narrows quickly depending on what you need it in. A great deal of Richmond's mental-health provision is built, correctly and deliberately, around its Chinese-speaking communities, Cantonese and Mandarin services are a genuine local strength.",
-      "If you are looking in English or Punjabi, the field is thinner than the city's size implies, and people routinely end up searching in Vancouver or Surrey instead. That is the gap this page is about. It is worth saying plainly that **this practice offers English and Punjabi and not Cantonese or Mandarin**, if those are what you need, Richmond is a better place to look locally than almost anywhere in the province, and you should.",
+      "If you are looking in English, Punjabi or Tagalog, the field is thinner than the city's size implies, and people routinely end up searching in Vancouver or Surrey instead. That is the gap this page is about. It is worth saying plainly that **this practice offers English and Punjabi and not Cantonese or Mandarin**, if those are what you need, Richmond is a better place to look locally than almost anywhere in the province, and you should.",
     ],
     localReality: {
       h2: "Language, the airport, and a bridge",
       body: [
-        "**Language shapes the local supply more than distance does.** Richmond's counselling capacity is real; the question is whether it exists in the language you want to be understood in. For English or Punjabi speakers here, \"local\" often means crossing a bridge anyway, at which point the drive is buying nothing that a video call does not.",
+        "**Language shapes the local supply more than distance does.** Richmond's counselling capacity is real; the question is whether it exists in the language you want to be understood in. For English, Punjabi or Tagalog speakers here, \"local\" often means crossing a bridge anyway, at which point the drive is buying nothing that a video call does not.",
         "**Shift work at YVR and the port does not fit a 9-to-5 slot.** Airport operations, ground handling, freight and hospitality run on rosters that change, and a standing weekly appointment at 2pm is not something those schedules survive. Evening availability, and the ability to attend from wherever you are between shifts, is the practical difference.",
         "**Public intake runs through Vancouver Coastal Health**, not Fraser Health, which matters if you have been given a referral or joined a waitlist and are trying to work out which queue you are actually in.",
         "**Punjabi-speaking counselling is the specific case.** Richmond's Punjabi-speaking community is smaller than Surrey's or Abbotsford's and the local provision reflects that. [Punjabi-speaking counselling](/services/punjabi-counselling) covers what sessions in Punjabi actually involve, and [counselling in Surrey](/online-counselling/surrey) covers the larger picture one bridge east.",
@@ -626,12 +626,12 @@ export const locations: Location[] = [
     },
     access: [
       { label: "No bridge, no tunnel", detail: "The Massey Tunnel and the Oak Street bridge stop being part of the appointment." },
-      { label: "English or Punjabi", detail: "Including both within one session. Cantonese and Mandarin are not offered here, Richmond is genuinely well served for those locally." },
+      { label: "English, Punjabi or Tagalog", detail: "Which of the three depends on the counsellor, and moving between one and English mid-session is normal. Cantonese and Mandarin are not offered here, Richmond is genuinely well served for those locally." },
       { label: "Built for shift rosters", detail: "Evening appointments, and no travel time either side of a session." },
       { label: "Serves all of Richmond", detail: "Steveston, Brighouse, Hamilton and the island's east side on identical terms." },
     ],
     faqs: [
-      { q: "Do you offer counselling in Cantonese or Mandarin?", a: "No. Sessions are in English or Punjabi, or a mix of the two. If you want to work in Cantonese or Mandarin, Richmond is one of the better places in BC to look locally, and doing so is the right call rather than a compromise. This page is not trying to talk you out of it." },
+      { q: "Do you offer counselling in Cantonese or Mandarin?", a: "No. Sessions are in English, Punjabi or Tagalog, or a mix of two. If you want to work in Cantonese or Mandarin, Richmond is one of the better places in BC to look locally, and doing so is the right call rather than a compromise. This page is not trying to talk you out of it." },
       { q: "Can I have sessions in Punjabi?", a: "Yes: in Punjabi, English, or both within the same session, with no need to travel to Surrey or Vancouver to find it." },
       { q: "I work rotating shifts at the airport. Can therapy fit around that?", a: "Yes, and it works far better if it is planned for from the start rather than discovered in month two. Booking block by block around a roster, with gaps, is a normal pattern and nothing is lost by pausing between blocks." },
       { q: "Which health authority covers Richmond?", a: "Vancouver Coastal Health, not Fraser Health. It is worth knowing before joining a public waitlist, because a referral into the wrong authority's queue is a delay nobody tells you about until you ask." },
@@ -652,7 +652,7 @@ export const locations: Location[] = [
     region: "Metro Vancouver",
     blurb: "The Tri-Cities commute takes the evenings a weekly appointment would have to live in.",
     metaDescription:
-      "Online counselling for Coquitlam and the Tri-Cities. Therapy in English or Punjabi: EMDR, trauma, anxiety, depression and couples sessions.",
+      "Online counselling for Coquitlam and the Tri-Cities. Therapy in English, Punjabi or Tagalog: EMDR, trauma, anxiety, depression and couples sessions.",
     intro: [
       "The thing that ends courses of therapy in the Tri-Cities is rarely the therapy. It is the commute. A working day that starts with a drive or a SkyTrain ride into Vancouver or Burnaby and ends with the same in reverse leaves an evening with very little slack in it, and a 6pm appointment on the other side of a bridge is a commitment that survives about four weeks.",
       "Coquitlam, Port Coquitlam and Port Moody function as one place for most purposes and are three municipalities for administrative ones, which is its own small source of confusion when you are trying to work out what you are entitled to and where.",
@@ -670,7 +670,7 @@ export const locations: Location[] = [
       { label: "No commute on top of the commute", detail: "The single largest reason a course of therapy quietly stops here." },
       { label: "Covers all three cities", detail: "Coquitlam, Port Coquitlam and Port Moody on identical terms, plus Anmore and Belcarra." },
       { label: "Evening appointments", detail: "Weekday evenings by request, which is when a commuting schedule actually has room." },
-      { label: "English or Punjabi", detail: "Including both within a session." },
+      { label: "English, Punjabi or Tagalog", detail: "Which of the three depends on the counsellor. Moving between one and English within a session is normal." },
     ],
     faqs: [
       { q: "Do you cover Port Coquitlam and Port Moody?", a: "Yes, and on the same terms. The practice is virtual and covers all of British Columbia, so which of the three municipalities you live in changes nothing about availability or fee." },
@@ -694,7 +694,7 @@ export const locations: Location[] = [
     region: "Metro Vancouver",
     blurb: "Three communities sharing a municipality and almost nothing else, including how hard it is to reach a counsellor.",
     metaDescription:
-      "Online counselling for Delta, BC: North Delta, Ladner and Tsawwassen. Therapy in English or Punjabi, by secure video across the province.",
+      "Online counselling for Delta, BC: North Delta, Ladner and Tsawwassen. Therapy in English, Punjabi or Tagalog, by secure video across the province.",
     intro: [
       "Delta is one municipality containing three places that do not much resemble each other. North Delta sits against Surrey and shares its communities and its pace. Ladner is a smaller, older river town. Tsawwassen is at the end of a peninsula with a ferry terminal on it. \"A counsellor in Delta\" tells a resident of any of the three almost nothing about whether that counsellor is reachable.",
       "What they have in common is that local provision is thin relative to the population, and that reaching the Lower Mainland's depth of specialists means a drive that is longer than the map suggests, through a tunnel that decides how long your evening takes.",
@@ -712,7 +712,7 @@ export const locations: Location[] = [
     access: [
       { label: "The tunnel stops mattering", detail: "No appointment is scheduled around traffic that cannot be predicted a week ahead." },
       { label: "All three communities", detail: "North Delta, Ladner and Tsawwassen on identical terms, the municipal boundary changes nothing." },
-      { label: "English or Punjabi", detail: "Including both within one session, without driving into Surrey to find it." },
+      { label: "English, Punjabi or Tagalog", detail: "Which of the three depends on the counsellor, and none of it requires driving into Surrey to find." },
       { label: "No local clinic to be seen at", detail: "The privacy concern that keeps many people in a close community from booking at all." },
     ],
     faqs: [
@@ -737,7 +737,7 @@ export const locations: Location[] = [
     region: "Vancouver Island",
     blurb: "Everything the Lower Mainland offers is across water, which turns a specialist appointment into a whole day and a ferry.",
     metaDescription:
-      "Online counselling for Nanaimo and central Vancouver Island. EMDR, trauma, anxiety, depression and couples therapy in English or Punjabi, by video.",
+      "Online counselling for Nanaimo and central Vancouver Island. EMDR, trauma, anxiety, couples therapy in English, Punjabi or Tagalog, by video.",
     intro: [
       "Nanaimo has counsellors. What it does not have, in the depth the Lower Mainland does, is choice within a specific modality, and the moment you need something particular, the shortlist gets very short. The usual answer to that is to look across the water, and the water is the problem: a ferry each way turns a 50-minute appointment into most of a day, at a cost that makes a weekly course of therapy unaffordable long before the session fee does.",
       "That is the case for virtual work here, and it is a stronger one than in most of the province. Distance stops being a variable entirely: a counsellor on the mainland is exactly as available to you in Nanaimo as to someone in Burnaby.",
@@ -756,7 +756,7 @@ export const locations: Location[] = [
       { label: "No ferry, no sailing schedule", detail: "The single largest cost of accessing mainland specialists disappears, not reduced, removed." },
       { label: "Modalities the Island field is thin on", detail: "EMDR and structured couples work, without the crossing that used to be the price of them." },
       { label: "Serves central Vancouver Island", detail: "Nanaimo, Parksville, Ladysmith, Lantzville and Gabriola on identical terms." },
-      { label: "English or Punjabi", detail: "Punjabi-speaking counsellors are concentrated in the Lower Mainland; virtual access is the realistic route to it from here." },
+      { label: "English, Punjabi or Tagalog", detail: "Punjabi- and Tagalog-speaking counsellors are concentrated in the Lower Mainland; virtual access is the realistic route to it from here." },
     ],
     faqs: [
       { q: "Can a mainland counsellor legally see me in Nanaimo?", a: "Yes. Registration applies province-wide, so a BC-registered Registered Clinical Counsellor can work with clients anywhere in British Columbia by secure video, under the same ethical, legal and privacy standards that would apply in person." },

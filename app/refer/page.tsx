@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { site } from '@/lib/site';
+import { webPage } from '@/lib/schema';
+import { COLLECTION_DATES } from '@/lib/page-dates';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import Figure from '@/components/Figure';
 import CtaBand from '@/components/CtaBand';
@@ -55,6 +57,25 @@ export default function ReferPage({ searchParams }: { searchParams?: { lead?: st
   const sent = searchParams?.lead;
   return (
     <>
+      {/* This page carried no page-level entity. The layout's organisation and
+          website nodes were on it, so a validator saw structured data and
+          reported nothing wrong, while nothing described the page itself: no
+          name, no description, no language, no date, no author. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            webPage({
+              path: "/refer",
+              name: "Refer someone to Westpeak Wellness",
+              description:
+                "How to point a friend, family member or client toward this practice, and what happens after they get in touch.",
+              updated: COLLECTION_DATES["services"],
+              type: "WebPage",
+            })
+          ),
+        }}
+      />
       <section className="hero" style={{ paddingBottom: 40 }}>
         <div className="container container--narrow">
           <p className="eyebrow">Passing it on</p>

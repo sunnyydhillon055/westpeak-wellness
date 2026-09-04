@@ -24,6 +24,25 @@ const AI_CRAWLERS = [
   'Bingbot',
   // Apple Intelligence
   'Applebot-Extended',
+  // Apple's search crawler, which is separate from Applebot-Extended: the
+  // Extended agent governs training, this one governs Siri and Spotlight
+  // results. Naming only the Extended one allowed training while leaving the
+  // retrieval crawler to the wildcard.
+  'Applebot',
+  // Meta AI
+  'Meta-ExternalAgent', 'meta-externalagent',
+  // Amazon — Alexa and Rufus
+  'Amazonbot',
+  // ByteDance, which feeds Doubao and TikTok search
+  'Bytespider',
+  // DuckDuckGo's assistant fetch
+  'DuckAssistBot',
+  // Mistral's live fetch
+  'MistralAI-User',
+  // Cohere
+  'cohere-ai',
+  // You.com
+  'YouBot',
   // Common Crawl — a corpus several engines retrieve from
   'CCBot',
 ];

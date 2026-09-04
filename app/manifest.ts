@@ -23,7 +23,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: `${site.name}, Online Counselling in BC`,
     short_name: site.name,
     description:
-      'Online counselling across British Columbia with a Registered Clinical Counsellor. EMDR, trauma, anxiety, depression and couples therapy, in English or Punjabi.',
+      'Online counselling across British Columbia with a Registered Clinical Counsellor. EMDR, trauma, anxiety, depression and couples therapy, in English, Punjabi or Tagalog.',
     start_url: '/',
     scope: '/',
     display: 'browser',

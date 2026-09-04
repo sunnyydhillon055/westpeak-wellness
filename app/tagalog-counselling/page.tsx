@@ -9,6 +9,7 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
 import { ogBase } from '@/lib/og-meta';
+import { COLLECTION_DATES } from '@/lib/page-dates';
 
 const TITLE = 'Tagalog-Speaking Counselling in BC | Westpeak Wellness';
 const DESC =
@@ -69,6 +70,12 @@ export default function TagalogCounsellingHub() {
       '@id': `${site.domain}/tagalog-counselling#page`,
       isPartOf: siteRef,
       inLanguage: 'en-CA',
+      /* Real commit date for the module this page's copy lives in, from
+         lib/page-dates.ts. Without it this page made no freshness claim at
+         all, which a retrieval system reads as unknown rather than fresh. */
+      datePublished: COLLECTION_DATES['tagalogLanding'],
+      dateModified: COLLECTION_DATES['tagalogLanding'],
+      author: orgRef,
       hasPart: TAGALOG_CITIES.map((c) => ({
         '@type': 'WebPage',
         name: `Tagalog counselling in ${c.city}`,

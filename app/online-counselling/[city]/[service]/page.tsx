@@ -12,6 +12,7 @@ import CtaBand from '@/components/CtaBand';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import Figure from '@/components/Figure';
 import { ogBase } from '@/lib/og-meta';
+import { COLLECTION_DATES } from '@/lib/page-dates';
 
 /* CITY × SERVICE — fifty pages, each with its own argument.
  *
@@ -109,7 +110,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
      is 155 characters, so nothing is cut at all. */
   const description =
     `${svc.name} for ${ctx.city}, by secure video across BC with a Registered ` +
-    `Clinical Counsellor. English or Punjabi. Free 15-minute consultation.`;
+    `Clinical Counsellor. English, Punjabi or Tagalog. Free 15-minute consultation.`;
   /* Guard only. If a longer service or city name is ever added, trim on a word
      boundary rather than mid-word. */
   const desc =
@@ -158,6 +159,12 @@ export default function CityServicePage({ params }: { params: Params }) {
       audience: { '@type': 'Patient', geographicArea: { '@type': 'City', name: ctx.city, containedInPlace: { '@type': 'State', name: 'British Columbia' } } },
       provider: orgRef,
       inLanguage: 'en-CA',
+      /* Real commit date for the module this page's copy lives in, from
+         lib/page-dates.ts. Without it this page made no freshness claim at
+         all, which a retrieval system reads as unknown rather than fresh. */
+      datePublished: COLLECTION_DATES['cityServices'],
+      dateModified: COLLECTION_DATES['cityServices'],
+      author: orgRef,
     },
     breadcrumbs([
       { name: 'Online counselling', path: '/online-counselling' },
@@ -374,7 +381,7 @@ export default function CityServicePage({ params }: { params: Params }) {
 
       <CtaBand
         heading={`${svc.name} in ${ctx.city}, without the travel`}
-        text="A free 15-minute video call, in English or Punjabi. No charge, no card, and no obligation to book anything afterwards."
+        text="A free 15-minute video call, in English, Punjabi or Tagalog. No charge, no card, and no obligation to book anything afterwards."
       />
     </>
   );

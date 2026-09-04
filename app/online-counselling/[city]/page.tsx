@@ -14,6 +14,8 @@ import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
+import { webPage } from '@/lib/schema';
+import { COLLECTION_DATES } from '@/lib/page-dates';
 
 export function generateStaticParams() {
   return locations.map((l) => ({ city: l.slug }));
@@ -44,6 +46,16 @@ export default function CityPage({ params }: { params: { city: string } }) {
    * SEO gate. A page nothing links to is treated as unimportant however good
    * it is. The city that owns them is the most natural place to link from. */
   const here = pairsForCity(l.slug);
+
+  /* The page itself. These ten city pages emitted an FAQPage and nothing else,
+     so the document had no name, description, language, date or author for a
+     retrieval system to read: it knew the questions and not the page. */
+  const pageSchema = webPage({
+    path: `/online-counselling/${l.slug}`,
+    name: `Online counselling in ${l.city}, BC`,
+    description: l.metaDescription,
+    updated: COLLECTION_DATES['locations'],
+  });
 
   const faqSchema = l.faqs?.length && {
     '@context': 'https://schema.org', '@type': 'FAQPage',
@@ -228,6 +240,11 @@ export default function CityPage({ params }: { params: { city: string } }) {
         text="A free 15-minute consultation over secure video. No pressure, no commitment, and no obligation to book a session afterward."
       />
 
+      {/* Unconditional. The FAQ block below is rightly conditional on the city
+          having questions; the page's own entity is not, and putting it inside
+          that guard would have left any city without FAQs describing itself to
+          a crawler as nothing at all. */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
       {faqSchema && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       )}

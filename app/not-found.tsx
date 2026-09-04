@@ -40,7 +40,9 @@ export default function NotFound() {
         <p className="eyebrow">Page not found</p>
         <h1>That page moved, or never existed.</h1>
         <p className="lede">
-          Most links still work. This one did not. Here is where people usually meant to go.
+          Most links still work. This one did not. The page may have moved, or the address may
+          have a character out of place. Below are the destinations people are usually looking
+          for when they land here, and a search box if none of them is it.
         </p>
 
         <form action="/search" method="get" role="search" className="nf-search">
