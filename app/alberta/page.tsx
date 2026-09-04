@@ -15,6 +15,12 @@ const TITLE = 'Online Counselling in Alberta';
 const DESC =
   'Counselling by secure video anywhere in Alberta, in English or Punjabi, with a Registered Clinical Counsellor registered in British Columbia.';
 
+/* The province gate is enforced in middleware.ts, not here, and the long
+ * comment there explains why: notFound() from a matched route renders the
+ * framework's blank error shell rather than this site's 404. The call below
+ * stays as defence in depth for the case where middleware does not run — it is
+ * never the path a visitor takes. */
+
 export const metadata: Metadata = {
   title: { absolute: `${TITLE} | Westpeak` },
   description: DESC,
