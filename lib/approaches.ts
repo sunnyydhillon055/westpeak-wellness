@@ -23,7 +23,7 @@ export const approaches: Approach[] = [
       'The most researched talk therapy there is, and the one most often delivered badly — because the structure is what makes it work.',
     shortAnswer:
       'CBT is a structured, present-focused, time-limited therapy built on the observation that thoughts, feelings and behaviour hold each other in place. It has the largest evidence base of any psychological treatment, particularly for anxiety and depression. Its defining features are an agreed target, work between sessions, and a measurable idea of progress — a course of open-ended conversation is not CBT, whatever it is called.',
-    updated: '2026-08-08',
+    updated: '2026-08-31',
     readMinutes: 7,
     figure: 'anxiety-avoidance-cycle',
     figure2: "approach-selector",
@@ -182,7 +182,7 @@ export const approaches: Approach[] = [
       'For the experience of genuinely wanting two opposite things and being unable to reconcile them.',
     shortAnswer:
       'Internal Family Systems treats the mind as made up of parts, each with a protective intention however unhelpful its strategy — the part that wants to leave the job, and the part that is terrified of leaving. The work involves getting to know those parts rather than overruling them. Its clinical following is large; its research base is younger and thinner than CBT\'s, and an honest account says so.',
-    updated: '2026-08-08',
+    updated: '2026-08-31',
     readMinutes: 7,
     figure: 'window-of-tolerance',
     figure2: "confidentiality-limits",
@@ -260,7 +260,7 @@ export const approaches: Approach[] = [
       'Because you can know with complete certainty that you are safe and still have a body that has not received the update.',
     shortAnswer:
       'Somatic approaches treat the body as a source of information rather than a passenger — tracking tension, breath, posture and impulse as part of the work. They are used most in trauma treatment, where the nervous system holds a pattern that understanding alone does not reach. They are best regarded as a way of working rather than a single protocol, and the quality of the practitioner matters more here than in more manualised methods.',
-    updated: '2026-08-08',
+    updated: '2026-08-31',
     readMinutes: 7,
     figure: 'window-of-tolerance',
     figure2: "first-session-flow",
@@ -418,7 +418,7 @@ export const approaches: Approach[] = [
       'The evidence is real, and it is for structured programmes rather than for ten minutes on a phone.',
     shortAnswer:
       'Mindfulness-based cognitive therapy and mindfulness-based stress reduction are structured eight-week programmes with defined curricula and substantial home practice. The evidence is strongest for MBCT in preventing depressive relapse in people who have had several episodes. That is a specific claim about a specific programme, and it does not transfer automatically to an app.',
-    updated: '2026-08-08',
+    updated: '2026-08-31',
     readMinutes: 6,
     figure: 'window-of-tolerance',
     figure2: "approach-selector",

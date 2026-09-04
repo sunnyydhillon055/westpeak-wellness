@@ -14,7 +14,7 @@ export const moreResources: Resource[] = [
       'Students have more free support available than almost any other group in the province, and consistently under-use it because nobody explains what it covers.',
     shortAnswer:
       'Every public post-secondary institution in BC provides some counselling to enrolled students at no cost, usually short-term. Alongside that: Here2Talk offers free 24/7 counselling to all BC post-secondary students, Foundry serves anyone aged 12 to 24, and most student unions carry an extended health plan that reimburses private counselling. Most students qualify for at least three of these and know about one.',
-    updated: '2026-08-08',
+    updated: '2026-08-28',
     readMinutes: 7,
     sections: [
       {
@@ -110,7 +110,7 @@ export const moreResources: Resource[] = [
       'Most people discover how any of this works at the exact moment they are least able to research it. This is the map, in advance.',
     shortAnswer:
       'BC employees are entitled to paid sick leave under the Employment Standards Act, and mental-health conditions count. Beyond that there are three separate systems that get confused with each other: workplace accommodation under human rights law, disability benefits through an insurer, and WorkSafeBC claims for work-caused injury. Your employer is entitled to know your limitations, not your diagnosis.',
-    updated: '2026-08-08',
+    updated: '2026-08-20',
     readMinutes: 8,
     sections: [
       {
@@ -204,7 +204,7 @@ export const moreResources: Resource[] = [
       'This takes about four minutes and almost nobody does it. It is the single most useful piece of due diligence available to you.',
     shortAnswer:
       'Ask which designation the person holds and which body holds it, then search that body\'s public register yourself — BCACC for a Registered Clinical Counsellor, the College of Health and Care Professionals of BC for a psychologist, the BC College of Social Workers for a social worker. If they hold no designation with any body, there is no complaints process and no minimum standard behind the title.',
-    updated: '2026-08-08',
+    updated: '2026-08-20',
     readMinutes: 6,
     sections: [
       {
@@ -291,7 +291,7 @@ export const moreResources: Resource[] = [
       'Counselling cannot diagnose, cannot prescribe, and cannot assess. Here is what to do when one of those is what you actually need.',
     shortAnswer:
       'Psychiatry in BC is covered by MSP and requires a referral from a physician or nurse practitioner; waits are often long. Formal psychological assessment — ADHD, autism, psychoeducational, cognitive — requires a registered psychologist, is largely not covered by MSP in private practice, and can be expensive. Without a family doctor, walk-in clinics, the Health Connect Registry and virtual care are the practical routes to a referral.',
-    updated: '2026-08-08',
+    updated: '2026-08-28',
     readMinutes: 7,
     sections: [
       {
@@ -386,7 +386,7 @@ export const moreResources: Resource[] = [
       'Three letters after a counsellor’s name, doing more work than they look like — in a province where, for now, anyone at all may call themselves a counsellor.',
     shortAnswer:
       'A Registered Clinical Counsellor (RCC) is a therapist registered with the BC Association of Clinical Counsellors. The designation requires a master’s degree in counselling or a closely related field, supervised clinical hours, professional liability insurance, ongoing continuing education, and adherence to a code of ethics with a public complaints process. It is not yet a government licence — counselling is currently unregulated in BC, which is exactly why the designation matters: it is the voluntary accountability that fills the gap until provincial regulation of psychotherapy begins in late 2027. Every RCC can be verified, free, in the public BCACC register.',
-    updated: '2026-08-28',
+    updated: '2026-08-30',
     readMinutes: 6,
     sections: [
       {
@@ -467,7 +467,7 @@ export const moreResources: Resource[] = [
       'A stress leave says "I am unwell and need time." A WorkSafeBC claim says something stronger: "work injured me." Different systems, different tests, and mixing them up costs people months.',
     shortAnswer:
       'WorkSafeBC compensates psychological injury in two situations: a reaction to one or more traumatic events at work, or a mental disorder predominantly caused by significant work-related stressors — which includes bullying and harassment. Two hard edges define the system: the condition must be diagnosed by a psychologist or psychiatrist (not self-described burnout), and injuries caused by ordinary employer decisions — workload changes, discipline, termination — are excluded by statute. A claim is not a lawsuit and costs nothing to file; it is also not the right tool for every bad workplace, and this page is honest about which is which.',
-    updated: '2026-08-28',
+    updated: '2026-08-30',
     readMinutes: 7,
     sections: [
       {
@@ -535,7 +535,7 @@ export const moreResources: Resource[] = [
       'Mental-health conditions are among the most common reasons for disability claims in Canada — and the system that pays them is the one working people understand least, because nobody reads the booklet until they need it.',
     shortAnswer:
       'Short-term disability is an employer or insurer plan that replaces part of your income for the early months of a medical absence; long-term disability takes over when STD ends, typically replacing a percentage of salary while you remain unable to work. Three things decide mental-health claims more than anything else: whether you are under regular, appropriate care — which usually includes counselling or psychiatric treatment; the definition switch, where "unable to do your own job" becomes "unable to do any job" (commonly around the two-year mark); and paperwork discipline. None of this is uniform: the plan wording, not this page, is the contract.',
-    updated: '2026-08-28',
+    updated: '2026-08-30',
     readMinutes: 7,
     sections: [
       {
@@ -734,7 +734,7 @@ export const moreResources: Resource[] = [
       'Career-changers ask this more than school-leavers do — usually after their own therapy made the work visible. Here is the honest map: the years, the money, and the parts nobody mentions.',
     shortAnswer:
       'The standard route to practising as a clinical counsellor in BC: an undergraduate degree, then a master’s in counselling psychology or a close equivalent (typically two to three years), supervised clinical hours during and after it, then registration — RCC through BCACC or CCC through the national association — bringing insurance, ethics obligations and a public register entry. Total time from a standing start is commonly six to eight years part of it part-time; the master’s is the major cost. From 29 November 2027, psychotherapy becomes a regulated profession under a provincial college, which raises the floor and formalises the title. The unlicensed shortcut — practising as an unregistered "counsellor", currently legal — exists, and this page is frank about why it is a bad idea that is about to get worse.',
-    updated: '2026-08-28',
+    updated: '2026-09-01',
     readMinutes: 7,
     sections: [
       {

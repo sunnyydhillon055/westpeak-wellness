@@ -15,7 +15,7 @@ export const moreGuides: Guide[] = [
       'Nobody wants an open-ended commitment to something expensive. The honest answer has a range in it, and the range is explainable.',
     shortAnswer:
       'For a single, clearly defined difficulty, structured therapies are often designed around roughly 8 to 20 sessions. For long-standing patterns, complex trauma, or several things tangled together, it usually takes longer. What no counsellor can honestly do is quote you a number in the first ten minutes — but they should be able to tell you by session three or four what they are aiming at and roughly how long that tends to take.',
-    updated: '2026-08-08',
+    updated: '2026-08-31',
     readMinutes: 7,
     figure: 'first-session-flow',
     figure2: "bc-reach",
@@ -106,7 +106,7 @@ export const moreGuides: Guide[] = [
       'Almost nobody arrives at counselling too early. The far more common story is a year or two of waiting for things to get bad enough to count.',
     shortAnswer:
       'There is no threshold you have to cross. The practical test is not "is this bad enough" but "has this been going on longer than it should, and is it costing me things I care about?" If a difficulty has outlasted the situation that caused it, is shrinking your life, or is being managed by avoiding things, that is already sufficient reason — no crisis required.',
-    updated: '2026-08-08',
+    updated: '2026-09-02',
     readMinutes: 7,
     figure: 'anxiety-avoidance-cycle',
     figure2: "first-session-flow",
@@ -200,7 +200,7 @@ export const moreGuides: Guide[] = [
       'A word that describes both a car crash and a rude email has stopped doing useful work. It is worth reclaiming the distinction.',
     shortAnswer:
       'Clinically, trauma refers less to an event than to what the event did — specifically, to a memory that did not get filed properly and so keeps behaving as though it is still happening. That is why two people can go through the same thing and only one is still carrying it, and why "it was not that bad" is not evidence of anything.',
-    updated: '2026-08-08',
+    updated: '2026-08-31',
     readMinutes: 8,
     figure: 'window-of-tolerance',
     figure2: "first-session-flow",
@@ -295,7 +295,7 @@ export const moreGuides: Guide[] = [
       'Most people treat a first consultation as an audition they are attending. It is closer to an interview they are conducting.',
     shortAnswer:
       'Ask what approach they would use for your situation and why, how they would know it was not working, what their limits are, and what the money looks like. The quality of the answers matters more than the content: a counsellor who can explain their reasoning plainly, name what they do not do, and tolerate being questioned is showing you how the work will go.',
-    updated: '2026-08-08',
+    updated: '2026-09-02',
     readMinutes: 7,
     figure: 'designations-bc',
     figure2: "first-session-flow",

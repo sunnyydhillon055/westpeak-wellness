@@ -43,11 +43,13 @@
     "fresh": "node scripts/build-freshness.mjs",
     "link-rot": "node scripts/link-rot.mjs",
     "price-drift": "node --experimental-strip-types --no-warnings scripts/price-drift.mjs",
-    "verify:weekly": "npm run link-rot && npm run offsite && npm run audit",
+    "verify:weekly": "npm run link-rot && npm run offsite && npm run audit && npm run review-dates",
     "test": "node --import ./test/resolve-alias.mjs --experimental-strip-types --test test/**/*.test.mts",
     "audit": "npm audit --omit=dev --audit-level=high",
     "composition": "node scripts/bundle-composition.mjs",
-    "a11y": "node scripts/a11y-audit.mjs"
+    "a11y": "node scripts/a11y-audit.mjs",
+    "review-dates": "node scripts/review-dates.mjs",
+    "review-dates:fix": "node scripts/review-dates-fix.mjs"
   },
   "dependencies": {
     "@next/third-parties": "^16.3.0",

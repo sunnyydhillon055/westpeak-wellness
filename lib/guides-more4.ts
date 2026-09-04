@@ -12,7 +12,7 @@ export const moreGuides4: Guide[] = [
       'The problem is rarely that you got angry. It is that you were already three sentences in before you knew it was happening.',
     shortAnswer:
       'Anger is fast because it is a threat response, and threat responses are built to outrun deliberation. That means the useful work happens before and after the flashpoint rather than during it — noticing the earlier physical signals, reducing the background load that lowers your threshold, and addressing whatever the anger is standing in front of, which is often fear, shame or exhaustion.',
-    updated: '2026-08-08',
+    updated: '2026-08-31',
     readMinutes: 7,
     figure: 'window-of-tolerance',
     figure2: "first-session-flow",
@@ -101,7 +101,7 @@ export const moreGuides4: Guide[] = [
       'Nobody wants to give up the thing that got them here. That is exactly why it is difficult to work on.',
     shortAnswer:
       'The clinically relevant part of perfectionism is almost never the high standard — it is the self-criticism attached to missing it, and a scoring system in which meeting the standard is neutral and falling short is catastrophic. That asymmetry is what produces the exhaustion, the procrastination and the inability to enjoy anything, and it is the part that can change without lowering the standard at all.',
-    updated: '2026-08-08',
+    updated: '2026-08-31',
     readMinutes: 7,
     figure: 'anxiety-avoidance-cycle',
     figure2: "first-session-flow",
@@ -189,7 +189,7 @@ export const moreGuides4: Guide[] = [
       'Most people get this wrong in the same direction: they try to fix it, because watching is unbearable.',
     shortAnswer:
       'The single most useful thing is to stay present without trying to solve it. Specific offers beat open ones — "I am bringing dinner Thursday" works where "let me know if you need anything" does not. Ask directly about suicide if you are worried; it does not plant the idea. And accept that you cannot make someone get help, only make it easier when they decide to.',
-    updated: '2026-08-08',
+    updated: '2026-09-02',
     readMinutes: 7,
     figure: 'first-session-flow',
     figure2: "confidentiality-limits",
@@ -275,7 +275,7 @@ export const moreGuides4: Guide[] = [
       'Five months of low cloud on the coast, and five hours of daylight in the north. They are not the same problem.',
     shortAnswer:
       'Seasonal patterns in mood are real and, in a province this far north, common. The strongest single lever is light — getting daylight early, deliberately, even when it is grey. Beyond that, the same things that treat low mood generally apply, and the key judgement is whether what you have is seasonal at all: if it does not lift in April, it is not the winter.',
-    updated: '2026-08-08',
+    updated: '2026-08-31',
     readMinutes: 6,
     figure: 'bc-reach',
     figure2: "burnout-vs-depression",

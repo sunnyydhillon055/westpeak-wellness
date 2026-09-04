@@ -127,7 +127,7 @@ export const draftGuides: Guide[] = [
       'Most of what frightens new parents about their own minds is common, treatable, and not what they fear it is. A small part of it is urgent. The difference is knowable.',
     shortAnswer:
       'The baby blues affect most new mothers, peak around day three to five, and lift on their own within about two weeks. Postpartum depression is more persistent and more disabling, affects roughly one in seven, and can begin any time in the first year — in either parent. Postpartum anxiety is at least as common and is missed more often, because a frightened new parent looks like a normal new parent. All three are treatable, and none is caused by weakness or by not loving the baby. Unwanted intrusive thoughts about harm coming to the baby are a recognised and common feature of postpartum anxiety and OCD, and are distinct from postpartum psychosis, which is rare, different in character, and a medical emergency.',
-    updated: '2026-08-17',
+    updated: '2026-08-31',
     readMinutes: 9,
     figure: 'anxiety-avoidance-cycle',
     sections: [
@@ -220,7 +220,7 @@ export const draftGuides: Guide[] = [
       'Every September article is about helping your child adjust. Almost none of them ask how you are — which is strange, because the school year restarts the whole household, not just the child.',
     shortAnswer:
       'The September shift is real for adults: mornings recompress, the family calendar refills, work and school schedules collide, and long-running household arguments that summer suspended come back on schedule. If your own anxiety, irritability or dread rises with the routine, that is a common and understandable response to a genuine load increase — not a failure of parenting. It becomes worth attention when the tension stops lifting on weekends, when you are snapping at people over the logistics rather than the problem, or when you notice you have stopped being anyone other than the coordinator.',
-    updated: '2026-08-28',
+    updated: '2026-08-31',
     readMinutes: 6,
     sections: [
       {
@@ -450,7 +450,7 @@ export const draftGuides: Guide[] = [
       'Relationship anxiety rarely announces itself as anxiety. It shows up as one more question, one more check, one more fight about nothing that was really about everything.',
     shortAnswer:
       'Anxiety inside a relationship usually runs on a loop: a surge of doubt or dread, a bid for relief — reassurance, checking, testing — and a short-lived calm that teaches the anxiety to come back sooner. The other partner, meanwhile, learns their own loop: soothe, comply, or withdraw. None of this means the relationship is wrong; anxious systems attack whatever matters most, and for most adults that is their closest attachment. The work is partly individual (the loop itself) and sometimes joint (what the loop has trained the couple to do), and which one to start with is a genuinely answerable question.',
-    updated: '2026-08-28',
+    updated: '2026-08-31',
     readMinutes: 7,
     sections: [
       {
@@ -523,7 +523,7 @@ export const draftGuides: Guide[] = [
       'Almost everything written about anxiety is addressed to the person who has it. You are the person beside them — and your version of this is real, largely unspoken, and worth a page of its own.',
     shortAnswer:
       'Loving someone with anxiety usually means learning three things nobody teaches: how to be steady in the moment without arguing with the fear or agreeing with it; how to notice when helpful adjustments have quietly become an architecture of avoidance built around the anxiety; and how to stay a partner rather than becoming a full-time carer. You cannot make their anxiety go away, and it is not your job to. What is yours: your steadiness, your limits, honesty about the cost, and the encouragement — not the ultimatum — toward proper help.',
-    updated: '2026-08-28',
+    updated: '2026-08-31',
     readMinutes: 7,
     sections: [
       {

@@ -19,7 +19,7 @@ export const moreAudiences3: Audience[] = [
       'Everyone thinks they know what teaching is like because everyone went to school. The version you are living — the composition of one actual classroom, at 8:40 on a Tuesday — is another thing entirely.',
     shortAnswer:
       'Counselling for BC teachers, education assistants and TTOCs, online in the hours teaching actually allows — after the bell, in the evening, or across the summer. The recurring material is specific: the September cliff, classroom composition and behaviour load that has outgrown the supports, marking that colonises evenings, compassion fatigue from carrying students’ home lives, and the guilt-laced question of whether to stay in the profession. Extended health through school districts commonly reimburses Registered Clinical Counsellor sessions.',
-    updated: '2026-08-28',
+    updated: '2026-08-31',
     readMinutes: 6,
     opening: [
       'Teaching has a strain profile most jobs do not: a performance that cannot be phoned in, delivered to an audience whose needs exceed the resources in the room, on a calendar that resets every September regardless of what last June cost you. The profession also runs on a myth of vocation that makes admitting struggle feel like betraying the calling — which is how burnout in teachers gets narrated, by teachers, as personal failure.',
@@ -91,7 +91,7 @@ export const moreAudiences3: Audience[] = [
       'Good salary, good benefits, ergonomic chair — and a nervous system that has spent three years bracing for the next reorg email. Both things are true, which is exactly why it feels unsayable.',
     shortAnswer:
       'Counselling for people in BC tech — developers, designers, PMs, support and everyone adjacent — online, with evening availability and benefits plans that usually cover it well. The recurring material: layoff cycles and the survivor guilt after them, performance-review and PIP dread, the particular terror of job loss when a work permit or PR application is attached to the employer, remote isolation dressed up as flexibility, and imposter feelings in an industry that interviews like a trial. High comp does not disqualify you from any of it.',
-    updated: '2026-08-28',
+    updated: '2026-08-31',
     readMinutes: 6,
     opening: [
       'Tech in BC has spent several years in a permanent weather system of reorgs, hiring freezes and layoff rounds, and the people still employed are not fine — they are hypervigilant. The industry’s own culture makes this hard to say: you are well paid, the office has snacks, other people have real problems. That framing quietly forbids the exact conversation that would help.',

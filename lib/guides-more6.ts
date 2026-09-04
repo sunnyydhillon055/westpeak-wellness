@@ -13,7 +13,7 @@ export const moreGuides6: Guide[] = [
       'The paperwork question and the clinical question are different, and most pages about this answer neither.',
     shortAnswer:
       'A stress leave in BC needs certification from a physician or nurse practitioner — a Registered Clinical Counsellor cannot sign one, and any counsellor implying otherwise is misleading you. Income during leave usually comes from either EI sickness benefits (up to 26 weeks, 55% of insurable earnings to a maximum of $729 a week in 2026) or an employer short-term disability plan, and which applies depends on your plan rather than on your diagnosis. Counselling runs alongside that process; it is not the route into it.',
-    updated: '2026-08-14',
+    updated: '2026-09-02',
     readMinutes: 8,
     figure: 'burnout-vs-depression',
     sections: [
@@ -123,7 +123,7 @@ export const moreGuides6: Guide[] = [
       'A great many adults arrive at this question late, after a decade of assuming the problem was effort.',
     shortAnswer:
       'A counsellor cannot diagnose ADHD — assessment requires a registered psychologist, or a physician or psychiatrist depending on the route and the purpose. What counselling can do is work on what has accumulated around it: the self-criticism, the systems that keep collapsing, the shame, and the relationships strained by years of being misread as careless.',
-    updated: '2026-08-08',
+    updated: '2026-09-02',
     readMinutes: 7,
     figure: 'anxiety-avoidance-cycle',
     figure2: "bc-support-routes",
@@ -203,7 +203,7 @@ export const moreGuides6: Guide[] = [
       'The people who procrastinate hardest are frequently the ones who care most about the outcome.',
     shortAnswer:
       'Procrastination is best understood as short-term mood repair rather than poor time management. The task produces an unpleasant feeling — dread, boredom, self-doubt — and avoiding it removes the feeling immediately. That relief is the reward that trains the pattern, which is why better planning tools so consistently fail to fix it.',
-    updated: '2026-08-08',
+    updated: '2026-08-31',
     readMinutes: 6,
     figure: 'anxiety-avoidance-cycle',
     figure2: "first-session-flow",
@@ -282,7 +282,7 @@ export const moreGuides6: Guide[] = [
       'The evidence keeps arriving and it keeps not counting. That is the defining feature, not a coincidence.',
     shortAnswer:
       'Imposter feelings persist through achievement because the scoring system reclassifies every success as luck, timing or someone else\'s error. More accomplishment therefore produces more evidence to explain away rather than more confidence. What shifts it is working on the reclassification mechanism itself — and, frequently, examining an environment that is genuinely providing the signal.',
-    updated: '2026-08-08',
+    updated: '2026-09-02',
     readMinutes: 6,
     figure: 'anxiety-avoidance-cycle',
     figure2: "therapy-cost-in-bc",
@@ -366,7 +366,7 @@ export const moreGuides6: Guide[] = [
       'You cannot make someone stop. That is the hardest sentence in this and the one everything else follows from.',
     shortAnswer:
       'You cannot control another adult\'s drinking, and most of the strategies that feel like trying — monitoring, pouring it away, ultimatums you will not enforce — reliably make things worse while exhausting you. What does help: changing what you do rather than what they do, getting support in your own right, and knowing that withdrawal from alcohol can be medically dangerous and is not something to manage at home.',
-    updated: '2026-08-08',
+    updated: '2026-09-02',
     readMinutes: 7,
     figure: 'window-of-tolerance',
     figure2: "first-session-flow",
@@ -448,7 +448,7 @@ export const moreGuides6: Guide[] = [
       'Being told the distress is understandable is true, and it is not the same as being offered anything.',
     shortAnswer:
       'Living with a chronic condition or persistent pain carries specific psychological load: grief for a former body and a former future, the exhaustion of managing a system, and the particular injury of not being believed. Counselling cannot change the condition. It can address the parts that are psychological, and there is good evidence that doing so improves how the condition is lived with — including, for chronic pain, the pain itself.',
-    updated: '2026-08-08',
+    updated: '2026-09-02',
     readMinutes: 7,
     figure: 'window-of-tolerance',
     figure2: "burnout-vs-depression",
@@ -532,7 +532,7 @@ export const moreGuides6: Guide[] = [
       'The damage is rarely one incident. It is two years of things that each sound trivial when described.',
     shortAnswer:
       'In British Columbia, bullying and harassment at work is an occupational health and safety matter, and employers are legally required to have a policy, procedures and training. What makes it so damaging psychologically is its cumulative and deniable nature — each incident is individually explicable, which is also why documentation matters more here than almost anywhere.',
-    updated: '2026-08-08',
+    updated: '2026-08-31',
     readMinutes: 7,
     figure: 'window-of-tolerance',
     figure2: "burnout-vs-depression",

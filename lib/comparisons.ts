@@ -40,7 +40,7 @@ const coreComparisons: Comparison[] = [
       "Three different letters after three different names, all offering something that looks like therapy. Here is what actually separates them in British Columbia.",
     shortAnswer:
       "If you want talk therapy, an RCC, a clinical social worker, and a psychologist can all provide it, and all three hold master's-level training or higher. The practical differences are diagnosis (psychologists and some clinical social workers can formally diagnose; RCCs cannot), formal assessments (psychologists only), cost (psychologists are typically the most expensive), and what your extended health plan happens to list.",
-    updated: "2026-08-08",
+    updated: "2026-08-28",
     readMinutes: 7,
     table: {
       columns: ["", "Registered Clinical Counsellor (RCC)", "Registered Psychologist (R.Psych)", "Registered Clinical Social Worker (RCSW/RSW)"],
@@ -154,7 +154,7 @@ const coreComparisons: Comparison[] = [
       "Relationship trouble does not automatically mean couples therapy — and starting in the wrong format wastes months.",
     shortAnswer:
       "Start with couples therapy when the problem lives in the pattern between you and both of you are willing to work on it. Start individually when what is driving the difficulty is largely yours to work on, when your partner is unwilling, or when something needs stabilising first. When there is ongoing violence or coercive control, couples sessions are not the safe starting point.",
-    updated: "2026-08-08",
+    updated: "2026-08-09",
     readMinutes: 6,
     table: {
       columns: ["", "Individual therapy", "Couples therapy"],
@@ -245,7 +245,7 @@ const coreComparisons: Comparison[] = [
       "Both are recommended in clinical guidelines for PTSD. They get there by different routes.",
     shortAnswer:
       "Trauma-focused CBT works through language — examining thoughts and beliefs about what happened, often with structured written or spoken exposure. EMDR works through reprocessing, using bilateral stimulation while you hold the memory in mind, and requires far less verbal description. Both are recommended for PTSD in major guidelines. The choice is usually about fit rather than efficacy.",
-    updated: "2026-08-08",
+    updated: "2026-08-31",
     readMinutes: 6,
     table: {
       columns: ["", "Trauma-focused CBT", "EMDR"],

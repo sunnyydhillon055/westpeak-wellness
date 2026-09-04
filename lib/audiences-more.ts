@@ -14,7 +14,7 @@ export const moreAudiences: Audience[] = [
       'A great deal of what arrives here has been carried competently for years. Competence is exactly why nobody noticed.',
     shortAnswer:
       'Counselling for women across BC, online in English or Punjabi. Covers the load that does not show up on any list, anger that has had nowhere to go, and the particular exhaustion of being the person everyone else is fine because of.',
-    updated: '2026-08-08',
+    updated: '2026-08-31',
     readMinutes: 8,
     opening: [
       'There is a particular version of struggling that is hard to get taken seriously, including by the person doing it. Everything is handled. The household runs, the work gets delivered, the family is held together, and the whole structure rests on somebody who has not had an unclaimed hour in four years.',
@@ -118,7 +118,7 @@ export const moreAudiences: Audience[] = [
       'Most couples do not arrive after a catastrophe. They arrive after two years of the same conversation going nowhere.',
     shortAnswer:
       'Couples counselling in BC by secure video, 50 minutes at $170 or 110 minutes at $340. Gottman-informed and structured, for couples who keep having the same argument — including partners joining from separate locations, which shift work and travel often require.',
-    updated: '2026-08-08',
+    updated: '2026-08-31',
     readMinutes: 8,
     opening: [
       'There is usually a moment that prompts the call, and it is rarely the worst thing that has happened. More often it is small and clarifying — a fight that followed exactly the script of the last four, a realisation that you have started editing what you say, an evening in complete silence that neither of you mentioned.',

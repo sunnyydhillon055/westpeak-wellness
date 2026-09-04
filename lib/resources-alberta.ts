@@ -40,7 +40,7 @@ export const albertaResources: Resource[] = [
       'Alberta Health does not pay for private counselling, which surprises people who assume a provincial health card covers mental health the way it covers a fracture. Here is what actually pays, and what to ask before booking anything.',
     shortAnswer:
       'AHCIP does not cover private counselling. Most people pay through an extended health plan, out of pocket, or through a publicly funded service with a waitlist. Before booking privately, ask your insurer one question: does the plan reimburse a Canadian Certified Counsellor?',
-    updated: '2026-09-02',
+    updated: '2026-09-03',
     readMinutes: 6,
     sections: [
       {
@@ -149,7 +149,7 @@ export const albertaResources: Resource[] = [
       'In British Columbia you can look a counsellor up in a public register in about two minutes. In Alberta there is no equivalent college, which does not mean nothing can be checked — it means checking a different thing.',
     shortAnswer:
       'Counselling therapy is not a regulated profession in Alberta, so there is no provincial college and no licence to verify. What you can verify is national certification: a Canadian Certified Counsellor is listed on the CCPA register, and anyone claiming the title can be confirmed there. Psychologists are separately regulated and appear on their own college register.',
-    updated: '2026-09-02',
+    updated: '2026-09-03',
     readMinutes: 5,
     sections: [
       {

@@ -14,7 +14,7 @@ export const moreAudiences2: Audience[] = [
       'Fourteen days on, fourteen days off, and a counselling system that assumes you can make Tuesday at four every week.',
     shortAnswer:
       'Counselling for rotational, camp and fly-in-fly-out workers in BC. Sessions by video from camp or from home, scheduled around a rotation rather than a weekday, for the specific strain of a life split between two places and a relationship conducted mostly by phone.',
-    updated: '2026-08-08',
+    updated: '2026-08-31',
     readMinutes: 7,
     opening: [
       'A great deal of British Columbia’s work happens on rotation — mining, forestry, energy, marine, remote construction, wildfire crews, and the trades that follow them. It pays well and it structures a life around a calendar that almost no service in the province is designed for.',
@@ -111,7 +111,7 @@ export const moreAudiences2: Audience[] = [
       'Nobody applies for this job. It accretes — one appointment, then the medications, then everything.',
     shortAnswer:
       'Counselling for family caregivers in BC — people looking after a parent, partner or adult child. Covers resentment that feels unspeakable, anticipatory grief, and the fact that the person doing the caring is usually the last one anybody asks about.',
-    updated: '2026-08-08',
+    updated: '2026-08-31',
     readMinutes: 7,
     opening: [
       'Family caregiving almost never begins with a decision. It begins with a hospital discharge, or a fall, or a diagnosis, and then a series of small assumptions of responsibility that nobody formally agreed to and that add up over a couple of years into something enormous.',

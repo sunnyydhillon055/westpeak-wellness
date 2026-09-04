@@ -42,7 +42,7 @@ export const policies: Record<string, Policy> = {
     eyebrow: 'Trust and transparency',
     lede:
       'Anyone in British Columbia can call themselves a counsellor. This page sets out what this practice is actually accountable to, and how you can check it without taking anyone at their word.',
-    updated: '2026-08-08',
+    updated: '2026-08-30',
     sections: [
       {
         h2: 'The registration behind the practice',
@@ -131,7 +131,7 @@ export const policies: Record<string, Policy> = {
     eyebrow: 'Trust and transparency',
     lede:
       'This site publishes guides about mental health, which means it can do harm if it is careless. Here is the standard it holds itself to, so you can judge whether it meets it.',
-    updated: '2026-08-08',
+    updated: '2026-08-30',
     sections: [
       {
         h2: 'Who writes and reviews this content',
@@ -207,7 +207,7 @@ export const policies: Record<string, Policy> = {
     eyebrow: 'Trust and transparency',
     lede:
       'Two different things get called privacy: what happens to what you say in a session, and what happens to your data when you visit this website. Both are covered here, separately, because they work differently.',
-    updated: '2026-08-08',
+    updated: '2026-09-03',
     sections: [
       {
         h2: 'Confidentiality in counselling — and its limits',
@@ -296,7 +296,7 @@ export const policies: Record<string, Policy> = {
     eyebrow: 'Trust and transparency',
     lede:
       'Accessibility statements are usually written to be filed rather than read. This one names what has actually been done, and what has not.',
-    updated: '2026-08-08',
+    updated: '2026-09-03',
     sections: [
       {
         h2: 'How this website is built',

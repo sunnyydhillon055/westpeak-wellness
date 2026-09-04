@@ -42,7 +42,7 @@ const coreResources: Resource[] = [
       "The single most common unpleasant surprise in private therapy is discovering afterwards that your plan does not list your counsellor's designation.",
     shortAnswer:
       "Most major BC extended health plans cover counselling by a Registered Clinical Counsellor, but not all of them do — some list only psychologists and social workers. Coverage is typically a dollar cap per calendar year, sometimes with a per-session limit. Direct billing is uncommon for RCCs, so in most cases you pay and submit a receipt. Check the exact wording of your plan before your first session.",
-    updated: "2026-08-08",
+    updated: "2026-08-30",
     readMinutes: 6,
     sections: [
       {
@@ -134,7 +134,7 @@ const coreResources: Resource[] = [
       "British Columbians are used to health care being covered. Mental health is the place where that assumption breaks.",
     shortAnswer:
       "MSP covers medically necessary physician services — including your GP and, on referral, a psychiatrist. It does not cover private counselling with a counsellor, psychologist, or social worker. Free publicly funded mental-health care does exist through health authorities and community programs; private therapy is paid for out of pocket or through an extended health plan.",
-    updated: "2026-08-08",
+    updated: "2026-08-09",
     readMinutes: 5,
     sections: [
       {
@@ -218,7 +218,7 @@ const coreResources: Resource[] = [
       "Private therapy is one option among many, and for a lot of people it should not be the first one tried.",
     shortAnswer:
       "BC has more free and low-cost mental health support than most people realise: health authority services, Foundry for under-25s, Here2Talk for post-secondary students, CMHA programs, employee assistance programs, community agencies, and university training clinics. This page lists what exists and who each option is for.",
-    updated: "2026-08-08",
+    updated: "2026-08-23",
     readMinutes: 6,
     sections: [
       {
@@ -295,7 +295,7 @@ const coreResources: Resource[] = [
       "Keep this one somewhere findable. The time to look it up is not the time you need it.",
     shortAnswer:
       "In immediate danger, call 911. For suicide crisis anywhere in Canada, call or text 9-8-8, free and 24/7. For emotional support and information in BC, call 310-6789 — no area code needed. Westpeak Wellness is not a crisis service and cannot respond to emergencies.",
-    updated: "2026-08-08",
+    updated: "2026-09-02",
     readMinutes: 4,
     sections: [
       {

@@ -23,7 +23,7 @@ export const moreGuides7: Guide[] = [
       'The employer sick days run out fast. What most people are actually living on during a longer mental-health leave is EI sickness benefits — and almost nobody understands them until they are already off.',
     shortAnswer:
       'EI sickness benefits replace 55% of your insurable earnings, to a maximum of $729 a week in 2026, for up to 26 weeks — and they apply to mental-health conditions exactly as they do to physical ones. You need 600 insurable hours in the qualifying period, a medical certificate saying you are unable to work, and a claim filed promptly, because there is a one-week waiting period and late claims risk losing weeks. The benefit is taxable, it is far less than a paycheque, and knowing both before the leave starts is half of surviving it.',
-    updated: '2026-08-28',
+    updated: '2026-09-02',
     readMinutes: 7,
     sections: [
       {
@@ -99,7 +99,7 @@ export const moreGuides7: Guide[] = [
       'The whole leave usually hinges on one short appointment most people walk into unprepared — and walk out of having minimised everything they came to say.',
     shortAnswer:
       'A mental-health leave in BC runs on a medical certificate from a doctor or nurse practitioner stating that you are unable to work and for roughly how long. It does not need to name your diagnosis, and your employer is not entitled to one — they may ask for reasonably sufficient proof of illness, which the note itself is. The honest preparation for the appointment is a plain account of symptoms and function: sleep, concentration, mood, what work currently does to you. Understatement is the main failure mode; doctors certify what they are shown.',
-    updated: '2026-08-28',
+    updated: '2026-09-02',
     readMinutes: 6,
     sections: [
       {
@@ -175,7 +175,7 @@ export const moreGuides7: Guide[] = [
       'The leave has an end date. The condition does not check the calendar — which is why the return is where a good leave either consolidates or unravels.',
     shortAnswer:
       'A return that holds is usually gradual, negotiated, and honest about what caused the leave. In BC, an employer has a duty under the Human Rights Code to accommodate a mental-health disability to the point of undue hardship — which in practice supports graduated hours, modified duties, and changes to the specific conditions that broke you. The functional questions belong in a return-to-work plan from your doctor; your diagnosis still belongs to you. And the least-discussed truth: returning to an unchanged situation at full speed is how second leaves happen.',
-    updated: '2026-08-28',
+    updated: '2026-09-02',
     readMinutes: 7,
     sections: [
       {
@@ -244,7 +244,7 @@ export const moreGuides7: Guide[] = [
       'There is no separate "mental-health day" in BC law — and there does not need to be, because the ordinary sick day already covers it. Most people just don’t know that.',
     shortAnswer:
       'BC’s Employment Standards Act gives most employees 5 paid sick days and 3 unpaid days per calendar year after 90 days of employment — and illness includes mental health. A day taken for anxiety, depression or a breaking point is as legitimate as one taken for the flu, your employer may ask for reasonably sufficient proof but not your diagnosis, and "I am unwell" is a complete sentence. The larger question this page also answers: when mental-health days keep being needed, they have stopped being days off and started being data.',
-    updated: '2026-08-28',
+    updated: '2026-09-02',
     readMinutes: 6,
     sections: [
       {

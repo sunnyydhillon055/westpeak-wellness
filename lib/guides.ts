@@ -58,7 +58,7 @@ const coreGuides: Guide[] = [
       "It is the most common question people ask before booking a virtual session, and it deserves a real answer rather than reassurance.",
     shortAnswer:
       "For the concerns most people bring to counselling — anxiety, depression, trauma, relationship difficulty — the research consistently finds video-delivered therapy produces outcomes broadly comparable to in-person work. That is not the same as saying the two are identical, and the differences are worth understanding before you decide.",
-    updated: "2026-08-08",
+    updated: "2026-08-31",
     readMinutes: 6,
     sections: [
       {
@@ -155,7 +155,7 @@ const coreGuides: Guide[] = [
       "EMDR gets described either as miraculous or as pseudoscience, and it is neither. Here is what it is, phase by phase.",
     shortAnswer:
       "EMDR is a structured, eight-phase therapy for distressing memories. You bring a memory to mind while doing something that occupies your attention — following eye movements, tapping, or alternating sounds — and the memory typically becomes less vivid and less charged. It is recommended for PTSD in major clinical guidelines, and you do not have to describe the memory in detail for it to work.",
-    updated: "2026-08-08",
+    updated: "2026-08-31",
     readMinutes: 7,
     sections: [
       {
@@ -240,7 +240,7 @@ const coreGuides: Guide[] = [
       "People use the two phrases interchangeably. Only one of them is a clinical term, and the difference changes what helps.",
     shortAnswer:
       "A panic attack is a defined clinical event: a sudden surge of intense fear that peaks within about ten minutes, with strong physical symptoms. \"Anxiety attack\" is not a clinical term — it is what most people call a period of escalating anxiety that builds more slowly, sits at lower intensity, and lasts longer. Both are real. They respond to different things in the moment.",
-    updated: "2026-08-08",
+    updated: "2026-08-31",
     readMinutes: 6,
     sections: [
       {
@@ -314,7 +314,7 @@ const coreGuides: Guide[] = [
       "The version of anxiety that gets promoted, hits deadlines, remembers birthdays, and cannot sleep.",
     shortAnswer:
       "\"High-functioning anxiety\" is not a clinical diagnosis. It is a widely used description of anxiety in someone whose performance has not visibly slipped — often because the anxiety is what is driving the performance. The distress is real, the cost is real, and it tends to go unaddressed for years precisely because nothing has fallen over yet.",
-    updated: "2026-08-08",
+    updated: "2026-08-31",
     readMinutes: 6,
     sections: [
       {
@@ -391,7 +391,7 @@ const coreGuides: Guide[] = [
       "The unknown is doing a lot of the work in keeping people out of the room. Here is the whole thing, start to finish.",
     shortAnswer:
       "A first session is mostly orientation: paperwork and confidentiality limits, what brought you, some history, and what you want to be different. You will not be asked to relive your worst experience, you are allowed to say \"I would rather not go into that yet,\" and the most useful thing you can do is notice whether you felt reasonably comfortable — that is the actual test.",
-    updated: "2026-08-08",
+    updated: "2026-09-02",
     readMinutes: 6,
     sections: [
       {
@@ -549,7 +549,7 @@ const coreGuides: Guide[] = [
       "They feel similar from inside, they need different things, and the distinction is not always clean.",
     shortAnswer:
       "The World Health Organization classifies burn-out as an occupational phenomenon — exhaustion, mental distance from your job, and reduced effectiveness — explicitly not a medical condition, and specifically tied to work. Depression is a diagnosable condition that colours everything, not only work. The most useful practical test: if a genuine two-week break with no work contact changes things substantially, it points toward burnout. If it changes nothing, that points elsewhere.",
-    updated: "2026-08-08",
+    updated: "2026-08-31",
     readMinutes: 6,
     sections: [
       {
@@ -625,7 +625,7 @@ const coreGuides: Guide[] = [
       "You can carry the shape of something that happened before you were born, without ever being told what it was.",
     shortAnswer:
       "Intergenerational trauma describes the transmission of the effects of trauma from one generation to the next — largely through learned behaviour, parenting under stress, family silence, and unspoken rules about what is safe to feel. You do not need to know the original event to be affected by it, and you do not need to know it to work on the pattern.",
-    updated: "2026-08-08",
+    updated: "2026-08-31",
     readMinutes: 7,
     sections: [
       {
@@ -702,7 +702,7 @@ const coreGuides: Guide[] = [
       "The search itself is a barrier — dozens of directory profiles that all sound the same, and no obvious way to compare them.",
     shortAnswer:
       "Start by deciding whether you need free, low-cost, or private care, because that determines where to look. Verify anyone you shortlist against their college or association register. Then use free consultations to test fit — the working relationship predicts outcomes more reliably than the specific modality does.",
-    updated: "2026-08-08",
+    updated: "2026-09-02",
     readMinutes: 7,
     sections: [
       {

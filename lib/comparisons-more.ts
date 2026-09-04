@@ -116,7 +116,7 @@ export const moreComparisons: Comparison[] = [
       'It is one of the most common questions people arrive with, and one a counsellor cannot answer for you — but the shape of the decision can be explained.',
     shortAnswer:
       'They do different things. Medication acts on symptoms; therapy works on patterns, meaning and skills. For many common difficulties, clinical guidelines treat both as reasonable first options depending on severity and preference, and combining them is common. Only a physician, nurse practitioner or psychiatrist can prescribe or advise on medication — a counsellor cannot, and this page does not.',
-    updated: '2026-08-08',
+    updated: '2026-08-31',
     readMinutes: 7,
     table: {
       columns: ['', 'Therapy', 'Medication'],
@@ -222,7 +222,7 @@ export const moreComparisons: Comparison[] = [
       'A free, fast option and a paid, open-ended one. Most people should probably use both, and in a particular order.',
     shortAnswer:
       'An employee and family assistance programme gives you a small number of free sessions, usually starting within days, from a counsellor assigned out of a contracted network. Private counselling costs money and gives you choice of counsellor, no session cap, and continuity. For a bounded difficulty, an EFAP is often enough; for anything long-standing, the cap tends to arrive at the point where the work is getting somewhere.',
-    updated: '2026-08-08',
+    updated: '2026-08-30',
     readMinutes: 7,
     table: {
       columns: ['', 'EFAP', 'Private counselling'],

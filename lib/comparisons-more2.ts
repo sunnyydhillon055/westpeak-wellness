@@ -21,7 +21,7 @@ export const moreComparisons2: Comparison[] = [
       'The therapy is identical. The calendar is not — and for EMDR specifically, the calendar changes more than convenience.',
     shortAnswer:
       'Weekly EMDR spreads the eight phases across regular 50-minute sessions, with the reprocessing itself often occupying a fraction of each one. An intensive books a longer block — here, 90 minutes — so that preparation, processing and closing happen inside a single arc instead of being cut to fit the hour. Intensives suit people with a specific target memory, stable day-to-day footing, and a schedule that makes weekly attendance hard. Weekly pacing remains the better choice when stabilisation is still the main work, which is common with complex or long-standing trauma.',
-    updated: '2026-08-28',
+    updated: '2026-08-31',
     readMinutes: 6,
     table: {
       columns: ['', 'Weekly EMDR (50 min)', 'EMDR intensive (90 min)'],
@@ -102,7 +102,7 @@ export const moreComparisons2: Comparison[] = [
       'Both are serious, structured, well-researched approaches to the same problem. They just walk into it through different doors.',
     shortAnswer:
       'The Gottman Method starts from the outside in: a structured assessment of how the two of you actually interact, then specific interventions aimed at the patterns — criticism, defensiveness, contempt, stonewalling — that its research links to relationships failing. Emotionally Focused Therapy (EFT) starts from the inside out: it treats the argument as the surface of an attachment question ("are you there for me?") and works on the emotional cycle underneath before the behaviour. Many couples would be helped by either; the honest differentiators are what you want to work on first and which style of session you can imagine yourselves in.',
-    updated: '2026-08-28',
+    updated: '2026-08-30',
     readMinutes: 6,
     table: {
       columns: ['', 'Gottman Method', 'Emotionally Focused Therapy (EFT)'],
@@ -188,7 +188,7 @@ export const moreComparisons2: Comparison[] = [
       'Millions of people now type their 2 a.m. worries into an app or a chatbot before they would ever email a counsellor. That deserves a straight comparison, not a defensive one.',
     shortAnswer:
       'Apps and AI chatbots are genuinely good at some things: always available, free or cheap, useful for skills practice, mood tracking, psychoeducation, and rehearsing a hard conversation nobody is judging. What they are not is therapy. No app is accountable to a regulator, bound by a clinical code of ethics, able to read what you are not saying, or responsible for you in a crisis — and a system built to be agreeable cannot do the useful disagreeing a good therapist does. The strongest position is not either/or: use the tools for what they are good at, and a human for what they cannot do.',
-    updated: '2026-08-28',
+    updated: '2026-08-30',
     readMinutes: 7,
     table: {
       columns: ['', 'Apps & AI chatbots', 'Counselling with a registered professional'],
@@ -271,7 +271,7 @@ export const moreComparisons2: Comparison[] = [
       'If you grew up between two languages, you already know they do not hold the same things. Therapy is where that stops being an abstract observation.',
     shortAnswer:
       'For many bilingual people, feelings and family live in the first language and work and analysis live in the second. Therapy in Punjabi can reach childhood memory, family relationships and emotion with words that were actually there when those things happened — including the words that have no English equivalent. Therapy in English can offer useful distance from exactly the same material, which is sometimes what makes it speakable at all. Neither is the correct choice in general; the good news is that this is not a decision you have to get right in advance, because a bilingual counsellor lets the session move between the two.',
-    updated: '2026-08-28',
+    updated: '2026-08-31',
     readMinutes: 6,
     table: {
       columns: ['', 'Sessions in Punjabi', 'Sessions in English'],
@@ -351,7 +351,7 @@ export const moreComparisons2: Comparison[] = [
       'People use the words almost interchangeably, then discover the two are reached by entirely different roads — one through your doctor and a wait, one directly.',
     shortAnswer:
       'A psychiatrist is a medical doctor: reached by physician referral, covered by MSP, able to diagnose and prescribe, and — in much of BC’s system — focused on assessment and medication for more complex conditions rather than ongoing weekly talk therapy. A counsellor is booked directly, paid privately or through extended health, cannot prescribe or diagnose, and provides the ongoing therapy itself. For many people the honest answer is not either but both, on different timelines: counselling can start this week, while a psychiatric assessment, where needed, works through the referral system.',
-    updated: '2026-08-28',
+    updated: '2026-08-30',
     readMinutes: 6,
     table: {
       columns: ['', 'Psychiatrist', 'Registered Clinical Counsellor'],

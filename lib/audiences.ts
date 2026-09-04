@@ -46,7 +46,7 @@ const coreAudiences: Audience[] = [
       "The gap between how you were told this would feel and how it actually feels can be enormous — and there is little permission to say so out loud.",
     shortAnswer:
       'Counselling for new and expecting parents in BC, online by secure video in English or Punjabi. Covers the postpartum year, birth that did not go as planned, the identity shift nobody warns you about, and the strain a baby puts on a relationship — with sessions that can be taken during a nap rather than requiring childcare.',
-    updated: "2026-08-08",
+    updated: "2026-08-31",
     readMinutes: 6,
     opening: [
       "Almost a quarter of Canadian parents who have recently given birth report symptoms consistent with postpartum depression or an anxiety disorder, according to [Statistics Canada's 2019 survey](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7910326/). That is not a rare complication. It is roughly one in four — and the figure counts only those who reported it.",
@@ -153,7 +153,7 @@ const coreAudiences: Audience[] = [
       "Everyone says these are the best years of your life, which makes it harder to admit you are barely holding it together.",
     shortAnswer:
       'Counselling for BC post-secondary students, online across the province. Campus counselling is free and often has a session cap and a waitlist; private sessions have neither, and this page sets out honestly when the free option is the better one and when it is not.',
-    updated: "2026-08-08",
+    updated: "2026-08-31",
     readMinutes: 6,
     opening: [
       "Post-secondary compresses an unusual number of hard things into a short window. You are making decisions with long consequences while your prefrontal cortex is still finishing, often away from home for the first time, frequently in debt, and surrounded by people who appear to be managing effortlessly. Almost none of them are.",
@@ -239,7 +239,7 @@ const coreAudiences: Audience[] = [
       "You are good in a crisis. That is exactly why nobody notices when you are in one.",
     shortAnswer:
       'Counselling for healthcare and shift workers in BC, with evening appointments and sessions by video so a rotation does not end the work. Covers moral injury, the particular exhaustion of caring work, and sleep that never resets — without treating burnout as a personal failure of resilience.',
-    updated: "2026-08-08",
+    updated: "2026-08-31",
     readMinutes: 6,
     opening: [
       "Healthcare and emergency work select for people who function under pressure and keep going. Those are genuine strengths, and they are also the reason distress in this workforce goes unnoticed for years — including by the person carrying it. Competence is effective camouflage.",
@@ -323,7 +323,7 @@ const coreAudiences: Audience[] = [
       "Not the therapy where you spend the first twenty minutes explaining why you cannot move out.",
     shortAnswer:
       'Counselling for first- and second-generation South Asian adults in BC, in Punjabi or English. Family expectation, duty, izzat and log kya kahenge are treated as the context the work happens inside rather than as pathology — and nobody is told the answer is to move out and care less.',
-    updated: "2026-08-08",
+    updated: "2026-08-31",
     readMinutes: 7,
     opening: [
       "The most common reason South Asian clients give for having avoided therapy is not stigma. It is the anticipated effort — the expectation of having to explain the entire cultural architecture before anything useful can happen, and of eventually being told that the obvious answer is to set a boundary, move out, or care less what your family thinks.",

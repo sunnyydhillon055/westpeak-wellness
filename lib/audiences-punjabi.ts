@@ -49,7 +49,7 @@ export const punjabiAudiences: Audience[] = [
       'Where the argument can happen in the language the argument happened in — and the in-laws do not have to be explained first.',
     shortAnswer:
       'Couples counselling in Punjabi or English, online across BC, for couples whose marriage involves two families rather than two people. The argument can happen in the language it happened in, in-laws are not treated as the diagnosis, and an arranged marriage is not treated as a problem to be fixed.',
-    updated: '2026-08-14',
+    updated: '2026-08-30',
     readMinutes: 7,
 
     opening: [
@@ -237,7 +237,7 @@ export const punjabiAudiences: Audience[] = [
       'Not a page about difficult parents. A page about two people who love each other and have stopped being able to hear one another.',
     shortAnswer:
       'Counselling in Punjabi or English for intergenerational conflict in South Asian families — where both people are reasonable by their own lights and neither can hear the other. Parents are not cast as the problem, and nobody is told the answer is to set boundaries and care less.',
-    updated: '2026-08-14',
+    updated: '2026-08-18',
     readMinutes: 7,
 
     opening: [

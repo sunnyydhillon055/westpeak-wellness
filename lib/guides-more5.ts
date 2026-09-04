@@ -12,7 +12,7 @@ export const moreGuides5: Guide[] = [
       'The thoughts that frighten people most are the ones they have never told anyone. They are also, almost always, entirely ordinary.',
     shortAnswer:
       'Unwanted, disturbing thoughts that arrive uninvited are close to universal — studies of people with no mental-health difficulty find the great majority experience them, including violent, sexual and blasphemous content. What separates a passing oddity from a persistent problem is not the thought but the reaction to it: the meaning attached, and the effort spent trying to prevent it.',
-    updated: '2026-08-08',
+    updated: '2026-08-31',
     readMinutes: 7,
     figure: 'anxiety-avoidance-cycle',
     figure2: "first-session-flow",
@@ -93,7 +93,7 @@ export const moreGuides5: Guide[] = [
       'Most adults with social anxiety are not visibly anxious. They have built a life with fewer and fewer situations in it.',
     shortAnswer:
       'Social anxiety is fear of being evaluated, and of the signs of that fear being noticed. In adults it is often invisible, because the avoidance is well managed — declining, arriving late, leaving early, taking the role that requires less exposure. It responds well to structured treatment, and the treatment involves dropping the coping strategies rather than improving them.',
-    updated: '2026-08-08',
+    updated: '2026-08-31',
     readMinutes: 7,
     figure: 'anxiety-avoidance-cycle',
     figure2: "first-session-flow",
@@ -172,7 +172,7 @@ export const moreGuides5: Guide[] = [
       'It is one of the most common things people bring to counselling and one of the last things they name.',
     shortAnswer:
       'Adult loneliness is widespread, is not a character defect, and is largely structural: the conditions that produced friendship earlier in life — repeated unplanned contact with the same people — mostly disappear after education and early work. Rebuilding it requires deliberately reconstructing those conditions, which is unromantic and considerably more effective than being told to put yourself out there.',
-    updated: '2026-08-08',
+    updated: '2026-08-31',
     readMinutes: 7,
     figure: 'bc-reach',
     figure2: "first-session-flow",
@@ -252,7 +252,7 @@ export const moreGuides5: Guide[] = [
       'The tests come back clear, the relief lasts two days, and then it starts again. That loop is the condition, not a failure to be reassured.',
     shortAnswer:
       'Health anxiety is maintained by the things that seem to relieve it: checking the body, searching symptoms, and seeking reassurance from doctors or family. Each produces short-lived relief and strengthens the underlying belief that vigilance is necessary. Treatment works by reducing those behaviours rather than by providing better reassurance — and it always runs alongside proper medical care rather than instead of it.',
-    updated: '2026-08-08',
+    updated: '2026-08-31',
     readMinutes: 7,
     figure: 'anxiety-avoidance-cycle',
     figure2: "first-session-flow",
@@ -413,7 +413,7 @@ export const moreGuides5: Guide[] = [
       'It is one of the most common sources of distress in this province and one of the least likely to be named in a session.',
     shortAnswer:
       'Financial strain has a direct, well-documented effect on mental health — through chronic stress, through the cognitive load of constant calculation, and through shame. Counselling cannot change your income, and it can address the shame, the avoidance that makes the situation worse, and the decisions that are being deferred. Practical financial help is a separate and equally necessary route.',
-    updated: '2026-08-08',
+    updated: '2026-08-31',
     readMinutes: 7,
     figure: 'therapy-cost-in-bc',
     figure2: "first-session-flow",

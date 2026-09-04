@@ -107,7 +107,7 @@ export const moreGuides2: Guide[] = [
       'The worry that was manageable at 4 p.m. becomes unanswerable at 2 a.m. That is not a failure of willpower — it is what a tired brain does.',
     shortAnswer:
       'Anxiety and poor sleep drive each other: anxiety delays and fragments sleep, and sleep loss reduces the brain\'s capacity to regulate emotion, which raises anxiety the next day. Because it is a loop rather than a chain, it can be interrupted at either end — and treating the anxiety and the sleep as one problem works considerably better than treating them separately.',
-    updated: '2026-08-08',
+    updated: '2026-08-31',
     readMinutes: 7,
     figure: 'anxiety-avoidance-cycle',
     figure2: "first-session-flow",
@@ -192,7 +192,7 @@ export const moreGuides2: Guide[] = [
       'Being told the wait is four to eight months is its own kind of blow. There is more available in the meantime than most people are told.',
     shortAnswer:
       'Waitlists for publicly funded counselling in BC are real and often long. In the meantime: get onto the list properly and stay in contact with it, use the services that have no wait at all (crisis and support lines, Foundry for under-25s, an EFAP if you have one, campus counselling if you are a student), and treat the interval as something to be structured rather than endured.',
-    updated: '2026-08-08',
+    updated: '2026-09-02',
     readMinutes: 8,
     figure: 'therapy-cost-in-bc',
     figure2: "first-session-flow",
@@ -289,7 +289,7 @@ export const moreGuides2: Guide[] = [
       'Most people in this position quietly stop booking. Saying it out loud is more uncomfortable and considerably more useful.',
     shortAnswer:
       'First distinguish hard from stuck: feeling worse after opening difficult material is normal, while months with no movement on anything is not. Then raise it directly — a counsellor who cannot hear "this is not working" is demonstrating the problem. If the plan changes and nothing shifts after that, changing counsellor or approach is a reasonable decision rather than a failure.',
-    updated: '2026-08-08',
+    updated: '2026-09-02',
     readMinutes: 7,
     figure: 'first-session-flow',
     figure2: "bc-reach",

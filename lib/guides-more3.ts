@@ -12,7 +12,7 @@ export const moreGuides3: Guide[] = [
       'For some people this is a non-event. For others it is the single largest obstacle between them and a first appointment.',
     shortAnswer:
       'You are not obliged to tell anyone. Counselling is confidential, sessions are online, and no family member is entitled to know. If you do want to tell someone, decide in advance what you are telling them and why — support, practical logistics, or a request for something specific — because those are three different conversations and mixing them is what tends to go badly.',
-    updated: '2026-08-08',
+    updated: '2026-09-02',
     readMinutes: 6,
     figure: 'window-of-tolerance',
     figure2: "confidentiality-limits",
@@ -101,7 +101,7 @@ export const moreGuides3: Guide[] = [
       'Most boundary advice assumes a reasonable counterpart and a relationship you can afford to lose. Families frequently offer neither.',
     shortAnswer:
       'A boundary is a statement about what you will do, not a rule imposed on someone else — which is why it does not require their agreement. That distinction is what makes boundaries workable with family members who will never consent to one. The hard part is not the wording; it is deciding in advance what you are prepared to follow through on, and accepting the cost.',
-    updated: '2026-08-08',
+    updated: '2026-09-02',
     readMinutes: 7,
     figure: 'anxiety-avoidance-cycle',
     figure2: "confidentiality-limits",
@@ -194,7 +194,7 @@ export const moreGuides3: Guide[] = [
       'The stages were never a sequence, and almost everyone has been told otherwise.',
     shortAnswer:
       'Grief does not move through tidy stages and has no correct duration. It also attaches to losses that are not deaths — a marriage, a country, a career, a body that used to work, a future you had assumed. Counselling is worth considering when grief is stuck rather than present: when it is unchanged after a long period, or when it cannot be spoken about anywhere.',
-    updated: '2026-08-08',
+    updated: '2026-08-31',
     readMinutes: 7,
     figure: 'window-of-tolerance',
     figure2: "first-session-flow",
@@ -282,7 +282,7 @@ export const moreGuides3: Guide[] = [
       'The attack itself lasts minutes. The dread of having another one at the same desk can last months.',
     shortAnswer:
       'A panic attack peaks within about ten minutes and subsides; it is intensely unpleasant and not dangerous in itself. In the moment, the aim is to get through it rather than to stop it — slowing the out-breath and orienting to the room both help. The larger problem is usually what comes after: avoiding the meeting, the floor or the building, which is what turns one bad episode into a pattern.',
-    updated: '2026-08-08',
+    updated: '2026-08-31',
     readMinutes: 7,
     figure: 'panic-vs-anxiety',
     figure2: "first-session-flow",
