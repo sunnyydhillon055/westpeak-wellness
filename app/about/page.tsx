@@ -4,8 +4,8 @@ import Image from 'next/image';
 import { site } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
 import Motif from '@/components/brand/Motif';
-import { BadgeCheck } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { practitioners } from '@/lib/practitioners';
 import { ogBase } from '@/lib/og-meta';
 import { webPage } from '@/lib/schema';
 import { COLLECTION_DATES } from '@/lib/page-dates';
@@ -25,11 +25,11 @@ import { COLLECTION_DATES } from '@/lib/page-dates';
  * next — and they want it in blocks they can scan. Sections here run 30–60
  * words each, deliberately.
  *
- * NO NAMES, still. The owner confirmed on 31 Aug 2026 that individual
- * counsellor profiles are not being added yet, so the name guard in
- * scripts/expansion-verify.mjs stands unchanged and this page carries none.
- * Registration #20111 remains the identity anchor and /about remains the only
- * page permitted to show it.
+ * NAMES, SINCE 6 SEP 2026. The owner asked for the counsellors on this page,
+ * so the roster renders here and scripts/expansion-verify.mjs allows the name
+ * on /about alongside the profiles and /practitioners. The registration
+ * number came off this page the same day: it is on each counsellor's own
+ * profile, and nowhere else.
  *
  * THE LONG-FORM MATERIAL IS NOT DELETED, it moved. What a session is like, how
  * an approach gets chosen, working in Punjabi, and the scope limits all live in
@@ -121,12 +121,11 @@ export default function About() {
               <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
               <Link className="btn btn--ghost" href="/services">See our services</Link>
             </div>
-            {/* The identity anchor. A number a stranger can look up is the whole
-                trust argument on a site barred from carrying reviews. */}
-            <p className="badge-rcc">
-              <BadgeCheck aria-hidden="true" strokeWidth={1.7} />
-              {site.counsellor.title} · {site.counsellor.registerName} #{site.counsellor.registration} · verify at bcacc.ca
-            </p>
+            {/* No registration badge here since 6 Sep 2026. There was one, as
+                the practice's identity anchor, but it was one counsellor's
+                number on a page about a practice of several. The numbers live
+                on each counsellor's own profile, beside the register they can
+                be checked in, and the roster below leads there. */}
           </div>
           <div className="portrait">
             <span className="portrait-bloom" aria-hidden="true"><Motif variant="bloom" /></span>
@@ -147,7 +146,55 @@ export default function About() {
         <div className="container">
           <Breadcrumbs trail={[{ name: 'About', path: '/about' }]} />
 
-          <div className="prose" style={{ marginBottom: 8 }}>
+          {/* THE COUNSELLORS, FIRST. Added 6 Sep 2026 at the owner's request:
+              this page showed one photograph and one registration number and
+              read as a solo practice a week after it stopped being one.
+              Rendered from the roster, so the next counsellor added appears
+              here without an edit. Same row component as /practitioners; no
+              registration numbers, which stay on each profile. */}
+          <div className="prose" style={{ marginTop: 8 }}>
+            <h2>Our counsellors</h2>
+            <p>
+              Registered counsellors, each with their own page: training, what they work with,
+              the languages they practise in, and the register their number can be checked in.
+            </p>
+          </div>
+          <div className="practitioner-list" style={{ marginTop: 18 }}>
+            {practitioners.map((p) => (
+              <article className="practitioner-row" key={p.slug}>
+                {p.photos?.portrait && (
+                  <Image
+                    className="practitioner-row-photo"
+                    src={p.photos.portrait.src}
+                    alt={p.photos.portrait.alt}
+                    width={p.photos.portrait.width}
+                    height={p.photos.portrait.height}
+                    sizes="(max-width: 700px) 40vw, 240px"
+                  />
+                )}
+                <div className="practitioner-row-body">
+                  <h3>
+                    <Link className="practitioner-row-link" href={`/practitioners/${p.slug}`}>
+                      {p.name}
+                    </Link>
+                  </h3>
+                  <p className="practitioner-row-role">{p.role} · {p.postNominals}</p>
+                  <p className="practitioner-row-tagline">{p.tagline}</p>
+                  <p className="practitioner-row-langs">
+                    Works in {p.languages.map((l) => l.name).join(' and ')}
+                    {' · '}
+                    {p.acceptingNewClients ? (
+                      <strong>Taking new clients</strong>
+                    ) : (
+                      'Not taking new clients at the moment'
+                    )}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div className="prose" style={{ marginTop: 40, marginBottom: 8 }}>
             <h2>What we are here for</h2>
             <p>
               Westpeak is a small practice of registered counsellors working online across British

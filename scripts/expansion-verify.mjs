@@ -247,7 +247,9 @@ if (!NAME_TOKENS.length) {
   /* Her own profile, and the roster index that links to it. The roster card
      carries her name in the heading and the alt text, which is what a roster
      is. Everywhere else still fails the build. */
-  const NAME_ALLOWED_ON = ['/practitioners', '/practitioners/aman-bains-dhillon'];
+  /* /about added 6 Sep 2026: the owner asked for the counsellors on that
+     page, rendered from the same roster as /practitioners. */
+  const NAME_ALLOWED_ON = ['/about', '/practitioners', '/practitioners/aman-bains-dhillon'];
 
   /* THE HEADER MENU IS NOT CONTENT — 1 Sep 2026.
    *
@@ -337,14 +339,16 @@ if (!REG) {
   const digits = new RegExp(`\\b${REG}\\b`);
   let regFail = false;
 
-const REG_ALLOWED_ON = ['/about', '/practitioners/aman-bains-dhillon'];
+const REG_ALLOWED_ON = ['/practitioners/aman-bains-dhillon'];
 
   for (const [route, html] of published) {
-    /* Two pages now, not one. /about carries it as the practice's identity
-       anchor; her own profile carries it because a counsellor profile without
-       a checkable registration number is the weaker page, and the number is
-       the whole trust argument on a site barred from showing reviews.
-       Everywhere else is still a failure. */
+    /* Her own profile only, since 6 Sep 2026. /about carried it as the
+       practice's identity anchor until the owner had it removed: one
+       counsellor's number on a page about a practice of several. A profile
+       carries it because a counsellor profile without a checkable
+       registration number is the weaker page, and the number is the whole
+       trust argument on a site barred from showing reviews. Everywhere else
+       is a failure. */
     if (REG_ALLOWED_ON.includes(route)) continue;
     if (digits.test(html)) {
       const where = [

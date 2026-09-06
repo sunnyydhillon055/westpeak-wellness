@@ -24,9 +24,12 @@ rather than taken on trust.
 
 ## Who the practice says it is
 
-### Personal names appear on profiles, the roster and the header — nowhere else
-Changed 1 Sep 2026. Before that no counsellor's name appeared anywhere but
-`/about`. Photographs and registration numbers remain restricted.
+### Personal names appear on profiles, the roster, /about and the header — nowhere else
+Changed 1 Sep 2026, and again 6 Sep 2026 when the owner asked for the
+counsellors on `/about`, rendered from the same roster as `/practitioners`.
+Registration numbers are narrower still: on each counsellor's own profile only.
+The badge `/about` carried came off the same day — one counsellor's number on
+a page about a practice of several.
 
 `lib/policies.ts` still carries the older rule as a hard one — *"the
 counsellor's personal name never appears here"* — and that is deliberate for
