@@ -105,19 +105,33 @@ export type InviteResult = {
   reason?: string;
 };
 
-/* The invite email itself, in one place. The on-demand path and the batch
- * sweep must not drift apart -- a client should get the same message
- * whether they asked for it or a sweep sent it. */
-function inviteBody(first: string, url: string): { text: string; html: string } {
+/* The invite email itself, in one place. The on-demand path, the batch sweep
+ * and the new-client welcome must not drift apart -- a client should get the
+ * same message whichever path sent it. The welcome variant differs by its
+ * opening, because that person did not ask for anything: they were added as
+ * a client and this is the practice telling them what exists and how to get
+ * in. */
+function inviteBody(first: string, url: string, welcome = false): { text: string; html: string } {
+  const opening = welcome
+    ? `Welcome to Westpeak Wellness. Now that you are a client, you have a
+secure online portal where you can book sessions, see upcoming
+appointments and manage your details. Your sign-in is this email address.`
+    : `Westpeak Wellness has a secure client portal where you can book
+sessions, see upcoming appointments and manage your details.`;
+  const openingHtml = welcome
+    ? `Welcome to Westpeak Wellness. Now that you are a client, you have a secure online portal where you can book sessions, see upcoming appointments and manage your details. <strong>Your sign-in is this email address.</strong>`
+    : `Westpeak Wellness has a secure client portal where you can book sessions, see upcoming appointments and manage your details.`;
   const text =
 `Hi ${first},
 
-Westpeak Wellness has a secure client portal where you can book
-sessions, see upcoming appointments and manage your details.
+${opening}
 
 To set it up, choose a password here:
 
 ${url}
+
+You can also sign in at any time without a password: enter this email
+address at ${site.domain}${site.portalPath} and a one-time code is sent to it.
 
 The link works once and expires. Nobody at the practice can see the
 password you choose. It is stored in a form that cannot be read back,
@@ -135,8 +149,9 @@ ${site.domain}`;
   const html =
 `<div style="font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#2b3138;max-width:520px;line-height:1.65;">
   <p style="margin:0 0 14px;font-size:15px;">Hi ${first},</p>
-  <p style="margin:0 0 14px;font-size:15px;">Westpeak Wellness has a secure client portal where you can book sessions, see upcoming appointments and manage your details.</p>
+  <p style="margin:0 0 14px;font-size:15px;">${openingHtml}</p>
   <p style="margin:0 0 22px;"><a href="${url}" style="display:inline-block;background:#3d6c92;color:#fff;text-decoration:none;padding:11px 20px;border-radius:6px;font-weight:600;font-size:15px;">Choose a password</a></p>
+  <p style="margin:0 0 14px;font-size:14px;">You can also sign in at any time without a password: enter this email address at <a href="${site.domain}${site.portalPath}" style="color:#3d6c92;">${site.domain.replace(/^https?:\/\//, '')}${site.portalPath}</a> and a one-time code is sent to it.</p>
   <p style="margin:0 0 14px;font-size:14px;">The link works once and expires. <strong>Nobody at the practice can see the password you choose</strong>. It is stored in a form that cannot be read back, so if you forget it we can only send another link like this one.</p>
   <p style="margin:0 0 14px;font-size:14px;">If you would rather not use the portal, ignore this. It changes nothing about your appointments.</p>
   <p style="margin:22px 0 0;font-size:12px;color:#545e69;">If you are in immediate danger call 911. For urgent mental-health support in BC, call or text <strong>9-8-8</strong> at any hour.<br>Westpeak Wellness · <a href="${site.domain}" style="color:#545e69;">${site.domain.replace(/^https?:\/\//, '')}</a></p>
@@ -147,7 +162,7 @@ ${site.domain}`;
 /* One invite, sent because the client asked for it. Shared with the batch
  * sweep so there is exactly one definition of the email and the token. */
 export async function sendInviteEmail(
-  email: string, name?: string
+  email: string, name?: string, opts: { welcome?: boolean } = {}
 ): Promise<{ ok: boolean; detail?: string }> {
   const secret = process.env.PORTAL_SECRET?.trim();
   if (!secret) return { ok: false, detail: 'PORTAL_SECRET is not set' };
@@ -156,8 +171,99 @@ export async function sendInviteEmail(
   const token = await createResetToken(email, secret, fp);
   const url = `${site.domain}/reset?token=${encodeURIComponent(token)}`;
   const first = (name || '').trim().split(/\s+/)[0] || 'there';
-  const { text, html } = inviteBody(first, url);
-  return sendDetailed(email, 'Set up your Westpeak Wellness client portal', text, html);
+  const { text, html } = inviteBody(first, url, opts.welcome === true);
+  const subject = opts.welcome
+    ? 'Welcome to Westpeak Wellness: your client portal'
+    : 'Set up your Westpeak Wellness client portal';
+  return sendDetailed(email, subject, text, html);
+}
+
+/* ============================================================================
+   NEW CLIENTS ARE WELCOMED AUTOMATICALLY — decided 6 Sep 2026.
+   ----------------------------------------------------------------------------
+   The sweep above stays off: emailing the whole historical list about a portal
+   nobody asked for was refused, and still is. This is the narrower thing the
+   owner asked for: when somebody is added as a client in Cliniko, the next
+   sync (every two hours, or an admin's manual sync) creates their portal
+   record and sends them ONE welcome email with a set-password link and the
+   one-time-code route. Their credential is their email address; the password
+   is theirs to choose and the practice never sees it.
+
+   Only the records that were added in that run are candidates — never "every
+   active client without a password", which is what the sweep is for. The
+   invite ledger is shared with the sweep, so the two can never double-send.
+   Capped per run for the same cold-domain reason as the sweep; a practice
+   this size adds clients a few at a time and a cap of ten is never reached
+   in ordinary use, only on the first sync after Cliniko was connected.
+
+   NEW_CLIENT_INVITES=0 switches it off.
+   ========================================================================= */
+const WELCOME_CAP = 10;
+
+const welcomeEnabled = () => (process.env.NEW_CLIENT_INVITES ?? '1').trim() !== '0';
+
+/* Pure, so it can be tested: which of the just-added records get a welcome
+   this run, given the ledger and the cap. Exported for the test only. */
+export function pickNewInvitees(
+  added: { email: string; status: string }[],
+  ledger: Record<string, string>,
+  now: number,
+  limit = WELCOME_CAP
+): { send: string[]; deferred: number; recentlyInvited: number; notActive: number } {
+  const send: string[] = [];
+  let deferred = 0, recentlyInvited = 0, notActive = 0;
+  const seen = new Set<string>();
+  for (const c of added) {
+    if (seen.has(c.email)) continue;
+    seen.add(c.email);
+    if (c.status !== 'active') { notActive++; continue; }
+    const last = ledger[c.email] ? Date.parse(ledger[c.email]) : 0;
+    if (last && now - last < REINVITE_AFTER_MS) { recentlyInvited++; continue; }
+    if (send.length >= limit) { deferred++; continue; }
+    send.push(c.email);
+  }
+  return { send, deferred, recentlyInvited, notActive };
+}
+
+export type WelcomeResult = {
+  ok: boolean;
+  sent: number;
+  deferred: number;
+  recentlyInvited: number;
+  notActive: number;
+  failures: string[];
+  reason?: string;
+};
+
+export async function welcomeNewClients(
+  added: { email: string; name: string; status: string }[],
+  opts: { dry?: boolean } = {}
+): Promise<WelcomeResult> {
+  const base: WelcomeResult = { ok: false, sent: 0, deferred: 0, recentlyInvited: 0, notActive: 0, failures: [] };
+  if (!added.length) return { ...base, ok: true };
+  if (!welcomeEnabled()) return { ...base, ok: true, reason: 'NEW_CLIENT_INVITES=0, welcome emails are switched off' };
+  if (!process.env.PORTAL_SECRET?.trim()) return { ...base, reason: 'PORTAL_SECRET is not set, cannot sign the link' };
+  if (!mailConfigured() && !opts.dry) return { ...base, reason: 'RESEND_API_KEY or PORTAL_FROM_EMAIL is not set, cannot send' };
+
+  const ledger = await read();
+  const pick = pickNewInvitees(added, ledger, Date.now());
+  const result: WelcomeResult = { ...base, ok: true, deferred: pick.deferred, recentlyInvited: pick.recentlyInvited, notActive: pick.notActive };
+  const byEmail = new Map(added.map((c) => [c.email, c]));
+  for (const email of pick.send) {
+    if (opts.dry) { result.sent++; continue; }
+    /* Belt and braces: a record added this run cannot have a password, but
+       the check costs one read and makes the invariant explicit. */
+    if (await hasPassword(email)) continue;
+    const sent = await sendInviteEmail(email, byEmail.get(email)?.name, { welcome: true });
+    if (sent.ok) {
+      ledger[email] = new Date().toISOString();
+      result.sent++;
+    } else {
+      result.failures.push(`${email}: ${sent.detail ?? 'send failed'}`);
+    }
+  }
+  if (!opts.dry && result.sent > 0) await write(ledger);
+  return result;
 }
 
 export async function sendPortalInvites(opts: { dry?: boolean } = {}): Promise<InviteResult> {

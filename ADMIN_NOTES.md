@@ -97,6 +97,16 @@ write without accounting for this.
 
 ## Managing clients
 
+**A new client is welcomed automatically (since 6 Sep 2026).** When the
+Cliniko sync adds someone — every two hours, or when you press *Sync from
+Cliniko now* — or when you add a client by hand, they get one welcome email:
+their sign-in is their email address, a single-use link lets them choose a
+password nobody at the practice can see, and a one-time code sent to the
+address works without one. The sync banner says how many were welcomed. It
+needs `PORTAL_SECRET`, `RESEND_API_KEY` and `PORTAL_FROM_EMAIL`; without
+them the record is still created and nothing is sent. `NEW_CLIENT_INVITES=0`
+switches it off. Existing clients are never swept.
+
 `/admin` holds client **records** — name, email, status, note, added date —
 edited one row at a time, so a mistake costs one person rather than the list.
 

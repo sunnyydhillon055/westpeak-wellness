@@ -40,6 +40,11 @@ import { normalizeEmail } from '@/lib/portal-auth';
 export type SyncResult = {
   ok: boolean;
   added: number;
+  /* The records that were new this run, once they are safely written. The
+     welcome email (lib/portal-invite.ts, welcomeNewClients) is sent from this
+     list and from nothing else, so a client is invited because they were just
+     added, never because they happen to lack a password. Empty on failure. */
+  addedClients: ClientRecord[];
   namesFilled: number;
   skippedNoEmail: number;
   totalInCliniko: number;
@@ -88,7 +93,7 @@ async function fetchAllPatients(): Promise<ClinikoPatient[] | { error: string }>
 export async function syncClientsFromCliniko(actor: string): Promise<SyncResult> {
   const patients = await fetchAllPatients();
   if ('error' in patients) {
-    return { ok: false, added: 0, namesFilled: 0, skippedNoEmail: 0, totalInCliniko: 0, reason: patients.error };
+    return { ok: false, added: 0, addedClients: [], namesFilled: 0, skippedNoEmail: 0, totalInCliniko: 0, reason: patients.error };
   }
 
   const book = await readClients({ fresh: true });
@@ -96,6 +101,7 @@ export async function syncClientsFromCliniko(actor: string): Promise<SyncResult>
 
   const next: ClientRecord[] = [...book.clients];
   let added = 0;
+  const addedClients: ClientRecord[] = [];
   let namesFilled = 0;
   let skippedNoEmail = 0;
 
@@ -126,6 +132,7 @@ export async function syncClientsFromCliniko(actor: string): Promise<SyncResult>
       };
       next.push(rec);
       byEmail.set(email, rec);
+      addedClients.push(rec);
       added++;
       continue;
     }
@@ -138,7 +145,7 @@ export async function syncClientsFromCliniko(actor: string): Promise<SyncResult>
   }
 
   if (added === 0 && namesFilled === 0) {
-    return { ok: true, added: 0, namesFilled: 0, skippedNoEmail, totalInCliniko: patients.length };
+    return { ok: true, added: 0, addedClients: [], namesFilled: 0, skippedNoEmail, totalInCliniko: patients.length };
   }
 
   /* One retry on a version conflict. Two admins saving at the same moment is
@@ -148,12 +155,12 @@ export async function syncClientsFromCliniko(actor: string): Promise<SyncResult>
     const base = attempt === 0 ? book : await readClients({ fresh: true });
     const res = await writeClients(next, actor, base.version);
     if (res.ok) {
-      return { ok: true, added, namesFilled, skippedNoEmail, totalInCliniko: patients.length };
+      return { ok: true, added, addedClients, namesFilled, skippedNoEmail, totalInCliniko: patients.length };
     }
   }
 
   return {
-    ok: false, added: 0, namesFilled: 0, skippedNoEmail, totalInCliniko: patients.length,
+    ok: false, added: 0, addedClients: [], namesFilled: 0, skippedNoEmail, totalInCliniko: patients.length,
     reason: 'write conflict, another edit landed first; the next run will pick it up',
   };
 }

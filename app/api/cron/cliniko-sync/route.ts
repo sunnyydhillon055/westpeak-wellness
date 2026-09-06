@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { syncClientsFromCliniko } from '@/lib/cliniko-sync';
 import { refreshCatalog } from '@/lib/cliniko-catalog';
-import { sendPortalInvites } from '@/lib/portal-invite';
+import { sendPortalInvites, welcomeNewClients } from '@/lib/portal-invite';
 import { withCronHealth, recordCronRun } from '@/lib/cron-health';
 
 /* Nightly Cliniko -> client list sync.
@@ -102,6 +102,14 @@ export async function GET(req: NextRequest) {
    * list the sync just wrote. Running them on their own schedule would mean a
    * client added to Cliniko could wait a full cycle longer than necessary, and
    * would risk inviting from a list that had not been refreshed yet. */
+  /* New this run, welcomed this run. See welcomeNewClients: only the records
+     the sync just wrote, one email each, with the set-password link. */
+  const welcome = await welcomeNewClients(result.addedClients, { dry });
+  if (!welcome.ok) console.error('[portal-welcome] did not run:', welcome.reason);
+  else if (result.addedClients.length) console.log(
+    `[portal-welcome]${dry ? ' DRY' : ''} ${welcome.sent} welcomed · ${welcome.deferred} deferred · ` +
+    `${welcome.failures.length} failure(s)`
+  );
   const invites = await sendPortalInvites({ dry });
   if (!invites.ok) console.error('[portal-invite] did not run:', invites.reason);
   else console.log(
@@ -109,5 +117,5 @@ export async function GET(req: NextRequest) {
     `${invites.deferred} deferred to next run · ${invites.alreadyHavePassword} already set · ` +
     `${invites.recentlyInvited} recently invited · ${invites.failures.length} failure(s)`
   );
-  return NextResponse.json({ ...result, invites, catalog: catalog.ok ? { changed: catalog.changed, items: catalog.catalog.items.length } : { error: catalog.reason } });
+  return NextResponse.json({ ...result, addedClients: result.addedClients.length, welcome, invites, catalog: catalog.ok ? { changed: catalog.changed, items: catalog.catalog.items.length } : { error: catalog.reason } });
 }

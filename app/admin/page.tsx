@@ -75,7 +75,7 @@ export default async function AdminPage({
 }: {
   searchParams?: {
     c?: string; a?: string; pw?: string; cliniko?: string;
-    sync?: string; added?: string; total?: string; named?: string;
+    sync?: string; added?: string; welcomed?: string; total?: string; named?: string;
     noemail?: string; why?: string;
   };
 }) {
@@ -121,7 +121,7 @@ export default async function AdminPage({
   const syncNote = searchParams?.sync
     ? syncOk
       ? `Synced. ${searchParams.total ?? '0'} active patient(s) in Cliniko · ` +
-        `${searchParams.added ?? '0'} newly added · ${searchParams.named ?? '0'} name(s) filled` +
+        `${searchParams.added ?? '0'} newly added · ${searchParams.welcomed ?? '0'} welcome email(s) sent · ${searchParams.named ?? '0'} name(s) filled` +
         (Number(searchParams.noemail ?? 0) > 0
           ? ` · ${searchParams.noemail} skipped with no email on file`
           : '')

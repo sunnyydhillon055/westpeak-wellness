@@ -3,6 +3,7 @@ import { auth } from '@/auth';
 import { isAdmin } from '@/lib/portal-store';
 import { syncClientsFromCliniko } from '@/lib/cliniko-sync';
 import { refreshCatalog } from '@/lib/cliniko-catalog';
+import { welcomeNewClients } from '@/lib/portal-invite';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -41,10 +42,16 @@ export async function POST(req: Request) {
   const clients = await syncClientsFromCliniko(`admin:${email}`);
   if (!clients.ok) console.error('[admin-sync] clients:', clients.reason);
 
+  /* Same rule as the cron: whoever was added this run gets the welcome. An
+     administrator pressing Sync is the fastest way to onboard somebody who
+     was just created in Cliniko, without waiting for the two-hour tick. */
+  const welcome = clients.ok ? await welcomeNewClients(clients.addedClients) : null;
+  if (welcome && !welcome.ok) console.error('[admin-sync] welcome:', welcome.reason);
+
   /* Outcome carried in the URL so the admin page can say what happened. No
    * personal data in it — counts only, never an address. */
   const status = clients.ok
-    ? `ok&added=${clients.added}&total=${clients.totalInCliniko}&named=${clients.namesFilled}&noemail=${clients.skippedNoEmail}`
+    ? `ok&added=${clients.added}&welcomed=${welcome?.sent ?? 0}&total=${clients.totalInCliniko}&named=${clients.namesFilled}&noemail=${clients.skippedNoEmail}`
     : `err&why=${encodeURIComponent(clients.reason ?? 'unknown')}`;
 
   return NextResponse.redirect(new URL(`/admin?sync=${status}`, req.url), 303);

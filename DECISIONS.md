@@ -319,6 +319,22 @@ availability editor and its API route. The schema carries no
 
 ---
 
+### A new client is welcomed to the portal automatically; the old list is not swept
+Decided 6 Sep 2026. When the Cliniko sync (every two hours, or Sync in
+`/admin`) or an administrator adds a client, that person gets one welcome
+email: their sign-in is their email address, a signed single-use link lets
+them choose a password the practice never sees, and a one-time code sent to
+the address works without one. Only records added in that run are candidates,
+capped at ten per run and recorded in the invite ledger, so nobody is written
+to twice. The earlier refusal to email the whole historical client list about
+a portal they never asked for stands: `INVITE_BATCH_LIMIT` stays 0.
+`NEW_CLIENT_INVITES=0` switches the welcome off.
+
+*Enforced by:* `lib/portal-invite.ts` (`welcomeNewClients`), `lib/cliniko-sync.ts`
+(`addedClients`), `test/portal-welcome.test.mts`
+
+---
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`

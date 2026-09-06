@@ -5,6 +5,7 @@ import { readClients, writeClients, newId, type ClientRecord, type ClientStatus 
 import { normalizeEmail } from '@/lib/portal-auth';
 import { clearPassword } from '@/lib/portal-users';
 import { recordAudit } from '@/lib/admin-audit';
+import { welcomeNewClients } from '@/lib/portal-invite';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -74,5 +75,17 @@ export async function POST(req: Request) {
     action: `client ${action}`,
     subject: String(form.get('email') ?? form.get('id') ?? ''),
   });
+  /* A client added by hand is welcomed exactly like one that arrived from
+     Cliniko (lib/portal-invite.ts, welcomeNewClients): one email, a
+     set-password link, the one-time-code route. Best-effort after the record
+     is safely written; a failed send is logged and the record stands. */
+  if (action === 'add') {
+    const added = next.find((c) => c.email === normalizeEmail(String(form.get('email') ?? '')));
+    if (added) {
+      const w = await welcomeNewClients([added]);
+      if (!w.ok) console.error('[admin-clients] welcome:', w.reason);
+      else if (w.failures.length) console.error('[admin-clients] welcome failed:', w.failures.join('; '));
+    }
+  }
   return back(`c=${action}`);
 }
