@@ -100,6 +100,27 @@ resolver is under test.
 
 *Enforced by:* `lib/practitioner-places.ts`, `test/practitioner-language.test.mts`
 
+### Punjabi and Tagalog documents declare their own language, set after the build
+Every page renders in one root layout, and Next 14 sets `<html lang>` there
+only. The framework's answer — a root layout per language in route groups —
+was built and tested on 6 Sep 2026 and reverted the same hour: with more than
+one root layout, Next 14 renders every `notFound()` (unknown URLs, the gated
+`/alberta` and `/ontario` shells) through its bare error shell, with no lang,
+no fonts and no metadata. That regresses every 404 to fix 34 pages. Next 15
+fixes it and is a separate decision.
+
+So `scripts/html-lang.mjs` runs after `next build` and sets `lang="pa"` or
+`lang="tl"` on exactly the prerendered documents whose content is in that
+language, by route, patching the embedded React payload to match. `npm run
+lang` checks the build and fails it if any of those files carries the wrong
+language. The English chrome (header, footer, booking bar) is marked
+`lang="en-CA"` on every page so a screen reader on a Tagalog document reads
+the navigation as English. The `/punjabi-counselling` and
+`/tagalog-counselling` pages are English pages *about* a language service and
+stay `en-CA`.
+
+*Enforced by:* `scripts/html-lang.mjs` (`--check` in `verify:ci`), `package.json` (`build`)
+
 ### A translation is paired with hreflang both ways; a page *about* a language is not
 Decided 6 Sep 2026, from the SEO audit. Where the same content exists in two
 languages — the Tagalog guides and the English guides they were written from,

@@ -38,8 +38,10 @@ export function GET() {
 
 > Virtual counselling practice serving all of British Columbia, Canada. Sessions
 > are delivered by secure video only. There is no office and no phone-session
-> option. Provided by a Registered Clinical Counsellor (MA, RCC) registered with
-> the BC Association of Clinical Counsellors. Languages across the practice: English, Punjabi and Tagalog, per counsellor.
+> option. Provided by Registered Clinical Counsellors registered with the BC
+> Association of Clinical Counsellors; each counsellor's page states their
+> registration number, languages and provinces. New clients are currently seen
+> by Camille Granda, RCC, CCC. Languages across the practice: English, Punjabi and Tagalog, per counsellor.
 > A second counsellor holds both the BCACC registration and the national
 > Canadian Certified Counsellor certification, works in English and Tagalog, and
 > can see clients located in Alberta as well as British Columbia.

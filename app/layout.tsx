@@ -269,10 +269,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
         <a className="skip-link" href="#main">Skip to main content</a>
-        <Header />
+        {/* The chrome is English on every page, including the Punjabi and
+            Tagalog documents (whose html lang is set after the build — see
+            scripts/html-lang.mjs). Marked as such so a screen reader on a
+            Tagalog page does not read the navigation with Tagalog rules.
+            display:contents keeps the wrapper out of the layout. */}
+        <div lang="en-CA" style={{ display: 'contents' }}>
+          <Header />
+        </div>
         <main id="main">{children}</main>
-        <Footer />
-        <StickyBook />
+        <div lang="en-CA" style={{ display: 'contents' }}>
+          <Footer />
+          <StickyBook />
+        </div>
         <Analytics />
         <script
           type="application/ld+json"

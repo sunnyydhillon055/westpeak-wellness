@@ -45,6 +45,28 @@ const AI_CRAWLERS = [
   'YouBot',
   // Common Crawl — a corpus several engines retrieve from
   'CCBot',
+  /* Added 6 Sep 2026 from the AI-crawlability pass. Each is a named agent
+     with a published user-agent string that fetches for retrieval or
+     grounding; each gets the same explicit Allow as the others rather than
+     the wildcard, so the policy reads as authored for it too. */
+  // Allen Institute (AI2) research crawler
+  'AI2Bot',
+  // Kagi search and its assistant
+  'Kagibot',
+  // Diffbot, a structured-extraction crawler several assistants retrieve from
+  'Diffbot',
+  // Webz.io / Omgili corpus, used for grounding by several LLM products
+  'omgili', 'omgilibot',
+  // Timpi decentralised index
+  'Timpibot',
+  // Huawei Petal search and assistant
+  'PetalBot',
+  // Google Vertex AI agents fetching for grounding (distinct from Google-Extended)
+  'Google-CloudVertexBot',
+  // Meta's user-triggered fetch (distinct from the training crawler above)
+  'Meta-ExternalFetcher',
+  // Hive / ImageSift, which indexes images for AI products
+  'ImagesiftBot',
 ];
 
 /* The sitemap lists canonical-domain URLs. Google only trusts a sitemap
