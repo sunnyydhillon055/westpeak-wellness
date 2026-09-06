@@ -39,6 +39,19 @@ const CLINIKO_BOOKINGS = (
  * appointment's duration, which the /v1/appointments endpoint does not return
  * — see the note there. Identity comes from the appointment type. */
 export const CONSULT_TYPE = '2013349744314681520';
+
+/* THE BUSINESS ONLINE BOOKINGS ATTACH TO — 6 Sep 2026.
+ *
+ * Cliniko holds two "businesses": the founder's original one ("Westpeak
+ * Wellness, Amandeep Bains", 1466854657870531165, with her registration
+ * number and a White Rock street address on every booking summary), and the
+ * practice itself ("Westpeak Wellness", 2029887882486877088), created when
+ * the practice stopped being one person. Camille's availability and the
+ * Stripe account are on the practice business, so that is the one every
+ * public link names. Read off the public booking page's bookingsStart() call
+ * rather than guessed, and the practice-wide URL carries it too so a bare
+ * /book never lands on the founder's business by default. */
+export const CLINIKO_BUSINESS = '2029887882486877088';
 const PAID_TYPES = [
   '1466854657459489533',
   '1909558292636502700',
@@ -143,9 +156,9 @@ export const site = {
    * /client-portal is behind sign-in and only reachable by current clients, who
    * already have a relationship and an invoicing arrangement. That is where the
    * paid work belongs. */
-  bookingsUrl: `${CLINIKO_BOOKINGS}?appointment_type_id=${CONSULT_TYPE}`,
-  bookingsPaidUrl: `${CLINIKO_BOOKINGS}?appointment_type_id=${PAID_TYPES}`,
-  bookingsFallbackUrl: `${CLINIKO_BOOKINGS}?appointment_type_id=${CONSULT_TYPE}`,
+  bookingsUrl: `${CLINIKO_BOOKINGS}?business_id=${CLINIKO_BUSINESS}&appointment_type_id=${CONSULT_TYPE}`,
+  bookingsPaidUrl: `${CLINIKO_BOOKINGS}?business_id=${CLINIKO_BUSINESS}&appointment_type_id=${PAID_TYPES}`,
+  bookingsFallbackUrl: `${CLINIKO_BOOKINGS}?business_id=${CLINIKO_BUSINESS}&appointment_type_id=${CONSULT_TYPE}`,
   bookingPath: "/book",
   portalPath: "/client-portal",
   /* Two gates, not one, because the two pages promise different things.
@@ -203,5 +216,5 @@ export const site = {
  * No id means the ordinary practice-wide consultation URL. */
 export const bookingsUrlFor = (practitionerId?: string): string =>
   practitionerId
-    ? `${CLINIKO_BOOKINGS}?appointment_type_id=${CONSULT_TYPE}&practitioner_id=${practitionerId}`
+    ? `${CLINIKO_BOOKINGS}?business_id=${CLINIKO_BUSINESS}&appointment_type_id=${CONSULT_TYPE}&practitioner_id=${practitionerId}`
     : site.bookingsUrl;

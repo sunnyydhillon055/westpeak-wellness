@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { bookingsUrlFor, site, CONSULT_TYPE } from '../lib/site.ts';
+import { bookingsUrlFor, site, CONSULT_TYPE, CLINIKO_BUSINESS } from '../lib/site.ts';
 import { practitioners, defaultBookingPractitioner } from '../lib/practitioners.ts';
 
 /* /book embeds a specific counsellor's calendar. If the practitioner filter
@@ -11,6 +11,13 @@ test('a practitioner booking URL keeps the free consultation filter and adds the
   const u = new URL(bookingsUrlFor('123'));
   assert.equal(u.searchParams.get('appointment_type_id'), CONSULT_TYPE);
   assert.equal(u.searchParams.get('practitioner_id'), '123');
+  assert.equal(u.searchParams.get('business_id'), CLINIKO_BUSINESS);
+});
+
+test('every public booking URL names the practice business, never the founder\'s', () => {
+  for (const u of [site.bookingsUrl, site.bookingsPaidUrl, site.bookingsFallbackUrl]) {
+    assert.equal(new URL(u).searchParams.get('business_id'), CLINIKO_BUSINESS, u);
+  }
 });
 
 test('without a practitioner it is the ordinary consultation URL', () => {
