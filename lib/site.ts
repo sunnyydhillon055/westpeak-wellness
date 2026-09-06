@@ -27,7 +27,7 @@ const CLINIKO_BOOKINGS = (
  *
  *   2013349744314681520  Initial Consultation      $0     15 min
  *   1466854657459489533  Individual Counselling  $140     50 min
- *   1909558292636502700  Couples Counselling     $170     50 min
+ *   1909558292636502700  Couples Counselling     $175     50 min
  *   2013350310713493681  Couples Extended        $340    110 min
  *   2013356655093221554  EMDR Intensive          $190     90 min
  *
