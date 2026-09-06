@@ -10,7 +10,6 @@ export default function Footer() {
   const Credential = TRUST_ICONS.credential;
   const Region = TRUST_ICONS.region;
   const Langs = TRUST_ICONS.languages;
-  const Hours = TRUST_ICONS.hours;
 
   return (
     <>
@@ -45,7 +44,6 @@ export default function Footer() {
                   </span>
                 </li>
                 <li><Region aria-hidden="true" strokeWidth={1.7} /><span>{site.serviceArea}</span></li>
-                <li><Hours aria-hidden="true" strokeWidth={1.7} /><span>{site.hours}</span></li>
               </ul>
               <div className="footer-social">
                 {/* Renders only once NEXT_PUBLIC_PHONE is set — see lib/site.ts.

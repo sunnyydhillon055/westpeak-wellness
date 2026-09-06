@@ -43,7 +43,7 @@ export async function readAllowlist(opts?: { fresh?: boolean }): Promise<Allowli
     // signed token — so the read goes through the SDK, which authenticates with
     // BLOB_READ_WRITE_TOKEN. Returns null when the object does not exist yet,
     // which is the normal state before the first save.
-    const hit = await get(KEY, { access: 'private' });
+    const hit = await get(KEY, { access: 'private', useCache: false });
     if (!hit || hit.statusCode !== 200 || !hit.stream) return EMPTY;
 
     const parsed = (await new Response(hit.stream).json()) as Partial<Allowlist>;

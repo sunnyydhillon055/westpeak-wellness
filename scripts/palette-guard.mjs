@@ -146,7 +146,7 @@ const ARTWORK_TINTS = new Set([
    scripts/contrast-audit.mjs and gated with everything else, so this surface
    is measured now rather than merely reported. */
 const EMAIL_SURFACE =
-  /(mail|invite|nurture|funnel-report|reply-watch|waitlist-checkin)\.tsx?$|^app\/api\/(unsubscribe|portal)\//;
+  /(mail|invite|nurture|funnel-report|reply-watch)\.tsx?$|^app\/api\/(unsubscribe|portal)\//;
 
 /* ---- scan ---------------------------------------------------------------- */
 

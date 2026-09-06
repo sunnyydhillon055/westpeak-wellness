@@ -16,13 +16,14 @@ import { practitioners } from '@/lib/practitioners';
  *
  * Derived from the path rather than passed down, because these two components
  * are rendered by the layout and never see the page's own data. Anything that
- * is not a real counsellor's page falls through to the plain booking path. */
+ * is not a real counsellor's page falls through to the plain booking path —
+ * and so does a counsellor who is not taking new clients, because /book then
+ * routes to whoever is (lib/practitioners.ts, `acceptingNewClients`). */
 export const bookHrefFor = (pathname: string | null): string => {
   const m = /^\/practitioners\/([^/]+)/.exec(pathname ?? '');
   const slug = m?.[1];
-  return slug && practitioners.some((p) => p.slug === slug)
-    ? `${site.bookingPath}?with=${slug}`
-    : site.bookingPath;
+  const p = slug ? practitioners.find((x) => x.slug === slug) : undefined;
+  return p?.acceptingNewClients ? `${site.bookingPath}?with=${p.slug}` : site.bookingPath;
 };
 
 

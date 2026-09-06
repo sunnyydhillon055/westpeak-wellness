@@ -120,8 +120,8 @@ me, and it is available right now in a way a scheduled appointment is not.
 `,
   },
   {
-    key: 'waitlist',
-    label: 'I am full, waitlist?',
+    key: 'full',
+    label: 'I am full right now',
     when: 'No capacity right now, but it would otherwise be a fit.',
     subject: 'Re: your message',
     body: (i) => `${greeting(i)}
@@ -132,13 +132,11 @@ I want to be honest about timing rather than book you into something distant
 and vague: I do not have regular openings at the moment. [: add the real
 picture: roughly when you expect one, if you know. ]
 
-Two options, and neither is better than the other:
+If you would like, tell me roughly when you are free during a week and I will
+write to you directly if something opens that fits. There is no obligation
+attached to that.
 
-If you are happy to wait, tell me roughly when you are free during a week and I
-will get in touch directly when something opens that fits. It is a real list
-rather than a formality, and there is no obligation attached to being on it.
-
-If waiting is not workable, and for a lot of people it is not. These are
+If waiting is not workable, and for a lot of people it is not, these are
 genuinely good places to look now:
   ${site.domain}/resources/low-cost-counselling-bc
   ${site.domain}/guides/how-to-find-a-therapist-in-bc

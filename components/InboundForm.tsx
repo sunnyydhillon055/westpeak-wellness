@@ -3,14 +3,25 @@ import FormStamp from '@/components/FormStamp';
 
 import { usePathname } from 'next/navigation';
 import { track } from '@/lib/analytics';
+import { hasEnoughSentences, MIN_SENTENCES } from '@/lib/sentences';
 
-/* The two forms that give someone a way in other than picking a calendar slot.
+/* The form that gives someone a way in other than picking a calendar slot.
  *
- * `enquiry`  — "I have a question", on /contact and at the foot of guides.
- * `waitlist` — "none of these times work", under both scheduler embeds.
+ * `enquiry`  — "I have a question", on /contact and at the foot of guides —
+ *              and, with the copy overridden, the consultation request on
+ *              /book for a counsellor who is not on the online calendar.
  *
- * One component because they differ by two fields and a heading, and two
- * near-identical forms drift apart the first time one of them is edited.
+ * There used to be a second kind, `waitlist` — "none of these times work",
+ * under both scheduler embeds. Removed 6 Sep 2026: people were joining the
+ * list instead of booking, and a form beside a calendar read as an
+ * alternative to it rather than a fallback. There are now exactly two ways
+ * in: a message that says what the person is looking for, or a consultation.
+ * The `kind` prop stays so the call sites did not all have to change, and so
+ * a second kind can be added deliberately rather than by forking this file.
+ *
+ * AT LEAST TWO SENTENCES. Decided the same day. The message field refuses a
+ * one-worder in the browser (setCustomValidity, so the native prompt says why)
+ * and the route refuses it again on the server. See lib/sentences.ts.
  *
  * PLAIN HTML POST, NOT FETCH. It works before hydration, works with JavaScript
  * off, and survives a flaky connection — which is the state a fair number of
@@ -24,37 +35,33 @@ import { track } from '@/lib/analytics';
  * the reply.
  */
 
-type Kind = 'enquiry' | 'waitlist';
+type Kind = 'enquiry';
 
 const COPY = {
   enquiry: {
     action: '/api/enquiry',
-    title: 'Rather ask a question first?',
-    note: 'Send a message instead of booking. It reaches the practice directly and you will have a reply within one business day.',
-    placeholder: 'A sentence is genuinely enough, what is going on, or what you want to know.',
+    title: 'Send a message',
+    note: `Tell us in at least ${MIN_SENTENCES === 2 ? 'two' : String(MIN_SENTENCES)} sentences what you are looking for. It reaches the practice directly and you will have a reply within one business day.`,
+    placeholder: 'What is going on for you, and what you are hoping for from counselling. A couple of sentences is enough.',
     button: 'Send message',
     doneTitle: 'Your message has arrived.',
     doneBody:
       'You will have a reply within one business day, and a copy is in your inbox. Nothing further is needed from you.',
     event: 'enquiry_submit',
   },
-  waitlist: {
-    action: '/api/waitlist',
-    title: 'None of these times work?',
-    note: 'The practice runs a small number of hours. Say roughly when you are free and you will hear directly when something opens that fits.',
-    placeholder: 'e.g. weekday mornings before 9, or any time Saturday',
-    button: 'Add me to the waitlist',
-    doneTitle: 'Your availability is noted.',
-    doneBody:
-      'This is a real waitlist rather than a formality. When something opens that fits, you will hear directly. A confirmation is in your inbox.',
-    event: 'waitlist_submit',
-  },
 } as const;
+
+const TOO_SHORT =
+  `Please write at least ${MIN_SENTENCES === 2 ? 'two' : String(MIN_SENTENCES)} sentences about what you are looking for.`;
 
 export default function InboundForm({
   kind,
   done,
   practitioner,
+  title,
+  note,
+  placeholder,
+  button,
 }: {
   kind: Kind;
   done?: 'ok' | 'err';
@@ -62,6 +69,14 @@ export default function InboundForm({
      one of their pages. Server-validated against the roster; see
      lib/inbound-submit.ts. */
   practitioner?: string;
+  /* Copy overrides, for the one place the same form is a consultation request
+     rather than a question: /book, when the counsellor is not on the online
+     calendar. The mechanics — route, validation, acknowledgement — do not
+     change; only what the reader is told they are doing. */
+  title?: string;
+  note?: string;
+  placeholder?: string;
+  button?: string;
 }) {
   const pathname = usePathname();
   const c = COPY[kind];
@@ -76,11 +91,18 @@ export default function InboundForm({
     );
   }
 
+  /* The native validity prompt rather than a custom banner: it appears at the
+     field, in the browser's own words plus this one line, and it blocks the
+     post. Cleared on every keystroke so the message updates as they type.
+     With JavaScript off none of this runs and the server applies the rule. */
+  const checkLength = (el: HTMLTextAreaElement) =>
+    el.setCustomValidity(hasEnoughSentences(el.value) ? '' : TOO_SHORT);
+
   return (
     <form method="POST" action={c.action} className="lead-form" id="form"
       onSubmit={() => track(c.event, { page: pathname ?? '' })}>
-      <p className="lead-form-title">{c.title}</p>
-      <p className="lead-form-note">{c.note}</p>
+      <p className="lead-form-title">{title ?? c.title}</p>
+      <p className="lead-form-note">{note ?? c.note}</p>
 
       {/* Which page this came from — used for the return redirect and to work
           out which pages actually earn enquiries. Server-validated as a
@@ -108,21 +130,13 @@ export default function InboundForm({
           spellCheck={false} />
       </div>
 
-      {kind === 'enquiry' ? (
-        <>
-          <label htmlFor="in-message" className="sr-only">Your message</label>
-          <textarea id="in-message" name="message" required rows={4}
-            className="lead-form-area" placeholder={c.placeholder} />
-        </>
-      ) : (
-        <>
-          <label htmlFor="in-windows" className="sr-only">When you are free</label>
-          <input id="in-windows" name="windows" type="text" className="lead-form-wide"
-            placeholder={c.placeholder} />
-        </>
-      )}
+      <label htmlFor="in-message" className="sr-only">What you are looking for</label>
+      <textarea id="in-message" name="message" required rows={4}
+        className="lead-form-area" placeholder={placeholder ?? c.placeholder}
+        onInput={(e) => checkLength(e.currentTarget)}
+        onInvalid={(e) => checkLength(e.currentTarget)} />
 
-      {/* OPTIONAL callback, on both kinds.
+      {/* OPTIONAL callback.
           The practice publishes no phone number, so until now nobody could ask
           to be phoned — the only ways in were email and a calendar. Plenty of
           people will not write a paragraph about why they want counselling but
@@ -157,18 +171,19 @@ export default function InboundForm({
 
       {done === 'err' && (
         <p className="lead-form-note" role="alert" style={{ color: 'var(--clay-deep)' }}>
-          That did not go through, please check the email address and try again.
+          That did not go through. Please check the email address, and write at least two
+          sentences about what you are looking for.
         </p>
       )}
 
       <div className="lead-form-row" style={{ marginBottom: 6 }}>
-        <button type="submit" className="btn btn--primary">{c.button}</button>
+        <button type="submit" className="btn btn--primary">{button ?? c.button}</button>
       </div>
 
       <p className="lead-form-note">
-        {kind === 'enquiry'
-          ? 'Please keep anything clinical for the session itself, ordinary email is not a secure channel. If you are in immediate danger call 911, or call or text 9-8-8 for urgent mental-health support in BC.'
-          : 'Your address is used for this and nothing else. It does not create a client record and there is no mailing list.'}
+        Please keep anything clinical for the session itself, ordinary email is not a secure
+        channel. If you are in immediate danger call 911, or call or text 9-8-8 for urgent
+        mental-health support in BC.
       </p>
     </form>
   );

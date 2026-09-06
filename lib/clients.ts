@@ -109,7 +109,7 @@ export async function readClients(opts?: { fresh?: boolean }): Promise<ClientBoo
   if (!process.env.BLOB_READ_WRITE_TOKEN) return EMPTY;
 
   try {
-    const hit = await get(KEY, { access: 'private' });
+    const hit = await get(KEY, { access: 'private', useCache: false });
     if (hit && hit.statusCode === 200 && hit.stream) {
       const parsed = (await new Response(hit.stream).json()) as Partial<ClientBook>;
       const value: ClientBook = {
@@ -127,7 +127,7 @@ export async function readClients(opts?: { fresh?: boolean }): Promise<ClientBoo
     // First run after the upgrade: adopt the old address list so nobody loses
     // access. Names are blank until someone fills them in — inventing them
     // would be worse than leaving them empty.
-    const legacy = await get(LEGACY_KEY, { access: 'private' });
+    const legacy = await get(LEGACY_KEY, { access: 'private', useCache: false });
     if (legacy && legacy.statusCode === 200 && legacy.stream) {
       const old = (await new Response(legacy.stream).json()) as { emails?: string[] };
       const migrated = (old.emails ?? [])

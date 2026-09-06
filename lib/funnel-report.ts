@@ -36,7 +36,6 @@ import { api, headers } from '@/lib/cliniko';
 type Counts = {
   leads: number;
   enquiries: number;
-  waitlist: number;
   unanswered: number;
   newClients: number;
   consults: number;
@@ -123,7 +122,6 @@ export async function gather(): Promise<{ counts: Counts; from: Date; to: Date; 
     counts: {
       leads: inWindow.filter((i) => i.kind === 'lead').length,
       enquiries: inWindow.filter((i) => i.kind === 'enquiry').length,
-      waitlist: inWindow.filter((i) => i.kind === 'waitlist').length,
       /* Not windowed. An unanswered message from two months ago is more
        * urgent than one from yesterday, not less. */
       unanswered: items.filter((i) => !i.handled).length,
@@ -164,7 +162,6 @@ export function render(counts: Counts, from: Date, to: Date, clinikoOk: boolean)
   const rows: [string, string][] = [
     ['Checklist requests', String(counts.leads)],
     ['Messages sent', String(counts.enquiries)],
-    ['Waitlist signups', String(counts.waitlist)],
     /* "booked" is exact and load-bearing. These count APPOINTMENTS that
        started in the window, not money. The paid-sessions workbook linked
        below counts invoices that CLOSED — which is a different number, on

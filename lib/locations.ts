@@ -468,7 +468,7 @@ export const locations: Location[] = [
       { label: "No trip across the city", detail: "The commute west is the most common reason a course of sessions here ends early." },
       { label: "No referral, no diagnosis", detail: "Counselling with an RCC is accessed directly, whichever authority covers your address." },
       { label: "Punjabi or English", detail: "Including moving between both inside a single session." },
-      { label: "Evening availability", detail: "Sessions on four evenings, so an appointment need not cost a working afternoon as well." },
+      { label: "Evening availability", detail: "Evening sessions are available, depending on the counsellor, so an appointment need not cost a working afternoon as well." },
     ],
     faqs: [
       { q: "Which health authority covers Burnaby?", a: "Fraser Health, not Vancouver Coastal, which surprises a lot of people who work in Vancouver. It determines the public intake route for your address, and has no bearing at all on seeing a Registered Clinical Counsellor privately." },

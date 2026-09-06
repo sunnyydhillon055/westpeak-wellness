@@ -230,6 +230,79 @@ habit in the repository and the source of most of what has been found.
 
 ---
 
+## How people reach the practice
+
+### Two ways in, and no waitlist
+A message, or a consultation. The waitlist form that sat under the booking
+calendar was removed on 6 Sep 2026 because it was being read as an alternative
+to booking rather than a fallback — people joined the list instead of picking
+a slot, and five had done so in the previous month. The form, its API route,
+the one-time check-in cron, the reply template that offered a list and the
+`waitlist` kind itself are all gone. The handful of records already in the
+store are read back as enquiries with the availability they gave folded into
+the message, so nothing downstream knows the kind existed.
+
+*Enforced by:* `components/InboundForm.tsx`, `lib/inbound-submit.ts`,
+`vercel.json`
+
+### A message says what the person is looking for, in at least two sentences
+Decided 6 Sep 2026. One-word enquiries cost a counsellor a reply that asks the
+question the form should have asked. The rule is applied in the browser and
+again on the server, from one shared definition, and it is deliberately loose
+about punctuation — a floor against mis-clicks, not a grammar check.
+
+*Enforced by:* `lib/sentences.ts`, `test/sentences.test.mts`
+
+### Consultations go to whoever is taking new clients
+The founder is not taking new clients as of 6 Sep 2026. Every consultation
+request and every Book button on the site resolves to the first practitioner on
+the roster who is (`acceptingNewClients`), her profile says so plainly, and a
+`/book?with=` that names someone who is not accepting says so in one line
+rather than swapping the name silently. Her Cliniko calendar is no longer
+offered to the public; existing clients reach it through the portal, which does
+not read this flag. Flip the flag to reverse it.
+
+*Enforced by:* `lib/practitioners.ts`, `app/book/page.tsx`,
+`app/practitioners/[slug]/page.tsx`, `components/StickyBook.tsx`
+
+### No hours are published, anywhere
+Hours depend entirely on which counsellor a person sees, and Cliniko is the
+only thing that knows what is actually open. The weekly grid that appeared in
+the footer, on /contact, on /book, in llms.txt and in the organisation's
+structured data was one counsellor's calendar presented as the practice's. On
+the owner's instruction of 6 Sep 2026 it was removed outright — no hours line
+at all, not a vaguer one — along with `site.availability`, the admin
+availability editor and its API route. The schema carries no
+`openingHoursSpecification`.
+
+*Enforced by:* `lib/site.ts`, `app/layout.tsx`, `app/contact/page.tsx`,
+`components/Footer.tsx`
+
+---
+
+## How the site behaves when things go wrong (continued)
+
+### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`
+Vercel Blob serves `get()` through its CDN cache; after an overwrite at the
+same pathname the old content can come back for up to a minute, and
+`cacheControlMaxAge: 0` does not change that because the minimum is sixty
+seconds. Every JSON ledger in this repository is overwritten in place, and
+every one was read with the cache on. Found 6 Sep 2026 from two symptoms on
+the same afternoon: the cron watchdog emailed the owner that `booking-mail` had
+stopped, from inside a `booking-mail` run that had just recorded itself; and
+`lib/inbound.ts` logged "FAILED to persist" for a submission that was in the
+store on the first attempt, because its read-back saw the stale copy.
+
+All eighteen reads now pass `useCache: false`, and the two ledgers with more
+than one writer — cron health, where three jobs share a minute, and the inbound
+store — write conditionally on the ETag they read, so a lost race is refused
+by the store and retried rather than silently erasing the other writer's line.
+
+*Enforced by:* `test/blob-reads.test.mts`, `lib/cron-health.ts`,
+`lib/inbound.ts`
+
+---
+
 ## Open, and owned by a person
 
 These are not undone through neglect. Each needs a decision or an action only
@@ -244,4 +317,4 @@ the owner can take.
 | Next.js 14 carries twelve open advisories | No 14.x is patched; the fixes start at 15.5.21. A framework major upgrade. |
 | Whether a named author appears on health content | The largest available trust signal, currently declined by policy. |
 
-*Last updated 3 Sep 2026.*
+*Last updated 6 Sep 2026.*

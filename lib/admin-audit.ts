@@ -3,7 +3,7 @@ import { put, get } from '@vercel/blob';
 /* ============================================================================
    WHAT WAS DONE IN /admin, BY WHOM, AND WHEN
    ----------------------------------------------------------------------------
-   The admin area can add and remove clients, change availability, reset a
+   The admin area can add and remove clients, reset a
    password, trigger a Cliniko sync, and — as of this change — permanently
    delete somebody's enquiry. None of it left a trace. A record that vanished
    was indistinguishable from a record that had never existed, and there was no
@@ -43,7 +43,7 @@ export type AuditEntry = {
 export async function readAudit(): Promise<AuditEntry[]> {
   if (!process.env.BLOB_READ_WRITE_TOKEN) return [];
   try {
-    const hit = await get(KEY, { access: 'private' });
+    const hit = await get(KEY, { access: 'private', useCache: false });
     if (!hit || hit.statusCode !== 200 || !hit.stream) return [];
     const parsed = (await new Response(hit.stream).json()) as unknown;
     return Array.isArray(parsed) ? (parsed as AuditEntry[]) : [];

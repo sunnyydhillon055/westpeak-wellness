@@ -4,7 +4,6 @@ import { redirect } from 'next/navigation';
 import { auth, signOut } from '@/auth';
 import { isAdmin } from '@/lib/portal-store';
 import { readClients } from '@/lib/clients';
-import { readAvailability, DAYS } from '@/lib/availability';
 import { listPasswordAccounts } from '@/lib/portal-users';
 import { clinikoConfigured } from '@/lib/cliniko';
 import { recentInbound, markHandled, deleteInbound } from '@/lib/inbound';
@@ -87,7 +86,6 @@ export default async function AdminPage({
   if (!email || !isAdmin(email)) redirect('/signin?next=%2Fadmin');
 
   const book = await readClients({ fresh: true });
-  const avail = await readAvailability({ fresh: true });
   const withPasswords = await listPasswordAccounts();
   const inbox = await recentInbound(40);
   const audit = await recentAudit(30);
@@ -255,7 +253,6 @@ export default async function AdminPage({
           <div><strong>{canContact}</strong><span>could be reached back</span></div>
           <div><strong>{active}</strong><span>can sign in</span></div>
           <div><strong>{book.clients.length}</strong><span>on the books</span></div>
-          <div><strong>{avail.windows.length}</strong><span>weekly windows</span></div>
           <div><strong>{withPasswords.length}</strong><span>with a password</span></div>
         </div>
 
@@ -266,7 +263,7 @@ export default async function AdminPage({
             has already formed a view of the practice. */}
         <h2 id="inbox" style={{ marginTop: 40 }}>Inbox</h2>
         <p style={{ color: 'var(--ink-soft)', maxWidth: '40.38em' }}>
-          Messages, waitlist requests and checklist signups from the site. Each one was also
+          Messages and checklist signups from the site. Each one was also
           emailed to <strong>{site.email}</strong> as it arrived. This is the copy that
           survives if that email is missed, and the record that a reply is owed.
         </p>
@@ -384,8 +381,7 @@ export default async function AdminPage({
                       )}
                     </td>
                     <td style={{ whiteSpace: 'nowrap' }}>
-                      {i.kind === 'enquiry' ? 'Message'
-                        : i.kind === 'waitlist' ? 'Waitlist' : 'Checklist'}
+                      {i.kind === 'enquiry' ? 'Message' : 'Checklist'}
                       {/* Someone who left a number asked for a different kind of
                           reply than everyone else in this queue, and answering
                           by email is the wrong answer. It has to be visible in
@@ -406,7 +402,7 @@ export default async function AdminPage({
                           )}
                         </div>
                       )}
-                      {i.message || i.windows || (
+                      {i.message || (
                         !i.phone && <em style={{ color: 'var(--ink-faint)' }}>, </em>
                       )}
                     </td>
@@ -782,58 +778,11 @@ export default async function AdminPage({
             : 'No changes recorded yet.'}
         </p>
 
-        {/* ----------------------------------------------------- AVAILABILITY */}
-        <h2 id="availability" style={{ marginTop: 44 }}>Availability</h2>
-        <p style={{ color: 'var(--ink-soft)', maxWidth: '40.38em' }}>
-          What the website tells people. The footer, the contact page, the portal, and the
-          structured data Google reads. <strong>It does not control booking.</strong> Cliniko
-          decides what can actually be reserved, so change both, or the site will advertise hours
-          you cannot offer.
-        </p>
-
-        <div className="admin-table-wrap">
-          <table className="admin-table">
-            <caption className="sr-only">Weekly bookable windows</caption>
-            <thead>
-              <tr>
-                <th scope="col">Day</th><th scope="col">From</th><th scope="col">To</th>
-                <th scope="col"><span className="sr-only">Actions</span></th>
-              </tr>
-            </thead>
-            <tbody>
-              {avail.windows.map((w, i) => (
-                <tr key={`${w.day}-${w.from}-${i}`}>
-                  <td data-label="Day">{w.day}</td>
-                  <td data-label="From">{w.from}</td>
-                  <td data-label="To">{w.to}</td>
-                  <td data-label="Actions" className="admin-actions">
-                    <form method="POST" action="/api/admin/availability">
-                      <input type="hidden" name="action" value="remove" />
-                      <input type="hidden" name="index" value={i} />
-                      <button type="submit" className="admin-btn admin-btn--danger">Remove</button>
-                    </form>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        <form method="POST" action="/api/admin/availability" className="admin-add">
-          <h3>Add hours</h3>
-          <input type="hidden" name="action" value="add" />
-          <div className="admin-add-row">
-            <label htmlFor="av-day" className="sr-only">Day</label>
-            <select id="av-day" name="day" defaultValue="Monday">
-              {DAYS.map((d) => <option key={d} value={d}>{d}</option>)}
-            </select>
-            <label htmlFor="av-from" className="sr-only">From</label>
-            <input id="av-from" name="from" placeholder="9:00 am" required autoComplete="off" />
-            <label htmlFor="av-to" className="sr-only">To</label>
-            <input id="av-to" name="to" placeholder="12:00 pm" required autoComplete="off" />
-            <button type="submit" className="btn btn--primary">Add</button>
-          </div>
-        </form>
+        {/* No availability editor. There was one here until 6 Sep 2026, driving
+            the hours in the footer, on /contact and in the schema. The owner
+            asked for no hours to be published anywhere — they depend on which
+            counsellor a person sees, and Cliniko is the only thing that knows
+            what is actually open — so the editor went with them. */}
 
         {/* --------------------------------------------------------- BOOKINGS */}
         <h2 id="bookings" style={{ marginTop: 44 }}>Bookings</h2>

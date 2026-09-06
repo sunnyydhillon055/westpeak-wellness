@@ -3,10 +3,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { site } from '@/lib/site';
-import { practitioners, getPractitioner } from '@/lib/practitioners';
+import { practitioners, getPractitioner, defaultBookingPractitioner } from '@/lib/practitioners';
 import { placesFor } from '@/lib/practitioner-places';
 import { getService } from '@/lib/services';
-import { abs, orgRef, siteRef } from '@/lib/schema';
+import { abs, orgRef, siteRef, faqSchema } from '@/lib/schema';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import CtaBand from '@/components/CtaBand';
 import { BadgeCheck, Languages as LangIcon, MonitorSmartphone } from 'lucide-react';
@@ -91,7 +91,14 @@ export default function PractitionerPage({ params }: { params: { slug: string } 
   const cities = p.placePages ? placesFor(p.provinces) : [];
   /* See the note on the city pages: the consultation is attached to this
      counsellor so /book can speak for her. */
-  const bookHref = `${site.bookingPath}?with=${p.slug}`;
+  /* NOT TAKING NEW CLIENTS: the page says so and sends the consultation to
+     whoever is (lib/practitioners.ts, `acceptingNewClients`). No Book button
+     for a calendar that is not being opened. Decided 6 Sep 2026. */
+  const alt = p.acceptingNewClients ? undefined : defaultBookingPractitioner();
+  const altFirst = alt?.name.split(' ')[0];
+  const bookHref = p.acceptingNewClients
+    ? `${site.bookingPath}?with=${p.slug}`
+    : alt ? `${site.bookingPath}?with=${alt.slug}` : site.bookingPath;
   /* Only languages whose page is actually published. Tagalog is written but
      gated until Camille has reviewed it (lib/practitioner-tl.ts), and linking
      to a gated route means a reader hits a 404 — which the internal-link gate
@@ -147,6 +154,11 @@ export default function PractitionerPage({ params }: { params: { slug: string } 
         { '@type': 'ListItem', position: 3, name: p.name, item: `${site.domain}/practitioners/${p.slug}` },
       ],
     },
+    /* Her answers, quotable whole. Each answer is the paragraphs joined, so an
+       answer engine that lifts one gets the complete thought. */
+    ...(p.voice?.length
+      ? [faqSchema(p.voice.map((v) => ({ q: v.q, a: v.a.join(' ') })), `/practitioners/${p.slug}`)]
+      : []),
   ];
 
   return (
@@ -161,17 +173,34 @@ export default function PractitionerPage({ params }: { params: { slug: string } 
               {p.role} · {p.postNominals}
             </p>
             <div className="btn-row" style={{ marginTop: 22 }}>
-              {p.bookable ? (
+              {!p.acceptingNewClients ? (
+                alt && (
+                  <Link className="btn btn--primary" href={bookHref}>
+                    Book a free consultation with {altFirst}
+                  </Link>
+                )
+              ) : p.bookable ? (
                 <Link className="btn btn--primary" href={bookHref}>Book with {first}</Link>
               ) : (
                 <Link className="btn btn--primary" href={bookHref}>Book a free consultation</Link>
               )}
               <Link className="btn btn--ghost" href="/pricing">Fees and coverage</Link>
             </div>
-            {!p.bookable && (
+            {!p.acceptingNewClients ? (
               <p style={{ fontSize: '.9rem', color: 'var(--ink-soft)', marginTop: 12 }}>
-                {first} is taking new clients. Online booking directly with her is being set up.
-                until then the free consultation is the way in, and it goes to the practice.
+                {first} is not taking new clients at the moment.
+                {alt ? (
+                  <> <Link href={`/practitioners/${alt.slug}`}>{alt.name}</Link> is, and the free
+                  consultation goes to her.</>
+                ) : (
+                  <> <Link href="/contact">Send a message</Link> and you will be told when that
+                  changes.</>
+                )}
+              </p>
+            ) : !p.bookable && (
+              <p style={{ fontSize: '.9rem', color: 'var(--ink-soft)', marginTop: 12 }}>
+                {first} is taking new clients. Online booking directly with her is being set up;
+                until then the free consultation is the way in, and it is arranged by reply.
               </p>
             )}
           </div>
@@ -262,6 +291,27 @@ export default function PractitionerPage({ params }: { params: { slug: string } 
             </ul>
             <blockquote className="quote">{p.sessionNote}</blockquote>
           </div>
+
+          {/* IN HER OWN WORDS. The questions a person has before booking and
+              does not ask on a consultation call: what it is like in the room,
+              what happens if they cry, whether they will be pushed. Answered by
+              the counsellor, first person, from a document she supplied. This
+              is the part of the page that does the persuading, so it sits
+              right after "you may be" and before the practical sections. */}
+          {p.voice && p.voice.length > 0 && (
+            <div className="prose" style={{ marginTop: 40 }}>
+              <h2>In {first}&rsquo;s words</h2>
+              <p className="lede">
+                Questions people have before a first session, answered by {first} herself.
+              </p>
+              {p.voice.map((v) => (
+                <details className="faq-item" key={v.q}>
+                  <summary>{v.q}</summary>
+                  {v.a.map((para) => <p key={para.slice(0, 32)}>{para}</p>)}
+                </details>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -354,8 +404,12 @@ export default function PractitionerPage({ params }: { params: { slug: string } 
 
       <CtaBand
         bookHref={bookHref}
-        heading={`Talk to ${first} first`}
-        text="A free 15-minute consultation, by video. No card, and no obligation to book anything afterwards."
+        heading={p.acceptingNewClients ? `Talk to ${first} first` : altFirst ? `Talk to ${altFirst} first` : 'Therapy starts with one conversation.'}
+        text={
+          p.acceptingNewClients
+            ? 'A free 15-minute consultation, by video. No card, and no obligation to book anything afterwards.'
+            : `${first} is not taking new clients at the moment. ${alt ? `${alt.name} is: a free 15-minute consultation by video, no card, and no obligation to book anything afterwards.` : 'Send a message and you will be told when that changes.'}`
+        }
       />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />

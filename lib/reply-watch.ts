@@ -34,7 +34,7 @@ import { site } from '@/lib/site';
 
 /* Only kinds that were promised a reply. A checklist signup asked for a file
  * and got it; nobody is waiting on a human for that one. */
-const AWAITS_REPLY = new Set(['enquiry', 'waitlist']);
+const AWAITS_REPLY = new Set(['enquiry']);
 
 /** Whole days that are not Saturday or Sunday between two instants. */
 export function businessDaysBetween(from: Date, to: Date): number {

@@ -174,17 +174,12 @@ export const site = {
   /* Vercel sets this on preview deployments only. Previews are excluded from
    * the index so a branch build can never compete with the real site. */
   isPreview: process.env.VERCEL_ENV === 'preview',
-  /* Real bookable windows. This is the one source of truth for availability —
-   * the footer, the portal and Cliniko must all agree, so change it here and
-   * mirror it in Cliniko rather than editing any page directly. */
-  availability: [
-    { day: "Monday",    from: "10:00 am", to: "3:00 pm" },
-    { day: "Tuesday",   from: "9:00 am",  to: "6:00 pm" },
-    { day: "Wednesday", from: "6:00 pm",  to: "7:00 pm" },
-    { day: "Thursday",  from: "6:00 pm",  to: "7:00 pm" },
-    { day: "Friday",    from: "6:00 pm",  to: "7:00 pm" },
-  ],
-  hours: "Mon 10–3 · Tue 9–6 · Wed–Fri 6–7",
+  /* NO HOURS. `availability` (a weekly grid) and `hours` (its one-line
+     summary) lived here until 6 Sep 2026 and fed the footer, /contact, /book,
+     llms.txt and the organisation schema. Hours depend entirely on which
+     counsellor a person sees and Cliniko is the only thing that knows what is
+     open, so on the owner's instruction nothing about hours is published
+     anywhere. Do not reintroduce a field here; add it to Cliniko. */
   /* TWO PROVINCES SINCE 1 SEP 2026, and this said one until 3 Sep. It feeds
      the footer, the vCard and the organisation schema. Worded to stay true of
      the practice as a whole: BC is served by both counsellors, Alberta by the

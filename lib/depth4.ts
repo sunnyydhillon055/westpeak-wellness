@@ -36,7 +36,7 @@ export const depth4: Record<string, DepthSection[]> = {
       body: [
         'Counselling supply in the Fraser Valley concentrates westward: Abbotsford and Langley hold most of the region’s practices, and the further east you live: Chilliwack, Agassiz, Hope. The more “local counselling” quietly means a drive on Highway 1. That drive is the real barrier: an hour of travel wrapped around every session is how therapy becomes the first thing dropped in a busy month.',
         'Video sessions remove the highway from the equation without removing the standard of care. The same Registered Clinical Counsellor, the same registration you can [verify in the public register](/resources/verify-a-counsellor-in-bc), reachable identically from Sardis, Promontory, Yarrow or Hope. For the eastern valley specifically, virtual is less a preference than the practical route to consistency.',
-        'Chilliwack also keeps agricultural and trades rhythms the standard counselling calendar ignores: seasonal intensity, early starts, weather-dependent weeks. A practice with published evening windows and a [waitlist that actually notifies](/book) fits those rhythms better than a fixed weekly slot that assumes an office schedule.',
+        'Chilliwack also keeps agricultural and trades rhythms the standard counselling calendar ignores: seasonal intensity, early starts, weather-dependent weeks. A practice with published evening windows and [slots arranged by request](/book) fits those rhythms better than a fixed weekly slot that assumes an office schedule.',
       ],
     },
     {
@@ -63,7 +63,7 @@ export const depth4: Record<string, DepthSection[]> = {
       h2: 'Practicalities for Kamloops and the surrounding region',
       list: [
         { label: 'Connection quality outside town', detail: 'Video sessions need a stable connection more than a fast one, and where video strains, sessions can run by phone. A clinical judgement made together rather than a technical failure. Rural connectivity is a real constraint and it is workable.' },
-        { label: 'Shift and rotational patterns', detail: 'Mining, rail, health care and wildfire seasons all run on schedules that fixed weekly slots ignore. Evening windows and a functioning waitlist absorb irregular rhythms better than a calendar built for office hours.' },
+        { label: 'Shift and rotational patterns', detail: 'Mining, rail, health care and wildfire seasons all run on schedules that fixed weekly slots ignore. Evening windows and times arranged by request absorb irregular rhythms better than a calendar built for office hours.' },
         { label: 'Interior Health’s public options', detail: 'Public mental-health intake exists and is free; it is also triaged, which in practice means waits for anything non-acute. Private counselling is how people stop waiting, and the two are not exclusive: being on a public list while doing private sessions is common and sensible. The low-cost options page maps the whole landscape.' },
         { label: 'Punjabi-speaking counselling in the Interior', detail: 'Concentrated almost entirely in the Lower Mainland. For Punjabi speakers in Kamloops and the surrounding towns, virtual sessions in Punjabi are, practically speaking, how that service exists at all. A point the Punjabi counselling hub covers region by region.' },
       ],

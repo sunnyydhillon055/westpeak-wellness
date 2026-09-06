@@ -1,4 +1,4 @@
-import { put, get } from '@vercel/blob';
+import { put, get, BlobPreconditionFailedError } from '@vercel/blob';
 import { normalizeEmail } from '@/lib/portal-auth';
 
 /* Everything a stranger sends the practice, in one place.
@@ -16,16 +16,21 @@ import { normalizeEmail } from '@/lib/portal-auth';
  * notification cannot lose the person. Resend being down, an expired key, a
  * rate limit — none of those may cost a lead again.
  *
- * ONE STORE, THREE KINDS
+ * ONE STORE, TWO KINDS
  *
  * lead      — asked for the coverage checklist. Wants information.
  * enquiry   — wrote a message. Wants a reply.
- * waitlist  — could not find a workable time. Wants a slot.
+ *
+ * There was a third, `waitlist`, until 6 Sep 2026, when the owner had the
+ * option removed entirely. Records of it still exist in the store; readInbound()
+ * reads them back as enquiries (they are people waiting on a reply, which is
+ * what an enquiry is) and folds the availability they gave into the message,
+ * so nothing downstream has to know the kind ever existed.
  *
  * They arrive differently and mean different things, but they are all "someone
  * raised their hand and is waiting on the practice", which is exactly the thing
- * a solo practice loses track of. Splitting them across three stores would mean
- * three places to check, and the one nobody checks is where people go cold.
+ * a solo practice loses track of. Splitting them across two stores would mean
+ * two places to check, and the one nobody checks is where people go cold.
  *
  * WHAT IS DELIBERATELY NOT HERE
  *
@@ -36,14 +41,14 @@ import { normalizeEmail } from '@/lib/portal-auth';
  * is a boolean, not a pipeline stage, because this is a practice and not a
  * sales funnel.
  *
- * CASL. A lead or waitlist signup is consent to receive the specific thing
+ * CASL. A lead signup is consent to receive the specific thing
  * asked for, and nothing else. It is not a mailing-list subscription. See
  * NURTURE_SEQUENCE.md, which says the same thing at more length.
  */
 
 const KEY = 'inbound/messages.json';
 
-export type InboundKind = 'lead' | 'enquiry' | 'waitlist';
+export type InboundKind = 'lead' | 'enquiry';
 
 export type Inbound = {
   id: string;
@@ -52,8 +57,6 @@ export type Inbound = {
   email: string;
   /** The person's own words. Empty for a lead, which asks for nothing. */
   message: string;
-  /** Waitlist only: roughly when they can actually attend. */
-  windows?: string;
   /* OPTIONAL callback number, and when the person will take a call.
    *
    * The practice publishes no phone number anywhere — every tel: link on this
@@ -148,10 +151,30 @@ const EMPTY: InboundBook = { items: [], version: 0, updatedAt: '' };
  * waiting for a reply that never comes. */
 let cache: { at: number; value: InboundBook } | null = null;
 let lastWrite: { at: number; value: InboundBook } | null = null;
+/* The ETag of the last copy actually read from, or written to, the store.
+   addInbound() writes with `ifMatch` against it, so a write on top of somebody
+   else's is refused by the store instead of silently erasing theirs. */
+let lastEtag: string | undefined;
 const CACHE_MS = 15_000;
 const WRITE_AUTHORITY_MS = 90_000;
 
 const clip = (s: unknown, n: number) => String(s ?? '').trim().slice(0, n);
+
+/* Records written before 6 Sep 2026 may carry kind 'waitlist' and a `windows`
+   field. Read back as an enquiry whose message is whatever they said about
+   when they were free — nothing else in the codebase knows the kind existed. */
+function legacy(raw: unknown): Inbound {
+  const r = raw as Record<string, unknown>;
+  if (r.kind !== 'waitlist') return raw as Inbound;
+  const { windows, ...rest } = r;
+  const said = clip(windows, 300);
+  const message = clip(r.message, 4000);
+  return {
+    ...(rest as unknown as Inbound),
+    kind: 'enquiry',
+    message: message || (said ? `Asked to be told when a time opens. Free: ${said}` : ''),
+  };
+}
 
 export async function readInbound(opts?: { fresh?: boolean }): Promise<InboundBook> {
   if (lastWrite && Date.now() - lastWrite.at < WRITE_AUTHORITY_MS) return lastWrite.value;
@@ -159,11 +182,12 @@ export async function readInbound(opts?: { fresh?: boolean }): Promise<InboundBo
   if (!process.env.BLOB_READ_WRITE_TOKEN) return EMPTY;
 
   try {
-    const hit = await get(KEY, { access: 'private' });
+    const hit = await get(KEY, { access: 'private', useCache: false });
     if (!hit || hit.statusCode !== 200 || !hit.stream) return EMPTY;
+    lastEtag = hit.blob.etag;
     const parsed = (await new Response(hit.stream).json()) as Partial<InboundBook>;
     const value: InboundBook = {
-      items: Array.isArray(parsed.items) ? (parsed.items as Inbound[]) : [],
+      items: Array.isArray(parsed.items) ? (parsed.items as unknown[]).map(legacy) : [],
       version: Number(parsed.version) || 0,
       updatedAt: String(parsed.updatedAt ?? ''),
     };
@@ -194,7 +218,6 @@ export async function addInbound(
     name: clip(rec.name, 80),
     email,
     message: clip(rec.message, 4000),
-    windows: clip(rec.windows, 300) || undefined,
     /* CARRIED, not dropped. These were in the type, collected by the form,
        passed in by handleInbound and rendered by practiceAlert() — and never
        written here, so `item.phone` was always undefined and the "asked to be
@@ -213,30 +236,35 @@ export async function addInbound(
   };
 
   /* ==========================================================================
-     TWO WRITES AT ONCE, AND WHY THIS IS RETRY RATHER THAN A LOCK
+     TWO WRITES AT ONCE, AND WHY THIS IS COMPARE-AND-SWAP PLUS A READ-BACK
      --------------------------------------------------------------------------
-     This is read, modify, write against a blob, and a blob has no
-     compare-and-swap. Two submissions arriving together both read version N,
-     both write N+1, and the second silently erases the first. On this store
-     that is not a lost counter — it is somebody who wrote to a counsellor,
-     was told their message had been received, and does not exist anywhere.
+     This is read, modify, write against a blob. Two submissions arriving
+     together both read version N, both write N+1, and the second silently
+     erases the first. On this store that is not a lost counter — it is
+     somebody who wrote to a counsellor, was told their message had been
+     received, and does not exist anywhere.
 
-     There is no way to make it genuinely atomic at this layer, and pretending
-     otherwise with a version field that nothing enforces would be worse than
-     the current state, because it would look solved. lib/clients.ts CAN refuse
-     a conflicting write, because behind it is an admin at a form who can press
-     the button again. Nobody can press this button again.
+     The first version of this said a blob has no compare-and-swap and settled
+     for writing, reading back, and retrying if the record was missing. Two
+     things were wrong with that, found 6 Sep 2026 from the production log:
 
-     So: write, read back, and check the record is actually there. If it is
-     not, another writer landed on top, and this retries against the store as
-     it now stands. That does not close the window — a collision during the
-     read-back is still possible — it makes it small and, crucially, makes the
-     loss detectable instead of silent. A remaining failure logs loudly rather
-     than returning as though it had worked.
+       - The store DOES have one. put() takes `ifMatch`, the ETag of the copy
+         that was read, and refuses the write with a precondition failure if
+         anything has landed since. That is the atomic step this comment said
+         did not exist.
+       - The read-back went through Vercel Blob's CDN cache, which serves the
+         previous version for up to a minute after an overwrite. So the check
+         read the OLD file, concluded a concurrent write had erased the record,
+         retried three times against the same stale copy, and logged "FAILED
+         to persist" for a submission that had been stored on the first
+         attempt. Every read here now bypasses that cache (useCache: false).
 
-     Three attempts, not more. At this practice's volume a genuine collision is
-     already unlikely; a run of three is a store that is broken in some other
-     way, and hammering it will not help.
+     So: read with its ETag, write only if the ETag still matches, and on a
+     refusal re-read and try again. The read-back stays as a second, cheap
+     proof that the record is really there. Three attempts; a run of three
+     refusals is a store that is broken in some other way, and hammering it
+     will not help. A remaining failure logs loudly rather than returning as
+     though it had worked.
      ======================================================================= */
   const ATTEMPTS = 3;
   for (let attempt = 1; attempt <= ATTEMPTS; attempt++) {
@@ -251,13 +279,31 @@ export async function addInbound(
 
     if (!process.env.BLOB_READ_WRITE_TOKEN) return item;
 
-    await put(KEY, JSON.stringify(value, null, 2), {
-      access: 'private',
-      contentType: 'application/json',
-      addRandomSuffix: false,
-      allowOverwrite: true,
-      cacheControlMaxAge: 0,
-    });
+    try {
+      const written = await put(KEY, JSON.stringify(value, null, 2), {
+        access: 'private',
+        contentType: 'application/json',
+        addRandomSuffix: false,
+        allowOverwrite: true,
+        cacheControlMaxAge: 0,
+        /* No ETag means no file yet, so the first write is unconditional. */
+        ...(lastEtag ? { ifMatch: lastEtag } : {}),
+      });
+      lastEtag = written.etag;
+    } catch (e) {
+      if (e instanceof BlobPreconditionFailedError) {
+        console.warn(
+          `[inbound] write for ${item.id} lost a race to another writer, ` +
+          `retrying against the current store (attempt ${attempt}/${ATTEMPTS})`
+        );
+        /* The in-process copies are what we tried to write, not what is there.
+           Drop them so the next read actually goes to the store. */
+        cache = null;
+        lastWrite = null;
+        continue;
+      }
+      throw e;
+    }
 
     /* The read-back has to bypass the in-process cache, which was just set to
        our own value above and would confirm the write no matter what actually
@@ -268,7 +314,7 @@ export async function addInbound(
     if (after.items.some((i) => i.id === item.id)) return item;
 
     console.warn(
-      `[inbound] write for ${item.id} was overwritten by a concurrent write ` +
+      `[inbound] write for ${item.id} was not in the store on read-back ` +
       `(attempt ${attempt}/${ATTEMPTS})`
     );
   }

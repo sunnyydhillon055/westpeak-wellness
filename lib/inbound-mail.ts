@@ -330,57 +330,10 @@ Online counselling across British Columbia`);
   return { subject: 'We have your message | Westpeak Wellness', text, html };
 }
 
-/* ---- acknowledgement of a waitlist request -------------------------------- */
-
-export function waitlistAck(firstName: string) {
-  const hi = firstName ? `Hi ${firstName},` : 'Hi,';
-
-  const text = wrap(
-`${hi}
-
-Thank you. Your availability is noted.
-
-The practice runs a small number of hours, so this is a real waitlist
-rather than a formality: when something opens that fits the times you
-gave, you will hear directly, and the note goes to a person rather than
-into a queue.
-
-Current consultation hours, in case something here does work after all:
-
-${site.availability.map((v) => `  ${v.day}, ${v.from} to ${v.to}`).join('\n')}
-
-  ${links.book}
-
-If your situation changes or becomes urgent, reply to this email and
-say so.
-
-If you are in immediate danger call 911. For urgent mental-health
-support in BC, call or text 9-8-8 at any hour.
-
-${site.name}`);
-
-  const html = shell(
-    'Your availability is noted',
-    p(esc(hi)) +
-    p('Thank you. Your availability is noted.') +
-    p('The practice runs a small number of hours, so this is a real waitlist rather than a formality. When something opens that fits the times you gave, you will hear directly.') +
-    `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 20px;background:#f7f2e8;border-radius:8px;padding:14px 18px;width:100%;">
-       <tr><td style="font-size:14px;line-height:1.7;color:#2b3138;">
-       <strong style="color:#3d6c92;">Current consultation hours</strong><br>
-       ${site.availability.map((v) => `${esc(v.day)} &mdash; ${esc(v.from)} to ${esc(v.to)}`).join('<br>')}
-       </td></tr></table>` +
-    btn(links.book, 'See live availability') +
-    p('If your situation changes or becomes urgent, replying here reaches the practice directly.')
-  );
-
-  return { subject: 'Your availability is noted | Westpeak Wellness', text, html };
-}
-
 /* ---- the alert to the practice ------------------------------------------- */
 
 const KIND_LABEL: Record<Inbound['kind'], string> = {
   enquiry: 'New enquiry',
-  waitlist: 'Waitlist request',
   lead: 'Coverage checklist requested',
 };
 
@@ -392,7 +345,6 @@ export function practiceAlert(item: Inbound) {
     '',
     `Name:   ${item.name || '(not given)'}`,
     `Email:  ${item.email}`,
-    ...(item.windows ? [`Windows: ${item.windows}`] : []),
     /* A number only appears here when the person asked to be phoned. It stays
      * out of the subject and the preheader for the same reason the message
      * does — those two lines are visible without opening the email. */
@@ -411,7 +363,6 @@ export function practiceAlert(item: Inbound) {
     `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 18px;font-size:14px;line-height:1.7;">
       <tr><td style="color:#545e69;padding-right:14px;">Name</td><td>${esc(item.name || '(not given)')}</td></tr>
       <tr><td style="color:#545e69;padding-right:14px;">Email</td><td><a href="mailto:${esc(item.email)}" style="color:#3d6c92;">${esc(item.email)}</a></td></tr>
-      ${item.windows ? `<tr><td style="color:#545e69;padding-right:14px;">Windows</td><td>${esc(item.windows)}</td></tr>` : ''}
       ${item.phone ? `<tr><td style="color:#545e69;padding-right:14px;">Phone</td><td><a href="tel:${esc(item.phone.replace(/[^\d+]/g, ''))}" style="color:#3d6c92;">${esc(item.phone)}</a> <span style="color:#545e69;">, asked to be called</span></td></tr>` : ''}
       ${item.callWindow ? `<tr><td style="color:#545e69;padding-right:14px;">Best time</td><td>${esc(item.callWindow)}</td></tr>` : ''}
       ${item.practitioner ? `<tr><td style="color:#545e69;padding-right:14px;">Asked for</td><td><strong>${esc(item.practitioner)}</strong></td></tr>` : ''}

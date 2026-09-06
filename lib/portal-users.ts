@@ -75,7 +75,7 @@ async function read(): Promise<Store> {
   if (cache && Date.now() - cache.at < CACHE_MS) return cache.value;
   if (!process.env.BLOB_READ_WRITE_TOKEN) return EMPTY;
   try {
-    const hit = await get(KEY, { access: 'private' });
+    const hit = await get(KEY, { access: 'private', useCache: false });
     if (!hit || hit.statusCode !== 200 || !hit.stream) return EMPTY;
     const parsed = (await new Response(hit.stream).json()) as Partial<Store>;
     const value: Store = {

@@ -10,7 +10,7 @@ import { put, get } from '@vercel/blob';
  *
  * `gtag` only exists when NEXT_PUBLIC_GA_ID is set, and it is not set. So every
  * conversion event this site fires — enquiry_submit, book_click,
- * scheduler_visible, scheduler_interact, waitlist_submit, lead_magnet_submit,
+ * scheduler_visible, scheduler_interact, lead_magnet_submit,
  * tool_share — has been landing in nothing. All of it instrumented, none of it
  * recorded.
  *
@@ -39,7 +39,6 @@ const KEY = 'analytics/conversions.json';
  *  stored, so a typo or a crafted payload cannot create keys. */
 const COUNTED = new Set([
   'enquiry_submit',
-  'waitlist_submit',
   'lead_magnet_submit',
   'book_click',
   'scheduler_visible',
@@ -75,7 +74,7 @@ export async function readConversions(opts?: { fresh?: boolean }): Promise<Conve
   if (!process.env.BLOB_READ_WRITE_TOKEN) return EMPTY;
 
   try {
-    const hit = await get(KEY, { access: 'private' });
+    const hit = await get(KEY, { access: 'private', useCache: false });
     if (!hit || hit.statusCode !== 200 || !hit.stream) return EMPTY;
     const parsed = (await new Response(hit.stream).json()) as Partial<ConversionLog>;
     const value: ConversionLog = {

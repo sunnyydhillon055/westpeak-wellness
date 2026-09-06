@@ -51,10 +51,9 @@ type. If it does not, create it before pointing anyone at that page — the site
 currently sends family enquiries into the free consultation, which works, but
 the page reads better once the type exists.
 
-**Availability:** set her hours in Cliniko. Then mirror them in
-`site.availability` in `lib/site.ts` — the footer, the portal and Cliniko all
-read from that one list, and a mismatch advertises a slot that cannot be
-booked.
+**Availability:** set her hours in Cliniko. Nothing on the site needs to be
+told — since 6 Sep 2026 no hours are published anywhere, so Cliniko is the only
+place they live.
 
 **Payments:** confirm each paid type she offers has
 `Require payment during booking` enabled, the same as the existing five. The

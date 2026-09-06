@@ -7,7 +7,7 @@ import SchedulerEmbed from '@/components/SchedulerEmbed';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import InboundForm from '@/components/InboundForm';
 import { ogBase } from '@/lib/og-meta';
-import { getPractitioner } from '@/lib/practitioners';
+import { getPractitioner, defaultBookingPractitioner } from '@/lib/practitioners';
 import { PROVINCE_NAME, type Province } from '@/lib/crisis';
 
 export const metadata: Metadata = {
@@ -26,8 +26,10 @@ export default function Book({
 }: {
   searchParams?: Record<string, string | string[] | undefined>;
 }) {
-  const waitlist = searchParams?.waitlist === 'ok' ? 'ok'
-    : searchParams?.waitlist === 'err' ? 'err' : undefined;
+  /* The enquiry form posts to /api/enquiry, which sends the person back to
+     the page the form was on with ?sent=ok or ?sent=err. */
+  const sent = searchParams?.sent === 'ok' ? 'ok'
+    : searchParams?.sent === 'err' ? 'err' : undefined;
 
   /* WHO THE READER CAME FOR — ?with=<slug>.
    *
@@ -41,7 +43,18 @@ export default function Book({
    * The province and language lines below now come from whoever the reader
    * actually arrived for. With no ?with= the page is exactly what it was. */
   const withSlug = typeof searchParams?.with === 'string' ? searchParams.with : '';
-  const who = withSlug ? getPractitioner(withSlug) : undefined;
+  const asked = withSlug ? getPractitioner(withSlug) : undefined;
+
+  /* WHO ACTUALLY TAKES THE CONSULTATION — decided 6 Sep 2026.
+   *
+   * The founder is not taking new clients. So a bare /book, and a /book that
+   * asks for her by name, both go to whoever on the roster is accepting
+   * (lib/practitioners.ts, `acceptingNewClients`). Her Cliniko calendar is no
+   * longer offered here to anyone; existing clients reach it through the
+   * portal. If the reader asked for someone who is not accepting, the page
+   * says so in one line rather than silently swapping the name. */
+  const who = asked?.acceptingNewClients ? asked : defaultBookingPractitioner();
+  const askedButFull = asked && !asked.acceptingNewClients ? asked : undefined;
 
   /* The founder is on the Cliniko calendar; a counsellor who is not yet on it
      cannot be booked by an embed that books somebody else. For them the page
@@ -96,10 +109,15 @@ export default function Book({
       <section className="hero" style={{ paddingBottom: 24 }}>
         <div className="container">
           <p className="eyebrow">Free · 15 minutes · No commitment</p>
-          <h1 style={{ marginBottom: 10 }}>Book a free consultation.</h1>
+          <h1 style={{ marginBottom: 10 }}>
+            Book a free consultation{who ? ` with ${who.name.split(' ')[0]}` : ''}.
+          </h1>
           <p className="lede" style={{ marginBottom: 0 }}>
             A short conversation over secure video to work out whether this is a fit. Nothing is
             diagnosed, and there is no obligation to book a session afterwards.
+            {who && who.languages.length > 1 && (
+              <> {who.name.split(' ')[0]} speaks {who.languages.map((l) => l.name).join(' and ')}.</>
+            )}
           </p>
         </div>
       </section>
@@ -119,21 +137,39 @@ export default function Book({
             <li>Free cancellation up to {site.cancellationHours}h</li>
           </ul>
 
+          {askedButFull && who && (
+            <p className="book-credential">
+              {askedButFull.name.split(' ')[0]} is not taking new clients at the moment.{' '}
+              {who.name.split(' ')[0]} is, and the consultation below is with her.
+            </p>
+          )}
+
           {who && !schedulable ? (
             <div className="crisis" style={{ marginTop: 8 }}>
-              <h2 style={{ marginTop: 0 }}>Ask for a consultation with {who.name.split(' ')[0]}</h2>
+              <h2 style={{ marginTop: 0 }}>Request a consultation with {who.name.split(' ')[0]}</h2>
               <p>
                 {who.name.split(' ')[0]} is not on the online calendar yet, so this one is arranged
-                by reply rather than by picking a slot. Leave your name and email with a line about
-                what you are looking for and roughly when you are free, and you will hear back
-                within one business day to fix a time.
+                by reply rather than by picking a slot. Leave your name and email, say in a couple
+                of sentences what you are looking for and roughly when you are free, and you will
+                hear back within one business day to fix a time.
               </p>
               <p>
-                {who.name} · {who.postNominals}, sessions in {languageList}, anywhere in{' '}
-                {provinceList}.{' '}
+                {who.name} · {who.postNominals}, anywhere in {provinceList}.{' '}
+                <strong>{who.name.split(' ')[0]} works in {languageList}</strong>
+                {who.languages.length > 1
+                  ? ', so the consultation and your sessions can be in either, or move between the two.'
+                  : '.'}{' '}
                 <Link href={`/practitioners/${who.slug}`}>More about {who.name.split(' ')[0]}</Link>.
               </p>
-              <InboundForm kind="waitlist" done={waitlist} practitioner={who.slug} />
+              <InboundForm
+                kind="enquiry"
+                done={sent}
+                practitioner={who.slug}
+                title="Request your free consultation"
+                note={`Tell ${who.name.split(' ')[0]} in at least two sentences what you are looking for, and roughly when you are free. You will hear back within one business day to fix a time.`}
+                placeholder="What is going on for you, what you are hoping for from counselling, and when you are usually free."
+                button="Request a consultation"
+              />
             </div>
           ) : site.bookingReady ? (
             <>
@@ -226,31 +262,16 @@ export default function Book({
           </div>
 
           {/* THE CALENDAR OFFERS 17 HOURS A WEEK, three of the five days being a
-              single evening hour. For a good share of the people who get this far
-              nothing on it is possible, so the hours and the waitlist belong
-              together: the list is what makes somebody realise they need the form
-              beside it. */}
-          <div className="book-brief" style={{ marginTop: 28 }}>
-            <div className="book-hours">
-              <h3>Consultation hours</h3>
-              <ul>
-                {site.availability.map((a) => (
-                  <li key={a.day}>
-                    <span>{a.day}</span>
-                    <span>{a.from} – {a.to}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              {/* No heading and no intro here. InboundForm already renders both
-                  for the waitlist kind, and writing my own produced two
-                  headings and two near-identical sentences stacked on top of
-                  each other. Caught by reading the rendered page rather than
-                  the source, where the component's copy is not visible. */}
-              <InboundForm kind="waitlist" done={waitlist} practitioner={who?.slug} />
-            </div>
-          </div>
+              single evening hour. A waitlist form used to sit beside these hours
+              for the people none of them suited. Removed 6 Sep 2026: it was
+              being read as an alternative to booking rather than a fallback,
+              and people joined the list instead of picking a slot. The hours
+              stay, and anyone they do not suit is pointed at a message, which
+              reaches the practice the same way and gets a human reply. */}
+          {/* No hours here at all. A grid of consultation hours and a waitlist
+              form sat here until 6 Sep 2026; both were removed at the owner's
+              instruction. The calendar, when there is one, shows what is
+              actually open, and the request form asks when the person is free. */}
 
           {/* Always open, never behind a disclosure. */}
           <div className="crisis" style={{ marginTop: 28 }}>

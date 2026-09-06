@@ -108,10 +108,29 @@ export type Practitioner = {
   suits: string[];
   /** Practical facts for the booking decision. */
   sessionNote: string;
+  /* IN HER OWN WORDS. Questions a person actually has before booking, answered
+   * by the counsellor herself, first person, from a document she supplied.
+   * Rendered as a Q&A on the profile and published as FAQPage schema, so an
+   * answer engine can quote her rather than paraphrase her.
+   *
+   * Nothing here is written on her behalf. Trim, never invent; and nothing
+   * that promises an outcome (BCACC advertising standards, see /standards). */
+  voice?: { q: string; a: string[]; lang?: string }[];
   /** Cliniko appointment types this person offers, by service slug. */
   services: string[];
   /** True once Cliniko has them bookable online. Gates the Book button. */
   bookable: boolean;
+  /* WHETHER THIS PERSON IS TAKING NEW CLIENTS AT ALL.
+   *
+   * Separate from `bookable`, which is about Cliniko plumbing. This one is a
+   * capacity decision the owner makes. Set false on 6 Sep 2026 for the
+   * founder: every consultation request and every Book button on the site now
+   * goes to whoever is accepting (see defaultBookingPractitioner below), and
+   * her profile says so rather than offering a calendar she is not opening.
+   *
+   * Existing clients are unaffected — they book paid sessions through the
+   * client portal, which does not read this. */
+  acceptingNewClients: boolean;
   /* Whether this person gets per-city pages beneath their profile.
    *
    * False for the founder, at the owner's instruction on 1 Sep 2026 — "keep it
@@ -185,6 +204,10 @@ export const practitioners: Practitioner[] = [
     services: ['individual-therapy', 'couples-therapy', 'emdr-therapy', 'punjabi-counselling'],
     /* Bookable: the practice's existing Cliniko types are hers. */
     bookable: true,
+    /* Not taking new clients as of 6 Sep 2026, at the owner's instruction.
+       The Cliniko calendar still exists for existing clients via the portal;
+       nothing public offers it. */
+    acceptingNewClients: false,
     /* ONE PAGE TOTAL. See the note on the field. */
     placePages: false,
   },
@@ -316,6 +339,91 @@ export const practitioners: Practitioner[] = [
     ],
     sessionNote:
       'You do not need to have everything figured out before you start. Sometimes knowing that something is not working any more is enough of a reason to begin.',
+    /* From "Counsellor Onboarding — Camille Granda", 3 Sep 2026, supplied by
+       the owner on 6 Sep. Fourteen questions were answered; these are the ones
+       that help somebody decide whether to book. Left out on purpose: the
+       photo notes and the changed-my-mind essay (both good, neither a booking
+       question), and her home-office and dog details are kept to a line. Her
+       wording, lightly cut for length. */
+    voice: [
+      {
+        q: 'What is it actually like to sit with you for an hour?',
+        a: [
+          'I want sitting with me to feel like the biggest belly breath you have ever taken. Like you can finally exhale and put some of what you have been carrying down for a while.',
+          'I am warm, curious, and not overly clinical, though our time together is grounded in evidence-based approaches. I am not going to sit across from you silently taking notes while you wonder what I am thinking. I will laugh with you when things are funny, sit with you when things are heavy, and gently challenge you when I think it might help.',
+          'My goal is for you to feel like you can show up exactly as you are: messy thoughts, contradictions, swear words, silence and all, without having to perform, have the right words, or explain yourself perfectly.',
+        ],
+      },
+      {
+        q: 'What do you do when someone starts crying, or goes completely silent?',
+        a: [
+          'I do not rush to fill the silence or try to make the crying stop. Sometimes the most therapeutic thing I can do is just stay with you. I might slow us down, check in with what you are noticing in your body, offer a grounding exercise, or simply let there be quiet.',
+          'There is no pressure to explain what is happening before you are ready. Tears and silence are both communication, and neither makes me uncomfortable.',
+        ],
+      },
+      {
+        q: 'Will you make me talk about the worst thing before I am ready?',
+        a: [
+          'No. Especially in trauma-informed work, I do not believe healing comes from pushing someone past what their nervous system can manage. You are always allowed to say no, slow down, change direction, or tell me something feels like too much.',
+          'Even with EMDR, we spend time building safety, resources and trust before moving toward difficult memories. You do not have to tell me every detail of what happened for us to work with how it is affecting you now.',
+        ],
+      },
+      {
+        q: 'Do people leave with something to do, or is it the hour and that is it?',
+        a: [
+          'Usually a bit of both. I do not believe therapy should feel like homework every week, but I do want what happens in the room to translate into your actual life. A session is one hour of your week; there is a lot of time outside it to chew on what I call food for thought.',
+          'Some weeks you might leave with something concrete to practise, notice, journal about, or try differently. Other weeks the work is simply noticing what came up and letting your system process it. We decide together what would actually be useful rather than handing you a worksheet for the sake of having one.',
+        ],
+      },
+      {
+        q: 'How does someone know it is working, and roughly how long does it take?',
+        a: [
+          'I usually tell people to look for small shifts before they look for dramatic ones. Maybe you recover more quickly after being triggered. Maybe you notice a pattern before automatically reacting to it. Maybe you say no without explaining yourself for twenty minutes, or you realise you are speaking to yourself differently.',
+          'There is not one timeline, because people come to therapy with very different histories and goals. Some people need focused, short-term support and others want deeper, longer-term work. I check in regularly about whether therapy is actually helping, and adjust when it is not.',
+        ],
+      },
+      {
+        q: 'My family thinks therapy is not for people like us. What would you say?',
+        a: [
+          'You do not need your family to understand therapy for you to be allowed to benefit from it.',
+          'A lot of us grew up in families where private things stayed private. You dealt with problems yourself, kept going, and asking for help could feel uncomfortable, or even disloyal. But therapy does not have to mean blaming your family or rejecting where you came from. Sometimes it is simply about understanding what you inherited, deciding what you want to carry forward, and giving yourself permission to do some things differently.',
+          'You can love your family and still choose yourself. You can honour where you came from and still choose a different way forward. Hindi kailangang mamili. You do not always have to choose one or the other. Sometimes healing is learning that there is room for both.',
+        ],
+      },
+      {
+        q: 'What do you find yourself saying most often?',
+        a: [
+          '“Two things can be true at the same time.” We are taught to sort our experiences into good or bad: anger is bad, confidence is good, grief is something to move past. When I say something is neither good nor bad, I am never minimising how deeply it may be affecting you. Pain is still pain. It is an invitation to take away some of the judgment, shame or pressure we attach to what we are feeling, and simply listen to it.',
+          'You can love someone and need distance from them. You can understand why something happened and still be hurt by it. You can be scared and still choose something different.',
+        ],
+      },
+      {
+        q: 'How would you describe your training to someone who does not know what the letters mean?',
+        a: [
+          'My training combines traditional counselling psychology with trauma-focused and body-based approaches. I am trained to work with thoughts, emotions, relationships and behaviour, and I also pay attention to what is happening in the nervous system and body.',
+          'I have pursued additional training in EMDR, somatic trauma therapy, polyvagal-informed work, trauma-informed yoga and relationship therapy. The letters after my name mainly mean that I have completed graduate-level counselling training and meet professional standards for ethical practice and ongoing education.',
+        ],
+      },
+      {
+        q: 'When are you not the right counsellor?',
+        a: [
+          'I am probably not the right counsellor if you are looking for a quick fix, a formula, or someone who will simply tell you what to do. I will absolutely offer ideas, tools, perspective and gentle challenge, but I see therapy as collaborative rather than prescriptive. My role is not to make decisions for you; it is to help you understand yourself more deeply and feel supported in making the choices that are right for you.',
+          'I am also not the right fit if you are looking for a formal psychological diagnosis or assessment, which falls outside my scope as a clinical counsellor. If you need something I cannot provide, I will say so, offer a referral where I can, and help put together a plan for what comes next. Sometimes being the right counsellor means knowing when I am not.',
+        ],
+      },
+      {
+        q: 'What will I see when the video call opens?',
+        a: [
+          'A warm, neutral home-office space with a couple of degrees on the wall, some plants and soft lighting. Nothing clinical or distracting, just a comfortable, grounded space where you can exhale a little. You might see me with a little less makeup and dressed a little comfier than in my photos, and I encourage you to be too. Occasionally my cockapoo, Honey, makes a guest appearance.',
+        ],
+      },
+      {
+        q: 'Outside of the work, what keeps you well?',
+        a: [
+          'Movement, mostly. I have spent years practising and teaching yoga, and these days I love Pilates, walking, and surfing whenever I can. I am a huge foodie, I love travelling and trying new things, and more than anything I make space to be creative, curious and playful. There is some good science behind that: novelty, curiosity and play engage the systems involved in learning and reward, which is part of how the brain practises something different.',
+        ],
+      },
+    ],
     /* Couples added 1 Sep 2026 at the owner's request. It was asked for when
        she was onboarded and never reached this array, so her profile listed
        three services while her Tagalog pages and her own "better relationships
@@ -327,8 +435,16 @@ export const practitioners: Practitioner[] = [
        which is the failure mode the whole booking-mail incident came from.
        Flip it after the Cliniko steps in CAMILLE_ONBOARDING.md are done. */
     bookable: false,
+    acceptingNewClients: true,
   },
 ];
+
+/* Who a consultation goes to when the reader has not asked for anyone in
+ * particular, or has asked for someone who is not taking new clients. The
+ * first practitioner on the roster who is accepting; undefined if nobody is,
+ * in which case /book falls back to the practice-wide path and says so. */
+export const defaultBookingPractitioner = (): Practitioner | undefined =>
+  practitioners.find((p) => p.acceptingNewClients);
 
 export const getPractitioner = (slug: string) =>
   practitioners.find((p) => p.slug === slug);

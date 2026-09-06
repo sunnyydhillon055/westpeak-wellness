@@ -1,4 +1,4 @@
-import { put, get } from '@vercel/blob';
+import { put, get, BlobPreconditionFailedError } from '@vercel/blob';
 
 /* DID THE SCHEDULED JOBS ACTUALLY RUN?
  *
@@ -11,7 +11,6 @@ import { put, get } from '@vercel/blob';
  *
  *   reply-watch      the only thing verifying the "reply within one business
  *                    day" promise printed on every page
- *   waitlist-checkin the single note a waitlisted person is ever sent
  *   booking-mail     confirmations and no-show follow-ups
  *   funnel-report    the monthly summary that would have shown the others
  *                    were broken
@@ -62,35 +61,75 @@ export const EXPECTED_EVERY_HOURS: Record<string, number> = {
      weekend and still catches a genuine stop inside the week. */
   'reply-watch': 48,
   nurture: 24,
-  'waitlist-checkin': 168,
   'funnel-report': 744,   // monthly
   'revenue-report': 744,
   indexnow: 168,
 };
 
-export async function readCronHealth(): Promise<CronHealth> {
-  if (!process.env.BLOB_READ_WRITE_TOKEN) return {};
+/* ONE FILE, SEVERAL WRITERS AT THE SAME MINUTE — AND HOW THAT WENT WRONG.
+ *
+ * cliniko-sync (which also records cliniko-catalog) and booking-mail are both
+ * scheduled at "0 *​/2 * * *". Each one read this file, added its own line and
+ * wrote the whole thing back. Two problems, found 6 Sep 2026 from an alert
+ * the owner received on their phone:
+ *
+ *   1. The read went through Vercel Blob's CDN cache, which can serve the
+ *      previous version for up to a minute after an overwrite —
+ *      `cacheControlMaxAge: 0` does not help, the minimum is 60s. So a job
+ *      that had just written its line could read the file back without it.
+ *   2. Three jobs doing read-modify-write in the same second is last-writer-
+ *      wins. Whichever finished last wrote back a copy that predated the
+ *      others' lines, erasing them.
+ *
+ * Either one makes a job that ran look like a job that stopped. On 6 Sep at
+ * 18:00 UTC booking-mail recorded itself, then ran the watchdog, which read
+ * the file, found booking-mail's line from 14:00, and emailed the owner that
+ * booking-mail was not running — from inside a booking-mail run.
+ *
+ * So: reads bypass the cache (`useCache: false`), and the write is conditional
+ * on the ETag of what was read (`ifMatch`). A write that lands on top of
+ * somebody else's is refused by the store with a precondition failure, and
+ * retried against the file as it now stands. Three attempts; the third loser
+ * of a three-way race is a very long shot, and the record is still best-effort
+ * — it must never fail the job it is recording. */
+
+async function readHealth(): Promise<{ health: CronHealth; etag?: string }> {
+  if (!process.env.BLOB_READ_WRITE_TOKEN) return { health: {} };
   try {
-    const hit = await get(KEY, { access: 'private' });
-    if (!hit || hit.statusCode !== 200 || !hit.stream) return {};
-    return (await new Response(hit.stream).json()) as CronHealth;
+    const hit = await get(KEY, { access: 'private', useCache: false });
+    if (!hit || hit.statusCode !== 200 || !hit.stream) return { health: {} };
+    return { health: (await new Response(hit.stream).json()) as CronHealth, etag: hit.blob.etag };
   } catch {
-    return {};
+    return { health: {} };
   }
+}
+
+export async function readCronHealth(): Promise<CronHealth> {
+  return (await readHealth()).health;
 }
 
 export async function recordCronRun(run: Omit<CronRun, 'at'>): Promise<void> {
   if (!process.env.BLOB_READ_WRITE_TOKEN) return;
-  try {
-    const current = await readCronHealth();
-    const value: CronHealth = { ...current, [run.job]: { ...run, at: new Date().toISOString() } };
-    await put(KEY, JSON.stringify(value, null, 2), {
-      access: 'private', contentType: 'application/json',
-      addRandomSuffix: false, allowOverwrite: true, cacheControlMaxAge: 0,
-    });
-  } catch {
-    /* Deliberately silent. See the note at the top: this must never be able to
-       fail the job it is recording. */
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const { health, etag } = await readHealth();
+      const value: CronHealth = { ...health, [run.job]: { ...run, at: new Date().toISOString() } };
+      await put(KEY, JSON.stringify(value, null, 2), {
+        access: 'private', contentType: 'application/json',
+        addRandomSuffix: false, allowOverwrite: true, cacheControlMaxAge: 0,
+        /* No etag means no file yet; the first write is unconditional. */
+        ...(etag ? { ifMatch: etag } : {}),
+      });
+      return;
+    } catch (e) {
+      if (e instanceof BlobPreconditionFailedError) {
+        console.warn(`[cron-health] ${run.job}: another job wrote first, retrying (${attempt}/3)`);
+        continue;
+      }
+      /* Deliberately silent. See the note at the top: this must never be
+         able to fail the job it is recording. */
+      return;
+    }
   }
 }
 
@@ -170,7 +209,7 @@ type AlertLog = Record<string, string>;
 async function readAlertLog(): Promise<AlertLog> {
   if (!process.env.BLOB_READ_WRITE_TOKEN) return {};
   try {
-    const hit = await get(ALERT_KEY, { access: 'private' });
+    const hit = await get(ALERT_KEY, { access: 'private', useCache: false });
     if (!hit || hit.statusCode !== 200 || !hit.stream) return {};
     return (await new Response(hit.stream).json()) as AlertLog;
   } catch {

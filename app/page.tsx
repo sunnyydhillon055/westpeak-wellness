@@ -420,7 +420,7 @@ export default function Home() {
                 <p><Link href="/compare/efap-vs-private-counselling">EFAP vs private counselling</Link></p>
               </div>
               <div className="route-cell">
-                <p className="route-k">You are on a waitlist</p>
+                <p className="route-k">You are on a public waitlist</p>
                 <p><Link href="/guides/waiting-for-therapy-in-bc">What to do while you wait</Link></p>
               </div>
               <div className="route-cell">

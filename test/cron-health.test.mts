@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { cronProblems, EXPECTED_EVERY_HOURS, type CronHealth } from '../lib/cron-health.ts';
 
 /* Eight scheduled jobs, several of whose failure is invisible by design: the
- * one that verifies the reply-time promise, the only note a waitlisted person
+ * one that verifies the reply-time promise, the note a nurture lead
  * ever gets, and the monthly report that would have shown the others were
  * broken. Whether this function is right decides whether anyone finds out. */
 
@@ -91,7 +91,7 @@ test('every scheduled job has an expectation set for it', () => {
      iterates what it was told about. */
   const scheduled = [
     'cliniko-sync', 'booking-mail', 'reply-watch', 'nurture',
-    'waitlist-checkin', 'funnel-report', 'revenue-report', 'indexnow',
+    'funnel-report', 'revenue-report', 'indexnow',
   ];
   for (const job of scheduled) {
     assert.ok(

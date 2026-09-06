@@ -18,7 +18,7 @@ import { createHmac } from 'node:crypto';
  *
  * FOUR RULES, ALL OF WHICH CAN LOSE THE PRACTICE MORE THAN THE SEQUENCE GAINS
  *
- *   1. Leads only. Never a client, never an enquiry, never a waitlist signup.
+ *   1. Leads only. Never a client, never an enquiry.
  *      Somebody who asked a question is not somebody who asked to be marketed
  *      to, and a counselling client receiving a nurture email is a boundary
  *      problem rather than a growth tactic.
@@ -48,7 +48,7 @@ const EMPTY: Sent = { step: {}, optedOut: {}, updatedAt: '' };
 async function readSent(): Promise<Sent> {
   if (!process.env.BLOB_READ_WRITE_TOKEN) return EMPTY;
   try {
-    const hit = await get(KEY, { access: 'private' });
+    const hit = await get(KEY, { access: 'private', useCache: false });
     if (!hit || hit.statusCode !== 200 || !hit.stream) return EMPTY;
     const v = (await new Response(hit.stream).json()) as Partial<Sent>;
     return {
@@ -220,7 +220,7 @@ export async function runNurture(opts: { dry?: boolean } = {}): Promise<NurtureR
   const { readClients } = await import('@/lib/clients');
   const clientEmails = new Set((await readClients()).clients.map((c) => c.email));
 
-  /* Someone who later wrote in or joined the waitlist is in a conversation with
+  /* Someone who later wrote in is in a conversation with
    * the practice, and a marketing sequence running underneath that conversation
    * is worse than no sequence. */
   const inConversation = new Set(

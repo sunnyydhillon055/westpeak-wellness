@@ -1,10 +1,9 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { site } from '@/lib/site';
-import { readAvailability } from '@/lib/availability';
 import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
-import { Mail, MonitorSmartphone, Clock, MapPin, Languages as LangIcon, AtSign, Phone } from 'lucide-react';
+import { Mail, MonitorSmartphone, MapPin, Languages as LangIcon, AtSign, Phone } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import InboundForm from '@/components/InboundForm';
 
@@ -20,7 +19,6 @@ export default async function Contact({
 }: {
   searchParams?: Record<string, string | string[] | undefined>;
 }) {
-  const { windows } = await readAvailability();
 
   /* The measured version of the reply promise. /admin has tracked median
    * reply time since 2026-08-23, gated behind five real samples so one good
@@ -77,9 +75,8 @@ export default async function Contact({
             )}
             <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Mail strokeWidth={1.7} /></span><div><h3>Email</h3><p><a href={`mailto:${site.email}`}>{site.email}</a><br /><span style={{ color: 'var(--ink-faint)', fontSize: '.92em' }}>{replyLine}</span></p></div></div>
             <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><MonitorSmartphone strokeWidth={1.7} /></span><div><h3>Sessions</h3><p>Fully online, anywhere in British Columbia</p></div></div>
-            <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Clock strokeWidth={1.7} /></span><div><h3>Hours</h3><p>{windows.map((a) => `${a.day} ${a.from}–${a.to}`).join(' · ')}</p></div></div>
             <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><MapPin strokeWidth={1.7} /></span><div><h3>Service area</h3><p>Virtual: anywhere in BC</p></div></div>
-            <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><LangIcon strokeWidth={1.7} /></span><div><h3>Languages</h3><p>English & Punjabi</p></div></div>
+            <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><LangIcon strokeWidth={1.7} /></span><div><h3>Languages</h3><p>{site.languages}</p></div></div>
             <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><AtSign strokeWidth={1.7} /></span><div><h3>Instagram</h3><p><a href={site.instagramUrl} target="_blank" rel="noopener">{site.instagram}</a></p></div></div>
           </div>
           {/* Saving a contact is the low-commitment action for the person who is
@@ -101,8 +98,9 @@ export default async function Contact({
           <div className="prose" style={{ marginTop: 36 }}>
             <h2>What to put in a first email</h2>
             <p>
-              A sentence is genuinely enough. There is no form to complete and no history to assemble,
-              and nobody is assessing how well you describe it. If it helps to have a starting shape:
+              A couple of sentences about what you are looking for is enough. There is no form to
+              complete and no history to assemble, and nobody is assessing how well you describe it.
+              If it helps to have a starting shape:
               roughly what is going on, roughly how long it has been going on, and whether you would
               rather talk in English, Punjabi or Tagalog. That is all that is needed to work out whether a
               consultation makes sense.
@@ -179,7 +177,7 @@ export default async function Contact({
       <section className="section section--tint">
         <div className="container center">
           <h2>Ready when you are</h2>
-          <p className="lede">Tell us what you&rsquo;re looking for. A sentence is enough. You&rsquo;ll hear back from your counsellor directly, usually within one business day.</p>
+          <p className="lede">Tell us what you&rsquo;re looking for, in a couple of sentences. You&rsquo;ll hear back from your counsellor directly, usually within one business day.</p>
           <div className="btn-row" style={{ marginTop: 20 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book Free Consultation</Link>
           </div>

@@ -79,7 +79,7 @@ export function healthChecks(): Check[] {
       severity: 'degraded',
       title: 'Scheduled jobs can run',
       consequence:
-        'The reply-watch nudge, the waitlist check-in and the monthly funnel report all need this. ' +
+        'The reply-watch nudge, the nurture sequence and the monthly funnel report all need this. ' +
         'Without it they return 401 and simply never happen.',
       fix: 'Set CRON_SECRET to match the value the Vercel cron uses.',
     },

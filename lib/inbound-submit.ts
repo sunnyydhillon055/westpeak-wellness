@@ -2,12 +2,13 @@ import { NextResponse } from 'next/server';
 import { addInbound, readInbound, annotateTriage, type InboundKind } from '@/lib/inbound';
 import { triage, hasMailExchanger, withMx } from '@/lib/triage';
 import { sendDetailed } from '@/lib/portal-mail';
-import { checklistEmail, icbcEmail, startingEmail, enquiryAck, waitlistAck, practiceAlert } from '@/lib/inbound-mail';
+import { checklistEmail, icbcEmail, startingEmail, enquiryAck, practiceAlert } from '@/lib/inbound-mail';
 import { site } from '@/lib/site';
 import { practitioners } from '@/lib/practitioners';
 import { clientKey, rateCheck } from '@/lib/rate-limit';
+import { hasEnoughSentences } from '@/lib/sentences';
 
-/* One submit path for all three inbound forms.
+/* One submit path for both inbound forms, enquiry and lead.
  *
  * ORDER IS THE WHOLE DESIGN. Store first, then notify. If Resend is down, the
  * key has expired, or a rate limit is hit, the person is still recorded and
@@ -76,7 +77,6 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
   const email = String(form.get('email') ?? '').trim().toLowerCase();
   const name = String(form.get('name') ?? '').trim();
   const message = String(form.get('message') ?? '').trim();
-  const windows = String(form.get('windows') ?? '').trim();
 
   /* Optional callback details. See the note on `phone` in lib/inbound.ts for
    * why the practice accepts a number without publishing one.
@@ -98,9 +98,11 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
   const callWindow = String(form.get('callWindow') ?? '').trim().slice(0, 120);
 
   if (!/^[^@\s]+@[^@\s.]+\.[^@\s]+$/.test(email)) return back('err');
-  /* An enquiry with no message is a mis-click, not a message. The other two
-   * kinds legitimately carry nothing but an address. */
-  if (o.kind === 'enquiry' && message.length < 2) return back('err');
+  /* An enquiry has to say, in at least two sentences, what the person is
+   * looking for — the same rule the form applies in the browser, held here
+   * for a post that skipped it. See lib/sentences.ts. A lead legitimately
+   * carries nothing but an address. */
+  if (o.kind === 'enquiry' && !hasEnoughSentences(message)) return back('err');
 
   /* Ticked box only. String comparison rather than truthiness, so a browser
    * that submits an unchecked box as an empty string cannot register consent. */
@@ -138,7 +140,7 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
   if (rate === 'drop') return back('ok');
 
   const item = await addInbound({
-    kind: o.kind, name, email, message, windows, phone, callWindow, source,
+    kind: o.kind, name, email, message, phone, callWindow, source,
     monthlyOptIn, magnet, triage: verdict, practitioner,
   });
   if (!item) return back('err');
@@ -166,7 +168,6 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
       ? (magnet === 'icbc-after-a-crash' ? icbcEmail(firstName)
         : magnet === 'starting-counselling' ? startingEmail(firstName)
         : checklistEmail(firstName))
-    : o.kind === 'waitlist' ? waitlistAck(firstName)
     : enquiryAck(firstName);
 
   /* Can this address receive mail at all? A network call, so it happens here.

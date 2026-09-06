@@ -3,7 +3,7 @@ import { put, get } from '@vercel/blob';
 /* ============================================================================
    HOW OFTEN ONE SOURCE MAY POST TO A PUBLIC FORM
    ----------------------------------------------------------------------------
-   Three routes — /api/enquiry, /api/lead, /api/waitlist — accept an unauthed
+   Two routes — /api/enquiry and /api/lead — accept an unauthed
    POST from anyone on the internet. Each one writes to a blob store, resolves
    MX records, and sends two emails. Until now nothing capped how many times
    that could happen.
@@ -102,7 +102,7 @@ async function read(): Promise<Store> {
   try {
     /* Private, not public. A publicly fetchable file of visitor hashes and
        submission timestamps is a traffic log anyone can read. */
-    const hit = await get(KEY, { access: 'private' });
+    const hit = await get(KEY, { access: 'private', useCache: false });
     if (!hit || hit.statusCode !== 200 || !hit.stream) return {};
     const parsed: unknown = await new Response(hit.stream).json();
     return parsed && typeof parsed === 'object' ? (parsed as Store) : {};

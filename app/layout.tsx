@@ -127,16 +127,13 @@ const orgSchema = {
      repeats in a result, so a wrong value here is a wrong answer given to
      somebody who never visits the page to find out otherwise. */
   paymentAccepted: 'Credit Card',
-  /* Must stay in step with site.availability and with Cliniko. This is the
-     copy Google reads, so a stale entry here advertises a slot that cannot be
-     booked — the worst kind of wrong, because the visitor only finds out after
-     arriving at the calendar. Updated 2026-08-10: weekends came off, Wed–Fri
-     evenings went on. */
-  openingHoursSpecification: [
-    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday'], opens: '10:00', closes: '15:00' },
-    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Tuesday'], opens: '09:00', closes: '18:00' },
-    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Wednesday', 'Thursday', 'Friday'], opens: '18:00', closes: '19:00' },
-  ],
+  /* NO openingHoursSpecification. There was one here until 6 Sep 2026, kept
+     in step with site.availability — which is one counsellor's calendar, and
+     the practice's hours now depend on which counsellor a person sees. A
+     search engine repeats structured hours as fact in a result, so a grid
+     that is right for one practitioner and wrong for another is a wrong
+     answer given to somebody who never reaches the page. Omitted rather than
+     approximated, on the owner's instruction. */
   knowsLanguage: ['en-CA', 'pa', 'tl'],
   /* Telephone, only once a real number exists — see the phone note in
    * lib/site.ts. An empty telephone field in schema is worse than none. */
