@@ -102,7 +102,14 @@ export const moreResources: Resource[] = [
     title: 'Mental health and work in BC: leave, accommodation and coverage',
     /* Retitled 2026-08-28: 230 impressions at 0.87% CTR, and the queries
        finding this page are stress-leave-family — lead with their words. */
-    metaTitle: 'Stress Leave & Mental Health at Work BC | Westpeak',
+    /* Retitled again 6 Sep 2026. Search Console showed this page and
+       /guides/stress-leave-bc both ranking at #16-28 for the same six
+       "how to get stress leave in bc" queries, and two pages splitting one
+       cluster is why neither reached page one. The guide is now the answer
+       to "how do I get one"; this page keeps the wider ground it also ranks
+       for (accommodation, return to work, "stay at work services") and
+       hands the how-to query on in its first section. */
+    metaTitle: 'Mental Health at Work BC: Leave, Accommodation | Westpeak',
     metaDescription:
       'What your employer may and may not ask, how accommodation actually works, and where sick leave, short-term disability and a WorkSafeBC claim differ.',
     eyebrow: 'BC resource',
@@ -110,9 +117,16 @@ export const moreResources: Resource[] = [
       'Most people discover how any of this works at the exact moment they are least able to research it. This is the map, in advance.',
     shortAnswer:
       'BC employees are entitled to paid sick leave under the Employment Standards Act, and mental-health conditions count. Beyond that there are three separate systems that get confused with each other: workplace accommodation under human rights law, disability benefits through an insurer, and WorkSafeBC claims for work-caused injury. Your employer is entitled to know your limitations, not your diagnosis.',
-    updated: '2026-08-20',
+    updated: '2026-09-06',
     readMinutes: 8,
     sections: [
+      {
+        h2: 'If you are here to find out how to get a stress leave',
+        body: [
+          'That has its own page, written for exactly that question: [how to get stress leave in BC](/guides/stress-leave-bc). It covers who can certify a leave (a physician or nurse practitioner, not a counsellor), how long leaves usually run, whether yours is paid, and where EI sickness benefits fit. Start there if you are trying to get one.',
+          'This page is the wider map: what an employer may ask, how accommodation works, how sick leave, disability insurance and a WorkSafeBC claim differ, and what returning to work can look like.',
+        ],
+      },
       {
         h2: 'Paid sick leave',
         body: [

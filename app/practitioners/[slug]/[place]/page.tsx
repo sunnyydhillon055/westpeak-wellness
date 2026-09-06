@@ -14,6 +14,7 @@ import { BadgeCheck } from 'lucide-react';
 import { ogBase } from '@/lib/og-meta';
 import { TAGALOG, TAGALOG_READY } from '@/lib/practitioner-tl';
 import { TL_PLACE_SHARED } from '@/lib/practitioner-places-tl';
+import { getTagalogCity } from '@/lib/tagalog';
 import { COLLECTION_DATES } from '@/lib/page-dates';
 
 /* Two kinds of page share this route, because they are the same page in two
@@ -486,6 +487,17 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
                 <Link href={`/practitioners/${p.slug}/${loc.slug}/tl`} hrefLang="tl" lang="tl">
                   Basahin ang pahinang ito sa Tagalog
                 </Link>
+                {/* The practice's own Tagalog page for this city had one inbound
+                    link (the Tagalog hub). This counsellor's page for the same
+                    city is the most relevant place on the site to link it from. */}
+                {getTagalogCity(loc.slug) && (
+                  <>
+                    {' · '}
+                    <Link href={`/tagalog-counselling/${loc.slug}`}>
+                      Tagalog counselling in {loc.city}
+                    </Link>
+                  </>
+                )}
               </p>
             </div>
           )}

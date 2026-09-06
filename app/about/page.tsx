@@ -39,7 +39,10 @@ import { COLLECTION_DATES } from '@/lib/page-dates';
 
 export const metadata: Metadata = {
   openGraph: { ...ogBase('/about') },
-  title: 'About us',
+  /* Absolute, so the template does not append the practice name to a title
+     that already carries it. "and" rather than "&": the SEO gate measures the
+     rendered HTML, where an ampersand is five characters. */
+  title: { absolute: 'About Westpeak Wellness: Counselling in BC and Alberta' },
   description:
     'A virtual counselling practice serving all of British Columbia. Therapy in English, Punjabi or Tagalog with Registered Clinical Counsellors.',
   alternates: { canonical: `${site.domain}/about` },

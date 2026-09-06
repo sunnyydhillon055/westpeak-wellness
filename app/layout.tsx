@@ -107,6 +107,10 @@ const orgSchema = {
    * missing here. */
   areaServed: [
     { '@type': 'State', name: 'British Columbia', containedInPlace: { '@type': 'Country', name: 'Canada' } },
+    /* Alberta since 1 Sep 2026, through the counsellor whose certification and
+       insurance reach there (lib/practitioners.ts). The footer, the vCard and
+       her 24 pages said so; this node still said BC only until 6 Sep. */
+    { '@type': 'State', name: 'Alberta', containedInPlace: { '@type': 'Country', name: 'Canada' } },
     ...AREA_SERVED,
   ],
   /* Three languages since 1 Sep 2026. Punjabi is the founder's; Tagalog

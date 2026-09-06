@@ -16,6 +16,10 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
 import { webPage } from '@/lib/schema';
 import { COLLECTION_DATES } from '@/lib/page-dates';
+import { getPunjabiRegion } from '@/lib/punjabi-regions';
+import { getTagalogCity } from '@/lib/tagalog';
+import { practitioners } from '@/lib/practitioners';
+import { placesFor } from '@/lib/practitioner-places';
 
 export function generateStaticParams() {
   return locations.map((l) => ({ city: l.slug }));
@@ -38,6 +42,12 @@ export default function CityPage({ params }: { params: { city: string } }) {
   const l = getLocation(params.city);
   if (!l) notFound();
   const siblings = (l.nearby ?? []).map(getLocation).filter(Boolean) as typeof locations;
+  /* Counsellors with a page for this city. Only those with per-city pages
+     (placePages) and only where the city is in their place list, so a chip
+     never points at a route that was not generated. */
+  const counsellorPages = practitioners.filter(
+    (p) => p.placePages && placesFor(p.provinces).some((c) => c.slug === l.slug)
+  );
   /* THE SERVICE PAGES FOR THIS CITY.
    *
    * They existed and nothing linked to them from outside their own set: the
@@ -202,6 +212,34 @@ export default function CityPage({ params }: { params: { city: string } }) {
       {(siblings.length > 0 || l.sources) && (
         <section className="section section--tint">
           <div className="container">
+            {/* THE SAME CITY, IN THE PRACTICE'S OTHER LANGUAGES — 6 Sep 2026.
+                The Punjabi region page and the Tagalog city page for this city
+                had one or two inbound links each, both from their own hubs.
+                This page is the English twin and the obvious place to point
+                from; a counsellor's own page for the city sits beside them.
+                Each chip appears only when the page behind it exists. */}
+            {(getPunjabiRegion(l.slug) || getTagalogCity(l.slug) || counsellorPages.length > 0) && (
+              <>
+                <p className="eyebrow">{l.city}, in other languages and by counsellor</p>
+                <div className="chip-grid" style={{ marginBottom: 36 }}>
+                  {getPunjabiRegion(l.slug) && (
+                    <Link className="chip" href={`/punjabi-counselling/${l.slug}`}>
+                      Punjabi counselling in {l.city}
+                    </Link>
+                  )}
+                  {getTagalogCity(l.slug) && (
+                    <Link className="chip" href={`/tagalog-counselling/${l.slug}`}>
+                      Tagalog counselling in {l.city}
+                    </Link>
+                  )}
+                  {counsellorPages.map((c) => (
+                    <Link className="chip" key={c.slug} href={`/practitioners/${c.slug}/${l.slug}`}>
+                      {c.name.split(' ')[0]} in {l.city}
+                    </Link>
+                  ))}
+                </div>
+              </>
+            )}
             {siblings.length > 0 && (
               <>
                 <p className="eyebrow">Elsewhere in BC</p>

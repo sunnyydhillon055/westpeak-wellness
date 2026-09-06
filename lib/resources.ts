@@ -1,4 +1,5 @@
 import { moreResources } from './resources-more';
+import { moreResources2 } from './resources-more2';
 
 import { albertaResources } from './resources-alberta';
 
@@ -370,6 +371,6 @@ const coreResources: Resource[] = [
    while the practice served only BC and stopped being right when a counsellor
    who can see Alberta clients joined. See lib/resources-alberta.ts for why
    these are resources rather than part of the gated /alberta section. */
-export const resources: Resource[] = [...coreResources, ...moreResources, ...albertaResources];
+export const resources: Resource[] = [...coreResources, ...moreResources, ...moreResources2, ...albertaResources];
 
 export const getResource = (slug: string) => resources.find((r) => r.slug === slug);

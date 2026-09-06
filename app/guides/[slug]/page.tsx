@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { guides, getGuide } from '@/lib/guides';
+import { tagalogGuides } from '@/lib/tagalog-guides';
+import { TAGALOG_READY } from '@/lib/practitioner-tl';
 import { site } from '@/lib/site';
 import { getExtra } from '@/lib/depth';
 import { buildToc, headingId } from '@/lib/toc';
@@ -77,7 +79,26 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   return {
     title: { absolute: g.metaTitle },
     description: g.metaDescription,
-    alternates: { canonical: `${site.domain}/guides/${g.slug}` },
+    alternates: {
+      canonical: `${site.domain}/guides/${g.slug}`,
+      /* The reciprocal half of the Tagalog pairing declared on
+         /tagalog/gabay/[slug]. Only while the Tagalog guides are published,
+         and only the first Tagalog guide that names this one (two of them
+         are written from burnout-vs-depression). */
+      ...(() => {
+        if (!TAGALOG_READY) return {};
+        const tl = tagalogGuides.find((t) => t.englishHref === `/guides/${g.slug}`);
+        return tl
+          ? {
+              languages: {
+                'en-CA': `${site.domain}/guides/${g.slug}`,
+                tl: `${site.domain}/tagalog/gabay/${tl.slug}`,
+                'x-default': `${site.domain}/guides/${g.slug}`,
+              },
+            }
+          : {};
+      })(),
+    },
     openGraph: { ...ogBase(`/guides/${g.slug}`),
       type: 'article', title: g.metaTitle, description: g.metaDescription, modifiedTime: g.updated,
     },

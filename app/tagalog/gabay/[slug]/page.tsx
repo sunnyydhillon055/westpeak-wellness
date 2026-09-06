@@ -42,7 +42,22 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   return {
     title: { absolute: g.metaTitle },
     description: g.metaDescription,
-    alternates: { canonical: `${site.domain}/tagalog/gabay/${g.slug}` },
+    alternates: {
+      canonical: `${site.domain}/tagalog/gabay/${g.slug}`,
+      /* Paired with the English guide it was written from, in both
+         directions (app/guides/[slug]/page.tsx does the other half). An
+         hreflang that only one side declares is ignored. English is the
+         x-default because it is the page that covers everyone. */
+      ...(g.englishHref
+        ? {
+            languages: {
+              'en-CA': `${site.domain}${g.englishHref}`,
+              tl: `${site.domain}/tagalog/gabay/${g.slug}`,
+              'x-default': `${site.domain}${g.englishHref}`,
+            },
+          }
+        : {}),
+    },
     openGraph: {
       ...ogBase(`/tagalog/gabay/${g.slug}`),
       locale: 'tl_PH',

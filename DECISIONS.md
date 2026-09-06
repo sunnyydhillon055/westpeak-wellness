@@ -100,6 +100,19 @@ resolver is under test.
 
 *Enforced by:* `lib/practitioner-places.ts`, `test/practitioner-language.test.mts`
 
+### A translation is paired with hreflang both ways; a page *about* a language is not
+Decided 6 Sep 2026, from the SEO audit. Where the same content exists in two
+languages — the Tagalog guides and the English guides they were written from,
+Camille's city pages and their `/tl` twins, the language hubs and their English
+counterparts — both pages declare `alternates.languages` naming each other, with
+English as `x-default`. The Punjabi region pages and the Tagalog city pages are
+English pages about a language service, not translations; pairing them would
+tell search engines two different pages are the same one. They are cross-linked
+from the English city page instead, which is what they lacked.
+
+*Enforced by:* `app/tagalog/gabay/[slug]/page.tsx`, `app/guides/[slug]/page.tsx`,
+`app/online-counselling/[city]/page.tsx`
+
 ### The Tagalog pages are published but unreviewed
 Twenty-five pages, live on the owner's explicit instruction, not read by a
 Tagalog speaker. This is a known, accepted state and not a thing to quietly fix
