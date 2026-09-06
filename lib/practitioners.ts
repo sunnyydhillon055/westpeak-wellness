@@ -120,6 +120,13 @@ export type Practitioner = {
   services: string[];
   /** True once Cliniko has them bookable online. Gates the Book button. */
   bookable: boolean;
+  /* Cliniko's id for this practitioner. `?practitioner_id=` on the public
+     booking URL pre-selects them, so /book can embed THEIR calendar rather
+     than the practice's. Read off the public bookings page markup on
+     6 Sep 2026 (data-practitioner-id) and confirmed by loading the filtered
+     URL and reading "Select a time with Camille Granda" back. Absent means
+     the unfiltered calendar. */
+  clinikoPractitionerId?: string;
   /* WHETHER THIS PERSON IS TAKING NEW CLIENTS AT ALL.
    *
    * Separate from `bookable`, which is about Cliniko plumbing. This one is a
@@ -430,11 +437,12 @@ export const practitioners: Practitioner[] = [
        and boundaries" line both implied four. */
     services: ['individual-therapy', 'couples-therapy', 'emdr-therapy', 'family-counselling'],
     placePages: true,
-    /* FALSE UNTIL CLINIKO IS SET UP. This gates the Book button on her pages,
-       so the site cannot advertise a bookable slot that does not exist —
-       which is the failure mode the whole booking-mail incident came from.
-       Flip it after the Cliniko steps in CAMILLE_ONBOARDING.md are done. */
-    bookable: false,
+    /* TRUE since 6 Sep 2026: she is on the public Cliniko booking page with
+       her own practitioner id (below), and /book embeds her calendar directly.
+       It was false until then so the site could not advertise a slot that did
+       not exist — the failure mode the booking-mail incident came from. */
+    bookable: true,
+    clinikoPractitionerId: '2029879067058112997',
     acceptingNewClients: true,
   },
 ];

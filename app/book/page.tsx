@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Figure from '@/components/Figure';
 import Link from 'next/link';
-import { site } from '@/lib/site';
+import { site, bookingsUrlFor } from '@/lib/site';
 import { gurmukhi } from '@/app/fonts-gurmukhi';
 import SchedulerEmbed from '@/components/SchedulerEmbed';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -176,23 +176,37 @@ export default function Book({
               {/* The credentials at the moment of commitment. Everything here is
                   verifiable and already published elsewhere on the site: this is
                   placement, not new claims. */}
-              <p className="book-credential">
-                <strong>{site.counsellor.title} ({site.counsellor.credentials})</strong> ·{' '}
-                <a href={site.counsellor.registerUrl} target="_blank" rel="noopener">
-                  check the BCACC register
-                </a>{' '}
-                · EMDR-trained · Gottman-trained
-              </p>
-              {who && (
+              {who ? (
                 <p className="book-credential">
-                  You arrived from {who.name}&rsquo;s page. The calendar below books the
-                  consultation; say on the call that you were looking for{' '}
-                  {who.name.split(' ')[0]} and it will be arranged.
+                  <strong>{who.name} · {who.postNominals}</strong>
+                  {who.credentials.map((c) => (
+                    <span key={c.short}>
+                      {' '}· {c.full}
+                      {c.verifyUrl && (
+                        <>
+                          {' '}(<a href={c.verifyUrl} target="_blank" rel="noopener">verify #{c.number}</a>)
+                        </>
+                      )}
+                    </span>
+                  ))}
+                  {' '}· works in {who.languages.map((l) => l.name).join(' and ')}
+                </p>
+              ) : (
+                <p className="book-credential">
+                  <strong>{site.counsellor.title} ({site.counsellor.credentials})</strong> ·{' '}
+                  <a href={site.counsellor.registerUrl} target="_blank" rel="noopener">
+                    check the BCACC register
+                  </a>{' '}
+                  · EMDR-trained · Gottman-trained
                 </p>
               )}
+              {/* HER calendar, not the practice's. bookingsUrlFor() adds
+                  ?practitioner_id= so Cliniko opens on her times and nobody
+                  has to pick a counsellor from a list that also shows one who
+                  is not taking new clients. */}
               <SchedulerEmbed
-                url={site.bookingsUrl}
-                title="Book a free 15-minute consultation"
+                url={bookingsUrlFor(who?.clinikoPractitionerId)}
+                title={`Book a free 15-minute consultation${who ? ` with ${who.name.split(' ')[0]}` : ''}`}
                 page="/book"
               />
             </>

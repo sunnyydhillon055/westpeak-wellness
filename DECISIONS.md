@@ -260,7 +260,9 @@ the roster who is (`acceptingNewClients`), her profile says so plainly, and a
 `/book?with=` that names someone who is not accepting says so in one line
 rather than swapping the name silently. Her Cliniko calendar is no longer
 offered to the public; existing clients reach it through the portal, which does
-not read this flag. Flip the flag to reverse it.
+not read this flag. Flip the flag to reverse it. /book embeds the accepting
+counsellor's own calendar — `bookingsUrlFor()` adds Cliniko's `practitioner_id`
+so the page opens on her times and never shows a list of counsellors.
 
 *Enforced by:* `lib/practitioners.ts`, `app/book/page.tsx`,
 `app/practitioners/[slug]/page.tsx`, `components/StickyBook.tsx`

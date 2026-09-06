@@ -194,3 +194,14 @@ export const site = {
   languages: "English, Punjabi & Tagalog",
   languagesNative: "English · ਪੰਜਾਬੀ · Tagalog",
 } as const;
+
+/* A counsellor's own booking calendar. Cliniko honours `practitioner_id` on
+ * the public bookings URL and opens on that person's times ("Select a time
+ * with Camille Granda"), which is what lets /book embed one counsellor's
+ * calendar rather than a list that also shows one who is not taking new
+ * clients. Still filtered to the free consultation, like site.bookingsUrl.
+ * No id means the ordinary practice-wide consultation URL. */
+export const bookingsUrlFor = (practitionerId?: string): string =>
+  practitionerId
+    ? `${CLINIKO_BOOKINGS}?appointment_type_id=${CONSULT_TYPE}&practitioner_id=${practitionerId}`
+    : site.bookingsUrl;

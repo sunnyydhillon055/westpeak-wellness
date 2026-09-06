@@ -16,9 +16,9 @@ that needs a human: Cliniko, one insurance question, and one review.
 | Photos | **Live** — three, placed one per location |
 | Nav + footer entry | **Live** — "Counsellors" |
 | Sitemap | **Live** — derived, so it updates itself |
-| Cliniko | **Not done** — steps below |
+| Cliniko | **Done 6 Sep 2026** — she is on the public booking page; `/book` embeds her calendar via `practitioner_id` |
 | Alberta pages (Calgary, Edmonton) | **Live for her** — insurance verified |
-| `bookable: false` | **Deliberate** — flip after Cliniko |
+| `bookable: true` | Flipped 6 Sep 2026 |
 
 ---
 
