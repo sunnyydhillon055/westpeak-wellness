@@ -6,19 +6,19 @@
 
 ---
 
-## Total: **9,380 / 10,000**
+## Total: **9,455 / 10,000** (9,380 at first measurement; +75 the same night)
 
 | Group | Score | Of |
 |---|--:|--:|
 | A · Technical foundations | 2,405 | 2,500 |
-| B · Indexability and crawl | 1,180 | 1,250 |
+| B · Indexability and crawl | 1,190 | 1,250 |
 | C · On-page | 1,925 | 2,000 |
 | D · Structured data | 1,180 | 1,250 |
-| E · Experience, expertise, trust | 1,055 | 1,250 |
+| E · Experience, expertise, trust | 1,105 | 1,250 |
 | F · Multilingual | 675 | 750 |
-| G · AI readability | 960 | 1,000 |
+| G · AI readability | 970 | 1,000 |
 
-Where the 620 missing points are, in order: named authorship (90), the Tagalog pages being unreviewed (70), JavaScript weight (55), visible dates on 158 pages (50), query-to-page targeting without fresh Search Console data (50), FAQ markup on 90% of pages (30), a 15-vs-30-minute consultation mismatch (25), author-as-organisation on Article schema (25), duplicate-shaped Tagalog twins (25), RSC payload doubling page bytes (25). Everything else is single-digit.
+Where the 545 missing points are, in order: named authorship (90), the Tagalog pages being unreviewed (70), JavaScript weight (55), query-to-page targeting without fresh Search Console data (50), FAQ markup on 90% of pages (30), a 15-vs-30-minute consultation mismatch (25), author-as-organisation on Article schema (25), duplicate-shaped Tagalog twins (25), RSC payload doubling page bytes (25), sources on the city × service pages (20). Everything else is single-digit.
 
 ---
 
@@ -37,12 +37,12 @@ Where the 620 missing points are, in order: named authorship (90), the Tagalog p
 | 9 | Mobile | **235** | `width=device-width, initial-scale=1`; fluid layout; contrast gate against WCAG AA; sticky booking bar sized for thumbs | Not device-tested tonight; tap-target and font-size checks are inferred from CSS, not measured |
 | 10 | Security headers | **245** | CSP, HSTS, `X-Frame-Options: DENY`, nosniff, Referrer-Policy, Permissions-Policy | `Access-Control-Allow-Origin: *` on HTML responses (Vercel static serving, not the app) is unnecessary |
 
-## B · Indexability and crawl — 1,180 / 1,250
+## B · Indexability and crawl — 1,190 / 1,250
 
 | # | Category | Score | Evidence | What would earn the rest |
 |--:|---|--:|---|---|
 | 11 | noindex correctness | **250** | Exactly four noindexed pages (two gated provinces, two form confirmations); none in the sitemap; previews noindexed site-wide | — |
-| 12 | Internal link graph | **230** | 0 indexable orphans; every hub linked from every page; the English city pages now link their Punjabi, Tagalog and counsellor twins | 6 pages still have ≤ 2 in-body inbound links (`/accessibility`, the founder's profile, Camille's `/tl`, one Tagalog guide, two tools) |
+| 12 | Internal link graph | **240** | 0 indexable orphans; every hub linked from every page; the English city pages now link their Punjabi, Tagalog and counsellor twins | 6 pages still have ≤ 2 in-body inbound links (`/accessibility`, the founder's profile, Camille's `/tl`, one Tagalog guide, two tools) |
 | 13 | Crawl depth | **250** | Every one of 250 indexable pages is within **two clicks** of the homepage (1 at depth 0, 70 at depth 1, 179 at depth 2, 0 deeper) | — |
 | 14 | Duplication and uniqueness | **225** | The 50 city × service pages are gated against convergence; 0 duplicate titles or descriptions among indexable pages | The 17 Tagalog city twins of Camille's pages share a template at 815–875 words each; genuinely distinct in language, thin in per-city substance |
 | 15 | No-JavaScript rendering | **225** | Every page is server-rendered; 12.5 words per KB on the homepage (second only to Crossroads in the market); text reaches a crawler with scripts off | The inlined React payload roughly doubles each page's bytes; a crawler on a byte budget pays for it |
@@ -70,13 +70,13 @@ Where the 620 missing points are, in order: named authorship (90), the Tagalog p
 | 27 | Breadcrumbs | **250** | `BreadcrumbList` on 285 nodes — every page but the homepage — matching the visible trail | — |
 | 28 | Validity and extraction | **250** | 611 JSON-LD blocks, 0 parse errors, every block typed (gate); `speakable` on every clinical page pointing at its short answer | — |
 
-## E · Experience, expertise, authority, trust — 1,055 / 1,250
+## E · Experience, expertise, authority, trust — 1,105 / 1,250
 
 | # | Category | Score | Evidence | What would earn the rest |
 |--:|---|--:|---|---|
 | 29 | Author and reviewer signals | **160** | Bylines on 96 pages ("Written by a Registered Clinical Counsellor in independent practice"); `reviewedBy` in schema; the founder's profile carries register number and `sameAs`; Camille's carries eleven answers in her own voice | **The largest available on-site gain.** Guides name no person. Both counsellors now have public profiles, so `author: Person` on the guides each wrote is one field per guide. Owner's decision, recorded in `DECISIONS.md` |
-| 30 | Dates | **200** | `datePublished`/`dateModified` in schema on every dated collection; sitemap `lastmod` from git; 65 pages show a visible date | 158 pages (core, city, city × service, approaches) show no date in the body; a reader and a crawler both take that as "unknown" |
-| 31 | Sources and citations | **220** | 174 of 250 pages link at least one external source; 115 link a government, regulator, health-authority or association domain; link-rot checked monthly, 403s reported separately from dead | Average 1.6 external domains per page; the city and city × service pages mostly cite none |
+| 30 | Dates | **240** | `datePublished`/`dateModified` in schema on every dated collection; sitemap `lastmod` from git; **244 of 250 indexable pages now show a visible "Updated" date from the same value the schema uses** (6 Sep) | The homepage and the tools hub show none; the five hubs that had claimed a placeholder collection date now take the newest entry of their own |
+| 31 | Sources and citations | **230** | 174 of 250 pages link at least one external source; 118 link a government, regulator, health-authority or association domain (every city page now cites its health authority and HealthLink BC); link-rot checked monthly, 403s reported separately from dead | Average 1.6 external domains per page; the city × service pages mostly cite none |
 | 32 | Trust pages | **250** | `/standards` (registration, scope limits, complaints route), `/editorial-policy`, `/privacy` (24-month retention, no third-party processors), `/accessibility` (honest about what is and is not tested), `/reviews` (why none, by regulation) | — |
 | 33 | Fee and pre-commitment transparency | **225** | Fees synced from Cliniko every two hours with a drift gate; card-at-booking stated consistently (payment gate); cancellation window published; what MSP does not cover stated plainly | **The free consultation is 30 minutes in Cliniko and 15 minutes on 99 pages.** The drift gate flags it the moment it runs with the key. One decision, then either one click in Cliniko or one sweep of the site |
 
@@ -88,13 +88,13 @@ Where the 620 missing points are, in order: named authorship (90), the Tagalog p
 | 35 | hreflang | **245** | Every real translation pair declared both ways in the pages and in the sitemap with `x-default` (57 pages, 153 sitemap entries); English pages *about* a language correctly not paired | The Punjabi hub pairs with one English page; a Punjabi twin of `/punjabi-counselling` would give it a proper counterpart |
 | 36 | Language content quality | **180** | The Punjabi hub was reviewed; the Punjabi region pages already rank on page one and two; the Tagalog cluster is 32 pages with native `lang`, native-script FAQ and guides | **The 32 Tagalog pages are live and unreviewed by a Tagalog speaker** (recorded as an open item). Nothing else on this card is a liability in the way unreviewed clinical copy in a language nobody at the practice has checked is |
 
-## G · AI readability — 960 / 1,000
+## G · AI readability — 970 / 1,000
 
 | # | Category | Score | Evidence | What would earn the rest |
 |--:|---|--:|---|---|
 | 37 | AI crawler policy and access | **250** | 32 agents named with their own `Allow`; GPTBot, ClaudeBot, PerplexityBot, OAI-SearchBot, Google-Extended and Bytespider each receive HTTP 200 and the full page, no challenge | — |
 | 38 | `llms.txt` and `llms-full.txt` | **240** | 40 KB hand-written index naming every collection, both counsellors, scope limits and crisis lines; 1,075 KB full text; both regenerated from the same data as the pages | The consultation-length line inherits the 15/30 question above |
-| 39 | Answer-format content | **225** | 74 pages open with a short answer written to be quoted alone; 226 FAQ blocks; a 60-term glossary; every service page carries a self-contained `directAnswer`; RSS across four collections | The city, city × service and approach pages have no short-answer block; they are the pages an assistant is least able to lift a sentence from |
+| 39 | Answer-format content | **235** | 89 pages open with a short answer (the 15 city pages gained one on 6 Sep) written to be quoted alone; 226 FAQ blocks; a 60-term glossary; every service page carries a self-contained `directAnswer`; RSS across four collections | The city × service and approach pages have no short-answer block; they are the pages an assistant is least able to lift a sentence from |
 | 40 | Social and unfurl metadata | **245** | `og:title`, `og:description`, `og:image`, `og:type`, `og:locale` and a Twitter card on 253/253 audited pages (gate); per-page generated images; canonical and `og:url` agree | The default card note is practice-level now; the per-page images are typographic rather than photographic |
 
 ---
