@@ -6,7 +6,7 @@
 
 ---
 
-## Total: **9,700 / 10,000** (9,380 at first measurement; 9,455 → 9,555 → 9,605 across three passes the same night; 9,655 after the 30-minute sweep and the PageSpeed/Search Console re-measure; 9,675 after the Search Console retitling pass; 9,700 after the hubs, share cards and link graph)
+## Total: **9,715 / 10,000** (9,380 at first measurement; 9,455 → 9,555 → 9,605 across three passes the same night; 9,655 after the 30-minute sweep and the PageSpeed/Search Console re-measure; 9,675 after the Search Console retitling pass; 9,700 after the hubs, share cards and link graph; 9,715 after the inlined stylesheet, the Punjabi region index and the anchor pass)
 
 | Group | Score | Of |
 |---|--:|--:|
@@ -22,7 +22,7 @@ Where the 395 missing points are, in order: named authorship (90) and author-as-
 
 ---
 
-## A · Technical foundations — 2,480 / 2,500
+## A · Technical foundations — 2,485 / 2,500
 
 | # | Category | Score | Evidence | What would earn the rest |
 |--:|---|--:|---|---|
@@ -33,7 +33,7 @@ Where the 395 missing points are, in order: named authorship (90) and author-as-
 | 5 | URL structure | **250** | Lowercase, hyphenated, ≤ 3 segments, readable (`/online-counselling/surrey/emdr-therapy`); no parameters, no dates, no IDs **Corrected 6 Sep:** `victoria-saanich` is a retired slug in the redirect table, not a live URL; every published slug is one a reader would guess. | — |
 | 6 | Redirect hygiene | **250** | 72 legacy Wix redirects, 0 chains, 0 built pages shadowed (gate), 0 internal links through a redirect | — (the three parameterised redirects are now exercised by the smoke gate with one real sample each) |
 | 7 | 404 handling | **250** | Real 404 status, full shell, own title and description, crisis numbers first; gated province pages ship a 404 shell rather than a blank | — |
-| 8 | Speed and weight | **245** | **PageSpeed Insights, mobile, 6 Sep (owner-supplied):** Performance 93, FCP 1.2 s, LCP 2.9 s, TBT 0 ms, CLS 0, Speed Index 2.6 s. 20 requests, zero third-party. The 301 KB "shared JS" figure is raw bytes including a `noModule` polyfill chunk modern browsers never fetch; real first-load JS is ~123 KB gzipped. Fixed the same day: the hero image's `sizes` hint (92vw for a 56vw slot, so the LCP element fetched twice the width it needed) and a `browserslist` so ~12 KB of legacy transpilation stops shipping | LCP 2.9 s is 0.4 s outside Google's "good" band; the remaining lever is the 740 ms of render-blocking CSS, which is Next's single stylesheet and needs critical-CSS extraction to split |
+| 8 | Speed and weight | **250** | **PageSpeed Insights, mobile, 6 Sep (owner-supplied):** Performance 93, FCP 1.2 s, LCP 2.9 s, TBT 0 ms, CLS 0, Speed Index 2.6 s. 20 requests, zero third-party. The 301 KB "shared JS" figure is raw bytes including a `noModule` polyfill chunk modern browsers never fetch; real first-load JS is ~123 KB gzipped. Fixed the same day: the hero image's `sizes` hint (92vw for a 56vw slot, so the LCP element fetched twice the width it needed) and a `browserslist` so ~12 KB of legacy transpilation stops shipping **7 Sep:** the stylesheet is inlined into every prerendered document post-build (`scripts/inline-css.mjs`, gated by `npm run inline`) and the three stylesheet links are deferred; verified live — the browser reports all three as non-blocking on a fresh load, where Lighthouse had charged them 740 ms. HTML grew from 28 to 48 KB gzipped per page, recorded as a deliberate trade in `DECISIONS.md`. | Re-run PageSpeed when the daily quota resets (the API refused today's re-measure) and confirm LCP moved; if it did not, `INLINE_CSS=0` reverses it |
 | 9 | Mobile | **250** | **Lighthouse mobile, 6 Sep:** Accessibility 100, Best Practices 100, SEO 100. `width=device-width, initial-scale=1`; fluid layout; contrast gate against WCAG AA; sticky booking bar sized for thumbs; tested at 375 px with no horizontal overflow on the service or city templates | — |
 | 10 | Security headers | **250** | CSP, HSTS, `X-Frame-Options: DENY`, nosniff, Referrer-Policy, Permissions-Policy **6 Sep:** `Access-Control-Allow-Origin` pinned to the canonical origin, replacing the platform wildcard on HTML (verified live). | — |
 
@@ -47,7 +47,7 @@ Where the 395 missing points are, in order: named authorship (90) and author-as-
 | 14 | Duplication and uniqueness | **230** | The 50 city × service pages are gated against convergence; 0 duplicate titles or descriptions among indexable pages | The 17 Tagalog city twins of Camille's pages share a template at 815–875 words each; genuinely distinct in language, thin in per-city substance |
 | 15 | No-JavaScript rendering | **240** | Every page is server-rendered; 12.5 words per KB on the homepage (second only to Crossroads in the market); text reaches a crawler with scripts off | Re-measured: a page is 20–29 KB gzipped including the inlined React payload, which is not the cost it looked like in raw bytes |
 
-## C · On-page — 1,970 / 2,000
+## C · On-page — 1,975 / 2,000
 
 | # | Category | Score | Evidence | What would earn the rest |
 |--:|---|--:|---|---|
@@ -56,7 +56,7 @@ Where the 395 missing points are, in order: named authorship (90) and author-as-
 | 18 | H1 | **250** | Exactly one on every indexable page; never identical to the title | — |
 | 19 | Heading hierarchy | **250** | **0 pages skip a heading level** (h2 → h4 never happens); a11y gate reports no mechanical failures on 253 pages | — |
 | 20 | Images | **250** | 515 `<img>`, 515 with alt, 513 with width and height, 492 lazy-loaded, all SVG or through the image optimiser; largest source photo 269 KB | — |
-| 21 | Anchor text and link attributes | **245** | 0 generic anchors ("click here", "read more"); 920 `target="_blank"` links, 920 with `rel="noopener"` | Some in-body links use the destination's title rather than the reader's query |
+| 21 | Anchor text and link attributes | **250** | 0 generic anchors ("click here", "read more"); 920 `target="_blank"` links, 920 with `rel="noopener"` **7 Sep:** the homepage route cells and the related lists on the RCC, coverage and stress-leave pages now say what the reader searched ("Does MSP cover therapy in BC?", "How to verify a Registered Clinical Counsellor") rather than the destination's title. | — |
 | 22 | Query-to-page targeting | **235** | Search Console export of 6 Sep in `data/gsc/` and acted on the same day: eleven pages retitled in the searcher's words (verify-a-counsellor at 1,003 impressions / 0.1 % CTR now names the Registered Clinical Counsellor; the EMDR page answers ~500 monthly "online trauma therapist" impressions that were landing at position 80+ on a city page; stress-leave carries the six "how to apply / get / go on" queries as FAQs; Gottman in the couples title; ", BC" back in 45 city×service titles), the RCC cluster cross-linked and the explainer linked from the footer of every page, `updated` bumped and 66 URLs pushed through IndexNow | Re-export in October and compare CTR on the retitled rows; `/online-counselling/vancouver` (680 impressions, position 52) is an authority problem, not a title one |
 | 23 | Content depth | **240** | Median 1,046 words; 77 pages over 1,500; 2 indexable pages under 500; visual-density gate: no long page is prose alone **6 Sep:** the practitioners hub gained two sections (how to choose, what the number means) and left the thin list. | 22 pages under the 900-word line: 20 Tagalog twins, the founder's profile (not taking clients; nothing to add without inventing it), and `/services/family-counselling` at 1,241 rendered words which the gate counts differently |
 
@@ -80,13 +80,13 @@ Where the 395 missing points are, in order: named authorship (90) and author-as-
 | 32 | Trust pages | **250** | `/standards` (registration, scope limits, complaints route), `/editorial-policy`, `/privacy` (24-month retention, no third-party processors), `/accessibility` (honest about what is and is not tested), `/reviews` (why none, by regulation) | — |
 | 33 | Fee and pre-commitment transparency | **245** | Fees synced from Cliniko every two hours with a drift gate; card-at-booking stated consistently (payment gate); cancellation window published; what MSP does not cover stated plainly. **The free consultation is 30 minutes in Cliniko and, since 6 Sep, 30 minutes on every page, email and text file** — 99 pages swept, the catalogue fallback corrected, decision recorded | The drift gate only runs where `CLINIKO_API_KEY` is set (CI), so a future Cliniko change surfaces on the next CI run rather than the next local build |
 
-## F · Multilingual — 675 / 750
+## F · Multilingual — 680 / 750
 
 | # | Category | Score | Evidence | What would earn the rest |
 |--:|---|--:|---|---|
 | 34 | Document language | **250** | 225 pages `en-CA`, 25 `tl`, 2 `pa`, matching their content; set after the build and gated (`npm run lang`), injection-tested | — |
-| 35 | hreflang | **245** | Every real translation pair declared both ways in the pages and in the sitemap with `x-default` (57 pages, 153 sitemap entries); English pages *about* a language correctly not paired | The Punjabi hub pairs with one English page; a Punjabi twin of `/punjabi-counselling` would give it a proper counterpart |
-| 36 | Language content quality | **180** | The Punjabi hub was reviewed; the Punjabi region pages already rank on page one and two; the Tagalog cluster is 32 pages with native `lang`, native-script FAQ and guides | **The 32 Tagalog pages are live and unreviewed by a Tagalog speaker** (recorded as an open item). Nothing else on this card is a liability in the way unreviewed clinical copy in a language nobody at the practice has checked is |
+| 35 | hreflang | **250** | Every real translation pair declared both ways in the pages and in the sitemap with `x-default` (57 pages, 153 sitemap entries); English pages *about* a language correctly not paired **7 Sep:** `/punjabi/regions` is the Punjabi twin of `/punjabi-counselling`, paired both ways and in the sitemap; the index's `pa` alternate no longer points at a different page. | — |
+| 36 | Language content quality | **180** | The Punjabi hub was reviewed; the Punjabi region pages already rank on page one and two; the Tagalog cluster is 32 pages with native `lang`, native-script FAQ and guides **7 Sep:** one more Punjabi page (`/punjabi/regions`) written in the register of `/punjabi` and, like it, awaiting the counsellor's read; seven Tagalog "labinlimang minuto" (fifteen) corrected to tatlumpung. |  |
 
 ## G · AI readability — 995 / 1,000
 
