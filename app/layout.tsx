@@ -226,6 +226,10 @@ const orgSchema = {
    * profiles to one entity instead of leaving them scattered. */
   sameAs: [
     site.instagramUrl,
+    /* The practice's TikTok, under the same handle. Found by the AI-visibility
+       audit of 6 Sep 2026 as one of the four places outside this site that
+       corroborate the entity at all; it was not claimed here. */
+    'https://www.tiktok.com/@westpeakwellness',
     'https://www.google.com/maps/search/Westpeak+Wellness+White+Rock+BC',
     /* NOT the BCACC profile URL. That link carries the counsellor's name in
        its path, and the name appears nowhere on this site by the owner's

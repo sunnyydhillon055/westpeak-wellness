@@ -269,6 +269,45 @@ export function GET() {
     })),
   ];
 
+  /* LANGUAGE PAIRS, STATED IN THE SITEMAP AS WELL AS IN THE PAGES — 6 Sep 2026.
+     The pages already declare hreflang both ways (see DECISIONS.md, "A
+     translation is paired…"); the sitemap is the second place a crawler
+     reads them, and Bing in particular reads sitemap alternates before it has
+     fetched either page. Same pairs, same rule: only real translations, with
+     English as x-default. An English page about a language service is not a
+     translation and is not paired. */
+  const langPairs: [string, string][] = [
+    ['/services/punjabi-counselling', '/punjabi'],
+    ...(TAGALOG_READY ? ([['/tagalog-counselling', '/tagalog']] as [string, string][]) : []),
+    ...(TAGALOG_READY
+      ? tagalogGuides.filter((g) => g.englishHref).map((g) => [g.englishHref as string, `/tagalog/gabay/${g.slug}`] as [string, string])
+      : []),
+    ...(TAGALOG_READY
+      ? practitioners
+          .filter((pr) => pr.languages.some((l) => l.tag === 'tl'))
+          .flatMap((pr) => [
+            [`/practitioners/${pr.slug}`, `/practitioners/${pr.slug}/tl`] as [string, string],
+            ...(pr.placePages
+              ? placesFor(pr.provinces).map((l) => [`/practitioners/${pr.slug}/${l.slug}`, `/practitioners/${pr.slug}/${l.slug}/tl`] as [string, string])
+              : []),
+          ])
+      : []),
+  ];
+  const langOf = (p: string) => (p === '/punjabi' || p.startsWith('/punjabi/') ? 'pa' : 'tl');
+  const alternates = new Map<string, { lang: string; href: string }[]>();
+  for (const [en, other] of langPairs) {
+    /* Only pairs where both halves are actually in this sitemap. A twin that
+       is not listed is not a twin a crawler can use. */
+    if (!entries.some((e) => e.path === en) || !entries.some((e) => e.path === other)) continue;
+    const set = [
+      { lang: 'en-CA', href: site.domain + en },
+      { lang: langOf(other), href: site.domain + other },
+      { lang: 'x-default', href: site.domain + en },
+    ];
+    alternates.set(en, set);
+    alternates.set(other, set);
+  }
+
   const body = entries
     .map((e) => {
       const f = e.figure ? getFigure(e.figure) : undefined;
@@ -277,16 +316,20 @@ export function GET() {
         : '';
       const lastmod = e.lastmod ? `
     <lastmod>${e.lastmod}</lastmod>` : '';
+      const xhtml = (alternates.get(e.path) ?? [])
+        .map((a) => `\n    <xhtml:link rel="alternate" hreflang="${a.lang}" href="${esc(a.href)}"/>`)
+        .join('');
       return `  <url>
     <loc>${esc(site.domain + e.path)}</loc>${lastmod}
     <changefreq>${e.changefreq}</changefreq>
-    <priority>${e.priority}</priority>${image}
+    <priority>${e.priority}</priority>${xhtml}${image}
   </url>`;
     })
     .join('\n');
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${body}
 </urlset>

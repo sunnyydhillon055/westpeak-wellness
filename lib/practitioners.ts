@@ -127,6 +127,11 @@ export type Practitioner = {
      URL and reading "Select a time with Camille Granda" back. Absent means
      the unfiltered calendar. */
   clinikoPractitionerId?: string;
+  /* Public profiles that independently confirm this person is who the page
+     says: the register entry, a professional network. Emitted as Person.sameAs
+     on the profile only. An answer engine deciding whether to cite a
+     counsellor weighs exactly this kind of corroboration. */
+  sameAs?: string[];
   /* WHETHER THIS PERSON IS TAKING NEW CLIENTS AT ALL.
    *
    * Separate from `bookable`, which is about Cliniko plumbing. This one is a
@@ -217,6 +222,13 @@ export const practitioners: Practitioner[] = [
     acceptingNewClients: false,
     /* ONE PAGE TOTAL. See the note on the field. */
     placePages: false,
+    /* Her BCACC register entry and her LinkedIn, both public, both found by
+       the 6 Sep 2026 audit as the only third-party pages that name her with
+       the practice. On her own profile, where her name is allowed. */
+    sameAs: [
+      'https://bcacc.ca/counsellors/amandeep-bains/',
+      'https://ca.linkedin.com/in/aman-bains-9ab445276',
+    ],
   },
   {
     slug: 'camille-granda',

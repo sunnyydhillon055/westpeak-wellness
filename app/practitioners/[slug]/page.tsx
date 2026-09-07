@@ -120,6 +120,7 @@ export default function PractitionerPage({ params }: { params: { slug: string } 
       url: abs(`/practitioners/${p.slug}`),
       worksFor: orgRef,
       knowsLanguage: p.languages.map((l) => l.tag),
+      ...(p.sameAs?.length ? { sameAs: p.sameAs } : {}),
       ...(p.photos?.portrait ? { image: `${site.domain}${p.photos.portrait.src}` } : {}),
       knowsAbout: p.focus.map((f) => f.label),
       hasCredential: p.credentials.map((c) => ({

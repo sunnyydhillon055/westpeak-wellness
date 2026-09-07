@@ -62,8 +62,11 @@ Three causes, in order of weight:
 
 ## 5. What was done tonight
 
+- **All 254 sitemap URLs submitted to IndexNow directly** — `api.indexnow.org` and `www.bing.com/indexnow` both answered HTTP 200. The key file at `/4366026342552d889b0442be9c388752.txt` was verified served first. This is the first submission with a recorded outcome; it invites a Bing crawl of every page, which is the step the host had never demonstrably had.
 - The IndexNow route now records its runs in cron health and fails loudly when every endpoint refuses, so "never reported" can no longer mean either "never ran" or "ran and was rejected" (`app/api/indexnow/route.ts`).
-- Nothing else — the remaining causes are off-site by nature.
+- **hreflang in the sitemap**: every real language pair (Punjabi hub ↔ its English page, Tagalog hub ↔ its English page, the six Tagalog guides ↔ their sources, Camille's profile and 17 city pages ↔ their `/tl` twins) carries `xhtml:link` alternates with `x-default` — 153 entries. Bing reads sitemap alternates before it has fetched either page.
+- **Entity corroboration in the structured data**: the practice's TikTok added to `Organization.sameAs`; the founder's BCACC register entry and LinkedIn on her `Person.sameAs` (her profile only, where her name is allowed).
+- Everything else in §6 needs an account this machine does not have.
 
 ## 6. What to do, in order
 
