@@ -210,11 +210,11 @@ export default async function BringToYourDoctor() {
             <h2 style={{ marginTop: 4 }}>{site.name} &mdash; practice summary</h2>
             <p>
               Virtual counselling practice serving adults across British Columbia. Sessions are
-              provided by a <strong>{site.counsellor.title}</strong> ({site.counsellor.credentials}
-              ), verifiable in the{' '}
+              provided by <strong>Registered Clinical Counsellors</strong>, each verifiable in the{' '}
               <a href={site.counsellor.registerUrl} rel="noreferrer">
                 {site.counsellor.registerName} register
-              </a>.
+              </a>{' '}
+              with the number stated on their own page.
               No physician referral is required for a patient to book.
             </p>
 

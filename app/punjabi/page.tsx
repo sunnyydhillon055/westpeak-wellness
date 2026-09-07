@@ -91,7 +91,7 @@ export default function PunjabiPage() {
           <p className="eyebrow" lang="en">Online across British Columbia</p>
           <h1 className="gurmukhi">ਕੁਝ ਗੱਲਾਂ ਆਪਣੀ ਭਾਸ਼ਾ ਵਿੱਚ ਹੀ ਠੀਕ ਲੱਗਦੀਆਂ ਹਨ।</h1>
           <p className="direct-answer">
-            ਬ੍ਰਿਟਿਸ਼ ਕੋਲੰਬੀਆ ਵਿੱਚ ਕਿਤੇ ਵੀ, ਪੰਜਾਬੀ ਬੋਲਣ ਵਾਲੇ Registered Clinical Counsellor (MA, RCC)
+            ਬ੍ਰਿਟਿਸ਼ ਕੋਲੰਬੀਆ ਵਿੱਚ ਕਿਤੇ ਵੀ, ਪੰਜਾਬੀ ਬੋਲਣ ਵਾਲੇ Registered Clinical Counsellor
             ਨਾਲ ਸੁਰੱਖਿਅਤ ਵੀਡੀਓ ਰਾਹੀਂ ਕਾਊਂਸਲਿੰਗ। ਸੈਸ਼ਨ ਪੰਜਾਬੀ ਵਿੱਚ, ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ, ਜਾਂ ਦੋਹਾਂ ਵਿੱਚ ਹੋ ਸਕਦੇ ਹਨ,
             ਤੁਹਾਨੂੰ ਪਹਿਲਾਂ ਤੋਂ ਫ਼ੈਸਲਾ ਕਰਨ ਦੀ ਲੋੜ ਨਹੀਂ। ਪਹਿਲੀ 15 ਮਿੰਟ ਦੀ ਗੱਲਬਾਤ ਮੁਫ਼ਤ ਹੈ।
           </p>

@@ -36,7 +36,7 @@ function titleSize(title: string) {
 export function ogImage({
   eyebrow,
   title,
-  note = 'Registered Clinical Counsellor · MA, RCC · English & Punjabi',
+  note = 'Registered Clinical Counsellors · English, Punjabi & Tagalog',
 }: {
   eyebrow: string;
   title: string;

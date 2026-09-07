@@ -193,11 +193,10 @@ export default function Book({
                 </p>
               ) : (
                 <p className="book-credential">
-                  <strong>{site.counsellor.title} ({site.counsellor.credentials})</strong> ·{' '}
+                  <strong>Registered Clinical Counsellors</strong> ·{' '}
                   <a href={site.counsellor.registerUrl} target="_blank" rel="noopener">
                     check the BCACC register
-                  </a>{' '}
-                  · EMDR-trained · Gottman-trained
+                  </a>
                 </p>
               )}
               {/* HER calendar, not the practice's. bookingsUrlFor() adds

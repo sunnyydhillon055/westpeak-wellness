@@ -37,7 +37,7 @@ export default function Footer() {
                 <li>
                   <Credential aria-hidden="true" strokeWidth={1.7} />
                   <span>
-                    {site.counsellor.credentials} ·{' '}
+                    Registered Clinical Counsellors ·{' '}
                     <a href={site.counsellor.registerUrl} target="_blank" rel="noopener">
                       BCACC register
                     </a>
@@ -149,7 +149,7 @@ export default function Footer() {
           </nav>
 
           <div className="footer-bottom">
-            <span>© {new Date().getFullYear()} {site.name} · {site.counsellor.title}</span>
+            <span>© {new Date().getFullYear()} {site.name} · Registered Clinical Counsellors</span>
             <span>{site.serviceArea}</span>
           </div>
         </div>

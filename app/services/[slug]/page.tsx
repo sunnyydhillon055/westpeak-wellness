@@ -213,7 +213,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
                 types at different prices, so the item simply does not render
                 rather than showing a figure that would misrepresent them. */}
             {fee && <li><Wallet aria-hidden="true" strokeWidth={1.7} /><span><strong>{fee}</strong> per session</span></li>}
-            <li><BadgeCheck aria-hidden="true" strokeWidth={1.7} /><span><strong>MA, RCC</strong> · BCACC</span></li>
+            <li><BadgeCheck aria-hidden="true" strokeWidth={1.7} /><span><strong>RCC</strong> · BCACC registered</span></li>
           </ul>
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>

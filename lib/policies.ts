@@ -136,7 +136,7 @@ export const policies: Record<string, Policy> = {
       {
         h2: 'Who writes and reviews this content',
         body: [
-          'Every clinical page on this site. The services, the guides, the comparisons, the resource pages, is written and reviewed by a **Registered Clinical Counsellor (MA, RCC)** in independent practice in British Columbia. It is not outsourced to a content agency, and it is not published without clinical review.',
+          'Every clinical page on this site. The services, the guides, the comparisons, the resource pages, is written and reviewed by a **Registered Clinical Counsellor** in independent practice in British Columbia. It is not outsourced to a content agency, and it is not published without clinical review.',
           'That is a statement about accountability, not authority. A counsellor writing about anxiety is not thereby correct about anxiety. The reason every substantive claim on this site carries a link to its source is so that the source, not the author, carries the weight.',
         ],
       },

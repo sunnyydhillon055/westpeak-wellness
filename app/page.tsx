@@ -167,9 +167,9 @@ export default function Home() {
             <p className="eyebrow">A different kind of fit</p>
             <h2>Safe, culturally competent, built for real life.</h2>
             <p className="lede" style={{ marginBottom: 38 }}>
-              Work with a {site.counsellor.title}: Master&rsquo;s in Counselling, years of
-              Fraser Health BC experience, EMDR- and Gottman-trained.{' '}
-              <Link href="/about">More about your counsellor</Link>.
+              Work with Registered Clinical Counsellors: graduate-level counselling training,
+              EMDR-trained, with further training in trauma, relationship and body-based work.{' '}
+              <Link href="/practitioners">Meet the counsellors</Link>.
             </p>
           </Reveal>
           <div className="grid grid-3">

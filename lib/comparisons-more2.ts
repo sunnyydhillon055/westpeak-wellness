@@ -143,7 +143,7 @@ export const moreComparisons2: Comparison[] = [
       },
     ],
     howWeFit: [
-      'Couples work at Westpeak Wellness draws on the Gottman Method. The practice is Gottman-trained, and the [couples therapy page](/services/couples-therapy) describes what that looks like session by session. The assessment-first structure and the concrete between-session work are genuine features of how couples work runs here.',
+      'Couples work at Westpeak Wellness draws on the Gottman Method, and the [couples therapy page](/services/couples-therapy) describes what that looks like session by session. The assessment-first structure and the concrete between-session work are genuine features of how couples work runs here.',
       'If you have read this far and it is specifically EFT you want, the right move is an ICEEFT-trained therapist, and their directory is the place to find one. That is not this practice, and pretending otherwise would be a poor way to start a therapeutic relationship. If you are undecided, a [free consultation](/book) with both partners on the call is a reasonable way to hear how the Gottman-informed version would approach your situation.',
     ],
     midCta: {

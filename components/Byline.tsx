@@ -43,7 +43,7 @@ export default function Byline({
     <aside className="byline">
       <p className="byline-line">
         Written by a{' '}
-        <strong>{site.counsellor.title} ({site.counsellor.credentials})</strong> in independent
+        <strong>{site.counsellor.title}</strong> in independent
         practice in British Columbia.
       </p>
       <p className="byline-meta">

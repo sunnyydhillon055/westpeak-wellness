@@ -193,7 +193,7 @@ export const pairs: Pair[] = [
       'Two people travelling together for two hours to discuss a difficult subject also has an obvious problem: the car journey home. Joining from your own kitchen at eight in the evening is not a downgrade from that arrangement.',
     ],
     faqs: [
-      { q: 'What approach do you use with couples?', a: 'Gottman-trained, which is structured rather than open-ended, patterns of interaction are looked at directly rather than circled around.' },
+      { q: 'What approach do you use with couples?', a: 'Couples work at the practice draws on the Gottman Method, which is structured rather than open-ended: patterns of interaction are looked at directly rather than circled around. Ask on the consultation which approach your counsellor uses.' },
       { q: 'Can we do this if we are in different places some weeks?', a: 'Yes. Partners joining from two locations is workable and reasonably common where shift patterns or travel make it necessary.' },
     ],
   },

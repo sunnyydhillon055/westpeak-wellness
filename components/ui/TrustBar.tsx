@@ -24,7 +24,10 @@ export default function TrustBar() {
     <div className="trust-bar">
       <span className="trust-item">
         <Credential aria-hidden="true" strokeWidth={1.7} />
-        <span><strong>{site.counsellor.title}</strong> · {site.counsellor.credentials}</span>
+        {/* Practice-level since 6 Sep 2026. This said "Registered Clinical
+            Counsellor · MA, RCC", the founder's letters, on every page after
+            new clients started going to a counsellor who holds RCC, CCC. */}
+        <span><strong>Registered Clinical Counsellors</strong> · BCACC registered</span>
       </span>
       {/* THE NUMBER COMES OFF EVERY PAGE BUT /about — owner's decision,
         * 30 August 2026, and it applies to every counsellor the practice adds.

@@ -28,7 +28,7 @@ export const services: Service[] = [
   {
     slug: "individual-therapy",
     directAnswer:
-      "Individual therapy at Westpeak Wellness is one-to-one counselling delivered by secure video anywhere in British Columbia, provided by a Registered Clinical Counsellor (MA, RCC) registered with the BC Association of Clinical Counsellors. Sessions run 50 minutes, weekly or fortnightly. It suits anxiety, low mood, burnout, self-criticism, life transitions and long-standing patterns that have stopped responding to the obvious fixes. A free 15-minute consultation comes first, and there is no referral, diagnosis or waitlist required.",
+      "Individual therapy at Westpeak Wellness is one-to-one counselling delivered by secure video anywhere in British Columbia, provided by a Registered Clinical Counsellor registered with the BC Association of Clinical Counsellors. Sessions run 50 minutes, weekly or fortnightly. It suits anxiety, low mood, burnout, self-criticism, life transitions and long-standing patterns that have stopped responding to the obvious fixes. A free 15-minute consultation comes first, and there is no referral, diagnosis or waitlist required.",
     figure2: "bc-reach",
     figure: "first-session-flow",
     name: "Individual Therapy",
@@ -95,7 +95,7 @@ export const services: Service[] = [
   {
     slug: "couples-therapy",
     directAnswer:
-      "Couples therapy at Westpeak Wellness is Gottman Method-informed relationship counselling delivered by secure video across British Columbia, provided by a Registered Clinical Counsellor (MA, RCC). The work begins with a structured assessment, a joint session, an individual session with each partner, then an agreed treatment plan, rather than with advice. It addresses recurring conflict, drifting apart, rebuilding after a breach of trust, and deciding whether to continue. Separating well is treated as a legitimate outcome rather than a failure.",
+      "Couples therapy at Westpeak Wellness is Gottman Method-informed relationship counselling delivered by secure video across British Columbia, provided by a Registered Clinical Counsellor. The work begins with a structured assessment, a joint session, an individual session with each partner, then an agreed treatment plan, rather than with advice. It addresses recurring conflict, drifting apart, rebuilding after a breach of trust, and deciding whether to continue. Separating well is treated as a legitimate outcome rather than a failure.",
     figure2: "first-session-flow",
     figure: "gottman-method",
     name: "Couples Therapy",
@@ -162,7 +162,7 @@ export const services: Service[] = [
   {
     slug: "emdr-therapy",
     directAnswer:
-      "EMDR (Eye Movement Desensitization and Reprocessing) at Westpeak Wellness is a structured eight-phase therapy for distressing memories, delivered by secure video across British Columbia by an EMDR-trained Registered Clinical Counsellor (MA, RCC). It has a strong evidence base for post-traumatic stress and is used for trauma, PTSD, anxiety and grief. Most of the protocol is preparation rather than eye movements: reprocessing does not begin until the regulation skills to come back down are reliably in place.",
+      "EMDR (Eye Movement Desensitization and Reprocessing) at Westpeak Wellness is a structured eight-phase therapy for distressing memories, delivered by secure video across British Columbia by an EMDR-trained Registered Clinical Counsellor. It has a strong evidence base for post-traumatic stress and is used for trauma, PTSD, anxiety and grief. Most of the protocol is preparation rather than eye movements: reprocessing does not begin until the regulation skills to come back down are reliably in place.",
     figure2: "first-session-flow",
     figure: "emdr-phases",
     name: "EMDR Therapy",
@@ -250,7 +250,7 @@ export const services: Service[] = [
       "Online family counselling across BC in English, Punjabi or Tagalog. Conflict, communication, and the gap between generations. Free 15-minute consultation.",
     hero: "When the difficulty lives between people, not inside one of them.",
     directAnswer:
-      "Family counselling at Westpeak Wellness is relationship work involving more than one family member, delivered by secure video across British Columbia by a Registered Clinical Counsellor (MA, RCC), in English or Punjabi. It treats the pattern between people rather than one person's behaviour, and is used for recurring conflict, communication that has broken down, adult children and parents who cannot talk, blended-family adjustment, and the distance that opens between generations in immigrant families. Not everyone needs to attend every session.",
+      "Family counselling at Westpeak Wellness is relationship work involving more than one family member, delivered by secure video across British Columbia by a Registered Clinical Counsellor, in English or Punjabi. It treats the pattern between people rather than one person's behaviour, and is used for recurring conflict, communication that has broken down, adult children and parents who cannot talk, blended-family adjustment, and the distance that opens between generations in immigrant families. Not everyone needs to attend every session.",
     intro:
       "Families rarely arrive because one person is unwell. They arrive because something between them keeps happening. The same argument, the same silence, the same subject nobody can raise. Family counselling works on that pattern, with the people who are part of it in the room.",
     helps: [
@@ -296,7 +296,7 @@ export const services: Service[] = [
   {
     slug: "punjabi-counselling",
     directAnswer:
-      "Westpeak Wellness offers counselling in Punjabi (ਪੰਜਾਬੀ) by secure video anywhere in British Columbia, provided by a Punjabi-speaking Registered Clinical Counsellor (MA, RCC). Working in the language you think in removes the translation overhead from material that is difficult to say once, and means family context does not have to be explained from scratch. Individual and couples sessions are both available in Punjabi, and you can move between Punjabi and English within a session.",
+      "Westpeak Wellness offers counselling in Punjabi (ਪੰਜਾਬੀ) by secure video anywhere in British Columbia, provided by a Punjabi-speaking Registered Clinical Counsellor. Working in the language you think in removes the translation overhead from material that is difficult to say once, and means family context does not have to be explained from scratch. Individual and couples sessions are both available in Punjabi, and you can move between Punjabi and English within a session.",
     figure2: "first-session-flow",
     figure: "bc-reach",
     name: "Punjabi-Speaking Counselling",
