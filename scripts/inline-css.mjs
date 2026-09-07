@@ -53,13 +53,17 @@ function walk(dir, out = []) {
 }
 const routeOf = (f) => '/' + relative(ROOT, f).split(sep).join('/').replace(/\.html$/, '').replace(/^index$/, '');
 
-/* A blocking stylesheet link, as Next emits it. Attribute order is stable in
-   a given Next version; the alternation keeps it robust if it is not. */
-const LINK = /<link rel="stylesheet" href="(\/_next\/static\/css\/[^"]+\.css)"([^>]*)\/>/g;
+/* A blocking stylesheet link, as Next emits it. On Vercel the href carries a
+   deployment id as a query string (…/x.css?dpl=dpl_…), which the first
+   version of this pattern did not allow for: it matched nothing there, the
+   build "succeeded", and production shipped without the inline block while
+   the local check passed. The query is optional here and stripped before the
+   file is looked up. */
+const LINK = /<link rel="stylesheet" href="(\/_next\/static\/css\/[^"?]+\.css(?:\?[^"]*)?)"([^>]*)\/>/g;
 const cssCache = new Map();
 const cssFor = (href) => {
   if (!cssCache.has(href)) {
-    const p = join(STATIC, href.split('/').pop());
+    const p = join(STATIC, href.split('?')[0].split('/').pop());
     cssCache.set(href, existsSync(p) ? readFileSync(p, 'utf8') : null);
   }
   return cssCache.get(href);
