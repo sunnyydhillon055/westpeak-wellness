@@ -103,21 +103,31 @@ export async function GET(req: NextRequest) {
     });
   }
 
-  const results: Record<string, string> = {};
-  for (const endpoint of ENDPOINTS) {
-    try {
-      const r = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json; charset=utf-8' },
-        body,
-      });
-      // 200 accepted · 202 accepted, key validation pending · 422 URL/key mismatch
-      results[endpoint] = `${r.status}`;
-    } catch (e) {
-      results[endpoint] = e instanceof Error ? e.message : 'failed';
+  /* Recorded like every other scheduled job, so /admin and the watchdog can
+     tell "ran, and Bing said 202" from "never ran". Until 6 Sep 2026 this
+     route recorded nothing, and cron-health reported it as never having run
+     — indistinguishable from a wrong key or a refused submission. A run where
+     every endpoint refuses is a failure and is recorded as one. */
+  const run = await withCronHealth('indexnow', async () => {
+    const results: Record<string, string> = {};
+    for (const endpoint of ENDPOINTS) {
+      try {
+        const r = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json; charset=utf-8' },
+          body,
+        });
+        // 200 accepted · 202 accepted, key validation pending · 422 URL/key mismatch
+        results[endpoint] = `${r.status}`;
+      } catch (e) {
+        results[endpoint] = e instanceof Error ? e.message : 'failed';
+      }
     }
-  }
-
-  console.log(`[indexnow] submitted ${urls.length} URLs:`, JSON.stringify(results));
-  return NextResponse.json({ ok: true, submitted: urls.length, host, results });
+    console.log(`[indexnow] submitted ${urls.length} URLs:`, JSON.stringify(results));
+    const accepted = Object.values(results).filter((s) => /^20[02]$/.test(s)).length;
+    if (accepted === 0) throw new Error(`every endpoint refused: ${JSON.stringify(results)}`);
+    return results;
+  });
+  if (!run.ok) return NextResponse.json({ ok: false, submitted: urls.length, host, error: run.error }, { status: 502 });
+  return NextResponse.json({ ok: true, submitted: urls.length, host, results: run.result });
 }
