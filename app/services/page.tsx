@@ -150,7 +150,7 @@ export default function Services() {
               </p>
             </div>
             <div className="card">
-              <h3>Free 15-minute start</h3>
+              <h3>Free 30-minute start</h3>
               <p style={{ marginBottom: 0 }}>
                 Every service begins with{' '}
                 <Link href="/book">a no-cost consultation</Link>, with no obligation afterward.
@@ -261,7 +261,7 @@ export default function Services() {
           </p>
         </div>
       </section>
-      <CtaBand heading="Not sure where to start?" text="Book a free 15-minute consultation. We&rsquo;ll figure it out together." />
+      <CtaBand heading="Not sure where to start?" text="Book a free 30-minute consultation. We&rsquo;ll figure it out together." />
     </>
   );
 }

@@ -113,7 +113,7 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
               <Link href="/resources/low-cost-counselling-bc">free and low-cost counselling page</Link>,
               and for a lot of people one of those options is genuinely the better place to start. Saying
               so on a{' '}
-              <Link href={site.bookingPath}>free 15-minute consultation</Link> is a perfectly good outcome
+              <Link href={site.bookingPath}>free 30-minute consultation</Link> is a perfectly good outcome
               of that call.
             </p>
 
@@ -180,7 +180,7 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
               <span className="icon-chip" aria-hidden="true"><Video strokeWidth={1.6} /></span>
               <div>
                 <h3>Free consultation</h3>
-                <p style={{ marginBottom: 0 }}>Every working relationship starts with a free 15-minute call. No charge, and no obligation to book a session afterward.</p>
+                <p style={{ marginBottom: 0 }}>Every working relationship starts with a free 30-minute call. No charge, and no obligation to book a session afterward.</p>
               </div>
             </div>
             <div className="card cred-card">
@@ -245,7 +245,7 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
         </div>
       </section>
 
-      <CtaBand heading="Questions about fees?" text="Ask during your free 15-minute consultation." />
+      <CtaBand heading="Questions about fees?" text="Ask during your free 30-minute consultation." />
 
       {/* FAQPage for the four cards above.
         *
@@ -267,7 +267,7 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
                 name: 'Is the first consultation free?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'Yes. Every working relationship starts with a free 15-minute call. There is no charge, and no obligation to book a session afterward.',
+                  text: 'Yes. Every working relationship starts with a free 30-minute call. There is no charge, and no obligation to book a session afterward.',
                 },
               },
               {

@@ -106,7 +106,7 @@ export default function AlbertaHub() {
             Counselling by secure video is available anywhere in Alberta, in English or Tagalog.
             Sessions are provided by a Registered Clinical Counsellor registered in British
             Columbia, counselling therapy is not currently a regulated profession in Alberta, so
-            no Alberta college registers counsellors. The first 15 minutes are free.
+            no Alberta college registers counsellors. The first 30 minutes are free.
           </p>
           <p className="lede">
             Everything happens from your own home, at times shown in Mountain Time.

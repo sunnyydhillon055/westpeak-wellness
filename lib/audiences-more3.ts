@@ -55,7 +55,7 @@ export const moreAudiences3: Audience[] = [
       { href: '/services/individual-therapy', label: 'Depression counselling', why: 'For the Octobers that do not lift, and the flatness that outlasts the term.' },
     ],
     midCta: {
-      text: 'A free 15-minute consultation fits in a spare block, and July exists. Either works.',
+      text: 'A free 30-minute consultation fits in a spare block, and July exists. Either works.',
       label: 'Book a free consultation',
     },
     faqs: [

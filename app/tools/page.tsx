@@ -91,7 +91,7 @@ export default function ToolsIndex() {
             <p style={{ margin: 0 }}>
               None of these is an assessment or a diagnosis, and none can tell you whether you
               have a condition. They are for orienting yourself. If you want an actual answer,
-              a <Link href={site.bookingPath}>free 15-minute consultation</Link> will get you
+              a <Link href={site.bookingPath}>free 30-minute consultation</Link> will get you
               further than any of them.
             </p>
           </div>

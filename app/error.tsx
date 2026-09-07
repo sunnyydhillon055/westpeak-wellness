@@ -65,7 +65,7 @@ export default function Error({
           <li><Link href="/">Home</Link></li>
           <li><Link href="/services">Counselling services</Link></li>
           <li><Link href="/pricing">Fees and insurance</Link></li>
-          <li><Link href="/book">Book a free 15-minute consultation</Link></li>
+          <li><Link href="/book">Book a free 30-minute consultation</Link></li>
           <li><Link href="/contact">Contact the practice</Link></li>
         </ul>
 

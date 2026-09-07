@@ -47,7 +47,7 @@ export default async function Contact({
         <div className="container">
           <p className="eyebrow">Get in touch</p>
           <h1>Let&rsquo;s see if we&rsquo;re a good fit.</h1>
-          <p className="lede">A free 15-minute consultation is the easiest way to start.</p>
+          <p className="lede">A free 30-minute consultation is the easiest way to start.</p>
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book Free Consultation</Link>
             {/* Was a mailto:, which opens nothing at all on a desktop with no
@@ -91,7 +91,7 @@ export default async function Contact({
 
           <p style={{ marginTop: 32 }}>
             If you already know you want to start, the fastest route is to{' '}
-            <Link href={site.bookingPath}>book a free 15-minute consultation</Link> directly. The
+            <Link href={site.bookingPath}>book a free 30-minute consultation</Link> directly. The
             form above is better for questions you want answered before committing to a call.
           </p>
 
@@ -122,7 +122,7 @@ export default async function Contact({
               <Link href="/standards">standards and accountability</Link>.
             </p>
             <p>
-              The consultation itself is fifteen minutes over secure video, at no cost. You describe
+              The consultation itself is thirty minutes over secure video, at no cost. You describe
               what is going on in as much or as little detail as you want; you hear how the work would
               run and roughly what it would involve. There is no obligation to book a session
               afterwards, and deciding not to is common.{' '}
@@ -185,7 +185,7 @@ export default async function Contact({
       </section>
 
       <CtaBand heading="One conversation is all it takes to start."
-        text="A free 15-minute consultation over secure video. No pressure, no commitment, and no obligation to book a session afterward."
+        text="A free 30-minute consultation over secure video. No pressure, no commitment, and no obligation to book a session afterward."
       />
     </>
   );

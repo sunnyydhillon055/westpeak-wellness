@@ -161,7 +161,7 @@ export default function CityPage({ params }: { params: { city: string } }) {
             <div className="crisis" style={{ marginTop: 32 }}>
               <p style={{ margin: 0 }}>
                 Not sure which kind of support fits? A{' '}
-                <Link href={site.bookingPath}>free 15-minute consultation</Link> is the fastest way
+                <Link href={site.bookingPath}>free 30-minute consultation</Link> is the fastest way
                 to find out, and it is a fine outcome if the answer is a referral somewhere else.
               </p>
             </div>
@@ -293,7 +293,7 @@ export default function CityPage({ params }: { params: { city: string } }) {
 
       <CtaBand
         heading={`Counselling in ${l.city}, starting with a conversation`}
-        text="A free 15-minute consultation over secure video. No pressure, no commitment, and no obligation to book a session afterward."
+        text="A free 30-minute consultation over secure video. No pressure, no commitment, and no obligation to book a session afterward."
       />
 
       {/* Unconditional. The FAQ block below is rightly conditional on the city

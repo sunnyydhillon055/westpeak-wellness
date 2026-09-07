@@ -154,7 +154,7 @@ export const punjabiAudiences: Audience[] = [
     ],
 
     midCta: {
-      text: 'A free 15-minute consultation is a conversation about whether this is the right fit, and both of you are welcome on it. Nothing is assessed and nothing is decided on the call.',
+      text: 'A free 30-minute consultation is a conversation about whether this is the right fit, and both of you are welcome on it. Nothing is assessed and nothing is decided on the call.',
       label: 'Book a free consultation',
     },
 
@@ -311,7 +311,7 @@ export const punjabiAudiences: Audience[] = [
     ],
 
     midCta: {
-      text: 'A free 15-minute consultation is a conversation about whether this is the right fit. Nothing is assessed, and there is no obligation afterwards.',
+      text: 'A free 30-minute consultation is a conversation about whether this is the right fit. Nothing is assessed, and there is no obligation afterwards.',
       label: 'Book a free consultation',
     },
 

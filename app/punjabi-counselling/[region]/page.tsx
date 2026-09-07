@@ -165,7 +165,7 @@ export default function PunjabiRegionPage({ params }: { params: { region: string
           <div className="crisis" style={{ marginTop: 32 }}>
             <p style={{ margin: 0 }}>
               Not sure whether this is the right fit? A{' '}
-              <Link href={site.bookingPath}>free 15-minute consultation</Link> is the fastest way to
+              <Link href={site.bookingPath}>free 30-minute consultation</Link> is the fastest way to
               find out, and it is a perfectly good outcome if the answer turns out to be a referral
               somewhere else.
             </p>
@@ -223,7 +223,7 @@ export default function PunjabiRegionPage({ params }: { params: { region: string
 
       <CtaBand
         heading={`Counselling in Punjabi, from ${r.region}`}
-        text="A free 15-minute consultation over secure video, in Punjabi or English. No pressure, no commitment, and no obligation to book a session afterward."
+        text="A free 30-minute consultation over secure video, in Punjabi or English. No pressure, no commitment, and no obligation to book a session afterward."
       />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />

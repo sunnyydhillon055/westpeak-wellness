@@ -59,7 +59,7 @@ export const moreGuides5: Guide[] = [
     ],
     midCta: {
       text: 'If this has been going on privately for a long time,',
-      label: 'a free 15-minute consultation is a place to say it out loud',
+      label: 'a free 30-minute consultation is a place to say it out loud',
     },
     faqs: [
       { q: 'Does having these thoughts mean I want to do it?', a: 'No. Intrusive thoughts are characteristically the opposite of what a person values, which is why they cause distress. The distress is the evidence that they run against you rather than expressing you.' },
@@ -139,7 +139,7 @@ export const moreGuides5: Guide[] = [
     ],
     midCta: {
       text: 'If your world has been getting quietly smaller for years,',
-      label: 'a free 15-minute consultation is a low-exposure place to start',
+      label: 'a free 30-minute consultation is a low-exposure place to start',
     },
     faqs: [
       { q: 'Is social anxiety just shyness?', a: 'No. Shyness is a temperament; social anxiety is a fear of evaluation that produces avoidance and shrinks a life. Plenty of outgoing people have it, and plenty of shy people do not.' },
@@ -297,7 +297,7 @@ export const moreGuides5: Guide[] = [
     ],
     midCta: {
       text: 'If the reassurance keeps wearing off within days,',
-      label: 'a free 15-minute consultation is a reasonable next step',
+      label: 'a free 30-minute consultation is a reasonable next step',
     },
     faqs: [
       { q: 'What if something is wrong?', a: 'Then it needs medical assessment, and this work does not replace that. Treatment for health anxiety always runs alongside appropriate medical care, and establishing what appropriate looks like is part of it.' },
@@ -380,7 +380,7 @@ export const moreGuides5: Guide[] = [
     ],
     midCta: {
       text: 'If something changed months ago and you have only recently stopped coping with it,',
-      label: 'a free 15-minute consultation is a place to start',
+      label: 'a free 30-minute consultation is a place to start',
     },
     faqs: [
       { q: 'Why am I struggling with something I wanted?', a: 'Because difficulty tracks how much structure and identity the old arrangement was carrying, not whether the change was welcome. Wanted transitions dismantle just as much.' },
@@ -462,7 +462,7 @@ export const moreGuides5: Guide[] = [
     ],
     midCta: {
       text: 'If the money is the thing and you have never said it out loud,',
-      label: 'a free 15-minute consultation costs nothing to start with',
+      label: 'a free 30-minute consultation costs nothing to start with',
     },
     faqs: [
       { q: 'Is it absurd to pay for counselling when money is the problem?', a: 'It is a fair question and worth raising directly. Where paying would worsen the strain, the free and low-cost routes are the right answer and a counsellor should say so.' },

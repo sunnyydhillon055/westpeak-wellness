@@ -50,10 +50,10 @@ export default function StressCheckTool() {
             <p>
               <strong>None of that is a diagnosis, and it is not meant to be.</strong> Six
               questions cannot do what a conversation does. If any of it landed, that is a
-              reasonable thing to bring to a free 15-minute consultation, and there is no
+              reasonable thing to bring to a free 30-minute consultation, and there is no
               obligation attached to one.
             </p>
-            <ResultCta tool="stress-check" label="Talk it through, free 15 minutes" />
+            <ResultCta tool="stress-check" label="Talk it through, free 30 minutes" />
             <div className="crisis" style={{ marginTop: 22 }}>
               <p style={{ margin: 0 }}>
                 <strong>If things are worse than this page can hold:</strong> call or text{' '}

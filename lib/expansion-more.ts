@@ -59,7 +59,7 @@ export const albertaMore: RegionPage[] = [
     faqs: [
       { q: 'Does AHCIP cover any counselling at all?', a: 'It covers care delivered inside the public system, Alberta Health Services programmes, and counselling provided by a physician. It does not cover a private-practice Registered Clinical Counsellor. Public options exist and carry waitlists; the Alberta Mental Health Help Line on 1-877-303-2642 can tell you what is available in your area.' },
       { q: 'Will my plan reimburse a counsellor registered in another province?', a: 'Usually, and it is worth asking explicitly. Most plans define eligibility by the practitioner’s registration rather than by where they sit, so an RCC registered in BC is typically claimable by an Alberta plan member. Some plans word it differently. Ask before booking rather than after.' },
-      { q: 'What does a session cost?', a: '$140 for a 50-minute individual session, $170 for couples, and $190 for a 90-minute EMDR intensive. The first 15-minute consultation is free.' },
+      { q: 'What does a session cost?', a: '$140 for a 50-minute individual session, $170 for couples, and $190 for a 90-minute EMDR intensive. The first 30-minute consultation is free.' },
     ],
     related: [
       { href: '/alberta', label: 'Online counselling across Alberta' },
@@ -94,7 +94,7 @@ export const albertaMore: RegionPage[] = [
       {
         h2: 'What stays the same wherever you are',
         body: [
-          'Sessions run in Punjabi, English, or moving between them within a session. Appointment times are shown in Mountain Time. The first 15 minutes are free and carry no obligation, including no obligation to continue if it is not a fit.',
+          'Sessions run in Punjabi, English, or moving between them within a session. Appointment times are shown in Mountain Time. The first 30 minutes are free and carry no obligation, including no obligation to continue if it is not a fit.',
           'And the practice is not in Alberta, which for a great many people is the point rather than the drawback. No shared gurdwara, no mutual acquaintances, no chance of being recognised in a waiting room.',
         ],
       },
@@ -104,7 +104,7 @@ export const albertaMore: RegionPage[] = [
       body: [
         'ਅਲਬਰਟਾ ਵਿੱਚ ਕਿਤੇ ਵੀ ਰਹਿੰਦੇ ਹੋਵੋ: ਕੈਲਗਰੀ, ਐਡਮਿੰਟਨ, ਰੈੱਡ ਡੀਅਰ, ਲੈਥਬ੍ਰਿਜ ਜਾਂ ਕੋਈ ਛੋਟਾ ਸ਼ਹਿਰ, ਸੈਸ਼ਨ ਪੰਜਾਬੀ ਵਿੱਚ ਹੋ ਸਕਦੇ ਹਨ।',
         'ਸਭ ਕੁਝ ਵੀਡੀਓ ਰਾਹੀਂ। ਕਿਸੇ ਸ਼ਹਿਰ ਜਾਣ ਦੀ ਲੋੜ ਨਹੀਂ, ਅਤੇ ਸਮਾਂ ਮਾਊਂਟੇਨ ਟਾਈਮ ਵਿੱਚ ਦਿਖਾਇਆ ਜਾਂਦਾ ਹੈ।',
-        'ਪਹਿਲੀ ਗੱਲਬਾਤ 15 ਮਿੰਟ ਦੀ, ਮੁਫ਼ਤ। ਕੋਈ ਜ਼ਿੰਮੇਵਾਰੀ ਨਹੀਂ।',
+        'ਪਹਿਲੀ ਗੱਲਬਾਤ 30 ਮਿੰਟ ਦੀ, ਮੁਫ਼ਤ। ਕੋਈ ਜ਼ਿੰਮੇਵਾਰੀ ਨਹੀਂ।',
       ],
     },
     faqs: [
@@ -221,7 +221,7 @@ export const ontarioPages: RegionPage[] = [
         'ਬਰੈਂਪਟਨ ਵਿੱਚ ਪੰਜਾਬੀ ਬੋਲਣ ਵਾਲੇ ਕਾਊਂਸਲਰ ਘੱਟ ਨਹੀਂ ਹਨ। ਜੋ ਘੱਟ ਹੈ, ਉਹ ਹੈ ਫ਼ਾਸਲਾ।',
         'ਬਹੁਤ ਲੋਕ ਇਸ ਕਰਕੇ ਨਹੀਂ ਜਾਂਦੇ ਕਿ ਕੋਈ ਨਹੀਂ ਮਿਲਦਾ, ਸਗੋਂ ਇਸ ਕਰਕੇ ਕਿ ਜੋ ਮਿਲਦਾ ਹੈ ਉਹ ਕਿਸੇ ਨਾ ਕਿਸੇ ਜਾਣ-ਪਛਾਣ ਵਾਲੇ ਨਾਲ ਜੁੜਿਆ ਹੁੰਦਾ ਹੈ। ਗੱਲ ਭਰੋਸੇ ਦੀ ਨਹੀਂ, ਗੱਲ ਇਹ ਹੈ ਕਿ ਕਿਸੇ ਨੇ ਤੁਹਾਨੂੰ ਅੰਦਰ ਜਾਂਦੇ ਦੇਖ ਲਿਆ, ਤਾਂ ਗੱਲ ਹੋ ਗਈ।',
         'ਇੱਥੇ ਕੋਈ ਦਫ਼ਤਰ ਨਹੀਂ, ਕੋਈ ਉਡੀਕ-ਕਮਰਾ ਨਹੀਂ, ਅਤੇ ਬਰੈਂਪਟਨ ਦੇ ਕਿਸੇ ਭਾਈਚਾਰੇ ਜਾਂ ਗੁਰਦੁਆਰੇ ਨਾਲ ਕੋਈ ਸਾਂਝ ਨਹੀਂ।',
-        'ਸੈਸ਼ਨ ਪੰਜਾਬੀ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ, ਜਾਂ ਦੋਹਾਂ ਵਿੱਚ ਬਦਲਦੇ ਹੋਏ। ਪਹਿਲੀ ਗੱਲਬਾਤ 15 ਮਿੰਟ ਦੀ ਅਤੇ ਮੁਫ਼ਤ।',
+        'ਸੈਸ਼ਨ ਪੰਜਾਬੀ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ, ਜਾਂ ਦੋਹਾਂ ਵਿੱਚ ਬਦਲਦੇ ਹੋਏ। ਪਹਿਲੀ ਗੱਲਬਾਤ 30 ਮਿੰਟ ਦੀ ਅਤੇ ਮੁਫ਼ਤ।',
       ],
     },
     faqs: [
@@ -328,7 +328,7 @@ export const ontarioPages: RegionPage[] = [
       body: [
         'ਟੋਰਾਂਟੋ ਵਿੱਚ ਸੈਸ਼ਨ ਪੰਜਾਬੀ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਹੋ ਸਕਦੇ ਹਨ, ਵੀਡੀਓ ਰਾਹੀਂ।',
         'ਕਿਤੇ ਜਾਣ ਦੀ ਲੋੜ ਨਹੀਂ। ਕੰਮ ਤੋਂ ਬਾਅਦ ਦੋ ਘੰਟੇ ਸਫ਼ਰ ਵਿੱਚ ਨਹੀਂ ਲੱਗਣਗੇ।',
-        'ਪਹਿਲੀ ਗੱਲਬਾਤ 15 ਮਿੰਟ ਦੀ, ਮੁਫ਼ਤ।',
+        'ਪਹਿਲੀ ਗੱਲਬਾਤ 30 ਮਿੰਟ ਦੀ, ਮੁਫ਼ਤ।',
       ],
     },
     faqs: [

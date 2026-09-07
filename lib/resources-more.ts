@@ -73,7 +73,7 @@ export const moreResources: Resource[] = [
     ],
     midCta: {
       text: 'If campus sessions have run out and the work was not finished,',
-      label: 'a free 15-minute consultation is a straightforward next step',
+      label: 'a free 30-minute consultation is a straightforward next step',
     },
     faqs: [
       { q: 'Will my university know I used campus counselling?', a: 'Counselling records are confidential and separate from academic records. Faculty are not informed. The exceptions are the same legal ones that apply to any counselling: risk of serious harm, child protection, court order.' },
@@ -182,7 +182,7 @@ export const moreResources: Resource[] = [
     ],
     midCta: {
       text: 'If work is the thing that is making you unwell rather than the thing you are recovering to do,',
-      label: 'that is worth a free 15-minute consultation',
+      label: 'that is worth a free 30-minute consultation',
     },
     faqs: [
       { q: 'Does my employer have to know my diagnosis?', a: 'Generally no. Employers are entitled to functional limitations and prognosis, not diagnosis. Ask your physician to write the note in terms of capacity rather than condition.' },
@@ -270,7 +270,7 @@ export const moreResources: Resource[] = [
     ],
     midCta: {
       text: 'Every claim on this site is checkable, and you are encouraged to check it: ',
-      label: 'then book a free 15-minute consultation',
+      label: 'then book a free 30-minute consultation',
     },
     faqs: [
       { q: 'Is it rude to check?', a: 'No, and a registered professional will not be offended. Public registers exist precisely so that anyone can search them without asking permission.' },
@@ -284,6 +284,7 @@ export const moreResources: Resource[] = [
       { label: 'BC College of Social Workers', url: 'https://bccsw.ca/' },
     ],
     related: [
+      { href: '/resources/what-is-a-registered-clinical-counsellor', label: 'What is a Registered Clinical Counsellor?' },
       { href: '/compare/rcc-vs-psychologist-vs-social-worker-bc', label: 'RCC vs psychologist vs social worker' },
       { href: '/guides/questions-to-ask-a-therapist', label: 'Questions to ask a therapist' },
       { href: '/guides/how-to-find-a-therapist-in-bc', label: 'How to find a therapist in BC' },
@@ -355,7 +356,7 @@ export const moreResources: Resource[] = [
     ],
     midCta: {
       text: 'If you are not sure whether you need a counsellor, a doctor or an assessment,',
-      label: 'a free 15-minute consultation will tell you honestly',
+      label: 'a free 30-minute consultation will tell you honestly',
     },
     faqs: [
       { q: 'Can I refer myself to a psychiatrist in BC?', a: 'No. A referral from a physician or nurse practitioner is required. Some urgent-response services can be accessed more directly in a crisis.' },
@@ -613,17 +614,17 @@ export const moreResources: Resource[] = [
     title: 'Before your first consultation: what to expect, what to bring',
     metaTitle: 'Before Your First Consultation | Westpeak',
     metaDescription:
-      'What actually happens on the free 15-minute call, the one thing worth preparing, the tech checklist, and every version of nervous that is normal.',
+      'What actually happens on the free 30-minute call, the one thing worth preparing, the tech checklist, and every version of nervous that is normal.',
     eyebrow: 'Resource · Getting started',
     lede:
-      'Fifteen minutes, no card, no couch. Here is the whole shape of it, so the only unknown left is whether the fit feels right, which is the one thing the call exists to find out.',
+      'Thirty minutes, no card, no couch. Here is the whole shape of it, so the only unknown left is whether the fit feels right, which is the one thing the call exists to find out.',
     shortAnswer:
-      'The free consultation is a 15-minute video call with your counsellor, not a therapy session, not an intake interview, and not a commitment. You will be asked, gently, what brings you; you can ask anything about how the work runs; and both of you are deciding fit. Preparation is one sentence: what you would want to be different. The tech is any device with a camera and a private-enough corner. Nerves are the normal state on this call, and mentioning them is allowed. It tends to help.',
+      'The free consultation is a 30-minute video call with your counsellor, not a therapy session, not an intake interview, and not a commitment. You will be asked, gently, what brings you; you can ask anything about how the work runs; and both of you are deciding fit. Preparation is one sentence: what you would want to be different. The tech is any device with a camera and a private-enough corner. Nerves are the normal state on this call, and mentioning them is allowed. It tends to help.',
     updated: '2026-08-28',
     readMinutes: 4,
     sections: [
       {
-        h2: 'What the fifteen minutes actually contain',
+        h2: 'What the thirty minutes actually contain',
         body: [
           'The shape is consistent: a hello that is allowed to be awkward, a question like "what has you reaching out now?", space for whatever version of an answer you have, your questions about how sessions work, and, if you want it. A concrete next step. Nothing is diagnosed, nothing is decided on the call, and "I want to think about it" is a fully respectable ending. So is "I don’t think this is the right fit," said by either of you; the call exists to make that discovery cheap.',
           'You do not need a tidy story. "Things have been heavy and I don’t know exactly why" is a complete and common opening. If it helps to prepare something, prepare one sentence: what you would want to be different in three months. Everything else can be found together later.',
@@ -634,7 +635,7 @@ export const moreResources: Resource[] = [
         h2: 'The practical checklist',
         list: [
           { label: 'A device with a camera', detail: 'Phone, tablet or laptop. Nothing to install; the confirmation email carries the video link. Headphones help more than people expect, for privacy and for feeling less like a broadcast.' },
-          { label: 'A private-enough corner', detail: 'A bedroom, a parked car, an office with a door. It needs to be private for fifteen minutes, not soundproofed for a lifetime, and saying "I only have semi-privacy today" is fine.' },
+          { label: 'A private-enough corner', detail: 'A bedroom, a parked car, an office with a door. It needs to be private for thirty minutes, not soundproofed for a lifetime, and saying "I only have semi-privacy today" is fine.' },
           { label: 'The location question', detail: 'Sessions are for people physically in British Columbia. A registration and insurance boundary, not a preference. If you are elsewhere in Canada, say so and you will be pointed to someone who can properly see you.' },
           { label: 'Language', detail: 'The consultation can run in English, Punjabi, or both. Nothing needs translating for the counsellor’s benefit.' },
           { label: 'If the time stops working', detail: 'Rescheduling is free up to 24 hours ahead. A life that needed counselling is exactly the kind of life that sometimes needs to move an appointment.' },
@@ -643,13 +644,13 @@ export const moreResources: Resource[] = [
       {
         h2: 'On being nervous',
         body: [
-          'Almost everyone is. Reaching out took most people months, and the call carries a weight far beyond its fifteen minutes, which is worth saying because the nervousness is often read, from inside, as evidence of not being ready. It is evidence of the opposite: things that do not matter do not make people nervous.',
+          'Almost everyone is. Reaching out took most people months, and the call carries a weight far beyond its thirty minutes, which is worth saying because the nervousness is often read, from inside, as evidence of not being ready. It is evidence of the opposite: things that do not matter do not make people nervous.',
           'Two reframes that help. The call is mutual. You are assessing fit as much as being assessed, and [fit predicts outcomes](/guides/questions-to-ask-a-therapist) better than credentials do. And the worst realistic outcome is a slightly awkward quarter-hour that cost nothing and taught you what you are looking for. People survive far worse Tuesdays.',
         ],
       },
     ],
     midCta: {
-      text: 'That is the whole shape of it. The only remaining step is the fifteen minutes.',
+      text: 'That is the whole shape of it. The only remaining step is the thirty minutes.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -699,7 +700,7 @@ export const moreResources: Resource[] = [
       {
         h2: 'Where a practice like this one fits',
         body: [
-          'Not as your EAP. This is a solo Registered Clinical Counsellor practice, and pretending otherwise would be the kind of overclaim this site is allergic to. Where it fits is the referral end of your toolbox: a concrete answer to "where would someone actually go?": online across all of BC, evening availability that hourly and shift staff can use, sessions in English, Punjabi or Tagalog, fees published, receipts that work with every plan that covers RCCs, and a free 15-minute consultation an employee can book without telling anyone at work.',
+          'Not as your EAP. This is a solo Registered Clinical Counsellor practice, and pretending otherwise would be the kind of overclaim this site is allergic to. Where it fits is the referral end of your toolbox: a concrete answer to "where would someone actually go?": online across all of BC, evening availability that hourly and shift staff can use, sessions in English, Punjabi or Tagalog, fees published, receipts that work with every plan that covers RCCs, and a free 30-minute consultation an employee can book without telling anyone at work.',
           'For Fraser Valley and Surrey employers specifically, the Punjabi-language capability may be the most useful line on this page: a meaningful share of the region’s workforce carries its hardest conversations in Punjabi, and English-only support quietly excludes them. Pointing to a bilingual option is a concrete act of inclusion that costs a bookmark.',
           'What this page deliberately does not offer: workshops, lunch-and-learns, or wellness-week content. Those have their place; they are also the tool most often used *instead of* the plumbing above, and the plumbing is what your people will actually feel.',
         ],

@@ -89,7 +89,7 @@ export default function ResourcesHub() {
           <div className="crisis" style={{ marginTop: 32 }}>
             <p style={{ margin: 0 }}>
               Worked through the free options and none of them fit? A{' '}
-              <Link href={site.bookingPath}>free 15-minute consultation</Link> is a reasonable next
+              <Link href={site.bookingPath}>free 30-minute consultation</Link> is a reasonable next
               step, with no obligation afterward.
             </p>
           </div>
@@ -157,7 +157,7 @@ export default function ResourcesHub() {
       </section>
       <CtaBand
         heading="Still have a question about cost or fit?"
-        text="A free 15-minute consultation is the fastest way to get a straight answer, including if the answer points somewhere else."
+        text="A free 30-minute consultation is the fastest way to get a straight answer, including if the answer points somewhere else."
       />
     </>
   );

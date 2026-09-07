@@ -42,7 +42,7 @@ export default function BookingCard({
       <div className="booking-card-main">
         <h2 id="bk-h">{heading}</h2>
         <p>
-          A free 15-minute video call{service ? ` about ${service.toLowerCase()}` : ''}. No
+          A free 30-minute video call{service ? ` about ${service.toLowerCase()}` : ''}. No
           charge, no card, and no obligation to book anything afterwards. It exists so you can
           find out whether this is a good fit before spending money on it.
         </p>

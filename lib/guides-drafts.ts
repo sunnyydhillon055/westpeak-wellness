@@ -90,7 +90,7 @@ export const draftGuides: Guide[] = [
       },
     ],
     midCta: {
-      text: 'A free 15-minute consultation is enough to work out whether trauma-focused work is the right next step, and whether now is the right time for it, including if the honest answer is that stabilisation comes first.',
+      text: 'A free 30-minute consultation is enough to work out whether trauma-focused work is the right next step, and whether now is the right time for it, including if the honest answer is that stabilisation comes first.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -178,7 +178,7 @@ export const draftGuides: Guide[] = [
       },
     ],
     midCta: {
-      text: 'A free 15-minute consultation can work out whether counselling is the right step, and it is a reasonable place to say the thing out loud that you have not said to anybody yet.',
+      text: 'A free 30-minute consultation can work out whether counselling is the right step, and it is a reasonable place to say the thing out loud that you have not said to anybody yet.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -331,7 +331,7 @@ export const draftGuides: Guide[] = [
       },
     ],
     midCta: {
-      text: 'Sessions by video fit between lectures and do not care which campus you are on. A free 15-minute consultation is the least committal way to start.',
+      text: 'Sessions by video fit between lectures and do not care which campus you are on. A free 30-minute consultation is the least committal way to start.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -414,7 +414,7 @@ export const draftGuides: Guide[] = [
       },
     ],
     midCta: {
-      text: 'Wherever you are in this: still deciding, mid-upheaval, or a year out and not "over it". A free 15-minute consultation is a low-stakes way to start.',
+      text: 'Wherever you are in this: still deciding, mid-upheaval, or a year out and not "over it". A free 30-minute consultation is a low-stakes way to start.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -488,7 +488,7 @@ export const draftGuides: Guide[] = [
       },
     ],
     midCta: {
-      text: 'Whether this is your loop or your household’s, fifteen minutes is enough to work out which kind of help fits first.',
+      text: 'Whether this is your loop or your household’s, thirty minutes is enough to work out which kind of help fits first.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -555,7 +555,7 @@ export const draftGuides: Guide[] = [
       {
         h2: 'Suggesting therapy without it landing as a verdict',
         body: [
-          'The sentence to avoid is any version of "you need help", delivered mid-fight. It arrives as a character judgement and gets defended against accordingly. What tends to land better: a calm moment, "I" rather than "you", the cost named honestly, and the ask made small. "I love you, I watch how hard this is, and it’s wearing on both of us. Would you try one conversation with someone? Fifteen minutes, free, and I’ll sit with you while you book it if you want."',
+          'The sentence to avoid is any version of "you need help", delivered mid-fight. It arrives as a character judgement and gets defended against accordingly. What tends to land better: a calm moment, "I" rather than "you", the cost named honestly, and the ask made small. "I love you, I watch how hard this is, and it’s wearing on both of us. Would you try one conversation with someone? Thirty minutes, free, and I’ll sit with you while you book it if you want."',
           'Two realities to hold at once. Adults get to decline help, and pushing harder usually entrenches the refusal: what you control is your steadiness, your accommodations, and your limits, which themselves often shift the system enough that help starts to look appealing. And: you asking is not overstepping. Partners are usually the first people to see the true size of an anxiety problem, and saying what you see, kindly, is part of the job description.',
           'If they will not go, going yourself is not a consolation prize. It is often the single most effective move available, for your own footing, and because one person changing their steps reliably changes the dance.',
         ],
@@ -635,7 +635,7 @@ export const draftGuides: Guide[] = [
       },
     ],
     midCta: {
-      text: 'If you recognised your own dance in this page, the working version of the question fits in fifteen minutes.',
+      text: 'If you recognised your own dance in this page, the working version of the question fits in thirty minutes.',
       label: 'Book a free consultation',
     },
     faqs: [

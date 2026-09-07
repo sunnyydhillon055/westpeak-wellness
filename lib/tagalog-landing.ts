@@ -22,7 +22,7 @@
 export const TAGALOG_LANDING = {
   metaTitle: 'Counselling sa Tagalog | Westpeak Wellness',
   metaDescription:
-    'Counselling sa Tagalog o Ingles sa buong British Columbia at Alberta. Libreng 15 minutong konsultasyon, walang bayad at walang obligasyon.',
+    'Counselling sa Tagalog o Ingles sa buong British Columbia at Alberta. Libreng 30 minutong konsultasyon, walang bayad at walang obligasyon.',
 
   eyebrow: 'Sa Tagalog',
   h1: 'Counselling sa sariling wika',

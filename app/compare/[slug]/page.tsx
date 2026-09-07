@@ -246,7 +246,7 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
       <MoreFrom items={comparisons} currentSlug={c.slug} base="/compare" heading="Other comparisons" eyebrow="Keep going" />
       <CtaBand
         heading="Talk it through before you commit."
-        text="A free 15-minute consultation, including an honest answer if what you need is someone other than an RCC."
+        text="A free 30-minute consultation, including an honest answer if what you need is someone other than an RCC."
       />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />

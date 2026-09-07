@@ -53,7 +53,7 @@ export default function TrustBar() {
       </span>
       <span className="trust-item">
         <Langs aria-hidden="true" strokeWidth={1.7} />
-        <span>Free <strong>15-minute</strong> consultation</span>
+        <span>Free <strong>30-minute</strong> consultation</span>
       </span>
       <span className="trust-item">
         <Coverage aria-hidden="true" strokeWidth={1.7} />

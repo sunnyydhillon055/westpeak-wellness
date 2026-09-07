@@ -212,7 +212,7 @@ export const practitioners: Practitioner[] = [
       'Wanting to work in Punjabi, or move between Punjabi and English',
     ],
     sessionNote:
-      'The first fifteen minutes are free and there is no obligation attached to them. If it turns out I am not the right fit, I will say so and point you somewhere better.',
+      'The first thirty minutes are free and there is no obligation attached to them. If it turns out I am not the right fit, I will say so and point you somewhere better.',
     services: ['individual-therapy', 'couples-therapy', 'emdr-therapy', 'punjabi-counselling'],
     /* Bookable: the practice's existing Cliniko types are hers. */
     bookable: true,

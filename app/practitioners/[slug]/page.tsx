@@ -410,8 +410,8 @@ export default function PractitionerPage({ params }: { params: { slug: string } 
         heading={p.acceptingNewClients ? `Talk to ${first} first` : altFirst ? `Talk to ${altFirst} first` : 'Therapy starts with one conversation.'}
         text={
           p.acceptingNewClients
-            ? 'A free 15-minute consultation, by video. No card, and no obligation to book anything afterwards.'
-            : `${first} is not taking new clients at the moment. ${alt ? `${alt.name} is: a free 15-minute consultation by video, no card, and no obligation to book anything afterwards.` : 'Send a message and you will be told when that changes.'}`
+            ? 'A free 30-minute consultation, by video. No card, and no obligation to book anything afterwards.'
+            : `${first} is not taking new clients at the moment. ${alt ? `${alt.name} is: a free 30-minute consultation by video, no card, and no obligation to book anything afterwards.` : 'Send a message and you will be told when that changes.'}`
         }
       />
 

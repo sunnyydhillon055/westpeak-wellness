@@ -99,7 +99,7 @@ export const albertaResources: Resource[] = [
       },
     ],
     midCta: {
-      text: 'Camille Granda, RCC, CCC, can see clients in Alberta, and the first fifteen minutes are free.',
+      text: 'Camille Granda, RCC, CCC, can see clients in Alberta, and the first thirty minutes are free.',
       label: 'More about Camille',
     },
     faqs: [

@@ -126,7 +126,12 @@ export default function Home() {
                   alt="A small tree growing from a mossy rock in still, mirror-flat lake water, surrounded by soft reflected forest light."
                   ratio="tall"
                   priority
-                  sizes="(max-width: 900px) 92vw, 44vw"
+                  /* Lighthouse (6 Sep 2026, mobile) measured this image
+                     displayed at 207×165 on a 375 px viewport while the sizes
+                     hint said 92vw, so the browser fetched the 384 px file for
+                     a 207 px slot: 21 KB wasted on the LCP element. 56vw is
+                     what the layout actually gives it on a phone. */
+                  sizes="(max-width: 900px) 56vw, 44vw"
                   credit="Fairy Lake, Vancouver Island"
                 />
               </div>
@@ -142,7 +147,7 @@ export default function Home() {
                   2026-08-10 and Saturday and Sunday came off it. Daytime and
                   evening are both still true: Mon 10–3 and Tue 9–6 are daytime,
                   Wed–Fri 6–7 is evening. */}
-              <p className="hero-note">Free 15-minute consult · Daytime &amp; evening times · No referral needed</p>
+              <p className="hero-note">Free 30-minute consult · Daytime &amp; evening times · No referral needed</p>
               <TrustBar />
             </div>
           </div>
@@ -255,7 +260,7 @@ export default function Home() {
             <div className="crisis" style={{ marginTop: 26, maxWidth: 720 }}>
               <p style={{ margin: 0 }}>
                 Step one costs nothing.{' '}
-                <Link href={site.bookingPath}>Book a free 15-minute consultation</Link>, and if it
+                <Link href={site.bookingPath}>Book a free 30-minute consultation</Link>, and if it
                 turns out someone else is a better fit, you&rsquo;ll get told that too.
               </p>
             </div>

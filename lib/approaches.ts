@@ -69,7 +69,7 @@ export const approaches: Approach[] = [
     ],
     midCta: {
       text: 'If a structured, targeted piece of work is what you are after,',
-      label: 'a free 15-minute consultation can establish whether it fits',
+      label: 'a free 30-minute consultation can establish whether it fits',
     },
     faqs: [
       { q: 'Is CBT just positive thinking?', a: 'No, and practitioners find the comparison frustrating. CBT tests the accuracy of interpretations rather than replacing them with cheerful ones, and a thought that turns out to be accurate is addressed behaviourally instead.' },
@@ -227,7 +227,7 @@ export const approaches: Approach[] = [
     ],
     midCta: {
       text: 'If "part of me wants to and part of me cannot" describes your situation,',
-      label: 'a free 15-minute consultation is a place to start',
+      label: 'a free 30-minute consultation is a place to start',
     },
     faqs: [
       { q: 'Does IFS mean I have multiple personalities?', a: 'No. The model describes ordinary internal multiplicity that everybody experiences. Dissociative identity disorder is a distinct clinical condition and a different matter entirely.' },
@@ -306,7 +306,7 @@ export const approaches: Approach[] = [
     ],
     midCta: {
       text: 'If you understand what happened and your body has not caught up,',
-      label: 'a free 15-minute consultation is a reasonable next step',
+      label: 'a free 30-minute consultation is a reasonable next step',
     },
     faqs: [
       { q: 'Does somatic therapy involve touch?', a: 'Some in-person modalities do. This is a fully virtual practice, so no session here involves physical contact. The work is verbal instruction and your own attention.' },
@@ -385,7 +385,7 @@ export const approaches: Approach[] = [
     ],
     midCta: {
       text: 'If you are not sure whether you need skills or the full programme,',
-      label: 'a free 15-minute consultation will give you an honest answer',
+      label: 'a free 30-minute consultation will give you an honest answer',
     },
     faqs: [
       { q: 'Is DBT-informed therapy the same as DBT?', a: 'No. Full DBT includes a skills group, phone coaching and a therapist consultation team alongside individual sessions. DBT-informed work uses the skills without that structure, and is a different intervention.' },

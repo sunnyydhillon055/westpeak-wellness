@@ -298,7 +298,7 @@ export const pairs: Pair[] = [
     ],
     faqs: [
       { q: 'Is there anything for couples locally?', a: 'General counselling exists in Prince George. Structured couples work with specific training is less reliably available, which is usually the gap people are trying to fill.' },
-      { q: 'How do we start?', a: 'A free 15-minute video call, either together or one of you first. Both are ordinary ways to begin.' },
+      { q: 'How do we start?', a: 'A free 30-minute video call, either together or one of you first. Both are ordinary ways to begin.' },
     ],
   },
 
@@ -365,7 +365,7 @@ export const pairs: Pair[] = [
     ],
     faqs: [
       { q: 'Is Aldergrove covered?', a: 'Yes, on identical terms. Nothing about the service depends on distance inside the province.' },
-      { q: 'How soon could I start?', a: 'Usually sooner than a public waitlist. The first step is a free fifteen-minute consultation, and the real timeline gets discussed there rather than promised here.' },
+      { q: 'How soon could I start?', a: 'Usually sooner than a public waitlist. The first step is a free thirty-minute consultation, and the real timeline gets discussed there rather than promised here.' },
     ],
   },
   {

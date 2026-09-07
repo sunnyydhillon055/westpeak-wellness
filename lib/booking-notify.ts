@@ -173,7 +173,7 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
       /* durationOf(), not the raw field. This line kept the original
          `duration_in_minutes ?? 50` after the confirmation path was fixed on
          30 Aug 2026 — the field is never returned by /v1/appointments, so it
-         always evaluated to 50. For a 15-minute consult that put the no-show
+         always evaluated to 50. For a 30-minute consult that put the no-show
          window 35 minutes late, which shifts who falls inside the 12–72 hour
          band near its edges. Nothing a client reads, but the same dead field
          and worth removing rather than leaving one copy behind. */
@@ -279,7 +279,7 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
     }
 
     if (needsFollowUp) {
-      /* The consultation gets its own message. A free 15-minute call that ends
+      /* The consultation gets its own message. A free 30-minute call that ends
        * with nothing happening is the single largest leak in the funnel — the
        * person has already spoken to the practice and is deciding — and the
        * ordinary follow-up says "book your NEXT session", which is wrong for

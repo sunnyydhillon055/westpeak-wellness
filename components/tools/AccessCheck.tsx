@@ -71,7 +71,7 @@ export default function AccessCheck() {
               </p>
             )}
             {!elsewhere && (
-              <ResultCta tool="what-can-i-access" label="Ask about the private route, free 15 minutes" />
+              <ResultCta tool="what-can-i-access" label="Ask about the private route, free 30 minutes" />
             )}
             <div className="crisis" style={{ marginTop: 22 }}>
               <p style={{ margin: 0 }}>

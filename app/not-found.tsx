@@ -63,7 +63,7 @@ export default function NotFound() {
         <ul>
           <li><Link href="/services">All counselling services</Link>: individual, couples, EMDR, trauma</li>
           <li><Link href="/pricing">Fees and insurance</Link>, what a session costs and how coverage works</li>
-          <li><Link href={site.bookingPath}>Book a free 15-minute consultation</Link></li>
+          <li><Link href={site.bookingPath}>Book a free 30-minute consultation</Link></li>
           <li><Link href="/guides">Counselling guides</Link>, plain answers to common questions</li>
           <li><Link href="/faq">FAQ</Link> · <Link href="/contact">Contact</Link> · <Link href="/about">About the counsellor</Link></li>
           <li><Link href="/punjabi" lang="pa">ਪੰਜਾਬੀ</Link>, this practice&rsquo;s pages in Punjabi</li>

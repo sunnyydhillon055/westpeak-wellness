@@ -24,7 +24,7 @@ export function generateMetadata({ params }: { params: { city: string } }): Meta
      and the language are the two words that must survive truncation, so they
      lead. */
   const title = `Tagalog Counselling in ${c.city}, BC | Westpeak Wellness`;
-  const description = `Counselling in Tagalog or English for ${c.city}, by secure video with a Registered Clinical Counsellor. Free 15-minute consultation.`;
+  const description = `Counselling in Tagalog or English for ${c.city}, by secure video with a Registered Clinical Counsellor. Free 30-minute consultation.`;
   return {
     title: { absolute: title },
     description,
@@ -192,7 +192,7 @@ export default function TagalogCityPage({ params }: { params: { city: string } }
 
       <CtaBand
         heading={`Tagalog counselling for ${c.city}`}
-        text="A free 15-minute consultation by video, in Tagalog or English. No card, no obligation."
+        text="A free 30-minute consultation by video, in Tagalog or English. No card, no obligation."
       />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />

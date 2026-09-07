@@ -1,7 +1,7 @@
 /* ============================================================================
    WHAT WAS BOOKED — read from the booking, never guessed
    ----------------------------------------------------------------------------
-   On 30 Aug 2026 a client booked the free 15-minute consultation. Cliniko
+   On 30 Aug 2026 a client booked the free 30-minute consultation. Cliniko
    recorded it correctly. The confirmation this site sent said "50 minutes",
    under the subject "Your session is booked" rather than "Your free
    consultation is booked".

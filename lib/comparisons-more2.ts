@@ -62,10 +62,10 @@ export const moreComparisons2: Comparison[] = [
     ],
     howWeFit: [
       'Westpeak Wellness offers both formats: standard 50-minute sessions in which EMDR is one of the approaches used, and a dedicated 90-minute EMDR intensive. Current pricing for each is on the [fees page](/pricing), kept in sync with the booking system.',
-      'Which format fits is a clinical question before it is a scheduling one, and it is exactly the kind of question a [free 15-minute consultation](/book) settles quickly, including honestly, when the answer is that weekly pacing or stabilisation-first work is the right starting point.',
+      'Which format fits is a clinical question before it is a scheduling one, and it is exactly the kind of question a [free 30-minute consultation](/book) settles quickly, including honestly, when the answer is that weekly pacing or stabilisation-first work is the right starting point.',
     ],
     midCta: {
-      text: 'Unsure whether your situation suits concentrated work? That is a clinical question with a quick answer, ask it on a free 15-minute call.',
+      text: 'Unsure whether your situation suits concentrated work? That is a clinical question with a quick answer, ask it on a free 30-minute call.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -147,7 +147,7 @@ export const moreComparisons2: Comparison[] = [
       'If you have read this far and it is specifically EFT you want, the right move is an ICEEFT-trained therapist, and their directory is the place to find one. That is not this practice, and pretending otherwise would be a poor way to start a therapeutic relationship. If you are undecided, a [free consultation](/book) with both partners on the call is a reasonable way to hear how the Gottman-informed version would approach your situation.',
     ],
     midCta: {
-      text: 'Deciding between approaches is easier with a concrete case, yours. A free 15-minute call with both of you is how that conversation starts.',
+      text: 'Deciding between approaches is easier with a concrete case, yours. A free 30-minute call with both of you is how that conversation starts.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -235,7 +235,7 @@ export const moreComparisons2: Comparison[] = [
       'If cost is what has you in an app instead of counselling, two pages here may change the arithmetic: [what extended health plans cover](/resources/bc-extended-health-coverage-for-counselling), and the [genuinely low-cost options in BC](/resources/low-cost-counselling-bc), including ones that are not this practice.',
     ],
     midCta: {
-      text: 'If an app got you as far as reading this, the next step costs fifteen minutes and nothing else, a free consultation with a person.',
+      text: 'If an app got you as far as reading this, the next step costs thirty minutes and nothing else, a free consultation with a person.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -315,7 +315,7 @@ export const moreComparisons2: Comparison[] = [
       'The practice is virtual and serves all of BC, which matters most exactly where Punjabi-speaking counsellors are scarcest, outside the Lower Mainland. And the smaller-community privacy concern is taken seriously here: confidentiality and its limits are set out plainly on the [privacy page](/privacy), and it is a welcome question on a consultation call.',
     ],
     midCta: {
-      text: 'The consultation itself can be in either language, which is, conveniently, a fifteen-minute answer to most of this page.',
+      text: 'The consultation itself can be in either language, which is, conveniently, a thirty-minute answer to most of this page.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -397,7 +397,7 @@ export const moreComparisons2: Comparison[] = [
       'Where both roads are in play, the practical offer is this: therapy can begin now rather than after the wait, and with your consent the work coordinates with your doctor rather than around them.',
     ],
     midCta: {
-      text: 'Unsure which door your situation needs? That is a fair question for a free 15-minute call, including when the honest answer is a doctor first.',
+      text: 'Unsure which door your situation needs? That is a fair question for a free 30-minute call, including when the honest answer is a doctor first.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -455,7 +455,7 @@ export const moreComparisons2: Comparison[] = [
       {
         h2: 'The conflation, and why it costs people months',
         body: [
-          'The two titles get used interchangeably in conversation, and the cost of the mix-up is concrete: someone needing an ADHD assessment waits months for a psychiatric referral that ends in a fifteen-minute medication consult, or someone needing medication review books a psychologist who cannot write a prescription. Same four letters, different systems, different doors.',
+          'The two titles get used interchangeably in conversation, and the cost of the mix-up is concrete: someone needing an ADHD assessment waits months for a psychiatric referral that ends in a thirty-minute medication consult, or someone needing medication review books a psychologist who cannot write a prescription. Same four letters, different systems, different doors.',
           'The clean division: **psychiatry is medicine**: diagnosis, medication, the complex and higher-risk end of mental health, reached through the referral system and paid by MSP. **Psychology is assessment and doctoral-level therapy**: formal testing that produces documentation (for accommodations, benefits, diagnosis-dependent decisions), plus psychotherapy from some practitioners, reached directly and paid privately.',
           'Neither is the "more advanced counsellor". They are different professions solving different problems, and for the most common situation of all: wanting ongoing weekly talk therapy for anxiety, depression, or a relationship. The honest answer is frequently *neither*: that work is largely done by counsellors and those psychologists who practice therapy, and the [three-way comparison](/compare/rcc-vs-psychologist-vs-social-worker-bc) covers that choice, including cost.',
         ],
@@ -467,7 +467,7 @@ export const moreComparisons2: Comparison[] = [
           { label: 'You need an assessment on paper', detail: 'ADHD, learning disability, cognitive or psychoeducational testing for school, work or benefits: a registered psychologist, privately, with a written report at the end. Budget for the assessment cost and the waitlist.' },
           { label: 'Something serious is unfolding', detail: 'Psychosis, mania, severe depression with risk: medical first, GP urgently, or emergency services. If safety is immediate: 9-8-8 by call or text.' },
           { label: 'You want ongoing weekly therapy', detail: 'Counsellors and therapy-practising psychologists do this work; psychiatrists in BC mostly do not. The price difference between an RCC and a psychologist for the same weekly hour is substantial, and the fit question matters more than the title.' },
-          { label: 'You are not sure', detail: 'A GP visit sorts the medical question in one appointment, and a free counselling consultation sorts the therapy question in fifteen minutes. Neither commits you to anything, and the two roads run in parallel without conflict.' },
+          { label: 'You are not sure', detail: 'A GP visit sorts the medical question in one appointment, and a free counselling consultation sorts the therapy question in thirty minutes. Neither commits you to anything, and the two roads run in parallel without conflict.' },
         ],
       },
     ],

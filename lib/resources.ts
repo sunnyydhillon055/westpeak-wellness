@@ -99,7 +99,7 @@ const coreResources: Resource[] = [
       },
     ],
     midCta: {
-      text: "Not sure what your plan covers? Bring the question to a free 15-minute call. The receipt details can be confirmed before you commit to anything.",
+      text: "Not sure what your plan covers? Bring the question to a free 30-minute call. The receipt details can be confirmed before you commit to anything.",
       label: "Book a free consultation",
     },
     faqs: [
@@ -183,7 +183,7 @@ const coreResources: Resource[] = [
       },
     ],
     midCta: {
-      text: "If you are weighing the wait against the cost, that is a reasonable thing to talk through on a free 15-minute call.",
+      text: "If you are weighing the wait against the cost, that is a reasonable thing to talk through on a free 30-minute call.",
       label: "Book a free consultation",
     },
     faqs: [
@@ -259,7 +259,7 @@ const coreResources: Resource[] = [
       },
     ],
     midCta: {
-      text: "If you have worked through the free options and none of them fit, a free 15-minute call is a reasonable next step.",
+      text: "If you have worked through the free options and none of them fit, a free 30-minute call is a reasonable next step.",
       label: "Book a free consultation",
     },
     faqs: [
@@ -344,7 +344,7 @@ const coreResources: Resource[] = [
       },
     ],
     midCta: {
-      text: "For non-urgent support, a free 15-minute consultation is a low-stakes way to work out what would actually help.",
+      text: "For non-urgent support, a free 30-minute consultation is a low-stakes way to work out what would actually help.",
       label: "Book a free consultation",
     },
     faqs: [

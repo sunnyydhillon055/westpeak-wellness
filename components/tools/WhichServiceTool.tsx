@@ -28,7 +28,7 @@ export default function WhichServiceTool() {
             )}
             {!hit.elsewhere && <ResultCta tool="which-service" />}
             <p className="tool-disclaimer">
-              This is a signpost, not an assessment. A 15-minute conversation will get you a
+              This is a signpost, not an assessment. A 30-minute conversation will get you a
               better answer than five questions can, and it costs nothing.
             </p>
           </>

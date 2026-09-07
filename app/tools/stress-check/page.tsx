@@ -86,7 +86,7 @@ export default function Page() {
             close it, which is set out in full on{' '}
             <Link href="/privacy">privacy and confidentiality</Link>. If any of it lands, that is a
             reasonable thing to bring to a{' '}
-            <Link href="/book">free 15-minute consultation</Link>, and{' '}
+            <Link href="/book">free 30-minute consultation</Link>, and{' '}
             <Link href="/guides/what-to-expect-first-therapy-session">what to expect in a first session</Link>{' '}
             describes what happens next.
           </p>

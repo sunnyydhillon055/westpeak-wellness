@@ -75,7 +75,7 @@ export const moreAudiences2: Audience[] = [
     ],
     midCta: {
       text: 'If the schedule is the reason you have never started,',
-      label: 'a free 15-minute consultation can be booked around the rotation',
+      label: 'a free 30-minute consultation can be booked around the rotation',
     },
     faqs: [
       { q: 'Can I do sessions from camp?', a: 'Where the connection allows, yes, and turning the camera off cuts what the connection has to carry. The bigger constraint is usually privacy rather than bandwidth, so it is worth working out where you can talk uninterrupted before the first appointment.' },
@@ -172,7 +172,7 @@ export const moreAudiences2: Audience[] = [
     ],
     midCta: {
       text: 'If nobody has asked how you are doing in about two years,',
-      label: 'a free 15-minute consultation is a place to start',
+      label: 'a free 30-minute consultation is a place to start',
     },
     faqs: [
       { q: 'Is it selfish to get counselling for this?', a: 'No, and the question itself is the thing worth examining. Caregiver exhaustion degrades the quality of care as well as the carer, which is the practical answer; the fuller one is that your own life is not a resource to be spent down without comment.' },

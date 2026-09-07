@@ -205,7 +205,7 @@ export default function ReviewsPage() {
             <h2 id="deciding">Deciding without reviews</h2>
             <p>
               The honest substitute for a testimonial is a conversation.{' '}
-              <Link href={site.bookingPath}>The free 15-minute consultation</Link> costs nothing
+              <Link href={site.bookingPath}>The free 30-minute consultation</Link> costs nothing
               and carries no obligation, and it will tell you more about fit than any number of
               strangers&rsquo; opinions.{' '}
               <Link href="/guides/how-to-find-a-therapist-in-bc">How to find a therapist in BC</Link>{' '}
@@ -219,7 +219,7 @@ export default function ReviewsPage() {
 
       <CtaBand
         heading="No testimonials. Just a conversation."
-        text="Fifteen minutes, free, and no obligation to book anything afterwards."
+        text="Thirty minutes, free, and no obligation to book anything afterwards."
       />
     </>
   );

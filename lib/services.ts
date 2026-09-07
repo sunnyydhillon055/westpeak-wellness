@@ -28,14 +28,14 @@ export const services: Service[] = [
   {
     slug: "individual-therapy",
     directAnswer:
-      "Individual therapy at Westpeak Wellness is one-to-one counselling delivered by secure video anywhere in British Columbia, provided by a Registered Clinical Counsellor registered with the BC Association of Clinical Counsellors. Sessions run 50 minutes, weekly or fortnightly. It suits anxiety, low mood, burnout, self-criticism, life transitions and long-standing patterns that have stopped responding to the obvious fixes. A free 15-minute consultation comes first, and there is no referral, diagnosis or waitlist required.",
+      "Individual therapy at Westpeak Wellness is one-to-one counselling delivered by secure video anywhere in British Columbia, provided by a Registered Clinical Counsellor registered with the BC Association of Clinical Counsellors. Sessions run 50 minutes, weekly or fortnightly. It suits anxiety, low mood, burnout, self-criticism, life transitions and long-standing patterns that have stopped responding to the obvious fixes. A free 30-minute consultation comes first, and there is no referral, diagnosis or waitlist required.",
     figure2: "bc-reach",
     figure: "first-session-flow",
     name: "Individual Therapy",
     short: "1:1 for anxiety, depression, life transitions, identity, family dynamics.",
     metaTitle: "Individual Counselling in BC (Online) | Westpeak Wellness",
     metaDescription:
-      "One-on-one online counselling across BC for anxiety, depression, life transitions, identity, and family dynamics. Book a free 15-minute consultation.",
+      "One-on-one online counselling across BC for anxiety, depression, life transitions, identity, and family dynamics. Book a free 30-minute consultation.",
     hero: "1:1 sessions for the everyday weight of being human.",
     intro:
       "Individual therapy is space that belongs entirely to you: to think out loud, make sense of what you're carrying, and work toward what \"better\" looks like on your terms. Sessions are 50 minutes, weekly or biweekly, and always online so you can meet from wherever you feel most at ease in BC.",
@@ -169,7 +169,7 @@ export const services: Service[] = [
     short: "Evidence-based for trauma, PTSD, anxiety, grief.",
     metaTitle: "EMDR Therapy in BC (Online) | Westpeak Wellness",
     metaDescription:
-      "Online EMDR therapy across BC for trauma, PTSD, anxiety, and grief. EMDR-trained Registered Clinical Counsellor. Book a free 15-minute consultation.",
+      "Online EMDR therapy across BC for trauma, PTSD, anxiety, and grief. EMDR-trained Registered Clinical Counsellor. Book a free 30-minute consultation.",
     hero: "Process painful memories so they stop running the show.",
     intro:
       "EMDR (Eye Movement Desensitization and Reprocessing) is an evidence-supported therapy that helps the brain reprocess distressing memories so they lose their grip. You don't have to relive everything in detail or explain it perfectly: EMDR works with how memory is stored, not just how it's told. Available online across BC, including a 90-minute intensive format.",
@@ -247,7 +247,7 @@ export const services: Service[] = [
     short: "For the pattern between you, not the person you think is the problem.",
     metaTitle: "Online Family Counselling in BC | Westpeak Wellness",
     metaDescription:
-      "Online family counselling across BC in English, Punjabi or Tagalog. Conflict, communication, and the gap between generations. Free 15-minute consultation.",
+      "Online family counselling across BC in English, Punjabi or Tagalog. Conflict, communication, and the gap between generations. Free 30-minute consultation.",
     hero: "When the difficulty lives between people, not inside one of them.",
     directAnswer:
       "Family counselling at Westpeak Wellness is relationship work involving more than one family member, delivered by secure video across British Columbia by a Registered Clinical Counsellor, in English or Punjabi. It treats the pattern between people rather than one person's behaviour, and is used for recurring conflict, communication that has broken down, adult children and parents who cannot talk, blended-family adjustment, and the distance that opens between generations in immigrant families. Not everyone needs to attend every session.",

@@ -63,7 +63,7 @@ export default function Page() {
           <p>
             What it cannot do is assess anything. It has no validation behind it, it does not know
             your history, and five questions cannot outperform a conversation. Treat it as a
-            signpost, a <Link href="/book">free 15-minute consultation</Link> costs nothing and
+            signpost, a <Link href="/book">free 30-minute consultation</Link> costs nothing and
             will get you a better answer. If you would rather read first,{' '}
             <Link href="/guides/signs-it-might-be-time-for-therapy">signs it might be time for therapy</Link>{' '}
             covers the same ground at length.

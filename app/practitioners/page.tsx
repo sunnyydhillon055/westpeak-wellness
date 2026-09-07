@@ -87,7 +87,7 @@ export default function PractitionersPage() {
             </p>
             <p>
               If you are not sure who to choose, the{' '}
-              <Link href="/book">free 15-minute consultation</Link> is for exactly that, and it
+              <Link href="/book">free 30-minute consultation</Link> is for exactly that, and it
               carries no obligation. Where somebody else would be a better fit, including outside
               this practice. You will be told so on the call.
             </p>
@@ -153,7 +153,7 @@ export default function PractitionersPage() {
 
       <CtaBand
         heading="Not sure who to book with?"
-        text="A free 15-minute consultation is the easiest way to find out. No card, no commitment."
+        text="A free 30-minute consultation is the easiest way to find out. No card, no commitment."
       />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />

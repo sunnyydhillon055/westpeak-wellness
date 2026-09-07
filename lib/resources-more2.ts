@@ -96,7 +96,7 @@ export const moreResources2: Resource[] = [
     ],
     midCta: {
       text: 'If you want to talk it through before deciding which route to take,',
-      label: 'the 15-minute consultation is free and carries no obligation',
+      label: 'the 30-minute consultation is free and carries no obligation',
     },
     faqs: [
       { q: 'Does ICBC cover counselling after a car accident in BC?', a: 'Yes. Under Enhanced Care, counselling with a qualifying counsellor is pre-approved for the first twelve weeks after a crash, without a referral or advance approval, for a set number of sessions. Further counselling after that can be funded on a treatment plan.' },
@@ -196,7 +196,7 @@ export const moreResources2: Resource[] = [
       },
     ],
     midCta: {
-      text: 'Once you know what the plan says, the next step is a fifteen-minute call to see whether the fit is right.',
+      text: 'Once you know what the plan says, the next step is a thirty-minute call to see whether the fit is right.',
       label: 'Book a free consultation',
     },
     faqs: [

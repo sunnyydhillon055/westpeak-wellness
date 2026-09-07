@@ -93,7 +93,7 @@ export default function ApproachesHub() {
             <p style={{ margin: 0 }}>
               Not sure which of these applies to you? Working that out is part of the job rather than
               a prerequisite, {' '}
-              <Link href={site.bookingPath}>ask in a free 15-minute consultation</Link>.
+              <Link href={site.bookingPath}>ask in a free 30-minute consultation</Link>.
             </p>
           </div>
 

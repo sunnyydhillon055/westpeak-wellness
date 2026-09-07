@@ -8,6 +8,6 @@ export const alt = OG_ALT;
 export default function Image() {
   return ogImage({
     eyebrow: "Free consultation",
-    title: "Book a free 15-minute consultation.",
+    title: "Book a free 30-minute consultation.",
   });
 }

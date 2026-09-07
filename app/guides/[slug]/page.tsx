@@ -299,7 +299,7 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
       <CtaBand
         tone={GENTLE_CTA.has(g.slug) ? 'gentle' : 'default'}
         heading="Still deciding?"
-        text="A free 15-minute consultation is the least committal way to find out whether this is a fit. No pressure, and no obligation to book a session afterward."
+        text="A free 30-minute consultation is the least committal way to find out whether this is a fit. No pressure, and no obligation to book a session afterward."
       />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />

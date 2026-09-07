@@ -21,7 +21,7 @@ const MAGNETS = {
     note: 'The questions to ask your insurer, on a single page. No newsletter, no sequence. This is a one-off, and the guide above is complete without it.',
     button: 'Send it',
     doneBody:
-      'The full guide is on this page already, so there is nothing to wait for. If you would like to talk any of it through, a free 15-minute consultation is the next step and carries no obligation.',
+      'The full guide is on this page already, so there is nothing to wait for. If you would like to talk any of it through, a free 30-minute consultation is the next step and carries no obligation.',
   },
   'icbc-after-a-crash': {
     title: 'Injured in a crash? You may already have twelve funded sessions.',
@@ -35,7 +35,7 @@ const MAGNETS = {
     note: 'Seven steps from first thought to first session: coverage, registers, consultations, and what a first session actually involves. It applies with any counsellor, not just this practice. One email, no sequence, and this page is complete without it.',
     button: 'Send it',
     doneBody:
-      'It is on its way: seven steps, one page, usable with any counsellor. If you would rather talk it through, a free 15-minute consultation is the next step and carries no obligation.',
+      'It is on its way: seven steps, one page, usable with any counsellor. If you would rather talk it through, a free 30-minute consultation is the next step and carries no obligation.',
   },
 } as const;
 

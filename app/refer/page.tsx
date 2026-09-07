@@ -141,7 +141,7 @@ for someone who has never done this before.
               </li>
               <li>
                 <strong>&ldquo;Is it even worth booking?&rdquo;</strong>{' '}
-                <Link href={site.bookingPath}>The free 15-minute consultation</Link>. No card, no
+                <Link href={site.bookingPath}>The free 30-minute consultation</Link>. No card, no
                 intake form, and deciding not to continue is a normal outcome.
               </li>
               <li>

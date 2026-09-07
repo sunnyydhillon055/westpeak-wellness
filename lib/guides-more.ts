@@ -73,7 +73,7 @@ export const moreGuides: Guide[] = [
     ],
     midCta: {
       text: 'If you want a realistic estimate for your situation rather than a range from an article,',
-      label: 'ask in a free 15-minute consultation',
+      label: 'ask in a free 30-minute consultation',
     },
     faqs: [
       { q: 'Can I do just one session?', a: 'Yes. Some people come for a single consultation to get oriented, get a referral, or ask one specific question. A single session cannot do the work of a course of therapy, but it is a legitimate use of a session and nobody will pressure you into a package.' },
@@ -157,15 +157,15 @@ export const moreGuides: Guide[] = [
       {
         h2: 'What the first step actually costs you',
         body: [
-          'The gap between deciding to do something and doing it is where most of the delay lives. It helps to know exactly how small the first step is: a free fifteen-minute consultation over secure video, in which you say roughly what is going on and hear how the work would run.',
+          'The gap between deciding to do something and doing it is where most of the delay lives. It helps to know exactly how small the first step is: a free thirty-minute consultation over secure video, in which you say roughly what is going on and hear how the work would run.',
           'You are not committing to a course of therapy, you are not required to tell the whole story, and deciding afterwards that it is not for you is an entirely normal outcome, including deciding that a different counsellor would suit you better. [What happens in a first session](/guides/what-to-expect-first-therapy-session) covers the stage after that in detail.',
-          'The thing most people say afterwards is some version of *I should have done this ages ago*. That is not a sales line; it is what happens when a decision that has been carrying eighteen months of weight turns out to take fifteen minutes.',
+          'The thing most people say afterwards is some version of *I should have done this ages ago*. That is not a sales line; it is what happens when a decision that has been carrying eighteen months of weight turns out to take thirty minutes.',
         ],
       },
     ],
     midCta: {
       text: 'If most of that list sounded familiar, the next step is smaller than it feels: ',
-      label: 'book a free 15-minute consultation',
+      label: 'book a free 30-minute consultation',
     },
     faqs: [
       { q: 'What if I start and realise I did not need it?', a: 'That is a fine outcome and it happens. A consultation or a first session that concludes "you are handling this, and here is what to watch for" is a useful result, not a wasted one.' },
@@ -260,7 +260,7 @@ export const moreGuides: Guide[] = [
     ],
     midCta: {
       text: 'If something you thought you had dealt with is still shaping how you live,',
-      label: 'a free 15-minute consultation is a low-stakes place to start',
+      label: 'a free 30-minute consultation is a low-stakes place to start',
     },
     faqs: [
       { q: 'Do I have to describe what happened in detail?', a: 'No. Effective trauma work does not require a full narrative account, and several approaches deliberately require little verbal detail. You control what is said and when.' },
@@ -360,7 +360,7 @@ export const moreGuides: Guide[] = [
     ],
     midCta: {
       text: 'Every question on this page is fair game in a consultation here: ',
-      label: 'book a free 15 minutes and ask them',
+      label: 'book a free 30 minutes and ask them',
     },
     faqs: [
       { q: 'Is it rude to ask a therapist about their qualifications?', a: 'No. It is a reasonable question about a professional service, and a registered clinician will answer it directly. Anyone who bristles has told you something useful.' },

@@ -225,7 +225,7 @@ const orgSchema = {
   })),
   potentialAction: {
     '@type': 'ReserveAction',
-    name: 'Book a free 15-minute consultation',
+    name: 'Book a free 30-minute consultation',
     target: { '@type': 'EntryPoint', urlTemplate: `${site.domain}${site.bookingPath}` },
   },
   /* Every profile that independently confirms this practice exists.

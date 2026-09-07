@@ -185,7 +185,7 @@ export default async function SignInPage({
         {!wantsAdmin && (
           <p style={{ fontSize: '.92rem', color: 'var(--ink-faint)' }}>
             Not a client yet? The{' '}
-            <Link href={site.bookingPath}>free 15-minute consultation</Link> is open to everyone
+            <Link href={site.bookingPath}>free 30-minute consultation</Link> is open to everyone
             and needs no sign-in.
           </p>
         )}

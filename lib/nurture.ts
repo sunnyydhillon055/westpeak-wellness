@@ -156,7 +156,7 @@ function email3(firstName: string, to: string) {
 Last one from me.
 
 If you have been turning this over since you downloaded that checklist,
-a free fifteen-minute consultation is the least committal way to find
+a free thirty-minute consultation is the least committal way to find
 out whether it is worth going further. It is a conversation, not an
 intake. Nothing to prepare, and no obligation to book afterwards.
 
@@ -178,16 +178,16 @@ is the last of three; there is nothing after it.
 Unsubscribe: ${unsubLink(to)}`);
 
   const html = shell(
-    'Fifteen minutes, if it is useful',
+    'Thirty minutes, if it is useful',
     p(esc(hi)) +
     p('Last one from me.') +
-    p('If you have been turning this over since you downloaded that checklist, a free fifteen-minute consultation is the least committal way to find out whether it is worth going further. It is a conversation, not an intake, nothing to prepare, and no obligation to book afterwards.') +
+    p('If you have been turning this over since you downloaded that checklist, a free thirty-minute consultation is the least committal way to find out whether it is worth going further. It is a conversation, not an intake, nothing to prepare, and no obligation to book afterwards.') +
     btn(links.book, 'Book a free consultation') +
     p('It is also a perfectly good outcome of that call to conclude that someone else is a better fit, or that now is not the time. If that is where it lands, you will be told so plainly rather than sold to.') +
     p(`If the timing is wrong, that is completely fine, ${a(links.guides, 'the guides stay up and cost nothing')}.`) +
     footerNote(to)
   );
-  return { subject: 'Fifteen minutes, if it is useful', text, html };
+  return { subject: 'Thirty minutes, if it is useful', text, html };
 }
 
 /* ---- the run -------------------------------------------------------------- */

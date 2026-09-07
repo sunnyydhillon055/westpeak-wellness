@@ -55,7 +55,7 @@ export function GET() {
 - Delivery: secure video sessions; no in-person office; no phone sessions
 - Languages: English, Punjabi and Tagalog (${site.languagesNative})
 - Practitioners: two Registered Clinical Counsellors, both BCACC registered with numbers published on their own pages. One also holds the CCC (Canadian Counselling and Psychotherapy Association).
-- Session length: 50 minutes. First consultation: 15 minutes, free
+- Session length: 50 minutes. First consultation: 30 minutes, free
 - Booking: ${u(site.bookingPath)}
 - Contact: ${site.email}
 - Not covered by MSP in BC, and not covered by AHCIP in Alberta. Many extended health plans reimburse a Registered Clinical Counsellor; Alberta plans more often name the Canadian Certified Counsellor, because counselling therapy is not a regulated profession there. The practice does not direct-bill, clients pay directly and submit a receipt carrying the registration number.
@@ -70,7 +70,7 @@ Health Support, no area code needed), or 9-1-1 in immediate danger.
 
 - [About the practice](${u('/about')}): the counsellor's training, approach, and stated scope limits.
 - [Fees and insurance](${u('/pricing')}): session fees, what extended health covers, and what to do if the fee is a barrier.
-- [Book a free consultation](${u(site.bookingPath)}): the 15-minute, no-cost first step.
+- [Book a free consultation](${u(site.bookingPath)}): the 30-minute, no-cost first step.
 - [Frequently asked questions](${u('/faq')}): grouped by getting started, fees and coverage, how sessions work, and privacy.
 - [Contact](${u('/contact')}): email and what to expect after getting in touch.
 - [Areas served across BC](${u('/online-counselling')}): how province-wide virtual counselling works.

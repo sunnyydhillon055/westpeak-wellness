@@ -79,7 +79,7 @@ export default function ForHub() {
           <div className="crisis" style={{ marginTop: 32 }}>
             <p style={{ margin: 0 }}>
               Recognise yourself in one of these? A{' '}
-              <Link href={site.bookingPath}>free 15-minute consultation</Link> costs nothing and
+              <Link href={site.bookingPath}>free 30-minute consultation</Link> costs nothing and
               commits you to nothing.
             </p>
           </div>
@@ -129,7 +129,7 @@ export default function ForHub() {
 
       <CtaBand
         heading="Not sure where you fit?"
-        text="That is a good use of a free 15-minute consultation. No pressure, no commitment."
+        text="That is a good use of a free 30-minute consultation. No pressure, no commitment."
       />
     </>
   );

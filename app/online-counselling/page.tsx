@@ -143,7 +143,7 @@ export default function LocationsIndex() {
             <div className="card">
               <h3>Free consultation</h3>
               <p style={{ marginBottom: 0 }}>
-                Fifteen minutes over secure video, at no cost. See{' '}
+                Thirty minutes over secure video, at no cost. See{' '}
                 <Link href="/book">how the free consultation works</Link>.
               </p>
             </div>
@@ -228,7 +228,7 @@ export default function LocationsIndex() {
 
       <CtaBand
         heading="Same care, wherever you are in BC"
-        text="A free 15-minute consultation over secure video. No pressure, no commitment."
+        text="A free 30-minute consultation over secure video. No pressure, no commitment."
       />
     </>
   );

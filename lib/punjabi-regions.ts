@@ -99,7 +99,7 @@ export const punjabiRegions: PunjabiRegion[] = [
     blurb:
       'South Asian residents are the largest racialized group in Kamloops, and Punjabi is the most common non-official language spoken at home. Punjabi-speaking counsellors are not.',
     metaDescription:
-      'Punjabi-speaking online counselling for Kamloops and the Thompson-Nicola. Sessions in Punjabi, English, or both, with an RCC. Free 15-minute consultation.',
+      'Punjabi-speaking online counselling for Kamloops and the Thompson-Nicola. Sessions in Punjabi, English, or both, with an RCC. Free 30-minute consultation.',
     demography: {
       stat: 'South Asian residents are the largest racialized group in Kamloops: about 4,260 people, 4.5% of the city.',
       body: [
@@ -174,7 +174,7 @@ export const punjabiRegions: PunjabiRegion[] = [
     blurb:
       'Northern BC has the thinnest counselling coverage in the province. In Punjabi, it is thinner still, and virtual access is the only realistic route.',
     metaDescription:
-      'Punjabi-speaking online counselling for Prince George and Northern BC. Sessions in Punjabi, English, or both, with an RCC. Free 15-minute consultation.',
+      'Punjabi-speaking online counselling for Prince George and Northern BC. Sessions in Punjabi, English, or both, with an RCC. Free 30-minute consultation.',
     demography: {
       stat: 'About 4.2% of Prince George residents are South Asian, and Punjabi has long been among the most common mother tongues in the city.',
       body: [
@@ -254,7 +254,7 @@ export const punjabiRegions: PunjabiRegion[] = [
     blurb:
       'Kelowna\'s Punjabi-speaking population has grown by half in five years. The number of Punjabi-speaking counsellors in the Okanagan has not moved.',
     metaDescription:
-      'Punjabi-speaking online counselling for Kelowna and the Okanagan. Sessions in Punjabi, English, or both, with an RCC. Free 15-minute consultation.',
+      'Punjabi-speaking online counselling for Kelowna and the Okanagan. Sessions in Punjabi, English, or both, with an RCC. Free 30-minute consultation.',
     demography: {
       stat: 'Punjabi speakers grew from 1.2% of Kelowna in 2016 to 1.8% in 2021, a rise of half again in five years.',
       body: [

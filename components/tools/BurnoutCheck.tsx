@@ -71,7 +71,7 @@ export default function BurnoutCheck() {
               <Link href="/guides/stress-leave-bc">how stress leave works in BC</Link> covers the
               practical side.
             </p>
-            <ResultCta tool="burnout-or-depression" label="Talk it through, free 15 minutes" />
+            <ResultCta tool="burnout-or-depression" label="Talk it through, free 30 minutes" />
             <div className="crisis" style={{ marginTop: 22 }}>
               <p style={{ margin: 0 }}>
                 <strong>If things are worse than this page can hold:</strong> call or text{' '}

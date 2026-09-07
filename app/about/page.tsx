@@ -78,7 +78,7 @@ const BLOCKS: { h: string; p: string; href: string; cta: string }[] = [
   },
   {
     h: 'A free first call',
-    p: 'Fifteen minutes by video, no card and no obligation. It is for working out fit, and if someone else is a better fit, we will say so on the call.',
+    p: 'Thirty minutes by video, no card and no obligation. It is for working out fit, and if someone else is a better fit, we will say so on the call.',
     href: site.bookingPath,
     cta: 'Book the consultation',
   },
@@ -299,7 +299,7 @@ export default function About() {
 
       <CtaBand
         heading="Not sure yet?"
-        text="A free 15-minute consultation is the easiest way to find out. No card, no commitment."
+        text="A free 30-minute consultation is the easiest way to find out. No card, no commitment."
       />
     </>
   );

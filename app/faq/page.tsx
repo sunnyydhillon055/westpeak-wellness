@@ -128,7 +128,7 @@ export default function FAQ() {
           <div className="crisis" style={{ marginTop: 32 }}>
             <p style={{ margin: 0 }}>
               Question not answered here? Ask it on a{' '}
-              <Link href={site.bookingPath}>free 15-minute consultation</Link>. There is no
+              <Link href={site.bookingPath}>free 30-minute consultation</Link>. There is no
               obligation to book a session afterward.
             </p>
           </div>

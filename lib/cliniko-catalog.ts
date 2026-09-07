@@ -55,7 +55,7 @@ export type Catalog = {
  * build time, which is a worse trade for the same number. */
 export const FALLBACK_CATALOG: Catalog = {
   items: [
-    { id: '2013349744314681520', name: 'Initial Consultation', minutes: 15, cents: 0, onlineBookable: true },
+    { id: '2013349744314681520', name: 'Initial Consultation', minutes: 30, cents: 0, onlineBookable: true },
     { id: '1466854657459489533', name: 'Individual Counselling', minutes: 50, cents: 14000, onlineBookable: true },
     { id: '1909558292636502700', name: 'Couples Counselling', minutes: 50, cents: 17500, onlineBookable: true },
     { id: '2013350310713493681', name: 'Couples Extended', minutes: 110, cents: 34000, onlineBookable: true },

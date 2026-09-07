@@ -13,11 +13,11 @@ import { PROVINCE_NAME, type Province } from '@/lib/crisis';
 export const metadata: Metadata = {
   title: 'Book a Free 15-Minute Consultation',
   description:
-    'A free 15-minute video call. No card, no obligation, and if someone else would suit you better you will be told so. Anywhere in BC, in English, Punjabi or Tagalog.',
+    'A free 30-minute video call. No card, no obligation, and if someone else would suit you better you will be told so. Anywhere in BC, in English, Punjabi or Tagalog.',
   alternates: { canonical: `${site.domain}/book` },
   openGraph: { ...ogBase(`/book`),
     title: `Book a Free 15-Minute Consultation | ${site.name}`,
-    description: 'Free 15-minute consultation for online counselling anywhere in British Columbia.',
+    description: 'Free 30-minute consultation for online counselling anywhere in British Columbia.',
   },
 };
 
@@ -108,7 +108,7 @@ export default function Book({
 
       <section className="hero" style={{ paddingBottom: 24 }}>
         <div className="container">
-          <p className="eyebrow">Free · 15 minutes · No commitment</p>
+          <p className="eyebrow">Free · 30 minutes · No commitment</p>
           <h1 style={{ marginBottom: 10 }}>
             Book a free consultation{who ? ` with ${who.name.split(' ')[0]}` : ''}.
           </h1>
@@ -130,7 +130,7 @@ export default function Book({
               already on this page; what changed is that they can be taken in at
               a glance instead of read. */}
           <ul className="book-facts">
-            <li>15 minutes</li>
+            <li>30 minutes</li>
             <li>Secure video</li>
             <li>No card</li>
             <li>No intake form</li>
@@ -205,7 +205,7 @@ export default function Book({
                   is not taking new clients. */}
               <SchedulerEmbed
                 url={bookingsUrlFor(who?.clinikoPractitionerId)}
-                title={`Book a free 15-minute consultation${who ? ` with ${who.name.split(' ')[0]}` : ''}`}
+                title={`Book a free 30-minute consultation${who ? ` with ${who.name.split(' ')[0]}` : ''}`}
                 page="/book"
               />
             </>
@@ -219,7 +219,7 @@ export default function Book({
                 will be confirmed by reply.
               </p>
               <div className="btn-row" style={{ marginTop: 22 }}>
-                <a className="btn btn--primary" href={`mailto:${site.email}?subject=Free%2015-minute%20consultation`}>
+                <a className="btn btn--primary" href={`mailto:${site.email}?subject=Free%2030-minute%20consultation`}>
                   Email to book your consultation
                 </a>
                 <a className="btn btn--ghost" href={site.bookingsFallbackUrl} target="_blank" rel="noopener">
@@ -311,7 +311,7 @@ export default function Book({
           <h2 style={{ marginTop: 0 }}>Before you decide</h2>
 
           <details className="faq-item">
-            <summary>What actually happens in the 15 minutes?</summary>
+            <summary>What actually happens in the 30 minutes?</summary>
             <div className="prose">
               <p>
                 You say what brought you here, in your own words. There is no form and no history
@@ -359,7 +359,7 @@ export default function Book({
             <summary>Is there anything I should prepare?</summary>
             <div className="prose">
               <p>
-                No. You are also not expected to tell the whole story: fifteen minutes is not enough
+                No. You are also not expected to tell the whole story: thirty minutes is not enough
                 for that and it is not what the call is for. If it helps to arrive with anything,
                 one sentence on what is going on and one on how long it has been going on is more
                 than sufficient.

@@ -135,7 +135,7 @@ export const figures: Record<string, Figure> = {
     width: 1040,
     height: 344,
     title: "How a first counselling session unfolds",
-    alt: "A four-step diagram: a free fifteen-minute video consultation, an intake form sent before the session, the fifty-minute first session covering history and goals, and a decision at the end about whether and how often to continue.",
+    alt: "A four-step diagram: a free thirty-minute video consultation, an intake form sent before the session, the fifty-minute first session covering history and goals, and a decision at the end about whether and how often to continue.",
     caption: "The path from first contact to the end of session one.",
   },
   'four-decisions': {

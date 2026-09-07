@@ -46,7 +46,7 @@ export default function StickyBook() {
       <div className="sticky-book-inner">
         <div>
           <p className="sticky-book-text">
-            Free 15-minute consult · <span>no obligation</span>
+            Free 30-minute consult · <span>no obligation</span>
           </p>
           {/* The bar followed people down every page offering only the biggest
               ask. A text link rather than a second button, so the primary

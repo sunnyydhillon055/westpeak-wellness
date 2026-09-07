@@ -54,7 +54,7 @@ export const TAGALOG = {
      appended, which the SEO gate rejects. */
   metaTitle: 'Counselling sa Tagalog, Camille Granda',
   metaDescription:
-    'Counselling sa Tagalog o Ingles kasama si Camille Granda, RCC, CCC. Online sa buong British Columbia. Libreng 15 minutong konsultasyon.',
+    'Counselling sa Tagalog o Ingles kasama si Camille Granda, RCC, CCC. Online sa buong British Columbia. Libreng 30 minutong konsultasyon.',
 
   h1: 'Hindi mo kailangang isalin ang sarili mo.',
   lede:
@@ -92,5 +92,5 @@ export const TAGALOG = {
 
   ctaHeading: 'Mag-usap muna tayo',
   ctaText:
-    'Libreng 15 minutong konsultasyon sa pamamagitan ng video. Walang bayad, walang card, at walang obligasyon.',
+    'Libreng 30 minutong konsultasyon sa pamamagitan ng video. Walang bayad, walang card, at walang obligasyon.',
 } as const;

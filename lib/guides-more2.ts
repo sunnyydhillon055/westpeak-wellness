@@ -74,7 +74,7 @@ export const moreGuides2: Guide[] = [
     ],
     midCta: {
       text: 'If you have been meaning to do this for a year or two,',
-      label: 'a free 15-minute consultation is a low-stakes way to start',
+      label: 'a free 30-minute consultation is a low-stakes way to start',
     },
     faqs: [
       { q: 'What if my partner will not come?', a: 'Individual therapy focused on the relationship is a legitimate and often effective option. Changing your own half of a pattern changes the pattern, and a number of couples end up in joint work after one partner started alone.' },
@@ -158,7 +158,7 @@ export const moreGuides2: Guide[] = [
     ],
     midCta: {
       text: 'If the nights have been like this for months rather than weeks,',
-      label: 'a free 15-minute consultation is a reasonable next step',
+      label: 'a free 30-minute consultation is a reasonable next step',
     },
     faqs: [
       { q: 'Should I fix the sleep or the anxiety first?', a: 'Usually both together, because they maintain each other. Where the sleep problem has become self-sustaining, running on its own long after the original stressor resolved, targeting the sleep directly often produces faster change.' },
@@ -254,7 +254,7 @@ export const moreGuides2: Guide[] = [
     ],
     midCta: {
       text: 'If a few sessions during the wait would take the pressure off,',
-      label: 'a free 15-minute consultation costs nothing to find out',
+      label: 'a free 30-minute consultation costs nothing to find out',
     },
     faqs: [
       { q: 'How long are the waits, really?', a: 'They vary widely by health authority, by service and by urgency, from weeks to many months. The only reliable number is the one the specific service gives you when you ask, and it is worth asking directly rather than relying on general figures.' },
@@ -351,7 +351,7 @@ export const moreGuides2: Guide[] = [
     ],
     midCta: {
       text: 'If you are weighing whether to start again with someone new,',
-      label: 'a free 15-minute consultation is a low-cost way to test the fit',
+      label: 'a free 30-minute consultation is a low-cost way to test the fit',
     },
     faqs: [
       { q: 'How long should I give it before deciding?', a: 'As a rough guide, eight to ten sessions is enough to expect something identifiable to have shifted, even if that is only understanding the pattern better. Raise it earlier if the fit feels wrong; that does not need a waiting period.' },

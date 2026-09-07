@@ -80,7 +80,7 @@ export default function GuidesHub() {
 
           <div className="crisis" style={{ marginTop: 32 }}>
             <p style={{ margin: 0 }}>
-              Read enough? A <Link href={site.bookingPath}>free 15-minute consultation</Link> answers
+              Read enough? A <Link href={site.bookingPath}>free 30-minute consultation</Link> answers
               the question no guide can, whether this particular counsellor is a fit for you.
             </p>
           </div>
@@ -101,7 +101,7 @@ export default function GuidesHub() {
 
       <CtaBand
         heading="Reading is a fine place to start."
-        text="When you are ready for the next step, a free 15-minute consultation costs nothing and commits you to nothing."
+        text="When you are ready for the next step, a free 30-minute consultation costs nothing and commits you to nothing."
       />
     </>
   );

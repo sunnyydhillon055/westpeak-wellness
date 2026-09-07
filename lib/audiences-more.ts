@@ -83,7 +83,7 @@ export const moreAudiences: Audience[] = [
     ],
     midCta: {
       text: 'If most of this was familiar and none of it has ever been said out loud,',
-      label: 'a free 15-minute consultation is a place to start',
+      label: 'a free 30-minute consultation is a place to start',
     },
     faqs: [
       { q: 'Does this practice only work with women?', a: 'No. This page describes patterns that come up frequently, not a restriction on who is seen. The practice works with adults of any gender, individually and as couples.' },
@@ -186,7 +186,7 @@ export const moreAudiences: Audience[] = [
     ],
     midCta: {
       text: 'If the same conversation has been going nowhere for a while,',
-      label: 'a free 15-minute consultation is a low-stakes place to start',
+      label: 'a free 30-minute consultation is a low-stakes place to start',
     },
     faqs: [
       { q: 'Do both of us have to be on the call for the consultation?', a: 'It helps, and it is not required. Some couples do the consultation together; sometimes one person calls first to work out whether to raise it at all. Either is fine.' },

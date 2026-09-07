@@ -108,11 +108,11 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   const title = `${svc.name} in ${ctx.city}`;
   /* Composed to fit rather than truncated to fit. The first version ran the
      city AND the region into the sentence and then hard-sliced at 158, which
-     cut the longest pairs mid-word — "Free 15-minute con". Longest pair here
+     cut the longest pairs mid-word — "Free 30-minute con". Longest pair here
      is 155 characters, so nothing is cut at all. */
   const description =
     `${svc.name} for ${ctx.city}, by secure video across BC with a Registered ` +
-    `Clinical Counsellor. English, Punjabi or Tagalog. Free 15-minute consultation.`;
+    `Clinical Counsellor. English, Punjabi or Tagalog. Free 30-minute consultation.`;
   /* Guard only. If a longer service or city name is ever added, trim on a word
      boundary rather than mid-word. */
   const desc =
@@ -207,7 +207,7 @@ export default function CityServicePage({ params }: { params: Params }) {
           <Updated iso={COLLECTION_DATES['cityServices']} />
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>
-              Book a free 15-minute consultation
+              Book a free 30-minute consultation
             </Link>
             <Link className="btn btn--ghost" href={`/services/${svc.bookingService}`}>
               What {lower(svc.name)} involves
@@ -236,7 +236,7 @@ export default function CityServicePage({ params }: { params: Params }) {
 
           <p>
             Sessions are $140 for 50 minutes and start with a{' '}
-            <Link href={site.bookingPath}>free 15-minute video call</Link>, no charge, no card,
+            <Link href={site.bookingPath}>free 30-minute video call</Link>, no charge, no card,
             and no obligation to book anything afterwards.{' '}
             <Link href="/pricing">Fees and extended-health cover</Link> are set out in full.
           </p>
@@ -404,7 +404,7 @@ export default function CityServicePage({ params }: { params: Params }) {
 
       <CtaBand
         heading={`${svc.name} in ${ctx.city}, without the travel`}
-        text="A free 15-minute video call, in English, Punjabi or Tagalog. No charge, no card, and no obligation to book anything afterwards."
+        text="A free 30-minute video call, in English, Punjabi or Tagalog. No charge, no card, and no obligation to book anything afterwards."
       />
     </>
   );

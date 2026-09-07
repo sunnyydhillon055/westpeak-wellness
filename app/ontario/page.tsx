@@ -68,7 +68,7 @@ export default function OntarioHub() {
           <h1>{TITLE}</h1>
           <p className="direct-answer">
             Counselling by secure video across Ontario, in English, Punjabi or Tagalog. Sessions are
-            provided by a Registered Clinical Counsellor. The first 15 minutes are free and carry
+            provided by a Registered Clinical Counsellor. The first 30 minutes are free and carry
             no obligation.
           </p>
           <p className="lede">

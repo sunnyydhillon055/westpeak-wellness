@@ -83,7 +83,7 @@ ${links.coverage}
 That is everything. This is a one-off, not a sequence, and there is
 nothing else coming.
 
-If you would like to talk any of it through, a free 15-minute
+If you would like to talk any of it through, a free 30-minute
 consultation carries no obligation:
 ${links.book}
 
@@ -103,7 +103,7 @@ ${site.domain}`);
     `</ol>` +
     p(`The longer version, with the insurer-by-insurer table, is ${a(links.coverage, 'on the site')}.`) +
     p('That is everything. This is a one-off, not a sequence, and there is nothing else coming.') +
-    btn(links.book, 'Book a free 15-minute consultation') +
+    btn(links.book, 'Book a free 30-minute consultation') +
     p('<span style="color:#545e69;font-size:14px;">No obligation, and deciding not to book is a completely normal outcome.</span>')
   );
 
@@ -196,7 +196,7 @@ nothing else coming.`
     ).join('') +
     `</ol>` +
     p('That is everything \u2014 this is a one-off, not a sequence, and there is nothing else coming.') +
-    btn(links.book, 'Book a free 15-minute consultation') +
+    btn(links.book, 'Book a free 30-minute consultation') +
     p('<span style="color:#545e69;font-size:14px;">No obligation, and deciding not to book is a completely normal outcome.</span>')
   );
 
@@ -259,7 +259,7 @@ ${site.domain}/pricing
 That is everything. This is a one-off, not a sequence, and there is
 nothing else coming.
 
-If you would like to talk any of it through, a free 15-minute
+If you would like to talk any of it through, a free 30-minute
 consultation carries no obligation:
 ${links.book}
 
@@ -279,7 +279,7 @@ ${site.domain}`);
     `</ol>` +
     p(`Current fees and how reimbursement works are ${a(`${site.domain}/pricing`, 'on the fees page')}.`) +
     p('That is everything. This is a one-off, not a sequence, and there is nothing else coming.') +
-    btn(links.book, 'Book a free 15-minute consultation') +
+    btn(links.book, 'Book a free 30-minute consultation') +
     p('<span style="color:#545e69;font-size:14px;">No obligation, and deciding not to book is a completely normal outcome.</span>')
   );
 
@@ -308,7 +308,7 @@ come next:
   How this practice works, and what is outside its scope
   ${links.standards}
 
-If you would rather just pick a time, the free 15-minute consultation
+If you would rather just pick a time, the free 30-minute consultation
 is here and carries no obligation:
 ${links.book}
 

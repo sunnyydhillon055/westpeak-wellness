@@ -82,7 +82,7 @@ export const moreGuides6: Guide[] = [
       },
     ],
     midCta: {
-      text: 'Counselling does not certify a leave, and it is frequently what makes one worth taking. A free 15-minute consultation can work out whether that is what you need, including if the answer is a doctor first.',
+      text: 'Counselling does not certify a leave, and it is frequently what makes one worth taking. A free 30-minute consultation can work out whether that is what you need, including if the answer is a doctor first.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -170,7 +170,7 @@ export const moreGuides6: Guide[] = [
     ],
     midCta: {
       text: 'If the question is what to do next rather than what to call it,',
-      label: 'a free 15-minute consultation is a place to start',
+      label: 'a free 30-minute consultation is a place to start',
     },
     faqs: [
       { q: 'Can a counsellor diagnose ADHD?', a: 'No. Formal assessment requires a registered psychologist, and diagnosis may also come from a physician or psychiatrist depending on the route. A Registered Clinical Counsellor does not diagnose anything.' },
@@ -330,7 +330,7 @@ export const moreGuides6: Guide[] = [
     ],
     midCta: {
       text: 'If nothing you achieve has counted for a long time,',
-      label: 'a free 15-minute consultation is a place to start',
+      label: 'a free 30-minute consultation is a place to start',
     },
     faqs: [
       { q: 'Is imposter syndrome a diagnosis?', a: 'No. It is a widely recognised experience rather than a clinical condition, and a counsellor does not diagnose in any case.' },
@@ -415,7 +415,7 @@ export const moreGuides6: Guide[] = [
     ],
     midCta: {
       text: 'If you have been holding this alone for a long time,',
-      label: 'a free 15-minute consultation is available to you too',
+      label: 'a free 30-minute consultation is available to you too',
     },
     faqs: [
       { q: 'Should I give an ultimatum?', a: 'Only one you are certain you will carry out. An unenforced ultimatum devalues every limit you set afterwards, which leaves you with less influence than before.' },
@@ -497,7 +497,7 @@ export const moreGuides6: Guide[] = [
     ],
     midCta: {
       text: 'If the condition is not going to change and you are exhausted by carrying it,',
-      label: 'a free 15-minute consultation is a place to start',
+      label: 'a free 30-minute consultation is a place to start',
     },
     faqs: [
       { q: 'Does this mean my symptoms are psychological?', a: 'No, and a counsellor is not qualified to make that assessment. The work addresses what living with symptoms costs, which requires no position on what causes them.' },
@@ -582,7 +582,7 @@ export const moreGuides6: Guide[] = [
     ],
     midCta: {
       text: 'If you have started doubting your own read of what is happening,',
-      label: 'a free 15-minute consultation is a place to think clearly',
+      label: 'a free 30-minute consultation is a place to think clearly',
     },
     faqs: [
       { q: 'Is my manager being demanding the same as bullying?', a: 'No. Reasonable management action: direction, performance management, discipline conducted reasonably, is explicitly excluded. Being singled out or humiliated is different.' },

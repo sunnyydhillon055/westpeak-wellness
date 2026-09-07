@@ -256,7 +256,7 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
       <MoreFrom items={audiences} currentSlug={a.slug} base="/for" heading="Written for other situations" eyebrow="Keep going" />
       <CtaBand
         heading="One conversation, no commitment."
-        text="A free 15-minute consultation over secure video, including an honest answer if something other than counselling would serve you better."
+        text="A free 30-minute consultation over secure video, including an honest answer if something other than counselling would serve you better."
       />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />

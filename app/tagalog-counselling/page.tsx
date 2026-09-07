@@ -14,7 +14,7 @@ import { COLLECTION_DATES } from '@/lib/page-dates';
 
 const TITLE = 'Tagalog-Speaking Counselling in BC | Westpeak Wellness';
 const DESC =
-  'Online counselling in Tagalog or English across British Columbia with a Registered Clinical Counsellor. Free 15-minute consultation, no referral needed.';
+  'Online counselling in Tagalog or English across British Columbia with a Registered Clinical Counsellor. Free 30-minute consultation, no referral needed.';
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -222,7 +222,7 @@ export default function TagalogCounsellingHub() {
 
       <CtaBand
         heading="Start with a conversation"
-        text="A free 15-minute consultation by video, in Tagalog or English. No card, no obligation."
+        text="A free 30-minute consultation by video, in Tagalog or English. No card, no obligation."
       />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />

@@ -88,7 +88,7 @@ on each of their own pages, below.
 Languages across the practice: ${site.languages}.
 
 Service area: British Columbia province-wide; Alberta through one counsellor of
-the two. Session length: 50 minutes. First consultation: 15 minutes, free.
+the two. Session length: 50 minutes. First consultation: 30 minutes, free.
 Booking: ${site.domain}${site.bookingPath}. Contact: ${site.email}.
 
 Not covered by MSP in BC, and not covered by AHCIP in Alberta. Many BC extended
@@ -375,7 +375,7 @@ navigation or boilerplate. Every page it covers is also available at its own URL
     `URL: ${site.domain}/refer`,
     `Last reviewed: ${COLLECTION_DATES['services']}`,
     'How to point a friend, family member, colleague or patient toward this practice, and what happens after they get in touch.',
-    `No physician referral is required to book. A person can book the free 15-minute consultation themselves at ${site.domain}${site.bookingPath}.`,
+    `No physician referral is required to book. A person can book the free 30-minute consultation themselves at ${site.domain}${site.bookingPath}.`,
     `There is a one-page summary written for a GP in British Columbia at ${site.domain}/refer/doctor: designation, scope limits, fees, and what a referring physician does and does not need to do. Clinical information is released only with the patient's written consent.`,
   ].join('\n\n'));
 

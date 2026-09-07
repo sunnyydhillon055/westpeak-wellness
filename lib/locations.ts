@@ -69,7 +69,7 @@ export const locations: Location[] = [
     region: "Northern BC",
     blurb: "Northern BC has the thinnest counselling coverage in the province, virtual care is how the gap gets closed.",
     metaDescription:
-      "Online counselling for Prince George and Northern BC: EMDR, trauma, anxiety, depression and couples therapy by secure video. Free 15-minute consultation.",
+      "Online counselling for Prince George and Northern BC: EMDR, trauma, anxiety, depression and couples therapy by secure video. Free 30-minute consultation.",
     intro: [
       "If you live in Prince George and have tried to find a counsellor, you already know the shape of the problem: there are not many, the ones who are here fill up, and the wait for a psychiatrist or specialist is longer than almost anywhere else in the province. That is not a failure of effort on anyone's part. It is arithmetic: Northern Health covers roughly two-thirds of BC's landmass for about 300,000 people, and mental-health clinicians cluster where the population does.",
       "Virtual counselling does not fix that arithmetic. What it does is remove distance from the equation entirely. A [Registered Clinical Counsellor](/compare/rcc-vs-psychologist-vs-social-worker-bc) working out of the Lower Mainland is exactly as available to you in Prince George as to someone in Burnaby: same 50-minute session, same secure platform, same [BCACC](https://bcacc.ca) code of ethics.",
@@ -155,7 +155,7 @@ export const locations: Location[] = [
       { q: "Can I have sessions in Punjabi?", a: "Yes: in Punjabi, English, or moving between them within a session. You do not need to decide in advance which you want." },
       { q: "I live with family and have no private space. What do people do?", a: "This is one of the most common practical questions here, and there are workable answers, a parked car, a session scheduled during a work break from the office, headphones and a closed door. It is worth raising on the consultation call so it can be solved before the first session rather than during it." },
       { q: "Surrey has plenty of Punjabi-speaking counsellors. Why look outside it?", a: "For many people there is no reason to, and you would be told so on a consultation call. The reason people write in from Surrey is narrower: in a community this interconnected, the counsellor who comes recommended is often connected to the very people you would least want to know you are going. Confidentiality is a legal duty everywhere, distance is what makes it feel true." },
-      { q: "I am the first person in my family to consider therapy. Where do I even start?", a: "That is the most common position people arrive in from Surrey, and there is no template because the generation before did not have one either. A free 15-minute consultation is a reasonable place to work out what you are actually looking for, with no obligation attached, and if somebody else would be a better fit, you would be told that plainly." },
+      { q: "I am the first person in my family to consider therapy. Where do I even start?", a: "That is the most common position people arrive in from Surrey, and there is no template because the generation before did not have one either. A free 30-minute consultation is a reasonable place to work out what you are actually looking for, with no obligation attached, and if somebody else would be a better fit, you would be told that plainly." },
       { q: "Do my parents have to be involved if the problem is my parents?", a: "No. Individual counselling is yours, and what you discuss stays confidential within the usual legal limits. Some people later choose to bring a family member into a session and some never do; both are ordinary. Nothing is disclosed to family because they asked." },
     ],
     sources: [
@@ -365,7 +365,7 @@ export const locations: Location[] = [
     region: "Thompson-Nicola",
     blurb: "Kamloops is where the region's services are, which means everyone else in the region drives here for them.",
     metaDescription:
-      "Online counselling for Kamloops and the Thompson-Nicola: EMDR, trauma, anxiety, depression and couples therapy by secure video. Free 15-minute consultation.",
+      "Online counselling for Kamloops and the Thompson-Nicola: EMDR, trauma, anxiety, depression and couples therapy by secure video. Free 30-minute consultation.",
     intro: [
       "Kamloops is a regional centre, and it is worth being straightforward about what that means: there are counsellors here, Interior Health runs mental-health and substance-use services from Lansdowne Street, and Thompson Rivers University brings a steady population of students and staff with it. If you live in the city and want to see somebody in person, that is a real and reasonable option.",
       "The thing that is specific about this region is not scarcity in Kamloops. It is that Kamloops is the place the rest of the Thompson-Nicola drives to. For anyone in Clearwater, Barriere, Merritt, Ashcroft, Logan Lake, Chase or Cache Creek, \"available in Kamloops\" already means an hour or more each way, on highways that close.",
@@ -514,7 +514,7 @@ export const locations: Location[] = [
       { q: "Do you cover both the City of Langley and the Township?", a: "Both, and the distinction stops mattering. Sessions are by secure video anywhere in British Columbia, so where in Langley you live has no bearing on access." },
       { q: "How do I check a counsellor is trained for what I need?", a: "Ask directly and expect a specific answer rather than a reassuring one. This practice is EMDR- and Gottman-trained, and the BCACC registration number is published so you can verify it in the public register yourself." },
       { q: "What if it turns out not to be the right fit?", a: "Say so. A referral onward is a normal outcome and a better one than continuing out of politeness." },
-      { q: "Is there a free consultation first?", a: "Yes: 15 minutes by video, no charge, no card, and no obligation to book anything afterwards." },
+      { q: "Is there a free consultation first?", a: "Yes: 30 minutes by video, no charge, no card, and no obligation to book anything afterwards." },
     ],
     sources: [
       { label: "Fraser Health, mental health and substance use services", url: "https://www.fraserhealth.ca/health-topics-a-to-z/mental-health-and-substance-use" },
@@ -572,7 +572,7 @@ export const locations: Location[] = [
     faqs: [
       { q: "Do you have an office in White Rock?", a: "No. The practice is fully virtual and every session happens by secure video, wherever you are. You may find the business listed with a White Rock address. That is the registered address, not a clinic you would attend, and there is no waiting room." },
       { q: "Do you cover South Surrey, Crescent Beach and Ocean Park?", a: "Yes, and on exactly the same terms. The practice covers all of British Columbia, so which side of the White Rock–Surrey boundary you live on changes nothing about availability or fee." },
-      { q: "I am retired. Is counselling still worth starting?", a: "Yes, and the question comes up here more than almost anywhere. Grief, the shape of retirement, caregiving and health worry are ordinary reasons to start and respond to the work as well as anything else does. A free 15-minute consultation is a reasonable way to find out whether it is worth your time, and saying no afterwards costs nothing." },
+      { q: "I am retired. Is counselling still worth starting?", a: "Yes, and the question comes up here more than almost anywhere. Grief, the shape of retirement, caregiving and health worry are ordinary reasons to start and respond to the work as well as anything else does. A free 30-minute consultation is a reasonable way to find out whether it is worth your time, and saying no afterwards costs nothing." },
       { q: "I am not confident with video calls. Is that a problem?", a: "No. The link opens in a browser with nothing to install and no account to create, and the first few minutes of a first session are routinely spent making sure it works. If the video is the obstacle, say so on the consultation call and it can be sorted out then rather than on the day." },
       { q: "Can I have sessions in Punjabi?", a: "Yes: in Punjabi, English, or a mix of the two. The Peninsula's Punjabi-speaking community is substantial and continuous with South Surrey's, and a great many people here have been searching in Surrey for what is available from home." },
       { q: "Is it better to look for someone local?", a: "Sometimes, and you would be told so on a consultation call. A counsellor you can drive to suits plenty of people. What a local option costs in a city this small is the privacy question, and White Rock has few enough counsellors that \"local\" frequently means Surrey or Langley anyway, at which point the drive is buying you nothing." },
@@ -635,7 +635,7 @@ export const locations: Location[] = [
       { q: "Can I have sessions in Punjabi?", a: "Yes: in Punjabi, English, or both within the same session, with no need to travel to Surrey or Vancouver to find it." },
       { q: "I work rotating shifts at the airport. Can therapy fit around that?", a: "Yes, and it works far better if it is planned for from the start rather than discovered in month two. Booking block by block around a roster, with gaps, is a normal pattern and nothing is lost by pausing between blocks." },
       { q: "Which health authority covers Richmond?", a: "Vancouver Coastal Health, not Fraser Health. It is worth knowing before joining a public waitlist, because a referral into the wrong authority's queue is a delay nobody tells you about until you ask." },
-      { q: "Is there a free consultation first?", a: "Yes: 15 minutes by video, no charge, no card, and no obligation afterwards. If it turns out someone else is a better fit, you will be told that on the call." },
+      { q: "Is there a free consultation first?", a: "Yes: 30 minutes by video, no charge, no card, and no obligation afterwards. If it turns out someone else is a better fit, you will be told that on the call." },
     ],
     sources: [
       { label: "Vancouver Coastal Health, mental health and substance use", url: "https://www.vch.ca/en/service/mental-health-substance-use-services" },
@@ -677,7 +677,7 @@ export const locations: Location[] = [
       { q: "Which health authority covers the Tri-Cities?", a: "Fraser Health, despite most people here looking west to Vancouver and Burnaby for work and for a lot of services. It is worth confirming before joining a public waitlist. A referral into the wrong authority's queue costs weeks that nobody flags." },
       { q: "I get home late. What is the latest appointment?", a: "Evening slots run on weekdays by request. The current bookable windows are listed on the booking page, and if none of them work it is worth saying so on the consultation call rather than forcing a time that will not survive a busy month." },
       { q: "Does virtual therapy actually work as well?", a: "For the concerns most people bring: anxiety, depression, trauma, relationship difficulty. The research on video-delivered therapy shows outcomes broadly comparable to in-person work. The trade-offs are real and worth talking through on a consultation." },
-      { q: "Is there a free consultation first?", a: "Yes: 15 minutes by video, no charge, no card, and no obligation to book anything afterwards." },
+      { q: "Is there a free consultation first?", a: "Yes: 30 minutes by video, no charge, no card, and no obligation to book anything afterwards." },
     ],
     sources: [
       { label: "Fraser Health, mental health and substance use services", url: "https://www.fraserhealth.ca/health-topics-a-to-z/mental-health-and-substance-use" },
@@ -804,7 +804,7 @@ export const locations: Location[] = [
       { q: "Is there anything available locally in Chilliwack?", a: "There is local practice, and for general counselling it may well be the right answer. This practice is virtual and covers the whole province, which matters most when what you need is specific rather than general." },
       { q: "What happens if my internet is unreliable?", a: "Sessions can run by phone instead, and turning the camera off cuts the bandwidth needed considerably. It is worth agreeing in advance what happens if a connection drops, so it is an inconvenience rather than an interruption to the work." },
       { q: "Do you cover Hope and Agassiz?", a: "Yes, anywhere in British Columbia. Being further east carries no penalty at all, which is the one respect in which virtual care is genuinely different from the alternative." },
-      { q: "What does a session cost?", a: "$140 for 50 minutes, after a free 15-minute consultation. Most extended health plans reimburse sessions with a Registered Clinical Counsellor; MSP does not cover them." },
+      { q: "What does a session cost?", a: "$140 for 50 minutes, after a free 30-minute consultation. Most extended health plans reimburse sessions with a Registered Clinical Counsellor; MSP does not cover them." },
     ],
     sources: [
       { label: "Fraser Health, mental health and substance use services", url: "https://www.fraserhealth.ca/health-topics-a-to-z/mental-health-and-substance-use" },

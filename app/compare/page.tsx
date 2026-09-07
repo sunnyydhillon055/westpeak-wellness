@@ -79,7 +79,7 @@ export default function CompareHub() {
           <div className="crisis" style={{ marginTop: 32 }}>
             <p style={{ margin: 0 }}>
               Still weighing it up? A{' '}
-              <Link href={site.bookingPath}>free 15-minute consultation</Link> includes an honest
+              <Link href={site.bookingPath}>free 30-minute consultation</Link> includes an honest
               answer if what you need is someone other than a Registered Clinical Counsellor.
             </p>
           </div>
@@ -141,7 +141,7 @@ It is the decision that most changes what you can actually get, since only some 
 
       <CtaBand
         heading="Still weighing it up?"
-        text="Fifteen minutes on a call will settle more than another hour of reading. It is free, and there is no obligation afterward."
+        text="Thirty minutes on a call will settle more than another hour of reading. It is free, and there is no obligation afterward."
       />
     </>
   );

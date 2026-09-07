@@ -68,7 +68,7 @@ export const moreGuides4: Guide[] = [
     ],
     midCta: {
       text: 'If the pattern has started costing you relationships rather than just evenings,',
-      label: 'a free 15-minute consultation is a reasonable next step',
+      label: 'a free 30-minute consultation is a reasonable next step',
     },
     faqs: [
       { q: 'Is anger a mental health problem?', a: 'Anger is a normal emotion, not a disorder in itself. It becomes a clinical concern when its intensity, frequency or expression is damaging your relationships, your work or your health.' },
@@ -155,7 +155,7 @@ export const moreGuides4: Guide[] = [
     ],
     midCta: {
       text: 'If nothing you achieve has felt like enough for a long time,',
-      label: 'a free 15-minute consultation is a place to start',
+      label: 'a free 30-minute consultation is a place to start',
     },
     faqs: [
       { q: 'Is perfectionism a diagnosis?', a: 'No. It is a pattern, not a disorder, though it frequently accompanies anxiety, depression and obsessive-compulsive presentations. A counsellor does not diagnose any of those.' },
@@ -241,7 +241,7 @@ export const moreGuides4: Guide[] = [
     ],
     midCta: {
       text: 'If you are the one holding this up and nobody has asked how you are,',
-      label: 'a free 15-minute consultation is available to you too',
+      label: 'a free 30-minute consultation is available to you too',
     },
     faqs: [
       { q: 'Will asking about suicide make it more likely?', a: 'No. This is one of the most persistent myths in mental health, and asking directly is associated with better outcomes rather than worse. Ask plainly.' },
@@ -318,7 +318,7 @@ export const moreGuides4: Guide[] = [
     ],
     midCta: {
       text: 'If this is the third or fourth winter that has gone like this,',
-      label: 'a free 15-minute consultation is a reasonable place to start',
+      label: 'a free 30-minute consultation is a reasonable place to start',
     },
     faqs: [
       { q: 'Is seasonal affective disorder a real diagnosis?', a: 'Seasonal patterns in mood are formally recognised as a specifier on depressive disorders. Diagnosis requires a qualified professional. A Registered Clinical Counsellor does not diagnose.' },

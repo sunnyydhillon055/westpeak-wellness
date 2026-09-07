@@ -46,7 +46,7 @@ export const REPLY_TEMPLATES: ReplyTemplate[] = [
 
 Thank you for writing, and for saying as much as you did.
 
-The next step, if you want it, is a free 15-minute consultation by video. It is
+The next step, if you want it, is a free 30-minute consultation by video. It is
 a conversation rather than an assessment: you say what is going on in your own
 words, ask whatever you want to ask, and we work out together whether this is
 the right fit. Nothing is diagnosed and nothing is decided on the call.

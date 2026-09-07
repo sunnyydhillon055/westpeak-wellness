@@ -86,7 +86,7 @@ const albertaCore: RegionPage[] = [
     lede:
       'Therapy in the language the feeling actually happened in, without needing anybody in the community to know you are going.',
     directAnswer:
-      'Counselling in Punjabi or English is available to anyone located in Calgary by secure video. Sessions are provided by a Registered Clinical Counsellor registered in British Columbia, counselling therapy is not a regulated profession in Alberta, so no Alberta college registers counsellors. A free 15-minute consultation comes first.',
+      'Counselling in Punjabi or English is available to anyone located in Calgary by secure video. Sessions are provided by a Registered Clinical Counsellor registered in British Columbia, counselling therapy is not a regulated profession in Alberta, so no Alberta college registers counsellors. A free 30-minute consultation comes first.',
     updated: U,
     figure: 'bc-reach',
     sections: [
@@ -121,7 +121,7 @@ const albertaCore: RegionPage[] = [
       body: [
         'ਕੈਲਗਰੀ ਵਿੱਚ ਰਹਿੰਦੇ ਹੋ ਅਤੇ ਪੰਜਾਬੀ ਵਿੱਚ ਗੱਲ ਕਰਨੀ ਚਾਹੁੰਦੇ ਹੋ? ਸੈਸ਼ਨ ਪੰਜਾਬੀ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਹੋ ਸਕਦੇ ਹਨ, ਅਤੇ ਇੱਕੋ ਸੈਸ਼ਨ ਵਿੱਚ ਦੋਹਾਂ ਵਿਚਕਾਰ ਬਦਲਣਾ ਵੀ ਠੀਕ ਹੈ।',
         'ਸਭ ਕੁਝ ਵੀਡੀਓ ਰਾਹੀਂ ਹੁੰਦਾ ਹੈ, ਤੁਹਾਡੇ ਆਪਣੇ ਘਰ ਤੋਂ। ਕੋਈ ਦਫ਼ਤਰ ਨਹੀਂ, ਕੋਈ ਉਡੀਕ-ਕਮਰਾ ਨਹੀਂ, ਅਤੇ ਕੈਲਗਰੀ ਦੇ ਕਿਸੇ ਭਾਈਚਾਰੇ ਨਾਲ ਕੋਈ ਸਾਂਝ ਨਹੀਂ।',
-        'ਪਹਿਲੀ ਗੱਲਬਾਤ 15 ਮਿੰਟ ਦੀ ਹੈ ਅਤੇ ਮੁਫ਼ਤ ਹੈ। ਜੇ ਲੱਗੇ ਕਿ ਕੋਈ ਹੋਰ ਤੁਹਾਡੇ ਲਈ ਬਿਹਤਰ ਹੋਵੇਗਾ, ਤਾਂ ਉਹ ਵੀ ਸਾਫ਼ ਦੱਸਿਆ ਜਾਵੇਗਾ।',
+        'ਪਹਿਲੀ ਗੱਲਬਾਤ 30 ਮਿੰਟ ਦੀ ਹੈ ਅਤੇ ਮੁਫ਼ਤ ਹੈ। ਜੇ ਲੱਗੇ ਕਿ ਕੋਈ ਹੋਰ ਤੁਹਾਡੇ ਲਈ ਬਿਹਤਰ ਹੋਵੇਗਾ, ਤਾਂ ਉਹ ਵੀ ਸਾਫ਼ ਦੱਸਿਆ ਜਾਵੇਗਾ।',
       ],
     },
     faqs: [
@@ -168,7 +168,7 @@ const albertaCore: RegionPage[] = [
     lede:
       'A long-settled community, a shortage of Punjabi-speaking clinicians, and a winter that makes getting anywhere harder than it sounds.',
     directAnswer:
-      'Counselling in Punjabi or English is available to anyone located in Edmonton by secure video. Sessions are provided by a Registered Clinical Counsellor registered in British Columbia, counselling therapy is not a regulated profession in Alberta, so no Alberta college registers counsellors. A free 15-minute consultation comes first.',
+      'Counselling in Punjabi or English is available to anyone located in Edmonton by secure video. Sessions are provided by a Registered Clinical Counsellor registered in British Columbia, counselling therapy is not a regulated profession in Alberta, so no Alberta college registers counsellors. A free 30-minute consultation comes first.',
     updated: U,
     figure: 'bc-reach',
     sections: [
@@ -201,7 +201,7 @@ const albertaCore: RegionPage[] = [
       body: [
         'ਐਡਮਿੰਟਨ ਵਿੱਚ ਪੰਜਾਬੀ ਬੋਲਣ ਵਾਲੇ ਕਾਊਂਸਲਰ ਬਹੁਤ ਘੱਟ ਹਨ, ਅਤੇ ਜੋ ਹਨ ਉਨ੍ਹਾਂ ਕੋਲ ਅਕਸਰ ਉਡੀਕ-ਸੂਚੀ ਹੁੰਦੀ ਹੈ।',
         'ਇੱਥੇ ਸੈਸ਼ਨ ਪੰਜਾਬੀ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਹੋ ਸਕਦੇ ਹਨ, ਵੀਡੀਓ ਰਾਹੀਂ, ਤੁਹਾਡੇ ਆਪਣੇ ਘਰ ਤੋਂ। ਸਰਦੀਆਂ ਵਿੱਚ ਸ਼ਹਿਰ ਦੇ ਦੂਜੇ ਪਾਸੇ ਜਾਣ ਦੀ ਲੋੜ ਨਹੀਂ।',
-        'ਪਹਿਲੀ ਗੱਲਬਾਤ 15 ਮਿੰਟ ਦੀ ਹੈ ਅਤੇ ਮੁਫ਼ਤ ਹੈ।',
+        'ਪਹਿਲੀ ਗੱਲਬਾਤ 30 ਮਿੰਟ ਦੀ ਹੈ ਅਤੇ ਮੁਫ਼ਤ ਹੈ।',
       ],
     },
     faqs: [

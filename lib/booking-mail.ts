@@ -173,11 +173,11 @@ export type Booking = {
    if it finds a bare one, because a null rendered directly reads "null
    minutes" to a client. */
 
-/** "15 minutes, by secure video", or just "by secure video". */
+/** "30 minutes, by secure video", or just "by secure video". */
 const lengthPhrase = (m: number | null) =>
   m ? `${m} minutes, by secure video` : 'by secure video';
 
-/** "15 minutes · secure video", or just "secure video". */
+/** "30 minutes · secure video", or just "secure video". */
 const lengthChip = (m: number | null) =>
   m ? `${m} minutes &middot; secure video` : 'secure video';
 
@@ -233,7 +233,7 @@ ${BASE}`);
        </td></tr></table>` +
     p(`You will get a separate email from Cliniko, our booking system, carrying the video link and calendar invite. It arrives from <strong>notifications@cliniko.com</strong>, worth checking spam if it is not there, and marking it safe so future ones land.`) +
     (b.isConsult
-      ? p(`This is a free 15-minute conversation to work out whether this is the right fit. There is no obligation to book anything afterwards, and a referral elsewhere is a perfectly good outcome.`)
+      ? p(`This is a free 30-minute conversation to work out whether this is the right fit. There is no obligation to book anything afterwards, and a referral elsewhere is a perfectly good outcome.`)
       : '') +
     btn(links.firstSession, 'What to expect') +
     p(`Also useful: ${a(links.pricing, 'fees and extended health coverage')}, ${a(links.answers, 'common questions')}, and ${a(links.standards, 'how this practice works')}.`) +
@@ -283,7 +283,7 @@ Rearranging is genuinely easier for everybody than a missed appointment,
 and there is nothing awkward about asking.
 
 ${b.isConsult
-  ? `This is a free 15-minute conversation. Nothing to prepare, nothing to
+  ? `This is a free 30-minute conversation. Nothing to prepare, nothing to
 bring, and no obligation to book anything afterwards.`
   : `Nothing to prepare. If there is something you want to start with, it
 is a good thing to arrive with, and it is equally fine not to have one.`}
@@ -308,7 +308,7 @@ ${BASE}`);
     p(`The video link is in the email Cliniko sent when you booked, from <strong>notifications@cliniko.com</strong>, worth checking spam if it is not in your inbox.`) +
     p(`<strong>If tomorrow no longer works, just reply.</strong> Moving it is easier for everybody than a missed appointment, and there is nothing awkward about asking.`) +
     (b.isConsult
-      ? p(`This is a free 15-minute conversation. Nothing to prepare, nothing to bring, and no obligation to book anything afterwards.`)
+      ? p(`This is a free 30-minute conversation. Nothing to prepare, nothing to bring, and no obligation to book anything afterwards.`)
       : p(`Nothing to prepare. If there is something you want to start with, it is a good thing to arrive with, and equally fine not to have one.`)) +
     btn(links.firstSession, 'What actually happens') +
     p(`Need to change or cancel? Just reply to this email.`)
@@ -325,7 +325,7 @@ ${BASE}`);
  * below says "book your NEXT session", wrong for someone who has not had a
  * first one.
  *
- * Its restraint is the point. Someone who had a fifteen-minute call and did not
+ * Its restraint is the point. Someone who had a thirty-minute call and did not
  * book may be thinking about it, may have decided against it, or may have found
  * the call itself hard. A nudge written for the first reading is unpleasant for
  * the other two, and BCACC's advertising standards rule out the usual toolkit

@@ -104,7 +104,7 @@ export default function GlossaryPage() {
             <p style={{ margin: 0 }}>
               Definitions describe concepts, none of them assesses or diagnoses anyone. If a term
               here matches something you are living with,{' '}
-              <Link href={site.bookingPath}>a free 15-minute consultation</Link> is a better next
+              <Link href={site.bookingPath}>a free 30-minute consultation</Link> is a better next
               step than more reading.
             </p>
           </div>
@@ -172,7 +172,7 @@ export default function GlossaryPage() {
 
       <CtaBand
         heading="Still not sure which of these applies to you?"
-        text="That is an entirely normal place to start, and it is exactly what a free 15-minute consultation is for."
+        text="That is an entirely normal place to start, and it is exactly what a free 30-minute consultation is for."
       />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />

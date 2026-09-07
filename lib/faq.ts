@@ -20,7 +20,7 @@ export const faqs: FAQ[] = [
   },
   {
     q: "Are you taking new clients?",
-    a: "Yes. Westpeak Wellness is currently accepting new clients across British Columbia. The best first step is a free 15-minute consultation, where we can see if we're a good fit before you commit to anything.",
+    a: "Yes. Westpeak Wellness is currently accepting new clients across British Columbia. The best first step is a free 30-minute consultation, where we can see if we're a good fit before you commit to anything.",
   },
   {
     q: "Why are there no client reviews on this site?",
@@ -68,7 +68,7 @@ export const faqs: FAQ[] = [
   },
   {
     q: "How do I get started?",
-    a: "Book a free 15-minute consultation. It's a relaxed video call to ask questions, share a bit about what's going on, and see whether working together feels right, no commitment required.",
+    a: "Book a free 30-minute consultation. It's a relaxed video call to ask questions, share a bit about what's going on, and see whether working together feels right, no commitment required.",
   },
 ];
 

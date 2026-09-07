@@ -88,7 +88,7 @@ export const TAGALOG_CITIES: TagalogCity[] = [
     faqs: [
       { q: 'Are there Tagalog-speaking counsellors in Richmond?', a: 'There are some, and far fewer than the size of the community would suggest. Most of Richmond\'s multilingual mental-health provision is oriented to Cantonese and Mandarin. That is a genuine local strength, and it is not the language everybody needs.' },
       { q: 'I work rotating shifts at YVR. Can therapy fit around that?', a: 'Yes. Booking in blocks around a roster with gaps between them is normal, and evening appointments are available by request.' },
-      { q: 'What does a first session involve?', a: 'Fifteen minutes free first, by video, to work out whether it is a fit at all. If it is, the first full session is about your story and what you want to be different, not a form to fill in.' },
+      { q: 'What does a first session involve?', a: 'Thirty minutes free first, by video, to work out whether it is a fit at all. If it is, the first full session is about your story and what you want to be different, not a form to fill in.' },
     ],
   },
   {

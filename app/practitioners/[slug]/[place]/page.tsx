@@ -116,7 +116,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
      to stay inside the 158 the SEO gate enforces, so a long city name cannot
      push it over. */
   const langs = p.languages.map((l) => l.name).join(' or ');
-  const full = `${p.name}, ${p.postNominals}: online counselling for ${loc.city} in ${langs}. Trauma, anxiety, grief and couples work. Free 15-minute consultation.`;
+  const full = `${p.name}, ${p.postNominals}: online counselling for ${loc.city} in ${langs}. Trauma, anxiety, grief and couples work. Free 30-minute consultation.`;
   const description =
     full.length <= 158 ? full : `${full.slice(0, full.lastIndexOf(' ', 157))}…`;
   return {
@@ -539,7 +539,7 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
       <CtaBand
         bookHref={bookHref}
         heading={`Counselling in ${loc.city}, without the drive`}
-        text="A free 15-minute consultation by video. No card, and no obligation afterwards."
+        text="A free 30-minute consultation by video. No card, and no obligation afterwards."
       />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />

@@ -53,7 +53,7 @@ export const tools: ToolMeta[] = [
       },
       {
         q: 'Does the suggestion commit me to anything?',
-        a: 'Not in the slightest. It is a starting point for a conversation, and the free 15-minute consultation exists precisely so that the starting point can be checked before anybody books a session. Changing direction after that conversation is normal and costs nothing.',
+        a: 'Not in the slightest. It is a starting point for a conversation, and the free 30-minute consultation exists precisely so that the starting point can be checked before anybody books a session. Changing direction after that conversation is normal and costs nothing.',
       },
     ],
     related: [
@@ -139,7 +139,7 @@ export const tools: ToolMeta[] = [
        * answer BC has to offer for it. */
       {
         q: 'Is there such a thing as a mental health check-up?',
-        a: 'Not as a standardised service the way a physical or a dental cleaning is, which is partly why people search for one. The nearest real equivalents in BC: raising mental health at your regular GP visit (a legitimate use of it, and where formal screening lives), a one-off counselling session used as exactly this kind of stocktake, or a free 15-minute consultation to talk through whether anything needs attention. This reflection is the self-serve version: language for how things have been, with no score pretending to be medicine.',
+        a: 'Not as a standardised service the way a physical or a dental cleaning is, which is partly why people search for one. The nearest real equivalents in BC: raising mental health at your regular GP visit (a legitimate use of it, and where formal screening lives), a one-off counselling session used as exactly this kind of stocktake, or a free 30-minute consultation to talk through whether anything needs attention. This reflection is the self-serve version: language for how things have been, with no score pretending to be medicine.',
       },
     ],
     related: [

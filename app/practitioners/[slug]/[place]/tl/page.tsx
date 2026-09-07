@@ -68,7 +68,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
      ran 61-66 on the longer city names and the gate failed the build, which is
      what it is for. The name survives; the letters are on the page itself. */
   const title = `Counselling sa Tagalog sa ${raw.city} | ${p.name}`;
-  const description = `Mga sesyon sa Tagalog o Ingles kasama si ${p.name}, ${p.postNominals}, para sa ${raw.city}. Trauma, pagkabalisa, pagluluksa. Libreng 15 minutong konsultasyon.`;
+  const description = `Mga sesyon sa Tagalog o Ingles kasama si ${p.name}, ${p.postNominals}, para sa ${raw.city}. Trauma, pagkabalisa, pagluluksa. Libreng 30 minutong konsultasyon.`;
 
   return {
     title: { absolute: title },

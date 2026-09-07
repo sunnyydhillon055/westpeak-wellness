@@ -25,7 +25,7 @@ const CLINIKO_BOOKINGS = (
  * order on the unfiltered page is not a safe thing to infer a mapping from, and
  * getting one wrong would put the wrong service on the wrong page.
  *
- *   2013349744314681520  Initial Consultation      $0     15 min
+ *   2013349744314681520  Initial Consultation      $0     30 min
  *   1466854657459489533  Individual Counselling  $140     50 min
  *   1909558292636502700  Couples Counselling     $175     50 min
  *   2013350310713493681  Couples Extended        $340    110 min
@@ -163,7 +163,7 @@ export const site = {
   portalPath: "/client-portal",
   /* Two gates, not one, because the two pages promise different things.
    *
-   * /book offers the FREE 15-minute consultation. Nothing is charged, so it can
+   * /book offers the FREE 30-minute consultation. Nothing is charged, so it can
    * embed the moment there is a URL.
    *
    * /client-portal is where an existing client books a PAID session, and the

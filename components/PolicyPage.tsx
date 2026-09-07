@@ -66,7 +66,7 @@ export default function PolicyPage({ doc }: { doc: Policy }) {
     <div className="crisis" key="cta" style={{ margin: '32px 0' }}>
       <p style={{ margin: 0 }}>
         Questions about any of this are fair game before you commit to anything, {' '}
-        <Link href={site.bookingPath}>ask them in a free 15-minute consultation</Link>.
+        <Link href={site.bookingPath}>ask them in a free 30-minute consultation</Link>.
       </p>
     </div>,
     doc.related[0] ? (
@@ -164,7 +164,7 @@ export default function PolicyPage({ doc }: { doc: Policy }) {
 
       <CtaBand
         heading="Still deciding?"
-        text="A free 15-minute consultation costs nothing and commits you to nothing. It is the fastest way to find out whether this is the right fit."
+        text="A free 30-minute consultation costs nothing and commits you to nothing. It is the fastest way to find out whether this is the right fit."
       />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />

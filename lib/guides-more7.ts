@@ -61,7 +61,7 @@ export const moreGuides7: Guide[] = [
       },
     ],
     midCta: {
-      text: 'If the leave is happening either way, using part of it for the actual work is the point. A free 15-minute consultation fits inside any week of the 26.',
+      text: 'If the leave is happening either way, using part of it for the actual work is the point. A free 30-minute consultation fits inside any week of the 26.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -136,7 +136,7 @@ export const moreGuides7: Guide[] = [
       },
     ],
     midCta: {
-      text: 'If part of what you need to show your doctor is that treatment is in place, a free 15-minute consultation is a concrete first entry in that record.',
+      text: 'If part of what you need to show your doctor is that treatment is in place, a free 30-minute consultation is a concrete first entry in that record.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -274,7 +274,7 @@ export const moreGuides7: Guide[] = [
       },
     ],
     midCta: {
-      text: 'If you are reading this to work out whether you are allowed to be as tired as you are. That is answerable in fifteen minutes, free, from your sofa.',
+      text: 'If you are reading this to work out whether you are allowed to be as tired as you are. That is answerable in thirty minutes, free, from your sofa.',
       label: 'Book a free consultation',
     },
     faqs: [

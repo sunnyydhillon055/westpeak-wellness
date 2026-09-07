@@ -253,7 +253,7 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
       <MoreFrom items={resources} currentSlug={r.slug} base="/resources" heading="More BC resources" eyebrow="Keep going" />
       <CtaBand
         heading="Questions about cost or coverage?"
-        text="A free 15-minute consultation is a good place to ask them, before committing to anything."
+        text="A free 30-minute consultation is a good place to ask them, before committing to anything."
       />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />

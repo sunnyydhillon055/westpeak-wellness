@@ -31,7 +31,7 @@ export default function ResultCta({ tool, label }: { tool: string; label?: strin
         href={site.bookingPath}
         onClick={() => track('book_click', { location: `tool:${tool}` })}
       >
-        {label ?? 'Book a free 15-minute consultation'}
+        {label ?? 'Book a free 30-minute consultation'}
       </Link>
       <button type="button" className="btn btn--ghost" onClick={share}>
         Share this

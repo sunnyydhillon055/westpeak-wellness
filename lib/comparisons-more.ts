@@ -77,11 +77,11 @@ export const moreComparisons: Comparison[] = [
     howWeFit: [
       'This is a counselling practice, not a coaching one. Sessions are provided by a Registered Clinical Counsellor working under the BCACC code of ethics, with the accountability that comes with it.',
       'That also means the scope has limits, and they are stated openly on the [standards page](/standards). No diagnosis, no prescribing, no formal psychological assessment, and no pretence of being a crisis service.',
-      'If what you actually need is a coach, a consultation will say so. Referring someone to a better-fitting service is a normal outcome and a considerably better use of fifteen minutes than a booking that was never going to help.',
+      'If what you actually need is a coach, a consultation will say so. Referring someone to a better-fitting service is a normal outcome and a considerably better use of thirty minutes than a booking that was never going to help.',
     ],
     midCta: {
       text: 'If you are not sure which of the two your situation calls for,',
-      label: 'a free 15-minute consultation is a fast way to find out',
+      label: 'a free 30-minute consultation is a fast way to find out',
     },
     faqs: [
       { q: 'Can I do both at once?', a: 'Yes, and some people do. A coach for a career transition and a counsellor for the anxiety underneath it. It works best when both know about the other and the roles are clearly separated.' },
@@ -290,7 +290,7 @@ export const moreComparisons: Comparison[] = [
     ],
     midCta: {
       text: 'If your EFAP sessions have run out and the work was not finished,',
-      label: 'a free 15-minute consultation is a straightforward next step',
+      label: 'a free 30-minute consultation is a straightforward next step',
     },
     faqs: [
       { q: 'Will my employer know I used the EFAP?', a: 'Providers report aggregate usage numbers, not identities or content. Clinical confidentiality applies with the same legal exceptions as anywhere. Ask the provider to confirm their specific policy when you call.' },
@@ -383,7 +383,7 @@ export const moreComparisons: Comparison[] = [
     ],
     midCta: {
       text: 'If you want a view on what frequency your situation actually calls for,',
-      label: 'ask in a free 15-minute consultation',
+      label: 'ask in a free 30-minute consultation',
     },
     faqs: [
       { q: 'Can I start weekly and move to fortnightly later?', a: 'Yes, and that is the most common shape: weekly while the work is intensive, spacing out as things stabilise, then a deliberate ending.' },

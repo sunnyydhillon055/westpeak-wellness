@@ -304,6 +304,17 @@ so the page opens on her times and never shows a list of counsellors.
 *Enforced by:* `lib/practitioners.ts`, `app/book/page.tsx`,
 `app/practitioners/[slug]/page.tsx`, `components/StickyBook.tsx`
 
+### The free consultation is 30 minutes, and Cliniko is the source of that number
+Decided 6 Sep 2026. Cliniko's Initial Consultation type had been changed to 30
+minutes while 99 pages, the booking emails and `llms.txt` still said 15. The
+owner chose 30. Every string was swept the same day, the offline catalogue
+fallback in `lib/cliniko-catalog.ts` says 30, and `price-drift` compares the
+fallback's duration to Cliniko's so the two cannot silently part again. If the
+length changes, change it in Cliniko first and run the sweep; the site never
+leads on this number.
+
+*Enforced by:* `scripts/price-drift.mjs` (duration comparison), `lib/cliniko-catalog.ts`
+
 ### No hours are published, anywhere
 Hours depend entirely on which counsellor a person sees, and Cliniko is the
 only thing that knows what is actually open. The weekly grid that appeared in

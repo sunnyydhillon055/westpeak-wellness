@@ -227,7 +227,7 @@ export default async function BringToYourDoctor() {
               <li><strong>Languages:</strong> {site.languages}.</li>
               <li><strong>Population:</strong> adults and couples.</li>
               <li>
-                <strong>Access:</strong> a free 15-minute consultation is booked directly by the
+                <strong>Access:</strong> a free 30-minute consultation is booked directly by the
                 patient at <strong>{site.domain.replace(/^https?:\/\//, '')}/book</strong>. No
                 intake paperwork is required before it.
               </li>
