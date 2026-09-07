@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Updated from '@/components/Updated';
 import Link from 'next/link';
 import { site } from '@/lib/site';
 import { approaches } from '@/lib/approaches';
@@ -7,7 +8,7 @@ import Figure from '@/components/Figure';
 import { Sparkles } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
-import { COLLECTION_DATES } from '@/lib/page-dates';
+import { COLLECTION_DATES, latestOf } from '@/lib/page-dates';
 import { webPage } from '@/lib/schema';
 
 export const metadata: Metadata = {
@@ -29,7 +30,7 @@ export default function ApproachesHub() {
       name: 'Therapy approaches',
       description:
         'What CBT, ACT, EMDR, IFS, DBT-informed skills and mindfulness-based programmes actually involve, including where each one works poorly.',
-      updated: COLLECTION_DATES['services'],
+      updated: latestOf(approaches),
       type: 'CollectionPage',
     }),
     {
@@ -64,6 +65,7 @@ export default function ApproachesHub() {
             work is done, because people arrive having been recommended a specific method, or having
             tried one that did not suit them, and that is a different question.
           </p>
+          <Updated iso={latestOf(approaches)} />
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
             <Link className="btn btn--ghost" href="/services">See services instead</Link>

@@ -7,6 +7,7 @@ import { TAGALOG_CITIES, getTagalogCity, TAGALOG_SPEAKERS } from '@/lib/tagalog'
 import { getLocation } from '@/lib/locations';
 import { orgRef, siteRef } from '@/lib/schema';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import Updated from '@/components/Updated';
 import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
 import { ogBase } from '@/lib/og-meta';
@@ -95,6 +96,7 @@ export default function TagalogCityPage({ params }: { params: { city: string } }
           <p className="eyebrow">Tagalog counselling · {c.city}</p>
           <h1>Counselling in Tagalog for {c.city}</h1>
           <p className="lede">{c.angle}</p>
+          <Updated iso={COLLECTION_DATES['tagalog']} />
           <div className="btn-row" style={{ marginTop: 22 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
             <Link className="btn btn--ghost" href="/tagalog-counselling">All areas</Link>

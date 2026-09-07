@@ -15,6 +15,7 @@ import { ogBase } from '@/lib/og-meta';
 import { TAGALOG, TAGALOG_READY } from '@/lib/practitioner-tl';
 import { TL_PLACE_SHARED } from '@/lib/practitioner-places-tl';
 import { getTagalogCity } from '@/lib/tagalog';
+import Updated from '@/components/Updated';
 import { COLLECTION_DATES } from '@/lib/page-dates';
 
 /* Two kinds of page share this route, because they are the same page in two
@@ -178,6 +179,7 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
               <p className="eyebrow">{t.eyebrow}</p>
               <h1 lang="tl">{t.h1}</h1>
               <p className="lede" lang="tl">{t.lede}</p>
+              <Updated iso={COLLECTION_DATES['practitioners']} />
               <div className="btn-row" style={{ marginTop: 22 }}>
                 <Link className="btn btn--primary" href={site.bookingPath}>{t.cta}</Link>
                 <Link className="btn btn--ghost" href={`/practitioners/${p.slug}`} hrefLang="en-CA">{t.englishLink}</Link>
@@ -341,6 +343,7 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
       <section className="hero" style={{ paddingBottom: 40 }}>
         <div className="container">
           <p className="eyebrow">{p.name} · {loc.city}</p>
+          <Updated iso={COLLECTION_DATES['practitioners']} className="hero-note" />
           <h1>Counselling for {loc.city}, with {first}</h1>
           <p className="lede">{loc.blurb}</p>
           <div className="btn-row" style={{ marginTop: 22 }}>

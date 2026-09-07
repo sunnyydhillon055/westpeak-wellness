@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Updated from '@/components/Updated';
 import Link from 'next/link';
 import { punjabiRegions } from '@/lib/punjabi-regions';
 import { site } from '@/lib/site';
@@ -131,6 +132,7 @@ export default function PunjabiCounsellingIndex() {
             moment calls for. Because the practice is virtual, where you live changes what is
             available to you locally, but not what is available here.
           </p>
+          <Updated iso={COLLECTION_DATES['punjabiRegions']} />
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
             <Link className="btn btn--ghost" href="/punjabi" lang="pa">ਪੰਜਾਬੀ ਵਿੱਚ ਪੜ੍ਹੋ</Link>

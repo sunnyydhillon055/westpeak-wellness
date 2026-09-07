@@ -63,3 +63,12 @@ export function collectionLastmod(name: string): string | null {
   const d = COLLECTION_DATES[name];
   return d ? new Date(d + 'T00:00:00Z').toISOString() : null;
 }
+
+/* The newest `updated` in a collection — for a hub page whose own date is the
+   date of the latest thing it lists. The guides, resources, comparisons,
+   audiences and approaches hubs carried a placeholder collection key in their
+   schema until 6 Sep 2026 (the guides hub claimed the FAQ's date), and the
+   visible date added that day must not repeat the mistake. */
+export function latestOf(items: { updated?: string }[]): string | undefined {
+  return items.map((i) => i.updated).filter((d): d is string => Boolean(d)).sort().at(-1);
+}

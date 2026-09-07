@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Updated from '@/components/Updated';
 import Link from 'next/link';
 import { site } from '@/lib/site';
 import { services } from '@/lib/services';
@@ -50,6 +51,7 @@ export default function Services() {
           <p className="eyebrow">Our services</p>
           <h1>Counselling matched to what you need.</h1>
           <p className="lede">Focused services rooted in evidence-based modalities, all offered online, anywhere in British Columbia.</p>
+          <Updated iso={COLLECTION_DATES['services']} />
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a Free Consultation</Link>
             <Link className="btn btn--ghost" href="/pricing">Fees and coverage</Link>

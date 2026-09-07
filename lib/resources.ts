@@ -198,6 +198,7 @@ const coreResources: Resource[] = [
       { label: "HereToHelp BC, navigating the system", url: "https://www.heretohelp.bc.ca/" },
     ],
     related: [
+      { href: "/tools/what-can-i-access", label: "Two-minute check: what can I access in BC?" },
       { href: "/resources/bc-extended-health-coverage-for-counselling", label: "Extended health coverage for counselling in BC" },
       { href: "/resources/low-cost-counselling-bc", label: "Free and low-cost counselling in BC" },
       { href: "/pricing", label: "Fees and coverage" },
@@ -275,6 +276,7 @@ const coreResources: Resource[] = [
       { label: "CMHA BC, programs and services", url: "https://cmha.bc.ca/" },
     ],
     related: [
+      { href: "/tools/what-can-i-access", label: "Two-minute check: what can I access in BC?" },
       { href: "/resources/bc-crisis-and-support-directory", label: "BC crisis and support directory" },
       { href: "/resources/msp-vs-extended-health", label: "MSP vs extended health" },
       { href: "/guides/how-to-find-a-therapist-in-bc", label: "How to find a therapist in BC" },

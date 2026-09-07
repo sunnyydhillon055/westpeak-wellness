@@ -603,6 +603,7 @@ const coreGuides: Guide[] = [
       { label: "HereToHelp BC, depression info sheet", url: "https://www.heretohelp.bc.ca/infosheet/depression" },
     ],
     related: [
+      { href: '/tools/burnout-or-depression', label: 'Two-minute check: burnout or depression?' },
       { href: '/guides/stress-leave-bc', label: 'How to get stress leave in BC' },
       { href: "/services/individual-therapy", label: "Depression counselling across BC" },
       { href: "/guides/high-functioning-anxiety", label: "High-functioning anxiety" },

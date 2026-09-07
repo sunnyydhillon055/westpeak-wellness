@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Updated from '@/components/Updated';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { punjabiRegions, getPunjabiRegion } from '@/lib/punjabi-regions';
@@ -96,6 +97,7 @@ export default function PunjabiRegionPage({ params }: { params: { region: string
           <p className="eyebrow">{r.wider} · Online · ਪੰਜਾਬੀ</p>
           <h1>Punjabi-speaking counselling in {r.region}</h1>
           <p className="lede">{r.blurb}</p>
+          <Updated iso={COLLECTION_DATES['punjabiRegions']} />
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
             <Link className="btn btn--ghost" href="/punjabi">ਪੰਜਾਬੀ ਵਿੱਚ ਪੜ੍ਹੋ</Link>

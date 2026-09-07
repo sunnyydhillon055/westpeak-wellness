@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Updated from '@/components/Updated';
 import Link from 'next/link';
 import Image from 'next/image';
 import { site } from '@/lib/site';
@@ -63,6 +64,7 @@ export default function PractitionersPage() {
             Every counsellor here is registered, and every registration number below can be
             checked against a public register in about two minutes.
           </p>
+          <Updated iso={COLLECTION_DATES['practitioners']} />
         </div>
       </section>
 

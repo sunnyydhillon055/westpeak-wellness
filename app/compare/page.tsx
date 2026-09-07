@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Updated from '@/components/Updated';
 import Link from 'next/link';
 import { comparisons } from '@/lib/comparisons';
 import { site } from '@/lib/site';
@@ -8,7 +9,7 @@ import { Scale } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
 import { webPage } from '@/lib/schema';
-import { COLLECTION_DATES } from '@/lib/page-dates';
+import { COLLECTION_DATES, latestOf } from '@/lib/page-dates';
 
 export const metadata: Metadata = {
   /* Its own og:url. Without an openGraph object this page inherited the
@@ -36,7 +37,7 @@ export default function CompareHub() {
               name: "Comparisons",
               description:
                 "Straight comparisons for people deciding about therapy in BC: types of therapist, formats, and approaches, with the trade-offs stated.",
-              updated: COLLECTION_DATES["services"],
+              updated: latestOf(comparisons),
               type: "CollectionPage",
             })
           ),
@@ -51,6 +52,7 @@ export default function CompareHub() {
             information and often while you are not at your best. These comparisons lay out the
             real differences, including the ones that point away from this practice.
           </p>
+          <Updated iso={latestOf(comparisons)} />
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
             <Link className="btn btn--ghost" href="/guides">Read the counselling guides</Link>

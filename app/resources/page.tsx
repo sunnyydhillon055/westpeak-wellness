@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Updated from '@/components/Updated';
 import Link from 'next/link';
 import { resources } from '@/lib/resources';
 import { site } from '@/lib/site';
@@ -8,7 +9,7 @@ import { LifeBuoy } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
 import { webPage } from '@/lib/schema';
-import { COLLECTION_DATES } from '@/lib/page-dates';
+import { COLLECTION_DATES, latestOf } from '@/lib/page-dates';
 
 export const metadata: Metadata = {
   /* Its own og:url. Without an openGraph object this page inherited the
@@ -36,7 +37,7 @@ export default function ResourcesHub() {
               name: "Mental health resources in BC",
               description:
                 "Practical reference for mental health in BC: insurance coverage, MSP, free and low-cost counselling, and crisis lines by region.",
-              updated: COLLECTION_DATES["services"],
+              updated: latestOf(resources),
               type: "CollectionPage",
             })
           ),
@@ -51,6 +52,7 @@ export default function ResourcesHub() {
             usually end up piecing together from six different websites. Free to use, no booking
             required, and several of these will point you somewhere other than here.
           </p>
+          <Updated iso={latestOf(resources)} />
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
             <Link className="btn btn--ghost" href="/pricing">Fees and coverage</Link>

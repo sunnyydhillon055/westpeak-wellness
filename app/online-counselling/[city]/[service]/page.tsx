@@ -10,6 +10,7 @@ import { cityContexts, AUTHORITY_URL } from '@/lib/city-context';
 import { pairs, getPair, pairsForCity, pairsForService } from '@/lib/city-services';
 import CtaBand from '@/components/CtaBand';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import Updated from '@/components/Updated';
 import Figure from '@/components/Figure';
 import { ogBase } from '@/lib/og-meta';
 import { COLLECTION_DATES } from '@/lib/page-dates';
@@ -193,6 +194,7 @@ export default function CityServicePage({ params }: { params: Params }) {
           {/* The pair's own thesis as the lede. This is the sentence that is
               true here and nowhere else in the matrix. */}
           <p className="lede">{pair.angle}</p>
+          <Updated iso={COLLECTION_DATES['cityServices']} />
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>
               Book a free 15-minute consultation

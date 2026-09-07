@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Updated from '@/components/Updated';
 import Link from 'next/link';
 import { site } from '@/lib/site';
 import { orgRef, siteRef, personRef } from '@/lib/schema';
@@ -78,6 +79,7 @@ export default function GlossaryPage() {
             websites all use words that carry precise meanings nobody explains, so here they are,
             in the plainest language they will survive.
           </p>
+          <Updated iso={COLLECTION_DATES['glossary']} />
           <div className="btn-row" style={{ marginTop: 22 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
             <Link className="btn btn--ghost" href="/guides">Read the guides</Link>

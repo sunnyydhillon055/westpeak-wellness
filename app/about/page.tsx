@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Updated from '@/components/Updated';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { site } from '@/lib/site';
@@ -120,6 +121,7 @@ export default function About() {
               Westpeak Wellness is a virtual counselling practice serving all of British Columbia,
               working in English, Punjabi and Tagalog with Registered Clinical Counsellors.
             </p>
+            <Updated iso={COLLECTION_DATES['practitioners']} />
             <div className="btn-row" style={{ marginTop: 24 }}>
               <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
               <Link className="btn btn--ghost" href="/services">See our services</Link>

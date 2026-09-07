@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Updated from '@/components/Updated';
 import Link from 'next/link';
 import { locations } from '@/lib/locations';
 import { site } from '@/lib/site';
@@ -54,6 +55,7 @@ export default function LocationsIndex() {
           <p className="eyebrow">Serving all of BC</p>
           <h1>Online counselling across British Columbia</h1>
           <p className="lede">Westpeak Wellness is fully virtual, wherever you are in BC, you can work with a Registered Clinical Counsellor from the comfort of your own space.</p>
+          <Updated iso={COLLECTION_DATES['locations']} />
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
             <Link className="btn btn--ghost" href="/services">See counselling services</Link>

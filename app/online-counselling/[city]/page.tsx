@@ -20,6 +20,8 @@ import { getPunjabiRegion } from '@/lib/punjabi-regions';
 import { getTagalogCity } from '@/lib/tagalog';
 import { practitioners } from '@/lib/practitioners';
 import { placesFor } from '@/lib/practitioner-places';
+import { healthAuthorityFor, HEALTHLINK } from '@/lib/health-authorities';
+import Updated from '@/components/Updated';
 
 export function generateStaticParams() {
   return locations.map((l) => ({ city: l.slug }));
@@ -45,6 +47,12 @@ export default function CityPage({ params }: { params: { city: string } }) {
   /* Counsellors with a page for this city. Only those with per-city pages
      (placePages) and only where the city is in their place list, so a chip
      never points at a route that was not generated. */
+  /* The page's own citations plus the health authority that actually covers
+     the city and HealthLink BC — the two public routes the prose keeps
+     referring to. See lib/health-authorities.ts for why it is keyed by slug. */
+  const ha = healthAuthorityFor(l.slug);
+  const sources = [...(l.sources ?? []), ...(ha ? [ha] : []), HEALTHLINK]
+    .filter((s, i, a) => a.findIndex((t) => t.url === s.url) === i);
   const counsellorPages = practitioners.filter(
     (p) => p.placePages && placesFor(p.provinces).some((c) => c.slug === l.slug)
   );
@@ -82,6 +90,16 @@ export default function CityPage({ params }: { params: { city: string } }) {
           <p className="eyebrow">{l.region} · Online</p>
           <h1>Online counselling in {l.city}, BC</h1>
           <p className="lede">{l.blurb}</p>
+          {/* A self-contained sentence an answer engine can lift whole — every
+              service and guide page has one; the city pages did not. Says only
+              what is true of every counsellor at the practice. */}
+          <p className="direct-answer">
+            Online counselling for people in {l.city} is delivered by secure video by Registered
+            Clinical Counsellors registered with the BC Association of Clinical Counsellors, in
+            English, Punjabi or Tagalog depending on the counsellor, with a free first consultation
+            and no referral needed.
+          </p>
+          <Updated iso={COLLECTION_DATES['locations']} />
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
             <Link className="btn btn--ghost" href="/services">See all services</Link>
@@ -253,11 +271,11 @@ export default function CityPage({ params }: { params: { city: string } }) {
                 </div>
               </>
             )}
-            {l.sources && (
+            {sources.length > 0 && (
               <>
                 <p className="eyebrow">Sources</p>
                 <ul style={{ color: 'var(--ink-soft)', fontSize: '.94rem', paddingLeft: 20, margin: 0 }}>
-                  {l.sources.map((s) => (
+                  {sources.map((s) => (
                     <li key={s.url} style={{ marginBottom: 8 }}>
                       <a href={s.url} target="_blank" rel="noopener">{s.label}</a>
                     </li>

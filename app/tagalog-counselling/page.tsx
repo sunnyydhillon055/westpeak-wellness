@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Updated from '@/components/Updated';
 import Link from 'next/link';
 import Image from 'next/image';
 import { site } from '@/lib/site';
@@ -95,6 +96,7 @@ export default function TagalogCounsellingHub() {
             Some things only land in your first language, and nobody should have to translate
             themselves to be understood.
           </p>
+          <Updated iso={COLLECTION_DATES['tagalogLanding']} />
           <div className="btn-row" style={{ marginTop: 22 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
             {speaker && (

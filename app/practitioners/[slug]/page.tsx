@@ -8,6 +8,7 @@ import { placesFor } from '@/lib/practitioner-places';
 import { getService } from '@/lib/services';
 import { abs, orgRef, siteRef, faqSchema } from '@/lib/schema';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import Updated from '@/components/Updated';
 import CtaBand from '@/components/CtaBand';
 import { BadgeCheck, Languages as LangIcon, MonitorSmartphone } from 'lucide-react';
 import { ogBase } from '@/lib/og-meta';
@@ -170,6 +171,7 @@ export default function PractitionerPage({ params }: { params: { slug: string } 
             <p className="eyebrow">Our counsellors</p>
             <h1>{p.name}</h1>
             <p className="lede">{p.tagline}</p>
+            <Updated iso={COLLECTION_DATES['practitioners']} />
             <p style={{ color: 'var(--ink-soft)', margin: '10px 0 0' }}>
               {p.role} · {p.postNominals}
             </p>

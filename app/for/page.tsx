@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Updated from '@/components/Updated';
 import Link from 'next/link';
 import { audiences } from '@/lib/audiences';
 import { site } from '@/lib/site';
@@ -8,7 +9,7 @@ import { Users } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
 import { webPage } from '@/lib/schema';
-import { COLLECTION_DATES } from '@/lib/page-dates';
+import { COLLECTION_DATES, latestOf } from '@/lib/page-dates';
 
 export const metadata: Metadata = {
   /* Its own og:url. Without an openGraph object this page inherited the
@@ -36,7 +37,7 @@ export default function ForHub() {
               name: "Counselling for specific groups",
               description:
                 "Counselling in BC written for the specific pressures carried by new parents, students, shift workers and others.",
-              updated: COLLECTION_DATES["services"],
+              updated: latestOf(audiences),
               type: "CollectionPage",
             })
           ),
@@ -51,6 +52,7 @@ export default function ForHub() {
             months postpartum, even when the diagnosis would read identically. These pages start
             from the situation rather than the symptom.
           </p>
+          <Updated iso={latestOf(audiences)} />
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
             <Link className="btn btn--ghost" href="/services">See counselling services</Link>

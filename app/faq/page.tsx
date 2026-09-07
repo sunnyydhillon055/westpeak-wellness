@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Updated from '@/components/Updated';
 import Link from 'next/link';
 import { site } from '@/lib/site';
 import { faqs, FAQ_GROUPS, faqsInGroup } from '@/lib/faq';
@@ -58,6 +59,7 @@ export default function FAQ() {
           <p className="eyebrow">FAQ</p>
           <h1>Frequently asked questions</h1>
           <p className="lede">Everything you might want to know before booking. Still curious? The free consult is the best place to ask.</p>
+          <Updated iso={COLLECTION_DATES['faq']} />
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
             <Link className="btn btn--ghost" href="/pricing">Fees and coverage</Link>

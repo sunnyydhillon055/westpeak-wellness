@@ -115,6 +115,7 @@ export const policies: Record<string, Policy> = {
       { href: '/about', label: 'About the practice' },
       { href: '/privacy', label: 'Privacy and records' },
       { href: '/editorial-policy', label: 'How these pages are written' },
+      { href: '/accessibility', label: 'Accessibility: what is tested and what is not' },
       { href: '/compare/rcc-vs-psychologist-vs-social-worker-bc', label: 'RCC vs psychologist vs social worker' },
       { href: '/faq', label: 'Common questions' },
     ],

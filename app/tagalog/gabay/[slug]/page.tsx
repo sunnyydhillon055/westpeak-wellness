@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Updated from '@/components/Updated';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { site } from '@/lib/site';
@@ -128,6 +129,7 @@ export default function TagalogGuidePage({ params }: { params: Params }) {
           <p className="eyebrow">Gabay · {g.readMinutes} minutong basa</p>
           <h1>{g.title}</h1>
           <p className="lede">{g.lede}</p>
+          <Updated iso={COLLECTION_DATES['tagalog']} />
         </div>
       </section>
 

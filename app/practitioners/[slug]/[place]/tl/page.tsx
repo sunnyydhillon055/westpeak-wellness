@@ -9,6 +9,7 @@ import { TAGALOG_READY } from '@/lib/practitioner-tl';
 import { TL_PLACE_SHARED, getTagalogPlace } from '@/lib/practitioner-places-tl';
 import Figure from '@/components/Figure';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import Updated from '@/components/Updated';
 import { abs, siteRef, orgRef } from '@/lib/schema';
 import { BadgeCheck } from 'lucide-react';
 import { ogBase } from '@/lib/og-meta';
@@ -156,6 +157,7 @@ export default function TagalogPlacePage({ params }: { params: Params }) {
         <div className="container hero-split">
           <div>
             <p className="eyebrow">{t.eyebrow} · {raw.city}</p>
+            <Updated iso={COLLECTION_DATES['tagalogPlaces']} />
             <h1>Counselling sa {raw.city}, kasama si {first}</h1>
             <p className="lede">{tl.blurb}</p>
             <div className="btn-row" style={{ marginTop: 22 }}>

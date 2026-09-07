@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Updated from '@/components/Updated';
 import Link from 'next/link';
 import { guides } from '@/lib/guides';
 import { site } from '@/lib/site';
@@ -9,7 +10,7 @@ import { BookOpen } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
 import { webPage } from '@/lib/schema';
-import { COLLECTION_DATES } from '@/lib/page-dates';
+import { COLLECTION_DATES, latestOf } from '@/lib/page-dates';
 
 export const metadata: Metadata = {
   /* Its own og:url. Without an openGraph object this page inherited the
@@ -37,7 +38,7 @@ export default function GuidesHub() {
               name: "Counselling guides",
               description:
                 "Plain-language guides to therapy, mental health and getting started with counselling in British Columbia.",
-              updated: COLLECTION_DATES["faq"],
+              updated: latestOf(guides),
               type: "CollectionPage",
             })
           ),
@@ -53,6 +54,7 @@ export default function GuidesHub() {
             what the evidence actually says, what it does not settle, and what it means if you
             live in British Columbia.
           </p>
+          <Updated iso={latestOf(guides)} />
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
             <Link className="btn btn--ghost" href="/services">See counselling services</Link>
