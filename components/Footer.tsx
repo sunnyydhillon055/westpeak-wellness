@@ -37,7 +37,9 @@ export default function Footer() {
                 <li>
                   <Credential aria-hidden="true" strokeWidth={1.7} />
                   <span>
-                    Registered Clinical Counsellors ·{' '}
+                    {/* Linked 6 Sep 2026: the explainer had nine inbound links
+                        while the phrase sat unlinked on every page. */}
+                    <Link href="/resources/what-is-a-registered-clinical-counsellor">Registered Clinical Counsellors</Link> ·{' '}
                     <a href={site.counsellor.registerUrl} target="_blank" rel="noopener">
                       BCACC register
                     </a>

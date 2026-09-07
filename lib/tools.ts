@@ -67,7 +67,7 @@ export const tools: ToolMeta[] = [
     slug: 'therapy-cost-bc',
     title: 'What counselling costs in BC',
     short: 'Work out what you would actually pay after extended health, and what to check first.',
-    metaTitle: 'BC counselling cost estimator | Westpeak Wellness',
+    metaTitle: 'How Much Does Online Therapy Cost in BC? | Westpeak',
     metaDescription:
       'Estimate what counselling costs in British Columbia after extended health reimbursement, and the two questions to ask your plan before booking.',
     minutes: 2,

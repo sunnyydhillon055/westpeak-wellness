@@ -364,6 +364,7 @@ export default function Home() {
               </div>
               <div className="route-cell">
                 <p className="route-k">You need time off, or an accommodation</p>
+                <p><Link href="/guides/stress-leave-bc">How stress leave works in BC</Link></p>
                 <p><Link href="/resources/workplace-mental-health-bc">Mental health and work in BC</Link></p>
               </div>
               <div className="route-cell">

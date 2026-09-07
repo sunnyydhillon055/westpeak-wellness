@@ -94,7 +94,7 @@ export const approaches: Approach[] = [
   {
     slug: 'acceptance-and-commitment-therapy',
     title: 'Acceptance and commitment therapy (ACT)',
-    metaTitle: 'ACT Therapy Explained | Westpeak Wellness',
+    metaTitle: 'What Is Acceptance and Commitment Therapy? | Westpeak',
     metaDescription:
       'What ACT does differently from CBT, why it targets the struggle rather than the symptom, and who it tends to suit when other approaches have stalled.',
     eyebrow: 'Approach · ACT',
@@ -152,6 +152,7 @@ export const approaches: Approach[] = [
       label: 'that is worth fifteen free minutes to talk through',
     },
     faqs: [
+      { q: 'What is ACT therapy used for?', a: 'Anxiety, chronic worry, depression, chronic pain, and the kind of stuck-ness where a person understands their patterns thoroughly and is still living inside them. It has a particular fit with health anxiety, obsessive thinking and perfectionism, where fighting the thought is the problem, and with long-term conditions where the goal is a fuller life alongside symptoms rather than their removal.' },
       { q: 'Is ACT a type of CBT?', a: 'It comes from the same tradition and is often grouped with it. The main difference is that ACT works on the relationship to thoughts rather than examining their accuracy.' },
       { q: 'Do I have to meditate?', a: 'Mindfulness in ACT is a practical skill for noticing and stepping back, usually practised in brief exercises rather than as formal meditation. Nobody is required to sit for thirty minutes.' },
       { q: 'Does acceptance mean giving up?', a: 'No. It applies to internal experience, not to circumstances. The other half of the model is deliberate action to change what your life contains.' },

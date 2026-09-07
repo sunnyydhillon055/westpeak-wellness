@@ -304,6 +304,20 @@ so the page opens on her times and never shows a list of counsellors.
 *Enforced by:* `lib/practitioners.ts`, `app/book/page.tsx`,
 `app/practitioners/[slug]/page.tsx`, `components/StickyBook.tsx`
 
+### Titles follow Search Console, not taste
+Decided 6 Sep 2026. The first month of Search Console data (`data/gsc/`)
+showed 4,478 non-brand impressions and two clicks: pages surfacing at
+position 20-50 under titles that did not say what the query said. A title
+is rewritten when a page draws meaningful impressions for a query family it
+does not name in its `metaTitle`, and the FAQ list gains the question in the
+searcher's own words. The rewrite is recorded beside the field with the
+numbers that caused it, so the next person can tell a data-driven title
+from a whim. The name guard, the 60/158 limits and the five-service
+decision all still bind: trauma queries go to the EMDR page, not to a
+revived trauma service.
+
+*Enforced by:* `scripts/seo-audit.mjs` (lengths), comments beside each retitled field
+
 ### The free consultation is 30 minutes, and Cliniko is the source of that number
 Decided 6 Sep 2026. Cliniko's Initial Consultation type had been changed to 30
 minutes while 99 pages, the booking emails and `llms.txt` still said 15. The

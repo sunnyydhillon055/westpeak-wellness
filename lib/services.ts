@@ -35,7 +35,7 @@ export const services: Service[] = [
     short: "1:1 for anxiety, depression, life transitions, identity, family dynamics.",
     metaTitle: "Individual Counselling in BC (Online) | Westpeak Wellness",
     metaDescription:
-      "One-on-one online counselling across BC for anxiety, depression, life transitions, identity, and family dynamics. Book a free 30-minute consultation.",
+      "One-on-one online counselling across BC for anxiety, depression, trauma, life transitions and identity. Book a free 30-minute consultation.",
     hero: "1:1 sessions for the everyday weight of being human.",
     intro:
       "Individual therapy is space that belongs entirely to you: to think out loud, make sense of what you're carrying, and work toward what \"better\" looks like on your terms. Sessions are 50 minutes, weekly or biweekly, and always online so you can meet from wherever you feel most at ease in BC.",
@@ -100,7 +100,7 @@ export const services: Service[] = [
     figure: "gottman-method",
     name: "Couples Therapy",
     short: "Gottman Method: communication, conflict, connection, repair.",
-    metaTitle: "Online Couples Counselling in BC | Westpeak Wellness",
+    metaTitle: "Gottman Method Couples Counselling Online in BC | Westpeak",
     metaDescription:
       "Online couples counselling across BC using the research-based Gottman Method: communication, conflict, and repair. Book a free consultation.",
     hero: "Strengthen communication, deepen connection, repair what's frayed.",
@@ -167,9 +167,14 @@ export const services: Service[] = [
     figure: "emdr-phases",
     name: "EMDR Therapy",
     short: "Evidence-based for trauma, PTSD, anxiety, grief.",
-    metaTitle: "EMDR Therapy in BC (Online) | Westpeak Wellness",
+    /* Retitled 6 Sep 2026. Search Console: ~500 impressions a month for
+       "online trauma therapist", "trauma therapy online" and "online EMDR
+       therapists", all landing at position 80+ on a city page. Trauma is a
+       condition, not a service (DECISIONS.md), and EMDR is the service that
+       treats it, so this is the page that should answer those queries. */
+    metaTitle: "Online EMDR and Trauma Therapy in BC | Westpeak Wellness",
     metaDescription:
-      "Online EMDR therapy across BC for trauma, PTSD, anxiety, and grief. EMDR-trained Registered Clinical Counsellor. Book a free 30-minute consultation.",
+      "Online trauma therapy and EMDR across BC with an EMDR-trained Registered Clinical Counsellor, for PTSD, anxiety and grief. Free 30-minute consultation.",
     hero: "Process painful memories so they stop running the show.",
     intro:
       "EMDR (Eye Movement Desensitization and Reprocessing) is an evidence-supported therapy that helps the brain reprocess distressing memories so they lose their grip. You don't have to relive everything in detail or explain it perfectly: EMDR works with how memory is stored, not just how it's told. Available online across BC, including a 90-minute intensive format.",

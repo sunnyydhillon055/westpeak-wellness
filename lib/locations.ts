@@ -173,7 +173,7 @@ export const locations: Location[] = [
     region: "Lower Mainland",
     blurb: "The most therapists in the province, and still a waitlist, because the constraint here is affordability, not supply.",
     metaDescription:
-      "Online counselling for Vancouver, BC: EMDR, trauma, anxiety, couples therapy by secure video, in English, Punjabi or Tagalog. Free consultation.",
+      "Online counselling and virtual therapy for Vancouver, BC: trauma, EMDR, anxiety, couples therapy by video in English, Punjabi or Tagalog. Free consultation.",
     intro: [
       "Vancouver has more counsellors per capita than anywhere else in British Columbia. It is also the city where people most often report giving up on finding one, which sounds contradictory until you look at what the actual constraint is.",
       "It is not supply. It is cost, time, and the specific difficulty of finding someone who is both a genuine fit and currently accepting clients. In a city where housing already takes an outsized share of income, a $140 weekly session is a real decision rather than an obvious one.",
