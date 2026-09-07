@@ -162,6 +162,12 @@ export default function TagalogPlacePage({ params }: { params: Params }) {
             <Updated iso={COLLECTION_DATES['tagalogPlaces']} />
             <h1>Counselling sa {raw.city}, kasama si {first}</h1>
             <p className="lede">{tl.blurb}</p>
+            {/* The same sentence the metadata carries, on the page: a self-contained
+                answer in Tagalog, no new copy. */}
+            <p className="direct-answer">
+              Mga sesyon sa Tagalog o Ingles kasama si {p.name}, {p.postNominals}, para sa {raw.city}, sa secure video.
+              Trauma, pagkabalisa, pagluluksa. Libreng 30 minutong konsultasyon.
+            </p>
             <div className="btn-row" style={{ marginTop: 22 }}>
               <Link className="btn btn--primary" href={bookHref}>{t.cta}</Link>
               <Link className="btn btn--ghost" href={enPath} hrefLang="en-CA">

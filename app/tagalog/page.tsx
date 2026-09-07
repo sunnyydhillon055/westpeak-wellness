@@ -102,6 +102,7 @@ export default function TagalogPage() {
             <p className="eyebrow">{T.eyebrow}</p>
             <h1>{T.h1}</h1>
             <p className="lede">{T.lede}</p>
+            <p className="direct-answer">{T.metaDescription}</p>
             <Updated iso={COLLECTION_DATES['tagalogLanding']} lang="en-CA" />
             <div className="btn-row" style={{ marginTop: 22 }}>
               <Link className="btn btn--primary" href={`${site.bookingPath}?with=${speaker?.slug ?? ''}`}>

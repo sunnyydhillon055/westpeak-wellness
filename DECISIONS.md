@@ -304,6 +304,26 @@ so the page opens on her times and never shows a list of counsellors.
 *Enforced by:* `lib/practitioners.ts`, `app/book/page.tsx`,
 `app/practitioners/[slug]/page.tsx`, `components/StickyBook.tsx`
 
+### The stylesheet is inlined into every prerendered document
+Decided 6 Sep 2026. Lighthouse put 740 ms of a 2.9 s mobile LCP on three
+render-blocking stylesheet links, and Next 14's App Router has no
+critical-CSS step (critters was tried on 28 Aug and changed nothing).
+`scripts/inline-css.mjs` runs after `next build`: it copies the page's CSS
+into one `<style data-inlined>` block and turns each stylesheet link into a
+deferred load (`media="print" onload="this.media='all'"`), so the file is
+still fetched — React's hydration and the client router find the resource
+they expect — but nothing waits for it before first paint.
+
+The trade is explicit: every document grows by the CSS (~96 KB raw, ~14 KB
+gzipped) and a repeat visitor pays it per page instead of once from cache.
+For an audience that arrives from search, one page at a time, first paint
+wins. The perf-budget baseline for the two HTML rows was raised the same
+day for this reason and no other; the JS and CSS rows were not touched.
+`INLINE_CSS=0` builds without it. If the site's traffic ever becomes
+mostly repeat visits, reverse this.
+
+*Enforced by:* `scripts/inline-css.mjs --check` (`npm run inline`, in `verify:ci`), `data/perf-budget.json`
+
 ### Titles follow Search Console, not taste
 Decided 6 Sep 2026. The first month of Search Console data (`data/gsc/`)
 showed 4,478 non-brand impressions and two clicks: pages surfacing at

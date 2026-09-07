@@ -96,6 +96,12 @@ export default function TagalogCityPage({ params }: { params: { city: string } }
           <p className="eyebrow">Tagalog counselling · {c.city}</p>
           <h1>Counselling in Tagalog for {c.city}</h1>
           <p className="lede">{c.angle}</p>
+          <p className="direct-answer">
+            Westpeak Wellness offers counselling in Tagalog or English for {c.city}, by secure video with
+            a Registered Clinical Counsellor who is a native Tagalog speaker. Sessions cover anxiety, trauma,
+            grief, family and immigration stress, and can move between the two languages within the hour.
+            The first 30-minute consultation is free.
+          </p>
           <Updated iso={COLLECTION_DATES['tagalog']} />
           <div className="btn-row" style={{ marginTop: 22 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>

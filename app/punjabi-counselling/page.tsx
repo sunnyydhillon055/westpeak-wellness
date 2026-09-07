@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     canonical: `${site.domain}/punjabi-counselling`,
     languages: {
       'en-CA': `${site.domain}/punjabi-counselling`,
-      pa: `${site.domain}/punjabi`,
+      pa: `${site.domain}/punjabi/regions`,
     },
   },
   openGraph: { ...ogBase(`/punjabi-counselling`), title: TITLE, description: DESC, url: `${site.domain}/punjabi-counselling` },
@@ -138,7 +138,7 @@ export default function PunjabiCounsellingIndex() {
           <Updated iso={COLLECTION_DATES['punjabiRegions']} />
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
-            <Link className="btn btn--ghost" href="/punjabi" lang="pa">ਪੰਜਾਬੀ ਵਿੱਚ ਪੜ੍ਹੋ</Link>
+            <Link className="btn btn--ghost" href="/punjabi/regions" lang="pa">ਪੰਜਾਬੀ ਵਿੱਚ ਪੜ੍ਹੋ</Link>
           </div>
         </div>
       </section>

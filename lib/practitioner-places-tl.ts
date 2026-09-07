@@ -156,7 +156,7 @@ export const TL_PLACE_SHARED = {
 
   ctaHeading: (city: string) => `Mag-usap muna tayo, ${city}`,
   ctaText:
-    'Isang libreng labinlimang minutong konsultasyon sa video. Walang card, at walang obligasyon pagkatapos.',
+    'Isang libreng tatlumpung minutong konsultasyon sa video. Walang card, at walang obligasyon pagkatapos.',
   cta: 'Humiling ng libreng konsultasyon',
   /* The smaller ask, in Tagalog. Every page in this language offered only the
      booking button — the high-commitment one — because the shared CtaBand that
@@ -241,7 +241,7 @@ export const TL_PLACES: Record<string, TagalogPlaceCopy> = {
     faqs: [
       { q: 'Sakop ba nito ang Port Coquitlam at Port Moody?', a: 'Oo, at sa parehong mga tuntunin. Walang binabago ang hangganan ng munisipyo sa oras, bayad, o pagkuha ng serbisyo.' },
       { q: 'Umuuwi ako ng gabi. May oras ba pagkatapos ng trabaho?', a: 'Mayroon, may mga oras sa gabi ng karaniwang araw kapag hiniling, at iyon ang pinakamadalas hilingin dito.' },
-      { q: 'Ano ang bayad?', a: 'Nakalista ang buong bayad sa pahina ng mga bayarin, at walang nagbabago batay sa lungsod. Libre at walang obligasyon ang unang labinlimang minuto.' },
+      { q: 'Ano ang bayad?', a: 'Nakalista ang buong bayad sa pahina ng mga bayarin, at walang nagbabago batay sa lungsod. Libre at walang obligasyon ang unang tatlumpung minuto.' },
     ],
   },
   delta: {
@@ -266,7 +266,7 @@ export const TL_PLACES: Record<string, TagalogPlaceCopy> = {
     ],
     faqs: [
       { q: 'Nasa Aldergrove ako. Sakop ba iyon?', a: 'Oo, at sa parehong mga tuntunin. Walang bahagi ng serbisyo ang nakadepende sa distansya sa loob ng lalawigan.' },
-      { q: 'Gaano katagal bago makapagsimula?', a: 'Karaniwang mas maikli kaysa sa isang pampublikong listahan. Ang unang hakbang ay isang libreng labinlimang minutong konsultasyon, at doon napag-uusapan ang tunay na simula.' },
+      { q: 'Gaano katagal bago makapagsimula?', a: 'Karaniwang mas maikli kaysa sa isang pampublikong listahan. Ang unang hakbang ay isang libreng tatlumpung minutong konsultasyon, at doon napag-uusapan ang tunay na simula.' },
       { q: 'Para saan ang mga sesyon?', a: 'Trauma, pagkabalisa at matagalang stress, pagluluksa at mga pagbabago sa buhay, at trabahong pang-mag-asawa. Kung iba ang kailangan mo, sasabihin sa iyo iyon sa konsultasyon.' },
     ],
   },
@@ -319,7 +319,7 @@ export const TL_PLACES: Record<string, TagalogPlaceCopy> = {
     faqs: [
       { q: 'Sakop ba nito ang Ladysmith, Lantzville at Gabriola?', a: 'Oo, sa parehong mga tuntunin. Walang bahagi ng serbisyo ang nakadepende sa distansya sa loob ng lalawigan.' },
       { q: 'Kailangan ko pa bang tumawid para sa unang sesyon?', a: 'Hindi kailanman. Nasa video ang lahat, kasama ang unang libreng konsultasyon.' },
-      { q: 'Ano ang haba ng isang sesyon?', a: 'Limampung minuto, pagkatapos ng libreng labinlimang minutong konsultasyon sa simula.' },
+      { q: 'Ano ang haba ng isang sesyon?', a: 'Limampung minuto, pagkatapos ng libreng tatlumpung minutong konsultasyon sa simula.' },
     ],
   },
   victoria: {

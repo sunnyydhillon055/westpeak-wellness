@@ -1,8 +1,8 @@
 {
-  "note": "Perf budget baseline — a ratchet. Never raise to silence the gate; lower when a real win lands. See scripts/perf-budget.mjs.",
-  "set": "2026-09-01",
-  "homeCss": 96353,
-  "sharedJs": 301437,
-  "maxHtml": 174257,
-  "medianHtml": 88295
+  "note": "Perf budget baseline \u2014 a ratchet. Never raise to silence the gate; lower when a real win lands. See scripts/perf-budget.mjs. The two HTML rows were raised on 2026-09-06 for one reason: the stylesheet is now inlined into every prerendered document (scripts/inline-css.mjs, DECISIONS.md) so first paint no longer waits on three render-blocking fetches; each document carries ~96 KB of CSS it did not before. homeCss and sharedJs were not touched.",
+  "set": "2026-09-07",
+  "homeCss": 96346,
+  "sharedJs": 302146,
+  "maxHtml": 270252,
+  "medianHtml": 177607
 }

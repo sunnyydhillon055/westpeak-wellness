@@ -414,11 +414,11 @@ export default function Home() {
               </div>
               <div className="route-cell">
                 <p className="route-k">What your plan covers</p>
-                <p><Link href="/resources/bc-extended-health-coverage-for-counselling">Extended health coverage in BC</Link></p>
+                <p><Link href="/resources/bc-extended-health-coverage-for-counselling">Does your extended health plan cover counselling?</Link></p>
               </div>
               <div className="route-cell">
                 <p className="route-k">Whether MSP pays for any of it</p>
-                <p><Link href="/resources/msp-vs-extended-health">MSP vs extended health</Link></p>
+                <p><Link href="/resources/msp-vs-extended-health">Does MSP cover therapy in BC?</Link></p>
               </div>
               <div className="route-cell">
                 <p className="route-k">If cost is the constraint</p>
@@ -438,7 +438,7 @@ export default function Home() {
               </div>
               <div className="route-cell">
                 <p className="route-k">Checking anyone is really registered</p>
-                <p><Link href="/resources/verify-a-counsellor-in-bc">Verifying a registration</Link></p>
+                <p><Link href="/resources/verify-a-counsellor-in-bc">How to verify a Registered Clinical Counsellor</Link></p>
               </div>
               <div className="route-cell">
                 <p className="route-k">Who we answer to</p>
@@ -446,7 +446,7 @@ export default function Home() {
               </div>
               <div className="route-cell">
                 <p className="route-k">If a diagnosis is what you need</p>
-                <p><Link href="/resources/psychiatry-and-assessment-in-bc">Psychiatry and assessment in BC</Link></p>
+                <p><Link href="/resources/psychiatry-and-assessment-in-bc">How to get a psychiatrist or an assessment in BC</Link></p>
               </div>
               <div className="route-cell">
                 <p className="route-k">The terms nobody explains</p>

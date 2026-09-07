@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node scripts/html-lang.mjs",
+    "build": "next build && node scripts/html-lang.mjs && node scripts/inline-css.mjs",
     "start": "next start",
     "lint": "next lint",
     "targets": "node scripts/targets.mjs",
@@ -27,7 +27,7 @@
     "visual": "node scripts/visual-audit.mjs",
     "rank:plan": "node scripts/city-rank.mjs --plan",
     "indexnow": "node scripts/indexnow.mjs",
-    "verify:ci": "npm run lint && npm run expiry && npm run test && npm run fresh && npm run lang && npm run seo && node scripts/expansion-verify.mjs && npm run schema && npm run budget && npm run composition && npm run uniqueness && npm run cta && npm run internal && npm run parity && npm run meta && npm run contrast && npm run a11y && npm run palette && npm run triage && npm run payment && npm run booking && npm run quality && npm run visual && npm run redirect-shadow && node scripts/soft-gate.mjs 2 npm run price-drift && npm run smoke",
+    "verify:ci": "npm run lint && npm run expiry && npm run test && npm run fresh && npm run lang && npm run inline && npm run seo && node scripts/expansion-verify.mjs && npm run schema && npm run budget && npm run composition && npm run uniqueness && npm run cta && npm run internal && npm run parity && npm run meta && npm run contrast && npm run a11y && npm run palette && npm run triage && npm run payment && npm run booking && npm run quality && npm run visual && npm run redirect-shadow && node scripts/soft-gate.mjs 2 npm run price-drift && npm run smoke",
     "verify": "npm run fresh && npm run seo && node scripts/expansion-verify.mjs && npm run schema && npm run budget && npm run uniqueness && npm run cta && npm run internal && npm run parity && npm run meta && npm run contrast && npm run palette && npm run triage && npm run payment && npm run booking && npm run links && npm run quality && npm run visual && (npm run drift || echo \"  (price drift not checked - CLINIKO_API_KEY not set on this machine)\")",
     "scan": "node scripts/competitor-scan.mjs",
     "offsite": "node scripts/offsite-probe.mjs",
@@ -51,7 +51,8 @@
     "review-dates": "node scripts/review-dates.mjs",
     "review-dates:fix": "node scripts/review-dates-fix.mjs",
     "expiry": "node scripts/credential-expiry.mjs",
-    "lang": "node scripts/html-lang.mjs --check"
+    "lang": "node scripts/html-lang.mjs --check",
+    "inline": "node scripts/inline-css.mjs --check"
   },
   "dependencies": {
     "@next/third-parties": "^16.3.0",

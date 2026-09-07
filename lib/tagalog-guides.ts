@@ -255,7 +255,7 @@ export const tagalogGuides: TagalogGuide[] = [
     title: 'Ano ang mangyayari sa unang sesyon',
     metaTitle: 'Ang unang sesyon: ano ang aasahan | Westpeak Wellness',
     metaDescription:
-      'Ano talaga ang nangyayari sa libreng labinlimang minuto at sa unang buong sesyon. Walang form, walang diagnosis, at walang kailangang ihanda.',
+      'Ano talaga ang nangyayari sa libreng tatlumpung minuto at sa unang buong sesyon. Walang form, walang diagnosis, at walang kailangang ihanda.',
     lede:
       'Ang pinakakaraniwang dahilan ng pag-aalinlangan ay hindi ang bayad. Ang hindi alam kung ano ang mangyayari sa loob ng silid iyon.',
     shortAnswer:
@@ -263,7 +263,7 @@ export const tagalogGuides: TagalogGuide[] = [
     readMinutes: 4,
     sections: [
       {
-        h2: 'Ang libreng labinlimang minuto',
+        h2: 'Ang libreng tatlumpung minuto',
         body: [
           'Isang maikling pag-uusap sa secure na video. Sasabihin mo kung ano ang nangyayari: kahit hindi maayos ang pagkakasabi, at kadalasan nga ay hindi. Magtatanong siya ng ilang bagay, at makakapagtanong ka rin ng kahit ano.',
           'Walang binabayaran, walang card na hinihingi, at walang obligasyon pagkatapos. Ang magpasyang hindi ipagpatuloy ay isang normal na resulta at hindi isang problema.',
@@ -303,7 +303,7 @@ export const tagalogGuides: TagalogGuide[] = [
       },
       {
         q: 'Paano kung hindi kami magkasundo?',
-        a: 'Sasabihin niya iyon nang diretso at ituturo ka sa mas angkop na lugar. Para mismo doon ang libreng labinlimang minuto, para malaman iyon bago ka magbayad ng kahit ano.',
+        a: 'Sasabihin niya iyon nang diretso at ituturo ka sa mas angkop na lugar. Para mismo doon ang libreng tatlumpung minuto, para malaman iyon bago ka magbayad ng kahit ano.',
       },
     ],
     englishHref: '/guides/what-to-expect-first-therapy-session',

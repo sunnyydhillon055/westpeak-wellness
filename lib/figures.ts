@@ -229,7 +229,7 @@ export const figures: Record<string, Figure> = {
     width: 1040,
     height: 344,
     title: 'Ang daloy mula sa unang ugnayan hanggang sa unang sesyon',
-    alt: 'Apat na hakbang: libreng labinlimang minutong konsultasyon, intake at pahintulot, ang unang buong sesyon, at ang pagpapasya kung ano ang susunod.',
+    alt: 'Apat na hakbang: libreng tatlumpung minutong konsultasyon, intake at pahintulot, ang unang buong sesyon, at ang pagpapasya kung ano ang susunod.',
     caption: 'Normal na resulta ang hindi magpatuloy pagkatapos ng alinman sa mga hakbang na ito.',
   },
   'panic-vs-anxiety': {

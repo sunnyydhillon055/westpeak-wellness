@@ -268,7 +268,7 @@ export default function PunjabiPage() {
               </form>
 
             <p lang="pa" style={{ marginTop: 30 }}>
-              ਖੇਤਰ ਅਨੁਸਾਰ:{' '}
+              <Link href="/punjabi/regions">ਖੇਤਰ ਅਨੁਸਾਰ</Link>:{' '}
               <Link href="/punjabi-counselling/surrey">ਸਰੀ</Link> ·{' '}
               <Link href="/punjabi-counselling/abbotsford">ਐਬਟਸਫੋਰਡ</Link> ·{' '}
               <Link href="/punjabi-counselling/vancouver">ਵੈਨਕੂਵਰ</Link> ·{' '}

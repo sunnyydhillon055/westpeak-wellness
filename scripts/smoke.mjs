@@ -55,6 +55,7 @@ const CHECKS = [
   ['/online-counselling/surrey', 200],
   ['/online-counselling/surrey/emdr-therapy', 200],
   ['/punjabi', 200],
+  ['/punjabi/regions', 200],
   ['/punjabi-counselling/surrey', 200],
   ['/guides', 200],
   ['/compare/therapy-in-punjabi-vs-english', 200],
