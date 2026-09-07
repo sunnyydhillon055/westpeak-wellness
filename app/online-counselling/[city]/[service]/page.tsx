@@ -104,8 +104,15 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
      the code appended a brand suffix that guaranteed it was not.
      ", BC" and "(Online)" are dropped rather than the brand: both are carried
      by the H1, the description and the schema, whereas the brand appears in a
-     result nowhere else. Longest pair is 59. */
-  const title = `${svc.name} in ${ctx.city}`;
+     result nowhere else. Longest pair is 59.
+
+     Since 6 Sep 2026 ", BC" comes back wherever it fits. Search Console
+     showed "trauma therapy victoria bc", "trauma therapy langley bc" and
+     "emdr therapy kelowna" style queries at position 28-40, and the province
+     is in the query more often than not. Composed to fit, not truncated: the
+     pairs whose title would pass 60 with it keep the shorter form. */
+  const withBc = `${svc.name} in ${ctx.city}, BC`;
+  const title = `${withBc} | ${site.name}`.length <= 60 ? withBc : `${svc.name} in ${ctx.city}`;
   /* Composed to fit rather than truncated to fit. The first version ran the
      city AND the region into the sentence and then hard-sliced at 158, which
      cut the longest pairs mid-word — "Free 30-minute con". Longest pair here

@@ -13,7 +13,7 @@ export const moreGuides6: Guide[] = [
       'The paperwork question and the clinical question are different, and most pages about this answer neither.',
     shortAnswer:
       'A stress leave in BC needs certification from a physician or nurse practitioner. A Registered Clinical Counsellor cannot sign one, and any counsellor implying otherwise is misleading you. Income during leave usually comes from either EI sickness benefits (up to 26 weeks, 55% of insurable earnings to a maximum of $729 a week in 2026) or an employer short-term disability plan, and which applies depends on your plan rather than on your diagnosis. Counselling runs alongside that process; it is not the route into it.',
-    updated: '2026-09-02',
+    updated: '2026-09-06',
     readMinutes: 8,
     figure: 'burnout-vs-depression',
     sections: [

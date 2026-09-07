@@ -102,7 +102,7 @@ export const approaches: Approach[] = [
       'For people who have already understood their patterns in detail and are still exactly where they were.',
     shortAnswer:
       'ACT works on your relationship to difficult thoughts and feelings rather than on their content or frequency. The aim is not to reduce anxiety but to stop the struggle against it consuming your life, while moving toward what you actually value. It tends to suit people who have done insight-oriented work, can explain their patterns fluently, and remain stuck.',
-    updated: '2026-08-08',
+    updated: '2026-09-06',
     readMinutes: 7,
     figure: 'window-of-tolerance',
     figure2: "approach-selector",

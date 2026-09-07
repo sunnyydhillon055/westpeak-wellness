@@ -32,7 +32,7 @@ const coreComparisons: Comparison[] = [
     figure2: "first-session-flow",
     figure: "designations-bc",
     title: "RCC, psychologist, or social worker: who should you see in BC?",
-    metaTitle: "RCC vs Psychologist vs RSW in BC | Westpeak Wellness",
+    metaTitle: "RCC vs Psychologist vs Social Worker in BC | Westpeak",
     metaDescription:
       "Only one of the three can diagnose, and only one is covered by most extended-health plans without a referral. Training, fees, and which fits what.",
     eyebrow: "Comparison · Choosing a therapist",
@@ -40,7 +40,7 @@ const coreComparisons: Comparison[] = [
       "Three different letters after three different names, all offering something that looks like therapy. Here is what actually separates them in British Columbia.",
     shortAnswer:
       "If you want talk therapy, an RCC, a clinical social worker, and a psychologist can all provide it, and all three hold master's-level training or higher. The practical differences are diagnosis (psychologists and some clinical social workers can formally diagnose; RCCs cannot), formal assessments (psychologists only), cost (psychologists are typically the most expensive), and what your extended health plan happens to list.",
-    updated: "2026-08-28",
+    updated: "2026-09-06",
     readMinutes: 7,
     table: {
       columns: ["", "Registered Clinical Counsellor (RCC)", "Registered Psychologist (R.Psych)", "Registered Clinical Social Worker (RCSW/RSW)"],
