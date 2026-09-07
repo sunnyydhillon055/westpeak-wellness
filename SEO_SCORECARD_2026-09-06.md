@@ -6,7 +6,7 @@
 
 ---
 
-## Total: **9,605 / 10,000** (9,380 at first measurement; 9,455 → 9,555 → 9,605 across three passes the same night)
+## Total: **9,655 / 10,000** (9,380 at first measurement; 9,455 → 9,555 → 9,605 across three passes the same night; 9,655 after the 30-minute sweep and the PageSpeed/Search Console re-measure)
 
 | Group | Score | Of |
 |---|--:|--:|
@@ -22,7 +22,7 @@ Where the 395 missing points are, in order: named authorship (90) and author-as-
 
 ---
 
-## A · Technical foundations — 2,460 / 2,500
+## A · Technical foundations — 2,470 / 2,500
 
 | # | Category | Score | Evidence | What would earn the rest |
 |--:|---|--:|---|---|
@@ -33,8 +33,8 @@ Where the 395 missing points are, in order: named authorship (90) and author-as-
 | 5 | URL structure | **245** | Lowercase, hyphenated, ≤ 3 segments, readable (`/online-counselling/surrey/emdr-therapy`); no parameters, no dates, no IDs | `/online-counselling/victoria-saanich` is the one slug a reader would not guess |
 | 6 | Redirect hygiene | **250** | 72 legacy Wix redirects, 0 chains, 0 built pages shadowed (gate), 0 internal links through a redirect | — (the three parameterised redirects are now exercised by the smoke gate with one real sample each) |
 | 7 | 404 handling | **250** | Real 404 status, full shell, own title and description, crisis numbers first; gated province pages ship a 404 shell rather than a blank | — |
-| 8 | Speed and weight | **240** | TTFB 148 ms on the homepage; 20 requests, zero third-party; CSS 96 KB. **Re-measured 6 Sep:** the 301 KB "shared JS" figure is raw bytes and includes a 112 KB polyfill chunk that is `noModule` — modern browsers never fetch it. Real first-load JavaScript over the wire is ~123 KB gzipped, of which ~86 KB is the React/Next runtime floor; pages are 20–29 KB gzipped. Core Web Vitals not measured (PageSpeed quota, two days running). Measured instead in a real mobile-emulated browser on a cold load: TTFB 100 ms, DOM interactive 1.1 s, load 1.7 s, 171 KB transferred, 0 long tasks | Confirm CWV in Search Console when it populates; the remaining ~37 KB of app JavaScript is the header menu, consent gate and forms |
-| 9 | Mobile | **245** | `width=device-width, initial-scale=1`; fluid layout; contrast gate against WCAG AA; sticky booking bar sized for thumbs | **Tested at 375 px on 6 Sep:** no horizontal overflow on the service or city templates; the only targets under 24 px are inline prose links, which WCAG 2.5.8 exempts; smallest text 11.5 px (the date note) |
+| 8 | Speed and weight | **245** | **PageSpeed Insights, mobile, 6 Sep (owner-supplied):** Performance 93, FCP 1.2 s, LCP 2.9 s, TBT 0 ms, CLS 0, Speed Index 2.6 s. 20 requests, zero third-party. The 301 KB "shared JS" figure is raw bytes including a `noModule` polyfill chunk modern browsers never fetch; real first-load JS is ~123 KB gzipped. Fixed the same day: the hero image's `sizes` hint (92vw for a 56vw slot, so the LCP element fetched twice the width it needed) and a `browserslist` so ~12 KB of legacy transpilation stops shipping | LCP 2.9 s is 0.4 s outside Google's "good" band; the remaining lever is the 740 ms of render-blocking CSS, which is Next's single stylesheet and needs critical-CSS extraction to split |
+| 9 | Mobile | **250** | **Lighthouse mobile, 6 Sep:** Accessibility 100, Best Practices 100, SEO 100. `width=device-width, initial-scale=1`; fluid layout; contrast gate against WCAG AA; sticky booking bar sized for thumbs; tested at 375 px with no horizontal overflow on the service or city templates | — |
 | 10 | Security headers | **245** | CSP, HSTS, `X-Frame-Options: DENY`, nosniff, Referrer-Policy, Permissions-Policy | `Access-Control-Allow-Origin: *` on HTML responses (Vercel static serving, not the app) is unnecessary |
 
 ## B · Indexability and crawl — 1,215 / 1,250
@@ -47,7 +47,7 @@ Where the 395 missing points are, in order: named authorship (90) and author-as-
 | 14 | Duplication and uniqueness | **230** | The 50 city × service pages are gated against convergence; 0 duplicate titles or descriptions among indexable pages | The 17 Tagalog city twins of Camille's pages share a template at 815–875 words each; genuinely distinct in language, thin in per-city substance |
 | 15 | No-JavaScript rendering | **240** | Every page is server-rendered; 12.5 words per KB on the homepage (second only to Crossroads in the market); text reaches a crawler with scripts off | Re-measured: a page is 20–29 KB gzipped including the inlined React payload, which is not the cost it looked like in raw bytes |
 
-## C · On-page — 1,935 / 2,000
+## C · On-page — 1,950 / 2,000
 
 | # | Category | Score | Evidence | What would earn the rest |
 |--:|---|--:|---|---|
@@ -57,7 +57,7 @@ Where the 395 missing points are, in order: named authorship (90) and author-as-
 | 19 | Heading hierarchy | **250** | **0 pages skip a heading level** (h2 → h4 never happens); a11y gate reports no mechanical failures on 253 pages | — |
 | 20 | Images | **250** | 515 `<img>`, 515 with alt, 513 with width and height, 492 lazy-loaded, all SVG or through the image optimiser; largest source photo 269 KB | — |
 | 21 | Anchor text and link attributes | **245** | 0 generic anchors ("click here", "read more"); 920 `target="_blank"` links, 920 with `rel="noopener"` | Some in-body links use the destination's title rather than the reader's query |
-| 22 | Query-to-page targeting | **200** | Search Console (to 28 Aug) shows the intended pages surfacing for their queries; the stress-leave cluster no longer splits across two pages; ICBC and insurer pages now exist for queries that had none | The data is nine days old and predates 60+ pages; no fresh export in the repo. Re-export and re-check monthly |
+| 22 | Query-to-page targeting | **215** | Search Console export of 6 Sep now in `data/gsc/`. The intended pages surface for their queries; the stress-leave cluster no longer splits. **From the fresh data:** "registered clinical counsellor" lands on the RCC comparison at #14 while the two resource pages that answer it sat at #31/#37 unlinked from it — the three now cross-link | `/resources/verify-a-counsellor-in-bc` draws 1,003 impressions at 0.1 % CTR (title/description rewrite candidate); `/online-counselling/vancouver` 680 impressions at position 52; `/resources/workplace-mental-health-bc` 808 at 17.6. Re-export monthly |
 | 23 | Content depth | **240** | Median 1,046 words; 77 pages over 1,500; 2 indexable pages under 500; visual-density gate: no long page is prose alone | 23 pages under the 900-word gate line, all Tagalog twins; each now carries the guide list and sources but is still template-shaped |
 
 ## D · Structured data — 1,205 / 1,250
@@ -70,7 +70,7 @@ Where the 395 missing points are, in order: named authorship (90) and author-as-
 | 27 | Breadcrumbs | **250** | `BreadcrumbList` on 285 nodes — every page but the homepage — matching the visible trail | — |
 | 28 | Validity and extraction | **250** | 611 JSON-LD blocks, 0 parse errors, every block typed (gate); `speakable` on every clinical page pointing at its short answer | — |
 
-## E · Experience, expertise, authority, trust — 1,135 / 1,250
+## E · Experience, expertise, authority, trust — 1,155 / 1,250
 
 | # | Category | Score | Evidence | What would earn the rest |
 |--:|---|--:|---|---|
@@ -78,7 +78,7 @@ Where the 395 missing points are, in order: named authorship (90) and author-as-
 | 30 | Dates | **250** | `datePublished`/`dateModified` in schema on every dated collection; sitemap `lastmod` from git; **250 of 250 indexable pages show a visible "Updated" date from the same value the schema uses** (6 Sep) | — |
 | 31 | Sources and citations | **250** | 174 of 250 pages link at least one external source; **185** link a government, regulator, health-authority or association domain — every city, city × service and Tagalog city page now cites its health authority and HealthLink BC; link-rot checked monthly, 403s reported separately from dead | — |
 | 32 | Trust pages | **250** | `/standards` (registration, scope limits, complaints route), `/editorial-policy`, `/privacy` (24-month retention, no third-party processors), `/accessibility` (honest about what is and is not tested), `/reviews` (why none, by regulation) | — |
-| 33 | Fee and pre-commitment transparency | **225** | Fees synced from Cliniko every two hours with a drift gate; card-at-booking stated consistently (payment gate); cancellation window published; what MSP does not cover stated plainly | **The free consultation is 30 minutes in Cliniko and 15 minutes on 99 pages.** The drift gate flags it the moment it runs with the key. One decision, then either one click in Cliniko or one sweep of the site |
+| 33 | Fee and pre-commitment transparency | **245** | Fees synced from Cliniko every two hours with a drift gate; card-at-booking stated consistently (payment gate); cancellation window published; what MSP does not cover stated plainly. **The free consultation is 30 minutes in Cliniko and, since 6 Sep, 30 minutes on every page, email and text file** — 99 pages swept, the catalogue fallback corrected, decision recorded | The drift gate only runs where `CLINIKO_API_KEY` is set (CI), so a future Cliniko change surfaces on the next CI run rather than the next local build |
 
 ## F · Multilingual — 675 / 750
 
@@ -88,12 +88,12 @@ Where the 395 missing points are, in order: named authorship (90) and author-as-
 | 35 | hreflang | **245** | Every real translation pair declared both ways in the pages and in the sitemap with `x-default` (57 pages, 153 sitemap entries); English pages *about* a language correctly not paired | The Punjabi hub pairs with one English page; a Punjabi twin of `/punjabi-counselling` would give it a proper counterpart |
 | 36 | Language content quality | **180** | The Punjabi hub was reviewed; the Punjabi region pages already rank on page one and two; the Tagalog cluster is 32 pages with native `lang`, native-script FAQ and guides | **The 32 Tagalog pages are live and unreviewed by a Tagalog speaker** (recorded as an open item). Nothing else on this card is a liability in the way unreviewed clinical copy in a language nobody at the practice has checked is |
 
-## G · AI readability — 980 / 1,000
+## G · AI readability — 985 / 1,000
 
 | # | Category | Score | Evidence | What would earn the rest |
 |--:|---|--:|---|---|
 | 37 | AI crawler policy and access | **250** | 32 agents named with their own `Allow`; GPTBot, ClaudeBot, PerplexityBot, OAI-SearchBot, Google-Extended and Bytespider each receive HTTP 200 and the full page, no challenge | — |
-| 38 | `llms.txt` and `llms-full.txt` | **240** | 40 KB hand-written index naming every collection, both counsellors, scope limits and crisis lines; 1,075 KB full text; both regenerated from the same data as the pages | The consultation-length line inherits the 15/30 question above |
+| 38 | `llms.txt` and `llms-full.txt` | **245** | 40 KB hand-written index naming every collection, both counsellors, scope limits and crisis lines; 1,075 KB full text; both regenerated from the same data as the pages; consultation length now matches Cliniko | The full text is generated, so a native review of the Tagalog passages would lift it in the same pass as the pages |
 | 39 | Answer-format content | **245** | **139 pages** open with a marked short answer (city, city × service and approach pages gained one on 6 Sep) written to be quoted alone; 226 FAQ blocks; a 60-term glossary; every service page carries a self-contained `directAnswer`; RSS across four collections | The Tagalog twins and the hubs have none |
 | 40 | Social and unfurl metadata | **245** | `og:title`, `og:description`, `og:image`, `og:type`, `og:locale` and a Twitter card on 253/253 audited pages (gate); per-page generated images; canonical and `og:url` agree | The default card note is practice-level now; the per-page images are typographic rather than photographic |
 
@@ -101,7 +101,7 @@ Where the 395 missing points are, in order: named authorship (90) and author-as-
 
 ## What this number means, and what it does not
 
-**9,380** says the repository has done almost everything a repository can do. The last six hundred points are three decisions the owner holds (named authors, the Tagalog review, the consultation length) and three engineering trades (JavaScript weight, visible dates on template pages, short answers on the city pages) — all listed above with their point values.
+**9,380** says the repository has done almost everything a repository can do. Of the last six hundred, the consultation length was settled on 6 Sep (30 minutes, swept). What remains is two decisions the owner holds (named authors, the Tagalog review) and three engineering trades (JavaScript weight, visible dates on template pages, short answers on the city pages) — all listed above with their point values.
 
 It does **not** say the site will rank. The two audits beside this one measured the other half and found it near zero: Bing does not hold the domain, the AI answer engines cite directories instead of it, and Search Console showed one non-brand click in a month. A site can score 9,380 here and be invisible, and this one is. The card is the proof that the fix is not on-site.
 
