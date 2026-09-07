@@ -52,6 +52,9 @@ export default function ResourcesHub() {
             usually end up piecing together from six different websites. Free to use, no booking
             required, and several of these will point you somewhere other than here.
           </p>
+          <p className="direct-answer">
+            These are the reference pages for getting counselling in British Columbia: what MSP does and does not cover, how extended health reimbursement works, where free and low-cost counselling exists, how to verify a counsellor&rsquo;s registration, and which crisis lines to call. Each is dated, sourced to the provincial body it describes, and maintained by Westpeak Wellness, a virtual counselling practice.
+          </p>
           <Updated iso={latestOf(resources)} />
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>

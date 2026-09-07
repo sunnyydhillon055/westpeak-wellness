@@ -132,6 +132,9 @@ export default function PunjabiCounsellingIndex() {
             moment calls for. Because the practice is virtual, where you live changes what is
             available to you locally, but not what is available here.
           </p>
+          <p className="direct-answer">
+            Westpeak Wellness offers online counselling in Punjabi, in English, or both, with a Registered Clinical Counsellor, by secure video anywhere in British Columbia. The regional pages describe what Punjabi-speaking mental-health support looks like in Surrey, Abbotsford, Vancouver, Kelowna, Kamloops and Prince George, and what changes when the counsellor does not need to be in the same city.
+          </p>
           <Updated iso={COLLECTION_DATES['punjabiRegions']} />
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>

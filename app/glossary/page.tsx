@@ -79,6 +79,9 @@ export default function GlossaryPage() {
             websites all use words that carry precise meanings nobody explains, so here they are,
             in the plainest language they will survive.
           </p>
+          <p className="direct-answer">
+            A glossary of the terms that appear in counselling in British Columbia: designations such as RCC, RSW and registered psychologist; approaches such as CBT, EMDR and ACT; benefits language such as extended health, EFAP and MSP; and clinical words like intake, treatment plan, window of tolerance and rupture and repair. Each entry is a short plain-language definition with a link to the fuller page.
+          </p>
           <Updated iso={COLLECTION_DATES['glossary']} />
           <div className="btn-row" style={{ marginTop: 22 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>

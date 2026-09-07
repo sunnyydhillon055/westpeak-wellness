@@ -45,6 +45,9 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
           <p className="eyebrow">Fees & insurance</p>
           <h1>Clear, fair, accessible.</h1>
           <p className="lede">Session prices and counselling rates in full, no hidden fees, no packages, and no surprises on the invoice.</p>
+          <p className="direct-answer">
+            Counselling fees at Westpeak Wellness are published in full and synced from the booking system: individual sessions, couples sessions and EMDR intensives are each priced per session, paid by card at booking, with 24 hours&rsquo; free cancellation. The first 30-minute consultation is free. Most BC extended health plans reimburse a Registered Clinical Counsellor; MSP does not cover private counselling.
+          </p>
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a Free Consultation</Link>
             <Link className="btn btn--ghost" href="/resources/bc-extended-health-coverage-for-counselling">Check your coverage</Link>
@@ -158,7 +161,8 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
               BC&rsquo;s Medical Services Plan does not cover private counselling, whatever the
               practitioner&rsquo;s designation. The reasons are explained in the{' '}
               <Link href="/resources/msp-vs-extended-health">comparison of MSP and extended health</Link>.
-              What most people use instead is an extended health plan through work.
+              What most people use instead is an extended health plan through work, and the{' '}
+              <Link href="/tools/therapy-cost-bc">cost estimator</Link> works out what that leaves you paying.
             </p>
             <p>
               The critical detail: plans list <em>professions</em>, not services. Some cover

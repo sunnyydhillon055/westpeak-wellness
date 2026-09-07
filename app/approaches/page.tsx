@@ -65,6 +65,9 @@ export default function ApproachesHub() {
             work is done, because people arrive having been recommended a specific method, or having
             tried one that did not suit them, and that is a different question.
           </p>
+          <p className="direct-answer">
+            The therapeutic approaches used at Westpeak Wellness, explained one per page: cognitive behavioural therapy, acceptance and commitment therapy, EMDR, internal family systems, somatic therapy, DBT-informed skills and mindfulness-based approaches. Each page says what the method does, who it tends to suit, what the evidence supports, and how it is delivered over video.
+          </p>
           <Updated iso={latestOf(approaches)} />
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>

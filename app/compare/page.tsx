@@ -52,6 +52,9 @@ export default function CompareHub() {
             information and often while you are not at your best. These comparisons lay out the
             real differences, including the ones that point away from this practice.
           </p>
+          <p className="direct-answer">
+            Side-by-side comparisons of the decisions people face before starting therapy in BC: RCC versus psychologist versus social worker, CBT versus EMDR for trauma, therapy versus medication, EFAP versus private counselling, weekly versus biweekly sessions, and therapy apps versus a counsellor. Each states the trade-offs plainly, including when the better answer is not this practice.
+          </p>
           <Updated iso={latestOf(comparisons)} />
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>

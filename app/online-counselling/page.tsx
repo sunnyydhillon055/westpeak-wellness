@@ -55,6 +55,9 @@ export default function LocationsIndex() {
           <p className="eyebrow">Serving all of BC</p>
           <h1>Online counselling across British Columbia</h1>
           <p className="lede">Westpeak Wellness is fully virtual, wherever you are in BC, you can work with a Registered Clinical Counsellor from the comfort of your own space.</p>
+          <p className="direct-answer">
+            Westpeak Wellness provides online counselling to every part of British Columbia, from Vancouver, Surrey and Victoria to Kelowna, Kamloops, Prince George and the communities between them, plus Alberta through a counsellor certified there. Sessions are by secure video with a Registered Clinical Counsellor in English, Punjabi or Tagalog. The city pages describe what local public services exist and what online counselling adds to them.
+          </p>
           <Updated iso={COLLECTION_DATES['locations']} />
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>

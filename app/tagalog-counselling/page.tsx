@@ -96,6 +96,9 @@ export default function TagalogCounsellingHub() {
             Some things only land in your first language, and nobody should have to translate
             themselves to be understood.
           </p>
+          <p className="direct-answer">
+            Westpeak Wellness offers counselling in Tagalog or English with Camille Granda, a Registered Clinical Counsellor who is a native Tagalog speaker, by secure video across British Columbia and Alberta. Sessions cover anxiety, trauma, grief, family and immigration stress. The first 30-minute consultation is free, and city pages describe what Filipino-community support exists locally.
+          </p>
           <Updated iso={COLLECTION_DATES['tagalogLanding']} />
           <div className="btn-row" style={{ marginTop: 22 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>

@@ -268,6 +268,7 @@ export const moreGuides2: Guide[] = [
       { label: 'Canadian Mental Health Association, BC Division, Bounce Back', url: 'https://bouncebackbc.ca/' },
     ],
     related: [
+      { href: '/tools/stress-check', label: 'While you wait: a two-minute reflection on how things have been' },
       { href: "/services", label: "What is available here, and when" },
       { href: '/online-counselling/victoria', label: 'Online counselling in Victoria' },
       { href: '/resources/low-cost-counselling-bc', label: 'Low-cost counselling in BC' },

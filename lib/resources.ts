@@ -114,6 +114,7 @@ const coreResources: Resource[] = [
       { label: "HereToHelp BC, paying for mental health care", url: "https://www.heretohelp.bc.ca/" },
     ],
     related: [
+      { href: "/tools/therapy-cost-bc", label: "Cost estimator: counselling in BC after extended health" },
       { href: "/pricing", label: "Fees and payment" },
       { href: "/resources/msp-vs-extended-health", label: "MSP vs extended health: what covers what" },
       { href: "/resources/low-cost-counselling-bc", label: "Free and low-cost counselling in BC" },
@@ -198,6 +199,7 @@ const coreResources: Resource[] = [
       { label: "HereToHelp BC, navigating the system", url: "https://www.heretohelp.bc.ca/" },
     ],
     related: [
+      { href: "/tools/therapy-cost-bc", label: "Work out what you would actually pay after extended health" },
       { href: "/tools/what-can-i-access", label: "Two-minute check: what can I access in BC?" },
       { href: "/resources/bc-extended-health-coverage-for-counselling", label: "Extended health coverage for counselling in BC" },
       { href: "/resources/low-cost-counselling-bc", label: "Free and low-cost counselling in BC" },
@@ -276,6 +278,7 @@ const coreResources: Resource[] = [
       { label: "CMHA BC, programs and services", url: "https://cmha.bc.ca/" },
     ],
     related: [
+      { href: "/tools/therapy-cost-bc", label: "What private counselling would cost you after extended health" },
       { href: "/tools/what-can-i-access", label: "Two-minute check: what can I access in BC?" },
       { href: "/resources/bc-crisis-and-support-directory", label: "BC crisis and support directory" },
       { href: "/resources/msp-vs-extended-health", label: "MSP vs extended health" },

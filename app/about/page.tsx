@@ -121,6 +121,9 @@ export default function About() {
               Westpeak Wellness is a virtual counselling practice serving all of British Columbia,
               working in English, Punjabi and Tagalog with Registered Clinical Counsellors.
             </p>
+            <p className="direct-answer">
+              Westpeak Wellness is an online counselling practice founded in British Columbia and serving all of BC and Alberta by secure video. Its counsellors are Registered Clinical Counsellors with the BC Association of Clinical Counsellors, offering individual, couples, family, EMDR and trauma therapy in English, Punjabi and Tagalog. There is no waitlist; the first 30-minute consultation is free.
+            </p>
             <Updated iso={COLLECTION_DATES['practitioners']} />
             <div className="btn-row" style={{ marginTop: 24 }}>
               <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>

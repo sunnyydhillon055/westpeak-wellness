@@ -52,6 +52,9 @@ export default function ForHub() {
             months postpartum, even when the diagnosis would read identically. These pages start
             from the situation rather than the symptom.
           </p>
+          <p className="direct-answer">
+            Counselling pages written for specific situations rather than diagnoses: healthcare and shift workers, teachers, new parents, students, first responders, tech workers, immigrants and newcomers, employers and HR, and more. Each describes what that situation tends to bring to therapy and how online sessions with a Registered Clinical Counsellor fit around it, across BC and Alberta.
+          </p>
           <Updated iso={latestOf(audiences)} />
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>

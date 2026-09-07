@@ -135,6 +135,7 @@ const coreGuides: Guide[] = [
       { label: "HereToHelp BC, mental health information for British Columbians", url: "https://www.heretohelp.bc.ca/" },
     ],
     related: [
+      { href: "/tools/stress-check", label: "Two-minute reflection: how have the last few weeks been?" },
       { href: '/online-counselling/victoria', label: 'Online counselling in Victoria' },
       { href: "/online-counselling", label: "How online counselling works across BC" },
       { href: "/services/emdr-therapy", label: "EMDR therapy for trauma and PTSD" },

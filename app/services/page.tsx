@@ -51,6 +51,9 @@ export default function Services() {
           <p className="eyebrow">Our services</p>
           <h1>Counselling matched to what you need.</h1>
           <p className="lede">Focused services rooted in evidence-based modalities, all offered online, anywhere in British Columbia.</p>
+          <p className="direct-answer">
+            Westpeak Wellness offers five counselling services online across British Columbia and Alberta: individual therapy (for anxiety, depression, trauma and life transitions), Gottman Method couples therapy, EMDR therapy, family counselling, and Punjabi-speaking counselling. All are delivered by Registered Clinical Counsellors over secure video, are reimbursable through most extended health plans, and begin with a free 30-minute consultation.
+          </p>
           <Updated iso={COLLECTION_DATES['services']} />
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a Free Consultation</Link>

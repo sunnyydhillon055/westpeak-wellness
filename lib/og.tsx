@@ -33,7 +33,31 @@ function titleSize(title: string) {
   return 44;
 }
 
-export function ogImage({
+/* THE PHOTOGRAPH — 6 Sep 2026.
+   Every card was typographic: cream ground, two soft circles, the title. It
+   read as a document rather than a place. The right-hand 46% now carries the
+   same still-water photograph the homepage opens on, faded into the cream so
+   the title stays on a plain ground and the contrast the a11y audit measures
+   is untouched. Fetched once per isolate and cached as a data URL; the file
+   is bundled with the route, so no network call leaves the edge at render. */
+let photoCache: Promise<string> | undefined;
+function photo(): Promise<string> {
+  if (!photoCache) {
+    photoCache = fetch(new URL('../public/img/photo/still-water-bc.jpg', import.meta.url))
+      .then((r) => r.arrayBuffer())
+      .then((buf) => {
+        const bytes = new Uint8Array(buf);
+        let bin = '';
+        for (let i = 0; i < bytes.length; i += 0x8000) {
+          bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+        }
+        return `data:image/jpeg;base64,${btoa(bin)}`;
+      });
+  }
+  return photoCache;
+}
+
+export async function ogImage({
   eyebrow,
   title,
   note = 'Registered Clinical Counsellors · English, Punjabi & Tagalog',
@@ -42,6 +66,7 @@ export function ogImage({
   title: string;
   note?: string;
 }) {
+  const src = await photo();
   return new ImageResponse(
     (
       <div
@@ -56,6 +81,26 @@ export function ogImage({
           position: 'relative',
         }}
       >
+        {/* The photograph, right-hand side, faded into the cream on its left
+            edge so the title sits on a plain ground. */}
+        <img
+          src={src}
+          alt=""
+          width={560}
+          height={630}
+          style={{ position: 'absolute', right: 0, top: 0, width: 560, height: 630, objectFit: 'cover' }}
+        />
+        <div
+          style={{
+            position: 'absolute',
+            right: 0,
+            top: 0,
+            width: 560,
+            height: 630,
+            display: 'flex',
+            background: `linear-gradient(90deg, ${BG} 0%, rgba(250,247,241,0.96) 18%, rgba(250,247,241,0.55) 48%, rgba(250,247,241,0.12) 100%)`,
+          }}
+        />
         {/* Soft blue wash bottom-right */}
         <div
           style={{
@@ -100,7 +145,7 @@ export function ogImage({
         </div>
 
         {/* Body */}
-        <div style={{ display: 'flex', flexDirection: 'column', maxWidth: 940 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', maxWidth: 760 }}>
           <div
             style={{
               fontSize: 20,

@@ -72,6 +72,12 @@ const securityHeaders = [
   { key: 'X-Frame-Options', value: 'DENY' },
   // Nothing here needs a camera, microphone or location.
   { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+  /* Vercel's static layer answers HTML with Access-Control-Allow-Origin: *,
+     which nothing on this site needs — no page is fetched cross-origin.
+     Pinning it to the canonical origin replaces the wildcard (a header set
+     here wins over the platform default) without changing anything a browser
+     does with a normal navigation. Measured 6 Sep 2026. */
+  { key: 'Access-Control-Allow-Origin', value: 'https://www.westpeakwellness.com' },
 ];
 
 /** @type {import('next').NextConfig} */

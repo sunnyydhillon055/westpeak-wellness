@@ -54,6 +54,9 @@ export default function GuidesHub() {
             what the evidence actually says, what it does not settle, and what it means if you
             live in British Columbia.
           </p>
+          <p className="direct-answer">
+            Westpeak Wellness publishes plain-language counselling guides for people in British Columbia and Alberta: what therapy involves, how long it takes, what it costs after extended health, how stress leave and sick days work in BC, and how to choose between an RCC, a psychologist and a social worker. Each guide is dated, cites its sources, and is written by the practice&rsquo;s Registered Clinical Counsellors. None requires booking anything.
+          </p>
           <Updated iso={latestOf(guides)} />
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>

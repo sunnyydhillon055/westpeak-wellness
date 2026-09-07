@@ -120,6 +120,10 @@ export default function TagalogCityPage({ params }: { params: { city: string } }
               needs, which is what most bilingual people do without planning to. Nothing about
               the fee or the availability changes with the language.
             </p>
+            <p>
+              Mas gusto mong basahin ito sa Tagalog?{' '}
+              <Link href="/practitioners/camille-granda/tl" hrefLang="tl" lang="tl">Ang profile ni Camille sa Tagalog</Link>.
+            </p>
           </div>
 
           <Figure name="language-in-therapy-tl" />

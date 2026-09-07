@@ -87,6 +87,7 @@ export const moreGuides: Guide[] = [
       { label: 'BC Association of Clinical Counsellors', url: 'https://bcacc.ca/' },
     ],
     related: [
+      { href: '/tools/stress-check', label: 'Two-minute reflection: how have the last few weeks been?' },
       { href: '/guides/what-to-expect-first-therapy-session', label: 'What happens in a first session' },
       { href: '/guides/when-therapy-isnt-working', label: 'When therapy is not working' },
       { href: '/pricing', label: 'Fees and insurance' },
