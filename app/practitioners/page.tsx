@@ -94,6 +94,42 @@ export default function PractitionersPage() {
               carries no obligation. Where somebody else would be a better fit, including outside
               this practice. You will be told so on the call.
             </p>
+
+            <h2 id="how-to-choose">How to choose between counsellors</h2>
+            <p>
+              Start with language, because it is the one thing a good counsellor cannot
+              compensate for. If part of what you carry only comes out properly in Punjabi or
+              Tagalog, choose the person who works in it, even if the rest of the profile reads
+              as a slightly less exact match. Then look at focus. A counsellor who names trauma
+              and EMDR is telling you where their training and their caseload sit; one who names
+              family and immigration stress is telling you something different. Neither is
+              better, and the wrong fit is not a failure of either of you. It is simply
+              information, and the consultation exists so that it costs nothing to find out.
+            </p>
+            <p>
+              Availability is the last filter, not the first. A profile marked as not taking new
+              clients still tells you what the practice as a whole works with, and the
+              consultation is booked with whoever is open, so nobody is asked to wait for a
+              particular person. Existing clients are unaffected by that status; it only governs
+              who a new enquiry is routed to.
+            </p>
+
+            <h2 id="what-registration-means">What the registration number means</h2>
+            <p>
+              &ldquo;Counsellor&rdquo; is not yet a protected title in British Columbia, which is
+              why every profile here shows a registration number beside the designation. A
+              Registered Clinical Counsellor has met the BC Association of Clinical Counsellors&rsquo;
+              requirements: a master&rsquo;s degree in counselling or a closely related field,
+              supervised clinical hours, professional liability insurance, continuing education,
+              and a code of ethics with a public complaints process behind it. The number is
+              searchable in the{' '}
+              <a href={site.counsellor.registerUrl} target="_blank" rel="noopener">BCACC register</a>,
+              and <Link href="/resources/verify-a-counsellor-in-bc">checking it takes about two minutes</Link>.
+              <Link href="/resources/what-is-a-registered-clinical-counsellor"> What an RCC is</Link>,
+              and how the designation compares with a psychologist or a social worker, is set out
+              on its own pages; the <Link href="/accessibility">accessibility statement</Link>{' '}
+              covers how sessions and this site accommodate disability.
+            </p>
           </div>
 
           {/* ONE PER ROW, photo left, detail right — not a grid of cards.

@@ -81,26 +81,6 @@ export async function ogImage({
           position: 'relative',
         }}
       >
-        {/* The photograph, right-hand side, faded into the cream on its left
-            edge so the title sits on a plain ground. */}
-        <img
-          src={src}
-          alt=""
-          width={560}
-          height={630}
-          style={{ position: 'absolute', right: 0, top: 0, width: 560, height: 630, objectFit: 'cover' }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            right: 0,
-            top: 0,
-            width: 560,
-            height: 630,
-            display: 'flex',
-            background: `linear-gradient(90deg, ${BG} 0%, rgba(250,247,241,0.96) 18%, rgba(250,247,241,0.55) 48%, rgba(250,247,241,0.12) 100%)`,
-          }}
-        />
         {/* Soft blue wash bottom-right */}
         <div
           style={{
@@ -127,6 +107,26 @@ export async function ogImage({
           }}
         />
 
+        {/* The photograph, right-hand side, faded into the cream on its left
+            edge so the title sits on a plain ground. */}
+        <img
+          src={src}
+          alt=""
+          width={620}
+          height={630}
+          style={{ position: 'absolute', right: 0, top: 0, width: 620, height: 630, objectFit: 'cover' }}
+        />
+        <div
+          style={{
+            position: 'absolute',
+            right: 0,
+            top: 0,
+            width: 620,
+            height: 630,
+            display: 'flex',
+            background: `linear-gradient(90deg, ${BG} 0%, rgba(250,247,241,0.92) 22%, rgba(250,247,241,0.35) 52%, rgba(250,247,241,0) 100%)`,
+          }}
+        />
         {/* Header row: peak mark + practice name */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
           <svg width="44" height="44" viewBox="0 0 44 44" fill="none">

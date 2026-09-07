@@ -193,6 +193,7 @@ export const policies: Record<string, Policy> = {
       { href: '/guides', label: 'All guides' },
       { href: '/resources/bc-crisis-and-support-directory', label: 'BC crisis and support directory' },
       { href: '/about', label: 'About the practice' },
+      { href: '/accessibility', label: 'Accessibility: how this site is tested' },
       { href: '/contact', label: 'Contact' },
     ],
   },
