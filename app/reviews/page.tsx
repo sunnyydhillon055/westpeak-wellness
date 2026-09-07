@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Updated from '@/components/Updated';
 import Link from 'next/link';
 import { site } from '@/lib/site';
 import { abs, orgRef, siteRef } from '@/lib/schema';
@@ -7,7 +8,7 @@ import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
-import { COLLECTION_DATES } from '@/lib/page-dates';
+import { COLLECTION_DATES, lastmodFor } from '@/lib/page-dates';
 
 const TITLE = 'Reviews and references | Westpeak Wellness';
 const DESC =
@@ -94,6 +95,7 @@ export default function ReviewsPage() {
         <div className="container container--article">
           <p className="eyebrow">Trust</p>
           <h1>Reviews and references</h1>
+          <Updated iso={lastmodFor('/reviews')} />
           <p className="direct-answer">
             Westpeak Wellness publishes no client testimonials. That is not modesty and not an
             oversight: the BC Association of Clinical Counsellors prohibits soliciting them,

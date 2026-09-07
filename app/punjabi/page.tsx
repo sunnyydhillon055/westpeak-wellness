@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Updated from '@/components/Updated';
 import Link from 'next/link';
 import { site } from '@/lib/site';
 import { gurmukhi } from '@/app/fonts-gurmukhi';
@@ -6,7 +7,7 @@ import { abs, orgRef, siteRef } from '@/lib/schema';
 import Figure from '@/components/Figure';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBasePunjabi } from '@/lib/og-meta';
-import { COLLECTION_DATES } from '@/lib/page-dates';
+import { COLLECTION_DATES, lastmodFor } from '@/lib/page-dates';
 
 const TITLE = 'ਪੰਜਾਬੀ ਵਿੱਚ ਕਾਊਂਸਲਿੰਗ | Punjabi counselling in BC';
 const DESC =
@@ -90,6 +91,7 @@ export default function PunjabiPage() {
         <div className="container container--article">
           <p className="eyebrow" lang="en">Online across British Columbia</p>
           <h1 className="gurmukhi">ਕੁਝ ਗੱਲਾਂ ਆਪਣੀ ਭਾਸ਼ਾ ਵਿੱਚ ਹੀ ਠੀਕ ਲੱਗਦੀਆਂ ਹਨ।</h1>
+          <Updated iso={lastmodFor('/punjabi')} lang="en-CA" />
           <p className="direct-answer">
             ਬ੍ਰਿਟਿਸ਼ ਕੋਲੰਬੀਆ ਵਿੱਚ ਕਿਤੇ ਵੀ, ਪੰਜਾਬੀ ਬੋਲਣ ਵਾਲੇ Registered Clinical Counsellor
             ਨਾਲ ਸੁਰੱਖਿਅਤ ਵੀਡੀਓ ਰਾਹੀਂ ਕਾਊਂਸਲਿੰਗ। ਸੈਸ਼ਨ ਪੰਜਾਬੀ ਵਿੱਚ, ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ, ਜਾਂ ਦੋਹਾਂ ਵਿੱਚ ਹੋ ਸਕਦੇ ਹਨ,

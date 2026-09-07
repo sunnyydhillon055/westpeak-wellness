@@ -22,6 +22,7 @@ import Figure from '@/components/Figure';
 import InlineRelated from '@/components/InlineRelated';
 import { deviceSlots } from '@/lib/placement';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import Updated from '@/components/Updated';
 import { readCatalog, money } from '@/lib/cliniko-catalog';
 import { ogBase } from '@/lib/og-meta';
 import { COLLECTION_DATES } from '@/lib/page-dates';
@@ -238,6 +239,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
           <div className="svc-layout">
             <div className="prose">
               <p className="lede" style={{ marginBottom: 24 }}>{s.intro}</p>
+              <Updated iso={COLLECTION_DATES['services']} />
               <h2 id="how-we-approach-it">How we approach it</h2>
               <p>{s.approach}</p>
               {s.whatItIs && (

@@ -3,6 +3,7 @@ import { site } from '@/lib/site';
 import { abs, orgRef, siteRef } from '@/lib/schema';
 import type { ToolMeta } from '@/lib/tools';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import Updated from '@/components/Updated';
 import { COLLECTION_DATES } from '@/lib/page-dates';
 
 /* Shared frame for every tool: heading, schema, and the closing CTA.
@@ -110,6 +111,7 @@ export default function ToolShell({
         <div className="container container--narrow">
           <p className="eyebrow">Free tool · about {tool.minutes} minutes</p>
           <h1>{tool.title}</h1>
+          <Updated iso={COLLECTION_DATES['tools']} />
           <p className="direct-answer">{intro}</p>
         </div>
       </section>

@@ -8,10 +8,12 @@
  *
  * "Updated", never "Reviewed": see components/Byline.tsx and the decision
  * register. A review date is a claim a person makes; this is a commit date. */
-export default function Updated({ iso, className = 'hero-note' }: { iso: string | null | undefined; className?: string }) {
+export default function Updated({
+  iso, className = 'hero-note', lang,
+}: { iso: string | null | undefined; className?: string; /** Set on the Punjabi and Tagalog documents, where this English line is the odd one out. */ lang?: string }) {
   if (!iso) return null;
   const shown = new Date(iso.slice(0, 10) + 'T00:00:00Z').toLocaleDateString('en-CA', {
     year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC',
   });
-  return <p className={className}>Updated {shown}</p>;
+  return <p className={className} lang={lang}>Updated {shown}</p>;
 }

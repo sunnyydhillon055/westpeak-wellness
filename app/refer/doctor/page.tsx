@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Updated from '@/components/Updated';
 import Link from 'next/link';
 import { site } from '@/lib/site';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -7,7 +8,7 @@ import Figure from '@/components/Figure';
 import { readCatalog, money, type CatalogItem } from '@/lib/cliniko-catalog';
 import { ogBase } from '@/lib/og-meta';
 import { webPage } from '@/lib/schema';
-import { COLLECTION_DATES } from '@/lib/page-dates';
+import { COLLECTION_DATES, lastmodFor } from '@/lib/page-dates';
 
 export const revalidate = 3600;
 
@@ -99,6 +100,7 @@ export default async function BringToYourDoctor() {
         <div className="container container--narrow">
           <p className="eyebrow">For the appointment</p>
           <h1>Bring this to your doctor.</h1>
+          <Updated iso={lastmodFor('/refer/doctor')} />
           <p className="lede">
             You do not need a referral to see a counsellor in British Columbia. You may still
             want your doctor in the loop, and family-practice appointments are short. This is

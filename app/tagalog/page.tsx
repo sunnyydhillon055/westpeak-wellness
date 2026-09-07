@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Updated from '@/components/Updated';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
@@ -101,6 +102,7 @@ export default function TagalogPage() {
             <p className="eyebrow">{T.eyebrow}</p>
             <h1>{T.h1}</h1>
             <p className="lede">{T.lede}</p>
+            <Updated iso={COLLECTION_DATES['tagalogLanding']} lang="en-CA" />
             <div className="btn-row" style={{ marginTop: 22 }}>
               <Link className="btn btn--primary" href={`${site.bookingPath}?with=${speaker?.slug ?? ''}`}>
                 {T.cta}
