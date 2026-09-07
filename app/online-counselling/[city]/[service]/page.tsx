@@ -11,6 +11,7 @@ import { pairs, getPair, pairsForCity, pairsForService } from '@/lib/city-servic
 import CtaBand from '@/components/CtaBand';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import Updated from '@/components/Updated';
+import { healthAuthorityFor, HEALTHLINK } from '@/lib/health-authorities';
 import Figure from '@/components/Figure';
 import { ogBase } from '@/lib/og-meta';
 import { COLLECTION_DATES } from '@/lib/page-dates';
@@ -194,6 +195,15 @@ export default function CityServicePage({ params }: { params: Params }) {
           {/* The pair's own thesis as the lede. This is the sentence that is
               true here and nowhere else in the matrix. */}
           <p className="lede">{pair.angle}</p>
+          {/* One self-contained sentence for an answer engine, alongside the
+              page's own argument above. Says only what is true of every
+              counsellor at the practice. */}
+          <p className="direct-answer">
+            {svc.name} for people in {ctx.city} is delivered by secure video by Registered
+            Clinical Counsellors registered with the BC Association of Clinical Counsellors,
+            with a free first consultation, no referral, and receipts your extended health plan
+            can process.
+          </p>
           <Updated iso={COLLECTION_DATES['cityServices']} />
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>
@@ -375,6 +385,17 @@ export default function CityServicePage({ params }: { params: Params }) {
               </>
             ) : null}
           </p>
+
+          {/* The public route the page keeps referring to, cited. See
+              lib/health-authorities.ts for why it is keyed by city. */}
+          <p className="eyebrow" style={{ marginTop: 28 }}>Sources</p>
+          <ul style={{ color: 'var(--ink-soft)', fontSize: '.94rem', paddingLeft: 20, margin: 0 }}>
+            {[...(healthAuthorityFor(ctx.slug) ? [healthAuthorityFor(ctx.slug)!] : []), HEALTHLINK].map((s) => (
+              <li key={s.url}>
+                <a href={s.url} target="_blank" rel="noopener">{s.label}</a>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 

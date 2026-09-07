@@ -320,17 +320,13 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
         availableLanguage: p.languages.map((l) => l.name),
       },
     },
-    ...(loc.faqs.length
-      ? [{
-          '@context': 'https://schema.org',
-          '@type': 'FAQPage',
-          mainEntity: loc.faqs.map((f) => ({
-            '@type': 'Question',
-            name: f.q,
-            acceptedAnswer: { '@type': 'Answer', text: f.a },
-          })),
-        }]
-      : []),
+    /* NO FAQPage NODE HERE — 6 Sep 2026. These are the city's questions
+       (lib/locations.ts), and /online-counselling/<city> already publishes
+       exactly the same set as FAQPage. Emitting it twice told a search engine
+       two URLs held identical FAQ content, which is the duplication signal
+       the city × service uniqueness gate exists to avoid elsewhere. The
+       questions stay visible on this page; the city page is the canonical
+       structured-data home for them. */
   ];
 
   /* Province-correct crisis lines. A BC number on an Alberta page is the exact

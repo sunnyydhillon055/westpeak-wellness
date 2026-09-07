@@ -144,7 +144,10 @@ export default function ApproachPage({ params }: { params: { slug: string } }) {
 
           <Byline updated={g.updated} readMinutes={g.readMinutes} />
 
-          <blockquote className="quote" style={{ margin: '0 0 40px' }}>
+          {/* The short answer, marked as the extractable block it is — the
+              guides and services carry the same class and the speakable
+              selector; this page had the sentence without the marker. */}
+          <blockquote className="quote direct-answer" style={{ margin: '0 0 40px' }}>
             {g.shortAnswer}
           </blockquote>
 
