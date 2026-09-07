@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { site } from '@/lib/site';
+import { withCronHealth } from '@/lib/cron-health';
 
 /* IndexNow — push the URL list to the engines that accept a push.
  *
