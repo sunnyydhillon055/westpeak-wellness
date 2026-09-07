@@ -65,6 +65,12 @@ const CHECKS = [
   ['/robots.txt', 200],
   ['/feed.xml', 200],
   ['/llms.txt', 200],
+  /* The three parameterised redirects redirect-shadow.mjs cannot check
+     statically. One real sample each, so a typo in the pattern fails here
+     rather than in a search console three weeks later. */
+  ['/blog/stress-leave-bc', 308, '/guides/stress-leave-bc'],
+  ['/careers/anything-at-all', 308, '/about'],
+  ['/jobs/registered-clinical-counsellor', 308, '/careers/registered-clinical-counsellor'],
 
   /* Rendered on demand. Every gate that walks .next/server/app is blind to
      these, so this is the only place they are exercised at all. */

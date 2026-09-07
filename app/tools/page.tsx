@@ -8,7 +8,8 @@ import SceneBand from '@/components/SceneBand';
 import Figure from '@/components/Figure';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
-import { COLLECTION_DATES } from '@/lib/page-dates';
+import { COLLECTION_DATES, lastmodFor } from '@/lib/page-dates';
+import Updated from '@/components/Updated';
 
 const TITLE = 'Free counselling tools | Westpeak Wellness';
 const DESC =
@@ -58,6 +59,7 @@ export default function ToolsIndex() {
         <div className="container">
           <p className="eyebrow">Free · no sign-up</p>
           <h1>Tools</h1>
+          <Updated iso={lastmodFor('/tools')} />
           <p className="direct-answer">
             Three short tools for the questions people ask before they book anything: which kind
             of counselling fits, what it costs in British Columbia once extended health is taken

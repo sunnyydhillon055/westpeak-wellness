@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { site } from '@/lib/site';
 import { gurmukhi } from '@/app/fonts-gurmukhi';
+import { lastmodFor } from '@/lib/page-dates';
+import Updated from '@/components/Updated';
 import { featuredServices } from '@/lib/services';
 import { locations } from '@/lib/locations';
 import { punjabiRegions } from '@/lib/punjabi-regions';
@@ -103,6 +105,7 @@ export default function Home() {
             <div>
               <p className="eyebrow">Westpeak Wellness · Online across BC</p>
               <h1>Counselling that meets you where you are.</h1>
+              <Updated iso={lastmodFor('')} />
 
               {/* THE PHOTOGRAPH SITS INSIDE THE TEXT, NOT BESIDE IT.
                 *

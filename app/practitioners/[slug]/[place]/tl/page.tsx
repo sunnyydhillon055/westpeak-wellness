@@ -10,6 +10,8 @@ import { TL_PLACE_SHARED, getTagalogPlace } from '@/lib/practitioner-places-tl';
 import Figure from '@/components/Figure';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import Updated from '@/components/Updated';
+import { tagalogGuides } from '@/lib/tagalog-guides';
+import { healthAuthorityFor, HEALTHLINK } from '@/lib/health-authorities';
 import { abs, siteRef, orgRef } from '@/lib/schema';
 import { BadgeCheck } from 'lucide-react';
 import { ogBase } from '@/lib/og-meta';
@@ -273,6 +275,35 @@ export default function TagalogPlacePage({ params }: { params: Params }) {
             <p style={{ margin: 0 }}>
               <strong>{t.notCrisis}</strong> {t.urgent} 9-8-8. {t.immediateDanger}
             </p>
+          </div>
+
+          <div className="prose" style={{ marginTop: 30 }}>
+            <p>
+              <Link href={enPath} hrefLang="en-CA">{t.backToEnglish}</Link>
+            </p>
+          </div>
+
+          {/* The six Tagalog guides, from every Tagalog city page. Each guide
+              had one or two inbound links; these seventeen pages are the
+              natural readers of them. */}
+          <div className="prose" style={{ marginTop: 30 }}>
+            <h2>{TL_PLACE_SHARED.notReadyGuides.charAt(0).toUpperCase() + TL_PLACE_SHARED.notReadyGuides.slice(1)}</h2>
+            <ul>
+              {tagalogGuides.map((g) => (
+                <li key={g.slug}><Link href={`/tagalog/gabay/${g.slug}`}>{g.title}</Link></li>
+              ))}
+            </ul>
+          </div>
+
+          {/* The public route named in the copy, cited. Labels are English
+              organisation names and marked as such. */}
+          <div className="prose" style={{ marginTop: 30 }}>
+            <p className="eyebrow" lang="en-CA">Sources</p>
+            <ul style={{ color: 'var(--ink-soft)', fontSize: '.94rem', paddingLeft: 20, margin: 0 }} lang="en-CA">
+              {[...(healthAuthorityFor(params.place) ? [healthAuthorityFor(params.place)!] : []), HEALTHLINK].map((s) => (
+                <li key={s.url}><a href={s.url} target="_blank" rel="noopener">{s.label}</a></li>
+              ))}
+            </ul>
           </div>
 
           <div className="prose" style={{ marginTop: 30 }}>

@@ -183,6 +183,18 @@ const orgSchema = {
     'Depression', 'Intergenerational trauma', 'South Asian mental health',
     'Burnout', 'Online psychotherapy',
   ],
+  /* What the practice offers, as an entity property rather than only as
+     five separate Service pages. Names and URLs only: the prices live on
+     each service page, synced from Cliniko, and a second copy here would be
+     a second thing to drift. */
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Counselling services',
+    itemListElement: services.map((s) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name: s.name, url: `${site.domain}/services/${s.slug}` },
+    })),
+  },
   memberOf: {
     '@type': 'Organization',
     name: 'BC Association of Clinical Counsellors',

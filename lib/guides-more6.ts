@@ -103,6 +103,7 @@ export const moreGuides6: Guide[] = [
       { label: 'WorkSafeBC, mental health', url: 'https://www.worksafebc.com/en/claims/report-workplace-injury-illness/mental-health-injury-claims' },
     ],
     related: [
+      { href: '/tools/burnout-or-depression', label: 'Two-minute check: burnout or depression?' },
       { href: "/services/individual-therapy", label: "Individual counselling during stress leave" },
       { href: '/guides/burnout-vs-depression', label: 'Burnout or depression?' },
       { href: '/guides/workplace-bullying-in-bc', label: 'Workplace bullying in BC' },

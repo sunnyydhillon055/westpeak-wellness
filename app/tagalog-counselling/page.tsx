@@ -100,9 +100,17 @@ export default function TagalogCounsellingHub() {
           <div className="btn-row" style={{ marginTop: 22 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
             {speaker && (
-              <Link className="btn btn--ghost" href={`/practitioners/${speaker.slug}`}>
-                Meet {speaker.name.split(' ')[0]}
-              </Link>
+              <>
+                <Link className="btn btn--ghost" href={`/practitioners/${speaker.slug}`}>
+                  Meet {speaker.name.split(' ')[0]}
+                </Link>
+                {/* Her profile in Tagalog had two in-body links on the whole
+                    site; the English hub about Tagalog counselling is the
+                    obvious third. */}
+                <Link className="btn btn--ghost" href={`/practitioners/${speaker.slug}/tl`} hrefLang="tl" lang="tl">
+                  Sa Tagalog
+                </Link>
+              </>
             )}
             {/* The page written IN Tagalog. This hub is the English one about
                 it, and somebody who reads Tagalog should not have to find the
