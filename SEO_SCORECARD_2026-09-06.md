@@ -6,7 +6,7 @@
 
 ---
 
-## Total: **9,655 / 10,000** (9,380 at first measurement; 9,455 → 9,555 → 9,605 across three passes the same night; 9,655 after the 30-minute sweep and the PageSpeed/Search Console re-measure)
+## Total: **9,675 / 10,000** (9,380 at first measurement; 9,455 → 9,555 → 9,605 across three passes the same night; 9,655 after the 30-minute sweep and the PageSpeed/Search Console re-measure; 9,675 after the Search Console retitling pass)
 
 | Group | Score | Of |
 |---|--:|--:|
@@ -47,7 +47,7 @@ Where the 395 missing points are, in order: named authorship (90) and author-as-
 | 14 | Duplication and uniqueness | **230** | The 50 city × service pages are gated against convergence; 0 duplicate titles or descriptions among indexable pages | The 17 Tagalog city twins of Camille's pages share a template at 815–875 words each; genuinely distinct in language, thin in per-city substance |
 | 15 | No-JavaScript rendering | **240** | Every page is server-rendered; 12.5 words per KB on the homepage (second only to Crossroads in the market); text reaches a crawler with scripts off | Re-measured: a page is 20–29 KB gzipped including the inlined React payload, which is not the cost it looked like in raw bytes |
 
-## C · On-page — 1,950 / 2,000
+## C · On-page — 1,970 / 2,000
 
 | # | Category | Score | Evidence | What would earn the rest |
 |--:|---|--:|---|---|
@@ -57,7 +57,7 @@ Where the 395 missing points are, in order: named authorship (90) and author-as-
 | 19 | Heading hierarchy | **250** | **0 pages skip a heading level** (h2 → h4 never happens); a11y gate reports no mechanical failures on 253 pages | — |
 | 20 | Images | **250** | 515 `<img>`, 515 with alt, 513 with width and height, 492 lazy-loaded, all SVG or through the image optimiser; largest source photo 269 KB | — |
 | 21 | Anchor text and link attributes | **245** | 0 generic anchors ("click here", "read more"); 920 `target="_blank"` links, 920 with `rel="noopener"` | Some in-body links use the destination's title rather than the reader's query |
-| 22 | Query-to-page targeting | **215** | Search Console export of 6 Sep now in `data/gsc/`. The intended pages surface for their queries; the stress-leave cluster no longer splits. **From the fresh data:** "registered clinical counsellor" lands on the RCC comparison at #14 while the two resource pages that answer it sat at #31/#37 unlinked from it — the three now cross-link | `/resources/verify-a-counsellor-in-bc` draws 1,003 impressions at 0.1 % CTR (title/description rewrite candidate); `/online-counselling/vancouver` 680 impressions at position 52; `/resources/workplace-mental-health-bc` 808 at 17.6. Re-export monthly |
+| 22 | Query-to-page targeting | **235** | Search Console export of 6 Sep in `data/gsc/` and acted on the same day: eleven pages retitled in the searcher's words (verify-a-counsellor at 1,003 impressions / 0.1 % CTR now names the Registered Clinical Counsellor; the EMDR page answers ~500 monthly "online trauma therapist" impressions that were landing at position 80+ on a city page; stress-leave carries the six "how to apply / get / go on" queries as FAQs; Gottman in the couples title; ", BC" back in 45 city×service titles), the RCC cluster cross-linked and the explainer linked from the footer of every page, `updated` bumped and 66 URLs pushed through IndexNow | Re-export in October and compare CTR on the retitled rows; `/online-counselling/vancouver` (680 impressions, position 52) is an authority problem, not a title one |
 | 23 | Content depth | **240** | Median 1,046 words; 77 pages over 1,500; 2 indexable pages under 500; visual-density gate: no long page is prose alone | 23 pages under the 900-word gate line, all Tagalog twins; each now carries the guide list and sources but is still template-shaped |
 
 ## D · Structured data — 1,205 / 1,250
