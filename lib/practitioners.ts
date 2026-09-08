@@ -80,6 +80,14 @@ export type Practitioner = {
   credentials: Credential[];
   /** Provinces where this person may actually see clients. BC unless proven. */
   provinces: string[];
+  /* WHERE SHE MAY SEE CLIENTS, when it is wider than the provinces she has
+     pages for. 'canada' — set for Camille on 8 Sep 2026 at the owner's
+     instruction ("Camille can see anyone from Canada"): her CCC is a national
+     certification and her cover is a national policy. `provinces` still lists
+     the places she has city pages for; this governs the boundary sentence on
+     /book, /about, the tools and llms.txt. Not set means `provinces` is the
+     whole answer. */
+  reach?: 'canada';
   /** BCP 47 tags. The first is the language the profile is written in. */
   languages: { tag: string; name: string; nativeName: string }[];
   /* A SET OF PHOTOS, PLACED BY ROLE — not one portrait repeated.
@@ -301,6 +309,7 @@ export const practitioners: Practitioner[] = [
      * This reads an insurance certificate; it is not insurance advice. If
      * certainty is wanted, BMS confirms scope in one email. */
     provinces: ['BC', 'AB'],
+    reach: 'canada',
     insurance: {
       program: 'BMS / Berkley, CCPA member policy',
       policy: 'BC05211-2506 (certificate CCPA-00111023-001)',

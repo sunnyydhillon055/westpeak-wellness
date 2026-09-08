@@ -651,7 +651,7 @@ export const moreResources: Resource[] = [
         list: [
           { label: 'A device with a camera', detail: 'Phone, tablet or laptop. Nothing to install; the confirmation email carries the video link. Headphones help more than people expect, for privacy and for feeling less like a broadcast.' },
           { label: 'A private-enough corner', detail: 'A bedroom, a parked car, an office with a door. It needs to be private for thirty minutes, not soundproofed for a lifetime, and saying "I only have semi-privacy today" is fine.' },
-          { label: 'The location question', detail: 'Sessions are for people physically in British Columbia. A registration and insurance boundary, not a preference. If you are elsewhere in Canada, say so and you will be pointed to someone who can properly see you.' },
+          { label: 'The location question', detail: 'Sessions are for people physically in Canada: British Columbia with any counsellor, anywhere in the country with Camille. A registration and insurance boundary, not a preference, so say where you are when you book.' },
           { label: 'Language', detail: 'The consultation can run in English, Punjabi, or both. Nothing needs translating for the counsellor’s benefit.' },
           { label: 'If the time stops working', detail: 'Rescheduling is free up to 24 hours ahead. A life that needed counselling is exactly the kind of life that sometimes needs to move an appointment.' },
         ],

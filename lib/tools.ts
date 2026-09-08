@@ -609,8 +609,8 @@ export const ACCESS_ROUTES: Record<string, AccessRoute> = {
     href: '/resources/counselling-coverage-in-alberta',
   },
   other: {
-    label: 'Outside BC and Alberta',
+    label: 'Outside British Columbia',
     detail:
-      'This practice can only see clients located in British Columbia and, through one counsellor, Alberta. Counselling is regulated province by province and a session counts as happening where you are sitting. Your provincial college or association keeps a directory of registrants who can.',
+      'Counselling is regulated province by province and a session counts as happening where you are sitting. This practice sees clients in British Columbia with any of its counsellors, and anywhere in Canada with Camille Granda, whose national certification and cover reach across the country. Say where you are when you book and the consultation goes to the right person.',
   },
 };

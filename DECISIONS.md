@@ -304,6 +304,18 @@ so the page opens on her times and never shows a list of counsellors.
 *Enforced by:* `lib/practitioners.ts`, `app/book/page.tsx`,
 `app/practitioners/[slug]/page.tsx`, `components/StickyBook.tsx`
 
+### Camille sees clients anywhere in Canada; the boundary sentence says so
+Decided 8 Sep 2026, owner's instruction. Her CCC is a national certification
+and her liability policy is a national one, so `reach: 'canada'` on her
+roster record governs the location sentence on /book, /about, the cost
+tool, the first-consultation resource and llms.txt. `provinces` still lists
+only the places she has city pages for. The other counsellors remain BC.
+Noted for the owner at the time and not acted on: Ontario, Quebec, Nova
+Scotia, New Brunswick and PEI regulate the psychotherapy / counselling-
+therapy titles, and a CCC alone does not register her there.
+
+*Enforced by:* `lib/practitioners.ts` (`reach`)
+
 ### The founder stays off every online calendar; her clients book by reply
 Decided 8 Sep 2026. She is hidden from Cliniko online bookings, `bookable`
 is false on the roster to match, and no calendar of hers is embedded on

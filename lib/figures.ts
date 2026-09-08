@@ -265,7 +265,7 @@ export const figures: Record<string, Figure> = {
     width: 1040,
     height: 451,
     title: "What a virtual counselling session requires",
-    alt: "Three stacked bands describing what a virtual session needs: a private hour, a device with a connection, and being physically located in British Columbia.",
+    alt: "Three stacked bands describing what a virtual session needs: a private hour, a device with a connection, and being physically located in Canada.",
     caption: "A private hour is the part people underestimate.",
   },
   'therapy-cost-in-bc': {

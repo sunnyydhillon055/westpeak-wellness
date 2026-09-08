@@ -74,9 +74,14 @@ export default function Book({
      the request carries their name so whoever answers it knows. */
   const schedulable = !who || who.bookable;
 
-  const provinceList = (who ? who.provinces : [...new Set(accepting.flatMap((p) => p.provinces))])
-    .map((c) => PROVINCE_NAME[c as Province] ?? c)
-    .join(' and ');
+  const areaOf = (p: { provinces: string[]; reach?: 'canada' }) =>
+    p.reach === 'canada' ? 'anywhere in Canada' : p.provinces.map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and ');
+  const provinceList = who
+    ? areaOf(who)
+    : accepting.some((p) => p.reach === 'canada')
+      ? `${[...new Set(accepting.filter((p) => !p.reach).flatMap((p) => p.provinces))].map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and ')}, or anywhere in Canada with ${accepting.filter((p) => p.reach === 'canada').map((p) => p.name.split(' ')[0]).join(' or ')}`
+      : [...new Set(accepting.flatMap((p) => p.provinces))].map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and ');
+  const canadaWide = who ? who.reach === 'canada' : accepting.some((p) => p.reach === 'canada');
   /* WITH NO ?with=, THIS IS THE WHOLE PRACTICE, NOT THE FOUNDER.
      The fallback said "English, Punjabi, or a mix of both", which was true
      when there was one counsellor and stopped being true the day Camille
@@ -186,7 +191,7 @@ export default function Book({
                           <h3 style={{ margin: '0 0 2px', fontSize: '1.15rem' }}>{withLetters(p)}</h3>
                           <p style={{ margin: 0, color: 'var(--ink-soft)', fontSize: '.92rem' }}>
                             {p.languages.map((l) => l.name).join(' and ')} ·{' '}
-                            {p.provinces.map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and ')}
+                            {p.reach === 'canada' ? 'Anywhere in Canada' : p.provinces.map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and ')}
                           </p>
                           <p style={{ margin: '4px 0 0', color: 'var(--ink-soft)', fontSize: '.9rem' }}>
                             {p.focus.slice(0, 3).map((f) => f.label).join(', ')}
@@ -334,11 +339,14 @@ export default function Book({
           <div className="book-notes">
             <p>
               <strong>
-                Sessions {who ? `with ${who.name.split(' ')[0]} ` : ''}are for people located in {provinceList}.
+                Sessions {who ? `with ${who.name.split(' ')[0]} ` : ''}are for people located {who?.reach === 'canada' ? '' : 'in '}{provinceList}.
               </strong>{' '}
               A session counts as happening where you are sitting, so this is a registration and
-              insurance boundary rather than a preference. If you are elsewhere in Canada, say so on
-              the call and you will be pointed toward someone who can properly see you.
+              insurance boundary rather than a preference.
+              {!canadaWide && (
+                <> If you are elsewhere in Canada, say so on the call and you will be pointed toward
+                someone who can properly see you.</>
+              )}
             </p>
 
             {/* The Gurmukhi sentence is reused verbatim from /punjabi, which has

@@ -167,7 +167,7 @@ navigation or boilerplate. Every page it covers is also available at its own URL
       `### Credentials\n\n${pr.credentials
         .map((c) => `- ${c.full} (${c.short}), ${c.body}, registration ${c.number}${c.validTo ? `, current to ${c.validTo}` : ''}`)
         .join('\n')}`,
-      `### Practises in\n\n${pr.provinces.map((c) => PROVINCE_NAME[c as Province] ?? c).join(', ')}`,
+      `### Practises in\n\n${pr.reach === 'canada' ? 'Anywhere in Canada' : pr.provinces.map((c) => PROVINCE_NAME[c as Province] ?? c).join(', ')}`,
       `### Works in\n\n${pr.languages.map((l) => l.name).join(', ')}`,
       pr.focus.length
         ? `### Focus\n\n${pr.focus.map((f) => `- ${plain(f.label)}: ${plain(f.detail)}`).join('\n')}`

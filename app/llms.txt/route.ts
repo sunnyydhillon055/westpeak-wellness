@@ -45,7 +45,7 @@ export function GET() {
 > Singh (English, Punjabi; BC). Languages across the practice: English, Punjabi and Tagalog, per counsellor.
 > A second counsellor holds both the BCACC registration and the national
 > Canadian Certified Counsellor certification, works in English and Tagalog, and
-> can see clients located in Alberta as well as British Columbia.
+> can see clients located anywhere in Canada, not only British Columbia.
 > Specialisms: EMDR, trauma, anxiety, depression, couples therapy (Gottman
 > Method), family counselling, and South Asian and Filipino mental health.
 
