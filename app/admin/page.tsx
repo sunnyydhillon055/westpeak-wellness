@@ -77,6 +77,7 @@ export default async function AdminPage({
     c?: string; a?: string; pw?: string; cliniko?: string;
     sync?: string; added?: string; welcomed?: string; total?: string; named?: string;
     noemail?: string; why?: string;
+    sort?: string; dir?: string;
   };
 }) {
   const session = await auth();
@@ -117,6 +118,30 @@ export default async function AdminPage({
   const active = book.clients.filter((c) => c.status === 'active').length;
   /* Result of a manual "Sync from Cliniko now". Counts only — the redirect
      deliberately carries no addresses. */
+  const SORT_KEYS = ['name', 'email', 'status', 'note', 'added'] as const;
+  type SortKey = (typeof SORT_KEYS)[number];
+  const sortKey = (SORT_KEYS as readonly string[]).includes(searchParams?.sort ?? '') ? (searchParams!.sort as SortKey) : undefined;
+  const sortDir: 'asc' | 'desc' = searchParams?.dir === 'desc' ? 'desc' : 'asc';
+  const STATUS_ORDER: Record<string, number> = { active: 0, paused: 1, former: 2 };
+  const sortedClients = sortKey
+    ? [...book.clients].sort((a, b) => {
+        const va = sortKey === 'added' ? (a.addedAt ?? '') : sortKey === 'status' ? STATUS_ORDER[a.status] ?? 9 : String((a as Record<string, unknown>)[sortKey] ?? '').toLowerCase();
+        const vb = sortKey === 'added' ? (b.addedAt ?? '') : sortKey === 'status' ? STATUS_ORDER[b.status] ?? 9 : String((b as Record<string, unknown>)[sortKey] ?? '').toLowerCase();
+        const r = va < vb ? -1 : va > vb ? 1 : 0;
+        return sortDir === 'asc' ? r : -r;
+      })
+    : book.clients;
+  const sortHeader = (key: SortKey, label: string) => {
+    const active = sortKey === key;
+    const nextDir = active && sortDir === 'asc' ? 'desc' : 'asc';
+    return (
+      <th scope="col" aria-sort={active ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'}>
+        <Link href={`/admin?sort=${key}&dir=${nextDir}#clients`} style={{ textDecoration: 'none', color: 'inherit' }}>
+          {label}{active ? (sortDir === 'asc' ? ' ▲' : ' ▼') : ''}
+        </Link>
+      </th>
+    );
+  };
   const syncOk = searchParams?.sync === 'ok';
   const syncNote = searchParams?.sync
     ? syncOk
@@ -681,6 +706,10 @@ export default async function AdminPage({
           who have finished. Removing deletes the record and any password with it.
         </p>
 
+        {/* SORTABLE BY ANY HEADING — 8 Sep 2026, at the owner's request. Plain
+            links carrying ?sort=&dir=, so it works with no JavaScript and the
+            row forms are untouched. Default order is the stored order (newest
+            added last), which is what the list was before. */}
         {book.clients.length === 0 ? (
           <p className="admin-empty">
             No clients yet. Add the first one below. They can sign in as soon as you do.
@@ -691,16 +720,16 @@ export default async function AdminPage({
               <caption className="sr-only">Clients, their access status and administrative notes</caption>
               <thead>
                 <tr>
-                  <th scope="col">Name</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Note</th>
-                  <th scope="col">Added</th>
+                  {sortHeader('name', 'Name')}
+                  {sortHeader('email', 'Email')}
+                  {sortHeader('status', 'Status')}
+                  {sortHeader('note', 'Note')}
+                  {sortHeader('added', 'Added')}
                   <th scope="col"><span className="sr-only">Actions</span></th>
                 </tr>
               </thead>
               <tbody>
-                {book.clients.map((c) => (
+                {sortedClients.map((c) => (
                   <tr key={c.id} className={c.status !== 'active' ? 'is-muted' : undefined}>
                     <td data-label="Name">
                       <input
