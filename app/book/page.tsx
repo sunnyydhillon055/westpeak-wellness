@@ -7,7 +7,7 @@ import SchedulerEmbed from '@/components/SchedulerEmbed';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import InboundForm from '@/components/InboundForm';
 import { ogBase } from '@/lib/og-meta';
-import { getPractitioner, defaultBookingPractitioner, withLetters } from '@/lib/practitioners';
+import { practitioners, getPractitioner, defaultBookingPractitioner, withLetters } from '@/lib/practitioners';
 import { PROVINCE_NAME, type Province } from '@/lib/crisis';
 
 export const metadata: Metadata = {
@@ -54,6 +54,12 @@ export default function Book({
    * portal. If the reader asked for someone who is not accepting, the page
    * says so in one line rather than silently swapping the name. */
   const who = asked?.acceptingNewClients ? asked : defaultBookingPractitioner();
+  /* EVERYONE WHO IS ACCEPTING, offered as a choice — 8 Sep 2026. With two
+     counsellors taking new clients, a page that silently embedded whichever
+     was listed first sent every Punjabi speaker to the Tagalog speaker's
+     calendar unless they had arrived from her profile. The chips below make
+     the choice visible; ?with= still decides, and the default is unchanged. */
+  const accepting = practitioners.filter((p) => p.acceptingNewClients);
   const askedButFull = asked && !asked.acceptingNewClients ? asked : undefined;
 
   /* The founder is on the Cliniko calendar; a counsellor who is not yet on it
@@ -136,6 +142,29 @@ export default function Book({
             <li>No intake form</li>
             <li>Free cancellation up to {site.cancellationHours}h</li>
           </ul>
+
+          {accepting.length > 1 && (
+            <div className="book-choose" style={{ margin: '18px 0 10px' }}>
+              <p className="eyebrow" style={{ marginBottom: 8 }}>Who would you like to talk to?</p>
+              <div className="chip-grid">
+                {accepting.map((p) => {
+                  const on = who?.slug === p.slug;
+                  return (
+                    <Link
+                      key={p.slug}
+                      className="chip"
+                      href={`${site.bookingPath}?with=${p.slug}`}
+                      aria-current={on ? 'true' : undefined}
+                      style={on ? { borderColor: 'var(--blue-deep)', color: 'var(--ink)', fontWeight: 600 } : undefined}
+                    >
+                      {p.name.split(' ')[0]} · {p.languages.map((l) => l.name).join(' & ')}
+                      {p.provinces.includes('AB') ? ' · BC & Alberta' : ' · BC'}
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
           {askedButFull && who && (
             <p className="book-credential">

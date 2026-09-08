@@ -304,6 +304,24 @@ so the page opens on her times and never shows a list of counsellors.
 *Enforced by:* `lib/practitioners.ts`, `app/book/page.tsx`,
 `app/practitioners/[slug]/page.tsx`, `components/StickyBook.tsx`
 
+### Insurance is data on the roster, and /book offers everyone who is accepting
+Decided 8 Sep 2026. Savneet's BCACC card (#27067, to 31 Dec 2026) and her
+liability certificate arrived; Camille's certificate had been described only
+in a source comment. Both policies now sit in an `insurance` field on the
+roster with their dates, and `npm run expiry` counts and watches them the
+way it watches registrations, naming any practitioner with no policy
+recorded. **Camille's policy ends 1 Oct 2026** — the watch found that on its
+first run, 23 days out.
+
+With two counsellors taking new clients, /book shows a choice rather than
+embedding whichever is listed first; `?with=` still decides, and the roster
+order remains the default. Alberta is not opened for Savneet although her
+cover would allow it: the Alberta place copy answers the registration
+question with a CCPA certification she does not hold, and a page must be
+true before it is built (SAVNEET_ONBOARDING.md §4).
+
+*Enforced by:* `scripts/credential-expiry.mjs`, `scripts/smoke.mjs`
+
 ### A third counsellor is added the way the second was, and Punjabi gets what Tagalog got
 Decided 7 Sep 2026. Savneet Singh (English, Punjabi; BC) joins the roster
 with the same surfaces Camille Granda has: a profile, a city page for every

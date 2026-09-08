@@ -127,6 +127,21 @@ export type Practitioner = {
      URL and reading "Select a time with Camille Granda" back. Absent means
      the unfiltered calendar. */
   clinikoPractitionerId?: string;
+  /* PROFESSIONAL LIABILITY INSURANCE, read from the certificate. Until 8 Sep
+     2026 this lived only in comments, and scripts/credential-expiry.mjs said
+     so every run. Recorded as data so the expiry can be watched like a
+     registration's. `scope` is what the certificate itself bounds cover to;
+     'national' means no provincial restriction appears on it. It is what a
+     certificate says, not insurance advice. */
+  insurance?: {
+    program: string;
+    policy: string;
+    validFrom: string;
+    validTo: string;
+    limitPerClaim: string;
+    scope: 'national' | 'provincial';
+    note?: string;
+  };
   /* Public profiles that independently confirm this person is who the page
      says: the register entry, a professional network. Emitted as Person.sameAs
      on the profile only. An answer engine deciding whether to cite a
@@ -281,6 +296,15 @@ export const practitioners: Practitioner[] = [
      * This reads an insurance certificate; it is not insurance advice. If
      * certainty is wanted, BMS confirms scope in one email. */
     provinces: ['BC', 'AB'],
+    insurance: {
+      program: 'BMS / Berkley, CCPA member policy',
+      policy: 'BC05211-2506 (certificate CCPA-00111023-001)',
+      validFrom: '2025-10-01',
+      validTo: '2026-10-01',
+      limitPerClaim: '$5,000,000',
+      scope: 'national',
+      note: 'Named-insured address in Calgary; only geographic wording is national ("Canada only", "Out of Country 90 days").',
+    },
     languages: [
       { tag: 'en-CA', name: 'English', nativeName: 'English' },
       { tag: 'tl', name: 'Tagalog', nativeName: 'Tagalog' },
@@ -463,32 +487,54 @@ export const practitioners: Practitioner[] = [
      she supplied ("About Savneet" and the onboarding questionnaire); her
      phrasing is kept, lightly cut for length, and nothing is inferred.
 
-     CREDENTIALS ARE NOT YET ON FILE. Neither document names a designation or
-     a registration number, and the rule at the top of this file is that a
-     number is read from the card, never assumed. Until the card arrives:
-       · `credentials` is empty and `postNominals` is blank, so nothing on her
-         pages claims a title she has not evidenced — the templates render the
-         name alone rather than "Savneet Singh, " with a trailing comma
-         (see withLetters below);
-       · `role` says Counsellor, not Registered Clinical Counsellor, for the
-         same reason;
-       · she is BC only. No insurance certificate has been supplied, so
-         Alberta stays closed for her exactly as it did for the founder.
-     Add the credential objects (short, full, body, number, validTo, scope)
-     from the document the day it arrives and change `role` in the same edit.
+     REGISTRATION read from her BCACC membership card, supplied 8 Sep 2026:
+     Registered Member #27067, expires 31 Dec 2026. For the first day she was
+     live (7 Sep) the record carried no credentials and the pages said
+     "Counsellor" — that is the rule at the top of this file working as
+     intended, and withLetters() is what rendered her name without a
+     trailing comma meanwhile.
 
-     NOT YET IN CLINIKO. `bookable` is false until she has a practitioner id
-     on the public booking page; her profile says the consultation is arranged
-     by reply, which is what the template already does for that state. The
-     practice-wide consultation still routes to Camille because she is listed
-     first among those accepting — order in this array is the routing rule. */
+     INSURANCE read from her certificate, supplied 8 Sep 2026: McFarlan
+     Rowlands Psychology Liability Program, policy NPL1005330NM, 1 June 2026
+     to 1 June 2027, $5,000,000 per claim and aggregate, no provincial
+     restriction on the certificate, mailing address in Edmonton. That is
+     the same evidence that opened Alberta for Camille. Alberta is NOT opened
+     for her here: the Alberta place copy answers "is the counsellor
+     registered in Alberta?" with the CCPA certification Camille holds and
+     Savneet does not, so the pages would need their own answer first. An
+     owner decision (SAVNEET_ONBOARDING.md §4); the data is in place for it.
+
+     IN CLINIKO since 8 Sep 2026: practitioner 2033684891660454425 on the
+     practice business, read off the public booking page and verified by
+     loading her filtered calendar ("Savneet Singh", Initial Consultation).
+     Order in this array is still the default-routing rule; /book offers a
+     choice between everyone accepting, so the default matters less. */
   {
     slug: 'savneet-singh',
     name: 'Savneet Singh',
-    postNominals: '',
-    role: 'Counsellor',
-    credentials: [],
+    postNominals: 'RCC',
+    role: 'Registered Clinical Counsellor',
+    credentials: [
+      {
+        short: 'RCC',
+        full: 'Registered Clinical Counsellor',
+        body: 'BC Association of Clinical Counsellors',
+        number: '27067',
+        verifyUrl: 'https://bc-counsellors.org/counsellors/',
+        validTo: '2026-12-31',
+        scope: 'provincial',
+      },
+    ],
     provinces: ['BC'],
+    insurance: {
+      program: 'McFarlan Rowlands Psychology Liability Program',
+      policy: 'NPL1005330NM',
+      validFrom: '2026-06-01',
+      validTo: '2027-06-01',
+      limitPerClaim: '$5,000,000',
+      scope: 'national',
+      note: 'Certificate carries no provincial restriction; insured mailing address in Edmonton, Alberta.',
+    },
     languages: [
       { tag: 'en-CA', name: 'English', nativeName: 'English' },
       { tag: 'pa', name: 'Punjabi', nativeName: 'ਪੰਜਾਬੀ' },
@@ -633,7 +679,8 @@ export const practitioners: Practitioner[] = [
        under "When are you not the right counsellor". */
     services: ['individual-therapy', 'punjabi-counselling'],
     placePages: true,
-    bookable: false,
+    bookable: true,
+    clinikoPractitionerId: '2033684891660454425',
     acceptingNewClients: true,
   },
 ];

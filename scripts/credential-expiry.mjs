@@ -44,7 +44,12 @@ const names = [...src.matchAll(/^\s*name:\s*['"]([^'"]+)['"]/gm)].map((m) => m[1
 const creds = [...src.matchAll(
   /short:\s*['"]([^'"]+)['"][\s\S]{0,400}?full:\s*['"]([^'"]+)['"]/g
 )].map((m) => ({ short: m[1], full: m[2] }));
-const validTos = [...src.matchAll(/validTo:\s*['"](\d{4}-\d{2}-\d{2})['"]/g)].map((m) => m[1]);
+/* Insurance blocks carry their own validTo; keep the two apart so a policy
+   date is never counted as a registration date or vice versa. */
+const insuranceBlocks = [...src.matchAll(/insurance:\s*\{([\s\S]*?)\n\s*\},/g)].map((m) => m[1]);
+const insuranceTos = insuranceBlocks.map((b) => (b.match(/validTo:\s*['"](\d{4}-\d{2}-\d{2})['"]/) || [])[1]).filter(Boolean);
+const srcNoInsurance = src.replace(/insurance:\s*\{[\s\S]*?\n\s*\},/g, '');
+const validTos = [...srcNoInsurance.matchAll(/validTo:\s*['"](\d{4}-\d{2}-\d{2})['"]/g)].map((m) => m[1]);
 
 const today = new Intl.DateTimeFormat('en-CA', {
   timeZone: 'America/Vancouver', year: 'numeric', month: '2-digit', day: '2-digit',
@@ -90,16 +95,22 @@ if (missing > 0) {
   );
 }
 
-/* Insurance has no field at all, so its absence has to be asserted here rather
-   than counted. Stated every run, deliberately: this is the gate on whether
-   Alberta can open, and the whole reasoning about it currently lives in a
-   source comment, which nothing can check and nobody re-reads. */
+/* PROFESSIONAL LIABILITY INSURANCE — a field since 8 Sep 2026, so it is
+   counted rather than asserted. A practitioner with no `insurance` block is
+   reported by name: cover that is not recorded cannot be watched, and it is
+   the gate on which provinces a counsellor may be offered in. */
+const insLapsed = insuranceTos.filter((d) => days(d) < 0);
+const insSoon = insuranceTos.filter((d) => days(d) >= 0 && days(d) <= WARN_DAYS);
+const uninsured = names.length - insuranceBlocks.length;
 console.log('  PROFESSIONAL LIABILITY INSURANCE\n');
-console.log('    No renewal date is recorded anywhere in this repository.');
-console.log('    It gates the Alberta launch and it is the one deadline here with');
-console.log('    no data behind it at all. Two dates are needed: the founder\'s');
-console.log('    policy, and Camille\'s.\n');
+console.log(`    ${insuranceBlocks.length} of ${names.length} practitioner(s) have a policy recorded`);
+for (const d of insuranceTos) console.log(`    policy to ${d} — ${days(d)} days${days(d) < 0 ? '  LAPSED' : days(d) <= WARN_DAYS ? '  RENEW' : ''}`);
+if (uninsured > 0) {
+  console.log(`\n    ${uninsured} practitioner(s) with NO POLICY RECORDED. Not watched rather than`);
+  console.log('    not insured: add the certificate\'s dates to the roster.');
+}
+console.log('');
 
-if (lapsed.length) process.exit(1);
-if (STRICT && (soon.length || missing > 0)) process.exit(1);
+if (lapsed.length || insLapsed.length) process.exit(1);
+if (STRICT && (soon.length || insSoon.length || missing > 0 || uninsured > 0)) process.exit(1);
 process.exit(0);
