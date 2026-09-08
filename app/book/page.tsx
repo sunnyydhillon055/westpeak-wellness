@@ -151,53 +151,46 @@ export default function Book({
 
           {accepting.length > 1 && (
             <div className="book-choose" style={{ margin: '18px 0 14px' }}>
-              <p className="eyebrow" style={{ marginBottom: 10 }}>
-                {who ? 'Your counsellor' : 'Choose your counsellor'}
-              </p>
+              <h2 style={{ margin: '0 0 12px', fontSize: '1.45rem' }}>Who would you like to talk to?</h2>
               <div className="grid grid-2" style={{ gap: 14 }}>
                 {accepting.map((p) => {
                   const on = who?.slug === p.slug;
                   const first = p.name.split(' ')[0];
                   return (
-                    <div
-                      className="card"
+                    <Link
                       key={p.slug}
-                      style={on ? { borderColor: 'var(--blue-deep)', boxShadow: '0 0 0 2px var(--blue-deep) inset' } : undefined}
+                      href={`${site.bookingPath}?with=${p.slug}#calendar`}
+                      className="card"
                       aria-current={on ? 'true' : undefined}
+                      style={{
+                        display: 'block',
+                        textDecoration: 'none',
+                        color: 'inherit',
+                        ...(on ? { borderColor: 'var(--blue-deep)', boxShadow: '0 0 0 2px var(--blue-deep) inset' } : {}),
+                      }}
                     >
-                      <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
-                        {p.photos?.portrait && (
-                          <Image
-                            src={p.photos.portrait.src}
-                            alt={p.photos.portrait.alt}
-                            width={72}
-                            height={Math.round((72 * p.photos.portrait.height) / p.photos.portrait.width)}
-                            style={{ borderRadius: 12, objectFit: 'cover', width: 72, height: 90 }}
-                          />
-                        )}
-                        <div>
-                          <h2 className="card-title" style={{ margin: 0, fontSize: '1.1rem' }}>
-                            <Link href={`/practitioners/${p.slug}`}>{withLetters(p)}</Link>
-                          </h2>
-                          <p style={{ margin: '4px 0 0', color: 'var(--ink-soft)', fontSize: '.92rem' }}>
-                            {p.languages.map((l) => l.name).join(' and ')} ·{' '}
-                            {p.provinces.map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and ')}
-                          </p>
-                          <p style={{ margin: '4px 0 0', color: 'var(--ink-soft)', fontSize: '.92rem' }}>
-                            {p.focus.slice(0, 3).map((f) => f.label).join(', ')}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="btn-row" style={{ marginTop: 14 }}>
-                        <Link
-                          className={on ? 'btn btn--ghost' : 'btn btn--primary'}
-                          href={`${site.bookingPath}?with=${p.slug}`}
-                          aria-current={on ? 'true' : undefined}
-                        >
-                          {on ? `Booking with ${first}` : `Book with ${first}`}
-                        </Link>
-                      </div>
-                    </div>
+                      {p.photos?.portrait && (
+                        <Image
+                          src={p.photos.portrait.src}
+                          alt={p.photos.portrait.alt}
+                          width={p.photos.portrait.width}
+                          height={p.photos.portrait.height}
+                          sizes="(max-width: 700px) 92vw, 320px"
+                          style={{ width: '100%', height: 260, objectFit: 'cover', objectPosition: 'top', borderRadius: 12 }}
+                        />
+                      )}
+                      <h3 style={{ margin: '14px 0 2px', fontSize: '1.2rem' }}>{withLetters(p)}</h3>
+                      <p style={{ margin: 0, color: 'var(--ink-soft)', fontSize: '.95rem' }}>
+                        {p.languages.map((l) => l.name).join(' and ')} ·{' '}
+                        {p.provinces.map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and ')}
+                      </p>
+                      <p style={{ margin: '4px 0 0', color: 'var(--ink-soft)', fontSize: '.92rem' }}>
+                        {p.focus.slice(0, 3).map((f) => f.label).join(', ')}
+                      </p>
+                      <span className={on ? 'btn btn--ghost' : 'btn btn--primary'} style={{ marginTop: 14 }}>
+                        {on ? `Booking with ${first} ↓` : `Book with ${first}`}
+                      </span>
+                    </Link>
                   );
                 })}
               </div>
@@ -281,6 +274,25 @@ export default function Book({
                   ?practitioner_id= so Cliniko opens on her times and nobody
                   has to pick a counsellor from a list that also shows one who
                   is not taking new clients. */}
+              <div id="calendar" style={{ margin: '26px 0 12px', display: 'flex', alignItems: 'center', gap: 16 }}>
+                {who?.photos?.portrait && (
+                  <Image
+                    src={who.photos.portrait.src}
+                    alt=""
+                    width={64}
+                    height={64}
+                    style={{ width: 64, height: 64, objectFit: 'cover', objectPosition: 'top', borderRadius: '50%' }}
+                  />
+                )}
+                <div>
+                  <p className="eyebrow" style={{ margin: 0 }}>Free 30-minute consultation</p>
+                  <h2 style={{ margin: '2px 0 0', fontSize: '1.7rem', lineHeight: 1.15 }}>
+                    {who
+                      ? <>You are booking with {withLetters(who)}</>
+                      : <>Pick a time, then choose {accepting.map((p) => p.name.split(' ')[0]).join(' or ')} on the calendar</>}
+                  </h2>
+                </div>
+              </div>
               <SchedulerEmbed
                 url={bookingsUrlFor(who?.clinikoPractitionerId)}
                 title={`Book a free 30-minute consultation${who ? ` with ${who.name.split(' ')[0]}` : ''}`}
