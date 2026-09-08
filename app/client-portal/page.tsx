@@ -135,6 +135,15 @@ export default async function ClientPortalPage({
             The public /book page is filtered to the free consultation only. */}
         <SchedulerEmbed url={bookingsPaidUrlFor(who?.clinikoPractitionerId)} title={`Book a session${who ? ` with ${who.name.split(' ')[0]}` : ''}`} page="/client-portal" />
 
+        {/* The founder's clients: she is not on the online calendar (owner's
+            instruction, 8 Sep 2026), so they book by reply. Said once, plainly,
+            without naming her — the name guard applies here too. */}
+        <p style={{ margin: '14px 0 0', fontSize: '.95rem', color: 'var(--ink-soft)' }}>
+          If your counsellor is not listed above, book by reply: send a message from the{' '}
+          <Link href="/contact">contact page</Link> or answer your last appointment email, and your
+          time will be confirmed within one business day.
+        </p>
+
         <ReminderPrefs email={email} notice={typeof searchParams?.prefs === 'string' ? searchParams.prefs : undefined} />
 
         <h2 id="cancelling" style={{ marginTop: 38 }}>Cancelling</h2>

@@ -230,7 +230,12 @@ export const practitioners: Practitioner[] = [
       'The first thirty minutes are free and there is no obligation attached to them. If it turns out I am not the right fit, I will say so and point you somewhere better.',
     services: ['individual-therapy', 'couples-therapy', 'emdr-therapy', 'punjabi-counselling'],
     /* Bookable: the practice's existing Cliniko types are hers. */
-    bookable: true,
+    /* FALSE since 8 Sep 2026, on the owner's instruction: she stays hidden
+       from Cliniko online bookings and her existing clients book by reply,
+       so no calendar of hers is embedded anywhere — not on /book and not on
+       the client portal. She is on leave and not taking new clients; the
+       reason is hers and is not published. */
+    bookable: false,
     /* Not taking new clients as of 6 Sep 2026, at the owner's instruction.
        The Cliniko calendar still exists for existing clients via the portal;
        nothing public offers it. */

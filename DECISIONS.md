@@ -304,6 +304,16 @@ so the page opens on her times and never shows a list of counsellors.
 *Enforced by:* `lib/practitioners.ts`, `app/book/page.tsx`,
 `app/practitioners/[slug]/page.tsx`, `components/StickyBook.tsx`
 
+### The founder stays off every online calendar; her clients book by reply
+Decided 8 Sep 2026. She is hidden from Cliniko online bookings, `bookable`
+is false on the roster to match, and no calendar of hers is embedded on
+/book or the client portal. Her existing clients book by reply (the portal
+says so in one line without naming her). She is not taking new clients and
+the reason is not published. Reverse by unhiding her in Cliniko and
+flipping `bookable` in the same change.
+
+*Enforced by:* `lib/practitioners.ts`, `scripts/booking-mapping.mjs`
+
 ### Insurance is data on the roster, and /book offers everyone who is accepting
 Decided 8 Sep 2026. Savneet's BCACC card (#27067, to 31 Dec 2026) and her
 liability certificate arrived; Camille's certificate had been described only
