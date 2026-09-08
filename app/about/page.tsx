@@ -112,8 +112,10 @@ export default function About() {
           ),
         }}
       />
+      {/* No hero portrait since 8 Sep 2026: it was the founder's photograph, which
+          the roster below already carries, so the page showed her twice. */}
       <section className="hero" style={{ paddingBottom: 48 }}>
-        <div className="container hero-split">
+        <div className="container">
           <div>
             <p className="eyebrow">About us</p>
             <h1>Counselling that meets you where you are.</h1>
@@ -134,18 +136,6 @@ export default function About() {
                 number on a page about a practice of several. The numbers live
                 on each counsellor's own profile, beside the register they can
                 be checked in, and the roster below leads there. */}
-          </div>
-          <div className="portrait">
-            <span className="portrait-bloom" aria-hidden="true"><Motif variant="bloom" /></span>
-            <Image
-              src="/img/photo/counsellor-portrait.jpg"
-              alt={`${site.counsellor.title} at ${site.name}`}
-              width={800}
-              height={1000}
-              sizes="(max-width: 860px) 340px, 420px"
-              quality={90}
-              priority
-            />
           </div>
         </div>
       </section>

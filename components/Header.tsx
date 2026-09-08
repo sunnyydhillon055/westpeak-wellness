@@ -15,8 +15,10 @@ import { bookHrefFor } from '@/components/StickyBook';
  * read as a list rather than a route. Approaches and FAQ come off the top
  * level — Approaches is a subtopic of Services and FAQ is linked from Fees,
  * Contact and the guides — and both keep prominent footer placement. */
-/* Order set by the owner, 31 Aug 2026:
- *   Services, About, Fees, Guides, FAQ, Contact
+/* Trimmed by the owner, 8 Sep 2026 ("too many titles"): About and FAQ come
+ * off the top level; both keep footer placement and About is one click from
+ * Counsellors. Order set by the owner, 31 Aug 2026, otherwise unchanged:
+ *   Services, Counsellors, Fees, Guides, Contact
  * then Punjabi, Client portal and Book Free Consult, which render after this
  * list rather than in it — see the nav-portal and nav-cta blocks below.
  *
@@ -30,11 +32,9 @@ import { bookHrefFor } from '@/components/StickyBook';
  * it the cheapest thing on the site to make findable. */
 const NAV = [
   { href: '/services', label: 'Services' },
-  { href: '/about', label: 'About' },
   { href: '/practitioners', label: 'Counsellors' },
   { href: '/pricing', label: 'Fees' },
   { href: '/guides', label: 'Guides' },
-  { href: '/faq', label: 'FAQ' },
   { href: '/contact', label: 'Contact' },
 ];
 
