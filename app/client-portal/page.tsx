@@ -7,7 +7,6 @@ import { practitioners, getPractitioner, withLetters } from '@/lib/practitioners
 import SchedulerEmbed from '@/components/SchedulerEmbed';
 import { auth, signOut } from '@/auth';
 import { isClientAllowed } from '@/lib/portal-store';
-import ReminderPrefs from '@/components/ReminderPrefs';
 
 /* Gated by middleware.ts — never served without the access code, so it is kept
  * out of the index and out of the sitemap. Deliberately short: this is a place
@@ -144,7 +143,10 @@ export default async function ClientPortalPage({
           time will be confirmed within one business day.
         </p>
 
-        <ReminderPrefs email={email} notice={typeof searchParams?.prefs === 'string' ? searchParams.prefs : undefined} />
+        {/* The reminder-preferences block (email / text / nothing in your inbox)
+            came off this page on 8 Sep 2026 at the owner's instruction. Cliniko
+            still sends its own reminders; the API route that saved the
+            preference stays for anyone who bookmarked it. */}
 
         <h2 id="cancelling" style={{ marginTop: 38 }}>Cancelling</h2>
         <ul className="checklist">
