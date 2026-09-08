@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Figure from '@/components/Figure';
 import Link from 'next/link';
+import Image from 'next/image';
 import { site, bookingsUrlFor } from '@/lib/site';
 import { gurmukhi } from '@/app/fonts-gurmukhi';
 import SchedulerEmbed from '@/components/SchedulerEmbed';
@@ -53,14 +54,19 @@ export default function Book({
    * longer offered here to anyone; existing clients reach it through the
    * portal. If the reader asked for someone who is not accepting, the page
    * says so in one line rather than silently swapping the name. */
-  const who = asked?.acceptingNewClients ? asked : defaultBookingPractitioner();
-  /* EVERYONE WHO IS ACCEPTING, offered as a choice — 8 Sep 2026. With two
-     counsellors taking new clients, a page that silently embedded whichever
-     was listed first sent every Punjabi speaker to the Tagalog speaker's
-     calendar unless they had arrived from her profile. The chips below make
-     the choice visible; ?with= still decides, and the default is unchanged. */
+  /* NOBODY IS THE DEFAULT ANY MORE — 8 Sep 2026, second pass.
+     A bare /book used to embed the first-listed counsellor's calendar; the
+     owner's instruction is that a reader picks. So with no ?with= the page
+     shows both counsellors as cards AND embeds Cliniko's own consultation
+     page for the practice business, which lists every practitioner who
+     offers the type (verified: Camille and Savneet, the founder hidden). A
+     reader who asked for someone by name still gets that person's calendar;
+     one who asked for someone not accepting is told so and offered the
+     choice. */
   const accepting = practitioners.filter((p) => p.acceptingNewClients);
+  const who = asked && asked.acceptingNewClients ? asked : undefined;
   const askedButFull = asked && !asked.acceptingNewClients ? asked : undefined;
+  const fallback = defaultBookingPractitioner();
 
   /* The founder is on the Cliniko calendar; a counsellor who is not yet on it
      cannot be booked by an embed that books somebody else. For them the page
@@ -68,9 +74,9 @@ export default function Book({
      the request carries their name so whoever answers it knows. */
   const schedulable = !who || who.bookable;
 
-  const provinceList = who
-    ? who.provinces.map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and ')
-    : 'British Columbia';
+  const provinceList = (who ? who.provinces : [...new Set(accepting.flatMap((p) => p.provinces))])
+    .map((c) => PROVINCE_NAME[c as Province] ?? c)
+    .join(' and ');
   /* WITH NO ?with=, THIS IS THE WHOLE PRACTICE, NOT THE FOUNDER.
      The fallback said "English, Punjabi, or a mix of both", which was true
      when there was one counsellor and stopped being true the day Camille
@@ -116,7 +122,7 @@ export default function Book({
         <div className="container">
           <p className="eyebrow">Free · 30 minutes · No commitment</p>
           <h1 style={{ marginBottom: 10 }}>
-            Book a free consultation{who ? ` with ${who.name.split(' ')[0]}` : ''}.
+            Book a free consultation{who ? ` with ${who.name.split(' ')[0]}` : accepting.length > 1 ? ` with ${accepting.map((p) => p.name.split(' ')[0]).join(' or ')}` : ''}.
           </h1>
           <p className="lede" style={{ marginBottom: 0 }}>
             A short conversation over secure video to work out whether this is a fit. Nothing is
@@ -144,32 +150,75 @@ export default function Book({
           </ul>
 
           {accepting.length > 1 && (
-            <div className="book-choose" style={{ margin: '18px 0 10px' }}>
-              <p className="eyebrow" style={{ marginBottom: 8 }}>Who would you like to talk to?</p>
-              <div className="chip-grid">
+            <div className="book-choose" style={{ margin: '18px 0 14px' }}>
+              <p className="eyebrow" style={{ marginBottom: 10 }}>
+                {who ? 'Your counsellor' : 'Choose your counsellor'}
+              </p>
+              <div className="grid grid-2" style={{ gap: 14 }}>
                 {accepting.map((p) => {
                   const on = who?.slug === p.slug;
+                  const first = p.name.split(' ')[0];
                   return (
-                    <Link
+                    <div
+                      className="card"
                       key={p.slug}
-                      className="chip"
-                      href={`${site.bookingPath}?with=${p.slug}`}
+                      style={on ? { borderColor: 'var(--blue-deep)', boxShadow: '0 0 0 2px var(--blue-deep) inset' } : undefined}
                       aria-current={on ? 'true' : undefined}
-                      style={on ? { borderColor: 'var(--blue-deep)', color: 'var(--ink)', fontWeight: 600 } : undefined}
                     >
-                      {p.name.split(' ')[0]} · {p.languages.map((l) => l.name).join(' & ')}
-                      {p.provinces.includes('AB') ? ' · BC & Alberta' : ' · BC'}
-                    </Link>
+                      <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
+                        {p.photos?.portrait && (
+                          <Image
+                            src={p.photos.portrait.src}
+                            alt={p.photos.portrait.alt}
+                            width={72}
+                            height={Math.round((72 * p.photos.portrait.height) / p.photos.portrait.width)}
+                            style={{ borderRadius: 12, objectFit: 'cover', width: 72, height: 90 }}
+                          />
+                        )}
+                        <div>
+                          <h2 className="card-title" style={{ margin: 0, fontSize: '1.1rem' }}>
+                            <Link href={`/practitioners/${p.slug}`}>{withLetters(p)}</Link>
+                          </h2>
+                          <p style={{ margin: '4px 0 0', color: 'var(--ink-soft)', fontSize: '.92rem' }}>
+                            {p.languages.map((l) => l.name).join(' and ')} ·{' '}
+                            {p.provinces.map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and ')}
+                          </p>
+                          <p style={{ margin: '4px 0 0', color: 'var(--ink-soft)', fontSize: '.92rem' }}>
+                            {p.focus.slice(0, 3).map((f) => f.label).join(', ')}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="btn-row" style={{ marginTop: 14 }}>
+                        <Link
+                          className={on ? 'btn btn--ghost' : 'btn btn--primary'}
+                          href={`${site.bookingPath}?with=${p.slug}`}
+                          aria-current={on ? 'true' : undefined}
+                        >
+                          {on ? `Booking with ${first}` : `Book with ${first}`}
+                        </Link>
+                      </div>
+                    </div>
                   );
                 })}
               </div>
+              {who ? (
+                <p style={{ margin: '12px 0 0', fontSize: '.92rem', color: 'var(--ink-soft)' }}>
+                  <Link href={site.bookingPath}>See both calendars instead</Link>
+                </p>
+              ) : (
+                <p style={{ margin: '12px 0 0', fontSize: '.92rem', color: 'var(--ink-soft)' }}>
+                  Or pick a time below and choose the counsellor on the calendar itself.
+                </p>
+              )}
             </div>
           )}
 
-          {askedButFull && who && (
+          {askedButFull && (
             <p className="book-credential">
               {askedButFull.name.split(' ')[0]} is not taking new clients at the moment.{' '}
-              {who.name.split(' ')[0]} is, and the consultation below is with her.
+              {accepting.length > 1
+                ? `${accepting.map((p) => p.name.split(' ')[0]).join(' and ')} are; choose above, or pick either on the calendar below.`
+                : fallback ? `${fallback.name.split(' ')[0]} is, and the consultation below is with her.` : ''}
             </p>
           )}
 

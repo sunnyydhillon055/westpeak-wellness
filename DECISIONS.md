@@ -313,9 +313,12 @@ way it watches registrations, naming any practitioner with no policy
 recorded. **Camille's policy ends 1 Oct 2026** — the watch found that on its
 first run, 23 days out.
 
-With two counsellors taking new clients, /book shows a choice rather than
-embedding whichever is listed first; `?with=` still decides, and the roster
-order remains the default. Alberta is not opened for Savneet although her
+With two counsellors taking new clients, /book shows both as cards and,
+when nobody has been chosen, embeds Cliniko's own consultation page for the
+practice business, which lists everyone who offers the type. Nobody is the
+default; `?with=` (from a profile or a card) narrows to one calendar. The
+roster order now only decides where an enquiry for a closed counsellor is
+pointed. Alberta is not opened for Savneet although her
 cover would allow it: the Alberta place copy answers the registration
 question with a CCPA certification she does not hold, and a page must be
 true before it is built (SAVNEET_ONBOARDING.md §4).
