@@ -98,9 +98,23 @@ export default function Header() {
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
 
-    const outside = [...document.body.children].filter(
-      (el) => !el.classList.contains('site-header') && !el.classList.contains('nav-scrim')
-    );
+    /* WALK INTO WRAPPERS — 7 Sep 2026. The root layout wrapped the English
+       chrome in a <div lang="en-CA" style="display:contents"> on 6 Sep, so the
+       header stopped being a direct child of <body>. This filter then saw one
+       body child that was not the header, made it inert, and the header inside
+       it went inert with it: every link in the open drawer was unclickable on
+       every page, on a phone, for a day. Verified with elementFromPoint on the
+       Services link: the body came back, not the link. A wrapper that contains
+       the header or the scrim is descended into rather than marked. */
+    const outside: Element[] = [];
+    const collect = (parent: Element) => {
+      for (const el of parent.children) {
+        if (el.classList.contains('site-header') || el.classList.contains('nav-scrim')) continue;
+        if (el.querySelector('.site-header, .nav-scrim')) collect(el);
+        else outside.push(el);
+      }
+    };
+    collect(document.body);
     for (const el of outside) {
       if (open) el.setAttribute('inert', '');
       else el.removeAttribute('inert');
