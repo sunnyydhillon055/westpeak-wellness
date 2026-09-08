@@ -476,7 +476,7 @@ export const moreComparisons2: Comparison[] = [
       'Where the medical or assessment door is yours, the [psychiatry and assessment resource](/resources/psychiatry-and-assessment-in-bc) maps the referral road honestly, and therapy here can start now and coordinate with whichever specialist arrives later, with your written consent.',
     ],
     midCta: {
-      text: 'Fifteen free minutes sorts which of the three doors: psychiatry, psychology, counselling. Your situation actually needs. Including when the answer is not this one.',
+      text: 'Thirty free minutes sorts which of the three doors: psychiatry, psychology, counselling. Your situation actually needs. Including when the answer is not this one.',
       label: 'Book a free consultation',
     },
     faqs: [

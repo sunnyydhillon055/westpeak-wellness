@@ -149,7 +149,7 @@ export const approaches: Approach[] = [
     ],
     midCta: {
       text: 'If you understand your patterns completely and nothing has moved,',
-      label: 'that is worth fifteen free minutes to talk through',
+      label: 'that is worth thirty free minutes to talk through',
     },
     faqs: [
       { q: 'What is ACT therapy used for?', a: 'Anxiety, chronic worry, depression, chronic pain, and the kind of stuck-ness where a person understands their patterns thoroughly and is still living inside them. It has a particular fit with health anxiety, obsessive thinking and perfectionism, where fighting the thought is the problem, and with long-term conditions where the goal is a fuller life alongside symptoms rather than their removal.' },
@@ -464,7 +464,7 @@ export const approaches: Approach[] = [
     ],
     midCta: {
       text: 'If you have tried an app and it did not touch the problem,',
-      label: 'that is worth fifteen free minutes to think about properly',
+      label: 'that is worth thirty free minutes to think about properly',
     },
     faqs: [
       { q: 'Is a meditation app as good as MBCT?', a: 'The evidence does not support treating them as equivalent. Apps are a convenient practice tool; MBCT is a structured eight-week programme with a defined curriculum and substantial home practice.' },
