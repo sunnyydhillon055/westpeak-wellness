@@ -14,6 +14,15 @@ export default function Image({ params }: { params: { slug: string; place: strin
   const lang = p?.languages.find((l) => l.tag === params.place);
   return ogImage({
     eyebrow: p?.name ?? 'Westpeak Wellness',
-    title: loc ? `Counselling in ${loc.city}` : lang ? `Sa ${lang.nativeName}` : 'Counselling',
+    /* The language variant: Tagalog in Tagalog (Latin script renders), the
+       Punjabi one in English because the card renderer has no Gurmukhi
+       glyphs — see the pa card route beside this one. */
+    title: loc
+      ? `Counselling in ${loc.city}`
+      : lang?.tag === 'pa'
+        ? 'Counselling in Punjabi, anywhere in BC.'
+        : lang
+          ? `Sa ${lang.nativeName}`
+          : 'Counselling',
   });
 }
