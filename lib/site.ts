@@ -218,3 +218,13 @@ export const bookingsUrlFor = (practitionerId?: string): string =>
   practitionerId
     ? `${CLINIKO_BOOKINGS}?business_id=${CLINIKO_BUSINESS}&appointment_type_id=${CONSULT_TYPE}&practitioner_id=${practitionerId}`
     : site.bookingsUrl;
+
+/* The paid calendar for ONE counsellor, for the client portal. Same shape as
+   bookingsUrlFor(): Cliniko honours practitioner_id, so a current client who
+   picks their counsellor sees only that person's times. No id means the
+   practice-wide paid calendar, on which Cliniko lists every practitioner who
+   offers a paid type. Added 8 Sep 2026 with the second bookable counsellor. */
+export const bookingsPaidUrlFor = (practitionerId?: string): string =>
+  practitionerId
+    ? `${site.bookingsPaidUrl}&practitioner_id=${practitionerId}`
+    : site.bookingsPaidUrl;

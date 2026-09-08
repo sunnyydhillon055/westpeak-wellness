@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { site } from '@/lib/site';
+import { site, bookingsPaidUrlFor } from '@/lib/site';
+import Image from 'next/image';
+import { practitioners, getPractitioner, withLetters } from '@/lib/practitioners';
 import SchedulerEmbed from '@/components/SchedulerEmbed';
 import { auth, signOut } from '@/auth';
 import { isClientAllowed } from '@/lib/portal-store';
@@ -39,6 +41,18 @@ export default async function ClientPortalPage({
     redirect('/signin?next=%2Fclient-portal');
   }
 
+  /* WHO THE CLIENT IS BOOKING WITH — 8 Sep 2026, the same choice /book
+     offers. The portal embedded the practice-wide paid calendar and left the
+     client to find their counsellor inside Cliniko's own list. Now: a card
+     for each counsellor who can be booked online, ?with= narrows the embed
+     to that person's calendar, and a large line above the calendar says
+     whose it is. The roster does not record which client sees whom, so
+     nothing is pre-selected. */
+  const bookableOnline = practitioners.filter((p) => p.bookable && p.clinikoPractitionerId);
+  const withSlug = typeof searchParams?.with === 'string' ? searchParams.with : '';
+  const asked = withSlug ? getPractitioner(withSlug) : undefined;
+  const who = asked && asked.bookable && asked.clinikoPractitionerId ? asked : undefined;
+
   return (
     <section className="section" style={{ paddingTop: 52 }}>
       <div className="container" style={{ maxWidth: 780 }}>
@@ -54,9 +68,72 @@ export default async function ClientPortalPage({
           Book and pay
         </h2>
 
+        {bookableOnline.length > 1 && (
+          <div className="book-choose" style={{ margin: '14px 0 18px' }}>
+            <h3 style={{ margin: '0 0 12px', fontSize: '1.2rem' }}>Who are you booking with?</h3>
+            <div className="grid grid-2" style={{ gap: 14 }}>
+              {bookableOnline.map((p) => {
+                const on = who?.slug === p.slug;
+                const first = p.name.split(' ')[0];
+                return (
+                  <Link
+                    key={p.slug}
+                    href={`${site.portalPath}?with=${p.slug}#book`}
+                    className="card"
+                    aria-current={on ? 'true' : undefined}
+                    style={{
+                      display: 'block', textDecoration: 'none', color: 'inherit',
+                      ...(on ? { borderColor: 'var(--blue-deep)', boxShadow: '0 0 0 2px var(--blue-deep) inset' } : {}),
+                    }}
+                  >
+                    <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
+                      {p.photos?.portrait && (
+                        <Image
+                          src={p.photos.portrait.src}
+                          alt={p.photos.portrait.alt}
+                          width={p.photos.portrait.width}
+                          height={p.photos.portrait.height}
+                          sizes="72px"
+                          style={{ width: 72, height: 72, flex: '0 0 72px', objectFit: 'cover', objectPosition: 'top', borderRadius: '50%' }}
+                        />
+                      )}
+                      <div>
+                        <strong style={{ fontSize: '1.05rem' }}>{withLetters(p)}</strong>
+                        <p style={{ margin: '2px 0 0', color: 'var(--ink-soft)', fontSize: '.9rem' }}>
+                          {p.languages.map((l) => l.name).join(' and ')}
+                        </p>
+                      </div>
+                    </div>
+                    <span className={on ? 'btn btn--ghost' : 'btn btn--primary'} style={{ marginTop: 12 }}>
+                      {on ? `Booking with ${first} ↓` : `Book with ${first}`}
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
+            {who && (
+              <p style={{ margin: '12px 0 0', fontSize: '.92rem', color: 'var(--ink-soft)' }}>
+                <Link href={`${site.portalPath}#book`}>See both calendars instead</Link>
+              </p>
+            )}
+          </div>
+        )}
+
+        <div style={{ margin: '18px 0 12px', display: 'flex', alignItems: 'center', gap: 14 }}>
+          {who?.photos?.portrait && (
+            <Image src={who.photos.portrait.src} alt="" width={56} height={56}
+              style={{ width: 56, height: 56, objectFit: 'cover', objectPosition: 'top', borderRadius: '50%' }} />
+          )}
+          <p style={{ margin: 0, fontSize: '1.35rem', fontWeight: 600, lineHeight: 1.2 }}>
+            {who
+              ? <>You are booking with {withLetters(who)}</>
+              : <>Pick a time, then choose your counsellor on the calendar</>}
+          </p>
+        </div>
+
         {/* The full range of sessions, which is why this page is behind sign-in.
             The public /book page is filtered to the free consultation only. */}
-        <SchedulerEmbed url={site.bookingsPaidUrl} title="Book a session" page="/client-portal" />
+        <SchedulerEmbed url={bookingsPaidUrlFor(who?.clinikoPractitionerId)} title={`Book a session${who ? ` with ${who.name.split(' ')[0]}` : ''}`} page="/client-portal" />
 
         <ReminderPrefs email={email} notice={typeof searchParams?.prefs === 'string' ? searchParams.prefs : undefined} />
 
