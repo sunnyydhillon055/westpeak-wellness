@@ -169,24 +169,30 @@ export default function Book({
                         ...(on ? { borderColor: 'var(--blue-deep)', boxShadow: '0 0 0 2px var(--blue-deep) inset' } : {}),
                       }}
                     >
-                      {p.photos?.portrait && (
-                        <Image
-                          src={p.photos.portrait.src}
-                          alt={p.photos.portrait.alt}
-                          width={p.photos.portrait.width}
-                          height={p.photos.portrait.height}
-                          sizes="(max-width: 700px) 92vw, 320px"
-                          style={{ width: '100%', height: 260, objectFit: 'cover', objectPosition: 'top', borderRadius: 12 }}
-                        />
-                      )}
-                      <h3 style={{ margin: '14px 0 2px', fontSize: '1.2rem' }}>{withLetters(p)}</h3>
-                      <p style={{ margin: 0, color: 'var(--ink-soft)', fontSize: '.95rem' }}>
-                        {p.languages.map((l) => l.name).join(' and ')} ·{' '}
-                        {p.provinces.map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and ')}
-                      </p>
-                      <p style={{ margin: '4px 0 0', color: 'var(--ink-soft)', fontSize: '.92rem' }}>
-                        {p.focus.slice(0, 3).map((f) => f.label).join(', ')}
-                      </p>
+                      {/* A small portrait beside the name rather than a banner
+                          above it — the owner asked for smaller photos on 8 Sep. */}
+                      <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
+                        {p.photos?.portrait && (
+                          <Image
+                            src={p.photos.portrait.src}
+                            alt={p.photos.portrait.alt}
+                            width={p.photos.portrait.width}
+                            height={p.photos.portrait.height}
+                            sizes="96px"
+                            style={{ width: 96, height: 96, flex: '0 0 96px', objectFit: 'cover', objectPosition: 'top', borderRadius: '50%' }}
+                          />
+                        )}
+                        <div>
+                          <h3 style={{ margin: '0 0 2px', fontSize: '1.15rem' }}>{withLetters(p)}</h3>
+                          <p style={{ margin: 0, color: 'var(--ink-soft)', fontSize: '.92rem' }}>
+                            {p.languages.map((l) => l.name).join(' and ')} ·{' '}
+                            {p.provinces.map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and ')}
+                          </p>
+                          <p style={{ margin: '4px 0 0', color: 'var(--ink-soft)', fontSize: '.9rem' }}>
+                            {p.focus.slice(0, 3).map((f) => f.label).join(', ')}
+                          </p>
+                        </div>
+                      </div>
                       <span className={on ? 'btn btn--ghost' : 'btn btn--primary'} style={{ marginTop: 14 }}>
                         {on ? `Booking with ${first} ↓` : `Book with ${first}`}
                       </span>
