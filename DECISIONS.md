@@ -304,6 +304,31 @@ so the page opens on her times and never shows a list of counsellors.
 *Enforced by:* `lib/practitioners.ts`, `app/book/page.tsx`,
 `app/practitioners/[slug]/page.tsx`, `components/StickyBook.tsx`
 
+### A third counsellor is added the way the second was, and Punjabi gets what Tagalog got
+Decided 7 Sep 2026. Savneet Singh (English, Punjabi; BC) joins the roster
+with the same surfaces Camille Granda has: a profile, a city page for every
+place she can serve, a twin of each in her second language, the profile in
+that language, guides written in it, and her name on the language hubs.
+The Punjabi machinery mirrors the Tagalog machinery file for file
+(`lib/practitioner-pa.ts`, `lib/practitioner-places-pa.ts`,
+`lib/punjabi-guides.ts`, `app/practitioners/[slug]/[place]/pa/`,
+`app/punjabi/guides/`) and is keyed by practitioner slug and gated on
+`placePages`, so the founder — who also works in Punjabi and has one page by
+instruction — is never given a twin.
+
+Two things were NOT done, on purpose. Her credentials are not on file, so
+her pages carry no letters, no registration line and the title Counsellor;
+`withLetters()` exists so a blank post-nominal renders a name rather than a
+trailing comma. And she has no Alberta pages, because no insurance
+certificate has been supplied. Both are one edit when the document arrives
+(SAVNEET_ONBOARDING.md).
+
+`scripts/roster-compare.mjs` scores any two counsellors' pages on one rubric
+from the built HTML, so "the same amount of pages and marketing" is a
+number rather than an impression.
+
+*Enforced by:* `test/practitioner-language.test.mts`, `scripts/smoke.mjs`, `scripts/html-lang.mjs`, the name guard
+
 ### The stylesheet is inlined into every prerendered document
 Decided 6 Sep 2026. Lighthouse put 740 ms of a 2.9 s mobile LCP on three
 render-blocking stylesheet links, and Next 14's App Router has no

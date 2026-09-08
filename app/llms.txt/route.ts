@@ -1,5 +1,5 @@
 import { site } from '@/lib/site';
-import { practitioners } from '@/lib/practitioners';
+import { practitioners, withLetters } from '@/lib/practitioners';
 import { punjabiRegions } from '@/lib/punjabi-regions';
 import { tools } from '@/lib/tools';
 import { TAGALOG_CITIES } from '@/lib/tagalog';
@@ -41,7 +41,8 @@ export function GET() {
 > option. Provided by Registered Clinical Counsellors registered with the BC
 > Association of Clinical Counsellors; each counsellor's page states their
 > registration number, languages and provinces. New clients are currently seen
-> by Camille Granda, RCC, CCC. Languages across the practice: English, Punjabi and Tagalog, per counsellor.
+> by Camille Granda, RCC, CCC (English, Tagalog; BC and Alberta) and by Savneet
+> Singh (English, Punjabi; BC). Languages across the practice: English, Punjabi and Tagalog, per counsellor.
 > A second counsellor holds both the BCACC registration and the national
 > Canadian Certified Counsellor certification, works in English and Tagalog, and
 > can see clients located in Alberta as well as British Columbia.
@@ -113,7 +114,7 @@ ${list(locations, '/online-counselling')}
 
 ## The counsellors
 
-${practitioners.map((p) => `- [${p.name}, ${p.postNominals}](${site.domain}/practitioners/${p.slug}): ${p.credentials.map((c) => `${c.short} ${c.number}`).join(', ')}. Works in ${p.languages.map((l) => l.name).join(' and ')}. Sees clients located in ${p.provinces.map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and ')}.`).join(String.fromCharCode(10))}
+${practitioners.map((p) => `- [${withLetters(p)}(${site.domain}/practitioners/${p.slug}): ${p.credentials.map((c) => `${c.short} ${c.number}`).join(', ')}. Works in ${p.languages.map((l) => l.name).join(' and ')}. Sees clients located in ${p.provinces.map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and ')}.`).join(String.fromCharCode(10))}
 
 Each counsellor has city pages of their own under the same path. Which language
 and which province applies is stated per counsellor, never practice-wide, because

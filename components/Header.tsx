@@ -227,7 +227,7 @@ export default function Header() {
                         aria-current={isActive(`/practitioners/${p.slug}`) ? 'page' : undefined}
                       >
                         <span className="nav-sub-name">{p.name}</span>
-                        <span className="nav-sub-role">{p.postNominals}</span>
+                        <span className="nav-sub-role">{p.postNominals || p.role}</span>
                       </Link>
                     </li>
                   ))}

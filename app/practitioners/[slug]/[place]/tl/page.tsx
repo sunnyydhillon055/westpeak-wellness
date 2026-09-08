@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { site } from '@/lib/site';
-import { practitioners, getPractitioner } from '@/lib/practitioners';
+import { practitioners, getPractitioner, withLetters } from '@/lib/practitioners';
 import { getPractitionerPlace, placesFor, resolvePlace } from '@/lib/practitioner-places';
 import { TAGALOG_READY } from '@/lib/practitioner-tl';
 import { TL_PLACE_SHARED, getTagalogPlace } from '@/lib/practitioner-places-tl';
@@ -68,7 +68,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
      ran 61-66 on the longer city names and the gate failed the build, which is
      what it is for. The name survives; the letters are on the page itself. */
   const title = `Counselling sa Tagalog sa ${raw.city} | ${p.name}`;
-  const description = `Mga sesyon sa Tagalog o Ingles kasama si ${p.name}, ${p.postNominals}, para sa ${raw.city}. Trauma, pagkabalisa, pagluluksa. Libreng 30 minutong konsultasyon.`;
+  const description = `Mga sesyon sa Tagalog o Ingles kasama si ${withLetters(p)}, para sa ${raw.city}. Trauma, pagkabalisa, pagluluksa. Libreng 30 minutong konsultasyon.`;
 
   return {
     title: { absolute: title },
@@ -165,7 +165,7 @@ export default function TagalogPlacePage({ params }: { params: Params }) {
             {/* The same sentence the metadata carries, on the page: a self-contained
                 answer in Tagalog, no new copy. */}
             <p className="direct-answer">
-              Mga sesyon sa Tagalog o Ingles kasama si {p.name}, {p.postNominals}, para sa {raw.city}, sa secure video.
+              Mga sesyon sa Tagalog o Ingles kasama si {withLetters(p)}, para sa {raw.city}, sa secure video.
               Trauma, pagkabalisa, pagluluksa. Libreng 30 minutong konsultasyon.
             </p>
             <div className="btn-row" style={{ marginTop: 22 }}>
@@ -179,7 +179,7 @@ export default function TagalogPlacePage({ params }: { params: Params }) {
             <div className="portrait">
               <Image
                 src={p.photos.portrait.src}
-                alt={`${p.name}, ${p.postNominals}, counselling sa Tagalog para sa ${raw.city}`}
+                alt={`${withLetters(p)}, counselling sa Tagalog para sa ${raw.city}`}
                 width={p.photos.portrait.width}
                 height={p.photos.portrait.height}
                 sizes="(max-width: 860px) 340px, 420px"
@@ -228,7 +228,7 @@ export default function TagalogPlacePage({ params }: { params: Params }) {
                 sizes="(max-width: 700px) 90vw, 460px"
                 quality={86}
               />
-              <figcaption>{p.name}, {p.postNominals}</figcaption>
+              <figcaption>{withLetters(p)}</figcaption>
             </figure>
           )}
 

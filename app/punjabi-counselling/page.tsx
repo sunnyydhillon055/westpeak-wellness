@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import Updated from '@/components/Updated';
 import Link from 'next/link';
 import { punjabiRegions } from '@/lib/punjabi-regions';
+import Image from 'next/image';
+import { practitioners, withLetters } from '@/lib/practitioners';
 import { site } from '@/lib/site';
 import { abs, orgRef, siteRef } from '@/lib/schema';
 import CtaBand from '@/components/CtaBand';
@@ -66,6 +68,10 @@ const ARGUMENT: Record<string, 'scarcity' | 'distance'> = {
 };
 
 export default function PunjabiCounsellingIndex() {
+  /* The Punjabi-speaking counsellor taking new clients, from the roster; the
+     founder also works in Punjabi but is closed to new clients and named only
+     on her own page. */
+  const speaker = practitioners.find((p) => p.acceptingNewClients && p.languages.some((l) => l.tag === 'pa') && p.placePages);
   const scarcity = punjabiRegions.filter((r) => ARGUMENT[r.slug] !== 'distance');
   const distance = punjabiRegions.filter((r) => ARGUMENT[r.slug] === 'distance');
 
@@ -188,6 +194,29 @@ export default function PunjabiCounsellingIndex() {
           <div className="grid grid-3" style={{ marginTop: 24, marginBottom: 8 }}>
             {distance.map((r) => <Card key={r.slug} r={r} />)}
           </div>
+
+          {speaker && (
+            <>
+              <h2>Who you would be working with</h2>
+              <p>
+                <Link href={`/practitioners/${speaker.slug}`}>{withLetters(speaker)}</Link> works in
+                Punjabi and English, including moving between the two inside a session, and is
+                taking new clients. She works with anxiety, depression, trauma and attachment
+                patterns, and personality disorders, with adults, one to one. Her profile is also
+                written{' '}
+                <Link href={`/practitioners/${speaker.slug}/pa`} lang="pa" hrefLang="pa">ਪੰਜਾਬੀ ਵਿੱਚ</Link>,
+                and each of her fifteen BC city pages has a Punjabi twin.
+              </p>
+              {speaker.photos?.warm && (
+                <figure className="photo" style={{ marginTop: 18 }}>
+                  <Image src={speaker.photos.warm.src} alt={speaker.photos.warm.alt}
+                    width={speaker.photos.warm.width} height={speaker.photos.warm.height}
+                    sizes="(max-width: 700px) 90vw, 460px" quality={86} />
+                  <figcaption>{withLetters(speaker)}</figcaption>
+                </figure>
+              )}
+            </>
+          )}
 
           <h2>If your region is not listed</h2>
           <p>

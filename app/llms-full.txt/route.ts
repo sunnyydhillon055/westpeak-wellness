@@ -6,7 +6,7 @@ import { FALLBACK_CATALOG, money } from '@/lib/cliniko-catalog';
 import { locations } from '@/lib/locations';
 import { pairs, cityFor } from '@/lib/city-services';
 import { getCityTopic } from '@/lib/conditions';
-import { practitioners } from '@/lib/practitioners';
+import { practitioners, withLetters } from '@/lib/practitioners';
 import { placesFor, resolvePlace } from '@/lib/practitioner-places';
 import { punjabiRegions } from '@/lib/punjabi-regions';
 import { tagalogGuides } from '@/lib/tagalog-guides';
@@ -159,7 +159,7 @@ navigation or boilerplate. Every page it covers is also available at its own URL
      an answer engine asked "who works there" should not have to infer it. */
   for (const pr of practitioners) {
     chunks.push([
-      `## ${pr.name}, ${pr.postNominals}`,
+      `## ${withLetters(pr)}`,
       `URL: ${site.domain}/practitioners/${pr.slug}`,
       `Last reviewed: ${COLLECTION_DATES['practitioners']}`,
       plain(pr.tagline),

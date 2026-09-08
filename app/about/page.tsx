@@ -186,7 +186,7 @@ export default function About() {
                       {p.name}
                     </Link>
                   </h3>
-                  <p className="practitioner-row-role">{p.role} · {p.postNominals}</p>
+                  <p className="practitioner-row-role">{p.role}{p.postNominals ? ` · ${p.postNominals}` : ''}</p>
                   <p className="practitioner-row-tagline">{p.tagline}</p>
                   <p className="practitioner-row-langs">
                     Works in {p.languages.map((l) => l.name).join(' and ')}

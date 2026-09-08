@@ -9,6 +9,9 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBasePunjabi } from '@/lib/og-meta';
 import { COLLECTION_DATES } from '@/lib/page-dates';
 import { punjabiRegions } from '@/lib/punjabi-regions';
+import { practitioners, withLetters } from '@/lib/practitioners';
+import { placesFor } from '@/lib/practitioner-places';
+import { PA_CITY, getPunjabiPlace } from '@/lib/practitioner-places-pa';
 
 /* The Punjabi twin of /punjabi-counselling — 6 Sep 2026.
  *
@@ -82,6 +85,7 @@ const SCARCITY = ['kelowna', 'kamloops', 'prince-george'];
 const DISTANCE = ['surrey', 'abbotsford', 'vancouver'];
 
 export default function PunjabiRegionsPage() {
+  const speaker = practitioners.find((p) => p.acceptingNewClients && p.languages.some((l) => l.tag === 'pa') && p.placePages);
   const schema = [
     {
       '@context': 'https://schema.org',
@@ -213,6 +217,23 @@ export default function PunjabiRegionsPage() {
               ਜਾਂਚਣਯੋਗ ਅੰਕੜਾ ਮਿਲ ਸਕਿਆ, ਨਾ ਕਿ ਇਸ ਲਈ ਕਿ ਸਿਰਫ਼ ਉੱਥੇ ਹੀ ਸੇਵਾ ਮਿਲਦੀ ਹੈ। ਨਨਾਇਮੋ, ਕੂਟਨੇਜ਼ ਅਤੇ ਪੀਸ ਵੀ
               ਓਨੇ ਹੀ ਅਸਲ ਹਨ, ਅਤੇ ਉਦੋਂ ਤੱਕ ਸੂਚੀ ਤੋਂ ਬਾਹਰ ਰਹਿਣਗੇ ਜਦੋਂ ਤੱਕ ਅੰਦਾਜ਼ੇ ਦੀ ਥਾਂ ਸਹੀ ਅੰਕੜੇ ਨਹੀਂ ਮਿਲ ਜਾਂਦੇ।
             </p>
+
+            {speaker && (
+              <>
+                <h2>ਤੁਸੀਂ ਕਿਸ ਨਾਲ ਕੰਮ ਕਰੋਗੇ</h2>
+                <p>
+                  {withLetters(speaker)} ਪੰਜਾਬੀ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਕੰਮ ਕਰਦੀ ਹੈ ਅਤੇ ਇਸ ਵੇਲੇ ਨਵੇਂ ਕਲਾਇੰਟ ਲੈ ਰਹੀ ਹੈ। ਹਰ ਸ਼ਹਿਰ ਲਈ ਉਸ ਦਾ ਆਪਣਾ ਪੰਨਾ ਪੰਜਾਬੀ ਵਿੱਚ ਹੈ, ਉਸ ਦੇ{' '}
+                  <Link href={`/practitioners/${speaker.slug}/pa`}>ਪੰਜਾਬੀ ਪ੍ਰੋਫ਼ਾਈਲ</Link> ਤੋਂ।
+                </p>
+                <ul className="place-siblings">
+                  {placesFor(speaker.provinces).filter((c) => getPunjabiPlace(c.slug)).map((c) => (
+                    <li key={c.slug}>
+                      <Link href={`/practitioners/${speaker.slug}/${c.slug}/pa`}>{PA_CITY[c.slug] ?? c.city}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
 
             <h2>ਅਗਲਾ ਕਦਮ</h2>
             <p>

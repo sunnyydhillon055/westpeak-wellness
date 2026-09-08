@@ -3,6 +3,9 @@ import { TAGALOG_CITIES } from '@/lib/tagalog';
 import { practitioners } from '@/lib/practitioners';
 import { placesFor } from '@/lib/practitioner-places';
 import { TAGALOG_READY } from '@/lib/practitioner-tl';
+import { getPunjabiProfile } from '@/lib/practitioner-pa';
+import { getPunjabiPlace } from '@/lib/practitioner-places-pa';
+import { punjabiGuides } from '@/lib/punjabi-guides';
 import { tagalogGuides } from '@/lib/tagalog-guides';
 import { services } from '@/lib/services';
 import { tools } from '@/lib/tools';
@@ -132,6 +135,28 @@ export function GET() {
             : []),
         ]
       : []),
+    /* The Punjabi profile and a Punjabi twin of every city page, since 7 Sep
+       2026, for a counsellor with place pages who works in the language and
+       has her own copy in lib/practitioner-pa.ts. */
+    ...(pr.placePages && pr.languages.some((l) => l.tag === 'pa') && getPunjabiProfile(pr.slug)
+      ? [
+          {
+            path: `/practitioners/${pr.slug}/pa`,
+            lastmod: collectionLastmod('punjabiProfiles'),
+            changefreq: 'monthly' as const,
+            priority: 0.7,
+          },
+          ...placesFor(pr.provinces)
+            .filter((l) => getPunjabiPlace(l.slug))
+            .map((l) => ({
+              path: `/practitioners/${pr.slug}/${l.slug}/pa`,
+              lastmod: collectionLastmod('punjabiPlaces'),
+              changefreq: 'monthly' as const,
+              priority: 0.6,
+              figure: 'bc-reach',
+            })),
+        ]
+      : []),
   ]);
 
   const trust: Entry[] = ['/standards', '/editorial-policy', '/privacy', '/accessibility'].map(
@@ -162,6 +187,11 @@ export function GET() {
     { path: '/punjabi', lastmod: lastmodFor('/punjabi'), changefreq: 'monthly', priority: 0.7 },
     /* The Punjabi twin of the region index, paired with it below. */
     { path: '/punjabi/regions', lastmod: collectionLastmod('punjabiRegions'), changefreq: 'monthly', priority: 0.6 },
+    /* The Punjabi guides, each paired below with the English guide on the
+       same question. */
+    ...punjabiGuides.map((g) => ({
+      path: `/punjabi/guides/${g.slug}`, lastmod: collectionLastmod('punjabiGuides'), changefreq: 'monthly' as const, priority: 0.6,
+    })),
     /* The Tagalog front door, paired with /tagalog-counselling by hreflang.
        Listed only when the language is published, same rule as everything
        else under the flag. */
@@ -281,6 +311,15 @@ export function GET() {
   const langPairs: [string, string][] = [
     ['/services/punjabi-counselling', '/punjabi'],
     ['/punjabi-counselling', '/punjabi/regions'],
+    ...punjabiGuides.map((g) => [g.englishHref, `/punjabi/guides/${g.slug}`] as [string, string]),
+    ...practitioners
+      .filter((pr) => pr.placePages && pr.languages.some((l) => l.tag === 'pa') && getPunjabiProfile(pr.slug))
+      .flatMap((pr) => [
+        [`/practitioners/${pr.slug}`, `/practitioners/${pr.slug}/pa`] as [string, string],
+        ...placesFor(pr.provinces)
+          .filter((l) => getPunjabiPlace(l.slug))
+          .map((l) => [`/practitioners/${pr.slug}/${l.slug}`, `/practitioners/${pr.slug}/${l.slug}/pa`] as [string, string]),
+      ]),
     ...(TAGALOG_READY ? ([['/tagalog-counselling', '/tagalog']] as [string, string][]) : []),
     ...(TAGALOG_READY
       ? tagalogGuides.filter((g) => g.englishHref).map((g) => [g.englishHref as string, `/tagalog/gabay/${g.slug}`] as [string, string])
@@ -296,7 +335,7 @@ export function GET() {
           ])
       : []),
   ];
-  const langOf = (p: string) => (p === '/punjabi' || p.startsWith('/punjabi/') ? 'pa' : 'tl');
+  const langOf = (p: string) => (p === '/punjabi' || p.startsWith('/punjabi/') || p.endsWith('/pa') ? 'pa' : 'tl');
   const alternates = new Map<string, { lang: string; href: string }[]>();
   for (const [en, other] of langPairs) {
     /* Only pairs where both halves are actually in this sitemap. A twin that

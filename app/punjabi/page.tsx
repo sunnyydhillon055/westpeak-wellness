@@ -8,6 +8,11 @@ import Figure from '@/components/Figure';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBasePunjabi } from '@/lib/og-meta';
 import { COLLECTION_DATES, lastmodFor } from '@/lib/page-dates';
+import Image from 'next/image';
+import { practitioners, withLetters } from '@/lib/practitioners';
+import { punjabiGuides } from '@/lib/punjabi-guides';
+import { placesFor } from '@/lib/practitioner-places';
+import { PA_CITY, getPunjabiPlace } from '@/lib/practitioner-places-pa';
 
 const TITLE = 'ਪੰਜਾਬੀ ਵਿੱਚ ਕਾਊਂਸਲਿੰਗ | Punjabi counselling in BC';
 const DESC =
@@ -39,7 +44,9 @@ export const metadata: Metadata = {
  * people actually use and search for, and translating them would make the page
  * less useful, not more authentic.
  *
- * The counsellor-name rule holds here as everywhere: no name on this page.
+ * The counsellor-name rule covers the FOUNDER's name and holds here as
+ * everywhere. Since 7 Sep 2026 the page names the Punjabi-speaking counsellor
+ * who is taking new clients, from the roster, the way /tagalog names hers.
  */
 /* THIS PAGE USED TO READ ?sent AND WAS THEREFORE RENDERED PER REQUEST.
  *
@@ -55,6 +62,8 @@ export const metadata: Metadata = {
  * the strings that were already here. The reasoning is preserved and the route
  * is static again. */
 export default function PunjabiPage() {
+  /* The Punjabi-speaking counsellor taking new clients, from the roster. */
+  const speaker = practitioners.find((p) => p.acceptingNewClients && p.languages.some((l) => l.tag === 'pa') && p.placePages);
   const schema = [
     {
       '@context': 'https://schema.org',
@@ -217,6 +226,48 @@ export default function PunjabiPage() {
                 <a href="tel:911"><strong>9-1-1</strong></a>।
               </p>
             </div>
+
+            {speaker && (
+              <>
+                <h2>ਤੁਸੀਂ ਕਿਸ ਨਾਲ ਕੰਮ ਕਰੋਗੇ</h2>
+                <p>
+                  {withLetters(speaker)} ਪੰਜਾਬੀ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਕੰਮ ਕਰਦੀ ਹੈ, ਅਤੇ ਇਸ ਵੇਲੇ ਨਵੇਂ ਕਲਾਇੰਟ ਲੈ ਰਹੀ ਹੈ। ਉਸ ਦਾ ਪੂਰਾ ਪੰਨਾ{' '}
+                  <Link href={`/practitioners/${speaker.slug}/pa`}>ਪੰਜਾਬੀ ਵਿੱਚ</Link> ਅਤੇ{' '}
+                  <Link href={`/practitioners/${speaker.slug}`} lang="en" hrefLang="en-CA">ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ</Link> ਹੈ।
+                </p>
+                {speaker.photos?.warm && (
+                  <figure className="photo" style={{ marginTop: 18 }}>
+                    <Image src={speaker.photos.warm.src} alt={`${withLetters(speaker)}`}
+                      width={speaker.photos.warm.width} height={speaker.photos.warm.height}
+                      sizes="(max-width: 700px) 90vw, 460px" quality={86} />
+                    <figcaption>{withLetters(speaker)}</figcaption>
+                  </figure>
+                )}
+              </>
+            )}
+
+            {speaker?.placePages && (
+              <>
+                <h2 id="cities">ਸ਼ਹਿਰ ਅਨੁਸਾਰ, ਪੰਜਾਬੀ ਵਿੱਚ</h2>
+                <p>
+                  ਹਰ ਸ਼ਹਿਰ ਲਈ {speaker.name.split(' ')[0]} ਦਾ ਆਪਣਾ ਪੰਨਾ, ਪੰਜਾਬੀ ਵਿੱਚ: ਉੱਥੇ ਵੀਡੀਓ ਕਿਉਂ ਫਿੱਟ ਬੈਠਦੀ ਹੈ, ਅਤੇ ਉੱਥੋਂ ਦੇ ਲੋਕ ਕੀ ਪੁੱਛਦੇ ਹਨ।
+                </p>
+                <ul className="place-siblings">
+                  {placesFor(speaker.provinces).filter((c) => getPunjabiPlace(c.slug)).map((c) => (
+                    <li key={c.slug}>
+                      <Link href={`/practitioners/${speaker.slug}/${c.slug}/pa`}>{PA_CITY[c.slug] ?? c.city}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+
+            <h2 id="guides">ਪੰਜਾਬੀ ਵਿੱਚ ਗਾਈਡਾਂ</h2>
+            <ul>
+              {punjabiGuides.map((g) => (
+                <li key={g.slug}><Link href={`/punjabi/guides/${g.slug}`}>{g.title}</Link></li>
+              ))}
+            </ul>
 
             <h2>ਅਗਲਾ ਕਦਮ</h2>
             <p>

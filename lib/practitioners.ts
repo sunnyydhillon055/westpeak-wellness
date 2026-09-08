@@ -457,6 +457,185 @@ export const practitioners: Practitioner[] = [
     clinikoPractitionerId: '2029879067058112997',
     acceptingNewClients: true,
   },
+
+  /* SAVNEET SINGH — added 7 Sep 2026, the practice's third counsellor and its
+     second Punjabi speaker. Everything below is drawn from the two documents
+     she supplied ("About Savneet" and the onboarding questionnaire); her
+     phrasing is kept, lightly cut for length, and nothing is inferred.
+
+     CREDENTIALS ARE NOT YET ON FILE. Neither document names a designation or
+     a registration number, and the rule at the top of this file is that a
+     number is read from the card, never assumed. Until the card arrives:
+       · `credentials` is empty and `postNominals` is blank, so nothing on her
+         pages claims a title she has not evidenced — the templates render the
+         name alone rather than "Savneet Singh, " with a trailing comma
+         (see withLetters below);
+       · `role` says Counsellor, not Registered Clinical Counsellor, for the
+         same reason;
+       · she is BC only. No insurance certificate has been supplied, so
+         Alberta stays closed for her exactly as it did for the founder.
+     Add the credential objects (short, full, body, number, validTo, scope)
+     from the document the day it arrives and change `role` in the same edit.
+
+     NOT YET IN CLINIKO. `bookable` is false until she has a practitioner id
+     on the public booking page; her profile says the consultation is arranged
+     by reply, which is what the template already does for that state. The
+     practice-wide consultation still routes to Camille because she is listed
+     first among those accepting — order in this array is the routing rule. */
+  {
+    slug: 'savneet-singh',
+    name: 'Savneet Singh',
+    postNominals: '',
+    role: 'Counsellor',
+    credentials: [],
+    provinces: ['BC'],
+    languages: [
+      { tag: 'en-CA', name: 'English', nativeName: 'English' },
+      { tag: 'pa', name: 'Punjabi', nativeName: 'ਪੰਜਾਬੀ' },
+    ],
+    photos: {
+      /* The cardigan frame: straight to camera, plain wall, the one that
+         reads as "sitting across from you". Chosen as the main image. */
+      portrait: {
+        src: '/img/photo/savneet-singh.jpg',
+        width: 1122,
+        height: 1402,
+        alt: 'Savneet Singh, counsellor at Westpeak Wellness, smiling at the camera',
+      },
+      warm: {
+        src: '/img/photo/savneet-shelf.jpg',
+        width: 1199,
+        height: 1312,
+        alt: 'Savneet Singh seated in a counselling room, plants and a bookshelf behind her',
+      },
+    },
+    tagline: 'Therapy in English or Punjabi, for people who want tools they can actually use.',
+    intro: [
+      'Most of the people I work with are not looking for someone to fix them. They are looking for someone to help them understand what is actually going on underneath the surface, and what to do about it.',
+      'I work with individual adults who want more than a space to talk. My approach is collaborative: we work together to figure out what is keeping a pattern in place, not just where it came from. I tend to be firm but gentle. I will ask the questions that get past the surface, while making sure you feel supported enough to sit with the answers.',
+      'You leave sessions with something practical, not just something you understood in the room. The goal is for you to build the skills and confidence to navigate your own life, so the work becomes something you carry with you long after our sessions end.',
+      'I offer sessions in Punjabi and English, and many clients move between the two without noticing the switch. What family expects, what respect looks like, what silence means, what is owed and to whom: these are not things you need to translate for me first. They are simply where we start.',
+    ],
+    focus: [
+      {
+        label: 'Anxiety',
+        detail:
+          'Cycles of worry and overthinking, and a nervous system learning that it is safe to slow down.',
+      },
+      {
+        label: 'Depression',
+        detail:
+          'Helping small steps and small moments feel possible again, without pressure to snap out of it.',
+      },
+      {
+        label: 'Trauma and attachment',
+        detail:
+          'Trauma at whatever pace feels right, sometimes before you are ready to look at it at all; and attachment patterns, so the way you connect with others starts to feel like a choice rather than a reflex.',
+      },
+      {
+        label: 'Personality disorders',
+        detail:
+          'Building a steadier sense of self without losing what makes you who you are.',
+      },
+    ],
+    suits: [
+      'Managing everything on the outside, while quietly struggling on the inside',
+      'Carrying trauma or attachment wounds that keep showing up in your relationships',
+      'Stuck in patterns you recognise but cannot seem to shift on your own',
+      'Not sure if what you are feeling has a name yet, and that is okay',
+      'Wanting to work in English, in Punjabi, or moving between the two',
+    ],
+    sessionNote:
+      'Reaching out does not commit you to anything. We can start with a conversation and see if it feels right.',
+    /* From her onboarding questionnaire, supplied 7 Sep 2026. Her wording,
+       lightly cut. The Punjabi answer to the family question is hers verbatim
+       and is rendered on her Punjabi pages (lib/practitioner-pa.ts). */
+    voice: [
+      {
+        q: 'What is it actually like to sit with you for an hour?',
+        a: [
+          'Comforting, safe and supportive, is what I aim for. I try to create a space where you feel genuinely heard while also being gently challenged to explore patterns, build insight, and move toward meaningful change.',
+        ],
+      },
+      {
+        q: 'What do you do when someone starts crying, or goes completely silent?',
+        a: [
+          'I do not rush to fill the space. I will give you permission to cry and let silence exist between us, because both can be important parts of processing. Tears are often a form of emotional processing, and silence can be the room you need to make sense of something, or to find the words when you are ready.',
+        ],
+      },
+      {
+        q: 'Will you make me talk about the worst thing before I am ready?',
+        a: [
+          'Absolutely not. We move at your pace, not mine. I will never push you to talk about the hardest parts before you are ready. We build trust first, and when you choose to share, I am there to listen without pressure or judgment.',
+        ],
+      },
+      {
+        q: 'Do people leave with something to do, or is it the hour and that is it?',
+        a: [
+          'It depends on what you need that day. Sometimes the most valuable thing is having the space to process, and leaving feeling lighter and clearer. Other times we build practical tools together in session: a coping strategy, a new perspective, something to practise between sessions.',
+          'I do not believe every session needs homework, but I do want you to leave with something meaningful, whether that is a tool, an insight, or a sense of relief.',
+        ],
+      },
+      {
+        q: 'How does someone know it is working, and roughly how long does it take?',
+        a: [
+          'You usually know when you start noticing changes outside our sessions. Maybe you react differently in situations that used to overwhelm you, set boundaries more confidently, sleep better, or feel like your thoughts are not running the show as much. Progress is not always linear, but those small shifts add up.',
+          'How long depends on your goals and what you are working through. Some people notice meaningful changes within a few sessions; deeper patterns and long-standing concerns can take a few months or longer. We check in regularly to make sure the work still feels helpful and is moving in the direction you want.',
+        ],
+      },
+      {
+        q: 'My family thinks therapy is not for people like us. What would you say?',
+        a: [
+          'I understand where that message comes from. Many of us in the Punjabi community were raised to be strong, keep things within the family, and keep going no matter what.',
+          'Therapy is not about turning your back on your family or your values. It is about having a private space where you can make sense of what you are carrying, learn healthier ways to cope, and take care of yourself without judgment. You do not have to choose between honouring your culture and taking care of your mental health. Both can exist together.',
+        ],
+      },
+      {
+        q: 'What do you find yourself saying most often?',
+        a: [
+          '"Two things can exist at once," because life is rarely all-or-nothing. "How can we challenge that narrative?" when we are exploring a belief that may no longer be serving you. And one I come back to a lot: "Can we pause here for a second?" Those moments often hold something important that is worth noticing instead of rushing past.',
+        ],
+      },
+      {
+        q: 'How would you describe your training to someone who does not know what the letters mean?',
+        a: [
+          'My training is in evidence-based approaches: CBT (Cognitive Behavioural Therapy), ACT (Acceptance and Commitment Therapy) and DBT (Dialectical Behaviour Therapy). In simple terms, I help people understand how their thoughts, emotions and behaviours are connected, build practical coping skills, and learn to handle difficult emotions without feeling controlled by them. I tailor these to each person, so therapy feels like a conversation that fits your life rather than a one-size-fits-all formula.',
+        ],
+      },
+      {
+        q: 'When are you not the right counsellor?',
+        a: [
+          'I am probably not the right counsellor if you are looking for someone to simply tell you what to do or make decisions for you. My approach is collaborative.',
+          'I am also not the best fit if you are looking for specialised couples therapy, or intensive treatment that falls outside my scope of practice. If I am not the right person for what you need, I will always help connect you with someone who is.',
+        ],
+      },
+      {
+        q: 'What will I see when the video call opens?',
+        a: [
+          'Me, with a smile, probably holding a cup of coffee or water, in a calm and professional space. I will check in with you, make sure you are comfortable, and ease into the conversation. There is no expectation that you dive into the hard stuff right away.',
+        ],
+      },
+      {
+        q: 'What have you changed your mind about?',
+        a: [
+          'What progress is supposed to look like. Early on I thought it meant big breakthroughs. I have learned that it is often the small, consistent shifts that matter most: setting one boundary, responding differently in a difficult moment, finally giving yourself permission to feel an emotion instead of pushing it away. I have also learned that silence is not something to fix. Some of the most meaningful moments in therapy happen when we slow down enough to let them unfold.',
+        ],
+      },
+      {
+        q: 'Outside of the work, what keeps you well?',
+        a: [
+          'Time with myself, my friends and my family. I love seeing the world and experiencing new places, and moving my body helps me stay grounded. Those moments remind me of the importance of balance, connection, and taking care of ourselves in the ways that work for us.',
+        ],
+      },
+    ],
+    /* Individual therapy and Punjabi-speaking counselling: the two services
+       her own "What Savneet offers" names. Not couples — she says so herself
+       under "When are you not the right counsellor". */
+    services: ['individual-therapy', 'punjabi-counselling'],
+    placePages: true,
+    bookable: false,
+    acceptingNewClients: true,
+  },
 ];
 
 /* Who a consultation goes to when the reader has not asked for anyone in
@@ -465,6 +644,12 @@ export const practitioners: Practitioner[] = [
  * in which case /book falls back to the practice-wide path and says so. */
 export const defaultBookingPractitioner = (): Practitioner | undefined =>
   practitioners.find((p) => p.acceptingNewClients);
+
+/* Name with post-nominals, or the name alone when none are on file. A
+   template that interpolates `${p.name}, ${p.postNominals}` prints a trailing
+   comma for a counsellor whose card has not arrived yet. */
+export const withLetters = (p: { name: string; postNominals: string }) =>
+  p.postNominals ? `${p.name}, ${p.postNominals}` : p.name;
 
 export const getPractitioner = (slug: string) =>
   practitioners.find((p) => p.slug === slug);

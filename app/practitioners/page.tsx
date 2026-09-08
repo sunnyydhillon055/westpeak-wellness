@@ -163,7 +163,7 @@ export default function PractitionersPage() {
                       {p.name}
                     </Link>
                   </h2>
-                  <p className="practitioner-row-role">{p.role} · {p.postNominals}</p>
+                  <p className="practitioner-row-role">{p.role}{p.postNominals ? ` · ${p.postNominals}` : ''}</p>
                   <p className="practitioner-row-tagline">{p.tagline}</p>
                   <ul className="practitioner-row-focus">
                     {p.focus.map((f) => <li key={f.label}>{f.label}</li>)}

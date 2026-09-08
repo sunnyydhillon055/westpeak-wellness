@@ -9,7 +9,7 @@ export const alt = OG_ALT;
 export default function Image({ params }: { params: { slug: string } }) {
   const p = getPractitioner(params.slug);
   return ogImage({
-    eyebrow: p ? p.postNominals : 'Our counsellors',
+    eyebrow: p ? (p.postNominals || p.role) : 'Our counsellors',
     title: p?.name ?? 'Our counsellors',
   });
 }

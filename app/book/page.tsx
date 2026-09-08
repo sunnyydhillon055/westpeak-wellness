@@ -7,7 +7,7 @@ import SchedulerEmbed from '@/components/SchedulerEmbed';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import InboundForm from '@/components/InboundForm';
 import { ogBase } from '@/lib/og-meta';
-import { getPractitioner, defaultBookingPractitioner } from '@/lib/practitioners';
+import { getPractitioner, defaultBookingPractitioner, withLetters } from '@/lib/practitioners';
 import { PROVINCE_NAME, type Province } from '@/lib/crisis';
 
 export const metadata: Metadata = {
@@ -154,7 +154,7 @@ export default function Book({
                 hear back within one business day to fix a time.
               </p>
               <p>
-                {who.name} · {who.postNominals}, anywhere in {provinceList}.{' '}
+                {withLetters(who)}, anywhere in {provinceList}.{' '}
                 <strong>{who.name.split(' ')[0]} works in {languageList}</strong>
                 {who.languages.length > 1
                   ? ', so the consultation and your sessions can be in either, or move between the two.'
@@ -178,7 +178,7 @@ export default function Book({
                   placement, not new claims. */}
               {who ? (
                 <p className="book-credential">
-                  <strong>{who.name} · {who.postNominals}</strong>
+                  <strong>{withLetters(who)}</strong>
                   {who.credentials.map((c) => (
                     <span key={c.short}>
                       {' '}· {c.full}

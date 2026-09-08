@@ -11,46 +11,50 @@
  */
 
 export const PAGE_DATES: Record<string, string> = {
-  "": "2026-09-03",
-  "/about": "2026-09-03",
-  "/services": "2026-09-03",
-  "/approaches": "2026-09-03",
-  "/pricing": "2026-09-03",
-  "/contact": "2026-09-03",
-  "/faq": "2026-09-03",
-  "/online-counselling": "2026-09-03",
-  "/guides": "2026-09-03",
-  "/compare": "2026-09-03",
-  "/for": "2026-09-03",
-  "/resources": "2026-09-03",
+  "": "2026-09-06",
+  "/about": "2026-09-07",
+  "/services": "2026-09-06",
+  "/approaches": "2026-09-06",
+  "/pricing": "2026-09-06",
+  "/contact": "2026-09-06",
+  "/faq": "2026-09-06",
+  "/online-counselling": "2026-09-06",
+  "/guides": "2026-09-06",
+  "/compare": "2026-09-06",
+  "/for": "2026-09-06",
+  "/resources": "2026-09-06",
   "/glossary": "2026-09-03",
-  "/book": "2026-09-03",
-  "/tools": "2026-09-03",
+  "/book": "2026-09-07",
+  "/tools": "2026-09-06",
   "/reviews": "2026-08-09",
-  "/refer": "2026-09-03",
-  "/refer/doctor": "2026-09-03",
-  "/punjabi": "2026-09-03",
-  "/standards": "2026-09-03",
-  "/editorial-policy": "2026-09-03",
-  "/privacy": "2026-09-03",
-  "/accessibility": "2026-09-03"
+  "/refer": "2026-09-06",
+  "/refer/doctor": "2026-09-06",
+  "/punjabi": "2026-09-07",
+  "/punjabi/regions": "2026-09-07",
+  "/standards": "2026-09-06",
+  "/editorial-policy": "2026-09-06",
+  "/privacy": "2026-09-06",
+  "/accessibility": "2026-09-06"
 };
 
 /** Collections whose items share one source module and so one honest date. */
 export const COLLECTION_DATES: Record<string, string> = {
-  "services": "2026-09-03",
-  "tools": "2026-09-03",
-  "locations": "2026-09-03",
-  "punjabiRegions": "2026-09-03",
-  "cityServices": "2026-09-03",
-  "practitioners": "2026-09-03",
+  "services": "2026-09-06",
+  "tools": "2026-09-06",
+  "locations": "2026-09-06",
+  "punjabiRegions": "2026-09-06",
+  "cityServices": "2026-09-06",
+  "practitioners": "2026-09-07",
   "practitionerPlaces": "2026-09-03",
-  "tagalog": "2026-09-03",
-  "tagalogPlaces": "2026-09-03",
-  "tagalogLanding": "2026-09-03",
+  "tagalog": "2026-09-06",
+  "tagalogPlaces": "2026-09-06",
+  "tagalogLanding": "2026-09-06",
+  "punjabiProfiles": "2026-09-07",
+  "punjabiPlaces": "2026-09-07",
+  "punjabiGuides": "2026-09-07",
   "conditions": "2026-09-03",
   "glossary": "2026-09-03",
-  "faq": "2026-09-03"
+  "faq": "2026-09-06"
 };
 
 /** ISO-8601 for the sitemap, or null when we do not honestly know. */
@@ -68,7 +72,11 @@ export function collectionLastmod(name: string): string | null {
    date of the latest thing it lists. The guides, resources, comparisons,
    audiences and approaches hubs carried a placeholder collection key in their
    schema until 6 Sep 2026 (the guides hub claimed the FAQ's date), and the
-   visible date added that day must not repeat the mistake. */
+   visible date added that day must not repeat the mistake.
+
+   Lives in the GENERATOR, not the generated file: it was added to
+   lib/page-dates.ts by hand on 6 Sep 2026 and the next `npm run dates`
+   (7 Sep) silently deleted it and broke eight hubs. */
 export function latestOf(items: { updated?: string }[]): string | undefined {
   return items.map((i) => i.updated).filter((d): d is string => Boolean(d)).sort().at(-1);
 }

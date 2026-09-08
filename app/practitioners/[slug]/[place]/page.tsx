@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { site } from '@/lib/site';
-import { practitioners, getPractitioner, type Practitioner, type Credential } from '@/lib/practitioners';
+import { practitioners, getPractitioner, withLetters, type Practitioner, type Credential } from '@/lib/practitioners';
 import { practitionerPlaces, getPractitionerPlace, placesFor, resolvePlace } from '@/lib/practitioner-places';
 import { crisisFor } from '@/lib/crisis';
 import Figure from '@/components/Figure';
@@ -11,8 +11,11 @@ import { abs, orgRef, siteRef } from '@/lib/schema';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import CtaBand from '@/components/CtaBand';
 import { BadgeCheck } from 'lucide-react';
-import { ogBase } from '@/lib/og-meta';
+import { ogBase, ogBasePunjabi } from '@/lib/og-meta';
 import { TAGALOG, TAGALOG_READY } from '@/lib/practitioner-tl';
+import { getPunjabiProfile } from '@/lib/practitioner-pa';
+import { PA_PLACE_SHARED, PA_CITY, getPunjabiPlace } from '@/lib/practitioner-places-pa';
+import { gurmukhi } from '@/app/fonts-gurmukhi';
 import { TL_PLACE_SHARED } from '@/lib/practitioner-places-tl';
 import { getTagalogCity } from '@/lib/tagalog';
 import Updated from '@/components/Updated';
@@ -64,6 +67,10 @@ export function generateStaticParams() {
     if (p.languages.some((l) => l.tag === 'tl') && TAGALOG_READY) {
       out.push({ slug: p.slug, place: 'tl' });
     }
+    /* Punjabi, since 7 Sep 2026, for a counsellor who has place pages AND
+       her own Punjabi copy in lib/practitioner-pa.ts. The founder works in
+       Punjabi and has one page by instruction; `placePages` keeps her out. */
+    if (hasPunjabiPage(p)) out.push({ slug: p.slug, place: 'pa' });
   }
   return out;
 }
@@ -76,14 +83,31 @@ const credentialsFor = (p: { credentials: Credential[] }, province: string) =>
         a.scope === b.scope ? 0 : a.scope === 'national' ? -1 : 1
       );
 
-/* Tagalog is the only language with a page here — see generateStaticParams. */
+/* Two languages have a page here — see generateStaticParams. */
+const hasPunjabiPage = (p: Practitioner) =>
+  Boolean(p.placePages) && p.languages.some((l) => l.tag === 'pa') && Boolean(getPunjabiProfile(p.slug));
 const isLang = (p: Practitioner, place: string) =>
-  place === 'tl' && p.languages.some((l) => l.tag === 'tl');
+  (place === 'tl' && p.languages.some((l) => l.tag === 'tl')) || (place === 'pa' && hasPunjabiPage(p));
 
 export function generateMetadata({ params }: { params: Params }): Metadata {
   const p = getPractitioner(params.slug);
   if (!p) return {};
 
+  if (params.place === 'pa' && isLang(p, 'pa')) {
+    const t = getPunjabiProfile(p.slug)!;
+    return {
+      title: { absolute: `${t.metaTitle} | Westpeak Wellness` },
+      description: t.metaDescription,
+      alternates: {
+        canonical: `${site.domain}/practitioners/${p.slug}/pa`,
+        languages: {
+          'en-CA': `${site.domain}/practitioners/${p.slug}`,
+          pa: `${site.domain}/practitioners/${p.slug}/pa`,
+        },
+      },
+      openGraph: { ...ogBasePunjabi(`/practitioners/${p.slug}/pa`), title: t.metaTitle, description: t.metaDescription },
+    };
+  }
   if (isLang(p, params.place)) {
     if (params.place === 'tl' && !TAGALOG_READY) return { robots: { index: false, follow: false } };
     const t = TAGALOG;
@@ -108,7 +132,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
      truncates — the practitioner's name is the part that must survive, so it
      leads and the boilerplate goes. */
   const first0 = p.name.split(' ')[0];
-  const title = `Counselling in ${loc.city} | ${p.name}, ${p.postNominals}`;
+  const title = `Counselling in ${loc.city} | ${withLetters(p)}`;
   /* The description ran 112-120 characters, where Google renders about 155 —
      roughly a third of every city page's search snippet was going unused. The
      added clause is the part a reader is actually deciding on: what the work
@@ -116,7 +140,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
      to stay inside the 158 the SEO gate enforces, so a long city name cannot
      push it over. */
   const langs = p.languages.map((l) => l.name).join(' or ');
-  const full = `${p.name}, ${p.postNominals}: online counselling for ${loc.city} in ${langs}. Trauma, anxiety, grief and couples work. Free 30-minute consultation.`;
+  const full = `${withLetters(p)}: online counselling for ${loc.city} in ${langs}. Trauma, anxiety, grief and couples work. Free 30-minute consultation.`;
   const description =
     full.length <= 158 ? full : `${full.slice(0, full.lastIndexOf(' ', 157))}…`;
   return {
@@ -135,6 +159,14 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
             },
           }
         : {}),
+      ...(hasPunjabiPage(p) && getPunjabiPlace(loc.slug)
+        ? {
+            languages: {
+              'en-CA': `${site.domain}/practitioners/${p.slug}/${loc.slug}`,
+              pa: `${site.domain}/practitioners/${p.slug}/${loc.slug}/pa`,
+            },
+          }
+        : {}),
     },
     openGraph: { ...ogBase(`/practitioners/${p.slug}/${loc.slug}`), title, description },
     /* Set explicitly, because Next replaces the root `twitter` object only when
@@ -148,6 +180,9 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
 export default function PractitionerPlacePage({ params }: { params: Params }) {
   const p = getPractitioner(params.slug);
   if (!p) notFound();
+
+  /* ---- the Punjabi profile ---------------------------------------------- */
+  if (params.place === 'pa' && isLang(p, 'pa')) return <PunjabiProfile p={p} />;
 
   /* ---- the language variant ------------------------------------------- */
   if (isLang(p, params.place)) {
@@ -404,13 +439,13 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
             <figure className="photo" style={{ margin: '28px 0 0', maxWidth: 340 }}>
               <Image
                 src={p.photos.candid.src}
-                alt={`${p.name}, ${p.postNominals}, online counselling for ${loc.city}`}
+                alt={`${withLetters(p)}, online counselling for ${loc.city}`}
                 width={p.photos.candid.width}
                 height={p.photos.candid.height}
                 sizes="(max-width: 700px) 60vw, 340px"
                 style={{ width: '100%', height: 'auto', borderRadius: 8 }}
               />
-              <figcaption>{p.name}, {p.postNominals}</figcaption>
+              <figcaption>{withLetters(p)}</figcaption>
             </figure>
           )}
 
@@ -480,6 +515,16 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
             </div>
           )}
 
+          {hasPunjabiPage(p) && getPunjabiPlace(loc.slug) && (
+            <div className="prose" style={{ marginTop: 30 }}>
+              <p>
+                <Link href={`/practitioners/${p.slug}/${loc.slug}/pa`} hrefLang="pa" lang="pa">
+                  ਇਹ ਪੰਨਾ ਪੰਜਾਬੀ ਵਿੱਚ ਪੜ੍ਹੋ
+                </Link>
+              </p>
+            </div>
+          )}
+
           {TAGALOG_READY && p.languages.some((l) => l.tag === 'tl') && (
             <div className="prose" style={{ marginTop: 30 }}>
               <p>
@@ -544,5 +589,122 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
     </>
+  );
+}
+
+/* The Punjabi version of a counsellor's own page — /practitioners/<slug>/pa.
+   Copy from lib/practitioner-pa.ts, keyed by slug; the Tagalog branch above is
+   the model. Rendered inside a lang="pa" wrapper carrying the Gurmukhi face. */
+function PunjabiProfile({ p }: { p: Practitioner }) {
+  const t = getPunjabiProfile(p.slug)!;
+  const first = p.name.split(' ')[0];
+  const paPath = `/practitioners/${p.slug}/pa`;
+  const bookHref = `${site.bookingPath}?with=${p.slug}`;
+  const cities = p.placePages ? placesFor(p.provinces).filter((c) => getPunjabiPlace(c.slug)) : [];
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    '@id': `${site.domain}${paPath}#page`,
+    inLanguage: 'pa',
+    datePublished: COLLECTION_DATES['punjabiProfiles'],
+    dateModified: COLLECTION_DATES['punjabiProfiles'],
+    author: orgRef,
+    isPartOf: siteRef,
+    mainEntity: { '@id': `${site.domain}/practitioners/${p.slug}#person` },
+  };
+
+  return (
+    <div lang="pa" className={gurmukhi.variable}>
+      <section className="hero" style={{ paddingBottom: 40 }}>
+        <div className="container hero-split">
+          <div>
+            <p className="eyebrow">{t.eyebrow}</p>
+            <h1 className="gurmukhi">{t.h1}</h1>
+            <p className="lede">{t.lede}</p>
+            <p className="direct-answer">{t.metaDescription}</p>
+            <Updated iso={COLLECTION_DATES['punjabiProfiles']} lang="en-CA" />
+            <div className="btn-row" style={{ marginTop: 22 }}>
+              <Link className="btn btn--primary" href={bookHref}>{t.cta}</Link>
+              <Link className="btn btn--ghost" href={`/practitioners/${p.slug}`} hrefLang="en-CA">{t.englishLink}</Link>
+            </div>
+          </div>
+          {p.photos?.portrait && (
+            <div className="portrait">
+              <Image src={p.photos.portrait.src} alt={`${withLetters(p)}, ਪੰਜਾਬੀ ਅਤੇ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਕਾਊਂਸਲਿੰਗ`}
+                width={p.photos.portrait.width} height={p.photos.portrait.height}
+                sizes="(max-width: 860px) 340px, 420px" quality={88} priority />
+            </div>
+          )}
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <Breadcrumbs
+            trail={[
+              { name: 'ਸਾਡੇ ਕਾਊਂਸਲਰ', path: '/practitioners' },
+              { name: p.name, path: `/practitioners/${p.slug}` },
+              { name: t.crumb, path: paPath },
+            ]}
+          />
+          {p.credentials.length > 0 && (
+            <div className="trust-bar" style={{ marginTop: 4 }} lang="en-CA">
+              {p.credentials.map((c) => (
+                <span key={c.short}>
+                  <BadgeCheck aria-hidden="true" strokeWidth={1.7} />
+                  {c.full} · {c.body} #{c.number}
+                </span>
+              ))}
+            </div>
+          )}
+          <div className="prose" style={{ marginTop: 26 }}>
+            {t.intro.map((x) => <p key={x.slice(0, 22)}>{x}</p>)}
+            <h2>{t.focusHeading}</h2>
+            <ul className="checklist">{t.focus.map((x) => <li key={x.slice(0, 22)}>{x}</li>)}</ul>
+            <h2>{t.suitsHeading}</h2>
+            <ul className="checklist">{t.suits.map((x) => <li key={x.slice(0, 22)}>{x}</li>)}</ul>
+            <h2>{t.familyHeading}</h2>
+            {t.family.map((x) => <p key={x.slice(0, 22)}>{x}</p>)}
+            <blockquote className="quote">{t.closing}</blockquote>
+            <p>
+              <Link href={`/practitioners/${p.slug}`} hrefLang="en-CA">{t.englishLink}</Link>
+            </p>
+          </div>
+
+          {p.photos?.warm && (
+            <figure className="photo" style={{ marginTop: 28 }}>
+              <Image src={p.photos.warm.src} alt={`${p.name}, ਵੀਡੀਓ ਸੈਸ਼ਨ ਵਿੱਚ`}
+                width={p.photos.warm.width} height={p.photos.warm.height}
+                sizes="(max-width: 700px) 90vw, 460px" quality={86} />
+              <figcaption>{withLetters(p)}</figcaption>
+            </figure>
+          )}
+
+          {cities.length > 0 && (
+            <div className="prose" style={{ marginTop: 30 }}>
+              <h2>{PA_PLACE_SHARED.nearbyHeading(first)}</h2>
+              <p>{PA_PLACE_SHARED.nearbyNote}</p>
+              <ul className="place-siblings">
+                {cities.map((c) => (
+                  <li key={c.slug}>
+                    <Link href={`/practitioners/${p.slug}/${c.slug}/pa`}>{PA_CITY[c.slug] ?? c.city}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <div className="prose" style={{ marginTop: 30 }}>
+            <p>
+              <Link href="/punjabi">ਪੰਜਾਬੀ ਵਿੱਚ ਸਭ ਕੁਝ</Link> · <Link href="/punjabi/regions">ਖੇਤਰ ਅਨੁਸਾਰ</Link>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <CtaBand bookHref={bookHref} heading={t.ctaHeading} text={t.ctaText} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+    </div>
   );
 }

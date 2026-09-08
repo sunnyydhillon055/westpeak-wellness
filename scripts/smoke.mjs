@@ -158,6 +158,13 @@ const CHECKS = [
   ['/practitioners/camille-granda/calgary/tl', 200],
   ['/practitioners/camille-granda/calgary', 200],
   ['/practitioners/camille-granda/edmonton', 200],
+  ['/practitioners/savneet-singh', 200],
+  ['/practitioners/savneet-singh/surrey', 200],
+  ['/practitioners/savneet-singh/pa', 200],
+  ['/practitioners/savneet-singh/surrey/pa', 200],
+  /* BC only: no insurance certificate on file, so no Alberta pages for her. */
+  ['/practitioners/savneet-singh/calgary', 404],
+  ['/punjabi/guides/panic-attack-ki-hai', 200],
   ['/practitioners/aman-bains-dhillon', 200],
   /* One page for her, at the owner's instruction. A city page appearing here
      means placePages was ignored somewhere. */

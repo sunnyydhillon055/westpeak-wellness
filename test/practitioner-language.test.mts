@@ -65,3 +65,24 @@ test('local paragraphs survive — filtering must not gut a page', () => {
       `${raw.slug} was reduced to fewer than two local paragraphs`);
   }
 });
+
+/* Savneet Singh, 7 Sep 2026: the first counsellor with place pages who works in
+   Punjabi. The shared BC copy was written for a Punjabi practice, so for her
+   nothing should be stripped — and nothing about Tagalog should appear. */
+const savneet = getPractitioner('savneet-singh')!;
+
+test('every BC city page offers Savneet in Punjabi and never in Tagalog', () => {
+  for (const raw of placesFor(['BC'])) {
+    const text = textOf(resolvePlace(raw, savneet));
+    assert.match(text, /punjabi/i, `${raw.slug} never mentions Punjabi on Savneet's page`);
+    assert.doesNotMatch(text, /tagalog|filipino/i, `${raw.slug} offers Tagalog on Savneet's page`);
+    const langLines = resolvePlace(raw, savneet).access
+      .filter((a) => /english|tagalog|punjabi/i.test(`${a.label} ${a.detail}`));
+    assert.equal(langLines.length, 1, `${raw.slug} has ${langLines.length} language lines`);
+  }
+});
+
+test('Savneet has no Alberta pages until an insurance certificate is on file', () => {
+  assert.deepEqual(savneet.provinces, ['BC']);
+  assert.ok(placesFor(savneet.provinces).every((p) => p.province === 'BC'));
+});

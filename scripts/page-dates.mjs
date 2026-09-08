@@ -83,6 +83,11 @@ const COLLECTIONS = {
   tagalog: 'lib/tagalog-guides.ts',
   tagalogPlaces: 'lib/practitioner-places-tl.ts',
   tagalogLanding: 'lib/tagalog-landing.ts',
+  /* Punjabi, 7 Sep 2026: a counsellor's Punjabi profile, her city twins and
+     the guides. */
+  punjabiProfiles: 'lib/practitioner-pa.ts',
+  punjabiPlaces: 'lib/practitioner-places-pa.ts',
+  punjabiGuides: 'lib/punjabi-guides.ts',
   conditions: 'lib/conditions.ts',
   glossary: 'lib/glossary.ts',
   faq: 'lib/faq.ts',
@@ -143,6 +148,19 @@ export function lastmodFor(route: string): string | null {
 export function collectionLastmod(name: string): string | null {
   const d = COLLECTION_DATES[name];
   return d ? new Date(d + 'T00:00:00Z').toISOString() : null;
+}
+
+/* The newest \`updated\` in a collection — for a hub page whose own date is the
+   date of the latest thing it lists. The guides, resources, comparisons,
+   audiences and approaches hubs carried a placeholder collection key in their
+   schema until 6 Sep 2026 (the guides hub claimed the FAQ's date), and the
+   visible date added that day must not repeat the mistake.
+
+   Lives in the GENERATOR, not the generated file: it was added to
+   lib/page-dates.ts by hand on 6 Sep 2026 and the next \`npm run dates\`
+   (7 Sep) silently deleted it and broke eight hubs. */
+export function latestOf(items: { updated?: string }[]): string | undefined {
+  return items.map((i) => i.updated).filter((d): d is string => Boolean(d)).sort().at(-1);
 }
 `;
 

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { site } from '@/lib/site';
-import { practitioners, getPractitioner, defaultBookingPractitioner } from '@/lib/practitioners';
+import { practitioners, getPractitioner, defaultBookingPractitioner, withLetters } from '@/lib/practitioners';
 import { placesFor } from '@/lib/practitioner-places';
 import { getService } from '@/lib/services';
 import { abs, orgRef, siteRef, faqSchema } from '@/lib/schema';
@@ -13,6 +13,7 @@ import CtaBand from '@/components/CtaBand';
 import { BadgeCheck, Languages as LangIcon, MonitorSmartphone } from 'lucide-react';
 import { ogBase } from '@/lib/og-meta';
 import { TAGALOG_READY } from '@/lib/practitioner-tl';
+import { getPunjabiProfile } from '@/lib/practitioner-pa';
 import { COLLECTION_DATES } from '@/lib/page-dates';
 
 export function generateStaticParams() {
@@ -22,15 +23,31 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const p = getPractitioner(params.slug);
   if (!p) return {};
-  const title = `${p.name}, ${p.postNominals} | Westpeak Wellness`;
+  const title = `${withLetters(p)} | Westpeak Wellness`;
   /* Under 158. The first version listed the role, the practice, the province,
      both languages and all three focus areas, and ran to 205 characters —
      Google would have cut it mid-clause. */
-  const description = `${p.name}, ${p.postNominals}, online counselling across BC in ${p.languages.map((l) => l.name).join(' or ')}. ${p.focus.map((f) => f.label).join(', ')}.`;
+  const description = `${withLetters(p)}, online counselling across BC in ${p.languages.map((l) => l.name).join(' or ')}. ${p.focus.map((f) => f.label).join(', ')}.`;
+  /* The profile's own language twin, declared both ways — the twin already
+     points back here. Found 7 Sep 2026 by scripts/roster-compare.mjs: every
+     twin declared its pair and no English profile did, so a crawler saw the
+     pairing from one side only, which is the same as not at all. */
+  const twinTag = p.languages.find((l) => (l.tag === 'tl' && TAGALOG_READY) || (l.tag === 'pa' && Boolean(p.placePages) && Boolean(getPunjabiProfile(p.slug))))?.tag;
   return {
     title: { absolute: title },
+    ...(twinTag
+      ? {
+          alternates: {
+            canonical: `${site.domain}/practitioners/${p.slug}`,
+            languages: {
+              'en-CA': `${site.domain}/practitioners/${p.slug}`,
+              [twinTag]: `${site.domain}/practitioners/${p.slug}/${twinTag}`,
+            },
+          },
+        }
+      : {}),
     description,
-    alternates: { canonical: `${site.domain}/practitioners/${p.slug}` },
+    ...(twinTag ? {} : { alternates: { canonical: `${site.domain}/practitioners/${p.slug}` } }),
     openGraph: { ...ogBase(`/practitioners/${p.slug}`), title, description, url: `${site.domain}/practitioners/${p.slug}` },
     /* Own twitter card — see the note on the city pages. */
     twitter: { card: 'summary_large_image', title, description },
@@ -108,7 +125,9 @@ export default function PractitionerPage({ params }: { params: { slug: string } 
   /* Languages with a real page behind them. Only Tagalog has one; Punjabi has
      its own section at /punjabi and is linked from the nav, not from here. A
      chip pointing at a route that does not exist is a 404 for a reader. */
-  const secondLanguages = p.languages.filter((l) => l.tag === 'tl' && TAGALOG_READY);
+  const secondLanguages = p.languages.filter(
+    (l) => (l.tag === 'tl' && TAGALOG_READY) || (l.tag === 'pa' && Boolean(p.placePages) && Boolean(getPunjabiProfile(p.slug))),
+  );
 
 
   const schema = [
@@ -173,7 +192,7 @@ export default function PractitionerPage({ params }: { params: { slug: string } 
             <p className="lede">{p.tagline}</p>
             <Updated iso={COLLECTION_DATES['practitioners']} />
             <p style={{ color: 'var(--ink-soft)', margin: '10px 0 0' }}>
-              {p.role} · {p.postNominals}
+              {p.role}{p.postNominals ? ` · ${p.postNominals}` : ''}
             </p>
             <div className="btn-row" style={{ marginTop: 22 }}>
               {!p.acceptingNewClients ? (

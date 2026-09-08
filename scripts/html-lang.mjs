@@ -48,6 +48,8 @@ const RULES = [
   { lang: 'tl', test: (r) => r === '/tagalog' || r.startsWith('/tagalog/') },
   { lang: 'tl', test: (r) => /^\/practitioners\/[^/]+\/tl$/.test(r) },
   { lang: 'tl', test: (r) => /^\/practitioners\/[^/]+\/[^/]+\/tl$/.test(r) },
+  { lang: 'pa', test: (r) => /^\/practitioners\/[^/]+\/pa$/.test(r) },
+  { lang: 'pa', test: (r) => /^\/practitioners\/[^/]+\/[^/]+\/pa$/.test(r) },
 ];
 
 if (!existsSync(ROOT)) {
