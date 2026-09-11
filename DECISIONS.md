@@ -304,6 +304,19 @@ so the page opens on her times and never shows a list of counsellors.
 *Enforced by:* `lib/practitioners.ts`, `app/book/page.tsx`,
 `app/practitioners/[slug]/page.tsx`, `components/StickyBook.tsx`
 
+### Enquiries go to the counsellor they are for, info@ in copy
+Decided 11 Sep 2026. Forty-one messages had reached info@ and sat there.
+Each counsellor taking new clients has an `alertEmail` on the roster;
+`lib/inbound-routing.ts` sends the alert to the counsellor an enquiry names,
+else the one whose language the page or the message is in, else everyone
+accepting — info@ always in copy so the practice keeps one record. The
+founder, on leave, is never a recipient. A one-off admin button sends every
+enquiry to date as a single thread to the same addresses. The acknowledgement
+to the person and the one-business-day promise are unchanged; the promise is
+now somebody's, by name.
+
+*Enforced by:* `test/inbound-routing.test.mts`
+
 ### Camille sees clients anywhere in Canada; the boundary sentence says so
 Decided 8 Sep 2026, owner's instruction. Her CCC is a national certification
 and her liability policy is a national one, so `reach: 'canada'` on her

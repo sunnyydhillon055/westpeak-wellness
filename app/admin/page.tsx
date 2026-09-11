@@ -77,7 +77,7 @@ export default async function AdminPage({
     c?: string; a?: string; pw?: string; cliniko?: string;
     sync?: string; added?: string; welcomed?: string; total?: string; named?: string;
     noemail?: string; why?: string;
-    sort?: string; dir?: string;
+    sort?: string; dir?: string; digest?: string;
   };
 }) {
   const session = await auth();
@@ -287,6 +287,24 @@ export default async function AdminPage({
             true tomorrow; a person who wrote in yesterday and heard nothing
             has already formed a view of the practice. */}
         <h2 id="inbox" style={{ marginTop: 40 }}>Inbox</h2>
+        {searchParams?.digest && (
+          <p className="book-credential" style={{ marginTop: 8 }}>
+            {searchParams.digest.startsWith('sent-')
+              ? `Sent: every enquiry to date (${searchParams.digest.slice(5)}) to Camille and Savneet, info@ in copy.`
+              : searchParams.digest === 'noaddress'
+                ? 'No counsellor has an alert address on the roster, so nothing was sent.'
+                : 'The digest did not send — check the mail configuration.'}
+          </p>
+        )}
+        <form method="POST" action="/api/admin/digest" style={{ margin: '8px 0 18px' }}>
+          <button type="submit" className="btn btn--ghost">
+            Send every enquiry to date to the counsellors
+          </button>
+          <span style={{ marginLeft: 12, fontSize: '.9rem', color: 'var(--ink-soft)' }}>
+            One email, oldest first, to each counsellor taking new clients, info@ in copy. New enquiries
+            already go to the right counsellor automatically.
+          </span>
+        </form>
         <p style={{ color: 'var(--ink-soft)', maxWidth: '40.38em' }}>
           Messages and checklist signups from the site. Each one was also
           emailed to <strong>{site.email}</strong> as it arrived. This is the copy that

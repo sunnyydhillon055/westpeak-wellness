@@ -21,8 +21,8 @@ async function send(
  * month, so a silent false would mean nobody finds out until someone notices
  * the email never came. */
 export async function sendDetailed(
-  to: string, subject: string, text: string, html?: string,
-  opts?: { replyTo?: string }
+  to: string | string[], subject: string, text: string, html?: string,
+  opts?: { replyTo?: string; cc?: string[] }
 ): Promise<{ ok: boolean; detail?: string }> {
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.PORTAL_FROM_EMAIL;
@@ -38,8 +38,9 @@ export async function sendDetailed(
       method: 'POST',
       headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        from, to: [to], subject, text,
+        from, to: Array.isArray(to) ? to : [to], subject, text,
         ...(html ? { html } : {}),
+        ...(opts?.cc?.length ? { cc: opts.cc } : {}),
         ...(opts?.replyTo ? { reply_to: [opts.replyTo] } : {}),
       }),
     });

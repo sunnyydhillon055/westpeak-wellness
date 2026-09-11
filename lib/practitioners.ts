@@ -88,6 +88,10 @@ export type Practitioner = {
      /book, /about, the tools and llms.txt. Not set means `provinces` is the
      whole answer. */
   reach?: 'canada';
+  /* Where this counsellor's enquiries are sent (lib/inbound-routing.ts), with
+     info@ always in copy. Set 11 Sep 2026 on the owner's instruction. A
+     counsellor without one is never a recipient. */
+  alertEmail?: string;
   /** BCP 47 tags. The first is the language the profile is written in. */
   languages: { tag: string; name: string; nativeName: string }[];
   /* A SET OF PHOTOS, PLACED BY ROLE — not one portrait repeated.
@@ -310,6 +314,7 @@ export const practitioners: Practitioner[] = [
      * certainty is wanted, BMS confirms scope in one email. */
     provinces: ['BC', 'AB'],
     reach: 'canada',
+    alertEmail: 'camille.westpeakwellness@gmail.com',
     insurance: {
       program: 'BMS / Berkley, CCPA member policy',
       policy: 'BC05211-2506 (certificate CCPA-00111023-001)',
@@ -540,6 +545,7 @@ export const practitioners: Practitioner[] = [
       },
     ],
     provinces: ['BC'],
+    alertEmail: 'savneet.westpeakwellness@gmail.com',
     insurance: {
       program: 'McFarlan Rowlands Psychology Liability Program',
       policy: 'NPL1005330NM',

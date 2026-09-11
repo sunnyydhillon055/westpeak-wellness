@@ -6,6 +6,7 @@ import { checklistEmail, icbcEmail, startingEmail, enquiryAck, practiceAlert } f
 import { site } from '@/lib/site';
 import { practitioners } from '@/lib/practitioners';
 import { clientKey, rateCheck } from '@/lib/rate-limit';
+import { routeInbound } from '@/lib/inbound-routing';
 import { hasEnoughSentences } from '@/lib/sentences';
 
 /* One submit path for both inbound forms, enquiry and lead.
@@ -187,9 +188,11 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
     finalVerdict === verdict ? Promise.resolve() : annotateTriage(item.id, finalVerdict),
     (async () => {
       const alert = practiceAlert({ ...item, triage: finalVerdict });
-      /* Reply-to is the person who wrote in, so the practice can answer by
-       * hitting reply rather than copying an address out of the body. */
-      return sendDetailed(site.email, alert.subject, alert.text, alert.html, { replyTo: email });
+      /* Routed to the counsellor it is for, info@ in copy — see
+       * lib/inbound-routing.ts. Reply-to is the person who wrote in, so
+       * whoever picks it up answers by hitting reply. */
+      const route = routeInbound(item);
+      return sendDetailed(route.to, alert.subject, alert.text, alert.html, { replyTo: email, cc: route.cc });
     })(),
   ]);
 
