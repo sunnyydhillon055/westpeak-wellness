@@ -27,6 +27,26 @@ export const maxDuration = 60;
 
 const TEST = /@(example\.com|mailinator\.com|.*\.invalid)$|\+test@/i;
 
+/* READ ON 11 SEP 2026, WITH THE OWNER: of the 30 non-test messages, 26 were
+   bots — "please add me to your newsletter" scripts, crypto links pasted
+   into the name field, an SEO pitch, gibberish. Three were people who
+   pressed "tell me when a time opens" on the old /book form and left no
+   message. A digest of the whole list would have sent two counsellors 26
+   pieces of spam. So the digest keeps only what a person could act on: a
+   message with no link, no newsletter phrasing and no gibberish name — or
+   a /book request with a real name and nothing else. */
+const SPAM =
+  /https?:\/\/|\.(org|net|ph|ru)\/|newsletter|mailing list|news and updates|email updates|special offers|weekly updates|bitcoin|mining|promo code|jackpot|seo|google rankings|advertising platform|buy now/i;
+const GIBBERISH = /^[A-Za-z]{6,}$/; // one run of letters, no vowel pattern a name has
+const looksHuman = (it: Inbound) => {
+  const name = String(it.name ?? '').trim();
+  const msg = String(it.message ?? '').trim();
+  if (SPAM.test(`${name} ${msg}`)) return false;
+  if (/^[A-Za-z]{10,}$/.test(msg) || (GIBBERISH.test(name) && !/[aeiou]/i.test(name))) return false;
+  if (!msg) return it.source === '/book' && /^[A-Za-z][a-z]+(\s[A-Za-z][a-z]+)?$/.test(name);
+  return true;
+};
+
 const fmt = (iso: string) =>
   new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Vancouver', dateStyle: 'medium', timeStyle: 'short' }).format(new Date(iso));
 
@@ -55,7 +75,7 @@ export async function POST(req: Request) {
 
   const book = await readInbound({ fresh: true });
   const items = book.items
-    .filter((it) => !TEST.test(it.email))
+    .filter((it) => !TEST.test(it.email) && looksHuman(it))
     .sort((a, b) => a.createdAt.localeCompare(b.createdAt));
 
   const to = practitioners.filter((p) => p.acceptingNewClients && p.alertEmail).map((p) => p.alertEmail!);

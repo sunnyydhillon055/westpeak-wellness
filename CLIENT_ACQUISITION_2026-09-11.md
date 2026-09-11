@@ -8,22 +8,21 @@ it are.
 
 ## 1. What the data says
 
-**Enquiries are arriving and nothing shows they are being answered.**
-41 messages have reached the site since 16 August. Ten are obvious test
-submissions (example.com, mailinator). Of the rest, roughly **25 look real**
-— gmail and icloud addresses, several from the `/book` page itself (people
-who wanted to book and wrote instead), one from a university, one couple of
-mail.ru addresses that are probably bots. That is close to **one and a half
-real enquiries a day** for a practice with no listings and no ads.
+**Correction, same day: the enquiries are almost all bots.** The first
+version of this section counted 25 "real" enquiries from addresses and
+sources alone. Read with the owner an hour later, the 30 non-test messages
+are: 26 bots (newsletter-subscription scripts, crypto links pasted into the
+name field, an SEO pitch, gibberish) and **three people** — David, Thomas and
+Stephanie — who pressed "tell me when a time opens" on the old `/book` form
+between 4 and 6 September and left no message. Those three are the leads.
+Write to them.
 
-Every one of the 41 is marked **unhandled** in `/admin`. The site emails
-each enquiry to info@westpeakwellness.com the moment it arrives, sends the
-person an acknowledgement promising a reply within one business day, and
-the weekday `reply-watch` job emails the practice about anything late. So
-the messages did reach you. Whether anyone replied to them, I cannot see from
-the repo — but if even a third of 25 became consultations at the usual rate,
-you would have clients. **This is the first thing to check, today: the info@
-inbox and its spam folder, back to 23 August.**
+Two things follow. The 30-second version of "are people contacting you" is
+**no, not yet** — the site is being found by scripts before it is found by
+people, which is normal for a new domain. And the spam stopped on 6
+September, the day the two-sentence rule and the removal of the waitlist
+form went live; nothing at all has arrived since, spam or real, so the
+form is not the leak either.
 
 **Search is working as well as a five-week-old domain can.** 8,807
 impressions and 141 clicks in the month to 6 Sep; 90 clicks were people
