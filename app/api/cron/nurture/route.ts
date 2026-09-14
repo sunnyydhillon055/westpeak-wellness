@@ -35,7 +35,7 @@ function authorised(req: NextRequest): { ok: boolean; why?: string } {
 export async function GET(req: NextRequest) {
   const gate = authorised(req);
   if (!gate.ok) {
-    await noteCronRefusal('cron\nurture\route.ts', req, gate.why);
+    await noteCronRefusal('nurture', req, gate.why);
     console.error('[nurture] refused:', gate.why);
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
   }

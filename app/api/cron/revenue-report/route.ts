@@ -41,7 +41,7 @@ function authorised(req: NextRequest): { ok: boolean; why?: string } {
 export async function GET(req: NextRequest) {
   const gate = authorised(req);
   if (!gate.ok) {
-    await noteCronRefusal('cron\revenue-report\route.ts', req, gate.why);
+    await noteCronRefusal('revenue-report', req, gate.why);
     // 401 either way. Which of the two reasons applies is logged, not returned:
     // "CRON_SECRET is not set" tells an anonymous caller how to get in.
     console.error('[revenue-report] refused:', gate.why);

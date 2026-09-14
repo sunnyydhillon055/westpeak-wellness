@@ -33,7 +33,7 @@ function authorised(req: NextRequest): { ok: boolean; why?: string } {
 export async function GET(req: NextRequest) {
   const gate = authorised(req);
   if (!gate.ok) {
-    await noteCronRefusal('cron\reply-watch\route.ts', req, gate.why);
+    await noteCronRefusal('reply-watch', req, gate.why);
     console.error('[reply-watch] refused:', gate.why);
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
   }

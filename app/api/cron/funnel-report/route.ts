@@ -28,7 +28,7 @@ function authorised(req: NextRequest): { ok: boolean; why?: string } {
 export async function GET(req: NextRequest) {
   const gate = authorised(req);
   if (!gate.ok) {
-    await noteCronRefusal('cron\funnel-report\route.ts', req, gate.why);
+    await noteCronRefusal('funnel-report', req, gate.why);
     console.error('[funnel-report] refused:', gate.why);
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
   }
