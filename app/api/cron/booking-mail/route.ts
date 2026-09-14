@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { noteCronRefusal } from '@/lib/cron-refusal';
 import { runBookingNotifications } from '@/lib/booking-notify';
 import { withCronHealth, runCronWatchdog } from '@/lib/cron-health';
 import { sendDetailed } from '@/lib/portal-mail';
@@ -38,6 +39,7 @@ function authorised(req: NextRequest): { ok: boolean; why?: string } {
 export async function GET(req: NextRequest) {
   const gate = authorised(req);
   if (!gate.ok) {
+    await noteCronRefusal('cron\booking-mail\route.ts', req, gate.why);
     console.error('[booking-mail] refused:', gate.why);
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
   }

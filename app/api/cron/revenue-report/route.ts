@@ -1,6 +1,8 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { noteCronRefusal } from '@/lib/cron-refusal';
 import { monthlyRevenue, previousMonth, monthFromKey, money } from '@/lib/cliniko-revenue';
 import { renderRevenueEmail, sendRevenueReport, reportRecipients } from '@/lib/revenue-email';
+import { withCronHealth } from '@/lib/cron-health';
 
 /* Monthly practitioner revenue report.
  *
@@ -39,6 +41,7 @@ function authorised(req: NextRequest): { ok: boolean; why?: string } {
 export async function GET(req: NextRequest) {
   const gate = authorised(req);
   if (!gate.ok) {
+    await noteCronRefusal('cron\revenue-report\route.ts', req, gate.why);
     // 401 either way. Which of the two reasons applies is logged, not returned:
     // "CRON_SECRET is not set" tells an anonymous caller how to get in.
     console.error('[revenue-report] refused:', gate.why);
@@ -65,42 +68,37 @@ export async function GET(req: NextRequest) {
     });
   }
 
-  const report = await monthlyRevenue(period);
-
-  if (report.status === 'unconfigured') {
-    console.error('[revenue-report] CLINIKO_API_KEY is not set');
-    return NextResponse.json(
-      { error: 'cliniko-unconfigured', detail: 'Set CLINIKO_API_KEY (including its -ca1 suffix).' },
-      { status: 503 }
-    );
+  /* Recorded like every other scheduled job — this one was not, until
+     13 Sep 2026, so the watchdog could never tell a report that went out from
+     one that silently did not. The dry run stays outside the record: asking
+     what would be sent is not a run. */
+  const dry = Boolean(req.nextUrl.searchParams.get('dry'));
+  const run = await withCronHealth('revenue-report', async () => {
+    const report = await monthlyRevenue(period);
+    if (report.status === 'unconfigured') throw new Error('CLINIKO_API_KEY is not set (including its -ca1 suffix)');
+    if (report.status === 'error') throw new Error(`cliniko error: ${report.detail}`);
+    const summary = {
+      period: report.period.key,
+      label: report.period.label,
+      total: money(report.total),
+      invoices: report.invoiceCount,
+      outstanding: money(report.outstanding.cents),
+      practitioners: report.lines.map((l) => ({
+        name: l.name, invoices: l.invoices, revenue: money(l.cents),
+      })),
+    };
+    if (dry) {
+      const { subject, text } = renderRevenueEmail(report);
+      return { dryRun: true, wouldSendTo: reportRecipients(), subject, text, summary };
+    }
+    const sent = await sendRevenueReport(report);
+    if (!sent.ok) throw new Error(`send failed: ${sent.detail}`);
+    console.log(`[revenue-report] ${report.period.key}: ${money(report.total)} to ${sent.sent.join(', ')}`);
+    return { ok: true, sentTo: sent.sent, summary };
+  });
+  if (!run.ok) {
+    console.error('[revenue-report]', run.error);
+    return NextResponse.json({ ok: false, job: 'revenue-report', error: run.error }, { status: 502 });
   }
-  if (report.status === 'error') {
-    console.error('[revenue-report] cliniko error:', report.detail);
-    return NextResponse.json({ error: 'cliniko-error', detail: report.detail }, { status: 502 });
-  }
-
-  const summary = {
-    period: report.period.key,
-    label: report.period.label,
-    total: money(report.total),
-    invoices: report.invoiceCount,
-    outstanding: money(report.outstanding.cents),
-    practitioners: report.lines.map((l) => ({
-      name: l.name, invoices: l.invoices, revenue: money(l.cents),
-    })),
-  };
-
-  if (req.nextUrl.searchParams.get('dry')) {
-    const { subject, text } = renderRevenueEmail(report);
-    return NextResponse.json({ dryRun: true, wouldSendTo: reportRecipients(), subject, text, summary });
-  }
-
-  const sent = await sendRevenueReport(report);
-  if (!sent.ok) {
-    console.error('[revenue-report] send failed:', sent.detail);
-    return NextResponse.json({ error: 'send-failed', detail: sent.detail, summary }, { status: 502 });
-  }
-
-  console.log(`[revenue-report] ${report.period.key}: ${money(report.total)} to ${sent.sent.join(', ')}`);
-  return NextResponse.json({ ok: true, sentTo: sent.sent, summary });
+  return NextResponse.json(run.result);
 }

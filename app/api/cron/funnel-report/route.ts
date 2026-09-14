@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { noteCronRefusal } from '@/lib/cron-refusal';
 import { runFunnelReport } from '@/lib/funnel-report';
 import { withCronHealth } from '@/lib/cron-health';
 
@@ -27,6 +28,7 @@ function authorised(req: NextRequest): { ok: boolean; why?: string } {
 export async function GET(req: NextRequest) {
   const gate = authorised(req);
   if (!gate.ok) {
+    await noteCronRefusal('cron\funnel-report\route.ts', req, gate.why);
     console.error('[funnel-report] refused:', gate.why);
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
   }

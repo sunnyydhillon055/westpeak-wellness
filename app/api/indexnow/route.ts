@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { noteCronRefusal } from '@/lib/cron-refusal';
 import { submitSitemapToIndexNow } from '@/lib/indexnow';
 
 /* IndexNow — push the URL list to the engines that accept a push.
@@ -49,6 +50,7 @@ function authorised(req: NextRequest): boolean {
 
 export async function GET(req: NextRequest) {
   if (!authorised(req)) {
+    await noteCronRefusal('indexnow', req, undefined);
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
   }
   /* Everything — the sitemap fetch included — runs inside the health record

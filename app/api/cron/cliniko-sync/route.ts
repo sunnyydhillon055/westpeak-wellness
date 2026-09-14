@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { noteCronRefusal } from '@/lib/cron-refusal';
 import { syncClientsFromCliniko } from '@/lib/cliniko-sync';
 import { refreshCatalog } from '@/lib/cliniko-catalog';
 import { sendPortalInvites, welcomeNewClients } from '@/lib/portal-invite';
@@ -41,6 +42,7 @@ function authorised(req: NextRequest): { ok: boolean; why?: string } {
 export async function GET(req: NextRequest) {
   const gate = authorised(req);
   if (!gate.ok) {
+    await noteCronRefusal('cron\cliniko-sync\route.ts', req, gate.why);
     // Which of the two reasons applies is logged, not returned — telling an
     // anonymous caller "CRON_SECRET is not set" tells them how to get in.
     console.error('[cliniko-sync] refused:', gate.why);
