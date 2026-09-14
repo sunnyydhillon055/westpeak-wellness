@@ -161,7 +161,19 @@ export function cronProblems(health: CronHealth, now = Date.now()): CronRun[] {
   for (const [job, every] of Object.entries(EXPECTED_EVERY_HOURS)) {
     const last = health[job];
     if (!last) {
-      out.push({ job, at: '', ok: false, detail: 'has never reported a run' });
+      /* NEVER RAN — but only once it has had the chance to. The first time the
+         watchdog sees an expected job with no record it writes an `expect:`
+         marker (runCronWatchdog below); the alarm fires when twice the job's
+         interval has passed since that marker. Without this, a weekly job
+         added on a Saturday was reported as broken before its first Monday —
+         the 12 Sep 2026 "indexnow has never reported a run" email. A job with
+         no marker yet is reported to /admin as waiting, not as a problem. */
+      const marker = health[`expect:${job}`];
+      if (!marker) continue;
+      const waited = (now - new Date(marker.at).getTime()) / 3_600_000;
+      if (waited > every * 2) {
+        out.push({ job, at: '', ok: false, detail: `has never reported a run (expected every ${every}h, waited ${Math.round(waited)}h)` });
+      }
       continue;
     }
     if (!last.ok) { out.push(last); continue; }
@@ -230,7 +242,16 @@ export async function runCronWatchdog(
   now = Date.now()
 ): Promise<{ problems: string[]; alerted: string[] }> {
   try {
-    const problems = cronProblems(await readCronHealth(), now);
+    const health = await readCronHealth();
+    /* Register the expectation for any job with no record and no marker, so
+       the never-ran clock starts now rather than at the dawn of time. */
+    for (const job of Object.keys(EXPECTED_EVERY_HOURS)) {
+      if (!health[job] && !health[`expect:${job}`]) {
+        await recordCronRun({ job: `expect:${job}`, ok: true, detail: 'expectation registered; awaiting first run' });
+        health[`expect:${job}`] = { job: `expect:${job}`, ok: true, detail: 'expectation registered', at: new Date(now).toISOString() };
+      }
+    }
+    const problems = cronProblems(health, now);
     if (!problems.length) return { problems: [], alerted: [] };
 
     const log = await readAlertLog();

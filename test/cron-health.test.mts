@@ -22,22 +22,32 @@ test('a site where everything ran reports nothing', () => {
   assert.deepEqual(cronProblems(healthy(), NOW), []);
 });
 
-test('a job that has never reported is a problem, not an absence', () => {
-  /* The dangerous case. A job that never ran leaves no record at all, so it
-     looks exactly like a job that has never failed. */
+test('a job that has never reported is a problem once it has had the chance to run', () => {
+  /* The dangerous case: a job that never ran leaves no record, so it looks
+     exactly like a job that has never failed. The watchdog writes an expect:
+     marker the first time it notices; the alarm fires after twice the interval. */
   const h = healthy();
   delete h['reply-watch'];
+  assert.deepEqual(cronProblems(h, NOW).map((p) => p.job), [], 'no marker yet: waiting, not broken');
+  h['expect:reply-watch'] = { job: 'expect:reply-watch', ok: true, detail: 'registered', at: new Date(NOW - 10 * 3_600_000).toISOString() };
+  assert.deepEqual(cronProblems(h, NOW).map((p) => p.job), [], 'inside the grace: still waiting');
+  h['expect:reply-watch'] = { job: 'expect:reply-watch', ok: true, detail: 'registered', at: new Date(NOW - 2 * EXPECTED_EVERY_HOURS['reply-watch']! * 3_600_000 - 3_600_000).toISOString() };
   const found = cronProblems(h, NOW);
-  assert.equal(found.length, 1);
-  assert.equal(found[0]!.job, 'reply-watch');
-  assert.match(found[0]!.detail, /never/);
+  assert.ok(found.some((p) => p.job === 'reply-watch' && /never reported/.test(p.detail)), 'past the grace: reported');
 });
-
-test('an empty store reports every job rather than staying quiet', () => {
-  /* A brand-new deployment, or a store that failed to read. Reporting
-     everything is noisy and correct; reporting nothing would be the silence
-     this whole file exists to break. */
-  assert.equal(cronProblems({}, NOW).length, Object.keys(EXPECTED_EVERY_HOURS).length);
+test('an empty store reports every job once each has had twice its interval to run', () => {
+  /* A brand-new deployment, or a store that failed to read. The watchdog
+     registers an expectation for every job the first time it looks; once
+     twice the interval has passed for a job, silence is reported — for all of
+     them, noisily and correctly. Reporting nothing then would be the silence
+     this whole file exists to break. Before the marker has aged, a job is
+     waiting, not broken (the 12 Sep 2026 weekly-job false alarm). */
+  assert.equal(cronProblems({}, NOW).length, 0, 'nothing registered yet: waiting');
+  const h: CronHealth = {};
+  for (const [job, every] of Object.entries(EXPECTED_EVERY_HOURS)) {
+    h[`expect:${job}`] = { job: `expect:${job}`, ok: true, detail: 'registered', at: new Date(NOW - (2 * every + 1) * 3_600_000).toISOString() };
+  }
+  assert.equal(cronProblems(h, NOW).length, Object.keys(EXPECTED_EVERY_HOURS).length);
 });
 
 test('a recorded failure is reported however recent it is', () => {

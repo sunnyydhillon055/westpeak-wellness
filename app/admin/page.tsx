@@ -77,7 +77,7 @@ export default async function AdminPage({
     c?: string; a?: string; pw?: string; cliniko?: string;
     sync?: string; added?: string; welcomed?: string; total?: string; named?: string;
     noemail?: string; why?: string;
-    sort?: string; dir?: string; digest?: string;
+    sort?: string; dir?: string; digest?: string; indexnow?: string;
   };
 }) {
   const session = await auth();
@@ -183,6 +183,20 @@ export default async function AdminPage({
             <p style={{ margin: 0 }}>{n}</p>
           </div>
         ))}
+
+        {searchParams?.indexnow && (
+          <p className="book-credential" style={{ marginTop: 14 }}>
+            {searchParams.indexnow.startsWith('ok-')
+              ? `Sitemap submitted to IndexNow: ${searchParams.indexnow.slice(3)} URLs, run recorded.`
+              : 'The IndexNow submission failed; the reason is recorded under scheduled jobs.'}
+          </p>
+        )}
+        <form method="POST" action="/api/admin/indexnow" style={{ margin: '12px 0 0' }}>
+          <button type="submit" className="btn btn--ghost">Submit the sitemap to IndexNow now</button>
+          <span style={{ marginLeft: 12, fontSize: '.9rem', color: 'var(--ink-soft)' }}>
+            Tells Bing and the engines it feeds about every page today; the weekly job does the same on Mondays.
+          </span>
+        </form>
 
         {/* Scheduled jobs. Eight of them run unattended, and until 2026-08-23
             none had a try/catch — a throw was a 500 in a log nobody reads. The

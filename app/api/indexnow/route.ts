@@ -1,6 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { site } from '@/lib/site';
-import { withCronHealth } from '@/lib/cron-health';
+import { submitSitemapToIndexNow } from '@/lib/indexnow';
 
 /* IndexNow — push the URL list to the engines that accept a push.
  *
@@ -52,82 +51,10 @@ export async function GET(req: NextRequest) {
   if (!authorised(req)) {
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
   }
-
-  const host = new URL(site.domain).host;
-
-  /* Read the live sitemap rather than importing the route that builds it —
-   * this way the submitted list is exactly what a crawler would find, and a
-   * page missing from the sitemap is missing from both, which is the correct
-   * failure mode. */
-  let urls: string[] = [];
-  try {
-    const res = await fetch(`${site.domain}/sitemap.xml`, { cache: 'no-store' });
-    const xml = await res.text();
-    const children = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
-    // The root sitemap is an index; follow each child once.
-    if (/<sitemapindex/.test(xml)) {
-      for (const child of children) {
-        const c = await (await fetch(child, { cache: 'no-store' })).text();
-        urls.push(...[...c.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]));
-      }
-    } else {
-      urls = children;
-    }
-  } catch (e) {
-    return NextResponse.json(
-      { error: 'sitemap-unreadable', detail: e instanceof Error ? e.message : 'fetch failed' },
-      { status: 502 }
-    );
-  }
-
-  // Image entries and anything off-host would be rejected for the whole batch.
-  urls = [...new Set(urls.filter((u) => u.startsWith(site.domain)))].slice(0, 10000);
-  if (!urls.length) {
-    return NextResponse.json({ error: 'no-urls' }, { status: 502 });
-  }
-
-  const body = JSON.stringify({ host, key: KEY, keyLocation: `${site.domain}/${KEY}.txt`, urlList: urls });
-
-  /* ?dry=1 reads the sitemap and reports exactly what would be sent without
-     sending it. Submitting to a real index is not an action worth discovering
-     you got wrong afterwards, and it is the only way to check the URL list
-     from a script without spending a submission to do it. */
-  if (req.nextUrl.searchParams.get('dry') === '1') {
-    return NextResponse.json({
-      ok: true,
-      dry: true,
-      wouldSubmit: urls.length,
-      host,
-      endpoints: ENDPOINTS,
-      sample: urls.slice(0, 10),
-    });
-  }
-
-  /* Recorded like every other scheduled job, so /admin and the watchdog can
-     tell "ran, and Bing said 202" from "never ran". Until 6 Sep 2026 this
-     route recorded nothing, and cron-health reported it as never having run
-     — indistinguishable from a wrong key or a refused submission. A run where
-     every endpoint refuses is a failure and is recorded as one. */
-  const run = await withCronHealth('indexnow', async () => {
-    const results: Record<string, string> = {};
-    for (const endpoint of ENDPOINTS) {
-      try {
-        const r = await fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json; charset=utf-8' },
-          body,
-        });
-        // 200 accepted · 202 accepted, key validation pending · 422 URL/key mismatch
-        results[endpoint] = `${r.status}`;
-      } catch (e) {
-        results[endpoint] = e instanceof Error ? e.message : 'failed';
-      }
-    }
-    console.log(`[indexnow] submitted ${urls.length} URLs:`, JSON.stringify(results));
-    const accepted = Object.values(results).filter((s) => /^20[02]$/.test(s)).length;
-    if (accepted === 0) throw new Error(`every endpoint refused: ${JSON.stringify(results)}`);
-    return results;
-  });
-  if (!run.ok) return NextResponse.json({ ok: false, submitted: urls.length, host, error: run.error }, { status: 502 });
-  return NextResponse.json({ ok: true, submitted: urls.length, host, results: run.result });
+  /* Everything — the sitemap fetch included — runs inside the health record
+     (lib/indexnow.ts), so "never reported a run" cannot be a failure in
+     disguise. ?dry=1 lists what would be submitted without spending a
+     submission. */
+  const r = await submitSitemapToIndexNow({ dry: req.nextUrl.searchParams.get('dry') === '1' });
+  return NextResponse.json(r, { status: r.ok ? 200 : 502 });
 }
