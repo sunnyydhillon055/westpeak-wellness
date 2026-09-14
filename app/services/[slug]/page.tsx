@@ -204,7 +204,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
           <ul className="glance">
             <li><Clock aria-hidden="true" strokeWidth={1.7} /><span><strong>50 minutes</strong> per session</span></li>
             <li><MonitorSmartphone aria-hidden="true" strokeWidth={1.7} /><span><strong>Secure video</strong> sessions</span></li>
-            <li><LangIcon aria-hidden="true" strokeWidth={1.7} /><span><strong>Free</strong> 15-min consult</span></li>
+            <li><LangIcon aria-hidden="true" strokeWidth={1.7} /><span><strong>Free</strong> 30-min consult</span></li>
             {/* The fee, at the top, on the page where the question is asked.
                 It lived on /pricing — three clicks away — and price silence
                 reads as expensive. The number already reaches the page for the

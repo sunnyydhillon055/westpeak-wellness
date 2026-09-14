@@ -27,7 +27,7 @@ const homeFaqs = faqs.filter((f) =>
 const PROCESS = [
   {
     step: 'Step one',
-    title: 'Free 15-min consult',
+    title: 'Free 30-min consult',
     body: 'A short video call to see if it’s a good fit. No pressure.',
   },
   {
@@ -140,7 +140,7 @@ export default function Home() {
                 couples therapy, fully online, anywhere in British Columbia.
               </p>
               <div className="btn-row" style={{ marginTop: 30 }}>
-                <Link className="btn btn--primary" href={site.bookingPath}>Book a Free 15-min Consultation</Link>
+                <Link className="btn btn--primary" href={site.bookingPath}>Book a Free 30-min Consultation</Link>
                 <Link className="btn btn--ghost" href="/services">See counselling services</Link>
               </div>
               {/* Not "weekend times" any more — the schedule moved to Mon–Fri on
