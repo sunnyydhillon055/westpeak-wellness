@@ -54,6 +54,7 @@ const CHECKS = [
   ['/online-counselling', 200],
   ['/online-counselling/surrey', 200],
   ['/online-counselling/surrey/emdr-therapy', 200],
+  ['/answers', 200],
   ['/punjabi', 200],
   ['/punjabi/regions', 200],
   ['/punjabi-counselling/surrey', 200],
@@ -110,9 +111,8 @@ const CHECKS = [
   ['/online-counselling/nanaimo', 200],
   ['/online-counselling/white-rock', 200],
   ['/for/mens-mental-health', 308, '/for'],
-  /* /answers retired 31 Aug 2026. 196 internal links pointed at it, so it
-     redirects rather than 404s. */
-  ['/answers', 308, '/faq'],
+  /* /answers was retired 31 Aug 2026 and redirected to /faq; it came back
+     on 14 Sep as the instant-answer page (checked as 200 above). */
 
   /* Services reduced to five, 31 Aug 2026. Each retired service must land on
      the one that absorbed it, and the five that remain must serve. */

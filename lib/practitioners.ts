@@ -260,6 +260,10 @@ export const practitioners: Practitioner[] = [
     sameAs: [
       'https://bcacc.ca/counsellors/amandeep-bains/',
       'https://ca.linkedin.com/in/aman-bains-9ab445276',
+      /* The practice's Psychology Today profile is written as hers. Found
+         14 Sep 2026; it still says a 15-minute consultation and carries a
+         506 area-code phone number — the owner is correcting it. */
+      'https://www.psychologytoday.com/ca/therapists/westpeak-wellness-white-rock-bc/1080689',
     ],
   },
   {
@@ -491,6 +495,10 @@ export const practitioners: Practitioner[] = [
        three services while her Tagalog pages and her own "better relationships
        and boundaries" line both implied four. */
     services: ['individual-therapy', 'couples-therapy', 'emdr-therapy', 'family-counselling'],
+    /* Her Psychology Today profile, found 14 Sep 2026 by searching her name
+       ("Counsellor, CCC, RCC", Richmond BC). Emitted as Person.sameAs and
+       linked from her profile. */
+    sameAs: ['https://www.psychologytoday.com/ca/therapists/camille-granda-richmond-bc/1831823'],
     placePages: true,
     /* TRUE since 6 Sep 2026: she is on the public Cliniko booking page with
        her own practitioner id (below), and /book embeds her calendar directly.
@@ -698,6 +706,13 @@ export const practitioners: Practitioner[] = [
        her own "What Savneet offers" names. Not couples — she says so herself
        under "When are you not the right counsellor". */
     services: ['individual-therapy', 'punjabi-counselling'],
+    /* Psychology Today, found 14 Sep 2026 by searching her name. Two profiles
+       exist under her name in Edmonton, both reading "Registered Provisional
+       Psychologist, MC"; this is the newer. She should confirm it is hers and
+       retire the other; the designation on it (an Alberta CAP registration)
+       is not on her roster record because no document for it has been
+       supplied. */
+    sameAs: ['https://www.psychologytoday.com/ca/therapists/savneet-kaur-singh-edmonton-ab/1821843'],
     placePages: true,
     bookable: true,
     clinikoPractitionerId: '2033684891660454425',

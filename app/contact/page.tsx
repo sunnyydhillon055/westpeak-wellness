@@ -6,6 +6,8 @@ import Figure from '@/components/Figure';
 import { Mail, MonitorSmartphone, MapPin, Languages as LangIcon, AtSign, Phone } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import InboundForm from '@/components/InboundForm';
+import { Clock } from 'lucide-react';
+import { consultationAvailability, practiceHoursLine } from '@/lib/cliniko-availability';
 
 export const metadata: Metadata = {
   title: 'Contact & Book',
@@ -19,6 +21,8 @@ export default async function Contact({
 }: {
   searchParams?: Record<string, string | string[] | undefined>;
 }) {
+  /* What is open this week, from Cliniko; null prints nothing. */
+  const hoursLine = practiceHoursLine(await consultationAvailability());
 
   /* The measured version of the reply promise. /admin has tracked median
    * reply time since 2026-08-23, gated behind five real samples so one good
@@ -64,6 +68,9 @@ export default async function Contact({
           <h2>Reach out</h2>
           <Figure name="bc-reach" caption="Sessions run by secure video, so the practice reaches every region of the province." />
           <div className="info-grid" style={{ marginTop: 26 }}>
+            {hoursLine && (
+              <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Clock strokeWidth={1.7} /></span><div><h3>Hours</h3><p>{hoursLine}</p></div></div>
+            )}
             {/* The reply time, stated. It is the most common unspoken worry
                 when emailing a stranger about therapy — not whether they will
                 answer well, but whether they will answer at all — and it costs

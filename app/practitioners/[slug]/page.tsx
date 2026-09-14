@@ -208,6 +208,12 @@ export default function PractitionerPage({ params }: { params: { slug: string } 
               )}
               <Link className="btn btn--ghost" href="/pricing">Fees and coverage</Link>
             </div>
+            {p.sameAs?.some((u) => /psychologytoday\.com/.test(u)) && (
+              <p style={{ fontSize: '.9rem', color: 'var(--ink-soft)', marginTop: 12 }}>
+                Also listed on{' '}
+                <a href={p.sameAs.find((u) => /psychologytoday\.com/.test(u))} target="_blank" rel="noopener">Psychology Today</a>.
+              </p>
+            )}
             {!p.acceptingNewClients ? (
               <p style={{ fontSize: '.9rem', color: 'var(--ink-soft)', marginTop: 12 }}>
                 {first} is not taking new clients at the moment.

@@ -60,7 +60,7 @@ export default function FAQ() {
           <h1>Frequently asked questions</h1>
           <p className="lede">Everything you might want to know before booking. Still curious? The free consult is the best place to ask.</p>
           <p className="direct-answer">
-            Answers to the questions people ask Westpeak Wellness before booking: how online counselling works, what a session costs and whether extended health covers it, what the free 30-minute consultation is for, how to cancel, whether sessions are confidential, which languages are offered, and what a Registered Clinical Counsellor can and cannot do. Anything not here can be asked in the consultation.
+            Answers to the questions people ask Westpeak Wellness before booking: how online counselling works, what a session costs and whether extended health covers it, what the free 30-minute consultation is for, how to cancel, whether sessions are confidential, which languages are offered, and what a Registered Clinical Counsellor can and cannot do. Anything not here can be asked in the consultation, or searched on the <Link href="/answers">instant answers page</Link>, which holds every question the site answers anywhere.
           </p>
           <Updated iso={COLLECTION_DATES['faq']} />
           <div className="btn-row" style={{ marginTop: 24 }}>

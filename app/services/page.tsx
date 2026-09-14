@@ -96,6 +96,24 @@ export default function Services() {
 
       <section className="section section--tint">
         <div className="container prose" style={{ maxWidth: '44.16em' }}>
+          <h2>Who we see</h2>
+          <p>
+            Adults, young adults and teens, across British Columbia and, with Camille, anywhere in
+            Canada. For a teen, a parent is usually part of the first conversation and the teen
+            decides how much of the work is theirs alone; in BC a young person who understands the
+            care can consent to it themselves under the Infants Act, and that is respected here.
+            Several pages are written for a particular situation rather than a diagnosis:{' '}
+            <Link href="/for/teens-and-young-adults">teens and young adults</Link>,{' '}
+            <Link href="/for/university-students">university students</Link>,{' '}
+            <Link href="/for/international-students">international students</Link>,{' '}
+            <Link href="/for/new-parents">new parents</Link>,{' '}
+            <Link href="/for/healthcare-and-shift-workers">healthcare and shift workers</Link>,{' '}
+            <Link href="/for/truck-drivers">truck drivers</Link>,{' '}
+            <Link href="/for/first-gen-south-asian-adults">first- and second-generation South Asian adults</Link>{' '}
+            and <Link href="/for">the rest of the situations we write for</Link>. For anything else,{' '}
+            <Link href="/answers">the instant answers page</Link> holds every question the site answers.
+          </p>
+
           <h2>How to tell which one you need</h2>
           <p>
             You do not have to arrive knowing. Most people do not, and working it out is a reasonable

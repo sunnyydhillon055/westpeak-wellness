@@ -111,7 +111,9 @@ const nextConfig = {
          pages answering questions. It held 97 entries and 196 internal links,
          so it is redirected rather than deleted — the inbound equity and any
          external link land on /faq instead of a 404. */
-      { source: '/answers', destination: '/faq', permanent: true },
+      /* /answers came back on 14 Sep 2026 as the instant-answer page (every
+         question the site answers, searchable) at the owner's request; the
+         31 Aug redirect to /faq is gone. */
 
       /* CAREERS RETIRED 1 Sep 2026 at the owner's request — the practice is not
          recruiting, and does not want speculative applications either.

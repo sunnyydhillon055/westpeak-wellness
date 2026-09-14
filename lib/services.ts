@@ -45,6 +45,7 @@ export const services: Service[] = [
       "Life transitions: career, relationships, moving, loss",
       "Identity, self-worth, and belonging",
       "Family dynamics and generational patterns",
+      "Teens and young adults, with a parent involved where that helps",
     ],
     approach:
       "The work is warm, direct, and paced to you. We start with your story and your goals, then draw on evidence-based approaches: CBT, EMDR, trauma-informed care, matched to what you actually need, not a one-size-fits-all script.",

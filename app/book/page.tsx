@@ -10,6 +10,7 @@ import InboundForm from '@/components/InboundForm';
 import { ogBase } from '@/lib/og-meta';
 import { practitioners, getPractitioner, defaultBookingPractitioner, withLetters } from '@/lib/practitioners';
 import { PROVINCE_NAME, type Province } from '@/lib/crisis';
+import { consultationAvailability, availabilityLine, practiceHoursLine } from '@/lib/cliniko-availability';
 
 export const metadata: Metadata = {
   title: 'Book a Free 30-Minute Consultation',
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Book({
+export default async function Book({
   searchParams,
 }: {
   searchParams?: Record<string, string | string[] | undefined>;
@@ -64,6 +65,11 @@ export default function Book({
      one who asked for someone not accepting is told so and offered the
      choice. */
   const accepting = practitioners.filter((p) => p.acceptingNewClients);
+  /* Real openings from Cliniko for the next seven days, per counsellor:
+     lib/cliniko-availability.ts. Null when it cannot be read, and then
+     nothing is printed. */
+  const avail = await consultationAvailability();
+  const hoursLine = practiceHoursLine(avail);
   const who = asked && asked.acceptingNewClients ? asked : undefined;
   const askedButFull = asked && !asked.acceptingNewClients ? asked : undefined;
   const fallback = defaultBookingPractitioner();
@@ -153,6 +159,7 @@ export default function Book({
             <li>No intake form</li>
             <li>Free cancellation up to {site.cancellationHours}h</li>
           </ul>
+          {hoursLine && <p className="book-credential" style={{ marginTop: 10 }}>{hoursLine}</p>}
 
           {accepting.length > 1 && (
             <div className="book-choose" style={{ margin: '18px 0 14px' }}>
@@ -196,6 +203,11 @@ export default function Book({
                           <p style={{ margin: '4px 0 0', color: 'var(--ink-soft)', fontSize: '.9rem' }}>
                             {p.focus.slice(0, 3).map((f) => f.label).join(', ')}
                           </p>
+                          {availabilityLine(avail[p.slug], first) && (
+                            <p style={{ margin: '6px 0 0', fontSize: '.9rem', color: 'var(--blue-deep)', fontWeight: 600 }}>
+                              {availabilityLine(avail[p.slug], first)}
+                            </p>
+                          )}
                         </div>
                       </div>
                       <span className={on ? 'btn btn--ghost' : 'btn btn--primary'} style={{ marginTop: 14 }}>

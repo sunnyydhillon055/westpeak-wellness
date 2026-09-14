@@ -304,6 +304,27 @@ so the page opens on her times and never shows a list of counsellors.
 *Enforced by:* `lib/practitioners.ts`, `app/book/page.tsx`,
 `app/practitioners/[slug]/page.tsx`, `components/StickyBook.tsx`
 
+### /answers is back as the instant-answer page; hours come from Cliniko; teens and young adults are served
+Decided 14 Sep 2026, owner's instruction.
+- `/answers` (retired 31 Aug as "a second FAQ") returns as one searchable
+  page holding every question the site answers anywhere, assembled by
+  `lib/answers.ts` from the FAQ, guides, resources, comparisons, services,
+  audience pages and the counsellors' own words. Nothing new is written
+  there; the build fails under a hundred answers.
+- Hours are still not typed anywhere. `/book` and `/contact` print what
+  Cliniko will actually offer in the next seven days, per counsellor
+  (`lib/cliniko-availability.ts`, cached thirty minutes). When it cannot be
+  read, nothing is printed. "Schedules are based on counsellors'
+  availability" is now literally what the page shows.
+- Teens and young adults are served. Said on the services page and the
+  individual-therapy page, with the Infants Act consent point, and a page
+  written for them at `/for/teens-and-young-adults`.
+- Each counsellor's Psychology Today profile is linked from her profile and
+  emitted as `sameAs`. Savneet's two Edmonton profiles read "Registered
+  Provisional Psychologist"; she is asked to confirm and retire one.
+
+*Enforced by:* build-time count in `app/answers/page.tsx`, `scripts/smoke.mjs`
+
 ### Enquiries go to the counsellor they are for, info@ in copy
 Decided 11 Sep 2026. Forty-one messages had reached info@ and sat there.
 Each counsellor taking new clients has an `alertEmail` on the roster;

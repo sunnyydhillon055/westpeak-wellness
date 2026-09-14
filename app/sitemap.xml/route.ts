@@ -184,6 +184,7 @@ export function GET() {
        query of its own, whether a referral is needed to see a counsellor in
        BC, rather than being a subsection of the word-of-mouth page. */
     { path: '/refer/doctor', lastmod: lastmodFor('/refer/doctor'), changefreq: 'yearly', priority: 0.5 },
+    { path: '/answers', lastmod: collectionLastmod('faq'), changefreq: 'monthly', priority: 0.7 },
     { path: '/punjabi', lastmod: lastmodFor('/punjabi'), changefreq: 'monthly', priority: 0.7 },
     /* The Punjabi twin of the region index, paired with it below. */
     { path: '/punjabi/regions', lastmod: collectionLastmod('punjabiRegions'), changefreq: 'monthly', priority: 0.6 },

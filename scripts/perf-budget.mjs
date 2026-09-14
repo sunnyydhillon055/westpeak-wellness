@@ -69,10 +69,12 @@ const homeCss = [...indexHtml.matchAll(/href="\/_next\/(static\/css\/[^"?]+\.css
  * /answers was EXCLUDED from the max-page sentinel until 3 Sep 2026, because
  * it grew by design — one page holding every direct answer on the site.
  *
- * It was retired on 31 Aug and now redirects to /faq, so no answers.html is
- * built, the reported size was permanently zero, and the exclusion filtered
- * nothing. Removed rather than left as a comment describing a page that does
- * not exist. */
+ * It was retired on 31 Aug, the exclusion filtered nothing, and it was
+ * removed. On 14 Sep 2026 the page came back, at the owner's request, as the
+ * instant-answer page holding every question the site answers (four hundred
+ * and more), so the exclusion is back with it. The page is the sole exception:
+ * it is large because it is complete, and the median sentinel still catches
+ * the site drifting. */
 function walk(dir, out = []) {
   for (const e of readdirSync(dir)) {
     const p = join(dir, e);
@@ -83,6 +85,7 @@ function walk(dir, out = []) {
 }
 const pagesAll = walk(join(NEXT, 'server', 'app'));
 const htmlSizes = pagesAll
+  .filter((p) => p.name !== 'answers.html')
   .map((p) => p.size)
   .sort((a, b) => a - b);
 const maxHtml = htmlSizes[htmlSizes.length - 1] ?? 0;

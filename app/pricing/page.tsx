@@ -151,7 +151,10 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
               counselling sessions after a crash with no doctor&rsquo;s note, and several employer and
               extended health plans pay a counsellor directly.{' '}
               <Link href="/refer">How referrals to this practice work</Link>{' '}
-              covers the funded routes and who can start one.
+              covers the funded routes and who can start one.{' '}
+              <Link href="/resources/worksafebc-psychological-injury-claims">WorkSafeBC</Link> can
+              fund counselling for a psychological injury at work, on an accepted claim; that page
+              sets out how a claim is made and what the counsellor can and cannot certify.
             </p>
 
             <SceneBand seed={'pricing'} />

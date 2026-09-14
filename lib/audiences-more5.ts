@@ -176,4 +176,91 @@ export const moreAudiences5: Audience[] = [
       { href: '/for/first-gen-south-asian-adults', label: 'For first- and second-generation South Asian adults' },
     ],
   },
+  {
+    /* Added 14 Sep 2026. The owner: "we handle youth/young adults." Nothing on
+       the site said so; the individual-therapy page read as adults only. This
+       page says it plainly, with the consent point that matters in BC (the
+       Infants Act: a young person who understands the care can consent to it)
+       and with a parent's questions answered beside the teen's. Descriptive,
+       never predictive; no invented figures. */
+    slug: 'teens-and-young-adults',
+    figure: 'first-session-flow',
+    figure2: 'window-of-tolerance',
+    title: 'Counselling for teens and young adults in BC',
+    metaTitle: 'Counselling for Teens and Young Adults in BC | Westpeak',
+    metaDescription:
+      'Online counselling for teens and young adults across BC: anxiety, school pressure, identity, family. How consent works for a teen, and what a parent is told.',
+    eyebrow: 'For · Teens and young adults',
+    lede:
+      'Fifteen to twenty-five is the age when most mental health difficulty first shows up, and the age at which it is least likely to be brought to anyone. This page is for the teen, and for the parent reading over their shoulder.',
+    shortAnswer:
+      'Westpeak Wellness offers online counselling to teenagers and young adults across British Columbia, by secure video with a Registered Clinical Counsellor, in English, Punjabi or Tagalog. A teen can book with a parent or, in BC, on their own if they understand the care, under the Infants Act. What is said in session stays in session, with the limits set out at the first meeting, and a parent is included as much as the young person wants. The first 30-minute consultation is free and a parent can attend it.',
+    updated: '2026-09-14',
+    readMinutes: 6,
+    opening: [
+      'The pressures at this age are concentrated: school and then university, the first relationships, a body and an identity still being decided, a family that is either too close or not close enough, and a phone that never lets any of it rest. Anxiety, low mood, panic and difficulties with eating and sleep most often begin here, and they are more workable here than at any later point.',
+      'Counselling at this age is not a parent sending a child to be fixed. It is a room the young person controls, with an adult in it who is not their parent and not their teacher, where the thing can be said the way it actually is.',
+    ],
+    whatComesUp: [
+      { label: 'Anxiety about school, marks and what comes next', detail: 'Exams, applications, a future that feels decided by the next term. This is the most common reason a teen or student books, and it responds well to focused work.' },
+      { label: 'Feeling low, flat or not like yourself', detail: 'Not sad exactly; nothing. Sleeping late, dropping things you liked, a shortness with everyone. Often the first sign, and often mistaken for laziness by people who love you.' },
+      { label: 'Family: too much or too little', detail: 'Expectations that were never said out loud, a home where feelings are not discussed, parents who came from somewhere else and a childhood that happened here. Much of the work is finding words for this.' },
+      { label: 'Identity, and who to tell', detail: 'Sexuality, gender, faith, culture, or simply who you are turning out to be. Counselling is a place to work that out before it has to be announced to anyone.' },
+      { label: 'Friendships, relationships and being online', detail: 'The first serious relationship, the friend group that turned, the thing that was posted. These are real losses and they are treated as such.' },
+    ],
+    sections: [
+      {
+        h2: 'Consent and confidentiality, for a teen',
+        body: [
+          'In British Columbia a young person under 19 can consent to their own health care, including counselling, when the counsellor is satisfied they understand what it is and what it involves; this is the Infants Act, and it is respected here. In practice most teens come with a parent\'s knowledge and often a parent\'s booking, and either route is fine.',
+          'What a teen says in session is confidential from a parent, with the limits every counsellor has: a risk of serious harm to the young person or someone else, abuse or neglect of a minor, or a court order. Those limits are explained in plain words at the first meeting, to the teen and to the parent, so nobody is surprised later. The [standards page](/standards) sets them out in full.',
+        ],
+      },
+      {
+        h2: 'For the parent',
+        list: [
+          { label: 'You can be in the first consultation', detail: 'The free 30-minute call is a chance for both of you to meet the counsellor. After that, the young person decides how much of the work is theirs alone, and most choose most of it.' },
+          { label: 'What you will hear', detail: 'Whether sessions are happening, and anything the counsellor is obliged to share under the limits above. Not the content. A teen who knows this is far more likely to say what matters.' },
+          { label: 'How to raise it without a fight', detail: 'Offer it as a place that is theirs, not a consequence. "You can talk to someone who is not us" lands better than "you need help". The [guide on talking to family about therapy](/guides/talking-to-your-family-about-therapy) is written for the other direction, and works for this one too.' },
+          { label: 'Paying', detail: 'A parent\'s extended health plan usually covers dependants to the same counselling maximum; the [coverage page](/resources/does-my-plan-cover-counselling-bc) says how to check. University students often have a plan of their own through the student society.' },
+        ],
+      },
+      {
+        h2: 'For a young adult booking alone',
+        body: [
+          'At 19 and over nobody else is involved unless you want them to be. No referral is needed, no family doctor, and no diagnosis; you book the consultation, say what is going on, and decide from there. Sessions are by video from wherever is private, which for many students is a car, a library room or a walk with earbuds in.',
+          'If money is the reason for not booking, say so at the consultation. A student plan, a parent\'s plan and a receipt at tax time each cover part of it, and the [fees page](/pricing) has every number.',
+        ],
+      },
+    ],
+    servicesThatFit: [
+      { href: '/services/individual-therapy', label: 'Individual therapy', why: 'For anxiety, low mood, school pressure, identity and family, at the young person\'s own pace.' },
+      { href: '/services/punjabi-counselling', label: 'Punjabi-speaking counselling', why: 'For a young person whose family lives in Punjabi and whose life happens in English.' },
+      { href: '/tagalog-counselling', label: 'Tagalog-speaking counselling', why: 'The same, for a Filipino family.' },
+    ],
+    midCta: {
+      text: 'A free 30-minute consultation, with or without a parent on the call. No card, and no obligation.',
+      label: 'Book a free consultation',
+    },
+    faqs: [
+      { q: 'What age do you see?', a: 'Teenagers and young adults, by video. The youngest a counsellor here works with is decided at the consultation, on whether video counselling is the right fit for that young person; for children, an in-person child therapist is usually the better route and the counsellor will say so.' },
+      { q: 'Can my teenager book without me knowing?', a: 'In BC, a young person under 19 who understands what counselling is can consent to it themselves under the Infants Act. Most teens come with a parent\'s knowledge, and a counsellor will encourage that where it is safe, but it is the young person\'s decision.' },
+      { q: 'Will I be told what my child says?', a: 'No, beyond whether sessions are happening and anything the counsellor is legally obliged to share: a serious risk of harm, abuse or neglect, or a court order. Those limits are explained to both of you at the start.' },
+      { q: 'Does the parent attend sessions?', a: 'The first consultation, if you both want. After that, sessions are the young person\'s, with a parent brought in when the young person and the counsellor agree it would help.' },
+      { q: 'Is video counselling right for a teenager?', a: 'For most teens from mid-adolescence it works well; it is their native medium and it removes the waiting room. What it needs is a private space for the hour, which is discussed at the consultation.' },
+      { q: 'Does extended health cover a dependant?', a: 'Usually, to the same counselling maximum as the plan member, when the counsellor is a Registered Clinical Counsellor. The plan booklet or portal says the amount; you pay at booking and claim the receipt.' },
+    ],
+    sources: [
+      { label: 'Infants Act, RSBC 1996, c. 223', url: 'https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/96223_01' },
+      { label: 'Foundry BC', url: 'https://foundrybc.ca/' },
+      { label: 'Kids Help Phone', url: 'https://kidshelpphone.ca/' },
+    ],
+    related: [
+      { href: '/for/university-students', label: 'For university students' },
+      { href: '/for/international-students', label: 'For international students' },
+      { href: '/for/first-gen-south-asian-adults', label: 'For first- and second-generation South Asian adults' },
+      { href: '/guides/anxiety-and-sleep', label: 'Anxiety and sleep' },
+      { href: '/guides/talking-to-your-family-about-therapy', label: 'Talking to your family about therapy' },
+    ],
+  },
 ];
