@@ -18,6 +18,7 @@ const KNOWN = {
     testimonialsBanned: true, inPerson: false, llms: true, referPage: true, portal: true,
     registrationNumber: true, intakeForm: false,
     sessionLength: true,      // "50 minutes" on /pricing and every service page; the probe's number pattern was too narrow
+    chat: true,               // no widget by decision; /answers (14 Sep) is the instant answer: 460+ questions, searchable, no script from a third party
   },
 };
 
@@ -75,7 +76,7 @@ const CATS = [
   ['D', 'A phone number', 'M', 'A practice number to call. Westpeak: none published.', (s) => yes(kv(s, 'phone'))],
   ['D', 'Email and a form', 'M', 'mailto link 5, a form 5.', (s) => yes(s.o.email, 5) + yes(s.scan?.pages?.some?.((p) => p.hasForm), 5)],
   ['D', 'Response-time promise', 'M', '"Within one business day" or similar.', (s) => yes(s.o.responsePromise)],
-  ['D', 'Live chat / instant answer', 'M', 'A chat widget.', (s) => yes(s.o.chat)],
+  ['D', 'Live chat / instant answer', 'M', 'A chat widget.', (s) => yes(s.k.chat ?? s.o.chat)],
   ['D', 'Booking friction', 'M', 'No intake form before a first conversation 10; forms first 5.', (s) => (kv(s, 'intakeForm') ? 5 : 10)],
   ['D', 'Speed of the front door', 'M', 'Homepage fetch: <200 ms 10, <500 8, <1000 5, else 2.', (s) => s.ms.home < 200 ? 10 : s.ms.home < 500 ? 8 : s.ms.home < 1000 ? 5 : 2],
   ['D', 'Client-facing pages reachable', 'M', 'contact, book, fees, team, services at a guessable URL: 2 each.', (s) => ['contact', 'book', 'fees', 'team', 'services'].filter((p) => hasPage(s, p)).length * 2],

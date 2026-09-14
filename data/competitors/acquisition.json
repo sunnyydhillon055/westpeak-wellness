@@ -1,5 +1,5 @@
 {
-  "at": "2026-09-14T04:53:02.011Z",
+  "at": "2026-09-14T05:50:07.375Z",
   "results": [
     {
       "key": "westpeak",
@@ -14,12 +14,12 @@
         "services": "https://www.westpeakwellness.com/services"
       },
       "ms": {
-        "home": 525,
-        "contact": 269,
-        "book": 144,
-        "fees": 182,
-        "team": 36,
-        "services": 47
+        "home": 755,
+        "contact": 665,
+        "book": 242,
+        "fees": 338,
+        "team": 273,
+        "services": 447
       },
       "homeStatus": 200,
       "obs": {
@@ -39,6 +39,7 @@
         "directBilling": true,
         "insurersNamed": [
           "ICBC",
+          "WorkSafeBC",
           "Pacific Blue Cross",
           "Manulife",
           "Sun Life",
@@ -46,14 +47,14 @@
           "Green Shield"
         ],
         "icbc": true,
-        "worksafe": false,
+        "worksafe": true,
         "slidingScale": true,
         "efap": true,
         "acceptingNew": true,
         "waitlist": true,
         "evenings": true,
-        "weekends": false,
-        "sameWeek": false,
+        "weekends": true,
+        "sameWeek": true,
         "online": true,
         "inPerson": true,
         "languages": [
@@ -68,10 +69,10 @@
         "psychologyTodayLink": false,
         "teamPhotos": 6,
         "teamSizeGuess": 41,
-        "specialtiesCount": 114,
-        "audiencePages": 10,
+        "specialtiesCount": 118,
+        "audiencePages": 17,
         "locationPages": 31,
-        "blogLinks": 56,
+        "blogLinks": 57,
         "intakeForm": true,
         "portal": true,
         "responsePromise": true,
@@ -98,12 +99,12 @@
         "paymentMethods": true,
         "receiptsForClaims": true,
         "waitTimeStated": true,
-        "hoursListed": false,
+        "hoursListed": true,
         "faqPage": true,
         "privacyPage": true,
         "accessibilityPage": true,
         "couples": true,
-        "youth": false,
+        "youth": true,
         "emdr": true,
         "lgbtq": false,
         "cultural": true,
@@ -120,8 +121,8 @@
       },
       "bing": {
         "status": 200,
-        "resultsText": "185,000",
-        "mentions": 24
+        "resultsText": "50",
+        "mentions": 23
       }
     },
     {
@@ -137,11 +138,11 @@
         "services": "https://clearheartcounselling.com/counselling-services/"
       },
       "ms": {
-        "home": 93,
-        "contact": 125,
-        "book": 94,
+        "home": 153,
+        "contact": 141,
+        "book": 98,
         "fees": 92,
-        "team": 90,
+        "team": 89,
         "services": 96
       },
       "homeStatus": 200,
@@ -210,7 +211,7 @@
           "British Columbia"
         ],
         "wordsHome": 1917,
-        "homeBytes": 280501,
+        "homeBytes": 280481,
         "sessionLength": true,
         "cancellationPolicy": true,
         "paymentMethods": true,
@@ -236,7 +237,7 @@
       },
       "bing": {
         "status": 200,
-        "resultsText": "9,260",
+        "resultsText": "98,400",
         "mentions": 23
       }
     },
@@ -251,10 +252,10 @@
         "team": "https://www.thrivewellbc.com/meet-the-team"
       },
       "ms": {
-        "home": 1496,
-        "contact": 165,
-        "fees": 88,
-        "team": 659
+        "home": 509,
+        "contact": 188,
+        "fees": 104,
+        "team": 725
       },
       "homeStatus": 200,
       "obs": {
@@ -346,7 +347,7 @@
       },
       "bing": {
         "status": 200,
-        "resultsText": "50",
+        "resultsText": "37,500",
         "mentions": 23
       }
     },
@@ -360,9 +361,9 @@
         "services": "https://tidaltrauma.com/what-is-trauma-therapy-surrey"
       },
       "ms": {
-        "home": 475,
-        "team": 609,
-        "services": 284
+        "home": 501,
+        "team": 775,
+        "services": 298
       },
       "homeStatus": 200,
       "obs": {
@@ -455,7 +456,7 @@
       },
       "bing": {
         "status": 200,
-        "resultsText": "101,000",
+        "resultsText": "50",
         "mentions": 23
       }
     },
@@ -470,10 +471,10 @@
         "services": "https://www.upstreamcounselling.com/services"
       },
       "ms": {
-        "home": 61,
-        "contact": 24,
-        "team": 28,
-        "services": 25
+        "home": 117,
+        "contact": 27,
+        "team": 29,
+        "services": 26
       },
       "homeStatus": 200,
       "obs": {
@@ -571,7 +572,7 @@
       },
       "bing": {
         "status": 200,
-        "resultsText": "38,800",
+        "resultsText": "20,500",
         "mentions": 23
       }
     },
@@ -587,11 +588,11 @@
         "services": "https://wellbeingscounselling.ca/psychotherapy/services/"
       },
       "ms": {
-        "home": 79,
-        "book": 933,
-        "fees": 844,
-        "team": 1050,
-        "services": 854
+        "home": 164,
+        "book": 946,
+        "fees": 829,
+        "team": 995,
+        "services": 1279
       },
       "homeStatus": 200,
       "obs": {
@@ -691,8 +692,8 @@
       },
       "bing": {
         "status": 200,
-        "resultsText": "",
-        "mentions": 19
+        "resultsText": "50",
+        "mentions": 23
       }
     },
     {
@@ -707,11 +708,11 @@
         "team": "https://abbotsford.skylarkclinic.ca/about/"
       },
       "ms": {
-        "home": 434,
-        "contact": 1071,
-        "book": 886,
-        "fees": 513,
-        "team": 519
+        "home": 1711,
+        "contact": 1245,
+        "book": 1102,
+        "fees": 1143,
+        "team": 921
       },
       "homeStatus": 200,
       "obs": {
@@ -797,8 +798,8 @@
       },
       "bing": {
         "status": 200,
-        "resultsText": "",
-        "mentions": 19
+        "resultsText": "47,100",
+        "mentions": 23
       }
     },
     {
@@ -812,10 +813,10 @@
         "team": "https://www.wellnest.ca/about-us"
       },
       "ms": {
-        "home": 81,
-        "contact": 28,
-        "fees": 25,
-        "team": 27
+        "home": 135,
+        "contact": 31,
+        "fees": 28,
+        "team": 24
       },
       "homeStatus": 200,
       "obs": {
@@ -898,8 +899,8 @@
       },
       "bing": {
         "status": 200,
-        "resultsText": "50",
-        "mentions": 23
+        "resultsText": "",
+        "mentions": 20
       }
     },
     {
@@ -913,9 +914,9 @@
         "team": "https://crossroadscollective.ca/about"
       },
       "ms": {
-        "home": 355,
-        "contact": 129,
-        "fees": 128,
+        "home": 348,
+        "contact": 132,
+        "fees": 131,
         "team": 130
       },
       "homeStatus": 200,
@@ -1013,7 +1014,7 @@
       },
       "bing": {
         "status": 200,
-        "resultsText": "76",
+        "resultsText": "50",
         "mentions": 23
       }
     },
@@ -1029,11 +1030,11 @@
         "services": "https://sanacounselling.ca/services/anxiety-counselling-vancouver"
       },
       "ms": {
-        "home": 402,
+        "home": 391,
         "contact": 95,
-        "fees": 95,
-        "team": 95,
-        "services": 582
+        "fees": 96,
+        "team": 96,
+        "services": 521
       },
       "homeStatus": 200,
       "obs": {
@@ -1123,8 +1124,8 @@
       },
       "bing": {
         "status": 200,
-        "resultsText": "52",
-        "mentions": 23
+        "resultsText": "185,000",
+        "mentions": 24
       }
     },
     {
@@ -1137,9 +1138,9 @@
         "team": "https://www.jashundal.com/hundal-counselling-centre-team/"
       },
       "ms": {
-        "home": 54,
-        "contact": 2057,
-        "team": 482
+        "home": 117,
+        "contact": 2138,
+        "team": 536
       },
       "homeStatus": 200,
       "obs": {
@@ -1224,7 +1225,7 @@
       },
       "bing": {
         "status": 200,
-        "resultsText": "61,400",
+        "resultsText": "50",
         "mentions": 23
       }
     }
