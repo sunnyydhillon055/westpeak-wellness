@@ -6,26 +6,26 @@ Measured by `scripts/acquisition-probe.mjs` (the pages a client reads: home, con
 
 | Rank | Practice | Total /500 |
 |---|---|---|
-| 1 | **Westpeak Wellness** | **382** |
-| 2 | Clear Heart Counselling | 328 |
-| 3 | Crossroads Collective | 304 |
+| 1 | **Westpeak Wellness** | **377** |
+| 2 | Clear Heart Counselling | 326 |
+| 3 | Crossroads Collective | 306 |
 | 4 | Upstream Counselling | 302 |
-| 5 | Well Beings Counselling | 286 |
-| 6 | Tidal Trauma | 271 |
-| 7 | Thrive Wellness | 261 |
-| 8 | Skylark Clinic | 257 |
-| 9 | Jashun Dal | 244 |
+| 5 | Tidal Trauma | 288 |
+| 6 | Well Beings Counselling | 278 |
+| 7 | Jashun Dal | 254 |
+| 8 | Skylark Clinic | 251 |
+| 9 | Thrive Wellness | 248 |
 | 10 | Sana Counselling | 235 |
-| 11 | Wellnest | 174 |
+| 11 | Wellnest | 178 |
 
 ## By group (Westpeak's rank of 11 in brackets)
 
 | Group | Westpeak | Best | Best practice |
 |---|---|---|---|
-| Being found | 64/100 (3) | 69 | Upstream Counselling |
+| Being found | 64/100 (3) | 79 | Tidal Trauma |
 | Trust before contact | 80/100 (2) | 85 | Thrive Wellness |
 | Fit | 68/100 (4) | 90 | Upstream Counselling |
-| Converting | 90/110 (1) | 90 | Westpeak Wellness |
+| Converting | 85/110 (1) | 85 | Westpeak Wellness |
 | Paying | 50/60 (1) | 50 | Westpeak Wellness |
 | Keeping and referring | 30/30 (1) | 30 | Westpeak Wellness |
 
@@ -35,11 +35,11 @@ W = Westpeak's score; rank = among 11; then every competitor.
 
 | # | Category | Conf | **W** | clearheart | thrive | tidal | upstream | wellbeings | skylark | wellnest | crossroads | sana | jashundal | W rank | Rule |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | Being: Organic position for money terms | G/E | **2** | 8 | 8 | 2 | 8 | 6 | 8 | 2 | 4 | 4 | 4 | 9 | Westpeak from Search Console (pos 54 = 2/10). Others: Bing index size as a proxy for an established domain, capped at 8. |
+| 1 | Being: Organic position for money terms | G/E | **2** | 8 | 4 | 8 | 8 | 2 | 2 | 4 | 4 | 4 | 8 | 9 | Westpeak from Search Console (pos 54 = 2/10). Others: Bing index size as a proxy for an established domain, capped at 8. |
 | 2 | Being: Google Business Profile / map pack | E | **0** | 10 | 10 | 10 | 10 | 5 | 10 | 0 | 5 | 5 | 5 | 10 | 10 if the site links its own Google reviews or Maps listing; 5 if it names a street address; 0 if neither (Westpeak: none found). |
 | 3 | Being: Psychology Today listing exists | S | **10** | 0 | 0 | 10 | 10 | 10 | 0 | 0 | 10 | 10 | 0 | 1 | A profile URL for the practice appears in a PT search by name. |
 | 4 | Being: Psychology Today listing is current | S/E | **2** | 0 | 0 | 7 | 7 | 7 | 0 | 0 | 7 | 7 | 0 | 6 | Westpeak: 2 (lists a counsellor on leave, a 15-minute consult, a wrong phone). Others with a profile: 7 (unverified); none: 0. |
-| 5 | Being: Bing and the engines it feeds | M | **10** | 10 | 10 | 2 | 10 | 6 | 8 | 2 | 4 | 4 | 4 | 1 | Bing site: results, tiered. |
+| 5 | Being: Bing and the engines it feeds | M | **10** | 8 | 4 | 10 | 10 | 2 | 2 | 4 | 4 | 4 | 10 | 1 | Bing site: results, tiered. |
 | 6 | Being: Local landing pages | M | **10** | 10 | 10 | 10 | 1 | 10 | 10 | 0 | 10 | 10 | 10 | 1 | City pages linked from the pages a client reads, scaled to 30. |
 | 7 | Being: Social footprint | M | **4** | 8 | 4 | 6 | 6 | 6 | 6 | 4 | 6 | 6 | 6 | 9 | Instagram, Facebook, LinkedIn, YouTube, TikTok linked: 2 each. |
 | 8 | Being: Content that draws readers | M | **10** | 4 | 0 | 1 | 3 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | Blog/guide links from the client-facing pages, scaled to 40. |
@@ -47,7 +47,7 @@ W = Westpeak's score; rank = among 11; then every competitor.
 | 10 | Being: Site breadth | M | **10** | 6 | 8 | 10 | 10 | 10 | 0 | 10 | 10 | 10 | 3 | 1 | URLs in the sitemap, scaled to 250. |
 | 11 | Trust: Registration numbers on the page | M | **10** | 10 | 10 | 0 | 0 | 10 | 10 | 0 | 10 | 10 | 10 | 1 | A checkable number appears on the pages a client reads. |
 | 12 | Trust: Designations named and explained | M | **10** | 10 | 5 | 3 | 0 | 5 | 8 | 1 | 7 | 2 | 10 | 1 | RCC/RSW/R.Psych/CCC phrases, scaled to 20. |
-| 13 | Trust: Counsellor photos | M | **10** | 10 | 10 | 10 | 10 | 10 | 10 | 0 | 8 | 0 | 10 | 1 | Team/portrait images on the pages read, scaled to 6. |
+| 13 | Trust: Counsellor photos | M | **10** | 10 | 10 | 10 | 10 | 10 | 10 | 0 | 10 | 0 | 10 | 1 | Team/portrait images on the pages read, scaled to 6. |
 | 14 | Trust: Reviews and testimonials | M | **0** | 10 | 10 | 0 | 10 | 10 | 0 | 0 | 10 | 10 | 0 | 7 | Shown on site. Westpeak scores 0 by BCACC rule, which is a real disadvantage against practices that ignore it. |
 | 15 | Trust: Google reviews linked | M | **10** | 10 | 10 | 10 | 10 | 0 | 10 | 0 | 0 | 0 | 0 | 1 | A link to the practice's Google listing. |
 | 16 | Trust: A team page that answers "who are you" | M | **10** | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 1 | A reachable team/about page. |
@@ -74,7 +74,7 @@ W = Westpeak's score; rank = among 11; then every competitor.
 | 37 | Converting: Response-time promise | M | **10** | 0 | 0 | 0 | 10 | 0 | 10 | 0 | 0 | 0 | 0 | 1 | "Within one business day" or similar. |
 | 38 | Converting: Live chat / instant answer | M | **0** | 0 | 0 | 0 | 0 | 0 | 0 | 10 | 0 | 0 | 0 | 2 | A chat widget. |
 | 39 | Converting: Booking friction | M | **10** | 5 | 10 | 5 | 10 | 5 | 10 | 10 | 10 | 10 | 10 | 1 | No intake form before a first conversation 10; intake/consent forms mentioned first 5. |
-| 40 | Converting: Speed of the front door | M | **10** | 10 | 5 | 5 | 10 | 10 | 2 | 10 | 8 | 8 | 10 | 1 | Homepage time to fetch: <200 ms 10, <500 8, <1000 5, else 2. |
+| 40 | Converting: Speed of the front door | M | **5** | 10 | 2 | 8 | 10 | 10 | 8 | 10 | 8 | 8 | 10 | 10 | Homepage time to fetch: <200 ms 10, <500 8, <1000 5, else 2. |
 | 41 | Converting: Client-facing pages all reachable | M | **10** | 10 | 6 | 4 | 6 | 8 | 8 | 6 | 6 | 8 | 4 | 1 | contact, book, fees, team, services found at a guessable URL: 2 each. |
 | 42 | Paying: Direct billing | M | **10** | 0 | 0 | 0 | 0 | 10 | 10 | 0 | 10 | 0 | 0 | 1 | Direct billing to insurers offered. |
 | 43 | Paying: Insurers named | M | **10** | 6 | 2 | 4 | 0 | 6 | 0 | 0 | 6 | 0 | 0 | 1 | Distinct insurers/payers named, scaled to 5. |
@@ -100,3 +100,4 @@ W = Westpeak's score; rank = among 11; then every competitor.
 | Live chat / instant answer | 0 | 10 | 10 |
 | Organic position for money terms | 2 | 8 | 6 |
 | Psychology Today listing is current | 2 | 7 | 5 |
+| Speed of the front door | 5 | 10 | 5 |

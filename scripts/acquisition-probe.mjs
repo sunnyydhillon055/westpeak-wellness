@@ -133,6 +133,25 @@ async function probe([key, base, name]) {
     provincesNamed: [...new Set((t.match(/\b(British Columbia|Alberta|Ontario|Saskatchewan|Manitoba|Quebec|Nova Scotia)\b/g) || []))],
     wordsHome: text(home.body).split(' ').filter(Boolean).length,
     homeBytes: home.body.length,
+    /* Second set, 13 Sep 2026: the offer's clarity, who is served, and the
+       technical trust signals a client feels without naming. */
+    sessionLength: /\b(50|45|60|75|80|90)[- ]?min(ute)?s?\b/i.test(t),
+    cancellationPolicy: /cancel(lation)? (policy|fee|notice)|\b(24|48)[- ]hours?['’]? notice|cancel(lation)?s? (free|up to)/i.test(t),
+    paymentMethods: /credit card|visa|mastercard|e-?transfer|interac|debit|paypal/i.test(t),
+    receiptsForClaims: /receipt/i.test(t),
+    waitTimeStated: /no wait ?list|no waiting list|immediate (availability|openings)|openings? (this|next) week|book (this|next) week/i.test(t),
+    hoursListed: /\b(mon|tue|wed|thu|fri)[a-z]*\s*(-|to|–)\s*(fri|sat|sun)[a-z]*|\b\d{1,2}(:\d{2})?\s?(am|pm)\s*(-|to|–)\s*\d{1,2}(:\d{2})?\s?(am|pm)/i.test(t),
+    faqPage: /href=["'][^"']*\/faq[^"']*["']|frequently asked/i.test(raw),
+    privacyPage: /href=["'][^"']*(privacy|confidentiality)[^"']*["']/i.test(raw),
+    accessibilityPage: /href=["'][^"']*accessib[^"']*["']|accessibility statement/i.test(raw),
+    couples: /couples?|marriage|relationship counselling/i.test(t),
+    youth: /\b(children|child|teen|teens|youth|adolescent)s?\b/i.test(t),
+    emdr: /\bEMDR\b/.test(t),
+    lgbtq: /LGBTQ|2SLGBTQ|queer|gender[- ]affirming|non-?binary/i.test(t),
+    cultural: /Indigenous|First Nations|cultur(al|ally) (safe|safety|sensitive|competent|responsive|informed)|anti-?racis|South Asian|immigrant|newcomer/i.test(t),
+    groups: /group (therapy|program|session|counselling)|workshop|webinar|support group/i.test(t),
+    multiDesignation: [...new Set((t.match(/\b(RCC|RSW|R\.?Psych|CCC|RTC|RP\b|MSW)\b/g) || []))].length,
+    videoIntro: /youtube\.com\/embed|vimeo\.com|<video/i.test(raw),
   };
   /* Off-site, public: Psychology Today search by practice name, Bing index. */
   await sleep(600);

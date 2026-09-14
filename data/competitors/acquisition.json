@@ -1,5 +1,5 @@
 {
-  "at": "2026-09-14T04:28:00.579Z",
+  "at": "2026-09-14T04:53:02.011Z",
   "results": [
     {
       "key": "westpeak",
@@ -14,19 +14,19 @@
         "services": "https://www.westpeakwellness.com/services"
       },
       "ms": {
-        "home": 175,
-        "contact": 370,
-        "book": 326,
-        "fees": 380,
-        "team": 303,
-        "services": 312
+        "home": 525,
+        "contact": 269,
+        "book": 144,
+        "fees": 182,
+        "team": 36,
+        "services": 47
       },
       "homeStatus": 200,
       "obs": {
         "bookingSystem": "Cliniko",
         "bookOnlineWording": true,
         "freeConsult": true,
-        "consultMinutes": "15",
+        "consultMinutes": "30",
         "phone": true,
         "email": true,
         "feesShown": true,
@@ -92,7 +92,24 @@
           "Alberta"
         ],
         "wordsHome": 1466,
-        "homeBytes": 216995
+        "homeBytes": 216995,
+        "sessionLength": true,
+        "cancellationPolicy": true,
+        "paymentMethods": true,
+        "receiptsForClaims": true,
+        "waitTimeStated": true,
+        "hoursListed": false,
+        "faqPage": true,
+        "privacyPage": true,
+        "accessibilityPage": true,
+        "couples": true,
+        "youth": false,
+        "emdr": true,
+        "lgbtq": false,
+        "cultural": true,
+        "groups": false,
+        "multiDesignation": 2,
+        "videoIntro": false
       },
       "psychologyToday": {
         "status": 200,
@@ -103,7 +120,7 @@
       },
       "bing": {
         "status": 200,
-        "resultsText": "186,000",
+        "resultsText": "185,000",
         "mentions": 24
       }
     },
@@ -120,12 +137,12 @@
         "services": "https://clearheartcounselling.com/counselling-services/"
       },
       "ms": {
-        "home": 112,
-        "contact": 151,
-        "book": 246,
-        "fees": 90,
-        "team": 92,
-        "services": 229
+        "home": 93,
+        "contact": 125,
+        "book": 94,
+        "fees": 92,
+        "team": 90,
+        "services": 96
       },
       "homeStatus": 200,
       "obs": {
@@ -193,7 +210,24 @@
           "British Columbia"
         ],
         "wordsHome": 1917,
-        "homeBytes": 280485
+        "homeBytes": 280501,
+        "sessionLength": true,
+        "cancellationPolicy": true,
+        "paymentMethods": true,
+        "receiptsForClaims": false,
+        "waitTimeStated": false,
+        "hoursListed": true,
+        "faqPage": true,
+        "privacyPage": true,
+        "accessibilityPage": false,
+        "couples": true,
+        "youth": true,
+        "emdr": true,
+        "lgbtq": false,
+        "cultural": false,
+        "groups": false,
+        "multiDesignation": 0,
+        "videoIntro": false
       },
       "psychologyToday": {
         "status": 404,
@@ -202,7 +236,7 @@
       },
       "bing": {
         "status": 200,
-        "resultsText": "11,900",
+        "resultsText": "9,260",
         "mentions": 23
       }
     },
@@ -217,10 +251,10 @@
         "team": "https://www.thrivewellbc.com/meet-the-team"
       },
       "ms": {
-        "home": 671,
-        "contact": 153,
-        "fees": 93,
-        "team": 736
+        "home": 1496,
+        "contact": 165,
+        "fees": 88,
+        "team": 659
       },
       "homeStatus": 200,
       "obs": {
@@ -286,7 +320,24 @@
           "British Columbia"
         ],
         "wordsHome": 1694,
-        "homeBytes": 403669
+        "homeBytes": 403669,
+        "sessionLength": true,
+        "cancellationPolicy": true,
+        "paymentMethods": false,
+        "receiptsForClaims": true,
+        "waitTimeStated": false,
+        "hoursListed": false,
+        "faqPage": false,
+        "privacyPage": true,
+        "accessibilityPage": false,
+        "couples": true,
+        "youth": true,
+        "emdr": true,
+        "lgbtq": false,
+        "cultural": false,
+        "groups": false,
+        "multiDesignation": 3,
+        "videoIntro": false
       },
       "psychologyToday": {
         "status": 404,
@@ -295,7 +346,7 @@
       },
       "bing": {
         "status": 200,
-        "resultsText": "159,000",
+        "resultsText": "50",
         "mentions": 23
       }
     },
@@ -309,9 +360,9 @@
         "services": "https://tidaltrauma.com/what-is-trauma-therapy-surrey"
       },
       "ms": {
-        "home": 529,
-        "team": 613,
-        "services": 686
+        "home": 475,
+        "team": 609,
+        "services": 284
       },
       "homeStatus": 200,
       "obs": {
@@ -376,7 +427,24 @@
           "British Columbia"
         ],
         "wordsHome": 1446,
-        "homeBytes": 513431
+        "homeBytes": 513431,
+        "sessionLength": false,
+        "cancellationPolicy": false,
+        "paymentMethods": false,
+        "receiptsForClaims": false,
+        "waitTimeStated": false,
+        "hoursListed": true,
+        "faqPage": true,
+        "privacyPage": false,
+        "accessibilityPage": false,
+        "couples": true,
+        "youth": true,
+        "emdr": true,
+        "lgbtq": true,
+        "cultural": false,
+        "groups": false,
+        "multiDesignation": 4,
+        "videoIntro": false
       },
       "psychologyToday": {
         "status": 200,
@@ -387,8 +455,8 @@
       },
       "bing": {
         "status": 200,
-        "resultsText": "",
-        "mentions": 19
+        "resultsText": "101,000",
+        "mentions": 23
       }
     },
     {
@@ -402,10 +470,10 @@
         "services": "https://www.upstreamcounselling.com/services"
       },
       "ms": {
-        "home": 81,
-        "contact": 87,
-        "team": 62,
-        "services": 73
+        "home": 61,
+        "contact": 24,
+        "team": 28,
+        "services": 25
       },
       "homeStatus": 200,
       "obs": {
@@ -475,7 +543,24 @@
           "British Columbia"
         ],
         "wordsHome": 2632,
-        "homeBytes": 109881
+        "homeBytes": 109881,
+        "sessionLength": false,
+        "cancellationPolicy": false,
+        "paymentMethods": true,
+        "receiptsForClaims": false,
+        "waitTimeStated": false,
+        "hoursListed": true,
+        "faqPage": true,
+        "privacyPage": true,
+        "accessibilityPage": false,
+        "couples": true,
+        "youth": true,
+        "emdr": true,
+        "lgbtq": true,
+        "cultural": false,
+        "groups": false,
+        "multiDesignation": 0,
+        "videoIntro": true
       },
       "psychologyToday": {
         "status": 200,
@@ -486,7 +571,7 @@
       },
       "bing": {
         "status": 200,
-        "resultsText": "196,000",
+        "resultsText": "38,800",
         "mentions": 23
       }
     },
@@ -502,11 +587,11 @@
         "services": "https://wellbeingscounselling.ca/psychotherapy/services/"
       },
       "ms": {
-        "home": 117,
-        "book": 972,
+        "home": 79,
+        "book": 933,
         "fees": 844,
-        "team": 943,
-        "services": 912
+        "team": 1050,
+        "services": 854
       },
       "homeStatus": 200,
       "obs": {
@@ -577,7 +662,24 @@
           "Ontario"
         ],
         "wordsHome": 1802,
-        "homeBytes": 182466
+        "homeBytes": 182466,
+        "sessionLength": true,
+        "cancellationPolicy": true,
+        "paymentMethods": true,
+        "receiptsForClaims": true,
+        "waitTimeStated": false,
+        "hoursListed": false,
+        "faqPage": true,
+        "privacyPage": false,
+        "accessibilityPage": false,
+        "couples": true,
+        "youth": true,
+        "emdr": true,
+        "lgbtq": false,
+        "cultural": true,
+        "groups": false,
+        "multiDesignation": 4,
+        "videoIntro": false
       },
       "psychologyToday": {
         "status": 200,
@@ -589,8 +691,8 @@
       },
       "bing": {
         "status": 200,
-        "resultsText": "401",
-        "mentions": 23
+        "resultsText": "",
+        "mentions": 19
       }
     },
     {
@@ -605,11 +707,11 @@
         "team": "https://abbotsford.skylarkclinic.ca/about/"
       },
       "ms": {
-        "home": 1162,
-        "contact": 1088,
-        "book": 1049,
-        "fees": 1428,
-        "team": 875
+        "home": 434,
+        "contact": 1071,
+        "book": 886,
+        "fees": 513,
+        "team": 519
       },
       "homeStatus": 200,
       "obs": {
@@ -669,7 +771,24 @@
         "canadaWide": false,
         "provincesNamed": [],
         "wordsHome": 916,
-        "homeBytes": 117882
+        "homeBytes": 117882,
+        "sessionLength": true,
+        "cancellationPolicy": false,
+        "paymentMethods": false,
+        "receiptsForClaims": false,
+        "waitTimeStated": false,
+        "hoursListed": false,
+        "faqPage": true,
+        "privacyPage": true,
+        "accessibilityPage": false,
+        "couples": true,
+        "youth": true,
+        "emdr": true,
+        "lgbtq": false,
+        "cultural": false,
+        "groups": false,
+        "multiDesignation": 2,
+        "videoIntro": false
       },
       "psychologyToday": {
         "status": 404,
@@ -678,8 +797,8 @@
       },
       "bing": {
         "status": 200,
-        "resultsText": "3,870",
-        "mentions": 23
+        "resultsText": "",
+        "mentions": 19
       }
     },
     {
@@ -693,10 +812,10 @@
         "team": "https://www.wellnest.ca/about-us"
       },
       "ms": {
-        "home": 91,
-        "contact": 55,
-        "fees": 52,
-        "team": 80
+        "home": 81,
+        "contact": 28,
+        "fees": 25,
+        "team": 27
       },
       "homeStatus": 200,
       "obs": {
@@ -753,7 +872,24 @@
           "Ontario"
         ],
         "wordsHome": 855,
-        "homeBytes": 57439
+        "homeBytes": 57439,
+        "sessionLength": false,
+        "cancellationPolicy": false,
+        "paymentMethods": true,
+        "receiptsForClaims": false,
+        "waitTimeStated": false,
+        "hoursListed": true,
+        "faqPage": true,
+        "privacyPage": false,
+        "accessibilityPage": false,
+        "couples": true,
+        "youth": true,
+        "emdr": false,
+        "lgbtq": true,
+        "cultural": true,
+        "groups": true,
+        "multiDesignation": 0,
+        "videoIntro": false
       },
       "psychologyToday": {
         "status": 404,
@@ -762,8 +898,8 @@
       },
       "bing": {
         "status": 200,
-        "resultsText": "1",
-        "mentions": 19
+        "resultsText": "50",
+        "mentions": 23
       }
     },
     {
@@ -778,9 +914,9 @@
       },
       "ms": {
         "home": 355,
-        "contact": 131,
-        "fees": 148,
-        "team": 145
+        "contact": 129,
+        "fees": 128,
+        "team": 130
       },
       "homeStatus": 200,
       "obs": {
@@ -823,7 +959,7 @@
         "testimonials": true,
         "googleReviewsLink": false,
         "psychologyTodayLink": false,
-        "teamPhotos": 5,
+        "teamPhotos": 6,
         "teamSizeGuess": 5,
         "specialtiesCount": 312,
         "audiencePages": 12,
@@ -848,7 +984,24 @@
           "British Columbia"
         ],
         "wordsHome": 11491,
-        "homeBytes": 368377
+        "homeBytes": 419096,
+        "sessionLength": true,
+        "cancellationPolicy": false,
+        "paymentMethods": true,
+        "receiptsForClaims": false,
+        "waitTimeStated": false,
+        "hoursListed": true,
+        "faqPage": false,
+        "privacyPage": false,
+        "accessibilityPage": false,
+        "couples": true,
+        "youth": true,
+        "emdr": true,
+        "lgbtq": true,
+        "cultural": false,
+        "groups": true,
+        "multiDesignation": 2,
+        "videoIntro": true
       },
       "psychologyToday": {
         "status": 200,
@@ -860,7 +1013,7 @@
       },
       "bing": {
         "status": 200,
-        "resultsText": "57",
+        "resultsText": "76",
         "mentions": 23
       }
     },
@@ -876,11 +1029,11 @@
         "services": "https://sanacounselling.ca/services/anxiety-counselling-vancouver"
       },
       "ms": {
-        "home": 417,
-        "contact": 257,
-        "fees": 97,
-        "team": 375,
-        "services": 518
+        "home": 402,
+        "contact": 95,
+        "fees": 95,
+        "team": 95,
+        "services": 582
       },
       "homeStatus": 200,
       "obs": {
@@ -942,7 +1095,24 @@
           "British Columbia"
         ],
         "wordsHome": 1422,
-        "homeBytes": 190162
+        "homeBytes": 190162,
+        "sessionLength": true,
+        "cancellationPolicy": false,
+        "paymentMethods": true,
+        "receiptsForClaims": false,
+        "waitTimeStated": false,
+        "hoursListed": false,
+        "faqPage": true,
+        "privacyPage": false,
+        "accessibilityPage": false,
+        "couples": true,
+        "youth": true,
+        "emdr": true,
+        "lgbtq": false,
+        "cultural": false,
+        "groups": false,
+        "multiDesignation": 1,
+        "videoIntro": false
       },
       "psychologyToday": {
         "status": 200,
@@ -953,7 +1123,7 @@
       },
       "bing": {
         "status": 200,
-        "resultsText": "51",
+        "resultsText": "52",
         "mentions": 23
       }
     },
@@ -967,9 +1137,9 @@
         "team": "https://www.jashundal.com/hundal-counselling-centre-team/"
       },
       "ms": {
-        "home": 62,
-        "contact": 2121,
-        "team": 579
+        "home": 54,
+        "contact": 2057,
+        "team": 482
       },
       "homeStatus": 200,
       "obs": {
@@ -1028,7 +1198,24 @@
         "canadaWide": true,
         "provincesNamed": [],
         "wordsHome": 1210,
-        "homeBytes": 145943
+        "homeBytes": 145943,
+        "sessionLength": false,
+        "cancellationPolicy": false,
+        "paymentMethods": false,
+        "receiptsForClaims": false,
+        "waitTimeStated": false,
+        "hoursListed": false,
+        "faqPage": false,
+        "privacyPage": false,
+        "accessibilityPage": false,
+        "couples": true,
+        "youth": true,
+        "emdr": true,
+        "lgbtq": false,
+        "cultural": true,
+        "groups": true,
+        "multiDesignation": 4,
+        "videoIntro": true
       },
       "psychologyToday": {
         "status": 404,
@@ -1037,7 +1224,7 @@
       },
       "bing": {
         "status": 200,
-        "resultsText": "67",
+        "resultsText": "61,400",
         "mentions": 23
       }
     }
