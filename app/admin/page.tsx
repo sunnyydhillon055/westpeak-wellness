@@ -17,6 +17,7 @@ import { reactivationEmail } from '@/lib/lifecycle-mail';
 import { sendDetailed, mailConfigured } from '@/lib/portal-mail';
 import { healthProblems } from '@/lib/health';
 import { readCronHealth, cronProblems } from '@/lib/cron-health';
+import { consultationAvailabilityNow } from '@/lib/cliniko-availability';
 import { site } from '@/lib/site';
 import { revalidatePath } from 'next/cache';
 
@@ -102,6 +103,7 @@ export default async function AdminPage({
   /* Jobs that failed, or that have not reported in twice their expected
      interval — which looks identical to "fine" without the second check. */
   const cronTrouble = cronProblems(await readCronHealth());
+  const availability = await consultationAvailabilityNow();
   /* Whether the reply promise printed on every page is actually being kept.
      Stays quiet below five answered messages — see lib/reply-templates.ts. */
   const replyTime = replyTimeStats(inbox);
@@ -191,6 +193,22 @@ export default async function AdminPage({
               : 'The IndexNow submission failed; the reason is recorded under scheduled jobs.'}
           </p>
         )}
+        <div className="card" style={{ marginTop: 18 }}>
+          <h2 style={{ marginTop: 0, fontSize: '1.1rem' }}>Availability feed</h2>
+          <p style={{ margin: '0 0 8px', fontSize: '.92rem', color: 'var(--ink-soft)' }}>
+            What /book and /contact print, read from Cliniko just now (the public pages cache it for thirty minutes).
+          </p>
+          <ul style={{ margin: 0, paddingLeft: 18, fontSize: '.92rem' }}>
+            {Object.values(availability).map((a) => (
+              <li key={a.slug}>
+                <strong>{a.slug}</strong>:{' '}
+                {a.error ? `could not read (${a.error})` : `${a.count} consultation ${a.count === 1 ? 'time' : 'times'} in the next seven days${a.count ? `, ${a.days.join(' ')}, ${a.earliest} to ${a.latest}` : ''}`}
+              </li>
+            ))}
+            {!Object.keys(availability).length && <li>No counsellor is bookable online and accepting.</li>}
+          </ul>
+        </div>
+
         <form method="POST" action="/api/admin/indexnow" style={{ margin: '12px 0 0' }}>
           <button type="submit" className="btn btn--ghost">Submit the sitemap to IndexNow now</button>
           <span style={{ marginLeft: 12, fontSize: '.9rem', color: 'var(--ink-soft)' }}>

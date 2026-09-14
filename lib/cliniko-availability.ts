@@ -26,6 +26,8 @@ export type Availability = {
   latest: string;   // e.g. "7 pm"
   weekend: boolean;
   evening: boolean; // any slot starting 5 pm or later
+  /** Set when Cliniko could not be read; count is then 0 and the pages print nothing. */
+  error?: string;
 };
 
 const pacific = (iso: string) => {
@@ -37,21 +39,26 @@ const pacific = (iso: string) => {
 };
 const fmtHour = (h: number) => (h === 0 ? '12 am' : h < 12 ? `${h} am` : h === 12 ? '12 pm' : `${h - 12} pm`);
 
-async function fetchOne(slug: string, practitionerId: string): Promise<Availability | null> {
+const empty = (slug: string, error?: string): Availability => ({ slug, count: 0, days: [], earliest: '', latest: '', weekend: false, evening: false, ...(error ? { error } : {}) });
+
+async function fetchOne(slug: string, practitionerId: string): Promise<Availability> {
   const a = api();
-  if (!a) return null;
+  if (!a) return empty(slug, 'no Cliniko key');
   const from = new Date();
-  const to = new Date(from.getTime() + 7 * 86_400_000);
+  /* Seven days inclusive of today; Cliniko caps the window at a week. */
+  const to = new Date(from.getTime() + 6 * 86_400_000);
   const day = (d: Date) => d.toISOString().slice(0, 10);
   const url =
     `https://api.${a.shard}.cliniko.com/v1/businesses/${CLINIKO_BUSINESS}/practitioners/${practitionerId}` +
     `/appointment_types/${CONSULT_TYPE}/available_times?from=${day(from)}&to=${day(to)}`;
   try {
-    const res = await fetch(url, { headers: headers(a.key), cache: 'no-store' });
-    if (!res.ok) return null;
+    /* No cache option on the fetch: unstable_cache around this function owns
+       the freshness, and a no-store fetch inside it is refused by Next 14. */
+    const res = await fetch(url, { headers: headers(a.key) });
+    if (!res.ok) return empty(slug, `HTTP ${res.status} ${(await res.text()).slice(0, 120)}`);
     const body = (await res.json()) as { available_times?: { appointment_start: string }[] };
     const starts = (body.available_times ?? []).map((t) => t.appointment_start).filter(Boolean);
-    if (!starts.length) return { slug, count: 0, days: [], earliest: '', latest: '', weekend: false, evening: false };
+    if (!starts.length) return empty(slug);
     const seen = new Set<string>();
     let lo = 24, hi = -1, weekend = false, evening = false;
     for (const s of starts) {
@@ -63,28 +70,31 @@ async function fetchOne(slug: string, practitionerId: string): Promise<Availabil
     }
     const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].filter((d) => seen.has(d));
     return { slug, count: starts.length, days, earliest: fmtHour(lo), latest: fmtHour(hi), weekend, evening };
-  } catch {
-    return null;
+  } catch (e) {
+    return empty(slug, e instanceof Error ? e.message : 'request failed');
   }
 }
 
-/** Availability for every counsellor who is bookable online; null entries where Cliniko could not be read. */
+/** Availability for every counsellor who is bookable online, uncached; an `error` on an entry says why it is empty. */
+export async function consultationAvailabilityNow(): Promise<Record<string, Availability>> {
+  const out: Record<string, Availability> = {};
+  for (const p of practitioners) {
+    if (!p.bookable || !p.clinikoPractitionerId || !p.acceptingNewClients) continue;
+    out[p.slug] = await fetchOne(p.slug, p.clinikoPractitionerId);
+  }
+  return out;
+}
+
+/** The same, cached thirty minutes, for the public pages. */
 export const consultationAvailability = unstable_cache(
-  async (): Promise<Record<string, Availability | null>> => {
-    const out: Record<string, Availability | null> = {};
-    for (const p of practitioners) {
-      if (!p.bookable || !p.clinikoPractitionerId || !p.acceptingNewClients) continue;
-      out[p.slug] = await fetchOne(p.slug, p.clinikoPractitionerId);
-    }
-    return out;
-  },
+  consultationAvailabilityNow,
   ['consultation-availability'],
   { revalidate: 1800 },
 );
 
 /** One sentence for a counsellor, or null when nothing honest can be said. */
 export function availabilityLine(a: Availability | null | undefined, first: string): string | null {
-  if (!a) return null;
+  if (!a || a.error) return null;
   if (a.count === 0) return `${first} has no free-consultation times in the next seven days; the calendar shows the next ones.`;
   const days = a.days.length >= 5 ? `${a.days[0]} to ${a.days[a.days.length - 1]}` : a.days.join(', ');
   return `${a.count} free-consultation ${a.count === 1 ? 'time' : 'times'} open with ${first} in the next seven days: ${days}, ${a.earliest} to ${a.latest}${a.weekend ? ', including the weekend' : ''}.`;
@@ -92,7 +102,7 @@ export function availabilityLine(a: Availability | null | undefined, first: stri
 
 /** Practice-wide summary across everyone bookable, or null. */
 export function practiceHoursLine(all: Record<string, Availability | null>): string | null {
-  const as = Object.values(all).filter((a): a is Availability => Boolean(a) && a!.count > 0);
+  const as = Object.values(all).filter((a): a is Availability => Boolean(a) && !a!.error && a!.count > 0);
   if (!as.length) return null;
   const order = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   const days = order.filter((d) => as.some((a) => a.days.includes(d)));
