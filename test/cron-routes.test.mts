@@ -20,7 +20,8 @@ test('every scheduled route records its run through withCronHealth', () => {
     const src = readFileSync(file, 'utf8');
     const records = /withCronHealth\(/.test(src) || /submitSitemapToIndexNow/.test(src);
     assert.ok(records, `${file} never records a run`);
-    assert.ok(/noteCronRefusal\(/.test(src), `${file} does not record a refused scheduler call`);
+    const job = jobOf(c.path);
+    assert.ok(src.includes(`noteCronRefusal('${job}'`), `${file} must record a refused scheduler call under its own job name '${job}'`);
   }
 });
 
