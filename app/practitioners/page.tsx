@@ -187,6 +187,22 @@ export default function PractitionersPage() {
               </article>
             ))}
           </div>
+          {/* Psychology Today is where much of the province looks first; the
+              link is the same one each profile carries, for the counsellors
+              taking new clients. */}
+          {practitioners.some((p) => p.acceptingNewClients && p.sameAs?.some((u) => /psychologytoday\.com/.test(u))) && (
+            <p style={{ marginTop: 18, fontSize: '.92rem', color: 'var(--ink-soft)' }}>
+              Also listed on Psychology Today:{' '}
+              {practitioners
+                .filter((p) => p.acceptingNewClients && p.sameAs?.some((u) => /psychologytoday\.com/.test(u)))
+                .map((p, i, arr) => (
+                  <span key={p.slug}>
+                    <a href={p.sameAs!.find((u) => /psychologytoday\.com/.test(u))} target="_blank" rel="noopener">{p.name}</a>
+                    {i < arr.length - 1 ? (i === arr.length - 2 ? ' and ' : ', ') : '.'}
+                  </span>
+                ))}
+            </p>
+          )}
         </div>
       </section>
 
