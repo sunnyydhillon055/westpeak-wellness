@@ -468,7 +468,7 @@ const coreGuides: Guide[] = [
     figure2: "first-session-flow",
     figure: "gottman-method",
     title: "How the Gottman Method works in couples therapy",
-    metaTitle: "How the Gottman Method Works | Westpeak Wellness",
+    metaTitle: "How the Gottman Method Works, and Who Uses It in BC",
     metaDescription:
       "The research behind the Gottman Method, the Four Horsemen, what an assessment involves, and what couples actually do in session.",
     eyebrow: "Guide · Couples",
@@ -514,12 +514,24 @@ const coreGuides: Guide[] = [
           "Some concerns are better addressed individually first. If one partner is dealing with untreated trauma, depression, or an addiction, [individual therapy](/services/individual-therapy) running alongside or before couples work is often the more effective sequence.",
         ],
       },
+      {
+        /* Added 17 Sep 2026. Search Console: 71 impressions a quarter for
+           "gottman method marriage counselling british columbia" and its
+           variants, at positions 28-42, with this guide ranking ahead of the
+           page that can actually take a booking. The anchor text is the query,
+           deliberately. */
+        h2: 'Finding a Gottman-method counsellor in British Columbia',
+        body: [
+          'Gottman training runs in three levels, and a counsellor may have completed one, two or all three without being a Certified Gottman Therapist, which is a further and much longer process. Neither is a licence: the regulated credential in BC is the Registered Clinical Counsellor designation, and the Gottman training sits on top of it. It is entirely reasonable to ask a prospective counsellor which level they have completed and how much of their practice is couples work.',
+          'At this practice, [Gottman method couples counselling](/services/couples-therapy) is offered online across British Columbia, which removes the usual difficulty of finding two people the same free evening in the same city. The first 30-minute consultation is free and both partners are welcome on it.',
+        ],
+      },
     ],
     midCta: {
       text: "Not sure whether to start with couples sessions or individually? That is worth thirty minutes before committing either way.",
       label: "Book a free consultation",
     },
-    faqs: [
+faqs: [
       { q: "Does my partner have to want to come?", a: "For couples work, yes. It does not function with one willing participant. But individual therapy about a relationship is legitimate and useful in its own right, and sometimes changes the dynamic enough that the other person becomes willing." },
       { q: "Will the counsellor take sides?", a: "No. The method is explicitly structured to avoid it, which is part of why the assessment includes individual sessions with each partner. If you consistently feel ganged up on, say so. That is a problem with the work, not a normal feature of it." },
       { q: "How long does couples therapy take?", a: "Assessment alone typically takes two to four sessions. Beyond that it varies enormously with what you are working on. Couples with a specific stuck pattern often see change faster than couples repairing after a significant breach." },

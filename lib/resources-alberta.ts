@@ -32,9 +32,9 @@ export const albertaResources: Resource[] = [
   {
     slug: 'counselling-coverage-in-alberta',
     title: 'What counselling actually costs in Alberta',
-    metaTitle: 'Counselling coverage in Alberta | Westpeak Wellness',
+    metaTitle: 'Is Therapy Covered in Alberta? AHCIP and Your Plan',
     metaDescription:
-      'AHCIP does not cover private counselling. What extended health plans reimburse, which designation to ask about, and the free routes worth trying first.',
+      'No. Alberta Health Care does not pay for private counselling. What your extended health plan reimburses, which designation to ask about, and the free routes.',
     eyebrow: 'Alberta',
     lede:
       'Alberta Health does not pay for private counselling, which surprises people who assume a provincial health card covers mental health the way it covers a fracture. Here is what actually pays, and what to ask before booking anything.',

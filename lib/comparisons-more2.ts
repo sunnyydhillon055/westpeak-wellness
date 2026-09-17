@@ -180,9 +180,9 @@ export const moreComparisons2: Comparison[] = [
        three carrying no in-body image; it did not need a new one. */
     figure: 'accountability-chain',
     title: 'Mental-health apps and AI chatbots vs counselling',
-    metaTitle: 'Therapy Apps & AI vs Counselling | Westpeak Wellness',
+    metaTitle: 'Is an AI Therapy Chatbot as Good as Counselling?',
     metaDescription:
-      'What apps and AI chatbots genuinely do well, where they stop, and how to combine them with therapy, written by a practice that is not afraid of them.',
+      'For tracking a mood and practising a skill at 2am, they are good. For anything relational, they stop. Where the line is, from a practice that uses both.',
     eyebrow: 'Comparison · Getting support',
     lede:
       'Millions of people now type their 2 a.m. worries into an app or a chatbot before they would ever email a counsellor. That deserves a straight comparison, not a defensive one.',

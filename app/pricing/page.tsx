@@ -10,9 +10,12 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import { readCatalog, money, type CatalogItem } from '@/lib/cliniko-catalog';
 
 export const metadata: Metadata = {
-  title: 'Fees & Insurance',
+  /* Retitled 17 Sep 2026 from "Fees & Insurance", which matched none of the
+     cost queries in Search Console — every one of them is phrased as a
+     question about what it costs. */
+  title: 'How Much Does Counselling Cost in BC?',
   description:
-    'Counselling fees in line with BCACC guidelines. Reimbursable through most BC extended health plans that cover Registered Clinical Counsellors.',
+    'Every fee in full, in line with BCACC guidelines, with no surprises at the end. What extended health usually reimburses, and what the free consultation covers.',
   alternates: { canonical: `${site.domain}/pricing` },
 };
 

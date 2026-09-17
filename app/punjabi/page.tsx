@@ -14,7 +14,15 @@ import { punjabiGuides } from '@/lib/punjabi-guides';
 import { placesFor } from '@/lib/practitioner-places';
 import { PA_CITY, getPunjabiPlace } from '@/lib/practitioner-places-pa';
 
-const TITLE = 'ਪੰਜਾਬੀ ਵਿੱਚ ਕਾਊਂਸਲਿੰਗ | Punjabi counselling in BC';
+/* ENGLISH FIRST, 17 Sep 2026. This page held position 10.3 for 111
+   impressions in a quarter and took zero clicks. The queries behind it are
+   typed in English - "counselling meaning in punjabi", "counselling in
+   punjabi", "punjabi therapist near me" - and a result whose title opens in
+   Gurmukhi gives an English-language searcher nothing to recognise. The
+   Gurmukhi stays, because the page is genuinely in Punjabi and is shared
+   hand to hand in WhatsApp where it is the half that matters; it moves
+   second. */
+const TITLE = 'Punjabi Counselling in BC | ਪੰਜਾਬੀ ਵਿੱਚ ਕਾਊਂਸਲਿੰਗ';
 const DESC =
   'ਬ੍ਰਿਟਿਸ਼ ਕੋਲੰਬੀਆ ਵਿੱਚ ਪੰਜਾਬੀ ਬੋਲਣ ਵਾਲੇ Registered Clinical Counsellor ਨਾਲ ਆਨਲਾਈਨ ਕਾਊਂਸਲਿੰਗ। Online counselling in Punjabi anywhere in BC.';
 
@@ -328,7 +336,10 @@ export default function PunjabiPage() {
               <Link href="/punjabi-counselling/prince-george">ਪ੍ਰਿੰਸ ਜਾਰਜ</Link>
             </p>
             <p lang="en" style={{ fontSize: '.92rem', color: 'var(--ink-faint)', marginTop: 26 }}>
-              This page is written in Punjabi. The same information in English is on{' '}
+              This page is written in Punjabi. If you came looking for what the word
+              counselling actually means in Punjabi, that is answered in English on{' '}
+              <Link href="/resources/counselling-in-punjabi-what-the-words-mean">what counselling means in Punjabi</Link>.
+              The same information as this page, in English, is on{' '}
               <Link href="/services/punjabi-counselling">Punjabi-speaking counselling</Link>, and{' '}
               <Link href="/services/punjabi-counselling">counselling for South Asian adults</Link>{' '}
               covers the cultural side in more depth. There is a{' '}

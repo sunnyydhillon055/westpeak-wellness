@@ -32,9 +32,9 @@ const coreComparisons: Comparison[] = [
     figure2: "first-session-flow",
     figure: "designations-bc",
     title: "RCC, psychologist, or social worker: who should you see in BC?",
-    metaTitle: "RCC vs Psychologist vs Social Worker in BC | Westpeak",
+    metaTitle: "RCC vs Psychologist: What Is the Difference in BC?",
     metaDescription:
-      "Only one of the three can diagnose, and only one is covered by most extended-health plans without a referral. Training, fees, and which fits what.",
+      "A psychologist can diagnose and charges more; an RCC cannot diagnose and most plans cover both without a referral. Training, fees, and which fits what.",
     eyebrow: "Comparison · Choosing a therapist",
     lede:
       "Three different letters after three different names, all offering something that looks like therapy. Here is what actually separates them in British Columbia.",

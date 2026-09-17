@@ -125,9 +125,9 @@ export const moreResources2: Resource[] = [
   {
     slug: 'does-my-plan-cover-counselling-bc',
     title: 'Does Pacific Blue Cross, Sun Life, Manulife or Canada Life cover counselling?',
-    metaTitle: 'Does My Plan Cover Counselling in BC? | Westpeak Wellness',
+    metaTitle: 'Does Blue Cross or Sun Life Cover Counselling? BC',
     metaDescription:
-      'Pacific Blue Cross, Sun Life, Manulife or Canada Life: how to check in one call whether your plan covers a Registered Clinical Counsellor, and what to ask.',
+      'Usually yes, to an annual maximum your plan sets. How to check Pacific Blue Cross, Sun Life, Manulife or Canada Life in two minutes, and the words to use.',
     eyebrow: 'Resource · Coverage',
     lede:
       'The insurer\'s name is on the card. The answer is in the plan, and the plan was written by your employer.',

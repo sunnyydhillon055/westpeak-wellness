@@ -15,9 +15,9 @@ export const moreGuides7: Guide[] = [
     figure2: 'reimbursement-flow',
     figure: 'bc-support-routes',
     title: 'EI sickness benefits and therapy: how the 26 weeks work',
-    metaTitle: 'EI Sickness Benefits & Therapy in BC | Westpeak',
+    metaTitle: 'How Much Does Medical EI Pay in BC? 55% to $729',
     metaDescription:
-      'How EI sickness benefits work for a mental-health leave: eligibility, the medical certificate, what they pay, and where counselling fits in the 26 weeks.',
+      '55% of insurable earnings, to $729 a week in 2026, for up to 26 weeks. Who qualifies, the medical certificate, and how to apply without losing weeks.',
     eyebrow: 'Guide · Work & money',
     lede:
       'The employer sick days run out fast. What most people are actually living on during a longer mental-health leave is EI sickness benefits, and almost nobody understands them until they are already off.',
@@ -93,7 +93,7 @@ export const moreGuides7: Guide[] = [
     title: 'Getting a doctor’s note for a mental-health leave in BC',
     metaTitle: 'Doctor’s Note for Stress Leave in BC | Westpeak',
     metaDescription:
-      'How to ask a BC doctor for a mental-health leave note, what it should and should not say, what your employer may ask, and what to do without a family doctor.',
+      'What to say to your doctor to get a stress leave, what the note should and should not contain, what an employer may ask, and what to do with no family doctor.',
     eyebrow: 'Guide · Work & money',
     lede:
       'The whole leave usually hinges on one short appointment most people walk into unprepared, and walk out of having minimised everything they came to say.',
@@ -236,7 +236,7 @@ export const moreGuides7: Guide[] = [
     figure2: 'bc-support-routes',
     figure: 'accountability-chain',
     title: 'Sick days and mental-health days in BC: what you’re actually entitled to',
-    metaTitle: 'Sick Days & Mental Health Days in BC | Westpeak',
+    metaTitle: 'Can You Use Sick Days for Mental Health in BC?',
     metaDescription:
       'BC’s paid sick days cover mental health. How the 5 ESA days work, what proof an employer can ask for, and when a mental-health day is a signal, not a fix.',
     eyebrow: 'Guide · Work & money',

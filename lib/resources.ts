@@ -2,6 +2,7 @@ import { moreResources } from './resources-more';
 import { moreResources2 } from './resources-more2';
 
 import { albertaResources } from './resources-alberta';
+import { punjabiWordsResource } from './resources-punjabi-words';
 
 export type ResourceSection = {
   h2: string;
@@ -128,9 +129,9 @@ const coreResources: Resource[] = [
     figure2: "first-session-flow",
     figure: "therapy-cost-in-bc",
     title: "MSP vs extended health: what actually covers therapy in BC",
-    metaTitle: "Does MSP Cover Therapy in BC? | Westpeak Wellness",
+    metaTitle: "Does MSP Cover Therapy in BC? Is Therapy Free?",
     metaDescription:
-      "MSP does not pay for private counselling, but three public routes are free, and most extended-health plans reimburse an RCC. What each one covers.",
+      "No. MSP does not pay for private counselling. Three routes that are genuinely free, what extended health reimburses, and what a session costs if you pay.",
     eyebrow: "Resource · Coverage",
     lede:
       "British Columbians are used to health care being covered. Mental health is the place where that assumption breaks.",
@@ -376,6 +377,6 @@ const coreResources: Resource[] = [
    while the practice served only BC and stopped being right when a counsellor
    who can see Alberta clients joined. See lib/resources-alberta.ts for why
    these are resources rather than part of the gated /alberta section. */
-export const resources: Resource[] = [...coreResources, ...moreResources, ...moreResources2, ...albertaResources];
+export const resources: Resource[] = [...coreResources, ...moreResources, ...moreResources2, ...albertaResources, ...punjabiWordsResource];
 
 export const getResource = (slug: string) => resources.find((r) => r.slug === slug);

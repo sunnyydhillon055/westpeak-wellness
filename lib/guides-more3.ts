@@ -93,9 +93,9 @@ export const moreGuides3: Guide[] = [
   {
     slug: 'setting-boundaries-with-family',
     title: 'Setting boundaries with family without detonating anything',
-    metaTitle: 'Boundaries with Family | Westpeak Wellness',
+    metaTitle: 'What Are Family Boundaries, and How to Set One',
     metaDescription:
-      'Why boundary advice usually fails with families, what a boundary actually is, and how to set one when the other person will not agree to it.',
+      'A boundary is a rule about what you will do, not a rule for them. Why the usual advice fails with family, and how to hold one without their agreement.',
     eyebrow: 'Guide · Relationships',
     lede:
       'Most boundary advice assumes a reasonable counterpart and a relationship you can afford to lose. Families frequently offer neither.',
@@ -186,9 +186,9 @@ export const moreGuides3: Guide[] = [
   {
     slug: 'grief-without-a-timeline',
     title: 'Grief that does not follow the timeline',
-    metaTitle: 'Grief Without a Timeline | Westpeak Wellness',
+    metaTitle: 'How Long Before Bereavement Counselling? No Rule',
     metaDescription:
-      'Why the five stages are not a schedule, what disenfranchised grief is, and when grief is worth bringing to counselling rather than waiting out.',
+      'There is no waiting period before grief counselling, and no month it is too late. Why the five stages are not a schedule, and when to bring grief to someone.',
     eyebrow: 'Guide · Grief',
     lede:
       'The stages were never a sequence, and almost everyone has been told otherwise.',

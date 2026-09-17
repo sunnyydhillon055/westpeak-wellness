@@ -64,7 +64,12 @@ const num = (v) => Number(String(v ?? '').replace(/[%,]/g, '')) || 0;
 function loadExports(kind) {
   if (!existsSync(GSC)) return [];
   return readdirSync(GSC)
-    .filter((f) => f.includes(`-${kind}-`) && f.endsWith('.csv'))
+    /* `-pages.csv` AND `-pages-28d.csv`. The first version required the
+       trailing hyphen, so every export saved under the plain name — which is
+       what the GSC button produces — was invisible. Three exports sat in this
+       directory for a month while the script reported "one export only,
+       nothing to compare against yet" and nobody read it as a fault. */
+    .filter((f) => new RegExp(`-${kind}(-[^.]*)?\.csv$`).test(f))
     .sort()
     .map((f) => ({
       date: f.slice(0, 10),

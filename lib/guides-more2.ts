@@ -184,9 +184,9 @@ export const moreGuides2: Guide[] = [
   {
     slug: 'waiting-for-therapy-in-bc',
     title: 'What to do while you are waiting for therapy in BC',
-    metaTitle: 'Waiting for Therapy in BC | Westpeak Wellness',
+    metaTitle: 'How Long Is the Wait for Therapy in BC? | Westpeak',
     metaDescription:
-      'Public waitlists in BC run for months. The services with no wait at all, what genuinely helps in the interval, and how to keep your place while you use them.',
+      'Months for public counselling, days for private. Which services have no wait at all, what genuinely helps meanwhile, and how to keep your place on the list.',
     eyebrow: 'Guide · BC systems',
     lede:
       'Being told the wait is four to eight months is its own kind of blow. There is more available in the meantime than most people are told.',
