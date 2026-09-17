@@ -61,8 +61,17 @@ import { put, get, list } from '@vercel/blob';
  */
 
 const DIR = 'ops/cron/';
-/** The pre-17 Sep single file. Read as a fallback so history is not lost; never written. */
-const LEGACY_KEY = 'ops/cron-health.json';
+
+/* THE OLD SINGLE FILE IS NOT READ. It still sits at ops/cron-health.json,
+   frozen on 14 Sep with the last lines anything managed to write. Merging it
+   in as history was the first instinct and it was wrong: every line in it is
+   a job's last *recorded* run, not its last run, and the two stopped being the
+   same thing on 14 Sep. reply-watch ran this morning and that file says
+   Friday. Reporting a job as stopped on the strength of a record we know to be
+   stale is the exact fault this whole change is about, so the frozen copy is
+   left where it is and a job with no file yet is simply waiting for its first
+   report — which cronProblems already handles, with an expect: marker and
+   twice the interval before it says a word. */
 
 export type CronRun = {
   job: string;
@@ -115,15 +124,10 @@ async function readJson<T>(key: string): Promise<T | null> {
   }
 }
 
-/** Every job's last run. Per-job files win; the legacy single file fills gaps. */
+/** Every job's last run, one file each. See the note above about the old single file. */
 export async function readCronHealth(): Promise<CronHealth> {
   if (!process.env.BLOB_READ_WRITE_TOKEN) return {};
   const health: CronHealth = {};
-  try {
-    const legacy = await readJson<CronHealth>(LEGACY_KEY);
-    if (legacy) Object.assign(health, legacy);
-  } catch { /* history is a nicety; the current files are the record */ }
-
   try {
     const found = await list({ prefix: DIR, limit: 200 });
     const runs = await Promise.all(found.blobs.map((b) => readJson<CronRun>(b.pathname)));
