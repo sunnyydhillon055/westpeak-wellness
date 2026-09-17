@@ -1,5 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { cronProblems, storeFrozen, EXPECTED_EVERY_HOURS, type CronHealth } from '../lib/cron-health.ts';
 
 /* Eight scheduled jobs, several of whose failure is invisible by design: the
@@ -155,4 +157,27 @@ test('expectation markers do not make a frozen store look alive', () => {
     'expect:funnel-report': { job: 'expect:funnel-report', at: hoursAgo(0.1), ok: true, detail: 'registered' },
   };
   assert.ok(storeFrozen(h, NOW), 'a fresh marker must not clear the verdict');
+});
+
+/* THE MONITORS DO NOT SEND MAIL — 17 Sep 2026, owner's instruction.
+ *
+ * Both of them used to, and every alert either one ever sent was wrong: the
+ * watchdog reported three jobs as stopped while they were running, and the
+ * reply-time watch reported thirty-three people waiting when the human count
+ * was three. The owner asked for it to stop, so the verdicts are rendered in
+ * /admin instead.
+ *
+ * A file-level check rather than a behavioural one on purpose. The way this
+ * comes back is somebody adding "just one" notification to a monitor, and the
+ * import is the moment that happens. The monthly reports still email — they
+ * are reports somebody asked for, not alarms. */
+test('neither monitor can send mail', () => {
+  const root = join(import.meta.dirname, '..');
+  for (const f of ['lib/cron-health.ts', 'lib/reply-watch.ts', 'app/api/cron/reply-watch/route.ts']) {
+    const src = readFileSync(join(root, f), 'utf8');
+    assert.ok(
+      !/from '(@\/lib\/portal-mail|\.\/portal-mail)'/.test(src),
+      `${f} imports the mailer. These two monitors report to /admin and send nothing — see the note above.`
+    );
+  }
 });
