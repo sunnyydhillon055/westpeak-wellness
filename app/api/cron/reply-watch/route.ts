@@ -6,8 +6,11 @@ import { withCronHealth } from '@/lib/cron-health';
 /* Checks that the reply promise is being kept. See lib/reply-watch.ts.
  *
  * Every page on the site now says "a reply within one business day". This is
- * the only thing that verifies it. It emails the practice, never the person who
- * wrote in — protecting a reply time must not turn into chasing a stranger.
+ * the only thing that verifies it. It sends nothing to anyone — not to the
+ * practice, which asked for the mail to stop on 17 Sep 2026 after weeks of it
+ * being wrong, and never to the person who wrote in, because protecting a
+ * reply time must not turn into chasing a stranger. The count is rendered in
+ * /admin beside each message.
  *
  * Weekday mornings. Running at the weekend would only report messages that are
  * not yet late, since the promise is in business days.
@@ -52,9 +55,11 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ ...result, dry }, { status: 200 });
   }
 
+  /* alerted is always false now and the log no longer pretends otherwise:
+     nothing is sent from here, the verdict is read in /admin. */
   console.log(
     `[reply-watch]${dry ? ' DRY' : ''} ${result.checked} awaiting reply · ` +
-    `${result.overdue.length} past one business day · alerted=${result.alerted}`
+    `${result.overdue.length} past one business day · reported in /admin, no mail sent`
   );
   return NextResponse.json(result);
 }
