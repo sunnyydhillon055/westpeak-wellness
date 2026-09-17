@@ -133,7 +133,7 @@ export const moreResources2: Resource[] = [
       'The insurer\'s name is on the card. The answer is in the plan, and the plan was written by your employer.',
     shortAnswer:
       'Whether your plan covers counselling depends on the plan your employer bought, not on the insurer that administers it. Pacific Blue Cross, Sun Life, Manulife and Canada Life all administer plans that reimburse a Registered Clinical Counsellor and plans that do not. The way to find out is one question to the insurer or one search of the plan booklet: is a Registered Clinical Counsellor (or, in Alberta, a Canadian Certified Counsellor) listed as an eligible paramedical practitioner, and what is the annual maximum. This page gives the wording for each insurer.',
-    updated: '2026-09-06',
+    updated: '2026-09-17',
     readMinutes: 8,
     figure: 'reimbursement-flow',
     sections: [
@@ -200,6 +200,8 @@ export const moreResources2: Resource[] = [
       label: 'Book a free consultation',
     },
     faqs: [
+      /* Search Console, 17 Sep 2026: 'does blue cross cover counselling' held position 1 and 'does blue cross cover therapy' position 29, with no answer in those words. */
+      { q: 'Does Blue Cross cover counselling in BC?', a: 'Most Pacific Blue Cross extended health plans reimburse counselling with a Registered Clinical Counsellor, up to an annual maximum the employer chose, commonly between $500 and $1,500. It is the plan, not Blue Cross, that sets the amount and the eligible designations, so the two-minute check is to log in to the member site, open the benefit booklet and search for "counsellor". The practice gives you a receipt with the counsellor\'s registration number and you claim it.' },
       { q: 'Does Pacific Blue Cross cover a Registered Clinical Counsellor?', a: 'Many Pacific Blue Cross plans do and some do not; it depends on the plan your employer chose. Check the practitioner list in the member portal or the booklet for "Registered Clinical Counsellor", and note the annual maximum.' },
       { q: 'Does Sun Life cover counselling in BC?', a: 'It depends on the plan. Search your coverage for "clinical counsellor"; if only psychologists appear, ask whether a combined mental-health benefit applies to an RCC.' },
       { q: 'Does Manulife cover counselling with an RCC?', a: 'On many plans, under a combined psychologist, social worker or counsellor benefit. Where the wording is unclear, the plan administrator at your employer can confirm whether an RCC qualifies.' },

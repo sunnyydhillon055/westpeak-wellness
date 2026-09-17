@@ -137,7 +137,7 @@ const coreResources: Resource[] = [
       "British Columbians are used to health care being covered. Mental health is the place where that assumption breaks.",
     shortAnswer:
       "MSP covers medically necessary physician services, including your GP and, on referral, a psychiatrist. It does not cover private counselling with a counsellor, psychologist, or social worker. Free publicly funded mental-health care does exist through health authorities and community programs; private therapy is paid for out of pocket or through an extended health plan.",
-    updated: "2026-08-09",
+    updated: '2026-09-17',
     readMinutes: 5,
     sections: [
       {
@@ -189,6 +189,8 @@ const coreResources: Resource[] = [
       label: "Book a free consultation",
     },
     faqs: [
+      /* Search Console, 17 Sep 2026: 'is therapy free in bc', thirteen impressions at position 24, plus 'is it covered by msp' and 'does msp cover counselling'. */
+      { q: 'Is therapy free in BC?', a: 'Some of it. MSP pays for a family doctor and, on referral, a psychiatrist. Counselling is free through a handful of public and community routes, all with waits and session limits: a few sessions through a community mental health team, employer assistance programs, and services such as Foundry for young people. Private counselling with a Registered Clinical Counsellor is not free, and most extended health plans reimburse it; the [fees page](/pricing) has every number.' },
       { q: "Can my GP refer me to a counsellor and have MSP pay?", a: "No. A GP referral does not convert private counselling into an MSP-covered service. A GP can, however, refer you into free health authority programs and to a psychiatrist, both of which are covered." },
       { q: "Does PharmaCare cover therapy?", a: "No, PharmaCare covers eligible prescription medication, not counselling services." },
       { q: "Is anything covered if I am on income assistance?", a: "Health authority mental-health services are free regardless of income, and some communities have additional no-cost counselling programs. Community and immigrant-serving agencies also run free counselling in many areas." },

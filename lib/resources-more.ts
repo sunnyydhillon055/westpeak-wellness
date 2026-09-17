@@ -319,7 +319,7 @@ export const moreResources: Resource[] = [
       'Counselling cannot diagnose, cannot prescribe, and cannot assess. Here is what to do when one of those is what you actually need.',
     shortAnswer:
       'Psychiatry in BC is covered by MSP and requires a referral from a physician or nurse practitioner; waits are often long. Formal psychological assessment: ADHD, autism, psychoeducational, cognitive: requires a registered psychologist, is largely not covered by MSP in private practice, and can be expensive. Without a family doctor, walk-in clinics, the Health Connect Registry and virtual care are the practical routes to a referral.',
-    updated: '2026-09-06',
+    updated: '2026-09-17',
     readMinutes: 7,
     sections: [
       {
@@ -372,6 +372,9 @@ export const moreResources: Resource[] = [
       label: 'a free 30-minute consultation will tell you honestly',
     },
     faqs: [
+      /* Search Console, 17 Sep 2026: 'can a counselor refer you to a psychiatrist' at position 7, 'how to see a psychiatrist in bc', 'psychiatrist referral', 'private psychiatrist bc'. */
+      { q: 'Can a counsellor refer me to a psychiatrist?', a: 'Not directly. In BC a psychiatry referral comes from a physician or nurse practitioner, and MSP covers the consultation on that basis. What a counsellor can do is write to your doctor describing what they are seeing and why a psychiatric opinion would help, which makes the referral easier to get and more likely to be triaged well. If you have no family doctor, an urgent and primary care centre can refer.' },
+      { q: 'How do I see a psychiatrist in BC?', a: 'Through a referral from a physician or nurse practitioner, which MSP covers; there is no self-referral and, with rare exceptions, no private psychiatry to pay for. Waits are commonly months. While waiting, a family doctor can start treatment, a psychiatric consultation service for primary care can advise your doctor quickly, and counselling can begin at once, since it does not need the referral.' },
       { q: 'Psychiatrist vs psychologist: what is the difference?', a: 'A psychiatrist is a medical doctor who specialises in mental illness, can prescribe medication, and is covered by MSP on referral from a physician or nurse practitioner. A registered psychologist holds a doctorate in psychology, can diagnose and conduct formal assessments, cannot prescribe, and in private practice is paid out of pocket or through extended health. Neither is the usual first step for talk therapy; that is a counsellor or psychologist, and the psychiatrist enters when medication or a complex diagnosis is in question.' },
       { q: 'What is a psychiatric consultation service for primary care?', a: 'In BC, family doctors and nurse practitioners can consult a psychiatrist about a patient without the patient being referred, through services such as the Rapid Access to Consultative Expertise (RACE) line. For you it means your own doctor may be able to get specialist advice on diagnosis or medication within days, when a full psychiatry referral could take months. Ask your doctor whether a consultation, rather than a referral, would answer the question.' },
       { q: 'Can I refer myself to a psychiatrist in BC?', a: 'No. A referral from a physician or nurse practitioner is required. Some urgent-response services can be accessed more directly in a crisis.' },
@@ -492,7 +495,7 @@ export const moreResources: Resource[] = [
     figure2: 'bc-support-routes',
     figure: 'bc-support-routes',
     title: 'WorkSafeBC psychological-injury claims, explained',
-    metaTitle: 'WorkSafeBC Mental-Health Claims | Westpeak',
+    metaTitle: 'WCB Stress Leave in BC: WorkSafeBC Mental Health Claims',
     metaDescription:
       'When work-related mental injury is compensable in BC, what the claim requires, the exclusion everyone trips over, and where counselling fits alongside it.',
     eyebrow: 'Resource · Work & money',
@@ -500,7 +503,7 @@ export const moreResources: Resource[] = [
       'A stress leave says "I am unwell and need time." A WorkSafeBC claim says something stronger: "work injured me." Different systems, different tests, and mixing them up costs people months.',
     shortAnswer:
       'WorkSafeBC compensates psychological injury in two situations: a reaction to one or more traumatic events at work, or a mental disorder predominantly caused by significant work-related stressors, which includes bullying and harassment. Two hard edges define the system: the condition must be diagnosed by a psychologist or psychiatrist (not self-described burnout), and injuries caused by ordinary employer decisions: workload changes, discipline, termination, are excluded by statute. A claim is not a lawsuit and costs nothing to file; it is also not the right tool for every bad workplace, and this page is honest about which is which.',
-    updated: '2026-08-30',
+    updated: '2026-09-17',
     readMinutes: 7,
     sections: [
       {
@@ -535,6 +538,8 @@ export const moreResources: Resource[] = [
       label: 'Book a free consultation',
     },
     faqs: [
+      /* Search Console, 17 Sep 2026: wcb stress leave bc (36 impressions), worksafebc stress leave, wcb stress leave; the page never used the initials. */
+      { q: 'Can I get stress leave through WCB in BC?', a: 'Only where the work caused the injury. WorkSafeBC, which most people still call WCB, accepts a mental disorder claim when it arises from a traumatic event at work or from a significant work-related stressor such as bullying and harassment, and pays wage loss on an accepted claim. Ordinary overload is usually not accepted. A stress leave that is not work-caused goes through a doctor, sick days and EI or a disability plan instead, and the [stress leave guide](/guides/stress-leave-bc) covers that route.' },
       { q: 'Can I claim WorkSafeBC for stress or burnout?', a: 'Not for ordinary job stress or burnout as such. Compensable psychological injury requires either work-related traumatic events or significant work-related stressors, including bullying and harassment, plus a psychologist’s or psychiatrist’s diagnosis of a recognised disorder. Ordinary workload pressure and employer decisions like discipline or termination are excluded by statute.' },
       { q: 'Does bullying at work qualify?', a: 'It can, bullying and harassment are named examples of significant work-related stressors. The claim still needs the formal diagnosis and evidence that the conduct was beyond ordinary employment pressures, which is where documentation (dates, messages, witnesses) becomes decisive. There is also a separate WorkSafeBC prevention route aimed at stopping the conduct itself.' },
       { q: 'Do I need a lawyer to file?', a: 'No, filing is free and the system is designed to be used without one. For advice, the Workers’ Advisers Office is a free government service for exactly these questions, including whether your situation clears the "significant stressor" bar and how to handle a denial.' },
@@ -560,7 +565,7 @@ export const moreResources: Resource[] = [
     figure2: 'reimbursement-flow',
     figure: 'reimbursement-flow',
     title: 'Short-term disability, long-term disability, and counselling in BC',
-    metaTitle: 'Disability Benefits & Counselling in BC | Westpeak',
+    metaTitle: 'Short and Long-Term Disability for Mental Health in BC',
     metaDescription:
       'How STD and LTD work for mental-health claims in BC: timelines, the treatment expectation, the own-occupation switch, and where counselling fits.',
     eyebrow: 'Resource · Work & money',
@@ -568,7 +573,7 @@ export const moreResources: Resource[] = [
       'Mental-health conditions are among the most common reasons for disability claims in Canada, and the system that pays them is the one working people understand least, because nobody reads the booklet until they need it.',
     shortAnswer:
       'Short-term disability is an employer or insurer plan that replaces part of your income for the early months of a medical absence; long-term disability takes over when STD ends, typically replacing a percentage of salary while you remain unable to work. Three things decide mental-health claims more than anything else: whether you are under regular, appropriate care, which usually includes counselling or psychiatric treatment; the definition switch, where "unable to do your own job" becomes "unable to do any job" (commonly around the two-year mark); and paperwork discipline. None of this is uniform: the plan wording, not this page, is the contract.',
-    updated: '2026-08-30',
+    updated: '2026-09-17',
     readMinutes: 7,
     sections: [
       {
@@ -602,6 +607,9 @@ export const moreResources: Resource[] = [
       label: 'Book a free consultation',
     },
     faqs: [
+      /* Search Console, 17 Sep 2026: short term disability british columbia (20), long term disability bc (43), short term disability stress leave, mental health long term disability. */
+      { q: 'How much does short-term disability pay in BC?', a: 'Whatever your plan says, and nothing is set by the province. Most employer short-term disability plans replace a percentage of salary, commonly somewhere between half and two-thirds, for a defined period, often 15 to 26 weeks, before long-term disability is assessed. The plan booklet states the figure; if there is no plan, EI sickness benefits are the fallback at 55% of insurable earnings to a weekly maximum.' },
+      { q: 'Is short-term disability available for stress leave in BC?', a: 'Yes, if you have a plan and a physician certifies that you cannot work. Insurers treat mental-health conditions the same way as physical ones in principle, and in practice ask for more: a diagnosis from the certifying doctor, evidence of treatment, and often a treatment plan. Counselling with a Registered Clinical Counsellor is usually accepted as treatment for that purpose.' },
       { q: 'Can I get disability benefits for depression or anxiety in BC?', a: 'Yes, mental-health conditions are among the most common bases for STD and LTD claims in Canada. What the claims turn on is a diagnosed condition, documented functional limitations, and being under regular appropriate care, which usually includes counselling or psychiatric treatment.' },
       { q: 'Do I have to be in therapy to keep LTD benefits?', a: 'Policies require appropriate treatment for the condition, and for psychological claims insurers generally expect ongoing care, commonly a physician plus counselling or psychiatry. Refusing all treatment is a standard reason for termination of benefits. The wording of your policy governs; "appropriate" is judged against your condition’s severity.' },
       { q: 'What is the two-year change in my LTD?', a: 'The own-occupation to any-occupation switch: many policies pay first because you cannot do your own job, and later only if you cannot do any job you are reasonably suited to by education and experience. Claims are commonly reassessed and sometimes terminated at that point, diarise the date and tighten the functional evidence before it.' },

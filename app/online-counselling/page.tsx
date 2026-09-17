@@ -91,6 +91,21 @@ export default function LocationsIndex() {
             the evidence behind them in the guide to{' '}
             <Link href="/guides/is-online-therapy-as-effective-as-in-person">whether online therapy is as effective as in-person</Link>.
           </p>
+          {/* Search Console, 17 Sep 2026: the province searches for this in words
+              the page did not use. "Virtual counselling" and "virtual therapy"
+              outnumber "online" for Vancouver; "counsellor near me" arrives
+              from people who have not yet realised that near means nothing to a
+              video call; and the Tri-Cities, the Okanagan and Vancouver Island
+              searched for a page that named them. */}
+          <p>
+            People search for this as online counselling, virtual counselling, virtual therapy,
+            telehealth and, most often of all, &ldquo;counsellor near me&rdquo;. They are all the same thing
+            here. The nearest counsellor is on your own screen, whether that is in Port Moody or
+            Port Coquitlam, in Peachland or anywhere else in the Okanagan, in Nanaimo or up-Island
+            from Victoria, or in a town too small to have a counselling office at all. The cities
+            below have their own pages because people there asked particular questions; the rest of
+            the province is served exactly the same way.
+          </p>
 
           <h2>Why only six cities have their own page</h2>
           <p>

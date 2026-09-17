@@ -86,6 +86,9 @@ export const moreGuides6: Guide[] = [
       label: 'Book a free consultation',
     },
     faqs: [
+      /* Search Console, 17 Sep 2026: 'mental health leave' phrasing (mental health leave bc, leave for mental health, mental health work leave and a dozen variants, positions 7 to 31) and 'how long can you go on stress leave'. */
+      { q: 'How do I take a mental health leave from work in BC?', a: 'The same way as a stress leave, because they are the same thing: there is no separate "mental health leave" in BC law, only a medical leave certified by a physician or nurse practitioner. See a doctor, describe what is happening to your ability to work, get a certificate saying you are unable to work and for roughly how long, and give it to your employer. Income comes from paid sick days first, then a short-term disability plan or EI sickness benefits.' },
+      { q: 'How long can you be on stress leave in BC?', a: 'As long as a physician certifies you are unable to work, reviewed in blocks. Initial certificates commonly run two to six weeks and are extended on review. EI sickness benefits pay for up to 26 weeks; a short-term disability plan typically covers 15 to 26 weeks before long-term disability is assessed; and job protection for a longer absence rests on the duty to accommodate under the Human Rights Code rather than on a fixed number of weeks.' },
       /* Added 17 Sep 2026 from Search Console: "what to say to doctor to get
          stress leave" sits at position 49 and "wcb stress leave bc" at 35, both
          asked of this cluster and neither answered in the searcher's words. */
@@ -124,7 +127,7 @@ export const moreGuides6: Guide[] = [
   {
     slug: 'adhd-in-adults-and-what-counselling-can-do',
     title: 'Adult ADHD: assessment, and what counselling can and cannot do',
-    metaTitle: 'Adult ADHD in BC | Westpeak Wellness',
+    metaTitle: 'Adult ADHD in BC: Assessment, Diagnosis, Counselling',
     metaDescription:
       'How assessment works in BC, what it costs, and the honest boundary between what a counsellor can help with and what needs a psychologist or physician.',
     eyebrow: 'Guide · Assessment and support',
@@ -132,7 +135,7 @@ export const moreGuides6: Guide[] = [
       'A great many adults arrive at this question late, after a decade of assuming the problem was effort.',
     shortAnswer:
       'A counsellor cannot diagnose ADHD, assessment requires a registered psychologist, or a physician or psychiatrist depending on the route and the purpose. What counselling can do is work on what has accumulated around it: the self-criticism, the systems that keep collapsing, the shame, and the relationships strained by years of being misread as careless.',
-    updated: '2026-09-02',
+    updated: '2026-09-17',
     readMinutes: 7,
     figure: 'anxiety-avoidance-cycle',
     figure2: "bc-support-routes",
@@ -181,6 +184,8 @@ export const moreGuides6: Guide[] = [
       label: 'a free 30-minute consultation is a place to start',
     },
     faqs: [
+      /* Search Console, 17 Sep 2026: adhd assessment bc adults, adhd diagnosis bc, how to get diagnosed with adhd in bc, adhd testing bc, adult adhd assessment: fifteen impressions, positions 45 to 59. */
+      { q: 'How do I get an adult ADHD assessment in BC?', a: 'Three routes. Your family doctor or nurse practitioner can assess and treat ADHD directly, and increasingly do; they can refer to a psychiatrist, which is covered by MSP and has a wait of months; or you can pay privately for a psychologist\'s assessment, which is faster and is not covered by MSP, though some extended health plans reimburse part of it. Without a family doctor, an urgent and primary care centre or a virtual physician service can start the first route.' },
       { q: 'Can a counsellor diagnose ADHD?', a: 'No. Formal assessment requires a registered psychologist, and diagnosis may also come from a physician or psychiatrist depending on the route. A Registered Clinical Counsellor does not diagnose anything.' },
       { q: 'Do I need a diagnosis to get help?', a: 'Not for counselling, which requires neither a diagnosis nor a referral. You do need one for academic or workplace accommodation and for medication.' },
       { q: 'Is assessment covered in BC?', a: 'Psychological assessment in private practice is largely not covered by MSP and can cost thousands. Lower-cost routes exist, university training clinics, school district assessments and some health-authority programmes, with longer waits.' },

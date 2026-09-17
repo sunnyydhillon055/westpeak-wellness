@@ -102,6 +102,8 @@ export const pairs: Pair[] = [
       'That combination is a specific thing rather than a general claim about cultural fit. EMDR involves identifying the memory and the belief attached to it, and beliefs about shame, duty and reputation frequently sit in a first language. Working in the language the belief was formed in is not a nicety in this modality. It is closer to a working requirement.',
     ],
     faqs: [
+      /* Search Console, 17 Sep 2026: EMDR therapy Guildford, twelve impressions at position 50, and the neighbourhood was not named. */
+      { q: 'Does this cover Guildford, Newton and Fleetwood?', a: 'All of Surrey, by video: Guildford, Newton, Fleetwood, Whalley, Cloverdale and South Surrey, along with North Delta and White Rock. Somebody in Guildford searching for EMDR is usually looking for something within the neighbourhood so they are not on King George at rush hour; a session from home removes the question.' },
       { q: 'Can EMDR be done in Punjabi?', a: 'Yes. The protocol is the same; what changes is that the belief attached to a memory can be named in the language it belongs to rather than approximated in translation.' },
       { q: 'How many sessions does EMDR take?', a: 'It varies too widely for an honest average. Some focused pieces of work are short; anything involving repeated or early experience generally is not. It is reviewed as you go rather than committed to in advance.' },
     ],
@@ -141,6 +143,8 @@ export const pairs: Pair[] = [
       'There is also a rhythm point. Couples work benefits from sessions close enough together to keep momentum; a fortnightly cadence chosen because weekly was logistically impossible changes what the work can do. Removing the drive makes the interval a genuine choice rather than a consequence of geography.',
     ],
     faqs: [
+      /* Search Console, 17 Sep 2026: 70 impressions a quarter for marriage counselling Abbotsford, and the word appeared nowhere on this page. */
+      { q: 'Is this the same as marriage counselling?', a: 'Yes. "Marriage counselling" is what most people in Abbotsford type, "couples therapy" is what the profession calls it, and the work is the same: married, common-law, engaged or neither. The only difference the word makes is that a couple searching for marriage counselling is often further along, sometimes at the point where one of them has said the word divorce, and that is worth saying at the first call so the pace is right.' },
       { q: 'Do you do premarital or pre-commitment work?', a: 'Yes, and it is generally more straightforward than work begun in a crisis, largely because nobody arrives already keeping score.' },
       { q: 'Can we book a longer first session?', a: 'A 110-minute extended session is available at $340 where there is a lot to lay out. Most couples start with the standard 50 minutes and decide from there.' },
     ],
@@ -167,6 +171,8 @@ export const pairs: Pair[] = [
       'Video removes the geography and leaves the scheduling, which is a much easier problem. It also permits a session where one of you joins from a car park at the end of a shift, which is not ideal and is considerably better than the alternative of not going.',
     ],
     faqs: [
+      /* Search Console, 17 Sep 2026: couples therapy Langley and marriage counselling Langley, 17 impressions. */
+      { q: 'Is this marriage counselling?', a: 'Yes, if that is the word you use. Langley couples search for marriage counselling and couples therapy in about equal numbers and arrive at the same room. The approach is the Gottman Method, which was built on research with married and long-term couples and applies to both.' },
       { q: 'Is it too late for counselling if we are already talking about separating?', a: 'No. Some couples work is about deciding rather than repairing, and doing that deliberately, particularly where children are involved, is a legitimate use of the sessions.' },
       { q: 'Do you take sides?', a: 'No. Where something needs saying plainly it gets said plainly, which is a different thing from adjudicating between you.' },
     ],
@@ -245,6 +251,8 @@ export const pairs: Pair[] = [
       'Those pressures get misread as commitment problems when they are structural. A counsellor who asks about the shape of your year rather than assuming a uniform one is asking a more useful question, and it is a question the answer to which is specific to living here.',
     ],
     faqs: [
+      /* Search Console, 17 Sep 2026: sixty impressions across marriage counselling Kelowna and its variants, position 55 to 62. */
+      { q: 'Do you offer marriage counselling in Kelowna, or only couples therapy?', a: 'They are the same service under two names. The Kelowna searches split almost evenly between the two, and the practice uses "couples" only because it includes people who are not married and does not want them to feel excluded. If you are married and looking for marriage counselling, this is it, by video, which in the Okanagan usually means neither of you drives across the bridge at five o\'clock.' },
       { q: 'Can we schedule around a seasonal work pattern?', a: 'Yes, including pausing and resuming. A course of couples work that runs intensively in one season and lightly in another is a legitimate structure rather than a failure to commit.' },
       { q: 'Do you work with couples where one partner is away a lot?', a: 'Regularly. Video makes it workable in a way an in-person practice cannot, since a partner can join from wherever they are that week.' },
     ],
@@ -258,6 +266,8 @@ export const pairs: Pair[] = [
       'Remote delivery flattens that. From Peachland or Lake Country the access is identical to downtown Kelowna, and the pool is the whole province rather than whoever happens to practise within reach.',
     ],
     faqs: [
+      /* Search Console, 17 Sep 2026: EMDR Peachland, Penticton and greater Okanagan, eleven impressions at positions 7 to 28, with none of those names on the page. */
+      { q: 'Are Peachland, West Kelowna and Penticton covered?', a: 'Yes. EMDR by video is the same session from Peachland, Summerland, Penticton, West Kelowna, Lake Country or Vernon as it is from Kelowna itself, and for the smaller Okanagan towns it is often the only EMDR-trained option that does not involve the Coquihalla or the connector. Searches for an EMDR specialist in Peachland arrive here for that reason.' },
       { q: 'What does bilateral stimulation involve on video?', a: 'Usually following a moving point on screen, or self-administered tapping. Both are established remote protocols and are explained and practised before any processing begins.' },
       { q: 'Is EMDR uncomfortable?', a: 'It can be demanding, which is why pacing and preparation come first and why sessions end with time to settle rather than stopping abruptly.' },
     ],
@@ -271,6 +281,8 @@ export const pairs: Pair[] = [
       'Counselling that fits that pattern has to be able to run when one partner is away, which in-person work fundamentally cannot. Video sessions with a partner joining from camp are not a workaround; for a rotational couple they are the only arrangement that keeps the work continuous.',
     ],
     faqs: [
+      /* Search Console, 17 Sep 2026: relationship counselling Kamloops and couples counselling Kamloops, 22 impressions, position 47 to 55. */
+      { q: 'Is relationship counselling in Kamloops different from couples counselling?', a: 'No. Relationship counselling, couples counselling and marriage counselling describe the same work. The reason it matters in Kamloops is that the local options under any of those names are few, and a couple who has searched all three and found the same two clinics full should know that online sessions with a counsellor elsewhere in BC are a normal route, not a fallback.' },
       { q: 'Can my partner join from a work camp?', a: 'Yes, if they have a connection and somewhere private. Sessions with partners in two locations are ordinary here rather than exceptional.' },
       { q: 'What if our schedules only overlap occasionally?', a: 'Then the cadence is built around that. Fortnightly or seasonal blocks are a legitimate structure where the alternative is nothing.' },
     ],
@@ -297,6 +309,8 @@ export const pairs: Pair[] = [
       'Add rotational or resource work, long winters and limited local services, and the load is structural rather than a matter of two people not trying. Naming that accurately tends to be more useful than working on communication in isolation.',
     ],
     faqs: [
+      /* Search Console, 17 Sep 2026: marriage counselling Prince George, nine impressions across three phrasings, position 36 to 38. */
+      { q: 'Is there marriage counselling in Prince George?', a: 'Very little, which is why people search for it. A handful of practitioners in the city see couples, most have waits, and the alternative is a drive to nowhere closer. Online marriage counselling from a BC counsellor is available in the evening, from your own home, with both of you on the same screen or on two, and the first 30-minute consultation is free.' },
       { q: 'Is there anything for couples locally?', a: 'General counselling exists in Prince George. Structured couples work with specific training is less reliably available, which is usually the gap people are trying to fill.' },
       { q: 'How do we start?', a: 'A free 30-minute video call, either together or one of you first. Both are ordinary ways to begin.' },
     ],
@@ -400,6 +414,8 @@ export const pairs: Pair[] = [
       'Booking that follows the year rather than fighting it works better. Blocks during the heavy months, more regular work when the season turns, and no cost to pausing in between.',
     ],
     faqs: [
+      /* Search Console, 17 Sep 2026: anxiety specialist Kelowna, anxiety therapist Kelowna, anxiety counselling Kelowna. */
+      { q: 'Are you an anxiety specialist?', a: 'Anxiety is the most common thing brought to this practice and the counsellors work with it daily, using CBT, ACT and, where trauma sits underneath, EMDR. "Specialist" is not a protected term in counselling and it is worth being careful with; the protected credential is Registered Clinical Counsellor, and the training in anxiety-specific approaches is listed on each counsellor\'s profile.' },
       { q: 'Can I pause during my busy season?', a: 'Yes, and it is better to plan that at the start than discover it in month two. Pausing between blocks costs nothing.' },
       { q: 'Are West Kelowna and Vernon covered?', a: 'Yes, on identical terms. The whole province is served on the same basis.' },
     ],
@@ -412,6 +428,8 @@ export const pairs: Pair[] = [
       'That does not mean the anxiety is imaginary; it means the work has to include the pattern that is feeding it. Sessions booked around a rotation, rather than a rotation forced around a standing appointment, are the version that survives past week four.',
     ],
     faqs: [
+      /* Search Console, 17 Sep 2026: acceptance and commitment therapy Kamloops (12) and narrative therapy Kamloops (11), positions 47 to 50. */
+      { q: 'Do you use ACT or narrative therapy?', a: 'Both are part of the anxiety work here. Acceptance and commitment therapy is used because anxiety rarely leaves on request and the useful question becomes what you do while it is present; narrative approaches because the story a person tells about their anxiety is often the thing keeping it in place. Kamloops has few practitioners naming either, which is why those searches arrive at a page about online sessions.' },
       { q: 'I work rotating shifts. Can this fit?', a: 'Yes, and say so in the first conversation. Booking in blocks around a rotation is a normal pattern here rather than a special arrangement.' },
       { q: 'Are Merritt and Salmon Arm covered?', a: 'Yes, on the same terms, with no distance penalty for being further out.' },
     ],
@@ -436,6 +454,8 @@ export const pairs: Pair[] = [
       'The traditional answer has been a ferry, which for weekly work is not an answer at all. A virtual practice turns the question from who happens to be on the Island into who is right, which is the question that should have been asked first.',
     ],
     faqs: [
+      /* Search Console, 17 Sep 2026: Victoria BC anxiety disorder, anxiety therapy and anxiety treatment, eight impressions at 50 to 60. */
+      { q: 'Is this anxiety treatment, or just talking?', a: 'It is treatment in the sense that matters: structured, evidence-based work on an anxiety disorder, whether or not one has been formally diagnosed. What it is not is medication or a diagnosis, both of which come from a physician. Many people in Victoria run the two in parallel, and the counsellor will say plainly if a doctor should be involved.' },
       { q: 'Are Saanich and Sooke covered?', a: 'Yes, on the same terms, with no penalty for being outside the core.' },
       { q: 'Will I have to travel for anything?', a: 'No. Everything including the first free consultation happens by video.' },
     ],
@@ -487,6 +507,8 @@ export const pairs: Pair[] = [
       'There is also a practical point almost nobody is told. Counselling after a motor vehicle incident in BC may be funded through the insurer rather than paid privately, and the entitlement is frequently unused because nobody mentions it. That is worth asking about before assuming the cost falls to you.',
     ],
     faqs: [
+      /* Search Console, 17 Sep 2026: trauma therapy Langley BC, ten impressions, and PTSD counselling Langley. */
+      { q: 'Is PTSD counselling available in Langley?', a: 'By video, yes, and it is the same trauma work described on this page. The label matters mainly for coverage: after a crash, ICBC funds counselling without requiring a PTSD diagnosis, and after an incident at work, WorkSafeBC has its own claim process. Neither needs to be settled before a first conversation.' },
       { q: 'Might my counselling after a crash be covered?', a: 'Possibly. There is a funded route for counselling after a motor vehicle incident in BC, and it is worth asking your claim contact directly. It is often unclaimed simply because nobody raised it.' },
       { q: 'I was not badly hurt. Does that rule it out?', a: 'No. The severity of the physical injury is a poor predictor of the psychological aftermath, and a collision with no injury at all can leave a substantial one.' },
     ],
@@ -523,6 +545,8 @@ export const pairs: Pair[] = [
       'What often goes unrecognised is the aftermath in the years where nothing happened. A summer that stays clear can leave people feeling worse rather than relieved, because the readiness has nowhere to go. That is a described pattern in communities living with recurring risk, and it is workable.',
     ],
     faqs: [
+      /* Search Console, 17 Sep 2026: PTSD therapy Kelowna and PTSD counselling Kelowna. */
+      { q: 'Is this the same as PTSD counselling?', a: 'Yes, where PTSD is what is going on, and also where it is not. PTSD is one diagnosis inside a wider set of responses to things that happened, and trauma therapy works with the whole set. A counsellor does not diagnose; if a diagnosis matters for a claim or a benefit, that comes from a physician and the counselling runs alongside.' },
       { q: 'Nothing actually burned. Does that still count?', a: 'Yes. Evacuation, prolonged threat and repeated readiness are their own experience, and whether property was lost is not what decides the effect.' },
       { q: 'Can I do this work during the season itself?', a: 'Yes, and some people prefer to. Sessions run by video and do not depend on being at a fixed address, which matters in a season that can move you.' },
     ],
@@ -535,6 +559,8 @@ export const pairs: Pair[] = [
       'Delay is not a complication. It changes very little about whether the work is possible, and the fact that a decade has passed without it resolving on its own is usually the most useful piece of evidence that it was never going to.',
     ],
     faqs: [
+      /* Search Console, 17 Sep 2026: trauma counselling Kamloops, 21 impressions at position 36; the page said only therapy. */
+      { q: 'Trauma counselling or trauma therapy: is there a difference?', a: 'None that matters to you. People in Kamloops search for trauma counselling about twice as often as trauma therapy and both land here. The session is the same, the counsellor is the same, and so is the honest limit: a Registered Clinical Counsellor does not diagnose PTSD, and does not need to in order to do the work.' },
       { q: 'It was years ago. Is it too late?', a: 'No. Time does not close the door on this work, and untreated events tend to persist rather than fade, which is generally what brings people in eventually.' },
       { q: 'Do I have to talk about it in detail?', a: 'Not to start, and not necessarily at all. The pacing is set by you, and EMDR does not require a full spoken account of the event.' },
     ],
@@ -547,6 +573,8 @@ export const pairs: Pair[] = [
       'That gap is why so much of this goes untreated here rather than because people are unwilling. Virtual sessions remove the distance from the equation entirely, which for trauma work matters more than for most things. It needs continuity, and continuity is exactly what an eight-hour round trip destroys.',
     ],
     faqs: [
+      /* Search Console, 17 Sep 2026: PTSD therapy Prince George, position 16.5, and the word PTSD was not on this page. */
+      { q: 'Is this PTSD therapy?', a: 'It can be. PTSD is a diagnosis, and a counsellor does not make one; trauma therapy is the work, and it is the same work whether the diagnosis has been made by a physician, is suspected, or has never been raised. Many people in Prince George searching for PTSD therapy are in industrial, forestry or first-responder roles where a formal diagnosis has consequences at work. The counselling does not require one and does not create one.' },
       { q: 'Can this work be done properly over video?', a: 'Yes, including EMDR, which is delivered by video routinely. The requirement is a private space and a workable connection rather than a shared room.' },
       { q: 'What if I work in a camp on rotation?', a: 'Booking in blocks around a rotation is normal and pausing between them costs nothing. It is worth planning at the start rather than discovering in month two.' },
     ],
@@ -559,6 +587,8 @@ export const pairs: Pair[] = [
       'Distance solves the visibility problem completely. There is no local waiting room, no car outside a building, and no chance of meeting a colleague on the way in, which for this population is frequently the difference between starting and continuing to manage it alone.',
     ],
     faqs: [
+      /* Search Console, 17 Sep 2026: PTSD treatment Victoria BC and Victoria BC PTSD, and trauma therapy Victoria at 27.6. */
+      { q: 'Do you treat PTSD in Victoria?', a: 'Trauma therapy here includes work with people who have a PTSD diagnosis and people who do not; the diagnosis comes from a physician or psychologist, not a counsellor, and the therapy does not depend on it. In Victoria a large share of that work is with serving and former military, DND civilians and first responders, for whom the question of what goes on a file matters, and that is answered plainly in the first session.' },
       { q: 'Will this affect my career or my file?', a: 'This is a private practice and nothing is reported anywhere. The limits of confidentiality are set out on the standards page and they are narrow, specific, and the same as they would be anywhere.' },
       { q: 'Are Saanich, Esquimalt and Sooke covered?', a: 'Yes, on identical terms. Nothing about the service depends on where in the region you are.' },
     ],
@@ -622,6 +652,8 @@ export const pairs: Pair[] = [
       'People often arrive in January convinced something has gone suddenly wrong. Usually nothing has changed except the amount of activity available to sit on top of it. Building some deliberate structure into the off-season is unglamorous and tends to be the thing that matters most.',
     ],
     faqs: [
+      /* Search Console, 17 Sep 2026: depression assessment Abbotsford, position 27. */
+      { q: 'Do you do depression assessments in Abbotsford?', a: 'A counsellor does not diagnose depression; a family doctor, nurse practitioner or psychologist does, and if a formal assessment is what you need for a claim or a leave, that is the route. What happens here is a clinical conversation about what is going on, with standard screening measures used to track change, and it can start this week rather than after a waitlist for assessment.' },
       { q: 'It only happens in winter. Is that different?', a: 'It may be seasonal, and that is worth naming precisely because the pattern is predictable, which means it can be planned for before it arrives rather than only responded to.' },
       { q: 'Can I stop during my busy season?', a: 'Yes, and better to plan that at the start. Booking in blocks with gaps between them is normal here and pausing costs nothing.' },
     ],

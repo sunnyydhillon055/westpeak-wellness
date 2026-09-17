@@ -194,7 +194,7 @@ export const moreGuides3: Guide[] = [
       'The stages were never a sequence, and almost everyone has been told otherwise.',
     shortAnswer:
       'Grief does not move through tidy stages and has no correct duration. It also attaches to losses that are not deaths. A marriage, a country, a career, a body that used to work, a future you had assumed. Counselling is worth considering when grief is stuck rather than present: when it is unchanged after a long period, or when it cannot be spoken about anywhere.',
-    updated: '2026-08-31',
+    updated: '2026-09-17',
     readMinutes: 7,
     figure: 'window-of-tolerance',
     figure2: "first-session-flow",
@@ -248,6 +248,8 @@ export const moreGuides3: Guide[] = [
       label: 'a free 30-minute consultation is a place to start',
     },
     faqs: [
+      /* Search Console, 17 Sep 2026: 'how long should you wait for bereavement counselling', 36 impressions at position 47, and no direct answer on the page. */
+      { q: 'How long should you wait before starting bereavement counselling?', a: 'There is no waiting period. Some people come in the first weeks because the practical load is unbearable, some come at the six-month mark when everyone else has stopped asking, and some come years later when something reopens it. All three are normal. The one signal worth acting on early is when grief stops moving at all: no change month to month, nothing that used to matter mattering, and the sense that it is not going to.' },
       { q: 'How long should you wait before starting bereavement counselling?', a: 'There is no waiting period, and the idea that there should be is the most common reason people delay. You do not have to be "not coping" to qualify, and you do not have to wait until the funeral is over, the estate is settled, or some interval has passed. Some people come within days because the practical decisions are unbearable; others come two years later when everyone else has moved on and they have not. Both are ordinary. The only timing that matters is whether talking to someone would help you this week.' },
       { q: 'Is it too late to get counselling for a death that happened years ago?', a: 'No, and late grief is far more common in this work than early grief. Losses that were never properly grieved, because you were holding a family together, or were a child at the time, or the death was complicated by things nobody would say out loud, tend to surface later, often attached to something that looks unrelated. Arriving years afterwards is not a sign of failure, and it does not make the work slower.' },
       { q: 'How long should grief last?', a: 'There is no correct duration. What matters more is whether it is changing at all, and whether life has any room in it besides the loss.' },

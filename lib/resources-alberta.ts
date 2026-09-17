@@ -40,7 +40,7 @@ export const albertaResources: Resource[] = [
       'Alberta Health does not pay for private counselling, which surprises people who assume a provincial health card covers mental health the way it covers a fracture. Here is what actually pays, and what to ask before booking anything.',
     shortAnswer:
       'AHCIP does not cover private counselling. Most people pay through an extended health plan, out of pocket, or through a publicly funded service with a waitlist. Before booking privately, ask your insurer one question: does the plan reimburse a Canadian Certified Counsellor?',
-    updated: '2026-09-03',
+    updated: '2026-09-17',
     readMinutes: 6,
     sections: [
       {
@@ -130,6 +130,12 @@ export const albertaResources: Resource[] = [
       { label: 'Canadian Counselling and Psychotherapy Association', url: 'https://www.ccpa-accp.ca/' },
     ],
     related: [
+      /* Camille sees clients anywhere in Canada and holds a national policy;
+         her Alberta pages are the ones an Alberta reader can actually book
+         from. Search Console, 17 Sep 2026: 'counselling alberta' at position
+         6.5 and her Calgary page converting a fifth of its impressions. */
+      { href: '/practitioners/camille-granda/calgary', label: 'Camille Granda in Calgary' },
+      { href: '/practitioners/camille-granda/edmonton', label: 'Camille Granda in Edmonton' },
       { href: '/practitioners/camille-granda', label: 'Camille Granda, RCC, CCC, Alberta and BC' },
       { href: '/practitioners/camille-granda/calgary', label: 'Counselling in Calgary' },
       { href: '/practitioners/camille-granda/edmonton', label: 'Counselling in Edmonton' },

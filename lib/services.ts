@@ -283,6 +283,8 @@ export const services: Service[] = [
       ],
     },
     faqs: [
+      /* Search Console, 17 Sep 2026: 'how can i book a session for my family to improve our relationships?' at position 17.5, 'family therapy online', 'family counselling online'. */
+      { q: 'How do I book a session for my family?', a: 'Book the free 30-minute consultation as one person and say it is for the family; the counsellor will ask who is involved and what you are hoping changes, and then set up the first full session. Family members can join from the same room or from separate homes on the same video call, which is how most families here do it when someone has moved out or is away.' },
       { q: "Does everyone have to come?", a: "No. Useful family work regularly happens with two or three people rather than everyone, and who attends can change between sessions. It is worth raising on the free consultation, because the answer depends on what is actually going on." },
       { q: "Can sessions run in Punjabi?", a: "Yes: in Punjabi, English, or moving between them within one session, which is frequently what family sessions need when parents and adult children are most fluent in different languages." },
       { q: "What if someone refuses to attend?", a: "That is common and it is not a dead end. Work can start with whoever is willing, and a family pattern often shifts when one person changes how they respond to it. Nobody is required to be there." },

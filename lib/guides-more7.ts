@@ -91,7 +91,7 @@ export const moreGuides7: Guide[] = [
     figure2: 'bc-support-routes',
     figure: 'session-requirements',
     title: 'Getting a doctor’s note for a mental-health leave in BC',
-    metaTitle: 'Doctor’s Note for Stress Leave in BC | Westpeak',
+    metaTitle: 'Going Back to Work After Stress Leave in BC | Westpeak',
     metaDescription:
       'What to say to your doctor to get a stress leave, what the note should and should not contain, what an employer may ask, and what to do with no family doctor.',
     eyebrow: 'Guide · Work & money',
@@ -99,7 +99,7 @@ export const moreGuides7: Guide[] = [
       'The whole leave usually hinges on one short appointment most people walk into unprepared, and walk out of having minimised everything they came to say.',
     shortAnswer:
       'A mental-health leave in BC runs on a medical certificate from a doctor or nurse practitioner stating that you are unable to work and for roughly how long. It does not need to name your diagnosis, and your employer is not entitled to one. They may ask for reasonably sufficient proof of illness, which the note itself is. The honest preparation for the appointment is a plain account of symptoms and function: sleep, concentration, mood, what work currently does to you. Understatement is the main failure mode; doctors certify what they are shown.',
-    updated: '2026-09-02',
+    updated: '2026-09-17',
     readMinutes: 6,
     sections: [
       {
@@ -140,6 +140,9 @@ export const moreGuides7: Guide[] = [
       label: 'Book a free consultation',
     },
     faqs: [
+      /* Search Console, 17 Sep 2026: 'can a psychologist give a sick note', 'how long do doctors sign you off for stress', 'can a doctor book you off for stress'. */
+      { q: 'Can a counsellor or psychologist write a sick note?', a: 'Not for a medical leave in BC. A Registered Clinical Counsellor cannot certify that you are unable to work, and neither can most psychologists for employer or EI purposes; the certificate has to come from a physician or nurse practitioner. A counsellor can write a letter confirming you are in treatment, which insurers often ask for alongside the medical note, and that is a different document.' },
+      { q: 'How long will a doctor sign you off for stress?', a: 'Usually in blocks of two to six weeks, with a review before each extension, rather than one long certificate. A doctor is certifying a current inability to work and will want to see you again before extending it. A note that says "indefinitely" is rare and tends to cause problems with insurers, so a defined period with a review date is the normal shape.' },
       { q: 'Does my employer have to accept a doctor’s note for stress leave?', a: 'BC employers may require reasonably sufficient proof of entitlement to sick leave, and a medical certificate is exactly that proof. They are not entitled to your diagnosis, and the ESA’s job-protected illness leave plus the Human Rights Code’s duty to accommodate sit behind a certified medical absence.' },
       { q: 'Will the note say I have a mental illness?', a: 'It should not, and you can ask the doctor to keep it functional: medical condition, unable to work, expected duration. Diagnosis stays between you and your clinicians; employers deal in function and timelines.' },
       { q: 'Can a walk-in doctor or telehealth appointment give me a leave note?', a: 'Yes. Any physician or nurse practitioner can certify a medical absence, including virtually. For longer leaves, a consistent clinician who can re-certify at review dates works better than a series of unconnected notes. A UPCC or one virtual clinic used consistently gets you most of that.' },
@@ -175,7 +178,7 @@ export const moreGuides7: Guide[] = [
       'The leave has an end date. The condition does not check the calendar, which is why the return is where a good leave either consolidates or unravels.',
     shortAnswer:
       'A return that holds is usually gradual, negotiated, and honest about what caused the leave. In BC, an employer has a duty under the Human Rights Code to accommodate a mental-health disability to the point of undue hardship, which in practice supports graduated hours, modified duties, and changes to the specific conditions that broke you. The functional questions belong in a return-to-work plan from your doctor; your diagnosis still belongs to you. And the least-discussed truth: returning to an unchanged situation at full speed is how second leaves happen.',
-    updated: '2026-09-02',
+    updated: '2026-09-17',
     readMinutes: 7,
     sections: [
       {
@@ -278,6 +281,9 @@ export const moreGuides7: Guide[] = [
       label: 'Book a free consultation',
     },
     faqs: [
+      /* Search Console, 17 Sep 2026: 'does therapy count as a medical appointment' (positions 6 and 8) and 'wellness day vs sick day'. */
+      { q: 'Can I use a sick day for a therapy appointment?', a: 'Yes. A counselling appointment is health care, and BC\'s paid sick days under the Employment Standards Act cover illness and injury without listing what kind. Most people book a video session in a lunch hour or at the end of the day and never need to; when it is not possible, the appointment is a legitimate use of sick time and your employer is not entitled to know what it was for.' },
+      { q: 'Is a wellness day the same as a sick day?', a: 'Only if your employer calls it that. "Wellness days" are a policy some employers add on top of the statutory sick days and they are governed by the policy, not the Act. The five paid sick days under the Employment Standards Act are the legal floor, apply to mental health, and cannot be taken away by a wellness-day policy.' },
       { q: 'Can I take a sick day for mental health in BC?', a: 'Yes. The ESA’s paid sick days cover personal illness, and mental health is included without qualification. A day taken for anxiety or depression is as protected as one taken for the flu, and you do not have to disclose which it was.' },
       { q: 'How many paid sick days do BC employees get?', a: 'Five paid and three unpaid per calendar year under the Employment Standards Act, after 90 days of employment. They do not carry over. Federally regulated employees are under the Canada Labour Code instead, which provides up to ten paid medical days, and better contractual terms override both floors upward.' },
       { q: 'Does my employer need a doctor’s note for one mental-health day?', a: 'They may ask for reasonably sufficient proof, and for a single day most do not. If yours does, a simple medical note suffices. It never needs to state a diagnosis. A pattern of demanding notes for every single day is worth a conversation with the Employment Standards Branch.' },
