@@ -117,7 +117,7 @@ export const moreResources: Resource[] = [
       'Most people discover how any of this works at the exact moment they are least able to research it. This is the map, in advance.',
     shortAnswer:
       'BC employees are entitled to paid sick leave under the Employment Standards Act, and mental-health conditions count. Beyond that there are three separate systems that get confused with each other: workplace accommodation under human rights law, disability benefits through an insurer, and WorkSafeBC claims for work-caused injury. Your employer is entitled to know your limitations, not your diagnosis.',
-    updated: '2026-09-06',
+    updated: '2026-09-17',
     readMinutes: 8,
     sections: [
       {
