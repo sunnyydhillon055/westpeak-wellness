@@ -421,42 +421,87 @@ export async function deleteInboundByEmail(email: string): Promise<number> {
   return removed;
 }
 
-async function commit(items: Inbound[]): Promise<void> {
-  const current = await readInbound({ fresh: true });
-  const value: InboundBook = {
-    items, version: current.version + 1, updatedAt: new Date().toISOString(),
-  };
-  cache = { at: Date.now(), value };
-  lastWrite = { at: Date.now(), value };
-  if (process.env.BLOB_READ_WRITE_TOKEN) {
-    await put(KEY, JSON.stringify(value, null, 2), {
-      access: 'private', contentType: 'application/json',
-      addRandomSuffix: false, allowOverwrite: true, cacheControlMaxAge: 0,
-    });
+/* ONE WRITE PATH, BECAUSE THREE OF THEM HAD NO GUARD — 17 Sep 2026.
+ *
+ * addInbound went to some trouble to write conditionally so that two
+ * submissions arriving together could not erase one another. commit(),
+ * markHandled() and annotateTriage() then wrote the same file with a plain
+ * put: read everything, change one row, write everything back, last writer
+ * wins. An admin pressing "Done" at the moment a stranger pressed Send would
+ * have deleted the stranger's message, and nothing would have said so.
+ *
+ * So every mutation goes through here. The transform is re-run against a
+ * fresh read on each attempt, which is the only safe response to a refusal —
+ * retrying the same computed value would write back a copy that predates
+ * whatever refused it.
+ *
+ * The last attempt drops the guard deliberately. See lib/blob-etag.ts: a weak
+ * ETag can never satisfy If-Match, and a store that can never be written to
+ * again is a worse outcome than one lost race. Both cases are logged.
+ *
+ * Returns false when the transform declines (an unknown id, nothing to do). */
+async function mutate(
+  what: string,
+  transform: (items: Inbound[]) => Inbound[] | null
+): Promise<boolean> {
+  const ATTEMPTS = 3;
+  for (let attempt = 1; attempt <= ATTEMPTS; attempt++) {
+    /* Fresh, so lastEtag belongs to the copy this attempt is based on. */
+    const current = await readInbound({ fresh: true });
+    const next = transform(current.items);
+    if (!next) return false;
+
+    const value: InboundBook = {
+      items: next, version: current.version + 1, updatedAt: new Date().toISOString(),
+    };
+    cache = { at: Date.now(), value };
+    lastWrite = { at: Date.now(), value };
+    if (!process.env.BLOB_READ_WRITE_TOKEN) return true;
+
+    const guard = strongEtag(lastEtag);
+    const lastChance = attempt === ATTEMPTS;
+    if (lastEtag && !guard) {
+      console.warn(`[inbound] ${what}: store returned a weak ETag; writing unconditionally (lib/blob-etag.ts)`);
+    }
+    try {
+      const written = await put(KEY, JSON.stringify(value, null, 2), {
+        access: 'private', contentType: 'application/json',
+        addRandomSuffix: false, allowOverwrite: true, cacheControlMaxAge: 0,
+        ...(guard && !lastChance ? { ifMatch: guard } : {}),
+      });
+      lastEtag = written.etag;
+      return true;
+    } catch (e) {
+      if (e instanceof BlobPreconditionFailedError) {
+        console.warn(`[inbound] ${what} lost a race, retrying against the current store (${attempt}/${ATTEMPTS})`);
+        /* The in-process copies are what we tried to write, not what is
+           there. Drop them so the next read really goes to the store. */
+        cache = null;
+        lastWrite = null;
+        continue;
+      }
+      throw e;
+    }
   }
+  console.error(`[inbound] ${what} could not be written after ${ATTEMPTS} attempts`);
+  return false;
+}
+
+async function commit(items: Inbound[]): Promise<void> {
+  /* The caller has already decided the whole list — a deletion, a prune — so
+     the transform ignores what it reads. Still routed through mutate() for the
+     ETag handling and the retry. */
+  await mutate('commit', () => items);
 }
 
 export async function markHandled(id: string, handled = true): Promise<boolean> {
-  const current = await readInbound({ fresh: true });
-  const idx = current.items.findIndex((i) => i.id === id);
-  if (idx < 0) return false;
-
-  const items = current.items.map((i, n) =>
-    n === idx ? { ...i, handled, handledAt: handled ? new Date().toISOString() : undefined } : i
-  );
-  const value: InboundBook = {
-    items, version: current.version + 1, updatedAt: new Date().toISOString(),
-  };
-  cache = { at: Date.now(), value };
-  lastWrite = { at: Date.now(), value };
-
-  if (process.env.BLOB_READ_WRITE_TOKEN) {
-    await put(KEY, JSON.stringify(value, null, 2), {
-      access: 'private', contentType: 'application/json',
-      addRandomSuffix: false, allowOverwrite: true, cacheControlMaxAge: 0,
-    });
-  }
-  return true;
+  return mutate('markHandled', (items) => {
+    const idx = items.findIndex((i) => i.id === id);
+    if (idx < 0) return null;
+    return items.map((i, n) =>
+      n === idx ? { ...i, handled, handledAt: handled ? new Date().toISOString() : undefined } : i
+    );
+  });
 }
 
 /* Attaches the MX result once it comes back.
@@ -470,24 +515,11 @@ export async function annotateTriage(
   id: string,
   verdict: import('./triage').TriageVerdict
 ): Promise<boolean> {
-  const current = await readInbound({ fresh: true });
-  const idx = current.items.findIndex((i) => i.id === id);
-  if (idx < 0) return false;
-
-  const items = current.items.map((i, n) => (n === idx ? { ...i, triage: verdict } : i));
-  const value: InboundBook = {
-    items, version: current.version + 1, updatedAt: new Date().toISOString(),
-  };
-  cache = { at: Date.now(), value };
-  lastWrite = { at: Date.now(), value };
-
-  if (process.env.BLOB_READ_WRITE_TOKEN) {
-    await put(KEY, JSON.stringify(value, null, 2), {
-      access: 'private', contentType: 'application/json',
-      addRandomSuffix: false, allowOverwrite: true, cacheControlMaxAge: 0,
-    });
-  }
-  return true;
+  return mutate('annotateTriage', (items) => {
+    const idx = items.findIndex((i) => i.id === id);
+    if (idx < 0) return null;
+    return items.map((i, n) => (n === idx ? { ...i, triage: verdict } : i));
+  });
 }
 
 /** Newest first, which is the order anyone actually wants to read them in. */
