@@ -304,6 +304,47 @@ so the page opens on her times and never shows a list of counsellors.
 *Enforced by:* `lib/practitioners.ts`, `app/book/page.tsx`,
 `app/practitioners/[slug]/page.tsx`, `components/StickyBook.tsx`
 
+### The monitors stop emailing, and the stores they read stop freezing
+Decided 17 Sep 2026, owner's instruction ("getting too many emails; don't send
+these types of emails"), after finding that every alert they had ever sent was
+false.
+
+**The fault.** Vercel Blob returned a *weak* ETag (`W/"..."`) for two files.
+If-Match uses strong comparison, so a weak validator can never match, so every
+conditional write was refused and the retry loop gave up silently. Two stores
+froze:
+
+- `inbound/messages.json`, 6 Sep. Eleven days of website enquiries were never
+  recorded. They reached the practice only because the alert mail is sent
+  whatever storage reports, so the messages are in info@ and not in /admin.
+- `ops/cron-health.json`, 14 Sep. Every scheduled job kept running and none
+  could record it. The watchdog read four-day-old lines and emailed "3
+  scheduled jobs are not running" each morning. They were running the whole
+  time.
+
+**What changed.**
+- `lib/blob-etag.ts`: a conditional write may only carry a strong validator;
+  a weak one means write unconditionally. Losing a race for one cycle beats
+  never writing again, and never writing again is the failure that hides.
+- Cron health is one blob per job (`ops/cron/<job>.json`), written
+  unconditionally. The contention that needed compare-and-swap is gone by
+  construction rather than managed.
+- `storeFrozen()` says "the store is not being written" instead of listing
+  eight jobs as stopped. The watchdog makes the same distinction from inside a
+  run that has just recorded itself.
+- The cron watchdog and the reply-time watch no longer send mail. Both render
+  in /admin, which is where the verdict already was. Stated plainly: if every
+  job stops, nothing will come and tell you.
+- The reply-time watch counted this project's own probes and newsletter bots as
+  people waiting: 33 "unanswered messages", of which the human count was three.
+  The filter that the admin digest already had is now shared
+  (`lib/inbound-quality.ts`) and used by both, and /admin has one button to
+  remove the eight self-test rows the build left behind.
+
+*Enforced by:* `test/blob-etag.test.mts` (no `ifMatch` without `strongEtag`),
+`test/inbound-quality.test.mts` (pinned to the addresses in that alert),
+`test/cron-health.test.mts`
+
 ### /answers is back as the instant-answer page; hours come from Cliniko; teens and young adults are served
 Decided 14 Sep 2026, owner's instruction.
 - `/answers` (retired 31 Aug as "a second FAQ") returns as one searchable

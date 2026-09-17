@@ -1,13 +1,13 @@
-import { put, get, BlobPreconditionFailedError } from '@vercel/blob';
+import { put, get, list } from '@vercel/blob';
 
 /* DID THE SCHEDULED JOBS ACTUALLY RUN?
  *
  * WHY THIS EXISTS
  *
- * Eight jobs are scheduled in vercel.json and, until now, not one of them had a
- * try/catch. A throw meant a 500, a line in a Vercel log nobody reads, and
- * silence. The jobs that fail this way are exactly the ones whose failure is
- * invisible by design:
+ * Eight jobs are scheduled in vercel.json and, until this file existed, not
+ * one of them had a try/catch. A throw meant a 500, a line in a Vercel log
+ * nobody reads, and silence. The jobs that fail this way are exactly the ones
+ * whose failure is invisible by design:
  *
  *   reply-watch      the only thing verifying the "reply within one business
  *                    day" promise printed on every page
@@ -24,11 +24,45 @@ import { put, get, BlobPreconditionFailedError } from '@vercel/blob';
  * Never the payload, never an address — a failure log that accumulates client
  * data is a liability that grows on its own.
  *
- * Recording is best-effort and deliberately swallows its own errors. A health
- * log that can break the job it is watching is worse than no health log.
+ * ONE FILE PER JOB, WHICH IS THE SECOND DESIGN
+ * ----------------------------------------------------------------------------
+ * The first design put every job in one blob. Each job read the file, added
+ * its line and wrote the whole thing back, which is read-modify-write from
+ * three schedulers firing on the same minute. Two bugs came out of that and
+ * both are worth keeping in mind, because the fix for the second created the
+ * third:
+ *
+ *   6 Sep 2026   The read went through the CDN cache and the write was
+ *                last-writer-wins, so a job that had just recorded itself
+ *                could read back a file without its own line. booking-mail
+ *                emailed the owner that booking-mail was not running, from
+ *                inside a booking-mail run.
+ *   6 Sep 2026   Fixed with `useCache: false` and a conditional write
+ *                (`ifMatch` on the ETag of what was read), which is the right
+ *                answer to concurrent writers and was correctly applied.
+ *  17 Sep 2026   And then the store handed back a WEAK ETag for this file.
+ *                `W/"…"` can never satisfy If-Match. Every write was refused,
+ *                all three retries were refused for the same reason, and the
+ *                loop gave up silently. The file froze on 14 Sep. Every job
+ *                kept running; none could say so; the watchdog read four-day-
+ *                old lines and told the owner each morning that three jobs
+ *                had stopped. See lib/blob-etag.ts.
+ *
+ * So the contention is gone rather than managed: each job owns its own blob at
+ * ops/cron/<job>.json and writes it unconditionally. Two jobs writing at the
+ * same second now touch different objects, there is nothing to serialise, and
+ * with no conditional write there is no validator to be weak. A design where
+ * the failure cannot happen beats a design that handles it.
+ *
+ * Recording stays best-effort — it must never fail the job it is watching —
+ * but it is no longer silent. A write that does not land is logged, and the
+ * watchdog can tell "the jobs stopped" from "the store stopped", which is the
+ * distinction that cost four days of false alarms.
  */
 
-const KEY = 'ops/cron-health.json';
+const DIR = 'ops/cron/';
+/** The pre-17 Sep single file. Read as a fallback so history is not lost; never written. */
+const LEGACY_KEY = 'ops/cron-health.json';
 
 export type CronRun = {
   job: string;
@@ -66,70 +100,64 @@ export const EXPECTED_EVERY_HOURS: Record<string, number> = {
   indexnow: 168,
 };
 
-/* ONE FILE, SEVERAL WRITERS AT THE SAME MINUTE — AND HOW THAT WENT WRONG.
- *
- * cliniko-sync (which also records cliniko-catalog) and booking-mail are both
- * scheduled at "0 *​/2 * * *". Each one read this file, added its own line and
- * wrote the whole thing back. Two problems, found 6 Sep 2026 from an alert
- * the owner received on their phone:
- *
- *   1. The read went through Vercel Blob's CDN cache, which can serve the
- *      previous version for up to a minute after an overwrite —
- *      `cacheControlMaxAge: 0` does not help, the minimum is 60s. So a job
- *      that had just written its line could read the file back without it.
- *   2. Three jobs doing read-modify-write in the same second is last-writer-
- *      wins. Whichever finished last wrote back a copy that predated the
- *      others' lines, erasing them.
- *
- * Either one makes a job that ran look like a job that stopped. On 6 Sep at
- * 18:00 UTC booking-mail recorded itself, then ran the watchdog, which read
- * the file, found booking-mail's line from 14:00, and emailed the owner that
- * booking-mail was not running — from inside a booking-mail run.
- *
- * So: reads bypass the cache (`useCache: false`), and the write is conditional
- * on the ETag of what was read (`ifMatch`). A write that lands on top of
- * somebody else's is refused by the store with a precondition failure, and
- * retried against the file as it now stands. Three attempts; the third loser
- * of a three-way race is a very long shot, and the record is still best-effort
- * — it must never fail the job it is recording. */
+/* A job name is part of a blob path. `expect:booking-mail` carries a colon,
+   which is legal in a pathname but not worth relying on; the marker prefix is
+   flattened on the way in and restored on the way out. */
+const fileFor = (job: string) => `${DIR}${job.replace(/[^A-Za-z0-9._-]/g, '-')}.json`;
 
-async function readHealth(): Promise<{ health: CronHealth; etag?: string }> {
-  if (!process.env.BLOB_READ_WRITE_TOKEN) return { health: {} };
+async function readJson<T>(key: string): Promise<T | null> {
   try {
-    const hit = await get(KEY, { access: 'private', useCache: false });
-    if (!hit || hit.statusCode !== 200 || !hit.stream) return { health: {} };
-    return { health: (await new Response(hit.stream).json()) as CronHealth, etag: hit.blob.etag };
+    const hit = await get(key, { access: 'private', useCache: false });
+    if (!hit || hit.statusCode !== 200 || !hit.stream) return null;
+    return (await new Response(hit.stream).json()) as T;
   } catch {
-    return { health: {} };
+    return null;
   }
 }
 
+/** Every job's last run. Per-job files win; the legacy single file fills gaps. */
 export async function readCronHealth(): Promise<CronHealth> {
-  return (await readHealth()).health;
+  if (!process.env.BLOB_READ_WRITE_TOKEN) return {};
+  const health: CronHealth = {};
+  try {
+    const legacy = await readJson<CronHealth>(LEGACY_KEY);
+    if (legacy) Object.assign(health, legacy);
+  } catch { /* history is a nicety; the current files are the record */ }
+
+  try {
+    const found = await list({ prefix: DIR, limit: 200 });
+    const runs = await Promise.all(found.blobs.map((b) => readJson<CronRun>(b.pathname)));
+    for (const run of runs) {
+      if (run && typeof run.job === 'string' && typeof run.at === 'string') health[run.job] = run;
+    }
+  } catch (e) {
+    console.error('[cron-health] could not list the health store:', e instanceof Error ? e.message : e);
+  }
+  return health;
 }
 
-export async function recordCronRun(run: Omit<CronRun, 'at'>): Promise<void> {
-  if (!process.env.BLOB_READ_WRITE_TOKEN) return;
-  for (let attempt = 1; attempt <= 3; attempt++) {
-    try {
-      const { health, etag } = await readHealth();
-      const value: CronHealth = { ...health, [run.job]: { ...run, at: new Date().toISOString() } };
-      await put(KEY, JSON.stringify(value, null, 2), {
-        access: 'private', contentType: 'application/json',
-        addRandomSuffix: false, allowOverwrite: true, cacheControlMaxAge: 0,
-        /* No etag means no file yet; the first write is unconditional. */
-        ...(etag ? { ifMatch: etag } : {}),
-      });
-      return;
-    } catch (e) {
-      if (e instanceof BlobPreconditionFailedError) {
-        console.warn(`[cron-health] ${run.job}: another job wrote first, retrying (${attempt}/3)`);
-        continue;
-      }
-      /* Deliberately silent. See the note at the top: this must never be
-         able to fail the job it is recording. */
-      return;
-    }
+/**
+ * Writes one job's line. Unconditional by design — the job owns the file, so
+ * there is nothing to race with. Best-effort, never throws, but a failure is
+ * logged: silence here is what hid the 14 Sep freeze for four days.
+ */
+export async function recordCronRun(run: Omit<CronRun, 'at'>): Promise<boolean> {
+  if (!process.env.BLOB_READ_WRITE_TOKEN) return false;
+  const value: CronRun = { ...run, at: new Date().toISOString() };
+  try {
+    await put(fileFor(run.job), JSON.stringify(value, null, 2), {
+      access: 'private',
+      contentType: 'application/json',
+      addRandomSuffix: false,
+      allowOverwrite: true,
+      cacheControlMaxAge: 0,
+    });
+    return true;
+  } catch (e) {
+    /* Logged, not thrown. See the note at the top: this must never be able to
+       fail the job it is recording. */
+    console.error(`[cron-health] could not record ${run.job}:`, e instanceof Error ? e.message : e);
+    return false;
   }
 }
 
@@ -153,6 +181,30 @@ export async function withCronHealth<T>(
     await recordCronRun({ job, ok: false, detail, ms: Date.now() - started });
     return { ok: false, error: detail };
   }
+}
+
+/* THE STORE ITSELF, WHICH IS THE THING NOBODY WAS WATCHING.
+ *
+ * Two jobs run every two hours. If the newest line in the entire health store
+ * is older than that by a wide margin, the likeliest explanation is not that
+ * every job stopped on the same tick — it is that nothing can write here any
+ * more, which is exactly what happened between 14 and 17 Sep 2026. Saying so
+ * in one sentence is worth more than eight lines each claiming a job is dead.
+ *
+ * Six hours is three missed ticks of the shortest schedule: past a deploy, a
+ * cold start or a slow afternoon, and well short of a full day. */
+export function storeFrozen(health: CronHealth, now = Date.now()): string | null {
+  const times = Object.values(health)
+    .filter((r) => !r.job.startsWith('expect:'))
+    .map((r) => new Date(r.at).getTime())
+    .filter((t) => Number.isFinite(t));
+  if (!times.length) return null;
+  const newest = Math.max(...times);
+  const hours = (now - newest) / 3_600_000;
+  if (hours < 6) return null;
+  return `Nothing has been recorded in the health store for ${Math.round(hours)} hours, and two jobs run every two hours. ` +
+    'That points at the store rather than the jobs: the jobs below may well be running and unable to say so. ' +
+    'This is what the 14 September freeze looked like (a weak ETag; see lib/blob-etag.ts).';
 }
 
 /** Jobs that failed, or that have not reported within twice their interval. */
@@ -188,61 +240,64 @@ export function cronProblems(health: CronHealth, now = Date.now()): CronRun[] {
 }
 
 /* ============================================================================
-   TELLING SOMEBODY, WHICH IS THE PART THAT WAS MISSING
+   THE WATCHDOG, AND WHY IT NO LONGER EMAILS
    ----------------------------------------------------------------------------
-   Everything above this line detects a stopped job. Nothing acted on it. The
-   verdict was rendered in /admin and /admin is a page somebody has to decide
-   to open — which, on the day every job silently stops, nobody does, because
-   there is no symptom to send them there. A monitor that only answers when
-   asked is a monitor for a problem you already suspect.
+   It used to. One alert per job, then at most one a day while the problem
+   lasted — restrained, as these things go, and still wrong for this practice.
+   Two reasons it stops, decided 17 Sep 2026 on the owner's instruction:
 
-   So the watchdog emails. It is called from booking-mail, which runs every two
-   hours and is therefore the job most likely to still be alive.
+     · It was crying wolf. Every alert it ever sent about a stopped job was
+       false: the jobs were running and the store they reported into was
+       frozen (see the top of this file). A monitor whose only output to date
+       has been a false alarm has negative value.
+     · The owner asked for it to stop. "Getting too many emails." An alert
+       nobody wants to receive is not a safety net, it is a filter rule
+       waiting to be written, and once it is written the real one is lost too.
 
-   WHO WATCHES THIS ONE. Nothing here does, and pretending otherwise would be
-   worse than saying it: if booking-mail is the job that dies, the watchdog
-   dies with it and the silence is complete. Two things make that less bad than
-   it sounds — booking-mail is one of two jobs on the shortest schedule, so it
-   is the least likely to be the one that stops, and its own absence is still
-   visible in /admin next to everything else. A genuinely external check is
-   uptime monitoring, which is a separate item and a separate kind of thing.
-
-   IT DOES NOT EMAIL EVERY TWO HOURS. A monitor that repeats itself twelve
-   times a day is a monitor that gets filtered to a folder, and then it has
-   made things worse than no monitor at all. One alert per job, then silence
-   for a day, then one more if it is still broken.
+   So the verdict goes to /admin, where it was already rendered, and nothing
+   is sent. That is a real trade and it should be stated plainly: if every job
+   stops, nothing will come and tell you. What replaces the email is that the
+   failure mode which actually happened — the store freezing while the jobs
+   run — is now detected directly, and the /admin page says so in words.
    ========================================================================= */
 
-const ALERT_KEY = 'ops/cron-alerts.json';
-const REALERT_AFTER_MS = 24 * 3_600_000;
-
-type AlertLog = Record<string, string>;
-
-async function readAlertLog(): Promise<AlertLog> {
-  if (!process.env.BLOB_READ_WRITE_TOKEN) return {};
-  try {
-    const hit = await get(ALERT_KEY, { access: 'private', useCache: false });
-    if (!hit || hit.statusCode !== 200 || !hit.stream) return {};
-    return (await new Response(hit.stream).json()) as AlertLog;
-  } catch {
-    return {};
-  }
-}
+export type WatchdogVerdict = {
+  /** Jobs the health store says are stopped or failing. */
+  problems: string[];
+  /** Set when the health store itself is not persisting, which makes `problems` untrustworthy. */
+  storeStale?: string;
+};
 
 /**
- * Checks every job, emails the practice about any that are newly broken, and
- * returns what it decided. Never throws — see the note at the top of the file.
+ * Checks every job and returns what it found. Never throws, never sends.
  *
- * `send` is injected rather than imported so this module stays free of the
- * mail client. lib/cron-health.ts is imported by six route handlers; making it
- * pull in the mailer would put the mailer in all six.
+ * `selfJob` is the job calling it, which has just recorded a run a few lines
+ * earlier. If the store does not show that run, the store is not persisting —
+ * and every other "job stopped" line in the same read is then meaningless.
+ * Reporting that instead is the difference between the four days of false
+ * alarms in September and one accurate sentence.
  */
 export async function runCronWatchdog(
-  send: (subject: string, text: string) => Promise<unknown>,
-  now = Date.now()
-): Promise<{ problems: string[]; alerted: string[] }> {
+  opts: { now?: number; selfJob?: string } = {}
+): Promise<WatchdogVerdict> {
+  const now = opts.now ?? Date.now();
   try {
     const health = await readCronHealth();
+
+    if (opts.selfJob) {
+      const mine = health[opts.selfJob];
+      const ageMin = mine ? (now - new Date(mine.at).getTime()) / 60_000 : Infinity;
+      /* Ten minutes covers a slow job and a slow store, and is far inside the
+         two hours before the next run. */
+      if (!mine || ageMin > 10) {
+        const stale = `the health store is not recording runs — ${opts.selfJob} ran just now and the store ` +
+          (mine ? `still shows its last run ${Math.round(ageMin / 60)}h ago` : 'has no record of it') +
+          '; job reports below cannot be trusted until this clears';
+        console.error('[cron-watchdog]', stale);
+        return { problems: [], storeStale: stale };
+      }
+    }
+
     /* Register the expectation for any job with no record and no marker, so
        the never-ran clock starts now rather than at the dawn of time. */
     for (const job of Object.keys(EXPECTED_EVERY_HOURS)) {
@@ -251,49 +306,14 @@ export async function runCronWatchdog(
         health[`expect:${job}`] = { job: `expect:${job}`, ok: true, detail: 'expectation registered', at: new Date(now).toISOString() };
       }
     }
+
     const problems = cronProblems(health, now);
-    if (!problems.length) return { problems: [], alerted: [] };
-
-    const log = await readAlertLog();
-    const due = problems.filter((p) => {
-      const last = log[p.job];
-      if (!last) return true;
-      const since = now - new Date(last).getTime();
-      return !Number.isFinite(since) || since > REALERT_AFTER_MS;
-    });
-
-    if (due.length) {
-      const lines = due.map((p) => `  ${p.job}, ${p.detail}`).join('\n');
-      const subject =
-        due.length === 1
-          ? `Scheduled job not running: ${due[0]!.job}`
-          : `${due.length} scheduled jobs are not running`;
-      await send(
-        subject,
-        'One or more background jobs on westpeakwellness.com have stopped ' +
-          'reporting, or reported a failure.\n\n' +
-          `${lines}\n\n` +
-          'What this can mean in practice: confirmations and follow-ups may not ' +
-          'be going out, the reply-time check may not be running, and the ' +
-          'monthly report may not arrive.\n\n' +
-          'The full picture is at /admin. This message is sent once per job, ' +
-          'then at most once a day while the problem lasts.'
-      );
-
-      const next: AlertLog = { ...log };
-      for (const p of due) next[p.job] = new Date(now).toISOString();
-      /* Written only after the send resolves. If the mail throws, nothing is
-         recorded and the next run tries again — the failure mode of an alert
-         system must be repeating itself, never swallowing itself. */
-      await put(ALERT_KEY, JSON.stringify(next, null, 2), {
-        access: 'private', contentType: 'application/json',
-        addRandomSuffix: false, allowOverwrite: true, cacheControlMaxAge: 0,
-      });
+    if (problems.length) {
+      console.warn('[cron-watchdog] not running:', problems.map((p) => `${p.job} (${p.detail})`).join('; '));
     }
-
-    return { problems: problems.map((p) => p.job), alerted: due.map((p) => p.job) };
+    return { problems: problems.map((p) => p.job) };
   } catch (e) {
     console.error('[cron-watchdog] failed:', e instanceof Error ? e.message : e);
-    return { problems: [], alerted: [] };
+    return { problems: [] };
   }
 }

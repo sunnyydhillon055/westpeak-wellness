@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { cronProblems, EXPECTED_EVERY_HOURS, type CronHealth } from '../lib/cron-health.ts';
+import { cronProblems, storeFrozen, EXPECTED_EVERY_HOURS, type CronHealth } from '../lib/cron-health.ts';
 
 /* Eight scheduled jobs, several of whose failure is invisible by design: the
  * one that verifies the reply-time promise, the note a nurture lead
@@ -109,4 +109,50 @@ test('every scheduled job has an expectation set for it', () => {
       `${job} is scheduled but has no expected interval, so nothing can notice it stopping`
     );
   }
+});
+
+/* THE STORE, NOT THE JOBS — 17 Sep 2026.
+ *
+ * Between 14 and 17 September every scheduled job ran on time and none could
+ * record it: the health blob had acquired a weak ETag and no conditional
+ * write could ever match it again (lib/blob-etag.ts). cronProblems did its job
+ * perfectly and produced a lie — three jobs reported as stopped, emailed to
+ * the owner every morning, while the jobs were running the whole time.
+ *
+ * storeFrozen is the sentence that outranks that list. Two jobs run every two
+ * hours, so a store whose newest line is many hours old is a store nobody can
+ * write to, whatever the individual lines say. */
+test('a store whose newest line is hours old is reported as the store, not the jobs', () => {
+  const h = healthy();
+  assert.equal(storeFrozen(h, NOW), null, 'a fresh store says nothing');
+
+  /* Every line frozen at the same moment: the 14 Sep shape. */
+  const frozen: CronHealth = Object.fromEntries(
+    Object.keys(EXPECTED_EVERY_HOURS).map((job) => [job, { job, at: hoursAgo(84), ok: true, detail: 'completed' }])
+  );
+  const verdict = storeFrozen(frozen, NOW);
+  assert.ok(verdict, 'a store that has not been written in 84 hours is reported');
+  assert.match(verdict!, /84 hours/);
+  assert.match(verdict!, /points at the store rather than the jobs/);
+});
+
+test('a recent line from any job clears the frozen verdict', () => {
+  /* One job still recording is proof the store accepts writes, so the others
+     really are stopped and cronProblems is the right voice. */
+  const h = Object.fromEntries(
+    Object.keys(EXPECTED_EVERY_HOURS).map((job) => [job, { job, at: hoursAgo(84), ok: true, detail: 'completed' }])
+  ) as CronHealth;
+  h['booking-mail'] = { job: 'booking-mail', at: hoursAgo(0.2), ok: true, detail: 'completed' };
+  assert.equal(storeFrozen(h, NOW), null);
+  assert.ok(cronProblems(h, NOW).length > 0, 'and the stopped jobs are still reported');
+});
+
+test('expectation markers do not make a frozen store look alive', () => {
+  /* The markers are written by the watchdog, not by the jobs, and an
+     expect: line is not evidence that a job recorded anything. */
+  const h: CronHealth = {
+    'booking-mail': { job: 'booking-mail', at: hoursAgo(84), ok: true, detail: 'completed' },
+    'expect:funnel-report': { job: 'expect:funnel-report', at: hoursAgo(0.1), ok: true, detail: 'registered' },
+  };
+  assert.ok(storeFrozen(h, NOW), 'a fresh marker must not clear the verdict');
 });

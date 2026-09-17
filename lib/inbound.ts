@@ -1,4 +1,5 @@
 import { put, get, BlobPreconditionFailedError } from '@vercel/blob';
+import { strongEtag } from '@/lib/blob-etag';
 import { normalizeEmail } from '@/lib/portal-auth';
 
 /* Everything a stranger sends the practice, in one place.
@@ -184,6 +185,8 @@ export async function readInbound(opts?: { fresh?: boolean }): Promise<InboundBo
   try {
     const hit = await get(KEY, { access: 'private', useCache: false });
     if (!hit || hit.statusCode !== 200 || !hit.stream) return EMPTY;
+    /* Kept as handed over, weak or strong; strongEtag() decides at write time
+       whether it can guard anything. */
     lastEtag = hit.blob.etag;
     const parsed = (await new Response(hit.stream).json()) as Partial<InboundBook>;
     const value: InboundBook = {
@@ -279,6 +282,22 @@ export async function addInbound(
 
     if (!process.env.BLOB_READ_WRITE_TOKEN) return item;
 
+    /* WHICH WRITES MAY BE CONDITIONAL, AND WHEN ONE MUST NOT BE — 17 Sep 2026.
+       No ETag means no file yet, so the first write is unconditional. A weak
+       ETag (`W/"…"`) can never satisfy If-Match, so a conditional write
+       carrying one is refused forever and the enquiry is lost — see
+       lib/blob-etag.ts, and the eleven days of submissions this cost. The last
+       attempt is also unconditional: after two refusals the choice is between
+       possibly overwriting a concurrent record and certainly dropping this
+       one, and at this volume the second is the greater harm. Both cases are
+       logged, because an unconditional write here is a fact worth seeing. */
+    const guard = strongEtag(lastEtag);
+    const lastChance = attempt === ATTEMPTS;
+    if (lastEtag && !guard) {
+      console.warn(`[inbound] store returned a weak ETag; writing ${item.id} unconditionally (see lib/blob-etag.ts)`);
+    } else if (lastChance && guard) {
+      console.warn(`[inbound] two refusals for ${item.id}; final write is unconditional rather than dropping it`);
+    }
     try {
       const written = await put(KEY, JSON.stringify(value, null, 2), {
         access: 'private',
@@ -286,8 +305,7 @@ export async function addInbound(
         addRandomSuffix: false,
         allowOverwrite: true,
         cacheControlMaxAge: 0,
-        /* No ETag means no file yet, so the first write is unconditional. */
-        ...(lastEtag ? { ifMatch: lastEtag } : {}),
+        ...(guard && !lastChance ? { ifMatch: guard } : {}),
       });
       lastEtag = written.etag;
     } catch (e) {

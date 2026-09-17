@@ -7,6 +7,7 @@ import { readClients } from '@/lib/clients';
 import { listPasswordAccounts } from '@/lib/portal-users';
 import { clinikoConfigured } from '@/lib/cliniko';
 import { recentInbound, markHandled, deleteInbound } from '@/lib/inbound';
+import { isTestSubmission, awaitsHumanReply } from '@/lib/inbound-quality';
 import { recordAudit, recentAudit } from '@/lib/admin-audit';
 import { readCatalog } from '@/lib/cliniko-catalog';
 import { topSearchTerms, readSearchTerms, searchGaps } from '@/lib/search-log';
@@ -16,7 +17,7 @@ import { readLedger, recordContacted } from '@/lib/lifecycle';
 import { reactivationEmail } from '@/lib/lifecycle-mail';
 import { sendDetailed, mailConfigured } from '@/lib/portal-mail';
 import { healthProblems } from '@/lib/health';
-import { readCronHealth, cronProblems } from '@/lib/cron-health';
+import { readCronHealth, cronProblems, storeFrozen } from '@/lib/cron-health';
 import { consultationAvailabilityNow } from '@/lib/cliniko-availability';
 import { site } from '@/lib/site';
 import { revalidatePath } from 'next/cache';
@@ -92,7 +93,11 @@ export default async function AdminPage({
   const inbox = await recentInbound(40);
   const audit = await recentAudit(30);
   const catalog = await readCatalog();
-  const waiting = inbox.filter((i) => !i.handled).length;
+  /* People waiting, not rows waiting. Every unhandled row used to count, and
+     on 17 Sep that made 33 out of an inbox whose human content was three: the
+     rest were this project's own probes and newsletter scripts. See
+     lib/inbound-quality.ts. */
+  const waiting = inbox.filter((i) => !i.handled && awaitsHumanReply(i)).length;
   const monthlyOptIns = inbox.filter((i) => i.monthlyOptIn).length;
   const searches = await topSearchTerms(30);
   const gaps = await searchGaps();
@@ -102,11 +107,16 @@ export default async function AdminPage({
   const searchTotal = (await readSearchTerms()).total;
   /* Jobs that failed, or that have not reported in twice their expected
      interval — which looks identical to "fine" without the second check. */
-  const cronTrouble = cronProblems(await readCronHealth());
+  const cronHealth = await readCronHealth();
+  const cronTrouble = cronProblems(cronHealth);
+  /* One sentence that outranks the list below it when true - see storeFrozen. */
+  const cronStoreFrozen = storeFrozen(cronHealth);
   const availability = await consultationAvailabilityNow();
   /* Whether the reply promise printed on every page is actually being kept.
      Stays quiet below five answered messages — see lib/reply-templates.ts. */
   const replyTime = replyTimeStats(inbox);
+  /* Probes left by this project's own smoke checks and by hand. */
+  const testRows = inbox.filter(isTestSubmission);
 
   /* Paused and former clients who have never had a reactivation note.
    * lib/clients.ts keeps these states specifically so the history survives, and
@@ -222,6 +232,12 @@ export default async function AdminPage({
             the only thing verifying the reply promise printed on every page,
             and funnel-report is the summary that would have shown the rest had
             stopped. */}
+        {cronStoreFrozen && (
+          <div className="crisis" style={{ marginTop: 18 }}>
+            <p style={{ margin: 0 }}><strong>The job health store is not being written.</strong> {cronStoreFrozen}</p>
+          </div>
+        )}
+
         {cronTrouble.length > 0 && (
           <div className="admin-panel" style={{ marginTop: 20, borderLeft: '3px solid var(--clay)' }}>
             <h2 style={{ marginTop: 0, fontSize: '1.05rem' }}>Scheduled jobs needing a look</h2>
@@ -328,6 +344,38 @@ export default async function AdminPage({
                 : 'The digest did not send — check the mail configuration.'}
           </p>
         )}
+        {/* THE PROBES THIS PROJECT LEFT BEHIND - 17 Sep 2026.
+            Eight submissions in the inbox below are self-tests written by the
+            build's own smoke checks and by hand: selftest-ask@example.com,
+            probe@example.com and their like. They are not people, they were
+            counted as people by the reply-time watch for weeks, and they are
+            still sitting in a list the practice is meant to work through. One
+            button, because deleting them one at a time is eight confirmations
+            of something nobody chose to keep. Only addresses that cannot
+            belong to a client are touched - see lib/inbound-quality.ts. */}
+        {testRows.length > 0 && (
+          <form
+            action={async () => {
+              'use server';
+              const s = await auth();
+              const who = s?.user?.email ?? '';
+              if (!who || !isAdmin(who)) return;
+              let gone = 0;
+              for (const t of testRows) if (await deleteInbound(t.id)) gone += 1;
+              await recordAudit({ actor: who, action: 'delete test submissions', subject: `${gone} row(s)` });
+              revalidatePath('/admin');
+            }}
+            style={{ margin: '8px 0 12px' }}
+          >
+            <button type="submit" className="btn btn--ghost">
+              Remove {testRows.length} test submission{testRows.length === 1 ? '' : 's'}
+            </button>
+            <span style={{ marginLeft: 12, fontSize: '.9rem', color: 'var(--ink-soft)' }}>
+              Self-tests and throwaway addresses left by the build. Not counted as waiting for a reply.
+            </span>
+          </form>
+        )}
+
         <form method="POST" action="/api/admin/digest" style={{ margin: '8px 0 18px' }}>
           <button type="submit" className="btn btn--ghost">
             Send every enquiry to date to the counsellors

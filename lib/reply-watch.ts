@@ -1,6 +1,5 @@
 import { readInbound, type Inbound } from '@/lib/inbound';
-import { sendDetailed, mailConfigured } from '@/lib/portal-mail';
-import { site } from '@/lib/site';
+import { awaitsHumanReply } from '@/lib/inbound-quality';
 
 /* THE PROMISE-KEEPER.
  *
@@ -30,6 +29,21 @@ import { site } from '@/lib/site';
  * "One business day" for a message that arrives on Friday evening means Monday.
  * Counting raw hours would fire an alarm every Saturday morning and train the
  * practice to ignore it, which is how monitoring dies.
+ *
+ * IT NO LONGER EMAILS, AND IT NO LONGER COUNTS BOTS - 17 Sep 2026
+ *
+ * Both changes come from the same morning. The watch had been emailing a list
+ * of thirty-three "unanswered" messages: eight of them this project's own test
+ * submissions, the rest newsletter scripts and crypto spam from throwaway
+ * domains. Not one was a person waiting. It had been doing this every weekday
+ * morning, which is how a monitor teaches the person reading it that the
+ * subject does not matter.
+ *
+ * So the list is filtered through lib/inbound-quality.ts, which already knew
+ * how to tell a script from a person and was being used only by the admin
+ * digest; and the result is rendered in /admin beside each message rather than
+ * sent. The owner asked for the mail to stop, and a monitor that has not once
+ * been right has no standing to argue.
  */
 
 /* Only kinds that were promised a reply. A checklist signup asked for a file
@@ -81,8 +95,10 @@ export async function runReplyWatch(
   const now = opts.now ?? new Date();
 
   const { items } = await readInbound({ fresh: true });
+  /* Not handled, promised a reply, and actually a person - see
+     lib/inbound-quality.ts for what the third clause excludes and why. */
   const candidates = items.filter(
-    (i: Inbound) => !i.handled && AWAITS_REPLY.has(i.kind)
+    (i: Inbound) => !i.handled && AWAITS_REPLY.has(i.kind) && awaitsHumanReply(i)
   );
 
   const overdue: Overdue[] = candidates
@@ -100,54 +116,8 @@ export async function runReplyWatch(
        likely to already be gone. */
     .sort((a, b) => b.businessDaysWaiting - a.businessDaysWaiting);
 
-  if (!overdue.length) {
-    return { ok: true, checked: candidates.length, overdue: [], alerted: false, dry };
-  }
-  if (dry || !mailConfigured()) {
-    return { ok: true, checked: candidates.length, overdue, alerted: false, dry };
-  }
-
-  const worst = overdue[0].businessDaysWaiting;
-  const subject =
-    overdue.length === 1
-      ? `Unanswered message, waiting ${worst} business day${worst === 1 ? '' : 's'}`
-      : `${overdue.length} unanswered messages, longest ${worst} business days`;
-
-  const lines = overdue.map(
-    (o) =>
-      `• ${o.name || '(no name given)'} <${o.email}>: ${o.kind}, from ${o.source}, ` +
-      `waiting ${o.businessDaysWaiting} business day${o.businessDaysWaiting === 1 ? '' : 's'}`
-  );
-
-  const text = [
-    `The site promises a reply within one business day on every page. ` +
-      `${overdue.length === 1 ? 'One message has' : `${overdue.length} messages have`} passed that.`,
-    '',
-    ...lines,
-    '',
-    `Reply directly to each person, then mark them handled at ${site.domain}/admin#inbound.`,
-    '',
-    `This is the only reminder. Nobody is being chased on your behalf, and the ` +
-      `people above have not been contacted again. That is deliberate.`,
-  ].join('\n');
-
-  const html =
-    `<p>The site promises a reply within one business day on every page. ` +
-    `${overdue.length === 1 ? 'One message has' : `${overdue.length} messages have`} passed that.</p>` +
-    `<ul>${overdue
-      .map(
-        (o) =>
-          `<li><strong>${o.name || '(no name given)'}</strong> &lt;${o.email}&gt;: ${o.kind}, ` +
-          `from <code>${o.source}</code>, waiting ${o.businessDaysWaiting} business day${
-            o.businessDaysWaiting === 1 ? '' : 's'
-          }</li>`
-      )
-      .join('')}</ul>` +
-    `<p>Reply to each person, then mark them handled at ` +
-    `<a href="${site.domain}/admin#inbound">${site.domain}/admin</a>.</p>` +
-    `<p style="color:#545e69">This is the only reminder. Nobody is being chased on your behalf.</p>`;
-
-  await sendDetailed(site.email, subject, text, html);
-
-  return { ok: true, checked: candidates.length, overdue, alerted: true, dry };
+  /* Nothing is sent from here. The caller logs the count and /admin shows each
+     message with how long it has waited. Nobody is chased on the practice's
+     behalf - that part was always the point and is unchanged. */
+  return { ok: true, checked: candidates.length, overdue, alerted: false, dry };
 }
