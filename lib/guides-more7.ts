@@ -91,7 +91,7 @@ export const moreGuides7: Guide[] = [
     figure2: 'bc-support-routes',
     figure: 'session-requirements',
     title: 'Getting a doctor’s note for a mental-health leave in BC',
-    metaTitle: 'Going Back to Work After Stress Leave in BC | Westpeak',
+    metaTitle: 'Doctor’s Note for Stress Leave in BC | Westpeak',
     metaDescription:
       'What to say to your doctor to get a stress leave, what the note should and should not contain, what an employer may ask, and what to do with no family doctor.',
     eyebrow: 'Guide · Work & money',
@@ -170,7 +170,7 @@ export const moreGuides7: Guide[] = [
     figure2: 'window-of-tolerance',
     figure: 'four-decisions',
     title: 'Returning to work after a mental-health leave',
-    metaTitle: 'Return to Work After a Mental-Health Leave | Westpeak',
+    metaTitle: 'Going Back to Work After Stress Leave in BC | Westpeak',
     metaDescription:
       'Gradual returns, accommodations, and the BC duty-to-accommodate, how to go back after a mental-health leave without rebuilding the collapse you left.',
     eyebrow: 'Guide · Work & money',
@@ -178,7 +178,7 @@ export const moreGuides7: Guide[] = [
       'The leave has an end date. The condition does not check the calendar, which is why the return is where a good leave either consolidates or unravels.',
     shortAnswer:
       'A return that holds is usually gradual, negotiated, and honest about what caused the leave. In BC, an employer has a duty under the Human Rights Code to accommodate a mental-health disability to the point of undue hardship, which in practice supports graduated hours, modified duties, and changes to the specific conditions that broke you. The functional questions belong in a return-to-work plan from your doctor; your diagnosis still belongs to you. And the least-discussed truth: returning to an unchanged situation at full speed is how second leaves happen.',
-    updated: '2026-09-17',
+    updated: '2026-09-02',
     readMinutes: 7,
     sections: [
       {
@@ -247,7 +247,7 @@ export const moreGuides7: Guide[] = [
       'There is no separate "mental-health day" in BC law, and there does not need to be, because the ordinary sick day already covers it. Most people just don’t know that.',
     shortAnswer:
       'BC’s Employment Standards Act gives most employees 5 paid sick days and 3 unpaid days per calendar year after 90 days of employment, and illness includes mental health. A day taken for anxiety, depression or a breaking point is as legitimate as one taken for the flu, your employer may ask for reasonably sufficient proof but not your diagnosis, and "I am unwell" is a complete sentence. The larger question this page also answers: when mental-health days keep being needed, they have stopped being days off and started being data.',
-    updated: '2026-09-02',
+    updated: '2026-09-17',
     readMinutes: 6,
     sections: [
       {
