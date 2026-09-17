@@ -25,3 +25,9 @@ qa/
 
 # The counsellor-name guard tokens (see scripts/expansion-verify.mjs check 8).
 .name-guard
+
+# Local one-off diagnostics (never committed)
+.tick-check.mjs
+.verify-health.mjs
+.etag-*.mjs
+.read-health.mjs
