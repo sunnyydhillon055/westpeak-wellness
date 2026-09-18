@@ -12,6 +12,7 @@ import Updated from '@/components/Updated';
 import CtaBand from '@/components/CtaBand';
 import { BadgeCheck, Languages as LangIcon, MonitorSmartphone } from 'lucide-react';
 import { ogBase } from '@/lib/og-meta';
+import { consultationAvailability } from '@/lib/cliniko-availability';
 import { TAGALOG_READY } from '@/lib/practitioner-tl';
 import { getPunjabiProfile } from '@/lib/practitioner-pa';
 import { COLLECTION_DATES } from '@/lib/page-dates';
@@ -101,11 +102,19 @@ const LANGUAGE_HUBS: {
     : []),
 ];
 
-export default function PractitionerPage({ params }: { params: { slug: string } }) {
+/* Re-rendered every thirty minutes so the open-times line beside the Book
+   button is what Cliniko is offering. The counsellor pages convert clicks to
+   bookings better than anything else on the site, and they said nothing
+   about when. */
+export const revalidate = 1800;
+
+export default async function PractitionerPage({ params }: { params: { slug: string } }) {
   const p = getPractitioner(params.slug);
   if (!p) notFound();
 
   const first = p.name.split(' ')[0];
+
+  const nextOpen = p.acceptingNewClients && p.bookable ? ((await consultationAvailability())[p.slug]?.next ?? []) : [];
   const cities = p.placePages ? placesFor(p.provinces) : [];
   /* See the note on the city pages: the consultation is attached to this
      counsellor so /book can speak for her. */
@@ -208,6 +217,11 @@ export default function PractitionerPage({ params }: { params: { slug: string } 
               )}
               <Link className="btn btn--ghost" href="/pricing">Fees and coverage</Link>
             </div>
+            {nextOpen.length > 0 && (
+              <p style={{ fontSize: '.95rem', marginTop: 12 }}>
+                <strong>Next open with {first}:</strong> {nextOpen.join(' · ')}
+              </p>
+            )}
             {p.sameAs?.some((u) => /psychologytoday\.com/.test(u)) && (
               <p style={{ fontSize: '.9rem', color: 'var(--ink-soft)', marginTop: 12 }}>
                 Also listed on{' '}

@@ -50,9 +50,23 @@ const empty = (slug: string, error?: string): Availability => ({ slug, count: 0,
    likeliest reasons is finding, two screens in, that the two open days are
    not theirs. Saying the days and times before the click is honest and
    cheap. */
-const fmtSlot = (iso: string) =>
-  new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Vancouver', weekday: 'short', day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit', hour12: true })
-    .format(new Date(iso)).replace(/\.$/, '').replace(/\s?([ap])\.m\./i, ' $1m');
+const dayOf = (iso: string) =>
+  new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Vancouver', weekday: 'short', day: 'numeric', month: 'short' }).format(new Date(iso)).replace(/\.,?/g, '');
+const timeOf = (iso: string) =>
+  new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Vancouver', hour: 'numeric', minute: '2-digit', hour12: true }).format(new Date(iso))
+    .replace(/\s?([ap])\.?m\.?/i, ' $1m').replace(':00 ', ' ');
+/* One line per open day, first time on it, for up to three days: "Sat 19 Sep
+   from 9 am (22 times)". Three consecutive half-hours on one day, which is
+   what a raw slot list gives, tells nobody anything they can plan around. */
+function nextByDay(starts: string[]): string[] {
+  const byDay = new Map<string, string[]>();
+  for (const s of [...starts].sort()) {
+    const d = dayOf(s);
+    if (!byDay.has(d)) byDay.set(d, []);
+    byDay.get(d)!.push(s);
+  }
+  return [...byDay.entries()].slice(0, 3).map(([d, ss]) => `${d} from ${timeOf(ss[0]!)}${ss.length > 1 ? ` (${ss.length} times)` : ''}`);
+}
 
 async function fetchOne(slug: string, practitionerId: string): Promise<Availability> {
   const a = api();
@@ -82,7 +96,7 @@ async function fetchOne(slug: string, practitionerId: string): Promise<Availabil
       if (hour >= 17) evening = true;
     }
     const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].filter((d) => seen.has(d));
-    const next = [...starts].sort().slice(0, 3).map(fmtSlot);
+    const next = nextByDay(starts);
     return { slug, count: starts.length, days, earliest: fmtHour(lo), latest: fmtHour(hi), weekend, evening, next };
   } catch (e) {
     return empty(slug, e instanceof Error ? e.message : 'request failed');
@@ -102,7 +116,9 @@ export async function consultationAvailabilityNow(): Promise<Record<string, Avai
 /** The same, cached thirty minutes, for the public pages. */
 export const consultationAvailability = unstable_cache(
   consultationAvailabilityNow,
-  ['consultation-availability'],
+  /* v2: the shape gained `next` on 17 Sep 2026; a cached v1 object would
+     have no such field. */
+  ['consultation-availability-v2'],
   { revalidate: 1800 },
 );
 

@@ -334,11 +334,10 @@ export default async function Book({
                   if (!p.clinikoPractitionerId) return null;
                   return (
                     <div key={p.slug} style={{ margin: '0 0 12px' }}>
-                      {a && !a.error && a.next.length > 0 && (
+                      {a && !a.error && (a.next?.length ?? 0) > 0 && (
                         <p style={{ margin: '0 0 6px', fontSize: '.95rem' }}>
                           <strong>Next open with {first}:</strong>{' '}
                           {a.next.join(' · ')}
-                          {a.count > a.next.length ? ` and ${a.count - a.next.length} more this week` : ''}
                         </p>
                       )}
                       <a
