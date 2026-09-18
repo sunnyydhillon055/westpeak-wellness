@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { site } from '@/lib/site';
 import { track } from '@/lib/analytics';
@@ -37,16 +38,38 @@ export const bookHrefFor = (pathname: string | null): string => {
  * countdown or scarcity language — a health site should not pressure anyone.
  * Hidden on the booking page itself, where it would only point at the page you
  * are already on. */
+type Avail = Record<string, { first: string; next: string[]; count: number }>;
+
 export default function StickyBook() {
   const pathname = usePathname();
-  if (pathname === site.bookingPath || pathname === '/contact') return null;
+  /* The next open consultation, fetched once per page view from a
+     thirty-minute cache (app/api/availability). "Free 30-minute consult" is
+     true on every page and moves nobody; "next: Sat from 9 am" is the thing a
+     person on a stress-leave guide at 11pm actually wants to know. Rendered
+     only once it arrives; the bar is complete without it. */
+  const [avail, setAvail] = useState<Avail | null>(null);
+  useEffect(() => {
+    let live = true;
+    fetch('/api/availability').then((r) => (r.ok ? r.json() : null)).then((j) => { if (live && j) setAvail(j); }).catch(() => {});
+    return () => { live = false; };
+  }, []);
+  /* The crisis directory carries no booking prompt anywhere on it (scripts/
+     cta-audit.mjs says why); the bar was the one place it still did. */
+  if (pathname === site.bookingPath || pathname === '/contact' || pathname === '/resources/bc-crisis-and-support-directory') return null;
+
+  /* On a counsellor's own page, her time; elsewhere the soonest of anyone's. */
+  const onSlug = /^\/practitioners\/([^/]+)/.exec(pathname ?? '')?.[1];
+  const pick = avail
+    ? (onSlug && avail[onSlug]?.next?.length ? avail[onSlug] : Object.values(avail).find((a) => a.next?.length))
+    : undefined;
+  const nextLine = pick?.next?.[0] ? `next: ${pick.next[0].replace(/\s\(\d+ times\)$/, '')} with ${pick.first}` : 'no obligation';
 
   return (
     <div className="sticky-book" role="complementary" aria-label="Book a consultation">
       <div className="sticky-book-inner">
         <div>
           <p className="sticky-book-text">
-            Free 30-minute consult · <span>no obligation</span>
+            Free 30-minute consult · <span>{nextLine}</span>
           </p>
           {/* The bar followed people down every page offering only the biggest
               ask. A text link rather than a second button, so the primary

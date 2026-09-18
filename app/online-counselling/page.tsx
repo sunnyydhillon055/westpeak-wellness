@@ -129,8 +129,8 @@ export default function LocationsIndex() {
             <li>
               <strong>Start, on your own schedule.</strong> Weekly or every two weeks, daytime or evening,
               from wherever in British Columbia you happen to be. You pay per session and claim the
-              receipt on your extended health plan; after a crash,{' '}
-              <Link href="/resources/icbc-counselling-after-a-crash-bc">ICBC</Link> can fund it directly.
+              receipt on your extended health plan; after a crash, ask{' '}
+              <Link href="/resources/icbc-counselling-after-a-crash-bc">ICBC about reimbursement</Link> before you start.
             </li>
           </ol>
 
