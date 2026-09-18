@@ -31,3 +31,5 @@ qa/
 .verify-health.mjs
 .etag-*.mjs
 .read-health.mjs
+.research-*.mjs
+.peek.mjs

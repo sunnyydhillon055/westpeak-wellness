@@ -11,20 +11,20 @@
  */
 
 export const PAGE_DATES: Record<string, string> = {
-  "": "2026-09-13",
+  "": "2026-09-17",
   "/about": "2026-09-08",
   "/services": "2026-09-13",
   "/approaches": "2026-09-06",
   "/pricing": "2026-09-17",
   "/contact": "2026-09-13",
   "/faq": "2026-09-06",
-  "/online-counselling": "2026-09-06",
+  "/online-counselling": "2026-09-17",
   "/guides": "2026-09-06",
   "/compare": "2026-09-06",
   "/for": "2026-09-06",
   "/resources": "2026-09-06",
   "/glossary": "2026-09-03",
-  "/book": "2026-09-13",
+  "/book": "2026-09-17",
   "/tools": "2026-09-06",
   "/reviews": "2026-08-09",
   "/refer": "2026-09-06",
@@ -40,11 +40,11 @@ export const PAGE_DATES: Record<string, string> = {
 
 /** Collections whose items share one source module and so one honest date. */
 export const COLLECTION_DATES: Record<string, string> = {
-  "services": "2026-09-13",
+  "services": "2026-09-17",
   "tools": "2026-09-08",
   "locations": "2026-09-06",
   "punjabiRegions": "2026-09-06",
-  "cityServices": "2026-09-06",
+  "cityServices": "2026-09-17",
   "practitioners": "2026-09-13",
   "practitionerPlaces": "2026-09-03",
   "tagalog": "2026-09-06",

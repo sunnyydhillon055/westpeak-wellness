@@ -33,7 +33,11 @@ export function generateMetadata({ params }: { params: { city: string } }): Meta
   const title = `Online Counselling in ${l.city}, BC`;
   return {
     // absolute: keeps every city title under 60 chars
-    title: { absolute: `Online Counselling in ${l.city} | ${site.name}` },
+    /* "Virtual" added 17 Sep 2026: for Vancouver alone, "virtual counselling"
+       and "virtual therapy" carry 127 impressions a quarter against 137 for
+       "online counselling", and every page in the top ten says both. Prince
+       George is the longest city name and this stays under sixty. */
+    title: { absolute: `Online Counselling in ${l.city}, BC | Virtual Therapy` },
     description: l.metaDescription,
     alternates: { canonical: `${site.domain}/online-counselling/${l.slug}` },
     openGraph: { ...ogBase(`/online-counselling/${l.slug}`), title: `${title} | ${site.name}`, description: l.metaDescription, url: `${site.domain}/online-counselling/${l.slug}` },

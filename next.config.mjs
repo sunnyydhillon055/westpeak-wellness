@@ -142,6 +142,11 @@ const nextConfig = {
       { source: '/services/south-asian-mental-health', destination: '/services/punjabi-counselling', permanent: true },
       { source: '/services/online-counselling-bc', destination: '/online-counselling', permanent: true },
 
+      /* RCC: one page, not two - 17 Sep 2026. The definition page and the
+         verification page split one query cluster; the definition now lives on
+         the verification page. See lib/resources-more.ts. */
+      { source: '/resources/what-is-a-registered-clinical-counsellor', destination: '/resources/verify-a-counsellor-in-bc', permanent: true },
+
       /* THE CITY x TOPIC REDIRECTS ARE GONE, 2 Sep 2026.
          All thirty pages exist again — anxiety, trauma and depression across
          ten cities — rebuilt through lib/conditions.ts, which lets a city page

@@ -125,7 +125,7 @@ export default function PractitionersPage() {
               searchable in the{' '}
               <a href={site.counsellor.registerUrl} target="_blank" rel="noopener">BCACC register</a>,
               and <Link href="/resources/verify-a-counsellor-in-bc">checking it takes about two minutes</Link>.
-              <Link href="/resources/what-is-a-registered-clinical-counsellor"> What an RCC is</Link>,
+              <Link href="/resources/verify-a-counsellor-in-bc"> What an RCC is</Link>,
               and how the designation compares with a psychologist or a social worker, is set out
               on its own pages; the <Link href="/accessibility">accessibility statement</Link>{' '}
               covers how sessions and this site accommodate disability.

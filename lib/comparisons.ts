@@ -142,7 +142,7 @@ const coreComparisons: Comparison[] = [
       /* Search Console (6 Sep 2026): this page draws "registered clinical
          counsellor" impressions at #14 while the two resource pages that
          answer that query directly sit at #31 and #37 with no link from here. */
-      { href: "/resources/what-is-a-registered-clinical-counsellor", label: "What is a Registered Clinical Counsellor?" },
+      { href: "/resources/verify-a-counsellor-in-bc", label: "What is a Registered Clinical Counsellor?" },
       { href: "/resources/verify-a-counsellor-in-bc", label: "How to verify a counsellor's registration in BC" },
       { href: "/guides/is-online-therapy-as-effective-as-in-person", label: "Is online therapy as effective as in-person?" },
       { href: "/pricing", label: "Fees and extended health coverage" },

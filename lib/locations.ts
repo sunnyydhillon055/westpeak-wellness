@@ -193,6 +193,11 @@ export const locations: Location[] = [
       { label: "It follows you", detail: "Moving within BC, common here, does not mean starting again with someone new." },
     ],
     faqs: [
+      /* 17 Sep 2026: the pages outranking this one for the Vancouver query all
+         mention ICBC and call the service virtual counselling or telehealth
+         as well as online. This one did neither. */
+      { q: "Is this the same as virtual counselling or telehealth?", a: "Yes. Online counselling, virtual counselling, virtual therapy and telehealth all describe the same thing here: a scheduled session by secure video with a Registered Clinical Counsellor, from wherever in Vancouver or beyond you are. The only word that would mean something different is in-person, which this practice does not offer." },
+      { q: "Does ICBC cover counselling after a crash in Vancouver?", a: "Yes, under the enhanced care model: counselling after a motor vehicle crash in BC is funded by ICBC regardless of fault, with an initial block of sessions pre-approved and no doctor's referral required to start. The practice bills ICBC directly for approved sessions. The ICBC counselling page sets out how to open the claim and what is covered." },
       { q: "Is virtual therapy cheaper than in-person?", a: "Fees here are the same either way. What virtual removes is the surrounding cost: transit or parking, and the hour or more of travel that an in-person appointment adds to a working day." },
       { q: "I have extended health through work. Will it cover this?", a: "Most BC plans that list Registered Clinical Counsellors will. Some list only psychologists and social workers, so it is worth checking the exact wording, the extended health coverage page explains what to look for." },
       { q: "What if I cannot afford private fees?", a: "Vancouver Coastal Health runs free mental-health services, and there is a broader set of free and low-cost options across BC worth checking before paying out of pocket. Those are listed on the free and low-cost counselling page." },

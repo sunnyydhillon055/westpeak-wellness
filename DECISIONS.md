@@ -304,6 +304,25 @@ so the page opens on her times and never shows a list of counsellors.
 *Enforced by:* `lib/practitioners.ts`, `app/book/page.tsx`,
 `app/practitioners/[slug]/page.tsx`, `components/StickyBook.tsx`
 
+### One page per query cluster, again: RCC, and "online counselling BC"
+Decided 17 Sep 2026, from Search Console and from reading the pages that
+actually hold the top ten for the Vancouver form of the query.
+
+- `/resources/what-is-a-registered-clinical-counsellor` is merged into
+  `/resources/verify-a-counsellor-in-bc` and redirects there. Together they
+  were the site's largest page-three cluster (about 900 impressions a
+  quarter for "registered clinical counsellor" and variants) and they said
+  the same things.
+- `/online-counselling` was titled "Areas Served" while 260 impressions a
+  quarter asked for online or virtual counselling in BC. It is now the
+  province-wide landing page: titled for the query, with the three-step
+  "how it works" every page in the top ten carries, and ICBC named.
+- City page titles say "Online & Virtual Counselling in <city>, BC":
+  "virtual" carries almost as many impressions as "online" for Vancouver
+  and every competing page says both.
+
+*Enforced by:* `scripts/redirect-shadow.mjs`, the SEO gate's title limits
+
 ### The monitors stop emailing, and the stores they read stop freezing
 Decided 17 Sep 2026, owner's instruction ("getting too many emails; don't send
 these types of emails"), after finding that every alert they had ever sent was

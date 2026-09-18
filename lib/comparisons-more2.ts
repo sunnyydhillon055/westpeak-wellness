@@ -496,7 +496,7 @@ export const moreComparisons2: Comparison[] = [
       { href: '/compare/rcc-vs-psychologist-vs-social-worker-bc', label: 'RCC vs psychologist vs social worker' },
       { href: '/resources/psychiatry-and-assessment-in-bc', label: 'Psychiatry and assessment in BC' },
       { href: '/compare/therapy-medication-or-both', label: 'Therapy, medication, or both' },
-      { href: '/resources/what-is-a-registered-clinical-counsellor', label: 'What is an RCC?' },
+      { href: '/resources/verify-a-counsellor-in-bc', label: 'What is an RCC?' },
     ],
   },
 ];

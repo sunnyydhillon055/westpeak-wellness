@@ -19,9 +19,17 @@ export const metadata: Metadata = {
      this page unfurled announcing a different URL than its own canonical
      tag. See lib/og-meta.ts. */
   openGraph: { ...ogBase('/online-counselling') },
-  title: 'Areas Served Across British Columbia',
+  /* RESEARCH, 17 Sep 2026. Search Console holds about 260 impressions a
+     quarter for "online counselling bc", "online counsellor bc", "virtual
+     counselling bc" and their variants, at positions 43 to 72, and this page
+     was titled "Areas Served Across British Columbia" - a title that matches
+     none of them. The pages that hold the top ten for the Vancouver form of
+     the query all title themselves "Online Counselling <place> | Virtual
+     Therapy ..." and open with a three-step "how it works". This page is now
+     the landing page for the province-wide query, not an index of cities. */
+  title: { absolute: 'Online Counselling in BC | Virtual Therapy, Province-Wide' },
   description:
-    'Virtual therapy anywhere in BC: Vancouver, Surrey, Victoria, Kelowna, Prince George and beyond. Sessions in English, Punjabi or Tagalog.',
+    'Online counselling anywhere in BC with Registered Clinical Counsellors, in English, Punjabi or Tagalog. Free 30-minute consultation, evenings, no referral.',
   alternates: { canonical: `${site.domain}/online-counselling` },
 };
 
@@ -106,6 +114,25 @@ export default function LocationsIndex() {
             below have their own pages because people there asked particular questions; the rest of
             the province is served exactly the same way.
           </p>
+
+          <h2>How online counselling works here, in three steps</h2>
+          <ol>
+            <li>
+              <strong>Book a free 30-minute consultation.</strong> Pick a counsellor and a time on the{' '}
+              <Link href={site.bookingPath}>booking page</Link>; the next open times are printed there.
+              No card, no intake form, no referral.
+            </li>
+            <li>
+              <strong>Talk, and decide.</strong> Thirty minutes by secure video to say what is going on
+              and hear how the counsellor would work with it. Nothing is diagnosed and nothing is owed.
+            </li>
+            <li>
+              <strong>Start, on your own schedule.</strong> Weekly or every two weeks, daytime or evening,
+              from wherever in British Columbia you happen to be. You pay per session and claim the
+              receipt on your extended health plan; after a crash,{' '}
+              <Link href="/resources/icbc-counselling-after-a-crash-bc">ICBC</Link> can fund it directly.
+            </li>
+          </ol>
 
           <h2>Why only six cities have their own page</h2>
           <p>
