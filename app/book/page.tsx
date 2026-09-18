@@ -360,6 +360,32 @@ export default async function Book({
                 title={`Book a free 30-minute consultation${who ? ` with ${who.name.split(' ')[0]}` : ''}`}
                 page="/book"
               />
+              {/* THE PEOPLE THE CALENDAR LOSES — 18 Sep 2026.
+                  Thirty-eight people a month interact with the calendar and
+                  next to none book. With two or three open days a week, a
+                  large share of them simply do not find a time that is theirs,
+                  and until now the page had nothing for them but the back
+                  button. This catches them: name, email, when they are free,
+                  and the counsellor replies with a time. It arrives through the
+                  same routed alert as every other enquiry, addressed to the
+                  counsellor chosen above. */}
+              <div className="crisis" style={{ marginTop: 26 }}>
+                <h2 style={{ marginTop: 0, fontSize: '1.25rem' }}>None of these times work?</h2>
+                <p style={{ margin: '0 0 12px' }}>
+                  Say when you are usually free and {who ? who.name.split(' ')[0] : 'the counsellor you choose'} will
+                  reply within one business day with a time that is not on the calendar yet. Evenings and
+                  weekends included.
+                </p>
+                <InboundForm
+                  kind="enquiry"
+                  done={sent}
+                  practitioner={who?.slug}
+                  title="Ask for a time"
+                  note="A sentence on what you are looking for helps, and is optional."
+                  placeholder="When you are usually free (for example, weekday evenings after 6, or Saturday mornings), and anything you want the counsellor to know."
+                  button="Ask for a time"
+                />
+              </div>
             </>
           ) : (
             <div className="crisis" style={{ marginTop: 8 }}>
