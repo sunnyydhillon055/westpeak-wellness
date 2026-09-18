@@ -114,6 +114,19 @@ export function availabilityLine(a: Availability | null | undefined, first: stri
   return `${a.count} free-consultation ${a.count === 1 ? 'time' : 'times'} open with ${first} in the next seven days: ${days}, ${a.earliest} to ${a.latest}${a.weekend ? ', including the weekend' : ''}.`;
 }
 
+/** Just the span: "Tue, Thu, Fri, Sat, 9 am to 7 pm", or null. For the home hero, where a sentence is too long. */
+export function weekSpan(all: Record<string, Availability | null>): string | null {
+  const as = Object.values(all).filter((a): a is Availability => Boolean(a) && !a!.error && a!.count > 0);
+  if (!as.length) return null;
+  const order = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const days = order.filter((d) => as.some((a) => a.days.includes(d)));
+  const toH = (s: string) => { const [n, ap] = s.split(' '); const h = Number(n) % 12; return ap === 'pm' ? h + 12 : h; };
+  const lo = Math.min(...as.map((a) => toH(a.earliest)));
+  const hi = Math.max(...as.map((a) => toH(a.latest)));
+  const span = days.length >= 5 ? `${days[0]} to ${days[days.length - 1]}` : days.join(', ');
+  return `${span}, ${fmtHour(lo)} to ${fmtHour(hi)}`;
+}
+
 /** Practice-wide summary across everyone bookable, or null. */
 export function practiceHoursLine(all: Record<string, Availability | null>): string | null {
   const as = Object.values(all).filter((a): a is Availability => Boolean(a) && !a!.error && a!.count > 0);

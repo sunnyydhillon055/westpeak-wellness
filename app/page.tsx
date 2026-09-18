@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { site } from '@/lib/site';
+import { consultationAvailability, weekSpan } from '@/lib/cliniko-availability';
 import { gurmukhi } from '@/app/fonts-gurmukhi';
 import { lastmodFor } from '@/lib/page-dates';
 import Updated from '@/components/Updated';
@@ -80,7 +81,14 @@ const HUBS = [
   },
 ];
 
-export default function Home() {
+/* The home page sends more people to /book than any other page (12 of 31
+   Book clicks in the conversion log to 16 Sep), and until now it said nothing
+   about when. Re-rendered every thirty minutes so the line below is what
+   Cliniko is actually offering. */
+export const revalidate = 1800;
+
+export default async function Home() {
+  const openThisWeek = weekSpan(await consultationAvailability());
   return (
     <>
       {/* ---------------------------------------------------------------- HERO */}
@@ -136,18 +144,20 @@ export default function Home() {
                 />
               </div>
               <p className="lede">
-                Registered Clinical Counsellor offering EMDR, trauma, anxiety, depression and
-                couples therapy, fully online, anywhere in British Columbia.
+                Registered Clinical Counsellors offering EMDR, trauma, anxiety, depression and
+                couples therapy, fully online, anywhere in British Columbia, in English, Punjabi
+                or Tagalog.
               </p>
               <div className="btn-row" style={{ marginTop: 30 }}>
                 <Link className="btn btn--primary" href={site.bookingPath}>Book a Free 30-min Consultation</Link>
                 <Link className="btn btn--ghost" href="/services">See counselling services</Link>
               </div>
-              {/* Not "weekend times" any more — the schedule moved to Mon–Fri on
-                  2026-08-10 and Saturday and Sunday came off it. Daytime and
-                  evening are both still true: Mon 10–3 and Tue 9–6 are daytime,
-                  Wed–Fri 6–7 is evening. */}
-              <p className="hero-note">Free 30-minute consult · Daytime &amp; evening times · No referral needed</p>
+              {/* Read from Cliniko, not typed: the last hand-written version of
+                  this line described a schedule that had changed twice. When the
+                  calendar cannot be read the line says only what is always true. */}
+              <p className="hero-note">
+                Free 30-minute consult · {openThisWeek ? `Open this week: ${openThisWeek}` : 'Daytime and evening times'} · No referral needed
+              </p>
               <TrustBar />
             </div>
           </div>
