@@ -19,9 +19,18 @@ import { Fraunces, Inter } from 'next/font/google';
  * request to Google, no layout shift, and `display: swap` with a matched
  * fallback so the first paint is never invisible. */
 
+/* `optional`, not `swap`, for the display face — 18 Sep 2026. Lighthouse
+   mobile (simulated slow 4G) put LCP at 5.1 to 5.4 s on the home page, /book
+   and the stress-leave guide, against an unthrottled 1.2 s: the largest
+   element is heading text, and with `swap` its paint is re-recorded when the
+   85 KB of webfonts finally land. With `optional` the browser uses Georgia if
+   Fraunces is not there within its short block window, and never swaps, so
+   the heading counts as painted the first time it is. Repeat visits have the
+   font cached and see Fraunces as before. Body text keeps `swap`: it is not
+   the LCP element and Inter's fallback metrics are matched. */
 export const display = Fraunces({
   subsets: ['latin'],
-  display: 'swap',
+  display: 'optional',
   variable: '--font-display',
   weight: ['500', '600'],
   fallback: ['Georgia', 'Times New Roman', 'serif'],

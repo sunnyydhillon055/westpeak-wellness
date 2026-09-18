@@ -1,4 +1,11 @@
 'use client';
+
+/* prefetch={false} on every link in the header and footer — 18 Sep 2026.
+   Next prefetches the RSC payload of any link in the viewport, and on a phone
+   the header is always in the viewport: Lighthouse showed two 45-60 KB
+   prefetches starting inside the first second, on a simulated slow-4G link
+   where the largest paint was already waiting for bytes. Navigation still
+   works; it prefetches on hover/touch instead of on sight. */
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState, type CSSProperties } from 'react';
@@ -184,7 +191,7 @@ export default function Header() {
       data-open={open ? 'true' : 'false'}
     >
       <div className="container container--wide nav">
-        <Link href="/" className="brand" aria-label={`${site.name}, home`}>
+        <Link prefetch={false} href="/" className="brand" aria-label={`${site.name}, home`}>
           <span className="brand-mark" aria-hidden="true"><Motif variant="mark" /></span>
           <span className="brand-word">Westpeak <span>Wellness</span></span>
         </Link>
@@ -208,7 +215,7 @@ export default function Header() {
               style={{ '--i': i } as CSSProperties}
               className={n.href === '/practitioners' ? 'nav-has-sub' : undefined}
             >
-              <Link
+              <Link prefetch={false}
                 href={n.href}
                 aria-current={isActive(n.href) ? 'page' : undefined}
                 onClick={() => setOpen(false)}
@@ -235,7 +242,7 @@ export default function Header() {
                 <ul className="nav-sub">
                   {practitioners.map((p) => (
                     <li key={p.slug}>
-                      <Link
+                      <Link prefetch={false}
                         href={`/practitioners/${p.slug}`}
                         onClick={() => setOpen(false)}
                         aria-current={isActive(`/practitioners/${p.slug}`) ? 'page' : undefined}
@@ -246,7 +253,7 @@ export default function Header() {
                     </li>
                   ))}
                   <li className="nav-sub-all">
-                    <Link href="/practitioners" onClick={() => setOpen(false)}>
+                    <Link prefetch={false} href="/practitioners" onClick={() => setOpen(false)}>
                       {isTagalog ? TL_CHROME.allCounsellors : 'All counsellors'} &rarr;
                     </Link>
                   </li>
@@ -268,7 +275,7 @@ export default function Header() {
             * the more honest signal — a page written *in* Punjabi is a
             * different promise from the English word "Punjabi" on a menu. */}
           <li className="nav-lang" style={{ '--i': NAV.length } as CSSProperties}>
-            <Link
+            <Link prefetch={false}
               href="/punjabi"
               lang="pa"
               hrefLang="pa"
@@ -284,7 +291,7 @@ export default function Header() {
             * speaker looks for — so it needs no translation to be recognised. */}
           {TAGALOG_READY && (
             <li className="nav-lang" style={{ '--i': NAV.length + 1 } as CSSProperties}>
-              <Link
+              <Link prefetch={false}
                 href="/tagalog"
                 lang="tl"
                 hrefLang="tl"
@@ -296,7 +303,7 @@ export default function Header() {
             </li>
           )}
           <li className="nav-portal" style={{ '--i': NAV.length + 2 } as CSSProperties}>
-            <Link
+            <Link prefetch={false}
               href={site.portalPath}
               aria-current={isActive(site.portalPath) ? 'page' : undefined}
               onClick={() => setOpen(false)}
@@ -319,7 +326,7 @@ export default function Header() {
             </li>
           )}
           <li className="nav-cta" style={{ '--i': NAV.length + 4 } as CSSProperties}>
-            <Link
+            <Link prefetch={false}
               className="btn btn--primary"
               href={bookHrefFor(pathname)}
               onClick={() => {
