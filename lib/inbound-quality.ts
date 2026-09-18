@@ -60,6 +60,22 @@ export function looksHuman(it: Pick<Inbound, 'email' | 'name' | 'message' | 'sou
   return true;
 }
 
+/* Disposable-address domains seen in this practice's own lead store on
+   17 Sep 2026 (every nurture subscriber was one of these) plus the common
+   throwaway services. Sending a three-step sequence to addresses like this
+   does nothing for the practice and something bad to its sending reputation,
+   which is what decides whether a real client's confirmation lands in the
+   inbox or the spam folder. */
+const DISPOSABLE = /@(emalupe\.com|uberip\.com|mailinator\.com|guerrillamail\.[a-z]+|10minutemail\.[a-z]+|tempmail\.[a-z]+|temp-mail\.[a-z]+|yopmail\.com|trashmail\.[a-z]+|sharklasers\.com|getnada\.com|dispostable\.com|maildrop\.cc|mohmal\.com|throwawaymail\.com|fakeinbox\.com|mailnesia\.com)$/i;
+
+/** A throwaway address, or a local part with the shape a generator makes (a long run of lower-case letters and digits, no separator). */
+export function looksDisposable(email: string): boolean {
+  const e = String(email ?? '').trim();
+  if (DISPOSABLE.test(e)) return true;
+  const local = e.split('@')[0] ?? '';
+  return /^[a-z0-9]{12,}$/.test(local) && /\d/.test(local) && !/[._-]/.test(local);
+}
+
 /** Somebody who wrote in and is owed an answer: not a probe, not a script. */
 export function awaitsHumanReply(it: Pick<Inbound, 'email' | 'name' | 'message' | 'source'>): boolean {
   return !isTestSubmission(it) && looksHuman(it);

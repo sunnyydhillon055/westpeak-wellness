@@ -1,6 +1,7 @@
 import { site } from '@/lib/site';
 import { shell, btn, p, a, esc, wrap, links } from '@/lib/booking-mail';
 import { readInbound, type Inbound } from '@/lib/inbound';
+import { isTestSubmission, looksDisposable } from '@/lib/inbound-quality';
 import { sendDetailed, mailConfigured } from '@/lib/portal-mail';
 import { put, get } from '@vercel/blob';
 import { normalizeEmail } from '@/lib/portal-auth';
@@ -195,7 +196,7 @@ Unsubscribe: ${unsubLink(to)}`);
 export type NurtureResult = {
   ok: boolean;
   sent: number;
-  skipped: { optedOut: number; alreadyClient: number; notDue: number; done: number };
+  skipped: { optedOut: number; alreadyClient: number; notDue: number; done: number; bot: number };
   failures: string[];
   reason?: string;
 };
@@ -203,7 +204,7 @@ export type NurtureResult = {
 export async function runNurture(opts: { dry?: boolean } = {}): Promise<NurtureResult> {
   const base: NurtureResult = {
     ok: false, sent: 0,
-    skipped: { optedOut: 0, alreadyClient: 0, notDue: 0, done: 0 }, failures: [],
+    skipped: { optedOut: 0, alreadyClient: 0, notDue: 0, done: 0, bot: 0 }, failures: [],
   };
   if (!mailConfigured() && !opts.dry) {
     return { ...base, reason: 'RESEND_API_KEY or PORTAL_FROM_EMAIL is not set' };
@@ -233,6 +234,9 @@ export async function runNurture(opts: { dry?: boolean } = {}): Promise<NurtureR
 
   for (const lead of leads) {
     const e = lead.email;
+    /* Every subscriber in the ledger on 17 Sep 2026 was a disposable address.
+       A sequence to those is spam by definition and costs sender reputation. */
+    if (isTestSubmission(lead) || looksDisposable(e)) { base.skipped.bot++; continue; }
     if (sent.optedOut[e]) { base.skipped.optedOut++; continue; }
     if (clientEmails.has(e) || inConversation.has(e)) { base.skipped.alreadyClient++; continue; }
 

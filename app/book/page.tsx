@@ -316,6 +316,47 @@ export default async function Book({
                   </h2>
                 </div>
               </div>
+              {/* THE TWO THINGS THE FUNNEL WAS MISSING — 17 Sep 2026.
+                  The conversion log: 73 people reached this calendar in a month,
+                  38 interacted with it, and the client book did not move. So,
+                  before the embedded frame: the actual next open times, read
+                  from Cliniko, so nobody discovers two screens in that the open
+                  days are not theirs; and a plain link that opens the same
+                  calendar as its own page. An embedded booking form is a
+                  third-party frame, and browsers that block third-party
+                  cookies (Safari by default, and increasingly Chrome) can show
+                  it and then refuse the session it needs to submit. The link
+                  is first-party and works everywhere. */}
+              <div className="book-next" style={{ margin: '0 0 18px' }}>
+                {(who ? [who] : accepting).map((p) => {
+                  const a = avail[p.slug];
+                  const first = p.name.split(' ')[0];
+                  if (!p.clinikoPractitionerId) return null;
+                  return (
+                    <div key={p.slug} style={{ margin: '0 0 12px' }}>
+                      {a && !a.error && a.next.length > 0 && (
+                        <p style={{ margin: '0 0 6px', fontSize: '.95rem' }}>
+                          <strong>Next open with {first}:</strong>{' '}
+                          {a.next.join(' · ')}
+                          {a.count > a.next.length ? ` and ${a.count - a.next.length} more this week` : ''}
+                        </p>
+                      )}
+                      <a
+                        className={who || accepting.length === 1 ? 'btn btn--primary' : 'btn btn--ghost'}
+                        href={bookingsUrlFor(p.clinikoPractitionerId)}
+                        target="_blank"
+                        rel="noopener"
+                        data-book-direct={p.slug}
+                      >
+                        Open {first}&rsquo;s calendar in a new tab
+                      </a>
+                    </div>
+                  );
+                })}
+                <p style={{ margin: '4px 0 0', fontSize: '.85rem', color: 'var(--ink-soft)' }}>
+                  The same calendar is embedded below. If it does not load on your phone, the link above always will.
+                </p>
+              </div>
               <SchedulerEmbed
                 url={bookingsUrlFor(who?.clinikoPractitionerId)}
                 title={`Book a free 30-minute consultation${who ? ` with ${who.name.split(' ')[0]}` : ''}`}

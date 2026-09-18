@@ -67,3 +67,15 @@ test('the three real leads survive the filter', () => {
 test('an empty message with no name and no /book origin is not counted', () => {
   assert.equal(looksHuman(row({ message: '', name: '', source: '/contact' })), false);
 });
+
+test('disposable addresses never enter the nurture sequence', async () => {
+  /* The whole nurture ledger on 17 Sep 2026: five subscribers, all generated
+     addresses at two throwaway domains. */
+  const { looksDisposable } = await import('../lib/inbound-quality.ts');
+  for (const e of ['enf1xefsht7msc@emalupe.com', '5jxcpevzkzf61a@emalupe.com', 'od2nz4mdw198rq@uberip.com', 'x@mailinator.com']) {
+    assert.equal(looksDisposable(e), true, e);
+  }
+  for (const e of ['dantle95@gmail.com', 'steevestoryteller@gmail.com', 'first.last@shaw.ca', 'sunny@westpeakwellness.com']) {
+    assert.equal(looksDisposable(e), false, `${e} is a person`);
+  }
+});

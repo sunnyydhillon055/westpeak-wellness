@@ -26,6 +26,8 @@ export type Availability = {
   latest: string;   // e.g. "7 pm"
   weekend: boolean;
   evening: boolean; // any slot starting 5 pm or later
+  /** The first few open times, already in Pacific time, e.g. "Thu 18 Sep, 10:00 am". */
+  next: string[];
   /** Set when Cliniko could not be read; count is then 0 and the pages print nothing. */
   error?: string;
 };
@@ -39,7 +41,18 @@ const pacific = (iso: string) => {
 };
 const fmtHour = (h: number) => (h === 0 ? '12 am' : h < 12 ? `${h} am` : h === 12 ? '12 pm' : `${h - 12} pm`);
 
-const empty = (slug: string, error?: string): Availability => ({ slug, count: 0, days: [], earliest: '', latest: '', weekend: false, evening: false, ...(error ? { error } : {}) });
+const empty = (slug: string, error?: string): Availability => ({ slug, count: 0, days: [], earliest: '', latest: '', weekend: false, evening: false, next: [], ...(error ? { error } : {}) });
+
+/* "Thu 18 Sep, 10:00 am" in Vancouver time. Concrete times on the booking
+   page are the difference between "is there anything this week" and a click:
+   the conversion log for August to September showed 73 people reaching the
+   calendar, 38 interacting with it, and next to none booking, and one of the
+   likeliest reasons is finding, two screens in, that the two open days are
+   not theirs. Saying the days and times before the click is honest and
+   cheap. */
+const fmtSlot = (iso: string) =>
+  new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Vancouver', weekday: 'short', day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit', hour12: true })
+    .format(new Date(iso)).replace(/\.$/, '').replace(/\s?([ap])\.m\./i, ' $1m');
 
 async function fetchOne(slug: string, practitionerId: string): Promise<Availability> {
   const a = api();
@@ -69,7 +82,8 @@ async function fetchOne(slug: string, practitionerId: string): Promise<Availabil
       if (hour >= 17) evening = true;
     }
     const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].filter((d) => seen.has(d));
-    return { slug, count: starts.length, days, earliest: fmtHour(lo), latest: fmtHour(hi), weekend, evening };
+    const next = [...starts].sort().slice(0, 3).map(fmtSlot);
+    return { slug, count: starts.length, days, earliest: fmtHour(lo), latest: fmtHour(hi), weekend, evening, next };
   } catch (e) {
     return empty(slug, e instanceof Error ? e.message : 'request failed');
   }
