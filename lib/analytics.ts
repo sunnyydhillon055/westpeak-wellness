@@ -73,6 +73,7 @@ export function track(event: TrackedEvent, params: Params = {}): void {
  * which is indistinguishable from a broken funnel. */
 export type TrackedEvent =
   | 'book_click'
+  | 'book_direct'
   | 'lead_magnet_submit'
   | 'enquiry_submit'
   /* The booking embed is a third-party iframe and therefore opaque: nothing

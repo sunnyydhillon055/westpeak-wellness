@@ -134,7 +134,17 @@ and Abbotsford with one sentence: "We take new clients within the week, online,
 in English, Punjabi and Tagalog; the free consultation is bookable directly
 by the patient." Doctors refer to whoever has availability. You do.
 
-## 9. Liability insurance (before 1 October)
+## 9. Email authentication (10 minutes, one DNS record)
+
+Checked 18 Sep: Resend's DKIM and SPF are in place on the sending subdomain
+and Google handles inbound, so confirmations and consultation reminders are
+authenticated. DMARC is set to `p=none`, which reports nothing and enforces
+nothing. Change the `_dmarc` TXT record to
+`v=DMARC1; p=quarantine; rua=mailto:info@westpeakwellness.com; pct=100`
+so spoofed mail from the domain is quarantined and you get a weekly report.
+Gmail and Yahoo treat an enforcing DMARC as a trust signal for bulk senders.
+
+## 10. Liability insurance (before 1 October)
 
 Camille's policy expires 1 October 2026. The founder has no policy recorded
 on the roster. The site's credential-expiry check will start flagging the

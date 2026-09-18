@@ -41,6 +41,8 @@ const COUNTED = new Set([
   'enquiry_submit',
   'lead_magnet_submit',
   'book_click',
+  /* The direct-to-Cliniko link on /book, beside the embedded frame (17 Sep 2026). */
+  'book_direct',
   'scheduler_visible',
   'scheduler_interact',
   'tool_share',

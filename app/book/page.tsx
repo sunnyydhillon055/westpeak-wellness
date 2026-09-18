@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { site, bookingsUrlFor } from '@/lib/site';
 import { gurmukhi } from '@/app/fonts-gurmukhi';
 import SchedulerEmbed from '@/components/SchedulerEmbed';
+import BookDirectLink from '@/components/BookDirectLink';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import InboundForm from '@/components/InboundForm';
 import { ogBase } from '@/lib/og-meta';
@@ -340,15 +341,13 @@ export default async function Book({
                           {a.next.join(' · ')}
                         </p>
                       )}
-                      <a
+                      <BookDirectLink
                         className={who || accepting.length === 1 ? 'btn btn--primary' : 'btn btn--ghost'}
                         href={bookingsUrlFor(p.clinikoPractitionerId)}
-                        target="_blank"
-                        rel="noopener"
-                        data-book-direct={p.slug}
+                        who={p.slug}
                       >
                         Open {first}&rsquo;s calendar in a new tab
-                      </a>
+                      </BookDirectLink>
                     </div>
                   );
                 })}
