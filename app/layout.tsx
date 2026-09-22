@@ -242,7 +242,15 @@ const orgSchema = {
        audit of 6 Sep 2026 as one of the four places outside this site that
        corroborate the entity at all; it was not claimed here. */
     'https://www.tiktok.com/@westpeakwellness',
-    'https://www.google.com/maps/search/Westpeak+Wellness+White+Rock+BC',
+    /* The practice's own Google Business Profile — verified, six reviews,
+       found 22 Sep 2026 while walking the owner through creating one. Every
+       audit had scored it as absent because nothing on the site pointed at
+       it. The share link is Google's stable handle for the listing; the
+       kgmid URL is its Knowledge Graph entity, which is what "is this the
+       same business" is actually reconciled against. The old Maps search URL
+       was a query, not a listing. */
+    'https://share.google/lTHqqJIRmbLV8eauN',
+    'https://www.google.com/search?kgmid=/g/11tmfp3w60',
     /* NOT the BCACC profile URL. That link carries the counsellor's name in
        its path, and the name appears nowhere on this site by the owner's
        standing decision — scripts/expansion-verify.mjs failed the build on

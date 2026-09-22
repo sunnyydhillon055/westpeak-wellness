@@ -71,6 +71,12 @@ export default async function Contact({
             {hoursLine && (
               <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Clock strokeWidth={1.7} /></span><div><h3>Hours</h3><p>{hoursLine}</p></div></div>
             )}
+            {/* The Google listing, linked from the site for the first time on
+                22 Sep 2026. It is where the practice's public reviews live;
+                they stay there, not here (BCACC advertising standard). */}
+            {(
+              <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><MapPin strokeWidth={1.7} /></span><div><h3>On Google</h3><p><a href="https://share.google/lTHqqJIRmbLV8eauN" target="_blank" rel="noopener">Westpeak Wellness on Google</a>, the practice&rsquo;s verified listing.</p></div></div>
+            )}
             {/* The reply time, stated. It is the most common unspoken worry
                 when emailing a stranger about therapy — not whether they will
                 answer well, but whether they will answer at all — and it costs

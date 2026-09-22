@@ -14,7 +14,7 @@ const S = JSON.parse(readFileSync('data/competitors/scan.json', 'utf8'));
 
 const KNOWN = {
   westpeak: {
-    phone: false, consultMinutes: '30', gscPosition: 53.7, gbp: false, ptAccurate: false,
+    phone: false, consultMinutes: '30', gscPosition: 53.7, gbp: true,   // verified Google Business Profile with reviews, linked from the site 22 Sep 2026 ptAccurate: false,
     testimonialsBanned: true, inPerson: false, llms: true, referPage: true, portal: true,
     registrationNumber: true, intakeForm: false,
     sessionLength: true,      // "50 minutes" on /pricing and every service page; the probe's number pattern was too narrow

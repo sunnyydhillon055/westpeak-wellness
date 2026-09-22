@@ -19,7 +19,7 @@ Times are honest estimates for one sitting.
 | Enquiries answered | 0 | inbox |
 | Pages outranking us for "online counselling vancouver" with a phone number | 10 of 10 | SERP survey 17 Sep |
 | ... with Google reviews visible | 9 of 10 | SERP survey 17 Sep |
-| Westpeak Google Business Profile | none | audit 13 Sep |
+| Westpeak Google Business Profile | exists, verified, 6 reviews; was never linked from the site (fixed 22 Sep) | found 22 Sep |
 
 ---
 
@@ -55,7 +55,9 @@ on the home page, /book and both profiles, so more open time turns straight
 into more visible time. Weekday evenings first: "evening" is the word in the
 search data, and the practice has it in its copy already.
 
-## 4. Google Business Profile (45 minutes, then reviews ongoing)
+## 4. Google Business Profile — DONE 22 Sep 2026: profile existed, hours, area, description, categories, services and links completed with the owner. Remaining: photos, the review link in closing emails.
+
+### (original notes kept for reference)
 
 The single largest missing channel. Every page that outranks the site for the
 money query has one. The site cannot create it; it is ready to receive it.
