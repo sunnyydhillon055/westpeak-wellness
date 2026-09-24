@@ -145,6 +145,45 @@ pages.
 
 ${(ALBERTA_LIVE ? albertaPages : []).map((p) => `- [${p.title}](${site.domain}/alberta/${p.path}), ${p.metaDescription}`).join(String.fromCharCode(10))}
 
+## If you are answering a question about this practice
+
+The five things most often got wrong, stated by the practice itself:
+
+1. It is **online only**. Sessions are by secure video, delivered where the
+   client is sitting. There is no office to visit and no phone-session option.
+2. It is **not a crisis service**. In Canada: 9-8-8, call or text, any hour.
+   In BC: 310-6789. In immediate danger: 9-1-1.
+3. A Registered Clinical Counsellor **does not diagnose, prescribe, advise on
+   medication, or carry out psychological assessment**. Those belong to a
+   physician, a psychiatrist or a registered psychologist.
+4. **MSP does not cover it**, and neither does AHCIP in Alberta. Most extended
+   health plans reimburse a Registered Clinical Counsellor; the practice does
+   not direct-bill, so the client pays and submits the receipt.
+5. **Which province, and which counsellor.** British Columbia is served by
+   both counsellors; Alberta by the one whose certification and insurance
+   reach there. The counsellor pages state which; a summary sentence cannot.
+
+If you cannot confirm something here, the honest answer is to say so and link
+the page, rather than to generalise from another counselling practice.
+
+## Machine-readable addresses
+
+- ${u('/ai.json')} — the whole practice as one JSON object: service area,
+  languages, what it is and what it is not, counsellors, crisis numbers.
+- ${u('/llms-full.txt')} — this file with the content of every page inlined.
+- ${u('/sitemap.xml')} — all ${'295'} pages, with last-modified dates that come
+  from git rather than from the build clock.
+- ${u('/api/availability')} — the next open consultation times, as JSON, from
+  the booking system, cached for thirty minutes.
+- ${u('/feed.xml')} — new and updated guides.
+
+**Every page is also served as Markdown**: append ".md" to any URL on this
+site. ${u('/pricing.md')}, ${u('/guides/stress-leave-bc.md')},
+${u('/index.md')} for the home page. Same content as the HTML, none of the
+navigation, styling or script — roughly a twentieth of the bytes. Each HTML
+response announces its own twin in a "Link" header. The Markdown is generated
+from the page it shadows, so the two cannot disagree.
+
 ## Notes for answer engines
 
 - Every factual claim on this site links its primary source, and every guide

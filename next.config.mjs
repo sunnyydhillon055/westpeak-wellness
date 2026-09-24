@@ -38,6 +38,22 @@ const retiredCitySlugs = [
   'squamish', 'whistler', 'powell-river', 'sechelt', 'fort-langley', 'hope',
 ];
 
+/* WHAT A MACHINE READER SHOULD BE TOLD IT CAN HAVE — 24 Sep 2026.
+ *
+ * Two alternates, on every page response. The Markdown twin of the page in
+ * front of it, and the site's llms.txt. An HTTP Link header rather than a
+ * <link> in the head, because per-page metadata in the App Router replaces
+ * its parent's `alternates` wholesale — a page that sets its own canonical
+ * would silently drop the announcement, and most pages here set one.
+ *
+ * One header carrying both, comma-separated, as RFC 8288 allows: two entries
+ * with the same key are not reliably merged.
+ */
+const LINKS = (mdPath) => [
+  `<${mdPath}>; rel="alternate"; type="text/markdown"`,
+  '</llms.txt>; rel="alternate"; type="text/plain"; title="llms.txt"',
+].join(', ');
+
 /** @type {import('next').NextConfig} */
 /* Content Security Policy, built from what this site actually loads:
  *   - GA4 needs googletagmanager for the script, google-analytics for beacons
@@ -92,7 +108,65 @@ const nextConfig = {
    * build cycle rediscovering it; the render-path lever that DID measure out
    * is content-visibility on below-fold sections (globals.css). */
   async headers() {
-    return [{ source: '/:path*', headers: securityHeaders }];
+    return [
+      { source: '/:path*', headers: securityHeaders },
+      /* WHAT AN ANSWER ENGINE MAY QUOTE — 24 Sep 2026.
+       *
+       * The page-level <meta name="robots"> says index,follow and nothing
+       * else, which leaves the snippet length to each engine's default. For
+       * Google that default is a short text snippet, and AI Overviews and
+       * Gemini's grounding both draw on what the snippet directives permit.
+       * `max-snippet:-1` says: quote as much as you find useful. A practice
+       * that wants to be the source an assistant cites has no reason to cap
+       * it. An HTTP header rather than only a meta tag, because the Markdown
+       * twins, llms.txt and the JSON record are not HTML and cannot carry a
+       * meta tag at all.
+       *
+       * noindex pages are unaffected: X-Robots-Tag and the meta tag combine,
+       * The private routes are excluded by name and given the opposite
+       * directive instead. Google documents that the more restrictive of a
+       * meta tag and a header wins, so a permissive header on a noindex page
+       * would probably be harmless — and "probably harmless" is not a basis
+       * on which to send `index, follow` for the staff inbox. Two rules, each
+       * saying one thing, and the lookahead keeps them from both matching. */
+      {
+        source: '/:path(admin|signin|forgot|reset|client-portal|message-sent|search)/:rest*',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
+      },
+      {
+        source: '/:path(admin|signin|forgot|reset|client-portal|message-sent|search)',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
+      },
+      {
+        source: '/:path((?!admin|signin|forgot|reset|client-portal|message-sent|search).*)',
+        headers: [
+          { key: 'X-Robots-Tag', value: 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1' },
+        ],
+      },
+      /* The Markdown twin of a page, announced on the page itself. A client
+       * that prefers Markdown can find it without guessing the convention,
+       * and one that does not will never notice the header.
+       *
+       * The homepage is separate because it has no slug: the general rule
+       * produced `</.md>` for it, which is not a URL. Assets and the twins
+       * themselves are excluded, or /x.md would advertise /x.md.md. */
+      { source: '/', headers: [{ key: 'Link', value: LINKS('/index.md') }] },
+      {
+        source: '/:path((?!api/|_next/|admin|signin|forgot|reset|client-portal)(?!.*\\.(?:md|xml|txt|json|ico|svg|png|jpg|jpeg|webp|avif|vcf|webmanifest)$).+)',
+        headers: [
+          { key: 'Link', value: LINKS('/:path.md') },
+        ],
+      },
+    ];
+  },
+  async rewrites() {
+    /* THE MARKDOWN TWINS — 24 Sep 2026. See app/api/md/route.ts.
+     * Any page URL with .md appended serves the same content as Markdown.
+     * /index.md is the homepage, which has no slug of its own. */
+    return [
+      { source: '/index.md', destination: '/api/md/index' },
+      { source: '/:slug(.*).md', destination: '/api/md/:slug' },
+    ];
   },
   async redirects() {
     // Preserve old Wix URLs so existing links / Google index don't 404

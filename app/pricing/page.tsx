@@ -8,6 +8,8 @@ import Figure from '@/components/Figure';
 import LeadCapture from '@/components/LeadCapture';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { readCatalog, money, type CatalogItem } from '@/lib/cliniko-catalog';
+import { webPage } from '@/lib/schema';
+import { lastmodFor } from '@/lib/page-dates';
 
 export const metadata: Metadata = {
   /* Retitled 17 Sep 2026 from "Fees & Insurance", which matched none of the
@@ -264,6 +266,27 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
         * Every answer below is the visible card copy rather than a variant
         * written for the markup: schema describing something other than what
         * the visitor reads is how structured data stops being trusted. */}
+      {/* THE PAGE ITSELF, WHICH THIS PAGE DID NOT DESCRIBE — 24 Sep 2026.
+        *
+        * /pricing carried a FAQPage and nothing else: no node saying what the
+        * page is, what language it is in, who publishes it or when it last
+        * changed. A retrieval system had four questions and answers, and for
+        * the most asked-about page on the site, nothing. `webPage` also
+        * carries `speakable`, which names the sentences that answer the
+        * question — the thing a voice assistant reads out. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(webPage({
+            path: '/pricing',
+            name: 'Counselling fees and insurance',
+            description:
+              'Session fees in full, what extended health usually reimburses, and what the free 30-minute consultation covers.',
+            updated: lastmodFor('/pricing') ?? undefined,
+          })),
+        }}
+      />
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

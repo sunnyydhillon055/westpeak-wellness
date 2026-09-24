@@ -6,6 +6,7 @@ import { site } from '@/lib/site';
 import { getExtra } from '@/lib/depth';
 import { buildToc, headingId } from '@/lib/toc';
 import { orgRef, siteRef, personRef, medicalWebPage } from '@/lib/schema';
+import { therapyNode } from '@/lib/entities';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
 import SceneBand from '@/components/SceneBand';
@@ -85,6 +86,18 @@ export default function ApproachPage({ params }: { params: { slug: string } }) {
       reviewedBy: personRef,
       isPartOf: siteRef,
       isAccessibleForFree: true,
+      /* WHICH "ACT" THIS IS — 24 Sep 2026.
+         The page said its subject only in the headline, as a string. `about`
+         with a sameAs names the method itself, so a retrieval system does not
+         have to work out from context whether this is acceptance and
+         commitment therapy or something else with the same initials. See
+         lib/entities.ts. */
+      about: therapyNode(g.slug, g.title),
+      /* The sources the page already lists in words, as data — see the guide
+         route for why. 24 Sep 2026. */
+      ...(g.sources.length
+        ? { citation: g.sources.map((src) => ({ '@type': 'CreativeWork', name: src.label, url: src.url })) }
+        : {}),
       image: [
         `${site.domain}/approaches/${g.slug}/opengraph-image`,
         ...(g.figure && getFigure(g.figure) ? [`${site.domain}/img/${getFigure(g.figure)!.file}`] : []),

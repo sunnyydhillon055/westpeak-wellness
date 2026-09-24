@@ -153,6 +153,20 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
       reviewedBy: personRef,
       isPartOf: siteRef,
       isAccessibleForFree: true,
+      /* The guide's own answer, the one printed above the fold, offered as
+         the summary rather than leaving an engine to compose one from
+         whichever paragraph it retrieved. Added 24 Sep 2026. */
+      abstract: g.shortAnswer,
+      /* THE SOURCES, AS DATA — 24 Sep 2026.
+         Every guide here already lists its primary sources at the foot of the
+         page, in words, with links; that is the site's editorial rule and the
+         reason a reader can check a claim. In the structured data they did not
+         exist, so a retrieval system quoting this page could not tell a guide
+         that cites the Employment Standards Act from one that cites nothing.
+         `citation` is where schema.org puts exactly that. */
+      ...(g.sources.length
+        ? { citation: g.sources.map((src) => ({ '@type': 'CreativeWork', name: src.label, url: src.url })) }
+        : {}),
       image: [
         `${site.domain}/guides/${g.slug}/opengraph-image`,
         ...(g.figure && getFigure(g.figure) ? [`${site.domain}/img/${getFigure(g.figure)!.file}`] : []),

@@ -52,7 +52,7 @@ export const breadcrumbs = (trail: { name: string; path: string }[]) => ({
  * that /about defines.
  */
 export const articleSchema = ({
-  path, headline, description, updated, images = [], section,
+  path, headline, description, updated, images = [], section, abstract,
 }: {
   path: string;
   headline: string;
@@ -60,6 +60,9 @@ export const articleSchema = ({
   updated: string;
   images?: string[];
   section?: string;
+  /** The page's own answer in a sentence or two. Never longer than a short
+   *  paragraph, and never a restatement of the headline. */
+  abstract?: string;
 }) => ({
   '@context': 'https://schema.org',
   '@type': 'Article',
@@ -75,6 +78,13 @@ export const articleSchema = ({
   publisher: orgRef,
   reviewedBy: personRef,
   isPartOf: siteRef,
+  /* The page's own one-sentence answer, as a field rather than as the first
+     paragraph a reader has to find. `description` is written for a search
+     result and is capped at 158 characters by the SEO gate; `abstract` is
+     written for somebody summarising the page, and an engine that wants a
+     summary should be given the practice's rather than writing its own from
+     whichever paragraph it happened to retrieve. Added 24 Sep 2026. */
+  ...(abstract ? { abstract } : {}),
   ...(section ? { articleSection: section } : {}),
   ...(images.length ? { image: images } : {}),
 });
@@ -131,6 +141,19 @@ export const webPage = ({
   author: orgRef,
   publisher: orgRef,
   ...(updated ? { datePublished: updated, dateModified: updated } : {}),
+  /* WHICH SENTENCES ANSWER THE QUESTION — 24 Sep 2026.
+     `speakable` was on the medical pages only, so the commercial ones —
+     /pricing, /book, /about, /contact, the city pages — named no part of
+     themselves as the answer. It is read by voice assistants directly and
+     treated by several engines as the author's own statement of which
+     sentences carry the point, which is worth saying on the pages a person is
+     most likely to be asking about. The selectors are the ones this site
+     actually uses; one that matches nothing is silently useless, not an
+     error, so all three are named rather than one assumed. */
+  speakable: {
+    '@type': 'SpeakableSpecification',
+    cssSelector: ['.short-answer', '.direct-answer', '.lede'],
+  },
 });
 
 /* ============================================================================

@@ -5,6 +5,7 @@ import { getLocation } from '@/lib/locations';
 import { getCityTopic } from '@/lib/conditions';
 import { site } from '@/lib/site';
 import { abs, orgRef, siteRef, breadcrumbs } from '@/lib/schema';
+import { therapyNode } from '@/lib/entities';
 import { Paragraphs } from '@/lib/rich';
 import { cityContexts, AUTHORITY_URL } from '@/lib/city-context';
 import { pairs, getPair, pairsForCity, pairsForService } from '@/lib/city-services';
@@ -164,7 +165,7 @@ export default function CityServicePage({ params }: { params: Params }) {
       description: pair.angle,
       url: abs(path),
       isPartOf: siteRef,
-      about: { '@type': 'MedicalTherapy', name: svc.name },
+      about: therapyNode(svc.slug, svc.name),
       audience: { '@type': 'Patient', geographicArea: { '@type': 'City', name: ctx.city, containedInPlace: { '@type': 'State', name: 'British Columbia' } } },
       provider: orgRef,
       inLanguage: 'en-CA',

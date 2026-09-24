@@ -304,6 +304,74 @@ so the page opens on her times and never shows a list of counsellors.
 *Enforced by:* `lib/practitioners.ts`, `app/book/page.tsx`,
 `app/practitioners/[slug]/page.tsx`, `components/StickyBook.tsx`
 
+### The site, as something a program can read
+
+Decided 24 September 2026, at the owner's instruction, after establishing that
+the site already did the obvious things — 33 named AI crawler groups in
+robots.txt, llms.txt and llms-full.txt, 41 schema.org types, review dates and
+reviewers on 69 pages — and that the gap was elsewhere.
+
+**Every page now has a Markdown twin.** Append `.md` to any URL:
+`/pricing.md`, `/guides/stress-leave-bc.md`, `/index.md` for the home page.
+The HTML of a guide is 230 KB, of which 37 KB is the article and the rest is
+inlined CSS, navigation, footer, three JSON-LD blocks and a React payload.
+The Markdown is 12 to 22 KB and is nothing but the content. It is generated
+from the page it shadows (`app/api/md`, `lib/html-to-markdown.ts`), never
+written twice, so the two cannot drift. Each HTML response announces its own
+twin in a `Link` header, robots.txt states the convention, and llms.txt and
+`/ai.json` repeat it.
+
+Streamed pages needed handling and prove the point: `/pricing` renders its fee
+table inside a Suspense boundary, so the first version of the twin was 711
+bytes reading "Loading current fees…". Nothing visible on the site would ever
+have shown that.
+
+**`/ai.json`** is the practice as one object: what it is, what it is *not* —
+not a crisis service, not a medical practice, not covered by MSP, no premises
+— service area, languages, the counsellors taking clients, crisis numbers, and
+where every machine-readable address lives. The corrections are a field
+because the damaging failure for a counselling practice is an assistant
+describing it as something it is not. It carries no registration number and
+does not name the counsellor who is not taking clients; both rules hold here
+as everywhere else, and the gate checks the numbers specifically.
+
+**robots.txt is written out rather than returned as metadata.** There is no
+registered directive for llms.txt or for a Markdown convention, so they can
+only be comments, and `MetadataRoute.Robots` has nowhere to put a comment.
+The generated rules are unchanged.
+
+**The snippet limits are lifted for every engine, not only Google.** The
+`googleBot` block already said `max-snippet:-1`; the general directive said
+`index, follow`, which leaves Bing — and therefore Copilot — at its default.
+Now stated in the meta tag and in an `X-Robots-Tag` header, so the Markdown,
+llms.txt and JSON get it too. The private routes are excluded by name and
+given `noindex, nofollow` instead, rather than relying on the more-restrictive
+rule winning.
+
+**The structured data names its entities.** `{"@type":"MedicalTherapy",
+"name":"EMDR"}` is a type and a string; a `sameAs` to the encyclopaedia
+article is the concept. `lib/entities.ts` holds one URL per method and
+condition and nothing else — no Wikidata Q-numbers, which are the better
+identifier and are exactly the kind of value that gets mistyped once and
+copied forever. Wired into the service pages, the approach pages, the
+city-service pages and the organisation's `availableService`.
+
+**Three fields the pages had in words and not in data.** `abstract` (the
+guide's own answer, so an engine summarising the page uses the practice's
+summary rather than whichever paragraph it retrieved), `citation` (the primary
+sources already listed at the foot of every guide), and `speakable` on the
+ordinary page type — it had been on the clinical pages only, so /pricing,
+/about and /book named no part of themselves as the answer. /pricing also
+gained a page-level entity, which it had never had: it emitted a FAQPage and
+nothing describing the page.
+
+*Enforced by:* `npm run ai-crawl` (64 checks, in `verify:ci`), and 19 unit
+tests in `test/html-to-markdown.test.mts`. Everything in this entry is
+invisible on the site and visible to a request, which is why every part of it
+is checked by request against a booted build. `npm run ai-crawl -- --links`
+additionally requests all 19 encyclopaedia URLs; it is opt-in because a gate
+that fails on someone else's rate limit is a gate people learn to ignore.
+
 ### The phone action bar is solid, and starts where the header CTA stops
 Decided 23 Sep 2026, after the owner reported he could not see the bar on his
 phone and pointed at the one on the EverStone site as the model.

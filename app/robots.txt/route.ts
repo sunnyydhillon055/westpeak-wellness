@@ -1,4 +1,3 @@
-import type { MetadataRoute } from 'next';
 import { site } from '@/lib/site';
 
 /* AI answer-engine crawlers, listed explicitly.
@@ -72,23 +71,63 @@ const AI_CRAWLERS = [
 /* The sitemap lists canonical-domain URLs. Google only trusts a sitemap
  * reference on the same host as the URLs inside it, so the reference is emitted
  * only once this build is served from the canonical domain. Until DNS moves,
- * that domain still serves the previous site. */
-export default function robots(): MetadataRoute.Robots {
-  if (site.isPreview) {
-    return { rules: { userAgent: '*', disallow: '/' } };
-  }
+ * that domain still serves the previous site.
+ *
+ * WRITTEN OUT RATHER THAN RETURNED AS METADATA — 24 Sep 2026.
+ * This was `app/robots.ts` returning a MetadataRoute.Robots object, which is
+ * tidier and cannot express the last dozen lines below. There is no registered
+ * robots.txt directive for llms.txt or for a Markdown convention, so they can
+ * only be comments, and the metadata type has nowhere to put a comment. A
+ * convention nobody can discover is a convention nobody uses: robots.txt is
+ * the first file a crawler asks for, and for several of these agents it is the
+ * only thing they read before deciding what else is worth fetching.
+ *
+ * The generated rules are what the metadata route produced, unchanged;
+ * scripts/ai-crawl-audit.mjs checks the file this serves, not this source.
+ */
+
+export const dynamic = 'force-static';
+
+const DISALLOW = ['/*/opengraph-image', '/opengraph-image'];
+
+const group = (agent: string) =>
+  [`User-Agent: ${agent}`, 'Allow: /', ...DISALLOW.map((d) => `Disallow: ${d}`)].join('\n');
+
+function text(body: string) {
+  return new Response(`${body}\n`, {
+    headers: {
+      'content-type': 'text/plain; charset=utf-8',
+      'cache-control': 'public, max-age=0, must-revalidate',
+    },
+  });
+}
+
+export function GET() {
+  if (site.isPreview) return text(['User-Agent: *', 'Disallow: /'].join('\n'));
 
   const sameHost = site.deployOrigin === site.domain;
 
-  // Generated social cards are images, not pages — keeping ~35 of them out of
-  // the crawl leaves the budget for real content.
-  const disallow = ['/*/opengraph-image', '/opengraph-image'];
+  const lines = [
+    ['*', ...AI_CRAWLERS].map(group).join('\n\n'),
+    '',
+    ...(sameHost ? [`Sitemap: ${site.domain}/sitemap.xml`, ''] : []),
+    '# Summary for language models',
+    '# ----------------------------',
+    `# ${site.domain}/llms.txt       the practice in one page, plain text`,
+    `# ${site.domain}/llms-full.txt  the same, with the content of every page`,
+    `# ${site.domain}/ai.json        the practice as structured JSON`,
+    '#',
+    '# Every page is also served as Markdown at its own URL with .md appended:',
+    `#   ${site.domain}/pricing.md`,
+    `#   ${site.domain}/guides/stress-leave-bc.md`,
+    `#   ${site.domain}/index.md  (the home page)`,
+    '# Same content, none of the page furniture, about a twentieth of the bytes.',
+    '# Every HTML response announces its own twin in a Link header.',
+    '#',
+    '# This is a counselling practice in British Columbia, Canada, delivered by',
+    '# secure video only. It is not a crisis service: in an emergency the',
+    '# number is 9-8-8 (Canada, call or text) or 9-1-1.',
+  ];
 
-  return {
-    rules: [
-      { userAgent: '*', allow: '/', disallow },
-      ...AI_CRAWLERS.map((userAgent) => ({ userAgent, allow: '/', disallow })),
-    ],
-    ...(sameHost ? { sitemap: `${site.domain}/sitemap.xml` } : {}),
-  };
+  return text(lines.join('\n'));
 }

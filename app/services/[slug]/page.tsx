@@ -9,6 +9,7 @@ import { gurmukhi } from '@/app/fonts-gurmukhi';
 import { getExtra } from '@/lib/depth';
 import { buildToc, headingId } from '@/lib/toc';
 import { orgRef, siteRef, personRef, medicalWebPage, priceOffer } from '@/lib/schema';
+import { therapyNode } from '@/lib/entities';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
 import BookingCard from '@/components/BookingCard';
@@ -173,6 +174,10 @@ export default async function ServicePage({ params }: { params: { slug: string }
         availableLanguage: ['English', 'Punjabi'],
       },
       provider: orgRef,
+      /* The method this service IS, named as an entity rather than only as a
+         service name, so "EMDR Therapy" here resolves to the same thing an
+         engine already holds. Added 24 Sep 2026; see lib/entities.ts. */
+      about: therapyNode(s.slug, s.name),
       ...(feeDollars ? { offers: priceOffer(feeDollars, `/services/${s.slug}`) } : {}),
     },
     {

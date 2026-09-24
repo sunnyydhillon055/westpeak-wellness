@@ -10,6 +10,7 @@ import Analytics from '@/components/Analytics';
 import ConsentGate from '@/components/ConsentGate';
 import { site } from '@/lib/site';
 import { services } from '@/lib/services';
+import { therapyNode } from '@/lib/entities';
 
 /* The browser chrome around the page — the strip above the address bar on
  * Android, the status area on iOS. Without this it stays a default grey while
@@ -71,7 +72,13 @@ export const metadata: Metadata = {
   robots: site.isPreview
     ? { index: false, follow: false }
     : {
+        /* The limits are stated for every engine, not only for Google.
+           Bing reads max-snippet too and Copilot rides the Bing index, so
+           leaving the general directive at a bare index,follow capped the
+           snippet for the one engine most likely to be quoting this site in
+           an assistant's answer. -1 means: quote as much as is useful. */
         index: true, follow: true,
+        'max-image-preview': 'large', 'max-snippet': -1, 'max-video-preview': -1,
         googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, 'max-video-preview': -1 },
       },
 };
@@ -217,8 +224,11 @@ const orgSchema = {
        app/about/page.tsx, which is the one page allowed to carry it. */
     recognizedBy: { '@type': 'Organization', name: 'BC Association of Clinical Counsellors', url: 'https://bcacc.ca/' },
   },
+  /* Each service carries a sameAs naming the method itself, so the practice's
+     "EMDR Therapy" and the EMDR an engine already knows about are one thing
+     rather than two. Added 24 Sep 2026; see lib/entities.ts. */
   availableService: services.map((s) => ({
-    '@type': 'MedicalTherapy',
+    ...therapyNode(s.slug, s.name),
     name: s.name,
     url: `${site.domain}/services/${s.slug}`,
     description: s.short,
