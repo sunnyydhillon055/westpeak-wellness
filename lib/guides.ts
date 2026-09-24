@@ -476,7 +476,7 @@ const coreGuides: Guide[] = [
       "Built on decades of watching couples argue in a lab, and unusually specific about what predicts trouble.",
     shortAnswer:
       "The Gottman Method is a structured, research-derived approach to couples therapy. It begins with a formal assessment, identifies specific destructive patterns: criticism, contempt, defensiveness, stonewalling, and teaches concrete replacements. It is skills-based rather than insight-based: couples leave with things to do, not only things to understand.",
-    updated: "2026-09-17",
+    updated: "2026-09-25",
     readMinutes: 7,
     sections: [
       {
