@@ -89,7 +89,9 @@ care.
 Then do the same in ten minutes each at Bing Places (bingplaces.com, imports
 from Google) and Apple Business Connect.
 
-## 5. A phone number (30 minutes)
+## 5. A phone number — DONE 23 Sep 2026: (604) 259-0810 live in the header, footer, contact page, mobile bar, schema and vCard. Use the same digits on Google, Bing and Apple.
+
+### (original notes)
 
 Ten of ten competing pages show one. The site is already wired: set
 `NEXT_PUBLIC_PHONE` in Vercel → Project → Environment Variables → Production,

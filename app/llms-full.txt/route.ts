@@ -359,7 +359,9 @@ navigation or boilerplate. Every page it covers is also available at its own URL
     `URL: ${site.domain}/contact`,
     `Last reviewed: ${COLLECTION_DATES['services']}`,
     `Email ${site.email}. The reply comes from a counsellor rather than an assistant, usually within one business day.`,
-    'There is no published telephone number, and every tel: link on this site is a crisis line. Somebody who would rather be phoned than emailed can ask for a call and nominate a time, through the form on the contact page.',
+    site.phone
+      ? `Telephone ${site.phone}. Email is preferred and answered first; the phone takes messages and a counsellor calls back within one business day.`
+      : 'There is no published telephone number, and every tel: link on this site is a crisis line. Somebody who would rather be phoned than emailed can ask for a call and nominate a time, through the form on the contact page.',
   ].join('\n\n'));
 
   chunks.push([

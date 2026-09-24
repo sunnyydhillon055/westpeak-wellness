@@ -104,8 +104,13 @@ export const site = {
    *
    * phone      — display form, exactly as typed in the env var
    * phoneTel   — tel: form, digits and leading + only */
-  phone: process.env.NEXT_PUBLIC_PHONE || "",
-  phoneTel: (process.env.NEXT_PUBLIC_PHONE || "").replace(/[^+\d]/g, ""),
+  /* The practice's number, set 23 Sep 2026 by the owner: "(604) 259-0810".
+     Committed here rather than left to the environment variable because a
+     public phone number is not a secret and the Vercel CLI in the working
+     session was logged out; the env var still wins if one is ever set. The
+     practice still prefers email, and every page says so first. */
+  phone: process.env.NEXT_PUBLIC_PHONE || "(604) 259-0810",
+  phoneTel: (() => { const d = (process.env.NEXT_PUBLIC_PHONE || "(604) 259-0810").replace(/[^+\d]/g, ""); return d.startsWith("+") ? d : `+1${d.replace(/^1/, "")}`; })(),
   instagram: "@westpeakwellness",
   instagramUrl: "https://www.instagram.com/westpeakwellness",
   /* ---- Booking & payments (Cliniko) -----------------------------------

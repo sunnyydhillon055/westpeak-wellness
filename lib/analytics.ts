@@ -90,4 +90,5 @@ export type TrackedEvent =
   | 'outbound_click'
   /* Only fires once NEXT_PUBLIC_PHONE is set and the tel: links exist —
    * see lib/site.ts. Until then it reads as zero, which is accurate. */
-  | 'phone_click';
+  | 'phone_click'
+  | 'email_click';

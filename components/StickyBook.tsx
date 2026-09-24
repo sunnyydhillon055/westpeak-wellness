@@ -66,34 +66,35 @@ export default function StickyBook() {
 
   return (
     <div className="sticky-book" role="complementary" aria-label="Book a consultation">
+      {/* THREE WAYS IN, ON EVERY PAGE, WHILE SCROLLING — 23 Sep 2026, owner's
+          instruction. Book stays primary; email is the practice's preferred
+          channel; the phone takes messages. The line above the buttons is the
+          next open consultation, read live. */}
       <div className="sticky-book-inner">
-        <div>
-          <p className="sticky-book-text">
-            Free 30-minute consult · <span>{nextLine}</span>
-          </p>
-          {/* The bar followed people down every page offering only the biggest
-              ask. A text link rather than a second button, so the primary
-              action stays unambiguous — but there is now somewhere to go for
-              anyone not ready to schedule a call with a stranger. */}
-          <Link className="sticky-book-ask" href="/contact#form">
-            or send a message instead
+        <p className="sticky-book-text">
+          Free 30-minute consult · <span>{nextLine}</span>
+        </p>
+        <div className="sticky-book-actions">
+          <Link className="btn btn--primary sticky-book-btn" href={bookHrefFor(pathname)}>
+            Book
           </Link>
-        </div>
-        {/* Appears only once NEXT_PUBLIC_PHONE is set (lib/site.ts). For the
-            caller-first person the phone is the whole decision, so it sits
-            beside Book rather than in a menu — but Book stays primary. */}
-        {site.phone && (
           <a
             className="btn btn--ghost sticky-book-btn"
-            href={`tel:${site.phoneTel}`}
-            onClick={() => track('phone_click', { location: 'sticky' })}
+            href={`mailto:${site.email}?subject=${encodeURIComponent('Free consultation')}`}
+            onClick={() => track('email_click', { location: 'sticky' })}
           >
-            Call
+            Email
           </a>
-        )}
-        <Link className="btn btn--primary sticky-book-btn" href={bookHrefFor(pathname)}>
-          Book
-        </Link>
+          {site.phone && (
+            <a
+              className="btn btn--ghost sticky-book-btn"
+              href={`tel:${site.phoneTel}`}
+              onClick={() => track('phone_click', { location: 'sticky' })}
+            >
+              Call
+            </a>
+          )}
+        </div>
       </div>
     </div>
   );

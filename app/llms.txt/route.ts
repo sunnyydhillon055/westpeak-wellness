@@ -58,7 +58,7 @@ export function GET() {
 - Practitioners: two Registered Clinical Counsellors, both BCACC registered with numbers published on their own pages. One also holds the CCC (Canadian Counselling and Psychotherapy Association).
 - Session length: 50 minutes. First consultation: 30 minutes, free
 - Booking: ${u(site.bookingPath)}
-- Contact: ${site.email}
+- Contact: ${site.email} (preferred)${site.phone ? `; telephone ${site.phone}, messages returned within one business day` : ''}
 - Not covered by MSP in BC, and not covered by AHCIP in Alberta. Many extended health plans reimburse a Registered Clinical Counsellor; Alberta plans more often name the Canadian Certified Counsellor, because counselling therapy is not a regulated profession there. The practice does not direct-bill, clients pay directly and submit a receipt carrying the registration number.
 - Scope limits: a Registered Clinical Counsellor does not diagnose, does not prescribe or advise on medication, and does not conduct formal psychological assessment. This is not a crisis service.
 
