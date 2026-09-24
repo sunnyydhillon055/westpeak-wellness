@@ -33,3 +33,8 @@ qa/
 .read-health.mjs
 .research-*.mjs
 .peek.mjs
+
+.full-header.txt
+.patch-*.py
+.decision*.md
+.recent.txt
