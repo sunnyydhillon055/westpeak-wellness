@@ -3,7 +3,8 @@ import FormStamp from '@/components/FormStamp';
 
 import { usePathname } from 'next/navigation';
 import { track } from '@/lib/analytics';
-import { hasEnoughSentences, MIN_SENTENCES } from '@/lib/sentences';
+import { hasEnoughDetail, MIN_SENTENCES, MIN_WORDS } from '@/lib/sentences';
+import { LOOKING, WHERE, TIMING } from '@/lib/enquiry-fields';
 
 /* The form that gives someone a way in other than picking a calendar slot.
  *
@@ -29,10 +30,15 @@ import { hasEnoughSentences, MIN_SENTENCES } from '@/lib/sentences';
  * redirects back with ?sent=ok, so the confirmation survives a refresh instead
  * of vanishing into client state.
  *
- * NO REQUIRED PHONE FIELD, no "how did you hear about us", no dropdown of
- * concerns. Every extra field on a first approach to a counselling practice is
- * a reason to close the tab, and the practice can ask anything it needs to in
- * the reply.
+ * NO REQUIRED PHONE FIELD, no "how did you hear about us". Every extra field
+ * on a first approach to a counselling practice is a reason to close the tab,
+ * and the practice can ask anything it needs to in the reply.
+ *
+ * THREE REQUIRED CHOICES SINCE 25 SEP 2026 — what for, where, how soon — on
+ * the owner's instruction, after templated enquiries that met the two-sentence
+ * rule and said nothing. Selects, so they cost a tap each and cannot be
+ * pasted. The message also has to reach about twenty words. See
+ * lib/enquiry-fields.ts and lib/sentences.ts.
  */
 
 type Kind = 'enquiry';
@@ -52,7 +58,7 @@ const COPY = {
 } as const;
 
 const TOO_SHORT =
-  `Please write at least ${MIN_SENTENCES === 2 ? 'two' : String(MIN_SENTENCES)} sentences about what you are looking for.`;
+  `Please write at least ${MIN_SENTENCES === 2 ? 'two' : String(MIN_SENTENCES)} sentences, about ${MIN_WORDS} words, on what you are looking for.`;
 
 export default function InboundForm({
   kind,
@@ -96,7 +102,7 @@ export default function InboundForm({
      post. Cleared on every keystroke so the message updates as they type.
      With JavaScript off none of this runs and the server applies the rule. */
   const checkLength = (el: HTMLTextAreaElement) =>
-    el.setCustomValidity(hasEnoughSentences(el.value) ? '' : TOO_SHORT);
+    el.setCustomValidity(hasEnoughDetail(el.value) ? '' : TOO_SHORT);
 
   return (
     <form method="POST" action={c.action} className="lead-form" id="form"
@@ -128,6 +134,29 @@ export default function InboundForm({
         <input id={`in-email-${kind}`} name="email" type="email" required
           placeholder="you@example.com" autoComplete="email" autoCapitalize="none"
           spellCheck={false} />
+      </div>
+
+      {/* THREE CHOICES BEFORE THE MESSAGE — 25 Sep 2026, the owner's decision.
+          See lib/enquiry-fields.ts for why the rule at the top of this file
+          was reversed. Selects, not text: a script that pastes one string into
+          every field cannot answer them, and a person answers each in one
+          tap. They are what the first reply would otherwise have to ask. */}
+      <div className="lead-form-row">
+        <label htmlFor={`in-looking-${kind}`} className="sr-only">What are you looking for?</label>
+        <select id={`in-looking-${kind}`} name="looking" required defaultValue="">
+          <option value="" disabled>What are you looking for?</option>
+          {LOOKING.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+        </select>
+        <label htmlFor={`in-where-${kind}`} className="sr-only">Where will you be for sessions?</label>
+        <select id={`in-where-${kind}`} name="where" required defaultValue="">
+          <option value="" disabled>Where will you be for sessions?</option>
+          {WHERE.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+        </select>
+        <label htmlFor={`in-timing-${kind}`} className="sr-only">How soon are you hoping to start?</label>
+        <select id={`in-timing-${kind}`} name="timing" required defaultValue="">
+          <option value="" disabled>How soon are you hoping to start?</option>
+          {TIMING.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+        </select>
       </div>
 
       <label htmlFor="in-message" className="sr-only">What you are looking for</label>
@@ -171,8 +200,8 @@ export default function InboundForm({
 
       {done === 'err' && (
         <p className="lead-form-note" role="alert" style={{ color: 'var(--clay-deep)' }}>
-          That did not go through. Please check the email address, and write at least two
-          sentences about what you are looking for.
+          That did not go through. Please check the email address, answer the three questions,
+          and write at least two sentences, about {MIN_WORDS} words, on what you are looking for.
         </p>
       )}
 

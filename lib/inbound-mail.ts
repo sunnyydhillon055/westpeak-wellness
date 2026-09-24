@@ -1,6 +1,7 @@
 import { site } from '@/lib/site';
 import { shell, btn, p, a, esc, wrap, links } from '@/lib/booking-mail';
 import type { Inbound } from '@/lib/inbound';
+import { LOOKING, WHERE, TIMING, labelOf } from '@/lib/enquiry-fields';
 
 /* Mail for the three inbound paths: the checklist someone asked for, the
  * acknowledgement of a message, and the alert to the practice.
@@ -351,6 +352,9 @@ export function practiceAlert(item: Inbound) {
     ...(item.practitioner ? [`Asked for: ${item.practitioner}`] : []),
     ...(item.phone ? [`Phone:  ${item.phone}  (asked to be called)`] : []),
     ...(item.callWindow ? [`Call:   ${item.callWindow}`] : []),
+    ...(item.looking ? [`For:    ${labelOf(LOOKING, item.looking)}`] : []),
+    ...(item.where ? [`Where:  ${labelOf(WHERE, item.where)}`] : []),
+    ...(item.timing ? [`When:   ${labelOf(TIMING, item.timing)}`] : []),
     `Page:   ${item.source}`,
     `Time:   ${new Date(item.createdAt).toLocaleString('en-CA', { timeZone: 'America/Vancouver' })}`,
     '',
@@ -366,6 +370,9 @@ export function practiceAlert(item: Inbound) {
       ${item.phone ? `<tr><td style="color:#545e69;padding-right:14px;">Phone</td><td><a href="tel:${esc(item.phone.replace(/[^\d+]/g, ''))}" style="color:#3d6c92;">${esc(item.phone)}</a> <span style="color:#545e69;">, asked to be called</span></td></tr>` : ''}
       ${item.callWindow ? `<tr><td style="color:#545e69;padding-right:14px;">Best time</td><td>${esc(item.callWindow)}</td></tr>` : ''}
       ${item.practitioner ? `<tr><td style="color:#545e69;padding-right:14px;">Asked for</td><td><strong>${esc(item.practitioner)}</strong></td></tr>` : ''}
+      ${item.looking ? `<tr><td style="color:#545e69;padding-right:14px;">For</td><td><strong>${esc(labelOf(LOOKING, item.looking))}</strong></td></tr>` : ''}
+      ${item.where ? `<tr><td style="color:#545e69;padding-right:14px;">Where</td><td>${esc(labelOf(WHERE, item.where))}${item.where === 'other' ? ' <span style="color:#a0522d;">, outside BC and Alberta</span>' : ''}</td></tr>` : ''}
+      ${item.timing ? `<tr><td style="color:#545e69;padding-right:14px;">When</td><td>${esc(labelOf(TIMING, item.timing))}</td></tr>` : ''}
       <tr><td style="color:#545e69;padding-right:14px;">Page</td><td>${esc(item.source)}</td></tr>
      </table>` +
     (item.message

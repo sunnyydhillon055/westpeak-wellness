@@ -1,5 +1,6 @@
 import '@/app/private.css';
 import type { Metadata } from 'next';
+import { LOOKING, WHERE, TIMING, labelOf } from '@/lib/enquiry-fields';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { auth, signOut } from '@/auth';
@@ -525,6 +526,11 @@ export default async function AdminPage({
                           {i.callWindow && (
                             <span style={{ color: 'var(--ink-faint)' }}> · {i.callWindow}</span>
                           )}
+                        </div>
+                      )}
+                      {(i.looking || i.where || i.timing) && (
+                        <div style={{ marginBottom: 6, fontSize: '.85em', color: 'var(--ink-faint)' }}>
+                          {[labelOf(LOOKING, i.looking), labelOf(WHERE, i.where), labelOf(TIMING, i.timing)].filter(Boolean).join(' · ')}
                         </div>
                       )}
                       {i.message || (

@@ -82,6 +82,11 @@ export type Inbound = {
   phone?: string;
   /** Free text: when they will take a call. Never parsed, only read. */
   callWindow?: string;
+  /* THE THREE CHOICES — 25 Sep 2026. Values from lib/enquiry-fields.ts,
+     validated by the route; stored as the value, rendered as the label. */
+  looking?: string;
+  where?: string;
+  timing?: string;
   /** Which page it came from, for working out what earns enquiries. */
   source: string;
   /* WHICH COUNSELLOR THEY ASKED FOR.
@@ -229,6 +234,9 @@ export async function addInbound(
        asked. Found 30 Aug 2026 while adding triage. */
     phone: clip(rec.phone, 40) || undefined,
     callWindow: clip(rec.callWindow, 120) || undefined,
+    looking: clip(rec.looking, 20) || undefined,
+    where: clip(rec.where, 20) || undefined,
+    timing: clip(rec.timing, 20) || undefined,
     practitioner: clip(rec.practitioner, 60) || undefined,
     triage: rec.triage,
     source: clip(rec.source, 120) || '/',

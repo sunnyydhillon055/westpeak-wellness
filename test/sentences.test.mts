@@ -26,3 +26,16 @@ test('punctuation without words does not count', () => {
 test('a run-on counts as one sentence', () => {
   assert.equal(countSentences('I am looking for help with stress and burnout and I work shifts'), 1);
 });
+
+import { hasEnoughDetail, countWords, MIN_WORDS } from '../lib/sentences.ts';
+
+test('an enquiry needs about twenty words as well as two sentences', () => {
+  assert.equal(MIN_WORDS, 20);
+  /* The template that prompted the rule: two sentences, thirteen words. */
+  assert.equal(hasEnoughDetail('I would like more information. Please contact me by email - contact & book.'), false);
+  assert.equal(countWords('one two three'), 3);
+  assert.equal(
+    hasEnoughDetail('I have been anxious for months and it is starting to affect my work. I would like to talk to someone about it soon, ideally in the evenings.'),
+    true
+  );
+});

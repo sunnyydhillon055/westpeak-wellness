@@ -728,6 +728,21 @@ so a listing is a paste and cannot drift from what the site asserts.
 
 *Enforced by:* `app/layout.tsx`, `docs/LISTINGS_PACK.md`
 
+### An enquiry answers three questions and says about twenty words
+Decided 25 Sep 2026 by the owner. The form's rule was two sentences, and a
+thirteen-word template ("I would like more information. Please contact me
+by email") met it, pasted into every text field including "best time to
+call". Every enquiry now chooses what it is for, where the person will be
+for sessions and how soon they hope to start — three selects, one tap each,
+which a script pasting one string into every field cannot answer — and the
+message has to reach about twenty words. A message identical to another
+field is refused outright. This reverses the older "no dropdown of concerns"
+rule at the top of `components/InboundForm.tsx`, and the reversal is the
+owner's. The optional phone field stays optional.
+
+*Enforced by:* `lib/enquiry-fields.ts`, `lib/sentences.ts` (`hasEnoughDetail`),
+`lib/inbound-submit.ts`, `test/sentences.test.mts`
+
 ### Titles follow Search Console, not taste
 Decided 6 Sep 2026. The first month of Search Console data (`data/gsc/`)
 showed 4,478 non-brand impressions and two clicks: pages surfacing at

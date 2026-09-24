@@ -7,7 +7,8 @@ import { site } from '@/lib/site';
 import { practitioners } from '@/lib/practitioners';
 import { clientKey, rateCheck } from '@/lib/rate-limit';
 import { routeInbound } from '@/lib/inbound-routing';
-import { hasEnoughSentences } from '@/lib/sentences';
+import { hasEnoughDetail } from '@/lib/sentences';
+import { LOOKING, WHERE, TIMING, isOption } from '@/lib/enquiry-fields';
 
 /* One submit path for both inbound forms, enquiry and lead.
  *
@@ -99,11 +100,27 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
   const callWindow = String(form.get('callWindow') ?? '').trim().slice(0, 120);
 
   if (!/^[^@\s]+@[^@\s.]+\.[^@\s]+$/.test(email)) return back('err');
-  /* An enquiry has to say, in at least two sentences, what the person is
-   * looking for — the same rule the form applies in the browser, held here
-   * for a post that skipped it. See lib/sentences.ts. A lead legitimately
-   * carries nothing but an address. */
-  if (o.kind === 'enquiry' && !hasEnoughSentences(message)) return back('err');
+  /* An enquiry has to say, in at least two sentences and about twenty words,
+   * what the person is looking for — the same rule the form applies in the
+   * browser, held here for a post that skipped it. See lib/sentences.ts. A
+   * lead legitimately carries nothing but an address. */
+  if (o.kind === 'enquiry' && !hasEnoughDetail(message)) return back('err');
+
+  /* THE THREE CHOICES — 25 Sep 2026. Required for an enquiry and only
+   * accepted from the list the form offers; anything else is a post that did
+   * not come from the form. See lib/enquiry-fields.ts. */
+  const looking = String(form.get('looking') ?? '').trim();
+  const where = String(form.get('where') ?? '').trim();
+  const timing = String(form.get('timing') ?? '').trim();
+  if (o.kind === 'enquiry' && !(isOption(LOOKING, looking) && isOption(WHERE, where) && isOption(TIMING, timing))) {
+    return back('err');
+  }
+
+  /* One string pasted into every field. The enquiry that prompted this had
+   * its message repeated, word for word, as the best time to call. No person
+   * does that; a script filling every text input with the same value does. */
+  const same = (a: string, b: string) => a.length > 0 && a.toLowerCase() === b.toLowerCase();
+  if (same(message, String(form.get('callWindow') ?? '').trim()) || same(message, name)) return back('err');
 
   /* Ticked box only. String comparison rather than truthiness, so a browser
    * that submits an unchecked box as an empty string cannot register consent. */
@@ -143,6 +160,7 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
   const item = await addInbound({
     kind: o.kind, name, email, message, phone, callWindow, source,
     monthlyOptIn, magnet, triage: verdict, practitioner,
+    looking, where, timing,
   });
   if (!item) return back('err');
 

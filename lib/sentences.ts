@@ -28,3 +28,15 @@ export function countSentences(text: string): number {
 
 export const hasEnoughSentences = (text: string): boolean =>
   countSentences(text) >= MIN_SENTENCES;
+
+/* AND AT LEAST TWENTY WORDS — 25 Sep 2026.
+ *
+ * The two-sentence floor was met by a thirteen-word template ("I would like
+ * more information. Please contact me by email.") that arrived in the inbox
+ * repeatedly, pasted into every field. Twenty words is still less than a
+ * text message; it is more than a template. Applied to enquiries only, by the
+ * form and by the route, like the sentence rule. */
+export const MIN_WORDS = 20;
+export const countWords = (text: string): number => text.trim().split(/\s+/).filter(Boolean).length;
+export const hasEnoughDetail = (text: string): boolean =>
+  hasEnoughSentences(text) && countWords(text) >= MIN_WORDS;
