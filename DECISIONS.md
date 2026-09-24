@@ -743,6 +743,23 @@ owner's. The optional phone field stays optional.
 *Enforced by:* `lib/enquiry-fields.ts`, `lib/sentences.ts` (`hasEnoughDetail`),
 `lib/inbound-submit.ts`, `test/sentences.test.mts`
 
+### The home page heading carries the head term
+Decided 25 Sep 2026. The strongest page on the site had a heading with no
+search term in it, and its 306 monthly impressions were all the practice's
+own name. The heading is now "Online counselling in BC that meets you where
+you are": the first half is what people type, the second half is the
+tagline, which also stays as the organisation's slogan.
+
+### Four more groups have a page: men, first responders, newcomers, the trades
+Decided 25 Sep 2026. Sixteen audience pages and none for the four groups a BC
+counselling practice hears from most, each a query space where the competitor
+audit found single-practitioner sites ranking on one page. Same shape and
+same rules as the other sixteen. `docs/OUTREACH.md` holds the drafts for the
+off-site work that moves position from here: family doctors, HR, universities
+and settlement agencies, local press, and three video scripts.
+
+*Enforced by:* `lib/audiences-more6.ts`, `app/page.tsx`, `docs/OUTREACH.md`
+
 ### Titles follow Search Console, not taste
 Decided 6 Sep 2026. The first month of Search Console data (`data/gsc/`)
 showed 4,478 non-brand impressions and two clicks: pages surfacing at

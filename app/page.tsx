@@ -112,7 +112,12 @@ export default async function Home() {
           <div className="hero-grid">
             <div>
               <p className="eyebrow">Westpeak Wellness · Online across BC</p>
-              <h1>Counselling that meets you where you are.</h1>
+              {/* THE HEAD TERM, IN THE HEADING — 25 Sep 2026. The strongest
+                  page on the site carried a heading with no search term in
+                  it: 306 impressions in the September export, all of them
+                  the practice's own name. The tagline stays, as the second
+                  half of the sentence; the first half is what people type. */}
+              <h1>Online counselling in BC that meets you where you are.</h1>
               <Updated iso={lastmodFor('')} />
 
               {/* THE PHOTOGRAPH SITS INSIDE THE TEXT, NOT BESIDE IT.
