@@ -14,7 +14,9 @@ import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
-import { webPage } from '@/lib/schema';
+import { webPage, orgRef } from '@/lib/schema';
+import { placeNode } from '@/lib/entities';
+import InboundForm from '@/components/InboundForm';
 import { COLLECTION_DATES } from '@/lib/page-dates';
 import { getPunjabiRegion } from '@/lib/punjabi-regions';
 import { getTagalogCity } from '@/lib/tagalog';
@@ -72,12 +74,61 @@ export default function CityPage({ params }: { params: { city: string } }) {
   /* The page itself. These ten city pages emitted an FAQPage and nothing else,
      so the document had no name, description, language, date or author for a
      retrieval system to read: it knew the questions and not the page. */
-  const pageSchema = webPage({
-    path: `/online-counselling/${l.slug}`,
-    name: `Online counselling in ${l.city}, BC`,
+  const pageSchema = {
+    ...webPage({
+      path: `/online-counselling/${l.slug}`,
+      name: `Online counselling in ${l.city}, BC`,
+      description: l.metaDescription,
+      updated: COLLECTION_DATES['locations'],
+      /* Health information, not a menu: see the note on the type in
+         lib/schema.ts. No reviewedBy, because nobody signs one. */
+      type: 'MedicalWebPage',
+    }),
+    /* The sources the prose already cites, made machine-readable. */
+    citation: sources.map((s) => ({ '@type': 'CreativeWork', name: s.label, url: s.url })),
+  };
+
+  /* THE SERVICE THIS PAGE IS FOR, AND WHO PROVIDES IT HERE — 25 Sep 2026.
+   *
+   * The page had an entity for itself and for its questions, and none for the
+   * thing a person searching "online counselling Vancouver" is looking for:
+   * the service, in this city, from named counsellors. The service pages have
+   * carried a Service node since August; the city pages, which carry the
+   * local query, had nothing an engine could attach a place to.
+   *
+   * The Person nodes mirror the chips further down exactly — the counsellors
+   * with a page for this city — and say name, role, page and languages. No
+   * registration numbers: those live on the profile, by decision. */
+  const serviceSchema = {
+    '@context': 'https://schema.org', '@type': 'Service',
+    '@id': `${site.domain}/online-counselling/${l.slug}#service`,
+    name: `Online counselling in ${l.city}`,
+    serviceType: 'Online counselling',
     description: l.metaDescription,
-    updated: COLLECTION_DATES['locations'],
-  });
+    provider: orgRef,
+    areaServed: { '@type': 'City', name: l.city, containedInPlace: placeNode('British Columbia') },
+    availableChannel: {
+      '@type': 'ServiceChannel',
+      serviceUrl: `${site.domain}/online-counselling/${l.slug}`,
+      availableLanguage: [...new Set(counsellorPages.flatMap((p) => p.languages.map((x) => x.name)))],
+    },
+    audience: { '@type': 'MedicalAudience', audienceType: 'Patient', geographicArea: { '@type': 'City', name: l.city } },
+    potentialAction: {
+      '@type': 'ReserveAction',
+      name: `Book a free 30-minute consultation about counselling in ${l.city}`,
+      target: { '@type': 'EntryPoint', urlTemplate: `${site.domain}${site.bookingPath}` },
+      result: { '@type': 'Reservation', name: 'Free 30-minute consultation' },
+    },
+  };
+  const peopleSchema = counsellorPages.map((p) => ({
+    '@context': 'https://schema.org', '@type': 'Person',
+    '@id': `${site.domain}/practitioners/${p.slug}#person`,
+    name: p.name,
+    jobTitle: p.role,
+    url: `${site.domain}/practitioners/${p.slug}/${l.slug}`,
+    worksFor: orgRef,
+    knowsLanguage: p.languages.map((x) => x.name),
+  }));
 
   const faqSchema = l.faqs?.length && {
     '@context': 'https://schema.org', '@type': 'FAQPage',
@@ -216,6 +267,23 @@ export default function CityPage({ params }: { params: { city: string } }) {
         </section>
       )}
 
+      {/* A WAY IN THAT IS NOT A CALENDAR — 25 Sep 2026.
+          The guides have carried this form at their foot since it was built;
+          the city pages, where a person actually arrives from a local search,
+          offered only a link to /contact. Same form, same route, same
+          two-sentence minimum. It posts as plain HTML and the reply lands on
+          /contact, exactly as it does from a guide. */}
+      <section className="section">
+        <div className="container" style={{ maxWidth: 760 }}>
+          <p className="eyebrow">A question before you book</p>
+          <h2>Ask about counselling in {l.city}</h2>
+          <InboundForm
+            kind="enquiry"
+            note={`Tell us in a couple of sentences what you are looking for and where in ${l.city} you are writing from. It reaches the practice directly and you will have a reply within one business day.`}
+          />
+        </div>
+      </section>
+
       {here.length > 0 && (
         <section className="section">
           <div className="container">
@@ -305,6 +373,10 @@ export default function CityPage({ params }: { params: { city: string } }) {
           that guard would have left any city without FAQs describing itself to
           a crawler as nothing at all. */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      {peopleSchema.length > 0 && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(peopleSchema) }} />
+      )}
       {faqSchema && (
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       )}

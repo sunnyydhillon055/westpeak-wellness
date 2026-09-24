@@ -650,6 +650,34 @@ mostly repeat visits, reverse this.
 
 *Enforced by:* `scripts/inline-css.mjs --check` (`npm run inline`, in `verify:ci`), `data/perf-budget.json`
 
+### The private routes carry their own stylesheet
+Decided 25 Sep 2026, from the perf budget. Because the stylesheet is inlined
+into every document, every rule in `premium.css` is paid for on every page —
+including the 66 rules for the staff inbox, the client portal, sign-in and
+the password reset pages, which no visitor from a search can reach. They
+were about 6 KB of every one of the 295 public documents. They now live in
+`app/private.css`, imported by the five private pages and nothing else. The
+median public page fell 1.9% below its baseline and the home page's CSS 8.7%.
+A rule whose selector starts `.admin-`, `.portal-` or `.signin-` belongs in
+that file; a public component must not use one of those classes.
+
+*Enforced by:* `data/perf-budget.json` (the ratchet catches it coming back)
+
+### A city page names its service, its counsellors and its sources, and takes a message
+Decided 25 Sep 2026, from the competitor audit. The city pages carried an
+entity for the page and for its questions, and none for the thing a local
+search is for: the service, in that city, from named people. Each now emits
+a `Service` node placed in its city, a `Person` node per counsellor with a
+page for the city (name, role, page, languages — no registration number, by
+the standing decision), and its page node is typed `MedicalWebPage` with the
+health-authority and HealthLink citations the prose already makes. No
+`reviewedBy` and no `lastReviewed`, because nobody signs one. The enquiry
+form the guides carry is at the foot of every city page, same route, same
+two-sentence rule. The organisation node also carries a `priceRange` derived
+from the fallback fee catalogue, which `price-drift` checks against Cliniko.
+
+*Enforced by:* `app/online-counselling/[city]/page.tsx`, `app/layout.tsx`, `scripts/price-drift.mjs`
+
 ### Titles follow Search Console, not taste
 Decided 6 Sep 2026. The first month of Search Console data (`data/gsc/`)
 showed 4,478 non-brand impressions and two clicks: pages surfacing at

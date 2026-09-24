@@ -126,8 +126,14 @@ export const webPage = ({
   /** From lib/page-dates.ts, so it is a real commit date and not a guess. */
   updated?: string;
   lang?: string;
-  /** CollectionPage for an index, AboutPage for /about, WebPage otherwise. */
-  type?: 'WebPage' | 'CollectionPage' | 'AboutPage' | 'ContactPage';
+  /** CollectionPage for an index, AboutPage for /about, WebPage otherwise.
+   *  MedicalWebPage is allowed here for one case — 25 Sep 2026 — the city
+   *  pages, which are health information (they cite the regional health
+   *  authority and HealthLink BC as sources) that nobody signs a clinical
+   *  review of. The type says what the page is; it carries no `reviewedBy`
+   *  and no `lastReviewed`, because neither would be true. The helper above
+   *  that emits both stays for the pages where they are. */
+  type?: 'WebPage' | 'CollectionPage' | 'AboutPage' | 'ContactPage' | 'MedicalWebPage';
 }) => ({
   '@context': 'https://schema.org',
   '@type': type,

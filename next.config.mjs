@@ -80,6 +80,9 @@ const csp = [
   'upgrade-insecure-requests',
 ].join('; ');
 
+/* Evaluated once, when the build loads this file, so it is the build time. */
+const BUILT_AT = new Date().toUTCString();
+
 const securityHeaders = [
   { key: 'Content-Security-Policy', value: csp },
   { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
@@ -150,6 +153,23 @@ const nextConfig = {
        * The homepage is separate because it has no slug: the general rule
        * produced `</.md>` for it, which is not a URL. Assets and the twins
        * themselves are excluded, or /x.md would advertise /x.md.md. */
+      /* WHEN THE HTML LAST CHANGED, AND HOW LONG IT MAY BE KEPT — 25 Sep 2026.
+       *
+       * Every page is prerendered at build time, so the build's own timestamp
+       * is an honest Last-Modified for all of them: nothing in the HTML can
+       * have changed since. The Markdown twins, feeds and sitemaps compute a
+       * more precise one of their own and are excluded so this cannot replace
+       * it. The platform's static layer answers HTML with max-age=0, which
+       * tells a crawler nothing about how long a copy is good for; sixty
+       * seconds is short enough that a deploy is never noticeably stale and
+       * long enough to say the page is cacheable at all. */
+      {
+        source: '/:path((?!api/|_next/)(?!.*\\.(?:md|xml|txt|json|ico|svg|png|jpg|jpeg|webp|avif|vcf|webmanifest)$).*)',
+        headers: [
+          { key: 'Last-Modified', value: BUILT_AT },
+          { key: 'Cache-Control', value: 'public, max-age=60, must-revalidate' },
+        ],
+      },
       { source: '/', headers: [{ key: 'Link', value: LINKS('/index.md') }] },
       {
         source: '/:path((?!api/|_next/|admin|signin|forgot|reset|client-portal)(?!.*\\.(?:md|xml|txt|json|ico|svg|png|jpg|jpeg|webp|avif|vcf|webmanifest)$).+)',

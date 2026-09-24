@@ -11,6 +11,13 @@ import ConsentGate from '@/components/ConsentGate';
 import { site } from '@/lib/site';
 import { services } from '@/lib/services';
 import { therapyNode, placeNode, KNOWS_ABOUT_ENTITIES } from '@/lib/entities';
+import { FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
+
+const PRICE_RANGE = (() => {
+  const cents = FALLBACK_CATALOG.items.map((i) => i.cents).filter((c) => c > 0);
+  const dollars = (c: number) => `$${Math.round(c / 100)}`;
+  return `${dollars(Math.min(...cents))}–${dollars(Math.max(...cents))} CAD per session`;
+})();
 
 /* The browser chrome around the page — the strip above the address bar on
  * Android, the status area on iOS. Without this it stays a default grey while
@@ -94,6 +101,17 @@ const orgSchema = {
   '@type': ['MedicalBusiness', 'ProfessionalService'],
   '@id': `${site.domain}/#organization`,
   name: site.name,
+  /* WHAT A SESSION COSTS, AS A RANGE — 25 Sep 2026.
+     `priceRange` is the one price field a LocalBusiness carries, and it was
+     absent, so a directory or an assistant building a listing from this node
+     had every fact but the one most people ask first. A range and not a
+     figure: the practice charges different amounts for individual, couples
+     and EMDR sessions, and /pricing shows each. Derived from the same fallback
+     catalogue /pricing falls back to, which scripts/price-drift.mjs checks
+     against the booking system, so this cannot quietly drift from what is
+     charged. The free consultation is excluded: a range starting at $0 would
+     say sessions can be free, and they cannot. */
+  priceRange: PRICE_RANGE,
   legalName: site.legalName,
   url: site.domain,
   email: site.email,
@@ -241,12 +259,23 @@ const orgSchema = {
   /* Each service carries a sameAs naming the method itself, so the practice's
      "EMDR Therapy" and the EMDR an engine already knows about are one thing
      rather than two. Added 24 Sep 2026; see lib/entities.ts. */
-  availableService: services.map((s) => ({
-    ...therapyNode(s.slug, s.name),
-    name: s.name,
-    url: `${site.domain}/services/${s.slug}`,
-    description: s.short,
-  })),
+  availableService: services.map((s) => {
+    /* The site's own name for the service is the `name`; the entity's name
+       ("Psychotherapy" for Individual Therapy) is the alternate, where the two
+       differ. Spreading therapyNode and then overriding `name` left its
+       alternateName equal to the name on all five — the same string twice,
+       on every page, doubled again in the React payload. Found 25 Sep 2026
+       by the perf budget, not by a validator, which sees nothing wrong. */
+    const entity = therapyNode(s.slug, s.name);
+    return {
+      '@type': entity['@type'],
+      name: s.name,
+      ...(entity.name.toLowerCase() !== s.name.toLowerCase() ? { alternateName: entity.name } : {}),
+      ...('sameAs' in entity ? { sameAs: entity.sameAs } : {}),
+      url: `${site.domain}/services/${s.slug}`,
+      description: s.short,
+    };
+  }),
   potentialAction: {
     '@type': 'ReserveAction',
     name: 'Book a free 30-minute consultation',

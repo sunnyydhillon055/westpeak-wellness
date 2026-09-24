@@ -1,3 +1,4 @@
+import '@/app/private.css';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { site } from '@/lib/site';
