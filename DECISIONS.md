@@ -715,6 +715,19 @@ number on /admin is a floor, never the total.
 
 *Enforced by:* `components/Analytics.tsx`, `lib/conversion-log.ts`
 
+### The organisation node names the locality it is registered in
+Decided 25 Sep 2026. The node carried no address, on the reasoning that a
+virtual practice has no office. The Google Business Profile is pinned in
+White Rock, and a record with no locality gives an engine nothing to match
+that pin against; the LocalBusiness validators also treat a missing address
+as an error, which kept the node out of the local result types. It now
+carries locality, province and country and nothing more: no street, because
+there is no office to walk into, and the disambiguating description still
+says so. `docs/LISTINGS_PACK.md` holds the same facts for every directory,
+so a listing is a paste and cannot drift from what the site asserts.
+
+*Enforced by:* `app/layout.tsx`, `docs/LISTINGS_PACK.md`
+
 ### Titles follow Search Console, not taste
 Decided 6 Sep 2026. The first month of Search Console data (`data/gsc/`)
 showed 4,478 non-brand impressions and two clicks: pages surfacing at

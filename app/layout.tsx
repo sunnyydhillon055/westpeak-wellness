@@ -112,6 +112,18 @@ const orgSchema = {
      charged. The free consultation is excluded: a range starting at $0 would
      say sessions can be free, and they cannot. */
   priceRange: PRICE_RANGE,
+  /* WHERE THE ENTITY IS REGISTERED — 25 Sep 2026.
+     The node carried no address at all, on the reasoning that a virtual
+     practice has no office. Two things that reasoning missed. The Google
+     Business Profile — the one local entity a search engine already holds
+     for this practice — is pinned in White Rock, and a record with no
+     locality gives an engine nothing to match that pin against; and the
+     LocalBusiness validators treat a missing address as an error, which
+     keeps the node out of the local result types entirely. The locality,
+     province and country, and nothing more: no street, because there is no
+     office to walk into, and the disambiguatingDescription below still says
+     so. This is the city the profile is registered in, which is true. */
+  address: { '@type': 'PostalAddress', addressLocality: 'White Rock', addressRegion: 'BC', addressCountry: 'CA' },
   legalName: site.legalName,
   url: site.domain,
   email: site.email,

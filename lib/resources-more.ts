@@ -175,6 +175,17 @@ export const moreResources: Resource[] = [
         ],
       },
       {
+        /* "stay at work services" is the single largest query this page is
+           shown for that it did not answer in a heading: 92 impressions in the
+           September export, position 48, one FAQ two screens down. 25 Sep 2026. */
+        h2: 'Stay-at-work services, and what they are not',
+        body: [
+          'A "stay-at-work" or "return-to-work" service is a program, run by an insurer, an employer or WorkSafeBC, whose aim is to keep a person working with adjustments rather than off on a full leave: reduced hours for a period, changed duties, a modified schedule, or treatment arranged alongside work. In BC the phrase appears most often in WorkSafeBC material and in the disability-management language of the larger group insurers. Some employers buy the service from a rehabilitation provider; most people first meet it as a letter from an insurer offering a "stay-at-work plan".',
+          'Whether one is offered depends on the employer and the plan, not on the diagnosis, and it is worth being clear about what it is and is not. It is a workplace arrangement. It is not care. A plan that changes the hours and leaves the cause untouched tends to become a leave a few months later, which is why counselling commonly runs beside a stay-at-work plan rather than instead of it, and why a good plan names who is providing the treatment.',
+          'If you have been offered one, the questions worth asking are who designed it, what it commits the employer to, when it is reviewed, and what happens if it does not work. The [WorkSafeBC route](/resources/worksafebc-psychological-injury-claims) is different again: that is a claim, with its own assessment and its own timelines, and the two are regularly confused.',
+        ],
+      },
+      {
         h2: 'Where counselling fits',
         body: [
           'Counselling does not produce the documentation these systems require, and it is important to be straightforward about that. What it does is work on what is actually happening, the burnout, the anxiety, the aftermath of an incident at work, the decision about whether to stay.',
@@ -673,7 +684,7 @@ export const moreResources: Resource[] = [
     figure: 'accountability-chain',
     figure2: 'reimbursement-flow',
     title: 'Counselling support for BC teams: what employers can actually offer',
-    metaTitle: 'Counselling Support for BC Teams | Westpeak',
+    metaTitle: 'Workplace Mental Health Support Services for BC Teams',
     metaDescription:
       'What a small BC employer can actually do about mental health: benefits that cover RCCs, how EFAPs fall short, leave handled properly, and honest referral.',
     eyebrow: 'Resource · For employers',
