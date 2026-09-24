@@ -1430,10 +1430,19 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   font-weight:600; color:var(--ink); }
 .lead-form-note{ margin:0; font-size:.88rem; color:var(--ink-faint); }
 .lead-form-row{ display:flex; gap:10px; flex-wrap:wrap; margin:16px 0 10px; }
-.lead-form-row input{ flex:1 1 180px; font:inherit; padding:11px 12px; min-height:46px;
+.lead-form-row input,
+.lead-form-row select{ flex:1 1 180px; font:inherit; padding:11px 12px; min-height:46px;
   border:1px solid var(--line); border-radius:var(--radius-sm);
   background:var(--surface-0); color:var(--ink); }
-.lead-form-row input:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
+/* The three required choices (25 Sep 2026) share the input rule above, so
+   they sit in the same row at the same height. `invalid` while the
+   placeholder option is still selected, so the prompt reads as a prompt. */
+.lead-form-row select{ appearance:none; -webkit-appearance:none; cursor:pointer; min-width:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23545e69' stroke-width='1.6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 12px center; padding-right:32px; }
+.lead-form-row select:invalid{ color:var(--ink-soft); }
+.lead-form-row input:focus-visible,
+.lead-form-row select:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
 
 /* Enquiry and waitlist forms reuse .lead-form; these are the two fields it did
    not already have. */
