@@ -304,6 +304,31 @@ so the page opens on her times and never shows a list of counsellors.
 *Enforced by:* `lib/practitioners.ts`, `app/book/page.tsx`,
 `app/practitioners/[slug]/page.tsx`, `components/StickyBook.tsx`
 
+### The phone action bar is solid, and starts where the header CTA stops
+Decided 23 Sep 2026, after the owner reported he could not see the bar on his
+phone and pointed at the one on the EverStone site as the model.
+
+- The bar was cream, translucent, on a cream page, behind a phone browser's
+  own bottom chrome. It was there in the markup and measurable in the DOM and
+  still invisible to the person it was built for. It is now solid
+  `--surface-ink`, the footer's own ground, with a white Email button, a blue
+  Book button and a square Call button — one row, the shape EverStone's navy
+  bar has carried since August.
+- It appeared below 680px only. The header's Book button moves into the
+  drawer at 1020px. Between those widths — a phone held sideways, a small
+  tablet, a narrow desktop window — the site showed no persistent call to
+  action at all. The bar now appears from 1020px down, exactly where the
+  header CTA stops.
+- It renders on /book and /contact too, which it used to skip. On /book the
+  Book button is dropped and Call takes its room, because the reader is
+  already on the page it points at.
+- The footer's clearance for it lives in `app/premium.css`, not
+  `app/globals.css`: premium.css loads second and sets `.site-footer`'s
+  padding unconditionally, so a media query in globals loses to it at every
+  width. The old 124px rule in globals had never applied.
+
+*Enforced by:* `npm run a11y`, `npm run contrast`, `npm run cta`
+
 ### One page per query cluster, again: RCC, and "online counselling BC"
 Decided 17 Sep 2026, from Search Console and from reading the pages that
 actually hold the top ten for the Vancouver form of the query.

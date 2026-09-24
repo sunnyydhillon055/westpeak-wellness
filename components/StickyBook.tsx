@@ -27,17 +27,43 @@ export const bookHrefFor = (pathname: string | null): string => {
   return p?.acceptingNewClients ? `${site.bookingPath}?with=${p.slug}` : site.bookingPath;
 };
 
+const MailIcon = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <rect x="2.5" y="4.5" width="19" height="15" rx="2" />
+    <path d="m3 6 9 6.5L21 6" />
+  </svg>
+);
 
-/* Mobile-only booking bar.
+const PhoneIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    strokeWidth="1.6" strokeLinejoin="round" aria-hidden="true">
+    <path d="M6 3h3l2 5-2.5 1.5a12 12 0 0 0 5 5L16 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2z" />
+  </svg>
+);
+
+/* THE ACTION BAR ON A PHONE.
  *
  * On a phone the hero CTA scrolls out of view within a screen or two, and on a
- * 2,000-word guide the next booking link can be a long way down. This keeps one
- * reachable without interrupting the reading.
+ * 2,000-word guide the next booking link can be a long way down. This keeps all
+ * three ways of reaching the practice reachable without interrupting the
+ * reading.
+ *
+ * Rebuilt 23 Sep 2026 on the owner's instruction, to match the bar on the
+ * EverStone site, which he could see and this one he could not. Two things
+ * were wrong with the first version, and neither was the markup:
+ *
+ *   1. It was cream on cream. A translucent oatmeal panel at the foot of an
+ *      oatmeal page, behind a phone browser's own bottom chrome, is invisible
+ *      whether or not it is there. It is now a solid inverted bar, the same
+ *      ground as the footer, the way EverStone's navy one is.
+ *   2. It appeared only below 680px, while the header's Book button moves into
+ *      the drawer at 1020px. Between those two widths — a phone held sideways,
+ *      a small tablet, a narrow window — the site had no visible call to
+ *      action at all. The bar now starts exactly where the header CTA stops.
  *
  * Deliberately restrained: no animation, no dismiss button to remember, no
- * countdown or scarcity language — a health site should not pressure anyone.
- * Hidden on the booking page itself, where it would only point at the page you
- * are already on. */
+ * countdown or scarcity language — a health site should not pressure anyone. */
 type Avail = Record<string, { first: string; next: string[]; count: number }>;
 
 export default function StickyBook() {
@@ -53,48 +79,51 @@ export default function StickyBook() {
     fetch('/api/availability').then((r) => (r.ok ? r.json() : null)).then((j) => { if (live && j) setAvail(j); }).catch(() => {});
     return () => { live = false; };
   }, []);
+
   /* The crisis directory carries no booking prompt anywhere on it (scripts/
-     cta-audit.mjs says why); the bar was the one place it still did. */
-  if (pathname === site.bookingPath || pathname === '/contact' || pathname === '/resources/bc-crisis-and-support-directory') return null;
+     cta-audit.mjs says why); the bar was the one place it still did. Every
+     other page keeps it, including /book and /contact — a person who scrolled
+     past the form still needs a way to call. On those two the button that
+     points at the page you are already on is dropped instead. */
+  if (pathname === '/resources/bc-crisis-and-support-directory') return null;
+  const onBooking = pathname === site.bookingPath;
 
   /* On a counsellor's own page, her time; elsewhere the soonest of anyone's. */
   const onSlug = /^\/practitioners\/([^/]+)/.exec(pathname ?? '')?.[1];
   const pick = avail
     ? (onSlug && avail[onSlug]?.next?.length ? avail[onSlug] : Object.values(avail).find((a) => a.next?.length))
     : undefined;
-  const nextLine = pick?.next?.[0] ? `next: ${pick.next[0].replace(/\s\(\d+ times\)$/, '')} with ${pick.first}` : 'no obligation';
+  const nextLine = pick?.next?.[0]
+    ? `Next free consult: ${pick.next[0].replace(/\s\(\d+ times\)$/, '')} with ${pick.first}`
+    : 'Free 30-minute consultation · no referral needed';
 
   return (
-    <div className="sticky-book" role="complementary" aria-label="Book a consultation">
-      {/* THREE WAYS IN, ON EVERY PAGE, WHILE SCROLLING — 23 Sep 2026, owner's
-          instruction. Book stays primary; email is the practice's preferred
-          channel; the phone takes messages. The line above the buttons is the
-          next open consultation, read live. */}
-      <div className="sticky-book-inner">
-        <p className="sticky-book-text">
-          Free 30-minute consult · <span>{nextLine}</span>
-        </p>
-        <div className="sticky-book-actions">
-          <Link className="btn btn--primary sticky-book-btn" href={bookHrefFor(pathname)}>
-            Book
+    <div className="sticky-book" role="navigation" aria-label="Contact the practice">
+      <p className="sticky-book-text">{nextLine}</p>
+      <div className="sticky-book-actions">
+        <a
+          className="sticky-book-btn sb-mail"
+          href={`mailto:${site.email}?subject=${encodeURIComponent('Free consultation')}`}
+          onClick={() => track('email_click', { location: 'sticky' })}
+        >
+          <MailIcon /> Email us
+        </a>
+        {!onBooking && (
+          <Link className="sticky-book-btn sb-book" href={bookHrefFor(pathname)}>
+            Book free consult
           </Link>
+        )}
+        {site.phone && (
           <a
-            className="btn btn--ghost sticky-book-btn"
-            href={`mailto:${site.email}?subject=${encodeURIComponent('Free consultation')}`}
-            onClick={() => track('email_click', { location: 'sticky' })}
+            className={`sticky-book-btn sb-call${onBooking ? ' sb-call--wide' : ''}`}
+            href={`tel:${site.phoneTel}`}
+            aria-label={`Call ${site.name} at ${site.phone}`}
+            onClick={() => track('phone_click', { location: 'sticky' })}
           >
-            Email
+            <PhoneIcon />
+            {onBooking && <span className="sb-call-label">Call us</span>}
           </a>
-          {site.phone && (
-            <a
-              className="btn btn--ghost sticky-book-btn"
-              href={`tel:${site.phoneTel}`}
-              onClick={() => track('phone_click', { location: 'sticky' })}
-            >
-              Call
-            </a>
-          )}
-        </div>
+        )}
       </div>
     </div>
   );

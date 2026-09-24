@@ -2292,11 +2292,6 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
 .cta-band a:not(.btn):hover,
 .signature a:not(.btn):hover{ color: #fff }
 
-/* The sticky bar carried only the largest ask. The second rung is a text link
-   rather than a second button, so the primary action stays unambiguous. */
-.sticky-book-ask{ display:block; margin:2px 0 0; font-size:.78rem; line-height:1.2;
-  color:var(--ink-faint); text-decoration:underline; text-underline-offset:2px; }
-
 /* Regional pages — Alberta and Ontario */
 .designation-note{ margin:0 0 24px; padding:16px 16px; font-size:.92rem; line-height:1.55;
   color:var(--ink-soft); background:var(--surface-1);
@@ -2649,12 +2644,10 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
    out with a negative margin, which is the idiom already used by
    .link-standalone in this file. */
 
-/* Header brand and the sticky bar's secondary link: extend the hit area only.
-   Growing either would change chrome height on every page. */
-.brand,
-.sticky-book-ask{ position: relative; }
-.brand::after,
-.sticky-book-ask::after{
+/* Header brand: extend the hit area only. Growing it would change chrome
+   height on every page. */
+.brand{ position: relative; }
+.brand::after{
   content: ""; position: absolute; left: 0; right: 0;
   top: 50%; transform: translateY(-50%);
   height: 44px; /* the target, not the box */
@@ -2860,4 +2853,15 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
   /* Portraits become the space they occupied rather than vanishing, so a
      profile page does not reflow into something unrecognisable. */
   .photo img { visibility: hidden; }
+}
+
+/* ── Footer clearance for the phone action bar ──────────────────────────
+   The bar is fixed at the foot of the screen from 1020px down (globals.css,
+   components/StickyBook.tsx). Without room reserved, it sits on top of the
+   last lines of the footer. This has to live here rather than in globals.css:
+   `.site-footer{ padding: ... 24px }` above is unconditional and this file
+   loads second, so a media query in the other file loses to it whatever the
+   width. 104px is the measured bar (83px) plus a finger's clearance. */
+@media (max-width:1020px){
+  .site-footer{ padding-bottom:104px }
 }

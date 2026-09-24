@@ -502,22 +502,51 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
   .grid-2,.grid-3,.info-grid{grid-template-columns:1fr}
   .footer-grid{grid-template-columns:1fr}
 }
-/* Mobile booking bar — hidden above 680px, where the header CTA is visible */
+/* THE ACTION BAR ON A PHONE — rebuilt 23 Sep 2026.
+   Solid and inverted, the same ground as the footer, because the cream
+   version of this bar was invisible on a cream page behind a phone
+   browser's own bottom chrome. It appears from 1020px down, which is
+   exactly where the header's Book button moves into the drawer: above
+   that the header carries the action, below it this does, and there is
+   no width where neither does. See components/StickyBook.tsx. */
 .sticky-book{display:none}
-.sticky-book-inner{display:flex;flex-direction:column;gap:8px;
-  max-width:var(--maxw);margin:0 auto;padding:8px 14px 10px}
-.sticky-book-text{margin:0;font-size:.82rem;line-height:1.3;color:var(--ink-soft);text-align:center}
-.sticky-book-text span{color:var(--ink-faint)}
-.sticky-book-actions{display:flex;gap:8px}
-.sticky-book-btn{flex:1 1 0;padding:11px 8px;font-size:.95rem;min-height:44px;justify-content:center;text-align:center}
 
-@media (max-width:680px){
-  .sticky-book{display:block;position:fixed;left:0;right:0;bottom:0;z-index:60;
-    background:rgba(250,247,241,.97);backdrop-filter:saturate(180%) blur(10px);
-    border-top:1px solid var(--line);box-shadow:0 -4px 18px rgba(61,108,146,.09);
-    padding-bottom:env(safe-area-inset-bottom)}
-  /* keep the bar from covering the last of the footer */
-  .site-footer{padding-bottom:124px}
+@media (max-width:1020px){
+  .sticky-book{
+    display:block;position:fixed;left:0;right:0;bottom:0;z-index:60;
+    background:var(--surface-ink);
+    border-top:1px solid rgba(255,255,255,.14);
+    box-shadow:0 -6px 22px rgba(43,49,56,.22);
+    padding:7px 10px calc(8px + env(safe-area-inset-bottom));
+  }
+  .sticky-book-text{
+    margin:0 0 6px;text-align:center;font-size:.76rem;line-height:1.25;
+    color:var(--on-ink-soft);
+  }
+  .sticky-book-actions{
+    display:flex;gap:6px;max-width:var(--maxw);margin:0 auto;
+  }
+  .sticky-book-btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:7px;
+    min-height:46px;padding:0 12px;border-radius:9px;
+    font-weight:600;font-size:.88rem;line-height:1.1;
+    text-decoration:none;white-space:nowrap;
+    transition:transform .15s ease, background .15s ease;
+  }
+  .sticky-book-btn:active{transform:translateY(1px)}
+  .sb-mail{flex:1 1 auto;background:var(--surface-0);color:var(--blue-deep)}
+  .sb-book{flex:1 1 auto;background:var(--blue);color:var(--ink)}
+  .sb-call{flex:0 0 46px;padding:0;background:rgba(255,255,255,.12);color:var(--on-ink)}
+  /* On /book the Book button is dropped — the reader is already there — so the
+     phone button takes the room and says what it is. */
+  .sb-call--wide{flex:1 1 auto;padding:0 12px}
+  /* The footer's clearance for this bar is set in premium.css, which loads
+     after this file and sets .site-footer's padding unconditionally — a rule
+     here, media query or not, loses to it. */
+}
+
+@media (max-width:380px){
+  .sticky-book-btn{font-size:.82rem;padding:0 9px;gap:5px}
 }
 
 @media (max-width:420px){
