@@ -9,7 +9,7 @@ import { gurmukhi } from '@/app/fonts-gurmukhi';
 import { getExtra } from '@/lib/depth';
 import { buildToc, headingId } from '@/lib/toc';
 import { orgRef, siteRef, personRef, medicalWebPage, priceOffer } from '@/lib/schema';
-import { therapyNode } from '@/lib/entities';
+import { therapyNode, placeNode } from '@/lib/entities';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
 import BookingCard from '@/components/BookingCard';
@@ -178,6 +178,29 @@ export default async function ServicePage({ params }: { params: { slug: string }
          service name, so "EMDR Therapy" here resolves to the same thing an
          engine already holds. Added 24 Sep 2026; see lib/entities.ts. */
       about: therapyNode(s.slug, s.name),
+      /* BOOKABLE, AS AN ACTION — 24 Sep 2026.
+         The organisation node has carried a ReserveAction since August, so an
+         engine knows the practice can be booked. It did not know that THIS
+         service can be, or where. An assistant asked "can I book EMDR with
+         them" had to infer it from a button it cannot see. */
+      potentialAction: {
+        '@type': 'ReserveAction',
+        name: `Book a free 30-minute consultation about ${s.name.toLowerCase()}`,
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${site.domain}${site.bookingPath}`,
+          actionPlatform: [
+            'https://schema.org/DesktopWebPlatform',
+            'https://schema.org/MobileWebPlatform',
+          ],
+        },
+        result: { '@type': 'Reservation', name: 'Free 30-minute consultation' },
+      },
+      /* Who it is for. `MedicalAudience` is the type that says "this is health
+         information addressed to the person receiving care", which is exactly
+         what separates these pages from a clinician-facing description of the
+         same therapy. */
+      audience: { '@type': 'MedicalAudience', audienceType: 'Patient', geographicArea: placeNode('British Columbia') },
       ...(feeDollars ? { offers: priceOffer(feeDollars, `/services/${s.slug}`) } : {}),
     },
     {

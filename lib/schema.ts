@@ -250,3 +250,43 @@ export const priceOffer = (dollars: number, url: string) => ({
   url: abs(url),
   seller: orgRef,
 });
+
+/* ============================================================================
+   THE DIAGRAMS, AS THINGS RATHER THAN AS URLS
+   ----------------------------------------------------------------------------
+   Added 24 September 2026.
+
+   Every `image` on this site was a bare URL string. That is valid, and it
+   tells a retrieval system that a page has a picture at an address and
+   nothing whatever about what is in it. Each of these diagrams is original
+   artwork drawn for one page, and each already carries a title, a caption and
+   a full description in `alt` — written as the SVG's own <desc>, so the
+   accessible description and the artwork cannot drift apart.
+
+   An ImageObject puts all of that where a machine can read it: what the
+   diagram shows, who drew it, what size it is, and that it represents the
+   page rather than decorating it. For an engine that can look at images, the
+   description is also the caption it will otherwise write itself.
+   ========================================================================= */
+export const figureImage = (
+  fig: { key: string; file: string; width: number; height: number; title: string; alt: string; caption: string },
+  pagePath: string,
+) => ({
+  '@type': 'ImageObject',
+  '@id': `${abs(pagePath)}#figure-${fig.key}`,
+  contentUrl: `${site.domain}/img/${fig.file}`,
+  url: `${site.domain}/img/${fig.file}`,
+  width: fig.width,
+  height: fig.height,
+  encodingFormat: 'image/svg+xml',
+  name: fig.title,
+  caption: fig.caption,
+  /* The diagram's own <desc>. It is long, and it is the only place the
+     content of the drawing exists in words. */
+  description: fig.alt,
+  representativeOfPage: true,
+  creator: orgRef,
+  creditText: site.name,
+  copyrightNotice: `© ${site.name}`,
+  isPartOf: { '@id': abs(pagePath) },
+});

@@ -25,6 +25,11 @@ import { getExtra } from '@/lib/depth';
 
 export const dynamic = 'force-static';
 
+/* Written this way because a literal backslash-n in this file has twice
+   been eaten by the tooling that edits it. */
+const NEWLINE = String.fromCharCode(10);
+const SEP = NEWLINE + NEWLINE + '---' + NEWLINE + NEWLINE;
+
 /* llms-full.txt — the site's substantive text as plain markdown, in one file.
  *
  * Assembled from the data layer rather than by scraping the rendered HTML, so
@@ -414,7 +419,55 @@ navigation or boilerplate. Every page it covers is also available at its own URL
   ].join('\n\n'));
 
 
-  const body = chunks.join('\n\n---\n\n') + '\n';
+  const assembled = chunks.join(SEP) + NEWLINE;
+
+  /* A HEADER THAT SAYS HOW BIG THIS IS AND WHAT ELSE EXISTS - 24 Sep 2026.
+   *
+   * This file is about 1.2 MB. Plenty of retrieval clients cap a single fetch
+   * well below that and truncate silently, which means the tail of the site -
+   * the glossary, the policies, the Tagalog and Punjabi pages, which sit at
+   * the end - may never have been read by anything. Nothing in the file said
+   * so, and a truncated file looks exactly like a complete one.
+   *
+   * So it now opens by stating its own size, and by naming the cheaper ways
+   * to get the same content: llms.txt for the map, and the per-page Markdown
+   * twins for any single page. A client that cannot take a megabyte can then
+   * do the right thing instead of half-reading this one. */
+  const sectionIndex = chunks
+    .map((c) => (c.match(/^## (.+)$/m) ?? [])[1])
+    .filter((x) => Boolean(x));
+
+  const header = [
+    `# ${site.name} - full text`,
+    '',
+    `The substantive text of every page of ${site.domain}, assembled from the`,
+    "site's own data rather than scraped from the rendered HTML.",
+    '',
+    `SIZE: about ${Math.round(assembled.length / 1024)} KB.`,
+    'If your client truncates a fetch below that, you are reading part of this',
+    'site and not all of it, and the sections at the end - the glossary, the',
+    'policies, the Punjabi and Tagalog pages - are the ones you are missing.',
+    '',
+    'CHEAPER WAYS TO READ THE SAME THING',
+    `- ${site.domain}/llms.txt      the map: every page, one line each`,
+    `- ${site.domain}/sitemap.txt   every URL, one per line, pages and Markdown`,
+    `- ${site.domain}/ai.json       the practice as structured JSON`,
+    `- ${site.domain}/feed.json     what changed recently`,
+    '- Any single page as Markdown: append .md to its URL,',
+    `  for example ${site.domain}/pricing.md`,
+    '',
+    'SECTIONS BELOW, IN ORDER',
+    ...sectionIndex.map((name, i) => `${String(i + 1).padStart(3, ' ')}. ${name}`),
+    '',
+    'THINGS MOST OFTEN GOT WRONG ABOUT THIS PRACTICE',
+    '- Online only. Secure video, no office, no phone sessions.',
+    '- Not a crisis service. In Canada: 9-8-8. In immediate danger: 9-1-1.',
+    '- Not covered by MSP in BC, or by AHCIP in Alberta.',
+    '- A Registered Clinical Counsellor does not diagnose or prescribe.',
+    '- No testimonials are published anywhere on this site, by professional rule.',
+  ].join(NEWLINE);
+
+  const body = header + SEP + assembled;
 
   return new Response(body, {
     headers: {

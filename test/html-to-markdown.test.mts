@@ -125,6 +125,37 @@ test('unbalanced markup degrades to text instead of throwing', () => {
   assert.doesNotThrow(() => md('<main><p>One<div><span>Two</main>'));
 });
 
+test('the language comes from the document, not from a guess', () => {
+  const pa = metaOf('<html lang="pa"><head><title>x</title></head><body></body></html>');
+  assert.equal(pa.lang, 'pa');
+
+  /* scripts/html-lang.mjs writes the language after the build, and 48 of the
+     295 pages are Punjabi or Tagalog documents. A page that does not say is
+     English, which is what the site is. */
+  const none = metaOf('<html><head><title>x</title></head><body></body></html>');
+  assert.equal(none.lang, 'en-CA');
+});
+
+test('a translated page reports what it is a translation of', () => {
+  const meta = metaOf(`<html lang="pa"><head><title>x</title>
+    <link rel="alternate" hreflang="en-CA" href="https://www.westpeakwellness.com/guides/panic">
+    <link rel="alternate" hreflang="pa" href="https://www.westpeakwellness.com/punjabi/guides/panic">
+    <link rel="alternate" hreflang="x-default" href="https://www.westpeakwellness.com/guides/panic">
+    <link rel="alternate" type="application/rss+xml" href="/feed.xml">
+  </head><body></body></html>`);
+
+  assert.equal(meta.alternates.length, 3, 'the feed link has no hreflang and is not a translation');
+  assert.deepEqual(
+    meta.alternates.map((a) => a.lang).sort(),
+    ['en-CA', 'pa', 'x-default'],
+  );
+});
+
+test('a page with no translations reports none rather than an empty pair', () => {
+  const meta = metaOf('<html lang="en-CA"><head><title>x</title><link rel="alternate" type="application/rss+xml" href="/feed.xml"></head><body></body></html>');
+  assert.deepEqual(meta.alternates, []);
+});
+
 /* ------------------------------------------------------------------ paths */
 
 test('a .md path resolves to the page it shadows', () => {

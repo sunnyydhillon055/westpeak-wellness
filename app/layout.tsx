@@ -10,7 +10,7 @@ import Analytics from '@/components/Analytics';
 import ConsentGate from '@/components/ConsentGate';
 import { site } from '@/lib/site';
 import { services } from '@/lib/services';
-import { therapyNode } from '@/lib/entities';
+import { therapyNode, placeNode, KNOWS_ABOUT_ENTITIES } from '@/lib/entities';
 
 /* The browser chrome around the page — the strip above the address bar on
  * Android, the status area on iOS. Without this it stays a default grey while
@@ -112,12 +112,15 @@ const orgSchema = {
    * else is served remotely. Kept in step with lib/locations.ts by
    * scripts/area-served.mjs, which fails the build if a city has a page and is
    * missing here. */
+  /* Named as places rather than as words, 24 Sep 2026: there is more than one
+     British Columbia and more than one Alberta, and a practice that may only
+     see clients sitting in these two had better mean the Canadian ones. */
   areaServed: [
-    { '@type': 'State', name: 'British Columbia', containedInPlace: { '@type': 'Country', name: 'Canada' } },
+    placeNode('British Columbia'),
     /* Alberta since 1 Sep 2026, through the counsellor whose certification and
        insurance reach there (lib/practitioners.ts). The footer, the vCard and
        her 24 pages said so; this node still said BC only until 6 Sep. */
-    { '@type': 'State', name: 'Alberta', containedInPlace: { '@type': 'Country', name: 'Canada' } },
+    placeNode('Alberta'),
     ...AREA_SERVED,
   ],
   /* Three languages since 1 Sep 2026. Punjabi is the founder's; Tagalog
@@ -184,24 +187,35 @@ const orgSchema = {
     'A fully virtual Registered Clinical Counsellor practice serving all of ' +
     'British Columbia by secure video, in English, Punjabi and Tagalog. It has no ' +
     'physical office or walk-in location.',
+  /* WHAT THE PRACTICE KNOWS ABOUT, AS THINGS RATHER THAN AS STRINGS.
+     This was ten plain strings, which say only that somebody typed those
+     words. Half of them are concepts with a settled public definition, and
+     naming that definition is what turns "Depression" from a word on a page
+     into the condition a model already holds a representation of. The five
+     that have no such entity — intergenerational trauma, South Asian mental
+     health, trauma-informed care and the rest — stay as strings, because
+     inventing a reference for them would be worse than the string. */
   knowsAbout: [
-    'Eye Movement Desensitization and Reprocessing', 'Cognitive Behavioural Therapy',
-    'Gottman Method Couples Therapy', 'Trauma-informed care', 'Anxiety disorders',
-    'Depression', 'Intergenerational trauma', 'South Asian mental health',
-    'Burnout', 'Online psychotherapy',
+    ...KNOWS_ABOUT_ENTITIES,
+    'Gottman Method Couples Therapy', 'Trauma-informed care',
+    'Intergenerational trauma', 'South Asian mental health',
+    'Filipino mental health', 'Online psychotherapy',
+    'Counselling in Punjabi', 'Counselling in Tagalog',
   ],
-  /* What the practice offers, as an entity property rather than only as
-     five separate Service pages. Names and URLs only: the prices live on
-     each service page, synced from Cliniko, and a second copy here would be
-     a second thing to drift. */
-  hasOfferCatalog: {
-    '@type': 'OfferCatalog',
-    name: 'Counselling services',
-    itemListElement: services.map((s) => ({
-      '@type': 'Offer',
-      itemOffered: { '@type': 'Service', name: s.name, url: `${site.domain}/services/${s.slug}` },
-    })),
-  },
+  /* `hasOfferCatalog` REMOVED — 24 Sep 2026.
+   *
+   * It listed the same five services as `availableService` directly above,
+   * with the same names and the same URLs, and nothing else: no prices, no
+   * descriptions, no entity references. Two statements of one fact, 812 bytes
+   * of it, on all 295 pages.
+   *
+   * It was found by the perf budget failing when the entity references were
+   * added — the gate said the median page had grown 3.3%, and looking for
+   * what grew turned up something that should never have been there. An
+   * `Offer` with no offer in it is not a second signal, it is a second thing
+   * to keep in step. `availableService` is the correct property for what a
+   * MedicalBusiness provides, and it is the one that now carries the entity
+   * references, the descriptions and the page URLs. */
   memberOf: {
     '@type': 'Organization',
     name: 'BC Association of Clinical Counsellors',

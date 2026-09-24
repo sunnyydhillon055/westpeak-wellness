@@ -361,13 +361,40 @@ export function htmlToMarkdown(html: string, base: string): string {
   return body.replace(/\n{3,}/g, '\n\n').trim() + '\n';
 }
 
-/** A page's <title>, description and canonical URL, for the front matter. */
-export function metaOf(html: string): { title: string; description: string; canonical: string; modified: string } {
+/** A page's <title>, description, canonical URL, language and translations. */
+export function metaOf(html: string): {
+  title: string;
+  description: string;
+  canonical: string;
+  modified: string;
+  lang: string;
+  alternates: { lang: string; href: string }[];
+} {
   const pick = (re: RegExp) => decodeEntities((html.match(re)?.[1] ?? '').trim());
+
+  /* The language is on <html>, not in the metadata, and on this site it is
+     written there after the build by scripts/html-lang.mjs — 48 pages are
+     Punjabi or Tagalog documents and the rest are English. A Markdown file
+     that does not say which it is, is a file a model has to guess at, and
+     Gurmukhi at least announces itself where Tagalog does not. */
+  const lang = pick(/<html[^>]*\slang="([^"]*)"/i) || 'en-CA';
+
+  /* The same page in another language, where a real translation exists. The
+     site only ever emits these for genuine translations, never for a page
+     that merely mentions the language, so what is here can be trusted. */
+  const alternates = [...html.matchAll(/<link[^>]+rel="alternate"[^>]*>/gi)]
+    .map((m) => ({
+      lang: decodeEntities(m[0].match(/hreflang="([^"]*)"/i)?.[1] ?? ''),
+      href: decodeEntities(m[0].match(/href="([^"]*)"/i)?.[1] ?? ''),
+    }))
+    .filter((a) => a.lang && a.href);
+
   return {
     title: pick(/<title>([\s\S]*?)<\/title>/i).replace(/\s*\|\s*Westpeak Wellness\s*$/, ''),
     description: pick(/<meta\s+name="description"\s+content="([^"]*)"/i),
     canonical: pick(/<link\s+rel="canonical"\s+href="([^"]*)"/i),
     modified: pick(/"dateModified"\s*:\s*"([^"]*)"/i),
+    lang,
+    alternates,
   };
 }

@@ -81,14 +81,66 @@ export const CONDITION_ENTITY: Record<string, { name: string; sameAs: string[] }
   burnout: { name: 'Occupational burnout', sameAs: [`${W}Occupational_burnout`] },
   grief: { name: 'Grief', sameAs: [`${W}Grief`] },
   'panic-attacks': { name: 'Panic attack', sameAs: [`${W}Panic_attack`] },
+  /* The slugs the city pages use for the three conditions that have their own
+     pages (lib/conditions.ts). Keyed twice on purpose: the short name is what
+     the guides and the organisation's knowsAbout use, the slug is what a page
+     route has in hand, and a lookup that works for one and not the other is a
+     lookup somebody will silently miss. */
+  'anxiety-counselling': { name: 'Anxiety', sameAs: [`${W}Anxiety_disorder`] },
+  'trauma-therapy': { name: 'Psychological trauma', sameAs: [`${W}Psychological_trauma`] },
+  'depression-counselling': { name: 'Depression', sameAs: [`${W}Major_depressive_disorder`] },
   stress: { name: 'Psychological stress', sameAs: [`${W}Psychological_stress`] },
 };
 
+/* Places. The practice serves two provinces and named them as bare strings,
+   which is enough for a person and ambiguous for a machine — there is more
+   than one British Columbia and more than one Alberta on this planet. */
+export const PLACE_ENTITY: Record<string, string[]> = {
+  'British Columbia': [`${W}British_Columbia`],
+  Alberta: [`${W}Alberta`],
+  Canada: [`${W}Canada`],
+};
+
+/**
+ * What the practice knows about, as entities rather than as strings.
+ *
+ * The subset of the therapies and conditions above that the practice actually
+ * claims expertise in. A `knowsAbout` entry that is a thing with a definition
+ * says something a `knowsAbout` entry that is a word cannot.
+ */
+/* CONDITIONS ONLY, AND DELIBERATELY.
+   The five therapies were here too, and every one of them was already in the
+   organisation's `availableService` on the same page, carrying the same name
+   and the same sameAs. Saying "this practice offers EMDR" and "this practice
+   knows about EMDR" in one document is one fact and 700 wasted bytes on 295
+   pages. What it knows about and does not sell is the half that adds
+   something, and the strings beside it in the layout cover the rest.
+
+   Typed as conditions, not as therapies. The first draft of this array
+   concatenated both and gave every entry `MedicalTherapy`, which would have
+   published "Depression is a therapy this practice offers". */
+export const KNOWS_ABOUT_ENTITIES: { '@type': string; name: string; sameAs: string[] }[] =
+  ['anxiety', 'depression', 'trauma', 'ptsd', 'burnout', 'grief', 'panic-attacks']
+    .map((slug) => ({ '@type': 'MedicalCondition', name: CONDITION_ENTITY[slug].name, sameAs: CONDITION_ENTITY[slug].sameAs }));
+
 /** Every URL in this file, for the gate that checks they all still resolve. */
 export const ALL_ENTITY_URLS = [
-  ...Object.values(THERAPY_ENTITY),
-  ...Object.values(CONDITION_ENTITY),
-].flatMap((e) => e.sameAs);
+  ...Object.values(THERAPY_ENTITY).flatMap((e) => e.sameAs),
+  ...Object.values(CONDITION_ENTITY).flatMap((e) => e.sameAs),
+  ...Object.values(PLACE_ENTITY).flat(),
+];
+
+/** A `State` node that says which British Columbia is meant. */
+export const placeNode = (name: string, inCountry = 'Canada') => ({
+  '@type': 'State' as const,
+  name,
+  ...(PLACE_ENTITY[name] ? { sameAs: PLACE_ENTITY[name] } : {}),
+  containedInPlace: {
+    '@type': 'Country' as const,
+    name: inCountry,
+    ...(PLACE_ENTITY[inCountry] ? { sameAs: PLACE_ENTITY[inCountry] } : {}),
+  },
+});
 
 /**
  * A `MedicalTherapy` node that names what it is.
@@ -99,7 +151,7 @@ export const ALL_ENTITY_URLS = [
 export const therapyNode = (slug: string, fallbackName: string) => {
   const e = THERAPY_ENTITY[slug];
   return e
-    ? { '@type': 'MedicalTherapy' as const, name: e.name, alternateName: fallbackName, sameAs: e.sameAs }
+    ? { '@type': 'MedicalTherapy' as const, name: e.name, ...alt(e.name, fallbackName), sameAs: e.sameAs }
     : { '@type': 'MedicalTherapy' as const, name: fallbackName };
 };
 
@@ -107,6 +159,15 @@ export const therapyNode = (slug: string, fallbackName: string) => {
 export const conditionNode = (slug: string, fallbackName: string) => {
   const e = CONDITION_ENTITY[slug];
   return e
-    ? { '@type': 'MedicalCondition' as const, name: e.name, alternateName: fallbackName, sameAs: e.sameAs }
+    ? { '@type': 'MedicalCondition' as const, name: e.name, ...alt(e.name, fallbackName), sameAs: e.sameAs }
     : { '@type': 'MedicalCondition' as const, name: fallbackName };
 };
+
+/* The site's own name for the thing, where it differs from the entity's.
+   "Individual Therapy" is what this practice calls psychotherapy and is worth
+   saying; "Couples Therapy" as an alternateName for Couples therapy is a
+   second copy of the same word on 295 pages, which the perf budget noticed
+   before anybody else would have. */
+function alt(name: string, fallback: string) {
+  return name.toLowerCase() === fallback.toLowerCase() ? {} : { alternateName: fallback };
+}

@@ -291,6 +291,142 @@ const jsonLd = (html) => [...html.matchAll(/<script type="application\/ld\+json"
     'no speakable on /pricing');
 }
 
+/* ---- crawl efficiency: validators and conditional requests --------------- */
+
+{
+  /* A crawler re-reading 295 Markdown files should spend a few hundred bytes,
+     not three megabytes. That needs a validator on the way out and a 304 on
+     the way back, and it needs the cache-control to survive: it was silently
+     replaced in production by a bare `Cache-Control: public` for as long as
+     this route was an ISR route. */
+  const { res } = await get('/guides/stress-leave-bc.md');
+  const etag = res.headers.get('etag') || '';
+  const cc = res.headers.get('cache-control') || '';
+
+  check('a Markdown twin carries a strong ETag', /^"[^"]+"$/.test(etag) && !etag.startsWith('W/'), `ETag: ${etag || '(none)'}`);
+  check('a Markdown twin carries Last-Modified', Boolean(res.headers.get('last-modified')), 'no Last-Modified');
+  check('a Markdown twin states a real freshness lifetime', /max-age=\d+/.test(cc) && /s-maxage=\d+/.test(cc), `Cache-Control: ${cc || '(none)'}`);
+  check('a Markdown twin names its canonical HTML page', (res.headers.get('link') || '').includes('rel="canonical"'), `Link: ${res.headers.get('link') || '(none)'}`);
+  check('a Markdown twin states its language', Boolean(res.headers.get('content-language')), 'no Content-Language');
+
+  if (etag) {
+    const conditional = await fetch(BASE + '/guides/stress-leave-bc.md', { headers: { 'if-none-match': etag } });
+    const body = await conditional.text();
+    check('a twin returns 304 and no body when the client already has it',
+      conditional.status === 304 && body.length === 0,
+      `got ${conditional.status} with ${body.length} bytes`);
+  }
+}
+
+/* ---- the twins say what language they are in ----------------------------- */
+
+{
+  const { body } = await get('/punjabi/guides/panic-attack-ki-hai.md');
+  check('a Punjabi twin declares its language', /^lang: pa$/m.test(body), 'front matter has no lang: pa');
+  check('a Punjabi twin names its English original',
+    /^translations:/m.test(body) && /lang: en-CA/.test(body),
+    'front matter lists no translation');
+  check('a Punjabi twin is actually in Punjabi', /[਀-੿]/.test(body), 'no Gurmukhi in the body');
+}
+
+{
+  const { body } = await get('/guides/stress-leave-bc.md');
+  check('an English twin declares its language', /^lang: en-CA$/m.test(body), 'front matter has no lang');
+  check('every twin states what the practice is not', /^not: /m.test(body), 'front matter has no `not` line');
+}
+
+/* ---- the plain-text sitemap and the JSON feed ---------------------------- */
+
+{
+  const { res, body } = await get('/sitemap.txt');
+  const lines = body.split('\n').filter((l) => l.startsWith('https://'));
+  const twins = lines.filter((l) => l.endsWith('.md'));
+
+  check('/sitemap.txt is served as plain text', res.status === 200 && /text\/plain/.test(res.headers.get('content-type') || ''), `${res.status} ${res.headers.get('content-type')}`);
+  check('/sitemap.txt lists the whole site', lines.length > 400, `only ${lines.length} URLs`);
+  check('/sitemap.txt lists a Markdown twin for every page', twins.length === lines.length - twins.length, `${lines.length - twins.length} pages, ${twins.length} twins`);
+  check('/sitemap.txt uses /index.md for the home page', body.includes('/index.md'), 'home page twin missing or wrong');
+}
+
+{
+  const { res, body } = await get('/feed.json');
+  check('/feed.json is served as a JSON feed', res.status === 200 && /json/.test(res.headers.get('content-type') || ''), `${res.status} ${res.headers.get('content-type')}`);
+  let feed = null;
+  try { feed = JSON.parse(body); } catch (e) { bad('/feed.json parses', e.message); }
+  if (feed) {
+    check('/feed.json declares the JSON Feed version', String(feed.version || '').includes('jsonfeed.org'), `version: ${feed.version}`);
+    check('/feed.json carries items', Array.isArray(feed.items) && feed.items.length > 10, `${feed.items?.length ?? 0} items`);
+    check('every feed item links its own Markdown copy',
+      (feed.items || []).every((i) => (i.attachments || []).some((a) => a.mime_type === 'text/markdown' && a.url.endsWith('.md'))),
+      'an item has no Markdown attachment');
+  }
+}
+
+/* ---- llms.txt and llms-full.txt, second pass ----------------------------- */
+
+{
+  const { body } = await get('/llms.txt');
+  check('llms.txt says what changed recently', /## Most recently reviewed/.test(body), 'no recently-reviewed section');
+  check('the recently-reviewed list carries real dates', /- 20\d\d-\d\d-\d\d\s+https:/.test(body), 'no dated entries');
+}
+
+{
+  const { body } = await get('/llms-full.txt');
+  check('llms-full.txt states its own size', /^SIZE: about \d+ KB\.$/m.test(body), 'no size line');
+  check('llms-full.txt warns about truncation', /truncates a fetch/.test(body), 'no truncation warning');
+  check('llms-full.txt offers the cheaper routes', /sitemap\.txt/.test(body) && /\.md/.test(body), 'no alternatives offered');
+  check('llms-full.txt indexes its own sections', /SECTIONS BELOW, IN ORDER/.test(body) && /\n\s+1\. /.test(body), 'no section index');
+}
+
+/* ---- the entity work, second pass ---------------------------------------- */
+
+{
+  const { body } = await get('/');
+  const org = jsonLd(body).find((n) => String(n['@type'] ?? '').includes('MedicalBusiness') || (Array.isArray(n['@type']) && n['@type'].includes('MedicalBusiness')));
+  check('the practice names what it knows about as entities',
+    Array.isArray(org?.knowsAbout) && org.knowsAbout.some((k) => k?.sameAs?.length),
+    'knowsAbout is still a list of strings');
+  check('a condition in knowsAbout is typed as a condition, not a therapy',
+    (org?.knowsAbout || []).some((k) => k?.['@type'] === 'MedicalCondition'),
+    'no MedicalCondition in knowsAbout');
+  check('the provinces are named as places, not as words',
+    (org?.areaServed || []).some((a) => a?.sameAs?.length),
+    'areaServed carries no sameAs');
+}
+
+{
+  const { body } = await get('/online-counselling/vancouver/anxiety-counselling');
+  const nodes = jsonLd(body);
+  const page = nodes.find((n) => n.about);
+  check('a page about a condition types it as a condition',
+    page?.about?.['@type'] === 'MedicalCondition' && page.about.sameAs?.length,
+    `about: ${JSON.stringify(page?.about ?? null)}`);
+}
+
+{
+  const { body } = await get('/services/emdr-therapy');
+  const svc = jsonLd(body).find((n) => n['@type'] === 'Service');
+  check('a service is machine-bookable', svc?.potentialAction?.['@type'] === 'ReserveAction', 'no ReserveAction');
+  check('a service names who it is for', svc?.audience?.['@type'] === 'MedicalAudience', 'no MedicalAudience');
+}
+
+{
+  const { body } = await get('/guides/stress-leave-bc');
+  const art = jsonLd(body).find((n) => n['@type'] === 'Article');
+  const img = (art?.image || []).find((i) => typeof i === 'object');
+  check('a diagram is described, not just linked',
+    Boolean(img && img['@type'] === 'ImageObject' && img.description?.length > 60),
+    'no ImageObject with a description');
+}
+
+{
+  const { body } = await get('/punjabi/guides/panic-attack-ki-hai');
+  const art = jsonLd(body).find((n) => n['@type'] === 'Article');
+  check('a translated page says which work it translates',
+    Boolean(art?.translationOfWork?.url),
+    'no translationOfWork');
+}
+
 /* ---- the third-party links, only when asked ------------------------------ */
 
 if (CHECK_LINKS) {

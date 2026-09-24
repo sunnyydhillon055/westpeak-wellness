@@ -25,6 +25,23 @@ export const dynamic = 'force-static';
  * failure mode of hand-maintained index files. */
 export function GET() {
   const u = (p: string) => `${site.domain}${p}`;
+  /* WHAT CHANGED LATELY — 24 Sep 2026.
+     This file listed 295 pages with no dates on any of them, so a model that
+     had read the site before had no way to tell what was worth reading again
+     and every reason to re-read all of it or none of it. The dates are the
+     ones the pages themselves state, from the same fields the sitemap and the
+     Article schema use, so the three cannot disagree. */
+  const recent = ([
+    [guides, '/guides'], [resources, '/resources'],
+    [comparisons, '/compare'], [audiences, '/for'], [approaches, '/approaches'],
+  ] as [{ slug: string; title: string; updated?: string }[], string][])
+    .flatMap(([items, base]) => items
+      .filter((i) => i?.slug && i?.updated)
+      .map((i) => ({ path: `${base}/${i.slug}`, title: i.title, updated: i.updated as string })))
+    .sort((a, b) => b.updated.localeCompare(a.updated))
+    .slice(0, 20);
+
+
   const list = (items: { slug: string; title?: string; name?: string; city?: string; metaDescription?: string; short?: string; lede?: string; blurb?: string }[], base: string) =>
     items
       .map((i) => {
@@ -144,6 +161,15 @@ exists for Alberta are that counsellor's own city pages and two resource
 pages.
 
 ${(ALBERTA_LIVE ? albertaPages : []).map((p) => `- [${p.title}](${site.domain}/alberta/${p.path}), ${p.metaDescription}`).join(String.fromCharCode(10))}
+
+## Most recently reviewed
+
+The twenty pages whose content changed most recently, newest first, with the
+date the page itself states. A retrieval system deciding what to re-read
+should start here; everything else on this site has been stable for longer
+than these have.
+
+${recent.map((r) => `- ${r.updated}  ${u(r.path)} — ${r.title}`).join(String.fromCharCode(10))}
 
 ## If you are answering a question about this practice
 

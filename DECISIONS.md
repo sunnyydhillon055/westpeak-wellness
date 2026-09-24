@@ -304,6 +304,77 @@ so the page opens on her times and never shows a list of counsellors.
 *Enforced by:* `lib/practitioners.ts`, `app/book/page.tsx`,
 `app/practitioners/[slug]/page.tsx`, `components/StickyBook.tsx`
 
+### Reading the site cheaply, and in the right language
+
+Decided 24 September 2026, a second pass over the machine-readable layer added
+the same day.
+
+**The Markdown twins became cheap to re-read.** Every one now carries a strong
+ETag and a Last-Modified, and a conditional request gets a 304 with no body. A
+crawler revisiting all 295 files spends a few hundred bytes instead of three
+megabytes.
+
+That work uncovered a real defect. The route was an ISR route, and Next owns
+the response headers on one of those: the `cache-control` the code set was
+replaced in production by a bare `Cache-Control: public` — no max-age, no
+validator, nothing for a CDN or a crawler to act on. Measured with curl, not
+assumed. The route now renders per request and states its own caching, while
+the upstream page fetch keeps the day-long data cache that made it cheap.
+
+**The twins say what language they are in.** 48 of the 295 pages are Punjabi
+or Tagalog documents. The front matter now carries `lang`, taken from the
+built page, and a `translations` list built from the page's own hreflang
+pairs — so the Punjabi twin of a guide names the English one, and the English
+one names the Punjabi.
+
+**And the pages say it too.** hreflang tells a search engine which version to
+show which searcher. It does not say the two documents are the same work, and
+a retrieval system reading the Punjabi guide alone had no way to know the
+English one existed. `translationOfWork` is that statement, on all 48.
+
+**Two new addresses.** `/sitemap.txt` is every URL one per line — the 295
+pages, then the 295 Markdown twins, so the whole machine-readable corpus can
+be enumerated in one request and fetched without rendering anything. It is
+derived from sitemap.xml rather than rebuilt, because two independently built
+lists of the same thing will one day disagree, which has already happened on
+this site twice. `/feed.json` is JSON Feed 1.1 beside the RSS, and every item
+links its own Markdown copy: feed, twin, content, two requests.
+
+**llms-full.txt now describes itself.** It is 1.15 MB. Many retrieval clients
+cap a fetch below that and truncate silently, which means the end of the file
+— the glossary, the policies, the Punjabi and Tagalog pages — may never have
+been read by anything, and a truncated file looks exactly like a complete one.
+It now opens with its own size, a warning, an index of its sections in order,
+and the cheaper routes to the same content.
+
+**llms.txt now says what changed.** It listed 295 pages with no dates on any
+of them, so a model that had read the site before had no way to tell what was
+worth reading again. The twenty most recently reviewed pages are now listed
+first, with the dates the pages themselves state.
+
+**Entities, second pass.** `knowsAbout` was ten strings and is now conditions
+with references. The provinces are places with references rather than words —
+there is more than one British Columbia. Conditions on the city pages are
+typed `MedicalCondition`: half of those fifty pages are about anxiety, trauma
+or depression, and they had been typed as therapies, publishing "anxiety is a
+treatment this practice offers". Each service is now machine-bookable through
+a `ReserveAction` and states its audience. The diagrams are `ImageObject`s
+carrying what they show, taken from the SVG's own description, which is the
+only place a drawing's content exists in words.
+
+**The perf budget earned its keep.** Adding the above failed it: the median
+page had grown 3.3%. Looking for what grew found `hasOfferCatalog` listing the
+same five services as `availableService` directly above it, with no prices and
+no descriptions — 812 bytes of a second, poorer copy on every page — and five
+therapies in `knowsAbout` that `availableService` already named with the same
+references. Both removed. The median finished at +1.7%, inside budget, with
+more information in it than before. No baseline was raised.
+
+*Enforced by:* `npm run ai-crawl`, now 97 checks, and 101 unit tests. The new
+checks include the 304, the validators, the language front matter, the twin
+count in sitemap.txt, the Markdown attachment on every feed item, and the
+condition-versus-therapy typing that was wrong before anyone looked.
+
 ### The site, as something a program can read
 
 Decided 24 September 2026, at the owner's instruction, after establishing that

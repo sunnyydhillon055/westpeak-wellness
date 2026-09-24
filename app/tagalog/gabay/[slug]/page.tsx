@@ -100,6 +100,13 @@ export default function TagalogGuidePage({ params }: { params: Params }) {
       author: orgRef,
       isPartOf: siteRef,
       publisher: orgRef,
+      /* The English page this one translates, stated as a relationship and
+         not only as hreflang — see the Punjabi guide route for why. Only
+         where an English original actually exists: several of these are
+         written for Tagalog readers and translate nothing. */
+      ...(g.englishHref
+        ? { translationOfWork: { '@type': 'Article', '@id': abs(`${g.englishHref}#article`), url: abs(g.englishHref), inLanguage: 'en-CA' } }
+        : {}),
     },
     {
       '@context': 'https://schema.org',

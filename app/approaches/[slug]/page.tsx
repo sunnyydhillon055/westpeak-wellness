@@ -5,7 +5,7 @@ import { approaches, getApproach } from '@/lib/approaches';
 import { site } from '@/lib/site';
 import { getExtra } from '@/lib/depth';
 import { buildToc, headingId } from '@/lib/toc';
-import { orgRef, siteRef, personRef, medicalWebPage } from '@/lib/schema';
+import { orgRef, siteRef, personRef, medicalWebPage, figureImage } from '@/lib/schema';
 import { therapyNode } from '@/lib/entities';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
@@ -98,9 +98,13 @@ export default function ApproachPage({ params }: { params: { slug: string } }) {
       ...(g.sources.length
         ? { citation: g.sources.map((src) => ({ '@type': 'CreativeWork', name: src.label, url: src.url })) }
         : {}),
+      /* The social card stays a plain URL — it is a card, not content. The
+         diagram becomes an ImageObject carrying what it actually shows; see
+         lib/schema.ts. 24 Sep 2026. */
       image: [
         `${site.domain}/approaches/${g.slug}/opengraph-image`,
-        ...(g.figure && getFigure(g.figure) ? [`${site.domain}/img/${getFigure(g.figure)!.file}`] : []),
+        ...(g.figure && getFigure(g.figure) ? [figureImage(getFigure(g.figure)!, `/approaches/${g.slug}`)] : []),
+        ...(g.figure2 && getFigure(g.figure2) ? [figureImage(getFigure(g.figure2)!, `/approaches/${g.slug}`)] : []),
       ],
     },
     {

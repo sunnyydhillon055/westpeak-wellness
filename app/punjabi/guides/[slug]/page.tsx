@@ -81,6 +81,14 @@ export default function PunjabiGuidePage({ params }: { params: Params }) {
       author: orgRef,
       isPartOf: siteRef,
       publisher: orgRef,
+      /* THIS PAGE IS A TRANSLATION, AND SAID SO ONLY IN hreflang — 24 Sep 2026.
+         hreflang tells a search engine which version to show which searcher.
+         It does not say the two documents are the same work, and a retrieval
+         system reading the Punjabi guide on its own had no way to know the
+         English one existed or that they say the same thing. `translationOfWork`
+         is the statement that they do, and it is the one an engine can follow
+         in either direction. */
+      translationOfWork: { '@type': 'Article', '@id': abs(`${g.englishHref}#article`), url: abs(g.englishHref), inLanguage: 'en-CA' },
     },
     {
       '@context': 'https://schema.org',
