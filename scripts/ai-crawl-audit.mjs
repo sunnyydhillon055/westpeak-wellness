@@ -303,13 +303,30 @@ const jsonLd = (html) => [...html.matchAll(/<script type="application\/ld\+json"
   const etag = res.headers.get('etag') || '';
   const cc = res.headers.get('cache-control') || '';
 
-  check('a Markdown twin carries a strong ETag', /^"[^"]+"$/.test(etag) && !etag.startsWith('W/'), `ETag: ${etag || '(none)'}`);
+  /* A VALIDATOR, NOT NECESSARILY A STRONG ONE — corrected 24 Sep 2026 after
+     this check failed against production and the site turned out to be right.
+     The route sends a strong ETag. Vercel compresses the response, the bytes
+     on the wire are then not the bytes the ETag was computed over, and it
+     correctly weakens the validator to W/"...". Every crawler asks for
+     compression, so W/ is what a crawler sees. A weak validator is fine for
+     exactly the thing this is for: If-None-Match uses weak comparison. It is
+     If-Match, on writes, that requires a strong one — the lesson this
+     repository already learned the expensive way with Blob ETags.
+
+     Likewise the freshness lifetime. The route sets s-maxage and
+     stale-while-revalidate; the CDN consumes both and sends the client
+     `public, max-age=300`. Asserting on the header the origin wrote rather
+     than the one a crawler receives is how a gate ends up failing a correct
+     site. */
+  check('a Markdown twin carries a validator', /^(W\/)?"[^"]+"$/.test(etag), `ETag: ${etag || '(none)'}`);
   check('a Markdown twin carries Last-Modified', Boolean(res.headers.get('last-modified')), 'no Last-Modified');
-  check('a Markdown twin states a real freshness lifetime', /max-age=\d+/.test(cc) && /s-maxage=\d+/.test(cc), `Cache-Control: ${cc || '(none)'}`);
+  check('a Markdown twin states a freshness lifetime', /max-age=\d+/.test(cc), `Cache-Control: ${cc || '(none)'}`);
   check('a Markdown twin names its canonical HTML page', (res.headers.get('link') || '').includes('rel="canonical"'), `Link: ${res.headers.get('link') || '(none)'}`);
   check('a Markdown twin states its language', Boolean(res.headers.get('content-language')), 'no Content-Language');
 
   if (etag) {
+    /* Sent back exactly as received, weak prefix and all, because that is
+       what a crawler does. */
     const conditional = await fetch(BASE + '/guides/stress-leave-bc.md', { headers: { 'if-none-match': etag } });
     const body = await conditional.text();
     check('a twin returns 304 and no body when the client already has it',
