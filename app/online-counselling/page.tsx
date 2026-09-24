@@ -134,7 +134,9 @@ export default function LocationsIndex() {
             </li>
           </ol>
 
-          <h2>Why only six cities have their own page</h2>
+          {/* Derived, because this said "six" for a month after the count
+              reached fifteen. */}
+          <h2>Why only {locations.length} cities have their own page</h2>
           <p>
             Most counselling websites list every city in the province. This one does not, deliberately.
             A page about &ldquo;counselling in [city]&rdquo; that is identical to forty others with the
@@ -142,7 +144,7 @@ export default function LocationsIndex() {
             pattern as exactly what it is.
           </p>
           <p>
-            So there are pages for the six places where something true and specific about accessing
+            So there are pages for the {locations.length} places where something true and specific about accessing
             care there actually changes what the page says: the scarcity of clinicians in the north,
             the cost of a ferry for weekly appointments, the concentration of Punjabi-speaking
             counsellors in the Lower Mainland. Everywhere else is served identically. There is simply

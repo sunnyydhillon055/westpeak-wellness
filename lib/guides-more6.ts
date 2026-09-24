@@ -5,7 +5,7 @@ export const moreGuides6: Guide[] = [
     slug: 'stress-leave-bc',
     figure2: 'reimbursement-flow',
     title: 'Stress leave in BC: what it actually takes',
-    metaTitle: 'How to Get Stress Leave in BC | Westpeak Wellness',
+    metaTitle: 'Stress Leave in BC: How to Apply, Is It Paid | Westpeak',
     metaDescription:
       'How to apply for stress leave in BC, step by step: who signs it (a doctor or NP, not a counsellor), whether it is paid, how long it runs, and where EI fits.',
     eyebrow: 'Guide · Work',
@@ -114,12 +114,20 @@ export const moreGuides6: Guide[] = [
       { label: 'WorkSafeBC, mental health', url: 'https://www.worksafebc.com/en/claims/report-workplace-injury-illness/mental-health-injury-claims' },
     ],
     related: [
-      { href: '/tools/burnout-or-depression', label: 'Two-minute check: burnout or depression?' },
-      { href: "/services/individual-therapy", label: "Individual counselling during stress leave" },
-      { href: '/guides/burnout-vs-depression', label: 'Burnout or depression?' },
-      { href: '/guides/workplace-bullying-in-bc', label: 'Workplace bullying in BC' },
+      /* THE REST OF THE LEAVE SERIES, from the page that leads it — 25 Sep 2026.
+         Search Console shows this guide drawing "how to apply", "is it paid"
+         and "medical stress leave" at positions 12-25, and it linked to one of
+         the six other pages on the same subject. A reader who lands here and
+         needs the doctor's note, the EI figures or the disability route was
+         being sent back to Google to find them on this same site. */
+      { href: '/guides/doctors-note-for-a-mental-health-leave', label: 'Getting the doctor\'s note for a stress leave' },
+      { href: '/guides/ei-sickness-benefits-and-therapy', label: 'EI sickness benefits: 55% for up to 26 weeks' },
+      { href: '/guides/sick-days-and-mental-health-days-bc', label: 'Paid sick days and mental-health days in BC' },
+      { href: '/resources/disability-benefits-and-counselling-bc', label: 'Short and long-term disability for mental health' },
+      { href: '/resources/worksafebc-psychological-injury-claims', label: 'When it is a WorkSafeBC claim instead' },
       { href: '/resources/workplace-mental-health-bc', label: 'Mental health and work in BC' },
-      { href: '/for/healthcare-and-shift-workers', label: 'For healthcare and shift workers' },
+      { href: '/guides/burnout-vs-depression', label: 'Burnout or depression?' },
+      { href: "/services/individual-therapy", label: "Individual counselling during stress leave" },
       { href: '/book', label: 'Book a free consultation' },
     ],
   },

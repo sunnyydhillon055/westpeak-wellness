@@ -17,6 +17,16 @@ import Figure from '@/components/Figure';
 import { ogBase } from '@/lib/og-meta';
 import { COLLECTION_DATES } from '@/lib/page-dates';
 
+/* THE NAME THE PAGE IS FOUND BY — 25 Sep 2026.
+   Search Console shows "marriage counselling abbotsford", "marriage
+   counselling kelowna" and their variants — about 60 impressions a month at
+   positions 45-60 — landing on the couples pages, whose title and heading
+   said only "Couples Therapy". People who are married search for marriage
+   counselling. The service keeps its name everywhere else; only the title,
+   heading and description of the city pages carry both words. */
+const seoName = (s: { slug: string; name: string }) =>
+  s.slug === 'couples-therapy' ? 'Couples and Marriage Counselling' : s.name;
+
 /* CITY × SERVICE — fifty pages, each with its own argument.
  *
  * WHAT MAKES THIS NOT A DOORWAY
@@ -112,6 +122,9 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
      "emdr therapy kelowna" style queries at position 28-40, and the province
      is in the query more often than not. Composed to fit, not truncated: the
      pairs whose title would pass 60 with it keep the shorter form. */
+  /* The title keeps the service's own name: "Couples and Marriage Counselling
+     in Prince George | Westpeak Wellness" is 66 characters and the SEO gate
+     refuses it. The heading and the description carry both words instead. */
   const withBc = `${svc.name} in ${ctx.city}, BC`;
   const title = `${withBc} | ${site.name}`.length <= 60 ? withBc : `${svc.name} in ${ctx.city}`;
   /* Composed to fit rather than truncated to fit. The first version ran the
@@ -119,7 +132,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
      cut the longest pairs mid-word — "Free 30-minute con". Longest pair here
      is 155 characters, so nothing is cut at all. */
   const description =
-    `${svc.name} for ${ctx.city}, by secure video across BC with a Registered ` +
+    `${seoName(svc)} for ${ctx.city}, by secure video across BC with a Registered ` +
     `Clinical Counsellor. English, Punjabi or Tagalog. Free 30-minute consultation.`;
   /* Guard only. If a longer service or city name is ever added, trim on a word
      boundary rather than mid-word. */
@@ -161,7 +174,7 @@ export default function CityServicePage({ params }: { params: Params }) {
       '@context': 'https://schema.org',
       '@type': 'MedicalWebPage',
       '@id': abs(path),
-      name: `${svc.name} in ${ctx.city}, BC`,
+      name: `${seoName(svc)} in ${ctx.city}, BC`,
       description: pair.angle,
       url: abs(path),
       isPartOf: siteRef,
@@ -202,7 +215,7 @@ export default function CityServicePage({ params }: { params: Params }) {
       <section className="hero" style={{ paddingBottom: 44 }}>
         <div className="container">
           <p className="eyebrow">{ctx.city} · {ctx.region} · Online</p>
-          <h1>{svc.name} in {ctx.city}, BC</h1>
+          <h1>{seoName(svc)} in {ctx.city}, BC</h1>
           {/* The pair's own thesis as the lede. This is the sentence that is
               true here and nowhere else in the matrix. */}
           <p className="lede">{pair.angle}</p>
@@ -414,7 +427,7 @@ export default function CityServicePage({ params }: { params: Params }) {
           commitment on this site; a sentence by email is not. */}
 
       <CtaBand
-        heading={`${svc.name} in ${ctx.city}, without the travel`}
+        heading={`${seoName(svc)} in ${ctx.city}, without the travel`}
         text="A free 30-minute video call, in English, Punjabi or Tagalog. No charge, no card, and no obligation to book anything afterwards."
       />
     </>

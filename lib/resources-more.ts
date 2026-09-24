@@ -231,7 +231,7 @@ export const moreResources: Resource[] = [
        one page carries the signal two were dividing. */
     metaTitle: 'Registered Clinical Counsellor (RCC) in BC: What It Means',
     metaDescription:
-      "What RCC means after a counsellor’s name in BC, what it requires and permits, and the free four-minute check on the public register.",
+      "What RCC means after a counsellor’s name in BC, how it differs from “licensed” or “registered counsellor”, and the free four-minute register check.",
     eyebrow: 'BC resource',
     lede:
       'This takes about four minutes and almost nobody does it. It is the single most useful piece of due diligence available to you.',

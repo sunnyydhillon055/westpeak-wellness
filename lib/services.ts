@@ -173,7 +173,7 @@ export const services: Service[] = [
        therapists", all landing at position 80+ on a city page. Trauma is a
        condition, not a service (DECISIONS.md), and EMDR is the service that
        treats it, so this is the page that should answer those queries. */
-    metaTitle: "Online EMDR and Trauma Therapy in BC | Westpeak Wellness",
+    metaTitle: "Online EMDR Therapist in BC | Trauma Therapy | Westpeak",
     metaDescription:
       "Online trauma therapy and EMDR across BC with an EMDR-trained Registered Clinical Counsellor, for PTSD, anxiety and grief. Free 30-minute consultation.",
     hero: "Process painful memories so they stop running the show.",
@@ -350,6 +350,13 @@ export const services: Service[] = [
       ],
     },
     faqs: [
+      /* Two queries Search Console shows at positions 8-11 with no page that
+         answers them: "counselling meaning in punjabi" and "burnout meaning
+         in punjabi". The Punjabi words are the ones this site's own Punjabi
+         pages already use, not new coinages. 25 Sep 2026. */
+      { q: "What is counselling called in Punjabi?", a: "Most often it is simply written ਕਾਊਂਸਲਿੰਗ, the English word in Gurmukhi, and that is the word this site's Punjabi pages use. The older word ਸਲਾਹ means advice, which is close but not the same thing: counselling is not somebody telling you what to do. Sessions here can be entirely in Punjabi, entirely in English, or the mix most families actually speak." },
+      { q: "What does burnout mean in Punjabi?", a: "There is no single Punjabi word for it. The Punjabi guides on this site describe it as a ਥਕਾਵਟ, an exhaustion, that rest does not fix, usually from work or from caring for others, and that is the honest definition in any language. If that describes you, the burnout-or-depression check on this site takes two minutes and is written in plain English." },
+
       { q: "Do sessions have to be entirely in Punjabi?", a: "No. Most people move between Punjabi and English within a single session, which is how a lot of people actually think. You do not have to choose a language in advance or stick to it." },
       { q: "Will my family find out?", a: "No. Counselling is confidential and whether you tell anyone is your decision. Virtual sessions mean there is no waiting room and no building, which for many people here is the deciding factor." },
       { q: "Will I be told to cut off my family?", a: "No. That framing misreads the situation for most people. The work is usually about staying connected while stopping carrying what is not yours." },

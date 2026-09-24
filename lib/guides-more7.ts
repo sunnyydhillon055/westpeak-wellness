@@ -91,7 +91,7 @@ export const moreGuides7: Guide[] = [
     figure2: 'bc-support-routes',
     figure: 'session-requirements',
     title: 'Getting a doctor’s note for a mental-health leave in BC',
-    metaTitle: 'Doctor’s Note for Stress Leave in BC | Westpeak',
+    metaTitle: 'Doctor’s Note for Stress Leave in BC (2026) | Westpeak',
     metaDescription:
       'What to say to your doctor to get a stress leave, what the note should and should not contain, what an employer may ask, and what to do with no family doctor.',
     eyebrow: 'Guide · Work & money',
@@ -239,7 +239,7 @@ export const moreGuides7: Guide[] = [
     figure2: 'bc-support-routes',
     figure: 'accountability-chain',
     title: 'Sick days and mental-health days in BC: what you’re actually entitled to',
-    metaTitle: 'Can You Use Sick Days for Mental Health in BC?',
+    metaTitle: 'Can You Use Sick Days for Mental Health in BC? (2026)',
     metaDescription:
       'BC’s paid sick days cover mental health. How the 5 ESA days work, what proof an employer can ask for, and when a mental-health day is a signal, not a fix.',
     eyebrow: 'Guide · Work & money',
