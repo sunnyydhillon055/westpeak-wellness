@@ -15,6 +15,7 @@ import Byline from '@/components/Byline';
 import ExtraSections from '@/components/ExtraSections';
 import Toc from '@/components/Toc';
 import MoreFrom from '@/components/MoreFrom';
+import CityLinks from '@/components/CityLinks';
 import Figure from '@/components/Figure';
 import InlineRelated from '@/components/InlineRelated';
 import { getFigure } from '@/lib/figures';
@@ -314,6 +315,7 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
 
 
       <MoreFrom items={guides} currentSlug={g.slug} base="/guides" heading="More counselling guides" eyebrow="Keep going" />
+      <CityLinks />
       <CtaBand
         tone={GENTLE_CTA.has(g.slug) ? 'gentle' : 'default'}
         heading="Still deciding?"

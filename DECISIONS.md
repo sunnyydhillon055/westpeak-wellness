@@ -678,6 +678,43 @@ from the fallback fee catalogue, which `price-drift` checks against Cliniko.
 
 *Enforced by:* `app/online-counselling/[city]/page.tsx`, `app/layout.tsx`, `scripts/price-drift.mjs`
 
+### The pages Google shows link to the pages that earn a client
+Decided 25 Sep 2026, from the Search Console export of 17 September. In the
+period the site was shown 12,076 times and clicked 196; 107 of those were the
+home page on brand searches. The pages shown most were the guides and
+resources (the workplace page 1,674 times, the RCC explainer 1,613). The
+pages that earn a consultation — the city pages — sat at positions 44 to 85
+and each had about 28 inbound links, nearly all from one another.
+
+The August snippet rewrites were measured by `scripts/ctr-delta.mjs` and
+moved click-through by nothing, so copy is not the lever; position is, and
+internal links are the part of position this codebase controls. Every guide,
+resource, comparison, audience and approach page now ends with a link to each
+of the ten city pages, anchored on the query people type
+(`components/CityLinks.tsx`). The RCC badge on every service page and the
+trust bar link to the RCC explainer with the term as the anchor, because
+"registered clinical counsellor" is the site's most-shown query and the page
+that answers it had 24 inbound links. The footer link to that page went
+through a redirect on all 295 pages and now does not.
+
+A Gottman approach page was drafted and withdrawn the same hour:
+`/guides/how-the-gottman-method-works` already ranks for the method, and a
+third page on it would split what the first two have.
+
+*Enforced by:* `components/CityLinks.tsx`, `scripts/ctr-delta.mjs` (the next
+export says whether any of this moved anything)
+
+### Visits from AI assistants are counted
+Decided 25 Sep 2026. The machine-readable layer exists to be cited by
+assistants, and nothing recorded whether anyone arrived that way. The
+browser now classifies the referrer host — ChatGPT, Gemini, Claude,
+Perplexity, Copilot — and sends a yes/no against the landing page, counted
+like every other conversion event. No URL, no query, no identifier leaves
+the browser. Most assistant hand-offs carry no referrer at all, so the
+number on /admin is a floor, never the total.
+
+*Enforced by:* `components/Analytics.tsx`, `lib/conversion-log.ts`
+
 ### Titles follow Search Console, not taste
 Decided 6 Sep 2026. The first month of Search Console data (`data/gsc/`)
 showed 4,478 non-brand impressions and two clicks: pages surfacing at

@@ -38,6 +38,12 @@ const KEY = 'analytics/conversions.json';
 /** Events worth counting. Anything not on this list is dropped rather than
  *  stored, so a typo or a crafted payload cannot create keys. */
 const COUNTED = new Set([
+  /* A visit that arrived from an AI assistant — ChatGPT, Gemini, Claude,
+     Perplexity, Copilot — counted per landing page (25 Sep 2026). The whole
+     machine-readable layer exists to earn these, and nothing was recording
+     whether it does. The referrer host is classified in the browser and only
+     the class is sent; no URL, no query, no identifier. */
+  'ai_referral',
   'enquiry_submit',
   'lead_magnet_submit',
   'book_click',

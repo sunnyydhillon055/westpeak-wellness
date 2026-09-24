@@ -14,6 +14,7 @@ import ExtraSections from '@/components/ExtraSections';
 import { deviceSlots } from '@/lib/placement';
 import Toc from '@/components/Toc';
 import MoreFrom from '@/components/MoreFrom';
+import CityLinks from '@/components/CityLinks';
 import Figure from '@/components/Figure';
 import InlineRelated from '@/components/InlineRelated';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -254,6 +255,7 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
 
 
       <MoreFrom items={audiences} currentSlug={a.slug} base="/for" heading="Written for other situations" eyebrow="Keep going" />
+      <CityLinks />
       <CtaBand
         heading="One conversation, no commitment."
         text="A free 30-minute consultation over secure video, including an honest answer if something other than counselling would serve you better."

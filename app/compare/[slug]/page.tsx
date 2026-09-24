@@ -20,6 +20,7 @@ const COMPARE_MAGNET: Record<string, MagnetKey | undefined> = {
 import { deviceSlots } from '@/lib/placement';
 import Toc from '@/components/Toc';
 import MoreFrom from '@/components/MoreFrom';
+import CityLinks from '@/components/CityLinks';
 import Figure from '@/components/Figure';
 import InlineRelated from '@/components/InlineRelated';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -244,6 +245,7 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
 
 
       <MoreFrom items={comparisons} currentSlug={c.slug} base="/compare" heading="Other comparisons" eyebrow="Keep going" />
+      <CityLinks />
       <CtaBand
         heading="Talk it through before you commit."
         text="A free 30-minute consultation, including an honest answer if what you need is someone other than an RCC."

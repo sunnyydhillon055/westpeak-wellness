@@ -15,6 +15,7 @@ import ExtraSections from '@/components/ExtraSections';
 import { deviceSlots } from '@/lib/placement';
 import Toc from '@/components/Toc';
 import MoreFrom from '@/components/MoreFrom';
+import CityLinks from '@/components/CityLinks';
 import Figure from '@/components/Figure';
 import InlineRelated from '@/components/InlineRelated';
 import { getFigure } from '@/lib/figures';
@@ -239,6 +240,7 @@ export default function ApproachPage({ params }: { params: { slug: string } }) {
 
 
       <MoreFrom items={approaches} currentSlug={g.slug} base="/approaches" heading="Other approaches" eyebrow="Keep going" />
+      <CityLinks />
       <CtaBand
         heading="Still deciding?"
         text="A free 30-minute consultation is the least committal way to find out whether this is a fit. No pressure, and no obligation to book a session afterward."

@@ -242,7 +242,12 @@ export default async function ServicePage({ params }: { params: { slug: string }
                 types at different prices, so the item simply does not render
                 rather than showing a figure that would misrepresent them. */}
             {fee && <li><Wallet aria-hidden="true" strokeWidth={1.7} /><span><strong>{fee}</strong> per session</span></li>}
-            <li><BadgeCheck aria-hidden="true" strokeWidth={1.7} /><span><strong>RCC</strong> · BCACC registered</span></li>
+            {/* The badge links to what the letters mean. "Registered clinical
+                counsellor" is the query this site is shown for most often
+                (about 1,000 impressions a month at position 25-37, Sep 2026),
+                and the page that answers it had 24 inbound links. Every
+                service page now sends one, with the term as the anchor. */}
+            <li><BadgeCheck aria-hidden="true" strokeWidth={1.7} /><span><strong><Link href="/resources/verify-a-counsellor-in-bc">RCC</Link></strong> · BCACC registered</span></li>
           </ul>
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>

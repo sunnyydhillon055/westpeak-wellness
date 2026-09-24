@@ -8,7 +8,9 @@ import type { Guide } from './guides';
  * or has tried one that did not fit — needs a page about the method itself.
  *
  * EMDR and the Gottman Method are not duplicated here; they already have their
- * own service pages and are linked to instead. */
+ * own service pages and are linked to instead. (Re-confirmed 25 Sep 2026: a
+ * Gottman approach page was drafted and withdrawn the same hour, because
+ * /guides/how-the-gottman-method-works already ranks for the method.) */
 export type Approach = Guide;
 
 export const approaches: Approach[] = [

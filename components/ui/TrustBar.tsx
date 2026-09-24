@@ -27,7 +27,10 @@ export default function TrustBar() {
         {/* Practice-level since 6 Sep 2026. This said "Registered Clinical
             Counsellor · MA, RCC", the founder's letters, on every page after
             new clients started going to a counsellor who holds RCC, CCC. */}
-        <span><strong>Registered Clinical Counsellors</strong> · BCACC registered</span>
+        {/* Linked to the explainer since 25 Sep 2026: the trust bar is on
+            every page that carries it, and "registered clinical counsellor"
+            is the site's most-shown query. The anchor is the term itself. */}
+        <span><strong><Link href="/resources/verify-a-counsellor-in-bc">Registered Clinical Counsellors</Link></strong> · BCACC registered</span>
       </span>
       {/* THE NUMBER COMES OFF EVERY PAGE BUT /about — owner's decision,
         * 30 August 2026, and it applies to every counsellor the practice adds.

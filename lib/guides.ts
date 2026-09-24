@@ -532,6 +532,9 @@ const coreGuides: Guide[] = [
       label: "Book a free consultation",
     },
 faqs: [
+      { q: "Is Gottman Method marriage counselling available in British Columbia?", a: "Yes. Westpeak Wellness delivers Gottman Method-informed couples counselling by secure video anywhere in BC, so it does not depend on which city you live in; both partners can join from the same room or from different places. The Gottman Institute's own referral directory also lists clinicians by training level, and a counsellor's page should say what level they hold." },
+      { q: "What is the difference between the Gottman Method and emotionally focused therapy?", a: "Both are research-supported. EFT works primarily on the attachment bond and the emotions underneath a couple's cycle; the Gottman Method is more skills-based, working on the observable patterns of conflict and connection. Many clinicians draw on both. There is a fuller comparison at /compare/gottman-method-vs-eft-for-couples." },
+
       { q: "Does my partner have to want to come?", a: "For couples work, yes. It does not function with one willing participant. But individual therapy about a relationship is legitimate and useful in its own right, and sometimes changes the dynamic enough that the other person becomes willing." },
       { q: "Will the counsellor take sides?", a: "No. The method is explicitly structured to avoid it, which is part of why the assessment includes individual sessions with each partner. If you consistently feel ganged up on, say so. That is a problem with the work, not a normal feature of it." },
       { q: "How long does couples therapy take?", a: "Assessment alone typically takes two to four sessions. Beyond that it varies enormously with what you are working on. Couples with a specific stuck pattern often see change faster than couples repairing after a significant breach." },

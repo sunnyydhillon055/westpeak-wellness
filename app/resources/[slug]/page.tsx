@@ -14,6 +14,7 @@ import ExtraSections from '@/components/ExtraSections';
 import { deviceSlots } from '@/lib/placement';
 import Toc from '@/components/Toc';
 import MoreFrom from '@/components/MoreFrom';
+import CityLinks from '@/components/CityLinks';
 import Figure from '@/components/Figure';
 import InlineRelated from '@/components/InlineRelated';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -251,6 +252,7 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
 
 
       <MoreFrom items={resources} currentSlug={r.slug} base="/resources" heading="More BC resources" eyebrow="Keep going" />
+      <CityLinks />
       <CtaBand
         heading="Questions about cost or coverage?"
         text="A free 30-minute consultation is a good place to ask them, before committing to anything."

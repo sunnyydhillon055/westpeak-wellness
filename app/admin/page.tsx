@@ -105,6 +105,7 @@ export default async function AdminPage({
   const totals = await eventTotals();
   const enquiryPages = await topPagesFor('enquiry_submit');
   const bookPages = await topPagesFor('book_click');
+  const aiPages = await topPagesFor('ai_referral');
   const searchTotal = (await readSearchTerms()).total;
   /* Jobs that failed, or that have not reported in twice their expected
      interval — which looks identical to "fine" without the second check. */
@@ -710,6 +711,23 @@ export default async function AdminPage({
                 </li>
               ))}
             </ul>
+            {aiPages.length > 0 && (
+              <>
+                <h3 style={{ marginTop: 22 }}>Pages that AI assistants send people to</h3>
+                <p style={{ color: 'var(--ink-soft)', margin: '4px 0 8px', fontSize: '.92rem' }}>
+                  Visits whose referrer was ChatGPT, Gemini, Claude, Perplexity or Copilot. Most
+                  assistant hand-offs carry no referrer, so this is a floor, not the total.
+                </p>
+                <ul className="admin-terms">
+                  {aiPages.map((p) => (
+                    <li key={p.path}>
+                      <Link href={p.path}>{p.path}</Link>
+                      <span>{p.count}</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
             {enquiryPages.length > 0 && (
               <>
                 <h3 style={{ marginTop: 22 }}>Pages that earn messages</h3>

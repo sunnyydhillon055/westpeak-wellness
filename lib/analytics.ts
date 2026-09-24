@@ -72,6 +72,7 @@ export function track(event: TrackedEvent, params: Params = {}): void {
  * event declared and never sent reads in the dashboard as a metric at zero,
  * which is indistinguishable from a broken funnel. */
 export type TrackedEvent =
+  | 'ai_referral'
   | 'book_click'
   | 'book_direct'
   | 'lead_magnet_submit'

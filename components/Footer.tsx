@@ -39,7 +39,11 @@ export default function Footer() {
                   <span>
                     {/* Linked 6 Sep 2026: the explainer had nine inbound links
                         while the phrase sat unlinked on every page. */}
-                    <Link href="/resources/what-is-a-registered-clinical-counsellor">Registered Clinical Counsellors</Link> ·{' '}
+                    {/* The canonical address. This pointed at the old URL, which
+                        redirects — a site-wide internal link through a 308 on
+                        all 295 pages, for the page that draws the most search
+                        impressions of any on the site. Fixed 25 Sep 2026. */}
+                    <Link href="/resources/verify-a-counsellor-in-bc">Registered Clinical Counsellors</Link> ·{' '}
                     <a href={site.counsellor.registerUrl} target="_blank" rel="noopener">
                       BCACC register
                     </a>
