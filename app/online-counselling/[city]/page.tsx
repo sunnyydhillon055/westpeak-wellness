@@ -39,7 +39,10 @@ export function generateMetadata({ params }: { params: { city: string } }): Meta
        and "virtual therapy" carry 127 impressions a quarter against 137 for
        "online counselling", and every page in the top ten says both. Prince
        George is the longest city name and this stays under sixty. */
-    title: { absolute: `Online Counselling in ${l.city}, BC | Virtual Therapy` },
+    /* "counsellor kamloops", "therapist kamloops", "kamloops therapy": the
+       city queries name the person more often than the service, and the title
+       named only the service. 26 Sep 2026. */
+    title: { absolute: `Online Counselling in ${l.city}, BC | Counsellors, Therapy`.length <= 60 ? `Online Counselling in ${l.city}, BC | Counsellors, Therapy` : `Online Counselling in ${l.city} | Counsellors, Therapy` },
     description: l.metaDescription,
     alternates: { canonical: `${site.domain}/online-counselling/${l.slug}` },
     openGraph: { ...ogBase(`/online-counselling/${l.slug}`), title: `${title} | ${site.name}`, description: l.metaDescription, url: `${site.domain}/online-counselling/${l.slug}` },
@@ -130,9 +133,16 @@ export default function CityPage({ params }: { params: { city: string } }) {
     knowsLanguage: p.languages.map((x) => x.name),
   }));
 
-  const faqSchema = l.faqs?.length && {
+  /* The page's own questions plus one about the surrounding communities,
+     generated from the list on the location so the answer and the schema
+     cannot disagree with the sentence in the hero. */
+  const communityFaq = l.communities?.length
+    ? [{ q: `Do you see people in ${l.communities.slice(0, -1).join(', ')} or ${l.communities[l.communities.length - 1]}?`, a: `Yes, on exactly the same terms as ${l.city}. Every session is by secure video, so ${l.communities.join(', ')} and the rest of ${l.region} are served the same way: a Registered Clinical Counsellor, a free 30-minute consultation first, and no travel at either end.` }]
+    : [];
+  const faqs = [...(l.faqs ?? []), ...communityFaq];
+  const faqSchema = faqs.length && {
     '@context': 'https://schema.org', '@type': 'FAQPage',
-    mainEntity: l.faqs.map((f) => ({
+    mainEntity: faqs.map((f) => ({
       '@type': 'Question', name: f.q,
       acceptedAnswer: { '@type': 'Answer', text: f.a },
     })),
@@ -154,6 +164,11 @@ export default function CityPage({ params }: { params: { city: string } }) {
             English, Punjabi or Tagalog depending on the counsellor, with a free first consultation
             and no referral needed.
           </p>
+          {l.communities?.length ? (
+            <p style={{ color: 'var(--ink-soft)', marginTop: 10 }}>
+              Also serving {l.communities.join(', ')} and the rest of {l.region}, by the same video sessions.
+            </p>
+          ) : null}
           <Updated iso={COLLECTION_DATES['locations']} />
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
@@ -242,7 +257,7 @@ export default function CityPage({ params }: { params: { city: string } }) {
         </div>
       </section>
 
-      {l.faqs && (
+      {faqs.length > 0 && (
         <section className="section">
           <div className="container">
             <p className="eyebrow">Questions from {l.city}</p>
@@ -252,7 +267,7 @@ export default function CityPage({ params }: { params: { city: string } }) {
 
             <h2>Before you book</h2>
             <div style={{ marginTop: 24, maxWidth: 760 }}>
-              {l.faqs.map((f) => (
+              {faqs.map((f) => (
                 <details className="faq-item" key={f.q}>
                   <summary>{f.q}</summary>
                   <p>{f.a}</p>

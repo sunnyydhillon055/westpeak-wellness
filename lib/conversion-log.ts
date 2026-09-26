@@ -44,6 +44,9 @@ const COUNTED = new Set([
      whether it does. The referrer host is classified in the browser and only
      the class is sent; no URL, no query, no identifier. */
   'ai_referral',
+  /* A visit that arrived from the Google Business Profile's website button,
+     identified by ?utm_source=gbp on the link. 26 Sep 2026. */
+  'gbp_visit',
   'enquiry_submit',
   'lead_magnet_submit',
   'book_click',

@@ -223,6 +223,22 @@ export default function TagalogCounsellingHub() {
 
       <Figure name="first-session-flow" />
 
+      {/* THE ENGLISH PAGES ABOUT THE TAGALOG SERVICE — 26 Sep 2026. Five of
+          them exist since today and this hub, the page a search for "tagalog
+          counselling" lands on, linked none of them. */}
+      <section className="section">
+        <div className="container">
+          <p className="eyebrow">In English, about counselling in Tagalog</p>
+          <div className="chip-grid" style={{ marginTop: 16 }}>
+            <Link className="chip" href="/services/tagalog-counselling">Tagalog-speaking counselling</Link>
+            <Link className="chip" href="/resources/counselling-in-tagalog-what-the-words-mean">What counselling means in Tagalog</Link>
+            <Link className="chip" href="/compare/therapy-in-tagalog-vs-english">Therapy in Tagalog or English</Link>
+            <Link className="chip" href="/for/filipino-healthcare-workers-and-caregivers">For Filipino healthcare workers and caregivers</Link>
+            <Link className="chip" href="/for/filipino-canadian-families">For Filipino-Canadian families</Link>
+          </div>
+        </div>
+      </section>
+
       <CtaBand
         heading="Start with a conversation"
         text="A free 30-minute consultation by video, in Tagalog or English. No card, no obligation."

@@ -778,6 +778,27 @@ sixth is a language, not a condition.
 *Enforced by:* `lib/services.ts`, `lib/resources-tagalog-words.ts`,
 `lib/comparisons-more2.ts`, `lib/audiences-tagalog.ts`, `app/feed.xml/route.ts`
 
+### A city page names the communities around it
+Decided 26 Sep 2026. Search Console shows "emdr therapy guildford", "emdr
+specialist peachland", "counselling tri-cities" and "online therapy
+okanagan": places inside or beside a city that has a page, typed by people
+the page never named. A virtual practice serves them on identical terms, so
+naming them is a fact rather than a doorway page. Each location lists its
+communities once; the city page renders one sentence and one answer from
+the list, so the prose and the schema cannot disagree. The city titles now
+say "Counsellors, Therapy" because the city queries name the person more
+often than the service.
+
+### The measurement loop can run itself
+Decided 26 Sep 2026. `scripts/gsc-pull.mjs` writes the Search Console
+export in the shape the CTR tool reads, from a service account, once the
+owner adds that account as a user on the property. Visits from the Google
+Business Profile carry `?utm_source=gbp` and are counted like every other
+conversion event, because those clicks never appear in Search Console.
+
+*Enforced by:* `lib/locations.ts` (`communities`), `app/online-counselling/[city]/page.tsx`,
+`scripts/gsc-pull.mjs`, `components/Analytics.tsx`
+
 ### Titles follow Search Console, not taste
 Decided 6 Sep 2026. The first month of Search Console data (`data/gsc/`)
 showed 4,478 non-brand impressions and two clicks: pages surfacing at

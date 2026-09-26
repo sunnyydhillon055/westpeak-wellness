@@ -242,6 +242,22 @@ export default function PunjabiCounsellingIndex() {
         </div>
       </section>
 
+      {/* The English pages about the Punjabi service, in one place — 26 Sep
+          2026, the same set the Tagalog hub carries. */}
+      <section className="section">
+        <div className="container">
+          <p className="eyebrow">In English, about counselling in Punjabi</p>
+          <div className="chip-grid" style={{ marginTop: 16 }}>
+            <Link className="chip" href="/services/punjabi-counselling">Punjabi-speaking counselling</Link>
+            <Link className="chip" href="/resources/counselling-in-punjabi-what-the-words-mean">What counselling means in Punjabi</Link>
+            <Link className="chip" href="/compare/therapy-in-punjabi-vs-english">Therapy in Punjabi or English</Link>
+            <Link className="chip" href="/for/punjabi-speaking-couples">For Punjabi-speaking couples</Link>
+            <Link className="chip" href="/for/south-asian-intergenerational-conflict">For South Asian families and intergenerational conflict</Link>
+            <Link className="chip" href="/for/first-gen-south-asian-adults">For first-generation South Asian adults</Link>
+          </div>
+        </div>
+      </section>
+
       <CtaBand />
     </>
   );

@@ -73,6 +73,7 @@ export function track(event: TrackedEvent, params: Params = {}): void {
  * which is indistinguishable from a broken funnel. */
 export type TrackedEvent =
   | 'ai_referral'
+  | 'gbp_visit'
   | 'book_click'
   | 'book_direct'
   | 'lead_magnet_submit'

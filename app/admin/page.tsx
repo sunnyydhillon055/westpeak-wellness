@@ -107,6 +107,7 @@ export default async function AdminPage({
   const enquiryPages = await topPagesFor('enquiry_submit');
   const bookPages = await topPagesFor('book_click');
   const aiPages = await topPagesFor('ai_referral');
+  const gbpPages = await topPagesFor('gbp_visit');
   const searchTotal = (await readSearchTerms()).total;
   /* Jobs that failed, or that have not reported in twice their expected
      interval — which looks identical to "fine" without the second check. */
@@ -717,6 +718,23 @@ export default async function AdminPage({
                 </li>
               ))}
             </ul>
+            {gbpPages.length > 0 && (
+              <>
+                <h3 style={{ marginTop: 22 }}>Visits from the Google Business Profile</h3>
+                <p style={{ color: 'var(--ink-soft)', margin: '4px 0 8px', fontSize: '.92em' }}>
+                  Counted when the profile&rsquo;s website link carries ?utm_source=gbp. These clicks
+                  never appear in Search Console.
+                </p>
+                <ul className="admin-terms">
+                  {gbpPages.map((p) => (
+                    <li key={p.path}>
+                      <Link href={p.path}>{p.path}</Link>
+                      <span>{p.count}</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
             {aiPages.length > 0 && (
               <>
                 <h3 style={{ marginTop: 22 }}>Pages that AI assistants send people to</h3>

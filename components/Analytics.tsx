@@ -25,6 +25,16 @@ export default function Analytics() {
         sessionStorage.setItem('wp-ai-ref', '1');
         track('ai_referral', { host: ref, page: pathname ?? '' });
       }
+      /* Visits from the Google Business Profile. Clicks on the profile's
+         website button never appear in Search Console, so the profile's link
+         carries ?utm_source=gbp and this counts it, once per session, against
+         the landing page. The parameter changes nothing else: the canonical
+         tag strips it and the page is the same page. 26 Sep 2026. */
+      const utm = new URLSearchParams(window.location.search).get('utm_source');
+      if (utm && /^gbp$/i.test(utm) && !sessionStorage.getItem('wp-gbp')) {
+        sessionStorage.setItem('wp-gbp', '1');
+        track('gbp_visit', { page: pathname ?? '' });
+      }
     } catch { /* never load-bearing */ }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

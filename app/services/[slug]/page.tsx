@@ -171,7 +171,13 @@ export default async function ServicePage({ params }: { params: { slug: string }
       availableChannel: {
         '@type': 'ServiceChannel',
         serviceUrl: `${site.domain}/services/${s.slug}`,
-        availableLanguage: ['English', 'Punjabi'],
+        /* Per service, not a constant — 26 Sep 2026. This said English and
+           Punjabi on every service, including the Tagalog one, and omitted
+           Tagalog from the four services that offer it. */
+        availableLanguage:
+          s.slug === 'punjabi-counselling' ? ['English', 'Punjabi']
+          : s.slug === 'tagalog-counselling' ? ['English', 'Tagalog']
+          : ['English', 'Punjabi', 'Tagalog'],
       },
       provider: orgRef,
       /* The method this service IS, named as an entity rather than only as a

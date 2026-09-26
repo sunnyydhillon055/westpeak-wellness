@@ -14,6 +14,13 @@ export type Location = {
   faqs?: { q: string; a: string }[];
   sources?: { label: string; url: string }[];
   nearby?: string[];        // sibling slugs, for across-cluster links
+  /* THE COMMUNITIES AROUND THE CITY — 26 Sep 2026. Search Console shows
+     "emdr therapy guildford", "emdr specialist peachland", "counselling
+     tri-cities", "online therapy okanagan": places inside or beside a city
+     that has a page, typed by people the page never named. A virtual
+     practice serves them identically, so naming them is a fact, not a
+     doorway. Rendered as one sentence and one answer on the city page. */
+  communities?: string[];
   figure?: string;         // key into lib/figures.ts — renders the page's diagram
   figure2?: string;      // second diagram, further down the page
 };
@@ -66,6 +73,7 @@ export const locations: Location[] = [
     figure2: "first-session-flow",
     figure: "bc-reach",
     city: "Prince George",
+    communities: ["Quesnel", "Vanderhoof", "Mackenzie", "Fort St. John", "Terrace"],
     region: "Northern BC",
     blurb: "Northern BC has the thinnest counselling coverage in the province, virtual care is how the gap gets closed.",
     metaDescription:
@@ -128,6 +136,7 @@ export const locations: Location[] = [
     figure2: "first-session-flow",
     figure: "bc-reach",
     city: "Surrey",
+    communities: ["Guildford", "Newton", "Fleetwood", "Cloverdale", "South Surrey"],
     region: "Lower Mainland",
     blurb: "Home ground, and the community where the demand for Punjabi-language therapy is highest in the province.",
     metaDescription:
@@ -170,6 +179,7 @@ export const locations: Location[] = [
     figure2: "first-session-flow",
     figure: "bc-reach",
     city: "Vancouver",
+    communities: ["East Vancouver", "Kitsilano", "the West End", "North Vancouver", "West Vancouver"],
     region: "Lower Mainland",
     blurb: "The most therapists in the province, and still a waitlist, because the constraint here is affordability, not supply.",
     metaDescription:
@@ -217,6 +227,7 @@ export const locations: Location[] = [
     figure2: "first-session-flow",
     figure: "bc-reach",
     city: "Abbotsford",
+    communities: ["Mission", "Aldergrove", "Clearbrook", "Matsqui"],
     region: "Fraser Valley",
     blurb: "Fraser Valley distances make virtual sessions less a convenience than the thing that makes attending possible.",
     metaDescription:
@@ -260,6 +271,7 @@ export const locations: Location[] = [
     figure2: "first-session-flow",
     figure: "bc-reach",
     city: "Victoria",
+    communities: ["Saanich", "Langford", "Colwood", "Sidney", "Sooke"],
     region: "Vancouver Island",
     blurb: "On the Island, specialist care has often meant a ferry, a day off, and a return sailing. It no longer has to.",
     metaDescription:
@@ -304,6 +316,7 @@ export const locations: Location[] = [
     figure2: "first-session-flow",
     figure: "bc-reach",
     city: "Kelowna",
+    communities: ["West Kelowna", "Peachland", "Lake Country", "Vernon", "Penticton"],
     region: "Okanagan",
     blurb: "The Okanagan's population has grown faster than its mental-health services have, and specialist options remain thin.",
     metaDescription:
@@ -367,6 +380,7 @@ export const locations: Location[] = [
     figure2: "first-session-flow",
     figure: "bc-reach",
     city: "Kamloops",
+    communities: ["Merritt", "Salmon Arm", "Chase", "Sun Peaks", "Logan Lake"],
     region: "Thompson-Nicola",
     blurb: "Kamloops is where the region's services are, which means everyone else in the region drives here for them.",
     metaDescription:
@@ -452,6 +466,7 @@ export const locations: Location[] = [
     figure2: 'first-session-flow',
     figure: "bc-reach",
     city: "Burnaby",
+    communities: ["Metrotown", "Brentwood", "Lougheed", "New Westminster"],
     region: "Metro Vancouver",
     blurb: "Burnaby looks west for services and is covered by Fraser Health. A mismatch that costs people weeks.",
     metaDescription:
@@ -492,6 +507,7 @@ export const locations: Location[] = [
     figure2: 'first-session-flow',
     figure: "bc-reach",
     city: "Langley",
+    communities: ["Walnut Grove", "Willoughby", "Fort Langley", "Brookswood", "Aldergrove"],
     region: "Fraser Valley",
     blurb: "Two municipalities share the name, so a practice “in Langley” may be nowhere near you.",
     metaDescription:
@@ -551,6 +567,7 @@ export const locations: Location[] = [
     figure2: 'first-session-flow',
     figure: "bc-reach",
     city: "White Rock",
+    communities: ["South Surrey", "Ocean Park", "Crescent Beach", "Morgan Creek"],
     region: "Metro Vancouver",
     blurb: "A small city on the border where the counsellor you can reach may be someone you will see again at the pier.",
     metaDescription:
@@ -612,6 +629,7 @@ export const locations: Location[] = [
     figure2: 'first-session-flow',
     figure: "bc-reach",
     city: "Richmond",
+    communities: ["Steveston", "Brighouse", "Hamilton", "Sea Island"],
     region: "Metro Vancouver",
     blurb: "A large city whose counselling supply is organised around languages this practice does not offer, which thins the field more than the population suggests.",
     metaDescription:
@@ -654,6 +672,7 @@ export const locations: Location[] = [
     figure2: 'first-session-flow',
     figure: "bc-reach",
     city: "Coquitlam",
+    communities: ["Port Coquitlam", "Port Moody", "Anmore", "Belcarra"],
     region: "Metro Vancouver",
     blurb: "The Tri-Cities commute takes the evenings a weekly appointment would have to live in.",
     metaDescription:
@@ -696,6 +715,7 @@ export const locations: Location[] = [
     figure2: 'first-session-flow',
     figure: "bc-reach",
     city: "Delta",
+    communities: ["Ladner", "Tsawwassen", "North Delta"],
     region: "Metro Vancouver",
     blurb: "Three communities sharing a municipality and almost nothing else, including how hard it is to reach a counsellor.",
     metaDescription:
@@ -739,6 +759,7 @@ export const locations: Location[] = [
     figure2: 'first-session-flow',
     figure: "bc-reach",
     city: "Nanaimo",
+    communities: ["Parksville", "Ladysmith", "Qualicum Beach", "Lantzville", "Gabriola Island"],
     region: "Vancouver Island",
     blurb: "Everything the Lower Mainland offers is across water, which turns a specialist appointment into a whole day and a ferry.",
     metaDescription:
@@ -782,6 +803,7 @@ export const locations: Location[] = [
     figure2: 'first-session-flow',
     figure: "bc-reach",
     city: "Chilliwack",
+    communities: ["Sardis", "Agassiz", "Harrison Hot Springs", "Hope", "Yarrow"],
     region: "Eastern Fraser Valley",
     blurb: "Chilliwack is where the Fraser Valley stops being commutable, and where specific modalities stop being available.",
     metaDescription:

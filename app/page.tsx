@@ -76,7 +76,7 @@ const HUBS = [
     href: '/for',
     icon: HUB_ICONS.for,
     title: 'Who we work with',
-    body: 'Pages written for specific situations: new parents, women, couples, students, healthcare and shift workers, and first-generation South Asian adults.',
+    body: 'Pages written for specific situations: new parents, men, couples, students, healthcare and shift workers, first responders, the trades, newcomers, and Punjabi- and Tagalog-speaking families.',
     cta: 'See who we work with →',
   },
 ];
