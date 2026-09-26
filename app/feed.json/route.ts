@@ -5,6 +5,7 @@ import { comparisons } from '@/lib/comparisons';
 import { audiences } from '@/lib/audiences';
 import { tagalogGuides } from '@/lib/tagalog-guides';
 import { punjabiGuides } from '@/lib/punjabi-guides';
+import { COLLECTION_DATES } from '@/lib/page-dates';
 
 export const dynamic = 'force-static';
 
@@ -33,8 +34,8 @@ export function GET() {
     [resources as unknown as Item[], '/resources'],
     [comparisons as unknown as Item[], '/compare'],
     [audiences as unknown as Item[], '/for'],
-    [tagalogGuides as unknown as Item[], '/tagalog/gabay'],
-    [punjabiGuides as unknown as Item[], '/punjabi/guides'],
+    [(tagalogGuides as unknown as Item[]).map((g) => ({ ...g, updated: g.updated ?? COLLECTION_DATES['tagalog'] })), '/tagalog/gabay'],
+    [(punjabiGuides as unknown as Item[]).map((g) => ({ ...g, updated: g.updated ?? COLLECTION_DATES['punjabiGuides'] })), '/punjabi/guides'],
   ];
 
   const items = pools

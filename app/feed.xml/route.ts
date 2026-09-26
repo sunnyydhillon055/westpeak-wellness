@@ -2,6 +2,7 @@ import { site } from '@/lib/site';
 import { guides } from '@/lib/guides';
 import { tagalogGuides } from '@/lib/tagalog-guides';
 import { punjabiGuides } from '@/lib/punjabi-guides';
+import { COLLECTION_DATES } from '@/lib/page-dates';
 import { resources } from '@/lib/resources';
 import { comparisons } from '@/lib/comparisons';
 import { audiences } from '@/lib/audiences';
@@ -41,8 +42,8 @@ export function GET() {
     /* The Tagalog and Punjabi guides, 26 Sep 2026: a feed that carried only
        the English collections told a reader the site publishes in one
        language. */
-    [tagalogGuides as unknown as Item[], '/tagalog/gabay'],
-    [punjabiGuides as unknown as Item[], '/punjabi/guides'],
+    [(tagalogGuides as unknown as Item[]).map((g) => ({ ...g, updated: g.updated ?? COLLECTION_DATES['tagalog'] })), '/tagalog/gabay'],
+    [(punjabiGuides as unknown as Item[]).map((g) => ({ ...g, updated: g.updated ?? COLLECTION_DATES['punjabiGuides'] })), '/punjabi/guides'],
   ];
   const items = pools
     .flatMap(([list, base]) => list.filter((g) => g?.slug && g?.title).map((g) => ({ ...g, url: `${site.domain}${base}/${g.slug}` })))
