@@ -3,6 +3,7 @@ import { moreResources2 } from './resources-more2';
 
 import { albertaResources } from './resources-alberta';
 import { punjabiWordsResource } from './resources-punjabi-words';
+import { tagalogWordsResource } from './resources-tagalog-words';
 
 export type ResourceSection = {
   h2: string;
@@ -379,6 +380,6 @@ const coreResources: Resource[] = [
    while the practice served only BC and stopped being right when a counsellor
    who can see Alberta clients joined. See lib/resources-alberta.ts for why
    these are resources rather than part of the gated /alberta section. */
-export const resources: Resource[] = [...coreResources, ...moreResources, ...moreResources2, ...albertaResources, ...punjabiWordsResource];
+export const resources: Resource[] = [...coreResources, ...moreResources, ...moreResources2, ...albertaResources, ...punjabiWordsResource, ...tagalogWordsResource];
 
 export const getResource = (slug: string) => resources.find((r) => r.slug === slug);

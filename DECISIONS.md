@@ -760,6 +760,24 @@ and settlement agencies, local press, and three video scripts.
 
 *Enforced by:* `lib/audiences-more6.ts`, `app/page.tsx`, `docs/OUTREACH.md`
 
+### Tagalog is carried as far as Punjabi
+Decided 26 Sep 2026 by the owner. The Punjabi vertical had a service page,
+a words page, a comparison and two audience pages; the Tagalog vertical had
+a hub, city pages and guides, and none of those four. Each now has a Tagalog
+twin: `/services/tagalog-counselling`,
+`/resources/counselling-in-tagalog-what-the-words-mean`,
+`/compare/therapy-in-tagalog-vs-english`, and audience pages for Filipino
+healthcare workers and caregivers and for Filipino-Canadian families. All
+are English pages about a Tagalog service, the kind `lib/tagalog.ts` says
+publish without a native reader; the Tagalog in them is single words the
+site's Tagalog guides already use. The feeds carry the Tagalog and Punjabi
+guides, and the home page names Tagalog beside Punjabi. Six services, not
+five: the "five services" line above records the count at the time, and the
+sixth is a language, not a condition.
+
+*Enforced by:* `lib/services.ts`, `lib/resources-tagalog-words.ts`,
+`lib/comparisons-more2.ts`, `lib/audiences-tagalog.ts`, `app/feed.xml/route.ts`
+
 ### Titles follow Search Console, not taste
 Decided 6 Sep 2026. The first month of Search Console data (`data/gsc/`)
 showed 4,478 non-brand impressions and two clicks: pages surfacing at

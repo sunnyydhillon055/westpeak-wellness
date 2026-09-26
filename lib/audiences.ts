@@ -5,6 +5,7 @@ import { moreAudiences4 } from './audiences-more4';
 import { moreAudiences5 } from './audiences-more5';
 import { moreAudiences6 } from './audiences-more6';
 import { punjabiAudiences } from './audiences-punjabi';
+import { tagalogAudiences } from './audiences-tagalog';
 
 export type Audience = {
   slug: string;
@@ -399,6 +400,6 @@ const coreAudiences: Audience[] = [
   },
 ];
 
-export const audiences: Audience[] = [...coreAudiences, ...moreAudiences, ...moreAudiences2, ...moreAudiences3, ...moreAudiences4, ...moreAudiences5, ...moreAudiences6, ...punjabiAudiences];
+export const audiences: Audience[] = [...coreAudiences, ...moreAudiences, ...moreAudiences2, ...moreAudiences3, ...moreAudiences4, ...moreAudiences5, ...moreAudiences6, ...punjabiAudiences, ...tagalogAudiences];
 
 export const getAudience = (slug: string) => audiences.find((a) => a.slug === slug);

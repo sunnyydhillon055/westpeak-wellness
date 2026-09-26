@@ -240,9 +240,25 @@ export default async function Home() {
                 </Link>{' '}
                 covering services, fees and what a first session involves.
               </p>
-              <Link className="btn btn--ghost" href="/services/punjabi-counselling" style={{ marginTop: 8 }}>
-                Counselling for South Asian adults →
-              </Link>
+              {/* Tagalog beside Punjabi, 26 Sep 2026, on the owner's instruction
+                  that the two be carried equally. The Tagalog vertical had the
+                  same pages and no mention on the home page. */}
+              <p>
+                Sessions are also available in Tagalog, with a counsellor who works in it and
+                who reaches Alberta as well as BC. There is a{' '}
+                <Link href="/tagalog" lang="en">
+                  page in Tagalog
+                </Link>{' '}
+                too.
+              </p>
+              <div className="btn-row" style={{ marginTop: 8 }}>
+                <Link className="btn btn--ghost" href="/services/punjabi-counselling">
+                  Counselling for South Asian adults →
+                </Link>
+                <Link className="btn btn--ghost" href="/services/tagalog-counselling">
+                  Counselling in Tagalog →
+                </Link>
+              </div>
             </div>
             <div className="signature-quote">
               <blockquote>

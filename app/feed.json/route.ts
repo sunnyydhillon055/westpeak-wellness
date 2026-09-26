@@ -3,6 +3,8 @@ import { guides } from '@/lib/guides';
 import { resources } from '@/lib/resources';
 import { comparisons } from '@/lib/comparisons';
 import { audiences } from '@/lib/audiences';
+import { tagalogGuides } from '@/lib/tagalog-guides';
+import { punjabiGuides } from '@/lib/punjabi-guides';
 
 export const dynamic = 'force-static';
 
@@ -31,11 +33,13 @@ export function GET() {
     [resources as unknown as Item[], '/resources'],
     [comparisons as unknown as Item[], '/compare'],
     [audiences as unknown as Item[], '/for'],
+    [tagalogGuides as unknown as Item[], '/tagalog/gabay'],
+    [punjabiGuides as unknown as Item[], '/punjabi/guides'],
   ];
 
   const items = pools
     .flatMap(([list, base]) =>
-      list.filter((g) => g?.slug && g?.title).map((g) => ({ ...g, path: `${base}/${g.slug}` })))
+      list.filter((g) => g?.slug && g?.title).map((g) => ({ ...g, path: `${base}/${g.slug}`, lang: base.startsWith('/tagalog') ? 'tl' : base.startsWith('/punjabi') ? 'pa' : 'en-CA' })))
     .sort((a, b) => String(b.updated ?? '').localeCompare(String(a.updated ?? '')))
     .slice(0, 50);
 
@@ -65,7 +69,7 @@ export function GET() {
       summary: g.shortAnswer ?? g.metaDescription ?? '',
       content_text: g.shortAnswer ?? g.metaDescription ?? '',
       ...(g.updated ? { date_modified: new Date(`${g.updated}T00:00:00Z`).toISOString() } : {}),
-      language: 'en-CA',
+      language: g.lang,
       /* The same page as Markdown. `attachments` is the spec's field for
          another representation of the item. */
       attachments: [{

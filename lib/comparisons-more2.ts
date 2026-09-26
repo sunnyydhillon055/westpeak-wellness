@@ -499,4 +499,89 @@ export const moreComparisons2: Comparison[] = [
       { href: '/resources/verify-a-counsellor-in-bc', label: 'What is an RCC?' },
     ],
   },
+
+  /* TAGALOG TWIN of the Punjabi comparison above — 26 Sep 2026, on the
+     owner's instruction that Tagalog be carried as far as Punjabi is. Same
+     shape, Filipino particulars: Taglish as the default register, hiya and
+     utang na loob as the untranslatables, and a counsellor who reaches
+     Alberta as well as BC. */
+  {
+    slug: 'therapy-in-tagalog-vs-english',
+    figure2: 'first-session-flow-tl',
+    figure: 'language-in-therapy-tl',
+    title: 'Therapy in Tagalog or in English: does the language matter?',
+    metaTitle: 'Therapy in Tagalog vs English | Westpeak Wellness',
+    metaDescription:
+      'For bilingual Filipinos in BC, which language therapy happens in changes what can be said. When each fits, why Taglish is allowed, and where to find it.',
+    eyebrow: 'Comparison · Tagalog counselling',
+    lede:
+      'If you grew up between two languages, you already know they do not hold the same things. Therapy is where that stops being an abstract observation.',
+    shortAnswer:
+      'For many bilingual Filipinos, feelings and family live in Tagalog and work and analysis live in English. Therapy in Tagalog can reach childhood, family relationships and emotion with the words that were actually there when those things happened, including hiya and utang na loob, which have no English equivalent. Therapy in English can offer useful distance from exactly the same material, which is sometimes what makes it speakable at all. Neither is the correct choice in general, and it is not a decision you have to get right in advance: with a bilingual counsellor the session moves between the two, the way Taglish already does.',
+    updated: '2026-09-26',
+    readMinutes: 6,
+    table: {
+      columns: ['', 'Sessions in Tagalog', 'Sessions in English'],
+      rows: [
+        ['Emotional register', 'The language much of the feeling originally happened in, often closer, sometimes overwhelming', 'A step of distance, sometimes flattening, sometimes exactly the space needed to speak'],
+        ['Family material', 'Relationships, obligations and phrases can be discussed in their own words, untranslated', 'Constant translation, and some of what matters most translates badly'],
+        ['Untranslatables', 'Hiya, utang na loob, pakikisama, carried whole, with their real weight', 'Rendered as "shame", "gratitude", "getting along", related words that are not the same words'],
+        ['Availability in BC', 'Genuinely limited, concentrated in Metro Vancouver; virtual widens it to the province and to Alberta', 'Wide'],
+        ['Privacy within community', 'A smaller circle of practitioners; worth asking any practice how it handles this', 'Larger pool, easier anonymity'],
+        ['Mixing', 'Fully available with a bilingual counsellor. Most sessions with Filipinos are Taglish in practice', 'Only if the counsellor can follow where the Tagalog goes'],
+      ],
+    },
+    sections: [
+      {
+        h2: 'Why the language of a session is not a logistics question',
+        body: [
+          'A common experience among bilingual adults: you can describe your childhood fluently in English and only *feel* it in Tagalog. This is not mysterious. Memory and emotion keep the language they were encoded in, and a feeling reached through its original words often arrives with more of itself attached.',
+          'The reverse is equally real and equally useful. Some things are hard to say precisely because the first language holds them too close. The word carries the whole weight of home, and the English equivalent is the only version light enough to lift. People who switch to English at the hardest moment of a story are usually not avoiding the work; they are regulating, and a counsellor who understands both languages can notice the switch itself as information.',
+          'This is why the comparison in the table dissolves, in practice, into a third option: a session that moves. Filipinos already have a name for it. A sentence that starts in English and lands on the one Tagalog word that is actually true. An account of a conversation with a parent given in the words the parent used. That movement is not a compromise between the two columns. It is the version with the most information in it, and it is only possible when the counsellor does not need the Tagalog translated.',
+        ],
+      },
+      {
+        h2: 'The considerations that actually decide it',
+        list: [
+          { label: 'Where the material lives', detail: 'Work stress, workplace conflict and burnout often live comfortably in English. Family, marriage, childhood and grief usually have deep roots in the first language. Many people want different languages for different sessions, which is allowed.' },
+          { label: 'Whose voice you need to quote', detail: 'Therapy about family involves reporting what people said. If your mother speaks in Tagalog, an English-only session makes you the translator of your own evidence, and something reliably goes missing in that translation.' },
+          { label: 'Community and privacy', detail: 'The set of Tagalog-speaking counsellors in BC is small, and some people hesitate to bring family material to someone who might know their parish. It is a legitimate concern; a virtual practice serving the whole province widens the distance, and it is a fair question to ask any practice directly.' },
+          { label: 'What is actually available where you live', detail: 'Tagalog-speaking counsellors with offices cluster in Vancouver, Surrey and Burnaby. For most of the rest of BC, and for Alberta, virtual sessions are not one option among several. They are how therapy in Tagalog exists at all.' },
+        ],
+      },
+      {
+        h2: 'If Tagalog is your parents\u2019 language more than yours',
+        body: [
+          'A large group sits between the columns: people who understand Tagalog completely, speak it at family gatherings, and would struggle to conduct an hour of therapy in it. If that is you, nothing on this page is a test to pass. English-led sessions with the freedom to drop into Tagalog where the Tagalog is load-bearing, a phrase of your father\u2019s, a word that has no equivalent, the thing your lola always said, tend to fit exactly this experience.',
+          'It is also worth saying that therapy about intergenerational and cultural material does not require a counsellor from the same background, but it goes noticeably faster when the concepts do not need a glossary. Utang na loob explained is a paragraph; utang na loob understood is three words.',
+        ],
+      },
+    ],
+    howWeFit: [
+      'Westpeak Wellness runs sessions in English, in Tagalog, or moving between the two as the material requires. The counsellor is bilingual, so nothing you say in either language needs translating. The [Tagalog counselling page](/services/tagalog-counselling) covers the service in English, and [counselling sa Tagalog](/tagalog) is written in Tagalog.',
+      'The practice is virtual and serves all of BC and Alberta, which matters most exactly where Tagalog-speaking counsellors are scarcest, outside Metro Vancouver. And the smaller-community privacy concern is taken seriously here: confidentiality and its limits are set out plainly on the [privacy page](/privacy), and it is a welcome question on a consultation call.',
+    ],
+    midCta: {
+      text: 'The consultation itself can be in either language, which is, conveniently, a thirty-minute answer to most of this page.',
+      label: 'Book a free consultation',
+    },
+    faqs: [
+      { q: 'Do I have to choose one language before starting?', a: 'No. Most bilingual sessions are Taglish in practice, and the mix is allowed to change week to week and moment to moment. Choosing in advance is exactly the kind of pressure a session should not add.' },
+      { q: 'My Tagalog is conversational, not fluent. Is Tagalog-inclusive therapy still useful?', a: 'Yes. This is one of the most common situations. Sessions run primarily in English and switch when a Tagalog word or phrase is the accurate one. Understanding matters more than production; you never need to perform fluency.' },
+      { q: 'Can therapy help with family obligation without blaming my family?', a: 'That is precisely the aim. Naming the weight of utang na loob and loving the people it is owed to are compatible positions, and counselling that treats your parents as the problem to be escaped usually misunderstands what you are carrying.' },
+      { q: 'Is a counsellor from the same community a privacy risk?', a: 'The concern deserves a real answer rather than reassurance: confidentiality is a professional obligation with legal limits, it applies identically regardless of community, and its limits are stated before you share anything. A virtual practice also widens the practical distance. Ask about it directly on a consultation; how the question is answered tells you a lot.' },
+      { q: 'What about my parents\u2019 generation, do you see older Tagalog-speaking adults?', a: 'Tagalog-language sessions are open to adults of any age, and for the generation that built its life in Tagalog, therapy in English was often the real barrier. A video call does require someone comfortable joining one, or a family member who can help set it up and then leave the room.' },
+    ],
+    sources: [
+      { label: 'BC Association of Clinical Counsellors', url: 'https://bcacc.ca' },
+      { label: 'HereToHelp BC, mental health information', url: 'https://www.heretohelp.bc.ca/' },
+    ],
+    related: [
+      { href: '/services/tagalog-counselling', label: 'Tagalog-speaking counselling' },
+      { href: '/resources/counselling-in-tagalog-what-the-words-mean', label: 'What counselling means in Tagalog, word by word' },
+      { href: '/for/filipino-canadian-families', label: 'For Filipino-Canadian families' },
+      { href: '/tagalog', label: 'Counselling sa Tagalog' },
+      { href: '/book', label: 'Book a free consultation' },
+    ],
+  },
 ];

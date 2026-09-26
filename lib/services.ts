@@ -374,6 +374,82 @@ export const services: Service[] = [
       { label: "HereToHelp BC, mental health information", url: "https://www.heretohelp.bc.ca/" },
     ],
   },
+
+  /* TAGALOG-SPEAKING COUNSELLING — 26 Sep 2026, on the owner's instruction
+     that Tagalog be carried as far as Punjabi is. lib/tagalog.ts named this
+     page in its design note on 1 Sep and it was never built: the hub and the
+     city pages existed, the service did not. Same shape as the Punjabi entry
+     above; the counsellor is Camille Granda, RCC, CCC, BC and Alberta. */
+  {
+    slug: "tagalog-counselling",
+    directAnswer:
+      "Westpeak Wellness offers counselling in Tagalog by secure video anywhere in British Columbia and Alberta, provided by a Registered Clinical Counsellor who works in Tagalog and English. Working in the language you think in removes the translation overhead from material that is difficult to say once, and means Filipino family context, hiya, utang na loob, the eldest-daughter role, does not have to be explained from scratch. Individual, couples and family sessions are available in Tagalog, and you can move between Tagalog and English within a session.",
+    figure2: "first-session-flow-tl",
+    figure: "bc-reach",
+    name: "Tagalog-Speaking Counselling",
+    short: "Therapy in Tagalog, English, or both, with Filipino family context understood.",
+    metaTitle: "Counselling in Tagalog, Online in BC and Alberta | Westpeak",
+    metaDescription:
+      "Online Tagalog-speaking therapy across BC and Alberta: counselling in Tagalog, English or both, Filipino family context understood. Free consultation.",
+    hero: "Say it in the language it happened in.",
+    intro:
+      "Some things only land in your first language, and for a great many Filipinos in Canada that language is Taglish. Sessions are available in Tagalog, English, or a mix of both, with the context to understand hiya, utang na loob and what the relatives will say without needing it explained. Online across BC and Alberta. There is also a [page in Tagalog](/tagalog) covering services, fees and what a first session involves.",
+    helps: [
+      "Therapy in Tagalog or English (or both in one session)",
+      "Family obligation and the debt of gratitude",
+      "Being the eldest, the provider, the one who copes",
+      "Burnout in healthcare, care work and shift work",
+      "Grief at a distance, and family across two countries",
+    ],
+    approach:
+      "Sessions are with Camille Granda, a Registered Clinical Counsellor and Canadian Certified Counsellor who works in Tagalog and English and is certified to see clients in both British Columbia and Alberta. The work is collaborative and practical: what is keeping the pattern going, and what you leave with that you can use.",
+    whatItIs: {
+      h2: "Why first language matters even when your English is fluent",
+      body: [
+        "Most Filipinos in Canada work, study and socialise in English and assume Tagalog-language therapy is not meant for them. In practice, the language you are fluent in and the language your feelings live in are frequently not the same one.",
+        "You can run a ward or a department in English and still find that the words for grief, obligation, shame in its Filipino sense, or the exact texture of a conversation with your mother only exist properly in Tagalog. Some things flatten in translation. And if you spend a session translating, you spend it one step removed from what you actually feel, describing the emotion rather than being in it.",
+        "**There is also the effort you never have to spend.** Explaining what utang na loob means, why you cannot simply stop sending money, why a parent's disappointment carries the weight it does. That is twenty minutes of every session recovered, and it removes the low-level work of translating yourself to be understood.",
+      ],
+    },
+    signs: [
+      { label: "You switch languages when it gets real", detail: "English for the account of what happened, Tagalog for what it did to you. Sessions here can move between them mid-sentence, the way Taglish already does." },
+      { label: "You are the one everyone relies on", detail: "The eldest, the nurse, the one with the good English, the one who sends money. Being competent for everyone else is a role, and roles are tiring in a way that does not show." },
+      { label: "Family obligation is the actual subject", detail: "Parents who sacrificed, a sibling's tuition, an in-law in the spare room, and the guilt attached to choosing anything for yourself." },
+      { label: "Previous therapy missed the point", detail: "Advice to set boundaries or move out that made sense in the abstract and none at all in your family." },
+      { label: "Silence around mental health at home", detail: "A household where distress was met with prayer, practicality, or 'drama', usually not cruelty, but a generation with no language for it." },
+      { label: "Privacy is the barrier, not stigma", detail: "The concern is who at church or in the community might see you at a clinic. Virtual sessions remove the question entirely." },
+    ],
+    sessionShape: {
+      h2: "How sessions work",
+      body: [
+        "Sessions run in Tagalog, in English, or moving between them. You do not have to decide in advance, and most people end up doing both without planning it. Sessions are 50 minutes, fully virtual, anywhere in British Columbia or Alberta.",
+        "That reach matters more here than for most services. **Tagalog-speaking counsellors in BC are few and concentrated in Metro Vancouver**, which means that for anyone in the Interior, the North, on the Island, or in Alberta, virtual sessions are not a convenience. They are realistically the only route to therapy in Tagalog at all. The [Tagalog counselling by city](/tagalog-counselling) pages set out what that gap looks like locally.",
+        "**On shift work:** a great deal of Filipino employment in BC is in healthcare, care work and hospitality, on rosters that change. Booking in blocks around a rotation, with gaps between blocks, is an ordinary pattern here, and evening times are available. The [page for Filipino healthcare workers and caregivers](/for/filipino-healthcare-workers-and-caregivers) goes into this.",
+        "**On what the work is not:** it is not therapy that treats your family as the diagnosis and distance as the cure. Most people arriving here want something harder, to stay in relationship with their family and stop carrying the parts that are not theirs. That is a legitimate goal and it is workable, and any decision about distance stays yours.",
+        "**On confidentiality:** nothing is shared with your family, your church or your employer, and because sessions are virtual there is no clinic to be seen entering. The only limits are risk of serious harm and a court order.",
+      ],
+    },
+    faqs: [
+      { q: "What is counselling called in Tagalog?", a: "Most often simply counseling, the English word used as it is, or pagpapayo, the formal word for giving guidance or advice, which is what a school guidance counsellor does. Neither is exact, and the [words page](/resources/counselling-in-tagalog-what-the-words-mean) explains what each carries. Sessions here can be entirely in Tagalog, entirely in English, or the Taglish most families actually speak." },
+      { q: "What does burnout mean in Tagalog?", a: "There is no single Tagalog word for it. The Tagalog guides on this site describe it as pagod, or pagod na pagod, an exhaustion that rest does not fix, usually from work or from caring for others, and that is the honest definition in any language. If that describes you, the burnout-or-depression check on this site takes two minutes." },
+      { q: "Do sessions have to be entirely in Tagalog?", a: "No. Most people move between Tagalog and English within a single session, which is how a lot of people actually think. You do not have to choose a language in advance or stick to it." },
+      { q: "Can you see me in Alberta?", a: "Yes. Camille holds the Canadian Certified Counsellor designation and professional insurance that reach Alberta, so sessions in Tagalog or English are available anywhere in the province by video. Her Calgary and Edmonton pages cover the local detail." },
+      { q: "Will my family find out?", a: "No. Counselling is confidential and whether you tell anyone is your decision. Virtual sessions mean there is no waiting room and no building, which for many people here is the deciding factor." },
+      { q: "Will I be told to cut off my family?", a: "No. That framing misreads the situation for most people. The work is usually about staying connected while stopping carrying what is not yours." },
+      { q: "My parents think therapy is for the seriously ill. Are they wrong?", a: "They are describing a generation's understanding of it, formed where the only visible mental-health care was for crisis. Most therapy is ordinary people working on ordinary difficulty before it becomes serious." },
+    ],
+    related: [
+      { href: "/resources/counselling-in-tagalog-what-the-words-mean", label: "What counselling means in Tagalog, word by word" },
+      { href: "/for/filipino-healthcare-workers-and-caregivers", label: "For Filipino healthcare workers and caregivers" },
+      { href: "/for/filipino-canadian-families", label: "For Filipino-Canadian families" },
+      { href: "/compare/therapy-in-tagalog-vs-english", label: "Therapy in Tagalog or English" },
+      { href: "/tagalog-counselling", label: "Tagalog counselling by city" },
+    ],
+    sources: [
+      { label: "BC Association of Clinical Counsellors", url: "https://bcacc.ca/" },
+      { label: "HereToHelp BC, mental health information", url: "https://www.heretohelp.bc.ca/" },
+    ],
+  },
 ];
 
 export const featuredServices = services.filter((s) => s.featured);
