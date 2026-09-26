@@ -363,6 +363,7 @@ export const services: Service[] = [
       { q: "My parents think therapy is for serious problems. Are they wrong?", a: "They are describing a generation's understanding of it, formed when the only visible mental-health care was for crisis. Most therapy is ordinary people working on ordinary difficulty before it becomes serious." },
     ],
     related: [
+      { href: "/resources/counselling-in-punjabi-what-the-words-mean", label: "What counselling means in Punjabi, word by word" },
       { href: "/for/first-gen-south-asian-adults", label: "For first- and second-gen South Asian adults" },
       { href: "/guides/intergenerational-trauma-explained", label: "Intergenerational trauma explained" },
       { href: "/services/punjabi-counselling", label: "South Asian mental health counselling" },

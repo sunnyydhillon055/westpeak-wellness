@@ -19,7 +19,7 @@ export const moreResources2: Resource[] = [
   {
     slug: 'icbc-counselling-after-a-crash-bc',
     title: 'ICBC and counselling after a crash in BC',
-    metaTitle: 'ICBC Counselling After a Crash in BC | Westpeak Wellness',
+    metaTitle: 'ICBC Counselling in BC: Approved Counsellors, Rates, Plan',
     metaDescription:
       'What ICBC Enhanced Care pre-approves for counselling after a crash, who can provide it, how to use it, and what this practice can and cannot do with it.',
     eyebrow: 'Resource · After a crash',
@@ -27,7 +27,7 @@ export const moreResources2: Resource[] = [
       'Most people find out about the counselling entitlement weeks after the crash, if at all. It starts the day of the crash and it does not need a referral.',
     shortAnswer:
       'If you were injured in a crash in British Columbia on or after 1 May 2021, ICBC Enhanced Care pre-approves counselling with a qualifying counsellor in the first twelve weeks after the crash, without a doctor\'s referral or ICBC\'s advance approval. The counsellor has to meet the definition in the Insurance (Vehicle) Regulation, which a Registered Clinical Counsellor does. This practice is not currently in ICBC\'s Recovery Network, so it cannot bill ICBC directly; the entitlement is yours to use wherever you choose, and this page explains how.',
-    updated: '2026-09-06',
+    updated: '2026-09-26',
     readMinutes: 7,
     figure: 'reimbursement-flow',
     sections: [
@@ -99,6 +99,12 @@ export const moreResources2: Resource[] = [
       label: 'the 30-minute consultation is free and carries no obligation',
     },
     faqs: [
+      /* The three phrasings Search Console shows for this page that it did not
+         answer in its own words: "icbc-approved counsellors", "icbc counselling
+         rates", "icbc counselling treatment plan". 26 Sep 2026. */
+      { q: 'Is there a list of ICBC-approved counsellors?', a: 'Not in the sense of a separate approval. Any counsellor who meets the definition in the Insurance (Vehicle) Regulation can provide the pre-approved sessions, and a Registered Clinical Counsellor does. What ICBC does keep is a Recovery Network of providers who bill it directly; a counsellor outside that network can still see you, and you pay and ask ICBC about reimbursement. The table on this page sets the two routes side by side.' },
+      { q: 'What are ICBC counselling rates?', a: 'ICBC pays its network providers a set fee per session, which it publishes for providers and updates from time to time; a person using a network counsellor does not see a bill. Outside the network you pay the counsellor’s own fee, which at this practice is published in full on the fees page, and you ask ICBC in advance what it will reimburse and against what receipt.' },
+      { q: 'What is an ICBC counselling treatment plan?', a: 'The document a counsellor sends ICBC when sessions beyond the pre-approved number, or beyond the first twelve weeks, are needed: what has been done, what is recommended and why. ICBC decides further funding on it. Network providers submit it directly; if you are seeing someone outside the network, ask the adjuster what they need and in what form before the twelve weeks end.' },
       { q: 'Does ICBC cover counselling after a car accident in BC?', a: 'Yes. Under Enhanced Care, counselling with a qualifying counsellor is pre-approved for the first twelve weeks after a crash, without a referral or advance approval, for a set number of sessions. Further counselling after that can be funded on a treatment plan.' },
       { q: 'Do I need a doctor\'s note to see a counsellor through ICBC?', a: 'No. The early access period is designed so that treatment can start without a referral. A doctor\'s note is not required for the pre-approved sessions.' },
       { q: 'Can I see any counsellor, or does it have to be an ICBC one?', a: 'The counsellor has to meet the regulation\'s definition, which a Registered Clinical Counsellor does. Whether ICBC pays them directly depends on whether they are in the Recovery Network. Ask ICBC about reimbursement for a qualified counsellor outside it before you start.' },

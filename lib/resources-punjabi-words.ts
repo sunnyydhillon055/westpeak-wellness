@@ -35,7 +35,7 @@ export const punjabiWordsResource: Resource[] = [
     slug: 'counselling-in-punjabi-what-the-words-mean',
     figure: 'first-session-flow',
     title: 'What counselling means in Punjabi, word by word',
-    metaTitle: 'What Counselling Means in Punjabi | ਕਾਊਂਸਲਿੰਗ',
+    metaTitle: 'Counselling Meaning in Punjabi (ਕਾਊਂਸਲਿੰਗ), Therapy, Consult',
     metaDescription:
       'ਕਾਊਂਸਲਿੰਗ, ਸਲਾਹ-ਮਸ਼ਵਰਾ, ਮਾਨਸਿਕ ਸਿਹਤ: the Punjabi words for counselling and what each one carries, including the ones that do not translate cleanly.',
     eyebrow: 'Punjabi · Words',
@@ -43,7 +43,7 @@ export const punjabiWordsResource: Resource[] = [
       'There is no single Punjabi word that means what English means by counselling, and that gap is doing more damage in more families than any of the words themselves.',
     shortAnswer:
       'Counselling is most often said in Punjabi as ਕਾਊਂਸਲਿੰਗ (kaunsling), the English word written in Gurmukhi, or as ਸਲਾਹ-ਮਸ਼ਵਰਾ (salah-mashwara), which means consultation or taking advice. Neither is exact: the first is borrowed and the second suggests someone telling you what to do, which is not what a counsellor does. Related words are ਮਾਨਸਿਕ ਸਿਹਤ (mansik sehat, mental health), ਚਿੰਤਾ (chinta, worry or anxiety), ਉਦਾਸੀ (udaasi, low mood), ਤਣਾਅ (tanaa, stress) and ਥਕਾਵਟ (thakavat, exhaustion, which is how burnout is usually described). The word most families fear is ਪਾਗਲ (paagal, mad) and it has nothing to do with any of this.',
-    updated: '2026-09-17',
+    updated: '2026-09-26',
     readMinutes: 5,
     sections: [
       {
@@ -55,6 +55,14 @@ export const punjabiWordsResource: Resource[] = [
             ['ਸਲਾਹ-ਮਸ਼ਵਰਾ', 'salah-mashwara', 'Consultation, taking advice. Familiar and respectable, but it implies being told what to do — the opposite of how counselling works.'],
             ['ਮਾਨਸਿਕ ਸਿਹਤ', 'mansik sehat', 'Mental health, literally. Neutral and accurate. Useful precisely because it sounds medical rather than shameful.'],
             ['ਮਨੋਵਿਗਿਆਨੀ', 'manovigiaani', 'Psychologist. Often used loosely for any mental-health professional, which causes confusion about who can diagnose.'],
+            /* The next four rows answer the queries Search Console shows this
+               page for and it did not name: "counsellor / therapist / therapy
+               / consult meaning in punjabi", about 90 impressions a month
+               between them at positions 9-12. Added 26 Sep 2026. */
+            ['ਕਾਊਂਸਲਰ', 'kaunslar', 'Counsellor, the English word in Gurmukhi. The older word ਸਲਾਹਕਾਰ (salahkaar) means adviser and is used for lawyers and financial advisers too, which is not the same job.'],
+            ['ਥੈਰੇਪੀ', 'therapy', 'Therapy, borrowed as it is. ਇਲਾਜ (ilaaj) means treatment and sounds medical, which is sometimes useful and sometimes exactly the wrong note.'],
+            ['ਥੈਰੇਪਿਸਟ', 'therapist', 'Therapist. No native equivalent; ਮਨੋਵਿਗਿਆਨੀ above is the word people reach for, and it means psychologist, which a counsellor is not.'],
+            ['ਸਲਾਹ ਲੈਣਾ', 'salah laina', 'To consult, literally to take advice. The free 30-minute consultation at this practice is a ਮੁਫ਼ਤ ਸਲਾਹ-ਮਸ਼ਵਰਾ, and it is a conversation, not advice.'],
           ],
         },
         body: [
@@ -99,6 +107,10 @@ export const punjabiWordsResource: Resource[] = [
     },
     faqs: [
       { q: 'What is counselling in Punjabi?', a: 'Most often ਕਾਊਂਸਲਿੰਗ (kaunsling), the English word written in Gurmukhi, or ਸਲਾਹ-ਮਸ਼ਵਰਾ (salah-mashwara), meaning consultation. When explaining it to an older relative, ਮਾਨਸਿਕ ਸਿਹਤ ਬਾਰੇ ਗੱਲ ਕਰਨਾ — talking about mental health — is usually understood more easily than either, because it says what happens instead of naming a service.' },
+      { q: 'What does salah mashwara mean in English?', a: 'ਸਲਾਹ-ਮਸ਼ਵਰਾ (salah-mashwara) means consultation, or taking advice: ਸਲਾਹ is advice and ਮਸ਼ਵਰਾ is a consultation or discussion. It is the respectable, familiar word for what a counsellor does, and slightly wrong, because it suggests being told what to do. Counselling is closer to ਮਾਨਸਿਕ ਸਿਹਤ ਬਾਰੇ ਗੱਲ ਕਰਨਾ, talking about mental health.' },
+      { q: 'What is therapy in Punjabi?', a: 'Usually ਥੈਰੇਪੀ, the English word in Gurmukhi. ਇਲਾਜ (ilaaj) means treatment and is what a doctor gives; some families prefer it because it sounds medical rather than personal, and some avoid it for the same reason. In a session either word is understood.' },
+      { q: 'What is counsellor or therapist in Punjabi?', a: 'ਕਾਊਂਸਲਰ (kaunslar) and ਥੈਰੇਪਿਸਟ (therapist), both borrowed. ਸਲਾਹਕਾਰ (salahkaar) means adviser and is also used for lawyers and financial advisers, so it does not say what kind of help is meant. ਮਨੋਵਿਗਿਆਨੀ (manovigiaani) means psychologist, which a counsellor is not.' },
+      { q: 'What is consult or consultation in Punjabi?', a: 'ਸਲਾਹ ਲੈਣਾ (salah laina), to take advice, or ਸਲਾਹ-ਮਸ਼ਵਰਾ (salah-mashwara), a consultation. The first 30 minutes at this practice are a free consultation, a ਮੁਫ਼ਤ ਸਲਾਹ-ਮਸ਼ਵਰਾ, in Punjabi or English, and nothing is decided in it.' },
       { q: 'What is burnout in Punjabi?', a: 'There is no clinical term. It is described as ਥਕਾਵਟ (thakavat), exhaustion, and sometimes as ਤਣਾਅ (tanaa), stress. Both place it in the body rather than the mind, which is often how it is first noticed and which makes it easier to say out loud at home.' },
       { q: 'Is there a Punjabi word for depression?', a: 'Not an everyday one. ਉਦਾਸੀ (udaasi) means sadness or low mood, and it is the word most people use, but it sounds like something that will lift on its own. That mismatch is one reason a depressive episode in a Punjabi-speaking family is often heard as ordinary sadness for a long time before anybody treats it as more.' },
       { q: 'Do I have to speak Punjabi in the session?', a: 'No. Most people move between Punjabi and English in the same sentence, and that is normal here rather than something to apologise for. You can also book in English entirely and switch when a word only exists in one of them.' },

@@ -240,7 +240,7 @@ export const moreResources: Resource[] = [
        same four-minute check, the same designation table and the same
        answers. The definition now lives here, the other URL redirects, and
        one page carries the signal two were dividing. */
-    metaTitle: 'Registered Clinical Counsellor (RCC) in BC: What It Means',
+    metaTitle: 'Registered Clinical Counsellor (RCC): Meaning, BCACC Lookup',
     metaDescription:
       "What RCC means after a counsellor’s name in BC, how it differs from “licensed” or “registered counsellor”, and the free four-minute register check.",
     eyebrow: 'BC resource',
@@ -248,7 +248,7 @@ export const moreResources: Resource[] = [
       'This takes about four minutes and almost nobody does it. It is the single most useful piece of due diligence available to you.',
     shortAnswer:
       'Ask which designation the person holds and which body holds it, then search that body\'s public register yourself: BCACC for a Registered Clinical Counsellor, the College of Health and Care Professionals of BC for a psychologist, the BC College of Social Workers for a social worker. If they hold no designation with any body, there is no complaints process and no minimum standard behind the title.',
-    updated: '2026-09-17',
+    updated: '2026-09-26',
     readMinutes: 6,
     sections: [
       {
@@ -336,6 +336,9 @@ export const moreResources: Resource[] = [
       label: 'then book a free 30-minute consultation',
     },
     faqs: [
+      /* "bcacc find a counsellor", 47 impressions a month at position 9.6 and
+         nothing on this page that says how. 26 Sep 2026. */
+      { q: 'How do I use the BCACC Find a Counsellor tool?', a: 'Go to bcacc.ca and open Find a Counsellor. You can search by name, to check one person, or filter by city, concern, language and whether they offer online sessions, to find one. Every result is a current RCC; the register only lists members in good standing. If a counsellor you were given is not there, ask them which body they are registered with and check that register instead.' },
       { q: 'What does RCC stand for?', a: 'Registered Clinical Counsellor: the designation granted by the BC Association of Clinical Counsellors (BCACC) to counsellors who meet its education, supervision, insurance and ethics requirements. It is a BC designation; the national equivalent from the Canadian Counselling and Psychotherapy Association is CCC, Canadian Certified Counsellor.' },
       { q: 'Is a registered counsellor the same as a Registered Clinical Counsellor?', a: 'In BC, in practice, yes: when a website or an insurer says "registered counsellor" it almost always means an RCC, because BCACC is the body most BC extended-health plans recognise. The precise question to ask is which register the person is on, since "registered" on its own could refer to any association, including ones with no clinical requirements.' },
       { q: 'What is the difference between an RCC and a psychologist?', a: 'Training level and scope. A registered psychologist in BC holds a doctorate, is regulated under the College of Health and Care Professionals of BC, and can formally diagnose and conduct psychological assessments. An RCC holds a master\'s degree, is registered with a professional association rather than a regulatory college until 2027, and provides counselling and psychotherapy but does not diagnose. For talk therapy the two overlap heavily; for a diagnosis or an assessment you need the psychologist. Fees differ accordingly.' },
