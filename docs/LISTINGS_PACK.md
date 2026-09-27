@@ -19,7 +19,7 @@ are published (say "by appointment"); the practice prefers email; nothing paid.
 |---|---|
 | Name | Westpeak Wellness |
 | Legal name | Westpeak Wellness Counselling |
-| Website | https://www.westpeakwellness.com |
+| Website | https://www.westpeakwellness.com (on the Google Business Profile only, use https://www.westpeakwellness.com/?utm_source=gbp so those visits are counted on /admin) |
 | Email | info@westpeakwellness.com |
 | Phone | (604) 259-0810 |
 | Booking | https://www.westpeakwellness.com/book |
@@ -53,7 +53,7 @@ directory's verified credential field):
 
 **Services** (the site's own names, in this order): Individual Therapy,
 Couples Therapy (Gottman Method-informed), EMDR Therapy, Family Counselling,
-Punjabi-Speaking Counselling. Approaches: CBT, ACT, EMDR, Internal Family
+Punjabi-Speaking Counselling, Tagalog-Speaking Counselling. Approaches: CBT, ACT, EMDR, Internal Family
 Systems, somatic, DBT-informed skills, mindfulness-based. Concerns: anxiety,
 depression, trauma and PTSD, burnout, grief, panic, relationships, family
 dynamics, life transitions.

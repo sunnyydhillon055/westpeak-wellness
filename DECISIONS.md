@@ -799,6 +799,15 @@ conversion event, because those clicks never appear in Search Console.
 *Enforced by:* `lib/locations.ts` (`communities`), `app/online-counselling/[city]/page.tsx`,
 `scripts/gsc-pull.mjs`, `components/Analytics.tsx`
 
+### A service page's heading names the service
+Decided 27 Sep 2026. The six service pages carried a tagline as their H1
+and the service name only in an eyebrow, so the strongest on-page signal
+after the title said nothing about what the page sells. The heading is now
+"{name}: {tagline}". The tagline is kept because it is the voice of the
+site; the name leads it because it is what a person searched for.
+
+*Enforced by:* `app/services/[slug]/page.tsx`
+
 ### Titles follow Search Console, not taste
 Decided 6 Sep 2026. The first month of Search Console data (`data/gsc/`)
 showed 4,478 non-brand impressions and two clicks: pages surfacing at

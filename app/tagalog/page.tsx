@@ -222,6 +222,22 @@ export default function TagalogPage() {
               <strong>{T.crisisTitle}</strong> {T.crisis}
             </p>
           </div>
+
+          {/* IN ENGLISH, ABOUT THIS SERVICE — 27 Sep 2026. The Punjabi page
+              carries the same block. Marked lang="en" so a screen reader on
+              this Tagalog document reads it as English, and so no Tagalog
+              prose is added here that a native reader has not checked. The
+              labels are English on purpose: these are English pages. */}
+          <div className="prose" style={{ marginTop: 34 }} lang="en">
+            <p className="eyebrow">In English</p>
+            <p>
+              <Link href="/services/tagalog-counselling">Tagalog-speaking counselling</Link>,{' '}
+              <Link href="/resources/counselling-in-tagalog-what-the-words-mean">what counselling means in Tagalog, word by word</Link>,{' '}
+              <Link href="/compare/therapy-in-tagalog-vs-english">therapy in Tagalog or English</Link>, and pages for{' '}
+              <Link href="/for/filipino-healthcare-workers-and-caregivers">Filipino healthcare workers and caregivers</Link> and{' '}
+              <Link href="/for/filipino-canadian-families">Filipino-Canadian families</Link>.
+            </p>
+          </div>
         </div>
       </section>
 
