@@ -388,7 +388,7 @@ export const services: Service[] = [
     figure: "bc-reach",
     name: "Tagalog-Speaking Counselling",
     short: "Therapy in Tagalog, English, or both, with Filipino family context understood.",
-    metaTitle: "Counselling in Tagalog, Online in BC and Alberta | Westpeak",
+    metaTitle: "Filipino, Tagalog-Speaking Counselling in BC | Westpeak",
     metaDescription:
       "Online Tagalog-speaking therapy across BC and Alberta: counselling in Tagalog, English or both, Filipino family context understood. Free consultation.",
     hero: "Say it in the language it happened in.",

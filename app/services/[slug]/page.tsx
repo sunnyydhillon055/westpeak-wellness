@@ -231,7 +231,13 @@ export default async function ServicePage({ params }: { params: { slug: string }
       <section className="hero" style={{ paddingBottom: 48 }}>
         <div className="container">
           <p className="eyebrow">{s.name}</p>
-          <h1>{s.hero}</h1>
+          {/* THE SERVICE NAME IN THE HEADING — 27 Sep 2026. The six money
+              pages carried a tagline as their H1 ("Process painful memories
+              so they stop running the show") and the service name only in a
+              small eyebrow above it. A heading is the strongest on-page
+              signal after the title, and none of these said what the page
+              sells. The tagline stays; the name leads it. */}
+          <h1>{s.name}: {s.hero}</h1>
           {s.directAnswer && (
             <p className="direct-answer">{s.directAnswer}</p>
           )}
