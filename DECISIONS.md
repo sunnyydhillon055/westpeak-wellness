@@ -808,6 +808,21 @@ site; the name leads it because it is what a person searched for.
 
 *Enforced by:* `app/services/[slug]/page.tsx`
 
+### The practice is told of every online booking and every cancellation
+Decided 28 Sep 2026. The booking job emailed the client three times
+(confirmation, reminder, follow-up) and the practice never: the owner
+learned of a consultation booked and cancelled with another counsellor from
+that counsellor, days later. Every two hours the job now sends one notice
+per new online booking and one per cancellation, to the practice inbox and
+to the counsellor the appointment is with (the roster's `alertEmail`, matched
+by Cliniko practitioner id). Subjects carry no name, as the enquiry alerts
+do not. Bookings and cancellations older than three days at the moment the
+job first sees them are recorded without a message, so the first run after a
+deploy does not announce a fortnight of history. Cliniko's own per-user
+notification is a separate switch, in Cliniko, and stays the owner's.
+
+*Enforced by:* `lib/booking-notify.ts` (the `alerted` and `cancelAlerted` ledgers)
+
 ### Titles follow Search Console, not taste
 Decided 6 Sep 2026. The first month of Search Console data (`data/gsc/`)
 showed 4,478 non-brand impressions and two clicks: pages surfacing at

@@ -8,6 +8,9 @@ import { site, CONSULT_TYPE } from '@/lib/site';
 /* Pure mapping, kept in its own module so a gate can exercise it without a
  * Cliniko key or a mail server. See the header there. */
 import { durationOf, isConsultAppointment } from '@/lib/booking-shape';
+import { practitioners } from '@/lib/practitioners';
+import { FALLBACK_CATALOG, money } from '@/lib/cliniko-catalog';
+import { shell, p, esc } from '@/lib/booking-mail';
 
 /* Polls Cliniko for appointments needing a confirmation or a follow-up.
  *
@@ -40,8 +43,14 @@ const TZ = 'America/Vancouver';
    a free consultation booked a week ahead had no reminder at all. That is an
    easy no-show, and on a calendar with three evening hours a week a no-show on
    a free consult costs a third of the week's out-of-hours capacity. */
-type Ledger = { confirmed: string[]; followedUp: string[]; reminded: string[]; updatedAt: string };
-const EMPTY: Ledger = { confirmed: [], followedUp: [], reminded: [], updatedAt: '' };
+/* `alerted` and `cancelAlerted` added 28 Sep 2026. Every email this job sent
+   went to the client; the practice learned of a booking only if Cliniko's own
+   notification was switched on for that user, and of a cancellation only by
+   looking. The owner missed a consultation booked and cancelled with another
+   counsellor entirely. Each appointment id the practice has been told about
+   is recorded here, once for the booking and once for the cancellation. */
+type Ledger = { confirmed: string[]; followedUp: string[]; reminded: string[]; alerted: string[]; cancelAlerted: string[]; updatedAt: string };
+const EMPTY: Ledger = { confirmed: [], followedUp: [], reminded: [], alerted: [], cancelAlerted: [], updatedAt: '' };
 
 async function readLedger(): Promise<Ledger> {
   if (!process.env.BLOB_READ_WRITE_TOKEN) return EMPTY;
@@ -52,6 +61,8 @@ async function readLedger(): Promise<Ledger> {
     return {
       confirmed: Array.isArray(v.confirmed) ? v.confirmed : [],
       followedUp: Array.isArray(v.followedUp) ? v.followedUp : [],
+      alerted: Array.isArray(v.alerted) ? v.alerted : [],
+      cancelAlerted: Array.isArray(v.cancelAlerted) ? v.cancelAlerted : [],
       /* Absent in ledgers written before 3 Sep. Defaulting to empty means the
          first run after deploy reminds only appointments still inside the
          window ahead, never a backfill of past ones. */
@@ -70,7 +81,7 @@ async function writeLedger(l: Ledger): Promise<void> {
   const trim = (a: string[]) => a.slice(-2000);
   await put(
     KEY,
-    JSON.stringify({ confirmed: trim(l.confirmed), followedUp: trim(l.followedUp), reminded: trim(l.reminded), updatedAt: new Date().toISOString() }, null, 2),
+    JSON.stringify({ confirmed: trim(l.confirmed), followedUp: trim(l.followedUp), reminded: trim(l.reminded), alerted: trim(l.alerted), cancelAlerted: trim(l.cancelAlerted), updatedAt: new Date().toISOString() }, null, 2),
     { access: 'private', contentType: 'application/json', addRandomSuffix: false, allowOverwrite: true, cacheControlMaxAge: 0 }
   );
 }
@@ -93,6 +104,9 @@ export type NotifyResult = {
   followUps: number;
   /** Gentle notes after a no-show. Never mentions the fee — see the loop. */
   missed: number;
+  /** Alerts to the practice: new online bookings, and cancellations. */
+  alerts: number;
+  cancellations: number;
   skipped: { noEmail: number; alreadySent: number };
   failures: string[];
   reason?: string;
@@ -100,7 +114,7 @@ export type NotifyResult = {
 
 export async function runBookingNotifications(opts: { dry?: boolean } = {}): Promise<NotifyResult> {
   const base: NotifyResult = {
-    ok: false, confirmations: 0, reminders: 0, followUps: 0, missed: 0,
+    ok: false, confirmations: 0, reminders: 0, followUps: 0, missed: 0, alerts: 0, cancellations: 0,
     skipped: { noEmail: 0, alreadySent: 0 }, failures: [],
   };
 
@@ -137,14 +151,14 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
   const followedUp = new Set(ledger.followedUp);
   const reminded = new Set(ledger.reminded);
 
-  const patientCache = new Map<string, { firstName: string; email: string } | null>();
+  const patientCache = new Map<string, { firstName: string; lastName: string; email: string } | null>();
   async function patient(url: string) {
     if (patientCache.has(url)) return patientCache.get(url)!;
     try {
       const res = await fetch(url, { headers: headers(conn!.key), cache: 'no-store' });
       if (!res.ok) { patientCache.set(url, null); return null; }
       const p = await res.json();
-      const v = { firstName: String(p.first_name ?? '').trim() || 'there', email: String(p.email ?? '').trim() };
+      const v = { firstName: String(p.first_name ?? '').trim() || 'there', lastName: String(p.last_name ?? '').trim(), email: String(p.email ?? '').trim() };
       patientCache.set(url, v);
       return v;
     } catch {
@@ -154,10 +168,101 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
   }
 
   const result = { ...base, ok: true };
+  const alerted = new Set(ledger.alerted);
+  const cancelAlerted = new Set(ledger.cancelAlerted);
+
+  /* THE PRACTICE IS TOLD — 28 Sep 2026.
+   *
+   * Which counsellor the appointment is with, from the practitioner link on
+   * the appointment and the Cliniko id on the roster. The alert goes to the
+   * practice inbox and, when the roster knows one, to that counsellor's own
+   * alert address, so the person whose calendar it is and the person who runs
+   * the practice both hear of it in the same message. */
+  const idFrom = (link?: string) => (link ? link.split('/').filter(Boolean).pop() ?? '' : '');
+  const practitionerFor = (ap: any) => {
+    const pid = idFrom(ap.practitioner?.links?.self);
+    return practitioners.find((x) => x.clinikoPractitionerId === pid);
+  };
+  const typeFor = (ap: any) => {
+    const tid = idFrom(ap.appointment_type?.links?.self);
+    const item = FALLBACK_CATALOG.items.find((i) => i.id === tid);
+    if (isConsultAppointment(ap, CONSULT_TYPE)) return { label: 'Free 30-minute consultation', paid: false };
+    return item ? { label: `${item.name}, ${item.minutes} min, ${money(item.cents)}`, paid: item.cents > 0 } : { label: 'Session', paid: true };
+  };
+  const recipients = (ap: any) => {
+    const pr = practitionerFor(ap);
+    return [...new Set([site.email, ...(pr?.alertEmail ? [pr.alertEmail] : [])])];
+  };
+  /* Subject and preheader carry no name, as the enquiry alerts do not: an
+     inbox is read on a phone in public. The name is inside. */
+  const practiceAlert = (kind: 'booked' | 'cancelled', ap: any, who: { firstName: string; lastName: string; email: string }) => {
+    const pr = practitionerFor(ap);
+    const t = typeFor(ap);
+    const when = fmt(ap.starts_at);
+    const subject = kind === 'booked'
+      ? `New online booking: ${t.label.split(',')[0]}, ${when.replace(/^(\w+), /, '$1 ')}`
+      : `Cancelled: ${t.label.split(',')[0]}, ${when.replace(/^(\w+), /, '$1 ')}`;
+    const rows: [string, string][] = [
+      ['Client', `${who.firstName} ${who.lastName}`.trim()],
+      ['Email', who.email || '(none on file)'],
+      ['Appointment', t.label],
+      ['When', when],
+      ['With', pr ? pr.name : '(not on the roster)'],
+      ...(kind === 'booked' ? [['Payment', t.paid ? 'Paid type: the card is taken by Cliniko at booking' : 'Free, nothing charged'] as [string, string]] : []),
+      ...(kind === 'booked' && ap.created_at ? [['Booked at', fmt(ap.created_at)] as [string, string]] : []),
+      ...(kind === 'cancelled' && ap.cancelled_at ? [['Cancelled at', fmt(ap.cancelled_at)] as [string, string]] : []),
+      ...(kind === 'cancelled' && ap.cancellation_note ? [['Note', String(ap.cancellation_note)] as [string, string]] : []),
+    ];
+    const text = [kind === 'booked' ? 'New online booking' : 'Appointment cancelled', '', ...rows.map(([k, v]) => `${k.padEnd(12)} ${v}`), '', 'The full record is in Cliniko. This is a notice, not a receipt.'].join('\n');
+    const html = shell(
+      kind === 'booked' ? 'New online booking' : 'Appointment cancelled',
+      `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 18px;font-size:14px;line-height:1.7;">${rows.map(([k, v]) => `<tr><td style="color:#545e69;padding-right:14px;">${esc(k)}</td><td>${esc(v)}</td></tr>`).join('')}</table>` +
+      p('<span style="color:#545e69;font-size:14px;">The full record is in Cliniko. This is a notice, not a receipt.</span>'),
+      `${t.label.split(',')[0]}, ${when}`,
+    );
+    return { subject, text, html };
+  };
+  const RECENT = 3 * 864e5;
 
   for (const ap of appts) {
     const id = String(ap.id);
+
+    /* A cancellation the practice has not been told about, within the last
+       three days. Older ones are recorded without a message, so the first run
+       after this ships does not announce a fortnight of history. */
+    if (ap.cancelled_at && !cancelAlerted.has(id)) {
+      const recent = now - Date.parse(ap.cancelled_at) < RECENT;
+      const purl = ap.patient?.links?.self;
+      const who = recent && purl ? await patient(purl) : null;
+      if (recent && who) {
+        const mail = practiceAlert('cancelled', ap, who);
+        if (opts.dry) result.cancellations++;
+        else {
+          const sent = await sendDetailed(recipients(ap), mail.subject, mail.text, mail.html, { replyTo: site.email });
+          if (sent.ok) { cancelAlerted.add(id); result.cancellations++; }
+          else result.failures.push(`cancel-alert ${id}: ${sent.detail ?? 'failed'}`);
+        }
+      } else cancelAlerted.add(id);
+    }
     if (ap.cancelled_at || ap.archived_at) continue;
+
+    /* A booking the practice has not been told about, made within the last
+       three days. Same backfill rule: older bookings are recorded silently. */
+    if (!alerted.has(id)) {
+      const createdAt = ap.created_at ? Date.parse(ap.created_at) : NaN;
+      const recent = Number.isFinite(createdAt) && now - createdAt < RECENT;
+      const purl = ap.patient?.links?.self;
+      const who = recent && purl ? await patient(purl) : null;
+      if (recent && who) {
+        const mail = practiceAlert('booked', ap, who);
+        if (opts.dry) result.alerts++;
+        else {
+          const sent = await sendDetailed(recipients(ap), mail.subject, mail.text, mail.html, { replyTo: site.email });
+          if (sent.ok) { alerted.add(id); result.alerts++; }
+          else result.failures.push(`alert ${id}: ${sent.detail ?? 'failed'}`);
+        }
+      } else alerted.add(id);
+    }
 
     /* A missed session used to be skipped outright, along with cancellations
      * and archives. It does not belong in that group: somebody who did not
@@ -294,8 +399,12 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
     }
   }
 
-  if (!opts.dry && (result.confirmations > 0 || result.reminders > 0 || result.followUps > 0)) {
-    await writeLedger({ confirmed: [...confirmed], followedUp: [...followedUp], reminded: [...reminded], updatedAt: '' });
+  /* Written whenever anything changed, including the silent backfill of the
+     two alert lists, which must persist or the next run repeats the scan. */
+  const ledgerChanged = result.confirmations > 0 || result.reminders > 0 || result.followUps > 0
+    || alerted.size !== ledger.alerted.length || cancelAlerted.size !== ledger.cancelAlerted.length;
+  if (!opts.dry && ledgerChanged) {
+    await writeLedger({ confirmed: [...confirmed], followedUp: [...followedUp], reminded: [...reminded], alerted: [...alerted], cancelAlerted: [...cancelAlerted], updatedAt: '' });
   }
 
   return result;
