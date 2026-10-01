@@ -24,7 +24,7 @@ import InlineRelated from '@/components/InlineRelated';
 import { deviceSlots } from '@/lib/placement';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import Updated from '@/components/Updated';
-import { readCatalog, money } from '@/lib/cliniko-catalog';
+import { readCatalog, money, FALLBACK_CATALOG, type Catalog } from '@/lib/cliniko-catalog';
 import { ogBase } from '@/lib/og-meta';
 import { COLLECTION_DATES } from '@/lib/page-dates';
 import BookLink from '@/components/BookLink';
@@ -63,8 +63,8 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
  * The umbrella pages — online-counselling-bc and south-asian-mental-health —
  * span several session types at different prices, so quoting one figure there
  * would misrepresent them. Those render the card without a price rather than
- * with a wrong one. Couples has a 110-minute extended option at $340 that the
- * card does not attempt to summarise; /pricing carries the full table. */
+ * with a wrong one. Couples also shows its 110-minute extended format, read
+ * from the catalogue (EXTENDED_AS below); /pricing carries the full table. */
 /* Which Cliniko appointment type each service is billed as. The fee itself is
  * NOT written here any more — it comes from Cliniko via lib/cliniko-catalog.ts,
  * because three hand-maintained copies of a price is three chances to quote a
@@ -84,15 +84,19 @@ const BILLED_AS: Record<string, string | undefined> = {
   'emdr-intensive': 'EMDR Intensive',
 };
 
-const LEGACY_FEE_FOR: Record<string, string | undefined> = {
-  'individual-therapy': '$140',
-  'anxiety-counselling': '$140',
-  'depression-counselling': '$140',
-  'trauma-therapy': '$140',
-  'punjabi-counselling': '$140',
-  'couples-therapy': '$170',
-  'emdr-therapy': '$190',
-  'emdr-intensive': '$190',
+/* The legacy map of typed fees is gone — 1 Oct 2026. It was the fallback
+ * when the live catalogue did not resolve, and its couples figure was five
+ * dollars behind Cliniko, so the one moment it was used it quoted a price the
+ * practice does not charge. The fallback is now FALLBACK_CATALOG, the same
+ * values scripts/price-drift.mjs checks against Cliniko. */
+const billedItem = (c: Catalog, name: string | undefined) =>
+  name ? c.items.find((i) => i.name.toLowerCase() === name.toLowerCase()) : undefined;
+
+/* Couples has a second format the single-fee line hid: a 110-minute
+ * extended session. Shown beside the 50-minute fee on the couples page,
+ * read from the catalogue like the main fee. */
+const EXTENDED_AS: Record<string, string | undefined> = {
+  'couples-therapy': 'Couples Extended',
 };
 
 const DURATION_FOR: Record<string, string | undefined> = {
@@ -108,23 +112,28 @@ export const revalidate = 3600;
 export default async function ServicePage({ params }: { params: { slug: string } }) {
   const s = getService(params.slug);
   if (!s) notFound();
-  const cta = bookingCtaFor({ language: s.language, fallback: `Book a free consultation for ${serviceNoun(s.name)}` });
+  /* The calendar the consultation opens: the language counsellor on the two
+     language pages, the one counsellor who offers it on couples, EMDR and
+     family, and the practice-wide /book where both do (1 Oct 2026). */
+  const cta = bookingCtaFor({
+    language: s.language,
+    service: s.slug,
+    fallback: `Book a free consultation for ${serviceNoun(s.name)}`,
+  });
 
   const catalog = await readCatalog();
   const billedAs = BILLED_AS[params.slug];
-  const item = billedAs
-    ? catalog.items.find((i) => i.name.toLowerCase() === billedAs.toLowerCase())
-    : undefined;
-  const fee = item ? money(item.cents) : LEGACY_FEE_FOR[params.slug];
+  const item = billedItem(catalog, billedAs) ?? billedItem(FALLBACK_CATALOG, billedAs);
+  const fee = item ? money(item.cents) : undefined;
+  const extended =
+    billedItem(catalog, EXTENDED_AS[params.slug]) ?? billedItem(FALLBACK_CATALOG, EXTENDED_AS[params.slug]);
   /* The same number the card shows, as a machine-readable Offer. Cliniko is
      the source when the catalogue resolves; the legacy map is the fallback,
      parsed rather than restated so there is still only one figure per
      service in this file. Undefined on the two umbrella pages, which is why
      the Offer is conditional rather than defaulted — a default here would
      publish a price the practice does not charge. */
-  const feeDollars = item
-    ? item.cents / 100
-    : Number(String(LEGACY_FEE_FOR[params.slug] ?? '').replace(/[^0-9.]/g, '')) || undefined;
+  const feeDollars = item ? item.cents / 100 : undefined;
 
   /* Heading order as rendered. 'This can help with' lives in the aside
    * itself, so it is deliberately not a TOC entry. */
@@ -197,7 +206,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
         name: `Book a free 30-minute consultation about ${s.name.toLowerCase()}`,
         target: {
           '@type': 'EntryPoint',
-          urlTemplate: `${site.domain}${site.bookingPath}`,
+          urlTemplate: `${site.domain}${cta.href}`,
           actionPlatform: [
             'https://schema.org/DesktopWebPlatform',
             'https://schema.org/MobileWebPlatform',
@@ -256,7 +265,11 @@ export default async function ServicePage({ params }: { params: { slug: string }
                 Undefined on the two umbrella services, which span session
                 types at different prices, so the item simply does not render
                 rather than showing a figure that would misrepresent them. */}
-            {fee && <li><Wallet aria-hidden="true" strokeWidth={1.7} /><span><strong>{fee}</strong> per session</span></li>}
+            {fee && item && extended ? (
+              <li><Wallet aria-hidden="true" strokeWidth={1.7} /><span><strong>{fee}</strong> / {item.minutes} min · <strong>{money(extended.cents)}</strong> / {extended.minutes} min</span></li>
+            ) : fee ? (
+              <li><Wallet aria-hidden="true" strokeWidth={1.7} /><span><strong>{fee}</strong> per session</span></li>
+            ) : null}
             {/* The badge links to what the letters mean. "Registered clinical
                 counsellor" is the query this site is shown for most often
                 (about 1,000 impressions a month at position 25-37, Sep 2026),
@@ -343,7 +356,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
             <div className="crisis" style={{ marginTop: 32 }}>
               <p style={{ margin: 0 }}>
                 Recognise several of these? A{' '}
-                <Link href={site.bookingPath}>free 30-minute consultation</Link> is the least
+                <Link href={cta.href}>free 30-minute consultation</Link> is the least
                 committal way to find out whether this is the right approach, including if the
                 answer turns out to be something else.
               </p>
@@ -370,7 +383,11 @@ export default async function ServicePage({ params }: { params: { slug: string }
           <BookingCard
             service={s.name}
             price={fee}
-            duration={DURATION_FOR[s.slug] ?? '50 minutes'}
+            duration={
+              (DURATION_FOR[s.slug] ?? '50 minutes') +
+              (extended ? `, or ${money(extended.cents)} for ${extended.minutes} minutes` : '')
+            }
+            bookHref={cta.href}
           />
         </div>
       </section>
