@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { locations, getLocation } from '@/lib/locations';
 import { pairsForCity } from '@/lib/city-services';
 import { getService } from '@/lib/services';
+import { getCityTopic } from '@/lib/conditions';
 import { featuredServices } from '@/lib/services';
 import { site } from '@/lib/site';
 import { Paragraphs, rich } from '@/lib/rich';
@@ -316,7 +317,12 @@ export default function CityPage({ params }: { params: { city: string } }) {
             <div className="chip-grid">
               {here.map((p) => (
                 <Link className="chip" key={p.service} href={`/online-counselling/${l.slug}/${p.service}`}>
-                  {getService(p.service)?.name ?? p.service} in {l.city}
+                  {/* getCityTopic, not getService: anxiety, trauma and depression are
+                      conditions (lib/conditions.ts), so getService returned nothing and
+                      the chip read "anxiety-counselling in Vancouver" — the slug as
+                      anchor text, on the one page that links every service here.
+                      Found in the 28 Sep link baseline; fixed 1 Oct 2026. */}
+                  {getCityTopic(p.service)?.name ?? p.service} in {l.city}
                 </Link>
               ))}
             </div>

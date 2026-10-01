@@ -15,6 +15,7 @@ import { deviceSlots } from '@/lib/placement';
 import Toc from '@/components/Toc';
 import MoreFrom from '@/components/MoreFrom';
 import CityLinks from '@/components/CityLinks';
+import ServiceCityLinks from '@/components/ServiceCityLinks';
 import Figure from '@/components/Figure';
 import InlineRelated from '@/components/InlineRelated';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -252,6 +253,7 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
 
 
       <MoreFrom items={resources} currentSlug={r.slug} base="/resources" heading="More BC resources" eyebrow="Keep going" />
+      <ServiceCityLinks section="resources" slug={r.slug} />
       <CityLinks />
       <CtaBand
         heading="Questions about cost or coverage?"

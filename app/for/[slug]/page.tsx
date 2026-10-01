@@ -218,12 +218,11 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
           <h2 id="services-that-tend-to-fit">Services that tend to fit</h2>
           <div className="grid grid-2" style={{ marginTop: 26 }}>
             {a.servicesThatFit.map((s) => (
-              <div className="card" key={s.href}>
-                <Link href={s.href} className="card-link">
-                  <h3>{s.label}</h3>
-                  <p>{s.why}</p>
-                  <span className="more">{s.label} →</span>
-                </Link>
+              <div className="card card--stretch" key={s.href}>
+                {/* Title-only anchor, stretched over the card by CSS; see app/for/page.tsx. */}
+                <h3><Link href={s.href} className="card-stretch">{s.label}</Link></h3>
+                <p>{s.why}</p>
+                <span className="more" aria-hidden="true">{s.label} →</span>
               </div>
             ))}
           </div>
