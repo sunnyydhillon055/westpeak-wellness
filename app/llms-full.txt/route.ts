@@ -384,6 +384,8 @@ navigation or boilerplate. Every page it covers is also available at its own URL
     'How to point a friend, family member, colleague or patient toward this practice, and what happens after they get in touch.',
     `No physician referral is required to book. A person can book the free 30-minute consultation themselves at ${site.domain}${site.bookingPath}.`,
     `There is a one-page summary written for a GP in British Columbia at ${site.domain}/refer/doctor: designation, scope limits, fees, and what a referring physician does and does not need to do. Clinical information is released only with the patient's written consent.`,
+    `A printable sheet of four front-desk cards for clinics, campuses and agencies is at ${site.domain}/refer/handout.`,
+    `For a counsellor whose own caseload is full, ${site.domain}/refer/counsellors lists who is accepting new clients, their languages and where they may see clients. No referral fee, nothing reciprocal, and nothing reported back without the client's written consent.`,
   ].join('\n\n'));
 
 

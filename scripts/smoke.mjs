@@ -61,6 +61,8 @@ const CHECKS = [
   ['/guides', 200],
   ['/compare/therapy-in-punjabi-vs-english', 200],
   ['/refer/doctor', 200],
+  ['/refer/handout', 200],
+  ['/refer/counsellors', 200],
   ['/resources/msp-vs-extended-health', 200],
   ['/accessibility', 200],
   ['/sitemap.xml', 200],

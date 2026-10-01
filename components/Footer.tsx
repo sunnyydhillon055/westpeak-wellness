@@ -104,6 +104,7 @@ export default function Footer() {
               <Link href="/faq">FAQ</Link>
               <Link href="/reviews">Reviews &amp; references</Link>
               <Link href="/refer">Passing it on</Link>
+              <Link href="/refer/counsellors">For counsellors</Link>
               <Link href="/online-counselling">Areas Served in BC</Link>
               <Link href="/contact">Contact</Link>
               <Link href={site.portalPath} className="footer-more">Client Portal &rarr;</Link>
