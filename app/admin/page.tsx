@@ -1364,6 +1364,9 @@ export default async function AdminPage({
           <p style={{ fontSize: '.88rem', color: 'var(--ink-faint)', marginBottom: 0 }}>
             The file contains client names against amounts. Treat it like the client list.
           </p>
+          <p style={{ marginBottom: 0 }}>
+            <Link href="/admin/revenue">Every invoice by month, with the session, type and payment behind it</Link>
+          </p>
         </div>
 
         {/* ---------------------------------------------------------- CLINIKO */}

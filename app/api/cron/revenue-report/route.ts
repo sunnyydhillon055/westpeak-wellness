@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { noteCronRefusal } from '@/lib/cron-refusal';
 import { monthlyRevenue, previousMonth, monthFromKey, money } from '@/lib/cliniko-revenue';
+import { invoiceDetail, linesBySeen } from '@/lib/cliniko-invoice-detail';
 import { renderRevenueEmail, sendRevenueReport, reportRecipients } from '@/lib/revenue-email';
 import { withCronHealth } from '@/lib/cron-health';
 
@@ -77,6 +78,15 @@ export async function GET(req: NextRequest) {
     const report = await monthlyRevenue(period);
     if (report.status === 'unconfigured') throw new Error('CLINIKO_API_KEY is not set (including its -ca1 suffix)');
     if (report.status === 'error') throw new Error(`cliniko error: ${report.detail}`);
+    /* By who held the session, not whose name is on the invoice (1 Oct 2026:
+       September credited the founder with four invoices and Camille with
+       none). Only when every closed invoice was read; otherwise the invoice
+       grouping stands, rather than a total that no longer adds up. */
+    const detail = await invoiceDetail(report.period);
+    if (detail.status === 'ok' && detail.skipped === 0 && detail.rows.length === report.invoiceCount) {
+      report.lines = linesBySeen(detail.rows);
+      report.reattributed = detail.rows.filter((r) => r.mismatch).length;
+    }
     const summary = {
       period: report.period.key,
       label: report.period.label,

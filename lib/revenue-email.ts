@@ -38,7 +38,13 @@ const BASIS =
 export function renderRevenueEmail(r: Extract<RevenueReport, { status: 'ok' }>): {
   subject: string; text: string; html: string;
 } {
-  const { period, lines, total, totalNet, totalTax, invoiceCount, outstanding } = r;
+  const { period, lines, total, totalNet, totalTax, invoiceCount, outstanding, reattributed } = r;
+  const who = reattributed === undefined ? 'Practitioner' : 'Seen by';
+  const moved = reattributed
+    ? `${reattributed} of ${invoiceCount} invoices were written under a different practitioner from the one who held the session. ` +
+      'They are counted here under who held it; the invoices themselves should be corrected in Cliniko. ' +
+      `Every invoice, with its session, type and payment, is at ${site.domain}/admin/revenue?month=${period.key}.`
+    : `Every invoice, with its session, type and payment, is at ${site.domain}/admin/revenue?month=${period.key}.`;
   const subject = `${site.name}, revenue for ${period.label}, ${money(total)}`;
 
   const avg = invoiceCount ? Math.round(total / invoiceCount) : 0;
@@ -56,7 +62,7 @@ export function renderRevenueEmail(r: Extract<RevenueReport, { status: 'ok' }>):
   } else {
     t.push('BY PRACTITIONER');
     t.push('');
-    t.push(`${'Practitioner'.padEnd(nameW)}  ${'Invoices'.padStart(8)}  ${'Revenue'.padStart(12)}`);
+    t.push(`${who.padEnd(nameW)}  ${'Invoices'.padStart(8)}  ${'Revenue'.padStart(12)}`);
     t.push(`${'-'.repeat(nameW)}  ${'-'.repeat(8)}  ${'-'.repeat(12)}`);
     for (const l of lines) {
       t.push(`${l.name.padEnd(nameW)}  ${String(l.invoices).padStart(8)}  ${money(l.cents).padStart(12)}`);
@@ -75,6 +81,8 @@ export function renderRevenueEmail(r: Extract<RevenueReport, { status: 'ok' }>):
   t.push('');
   t.push(`  Outstanding           ${money(outstanding.cents)} across ${outstanding.count} invoice(s)`);
   t.push('    (issued this period, not yet closed)');
+  t.push('');
+  t.push(...wrap(moved));
   t.push('');
   t.push('-'.repeat(46));
   t.push(...wrap(BASIS));
@@ -108,7 +116,7 @@ export function renderRevenueEmail(r: Extract<RevenueReport, { status: 'ok' }>):
 
 <table class="rev" style="width:100%;border-collapse:collapse;font-size:14px;margin-bottom:22px;">
 <thead><tr>
-<th style="${td}text-align:left;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#545e69;">Practitioner</th>
+<th style="${td}text-align:left;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#545e69;">${who}</th>
 <th style="${td}text-align:right;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#545e69;">Invoices</th>
 <th style="${td}text-align:right;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#545e69;">Revenue</th>
 </tr></thead>
@@ -127,6 +135,8 @@ export function renderRevenueEmail(r: Extract<RevenueReport, { status: 'ok' }>):
 <tr><td style="${td}">Outstanding <span style="color:#545e69;">(issued this period, not yet closed)</span></td>
     <td style="${num}">${money(outstanding.cents)} · ${outstanding.count}</td></tr>
 </table>
+
+<p style="font-size:14px;line-height:1.6;margin:0 0 18px;">${esc(moved)}</p>
 
 <p style="font-size:12px;line-height:1.6;color:#545e69;border-top:1px solid #e6ddce;padding-top:14px;margin:0;">
 ${esc(BASIS)}<br><br>

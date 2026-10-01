@@ -167,6 +167,10 @@ export type RevenueReport =
       invoiceCount: number;
       outstanding: { cents: number; count: number };
       byStatus: Record<string, { cents: number; count: number }>;
+      /** Set when `lines` were regrouped by the counsellor who held each
+       *  appointment (lib/cliniko-invoice-detail.ts): how many invoices were
+       *  written under someone else. Absent means grouped by the invoice. */
+      reattributed?: number;
     };
 
 export async function monthlyRevenue(period: Period): Promise<RevenueReport> {
