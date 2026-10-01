@@ -83,7 +83,7 @@ test('scheduler_open is accepted with detail button or hash, and nothing else', 
   assert.equal(allowedDetail('scheduler_open', 'button'), 'button');
   assert.equal(allowedDetail('scheduler_open', 'camille-granda'), null);
   const log = readFileSync(join(ROOT, 'lib/conversion-log.ts'), 'utf8');
-  assert.match(log, /'scheduler_open',\s*\]\);/, 'counted');
+  assert.match(log, /const COUNTED = new Set\(\[[\s\S]*?'scheduler_open',[\s\S]*?\]\);/, 'counted');
 });
 
 /* ---------- 139: the next-consult line is a counted link ---------- */

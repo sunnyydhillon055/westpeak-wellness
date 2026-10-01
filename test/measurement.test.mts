@@ -37,10 +37,13 @@ test('the calendar listens for Cliniko’s confirmation from cliniko.com only, o
   assert.match(s, /addEventListener\('message'/);
   assert.match(s, /removeEventListener\('message'/);
   assert.match(s, /cliniko-bookings-page:confirmed/);
-  assert.match(s, /endsWith\('\.cliniko\.com'\)/);
-  assert.match(s, /startsWith\('https:\/\/'\)/);
-  assert.match(s, /if \(booked\) return;/);
-  assert.match(s, /track\('scheduler_booked', \{ page, detail: who \}\)/);
+  /* Since the batch-2 merge the count rides scheduler-mobile's single
+     listener, which accepts a message only from the frame's own origin AND
+     window (lib/cliniko-frame.ts fromFrame), stricter than *.cliniko.com. */
+  assert.match(s, /fromFrame\(e\.origin, e\.source, frame\.src, frame\.contentWindow\)/);
+  assert.match(s, /msg\.page === 'confirmed' && !confirmed/);
+  assert.match(s, /track\('scheduler_booked', \{ page: ctx\.page, detail: ctx\.who \}\)/);
+  assert.equal(s.match(/addEventListener\('message'/g)?.length, 1, 'one Cliniko listener');
   assert.match(src('lib/analytics.ts'), /\| 'scheduler_booked'/);
 });
 
