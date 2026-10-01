@@ -1445,6 +1445,180 @@ booking before it is welcomed; see "Booking mail names the counsellor" above.
 
 ---
 
+### The nurture sequence writes only to a lead it acknowledged, and the reply time is measured from a signed link
+Decided 1 Oct 2026 (branch `wf/lead-pipeline`). The nurture cron writes only
+to a lead whose email 1 the provider accepted (`ackSentAt`). The lead must also
+be created on or after `NURTURE_FROM` (1 Oct 2026), not have tripped the
+honeypot, and not be a probe or a throwaway address. Every lead created before
+this change gets nothing further: they were told "a one-off, not a sequence",
+and under CASL the consent covers only what they were told.
+
+Every sign-up surface now promises "two more short ones over the next
+fortnight, then nothing", and email 1 carries the unsubscribe link. A
+honeypot-tripped submission is stored as counts and keyed hashes only, with no
+name, address or message. Whether to purge the 64 full records already stored
+is still the owner's call.
+
+Enquiry routing reads the form's "looking" and "where" answers through the
+roster. When it routes to one counsellor, the acknowledgement names her and
+replies go to her and info@. One-pager alerts go to info@ only.
+
+Reply time is measured from a signed "mark answered" link in the enquiry
+alert. It opens /admin and needs an admin sign-in plus one POST button;
+following the link alone writes nothing. Nothing is back-filled, and the
+public median still waits for five real enquiries. The funnel report and the
+/admin opt-in figure count real submissions only (`isRealSubmission`), and
+/admin states the excluded count. The checklist's HSA line says use for
+counselling depends on how the plan is written; the direct-billing line says
+this practice does not direct-bill.
+
+*Enforced by:* `lib/nurture-plan.ts`, `lib/inbound-quality.ts`,
+`lib/answered-link.ts`, `lib/reply-line.ts`, `lib/inbound-routing.ts`,
+`test/nurture.test.mts`, `test/lead-pipeline.test.mts`
+
+### Paid clients are watched as consultations already were
+Decided 1 Oct 2026 (branch `wf/booking-retention`). booking-notify now (a)
+tells info@ and that counsellor when a paid client's latest held session ended
+14–18 days ago with nothing booked after it, once per patient and session
+(ledger `lapsedAlerted`), with an "after-session" draft; and (b) attaches a
+"reschedule-session" draft to a cancelled paid session's alert when nothing has
+been rebooked since. Neither draft mentions the fee or the 50% retention.
+Nothing is sent to the client automatically; a person edits and sends.
+
+The paid after-session note now goes only after the first paid session with
+that counsellor, or when nothing is booked after the session, and names the
+next session when there is one. Skips are recorded in the ledger as
+`followUpSkipped`. Client mail for an appointment replies to its counsellor
+and info@. Paid rebook links open the same appointment type with her
+(`bookingsPaidUrlFor` typeId, honoured only for paid types).
+
+The client portal reads the signed-in client's own Cliniko appointments to
+show what is next and to open on the counsellor last seen, and falls back to
+the old page on any failure. /admin "Not seen lately" lists, from Cliniko,
+clients with a paid session 45 or more days ago and nothing upcoming. It is
+still one note per person ever, sent one at a time by a person.
+
+*Enforced by:* `lib/booking-followups.ts`, `lib/booking-notify.ts`,
+`lib/portal-appointments.ts`, `components/admin/NotSeenLately.tsx`
+
+### The booking calendar sizes itself, opens from #calendar, and the phone layouts put the button first
+Decided 1 Oct 2026 (branch `wf/scheduler-mobile`). The calendar frame carries
+Cliniko's `embedded=true` and sizes itself to Cliniko's own height messages,
+with one listener in `components/SchedulerTelemetry.tsx` that accepts only
+messages from the frame's own origin and window. The height is clamped to
+480–2400px, each step scrolls the frame into view, and
+`cliniko-bookings-page:confirmed` goes to the empty hook
+`onClinikoBookingConfirmed()`.
+
+On /book, arriving at #calendar (or tapping a same-page link to it) opens the
+gated calendar. Bare /book keeps the gate, and every open is counted as the new
+event `scheduler_open`, detail `button` or `hash`. `scheduler_visible` counts
+are therefore not comparable before and after this change.
+
+The sticky bar hides while a calendar frame is mounted or a text field has
+focus. Its Book button is the one filled button, and a next-consult sentence
+that names a slot links to that counsellor's calendar (book_click
+`sticky-next`). The phone layouts move the service hero's Book button above the
+chips, compact the bare /book cards and move the /contact map below the form.
+Diagrams link to their full-size SVG. The enquiry form's rules are visible:
+labels, the twenty-word hint and a live word count; the rule itself is
+unchanged. The retired careers page's CSS was removed from `app/premium.css`,
+which pays for the new rules.
+
+*Enforced by:* `lib/cliniko-frame.ts`, `lib/scheduler-open.ts`,
+`lib/book-card.ts`, `test/scheduler-mobile.test.mts`
+
+### No reviewer is named in structured data; every consult time says Pacific; informational pages show who you would see
+Decided 1 Oct 2026 (branch `wf/info-templates`). (a) `reviewedBy` is no longer
+emitted anywhere. It pointed at /about#person, which no page defines, and if it
+ever resolved it would name the founder as reviewer. It returns only with a
+settled named reviewer whose Person node a page actually defines (owner item
+#77). `scripts/ai-crawl-audit.mjs` now fails on any referenced @id that is
+defined nowhere.
+
+(b) Every consult time the site prints is labelled "(Pacific time)". /book adds
+one sentence on other clocks, and its Alberta part shows only while an
+accepting counsellor is insured for AB. This labels Cliniko's times and is not
+an hours claim.
+
+(c) One-pager signups confirm on /one-pager-sent (noindex, dynamic for
+?lead=err), which describes the nurture sequence as it actually runs (day 4,
+day 11, one-click unsubscribe, then nothing). /message-sent stays the enquiry
+confirmation.
+
+(d) The informational pages that carry the "who you would talk to" cards, fee
+line and coverage line form an explicit list, `INFO_CARD_PAGES` in
+`lib/counsellor-cards.ts`, plus an opt-in `whoYouWouldSee` field on Resource.
+The gentle leave guides get a gentler heading and still no form. (e) On
+resource, guide, compare and approach pages the short answer is the first
+thing after the H1 (`.answer`, and speakable points at it).
+
+*Enforced by:* `lib/counsellor-cards.ts`, `scripts/ai-crawl-audit.mjs`,
+`test/info-templates.test.mts`
+
+### Penticton and Fort St. John are city pages again; a retired town goes to the page that names it
+Decided 1 Oct 2026 (branch `wf/regional-pages`). Penticton (Okanagan) and Fort
+St. John (Northern BC) are city pages again, each built under the
+`lib/locations.ts` rule that a page must make its own argument. Penticton's is
+that the South Okanagan queues behind Kelowna. Fort St. John's is that the
+Peace keeps MST all year, works on rotation across the Alberta line and is
+about 440 km from Prince George. Both slugs left `retiredCitySlugs` in the same
+change. The Fort St. John sentence about who can see clients in Alberta is
+generated from `insuredProvinces()` and disappears when the insurance gate
+closes.
+
+A retired town slug now redirects to the city page whose communities name the
+town (`RETIRED_TOWN_HOMES` in `lib/redirects.mjs`). Towns no page names still
+go to /online-counselling, which now has a generated "Find your town" list by
+health authority. redirect-shadow fails if a destination stops naming its town.
+
+A practitioner place page's Tagalog twin, its hreflang and its sitemap rows now
+exist only where `lib/practitioner-places-tl.ts` has copy for that city, the
+same rule the Punjabi twins follow. New city pages are added in English only
+and get no Tagalog twin until copy is written and reviewed. Metadata strings
+may not mention evenings or weekends, apart from named exemptions.
+
+*Enforced by:* `lib/redirects.mjs`, `scripts/redirect-shadow.mjs`,
+`test/regional-pages.test.mts`, `test/no-hours-metadata.test.mts`
+
+### Claims the practice cannot stand behind are retired
+Decided 1 Oct 2026 (branch `wf/claims-corrections`). (1) Health spending
+accounts and the METC: the CRA's authorized-practitioner table lists no
+counsellor for BC (read 1 Oct 2026), so the site no longer says an HSA or the
+tax credit covers RCC fees. The wording is: an HSA pays only CRA-eligible
+expenses, so ask the administrator first; a wellness or lifestyle account
+usually works as a taxable benefit; the METC generally does not apply until
+psychotherapy is regulated (29 Nov 2027).
+
+(2) Coverage is "many plans, depending on the plan; check yours", never "most
+BC plans". `scripts/coverage-claims.mjs` enforces this through the seo gate.
+Its pending list, which held sentences in files other branches owned, was
+emptied at integration: those eight sentences were rewritten the same day.
+
+(3) Billing: the practice is described as pay-and-submit. Pacific Blue Cross
+has accepted direct claims from RCCs since 11 Jul 2025, so "direct billing is
+uncommon" is retired. ICBC status comes from one flag, `site.icbcVendor`
+(false), read by /pricing, /refer and /ai.json.
+
+(4) "Gottman-trained" may appear only in a roster entry that is the founder's
+or that carries a `gottmanTraining` field, enforced by the seo gate. Couples
+work is "Gottman-informed" until owner item #67 records a level.
+
+(5) Market fee figures are quoted only from BCACC's 2026 guide and BCPA's $245
+recommended rate (effective 12 May 2025), each with a read date. This
+practice's fee comes from the catalogue. (6) How to cancel is "reply to your
+confirmation or reminder email", the same as the emails. A self-cancel link is
+never promised, because Cliniko disables it for sessions paid in full at
+booking. (7) Page-specific styles for /pricing are inline, because
+`premium.css` is inlined into every page and the homepage CSS budget has no
+room left.
+
+*Enforced by:* `scripts/coverage-claims.mjs`, `scripts/lib/gottman-claims.mjs`,
+`lib/session-arithmetic.ts`, `lib/machine-facts.ts`,
+`test/claims-corrections.test.mts`
+
+---
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`
