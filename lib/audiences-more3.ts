@@ -14,13 +14,13 @@ export const moreAudiences3: Audience[] = [
     title: 'Counselling for teachers in BC',
     metaTitle: 'Counselling for Teachers in BC | Westpeak Wellness',
     metaDescription:
-      'Counselling for BC teachers and TTOCs. The September cliff, classroom load, marking that eats evenings, and a schedule built around school hours.',
+      'Counselling for BC teachers and TTOCs. The September cliff, classroom load, marking that eats evenings, and whether to stay in the profession.',
     eyebrow: 'For · Teachers',
     lede:
       'Everyone thinks they know what teaching is like because everyone went to school. The version you are living. The composition of one actual classroom, at 8:40 on a Tuesday, is another thing entirely.',
     shortAnswer:
-      'Counselling for BC teachers, education assistants and TTOCs, online in the hours teaching actually allows: after the bell, in the evening, or across the summer. The recurring material is specific: the September cliff, classroom composition and behaviour load that has outgrown the supports, marking that colonises evenings, compassion fatigue from carrying students’ home lives, and the guilt-laced question of whether to stay in the profession. Extended health through school districts commonly reimburses Registered Clinical Counsellor sessions.',
-    updated: '2026-08-31',
+      'Counselling for BC teachers, education assistants and TTOCs, online, booked into whichever open time the timetable leaves. The recurring material is specific: the September cliff, classroom composition and behaviour load that has outgrown the supports, marking that colonises evenings, compassion fatigue from carrying students’ home lives, and the guilt-laced question of whether to stay in the profession. Extended health through school districts commonly reimburses Registered Clinical Counsellor sessions.',
+    updated: '2026-10-01',
     readMinutes: 6,
     opening: [
       'Teaching has a strain profile most jobs do not: a performance that cannot be phoned in, delivered to an audience whose needs exceed the resources in the room, on a calendar that resets every September regardless of what last June cost you. The profession also runs on a myth of vocation that makes admitting struggle feel like betraying the calling, which is how burnout in teachers gets narrated, by teachers, as personal failure.',
@@ -45,7 +45,7 @@ export const moreAudiences3: Audience[] = [
       {
         h2: 'The practical fit',
         body: [
-          'Sessions are online and scheduled around school reality: after the bell, evenings, or summer intensives when the timetable finally allows sustained work. District extended-health plans commonly reimburse Registered Clinical Counsellor sessions; the [coverage checklist](/resources/bc-extended-health-coverage-for-counselling) has the two questions to ask your plan. Where a district EFAP exists, it is a legitimate free first stop, and the [EAP comparison](/compare/efap-vs-private-counselling) is honest about where its session caps bite for anything longer than a rough patch.',
+          'Sessions are online and booked from what the counsellor has open, and summer is often when the timetable finally allows sustained work. District extended-health plans commonly reimburse Registered Clinical Counsellor sessions; the [coverage checklist](/resources/bc-extended-health-coverage-for-counselling) has the two questions to ask your plan. Where a district EFAP exists, it is a legitimate free first stop, and the [EAP comparison](/compare/efap-vs-private-counselling) is honest about where its session caps bite for anything longer than a rough patch.',
           'If the strain has already reached the point of medical leave, the [work-and-money cluster](/resources/workplace-mental-health-bc) covers the mechanics: sick days, the doctor’s note, EI, the return. Teachers use those pages every September; the aim of this one is fewer of them needing to.',
         ],
       },
@@ -103,17 +103,17 @@ export const moreAudiences3: Audience[] = [
     title: 'Counselling for tech workers in BC',
     metaTitle: 'Counselling for Tech Workers in BC | Westpeak',
     metaDescription:
-      'Counselling for BC tech workers: layoff cycles and survivor guilt, performance-review dread, work-permit stress, and remote isolation. Online, evenings.',
+      'Counselling for BC tech workers: layoff cycles and survivor guilt, performance-review dread, work-permit stress, and remote isolation. Online, by video.',
     eyebrow: 'For · Tech workers',
     lede:
       'Good salary, good benefits, ergonomic chair, and a nervous system that has spent three years bracing for the next reorg email. Both things are true, which is exactly why it feels unsayable.',
     shortAnswer:
-      'Counselling for people in BC tech: developers, designers, PMs, support and everyone adjacent, online, with evening availability and benefits plans that usually cover it well. The recurring material: layoff cycles and the survivor guilt after them, performance-review and PIP dread, the particular terror of job loss when a work permit or PR application is attached to the employer, remote isolation dressed up as flexibility, and imposter feelings in an industry that interviews like a trial. High comp does not disqualify you from any of it.',
-    updated: '2026-08-31',
+      'Counselling for people in BC tech: developers, designers, PMs, support and everyone adjacent, online, with benefits plans that often reimburse it, depending on the plan. The recurring material: layoff cycles and the survivor guilt after them, performance-review and PIP dread, the particular terror of job loss when a work permit or PR application is attached to the employer, remote isolation dressed up as flexibility, and imposter feelings in an industry that interviews like a trial. High comp does not disqualify you from any of it.',
+    updated: '2026-10-01',
     readMinutes: 6,
     opening: [
       'Tech in BC has spent several years in a permanent weather system of reorgs, hiring freezes and layoff rounds, and the people still employed are not fine. They are hypervigilant. The industry’s own culture makes this hard to say: you are well paid, the office has snacks, other people have real problems. That framing quietly forbids the exact conversation that would help.',
-      'Sessions run by video. A format this audience needs no onboarding for, with evening slots for the sprint-locked, and nothing routed anywhere near an employer. The benefits plans tech companies carry are typically among the better ones for counselling coverage, which means many people in this industry are already paying for therapy they never use.',
+      'Sessions run by video. A format this audience needs no onboarding for, booked from what the counsellor has open, and nothing routed anywhere near an employer. The benefits plans tech companies carry are typically among the better ones for counselling coverage, which means many people in this industry are already paying for therapy they never use.',
     ],
     whatComesUp: [
       { label: 'Layoff weather', detail: 'Surviving three rounds is its own injury: guilt about the cut colleagues, vigilance about the next email, and quietly doing two absorbed jobs while grateful aloud.' },
@@ -134,7 +134,7 @@ export const moreAudiences3: Audience[] = [
       {
         h2: 'The practical fit',
         body: [
-          'Evening and flexible session times fit sprint reality, and video sessions fit a population that has no anxiety about video. Tech benefits packages, including the health-spending accounts many companies layer on, commonly reimburse Registered Clinical Counsellor sessions at generous annual maximums; the [coverage page](/resources/bc-extended-health-coverage-for-counselling) covers how to check yours in two minutes. If a layoff is already the situation, the [work-and-money cluster](/resources/workplace-mental-health-bc) maps EI and the practical scaffolding, and sessions do not require an employer to exist.',
+          'Video sessions fit a population that has no anxiety about video, and times are picked from what the counsellor has open rather than a fixed weekly slot. Tech benefits packages, including the health-spending accounts many companies layer on, commonly reimburse Registered Clinical Counsellor sessions at generous annual maximums; the [coverage page](/resources/bc-extended-health-coverage-for-counselling) covers how to check yours in two minutes. If a layoff is already the situation, the [work-and-money cluster](/resources/workplace-mental-health-bc) maps EI and the practical scaffolding, and sessions do not require an employer to exist.',
           'And for the specific case where everything is attached to a visa: that pressure is carried by a lot of people in this industry’s Vancouver and it is under-discussed everywhere. It is a normal thing to bring here, in English, Punjabi or Tagalog, and it changes what "just leave the toxic job" advice is worth, which a counsellor should know before offering any.',
         ],
       },
@@ -153,7 +153,7 @@ export const moreAudiences3: Audience[] = [
       { q: 'Is any of this visible to my employer?', a: 'No. Paying through extended health means the insurer processes a counselling receipt; employers do not see claims detail. Nothing about attending, or what is said, reaches a workplace without your written consent, and sessions here are booked and paid by you, not through any corporate program.' },
       { q: 'I was just laid off and my benefits end soon. What is the smart order?', a: 'Use the coverage before it lapses. Many plans cover you to the end of the month or the severance period, and receipts dated inside that window still reimburse. Then: EI promptly, the low-cost options page if the gap stretches, and honestly, some of the best counselling work in a layoff happens in the first weeks, before the story about what it meant sets.' },
       { q: 'My work permit depends on my job and the anxiety is constant. Can counselling actually help with that?', a: 'It cannot change the immigration system, and it will not pretend to. What it can do is real: separate the rational planning problem from the ambient dread so each gets the right tool, build the capacity to function while carrying genuine uncertainty, and be one hour where the pressure can be said out loud in either English or Punjabi.' },
-      { q: 'Can sessions fit around sprint schedules and on-call?', a: 'Evening availability exists precisely for this, sessions are 50 minutes by video, and rescheduling with 24 hours’ notice is free. A cadence that flexes with release cycles, weekly in rough stretches, biweekly in calm ones, is a normal arrangement.' },
+      { q: 'Can sessions fit around sprint schedules and on-call?', a: 'Times depend on the counsellor, and the booking page shows what is open; sessions are 50 minutes by video, and rescheduling with 24 hours’ notice is free. A cadence that flexes with release cycles, weekly in rough stretches, biweekly in calm ones, is a normal arrangement.' },
     ],
     sources: [
       { label: 'Canadian Mental Health Association, BC Division', url: 'https://cmha.bc.ca/' },

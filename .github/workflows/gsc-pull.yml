@@ -1,0 +1,88 @@
+# Pulls Search Console into data/gsc/ every Monday and commits the files.
+#
+# WHY THIS EXISTS
+#
+# Every export in data/gsc/ so far arrived by hand, when somebody remembered,
+# and none recorded the window it covered: 51 of 55 city rows were identical
+# across two exports and nothing could say whether that was the site standing
+# still or the same weeks pulled twice. scripts/gsc-pull.mjs now writes the
+# window, page x query, the language pages by country, daily rows and URL
+# Inspection; this runs it on a cadence instead of a memory.
+#
+# WHAT IT NEEDS, ONCE
+#
+#   GitHub repo -> Settings -> Secrets and variables -> Actions -> GSC_SA_JSON
+#   holding the whole service-account JSON key (the account must be a user on
+#   the Search Console property; see the header of scripts/gsc-pull.mjs).
+#
+# Until that secret exists the job logs a skip and exits green, the same rule
+# as indexnow.yml: a red X every Monday over a missing nicety trains everyone
+# to ignore red X's. The key is written to the runner's temp directory, never
+# printed, and the directory is discarded with the runner.
+#
+# The commit is made with GITHUB_TOKEN, which by GitHub's rule does not
+# trigger other workflows, so it cannot set off the IndexNow ping.
+name: gsc-pull
+
+on:
+  schedule:
+    # Mondays 13:00 UTC, 06:00 Pacific: before the week's work starts.
+    - cron: '0 13 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gsc-pull
+  cancel-in-progress: false
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check for the key
+        id: key
+        env:
+          GSC_SA_JSON: ${{ secrets.GSC_SA_JSON }}
+        run: |
+          if [ -z "$GSC_SA_JSON" ]; then
+            echo "GSC_SA_JSON not set in repo secrets - skipping."
+            echo "present=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.key.outputs.present == 'true'
+
+      # One source of truth for the Node version - see the note in verify.yml.
+      # No npm ci: the script uses only Node's own modules.
+      - uses: actions/setup-node@v4
+        if: steps.key.outputs.present == 'true'
+        with:
+          node-version-file: .nvmrc
+
+      - name: Pull Search Console
+        if: steps.key.outputs.present == 'true'
+        env:
+          GSC_SA_JSON_BODY: ${{ secrets.GSC_SA_JSON }}
+        run: |
+          key="$RUNNER_TEMP/gsc-sa.json"
+          trap 'rm -f "$key"' EXIT
+          printf '%s' "$GSC_SA_JSON_BODY" > "$key"
+          GSC_SA_JSON="$key" node scripts/gsc-pull.mjs
+
+      - name: Commit the export
+        if: steps.key.outputs.present == 'true'
+        run: |
+          git add data/gsc
+          if git diff --cached --quiet; then
+            echo "Nothing new in data/gsc."
+            exit 0
+          fi
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -m "Search Console export for the week to $(date -u +%F)" \
+            -m "Written by .github/workflows/gsc-pull.yml from scripts/gsc-pull.mjs: pages, queries, page x query, page x country, daily rows, the window, and URL Inspection."
+          git push

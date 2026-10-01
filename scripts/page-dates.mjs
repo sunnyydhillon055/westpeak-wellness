@@ -85,12 +85,20 @@ const COLLECTIONS = {
      "counselling in Surrey" or for either counsellor by name, so they were
      precisely the wrong ones to leave undated. All four existed as modules
      before this; nobody had added them to the map. */
-  cityServices: 'lib/city-services.ts',
+  /* The template joined the module on 1 Oct 2026, for the reason locations
+     has two files: the city-service route component carries content of its
+     own, and production showed /online-counselling/vancouver/trauma-therapy
+     with JSON-LD 2026-09-17 while its template had changed since. */
+  cityServices: ['lib/city-services.ts', 'app/online-counselling/[city]/[service]/page.tsx'],
   practitioners: 'lib/practitioners.ts',
   practitionerPlaces: 'lib/practitioner-places.ts',
   tagalog: 'lib/tagalog-guides.ts',
   tagalogPlaces: 'lib/practitioner-places-tl.ts',
   tagalogLanding: 'lib/tagalog-landing.ts',
+  /* The Tagalog profile's own copy, 1 Oct 2026. Until now that page claimed
+     the Tagalog city pages' date in its schema and the roster's on screen.
+     lib/page-date-latest.ts combines it with the roster's. */
+  tagalogProfile: 'lib/practitioner-tl.ts',
   /* Punjabi, 7 Sep 2026: a counsellor's Punjabi profile, her city twins and
      the guides. */
   punjabiProfiles: 'lib/practitioner-pa.ts',

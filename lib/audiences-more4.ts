@@ -22,7 +22,7 @@ export const moreAudiences4: Audience[] = [
       'Somebody on your team is not alright, and you are trying to help without overstepping. This is what that looks like in practice.',
     shortAnswer:
       'An employer in BC cannot book counselling for an employee, but it can make it reachable: a working EFAP, a plan that lists Registered Clinical Counsellors, a health spending account, paid sick leave that is actually usable, and a manager who knows what not to ask. Westpeak Wellness is a small virtual practice, not an EAP provider; employees book directly, pay at booking, and receive receipts their plan can process. What the practice can offer an employer is clarity about how that works and, within scope, attendance confirmation when an employee asks for it.',
-    updated: '2026-09-06',
+    updated: '2026-10-01',
     readMinutes: 7,
     figure: 'reimbursement-flow',
     opening: [
@@ -60,7 +60,7 @@ export const moreAudiences4: Audience[] = [
         list: [
           { label: 'Clarity, in advance', detail: 'A short conversation about how employees would reach the practice, what a receipt contains, and what the plan needs to list. No contract and no cost.' },
           { label: 'Attendance confirmation', detail: 'With the employee\'s written consent, confirmation that they attended on given dates. Nothing about content, and never without consent.' },
-          { label: 'Sessions that fit shifts', detail: 'Video sessions, evening availability depending on the counsellor, and no travel time, which is the practical difference for shift, rotational and remote workers.' },
+          { label: 'Sessions that fit shifts', detail: 'Video sessions, times that depend on the counsellor and show on the booking page, and no travel time, which is the practical difference for shift, rotational and remote workers.' },
           { label: 'Three languages', detail: 'English, Punjabi and Tagalog, which matters in workforces where the person who most needs to talk is least likely to do it in a second language.' },
           { label: 'A straight answer about fit', detail: 'If an employee needs something this practice does not provide, a psychiatric assessment, an occupational-health opinion, a crisis service, they will be told so and pointed there.' },
         ],

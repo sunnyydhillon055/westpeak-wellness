@@ -67,7 +67,6 @@ const ALBERTA: PractitionerPlace[] = [
     access: [
       { label: 'No commute across the city', detail: 'A session from wherever you are, rather than a drive across Deerfoot at the exact hour it does not move.' },
       { label: 'Built for rotational schedules', detail: 'Block-by-block booking with gaps is a normal pattern here, and pausing between blocks costs nothing.' },
-      { label: 'Evening appointments', detail: 'Weekday evenings by request, Mountain Time, so the hour on the page is the hour you attend.' },
       { label: 'English or Tagalog', detail: 'Including both within one session, without needing to find it locally.' },
     ],
     faqs: [
@@ -91,7 +90,7 @@ const ALBERTA: PractitionerPlace[] = [
     ],
     access: [
       { label: 'January stops being a factor', detail: 'No drive, no parking, no cancelled session because the roads are bad.' },
-      { label: 'Fits shifts and terms', detail: 'Evening appointments by request, and pausing between blocks rather than dropping out entirely.' },
+      { label: 'Fits shifts and terms', detail: 'Pausing between blocks rather than dropping out entirely, at times picked from what the counsellor has open.' },
       { label: 'Something that starts now', detail: 'Useful alongside a public waitlist rather than instead of it, staying in that queue is generally worth doing.' },
       { label: 'English or Tagalog', detail: 'Including moving between the two inside a session.' },
     ],
@@ -237,7 +236,7 @@ const LOCAL_OVERRIDES: Record<string, Record<string, {
       blurb: 'A city big enough to have counsellors, and still short of the ones people are actually looking for.',
       local: [
         'Surrey is one of the fastest-growing cities in Canada, and the counselling here has not grown with it at the same rate. The lists are long, and the people who get seen quickest are usually the ones who can take a weekday afternoon off to do it.',
-        'It is also a city that works shifts: healthcare, the airport, warehousing, care work. A standing Tuesday at two does not survive a rotating roster, and an appointment you keep missing turns into an appointment you stop booking. Sessions by video, in the evening if that is what fits, remove the part that was breaking.',
+        'It is also a city that works shifts: healthcare, the airport, warehousing, care work. A standing Tuesday at two does not survive a rotating roster, and an appointment you keep missing turns into an appointment you stop booking. Sessions by video, at a time picked from what the counsellor has open, remove the part that was breaking.',
       ],
     },
     abbotsford: {

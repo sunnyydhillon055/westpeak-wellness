@@ -102,7 +102,7 @@ export const moreComparisons2: Comparison[] = [
       'Both are serious, structured, well-researched approaches to the same problem. They just walk into it through different doors.',
     shortAnswer:
       'The Gottman Method starts from the outside in: a structured assessment of how the two of you actually interact, then specific interventions aimed at the patterns: criticism, defensiveness, contempt, stonewalling. That its research links to relationships failing. Emotionally Focused Therapy (EFT) starts from the inside out: it treats the argument as the surface of an attachment question ("are you there for me?") and works on the emotional cycle underneath before the behaviour. Many couples would be helped by either; the honest differentiators are what you want to work on first and which style of session you can imagine yourselves in.',
-    updated: '2026-08-30',
+    updated: '2026-10-01',
     readMinutes: 6,
     table: {
       columns: ['', 'Gottman Method', 'Emotionally Focused Therapy (EFT)'],

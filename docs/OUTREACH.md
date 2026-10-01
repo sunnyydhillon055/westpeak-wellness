@@ -45,7 +45,7 @@ What we offer, briefly:
   Tagalog, in the language itself.
 - Individual, couples and family counselling; EMDR and trauma therapy.
 - A free 30-minute consultation, usually within days, no referral required.
-- Sessions by secure video, including evenings, from anywhere in BC.
+- Sessions by secure video from anywhere in BC. Times depend on the counsellor; /book shows what is open.
 - Fees published in full at westpeakwellness.com/pricing. Most extended
   health plans reimburse an RCC. We do not bill MSP and say so plainly.
 - Not a crisis service. Anyone at immediate risk is directed to 9-8-8 or

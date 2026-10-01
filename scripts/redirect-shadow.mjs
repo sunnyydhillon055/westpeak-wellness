@@ -37,9 +37,27 @@
 import { existsSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { findChains } from './redirect-chains.mjs';
 
 const ROOT = process.cwd();
 const BUILT = join(ROOT, '.next', 'server', 'app');
+
+const config = (await import(pathToFileURL(join(ROOT, 'next.config.mjs')).href)).default;
+const redirects = typeof config.redirects === 'function' ? await config.redirects() : [];
+
+/* CHAINS FIRST, 1 Oct 2026, because they need no build. A destination that is
+   itself a redirect source is a two-hop redirect: /jobs -> /careers -> /about
+   shipped that way for a month. Point the first hop at the final page. */
+const chains = findChains(redirects);
+if (chains.length) {
+  console.log('\nREDIRECT CHAIN CHECK');
+  console.log('='.repeat(52));
+  console.log('  ERROR - these redirects land on another redirect:\n');
+  for (const c of chains) console.log(`    ${c.source} -> ${c.destination} -> ${c.then}`);
+  console.log('\n  Send each source straight to the page it ends on.');
+  console.log('='.repeat(52) + '\n');
+  process.exit(1);
+}
 
 if (!existsSync(BUILT)) {
   console.error('redirect-shadow: no build found — run `npm run build` first.');
@@ -59,9 +77,6 @@ const routes = new Set();
     }
   }
 })(BUILT);
-
-const config = (await import(pathToFileURL(join(ROOT, 'next.config.mjs')).href)).default;
-const redirects = typeof config.redirects === 'function' ? await config.redirects() : [];
 
 const collisions = [];
 const skipped = [];

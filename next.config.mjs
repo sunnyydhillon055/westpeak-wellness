@@ -1,42 +1,38 @@
-// The near-duplicate city pages retired in the Phase 1 SEO audit
-// (see SEO_AUDIT.md §2). Kept here rather than imported from lib/locations.ts
-// because next.config.mjs is loaded by Node and cannot import TypeScript.
-//
-// KAMLOOPS WAS REMOVED FROM THIS LIST ON 2026-08-18, AND THE WAY IT WAS FOUND
-// IS THE REASON THIS COMMENT EXISTS.
-//
-// A real /online-counselling/kamloops page was written and shipped that day.
-// It built correctly, appeared in .next/server/app, passed `npm run seo`, and
-// scored 500/1000 — and in production it 308'd straight to /online-counselling,
-// because a redirect declared here beats a route that exists. Nothing local
-// catches that: `npm run build` does not exercise redirects, and a gate that
-// scans built HTML finds a file that is genuinely there.
-//
-// It surfaced only from a curl against production after deploy. scripts/
-// redirect-shadow.mjs now checks for it, and `npm run seo` runs it.
-//
-// So: BEFORE ADDING A PAGE WHOSE SLUG APPEARS BELOW, remove it from this list
-// in the same change. And before adding a slug here, check no page owns it.
-/* Burnaby, Langley and Chilliwack left this list on 2026-08-28, when real city
-   pages were written for them in lib/locations.ts. A slug must never appear
-   both here and there: that combination builds a page and then 308s it, which
-   has already shipped once on this site and was reported as live off a green
-   local gate. `npm run redirect-shadow` now fails the build on it. */
-const retiredCitySlugs = [
-  /* richmond, coquitlam, delta and nanaimo removed 31 Aug 2026 — each now has
-     a deep page. A slug left here while a page exists produces a page that
-     renders and 308s; `npm run redirect-shadow` fails the build on it. */
-  'mission',
-  /* 'white-rock' removed 31 Aug 2026: it now has a deep page. It is the one
-     city where the practice holds a Google Business Profile, so a URL that
-     308'd to the index was throwing away the only local entity it has. */
-  'maple-ridge', 'new-westminster', 'north-vancouver',
-  'west-vancouver', 'port-coquitlam', 'port-moody', 'pitt-meadows',
-  'victoria-saanich', 'courtenay', 'campbell-river', 'duncan', 'parksville',
-  'vernon', 'penticton', 'west-kelowna', 'salmon-arm',
-  'fort-st-john', 'cranbrook', 'nelson', 'prince-rupert', 'terrace',
-  'squamish', 'whistler', 'powell-river', 'sechelt', 'fort-langley', 'hope',
-];
+import { REDIRECTS } from './lib/redirects.mjs';
+
+/* THE REDIRECT LIST MOVED TO lib/redirects.mjs ON 1 OCT 2026, with every
+   comment that explained it (the Kamloops shadow, the retired services, the
+   careers block). It moved so lib/indexnow.ts can read the same list; read
+   that file before adding a redirect, and before adding a page whose slug a
+   redirect already claims. */
+
+/* THE VERCEL ALIAS IS A SECOND COPY OF THE SITE — 1 Oct 2026.
+ *
+ * westpeak-wellness.vercel.app answered 200 with `X-Robots-Tag: index,
+ * follow` and advertised /llms.txt (curl, 1 Oct 2026), and a web assistant
+ * sent a user there. It is redirected here rather than in middleware because
+ * the middleware matcher is deliberately narrow: widening it to every path
+ * would put an edge invocation in front of every page on every host to
+ * serve one alias.
+ *
+ * The exact production alias only. A preview deployment has its own
+ * generated host (westpeak-wellness-<hash>-<team>.vercel.app or a -git-
+ * branch host), and it must keep serving its own build, or previews stop
+ * being previews. Those get noindex in headers() instead. `has` values are
+ * anchored regular expressions, hence the escaped dots.
+ *
+ * /api/ is left alone on purpose. Vercel's documentation gives the cron
+ * target as the project's production deployment URL, which can be this very
+ * host, and a cron request does not follow a redirect: a 308 here would stop
+ * booking-mail and reply-watch without a single error anywhere. An API route
+ * is not a page and has nothing to be indexed. */
+const VERCEL_HOST = '.+\\.vercel\\.app';
+const VERCEL_ALIAS_REDIRECT = {
+  source: '/:path((?!api/).*)',
+  has: [{ type: 'host', value: 'westpeak-wellness\\.vercel\\.app' }],
+  destination: 'https://www.westpeakwellness.com/:path',
+  permanent: true,
+};
 
 /* WHAT A MACHINE READER SHOULD BE TOLD IT CAN HAVE — 24 Sep 2026.
  *
@@ -146,6 +142,16 @@ const nextConfig = {
           { key: 'X-Robots-Tag', value: 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1' },
         ],
       },
+      /* NO VERCEL HOST IS AN INDEXABLE COPY — 1 Oct 2026. The rule above sent
+       * `index, follow` from every host that serves this build, preview
+       * deployments included. After it, so it wins for the same key: any
+       * *.vercel.app host says noindex. The production alias is redirected
+       * outright (see redirects() below) and never reaches this. */
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: VERCEL_HOST }],
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
+      },
       /* The Markdown twin of a page, announced on the page itself. A client
        * that prefers Markdown can find it without guessing the convention,
        * and one that does not will never notice the header.
@@ -189,152 +195,7 @@ const nextConfig = {
     ];
   },
   async redirects() {
-    // Preserve old Wix URLs so existing links / Google index don't 404
-    return [
-      // 37 near-duplicate city pages retired in the Phase 1 SEO audit.
-      ...retiredCitySlugs.map((slug) => ({
-        source: `/online-counselling/${slug}`,
-        destination: '/online-counselling',
-        permanent: true,
-      })),
-      // Retired audience page — the practice no longer publishes a men's page.
-      { source: '/for/mens-mental-health', destination: '/for', permanent: true },
-      { source: '/copy-of-new-page', destination: '/contact', permanent: true },
-      { source: '/fees', destination: '/pricing', permanent: true },
-      /* /answers retired 31 Aug 2026 at the owner's request: one FAQ, not two
-         pages answering questions. It held 97 entries and 196 internal links,
-         so it is redirected rather than deleted — the inbound equity and any
-         external link land on /faq instead of a 404. */
-      /* /answers came back on 14 Sep 2026 as the instant-answer page (every
-         question the site answers, searchable) at the owner's request; the
-         31 Aug redirect to /faq is gone. */
-
-      /* CAREERS RETIRED 1 Sep 2026 at the owner's request — the practice is not
-         recruiting, and does not want speculative applications either.
-
-         Redirected rather than left to 404 because /careers was indexed and
-         ranking for BC counselling-job queries, so the URL carries inbound
-         equity and live external links. /about is the nearest surviving page
-         about the practice itself. The retired job postings under
-         /careers/:slug go the same way. */
-      { source: '/careers', destination: '/about', permanent: true },
-      { source: '/careers/:slug', destination: '/about', permanent: true },
-
-      /* SERVICES REDUCED TO FIVE, 31 Aug 2026, at the owner's request:
-         individual, couples, EMDR, family, and Punjabi-speaking.
-         Six service pages retired. None are deleted — each 301s to the
-         service that absorbed it, so the ranking equity and every inbound
-         link land somewhere that answers the same question.
-
-         Anxiety, depression and trauma are not "not offered". They are what
-         individual counselling is FOR, and the page says so. Folding three
-         thin pillars into one strong one is the point of the change. */
-      { source: '/services/anxiety-counselling', destination: '/services/individual-therapy', permanent: true },
-      { source: '/services/depression-counselling', destination: '/services/individual-therapy', permanent: true },
-      { source: '/services/trauma-therapy', destination: '/services/individual-therapy', permanent: true },
-      { source: '/services/emdr-intensive', destination: '/services/emdr-therapy', permanent: true },
-      { source: '/services/south-asian-mental-health', destination: '/services/punjabi-counselling', permanent: true },
-      { source: '/services/online-counselling-bc', destination: '/online-counselling', permanent: true },
-
-      /* RCC: one page, not two - 17 Sep 2026. The definition page and the
-         verification page split one query cluster; the definition now lives on
-         the verification page. See lib/resources-more.ts. */
-      { source: '/resources/what-is-a-registered-clinical-counsellor', destination: '/resources/verify-a-counsellor-in-bc', permanent: true },
-
-      /* THE CITY x TOPIC REDIRECTS ARE GONE, 2 Sep 2026.
-         All thirty pages exist again — anxiety, trauma and depression across
-         ten cities — rebuilt through lib/conditions.ts, which lets a city page
-         resolve a condition without it becoming a service again. A redirect in
-         front of a page that exists is a page nobody can reach; the top of this
-         file records the Kamloops incident where exactly that shipped, and
-         `npm run redirect-shadow` fails the build on it now.
-
-         The /services/* redirects for the same three slugs stay. Those services
-         really were retired and really do belong to individual therapy — it is
-         only the LOCAL intent that got its pages back, because "anxiety
-         counselling in Surrey" wants Surrey. */
-      /* /blog was a 404. The guides engine already is the article stack —
-         dated, Article-schema'd and internally linked — so this points at it
-         rather than standing up a second one that would split topic authority
-         and double the maintenance. */
-      { source: '/blog', destination: '/guides', permanent: true },
-      { source: '/blog/:slug', destination: '/guides/:slug', permanent: true },
-      { source: '/copy-of-contact', destination: '/faq', permanent: true },
-      { source: '/copy-of-fees', destination: '/services/individual-therapy', permanent: true },
-      { source: '/copy-of-individual-2', destination: '/services/anxiety-counselling', permanent: true },
-      { source: '/copy-of-individual-1', destination: '/services/trauma-therapy', permanent: true },
-      { source: '/copy-of-individual', destination: '/services/emdr-therapy', permanent: true },
-
-      /* Careers. Nobody reliably guesses "/careers" — people type /jobs, or
-         /hiring, or whatever the last site they applied to used. Each of these
-         costs nothing and closes a door that would otherwise be a 404, which
-         matters most on the route where somebody retypes a URL from a screenshot
-         or a forwarded message.
-
-         /apply is a 307 rather than a 301 on purpose: it points at whichever
-         role is currently open, so it must not be cached permanently against
-         this one.
-
-         THE RCC POSTING WAS CLOSED 2026-08-20, and that foresight is why this
-         block needed so little changing. Everything that pointed at the posting
-         now points at /careers, and every one of those is a 307 — the slug may
-         be reused when the role reopens, and a 301 cached in a browser or an
-         index would then send people away from the very page they wanted.
-         /careers itself is unaffected: it was written to be useful when nothing
-         is open. */
-      { source: '/jobs', destination: '/careers', permanent: true },
-      { source: '/job', destination: '/careers', permanent: true },
-      { source: '/hiring', destination: '/careers', permanent: true },
-      { source: '/join-us', destination: '/careers', permanent: true },
-      { source: '/join', destination: '/careers', permanent: true },
-      { source: '/work-with-us', destination: '/careers', permanent: true },
-      { source: '/employment', destination: '/careers', permanent: true },
-      { source: '/career', destination: '/careers', permanent: true },
-      { source: '/vacancies', destination: '/careers', permanent: true },
-      { source: '/careers/rcc', destination: '/careers', permanent: false },
-      { source: '/jobs/:slug', destination: '/careers/:slug', permanent: true },
-      { source: '/apply', destination: '/careers', permanent: false },
-      { source: '/careers/apply', destination: '/careers', permanent: false },
-      /* The closed posting. It was indexed and carried JobPosting markup, so
-         sending it somewhere useful beats a 404 — /careers still explains the
-         arrangement to anyone who arrives from an old link or a screenshot. */
-      { source: '/careers/registered-clinical-counsellor', destination: '/careers', permanent: false },
-
-      /* Keyword-shaped entry points. These are REDIRECTS, not pages, and that
-         distinction is the whole point: a set of near-identical city or
-         job-title pages for a single opening is a doorway-page pattern, and
-         Google has penalised that for years. A redirect costs nothing, cannot
-         be thin content, and still catches the URL somebody types after
-         hearing about the role secondhand. */
-      /* Both of these answered 404 with the full 40 kB HTML error page. Next
-         serves the manifest at /manifest.webmanifest; these are the two paths
-         browsers and crawlers try first. */
-      { source: '/manifest.json', destination: '/manifest.webmanifest', permanent: true },
-      { source: '/site.webmanifest', destination: '/manifest.webmanifest', permanent: true },
-
-      /* THE /punjabi-counselling REDIRECT WAS REMOVED ON 2026-08-18.
-         It read: "its hub is /services/punjabi-counselling, which already
-         existed — standing up a second would cannibalise the first for the
-         same query." That was reasonable when there was no hub at the bare
-         prefix, and it stopped being true the moment one was built. The new
-         hub 308'd to the service page in production while passing every local
-         check, for the same reason the Kamloops page did.
-
-         The two pages do different jobs and do not compete: the service page
-         answers "what is Punjabi-speaking counselling", the hub answers "what
-         is available where I live". The variants below still point at the
-         service page, which is the right destination for them. */
-      { source: '/punjabi-therapist', destination: '/services/punjabi-counselling', permanent: true },
-      { source: '/punjabi-therapy', destination: '/services/punjabi-counselling', permanent: true },
-      { source: '/punjabi-counsellor', destination: '/services/punjabi-counselling', permanent: true },
-
-      { source: '/counselling-jobs', destination: '/careers', permanent: true },
-      { source: '/counsellor-jobs', destination: '/careers', permanent: true },
-      { source: '/therapist-jobs', destination: '/careers', permanent: true },
-      { source: '/rcc-jobs', destination: '/careers', permanent: true },
-      { source: '/counselling-careers', destination: '/careers', permanent: true },
-      { source: '/work-here', destination: '/careers', permanent: true },
-    ];
+    return [VERCEL_ALIAS_REDIRECT, ...REDIRECTS];
   },
 };
 export default nextConfig;

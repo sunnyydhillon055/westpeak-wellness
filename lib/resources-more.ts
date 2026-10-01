@@ -495,7 +495,7 @@ export const moreResources: Resource[] = [
       'A stress leave says "I am unwell and need time." A WorkSafeBC claim says something stronger: "work injured me." Different systems, different tests, and mixing them up costs people months.',
     shortAnswer:
       'WorkSafeBC compensates psychological injury in two situations: a reaction to one or more traumatic events at work, or a mental disorder predominantly caused by significant work-related stressors, which includes bullying and harassment. Two hard edges define the system: the condition must be diagnosed by a psychologist or psychiatrist (not self-described burnout), and injuries caused by ordinary employer decisions: workload changes, discipline, termination, are excluded by statute. A claim is not a lawsuit and costs nothing to file; it is also not the right tool for every bad workplace, and this page is honest about which is which.',
-    updated: '2026-09-17',
+    updated: '2026-10-01',
     readMinutes: 7,
     sections: [
       {

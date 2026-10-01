@@ -20,6 +20,7 @@ import { TL_PLACE_SHARED } from '@/lib/practitioner-places-tl';
 import { getTagalogCity } from '@/lib/tagalog';
 import Updated from '@/components/Updated';
 import { COLLECTION_DATES } from '@/lib/page-dates';
+import { placePageDate, tagalogProfileDate } from '@/lib/page-date-latest';
 
 /* Two kinds of page share this route, because they are the same page in two
  * languages and splitting them would duplicate the schema, the breadcrumbs and
@@ -199,8 +200,8 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
          inLanguage from a variable rather than a literal and the pattern was
          matching literals. Worth the note: a page found by measuring the built
          output, not by reading the source. */
-      datePublished: COLLECTION_DATES['tagalogPlaces'],
-      dateModified: COLLECTION_DATES['tagalogPlaces'],
+      datePublished: tagalogProfileDate(),
+      dateModified: tagalogProfileDate(),
       author: orgRef,
       isPartOf: siteRef,
       mainEntity: { '@id': `${site.domain}/practitioners/${p.slug}#person` },
@@ -214,7 +215,7 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
               <p className="eyebrow">{t.eyebrow}</p>
               <h1 lang="tl">{t.h1}</h1>
               <p className="lede" lang="tl">{t.lede}</p>
-              <Updated iso={COLLECTION_DATES['practitioners']} />
+              <Updated iso={tagalogProfileDate()} />
               <div className="btn-row" style={{ marginTop: 22 }}>
                 <Link className="btn btn--primary" href={site.bookingPath}>{t.cta}</Link>
                 <Link className="btn btn--ghost" href={`/practitioners/${p.slug}`} hrefLang="en-CA">{t.englishLink}</Link>
@@ -328,8 +329,8 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
       /* Real commit date for the module this page's copy lives in, from
          lib/page-dates.ts. Without it this page made no freshness claim at
          all, which a retrieval system reads as unknown rather than fresh. */
-      datePublished: COLLECTION_DATES['practitionerPlaces'],
-      dateModified: COLLECTION_DATES['practitionerPlaces'],
+      datePublished: placePageDate(),
+      dateModified: placePageDate(),
       author: orgRef,
       about: orgRef,
     },
@@ -378,7 +379,7 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
       <section className="hero" style={{ paddingBottom: 40 }}>
         <div className="container">
           <p className="eyebrow">{p.name} · {loc.city}</p>
-          <Updated iso={COLLECTION_DATES['practitioners']} className="hero-note" />
+          <Updated iso={placePageDate()} className="hero-note" />
           <h1>Counselling for {loc.city}, with {first}</h1>
           <p className="lede">{loc.blurb}</p>
           <div className="btn-row" style={{ marginTop: 22 }}>

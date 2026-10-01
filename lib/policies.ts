@@ -333,7 +333,7 @@ export const policies: Record<string, Policy> = {
           { label: 'Sessions in Punjabi', detail: 'Working in the language you think in is an access issue, not a preference. See [Punjabi counselling](/services/punjabi-counselling).' },
           { label: 'Pacing and breaks', detail: 'Sessions can be paused, shortened, or restructured. For trauma work in particular, pacing is a clinical decision made with you rather than to you.' },
           { label: 'Written summaries on request', detail: 'Where it helps: memory difficulty, attention difficulty, or preferring things in writing, key points and between-session plans can be sent in writing afterward.' },
-          { label: 'Flexible scheduling', detail: 'Evening appointments are available by request, which matters for shift work, caregiving, and jobs without daytime flexibility.' },
+          { label: 'Scheduling', detail: 'Times depend on the counsellor, and the booking page shows what is open.' },
         ],
       },
       {

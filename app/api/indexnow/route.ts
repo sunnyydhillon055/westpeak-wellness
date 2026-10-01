@@ -60,3 +60,10 @@ export async function GET(req: NextRequest) {
   const r = await submitSitemapToIndexNow({ dry: req.nextUrl.searchParams.get('dry') === '1' });
   return NextResponse.json(r, { status: r.ok ? 200 : 502 });
 }
+
+/* THE DEPLOY PING POSTS, AND THIS ROUTE ONLY ANSWERED GET — 1 Oct 2026.
+   .github/workflows/indexnow.yml sends `curl -X POST`, so every push to main
+   got a 405 and the job failed or skipped; the only submissions that ever
+   happened were the Monday cron's GET. Same handler, same secret check: a
+   POST is not a second way in, it is the method the workflow already uses. */
+export { GET as POST };
