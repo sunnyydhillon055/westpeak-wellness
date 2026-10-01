@@ -164,11 +164,16 @@ export default async function ForCounsellors() {
                 <strong>No report back</strong> about whether the person booked or how it is
                 going, unless the client asks for that in writing.
               </li>
-              <li>
+            </ul>
+            {/* The crisis line sits in the site's crisis box rather than as a
+                fourth bullet, so it reads as the one thing not to miss, and so
+                the page carries a boxed block (scripts/visual-audit.mjs). */}
+            <div className="crisis" style={{ margin: '18px 0' }}>
+              <p style={{ margin: 0 }}>
                 <strong>Not a crisis service.</strong> Sessions are scheduled. Someone in crisis
                 needs 9-1-1, 9-8-8, or 310-6789 in BC, not a booking page.
-              </li>
-            </ul>
+              </p>
+            </div>
             <p>
               Scope limits are the same as for any referral: no diagnosis, no formal assessment,
               no court-related work. They are set out on <Link href="/standards">standards and
