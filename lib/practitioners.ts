@@ -279,7 +279,9 @@ export const practitioners: Practitioner[] = [
         full: 'Registered Clinical Counsellor',
         body: 'BC Association of Clinical Counsellors',
         number: '26894',
-        verifyUrl: 'https://bc-counsellors.org/counsellors/',
+        /* Her own listing, checked 1 Oct 2026 (the Person on it is Camille
+           Granda, Registered Clinical Counsellor), not the search page. */
+        verifyUrl: 'https://bcacc.ca/counsellors/camille-granda/',
         validTo: '2026-12-31',
         scope: 'provincial',
       },
@@ -288,7 +290,7 @@ export const practitioners: Practitioner[] = [
         full: 'Canadian Certified Counsellor',
         body: 'Canadian Counselling and Psychotherapy Association',
         number: '11263060',
-        verifyUrl: 'https://www.ccpa-accp.ca/',
+        verifyUrl: 'https://www.ccpa-accp.ca/find-a-ccc-ccc-s-directory/',
         validTo: '2029-10-01',
         scope: 'national',
       },

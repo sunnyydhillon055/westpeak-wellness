@@ -22,6 +22,7 @@
  */
 import { readdirSync, readFileSync, statSync, existsSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
+import { rosterNumbers, numberLeaks } from './roster-numbers.mjs';
 
 const APP = join(process.cwd(), '.next', 'server', 'app');
 const fail = [];
@@ -319,50 +320,78 @@ if (!NAME_TOKENS.length) {
  * strongest permitted signal on a site that cannot show reviews. That is true
  * and it is not the decision. This check is the answer.
  *
- * Reads the number from lib/site.ts so it cannot go stale, and matches the
- * bare digits so `#20111`, `20111` and a JSON-LD value are all caught. */
+ * Reads every number on the roster (scripts/roster-numbers.mjs) plus the
+ * founder's from lib/site.ts, and matches the bare digits so `#20111`,
+ * `20111` and a JSON-LD value are all caught.
+ *
+ * EVERY COUNSELLOR, SINCE 1 OCT 2026. The guard read the founder's number
+ * only, so /book?with=savneet-singh printed "verify #27067" with nothing to
+ * catch it. Each number may now appear on its owner's profile and her place
+ * pages (/practitioners/<slug>/...) and nowhere else.
+ *
+ * /book is rendered per request (it reads ?with=), so it is not in the
+ * build's HTML and this loop never saw it. `--live <origin>` fetches /book
+ * and /book?with=<slug> for every counsellor and applies the same rule. */
 const REG = (() => {
   try {
     const src = readFileSync(join(process.cwd(), 'lib', 'site.ts'), 'utf8');
     return (src.match(/registration:\s*["']([^"']+)["']/) || [, ''])[1];
   } catch { return ''; }
 })();
+const ROSTER_SRC = (() => {
+  try { return readFileSync(join(process.cwd(), 'lib', 'practitioners.ts'), 'utf8'); } catch { return ''; }
+})();
+const NUMBERS = rosterNumbers(ROSTER_SRC);
+if (REG && !NUMBERS.some((e) => e.number === REG)) NUMBERS.push({ slug: 'aman-bains-dhillon', number: REG });
 
-if (!REG) {
-  note.push('registration guard: could not read the number from lib/site.ts — the check did NOT run');
+if (!NUMBERS.length) {
+  note.push('registration guard: could not read any number from lib/practitioners.ts or lib/site.ts — the check did NOT run');
 } else {
-  /* `\\b`, not `\b`. Inside a template literal `\b` is the backspace
-     character U+0008, so the first version of this line compiled to
-     /[backspace]20111[backspace]/ and matched nothing — the guard passed a
-     build with the number injected into the footer of all 192 pages. Caught
-     by injecting exactly that and watching it report success. */
-  const digits = new RegExp(`\\b${REG}\\b`);
   let regFail = false;
-
-const REG_ALLOWED_ON = ['/practitioners/aman-bains-dhillon'];
-
   for (const [route, html] of published) {
-    /* Her own profile only, since 6 Sep 2026. /about carried it as the
-       practice's identity anchor until the owner had it removed: one
+    /* Her own pages only. /about carried the founder's number as the
+       practice's identity anchor until the owner had it removed on 6 Sep: one
        counsellor's number on a page about a practice of several. A profile
        carries it because a counsellor profile without a checkable
        registration number is the weaker page, and the number is the whole
        trust argument on a site barred from showing reviews. Everywhere else
        is a failure. */
-    if (REG_ALLOWED_ON.includes(route)) continue;
-    if (digits.test(html)) {
-      const where = [
-        ['visible text', (html.match(/<main[\s\S]*?<\/main>/i) || [''])[0]],
-        ['JSON-LD', (html.match(/application\/ld\+json[^>]*>[\s\S]*?<\/script>/gi) || []).join(' ')],
-        ['<title>', (html.match(/<title[^>]*>[\s\S]*?<\/title>/i) || [''])[0]],
-        ['meta description', (html.match(/<meta[^>]+name=["']description["'][^>]*>/i) || [''])[0]],
-      ].filter(([, str]) => digits.test(str)).map(([w]) => w);
-      fail.push(`${route}: registration number present${where.length ? ` (${where.join(', ')})` : ''} — /about only`);
+    for (const l of numberLeaks(route, html, NUMBERS)) {
+      fail.push(`${route}: ${l.slug}'s number ${l.number} present${l.where.length ? ` (${l.where.join(', ')})` : ''} — her own pages only`);
       regFail = true;
     }
   }
   if (!regFail) {
-    pass.push(`Registration number confined to /about across all ${published.length} published pages`);
+    pass.push(`${NUMBERS.length} roster numbers confined to their owners' pages across all ${published.length} published pages`);
+  }
+
+  const liveIdx = process.argv.indexOf('--live');
+  const ORIGIN = liveIdx > -1 ? process.argv[liveIdx + 1] : null;
+  if (ORIGIN) {
+    const slugs = [...new Set(NUMBERS.map((e) => e.slug))];
+    const routes = ['/book', ...slugs.map((s) => `/book?with=${s}`)];
+    let liveFail = false;
+    for (const route of routes) {
+      let html = '';
+      try {
+        const res = await fetch(new URL(route, ORIGIN), {
+          headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36' },
+        });
+        if (!res.ok) { fail.push(`${route}: HTTP ${res.status} from ${ORIGIN} — registration guard could not read it`); liveFail = true; continue; }
+        html = await res.text();
+      } catch (e) {
+        fail.push(`${route}: could not fetch from ${ORIGIN} (${e instanceof Error ? e.message : 'error'})`);
+        liveFail = true;
+        continue;
+      }
+      for (const l of numberLeaks(route, html, NUMBERS)) {
+        fail.push(`${route} (live): ${l.slug}'s number ${l.number} present${l.where.length ? ` (${l.where.join(', ')})` : ''} — her own pages only`);
+        liveFail = true;
+      }
+    }
+    if (!liveFail) pass.push(`No roster number on ${routes.length} live /book variants at ${ORIGIN}`);
+  } else {
+    note.push('registration guard: /book is rendered per request and was not checked; run with --live <origin> to include it');
   }
 }
 
