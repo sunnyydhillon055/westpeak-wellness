@@ -316,7 +316,13 @@ export const services: Service[] = [
     figure: "bc-reach",
     name: "Punjabi-Speaking Counselling",
     short: "Therapy in Punjabi, English, or both, culturally fluent.",
-    metaTitle: "Punjabi-Speaking Counselling in BC | Westpeak Wellness",
+    /* The English head term lives here, 1 Oct 2026. Search Console: this
+       page fell from 12 impressions at 11.0 to 3 at 20.7 while /punjabi rose
+       to 134 at 9.82 with no clicks, so English queries such as "counselling
+       in punjabi" (17 at 12.5) were being answered by a page whose heading is
+       in Gurmukhi. The English words lead here, and /punjabi leads with its
+       own script. */
+    metaTitle: "Punjabi Counselling Online in BC | Punjabi-Speaking RCC",
     metaDescription:
       "Online Punjabi-speaking therapy across BC: counselling in Punjabi, English, or both, with deep cultural competency. Book a free consultation.",
     hero: "You don't have to translate yourself.",

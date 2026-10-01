@@ -16,15 +16,18 @@ import { punjabiGuides } from '@/lib/punjabi-guides';
 import { placesFor } from '@/lib/practitioner-places';
 import { PA_CITY, getPunjabiPlace } from '@/lib/practitioner-places-pa';
 
-/* ENGLISH FIRST, 17 Sep 2026. This page held position 10.3 for 111
-   impressions in a quarter and took zero clicks. The queries behind it are
-   typed in English - "counselling meaning in punjabi", "counselling in
-   punjabi", "punjabi therapist near me" - and a result whose title opens in
-   Gurmukhi gives an English-language searcher nothing to recognise. The
-   Gurmukhi stays, because the page is genuinely in Punjabi and is shared
-   hand to hand in WhatsApp where it is the half that matters; it moves
-   second. */
-const TITLE = 'Punjabi Counselling in BC | ਪੰਜਾਬੀ ਵਿੱਚ ਕਾਊਂਸਲਿੰਗ';
+/* GURMUKHI FIRST, 1 Oct 2026, reversing the "English first" order of 17 Sep.
+   That change was a code-comment choice, not a DECISIONS entry. It moved the
+   English words to the front so English searchers would recognise this page,
+   and they did: /punjabi climbed to 134 impressions at position 9.82 with
+   zero clicks, while the English page those searchers can actually read,
+   /services/punjabi-counselling, fell from 12 at 11.0 to 3 at 20.7. The two
+   pages were competing for one English query set and the one that cannot
+   serve it was winning. So the English head term now leads the English
+   page's title (lib/services.ts), and this page leads with the Gurmukhi it
+   is written in, for people searching in Punjabi and for the WhatsApp
+   shares where that half is the one that matters. Same words, reordered. */
+const TITLE = 'ਪੰਜਾਬੀ ਵਿੱਚ ਕਾਊਂਸਲਿੰਗ | Punjabi Counselling in BC';
 const DESC =
   'ਬ੍ਰਿਟਿਸ਼ ਕੋਲੰਬੀਆ ਵਿੱਚ ਪੰਜਾਬੀ ਬੋਲਣ ਵਾਲੇ Registered Clinical Counsellor ਨਾਲ ਆਨਲਾਈਨ ਕਾਊਂਸਲਿੰਗ। Online counselling in Punjabi anywhere in BC.';
 
