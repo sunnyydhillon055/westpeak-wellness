@@ -823,6 +823,133 @@ notification is a separate switch, in Cliniko, and stays the owner's.
 
 *Enforced by:* `lib/booking-notify.ts` (the `alerted` and `cancelAlerted` ledgers)
 
+### The booking calendar is loaded when somebody asks for it, and /book says what the call is before the tap
+Decided 1 Oct 2026. Lighthouse mobile on production /book scored 38 (first paint
+6.2 s, largest paint 10.3 s, layout shift 0.51, 3.6 MB) while every other page
+scored 75-80, and the whole difference was the server-rendered Cliniko iframe:
+near enough the top of a phone screen to load on first view, it brought 1.7 MB
+from cdn.cliniko.com, 0.8 MB from js.stripe.com and Google Fonts Lato with it,
+and Lato arriving inside the frame was the shift. Since 18 Aug, 94 people had
+reached that calendar and 43 touched it, on a page that took ten seconds to
+become usable. The frame now mounts from one primary button, "Show available
+times", inside a box already the frame's height that holds the counsellor's
+portrait, the next open times from Cliniko and the first-party direct link as
+the second action; the fallback link stays in the HTML for a browser with no
+JavaScript. The client portal keeps the immediate frame: a signed-in client who
+opened it to book has already asked. `scheduler_visible` on /book therefore
+changes meaning on this date, from "scrolled past the calendar" to "opened it
+and saw half of it"; counts before and after are not comparable, and no new
+event was added because one outside the conversion log's COUNTED list is
+dropped on arrival. What the thirty minutes are — who you talk to, what is
+asked, that nothing is charged and no card is taken — moved from a closed
+disclosure below the calendar to three visible lines under the facts, where the
+decision to tap is made; the disclosure keeps the long version. The page no
+longer waits on Cliniko before sending its own markup: the three lines that need
+the answer stream in behind the shell, each in a slot already its height so the
+page never jumps whether the line lands or Cliniko is down and nothing does, and
+the availability fetch times out at eight seconds so a stalled Cliniko cannot
+hold the stream open. Measured against a local production build the change
+removed every third-party byte before the tap (3.55 MB to 0.83 MB, 70 requests
+to 35) at CLS 0.002; production's 38 could not be reproduced locally because
+there the page happened to paint before the frame started, and the point of the
+change is that this race no longer exists on any host.
+
+*Enforced by:* `components/SchedulerGate.tsx` (frame only after the button), `scripts/cta-audit.mjs --live` (/book still carries both asks), `app/premium.css` reserved slots (`.book-hours`, `.book-card-avail`, `.scheduler-wait__next`)
+
+### A conversion event carries one detail, from a list the site already owns
+Decided 1 Oct 2026. Six weeks of first-party counts could say that 34
+booking clicks and 105 calendar views happened and could not say which of
+the two counsellors any of them were for or which button produced them:
+the beacon sent the event and the pathname, and `?with=`, `location` and
+`who` went to gtag, which is not loaded. The sticky bar — the one Book link
+on every page below 1020px — fired nothing at all, and the two form events
+were beacons fired as a native POST navigated away, recording 3 of 40
+enquiries and none of 68 leads. An event may now carry one `detail`,
+accepted only from a list built from the roster, the fixed CTA locations
+and the tools' own outcomes, and dropped otherwise while the event is still
+counted — no free text, nothing a person typed, and a bound somebody can
+read (52 book_click keys once the five hero buttons below were added, 3
+slugs, 3 magnets, 27 tool keys). It is a second map beside the first, event
+→ detail → count next to event → path → count, so every existing reader of
+the file reads it unchanged and the difference between the two is
+"unattributed", shown rather than hidden. A booking click's key holds the
+button and, when the link named one, the counsellor
+("sticky/camille-granda"), so one click stays one count and both cuts sum.
+The sticky bar is counted. The server counts the two form events when it
+stores the record, after the honeypot verdict and before the throttle, and
+the browser no longer sends them, so the conversion log and the inbound
+store agree and nothing counts twice. `tool_complete` is counted with the
+outcome the tool led with; the two reflection tools reach no verdict and are
+counted by name only, because the counter must not invent one. The log
+still keeps no day buckets, so the monthly email labels the booking-click
+cut as cumulative since the counter began and leaves month-on-month to the
+previous email.
+
+*Enforced by:* `lib/conversion-detail.ts`, `lib/conversion-log.ts`,
+`lib/inbound-submit.ts`, `test/conversion-log.test.mts`
+
+### The hero button names the page, is counted, and books with the counsellor who speaks the language
+Decided 1 Oct 2026. Every city, service and audience page opened with the
+same four words, "Book a free consultation", as a plain link that no
+`book_click` event ever saw. The closing band was counted; the button at the
+point of deciding was not. Each of those buttons now goes through `BookLink`
+under its own location (`hero-city`, `hero-service`, `hero-audience`,
+`aside-service`, `mid-audience`) and names the page the heading just named:
+in Kelowna, for EMDR therapy, for teachers. The audience record carries the
+words after "Book a free consultation" as a required field, so a new page
+cannot ship with a button that does not name it.
+
+A page written for Punjabi or Tagalog speakers used to send its reader to the
+practice-wide calendar, which lists a counsellor who does not work in that
+language. The service and audience records now carry a language tag where the
+page is for one language, and `lib/booking-cta.ts` resolves it against the
+roster: the first counsellor who is accepting, bookable and speaks it. The
+button says "with a Punjabi-speaking counsellor", never a name, and opens
+`/book?with=` that person; the closing band books with the same one. The
+founder speaks Punjabi and is excluded by the same rule as everybody else,
+not by name. If nobody accepting speaks the language the button falls back
+to the plain label and the practice calendar rather than promising a
+consultation no calendar can deliver, and a test holds that every tagged
+page resolves today.
+
+Under the button on the city and audience templates sits one line about who
+pays, in `/pricing`'s own words: most BC extended health plans reimburse an
+RCC, MSP does not, receipts are issued, fees are published. "Most", and no
+insurer named, because coverage is a property of the employer's plan. It is
+one component so there is one copy to keep in step with `/pricing`. The
+uniqueness gate measures only the two-segment city x service pages, by its
+own rule, so a shared line on the hubs is outside it.
+
+*Enforced by:* `lib/booking-cta.ts`, `components/CoverageLine.tsx`,
+`test/booking-cta.test.mts`, `lib/conversion-detail.ts` (`BOOK_LOCATIONS`)
+
+### One page per query cluster, a third time: stress leave, and the Gottman query that can book
+Decided 1 Oct 2026. The 6 and 17 Sep retitles followed Search Console
+faithfully and produced the opposite of what they were for: "Stress Leave
+in BC" was put at the front of the doctor's-note guide, the return-to-work
+guide and the WorkSafeBC resource because those pages drew the phrase,
+and by the 26 Sep export the seven "stress leave bc" queries (374
+impressions, positions 14-22, no clicks) were landing mostly on those
+three (246 impressions between them) rather than on `/guides/stress-leave-bc`
+(91 at 10.49), the page written to answer them and to offer the
+consultation. A query family gets one page. The siblings now lead their
+titles with their own job and name the head term second; each links the
+hub from its first paragraph with the anchor "how stress leave works in
+BC"; and the hub's headings are the queries themselves with the answer in
+the first paragraph beneath, because the content was there and the
+headings were written for a reader rather than a crawler. The same rule
+sent "gottman method counsellor british columbia" (23 impressions, 26.65,
+matching `/services/couples-therapy` and the EFT comparison, not the guide
+at 8.43) to a section on the service page headed "Gottman-informed couples
+counselling in BC", linked from both pages with that heading as the
+anchor; "Gottman-informed" rather than "trained" because no training level
+is on the roster for the counsellor taking couples bookings. The before
+numbers are recorded beside each field so the next export reads against
+them. The limits still bind: no HowTo schema was added, because the guide
+model has no field for it and Google no longer shows the result.
+
+*Enforced by:* comments beside each retitled field, `scripts/seo-audit.mjs` (lengths, duplicate titles), the next `data/gsc/` export read against the figures above
+
 ### Titles follow Search Console, not taste
 Decided 6 Sep 2026. The first month of Search Console data (`data/gsc/`)
 showed 4,478 non-brand impressions and two clicks: pages surfacing at
