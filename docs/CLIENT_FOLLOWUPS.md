@@ -116,27 +116,16 @@ Cancellations are mostly life: a shift changed, a child was sick, the
 courage ran out that morning. A message that treats it as a lost sale reads
 wrong to all three. This one treats it as a thing that happened.
 
+**Where the draft is now (1 October 2026):** the text lives in
+`lib/reply-templates.ts` (`BOOKING_DRAFTS`, key `rebook-consult`), so there
+is one copy. The cancellation alert for a consultation carries a "Draft a
+rebook note" link that opens it in a mail client with the first name, the
+day and that counsellor's free calendar (`/book?with=<slug>#calendar`)
+already filled in, signed with her name. Read it, change what needs
+changing, and send it a day later from your own mailbox. Paid cancellations
+carry no draft.
+
 **Subject:** Whenever suits | Westpeak Wellness
-
-Hi [first name],
-
-I saw that the consultation on [day] was cancelled. No explanation needed,
-and no reply needed either; this is the only message of its kind.
-
-If you would like to pick another time, the calendar is here and shows what
-is open:
-https://www.westpeakwellness.com/book
-
-If none of the times work, tell me roughly when in a week you are free and I
-will write back when something opens up that fits. There is no obligation
-attached to that.
-
-If you have decided against it, or found somewhere that fits better, that is
-a completely reasonable outcome and you do not need to say so.
-
-[Name]
-Registered Clinical Counsellor, Westpeak Wellness
-info@westpeakwellness.com
 
 *Notes for the owner:* the subject line carries no name and no word
 "cancelled", because the subject is what shows on a lock screen. If the
@@ -156,37 +145,18 @@ most often stops people after a good call, and it holds the door open
 without leaning on it. Send once. If there is still nothing after this,
 there is nothing to send.
 
+**Where the draft is now (1 October 2026):** the text lives in
+`lib/reply-templates.ts` (`BOOKING_DRAFTS`, key `after-consult`). The
+booking job (`lib/booking-notify.ts`) now finds these people: a
+consultation whose day-after note went out 10 to 14 days ago, with no later
+session booked that was not cancelled. It sends a notice to info@ and to
+that counsellor's own address, once per client ever, carrying the draft as
+a mailto: with the first name, the day and her own paid calendar filled
+in. Nothing goes to the client automatically; she edits it and sends it, or
+leaves it. When the counsellor is not taking new clients the notice carries
+no draft and says the `full` reply is the honest one.
+
 **Subject:** One more thing, then I will leave it with you | Westpeak Wellness
-
-Hi [first name],
-
-Thank you again for the conversation on [day]. I said I would not send a
-sequence, and this is not one; it is one message, and after it the next step
-is entirely yours.
-
-The question people most often have after a consultation and do not ask is
-what they are committing to. The honest answer is: one session. There is no
-package, no minimum and no contract. Most people start weekly and go further
-apart; around the fourth session we deliberately check whether it is
-working and whether I am the right person, and stopping there is a normal
-outcome.
-
-If you would like to go ahead, sessions can be booked directly here:
-[paid calendar link, `site.bookingsPaidUrl`]
-
-If the cost is the thing, say so. I would rather know than guess: fees are
-published in full at https://www.westpeakwellness.com/pricing, extended
-health plans that list an RCC usually reimburse (which depends on the plan,
-not the insurer), and if private counselling is not workable right now there
-are free and low-cost routes in BC that I will happily point you to:
-https://www.westpeakwellness.com/resources/low-cost-counselling-bc
-
-If you have decided this is not the right fit, or the timing is wrong, that
-is a good outcome to have reached and no reply is needed.
-
-[Name]
-Registered Clinical Counsellor, Westpeak Wellness
-info@westpeakwellness.com
 
 *Notes for the owner:* nothing from the call goes in this email, including
 the reason they came. If the person asked on the call about a different
