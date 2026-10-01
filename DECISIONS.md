@@ -1619,6 +1619,108 @@ room left.
 
 ---
 
+### A confirmed booking is counted, credited to its landing and button, and every change gets a before-and-after
+Decided 1 Oct 2026 (branch `wf/measurement`). (1) Bookings Cliniko confirms
+inside the embedded calendar are counted as `scheduler_booked`. Cliniko posts
+`cliniko-bookings-page:confirmed`; it is accepted only from the frame's own
+origin and window (the one Cliniko listener, in
+`components/SchedulerTelemetry.tsx`), and nothing but the message name is
+read.
+
+(2) Landing and button credit is a narrow, deliberate exception to "nothing
+joins two actions": the browser keeps `<landing path>|<channel or class>` and
+the last booking button in sessionStorage, and sends them only as the bounded
+detail of `click_from`, `booked_from` and `booked_via`. The server stores
+counts, never a session or an identifier. Portal bookings are rebookings and
+are not credited to a landing.
+
+(3) Staff browsers are excluded per device by localStorage `wp-no-count`,
+switched on /admin. (4) Retention figures (rebook within 21 days, depth in
+the first 90 days, paid but nothing booked) are counts by counsellor and by
+referral source, with groups under 3 folded into "other", matching the city
+rule.
+
+(5) The A/B test stays rejected. Its replacement is `data/changes.json` plus a
+before/after readout against untouched pages with a 95% Poisson interval,
+which says "too few to tell" rather than giving a verdict. Snapshots began
+1 Oct, so for `conv:` metrics the "before" window is the cumulative log since
+18 Aug, and the first snapshot (around 5 Oct) puts about four post-change days
+into "before". (6) Search Console compares overlapping 28-day export windows,
+because that is what the committed files support, and says so; staleness
+warnings appear on /admin, not by email.
+
+*Enforced by:* `lib/conversion-detail.ts` (`landingKeyOk`, `ALLOWED`),
+`lib/change-register.ts`, `test/measurement.test.mts`
+
+### "Verify" means the RCC Register, and a profile states what she offers, from data
+Decided 1 Oct 2026 (branch `wf/info-content-trust`). BCACC's directory
+(bc-counsellors.org/counsellors) is opt-in, and Savneet's listing is switched
+off, so the verify link on her profile found nobody. `site.counsellor.registerUrl`
+and every BCACC `verifyUrl` now point at bcacc.ca/search-our-member-register/.
+All three RCCs were read off it by number on 1 Oct (Active, no notes) and
+recorded as `registerCheckedOn`. The profile deep-links each counsellor's own
+entry (`?mid=<number>`), on her page only, because the URL carries the number.
+Directory links stay only where the text is about finding someone.
+
+Profiles now carry a roster-and-catalogue fact strip (fees, free consult,
+reach, languages, not offered) and `Person.makesOffer` from the same data. The
+liability-insurance line appears only while `insuranceStatus` is `current`, not
+during the grace period. Each profile has a line saying a complaint about her
+can go straight to BCACC, linking /standards, which now states the BCACC
+route, the five-year window and the written response. Leave and EI guides
+state the catalogue individual fee and leave coverage during a leave to HR or
+the plan.
+
+*Enforced by:* `test/register-links.test.mts`, `lib/practitioner-facts.ts`,
+`scripts/credential-expiry.mjs` (90-day `registerCheckedOn`)
+
+### One employer page, and HR is answered by email
+Decided 1 Oct 2026 (branch `wf/workplace-students`).
+/resources/counselling-support-for-bc-teams (67 impressions at 43.94, 0
+clicks, still calling the practice "solo") now 301s to /for/employers-and-hr,
+which had no Search Console rows at all. The teams page's manager guidance,
+Fraser Valley language point and workshops answer moved over. "Solo",
+"receipts that work with every plan" and "bookable that week" did not.
+
+The employer hero no longer books a client consultation for HR, because those
+are the scarce slots. It sends HR to /contact?about=employer, where an
+"employer" choice needs no WHERE/TIMING, keeps the 20-word floor, and alerts
+info@ only. Booking is offered only as "Send an employee to book".
+
+Separately: typed copy may not promise one counsellor's Canada-wide reach,
+because the insurance gate can withdraw it and the HR paste block is copied
+onto intranets the site cannot update. Student-plan figures live only in
+`lib/student-plans.ts`, and a test fails when a row is more than 365 days old.
+
+*Enforced by:* `test/reach-copy.test.mts`, `test/student-plans.test.mts`,
+`lib/redirects.mjs`
+
+### Languages and fees in money-page copy come from data, not typing
+Decided 1 Oct 2026 (branch `wf/services-language`). A page about a service
+names only the languages spoken by accepting counsellors who offer that
+service (`lib/city-service-page.ts` `languagesFor`/`languagePhrase`). Couples,
+EMDR and family therefore read "English or Tagalog" until a Punjabi speaker
+lists that service. The /for/punjabi-speaking-couples copy switches back
+automatically if that happens.
+
+Money-page descriptions (/pricing, /services/*, city hubs,
+/punjabi-counselling/*, accepting counsellor profiles) end with
+"{fee} per {minutes}-min session · free 30-min consult · {names}", composed by
+`lib/snippet-facts.ts` from the Cliniko catalogue and the roster. It is never
+typed, never cut, and capped at 155 characters by seo-audit
+(`snippet-too-long`). price-drift fails any fee typed into a description.
+Confidentiality limits are stated from one constant, `CONFIDENTIALITY_LIMITS`
+in `lib/practice-facts.ts`. Abbotsford and Prince George couples pages use the
+title "Marriage Counselling" through `Pair.titleName`, per Search Console
+(Abbotsford: 51 marriage-phrased impressions against 33 couples-phrased;
+Prince George: marriage queries only). Item 166 (premarital and affair-recovery
+copy) waits on Camille confirming the content.
+
+*Enforced by:* `test/service-languages.test.mts`, `scripts/seo-audit.mjs`,
+`scripts/price-drift.mjs`
+
+---
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`
