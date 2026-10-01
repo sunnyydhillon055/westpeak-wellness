@@ -322,6 +322,15 @@ for (const [path, want, wantDest] of CHECKS) {
       failures.push(`${path} - answered 200 with the 404 page (title: "${title.trim()}")`);
       continue;
     }
+    /* The Punjabi region and Tagalog city pages are English pages ABOUT a
+       language, not translations of anything, so they declare no hreflang
+       (DECISIONS.md: hreflang only for real translations). The region pages
+       carried a one-way pa -> /punjabi until 1 Oct 2026. Only <link> tags
+       count: an in-body <a hreflang="pa"> to a Punjabi page is correct. */
+    if (/^\/(punjabi|tagalog)-counselling\//.test(path) && /<link\b[^>]*\bhreflang=/i.test(body)) {
+      failures.push(`${path} - declares hreflang, but a region page is not a translation`);
+      continue;
+    }
   }
 
   passed++;
