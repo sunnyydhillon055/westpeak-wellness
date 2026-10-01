@@ -109,7 +109,7 @@ export const moreGuides7: Guide[] = [
       'The whole leave usually hinges on one short appointment most people walk into unprepared, and walk out of having minimised everything they came to say.',
     shortAnswer:
       'A mental-health leave in BC runs on a medical certificate from a doctor or nurse practitioner stating that you are unable to work and for roughly how long. It does not need to name your diagnosis, and your employer is not entitled to one. They may ask for reasonably sufficient proof of illness, which the note itself is. The honest preparation for the appointment is a plain account of symptoms and function: sleep, concentration, mood, what work currently does to you. Understatement is the main failure mode; doctors certify what they are shown.',
-    updated: '2026-09-17',
+    updated: '2026-10-01',
     readMinutes: 6,
     sections: [
       {
@@ -193,7 +193,7 @@ export const moreGuides7: Guide[] = [
       'The leave has an end date. The condition does not check the calendar, which is why the return is where a good leave either consolidates or unravels.',
     shortAnswer:
       'A return that holds is usually gradual, negotiated, and honest about what caused the leave. In BC, an employer has a duty under the Human Rights Code to accommodate a mental-health disability to the point of undue hardship, which in practice supports graduated hours, modified duties, and changes to the specific conditions that broke you. The functional questions belong in a return-to-work plan from your doctor; your diagnosis still belongs to you. And the least-discussed truth: returning to an unchanged situation at full speed is how second leaves happen.',
-    updated: '2026-09-02',
+    updated: '2026-10-01',
     readMinutes: 7,
     sections: [
       {

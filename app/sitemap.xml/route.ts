@@ -19,6 +19,7 @@ import { resources } from '@/lib/resources';
 import { approaches } from '@/lib/approaches';
 import { getFigure } from '@/lib/figures';
 import { lastmodFor, collectionLastmod } from '@/lib/page-dates';
+import { isoDay, placePageDate, tagalogProfileDate } from '@/lib/page-date-latest';
 import { albertaPages, ontarioPages } from '@/lib/expansion';
 import { ALBERTA_LIVE, ONTARIO_LIVE } from '@/lib/regions';
 
@@ -102,7 +103,10 @@ export function GET() {
     ...(pr.placePages
       ? placesFor(pr.provinces).map((l) => ({
           path: `/practitioners/${pr.slug}/${l.slug}`,
-          lastmod: collectionLastmod('practitioners'),
+          /* The page's own date, read from the same helper as its JSON-LD and
+             its visible line (1 Oct 2026): the roster or the place copy,
+             whichever changed last. */
+          lastmod: isoDay(placePageDate()),
           changefreq: 'monthly' as const,
           priority: 0.6,
           /* The reach map these pages actually render. Without it the diagram
@@ -120,14 +124,15 @@ export function GET() {
       ? [
           {
             path: `/practitioners/${pr.slug}/tl`,
-            lastmod: collectionLastmod('practitioners'),
+            lastmod: isoDay(tagalogProfileDate()),
             changefreq: 'monthly' as const,
             priority: 0.7,
           },
           ...(pr.placePages
             ? placesFor(pr.provinces).map((l) => ({
                 path: `/practitioners/${pr.slug}/${l.slug}/tl`,
-                lastmod: collectionLastmod('practitioners'),
+                /* What the page itself states in JSON-LD and on screen. */
+                lastmod: collectionLastmod('tagalogPlaces'),
                 changefreq: 'monthly' as const,
                 priority: 0.6,
                 figure: 'language-in-therapy-tl',
@@ -281,7 +286,11 @@ export function GET() {
      * leaves tells the crawler to prefer the less specific page. */
     ...pairs.map((p) => ({
       path: `/online-counselling/${p.city}/${p.service}`,
-      lastmod: collectionLastmod('locations'),
+      /* cityServices, not locations — 1 Oct 2026. The page's JSON-LD and its
+         visible Updated line read cityServices; the sitemap read the city
+         hub's date, so production said 2026-10-01 here and 2026-09-17 on
+         the page. scripts/page-dates.mjs now counts the template too. */
+      lastmod: collectionLastmod('cityServices'),
       changefreq: 'monthly' as const, priority: 0.7,
     })),
     /* The Punjabi-by-region cluster. Priority above the city pages on purpose:
