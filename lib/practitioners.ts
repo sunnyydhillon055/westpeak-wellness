@@ -506,7 +506,7 @@ const recorded: Practitioner[] = [
     services: ['individual-therapy', 'couples-therapy', 'emdr-therapy', 'family-counselling'],
     /* PSYCHOLOGY TODAY, WITHDRAWN 1 Oct 2026 — applies to every counsellor.
        Her listing (.../camille-granda-richmond-bc/1831823, found 14 Sep 2026)
-       reads "Apollo Counselling Services", Richmond, $150 and a 15-minute
+       reads "Apollo Counselling Services", Richmond, a fee that is not ours and a 15-minute
        consultation. Person.sameAs tells an engine that page IS this person,
        so it merges those facts into hers: the wrong practice, the wrong fee,
        the wrong consultation length. The URL is also not linked from the
@@ -729,7 +729,7 @@ const recorded: Practitioner[] = [
        is not on her roster record because no document for it has been
        supplied. */
     /* Not .../savneet-kaur-singh-edmonton-ab/1821843: it reads "Registered
-       Provisional Psychologist", Edmonton, $220. Withdrawn 1 Oct 2026; see
+       Provisional Psychologist", Edmonton, at a fee that is not ours. Withdrawn 1 Oct 2026; see
        the PSYCHOLOGY TODAY note on Camille's record. */
     sameAs: [],
     placePages: true,
