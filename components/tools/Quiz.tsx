@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { track } from '@/lib/analytics';
-import { toolDetail } from '@/lib/conversion-detail';
+import { toolDetail } from '@/lib/conversion-detail-client';
 import type { Question } from '@/lib/tools';
 
 /* One question at a time, keyboard operable, nothing stored anywhere.
@@ -44,7 +44,7 @@ export default function Quiz({
     setTags(next);
     if (step + 1 >= questions.length) {
       const outcome = outcomeOf?.(next);
-      track('tool_complete', { tool: slug, outcome, detail: toolDetail(slug, outcome) ?? undefined });
+      track('tool_complete', { tool: slug, outcome, detail: toolDetail(slug, outcome) });
     }
     setStep(step + 1);
   }

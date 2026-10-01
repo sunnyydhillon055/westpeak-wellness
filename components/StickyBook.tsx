@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { site } from '@/lib/site';
 import { track } from '@/lib/analytics';
-import { bookClickDetail, withSlugOf } from '@/lib/conversion-detail';
+import { bookClickDetail, withSlugOf } from '@/lib/conversion-detail-client';
 import { bookHrefFor, type NavPractitioner } from '@/lib/roster-nav';
 
 /* THE BOOKING LINK FOLLOWS THE PAGE.
@@ -120,7 +120,7 @@ export default function StickyBook({ roster }: { roster: NavPractitioner[] }) {
             href={bookHrefFor(pathname, roster, site.bookingPath)}
             onClick={() => track('book_click', {
               location: 'sticky',
-              detail: bookClickDetail('sticky', withSlugOf(bookHrefFor(pathname, roster, site.bookingPath))) ?? undefined,
+              detail: bookClickDetail('sticky', withSlugOf(bookHrefFor(pathname, roster, site.bookingPath))),
             })}
           >
             Book free consult

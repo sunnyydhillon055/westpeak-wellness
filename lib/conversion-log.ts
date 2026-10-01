@@ -1,5 +1,5 @@
 import { put, get } from '@vercel/blob';
-import { allowedDetail, splitBookDetail } from '@/lib/conversion-detail';
+import { acceptedDetail, splitBookDetail } from '@/lib/conversion-detail';
 
 /* FIRST-PARTY CONVERSION COUNTS.
  *
@@ -150,7 +150,7 @@ export async function countConversion(event: string, path: string, detail?: unkn
   if (!COUNTED.has(event)) return false;
   const p = safePath(path);
   if (!p) return false;
-  const d = allowedDetail(event, detail);
+  const d = acceptedDetail(event, detail);
 
   const current = await readConversions({ fresh: true });
   const events = { ...current.events, [event]: bump(current.events[event], p) };

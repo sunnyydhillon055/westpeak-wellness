@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { site } from '@/lib/site';
 import { track } from '@/lib/analytics';
-import { bookClickDetail, withSlugOf } from '@/lib/conversion-detail';
+import { bookClickDetail, withSlugOf } from '@/lib/conversion-detail-client';
 
 /* Every booking CTA on the site goes through here.
  *
@@ -29,7 +29,7 @@ export default function BookLink({
     <Link
       className={className}
       href={href ?? site.bookingPath}
-      onClick={() => track('book_click', { location, detail: bookClickDetail(location, withSlugOf(href)) ?? undefined })}
+      onClick={() => track('book_click', { location, detail: bookClickDetail(location, withSlugOf(href)) })}
     >
       {children}
     </Link>

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import {
-  allowedDetail, bookClickDetail, toolDetail, withSlugOf, splitBookDetail,
+  allowedDetail, acceptedDetail, bookClickDetail, toolDetail, withSlugOf, splitBookDetail,
   BOOK_LOCATIONS, COUNSELLOR_SLUGS, TOOL_OUTCOMES, MAGNET_KEYS,
 } from '@/lib/conversion-detail';
 import {
@@ -187,4 +187,13 @@ test('the breakdowns split one key both ways and account for the unattributed', 
   const legacy = { events: { book_click: { '/': 12 } }, total: 12, since: '', updatedAt: '' } as unknown as ConversionLog;
   assert.deepEqual(bookClickBreakdown(legacy), { total: 12, byLocation: [], byCounsellor: [], noCounsellor: 0, unattributed: 12 });
   assert.deepEqual(detailsOf(legacy, 'book_click'), { rows: [], unattributed: 12 });
+});
+
+test('the store keeps the button when the browser names an unknown counsellor', () => {
+  assert.equal(acceptedDetail('book_click', 'sticky/nobody'), 'sticky');
+  assert.equal(acceptedDetail('book_click', 'sticky/camille-granda'), 'sticky/camille-granda');
+  assert.equal(acceptedDetail('book_click', 'hero/camille-granda'), null, 'an unwired button is still refused');
+  assert.equal(acceptedDetail('tool_complete', 'which-service:not-an-outcome'), 'which-service');
+  assert.equal(acceptedDetail('book_direct', 'nobody'), null);
+  assert.equal(acceptedDetail('book_click', 42), null);
 });

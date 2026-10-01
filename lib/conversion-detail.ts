@@ -140,3 +140,15 @@ export function allowedDetail(event: string, detail: unknown): string | null {
   if (typeof detail !== 'string' || detail.length === 0 || detail.length > 80) return null;
   return ALLOWED[event]?.has(detail) ? detail : null;
 }
+
+/** What the store keeps for a detail the browser composed. The browser half
+ *  (lib/conversion-detail-client.ts) carries no list, so it can send a key
+ *  whose counsellor or outcome half is unknown; the button or the tool is
+ *  still worth counting, exactly as bookClickDetail and toolDetail above
+ *  fall back. Anything else is the strict list. 1 Oct 2026. */
+export function acceptedDetail(event: string, detail: unknown): string | null {
+  const strict = allowedDetail(event, detail);
+  if (strict || typeof detail !== 'string') return strict;
+  const cut = event === 'book_click' ? detail.indexOf(SEP) : event === 'tool_complete' ? detail.indexOf(':') : -1;
+  return cut > 0 ? allowedDetail(event, detail.slice(0, cut)) : null;
+}

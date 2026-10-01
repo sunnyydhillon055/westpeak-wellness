@@ -6,7 +6,7 @@ import { site } from '@/lib/site';
 import { TAGALOG_READY } from '@/lib/practitioner-tl';
 import { TL_CHROME } from '@/lib/practitioner-places-tl';
 import { track } from '@/lib/analytics';
-import { bookClickDetail, withSlugOf } from '@/lib/conversion-detail';
+import { bookClickDetail, withSlugOf } from '@/lib/conversion-detail-client';
 import Motif from '@/components/brand/Motif';
 import { bookHrefFor, type NavPractitioner } from '@/lib/roster-nav';
 
@@ -329,7 +329,7 @@ export default function Header({ roster }: { roster: NavPractitioner[] }) {
                 setOpen(false);
                 track('book_click', {
                   location: 'header',
-                  detail: bookClickDetail('header', withSlugOf(bookHrefFor(pathname, roster, site.bookingPath))) ?? undefined,
+                  detail: bookClickDetail('header', withSlugOf(bookHrefFor(pathname, roster, site.bookingPath))),
                 });
               }}
             >
