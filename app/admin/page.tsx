@@ -267,7 +267,7 @@ export default async function AdminPage({
             {Object.values(availability).map((a) => (
               <li key={a.slug}>
                 <strong>{a.slug}</strong>:{' '}
-                {a.error ? `could not read (${a.error})` : `${a.count} consultation ${a.count === 1 ? 'time' : 'times'} in the next seven days${a.count ? `, ${a.days.join(' ')}, ${a.earliest} to ${a.latest}` : ''}`}
+                {a.error ? `could not read (${a.error})` : `${a.count} consultation ${a.count === 1 ? 'time' : 'times'} in the next two weeks${a.count ? `, ${a.days.join(' ')}, ${a.earliest} to ${a.latest}` : ''}`}
               </li>
             ))}
             {!Object.keys(availability).length && <li>No counsellor is bookable online and accepting.</li>}

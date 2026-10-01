@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { usePathname } from 'next/navigation';
+import { Suspense, useEffect, useState } from 'react';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { site } from '@/lib/site';
 import { track } from '@/lib/analytics';
 import { bookClickDetail, withSlugOf } from '@/lib/conversion-detail-client';
@@ -66,6 +66,35 @@ const PhoneIcon = () => (
  * countdown or scarcity language — a health site should not pressure anyone. */
 type Avail = Record<string, { first: string; next: string[]; count: number }>;
 
+const DEFAULT_LINE = 'Free 30-minute consultation · no referral needed';
+
+/* The line names a time, and on /book?with= it names the CHOSEN counsellor's
+   time — 1 Oct 2026. It used to advertise whoever was soonest, so a reader on
+   /book?with=savneet-singh was told "Next free consult: Sat … with Camille".
+   With a counsellor chosen and nothing open for her, the line says nothing
+   about anyone else.
+
+   useSearchParams is read here, in a child under its own Suspense, rather
+   than in the bar: the bar is rendered by the layout on every static page,
+   and the hook outside a boundary would opt every one of them out of static
+   rendering. Under the boundary, prerender prints the default line (which is
+   what it printed anyway, since the times arrive after mount). */
+function NextLine({ avail, onSlug, onBooking }: { avail: Avail | null; onSlug?: string; onBooking: boolean }) {
+  const params = useSearchParams();
+  const chosen = onBooking ? params?.get('with') ?? undefined : undefined;
+  const pick = !avail
+    ? undefined
+    : chosen
+      ? (avail[chosen]?.next?.length ? avail[chosen] : undefined)
+      : onSlug && avail[onSlug]?.next?.length
+        ? avail[onSlug]
+        : Object.values(avail).find((a) => a.next?.length);
+  const line = pick?.next?.[0]
+    ? `Next free consult: ${pick.next[0].replace(/\s\(\d+ times\)$/, '')} with ${pick.first}`
+    : DEFAULT_LINE;
+  return <p className="sticky-book-text">{line}</p>;
+}
+
 export default function StickyBook({ roster }: { roster: NavPractitioner[] }) {
   const pathname = usePathname();
   /* The next open consultation, fetched once per page view from a
@@ -88,18 +117,15 @@ export default function StickyBook({ roster }: { roster: NavPractitioner[] }) {
   if (pathname === '/resources/bc-crisis-and-support-directory') return null;
   const onBooking = pathname === site.bookingPath;
 
-  /* On a counsellor's own page, her time; elsewhere the soonest of anyone's. */
+  /* On a counsellor's own page, her time; on /book?with=, the chosen one's;
+     elsewhere the soonest of anyone's. See NextLine. */
   const onSlug = /^\/practitioners\/([^/]+)/.exec(pathname ?? '')?.[1];
-  const pick = avail
-    ? (onSlug && avail[onSlug]?.next?.length ? avail[onSlug] : Object.values(avail).find((a) => a.next?.length))
-    : undefined;
-  const nextLine = pick?.next?.[0]
-    ? `Next free consult: ${pick.next[0].replace(/\s\(\d+ times\)$/, '')} with ${pick.first}`
-    : 'Free 30-minute consultation · no referral needed';
 
   return (
     <div className="sticky-book" role="navigation" aria-label="Contact the practice">
-      <p className="sticky-book-text">{nextLine}</p>
+      <Suspense fallback={<p className="sticky-book-text">{DEFAULT_LINE}</p>}>
+        <NextLine avail={avail} onSlug={onSlug} onBooking={onBooking} />
+      </Suspense>
       <div className="sticky-book-actions">
         <a
           className="sticky-book-btn sb-mail"
@@ -126,15 +152,32 @@ export default function StickyBook({ roster }: { roster: NavPractitioner[] }) {
             Book free consult
           </Link>
         )}
+        {/* ON /book THE BAR JUMPS TO THE CALENDAR — 1 Oct 2026. Measured at
+            375x812, "Show available times" sat 2.7 screens down a 7,300px page
+            while the bar's wide dark button was "Call us", the opposite of
+            email-over-phone. Now the primary slot is a jump to #calendar, and
+            the phone keeps the same small icon it has on every other page.
+            Counted as its own button so a jump is never read as an arrival. */}
+        {onBooking && (
+          <a
+            className="sticky-book-btn sb-book"
+            href="#calendar"
+            onClick={() => track('book_click', {
+              location: 'sticky-book-jump',
+              detail: bookClickDetail('sticky-book-jump', withSlugOf(window.location.search)),
+            })}
+          >
+            Pick a time &darr;
+          </a>
+        )}
         {site.phone && (
           <a
-            className={`sticky-book-btn sb-call${onBooking ? ' sb-call--wide' : ''}`}
+            className="sticky-book-btn sb-call"
             href={`tel:${site.phoneTel}`}
             aria-label={`Call ${site.name} at ${site.phone}`}
             onClick={() => track('phone_click', { location: 'sticky' })}
           >
             <PhoneIcon />
-            {onBooking && <span className="sb-call-label">Call us</span>}
           </a>
         )}
       </div>

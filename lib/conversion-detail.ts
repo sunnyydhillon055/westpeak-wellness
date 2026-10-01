@@ -35,6 +35,8 @@ import { CHANNELS, REFERRER_CLASSES } from '@/lib/conversion-detail-client';
 export const BOOK_LOCATIONS: readonly string[] = [
   'header',
   'sticky',
+  /* The sticky bar on /book itself, which jumps to #calendar (1 Oct 2026). */
+  'sticky-book-jump',
   'cta-band',
   /* The hero and mid-page buttons on the city, service and audience
      templates, routed through BookLink since 1 Oct 2026. */

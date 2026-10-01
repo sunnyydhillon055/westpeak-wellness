@@ -159,7 +159,7 @@ export default function TagalogPage() {
                 {speaker.credentials.map((c) => (
                   <span key={c.short}>
                     <BadgeCheck aria-hidden="true" strokeWidth={1.7} />
-                    {c.full} · {c.body} #{c.number}
+                    {c.full} · {c.body}
                   </span>
                 ))}
               </div>

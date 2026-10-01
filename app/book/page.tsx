@@ -13,6 +13,8 @@ import { ogBase } from '@/lib/og-meta';
 import { practitioners, getPractitioner, defaultBookingPractitioner, withLetters } from '@/lib/practitioners';
 import { PROVINCE_NAME, type Province } from '@/lib/crisis';
 import { consultationAvailability, availabilityLine, practiceHoursLine } from '@/lib/cliniko-availability';
+import { readCatalog, FALLBACK_CATALOG, type Catalog } from '@/lib/cliniko-catalog';
+import { sessionFeesPhrase } from '@/lib/book-fees';
 
 export const metadata: Metadata = {
   title: 'Book a Free 30-Minute Consultation',
@@ -59,6 +61,24 @@ const availability = cache(() => consultationAvailability());
 async function HoursLine() {
   const line = practiceHoursLine(await availability());
   return line ? <p className="book-credential" style={{ margin: 0 }}>{line}</p> : null;
+}
+
+/* WHAT SESSIONS COST IF YOU CARRY ON — 1 Oct 2026. From the Cliniko
+   catalogue (lib/book-fees.ts), never typed. Streamed like the lines above so
+   the shell does not wait on the catalogue read; the fallback is the same
+   sentence from the catalogue's known-good values, so the line is the same
+   length either way and nothing moves when the live one lands. */
+function FeesText({ catalog }: { catalog: Catalog }) {
+  const phrase = sessionFeesPhrase(catalog);
+  return phrase ? (
+    <>
+      {' '}Sessions after it: {phrase}, card taken at booking. Insurance cover for an RCC
+      depends on your plan.
+    </>
+  ) : null;
+}
+async function LiveFees() {
+  return <FeesText catalog={await readCatalog()} />;
 }
 
 async function CardAvailability({ slug, first }: { slug: string; first: string }) {
@@ -131,7 +151,7 @@ export default async function Book({
      one who asked for someone not accepting is told so and offered the
      choice. */
   const accepting = practitioners.filter((p) => p.acceptingNewClients);
-  /* Real openings from Cliniko for the next seven days, per counsellor:
+  /* Real openings from Cliniko for the next two weeks, per counsellor:
      lib/cliniko-availability.ts, read inside the streamed components above.
      Null when it cannot be read, and then nothing is printed. */
   const who = asked && asked.acceptingNewClients ? asked : undefined;
@@ -218,14 +238,14 @@ export default async function Book({
               a glance instead of read. */}
           <ul className="book-facts">
             <li>30 minutes</li>
-            <li>Secure video</li>
+            <li>Online only · secure video</li>
             <li>No card</li>
             <li>No intake form</li>
             <li>Free cancellation up to {site.cancellationHours}h</li>
           </ul>
           {/* The slot is sized in CSS; see the note above HoursLine. */}
           <div className="book-hours">
-            <Suspense fallback={<p className="book-credential" style={{ margin: 0 }} aria-hidden="true">Checking this week&rsquo;s open times&hellip;</p>}>
+            <Suspense fallback={<p className="book-credential" style={{ margin: 0 }} aria-hidden="true">Checking the next two weeks&rsquo; open times&hellip;</p>}>
               <HoursLine />
             </Suspense>
           </div>
@@ -252,27 +272,70 @@ export default async function Book({
             <li>
               <strong>What it costs.</strong> Nothing is charged and no card is taken. You decide
               afterwards, in your own time.
+              <Suspense fallback={<FeesText catalog={FALLBACK_CATALOG} />}>
+                <LiveFees />
+              </Suspense>
             </li>
           </ul>
 
-          {accepting.length > 1 && (
+          {/* ?with= HAS ALREADY CHOSEN — 1 Oct 2026. Thirteen producers send a
+              reader here with a counsellor named (profiles, place pages,
+              language guides), and the two full cards still stood between them
+              and the calendar: ~940px on a phone, asking a question they had
+              already answered. One row instead, with the way back to the
+              choice. Bare /book keeps the grid. */}
+          {accepting.length > 1 && who && (
+            /* Inline rather than in app/premium.css: these rules are for this
+               one page, and the sitewide stylesheet is measured by the perf
+               gate on every page. Fixed portrait size, so nothing moves. */
+            <div
+              className="card"
+              style={{ display: 'flex', gap: 12, alignItems: 'center', margin: '16px 0 12px', padding: '10px 14px' }}
+            >
+              {who.photos?.portrait && (
+                <Image
+                  src={who.photos.portrait.src}
+                  alt={who.photos.portrait.alt}
+                  width={who.photos.portrait.width}
+                  height={who.photos.portrait.height}
+                  sizes="48px"
+                  style={{ width: 48, height: 48, flex: '0 0 48px', objectFit: 'cover', objectPosition: 'top', borderRadius: '50%' }}
+                />
+              )}
+              <div>
+                <p style={{ margin: 0, fontSize: '.95rem', lineHeight: 1.45 }}>
+                  <strong>Booking with {withLetters(who)}</strong> · {who.languages.map((l) => l.name).join(' and ')}
+                </p>
+                <p style={{ margin: '2px 0 0', fontSize: '.88rem', lineHeight: 1.45, color: 'var(--ink-soft)' }}>
+                  {accepting.filter((p) => p.slug !== who.slug).map((p) => (
+                    <span key={p.slug}>
+                      <Link href={`${site.bookingPath}?with=${p.slug}#calendar`}>
+                        Switch to {p.name.split(' ')[0]}
+                      </Link>
+                      {' · '}
+                    </span>
+                  ))}
+                  <Link href={site.bookingPath}>See both calendars</Link>
+                </p>
+              </div>
+            </div>
+          )}
+
+          {accepting.length > 1 && !who && (
             <div className="book-choose" style={{ margin: '18px 0 14px' }}>
               <h2 style={{ margin: '0 0 12px', fontSize: '1.45rem' }}>Who would you like to talk to?</h2>
               <div className="grid grid-2" style={{ gap: 14 }}>
                 {accepting.map((p) => {
-                  const on = who?.slug === p.slug;
                   const first = p.name.split(' ')[0];
                   return (
                     <Link
                       key={p.slug}
                       href={`${site.bookingPath}?with=${p.slug}#calendar`}
                       className="card"
-                      aria-current={on ? 'true' : undefined}
                       style={{
                         display: 'block',
                         textDecoration: 'none',
                         color: 'inherit',
-                        ...(on ? { borderColor: 'var(--blue-deep)', boxShadow: '0 0 0 2px var(--blue-deep) inset' } : {}),
                       }}
                     >
                       {/* A small portrait beside the name rather than a banner
@@ -304,22 +367,16 @@ export default async function Book({
                           </div>
                         </div>
                       </div>
-                      <span className={on ? 'btn btn--ghost' : 'btn btn--primary'} style={{ marginTop: 14 }}>
-                        {on ? `Booking with ${first} ↓` : `Book with ${first}`}
+                      <span className="btn btn--primary" style={{ marginTop: 14 }}>
+                        Book with {first}
                       </span>
                     </Link>
                   );
                 })}
               </div>
-              {who ? (
-                <p style={{ margin: '12px 0 0', fontSize: '.92rem', color: 'var(--ink-soft)' }}>
-                  <Link href={site.bookingPath}>See both calendars instead</Link>
-                </p>
-              ) : (
-                <p style={{ margin: '12px 0 0', fontSize: '.92rem', color: 'var(--ink-soft)' }}>
-                  Or pick a time below and choose the counsellor on the calendar itself.
-                </p>
-              )}
+              <p style={{ margin: '12px 0 0', fontSize: '.92rem', color: 'var(--ink-soft)' }}>
+                Or pick a time below and choose the counsellor on the calendar itself.
+              </p>
             </div>
           )}
 
@@ -372,7 +429,7 @@ export default async function Book({
                       {' '}· {c.full}
                       {c.verifyUrl && (
                         <>
-                          {' '}(<a href={c.verifyUrl} target="_blank" rel="noopener">verify #{c.number}</a>)
+                          {' '}(<a href={c.verifyUrl} target="_blank" rel="noopener">verify on the {c.short === 'CCC' ? 'CCPA directory' : 'BCACC register'}</a>)
                         </>
                       )}
                     </span>
@@ -398,6 +455,14 @@ export default async function Book({
                     ? <>You are booking with {withLetters(who)}</>
                     : <>Pick a time, then choose {accepting.map((p) => p.name.split(' ')[0]).join(' or ')} on the calendar</>}
                 </h2>
+                {/* ONLINE ONLY, SAID WHERE THE ADDRESS APPEARS — 1 Oct 2026.
+                    Cliniko's booking summary prints a street address, and a
+                    client this week read it as where to go. The second
+                    sentence goes once the booking system stops printing one. */}
+                <p style={{ margin: '8px 0 0', fontSize: '.92rem', lineHeight: 1.55, color: 'var(--ink-soft)' }}>
+                  Every session, this one included, is by secure video. There is nowhere to attend,
+                  whatever address the booking summary shows.
+                </p>
               </div>
               {/* THE TWO THINGS THE FUNNEL WAS MISSING — 17 Sep 2026.
                   The conversion log: 73 people reached this calendar in a month,
@@ -496,8 +561,8 @@ export default async function Book({
                   done={sent}
                   practitioner={who?.slug}
                   title="Ask for a time"
-                  note="A sentence on what you are looking for helps, and is optional."
-                  placeholder="When you are usually free (for example, weekday evenings after 6, or Saturday mornings), and anything you want the counsellor to know."
+                  note="Two or three sentences: when you are usually free, and what you are looking for. You will hear back within one business day."
+                  placeholder="When you are usually free (for example, weekday evenings after 6, or Saturday mornings). Then a sentence or two on what you are looking for from counselling."
                   button="Ask for a time"
                 />
               </div>
@@ -605,6 +670,19 @@ export default async function Book({
       <section className="section section--tint">
         <div className="container container--article">
           <h2 style={{ marginTop: 0 }}>Before you decide</h2>
+
+          {/* Open by default: it is the question a booking summary with a
+              street address on it raises, and the answer is one line. */}
+          <details className="faq-item" open>
+            <summary>Is this online or in person?</summary>
+            <div className="prose">
+              <p>
+                Online. The consultation and every session are by secure video, from wherever you
+                are sitting. There is no office and nowhere to attend; any address on a
+                booking confirmation is the booking system&rsquo;s mailing record, not a place to go.
+              </p>
+            </div>
+          </details>
 
           <details className="faq-item">
             <summary>What actually happens in the 30 minutes?</summary>
