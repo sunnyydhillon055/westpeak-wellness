@@ -46,11 +46,14 @@ import SchedulerTelemetry from '@/components/SchedulerTelemetry';
  * focusing a cross-origin iframe is exactly what SchedulerTelemetry reads as
  * an interaction, and a programmatic focus would count as one. */
 export default function SchedulerGate({
-  url, title, page, cta, children, secondary,
+  url, title, page, who, cta, children, secondary,
 }: {
   url: string;
   title: string;
   page: string;
+  /** Roster slug when `?with=` narrowed the calendar to one counsellor; becomes
+   *  the `detail` on scheduler_visible / scheduler_interact. */
+  who?: string;
   /** The primary button's label. */
   cta: string;
   /** Server-rendered placeholder content: portrait(s) and the next open times. */
@@ -68,7 +71,7 @@ export default function SchedulerGate({
   if (open) {
     return (
       <div ref={box} tabIndex={-1} style={{ outline: 'none' }}>
-        <SchedulerTelemetry page={page}>
+        <SchedulerTelemetry page={page} who={who}>
           <iframe
             src={url}
             title={title}

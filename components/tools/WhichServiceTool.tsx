@@ -5,17 +5,21 @@ import Quiz from '@/components/tools/Quiz';
 import ResultCta from '@/components/tools/ResultCta';
 import { WHICH_SERVICE, WHICH_SERVICE_OUTCOMES } from '@/lib/tools';
 
+// Outcomes are ordered by urgency then specificity, so the first match
+// wins and "crisis" always beats a service recommendation. One function so
+// the result shown and the outcome counted cannot disagree.
+const hitFor = (tags: string[]) =>
+  WHICH_SERVICE_OUTCOMES.find((o) => tags.includes(o.tag)) ??
+  WHICH_SERVICE_OUTCOMES[WHICH_SERVICE_OUTCOMES.length - 1];
+
 export default function WhichServiceTool() {
   return (
     <Quiz
       slug="which-service"
       questions={WHICH_SERVICE}
+      outcomeOf={(tags) => hitFor(tags).tag}
       onResult={(tags) => {
-        // Outcomes are ordered by urgency then specificity, so the first match
-        // wins and "crisis" always beats a service recommendation.
-        const hit =
-          WHICH_SERVICE_OUTCOMES.find((o) => tags.includes(o.tag)) ??
-          WHICH_SERVICE_OUTCOMES[WHICH_SERVICE_OUTCOMES.length - 1];
+        const hit = hitFor(tags);
         return (
           <>
             <p className="eyebrow">Suggested starting point</p>

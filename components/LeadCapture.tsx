@@ -2,8 +2,6 @@
 
 import FormStamp from '@/components/FormStamp';
 
-import { track } from '@/lib/analytics';
-
 /* Email capture that does not hold anything hostage.
  *
  * The guide it sits beside is already fully readable above it. This offers to
@@ -68,11 +66,14 @@ export default function LeadCapture({
   }
 
   return (
+    /* No onSubmit beacon: a native POST outran it every time — 0 recorded
+       against 68 signups in the store. The server counts
+       `lead_magnet_submit`, with the magnet as the detail, when it stores
+       the record (lib/inbound-submit.ts). 1 Oct 2026. */
     <form
       method="POST"
       action="/api/lead"
       className="lead-form"
-      onSubmit={() => track('lead_magnet_submit', { magnet })}
     >
       {/* Which one-pager. Allow-listed server-side; see lib/inbound-submit.ts. */}
       <input type="hidden" name="magnet" value={magnet} />

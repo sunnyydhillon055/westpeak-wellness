@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { track } from '@/lib/analytics';
 import ResultCta from '@/components/tools/ResultCta';
+import { toolDetail } from '@/lib/conversion-detail';
 
 /* What a session actually costs after extended health.
  *
@@ -111,7 +112,11 @@ export default function CoverageEstimator() {
         className="btn btn--primary"
         onClick={() => {
           setShown(true);
-          track('tool_complete', { tool: 'therapy-cost-bc', covers });
+          /* Counted by what the plan does — yes, no, unsure — since 1 Oct
+             2026. Which of the three the readers who finish this mostly
+             are decides whether /pricing should lead with reimbursement
+             or with the fee. The figures they typed are never sent. */
+          track('tool_complete', { tool: 'therapy-cost-bc', covers, detail: toolDetail('therapy-cost-bc', covers) ?? undefined });
         }}
       >
         Show me the numbers

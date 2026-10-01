@@ -18,7 +18,10 @@ export default function BookDirectLink({
       href={href}
       target="_blank"
       rel="noopener"
-      onClick={() => track('book_direct', { who })}
+      /* `who` is the detail the counter keeps (a roster slug, allow-listed
+         server-side), so from 1 Oct 2026 this answers whose calendar was
+         opened and not only that one was. */
+      onClick={() => track('book_direct', { who, detail: who })}
     >
       {children}
     </a>

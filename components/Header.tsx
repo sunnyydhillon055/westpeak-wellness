@@ -7,6 +7,7 @@ import { practitioners } from '@/lib/practitioners';
 import { TAGALOG_READY } from '@/lib/practitioner-tl';
 import { TL_CHROME } from '@/lib/practitioner-places-tl';
 import { track } from '@/lib/analytics';
+import { bookClickDetail, withSlugOf } from '@/lib/conversion-detail';
 import Motif from '@/components/brand/Motif';
 import { bookHrefFor } from '@/components/StickyBook';
 
@@ -324,7 +325,10 @@ export default function Header() {
               href={bookHrefFor(pathname)}
               onClick={() => {
                 setOpen(false);
-                track('book_click', { location: 'header' });
+                track('book_click', {
+                  location: 'header',
+                  detail: bookClickDetail('header', withSlugOf(bookHrefFor(pathname))) ?? undefined,
+                });
               }}
             >
               {isTagalog ? TL_CHROME.book : 'Book Free Consult'}

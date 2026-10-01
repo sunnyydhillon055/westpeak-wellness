@@ -33,11 +33,14 @@ import SchedulerGate from '@/components/SchedulerGate';
  * has already asked for the calendar.
  */
 export default function SchedulerEmbed({
-  url, title, page, placeholder, secondary, cta = 'Show available times',
+  url, title, page, who, placeholder, secondary, cta = 'Show available times',
 }: {
   url: string;
   title?: string;
   page: string;
+  /** Roster slug of the counsellor this calendar is narrowed to, when `?with=`
+   *  chose one; the practice-wide calendar passes nothing. */
+  who?: string;
   placeholder?: React.ReactNode;
   secondary?: React.ReactNode;
   cta?: string;
@@ -54,11 +57,11 @@ export default function SchedulerEmbed({
           and appearing a moment after it. */}
       <link rel="preconnect" href={origin} />
       {placeholder ? (
-        <SchedulerGate url={url} title={frameTitle} page={page} cta={cta} secondary={secondary}>
+        <SchedulerGate url={url} title={frameTitle} page={page} who={who} cta={cta} secondary={secondary}>
           {placeholder}
         </SchedulerGate>
       ) : (
-        <SchedulerTelemetry page={page}>
+        <SchedulerTelemetry page={page} who={who}>
           <iframe
             src={url}
             title={frameTitle}

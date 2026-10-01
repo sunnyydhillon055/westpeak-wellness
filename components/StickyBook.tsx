@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { site } from '@/lib/site';
 import { track } from '@/lib/analytics';
+import { bookClickDetail, withSlugOf } from '@/lib/conversion-detail';
 import { practitioners } from '@/lib/practitioners';
 
 /* THE BOOKING LINK FOLLOWS THE PAGE.
@@ -108,8 +109,21 @@ export default function StickyBook() {
         >
           <MailIcon /> Email us
         </a>
+        {/* Counted like every other booking button, as of 1 Oct 2026. This
+            bar is on every page below 1020px and was the one Book link on the
+            site that fired nothing, which is why the calendar was seen 105
+            times against 34 recorded clicks: most arrivals came through here
+            and were invisible. The counsellor comes from the href, so a click
+            on her page is hers. */}
         {!onBooking && (
-          <Link className="sticky-book-btn sb-book" href={bookHrefFor(pathname)}>
+          <Link
+            className="sticky-book-btn sb-book"
+            href={bookHrefFor(pathname)}
+            onClick={() => track('book_click', {
+              location: 'sticky',
+              detail: bookClickDetail('sticky', withSlugOf(bookHrefFor(pathname))) ?? undefined,
+            })}
+          >
             Book free consult
           </Link>
         )}

@@ -423,6 +423,7 @@ export default async function Book({
                 url={bookingsUrlFor(who?.clinikoPractitionerId)}
                 title={`Book a free 30-minute consultation${who ? ` with ${who.name.split(' ')[0]}` : ''}`}
                 page="/book"
+                who={who?.slug}
                 cta="Show available times"
                 placeholder={
                   <>
