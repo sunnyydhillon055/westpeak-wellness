@@ -39,6 +39,8 @@ export const ALLOW = new Map([
   [80, 'plan example: a per-session reimbursement cap'],
   [120, 'market range: typical BC RCC fee, low end'],
   [180, 'market range: typical BC RCC fee, high end'],
+  [155, 'market range: BCACC Fee Guide 2026 band boundary (app/pricing/page.tsx, read 1 Oct 2026)'],
+  [205, 'market range: BCACC Fee Guide 2026 couples and family high end (app/pricing/page.tsx)'],
   [225, 'market range: typical BC psychologist fee, low end'],
   [250, 'market range: psychologist fee'],
   [300, 'market range: typical BC psychologist fee, high end'],
