@@ -72,9 +72,8 @@ function FeesText({ catalog }: { catalog: Catalog }) {
   const phrase = sessionFeesPhrase(catalog);
   return phrase ? (
     <>
-      {' '}If you carry on, {phrase}; the card is taken when you book a session. Whether
-      your extended health plan reimburses sessions with an RCC depends on the plan, and
-      every receipt carries what an insurer asks for.
+      {' '}Sessions after it: {phrase}, card taken at booking. Insurance cover for an RCC
+      depends on your plan.
     </>
   ) : null;
 }
@@ -286,7 +285,13 @@ export default async function Book({
               already answered. One row instead, with the way back to the
               choice. Bare /book keeps the grid. */}
           {accepting.length > 1 && who && (
-            <div className="book-chosen">
+            /* Inline rather than in app/premium.css: these rules are for this
+               one page, and the sitewide stylesheet is measured by the perf
+               gate on every page. Fixed portrait size, so nothing moves. */
+            <div
+              className="card"
+              style={{ display: 'flex', gap: 12, alignItems: 'center', margin: '16px 0 12px', padding: '10px 14px' }}
+            >
               {who.photos?.portrait && (
                 <Image
                   src={who.photos.portrait.src}
@@ -294,17 +299,21 @@ export default async function Book({
                   width={who.photos.portrait.width}
                   height={who.photos.portrait.height}
                   sizes="48px"
+                  style={{ width: 48, height: 48, flex: '0 0 48px', objectFit: 'cover', objectPosition: 'top', borderRadius: '50%' }}
                 />
               )}
               <div>
-                <p>
+                <p style={{ margin: 0, fontSize: '.95rem', lineHeight: 1.45 }}>
                   <strong>Booking with {withLetters(who)}</strong> · {who.languages.map((l) => l.name).join(' and ')}
                 </p>
-                <p className="book-chosen-links">
+                <p style={{ margin: '2px 0 0', fontSize: '.88rem', lineHeight: 1.45, color: 'var(--ink-soft)' }}>
                   {accepting.filter((p) => p.slug !== who.slug).map((p) => (
-                    <Link key={p.slug} href={`${site.bookingPath}?with=${p.slug}#calendar`}>
-                      Switch to {p.name.split(' ')[0]}
-                    </Link>
+                    <span key={p.slug}>
+                      <Link href={`${site.bookingPath}?with=${p.slug}#calendar`}>
+                        Switch to {p.name.split(' ')[0]}
+                      </Link>
+                      {' · '}
+                    </span>
                   ))}
                   <Link href={site.bookingPath}>See both calendars</Link>
                 </p>
@@ -450,10 +459,9 @@ export default async function Book({
                     Cliniko's booking summary prints a street address, and a
                     client this week read it as where to go. The second
                     sentence goes once the booking system stops printing one. */}
-                <p className="book-online-only">
-                  Every session, including this one, is by secure video. If the booking summary shows a
-                  street address, that is the booking system&rsquo;s mailing record; there is nowhere to
-                  attend.
+                <p style={{ margin: '8px 0 0', fontSize: '.92rem', lineHeight: 1.55, color: 'var(--ink-soft)' }}>
+                  Every session, this one included, is by secure video. There is nowhere to attend,
+                  whatever address the booking summary shows.
                 </p>
               </div>
               {/* THE TWO THINGS THE FUNNEL WAS MISSING — 17 Sep 2026.

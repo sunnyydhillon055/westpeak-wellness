@@ -12,8 +12,8 @@ import { money, type Catalog } from '@/lib/cliniko-catalog';
  * rather than guessed. */
 
 const BILLED_AS = [
-  { name: 'Individual Counselling', label: 'individual sessions' },
-  { name: 'Couples Counselling', label: 'couples sessions' },
+  { name: 'Individual Counselling', label: 'individual' },
+  { name: 'Couples Counselling', label: 'couples' },
 ] as const;
 
 export type SessionFee = { label: string; fee: string; minutes: number };
@@ -25,11 +25,12 @@ export function sessionFees(catalog: Catalog): SessionFee[] {
   });
 }
 
-/** "individual sessions are $140 for 50 minutes, couples sessions $175 for 50 minutes", or null. */
+/** "individual $140, couples $175, 50 minutes each", or null. Short on
+ *  purpose: it sits above the calendar on a phone. */
 export function sessionFeesPhrase(catalog: Catalog): string | null {
   const fees = sessionFees(catalog);
   if (!fees.length) return null;
-  return fees
-    .map((f, i) => `${f.label}${i === 0 ? ' are' : ''} ${f.fee} for ${f.minutes} minutes`)
-    .join(', ');
+  const same = fees.every((f) => f.minutes === fees[0]!.minutes);
+  const parts = fees.map((f) => `${f.label} ${f.fee}${same ? '' : ` (${f.minutes} minutes)`}`);
+  return same ? `${parts.join(', ')}, ${fees[0]!.minutes} minutes${fees.length > 1 ? ' each' : ''}` : parts.join(', ');
 }

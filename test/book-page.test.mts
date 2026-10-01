@@ -19,14 +19,16 @@ test('/book states the individual and couples fee from the catalogue, never type
   const ind = FALLBACK_CATALOG.items.find((i) => i.name === 'Individual Counselling')!;
   const cpl = FALLBACK_CATALOG.items.find((i) => i.name === 'Couples Counselling')!;
   const phrase = sessionFeesPhrase(FALLBACK_CATALOG)!;
-  assert.match(phrase, new RegExp(`individual sessions are \\${money(ind.cents)} for ${ind.minutes} minutes`));
-  assert.match(phrase, new RegExp(`couples sessions \\${money(cpl.cents)} for ${cpl.minutes} minutes`));
+  assert.equal(ind.minutes, cpl.minutes);
+  assert.equal(phrase, `individual ${money(ind.cents)}, couples ${money(cpl.cents)}, ${ind.minutes} minutes each`);
 
   const changed: Catalog = {
     ...FALLBACK_CATALOG,
     items: FALLBACK_CATALOG.items.map((i) => (i.name === 'Individual Counselling' ? { ...i, cents: 15500 } : i)),
   };
-  assert.match(sessionFeesPhrase(changed)!, /individual sessions are \$155 for 50 minutes/, 'a catalogue change moves the page');
+  assert.match(sessionFeesPhrase(changed)!, /^individual \$155, /, 'a catalogue change moves the page');
+  const longer: Catalog = { ...changed, items: changed.items.map((i) => (i.name === 'Couples Counselling' ? { ...i, minutes: 80 } : i)) };
+  assert.equal(sessionFeesPhrase(longer), 'individual $155 (50 minutes), couples $175 (80 minutes)');
 
   const noCouples: Catalog = { ...FALLBACK_CATALOG, items: FALLBACK_CATALOG.items.filter((i) => i.name !== 'Couples Counselling') };
   assert.equal(sessionFees(noCouples).length, 1, 'a type the catalogue does not hold is left out, not guessed');
