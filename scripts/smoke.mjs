@@ -72,7 +72,7 @@ const CHECKS = [
      rather than in a search console three weeks later. */
   ['/blog/stress-leave-bc', 308, '/guides/stress-leave-bc'],
   ['/careers/anything-at-all', 308, '/about'],
-  ['/jobs/registered-clinical-counsellor', 308, '/careers/registered-clinical-counsellor'],
+  ['/jobs/registered-clinical-counsellor', 308, '/about'],
 
   /* Rendered on demand. Every gate that walks .next/server/app is blind to
      these, so this is the only place they are exercised at all. */
@@ -118,7 +118,7 @@ const CHECKS = [
      the one that absorbed it, and the five that remain must serve. */
   ['/services/anxiety-counselling', 308, '/services/individual-therapy'],
   ['/services/depression-counselling', 308, '/services/individual-therapy'],
-  ['/services/trauma-therapy', 308, '/services/individual-therapy'],
+  ['/services/trauma-therapy', 308, '/services/emdr-therapy'],
   ['/services/emdr-intensive', 308, '/services/emdr-therapy'],
   ['/services/south-asian-mental-health', 308, '/services/punjabi-counselling'],
   ['/services/online-counselling-bc', 308, '/online-counselling'],
