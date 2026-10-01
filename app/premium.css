@@ -1276,6 +1276,44 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 }
 @media (max-width:680px){ .scheduler-embed iframe{ height:660px; } }
 
+/* THE BOX BEFORE THE FRAME — 1 Oct 2026, see components/SchedulerGate.
+   Sized to the frame it will be replaced by, at both breakpoints, so the
+   swap moves nothing below it. Content is centred rather than top-aligned
+   because the spare height is the point: this is the frame's seat, and the
+   button sits where the eye lands on it. */
+.scheduler-wait{
+  --next-lines:2;
+  box-sizing:border-box; min-height:760px; padding:28px 20px;
+  display:flex; flex-direction:column; justify-content:flex-start; align-items:center;
+  gap:14px; text-align:center;
+}
+.scheduler-wait__who{ display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:10px 12px; }
+.scheduler-wait__who p{ flex-basis:100%; max-width:28em; margin:0 auto; }
+/* The next-open lines stream in behind the shell (app/book/page.tsx). Their
+   slot is reserved per counsellor so their arrival moves the button by
+   nothing; --next-lines is the lines one counsellor's sentence takes at this
+   width. */
+.scheduler-wait__next{ max-width:34em; font-size:.95rem; line-height:1.5; }
+.scheduler-wait__actions{ display:flex; flex-direction:column; align-items:center; gap:10px; width:100%; max-width:26em; }
+.scheduler-wait__actions .btn{ width:100%; justify-content:center; min-height:50px; }
+.scheduler-wait__actions p{ max-width:28em; }
+@media (max-width:680px){ .scheduler-wait{ --next-lines:3; min-height:660px; padding:22px 16px; } }
+
+/* RESERVED SLOTS FOR THE TWO CLINIKO LINES ABOVE THE CALENDAR — 1 Oct 2026.
+   The this-week line under the facts and the per-counsellor line on each
+   card are streamed after the shell paints (see HoursLine in
+   app/book/page.tsx). Each sits in a slot already the height its sentence
+   takes at that width, so the page under it never moves — not when the
+   line lands, and not when Cliniko is down and nothing lands. The widths:
+   the this-week sentence is ~125 characters at .9rem, which is one line in
+   the full container, two in a tablet one, three on a phone; the card line
+   is the same length in half the width. */
+.book-hours{ margin-top:10px; font-size:.9rem; line-height:1.6; min-height:1.6em; }
+.book-card-avail{ margin-top:6px; font-size:.9rem; line-height:1.5; min-height:3em; }
+@media (max-width:1000px){ .book-hours{ min-height:3.2em; } }
+@media (max-width:900px){ .book-card-avail{ min-height:4.5em; } }
+@media (max-width:520px){ .book-hours{ min-height:4.8em; } }
+
 /* ---------------------------------------------------------------------------
    FOOTER — slimmed
    Was four link columns (23 links) plus brand, facts, social, crisis and a
@@ -2180,6 +2218,25 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
   .book-facts { gap: 6px; }
   .book-facts li { font-size: 0.8rem; padding: 5px 11px; }
 }
+
+/* WHAT THE 30 MINUTES ARE — 1 Oct 2026. Three lines under the facts, in
+   view. The same content was behind a closed <details> below the calendar,
+   which is after the point where somebody decides whether to tap. Plain
+   list, no pills: these are sentences, and the strip above them is already
+   the glanceable version. */
+.book-what {
+  list-style: none;
+  margin: 12px 0 1.1rem;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+.book-what li {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.book-what li strong { color: var(--ink); }
 
 /* ===========================================================================
    ASK INSTEAD

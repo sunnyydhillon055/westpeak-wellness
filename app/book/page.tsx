@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense, cache } from 'react';
 import Figure from '@/components/Figure';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -23,6 +24,70 @@ export const metadata: Metadata = {
     description: 'Free 30-minute consultation for online counselling anywhere in British Columbia.',
   },
 };
+
+/* THE SLOW PART IS STREAMED, NOT AWAITED — 1 Oct 2026.
+ *
+ * This page used to `await consultationAvailability()` before returning a
+ * single byte of its own markup, so on a cold cache the whole page — hero,
+ * facts, counsellor cards — waited on two Cliniko API calls, and the visitor
+ * looked at app/book/loading.tsx until they came back. Only three things on
+ * the page need that answer: the this-week line under the facts, the
+ * open-times line on each card, and the next-open times in the calendar box.
+ * Each of those is now its own async component inside a Suspense boundary,
+ * so the shell paints at once and the three lines stream in behind it.
+ *
+ * `cache` makes the three share one read per request. unstable_cache owns
+ * freshness across requests (30 minutes); without this wrapper a cold miss
+ * could have fired the Cliniko calls once per boundary.
+ *
+ * Honesty when Cliniko is down is unchanged: lib/cliniko-availability.ts
+ * returns an `error` entry rather than throwing, every line here prints
+ * nothing on one, and the fetch now times out instead of holding the stream
+ * open. */
+const availability = cache(() => consultationAvailability());
+
+/* EACH STREAMED LINE SITS IN A SLOT THAT IS ALREADY ITS HEIGHT.
+ *
+ * A streamed line that arrives after the shell has painted pushes everything
+ * under it down; measured on the first cut of this change, the this-week
+ * line alone moved the whole page by one line (CLS 0.014 from a fallback
+ * that collapsed). So the wrapper around each boundary — not the boundary's
+ * content — carries a min-height in app/premium.css sized to the line at
+ * that breakpoint, and keeps it whether the line arrives, arrives shorter,
+ * or never arrives because Cliniko is down. A blank slot in the failure
+ * case is the price of a page that never jumps in the normal one. */
+async function HoursLine() {
+  const line = practiceHoursLine(await availability());
+  return line ? <p className="book-credential" style={{ margin: 0 }}>{line}</p> : null;
+}
+
+async function CardAvailability({ slug, first }: { slug: string; first: string }) {
+  const line = availabilityLine((await availability())[slug], first);
+  return line ? (
+    <p style={{ margin: 0, fontSize: '.9rem', lineHeight: 1.5, color: 'var(--blue-deep)', fontWeight: 600 }}>{line}</p>
+  ) : null;
+}
+
+/* The next open days with each counsellor, inside the calendar box, before
+   the frame exists. Concrete days before the tap are what stop somebody
+   discovering two screens in that the open days are not theirs. */
+async function NextOpen({ people }: { people: { slug: string; name: string; clinikoPractitionerId?: string }[] }) {
+  const avail = await availability();
+  const lines = people
+    .filter((p) => p.clinikoPractitionerId)
+    .map((p) => ({ first: p.name.split(' ')[0], a: avail[p.slug] }))
+    .filter(({ a }) => a && !a.error && (a.next?.length ?? 0) > 0);
+  if (!lines.length) return null;
+  return (
+    <>
+      {lines.map(({ first, a }) => (
+        <p key={first} style={{ margin: '0 0 6px', fontSize: '.95rem', lineHeight: 1.5 }}>
+          <strong>Next open with {first}:</strong> {a!.next.join(' · ')}
+        </p>
+      ))}
+    </>
+  );
+}
 
 export default async function Book({
   searchParams,
@@ -67,10 +132,8 @@ export default async function Book({
      choice. */
   const accepting = practitioners.filter((p) => p.acceptingNewClients);
   /* Real openings from Cliniko for the next seven days, per counsellor:
-     lib/cliniko-availability.ts. Null when it cannot be read, and then
-     nothing is printed. */
-  const avail = await consultationAvailability();
-  const hoursLine = practiceHoursLine(avail);
+     lib/cliniko-availability.ts, read inside the streamed components above.
+     Null when it cannot be read, and then nothing is printed. */
   const who = asked && asked.acceptingNewClients ? asked : undefined;
   const askedButFull = asked && !asked.acceptingNewClients ? asked : undefined;
   const fallback = defaultBookingPractitioner();
@@ -160,7 +223,37 @@ export default async function Book({
             <li>No intake form</li>
             <li>Free cancellation up to {site.cancellationHours}h</li>
           </ul>
-          {hoursLine && <p className="book-credential" style={{ marginTop: 10 }}>{hoursLine}</p>}
+          {/* The slot is sized in CSS; see the note above HoursLine. */}
+          <div className="book-hours">
+            <Suspense fallback={<p className="book-credential" style={{ margin: 0 }} aria-hidden="true">Checking this week&rsquo;s open times&hellip;</p>}>
+              <HoursLine />
+            </Suspense>
+          </div>
+
+          {/* WHAT THE 30 MINUTES ARE — in view, not behind a disclosure. 1 Oct 2026.
+              The funnel since 18 Aug: 94 people reached the calendar on this
+              page and 43 touched it. The one thing the page said about the call
+              itself sat in a closed <details> below the calendar, so the person
+              deciding whether to tap was deciding without it. Three lines, the
+              same facts the disclosure still carries at length, placed where the
+              decision is made: who they will be talking to, what they will be
+              asked, and that nothing is charged. No new claims. */}
+          <ul className="book-what">
+            <li>
+              <strong>Who you talk to.</strong>{' '}
+              {who
+                ? `${who.name.split(' ')[0]} directly — the counsellor you would see, not an intake worker.`
+                : `${accepting.map((p) => p.name.split(' ')[0]).join(' or ')} directly — the counsellor you would see, not an intake worker.`}
+            </li>
+            <li>
+              <strong>What is asked.</strong> What brought you here, in your own words. No form, and
+              no history to assemble.
+            </li>
+            <li>
+              <strong>What it costs.</strong> Nothing is charged and no card is taken. You decide
+              afterwards, in your own time.
+            </li>
+          </ul>
 
           {accepting.length > 1 && (
             <div className="book-choose" style={{ margin: '18px 0 14px' }}>
@@ -204,11 +297,11 @@ export default async function Book({
                           <p style={{ margin: '4px 0 0', color: 'var(--ink-soft)', fontSize: '.9rem' }}>
                             {p.focus.slice(0, 3).map((f) => f.label).join(', ')}
                           </p>
-                          {availabilityLine(avail[p.slug], first) && (
-                            <p style={{ margin: '6px 0 0', fontSize: '.9rem', color: 'var(--blue-deep)', fontWeight: 600 }}>
-                              {availabilityLine(avail[p.slug], first)}
-                            </p>
-                          )}
+                          <div className="book-card-avail">
+                            <Suspense fallback={null}>
+                              <CardAvailability slug={p.slug} first={first} />
+                            </Suspense>
+                          </div>
                         </div>
                       </div>
                       <span className={on ? 'btn btn--ghost' : 'btn btn--primary'} style={{ marginTop: 14 }}>
@@ -298,24 +391,13 @@ export default async function Book({
                   ?practitioner_id= so Cliniko opens on her times and nobody
                   has to pick a counsellor from a list that also shows one who
                   is not taking new clients. */}
-              <div id="calendar" style={{ margin: '26px 0 12px', display: 'flex', alignItems: 'center', gap: 16 }}>
-                {who?.photos?.portrait && (
-                  <Image
-                    src={who.photos.portrait.src}
-                    alt=""
-                    width={64}
-                    height={64}
-                    style={{ width: 64, height: 64, objectFit: 'cover', objectPosition: 'top', borderRadius: '50%' }}
-                  />
-                )}
-                <div>
-                  <p className="eyebrow" style={{ margin: 0 }}>Free 30-minute consultation</p>
-                  <h2 style={{ margin: '2px 0 0', fontSize: '1.7rem', lineHeight: 1.15 }}>
-                    {who
-                      ? <>You are booking with {withLetters(who)}</>
-                      : <>Pick a time, then choose {accepting.map((p) => p.name.split(' ')[0]).join(' or ')} on the calendar</>}
-                  </h2>
-                </div>
+              <div id="calendar" style={{ margin: '26px 0 12px' }}>
+                <p className="eyebrow" style={{ margin: 0 }}>Free 30-minute consultation</p>
+                <h2 style={{ margin: '2px 0 0', fontSize: '1.7rem', lineHeight: 1.15 }}>
+                  {who
+                    ? <>You are booking with {withLetters(who)}</>
+                    : <>Pick a time, then choose {accepting.map((p) => p.name.split(' ')[0]).join(' or ')} on the calendar</>}
+                </h2>
               </div>
               {/* THE TWO THINGS THE FUNNEL WAS MISSING — 17 Sep 2026.
                   The conversion log: 73 people reached this calendar in a month,
@@ -327,38 +409,70 @@ export default async function Book({
                   third-party frame, and browsers that block third-party
                   cookies (Safari by default, and increasingly Chrome) can show
                   it and then refuse the session it needs to submit. The link
-                  is first-party and works everywhere. */}
-              <div className="book-next" style={{ margin: '0 0 18px' }}>
-                {(who ? [who] : accepting).map((p) => {
-                  const a = avail[p.slug];
-                  const first = p.name.split(' ')[0];
-                  if (!p.clinikoPractitionerId) return null;
-                  return (
-                    <div key={p.slug} style={{ margin: '0 0 12px' }}>
-                      {a && !a.error && (a.next?.length ?? 0) > 0 && (
-                        <p style={{ margin: '0 0 6px', fontSize: '.95rem' }}>
-                          <strong>Next open with {first}:</strong>{' '}
-                          {a.next.join(' · ')}
-                        </p>
-                      )}
-                      <BookDirectLink
-                        className={who || accepting.length === 1 ? 'btn btn--primary' : 'btn btn--ghost'}
-                        href={bookingsUrlFor(p.clinikoPractitionerId)}
-                        who={p.slug}
-                      >
-                        Open {first}&rsquo;s calendar in a new tab
-                      </BookDirectLink>
-                    </div>
-                  );
-                })}
-                <p style={{ margin: '4px 0 0', fontSize: '.85rem', color: 'var(--ink-soft)' }}>
-                  The same calendar is embedded below. If it does not load on your phone, the link above always will.
-                </p>
-              </div>
+                  is first-party and works everywhere.
+
+                  AND THE FRAME ITSELF WAITS TO BE ASKED FOR — 1 Oct 2026.
+                  Both of those now live inside the calendar box, with the
+                  portrait, and the frame is mounted by the primary button
+                  rather than shipped in the HTML. The frame was 2.6 MB of
+                  Cliniko, Stripe and Google Fonts on first view, and the
+                  reason this page scored 38 on a phone when every other page
+                  scores 75-80. See components/SchedulerGate. The next-open
+                  lines stream in behind the shell (see `availability` above). */}
               <SchedulerEmbed
                 url={bookingsUrlFor(who?.clinikoPractitionerId)}
                 title={`Book a free 30-minute consultation${who ? ` with ${who.name.split(' ')[0]}` : ''}`}
                 page="/book"
+                cta="Show available times"
+                placeholder={
+                  <>
+                    <div className="scheduler-wait__who">
+                      {(who ? [who] : accepting).map((p) => p.photos?.portrait && (
+                        <Image
+                          key={p.slug}
+                          src={p.photos.portrait.src}
+                          alt={p.photos.portrait.alt}
+                          width={p.photos.portrait.width}
+                          height={p.photos.portrait.height}
+                          sizes="72px"
+                          style={{ width: 72, height: 72, objectFit: 'cover', objectPosition: 'top', borderRadius: '50%' }}
+                        />
+                      ))}
+                      <p style={{ margin: 0, fontSize: '1.05rem', fontWeight: 600, lineHeight: 1.3 }}>
+                        {who
+                          ? <>Pick a time with {who.name.split(' ')[0]}</>
+                          : <>Pick a time with {accepting.map((p) => p.name.split(' ')[0]).join(' or ')}</>}
+                      </p>
+                    </div>
+                    {/* One reserved block per counsellor shown; --next-lines is
+                        set per breakpoint in app/premium.css. */}
+                    <div
+                      className="scheduler-wait__next"
+                      style={{ minHeight: `calc(${(who ? [who] : accepting).filter((p) => p.clinikoPractitionerId).length} * (var(--next-lines) * 1.5em + 6px))` }}
+                    >
+                      <Suspense fallback={null}>
+                        <NextOpen people={who ? [who] : accepting} />
+                      </Suspense>
+                    </div>
+                  </>
+                }
+                secondary={
+                  <>
+                    {(who ? [who] : accepting).map((p) => p.clinikoPractitionerId && (
+                      <BookDirectLink
+                        key={p.slug}
+                        className="btn btn--ghost"
+                        href={bookingsUrlFor(p.clinikoPractitionerId)}
+                        who={p.slug}
+                      >
+                        Open {p.name.split(' ')[0]}&rsquo;s calendar in a new tab
+                      </BookDirectLink>
+                    ))}
+                    <p style={{ margin: '6px 0 0', fontSize: '.85rem', color: 'var(--ink-soft)' }}>
+                      The calendar opens here. If it does not load on your phone, the link above always will.
+                    </p>
+                  </>
+                }
               />
               {/* THE PEOPLE THE CALENDAR LOSES — 18 Sep 2026.
                   Thirty-eight people a month interact with the calendar and
