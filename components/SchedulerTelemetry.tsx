@@ -2,6 +2,20 @@
 
 import { useEffect, useRef } from 'react';
 import { track } from '@/lib/analytics';
+import { clampFrameHeight, fromFrame, parseClinikoMessage } from '@/lib/cliniko-frame';
+
+/* THE MEASUREMENT HOOK FOR A COMPLETED BOOKING — left empty on purpose.
+ *
+ * Cliniko posts "cliniko-bookings-page:confirmed" to this window when a
+ * booking inside the frame completes. This is the one place that message
+ * arrives (the listener below is the only Cliniko listener on the site), so
+ * whatever counts a confirmed booking belongs here and nowhere else. Not
+ * counted yet: an event that is not on lib/conversion-log's COUNTED list is
+ * dropped on arrival, and adding one is measurement's change to make.
+ * Called at most once per mounted frame. */
+function onClinikoBookingConfirmed(ctx: { page: string; who?: string }): void {
+  void ctx;
+}
 
 /* Measures whether anyone actually reaches the booking calendar, and whether
  * they touch it once they do.
@@ -39,6 +53,17 @@ import { track } from '@/lib/analytics';
  * identifiers, and nothing that describes the person. `track` is already a
  * no-op when GA is not configured, which is its state on every deployment
  * until NEXT_PUBLIC_GA_ID is set.
+ *
+ * THE FRAME'S OWN MESSAGES — 1 Oct 2026. This wrapper is also the single
+ * listener for what Cliniko posts out of the frame (lib/cliniko-frame.ts):
+ * the frame takes the height Cliniko asks for, clamped, instead of a fixed
+ * 660px box that every step scrolled inside; each step change brings the top
+ * of the frame back into view under the header; and the confirmation step
+ * goes to onClinikoBookingConfirmed above. Only messages from the frame's own
+ * window and origin are read. While a frame is mounted, <html> carries
+ * data-scheduler-open, which hides the sticky action bar (app/premium.css):
+ * on a phone it covered the bottom of the frame and offered "Pick a time"
+ * to someone already picking one.
  */
 export default function SchedulerTelemetry({
   page, who, children,
@@ -80,11 +105,36 @@ export default function SchedulerTelemetry({
     };
     window.addEventListener('blur', onBlur);
 
+    /* Cliniko's resize and step messages. The frame keeps its CSS height
+       until the first resize arrives, so the first paint is unchanged. */
+    let confirmed = false;
+    const onMessage = (e: MessageEvent) => {
+      const frame = el.querySelector('iframe');
+      if (!frame || !fromFrame(e.origin, e.source, frame.src, frame.contentWindow)) return;
+      const msg = parseClinikoMessage(e.data);
+      if (!msg) return;
+      if (msg.kind === 'resize') {
+        frame.style.height = `${clampFrameHeight(msg.height)}px`;
+        return;
+      }
+      el.scrollIntoView({ block: 'start' });
+      if (msg.page === 'confirmed' && !confirmed) {
+        confirmed = true;
+        onClinikoBookingConfirmed({ page, who });
+      }
+    };
+    window.addEventListener('message', onMessage);
+
+    const root = document.documentElement;
+    root.setAttribute('data-scheduler-open', '');
+
     return () => {
       io.disconnect();
       window.removeEventListener('blur', onBlur);
+      window.removeEventListener('message', onMessage);
+      root.removeAttribute('data-scheduler-open');
     };
   }, [page, who]);
 
-  return <div ref={box}>{children}</div>;
+  return <div ref={box} className="scheduler-frame">{children}</div>;
 }

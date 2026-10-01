@@ -90,6 +90,11 @@ const COUNTED = new Set([
      tool concluded says which service page the warm reader was pointed at.
      Fired and dropped since the tools were built; counted from 1 Oct 2026. */
   'tool_complete',
+  /* The gated calendar on /book mounted, and how: detail `button` or `hash`
+     (components/SchedulerGate, 1 Oct 2026). Since #calendar opens the frame
+     on arrival, scheduler_visible alone no longer says somebody pressed
+     "Show available times"; this says which. */
+  'scheduler_open',
 ]);
 
 export type ConversionLog = {

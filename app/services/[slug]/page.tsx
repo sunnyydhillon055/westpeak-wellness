@@ -244,7 +244,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
   return (
     <div className={s.slug === 'punjabi-counselling' ? gurmukhi.variable : undefined}>
       <section className="hero" style={{ paddingBottom: 48 }}>
-        <div className="container">
+        <div className="container svc-hero">
           <p className="eyebrow">{s.name}</p>
           {/* THE SERVICE NAME IN THE HEADING — 27 Sep 2026. The six money
               pages carried a tagline as their H1 ("Process painful memories

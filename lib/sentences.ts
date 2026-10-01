@@ -40,3 +40,27 @@ export const MIN_WORDS = 20;
 export const countWords = (text: string): number => text.trim().split(/\s+/).filter(Boolean).length;
 export const hasEnoughDetail = (text: string): boolean =>
   hasEnoughSentences(text) && countWords(text) >= MIN_WORDS;
+
+/* THE RULE, SHOWN WHILE TYPING — 1 Oct 2026. Every label on the form was
+ * screen-reader-only, the guidance vanished with the placeholder, and the
+ * floor was reported only by the browser's prompt at submit. The form now
+ * shows a word count under the message. `stage` changes only three times as
+ * a person types, so a polite live region keyed to it speaks three times,
+ * not once per keystroke. The rule itself is hasEnoughDetail, unchanged. */
+export type DetailStage = 'short' | 'one-sentence' | 'enough';
+
+export function detailProgress(text: string): { words: number; stage: DetailStage; count: string; status: string } {
+  const words = countWords(text);
+  const stage: DetailStage = hasEnoughDetail(text) ? 'enough' : words >= MIN_WORDS ? 'one-sentence' : 'short';
+  const count = stage === 'short'
+    ? `${words} of about ${MIN_WORDS} words`
+    : stage === 'one-sentence'
+      ? `${words} words. Add a second sentence.`
+      : `${words} words. That is enough to send.`;
+  const status = stage === 'short'
+    ? `Write about ${MIN_WORDS} words, in at least two sentences.`
+    : stage === 'one-sentence'
+      ? 'Enough words. Add a second sentence.'
+      : 'That is enough to send.';
+  return { words, stage, count, status };
+}

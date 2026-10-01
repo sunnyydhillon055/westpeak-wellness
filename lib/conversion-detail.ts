@@ -37,6 +37,8 @@ export const BOOK_LOCATIONS: readonly string[] = [
   'sticky',
   /* The sticky bar on /book itself, which jumps to #calendar (1 Oct 2026). */
   'sticky-book-jump',
+  /* The sticky bar's next-consult sentence, a link since 1 Oct 2026. */
+  'sticky-next',
   'cta-band',
   /* The hero and mid-page buttons on the city, service and audience
      templates, routed through BookLink since 1 Oct 2026. */
@@ -179,6 +181,8 @@ const ALLOWED: Readonly<Record<string, ReadonlySet<string>>> = {
      browser half so the two cannot drift; see the note there. 1 Oct 2026. */
   channel_visit: new Set<string>(CHANNELS),
   landing: new Set<string>(REFERRER_CLASSES),
+  /* How the /book calendar was opened (components/SchedulerGate). */
+  scheduler_open: new Set<string>(['button', 'hash']),
 };
 
 /** The detail to store for this event, or null to store none. Never throws,
