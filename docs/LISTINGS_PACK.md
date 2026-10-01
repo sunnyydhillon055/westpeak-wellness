@@ -32,7 +32,7 @@ are published (say "by appointment"); the practice prefers email; nothing paid.
 | Couples session | $175, 50 minutes; $340, 110 minutes |
 | EMDR intensive | $190, 90 minutes |
 | Payment | Card at booking, 24 hours' free cancellation; receipts for extended health |
-| Coverage | Most BC extended health plans reimburse a Registered Clinical Counsellor; MSP does not cover private counselling |
+| Coverage | Many BC extended health plans reimburse a Registered Clinical Counsellor; it depends on the plan. MSP does not cover private counselling |
 | Hours | By appointment. Times depend on the counsellor; /book shows what is open |
 | Category, primary | Counsellor / Mental health service |
 | Category, secondary | Psychotherapist; Marriage or relationship counsellor; Family counsellor |
@@ -82,8 +82,8 @@ Counsellors, in English, Punjabi or Tagalog, and one counsellor is also
 certified to see clients in Alberta. The practice works with anxiety,
 depression, trauma and PTSD (including EMDR), burnout, grief, panic, and with
 couples and families, using CBT, ACT, EMDR, Internal Family Systems and the
-Gottman Method. Fees are published in full on the website; most BC extended
-health plans reimburse a Registered Clinical Counsellor, and the first
+Gottman Method. Fees are published in full on the website; many BC extended
+health plans reimburse a Registered Clinical Counsellor (check the plan), and the first
 30-minute consultation is free with no referral. It is not a crisis service.
 
 ## Where to put it, in order of value

@@ -323,7 +323,7 @@ export const policies: Record<string, Policy> = {
           { label: 'Contrast and text sizing', detail: 'Body text is deliberately larger than the web default, colour is never the only way information is conveyed, and text reflows rather than breaking when you zoom.' },
           { label: 'Motion is opt-out by default', detail: 'The site honours the operating-system "reduce motion" setting, and there is no autoplaying video, carousel or animation to disable in the first place.' },
           { label: 'Wide diagrams scroll rather than shrink', detail: 'On a phone, a wide diagram scrolls sideways inside its own box at a readable size instead of being squeezed until its labels are illegible. The page itself never scrolls sideways.' },
-          { label: 'Fast on a slow connection', detail: 'Pages are static HTML with no third-party scripts, which matters most on rural and mobile connections, a meaningful accessibility issue in much of British Columbia.' },
+          { label: 'Fast on a slow connection', detail: 'Pages are prerendered HTML. The only third-party code is the booking calendar, which loads on /book when you ask for it, and Google Analytics, which loads only if you consent. That matters most on rural and mobile connections, a meaningful accessibility issue in much of British Columbia.' },
         ],
       },
       {

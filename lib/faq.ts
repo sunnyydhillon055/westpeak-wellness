@@ -102,7 +102,7 @@ export const faqs: FAQ[] = [
   },
   {
     q: "Are you covered by extended health benefits?",
-    a: "Most extended health plans in BC that include Registered Clinical Counsellors (RCC) will cover sessions at Westpeak Wellness: commonly Pacific Blue Cross, Manulife, Sun Life, Canada Life, and Green Shield. Coverage amounts and per-session limits vary by plan, so it's worth confirming your specific benefits. Note that BC's public MSP does not cover counselling. Virtual sessions are covered the same as in-person by nearly all plans.",
+    a: "It depends on your plan, not the insurer. Many BC extended health plans include Registered Clinical Counsellors (RCC), and the insurers behind them include Pacific Blue Cross, Manulife, Sun Life, Canada Life and Green Shield. If your plan lists RCCs, sessions here qualify: every session comes with a receipt showing the counsellor's RCC designation to claim with. Amounts and per-session limits vary, so check your benefits booklet or ask the insurer. BC's public MSP does not cover private counselling. Plans that cover RCCs generally treat video sessions the same as in-person ones.",
   },
   {
     q: "What if the fee is more than I can manage?",
