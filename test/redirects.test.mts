@@ -49,3 +49,24 @@ test('permanent literal sources are what IndexNow is told to recrawl', () => {
   assert.ok(!s.some((p) => /[:*(]/.test(p)), 'no parameterised source');
   assert.equal(new Set(s).size, s.length);
 });
+
+test('the vercel.app alias goes to www, and no preview host or chain check is caught by it', async () => {
+  const cfg = (await import('../next.config.mjs')).default as {
+    redirects: () => Promise<Array<R & { has?: Array<{ type: string; value: string }> }>>;
+  };
+  const all = await cfg.redirects();
+  const alias = all.find((r) => r.has?.some((h) => h.type === 'host'));
+  assert.ok(alias, 'host redirect present');
+  assert.equal(alias.destination, 'https://www.westpeakwellness.com/:path');
+  const src = sourceRegExp(alias.source);
+  assert.ok(src.test('/pricing') && src.test('/') && src.test('/llms.txt'));
+  assert.ok(!src.test('/api/cron/booking-mail'), 'cron routes are never redirected');
+  assert.equal(alias.permanent, true);
+  /* Next anchors `has` values as ^value$. */
+  const host = new RegExp(`^${alias.has![0].value}$`);
+  assert.ok(host.test('westpeak-wellness.vercel.app'));
+  for (const preview of ['westpeak-wellness-git-main-sunny.vercel.app', 'westpeak-wellness-abc123-sunny.vercel.app', 'www.westpeakwellness.com', 'westpeak-wellnessxvercel.app']) {
+    assert.ok(!host.test(preview), preview);
+  }
+  assert.deepEqual(findChains(all), []);
+});

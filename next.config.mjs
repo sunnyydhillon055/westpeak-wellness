@@ -6,6 +6,34 @@ import { REDIRECTS } from './lib/redirects.mjs';
    that file before adding a redirect, and before adding a page whose slug a
    redirect already claims. */
 
+/* THE VERCEL ALIAS IS A SECOND COPY OF THE SITE — 1 Oct 2026.
+ *
+ * westpeak-wellness.vercel.app answered 200 with `X-Robots-Tag: index,
+ * follow` and advertised /llms.txt (curl, 1 Oct 2026), and a web assistant
+ * sent a user there. It is redirected here rather than in middleware because
+ * the middleware matcher is deliberately narrow: widening it to every path
+ * would put an edge invocation in front of every page on every host to
+ * serve one alias.
+ *
+ * The exact production alias only. A preview deployment has its own
+ * generated host (westpeak-wellness-<hash>-<team>.vercel.app or a -git-
+ * branch host), and it must keep serving its own build, or previews stop
+ * being previews. Those get noindex in headers() instead. `has` values are
+ * anchored regular expressions, hence the escaped dots.
+ *
+ * /api/ is left alone on purpose. Vercel's documentation gives the cron
+ * target as the project's production deployment URL, which can be this very
+ * host, and a cron request does not follow a redirect: a 308 here would stop
+ * booking-mail and reply-watch without a single error anywhere. An API route
+ * is not a page and has nothing to be indexed. */
+const VERCEL_HOST = '.+\\.vercel\\.app';
+const VERCEL_ALIAS_REDIRECT = {
+  source: '/:path((?!api/).*)',
+  has: [{ type: 'host', value: 'westpeak-wellness\\.vercel\\.app' }],
+  destination: 'https://www.westpeakwellness.com/:path',
+  permanent: true,
+};
+
 /* WHAT A MACHINE READER SHOULD BE TOLD IT CAN HAVE — 24 Sep 2026.
  *
  * Two alternates, on every page response. The Markdown twin of the page in
@@ -114,6 +142,16 @@ const nextConfig = {
           { key: 'X-Robots-Tag', value: 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1' },
         ],
       },
+      /* NO VERCEL HOST IS AN INDEXABLE COPY — 1 Oct 2026. The rule above sent
+       * `index, follow` from every host that serves this build, preview
+       * deployments included. After it, so it wins for the same key: any
+       * *.vercel.app host says noindex. The production alias is redirected
+       * outright (see redirects() below) and never reaches this. */
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: VERCEL_HOST }],
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
+      },
       /* The Markdown twin of a page, announced on the page itself. A client
        * that prefers Markdown can find it without guessing the convention,
        * and one that does not will never notice the header.
@@ -157,7 +195,7 @@ const nextConfig = {
     ];
   },
   async redirects() {
-    return REDIRECTS;
+    return [VERCEL_ALIAS_REDIRECT, ...REDIRECTS];
   },
 };
 export default nextConfig;

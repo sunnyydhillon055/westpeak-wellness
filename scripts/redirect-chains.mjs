@@ -19,28 +19,44 @@ const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 /** Compile a Next redirect source into an anchored RegExp. */
 export function sourceRegExp(source) {
+  /* The index just past the ')' that closes the '(' at `open`. Groups nest
+     — `(?!api/)` inside `((?!api/).*)` — so the first ')' is not the end. */
+  const closing = (open) => {
+    let depth = 0;
+    for (let k = open; k < source.length; k++) {
+      if (source[k] === '\\') { k++; continue; }
+      if (source[k] === '(') depth++;
+      else if (source[k] === ')' && --depth === 0) return k + 1;
+    }
+    throw new Error(`unbalanced group in redirect source ${source}`);
+  };
   let out = '';
   let i = 0;
   while (i < source.length) {
-    const rest = source.slice(i);
-    const param = /^:([A-Za-z_]\w*)(\([^)]*\))?([*+?])?/.exec(rest);
-    if (param) {
-      const [whole, , group, mod] = param;
-      if (group) out += `(?:${group.slice(1, -1)})`;
-      else if (mod === '*') out += '.*';
-      else if (mod === '+') out += '.+';
-      else if (mod === '?') out += '[^/]*';
-      else out += '[^/]+';
-      i += whole.length;
+    const name = /^:[A-Za-z_]\w*/.exec(source.slice(i));
+    if (name) {
+      i += name[0].length;
+      if (source[i] === '(') {
+        const end = closing(i);
+        out += `(?:${source.slice(i + 1, end - 1)})`;
+        i = end;
+      } else {
+        const mod = source[i];
+        if (mod === '*') out += '.*';
+        else if (mod === '+') out += '.+';
+        else if (mod === '?') out += '[^/]*';
+        else out += '[^/]+';
+        if (mod === '*' || mod === '+' || mod === '?') i += 1;
+      }
       continue;
     }
-    if (rest[0] === '(') {
-      const close = rest.indexOf(')');
-      out += `(?:${rest.slice(1, close)})`;
-      i += close + 1;
+    if (source[i] === '(') {
+      const end = closing(i);
+      out += `(?:${source.slice(i + 1, end - 1)})`;
+      i = end;
       continue;
     }
-    out += esc(rest[0]);
+    out += esc(source[i]);
     i += 1;
   }
   return new RegExp(`^${out}/?$`);
@@ -59,7 +75,13 @@ export function samplePath(destination) {
  * @returns {Array<{source: string, destination: string, then: string}>}
  */
 export function findChains(redirects) {
-  const compiled = redirects.map((r) => ({ r, re: sourceRegExp(String(r.source)) }));
+  /* A redirect with `has` or `missing` (the vercel.app host redirect) only
+     fires on a condition an ordinary hop never meets, so it cannot be the
+     second link of a chain. Without this, `/:path*` on one host would match
+     every destination on every other. */
+  const compiled = redirects
+    .filter((r) => !r.has && !r.missing)
+    .map((r) => ({ r, re: sourceRegExp(String(r.source)) }));
   const chains = [];
   for (const r of redirects) {
     const dest = samplePath(r.destination);
