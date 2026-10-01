@@ -1082,6 +1082,156 @@ promised to be the only one of its kind and still is.
 
 *Enforced by:* `lib/resources-more3.ts`, `scripts/expansion-verify.mjs`, `scripts/seo-audit.mjs`
 
+### Booking mail names the counsellor and books her calendar; the practice is told who did not book; the portal welcome waits for a paid booking
+Decided 1 Oct 2026 (branch `wf/mail`). The paid follow-up, the consult
+follow-up and the missed-consultation note each book the right calendar: the
+paid follow-up opens that counsellor's paid calendar (`bookingsPaidUrlFor`);
+the consult follow-up opens her paid calendar, is signed with her first name,
+and replies to her and info@; a missed consultation rebooks her free calendar
+at `/book?with=<slug>#calendar` and mentions no fee. Nothing points a paying
+client at /book, and nothing points a consult no-show at the paid calendar.
+
+Confirmation and reminder say the appointment is online, by secure video, with
+no office; name the counsellor with letters and languages; and link the
+existing Punjabi or Tagalog first-session guide. Paid bookings state the 24-hour
+/ 50% terms as /pricing words them. A consultation booker's button goes to
+/resources/before-your-first-consultation. The consult follow-up states the
+individual and couples fees, read from the catalogue, never typed.
+
+Two new practice-only notices; nothing is sent to a client. A cancelled
+consultation's alert carries a mailto rebook draft. A consultation whose
+day-after note went out 10-14 days ago with no later uncancelled session
+raises a notice to info@ and the counsellor with draft 3 as a mailto, once per
+patient ever. Drafts 2 and 3 live in `lib/reply-templates.ts` (`BOOKING_DRAFTS`).
+
+This NARROWS the 6 Sep decision "A new client is welcomed to the portal
+automatically". A record that came from Cliniko is welcomed only once that
+patient has at least one appointment that is not the free consultation and not
+cancelled; until then it waits in `portal/welcome-pending.json`, re-checked
+each sync for up to 120 days. Clients added by hand in /admin are welcomed at
+once, as before. Reason: Cliniko creates a patient for every consultation
+booking, so "Now that you are a client" was reaching people before their free
+call.
+
+`analytics/booking-tally.json` holds monthly counts per counsellor slug
+(booked, cancelled and held, each split consult/paid, plus no-shows). Integers
+only, idempotent through event keys in `portal/notified.json`. Months before
+October 2026 are partial: the first run counted only the 16-days-back /
+120-days-ahead window.
+
+*Enforced by:* `lib/booking-mail.ts`, `lib/booking-notify.ts`,
+`lib/booking-followups.ts`, `lib/booking-tally.ts`, `lib/portal-invite.ts`,
+`test/booking-mail.test.mts`, `test/portal-welcome.test.mts`
+
+### The monthly funnel report joins its numbers
+Decided 1 Oct 2026 (branch `wf/funnel`). The report now follows each free
+consultation to a paid booking (within 60 days, per counsellor slug, and by
+Cliniko referral source and city), and each written message from the last 90
+days to a booked consultation and paid session (by source page and by the
+counsellor asked for). It prints the booking-mail job's monthly tally, and when
+the tally is missing it says so instead of showing zeros. Counts only: patient
+ids and email addresses are used in memory inside the run and never stored or
+printed. Cities with fewer than 3 consultations fold into "other BC/AB".
+
+Cliniko lists are read to the last page through `listAll` in `lib/cliniko.ts`
+(max 10 pages), and the email says "Truncated" when that cap is hit; the
+booking-mail job pages its own read the same way (max 20 pages). The client
+portal's calendar events are recorded as `portal:<slug>`, so paid-rebooking
+intent is counted apart from /book's free-consultation calendar (exact from
+1 Oct 2026). On /admin, consult-to-paid is computed only on request
+(`?funnel=1`) because it costs a few dozen Cliniko calls. The source split
+relies on the owner making the referral source required on online bookings;
+until then most consultations will show as "not recorded".
+
+*Enforced by:* `lib/funnel-joins.ts`, `lib/funnel-report.ts`,
+`lib/booking-tally-read.ts`, `lib/practitioner-for.ts`,
+`test/funnel-joins.test.mts`, `test/funnel-report.test.mts`
+
+### Visits are counted by channel and landing referrer, both from fixed lists, and the counters are copied weekly
+Decided 1 Oct 2026 (branch `wf/convlog`). (1) `channel_visit`: a link the
+practice hands out (Google Business Profile, directories, notes to family
+practices, HR teams, campuses, community organisations, other counsellors)
+carries `?utm_source=` naming the KIND of organisation, from `CHANNELS` in
+`lib/conversion-detail-client.ts`: gbp, bing, apple, bcacc, listing, gp,
+clinic, hr, campus, community, counsellor. It is counted once per session; any
+other value is dropped in the browser and refused by the server. This is
+separate from /refer's "no referral codes" rule, which forbids tracking who
+referred whom: a channel tag names an organisation type, never a person, and no
+link given to a client to pass on carries one. `gbp_visit` is superseded and
+its history is folded into the gbp row.
+
+(2) `landing`: the first page of each session is counted with the referrer host
+reduced in the browser to google, bing, duckduckgo, ai, listing, none or other;
+only the class is stored. /admin prints booking clicks per page as "N clicks of
+M landings". The log's new `firstSeen` field records the day each event was
+first counted, so ratios between counters that started on different days are
+labelled rather than silently divided.
+
+(3) `/api/cron/weekly-snapshot` runs on Mondays and copies
+`analytics/conversions.json` (and `analytics/booking-tally.json` when it
+exists) to `analytics/snapshots/<date>.json`. It sends nothing, per the 17 Sep
+decision. /admin diffs the two newest snapshots as "Last 7 days".
+
+(4) The conversion and search counters write with ETag compare-and-swap
+(`lib/blob-ledger.ts`). The last attempt is NOT made unconditional, unlike
+inbound: losing one increment is better than erasing every increment that
+landed concurrently. A weak ETag still writes unconditionally.
+
+*Enforced by:* `lib/blob-ledger.ts`, `lib/conversion-detail.ts`,
+`lib/conversion-snapshots.ts`, `test/conversion-channels.test.mts`,
+`test/cron-routes.test.mts`
+
+### /book is read in two weeks, says it is online only, and states the session fee
+Decided 1 Oct 2026 (branch `wf/book`). Cliniko caps `available_times` at seven
+days, and /book read one window. On 1 Oct it said "This week: Tue, Sat, 9 am to
+6 pm, with evenings" while Cliniko had openings on 8-17 Oct that no page
+mentioned. It now makes two requests (days 1-7 and 8-14) side by side under the
+same timeout. The practice line says "Next two weeks: ..., start times X to Y".
+", with evenings" was dropped rather than made conditional: the span is of slot
+starts, and nothing on the page may say more than Cliniko does. The home hero
+still reads only the first seven days, because it says "this week".
+
+/book now says it is online only where the booking summary's street address can
+mislead: in the facts, under the calendar heading, and in an open first FAQ.
+Under "What it costs" it states the individual and couples session fees from
+the Cliniko catalogue, the way the city-service pages do, with coverage
+described as plan-dependent. A /book?with= that has chosen a counsellor shows
+one row instead of both cards. The sticky bar on /book jumps to the calendar
+and names only the chosen counsellor's next time. A form sent from /book?with=
+returns there. The registration-number rule now covers every number on the
+roster, not only the founder's; /book is per-request, so the guard checks it
+with `--live`.
+
+*Enforced by:* `lib/availability-summary.ts`, `lib/book-fees.ts`,
+`lib/inbound-return.ts`, `scripts/roster-numbers.mjs`,
+`scripts/expansion-verify.mjs` (`--live`), `test/book-page.test.mts`
+
+### Fees in prose come from the catalogue, and one rule decides which calendar a page books into
+Decided 1 Oct 2026 (branch `wf/services`). (1) New copy calls
+`fallbackFee('<Cliniko name>')` from `lib/cliniko-catalog.ts` and never types a
+figure. `scripts/price-drift.mjs` now fails offline on any $NN in lib/, app/ or
+components/ that is not a `FALLBACK_CATALOG` price or on its named ALLOW list
+(market ranges, plan examples, the EI cap, rent, the liability limit). Add a
+non-fee figure there with a reason; never add a fee.
+
+(2) Which calendar a page books into is one rule, `bookingFor(service,
+language?)` in `lib/booking-cta.ts`. A language counsellor comes first.
+Otherwise `?with=` is used only when exactly one accepting, bookable BC
+counsellor offers the service, otherwise bare /book. The label never names a
+person.
+
+(3) Condition content lives on the service the condition books into: trauma on
+EMDR, anxiety and depression on individual therapy, each under an "Online X in
+BC" heading. The condition city pages link up to that heading with "online X
+across BC". Still no province-level condition pages. A test fails if a
+`lib/depth*.ts` key names a slug with no route.
+
+(4) /services/individual-therapy is titled for anxiety and depression (26 Sep
+GSC export). The H1 stays the service name.
+
+*Enforced by:* `scripts/price-drift.mjs`, `lib/booking-cta.ts`,
+`lib/city-services.ts` (`CONDITION_UPLINK`), the depth-orphan test
+
 ### Titles follow Search Console, not taste
 Decided 6 Sep 2026. The first month of Search Console data (`data/gsc/`)
 showed 4,478 non-brand impressions and two clicks: pages surfacing at
@@ -1132,6 +1282,9 @@ capped at ten per run and recorded in the invite ledger, so nobody is written
 to twice. The earlier refusal to email the whole historical client list about
 a portal they never asked for stands: `INVITE_BATCH_LIMIT` stays 0.
 `NEW_CLIENT_INVITES=0` switches the welcome off.
+
+*Narrowed 1 Oct 2026:* a record that came from Cliniko now waits for a paid
+booking before it is welcomed; see "Booking mail names the counsellor" above.
 
 *Enforced by:* `lib/portal-invite.ts` (`welcomeNewClients`), `lib/cliniko-sync.ts`
 (`addedClients`), `test/portal-welcome.test.mts`
