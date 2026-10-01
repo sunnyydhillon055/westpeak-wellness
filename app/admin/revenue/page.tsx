@@ -6,6 +6,9 @@ import { auth } from '@/auth';
 import { isAdmin } from '@/lib/portal-store';
 import { monthFromKey, previousMonth, money } from '@/lib/cliniko-revenue';
 import { invoiceDetail, isPaidSession, whyNotCounted, type InvoiceRow } from '@/lib/cliniko-invoice-detail';
+import { buildRevenueReport } from '@/lib/revenue-build';
+import { sendRevenueReport, reportRecipients } from '@/lib/revenue-email';
+import { recordAudit } from '@/lib/admin-audit';
 
 /* Every invoice in a month, with the session behind it. See
    lib/cliniko-invoice-detail.ts for why this exists (1 Oct 2026). */
@@ -27,7 +30,7 @@ const lastMonths = (n: number): string[] => {
   return out;
 };
 
-export default async function RevenueDetail({ searchParams }: { searchParams: { month?: string } }) {
+export default async function RevenueDetail({ searchParams }: { searchParams: { month?: string; sent?: string } }) {
   const session = await auth();
   const email = session?.user?.email ?? '';
   if (!email || !isAdmin(email)) redirect('/signin?next=%2Fadmin%2Frevenue');
@@ -61,6 +64,32 @@ export default async function RevenueDetail({ searchParams }: { searchParams: { 
           was paid by card online when booked. For anything else, open the invoice in Cliniko to see the method.
           Patients appear as initials only.
         </p>
+        {/* SEND THIS MONTH'S REPORT NOW — 1 Oct 2026. The owner asked to see the
+            corrected September email without waiting for 1 Nov. Same builder and
+            sender as the scheduled job, to the same recipients only; admin-only,
+            audited, and never to a client. */}
+        <form
+          action={async () => {
+            'use server';
+            const s = await auth();
+            const who = s?.user?.email ?? '';
+            if (!who || !isAdmin(who)) return;
+            const r = await buildRevenueReport(period);
+            let state = 'err';
+            if (r.status === 'ok') {
+              const sent = await sendRevenueReport(r);
+              state = sent.ok ? 'ok' : 'err';
+            }
+            await recordAudit({ actor: who, action: 'send revenue report', subject: `${period.key}: ${state}` });
+            redirect(`/admin/revenue?month=${period.key}&sent=${state}`);
+          }}
+          style={{ margin: '0 0 18px', display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}
+        >
+          <button type="submit" className="btn btn--primary">Email the {period.label} report now</button>
+          <span style={{ color: 'var(--ink-soft)', fontSize: 14 }}>Goes to {reportRecipients().join(', ')} only.</span>
+        </form>
+        {searchParams.sent === 'ok' && <p className="crisis" style={{ padding: 12 }}>Sent. Check {reportRecipients().join(', ')}.</p>}
+        {searchParams.sent === 'err' && <p className="crisis" style={{ padding: 12 }}>The report could not be built or sent. The scheduled job&rsquo;s status in /admin shows the error.</p>}
         <p style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
           {lastMonths(6).map((k) => (
             <Link key={k} href={`/admin/revenue?month=${k}`} className="chip" aria-current={k === period.key ? 'page' : undefined}>{k}</Link>

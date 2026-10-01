@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { noteCronRefusal } from '@/lib/cron-refusal';
-import { monthlyRevenue, previousMonth, monthFromKey, money } from '@/lib/cliniko-revenue';
-import { invoiceDetail, linesBySeen, isPaidSession } from '@/lib/cliniko-invoice-detail';
+import { previousMonth, monthFromKey, money } from '@/lib/cliniko-revenue';
+import { buildRevenueReport } from '@/lib/revenue-build';
 import { renderRevenueEmail, sendRevenueReport, reportRecipients } from '@/lib/revenue-email';
 import { withCronHealth } from '@/lib/cron-health';
 
@@ -75,24 +75,10 @@ export async function GET(req: NextRequest) {
      what would be sent is not a run. */
   const dry = Boolean(req.nextUrl.searchParams.get('dry'));
   const run = await withCronHealth('revenue-report', async () => {
-    const report = await monthlyRevenue(period);
+    const report = await buildRevenueReport(period);
     if (report.status === 'unconfigured') throw new Error('CLINIKO_API_KEY is not set (including its -ca1 suffix)');
     if (report.status === 'error') throw new Error(`cliniko error: ${report.detail}`);
-    /* By who held the session, not whose name is on the invoice (1 Oct 2026:
-       September credited the founder with four invoices and Camille with
-       none). Only when every closed invoice was read; otherwise the invoice
-       grouping stands, rather than a total that no longer adds up. */
-    const detail = await invoiceDetail(report.period);
-    if (detail.status === 'ok' && detail.skipped === 0 && detail.rows.length === report.invoiceCount) {
-      /* Paid, unrefunded sessions only; consultations never count (owner, 1 Oct 2026). */
-      const paid = detail.rows.filter(isPaidSession);
-      report.lines = linesBySeen(paid);
-      report.reattributed = paid.filter((r) => r.mismatch).length;
-      report.total = paid.reduce((n, r) => n + r.amountCents, 0);
-      report.totalNet = report.total;
-      report.totalTax = 0;
-      report.invoiceCount = paid.length;
-    }
+    /* Regrouped to paid sessions by who held them: lib/revenue-build.ts. */
     const summary = {
       period: report.period.key,
       label: report.period.label,
