@@ -55,12 +55,31 @@ export type Audience = {
    * (tagged with utm_source so the visits it sends can be told apart); the
    * copied text ends with the absolute URL, built by pasteText below so the
    * page and the test agree on exactly what lands on the clipboard. */
-  pasteBlock?: { h2: string; intro: string; text: string; path: string };
+  /* Several since 1 Oct 2026 (the employer page carries a manager's note
+   * and an email to the broker beside the intranet paragraph). `after` puts
+   * a block straight after the section with that h2; without it the block
+   * follows the last section. `donts` are plain lines shown above the copy
+   * and never copied. `path` is optional: a note to a broker links nowhere. */
+  pasteBlocks?: PasteBlock[];
+  /* THE PAGE'S OWN ACTIONS, WHEN BOOKING IS NOT THE ONE — 1 Oct 2026. On
+   * /for/employers-and-hr the reader is HR, and the hero sent them to a
+   * client consultation, one of the few slots a week the practice holds for
+   * people who want counselling. `primary` replaces the booking button in the
+   * hero and the mid-page link; `ghost` is the booking route offered on
+   * behalf of somebody else. Every other page books, as before. */
+  cta?: { primary: { label: string; href: string }; ghost?: { label: string; href: string } };
+  /* "At a glance for HR": a definition list built at render from the
+   * catalogue and the roster (hrGlance in lib/audiences-more4.ts), so it
+   * cannot carry a fee or a reach nobody set. Only the h2 and intro live in
+   * the data. */
+  glance?: { h2: string; intro: string };
 };
 
+export type PasteBlock = { h2: string; intro: string; text: string; path?: string; after?: string; donts?: string[] };
+
 /** The plain text the copy button puts on the clipboard. */
-export const pasteText = (b: { text: string; path: string }, domain: string) =>
-  `${b.text} ${domain}${b.path}`;
+export const pasteText = (b: { text: string; path?: string }, domain: string) =>
+  b.path ? `${b.text} ${domain}${b.path}` : b.text;
 
 const coreAudiences: Audience[] = [
   {
@@ -185,12 +204,12 @@ const coreAudiences: Audience[] = [
       "Everyone says these are the best years of your life, which makes it harder to admit you are barely holding it together.",
     shortAnswer:
       'Counselling for BC post-secondary students, online across the province. Campus counselling is free and often has a session cap and a waitlist; private sessions have neither, and this page sets out honestly when the free option is the better one and when it is not.',
-    updated: "2026-08-31",
+    updated: "2026-10-01",
     readMinutes: 6,
     opening: [
       "Post-secondary compresses an unusual number of hard things into a short window. You are making decisions with long consequences while your prefrontal cortex is still finishing, often away from home for the first time, frequently in debt, and surrounded by people who appear to be managing effortlessly. Almost none of them are.",
       "The specific difficulty is that the pressure is invisible from outside. Nobody sees the 2am panic about whether you picked the right programme, or the phone call home where you say everything is fine. What they see is someone getting through it.",
-      "**Before anything else, use the free options.** Your institution's counselling service is already paid for in your fees. [Here2Talk](https://here2talk.ca/) offers free, confidential counselling to students registered at a BC post-secondary institution, 24/7, by app, phone, or online. [Foundry](https://foundrybc.ca/) provides free counselling for anyone aged 12 to 24 across BC, virtually and in centres. Private therapy is worth paying for when those are full, when the waitlist runs past the point you can wait, or when you want continuity that does not reset each term.",
+      "**Before anything else, use the free options.** Your institution's counselling service is already paid for in your fees. [Here2Talk](https://here2talk.ca/) offers free, confidential single-session counselling to students registered at a BC post-secondary institution, 24/7, by app, phone, or online. [Foundry](https://foundrybc.ca/) provides free counselling for anyone aged 12 to 24 across BC, virtually and in centres. Private therapy is worth paying for when those are full, when the waitlist runs past the point you can wait, or when you want continuity that does not reset each term.",
     ],
     whatComesUp: [
       { label: "\"I picked the wrong programme\"", detail: "Two years in, a great deal of money spent, and the growing certainty that this is not it, plus the fear of what changing course would mean to the people funding it." },
@@ -226,13 +245,19 @@ const coreAudiences: Audience[] = [
           "Video helps too: a session fits any open time without a trip across campus, and most student days do not have a convenient hole in the middle of them.",
         ],
       },
+      {
+        h2: "Two plans, and who sees the claim",
+        body: [
+          "Most BC students are covered twice: by the student society's health plan, which is in your fees, and often by a parent's plan as a dependant. **Claim on your own student plan first**, then send what it did not pay to the parent's plan. That order is how coordination between plans normally works, and it is also the private one.",
+          "A claim on a parent's plan shows up in the parent's claim history and on their statements: usually the provider type, the date and the amount. Counselling stays confidential, but the claim itself is not invisible to the plan member. A claim on your own student plan goes to you. If it matters who sees what, check your student plan's booklet before the first session, and claim there.",
+          "What the main student-society plans pay is below, read from each plan's own page. Each yearly maximum is shared with psychologists and social workers, and resets with the plan year, usually in September.",
+        ],
+      },
     ],
     servicesThatFit: [
-      { href: "/services/individual-therapy", label: "Anxiety counselling", why: "For exam anxiety, panic, social anxiety, and worry that has stopped switching off." },
-      { href: "/services/individual-therapy", label: "Depression counselling", why: "For low mood, loss of motivation, and the flatness that outlasts the semester." },
-      { href: "/services/individual-therapy", label: "Individual therapy", why: "For identity, direction, and working out what you actually want." },
-      { href: "/services/punjabi-counselling", label: "Punjabi-speaking counselling", why: "For talking about family expectation without translating the cultural context first." },
-      { href: "/services/punjabi-counselling", label: "South Asian mental health", why: "For the specific weight of being the one the family's plans depend on." },
+      { href: "/services/individual-therapy", label: "Individual therapy", why: "For exam anxiety and panic, low mood that outlasts the semester, and working out what you actually want." },
+      { href: "/services/punjabi-counselling", label: "Punjabi-speaking counselling", why: "For family expectation, and the weight of being the one the family's plans depend on, without translating the cultural context first." },
+      { href: "/tagalog-counselling", label: "Tagalog-speaking counselling", why: "Sessions in Tagalog or English, for a student whose family lives in one language and whose campus runs in the other." },
     ],
     midCta: {
       text: "If the free campus service has a three-week waitlist and three weeks is too long, a free 30-minute call is a reasonable next step.",
@@ -240,8 +265,8 @@ const coreAudiences: Audience[] = [
     },
     faqs: [
       { q: "Is my campus counselling service not enough?", a: "Often it is, and it is free, start there. Its limits are usually capacity and session caps, so private therapy tends to make sense when the waitlist is longer than you can wait or you need work that runs longer than a fixed number of sessions." },
-      { q: "Will my parents find out?", a: "No. If you are 19 or over, counselling is confidential and your family has no access to it. Under 19, confidentiality still generally applies where you are capable of consenting to your own care. The limits are risk of serious harm and court orders, not parental curiosity." },
-      { q: "Can I afford this as a student?", a: "Check your student health plan first. Many post-secondary plans include counselling coverage that students never claim. Here2Talk and your campus counselling service are free and already paid for through your fees, and both are worth using before paying out of pocket." },
+      { q: "Will my parents find out?", a: "Not from the counsellor. If you are 19 or over, counselling is confidential and your family has no access to it. Under 19, confidentiality still generally applies where you are capable of consenting to your own care. The limits are risk of serious harm and court orders, not parental curiosity. The one route that is not private is a claim on a parent's plan, which appears in their claim history; claim on your own student plan first." },
+      { q: "Can I afford this as a student?", a: "Check your student health plan first. The table on this page shows what the main BC student-society plans pay for a Registered Clinical Counsellor, read from each plan's own page, and most students never claim it. Here2Talk and your campus counselling service are free and already paid for through your fees, and both are worth using before paying out of pocket." },
       { q: "What if I go home for the summer?", a: "As long as home is in BC, sessions continue unchanged. That continuity is one of the practical advantages of a virtual practice for students." },
     ],
     sources: [

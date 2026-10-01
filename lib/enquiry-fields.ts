@@ -26,7 +26,16 @@ export const LOOKING: Option[] = [
   { value: 'punjabi', label: 'Counselling in Punjabi' },
   { value: 'tagalog', label: 'Counselling in Tagalog' },
   { value: 'unsure', label: 'Not sure yet' },
+  /* 1 Oct 2026. HR and managers wrote through the client form, or booked a
+     client consultation to ask about their team. This is the choice they
+     make instead; /contact?about=employer preselects it. WHERE and TIMING are
+     questions about a client's sessions and are not asked of an employer
+     (choicesComplete below); the message floor still applies. */
+  { value: 'employer', label: 'An employer or HR enquiry' },
 ];
+
+/** The LOOKING value that is not somebody asking for counselling. */
+export const EMPLOYER = 'employer';
 
 export const WHERE: Option[] = [
   { value: 'bc', label: 'British Columbia' },
@@ -44,3 +53,14 @@ export const labelOf = (list: Option[], value?: string) =>
   list.find((o) => o.value === value)?.label ?? '';
 
 export const isOption = (list: Option[], value: string) => list.some((o) => o.value === value);
+
+/** Whether the three choices are a set the form can produce. An employer
+ *  enquiry needs only LOOKING; every other enquiry needs all three. */
+export const choicesComplete = (looking: string, where: string, timing: string) =>
+  looking === EMPLOYER
+    ? true
+    : isOption(LOOKING, looking) && isOption(WHERE, where) && isOption(TIMING, timing);
+
+/** The LOOKING value to preselect from a page's `?about=`, or '' for none. */
+export const lookingFromAbout = (about: string | null | undefined) =>
+  about && isOption(LOOKING, about) ? about : '';

@@ -5,6 +5,9 @@ import Link from 'next/link';
 import { track } from '@/lib/analytics';
 import ResultCta from '@/components/tools/ResultCta';
 import { toolDetail } from '@/lib/conversion-detail-client';
+/* Seven rows and four small functions, no imports: small enough for a
+   client bundle, and the same rows the student pages print. */
+import { STUDENT_PLANS, getStudentPlan, paysLabel, readOn, reimbursedPerSession } from '@/lib/student-plans';
 
 /* What a session actually costs after extended health.
  *
@@ -22,18 +25,26 @@ import { toolDetail } from '@/lib/conversion-detail-client';
 export type EstimatorFees = { individual: number; couples: number };
 type Kind = keyof EstimatorFees;
 
+/* Whole dollars as they are; a percentage share can leave cents. */
+const amt = (n: number) => (Number.isInteger(n) ? String(n) : n.toFixed(2));
+
 export default function CoverageEstimator({ fees: FEES }: { fees: EstimatorFees }) {
   const [kind, setKind] = useState<Kind>('individual');
   const [covers, setCovers] = useState<'yes' | 'no' | 'unsure'>('unsure');
   const [perSession, setPerSession] = useState('');
   const [annual, setAnnual] = useState('');
   const [shown, setShown] = useState(false);
+  /* A BC student-society plan, chosen from lib/student-plans.ts (1 Oct
+     2026). When one is chosen its rate and yearly maximum replace the two
+     typed figures, so a student does not have to find them first. */
+  const [planId, setPlanId] = useState('');
+  const plan = planId ? getStudentPlan(planId) : undefined;
 
   const fee = FEES[kind];
-  const per = Math.max(0, Number(perSession) || 0);
-  const cap = Math.max(0, Number(annual) || 0);
+  const per = plan ? reimbursedPerSession(plan, fee) : Math.max(0, Number(perSession) || 0);
+  const cap = plan ? plan.annualMax : Math.max(0, Number(annual) || 0);
   const backPerSession = Math.min(per, fee);
-  const outOfPocket = Math.max(0, fee - backPerSession);
+  const outOfPocket = Math.max(0, Math.round((fee - backPerSession) * 100) / 100);
   const sessionsCovered = backPerSession > 0 && cap > 0 ? Math.floor(cap / backPerSession) : null;
 
   return (
@@ -53,6 +64,29 @@ export default function CoverageEstimator({ fees: FEES }: { fees: EstimatorFees 
             </button>
           ))}
         </div>
+      </fieldset>
+
+      <fieldset className="quiz-set">
+        <legend className="quiz-q">Are you on a BC student-society health plan?</legend>
+        <p className="quiz-help">
+          If you are, pick it and the plan’s own figures are used. Each was read from the plan’s
+          page; your booklet for this year is the authority.
+        </p>
+        <label htmlFor="est-plan" className="sr-only">Student-society plan</label>
+        <select
+          id="est-plan"
+          value={planId}
+          onChange={(e) => {
+            const id = e.currentTarget.value;
+            setPlanId(id);
+            if (id) setCovers('yes');
+          }}
+        >
+          <option value="">No, or not listed here</option>
+          {STUDENT_PLANS.map((p) => (
+            <option key={p.id} value={p.id}>{p.name} ({p.institution})</option>
+          ))}
+        </select>
       </fieldset>
 
       <fieldset className="quiz-set">
@@ -83,7 +117,10 @@ export default function CoverageEstimator({ fees: FEES }: { fees: EstimatorFees 
               type="button"
               className={`quiz-choice${covers === v ? ' is-on' : ''}`}
               aria-pressed={covers === v}
-              onClick={() => setCovers(v)}
+              onClick={() => {
+                setCovers(v);
+                if (v !== 'yes') setPlanId('');
+              }}
             >
               {label}
             </button>
@@ -91,7 +128,17 @@ export default function CoverageEstimator({ fees: FEES }: { fees: EstimatorFees 
         </div>
       </fieldset>
 
-      {covers === 'yes' && (
+      {covers === 'yes' && plan && (
+        <p className="quiz-help">
+          The {plan.name} plan pays {paysLabel(plan)}, up to ${plan.annualMax} a policy year, shared
+          with psychologists and social workers.{' '}
+          {plan.namesRcc ? '' : 'Its page says “counsellor” without naming the RCC, so ask the plan first. '}
+          Read from <a href={plan.source} target="_blank" rel="noopener">the plan’s page</a> on{' '}
+          {readOn(plan.checkedOn)}.
+        </p>
+      )}
+
+      {covers === 'yes' && !plan && (
         <fieldset className="quiz-set">
           <legend className="quiz-q">What does it pay?</legend>
           <div className="est-fields">
@@ -132,11 +179,11 @@ export default function CoverageEstimator({ fees: FEES }: { fees: EstimatorFees 
             <>
               <p className="eyebrow">Your figures</p>
               <h2>
-                About ${outOfPocket} per session out of pocket
+                About ${amt(outOfPocket)} per session out of pocket
               </h2>
               <p>
-                A {kind} session is ${fee}. If your plan reimburses ${backPerSession} of that, you
-                are paying ${outOfPocket} yourself.
+                A {kind} session is ${fee}. If your plan reimburses ${amt(backPerSession)} of that, you
+                are paying ${amt(outOfPocket)} yourself.
                 {sessionsCovered !== null && (
                   <> A ${cap} annual maximum covers roughly {sessionsCovered}{' '}
                   {sessionsCovered === 1 ? 'session' : 'sessions'} before you are paying the full fee.</>

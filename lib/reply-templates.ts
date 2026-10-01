@@ -145,6 +145,39 @@ Either way, thank you for asking. Doing that is usually the hardest part.
 
 `,
   },
+  /* 1 Oct 2026: the 'employer' choice on the enquiry form. A draft like the
+     others, opened in a mail client and sent by a person. It answers the
+     questions HR actually asks and offers nothing the practice does not do:
+     no contract, no workshops, no reports on employees. */
+  {
+    key: 'employer',
+    label: 'Employer or HR enquiry',
+    when: 'An employer, manager or HR lead asking about their team.',
+    subject: 'Re: counselling for your team',
+    body: (i) => `${greeting(i)}
+
+Thank you for writing about your team.
+
+[: answer their question first, in a line or two. ]
+
+How it works, in short: an employee books directly, privately, and the
+first 30-minute consultation is free. They pay at booking and claim the
+receipt on their own plan where it covers a Registered Clinical Counsellor.
+The practice is not an EAP and has no employer contract. Nothing about an
+employee comes to you; with their written consent, a counsellor can confirm
+attendance on given dates and nothing more.
+
+The page written for employers has a paragraph for a benefits page, a note
+a manager can send one person, and an email for your broker at renewal:
+  ${site.domain}/for/employers-and-hr?utm_source=hr
+
+A printable one-page summary is here:
+  ${site.domain}/for/employers-and-hr/one-pager
+
+If there is anything else you need to know, reply here.
+
+`,
+  },
 ];
 
 export const getTemplate = (key: string) => REPLY_TEMPLATES.find((t) => t.key === key);

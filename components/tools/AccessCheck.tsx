@@ -33,7 +33,8 @@ function routeKeysFor(tags: string[]): string[] {
     keys.push('other');
   } else {
     if (has('eap')) keys.push('eap');
-    if (has('student')) keys.push('student');
+    /* The student plan right after campus counselling (1 Oct 2026). */
+    if (has('student')) keys.push('student', 'studentplan');
     if (has('checkbenefits')) keys.push('checkbenefits');
     if (has('lowcost')) keys.push('lowcost');
     if (has('extended')) keys.push('extended');

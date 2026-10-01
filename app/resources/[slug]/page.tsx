@@ -23,6 +23,14 @@ import InlineRelated from '@/components/InlineRelated';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import LeadCapture, { type MagnetKey } from '@/components/LeadCapture';
 import { ogBase } from '@/lib/og-meta';
+import StudentPlanTable from '@/components/StudentPlanTable';
+import { STUDENT_PLAN_TABLE_AFTER } from '@/lib/student-plans';
+import { FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
+
+/* The student-plan table's sessions column (1 Oct 2026). This template is
+   static, so the fee is the catalogue's checked-in copy, which price-drift
+   compares with Cliniko, as /tools/therapy-cost-bc does. */
+const individualCents = FALLBACK_CATALOG.items.find((i) => i.name === 'Individual Counselling')?.cents;
 
 /* Which resource pages carry the email one-pager, and which pager. Money
  * pages only: the coverage checklist where the reader has a plan to check,
@@ -202,6 +210,10 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
                     {s.template.lines.join('\n')}
                   </pre>
                 </div>
+              )}
+
+              {STUDENT_PLAN_TABLE_AFTER[`resources/${r.slug}`] === s.h2 && (
+                <StudentPlanTable fee={individualCents ? individualCents / 100 : undefined} />
               )}
 
               <div className="prose">{midDevices.filter((_, k) => slots[k] === i)}</div>

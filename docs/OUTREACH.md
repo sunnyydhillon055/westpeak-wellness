@@ -92,9 +92,15 @@ https://www.westpeakwellness.com/resources/workplace-mental-health-bc?utm_source
 If it would be useful on an intranet, a benefits page or a manager's
 toolkit, please link to it freely. We also offer counselling in English,
 Punjabi and Tagalog by secure video, and our page for employers has a short
-paragraph written to be pasted straight into a benefits page, with a copy
-button:
+paragraph written to be pasted straight into a benefits page, a note a
+manager can send one person, and an email to send your broker before
+renewal, each with a copy button:
 https://www.westpeakwellness.com/for/employers-and-hr?utm_source=hr#paste-this-into-your-benefits-page
+
+There is also a one-page summary to print or attach to a benefits pack:
+fees, the free consultation, what a receipt carries, the plan wording to
+look for, and what an employer does and does not receive:
+https://www.westpeakwellness.com/for/employers-and-hr/one-pager?utm_source=hr
 
 Thank you,
 [Name]
@@ -312,6 +318,10 @@ small employer rather than the insurer. If it would be useful in a member
 toolkit, a manager's guide or a legal-information page, please link to it
 freely. We will keep the figures current and are glad to hear of anything
 that should change.
+
+For members who are the employer, there is a one-page summary of how
+counselling works for a team, written to print or attach:
+https://www.westpeakwellness.com/for/employers-and-hr/one-pager?utm_source=hr
 
 Thank you,
 [Name]

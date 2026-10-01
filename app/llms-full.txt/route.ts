@@ -389,6 +389,7 @@ navigation or boilerplate. Every page it covers is also available at its own URL
     `No physician referral is required to book. A person can book the free 30-minute consultation themselves at ${site.domain}${site.bookingPath}.`,
     `There is a one-page summary written for a GP in British Columbia at ${site.domain}/refer/doctor: designation, scope limits, fees, and what a referring physician does and does not need to do. Clinical information is released only with the patient's written consent.`,
     `A printable sheet of four front-desk cards for clinics, campuses and agencies is at ${site.domain}/refer/handout.`,
+    `For employers and HR: ${site.domain}/for/employers-and-hr covers how counselling is paid for in a BC workplace, what an employer may ask, a note a manager can send one employee and an email for the broker at renewal, and a printable one-page summary is at ${site.domain}/for/employers-and-hr/one-pager. The practice is not an EAP; employees book directly and the employer is told nothing without the employee's written consent. Employers write by email through the contact form.`,
     `For a counsellor whose own caseload is full, ${site.domain}/refer/counsellors lists who is accepting new clients, their languages and where they may see clients. No referral fee, nothing reciprocal, and nothing reported back without the client's written consent.`,
   ].join('\n\n'));
 

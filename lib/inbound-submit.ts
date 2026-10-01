@@ -8,7 +8,7 @@ import { practitioners } from '@/lib/practitioners';
 import { clientKey, rateCheck } from '@/lib/rate-limit';
 import { routeInbound } from '@/lib/inbound-routing';
 import { hasEnoughDetail } from '@/lib/sentences';
-import { LOOKING, WHERE, TIMING, isOption } from '@/lib/enquiry-fields';
+import { EMPLOYER, choicesComplete } from '@/lib/enquiry-fields';
 import { countConversion } from '@/lib/conversion-log';
 import { MAGNET_KEYS } from '@/lib/conversion-detail';
 import { safePath, returnUrl } from '@/lib/inbound-return';
@@ -114,10 +114,14 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
   /* THE THREE CHOICES — 25 Sep 2026. Required for an enquiry and only
    * accepted from the list the form offers; anything else is a post that did
    * not come from the form. See lib/enquiry-fields.ts. */
+  /* An employer enquiry (1 Oct 2026) answers only the first: where and how
+   * soon are questions about a client's own sessions. Anything it sends for
+   * them is dropped rather than stored. */
   const looking = String(form.get('looking') ?? '').trim();
-  const where = String(form.get('where') ?? '').trim();
-  const timing = String(form.get('timing') ?? '').trim();
-  if (o.kind === 'enquiry' && !(isOption(LOOKING, looking) && isOption(WHERE, where) && isOption(TIMING, timing))) {
+  const isEmployer = looking === EMPLOYER;
+  const where = isEmployer ? '' : String(form.get('where') ?? '').trim();
+  const timing = isEmployer ? '' : String(form.get('timing') ?? '').trim();
+  if (o.kind === 'enquiry' && !choicesComplete(looking, where, timing)) {
     return back('err');
   }
 
@@ -236,7 +240,9 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
       /* Routed to the counsellor it is for, info@ in copy — see
        * lib/inbound-routing.ts. Reply-to is the person who wrote in, so
        * whoever picks it up answers by hitting reply. */
-      const route = routeInbound(item);
+      /* An employer enquiry goes to info@ alone: it is about the practice,
+         not a request for a counsellor's time (1 Oct 2026). */
+      const route = isEmployer ? { to: [site.email], cc: [] as string[] } : routeInbound(item);
       return sendDetailed(route.to, alert.subject, alert.text, alert.html, { replyTo: email, cc: route.cc });
     })(),
   ]);

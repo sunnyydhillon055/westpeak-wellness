@@ -1,9 +1,10 @@
 'use client';
 import FormStamp from '@/components/FormStamp';
 
+import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { hasEnoughDetail, MIN_SENTENCES, MIN_WORDS } from '@/lib/sentences';
-import { LOOKING, WHERE, TIMING } from '@/lib/enquiry-fields';
+import { LOOKING, WHERE, TIMING, EMPLOYER, lookingFromAbout } from '@/lib/enquiry-fields';
 
 /* The form that gives someone a way in other than picking a calendar slot.
  *
@@ -85,6 +86,18 @@ export default function InboundForm({
   const pathname = usePathname();
   const c = COPY[kind];
 
+  /* ?about=employer preselects the employer choice (1 Oct 2026), read after
+     mount from location rather than useSearchParams, which would take every
+     static page this form sits on out of static generation. Without
+     JavaScript nothing is preselected and all three choices are asked, which
+     the server accepts too. */
+  const [looking, setLooking] = useState('');
+  useEffect(() => {
+    const about = lookingFromAbout(new URLSearchParams(window.location.search).get('about'));
+    if (about) setLooking(about);
+  }, []);
+  const employer = looking === EMPLOYER;
+
   if (done === 'ok') {
     return (
       <div className="crisis" id="form" style={{ marginTop: 8 }}>
@@ -145,20 +158,26 @@ export default function InboundForm({
           tap. They are what the first reply would otherwise have to ask. */}
       <div className="lead-form-row">
         <label htmlFor={`in-looking-${kind}`} className="sr-only">What are you looking for?</label>
-        <select id={`in-looking-${kind}`} name="looking" required defaultValue="">
+        <select id={`in-looking-${kind}`} name="looking" required value={looking}
+          onChange={(e) => setLooking(e.currentTarget.value)}>
           <option value="" disabled>What are you looking for?</option>
           {LOOKING.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
         </select>
-        <label htmlFor={`in-where-${kind}`} className="sr-only">Where will you be for sessions?</label>
-        <select id={`in-where-${kind}`} name="where" required defaultValue="">
-          <option value="" disabled>Where will you be for sessions?</option>
-          {WHERE.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-        </select>
-        <label htmlFor={`in-timing-${kind}`} className="sr-only">How soon are you hoping to start?</label>
-        <select id={`in-timing-${kind}`} name="timing" required defaultValue="">
-          <option value="" disabled>How soon are you hoping to start?</option>
-          {TIMING.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-        </select>
+        {/* Not asked of an employer: both are about a client's sessions. */}
+        {!employer && (
+          <>
+            <label htmlFor={`in-where-${kind}`} className="sr-only">Where will you be for sessions?</label>
+            <select id={`in-where-${kind}`} name="where" required defaultValue="">
+              <option value="" disabled>Where will you be for sessions?</option>
+              {WHERE.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+            </select>
+            <label htmlFor={`in-timing-${kind}`} className="sr-only">How soon are you hoping to start?</label>
+            <select id={`in-timing-${kind}`} name="timing" required defaultValue="">
+              <option value="" disabled>How soon are you hoping to start?</option>
+              {TIMING.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+            </select>
+          </>
+        )}
       </div>
 
       <label htmlFor="in-message" className="sr-only">What you are looking for</label>

@@ -140,13 +140,15 @@ test('the price scan catches a file set back to the old couples fee', () => {
 
 test('the employers paste block copies as plain text ending in the tagged booking URL', () => {
   const a = getAudience('employers-and-hr')!;
-  const text = pasteText(a.pasteBlock!, site.domain);
+  /* One of three blocks since 1 Oct 2026; test/employer-page.test.mts has the other two. */
+  const block = a.pasteBlocks!.find((b) => b.h2 === 'Paste this into your benefits page')!;
+  const text = pasteText(block, site.domain);
   assert.ok(text.endsWith(`${site.domain}/book?utm_source=hr`));
   assert.doesNotMatch(text, /[<>*\[\]]/, 'markup in the copied text');
   assert.doesNotMatch(text, /\b(hours?|evenings?|weekends?|EAP provider)\b|\d\s?(am|pm)\b/i);
   assert.match(text, /30-minute consultation is free/);
   assert.match(text, /not a crisis service/);
-  const words = a.pasteBlock!.text.split(/\s+/).length;
+  const words = block.text.split(/\s+/).length;
   assert.ok(words >= 45 && words <= 85, `${words} words`);
 });
 
