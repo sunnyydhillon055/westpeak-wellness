@@ -134,10 +134,6 @@ export const punjabiRegions: PunjabiRegion[] = [
         label: 'Cultural context without the preamble',
         detail: 'Family expectations, generational silence, and "log kya kahenge" do not need to be explained from first principles before the work can start.',
       },
-      {
-        label: 'Evening appointments',
-        detail: 'Weekday evenings by request, which matters for shift work and for parents.',
-      },
     ],
     faqs: [
       {
@@ -210,10 +206,6 @@ export const punjabiRegions: PunjabiRegion[] = [
         label: 'Punjabi, English, or both',
         detail: 'Sessions move between languages as needed. Nothing has to be pre-translated before it can be said.',
       },
-      {
-        label: 'Evening appointments',
-        detail: 'Weekday evenings by request, which matters for shift work and for parents.',
-      },
     ],
     faqs: [
       {
@@ -275,7 +267,7 @@ export const punjabiRegions: PunjabiRegion[] = [
     access: [
       {
         label: 'Fits around the season',
-        detail: 'Evening appointments by request. For seasonal and agricultural work, a fixed weekday-afternoon clinic slot is often the reason therapy does not start.',
+        detail: 'No travel either side of a session. For seasonal and agricultural work, a fixed weekday-afternoon clinic slot is often the reason therapy does not start.',
       },
       {
         label: 'Punjabi, English, or both',
@@ -403,10 +395,6 @@ export const punjabiRegions: PunjabiRegion[] = [
         label: 'Cultural context without the preamble',
         detail: 'Family expectations, generational silence, a marriage question, "log kya kahenge", none of it needs explaining from first principles before the work can start.',
       },
-      {
-        label: 'Evening appointments',
-        detail: 'Weekday evenings, which matters for shift work, for parents, and for anyone whose absence on a weekday afternoon would itself be a conversation at home.',
-      },
     ],
     faqs: [
       {
@@ -491,7 +479,7 @@ export const punjabiRegions: PunjabiRegion[] = [
         'The concern people raise from here is rarely whether counselling works. It is **who will see the car.** A clinic on a main road in a city this size, in a community where families have known each other for generations, is not a private place to be seen going, and that assessment is a realistic reading of how information moves, not anxiety to be talked out of.',
         'There are good Punjabi-speaking counsellors in Abbotsford, several practices built specifically around South Asian clients, and Fraser Health runs public mental-health services across the region. **This page is not an argument against any of it.** If a local office suits you, book locally with a clear conscience.',
         'What this practice offers instead is structural: no office in Abbotsford, no waiting room anywhere, no professional or social overlap with the Valley\'s South Asian community. That is not a claim to be better. For some people it is the difference between starting counselling and not starting.',
-        'The second pattern specific here is agricultural. The Valley\'s berry and greenhouse economy runs on a season, and during a peak a fixed weekday-afternoon appointment is not attendable by anyone working it. Evening sessions, and no travel either side, are what make therapy possible rather than theoretical in those months.',
+        'The second pattern specific here is agricultural. The Valley\'s berry and greenhouse economy runs on a season, and during a peak a fixed weekday-afternoon appointment is not attendable by anyone working it. No travel either side, and a time picked from what the counsellor has open rather than a fixed clinic slot, are what make therapy possible rather than theoretical in those months.',
         'If language is not the barrier you are solving for, [online counselling for Abbotsford](/online-counselling/abbotsford) covers the rest. The distances across the Valley, and what they cost a course of therapy.',
       ],
     },
@@ -510,7 +498,7 @@ export const punjabiRegions: PunjabiRegion[] = [
       },
       {
         label: 'Fits around the season',
-        detail: 'Weekday evenings by request. For agricultural and greenhouse work, a fixed daytime clinic slot is often the reason counselling never starts.',
+        detail: 'No travel either side of a session. For agricultural and greenhouse work, a fixed daytime clinic slot is often the reason counselling never starts.',
       },
       {
         label: 'The wider Valley on the same terms',

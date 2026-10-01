@@ -95,7 +95,6 @@ export const locations: Location[] = [
       { label: "No drive, no weather", detail: "Sessions happen wherever you have a private room and a connection. January in the Interior stops being a scheduling problem." },
       { label: "Continuity if you move or travel", detail: "Work camps, rotations, and moves within BC do not interrupt the work. The practice is licensed to see clients anywhere in the province." },
       { label: "Punjabi-language sessions", detail: "Punjabi-speaking counsellors are concentrated in the Lower Mainland. Virtual access is, for most of Northern BC, the only realistic route to therapy in Punjabi." },
-      { label: "Evening appointments", detail: "Weekday evenings by request, which matters for shift work and for parents." },
     ],
     faqs: [
       {
@@ -156,7 +155,6 @@ export const locations: Location[] = [
     access: [
       { label: "No one sees you attend", detail: "The most common reason people here choose virtual over a local clinic. No waiting room, no building, no chance encounter." },
       { label: "Punjabi, English, or both", detail: "Including switching mid-sentence, which is how a lot of people in Surrey actually think and speak." },
-      { label: "Evening appointments", detail: "By request, useful when you live with family and daytime privacy is the harder problem." },
       { label: "Continuity if you move", detail: "Registration covers all of BC, so a move to Abbotsford, Vancouver, or anywhere in the province does not end the work." },
     ],
     faqs: [
@@ -240,7 +238,7 @@ export const locations: Location[] = [
       h2: "Distance, agriculture, and privacy",
       body: [
         "**The Valley is spread out.** For people in Abbotsford's rural areas, or in Mission, Chilliwack, or further east, a counselling appointment has historically meant driving, and that drive is the reason a lot of courses of therapy quietly end after three or four sessions. Virtual sessions remove that variable entirely.",
-        "**Agricultural and seasonal work does not fit a 9-to-5 appointment slot.** The Valley's economy includes a significant agricultural workforce with seasonal peaks and long days during them. Evening availability, and the ability to attend without losing travel time either side, is the practical difference between possible and not.",
+        "**Agricultural and seasonal work does not fit a 9-to-5 appointment slot.** The Valley's economy includes a significant agricultural workforce with seasonal peaks and long days during them. Attending without losing travel time either side, at a time picked from what the counsellor has open rather than a clinic's fixed slot, is the practical difference between possible and not.",
         "**Privacy operates the way it does in Surrey, only with less room.** In a community where families know each other, being seen entering a counselling office carries a weight that is entirely rational to want to avoid. What makes Abbotsford its own case rather than a smaller Surrey is the arithmetic: a comparable share of the population in a city less than a third the size means fewer degrees of separation available, not more. [Punjabi-speaking counselling for Abbotsford](/punjabi-counselling/abbotsford) is written about that specifically. A virtual practice removes the question entirely. There is no building to be seen at.",
         "For the broader picture of what this work involves within South Asian families, [the guide on intergenerational trauma](/guides/intergenerational-trauma-explained) covers the patterns that come up most.",
       ],
@@ -336,7 +334,7 @@ export const locations: Location[] = [
     },
     access: [
       { label: "Reaches specialisation that is not local", detail: "Modality and language options that the Central Okanagan list does not currently include." },
-      { label: "Works around seasonal peaks", detail: "Evening appointments by request, and no travel time either side of the session." },
+      { label: "Works around seasonal peaks", detail: "No travel time either side of the session, so a session costs fifty minutes rather than an afternoon." },
       { label: "Covers the wider Okanagan", detail: "West Kelowna, Vernon, Penticton, and the smaller Interior communities where local coverage thins further." },
       { label: "Continues through evacuation or travel", detail: "Anywhere in BC with a connection, which in a wildfire season is not a hypothetical benefit." },
     ],
@@ -403,7 +401,7 @@ export const locations: Location[] = [
       { label: "No drive, in any weather", detail: "Highway closures, winter conditions and a two-hour round trip stop being scheduling problems. For the communities outside Kamloops this is usually the whole difference." },
       { label: "Covers the whole Thompson-Nicola", detail: "Merritt, Clearwater, Barriere, Chase, Ashcroft, Logan Lake and Cache Creek on identical terms, distance is not a factor in a virtual practice." },
       { label: "Punjabi, English, or both", detail: "Without the four-hour drive to the Lower Mainland that has historically been the only route to therapy in Punjabi from here." },
-      { label: "Works around shifts and seasons", detail: "Weekday evenings by request, which matters for mill and mine rotations, ranching, and the tourism season." },
+      { label: "Works around shifts and seasons", detail: "No travel either side of a session, which matters for mill and mine rotations, ranching, and the tourism season." },
       { label: "Continuity through a move", detail: "Registration covers all of BC, so leaving Kamloops, for the coast, for school, for work, does not mean starting again with somebody new." },
     ],
     faqs: [
@@ -488,13 +486,12 @@ export const locations: Location[] = [
       { label: "No trip across the city", detail: "The commute west is the most common reason a course of sessions here ends early." },
       { label: "No referral, no diagnosis", detail: "Counselling with an RCC is accessed directly, whichever authority covers your address." },
       { label: "Punjabi or English", detail: "Including moving between both inside a single session." },
-      { label: "Evening availability", detail: "Evening sessions are available, depending on the counsellor, so an appointment need not cost a working afternoon as well." },
     ],
     faqs: [
       { q: "Which health authority covers Burnaby?", a: "Fraser Health, not Vancouver Coastal, which surprises a lot of people who work in Vancouver. It determines the public intake route for your address, and has no bearing at all on seeing a Registered Clinical Counsellor privately." },
       { q: "Do I need a doctor's referral?", a: "No. Counselling with an RCC is accessed directly. There is no referral, no diagnosis, and no waiting for a physician appointment first." },
       { q: "Is counselling covered by MSP?", a: "No. MSP does not cover counselling with an RCC. Most extended health plans reimburse it, and receipts carry the registration number insurers ask for." },
-      { q: "Can I have a session on a work day?", a: "There are evening slots Tuesday through Friday and daytime hours Monday and Tuesday. Because there is no travel, an evening session costs the evening rather than the afternoon as well." },
+      { q: "Can I have a session on a work day?", a: "Times depend on the counsellor, and the booking page shows what is open. Because there is no travel, a session costs the session rather than the afternoon around it as well." },
     ],
     sources: [
       { label: "Fraser Health, mental health and substance use services", url: "https://www.fraserhealth.ca/health-topics-a-to-z/mental-health-and-substance-use" },
@@ -642,7 +639,7 @@ export const locations: Location[] = [
       h2: "Language, the airport, and a bridge",
       body: [
         "**Language shapes the local supply more than distance does.** Richmond's counselling capacity is real; the question is whether it exists in the language you want to be understood in. For English, Punjabi or Tagalog speakers here, \"local\" often means crossing a bridge anyway, at which point the drive is buying nothing that a video call does not.",
-        "**Shift work at YVR and the port does not fit a 9-to-5 slot.** Airport operations, ground handling, freight and hospitality run on rosters that change, and a standing weekly appointment at 2pm is not something those schedules survive. Evening availability, and the ability to attend from wherever you are between shifts, is the practical difference.",
+        "**Shift work at YVR and the port does not fit a 9-to-5 slot.** Airport operations, ground handling, freight and hospitality run on rosters that change, and a standing weekly appointment at 2pm is not something those schedules survive. Attending from wherever you are between shifts, at a time picked from what the counsellor has open, is the practical difference.",
         "**Public intake runs through Vancouver Coastal Health**, not Fraser Health, which matters if you have been given a referral or joined a waitlist and are trying to work out which queue you are actually in.",
         "**Punjabi-speaking counselling is the specific case.** Richmond's Punjabi-speaking community is smaller than Surrey's or Abbotsford's and the local provision reflects that. [Punjabi-speaking counselling](/services/punjabi-counselling) covers what sessions in Punjabi actually involve, and [counselling in Surrey](/online-counselling/surrey) covers the larger picture one bridge east.",
       ],
@@ -650,7 +647,7 @@ export const locations: Location[] = [
     access: [
       { label: "No bridge, no tunnel", detail: "The Massey Tunnel and the Oak Street bridge stop being part of the appointment." },
       { label: "English, Punjabi or Tagalog", detail: "Which of the three depends on the counsellor, and moving between one and English mid-session is normal. Cantonese and Mandarin are not offered here, Richmond is genuinely well served for those locally." },
-      { label: "Built for shift rosters", detail: "Evening appointments, and no travel time either side of a session." },
+      { label: "Built for shift rosters", detail: "No travel time either side of a session, and a time picked from what the counsellor has open rather than a fixed weekly slot." },
       { label: "Serves all of Richmond", detail: "Steveston, Brighouse, Hamilton and the island's east side on identical terms." },
     ],
     faqs: [
@@ -693,13 +690,12 @@ export const locations: Location[] = [
     access: [
       { label: "No commute on top of the commute", detail: "The single largest reason a course of therapy quietly stops here." },
       { label: "Covers all three cities", detail: "Coquitlam, Port Coquitlam and Port Moody on identical terms, plus Anmore and Belcarra." },
-      { label: "Evening appointments", detail: "Weekday evenings by request, which is when a commuting schedule actually has room." },
       { label: "English, Punjabi or Tagalog", detail: "Which of the three depends on the counsellor. Moving between one and English within a session is normal." },
     ],
     faqs: [
       { q: "Do you cover Port Coquitlam and Port Moody?", a: "Yes, and on the same terms. The practice is virtual and covers all of British Columbia, so which of the three municipalities you live in changes nothing about availability or fee." },
       { q: "Which health authority covers the Tri-Cities?", a: "Fraser Health, despite most people here looking west to Vancouver and Burnaby for work and for a lot of services. It is worth confirming before joining a public waitlist. A referral into the wrong authority's queue costs weeks that nobody flags." },
-      { q: "I get home late. What is the latest appointment?", a: "Evening slots run on weekdays by request. The current bookable windows are listed on the booking page, and if none of them work it is worth saying so on the consultation call rather than forcing a time that will not survive a busy month." },
+      { q: "I get home late. What is the latest appointment?", a: "Times depend on the counsellor, and the booking page shows what is open right now. If none of them work it is worth saying so on the consultation call rather than forcing a time that will not survive a busy month." },
       { q: "Does virtual therapy actually work as well?", a: "For the concerns most people bring: anxiety, depression, trauma, relationship difficulty. The research on video-delivered therapy shows outcomes broadly comparable to in-person work. The trade-offs are real and worth talking through on a consultation." },
       { q: "Is there a free consultation first?", a: "Yes: 30 minutes by video, no charge, no card, and no obligation to book anything afterwards." },
     ],
@@ -730,7 +726,7 @@ export const locations: Location[] = [
         "**The Massey Tunnel is the local variable everything else is scheduled around.** An appointment in Vancouver or Richmond is a different proposition at 4pm than at 11am, and a weekly commitment that depends on the tunnel behaving is a weekly commitment that will eventually be missed.",
         "**North Delta's situation is Surrey's situation.** The Punjabi-speaking community here is substantial and continuous with Surrey's, and it brings the same dynamic: a strong community, and a corresponding concern about privacy that keeps people from walking into a local clinic where they may be recognised. [Punjabi-speaking counselling for Surrey](/punjabi-counselling/surrey) is written about that specifically, and applies directly across the boundary.",
         "**Ladner and Tsawwassen are small towns for these purposes.** Fewer counsellors, less choice of modality, and the same privacy arithmetic that applies in any place where people know each other. For anything specific, EMDR, structured couples work, the local field narrows to very little.",
-        "**Shift work at Deltaport and the ferry terminal does not fit a standing slot.** Port and terminal rosters change, and evening availability with no travel either side is what makes attendance realistic rather than aspirational.",
+        "**Shift work at Deltaport and the ferry terminal does not fit a standing slot.** Port and terminal rosters change, and a session with no travel either side, booked from what the counsellor has open rather than a standing slot, is what makes attendance realistic rather than aspirational.",
         "**Public intake runs through Fraser Health.**",
       ],
     },

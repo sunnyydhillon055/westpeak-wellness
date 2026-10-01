@@ -33,7 +33,7 @@ are published (say "by appointment"); the practice prefers email; nothing paid.
 | EMDR intensive | $190, 90 minutes |
 | Payment | Card at booking, 24 hours' free cancellation; receipts for extended health |
 | Coverage | Most BC extended health plans reimburse a Registered Clinical Counsellor; MSP does not cover private counselling |
-| Hours | By appointment, including evenings |
+| Hours | By appointment. Times depend on the counsellor; /book shows what is open |
 | Category, primary | Counsellor / Mental health service |
 | Category, secondary | Psychotherapist; Marriage or relationship counsellor; Family counsellor |
 | Instagram | https://www.instagram.com/westpeakwellness |

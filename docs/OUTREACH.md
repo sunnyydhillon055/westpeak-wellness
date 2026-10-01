@@ -38,7 +38,7 @@ What we offer, briefly:
   Tagalog, in the language itself.
 - Individual, couples and family counselling; EMDR and trauma therapy.
 - A free 30-minute consultation, usually within days, no referral required.
-- Sessions by secure video, including evenings, from anywhere in BC.
+- Sessions by secure video from anywhere in BC. Times depend on the counsellor; /book shows what is open.
 - Fees published in full at westpeakwellness.com/pricing. Most extended
   health plans reimburse an RCC. We do not bill MSP and say so plainly.
 - Not a crisis service. Anyone at immediate risk is directed to 9-8-8 or
@@ -82,7 +82,8 @@ https://www.westpeakwellness.com/resources/workplace-mental-health-bc
 
 If it would be useful on an intranet, a benefits page or a manager's
 toolkit, please link to it freely. We also offer counselling in English,
-Punjabi and Tagalog by secure video, with evening times, and a page for
+Punjabi and Tagalog by secure video (times depend on the counsellor, and
+the booking page shows what is open), and a page for
 employers on what counselling support for a team can actually look like:
 https://www.westpeakwellness.com/resources/counselling-support-for-bc-teams
 
