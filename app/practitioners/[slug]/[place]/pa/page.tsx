@@ -16,6 +16,7 @@ import { abs, siteRef, orgRef } from '@/lib/schema';
 import { BadgeCheck } from 'lucide-react';
 import { ogBasePunjabi } from '@/lib/og-meta';
 import { COLLECTION_DATES } from '@/lib/page-dates';
+import BookLink from '@/components/BookLink';
 
 /* ============================================================================
    THE PUNJABI CITY PAGES — /practitioners/<slug>/<city>/pa
@@ -69,7 +70,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
     description,
     alternates: {
       canonical: `${site.domain}${paPath}`,
-      languages: { 'en-CA': `${site.domain}${enPath}`, pa: `${site.domain}${paPath}` },
+      languages: { 'en-CA': `${site.domain}${enPath}`, 'x-default': `${site.domain}${enPath}`, pa: `${site.domain}${paPath}` },
     },
     openGraph: {
       ...ogBasePunjabi(paPath),
@@ -153,7 +154,7 @@ export default function PunjabiPlacePage({ params }: { params: Params }) {
               ਚਿੰਤਾ, ਉਦਾਸੀ, ਟਰੌਮਾ ਅਤੇ ਰਿਸ਼ਤਿਆਂ ਦੇ ਪੈਟਰਨ। ਪਹਿਲੀ 30 ਮਿੰਟ ਦੀ ਗੱਲਬਾਤ ਮੁਫ਼ਤ।
             </p>
             <div className="btn-row" style={{ marginTop: 22 }}>
-              <Link className="btn btn--primary" href={bookHref}>{t.cta}</Link>
+              <BookLink location="hero-place" href={bookHref}>{t.cta}</BookLink>
               <Link className="btn btn--ghost" href={enPath} hrefLang="en-CA">
                 {t.backToEnglish}
               </Link>
@@ -304,7 +305,7 @@ export default function PunjabiPlacePage({ params }: { params: Params }) {
           <div className="cta-band">
             <h2>{t.ctaHeading(city)}</h2>
             <p>{t.ctaText}</p>
-            <Link className="btn btn--primary" href={bookHref}>{t.cta}</Link>
+            <BookLink location="hero-place" href={bookHref}>{t.cta}</BookLink>
             <p className="cta-band-alt">
               {t.notReady}{' '}
               <Link href="/punjabi#form">{t.notReadyWrite}</Link> &mdash;{' '}

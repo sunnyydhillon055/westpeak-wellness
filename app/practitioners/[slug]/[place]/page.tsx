@@ -20,6 +20,8 @@ import { TL_PLACE_SHARED } from '@/lib/practitioner-places-tl';
 import { getTagalogCity } from '@/lib/tagalog';
 import Updated from '@/components/Updated';
 import { COLLECTION_DATES } from '@/lib/page-dates';
+import BookLink from '@/components/BookLink';
+import { placeTitle } from '@/lib/practitioner-titles';
 
 /* Two kinds of page share this route, because they are the same page in two
  * languages and splitting them would duplicate the schema, the breadcrumbs and
@@ -102,6 +104,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
         canonical: `${site.domain}/practitioners/${p.slug}/pa`,
         languages: {
           'en-CA': `${site.domain}/practitioners/${p.slug}`,
+          'x-default': `${site.domain}/practitioners/${p.slug}`,
           pa: `${site.domain}/practitioners/${p.slug}/pa`,
         },
       },
@@ -118,6 +121,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
         canonical: `${site.domain}/practitioners/${p.slug}/${params.place}`,
         languages: {
           'en-CA': `${site.domain}/practitioners/${p.slug}`,
+          'x-default': `${site.domain}/practitioners/${p.slug}`,
           tl: `${site.domain}/practitioners/${p.slug}/tl`,
         },
       },
@@ -131,8 +135,10 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
      description. The first version ran 76-79 and 174-177, which Google
      truncates — the practitioner's name is the part that must survive, so it
      leads and the boilerplate goes. */
-  const first0 = p.name.split(' ')[0];
-  const title = `Counselling in ${loc.city} | ${withLetters(p)}`;
+  /* PERSON AND LANGUAGE FIRST, since 1 Oct 2026. "Counselling in <City>"
+     led every one of these titles and took the city hub's head term; see
+     lib/practitioner-titles.ts. The city stays, after the person. */
+  const title = placeTitle(p, loc.city);
   /* The description ran 112-120 characters, where Google renders about 155 —
      roughly a third of every city page's search snippet was going unused. The
      added clause is the part a reader is actually deciding on: what the work
@@ -155,6 +161,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
         ? {
             languages: {
               'en-CA': `${site.domain}/practitioners/${p.slug}/${loc.slug}`,
+              'x-default': `${site.domain}/practitioners/${p.slug}/${loc.slug}`,
               tl: `${site.domain}/practitioners/${p.slug}/${loc.slug}/tl`,
             },
           }
@@ -163,6 +170,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
         ? {
             languages: {
               'en-CA': `${site.domain}/practitioners/${p.slug}/${loc.slug}`,
+              'x-default': `${site.domain}/practitioners/${p.slug}/${loc.slug}`,
               pa: `${site.domain}/practitioners/${p.slug}/${loc.slug}/pa`,
             },
           }
@@ -216,7 +224,7 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
               <p className="lede" lang="tl">{t.lede}</p>
               <Updated iso={COLLECTION_DATES['practitioners']} />
               <div className="btn-row" style={{ marginTop: 22 }}>
-                <Link className="btn btn--primary" href={site.bookingPath}>{t.cta}</Link>
+                <BookLink location="hero-practitioner" href={p.acceptingNewClients ? `${site.bookingPath}?with=${p.slug}` : site.bookingPath}>{t.cta}</BookLink>
                 <Link className="btn btn--ghost" href={`/practitioners/${p.slug}`} hrefLang="en-CA">{t.englishLink}</Link>
               </div>
             </div>
@@ -378,7 +386,7 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
           <h1>Counselling for {loc.city}, with {first}</h1>
           <p className="lede">{loc.blurb}</p>
           <div className="btn-row" style={{ marginTop: 22 }}>
-            <Link className="btn btn--primary" href={bookHref}>Book a free consultation</Link>
+            <BookLink location="hero-place" href={bookHref}>Book a free consultation</BookLink>
             <Link className="btn btn--ghost" href={`/practitioners/${p.slug}`}>More about {first}</Link>
           </div>
         </div>
@@ -392,6 +400,7 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
               { name: p.name, path: `/practitioners/${p.slug}` },
               { name: loc.city, path: `/practitioners/${p.slug}/${loc.slug}` },
             ]}
+            schema={false}
           />
 
           {/* Outside BC the national certification leads. A provincial college
@@ -484,6 +493,21 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
               </div>
             ))}
           </div>
+
+          {/* WHO SHE IS WRITTEN FOR, from her own roster record — added 1 Oct
+              2026. Two counsellors' pages for one city are built from the same
+              city record, and the uniqueness gate measured Prince George at
+              64% shared between them (ceiling 62%). The difference that is
+              actually true between the two pages is the person, so the person
+              is what was added: the same "You may be" list her profile shows. */}
+          {p.suits.length > 0 && (
+            <div className="prose" style={{ marginTop: 30 }}>
+              <h3>{first} may suit you if you are</h3>
+              <ul className="checklist">
+                {p.suits.map((x) => <li key={x}>{x}</li>)}
+              </ul>
+            </div>
+          )}
 
           {/* TWO DIAGRAMS, and both earn their place rather than decorating.
               The reach map answers "can someone outside my city actually see
@@ -625,7 +649,7 @@ function PunjabiProfile({ p }: { p: Practitioner }) {
             <p className="direct-answer">{t.metaDescription}</p>
             <Updated iso={COLLECTION_DATES['punjabiProfiles']} lang="en-CA" />
             <div className="btn-row" style={{ marginTop: 22 }}>
-              <Link className="btn btn--primary" href={bookHref}>{t.cta}</Link>
+              <BookLink location="hero-practitioner" href={bookHref}>{t.cta}</BookLink>
               <Link className="btn btn--ghost" href={`/practitioners/${p.slug}`} hrefLang="en-CA">{t.englishLink}</Link>
             </div>
           </div>

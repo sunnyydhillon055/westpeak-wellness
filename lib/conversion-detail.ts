@@ -48,6 +48,16 @@ export const BOOK_LOCATIONS: readonly string[] = [
   'hero-city-service',
   'counsellor-city-service',
   'access-city-service',
+  /* The counsellor's own pages, wired 1 Oct 2026 (wf/schema): the profile
+     hero and its Tagalog and Punjabi versions, the per-city place pages and
+     their pa/tl twins, the Tagalog hub and the Tagalog and Punjabi guides,
+     and the next-consultation line on /guides/waiting-for-therapy-in-bc.
+     /practitioners/camille-granda/calgary had 6 GSC clicks and 0 recorded
+     book_clicks, because none of these buttons reported anything. */
+  'hero-practitioner',
+  'hero-place',
+  'hero-language-guide',
+  'guide-waiting',
   ...tools.map((t) => `tool:${t.slug}`),
 ];
 

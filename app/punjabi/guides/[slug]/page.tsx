@@ -11,6 +11,7 @@ import { punjabiGuides, getPunjabiGuide } from '@/lib/punjabi-guides';
 import { PA_PLACE_SHARED } from '@/lib/practitioner-places-pa';
 import { practitioners } from '@/lib/practitioners';
 import { COLLECTION_DATES } from '@/lib/page-dates';
+import BookLink from '@/components/BookLink';
 
 /* ============================================================================
    ਗਾਈਡਾਂ — the Punjabi guides, /punjabi/guides/<slug>
@@ -195,9 +196,9 @@ export default function PunjabiGuidePage({ params }: { params: Params }) {
           <div className="cta-band">
             <h2>ਪਹਿਲਾਂ ਗੱਲ ਕਰ ਲਈਏ</h2>
             <p>{PA_PLACE_SHARED.ctaText}</p>
-            <Link className="btn btn--primary" href={speaker ? `${site.bookingPath}?with=${speaker.slug}` : site.bookingPath}>
+            <BookLink location="hero-language-guide" href={speaker ? `${site.bookingPath}?with=${speaker.slug}` : site.bookingPath}>
               {PA_PLACE_SHARED.cta}
-            </Link>
+            </BookLink>
             <p className="cta-band-alt">
               {PA_PLACE_SHARED.notReady}{' '}
               <Link href="/punjabi#form">{PA_PLACE_SHARED.notReadyWrite}</Link> &mdash;{' '}

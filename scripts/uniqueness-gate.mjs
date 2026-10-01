@@ -157,6 +157,60 @@ for (const field of ['title', 'desc']) {
   }
 }
 
+/* ---- 4. counsellor place pages: against each other, and against the hub ----
+ *
+ * Added 1 Oct 2026. Search Console dropped the Richmond and Vancouver hubs
+ * from the export while /practitioners/savneet-singh/richmond sat at 6.93 and
+ * /practitioners/camille-granda/vancouver at 8.38: the place pages were
+ * competing with the city hub for its own head term. Two counsellors' pages
+ * for one city are built from the same city record, so they are the pair
+ * most likely to converge, and each is checked against its hub too. Same
+ * thresholds as the matrix; the unique share is measured inside each city's
+ * group (the hub plus every counsellor's page for that city). */
+const APP = join(ROOT, '.next', 'server', 'app');
+const PRAC = join(APP, 'practitioners');
+const placeGroups = new Map();
+if (existsSync(PRAC)) {
+  for (const slug of readdirSync(PRAC)) {
+    const dir = join(PRAC, slug);
+    if (!statSync(dir).isDirectory()) continue;
+    for (const entry of readdirSync(dir)) {
+      if (!entry.endsWith('.html')) continue;
+      const city = entry.replace(/\.html$/, '');
+      if (city === 'tl' || city === 'pa') continue;
+      const html = readFileSync(join(dir, entry), 'utf8');
+      const text = mainText(html);
+      if (!placeGroups.has(city)) placeGroups.set(city, []);
+      placeGroups.get(city).push({ route: `/practitioners/${slug}/${city}`, sh: shingles(text) });
+    }
+  }
+}
+let placeWorst = { v: 0, a: '', b: '' };
+let placeChecked = 0;
+for (const [city, group] of placeGroups) {
+  const hubFile = join(SERVER, `${city}.html`);
+  const all = [...group];
+  if (existsSync(hubFile)) all.push({ route: `/online-counselling/${city}`, sh: shingles(mainText(readFileSync(hubFile, 'utf8'))), hub: true });
+  for (let i = 0; i < all.length; i++) {
+    for (let j = i + 1; j < all.length; j++) {
+      if (all[i].hub && all[j].hub) continue;
+      const v = jaccard(all[i].sh, all[j].sh);
+      placeChecked++;
+      if (v > placeWorst.v) placeWorst = { v, a: all[i].route, b: all[j].route };
+      if (v > MAX_SIMILARITY) fail.push(`${(v * 100).toFixed(0)}% similar: ${all[i].route} vs ${all[j].route}`);
+    }
+  }
+  if (all.length < 2) continue;
+  const c = new Map();
+  for (const p of all) for (const x of p.sh) c.set(x, (c.get(x) || 0) + 1);
+  for (const p of group) {
+    let only = 0;
+    for (const x of p.sh) if (c.get(x) === 1) only++;
+    const share = only / (p.sh.size || 1);
+    if (share < MIN_UNIQUE_SHARE) fail.push(`${(share * 100).toFixed(0)}% unique within ${city} (min ${MIN_UNIQUE_SHARE * 100}%): ${p.route}`);
+  }
+}
+
 /* ---- report ---- */
 const shares = pages.map((p) => p.uniqueShare).sort((a, b) => a - b);
 const mid = shares[Math.floor(shares.length / 2)];
@@ -167,6 +221,9 @@ console.log(`  unique share    min ${(shares[0] * 100).toFixed(0)}%  median ${(m
 console.log(`  most similar    ${(worst.v * 100).toFixed(0)}%  (ceiling ${MAX_SIMILARITY * 100}%)`);
 console.log(`                  ${worst.a}`);
 console.log(`                  ${worst.b}`);
+console.log(`  place pages     ${[...placeGroups.values()].reduce((t, g) => t + g.length, 0)} in ${placeGroups.size} cities, ${placeChecked} pairs; most similar ${(placeWorst.v * 100).toFixed(0)}%`);
+console.log(`                  ${placeWorst.a}`);
+console.log(`                  ${placeWorst.b}`);
 for (const w of warn) console.log(`  note  ${w}`);
 for (const f of fail) console.log(`  FAIL  ${f}`);
 console.log('='.repeat(52));

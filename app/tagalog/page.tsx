@@ -16,6 +16,7 @@ import { practitioners } from '@/lib/practitioners';
 import { tagalogGuides } from '@/lib/tagalog-guides';
 import { placesFor } from '@/lib/practitioner-places';
 import { COLLECTION_DATES } from '@/lib/page-dates';
+import BookLink from '@/components/BookLink';
 
 /* ============================================================================
    THE TAGALOG FRONT DOOR
@@ -40,6 +41,7 @@ export const metadata: Metadata = {
     canonical: `${site.domain}/tagalog`,
     languages: {
       'en-CA': `${site.domain}/tagalog-counselling`,
+      'x-default': `${site.domain}/tagalog-counselling`,
       tl: `${site.domain}/tagalog`,
     },
   },
@@ -105,9 +107,9 @@ export default function TagalogPage() {
             <p className="direct-answer">{T.metaDescription}</p>
             <Updated iso={COLLECTION_DATES['tagalogLanding']} lang="en-CA" />
             <div className="btn-row" style={{ marginTop: 22 }}>
-              <Link className="btn btn--primary" href={`${site.bookingPath}?with=${speaker?.slug ?? ''}`}>
+              <BookLink location="hero-language-guide" href={`${site.bookingPath}?with=${speaker?.slug ?? ''}`}>
                 {T.cta}
-              </Link>
+              </BookLink>
               <Link className="btn btn--ghost" href="/tagalog-counselling" hrefLang="en-CA" lang="en">
                 {T.englishLink}
               </Link>
@@ -131,7 +133,7 @@ export default function TagalogPage() {
 
       <section className="section" lang="tl">
         <div className="container">
-          <Breadcrumbs trail={[{ name: 'Tagalog', path: '/tagalog' }]} />
+          <Breadcrumbs trail={[{ name: 'Tagalog', path: '/tagalog' }]} schema={false} />
 
           <div className="prose" style={{ marginTop: 20 }}>
             <h2>{T.whyHeading}</h2>
@@ -246,9 +248,9 @@ export default function TagalogPage() {
           <div className="cta-band">
             <h2>{T.ctaHeading}</h2>
             <p>{TL_PLACE_SHARED.ctaText}</p>
-            <Link className="btn btn--primary" href={`${site.bookingPath}?with=${speaker?.slug ?? ''}`}>
+            <BookLink location="hero-language-guide" href={`${site.bookingPath}?with=${speaker?.slug ?? ''}`}>
               {T.cta}
-            </Link>
+            </BookLink>
             <p className="cta-band-alt">
               {TL_PLACE_SHARED.notReady}{' '}
               <Link href="/contact">{TL_PLACE_SHARED.notReadyWrite}</Link> &mdash;{' '}
