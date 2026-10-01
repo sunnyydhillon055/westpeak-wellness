@@ -79,6 +79,11 @@ const COUNTED = new Set([
      and 0 of 68 leads — the navigation outran it. The inbound store already
      knew the true numbers; now this one agrees with it. */
   'enquiry_submit',
+  /* An enquiry the server turned back, by the rule it failed. No content,
+     no address: the reason word and the page. 1 Oct 2026, after a week of
+     zero enquiries under the 25 Sep rules left nobody able to tell "nobody
+     wrote" from "people wrote and were refused". */
+  'enquiry_refused',
   'lead_magnet_submit',
   'book_click',
   /* The direct-to-Cliniko link on /book, beside the embedded frame (17 Sep 2026). */

@@ -202,6 +202,8 @@ const ALLOWED: Readonly<Record<string, ReadonlySet<string>>> = {
   scheduler_interact: SCHEDULER_KEYS,
   /* Which counsellor the message asked for, when it came from her page. */
   enquiry_submit: SLUG_KEYS,
+  /* Which rule an enquiry failed on the server (lib/inbound-submit.ts). */
+  enquiry_refused: new Set<string>(['email', 'detail', 'choices', 'repeated']),
   lead_magnet_submit: MAGNET_SET,
   tool_complete: TOOL_KEYS,
   /* Which kind of organisation published the link (?utm_source=), and what

@@ -86,6 +86,16 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
       accepting: practitioners.filter((p) => p.acceptingNewClients).map((p) => p.slug),
     }), req.url), 303);
 
+  /* A refused enquiry leaves no record, so it is counted by reason before the
+     redirect: awaited like the success count, and caught, because a counter
+     must never decide what happens to a person. */
+  const refuse = async (reason: 'email' | 'detail' | 'choices' | 'repeated') => {
+    if (o.kind === 'enquiry') {
+      try { await countConversion('enquiry_refused', source, reason); } catch { /* never load-bearing */ }
+    }
+    return back('err');
+  };
+
   const honeypot = String(form.get(HONEYPOT) ?? '');
 
   const email = String(form.get('email') ?? '').trim().toLowerCase();
@@ -105,12 +115,12 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
   const phone = String(form.get('phone') ?? '').trim().slice(0, 40);
   const callWindow = String(form.get('callWindow') ?? '').trim().slice(0, 120);
 
-  if (!/^[^@\s]+@[^@\s.]+\.[^@\s]+$/.test(email)) return back('err');
+  if (!/^[^@\s]+@[^@\s.]+\.[^@\s]+$/.test(email)) return refuse('email');
   /* An enquiry has to say, in at least two sentences and about twenty words,
    * what the person is looking for — the same rule the form applies in the
    * browser, held here for a post that skipped it. See lib/sentences.ts. A
    * lead legitimately carries nothing but an address. */
-  if (o.kind === 'enquiry' && !hasEnoughDetail(message)) return back('err');
+  if (o.kind === 'enquiry' && !hasEnoughDetail(message)) return refuse('detail');
 
   /* THE THREE CHOICES — 25 Sep 2026. Required for an enquiry and only
    * accepted from the list the form offers; anything else is a post that did
@@ -123,14 +133,14 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
   const where = isEmployer ? '' : String(form.get('where') ?? '').trim();
   const timing = isEmployer ? '' : String(form.get('timing') ?? '').trim();
   if (o.kind === 'enquiry' && !choicesComplete(looking, where, timing)) {
-    return back('err');
+    return refuse('choices');
   }
 
   /* One string pasted into every field. The enquiry that prompted this had
    * its message repeated, word for word, as the best time to call. No person
    * does that; a script filling every text input with the same value does. */
   const same = (a: string, b: string) => a.length > 0 && a.toLowerCase() === b.toLowerCase();
-  if (same(message, String(form.get('callWindow') ?? '').trim()) || same(message, name)) return back('err');
+  if (same(message, String(form.get('callWindow') ?? '').trim()) || same(message, name)) return refuse('repeated');
 
   /* Ticked box only. String comparison rather than truthiness, so a browser
    * that submits an unchecked box as an empty string cannot register consent. */

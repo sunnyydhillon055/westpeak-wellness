@@ -291,3 +291,9 @@ test('neither counter keeps a lastWrite or writes with a plain put any more', ()
     assert.doesNotMatch(src, /from '@vercel\/blob'/, `${f} writes outside lib/blob-ledger.ts`);
   }
 });
+
+test('a refused enquiry is counted by the rule it failed, and nothing else', () => {
+  for (const r of ['email', 'detail', 'choices', 'repeated']) assert.equal(allowedDetail('enquiry_refused', r), r);
+  assert.equal(allowedDetail('enquiry_refused', 'someone@example.com'), null);
+  assert.equal(allowedDetail('enquiry_refused', 'I need help with'), null);
+});

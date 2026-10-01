@@ -185,6 +185,8 @@ export default async function AdminPage({
      booking (1 Oct 2026), and mailto: presses beside the messages. */
   const credit = bookingCredit(log);
   const emailClicks = detailsOf(log, 'email_click');
+  /* Enquiries the server turned back, by the rule they failed (1 Oct 2026). */
+  const refused = detailsOf(log, 'enquiry_refused');
   /* Search Console from the newest committed export, beside this site's own
      count of sessions that arrived from Google. */
   const gsc = readGscSummary();
@@ -896,6 +898,20 @@ export default async function AdminPage({
                     <li key={p.path}>
                       <Link href={p.path}>{p.path}</Link>
                       <span>{p.count}</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+            {refused.rows.length > 0 && (
+              <>
+                <h3 style={{ marginTop: 22 }}>Messages the form turned back</h3>
+                <p style={{ color: 'var(--ink-soft)', fontSize: 14 }}>Counted since 1 Oct 2026, by the rule the message failed. Nothing of what was typed is kept. A high &ldquo;detail&rdquo; count means the twenty-word rule is stopping people.</p>
+                <ul className="admin-terms">
+                  {refused.rows.map((r) => (
+                    <li key={r.detail}>
+                      <span>{({ email: 'email address not valid', detail: 'under about twenty words or one sentence', choices: 'a required choice missing', repeated: 'same text in every field' } as Record<string, string>)[r.detail] ?? r.detail}</span>
+                      <span>{r.count}</span>
                     </li>
                   ))}
                 </ul>
