@@ -204,9 +204,10 @@ test('one-pager signups land on their own confirmation, which says what follows'
   assert.match(page, /<NextConsultLine location="lead-sent"/);
   assert.match(page, /searchParams\?\.lead === 'err'/, 'a failed signup is not told it is on its way');
   assert.doesNotMatch(page.slice(page.indexOf('export default')), /business day|evening|weekend/, 'what the page prints');
-  /* The page's day 4 and day 11 are lib/nurture.ts's. If the sequence
-     changes, this fails and the page is rewritten with it. */
-  assert.match(src('lib/nurture.ts'), /const dueAt = next === 2 \? 4 : 11;/);
+  /* The page's day 4 and day 11 are nurtureDecision()'s, in lib/nurture-plan.ts
+     since the lead-pipeline change. If the sequence changes, this fails and
+     the page is rewritten with it. */
+  assert.match(src('lib/nurture-plan.ts'), /ageDays < \(next === 2 \? 4 : 11\)/);
   for (const f of ['lib/md-path.ts', 'scripts/sitemap-parity.mjs', 'scripts/cta-audit.mjs']) {
     assert.match(src(f), /\/one-pager-sent/, `${f} does not know the route`);
   }
