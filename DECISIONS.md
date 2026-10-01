@@ -950,6 +950,138 @@ model has no field for it and Google no longer shows the result.
 
 *Enforced by:* comments beside each retitled field, `scripts/seo-audit.mjs` (lengths, duplicate titles), the next `data/gsc/` export read against the figures above
 
+### The pages that rank link the pages that earn a client, one level down
+Decided 1 Oct 2026, from an internal-link count over the 28 September build
+(in-body links only, distinct linking pages). The 25 September block sent
+every guide, resource and comparison to the ten city hubs, and it worked for
+them: 118 to 127 inbound each. It stopped there. All fifty city × service
+pages — the ones that match "anxiety counselling surrey" and carry their own
+booking links — had zero inbound links from any informational page; their
+only linkers were the hub above them and their siblings. Twelve of the
+twenty-two audience pages were linked from /answers and nothing else, and
+/answers links to everything, so that is no support at all. The five city
+pages outside `cityContexts` (Richmond, Coquitlam, Delta, White Rock,
+Nanaimo) had ten to twelve inbound and none informational.
+
+`lib/spokes.ts` now names, per guide, comparison or resource, the one paired
+service it leads to and the audience pages written for its readers, and
+`components/ServiceCityLinks.tsx` renders the block only where a spoke
+exists: ten links, "Anxiety counselling in Vancouver" and its nine siblings,
+plus one sentence to the audience pages by their own titles. The map is
+curated rather than keyword-matched, because a matcher would send intrusive
+thoughts to anxiety and grief to depression, and one service per page keeps
+it at ten links — a pointer, not a footer. `CityLinks` lists every location
+with the ten hubs first, and nothing is written about the five that have no
+context; the chip is the city's name and its query. Measured on the rebuilt
+site: every city-service page goes from 0 to 3–6 informational linkers,
+each of the twelve quiet audience pages from 1 to 4, the five cities to
+113–115, median HTML +0.8%, every link resolving.
+
+Two anchor defects fixed the same day. The city hub's own service chips read
+"anxiety-counselling in Vancouver" — the slug, because `getService` knows
+nothing of conditions and `getCityTopic` does. The /for index and the
+services-that-fit cards wrapped the whole card in one anchor, so the text a
+crawler read was the title, the lede and "7 min read" run together; the link
+now wraps the title and stretches over the card in CSS, so a reader notices
+nothing. `test/spokes.test.mts` refuses a spoke to a page that does not
+exist, which is how the PTSD guide was found to be a draft. The same
+whole-card pattern remains on the guides, resources, compare, approaches,
+services and home hubs; those anchors point mostly at informational pages
+and were left for a separate change.
+
+*Enforced by:* `test/spokes.test.mts`, `lib/spokes.ts`
+
+### A city-service page names who you would see, what it costs, and books from the top
+On 26 Sep 2026 the fifty city × service pages carried a quarter of the site's
+impressions at positions 28-83, and 51 of 55 had not moved a hundredth of a
+position since the previous export. Thirteen pages ranking for the matrix's own
+queries were read on 1 Oct 2026: eight name a counsellor with a credential
+line on the page itself, ten put the booking action above the fold, seven
+answer cost, coverage and "who would I see" in FAQs. Ours named nobody, said
+"$140 for 50 minutes" on couples and EMDR pages where that is not the fee, and
+had an untracked booking button fourth in the hero.
+
+Each gap is filled from data rather than prose, in `lib/city-service-page.ts`:
+the counsellors who are accepting, insured for BC and offer the appointment
+type the topic books into, with portrait, credential names and languages; the
+fee read from the Cliniko catalogue the way the service pages read it; three
+generated FAQs whose every sentence carries the city, the service or a
+counsellor's name, so that no two pages share an answer; a tracked booking
+link under the lede that names the service and the city, narrowed with
+`?with=` only when exactly one counsellor could be the calendar. Registration
+numbers stay on the profile, coverage stays plan-dependent, no hours appear,
+and the founder is excluded by `acceptingNewClients`, never by name. The city
+hub's chips to these pages, which printed raw slugs for the three condition
+topics, resolve through `getCityTopic` now.
+
+*Enforced by:* `test/city-service-page.test.mts`, `scripts/uniqueness-gate.mjs`
+
+### The chrome carries five fields per counsellor, and a byte is only cut where it is measured
+Decided 1 Oct 2026, from a Lighthouse pass over the top ten landing pages.
+Every page scored 75-80 on mobile with a text LCP three seconds after
+first paint, and the first explanation offered — the swapped web fonts
+repainting the heading — was tested and found wrong: in eighteen runs the
+observed LCP equalled the observed FCP to the millisecond. The gap is the
+simulator pricing every byte that starts before the paint, so bytes before
+first paint are the lever and `font-display: optional` is not; it stays
+`swap`, and the brand faces keep showing on first visits.
+
+Three things were cut. The header menu and the phone action bar, which are
+client components, imported `lib/practitioners.ts` for five fields and so
+shipped the whole roster — bios, credentials, insurance, photo sets — in
+the layout chunk of all 305 pages. They now receive those five fields from
+the root layout as props (`lib/roster-nav.ts`), and the roster file stays
+on the server. The Google Analytics loader was imported statically by the
+consent gate and so travelled with every visitor who had not consented; it
+is fetched on the render after a "granted" choice and not before. And the
+Gurmukhi face was preloaded by sixty-three documents that never paint it —
+the home page and every English city page among them — because next/font
+emits a preload per importing route; it is no longer preloaded anywhere,
+and the pages that paint ਪੰਜਾਬੀ discover it from the inlined stylesheet at
+the same parse. Layout JS fell from 387 KB to 350 KB and the median LCP on
+the three pages measured by 0.2-0.3 s; nothing a page says changed.
+
+Two gaps in the gates were found on the way and are now reported. The perf
+budget's "shared JS" is the intersection of every route, and `/global-error`
+renders without the layout, so the layout chunk — exactly where the roster
+sat — was never counted; a `layoutJs` row is, from today. And the inlined
+stylesheet is a build-time step: the eleven routes that export `revalidate`
+carry it at build and lose it in production after their first regeneration,
+which is why the live home page blocks on four stylesheets while a guide
+does not. `inline-css --check` names them. Trading a page's revalidation
+(the open-times line, Cliniko-priced sessions) for the inline block is a
+decision per page, and it has not been made.
+
+*Enforced by:* `data/perf-budget.json` (`layoutJs`), `scripts/inline-css.mjs --check` (reports, does not fail)
+
+### Two pages written to be linked to, and the templates the leave guides never gave
+1 October 2026. The 25 September outreach survey found three pages an outside
+organisation would plausibly put on its own "where to get help" list, and none
+of them for the two groups the practice is distinctive for: the person finding
+a counsellor for somebody who speaks Punjabi or Tagalog, and the employee or HR
+lead who has read how a mental-health leave works and now has to write
+something. A settlement agency links a page that does its reader's job; it
+does not link a service page, however good. So the language-access guide names
+the free and low-cost services first, each read from its own page with the
+date shown, says plainly that no free Tagalog-language counselling program was
+found, and names this practice last. It is in English only; the in-language
+pages exist for the reader who wants them, and the no-new-Punjabi-or-Tagalog-
+prose rule holds. The templates page is the paperwork for
+/guides/stress-leave-bc, not a restatement of it: the request letter, the note
+checklist, the HR checklist and a return-to-work plan, as copyable text, with
+every legal fact tied to the canada.ca or gov.bc.ca page it came from and the
+day it was read. A `template` field on a resource section renders verbatim in
+a selectable block, because a letter pushed through the inline-markup renderer
+would not survive a paste. Both pages keep every standing rule: plan-dependent
+coverage, no outcome claims, no hours, a 30-minute consultation because Cliniko
+says so, nothing clinical in anything meant to be sent. The three client
+follow-up drafts in docs/CLIENT_FOLLOWUPS.md are sent by a person or not at
+all; nothing in the codebase sends them, and the second-week note after a
+consultation is a different message from the automatic day-after one, which
+promised to be the only one of its kind and still is.
+
+*Enforced by:* `lib/resources-more3.ts`, `scripts/expansion-verify.mjs`, `scripts/seo-audit.mjs`
+
 ### Titles follow Search Console, not taste
 Decided 6 Sep 2026. The first month of Search Console data (`data/gsc/`)
 showed 4,478 non-brand impressions and two clicks: pages surfacing at
