@@ -19,12 +19,14 @@ import { COLLECTION_DATES } from '@/lib/page-dates';
 import BookLink from '@/components/BookLink';
 import { profileTitle } from '@/lib/practitioner-titles';
 import { personAreaServed } from '@/lib/practice-facts';
+import { readCatalog } from '@/lib/cliniko-catalog';
+import { profileSnippet, withSnippet } from '@/lib/snippet-facts';
 
 export function generateStaticParams() {
   return practitioners.map((p) => ({ slug: p.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const p = getPractitioner(params.slug);
   if (!p) return {};
   /* Leads with the person and the language she works in, since 1 Oct 2026:
@@ -33,7 +35,14 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   /* Under 158. The first version listed the role, the practice, the province,
      both languages and all three focus areas, and ran to 205 characters —
      Google would have cut it mid-clause. */
-  const description = `${withLetters(p)}, online counselling ${p.reach === 'canada' ? 'anywhere in Canada' : 'across BC'} in ${p.languages.map((l) => l.name).join(' or ')}. ${p.focus.map((f) => f.label).join(', ')}.`;
+  /* Her lowest fee and the free consultation, from the catalogue, when she is
+     taking new clients (lib/snippet-facts.ts) — 1 Oct 2026. The profiles sat
+     at 7.7-8.1 with no clicks and no fee in the result. The focus areas give
+     way first when both do not fit. */
+  const description = withSnippet(
+    `${withLetters(p)}, online counselling ${p.reach === 'canada' ? 'anywhere in Canada' : 'across BC'} in ${p.languages.map((l) => l.name).join(' or ')}. ${p.focus.map((f) => f.label).join(', ')}.`,
+    profileSnippet(await readCatalog(), p),
+  );
   /* The profile's own language twin, declared both ways — the twin already
      points back here. Found 7 Sep 2026 by scripts/roster-compare.mjs: every
      twin declared its pair and no English profile did, so a crawler saw the

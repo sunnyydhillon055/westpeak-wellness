@@ -1,4 +1,47 @@
 import { fallbackFee } from '@/lib/cliniko-catalog';
+import { withLetters, type Practitioner } from '@/lib/practitioners';
+import { counsellorsFor, languagePhrase, languagesOf, listOf } from '@/lib/city-service-page';
+import { counsellorForLanguage } from '@/lib/booking-cta';
+import { PROVINCE_NAME, type Province } from '@/lib/crisis';
+import { CONFIDENTIALITY_LIMITS } from '@/lib/practice-facts';
+
+/* WHO AND WHICH LANGUAGES, FROM THE ROSTER — 1 Oct 2026.
+ *
+ * The Punjabi and Tagalog pages named nobody until a card halfway down
+ * (Camille first appeared in paragraph four), and the family page promised
+ * sessions in Punjabi while the one counsellor who offers family work speaks
+ * English and Tagalog. These are read from lib/practitioners.ts by the same
+ * rules the booking buttons use: the language counsellor is the first who is
+ * accepting, bookable and speaks it (lib/booking-cta.ts), so the founder is
+ * excluded by that flag and never by name; a service's languages are those of
+ * the counsellors accepting it (lib/city-service-page.ts). */
+const provincesOf = (p: Practitioner) =>
+  p.provinces.map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and ');
+const PA = counsellorForLanguage('pa');
+const TL = counsellorForLanguage('tl');
+/* "Counselling in Tagalog at Westpeak Wellness is with Camille Granda, RCC,
+   CCC, who works in English and Tagalog by secure video anywhere in British
+   Columbia and Alberta." The fallback is the sentence the page carried
+   before, for a roster with nobody in the language. */
+const languageLede = (p: Practitioner | undefined, language: string, fallback: string) =>
+  p
+    ? `Counselling in ${language} at Westpeak Wellness is with ${withLetters(p)}, who works in ${listOf(languagesOf(p), 'and')} by secure video anywhere in ${provincesOf(p)}.`
+    : fallback;
+const COUPLES_LANGS = languagePhrase(counsellorsFor({ bookingService: 'couples-therapy' }));
+const EMDR_LANGS = languagePhrase(counsellorsFor({ bookingService: 'emdr-therapy' }));
+const FAMILY = counsellorsFor({ bookingService: 'family-counselling' });
+const FAMILY_LANGS = languagePhrase(FAMILY);
+const PAIRED_LANGS =
+  COUPLES_LANGS === EMDR_LANGS
+    ? `couples counselling and EMDR currently run in ${COUPLES_LANGS}`
+    : `couples counselling currently runs in ${COUPLES_LANGS} and EMDR in ${EMDR_LANGS}`;
+const FAMILY_IN_PUNJABI = FAMILY.some((p) => p.languages.some((l) => l.tag === 'pa'))
+  ? 'Yes: in Punjabi, English, or moving between them within one session, which is frequently what family sessions need when parents and adult children are most fluent in different languages.'
+  : `Not at present: family sessions run in ${FAMILY_LANGS}.${PA ? ` A family member who would rather work in Punjabi can have individual sessions in Punjabi with ${withLetters(PA)}, alongside the family work or before it.` : ''}`;
+/* The "Will my family find out?" answer on both language pages. It was a bare
+   "No", which is not what confidentiality is: nothing goes without consent,
+   and the law sets out the exceptions. */
+const FAMILY_FIND_OUT = `Not without your written consent. Counselling is confidential and whether you tell anyone is your decision; the only exceptions are the legal ones: ${CONFIDENTIALITY_LIMITS}. Virtual sessions mean there is no waiting room and no building, which for many people here is the deciding factor.`;
 
 export type Service = {
   slug: string;
@@ -49,7 +92,7 @@ export const services: Service[] = [
        and depression into individual therapy. The H1 keeps the service name. */
     metaTitle: "Online Anxiety & Depression Counselling in BC | Westpeak",
     metaDescription:
-      "Online counselling for anxiety, depression and burnout across BC, one-to-one by secure video with a Registered Clinical Counsellor. Free 30-min consultation.",
+      "Online counselling for anxiety, depression and burnout across BC. One-to-one by secure video with a Registered Clinical Counsellor.",
     hero: "1:1 sessions for the everyday weight of being human.",
     intro:
       "Individual therapy is space that belongs entirely to you: to think out loud, make sense of what you're carrying, and work toward what \"better\" looks like on your terms. Sessions are 50 minutes, weekly or biweekly, and always online so you can meet from wherever you feel most at ease in BC.",
@@ -93,7 +136,7 @@ export const services: Service[] = [
       { q: "How do I know if I need therapy?", a: "There is no threshold you have to cross. A useful question instead: is something taking up more of your attention than you want it to, and have your own attempts to shift it stopped working? If so, it is a reasonable use of an hour." },
       { q: "How many sessions will I need?", a: "It varies with what you are bringing. A specific, contained difficulty often takes six to twelve sessions. Long-standing patterns or trauma take longer. Your counsellor should be able to give you a rough sense after two or three sessions." },
       { q: "What if I do not like my counsellor?", a: "Say so, or leave. Both are acceptable. Fit predicts outcomes more reliably than technique does, and staying with a poor fit out of politeness wastes your money and your time." },
-      { q: "Is it confidential from my employer or family?", a: "Yes. The only limits are risk of serious harm to you or someone else, a child or vulnerable adult at risk, or a court order. These get explained in the first session." },
+      { q: "Is it confidential from my employer or family?", a: `Yes. The only limits are ${CONFIDENTIALITY_LIMITS}. These get explained in the first session.` },
     ],
     related: [
       { href: "/guides/what-to-expect-first-therapy-session", label: "What to expect in a first session" },
@@ -117,7 +160,7 @@ export const services: Service[] = [
     short: "Gottman Method: communication, conflict, connection, repair.",
     metaTitle: "Gottman Method Couples Counselling Online in BC | Westpeak",
     metaDescription:
-      "Online couples counselling across BC using the research-based Gottman Method: communication, conflict, and repair. Book a free consultation.",
+      "Online couples counselling across BC using the Gottman Method. Communication, conflict and repair, by secure video.",
     hero: "Strengthen communication, deepen connection, repair what's frayed.",
     intro:
       "Every couple hits friction. Couples therapy is a structured, research-based space to understand the patterns underneath the arguments, and to build the skills to move through conflict without losing each other. Sessions are 50 minutes (or a 110-minute extended option), online across BC.",
@@ -193,7 +236,7 @@ export const services: Service[] = [
        treats it, so this is the page that should answer those queries. */
     metaTitle: "Online EMDR Therapist in BC | Trauma Therapy | Westpeak",
     metaDescription:
-      "Online trauma therapy and EMDR across BC with an EMDR-trained Registered Clinical Counsellor, for PTSD, anxiety and grief. Free 30-minute consultation.",
+      "Online EMDR and trauma therapy across BC for PTSD, anxiety and grief. With an EMDR-trained Registered Clinical Counsellor, by secure video.",
     hero: "Process painful memories so they stop running the show.",
     intro:
       "EMDR (Eye Movement Desensitization and Reprocessing) is an evidence-supported therapy that helps the brain reprocess distressing memories so they lose their grip. You don't have to relive everything in detail or explain it perfectly: EMDR works with how memory is stored, not just how it's told. Available online across BC, including a 90-minute intensive format.",
@@ -275,10 +318,10 @@ export const services: Service[] = [
     short: "For the pattern between you, not the person you think is the problem.",
     metaTitle: "Online Family Counselling in BC | Westpeak Wellness",
     metaDescription:
-      "Online family counselling across BC in English, Punjabi or Tagalog. Conflict, communication, and the gap between generations. Free 30-minute consultation.",
+      `Online family counselling across BC in ${FAMILY_LANGS}. Conflict, communication, and the gap between generations. Free 30-minute consultation.`,
     hero: "When the difficulty lives between people, not inside one of them.",
     directAnswer:
-      "Family counselling at Westpeak Wellness is relationship work involving more than one family member, delivered by secure video across British Columbia by a Registered Clinical Counsellor, in English or Punjabi. It treats the pattern between people rather than one person's behaviour, and is used for recurring conflict, communication that has broken down, adult children and parents who cannot talk, blended-family adjustment, and the distance that opens between generations in immigrant families. Not everyone needs to attend every session.",
+      `Family counselling at Westpeak Wellness is relationship work involving more than one family member, delivered by secure video across British Columbia by a Registered Clinical Counsellor, in ${FAMILY_LANGS}. It treats the pattern between people rather than one person's behaviour, and is used for recurring conflict, communication that has broken down, adult children and parents who cannot talk, blended-family adjustment, and the distance that opens between generations in immigrant families. Not everyone needs to attend every session.`,
     intro:
       "Families rarely arrive because one person is unwell. They arrive because something between them keeps happening. The same argument, the same silence, the same subject nobody can raise. Family counselling works on that pattern, with the people who are part of it in the room.",
     helps: [
@@ -308,7 +351,7 @@ export const services: Service[] = [
       /* Search Console, 17 Sep 2026: 'how can i book a session for my family to improve our relationships?' at position 17.5, 'family therapy online', 'family counselling online'. */
       { q: 'How do I book a session for my family?', a: 'Book the free 30-minute consultation as one person and say it is for the family; the counsellor will ask who is involved and what you are hoping changes, and then set up the first full session. Family members can join from the same room or from separate homes on the same video call, which is how most families here do it when someone has moved out or is away.' },
       { q: "Does everyone have to come?", a: "No. Useful family work regularly happens with two or three people rather than everyone, and who attends can change between sessions. It is worth raising on the free consultation, because the answer depends on what is actually going on." },
-      { q: "Can sessions run in Punjabi?", a: "Yes: in Punjabi, English, or moving between them within one session, which is frequently what family sessions need when parents and adult children are most fluent in different languages." },
+      { q: "Can sessions run in Punjabi?", a: FAMILY_IN_PUNJABI },
       { q: "What if someone refuses to attend?", a: "That is common and it is not a dead end. Work can start with whoever is willing, and a family pattern often shifts when one person changes how they respond to it. Nobody is required to be there." },
       { q: "Is this for teenagers?", a: "This practice works with adults. Where a child or teenager is the focus, you would be pointed toward a service set up for that rather than booked in, see [our standards and scope](/standards)." },
     ],
@@ -327,7 +370,7 @@ export const services: Service[] = [
     slug: "punjabi-counselling",
     language: "pa",
     directAnswer:
-      "Westpeak Wellness offers counselling in Punjabi (ਪੰਜਾਬੀ) by secure video anywhere in British Columbia, provided by a Punjabi-speaking Registered Clinical Counsellor. Working in the language you think in removes the translation overhead from material that is difficult to say once, and means family context does not have to be explained from scratch. Individual sessions are available in Punjabi, and you can move between Punjabi and English within a session; couples counselling and EMDR currently run in English or Tagalog.",
+      `${languageLede(PA, 'Punjabi (ਪੰਜਾਬੀ)', 'Westpeak Wellness offers counselling in Punjabi (ਪੰਜਾਬੀ) by secure video anywhere in British Columbia, provided by a Punjabi-speaking Registered Clinical Counsellor.')} Working in the language you think in removes the translation overhead from material that is difficult to say once, and means family context does not have to be explained from scratch. Individual sessions are available in Punjabi, and you can move between Punjabi and English within a session; ${PAIRED_LANGS}.`,
     figure2: "first-session-flow",
     figure: "bc-reach",
     name: "Punjabi-Speaking Counselling",
@@ -340,7 +383,7 @@ export const services: Service[] = [
        own script. */
     metaTitle: "Punjabi Counselling Online in BC | Punjabi-Speaking RCC",
     metaDescription:
-      "Online Punjabi-speaking therapy across BC: counselling in Punjabi, English, or both, with deep cultural competency. Book a free consultation.",
+      "Online counselling in Punjabi, English or both, anywhere in BC. Culturally fluent, with a Registered Clinical Counsellor.",
     hero: "You don't have to translate yourself.",
     intro:
       "Some things only land in your first language. Sessions are available in Punjabi, English, or a mix of both: with the cultural fluency to understand family expectations, generational silence, and \"log kya kahenge\" without needing it explained. Online across BC. There is also a [full page in Punjabi (ਪੰਜਾਬੀ)](/punjabi) covering services, fees and what a first session involves.",
@@ -375,7 +418,7 @@ export const services: Service[] = [
         "Sessions run in Punjabi, in English, or moving between them. You do not have to decide in advance, and most people end up doing both without planning it. Sessions are 50 minutes, fully virtual, anywhere in British Columbia.",
         "That province-wide reach matters more here than for most services. **Punjabi-speaking clinicians in BC are heavily concentrated in the Lower Mainland**, which means that for anyone in the Interior, the North, or on the Island, virtual sessions are not a convenience. They are realistically the only route to therapy in Punjabi at all. The [Kelowna](/online-counselling/kelowna) and [Prince George](/online-counselling/prince-george) pages set out what that gap looks like locally.",
         "**On what the work is not:** it is not therapy that treats your family as the diagnosis and distance as the cure. Most people arriving here want something harder, to stay in relationship with their family and stop carrying the parts that are not theirs. That is a legitimate goal and it is workable, and any decision about distance stays yours.",
-        "**On confidentiality:** nothing is shared with your family, and because sessions are virtual there is no clinic to be seen entering. The only limits are risk of serious harm and a court order.",
+        `**On confidentiality:** nothing is shared with your family without your consent, and because sessions are virtual there is no clinic to be seen entering. The only limits are ${CONFIDENTIALITY_LIMITS}.`,
       ],
     },
     faqs: [
@@ -387,7 +430,7 @@ export const services: Service[] = [
       { q: "What does burnout mean in Punjabi?", a: "There is no single Punjabi word for it. The Punjabi guides on this site describe it as a ਥਕਾਵਟ, an exhaustion, that rest does not fix, usually from work or from caring for others, and that is the honest definition in any language. If that describes you, the burnout-or-depression check on this site takes two minutes and is written in plain English." },
 
       { q: "Do sessions have to be entirely in Punjabi?", a: "No. Most people move between Punjabi and English within a single session, which is how a lot of people actually think. You do not have to choose a language in advance or stick to it." },
-      { q: "Will my family find out?", a: "No. Counselling is confidential and whether you tell anyone is your decision. Virtual sessions mean there is no waiting room and no building, which for many people here is the deciding factor." },
+      { q: "Will my family find out?", a: FAMILY_FIND_OUT },
       { q: "Will I be told to cut off my family?", a: "No. That framing misreads the situation for most people. The work is usually about staying connected while stopping carrying what is not yours." },
       { q: "My parents think therapy is for serious problems. Are they wrong?", a: "They are describing a generation's understanding of it, formed when the only visible mental-health care was for crisis. Most therapy is ordinary people working on ordinary difficulty before it becomes serious." },
     ],
@@ -413,14 +456,14 @@ export const services: Service[] = [
     slug: "tagalog-counselling",
     language: "tl",
     directAnswer:
-      "Westpeak Wellness offers counselling in Tagalog by secure video anywhere in British Columbia and Alberta, provided by a Registered Clinical Counsellor who works in Tagalog and English. Working in the language you think in removes the translation overhead from material that is difficult to say once, and means Filipino family context, hiya, utang na loob, the eldest-daughter role, does not have to be explained from scratch. Individual, couples and family sessions are available in Tagalog, and you can move between Tagalog and English within a session.",
+      `${languageLede(TL, 'Tagalog', 'Westpeak Wellness offers counselling in Tagalog by secure video anywhere in British Columbia and Alberta, provided by a Registered Clinical Counsellor who works in Tagalog and English.')} Working in the language you think in removes the translation overhead from material that is difficult to say once, and means Filipino family context, hiya, utang na loob, the eldest-daughter role, does not have to be explained from scratch. Individual, couples and family sessions are available in Tagalog, and you can move between Tagalog and English within a session.`,
     figure2: "first-session-flow-tl",
     figure: "bc-reach",
     name: "Tagalog-Speaking Counselling",
     short: "Therapy in Tagalog, English, or both, with Filipino family context understood.",
     metaTitle: "Filipino, Tagalog-Speaking Counselling in BC | Westpeak",
     metaDescription:
-      "Online Tagalog-speaking therapy across BC and Alberta: counselling in Tagalog, English or both, Filipino family context understood. Free consultation.",
+      "Online counselling in Tagalog, English or both, across BC and Alberta. Filipino family context understood, by secure video.",
     hero: "Say it in the language it happened in.",
     intro:
       "Some things only land in your first language, and for a great many Filipinos in Canada that language is Taglish. Sessions are available in Tagalog, English, or a mix of both, with the context to understand hiya, utang na loob and what the relatives will say without needing it explained. Online across BC and Alberta. There is also a [page in Tagalog](/tagalog) covering services, fees and what a first session involves.",
@@ -456,7 +499,7 @@ export const services: Service[] = [
         "That reach matters more here than for most services. **Tagalog-speaking counsellors in BC are few and concentrated in Metro Vancouver**, which means that for anyone in the Interior, the North, on the Island, or in Alberta, virtual sessions are not a convenience. They are realistically the only route to therapy in Tagalog at all. The [Tagalog counselling by city](/tagalog-counselling) pages set out what that gap looks like locally.",
         "**On shift work:** a great deal of Filipino employment in BC is in healthcare, care work and hospitality, on rosters that change. Booking in blocks around a rotation, with gaps between blocks, is an ordinary pattern here, and the calendar shows real open times. The [page for Filipino healthcare workers and caregivers](/for/filipino-healthcare-workers-and-caregivers) goes into this.",
         "**On what the work is not:** it is not therapy that treats your family as the diagnosis and distance as the cure. Most people arriving here want something harder, to stay in relationship with their family and stop carrying the parts that are not theirs. That is a legitimate goal and it is workable, and any decision about distance stays yours.",
-        "**On confidentiality:** nothing is shared with your family, your church or your employer, and because sessions are virtual there is no clinic to be seen entering. The only limits are risk of serious harm and a court order.",
+        `**On confidentiality:** nothing is shared with your family, your church or your employer without your consent, and because sessions are virtual there is no clinic to be seen entering. The only limits are ${CONFIDENTIALITY_LIMITS}.`,
       ],
     },
     faqs: [
@@ -464,7 +507,7 @@ export const services: Service[] = [
       { q: "What does burnout mean in Tagalog?", a: "There is no single Tagalog word for it. The Tagalog guides on this site describe it as pagod, or pagod na pagod, an exhaustion that rest does not fix, usually from work or from caring for others, and that is the honest definition in any language. If that describes you, the burnout-or-depression check on this site takes two minutes." },
       { q: "Do sessions have to be entirely in Tagalog?", a: "No. Most people move between Tagalog and English within a single session, which is how a lot of people actually think. You do not have to choose a language in advance or stick to it." },
       { q: "Can you see me in Alberta?", a: "Yes. Camille holds the Canadian Certified Counsellor designation and professional insurance that reach Alberta, so sessions in Tagalog or English are available anywhere in the province by video. Her Calgary and Edmonton pages cover the local detail." },
-      { q: "Will my family find out?", a: "No. Counselling is confidential and whether you tell anyone is your decision. Virtual sessions mean there is no waiting room and no building, which for many people here is the deciding factor." },
+      { q: "Will my family find out?", a: FAMILY_FIND_OUT },
       { q: "Will I be told to cut off my family?", a: "No. That framing misreads the situation for most people. The work is usually about staying connected while stopping carrying what is not yours." },
       { q: "My parents think therapy is for the seriously ill. Are they wrong?", a: "They are describing a generation's understanding of it, formed where the only visible mental-health care was for crisis. Most therapy is ordinary people working on ordinary difficulty before it becomes serious." },
     ],

@@ -3,7 +3,7 @@ import Updated from '@/components/Updated';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { punjabiRegions, getPunjabiRegion } from '@/lib/punjabi-regions';
+import { punjabiRegions, getPunjabiRegion, regionOpening } from '@/lib/punjabi-regions';
 import { site } from '@/lib/site';
 import { abs, orgRef, siteRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
@@ -18,6 +18,9 @@ import Figure from '@/components/Figure';
 import Stat from '@/components/Stat';
 import { ogBase } from '@/lib/og-meta';
 import { COLLECTION_DATES } from '@/lib/page-dates';
+import { readCatalog } from '@/lib/cliniko-catalog';
+import { feeFor, languagesOf, listOf } from '@/lib/city-service-page';
+import { serviceSnippet, withSnippet } from '@/lib/snippet-facts';
 
 /* The English-language Punjabi cluster.
  *
@@ -36,12 +39,25 @@ export function generateStaticParams() {
   return punjabiRegions.map((r) => ({ region: r.slug }));
 }
 
-export function generateMetadata({ params }: { params: { region: string } }): Metadata {
+/* ISR, as the other money pages are: the opening and the description read
+   the individual fee from the Cliniko catalogue. 1 Oct 2026. */
+export const revalidate = 3600;
+
+export async function generateMetadata({ params }: { params: { region: string } }): Promise<Metadata> {
   const r = getPunjabiRegion(params.region);
   if (!r) return {};
+  /* The fee and the counsellor, after the region's own lead — 1 Oct 2026.
+     Vancouver sat at 9.01 with 83 impressions and Prince George at 9.83
+     with 42, no clicks, and neither description said what it costs or who
+     it is with. The speaker is the one the booking button opens. */
+  const speaker = bookingCtaFor({ language: 'pa', service: 'individual-therapy', fallback: '' }).practitioner;
+  const description = withSnippet(
+    r.metaDescription,
+    speaker ? serviceSnippet(await readCatalog(), 'individual-therapy', [speaker]) : undefined,
+  );
   return {
     title: { absolute: `Punjabi Counselling in ${r.region}, BC | Westpeak` },
-    description: r.metaDescription,
+    description,
     /* Canonical only. This page declared hreflang pa -> /punjabi until 1 Oct
        2026, but /punjabi is not a translation of a region page and pairs with
        /services/punjabi-counselling instead, so the tag was one-way, and
@@ -50,12 +66,12 @@ export function generateMetadata({ params }: { params: { region: string } }): Me
     alternates: { canonical: `${site.domain}/punjabi-counselling/${r.slug}` },
     openGraph: { ...ogBase(`/punjabi-counselling/${r.slug}`),
       title: `Punjabi-speaking counselling in ${r.region}, BC`,
-      description: r.metaDescription,
+      description,
     },
   };
 }
 
-export default function PunjabiRegionPage({ params }: { params: { region: string } }) {
+export default async function PunjabiRegionPage({ params }: { params: { region: string } }) {
   const r = getPunjabiRegion(params.region);
   if (!r) notFound();
 
@@ -72,6 +88,13 @@ export default function PunjabiRegionPage({ params }: { params: { region: string
     ? `/practitioners/${speaker.slug}/${r.slug}`
     : undefined;
   const placePa = place && getPunjabiPlace(r.slug) ? `${place}/pa` : undefined;
+  /* Who, how, what it costs and the consultation, before anything else. */
+  const opening = regionOpening({
+    region: r.region,
+    who: speaker ? withLetters(speaker) : undefined,
+    languages: speaker ? listOf(languagesOf(speaker), 'or') : undefined,
+    fee: feeFor(await readCatalog(), { bookingService: 'individual-therapy' }),
+  });
 
   const schema = [
     {
@@ -136,22 +159,12 @@ export default function PunjabiRegionPage({ params }: { params: { region: string
 
           {/* The direct-answer block. Stated plainly and early, because this is
               the sentence somebody is scanning for and it is what gets lifted
-              into a featured snippet or an AI overview. */}
-          <p className="lede" style={{ marginTop: 8 }}>
-            <strong>{r.demography.stat}</strong>
-          </p>
-          {/* The number on its own, with its source attached. The sentence above
-              gives it meaning; this gives it weight. Both, because a figure with
-              no context misleads and context with no figure does not land. */}
-          {r.figure && (
-            <Stat
-              value={r.figure.value}
-              label={r.figure.label}
-              source={r.sources[0]?.label ?? 'Statistics Canada, 2021 Census'}
-              href={r.sources[0]?.url}
-            />
-          )}
-          <Paragraphs items={r.demography.body} />
+              into a featured snippet or an AI overview. Since 1 Oct 2026 it
+              answers who, how, what it costs and the consultation; it opened
+              with the census figure, which the Stat block and the first
+              paragraph then said twice more. The census now leads the local
+              section below, where it is the argument. */}
+          <p className="lede direct-answer" style={{ marginTop: 8 }}>{opening}</p>
 
           {speaker && (
             <>
@@ -195,6 +208,19 @@ export default function PunjabiRegionPage({ params }: { params: { region: string
       <section className="section section--tint">
         <div className="container prose" style={{ maxWidth: '44.16em' }}>
           <h2>{r.localReality.h2}</h2>
+          {/* The census, moved here from the opening (1 Oct 2026). The figure
+              with its source attached, then the paragraphs that give it
+              meaning; the one-line `stat` is not repeated, because the first
+              of those paragraphs already says it. */}
+          {r.figure && (
+            <Stat
+              value={r.figure.value}
+              label={r.figure.label}
+              source={r.sources[0]?.label ?? 'Statistics Canada, 2021 Census'}
+              href={r.sources[0]?.url}
+            />
+          )}
+          <Paragraphs items={r.demography.body} />
           <Paragraphs items={r.localReality.body} />
           {/* These four pages rendered no image at all, which is a real gap on
               the cluster that carries the practice's differentiator. bc-reach is

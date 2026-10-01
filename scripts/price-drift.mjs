@@ -105,6 +105,52 @@ export function scanTree(root) {
   return { prices, problems };
 }
 
+/* NO FEE IS TYPED INTO A DESCRIPTION — 1 Oct 2026.
+ *
+ * The money-page descriptions now state the session fee (lib/snippet-facts.ts
+ * composes it from the catalogue). The scan above lets a catalogue price
+ * through wherever it is typed, which is right for prose that reads a fee
+ * through fallbackFee() and wrong for a description: a description is the
+ * copy most likely to be edited by hand, and a fee typed there is the one
+ * that survives a price change unnoticed. So any "$NN" inside a description
+ * string fails unless it is on ALLOW (a figure that is not one of our fees:
+ * a benefit, a plan example, a market range), and any "$NN" at all in the
+ * file that composes them fails. Template expressions (`${fee}`) are not
+ * figures and pass. */
+export function typedFeeDescriptions(text, allow = ALLOW) {
+  const found = [];
+  const re = /(?:metaDescription|description)\s*:\s*(?:\r?\n\s*)?(['"`])((?:(?!\1)[^\\]|\\.)*)\1/g;
+  for (const m of text.matchAll(re)) {
+    for (const f of m[2].matchAll(DOLLARS)) {
+      if (allow.has(Number(f[1].replace(/,/g, '')))) continue;
+      found.push({ line: text.slice(0, m.index).split('\n').length, amount: `$${f[1]}` });
+    }
+  }
+  return found;
+}
+
+export function typedFeesInSnippetFacts(text) {
+  return [...text.matchAll(/\$\d[\d,.]*/g)].map((m) => ({
+    line: text.slice(0, m.index).split('\n').length,
+    amount: m[0],
+  }));
+}
+
+export function scanDescriptions(root) {
+  const problems = [];
+  for (const top of ['lib', 'app', 'components']) {
+    let files;
+    try { files = [...walk(join(root, top))]; } catch { continue; }
+    for (const f of files) {
+      const rel = relative(root, f).replace(/\\/g, '/');
+      const text = readFileSync(f, 'utf8');
+      const hits = rel === 'lib/snippet-facts.ts' ? typedFeesInSnippetFacts(text) : typedFeeDescriptions(text);
+      for (const h of hits) problems.push({ file: rel, ...h });
+    }
+  }
+  return problems;
+}
+
 async function main() {
   let problems = 0;
   const bad = (msg) => { problems++; console.log(`   DRIFT  ${msg}`); };
@@ -117,6 +163,11 @@ async function main() {
   if (!scan.problems.length) {
     console.log(`    ok    every figure is a catalogue price (${[...scan.prices].map((d) => `$${d}`).join(' ')}) or on the allow list`);
   }
+  console.log('\n  Fees typed into descriptions (lib/snippet-facts.ts composes them)');
+  console.log('  ' + '-'.repeat(72));
+  const typedDesc = scanDescriptions(process.cwd());
+  for (const p of typedDesc) bad(`${p.file}:${p.line} types ${p.amount} into a description; compose it with lib/snippet-facts.ts`);
+  if (!typedDesc.length) console.log('    ok    no description types a fee');
   if (problems) {
     console.log(`\n  ${problems} stray figure(s). Read the fee from lib/cliniko-catalog.ts, or allow-list a non-fee figure with a reason.\n`);
     process.exit(1);

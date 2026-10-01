@@ -1,4 +1,5 @@
 import type { Resource } from './resources';
+import { CONFIDENTIALITY_LIMITS } from '@/lib/practice-facts';
 
 export const moreResources: Resource[] = [
   {
@@ -76,7 +77,7 @@ export const moreResources: Resource[] = [
       label: 'a free 30-minute consultation is a straightforward next step',
     },
     faqs: [
-      { q: 'Will my university know I used campus counselling?', a: 'Counselling records are confidential and separate from academic records. Faculty are not informed. The exceptions are the same legal ones that apply to any counselling: risk of serious harm, child protection, court order.' },
+      { q: 'Will my university know I used campus counselling?', a: `Counselling records are confidential and separate from academic records. Faculty are not informed. The exceptions are the same legal ones that apply to any counselling: ${CONFIDENTIALITY_LIMITS}.` },
       { q: 'Can I use campus counselling and a private counsellor at the same time?', a: 'Generally yes. Tell both so that neither is working blind and the work is coordinated rather than duplicated.' },
       { q: 'Does my student health plan cover a Registered Clinical Counsellor?', a: 'Many do, and some cover only a psychologist. Check your specific plan booklet for the designation, not just the dollar amount. It is the detail that most often trips people up.' },
       { q: 'I am an international student. Do these apply to me?', a: 'Here2Talk and campus counselling are generally available to all enrolled students regardless of status. Health plan coverage varies, so check whether your plan is the student union plan or a separate international policy.' },
@@ -741,7 +742,7 @@ export const moreResources: Resource[] = [
     },
     faqs: [
       { q: 'Can we pay for an employee’s counselling directly?', a: 'The cleaner routes are the ones already built for it: a healthy paramedical maximum on your plan, or a health-spending account the employee draws on privately. Direct employer payment creates confidentiality tangles nobody wants. The employee’s counselling should never be visible to the employer, including in gratitude.' },
-      { q: 'Will we be told if an employee books here?', a: 'No, categorically. Counselling is confidential from employers regardless of who suggested it, what benefits reimburse it, or how supportive the intent. What you get instead is the thing you actually wanted: a team member getting help.' },
+      { q: 'Will we be told if an employee books here?', a: `No. Counselling is confidential from employers regardless of who suggested it, what benefits reimburse it, or how supportive the intent, and outside the legal limits (${CONFIDENTIALITY_LIMITS}) nothing is disclosed to anyone without the client’s consent. What you get instead is the thing you actually wanted: a team member getting help.` },
       { q: 'What should a manager do in the moment with a struggling employee?', a: 'Ask, listen, and point: "what would help?", genuine attention, and knowledge of the concrete options: the EAP for today, the benefits plan for treatment, the sick days without interrogation, and a real practice’s booking page. Managers go wrong by diagnosing or by fixing; the job is noticing and routing.' },
       { q: 'Is an EAP enough on its own?', a: 'As triage, yes; as treatment, usually not, session caps mean anything beyond a rough patch needs a handoff to ongoing care, which is where plan coverage of RCCs becomes the load-bearing benefit. The honest employer framing: "free first conversations through the EAP, real coverage for ongoing counselling through the plan."' },
       { q: 'Do you run workplace workshops?', a: 'No. This practice does one thing, which is counselling. For workplace education, CMHA BC offers established programs. What this practice offers your team is a concrete, bookable place to send someone, which in practice is the piece most toolboxes are missing.' },

@@ -54,6 +54,11 @@ export type Pair = {
   /** Two paragraphs specific to this pair. Never assembled from a template. */
   body: [string, string];
   faqs: { q: string; a: string }[];
+  /* The name the <title> uses, when Search Console shows the page is found by
+     a different name from the service's own. Title only: the heading, the
+     description and the schema keep the service name. The page composes it
+     to fit the 60-character gate. 1 Oct 2026. */
+  titleName?: string;
 };
 
 export const pairs: Pair[] = [
@@ -139,6 +144,10 @@ export const pairs: Pair[] = [
 
   {
     city: 'abbotsford', service: 'couples-therapy',
+    /* Search Console, as read 1 Oct 2026: "marriage counselling abbotsford"
+       and its variants 51 impressions, "couples counselling/therapy
+       abbotsford" 33. */
+    titleName: 'Marriage Counselling',
     angle: 'Two people, one highway, one appointment, Fraser Valley couples usually lose the attempt to the drive rather than to the work.',
     body: [
       'Couples counselling requires two people free simultaneously. In Abbotsford that has often meant two people free simultaneously and both willing to drive to Surrey, which is a materially harder condition to satisfy and the one on which most attempts fail.',
@@ -305,6 +314,9 @@ export const pairs: Pair[] = [
 
   {
     city: 'prince-george', service: 'couples-therapy',
+    /* Search Console, as read 1 Oct 2026: only marriage-counselling queries
+       reach this page; no couples-phrased query appears. */
+    titleName: 'Marriage Counselling',
     angle: 'Northern couples are frequently far from family as well as from services, which changes what the relationship is carrying.',
     body: [
       'Many couples in the north are some distance from extended family, which means the relationship absorbs support that would otherwise be spread across more people. That is a specific pressure and a considerable one, and it is quite different from the difficulties that bring urban couples to counselling.',

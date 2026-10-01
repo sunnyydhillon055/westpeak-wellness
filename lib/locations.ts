@@ -139,7 +139,7 @@ export const locations: Location[] = [
     region: "Lower Mainland",
     blurb: "Home ground, and the community where the demand for Punjabi-language therapy is highest in the province.",
     metaDescription:
-      "Online counselling for Surrey, BC. Therapy in Punjabi or English: EMDR, trauma, anxiety, and couples counselling by secure video.",
+      "Online counselling for Surrey with a Punjabi-speaking counsellor. EMDR, trauma, anxiety and couples counselling by secure video.",
     intro: [
       "Surrey is one of the fastest-growing cities in Canada and home to one of the largest Punjabi-speaking populations anywhere outside South Asia. It is also a city where the mental-health conversation has changed enormously in a decade, and where a great many people still have not had it out loud with anyone.",
       "Westpeak Wellness is rooted here. That matters less as a marketing line than as a practical fact about the work: you will not have to explain what *log kya kahenge* means, why moving out is not a straightforward option, or why a family's expectations carry the weight they do. That context is the starting point rather than something to be established first.",
@@ -181,7 +181,7 @@ export const locations: Location[] = [
     region: "Lower Mainland",
     blurb: "The most therapists in the province, and still a waitlist, because the constraint here is affordability, not supply.",
     metaDescription:
-      "Online counselling and virtual therapy for Vancouver, BC: trauma, EMDR, anxiety, couples therapy by video in English, Punjabi or Tagalog. Free consultation.",
+      "Online and virtual counselling for Vancouver, BC. Trauma, EMDR, anxiety and couples therapy by secure video, with no commute across town.",
     intro: [
       "Vancouver has more counsellors per capita than anywhere else in British Columbia. It is also the city where people most often report giving up on finding one, which sounds contradictory until you look at what the actual constraint is.",
       "It is not supply. It is cost, time, and the specific difficulty of finding someone who is both a genuine fit and currently accepting clients. In a city where housing already takes an outsized share of income, a $140 weekly session is a real decision rather than an obvious one.",
@@ -229,7 +229,7 @@ export const locations: Location[] = [
     region: "Fraser Valley",
     blurb: "Fraser Valley distances make virtual sessions less a convenience than the thing that makes attending possible.",
     metaDescription:
-      "Online counselling for Abbotsford and the Fraser Valley. Therapy in Punjabi or English: EMDR, trauma, anxiety, and couples sessions.",
+      "Online counselling for Abbotsford with a Punjabi-speaking counsellor. EMDR, trauma, anxiety and couples sessions across the Fraser Valley.",
     intro: [
       "Abbotsford sits in a particular gap. It is large enough to have services, far enough from Vancouver that accessing the Lower Mainland's depth of specialists means a real commitment of a day, and spread out enough that even a local appointment can involve a significant drive.",
       "It also has one of the largest Punjabi-speaking communities in Canada, and the scale of it is easy to underestimate from outside: in the 2021 census **Punjabi was the mother tongue of 34,280 Abbotsford residents, 22.6% of the city**, second only to English at 61%. Nearly a quarter of a city is not a minority community in any ordinary sense. It brings much the same dynamic as Surrey. A strong community, and a corresponding concern about privacy that keeps people from walking into a local clinic.",
@@ -273,7 +273,7 @@ export const locations: Location[] = [
     region: "Vancouver Island",
     blurb: "On the Island, specialist care has often meant a ferry, a day off, and a return sailing. It no longer has to.",
     metaDescription:
-      "Online counselling for Victoria and Vancouver Island. EMDR, trauma, anxiety, and couples therapy by secure video, in English, Punjabi or Tagalog.",
+      "Online counselling for Victoria and Vancouver Island. EMDR, trauma, anxiety and couples therapy by secure video, with no ferry to catch.",
     intro: [
       "Victoria has a solid local counselling community, and for a lot of people it covers what they need. Where it runs out is specialisation, a particular modality, a particular language, or a practitioner with specific experience in what you are bringing.",
       "Historically the answer was a ferry. A single appointment on the mainland means a sailing each way, a day given up, and a cost that turns weekly therapy into an impossibility. Which meant the practical choice was usually not \"which practitioner is the best fit\" but \"which practitioner is on this side of the water\".",
@@ -318,7 +318,7 @@ export const locations: Location[] = [
     region: "Okanagan",
     blurb: "The Okanagan's population has grown faster than its mental-health services have, and specialist options remain thin.",
     metaDescription:
-      "Online counselling for Kelowna and the Central Okanagan. EMDR, trauma, anxiety, and couples therapy by secure video, English, Punjabi or Tagalog.",
+      "Online counselling for Kelowna and the Central Okanagan. EMDR, trauma, anxiety and couples therapy by secure video.",
     intro: [
       "Kelowna has grown quickly, and it has grown in a specific way: retirees, remote workers who left the coast, students at UBC Okanagan, and a large seasonal workforce in agriculture and tourism. Health and social services have not expanded at the same pace, and mental health is where that gap shows most clearly.",
       "The result is that local options exist but fill up, and the specialist end. A particular modality, a particular language, is thin enough that many people do without.",
@@ -468,7 +468,7 @@ export const locations: Location[] = [
     region: "Metro Vancouver",
     blurb: "Burnaby looks west for services and is covered by Fraser Health. A mismatch that costs people weeks.",
     metaDescription:
-      "Online counselling for Burnaby. Therapy in Punjabi or English: anxiety, trauma, EMDR and couples sessions, with no commute across the city.",
+      "Online counselling for Burnaby, BC. Anxiety, trauma, EMDR and couples sessions by secure video, with no commute across the city.",
     intro: [
       "Burnaby is a city that mostly faces west. People work in Vancouver, look for services in Vancouver, and reasonably assume the health authority covering downtown covers them too.",
       "It does not. **Public mental-health intake for a Burnaby address runs through Fraser Health, not Vancouver Coastal.** That is a small administrative fact with a real cost: people discover it at the wrong end of a referral, having already waited, and start again in a different queue.",
@@ -508,7 +508,7 @@ export const locations: Location[] = [
     region: "Fraser Valley",
     blurb: "Two municipalities share the name, so a practice “in Langley” may be nowhere near you.",
     metaDescription:
-      "Online counselling for Langley City and the Township. Therapy in Punjabi or English: anxiety, trauma, EMDR and couples sessions across BC.",
+      "Online counselling for Langley City and the Township. Anxiety, trauma, EMDR and couples sessions by secure video across BC.",
     intro: [
       "Langley is two municipalities that share a name: the City of Langley, and the Township that surrounds it. A directory listing saying “Langley” therefore tells you very little about whether a practice is anywhere near you.",
       "For a resident of Aldergrove, a counsellor in Willoughby is a drive. For someone in Brookswood, half the listings are on the far side of the Township. It is the kind of detail that looks pedantic until it is the reason a third appointment was missed.",
@@ -568,7 +568,7 @@ export const locations: Location[] = [
     region: "Metro Vancouver",
     blurb: "A small city on the border where the counsellor you can reach may be someone you will see again at the pier.",
     metaDescription:
-      "Online counselling for White Rock and the Semiahmoo Peninsula. Therapy in English, Punjabi or Tagalog: EMDR, trauma, anxiety, grief and couples sessions.",
+      "Online counselling for White Rock and the Semiahmoo Peninsula. EMDR, trauma, anxiety, grief and couples sessions by secure video.",
     intro: [
       "White Rock is small in a way that changes what privacy means. A city of a few square kilometres wrapped around one hill, one promenade and one main street is a place where the person in the waiting room is quite often someone you know, and where the counsellor you would be booking with may share a grocery store, a beach walk and a dentist with you.",
       "It is also a city that skews older than almost anywhere else in Metro Vancouver, and that shapes what people actually come to therapy for here: retirement that turned out to be harder than expected, caregiving for a partner, grief after a long marriage, health anxiety with a real diagnosis underneath it, and adult children who moved away. Those are not the presentations a general \"anxiety and depression\" page is written for.",
@@ -630,7 +630,7 @@ export const locations: Location[] = [
     region: "Metro Vancouver",
     blurb: "A large city whose counselling supply is organised around languages this practice does not offer, which thins the field more than the population suggests.",
     metaDescription:
-      "Online counselling for Richmond, BC. Therapy in English, Punjabi or Tagalog: EMDR, trauma, anxiety, depression and couples sessions by secure video.",
+      "Online counselling for Richmond, BC. EMDR, trauma, anxiety, depression and couples sessions by secure video, with no drive.",
     intro: [
       "Richmond is one of the larger cities in Metro Vancouver, and on paper that should mean a wide choice of counsellors. In practice the choice narrows quickly depending on what you need it in. A great deal of Richmond's mental-health provision is built, correctly and deliberately, around its Chinese-speaking communities, Cantonese and Mandarin services are a genuine local strength.",
       "If you are looking in English, Punjabi or Tagalog, the field is thinner than the city's size implies, and people routinely end up searching in Vancouver or Surrey instead. That is the gap this page is about. It is worth saying plainly that **this practice offers English and Punjabi and not Cantonese or Mandarin**, if those are what you need, Richmond is a better place to look locally than almost anywhere in the province, and you should.",
@@ -673,7 +673,7 @@ export const locations: Location[] = [
     region: "Metro Vancouver",
     blurb: "The Tri-Cities commute takes the evenings a weekly appointment would have to live in.",
     metaDescription:
-      "Online counselling for Coquitlam and the Tri-Cities. Therapy in English, Punjabi or Tagalog: EMDR, trauma, anxiety, depression and couples sessions.",
+      "Online counselling for Coquitlam and the Tri-Cities. EMDR, trauma, anxiety, depression and couples sessions, with no commute.",
     intro: [
       "The thing that ends courses of therapy in the Tri-Cities is rarely the therapy. It is the commute. A working day that starts with a drive or a SkyTrain ride into Vancouver or Burnaby and ends with the same in reverse leaves an evening with very little slack in it, and a 6pm appointment on the other side of a bridge is a commitment that survives about four weeks.",
       "Coquitlam, Port Coquitlam and Port Moody function as one place for most purposes and are three municipalities for administrative ones, which is its own small source of confusion when you are trying to work out what you are entitled to and where.",
@@ -715,7 +715,7 @@ export const locations: Location[] = [
     region: "Metro Vancouver",
     blurb: "Three communities sharing a municipality and almost nothing else, including how hard it is to reach a counsellor.",
     metaDescription:
-      "Online counselling for Delta, BC: North Delta, Ladner and Tsawwassen. Therapy in English, Punjabi or Tagalog, by secure video across the province.",
+      "Online counselling for Delta: North Delta, Ladner and Tsawwassen. Sessions by secure video with a Registered Clinical Counsellor.",
     intro: [
       "Delta is one municipality containing three places that do not much resemble each other. North Delta sits against Surrey and shares its communities and its pace. Ladner is a smaller, older river town. Tsawwassen is at the end of a peninsula with a ferry terminal on it. \"A counsellor in Delta\" tells a resident of any of the three almost nothing about whether that counsellor is reachable.",
       "What they have in common is that local provision is thin relative to the population, and that reaching the Lower Mainland's depth of specialists means a drive that is longer than the map suggests, through a tunnel that decides how long your evening takes.",
@@ -759,7 +759,7 @@ export const locations: Location[] = [
     region: "Vancouver Island",
     blurb: "Everything the Lower Mainland offers is across water, which turns a specialist appointment into a whole day and a ferry.",
     metaDescription:
-      "Online counselling for Nanaimo and central Vancouver Island. EMDR, trauma, anxiety, couples therapy in English, Punjabi or Tagalog, by video.",
+      "Online counselling for Nanaimo and central Vancouver Island. EMDR, trauma, anxiety and couples therapy by video, with no ferry.",
     intro: [
       "Nanaimo has counsellors. What it does not have, in the depth the Lower Mainland does, is choice within a specific modality, and the moment you need something particular, the shortlist gets very short. The usual answer to that is to look across the water, and the water is the problem: a ferry each way turns a 50-minute appointment into most of a day, at a cost that makes a weekly course of therapy unaffordable long before the session fee does.",
       "That is the case for virtual work here, and it is a stronger one than in most of the province. Distance stops being a variable entirely: a counsellor on the mainland is exactly as available to you in Nanaimo as to someone in Burnaby.",

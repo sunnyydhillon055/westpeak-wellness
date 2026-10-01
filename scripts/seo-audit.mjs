@@ -259,6 +259,26 @@ for (const p of pages.values()) {
     warn('no-inlanguage', route, 'Punjabi page with no language annotation');
 }
 
+/* MONEY-PAGE SNIPPETS — 1 Oct 2026.
+ *
+ * The descriptions on /pricing, the service pages, the city hubs, the
+ * Punjabi region pages and the counsellor profiles now end with a generated
+ * "{fee} per {minutes}-min session · free 30-min consult · {names}"
+ * (lib/snippet-facts.ts). That line is the part a reader decides on, so it
+ * must not be the part Google cuts: on these routes a description that
+ * carries a fee is held to 155 characters as served, not the general 158.
+ * lib/snippet-facts.ts measures the same way and leaves the facts off rather
+ * than run past it, so this firing means the composer and the gate disagree. */
+const SNIPPET_MAX = 155;
+const MONEY_ROUTE = (r) =>
+  r === '/pricing' ||
+  /^\/(services|online-counselling|punjabi-counselling|practitioners)\/[^/]+$/.test(r);
+for (const p of pages.values()) {
+  if (p.notFound || !p.desc || !MONEY_ROUTE(p.route)) continue;
+  if (/\$\d/.test(p.desc) && p.desc.length > SNIPPET_MAX)
+    err('snippet-too-long', p.route, `${p.desc.length} chars with a fee — ${p.desc}`);
+}
+
 const byRule = (list) => {
   const m = new Map();
   for (const x of list) m.set(x.rule, [...(m.get(x.rule) || []), x]);

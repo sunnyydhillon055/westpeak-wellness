@@ -94,15 +94,83 @@ const BILLED_AS: Record<string, string | undefined> = {
   'emdr-therapy': 'EMDR Intensive',
 };
 
-export type Fee = { fee: string; minutes: number };
+/* `cents` rides along so a caller comparing fees (the lowest a counsellor
+   charges, for a "from" line) never parses a formatted string back. */
+export type Fee = { fee: string; minutes: number; cents: number };
 
 export const feeFor = (catalog: Catalog, topic: Pick<CityTopic, 'bookingService'>): Fee | undefined => {
   const name = BILLED_AS[topic.bookingService];
   const item = name ? catalog.items.find((i) => i.name.toLowerCase() === name.toLowerCase()) : undefined;
-  return item ? { fee: money(item.cents), minutes: item.minutes } : undefined;
+  return item && item.cents > 0 ? { fee: money(item.cents), minutes: item.minutes, cents: item.cents } : undefined;
 };
 
-export const languagesOf = (p: Practitioner) => p.languages.map((l) => l.name);
+export const languagesOf = (p: Pick<Practitioner, 'languages'>) => p.languages.map((l) => l.name);
+
+/* THE LANGUAGES A SERVICE IS ACTUALLY OFFERED IN — 1 Oct 2026.
+ *
+ * The description and the closing band on all fifty city-service pages said
+ * "English, Punjabi or Tagalog", including the twenty couples and EMDR pages,
+ * where the one counsellor who offers the work speaks English and Tagalog.
+ * Production showed "...English, Punjabi or Tagalog. Free" on the Abbotsford
+ * couples result. The list is now the union of the languages spoken by the
+ * counsellors who could take the booking, English first and the rest in
+ * alphabetical order, so a new counsellor or a new service changes it without
+ * an edit, and a language nobody offering the service speaks cannot appear. */
+export const languagesFor = (counsellors: Pick<Practitioner, 'languages'>[]): string[] => {
+  const names = [...new Set(counsellors.flatMap(languagesOf))];
+  return [
+    ...names.filter((n) => n === 'English'),
+    ...names.filter((n) => n !== 'English').sort(),
+  ];
+};
+
+/** "English, Punjabi or Tagalog" / "English or Tagalog". */
+export const languagePhrase = (counsellors: Pick<Practitioner, 'languages'>[]) =>
+  listOf(languagesFor(counsellors), 'or');
+
+/* Whole sentences, joined until the next one would pass `max`. Never a cut
+   mid-sentence: the guard this replaces sliced at the last space before 155
+   and published "Free" as the final word of a description. */
+export const fitSentences = (sentences: string[], max: number): string => {
+  let out = '';
+  for (const s of sentences) {
+    const next = out ? `${out} ${s}` : s;
+    if (next.length > max) break;
+    out = next;
+  }
+  return out || sentences[0];
+};
+
+/* The city-service <title>, before the brand suffix. ", BC" where the whole
+   title still fits the 60-character gate, without it where it does not.
+   `name` is the pair's titleName when it has one ("Marriage Counselling"),
+   otherwise the service's own name. */
+export const cityServiceTitle = (name: string, city: string, brand: string, max = 60): string => {
+  const withBc = `${name} in ${city}, BC`;
+  return `${withBc} | ${brand}`.length <= max ? withBc : `${name} in ${city}`;
+};
+
+/* The city-service description. `name` is what the result is searched as
+   (Couples and Marriage Counselling), the languages are the roster's for
+   this service, and the consultation sentence is dropped before anything is
+   cut. */
+export const cityServiceDescription = (args: {
+  name: string;
+  city: string;
+  counsellors: Pick<Practitioner, 'languages'>[];
+  max?: number;
+}): string => {
+  const { name, city, counsellors, max = 158 } = args;
+  const langs = languagePhrase(counsellors);
+  return fitSentences(
+    [
+      `${name} for ${city}, by secure video across BC with a Registered Clinical Counsellor.`,
+      ...(langs ? [`In ${langs}.`] : []),
+      'Free 30-minute consultation.',
+    ],
+    max,
+  );
+};
 
 /* The three questions the ranking pages answer and the pair authors did not:
    who you would see, whether the places around the city count, and what it
