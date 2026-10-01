@@ -30,6 +30,7 @@ const wrap = (s: string, w = 72): string[] => {
  *  every month, because the distinction it draws is not intuitive and the
  *  person reading will not remember it a year from now. */
 const BASIS =
+  'Only paid sessions are counted: an invoice closed in the period, above zero, not refunded, and never the free initial consultation. ' +
   'Figures are invoices CLOSED in the period (Cliniko\'s API has no payments ' +
   'endpoint, so payments cannot be counted directly). Where payment is taken at ' +
   'booking these match cash received. Anything billed but not yet settled is ' +

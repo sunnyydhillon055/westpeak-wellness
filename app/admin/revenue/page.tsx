@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation';
 import { auth } from '@/auth';
 import { isAdmin } from '@/lib/portal-store';
 import { monthFromKey, previousMonth, money } from '@/lib/cliniko-revenue';
-import { invoiceDetail, type InvoiceRow } from '@/lib/cliniko-invoice-detail';
+import { invoiceDetail, isPaidSession, whyNotCounted, type InvoiceRow } from '@/lib/cliniko-invoice-detail';
 
 /* Every invoice in a month, with the session behind it. See
    lib/cliniko-invoice-detail.ts for why this exists (1 Oct 2026). */
@@ -37,19 +37,22 @@ export default async function RevenueDetail({ searchParams }: { searchParams: { 
 
   const bySeen = new Map<string, { n: number; cents: number }>();
   if (d.status === 'ok') {
-    for (const r of d.rows) {
+    for (const r of d.rows.filter(isPaidSession)) {
       const k = r.seenBy ?? `${r.invoicedUnder} (no appointment linked)`;
       const v = bySeen.get(k) ?? { n: 0, cents: 0 };
       v.n++; v.cents += r.amountCents; bySeen.set(k, v);
     }
   }
-  const mismatches = d.status === 'ok' ? d.rows.filter((r: InvoiceRow) => r.mismatch).length : 0;
+  const paid: InvoiceRow[] = d.status === 'ok' ? d.rows.filter(isPaidSession) : [];
+  const other: InvoiceRow[] = d.status === 'ok' ? d.rows.filter((r) => !isPaidSession(r)) : [];
+  const paidTotal = paid.reduce((n, r) => n + r.amountCents, 0);
+  const mismatches = paid.filter((r) => r.mismatch).length;
 
   return (
     <section className="section">
       <div className="container" style={{ maxWidth: 1100 }}>
         <p><Link href="/admin">← Admin</Link></p>
-        <h1 style={{ fontSize: '1.6rem' }}>Invoices, {period.label}</h1>
+        <h1 style={{ fontSize: '1.6rem' }}>Paid sessions, {period.label}</h1>
         <p style={{ color: 'var(--ink-soft)', maxWidth: 760 }}>
           Every invoice Cliniko closed in the month, with the appointment it belongs to. &ldquo;Seen by&rdquo; is
           the counsellor who held the appointment; &ldquo;Invoiced under&rdquo; is the practitioner written on the
@@ -70,11 +73,13 @@ export default async function RevenueDetail({ searchParams }: { searchParams: { 
           <>
             {mismatches > 0 && (
               <p className="crisis" style={{ padding: 14 }}>
-                <strong>{mismatches} of {d.rows.length} invoices</strong> are written under a different practitioner from
+                <strong>{mismatches} of {paid.length} paid sessions</strong> are written under a different practitioner from
                 the one who held the appointment. Those are why the monthly email&rsquo;s per-counsellor split looks wrong.
                 In Cliniko, open each one and change the practitioner on the invoice.
               </p>
             )}
+            <p style={{ fontSize: '1.4rem', fontWeight: 700, margin: '6px 0 4px' }}>{paid.length} paid session{paid.length === 1 ? '' : 's'}, {money(paidTotal)}</p>
+            <p style={{ color: 'var(--ink-soft)', marginTop: 0 }}>Counted: paid, not refunded, and not the free initial consultation. A refund recorded in Cliniko as a separate payment, on an invoice still marked paid, cannot be seen here; Cliniko &rarr; Reports &rarr; Payment summary shows those.</p>
             <h2 style={{ fontSize: '1.15rem' }}>By who held the session</h2>
             <ul className="admin-terms">
               {[...bySeen.entries()].map(([k, v]) => (
@@ -82,7 +87,7 @@ export default async function RevenueDetail({ searchParams }: { searchParams: { 
               ))}
             </ul>
 
-            <h2 style={{ fontSize: '1.15rem', marginTop: 26 }}>Each invoice</h2>
+            <h2 style={{ fontSize: '1.15rem', marginTop: 26 }}>Each paid session</h2>
             <div style={{ overflowX: 'auto' }}>
               <table style={{ borderCollapse: 'collapse', width: '100%', fontSize: 14, fontVariantNumeric: 'tabular-nums' }}>
                 <thead>
@@ -93,7 +98,7 @@ export default async function RevenueDetail({ searchParams }: { searchParams: { 
                   </tr>
                 </thead>
                 <tbody>
-                  {d.rows.map((r) => (
+                  {paid.map((r) => (
                     <tr key={r.invoiceId} style={{ borderBottom: '1px solid var(--line)', background: r.mismatch ? 'var(--clay-ghost)' : undefined }}>
                       <td style={{ padding: '8px 10px' }}>#{r.number}</td>
                       <td style={{ padding: '8px 10px', whiteSpace: 'nowrap' }}>{when(r.sessionAt)}</td>
@@ -112,7 +117,17 @@ export default async function RevenueDetail({ searchParams }: { searchParams: { 
                 </tbody>
               </table>
             </div>
-            {d.rows.length === 0 && <p>No invoices were closed in {period.label}.</p>}
+            {paid.length === 0 && <p>No paid sessions in {period.label}.</p>}
+            {other.length > 0 && (
+              <>
+                <h2 style={{ fontSize: '1.15rem', marginTop: 26 }}>Not counted</h2>
+                <ul className="admin-terms">
+                  {other.map((r) => (
+                    <li key={r.invoiceId}><span>#{r.number} · {when(r.sessionAt ?? r.closedAt)} · {r.appointmentType ?? 'no appointment linked'} · {r.seenBy ?? r.invoicedUnder}</span><span>{whyNotCounted(r)}</span></li>
+                  ))}
+                </ul>
+              </>
+            )}
             {d.skipped > 0 && <p>{d.skipped} more invoices were not read; the page stops at 120.</p>}
           </>
         )}

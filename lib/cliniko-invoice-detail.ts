@@ -171,6 +171,25 @@ export async function invoiceDetail(period: Period, maxRows = 120): Promise<Invo
   return { status: 'ok', period, rows, skipped };
 }
 
+/* WHAT COUNTS AS A PAID SESSION — owner's rule, 1 Oct 2026: only clients who
+ * made a successful payment and did not get it back, and never the free
+ * initial consultation. So a row counts when its invoice is closed, above
+ * zero, not for the consultation type, and not marked refunded, credited,
+ * voided or written off. Cliniko's API exposes no payments or refunds, so a
+ * refund is seen only when the invoice's status says so; a refund recorded as
+ * a separate payment on a still-"Paid" invoice cannot be seen, and the page
+ * says to check Cliniko's Payment summary for those. */
+const NOT_KEPT = /refund|credit|void|written.?off|cancel/i;
+
+export function whyNotCounted(r: InvoiceRow): string | null {
+  if (r.isConsult) return 'initial consultation';
+  if (r.amountCents <= 0) return 'no charge';
+  if (!r.closedAt) return 'not paid';
+  if (NOT_KEPT.test(r.status)) return `invoice ${r.status.toLowerCase()}`;
+  return null;
+}
+export const isPaidSession = (r: InvoiceRow): boolean => whyNotCounted(r) === null;
+
 /** Revenue lines by the counsellor who held the appointment, falling back to
  *  the invoice's practitioner only when no appointment is linked. Net and tax
  *  are not on the rows, so they are left at the gross figure and zero: this
@@ -178,7 +197,7 @@ export async function invoiceDetail(period: Period, maxRows = 120): Promise<Invo
  *  tax), and the practice totals still come from the invoice read. */
 export function linesBySeen(rows: InvoiceRow[]): PractitionerLine[] {
   const m = new Map<string, PractitionerLine>();
-  for (const r of rows) {
+  for (const r of rows.filter(isPaidSession)) {
     const name = r.seenBy ?? r.invoicedUnder;
     const l = m.get(name) ?? { id: name, name, cents: 0, net: 0, tax: 0, invoices: 0 };
     l.cents += r.amountCents; l.net += r.amountCents; l.invoices++;

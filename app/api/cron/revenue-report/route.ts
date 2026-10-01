@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { noteCronRefusal } from '@/lib/cron-refusal';
 import { monthlyRevenue, previousMonth, monthFromKey, money } from '@/lib/cliniko-revenue';
-import { invoiceDetail, linesBySeen } from '@/lib/cliniko-invoice-detail';
+import { invoiceDetail, linesBySeen, isPaidSession } from '@/lib/cliniko-invoice-detail';
 import { renderRevenueEmail, sendRevenueReport, reportRecipients } from '@/lib/revenue-email';
 import { withCronHealth } from '@/lib/cron-health';
 
@@ -84,8 +84,14 @@ export async function GET(req: NextRequest) {
        grouping stands, rather than a total that no longer adds up. */
     const detail = await invoiceDetail(report.period);
     if (detail.status === 'ok' && detail.skipped === 0 && detail.rows.length === report.invoiceCount) {
-      report.lines = linesBySeen(detail.rows);
-      report.reattributed = detail.rows.filter((r) => r.mismatch).length;
+      /* Paid, unrefunded sessions only; consultations never count (owner, 1 Oct 2026). */
+      const paid = detail.rows.filter(isPaidSession);
+      report.lines = linesBySeen(paid);
+      report.reattributed = paid.filter((r) => r.mismatch).length;
+      report.total = paid.reduce((n, r) => n + r.amountCents, 0);
+      report.totalNet = report.total;
+      report.totalTax = 0;
+      report.invoiceCount = paid.length;
     }
     const summary = {
       period: report.period.key,
