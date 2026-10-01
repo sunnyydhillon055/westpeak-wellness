@@ -115,15 +115,12 @@ export const depth4: Record<string, DepthSection[]> = {
     },
   ],
 
-  'guides/how-the-gottman-method-works': [
-    {
-      h2: 'Finding Gottman Method couples counselling in British Columbia',
-      body: [
-        'The Gottman Method is a training, not a franchise, any BC couples therapist may have completed Gottman training levels, and the practical way to find one is to ask directly: which level of training, and how the method structures their assessment and sessions. The Gottman Institute’s own referral directory lists clinicians by region, and "Gottman-trained" is a claim a practitioner should be able to make specific.',
-        'At Westpeak Wellness, [couples counselling](/services/couples-therapy) is Gottman-informed and delivered by video across all of BC, which for this method matters less than couples expect, since the assessment questionnaires, the structured conversations and the between-session work translate directly. For how it compares to the other major evidence-based couples approach, the [Gottman vs EFT comparison](/compare/gottman-method-vs-eft-for-couples) sets the two side by side.',
-      ],
-    },
-  ],
+  /* 'guides/how-the-gottman-method-works' had a section here, "Finding
+     Gottman Method couples counselling in British Columbia". Removed 1 Oct
+     2026: lib/guides.ts gained "Finding a Gottman-method counsellor in
+     British Columbia" on 17 Sep and the page then carried two headings for
+     the same thing, one above the other. The directory and EFT-comparison
+     points moved into the guides.ts section. */
 
   'resources/low-cost-counselling-bc': [
     {
