@@ -479,9 +479,16 @@ export const moreResources: Resource[] = [
     figure2: 'bc-support-routes',
     figure: 'bc-support-routes',
     title: 'WorkSafeBC psychological-injury claims, explained',
-    metaTitle: 'WCB Stress Leave in BC: WorkSafeBC Mental Health Claims',
+    /* Retitled 1 Oct 2026. The 17 Sep title led with "WCB Stress Leave in
+       BC" because that is what people typed; the 26 Sep export shows the
+       cost: this page draws 58 impressions at 22.78 on a cluster that
+       /guides/stress-leave-bc should own outright, and "wcb stress leave bc"
+       itself sits at 36. The claim is this page's job, so the title leads
+       with it; "WCB" and stress leave stay in the description, where they
+       describe the page rather than compete for the other one's query. */
+    metaTitle: 'WorkSafeBC Psychological Injury Claims vs Stress Leave',
     metaDescription:
-      'When work-related mental injury is compensable in BC, what the claim requires, the exclusion everyone trips over, and where counselling fits alongside it.',
+      'When a work-related mental injury is a WCB claim rather than a stress leave in BC, what the claim requires, and the exclusion everyone trips over.',
     eyebrow: 'Resource · Work & money',
     lede:
       'A stress leave says "I am unwell and need time." A WorkSafeBC claim says something stronger: "work injured me." Different systems, different tests, and mixing them up costs people months.',
@@ -493,7 +500,7 @@ export const moreResources: Resource[] = [
       {
         h2: 'The two doors into a claim',
         body: [
-          'The first door is **traumatic events**: a worker experiences or witnesses something at work of the kind nobody is expected to absorb: violence, a serious accident, a death, a threat. First responders and health-care workers are the obvious cases, but the door is not restricted to them; a bank teller in a robbery or a transit worker after a fatality stands in the same doorway.',
+          'The first door is **traumatic events**: a worker experiences or witnesses something at work of the kind nobody is expected to absorb: violence, a serious accident, a death, a threat. First responders and health-care workers are the obvious cases, but the door is not restricted to them; a bank teller in a robbery or a transit worker after a fatality stands in the same doorway. If what you have is strain rather than an injury with a work cause, this is not your page: [how stress leave works in BC](/guides/stress-leave-bc) is the route for that, and most people who search "WCB stress leave" belong there.',
           'The second door is **significant work-related stressors**: a mental disorder predominantly caused by ongoing, exceptional workplace stressors, and BC explicitly includes **bullying and harassment** here. "Significant" is doing legal work in that sentence: it means beyond the ordinary pressures of employment, sustained or severe, and documented well enough to be found as fact.',
           'Both doors require the same key: a **diagnosis by a psychologist or psychiatrist** of a recognised condition. Distress, burnout, and "my doctor said stress" do not open either door on their own, which is not a comment on how real they are, only on what this particular system requires. Getting that assessment is usually the first practical step of a serious claim.',
         ],

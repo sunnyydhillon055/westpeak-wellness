@@ -91,9 +91,19 @@ export const moreGuides7: Guide[] = [
     figure2: 'bc-support-routes',
     figure: 'session-requirements',
     title: 'Getting a doctor’s note for a mental-health leave in BC',
-    metaTitle: 'Doctor’s Note for Stress Leave in BC (2026) | Westpeak',
+    /* ONE PAGE PER QUERY CLUSTER, THIRD TIME — 1 Oct 2026.
+       The 6 Sep retitle put "Stress Leave in BC" at the front of this title,
+       and the same phrase at the front of the return-to-work guide and the
+       WorkSafeBC resource. Search Console 26 Sep: the seven "stress leave bc"
+       queries total 374 impressions at positions 14-22 with no clicks, yet
+       /guides/stress-leave-bc itself logs 91 impressions (10.49) while this
+       page logs 131 (13.73), return-to-work 57 (15.37) and WorkSafeBC 58
+       (22.78). Four pages are splitting one cluster, and the page that
+       answers it is not the one Google is showing. This title now leads with
+       the job this page does, the note, and names stress leave second. */
+    metaTitle: 'Doctor’s Note for a Mental-Health or Stress Leave in BC',
     metaDescription:
-      'What to say to your doctor to get a stress leave, what the note should and should not contain, what an employer may ask, and what to do with no family doctor.',
+      'What to say to your doctor, what the note for a mental-health or stress leave in BC must and must not contain, and what to do with no family doctor.',
     eyebrow: 'Guide · Work & money',
     lede:
       'The whole leave usually hinges on one short appointment most people walk into unprepared, and walk out of having minimised everything they came to say.',
@@ -105,7 +115,7 @@ export const moreGuides7: Guide[] = [
       {
         h2: 'What the note actually needs to say, and what it must not',
         body: [
-          'A workable certificate is short: the practitioner confirms you have a medical condition that makes you unable to work, states an expected duration or review date, and, where relevant, any functional limitations. That is the whole document. **It does not need your diagnosis**, and the better ones deliberately omit it.',
+          'A workable certificate is short: the practitioner confirms you have a medical condition that makes you unable to work, states an expected duration or review date, and, where relevant, any functional limitations. That is the whole document. **It does not need your diagnosis**, and the better ones deliberately omit it. This page is about that one appointment; for the whole route, from the first call to the money to the return, start with [how stress leave works in BC](/guides/stress-leave-bc).',
           'The privacy line matters and is worth knowing cold: in BC, an employer may require "reasonably sufficient proof" that you are entitled to sick leave, and for longer absences may ask about prognosis and functional limitations: *when you might return, what you can and cannot do*. They are **not** entitled to your diagnosis, your therapy notes, or your file. A note that says "medical condition, unable to work, reassess in four weeks" answers everything an employer may properly ask.',
           'If HR pushes for more detail than that, the response is polite and firm: further medical information goes through the doctor, addressed to functional questions. For accommodation processes the employer can request more specific functional information, still function, still not diagnosis. The [return-to-work guide](/guides/return-to-work-after-a-mental-health-leave) covers that stage.',
         ],
@@ -170,9 +180,13 @@ export const moreGuides7: Guide[] = [
     figure2: 'window-of-tolerance',
     figure: 'four-decisions',
     title: 'Returning to work after a mental-health leave',
-    metaTitle: 'Going Back to Work After Stress Leave in BC | Westpeak',
+    /* Retitled 1 Oct 2026 with the doctor's-note guide above; same evidence.
+       The job this page does is the return, so the title says so, and the
+       head term moves to the description where it describes rather than
+       competes. */
+    metaTitle: 'Returning to Work After a Mental-Health Leave in BC',
     metaDescription:
-      'Gradual returns, accommodations, and the BC duty-to-accommodate, how to go back after a mental-health leave without rebuilding the collapse you left.',
+      'Graduated returns, accommodations and BC’s duty to accommodate: how to go back after a mental-health or stress leave without rebuilding the collapse you left.',
     eyebrow: 'Guide · Work & money',
     lede:
       'The leave has an end date. The condition does not check the calendar, which is why the return is where a good leave either consolidates or unravels.',
@@ -184,7 +198,7 @@ export const moreGuides7: Guide[] = [
       {
         h2: 'The mistake built into most returns',
         body: [
-          'The standard return is binary: fully off, then. One Monday: fully on. Nothing about recovery works that way. Stamina, concentration and stress tolerance come back on a slope, not a switch, and a full-speed Monday spends in one week the reserves the whole leave built.',
+          'The standard return is binary: fully off, then. One Monday: fully on. Nothing about recovery works that way. Stamina, concentration and stress tolerance come back on a slope, not a switch, and a full-speed Monday spends in one week the reserves the whole leave built. If you are still at the start rather than the end, [how stress leave works in BC](/guides/stress-leave-bc) covers the certificate, the money and the job protection; this page picks up where the leave ends.',
           'The alternative is boringly effective: a **graduated return-to-work plan**: reduced days or hours stepping up over several weeks, agreed in writing, with a review point. Doctors write these routinely, insurers and EI both have mechanisms that support partial returns, and BC employers accommodate them because the alternative conversation involves the Human Rights Code. If your workplace treats "graduated" as exotic, that is information about the workplace.',
           'The second mistake is returning to an unchanged situation. If the leave was caused or accelerated by specific conditions. A workload, a manager, an on-call rotation, a harassment situation. A return that restores everything exactly as it was is a return *to the cause*. Some of that is negotiable through accommodation; some of it becomes a decision about the job itself, which is its own piece of work and a legitimate topic for counselling rather than a failure of it.',
         ],

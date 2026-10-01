@@ -13,12 +13,29 @@ export const moreGuides6: Guide[] = [
       'The paperwork question and the clinical question are different, and most pages about this answer neither.',
     shortAnswer:
       'A stress leave in BC needs certification from a physician or nurse practitioner. A Registered Clinical Counsellor cannot sign one, and any counsellor implying otherwise is misleading you. Income during leave usually comes from either EI sickness benefits (up to 26 weeks, 55% of insurable earnings to a maximum of $729 a week in 2026) or an employer short-term disability plan, and which applies depends on your plan rather than on your diagnosis. Counselling runs alongside that process; it is not the route into it.',
-    updated: '2026-09-25',
-    readMinutes: 8,
+    updated: '2026-10-01',
+    readMinutes: 9,
     figure: 'burnout-vs-depression',
+    /* THE HEADINGS ARE THE QUERIES — 1 Oct 2026.
+       Search Console 26 Sep: "medical stress leave bc" (64 impressions,
+       18.75), "how does stress leave work in bc" (63, 19.37), "how to get
+       stress leave in bc" (63, 19.76), "how to go on stress leave bc" (60,
+       21.92), "how to apply for stress leave in bc" (53, 22.49), "bc stress
+       leave" (50, 21.50), "stress leave bc" (21, 18.05) and "is stress leave
+       paid in bc" (53, 14.09): 427 impressions, zero clicks, and this page,
+       the one built for them, logs 91 impressions at 10.49 while three
+       sibling pages whose titles led with "Stress Leave in BC" log 246
+       between them. The content was already here under headings written for
+       a reader ("The part most pages get wrong", "Where the money comes
+       from"); a crawler matching a query to a heading saw nothing. Each
+       heading now says what the searcher typed, and the first paragraph
+       under it is the answer, so the page can be quoted from the heading
+       down. The siblings were retitled the same day to lead with their own
+       jobs. Nothing clinical changed and every figure is the one the
+       siblings quote (see the note at the top of guides-more7.ts). */
     sections: [
       {
-        h2: 'The part most pages get wrong',
+        h2: 'Medical stress leave in BC: who can sign it, and who cannot',
         body: [
           'A Registered Clinical Counsellor **cannot certify a medical leave in British Columbia.** Not for an employer, not for a short-term disability insurer, and not for EI. That requires a physician or a nurse practitioner, and it is worth saying plainly on a counselling website because a page that leaves it vague is quietly implying otherwise to somebody who is unwell and looking for the shortest route.',
           'So the first call is to a doctor or a nurse practitioner, not to a counsellor. If you do not have a family doctor, a walk-in clinic, an urgent and primary care centre, or a virtual visit through your provincial coverage can all assess and certify. It is not necessary to have been seeing that clinician for years.',
@@ -26,8 +43,9 @@ export const moreGuides6: Guide[] = [
         ],
       },
       {
-        h2: 'What "stress leave" actually means, legally',
+        h2: 'How does stress leave work in BC?',
         body: [
+          'In one paragraph: a doctor or nurse practitioner certifies that you cannot work; you tell your employer you are on a medical leave and give them the certificate; your job is protected, for a few days by the Employment Standards Act and for a longer absence by the duty to accommodate under the Human Rights Code; and income comes from paid sick days first, then a short-term disability plan or EI sickness benefits. The certificate runs for a set period and is reviewed and extended if needed. The rest of this page takes each of those in turn.',
           'It is not a category in BC employment law. The phrase covers a medical leave taken for a mental-health reason, and which protections apply depends on the route.',
           'The BC **Employment Standards Act** provides unpaid, job-protected illness or injury leave of up to five days a year for most employees who have worked 90 days. That is the floor and it is short. It is not the mechanism for a leave of weeks or months.',
           'Longer leave usually sits under a combination of your employer\'s policies, an insurance plan, and the duty to accommodate a disability under the **BC Human Rights Code**. That duty is the substantive protection for a longer absence: an employer must accommodate a disability to the point of undue hardship, and a mental-health condition supported by medical documentation is a disability for these purposes.',
@@ -35,9 +53,24 @@ export const moreGuides6: Guide[] = [
         ],
       },
       {
-        h2: 'Where the money comes from',
+        h2: 'How to get stress leave in BC, step by step',
+        body: [
+          'To go on stress leave in BC: see a physician or nurse practitioner, describe what work is doing to you in functional terms, leave with a certificate that says you are unable to work and for roughly how long, give it to your employer, and start the money claim the same week. That is the whole application. There is no government form to request and no approval step beyond the certificate; what catches people is the order, and the first step is one a lot of people never use.',
+          '**1. Know what you already have.** Under the BC Employment Standards Act an employee who has been with an employer for 90 consecutive days is entitled to **five paid and three unpaid days of illness or injury leave each calendar year**. No diagnosis is required, and mental health counts. For a bad week this may be the whole answer, and it is job-protected.',
+          '**2. Book with a physician or nurse practitioner.** For anything longer, someone medically qualified has to certify it. A counsellor cannot, whatever your relationship with them. If you have no family doctor, a walk-in clinic or a virtual-care service can do this. It does not have to be somebody who knows you.',
+          '**3. Tell your employer you need a medical leave, not why.** They are entitled to know that you are unable to work and roughly for how long. They are not entitled to your diagnosis, your symptoms, or what you discuss in therapy.',
+          '**4. Work out where the money comes from before you go, not after.** If your employer has short-term disability, that is usually the first route and the plan has its own forms and its own deadlines. If not, EI sickness benefits pay **55% of insurable earnings up to $729 a week in 2026, for as much as 26 weeks**, and there is normally a one-week unpaid waiting period, which is the detail that catches people out.',
+          '**5. Ask for the note to describe function, not diagnosis.** "Unable to perform duties until [date], review on [date]" is what an employer and an insurer need. A named condition is neither required nor advisable on a document that will be read by several people at your work.',
+          'The order matters more than it looks. People commonly do step two first, discover in week three that they have no income, and go back to work before they are ready, which is how a leave ends up making things worse.',
+        ],
+      },
+      {
+        h2: 'Is stress leave paid in BC? Sick days, EI sickness benefits, STD and LTD',
+        body: [
+          'Partly. The first five days of illness in a calendar year are paid by your employer under the Employment Standards Act once you have 90 days of service. After that there is no automatic pay: you are on your employer\'s short-term disability plan if one exists, or on EI sickness benefits at 55% of insurable earnings to a maximum of $729 a week in 2026, for up to 26 weeks. Which route applies depends on your plan, not on your diagnosis, and it is worth establishing before the leave starts rather than three weeks in.',
+        ],
         list: [
-          { label: 'EI sickness benefits', detail: 'Federal. Up to 26 weeks, paying 55% of average insurable weekly earnings to a maximum of $729 a week in 2026. Requires a medical certificate and enough insurable hours. There is a waiting period, and some employers top it up.' },
+          { label: 'EI sickness benefits', detail: 'Federal. Up to 26 weeks, paying 55% of average insurable weekly earnings to a maximum of $729 a week in 2026. Requires a medical certificate and enough insurable hours. There is a waiting period, and some employers top it up. [The EI guide](/guides/ei-sickness-benefits-and-therapy) has the eligibility mechanics and the deadline that costs people weeks.' },
           { label: 'Short-term disability (STD)', detail: 'An employer plan, if you have one. Typically pays a higher percentage than EI and starts sooner, and the insurer sets its own forms and its own definition of disability. Where an STD plan exists it usually comes first and EI follows if the leave outlasts it.' },
           { label: 'Long-term disability (LTD)', detail: 'Picks up where STD ends, on a stricter definition that often changes at the two-year mark from "your own occupation" to "any occupation". Worth knowing about early rather than discovering at the transition.' },
           { label: 'Sick days and vacation', detail: 'Often used to bridge the waiting period. Whether that is wise depends on how long the leave is likely to be, spending them early can leave nothing for the return, which is when flexibility matters most.' },
@@ -45,11 +78,27 @@ export const moreGuides6: Guide[] = [
         ],
       },
       {
-        h2: 'What the certifying clinician actually needs to say',
+        h2: 'How long can you be on stress leave in BC?',
         body: [
+          'As long as a physician or nurse practitioner certifies that you are unable to work, reviewed in blocks. A first certificate commonly runs two to six weeks and is extended at review rather than written open-ended. The money sets the practical limits: EI sickness benefits pay for up to 26 weeks, a short-term disability plan typically runs 15 to 26 weeks before long-term disability is assessed, and job protection for a longer absence rests on the duty to accommodate rather than on a fixed number of weeks.',
+          'Two things follow. A note that says "indefinitely" is rare and causes problems with insurers, so a defined period with a review date is the normal shape, and the review is where a gradual return gets planned. And the length of a leave is not the measure of it: a short leave with treatment inside it and a long one spent waiting to feel ready are different leaves, whatever the calendar says.',
+        ],
+      },
+      {
+        h2: 'What the doctor\'s note needs to say',
+        body: [
+          'Three things: that you have a medical condition, that you are unable to work, and when that will be reviewed. Functional limitations where they matter. Not your diagnosis.',
           'Insurers and employers are not entitled to your diagnosis or your clinical detail. What they are entitled to is functional information: that you are unable to perform the duties of your job, what limitations exist, and an expected timeframe for review.',
           'This distinction is worth holding onto, because forms are often written as though full disclosure were required and people frequently give far more than they need to. "Unable to sustain concentration for extended periods; unable to work in high-conflict settings; review in six weeks" is the shape of a useful medical note. A diagnosis is not required on it.',
-          'If a form appears to demand clinical detail, that is a question for the certifying clinician rather than something to fill in yourself. They deal with these forms constantly and know what is standard.',
+          'If a form appears to demand clinical detail, that is a question for the certifying clinician rather than something to fill in yourself. They deal with these forms constantly and know what is standard. The appointment itself, including what to say and what to do with no family doctor, has [a page of its own](/guides/doctors-note-for-a-mental-health-leave).',
+        ],
+      },
+      {
+        h2: 'What to say at work',
+        body: [
+          'That you are on a medical leave, from when, and that your doctor will review it on a date. Attach or offer the certificate. That is the whole message, and most people send a longer one than they should.',
+          'Your employer is entitled to know that you cannot work and roughly for how long, and may ask for reasonably sufficient proof, which the certificate is. They are not entitled to your diagnosis, your symptoms, or what you discuss in therapy, and a request for more detail goes back through the doctor, addressed to function. "I am on a medical leave from Monday. My doctor has certified it to [date], with a review then. I will confirm the return plan after the review." is a complete email.',
+          'What to say to colleagues is a separate choice and yours alone. "Medical reasons" is a full answer. Nobody at work needs the mental-health part unless you decide they should have it, and that decision does not need to be made in week one.',
         ],
       },
       {
@@ -57,19 +106,7 @@ export const moreGuides6: Guide[] = [
         body: [
           'Most difficulty with stress leave happens at the end rather than the beginning. A leave that removes someone from an intolerable situation without changing anything about it produces a return to exactly the same conditions, and a second leave inside a year is common.',
           'A graduated return, reduced hours building back over four to eight weeks, is standard and is usually an accommodation an employer is required to consider. So are changes to duties, reporting line, or schedule where those are what made the work unsustainable. These are negotiated through the certifying clinician and the insurer rather than informally, and getting them in writing matters.',
-          'This is the part counselling is genuinely useful for, and it is worth starting well before the return date: what actually needs to be different, what can be asked for, what happens if the answer is no, and how to notice early signs rather than at the point of another collapse.',
-        ],
-      },
-      {
-        h2: 'How to actually apply for one, in order',
-        body: [
-          'Most of what is written about stress leave explains what it *is*. The question people actually search is how to start, so this is the sequence, and the first step is one a lot of people never use.',
-          '**1. Know what you already have.** Under the BC Employment Standards Act an employee who has been with an employer for 90 consecutive days is entitled to **five paid and three unpaid days of illness or injury leave each calendar year**. No diagnosis is required, and mental health counts. For a bad week this may be the whole answer, and it is job-protected.',
-          '**2. Book with a physician or nurse practitioner.** For anything longer, someone medically qualified has to certify it. A counsellor cannot, whatever your relationship with them. If you have no family doctor, a walk-in clinic or a virtual-care service can do this. It does not have to be somebody who knows you.',
-          '**3. Tell your employer you need a medical leave, not why.** They are entitled to know that you are unable to work and roughly for how long. They are not entitled to your diagnosis, your symptoms, or what you discuss in therapy.',
-          '**4. Work out where the money comes from before you go, not after.** If your employer has short-term disability, that is usually the first route and the plan has its own forms and its own deadlines. If not, EI sickness benefits pay **55% of insurable earnings up to $729 a week in 2026, for as much as 26 weeks**, and there is normally a one-week unpaid waiting period, which is the detail that catches people out.',
-          '**5. Ask for the note to describe function, not diagnosis.** "Unable to perform duties until [date], review on [date]" is what an employer and an insurer need. A named condition is neither required nor advisable on a document that will be read by several people at your work.',
-          'The order matters more than it looks. People commonly do step two first, discover in week three that they have no income, and go back to work before they are ready, which is how a leave ends up making things worse.',
+          'This is the part counselling is genuinely useful for, and it is worth starting well before the return date: what actually needs to be different, what can be asked for, what happens if the answer is no, and how to notice early signs rather than at the point of another collapse. The [return-to-work guide](/guides/return-to-work-after-a-mental-health-leave) covers the graduated plan and the duty to accommodate in full.',
         ],
       },
       {

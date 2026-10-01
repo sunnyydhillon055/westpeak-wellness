@@ -16,6 +16,26 @@ export const depthServices: Record<string, DepthSection[]> = {
   ],
 
   'services/couples-therapy': [
+    /* THE QUERY WITH BOOKING INTENT GETS A HEADING ON THE PAGE THAT CAN BOOK
+       IT — 1 Oct 2026. Search Console 26 Sep: "gottman method counsellor
+       british columbia" draws 23 impressions at 26.65, and "gottman method
+       marriage counselling british columbia" 28 at 35.96. The Gottman guide
+       sits at 8.43 for its cluster, but those two queries match this page
+       (25.99) and the EFT comparison (25.18), and neither page had a heading
+       that said what the searcher typed. This section does, and the guide
+       and the comparison now link to it with the heading as the anchor.
+       It says what the practice does and no more: informed by the method,
+       delivered by a Registered Clinical Counsellor, online, in BC. No
+       certification level is claimed because none is on the roster for the
+       counsellor taking couples bookings, and no outcome is promised. */
+    {
+      h2: 'Gottman-informed couples counselling in BC',
+      body: [
+        'Plainly, what this is: couples counselling that uses the structure and the tools of the Gottman Method, delivered by secure video to couples anywhere in British Columbia by a Registered Clinical Counsellor registered with the BC Association of Clinical Counsellors. "Gottman-informed" is the accurate phrase. The method is a body of training rather than a licence, and the regulated credential underneath it is the RCC designation, which is what you are entitled to check.',
+        'What that looks like in practice is the assessment-first structure described above: a joint session, an individual session with each partner, the questionnaires, and then a treatment plan agreed with both of you. Sessions are 50 minutes, with a longer extended option, at a time the two of you can actually both make, from one couch or from two cities. Both partners are welcome on the free 30-minute consultation, and that call is the right place to ask how the counsellor was trained and how much of their work is with couples.',
+        'If it is specifically Emotionally Focused Therapy you are after, this is not the practice for it, and the [Gottman vs EFT comparison](/compare/gottman-method-vs-eft-for-couples) says so rather than pretending otherwise. For the method itself, the research behind it and what the Four Horsemen are, [the guide to how the Gottman Method works](/guides/how-the-gottman-method-works) is the longer read.',
+      ],
+    },
     {
       h2: 'The rules that make the room usable',
       body: [

@@ -523,7 +523,17 @@ const coreGuides: Guide[] = [
         h2: 'Finding a Gottman-method counsellor in British Columbia',
         body: [
           'Gottman training runs in three levels, and a counsellor may have completed one, two or all three without being a Certified Gottman Therapist, which is a further and much longer process. Neither is a licence: the regulated credential in BC is the Registered Clinical Counsellor designation, and the Gottman training sits on top of it. It is entirely reasonable to ask a prospective counsellor which level they have completed and how much of their practice is couples work.',
-          'At this practice, [Gottman method couples counselling](/services/couples-therapy) is offered online across British Columbia, which removes the usual difficulty of finding two people the same free evening in the same city. The first 30-minute consultation is free and both partners are welcome on it.',
+          /* Anchor changed 1 Oct 2026. "gottman method counsellor british
+             columbia" (23 impressions, 26.65) is the one booking-intent
+             Gottman query near page one, and its position matches
+             /services/couples-therapy (25.99) and the EFT comparison (25.18),
+             not this guide (8.43). The anchor is now the heading of the
+             section on the service page that answers it, so the page that
+             ranks hands the query to the page that can take a booking.
+             The near-duplicate "Finding Gottman Method couples counselling
+             in British Columbia" section from lib/depth4.ts was folded in
+             here the same day: two headings for one thing on one page. */
+          'At this practice, [Gottman-informed couples counselling in BC](/services/couples-therapy) is delivered online across British Columbia by a Registered Clinical Counsellor, which removes the usual difficulty of finding two people the same free evening in the same city. The Gottman Institute\'s own referral directory lists clinicians by region and training level if you want to compare. For how the method sits against the other major evidence-based couples approach, the [Gottman vs EFT comparison](/compare/gottman-method-vs-eft-for-couples) sets the two side by side. The first 30-minute consultation is free and both partners are welcome on it.',
         ],
       },
     ],
@@ -545,7 +555,7 @@ faqs: [
       { label: "HereToHelp BC, relationships and mental health", url: "https://www.heretohelp.bc.ca/" },
     ],
     related: [
-      { href: "/services/couples-therapy", label: "Couples therapy across BC" },
+      { href: "/services/couples-therapy", label: "Gottman-informed couples counselling in BC" },
       { href: "/compare/individual-vs-couples-therapy", label: "Individual or couples therapy, which first?" },
       { href: "/for/new-parents", label: "Counselling for new parents" },
       { href: "/services/individual-therapy", label: "Individual therapy" },

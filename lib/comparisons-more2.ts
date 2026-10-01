@@ -143,7 +143,12 @@ export const moreComparisons2: Comparison[] = [
       },
     ],
     howWeFit: [
-      'Couples work at Westpeak Wellness draws on the Gottman Method, and the [couples therapy page](/services/couples-therapy) describes what that looks like session by session. The assessment-first structure and the concrete between-session work are genuine features of how couples work runs here.',
+      /* Anchor changed 1 Oct 2026: "gottman method counsellor british
+         columbia" (23 impressions, 26.65) lands on this page or the service
+         page, not the guide at 8.43. The anchor is the service page's own
+         heading for that query, so the comparison hands the booking intent
+         to the page that can book it. */
+      'Couples work at Westpeak Wellness draws on the Gottman Method, and the page on [Gottman-informed couples counselling in BC](/services/couples-therapy) describes what that looks like session by session. The assessment-first structure and the concrete between-session work are genuine features of how couples work runs here.',
       'If you have read this far and it is specifically EFT you want, the right move is an ICEEFT-trained therapist, and their directory is the place to find one. That is not this practice, and pretending otherwise would be a poor way to start a therapeutic relationship. If you are undecided, a [free consultation](/book) with both partners on the call is a reasonable way to hear how the Gottman-informed version would approach your situation.',
     ],
     midCta: {
@@ -162,7 +167,7 @@ export const moreComparisons2: Comparison[] = [
       { label: 'ICEEFT, International Centre for Excellence in Emotionally Focused Therapy', url: 'https://iceeft.com/' },
     ],
     related: [
-      { href: '/services/couples-therapy', label: 'Couples therapy across BC' },
+      { href: '/services/couples-therapy', label: 'Gottman-informed couples counselling in BC' },
       { href: '/guides/how-the-gottman-method-works', label: 'How the Gottman Method works' },
       { href: '/guides/does-couples-therapy-work', label: 'Does couples therapy work?' },
       { href: '/compare/individual-vs-couples-therapy', label: 'Individual vs couples therapy' },
