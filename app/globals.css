@@ -352,6 +352,13 @@ img{max-width:100%;display:block}
 .card .more{font-weight:600;font-size:.94rem;color:var(--blue-deep)}
 .card a.card-link{display:block;color:inherit}
 .card a.card-link:hover{text-decoration:none}
+/* A card whose anchor is its title alone. The ::after box stretches the link
+   over the card so it clicks everywhere, while the anchor text a crawler
+   reads is the title and not the whole card (1 Oct 2026, link baseline). */
+.card--stretch{position:relative}
+.card--stretch a.card-stretch{color:inherit}
+.card--stretch a.card-stretch:hover{text-decoration:none}
+.card--stretch a.card-stretch::after{content:'';position:absolute;inset:0}
 
 /* Portrait */
 .hero-split{display:grid;grid-template-columns:1.15fr .85fr;gap:52px;align-items:center}

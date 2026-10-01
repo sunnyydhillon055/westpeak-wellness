@@ -67,14 +67,18 @@ export default function ForHub() {
         <div className="container">
           <Breadcrumbs trail={[{ name: 'Who we work with', path: '/for' }]} />
           <Figure name="bc-reach" />
+          {/* The link wraps the title only and stretches over the card with CSS
+              (.card--stretch), so the whole card still clicks but the anchor text
+              a crawler reads is "Counselling for first responders in BC" and not
+              the title, the lede and "7 min read" run together. The 28 Sep link
+              baseline recorded that whole-card string as the anchor on every /for
+              page; fixed 1 Oct 2026. */}
           <div className="grid grid-2" style={{ marginTop: 20 }}>
             {audiences.map((a) => (
-              <div className="card" key={a.slug}>
-                <Link href={`/for/${a.slug}`} className="card-link">
-                  <div className="hub-card-head"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Users strokeWidth={1.7} /></span><h2 className="card-title">{a.title}</h2></div>
-                  <p>{a.lede}</p>
-                  <span className="more">{a.readMinutes} min read →</span>
-                </Link>
+              <div className="card card--stretch" key={a.slug}>
+                <div className="hub-card-head"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Users strokeWidth={1.7} /></span><h2 className="card-title"><Link href={`/for/${a.slug}`} className="card-stretch">{a.title}</Link></h2></div>
+                <p>{a.lede}</p>
+                <span className="more" aria-hidden="true">{a.readMinutes} min read →</span>
               </div>
             ))}
           </div>
