@@ -34,10 +34,11 @@
  * itself caused by a check that looked more complete than it was.
  */
 
-import { existsSync, readdirSync, statSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { findChains } from './redirect-chains.mjs';
+import { RETIRED_TOWN_HOMES } from '../lib/redirects.mjs';
 
 const ROOT = process.cwd();
 const BUILT = join(ROOT, '.next', 'server', 'app');
@@ -103,7 +104,29 @@ if (collisions.length) {
   process.exit(1);
 }
 
+/* A RETIRED TOWN MUST LAND ON A PAGE THAT NAMES IT - 1 Oct 2026.
+   Vernon 308s to Kelowna because the Kelowna page lists Vernon among the
+   communities it serves. If that list loses Vernon, the redirect becomes a
+   town sent to a page that never mentions it. Read from the built page, in
+   the "Also serving ..." line the hub renders from `communities`. */
+const unnamed = [];
+for (const [slug, { town, home }] of Object.entries(RETIRED_TOWN_HOMES)) {
+  const file = join(BUILT, 'online-counselling', `${home}.html`);
+  if (!existsSync(file)) { unnamed.push(`/online-counselling/${slug} -> /online-counselling/${home}, which was not built`); continue; }
+  const html = readFileSync(file, 'utf8').replace(/<!-- -->/g, '').replace(/&#x27;|&#39;/g, "'");
+  const line = (html.match(/Also serving ([^<]*)/) || [, ''])[1];
+  if (!line.includes(town)) unnamed.push(`/online-counselling/${slug} -> /online-counselling/${home}, whose communities do not name ${town}`);
+}
+if (unnamed.length) {
+  console.log('\n  ERROR — these retired towns land on a page that does not name them:\n');
+  for (const u of unnamed) console.log(`    ${u}`);
+  console.log('\n  Name the town in that page’s communities, or send the slug back to the index.');
+  console.log('='.repeat(52) + '\n');
+  process.exit(1);
+}
+
 console.log('\n  PASS — no built page is shadowed by a redirect.');
+console.log(`  PASS — ${Object.keys(RETIRED_TOWN_HOMES).length} retired towns each land on a page that names them.`);
 if (skipped.length) {
   console.log(`\n  not checked (parameterised): ${skipped.join(', ')}`);
 }

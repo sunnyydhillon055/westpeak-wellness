@@ -12,6 +12,7 @@ import ExtraSections from '@/components/ExtraSections';
 import { ogBase } from '@/lib/og-meta';
 import { webPage } from '@/lib/schema';
 import { COLLECTION_DATES } from '@/lib/page-dates';
+import { townFinder } from '@/lib/health-authorities';
 
 export const metadata: Metadata = {
   /* Its own og:url. Without an openGraph object this page inherited the
@@ -28,8 +29,10 @@ export const metadata: Metadata = {
      Therapy ..." and open with a three-step "how it works". This page is now
      the landing page for the province-wide query, not an index of cities. */
   title: { absolute: 'Online Counselling in BC | Virtual Therapy, Province-Wide' },
+  /* No "evenings" since 1 Oct 2026: the calendar holds what it holds, and a
+     description is the one sentence a searcher reads before the page. */
   description:
-    'Online counselling anywhere in BC with Registered Clinical Counsellors, in English, Punjabi or Tagalog. Free 30-minute consultation, evenings, no referral.',
+    'Online counselling anywhere in BC with Registered Clinical Counsellors, in English, Punjabi or Tagalog. Free 30-minute consultation, no referral needed.',
   alternates: { canonical: `${site.domain}/online-counselling` },
 };
 
@@ -37,6 +40,7 @@ export default function LocationsIndex() {
   const byRegion = locations.reduce<Record<string, typeof locations>>((acc, l) => {
     (acc[l.region] ||= []).push(l); return acc;
   }, {});
+  const towns = townFinder(locations);
   return (
     <>
       {/* This page carried no page-level entity. The layout's organisation and
@@ -127,8 +131,8 @@ export default function LocationsIndex() {
               and hear how the counsellor would work with it. Nothing is diagnosed and nothing is owed.
             </li>
             <li>
-              <strong>Start, on your own schedule.</strong> Weekly or every two weeks, daytime or evening,
-              from wherever in British Columbia you happen to be. You pay per session and claim the
+              <strong>Start, at a pace that suits you.</strong> Weekly or every two weeks, at the open
+              times the calendar shows, from wherever in British Columbia you happen to be. You pay per session and claim the
               receipt on your extended health plan; after a crash, ask{' '}
               <Link href="/resources/icbc-counselling-after-a-crash-bc">ICBC about reimbursement</Link> before you start.
             </li>
@@ -169,10 +173,33 @@ export default function LocationsIndex() {
               </div>
             </div>
           ))}
+          {/* This named Burnaby and Nanaimo as towns without a page after both
+              had one. The towns below come from each city's own list, so the
+              line cannot go stale the same way. 1 Oct 2026. */}
           <p style={{ marginTop: 24, color: 'var(--ink-soft)' }}>
-            Not on the list? Nothing changes: Burnaby, Nanaimo, Terrace, Fort St. John and
-            everywhere else in the province are served on exactly the same terms.
+            Not on the list? Look for your town below. If it is not there either, nothing changes:
+            everywhere in the province is served on exactly the same terms.
           </p>
+
+          <h2 id="find-your-town" style={{ marginTop: 40 }}>Find your town</h2>
+          <p style={{ maxWidth: 760 }}>
+            Grouped by the health authority that covers it, because that decides which public
+            intake you would join. Each city page names the towns around it; the towns themselves
+            have no page of their own and are served the same way.
+          </p>
+          {towns.map((g) => (
+            <div key={g.authority.label} style={{ marginTop: 22 }}>
+              <h3 style={{ marginBottom: 10 }}>{g.authority.label}</h3>
+              <ul style={{ margin: 0, paddingLeft: 20 }}>
+                {g.cities.map((c) => (
+                  <li key={c.slug} style={{ marginBottom: 6 }}>
+                    <Link href={`/online-counselling/${c.slug}`}>{c.city}</Link>
+                    {c.towns.length ? <>: {c.towns.join(', ')}</> : null}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
           <p style={{ marginTop: 14 }}>
             There is a separate set of pages for{' '}
             <Link href="/punjabi-counselling">Punjabi-speaking counselling by region</Link>, because

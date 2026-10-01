@@ -1,3 +1,5 @@
+import { practitioners, insuredProvinces, vancouverToday, type Practitioner } from './practitioners.ts';
+
 export type Location = {
   slug: string;
   city: string;
@@ -24,6 +26,43 @@ export type Location = {
   figure?: string;         // key into lib/figures.ts — renders the page's diagram
   figure2?: string;      // second diagram, further down the page
 };
+
+/* WHO CAN SEE YOU ON THE ALBERTA SIDE — 1 Oct 2026.
+ *
+ * The Fort St. John page says who can keep seeing somebody who works across
+ * the Alberta line. That is a fact about the roster and an insurance policy,
+ * not about the city, so it is generated: counsellors taking new clients whose
+ * provinces still include Alberta once insuredProvinces() has applied the
+ * insurance gate. When a policy lapses the sentence goes with it, on the next
+ * build, without anybody editing this file. Names link to the profile; no
+ * registration number, which lives on the profile by decision. */
+type Rostered = Pick<Practitioner, 'name' | 'slug' | 'acceptingNewClients' | 'provinces' | 'insurance'>;
+
+/** Counsellors taking new clients who may be offered in Alberta on `today`. */
+export const albertaCounsellors = <T extends Rostered>(roster: readonly T[], today: string): T[] =>
+  roster.filter((p) => p.acceptingNewClients && insuredProvinces(p, today).includes('AB'));
+
+/** The sentence for the Fort St. John page, or '' when nobody can. Leads with a space. */
+export function albertaLine(roster: readonly Rostered[], today: string): string {
+  const ab = albertaCounsellors(roster, today);
+  if (!ab.length) return '';
+  const links = ab.map((p) => `[${p.name}](/practitioners/${p.slug})`);
+  const list = links.length === 1 ? links[0] : `${links.slice(0, -1).join(', ')} and ${links[links.length - 1]}`;
+  return ab.length === 1
+    ? ` ${list} is the one counsellor here whose certification and insurance also reach Alberta, and can see you while you are working on that side of the line.`
+    : ` ${list} hold certification and insurance that also reach Alberta, and can see you while you are working on that side of the line.`;
+}
+
+/** The FAQ's closing sentence on the same condition, naming nobody. */
+export function albertaFaq(roster: readonly Rostered[], today: string): string {
+  const n = albertaCounsellors(roster, today).length;
+  if (!n) return '';
+  return ` If you would rather keep going while you are working on the Alberta side, say so when you book: ${n === 1 ? 'one counsellor here can' : `${n} counsellors here can`} see clients there, and it decides who you book with.`;
+}
+
+const TODAY = vancouverToday();
+const ALBERTA_LINE = albertaLine(practitioners, TODAY);
+const ALBERTA_FAQ = albertaFaq(practitioners, TODAY);
 
 /**
  * Six cities, not forty-three.
@@ -73,7 +112,10 @@ export const locations: Location[] = [
     figure2: "first-session-flow",
     figure: "bc-reach",
     city: "Prince George",
-    communities: ["Quesnel", "Vanderhoof", "Mackenzie", "Fort St. John", "Terrace"],
+    /* Fort St. John moved to `nearby` on 1 Oct 2026: it has its own page, and
+       it is about 440 km from here. Prince Rupert is named because its retired
+       URL now lands on this page (lib/redirects.mjs). */
+    communities: ["Quesnel", "Vanderhoof", "Mackenzie", "Terrace", "Prince Rupert"],
     region: "Northern BC",
     blurb: "Northern BC has the thinnest counselling coverage in the province, virtual care is how the gap gets closed.",
     metaDescription:
@@ -127,7 +169,7 @@ export const locations: Location[] = [
       { label: "Northern Health, mental health and substance use programs", url: "https://www.northernhealth.ca/services/mental-health-substance-use/programs-and-services" },
       { label: "CMHA Northern BC Branch", url: "https://northernbc.cmha.ca/" },
     ],
-    nearby: ["kelowna", "victoria"],
+    nearby: ["fort-st-john", "kelowna", "victoria"],
   },
 
   {
@@ -285,7 +327,7 @@ export const locations: Location[] = [
         "**Start with what is free, because in Victoria it is unusually good.** Island Health runs Central Access and Rapid Engagement Services (CARES) at 1119 Pembroke Street, offering **same-day assessment and walk-in counselling** for South Island residents whose mental-health or substance-use concern does not need a hospital: in person or virtually, Monday to Friday, 8:30am to 4:30pm. There is no wait and no referral. If that fits what you need, use it; a practice that did not tell you it exists would not be worth trusting on anything else. Where it runs out is ongoing specialist work, and non-urgent psychiatric care in Victoria has become harder rather than easier as recruitment has failed to keep pace with retirements.",
         "Virtual sessions remove that constraint entirely. A counsellor on the mainland is exactly as available as one in Fairfield: same 50 minutes, same platform, same [BCACC](https://bcacc.ca) obligations, no sailing.",
         "**Language access is the sharpest version of this.** Punjabi-speaking clinicians in BC are concentrated overwhelmingly in the Lower Mainland. For Island residents wanting [therapy in Punjabi](/services/punjabi-counselling), virtual sessions are not a convenience. They are realistically the only route. The same argument, with the local numbers, is on the [Kamloops](/punjabi-counselling/kamloops) and [Prince George](/punjabi-counselling/prince-george) pages.",
-        "The same applies further up-Island. Nanaimo, the Comox Valley, Campbell River, and the west coast communities have thinner local coverage again, and the gap widens the further north you go.",
+        "The same applies further up-Island. [Nanaimo](/online-counselling/nanaimo), the Comox Valley, Campbell River, and the west coast communities have thinner local coverage again, and the gap widens the further north you go.",
       ],
     },
     access: [
@@ -306,7 +348,7 @@ export const locations: Location[] = [
       { label: "Island Health, mental health and substance use services", url: "https://www.islandhealth.ca/our-services/mental-health-substance-use-services" },
       { label: "HereToHelp BC, mental health information", url: "https://www.heretohelp.bc.ca/" },
     ],
-    nearby: ["vancouver", "prince-george"],
+    nearby: ["nanaimo", "vancouver"],
   },
 
   {
@@ -314,7 +356,7 @@ export const locations: Location[] = [
     figure2: "first-session-flow",
     figure: "bc-reach",
     city: "Kelowna",
-    communities: ["West Kelowna", "Peachland", "Lake Country", "Vernon", "Penticton"],
+    communities: ["West Kelowna", "Peachland", "Lake Country", "Vernon"],
     region: "Okanagan",
     blurb: "The Okanagan's population has grown faster than its mental-health services have, and specialist options remain thin.",
     metaDescription:
@@ -335,11 +377,11 @@ export const locations: Location[] = [
     access: [
       { label: "Reaches specialisation that is not local", detail: "Modality and language options that the Central Okanagan list does not currently include." },
       { label: "Works around seasonal peaks", detail: "No travel time either side of the session, so a session costs fifty minutes rather than an afternoon." },
-      { label: "Covers the wider Okanagan", detail: "West Kelowna, Vernon, Penticton, and the smaller Interior communities where local coverage thins further." },
+      { label: "Covers the wider Okanagan", detail: "West Kelowna, Vernon, Lake Country and the smaller Interior communities where local coverage thins further. [Penticton and the South Okanagan](/online-counselling/penticton) have a page of their own." },
       { label: "Continues through evacuation or travel", detail: "Anywhere in BC with a connection, which in a wildfire season is not a hypothetical benefit." },
     ],
     faqs: [
-      { q: "Do you work with people in Vernon, Penticton, or West Kelowna?", a: "Yes. The practice covers all of British Columbia, so anywhere in the Okanagan works identically, and smaller communities gain the most, since local options are thinnest there." },
+      { q: "Do you work with people in Vernon, Lake Country, or West Kelowna?", a: "Yes. The practice covers all of British Columbia, so anywhere in the Okanagan works identically, and smaller communities gain the most, since local options are thinnest there." },
       { q: "Can I get counselling about wildfire evacuation or loss?", a: "Yes. Evacuation, property loss, and repeated seasons of alert are legitimate reasons to seek support, and the fact that a whole community experienced it does not make your response to it less real." },
       { q: "Are sessions available in Punjabi?", a: "Yes: in Punjabi, English, or both, without needing to travel to the coast to find it. The Kelowna Punjabi page covers what is and is not available locally, with the census figures behind it." },
       { q: "I work the season. Can sessions stop and start?", a: "Yes, and in the Okanagan that is the normal pattern rather than the exception. Agricultural and hospitality work here runs on a season, and a schedule assuming the same weekday at the same time for six months straight does not survive contact with it. Booking block by block, with gaps, works, and nothing is lost by pausing. Better to plan for that than to book weekly, miss three, and conclude counselling did not suit you." },
@@ -350,7 +392,7 @@ export const locations: Location[] = [
       { label: "Interior Health, mental health and substance use services", url: "https://www.interiorhealth.ca/services/access-mental-health-and-substance-use-services" },
       { label: "HereToHelp BC, mental health information", url: "https://www.heretohelp.bc.ca/" },
     ],
-    nearby: ["prince-george", "vancouver", "kamloops"],
+    nearby: ["penticton", "kamloops", "vancouver"],
   },
 
   /* KAMLOOPS, ADDED 2026-08-18.
@@ -378,7 +420,9 @@ export const locations: Location[] = [
     figure2: "first-session-flow",
     figure: "bc-reach",
     city: "Kamloops",
-    communities: ["Merritt", "Salmon Arm", "Chase", "Sun Peaks", "Logan Lake"],
+    /* Williams Lake, 100 Mile House, Clearwater and Revelstoke added 1 Oct
+       2026. Each is Interior Health, and none was named anywhere on the site. */
+    communities: ["Merritt", "Salmon Arm", "Chase", "Sun Peaks", "Logan Lake", "Clearwater", "Revelstoke", "100 Mile House", "Williams Lake"],
     region: "Thompson-Nicola",
     blurb: "Kamloops is where the region's services are, which means everyone else in the region drives here for them.",
     metaDescription:
@@ -755,7 +799,9 @@ export const locations: Location[] = [
     figure2: 'first-session-flow',
     figure: "bc-reach",
     city: "Nanaimo",
-    communities: ["Parksville", "Ladysmith", "Qualicum Beach", "Lantzville", "Gabriola Island"],
+    /* Duncan, Chemainus and Port Alberni added 1 Oct 2026, all Island Health.
+       Duncan's retired URL lands here (lib/redirects.mjs). */
+    communities: ["Parksville", "Ladysmith", "Qualicum Beach", "Lantzville", "Gabriola Island", "Duncan", "Chemainus", "Port Alberni"],
     region: "Vancouver Island",
     blurb: "Everything the Lower Mainland offers is across water, which turns a specialist appointment into a whole day and a ferry.",
     metaDescription:
@@ -777,7 +823,7 @@ export const locations: Location[] = [
     access: [
       { label: "No ferry, no sailing schedule", detail: "The single largest cost of accessing mainland specialists disappears, not reduced, removed." },
       { label: "Modalities the Island field is thin on", detail: "EMDR and structured couples work, without the crossing that used to be the price of them." },
-      { label: "Serves central Vancouver Island", detail: "Nanaimo, Parksville, Ladysmith, Lantzville and Gabriola on identical terms." },
+      { label: "Serves central Vancouver Island", detail: "Nanaimo, Parksville, Ladysmith, Lantzville and Gabriola on identical terms, and south to Duncan, Chemainus and the Cowichan Valley or west to Port Alberni." },
       { label: "English, Punjabi or Tagalog", detail: "Punjabi- and Tagalog-speaking counsellors are concentrated in the Lower Mainland; virtual access is the realistic route to it from here." },
     ],
     faqs: [
@@ -835,10 +881,116 @@ export const locations: Location[] = [
     ],
     nearby: ["abbotsford", "langley"],
   },
+
+  /* ── Two regional pages, 1 Oct 2026 ──────────────────────────────────────
+   *
+   * Both slugs were among the 37 retired in the Phase 1 audit and 308'd to
+   * the index until today. Each is removed from lib/redirects.mjs in the same
+   * change. The condition at the top of this file is met for each, and for a
+   * reason neither neighbour's page already makes:
+   *
+   *   Penticton     the South Okanagan queues BEHIND Kelowna. Kelowna's
+   *                 page argues it is the valley's hub; this is the same
+   *                 arithmetic seen from the end of the line, and Search
+   *                 Console has "emdr counseling penticton" at 28 with
+   *                 nothing on the site naming the town.
+   *   Fort St. John the Peace keeps Mountain Standard Time all year, works on
+   *                 rotation across the Alberta line, and is about 440 km
+   *                 from Prince George, whose page named it only in passing.
+   *
+   * No wait times and no hours, as everywhere else. */
+  {
+    slug: "penticton",
+    figure2: "first-session-flow",
+    figure: "bc-reach",
+    city: "Penticton",
+    communities: ["Summerland", "Naramata", "Okanagan Falls", "Oliver", "Osoyoos", "Keremeos"],
+    region: "Okanagan",
+    blurb: "The South Okanagan sits at the far end of a referral line that runs up the valley to Kelowna.",
+    metaDescription:
+      "Online counselling for Penticton and the South Okanagan, Summerland to Osoyoos and Keremeos: EMDR, trauma, anxiety and couples therapy by video.",
+    intro: [
+      "Penticton is a regional centre in its own right. Penticton Regional Hospital serves the South Okanagan, Okanagan College has a campus here, and the private sector covers a good deal of general counselling well. What Penticton is not is the top of the valley's referral line. Specialised services in the Okanagan concentrate in Kelowna, and Kelowna's practices already absorb demand from Vernon and West Kelowna as well as from the south.",
+      "So the South Okanagan queues behind Kelowna, and the further south you live the longer that queue looks. From Oliver or Osoyoos, \"available in Kelowna\" means Highway 97 up the length of the valley and back; from Keremeos it means the Similkameen first. Virtual counselling takes the highway out of it. A [Registered Clinical Counsellor](/compare/rcc-vs-psychologist-vs-social-worker-bc) anywhere in BC is exactly as available to you in Summerland as to somebody in downtown Kelowna.",
+    ],
+    localReality: {
+      h2: "Second in line for the valley's specialists",
+      body: [
+        "**Interior Health is the public route here**, as it is in Kelowna and Kamloops, and its mental-health and substance-use services in Penticton are worth using, and worth staying connected to if you already are. Where local options run out is where they run out across the Interior: a particular approach, a particular language, or a practitioner with specific experience of what you are bringing.",
+        "**The queue has a direction.** When a South Okanagan list is full, the next suggestion is usually Kelowna, and Kelowna's lists are already carrying the rest of the valley. The [Kelowna page](/online-counselling/kelowna) describes that from the hub; this is the same arithmetic from the far end. Widening a search to Kelowna rarely makes it shorter. It makes it an hour further away.",
+        "**EMDR is the clearest case.** People here search for EMDR by name, and it is the kind of specific training a smaller local sector may hold one or two of, or none. [EMDR therapy](/services/emdr-therapy) runs by secure video with the same preparation and pacing as in a room, and [EMDR for Kelowna and the Okanagan](/online-counselling/kelowna/emdr-therapy) sets out why the valley's EMDR clusters where it does.",
+        "**Orchards, vineyards and the summer trade keep their own calendar.** Picking, the crush, and a tourist season that fills Penticton and Osoyoos all peak hard, and a standing weekday appointment does not survive a peak. Booking in blocks around the season, with a planned pause, is ordinary here rather than a sign of dropping out.",
+        "**Smoke and fire seasons are part of the year now.** Summers of evacuation alerts and smoke across the South Okanagan and the Similkameen are a real and recurring strain, and the fact that a whole community lived through them does not make one person's response smaller. A specific, identifiable event is the kind of thing trauma-focused work and EMDR are suited to.",
+        "**Language is thinner again.** Punjabi-speaking clinicians are concentrated in the Lower Mainland, and the Interior has few. [Punjabi-speaking counselling for the Okanagan](/punjabi-counselling/kelowna) covers what is and is not available in the valley, Penticton included.",
+      ],
+    },
+    access: [
+      { label: "No Highway 97 commute", detail: "From Oliver, Osoyoos or Keremeos a Kelowna appointment is most of a day. A video session is fifty minutes and a closed door." },
+      { label: "Not queuing behind Kelowna", detail: "The pool is everyone in British Columbia trained in what you need, not the shortlist the whole valley shares." },
+      { label: "Summerland to Osoyoos, and the Similkameen", detail: "Summerland, Naramata, Okanagan Falls, Oliver, Osoyoos and Keremeos on identical terms, with no penalty for being further south." },
+      { label: "Fits the harvest and the summer rush", detail: "Pausing for a season and starting again afterwards is planned for at the outset, so a busy month does not end the work." },
+    ],
+    faqs: [
+      { q: "Isn’t Kelowna close enough to drive to?", a: "For some people it is, and if an in-person appointment in Kelowna suits you, that is a reasonable choice. The difficulty is that a weekly appointment an hour up the valley is not a fifty-minute commitment, it is most of an afternoon, and from Oliver or Osoyoos it is longer. Travel is one of the ordinary reasons a course of counselling stops early, and video removes it." },
+      { q: "Can I have EMDR from Penticton?", a: "Yes, by secure video, with the same preparation and pacing as in person. Bilateral stimulation is usually a moving point on screen or self-administered tapping, both established remote methods, and both are explained and practised before any processing begins. Being in the South Okanagan rather than Kelowna or the coast changes nothing about the session." },
+      { q: "Which health authority covers the South Okanagan?", a: "Interior Health, the same authority as Kelowna and Kamloops. Its public mental-health and substance-use services run alongside private counselling rather than instead of it, so starting privately does not mean leaving a public list." },
+      { q: "I work the harvest. Can sessions stop and start?", a: "Yes. Picking, the crush and the summer season each run on their own calendar, and a plan that assumes the same weekday from spring to fall rarely holds. Sessions can be concentrated before and after the busy stretch with a pause agreed in the middle, which keeps the thread of the work rather than losing it to three missed weeks." },
+      { q: "Is there something free I should look at first?", a: "Yes. Interior Health's mental-health and substance-use services are the public route, 8-1-1 connects to HealthLink BC at any hour, and the low-cost counselling page lists free and reduced-fee options across the province. If one of those fits, use it." },
+    ],
+    sources: [
+      { label: "Interior Health, access mental health and substance use services", url: "https://www.interiorhealth.ca/services/access-mental-health-and-substance-use-services" },
+      { label: "HereToHelp BC, mental health information", url: "https://www.heretohelp.bc.ca/" },
+    ],
+    nearby: ["kelowna", "kamloops"],
+  },
+
+  {
+    slug: "fort-st-john",
+    figure2: "first-session-flow",
+    figure: "bc-reach",
+    city: "Fort St. John",
+    communities: ["Dawson Creek", "Taylor", "Chetwynd", "Hudson’s Hope", "Fort Nelson"],
+    region: "Northern BC",
+    blurb: "The Peace keeps its own clock, works on rotation, and sits a long day's drive from Prince George.",
+    metaDescription:
+      "Online counselling for Fort St. John and the Peace: Dawson Creek, Chetwynd, Fort Nelson. Built around rotations and camp work, by secure video.",
+    intro: [
+      "Fort St. John is the largest city in BC's Peace region, and it is a long way from the rest of the province: about 440 kilometres to Prince George over the Pine Pass, and further again to anywhere on the coast. Northern Health runs mental-health and substance-use services here, and they are worth using. What the Peace does not have is depth, and specialist care has generally meant Prince George or a flight.",
+      "The Peace also works differently from most of BC. Energy, the dams, construction, agriculture and the trades that follow them run on rotation, and a lot of people here split their weeks between home, camp and the Alberta side of the line. Counselling that assumes the same weekday every week, from the same town, does not fit that life. Video sessions can.",
+    ],
+    localReality: {
+      h2: "A different clock, and a different week",
+      body: [
+        "**The Peace keeps Mountain Standard Time all year.** Fort St. John, Dawson Creek, Chetwynd, Taylor and Hudson’s Hope do not change their clocks, and Fort Nelson joined them in 2015. From November to March that puts the Peace an hour ahead of Vancouver; from March to November the two match, and Alberta is the one an hour ahead. A session booked with a counsellor on Pacific time lands at a different local hour depending on the season, so check which clock a booking confirmation is written in before the first appointment rather than on the day.",
+        "**Rotation is the normal working pattern, not a niche.** The page on [counselling for rotational and camp workers](/for/rotational-and-camp-workers) sets out what tends to come up: the re-entry problem, sleep that never settles, a relationship run largely by phone. Sessions concentrated in the days at home, sessions from camp where the connection and the privacy allow, or a pattern that changes with the shift are all workable, and the booking calendar shows each counsellor's real open times.",
+        "**The Alberta side of the line is a legal question, not a scheduling one.** A counsellor has to be registered where you are physically sitting during a session, so sessions with a BC Registered Clinical Counsellor run while you are in British Columbia." + ALBERTA_LINE,
+        "**Prince George is the north's referral centre, and it is a long way off.** The [Prince George page](/online-counselling/prince-george) sets out how thin coverage is across Northern Health. From the Peace, that thin coverage is also a day's return drive away, over a pass that winter weather can close.",
+        "**In a small town, privacy is the real question.** In Taylor, Chetwynd or Hudson’s Hope, the counsellor in town may also be a neighbour, a coach or somebody's cousin. A practice based elsewhere in the province removes that: no waiting room, and no truck in a parking lot that anyone would recognise.",
+        "**What happens at work stays with people.** Serious incidents on site get a debrief and then everyone goes back to work. Where a specific incident has stayed with you, [EMDR therapy](/services/emdr-therapy) is a direct route, and it runs by video.",
+      ],
+    },
+    access: [
+      { label: "Built around a rotation", detail: "Blocks of sessions during the days at home, or sessions from camp where the connection allows. The camera can stay off, which cuts what a camp connection has to carry." },
+      { label: "No Pine Pass, no flight", detail: "Specialist work that used to mean Prince George or the coast happens from wherever you have a private room." },
+      { label: "Dawson Creek to Fort Nelson", detail: "Taylor, Chetwynd, Hudson’s Hope, Dawson Creek and Fort Nelson on identical terms, with no travel penalty for being further out." },
+      { label: "Privacy in a small community", detail: "Nobody local sees you attend, because there is nowhere to attend." },
+    ],
+    faqs: [
+      { q: "What time will my session be in Fort St. John?", a: "The Peace stays on Mountain Standard Time all year, so in winter it is an hour ahead of Vancouver and in summer the two match. Check which time zone a booking confirmation shows, and if anything is unclear, ask before the first session rather than on the day." },
+      { q: "I work in Alberta part of the time. Can I still have sessions?", a: "Yes, while you are in British Columbia. A BC Registered Clinical Counsellor can only see you while you are physically in BC, so sessions are planned for the days you are back on this side of the line." + ALBERTA_FAQ },
+      { q: "Can sessions happen from a work camp?", a: "Where the connection and a private room allow, yes. Privacy is usually the harder of the two: a vehicle, a closed room off-shift, or keeping sessions for the days at home are the common answers. Test the connection before booking rather than partway through a session." },
+      { q: "Which health authority covers the Peace?", a: "Northern Health. Its mental-health and substance-use services are the public route, and staying on a public list while starting privately costs nothing: the two run side by side." },
+    ],
+    sources: [
+      { label: "Northern Health, mental health and substance use services", url: "https://www.northernhealth.ca/services/mental-health-substance-use" },
+      { label: "HereToHelp BC, mental health information", url: "https://www.heretohelp.bc.ca/" },
+    ],
+    nearby: ["prince-george", "kamloops"],
+  },
 ];
 
 export const getLocation = (slug: string) => locations.find((l) => l.slug === slug);
 
-// The remaining retired city slugs and their 301s live in next.config.mjs.
+// The remaining retired city slugs and their 308s live in lib/redirects.mjs.
 // Burnaby, Langley and Chilliwack were removed from that list on 2026-08-28
 // when the records above were written — see the note beside them.

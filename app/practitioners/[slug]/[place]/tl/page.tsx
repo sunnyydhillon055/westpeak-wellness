@@ -53,7 +53,9 @@ export function generateStaticParams() {
   for (const p of practitioners) {
     if (!p.placePages) continue;
     if (!p.languages.some((l) => l.tag === 'tl')) continue;
-    for (const l of placesFor(p.provinces)) out.push({ slug: p.slug, place: l.slug });
+    /* Only places with Tagalog copy. A city page added in English alone
+       (Penticton and Fort St. John, 1 Oct 2026) built a 404 shell here. */
+    for (const l of placesFor(p.provinces)) if (getTagalogPlace(l.slug)) out.push({ slug: p.slug, place: l.slug });
   }
   return out;
 }
