@@ -2216,6 +2216,32 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
 }
 .book-notes p:last-child { margin-bottom: 0; }
 
+/* "There is nowhere to attend", under the calendar heading — 1 Oct 2026. */
+.book-online-only {
+  margin: 8px 0 0;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+/* ?with= HAS ALREADY CHOSEN — 1 Oct 2026. One row instead of the two cards,
+   which were ~940px on a phone between the reader and the calendar they had
+   already picked. Fixed portrait size, so nothing here moves on load. */
+.book-chosen {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin: 16px 0 12px;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--bg-card);
+}
+.book-chosen img { width: 48px; height: 48px; flex: 0 0 48px; object-fit: cover; object-position: top; border-radius: 50%; }
+.book-chosen p { margin: 0; font-size: 0.95rem; line-height: 1.45; }
+.book-chosen .book-chosen-links { margin-top: 2px; font-size: 0.88rem; color: var(--ink-soft); }
+.book-chosen .book-chosen-links a + a::before { content: '·'; padding: 0 8px; color: var(--ink-soft); display: inline-block; }
+
 /* A disclosure is a tap target. On a phone the default line height puts two
    summaries close enough together to mis-hit, and a mis-hit here opens the
    wrong answer and scrolls the page under the reader's thumb. */
