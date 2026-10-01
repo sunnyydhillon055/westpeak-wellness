@@ -124,7 +124,11 @@ for (const { url, html } of pages) {
   /* ---- links ----------------------------------------------------------- */
   const anchors = [...body.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi)];
   for (const a of anchors) {
-    const attrs = a[1], label = text(a[2]);
+    /* An <img> with a non-empty alt names the link it sits in (the
+       accessible-name rules count it), as the diagrams that open full size
+       do since 1 Oct 2026. An empty alt still does not. */
+    const imgAlt = [...a[2].matchAll(/<img\b[^>]*\balt="([^"]+)"/gi)].map((m) => m[1].trim()).join(' ').trim();
+    const attrs = a[1], label = text(a[2]) || imgAlt;
     const href = (attrs.match(/href="([^"]*)"/) || [, ''])[1];
     if (!label && !/aria-label=/.test(attrs)) add('link-no-text', url, href);
     else if (VAGUE.test(label)) add('link-vague-text', url, `"${label}" → ${href}`);
