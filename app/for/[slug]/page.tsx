@@ -19,6 +19,9 @@ import Figure from '@/components/Figure';
 import InlineRelated from '@/components/InlineRelated';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
+import BookLink from '@/components/BookLink';
+import CoverageLine from '@/components/CoverageLine';
+import { bookingCtaFor } from '@/lib/booking-cta';
 
 export function generateStaticParams() {
   return audiences.map((a) => ({ slug: a.slug }));
@@ -43,6 +46,7 @@ const fmt = (iso: string) =>
 export default function AudiencePage({ params }: { params: { slug: string } }) {
   const a = getAudience(params.slug);
   if (!a) notFound();
+  const cta = bookingCtaFor({ language: a.language, fallback: `Book a free consultation ${a.ctaFor}` });
 
   const toc = buildToc([
     'The things people actually say',
@@ -121,10 +125,18 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
               byline lower down said the honest thing. The date does not move; only
               the word does, which was the whole point the first time. */}
           <p className="hero-note">{a.readMinutes} min read · Updated {fmt(a.updated)}</p>
+          {/* THE ONE ACTION, NAMED FOR THE PAGE AND COUNTED — 1 Oct 2026. The
+              button said "Book a free consultation" on all twenty-two pages
+              and reported nothing. It now carries the page's own `ctaFor`,
+              and on the pages written for Punjabi or Tagalog speakers it
+              names the language and opens that counsellor's calendar. The
+              coverage line under it was prose-only on this template; it is
+              the sentence /pricing leads with. components/CoverageLine.tsx. */}
           <div className="btn-row" style={{ marginTop: 22 }}>
-            <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
+            <BookLink location="hero-audience" href={cta.href}>{cta.label}</BookLink>
             <Link className="btn btn--ghost" href="/for">Who we work with</Link>
           </div>
+          <CoverageLine />
         </div>
       </section>
 
@@ -166,7 +178,7 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
           {a.figure && <Figure name={a.figure} />}
           <div className="crisis" style={{ marginTop: 32 }}>
             <p style={{ margin: 0 }}>
-              {a.midCta.text} <Link href={site.bookingPath}>{a.midCta.label}</Link>.
+              {a.midCta.text} <BookLink location="mid-audience" href={cta.href} className="">{a.midCta.label}</BookLink>.
             </p>
           </div>
         </div>
@@ -259,6 +271,7 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
       <CtaBand
         heading="One conversation, no commitment."
         text="A free 30-minute consultation over secure video, including an honest answer if something other than counselling would serve you better."
+        bookHref={cta.href}
       />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />

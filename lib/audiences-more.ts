@@ -3,6 +3,7 @@ import type { Audience } from './audiences';
 export const moreAudiences: Audience[] = [
   {
     slug: 'women',
+    ctaFor: 'for women',
     figure2: "first-session-flow",
     figure: 'window-of-tolerance',
     title: 'Counselling for women in British Columbia',
@@ -107,6 +108,7 @@ export const moreAudiences: Audience[] = [
 
   {
     slug: 'couples',
+    ctaFor: 'for couples',
     figure2: "first-session-flow",
     figure: 'gottman-method',
     title: 'Counselling for couples at a decision point',

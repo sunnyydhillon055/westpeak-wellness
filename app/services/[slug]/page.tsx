@@ -27,6 +27,8 @@ import Updated from '@/components/Updated';
 import { readCatalog, money } from '@/lib/cliniko-catalog';
 import { ogBase } from '@/lib/og-meta';
 import { COLLECTION_DATES } from '@/lib/page-dates';
+import BookLink from '@/components/BookLink';
+import { bookingCtaFor, serviceNoun } from '@/lib/booking-cta';
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -106,6 +108,7 @@ export const revalidate = 3600;
 export default async function ServicePage({ params }: { params: { slug: string } }) {
   const s = getService(params.slug);
   if (!s) notFound();
+  const cta = bookingCtaFor({ language: s.language, fallback: `Book a free consultation for ${serviceNoun(s.name)}` });
 
   const catalog = await readCatalog();
   const billedAs = BILLED_AS[params.slug];
@@ -261,8 +264,14 @@ export default async function ServicePage({ params }: { params: { slug: string }
                 service page now sends one, with the term as the anchor. */}
             <li><BadgeCheck aria-hidden="true" strokeWidth={1.7} /><span><strong><Link href="/resources/verify-a-counsellor-in-bc">RCC</Link></strong> · BCACC registered</span></li>
           </ul>
+          {/* THE ONE ACTION, NAMED FOR THE PAGE AND COUNTED — 1 Oct 2026. A
+              plain <Link> with the same four words on all six money pages,
+              invisible to book_click. Now it names the service, and on the
+              two language pages it names the language and opens that
+              counsellor's calendar rather than the practice-wide one, which
+              lists a counsellor who does not speak it. lib/booking-cta.ts. */}
           <div className="btn-row" style={{ marginTop: 24 }}>
-            <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
+            <BookLink location="hero-service" href={cta.href}>{cta.label}</BookLink>
             <Link className="btn btn--ghost" href="/pricing">Fees and coverage</Link>
           </div>
         </div>
@@ -300,9 +309,11 @@ export default async function ServicePage({ params }: { params: { slug: string }
                 <ul>
                   {s.helps.map((h) => <li key={h}>{h}</li>)}
                 </ul>
-                <Link className="btn btn--primary" href={site.bookingPath} style={{ width: '100%', textAlign: 'center' }}>
-                  Book a free consultation
-                </Link>
+                {/* Same action as the hero, counted under its own location so
+                    the sticky aside and the hero can be told apart. */}
+                <BookLink location="aside-service" href={cta.href}>
+                  {cta.label}
+                </BookLink>
               </div>
               <Toc items={toc} />
             </aside>
@@ -481,15 +492,20 @@ export default async function ServicePage({ params }: { params: { slug: string }
       {/* The Punjabi service page closes in Punjabi. The Gurmukhi heading is
           reused VERBATIM from /punjabi (already reviewed) — the fluent-review
           rule permits reuse, not fresh composition. */}
+      {/* The band books with the same counsellor the hero does, so a page
+          does not offer two different calendars for one consultation. The
+          five English services carried the site-wide default heading; it now
+          names the service, as the city band names its city. */}
       {params.slug === 'punjabi-counselling' ? (
         <CtaBand
           heading="ਮੁਫ਼ਤ ਸਲਾਹ-ਮਸ਼ਵਰਾ ਬੁੱਕ ਕਰੋ"
           headingLang="pa"
           headingClassName={gurmukhi.className}
           text="Book a free 30-minute consultation: in Punjabi, English, or both. No pressure, and no obligation afterward."
+          bookHref={cta.href}
         />
       ) : (
-        <CtaBand />
+        <CtaBand heading={`${s.name}, starting with a conversation.`} bookHref={cta.href} />
       )}
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />

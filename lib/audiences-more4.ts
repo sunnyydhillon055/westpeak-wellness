@@ -12,6 +12,7 @@ import type { Audience } from './audiences';
 export const moreAudiences4: Audience[] = [
   {
     slug: 'employers-and-hr',
+    ctaFor: 'about counselling for your team',
     title: 'Counselling support for BC employers and HR',
     metaTitle: 'Counselling for Your Employees in BC | Westpeak Wellness',
     metaDescription:

@@ -14,6 +14,8 @@ import type { Audience } from './audiences';
 export const tagalogAudiences: Audience[] = [
   {
     slug: 'filipino-healthcare-workers-and-caregivers',
+    ctaFor: 'for Filipino healthcare workers and caregivers',
+    language: 'tl',
     figure: 'first-session-flow-tl',
     figure2: 'bc-reach',
     title: 'Counselling for Filipino healthcare workers and caregivers in BC',
@@ -88,6 +90,8 @@ export const tagalogAudiences: Audience[] = [
 
   {
     slug: 'filipino-canadian-families',
+    ctaFor: 'for Filipino-Canadian families',
+    language: 'tl',
     figure: 'language-in-therapy-tl',
     figure2: 'first-session-flow-tl',
     title: 'Counselling for Filipino-Canadian families and adult children in BC',

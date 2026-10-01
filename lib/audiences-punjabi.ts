@@ -38,6 +38,8 @@ import type { Audience } from './audiences';
 export const punjabiAudiences: Audience[] = [
   {
     slug: 'punjabi-speaking-couples',
+    ctaFor: 'for Punjabi-speaking couples',
+    language: 'pa',
     figure2: 'gottman-method',
     figure: 'first-session-flow',
     title: 'Punjabi-speaking couples counselling in BC',
@@ -226,6 +228,8 @@ export const punjabiAudiences: Audience[] = [
    */
   {
     slug: 'south-asian-intergenerational-conflict',
+    ctaFor: 'for families across a generation',
+    language: 'pa',
     figure2: 'window-of-tolerance',
     figure: 'window-of-tolerance',
     title: 'When you and your parents cannot find each other',

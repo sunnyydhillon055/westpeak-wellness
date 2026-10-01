@@ -24,6 +24,8 @@ import { practitioners } from '@/lib/practitioners';
 import { placesFor } from '@/lib/practitioner-places';
 import { healthAuthorityFor, HEALTHLINK } from '@/lib/health-authorities';
 import Updated from '@/components/Updated';
+import BookLink from '@/components/BookLink';
+import CoverageLine from '@/components/CoverageLine';
 
 export function generateStaticParams() {
   return locations.map((l) => ({ city: l.slug }));
@@ -170,10 +172,18 @@ export default function CityPage({ params }: { params: { city: string } }) {
             </p>
           ) : null}
           <Updated iso={COLLECTION_DATES['locations']} />
+          {/* THE ONE ACTION, NAMED FOR THE PAGE AND COUNTED — 1 Oct 2026. This
+              was a plain <Link> saying "Book a free consultation", which no
+              book_click event ever saw, on the pages that carry the local
+              queries. The city is in the label because the heading just said
+              it and the button should not go generic at the point of
+              deciding. Under it, the one sentence about who pays that the
+              city template never had; see components/CoverageLine.tsx. */}
           <div className="btn-row" style={{ marginTop: 24 }}>
-            <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
+            <BookLink location="hero-city">Book a free consultation in {l.city}</BookLink>
             <Link className="btn btn--ghost" href="/services">See all services</Link>
           </div>
+          <CoverageLine />
         </div>
       </section>
 

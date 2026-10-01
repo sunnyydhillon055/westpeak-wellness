@@ -8,6 +8,7 @@ import type { Audience } from './audiences';
 export const moreAudiences3: Audience[] = [
   {
     slug: 'teachers',
+    ctaFor: 'for teachers',
     figure: 'anxiety-avoidance-cycle',
     figure2: 'first-session-flow',
     title: 'Counselling for teachers in BC',
@@ -80,6 +81,7 @@ export const moreAudiences3: Audience[] = [
 
   {
     slug: 'tech-workers',
+    ctaFor: 'for tech workers',
     figure: 'burnout-vs-depression',
     figure2: 'four-decisions',
     title: 'Counselling for tech workers in BC',
