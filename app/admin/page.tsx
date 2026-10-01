@@ -29,6 +29,7 @@ import { readCronHealth, cronProblems, storeFrozen } from '@/lib/cron-health';
 import { consultationAvailabilityNow } from '@/lib/cliniko-availability';
 import { site } from '@/lib/site';
 import { revalidatePath } from 'next/cache';
+import NotSeenLately from '@/components/admin/NotSeenLately';
 
 export const metadata: Metadata = {
   title: { absolute: 'Practice admin | Westpeak Wellness' },
@@ -744,6 +745,8 @@ export default async function AdminPage({
             </table>
           </div>
         )}
+
+        <NotSeenLately />
 
         {/* ----------------------------------------------------- SEARCH TERMS */}
         {/* The only first-party keyword research this practice will ever get:

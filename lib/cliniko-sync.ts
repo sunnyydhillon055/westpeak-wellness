@@ -1,4 +1,7 @@
-import { api, headers } from '@/lib/cliniko';
+import { api, headers, listAll } from '@/lib/cliniko';
+import { CONSULT_TYPE } from '@/lib/site';
+import { isConsultAppointment } from '@/lib/booking-shape';
+import { notSeenLately, practitionerIdOf, type ApptLite } from '@/lib/booking-followups';
 import { readClients, writeClients, newId, type ClientRecord } from '@/lib/clients';
 import { normalizeEmail } from '@/lib/portal-auth';
 
@@ -179,4 +182,70 @@ export async function syncClientsFromCliniko(actor: string): Promise<SyncResult>
     ok: false, added: 0, addedClients: [], namesFilled: 0, skippedNoEmail, totalInCliniko: patients.length,
     reason: 'write conflict, another edit landed first; the next run will pick it up',
   };
+}
+
+/* ============================================================================
+   NOT SEEN LATELY — 1 Oct 2026. READ ONLY.
+   ----------------------------------------------------------------------------
+   /admin's "Reaching back" lists clients whose status somebody changed, and
+   the sync above never changes a status, so that list stayed empty while
+   paying clients drifted away unseen. This reads what actually happened:
+   every appointment from 400 days back to 120 ahead, and the patients they
+   belong to, and returns those with a held paid session 45 or more days ago
+   and nothing upcoming. The decision about each one stays with a person, one
+   row at a time; nothing here writes or sends.
+
+   Archived patients are left out, as the sync leaves them out. A client last
+   seen more than 400 days ago is outside the window and not listed: the list
+   is a floor, and says so through `truncated` when Cliniko had more pages.
+   ========================================================================= */
+
+export type NotSeenLive = {
+  rows: { patientId: string; name: string; firstName: string; email: string; lastAt: string; practitionerId: string; held: number; daysSince: number }[];
+  truncated: boolean;
+};
+
+export async function readNotSeenLately(now = Date.now(), minDays = 45): Promise<NotSeenLive | { error: string }> {
+  const conn = api();
+  if (!conn) return { error: 'CLINIKO_API_KEY is not set on this deployment' };
+  const stamp = (t: number) => new Date(t).toISOString().replace(/\.\d{3}Z$/, 'Z');
+  const first =
+    `https://api.${conn.shard}.cliniko.com/v1/appointments?per_page=100&sort=starts_at:desc` +
+    `&q[]=${encodeURIComponent(`starts_at:>=${stamp(now - 400 * 864e5)}`)}` +
+    `&q[]=${encodeURIComponent(`starts_at:<=${stamp(now + 120 * 864e5)}`)}`;
+  let list: Awaited<ReturnType<typeof listAll>>;
+  try {
+    list = await listAll(first, conn.key, 'appointments', 30);
+  } catch (e) {
+    return { error: e instanceof Error ? e.message : 'request failed' };
+  }
+  if (list.error) return { error: list.error };
+
+  const found = notSeenLately(list.rows as ApptLite[], {
+    now, minDays, isConsult: (ap) => isConsultAppointment(ap, CONSULT_TYPE),
+  });
+  if (found.length === 0) return { rows: [], truncated: list.truncated };
+
+  const patients = await fetchAllPatients();
+  if ('error' in patients) return { error: patients.error };
+  const byId = new Map(patients.map((p) => [String(p.id ?? ''), p]));
+
+  const rows: NotSeenLive['rows'] = [];
+  for (const r of found) {
+    const p = byId.get(r.patientId);
+    if (!p || p.archived_at) continue;
+    const email = normalizeEmail(String(p.email ?? ''));
+    if (!email) continue;
+    rows.push({
+      patientId: r.patientId,
+      name: [p.first_name, p.last_name].filter(Boolean).join(' ').trim(),
+      firstName: String(p.first_name ?? '').trim(),
+      email,
+      lastAt: String(r.last.starts_at ?? ''),
+      practitionerId: practitionerIdOf(r.last),
+      held: r.held,
+      daysSince: r.daysSince,
+    });
+  }
+  return { rows, truncated: list.truncated };
 }

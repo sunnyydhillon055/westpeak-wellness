@@ -229,7 +229,14 @@ export const bookingsUrlFor = (practitionerId?: string): string =>
    picks their counsellor sees only that person's times. No id means the
    practice-wide paid calendar, on which Cliniko lists every practitioner who
    offers a paid type. Added 8 Sep 2026 with the second bookable counsellor. */
-export const bookingsPaidUrlFor = (practitionerId?: string): string =>
-  practitionerId
-    ? `${site.bookingsPaidUrl}&practitioner_id=${practitionerId}`
+/* `typeId`, 1 Oct 2026: a rebook link from a paid session opens the SAME
+   appointment type with her, rather than every paid type including ones she
+   does not offer. Honoured only when it is one of PAID_TYPES, so a stray or
+   consultation id can never narrow the paid calendar to the wrong thing; any
+   other value is ignored and the full paid list is used. */
+export const bookingsPaidUrlFor = (practitionerId?: string, typeId?: string): string => {
+  const base = typeId && PAID_TYPES.split(',').includes(typeId)
+    ? `${CLINIKO_BOOKINGS}?business_id=${CLINIKO_BUSINESS}&appointment_type_id=${typeId}`
     : site.bookingsPaidUrl;
+  return practitionerId ? `${base}&practitioner_id=${practitionerId}` : base;
+};
