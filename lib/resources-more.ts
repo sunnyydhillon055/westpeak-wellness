@@ -3,6 +3,7 @@ import { fallbackFee, FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
 import { practitioners } from '@/lib/practitioners';
 import { acceptingSentences } from '@/lib/practitioner-facts';
 import { STUDENT_PLANS, studentPlanFaqs } from './student-plans';
+import { CONFIDENTIALITY_LIMITS } from '@/lib/practice-facts';
 
 /* Minutes for a catalogue type, read rather than typed, beside fallbackFee. */
 const minutesOf = (name: string) => FALLBACK_CATALOG.items.find((i) => i.name === name)?.minutes;
@@ -92,7 +93,7 @@ export const moreResources: Resource[] = [
       label: 'a free 30-minute consultation is a straightforward next step',
     },
     faqs: [
-      { q: 'Will my university know I used campus counselling?', a: 'Counselling records are confidential and separate from academic records. Faculty are not informed. The exceptions are the same legal ones that apply to any counselling: risk of serious harm, child protection, court order.' },
+      { q: 'Will my university know I used campus counselling?', a: `Counselling records are confidential and separate from academic records. Faculty are not informed. The exceptions are the same legal ones that apply to any counselling: ${CONFIDENTIALITY_LIMITS}.` },
       { q: 'Can I use campus counselling and a private counsellor at the same time?', a: 'Generally yes. Tell both so that neither is working blind and the work is coordinated rather than duplicated.' },
       { q: 'Does my student health plan cover a Registered Clinical Counsellor?', a: 'Many do, and some cover only a psychologist. Check your specific plan booklet for the designation, not just the dollar amount. It is the detail that most often trips people up.' },
       { q: 'I am an international student. Do these apply to me?', a: 'Here2Talk and campus counselling are generally available to all enrolled students regardless of status. Health plan coverage varies: the insurance an institution arranges for the months before MSP is a separate policy from the student society\'s extended health plan, and it is usually the society plan that reimburses counselling. Check which one you are claiming on.' },

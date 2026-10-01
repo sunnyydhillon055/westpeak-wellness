@@ -11,16 +11,28 @@ import { readCatalog, money, type CatalogItem } from '@/lib/cliniko-catalog';
 import { webPage } from '@/lib/schema';
 import { lastmodFor } from '@/lib/page-dates';
 import { HOW_TO_CANCEL } from '@/lib/faq';
+import { counsellorsFor } from '@/lib/city-service-page';
+import { practiceSnippet, withSnippet } from '@/lib/snippet-facts';
 
-export const metadata: Metadata = {
-  /* Retitled 17 Sep 2026 from "Fees & Insurance", which matched none of the
-     cost queries in Search Console — every one of them is phrased as a
-     question about what it costs. */
-  title: 'How Much Does Counselling Cost in BC?',
-  description:
-    'Every fee in full, in line with BCACC guidelines, with no surprises at the end. What extended health usually reimburses, and what the free consultation covers.',
-  alternates: { canonical: `${site.domain}/pricing` },
-};
+/* The fee and who you would see, in the description — 1 Oct 2026. /pricing
+   sat at 4.38 with 24 impressions and no clicks, and its description named
+   no fee. The lead's first sentence carries the result when the generated
+   facts are appended (lib/snippet-facts.ts); the fee is the catalogue's. */
+export async function generateMetadata(): Promise<Metadata> {
+  const lead =
+    'Every counselling fee in full, in line with BCACC guidelines. What extended health usually reimburses, and what the free consultation covers.';
+  return {
+    /* Retitled 17 Sep 2026 from "Fees & Insurance", which matched none of the
+       cost queries in Search Console — every one of them is phrased as a
+       question about what it costs. */
+    title: 'How Much Does Counselling Cost in BC?',
+    description: withSnippet(
+      lead,
+      practiceSnippet(await readCatalog(), counsellorsFor({ bookingService: 'individual-therapy' })),
+    ),
+    alternates: { canonical: `${site.domain}/pricing` },
+  };
+}
 
 /* Revalidate hourly so a price changed in Cliniko reaches this page without a
  * redeploy. The nightly cron refreshes the cached catalogue; this decides how

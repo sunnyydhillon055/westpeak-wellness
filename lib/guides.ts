@@ -6,6 +6,7 @@ import { moreGuides5 } from './guides-more5';
 import { moreGuides6 } from './guides-more6';
 import { moreGuides7 } from './guides-more7';
 import { draftGuides } from './guides-drafts';
+import { CONFIDENTIALITY_LIMITS } from '@/lib/practice-facts';
 
 export type GuideSection = {
   h2: string;
@@ -405,7 +406,7 @@ const coreGuides: Guide[] = [
       {
         h2: "The first ten minutes: the unglamorous part",
         body: [
-          "Sessions open with housekeeping, and a counsellor who skips it is cutting a corner. Expect confidentiality and its limits spelled out plainly: what you say stays private, except where there is risk of serious harm to you or someone else, where a child or vulnerable adult may be at risk, or where a court orders release. In BC this is set out in the [BCACC code of ethics](https://bcacc.ca) and provincial privacy law.",
+          `Sessions open with housekeeping, and a counsellor who skips it is cutting a corner. Expect confidentiality and its limits spelled out plainly: what you say stays private, except for ${CONFIDENTIALITY_LIMITS}. In BC this is set out in the [BCACC code of ethics](https://bcacc.ca) and provincial privacy law.`,
           "Fees, cancellation policy, and how receipts work for [extended health reimbursement](/pricing) usually get covered here too. It is administrative and it is worth listening to, most later friction between client and counsellor traces back to something in this five minutes that nobody read out loud.",
         ],
       },

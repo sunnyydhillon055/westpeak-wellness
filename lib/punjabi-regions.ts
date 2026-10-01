@@ -463,7 +463,7 @@ export const punjabiRegions: PunjabiRegion[] = [
     blurb:
       'Punjabi is the mother tongue of nearly a quarter of Abbotsford. In a city this size, that is not anonymity. It is a community where most people are two conversations apart.',
     metaDescription:
-      'Punjabi-speaking online counselling for Abbotsford and the Fraser Valley, from outside the Valley. No local office, no waiting room. Free consultation.',
+      'Punjabi-speaking online counselling for Abbotsford, from outside the Fraser Valley. No local office, no waiting room. Free consultation.',
     demography: {
       stat: 'Punjabi is the mother tongue of 34,280 people in Abbotsford, 22.6% of the city, and second only to English.',
       body: [
@@ -659,3 +659,33 @@ export const punjabiRegions: PunjabiRegion[] = [
 
 export const getPunjabiRegion = (slug: string) =>
   punjabiRegions.find((r) => r.slug === slug);
+
+/* THE OPENING, ANSWER FIRST — 1 Oct 2026.
+ *
+ * /punjabi-counselling/vancouver had about 189 page-one impressions at 9-10
+ * and no clicks in any export. It opened with the census figure, which the
+ * Stat block and the first paragraph then repeated twice more, and nowhere
+ * near the top said who the counsellor is, how sessions run or what they
+ * cost. This paragraph answers those first and the census moves down into
+ * the section about the local picture, where it is the argument.
+ *
+ * Built by the page from the roster (the speaker bookingCtaFor resolves) and
+ * the catalogue (the individual fee), so neither a name nor a price is typed
+ * here. No census numbers and no Gurmukhi. Coverage is the plan's to decide. */
+export function regionOpening(args: {
+  region: string;
+  /** "Savneet Singh, RCC", or undefined when nobody accepting speaks Punjabi. */
+  who?: string;
+  /** "English or Punjabi", the speaker's own languages. */
+  languages?: string;
+  fee?: { fee: string; minutes: number };
+}): string {
+  const { region, who, languages, fee } = args;
+  const lead = who
+    ? `Punjabi-speaking counselling for ${region} is with ${who}, by secure video, in ${languages ?? 'Punjabi or English'}, or a mix of both.`
+    : `Punjabi-speaking counselling for ${region} is by secure video with a Registered Clinical Counsellor, in Punjabi or English, or a mix of both.`;
+  const cost = fee
+    ? `Individual sessions are ${fee.fee} for ${fee.minutes} minutes, after a free 30-minute consultation`
+    : 'It starts with a free 30-minute consultation';
+  return `${lead} ${cost}, and whether an extended health plan reimburses it depends on the plan.`;
+}

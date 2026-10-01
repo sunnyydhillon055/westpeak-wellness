@@ -31,17 +31,42 @@ import BookLink from '@/components/BookLink';
 import { bookingCtaFor, serviceNoun } from '@/lib/booking-cta';
 import CounsellorCards from '@/components/CounsellorCards';
 import { cardNoun, counsellorsForService } from '@/lib/counsellor-cards';
+import { languagesFor } from '@/lib/city-service-page';
+import { snippetFacts, withSnippet } from '@/lib/snippet-facts';
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+/* The FAQPage text is plain: an answer that links inside the page (rendered
+   through rich()) carries its markdown, which schema must not. */
+const plain = (md: string) => md.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').replace(/\*\*([^*]+)\*\*/g, '$1');
+
+/* The fee and who you would see, after the page's own lead — 1 Oct 2026.
+   Individual therapy sat at 5.36 with 25 impressions and no clicks, and no
+   service description said what a session costs or who it is with. The fee
+   is this page's billed type, read from the catalogue; the names are the
+   page's own counsellor cards. "From" where the page carries a second fee
+   for the same length of session (Tagalog: individual and couples). */
+async function snippetFor(slug: string, names: string[]): Promise<string | undefined> {
+  const catalog = await readCatalog();
+  const item = billedItem(catalog, BILLED_AS[slug]) ?? billedItem(FALLBACK_CATALOG, BILLED_AS[slug]);
+  if (!item || item.cents <= 0) return undefined;
+  const also = billedItem(catalog, EXTENDED_AS[slug]) ?? billedItem(FALLBACK_CATALOG, EXTENDED_AS[slug]);
+  const from = !!also && also.minutes === item.minutes && also.cents !== item.cents;
+  return snippetFacts({ fee: { fee: money(item.cents), minutes: item.minutes, cents: item.cents }, from, names });
+}
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const s = getService(params.slug);
   if (!s) return {};
+  const description = withSnippet(
+    s.metaDescription,
+    await snippetFor(s.slug, counsellorsForService(s).map((p) => p.name)),
+  );
   return {
     title: { absolute: s.metaTitle },
-    description: s.metaDescription,
+    description,
     alternates: {
       canonical: `${site.domain}/services/${s.slug}`,
       /* hreflang has to be reciprocal or search engines ignore it, so the
@@ -57,7 +82,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
           }
         : {}),
     },
-    openGraph: { ...ogBase(`/services/${s.slug}`), title: s.metaTitle, description: s.metaDescription, url: `${site.domain}/services/${s.slug}` },
+    openGraph: { ...ogBase(`/services/${s.slug}`), title: s.metaTitle, description, url: `${site.domain}/services/${s.slug}` },
   };
 }
 
@@ -82,6 +107,10 @@ const BILLED_AS: Record<string, string | undefined> = {
   'depression-counselling': 'Individual Counselling',
   'trauma-therapy': 'Individual Counselling',
   'punjabi-counselling': 'Individual Counselling',
+  /* Added 1 Oct 2026: the Tagalog page's fact strip had no fee at all.
+     Individual is the type its sessions bill as by default; couples, which
+     Camille also runs in Tagalog, is shown beside it (EXTENDED_AS). */
+  'tagalog-counselling': 'Individual Counselling',
   'couples-therapy': 'Couples Counselling',
   'emdr-therapy': 'EMDR Intensive',
   'emdr-intensive': 'EMDR Intensive',
@@ -100,6 +129,13 @@ const billedItem = (c: Catalog, name: string | undefined) =>
  * read from the catalogue like the main fee. */
 const EXTENDED_AS: Record<string, string | undefined> = {
   'couples-therapy': 'Couples Extended',
+  'tagalog-counselling': 'Couples Counselling',
+};
+/* The second fee on the couples page is the same service at a longer length,
+   so it needs no label. On the Tagalog page it is a different service at the
+   same length, so each fee says which it is. */
+const SECOND_LABEL: Record<string, [string, string] | undefined> = {
+  'tagalog-counselling': ['individual', 'couples'],
 };
 
 const DURATION_FOR: Record<string, string | undefined> = {
@@ -137,6 +173,10 @@ export default async function ServicePage({ params }: { params: { slug: string }
      the Offer is conditional rather than defaulted — a default here would
      publish a price the practice does not charge. */
   const feeDollars = item ? item.cents / 100 : undefined;
+  const labels = SECOND_LABEL[params.slug];
+  /* Who would take the work: the cards below, the schema's languages and
+     the description's names all read this one list. */
+  const offering = counsellorsForService(s);
 
   /* Heading order as rendered. 'This can help with' lives in the aside
    * itself, so it is deliberately not a TOC entry. */
@@ -188,11 +228,10 @@ export default async function ServicePage({ params }: { params: { slug: string }
         serviceUrl: `${site.domain}/services/${s.slug}`,
         /* Per service, not a constant — 26 Sep 2026. This said English and
            Punjabi on every service, including the Tagalog one, and omitted
-           Tagalog from the four services that offer it. */
-        availableLanguage:
-          s.slug === 'punjabi-counselling' ? ['English', 'Punjabi']
-          : s.slug === 'tagalog-counselling' ? ['English', 'Tagalog']
-          : ['English', 'Punjabi', 'Tagalog'],
+           Tagalog from the four services that offer it. Since 1 Oct 2026 it
+           is the languages of the counsellors who offer the service, so
+           couples, EMDR and family stopped offering Punjabi. */
+        availableLanguage: languagesFor(offering),
       },
       provider: orgRef,
       /* The method this service IS, named as an entity rather than only as a
@@ -236,7 +275,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
       '@context': 'https://schema.org', '@type': 'FAQPage',
       mainEntity: s.faqs.map((f) => ({
         '@type': 'Question', name: f.q,
-        acceptedAnswer: { '@type': 'Answer', text: f.a },
+        acceptedAnswer: { '@type': 'Answer', text: plain(f.a) },
       })),
     },
   ].filter(Boolean);
@@ -269,7 +308,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
                 types at different prices, so the item simply does not render
                 rather than showing a figure that would misrepresent them. */}
             {fee && item && extended ? (
-              <li><Wallet aria-hidden="true" strokeWidth={1.7} /><span><strong>{fee}</strong> / {item.minutes} min · <strong>{money(extended.cents)}</strong> / {extended.minutes} min</span></li>
+              <li><Wallet aria-hidden="true" strokeWidth={1.7} /><span><strong>{fee}</strong> / {item.minutes} min{labels ? ` ${labels[0]}` : ''} · <strong>{money(extended.cents)}</strong> / {extended.minutes} min{labels ? ` ${labels[1]}` : ''}</span></li>
             ) : fee ? (
               <li><Wallet aria-hidden="true" strokeWidth={1.7} /><span><strong>{fee}</strong> per session</span></li>
             ) : null}
@@ -308,7 +347,9 @@ export default async function ServicePage({ params }: { params: { slug: string }
               never actually stick. Copy is unchanged — only its parent. */}
           <div className="svc-layout">
             <div className="prose">
-              <p className="lede" style={{ marginBottom: 24 }}>{s.intro}</p>
+              {/* Through rich(): the two language pages link their translated
+                  page from here, and the bare string printed the markdown. */}
+              <p className="lede" style={{ marginBottom: 24 }}>{rich(s.intro)}</p>
               <Updated iso={COLLECTION_DATES['services']} />
               <h2 id="how-we-approach-it">How we approach it</h2>
               <p>{s.approach}</p>
@@ -341,7 +382,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
           the thirteen pages ranking for the same queries. Chosen from the
           roster in lib/counsellor-cards.ts; drawn by the shared card. */}
       <CounsellorCards
-        counsellors={counsellorsForService(s)}
+        counsellors={offering}
         location="counsellor-service"
         heading={<>Who you would see for {cardNoun(s.name)}</>}
         intro="Taking new clients and seeing people across BC by secure video. Each is a Registered Clinical Counsellor; the registration is on the profile and can be checked on the BCACC register."
@@ -398,7 +439,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
             price={fee}
             duration={
               (DURATION_FOR[s.slug] ?? '50 minutes') +
-              (extended ? `, or ${money(extended.cents)} for ${extended.minutes} minutes` : '')
+              (extended ? `, or ${money(extended.cents)} for ${extended.minutes} minutes${labels ? ` (${labels[1]})` : ''}` : '')
             }
             bookHref={cta.href}
           />
@@ -441,7 +482,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
               {s.faqs.map((f) => (
                 <details className="faq-item" key={f.q}>
                   <summary>{f.q}</summary>
-                  <p>{f.a}</p>
+                  <p>{rich(f.a)}</p>
                 </details>
               ))}
             </div>

@@ -29,15 +29,21 @@ import { counsellorsForCity } from '@/lib/counsellor-cards';
 import { cityHubFaqs, cityHubTitle, helpCardsFor } from '@/lib/city-hub';
 import { bookingCtaFor } from '@/lib/booking-cta';
 import { readCatalog } from '@/lib/cliniko-catalog';
+import { practiceSnippet, withSnippet } from '@/lib/snippet-facts';
 
 export function generateStaticParams() {
   return locations.map((l) => ({ city: l.slug }));
 }
 
-export function generateMetadata({ params }: { params: { city: string } }): Metadata {
+export async function generateMetadata({ params }: { params: { city: string } }): Promise<Metadata> {
   const l = getLocation(params.city);
   if (!l) return {};
   const title = `Online Counselling in ${l.city}, BC`;
+  /* The fee and who you would see, after the city's own lead — 1 Oct 2026.
+     No hub description said what a session costs or who it is with. The fee
+     is the catalogue's, the names are the counsellors the page's own cards
+     show, and lib/snippet-facts.ts keeps it inside the gate or leaves it off. */
+  const description = withSnippet(l.metaDescription, practiceSnippet(await readCatalog(), counsellorsForCity(l.slug)));
   return {
     /* absolute, and composed in lib/city-hub.ts. "Virtual" was decided on
        17 Sep 2026 (DECISIONS: "Online & Virtual Counselling in <city>, BC")
@@ -46,9 +52,9 @@ export function generateMetadata({ params }: { params: { city: string } }): Meta
        The SEO gate counts "&" as "&amp;", so most cities drop ", BC" to stay
        at sixty, and Prince George drops " in" as well. 1 Oct 2026. */
     title: { absolute: cityHubTitle(l.city) },
-    description: l.metaDescription,
+    description,
     alternates: { canonical: `${site.domain}/online-counselling/${l.slug}` },
-    openGraph: { ...ogBase(`/online-counselling/${l.slug}`), title: `${title} | ${site.name}`, description: l.metaDescription, url: `${site.domain}/online-counselling/${l.slug}` },
+    openGraph: { ...ogBase(`/online-counselling/${l.slug}`), title: `${title} | ${site.name}`, description, url: `${site.domain}/online-counselling/${l.slug}` },
   };
 }
 

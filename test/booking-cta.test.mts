@@ -8,6 +8,7 @@ import { resources } from '../lib/resources.ts';
 import { comparisons } from '../lib/comparisons.ts';
 import { pairs as cityServices } from '../lib/city-services.ts';
 import { site } from '../lib/site.ts';
+import { depthServices } from '../lib/depth-services.ts';
 
 /* THE PROMISE THESE EXIST FOR
  *
@@ -77,6 +78,13 @@ test('the English copy says Punjabi couples and EMDR are available only when som
     const q = cityServices.find((c) => c.city === 'surrey' && c.service === 'couples-therapy')!
       .faqs.find((f) => /in Punjabi/.test(f.q))!;
     assert.doesNotMatch(q.a, /^Yes/, 'Surrey couples FAQ says yes to Punjabi couples sessions');
+    /* The two body-copy promises round 1 #20 left behind (1 Oct 2026). */
+    const depth = depthServices['services/punjabi-counselling'].flatMap((x) => x.body ?? []).join(' ');
+    assert.doesNotMatch(depth, /couples work is available in Punjabi/i, 'Punjabi service page promises Punjabi couples work');
+    const forPa = audiences.find((a) => a.slug === 'punjabi-speaking-couples')!;
+    assert.doesNotMatch(`${forPa.metaDescription} ${forPa.shortAnswer} ${forPa.opening.join(' ')}`,
+      /Couples counselling in Punjabi|Sessions run in Punjabi, English, or moving/i,
+      '/for/punjabi-speaking-couples promises couples sessions in Punjabi');
   }
   if (!offers('emdr-therapy')) {
     const q = cityServices.find((c) => c.city === 'surrey' && c.service === 'emdr-therapy')!

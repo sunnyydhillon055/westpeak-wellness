@@ -13,6 +13,16 @@ import { services } from '@/lib/services';
 import { navRoster } from '@/lib/practitioners';
 import { therapyNode, placeNode, KNOWS_ABOUT_ENTITIES } from '@/lib/entities';
 import { FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
+import { offeringLanguages, pairedLanguageClause, sitewideDescription } from '@/lib/snippet-facts';
+
+/* WHICH LANGUAGES WHICH WORK IS IN — 1 Oct 2026. The default description,
+ * the share cards and the organisation node all said couples and EMDR
+ * therapy "in English, Punjabi or Tagalog"; nobody offering either speaks
+ * Punjabi. Composed from the roster by lib/snippet-facts.ts, the same rule
+ * the service and city-service pages use. Server-side only: nothing here
+ * reaches the browser bundle. */
+const LANGS = offeringLanguages();
+const PAIRED = pairedLanguageClause(LANGS);
 
 const PRICE_RANGE = (() => {
   const cents = FALLBACK_CATALOG.items.map((i) => i.cents).filter((c) => c > 0);
@@ -42,8 +52,7 @@ export const metadata: Metadata = {
     default: 'Online Counselling in BC | Westpeak Wellness',
     template: '%s | Westpeak Wellness',
   },
-  description:
-    'Online counselling across BC with a Registered Clinical Counsellor. EMDR, trauma, anxiety, depression, and couples therapy in English, Punjabi or Tagalog.',
+  description: sitewideDescription(),
   keywords: [
     'online counselling BC', 'virtual therapy BC', 'Registered Clinical Counsellor',
     'Punjabi counselling', 'Tagalog counselling', 'EMDR therapy BC', 'couples counselling',
@@ -57,10 +66,10 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website', locale: 'en_CA', url: site.domain, siteName: site.name,
     title: 'Online Counselling in BC | Westpeak Wellness',
-    description: 'Virtual therapy across British Columbia in English, Punjabi or Tagalog. EMDR, trauma, anxiety, depression, and couples counselling.',
+    description: `Virtual therapy across British Columbia in ${LANGS.individual}${PAIRED ? `; ${PAIRED}` : ''}.`,
   },
   twitter: { card: 'summary_large_image', title: 'Online Counselling in BC | Westpeak Wellness',
-    description: 'Virtual therapy across BC in English, Punjabi or Tagalog with a Registered Clinical Counsellor.' },
+    description: `Virtual therapy across BC in ${LANGS.individual} with a Registered Clinical Counsellor.` },
   /* Search Console / Bing ownership. Emitted only when the token is set, so
    * nothing ships an empty verification tag. */
   verification: {
@@ -136,7 +145,7 @@ const orgSchema = {
   logo: { '@type': 'ImageObject', url: `${site.domain}/img/logo.svg`, width: 512, height: 512 },
   image: `${site.domain}/opengraph-image`,
   description:
-    'Virtual counselling practice serving all of British Columbia, offering individual, couples, trauma and EMDR therapy in English, Punjabi and Tagalog with Registered Clinical Counsellors.',
+    `Virtual counselling practice serving all of British Columbia, offering individual, couples, trauma and EMDR therapy with Registered Clinical Counsellors: individual work in ${LANGS.individual}${PAIRED ? `, ${PAIRED}` : ''}.`,
   slogan: site.tagline,
   /* The province, AND the places named as served.
    *

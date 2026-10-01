@@ -72,3 +72,15 @@ export const reachSentence = (accepting: (Reachable & { name: string })[]) => {
   if (!r) return '';
   return r.startsWith('anywhere') ? `Sessions are possible ${r}.` : `Sessions are possible in ${r}.`;
 };
+/* THE LIMITS OF CONFIDENTIALITY, STATED ONCE — 1 Oct 2026.
+ *
+ * The Punjabi and Tagalog service pages said "the only limits are risk of
+ * serious harm and a court order", leaving out a child or vulnerable adult at
+ * risk, while /privacy, /standards and the individual-therapy FAQ list all
+ * three. Those two pages are written for the readers most worried about who
+ * might find out, which is exactly where an incomplete list misleads. Every
+ * page that states the limits in a sentence reads them from here, and a test
+ * fails on "only limits are" without the child. Reads after "the only limits
+ * are" or "except for". */
+export const CONFIDENTIALITY_LIMITS =
+  'risk of serious harm to you or someone else, a child or vulnerable adult at risk of abuse or neglect, or a court order';

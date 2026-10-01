@@ -17,6 +17,26 @@ import TrustBar from '@/components/ui/TrustBar';
 import Stepper from '@/components/ui/Stepper';
 import Reveal from '@/components/ui/Reveal';
 import { getServiceIcon, HUB_ICONS } from '@/lib/icon-map';
+import { fallbackFee, FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
+import { counsellorForLanguage } from '@/lib/booking-cta';
+import { withLetters } from '@/lib/practitioners';
+import { offeringLanguages, pairedLanguageClause } from '@/lib/snippet-facts';
+
+/* WHAT IT COSTS AND WHO SPEAKS WHAT, ON THE HOME PAGE — 1 Oct 2026.
+ *
+ * The home page had no dollar figure anywhere (/index.md said nothing about
+ * cost) and its two language sentences named nobody, while the service and
+ * city templates had both. The fees are read from the catalogue by name, the
+ * session length with them, so nothing here is typed; the counsellors are the
+ * ones the booking buttons resolve to (accepting, bookable, speaks the
+ * language), so the founder is excluded by that rule and never by name. */
+const minutesOf = (name: string) => FALLBACK_CATALOG.items.find((i) => i.name === name)?.minutes;
+const INDIVIDUAL_MIN = minutesOf('Individual Counselling');
+const COUPLES_MIN = minutesOf('Couples Counselling');
+const PA_COUNSELLOR = counsellorForLanguage('pa');
+const TL_COUNSELLOR = counsellorForLanguage('tl');
+const LANGS = offeringLanguages();
+const PAIRED = pairedLanguageClause(LANGS);
 
 const homeFaqs = faqs.filter((f) =>
   ['Are you taking new clients?', 'Is this practice fully online?'].includes(f.q)
@@ -149,9 +169,12 @@ export default async function Home() {
                 />
               </div>
               <p className="lede">
+                {/* The languages are the roster's per kind of work (1 Oct 2026):
+                    this said couples therapy in English, Punjabi or Tagalog,
+                    and nobody offering couples work speaks Punjabi. */}
                 Registered Clinical Counsellors offering EMDR, trauma, anxiety, depression and
-                couples therapy, fully online, anywhere in British Columbia, in English, Punjabi
-                or Tagalog.
+                couples therapy, fully online, anywhere in British Columbia, in {LANGS.individual}
+                {PAIRED ? `; ${PAIRED}` : ''}.
               </p>
               <div className="btn-row" style={{ marginTop: 30 }}>
                 <Link className="btn btn--primary" href={site.bookingPath}>Book a Free 30-min Consultation</Link>
@@ -233,8 +256,9 @@ export default async function Home() {
                 spending the first session setting the scene.
               </p>
               <p>
-                Sessions are available in Punjabi as well as English, if that makes it easier
-                to say. There is a{' '}
+                Sessions are available in Punjabi as well as English
+                {PA_COUNSELLOR ? <> with {withLetters(PA_COUNSELLOR)}</> : null}, if that makes it
+                easier to say. There is a{' '}
                 <Link href="/punjabi" lang="en">
                   page in Punjabi (ਪੰਜਾਬੀ)
                 </Link>{' '}
@@ -244,8 +268,11 @@ export default async function Home() {
                   that the two be carried equally. The Tagalog vertical had the
                   same pages and no mention on the home page. */}
               <p>
-                Sessions are also available in Tagalog, with a counsellor who works in it and
-                who reaches Alberta as well as BC. There is a{' '}
+                Sessions are also available in Tagalog,{' '}
+                {TL_COUNSELLOR
+                  ? <>with {withLetters(TL_COUNSELLOR)}, who works in it and reaches Alberta as well as BC.</>
+                  : <>with a counsellor who works in it and who reaches Alberta as well as BC.</>}{' '}
+                There is a{' '}
                 <Link href="/tagalog" lang="en">
                   page in Tagalog
                 </Link>{' '}
@@ -441,6 +468,11 @@ export default async function Home() {
             <div className="route-grid">
               <div className="route-cell">
                 <p className="route-k">What it costs</p>
+                <p>
+                  {fallbackFee('Individual Counselling')} for {INDIVIDUAL_MIN} minutes individually,{' '}
+                  {fallbackFee('Couples Counselling')} for {COUPLES_MIN} minutes as a couple; the
+                  first 30-minute consultation is free.
+                </p>
                 <p><Link href="/pricing">Fees and insurance</Link></p>
               </div>
               <div className="route-cell">

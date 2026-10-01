@@ -1,5 +1,20 @@
 import type { DepthSection } from './depth';
 import { fallbackFee } from '@/lib/cliniko-catalog';
+import { practitioners } from '@/lib/practitioners';
+import { offeredBy } from '@/lib/practice-facts';
+import { languagePhrase } from '@/lib/city-service-page';
+
+/* WHAT LANGUAGE COUPLES WORK RUNS IN, FROM THE ROSTER — 1 Oct 2026.
+   The Punjabi service page said "couples work is available in Punjabi as
+   well" while its own direct answer, and the counsellor who works in Punjabi,
+   say she does not offer couples work. Who offers it, and so which languages
+   it runs in, is now read from the roster: accepting counsellors who list
+   couples-therapy. If that ever includes a Punjabi speaker, the old sentence
+   comes back on its own. */
+const COUPLES_OFFERING = offeredBy('couples-therapy', practitioners.filter((p) => p.acceptingNewClients));
+const COUPLES_LANGUAGE_LINE = COUPLES_OFFERING.some((p) => p.languages.some((l) => l.tag === 'pa'))
+  ? 'Sessions run in whichever language suits, including moving between them within a session, and couples work is available in Punjabi as well, which matters when the family conversation being discussed happened in Punjabi.'
+  : `Sessions run in whichever language suits, including moving between them within a session. Couples work currently runs in ${languagePhrase(COUPLES_OFFERING)}, so sessions for the two of you together are in one of those; either partner can still have individual sessions in Punjabi alongside them.`;
 
 /* Further sections for the service pages. */
 export const depthServices: Record<string, DepthSection[]> = {
@@ -201,7 +216,7 @@ export const depthServices: Record<string, DepthSection[]> = {
         '**Context does not have to be built from scratch.** Explaining why a decision that looks straightforward from outside is not straightforward inside a family can take two or three sessions with a counsellor who does not share that context. Those are sessions you have paid for and spent on background rather than on the difficulty itself.',
         '**Code-switching is itself information.** Bilingual clients often move between languages at particular moments: English for the analytical account, Punjabi for the parts with more feeling attached, or the reverse. Where that happens is clinically useful, and it requires a counsellor who can follow both.',
         'A necessary caveat: shared language is not the same as shared experience, and shared background is not the same as knowing your family. Assumptions about what a particular arrangement means, or what a family expects, get checked out loud rather than acted on. The advantage is that the checking starts from a much closer position.',
-        'Sessions run in whichever language suits, including moving between them within a session, and couples work is available in Punjabi as well, which matters when the family conversation being discussed happened in Punjabi.',
+        COUPLES_LANGUAGE_LINE,
       ],
     },
     /* Folded in 1 Oct 2026 from services/south-asian-mental-health, a slug

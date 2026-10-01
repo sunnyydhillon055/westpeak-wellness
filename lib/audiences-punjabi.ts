@@ -1,5 +1,25 @@
 import type { Audience } from './audiences';
 import { fallbackFee } from '@/lib/cliniko-catalog';
+import { withLetters } from '@/lib/practitioners';
+import { counsellorsFor } from '@/lib/city-service-page';
+import { bookingFor, counsellorForLanguage } from '@/lib/booking-cta';
+
+/* WHO RUNS COUPLES WORK, AND IN WHAT LANGUAGE — 1 Oct 2026.
+ *
+ * This page promised couples counselling in Punjabi in its description, its
+ * short answer, its opening and an FAQ, while the one accepting counsellor
+ * who works in Punjabi does not offer couples work (her own profile says so)
+ * and the one who does works in English and Tagalog. The copy below now says
+ * what is true today, read from the roster: couples sessions in English with
+ * the counsellor who offers them, and individual sessions in Punjabi with the
+ * counsellor who works in it. If an accepting Punjabi speaker ever lists
+ * couples-therapy, PUNJABI_COUPLES turns true and the original sentences
+ * return, unchanged. No new Punjabi prose: these are English sentences. */
+const COUPLES = counsellorsFor({ bookingService: 'couples-therapy' });
+const PA = counsellorForLanguage('pa');
+const PUNJABI_COUPLES = COUPLES.some((p) => p.languages.some((l) => l.tag === 'pa'));
+const first = (p: { name: string }) => p.name.split(' ')[0];
+const COUPLES_WHO = COUPLES[0];
 
 /* Punjabi-speaking couples.
  *
@@ -47,19 +67,27 @@ export const punjabiAudiences: Audience[] = [
     title: 'Punjabi-speaking couples counselling in BC',
     metaTitle: 'Punjabi Couples Counselling in BC | Westpeak Wellness',
     metaDescription:
-      'Couples counselling in Punjabi or English, online across BC, for a marriage that involves two families, not just two people.',
+      PUNJABI_COUPLES
+        ? 'Couples counselling in Punjabi or English, online across BC, for a marriage that involves two families, not just two people.'
+        : 'Couples counselling online across BC for a marriage involving two families. Joint sessions run in English; individual sessions in Punjabi are available.',
     eyebrow: 'For · Punjabi-speaking couples',
     lede:
-      'Where the argument can happen in the language the argument happened in, and the in-laws do not have to be explained first.',
+      PUNJABI_COUPLES
+        ? 'Where the argument can happen in the language the argument happened in, and the in-laws do not have to be explained first.'
+        : 'Where the in-laws do not have to be explained first, and a marriage that began through two families is not treated as the problem.',
     shortAnswer:
-      'Couples counselling in Punjabi or English, online across BC, for couples whose marriage involves two families rather than two people. The argument can happen in the language it happened in, in-laws are not treated as the diagnosis, and an arranged marriage is not treated as a problem to be fixed.',
+      PUNJABI_COUPLES || !COUPLES_WHO
+        ? 'Couples counselling in Punjabi or English, online across BC, for couples whose marriage involves two families rather than two people. The argument can happen in the language it happened in, in-laws are not treated as the diagnosis, and an arranged marriage is not treated as a problem to be fixed.'
+        : `Couples counselling online across BC for couples whose marriage involves two families rather than two people. Sessions for the two of you together run in English with ${withLetters(COUPLES_WHO)}${PA ? `; either partner can also have individual sessions in Punjabi with ${withLetters(PA)}` : ''}. In-laws are not treated as the diagnosis, and an arranged marriage is not treated as a problem to be fixed.`,
     updated: '2026-08-30',
     readMinutes: 7,
 
     opening: [
       'Most couples counselling is built around a two-person system: two partners, each with their own needs, negotiating with each other. It is a good model, and for a lot of couples it is the right one.',
       'It is also not what many Punjabi-speaking couples walk in with. The marriage sits inside two families, often inside a shared household, and frequently inside two sets of expectations about what a good husband, wife, son and daughter-in-law owe. Nobody in the room chose that arrangement and it does not go away because a counsellor finds it inconvenient to model.',
-      'This is couples work that starts from there rather than arriving at it in session six. Sessions run in Punjabi, English, or moving between the two, which matters more in couples work than anywhere else, because the fight you are trying to describe already happened in one of them.',
+      PUNJABI_COUPLES || !COUPLES_WHO
+        ? 'This is couples work that starts from there rather than arriving at it in session six. Sessions run in Punjabi, English, or moving between the two, which matters more in couples work than anywhere else, because the fight you are trying to describe already happened in one of them.'
+        : `This is couples work that starts from there rather than arriving at it in session six. Sessions for the two of you together run in English with ${COUPLES_WHO.name}: [book a couples consultation with ${first(COUPLES_WHO)}](${bookingFor('couples-therapy').href}).${PA ? ` Either of you can also have individual sessions in Punjabi with ${PA.name}: [book an individual consultation with ${first(PA)}](${bookingFor('individual-therapy', 'pa').href}).` : ''}`,
     ],
 
     whatComesUp: [
@@ -101,7 +129,9 @@ export const punjabiAudiences: Audience[] = [
         body: [
           'In individual counselling, working in a second language costs precision. In couples counselling it costs something more: the ability to show your partner what you meant.',
           'A couple who argue in Punjabi and then describe it in English are doing simultaneous translation in the middle of a difficult conversation, while upset, in front of a third person. The version that reaches the counsellor is the calm, edited one, and the counsellor then works on the edited version, which is not the marriage.',
-          'Sessions here can move between languages mid-sentence, including one partner speaking mostly Punjabi and the other mostly English, which is a very common pattern and not a problem to be fixed. Nothing has to be tidied up on the way in.',
+          PUNJABI_COUPLES
+            ? 'Sessions here can move between languages mid-sentence, including one partner speaking mostly Punjabi and the other mostly English, which is a very common pattern and not a problem to be fixed. Nothing has to be tidied up on the way in.'
+            : 'Couples sessions here currently run in English, so that cost is worth naming in the first session rather than working around. A partner who would rather think something through in Punjabi first can do that in individual sessions alongside the couples work.',
         ],
       },
       {
@@ -143,7 +173,9 @@ export const punjabiAudiences: Audience[] = [
       {
         href: '/services/couples-therapy',
         label: 'Couples counselling',
-        why: 'Fifty minutes, both partners, in Punjabi or English. The standard format most couples settle into.',
+        why: PUNJABI_COUPLES
+          ? 'Fifty minutes, both partners, in Punjabi or English. The standard format most couples settle into.'
+          : 'Fifty minutes, both partners, in English. The standard format most couples settle into.',
       },
       {
         href: '/services/punjabi-counselling',
@@ -165,7 +197,9 @@ export const punjabiAudiences: Audience[] = [
     faqs: [
       {
         q: 'Can one of us speak mostly Punjabi and the other mostly English?',
-        a: 'Yes, and it is one of the most common patterns. Sessions move between the languages as they need to, including within a single exchange. Neither of you has to work in your weaker language so the other can follow.',
+        a: PUNJABI_COUPLES
+          ? 'Yes, and it is one of the most common patterns. Sessions move between the languages as they need to, including within a single exchange. Neither of you has to work in your weaker language so the other can follow.'
+          : 'Couples sessions currently run in English, so the two of you would work in English together. A partner more at ease in Punjabi can have individual sessions in Punjabi alongside the couples work.',
       },
       {
         q: 'Will we be told to move out or cut off family?',

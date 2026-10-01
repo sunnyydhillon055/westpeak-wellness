@@ -19,7 +19,7 @@ import { COLLECTION_DATES } from '@/lib/page-dates';
 import BookLink from '@/components/BookLink';
 import { readCatalog } from '@/lib/cliniko-catalog';
 import {
-  bookHrefFor, counsellorsFor, feeFor, generatedFaqs,
+  bookHrefFor, cityServiceDescription, cityServiceTitle, counsellorsFor, feeFor, generatedFaqs, languagePhrase,
 } from '@/lib/city-service-page';
 import CounsellorCards from '@/components/CounsellorCards';
 import NextConsultLine from '@/components/NextConsultLine';
@@ -113,7 +113,7 @@ const SERVICE_FIGURE: Record<string, string> = {
 export function generateMetadata({ params }: { params: Params }): Metadata {
   const d = load(params);
   if (!d) return {};
-  const { ctx, svc } = d;
+  const { ctx, svc, pair } = d;
   const path = `/online-counselling/${ctx.slug}/${svc.slug}`;
   /* Title is the query, near enough verbatim, and it has to survive the 60-char
      truncation the audit enforces. The first draft of this read
@@ -132,21 +132,16 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   /* The title keeps the service's own name: "Couples and Marriage Counselling
      in Prince George | Westpeak Wellness" is 66 characters and the SEO gate
      refuses it. The heading and the description carry both words instead. */
-  const withBc = `${svc.name} in ${ctx.city}, BC`;
-  const title = `${withBc} | ${site.name}`.length <= 60 ? withBc : `${svc.name} in ${ctx.city}`;
-  /* Composed to fit rather than truncated to fit. The first version ran the
-     city AND the region into the sentence and then hard-sliced at 158, which
-     cut the longest pairs mid-word — "Free 30-minute con". Longest pair here
-     is 155 characters, so nothing is cut at all. */
-  const description =
-    `${seoName(svc)} for ${ctx.city}, by secure video across BC with a Registered ` +
-    `Clinical Counsellor. English, Punjabi or Tagalog. Free 30-minute consultation.`;
-  /* Guard only. If a longer service or city name is ever added, trim on a word
-     boundary rather than mid-word. */
-  const desc =
-    description.length <= 158
-      ? description
-      : description.slice(0, description.lastIndexOf(' ', 155));
+  /* `titleName` is the pair's own, where Search Console shows the page is
+     found by another name: "Marriage Counselling" for Abbotsford and Prince
+     George couples (lib/city-services.ts holds the numbers). 1 Oct 2026. */
+  const title = cityServiceTitle(pair.titleName ?? svc.name, ctx.city, site.name);
+  /* Composed from whole sentences, and the languages are the roster's for
+     this service (lib/city-service-page.ts), 1 Oct 2026. It said "English,
+     Punjabi or Tagalog" on the couples and EMDR pages, where nobody offering
+     the work speaks Punjabi, and the old guard sliced at a space, so the
+     Abbotsford couples result ended on the word "Free". */
+  const desc = cityServiceDescription({ name: seoName(svc), city: ctx.city, counsellors: counsellorsFor(svc) });
   return {
     title: { absolute: `${title} | ${site.name}` },
     description: desc,
@@ -496,7 +491,7 @@ export default async function CityServicePage({ params }: { params: Params }) {
       <CtaBand
         bookHref={bookHref}
         heading={`${seoName(svc)} in ${ctx.city}, without the travel`}
-        text="A free 30-minute video call, in English, Punjabi or Tagalog. No charge, no card, and no obligation to book anything afterwards."
+        text={`A free 30-minute video call, in ${languagePhrase(counsellors)}. No charge, no card, and no obligation to book anything afterwards.`}
       />
     </>
   );
