@@ -7,6 +7,11 @@
 #
 # The 150s sleep is deliberate slack for the Vercel build: pinging IndexNow
 # with URLs the deployment hasn't served yet would submit a stale sitemap.
+#
+# Until 1 Oct 2026 this POST met a route that exported only GET, so the ping
+# never submitted anything; the route now answers POST with the same handler.
+# It sends only what changed since the last successful submission, plus the
+# retired URLs in lib/redirects.mjs - see lib/indexnow.ts.
 name: indexnow-on-deploy
 on:
   push:
