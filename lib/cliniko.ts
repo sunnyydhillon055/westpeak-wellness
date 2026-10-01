@@ -227,3 +227,51 @@ export async function writeReminderPrefs(
     return { status: 'error', detail: e instanceof Error ? e.message : 'request failed' };
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Every page of a list, not the first one.
+
+   Cliniko caps per_page at 100 and links the rest through `links.next`. Until
+   1 Oct 2026 only the revenue report followed it; the funnel report and the
+   booking mail read one page, and with the booking mail's descending sort the
+   oldest appointments, the ones due a follow-up, were the first to fall off
+   once a window passed a hundred. One paginator here, so every reader stops
+   at the same place and says so in the same way.
+
+   Bounded so a malformed cursor can never spin a function until it is killed,
+   and `truncated` is true when the bound was the reason it stopped, so a
+   reader can print that the count is a floor rather than present it as whole.
+   --------------------------------------------------------------------------- */
+
+export type ListAll = {
+  rows: Record<string, unknown>[];
+  /** Stopped at maxPages with a next page still linked. */
+  truncated: boolean;
+  pages: number;
+  error?: string;
+};
+
+export async function listAll(
+  first: string, key: string, collection: string, maxPages = 10
+): Promise<ListAll> {
+  const rows: Record<string, unknown>[] = [];
+  let url: string | undefined = first;
+  let pages = 0;
+
+  while (url && pages < maxPages) {
+    const res: Response = await fetch(url, { headers: headers(key), cache: 'no-store' });
+    if (!res.ok) {
+      return {
+        rows, truncated: false, pages,
+        error: `HTTP ${res.status} on ${collection}${res.status === 422 ? `: ${(await res.text()).slice(0, 160)}` : ''}`,
+      };
+    }
+    const body = (await res.json()) as Record<string, unknown> & { links?: { next?: string } };
+    const page = body[collection];
+    if (Array.isArray(page)) rows.push(...(page as Record<string, unknown>[]));
+    pages++;
+    const next = body.links?.next;
+    url = typeof next === 'string' && next && next !== url ? next : undefined;
+  }
+  return { rows, truncated: Boolean(url), pages };
+}

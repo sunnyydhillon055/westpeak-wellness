@@ -1,4 +1,4 @@
-import { api, headers } from '@/lib/cliniko';
+import { api, listAll } from '@/lib/cliniko';
 
 /* Monthly revenue, per practitioner, read from Cliniko.
  *
@@ -131,25 +131,18 @@ export const money = (c: number): string =>
     minimumFractionDigits: 2, maximumFractionDigits: 2,
   });
 
-/** Follow `links.next` to the end. Cliniko caps per_page at 100. Bounded so a
- *  malformed cursor can never spin the function until it is killed. */
+/** Follow `links.next` to the end, through the shared paginator in
+ *  lib/cliniko.ts (moved there 1 Oct 2026 so the funnel report and the
+ *  booking mail page the same way). Forty pages is 4,000 invoices, years of
+ *  this practice. A truncated read is an error here rather than a quiet
+ *  floor: a revenue figure that silently omits invoices is worse than none. */
 async function paginate(
   first: string, key: string, collection: string, max = 40
 ): Promise<{ rows: Record<string, unknown>[]; error?: string }> {
-  const rows: Record<string, unknown>[] = [];
-  let url: string | undefined = first;
-
-  for (let i = 0; url && i < max; i++) {
-    const res: Response = await fetch(url, { headers: headers(key), cache: 'no-store' });
-    if (!res.ok) {
-      return { rows, error: `HTTP ${res.status} on ${collection}${res.status === 422 ? `: ${(await res.text()).slice(0, 160)}` : ''}` };
-    }
-    const body = (await res.json()) as Record<string, unknown> & { links?: { next?: string } };
-    const page = body[collection];
-    if (Array.isArray(page)) rows.push(...(page as Record<string, unknown>[]));
-    url = body.links?.next;
-  }
-  return { rows };
+  const r = await listAll(first, key, collection, max);
+  if (r.error) return { rows: r.rows, error: r.error };
+  if (r.truncated) return { rows: r.rows, error: `more than ${max} pages of ${collection}; the read stopped before the end` };
+  return { rows: r.rows };
 }
 
 export type PractitionerLine = {
