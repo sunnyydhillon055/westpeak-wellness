@@ -3,6 +3,12 @@ import Link from 'next/link';
 import { site } from '@/lib/site';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
+import MeasuredReply from '@/components/MeasuredReply';
+
+/* Rebuilt hourly so the measured reply time (components/MeasuredReply.tsx)
+   follows the store. Until five replies are measured it renders nothing and
+   the page is byte-for-byte what it was. 1 Oct 2026. */
+export const revalidate = 3600;
 
 /* The confirmation for the sitewide "ask instead" form.
  *
@@ -64,6 +70,7 @@ export default function MessageSentPage() {
                 <strong>A reply within one business day</strong>, written by your counsellor
                 rather than an assistant or an automated system. This is a solo practice, so the
                 person who reads your message is the person you would be working with.
+                <MeasuredReply />
               </li>
               <li>
                 <strong>A copy is in your inbox</strong>, so you have a record of what you sent.

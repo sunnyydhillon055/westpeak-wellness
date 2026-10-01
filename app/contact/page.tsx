@@ -32,14 +32,11 @@ export default async function Contact({
    * page keeps the plain promise rather than failing. */
   let replyLine = 'Replies within one business day';
   try {
+    /* Real enquiries only, one definition for every page: lib/reply-line.ts
+       (1 Oct 2026). */
     const { readInbound } = await import('@/lib/inbound');
-    const { replyTimeStats } = await import('@/lib/reply-templates');
-    const stats = replyTimeStats((await readInbound()).items);
-    if (stats.ready) {
-      replyLine = `Replies within one business day, median so far: ${
-        stats.medianHours < 24 ? `${stats.medianHours} hours` : 'one business day'
-      }, measured across ${stats.sample} messages`;
-    }
+    const { measuredReply, contactReplyLine } = await import('@/lib/reply-line');
+    replyLine = contactReplyLine(measuredReply((await readInbound()).items));
   } catch {
     /* store unreachable — the unmeasured promise stands */
   }

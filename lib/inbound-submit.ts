@@ -1,10 +1,11 @@
 import { NextResponse } from 'next/server';
-import { addInbound, readInbound, annotateTriage, type InboundKind } from '@/lib/inbound';
+import { addInbound, readInbound, annotateTriage, markAcked, type InboundKind } from '@/lib/inbound';
+import { unsubLink } from '@/lib/nurture';
 import { triage, hasMailExchanger, withMx } from '@/lib/triage';
 import { sendDetailed } from '@/lib/portal-mail';
 import { checklistEmail, icbcEmail, startingEmail, enquiryAck, practiceAlert } from '@/lib/inbound-mail';
 import { site } from '@/lib/site';
-import { practitioners } from '@/lib/practitioners';
+import { practitioners, withLetters } from '@/lib/practitioners';
 import { clientKey, rateCheck } from '@/lib/rate-limit';
 import { routeInbound } from '@/lib/inbound-routing';
 import { hasEnoughDetail } from '@/lib/sentences';
@@ -209,12 +210,36 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
   /* Everything below this line is best-effort. The person is already saved. */
   const firstName = name.split(/\s+/)[0] ?? '';
 
+  /* Who the alert goes to — see lib/inbound-routing.ts. A lead alert goes to
+     info@ alone since 1 Oct 2026: nobody replies to a one-pager request, and
+     two counsellors were each being sent every script that asked for one. */
+  const route = o.kind === 'lead'
+    ? { to: [site.email], cc: [] as string[], practitioners: [] as string[] }
+    : routeInbound(item);
+
+  /* Routed to exactly one counsellor: the acknowledgement names her, links
+     her own calendar, and a reply reaches her and info@ (1 Oct 2026). */
+  const only = route.practitioners.length === 1
+    ? practitioners.find((p) => p.slug === route.practitioners[0])
+    : undefined;
+  const by = only
+    ? {
+        who: withLetters(only),
+        bookHref: only.bookable
+          ? `${site.domain}${site.bookingPath}?with=${only.slug}#calendar`
+          : `${site.domain}${site.bookingPath}`,
+      }
+    : undefined;
+  const ackReplyTo = only?.alertEmail ? [only.alertEmail, site.email] : site.email;
+
+  /* The one-click stop for emails 2 and 3 travels in email 1 (lib/nurture.ts). */
+  const leadOpts = { unsub: unsubLink(email) };
   const ack =
     o.kind === 'lead'
-      ? (magnet === 'icbc-after-a-crash' ? icbcEmail(firstName)
-        : magnet === 'starting-counselling' ? startingEmail(firstName)
-        : checklistEmail(firstName))
-    : enquiryAck(firstName);
+      ? (magnet === 'icbc-after-a-crash' ? icbcEmail(firstName, leadOpts)
+        : magnet === 'starting-counselling' ? startingEmail(firstName, leadOpts)
+        : checklistEmail(firstName, leadOpts))
+    : enquiryAck(firstName, by);
 
   /* Can this address receive mail at all? A network call, so it happens here.
      after the store, and fails open: a DNS timeout means "unknown", never
@@ -222,21 +247,30 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
      acknowledgement and never the practice alert. */
   const mx = await hasMailExchanger(email);
   const finalVerdict = withMx(verdict, mx);
+  const annotating: Promise<unknown> = finalVerdict === verdict
+    ? Promise.resolve()
+    : annotateTriage(item.id, finalVerdict).catch(() => false);
 
   await Promise.allSettled([
     /* No mail exchanger means the acknowledgement can only bounce. The person
        still reached the practice; they just cannot be written back to at this
        address, which is what the alert now says. */
-    mx === false
-      ? Promise.resolve()
-      : sendDetailed(email, ack.subject, ack.text, ack.html, { replyTo: site.email }),
-    finalVerdict === verdict ? Promise.resolve() : annotateTriage(item.id, finalVerdict),
+    (async () => {
+      if (mx === false) return;
+      const sent = await sendDetailed(email, ack.subject, ack.text, ack.html, { replyTo: ackReplyTo });
+      /* Recorded only once the provider accepted it: lib/nurture.ts follows
+         only leads whose email 1 actually went (1 Oct 2026). Written after
+         the triage annotation so the two writes do not race each other. */
+      if (sent.ok && o.kind === 'lead') {
+        await annotating;
+        await markAcked(item.id);
+      }
+    })(),
+    annotating,
     (async () => {
       const alert = practiceAlert({ ...item, triage: finalVerdict });
-      /* Routed to the counsellor it is for, info@ in copy — see
-       * lib/inbound-routing.ts. Reply-to is the person who wrote in, so
-       * whoever picks it up answers by hitting reply. */
-      const route = routeInbound(item);
+      /* Reply-to is the person who wrote in, so whoever picks it up answers
+       * by hitting reply. */
       return sendDetailed(route.to, alert.subject, alert.text, alert.html, { replyTo: email, cc: route.cc });
     })(),
   ]);

@@ -9,7 +9,10 @@ import { readClients } from '@/lib/clients';
 import { listPasswordAccounts } from '@/lib/portal-users';
 import { clinikoConfigured } from '@/lib/cliniko';
 import { recentInbound, markHandled, deleteInbound, readInbound } from '@/lib/inbound';
-import { isTestSubmission, awaitsHumanReply } from '@/lib/inbound-quality';
+import { isTestSubmission, awaitsHumanReply, isRealSubmission } from '@/lib/inbound-quality';
+import ConfirmAnswered from '@/components/admin/ConfirmAnswered';
+import BotCount from '@/components/admin/BotCount';
+import { replyContextFor } from '@/lib/reply-context';
 import { recordAudit, recentAudit } from '@/lib/admin-audit';
 import { readCatalog } from '@/lib/cliniko-catalog';
 import { topSearchTerms, readSearchTerms, searchGaps } from '@/lib/search-log';
@@ -86,6 +89,7 @@ export default async function AdminPage({
     noemail?: string; why?: string;
     sort?: string; dir?: string; digest?: string; indexnow?: string;
     funnel?: string;
+    answered?: string; t?: string;
   };
 }) {
   const session = await auth();
@@ -104,7 +108,9 @@ export default async function AdminPage({
      rest were this project's own probes and newsletter scripts. See
      lib/inbound-quality.ts. */
   const waiting = inbox.filter((i) => !i.handled && awaitsHumanReply(i)).length;
-  const monthlyOptIns = inbox.filter((i) => i.monthlyOptIn).length;
+  /* Real submissions only (1 Oct 2026): monthlyOptIn was true on 68 of 69
+     stored leads, nearly all of them honeypot-tripped scripts. */
+  const monthlyOptIns = inbox.filter((i) => i.monthlyOptIn && isRealSubmission(i)).length;
   const searches = await topSearchTerms(30);
   const gaps = await searchGaps();
   const totals = await eventTotals();
@@ -448,6 +454,10 @@ export default async function AdminPage({
         {/* Shown so the list is visible before anybody builds a monthly send.
             A monthly email to four people is not a channel, and starting one
             and stopping is worse than never starting. */}
+        {/* The alert's "mark answered" link lands here, and the bot count sits
+            beside the figures it was taken out of. 1 Oct 2026. */}
+        <ConfirmAnswered id={searchParams?.answered} token={searchParams?.t} />
+        <BotCount />
         {monthlyOptIns > 0 && (
           <p style={{ color: 'var(--ink-soft)', maxWidth: '40.38em' }}>
             <strong>{monthlyOptIns}</strong> {monthlyOptIns === 1 ? 'person has' : 'people have'}{' '}
@@ -549,7 +559,7 @@ export default async function AdminPage({
                             {REPLY_TEMPLATES.map((t, n) => (
                               <span key={t.key}>
                                 {n > 0 && ' · '}
-                                <a href={mailtoFor(i, t.key)} title={t.when}>
+                                <a href={mailtoFor(i, t.key, replyContextFor(i, catalog))} title={t.when}>
                                   {t.label.split(' —')[0].split(' -')[0]}
                                 </a>
                               </span>

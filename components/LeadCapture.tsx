@@ -16,21 +16,21 @@ import FormStamp from '@/components/FormStamp';
 const MAGNETS = {
   'coverage-checklist': {
     title: 'Want the one-page checklist version?',
-    note: 'The questions to ask your insurer, on a single page. No newsletter, no sequence. This is a one-off, and the guide above is complete without it.',
+    note: 'The questions to ask your insurer, on a single page. No sequence of sales emails: two more short ones over the next fortnight, then nothing. The guide above is complete without it.',
     button: 'Send it',
     doneBody:
       'The full guide is on this page already, so there is nothing to wait for. If you would like to talk any of it through, a free 30-minute consultation is the next step and carries no obligation.',
   },
   'icbc-after-a-crash': {
     title: 'Injured in a crash? You may already have twelve funded sessions.',
-    note: 'ICBC pre-approves twelve counselling sessions with a Registered Clinical Counsellor in the first twelve weeks, with no doctor’s note needed to start. Most people never use it because nobody tells them. The one-pager explains how to claim it, with any counsellor, including ones that are not this practice.',
+    note: 'ICBC pre-approves twelve counselling sessions with a Registered Clinical Counsellor in the first twelve weeks, with no doctor’s note needed to start. Most people never use it because nobody tells them. The one-pager explains how to claim it, with any counsellor, including ones that are not this practice. Two more short emails follow over the next fortnight, then nothing.',
     button: 'Send me the one-pager',
     doneBody:
       'It is on its way. It explains how to use the entitlement with any registered counsellor. This practice is not currently an ICBC vendor, and the one-pager says so.',
   },
   'starting-counselling': {
     title: 'Want the one-page "how to start" version?',
-    note: 'Seven steps from first thought to first session: coverage, registers, consultations, and what a first session actually involves. It applies with any counsellor, not just this practice. One email, no sequence, and this page is complete without it.',
+    note: 'Seven steps from first thought to first session: coverage, registers, consultations, and what a first session actually involves. It applies with any counsellor, not just this practice. Two more short emails follow over the next fortnight, then nothing, and this page is complete without it.',
     button: 'Send it',
     doneBody:
       'It is on its way: seven steps, one page, usable with any counsellor. If you would rather talk it through, a free 30-minute consultation is the next step and carries no obligation.',
@@ -118,8 +118,11 @@ export default function LeadCapture({
       </label>
 
       <p className="lead-form-note">
-        Your address is used to send this once. It is not shared, and it does not create a
-        client record.
+        {/* The same promise as NURTURE_SEQUENCE.md and email 1 (1 Oct 2026):
+            this said "once" while lib/nurture.ts sent two more. */}
+        Your address is used to send this and two more short emails over the next fortnight,
+        then nothing. Each one has a one-click unsubscribe. It is not shared, and it does not
+        create a client record.
       </p>
     </form>
   );

@@ -9,6 +9,7 @@ import SchedulerEmbed from '@/components/SchedulerEmbed';
 import BookDirectLink from '@/components/BookDirectLink';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import InboundForm from '@/components/InboundForm';
+import MeasuredReply from '@/components/MeasuredReply';
 import { ogBase } from '@/lib/og-meta';
 import { practitioners, getPractitioner, defaultBookingPractitioner, withLetters } from '@/lib/practitioners';
 import { PROVINCE_NAME, type Province } from '@/lib/crisis';
@@ -554,6 +555,7 @@ export default async function Book({
                 <p style={{ margin: '0 0 12px' }}>
                   Say when you are usually free and {who ? who.name.split(' ')[0] : 'the counsellor you choose'} will
                   reply within one business day with a time that is not on the calendar yet.
+                  <MeasuredReply />
                 </p>
                 <InboundForm
                   kind="enquiry"

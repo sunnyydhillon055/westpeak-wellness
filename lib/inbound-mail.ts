@@ -2,6 +2,52 @@ import { site } from '@/lib/site';
 import { shell, btn, p, a, esc, wrap, links } from '@/lib/booking-mail';
 import type { Inbound } from '@/lib/inbound';
 import { LOOKING, WHERE, TIMING, labelOf } from '@/lib/enquiry-fields';
+import { rosterLines, rosterText, rosterHtml, type RosterLine } from '@/lib/lead-roster';
+import { magnetWords, SEQUENCE_PROMISE } from '@/lib/nurture-plan';
+import { answeredLink } from '@/lib/answered-link';
+
+/* WHAT EVERY EMAIL 1 NOW ENDS WITH — 1 Oct 2026.
+ *
+ * All three said "a one-off, not a sequence, and there is nothing else
+ * coming", and lib/nurture.ts then sent two more. Under CASL the consent is to
+ * what the person was told, so the words now match NURTURE_SEQUENCE.md and the
+ * unsubscribe that stops the other two is in the first email, not only in
+ * them. The bare /book button became the two counsellors by name, each
+ * linking her own calendar (lib/lead-roster.ts).
+ *
+ * `unsub` is passed in by the caller (lib/inbound-submit.ts) rather than
+ * imported from lib/nurture.ts, which imports this file's neighbours and
+ * would make a cycle. */
+export type LeadMailOptions = {
+  /** One-click unsubscribe for the two emails that follow. */
+  unsub?: string;
+  /** Who to offer. Defaults to the accepting, bookable roster. */
+  roster?: RosterLine[];
+};
+
+const leadEndingText = (o: LeadMailOptions) => {
+  const roster = o.roster ?? rosterLines();
+  return [
+    `That is everything you asked for. ${SEQUENCE_PROMISE}`,
+    ...(o.unsub ? [`Not wanted? One click stops them: ${o.unsub}`] : []),
+    '',
+    roster.length
+      ? `If you would like to talk any of it through, a free 30-minute\nconsultation carries no obligation. Each counsellor's own calendar:\n\n${rosterText(roster)}`
+      : `If you would like to talk any of it through, a free 30-minute\nconsultation carries no obligation:\n${links.book}`,
+  ].join('\n');
+};
+
+const leadEndingHtml = (o: LeadMailOptions) => {
+  const roster = o.roster ?? rosterLines();
+  return (
+    p(`That is everything you asked for. ${esc(SEQUENCE_PROMISE)}` +
+      (o.unsub ? ` <span style="color:#545e69;font-size:14px;">Not wanted? ${a(o.unsub, 'One click stops them')}.</span>` : '')) +
+    (roster.length
+      ? p('If you would like to talk any of it through, a free 30-minute consultation carries no obligation. Each counsellor&rsquo;s own calendar:') + rosterHtml(roster)
+      : btn(links.book, 'Book a free 30-minute consultation')) +
+    p('<span style="color:#545e69;font-size:14px;">No obligation, and deciding not to book is a completely normal outcome.</span>')
+  );
+};
 
 /* Mail for the three inbound paths: the checklist someone asked for, the
  * acknowledgement of a message, and the alert to the practice.
@@ -51,11 +97,11 @@ const CHECKLIST: { q: string; why: string }[] = [
   },
   {
     q: 'Do I have a health spending account, and can it be used for counselling?',
-    why: 'The most commonly missed source of coverage. An HSA usually covers counselling even when the core plan does not list RCCs.',
+    why: 'The most commonly missed source. Whether an HSA can be used for counselling with an RCC is set by how your plan is written, including when the core plan does not list RCCs, so ask rather than assume.',
   },
   {
     q: 'Do you accept direct billing for RCCs, or do I pay and submit?',
-    why: 'Direct billing is uncommon for RCCs in BC. Expect to pay and submit a receipt.',
+    why: 'This practice does not direct-bill: you pay when you book and submit the receipt, which carries the registration number your plan asks for.',
   },
   {
     q: 'What does a receipt need to show for the claim to go through?',
@@ -63,7 +109,7 @@ const CHECKLIST: { q: string; why: string }[] = [
   },
 ];
 
-export function checklistEmail(firstName: string) {
+export function checklistEmail(firstName: string, o: LeadMailOptions = {}) {
   const hi = firstName ? `Hi ${firstName},` : 'Hi,';
 
   const text = wrap(
@@ -81,12 +127,7 @@ ${CHECKLIST.map((c, i) => `${i + 1}. ${c.q}\n   ${c.why}`).join('\n\n')}
 The longer version, with the insurer-by-insurer table, is here:
 ${links.coverage}
 
-That is everything. This is a one-off, not a sequence, and there is
-nothing else coming.
-
-If you would like to talk any of it through, a free 30-minute
-consultation carries no obligation:
-${links.book}
+${leadEndingText(o)}
 
 ${site.name}
 Online counselling across British Columbia
@@ -103,9 +144,7 @@ ${site.domain}`);
     ).join('') +
     `</ol>` +
     p(`The longer version, with the insurer-by-insurer table, is ${a(links.coverage, 'on the site')}.`) +
-    p('That is everything. This is a one-off, not a sequence, and there is nothing else coming.') +
-    btn(links.book, 'Book a free 30-minute consultation') +
-    p('<span style="color:#545e69;font-size:14px;">No obligation, and deciding not to book is a completely normal outcome.</span>')
+    leadEndingHtml(o)
   );
 
   return { subject: 'Your coverage checklist', text, html };
@@ -159,7 +198,7 @@ const ICBC_STEPS: { q: string; why: string }[] = [
   },
 ];
 
-export function icbcEmail(firstName: string) {
+export function icbcEmail(firstName: string, o: LeadMailOptions = {}) {
   const hi = firstName ? `Hi ${firstName},` : 'Hi,';
 
   const text = wrap(
@@ -180,8 +219,11 @@ It is yours either way.
 
 ${ICBC_STEPS.map((c, i) => `${i + 1}. ${c.q}\n   ${c.why}`).join('\n\n')}
 
-That is everything \u2014 this is a one-off, not a sequence, and there is
-nothing else coming.`
+${leadEndingText(o)}
+
+${site.name}
+Online counselling across British Columbia
+${site.domain}`
   );
 
   const html = shell(
@@ -196,9 +238,7 @@ nothing else coming.`
        <span style="color:#545e69;font-size:14px;">${esc(c.why)}</span></li>`
     ).join('') +
     `</ol>` +
-    p('That is everything \u2014 this is a one-off, not a sequence, and there is nothing else coming.') +
-    btn(links.book, 'Book a free 30-minute consultation') +
-    p('<span style="color:#545e69;font-size:14px;">No obligation, and deciding not to book is a completely normal outcome.</span>')
+    leadEndingHtml(o)
   );
 
   return { subject: 'The ICBC counselling entitlement', text, html };
@@ -242,7 +282,7 @@ const STARTING: { q: string; why: string }[] = [
   },
 ];
 
-export function startingEmail(firstName: string) {
+export function startingEmail(firstName: string, o: LeadMailOptions = {}) {
   const hi = firstName ? `Hi ${firstName},` : 'Hi,';
 
   const text = wrap(
@@ -257,12 +297,7 @@ ${STARTING.map((c, i) => `${i + 1}. ${c.q}\n   ${c.why}`).join('\n\n')}
 Current fees and how reimbursement works are here:
 ${site.domain}/pricing
 
-That is everything. This is a one-off, not a sequence, and there is
-nothing else coming.
-
-If you would like to talk any of it through, a free 30-minute
-consultation carries no obligation:
-${links.book}
+${leadEndingText(o)}
 
 ${site.name}
 Online counselling across British Columbia
@@ -279,9 +314,7 @@ ${site.domain}`);
     ).join('') +
     `</ol>` +
     p(`Current fees and how reimbursement works are ${a(`${site.domain}/pricing`, 'on the fees page')}.`) +
-    p('That is everything. This is a one-off, not a sequence, and there is nothing else coming.') +
-    btn(links.book, 'Book a free 30-minute consultation') +
-    p('<span style="color:#545e69;font-size:14px;">No obligation, and deciding not to book is a completely normal outcome.</span>')
+    leadEndingHtml(o)
   );
 
   return { subject: 'Starting counselling in BC, the one-pager', text, html };
@@ -289,14 +322,27 @@ ${site.domain}`);
 
 /* ---- acknowledgement of a message ---------------------------------------- */
 
-export function enquiryAck(firstName: string) {
+/* WHO WILL REPLY — 1 Oct 2026.
+ * When lib/inbound-routing.ts sends an enquiry to exactly one counsellor, the
+ * acknowledgement says so by name and links her own calendar; the caller
+ * also sets reply-to to her and info@. Routed to more than one, it keeps the
+ * practice-wide wording, because naming one would be a guess. */
+export type AckCounsellor = { who: string; bookHref: string };
+
+export function enquiryAck(firstName: string, by?: AckCounsellor) {
   const hi = firstName ? `Hi ${firstName},` : 'Hi,';
+  const book = by?.bookHref ?? links.book;
+  const replyText = by
+    ? `Thank you for writing. Your message has reached the practice and\n${by.who}, will reply within one business day.`
+    : 'Thank you for writing. Your message has reached the practice and you\nwill have a reply within one business day.';
+  const replyHtml = by
+    ? `Thank you for writing. Your message has reached the practice and <strong>${esc(by.who)}</strong>, will reply <strong>within one business day</strong>. Nothing further is needed from you in the meantime.`
+    : 'Thank you for writing. Your message has reached the practice and you will have a reply <strong>within one business day</strong>. Nothing further is needed from you in the meantime.';
 
   const text = wrap(
 `${hi}
 
-Thank you for writing. Your message has reached the practice and you
-will have a reply within one business day.
+${replyText}
 
 Nothing further is needed from you in the meantime.
 
@@ -311,7 +357,7 @@ come next:
 
 If you would rather just pick a time, the free 30-minute consultation
 is here and carries no obligation:
-${links.book}
+${book}
 
 If you are in immediate danger call 911. For urgent mental-health
 support in BC, call or text 9-8-8 at any hour.
@@ -322,9 +368,9 @@ Online counselling across British Columbia`);
   const html = shell(
     'Your message has arrived',
     p(esc(hi)) +
-    p('Thank you for writing. Your message has reached the practice and you will have a reply <strong>within one business day</strong>. Nothing further is needed from you in the meantime.') +
+    p(replyHtml) +
     p(`Two things that usually come up next: ${a(links.pricing, 'what sessions cost and how extended health works')}, and ${a(links.standards, 'how this practice works')}.`) +
-    btn(links.book, 'Or pick a time for a free consultation') +
+    btn(book, 'Or pick a time for a free consultation') +
     p('<span style="color:#545e69;font-size:14px;">If you are in immediate danger call 911. For urgent mental-health support in BC, call or text <strong>9-8-8</strong> at any hour.</span>')
   );
 
@@ -333,16 +379,20 @@ Online counselling across British Columbia`);
 
 /* ---- the alert to the practice ------------------------------------------- */
 
-const KIND_LABEL: Record<Inbound['kind'], string> = {
-  enquiry: 'New enquiry',
-  lead: 'Coverage checklist requested',
-};
+/* A lead alert names the one-pager asked for (1 Oct 2026): every one used to
+   say "Coverage checklist requested", which was wrong for 39 of 60 September
+   leads. */
+const labelFor = (item: Pick<Inbound, 'kind' | 'magnet'>) =>
+  item.kind === 'enquiry' ? 'New enquiry' : magnetWords(item.magnet).alert;
 
 export function practiceAlert(item: Inbound) {
+  /* Enquiries only: nobody replies to a one-pager request. Null when links
+     cannot be signed (no PORTAL_SECRET), and then nothing is printed. */
+  const answered = item.kind === 'enquiry' ? answeredLink(item.id) : null;
   /* The only place a person's own words are reproduced. This goes to the
    * practice inbox and nowhere else. */
   const lines = [
-    `${KIND_LABEL[item.kind]}`,
+    `${labelFor(item)}`,
     '',
     `Name:   ${item.name || '(not given)'}`,
     `Email:  ${item.email}`,
@@ -360,10 +410,11 @@ export function practiceAlert(item: Inbound) {
     '',
     ...(item.message ? ['Message:', '', item.message, ''] : []),
     `Reply directly to this email to answer them.`,
+    ...(answered ? ['', 'Once you have replied, mark it answered so the reply time is measured:', answered] : []),
   ];
 
   const html = shell(
-    KIND_LABEL[item.kind],
+    labelFor(item),
     `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 18px;font-size:14px;line-height:1.7;">
       <tr><td style="color:#545e69;padding-right:14px;">Name</td><td>${esc(item.name || '(not given)')}</td></tr>
       <tr><td style="color:#545e69;padding-right:14px;">Email</td><td><a href="mailto:${esc(item.email)}" style="color:#3d6c92;">${esc(item.email)}</a></td></tr>
@@ -378,7 +429,10 @@ export function practiceAlert(item: Inbound) {
     (item.message
       ? `<div style="background:#f7f2e8;border-radius:8px;padding:16px 18px;margin:0 0 18px;font-size:15px;line-height:1.65;white-space:pre-wrap;">${esc(item.message)}</div>`
       : '') +
-    p('<span style="color:#545e69;font-size:14px;">Reply directly to this email to answer them.</span>'),
+    p('<span style="color:#545e69;font-size:14px;">Reply directly to this email to answer them.</span>') +
+    (answered
+      ? p(`<span style="color:#545e69;font-size:14px;">Once you have replied, ${a(answered, 'mark it answered')} so the reply time is measured. The link opens /admin and nothing is recorded until you press the button there.</span>`)
+      : ''),
     /* The inbox preview line, and it obeys the same rule as the subject above:
        no name, no message, no service. A preheader is displayed in exactly the
        list a subject is, so anything unsafe for one is unsafe for the other.
@@ -392,7 +446,9 @@ export function practiceAlert(item: Inbound) {
   return {
     /* No name, no message, no service in the subject — a practice inbox is
      * still an inbox and may be read on a phone in public. */
-    subject: `${KIND_LABEL[item.kind]}: Westpeak Wellness`,
+    /* Which one-pager goes in the body only: "ICBC" in a subject says
+       somebody was in a crash. */
+    subject: `${item.kind === 'enquiry' ? 'New enquiry' : 'One-pager requested'}: Westpeak Wellness`,
     text: wrap(lines.join('\n')),
     html,
   };

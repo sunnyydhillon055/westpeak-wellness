@@ -30,11 +30,29 @@ export type ReplyTemplate = {
   /** One line, for the admin picker — when to reach for this one. */
   when: string;
   subject: string;
-  body: (i: Inbound) => string;
+  body: (i: Inbound, c?: ReplyContext) => string;
+};
+
+/* What a draft knows beyond the enquiry itself — 1 Oct 2026. Built in
+   lib/reply-context.ts from the routing the alert used and the catalogue;
+   every field is optional so a draft without it reads as it always did. */
+export type ReplyContext = {
+  /** The one counsellor the enquiry was routed to, when it was one. */
+  slug?: string;
+  /** "Camille Granda, RCC, CCC". Absent leaves the draft unsigned. */
+  signer?: string;
+  /** Her own calendar, or the practice-wide /book. */
+  link: string;
+  /** Fee, card at booking, coverage set by the plan; from the catalogue. */
+  feeLine?: string;
+  /** Another accepting counsellor here who fits what they asked for. */
+  other?: { who: string; link: string };
 };
 
 const firstName = (i: Inbound) => (i.name || '').trim().split(/\s+/)[0] || '';
 const greeting = (i: Inbound) => (firstName(i) ? `Hi ${firstName(i)},` : 'Hi,');
+const signOff = (c?: ReplyContext) =>
+  c?.signer ? `${c.signer}\nRegistered Clinical Counsellor, ${site.name}\n` : '';
 
 export const REPLY_TEMPLATES: ReplyTemplate[] = [
   {
@@ -42,7 +60,7 @@ export const REPLY_TEMPLATES: ReplyTemplate[] = [
     label: 'Yes, here is how to book',
     when: 'It sounds like a fit and they are ready.',
     subject: 'Re: your message',
-    body: (i) => `${greeting(i)}
+    body: (i, c) => `${greeting(i)}
 
 Thank you for writing, and for saying as much as you did.
 
@@ -51,16 +69,16 @@ a conversation rather than an assessment: you say what is going on in your own
 words, ask whatever you want to ask, and we work out together whether this is
 the right fit. Nothing is diagnosed and nothing is decided on the call.
 
-You can pick a time here:
-${site.domain}${site.bookingPath}
+You can pick a time here${c?.signer ? ', and the calendar shows real open times' : ''}:
+${c?.link ?? `${site.domain}${site.bookingPath}`}
 
 If none of those times work, tell me roughly when you are free and I will let
 you know when something opens up.
-
+${c?.feeLine ? `\n${c.feeLine}\n` : ''}
 And if you read this and change your mind, that is completely fine. You do not
 need to reply to say so.
 
-`,
+${signOff(c)}`,
   },
   {
     key: 'not-a-fit',
@@ -124,7 +142,7 @@ me, and it is available right now in a way a scheduled appointment is not.
     label: 'I am full right now',
     when: 'No capacity right now, but it would otherwise be a fit.',
     subject: 'Re: your message',
-    body: (i) => `${greeting(i)}
+    body: (i, c) => `${greeting(i)}
 
 Thank you for writing.
 
@@ -135,7 +153,12 @@ picture: roughly when you expect one, if you know. ]
 If you would like, tell me roughly when you are free during a week and I will
 write to you directly if something opens that fits. There is no obligation
 attached to that.
-
+${c?.other ? `
+If you would rather not wait, ${c.other.who}, also works in this practice
+and takes the kind of work you described. A free 30-minute consultation with
+her is booked here, and the calendar shows real open times:
+${c.other.link}
+` : ''}
 If waiting is not workable, and for a lot of people it is not, these are
 genuinely good places to look now:
   ${site.domain}/resources/low-cost-counselling-bc
@@ -143,7 +166,7 @@ genuinely good places to look now:
 
 Either way, thank you for asking. Doing that is usually the hardest part.
 
-`,
+${signOff(c)}`,
   },
 ];
 
@@ -159,10 +182,10 @@ export function mailtoDraft(to: string, subject: string, body: string): string {
 }
 
 /** A mailto: URL for an enquiry, with the chosen template already in it. */
-export function mailtoFor(i: Inbound, key: string): string {
+export function mailtoFor(i: Inbound, key: string, c?: ReplyContext): string {
   const t = getTemplate(key);
   if (!t) return `mailto:${i.email}`;
-  return mailtoDraft(i.email, t.subject, t.body(i));
+  return mailtoDraft(i.email, t.subject, t.body(i, c));
 }
 
 /* ============================================================================

@@ -2,7 +2,7 @@ import { sendDetailed, mailConfigured } from '@/lib/portal-mail';
 import { site, CONSULT_TYPE } from '@/lib/site';
 import { isConsultAppointment } from '@/lib/booking-shape';
 import { readInbound, type Inbound } from '@/lib/inbound';
-import { isTestSubmission } from '@/lib/inbound-quality';
+import { isTestSubmission, isRealSubmission } from '@/lib/inbound-quality';
 import { readClients } from '@/lib/clients';
 import { readSearchTerms } from '@/lib/search-log';
 import { readConversions, bookClickBreakdown, funnelCuts, channelVisits, type BookClickBreakdown, type FunnelCuts, type DetailConversions } from '@/lib/conversion-log';
@@ -302,11 +302,13 @@ export async function gather(opts: { now?: Date } = {}): Promise<{ counts: Count
     from, to,
     clinikoOk: ck.ok,
     counts: {
-      leads: inWindow.filter((i) => i.kind === 'lead').length,
-      enquiries: inWindow.filter((i) => i.kind === 'enquiry').length,
+      /* Real submissions only (lib/inbound-quality.ts isRealSubmission), since
+       * 1 Oct 2026: 64 of 69 stored leads were honeypot-tripped scripts. */
+      leads: inWindow.filter((i) => i.kind === 'lead' && isRealSubmission(i)).length,
+      enquiries: inWindow.filter((i) => i.kind === 'enquiry' && isRealSubmission(i)).length,
       /* Not windowed. An unanswered message from two months ago is more
        * urgent than one from yesterday, not less. */
-      unanswered: items.filter((i) => !i.handled).length,
+      unanswered: items.filter((i) => !i.handled && isRealSubmission(i)).length,
       newClients,
       consults: ck.consults,
       paidSessions: ck.paid,
@@ -322,7 +324,7 @@ export async function gather(opts: { now?: Date } = {}): Promise<{ counts: Count
        * Windowed, unlike `unanswered`, because the question here is "what
        * worked last month" rather than "what is outstanding". */
       topSources: Object.entries(
-        inWindow.reduce<Record<string, number>>((acc, i) => {
+        inWindow.filter(isRealSubmission).reduce<Record<string, number>>((acc, i) => {
           const src = i.source || '/';
           acc[src] = (acc[src] ?? 0) + 1;
           return acc;

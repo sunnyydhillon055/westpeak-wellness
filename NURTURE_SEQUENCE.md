@@ -1,7 +1,9 @@
 # Nurture sequence — three emails
 
-For people who downloaded the coverage checklist from `/pricing`. Load into
-whatever tool you use; the copy is written to be pasted as-is.
+For people who asked for one of the three one-pagers (the coverage checklist,
+the ICBC one-pager, or the one-pager on starting counselling). The live copy is
+in `lib/inbound-mail.ts` (email 1) and `lib/nurture.ts` (emails 2 and 3), sent
+by the daily cron at `/api/cron/nurture`; this file is the brief they follow.
 
 ---
 
@@ -91,18 +93,22 @@ sold to.
 
 ## Email 3 — Day 11. The invitation, once, without pressure.
 
-**Subject:** Fifteen minutes, if it is useful
+**Subject:** Thirty minutes, if it is useful
 
 > Hi{{ first_name ? ' ' + first_name : '' }},
 >
 > Last one from me.
 >
-> If you have been turning this over since you downloaded that checklist, a free
-> fifteen-minute consultation is the least committal way to find out whether it
+> If you have been turning this over since you asked for that one-pager, a free
+> thirty-minute consultation is the least committal way to find out whether it
 > is worth going further. It is a conversation, not an intake. There is nothing
 > to prepare, and no obligation to book a session afterwards.
 >
-> [LINK: /book]
+> [Each accepting counsellor by name, one line each: languages, provinces,
+> services, linking her own calendar at /book?with=<slug>#calendar]
+>
+> [One line from the catalogue: the individual fee, the card taken at booking,
+> and coverage depending on the plan]
 >
 > It is also a perfectly good outcome of that call to conclude that someone else
 > is a better fit, or that now is not the time. If that is where it lands, you
@@ -121,6 +127,19 @@ sold to.
 ---
 
 ## Notes for whoever maintains this
+
+- **Who the cron may write to (1 Oct 2026).** Only a lead whose email 1 was
+  actually accepted by the mail provider (`ackSentAt` on the record), created
+  on or after `NURTURE_FROM`, that did not trip the honeypot, is not a probe or
+  a throwaway address, has not opted out, and is not a client or in
+  conversation. The rule is `nurtureDecision()` in `lib/nurture-plan.ts`, and
+  `test/nurture.test.mts` holds it. Leads from before that date were told
+  "a one-off, not a sequence", so under CASL they get nothing further.
+- **Every sign-up surface makes the same promise.** The form note, the form
+  footer and all three email-1 endings say "two more short ones over the next
+  fortnight, then nothing", and email 1 carries the unsubscribe that stops them.
+- **Name what they asked for.** Emails 2 and 3 name the one-pager on the
+  record (`magnet`), never "the checklist" for everyone.
 
 - **Three emails, then stop.** No indefinite newsletter. The value was delivered
   in email one; the rest is context. A sequence that never ends teaches people

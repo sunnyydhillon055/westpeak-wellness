@@ -1,4 +1,5 @@
 import { resolveMx } from 'node:dns/promises';
+import { createHmac } from 'node:crypto';
 import type { Inbound, InboundKind } from '@/lib/inbound';
 
 /* ============================================================================
@@ -118,20 +119,51 @@ export function triage(input: TriageInput, existing: Inbound[]): TriageVerdict {
      in /admin and nothing else. */
   if (input.kind === 'enquiry' && countLinks(input.message) >= 2) flags.push('links');
 
+  /* Compared as hashes as well as text, since 1 Oct 2026: a quarantined
+     record keeps only a hash of its address and message (lib/inbound.ts
+     addInbound), and a script that trips the honeypot is exactly the one
+     whose repeats this check exists to see. */
   const body = normalise(input.message);
-  if (body.length > 0 && existing.some((i) => normalise(i.message) === body)) {
+  const bodyHash = body.length > 0 ? submissionHash(body) : '';
+  if (body.length > 0 && existing.some((i) =>
+    normalise(i.message ?? '') === body || (i.messageHash !== undefined && i.messageHash === bodyHash))) {
     flags.push('duplicate');
   }
 
   const dayAgo = Date.now() - 24 * 60 * 60 * 1000;
+  const addressHash = submissionHash(input.email.trim().toLowerCase());
   const sameAddress = existing.filter(
-    (i) => i.email.toLowerCase() === input.email.toLowerCase() &&
+    (i) => (String(i.email ?? '').toLowerCase() === input.email.toLowerCase() ||
+            (i.emailHash !== undefined && i.emailHash === addressHash)) &&
            Date.parse(i.createdAt) >= dayAgo
   ).length;
   if (sameAddress >= 3) flags.push('burst');
 
   return verdict(flags);
 }
+
+/**
+ * A keyed hash of an address or a message, for the records that keep no copy
+ * of either (a tripped honeypot; see lib/inbound.ts addInbound). Keyed under
+ * PORTAL_SECRET so the stored value cannot be reversed by hashing a list of
+ * likely addresses. Callers normalise first: an address is lower-cased and
+ * trimmed, a message goes through the same whitespace collapse as above.
+ */
+export function submissionHash(normalised: string): string {
+  return createHmac('sha256', `inbound:${process.env.PORTAL_SECRET ?? ''}`)
+    .update(normalised)
+    .digest('hex')
+    .slice(0, 32);
+}
+
+/** The hash form of a message, normalised the way the duplicate check reads it. */
+export const messageHashOf = (message: string): string | undefined => {
+  const body = normalise(message);
+  return body.length > 0 ? submissionHash(body) : undefined;
+};
+
+/** The hash form of an address. */
+export const emailHashOf = (email: string): string => submissionHash(email.trim().toLowerCase());
 
 /**
  * Does the address's domain accept mail at all?
