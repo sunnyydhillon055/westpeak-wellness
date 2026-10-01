@@ -117,6 +117,7 @@ export default function TagalogCityPage({ params }: { params: { city: string } }
               { name: 'Tagalog counselling', path: '/tagalog-counselling' },
               { name: c.city, path: `/tagalog-counselling/${c.slug}` },
             ]}
+            schema={false}
           />
 
           <div className="prose">

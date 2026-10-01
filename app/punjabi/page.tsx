@@ -33,6 +33,7 @@ export const metadata: Metadata = {
     canonical: `${site.domain}/punjabi`,
     languages: {
       'en-CA': `${site.domain}/services/punjabi-counselling`,
+      'x-default': `${site.domain}/services/punjabi-counselling`,
       'pa': `${site.domain}/punjabi`,
     },
   },

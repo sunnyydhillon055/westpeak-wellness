@@ -27,6 +27,7 @@ export const metadata: Metadata = {
       ? {
           languages: {
             'en-CA': `${site.domain}/tagalog-counselling`,
+            'x-default': `${site.domain}/tagalog-counselling`,
             tl: `${site.domain}/tagalog`,
           },
         }

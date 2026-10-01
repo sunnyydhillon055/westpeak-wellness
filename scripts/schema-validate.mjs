@@ -80,6 +80,12 @@ for (const f of files) {
   const route = rel === 'index' ? '/' : '/' + rel;
   const html = readFileSync(f, 'utf8');
   const report = (msg) => errors.push({ route, msg });
+  /* AT MOST ONE BreadcrumbList PER DOCUMENT — added 1 Oct 2026. Templates
+     that build their own trail into a larger graph must pass schema={false}
+     to <Breadcrumbs>; production /practitioners/savneet-singh/richmond was
+     carrying two identical trails, which no validator reports because each
+     is individually valid. Counted across every block on the page. */
+  let trails = 0;
 
   for (const m of html.matchAll(
     /<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g
@@ -102,8 +108,11 @@ for (const f of files) {
       if (!('@context' in root))
         report(`root ${i} (@type ${root['@type'] ?? '?'}) has no @context`);
       inspect(graph ?? root, `root${i}`, report);
+      const nodes = Array.isArray(graph) ? graph : [root];
+      trails += nodes.filter((n) => n && n['@type'] === 'BreadcrumbList').length;
     }
   }
+  if (trails > 1) report(`${trails} BreadcrumbList nodes; a page carries one trail`);
 }
 
 console.log(`\nSchema gate — ${blocks} JSON-LD blocks across ${files.length} pages`);

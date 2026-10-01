@@ -44,6 +44,7 @@ export const metadata: Metadata = {
     canonical: `${site.domain}/punjabi/regions`,
     languages: {
       'en-CA': `${site.domain}/punjabi-counselling`,
+      'x-default': `${site.domain}/punjabi-counselling`,
       pa: `${site.domain}/punjabi/regions`,
     },
   },
