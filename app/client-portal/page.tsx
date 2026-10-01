@@ -133,7 +133,7 @@ export default async function ClientPortalPage({
 
         {/* The full range of sessions, which is why this page is behind sign-in.
             The public /book page is filtered to the free consultation only. */}
-        <SchedulerEmbed url={bookingsPaidUrlFor(who?.clinikoPractitionerId)} title={`Book a session${who ? ` with ${who.name.split(' ')[0]}` : ''}`} page="/client-portal" who={who?.slug} />
+        <SchedulerEmbed url={bookingsPaidUrlFor(who?.clinikoPractitionerId)} title={`Book a session${who ? ` with ${who.name.split(' ')[0]}` : ''}`} page="/client-portal" who={who ? `portal:${who.slug}` : undefined} />
 
         {/* The founder's clients: she is not on the online calendar (owner's
             instruction, 8 Sep 2026), so they book by reply. Said once, plainly,

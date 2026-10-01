@@ -121,13 +121,21 @@ const TOOL_KEYS = new Set<string>(
   Object.entries(TOOL_OUTCOMES).flatMap(([t, os]) => [t, ...os.map((o) => `${t}:${o}`)])
 );
 const SLUG_KEYS = new Set<string>(COUNSELLOR_SLUGS);
+/* THE PAID CALENDAR, COUNTED APART — 1 Oct 2026. /client-portal embeds the
+   full calendar ($140 and up) and /book the free consultation, and both sent
+   the bare slug, so "Camille's calendar seen" summed free-consult intent with
+   a client rebooking. The portal now sends `portal:<slug>`, accepted for the
+   two scheduler events only: the portal has no booking buttons and no
+   enquiry form, so nowhere else could legitimately send one. */
+export const PORTAL_PREFIX = 'portal:';
+const SCHEDULER_KEYS = new Set<string>([...COUNSELLOR_SLUGS, ...COUNSELLOR_SLUGS.map((s) => `${PORTAL_PREFIX}${s}`)]);
 const MAGNET_SET = new Set<string>(MAGNET_KEYS);
 
 const ALLOWED: Readonly<Record<string, ReadonlySet<string>>> = {
   book_click: BOOK_CLICK_KEYS,
   book_direct: SLUG_KEYS,
-  scheduler_visible: SLUG_KEYS,
-  scheduler_interact: SLUG_KEYS,
+  scheduler_visible: SCHEDULER_KEYS,
+  scheduler_interact: SCHEDULER_KEYS,
   /* Which counsellor the message asked for, when it came from her page. */
   enquiry_submit: SLUG_KEYS,
   lead_magnet_submit: MAGNET_SET,

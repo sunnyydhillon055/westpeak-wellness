@@ -8,13 +8,15 @@ import { isAdmin } from '@/lib/portal-store';
 import { readClients } from '@/lib/clients';
 import { listPasswordAccounts } from '@/lib/portal-users';
 import { clinikoConfigured } from '@/lib/cliniko';
-import { recentInbound, markHandled, deleteInbound } from '@/lib/inbound';
+import { recentInbound, markHandled, deleteInbound, readInbound } from '@/lib/inbound';
 import { isTestSubmission, awaitsHumanReply } from '@/lib/inbound-quality';
 import { recordAudit, recentAudit } from '@/lib/admin-audit';
 import { readCatalog } from '@/lib/cliniko-catalog';
 import { topSearchTerms, readSearchTerms, searchGaps } from '@/lib/search-log';
 import { REPLY_TEMPLATES, mailtoFor, businessDaysWaiting, replyTimeStats } from '@/lib/reply-templates';
-import { eventTotals, topPagesFor, readConversions, detailsOf, bookClickBreakdown } from '@/lib/conversion-log';
+import { eventTotals, topPagesFor, readConversions, bookClickBreakdown, funnelCuts } from '@/lib/conversion-log';
+import { readBookingTally, tallyRows, tallyLine } from '@/lib/booking-tally-read';
+import { funnelJoins, consultLines, enquiryLines } from '@/lib/funnel-report';
 import { readLedger, recordContacted } from '@/lib/lifecycle';
 import { reactivationEmail } from '@/lib/lifecycle-mail';
 import { sendDetailed, mailConfigured } from '@/lib/portal-mail';
@@ -82,6 +84,7 @@ export default async function AdminPage({
     sync?: string; added?: string; welcomed?: string; total?: string; named?: string;
     noemail?: string; why?: string;
     sort?: string; dir?: string; digest?: string; indexnow?: string;
+    funnel?: string;
   };
 }) {
   const session = await auth();
@@ -115,19 +118,34 @@ export default async function AdminPage({
      deploy shows nothing new here rather than a table of zeros. */
   const log = await readConversions();
   const bookClicks = bookClickBreakdown(log);
-  const calendarSeen = detailsOf(log, 'scheduler_visible');
-  const calendarTouched = detailsOf(log, 'scheduler_interact');
-  const calendarOpened = detailsOf(log, 'book_direct');
-  const calendarRows = Array.from(
-    new Set([...calendarSeen.rows, ...calendarTouched.rows, ...calendarOpened.rows].map((r) => r.detail))
-  ).map((who) => ({
-    who,
-    seen: calendarSeen.rows.find((r) => r.detail === who)?.count ?? 0,
-    touched: calendarTouched.rows.find((r) => r.detail === who)?.count ?? 0,
-    opened: calendarOpened.rows.find((r) => r.detail === who)?.count ?? 0,
-  }));
-  const toolOutcomes = detailsOf(log, 'tool_complete');
-  const magnets = detailsOf(log, 'lead_magnet_submit');
+  /* Shared with the monthly email (lib/conversion-log.ts funnelCuts), so
+     the two print the same rows. The calendar is split by surface since
+     1 Oct 2026: /book's free consultation and the portal's paid calendar. */
+  const { calendar: calendarRows, toolOutcomes, magnets } = funnelCuts(log);
+  /* THE BOOKING TALLY, written by the booking-mail job. Absent until its
+     first run that writes one, and said so rather than shown as zeros. */
+  const tallyRead = await readBookingTally();
+  const tallyMonth = new Date().toISOString().slice(0, 7);
+  const tallyPrev = (() => { const d = new Date(); d.setUTCDate(1); d.setUTCMonth(d.getUTCMonth() - 1); return d.toISOString().slice(0, 7); })();
+  /* CONSULTATION TO PAID, on request. It reads every appointment for six
+     months and one patient record per consultation, which is too many
+     Cliniko calls to spend on every load of this page, so it runs when
+     asked (?funnel=1). Same function as the monthly email. Counts only. */
+  const joinsAsked = searchParams?.funnel === '1';
+  const joinsFrom = (() => { const d = new Date(); d.setUTCDate(1); d.setUTCHours(0, 0, 0, 0); d.setUTCMonth(d.getUTCMonth() - 1); return d; })();
+  const joinsTo = (() => { const d = new Date(); d.setUTCDate(1); d.setUTCHours(0, 0, 0, 0); return d; })();
+  const joinsMonth = joinsFrom.toLocaleDateString('en-CA', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+  const joins = joinsAsked && clinikoConfigured()
+    ? await funnelJoins(joinsFrom, joinsTo, (await readInbound({ fresh: true })).items)
+    : null;
+  const joinsText = joins
+    ? [
+        ...(joins.truncated ? ['Truncated: more appointments than the read allows; every count is a floor.', ''] : []),
+        ...consultLines(joins, joinsMonth, new Date().toLocaleDateString('en-CA', { day: 'numeric', month: 'long', year: 'numeric' })),
+        '',
+        ...enquiryLines(joins),
+      ].join('\n')
+    : '';
   const searchTotal = (await readSearchTerms()).total;
   /* Jobs that failed, or that have not reported in twice their expected
      interval — which looks identical to "fine" without the second check. */
@@ -842,14 +860,15 @@ export default async function AdminPage({
               <>
                 <h3 style={{ marginTop: 22 }}>The calendar, by counsellor</h3>
                 <p style={{ color: 'var(--ink-soft)', margin: '4px 0 8px', fontSize: '.92rem' }}>
-                  On /book and the portal once a counsellor was chosen: her calendar seen, touched,
-                  and opened in its own tab. The practice-wide calendar, with nobody chosen, is the
-                  difference from the totals above.
+                  Once a counsellor was chosen: her calendar seen, touched, and opened in its own tab,
+                  on /book (the free consultation) and in the client portal (paid sessions) apart. The
+                  portal counted under /book until 1 Oct 2026. The practice-wide calendar, with nobody
+                  chosen, is the difference from the totals above.
                 </p>
                 <ul className="admin-terms">
                   {calendarRows.map((r) => (
-                    <li key={r.who}>
-                      <Link href={`/practitioners/${r.who}`}>{r.who}</Link>
+                    <li key={`${r.surface}:${r.who}`}>
+                      <span><Link href={`/practitioners/${r.who}`}>{r.who}</Link>, {r.surface === 'portal' ? 'portal' : '/book'}</span>
                       <span>{r.seen} seen · {r.touched} touched · {r.opened} opened</span>
                     </li>
                   ))}
@@ -888,6 +907,51 @@ export default async function AdminPage({
             )}
           </div>
         )}
+
+        <div id="funnel" className="admin-panel" style={{ marginTop: 22 }}>
+            {/* FUNNEL: what the booking-mail job counted in Cliniko, and the
+                consult-to-paid join on request. Counts by roster slug only. */}
+            <h3 style={{ marginTop: 22 }}>Bookings by counsellor</h3>
+            {tallyRead.status !== 'ok' ? (
+              <p style={{ color: 'var(--ink-soft)', margin: '4px 0 8px', fontSize: '.92rem' }}>
+                No booking tally yet: {tallyRead.reason}.
+              </p>
+            ) : (
+              <>
+                <p style={{ color: 'var(--ink-soft)', margin: '4px 0 8px', fontSize: '.92rem' }}>
+                  Counted by the booking-mail job as it reads Cliniko
+                  {tallyRead.tally.updatedAt ? `, last at ${new Date(tallyRead.tally.updatedAt).toLocaleString('en-CA')}` : ''}.
+                </p>
+                {[tallyMonth, tallyPrev].map((m) => (
+                  <div key={m}>
+                    <p style={{ margin: '8px 0 4px', fontWeight: 600 }}>{m}</p>
+                    <ul className="admin-terms">
+                      {tallyRows(tallyRead.tally, m).map((r) => (
+                        <li key={r.slug}>
+                          <span>{r.slug}</span>
+                          <span>{tallyLine(r.row)}</span>
+                        </li>
+                      ))}
+                      {!tallyRows(tallyRead.tally, m).length && <li><span>nothing recorded</span><span /></li>}
+                    </ul>
+                  </div>
+                ))}
+              </>
+            )}
+            <h3 style={{ marginTop: 22 }}>Consultations → paid, and messages → bookings</h3>
+            {!clinikoConfigured() ? (
+              <p style={{ color: 'var(--ink-soft)', margin: '4px 0 8px', fontSize: '.92rem' }}>No CLINIKO_API_KEY is set, so this cannot be read.</p>
+            ) : !joinsAsked ? (
+              <p style={{ margin: '4px 0 8px', fontSize: '.92rem' }}>
+                <Link href="/admin?funnel=1#funnel">Read it from Cliniko now</Link>
+                <span style={{ color: 'var(--ink-soft)' }}> (for {joinsMonth}; a few seconds, the same figures the monthly email carries)</span>
+              </p>
+            ) : !joins?.ok ? (
+              <p style={{ color: 'var(--ink-soft)', margin: '4px 0 8px', fontSize: '.92rem' }}>Cliniko could not be read just now.</p>
+            ) : (
+              <pre style={{ margin: '4px 0 8px', fontSize: '.85rem', lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>{joinsText}</pre>
+            )}
+        </div>
 
         <h2 id="searches" style={{ marginTop: 44 }}>What people search for</h2>
         <p style={{ color: 'var(--ink-soft)', maxWidth: '40.38em' }}>
