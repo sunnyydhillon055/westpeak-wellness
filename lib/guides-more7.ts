@@ -184,8 +184,12 @@ export const moreGuides7: Guide[] = [
     /* Retitled 1 Oct 2026 with the doctor's-note guide above; same evidence.
        The job this page does is the return, so the title says so, and the
        head term moves to the description where it describes rather than
-       competes. */
-    metaTitle: 'Returning to Work After a Mental-Health Leave in BC',
+       competes.
+       Same day, later: "going back to work after stress leave" (11
+       impressions at 42.9) matched the old title word for word, and this
+       guide earned 3 clicks at 15.4 under it. The return still leads; "stress
+       leave" comes back as the second half of what is being returned from. */
+    metaTitle: 'Going Back to Work After Mental-Health or Stress Leave',
     metaDescription:
       'Graduated returns, accommodations and BC’s duty to accommodate: how to go back after a mental-health or stress leave without rebuilding the collapse you left.',
     eyebrow: 'Guide · Work & money',
