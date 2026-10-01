@@ -129,15 +129,15 @@ const nextConfig = {
        * on which to send `index, follow` for the staff inbox. Two rules, each
        * saying one thing, and the lookahead keeps them from both matching. */
       {
-        source: '/:path(admin|signin|forgot|reset|client-portal|message-sent|search)/:rest*',
+        source: '/:path(admin|signin|forgot|reset|client-portal|message-sent|one-pager-sent|search)/:rest*',
         headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
       },
       {
-        source: '/:path(admin|signin|forgot|reset|client-portal|message-sent|search)',
+        source: '/:path(admin|signin|forgot|reset|client-portal|message-sent|one-pager-sent|search)',
         headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
       },
       {
-        source: '/:path((?!admin|signin|forgot|reset|client-portal|message-sent|search).*)',
+        source: '/:path((?!admin|signin|forgot|reset|client-portal|message-sent|one-pager-sent|search).*)',
         headers: [
           { key: 'X-Robots-Tag', value: 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1' },
         ],

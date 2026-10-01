@@ -82,6 +82,24 @@ export const BOOK_LOCATIONS: readonly string[] = [
   'hero-place',
   'hero-language-guide',
   'guide-waiting',
+  /* The informational templates, 1 Oct 2026 (wf/info-templates). The guide
+     hero and mid-article buttons, which were plain links no book_click saw;
+     the "who you would talk to" cards on the resources and guides that rank
+     for workplace, leave and coverage questions; the /one-pager-sent
+     confirmation (its next-consultation line and its cards); and one key per
+     next-consultation line, so each placement is counted on its own. */
+  'hero-guide',
+  'mid-guide',
+  'guide',
+  'resource',
+  'lead-sent',
+  'counsellor-lead-sent',
+  'next-guide-sick-days',
+  'next-resource-verify',
+  'next-resource-plan',
+  'next-resource-punjabi-words',
+  'next-city',
+  'next-city-service',
   ...tools.map((t) => `tool:${t.slug}`),
 ];
 

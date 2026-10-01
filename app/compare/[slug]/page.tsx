@@ -5,7 +5,7 @@ import { comparisons, getComparison } from '@/lib/comparisons';
 import { site } from '@/lib/site';
 import { getExtra } from '@/lib/depth';
 import { buildToc, headingId } from '@/lib/toc';
-import { orgRef, siteRef, personRef } from '@/lib/schema';
+import { orgRef, siteRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
 import BookLink from '@/components/BookLink';
@@ -87,7 +87,7 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
       mainEntityOfPage: { '@type': 'WebPage', '@id': `${site.domain}/compare/${c.slug}` },
       publisher: orgRef,
       author: orgRef,
-      reviewedBy: personRef,
+      /* No reviewedBy: it pointed at /about#person, which no page defines. See personRef in lib/schema.ts. 1 Oct 2026. */
       isPartOf: siteRef,
       isAccessibleForFree: true,
     },
@@ -114,6 +114,12 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
         <div className="container container--article">
           <p className="eyebrow">{c.eyebrow}</p>
           <h1 style={{ maxWidth: '15.89em' }}>{c.title}</h1>
+          {/* THE ANSWER FIRST — 1 Oct 2026. It sat 2-3 KB down, after the
+              hook, the contents list and the byline. .answer is the
+              speakable selector (lib/schema.ts). */}
+          <p className="answer" style={{ fontSize: '1.12rem', lineHeight: 1.55, color: 'var(--ink)', maxWidth: '35.33em', margin: '.5em 0 0' }}>
+            {c.shortAnswer}
+          </p>
           <p className="lede">{c.lede}</p>
           {/* "Updated", not "Reviewed". components/Byline.tsx was fixed for exactly
               this in August: it was printing the word "Reviewed" over the date the
@@ -144,8 +150,6 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
 
           <div className="prose">
             <Byline updated={c.updated} readMinutes={c.readMinutes} />
-
-            <blockquote className="quote" style={{ margin: '0 0 36px' }}>{c.shortAnswer}</blockquote>
           </div>
 
           {/* .table-scroll rather than an inline overflowX — 30 August 2026.
@@ -227,12 +231,13 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
 
             {/* The EAP page's reader has benefits by definition — the coverage
                 checklist is the natural next step when the session cap bites.
-                Explicit map, static page, /message-sent confirmation. */}
+                Explicit map; the confirmation is /one-pager-sent, which says
+                what a signup starts, not /message-sent (1 Oct 2026). */}
             {COMPARE_MAGNET[c.slug] && (
               <LeadCapture
                 magnet={COMPARE_MAGNET[c.slug]}
                 source={`/compare/${c.slug}`}
-                returnTo="/message-sent"
+                returnTo="/one-pager-sent"
               />
             )}
           </div>

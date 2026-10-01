@@ -6,7 +6,7 @@ import CopyText from '@/components/CopyText';
 import { site } from '@/lib/site';
 import { getExtra } from '@/lib/depth';
 import { buildToc, headingId } from '@/lib/toc';
-import { orgRef, siteRef, personRef, medicalWebPage } from '@/lib/schema';
+import { orgRef, siteRef, medicalWebPage } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
 import SceneBand from '@/components/SceneBand';
@@ -99,7 +99,6 @@ export default async function AudiencePage({ params }: { params: { slug: string 
       mainEntityOfPage: { '@type': 'WebPage', '@id': `${site.domain}/for/${a.slug}` },
       publisher: orgRef,
       author: orgRef,
-      reviewedBy: personRef,
       isPartOf: siteRef,
       isAccessibleForFree: true,
     },

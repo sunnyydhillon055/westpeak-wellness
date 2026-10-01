@@ -7,7 +7,7 @@ import { TAGALOG_READY } from '@/lib/practitioner-tl';
 import { site } from '@/lib/site';
 import { getExtra } from '@/lib/depth';
 import { buildToc, headingId } from '@/lib/toc';
-import { orgRef, siteRef, personRef, medicalWebPage, figureImage } from '@/lib/schema';
+import { orgRef, siteRef, medicalWebPage, figureImage } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
 import SceneBand from '@/components/SceneBand';
@@ -25,6 +25,12 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import LeadCapture, { type MagnetKey } from '@/components/LeadCapture';
 import { ogBase } from '@/lib/og-meta';
 import NextConsultLine from '@/components/NextConsultLine';
+import BookLink from '@/components/BookLink';
+import { bookingCtaFor } from '@/lib/booking-cta';
+import CounsellorCards from '@/components/CounsellorCards';
+import CoverageLine from '@/components/CoverageLine';
+import { counsellorsForInfoPage, individualFeeLine, infoCardCopy, showsInfoCards } from '@/lib/counsellor-cards';
+import { readCatalog } from '@/lib/cliniko-catalog';
 
 /* Guides where "Still deciding? Book a free consultation!" is the wrong note.
  *
@@ -73,11 +79,14 @@ function guideMagnet(slug: string): MagnetKey | null {
 }
 
 /* THE NEXT FREE CONSULTATION, under the section a reader deciding between
-   the public wait and a private one is reading. One guide so far:
-   /guides/waiting-for-therapy-in-bc (1 Oct 2026). Keyed by the section's
-   heading so the line moves with the section, not with an index. */
-const NEXT_CONSULT_AFTER: Record<string, string> = {
-  'waiting-for-therapy-in-bc': 'When paying privately makes sense, and when it does not',
+   the public wait and a private one is reading: /guides/waiting-for-therapy-
+   in-bc (1 Oct 2026), and the sick-days guide's section on when the days
+   become a pattern worth talking about (10 clicks, 1 book_click). Keyed by
+   the section's heading so the line moves with the section, not with an
+   index; each has its own book_click location. */
+const NEXT_CONSULT_AFTER: Record<string, { h2: string; location: string }> = {
+  'waiting-for-therapy-in-bc': { h2: 'When paying privately makes sense, and when it does not', location: 'guide-waiting' },
+  'sick-days-and-mental-health-days-bc': { h2: 'When the days become data', location: 'next-guide-sick-days' },
 };
 
 /* Re-rendered every thirty minutes, the life of the availability cache, so
@@ -124,9 +133,16 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 const fmt = (iso: string) =>
   new Date(iso + 'T00:00:00Z').toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
 
-export default function GuidePage({ params }: { params: { slug: string } }) {
+export default async function GuidePage({ params }: { params: { slug: string } }) {
   const g = getGuide(params.slug);
   if (!g) notFound();
+  const gentle = GENTLE_CTA.has(g.slug);
+  const cards = showsInfoCards('guides', g.slug);
+  const feeLine = cards ? individualFeeLine(await readCatalog()) : undefined;
+  const next = NEXT_CONSULT_AFTER[g.slug];
+  /* Guides are not written for one language or one service, so this is the
+     practice calendar; through bookingCtaFor so the rule lives in one place. */
+  const cta = bookingCtaFor({ fallback: 'Book a free consultation' });
 
   const toc = buildToc([
     ...g.sections.map((s) => s.h2),
@@ -140,7 +156,7 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
     g.figure ? <Figure key="fig" name={g.figure} /> : null,
     <div className="crisis" key="cta" style={{ margin: '32px 0' }}>
       <p style={{ margin: 0 }}>
-        {g.midCta.text} <Link href={site.bookingPath}>{g.midCta.label}</Link>.
+        {g.midCta.text} <BookLink location="mid-guide" href={cta.href} className="">{g.midCta.label}</BookLink>.
       </p>
     </div>,
     g.related[0] ? (
@@ -166,7 +182,7 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
       mainEntityOfPage: { '@type': 'WebPage', '@id': `${site.domain}/guides/${g.slug}` },
       publisher: orgRef,
       author: orgRef,
-      reviewedBy: personRef,
+      /* No reviewedBy: it pointed at /about#person, which no page defines. See personRef in lib/schema.ts. 1 Oct 2026. */
       isPartOf: siteRef,
       isAccessibleForFree: true,
       /* The guide's own answer, the one printed above the fold, offered as
@@ -215,6 +231,12 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
         <div className="container container--article">
           <p className="eyebrow">{g.eyebrow}</p>
           <h1 style={{ maxWidth: '14.56em' }}>{g.title}</h1>
+          {/* THE ANSWER FIRST — 1 Oct 2026. It sat 2-3 KB down, after the
+              hook, the contents list and the byline. .answer is the
+              speakable selector (lib/schema.ts). */}
+          <p className="answer" style={{ fontSize: '1.12rem', lineHeight: 1.55, color: 'var(--ink)', maxWidth: '35.33em', margin: '.5em 0 0' }}>
+            {g.shortAnswer}
+          </p>
           <p className="lede">{g.lede}</p>
           {/* "Updated", not "Reviewed". components/Byline.tsx was fixed for exactly
               this in August: it was printing the word "Reviewed" over the date the
@@ -226,7 +248,9 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
               the word does, which was the whole point the first time. */}
           <p className="hero-note">{g.readMinutes} min read · Updated {fmt(g.updated)}</p>
           <div className="btn-row" style={{ marginTop: 22 }}>
-            <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
+            {/* Counted since 1 Oct 2026: book_click was recorded on one guide
+                in six weeks because neither guide button reported anything. */}
+            <BookLink location="hero-guide" href={cta.href}>{cta.label}</BookLink>
             <Link className="btn btn--ghost" href="/guides">All guides</Link>
           </div>
         </div>
@@ -246,10 +270,6 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
 
           <Byline updated={g.updated} readMinutes={g.readMinutes} />
 
-          <blockquote className="quote short-answer" style={{ margin: '0 0 40px' }}>
-            {g.shortAnswer}
-          </blockquote>
-
           {g.sections.map((s, i) => (
             <div key={s.h2}>
               <h2 id={headingId(s.h2)}>{s.h2}</h2>
@@ -264,7 +284,7 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
                 </ul>
               )}
 
-              {NEXT_CONSULT_AFTER[g.slug] === s.h2 && <NextConsultLine location="guide-waiting" />}
+              {next?.h2 === s.h2 && <NextConsultLine location={next.location} />}
 
               {midDevices.filter((_, k) => slots[k] === i)}
             </div>
@@ -305,18 +325,37 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
             (Canada, 24/7) or BC Mental Health Support at <strong>310-6789</strong>.
           </p>
 
-          {/* Statically generated page, so the confirmation lands on
-              /message-sent rather than trying to read a query param here. */}
+          {/* The confirmation is /one-pager-sent, which says what a signup
+              starts (the one-pager, then two notes), not /message-sent,
+              which promises an enquiry's reply. 1 Oct 2026. */}
           {guideMagnet(g.slug) && (
             <LeadCapture
               magnet={guideMagnet(g.slug) as MagnetKey}
               source={`/guides/${g.slug}`}
-              returnTo="/message-sent"
+              returnTo="/one-pager-sent"
             />
           )}
           </div>
         </div>
       </section>
+
+      {/* WHO YOU WOULD TALK TO, with the fee and who pays — 1 Oct 2026. The
+          leave guides on the GENTLE list get a gentler heading and, as
+          before, no email form. See INFO_CARD_PAGES in lib/counsellor-cards.ts. */}
+      {cards && (
+        <CounsellorCards
+          counsellors={counsellorsForInfoPage({})}
+          location="guide"
+          className="section section--ghost"
+          {...infoCardCopy(gentle)}
+          footer={
+            <>
+              {feeLine && <p className="hero-note" style={{ margin: '0 0 6px' }}>{feeLine}</p>}
+              <CoverageLine />
+            </>
+          }
+        />
+      )}
 
       <section className="section section--tint">
         <div className="container">
@@ -335,7 +374,7 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
       <ServiceCityLinks section="guides" slug={g.slug} />
       <CityLinks />
       <CtaBand
-        tone={GENTLE_CTA.has(g.slug) ? 'gentle' : 'default'}
+        tone={gentle ? 'gentle' : 'default'}
         heading="Still deciding?"
         text="A free 30-minute consultation is the least committal way to find out whether this is a fit. No pressure, and no obligation to book a session afterward."
       />

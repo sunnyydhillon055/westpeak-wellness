@@ -10,7 +10,8 @@ import BookDirectLink from '@/components/BookDirectLink';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import InboundForm from '@/components/InboundForm';
 import { ogBase } from '@/lib/og-meta';
-import { practitioners, getPractitioner, defaultBookingPractitioner, withLetters } from '@/lib/practitioners';
+import { practitioners, getPractitioner, defaultBookingPractitioner, withLetters, insuredProvinces, vancouverToday } from '@/lib/practitioners';
+import { timeZoneNote, PACIFIC } from '@/lib/availability-summary';
 import { PROVINCE_NAME, type Province } from '@/lib/crisis';
 import { consultationAvailability, availabilityLine, practiceHoursLine } from '@/lib/cliniko-availability';
 import { readCatalog, FALLBACK_CATALOG, type Catalog } from '@/lib/cliniko-catalog';
@@ -102,7 +103,7 @@ async function NextOpen({ people }: { people: { slug: string; name: string; clin
     <>
       {lines.map(({ first, a }) => (
         <p key={first} style={{ margin: '0 0 6px', fontSize: '.95rem', lineHeight: 1.5 }}>
-          <strong>Next open with {first}:</strong> {a!.next.join(' · ')}
+          <strong>Next open with {first}{PACIFIC}:</strong> {a!.next.join(' · ')}
         </p>
       ))}
     </>
@@ -540,6 +541,14 @@ export default async function Book({
                   </>
                 }
               />
+              {/* WHICH CLOCK — 1 Oct 2026. Every time on this page is Pacific,
+                  and Camille sees clients in Alberta. The Alberta half shows
+                  only while someone accepting is insured there today
+                  (insuredProvinces); the BC half always, for the East
+                  Kootenay and the Peace. A label on Cliniko's times, not hours. */}
+              <p style={{ margin: '4px 0 0', fontSize: '.85rem', lineHeight: 1.5, color: 'var(--ink-soft)' }}>
+                {timeZoneNote((who ? [who] : accepting).flatMap((p) => insuredProvinces(p, vancouverToday())))}
+              </p>
               {/* THE PEOPLE THE CALENDAR LOSES — 18 Sep 2026.
                   Thirty-eight people a month interact with the calendar and
                   next to none book. With two or three open days a week, a

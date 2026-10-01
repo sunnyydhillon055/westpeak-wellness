@@ -76,13 +76,13 @@ test('the summary covers fourteen days and keeps the first seven as `week`', () 
   assert.deepEqual(a.week?.days, ['Tue', 'Sat']);
   assert.equal(a.week?.count, 3);
   assert.equal(a.next.length, 3, 'up to three open days');
-  assert.equal(weekSpan({ x: a }), 'Tue, Sat, 9 am to 6 pm', 'the home hero says "this week" and reads the first seven days');
+  assert.equal(weekSpan({ x: a }), 'Tue, Sat, 9 am to 6 pm (Pacific time)', 'the home hero says "this week" and reads the first seven days');
 });
 
 test('the practice line says "next two weeks" and makes no evening claim', () => {
   const a = summariseWindows('camille-granda', FIRST, SECOND);
   const line = practiceHoursLine({ x: a })!;
-  assert.match(line, /Next two weeks: Tue, Thu, Fri, Sat, start times 9 am to 6 pm, including the weekend\./);
+  assert.match(line, /Next two weeks: Tue, Thu, Fri, Sat, start times 9 am to 6 pm \(Pacific time\), including the weekend\./);
   assert.doesNotMatch(line, /evening/i);
   assert.match(availabilityLine(a, 'Camille')!, /in the next two weeks/);
   assert.match(availabilityLine(summarise('x', []), 'Camille')!, /next two weeks/);

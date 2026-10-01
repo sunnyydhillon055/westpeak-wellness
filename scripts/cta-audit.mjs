@@ -73,6 +73,7 @@ const EXEMPT = {
   '/admin': 'staff only',
   '/message-sent': 'confirmation — the action was just taken',
   '/punjabi/sent': 'confirmation — the action was just taken',
+  '/one-pager-sent': 'confirmation — the action was just taken',
   '/_not-found': '404',
   '/search':
     'the search box IS the action; the booking prompt renders on the no-results branch, where it is the highest-intent moment on the site',

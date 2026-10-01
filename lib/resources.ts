@@ -40,6 +40,10 @@ export type Resource = {
      counsellor who speaks it (lib/booking-cta.ts), and the header and phone
      bar follow (lib/roster-nav.ts LANGUAGE_PAGES). 1 Oct 2026. */
   language?: 'pa' | 'tl';
+  /* Opt in to the "who you would talk to" cards, the fee line and the
+     coverage line (lib/counsellor-cards.ts INFO_CARD_PAGES lists the pages
+     that carry them today). 1 Oct 2026. */
+  whoYouWouldSee?: boolean;
 };
 
 const coreResources: Resource[] = [

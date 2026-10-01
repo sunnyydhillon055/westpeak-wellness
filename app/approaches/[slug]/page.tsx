@@ -5,7 +5,7 @@ import { approaches, getApproach } from '@/lib/approaches';
 import { site } from '@/lib/site';
 import { getExtra } from '@/lib/depth';
 import { buildToc, headingId } from '@/lib/toc';
-import { orgRef, siteRef, personRef, medicalWebPage, figureImage } from '@/lib/schema';
+import { orgRef, siteRef, medicalWebPage, figureImage } from '@/lib/schema';
 import { therapyNode } from '@/lib/entities';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
@@ -84,7 +84,7 @@ export default function ApproachPage({ params }: { params: { slug: string } }) {
       mainEntityOfPage: { '@type': 'WebPage', '@id': `${site.domain}/approaches/${g.slug}` },
       publisher: orgRef,
       author: orgRef,
-      reviewedBy: personRef,
+      /* No reviewedBy: it pointed at /about#person, which no page defines. See personRef in lib/schema.ts. 1 Oct 2026. */
       isPartOf: siteRef,
       isAccessibleForFree: true,
       /* WHICH "ACT" THIS IS — 24 Sep 2026.
@@ -131,6 +131,12 @@ export default function ApproachPage({ params }: { params: { slug: string } }) {
         <div className="container container--article">
           <p className="eyebrow">{g.eyebrow}</p>
           <h1 style={{ maxWidth: '14.56em' }}>{g.title}</h1>
+          {/* THE ANSWER FIRST — 1 Oct 2026. It sat 2-3 KB down, after the
+              hook, the contents list and the byline. .answer is the
+              speakable selector (lib/schema.ts). */}
+          <p className="answer" style={{ fontSize: '1.12rem', lineHeight: 1.55, color: 'var(--ink)', maxWidth: '35.33em', margin: '.5em 0 0' }}>
+            {g.shortAnswer}
+          </p>
           <p className="lede">{g.lede}</p>
           {/* "Updated", not "Reviewed". components/Byline.tsx was fixed for exactly
               this in August: it was printing the word "Reviewed" over the date the
@@ -161,13 +167,6 @@ export default function ApproachPage({ params }: { params: { slug: string } }) {
           />
 
           <Byline updated={g.updated} readMinutes={g.readMinutes} />
-
-          {/* The short answer, marked as the extractable block it is — the
-              guides and services carry the same class and the speakable
-              selector; this page had the sentence without the marker. */}
-          <blockquote className="quote direct-answer" style={{ margin: '0 0 40px' }}>
-            {g.shortAnswer}
-          </blockquote>
 
           {g.sections.map((s, i) => (
             <div key={s.h2}>
