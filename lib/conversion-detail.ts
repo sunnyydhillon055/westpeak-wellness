@@ -35,6 +35,13 @@ export const BOOK_LOCATIONS: readonly string[] = [
   'header',
   'sticky',
   'cta-band',
+  /* The hero and mid-page buttons on the city, service and audience
+     templates, routed through BookLink since 1 Oct 2026. */
+  'hero-city',
+  'hero-service',
+  'hero-audience',
+  'aside-service',
+  'mid-audience',
   ...tools.map((t) => `tool:${t.slug}`),
 ];
 
@@ -99,7 +106,7 @@ export function splitBookDetail(key: string): { location: string; who?: string }
 }
 
 /* The allow-list proper, enumerated once so membership is a Set lookup and
- * the bound is a number somebody can read: 8 locations × 4 = 32 book_click
+ * the bound is a number somebody can read: 13 locations × 4 = 52 book_click
  * keys, 3 slugs, 3 magnets, 5 tools + 22 outcomes. */
 const BOOK_CLICK_KEYS = new Set<string>(
   BOOK_LOCATIONS.flatMap((l) => [l, ...COUNSELLOR_SLUGS.map((s) => `${l}${SEP}${s}`)])
