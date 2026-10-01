@@ -18,11 +18,16 @@ import SchedulerTelemetry from '@/components/SchedulerTelemetry';
  * whether anyone reached the calendar. See components/SchedulerTelemetry.
  */
 export default function SchedulerEmbed({
-  url, title, page,
-}: { url: string; title?: string; page: string }) {
+  url, title, page, who,
+}: {
+  url: string; title?: string; page: string;
+  /** Roster slug of the counsellor this calendar is narrowed to, when `?with=`
+   *  chose one; the practice-wide calendar passes nothing. */
+  who?: string;
+}) {
   const origin = new URL(url).origin;
   return (
-    <SchedulerTelemetry page={page}>
+    <SchedulerTelemetry page={page} who={who}>
       <div className="scheduler-embed">
         {/* Browsers honour preconnect from body markup, and this component only
             renders on pages that embed the calendar — so the DNS + TLS setup to

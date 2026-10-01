@@ -18,30 +18,40 @@ import { ACCESS_CHECK, ACCESS_ROUTES } from '@/lib/tools';
  * purpose: an unused employee assistance programme is the single most common
  * thing people pay to replace, and a tool that never said so would be an
  * advertisement rather than a tool. */
+/* The route keys, in the order the result lists them. One function so the
+   list shown and the outcome counted (the first key, the route the tool leads
+   with) come from the same answers. */
+function routeKeysFor(tags: string[]): string[] {
+  const has = (t: string) => tags.includes(t);
+  const ab = has('ab');
+  const elsewhere = has('other');
+
+  const keys: string[] = [];
+  if (has('urgent')) keys.push('urgent');
+
+  if (elsewhere) {
+    keys.push('other');
+  } else {
+    if (has('eap')) keys.push('eap');
+    if (has('student')) keys.push('student');
+    if (has('checkbenefits')) keys.push('checkbenefits');
+    if (has('lowcost')) keys.push('lowcost');
+    if (has('extended')) keys.push('extended');
+    keys.push(ab ? 'publicab' : 'publicbc');
+    if (has('canpay')) keys.push(ab ? 'privateab' : 'private');
+  }
+  return keys;
+}
+
 export default function AccessCheck() {
   return (
     <Quiz
       slug="what-can-i-access"
       questions={ACCESS_CHECK}
+      outcomeOf={(tags) => routeKeysFor(tags)[0]}
       onResult={(tags) => {
-        const has = (t: string) => tags.includes(t);
-        const ab = has('ab');
-        const elsewhere = has('other');
-
-        const keys: string[] = [];
-        if (has('urgent')) keys.push('urgent');
-
-        if (elsewhere) {
-          keys.push('other');
-        } else {
-          if (has('eap')) keys.push('eap');
-          if (has('student')) keys.push('student');
-          if (has('checkbenefits')) keys.push('checkbenefits');
-          if (has('lowcost')) keys.push('lowcost');
-          if (has('extended')) keys.push('extended');
-          keys.push(ab ? 'publicab' : 'publicbc');
-          if (has('canpay')) keys.push(ab ? 'privateab' : 'private');
-        }
+        const elsewhere = tags.includes('other');
+        const keys = routeKeysFor(tags);
 
         const routes = keys.map((k) => ACCESS_ROUTES[k]).filter(Boolean);
 

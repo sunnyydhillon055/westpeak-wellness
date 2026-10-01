@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { site } from '@/lib/site';
 import { track } from '@/lib/analytics';
+import { bookClickDetail } from '@/lib/conversion-detail';
 
 /* Closing action on a tool result. Share is a Web Share sheet where the browser
  * supports it and a clipboard copy where it does not — no third-party buttons,
@@ -29,7 +30,7 @@ export default function ResultCta({ tool, label }: { tool: string; label?: strin
       <Link
         className="btn btn--primary"
         href={site.bookingPath}
-        onClick={() => track('book_click', { location: `tool:${tool}` })}
+        onClick={() => track('book_click', { location: `tool:${tool}`, detail: bookClickDetail(`tool:${tool}`) ?? undefined })}
       >
         {label ?? 'Book a free 30-minute consultation'}
       </Link>

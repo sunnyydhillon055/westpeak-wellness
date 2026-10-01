@@ -41,10 +41,18 @@ export function track(event: TrackedEvent, params: Params = {}): void {
    * recorded, which is why "which page earns enquiries" had never been
    * answerable. See lib/conversion-log.ts.
    *
+   * The pathname and, since 1 Oct 2026, `params.detail` — the one bounded
+   * dimension the counter accepts (lib/conversion-detail.ts): which button,
+   * which counsellor, which tool outcome. Everything else in `params` is for
+   * gtag only and never leaves the browser otherwise; the query string is not
+   * sent, which is why a counsellor is named in `detail` rather than read
+   * from `?with=` on the server.
+   *
    * sendBeacon so it survives the page unloading, which is exactly when a
    * book_click fires. Falls back to keepalive fetch where beacon is missing. */
   try {
-    const body = JSON.stringify({ event, path: window.location.pathname });
+    const detail = typeof params.detail === 'string' ? params.detail : undefined;
+    const body = JSON.stringify({ event, path: window.location.pathname, detail });
     if (navigator.sendBeacon) {
       navigator.sendBeacon('/api/track', new Blob([body], { type: 'application/json' }));
     } else {
@@ -76,8 +84,12 @@ export type TrackedEvent =
   | 'gbp_visit'
   | 'book_click'
   | 'book_direct'
-  | 'lead_magnet_submit'
-  | 'enquiry_submit'
+  /* `enquiry_submit` and `lead_magnet_submit` are not here because the browser
+   * no longer sends them. Both forms are native POSTs, and a beacon fired in
+   * onSubmit lost the race with the navigation often enough that six weeks
+   * recorded 3 of 40 enquiries and none of 68 leads. The server counts them
+   * when it stores the record — lib/inbound-submit.ts — so the number is the
+   * inbound store's, and nothing counts twice. 1 Oct 2026. */
   /* The booking embed is a third-party iframe and therefore opaque: nothing
    * inside it can be read from this origin. These two bracket it — reached and
    * scrolled into view, then interacted with — which is enough to tell

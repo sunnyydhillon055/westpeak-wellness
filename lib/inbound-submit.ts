@@ -9,6 +9,8 @@ import { clientKey, rateCheck } from '@/lib/rate-limit';
 import { routeInbound } from '@/lib/inbound-routing';
 import { hasEnoughDetail } from '@/lib/sentences';
 import { LOOKING, WHERE, TIMING, isOption } from '@/lib/enquiry-fields';
+import { countConversion } from '@/lib/conversion-log';
+import { MAGNET_KEYS } from '@/lib/conversion-detail';
 
 /* One submit path for both inbound forms, enquiry and lead.
  *
@@ -130,8 +132,7 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
      this value selects which email gets sent and an unrecognised magnet must
      fall back to a real one rather than sending nothing at all. */
   const asked = String(form.get('magnet') ?? '').trim();
-  const MAGNETS = new Set(['icbc-after-a-crash', 'starting-counselling']);
-  const magnet = MAGNETS.has(asked) ? asked : 'coverage-checklist';
+  const magnet = MAGNET_KEYS.includes(asked) ? asked : 'coverage-checklist';
 
   /* How automated does this look? Synchronous signals only. See lib/triage.ts
      for what is deliberately NOT measured (names, IP addresses, geography).
@@ -172,6 +173,29 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
      Nothing else stops here. A `review` verdict is a chip in /admin, never a
      reason to withhold a message from a counsellor. */
   if (verdict.band === 'quarantine') return back('ok');
+
+  /* COUNTED HERE, NOT IN THE BROWSER — 1 Oct 2026.
+   *
+   * Both forms are native POSTs and both fired a beacon in onSubmit; the
+   * navigation outran it often enough that six weeks of first-party counts
+   * held 3 enquiries against 40 in this store and 0 leads against 68. The
+   * conversion log is where /admin and the funnel email read "which page
+   * earns a message", so it has to agree with the store it sits beside.
+   * Counted after the honeypot verdict so a bot is not a conversion, and
+   * before the throttle so a real person over the mail ceiling still is —
+   * their record was written. The path is the page the form was on; the
+   * detail is the magnet asked for, or the counsellor the message named.
+   * Awaited, because a promise left behind a redirect may not finish; and
+   * caught, because a counter must never cost anyone their message. */
+  try {
+    await countConversion(
+      o.kind === 'lead' ? 'lead_magnet_submit' : 'enquiry_submit',
+      source,
+      o.kind === 'lead' ? magnet : practitioner || undefined
+    );
+  } catch {
+    /* never load-bearing */
+  }
 
   /* Over the soft ceiling. The record is written, /admin shows it, and the
      person gets the same confirmation they would have got. The two emails are

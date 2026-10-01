@@ -33,14 +33,16 @@ import { track } from '@/lib/analytics';
  * A false positive is possible if someone tabs into the frame and stops, which
  * is rare and harmless.
  *
- * PRIVACY. Two counters and the pathname. Nothing about the appointment, no
+ * PRIVACY. Two counters, the pathname, and — since 1 Oct 2026 — which
+ * counsellor's calendar it was when `?with=` narrowed the embed to one, as a
+ * roster slug the server allow-lists. Nothing about the appointment, no
  * identifiers, and nothing that describes the person. `track` is already a
  * no-op when GA is not configured, which is its state on every deployment
  * until NEXT_PUBLIC_GA_ID is set.
  */
 export default function SchedulerTelemetry({
-  page, children,
-}: { page: string; children: React.ReactNode }) {
+  page, who, children,
+}: { page: string; who?: string; children: React.ReactNode }) {
   const box = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -55,7 +57,7 @@ export default function SchedulerTelemetry({
         for (const e of entries) {
           if (!seen && e.isIntersecting && e.intersectionRatio >= 0.5) {
             seen = true;
-            track('scheduler_visible', { page });
+            track('scheduler_visible', { page, detail: who });
             io.disconnect();
           }
         }
@@ -72,7 +74,7 @@ export default function SchedulerTelemetry({
         const active = document.activeElement;
         if (active && active.tagName === 'IFRAME' && el.contains(active)) {
           touched = true;
-          track('scheduler_interact', { page });
+          track('scheduler_interact', { page, detail: who });
         }
       }, 0);
     };
@@ -82,7 +84,7 @@ export default function SchedulerTelemetry({
       io.disconnect();
       window.removeEventListener('blur', onBlur);
     };
-  }, [page]);
+  }, [page, who]);
 
   return <div ref={box}>{children}</div>;
 }

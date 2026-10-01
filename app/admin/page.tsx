@@ -14,7 +14,7 @@ import { recordAudit, recentAudit } from '@/lib/admin-audit';
 import { readCatalog } from '@/lib/cliniko-catalog';
 import { topSearchTerms, readSearchTerms, searchGaps } from '@/lib/search-log';
 import { REPLY_TEMPLATES, mailtoFor, businessDaysWaiting, replyTimeStats } from '@/lib/reply-templates';
-import { eventTotals, topPagesFor } from '@/lib/conversion-log';
+import { eventTotals, topPagesFor, readConversions, detailsOf, bookClickBreakdown } from '@/lib/conversion-log';
 import { readLedger, recordContacted } from '@/lib/lifecycle';
 import { reactivationEmail } from '@/lib/lifecycle-mail';
 import { sendDetailed, mailConfigured } from '@/lib/portal-mail';
@@ -108,6 +108,26 @@ export default async function AdminPage({
   const bookPages = await topPagesFor('book_click');
   const aiPages = await topPagesFor('ai_referral');
   const gbpPages = await topPagesFor('gbp_visit');
+  /* The second cut of the same counts — by button, by counsellor, by tool
+     outcome — added 1 Oct 2026 when the log started keeping a detail. One
+     read, split in lib/conversion-log.ts so the funnel email shows the same
+     numbers. Rows appear only once an event has carried a detail, so a fresh
+     deploy shows nothing new here rather than a table of zeros. */
+  const log = await readConversions();
+  const bookClicks = bookClickBreakdown(log);
+  const calendarSeen = detailsOf(log, 'scheduler_visible');
+  const calendarTouched = detailsOf(log, 'scheduler_interact');
+  const calendarOpened = detailsOf(log, 'book_direct');
+  const calendarRows = Array.from(
+    new Set([...calendarSeen.rows, ...calendarTouched.rows, ...calendarOpened.rows].map((r) => r.detail))
+  ).map((who) => ({
+    who,
+    seen: calendarSeen.rows.find((r) => r.detail === who)?.count ?? 0,
+    touched: calendarTouched.rows.find((r) => r.detail === who)?.count ?? 0,
+    opened: calendarOpened.rows.find((r) => r.detail === who)?.count ?? 0,
+  }));
+  const toolOutcomes = detailsOf(log, 'tool_complete');
+  const magnets = detailsOf(log, 'lead_magnet_submit');
   const searchTotal = (await readSearchTerms()).total;
   /* Jobs that failed, or that have not reported in twice their expected
      interval — which looks identical to "fine" without the second check. */
@@ -773,6 +793,94 @@ export default async function AdminPage({
                     <li key={p.path}>
                       <Link href={p.path}>{p.path}</Link>
                       <span>{p.count}</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+            {/* WHICH BUTTON, AND WHOSE. The same clicks as the list above, cut
+                the other way. Until 1 Oct 2026 the log held only the page, so
+                "the sticky bar or the band?" and "Camille or Savneet?" were
+                unanswerable; the older clicks are shown as unattributed
+                rather than left out, so the two tables still sum. */}
+            {bookClicks.byLocation.length > 0 && (
+              <>
+                <h3 style={{ marginTop: 22 }}>Booking clicks by button</h3>
+                <p style={{ color: 'var(--ink-soft)', margin: '4px 0 8px', fontSize: '.92rem' }}>
+                  Which call to action produced the click. The sticky bar on phones was not counted
+                  before 1 Oct 2026.
+                  {bookClicks.unattributed > 0 && ` ${bookClicks.unattributed} earlier click${bookClicks.unattributed === 1 ? '' : 's'} carry no button.`}
+                </p>
+                <ul className="admin-terms">
+                  {bookClicks.byLocation.map((r) => (
+                    <li key={r.detail}>
+                      <span>{r.detail}</span>
+                      <span>{r.count}</span>
+                    </li>
+                  ))}
+                </ul>
+                <h3 style={{ marginTop: 22 }}>Booking clicks by counsellor</h3>
+                <p style={{ color: 'var(--ink-soft)', margin: '4px 0 8px', fontSize: '.92rem' }}>
+                  The counsellor the link named, which it does on her own pages. A click from the
+                  header or a band names nobody; /book then offers both.
+                </p>
+                <ul className="admin-terms">
+                  {bookClicks.byCounsellor.map((r) => (
+                    <li key={r.detail}>
+                      <Link href={`/practitioners/${r.detail}`}>{r.detail}</Link>
+                      <span>{r.count}</span>
+                    </li>
+                  ))}
+                  <li>
+                    <span>no counsellor named</span>
+                    <span>{bookClicks.noCounsellor}</span>
+                  </li>
+                </ul>
+              </>
+            )}
+            {calendarRows.length > 0 && (
+              <>
+                <h3 style={{ marginTop: 22 }}>The calendar, by counsellor</h3>
+                <p style={{ color: 'var(--ink-soft)', margin: '4px 0 8px', fontSize: '.92rem' }}>
+                  On /book and the portal once a counsellor was chosen: her calendar seen, touched,
+                  and opened in its own tab. The practice-wide calendar, with nobody chosen, is the
+                  difference from the totals above.
+                </p>
+                <ul className="admin-terms">
+                  {calendarRows.map((r) => (
+                    <li key={r.who}>
+                      <Link href={`/practitioners/${r.who}`}>{r.who}</Link>
+                      <span>{r.seen} seen · {r.touched} touched · {r.opened} opened</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+            {toolOutcomes.rows.length > 0 && (
+              <>
+                <h3 style={{ marginTop: 22 }}>What the tools concluded</h3>
+                <p style={{ color: 'var(--ink-soft)', margin: '4px 0 8px', fontSize: '.92rem' }}>
+                  Finished tools, by the outcome they led with. The two reflection tools reach no
+                  verdict and are counted by name only. Never the answers.
+                </p>
+                <ul className="admin-terms">
+                  {toolOutcomes.rows.map((r) => (
+                    <li key={r.detail}>
+                      <span>{r.detail}</span>
+                      <span>{r.count}</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+            {magnets.rows.length > 0 && (
+              <>
+                <h3 style={{ marginTop: 22 }}>One-pagers asked for</h3>
+                <ul className="admin-terms">
+                  {magnets.rows.map((r) => (
+                    <li key={r.detail}>
+                      <span>{r.detail}</span>
+                      <span>{r.count}</span>
                     </li>
                   ))}
                 </ul>

@@ -2,7 +2,6 @@
 import FormStamp from '@/components/FormStamp';
 
 import { usePathname } from 'next/navigation';
-import { track } from '@/lib/analytics';
 import { hasEnoughDetail, MIN_SENTENCES, MIN_WORDS } from '@/lib/sentences';
 import { LOOKING, WHERE, TIMING } from '@/lib/enquiry-fields';
 
@@ -53,7 +52,6 @@ const COPY = {
     doneTitle: 'Your message has arrived.',
     doneBody:
       'You will have a reply within one business day, and a copy is in your inbox. Nothing further is needed from you.',
-    event: 'enquiry_submit',
   },
 } as const;
 
@@ -105,8 +103,12 @@ export default function InboundForm({
     el.setCustomValidity(hasEnoughDetail(el.value) ? '' : TOO_SHORT);
 
   return (
-    <form method="POST" action={c.action} className="lead-form" id="form"
-      onSubmit={() => track(c.event, { page: pathname ?? '' })}>
+    /* No onSubmit beacon. This is a native POST, and a beacon fired as it
+       leaves lost the race often enough that six weeks recorded 3 of 40
+       enquiries. The server counts `enquiry_submit` when it stores the
+       record (lib/inbound-submit.ts), against the `source` page below, so
+       the count is the inbound store's and nothing counts twice. 1 Oct 2026. */
+    <form method="POST" action={c.action} className="lead-form" id="form">
       <p className="lead-form-title">{title ?? c.title}</p>
       <p className="lead-form-note">{note ?? c.note}</p>
 

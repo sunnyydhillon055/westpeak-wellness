@@ -3,22 +3,35 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { track } from '@/lib/analytics';
+import { toolDetail } from '@/lib/conversion-detail';
 import type { Question } from '@/lib/tools';
 
 /* One question at a time, keyboard operable, nothing stored anywhere.
  *
  * Answers live in component state and are gone on reload — no localStorage, no
  * submission, no identifier. A tool that asks how someone's sleep has been
- * should not also be quietly building a record of it. */
+ * should not also be quietly building a record of it.
+ *
+ * What IS counted, since 1 Oct 2026: that the tool was finished, and for the
+ * tools that reach a conclusion, which one — "which-service:couples",
+ * "what-can-i-access:eap". A count per outcome, from the tool's own fixed
+ * list (lib/conversion-detail.ts), never the answers that led there. It says
+ * which service the warm readers are being pointed at, which is what decides
+ * where the next page is worth writing. The reflection tools pass no
+ * `outcomeOf` and are counted by name only, because they produce no verdict
+ * and the counter should not invent one. */
 export default function Quiz({
   slug,
   questions,
   onResult,
+  outcomeOf,
   children,
 }: {
   slug: string;
   questions: Question[];
   onResult: (tags: string[]) => React.ReactNode;
+  /** The outcome key the result will lead with, for the same tags. */
+  outcomeOf?: (tags: string[]) => string | undefined;
   children?: React.ReactNode;
 }) {
   const [step, setStep] = useState(0);
@@ -29,7 +42,10 @@ export default function Quiz({
     if (step === 0) track('tool_start', { tool: slug });
     const next = [...tags, tag];
     setTags(next);
-    if (step + 1 >= questions.length) track('tool_complete', { tool: slug });
+    if (step + 1 >= questions.length) {
+      const outcome = outcomeOf?.(next);
+      track('tool_complete', { tool: slug, outcome, detail: toolDetail(slug, outcome) ?? undefined });
+    }
     setStep(step + 1);
   }
 

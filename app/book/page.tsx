@@ -359,6 +359,7 @@ export default async function Book({
                 url={bookingsUrlFor(who?.clinikoPractitionerId)}
                 title={`Book a free 30-minute consultation${who ? ` with ${who.name.split(' ')[0]}` : ''}`}
                 page="/book"
+                who={who?.slug}
               />
               {/* THE PEOPLE THE CALENDAR LOSES — 18 Sep 2026.
                   Thirty-eight people a month interact with the calendar and

@@ -4,6 +4,7 @@ import { isConsultAppointment } from '@/lib/booking-shape';
 import { readInbound } from '@/lib/inbound';
 import { readClients } from '@/lib/clients';
 import { readSearchTerms } from '@/lib/search-log';
+import { readConversions, bookClickBreakdown, type BookClickBreakdown } from '@/lib/conversion-log';
 import { api, headers } from '@/lib/cliniko';
 
 /* The monthly conversion report — what happened at the top of the funnel.
@@ -45,6 +46,14 @@ type Counts = {
   /** Pages people were reading when they decided to write. The only
    *  first-party attribution this practice has. */
   topSources: { path: string; n: number }[];
+  /** Booking clicks by the button that produced them and by the counsellor
+   *  the link named. ALL TIME since the log began (18 Aug 2026), not the
+   *  month: the conversion log is one cumulative tally with no day buckets,
+   *  by design (lib/conversion-log.ts), and the email says so. The
+   *  month-on-month view is the previous email. */
+  bookClicks: BookClickBreakdown;
+  /** When the conversion log began, for the line above. */
+  countedSince: string;
 };
 
 const startOfMonthsAgo = (n: number) => {
@@ -116,6 +125,11 @@ export async function gather(): Promise<{ counts: Counts; from: Date; to: Date; 
 
   const ck = await clinikoCounts(from, to);
 
+  /* WHICH COUNSELLOR, WHICH BUTTON — 1 Oct 2026. The first month's report
+   * could say how many booked and not which of the two counsellors' pages
+   * sent them, or whether the sticky bar or the band did the work. */
+  const log = await readConversions({ fresh: true });
+
   return {
     from, to,
     clinikoOk: ck !== null,
@@ -149,8 +163,27 @@ export async function gather(): Promise<{ counts: Counts; from: Date; to: Date; 
         .map(([path, n]) => ({ path, n }))
         .sort((a, b) => b.n - a.n)
         .slice(0, 8),
+      bookClicks: bookClickBreakdown(log),
+      countedSince: log.since ? log.since.slice(0, 10) : '',
     },
   };
+}
+
+/** The two book_click cuts as text lines, shared by the plain and HTML
+ *  bodies so they cannot say different things. Empty when nothing has been
+ *  attributed yet, so a month before the detail existed prints no section. */
+function bookClickLines(c: Counts): string[] {
+  const b = c.bookClicks;
+  if (!b.byLocation.length) return [];
+  const since = c.countedSince ? ` since ${c.countedSince}` : '';
+  const out = [`Booking clicks${since}: ${b.total}`, ''];
+  out.push('  By button:');
+  for (const r of b.byLocation) out.push(`  ${String(r.count).padStart(4)}  ${r.detail}`);
+  if (b.unattributed > 0) out.push(`  ${String(b.unattributed).padStart(4)}  (before the button was recorded)`);
+  out.push('', '  By counsellor the link named:');
+  for (const r of b.byCounsellor) out.push(`  ${String(r.count).padStart(4)}  ${r.detail}`);
+  out.push(`  ${String(b.noCounsellor).padStart(4)}  (no counsellor named; /book offered both)`);
+  return out;
 }
 
 export function render(counts: Counts, from: Date, to: Date, clinikoOk: boolean) {
@@ -192,6 +225,15 @@ export function render(counts: Counts, from: Date, to: Date, clinikoOk: boolean)
       '',
       'This is the page somebody was reading when they decided to write. It is the',
       'closest thing to attribution this practice has, and it is first-party.',
+      ''
+    );
+  }
+
+  const clickLines = bookClickLines(counts);
+  if (clickLines.length) {
+    lines.push(...clickLines, '',
+      'Cumulative since the counter began, not the month: the log keeps no day',
+      'buckets, so the month-on-month view is last month\'s email beside this one.',
       ''
     );
   }
@@ -241,6 +283,11 @@ ${counts.topTerms.length
   ? `<p style="margin:0 0 8px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#545e69;">Searched on the site</p>
      <p style="margin:0 0 16px;font-size:15px;line-height:1.8;">${counts.topTerms.map((t) => `${t.term} <span style="color:#545e69;">(${t.n})</span>`).join(' · ')}</p>
      <p style="margin:0 0 16px;font-size:14px;color:#545e69;">A term with no page behind it is a page worth writing.</p>`
+  : ''}
+${clickLines.length
+  ? `<p style="margin:0 0 8px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#545e69;">Booking clicks, by button and by counsellor</p>
+     <pre style="margin:0 0 8px;font-size:13px;line-height:1.6;white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;">${clickLines.join('\n')}</pre>
+     <p style="margin:0 0 16px;font-size:14px;color:#545e69;">Cumulative since the counter began, not the month. Last month's email beside this one is the month-on-month view.</p>`
   : ''}
 ${!clinikoOk ? `<p style="margin:0 0 16px;font-size:14px;color:#545e69;">Cliniko could not be reached, so booking counts are missing. The rest is from this site and is complete.</p>` : ''}
 <hr style="border:none;border-top:1px solid #e6ddce;margin:22px 0 14px;">
