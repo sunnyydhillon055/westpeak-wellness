@@ -14,6 +14,17 @@ export type Audience = {
   metaDescription: string;
   eyebrow: string;
   lede: string;
+  /* THE WORDS AFTER "Book a free consultation" ON THE HERO BUTTON — 1 Oct
+   * 2026: "for teachers", "about counselling for your team". The button used
+   * to say the same four words on every page; the heading had just named the
+   * group, and the one action on the page then went generic. Required, so a
+   * new audience page cannot ship with a button that does not name it. */
+  ctaFor: string;
+  /* Set only on a page written for one language, as the roster spells the
+   * tag ('pa', 'tl'). lib/booking-cta.ts turns it into a consultation with a
+   * counsellor who works in that language. Pages that merely mention a
+   * language stay untagged. */
+  language?: 'pa' | 'tl';
   /* The one-sentence direct answer, written to survive being quoted with no
    * page around it. Every other dated collection on this site already had one
    * — these ten did not, which made the pages targeting "counselling for
@@ -39,6 +50,7 @@ export type Audience = {
 const coreAudiences: Audience[] = [
   {
     slug: "new-parents",
+    ctaFor: "for new and expecting parents",
     figure2: "bc-reach",
     figure: "first-session-flow",
     title: "Counselling for new parents in BC",
@@ -146,6 +158,7 @@ const coreAudiences: Audience[] = [
   },
   {
     slug: "university-students",
+    ctaFor: "for post-secondary students",
     figure2: "first-session-flow",
     figure: "therapy-cost-in-bc",
     title: "Counselling for university and college students in BC",
@@ -232,6 +245,7 @@ const coreAudiences: Audience[] = [
 
   {
     slug: "healthcare-and-shift-workers",
+    ctaFor: "for healthcare and shift workers",
     figure2: "first-session-flow",
     figure: "burnout-vs-depression",
     title: "Counselling for healthcare and shift workers in BC",
@@ -316,6 +330,8 @@ const coreAudiences: Audience[] = [
   },
   {
     slug: "first-gen-south-asian-adults",
+    ctaFor: "for South Asian adults",
+    language: "pa",
     figure2: "first-session-flow",
     figure: "window-of-tolerance",
     title: "Counselling for first- and second-generation South Asian adults",

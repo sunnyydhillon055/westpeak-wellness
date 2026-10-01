@@ -3,6 +3,7 @@ import type { Audience } from './audiences';
 export const moreAudiences2: Audience[] = [
   {
     slug: 'rotational-and-camp-workers',
+    ctaFor: 'for rotational and camp workers',
     figure2: "first-session-flow",
     figure: 'bc-reach',
     title: 'Counselling for rotational and camp workers',
@@ -100,6 +101,7 @@ export const moreAudiences2: Audience[] = [
 
   {
     slug: 'family-caregivers',
+    ctaFor: 'for family caregivers',
     figure2: "confidentiality-limits",
     figure: 'window-of-tolerance',
     title: 'Counselling for people caring for a parent',

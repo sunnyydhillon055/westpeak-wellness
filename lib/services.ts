@@ -10,6 +10,12 @@ export type Service = {
   helps: string[];      // "this helps with" list
   approach: string;     // how the practice works with it
   featured?: boolean;   // shown on home page
+  /* Set only on a service that IS a language ('pa', 'tl', as the roster
+   * spells the tag). The hero button then books with a counsellor who works
+   * in it rather than opening the practice-wide calendar, which lists one
+   * who does not. See lib/booking-cta.ts. Family counselling mentions both
+   * languages and stays untagged: it is not a promise of either. */
+  language?: 'pa' | 'tl';
 
   // Rich fields — added in the Phase 2 SEO build so each service page is a
   // genuine pillar rather than a summary. Optional so pages can be deepened
@@ -303,6 +309,7 @@ export const services: Service[] = [
 
   {
     slug: "punjabi-counselling",
+    language: "pa",
     directAnswer:
       "Westpeak Wellness offers counselling in Punjabi (ਪੰਜਾਬੀ) by secure video anywhere in British Columbia, provided by a Punjabi-speaking Registered Clinical Counsellor. Working in the language you think in removes the translation overhead from material that is difficult to say once, and means family context does not have to be explained from scratch. Individual and couples sessions are both available in Punjabi, and you can move between Punjabi and English within a session.",
     figure2: "first-session-flow",
@@ -382,6 +389,7 @@ export const services: Service[] = [
      above; the counsellor is Camille Granda, RCC, CCC, BC and Alberta. */
   {
     slug: "tagalog-counselling",
+    language: "tl",
     directAnswer:
       "Westpeak Wellness offers counselling in Tagalog by secure video anywhere in British Columbia and Alberta, provided by a Registered Clinical Counsellor who works in Tagalog and English. Working in the language you think in removes the translation overhead from material that is difficult to say once, and means Filipino family context, hiya, utang na loob, the eldest-daughter role, does not have to be explained from scratch. Individual, couples and family sessions are available in Tagalog, and you can move between Tagalog and English within a session.",
     figure2: "first-session-flow-tl",

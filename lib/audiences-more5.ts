@@ -20,6 +20,7 @@ import type { Audience } from './audiences';
 export const moreAudiences5: Audience[] = [
   {
     slug: 'truck-drivers',
+    ctaFor: 'for truck drivers',
     figure: 'bc-reach',
     figure2: 'first-session-flow',
     title: 'Counselling for truck drivers in BC',
@@ -100,6 +101,7 @@ export const moreAudiences5: Audience[] = [
   },
   {
     slug: 'international-students',
+    ctaFor: 'for international students',
     figure: 'reimbursement-flow',
     figure2: 'first-session-flow',
     title: 'Counselling for international students in BC',
@@ -184,6 +186,7 @@ export const moreAudiences5: Audience[] = [
        and with a parent's questions answered beside the teen's. Descriptive,
        never predictive; no invented figures. */
     slug: 'teens-and-young-adults',
+    ctaFor: 'for teens and young adults',
     figure: 'first-session-flow',
     figure2: 'window-of-tolerance',
     title: 'Counselling for teens and young adults in BC',

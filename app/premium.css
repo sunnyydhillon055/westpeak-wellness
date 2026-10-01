@@ -318,6 +318,10 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
 .hero--home h1{ max-width: 9.93em; font-size: var(--fs-display) }
 .hero--home .lede{ max-width: 29.02em }
 .hero-note{ margin-top: 16px; font-size: var(--fs-small); color: var(--ink-faint) }
+/* The coverage line under the hero button (components/CoverageLine.tsx):
+   two links in a faint small line need an underline to be seen as links. */
+.hero-coverage{ max-width: 38em }
+.hero-coverage a{ text-decoration: underline; text-underline-offset: 3px }
 .hero-art .photo{ aspect-ratio: 4/5; box-shadow: var(--shadow-xl) }
 .photo-credit{
   position: absolute; right: 10px; bottom: 8px; left: 10px; z-index: 3; margin: 0;
@@ -617,6 +621,9 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   letter-spacing: .12em; text-transform: uppercase; color: var(--blue-deep); margin-bottom: 16px;
 }
 .svc-aside-card ul{ list-style: none; padding: 0; margin: 0 0 20px }
+/* The aside's booking button fills the card. It was an inline style on a
+   <Link>; BookLink, which counts the click, takes a class and not a style. */
+.svc-aside-card .btn{ width: 100%; text-align: center }
 .svc-aside-card li{
   display: flex; gap: 10px; align-items: flex-start; padding: 7px 0;
   font-size: var(--fs-small); color: var(--ink-soft); line-height: 1.5;

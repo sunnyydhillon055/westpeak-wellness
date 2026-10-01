@@ -13,6 +13,7 @@ import type { Audience } from './audiences';
 export const moreAudiences6: Audience[] = [
   {
     slug: 'men',
+    ctaFor: 'for men',
     figure: 'anxiety-avoidance-cycle',
     figure2: 'first-session-flow',
     title: 'Counselling for men in BC',
@@ -87,6 +88,7 @@ export const moreAudiences6: Audience[] = [
 
   {
     slug: 'first-responders',
+    ctaFor: 'for first responders',
     figure: 'window-of-tolerance',
     figure2: 'first-session-flow',
     title: 'Counselling for first responders in BC',
@@ -161,6 +163,7 @@ export const moreAudiences6: Audience[] = [
 
   {
     slug: 'newcomers-to-canada',
+    ctaFor: 'for newcomers to Canada',
     figure: 'bc-reach',
     figure2: 'first-session-flow',
     title: 'Counselling for newcomers to Canada, in BC',
@@ -235,6 +238,7 @@ export const moreAudiences6: Audience[] = [
 
   {
     slug: 'trades-and-construction-workers',
+    ctaFor: 'for trades and construction workers',
     figure: 'anxiety-avoidance-cycle',
     figure2: 'bc-reach',
     title: 'Counselling for trades and construction workers in BC',
