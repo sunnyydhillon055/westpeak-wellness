@@ -1232,6 +1232,150 @@ GSC export). The H1 stays the service name.
 *Enforced by:* `scripts/price-drift.mjs`, `lib/booking-cta.ts`,
 `lib/city-services.ts` (`CONDITION_UPLINK`), the depth-orphan test
 
+### City hub titles say Online, Virtual and Counsellors
+Decided 1 Oct 2026 (branch `wf/cards`); records the 26 Sep change beside the
+17 Sep entry. 17 Sep set city titles to "Online & Virtual Counselling in
+<city>, BC". On 26 Sep, commit 9628b75 added "| Counsellors, Therapy" for the
+person-named queries ("counsellor kamloops", "therapist kamloops"), and in the
+same edit dropped "Virtual" without an entry. Both are carried now: "Online &
+Virtual Counselling in <city>, BC | Counsellors". "Therapy" is dropped to make
+room for "Virtual", which had 127 impressions a quarter for Vancouver against
+137 for "online".
+
+The SEO gate measures the title as raw HTML, where "&" is "&amp;", so the
+title is built to fit 60 characters as the gate counts them. It drops ", BC"
+first; only Surrey and Delta keep it. Prince George also drops " in". The
+words Online, Virtual, Counselling, the city name and Counsellors are never
+dropped. The service, audience and city pages also show who you would see,
+from the roster (`lib/counsellor-cards.ts`), with no registration number.
+
+*Enforced by:* `lib/city-hub.ts` (`cityHubTitle`), `test/city-hub.test.mts`,
+the SEO gate's title limit
+
+### A booking link names a counsellor only if she speaks the page's language AND offers its service; the chrome follows the page
+Decided 1 Oct 2026 (branch `wf/language`). A page written for one language
+(its `language` tag on Service, Audience, Resource or Comparison, or a
+/punjabi*, /punjabi-counselling*, /tagalog* or /tagalog-counselling* path)
+books with the first counsellor who is accepting, bookable and speaks the
+language. If the page is about one service (`service` on the Audience), she
+must also offer that service. Otherwise the page keeps its own label and uses
+bare /book: a language page never narrows to a counsellor who does not speak
+its language. The language's own service page (punjabi-/tagalog-counselling)
+counts as offered by everyone who speaks it. This refines rule (2) of "Fees in
+prose come from the catalogue" above; `bookingFor` in `lib/booking-cta.ts` is
+still the one function.
+
+The header and phone bar resolve the same counsellor, from navRoster's
+`bookIn` tags (`lib/roster-nav.ts` LANGUAGE_PAGES and prefixes), so the roster
+never reaches the browser. The phone bar's "Next free consult" line names the
+counsellor its button names, and goes generic if she has no slot.
+
+/for/punjabi-speaking-couples therefore books with nobody in particular until
+someone accepting offers couples work in Punjabi. The English copy no longer
+says couples or EMDR are available in Punjabi. **Owner decision pending:**
+whether Savneet takes Punjabi couples (and EMDR). If yes, add the service to
+her roster entry; the links and tests follow automatically.
+
+The header Counsellors menu lists only counsellors accepting new clients; the
+founder stays on /practitioners, /about and her own page. Region and city
+language pages declare no hreflang (the /punjabi-counselling/{region} pages
+carried a one-way pa -> /punjabi until 1 Oct). /punjabi's title leads with
+Gurmukhi, and /services/punjabi-counselling carries the English head term;
+this reverses the 17 Sep code-comment ordering, not an entry here.
+
+*Enforced by:* `lib/booking-cta.ts`, `lib/roster-nav.ts`,
+`test/booking-cta.test.mts`, `test/roster-nav.test.mts`, `scripts/smoke.mjs`
+(hreflang check)
+
+### Alberta and Canada-wide reach are gated on a current liability policy
+Decided 1 Oct 2026 (branch `wf/trust`). Alberta opened for Camille on her
+BMS/Berkley certificate, and her "anywhere in Canada" reach rests on it too.
+Until today only the weekly credential-expiry run read `insurance.validTo`.
+Now `lib/practitioners.ts` applies `insuranceStatus()` to the roster every page
+reads. A policy is current through validTo, then has a 14-day grace for the
+renewal certificate to be recorded. From validTo + 14 days (America/Vancouver),
+'AB' is dropped from `provinces` and `reach: 'canada'` is dropped. Because
+every consumer (place routes, sitemap, /book, llms, FAQ, /refer) reads those
+fields, one gate covers them all. BC is untouched, since it rests on the BCACC
+registration. A practitioner with no policy on file cannot open Alberta. Pages
+are static, so the gate takes effect at the first build on or after the gate
+day. `scripts/credential-expiry.mjs` reads the same grace constant, warns
+during the grace, exits 1 once lapsed, and now runs first in `npm run verify`.
+Code that needs the ungated roster imports `recordedPractitioners`.
+
+*Enforced by:* `lib/practitioners.ts` (`insuranceStatus`, `withInsuranceGate`),
+`app/practitioners/[slug]/[place]/page.tsx`, `scripts/credential-expiry.mjs`,
+`test/insurance-gate.test.mts`
+
+### Referral pages name who is accepting, from the roster only
+Decided 1 Oct 2026 (branch `wf/trust`). /refer/doctor, /refer/counsellors and
+/refer/handout build "who you would see" from `app/refer/accepting.ts`. It
+lists accepting counsellors only (never the founder) and never shows
+registration numbers, which stay on the profile. A printed sheet cannot be
+corrected once handed over, so nothing on it is typed by hand: the
+consultation length comes from the Cliniko catalogue, and no hours or phone
+appear. /refer/counsellors states no referral fee, no reciprocity and no
+report back without the client's written consent. /pricing cites the BCACC
+Fee Guide 2026 ranges as market figures (allow-listed in
+`scripts/price-drift.mjs`); the practice's own fees still come only from the
+catalogue.
+
+*Enforced by:* `app/refer/accepting.ts`, `test/refer-accepting.test.mts`,
+`scripts/price-drift.mjs` (ALLOW)
+
+### Retired URLs reach their page in one hop; trauma absorbs into EMDR; the vercel.app alias is not a second site
+Decided 1 Oct 2026 (branch `wf/tech`). /services/trauma-therapy and
+/copy-of-individual-1 now 308 to /services/emdr-therapy. `lib/conditions.ts`
+already routed trauma there, and that page was retitled for trauma on 6 Sep.
+This only changes which page absorbs the old URL. It does not reverse the 31
+Aug decision to cut services to five, and trauma does not come back as a
+service.
+
+Every career alias and /jobs/:slug goes straight to /about in one hop. The four
+307s kept for a role that might reopen (/apply, /careers/apply, /careers/rcc,
+/careers/registered-clinical-counsellor) are now permanent, because the role
+and speculative applications were both retired on 1 Sep. The redirect list
+lives in `lib/redirects.mjs`; `next.config.mjs` and `lib/indexnow.ts` both read
+it. `npm run redirect-shadow` fails on any redirect whose destination is itself
+a redirect.
+
+westpeak-wellness.vercel.app 308s to www through a host rule in
+`next.config.mjs`, excluding /api/ so crons are never redirected. Every other
+*.vercel.app host (previews) sends noindex.
+
+No hours are published: the evening-appointment cards and lines are gone from
+the city, Punjabi-region, place and audience pages and from the outreach and
+listing drafts, replaced by "times depend on the counsellor; /book shows what
+is open". Evening wording still stands in a handful of files outside that
+branch (`lib/audiences-more*.ts`, `lib/depth*.ts`, `lib/services.ts`,
+`lib/tagalog.ts` and others) and needs the same sweep.
+
+*Enforced by:* `lib/redirects.mjs`, `scripts/redirect-chains.mjs`,
+`npm run redirect-shadow`, `next.config.mjs` (host rule)
+
+### Counsellor titles lead with the person and her language; machine files carry no numbers and no founder
+Decided 1 Oct 2026 (branch `wf/schema`), from Search Console. The city hubs
+for Richmond and Vancouver dropped out of the export, while
+savneet-singh/richmond sat at 6.93 and camille-granda/vancouver at 8.38 under
+titles that led with "Counselling in <City>". Profiles sat at 7.7-8.1 with no
+clicks. So profile and place titles now lead with the person and the
+non-English language she works in ("Camille Granda, RCC: Tagalog counsellor,
+online in Canada"; "Savneet Singh, RCC: Punjabi counsellor for Richmond").
+They are composed to fit 60 characters, never use "&", and come from
+`lib/practitioner-titles.ts`. Place pages stay indexed.
+
+llms.txt, llms-full.txt and ai.json list only counsellors taking new clients,
+with no registration numbers and without the founder. Reach comes from the
+roster (`lib/practice-facts.ts`). Psychology Today URLs are not used as sameAs
+until a listing has been read and matches the site. The organisation schema no
+longer claims medicalSpecialty "Psychiatric".
+
+*Enforced by:* `scripts/uniqueness-gate.mjs` (same-city place pairs and place
+vs hub, 0.62/0.18), `scripts/ai-crawl-audit.mjs` (numbers, founder, unclosed
+links, ?with= links, six services, no "Psychiatric"),
+`scripts/schema-validate.mjs` (one BreadcrumbList per page),
+`test/schema-facts.test.mts`
+
 ### Titles follow Search Console, not taste
 Decided 6 Sep 2026. The first month of Search Console data (`data/gsc/`)
 showed 4,478 non-brand impressions and two clicks: pages surfacing at
