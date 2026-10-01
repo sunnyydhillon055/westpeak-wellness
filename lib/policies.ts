@@ -134,12 +134,13 @@ export const policies: Record<string, Policy> = {
     eyebrow: 'Trust and transparency',
     lede:
       'This site publishes guides about mental health, which means it can do harm if it is careless. Here is the standard it holds itself to, so you can judge whether it meets it.',
-    updated: '2026-08-30',
+    updated: '2026-10-01',
     sections: [
       {
         h2: 'Who writes and reviews this content',
         body: [
           'Every clinical page on this site. The services, the guides, the comparisons, the resource pages, is written and reviewed by a **Registered Clinical Counsellor** in independent practice in British Columbia. It is not outsourced to a content agency, and it is not published without clinical review.',
+          'One exception, stated rather than hidden: twenty-five pages written in Tagalog are live and have not yet been read by a Tagalog speaker. They were published on the practice’s decision, and until that review happens they should be read alongside the English pages they correspond to.',
           'That is a statement about accountability, not authority. A counsellor writing about anxiety is not thereby correct about anxiety. The reason every substantive claim on this site carries a link to its source is so that the source, not the author, carries the weight.',
         ],
       },
@@ -153,7 +154,7 @@ export const policies: Record<string, Policy> = {
           { label: 'Primary sources for facts about systems', detail: 'Anything about coverage, regulation, wait times or eligibility links to the body that actually sets it. A health authority, a regulator, a government page, not to another article summarising it.' },
           { label: 'No citing ourselves as evidence', detail: 'Internal links point to other pages for context, never as the support for a factual claim.' },
           { label: 'Nothing behind an unmarked paywall', detail: 'Where a cited paper is not freely readable, the page says so or links an open version, so a reader can actually check the claim.' },
-          { label: 'Dates on everything', detail: 'Coverage rules, wait times and regulation change. Every guide carries the date it was last reviewed, so you can weigh how stale it might be.' },
+          { label: 'Dates on everything', detail: 'Coverage rules, wait times and regulation change. Every page carries the date it was last changed, and a clinical-review date as well where one exists, so you can weigh how stale it might be. The two are different claims and are not merged.' },
         ],
       },
       {
@@ -172,7 +173,7 @@ export const policies: Record<string, Policy> = {
           { label: 'Self-diagnosis quizzes', detail: 'A ten-question widget cannot assess anyone, and dressing one up as a screening tool implies a precision that does not exist.' },
           { label: 'AI-generated clinical content published unreviewed', detail: 'Drafting tools may assist with structure or editing. No clinical claim reaches this site without being checked against its source by a person who is accountable for it.' },
           { label: 'Comparisons naming other practices', detail: 'Pages here compare approaches, designations and delivery formats. They do not name competing clinics or counsellors, because a marketing page is not a fair forum for that.' },
-          { label: 'Keyword pages with nothing in them', detail: 'This site does not publish a page per city or per keyword because the phrase gets searched. When a page has nothing specific to say, it is folded into one that does, which is why the location pages were cut from forty-three to six.' },
+          { label: 'Keyword pages with nothing in them', detail: 'This site does not publish a page per city or per keyword because the phrase gets searched. The rule for a location page is that it must say something specific to that place, its routes to care, its distances, the questions people there actually ask, rather than a city name swapped into a template. When a page has nothing specific to say, it is folded into one that does.' },
         ],
       },
       {
@@ -211,7 +212,7 @@ export const policies: Record<string, Policy> = {
     eyebrow: 'Trust and transparency',
     lede:
       'Two different things get called privacy: what happens to what you say in a session, and what happens to your data when you visit this website. Both are covered here, separately, because they work differently.',
-    updated: '2026-09-03',
+    updated: '2026-10-01',
     sections: [
       {
         h2: 'Confidentiality in counselling, and its limits',
@@ -239,7 +240,7 @@ export const policies: Record<string, Policy> = {
       {
         h2: 'Where records live and how long they are kept',
         body: [
-          'Records are stored in encrypted, access-controlled systems, and video sessions are conducted over a platform that supports the privacy obligations of a BC health professional. Sessions are **never recorded**, not for notes, not for supervision, not for training.',
+          'Bookings and client records are held in **Cliniko**, the practice’s booking and records system, in an account on Cliniko’s Canadian region. Records are encrypted and access-controlled. Sessions are by secure video: the link arrives by email and opens in your browser, with nothing to install. Sessions are **never recorded**, not for notes, not for supervision, not for training.',
           'Records are retained for the period required by professional standards and applicable law, then securely destroyed. You are entitled to ask how long your specific file will be kept, and to receive that answer in writing.',
           'Anything sent through a form on this website. A message, or a request for a guide, is held separately from clinical records and is **deleted automatically after 24 months**. That is a fixed period rather than a judgement call: the purpose it was collected for is answering you, and that purpose expires. Two years leaves room for someone who enquired, waited and came back, which is a real pattern, without the practice quietly accumulating an archive of what people wrote before they had met anyone.',
           'You have the right to request access to your own records and to request correction of factual errors in them. Requests go to the address on the [contact page](/contact). Where a portion of a file cannot be released, for example, because it contains information about another person. You are told that, and told why.',
@@ -248,22 +249,32 @@ export const policies: Record<string, Policy> = {
       {
         h2: 'What this website itself collects',
         body: [
-          'This is a static website. It is worth being specific about what that means, because "we value your privacy" is not information:',
+          'It is worth being specific, because "we value your privacy" is not information. This is the whole list, and each line describes something the site’s own code does:',
         ],
         list: [
           { label: 'No advertising or tracking pixels', detail: 'There is no Meta pixel, no Google Ads remarketing tag, and no third-party advertising script anywhere on this site.' },
           { label: 'No cookies unless you sign in', detail: 'Browsing this site sets no cookies, so there is no consent banner to dismiss. A banner that exists only to be clicked away is theatre. Signing in to the client portal does set one session cookie, because that is what keeps you signed in; it is removed when you sign out.' },
-          { label: 'No fonts or scripts loaded from other companies', detail: 'Typography uses fonts already on your device. Nothing on a page you load here reports your visit to a third party by loading an asset from them.' },
-          { label: 'Forms go to the practice, not to a form processor', detail: 'The message and checklist forms are handled by this site and by the practice’s own email provider. There is no third-party form service holding a copy. What you write is stored so that it cannot be lost if an email fails to send, is visible only to the practice, and is not used for anything else.' },
+          { label: 'Fonts are served from this site, not from Google', detail: 'The typefaces are copied into the site when it is built and served from this site’s own address. An ordinary page here loads nothing from another company, so nothing reports your visit to a third party by loading an asset. The one exception is the booking calendar, below.' },
+          { label: 'The booking calendar loads only when you open it', detail: 'The calendar on /book is Cliniko’s booking page. It is not loaded until you press the button to open it, and when you do, it loads from Cliniko, which in turn loads Stripe (for the card details on a paid booking) and Google Fonts. Those requests are made by your browser to those companies, under their terms as well as this practice’s obligations.' },
+          { label: 'Forms go to the practice, not to a form processor', detail: 'The message and checklist forms are handled by this site. What you write is stored privately with the site’s host, Vercel, so that it cannot be lost if an email fails to send, and the practice is notified by email through Resend, its email-sending service. There is no third-party form service holding a copy. It is visible only to the practice and is not used for anything else.' },
+          { label: 'Page actions are counted, not logged', detail: 'When someone presses a booking button, opens the calendar, sends a form, finishes one of the tools, or arrives from an AI assistant or from the practice’s Google Business Profile listing, the site adds one to a tally: the kind of action, the page it happened on, and at most one detail from a fixed list (which counsellor’s button, which position on the page, what a tool concluded, which kind of AI assistant). No IP address, no cookie, no time of the individual action, and nothing that joins two actions to the same person.' },
+          { label: 'Google Analytics only if you agree, and it is currently off', detail: 'Google Analytics is not running on this site. If it is ever switched on, a banner asks first, with two equal buttons; nothing from Google loads until you choose to allow it, and your choice is kept in your own browser rather than sent anywhere.' },
           { label: 'Search terms are counted, not logged', detail: 'When the site’s search box is used, the term is added to a tally. The word, and how many times it has been submitted. No timestamp, no IP address, no session, and nothing that connects two searches to the same person. There is no record that any particular search happened, only that a term has been used some number of times, and anything long enough to be a sentence rather than a search term is discarded instead of counted.' },
-          { label: 'Standard server logs', detail: 'The hosting provider records ordinary request data: IP address, time, page, user agent: as every web server does. It is used for security and reliability, not for profiling, and it is not combined with any clinical record.' },
+          { label: 'Standard server logs', detail: 'The hosting provider, Vercel, records ordinary request data: IP address, time, page, user agent: as every web server does. It is used for security and reliability, not for profiling, and it is not combined with any clinical record.' },
         ],
       },
       {
         h2: 'Scheduling and third parties',
         body: [
-          'Booking a consultation is handled through a scheduling service, and the information you enter there. Your name, email and chosen time, is held by that provider under its own privacy terms as well as this practice\'s obligations. Only what is needed to schedule the appointment is requested at that stage. Clinical information is never collected through a booking form.',
-          'Where any third-party service is used, it is chosen on the basis that it can meet the privacy obligations that apply to a BC health professional, and it is named rather than hidden behind "our partners".',
+          'Booking a consultation is handled through Cliniko, and the information you enter there, your name, email and chosen time, is held by Cliniko under its own privacy terms as well as this practice\'s obligations. Only what is needed to schedule the appointment is requested at that stage. Clinical information is never collected through a booking form.',
+          'Where any third-party service is used, it is chosen on the basis that it can meet the privacy obligations that apply to a BC health professional, and it is named rather than hidden behind "our partners". These are all of them:',
+        ],
+        list: [
+          { label: 'Cliniko', detail: 'Booking, client records, session notes, receipts and Cliniko’s own booking confirmation. This practice’s account is on Cliniko’s Canadian region.' },
+          { label: 'Stripe', detail: 'Card payments, entered inside Cliniko’s booking page. The practice never sees or stores a full card number.' },
+          { label: 'Vercel', detail: 'Hosts this website, and stores what the site needs to run: what is sent through its forms, the counts described above, and a record of which emails have been sent so none is sent twice.' },
+          { label: 'Resend', detail: 'Sends the email that comes from the practice’s own address rather than from Cliniko: booking confirmations and reminders with the session links, the checklist and its two follow-ups if you asked for one, client-portal sign-in messages, and the notice to the practice that a form was sent.' },
+          { label: 'Google', detail: 'Only through the booking calendar’s fonts, and Google Analytics only if it is ever switched on and you agree to it.' },
         ],
       },
       {

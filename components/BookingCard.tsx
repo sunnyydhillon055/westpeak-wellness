@@ -57,7 +57,7 @@ export default function BookingCard({
           </li>
           <li>
             <Video aria-hidden="true" strokeWidth={1.7} />
-            <span>Secure video, anywhere in British Columbia. No referral needed.</span>
+            <span>Secure video in your browser, nothing to install, never recorded. No referral needed.</span>
           </li>
           <li>
             <CalendarClock aria-hidden="true" strokeWidth={1.7} />
