@@ -88,10 +88,15 @@ export default function StickyBook({ roster }: { roster: NavPractitioner[] }) {
   if (pathname === '/resources/bc-crisis-and-support-directory') return null;
   const onBooking = pathname === site.bookingPath;
 
-  /* On a counsellor's own page, her time; elsewhere the soonest of anyone's. */
-  const onSlug = /^\/practitioners\/([^/]+)/.exec(pathname ?? '')?.[1];
+  /* The counsellor the Book button names (her own page, or the counsellor
+     who speaks the language on a page written for one): her time. Elsewhere
+     the soonest of anyone's. Read from the same href, so the line and the
+     button cannot name two different people; when she has no slot listed the
+     line goes generic rather than offering someone else's. 1 Oct 2026. */
+  const bookHref = bookHrefFor(pathname, roster, site.bookingPath);
+  const onSlug = withSlugOf(bookHref);
   const pick = avail
-    ? (onSlug && avail[onSlug]?.next?.length ? avail[onSlug] : Object.values(avail).find((a) => a.next?.length))
+    ? (onSlug ? avail[onSlug] : Object.values(avail).find((a) => a.next?.length))
     : undefined;
   const nextLine = pick?.next?.[0]
     ? `Next free consult: ${pick.next[0].replace(/\s\(\d+ times\)$/, '')} with ${pick.first}`
@@ -117,10 +122,10 @@ export default function StickyBook({ roster }: { roster: NavPractitioner[] }) {
         {!onBooking && (
           <Link
             className="sticky-book-btn sb-book"
-            href={bookHrefFor(pathname, roster, site.bookingPath)}
+            href={bookHref}
             onClick={() => track('book_click', {
               location: 'sticky',
-              detail: bookClickDetail('sticky', withSlugOf(bookHrefFor(pathname, roster, site.bookingPath))),
+              detail: bookClickDetail('sticky', onSlug),
             })}
           >
             Book free consult

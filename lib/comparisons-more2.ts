@@ -265,6 +265,7 @@ export const moreComparisons2: Comparison[] = [
 
   {
     slug: 'therapy-in-punjabi-vs-english',
+    language: 'pa',
     figure2: 'first-session-flow',
     figure: 'language-in-therapy',
     title: 'Therapy in Punjabi or in English: does the language matter?',
@@ -512,6 +513,7 @@ export const moreComparisons2: Comparison[] = [
      Alberta as well as BC. */
   {
     slug: 'therapy-in-tagalog-vs-english',
+    language: 'tl',
     figure2: 'first-session-flow-tl',
     figure: 'language-in-therapy-tl',
     title: 'Therapy in Tagalog or in English: does the language matter?',

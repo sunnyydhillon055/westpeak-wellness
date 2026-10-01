@@ -9,6 +9,8 @@ import { orgRef, siteRef } from '@/lib/schema';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import Updated from '@/components/Updated';
 import CtaBand from '@/components/CtaBand';
+import BookLink from '@/components/BookLink';
+import { bookingCtaFor } from '@/lib/booking-cta';
 import Figure from '@/components/Figure';
 import { ogBase } from '@/lib/og-meta';
 import { COLLECTION_DATES } from '@/lib/page-dates';
@@ -39,6 +41,7 @@ export default function TagalogCityPage({ params }: { params: { city: string } }
   const c = getTagalogCity(params.city);
   if (!c) notFound();
   const speaker = TAGALOG_SPEAKERS[0];
+  const cta = bookingCtaFor({ language: 'tl', fallback: 'Book a free consultation' });
   const loc = getLocation(c.slug);
 
   const schema = [
@@ -104,7 +107,7 @@ export default function TagalogCityPage({ params }: { params: { city: string } }
           </p>
           <Updated iso={COLLECTION_DATES['tagalog']} />
           <div className="btn-row" style={{ marginTop: 22 }}>
-            <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
+            <BookLink location="hero-language-region" href={cta.href}>{cta.label}</BookLink>
             <Link className="btn btn--ghost" href="/tagalog-counselling">All areas</Link>
           </div>
         </div>
@@ -201,6 +204,7 @@ export default function TagalogCityPage({ params }: { params: { city: string } }
       </section>
 
       <CtaBand
+        bookHref={cta.href}
         heading={`Tagalog counselling for ${c.city}`}
         text="A free 30-minute consultation by video, in Tagalog or English. No card, no obligation."
       />

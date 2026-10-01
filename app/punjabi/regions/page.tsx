@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import Updated from '@/components/Updated';
 import Link from 'next/link';
 import { site } from '@/lib/site';
+import BookLink from '@/components/BookLink';
+import { bookingCtaFor } from '@/lib/booking-cta';
 import { gurmukhi } from '@/app/fonts-gurmukhi';
 import { abs, orgRef, siteRef } from '@/lib/schema';
 import Figure from '@/components/Figure';
@@ -86,6 +88,7 @@ const DISTANCE = ['surrey', 'abbotsford', 'vancouver'];
 
 export default function PunjabiRegionsPage() {
   const speaker = practitioners.find((p) => p.acceptingNewClients && p.languages.some((l) => l.tag === 'pa') && p.placePages);
+  const book = bookingCtaFor({ language: 'pa', fallback: '' }).href;
   const schema = [
     {
       '@context': 'https://schema.org',
@@ -156,7 +159,7 @@ export default function PunjabiRegionsPage() {
             ਵਿੱਚ ਹੋਣਾ ਜ਼ਰੂਰੀ ਨਹੀਂ ਰਹਿੰਦਾ ਤਾਂ ਕੀ ਬਦਲਦਾ ਹੈ।
           </p>
           <div className="btn-row" style={{ marginTop: 24 }}>
-            <Link className="btn btn--primary" href={site.bookingPath}>ਮੁਫ਼ਤ ਸਲਾਹ-ਮਸ਼ਵਰਾ ਬੁੱਕ ਕਰੋ</Link>
+            <BookLink location="hero-language" href={book}>ਮੁਫ਼ਤ ਸਲਾਹ-ਮਸ਼ਵਰਾ ਬੁੱਕ ਕਰੋ</BookLink>
             <Link className="btn btn--ghost" href="/punjabi-counselling" lang="en">Read this in English</Link>
           </div>
         </div>
@@ -241,7 +244,7 @@ export default function PunjabiRegionsPage() {
               ਖ਼ਰਚੇ ਅਤੇ ਬੀਮੇ ਸਮੇਤ, <Link href="/punjabi">ਪੰਜਾਬੀ ਵਾਲੇ ਮੁੱਖ ਪੰਨੇ</Link> ਉੱਤੇ ਹੈ।
             </p>
             <p>
-              <Link className="btn btn--primary" href={site.bookingPath}>ਮੁਫ਼ਤ ਸਲਾਹ-ਮਸ਼ਵਰਾ ਬੁੱਕ ਕਰੋ</Link>
+              <BookLink location="mid-language" href={book}>ਮੁਫ਼ਤ ਸਲਾਹ-ਮਸ਼ਵਰਾ ਬੁੱਕ ਕਰੋ</BookLink>
             </p>
 
             <p lang="en" style={{ fontSize: '.92rem', color: 'var(--ink-faint)', marginTop: 26 }}>

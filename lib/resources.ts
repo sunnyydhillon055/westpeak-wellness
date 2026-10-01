@@ -35,6 +35,11 @@ export type Resource = {
   related: { href: string; label: string }[];
   figure?: string;         // key into lib/figures.ts — renders the page's diagram
   figure2?: string;      // second diagram, further down the page
+  /* Set only on a page written for one language ('pa', 'tl'), as on
+     Audience and Service. Its booking links then open the calendar of the
+     counsellor who speaks it (lib/booking-cta.ts), and the header and phone
+     bar follow (lib/roster-nav.ts LANGUAGE_PAGES). 1 Oct 2026. */
+  language?: 'pa' | 'tl';
 };
 
 const coreResources: Resource[] = [

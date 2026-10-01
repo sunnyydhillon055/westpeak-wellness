@@ -39,10 +39,21 @@ export type LanguageTag = 'pa' | 'tl';
 
 /* The counsellor a language page should book with, or undefined. Accepting
    AND bookable: a counsellor who takes clients but books by reply (the
-   founder's arrangement) has no online calendar for ?with= to open. */
-export const counsellorForLanguage = (tag: string): Practitioner | undefined =>
+   founder's arrangement) has no online calendar for ?with= to open.
+
+   `service`, when given, must also be one she offers. Added 1 Oct 2026: the
+   Punjabi-speaking couples page sent readers to the one accepting Punjabi
+   speaker, whose services are individual counselling only, so the button
+   promised a couples consultation in Punjabi that her calendar cannot hold.
+   With the service in the question, nobody fits and the page falls back to
+   its own label and the practice calendar, which is the honest answer. */
+export const counsellorForLanguage = (tag: string, service?: string): Practitioner | undefined =>
   practitioners.find(
-    (p) => p.acceptingNewClients && p.bookable && p.languages.some((l) => l.tag === tag)
+    (p) =>
+      p.acceptingNewClients &&
+      p.bookable &&
+      p.languages.some((l) => l.tag === tag) &&
+      (!service || p.services.includes(service))
   );
 
 export type BookingCta = {
@@ -55,10 +66,10 @@ export type BookingCta = {
 /* `fallback` is the page-specific label the template would show anyway —
    "Book a free consultation in Kelowna". A language tag replaces it with the
    counsellor-attached version and the narrowed /book URL. */
-export function bookingCtaFor(opts: { language?: string; fallback: string }): BookingCta {
-  const { language, fallback } = opts;
+export function bookingCtaFor(opts: { language?: string; service?: string; fallback: string }): BookingCta {
+  const { language, service, fallback } = opts;
   if (language) {
-    const who = counsellorForLanguage(language);
+    const who = counsellorForLanguage(language, service);
     const name = who?.languages.find((l) => l.tag === language)?.name;
     if (who && name) {
       return {
@@ -69,6 +80,23 @@ export function bookingCtaFor(opts: { language?: string; fallback: string }): Bo
     }
   }
   return { href: site.bookingPath, label: fallback };
+}
+
+/* The booking href for a service, optionally in a language, as a plain
+   value any template can use. With a language: the counsellor who speaks it,
+   is accepting and bookable, and offers the service. Without one: the single
+   accepting, bookable counsellor who offers the service, when exactly one
+   does; when two do, choosing between them is the reader's call on /book, not
+   the template's. Anything else is the practice calendar with no slug. */
+export function bookingFor(service: string | undefined, language?: 'pa' | 'tl'): { href: string; slug?: string } {
+  const who = language
+    ? counsellorForLanguage(language, service)
+    : (() => {
+        if (!service) return undefined;
+        const fits = practitioners.filter((p) => p.acceptingNewClients && p.bookable && p.services.includes(service));
+        return fits.length === 1 ? fits[0] : undefined;
+      })();
+  return who ? { href: `${site.bookingPath}?with=${who.slug}`, slug: who.slug } : { href: site.bookingPath };
 }
 
 /* "EMDR Therapy" → "EMDR therapy"; "Couples Therapy" → "couples therapy".

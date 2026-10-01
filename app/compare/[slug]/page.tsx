@@ -8,6 +8,8 @@ import { buildToc, headingId } from '@/lib/toc';
 import { orgRef, siteRef, personRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import BookLink from '@/components/BookLink';
+import { bookingCtaFor } from '@/lib/booking-cta';
 import SceneBand from '@/components/SceneBand';
 import Byline from '@/components/Byline';
 import ExtraSections from '@/components/ExtraSections';
@@ -50,6 +52,9 @@ const fmt = (iso: string) =>
 export default function ComparePage({ params }: { params: { slug: string } }) {
   const c = getComparison(params.slug);
   if (!c) notFound();
+  /* A comparison written for one language books with the counsellor who
+     speaks it; every other comparison keeps the practice calendar. */
+  const cta = bookingCtaFor({ language: c.language, fallback: 'Book a free consultation' });
 
   const toc = buildToc([
     ...c.sections.map((s) => s.h2),
@@ -63,7 +68,7 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
     c.figure ? <Figure key="fig" name={c.figure} /> : null,
     <div className="crisis" key="cta" style={{ margin: '32px 0' }}>
       <p style={{ margin: 0 }}>
-        {c.midCta.text} <Link href={site.bookingPath}>{c.midCta.label}</Link>.
+        {c.midCta.text} <BookLink location="mid-resource" href={cta.href} className="">{c.midCta.label}</BookLink>.
       </p>
     </div>,
     c.related[0] ? (
@@ -120,7 +125,7 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
               the word does, which was the whole point the first time. */}
           <p className="hero-note">{c.readMinutes} min read · Updated {fmt(c.updated)}</p>
           <div className="btn-row" style={{ marginTop: 22 }}>
-            <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
+            <BookLink location="hero-resource" href={cta.href}>{cta.label}</BookLink>
             <Link className="btn btn--ghost" href="/compare">All comparisons</Link>
           </div>
         </div>
@@ -239,7 +244,8 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
           <p className="eyebrow">Keep reading</p>
           <h2>Related pages</h2>
           <div className="chip-grid" style={{ marginTop: 20 }}>
-            {c.related.map((r) => <Link className="chip" key={r.href} href={r.href}>{r.label}</Link>)}
+            {/* A related link to /book follows the page's booking links. */}
+            {c.related.map((r) => <Link className="chip" key={r.href} href={r.href === site.bookingPath ? cta.href : r.href}>{r.label}</Link>)}
           </div>
         </div>
       </section>
@@ -249,6 +255,7 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
       <ServiceCityLinks section="compare" slug={c.slug} />
       <CityLinks />
       <CtaBand
+        bookHref={cta.href}
         heading="Talk it through before you commit."
         text="A free 30-minute consultation, including an honest answer if what you need is someone other than an RCC."
       />

@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import Updated from '@/components/Updated';
 import Link from 'next/link';
 import { site } from '@/lib/site';
+import BookLink from '@/components/BookLink';
+import { bookingCtaFor } from '@/lib/booking-cta';
 import { gurmukhi } from '@/app/fonts-gurmukhi';
 import { abs, orgRef, siteRef } from '@/lib/schema';
 import Figure from '@/components/Figure';
@@ -72,6 +74,9 @@ export const metadata: Metadata = {
 export default function PunjabiPage() {
   /* The Punjabi-speaking counsellor taking new clients, from the roster. */
   const speaker = practitioners.find((p) => p.acceptingNewClients && p.languages.some((l) => l.tag === 'pa') && p.placePages);
+  /* Both booking buttons open the Punjabi-speaking counsellor's calendar
+     (lib/booking-cta.ts). The button words stay as they were. */
+  const book = bookingCtaFor({ language: 'pa', fallback: '' }).href;
   const schema = [
     {
       '@context': 'https://schema.org',
@@ -115,9 +120,9 @@ export default function PunjabiPage() {
             ਤੁਹਾਨੂੰ ਪਹਿਲਾਂ ਤੋਂ ਫ਼ੈਸਲਾ ਕਰਨ ਦੀ ਲੋੜ ਨਹੀਂ। ਪਹਿਲੀ 30 ਮਿੰਟ ਦੀ ਗੱਲਬਾਤ ਮੁਫ਼ਤ ਹੈ।
           </p>
           <div className="btn-row" style={{ marginTop: 24 }}>
-            <Link className="btn btn--primary" href={site.bookingPath}>
+            <BookLink location="hero-language" href={book}>
               ਮੁਫ਼ਤ ਸਲਾਹ-ਮਸ਼ਵਰਾ ਬੁੱਕ ਕਰੋ
-            </Link>
+            </BookLink>
             <Link className="btn btn--ghost" href="/services/punjabi-counselling" lang="en">
               Read this in English
             </Link>
@@ -152,12 +157,8 @@ export default function PunjabiPage() {
                 ਕੰਮ ਤੋਂ ਥੱਕ ਜਾਣਾ।
               </li>
               <li>
-                <strong>ਪੁਰਾਣੇ ਸਦਮੇ (trauma, EMDR)</strong>, ਕੋਈ ਗੱਲ ਜੋ ਬਹੁਤ ਪਹਿਲਾਂ ਵਾਪਰੀ ਪਰ ਅਜੇ ਵੀ
+                <strong>ਪੁਰਾਣੇ ਸਦਮੇ (trauma)</strong>, ਕੋਈ ਗੱਲ ਜੋ ਬਹੁਤ ਪਹਿਲਾਂ ਵਾਪਰੀ ਪਰ ਅਜੇ ਵੀ
                 ਅਸਰ ਕਰਦੀ ਹੈ।
-              </li>
-              <li>
-                <strong>ਰਿਸ਼ਤੇ ਅਤੇ ਵਿਆਹ (couples counselling)</strong>, ਵਾਰ-ਵਾਰ ਉਹੀ ਝਗੜਾ, ਜਾਂ ਦੂਰੀ
-                ਜੋ ਵਧਦੀ ਜਾ ਰਹੀ ਹੈ।
               </li>
               <li>
                 <strong>ਪਰਿਵਾਰਕ ਦਬਾਅ</strong>, ਫ਼ਰਜ਼ ਅਤੇ ਆਪਣੀ ਜ਼ਿੰਦਗੀ ਵਿਚਕਾਰ ਫਸ ਜਾਣਾ।
@@ -283,9 +284,9 @@ export default function PunjabiPage() {
               ਹੋਰ ਤੁਹਾਡੇ ਲਈ ਬਿਹਤਰ ਹੋਵੇਗਾ, ਤਾਂ ਉਹ ਵੀ ਸਾਫ਼ ਦੱਸਿਆ ਜਾਵੇਗਾ।
             </p>
             <p>
-              <Link className="btn btn--primary" href={site.bookingPath}>
+              <BookLink location="mid-language" href={book}>
                 ਮੁਫ਼ਤ ਸਲਾਹ-ਮਸ਼ਵਰਾ ਬੁੱਕ ਕਰੋ
-              </Link>
+              </BookLink>
             </p>
             {/* The only page on the site where booking was still the sole route
                 to contact. The sitewide English form would have been the wrong

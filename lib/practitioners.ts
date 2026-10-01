@@ -745,8 +745,17 @@ export const practitionersSpeaking = (tag: string) =>
 /* The roster trimmed to what the header menu and the phone action bar show.
    Built on the server (app/layout.tsx) and handed to those two client
    components as props, so this file — bios, credentials, insurance, photos —
-   never enters the browser bundle. See lib/roster-nav.ts, 1 Oct 2026. */
+   never enters the browser bundle. See lib/roster-nav.ts, 1 Oct 2026.
+
+   Only counsellors taking new clients, since 1 Oct 2026. The header's
+   Counsellors menu listed the whole roster on every page, so the founder's
+   name was in the chrome of 300 pages where the rule allows it on three, and
+   a click on it landed on someone who cannot be booked. /practitioners still
+   lists everyone, and her own page is reached from there and from /about. */
 export const navRoster = (): NavPractitioner[] =>
-  practitioners.map(({ slug, name, postNominals, role, acceptingNewClients }) => ({
-    slug, name, postNominals, role, acceptingNewClients,
-  }));
+  practitioners
+    .filter((p) => p.acceptingNewClients)
+    .map(({ slug, name, postNominals, role, acceptingNewClients, bookable, languages }) => ({
+      slug, name, postNominals, role, acceptingNewClients,
+      bookIn: bookable ? languages.map((l) => l.tag).filter((t) => !t.startsWith('en')) : [],
+    }));

@@ -48,6 +48,18 @@ export const BOOK_LOCATIONS: readonly string[] = [
   'hero-city-service',
   'counsellor-city-service',
   'access-city-service',
+  /* The language pages (wf/language, 1 Oct 2026): the hero and closing
+     buttons on /punjabi, /punjabi/regions, /tagalog and the two English
+     language hubs, the hero and inline link on each Punjabi region and
+     Tagalog city page, and the hero and mid-article link on the words
+     resources and the two language comparisons. All open the calendar of
+     the counsellor who speaks the language (lib/booking-cta.ts). */
+  'hero-language',
+  'mid-language',
+  'hero-language-region',
+  'mid-language-region',
+  'hero-resource',
+  'mid-resource',
   ...tools.map((t) => `tool:${t.slug}`),
 ];
 

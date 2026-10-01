@@ -311,7 +311,7 @@ export const services: Service[] = [
     slug: "punjabi-counselling",
     language: "pa",
     directAnswer:
-      "Westpeak Wellness offers counselling in Punjabi (ਪੰਜਾਬੀ) by secure video anywhere in British Columbia, provided by a Punjabi-speaking Registered Clinical Counsellor. Working in the language you think in removes the translation overhead from material that is difficult to say once, and means family context does not have to be explained from scratch. Individual and couples sessions are both available in Punjabi, and you can move between Punjabi and English within a session.",
+      "Westpeak Wellness offers counselling in Punjabi (ਪੰਜਾਬੀ) by secure video anywhere in British Columbia, provided by a Punjabi-speaking Registered Clinical Counsellor. Working in the language you think in removes the translation overhead from material that is difficult to say once, and means family context does not have to be explained from scratch. Individual sessions are available in Punjabi, and you can move between Punjabi and English within a session; couples counselling and EMDR currently run in English or Tagalog.",
     figure2: "first-session-flow",
     figure: "bc-reach",
     name: "Punjabi-Speaking Counselling",

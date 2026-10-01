@@ -7,6 +7,8 @@ import { site } from '@/lib/site';
 import { abs, orgRef, siteRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import BookLink from '@/components/BookLink';
+import { bookingCtaFor } from '@/lib/booking-cta';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import Figure from '@/components/Figure';
 import Stat from '@/components/Stat';
@@ -53,6 +55,9 @@ export default function PunjabiRegionPage({ params }: { params: { region: string
 
   const siblings = (r.nearby ?? []).map(getPunjabiRegion).filter(Boolean) as typeof punjabiRegions;
   const path = `/punjabi-counselling/${r.slug}`;
+  /* Every booking link on the page opens the Punjabi-speaking counsellor's
+     calendar, resolved from the roster (lib/booking-cta.ts). */
+  const cta = bookingCtaFor({ language: 'pa', fallback: 'Book a free consultation' });
 
   const schema = [
     {
@@ -99,7 +104,7 @@ export default function PunjabiRegionPage({ params }: { params: { region: string
           <p className="lede">{r.blurb}</p>
           <Updated iso={COLLECTION_DATES['punjabiRegions']} />
           <div className="btn-row" style={{ marginTop: 24 }}>
-            <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
+            <BookLink location="hero-language-region" href={cta.href}>{cta.label}</BookLink>
             <Link className="btn btn--ghost" href="/punjabi">ਪੰਜਾਬੀ ਵਿੱਚ ਪੜ੍ਹੋ</Link>
           </div>
         </div>
@@ -165,7 +170,7 @@ export default function PunjabiRegionPage({ params }: { params: { region: string
           <div className="crisis" style={{ marginTop: 32 }}>
             <p style={{ margin: 0 }}>
               Not sure whether this is the right fit? A{' '}
-              <Link href={site.bookingPath}>free 30-minute consultation</Link> is the fastest way to
+              <BookLink location="mid-language-region" href={cta.href} className="">free 30-minute consultation</BookLink> is the fastest way to
               find out, and it is a perfectly good outcome if the answer turns out to be a referral
               somewhere else.
             </p>
@@ -222,6 +227,7 @@ export default function PunjabiRegionPage({ params }: { params: { region: string
       </section>
 
       <CtaBand
+        bookHref={cta.href}
         heading={`Counselling in Punjabi, from ${r.region}`}
         text="A free 30-minute consultation over secure video, in Punjabi or English. No pressure, no commitment, and no obligation to book a session afterward."
       />
