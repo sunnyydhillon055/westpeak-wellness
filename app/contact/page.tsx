@@ -66,7 +66,6 @@ export default async function Contact({
         <div className="container">
           <Breadcrumbs trail={[{ name: 'Contact', path: '/contact' }]} />
           <h2>Reach out</h2>
-          <Figure name="bc-reach" caption="Sessions run by secure video, so the practice reaches every region of the province." />
           <div className="info-grid" style={{ marginTop: 26 }}>
             {hoursLine && (
               <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Clock strokeWidth={1.7} /></span><div><h3>Hours</h3><p>{hoursLine}</p></div></div>
@@ -101,6 +100,13 @@ export default async function Contact({
           </p>
 
           <InboundForm kind="enquiry" done={sent} />
+
+          {/* THE MAP AFTER THE FORM — 1 Oct 2026. It sat between the hero and
+              the form, and on a phone pushed the form to y=2414 on the page
+              that produces half the enquiries. It says what the Sessions and
+              Service area entries above already say, so below 680px it is not
+              shown at all (`repeats`). */}
+          <Figure name="bc-reach" repeats caption="Sessions run by secure video, so the practice reaches every region of the province." />
 
           <p style={{ marginTop: 32 }}>
             If you already know you want to start, the fastest route is to{' '}

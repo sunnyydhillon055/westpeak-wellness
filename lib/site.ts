@@ -52,6 +52,14 @@ export const CONSULT_TYPE = '2013349744314681520';
  * rather than guessed, and the practice-wide URL carries it too so a bare
  * /book never lands on the founder's business by default. */
 export const CLINIKO_BUSINESS = '2029887882486877088';
+
+/* THE EMBED FLAG FROM CLINIKO'S OWN SNIPPET — 1 Oct 2026. Cliniko's "embed
+ * online bookings" code loads the page with ?embedded=true; with it the page
+ * renders as `body.embedded` (checked against the live page the same day:
+ * the class is there with the flag and absent without). Added to the iframe
+ * src only, never to the links that open the calendar as its own page. The
+ * frame's size and step messages are read in components/SchedulerTelemetry. */
+export const CLINIKO_EMBED_PARAM = 'embedded=true';
 const PAID_TYPES = [
   '1466854657459489533',
   '1909558292636502700',

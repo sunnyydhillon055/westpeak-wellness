@@ -1,8 +1,9 @@
 'use client';
 import FormStamp from '@/components/FormStamp';
 
+import { useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { hasEnoughDetail, MIN_SENTENCES, MIN_WORDS } from '@/lib/sentences';
+import { detailProgress, hasEnoughDetail, MIN_SENTENCES, MIN_WORDS } from '@/lib/sentences';
 import { LOOKING, WHERE, TIMING } from '@/lib/enquiry-fields';
 
 /* The form that gives someone a way in other than picking a calendar slot.
@@ -38,6 +39,12 @@ import { LOOKING, WHERE, TIMING } from '@/lib/enquiry-fields';
  * rule and said nothing. Selects, so they cost a tap each and cannot be
  * pasted. The message also has to reach about twenty words. See
  * lib/enquiry-fields.ts and lib/sentences.ts.
+ *
+ * THE RULES ARE VISIBLE — 1 Oct 2026. The three questions carry visible
+ * labels rather than living only in a disabled first option, and the message
+ * has a visible hint and a word count tied to it with aria-describedby
+ * (lib/sentences.ts, detailProgress). Nothing about the rule changed; before
+ * this, the first a person heard of it was the browser refusing to send.
  */
 
 type Kind = 'enquiry';
@@ -84,6 +91,8 @@ export default function InboundForm({
 }) {
   const pathname = usePathname();
   const c = COPY[kind];
+  const [message, setMessage] = useState('');
+  const progress = detailProgress(message);
 
   if (done === 'ok') {
     return (
@@ -144,28 +153,47 @@ export default function InboundForm({
           every field cannot answer them, and a person answers each in one
           tap. They are what the first reply would otherwise have to ask. */}
       <div className="lead-form-row">
-        <label htmlFor={`in-looking-${kind}`} className="sr-only">What are you looking for?</label>
-        <select id={`in-looking-${kind}`} name="looking" required defaultValue="">
-          <option value="" disabled>What are you looking for?</option>
-          {LOOKING.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-        </select>
-        <label htmlFor={`in-where-${kind}`} className="sr-only">Where will you be for sessions?</label>
-        <select id={`in-where-${kind}`} name="where" required defaultValue="">
-          <option value="" disabled>Where will you be for sessions?</option>
-          {WHERE.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-        </select>
-        <label htmlFor={`in-timing-${kind}`} className="sr-only">How soon are you hoping to start?</label>
-        <select id={`in-timing-${kind}`} name="timing" required defaultValue="">
-          <option value="" disabled>How soon are you hoping to start?</option>
-          {TIMING.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-        </select>
+        <div className="lead-form-field">
+          <label htmlFor={`in-looking-${kind}`}>What are you looking for?</label>
+          <select id={`in-looking-${kind}`} name="looking" required defaultValue="">
+            <option value="" disabled>Choose one</option>
+            {LOOKING.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+          </select>
+        </div>
+        <div className="lead-form-field">
+          <label htmlFor={`in-where-${kind}`}>Where will you be for sessions?</label>
+          <select id={`in-where-${kind}`} name="where" required defaultValue="">
+            <option value="" disabled>Choose one</option>
+            {WHERE.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+          </select>
+        </div>
+        <div className="lead-form-field">
+          <label htmlFor={`in-timing-${kind}`}>How soon are you hoping to start?</label>
+          <select id={`in-timing-${kind}`} name="timing" required defaultValue="">
+            <option value="" disabled>Choose one</option>
+            {TIMING.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+          </select>
+        </div>
       </div>
 
-      <label htmlFor="in-message" className="sr-only">What you are looking for</label>
-      <textarea id="in-message" name="message" required rows={4}
-        className="lead-form-area" placeholder={placeholder ?? c.placeholder}
-        onInput={(e) => checkLength(e.currentTarget)}
-        onInvalid={(e) => checkLength(e.currentTarget)} />
+      <div className="lead-form-field">
+        <label htmlFor="in-message">Your message</label>
+        <p className="lead-form-hint" id={`in-message-hint-${kind}`}>
+          About {MIN_WORDS} words, in two sentences or more: what is going on, and what you are
+          hoping for.
+        </p>
+        <textarea id="in-message" name="message" required rows={4}
+          className="lead-form-area" placeholder={placeholder ?? c.placeholder}
+          aria-describedby={`in-message-hint-${kind} in-message-count-${kind}`}
+          onInput={(e) => { checkLength(e.currentTarget); setMessage(e.currentTarget.value); }}
+          onInvalid={(e) => checkLength(e.currentTarget)} />
+        {/* The visible count changes on every word; the live region beside it
+            only when the stage does, so a screen reader hears it three times. */}
+        <p className="lead-form-hint" id={`in-message-count-${kind}`} data-stage={progress.stage}>
+          {progress.count}
+        </p>
+        <p className="sr-only" aria-live="polite">{message ? progress.status : ''}</p>
+      </div>
 
       {/* OPTIONAL callback.
           The practice publishes no phone number, so until now nobody could ask

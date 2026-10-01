@@ -1,7 +1,9 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import SchedulerTelemetry from '@/components/SchedulerTelemetry';
+import { track } from '@/lib/analytics';
+import { CALENDAR_HASH, opensCalendar } from '@/lib/scheduler-open';
 
 /* THE CALENDAR IS NOT LOADED UNTIL SOMEBODY ASKS FOR IT — 1 Oct 2026.
  *
@@ -44,7 +46,17 @@ import SchedulerTelemetry from '@/components/SchedulerTelemetry';
  *
  * Focus after the swap goes to the wrapper, deliberately not to the frame:
  * focusing a cross-origin iframe is exactly what SchedulerTelemetry reads as
- * an interaction, and a programmatic focus would count as one. */
+ * an interaction, and a programmatic focus would count as one.
+ *
+ * ARRIVING AT #calendar OPENS IT — 1 Oct 2026. The /book cards link to
+ * ?with=<slug>#calendar and the sticky bar to #calendar: somebody who tapped
+ * "Book with Camille" or "Pick a time" has already asked for the calendar,
+ * and then had to tap "Show available times" as well. Now a #calendar on
+ * arrival, a hashchange to it, or a same-page link to it runs the same
+ * open() the button runs. Bare /book, with no hash, keeps the gate and the
+ * Lighthouse figure it was built for. Each open is counted once as
+ * `scheduler_open`, detail `button` or `hash`, so a frame mounted by the hash
+ * is never read as a frame somebody asked for by pressing the button. */
 export default function SchedulerGate({
   url, title, page, who, cta, children, secondary,
 }: {
@@ -63,10 +75,48 @@ export default function SchedulerGate({
 }) {
   const [open, setOpen] = useState(false);
   const box = useRef<HTMLDivElement>(null);
+  const opened = useRef(false);
+
+  const openFrom = useCallback((how: 'button' | 'hash') => {
+    if (opened.current) return;
+    opened.current = true;
+    setOpen(true);
+    track('scheduler_open', { page, detail: how });
+  }, [page]);
 
   useEffect(() => {
     if (open) box.current?.focus({ preventScroll: true });
   }, [open]);
+
+  /* On mount, and again when the calendar URL changes (a soft navigation from
+     a /book card to ?with=<slug>#calendar keeps this component mounted).
+     /book streams, so the browser's own jump to #calendar can land before
+     the content above it has arrived; the jump is made again once the frame
+     is asked for. */
+  useEffect(() => {
+    if (window.location.hash !== CALENDAR_HASH) return;
+    openFrom('hash');
+    window.requestAnimationFrame(() => document.getElementById(CALENDAR_HASH.slice(1))?.scrollIntoView({ block: 'start' }));
+  }, [url, openFrom]);
+
+  useEffect(() => {
+    const onHash = () => {
+      if (window.location.hash === CALENDAR_HASH) openFrom('hash');
+    };
+    /* A Next <Link> to this page's #calendar pushes history without firing
+       hashchange, and a plain link to the hash already in the address bar
+       fires nothing at all; the click itself is the signal in both. */
+    const onClick = (e: MouseEvent) => {
+      const a = (e.target as Element | null)?.closest?.('a');
+      if (a && opensCalendar(a.getAttribute('href'), window.location.pathname)) openFrom('hash');
+    };
+    window.addEventListener('hashchange', onHash);
+    document.addEventListener('click', onClick, true);
+    return () => {
+      window.removeEventListener('hashchange', onHash);
+      document.removeEventListener('click', onClick, true);
+    };
+  }, [openFrom]);
 
   if (open) {
     return (
@@ -89,7 +139,7 @@ export default function SchedulerGate({
     <div className="scheduler-wait">
       {children}
       <div className="scheduler-wait__actions">
-        <button type="button" className="btn btn--primary" onClick={() => setOpen(true)}>
+        <button type="button" className="btn btn--primary" onClick={() => openFrom('button')}>
           {cta}
         </button>
         {secondary}

@@ -1,5 +1,7 @@
 import SchedulerTelemetry from '@/components/SchedulerTelemetry';
 import SchedulerGate from '@/components/SchedulerGate';
+import { CLINIKO_EMBED_PARAM } from '@/lib/site';
+import { withEmbedFlag } from '@/lib/cliniko-frame';
 
 /**
  * Cliniko online-bookings inline embed.
@@ -31,6 +33,11 @@ import SchedulerGate from '@/components/SchedulerGate';
  * Without it, the frame is server-rendered and lazy exactly as before. The
  * client portal keeps that: a signed-in client who opened the portal to book
  * has already asked for the calendar.
+ *
+ * THE FRAME SIZES ITSELF — 1 Oct 2026. The frame's src carries Cliniko's
+ * embed flag (lib/site.ts, CLINIKO_EMBED_PARAM) and SchedulerTelemetry reads
+ * the height and step messages the embedded page posts back. The fallback
+ * link below keeps the plain URL: it opens the calendar as its own page.
  */
 export default function SchedulerEmbed({
   url, title, page, who, placeholder, secondary, cta = 'Show available times',
@@ -47,6 +54,7 @@ export default function SchedulerEmbed({
 }) {
   const origin = new URL(url).origin;
   const frameTitle = title ?? 'Booking calendar';
+  const frameUrl = withEmbedFlag(url, CLINIKO_EMBED_PARAM);
   return (
     <div className="scheduler-embed">
       {/* Browsers honour preconnect from body markup, and this component only
@@ -57,13 +65,13 @@ export default function SchedulerEmbed({
           and appearing a moment after it. */}
       <link rel="preconnect" href={origin} />
       {placeholder ? (
-        <SchedulerGate url={url} title={frameTitle} page={page} who={who} cta={cta} secondary={secondary}>
+        <SchedulerGate url={frameUrl} title={frameTitle} page={page} who={who} cta={cta} secondary={secondary}>
           {placeholder}
         </SchedulerGate>
       ) : (
         <SchedulerTelemetry page={page} who={who}>
           <iframe
-            src={url}
+            src={frameUrl}
             title={frameTitle}
             loading="lazy"
             /* allow-forms/-scripts/-same-origin are what the booking flow needs;

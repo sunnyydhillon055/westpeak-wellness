@@ -15,6 +15,7 @@ import { PROVINCE_NAME, type Province } from '@/lib/crisis';
 import { consultationAvailability, availabilityLine, practiceHoursLine } from '@/lib/cliniko-availability';
 import { readCatalog, FALLBACK_CATALOG, type Catalog } from '@/lib/cliniko-catalog';
 import { sessionFeesPhrase } from '@/lib/book-fees';
+import { shortAvailabilityLine } from '@/lib/book-card';
 
 export const metadata: Metadata = {
   title: 'Book a Free 30-Minute Consultation',
@@ -82,11 +83,48 @@ async function LiveFees() {
 }
 
 async function CardAvailability({ slug, first }: { slug: string; first: string }) {
-  const line = availabilityLine((await availability())[slug], first);
+  const a = (await availability())[slug];
+  const line = availabilityLine(a, first);
+  const short = shortAvailabilityLine(a);
   return line ? (
-    <p style={{ margin: 0, fontSize: '.9rem', lineHeight: 1.5, color: 'var(--blue-deep)', fontWeight: 600 }}>{line}</p>
+    <p className="bk-card__open">
+      <span className="bk-long">{line}</span>
+      {short && <span className="bk-short">{short}</span>}
+    </p>
   ) : null;
 }
+
+/* THE /book COUNSELLOR CARDS, COMPACT ON A PHONE — 1 Oct 2026.
+ *
+ * Bare /book at 390px: the two cards were 407px and 339px tall and the second
+ * "Book with" button sat at about 1,680px, three screens down. Under 520px
+ * the portrait drops to 56px beside the name and languages, the focus line and
+ * the availability run full width beneath, and the availability is the short
+ * form (lib/book-card.ts). The inline styles these replace are classes now
+ * because a media query cannot live in a style attribute; they are set here,
+ * on the one page that uses them, rather than in app/premium.css, which is
+ * inlined into every document on the site. */
+const CARD_CSS = `
+.bk-card{display:grid;grid-template-columns:96px minmax(0,1fr);gap:0 14px;align-items:center;text-decoration:none;color:inherit}
+.bk-card__img{grid-row:1/span 3;width:96px;height:96px;object-fit:cover;object-position:top;border-radius:50%}
+.bk-card h3{margin:0 0 2px;font-size:1.15rem}
+.bk-card p.bk-card__meta,.bk-card p.bk-card__focus{margin:0;color:var(--ink-soft);font-size:.92rem}
+.bk-card p.bk-card__focus{margin-top:4px;font-size:.9rem}
+.bk-card .book-card-avail{grid-column:2}
+.bk-card p.bk-card__open{margin:0;font-size:.9rem;line-height:1.5;color:var(--blue-deep);font-weight:600}
+.bk-card__btn{grid-column:1/-1;justify-self:start;margin-top:14px}
+.bk-short{display:none}
+@media (max-width:520px){
+.bk-card{grid-template-columns:56px minmax(0,1fr);gap:0 12px;padding:16px}
+.bk-card__img{grid-row:auto;width:56px;height:56px}
+.bk-card__focus,.bk-card .book-card-avail{grid-column:1/-1}
+.bk-card h3{font-size:1.05rem;line-height:1.25}
+.bk-card p.bk-card__meta,.bk-card p.bk-card__focus{font-size:.86rem;line-height:1.4}
+.bk-card p.bk-card__focus{margin-top:8px}
+.bk-card .book-card-avail{min-height:1.5em;margin-top:2px}
+.bk-long{display:none}.bk-short{display:inline}
+.bk-card__btn{justify-self:stretch;margin-top:8px}
+}`;
 
 /* The next open days with each counsellor, inside the calendar box, before
    the frame exists. Concrete days before the tap are what stop somebody
@@ -323,6 +361,7 @@ export default async function Book({
 
           {accepting.length > 1 && !who && (
             <div className="book-choose" style={{ margin: '18px 0 14px' }}>
+              <style dangerouslySetInnerHTML={{ __html: CARD_CSS }} />
               <h2 style={{ margin: '0 0 12px', fontSize: '1.45rem' }}>Who would you like to talk to?</h2>
               <div className="grid grid-2" style={{ gap: 14 }}>
                 {accepting.map((p) => {
@@ -331,43 +370,36 @@ export default async function Book({
                     <Link
                       key={p.slug}
                       href={`${site.bookingPath}?with=${p.slug}#calendar`}
-                      className="card"
-                      style={{
-                        display: 'block',
-                        textDecoration: 'none',
-                        color: 'inherit',
-                      }}
+                      className="card bk-card"
                     >
                       {/* A small portrait beside the name rather than a banner
                           above it — the owner asked for smaller photos on 8 Sep. */}
-                      <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
-                        {p.photos?.portrait && (
-                          <Image
-                            src={p.photos.portrait.src}
-                            alt={p.photos.portrait.alt}
-                            width={p.photos.portrait.width}
-                            height={p.photos.portrait.height}
-                            sizes="96px"
-                            style={{ width: 96, height: 96, flex: '0 0 96px', objectFit: 'cover', objectPosition: 'top', borderRadius: '50%' }}
-                          />
-                        )}
-                        <div>
-                          <h3 style={{ margin: '0 0 2px', fontSize: '1.15rem' }}>{withLetters(p)}</h3>
-                          <p style={{ margin: 0, color: 'var(--ink-soft)', fontSize: '.92rem' }}>
-                            {p.languages.map((l) => l.name).join(' and ')} ·{' '}
-                            {p.reach === 'canada' ? 'Anywhere in Canada' : p.provinces.map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and ')}
-                          </p>
-                          <p style={{ margin: '4px 0 0', color: 'var(--ink-soft)', fontSize: '.9rem' }}>
-                            {p.focus.slice(0, 3).map((f) => f.label).join(', ')}
-                          </p>
-                          <div className="book-card-avail">
-                            <Suspense fallback={null}>
-                              <CardAvailability slug={p.slug} first={first} />
-                            </Suspense>
-                          </div>
-                        </div>
+                      {p.photos?.portrait && (
+                        <Image
+                          className="bk-card__img"
+                          src={p.photos.portrait.src}
+                          alt={p.photos.portrait.alt}
+                          width={p.photos.portrait.width}
+                          height={p.photos.portrait.height}
+                          sizes="96px"
+                        />
+                      )}
+                      <div>
+                        <h3>{withLetters(p)}</h3>
+                        <p className="bk-card__meta">
+                          {p.languages.map((l) => l.name).join(' and ')} ·{' '}
+                          {p.reach === 'canada' ? 'Anywhere in Canada' : p.provinces.map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and ')}
+                        </p>
                       </div>
-                      <span className="btn btn--primary" style={{ marginTop: 14 }}>
+                      <p className="bk-card__focus">
+                        {p.focus.slice(0, 3).map((f) => f.label).join(', ')}
+                      </p>
+                      <div className="book-card-avail">
+                        <Suspense fallback={null}>
+                          <CardAvailability slug={p.slug} first={first} />
+                        </Suspense>
+                      </div>
+                      <span className="btn btn--primary bk-card__btn">
                         Book with {first}
                       </span>
                     </Link>
@@ -448,7 +480,7 @@ export default async function Book({
                   ?practitioner_id= so Cliniko opens on her times and nobody
                   has to pick a counsellor from a list that also shows one who
                   is not taking new clients. */}
-              <div id="calendar" style={{ margin: '26px 0 12px' }}>
+              <div id="calendar" style={{ margin: '26px 0 12px', scrollMarginTop: 72 }}>
                 <p className="eyebrow" style={{ margin: 0 }}>Free 30-minute consultation</p>
                 <h2 style={{ margin: '2px 0 0', fontSize: '1.7rem', lineHeight: 1.15 }}>
                   {who

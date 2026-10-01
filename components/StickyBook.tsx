@@ -78,21 +78,37 @@ const DEFAULT_LINE = 'Free 30-minute consultation · no referral needed';
    than in the bar: the bar is rendered by the layout on every static page,
    and the hook outside a boundary would opt every one of them out of static
    rendering. Under the boundary, prerender prints the default line (which is
-   what it printed anyway, since the times arrive after mount). */
+   what it printed anyway, since the times arrive after mount).
+
+   THE NAMED TIME IS A LINK — 1 Oct 2026. A sentence that names a time with a
+   counsellor is the most specific offer on the page, and it was plain text:
+   the reader had to find the button and then find her on /book. When a slot
+   is named, the sentence opens her calendar (/book?with=<slug>#calendar,
+   which components/SchedulerGate opens on arrival), counted as book_click
+   `sticky-next`. The default line stays text: it names nobody. */
 function NextLine({ avail, onSlug, onBooking }: { avail: Avail | null; onSlug?: string; onBooking: boolean }) {
   const params = useSearchParams();
   const chosen = onBooking ? params?.get('with') ?? undefined : undefined;
-  const pick = !avail
+  const has = (s?: string) => (s && avail?.[s]?.next?.length ? s : undefined);
+  const slug = !avail
     ? undefined
     : chosen
-      ? (avail[chosen]?.next?.length ? avail[chosen] : undefined)
+      ? has(chosen)
       : onSlug
-        ? (avail[onSlug]?.next?.length ? avail[onSlug] : undefined)
-        : Object.values(avail).find((a) => a.next?.length);
-  const line = pick?.next?.[0]
-    ? `Next free consult: ${pick.next[0].replace(/\s\(\d+ times\)$/, '')} with ${pick.first}`
-    : DEFAULT_LINE;
-  return <p className="sticky-book-text">{line}</p>;
+        ? has(onSlug)
+        : Object.keys(avail).find((s) => has(s));
+  const pick = slug ? avail?.[slug] : undefined;
+  if (!slug || !pick?.next?.[0]) return <p className="sticky-book-text">{DEFAULT_LINE}</p>;
+  return (
+    <p className="sticky-book-text">
+      <Link
+        href={`${site.bookingPath}?with=${encodeURIComponent(slug)}#calendar`}
+        onClick={() => track('book_click', { location: 'sticky-next', detail: bookClickDetail('sticky-next', slug) })}
+      >
+        Next free consult: {pick.next[0].replace(/\s\(\d+ times\)$/, '')} with {pick.first}
+      </Link>
+    </p>
+  );
 }
 
 export default function StickyBook({ roster }: { roster: NavPractitioner[] }) {
@@ -103,6 +119,26 @@ export default function StickyBook({ roster }: { roster: NavPractitioner[] }) {
      person on a stress-leave guide at 11pm actually wants to know. Rendered
      only once it arrives; the bar is complete without it. */
   const [avail, setAvail] = useState<Avail | null>(null);
+  /* TYPING HIDES THE BAR — 1 Oct 2026. With a phone keyboard open, the header
+     and this bar left about 200px for the field being typed in. While a text
+     field has focus, <html> carries data-typing and app/premium.css hides the
+     bar; a :has() rule there does the same before hydration. */
+  useEffect(() => {
+    const root = document.documentElement;
+    const isField = (t: EventTarget | null) =>
+      t instanceof HTMLTextAreaElement ||
+      (t instanceof HTMLInputElement && !['checkbox', 'radio', 'submit', 'button', 'hidden'].includes(t.type));
+    const onIn = (e: FocusEvent) => { if (isField(e.target)) root.setAttribute('data-typing', ''); };
+    const onOut = (e: FocusEvent) => { if (!isField(e.relatedTarget)) root.removeAttribute('data-typing'); };
+    document.addEventListener('focusin', onIn);
+    document.addEventListener('focusout', onOut);
+    return () => {
+      document.removeEventListener('focusin', onIn);
+      document.removeEventListener('focusout', onOut);
+      root.removeAttribute('data-typing');
+    };
+  }, []);
+
   useEffect(() => {
     let live = true;
     fetch('/api/availability').then((r) => (r.ok ? r.json() : null)).then((j) => { if (live && j) setAvail(j); }).catch(() => {});

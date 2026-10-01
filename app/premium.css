@@ -862,6 +862,17 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   max-width: 42.9em; margin: 20px 0 0; font-size: var(--fs-lead); line-height: 1.6;
   color: var(--ink); padding-left: 16px; border-left: 3px solid var(--clay);
 }
+/* ON A PHONE THE BOOK BUTTON COMES BEFORE THE CHIPS — 1 Oct 2026. On
+   /services/individual-therapy at 390x844 the first Book button sat at
+   y=1003, under a 420px direct answer and the glance chips. Visual order only:
+   the DOM, and so what a crawler reads, is unchanged. */
+@media (max-width:680px){
+  .direct-answer{ font-size:1rem; line-height:1.55; }
+  .svc-hero{ display:flex; flex-direction:column; }
+  .svc-hero .btn-row{ order:1; }
+  .svc-hero .glance{ order:2; }
+  .figure--repeats{ display:none; }
+}
 
 /* ---------------------------------------------------------------------------
    ROUTING GRID
@@ -1192,6 +1203,13 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
      effect in components/Header.tsx), so keying off that needs no new state:
      the same condition that makes it unreachable makes it invisible. */
   .sticky-book[inert]{ display:none }
+  /* And while the booking calendar is mounted, or a text field has focus
+     (components/SchedulerTelemetry, components/StickyBook): on a phone the bar
+     covered the bottom of the frame, and with the keyboard up it left about
+     200px for the field being typed in. The :has() rule covers the moments
+     before hydration; a browser without :has() drops only that rule. */
+  html[data-scheduler-open] .sticky-book, html[data-typing] .sticky-book{ display:none }
+  body:has(.lead-form :focus) .sticky-book{ display:none }
 }
 
 @media (prefers-reduced-motion:reduce){
@@ -1282,6 +1300,9 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   background:var(--surface-1); font-size:.88rem; color:var(--ink-soft);
 }
 @media (max-width:680px){ .scheduler-embed iframe{ height:660px; } }
+/* The frame takes Cliniko's own height once it reports one, and each step
+   scrolls its top back into view, clear of the sticky header. 1 Oct 2026. */
+.scheduler-frame{ scroll-margin-top:calc(var(--header-h, 60px) + 12px); }
 
 /* THE BOX BEFORE THE FRAME — 1 Oct 2026, see components/SchedulerGate.
    Sized to the frame it will be replaced by, at both breakpoints, so the
@@ -1486,6 +1507,11 @@ html.js-reveal .reveal[data-shown="true"]{ opacity: 1; transform: none }
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23545e69' stroke-width='1.6'/%3E%3C/svg%3E");
   background-repeat:no-repeat; background-position:right 12px center; padding-right:32px; }
 .lead-form-row select:invalid{ color:var(--ink-soft); }
+/* Visible labels, the message hint and its word count (1 Oct 2026). */
+.lead-form-field{ flex:1 1 180px; display:grid; gap:4px; min-width:0; }
+.lead-form-field label{ font-size:.88rem; font-weight:600; color:var(--ink); }
+.lead-form-hint{ margin:0; font-size:.85rem; color:var(--ink-soft); }
+.lead-form-hint[data-stage="enough"]{ color:var(--blue-deep); }
 .lead-form-row input:focus-visible,
 .lead-form-row select:focus-visible{ outline:2px solid var(--focus); outline-offset:2px; }
 
@@ -1748,67 +1774,12 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
   white-space: nowrap;
 }
 
-@media (max-width: 560px) {
-  .job-facts { grid-template-columns: 1fr; }
-}
-
 @media (max-width: 480px) {
   .crumbs { font-size: 0.8125rem; }
   /* On a narrow screen the middle of a long trail is the least useful part.
      Keep the parent and the current page; drop what is between them. */
   .crumbs li:not(:first-child):not(:last-child):not(:nth-last-child(2)) { display: none; }
 }
-
-/* ── Careers ──────────────────────────────────────────────────────────────
-   The facts strip at the top of a posting. A job seeker scanning ten listings
-   decides in seconds on rate, hours, type and location, so those four sit
-   above the prose rather than buried in it. */
-.job-facts {
-  display: grid;
-  /* Exactly two columns, not auto-fit. There are always four facts, and
-     auto-fit resolved to three at the article width, leaving the fourth alone
-     on its own row beside an empty box. */
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1px;
-  margin: 0 0 2rem;
-  padding: 0;
-  background: var(--line);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  overflow: hidden;
-}
-.job-facts > div {
-  background: var(--surface, #fff);
-  padding: 0.85rem 1rem;
-}
-.job-facts dt {
-  margin: 0 0 0.15rem;
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  font-weight: 600;
-}
-.job-facts dd {
-  margin: 0;
-  font-weight: 600;
-  line-height: 1.35;
-}
-
-.job-list { list-style: none; padding: 0; margin: 0 0 2rem; }
-.job-list > li {
-  border: 1px solid var(--line);
-  border-left: 3px solid var(--blue);
-  border-radius: 10px;
-  padding: 1.25rem 1.4rem;
-  margin: 0 0 1rem;
-  background: var(--surface, #fff);
-}
-.job-list h3 { margin: 0 0 0.4rem; }
-.job-list h3 a { text-decoration: none; }
-.job-list h3 a:hover { text-decoration: underline; }
-.job-list p { margin: 0 0 0.75rem; }
-.job-list p:last-child { margin-bottom: 0; }
 
 .faq-list { margin: 0 0 1.5rem; }
 .faq-list > div {
@@ -1876,117 +1847,6 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
 .cmp-table tbody td:last-child { color: var(--ink); background: rgba(61, 108, 146, 0.05); }
 .cmp-table tbody tr:last-child th,
 .cmp-table tbody tr:last-child td { border-bottom: 0; }
-
-/* Apply block (careers).
-   Deliberately several routes rather than one button — a mailto only works if
-   the device has a mail handler registered, and on a job posting a silent
-   no-op loses applicants invisibly. */
-.apply-block {
-  margin: 2rem 0 1rem;
-  padding: 1.5rem 1.6rem;
-  border: 1px solid var(--line);
-  border-top: 3px solid var(--blue-deep);
-  border-radius: 12px;
-  background: var(--bg-card);
-}
-.apply-block h3 { margin: 0 0 0.6rem; }
-.apply-block--compact { margin-top: 0.5rem; padding: 1.1rem 1.2rem; }
-.apply-to { margin: 0 0 1rem; }
-.apply-address {
-  font-weight: 650;
-  font-size: 1.05rem;
-  word-break: break-all;      /* never let a long address widen the page */
-}
-.apply-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  margin: 0 0 0.75rem;
-}
-.apply-actions .btn { margin: 0; }
-.apply-actions--minor { gap: 1.25rem; margin-bottom: 0.6rem; }
-.apply-copy {
-  appearance: none;
-  background: none;
-  border: 0;
-  padding: 0.35rem 0;         /* keeps the target at least 24px tall */
-  font: inherit;
-  font-size: 0.9rem;
-  color: var(--blue-deep);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  cursor: pointer;
-}
-.apply-copy:hover { color: var(--ink); }
-.apply-note {
-  margin: 0;
-  font-size: 0.85rem;
-  color: var(--ink-soft);
-  min-height: 1.2em;          /* reserve the line so feedback cannot shift layout */
-}
-
-/* Job posting layout: content + a sticky summary rail.
-   The rail is source-ordered FIRST so that on mobile — where it collapses to a
-   single column — the rate, hours and apply button appear before the prose,
-   which is the order someone scanning a job ad actually wants. On desktop,
-   grid places it to the right without touching the DOM order, so the reading
-   order and the visual order can differ without hurting either. */
-.job-layout { display: block; }
-.job-note {
-  margin-top: 2.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--line);
-  font-size: 0.8rem;
-  line-height: 1.6;
-  color: var(--ink-soft);
-  opacity: 0.75;
-}
-.job-rail-cta { display: inline-block; margin: 0 0 0.5rem; }
-.job-rail-note { margin: 0; font-size: 0.83rem; color: var(--ink-soft); }
-
-@media (min-width: 981px) {
-  .job-layout {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 17.5rem;
-    gap: 2.5rem;
-    align-items: start;
-  }
-  .job-rail {
-    grid-column: 2;
-    grid-row: 1;
-    position: sticky;
-    top: 5.5rem;          /* clears the fixed header */
-    padding: 1.25rem;
-    border: 1px solid var(--line);
-    border-top: 3px solid var(--blue-deep);
-    border-radius: 12px;
-    background: var(--bg-card);
-  }
-  .job-body { grid-column: 1; grid-row: 1; }
-  /* Inside the narrow rail the facts stack rather than sitting two-up. */
-  .job-rail .job-facts {
-    grid-template-columns: 1fr;
-    margin-bottom: 1rem;
-    border-radius: 8px;
-  }
-}
-
-/* Respect a reduced-motion preference: sticky positioning is fine, but pair it
-   with scroll-margin so anchor jumps do not land under the header. */
-#apply { scroll-margin-top: 5.5rem; }
-
-/* The posting page needs a wider container than the rest of the site, because
-   it hosts a reading column AND a rail. Widening the container alone would
-   stretch the prose past a comfortable measure, so everything that is not the
-   two-column layout is held back to reading width. Result: the text stays
-   ~42rem however wide the page gets, and the rail uses the space that opens up
-   beside it rather than stealing from the words. */
-@media (min-width: 981px) {
-  .container.prose.job-page { max-width: 64rem; }
-  .container.prose.job-page > *:not(.job-layout) { max-width: 42rem; }
-  .job-layout { grid-template-columns: minmax(0, 42rem) 17.5rem; }
-  .job-body > *:first-child { margin-top: 0; }
-}
 
 /* 404 search. The 404 is the one page where a search box earns its place —
    the visitor already knows what they wanted and the URL failed them. */

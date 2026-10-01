@@ -380,6 +380,7 @@ img{max-width:100%;display:block}
 .figure figcaption{margin-top:12px;font-size:.9rem;line-height:1.5;color:var(--ink-faint);
   padding-left:16px;border-left:3px solid var(--blue-mist)}
 .figure-hint{display:none;margin:8px 0 0;font-size:.8rem;color:var(--ink-faint)}
+.figure-scroll>a{display:block}
 
 /* Authorship / review provenance */
 .byline{margin:0 0 32px;padding:16px 24px;background:var(--blue-ghost);
@@ -541,12 +542,14 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
     transition:transform .15s ease, background .15s ease;
   }
   .sticky-book-btn:active{transform:translateY(1px)}
-  .sb-mail{flex:1 1 auto;background:var(--surface-0);color:var(--blue-deep)}
-  .sb-book{flex:1 1 auto;background:var(--blue);color:var(--ink)}
+  /* Book is the one filled button, in the site's primary colours; email is
+     outlined beside it (still ahead of the phone). The near-white email
+     button beside a pale-blue Book read as "email us" with a disabled
+     second option. 1 Oct 2026. */
+  .sb-mail{flex:1 1 auto;background:transparent;color:var(--on-ink);box-shadow:inset 0 0 0 1px rgba(255,255,255,.4)}
+  .sb-book{flex:1 1 auto;background:var(--blue-deep);color:#fff;font-weight:650;box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
+  .sticky-book-text a{color:var(--on-ink);text-decoration:underline;text-underline-offset:2px}
   .sb-call{flex:0 0 46px;padding:0;background:rgba(255,255,255,.12);color:var(--on-ink)}
-  /* On /book the Book button is dropped — the reader is already there — so the
-     phone button takes the room and says what it is. */
-  .sb-call--wide{flex:1 1 auto;padding:0 12px}
   /* The footer's clearance for this bar is set in premium.css, which loads
      after this file and sets .site-footer's padding unconditionally — a rule
      here, media query or not, loses to it. */

@@ -103,6 +103,9 @@ export type TrackedEvent =
    * distinction every conversion fix is a guess. See components/SchedulerEmbed. */
   | 'scheduler_visible'
   | 'scheduler_interact'
+  /* The calendar on /book mounted, by the button (`button`) or by arriving
+   * at #calendar (`hash`). components/SchedulerGate, 1 Oct 2026. */
+  | 'scheduler_open'
   | 'tool_start'
   | 'tool_complete'
   | 'tool_share'
