@@ -23,6 +23,9 @@ import { ogBase } from '@/lib/og-meta';
 import BookLink from '@/components/BookLink';
 import CoverageLine from '@/components/CoverageLine';
 import { bookingCtaFor } from '@/lib/booking-cta';
+import CounsellorCards from '@/components/CounsellorCards';
+import { counsellorsForAudience, individualFeeLine } from '@/lib/counsellor-cards';
+import { readCatalog } from '@/lib/cliniko-catalog';
 
 export function generateStaticParams() {
   return audiences.map((a) => ({ slug: a.slug }));
@@ -44,9 +47,15 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 const fmt = (iso: string) =>
   new Date(iso + 'T00:00:00Z').toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
 
-export default function AudiencePage({ params }: { params: { slug: string } }) {
+/* ISR, as the service and city-service pages are: the fee line under the
+   hero is read from the Cliniko catalogue, and an hourly re-render picks up a
+   price change without giving up static serving. 1 Oct 2026. */
+export const revalidate = 3600;
+
+export default async function AudiencePage({ params }: { params: { slug: string } }) {
   const a = getAudience(params.slug);
   if (!a) notFound();
+  const feeLine = individualFeeLine(await readCatalog());
   const cta = bookingCtaFor({ language: a.language, fallback: `Book a free consultation ${a.ctaFor}` });
 
   const toc = buildToc([
@@ -139,6 +148,9 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
             <Link className="btn btn--ghost" href="/for">Who we work with</Link>
           </div>
           <CoverageLine />
+          {/* The fee, where the coverage line has just raised the question.
+              From the catalogue, never typed. 1 Oct 2026. */}
+          {feeLine && <p className="hero-note" style={{ marginTop: 6 }}>{feeLine}</p>}
         </div>
       </section>
 
@@ -213,6 +225,16 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
           )}
         </div>
       </section>
+
+      {/* WHO YOU WOULD SEE — 1 Oct 2026. On a page written for one language,
+          the counsellor who works in it; otherwise whoever is accepting
+          individual clients in BC. lib/counsellor-cards.ts decides. */}
+      <CounsellorCards
+        counsellors={counsellorsForAudience(a)}
+        location="counsellor-audience"
+        heading="Who you would see"
+        intro="Taking new clients and seeing people across BC by secure video. Each is a Registered Clinical Counsellor; the registration is on the profile and can be checked on the BCACC register."
+      />
 
       <section className="section section--ghost">
         <div className="container">

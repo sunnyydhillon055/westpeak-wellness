@@ -16,13 +16,12 @@ import { healthAuthorityFor, HEALTHLINK } from '@/lib/health-authorities';
 import Figure from '@/components/Figure';
 import { ogBase } from '@/lib/og-meta';
 import { COLLECTION_DATES } from '@/lib/page-dates';
-import Image from 'next/image';
 import BookLink from '@/components/BookLink';
 import { readCatalog } from '@/lib/cliniko-catalog';
-import { withLetters } from '@/lib/practitioners';
 import {
-  bookHrefFor, counsellorsFor, feeFor, generatedFaqs, languagesOf, listOf, profileHrefFor,
+  bookHrefFor, counsellorsFor, feeFor, generatedFaqs,
 } from '@/lib/city-service-page';
+import CounsellorCards from '@/components/CounsellorCards';
 
 /* THE NAME THE PAGE IS FOUND BY — 25 Sep 2026.
    Search Console shows "marriage counselling abbotsford", "marriage
@@ -312,54 +311,22 @@ export default async function CityServicePage({ params }: { params: Params }) {
           into, so the names change with the service. Credential NAMES only;
           the registration number is on the profile and nowhere else. No
           availability line: hours are not published anywhere. Renders nothing
-          rather than a promise if nobody is accepting. */}
-      {counsellors.length > 0 && (
-        <section className="section section--tint">
-          <div className="container">
-            <h2 style={{ marginTop: 0 }}>Who you would see for {lower(svc.name)} in {ctx.city}</h2>
-            <p style={{ color: 'var(--ink-soft)', maxWidth: 680 }}>
-              Taking new clients for {lower(svc.name)} and seeing people in {ctx.city} by secure
-              video. Each is a Registered Clinical Counsellor; the registration is on the profile
-              and can be checked on the BCACC register.
-            </p>
-            <div className="grid grid-2" style={{ gap: 20, marginTop: 20 }}>
-              {counsellors.map((p) => {
-                const first = p.name.split(' ')[0];
-                return (
-                  <div className="card" key={p.slug}>
-                    <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
-                      {p.photos?.portrait && (
-                        <Image
-                          src={p.photos.portrait.src}
-                          alt={p.photos.portrait.alt}
-                          width={p.photos.portrait.width}
-                          height={p.photos.portrait.height}
-                          sizes="96px"
-                          style={{ width: 96, height: 96, flex: '0 0 96px', objectFit: 'cover', objectPosition: 'top', borderRadius: '50%' }}
-                        />
-                      )}
-                      <div>
-                        <h3 style={{ margin: '0 0 2px', fontSize: '1.15rem' }}>{withLetters(p)}</h3>
-                        <p style={{ margin: 0, color: 'var(--ink-soft)', fontSize: '.92rem' }}>
-                          {listOf(languagesOf(p), 'and')} · {p.focus.slice(0, 3).map((f) => f.label).join(', ')}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="btn-row" style={{ marginTop: 14 }}>
-                      <BookLink location="counsellor-city-service" href={`${site.bookingPath}?with=${p.slug}`}>
-                        Book with {first}
-                      </BookLink>
-                      <Link className="btn btn--ghost" href={profileHrefFor(p, ctx.slug)}>
-                        More about {first}
-                      </Link>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-      )}
+          rather than a promise if nobody is accepting. The card itself is
+          components/CounsellorCards.tsx, shared with the hub, service and
+          audience pages. */}
+      <CounsellorCards
+        counsellors={counsellors}
+        location="counsellor-city-service"
+        citySlug={ctx.slug}
+        heading={<>Who you would see for {lower(svc.name)} in {ctx.city}</>}
+        intro={
+          <>
+            Taking new clients for {lower(svc.name)} and seeing people in {ctx.city} by secure
+            video. Each is a Registered Clinical Counsellor; the registration is on the profile
+            and can be checked on the BCACC register.
+          </>
+        }
+      />
 
       {/* 2. THE CITY REALITY — shared across this city's five pages, and true. */}
       <section className="section section--ghost">

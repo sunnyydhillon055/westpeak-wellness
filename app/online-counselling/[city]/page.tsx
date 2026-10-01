@@ -4,7 +4,6 @@ import { notFound } from 'next/navigation';
 import { locations, getLocation } from '@/lib/locations';
 import { pairsForCity } from '@/lib/city-services';
 import { getCityTopic } from '@/lib/conditions';
-import { featuredServices } from '@/lib/services';
 import { site } from '@/lib/site';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
@@ -14,18 +13,21 @@ import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
-import { webPage, orgRef } from '@/lib/schema';
+import { webPage, orgRef, priceOffer } from '@/lib/schema';
 import { placeNode } from '@/lib/entities';
 import InboundForm from '@/components/InboundForm';
 import { COLLECTION_DATES } from '@/lib/page-dates';
 import { getPunjabiRegion } from '@/lib/punjabi-regions';
 import { getTagalogCity } from '@/lib/tagalog';
-import { practitioners } from '@/lib/practitioners';
-import { placesFor } from '@/lib/practitioner-places';
 import { healthAuthorityFor, HEALTHLINK } from '@/lib/health-authorities';
 import Updated from '@/components/Updated';
 import BookLink from '@/components/BookLink';
 import CoverageLine from '@/components/CoverageLine';
+import CounsellorCards from '@/components/CounsellorCards';
+import { counsellorsForCity } from '@/lib/counsellor-cards';
+import { cityHubFaqs, cityHubTitle, helpCardsFor } from '@/lib/city-hub';
+import { bookingCtaFor } from '@/lib/booking-cta';
+import { readCatalog } from '@/lib/cliniko-catalog';
 
 export function generateStaticParams() {
   return locations.map((l) => ({ city: l.slug }));
@@ -36,22 +38,25 @@ export function generateMetadata({ params }: { params: { city: string } }): Meta
   if (!l) return {};
   const title = `Online Counselling in ${l.city}, BC`;
   return {
-    // absolute: keeps every city title under 60 chars
-    /* "Virtual" added 17 Sep 2026: for Vancouver alone, "virtual counselling"
-       and "virtual therapy" carry 127 impressions a quarter against 137 for
-       "online counselling", and every page in the top ten says both. Prince
-       George is the longest city name and this stays under sixty. */
-    /* "counsellor kamloops", "therapist kamloops", "kamloops therapy": the
-       city queries name the person more often than the service, and the title
-       named only the service. 26 Sep 2026. */
-    title: { absolute: `Online Counselling in ${l.city}, BC | Counsellors, Therapy`.length <= 60 ? `Online Counselling in ${l.city}, BC | Counsellors, Therapy` : `Online Counselling in ${l.city} | Counsellors, Therapy` },
+    /* absolute, and composed in lib/city-hub.ts. "Virtual" was decided on
+       17 Sep 2026 (DECISIONS: "Online & Virtual Counselling in <city>, BC")
+       and lost in the 26 Sep edit that added "Counsellors" for the
+       person-named queries ("counsellor kamloops"); both are carried now.
+       The SEO gate counts "&" as "&amp;", so most cities drop ", BC" to stay
+       at sixty, and Prince George drops " in" as well. 1 Oct 2026. */
+    title: { absolute: cityHubTitle(l.city) },
     description: l.metaDescription,
     alternates: { canonical: `${site.domain}/online-counselling/${l.slug}` },
     openGraph: { ...ogBase(`/online-counselling/${l.slug}`), title: `${title} | ${site.name}`, description: l.metaDescription, url: `${site.domain}/online-counselling/${l.slug}` },
   };
 }
 
-export default function CityPage({ params }: { params: { city: string } }) {
+/* ISR, as the service and city-service pages are: the cost answer and the
+   Offer below are read from the Cliniko catalogue, and an hourly re-render
+   picks up a price change without giving up static serving. 1 Oct 2026. */
+export const revalidate = 3600;
+
+export default async function CityPage({ params }: { params: { city: string } }) {
   const l = getLocation(params.city);
   if (!l) notFound();
   const siblings = (l.nearby ?? []).map(getLocation).filter(Boolean) as typeof locations;
@@ -64,9 +69,16 @@ export default function CityPage({ params }: { params: { city: string } }) {
   const ha = healthAuthorityFor(l.slug);
   const sources = [...(l.sources ?? []), ...(ha ? [ha] : []), HEALTHLINK]
     .filter((s, i, a) => a.findIndex((t) => t.url === s.url) === i);
-  const counsellorPages = practitioners.filter(
-    (p) => p.placePages && placesFor(p.provinces).some((c) => c.slug === l.slug)
-  );
+  /* Accepting, with her own page for this city. The cards, the Person
+     schema and the "who would I see" answer all read this one list. */
+  const counsellorPages = counsellorsForCity(l.slug);
+  const catalog = await readCatalog();
+  const individual = catalog.items.find((i) => i.name.toLowerCase() === 'individual counselling');
+  /* The Punjabi-speaking consultation, on the cities that have a Punjabi
+     page. bookingCtaFor picks the counsellor from the roster; no name here. */
+  const paCta = getPunjabiRegion(l.slug)
+    ? bookingCtaFor({ language: 'pa', fallback: '' })
+    : undefined;
   /* THE SERVICE PAGES FOR THIS CITY.
    *
    * They existed and nothing linked to them from outside their own set: the
@@ -75,6 +87,7 @@ export default function CityPage({ params }: { params: { city: string } }) {
    * SEO gate. A page nothing links to is treated as unimportant however good
    * it is. The city that owns them is the most natural place to link from. */
   const here = pairsForCity(l.slug);
+  const helpCards = helpCardsFor(l.slug, here);
 
   /* The page itself. These ten city pages emitted an FAQPage and nothing else,
      so the document had no name, description, language, date or author for a
@@ -124,6 +137,11 @@ export default function CityPage({ params }: { params: { city: string } }) {
       target: { '@type': 'EntryPoint', urlTemplate: `${site.domain}${site.bookingPath}` },
       result: { '@type': 'Reservation', name: 'Free 30-minute consultation' },
     },
+    /* The individual fee the cost answer states, as an Offer, from the
+       catalogue. Absent rather than defaulted if the catalogue lacks it. */
+    ...(individual && individual.cents > 0
+      ? { offers: priceOffer(individual.cents / 100, `/online-counselling/${l.slug}`) }
+      : {}),
   };
   const peopleSchema = counsellorPages.map((p) => ({
     '@context': 'https://schema.org', '@type': 'Person',
@@ -141,7 +159,15 @@ export default function CityPage({ params }: { params: { city: string } }) {
   const communityFaq = l.communities?.length
     ? [{ q: `Do you see people in ${l.communities.slice(0, -1).join(', ')} or ${l.communities[l.communities.length - 1]}?`, a: `Yes, on exactly the same terms as ${l.city}. Every session is by secure video, so ${l.communities.join(', ')} and the rest of ${l.region} are served the same way: a Registered Clinical Counsellor, a free 30-minute consultation first, and no travel at either end.` }]
     : [];
-  const faqs = [...(l.faqs ?? []), ...communityFaq];
+  /* Cost, who you would see, and whether there is an office: the three
+     questions asked before booking anywhere, generated from the catalogue
+     and the roster (lib/city-hub.ts). A city that already asks one in its
+     own words keeps its own. 1 Oct 2026. */
+  const ownFaqs = [...(l.faqs ?? []), ...communityFaq];
+  const faqs = [
+    ...ownFaqs,
+    ...cityHubFaqs({ city: l.city, counsellors: counsellorPages, catalog, existing: ownFaqs }),
+  ];
   const faqSchema = faqs.length && {
     '@context': 'https://schema.org', '@type': 'FAQPage',
     mainEntity: faqs.map((f) => ({
@@ -181,6 +207,15 @@ export default function CityPage({ params }: { params: { city: string } }) {
               city template never had; see components/CoverageLine.tsx. */}
           <div className="btn-row" style={{ marginTop: 24 }}>
             <BookLink location="hero-city">Book a free consultation in {l.city}</BookLink>
+            {/* The cities with a Punjabi page are built around Punjabi (Surrey's
+                "Punjabi, English, or both"), and the hero sent everyone to the
+                practice-wide calendar. A second button opens the Punjabi-speaking
+                counsellor's. Only when the roster has one. 1 Oct 2026. */}
+            {paCta?.practitioner && (
+              <BookLink location="hero-city-pa" href={paCta.href} className="btn btn--ghost">
+                {paCta.label}
+              </BookLink>
+            )}
             <Link className="btn btn--ghost" href="/services">See all services</Link>
           </div>
           <CoverageLine />
@@ -210,6 +245,24 @@ export default function CityPage({ params }: { params: { city: string } }) {
           )}
         </div>
       </section>
+
+      {/* WHO YOU'D SEE — 1 Oct 2026. These were two small name chips near
+          the foot of the page. Competing hubs show the team with photos;
+          this shows the counsellors with a page for this city, with their
+          languages, focus and a button to each one's calendar. */}
+      <CounsellorCards
+        counsellors={counsellorPages}
+        location="counsellor-city"
+        citySlug={l.slug}
+        heading={<>Who you&rsquo;d see in {l.city}</>}
+        intro={
+          <>
+            Taking new clients and seeing people in {l.city} by secure video. Each is a
+            Registered Clinical Counsellor; the registration is on the profile and can be
+            checked on the BCACC register.
+          </>
+        }
+      />
 
       {l.localReality && (
         <section className="section section--tint">
@@ -253,13 +306,17 @@ export default function CityPage({ params }: { params: { city: string } }) {
         <div className="container">
           <p className="eyebrow">Available in {l.city}</p>
           <h2>Ways we can help</h2>
+          {/* Each card said "<service> in <city>" and went to the province-wide
+              service page. Where this city has the page the label promises, it
+              goes there; the conditions this city has pages for get cards of
+              their own. A service without a city page keeps /services. */}
           <div className="grid grid-3" style={{ marginTop: 24 }}>
-            {featuredServices.map((s) => (
-              <div className="card" key={s.slug}>
-                <Link href={`/services/${s.slug}`} className="card-link">
-                  <h3>{s.name.replace(' Therapy', '').replace(' Counselling', '')}</h3>
-                  <p>{s.short}</p>
-                  <span className="more">{s.name} in {l.city} →</span>
+            {helpCards.map((c) => (
+              <div className="card" key={c.slug}>
+                <Link href={c.href} className="card-link">
+                  <h3>{c.title}</h3>
+                  <p>{c.text}</p>
+                  <span className="more">{c.name} in {l.city} →</span>
                 </Link>
               </div>
             ))}
@@ -338,9 +395,11 @@ export default function CityPage({ params }: { params: { city: string } }) {
                 This page is the English twin and the obvious place to point
                 from; a counsellor's own page for the city sits beside them.
                 Each chip appears only when the page behind it exists. */}
-            {(getPunjabiRegion(l.slug) || getTagalogCity(l.slug) || counsellorPages.length > 0) && (
+            {/* The counsellor chips that sat here are now the cards under the
+                intro, which link the same per-city pages. 1 Oct 2026. */}
+            {(getPunjabiRegion(l.slug) || getTagalogCity(l.slug)) && (
               <>
-                <p className="eyebrow">{l.city}, in other languages and by counsellor</p>
+                <p className="eyebrow">{l.city}, in other languages</p>
                 <div className="chip-grid" style={{ marginBottom: 36 }}>
                   {getPunjabiRegion(l.slug) && (
                     <Link className="chip" href={`/punjabi-counselling/${l.slug}`}>
@@ -352,11 +411,6 @@ export default function CityPage({ params }: { params: { city: string } }) {
                       Tagalog counselling in {l.city}
                     </Link>
                   )}
-                  {counsellorPages.map((c) => (
-                    <Link className="chip" key={c.slug} href={`/practitioners/${c.slug}/${l.slug}`}>
-                      {c.name.split(' ')[0]} in {l.city}
-                    </Link>
-                  ))}
                 </div>
               </>
             )}

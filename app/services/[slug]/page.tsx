@@ -29,6 +29,8 @@ import { ogBase } from '@/lib/og-meta';
 import { COLLECTION_DATES } from '@/lib/page-dates';
 import BookLink from '@/components/BookLink';
 import { bookingCtaFor, serviceNoun } from '@/lib/booking-cta';
+import CounsellorCards from '@/components/CounsellorCards';
+import { cardNoun, counsellorsForService } from '@/lib/counsellor-cards';
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -333,6 +335,16 @@ export default async function ServicePage({ params }: { params: { slug: string }
           </div>
         </div>
       </section>
+
+      {/* WHO YOU WOULD SEE — 1 Oct 2026. Named on the page, as on eight of
+          the thirteen pages ranking for the same queries. Chosen from the
+          roster in lib/counsellor-cards.ts; drawn by the shared card. */}
+      <CounsellorCards
+        counsellors={counsellorsForService(s)}
+        location="counsellor-service"
+        heading={<>Who you would see for {cardNoun(s.name)}</>}
+        intro="Taking new clients and seeing people across BC by secure video. Each is a Registered Clinical Counsellor; the registration is on the profile and can be checked on the BCACC register."
+      />
 
       {s.signs && (
         <section className="section">
