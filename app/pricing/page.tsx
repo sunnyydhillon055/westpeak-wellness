@@ -38,10 +38,44 @@ const ROWS: { clinikoName: string; label: string; highlight?: boolean }[] = [
   { clinikoName: 'EMDR Intensive', label: 'EMDR intensive' },
 ];
 
+/* THE BCACC FEE GUIDE, AS A REFERENCE POINT — read 1 Oct 2026.
+ *
+ * "How much does a counsellor cost in BC" is the question this page ranks for,
+ * and it gave the practice's own fees with nothing to read them against. The
+ * BC Association of Clinical Counsellors publishes recommended ranges, and the
+ * pages that rank above this one cite them. These are BCACC's figures, quoted
+ * from https://bcacc.ca/bcacc-fee-guide-2026/ on the date below, not this
+ * practice's prices: those still come only from the Cliniko catalogue. If the
+ * guide is reissued, re-read it and change these and the date together.
+ *
+ *   Individual, per 50 min: $140-$155 (less experienced), $155-$175 (more
+ *     experienced), $175-$225 (specialised services)
+ *   Couples and family, per 50 min: $155-$175, $175-$205 */
+const BCACC_GUIDE = {
+  url: 'https://bcacc.ca/bcacc-fee-guide-2026/',
+  read: '1 October 2026',
+  individual: '$140 to $175',
+  couplesFamily: '$155 to $205',
+};
+
 export default async function Pricing({ searchParams }: { searchParams?: { lead?: string } }) {
   const catalog = await readCatalog();
   const find = (n: string): CatalogItem | undefined =>
     catalog.items.find((i) => i.name.toLowerCase() === n.toLowerCase());
+
+  /* The practice's own numbers for the answer below, from the catalogue. */
+  const ind = find('Individual Counselling');
+  const cpl = find('Couples Counselling');
+  const consult = find('Initial Consultation');
+  const ours = [
+    ind ? `an individual session is ${money(ind.cents)} for ${ind.minutes} minutes` : null,
+    cpl ? `a couples session is ${money(cpl.cents)} for ${cpl.minutes} minutes` : null,
+  ].filter(Boolean).join(' and ');
+  const costAnswer =
+    `The BC Association of Clinical Counsellors' 2026 fee guide recommends ${BCACC_GUIDE.individual} per 50 minutes for individual counselling with a Registered Clinical Counsellor, depending on experience, with a higher range for specialised services, and ${BCACC_GUIDE.couplesFamily} per 50 minutes for couples and family counselling.` +
+    (ours ? ` At Westpeak Wellness ${ours}.` : '') +
+    (consult && consult.cents === 0 ? ` The first ${consult.minutes}-minute consultation is free.` : '') +
+    ' MSP does not cover counselling with an RCC; many extended health plans reimburse it, depending on the plan.';
 
   return (
     <>
@@ -87,6 +121,15 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
           <p style={{ fontSize: '.92rem', color: 'var(--ink-faint)' }}>GST does not apply to RCC counselling in BC.</p>
 
           <div className="prose" style={{ marginTop: 36 }}>
+            <h2>How much does a counsellor cost in BC?</h2>
+            <p>{costAnswer}</p>
+            <p style={{ fontSize: '.92rem', color: 'var(--ink-faint)' }}>
+              Source:{' '}
+              <a href={BCACC_GUIDE.url} rel="noreferrer">BCACC Fee Guide 2026</a>, read{' '}
+              {BCACC_GUIDE.read}. The ranges are the association&rsquo;s recommendations, not
+              this practice&rsquo;s prices.
+            </p>
+
             <h2>What you are actually paying for</h2>
             <div className="fee-callout">
               <Wallet aria-hidden="true" strokeWidth={1.7} />
@@ -204,7 +247,7 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
                   <li>Pacific Blue Cross</li><li>Manulife</li><li>Sun Life</li><li>Canada Life</li><li>Green Shield</li>
                 </ul>
                 <p style={{ marginBottom: 0, fontSize: '.94rem', color: 'var(--ink-faint)' }}>
-                  Pay at session time and submit your receipt for reimbursement.
+                  Pay by card when you book and submit your receipt for reimbursement. Coverage depends on your plan.
                 </p>
               </div>
             </div>
@@ -213,7 +256,7 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
               <div>
                 <h3>Payment</h3>
                 <ul className="checklist" style={{ marginBottom: 0 }}>
-                  <li>E-transfer (preferred)</li><li>Credit card (Visa, MC, Amex)</li>
+                  <li>Credit card (Visa, MC, Amex), taken when you book</li>
                 </ul>
               </div>
             </div>
@@ -295,6 +338,11 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
             '@type': 'FAQPage',
             '@id': `${site.domain}/pricing#faq`,
             mainEntity: [
+              {
+                '@type': 'Question',
+                name: 'How much does a counsellor cost in BC?',
+                acceptedAnswer: { '@type': 'Answer', text: costAnswer },
+              },
               {
                 '@type': 'Question',
                 name: 'Is the first consultation free?',
