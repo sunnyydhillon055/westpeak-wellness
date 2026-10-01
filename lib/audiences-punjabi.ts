@@ -1,4 +1,5 @@
 import type { Audience } from './audiences';
+import { fallbackFee } from '@/lib/cliniko-catalog';
 
 /* Punjabi-speaking couples.
  *
@@ -183,7 +184,7 @@ export const punjabiAudiences: Audience[] = [
       },
       {
         q: 'What does it cost, and is it covered?',
-        a: 'Couples counselling is $170 for 50 minutes, or $340 for the 110-minute extended session. Many BC extended health plans that cover a Registered Clinical Counsellor cover couples sessions, though some exclude them specifically. It is worth checking the wording before booking. Receipts carry the RCC registration number.',
+        a: `Couples counselling is ${fallbackFee('Couples Counselling')} for 50 minutes, or ${fallbackFee('Couples Extended')} for the 110-minute extended session. Many BC extended health plans that cover a Registered Clinical Counsellor cover couples sessions, though some exclude them specifically. It is worth checking the wording before booking. Receipts carry the RCC registration number.`,
       },
     ],
 

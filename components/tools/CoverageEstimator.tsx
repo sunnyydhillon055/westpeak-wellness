@@ -15,10 +15,14 @@ import { toolDetail } from '@/lib/conversion-detail-client';
  * of the maths and name the two questions that decide the answer.
  */
 
-const FEES = { individual: 140, couples: 170 } as const;
-type Kind = keyof typeof FEES;
+/* The fees arrive as props from the page, read from lib/cliniko-catalog.ts
+ * there (1 Oct 2026). They were typed here, and the couples figure had fallen
+ * five dollars behind Cliniko. A client component cannot import the catalogue
+ * module without shipping it, so the server page does the reading. */
+export type EstimatorFees = { individual: number; couples: number };
+type Kind = keyof EstimatorFees;
 
-export default function CoverageEstimator() {
+export default function CoverageEstimator({ fees: FEES }: { fees: EstimatorFees }) {
   const [kind, setKind] = useState<Kind>('individual');
   const [covers, setCovers] = useState<'yes' | 'no' | 'unsure'>('unsure');
   const [perSession, setPerSession] = useState('');

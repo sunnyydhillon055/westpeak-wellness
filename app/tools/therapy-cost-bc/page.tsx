@@ -7,6 +7,19 @@ import CtaBand from '@/components/CtaBand';
 import CoverageEstimator from '@/components/tools/CoverageEstimator';
 import { site } from '@/lib/site';
 import { ogBase } from '@/lib/og-meta';
+import { FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
+
+/* The estimator's fees, read from the catalogue on the server and passed
+   down, so the client bundle carries two numbers rather than the module.
+   FALLBACK_CATALOG keeps this page static; price-drift checks it against
+   Cliniko. Throws at build if a name stops resolving, rather than estimating
+   on a fee nobody charges. */
+const dollars = (name: string) => {
+  const item = FALLBACK_CATALOG.items.find((i) => i.name === name);
+  if (!item) throw new Error(`FALLBACK_CATALOG has no "${name}"`);
+  return item.cents / 100;
+};
+const FEES = { individual: dollars('Individual Counselling'), couples: dollars('Couples Counselling') };
 
 const tool = getTool('therapy-cost-bc')!;
 export const metadata: Metadata = {
@@ -33,7 +46,7 @@ export default function Page() {
         </>
       }
     >
-      <CoverageEstimator />
+      <CoverageEstimator fees={FEES} />
 
       <div className="prose tool-prose">
           <Figure name="therapy-cost-in-bc" />

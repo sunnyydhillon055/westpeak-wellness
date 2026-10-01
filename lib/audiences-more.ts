@@ -1,4 +1,5 @@
 import type { Audience } from './audiences';
+import { fallbackFee } from '@/lib/cliniko-catalog';
 
 export const moreAudiences: Audience[] = [
   {
@@ -119,7 +120,7 @@ export const moreAudiences: Audience[] = [
     lede:
       'Most couples do not arrive after a catastrophe. They arrive after two years of the same conversation going nowhere.',
     shortAnswer:
-      'Couples counselling in BC by secure video, 50 minutes at $170 or 110 minutes at $340. Gottman-informed and structured, for couples who keep having the same argument, including partners joining from separate locations, which shift work and travel often require.',
+      `Couples counselling in BC by secure video, 50 minutes at ${fallbackFee('Couples Counselling')} or 110 minutes at ${fallbackFee('Couples Extended')}. Gottman-informed and structured, for couples who keep having the same argument, including partners joining from separate locations, which shift work and travel often require.`,
     updated: '2026-08-31',
     readMinutes: 8,
     opening: [
