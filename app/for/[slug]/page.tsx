@@ -56,7 +56,7 @@ export default async function AudiencePage({ params }: { params: { slug: string 
   const a = getAudience(params.slug);
   if (!a) notFound();
   const feeLine = individualFeeLine(await readCatalog());
-  const cta = bookingCtaFor({ language: a.language, fallback: `Book a free consultation ${a.ctaFor}` });
+  const cta = bookingCtaFor({ language: a.language, service: a.service, fallback: `Book a free consultation ${a.ctaFor}` });
 
   const toc = buildToc([
     'The things people actually say',

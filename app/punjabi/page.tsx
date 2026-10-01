@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import Updated from '@/components/Updated';
 import Link from 'next/link';
 import { site } from '@/lib/site';
+import BookLink from '@/components/BookLink';
+import { bookingCtaFor } from '@/lib/booking-cta';
 import { gurmukhi } from '@/app/fonts-gurmukhi';
 import { abs, orgRef, siteRef } from '@/lib/schema';
 import Figure from '@/components/Figure';
@@ -14,15 +16,18 @@ import { punjabiGuides } from '@/lib/punjabi-guides';
 import { placesFor } from '@/lib/practitioner-places';
 import { PA_CITY, getPunjabiPlace } from '@/lib/practitioner-places-pa';
 
-/* ENGLISH FIRST, 17 Sep 2026. This page held position 10.3 for 111
-   impressions in a quarter and took zero clicks. The queries behind it are
-   typed in English - "counselling meaning in punjabi", "counselling in
-   punjabi", "punjabi therapist near me" - and a result whose title opens in
-   Gurmukhi gives an English-language searcher nothing to recognise. The
-   Gurmukhi stays, because the page is genuinely in Punjabi and is shared
-   hand to hand in WhatsApp where it is the half that matters; it moves
-   second. */
-const TITLE = 'Punjabi Counselling in BC | ਪੰਜਾਬੀ ਵਿੱਚ ਕਾਊਂਸਲਿੰਗ';
+/* GURMUKHI FIRST, 1 Oct 2026, reversing the "English first" order of 17 Sep.
+   That change was a code-comment choice, not a DECISIONS entry. It moved the
+   English words to the front so English searchers would recognise this page,
+   and they did: /punjabi climbed to 134 impressions at position 9.82 with
+   zero clicks, while the English page those searchers can actually read,
+   /services/punjabi-counselling, fell from 12 at 11.0 to 3 at 20.7. The two
+   pages were competing for one English query set and the one that cannot
+   serve it was winning. So the English head term now leads the English
+   page's title (lib/services.ts), and this page leads with the Gurmukhi it
+   is written in, for people searching in Punjabi and for the WhatsApp
+   shares where that half is the one that matters. Same words, reordered. */
+const TITLE = 'ਪੰਜਾਬੀ ਵਿੱਚ ਕਾਊਂਸਲਿੰਗ | Punjabi Counselling in BC';
 const DESC =
   'ਬ੍ਰਿਟਿਸ਼ ਕੋਲੰਬੀਆ ਵਿੱਚ ਪੰਜਾਬੀ ਬੋਲਣ ਵਾਲੇ Registered Clinical Counsellor ਨਾਲ ਆਨਲਾਈਨ ਕਾਊਂਸਲਿੰਗ। Online counselling in Punjabi anywhere in BC.';
 
@@ -72,6 +77,9 @@ export const metadata: Metadata = {
 export default function PunjabiPage() {
   /* The Punjabi-speaking counsellor taking new clients, from the roster. */
   const speaker = practitioners.find((p) => p.acceptingNewClients && p.languages.some((l) => l.tag === 'pa') && p.placePages);
+  /* Both booking buttons open the Punjabi-speaking counsellor's calendar
+     (lib/booking-cta.ts). The button words stay as they were. */
+  const book = bookingCtaFor({ language: 'pa', fallback: '' }).href;
   const schema = [
     {
       '@context': 'https://schema.org',
@@ -115,9 +123,9 @@ export default function PunjabiPage() {
             ਤੁਹਾਨੂੰ ਪਹਿਲਾਂ ਤੋਂ ਫ਼ੈਸਲਾ ਕਰਨ ਦੀ ਲੋੜ ਨਹੀਂ। ਪਹਿਲੀ 30 ਮਿੰਟ ਦੀ ਗੱਲਬਾਤ ਮੁਫ਼ਤ ਹੈ।
           </p>
           <div className="btn-row" style={{ marginTop: 24 }}>
-            <Link className="btn btn--primary" href={site.bookingPath}>
+            <BookLink location="hero-language" href={book}>
               ਮੁਫ਼ਤ ਸਲਾਹ-ਮਸ਼ਵਰਾ ਬੁੱਕ ਕਰੋ
-            </Link>
+            </BookLink>
             <Link className="btn btn--ghost" href="/services/punjabi-counselling" lang="en">
               Read this in English
             </Link>
@@ -152,12 +160,8 @@ export default function PunjabiPage() {
                 ਕੰਮ ਤੋਂ ਥੱਕ ਜਾਣਾ।
               </li>
               <li>
-                <strong>ਪੁਰਾਣੇ ਸਦਮੇ (trauma, EMDR)</strong>, ਕੋਈ ਗੱਲ ਜੋ ਬਹੁਤ ਪਹਿਲਾਂ ਵਾਪਰੀ ਪਰ ਅਜੇ ਵੀ
+                <strong>ਪੁਰਾਣੇ ਸਦਮੇ (trauma)</strong>, ਕੋਈ ਗੱਲ ਜੋ ਬਹੁਤ ਪਹਿਲਾਂ ਵਾਪਰੀ ਪਰ ਅਜੇ ਵੀ
                 ਅਸਰ ਕਰਦੀ ਹੈ।
-              </li>
-              <li>
-                <strong>ਰਿਸ਼ਤੇ ਅਤੇ ਵਿਆਹ (couples counselling)</strong>, ਵਾਰ-ਵਾਰ ਉਹੀ ਝਗੜਾ, ਜਾਂ ਦੂਰੀ
-                ਜੋ ਵਧਦੀ ਜਾ ਰਹੀ ਹੈ।
               </li>
               <li>
                 <strong>ਪਰਿਵਾਰਕ ਦਬਾਅ</strong>, ਫ਼ਰਜ਼ ਅਤੇ ਆਪਣੀ ਜ਼ਿੰਦਗੀ ਵਿਚਕਾਰ ਫਸ ਜਾਣਾ।
@@ -283,9 +287,9 @@ export default function PunjabiPage() {
               ਹੋਰ ਤੁਹਾਡੇ ਲਈ ਬਿਹਤਰ ਹੋਵੇਗਾ, ਤਾਂ ਉਹ ਵੀ ਸਾਫ਼ ਦੱਸਿਆ ਜਾਵੇਗਾ।
             </p>
             <p>
-              <Link className="btn btn--primary" href={site.bookingPath}>
+              <BookLink location="mid-language" href={book}>
                 ਮੁਫ਼ਤ ਸਲਾਹ-ਮਸ਼ਵਰਾ ਬੁੱਕ ਕਰੋ
-              </Link>
+              </BookLink>
             </p>
             {/* The only page on the site where booking was still the sole route
                 to contact. The sitewide English form would have been the wrong

@@ -59,6 +59,18 @@ export const BOOK_LOCATIONS: readonly string[] = [
   'counsellor-audience',
   'counsellor-city',
   'hero-city-pa',
+  /* The language pages (wf/language, 1 Oct 2026): the hero and closing
+     buttons on /punjabi, /punjabi/regions, /tagalog and the two English
+     language hubs, the hero and inline link on each Punjabi region and
+     Tagalog city page, and the hero and mid-article link on the words
+     resources and the two language comparisons. All open the calendar of
+     the counsellor who speaks the language (lib/booking-cta.ts). */
+  'hero-language',
+  'mid-language',
+  'hero-language-region',
+  'mid-language-region',
+  'hero-resource',
+  'mid-resource',
   ...tools.map((t) => `tool:${t.slug}`),
 ];
 
@@ -123,7 +135,7 @@ export function splitBookDetail(key: string): { location: string; who?: string }
 }
 
 /* The allow-list proper, enumerated once so membership is a Set lookup and
- * the bound is a number somebody can read: 20 locations × 4 = 80 book_click
+ * the bound is a number somebody can read: 22 locations × 4 = 88 book_click
  * keys, 3 slugs, 3 magnets, 5 tools + 22 outcomes. */
 const BOOK_CLICK_KEYS = new Set<string>(
   BOOK_LOCATIONS.flatMap((l) => [l, ...COUNSELLOR_SLUGS.map((s) => `${l}${SEP}${s}`)])

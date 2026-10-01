@@ -3,13 +3,14 @@ import Updated from '@/components/Updated';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { site } from '@/lib/site';
+import BookLink from '@/components/BookLink';
+import { bookingCtaFor } from '@/lib/booking-cta';
 import { abs, orgRef, siteRef } from '@/lib/schema';
 import { ogBasePunjabi } from '@/lib/og-meta';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { gurmukhi } from '@/app/fonts-gurmukhi';
 import { punjabiGuides, getPunjabiGuide } from '@/lib/punjabi-guides';
 import { PA_PLACE_SHARED } from '@/lib/practitioner-places-pa';
-import { practitioners } from '@/lib/practitioners';
 import { COLLECTION_DATES } from '@/lib/page-dates';
 
 /* ============================================================================
@@ -64,8 +65,6 @@ export default function PunjabiGuidePage({ params }: { params: Params }) {
     .map((slug) => getPunjabiGuide(slug))
     .filter((r): r is NonNullable<typeof r> => Boolean(r) && r!.slug !== g.slug);
 
-  /* The Punjabi-speaking counsellor who is taking clients, for the CTA. */
-  const speaker = practitioners.find((p) => p.acceptingNewClients && p.languages.some((l) => l.tag === 'pa'));
   const path = `/punjabi/guides/${g.slug}`;
 
   const schema = [
@@ -195,9 +194,9 @@ export default function PunjabiGuidePage({ params }: { params: Params }) {
           <div className="cta-band">
             <h2>ਪਹਿਲਾਂ ਗੱਲ ਕਰ ਲਈਏ</h2>
             <p>{PA_PLACE_SHARED.ctaText}</p>
-            <Link className="btn btn--primary" href={speaker ? `${site.bookingPath}?with=${speaker.slug}` : site.bookingPath}>
+            <BookLink location="cta-band" href={bookingCtaFor({ language: 'pa', fallback: '' }).href}>
               {PA_PLACE_SHARED.cta}
-            </Link>
+            </BookLink>
             <p className="cta-band-alt">
               {PA_PLACE_SHARED.notReady}{' '}
               <Link href="/punjabi#form">{PA_PLACE_SHARED.notReadyWrite}</Link> &mdash;{' '}

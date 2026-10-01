@@ -327,12 +327,18 @@ export const services: Service[] = [
     slug: "punjabi-counselling",
     language: "pa",
     directAnswer:
-      "Westpeak Wellness offers counselling in Punjabi (ਪੰਜਾਬੀ) by secure video anywhere in British Columbia, provided by a Punjabi-speaking Registered Clinical Counsellor. Working in the language you think in removes the translation overhead from material that is difficult to say once, and means family context does not have to be explained from scratch. Individual and couples sessions are both available in Punjabi, and you can move between Punjabi and English within a session.",
+      "Westpeak Wellness offers counselling in Punjabi (ਪੰਜਾਬੀ) by secure video anywhere in British Columbia, provided by a Punjabi-speaking Registered Clinical Counsellor. Working in the language you think in removes the translation overhead from material that is difficult to say once, and means family context does not have to be explained from scratch. Individual sessions are available in Punjabi, and you can move between Punjabi and English within a session; couples counselling and EMDR currently run in English or Tagalog.",
     figure2: "first-session-flow",
     figure: "bc-reach",
     name: "Punjabi-Speaking Counselling",
     short: "Therapy in Punjabi, English, or both, culturally fluent.",
-    metaTitle: "Punjabi-Speaking Counselling in BC | Westpeak Wellness",
+    /* The English head term lives here, 1 Oct 2026. Search Console: this
+       page fell from 12 impressions at 11.0 to 3 at 20.7 while /punjabi rose
+       to 134 at 9.82 with no clicks, so English queries such as "counselling
+       in punjabi" (17 at 12.5) were being answered by a page whose heading is
+       in Gurmukhi. The English words lead here, and /punjabi leads with its
+       own script. */
+    metaTitle: "Punjabi Counselling Online in BC | Punjabi-Speaking RCC",
     metaDescription:
       "Online Punjabi-speaking therapy across BC: counselling in Punjabi, English, or both, with deep cultural competency. Book a free consultation.",
     hero: "You don't have to translate yourself.",

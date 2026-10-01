@@ -8,6 +8,8 @@ import { TAGALOG_CITIES, TAGALOG_SPEAKERS } from '@/lib/tagalog';
 import { abs, orgRef, siteRef } from '@/lib/schema';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import CtaBand from '@/components/CtaBand';
+import BookLink from '@/components/BookLink';
+import { bookingCtaFor } from '@/lib/booking-cta';
 import Figure from '@/components/Figure';
 import { ogBase } from '@/lib/og-meta';
 import { COLLECTION_DATES } from '@/lib/page-dates';
@@ -48,6 +50,7 @@ export const metadata: Metadata = {
  * one invented here. */
 export default function TagalogCounsellingHub() {
   const speaker = TAGALOG_SPEAKERS[0];
+  const cta = bookingCtaFor({ language: 'tl', fallback: 'Book a free consultation' });
 
   const schema = [
     {
@@ -101,7 +104,7 @@ export default function TagalogCounsellingHub() {
           </p>
           <Updated iso={COLLECTION_DATES['tagalogLanding']} />
           <div className="btn-row" style={{ marginTop: 22 }}>
-            <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
+            <BookLink location="hero-language" href={cta.href}>{cta.label}</BookLink>
             {speaker && (
               <>
                 <Link className="btn btn--ghost" href={`/practitioners/${speaker.slug}`}>
@@ -240,6 +243,7 @@ export default function TagalogCounsellingHub() {
       </section>
 
       <CtaBand
+        bookHref={cta.href}
         heading="Start with a conversation"
         text="A free 30-minute consultation by video, in Tagalog or English. No card, no obligation."
       />

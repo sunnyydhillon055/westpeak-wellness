@@ -7,6 +7,8 @@ import { practitioners, withLetters } from '@/lib/practitioners';
 import { site } from '@/lib/site';
 import { abs, orgRef, siteRef } from '@/lib/schema';
 import CtaBand from '@/components/CtaBand';
+import BookLink from '@/components/BookLink';
+import { bookingCtaFor } from '@/lib/booking-cta';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import Figure from '@/components/Figure';
 import { ogBase } from '@/lib/og-meta';
@@ -72,6 +74,7 @@ export default function PunjabiCounsellingIndex() {
      founder also works in Punjabi but is closed to new clients and named only
      on her own page. */
   const speaker = practitioners.find((p) => p.acceptingNewClients && p.languages.some((l) => l.tag === 'pa') && p.placePages);
+  const cta = bookingCtaFor({ language: 'pa', fallback: 'Book a free consultation' });
   const scarcity = punjabiRegions.filter((r) => ARGUMENT[r.slug] !== 'distance');
   const distance = punjabiRegions.filter((r) => ARGUMENT[r.slug] === 'distance');
 
@@ -143,7 +146,7 @@ export default function PunjabiCounsellingIndex() {
           </p>
           <Updated iso={COLLECTION_DATES['punjabiRegions']} />
           <div className="btn-row" style={{ marginTop: 24 }}>
-            <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
+            <BookLink location="hero-language" href={cta.href}>{cta.label}</BookLink>
             <Link className="btn btn--ghost" href="/punjabi/regions" lang="pa">ਪੰਜਾਬੀ ਵਿੱਚ ਪੜ੍ਹੋ</Link>
           </div>
         </div>
@@ -258,7 +261,7 @@ export default function PunjabiCounsellingIndex() {
         </div>
       </section>
 
-      <CtaBand />
+      <CtaBand bookHref={cta.href} />
     </>
   );
 }

@@ -4,6 +4,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { site } from '@/lib/site';
+import BookLink from '@/components/BookLink';
+import { bookingCtaFor } from '@/lib/booking-cta';
 import { abs, orgRef, siteRef } from '@/lib/schema';
 import { ogBase } from '@/lib/og-meta';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -57,6 +59,10 @@ export default function TagalogPage() {
   if (!TAGALOG_READY) notFound();
 
   const speaker = practitioners.find((p) => p.languages.some((l) => l.tag === 'tl'));
+  /* The calendar of the Tagalog speaker who is accepting and bookable, from
+     the roster rule in lib/booking-cta.ts, or the practice calendar if
+     nobody is. 1 Oct 2026. */
+  const book = bookingCtaFor({ language: 'tl', fallback: '' }).href;
   const cities = speaker?.placePages
     ? placesFor(speaker.provinces).filter((c) => getTagalogPlace(c.slug))
     : [];
@@ -105,9 +111,9 @@ export default function TagalogPage() {
             <p className="direct-answer">{T.metaDescription}</p>
             <Updated iso={COLLECTION_DATES['tagalogLanding']} lang="en-CA" />
             <div className="btn-row" style={{ marginTop: 22 }}>
-              <Link className="btn btn--primary" href={`${site.bookingPath}?with=${speaker?.slug ?? ''}`}>
+              <BookLink location="hero-language" href={book}>
                 {T.cta}
-              </Link>
+              </BookLink>
               <Link className="btn btn--ghost" href="/tagalog-counselling" hrefLang="en-CA" lang="en">
                 {T.englishLink}
               </Link>
@@ -246,9 +252,9 @@ export default function TagalogPage() {
           <div className="cta-band">
             <h2>{T.ctaHeading}</h2>
             <p>{TL_PLACE_SHARED.ctaText}</p>
-            <Link className="btn btn--primary" href={`${site.bookingPath}?with=${speaker?.slug ?? ''}`}>
+            <BookLink location="cta-band" href={book}>
               {T.cta}
-            </Link>
+            </BookLink>
             <p className="cta-band-alt">
               {TL_PLACE_SHARED.notReady}{' '}
               <Link href="/contact">{TL_PLACE_SHARED.notReadyWrite}</Link> &mdash;{' '}

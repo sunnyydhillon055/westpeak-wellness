@@ -1,12 +1,18 @@
 import type { Metadata } from 'next';
 import Updated from '@/components/Updated';
 import Link from 'next/link';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { punjabiRegions, getPunjabiRegion } from '@/lib/punjabi-regions';
 import { site } from '@/lib/site';
 import { abs, orgRef, siteRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import BookLink from '@/components/BookLink';
+import { bookingCtaFor } from '@/lib/booking-cta';
+import { withLetters } from '@/lib/practitioners';
+import { placesFor } from '@/lib/practitioner-places';
+import { getPunjabiPlace } from '@/lib/practitioner-places-pa';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import Figure from '@/components/Figure';
 import Stat from '@/components/Stat';
@@ -36,10 +42,12 @@ export function generateMetadata({ params }: { params: { region: string } }): Me
   return {
     title: { absolute: `Punjabi Counselling in ${r.region}, BC | Westpeak` },
     description: r.metaDescription,
-    alternates: {
-      canonical: `${site.domain}/punjabi-counselling/${r.slug}`,
-      languages: { 'pa': `${site.domain}/punjabi` },
-    },
+    /* Canonical only. This page declared hreflang pa -> /punjabi until 1 Oct
+       2026, but /punjabi is not a translation of a region page and pairs with
+       /services/punjabi-counselling instead, so the tag was one-way, and
+       hreflang is for real translations only (DECISIONS.md). The link to
+       /punjabi stays in the body. scripts/smoke.mjs fails if it returns. */
+    alternates: { canonical: `${site.domain}/punjabi-counselling/${r.slug}` },
     openGraph: { ...ogBase(`/punjabi-counselling/${r.slug}`),
       title: `Punjabi-speaking counselling in ${r.region}, BC`,
       description: r.metaDescription,
@@ -53,6 +61,17 @@ export default function PunjabiRegionPage({ params }: { params: { region: string
 
   const siblings = (r.nearby ?? []).map(getPunjabiRegion).filter(Boolean) as typeof punjabiRegions;
   const path = `/punjabi-counselling/${r.slug}`;
+  /* Every booking link on the page opens the Punjabi-speaking counsellor's
+     calendar, resolved from the roster (lib/booking-cta.ts). */
+  const cta = bookingCtaFor({ language: 'pa', fallback: 'Book a free consultation' });
+  /* The person behind that button, named the way the Tagalog city pages name
+     theirs. Same resolution, so the card and the calendar cannot disagree;
+     when nobody accepting speaks Punjabi the card is simply not there. */
+  const speaker = cta.practitioner;
+  const place = speaker?.placePages && placesFor(speaker.provinces).some((c) => c.slug === r.slug)
+    ? `/practitioners/${speaker.slug}/${r.slug}`
+    : undefined;
+  const placePa = place && getPunjabiPlace(r.slug) ? `${place}/pa` : undefined;
 
   const schema = [
     {
@@ -78,6 +97,7 @@ export default function PunjabiRegionPage({ params }: { params: { region: string
         { '@type': 'Language', name: 'English', alternateName: 'en' },
       ],
       isPartOf: siteRef,
+      ...(speaker ? { employee: { '@id': `${site.domain}/practitioners/${speaker.slug}#person` } } : {}),
     },
     {
       '@context': 'https://schema.org',
@@ -99,7 +119,7 @@ export default function PunjabiRegionPage({ params }: { params: { region: string
           <p className="lede">{r.blurb}</p>
           <Updated iso={COLLECTION_DATES['punjabiRegions']} />
           <div className="btn-row" style={{ marginTop: 24 }}>
-            <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
+            <BookLink location="hero-language-region" href={cta.href}>{cta.label}</BookLink>
             <Link className="btn btn--ghost" href="/punjabi">ਪੰਜਾਬੀ ਵਿੱਚ ਪੜ੍ਹੋ</Link>
           </div>
         </div>
@@ -132,6 +152,43 @@ export default function PunjabiRegionPage({ params }: { params: { region: string
             />
           )}
           <Paragraphs items={r.demography.body} />
+
+          {speaker && (
+            <>
+              <h2>Who you would be working with</h2>
+              <p>
+                <Link href={`/practitioners/${speaker.slug}`}>{withLetters(speaker)}</Link>:{' '}
+                {speaker.role}, working in Punjabi and English by secure video. She works with{' '}
+                {speaker.focus.map((f) => f.label.toLowerCase()).join(', ')}.
+              </p>
+              {place && (
+                <p>
+                  There is also a page for{' '}
+                  <Link href={place}>{speaker.name.split(' ')[0]} and {r.region}</Link>
+                  {placePa && (
+                    <>
+                      , and the same page{' '}
+                      <Link href={placePa} lang="pa" hrefLang="pa">ਪੰਜਾਬੀ ਵਿੱਚ</Link>
+                    </>
+                  )}
+                  .
+                </p>
+              )}
+              {speaker.photos?.portrait && (
+                <figure className="photo" style={{ margin: '22px 0 0', maxWidth: 280 }}>
+                  <Image
+                    src={speaker.photos.portrait.src}
+                    alt={`${withLetters(speaker)}, a Punjabi-speaking Registered Clinical Counsellor serving ${r.region} by video`}
+                    width={speaker.photos.portrait.width}
+                    height={speaker.photos.portrait.height}
+                    sizes="(max-width: 700px) 60vw, 280px"
+                    style={{ width: '100%', height: 'auto', borderRadius: 8 }}
+                  />
+                  <figcaption>{withLetters(speaker)}</figcaption>
+                </figure>
+              )}
+            </>
+          )}
         </div>
       </section>
 
@@ -165,7 +222,7 @@ export default function PunjabiRegionPage({ params }: { params: { region: string
           <div className="crisis" style={{ marginTop: 32 }}>
             <p style={{ margin: 0 }}>
               Not sure whether this is the right fit? A{' '}
-              <Link href={site.bookingPath}>free 30-minute consultation</Link> is the fastest way to
+              <BookLink location="mid-language-region" href={cta.href} className="">free 30-minute consultation</BookLink> is the fastest way to
               find out, and it is a perfectly good outcome if the answer turns out to be a referral
               somewhere else.
             </p>
@@ -222,6 +279,7 @@ export default function PunjabiRegionPage({ params }: { params: { region: string
       </section>
 
       <CtaBand
+        bookHref={cta.href}
         heading={`Counselling in Punjabi, from ${r.region}`}
         text="A free 30-minute consultation over secure video, in Punjabi or English. No pressure, no commitment, and no obligation to book a session afterward."
       />

@@ -25,6 +25,11 @@ export type Audience = {
    * counsellor who works in that language. Pages that merely mention a
    * language stay untagged. */
   language?: 'pa' | 'tl';
+  /* The service the page is about, as lib/practitioners.ts spells it, when the
+   * page is about one. With `language`, the booking button goes to a counsellor
+   * who speaks the language AND offers this service, or to the practice
+   * calendar when nobody accepting does both (lib/booking-cta.ts). */
+  service?: string;
   /* The one-sentence direct answer, written to survive being quoted with no
    * page around it. Every other dated collection on this site already had one
    * — these ten did not, which made the pages targeting "counselling for

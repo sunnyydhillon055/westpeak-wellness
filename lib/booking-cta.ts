@@ -40,10 +40,28 @@ export type LanguageTag = 'pa' | 'tl';
 
 /* The counsellor a language page should book with, or undefined. Accepting
    AND bookable: a counsellor who takes clients but books by reply (the
-   founder's arrangement) has no online calendar for ?with= to open. */
-export const counsellorForLanguage = (tag: string): Practitioner | undefined =>
+   founder's arrangement) has no online calendar for ?with= to open.
+
+   `service`, when given, must also be one she offers. Added 1 Oct 2026: the
+   Punjabi-speaking couples page sent readers to the one accepting Punjabi
+   speaker, whose services are individual counselling only, so the button
+   promised a couples consultation in Punjabi that her calendar cannot hold.
+   With the service in the question, nobody fits and the page falls back to
+   its own label and the practice calendar, which is the honest answer. */
+/* The language's own service page (/services/tagalog-counselling) is about
+   the language, not a separate service type: speaking it is offering it.
+   Without this the roster's spelling decides — Camille's entry does not list
+   'tagalog-counselling' — and the Tagalog service page would lose its
+   counsellor. Integration of wf/services and wf/language, 1 Oct 2026. */
+const LANGUAGE_SERVICE: Record<string, string> = { pa: 'punjabi-counselling', tl: 'tagalog-counselling' };
+
+export const counsellorForLanguage = (tag: string, service?: string): Practitioner | undefined =>
   practitioners.find(
-    (p) => p.acceptingNewClients && p.bookable && p.languages.some((l) => l.tag === tag)
+    (p) =>
+      p.acceptingNewClients &&
+      p.bookable &&
+      p.languages.some((l) => l.tag === tag) &&
+      (!service || service === LANGUAGE_SERVICE[tag] || p.services.includes(service))
   );
 
 export type BookingCta = {
@@ -62,8 +80,12 @@ export type BookingCta = {
  * rule exported once, so the service, card and language templates cannot
  * each grow their own.
  *
- *   language set, and somebody accepting and bookable speaks it
+ *   language set, and somebody accepting and bookable speaks it (and
+ *   offers the service, when one is given)
  *       -> that counsellor's calendar, label suffix names the language
+ *   language set, and nobody fits
+ *       -> bare /book (wf/language, 1 Oct 2026: a language page never
+ *          narrows to a counsellor who does not speak its language)
  *   otherwise, exactly one accepting BC counsellor offers the service and
  *   she has an online calendar
  *       -> her calendar, no suffix (the label never names a person)
@@ -77,7 +99,7 @@ export type BookingTarget = { href: string; labelSuffix: string; slug: string | 
 
 export function bookingFor(service: string | undefined, language?: string): BookingTarget {
   if (language) {
-    const who = counsellorForLanguage(language);
+    const who = counsellorForLanguage(language, service);
     const name = who?.languages.find((l) => l.tag === language)?.name;
     if (who && name) {
       return {
@@ -86,6 +108,7 @@ export function bookingFor(service: string | undefined, language?: string): Book
         slug: who.slug,
       };
     }
+    return { href: site.bookingPath, labelSuffix: '', slug: undefined };
   }
   if (service) {
     const offering = counsellorsFor({ bookingService: service });

@@ -8,6 +8,8 @@ import { buildToc, headingId } from '@/lib/toc';
 import { orgRef, siteRef, personRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import BookLink from '@/components/BookLink';
+import { bookingCtaFor } from '@/lib/booking-cta';
 import SceneBand from '@/components/SceneBand';
 import Byline from '@/components/Byline';
 import ExtraSections from '@/components/ExtraSections';
@@ -56,6 +58,9 @@ const fmt = (iso: string) =>
 export default function ResourcePage({ params }: { params: { slug: string } }) {
   const r = getResource(params.slug);
   if (!r) notFound();
+  /* A resource written for one language books with the counsellor who
+     speaks it; every other resource keeps the practice calendar. */
+  const cta = bookingCtaFor({ language: r.language, fallback: 'Book a free consultation' });
 
   const toc = buildToc([
     ...r.sections.map((s) => s.h2),
@@ -69,7 +74,7 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
     r.figure ? <Figure key="fig" name={r.figure} /> : null,
     <div className="crisis" key="cta" style={{ margin: '8px 0 32px' }}>
       <p style={{ margin: 0 }}>
-        {r.midCta.text} <Link href={site.bookingPath}>{r.midCta.label}</Link>.
+        {r.midCta.text} <BookLink location="mid-resource" href={cta.href} className="">{r.midCta.label}</BookLink>.
       </p>
     </div>,
     r.related[0] ? (
@@ -126,7 +131,7 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
               the word does, which was the whole point the first time. */}
           <p className="hero-note">{r.readMinutes} min read · Updated {fmt(r.updated)}</p>
           <div className="btn-row" style={{ marginTop: 22 }}>
-            <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
+            <BookLink location="hero-resource" href={cta.href}>{cta.label}</BookLink>
             <Link className="btn btn--ghost" href="/resources">All resources</Link>
           </div>
         </div>
@@ -261,7 +266,8 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
           <p className="eyebrow">Keep reading</p>
           <h2>Related pages</h2>
           <div className="chip-grid" style={{ marginTop: 20 }}>
-            {r.related.map((x) => <Link className="chip" key={x.href} href={x.href}>{x.label}</Link>)}
+            {/* A related link to /book follows the page's booking links. */}
+            {r.related.map((x) => <Link className="chip" key={x.href} href={x.href === site.bookingPath ? cta.href : x.href}>{x.label}</Link>)}
           </div>
         </div>
       </section>
@@ -271,6 +277,7 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
       <ServiceCityLinks section="resources" slug={r.slug} />
       <CityLinks />
       <CtaBand
+        bookHref={cta.href}
         heading="Questions about cost or coverage?"
         text="A free 30-minute consultation is a good place to ask them, before committing to anything."
       />

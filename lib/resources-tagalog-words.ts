@@ -19,6 +19,7 @@ import type { Resource } from './resources';
 export const tagalogWordsResource: Resource[] = [
   {
     slug: 'counselling-in-tagalog-what-the-words-mean',
+    language: 'tl',
     figure: 'first-session-flow-tl',
     title: 'What counselling means in Tagalog, word by word',
     metaTitle: 'Counselling Meaning in Tagalog: Pagpapayo, Therapy, Burnout',

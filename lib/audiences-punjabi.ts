@@ -41,6 +41,7 @@ export const punjabiAudiences: Audience[] = [
     slug: 'punjabi-speaking-couples',
     ctaFor: 'for Punjabi-speaking couples',
     language: 'pa',
+    service: 'couples-therapy',
     figure2: 'gottman-method',
     figure: 'first-session-flow',
     title: 'Punjabi-speaking couples counselling in BC',

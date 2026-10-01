@@ -33,6 +33,7 @@ import type { Resource } from './resources';
 export const punjabiWordsResource: Resource[] = [
   {
     slug: 'counselling-in-punjabi-what-the-words-mean',
+    language: 'pa',
     figure: 'first-session-flow',
     title: 'What counselling means in Punjabi, word by word',
     metaTitle: 'Counselling Meaning in Punjabi (ਕਾਊਂਸਲਿੰਗ), Therapy, Consult',

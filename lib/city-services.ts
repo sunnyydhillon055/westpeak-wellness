@@ -92,7 +92,7 @@ export const pairs: Pair[] = [
     ],
     faqs: [
       { q: 'What if only one of us wants to come?', a: 'Start anyway. Individual work on a relationship is legitimate and often useful, and it is not unusual for the second person to join later once it is clear what the sessions are actually like.' },
-      { q: 'Can sessions run in Punjabi if one of us is more comfortable that way?', a: 'Yes, including sessions that move between both languages. Where partners have different preferences, that is worth naming early rather than working around.' },
+      { q: 'Can sessions run in Punjabi if one of us is more comfortable that way?', a: 'Not for couples work at the moment: couples sessions currently run in English or Tagalog. Individual counselling is available in Punjabi, and where partners have different language preferences, that is worth naming early rather than working around.' },
     ],
   },
 
@@ -106,7 +106,7 @@ export const pairs: Pair[] = [
     faqs: [
       /* Search Console, 17 Sep 2026: EMDR therapy Guildford, twelve impressions at position 50, and the neighbourhood was not named. */
       { q: 'Does this cover Guildford, Newton and Fleetwood?', a: 'All of Surrey, by video: Guildford, Newton, Fleetwood, Whalley, Cloverdale and South Surrey, along with North Delta and White Rock. Somebody in Guildford searching for EMDR is usually looking for something within the neighbourhood so they are not on King George at rush hour; a session from home removes the question.' },
-      { q: 'Can EMDR be done in Punjabi?', a: 'Yes. The protocol is the same; what changes is that the belief attached to a memory can be named in the language it belongs to rather than approximated in translation.' },
+      { q: 'Can EMDR be done in Punjabi?', a: 'Not at the practice at the moment: EMDR currently runs in English or Tagalog. Individual counselling is available in Punjabi, and the free consultation is the place to talk through which of the two fits better.' },
       { q: 'How many sessions does EMDR take?', a: 'It varies too widely for an honest average. Some focused pieces of work are short; anything involving repeated or early experience generally is not. It is reviewed as you go rather than committed to in advance.' },
     ],
   },
