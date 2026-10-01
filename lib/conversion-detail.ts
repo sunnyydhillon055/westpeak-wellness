@@ -42,6 +42,12 @@ export const BOOK_LOCATIONS: readonly string[] = [
   'hero-audience',
   'aside-service',
   'mid-audience',
+  /* The city × service template, wired the same day (wf/city-service):
+     the tracked button under the lede, the per-counsellor card, and the
+     mid-page "Book a consultation" that was an untracked plain link. */
+  'hero-city-service',
+  'counsellor-city-service',
+  'access-city-service',
   ...tools.map((t) => `tool:${t.slug}`),
 ];
 
