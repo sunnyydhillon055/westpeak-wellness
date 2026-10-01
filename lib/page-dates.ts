@@ -17,7 +17,7 @@ export const PAGE_DATES: Record<string, string> = {
   "/approaches": "2026-09-06",
   "/pricing": "2026-09-23",
   "/contact": "2026-09-22",
-  "/faq": "2026-09-06",
+  "/faq": "2026-10-01",
   "/online-counselling": "2026-09-24",
   "/guides": "2026-09-06",
   "/compare": "2026-09-06",
@@ -44,7 +44,7 @@ export const COLLECTION_DATES: Record<string, string> = {
   "tools": "2026-09-08",
   "locations": "2026-10-01",
   "punjabiRegions": "2026-09-06",
-  "cityServices": "2026-09-17",
+  "cityServices": "2026-10-01",
   "practitioners": "2026-10-01",
   "practitionerPlaces": "2026-09-03",
   "tagalog": "2026-09-06",
@@ -55,7 +55,7 @@ export const COLLECTION_DATES: Record<string, string> = {
   "punjabiGuides": "2026-09-07",
   "conditions": "2026-09-03",
   "glossary": "2026-09-03",
-  "faq": "2026-09-06"
+  "faq": "2026-10-01"
 };
 
 /** ISO-8601 for the sitemap, or null when we do not honestly know. */
