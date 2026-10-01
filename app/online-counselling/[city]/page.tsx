@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { locations, getLocation } from '@/lib/locations';
 import { pairsForCity } from '@/lib/city-services';
-import { getService } from '@/lib/services';
 import { getCityTopic } from '@/lib/conditions';
 import { featuredServices } from '@/lib/services';
 import { site } from '@/lib/site';

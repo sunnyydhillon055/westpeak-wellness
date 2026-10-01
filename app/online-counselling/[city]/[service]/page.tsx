@@ -16,6 +16,13 @@ import { healthAuthorityFor, HEALTHLINK } from '@/lib/health-authorities';
 import Figure from '@/components/Figure';
 import { ogBase } from '@/lib/og-meta';
 import { COLLECTION_DATES } from '@/lib/page-dates';
+import Image from 'next/image';
+import BookLink from '@/components/BookLink';
+import { readCatalog } from '@/lib/cliniko-catalog';
+import { withLetters } from '@/lib/practitioners';
+import {
+  bookHrefFor, counsellorsFor, feeFor, generatedFaqs, languagesOf, listOf, profileHrefFor,
+} from '@/lib/city-service-page';
 
 /* THE NAME THE PAGE IS FOUND BY — 25 Sep 2026.
    Search Console shows "marriage counselling abbotsford", "marriage
@@ -158,10 +165,27 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   };
 }
 
-export default function CityServicePage({ params }: { params: Params }) {
+/* ISR, as the service pages are. The fee below is read from the Cliniko
+   catalogue, and an hourly re-render picks up a price change without giving
+   up static serving. 1 Oct 2026. */
+export const revalidate = 3600;
+
+export default async function CityServicePage({ params }: { params: Params }) {
   const d = load(params);
   if (!d) notFound();
   const { pair, ctx, svc, loc } = d;
+
+  /* WHAT THE RANKING PAGES HAVE AND THIS ONE DID NOT — 1 Oct 2026.
+     Thirteen pages ranking for the matrix's own queries were read
+     (scratchpad/city-service-competitors.md): eight name a counsellor with
+     a credential line on the page, ten put the booking action above the
+     fold, seven answer cost, coverage and "who would I see" in FAQs. All of
+     that comes from the roster and the catalogue here; lib/city-service-page
+     holds the rules and the tests. */
+  const counsellors = counsellorsFor(svc);
+  const bookHref = bookHrefFor(counsellors);
+  const fee = feeFor(await readCatalog(), svc);
+  const faqs = [...pair.faqs, ...generatedFaqs({ topic: svc, ctx, loc, counsellors, fee })];
 
   const path = `/online-counselling/${ctx.slug}/${svc.slug}`;
   const otherHere = pairsForCity(ctx.slug).filter((p) => p.service !== svc.slug);
@@ -200,7 +224,7 @@ export default function CityServicePage({ params }: { params: Params }) {
     {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
-      mainEntity: pair.faqs.map((f) => ({
+      mainEntity: faqs.map((f) => ({
         '@type': 'Question',
         name: f.q,
         acceptedAnswer: { '@type': 'Answer', text: f.a },
@@ -219,24 +243,30 @@ export default function CityServicePage({ params }: { params: Params }) {
           {/* The pair's own thesis as the lede. This is the sentence that is
               true here and nowhere else in the matrix. */}
           <p className="lede">{pair.angle}</p>
+          {/* The booking action directly under the lede, before the
+              answer-engine paragraph and the date line it used to sit under.
+              Ten of the thirteen ranking pages have theirs above the fold; on
+              a phone ours was fourth in the hero. Through BookLink so that
+              whether anybody uses it is measured, and naming the service and
+              the city so the button says what the page says. 1 Oct 2026. */}
+          <div className="btn-row" style={{ marginTop: 20 }}>
+            <BookLink location="hero-city-service" href={bookHref}>
+              Book a free consultation for {lower(svc.name)} in {ctx.city}
+            </BookLink>
+            <Link className="btn btn--ghost" href={`/services/${svc.bookingService}`}>
+              What {lower(svc.name)} involves
+            </Link>
+          </div>
           {/* One self-contained sentence for an answer engine, alongside the
               page's own argument above. Says only what is true of every
               counsellor at the practice. */}
-          <p className="direct-answer">
+          <p className="direct-answer" style={{ marginTop: 22 }}>
             {svc.name} for people in {ctx.city} is delivered by secure video by Registered
             Clinical Counsellors registered with the BC Association of Clinical Counsellors,
             with a free first consultation, no referral, and receipts your extended health plan
             can process.
           </p>
           <Updated iso={COLLECTION_DATES['cityServices']} />
-          <div className="btn-row" style={{ marginTop: 24 }}>
-            <Link className="btn btn--primary" href={site.bookingPath}>
-              Book a free 30-minute consultation
-            </Link>
-            <Link className="btn btn--ghost" href={`/services/${svc.bookingService}`}>
-              What {lower(svc.name)} involves
-            </Link>
-          </div>
         </div>
       </section>
 
@@ -258,14 +288,78 @@ export default function CityServicePage({ params }: { params: Params }) {
           {/* 1. THE PAIR ARGUMENT — city-and-service specific, and first. */}
           <Paragraphs items={pair.body} />
 
+          {/* The fee from the catalogue, not a typed number. Until 1 Oct 2026
+              this line said "$140 for 50 minutes" on all fifty pages, twenty of
+              which are couples or EMDR, which bill at a different rate and, for
+              EMDR, a different length. The one competitor that ranks first for
+              couples in Abbotsford states its fee and says coverage varies;
+              this does the same, and coverage stays plan-dependent. */}
           <p>
-            Sessions are $140 for 50 minutes and start with a{' '}
-            <Link href={site.bookingPath}>free 30-minute video call</Link>, no charge, no card,
-            and no obligation to book anything afterwards.{' '}
+            {fee
+              ? `Sessions are ${fee.fee} for ${fee.minutes} minutes and start with a `
+              : 'Sessions start with a '}
+            <Link href={bookHref}>free 30-minute video call</Link>, no charge, no card,
+            and no obligation to book anything afterwards. Many BC extended health plans
+            reimburse a Registered Clinical Counsellor; whether yours does is plan-dependent.{' '}
             <Link href="/pricing">Fees and extended-health cover</Link> are set out in full.
           </p>
         </div>
       </section>
+
+      {/* WHO YOU WOULD SEE — 1 Oct 2026. The block eight of thirteen ranking
+          pages have and this one did not. Built from the roster: accepting,
+          insured for BC, and offering the appointment type this topic books
+          into, so the names change with the service. Credential NAMES only;
+          the registration number is on the profile and nowhere else. No
+          availability line: hours are not published anywhere. Renders nothing
+          rather than a promise if nobody is accepting. */}
+      {counsellors.length > 0 && (
+        <section className="section section--tint">
+          <div className="container">
+            <h2 style={{ marginTop: 0 }}>Who you would see for {lower(svc.name)} in {ctx.city}</h2>
+            <p style={{ color: 'var(--ink-soft)', maxWidth: 680 }}>
+              Taking new clients for {lower(svc.name)} and seeing people in {ctx.city} by secure
+              video. Each is a Registered Clinical Counsellor; the registration is on the profile
+              and can be checked on the BCACC register.
+            </p>
+            <div className="grid grid-2" style={{ gap: 20, marginTop: 20 }}>
+              {counsellors.map((p) => {
+                const first = p.name.split(' ')[0];
+                return (
+                  <div className="card" key={p.slug}>
+                    <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
+                      {p.photos?.portrait && (
+                        <Image
+                          src={p.photos.portrait.src}
+                          alt={p.photos.portrait.alt}
+                          width={p.photos.portrait.width}
+                          height={p.photos.portrait.height}
+                          sizes="96px"
+                          style={{ width: 96, height: 96, flex: '0 0 96px', objectFit: 'cover', objectPosition: 'top', borderRadius: '50%' }}
+                        />
+                      )}
+                      <div>
+                        <h3 style={{ margin: '0 0 2px', fontSize: '1.15rem' }}>{withLetters(p)}</h3>
+                        <p style={{ margin: 0, color: 'var(--ink-soft)', fontSize: '.92rem' }}>
+                          {listOf(languagesOf(p), 'and')} · {p.focus.slice(0, 3).map((f) => f.label).join(', ')}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="btn-row" style={{ marginTop: 14 }}>
+                      <BookLink location="counsellor-city-service" href={`${site.bookingPath}?with=${p.slug}`}>
+                        Book with {first}
+                      </BookLink>
+                      <Link className="btn btn--ghost" href={profileHrefFor(p, ctx.slug)}>
+                        More about {first}
+                      </Link>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* 2. THE CITY REALITY — shared across this city's five pages, and true. */}
       <section className="section section--ghost">
@@ -301,7 +395,7 @@ export default function CityServicePage({ params }: { params: Params }) {
             like: <Link href={`/online-counselling/${ctx.slug}`}>online counselling in {ctx.city}</Link>.
           </p>
           <div className="btn-row" style={{ marginTop: 20 }}>
-            <Link className="btn btn--primary" href={site.bookingPath}>Book a consultation</Link>
+            <BookLink location="access-city-service" href={bookHref}>Book a consultation</BookLink>
             <Link className="btn btn--ghost" href="/contact">Ask a question first</Link>
           </div>
         </div>
@@ -339,14 +433,16 @@ export default function CityServicePage({ params }: { params: Params }) {
         </div>
       </section>
 
-      {/* FAQs — unique to the pair, and matching the FAQPage schema above. */}
+      {/* FAQs — the pair's own first, then the three every ranking page
+          answers (who, the places around the city, the cost) generated from
+          this page's data. The same list feeds the FAQPage schema above. */}
       <section className="section section--ghost">
         <div className="container prose">
           <h2>Questions from {ctx.city}</h2>
           {/* details/summary, matching the city and service pages. A dl.faq
               would have been a class no stylesheet here defines. */}
           <div style={{ marginTop: 8, maxWidth: 760 }}>
-            {pair.faqs.map((f) => (
+            {faqs.map((f) => (
               <details className="faq-item" key={f.q}>
                 <summary>{f.q}</summary>
                 <p>{f.a}</p>
@@ -355,7 +451,7 @@ export default function CityServicePage({ params }: { params: Params }) {
           </div>
           <p>
             <Link href="/faq">More frequently asked questions</Link>, or{' '}
-            <Link href={site.bookingPath}>book the free consultation</Link> and ask directly.
+            <Link href={bookHref}>book the free consultation</Link> and ask directly.
           </p>
         </div>
       </section>
@@ -427,6 +523,7 @@ export default function CityServicePage({ params }: { params: Params }) {
           commitment on this site; a sentence by email is not. */}
 
       <CtaBand
+        bookHref={bookHref}
         heading={`${seoName(svc)} in ${ctx.city}, without the travel`}
         text="A free 30-minute video call, in English, Punjabi or Tagalog. No charge, no card, and no obligation to book anything afterwards."
       />
