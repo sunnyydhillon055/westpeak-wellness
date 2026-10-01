@@ -82,6 +82,10 @@ export const BOOK_LOCATIONS: readonly string[] = [
   'hero-place',
   'hero-language-guide',
   'guide-waiting',
+  /* The next-step link closing "Where counselling fits" on
+     /resources/workplace-mental-health-bc, the site's most-shown page,
+     which had no tracked booking link of its own (1 Oct 2026). */
+  'mid-resource-work',
   ...tools.map((t) => `tool:${t.slug}`),
 ];
 

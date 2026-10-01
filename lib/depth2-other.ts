@@ -238,7 +238,7 @@ export const depth2Other: Record<string, DepthSection[]> = {
     {
       h2: 'Verifying a practice as well as a person',
       list: [
-        { label: 'Is the fee published?', detail: 'A practice that will not state its rate without a call is optimising for a sales conversation. Fees, session length and cancellation terms should be findable.' },
+        { label: 'Is the fee published?', detail: 'A practice that will not state its rate without a call is optimising for a sales conversation. Fees, session length and cancellation terms should be findable. This practice’s are on [one page](/pricing), with no call needed.' },
         { label: 'Does it publish testimonials?', detail: 'Client testimonials are prohibited under BCACC advertising standards. A practice displaying them is either not bound by those standards or not following them, and both are worth knowing.' },
         { label: 'Does it make outcome claims?', detail: 'Guarantees, success rates, "proven results" and before-and-after framing are all outside what a registered counsellor may advertise.' },
         { label: 'Does it say what it does not do?', detail: 'A practice that states its scope limits is showing you the judgement you want. A list of twenty specialisms with no boundaries is showing you positioning.' },

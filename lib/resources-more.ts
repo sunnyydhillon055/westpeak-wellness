@@ -1,4 +1,10 @@
 import type { Resource } from './resources';
+import { fallbackFee, FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
+import { practitioners } from '@/lib/practitioners';
+import { acceptingSentences } from '@/lib/practitioner-facts';
+
+/* Minutes for a catalogue type, read rather than typed, beside fallbackFee. */
+const minutesOf = (name: string) => FALLBACK_CATALOG.items.find((i) => i.name === name)?.minutes;
 
 export const moreResources: Resource[] = [
   {
@@ -190,8 +196,20 @@ export const moreResources: Resource[] = [
         body: [
           'Counselling does not produce the documentation these systems require, and it is important to be straightforward about that. What it does is work on what is actually happening, the burnout, the anxiety, the aftermath of an incident at work, the decision about whether to stay.',
           'It is also useful for the process itself, which is its own stressor. Preparing for a difficult conversation with a manager, deciding what to disclose and to whom, and managing the strain of an appeal are all legitimate session material.',
-          'For the underlying difficulties, [burnout compared with depression](/guides/burnout-vs-depression) is the most common starting point, and [counselling for healthcare and shift workers](/for/healthcare-and-shift-workers) covers the occupations where this comes up most.',
+          /* 1 Oct 2026: the site's most-shown page ended here on a further
+             read, with no tracked booking link and no link to the EFAP
+             comparison, which has earned leads of its own. Now an ordered next
+             step. The fee is the catalogue's. */
+          'If you are not sure whether this is burnout or something that travels with you, the [burnout or depression check](/tools/burnout-or-depression) takes three minutes and stores nothing, and [what you can access, and how soon](/tools/what-can-i-access) sorts the routes open to you, including the free ones most people never use. [Burnout compared with depression](/guides/burnout-vs-depression) and [counselling for healthcare and shift workers](/for/healthcare-and-shift-workers) cover the ground in more depth.',
+          '**If you want to talk to someone, the order that usually works.** First, an employee and family assistance programme if your employer has one: it costs you nothing at the point of use, and [EFAP compared with private counselling](/compare/efap-vs-private-counselling) sets out what it covers and where it stops.',
+          `**Then, privately.** A Registered Clinical Counsellor by video from anywhere in BC, ${fallbackFee('Individual Counselling')} for a ${minutesOf('Individual Counselling')}-minute individual session, paid at booking with a receipt for your extended health plan. Whether the plan reimburses it depends on the plan.`,
+          'Reading this as the manager or HR? [Counselling support for employers and HR](/for/employers-and-hr) is this page from your side of the desk.',
         ],
+        book: {
+          text: 'A free 30-minute consultation is where the private route starts, and a fair place to ask whether it is the right one:',
+          label: 'book one',
+          location: 'mid-resource-work',
+        },
       },
     ],
     midCta: {
@@ -218,6 +236,8 @@ export const moreResources: Resource[] = [
       { href: '/for/healthcare-and-shift-workers', label: 'Counselling for healthcare and shift workers' },
       { href: '/compare/efap-vs-private-counselling', label: 'EFAP vs private counselling' },
       { href: '/resources/bc-extended-health-coverage-for-counselling', label: 'Extended health coverage in BC' },
+      { href: '/tools/burnout-or-depression', label: 'Burnout or depression? A three-minute check' },
+      { href: '/tools/what-can-i-access', label: 'What counselling can you access?' },
       { href: '/book', label: 'Book a free consultation' },
     ],
   },
@@ -250,17 +270,33 @@ export const moreResources: Resource[] = [
       'Ask which designation the person holds and which body holds it, then search that body\'s public register yourself: BCACC for a Registered Clinical Counsellor, the College of Health and Care Professionals of BC for a psychologist, the BC College of Social Workers for a social worker. If they hold no designation with any body, there is no complaints process and no minimum standard behind the title.',
     updated: '2026-09-26',
     readMinutes: 6,
+    /* 1 Oct 2026 (finishes round 1 #83). Most of this page's 1,515 impressions
+       are people looking for an RCC, not checking one: 'registered clinical
+       counsellor' 359 at position 27. The page named the two RCCs here once,
+       deep in the first section, and gave no fee. The names, reach and
+       services are built from the roster (lib/practitioner-facts.ts), so
+       nobody not taking new clients is named; the fee is the catalogue's.
+       No registration numbers: those stay on the profiles. */
+    afterShortAnswer: {
+      heading: 'Looking for an RCC rather than checking one?',
+      body: [
+        `The counsellors taking new clients at this practice are RCCs. ${acceptingSentences(practitioners).join(' ')}`,
+        `An individual session is ${fallbackFee('Individual Counselling')} for ${minutesOf('Individual Counselling')} minutes, and every fee is on the [fees page](/pricing). Check them on the register first, then talk to one of them.`,
+      ],
+      book: 'Book a free 30-minute consultation',
+    },
+    closingBand: {
+      heading: 'Check us on the register, then talk to one of us',
+      text: 'Each counsellor’s profile carries her registration number beside a link to her entry on the BCACC register. When you have checked, a free 30-minute consultation by video is the next step, with no obligation to book anything afterwards.',
+    },
     sections: [
       {
         h2: 'What the letters actually certify',
         body: [
           'RCC is a designation granted and policed by the **BC Association of Clinical Counsellors (BCACC)**, a professional association founded in 1988. Holding it means the counsellor has cleared a specific bar: a master’s degree in counselling psychology or an equivalent discipline, a period of supervised clinical practice, current professional liability insurance, continuing education that does not stop at registration, and a code of ethics with teeth. There is a formal complaints process, and registrants can be, and are, removed.',
-          'Each RCC carries a registration number, and the register is public and free to search. That combination. A number plus a register anyone can check in two minutes, is the practical meaning of the designation. A claim you can verify is categorically different from a claim you have to take on trust, and the walkthrough below shows exactly where to look.',
-          /* 1 Oct 2026: most of this page's 1,515 impressions are people looking for an RCC
-             ('registered clinical counsellor' 359, 'registered counsellor' 143), and the
-             page linked neither of the RCCs here. No numbers on this page: they are on
-             the profiles, beside the register that confirms them. */
-          'Both counsellors taking new clients at this practice are RCCs. Each one\'s registration number is on her own profile, so you can run this check on them yourself: [Camille Granda](/practitioners/camille-granda) and [Savneet Singh](/practitioners/savneet-singh).',
+          'Each RCC carries a registration number, and the [RCC Register](https://bcacc.ca/search-our-member-register/) is public and free to search. That combination. A number plus a register anyone can check in two minutes, is the practical meaning of the designation. A claim you can verify is categorically different from a claim you have to take on trust, and the walkthrough below shows exactly where to look.',
+          /* The sentence naming the two RCCs here moved up to afterShortAnswer,
+             with their reach, services and the fee, 1 Oct 2026. */
           'What the designation is *not*: a government licence. That distinction is not a technicality in British Columbia, and it is the next section, because it is the thing most pages on this subject skate past.',
         ],
       },
@@ -285,7 +321,7 @@ export const moreResources: Resource[] = [
         list: [
           { label: '1. Get the exact designation and full name', detail: 'From the website or by asking directly. "I am a counsellor" is not a designation. RCC, R.Psych, RSW, RCSW and CCC are.' },
           { label: '2. Find the right body', detail: 'RCC is held by the BC Association of Clinical Counsellors. Registered Psychologist is regulated by the College of Health and Care Professionals of BC. Registered Social Worker is regulated by the BC College of Social Workers. Canadian Certified Counsellor is held by the Canadian Counselling and Psychotherapy Association.' },
-          { label: '3. Search that body\'s public register', detail: 'Each maintains a searchable directory. Go to the body\'s own website rather than following a link from the practitioner\'s site.' },
+          { label: '3. Search that body\'s public register', detail: 'Each keeps a searchable register. For an RCC it is BCACC’s RCC Register, searchable by name or registration number, not its Find a Counsellor directory, which lists only counsellors who choose to be listed. Go to the body’s own website rather than following a link from the practitioner’s site.' },
           { label: '4. Check status, not just presence', detail: 'A register entry shows current standing. Look for whether the registration is active, and whether the body publishes any disciplinary history.' },
           { label: '5. If they are not listed, ask why', detail: 'There are innocent explanations, a recent name change, registration under a different legal name, membership of a body you have not checked. There are also non-innocent ones. A registered professional will answer this question without offence.' },
         ],
@@ -313,7 +349,7 @@ export const moreResources: Resource[] = [
       {
         h2: 'If something has gone wrong',
         body: [
-          'If the practitioner is registered, complain to the body that holds the designation. BCACC administers a complaints process for RCCs that is independent of any individual counsellor, and you do not need that counsellor\'s knowledge or agreement to use it. The College of Health and Care Professionals of BC and the BC College of Social Workers have statutory processes for their registrants.',
+          'If the practitioner is registered, complain to the body that holds the designation. BCACC administers a [complaints process](https://bcacc.ca/complaints-and-investigations/) for RCCs that is independent of any individual counsellor, and you do not need that counsellor\'s knowledge or agreement to use it. The College of Health and Care Professionals of BC and the BC College of Social Workers have statutory processes for their registrants.',
           'If the concern is specifically about privacy: how your information was collected, used, stored or disclosed, the Office of the Information and Privacy Commissioner for BC oversees private organisations under the Personal Information Protection Act.',
           'If the practitioner holds no designation at all, there is no professional body to complain to. Depending on what happened, the remaining routes are Consumer Protection BC, small claims, or the police. That asymmetry is the entire practical argument for checking first.',
         ],
@@ -343,7 +379,12 @@ export const moreResources: Resource[] = [
     faqs: [
       /* "bcacc find a counsellor", 47 impressions a month at position 9.6 and
          nothing on this page that says how. 26 Sep 2026. */
-      { q: 'How do I use the BCACC Find a Counsellor tool?', a: 'Go to bcacc.ca and open Find a Counsellor. You can search by name, to check one person, or filter by city, concern, language and whether they offer online sessions, to find one. Every result is a current RCC; the register only lists members in good standing. If a counsellor you were given is not there, ask them which body they are registered with and check that register instead.' },
+      /* 1 Oct 2026: rewritten to separate the two tools. The old answer called
+         the directory "the register" and said a counsellor missing from it
+         should be asked why, but the directory is opt-in: a current RCC can
+         switch her listing off, and one of this practice's own counsellors
+         has. The register is the check. */
+      { q: 'How do I use the BCACC Find a Counsellor tool?', a: 'BCACC has two tools, and they answer different questions. Find a Counsellor, at bcacc.ca, is for finding someone: filter by city, concern, language and whether they offer online sessions. It lists only RCCs who choose to be listed, so a counsellor missing from it tells you nothing. To check a particular counsellor, use the RCC Register instead (bcacc.ca/search-our-member-register): search by name or registration number, and it shows whether the registration is active and any notes.' },
       { q: 'What does RCC stand for?', a: 'Registered Clinical Counsellor: the designation granted by the BC Association of Clinical Counsellors (BCACC) to counsellors who meet its education, supervision, insurance and ethics requirements. It is a BC designation; the national equivalent from the Canadian Counselling and Psychotherapy Association is CCC, Canadian Certified Counsellor.' },
       { q: 'Is a registered counsellor the same as a Registered Clinical Counsellor?', a: 'In BC, in practice, yes: when a website or an insurer says "registered counsellor" it almost always means an RCC, because BCACC is the body most BC extended-health plans recognise. The precise question to ask is which register the person is on, since "registered" on its own could refer to any association, including ones with no clinical requirements.' },
       { q: 'What is the difference between an RCC and a psychologist?', a: 'Training level and scope. A registered psychologist in BC holds a doctorate, is regulated under the College of Health and Care Professionals of BC, and can formally diagnose and conduct psychological assessments. An RCC holds a master\'s degree, is registered with a professional association rather than a regulatory college until 2027, and provides counselling and psychotherapy but does not diagnose. For talk therapy the two overlap heavily; for a diagnosis or an assessment you need the psychologist. Fees differ accordingly.' },
@@ -353,7 +394,7 @@ export const moreResources: Resource[] = [
       { q: 'What does it take to become an RCC?', a: 'A master’s degree in counselling psychology or a closely related field, supervised clinical practice, professional liability insurance, continuing education, and agreement to the BCACC code of ethics and complaints process. Current requirements live on the BCACC site, since they do change.' },
       { q: 'What happens to RCCs when regulation arrives in 2027?', a: 'Psychotherapy becomes a regulated profession under the College of Health and Care Professionals of BC on 29 November 2027, on a protected-title model. The practical effect for clients: the accountability that is currently voluntary through BCACC becomes statutory. Existing qualified practitioners transition into the new framework.' },
       { q: 'What is a registered counsellor in BC?', a: 'In BC "registered counsellor" almost always means a Registered Clinical Counsellor (RCC), a member of the BC Association of Clinical Counsellors who holds a master\'s degree, has completed supervised clinical hours, carries liability insurance and is bound by a code of ethics and a complaints process. Registration is voluntary until psychotherapy is regulated in 2027, which is exactly why checking the register matters: the title "counsellor" alone certifies nothing.' },
-      { q: 'How do I check if a counsellor is registered in BC?', a: 'Ask which designation they hold, then search that body\'s own public register: the BCACC directory for an RCC, the College of Health and Care Professionals of BC for a psychologist, the BC College of Social Workers for a social worker. Search by surname. A registered person appears with their status; a name that returns nothing means the designation is not held, whatever the website says.' },
+      { q: 'How do I check if a counsellor is registered in BC?', a: 'Ask which designation they hold, then search that body\'s own public register: BCACC’s RCC Register for an RCC, the College of Health and Care Professionals of BC for a psychologist, the BC College of Social Workers for a social worker. Search by surname. A registered person appears with their status; a name that returns nothing means the designation is not held, whatever the website says.' },
       { q: 'Is it rude to check?', a: 'No, and a registered professional will not be offended. Public registers exist precisely so that anyone can search them without asking permission.' },
       { q: 'What if someone is registered but has no complaints history shown?', a: 'That is the normal case. Most practitioners have no disciplinary history, and its absence is not evidence of anything either way.' },
       { q: 'Does a counsellor have to be registered in BC to see me?', a: 'A counsellor must be appropriately registered in the jurisdiction where the client is physically located during the session. This is why you are asked where in BC you are, and why it matters if you travel.' },
@@ -361,6 +402,9 @@ export const moreResources: Resource[] = [
     ],
     sources: [
       { label: 'BC Association of Clinical Counsellors', url: 'https://bcacc.ca/' },
+      { label: 'BCACC, RCC Register (to verify a counsellor)', url: 'https://bcacc.ca/search-our-member-register/' },
+      { label: 'BCACC, Find a Counsellor (an opt-in directory, to find one)', url: 'https://bc-counsellors.org/counsellors/' },
+      { label: 'BCACC, complaints and investigations', url: 'https://bcacc.ca/complaints-and-investigations/' },
       { label: 'College of Health and Care Professionals of BC', url: 'https://chcpbc.org/' },
       { label: 'BC College of Social Workers', url: 'https://bccsw.ca/' },
     ],

@@ -3,10 +3,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { site } from '@/lib/site';
-import { practitioners, getPractitioner, defaultBookingPractitioner, withLetters } from '@/lib/practitioners';
+import { practitioners, getPractitioner, defaultBookingPractitioner, withLetters, vancouverToday } from '@/lib/practitioners';
 import { placesFor } from '@/lib/practitioner-places';
 import { getService } from '@/lib/services';
-import { abs, orgRef, siteRef, faqSchema } from '@/lib/schema';
+import { abs, orgRef, siteRef, faqSchema, sessionOffers } from '@/lib/schema';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import Updated from '@/components/Updated';
 import CtaBand from '@/components/CtaBand';
@@ -19,6 +19,11 @@ import { COLLECTION_DATES } from '@/lib/page-dates';
 import BookLink from '@/components/BookLink';
 import { profileTitle } from '@/lib/practitioner-titles';
 import { personAreaServed } from '@/lib/practice-facts';
+import { readCatalog } from '@/lib/cliniko-catalog';
+import {
+  feeLines, feePhrase, consultLine, reachLine, notOffered, insuranceLine, registerEntryUrl,
+  longDate, offerItems, COMPLAINTS_PATH,
+} from '@/lib/practitioner-facts';
 
 export function generateStaticParams() {
   return practitioners.map((p) => ({ slug: p.slug }));
@@ -147,6 +152,21 @@ export default async function PractitionerPage({ params }: { params: { slug: str
 
   const sameAs = (p.sameAs ?? []).filter((u) => !/psychologytoday\.com/i.test(u));
 
+  /* THE FACT STRIP — 1 Oct 2026. Fees per service, the free consultation,
+     reach, languages and what she does not offer, all computed from the
+     roster and the catalogue (lib/practitioner-facts.ts). Only for someone
+     taking new clients: fees beside a calendar nobody can open are noise. */
+  const catalog = await readCatalog();
+  const fees = p.acceptingNewClients ? feeLines(p, catalog) : [];
+  const consult = p.acceptingNewClients ? consultLine(catalog) : null;
+  const missing = p.acceptingNewClients ? notOffered(p, practitioners) : [];
+  const missingBy = missing.length && missing.every((m) => m.by.length && m.by.map((b) => b.slug).join() === missing[0]!.by.map((b) => b.slug).join())
+    ? missing[0]!.by
+    : [];
+  /* Read at render, not at build: the page revalidates every 30 minutes, so
+     the line goes the day the policy stops being current. */
+  const insured = insuranceLine(p, vancouverToday());
+
   const schema = [
     {
       '@context': 'https://schema.org',
@@ -173,6 +193,10 @@ export default async function PractitionerPage({ params }: { params: { slug: str
       /* From her roster `reach` and `provinces`, not a hard-coded BC: Camille
          may see clients anywhere in Canada (owner's instruction, 8 Sep 2026). */
       areaServed: personAreaServed(p),
+      /* From the same catalogue read as the fact strip, so the markup cannot
+         state a fee the page does not. Omitted for anyone not taking new
+         clients. */
+      ...(p.acceptingNewClients ? { makesOffer: sessionOffers(offerItems(p, catalog), `/practitioners/${p.slug}`) } : {}),
     },
     {
       '@context': 'https://schema.org',
@@ -287,11 +311,18 @@ export default async function PractitionerPage({ params }: { params: { slug: str
                 {c.verifyUrl ? (
                   <>
                     {' '}·{' '}
-                    <a href={c.verifyUrl} target="_blank" rel="noopener">verify</a>
+                    <a href={registerEntryUrl(c)} target="_blank" rel="noopener">verify</a>
+                    {c.registerCheckedOn ? <>, checked on the register {longDate(c.registerCheckedOn)}</> : null}
                   </>
                 ) : null}
               </span>
             ))}
+            {insured && (
+              <span>
+                <BadgeCheck aria-hidden="true" strokeWidth={1.7} />
+                {insured}
+              </span>
+            )}
             <span>
               <LangIcon aria-hidden="true" strokeWidth={1.7} />
               {p.languages.map((l) => l.name).join(' and ')}
@@ -301,6 +332,38 @@ export default async function PractitionerPage({ params }: { params: { slug: str
               Online across British Columbia
             </span>
           </div>
+
+          {(fees.length > 0 || consult) && (
+            <div className="prose" style={{ marginTop: 20 }}>
+              <ul className="checklist" aria-label={`${first} at a glance`}>
+                {consult && <li><strong>{consult}</strong>, by video, with no obligation to book afterwards</li>}
+                {fees.map((f) => (
+                  <li key={f.label}>
+                    <strong>{f.label.charAt(0).toUpperCase() + f.label.slice(1)}</strong>, {feePhrase(f)}
+                  </li>
+                ))}
+                <li><strong>{reachLine(p)}</strong>, in {p.languages.map((l) => l.name).join(' or ')}</li>
+                {missing.length > 0 && (
+                  <li>
+                    <strong>Not offered by {first}</strong>, {missing.map((m) => m.label).join(', ')}
+                    {missingBy.length > 0 && (
+                      <>
+                        {'. '}
+                        {missingBy.map((b, i) => (
+                          <span key={b.slug}>{i ? ' and ' : ''}<Link href={`/practitioners/${b.slug}`}>{b.name}</Link></span>
+                        ))}
+                        {missingBy.length > 1 ? ' offer' : ' offers'}{missing.length > 1 ? ' them' : ' it'}
+                      </>
+                    )}
+                  </li>
+                )}
+              </ul>
+              <p style={{ fontSize: '.9rem', color: 'var(--ink-soft)' }}>
+                Paid at booking, with a receipt for your extended health plan; whether
+                your plan reimburses it depends on the plan. <Link href="/pricing">Fees and coverage</Link>.
+              </p>
+            </div>
+          )}
 
           <div className="prose" style={{ marginTop: 28 }}>
             <h2>About {first}</h2>
@@ -449,6 +512,13 @@ export default async function PractitionerPage({ params }: { params: { slug: str
               ) : null;
             })}
           </ul>
+          {/* The complaints route, per counsellor. /standards says where a
+              complaint goes and that the practice is not the gatekeeper;
+              this says it about her, by name. 1 Oct 2026. */}
+          <p style={{ fontSize: '.92rem', color: 'var(--ink-soft)' }}>
+            If something goes wrong with {first}, you can raise it with BCACC directly,
+            without going through the practice: <Link href={COMPLAINTS_PATH}>how complaints work</Link>.
+          </p>
         </div>
       </section>
 

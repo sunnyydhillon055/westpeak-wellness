@@ -152,6 +152,18 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
             <Byline updated={r.updated} readMinutes={r.readMinutes} />
 
             <blockquote className="quote" style={{ margin: '0 0 36px' }}>{r.shortAnswer}</blockquote>
+
+            {r.afterShortAnswer && (
+              <div className="crisis" style={{ margin: '-12px 0 36px' }}>
+                <p style={{ margin: '0 0 8px' }}><strong>{r.afterShortAnswer.heading}</strong></p>
+                <Paragraphs items={r.afterShortAnswer.body} />
+                {r.afterShortAnswer.book && (
+                  <p style={{ margin: 0 }}>
+                    <BookLink location="mid-resource" href={cta.href} className="">{r.afterShortAnswer.book}</BookLink>.
+                  </p>
+                )}
+              </div>
+            )}
           </div>
 
           {r.sections.map((s, i) => (
@@ -201,6 +213,15 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
                   <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word', fontFamily: 'inherit', fontSize: '.95rem', lineHeight: 1.6, background: 'var(--bg-tint)', border: '1px solid var(--line)', borderRadius: 8, padding: '18px 20px', margin: '0 0 32px', userSelect: 'all' }}>
                     {s.template.lines.join('\n')}
                   </pre>
+                </div>
+              )}
+
+              {s.book && (
+                <div className="prose">
+                  <p>
+                    {rich(s.book.text)}{' '}
+                    <BookLink location={s.book.location} href={cta.href} className="">{s.book.label}</BookLink>.
+                  </p>
                 </div>
               )}
 
@@ -278,8 +299,8 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
       <CityLinks />
       <CtaBand
         bookHref={cta.href}
-        heading="Questions about cost or coverage?"
-        text="A free 30-minute consultation is a good place to ask them, before committing to anything."
+        heading={r.closingBand?.heading ?? 'Questions about cost or coverage?'}
+        text={r.closingBand?.text ?? 'A free 30-minute consultation is a good place to ask them, before committing to anything.'}
       />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />

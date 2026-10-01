@@ -16,6 +16,11 @@ export type ResourceSection = {
      is on the page is exactly what lands in the reader's email. Added 1 Oct
      2026 for the leave templates (lib/resources-more3.ts). */
   template?: { title: string; lines: string[] };
+  /* A tracked booking link closing the section: lead-in text, then a
+     BookLink at `location`, which must be in BOOK_LOCATIONS
+     (lib/conversion-detail.ts; test/resource-slots.test.mts checks). For a
+     section that ends in a next step rather than a further read. 1 Oct 2026. */
+  book?: { text: string; label: string; location: string };
 };
 
 export type Resource = {
@@ -40,6 +45,14 @@ export type Resource = {
      counsellor who speaks it (lib/booking-cta.ts), and the header and phone
      bar follow (lib/roster-nav.ts LANGUAGE_PAGES). 1 Oct 2026. */
   language?: 'pa' | 'tl';
+  /* A short block directly under the short answer, for the reader who came
+     for something adjacent to the page's question: on the RCC page, someone
+     looking for an RCC rather than checking one. Markdown paragraphs, then a
+     tracked consultation link when `book` is set. 1 Oct 2026. */
+  afterShortAnswer?: { heading: string; body: string[]; book?: string };
+  /* The closing band's words, when the default ("Questions about cost or
+     coverage?") is not what the page ends on. 1 Oct 2026. */
+  closingBand?: { heading: string; text: string };
 };
 
 const coreResources: Resource[] = [

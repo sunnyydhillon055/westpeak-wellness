@@ -49,8 +49,19 @@ export type Credential = {
   body: string;
   /** Registration or member number, exactly as issued. */
   number: string;
-  /** Public register a stranger can check, if there is one. */
+  /** Public register a stranger can check, if there is one. For an RCC this
+   *  is BCACC's RCC Register, never the opt-in Find a Counsellor directory:
+   *  a counsellor can switch her directory listing off, and a visitor who
+   *  pressed "verify" and found nothing was told by the site's own FAQ to
+   *  treat that as a warning. The search page, not an entry: the URL is
+   *  printed on /book and in /ai.json, where no number may appear. The
+   *  profile deep-links the entry itself (registerEntryUrl). 1 Oct 2026. */
   verifyUrl?: string;
+  /** The day this registration was last read off the public register as
+   *  Active, YYYY-MM-DD. Shown beside the verify link on the profile, and
+   *  scripts/credential-expiry.mjs reports it once it is old. Set only from
+   *  an actual lookup. */
+  registerCheckedOn?: string;
   /* WHERE THIS CREDENTIAL CARRIES WEIGHT.
    *
    * A provincial college means everything in its own province and is a
@@ -195,7 +206,9 @@ const recorded: Practitioner[] = [
         full: 'Registered Clinical Counsellor',
         body: 'BC Association of Clinical Counsellors',
         number: '20111',
-        verifyUrl: 'https://bc-counsellors.org/counsellors/',
+        verifyUrl: 'https://bcacc.ca/search-our-member-register/',
+        /* Read off the register by number, 1 Oct 2026: Active, no notes. */
+        registerCheckedOn: '2026-10-01',
         scope: 'provincial',
       },
     ],
@@ -284,9 +297,12 @@ const recorded: Practitioner[] = [
         full: 'Registered Clinical Counsellor',
         body: 'BC Association of Clinical Counsellors',
         number: '26894',
-        /* Her own listing, checked 1 Oct 2026 (the Person on it is Camille
-           Granda, Registered Clinical Counsellor), not the search page. */
-        verifyUrl: 'https://bcacc.ca/counsellors/camille-granda/',
+        /* The register, not her Find a Counsellor listing
+           (bcacc.ca/counsellors/camille-granda/): the listing is opt-in and
+           can disappear. Read off the register by number, 1 Oct 2026:
+           Active, no notes. */
+        verifyUrl: 'https://bcacc.ca/search-our-member-register/',
+        registerCheckedOn: '2026-10-01',
         validTo: '2026-12-31',
         scope: 'provincial',
       },
@@ -563,7 +579,11 @@ const recorded: Practitioner[] = [
         full: 'Registered Clinical Counsellor',
         body: 'BC Association of Clinical Counsellors',
         number: '27067',
-        verifyUrl: 'https://bc-counsellors.org/counsellors/',
+        /* Her Find a Counsellor listing is switched off, so the directory
+           could not confirm her. The register does: read by number,
+           1 Oct 2026, Active, valid to 31 December 2026, no notes. */
+        verifyUrl: 'https://bcacc.ca/search-our-member-register/',
+        registerCheckedOn: '2026-10-01',
         validTo: '2026-12-31',
         scope: 'provincial',
       },
