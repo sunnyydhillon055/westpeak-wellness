@@ -56,6 +56,18 @@ const jsLists = routes.map((r) => new Set(pages[r].filter((f) => f.endsWith('.js
 const shared = [...jsLists[0]].filter((f) => jsLists.every((s) => s.has(f)));
 const sharedJs = shared.reduce((n, f) => n + sizeOf(f), 0);
 
+/* Layout JS: every chunk the root layout loads — which is what every PUBLIC
+ * page actually pays, and more than "shared" above counts.
+ *
+ * WHY A SECOND ROW — 1 Oct 2026. The intersection over all routes includes
+ * /global-error, which renders without the layout, so the layout's own chunk
+ * (Header, StickyBook, Analytics, ConsentGate and whatever they import) never
+ * entered the shared figure. That chunk was 38.7 KB and carried the whole
+ * roster file and the Google Analytics loader on all 305 pages; the ratchet
+ * was blind to both, and would be blind to them coming back. This row is the
+ * layout's manifest entry, which the public pages all extend. */
+const layoutJs = (pages['/layout'] ?? []).filter((f) => f.endsWith('.js')).reduce((n, f) => n + sizeOf(f), 0);
+
 /* Homepage CSS: read the stylesheet links out of the prerendered homepage —
  * the manifest splits CSS across layout entries, but the HTML is exactly
  * what a visitor loads. */
@@ -91,7 +103,7 @@ const htmlSizes = pagesAll
 const maxHtml = htmlSizes[htmlSizes.length - 1] ?? 0;
 const medianHtml = htmlSizes[Math.floor(htmlSizes.length / 2)] ?? 0;
 
-const current = { homeCss, sharedJs, maxHtml, medianHtml };
+const current = { homeCss, sharedJs, layoutJs, maxHtml, medianHtml };
 
 if (SET) {
   writeFileSync(BASELINE_FILE, JSON.stringify({
@@ -112,6 +124,7 @@ const base = JSON.parse(readFileSync(BASELINE_FILE, 'utf8'));
 const LABELS = {
   homeCss: 'homepage CSS',
   sharedJs: 'shared first-load JS',
+  layoutJs: 'layout first-load JS',
   maxHtml: 'largest page HTML',
   medianHtml: 'median page HTML',
 };
@@ -119,6 +132,12 @@ const LABELS = {
 let failed = 0;
 console.log(`\nPerf budget — build vs baseline of ${base.set}\n${'='.repeat(46)}`);
 for (const k of Object.keys(LABELS)) {
+  /* A row the baseline file predates is printed, not judged: silence here
+     would read as "within budget" for a number nobody has set. */
+  if (typeof base[k] !== 'number') {
+    console.log(`NEW   ${LABELS[k].padEnd(22)} ${String(current[k]).padStart(8)} B  (no baseline yet — run --set-baseline)`);
+    continue;
+  }
   const cap = Math.round(base[k] * (1 + TOLERANCE));
   const over = current[k] > cap;
   const drift = base[k] ? (((current[k] - base[k]) / base[k]) * 100).toFixed(1) : '?';

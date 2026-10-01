@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { site } from '@/lib/site';
 import { track } from '@/lib/analytics';
-import { practitioners } from '@/lib/practitioners';
+import { bookHrefFor, type NavPractitioner } from '@/lib/roster-nav';
 
 /* THE BOOKING LINK FOLLOWS THE PAGE.
  *
@@ -19,13 +19,12 @@ import { practitioners } from '@/lib/practitioners';
  * are rendered by the layout and never see the page's own data. Anything that
  * is not a real counsellor's page falls through to the plain booking path —
  * and so does a counsellor who is not taking new clients, because /book then
- * routes to whoever is (lib/practitioners.ts, `acceptingNewClients`). */
-export const bookHrefFor = (pathname: string | null): string => {
-  const m = /^\/practitioners\/([^/]+)/.exec(pathname ?? '');
-  const slug = m?.[1];
-  const p = slug ? practitioners.find((x) => x.slug === slug) : undefined;
-  return p?.acceptingNewClients ? `${site.bookingPath}?with=${p.slug}` : site.bookingPath;
-};
+ * routes to whoever is (lib/practitioners.ts, `acceptingNewClients`).
+ *
+ * The function itself lives in lib/roster-nav.ts since 1 Oct 2026, and the
+ * roster it reads arrives from the layout as a prop: importing
+ * lib/practitioners.ts from this client component shipped the whole roster
+ * file in every page's layout chunk. */
 
 const MailIcon = () => (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -66,7 +65,7 @@ const PhoneIcon = () => (
  * countdown or scarcity language — a health site should not pressure anyone. */
 type Avail = Record<string, { first: string; next: string[]; count: number }>;
 
-export default function StickyBook() {
+export default function StickyBook({ roster }: { roster: NavPractitioner[] }) {
   const pathname = usePathname();
   /* The next open consultation, fetched once per page view from a
      thirty-minute cache (app/api/availability). "Free 30-minute consult" is
@@ -109,7 +108,7 @@ export default function StickyBook() {
           <MailIcon /> Email us
         </a>
         {!onBooking && (
-          <Link className="sticky-book-btn sb-book" href={bookHrefFor(pathname)}>
+          <Link className="sticky-book-btn sb-book" href={bookHrefFor(pathname, roster, site.bookingPath)}>
             Book free consult
           </Link>
         )}

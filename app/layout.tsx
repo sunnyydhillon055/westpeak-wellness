@@ -10,6 +10,7 @@ import Analytics from '@/components/Analytics';
 import ConsentGate from '@/components/ConsentGate';
 import { site } from '@/lib/site';
 import { services } from '@/lib/services';
+import { navRoster } from '@/lib/practitioners';
 import { therapyNode, placeNode, KNOWS_ABOUT_ENTITIES } from '@/lib/entities';
 import { FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
 
@@ -353,6 +354,10 @@ const siteSchema = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  /* Five fields per counsellor, computed here on the server, so the header
+     menu and the phone action bar stop importing lib/practitioners.ts into
+     the browser (lib/roster-nav.ts, 1 Oct 2026). */
+  const roster = navRoster();
   return (
     <html lang="en-CA" className={fontVars}>
       <body className={bodyFont.className}>
@@ -369,12 +374,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             Tagalog page does not read the navigation with Tagalog rules.
             display:contents keeps the wrapper out of the layout. */}
         <div lang="en-CA" style={{ display: 'contents' }}>
-          <Header />
+          <Header roster={roster} />
         </div>
         <main id="main">{children}</main>
         <div lang="en-CA" style={{ display: 'contents' }}>
           <Footer />
-          <StickyBook />
+          <StickyBook roster={roster} />
         </div>
         <Analytics />
         <script

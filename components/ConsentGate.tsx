@@ -1,7 +1,21 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { GoogleAnalytics } from '@next/third-parties/google';
+import dynamic from 'next/dynamic';
+
+/* The GA component is fetched only once someone has said yes.
+ *
+ * A static import of @next/third-parties pulled it, and next/script behind
+ * it, into the chunk every page loads — 20.5 KB on the wire before anything
+ * could be tapped, for a person who has not consented and may never. With
+ * a dynamic import the code is downloaded on the render that follows a
+ * "granted" choice (now or on a later visit), which is the first moment it
+ * has anything to do. No server render: this only ever mounts in a browser,
+ * after a localStorage read. 1 Oct 2026. */
+const GoogleAnalytics = dynamic(
+  () => import('@next/third-parties/google').then((m) => m.GoogleAnalytics),
+  { ssr: false },
+);
 
 /* Consent before Google Analytics — nothing loads until a person says yes.
  *

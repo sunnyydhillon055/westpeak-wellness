@@ -38,6 +38,8 @@
    is gated on professional liability INSURANCE rather than on regulation.
    ========================================================================= */
 
+import type { NavPractitioner } from '@/lib/roster-nav';
+
 export type Credential = {
   /** e.g. 'RCC' — shown after the name. */
   short: string;
@@ -739,3 +741,12 @@ export const getPractitioner = (slug: string) =>
 /** Practitioners who speak a language other than English, for the language hubs. */
 export const practitionersSpeaking = (tag: string) =>
   practitioners.filter((p) => p.languages.some((l) => l.tag === tag));
+
+/* The roster trimmed to what the header menu and the phone action bar show.
+   Built on the server (app/layout.tsx) and handed to those two client
+   components as props, so this file — bios, credentials, insurance, photos —
+   never enters the browser bundle. See lib/roster-nav.ts, 1 Oct 2026. */
+export const navRoster = (): NavPractitioner[] =>
+  practitioners.map(({ slug, name, postNominals, role, acceptingNewClients }) => ({
+    slug, name, postNominals, role, acceptingNewClients,
+  }));

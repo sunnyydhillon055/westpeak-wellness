@@ -3,12 +3,11 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState, type CSSProperties } from 'react';
 import { site } from '@/lib/site';
-import { practitioners } from '@/lib/practitioners';
 import { TAGALOG_READY } from '@/lib/practitioner-tl';
 import { TL_CHROME } from '@/lib/practitioner-places-tl';
 import { track } from '@/lib/analytics';
 import Motif from '@/components/brand/Motif';
-import { bookHrefFor } from '@/components/StickyBook';
+import { bookHrefFor, type NavPractitioner } from '@/lib/roster-nav';
 
 /* Five items, deliberately. With the portal pill and the booking CTA the bar
  * carries seven objects as it is; nine was crowded and made the whole header
@@ -38,7 +37,10 @@ const NAV = [
   { href: '/contact', label: 'Contact' },
 ];
 
-export default function Header() {
+/* `roster` arrives from the root layout, trimmed to the five fields the menu
+   shows (lib/roster-nav.ts). Importing the roster here put the whole of
+   lib/practitioners.ts in every page's layout chunk. 1 Oct 2026. */
+export default function Header({ roster }: { roster: NavPractitioner[] }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
@@ -231,9 +233,9 @@ export default function Header() {
                 *
                 * The parent link still goes to /practitioners. Nothing here is
                 * only reachable by hovering. */}
-              {n.href === '/practitioners' && practitioners.length > 0 && (
+              {n.href === '/practitioners' && roster.length > 0 && (
                 <ul className="nav-sub">
-                  {practitioners.map((p) => (
+                  {roster.map((p) => (
                     <li key={p.slug}>
                       <Link
                         href={`/practitioners/${p.slug}`}
@@ -321,7 +323,7 @@ export default function Header() {
           <li className="nav-cta" style={{ '--i': NAV.length + 4 } as CSSProperties}>
             <Link
               className="btn btn--primary"
-              href={bookHrefFor(pathname)}
+              href={bookHrefFor(pathname, roster, site.bookingPath)}
               onClick={() => {
                 setOpen(false);
                 track('book_click', { location: 'header' });
