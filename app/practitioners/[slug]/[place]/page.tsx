@@ -16,7 +16,7 @@ import { TAGALOG, TAGALOG_READY } from '@/lib/practitioner-tl';
 import { getPunjabiProfile } from '@/lib/practitioner-pa';
 import { PA_PLACE_SHARED, PA_CITY, getPunjabiPlace } from '@/lib/practitioner-places-pa';
 import { gurmukhi } from '@/app/fonts-gurmukhi';
-import { TL_PLACE_SHARED } from '@/lib/practitioner-places-tl';
+import { TL_PLACE_SHARED, getTagalogPlace } from '@/lib/practitioner-places-tl';
 import { getTagalogCity } from '@/lib/tagalog';
 import Updated from '@/components/Updated';
 import { COLLECTION_DATES } from '@/lib/page-dates';
@@ -158,7 +158,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
       /* Paired with the Tagalog twin so the two read as one page in two
          languages rather than two thin pages about the same city. Only while
          the twin actually exists — an hreflang to a 404 is worse than none. */
-      ...(TAGALOG_READY && p.languages.some((l) => l.tag === 'tl')
+      ...(TAGALOG_READY && p.languages.some((l) => l.tag === 'tl') && getTagalogPlace(loc.slug)
         ? {
             languages: {
               'en-CA': `${site.domain}/practitioners/${p.slug}/${loc.slug}`,
@@ -277,7 +277,7 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
               <div className="prose" style={{ marginTop: 30 }} lang="tl">
                 <h2>{TL_PLACE_SHARED.nearbyHeading}</h2>
                 <ul className="place-siblings">
-                  {placesFor(p.provinces).map((c) => (
+                  {placesFor(p.provinces).filter((c) => getTagalogPlace(c.slug)).map((c) => (
                     <li key={c.slug}>
                       <Link href={`/practitioners/${p.slug}/${c.slug}/tl`}>{c.city}</Link>
                     </li>
@@ -554,7 +554,7 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
             </div>
           )}
 
-          {TAGALOG_READY && p.languages.some((l) => l.tag === 'tl') && (
+          {TAGALOG_READY && p.languages.some((l) => l.tag === 'tl') && getTagalogPlace(loc.slug) && (
             <div className="prose" style={{ marginTop: 30 }}>
               <p>
                 <Link href={`/practitioners/${p.slug}/${loc.slug}/tl`} hrefLang="tl" lang="tl">

@@ -103,7 +103,9 @@ const CHECKS = [
      real pages and removed from retiredCitySlugs. Two slugs that are still
      retired take their place, so this keeps testing the redirect behaviour
      rather than testing nothing. */
-  ['/online-counselling/mission', 308, '/online-counselling'],
+  /* Since 1 Oct 2026 a retired town that a city page names lands on that
+     page (lib/redirects.mjs); one that no page names still lands on the index. */
+  ['/online-counselling/mission', 308, '/online-counselling/abbotsford'],
   ['/online-counselling/maple-ridge', 308, '/online-counselling'],
   /* And the four that now must NOT redirect. This is the assertion that would
      have caught the shadow the moment it appeared. */
@@ -112,6 +114,8 @@ const CHECKS = [
   ['/online-counselling/delta', 200],
   ['/online-counselling/nanaimo', 200],
   ['/online-counselling/white-rock', 200],
+  ['/online-counselling/penticton', 200],
+  ['/online-counselling/fort-st-john', 200],
   ['/for/mens-mental-health', 308, '/for'],
   /* /answers was retired 31 Aug 2026 and redirected to /faq; it came back
      on 14 Sep as the instant-answer page (checked as 200 above). */

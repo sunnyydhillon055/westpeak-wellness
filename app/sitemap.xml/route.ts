@@ -3,6 +3,7 @@ import { TAGALOG_CITIES } from '@/lib/tagalog';
 import { practitioners } from '@/lib/practitioners';
 import { placesFor } from '@/lib/practitioner-places';
 import { TAGALOG_READY } from '@/lib/practitioner-tl';
+import { getTagalogPlace } from '@/lib/practitioner-places-tl';
 import { getPunjabiProfile } from '@/lib/practitioner-pa';
 import { getPunjabiPlace } from '@/lib/practitioner-places-pa';
 import { punjabiGuides } from '@/lib/punjabi-guides';
@@ -129,7 +130,7 @@ export function GET() {
             priority: 0.7,
           },
           ...(pr.placePages
-            ? placesFor(pr.provinces).map((l) => ({
+            ? placesFor(pr.provinces).filter((l) => getTagalogPlace(l.slug)).map((l) => ({
                 path: `/practitioners/${pr.slug}/${l.slug}/tl`,
                 /* What the page itself states in JSON-LD and on screen. */
                 lastmod: collectionLastmod('tagalogPlaces'),
@@ -344,7 +345,7 @@ export function GET() {
           .flatMap((pr) => [
             [`/practitioners/${pr.slug}`, `/practitioners/${pr.slug}/tl`] as [string, string],
             ...(pr.placePages
-              ? placesFor(pr.provinces).map((l) => [`/practitioners/${pr.slug}/${l.slug}`, `/practitioners/${pr.slug}/${l.slug}/tl`] as [string, string])
+              ? placesFor(pr.provinces).filter((l) => getTagalogPlace(l.slug)).map((l) => [`/practitioners/${pr.slug}/${l.slug}`, `/practitioners/${pr.slug}/${l.slug}/tl`] as [string, string])
               : []),
           ])
       : []),

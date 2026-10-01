@@ -90,6 +90,9 @@ export const moreAudiences2: Audience[] = [
       { label: 'HealthLink BC, mental health and substance use', url: 'https://www.healthlinkbc.ca/mental-health-substance-use' },
     ],
     related: [
+      /* Fort St. John since 1 Oct 2026: the Peace is where rotation is the
+         ordinary working week, and its page links back here. */
+      { href: '/online-counselling/fort-st-john', label: 'Online counselling in Fort St. John and the Peace' },
       { href: '/online-counselling/kamloops', label: 'Online counselling in Kamloops' },
       { href: '/for/healthcare-and-shift-workers', label: 'Counselling for healthcare and shift workers' },
       { href: '/resources/workplace-mental-health-bc', label: 'Mental health and work in BC' },
