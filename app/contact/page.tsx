@@ -165,12 +165,12 @@ export default async function Contact({
               explains what to ask them.
             </p>
             <p>
-              If you need an accommodation to make sessions workable: camera off, adjusted
-              pacing, written summaries, evening slots, the{' '}
+              If you need an accommodation to make sessions workable (camera off, adjusted
+              pacing, written summaries, a time not yet on the calendar), say so in your
+              message. If you are writing on someone else&rsquo;s behalf,{' '}
               <Link href="/refer">passing this practice on to someone else</Link> covers what a
-              referral involves, including the funded routes, ICBC, employee assistance
-              programmes and extended health. That most people do not know they qualify for.
-              The{' '}
+              referral involves, including the funded routes most people do not know they
+              qualify for: ICBC, employee assistance programmes and extended health. The{' '}
               <Link href="/accessibility">accessibility statement</Link> lists what is available
               and states plainly what is not.
             </p>

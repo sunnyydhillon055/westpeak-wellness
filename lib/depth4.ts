@@ -15,7 +15,7 @@ export const depth4: Record<string, DepthSection[]> = {
       h2: 'Counselling around a Burnaby commute',
       body: [
         'Burnaby sits in the middle of everything, which is exactly the problem. A large share of the city works somewhere else: downtown Vancouver, Surrey, the Tri-Cities, and the SkyTrain that makes that workable also makes a 5:30 pm appointment anywhere a fiction. The classic Burnaby counselling arrangement is a lunchtime office you can never quite reach or an evening slot that costs ninety minutes of travel for fifty minutes of session.',
-        'Video sessions dissolve that arithmetic. An evening session happens from home in Brentwood, Edmonds or Metrotown without re-crossing the region, and a lunchtime session happens from a booked meeting room or a parked car near work. The practical requirement is privacy for the hour, not geography, and the [evening availability](/contact) this practice actually holds is published rather than implied.',
+        'Video sessions dissolve that arithmetic. An evening session happens from home in Brentwood, Edmonds or Metrotown without re-crossing the region, and a lunchtime session happens from a booked meeting room or a parked car near work. The practical requirement is privacy for the hour, not geography, and the [booking calendar](/book) shows the open times each counsellor actually holds rather than implying them.',
         'One Burnaby-specific note: SFU students on the mountain already have a no-cost route in [Here2Talk](https://here2talk.ca), the province-wide 24/7 service for post-secondary students, alongside campus health and counselling. Private counselling is a complement to those, not a replacement. The fuller picture is on the [student supports page](/resources/student-mental-health-supports-bc).',
       ],
     },
@@ -36,7 +36,7 @@ export const depth4: Record<string, DepthSection[]> = {
       body: [
         'Counselling supply in the Fraser Valley concentrates westward: Abbotsford and Langley hold most of the region’s practices, and the further east you live: Chilliwack, Agassiz, Hope. The more “local counselling” quietly means a drive on Highway 1. That drive is the real barrier: an hour of travel wrapped around every session is how therapy becomes the first thing dropped in a busy month.',
         'Video sessions remove the highway from the equation without removing the standard of care. The same Registered Clinical Counsellor, the same registration you can [verify in the public register](/resources/verify-a-counsellor-in-bc), reachable identically from Sardis, Promontory, Yarrow or Hope. For the eastern valley specifically, virtual is less a preference than the practical route to consistency.',
-        'Chilliwack also keeps agricultural and trades rhythms the standard counselling calendar ignores: seasonal intensity, early starts, weather-dependent weeks. A practice with published evening windows and [slots arranged by request](/book) fits those rhythms better than a fixed weekly slot that assumes an office schedule.',
+        'Chilliwack also keeps agricultural and trades rhythms the standard counselling calendar ignores: seasonal intensity, early starts, weather-dependent weeks. A [calendar that shows real open times](/book), with times arranged by request when none fit, suits those rhythms better than a fixed weekly slot that assumes an office schedule.',
       ],
     },
     {
@@ -63,7 +63,7 @@ export const depth4: Record<string, DepthSection[]> = {
       h2: 'Practicalities for Kamloops and the surrounding region',
       list: [
         { label: 'Connection quality outside town', detail: 'Video sessions need a stable connection more than a fast one, and where video strains, sessions can run by phone. A clinical judgement made together rather than a technical failure. Rural connectivity is a real constraint and it is workable.' },
-        { label: 'Shift and rotational patterns', detail: 'Mining, rail, health care and wildfire seasons all run on schedules that fixed weekly slots ignore. Evening windows and times arranged by request absorb irregular rhythms better than a calendar built for office hours.' },
+        { label: 'Shift and rotational patterns', detail: 'Mining, rail, health care and wildfire seasons all run on schedules that fixed weekly slots ignore. Booking from open times as they appear, and asking for a time when none fit, absorbs irregular rhythms better than a fixed weekly slot.' },
         { label: 'Interior Health’s public options', detail: 'Public mental-health intake exists and is free; it is also triaged, which in practice means waits for anything non-acute. Private counselling is how people stop waiting, and the two are not exclusive: being on a public list while doing private sessions is common and sensible. The low-cost options page maps the whole landscape.' },
         { label: 'Punjabi-speaking counselling in the Interior', detail: 'Concentrated almost entirely in the Lower Mainland. For Punjabi speakers in Kamloops and the surrounding towns, virtual sessions in Punjabi are, practically speaking, how that service exists at all. A point the Punjabi counselling hub covers region by region.' },
       ],
@@ -194,7 +194,7 @@ export const depth4: Record<string, DepthSection[]> = {
       h2: 'Sorting the Langley options quickly',
       list: [
         { label: 'You want in-person, full stop', detail: 'Then use the local abundance: check any candidate in the BCACC register first, use their free consultations, and choose on fit. The how-to-choose guide applies to any practice, including ones that are not this one.' },
-        { label: 'Evenings are the constraint', detail: 'Commuters lose the 9-to-5 window entirely, and in-person evening slots are the scarcest resource in local counselling. Video evening sessions from home skip the drive that makes a 6 pm appointment impossible.' },
+        { label: 'Evenings are the constraint', detail: 'Commuters lose the 9-to-5 window entirely, and in-person evening slots are the scarcest resource in local counselling. A video session from home skips the drive that makes a 6 pm appointment impossible.' },
         { label: 'You just moved here', detail: 'Langley’s growth means thousands of households each year with no local GP, no local anything. A virtual counsellor works from day one and does not need re-choosing if the next move is Abbotsford or back across the river.' },
         { label: 'Punjabi or bilingual sessions', detail: 'Langley’s Punjabi-speaking community is substantial and the local Punjabi-language counselling supply is not. Sessions here run in Punjabi, English, or moving between the two. The comparison page on therapy language covers why that flexibility matters.' },
       ],

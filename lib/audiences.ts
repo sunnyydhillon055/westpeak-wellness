@@ -223,7 +223,7 @@ const coreAudiences: Audience[] = [
         h2: "Why virtual usually suits student life",
         body: [
           "No travel between campus and an office, which matters when your day is already fragmented. Sessions that survive moving home for the summer, going on co-op, or transferring institutions. The counselling relationship does not reset with your address, as long as you are in BC. And a format that works from a residence room with the door shut, which is often the only private space available.",
-          "Evening appointments help too, since most student days do not have a convenient hole in the middle of them.",
+          "Video helps too: a session fits any open time without a trip across campus, and most student days do not have a convenient hole in the middle of them.",
         ],
       },
     ],
@@ -271,7 +271,7 @@ const coreAudiences: Audience[] = [
     lede:
       "You are good in a crisis. That is exactly why nobody notices when you are in one.",
     shortAnswer:
-      'Counselling for healthcare and shift workers in BC, with evening appointments and sessions by video so a rotation does not end the work. Covers moral injury, the particular exhaustion of caring work, and sleep that never resets, without treating burnout as a personal failure of resilience.',
+      'Counselling for healthcare and shift workers in BC, with sessions by video, booked around the roster, so a rotation does not end the work. Covers moral injury, the particular exhaustion of caring work, and sleep that never resets, without treating burnout as a personal failure of resilience.',
     updated: "2026-08-31",
     readMinutes: 6,
     opening: [
@@ -307,7 +307,7 @@ const coreAudiences: Audience[] = [
       {
         h2: "Scheduling that fits a rotation",
         body: [
-          "The practical barrier for this workforce is almost always scheduling. A weekly Tuesday-at-four appointment is unusable when your rotation moves. A virtual practice removes travel from the equation, which makes an appointment on a day off far more feasible, and evening slots are available by request.",
+          "The practical barrier for this workforce is almost always scheduling. A weekly Tuesday-at-four appointment is unusable when your rotation moves. A virtual practice removes travel from the equation, which makes an appointment on a day off far more feasible.",
           "It also means sessions can happen from home rather than requiring you to be presentable and somewhere else, which, on the fourth day of a stretch, is often the deciding factor between attending and cancelling.",
         ],
       },

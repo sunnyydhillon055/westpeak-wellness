@@ -71,7 +71,7 @@ export const moreAudiences: Audience[] = [
         h2: 'The practical part',
         body: [
           'The most common obstacle is not ambivalence about therapy. It is the hour. A weekly appointment requiring travel, parking and childcare is a fourth commitment on top of three, and it is usually the first thing to be cancelled when something else gives.',
-          'Sessions here are online across British Columbia, which removes the commute rather than the appointment, and evening slots are available on request. For people whose only reliable private hour is after the house is asleep or in a parked car outside the school, that is frequently the difference between attending and intending to.',
+          'Sessions here are online across British Columbia, which removes the commute rather than the appointment, and the booking calendar shows each counsellor’s real open times. For people whose only reliable private hour is after the house is asleep or in a parked car outside the school, that is frequently the difference between attending and intending to.',
           'Sessions run in English, Punjabi or Tagalog. Where family expectations are part of the picture, and they often are, being able to describe them without translating the context first saves a considerable amount of session time. [Counselling in Punjabi](/services/punjabi-counselling) covers that in more detail.',
         ],
       },

@@ -257,7 +257,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
             <p className="direct-answer">{s.directAnswer}</p>
           )}
           <ul className="glance">
-            <li><Clock aria-hidden="true" strokeWidth={1.7} /><span><strong>50 minutes</strong> per session</span></li>
+            <li><Clock aria-hidden="true" strokeWidth={1.7} /><span><strong>{DURATION_FOR[s.slug] ?? '50 minutes'}</strong> per session</span></li>
             <li><MonitorSmartphone aria-hidden="true" strokeWidth={1.7} /><span><strong>Secure video</strong> sessions</span></li>
             <li><LangIcon aria-hidden="true" strokeWidth={1.7} /><span><strong>Free</strong> 30-min consult</span></li>
             {/* The fee, at the top, on the page where the question is asked.

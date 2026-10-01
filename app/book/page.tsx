@@ -553,8 +553,7 @@ export default async function Book({
                 <h2 style={{ marginTop: 0, fontSize: '1.25rem' }}>None of these times work?</h2>
                 <p style={{ margin: '0 0 12px' }}>
                   Say when you are usually free and {who ? who.name.split(' ')[0] : 'the counsellor you choose'} will
-                  reply within one business day with a time that is not on the calendar yet. Evenings and
-                  weekends included.
+                  reply within one business day with a time that is not on the calendar yet.
                 </p>
                 <InboundForm
                   kind="enquiry"

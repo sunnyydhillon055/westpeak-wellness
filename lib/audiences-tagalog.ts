@@ -53,7 +53,7 @@ export const tagalogAudiences: Audience[] = [
       {
         h2: 'Fitting it around a roster, and paying for it',
         body: [
-          'Sessions are 50 minutes by video and the calendar shows real evening times. Booking in blocks around a rotation, with gaps between blocks, is an ordinary pattern here and pausing costs nothing. A session after a night shift is possible if that is when you can think; a session on a day off is usually better.',
+          'Sessions are 50 minutes by video and the calendar shows real open times. Booking in blocks around a rotation, with gaps between blocks, is an ordinary pattern here and pausing costs nothing. A session after a night shift is possible if that is when you can think; a session on a day off is usually better.',
           'Health-employer and union extended health plans in BC commonly reimburse a Registered Clinical Counsellor; the [coverage page](/resources/bc-extended-health-coverage-for-counselling) has the two questions to ask. Where an incident at work has become a claim, the [WorkSafeBC page](/resources/worksafebc-psychological-injury-claims) explains that route. Private fees are [published in full](/pricing), and the first 30 minutes are free.',
           'The [healthcare and shift workers page](/for/healthcare-and-shift-workers) covers the occupational side in more depth; this page is the one about carrying it in two languages and for two families.',
         ],
@@ -71,7 +71,7 @@ export const tagalogAudiences: Audience[] = [
     faqs: [
       { q: 'Can sessions be in Tagalog?', a: 'Yes. In Tagalog, in English, or moving between the two as the conversation does. Camille Granda works in both, and most sessions with bilingual people are mixed without anyone deciding to mix them.' },
       { q: 'Will my employer or my college find out?', a: 'No. Attending counselling is not reported to anyone. Sessions are confidential within the ordinary legal limits, which are explained before you share anything, and nothing reaches an employer, a union, a licensing college or an insurer without your written consent.' },
-      { q: 'I work nights and rotating shifts. Can this fit?', a: 'Yes, and it is worth planning at the start rather than discovering later. Booking block by block around a roster, with gaps, is normal here, and evening times are available.' },
+      { q: 'I work nights and rotating shifts. Can this fit?', a: 'Yes, and it is worth planning at the start rather than discovering later. Booking block by block around a roster, with gaps, is normal here, and the calendar shows real open times.' },
       { q: 'Does my plan cover it?', a: 'Most health-employer and union plans in BC reimburse a Registered Clinical Counsellor to an annual maximum. Check the plan booklet for "counselling" or "clinical counsellor". MSP does not cover private counselling.' },
     ],
     sources: [

@@ -24,7 +24,7 @@ export const moreAudiences6: Audience[] = [
     lede:
       'Most men who come to counselling did not decide to. Something forced the question: a partner, a doctor, a night they do not want to repeat. This page is for the moment before that.',
     shortAnswer:
-      'Counselling for men in BC, online by secure video in English or Punjabi, with a Registered Clinical Counsellor. The work is practical and direct: anger that arrives faster than it used to, stress that has become the default, drinking or gaming that has quietly taken over evenings, a relationship that is one argument from ending, and the flatness men rarely call depression. Sessions are 50 minutes, evenings available, and the first 30-minute consultation is free.',
+      'Counselling for men in BC, online by secure video in English or Punjabi, with a Registered Clinical Counsellor. The work is practical and direct: anger that arrives faster than it used to, stress that has become the default, drinking or gaming that has quietly taken over evenings, a relationship that is one argument from ending, and the flatness men rarely call depression. Sessions are 50 minutes, booked from the counsellor’s open times, and the first 30-minute consultation is free.',
     updated: '2026-09-25',
     readMinutes: 6,
     opening: [
@@ -121,7 +121,7 @@ export const moreAudiences6: Audience[] = [
         body: [
           'Peer support and critical-incident stress management are valuable and they are not treatment. Treatment is a clinician working, over a defined stretch of sessions, on the specific way the exposure has lodged: the memories that intrude, the alarm system stuck on, the avoidance that has quietly reorganised a life around not being reminded.',
           'For a single event or a cluster of them, [EMDR](/services/emdr-therapy) is a first-line, evidence-supported approach that does not require narrating the event in detail. For the cumulative picture, the work is usually a combination: stabilisation first, so that the nervous system has somewhere to return to; then the exposures, in order of weight; then the home front, which has usually been carrying more than anyone said. The [guide to what trauma actually means](/guides/what-trauma-actually-means) is the plain-language version of this.',
-          'Sessions are by video and are scheduled around the rotation. Days, evenings and the odd hour after a night shift are all workable, which is the practical reason a virtual practice fits this work better than a 9-to-5 clinic.',
+          'Sessions are by video and are scheduled around the rotation. Any open time on the calendar can be booked around a rotation, which is the practical reason a virtual practice fits this work better than a 9-to-5 clinic.',
         ],
       },
       {
@@ -144,7 +144,7 @@ export const moreAudiences6: Audience[] = [
     faqs: [
       { q: 'Do I need a diagnosis or a claim to start?', a: 'No. Counselling does not require either. If you want to make a WorkSafeBC claim, the presumption for first responders means a diagnosed mental disorder is presumed work-related; the diagnosis comes from a physician or psychologist, and counselling can run alongside from the start.' },
       { q: 'Will my service find out?', a: 'Not from this practice. Attending is not reported to anyone, and no information leaves without your written consent. If a claim is involved, you control what is released to it.' },
-      { q: 'Can you work around a four-on, four-off rotation?', a: 'Yes. Sessions are by video and the calendar shows real open times, including evenings. A block after a set of days off is a common shape; a session after a night shift is possible if that is when you can think.' },
+      { q: 'Can you work around a four-on, four-off rotation?', a: 'Yes. Sessions are by video and the calendar shows real open times. A block after a set of days off is a common shape; a session after a night shift is possible if that is when you can think.' },
       { q: 'Is EMDR appropriate for cumulative exposure, not one event?', a: 'Yes, with sequencing. The work usually stabilises first and then takes the exposures in order of weight rather than trying to process everything at once. The counsellor will say what order makes sense and why.' },
     ],
     sources: [
@@ -249,7 +249,7 @@ export const moreAudiences6: Audience[] = [
     lede:
       'The site runs on the idea that everyone is fine. The numbers for the industry say otherwise, and most of the people in them never told anyone.',
     shortAnswer:
-      'Counselling for tradespeople and construction workers in BC, online by secure video after the shift or on the weekend, with a Registered Clinical Counsellor. The recurring material is specific: a body that is the paycheque and is wearing out, chronic pain and what gets taken for it, drinking that the crew treats as normal, the boom-and-bust of contract work, being away on camp jobs, and a culture where saying anything is a risk. Extended health through a union or employer commonly reimburses; sessions leave no trace on a site.',
+      'Counselling for tradespeople and construction workers in BC, online by secure video, booked around the shift, with a Registered Clinical Counsellor. The recurring material is specific: a body that is the paycheque and is wearing out, chronic pain and what gets taken for it, drinking that the crew treats as normal, the boom-and-bust of contract work, being away on camp jobs, and a culture where saying anything is a risk. Extended health through a union or employer commonly reimburses; sessions leave no trace on a site.',
     updated: '2026-09-25',
     readMinutes: 6,
     opening: [
@@ -269,7 +269,7 @@ export const moreAudiences6: Audience[] = [
       {
         h2: 'How this fits around a trade',
         body: [
-          'Sessions are by video, 50 minutes, and the calendar shows real evening and weekend times. There is no office to get to after a ten-hour day and no waiting room to be seen in. The first 30 minutes are free and are a conversation about what is going on; if it does not fit, that is the end of it.',
+          'Sessions are by video, 50 minutes, and the calendar shows each counsellor’s real open times. There is no office to get to after a ten-hour day and no waiting room to be seen in. The first 30 minutes are free and are a conversation about what is going on; if it does not fit, that is the end of it.',
           'The work is practical. [CBT](/approaches/cognitive-behavioural-therapy) suits people who want a task and a way of knowing it is working. Where there was an incident on a site, a serious injury, a death on a crew, [EMDR](/services/emdr-therapy) is available and does not require talking through the event in detail. Sleep, pain and drinking are treated as the clinical material they are.',
         ],
       },

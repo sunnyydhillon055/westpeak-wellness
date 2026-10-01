@@ -161,7 +161,7 @@ export default async function Home() {
                   this line described a schedule that had changed twice. When the
                   calendar cannot be read the line says only what is always true. */}
               <p className="hero-note">
-                Free 30-minute consult · {openThisWeek ? `Open this week: ${openThisWeek}` : 'Daytime and evening times'} · No referral needed
+                Free 30-minute consult · {openThisWeek ? `Open this week: ${openThisWeek}` : 'Times from the live calendar'} · No referral needed
               </p>
               <TrustBar />
             </div>

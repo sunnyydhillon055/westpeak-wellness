@@ -1414,6 +1414,16 @@ availability editor and its API route. The schema carries no
 *Enforced by:* `lib/site.ts`, `app/layout.tsx`, `app/contact/page.tsx`,
 `components/Footer.tsx`
 
+*Extended 1 Oct 2026.* The rule covers prose, not only the hours grid. About
+twenty sentences across the audience, city, service and Tagalog pages, the
+/book "None of these times work?" note and the home page fallback still told
+people that evening or weekend times were available "on request". Those are
+availability promises Cliniko does not make: in the week of 1 Oct the free
+consultation was open on two days, neither of them an evening. Each now
+points to the live calendar ("the calendar shows each counsellor's real
+open times") or says nothing about time. Prose that describes a reader's
+own evenings (a commute, a family argument) is untouched.
+
 ---
 
 ### A new client is welcomed to the portal automatically; the old list is not swept

@@ -85,8 +85,8 @@ employer may and may not ask — written by Registered Clinical Counsellors
 and reviewed against the current rules.
 
 They are free, carry no advertising, and are written for the employee, not
-the insurer. HR teams have told us they answer the questions staff are
-embarrassed to ask. The hub is here:
+the insurer, and they answer the questions staff are often embarrassed to
+ask. The hub is here:
 https://www.westpeakwellness.com/resources/workplace-mental-health-bc?utm_source=hr
 
 If it would be useful on an intranet, a benefits page or a manager's

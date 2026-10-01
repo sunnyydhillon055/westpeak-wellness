@@ -312,7 +312,7 @@ export const pairs: Pair[] = [
     ],
     faqs: [
       /* Search Console, 17 Sep 2026: marriage counselling Prince George, nine impressions across three phrasings, position 36 to 38. */
-      { q: 'Is there marriage counselling in Prince George?', a: 'Very little, which is why people search for it. A handful of practitioners in the city see couples, most have waits, and the alternative is a drive to nowhere closer. Online marriage counselling from a BC counsellor is available in the evening, from your own home, with both of you on the same screen or on two, and the first 30-minute consultation is free.' },
+      { q: 'Is there marriage counselling in Prince George?', a: 'Very little, which is why people search for it. A handful of practitioners in the city see couples, most have waits, and the alternative is a drive to nowhere closer. Online marriage counselling from a BC counsellor happens from your own home, with both of you on the same screen or on two, and the first 30-minute consultation is free.' },
       { q: 'Is there anything for couples locally?', a: 'General counselling exists in Prince George. Structured couples work with specific training is less reliably available, which is usually the gap people are trying to fill.' },
       { q: 'How do we start?', a: 'A free 30-minute video call, either together or one of you first. Both are ordinary ways to begin.' },
     ],

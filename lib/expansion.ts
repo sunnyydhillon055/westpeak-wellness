@@ -211,7 +211,7 @@ const albertaCore: RegionPage[] = [
       },
       {
         q: 'Does the time difference make booking difficult?',
-        a: 'Alberta is one hour ahead of BC. Appointment times are shown in Mountain Time for Alberta clients, so the time you see is the time in your own kitchen. Evening sessions are the ones that go first.',
+        a: 'Alberta is one hour ahead of BC. Appointment times are shown in Mountain Time for Alberta clients, so the time you see is the time in your own kitchen.',
       },
       {
         q: 'Is the counsellor registered in Alberta?',

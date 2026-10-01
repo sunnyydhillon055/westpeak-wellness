@@ -37,7 +37,7 @@ export const moreAudiences2: Audience[] = [
         h2: 'How the scheduling actually works here',
         body: [
           'Sessions run by secure video anywhere in British Columbia, which removes the geography problem entirely. That still leaves the rhythm problem, and the answer is to stop pretending a weekly cadence is possible.',
-          'What tends to work is a schedule built around the rotation rather than against it: sessions concentrated in the days at home, or sessions from camp where connectivity allows, or a mixed pattern that changes with the shift. Evening slots are available on request, and turning the camera off cuts what a camp connection has to carry.',
+          'What tends to work is a schedule built around the rotation rather than against it: sessions concentrated in the days at home, or sessions from camp where connectivity allows, or a mixed pattern that changes with the shift. The booking calendar shows each counsellor’s real open times, and turning the camera off cuts what a camp connection has to carry.',
           'It is worth being honest that a fortnight between sessions is not ideal for every kind of work, [trauma reprocessing in particular](/compare/weekly-vs-biweekly-sessions) is difficult to do well with long gaps. Where that is what you need, it is better to plan an intensive block during a stretch at home than to run it thinly across six months.',
         ],
       },

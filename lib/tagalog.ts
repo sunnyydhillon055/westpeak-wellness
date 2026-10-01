@@ -69,7 +69,7 @@ export const TAGALOG_CITIES: TagalogCity[] = [
     angle: 'A long-established Filipino community, and care that is easier to reach by video than across the city.',
     body: [
       'Vancouver\'s Filipino community is long-established and spread across the city rather than concentrated in one part of it, which means "a counsellor near me who speaks Tagalog" is frequently a contradiction. The nearest one who is taking clients may be a bus transfer and an hour each way.',
-      'A great deal of Filipino employment in Vancouver is also shift-based: healthcare, care work, hospitality, and a standing weekday appointment does not survive a rotating roster. Evening sessions, with no travel either side, is the difference between attending and intending to.',
+      'A great deal of Filipino employment in Vancouver is also shift-based: healthcare, care work, hospitality, and a standing weekday appointment does not survive a rotating roster. Sessions by video, with no travel either side, are the difference between attending and intending to.',
     ],
     faqs: [
       { q: 'I work shifts in healthcare. Can this fit?', a: 'Yes, and it is worth planning for at the start rather than discovering later. Booking block by block around a roster, with gaps between blocks, is an ordinary pattern here and pausing costs nothing.' },
@@ -87,7 +87,7 @@ export const TAGALOG_CITIES: TagalogCity[] = [
     ],
     faqs: [
       { q: 'Are there Tagalog-speaking counsellors in Richmond?', a: 'There are some, and far fewer than the size of the community would suggest. Most of Richmond\'s multilingual mental-health provision is oriented to Cantonese and Mandarin. That is a genuine local strength, and it is not the language everybody needs.' },
-      { q: 'I work rotating shifts at YVR. Can therapy fit around that?', a: 'Yes. Booking in blocks around a roster with gaps between them is normal, and evening appointments are available by request.' },
+      { q: 'I work rotating shifts at YVR. Can therapy fit around that?', a: 'Yes. Booking in blocks around a roster with gaps between them is normal, and the calendar shows real open times.' },
       { q: 'What does a first session involve?', a: 'Thirty minutes free first, by video, to work out whether it is a fit at all. If it is, the first full session is about your story and what you want to be different, not a form to fill in.' },
     ],
   },
@@ -115,7 +115,7 @@ export const TAGALOG_CITIES: TagalogCity[] = [
     ],
     faqs: [
       { q: 'Do you cover Port Coquitlam and Port Moody?', a: 'Yes, on identical terms. The practice is virtual and covers all of British Columbia, so which of the three municipalities you live in changes nothing.' },
-      { q: 'What is the latest appointment available?', a: 'Evening slots run on weekdays by request. If none of the listed windows work, it is worth raising on the free consultation rather than forcing a time that will not survive a busy month.' },
+      { q: 'What is the latest appointment available?', a: 'The calendar shows every open time, and that is the honest answer to how late it goes. If none of them work, it is worth raising on the free consultation rather than forcing a time that will not survive a busy month.' },
       { q: 'Can sessions run in Tagalog?', a: 'Yes: in Tagalog, English, or both within one session.' },
     ],
   },

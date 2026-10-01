@@ -302,7 +302,7 @@ export const ontarioPages: RegionPage[] = [
     title: 'Punjabi-speaking counselling in Toronto',
     metaTitle: 'Punjabi Counselling in Toronto | Westpeak',
     metaDescription:
-      'Counselling in Punjabi or English for people in Toronto, by secure video, with evening times that survive a real commute.',
+      'Counselling in Punjabi or English for people in Toronto, by secure video, with no commute either side.',
     eyebrow: 'Toronto · ਪੰਜਾਬੀ',
     lede: 'A crowded market, and a set of practical problems that decide whether counselling actually happens.',
     directAnswer:

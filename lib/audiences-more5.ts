@@ -26,12 +26,12 @@ export const moreAudiences5: Audience[] = [
     title: 'Counselling for truck drivers in BC',
     metaTitle: 'Counselling for Truck Drivers in BC | Westpeak Wellness',
     metaDescription:
-      'Online counselling that books around a run: from the cab, in Punjabi or English, evenings and between loads. For long-haul and local drivers in BC.',
+      'Online counselling that books around a run: from the cab, in Punjabi or English, between loads. For long-haul and local drivers in BC.',
     eyebrow: 'For · Truck drivers',
     lede:
       'The job is long hours alone, a schedule set somewhere else, and a body that sits for twelve of them. Counselling has never been built for that. This is.',
     shortAnswer:
-      'Westpeak Wellness offers online counselling for long-haul and local truck drivers anywhere in British Columbia, in English or Punjabi, by video from a parked cab or from home between runs. Sessions are booked run by run rather than at a fixed weekly time, evenings are available, and pausing between blocks costs nothing. The first 30-minute consultation is free.',
+      'Westpeak Wellness offers online counselling for long-haul and local truck drivers anywhere in British Columbia, in English or Punjabi, by video from a parked cab or from home between runs. Sessions are booked run by run rather than at a fixed weekly time, from the open times on the counsellor’s calendar, and pausing between blocks costs nothing. The first 30-minute consultation is free.',
     updated: '2026-09-11',
     readMinutes: 6,
     opening: [
@@ -51,7 +51,7 @@ export const moreAudiences5: Audience[] = [
         list: [
           { label: 'From the cab', detail: 'A parked truck is a private room with a door. Sessions from a rest area, a yard or a customer lot are normal here, as long as the engine is off and you are stopped for the hour.' },
           { label: 'Run by run, not weekly', detail: 'Book when you know your next window. Two sessions in a home week and none in an out week is a pattern, not a failure, and nothing is charged for the gap.' },
-          { label: 'Evenings', detail: 'Weekday evenings by request, which is when many drivers are actually stopped.' },
+          { label: 'Times', detail: 'Booked from the open times on the calendar, around the run rather than a fixed weekly slot.' },
           { label: 'Phone data is enough', detail: 'A video call runs on a phone signal at most stops. If it drops, the first session sets out what happens: the call resumes, or it finishes by phone.' },
           { label: 'Punjabi or English', detail: 'Or both in one session, which is how most bilingual people think anyway. Nothing about family, izzat or what is owed needs explaining first.' },
         ],
