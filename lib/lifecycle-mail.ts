@@ -1,5 +1,20 @@
 import { site } from '@/lib/site';
-import { shell, btn, p, a, esc, wrap, links } from '@/lib/booking-mail';
+import { shell, btn, p, a, esc, wrap, links, paidCalendarFor, type BookingPractitioner } from '@/lib/booking-mail';
+import { consultReplyTo } from '@/lib/booking-followups';
+
+/* The counsellor a note is about, when the caller knows her. The few fields
+   a template needs, so this file never imports the roster. */
+export type MailCounsellor = Pick<BookingPractitioner, 'firstName' | 'clinikoPractitionerId'> & {
+  /** False when she is not on the online calendar: then her calendar is not linked. */
+  bookable?: boolean;
+  alertEmail?: string;
+};
+
+/* Her own paid calendar when she is on it, else null. */
+const herCalendar = (c?: MailCounsellor | null, typeId?: string): string | null =>
+  c && c.bookable !== false && c.clinikoPractitionerId
+    ? paidCalendarFor({ clinikoPractitionerId: c.clinikoPractitionerId } as BookingPractitioner, typeId)
+    : null;
 
 /* The two hardest emails in this system to write, and the two most easily got
  * wrong — because the version that converts best is the version that should not
@@ -28,8 +43,17 @@ import { shell, btn, p, a, esc, wrap, links } from '@/lib/booking-mail';
 
 /* ---- reactivation --------------------------------------------------------- */
 
-export function reactivationEmail(firstName: string) {
+/* `counsellor`, 1 Oct 2026 (/admin, "Not seen lately"): when the person's
+   counsellor is on the online calendar the button opens HER paid calendar
+   and a reply reaches her as well as info@, rather than the practice-wide
+   calendar that asks them to pick again. Without one, as before. Returns
+   `replyTo` so the caller does not have to work it out. */
+export function reactivationEmail(firstName: string, counsellor?: MailCounsellor | null) {
   const hi = firstName ? `Hi ${firstName},` : 'Hi,';
+  const own = herCalendar(counsellor);
+  const bookUrl = own ?? links.bookSession;
+  const bookLabel = own && counsellor?.firstName ? `Book a session with ${counsellor.firstName}` : 'Book a session';
+  const replyTo = own ? consultReplyTo(counsellor ?? undefined) : site.email;
 
   const text = wrap(
 `${hi}
@@ -40,7 +64,7 @@ The practice has openings again. If at some point you want to pick
 things up, whether that is soon, months from now, or not at all,
 booking is here and you would not be starting from scratch:
 
-${links.bookSession}
+${bookUrl}
 
 There is nothing to reply to and nothing you need to do. Finishing
 counselling when you did was a decision you were entitled to make, and
@@ -69,13 +93,13 @@ ${site.domain}`);
     p(esc(hi)) +
     p('This is a one-off note, and the only one of its kind you will get.') +
     p('The practice has openings again. If at some point you want to pick things up, soon, months from now, or not at all, booking is below and you would not be starting from scratch.') +
-    btn(links.bookSession, 'Book a session') +
+    btn(bookUrl, bookLabel) +
     p('There is nothing to reply to and nothing you need to do. Finishing when you did was a decision you were entitled to make, and this is not a suggestion that it was the wrong one. It is only so you know the door is open, and where it is.') +
     p(`If it would help to talk about whether now is a sensible time first, the ${a(links.book, 'free 30-minute consultation')} is still free for people who have worked with the practice before.`) +
     p('<span style="color:#545e69;font-size:14px;">If circumstances have changed and the fee is the obstacle, say so in a reply. There are lower-cost and no-cost options in BC and it is worth being pointed at the right one rather than going without.</span>')
   );
 
-  return { subject: 'A one-off note from Westpeak Wellness', text, html };
+  return { subject: 'A one-off note from Westpeak Wellness', text, html, replyTo };
 }
 
 /* ---- missed session ------------------------------------------------------- */
@@ -87,7 +111,10 @@ ${site.domain}`);
  * same counsellor (/book?with=<slug>#calendar) and mentions no fee at all.
  *
  * `consult` is optional so any other caller keeps the session wording. */
-export function missedSessionEmail(firstName: string, consult?: { isConsult: boolean; practitionerSlug?: string }) {
+export function missedSessionEmail(
+  firstName: string,
+  consult?: { isConsult: boolean; practitionerSlug?: string; counsellor?: MailCounsellor | null; typeId?: string },
+) {
   const hi = firstName ? `Hi ${firstName},` : 'Hi,';
 
   if (consult?.isConsult) {
@@ -132,6 +159,15 @@ ${site.name}`);
    * A scheduled job must not make that call, and must not pre-empt it by
    * raising the subject before a human has looked. The practice sees the missed
    * appointment in /admin and decides. */
+  /* HER CALENDAR, HER NAME, 1 Oct 2026. The button opened the practice-wide
+     paid calendar, which lists every type and every counsellor, and the note
+     was signed by the practice. It now opens her paid calendar for the same
+     appointment type, and is signed with her first name; booking-notify sets
+     the reply-to to her and info@. Without a counsellor, as before. */
+  const again = herCalendar(consult?.counsellor, consult?.typeId) ?? links.bookSession;
+  const signer = herCalendar(consult?.counsellor) && consult?.counsellor?.firstName
+    ? `${consult.counsellor.firstName}\n${site.name}`
+    : site.name;
   const text = wrap(
 `${hi}
 
@@ -141,7 +177,7 @@ No explanation needed, and nothing is assumed. Missing one is common
 and it is not treated as a statement about anything.
 
 When you want another, here:
-${links.bookSession}
+${again}
 
 If something got in the way that would be worth knowing about, a
 change in circumstances, or the time of day no longer working, reply
@@ -150,15 +186,16 @@ and say so. It is easier to change than to work around.
 If you are in immediate danger call 911. For urgent mental-health
 support in BC, call or text 9-8-8 at any hour.
 
-${site.name}`);
+${signer}`);
 
   const html = shell(
     'We missed you yesterday',
     p(esc(hi)) +
     p('We had a session booked yesterday and you were not able to make it.') +
     p('No explanation needed, and nothing is assumed. Missing one is common and it is not treated as a statement about anything.') +
-    btn(links.bookSession, 'Book another time') +
-    p('If something got in the way that would be worth knowing about, a change in circumstances, or the time of day no longer working, reply and say so. It is easier to change than to work around.')
+    btn(again, 'Book another time') +
+    p('If something got in the way that would be worth knowing about, a change in circumstances, or the time of day no longer working, reply and say so. It is easier to change than to work around.') +
+    (signer !== site.name ? p(esc(signer).replace('\n', '<br>')) : '')
   );
 
   return { subject: 'About yesterday | Westpeak Wellness', text, html };

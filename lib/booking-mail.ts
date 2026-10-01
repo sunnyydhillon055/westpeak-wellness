@@ -189,6 +189,14 @@ export type Booking = {
      pointed at Cliniko's own email, as before. See telehealthUrlOf() in
      lib/booking-notify.ts for what is accepted. */
   telehealthUrl?: string | null;
+  /* The Cliniko appointment-type id, 1 Oct 2026, so a paid rebook link opens
+     the same type with the same counsellor. bookingsPaidUrlFor() ignores it
+     unless it is a paid type. */
+  typeId?: string;
+  /* THE NEXT SESSION ALREADY BOOKED, for the paid follow-up: when it is, the
+     email says when and with whom instead of offering a booking button. Null
+     or absent means nothing is booked. */
+  next?: { whenText: string; withName?: string } | null;
 };
 
 export type BookingPractitioner = {
@@ -227,9 +235,10 @@ export function inLanguageGuide(pr?: BookingPractitioner | null): { href: string
   return null;
 }
 
-/** That counsellor's own paid calendar, or the practice-wide one. */
-export const paidCalendarFor = (pr?: BookingPractitioner | null) =>
-  bookingsPaidUrlFor(pr?.clinikoPractitionerId);
+/** That counsellor's own paid calendar, or the practice-wide one; narrowed
+ *  to one paid appointment type when `typeId` names one. */
+export const paidCalendarFor = (pr?: BookingPractitioner | null, typeId?: string) =>
+  bookingsPaidUrlFor(pr?.clinikoPractitionerId, typeId);
 
 const ONLINE_LINE =
   'This is an online appointment by secure video. There is no office to come to; join from somewhere private.';
@@ -571,7 +580,15 @@ export function followUpEmail(b: Booking) {
    * consult for session two. It now opens that counsellor's paid calendar,
    * or the practice-wide paid one when the roster does not know her. */
   const subject = 'After your session | Westpeak Wellness';
-  const nextUrl = paidCalendarFor(b.practitioner);
+  const nextUrl = paidCalendarFor(b.practitioner, b.typeId);
+  /* SINCE 1 OCT 2026: when the next session is already booked it is stated
+     rather than offering a button to book one, and the note is signed by the
+     counsellor, as the consultation note is. booking-notify also sends it
+     only after the first paid session with her or when nothing is booked
+     after the session, so a weekly client is not sent the same text weekly. */
+  const pr = b.practitioner ?? null;
+  const nextLine = b.next ? `Your next session: ${b.next.whenText}${b.next.withName ? ` with ${b.next.withName}` : ''}` : '';
+  const signoff = pr?.firstName ? `${pr.firstName}\n${site.name}` : site.name;
 
   const text = wrap(
 `Hi ${b.firstName},
@@ -581,8 +598,11 @@ Thanks for making the time yesterday.
 No reply needed. This is just the practical bits in one place, so you do
 not have to go looking for them.
 
-  Book your next session
-  ${nextUrl}
+${nextLine
+  ? `  ${nextLine}
+  To move it, reply to this email.`
+  : `  Book your next session
+  ${nextUrl}`}
 
   Fees, receipts and extended health
   ${links.pricing}
@@ -596,7 +616,7 @@ next session, replying here reaches the practice directly.
 If you are in immediate danger call 911. For urgent mental-health
 support in BC, call or text 9-8-8 at any hour.
 
-Westpeak Wellness
+${signoff}
 Online counselling across British Columbia
 ${BASE}`);
 
@@ -605,9 +625,12 @@ ${BASE}`);
     p(`Hi ${esc(b.firstName)},`) +
     p(`Thanks for making the time yesterday.`) +
     p(`No reply needed. This is just the practical bits in one place so you are not hunting for them.`) +
-    btn(nextUrl, 'Book your next session') +
+    (nextLine
+      ? p(`<strong>${esc(nextLine)}</strong><br><span style="color:#545e69;font-size:14px;">To move it, reply to this email.</span>`)
+      : btn(nextUrl, 'Book your next session')) +
     p(`Also: ${a(links.pricing, 'fees, receipts and extended health')} · ${a(links.guides, 'reading, if you want it')}`) +
-    p(`If something came up afterwards you would rather raise before next time, replying here reaches the practice directly.`)
+    p(`If something came up afterwards you would rather raise before next time, replying here reaches the practice directly.`) +
+    (pr?.firstName ? p(`${esc(pr.firstName)}<br>${esc(site.name)}`) : '')
   );
 
   return { subject, text, html };

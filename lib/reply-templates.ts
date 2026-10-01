@@ -188,7 +188,7 @@ export type DraftContext = {
   signer?: string;
 };
 
-export type BookingDraft = { key: 'rebook-consult' | 'after-consult'; subject: string; body: (c: DraftContext) => string };
+export type BookingDraft = { key: 'rebook-consult' | 'after-consult' | 'after-session' | 'reschedule-session'; subject: string; body: (c: DraftContext) => string };
 
 const hiDraft = (c: DraftContext) => (c.firstName && c.firstName !== 'there' ? `Hi ${c.firstName},` : 'Hi,');
 const sign = (c: DraftContext) => `${c.signer || '[Name]'}
@@ -252,6 +252,49 @@ ${site.domain}/resources/low-cost-counselling-bc
 
 If you have decided this is not the right fit, or the timing is wrong, that
 is a good outcome to have reached and no reply is needed.
+
+${sign(c)}`,
+  },
+  {
+    /* About two weeks after a PAID session with nothing booked since (lib/
+       booking-followups.ts, lapsedPaidClients). Sent by a person, once, if at
+       all. Short on purpose: no outcome claim, no suggestion that stopping
+       was wrong, and nothing about the fee. The subject shows on a lock
+       screen, so it names nothing. */
+    key: 'after-session',
+    subject: `Whenever you want the next one | ${site.name}`,
+    body: (c) => `${hiDraft(c)}
+
+I noticed nothing is booked after our session on ${c.day}, so this is only
+to make the next one easy to find if you want it. If you are taking a break
+or have finished for now, that is your call and no reply is needed.
+
+My calendar is here, and it shows the real open times:
+${c.link}
+
+If none of them suit, reply with roughly when in a week works and I will
+look for something.
+
+${sign(c)}`,
+  },
+  {
+    /* After a cancelled PAID session, when nothing has been rebooked. Send it
+       a day later, never the same hour. Says nothing about the fee or the
+       late-cancellation terms: whether any applies is for a person to decide,
+       not for a reschedule note to raise. */
+    key: 'reschedule-session',
+    subject: `Another time | ${site.name}`,
+    body: (c) => `${hiDraft(c)}
+
+I saw that the session on ${c.day} was cancelled. No explanation needed.
+
+If you would like to pick another time, my calendar is here and shows the
+real open times:
+${c.link}
+
+If none of them work, reply with roughly when in a week suits and I will
+look for something. If you would rather leave it for now, that is fine too,
+and no reply is needed.
 
 ${sign(c)}`,
   },

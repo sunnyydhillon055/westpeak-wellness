@@ -13,7 +13,10 @@ import { FALLBACK_CATALOG, money } from '@/lib/cliniko-catalog';
 import { shell, p, esc } from '@/lib/booking-mail';
 import { mailtoBookingDraft } from '@/lib/reply-templates';
 import { tallyEvents, addToBookingTally } from '@/lib/booking-tally';
-import { telehealthUrlOf, unconvertedConsults, idFromLink, consultReplyTo } from '@/lib/booking-followups';
+import {
+  telehealthUrlOf, unconvertedConsults, idFromLink, consultReplyTo,
+  lapsedPaidClients, lapsedKey, paidFollowUpPlan, nextAfter, typeIdOf,
+} from '@/lib/booking-followups';
 
 /* Polls Cliniko for appointments needing a confirmation or a follow-up.
  *
@@ -60,13 +63,22 @@ const TZ = 'America/Vancouver';
      tallied             event keys ("b:<appointment id>", "c:", "h:", "d:")
                          already counted into analytics/booking-tally.json.
                          See lib/booking-tally.ts. */
+/* `lapsedAlerted` and `followUpSkipped` added 1 Oct 2026.
+     lapsedAlerted    "<patient id>:<appointment id>" for each paid client the
+                      practice has been told has nothing booked after that
+                      session. Patient and session, so the same gap is never
+                      noticed twice. See lapsedPaidClients().
+     followUpSkipped  paid appointment ids whose after-session note was NOT
+                      sent because it was not the first with that counsellor
+                      and the next one was already booked. Recorded so the
+                      decision is made once and can be read back. */
 type Ledger = {
   confirmed: string[]; followedUp: string[]; reminded: string[]; alerted: string[]; cancelAlerted: string[];
-  unconvertedAlerted: string[]; tallied: string[]; updatedAt: string;
+  unconvertedAlerted: string[]; tallied: string[]; lapsedAlerted: string[]; followUpSkipped: string[]; updatedAt: string;
   /** Not stored. True when the ledger exists but could not be read. */
   readFailed?: boolean;
 };
-const EMPTY: Ledger = { confirmed: [], followedUp: [], reminded: [], alerted: [], cancelAlerted: [], unconvertedAlerted: [], tallied: [], updatedAt: '' };
+const EMPTY: Ledger = { confirmed: [], followedUp: [], reminded: [], alerted: [], cancelAlerted: [], unconvertedAlerted: [], tallied: [], lapsedAlerted: [], followUpSkipped: [], updatedAt: '' };
 
 async function readLedger(): Promise<Ledger> {
   if (!process.env.BLOB_READ_WRITE_TOKEN) return EMPTY;
@@ -85,6 +97,8 @@ async function readLedger(): Promise<Ledger> {
       reminded: Array.isArray(v.reminded) ? v.reminded : [],
       unconvertedAlerted: Array.isArray(v.unconvertedAlerted) ? v.unconvertedAlerted : [],
       tallied: Array.isArray(v.tallied) ? v.tallied : [],
+      lapsedAlerted: Array.isArray(v.lapsedAlerted) ? v.lapsedAlerted : [],
+      followUpSkipped: Array.isArray(v.followUpSkipped) ? v.followUpSkipped : [],
       updatedAt: v.updatedAt ?? '',
     };
   } catch {
@@ -105,7 +119,7 @@ async function writeLedger(l: Ledger): Promise<void> {
        6,000 is far more than the 136-day window ever holds, which is what
        matters, since a key trimmed while its appointment is still in the
        window would be counted again. */
-    JSON.stringify({ confirmed: trim(l.confirmed), followedUp: trim(l.followedUp), reminded: trim(l.reminded), alerted: trim(l.alerted), cancelAlerted: trim(l.cancelAlerted), unconvertedAlerted: trim(l.unconvertedAlerted), tallied: trim(l.tallied, 6000), updatedAt: new Date().toISOString() }, null, 2),
+    JSON.stringify({ confirmed: trim(l.confirmed), followedUp: trim(l.followedUp), reminded: trim(l.reminded), alerted: trim(l.alerted), cancelAlerted: trim(l.cancelAlerted), unconvertedAlerted: trim(l.unconvertedAlerted), tallied: trim(l.tallied, 6000), lapsedAlerted: trim(l.lapsedAlerted), followUpSkipped: trim(l.followUpSkipped), updatedAt: new Date().toISOString() }, null, 2),
     { access: 'private', contentType: 'application/json', addRandomSuffix: false, allowOverwrite: true, cacheControlMaxAge: 0 }
   );
 }
@@ -160,7 +174,14 @@ export type NotifyResult = {
   unconvertedCandidates?: string[];
   /** Events added to analytics/booking-tally.json this run. */
   tallied: number;
-  skipped: { noEmail: number; alreadySent: number };
+  /** Notices to the practice: a paid client 14-18 days past their last
+      session with nothing booked. Nothing goes to the client. */
+  lapsed: number;
+  /** Dry runs only: the last-session appointment ids that would be noticed. */
+  lapsedCandidates?: string[];
+  /** repeatFollowUp: paid after-session notes not sent because the next
+      session was already booked and it was not the first with her. */
+  skipped: { noEmail: number; alreadySent: number; repeatFollowUp: number };
   failures: string[];
   reason?: string;
 };
@@ -174,17 +195,56 @@ const practitionerOf = (ap: any): Practitioner | undefined => {
   return pid ? practitioners.find((x) => x.clinikoPractitionerId === pid) : undefined;
 };
 
-/* Draft 2, for a cancelled CONSULTATION only: her FREE calendar, by ?with=.
-   Null for a paid cancellation, or with no address to write to. Exported
-   for the test. */
-export function cancellationDraft(ap: any, who: { firstName: string; email: string }): string | null {
-  if (!who.email || !isConsultAppointment(ap, CONSULT_TYPE)) return null;
+/* Her own paid calendar can be linked only when she is on it. */
+const onCalendar = (pr?: Practitioner): pr is Practitioner & { clinikoPractitionerId: string } =>
+  Boolean(pr && pr.bookable && pr.clinikoPractitionerId);
+
+/* The few fields lib/lifecycle-mail.ts needs about her. */
+const mailCounsellor = (pr?: Practitioner) =>
+  pr ? { firstName: pr.name.split(/\s+/)[0], clinikoPractitionerId: pr.clinikoPractitionerId, bookable: pr.bookable, alertEmail: pr.alertEmail } : null;
+
+/* The draft in a cancellation alert, or null. Exported for the test.
+ *
+ * A cancelled CONSULTATION: draft 2, her FREE calendar, by ?with=.
+ *
+ * A cancelled PAID SESSION, since 1 Oct 2026: the 'reschedule-session' draft,
+ * her PAID calendar for the same appointment type, signed by her. Only when
+ * nothing has been booked since the cancellation (in `appts`, the list the
+ * job already read) and she is on the online calendar. It says nothing about
+ * the fee or the late-cancellation terms. Before this, a paid cancellation got
+ * no draft at all, and a cancelled paid session is the commonest point at
+ * which a weekly client quietly stops.
+ *
+ * Null with no address to write to. */
+export function cancellationDraft(ap: any, who: { firstName: string; email: string }, appts: any[] = []): string | null {
+  if (!who.email) return null;
   const pr = practitionerOf(ap);
+  if (!isConsultAppointment(ap, CONSULT_TYPE)) {
+    if (!onCalendar(pr)) return null;
+    const since = Date.parse(ap.cancelled_at ?? '');
+    if (nextAfter(appts, ap, Number.isFinite(since) ? since : undefined)) return null;
+    return mailtoBookingDraft(who.email, 'reschedule-session', {
+      firstName: who.firstName,
+      day: fmtDay(ap.starts_at),
+      link: bookingsPaidUrlFor(pr.clinikoPractitionerId, typeIdOf(ap)),
+      signer: pr.name,
+    });
+  }
   return mailtoBookingDraft(who.email, 'rebook-consult', {
     firstName: who.firstName,
     day: fmtDay(ap.starts_at),
     link: `${site.domain}${site.bookingPath}${pr ? `?with=${pr.slug}` : ''}#calendar`,
     signer: pr?.name,
+  });
+}
+
+/* After a paid session with nothing booked since: her paid calendar, same type. */
+function lapsedDraftFor(ap: any, who: { firstName: string; email: string }, pr: Practitioner & { clinikoPractitionerId: string }): string {
+  return mailtoBookingDraft(who.email, 'after-session', {
+    firstName: who.firstName,
+    day: fmtDay(ap.starts_at),
+    link: bookingsPaidUrlFor(pr.clinikoPractitionerId, typeIdOf(ap)),
+    signer: pr.name,
   });
 }
 
@@ -200,8 +260,8 @@ function unconvertedDraftFor(ap: any, who: { firstName: string; email: string },
 
 export async function runBookingNotifications(opts: { dry?: boolean } = {}): Promise<NotifyResult> {
   const base: NotifyResult = {
-    ok: false, confirmations: 0, reminders: 0, followUps: 0, missed: 0, alerts: 0, cancellations: 0, unconverted: 0, tallied: 0,
-    skipped: { noEmail: 0, alreadySent: 0 }, failures: [],
+    ok: false, confirmations: 0, reminders: 0, followUps: 0, missed: 0, alerts: 0, cancellations: 0, unconverted: 0, tallied: 0, lapsed: 0,
+    skipped: { noEmail: 0, alreadySent: 0, repeatFollowUp: 0 }, failures: [],
   };
 
   const conn = api();
@@ -219,7 +279,10 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
      notice looks at consultations that ended 11 to 15 days ago. Every other
      window here is three days or less, so reading further back sends nothing
      extra. */
-  const from = new Date(now - 16 * 864e5).toISOString().replace(/\.\d{3}Z$/, 'Z');
+  /* 20 days, later the same day: the paid-lapse notice looks at sessions that
+     ended 14 to 18 days ago, and needs a little either side of that to see
+     whether a later one exists. The client-facing windows are unchanged. */
+  const from = new Date(now - 20 * 864e5).toISOString().replace(/\.\d{3}Z$/, 'Z');
   const to = new Date(now + 120 * 864e5).toISOString().replace(/\.\d{3}Z$/, 'Z');
 
   /* EVERY PAGE, since 1 Oct 2026. This read one page of 100, newest first,
@@ -317,14 +380,15 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
        name, the day and her free calendar filled in, as a mailto: for a
        person to read, edit and send. Nothing is sent to the client from
        here. Paid cancellations get none. */
-    const rebook = kind === 'cancelled' ? cancellationDraft(ap, who) : null;
+    const rebook = kind === 'cancelled' ? cancellationDraft(ap, who, appts) : null;
+    const draftLabel = isConsultAppointment(ap, CONSULT_TYPE) ? 'Draft a rebook note' : 'Draft a reschedule note';
     const text = [kind === 'booked' ? 'New online booking' : 'Appointment cancelled', '', ...rows.map(([k, v]) => `${k.padEnd(12)} ${v}`), '',
-      ...(rebook ? [`Draft a rebook note. ${REBOOK_HINT}`, rebook, ''] : []),
+      ...(rebook ? [`${draftLabel}. ${REBOOK_HINT}`, rebook, ''] : []),
       'The full record is in Cliniko. This is a notice, not a receipt.'].join('\n');
     const html = shell(
       kind === 'booked' ? 'New online booking' : 'Appointment cancelled',
       `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 18px;font-size:14px;line-height:1.7;">${rows.map(([k, v]) => `<tr><td style="color:#545e69;padding-right:14px;">${esc(k)}</td><td>${esc(v)}</td></tr>`).join('')}</table>` +
-      (rebook ? p(`<a href="${esc(rebook)}" style="color:#3d6c92;font-weight:600;">Draft a rebook note</a><br><span style="color:#545e69;font-size:14px;">${esc(REBOOK_HINT)}</span>`) : '') +
+      (rebook ? p(`<a href="${esc(rebook)}" style="color:#3d6c92;font-weight:600;">${esc(draftLabel)}</a><br><span style="color:#545e69;font-size:14px;">${esc(REBOOK_HINT)}</span>`) : '') +
       p('<span style="color:#545e69;font-size:14px;">The full record is in Cliniko. This is a notice, not a receipt.</span>'),
       `${t.label.split(',')[0]}, ${when}`,
     );
@@ -363,6 +427,43 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
     );
     return { subject, text, html };
   };
+
+  /* The notice for a paid client with nothing booked two weeks after their
+     last session. Practice and counsellor only; no name in the subject. */
+  const lapsedNotice = (ap: any, who: { firstName: string; lastName: string; email: string }) => {
+    const pr = practitionerFor(ap);
+    const t = typeFor(ap);
+    const draft = who.email && onCalendar(pr) ? lapsedDraftFor(ap, who, pr) : null;
+    const rows: [string, string][] = [
+      ['Client', `${who.firstName} ${who.lastName}`.trim()],
+      ['Email', who.email || '(none on file)'],
+      ['Last session', fmt(ap.starts_at)],
+      ['Appointment', t.label.split(',')[0]],
+      ['With', pr ? pr.name : '(not on the roster)'],
+    ];
+    const lead = 'A paid session about two weeks ago, and nothing has been booked since.';
+    const how = draft
+      ? 'If a note would be welcome, the draft below has her paid calendar for the same appointment type filled in. Read it, change what needs changing, and send it from your own mailbox, or leave it: a break, or finishing, is for the client to decide. Nothing has been sent to the client and nothing will be.'
+      : pr && !onCalendar(pr)
+        ? 'This counsellor is not on the online calendar, so no booking link is drafted. If anything is sent, it is a personal note. Nothing has been sent to the client and nothing will be.'
+        : 'Nothing has been sent to the client and nothing will be.';
+    const subject = `No next session booked, last seen ${fmtDay(ap.starts_at)}`;
+    const text = [lead, '', ...rows.map(([k, v]) => `${k.padEnd(13)} ${v}`), '', how, ...(draft ? ['', 'Draft the after-session note:', draft] : []), '', 'This notice is sent once for each gap.'].join('\n');
+    const html = shell(
+      'No next session booked',
+      p(esc(lead)) +
+      `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 18px;font-size:14px;line-height:1.7;">${rows.map(([k, v]) => `<tr><td style="color:#545e69;padding-right:14px;">${esc(k)}</td><td>${esc(v)}</td></tr>`).join('')}</table>` +
+      p(esc(how)) +
+      (draft ? p(`<a href="${esc(draft)}" style="color:#3d6c92;font-weight:600;">Draft the after-session note</a>`) : '') +
+      p('<span style="color:#545e69;font-size:14px;">This notice is sent once for each gap.</span>'),
+      'A paid client with nothing booked since',
+    );
+    return { subject, text, html };
+  };
+
+  const lapsedAlerted = new Set(ledger.lapsedAlerted);
+  const followUpSkipped = new Set(ledger.followUpSkipped);
+  const isConsult = (ap: any) => isConsultAppointment(ap, CONSULT_TYPE);
 
   for (const ap of appts) {
     const id = String(ap.id);
@@ -431,13 +532,19 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
           if (pt0 && pt0.email) {
             /* A missed free consultation gets the note that rebooks the free
                consultation, with the same counsellor; see lifecycle-mail. */
+            const pr0 = practitionerFor(ap);
+            const consult0 = isConsultAppointment(ap, CONSULT_TYPE);
             const mail = missedSessionEmail(pt0.firstName, {
-              isConsult: isConsultAppointment(ap, CONSULT_TYPE),
-              practitionerSlug: practitionerFor(ap)?.slug,
+              isConsult: consult0,
+              practitionerSlug: pr0?.slug,
+              counsellor: mailCounsellor(pr0),
+              typeId: typeIdOf(ap),
             });
             if (opts.dry) result.missed++;
             else {
-              const sent = await sendDetailed(pt0.email, mail.subject, mail.text, mail.html, { replyTo: site.email });
+              /* A missed paid session is signed by her, so a reply reaches
+                 her and info@ (1 Oct 2026). */
+              const sent = await sendDetailed(pt0.email, mail.subject, mail.text, mail.html, { replyTo: consult0 ? site.email : consultReplyTo(pr0) });
               if (sent.ok) { await recordMissed(id); result.missed++; }
               else result.failures.push(`missed ${id}: ${sent.detail ?? 'failed'}`);
             }
@@ -488,7 +595,16 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
        client is told — see durationOf(). */
     const ended = start + ((durationOf(ap) ?? 50) * 60_000);
     const sinceEnd = now - ended;
-    const needsFollowUp = sinceEnd > 12 * 3.6e6 && sinceEnd < 72 * 3.6e6 && !followedUp.has(id);
+    let needsFollowUp = sinceEnd > 12 * 3.6e6 && sinceEnd < 72 * 3.6e6 && !followedUp.has(id) && !followUpSkipped.has(id);
+    /* The paid after-session note goes after the first paid session with her,
+       or when nothing is booked after this one; otherwise it is recorded as
+       skipped, once. See paidFollowUpPlan(). */
+    const plan = needsFollowUp && !isConsult(ap) ? paidFollowUpPlan(ap, appts, { isConsult }) : null;
+    if (plan && !plan.send) {
+      needsFollowUp = false;
+      followUpSkipped.add(id);
+      result.skipped.repeatFollowUp++;
+    }
 
     if (!needsConfirm && !needsReminder && !needsFollowUp) {
       if (confirmed.has(id) || reminded.has(id) || followedUp.has(id)) result.skipped.alreadySent++;
@@ -508,13 +624,21 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
       isConsult: isConsultAppointment(ap, CONSULT_TYPE),
       practitioner: bookingPractitioner(practitionerFor(ap)),
       telehealthUrl: telehealthUrlOf(ap),
+      typeId: typeIdOf(ap),
+      next: plan?.next
+        ? { whenText: fmt(plan.next.starts_at), withName: bookingPractitioner(practitionerFor(plan.next))?.nameWithLetters }
+        : null,
     };
+    /* Replies reach the counsellor whose appointment it is, and info@, since
+       1 Oct 2026: Cliniko clients can only move an appointment by replying,
+       and the reply belongs with her. */
+    const herReplyTo = consultReplyTo(practitionerFor(ap));
 
     if (needsConfirm) {
       const mail = confirmationEmail(booking);
       if (opts.dry) { result.confirmations++; }
       else {
-        const sent = await sendDetailed(pt.email, mail.subject, mail.text, mail.html, { replyTo: site.email });
+        const sent = await sendDetailed(pt.email, mail.subject, mail.text, mail.html, { replyTo: herReplyTo });
         if (sent.ok) { confirmed.add(id); result.confirmations++; }
         else result.failures.push(`confirm ${id}: ${sent.detail ?? 'failed'}`);
       }
@@ -524,7 +648,7 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
       const mail = reminderEmail(booking);
       if (opts.dry) { result.reminders++; }
       else {
-        const sent = await sendDetailed(pt.email, mail.subject, mail.text, mail.html, { replyTo: site.email });
+        const sent = await sendDetailed(pt.email, mail.subject, mail.text, mail.html, { replyTo: herReplyTo });
         if (sent.ok) { reminded.add(id); result.reminders++; }
         else result.failures.push(`reminder ${id}: ${sent.detail ?? 'failed'}`);
       }
@@ -540,7 +664,8 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
       /* The consultation note is signed by the counsellor the person met, so
          a reply goes to her, with info@ alongside: the same rule as the
          enquiry routing ("enquiries go to the counsellor they are for"). */
-      const replyTo = booking.isConsult ? consultReplyTo(practitionerFor(ap)) : site.email;
+      /* The paid note is signed by her too, since 1 Oct 2026. */
+      const replyTo = herReplyTo;
       if (opts.dry) { result.followUps++; }
       else {
         const sent = await sendDetailed(pt.email, mail.subject, mail.text, mail.html, { replyTo });
@@ -576,6 +701,26 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
     else result.failures.push(`unconverted ${ap.id}: ${sent.detail ?? 'failed'}`);
   }
 
+  /* PAID CLIENTS WITH NOTHING BOOKED — 1 Oct 2026.
+   *
+   * Nothing watched a paying client who went quiet after session one, two or
+   * three. A notice to the practice and to that counsellor, never to the
+   * client, carrying the 'after-session' draft as a mailto: with her paid
+   * calendar. Once per patient and session. Skipped when the ledger could
+   * not be read, or every gap in the window would be noticed again. */
+  const lapsed = ledger.readFailed ? [] : lapsedPaidClients(appts, { now, isConsult, alreadyAlerted: lapsedAlerted });
+  if (opts.dry) result.lapsedCandidates = lapsed.map((ap) => String(ap.id));
+  for (const ap of lapsed) {
+    const purl = ap.patient?.links?.self;
+    const who = purl ? await patient(purl) : null;
+    if (!who) continue;
+    const mail = lapsedNotice(ap, who);
+    if (opts.dry) { result.lapsed++; continue; }
+    const sent = await sendDetailed(recipients(ap), mail.subject, mail.text, mail.html, { replyTo: site.email });
+    if (sent.ok) { lapsedAlerted.add(lapsedKey(ap)); result.lapsed++; }
+    else result.failures.push(`lapsed ${ap.id}: ${sent.detail ?? 'failed'}`);
+  }
+
   /* THE MONTHLY TALLY. Counts only; see lib/booking-tally.ts. The keys join
      the ledger only once the tally has been written, so a failed write means
      the same events are tried next run rather than lost or counted twice.
@@ -599,9 +744,10 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
      two alert lists, which must persist or the next run repeats the scan. */
   const ledgerChanged = result.confirmations > 0 || result.reminders > 0 || result.followUps > 0
     || alerted.size !== ledger.alerted.length || cancelAlerted.size !== ledger.cancelAlerted.length
-    || unconvertedAlerted.size !== ledger.unconvertedAlerted.length || tallied.size !== ledger.tallied.length;
+    || unconvertedAlerted.size !== ledger.unconvertedAlerted.length || tallied.size !== ledger.tallied.length
+    || lapsedAlerted.size !== ledger.lapsedAlerted.length || followUpSkipped.size !== ledger.followUpSkipped.length;
   if (!opts.dry && ledgerChanged) {
-    await writeLedger({ confirmed: [...confirmed], followedUp: [...followedUp], reminded: [...reminded], alerted: [...alerted], cancelAlerted: [...cancelAlerted], unconvertedAlerted: [...unconvertedAlerted], tallied: [...tallied], updatedAt: '' });
+    await writeLedger({ confirmed: [...confirmed], followedUp: [...followedUp], reminded: [...reminded], alerted: [...alerted], cancelAlerted: [...cancelAlerted], unconvertedAlerted: [...unconvertedAlerted], tallied: [...tallied], lapsedAlerted: [...lapsedAlerted], followUpSkipped: [...followUpSkipped], updatedAt: '' });
   }
 
   return result;

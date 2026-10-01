@@ -8,6 +8,8 @@ import { practitioners, getPractitioner, withLetters } from '@/lib/practitioners
 import SchedulerEmbed from '@/components/SchedulerEmbed';
 import { auth, signOut } from '@/auth';
 import { isClientAllowed } from '@/lib/portal-store';
+import { readPortalAppointments, paidTypesFor } from '@/lib/portal-appointments';
+import { readCatalog, FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
 
 /* Gated by middleware.ts — never served without the access code, so it is kept
  * out of the index and out of the sitemap. Deliberately short: this is a place
@@ -46,12 +48,35 @@ export default async function ClientPortalPage({
      client to find their counsellor inside Cliniko's own list. Now: a card
      for each counsellor who can be booked online, ?with= narrows the embed
      to that person's calendar, and a large line above the calendar says
-     whose it is. The roster does not record which client sees whom, so
-     nothing is pre-selected. */
+     whose it is.
+
+     PRE-SELECTED SINCE 1 OCT 2026. The roster does not record who sees whom,
+     but Cliniko does: lib/portal-appointments.ts reads the signed-in client's
+     own appointments, and with no ?with= the page opens on the counsellor of
+     the latest session that took place, when she is bookable online.
+     ?with=all is the explicit "show every calendar". If Cliniko is not
+     configured or fails, `mine` is null and the page is what it was. */
   const bookableOnline = practitioners.filter((p) => p.bookable && p.clinikoPractitionerId);
   const withSlug = typeof searchParams?.with === 'string' ? searchParams.with : '';
-  const asked = withSlug ? getPractitioner(withSlug) : undefined;
-  const who = asked && asked.bookable && asked.clinikoPractitionerId ? asked : undefined;
+  const mine = await readPortalAppointments(email);
+  const onlineById = (id?: string | null) => (id ? bookableOnline.find((p) => p.clinikoPractitionerId === id) : undefined);
+  const asked = withSlug && withSlug !== 'all' ? getPractitioner(withSlug) : undefined;
+  const who = asked && asked.bookable && asked.clinikoPractitionerId
+    ? asked
+    : !withSlug ? onlineById(mine?.lastPractitionerId) : undefined;
+  /* Her paid types, priced from the catalogue. Never typed here. */
+  const catalog = who ? await readCatalog() : null;
+  const herTypes = who && catalog ? paidTypesFor(who.services, catalog) : [];
+  const typeName = (id: string) => (catalog ?? FALLBACK_CATALOG).items.find((i) => i.id === id)?.name;
+  const when = (iso: string) => {
+    try {
+      return new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'America/Vancouver', weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true,
+      }).format(new Date(iso));
+    } catch {
+      return iso;
+    }
+  };
 
   return (
     <section className="section" style={{ paddingTop: 52 }}>
@@ -63,6 +88,42 @@ export default async function ClientPortalPage({
           calendar below.{' '}
           Cancelling is free up to {site.cancellationHours} hours before.
         </p>
+
+        {/* What is already booked, from Cliniko. Nothing at all when Cliniko
+            could not be read: "Nothing booked yet" is a statement, and is
+            only made when it was checked. A counsellor is named only when she
+            is on the online calendar. */}
+        {mine && (
+          <div className="admin-panel" style={{ margin: '0 0 8px' }}>
+            <h2 id="next" style={{ margin: '0 0 10px', fontSize: '1.25rem' }}>
+              {mine.upcoming.length ? 'Your next session' : 'Nothing booked yet'}
+            </h2>
+            {mine.upcoming.length ? (
+              <>
+                <ul style={{ margin: '0 0 8px', paddingLeft: 20 }}>
+                  {mine.upcoming.map((u) => {
+                    const pr = onlineById(u.practitionerId);
+                    const kind = u.isConsult ? 'Free consultation' : typeName(u.typeId);
+                    return (
+                      <li key={u.id}>
+                        <strong>{when(u.startsAt)}</strong>
+                        {kind ? <>, {kind}</> : null}
+                        {pr ? <> with {pr.name.split(' ')[0]}</> : null}
+                      </li>
+                    );
+                  })}
+                </ul>
+                <p style={{ margin: 0, fontSize: '.92rem', color: 'var(--ink-soft)' }}>
+                  To move or cancel one, reply to its confirmation email.
+                </p>
+              </>
+            ) : (
+              <p style={{ margin: 0, color: 'var(--ink-soft)' }}>
+                When you book below, it will show here.
+              </p>
+            )}
+          </div>
+        )}
 
         <h2 id="book" style={{ marginTop: 38 }}>
           Book and pay
@@ -113,7 +174,7 @@ export default async function ClientPortalPage({
             </div>
             {who && (
               <p style={{ margin: '12px 0 0', fontSize: '.92rem', color: 'var(--ink-soft)' }}>
-                <Link href={`${site.portalPath}#book`}>See both calendars instead</Link>
+                <Link href={`${site.portalPath}?with=all#book`}>See both calendars instead</Link>
               </p>
             )}
           </div>
@@ -130,6 +191,25 @@ export default async function ClientPortalPage({
               : <>Pick a time, then choose your counsellor on the calendar</>}
           </p>
         </div>
+
+        {/* WHAT A SESSION WITH HER COSTS, 1 Oct 2026. The portal showed no fee
+            at all; the first figure a client saw was on Cliniko's card form.
+            Types and amounts from the catalogue (lib/cliniko-catalog.ts), the
+            types she offers from the roster. Coverage is plan-dependent. */}
+        {who && herTypes.length > 0 && (
+          <div style={{ margin: '0 0 14px', fontSize: '.95rem' }}>
+            <ul style={{ margin: '0 0 6px', paddingLeft: 20 }}>
+              {herTypes.map((t) => (
+                <li key={t.id}>{t.name}, {t.minutes} minutes, {t.fee}</li>
+              ))}
+            </ul>
+            <p style={{ margin: 0, color: 'var(--ink-soft)' }}>
+              Cliniko takes the card when you book. The receipt carries {who.name.split(' ')[0]}&rsquo;s
+              registration number, which an extended health plan asks for; whether your plan
+              reimburses depends on the plan.
+            </p>
+          </div>
+        )}
 
         {/* The full range of sessions, which is why this page is behind sign-in.
             The public /book page is filtered to the free consultation only. */}

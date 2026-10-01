@@ -275,3 +275,32 @@ export async function listAll(
   }
   return { rows, truncated: Boolean(url), pages };
 }
+
+/* ---------------------------------------------------------------------------
+   The patient behind a portal sign-in, 1 Oct 2026. READ ONLY.
+
+   The client portal shows the signed-in client their upcoming sessions (lib/
+   portal-appointments.ts), which needs the patient and the link to their
+   appointment list. Same email filter as readReminderPrefs. Null when there
+   is no such patient or no key; THROWS on any other failure, so the caller
+   decides what a failure means (for the portal: render as if Cliniko were
+   not there). Bounded by a timeout, because it sits on a page render.
+   --------------------------------------------------------------------------- */
+export async function patientByEmail(
+  email: string, timeoutMs = 4000
+): Promise<{ id: string; appointmentsUrl: string } | null> {
+  const a = api();
+  if (!a) return null;
+  const url =
+    `https://api.${a.shard}.cliniko.com/v1/patients` +
+    `?q[]=${encodeURIComponent(`email:=${email.trim().toLowerCase()}`)}&per_page=1`;
+  const res = await fetch(url, { headers: headers(a.key), cache: 'no-store', signal: AbortSignal.timeout(timeoutMs) });
+  if (!res.ok) throw new Error(`Cliniko HTTP ${res.status}`);
+  const body = (await res.json()) as { patients?: { id?: unknown; appointments?: { links?: { self?: string } } }[] };
+  const p = body.patients?.[0];
+  if (!p || p.id == null) return null;
+  return {
+    id: String(p.id),
+    appointmentsUrl: p.appointments?.links?.self || `https://api.${a.shard}.cliniko.com/v1/patients/${String(p.id)}/appointments`,
+  };
+}
