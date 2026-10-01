@@ -131,7 +131,7 @@ export const moreResources3: Resource[] = [
       {
         h2: 'What this practice offers, named last on purpose',
         body: [
-          'Westpeak Wellness is a private, fully online counselling practice registered in White Rock and working across BC by secure video. Its Registered Clinical Counsellors work in English, Punjabi and Tagalog, in the language itself rather than through an interpreter. The practice does not bill MSP and says so; fees are published in full; most extended health plans that list an RCC reimburse the sessions, and whether a given plan does is always plan-dependent.',
+          'Westpeak Wellness is a private, fully online counselling practice registered in White Rock and working across BC by secure video. Its Registered Clinical Counsellors work in English, Punjabi and Tagalog, in the language itself rather than through an interpreter. The practice does not bill MSP and says so; fees are published in full; a plan that lists an RCC reimburses the sessions, and whether a given plan does is always plan-dependent.',
           'The first step is a free 30-minute consultation by video, which can be booked for the person or requested on their behalf. The in-language pages exist for the reader who wants to send them along: [counselling in Punjabi](/punjabi) and [counselling in Tagalog](/tagalog), with the English service pages at [Punjabi-speaking counselling](/services/punjabi-counselling) and [Tagalog-speaking counselling](/services/tagalog-counselling). Two short glossaries, [what the Punjabi words mean](/resources/counselling-in-punjabi-what-the-words-mean) and [what the Tagalog words mean](/resources/counselling-in-tagalog-what-the-words-mean), are written for exactly the conversation where a family is deciding whether to try.',
           'If you are referring somebody professionally, the [referral page](/refer) sets out what the practice does and does not treat. Email is the better route than phone; it is answered within one business day by the counsellor.',
         ],
@@ -356,7 +356,7 @@ export const moreResources3: Resource[] = [
       {
         h2: 'What counselling has to do with any of this',
         body: [
-          'A counsellor cannot sign a leave, and no template on this page pretends otherwise. What counselling does is run inside the leave, which is usually what the leave is for, and it is the part that makes the return-to-work plan more than a schedule. Most extended health plans that list a Registered Clinical Counsellor reimburse the sessions, which is plan-dependent and worth checking with the booklet before the first one; [does my plan cover counselling](/resources/does-my-plan-cover-counselling-bc) has the words to use.',
+          'A counsellor cannot sign a leave, and no template on this page pretends otherwise. What counselling does is run inside the leave, which is usually what the leave is for, and it is the part that makes the return-to-work plan more than a schedule. A plan that lists a Registered Clinical Counsellor reimburses the sessions, which is plan-dependent and worth checking with the booklet before the first one; [does my plan cover counselling](/resources/does-my-plan-cover-counselling-bc) has the words to use.',
           'If the leave is for somebody on your team rather than for you, [counselling support for BC teams](/resources/counselling-support-for-bc-teams) is the employer-facing page.',
         ],
       },

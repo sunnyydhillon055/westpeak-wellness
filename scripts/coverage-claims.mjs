@@ -31,14 +31,6 @@ export const PATTERNS = [
 ];
 
 export const PENDING = [
-  { file: 'lib/resources.ts', fragment: 'is not free, and most extended health plans reimburse it' },
-  { file: 'lib/resources-more.ts', fragment: 'Most major BC extended-health plans reimburse RCC counselling' },
-  { file: 'lib/resources-more3.ts', fragment: 'most extended health plans that list an RCC reimburse the sessions' },
-  { file: 'lib/resources-more3.ts', fragment: 'Most extended health plans that list a Registered Clinical Counsellor reimburse' },
-  { file: 'lib/guides-drafts.ts', fragment: 'most BC extended health plans that cover an RCC cover this work' },
-  { file: 'lib/locations.ts', fragment: 'Most BC plans that list Registered Clinical Counsellors will' },
-  { file: 'app/services/page.tsx', fragment: 'reimbursable through most extended health plans' },
-  { file: 'lib/depth4.ts', fragment: 'Most plans cover Registered Clinical Counsellors, and the annual cap' },
 ];
 
 /** Every unconditional coverage claim in `text`, as { line, text }. */

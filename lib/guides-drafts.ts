@@ -85,7 +85,7 @@ export const draftGuides: Guide[] = [
         body: [
           'If the trauma followed a **motor vehicle crash in BC**, ICBC pre-approves twelve counselling sessions with a Registered Clinical Counsellor in the first twelve weeks and **no doctor\'s note is required** to begin. This is the most underused entitlement in the province.',
           'If it followed a **violent crime**, the Crime Victim Assistance Program funds a course of counselling rather than a handful of sessions.',
-          'Otherwise most BC extended health plans that cover an RCC cover this work on the same terms as any other counselling, [what BC plans actually cover](/resources/bc-extended-health-coverage-for-counselling) sets out how to check yours, and [how referrals work](/refer) lists the funded routes in one place.',
+          'Otherwise a plan that covers an RCC covers this work on the same terms as any other counselling, [what BC plans actually cover](/resources/bc-extended-health-coverage-for-counselling) sets out how to check yours, and [how referrals work](/refer) lists the funded routes in one place.',
         ],
       },
     ],

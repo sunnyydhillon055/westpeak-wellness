@@ -66,7 +66,7 @@ export const moreAudiences5: Audience[] = [
       {
         h2: 'Paying for it',
         body: [
-          'Company drivers often have an extended health plan that reimburses a Registered Clinical Counsellor; the [coverage page](/resources/does-my-plan-cover-counselling-bc) says how to check yours in two minutes. Owner-operators usually pay directly and can claim the receipt as a medical expense at tax time. Fees are on the [fees page](/pricing), in full.',
+          'Company drivers often have an extended health plan that reimburses a Registered Clinical Counsellor; the [coverage page](/resources/does-my-plan-cover-counselling-bc) says how to check yours in two minutes. Owner-operators usually pay directly; the federal medical expense credit generally does not apply to RCC fees in BC until counselling is regulated, so keep the receipt and ask whoever does your taxes. Fees are on the [fees page](/pricing), in full.',
           'After a crash on the job, [WorkSafeBC](/resources/worksafebc-psychological-injury-claims) may cover counselling for a psychological injury, and [ICBC](/resources/icbc-counselling-after-a-crash-bc) covers counselling after a collision in BC whoever was at fault. Both pages set out how.',
         ],
       },

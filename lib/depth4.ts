@@ -116,7 +116,7 @@ export const depth4: Record<string, DepthSection[]> = {
       h2: 'Student counselling in BC: the short version',
       body: [
         'Every post-secondary student in BC has two guaranteed layers before money enters the picture: **campus counselling**, funded by fees at every major institution, and **Here2Talk**, the provincial 24/7 single-session service, free by app, phone or chat for all registered students. High-school students have school counsellors and, for ages 12–24, the Foundry network. None of these require a diagnosis, a referral, or a parent’s involvement for adults.',
-        'The honest limits: campus services are short-term models with late-semester waits, and Here2Talk is single-session by design. When a student needs ongoing weekly work, the usual route is private counselling reimbursed through the student union’s extended-health plan. Most plans cover Registered Clinical Counsellors, and the annual cap typically funds a meaningful stretch of sessions. Therapists for students, in other words, exist at every price point including zero; the sections below map who qualifies for what.',
+        'The honest limits: campus services are short-term models with late-semester waits, and Here2Talk is single-session by design. When a student needs ongoing weekly work, the usual route is private counselling reimbursed through the student union’s extended-health plan. Many plans cover Registered Clinical Counsellors, depending on the plan, and the annual cap decides how many sessions it funds. Therapists for students, in other words, exist at every price point including zero; the sections below map who qualifies for what.',
       ],
     },
   ],
