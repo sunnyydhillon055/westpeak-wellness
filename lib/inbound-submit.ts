@@ -11,6 +11,7 @@ import { hasEnoughDetail } from '@/lib/sentences';
 import { LOOKING, WHERE, TIMING, isOption } from '@/lib/enquiry-fields';
 import { countConversion } from '@/lib/conversion-log';
 import { MAGNET_KEYS } from '@/lib/conversion-detail';
+import { safePath, returnUrl } from '@/lib/inbound-return';
 
 /* One submit path for both inbound forms, enquiry and lead.
  *
@@ -41,13 +42,8 @@ export type SubmitOptions = {
 };
 
 /* The form says which page it was on so the person lands back where they were
- * rather than on a generic thank-you. Validated as a same-site absolute path:
- * a redirect target taken from a request body is an open-redirect the moment
- * it is trusted, and `//evil.example` is a protocol-relative URL that looks
- * like a path. */
-function safePath(v: string, fallback: string): string {
-  return /^\/(?!\/)[A-Za-z0-9\-._~!$&'()*+,;=:@%/]*$/.test(v) ? v : fallback;
-}
+ * rather than on a generic thank-you. Validated as a same-site absolute path
+ * by safePath() in lib/inbound-return.ts. */
 
 export async function handleInbound(req: Request, o: SubmitOptions) {
   let form: FormData;
@@ -73,8 +69,21 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
    * body is an open redirect the moment it is trusted. */
   const returnTo = safePath(String(form.get('returnTo') ?? '').trim(), source);
 
+  /* Only a slug that names a real counsellor is kept. The field is hidden and
+     therefore trivially forgeable, and a stored value that is not a real
+     practitioner would put an unanswerable name in front of whoever reads the
+     alert. */
+  const askedFor = String(form.get('practitioner') ?? '').trim().slice(0, 60);
+  const practitioner = practitioners.some((p) => p.slug === askedFor) ? askedFor : '';
+
+  /* Back to /book keeps the counsellor the form was for (?with=), since
+     1 Oct 2026: see lib/inbound-return.ts. */
   const back = (state: string) =>
-    NextResponse.redirect(new URL(`${returnTo}?${o.flag}=${state}#form`, req.url), 303);
+    NextResponse.redirect(new URL(returnUrl(returnTo, o.flag, state, {
+      bookingPath: site.bookingPath,
+      practitioner,
+      accepting: practitioners.filter((p) => p.acceptingNewClients).map((p) => p.slug),
+    }), req.url), 303);
 
   const honeypot = String(form.get(HONEYPOT) ?? '');
 
@@ -91,12 +100,6 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
    * regex that rejects a valid Canadian number someone typed with an extension
    * costs a callback to save nothing. The ceiling exists only so a paste
    * accident cannot write an essay into the field. */
-  /* Only a slug that names a real counsellor is kept. The field is hidden and
-     therefore trivially forgeable, and a stored value that is not a real
-     practitioner would put an unanswerable name in front of whoever reads the
-     alert. */
-  const askedFor = String(form.get('practitioner') ?? '').trim().slice(0, 60);
-  const practitioner = practitioners.some((p) => p.slug === askedFor) ? askedFor : '';
 
   const phone = String(form.get('phone') ?? '').trim().slice(0, 40);
   const callWindow = String(form.get('callWindow') ?? '').trim().slice(0, 120);
