@@ -57,7 +57,9 @@ export async function GET(req: NextRequest) {
   console.log(
     `[nurture]${dry ? ' DRY' : ''} ${result.sent} sent · ` +
     `${result.skipped.notDue} not due · ${result.skipped.alreadyClient} now clients or in conversation · ` +
-    `${result.skipped.optedOut} opted out · ${result.skipped.bot} disposable or test addresses · ${result.failures.length} failure(s)`
+    `${result.skipped.optedOut} opted out · ${result.skipped.bot} disposable or test addresses · ` +
+    `${result.skipped.quarantine} honeypot-tripped · ${result.skipped.noAck} never sent email 1 or told "one-off" · ` +
+    `${result.failures.length} failure(s)`
   );
   return NextResponse.json({ ...result, dry });
 }

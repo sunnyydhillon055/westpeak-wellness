@@ -76,6 +76,20 @@ export function looksDisposable(email: string): boolean {
   return /^[a-z0-9]{12,}$/.test(local) && /\d/.test(local) && !/[._-]/.test(local);
 }
 
+/* WHAT COUNTS AS A LEAD, AN OPT-IN OR AN ENQUIRY IN A REPORT — 1 Oct 2026.
+ *
+ * The funnel report and /admin counted every stored record. On 1 Oct, 64 of
+ * the 69 lead records were band 'quarantine' (a hidden field filled in) and
+ * monthlyOptIn was true on 68 of them, so "68 leads, 17 from /pricing" was
+ * almost entirely scripts. A record is real here when it is not one of this
+ * project's probes, did not trip the honeypot, and is not a throwaway
+ * address. Nothing is deleted or hidden by this; it decides what is COUNTED. */
+export function isRealSubmission(it: Pick<Inbound, 'email' | 'name' | 'triage'>): boolean {
+  if (isTestSubmission(it)) return false;
+  if (it.triage?.band === 'quarantine') return false;
+  return !looksDisposable(String(it.email ?? ''));
+}
+
 /** Somebody who wrote in and is owed an answer: not a probe, not a script. */
 export function awaitsHumanReply(it: Pick<Inbound, 'email' | 'name' | 'message' | 'source'>): boolean {
   return !isTestSubmission(it) && looksHuman(it);

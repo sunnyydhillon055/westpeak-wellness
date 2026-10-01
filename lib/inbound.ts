@@ -1,6 +1,7 @@
 import { put, get, BlobPreconditionFailedError } from '@vercel/blob';
 import { strongEtag } from '@/lib/blob-etag';
 import { normalizeEmail } from '@/lib/portal-auth';
+import { emailHashOf, messageHashOf } from '@/lib/triage';
 
 /* Everything a stranger sends the practice, in one place.
  *
@@ -144,6 +145,20 @@ export type Inbound = {
    * Optional: everything written before 30 Aug 2026 has no verdict, and
    * back-filling one would be inventing a judgement that was never made. */
   triage?: import('./triage').TriageVerdict;
+  /* WHAT A TRIPPED HONEYPOT KEEPS — 1 Oct 2026.
+     A quarantined submission is stored with no name, address, message or
+     phone: only these keyed hashes (lib/triage.ts submissionHash), so the
+     duplicate and burst checks still see repeats and /admin can still count
+     them. 64 such leads had been stored in full, 28 of them gmail addresses
+     the practice had no reason to hold (PIPEDA, limiting collection). */
+  emailHash?: string;
+  messageHash?: string;
+  /* WHEN EMAIL 1 ACTUALLY WENT — 1 Oct 2026.
+     Set only after the acknowledgement or one-pager was accepted by the mail
+     provider. lib/nurture.ts follows only leads that carry it: no email 1,
+     no email 2. Records written before this date have none, which is the
+     point: they were told "one-off, not a sequence". */
+  ackSentAt?: string;
 };
 
 export type InboundBook = { items: Inbound[]; version: number; updatedAt: string };
@@ -214,13 +229,45 @@ export async function readInbound(opts?: { fresh?: boolean }): Promise<InboundBo
  * the same instant and one being lost. Refusing the second would lose it for
  * certain; appending loses it only in a race that a solo practice will not see.
  * Between "definitely drop it" and "almost certainly keep it", keep it. */
+/* A tripped honeypot, kept as a count and a hash — 1 Oct 2026.
+ *
+ * The verdict, the page, the magnet and the time are what /admin and the
+ * funnel report need to count bots; the address and the message survive only
+ * as keyed hashes so the duplicate and burst checks can still recognise a
+ * repeat. No name, no address, no message, no phone, no consent flag. The
+ * empty strings keep the record's shape, so every reader that does
+ * `i.email.toLowerCase()` keeps working on a row that holds no address. */
+export function quarantined(
+  rec: Pick<Inbound, 'kind' | 'source' | 'magnet' | 'triage' | 'message'>,
+  email: string,
+  now = new Date()
+): Inbound {
+  return {
+    id: crypto.randomUUID().slice(0, 8),
+    kind: rec.kind,
+    name: '',
+    email: '',
+    message: '',
+    source: clip(rec.source, 120) || '/',
+    magnet: clip(rec.magnet, 40) || undefined,
+    triage: rec.triage,
+    emailHash: emailHashOf(email),
+    messageHash: messageHashOf(String(rec.message ?? '')),
+    createdAt: now.toISOString(),
+    /* Nobody is waiting on a reply to a script. */
+    handled: true,
+  };
+}
+
 export async function addInbound(
   rec: Omit<Inbound, 'id' | 'createdAt' | 'handled'>
 ): Promise<Inbound | null> {
   const email = normalizeEmail(rec.email);
   if (!/^[^@\s]+@[^@\s.]+\.[^@\s]+$/.test(email)) return null;
 
-  const item: Inbound = {
+  const item: Inbound = rec.triage?.band === 'quarantine'
+    ? quarantined(rec, email)
+    : {
     id: crypto.randomUUID().slice(0, 8),
     kind: rec.kind,
     name: clip(rec.name, 80),
@@ -423,7 +470,10 @@ export async function deleteInboundByEmail(email: string): Promise<number> {
   const target = email.trim().toLowerCase();
   if (!target) return 0;
   const current = await readInbound({ fresh: true });
-  const items = current.items.filter((i) => i.email.trim().toLowerCase() !== target);
+  /* A quarantined record holds only a hash of the address; it is still
+     somebody's address, so it goes too. */
+  const hash = emailHashOf(target);
+  const items = current.items.filter((i) => i.email.trim().toLowerCase() !== target && i.emailHash !== hash);
   const removed = current.items.length - items.length;
   if (removed) await commit(items);
   return removed;
@@ -509,6 +559,29 @@ export async function markHandled(id: string, handled = true): Promise<boolean> 
     return items.map((i, n) =>
       n === idx ? { ...i, handled, handledAt: handled ? new Date().toISOString() : undefined } : i
     );
+  });
+}
+
+/* "I have answered this" from the link in the practice alert — 1 Oct 2026.
+ *
+ * Unlike markHandled, never un-answers and never moves a timestamp: a message
+ * already marked keeps the handledAt it has, so pressing the button twice, or
+ * pressing it after "Done" in /admin, cannot make the reply look slower or
+ * faster than it was. Returns false when there was nothing to do. */
+export async function markAnswered(id: string, now = new Date()): Promise<boolean> {
+  return mutate('markAnswered', (items) => {
+    const idx = items.findIndex((i) => i.id === id);
+    if (idx < 0 || items[idx].handled) return null;
+    return items.map((i, n) => (n === idx ? { ...i, handled: true, handledAt: now.toISOString() } : i));
+  });
+}
+
+/* Email 1 was accepted by the mail provider. See `ackSentAt` on the type. */
+export async function markAcked(id: string, now = new Date()): Promise<boolean> {
+  return mutate('markAcked', (items) => {
+    const idx = items.findIndex((i) => i.id === id);
+    if (idx < 0 || items[idx].ackSentAt) return null;
+    return items.map((i, n) => (n === idx ? { ...i, ackSentAt: now.toISOString() } : i));
   });
 }
 

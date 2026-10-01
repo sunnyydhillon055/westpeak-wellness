@@ -1,7 +1,9 @@
 import { site } from '@/lib/site';
 import { shell, btn, p, a, esc, wrap, links } from '@/lib/booking-mail';
 import { readInbound, type Inbound } from '@/lib/inbound';
-import { isTestSubmission, looksDisposable } from '@/lib/inbound-quality';
+import { nurtureDecision, magnetWords, type MagnetWords, type NurtureSkip } from '@/lib/nurture-plan';
+import { rosterLines, rosterText, rosterHtml, individualFeeLine, type RosterLine } from '@/lib/lead-roster';
+import { readCatalog } from '@/lib/cliniko-catalog';
 import { sendDetailed, mailConfigured } from '@/lib/portal-mail';
 import { put, get } from '@vercel/blob';
 import { normalizeEmail } from '@/lib/portal-auth';
@@ -103,13 +105,16 @@ export async function optOut(email: string): Promise<void> {
 
 /* ---- the two remaining emails --------------------------------------------- */
 
-const footerNote = (email: string) =>
+/* Which one-pager they asked for, named — 1 Oct 2026. Both emails said "the
+   coverage checklist" to everybody; see MAGNET_WORDS in lib/nurture-plan.ts. */
+const footerNote = (email: string, w: MagnetWords) =>
   `<p style="margin:18px 0 0;font-size:12px;line-height:1.6;color:#545e69;">
-     You are getting this because you asked for the coverage checklist on our website.
+     You are getting this because you asked for ${esc(w.asked)} on our website.
      <a href="${unsubLink(email)}" style="color:#545e69;">Unsubscribe</a>, one click, no questions.
    </p>`;
 
-function email2(firstName: string, to: string) {
+export function email2(firstName: string, to: string, magnet?: string) {
+  const w = magnetWords(magnet);
   const hi = firstName ? `Hi ${firstName},` : 'Hi,';
   const text = wrap(
 `${hi}
@@ -134,7 +139,7 @@ ${site.domain}/tools/which-service
 
 ${site.name}
 
-You are getting this because you asked for the coverage checklist.
+You are getting this because you asked for ${w.asked}.
 Unsubscribe: ${unsubLink(to)}`);
 
   const html = shell(
@@ -144,25 +149,37 @@ Unsubscribe: ${unsubLink(to)}`);
     p('Briefly: you will not be asked to lie on anything. You will not have to start at the beginning of your life. &ldquo;I don&rsquo;t want to go into that yet&rdquo; is a complete sentence and a reasonable one. Most of a first session is working out what you want to be different, which is a more useful question than what is wrong.') +
     btn(links.firstSession, 'The longer version') +
     p(`And if you are not sure which kind of counselling fits, or whether it is counselling you need at all, ${a(`${site.domain}/tools/which-service`, 'this takes about two minutes')}, and several of its answers point somewhere other than here.`) +
-    footerNote(to)
+    footerNote(to, w)
   );
   return { subject: 'What actually happens in a first session', text, html };
 }
 
-function email3(firstName: string, to: string) {
+/* Email 3 names who the consultation would be with, each linking her own
+   calendar, and states the individual fee from the catalogue as it stands on
+   the day it is sent (lib/lead-roster.ts). Both are passed in so the run
+   reads the roster and the catalogue once. */
+export function email3(
+  firstName: string,
+  to: string,
+  magnet?: string,
+  extras: { roster?: RosterLine[]; feeLine?: string | null } = {}
+) {
+  const w = magnetWords(magnet);
   const hi = firstName ? `Hi ${firstName},` : 'Hi,';
+  const roster = extras.roster ?? rosterLines();
+  const feeLine = extras.feeLine ?? null;
   const text = wrap(
 `${hi}
 
 Last one from me.
 
-If you have been turning this over since you downloaded that checklist,
+If you have been turning this over since you asked for ${w.that},
 a free thirty-minute consultation is the least committal way to find
 out whether it is worth going further. It is a conversation, not an
 intake. Nothing to prepare, and no obligation to book afterwards.
 
-${links.book}
-
+${roster.length ? `Each counsellor's own calendar:\n\n${rosterText(roster)}` : links.book}
+${feeLine ? `\n${feeLine}\n` : ''}
 It is also a perfectly good outcome of that call to conclude that
 someone else is a better fit, or that now is not the time. If that is
 where it lands, you will be told so plainly rather than sold to.
@@ -174,7 +191,7 @@ ${links.guides}
 Take care of yourself,
 ${site.name}
 
-You are getting this because you asked for the coverage checklist. This
+You are getting this because you asked for ${w.asked}. This
 is the last of three; there is nothing after it.
 Unsubscribe: ${unsubLink(to)}`);
 
@@ -182,11 +199,14 @@ Unsubscribe: ${unsubLink(to)}`);
     'Thirty minutes, if it is useful',
     p(esc(hi)) +
     p('Last one from me.') +
-    p('If you have been turning this over since you downloaded that checklist, a free thirty-minute consultation is the least committal way to find out whether it is worth going further. It is a conversation, not an intake, nothing to prepare, and no obligation to book afterwards.') +
-    btn(links.book, 'Book a free consultation') +
+    p(`If you have been turning this over since you asked for ${esc(w.that)}, a free thirty-minute consultation is the least committal way to find out whether it is worth going further. It is a conversation, not an intake, nothing to prepare, and no obligation to book afterwards.`) +
+    (roster.length
+      ? p('Each counsellor&rsquo;s own calendar:') + rosterHtml(roster)
+      : btn(links.book, 'Book a free consultation')) +
+    (feeLine ? p(`<span style="color:#545e69;font-size:14px;">${esc(feeLine)}</span>`) : '') +
     p('It is also a perfectly good outcome of that call to conclude that someone else is a better fit, or that now is not the time. If that is where it lands, you will be told so plainly rather than sold to.') +
     p(`If the timing is wrong, that is completely fine, ${a(links.guides, 'the guides stay up and cost nothing')}.`) +
-    footerNote(to)
+    footerNote(to, w)
   );
   return { subject: 'Thirty minutes, if it is useful', text, html };
 }
@@ -196,7 +216,7 @@ Unsubscribe: ${unsubLink(to)}`);
 export type NurtureResult = {
   ok: boolean;
   sent: number;
-  skipped: { optedOut: number; alreadyClient: number; notDue: number; done: number; bot: number };
+  skipped: Record<NurtureSkip, number>;
   failures: string[];
   reason?: string;
 };
@@ -204,7 +224,8 @@ export type NurtureResult = {
 export async function runNurture(opts: { dry?: boolean } = {}): Promise<NurtureResult> {
   const base: NurtureResult = {
     ok: false, sent: 0,
-    skipped: { optedOut: 0, alreadyClient: 0, notDue: 0, done: 0, bot: 0 }, failures: [],
+    skipped: { quarantine: 0, bot: 0, noAck: 0, optedOut: 0, alreadyClient: 0, notDue: 0, done: 0 },
+    failures: [],
   };
   if (!mailConfigured() && !opts.dry) {
     return { ...base, reason: 'RESEND_API_KEY or PORTAL_FROM_EMAIL is not set' };
@@ -231,29 +252,30 @@ export async function runNurture(opts: { dry?: boolean } = {}): Promise<NurtureR
   const leads = items.filter((i: Inbound) => i.kind === 'lead');
   const now = Date.now();
   const step = { ...sent.step };
+  /* Read once per run, at send time: email 3 names who is accepting today and
+     the fee as the catalogue holds it today. */
+  const roster = rosterLines();
+  const feeLine = individualFeeLine(await readCatalog());
 
   for (const lead of leads) {
     const e = lead.email;
-    /* Every subscriber in the ledger on 17 Sep 2026 was a disposable address.
-       A sequence to those is spam by definition and costs sender reputation. */
-    if (isTestSubmission(lead) || looksDisposable(e)) { base.skipped.bot++; continue; }
-    if (sent.optedOut[e]) { base.skipped.optedOut++; continue; }
-    if (clientEmails.has(e) || inConversation.has(e)) { base.skipped.alreadyClient++; continue; }
-
-    const ageDays = (now - new Date(lead.createdAt).getTime()) / 864e5;
-    const done = step[e] ?? 1; // email 1 went out with the signup
-    if (done >= 3) { base.skipped.done++; continue; }
-
-    const next = done + 1;
-    const dueAt = next === 2 ? 4 : 11;
-    if (ageDays < dueAt) { base.skipped.notDue++; continue; }
-    /* A long-dormant lead is not worth waking. Somebody who asked for a
-     * checklist three months ago and was never followed up has moved on, and a
-     * sequence arriving out of nowhere reads as a list being worked. */
-    if (ageDays > 45) { base.skipped.done++; continue; }
+    /* Who may be written to, and which step, is decided in one pure function
+       (lib/nurture-plan.ts): honeypot-tripped scripts, probes and throwaway
+       addresses, leads whose email 1 never went or that were told "one-off",
+       opt-outs, clients and people in conversation, and the not-yet-due. */
+    const decision = nurtureDecision(lead, {
+      step: step[e],
+      optedOut: Boolean(sent.optedOut[e]),
+      known: clientEmails.has(e) || inConversation.has(e),
+      now,
+    });
+    if ('skip' in decision) { base.skipped[decision.skip]++; continue; }
+    const next = decision.send;
 
     const firstName = (lead.name || '').split(/\s+/)[0] ?? '';
-    const mail = next === 2 ? email2(firstName, e) : email3(firstName, e);
+    const mail = next === 2
+      ? email2(firstName, e, lead.magnet)
+      : email3(firstName, e, lead.magnet, { roster, feeLine });
 
     if (opts.dry) { base.sent++; step[e] = next; continue; }
     const res = await sendDetailed(e, mail.subject, mail.text, mail.html, { replyTo: site.email });
