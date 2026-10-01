@@ -3,7 +3,9 @@ import { readClients } from '@/lib/clients';
 import { hasPassword, credentialFingerprint } from '@/lib/portal-users';
 import { createResetToken } from '@/lib/portal-auth';
 import { sendDetailed, mailConfigured } from '@/lib/portal-mail';
-import { site } from '@/lib/site';
+import { site, CONSULT_TYPE } from '@/lib/site';
+import { headers } from '@/lib/cliniko';
+import { isConsultAppointment } from '@/lib/booking-shape';
 
 /* Invites active clients who have no portal password yet to create one.
  *
@@ -197,6 +199,20 @@ export async function sendInviteEmail(
    in ordinary use, only on the first sync after Cliniko was connected.
 
    NEW_CLIENT_INVITES=0 switches it off.
+
+   NARROWED 1 OCT 2026: A PAID BOOKING FIRST. Cliniko creates a patient on
+   every online booking, the free consultation included, so the welcome
+   ("Now that you are a client...") was reaching people before their free
+   call, while they were still deciding, as a fourth email around a
+   consultation. A record that came from Cliniko is now welcomed only once
+   that patient has at least one appointment that is not the consultation
+   and is not cancelled: one /appointments read per patient. Until then it
+   waits in portal/welcome-pending.json (address, first name, when it was
+   added) and every later sync checks it again, for up to 120 days. Someone
+   who never books a session is never told they are a client.
+
+   A client added by hand in /admin carries no Cliniko link and is welcomed
+   at once, as before: an administrator adding them is the decision.
    ========================================================================= */
 const WELCOME_CAP = 10;
 
@@ -225,9 +241,79 @@ export function pickNewInvitees(
   return { send, deferred, recentlyInvited, notActive };
 }
 
+/* One appointment that makes someone a client: not the free consultation,
+   not cancelled, not archived. Pure, exported for the test. */
+export function hasPaidAppointment(
+  appts: { cancelled_at?: string | null; archived_at?: string | null; appointment_type?: { links?: { self?: string } } | null }[],
+  consultTypeId = CONSULT_TYPE,
+): boolean {
+  return appts.some((ap) => !ap.cancelled_at && !ap.archived_at && !isConsultAppointment(ap, consultTypeId));
+}
+
+const PENDING_KEY = 'portal/welcome-pending.json';
+const PENDING_MAX_MS = 120 * 864e5;
+type Pending = Record<string, { first: string; since: string; url: string }>;
+
+async function readPending(): Promise<Pending> {
+  if (!process.env.BLOB_READ_WRITE_TOKEN) return {};
+  try {
+    const hit = await get(PENDING_KEY, { access: 'private', useCache: false });
+    if (!hit || hit.statusCode !== 200 || !hit.stream) return {};
+    const v = (await new Response(hit.stream).json()) as Pending;
+    return v && typeof v === 'object' ? v : {};
+  } catch {
+    return {};
+  }
+}
+
+async function writePending(v: Pending): Promise<void> {
+  await put(PENDING_KEY, JSON.stringify(v, null, 2), {
+    access: 'private', contentType: 'application/json',
+    addRandomSuffix: false, allowOverwrite: true, cacheControlMaxAge: 0,
+  });
+}
+
+/* Does this Cliniko patient have a paid booking yet? true, false, or null
+   when Cliniko could not be asked; null keeps them waiting, never welcomes. */
+async function patientHasPaidBooking(url: string): Promise<boolean | null> {
+  const key = process.env.CLINIKO_API_KEY?.trim();
+  if (!key || !/^https:\/\/api\.[a-z0-9]+\.cliniko\.com\//.test(url)) return null;
+  let next: string | null = `${url}${url.includes('?') ? '&' : '?'}per_page=100`;
+  try {
+    for (let page = 0; page < 5 && next; page++) {
+      const res: Response = await fetch(next, { headers: headers(key), cache: 'no-store' });
+      if (!res.ok) return null;
+      const body = (await res.json()) as { appointments?: any[]; links?: { next?: string } };
+      if (hasPaidAppointment(body.appointments ?? [])) return true;
+      next = body.links?.next ?? null;
+    }
+    return false;
+  } catch {
+    return null;
+  }
+}
+
+/* Splits this run's candidates into those who may be welcomed now and those
+   who wait. Pure apart from the lookup, which the test replaces. */
+export async function gateOnPaidBooking<C extends { email: string; name?: string; status: string; clinikoAppointmentsUrl?: string }>(
+  candidates: C[],
+  lookup: (url: string) => Promise<boolean | null>,
+): Promise<{ ready: C[]; waiting: C[] }> {
+  const ready: C[] = [];
+  const waiting: C[] = [];
+  for (const c of candidates) {
+    if (!c.clinikoAppointmentsUrl) { ready.push(c); continue; }
+    if (c.status !== 'active') { ready.push(c); continue; } // pickNewInvitees refuses them anyway
+    (await lookup(c.clinikoAppointmentsUrl)) === true ? ready.push(c) : waiting.push(c);
+  }
+  return { ready, waiting };
+}
+
 export type WelcomeResult = {
   ok: boolean;
   sent: number;
+  /** From Cliniko with no paid booking yet; waiting for one. */
+  held: number;
   deferred: number;
   recentlyInvited: number;
   notActive: number;
@@ -236,19 +322,49 @@ export type WelcomeResult = {
 };
 
 export async function welcomeNewClients(
-  added: { email: string; name: string; status: string }[],
+  added: { email: string; name: string; status: string; clinikoAppointmentsUrl?: string }[],
   opts: { dry?: boolean } = {}
 ): Promise<WelcomeResult> {
-  const base: WelcomeResult = { ok: false, sent: 0, deferred: 0, recentlyInvited: 0, notActive: 0, failures: [] };
-  if (!added.length) return { ...base, ok: true };
+  const base: WelcomeResult = { ok: false, sent: 0, held: 0, deferred: 0, recentlyInvited: 0, notActive: 0, failures: [] };
   if (!welcomeEnabled()) return { ...base, ok: true, reason: 'NEW_CLIENT_INVITES=0, welcome emails are switched off' };
+
+  /* This run's additions, plus everyone still waiting for a paid booking. */
+  const pending = await readPending();
+  const now = Date.now();
+  const candidates: { email: string; name: string; status: string; clinikoAppointmentsUrl?: string }[] = [...added];
+  const inRun = new Set(added.map((c) => c.email));
+  for (const [email, w] of Object.entries(pending)) {
+    if (inRun.has(email)) continue;
+    candidates.push({ email, name: w.first, status: 'active', clinikoAppointmentsUrl: w.url });
+  }
+  if (!candidates.length) return { ...base, ok: true };
   if (!process.env.PORTAL_SECRET?.trim()) return { ...base, reason: 'PORTAL_SECRET is not set, cannot sign the link' };
   if (!mailConfigured() && !opts.dry) return { ...base, reason: 'RESEND_API_KEY or PORTAL_FROM_EMAIL is not set, cannot send' };
 
+  const { ready, waiting } = await gateOnPaidBooking(candidates, patientHasPaidBooking);
+
+  /* Who waits after this run: still no paid booking, and not past the limit. */
+  const nextPending: Pending = {};
+  for (const c of waiting) {
+    const since = pending[c.email]?.since ?? new Date(now).toISOString();
+    if (now - Date.parse(since) > PENDING_MAX_MS) continue;
+    nextPending[c.email] = { first: (c.name || '').trim().split(/\s+/)[0] || '', since, url: c.clinikoAppointmentsUrl as string };
+  }
+
   const ledger = await read();
-  const pick = pickNewInvitees(added, ledger, Date.now());
-  const result: WelcomeResult = { ...base, ok: true, deferred: pick.deferred, recentlyInvited: pick.recentlyInvited, notActive: pick.notActive };
-  const byEmail = new Map(added.map((c) => [c.email, c]));
+  const pick = pickNewInvitees(ready, ledger, now);
+  const result: WelcomeResult = { ...base, ok: true, held: Object.keys(nextPending).length, deferred: pick.deferred, recentlyInvited: pick.recentlyInvited, notActive: pick.notActive };
+  /* Ready but over the per-run cap: kept waiting so the next run sends it,
+     rather than dropped because it is no longer "added this run". */
+  const sending = new Set(pick.send);
+  for (const c of ready) {
+    if (sending.has(c.email) || !c.clinikoAppointmentsUrl || c.status !== 'active') continue;
+    const last = ledger[c.email] ? Date.parse(ledger[c.email]) : 0;
+    if (last) continue; // already invited: nothing more to wait for
+    nextPending[c.email] = { first: (c.name || '').trim().split(/\s+/)[0] || '', since: pending[c.email]?.since ?? new Date(now).toISOString(), url: c.clinikoAppointmentsUrl };
+  }
+
+  const byEmail = new Map(candidates.map((c) => [c.email, c]));
   for (const email of pick.send) {
     if (opts.dry) { result.sent++; continue; }
     /* Belt and braces: a record added this run cannot have a password, but
@@ -260,9 +376,13 @@ export async function welcomeNewClients(
       result.sent++;
     } else {
       result.failures.push(`${email}: ${sent.detail ?? 'send failed'}`);
+      /* A failed send from Cliniko waits for the next run. */
+      const c = byEmail.get(email);
+      if (c?.clinikoAppointmentsUrl) nextPending[email] = { first: (c.name || '').trim().split(/\s+/)[0] || '', since: pending[email]?.since ?? new Date(now).toISOString(), url: c.clinikoAppointmentsUrl };
     }
   }
   if (!opts.dry && result.sent > 0) await write(ledger);
+  if (!opts.dry && JSON.stringify(nextPending) !== JSON.stringify(pending)) await writePending(nextPending);
   return result;
 }
 

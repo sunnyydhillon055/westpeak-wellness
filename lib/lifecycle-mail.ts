@@ -80,8 +80,50 @@ ${site.domain}`);
 
 /* ---- missed session ------------------------------------------------------- */
 
-export function missedSessionEmail(firstName: string) {
+/* A MISSED FREE CONSULTATION IS NOT A MISSED SESSION. Until 1 Oct 2026 both got
+ * the same note, whose button opened the paid, card-required calendar: a person
+ * who had not yet had the free call was offered a paid hour instead. A consult
+ * now gets its own note, which rebooks the same free consultation with the
+ * same counsellor (/book?with=<slug>#calendar) and mentions no fee at all.
+ *
+ * `consult` is optional so any other caller keeps the session wording. */
+export function missedSessionEmail(firstName: string, consult?: { isConsult: boolean; practitionerSlug?: string }) {
   const hi = firstName ? `Hi ${firstName},` : 'Hi,';
+
+  if (consult?.isConsult) {
+    const again = `${site.domain}${site.bookingPath}${consult.practitionerSlug ? `?with=${encodeURIComponent(consult.practitionerSlug)}` : ''}#calendar`;
+    const text = wrap(
+`${hi}
+
+Your free consultation was booked for yesterday and it did not happen.
+
+No explanation needed, and nothing is assumed. Plans change, and the
+call is still there whenever suits. Here is the same calendar:
+${again}
+
+It is still free, still 30 minutes by secure video, and there is still
+no obligation to book anything afterwards.
+
+If the time of day was the problem, or something else got in the way,
+reply and say so. It is easier to change than to work around.
+
+If you are in immediate danger call 911. For urgent mental-health
+support in BC, call or text 9-8-8 at any hour.
+
+${site.name}`);
+
+    const html = shell(
+      'Whenever suits',
+      p(esc(hi)) +
+      p('Your free consultation was booked for yesterday and it did not happen.') +
+      p('No explanation needed, and nothing is assumed. Plans change, and the call is still there whenever suits.') +
+      btn(again, 'Pick another time') +
+      p('It is still free, still 30 minutes by secure video, and there is still no obligation to book anything afterwards.') +
+      p('If the time of day was the problem, or something else got in the way, reply and say so. It is easier to change than to work around.')
+    );
+
+    return { subject: 'About yesterday | Westpeak Wellness', text, html };
+  }
 
   /* NOTHING ABOUT THE FEE. Deliberately, and this is the important line in the
    * file. Whether to charge for a missed session is a judgement about a person

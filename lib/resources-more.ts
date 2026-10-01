@@ -638,7 +638,7 @@ export const moreResources: Resource[] = [
       'Thirty minutes, no card, no couch. Here is the whole shape of it, so the only unknown left is whether the fit feels right, which is the one thing the call exists to find out.',
     shortAnswer:
       'The free consultation is a 30-minute video call with your counsellor, not a therapy session, not an intake interview, and not a commitment. You will be asked, gently, what brings you; you can ask anything about how the work runs; and both of you are deciding fit. Preparation is one sentence: what you would want to be different. The tech is any device with a camera and a private-enough corner. Nerves are the normal state on this call, and mentioning them is allowed. It tends to help.',
-    updated: '2026-08-28',
+    updated: '2026-10-01',
     readMinutes: 4,
     sections: [
       {
@@ -652,10 +652,11 @@ export const moreResources: Resource[] = [
       {
         h2: 'The practical checklist',
         list: [
+          { label: 'Online only', detail: 'Nothing to travel to. There is no office to come to; the call is by secure video, from wherever you can be private.' },
           { label: 'A device with a camera', detail: 'Phone, tablet or laptop. Nothing to install; the confirmation email carries the video link. Headphones help more than people expect, for privacy and for feeling less like a broadcast.' },
           { label: 'A private-enough corner', detail: 'A bedroom, a parked car, an office with a door. It needs to be private for thirty minutes, not soundproofed for a lifetime, and saying "I only have semi-privacy today" is fine.' },
           { label: 'The location question', detail: 'Sessions are for people physically in Canada: British Columbia with any counsellor, anywhere in the country with Camille. A registration and insurance boundary, not a preference, so say where you are when you book.' },
-          { label: 'Language', detail: 'The consultation can run in English, Punjabi, or both. Nothing needs translating for the counsellor’s benefit.' },
+          { label: 'Language', detail: 'The consultation can run in English, Punjabi or Tagalog, depending on the counsellor: English with either, Punjabi with Savneet, Tagalog with Camille, or a mix. Nothing needs translating for the counsellor’s benefit.' },
           { label: 'If the time stops working', detail: 'Rescheduling is free up to 24 hours ahead. A life that needed counselling is exactly the kind of life that sometimes needs to move an appointment.' },
         ],
       },
@@ -676,7 +677,7 @@ export const moreResources: Resource[] = [
       { q: 'Will I have to talk about the hardest thing?', a: 'No. You choose what to share on the call, and a one-line version: "family stuff", "anxiety, mostly": is plenty. The hard material belongs to actual sessions, at a pace set clinically, once you have decided to work together.' },
       { q: 'What if I freeze or cry?', a: 'Both happen on these calls regularly and neither is a problem, a counsellor’s working day contains more tears than most professions’ working years. Freezing usually passes with one gentle question. There is no performance standard to meet.' },
       { q: 'Can someone join me on the call?', a: 'For individual work, the consultation is best one-to-one, though a support person nearby is fine. For couples work, both partners on the call is the normal arrangement, say so when booking.' },
-      { q: 'What happens after the call?', a: 'If it felt right, you book a first session, usually offered on the call or by email after. If you want to think, you think; a follow-up nudge is not part of the model. If it was not the right fit, you will be told honestly and, where possible, pointed somewhere better.' },
+      { q: 'What happens after the call?', a: 'The next day you get one short email from the practice: the link to book a session with the same counsellor, what sessions cost, and a note that not going ahead is a fine outcome. It is the only one of its kind, with no sequence behind it. If it felt right, you book from that link. If you want to think, you think. If it was not the right fit, you will be told honestly and, where possible, pointed somewhere better.' },
     ],
     sources: [
       { label: 'BC Association of Clinical Counsellors', url: 'https://bcacc.ca' },

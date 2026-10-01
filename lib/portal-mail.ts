@@ -22,7 +22,7 @@ async function send(
  * the email never came. */
 export async function sendDetailed(
   to: string | string[], subject: string, text: string, html?: string,
-  opts?: { replyTo?: string; cc?: string[] }
+  opts?: { replyTo?: string | string[]; cc?: string[] }
 ): Promise<{ ok: boolean; detail?: string }> {
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.PORTAL_FROM_EMAIL;
@@ -41,7 +41,7 @@ export async function sendDetailed(
         from, to: Array.isArray(to) ? to : [to], subject, text,
         ...(html ? { html } : {}),
         ...(opts?.cc?.length ? { cc: opts.cc } : {}),
-        ...(opts?.replyTo ? { reply_to: [opts.replyTo] } : {}),
+        ...(opts?.replyTo && opts.replyTo.length ? { reply_to: Array.isArray(opts.replyTo) ? opts.replyTo : [opts.replyTo] } : {}),
       }),
     });
     if (res.ok) return { ok: true };

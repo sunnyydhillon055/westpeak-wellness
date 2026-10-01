@@ -1,16 +1,19 @@
 import { put, get } from '@vercel/blob';
 import { api, headers } from '@/lib/cliniko';
 import { sendDetailed, mailConfigured } from '@/lib/portal-mail';
-import { confirmationEmail, reminderEmail, followUpEmail, consultFollowUpEmail, type Booking } from '@/lib/booking-mail';
+import { confirmationEmail, reminderEmail, followUpEmail, consultFollowUpEmail, type Booking, type BookingPractitioner } from '@/lib/booking-mail';
 import { missedSessionEmail } from '@/lib/lifecycle-mail';
 import { missedAlreadyNoted, recordMissed } from '@/lib/lifecycle';
-import { site, CONSULT_TYPE } from '@/lib/site';
+import { site, CONSULT_TYPE, bookingsPaidUrlFor } from '@/lib/site';
 /* Pure mapping, kept in its own module so a gate can exercise it without a
  * Cliniko key or a mail server. See the header there. */
 import { durationOf, isConsultAppointment } from '@/lib/booking-shape';
-import { practitioners } from '@/lib/practitioners';
+import { practitioners, withLetters, type Practitioner } from '@/lib/practitioners';
 import { FALLBACK_CATALOG, money } from '@/lib/cliniko-catalog';
 import { shell, p, esc } from '@/lib/booking-mail';
+import { mailtoBookingDraft } from '@/lib/reply-templates';
+import { tallyEvents, addToBookingTally } from '@/lib/booking-tally';
+import { telehealthUrlOf, unconvertedConsults, idFromLink, consultReplyTo } from '@/lib/booking-followups';
 
 /* Polls Cliniko for appointments needing a confirmation or a follow-up.
  *
@@ -49,8 +52,21 @@ const TZ = 'America/Vancouver';
    looking. The owner missed a consultation booked and cancelled with another
    counsellor entirely. Each appointment id the practice has been told about
    is recorded here, once for the booking and once for the cancellation. */
-type Ledger = { confirmed: string[]; followedUp: string[]; reminded: string[]; alerted: string[]; cancelAlerted: string[]; updatedAt: string };
-const EMPTY: Ledger = { confirmed: [], followedUp: [], reminded: [], alerted: [], cancelAlerted: [], updatedAt: '' };
+/* `unconvertedAlerted` and `tallied` added 1 Oct 2026.
+     unconvertedAlerted  Cliniko PATIENT ids the practice has been told had a
+                         consultation and booked nothing after it. Patient,
+                         not appointment, so nobody is the subject of that
+                         notice twice whatever they book later.
+     tallied             event keys ("b:<appointment id>", "c:", "h:", "d:")
+                         already counted into analytics/booking-tally.json.
+                         See lib/booking-tally.ts. */
+type Ledger = {
+  confirmed: string[]; followedUp: string[]; reminded: string[]; alerted: string[]; cancelAlerted: string[];
+  unconvertedAlerted: string[]; tallied: string[]; updatedAt: string;
+  /** Not stored. True when the ledger exists but could not be read. */
+  readFailed?: boolean;
+};
+const EMPTY: Ledger = { confirmed: [], followedUp: [], reminded: [], alerted: [], cancelAlerted: [], unconvertedAlerted: [], tallied: [], updatedAt: '' };
 
 async function readLedger(): Promise<Ledger> {
   if (!process.env.BLOB_READ_WRITE_TOKEN) return EMPTY;
@@ -67,10 +83,14 @@ async function readLedger(): Promise<Ledger> {
          first run after deploy reminds only appointments still inside the
          window ahead, never a backfill of past ones. */
       reminded: Array.isArray(v.reminded) ? v.reminded : [],
+      unconvertedAlerted: Array.isArray(v.unconvertedAlerted) ? v.unconvertedAlerted : [],
+      tallied: Array.isArray(v.tallied) ? v.tallied : [],
       updatedAt: v.updatedAt ?? '',
     };
   } catch {
-    return EMPTY;
+    /* Flagged, so the tally is not re-counted from an empty ledger. The email
+       sets behave as they always have. */
+    return { ...EMPTY, readFailed: true };
   }
 }
 
@@ -78,13 +98,39 @@ async function writeLedger(l: Ledger): Promise<void> {
   /* Bounded. Without a cap this grows forever and eventually the read costs
    * more than the job. 2,000 ids is years of a solo practice, and anything
    * older than that is long past needing either email. */
-  const trim = (a: string[]) => a.slice(-2000);
+  const trim = (a: string[], n = 2000) => a.slice(-n);
   await put(
     KEY,
-    JSON.stringify({ confirmed: trim(l.confirmed), followedUp: trim(l.followedUp), reminded: trim(l.reminded), alerted: trim(l.alerted), cancelAlerted: trim(l.cancelAlerted), updatedAt: new Date().toISOString() }, null, 2),
+    /* `tallied` holds up to three keys per appointment, so its cap is higher:
+       6,000 is far more than the 136-day window ever holds, which is what
+       matters, since a key trimmed while its appointment is still in the
+       window would be counted again. */
+    JSON.stringify({ confirmed: trim(l.confirmed), followedUp: trim(l.followedUp), reminded: trim(l.reminded), alerted: trim(l.alerted), cancelAlerted: trim(l.cancelAlerted), unconvertedAlerted: trim(l.unconvertedAlerted), tallied: trim(l.tallied, 6000), updatedAt: new Date().toISOString() }, null, 2),
     { access: 'private', contentType: 'application/json', addRandomSuffix: false, allowOverwrite: true, cacheControlMaxAge: 0 }
   );
 }
+
+/* "Tuesday, October 6": the day a client would say, for a draft. */
+const fmtDay = (iso: string) => {
+  try {
+    return new Intl.DateTimeFormat('en-CA', { timeZone: TZ, weekday: 'long', month: 'long', day: 'numeric' }).format(new Date(iso));
+  } catch {
+    return iso;
+  }
+};
+
+/* The few roster fields a template needs, so lib/booking-mail.ts never
+   imports the roster. */
+const bookingPractitioner = (pr?: Practitioner): BookingPractitioner | null =>
+  pr
+    ? {
+        slug: pr.slug,
+        nameWithLetters: withLetters(pr),
+        firstName: pr.name.split(/\s+/)[0],
+        languages: pr.languages.map(({ tag, name }) => ({ tag, name })),
+        clinikoPractitionerId: pr.clinikoPractitionerId,
+      }
+    : null;
 
 const fmt = (iso: string) => {
   try {
@@ -107,14 +153,54 @@ export type NotifyResult = {
   /** Alerts to the practice: new online bookings, and cancellations. */
   alerts: number;
   cancellations: number;
+  /** Notices to the practice: a consultation 10-14 days past its follow-up,
+      with no session booked. Nothing goes to the client. */
+  unconverted: number;
+  /** Dry runs only: the consultation appointment ids that would be noticed. */
+  unconvertedCandidates?: string[];
+  /** Events added to analytics/booking-tally.json this run. */
+  tallied: number;
   skipped: { noEmail: number; alreadySent: number };
   failures: string[];
   reason?: string;
 };
 
+const REBOOK_HINT = 'Send it a day later, not the same hour, and not if they have already rebooked.';
+
+/* Which counsellor an appointment is with: the practitioner link on the
+   appointment against the Cliniko id on the roster. */
+const practitionerOf = (ap: any): Practitioner | undefined => {
+  const pid = idFromLink(ap?.practitioner?.links?.self);
+  return pid ? practitioners.find((x) => x.clinikoPractitionerId === pid) : undefined;
+};
+
+/* Draft 2, for a cancelled CONSULTATION only: her FREE calendar, by ?with=.
+   Null for a paid cancellation, or with no address to write to. Exported
+   for the test. */
+export function cancellationDraft(ap: any, who: { firstName: string; email: string }): string | null {
+  if (!who.email || !isConsultAppointment(ap, CONSULT_TYPE)) return null;
+  const pr = practitionerOf(ap);
+  return mailtoBookingDraft(who.email, 'rebook-consult', {
+    firstName: who.firstName,
+    day: fmtDay(ap.starts_at),
+    link: `${site.domain}${site.bookingPath}${pr ? `?with=${pr.slug}` : ''}#calendar`,
+    signer: pr?.name,
+  });
+}
+
+/* Draft 3, for a consultation with no session after it: her PAID calendar. */
+function unconvertedDraftFor(ap: any, who: { firstName: string; email: string }, pr: Practitioner): string {
+  return mailtoBookingDraft(who.email, 'after-consult', {
+    firstName: who.firstName,
+    day: fmtDay(ap.starts_at),
+    link: bookingsPaidUrlFor(pr.clinikoPractitionerId),
+    signer: pr.name,
+  });
+}
+
 export async function runBookingNotifications(opts: { dry?: boolean } = {}): Promise<NotifyResult> {
   const base: NotifyResult = {
-    ok: false, confirmations: 0, reminders: 0, followUps: 0, missed: 0, alerts: 0, cancellations: 0,
+    ok: false, confirmations: 0, reminders: 0, followUps: 0, missed: 0, alerts: 0, cancellations: 0, unconverted: 0, tallied: 0,
     skipped: { noEmail: 0, alreadySent: 0 }, failures: [],
   };
 
@@ -129,19 +215,36 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
    * with 400 "Timestamp needs to be in UTC format." — which would have meant
    * the query always failed and no email ever sent, with nothing in the logs
    * to say why. */
-  const from = new Date(now - 14 * 864e5).toISOString().replace(/\.\d{3}Z$/, 'Z');
+  /* 16 days back, not 14, since 1 Oct 2026: the unconverted-consultation
+     notice looks at consultations that ended 11 to 15 days ago. Every other
+     window here is three days or less, so reading further back sends nothing
+     extra. */
+  const from = new Date(now - 16 * 864e5).toISOString().replace(/\.\d{3}Z$/, 'Z');
   const to = new Date(now + 120 * 864e5).toISOString().replace(/\.\d{3}Z$/, 'Z');
 
+  /* EVERY PAGE, since 1 Oct 2026. This read one page of 100, newest first,
+     so once the window held more than 100 appointments the oldest ones (the
+     ones just past, which are owed a follow-up) silently fell off the end.
+     links.next is followed until Cliniko stops giving one; bounded, so a
+     pagination fault on either side cannot spin until the timeout. */
   let appts: any[] = [];
   try {
-    const url =
+    let url: string | null =
       `https://api.${conn.shard}.cliniko.com/v1/appointments` +
       `?per_page=100&sort=starts_at:desc` +
       `&q[]=${encodeURIComponent(`starts_at:>=${from}`)}` +
       `&q[]=${encodeURIComponent(`starts_at:<=${to}`)}`;
-    const res = await fetch(url, { headers: headers(conn.key), cache: 'no-store' });
-    if (!res.ok) return { ...base, reason: `Cliniko HTTP ${res.status}` };
-    appts = (await res.json()).appointments ?? [];
+    const seen = new Set<string>();
+    for (let page = 0; page < 20 && url; page++) {
+      const res: Response = await fetch(url, { headers: headers(conn.key), cache: 'no-store' });
+      if (!res.ok) return { ...base, reason: `Cliniko HTTP ${res.status}` };
+      const body = (await res.json()) as { appointments?: any[]; links?: { next?: string } };
+      for (const ap of body.appointments ?? []) {
+        const k = String(ap.id);
+        if (!seen.has(k)) { seen.add(k); appts.push(ap); }
+      }
+      url = body.links?.next ?? null;
+    }
   } catch (e) {
     return { ...base, reason: e instanceof Error ? e.message : 'request failed' };
   }
@@ -178,13 +281,9 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
    * practice inbox and, when the roster knows one, to that counsellor's own
    * alert address, so the person whose calendar it is and the person who runs
    * the practice both hear of it in the same message. */
-  const idFrom = (link?: string) => (link ? link.split('/').filter(Boolean).pop() ?? '' : '');
-  const practitionerFor = (ap: any) => {
-    const pid = idFrom(ap.practitioner?.links?.self);
-    return practitioners.find((x) => x.clinikoPractitionerId === pid);
-  };
+  const practitionerFor = practitionerOf;
   const typeFor = (ap: any) => {
-    const tid = idFrom(ap.appointment_type?.links?.self);
+    const tid = idFromLink(ap.appointment_type?.links?.self);
     const item = FALLBACK_CATALOG.items.find((i) => i.id === tid);
     if (isConsultAppointment(ap, CONSULT_TYPE)) return { label: 'Free 30-minute consultation', paid: false };
     return item ? { label: `${item.name}, ${item.minutes} min, ${money(item.cents)}`, paid: item.cents > 0 } : { label: 'Session', paid: true };
@@ -213,16 +312,57 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
       ...(kind === 'cancelled' && ap.cancelled_at ? [['Cancelled at', fmt(ap.cancelled_at)] as [string, string]] : []),
       ...(kind === 'cancelled' && ap.cancellation_note ? [['Note', String(ap.cancellation_note)] as [string, string]] : []),
     ];
-    const text = [kind === 'booked' ? 'New online booking' : 'Appointment cancelled', '', ...rows.map(([k, v]) => `${k.padEnd(12)} ${v}`), '', 'The full record is in Cliniko. This is a notice, not a receipt.'].join('\n');
+    /* A CANCELLED CONSULTATION carries a rebook draft, 1 Oct 2026: draft 2 of
+       the client follow-ups, now in lib/reply-templates.ts, with the first
+       name, the day and her free calendar filled in, as a mailto: for a
+       person to read, edit and send. Nothing is sent to the client from
+       here. Paid cancellations get none. */
+    const rebook = kind === 'cancelled' ? cancellationDraft(ap, who) : null;
+    const text = [kind === 'booked' ? 'New online booking' : 'Appointment cancelled', '', ...rows.map(([k, v]) => `${k.padEnd(12)} ${v}`), '',
+      ...(rebook ? [`Draft a rebook note. ${REBOOK_HINT}`, rebook, ''] : []),
+      'The full record is in Cliniko. This is a notice, not a receipt.'].join('\n');
     const html = shell(
       kind === 'booked' ? 'New online booking' : 'Appointment cancelled',
       `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 18px;font-size:14px;line-height:1.7;">${rows.map(([k, v]) => `<tr><td style="color:#545e69;padding-right:14px;">${esc(k)}</td><td>${esc(v)}</td></tr>`).join('')}</table>` +
+      (rebook ? p(`<a href="${esc(rebook)}" style="color:#3d6c92;font-weight:600;">Draft a rebook note</a><br><span style="color:#545e69;font-size:14px;">${esc(REBOOK_HINT)}</span>`) : '') +
       p('<span style="color:#545e69;font-size:14px;">The full record is in Cliniko. This is a notice, not a receipt.</span>'),
       `${t.label.split(',')[0]}, ${when}`,
     );
     return { subject, text, html };
   };
   const RECENT = 3 * 864e5;
+
+  /* The notice for a consultation that did not become a session. Practice
+     and counsellor only. Subject and preheader carry no name. */
+  const unconvertedNotice = (ap: any, who: { firstName: string; lastName: string; email: string }) => {
+    const pr = practitionerFor(ap);
+    const when = fmt(ap.starts_at);
+    const draft = who.email && pr?.acceptingNewClients ? unconvertedDraftFor(ap, who, pr) : null;
+    const rows: [string, string][] = [
+      ['Client', `${who.firstName} ${who.lastName}`.trim()],
+      ['Email', who.email || '(none on file)'],
+      ['Consultation', when],
+      ['With', pr ? pr.name : '(not on the roster)'],
+    ];
+    const lead = 'A free consultation about two weeks ago, the day-after note went out, and no session has been booked since.';
+    const how = draft
+      ? 'If a note would be welcome, the draft below is draft 3 with her paid calendar filled in. Read it, change what needs changing, and send it from your own mailbox, or leave it. Nothing has been sent to the client and nothing will be.'
+      : pr && !pr.acceptingNewClients
+        ? 'This counsellor is not taking new clients, so the after-consultation note is not the right one. The "full" reply is the honest one, if anything is sent.'
+        : 'Nothing has been sent to the client and nothing will be.';
+    const subject = `No session booked after a consultation, ${fmtDay(ap.starts_at)}`;
+    const text = [lead, '', ...rows.map(([k, v]) => `${k.padEnd(13)} ${v}`), '', how, ...(draft ? ['', 'Draft the after-consultation note:', draft] : []), '', 'This notice is sent once per client.'].join('\n');
+    const html = shell(
+      'No session booked after a consultation',
+      p(esc(lead)) +
+      `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 18px;font-size:14px;line-height:1.7;">${rows.map(([k, v]) => `<tr><td style="color:#545e69;padding-right:14px;">${esc(k)}</td><td>${esc(v)}</td></tr>`).join('')}</table>` +
+      p(esc(how)) +
+      (draft ? p(`<a href="${esc(draft)}" style="color:#3d6c92;font-weight:600;">Draft the after-consultation note</a>`) : '') +
+      p('<span style="color:#545e69;font-size:14px;">This notice is sent once per client.</span>'),
+      'A consultation with no session booked since',
+    );
+    return { subject, text, html };
+  };
 
   for (const ap of appts) {
     const id = String(ap.id);
@@ -289,7 +429,12 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
         if (purl0) {
           const pt0 = await patient(purl0);
           if (pt0 && pt0.email) {
-            const mail = missedSessionEmail(pt0.firstName);
+            /* A missed free consultation gets the note that rebooks the free
+               consultation, with the same counsellor; see lifecycle-mail. */
+            const mail = missedSessionEmail(pt0.firstName, {
+              isConsult: isConsultAppointment(ap, CONSULT_TYPE),
+              practitionerSlug: practitionerFor(ap)?.slug,
+            });
             if (opts.dry) result.missed++;
             else {
               const sent = await sendDetailed(pt0.email, mail.subject, mail.text, mail.html, { replyTo: site.email });
@@ -361,6 +506,8 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
       whenText: fmt(startsAt),
       minutes: durationOf(ap),
       isConsult: isConsultAppointment(ap, CONSULT_TYPE),
+      practitioner: bookingPractitioner(practitionerFor(ap)),
+      telehealthUrl: telehealthUrlOf(ap),
     };
 
     if (needsConfirm) {
@@ -390,21 +537,71 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
        * ordinary follow-up says "book your NEXT session", which is wrong for
        * someone who has not had a first one. See consultFollowUpEmail. */
       const mail = booking.isConsult ? consultFollowUpEmail(booking) : followUpEmail(booking);
+      /* The consultation note is signed by the counsellor the person met, so
+         a reply goes to her, with info@ alongside: the same rule as the
+         enquiry routing ("enquiries go to the counsellor they are for"). */
+      const replyTo = booking.isConsult ? consultReplyTo(practitionerFor(ap)) : site.email;
       if (opts.dry) { result.followUps++; }
       else {
-        const sent = await sendDetailed(pt.email, mail.subject, mail.text, mail.html, { replyTo: site.email });
+        const sent = await sendDetailed(pt.email, mail.subject, mail.text, mail.html, { replyTo });
         if (sent.ok) { followedUp.add(id); result.followUps++; }
         else result.failures.push(`followup ${id}: ${sent.detail ?? 'failed'}`);
       }
     }
   }
 
+  /* CONSULTATIONS THAT DID NOT BECOME SESSIONS — 1 Oct 2026.
+   *
+   * A notice to the practice and to that counsellor, never to the client:
+   * the day-after note promised to be the only message of its kind, so any
+   * second touch has to come from a person. The notice carries draft 3 of
+   * the client follow-ups as a mailto:, with her paid calendar filled in,
+   * for her to edit and send or to leave. Once per patient, ever. */
+  const unconvertedAlerted = new Set(ledger.unconvertedAlerted);
+  const candidates = ledger.readFailed ? [] : unconvertedConsults(appts, {
+    now,
+    isConsult: (ap) => isConsultAppointment(ap, CONSULT_TYPE),
+    followedUp,
+    alreadyAlerted: unconvertedAlerted,
+  });
+  if (opts.dry) result.unconvertedCandidates = candidates.map((ap) => String(ap.id));
+  for (const ap of candidates) {
+    const purl = ap.patient?.links?.self;
+    const who = purl ? await patient(purl) : null;
+    if (!who) continue;
+    const mail = unconvertedNotice(ap, who);
+    if (opts.dry) { result.unconverted++; continue; }
+    const sent = await sendDetailed(recipients(ap), mail.subject, mail.text, mail.html, { replyTo: site.email });
+    if (sent.ok) { unconvertedAlerted.add(idFromLink(purl)); result.unconverted++; }
+    else result.failures.push(`unconverted ${ap.id}: ${sent.detail ?? 'failed'}`);
+  }
+
+  /* THE MONTHLY TALLY. Counts only; see lib/booking-tally.ts. The keys join
+     the ledger only once the tally has been written, so a failed write means
+     the same events are tried next run rather than lost or counted twice.
+     Skipped when the ledger could not be read: an empty ledger would count
+     the whole window again. */
+  const tallied = new Set(ledger.tallied);
+  if (!ledger.readFailed) {
+    const fresh = tallyEvents(appts, {
+      now,
+      isConsult: (ap) => isConsultAppointment(ap, CONSULT_TYPE),
+      slugFor: (ap) => practitionerFor(ap)?.slug,
+    }).filter((e) => !tallied.has(e.key));
+    if (opts.dry) result.tallied = fresh.length;
+    else if (fresh.length && (await addToBookingTally(fresh))) {
+      for (const e of fresh) tallied.add(e.key);
+      result.tallied = fresh.length;
+    }
+  }
+
   /* Written whenever anything changed, including the silent backfill of the
      two alert lists, which must persist or the next run repeats the scan. */
   const ledgerChanged = result.confirmations > 0 || result.reminders > 0 || result.followUps > 0
-    || alerted.size !== ledger.alerted.length || cancelAlerted.size !== ledger.cancelAlerted.length;
+    || alerted.size !== ledger.alerted.length || cancelAlerted.size !== ledger.cancelAlerted.length
+    || unconvertedAlerted.size !== ledger.unconvertedAlerted.length || tallied.size !== ledger.tallied.length;
   if (!opts.dry && ledgerChanged) {
-    await writeLedger({ confirmed: [...confirmed], followedUp: [...followedUp], reminded: [...reminded], alerted: [...alerted], cancelAlerted: [...cancelAlerted], updatedAt: '' });
+    await writeLedger({ confirmed: [...confirmed], followedUp: [...followedUp], reminded: [...reminded], alerted: [...alerted], cancelAlerted: [...cancelAlerted], unconvertedAlerted: [...unconvertedAlerted], tallied: [...tallied], updatedAt: '' });
   }
 
   return result;
