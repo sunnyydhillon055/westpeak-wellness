@@ -43,15 +43,24 @@ export type SyncResult = {
   /* The records that were new this run, once they are safely written. The
      welcome email (lib/portal-invite.ts, welcomeNewClients) is sent from this
      list and from nothing else, so a client is invited because they were just
-     added, never because they happen to lack a password. Empty on failure. */
-  addedClients: ClientRecord[];
+     added, never because they happen to lack a password. Empty on failure.
+     Each carries the link to that patient's appointments in Cliniko, which
+     the welcome reads to check for a paid booking first (1 Oct 2026). The
+     link is on this result only; it is never written to the client list. */
+  addedClients: AddedClient[];
   namesFilled: number;
   skippedNoEmail: number;
   totalInCliniko: number;
   reason?: string;
 };
 
+export type AddedClient = ClientRecord & { clinikoAppointmentsUrl?: string };
+
 type ClinikoPatient = {
+  id?: string | number | null;
+  appointments?: { links?: { self?: string } } | null;
+  /** Set here, not by Cliniko: where this patient's appointments are listed. */
+  appointmentsUrl?: string;
   email?: string | null;
   first_name?: string | null;
   last_name?: string | null;
@@ -84,7 +93,13 @@ async function fetchAllPatients(): Promise<ClinikoPatient[] | { error: string }>
       patients?: ClinikoPatient[];
       links?: { next?: string };
     };
-    out.push(...(body.patients ?? []));
+    for (const p of body.patients ?? []) {
+      /* The patient record links its own appointment list; built from the id
+         when it does not. */
+      const link = p.appointments?.links?.self
+        || (p.id != null ? `https://api.${conn.shard}.cliniko.com/v1/patients/${p.id}/appointments` : undefined);
+      out.push({ ...p, appointmentsUrl: link });
+    }
     url = body.links?.next ?? null;
   }
   return out;
@@ -101,7 +116,7 @@ export async function syncClientsFromCliniko(actor: string): Promise<SyncResult>
 
   const next: ClientRecord[] = [...book.clients];
   let added = 0;
-  const addedClients: ClientRecord[] = [];
+  const addedClients: AddedClient[] = [];
   let namesFilled = 0;
   let skippedNoEmail = 0;
 
@@ -132,7 +147,8 @@ export async function syncClientsFromCliniko(actor: string): Promise<SyncResult>
       };
       next.push(rec);
       byEmail.set(email, rec);
-      addedClients.push(rec);
+      /* A copy, so the link never reaches the stored record. */
+      addedClients.push({ ...rec, clinikoAppointmentsUrl: p.appointmentsUrl });
       added++;
       continue;
     }
