@@ -1,5 +1,5 @@
 import { put, get } from '@vercel/blob';
-import { acceptedDetail, splitBookDetail } from '@/lib/conversion-detail';
+import { acceptedDetail, splitBookDetail, PORTAL_PREFIX } from '@/lib/conversion-detail';
 
 /* FIRST-PARTY CONVERSION COUNTS.
  *
@@ -253,5 +253,49 @@ export function bookClickBreakdown(log: ConversionLog): BookClickBreakdown {
     byCounsellor: rows(byCounsellor),
     noCounsellor,
     unattributed: Math.max(0, sum(log.events.book_click) - sum(log.details?.book_click)),
+  };
+}
+
+export type CalendarRow = {
+  /** Roster slug. */
+  who: string;
+  /** /book's free-consultation calendar, or the portal's paid one. Before
+   *  1 Oct 2026 the portal sent the bare slug, so its older counts sit under
+   *  'book'; the split is exact from that date. */
+  surface: 'book' | 'portal';
+  seen: number;
+  touched: number;
+  opened: number;
+};
+
+export type FunnelCuts = {
+  calendar: CalendarRow[];
+  toolOutcomes: { rows: DetailConversions[]; unattributed: number };
+  magnets: { rows: DetailConversions[]; unattributed: number };
+};
+
+/** The calendar by counsellor and surface, the tools' outcomes and the
+ *  one-pagers, cut from one read. Was assembled inline in /admin; shared on
+ *  1 Oct 2026 so the monthly email prints the same rows. Pure. */
+export function funnelCuts(log: ConversionLog): FunnelCuts {
+  const seen = detailsOf(log, 'scheduler_visible');
+  const touched = detailsOf(log, 'scheduler_interact');
+  const opened = detailsOf(log, 'book_direct');
+  const at = (rows: DetailConversions[], key: string) => rows.find((r) => r.detail === key)?.count ?? 0;
+  const keys = Array.from(new Set([...seen.rows, ...touched.rows, ...opened.rows].map((r) => r.detail)));
+  const calendar = keys.map((key): CalendarRow => {
+    const portal = key.startsWith(PORTAL_PREFIX);
+    return {
+      who: portal ? key.slice(PORTAL_PREFIX.length) : key,
+      surface: portal ? 'portal' : 'book',
+      seen: at(seen.rows, key),
+      touched: at(touched.rows, key),
+      opened: at(opened.rows, key),
+    };
+  }).sort((a, b) => (a.surface === b.surface ? b.seen - a.seen : a.surface === 'book' ? -1 : 1));
+  return {
+    calendar,
+    toolOutcomes: detailsOf(log, 'tool_complete'),
+    magnets: detailsOf(log, 'lead_magnet_submit'),
   };
 }
