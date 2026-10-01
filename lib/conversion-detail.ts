@@ -34,6 +34,8 @@ import { tools, WHICH_SERVICE_OUTCOMES, ACCESS_ROUTES } from '@/lib/tools';
 export const BOOK_LOCATIONS: readonly string[] = [
   'header',
   'sticky',
+  /* The sticky bar on /book itself, which jumps to #calendar (1 Oct 2026). */
+  'sticky-book-jump',
   'cta-band',
   /* The hero and mid-page buttons on the city, service and audience
      templates, routed through BookLink since 1 Oct 2026. */
