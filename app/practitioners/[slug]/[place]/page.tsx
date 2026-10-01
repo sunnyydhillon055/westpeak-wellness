@@ -292,6 +292,10 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
      lib/practitioner-places.ts. */
   const raw = getPractitionerPlace(params.place);
   if (!raw) notFound();
+  /* Only a place this counsellor may be offered in today. `p.provinces` has
+     the insurance gate applied (lib/practitioners.ts), so a lapsed policy
+     takes the Alberta pages down here as well as in generateStaticParams. */
+  if (!placesFor(p.provinces).some((c) => c.slug === raw.slug)) notFound();
   const loc = resolvePlace(raw, p);
   const first = p.name.split(' ')[0];
   /* Every call to action on this page names the counsellor it came from, so

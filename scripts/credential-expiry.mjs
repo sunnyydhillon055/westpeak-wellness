@@ -23,6 +23,7 @@
  * a comment, which is not something a check can read.
  *
  *   node scripts/credential-expiry.mjs           report; fails only on lapsed
+ *                                                (a policy: lapsed past its grace)
  *   node scripts/credential-expiry.mjs --strict  also fails inside the window
  */
 
@@ -99,12 +100,33 @@ if (missing > 0) {
    counted rather than asserted. A practitioner with no `insurance` block is
    reported by name: cover that is not recorded cannot be watched, and it is
    the gate on which provinces a counsellor may be offered in. */
-const insLapsed = insuranceTos.filter((d) => days(d) < 0);
+/* The grace period is read from the roster, so the script and the page gate
+   (insuranceStatus in lib/practitioners.ts) cannot disagree about the day
+   Alberta comes down. Inside the grace the pages still stand and this warns;
+   from the gate day on the pages are already gated and this FAILS, because a
+   lapsed policy is an owner action, not something to build past quietly. */
+const GRACE = Number((src.match(/INSURANCE_GRACE_DAYS\s*=\s*(\d+)/) || [])[1] ?? NaN);
+if (!Number.isFinite(GRACE)) {
+  console.log('  INSURANCE_GRACE_DAYS not found in lib/practitioners.ts; treating any lapse as gated.');
+}
+const grace = Number.isFinite(GRACE) ? GRACE : 0;
+const insLapsed = insuranceTos.filter((d) => days(d) <= -grace);
+const insGrace = insuranceTos.filter((d) => days(d) < 0 && days(d) > -grace);
 const insSoon = insuranceTos.filter((d) => days(d) >= 0 && days(d) <= WARN_DAYS);
 const uninsured = names.length - insuranceBlocks.length;
 console.log('  PROFESSIONAL LIABILITY INSURANCE\n');
 console.log(`    ${insuranceBlocks.length} of ${names.length} practitioner(s) have a policy recorded`);
-for (const d of insuranceTos) console.log(`    policy to ${d} — ${days(d)} days${days(d) < 0 ? '  LAPSED' : days(d) <= WARN_DAYS ? '  RENEW' : ''}`);
+for (const d of insuranceTos) {
+  const n = days(d);
+  const tag = n <= -grace ? '  LAPSED - Alberta and Canada-wide reach are gated off; verify fails'
+    : n < 0 ? `  LAPSED - in grace; Alberta pages come down on the first build ${grace + n} day(s) from now`
+    : n <= WARN_DAYS ? '  RENEW' : '';
+  console.log(`    policy to ${d} — ${n} days${tag}`);
+}
+if (insGrace.length) {
+  console.log('\n    Record the renewal certificate dates in lib/practitioners.ts before the');
+  console.log('    grace runs out, or the Alberta place pages and "anywhere in Canada" go.');
+}
 if (uninsured > 0) {
   console.log(`\n    ${uninsured} practitioner(s) with NO POLICY RECORDED. Not watched rather than`);
   console.log('    not insured: add the certificate\'s dates to the roster.');
@@ -112,5 +134,5 @@ if (uninsured > 0) {
 console.log('');
 
 if (lapsed.length || insLapsed.length) process.exit(1);
-if (STRICT && (soon.length || insSoon.length || missing > 0 || uninsured > 0)) process.exit(1);
+if (STRICT && (soon.length || insSoon.length || insGrace.length || missing > 0 || uninsured > 0)) process.exit(1);
 process.exit(0);
