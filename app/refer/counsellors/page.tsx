@@ -8,6 +8,7 @@ import { webPage } from '@/lib/schema';
 import { COLLECTION_DATES } from '@/lib/page-dates';
 import { consultationAvailability, type Availability } from '@/lib/cliniko-availability';
 import { acceptingCounsellors } from '../accepting';
+import MailLink from '@/components/MailLink';
 
 /* Re-rendered every thirty minutes, like the profiles, so the next-open line
    is what Cliniko is offering. */
@@ -98,7 +99,7 @@ export default async function ForCounsellors() {
             {accepting.length === 0 ? (
               <p>
                 Nobody here is taking new clients at the moment. Write to{' '}
-                <a href={`mailto:${site.email}`}>{site.email}</a> if you would like to know when
+                <MailLink where="refer" /> if you would like to know when
                 that changes; it is better to say so than to send someone to a calendar with
                 nothing in it.
               </p>
@@ -147,7 +148,7 @@ export default async function ForCounsellors() {
             <p>
               If something would help the person not to repeat their story, they can bring it to
               the consultation themselves. Anything you want to send directly needs their written
-              consent, sent to <a href={`mailto:${site.email}`}>{site.email}</a>.
+              consent, sent to <MailLink where="refer" />.
             </p>
 
             <h2>What this is not</h2>

@@ -14,15 +14,18 @@ import { recordAudit, recentAudit } from '@/lib/admin-audit';
 import { readCatalog } from '@/lib/cliniko-catalog';
 import { topSearchTerms, readSearchTerms, searchGaps } from '@/lib/search-log';
 import { REPLY_TEMPLATES, mailtoFor, businessDaysWaiting, replyTimeStats } from '@/lib/reply-templates';
-import { eventTotals, topPagesFor, readConversions, detailsOf, bookClickBreakdown, funnelCuts, channelVisits, clicksOfLandings } from '@/lib/conversion-log';
+import { eventTotals, topPagesFor, readConversions, detailsOf, bookClickBreakdown, funnelCuts, channelVisits, clicksOfLandings, bookingCredit } from '@/lib/conversion-log';
 import { readBookingTally, tallyRows, tallyLine } from '@/lib/booking-tally-read';
-import { funnelJoins, consultLines, enquiryLines } from '@/lib/funnel-report';
-import { recentSnapshots, lastWeek } from '@/lib/conversion-snapshots';
+import { funnelJoins, consultLines, enquiryLines, retentionLines } from '@/lib/funnel-report';
+import { recentSnapshots, lastWeek, weekTable, type WeekRow } from '@/lib/conversion-snapshots';
+import { readGscSummary, newestGscDate, gscLines } from '@/lib/gsc-summary';
+import { practitioners } from '@/lib/practitioners';
+import NoCountSwitch from '@/components/NoCountSwitch';
 import { readLedger, recordContacted } from '@/lib/lifecycle';
 import { reactivationEmail } from '@/lib/lifecycle-mail';
 import { sendDetailed, mailConfigured } from '@/lib/portal-mail';
 import { healthProblems } from '@/lib/health';
-import { readCronHealth, cronProblems, storeFrozen } from '@/lib/cron-health';
+import { readCronHealth, cronProblems, storeFrozen, measurementWarnings } from '@/lib/cron-health';
 import { consultationAvailabilityNow } from '@/lib/cliniko-availability';
 import { site } from '@/lib/site';
 import { revalidatePath } from 'next/cache';
@@ -144,6 +147,8 @@ export default async function AdminPage({
         ...consultLines(joins, joinsMonth, new Date().toLocaleDateString('en-CA', { day: 'numeric', month: 'long', year: 'numeric' })),
         '',
         ...enquiryLines(joins),
+        '',
+        ...retentionLines(joins.retention, joinsMonth),
       ].join('\n')
     : '';
   /* Where visits came from (1 Oct 2026): the kind of organisation whose
@@ -156,14 +161,39 @@ export default async function AdminPage({
   const bookVsLanding = clicksOfLandings(log);
   const landingsSince = log.firstSeen?.landing ?? '';
   /* Last week: the two newest Monday snapshots, subtracted. Null until the
-     cron has run twice. See lib/conversion-snapshots.ts. */
-  const snapshots = await recentSnapshots(2);
+     cron has run twice. See lib/conversion-snapshots.ts. Nine since 1 Oct
+     2026, for the eight-week table: every neighbouring pair, per
+     counsellor, with the booking tally and the consultation slots each
+     snapshot copied, and the messages written on /book that week. */
+  const snapshots = await recentSnapshots(9);
   const week = lastWeek(snapshots);
+  const rosterSlugs = practitioners.filter((p) => p.acceptingNewClients && p.bookable).map((p) => p.slug);
+  const bookMessages = snapshots.length > 1
+    ? (await readInbound()).items
+        .filter((i) => i.kind === 'enquiry' && !isTestSubmission(i) && (i.source || '').split('?')[0] === '/book')
+        .map((i) => ({ createdAt: i.createdAt, practitioner: i.practitioner }))
+    : [];
+  const weeks = weekTable(snapshots, rosterSlugs, bookMessages);
+  /* Which landing and which button led to a click and to a confirmed
+     booking (1 Oct 2026), and mailto: presses beside the messages. */
+  const credit = bookingCredit(log);
+  const emailClicks = detailsOf(log, 'email_click');
+  /* Search Console from the newest committed export, beside this site's own
+     count of sessions that arrived from Google. */
+  const gsc = readGscSummary();
+  const googleLandings = landingClasses.rows.find((r) => r.detail === 'google')?.count;
   const searchTotal = (await readSearchTerms()).total;
   /* Jobs that failed, or that have not reported in twice their expected
      interval — which looks identical to "fine" without the second check. */
   const cronHealth = await readCronHealth();
-  const cronTrouble = cronProblems(cronHealth);
+  /* Plus the measurement that can go stale with every job green: the
+     Search Console export, the Monday snapshot, and this month's report. */
+  const cronTrouble = (() => {
+    const jobs = cronProblems(cronHealth);
+    const extra = measurementWarnings({ gscNewest: newestGscDate(), snapshotNewest: snapshots[0]?.takenAt ?? null, health: cronHealth })
+      .filter((w) => !jobs.some((j) => j.job === w.job));
+    return [...jobs, ...extra];
+  })();
   /* One sentence that outranks the list below it when true - see storeFrozen. */
   const cronStoreFrozen = storeFrozen(cronHealth);
   const availability = await consultationAvailabilityNow();
@@ -752,7 +782,11 @@ export default async function AdminPage({
           Counted on this site rather than in Google Analytics, so it works whether or not
           GA is configured. Counts only &mdash; no sessions and no identifiers.
         </p>
-        <WeekPanel week={week} snapshots={snapshots.length} />
+        <div className="admin-panel">
+          <h3 style={{ marginTop: 0 }}>Your own visits</h3>
+          <NoCountSwitch />
+        </div>
+        <WeekPanel week={week} snapshots={snapshots.length} weeks={weeks} />
         {totals.length === 0 ? (
           <div className="admin-panel">
             <p style={{ margin: 0 }}>
@@ -819,6 +853,25 @@ export default async function AdminPage({
                       <span>{p.count}</span>
                     </li>
                   ))}
+                </ul>
+              </>
+            )}
+            {(emailClicks.rows.length > 0 || emailClicks.unattributed > 0) && (
+              <>
+                <h3 style={{ marginTop: 22 }}>The email address, pressed</h3>
+                <p style={{ color: 'var(--ink-soft)', margin: '4px 0 8px', fontSize: '.92rem' }}>
+                  Presses of a mailto: link, by place, beside the messages written through the forms
+                  ({totals.find((t) => t.event === 'enquiry_submit')?.count ?? 0}). A press opens the
+                  visitor&rsquo;s own mail app; whether they sent anything shows in the inbox, not here.
+                </p>
+                <ul className="admin-terms">
+                  {emailClicks.rows.map((r) => (
+                    <li key={r.detail}>
+                      <span>{r.detail}</span>
+                      <span>{r.count}</span>
+                    </li>
+                  ))}
+                  {emailClicks.unattributed > 0 && <li><span>no place recorded</span><span>{emailClicks.unattributed}</span></li>}
                 </ul>
               </>
             )}
@@ -898,7 +951,8 @@ export default async function AdminPage({
               <>
                 <h3 style={{ marginTop: 22 }}>The calendar, by counsellor</h3>
                 <p style={{ color: 'var(--ink-soft)', margin: '4px 0 8px', fontSize: '.92rem' }}>
-                  Once a counsellor was chosen: her calendar seen, touched, and opened in its own tab,
+                  Once a counsellor was chosen: her calendar seen, touched, opened in its own tab, and
+                  booked (Cliniko&rsquo;s own confirmation from inside the calendar, counted from 1 Oct 2026),
                   on /book (the free consultation) and in the client portal (paid sessions) apart. The
                   portal counted under /book until 1 Oct 2026. The practice-wide calendar, with nobody
                   chosen, is the difference from the totals above.
@@ -907,7 +961,39 @@ export default async function AdminPage({
                   {calendarRows.map((r) => (
                     <li key={`${r.surface}:${r.who}`}>
                       <span><Link href={`/practitioners/${r.who}`}>{r.who}</Link>, {r.surface === 'portal' ? 'portal' : '/book'}</span>
-                      <span>{r.seen} seen · {r.touched} touched · {r.opened} opened</span>
+                      <span>{r.seen} seen · {r.touched} touched · {r.opened} opened · {r.booked} booked</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+            {(credit.byLanding.length > 0 || credit.byButton.some((b) => b.booked > 0)) && (
+              <>
+                <h3 style={{ marginTop: 22 }}>Bookings by the page the visit began on</h3>
+                <p style={{ color: 'var(--ink-soft)', margin: '4px 0 8px', fontSize: '.92rem' }}>
+                  A booking click, and a booking Cliniko confirmed on /book, credited to the first page of
+                  the visit and how it arrived (the link&rsquo;s channel, else the referrer class). Counted
+                  from 1 Oct 2026; a visit that began before then credits nothing
+                  {credit.booked - credit.bookedWithLanding > 0 && `, which is ${credit.booked - credit.bookedWithLanding} booking${credit.booked - credit.bookedWithLanding === 1 ? '' : 's'} so far`}.
+                </p>
+                <ul className="admin-terms">
+                  {credit.byLanding.map((r) => (
+                    <li key={`${r.path}|${r.via}`}>
+                      <span><Link href={r.path}>{r.path}</Link> <small style={{ color: 'var(--ink-soft)' }}>({r.via})</small></span>
+                      <span>{r.clicks} clicks · {r.booked} booked</span>
+                    </li>
+                  ))}
+                </ul>
+                <h3 style={{ marginTop: 22 }}>Clicks and bookings per button</h3>
+                <p style={{ color: 'var(--ink-soft)', margin: '4px 0 8px', fontSize: '.92rem' }}>
+                  Bookings are credited to the last booking button pressed in the visit before Cliniko
+                  confirmed; &ldquo;direct&rdquo; pressed none.
+                </p>
+                <ul className="admin-terms">
+                  {credit.byButton.map((r) => (
+                    <li key={r.button}>
+                      <span>{r.button}</span>
+                      <span>{r.clicks} clicks · {r.booked} booked</span>
                     </li>
                   ))}
                 </ul>
@@ -945,6 +1031,11 @@ export default async function AdminPage({
             )}
           </div>
         )}
+
+        <div id="search-console" className="admin-panel" style={{ marginTop: 22 }}>
+          <h3 style={{ marginTop: 0 }}>Search Console</h3>
+          <pre style={{ margin: '4px 0 0', fontSize: '.85rem', lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>{gscLines(gsc, googleLandings).join('\n')}</pre>
+        </div>
 
         <div id="funnel" className="admin-panel" style={{ marginTop: 22 }}>
             {/* FUNNEL: what the booking-mail job counted in Cliniko, and the
@@ -1356,7 +1447,7 @@ export default async function AdminPage({
    subtracted (lib/conversion-snapshots.ts), so the week reads as counts for
    that week rather than one total since 18 Aug. Booking clicks are shown
    against landings here as well, where both cover the same seven days. */
-function WeekPanel({ week, snapshots }: { week: ReturnType<typeof lastWeek>; snapshots: number }) {
+function WeekPanel({ week, snapshots, weeks }: { week: ReturnType<typeof lastWeek>; snapshots: number; weeks: WeekRow[] }) {
   if (!week) {
     return (
       <div className="admin-panel">
@@ -1375,10 +1466,12 @@ function WeekPanel({ week, snapshots }: { week: ReturnType<typeof lastWeek>; sna
   const landingOn = (path: string) => landings?.byPath.find((r) => r.key === path)?.count ?? 0;
   return (
     <div className="admin-panel">
-      <h3 style={{ marginTop: 0 }}>Last 7 days</h3>
-      <p style={{ margin: '0 0 8px', color: 'var(--ink-soft)', fontSize: '.92em' }}>
-        Counted between {day(week.from)} and {day(week.to)}: {week.total} event{week.total === 1 ? '' : 's'}.
-      </p>
+      <h3 style={{ marginTop: 0 }}>Week by week</h3>
+      <WeekTable rows={weeks} />
+      <details style={{ marginTop: 14 }}>
+      <summary style={{ cursor: 'pointer' }}>
+        Everything counted between {day(week.from)} and {day(week.to)}: {week.total} event{week.total === 1 ? '' : 's'}
+      </summary>
       {week.events.length === 0 ? (
         <p style={{ margin: 0 }}>Nothing counted that week.</p>
       ) : (
@@ -1398,6 +1491,7 @@ function WeekPanel({ week, snapshots }: { week: ReturnType<typeof lastWeek>; sna
           ))}
         </ul>
       )}
+      </details>
       {clicks && clicks.byPath.length > 0 && (
         <>
           <h3 style={{ marginTop: 18 }}>Booking clicks that week, against landings</h3>
@@ -1412,5 +1506,74 @@ function WeekPanel({ week, snapshots }: { week: ReturnType<typeof lastWeek>; sna
         </>
       )}
     </div>
+  );
+}
+
+/* EIGHT WEEKS, PER COUNSELLOR — 1 Oct 2026. Built by weekTable() in
+   lib/conversion-snapshots.ts from the newest nine Monday snapshots: the
+   site's counters, the booking tally and the open consultation slots each
+   one copied, plus the messages written on /book that week (mostly "None of
+   these times work?"). A dash is a column that was not counted yet; a
+   marked week says why it is partial. */
+function WeekTable({ rows }: { rows: WeekRow[] }) {
+  if (!rows.length) return null;
+  const who = Array.from(new Set(rows.map((r) => r.who)));
+  const n = (v: number | null) => (v === null ? '–' : v);
+  const cell: React.CSSProperties = { padding: '4px 8px', borderBottom: '1px solid var(--line)', textAlign: 'right', fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' };
+  const head: React.CSSProperties = { ...cell, fontWeight: 600, fontSize: '.8rem', color: 'var(--ink-soft)' };
+  return (
+    <>
+      {who.map((w) => (
+        <div key={w} style={{ marginTop: 12, overflowX: 'auto' }}>
+          <p style={{ margin: '0 0 4px', fontWeight: 600 }}>{w === 'all' ? 'The practice (/book; the portal is left out)' : w}</p>
+          <table style={{ borderCollapse: 'collapse', fontSize: '.85rem', minWidth: 640 }}>
+            <thead>
+              <tr>
+                <th style={{ ...head, textAlign: 'left' }}>week to</th>
+                <th style={head}>landings</th>
+                <th style={head}>book clicks</th>
+                <th style={head}>calendar seen</th>
+                <th style={head}>touched</th>
+                <th style={head}>booked</th>
+                <th style={head}>consults booked</th>
+                <th style={head}>held</th>
+                <th style={head}>paid booked</th>
+                <th style={head}>missed</th>
+                <th style={head}>open consult slots</th>
+                <th style={head}>time asked for</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.filter((r) => r.who === w).map((r) => (
+                <tr key={r.to} title={r.partial.join('; ') || undefined}>
+                  <td style={{ ...cell, textAlign: 'left' }}>{r.to.slice(0, 10)}{r.partial.length > 0 && ' *'}</td>
+                  <td style={cell}>{n(r.landing)}</td>
+                  <td style={cell}>{n(r.bookClick)}</td>
+                  <td style={cell}>{n(r.visible)}</td>
+                  <td style={cell}>{n(r.interact)}</td>
+                  <td style={cell}>{n(r.booked)}</td>
+                  <td style={cell}>{n(r.consultBooked)}</td>
+                  <td style={cell}>{n(r.consultHeld)}</td>
+                  <td style={cell}>{n(r.paidBooked)}</td>
+                  <td style={cell}>{n(r.dna)}</td>
+                  <td style={cell}>{r.slots === null ? '–' : `${r.slots}${r.slotDays.length ? ` (${r.slotDays.join(', ')})` : ''}`}</td>
+                  <td style={cell}>{r.timeRequests}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ))}
+      {rows.some((r) => r.partial.length) && (
+        <ul style={{ margin: '8px 0 0', paddingLeft: 18, color: 'var(--ink-soft)', fontSize: '.85rem' }}>
+          {Array.from(new Set(rows.filter((r) => r.who === 'all' && r.partial.length).map((r) => `* week to ${r.to.slice(0, 10)}: ${r.partial.join('; ')}`))).map((t) => <li key={t}>{t}</li>)}
+        </ul>
+      )}
+      <p style={{ margin: '8px 0 0', color: 'var(--ink-soft)', fontSize: '.85rem' }}>
+        Open consult slots are the free consultations Cliniko showed for the 14 days after the week
+        began. A counsellor&rsquo;s book clicks are the ones whose link named her; her calendar
+        columns are her calendar on /book.
+      </p>
+    </>
   );
 }

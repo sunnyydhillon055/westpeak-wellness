@@ -80,9 +80,36 @@ export default function SchedulerTelemetry({
     };
     window.addEventListener('blur', onBlur);
 
+    /* `scheduler_booked` — 1 Oct 2026. The frame is opaque, but Cliniko's
+     * bookings page posts a message to its parent when a booking is
+     * confirmed: 'cliniko-bookings-page:confirmed' (Cliniko help article
+     * 4726326). Accepted only from an https origin on cliniko.com, and only
+     * from a frame inside this box, so a second calendar on the page or any
+     * other window cannot count here. Once per mount. Nothing in the message
+     * is read beyond its name: no time, no type, no patient. */
+    let booked = false;
+    const onMessage = (e: MessageEvent) => {
+      if (booked) return;
+      try {
+        const host = new URL(e.origin).hostname;
+        if (!e.origin.startsWith('https://') || !(host === 'cliniko.com' || host.endsWith('.cliniko.com'))) return;
+        const frames = Array.from(el.querySelectorAll('iframe'));
+        /* The frame itself, or a frame Cliniko nests inside it. `parent` is
+           one of the few properties readable across origins. */
+        const src = e.source as Window | null;
+        if (!src || !frames.some((f) => f.contentWindow === src || f.contentWindow === src.parent)) return;
+        const name = typeof e.data === 'string' ? e.data : '';
+        if (name !== 'cliniko-bookings-page:confirmed' && !name.startsWith('cliniko-bookings-page:confirmed:')) return;
+        booked = true;
+        track('scheduler_booked', { page, detail: who });
+      } catch { /* never load-bearing */ }
+    };
+    window.addEventListener('message', onMessage);
+
     return () => {
       io.disconnect();
       window.removeEventListener('blur', onBlur);
+      window.removeEventListener('message', onMessage);
     };
   }, [page, who]);
 

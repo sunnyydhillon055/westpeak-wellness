@@ -22,7 +22,7 @@ import { toolDetail } from '@/lib/conversion-detail-client';
 export type EstimatorFees = { individual: number; couples: number };
 type Kind = keyof EstimatorFees;
 
-export default function CoverageEstimator({ fees: FEES }: { fees: EstimatorFees }) {
+export default function CoverageEstimator({ fees: FEES, bookHrefs }: { fees: EstimatorFees; bookHrefs?: Partial<Record<Kind, string>> }) {
   const [kind, setKind] = useState<Kind>('individual');
   const [covers, setCovers] = useState<'yes' | 'no' | 'unsure'>('unsure');
   const [perSession, setPerSession] = useState('');
@@ -181,7 +181,7 @@ export default function CoverageEstimator({ fees: FEES }: { fees: EstimatorFees 
             <Link href="/pricing">full fees</Link>
           </p>
 
-          <ResultCta tool="therapy-cost-bc" />
+          <ResultCta tool="therapy-cost-bc" href={bookHrefs?.[kind]} />
           <p className="tool-disclaimer">
             An estimate from the numbers you entered, not a quote, and not advice about your
             plan. Only your insurer can confirm what it will pay.

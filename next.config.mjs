@@ -99,6 +99,16 @@ const securityHeaders = [
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  /* /admin and the monthly report read the committed Search Console exports
+   * and the change register from disk (lib/gsc-summary.ts,
+   * lib/change-register.ts). The file tracer cannot see a directory read,
+   * so the files are named here or the functions ship without them. */
+  experimental: {
+    outputFileTracingIncludes: {
+      '/admin': ['./data/gsc/*-pages*.csv', './data/changes.json'],
+      '/api/cron/funnel-report': ['./data/gsc/*-pages*.csv', './data/changes.json'],
+    },
+  },
   /* CRITICAL-CSS INLINING WAS TRIED HERE AND DOES NOT WORK — 2026-08-28.
    * experimental.optimizeCss (critters) was enabled and built cleanly, and
    * the prerendered App Router HTML came out unchanged: zero inlined style

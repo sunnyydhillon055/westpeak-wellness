@@ -245,6 +245,50 @@ export function cronProblems(health: CronHealth, now = Date.now()): CronRun[] {
   return out;
 }
 
+/* WHEN THE MEASUREMENT ITSELF GOES STALE — 1 Oct 2026.
+ *
+ * Three inputs to every growth decision can stop without any job failing:
+ *
+ *   Search Console   scripts/gsc-pull.mjs exits green when its secret is
+ *                    missing, so a pull that never happens looks like a
+ *                    quiet week. The newest committed export is the test.
+ *   snapshots        the Monday copy of the counters; without two a week
+ *                    apart there is no "last week" on /admin.
+ *   funnel-report    the monthly email, due on the 1st. Its own health file
+ *                    (ops/cron/funnel-report.json) is the evidence it ran.
+ *
+ * Returned in the same shape as cronProblems so /admin lists them under
+ * "Scheduled jobs needing a look". Pure; the caller supplies the dates. */
+export const GSC_STALE_DAYS = 10;
+export const SNAPSHOT_STALE_DAYS = 8;
+
+export function measurementWarnings(
+  o: { gscNewest: string | null; snapshotNewest: string | null; health: CronHealth },
+  now = Date.now(),
+): CronRun[] {
+  const out: CronRun[] = [];
+  const days = (iso: string) => (now - Date.parse(iso.length === 10 ? `${iso}T00:00:00Z` : iso)) / 864e5;
+  if (!o.gscNewest) {
+    out.push({ job: 'gsc-pull', at: '', ok: false, detail: 'no Search Console export is in data/gsc on this deployment' });
+  } else if (days(o.gscNewest) > GSC_STALE_DAYS) {
+    out.push({ job: 'gsc-pull', at: '', ok: false, detail: `the newest Search Console export is from ${o.gscNewest}, ${Math.floor(days(o.gscNewest))} days ago. The Monday pull exits green without its key (GSC_SA_JSON in the repository secrets), so check that first` });
+  }
+  if (!o.snapshotNewest) {
+    out.push({ job: 'weekly-snapshot', at: '', ok: false, detail: 'no weekly snapshot of the counters exists yet' });
+  } else if (days(o.snapshotNewest) > SNAPSHOT_STALE_DAYS) {
+    out.push({ job: 'weekly-snapshot', at: o.snapshotNewest, ok: false, detail: `no snapshot of the counters in ${Math.floor(days(o.snapshotNewest))} days; the weekly tables stop at the last one` });
+  }
+  const d = new Date(now);
+  if (d.getUTCDate() > 2) {
+    const monthStart = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), 1);
+    const last = o.health['funnel-report'];
+    if (!last || !(Date.parse(last.at) >= monthStart)) {
+      out.push({ job: 'funnel-report', at: last?.at ?? '', ok: false, detail: `the monthly report has not recorded a run since the 1st of this month${last ? '' : ', or ever'}` });
+    }
+  }
+  return out;
+}
+
 /* ============================================================================
    THE WATCHDOG, AND WHY IT NO LONGER EMAILS
    ----------------------------------------------------------------------------

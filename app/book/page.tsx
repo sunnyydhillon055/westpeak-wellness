@@ -15,6 +15,7 @@ import { PROVINCE_NAME, type Province } from '@/lib/crisis';
 import { consultationAvailability, availabilityLine, practiceHoursLine } from '@/lib/cliniko-availability';
 import { readCatalog, FALLBACK_CATALOG, type Catalog } from '@/lib/cliniko-catalog';
 import { sessionFeesPhrase } from '@/lib/book-fees';
+import MailLink from '@/components/MailLink';
 
 export const metadata: Metadata = {
   title: 'Book a Free 30-Minute Consultation',
@@ -571,14 +572,14 @@ export default async function Book({
               <h2 style={{ marginTop: 0 }}>Online scheduling is being set up</h2>
               <p>
                 The booking calendar goes live here shortly. In the meantime, email{' '}
-                <a href={`mailto:${site.email}`}>{site.email}</a> with a sentence about what
+                <MailLink where="book-fallback" /> with a sentence about what
                 you&rsquo;re looking for and a couple of times that suit you, and your consultation
                 will be confirmed by reply.
               </p>
               <div className="btn-row" style={{ marginTop: 22 }}>
-                <a className="btn btn--primary" href={`mailto:${site.email}?subject=Free%2030-minute%20consultation`}>
+                <MailLink where="book-fallback" className="btn btn--primary" subject="Free 30-minute consultation">
                   Email to book your consultation
-                </a>
+                </MailLink>
                 <a className="btn btn--ghost" href={site.bookingsFallbackUrl} target="_blank" rel="noopener">
                   Try the booking page directly
                 </a>

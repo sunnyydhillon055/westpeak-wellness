@@ -287,3 +287,154 @@ export function enquiryOutcomes(enqs: EnquiryIn[], appts: Appt[], consultTypeId:
   }
   return out;
 }
+
+/* ---- after the first paid session — 1 Oct 2026 --------------------------
+ *
+ * Everything above follows a consultation to its FIRST paid booking and
+ * stops. Whether that client comes back is the other half of a practice's
+ * income, and three planned changes (the rebooking prompt, the session-two
+ * note, the paid-but-nothing-booked list) cannot be judged without it.
+ * Three numbers, counts only, each by counsellor and by where the client
+ * heard of the practice:
+ *
+ *   rebook   paid sessions held in the window, and how many were followed
+ *            by another paid booking within REBOOK_DAYS. A session whose
+ *            REBOOK_DAYS have not passed and has nothing booked yet is
+ *            `pending`, not a failure, and is left out of the rate.
+ *   depth    clients whose first paid session was DEPTH_DAYS to
+ *            DEPTH_DAYS + 30 days ago (so their whole first 90 days have
+ *            happened), with no paid session in the DEPTH_DAYS before it:
+ *            how many sessions they had in those 90 days.
+ *   idle     clients with a paid session held in the last IDLE_DAYS and
+ *            nothing at all booked from now on.
+ *
+ * Groups smaller than MIN_GROUP are folded into 'other' when printed, as
+ * the city cut above is, so no row is one identifiable person. */
+
+export const REBOOK_DAYS = 21;
+export const DEPTH_DAYS = 90;
+export const IDLE_DAYS = 60;
+export const MIN_GROUP = 3;
+export const OTHER_GROUP = 'other';
+
+export type RebookRow = { sessions: number; followed: number; pending: number };
+export type DepthRow = { clients: number; reached2: number; reached4: number; reached6: number; sessions: number[] };
+export type Retention = {
+  rebook: { all: RebookRow; bySlug: Record<string, RebookRow>; bySource: Record<string, RebookRow> };
+  depth: { from: string; to: string; all: DepthRow; bySlug: Record<string, DepthRow>; bySource: Record<string, DepthRow> };
+  idle: { all: number; bySlug: Record<string, number>; bySource: Record<string, number> };
+};
+
+export type RetentionOpts = {
+  /** The rebook window: paid sessions that started in [from, to). */
+  from: Date;
+  to: Date;
+  now: Date;
+  consultTypeId: string;
+  slugFor: (ap: Appt) => string;
+};
+
+const DAY = 864e5;
+const isPaid = (ap: Appt, consultTypeId: string) => live(ap) && !isConsult(ap, consultTypeId);
+const heldBy = (ap: Appt, now: number) => !ap.did_not_arrive && t(ap.starts_at) < now;
+
+/** The patients whose referral source the retention cut needs. */
+export function retentionPatients(appts: Appt[], o: RetentionOpts): string[] {
+  const now = o.now.getTime();
+  const out = new Set<string>();
+  for (const [k, list] of byPatient(appts)) {
+    if (list.some((x) => isPaid(x, o.consultTypeId) && t(x.starts_at) >= Math.min(o.from.getTime(), now - (DEPTH_DAYS + 30) * DAY))) out.add(k);
+  }
+  return [...out];
+}
+
+const rebookZero = (): RebookRow => ({ sessions: 0, followed: 0, pending: 0 });
+const depthZero = (): DepthRow => ({ clients: 0, reached2: 0, reached4: 0, reached6: 0, sessions: [] });
+
+export function retention(appts: Appt[], o: RetentionOpts, sourceOf: (patient: string) => string = () => 'not recorded'): Retention {
+  const now = o.now.getTime();
+  const grouped = byPatient(appts);
+  const out: Retention = {
+    rebook: { all: rebookZero(), bySlug: {}, bySource: {} },
+    depth: {
+      from: new Date(now - (DEPTH_DAYS + 30) * DAY).toISOString().slice(0, 10),
+      to: new Date(now - DEPTH_DAYS * DAY).toISOString().slice(0, 10),
+      all: depthZero(), bySlug: {}, bySource: {},
+    },
+    idle: { all: 0, bySlug: {}, bySource: {} },
+  };
+  const cohortFrom = now - (DEPTH_DAYS + 30) * DAY;
+  const cohortTo = now - DEPTH_DAYS * DAY;
+
+  for (const [patient, list] of grouped) {
+    const paid = list.filter((x) => isPaid(x, o.consultTypeId));
+    if (!paid.length) continue;
+    const source = sourceOf(patient);
+
+    /* rebook */
+    for (const s of paid) {
+      const at = t(s.starts_at);
+      if (at < o.from.getTime() || at >= o.to.getTime() || !heldBy(s, now)) continue;
+      const followed = paid.some((x) => x !== s && t(x.starts_at) > at && t(x.starts_at) - at <= REBOOK_DAYS * DAY);
+      const pending = !followed && at + REBOOK_DAYS * DAY > now;
+      for (const r of [out.rebook.all, (out.rebook.bySlug[o.slugFor(s) || 'unknown'] ??= rebookZero()), (out.rebook.bySource[source] ??= rebookZero())]) {
+        r.sessions++;
+        if (followed) r.followed++;
+        else if (pending) r.pending++;
+      }
+    }
+
+    /* depth: the first paid session of a new run of care */
+    const first = paid.find((x) => {
+      const at = t(x.starts_at);
+      return at >= cohortFrom && at < cohortTo && !paid.some((y) => t(y.starts_at) < at && at - t(y.starts_at) <= DEPTH_DAYS * DAY);
+    });
+    if (first) {
+      const at = t(first.starts_at);
+      const n = paid.filter((x) => t(x.starts_at) >= at && t(x.starts_at) < at + DEPTH_DAYS * DAY && heldBy(x, now)).length;
+      for (const r of [out.depth.all, (out.depth.bySlug[o.slugFor(first) || 'unknown'] ??= depthZero()), (out.depth.bySource[source] ??= depthZero())]) {
+        r.clients++;
+        if (n >= 2) r.reached2++;
+        if (n >= 4) r.reached4++;
+        if (n >= 6) r.reached6++;
+        r.sessions.push(n);
+      }
+    }
+
+    /* idle: seen lately, nothing booked */
+    const recent = paid.filter((x) => heldBy(x, now) && t(x.starts_at) >= now - IDLE_DAYS * DAY);
+    const upcoming = list.some((x) => live(x) && t(x.starts_at) >= now);
+    if (recent.length && !upcoming) {
+      const slug = o.slugFor(recent[recent.length - 1]) || 'unknown';
+      out.idle.all++;
+      out.idle.bySlug[slug] = (out.idle.bySlug[slug] ?? 0) + 1;
+      out.idle.bySource[source] = (out.idle.bySource[source] ?? 0) + 1;
+    }
+  }
+  return out;
+}
+
+/** The median of a list of counts, or null for none. */
+export function median(xs: number[]): number | null {
+  if (!xs.length) return null;
+  const s = [...xs].sort((a, b) => a - b);
+  const mid = Math.floor(s.length / 2);
+  return s.length % 2 ? s[mid] : (s[mid - 1] + s[mid]) / 2;
+}
+
+/** Groups whose size is under MIN_GROUP merged into OTHER_GROUP. Pure. */
+export function foldSmall<T>(m: Record<string, T>, size: (v: T) => number, merge: (a: T, b: T) => T): Record<string, T> {
+  const out: Record<string, T> = {};
+  for (const [k, v] of Object.entries(m)) {
+    const key = size(v) < MIN_GROUP ? OTHER_GROUP : k;
+    out[key] = out[key] === undefined ? v : merge(out[key], v);
+  }
+  return out;
+}
+
+export const mergeRebook = (a: RebookRow, b: RebookRow): RebookRow =>
+  ({ sessions: a.sessions + b.sessions, followed: a.followed + b.followed, pending: a.pending + b.pending });
+export const mergeDepth = (a: DepthRow, b: DepthRow): DepthRow => ({
+  clients: a.clients + b.clients, reached2: a.reached2 + b.reached2, reached4: a.reached4 + b.reached4,
+  reached6: a.reached6 + b.reached6, sessions: [...a.sessions, ...b.sessions],
+});

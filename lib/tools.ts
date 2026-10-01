@@ -295,8 +295,8 @@ export const WHICH_SERVICE_OUTCOMES: Outcome[] = [
     heading: 'Trauma-informed work, and possibly EMDR',
     body:
       'When something older is still active, the sequence matters more than the method: capacity and regulation first, memory only once you can feel something and still think about it. EMDR is one route through that, with a strong evidence base for post-traumatic stress.',
-    href: '/services/individual-therapy',
-    hrefLabel: 'Trauma therapy',
+    href: '/services/emdr-therapy',
+    hrefLabel: 'EMDR and trauma therapy',
   },
   {
     tag: 'couples',

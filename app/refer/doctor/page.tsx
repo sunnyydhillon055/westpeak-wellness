@@ -10,6 +10,7 @@ import { ogBase } from '@/lib/og-meta';
 import { webPage } from '@/lib/schema';
 import { COLLECTION_DATES, lastmodFor } from '@/lib/page-dates';
 import { acceptingCounsellors } from '../accepting';
+import MailLink from '@/components/MailLink';
 
 export const revalidate = 3600;
 
@@ -347,7 +348,7 @@ export default async function BringToYourDoctor() {
               There is no referral form and none is needed &mdash; the patient books the free
               consultation themselves, which is also how they find out whether this is the right
               place before anyone commits. Clinics that would rather send information first can
-              write to <a href={`mailto:${site.email}`}>{site.email}</a>, and{' '}
+              write to <MailLink where="refer" />, and{' '}
               <Link href="/contact">the enquiry form</Link> reaches the same inbox.
             </p>
             <p>

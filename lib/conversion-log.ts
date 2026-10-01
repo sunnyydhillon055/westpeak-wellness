@@ -1,5 +1,5 @@
 import { blobLedger, memoryLedger, casUpdate, type LedgerIO, type CasOptions } from '@/lib/blob-ledger';
-import { acceptedDetail, splitBookDetail, PORTAL_PREFIX } from '@/lib/conversion-detail';
+import { acceptedDetail, splitBookDetail, splitLandingKey, PORTAL_PREFIX, BOOKED_DIRECT } from '@/lib/conversion-detail';
 
 /* FIRST-PARTY CONVERSION COUNTS.
  *
@@ -90,6 +90,20 @@ const COUNTED = new Set([
      tool concluded says which service page the warm reader was pointed at.
      Fired and dropped since the tools were built; counted from 1 Oct 2026. */
   'tool_complete',
+  /* Cliniko's confirmation from inside the embedded calendar — the step
+     after scheduler_interact that was never measured. Per counsellor and
+     surface, like the two before it. 1 Oct 2026. */
+  'scheduler_booked',
+  /* The landing page and channel of the visit, beside the booking click and
+     the confirmed booking it led to, and the button that opened the
+     calendar. Sent by lib/analytics.ts alongside book_click and
+     scheduler_booked; see landingKeyOk in lib/conversion-detail.ts. */
+  'click_from',
+  'booked_from',
+  'booked_via',
+  /* A mailto: link pressed. StickyBook has fired it since 18 Aug and it was
+     dropped here; every mailto: now goes through components/MailLink.tsx. */
+  'email_click',
 ]);
 
 export type ConversionLog = {
@@ -323,6 +337,8 @@ export type CalendarRow = {
   seen: number;
   touched: number;
   opened: number;
+  /** Cliniko confirmed a booking in this calendar. Counted from 1 Oct 2026. */
+  booked: number;
 };
 
 export type FunnelCuts = {
@@ -338,8 +354,9 @@ export function funnelCuts(log: ConversionLog): FunnelCuts {
   const seen = detailsOf(log, 'scheduler_visible');
   const touched = detailsOf(log, 'scheduler_interact');
   const opened = detailsOf(log, 'book_direct');
+  const booked = detailsOf(log, 'scheduler_booked');
   const at = (rows: DetailConversions[], key: string) => rows.find((r) => r.detail === key)?.count ?? 0;
-  const keys = Array.from(new Set([...seen.rows, ...touched.rows, ...opened.rows].map((r) => r.detail)));
+  const keys = Array.from(new Set([...seen.rows, ...touched.rows, ...opened.rows, ...booked.rows].map((r) => r.detail)));
   const calendar = keys.map((key): CalendarRow => {
     const portal = key.startsWith(PORTAL_PREFIX);
     return {
@@ -348,6 +365,7 @@ export function funnelCuts(log: ConversionLog): FunnelCuts {
       seen: at(seen.rows, key),
       touched: at(touched.rows, key),
       opened: at(opened.rows, key),
+      booked: at(booked.rows, key),
     };
   }).sort((a, b) => (a.surface === b.surface ? b.seen - a.seen : a.surface === 'book' ? -1 : 1));
   return {
@@ -412,4 +430,63 @@ export function diffLogs(older: ConversionLog, newer: ConversionLog): { total: n
     .filter((e) => e.count > 0)
     .sort((a, b) => b.count - a.count || a.event.localeCompare(b.event));
   return { total: Math.max(0, newer.total - older.total), events };
+}
+
+/* ---- which landing and which button led to a booking — 1 Oct 2026 ------- */
+
+export type LandingCredit = {
+  /** The first page of the session. */
+  path: string;
+  /** The ?utm_source= channel its link named, or its referrer class. */
+  via: string;
+  clicks: number;
+  booked: number;
+};
+
+export type ButtonCredit = { button: string; clicks: number; booked: number };
+
+export type BookingCredit = {
+  byLanding: LandingCredit[];
+  byButton: ButtonCredit[];
+  /** Confirmed bookings on /book (the portal's are rebookings and are not
+   *  credited to a landing), and how many of them carried a landing. */
+  booked: number;
+  bookedWithLanding: number;
+};
+
+/** Booking clicks and confirmed bookings credited to the page the visit
+ *  began on, and to the button pressed last before the calendar. Pure;
+ *  /admin and the monthly email print the same rows. A visit that began
+ *  before 1 Oct 2026 has no landing to credit and is left out of byLanding,
+ *  which is why the unattributed number is printed beside it. */
+export function bookingCredit(log: ConversionLog, limit = 20): BookingCredit {
+  const m = new Map<string, LandingCredit>();
+  const row = (key: string) => {
+    let r = m.get(key);
+    if (!r) { const { path, via } = splitLandingKey(key); r = { path, via, clicks: 0, booked: 0 }; m.set(key, r); }
+    return r;
+  };
+  for (const [k, n] of Object.entries(log.details?.click_from ?? {})) row(k).clicks += n;
+  for (const [k, n] of Object.entries(log.details?.booked_from ?? {})) row(k).booked += n;
+  const byLanding = [...m.values()]
+    .sort((a, b) => b.booked - a.booked || b.clicks - a.clicks || a.path.localeCompare(b.path))
+    .slice(0, limit);
+
+  const buttons = new Map<string, ButtonCredit>();
+  const brow = (k: string) => {
+    let r = buttons.get(k);
+    if (!r) { r = { button: k, clicks: 0, booked: 0 }; buttons.set(k, r); }
+    return r;
+  };
+  for (const r of bookClickBreakdown(log).byLocation) brow(r.detail).clicks += r.count;
+  for (const [k, n] of Object.entries(log.details?.booked_via ?? {})) brow(k).booked += n;
+  const byButton = [...buttons.values()].sort((a, b) =>
+    b.booked - a.booked || b.clicks - a.clicks || (a.button === BOOKED_DIRECT ? 1 : 0) - (b.button === BOOKED_DIRECT ? 1 : 0) || a.button.localeCompare(b.button));
+
+  return {
+    byLanding,
+    byButton,
+    booked: sum(log.details?.booked_via),
+    bookedWithLanding: sum(log.details?.booked_from),
+  };
 }

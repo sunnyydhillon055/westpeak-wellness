@@ -8,6 +8,7 @@ import { ogBase } from '@/lib/og-meta';
 import { webPage } from '@/lib/schema';
 import { COLLECTION_DATES } from '@/lib/page-dates';
 import { acceptingCounsellors } from '../accepting';
+import MailLink from '@/components/MailLink';
 
 export const revalidate = 3600;
 
@@ -76,7 +77,7 @@ export default async function ClinicHandout() {
       <p className="handout-book">
         Book: <Link href={bookHref}>{host}/book</Link>
         <br />
-        Questions: <a href={`mailto:${site.email}`}>{site.email}</a>
+        Questions: <MailLink where="refer" />
       </p>
       <p className="handout-crisis">
         Not a crisis service. In crisis, call or text 9-8-8, or call 310-6789. In danger, 9-1-1.
@@ -157,7 +158,7 @@ export default async function ClinicHandout() {
                 A counsellor whose own caseload is full can see who is accepting here at{' '}
                 <Link href="/refer/counsellors">for counsellors with a full caseload</Link>. A
                 clinic that wants a stack of these sent, or something worded differently, can
-                write to <a href={`mailto:${site.email}`}>{site.email}</a>.
+                write to <MailLink where="refer" />.
               </p>
             </div>
           </div>

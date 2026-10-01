@@ -3,13 +3,19 @@
 import Link from 'next/link';
 import { site } from '@/lib/site';
 import { track } from '@/lib/analytics';
-import { bookClickDetail } from '@/lib/conversion-detail-client';
+import { bookClickDetail, withSlugOf } from '@/lib/conversion-detail-client';
 
 /* Closing action on a tool result. Share is a Web Share sheet where the browser
  * supports it and a clipboard copy where it does not — no third-party buttons,
  * which on a counselling site would mean telling a social network that someone
  * read this page. */
-export default function ResultCta({ tool, label }: { tool: string; label?: string }) {
+/* `href` is the booking link for the service the result matched, worked out
+ * by the server page with bookingFor() in lib/booking-cta.ts and passed down
+ * (this is a client component and must not import the roster). A couples
+ * result opens /book?with= the one counsellor who offers couples work rather
+ * than a two-card page where one of the two cannot take it. Absent, the
+ * button opens /book as before. 1 Oct 2026. */
+export default function ResultCta({ tool, label, href }: { tool: string; label?: string; href?: string }) {
   async function share() {
     const url = window.location.href;
     const title = document.title;
@@ -29,8 +35,8 @@ export default function ResultCta({ tool, label }: { tool: string; label?: strin
     <div className="tool-cta">
       <Link
         className="btn btn--primary"
-        href={site.bookingPath}
-        onClick={() => track('book_click', { location: `tool:${tool}`, detail: bookClickDetail(`tool:${tool}`) })}
+        href={href ?? site.bookingPath}
+        onClick={() => track('book_click', { location: `tool:${tool}`, detail: bookClickDetail(`tool:${tool}`, withSlugOf(href)) })}
       >
         {label ?? 'Book a free 30-minute consultation'}
       </Link>
