@@ -4,12 +4,18 @@ import { moreResources2 } from './resources-more2';
 import { albertaResources } from './resources-alberta';
 import { punjabiWordsResource } from './resources-punjabi-words';
 import { tagalogWordsResource } from './resources-tagalog-words';
+import { moreResources3 } from './resources-more3';
 
 export type ResourceSection = {
   h2: string;
   body?: string[];
   list?: { label: string; detail: string }[];
   table?: { columns: string[]; rows: string[][] };
+  /* A block of plain text the reader is meant to copy and adapt: a letter, a
+     checklist, a note. Rendered verbatim in a <pre>, no inline markup, so what
+     is on the page is exactly what lands in the reader's email. Added 1 Oct
+     2026 for the leave templates (lib/resources-more3.ts). */
+  template?: { title: string; lines: string[] };
 };
 
 export type Resource = {
@@ -283,6 +289,7 @@ const coreResources: Resource[] = [
     ],
     related: [
       { href: "/tools/therapy-cost-bc", label: "What private counselling would cost you after extended health" },
+      { href: "/resources/finding-a-counsellor-in-punjabi-or-tagalog-in-bc", label: "Finding a counsellor in Punjabi or Tagalog: a guide for the person helping" },
       { href: "/tools/what-can-i-access", label: "Two-minute check: what can I access in BC?" },
       { href: "/resources/bc-crisis-and-support-directory", label: "BC crisis and support directory" },
       { href: "/resources/msp-vs-extended-health", label: "MSP vs extended health" },
@@ -380,6 +387,6 @@ const coreResources: Resource[] = [
    while the practice served only BC and stopped being right when a counsellor
    who can see Alberta clients joined. See lib/resources-alberta.ts for why
    these are resources rather than part of the gated /alberta section. */
-export const resources: Resource[] = [...coreResources, ...moreResources, ...moreResources2, ...albertaResources, ...punjabiWordsResource, ...tagalogWordsResource];
+export const resources: Resource[] = [...coreResources, ...moreResources, ...moreResources2, ...albertaResources, ...punjabiWordsResource, ...tagalogWordsResource, ...moreResources3];
 
 export const getResource = (slug: string) => resources.find((r) => r.slug === slug);

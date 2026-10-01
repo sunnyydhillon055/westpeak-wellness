@@ -365,6 +365,7 @@ export const moreResources: Resource[] = [
       { href: '/guides/how-to-find-a-therapist-in-bc', label: 'How to find a therapist in BC' },
       { href: '/standards', label: 'Standards and accountability' },
       { href: '/glossary', label: 'Counselling glossary' },
+      { href: '/resources/finding-a-counsellor-in-punjabi-or-tagalog-in-bc', label: 'Checking a Punjabi- or Tagalog-speaking counsellor, for the person helping' },
     ],
   },
 
