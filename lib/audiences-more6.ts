@@ -52,7 +52,7 @@ export const moreAudiences6: Audience[] = [
       {
         h2: 'Paying for it, and keeping it to yourself',
         body: [
-          'Most BC extended health plans reimburse a Registered Clinical Counsellor under counselling or mental health; the [coverage page](/resources/bc-extended-health-coverage-for-counselling) has the two questions to ask. Receipts are issued to you, in your name, and go nowhere else. If you are paying out of pocket, [fees are published in full](/pricing).',
+          'Many extended health plans reimburse a Registered Clinical Counsellor under counselling or mental health, depending on the plan; the [coverage page](/resources/bc-extended-health-coverage-for-counselling) has the two questions to ask. Receipts are issued to you, in your name, and go nowhere else. If you are paying out of pocket, [fees are published in full](/pricing).',
           'If you are in a trade, on a camp rotation, driving, or in emergency services, there are pages written for that: [trades and construction](/for/trades-and-construction-workers), [rotational and camp workers](/for/rotational-and-camp-workers), [truck drivers](/for/truck-drivers) and [first responders](/for/first-responders). The material overlaps with this page; the schedules do not.',
         ],
       },
@@ -70,7 +70,7 @@ export const moreAudiences6: Audience[] = [
       { q: 'Do I have to talk about feelings?', a: 'You have to talk about what is happening and what it is costing. What you call it is up to you. Most men find the work more practical than they expected: a target, a way of measuring it, and things to do between sessions.' },
       { q: 'Can I see a male counsellor?', a: 'The counsellors currently accepting new clients are listed on the counsellors page with their photos and what they work with. Fit matters more than gender for most people, and the free consultation exists so you can judge fit before committing to anything.' },
       { q: 'Will this go on any record?', a: 'No. Attending counselling is not reported to anyone. Sessions are confidential within the ordinary legal limits, which are explained before you share anything, and nothing reaches an employer, insurer or doctor without your written consent.' },
-      { q: 'Is it covered by my plan?', a: 'Most BC extended health plans reimburse a Registered Clinical Counsellor to an annual maximum. Check for "counselling" or "clinical counsellor" in your plan booklet. MSP does not cover private counselling.' },
+      { q: 'Is it covered by my plan?', a: 'Many extended health plans reimburse a Registered Clinical Counsellor to an annual maximum, depending on the plan; the [coverage page](/resources/does-my-plan-cover-counselling-bc) shows how to check yours. Look for "counselling" or "clinical counsellor" in your plan booklet. MSP does not cover private counselling.' },
     ],
     sources: [
       { label: 'HeadsUpGuys, University of British Columbia', url: 'https://headsupguys.org/' },

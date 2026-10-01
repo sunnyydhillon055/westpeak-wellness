@@ -148,7 +148,7 @@ export const moreComparisons2: Comparison[] = [
          page, not the guide at 8.43. The anchor is the service page's own
          heading for that query, so the comparison hands the booking intent
          to the page that can book it. */
-      'Couples work at Westpeak Wellness draws on the Gottman Method, and the page on [Gottman-informed couples counselling in BC](/services/couples-therapy) describes what that looks like session by session. The assessment-first structure and the concrete between-session work are genuine features of how couples work runs here.',
+      'Couples work at Westpeak Wellness is Gottman-informed, and the page on [Gottman-informed couples counselling in BC](/services/couples-therapy) describes what that looks like session by session. The assessment-first structure and the concrete between-session work are genuine features of how couples work runs here.',
       'If you have read this far and it is specifically EFT you want, the right move is an ICEEFT-trained therapist, and their directory is the place to find one. That is not this practice, and pretending otherwise would be a poor way to start a therapeutic relationship. If you are undecided, a [free consultation](/book) with both partners on the call is a reasonable way to hear how the Gottman-informed version would approach your situation.',
     ],
     midCta: {

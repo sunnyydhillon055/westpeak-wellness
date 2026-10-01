@@ -59,7 +59,7 @@ const coreResources: Resource[] = [
     lede:
       "The single most common unpleasant surprise in private therapy is discovering afterwards that your plan does not list your counsellor's designation.",
     shortAnswer:
-      "Most major BC extended health plans cover counselling by a Registered Clinical Counsellor, but not all of them do. Some list only psychologists and social workers. Coverage is typically a dollar cap per calendar year, sometimes with a per-session limit. Direct billing is uncommon for RCCs, so in most cases you pay and submit a receipt. Check the exact wording of your plan before your first session.",
+      "Many BC extended health plans cover counselling by a Registered Clinical Counsellor, depending on the plan, and not all of them do. Some list only psychologists and social workers. Coverage is typically a dollar cap per calendar year, sometimes with a per-session limit. Some insurers accept direct claims from RCCs (Pacific Blue Cross has since July 2025); this practice is pay-and-submit, so you pay and submit a receipt. Check the exact wording of your plan before your first session.",
     updated: "2026-08-30",
     readMinutes: 6,
     sections: [
@@ -96,8 +96,8 @@ const coreResources: Resource[] = [
           { label: "Per-session limit", detail: "Some plans reimburse a set amount per session (say $80) rather than the full fee, so a $140 session leaves $60 out of pocket even while you have annual room left." },
           { label: "Percentage coverage", detail: "Some plans pay a percentage, 80% is common, rather than the full amount up to the cap." },
           { label: "Combined pools", detail: "Watch for a shared limit across practitioner types. If psychology, social work and counselling draw on one pool, seeing two practitioners halves your effective coverage." },
-          { label: "Pay and submit", detail: "Direct billing is uncommon for RCCs in BC, so the usual pattern is that you pay the practice directly and submit the receipt. Most insurers now accept submission through an app, and reimbursement typically lands within days." },
-          { label: "Health spending accounts", detail: "If your plan includes an HSA, counselling is generally an eligible expense even where the core plan does not list RCCs. This is the most commonly missed source of coverage." },
+          { label: "Pay and submit", detail: "Pacific Blue Cross accepts direct claims from RCCs, and some practices use it; this practice is pay-and-submit, so you pay the practice directly and submit the receipt. Most insurers now accept submission through an app, and reimbursement typically lands within days." },
+          { label: "Health and wellness spending accounts", detail: "An HSA pays only expenses the CRA accepts as medical expenses, and the CRA does not yet list counsellors in BC as authorized practitioners, so ask the administrator before relying on one for RCC sessions. A wellness or lifestyle spending account is broader and can usually fund counselling, as a taxable benefit." },
         ],
       },
       {

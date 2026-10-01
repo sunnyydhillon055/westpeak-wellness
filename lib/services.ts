@@ -115,7 +115,7 @@ export const services: Service[] = [
     figure: "gottman-method",
     name: "Couples Therapy",
     short: "Gottman Method: communication, conflict, connection, repair.",
-    metaTitle: "Gottman Method Couples Counselling Online in BC | Westpeak",
+    metaTitle: "Gottman-Informed Couples Counselling Online in BC | Westpeak",
     metaDescription:
       "Online couples counselling across BC using the research-based Gottman Method: communication, conflict, and repair. Book a free consultation.",
     hero: "Strengthen communication, deepen connection, repair what's frayed.",

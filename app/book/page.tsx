@@ -834,7 +834,7 @@ export default async function Book({
             <li>Available in {languageList}</li>
             <li>Individual sessions are 50 minutes; couples sessions are 50 or 110</li>
             <li>Fees and payment are on the <Link href="/pricing">fees page</Link></li>
-            <li>Most BC extended health plans that cover RCCs will reimburse</li>
+            <li>Many extended health plans reimburse an RCC, depending on the plan; <Link href="/resources/does-my-plan-cover-counselling-bc">check yours</Link></li>
           </ul>
 
           <p style={{ marginTop: 18 }}>

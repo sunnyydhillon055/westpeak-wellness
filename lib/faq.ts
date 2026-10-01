@@ -1,5 +1,15 @@
 import { fallbackFee, FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
 import { practitioners } from '@/lib/practitioners';
+import { site } from '@/lib/site';
+
+/* HOW TO CANCEL OR MOVE A SESSION — 1 Oct 2026. The FAQ and /pricing gave the
+ * 24-hour rule and never said how. This is the procedure the confirmation and
+ * reminder emails already state (lib/booking-mail.ts: "reply to this email").
+ * Not "use the link in your confirmation": Cliniko disables self-cancel for a
+ * session paid in full at booking (the note in lib/site.ts), so a link would
+ * be a promise that does not work. /pricing reads this same constant for its
+ * card and its FAQPage answer, so the three cannot drift apart. */
+export const HOW_TO_CANCEL = `To cancel or move a session, reply to your confirmation or reminder email, or write to ${site.email}. No phone call and no reason are needed. The free consultation carries no fee, so moving it costs nothing.`;
 
 export type FAQ = { q: string; a: string };
 
@@ -58,7 +68,7 @@ export const faqs: FAQ[] = [
    * positions 8 and 7 — with no page targeting either. */
   {
     q: "Is therapy considered a medical appointment?",
-    a: "For most practical purposes in BC, yes. A counselling session is a health-care appointment for sick-leave purposes. The Employment Standards Act's sick days cover attending to your health, and you never owe an employer the detail. For taxes, fees paid to a Registered Clinical Counsellor qualify as a medical expense on the federal return for BC residents. What it is not: an MSP-billed physician visit, which is why payment runs through you or your extended health plan rather than your CareCard.",
+    a: "For most practical purposes in BC, yes. A counselling session is a health-care appointment for sick-leave purposes. The Employment Standards Act's sick days cover attending to your health, and you never owe an employer the detail. For taxes, the medical expense tax credit generally does not apply to fees paid to a Registered Clinical Counsellor in BC until psychotherapy is regulated (from 29 November 2027), because the CRA does not yet list BC counsellors as authorized practitioners; check with whoever prepares your return. What it is not: an MSP-billed physician visit, which is why payment runs through you or your extended health plan rather than your CareCard.",
   },
   {
     q: "Can a counsellor refer you to a psychiatrist?",
@@ -66,7 +76,7 @@ export const faqs: FAQ[] = [
   },
   {
     q: "How do I pay, and when?",
-    a: "Sessions are paid by credit card at the time you book, not at the end of the hour. Cancel with at least 24 hours notice and the fee is refunded in full. Inside that window, or for a no-show, 50% of the fee is retained. The time was held and cannot realistically be filled at that notice. The client portal sets out the whole process, including what happens if something unavoidable comes up.",
+    a: "Sessions are paid by credit card at the time you book, not at the end of the hour. Cancel with at least 24 hours notice and the fee is refunded in full. Inside that window, or for a no-show, 50% of the fee is retained. The time was held and cannot realistically be filled at that notice. The client portal sets out the whole process, including what happens if something unavoidable comes up. " + HOW_TO_CANCEL,
   },
   {
     q: "Are you taking new clients?",

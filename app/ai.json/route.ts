@@ -2,8 +2,21 @@ import { site } from '@/lib/site';
 import { practitioners } from '@/lib/practitioners';
 import { ORG_ID, abs } from '@/lib/schema';
 import { services } from '@/lib/services';
-import { conditions } from '@/lib/conditions';
+import { getCityTopic } from '@/lib/conditions';
+import { pairs } from '@/lib/city-services';
+import { TAGALOG_READY } from '@/lib/practitioner-tl';
 import { reachPhrase, bookingPathFor, offeredBy } from '@/lib/practice-facts';
+import { languageEntries, fundingBlock, concernsFromPairs, type LanguagePages } from '@/lib/machine-facts';
+
+/* Where each language is served — 1 Oct 2026. The languages were bare tags;
+   an assistant asked "who speaks Punjabi" had to cross-reference the
+   counsellors. The English service page about the language, and the page
+   written in it where one is published (hreflang pairs only). */
+const LANGUAGE_PAGES: LanguagePages = {
+  'en-CA': { service: '/services', inLanguage: null },
+  pa: { service: '/services/punjabi-counselling', inLanguage: '/punjabi' },
+  tl: { service: '/services/tagalog-counselling', inLanguage: TAGALOG_READY ? '/tagalog' : null },
+};
 
 /* ============================================================================
    THE PRACTICE, AS ONE JSON OBJECT
@@ -85,11 +98,18 @@ export function GET() {
         'British Columbia is served by every counsellor. One counsellor may see clients located anywhere in Canada; each counsellor\'s `reach` says which. A session is delivered where the CLIENT is located, not where the counsellor is. Some provinces (Ontario, Quebec, Nova Scotia, New Brunswick, PEI) regulate the psychotherapy or counselling-therapy titles; a client there should confirm with the counsellor before booking.',
     },
 
-    languages: [
-      { tag: 'en-CA', name: 'English' },
-      { tag: 'pa', name: 'Punjabi', native: 'ਪੰਜਾਬੀ' },
-      { tag: 'tl', name: 'Tagalog' },
-    ],
+    /* Each language with the accepting counsellors who work in it. */
+    languages: languageEntries(
+      [
+        { tag: 'en-CA', name: 'English' },
+        { tag: 'pa', name: 'Punjabi', nativeName: 'ਪੰਜਾਬੀ' },
+        { tag: 'tl', name: 'Tagalog' },
+      ],
+      taking,
+      LANGUAGE_PAGES,
+      abs,
+      bookingPathFor,
+    ),
 
     contact: {
       email: site.email,
@@ -136,18 +156,23 @@ export function GET() {
       counsellors: offeredBy(svc.slug, taking).map((p) => ({ name: p.name, booking_url: abs(bookingPathFor(p.slug)) })),
     })),
 
-    /* What people come with. Each is worked with through one of the services. */
-    concerns: conditions.map((c) => ({
-      name: c.name,
-      through_service: abs(`/services/${c.service}`),
-    })),
+    /* What people come with: the topics the city pages are built around
+       (lib/city-services.ts pairs), each with the service it is worked
+       through and the city pages that carry it. Three conditions were listed
+       here until 1 Oct 2026; the city pages cover more than that. */
+    concerns: concernsFromPairs(pairs, getCityTopic, abs),
 
     fees: {
       published_at: abs('/pricing'),
       note: 'Session fees are read from the booking system and published in full on the fees page. They are not copied here, because a copy is wrong the day a fee changes.',
       insurance:
-        'Most BC extended health plans reimburse a Registered Clinical Counsellor. The practice does not direct-bill; clients pay and submit the receipt, which carries the registration number.',
+        'Many extended health plans reimburse a Registered Clinical Counsellor, depending on the plan; check yours. The practice does not direct-bill; clients pay and submit the receipt, which carries the registration number.',
+      coverage_check: abs('/resources/does-my-plan-cover-counselling-bc'),
     },
+
+    /* How it is paid for, and what is not billed directly. The ICBC line
+       follows site.icbcVendor, the one flag /pricing and /refer also read. */
+    funding: fundingBlock(site.icbcVendor, abs),
 
     crisis: {
       is_this_service: false,

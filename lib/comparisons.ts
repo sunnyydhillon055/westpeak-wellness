@@ -1,5 +1,26 @@
 import { moreComparisons } from './comparisons-more';
 import { moreComparisons2 } from './comparisons-more2';
+import { fallbackFee, FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
+import { sessionsCovered } from '@/lib/session-arithmetic';
+
+/* MARKET FEE FIGURES, DATED AND SOURCED — read 1 Oct 2026.
+ *
+ * The RCC vs psychologist table said "roughly $120–$180" and "$225–$300+" with
+ * no source, and its RCC range disagreed with /pricing. These are the two
+ * associations' own published figures, the same ones /pricing quotes
+ * (app/pricing/page.tsx BCACC_GUIDE and BCPA_RATE); change all of them
+ * together if either is reissued. This practice's own fee comes from the
+ * catalogue, never typed. */
+const FEE_READ = '1 Oct 2026';
+const BCACC_FEE_GUIDE = { url: 'https://bcacc.ca/bcacc-fee-guide-2026/', individual: '$140–$175' };
+const BCPA_RECOMMENDED = {
+  url: 'https://psychologists.bc.ca/professional-resources-hub/bcpa-recommended-rate-2025-2026',
+  hourly: '$245',
+  cents: 24500,
+  effective: '12 May 2025',
+};
+const INDIVIDUAL_CENTS =
+  FALLBACK_CATALOG.items.find((i) => i.name === 'Individual Counselling')?.cents ?? 0;
 
 export type Comparison = {
   slug: string;
@@ -39,7 +60,7 @@ const coreComparisons: Comparison[] = [
     title: "RCC, psychologist, or social worker: who should you see in BC?",
     metaTitle: "RCC vs Psychologist: What Is the Difference in BC?",
     metaDescription:
-      "A psychologist can diagnose and charges more; an RCC cannot diagnose and most plans cover both without a referral. Training, fees, and which fits what.",
+      "A psychologist can diagnose and charges more; an RCC cannot. Many plans cover both without a referral, depending on the plan. Training, fees and fit.",
     eyebrow: "Comparison · Choosing a therapist",
     lede:
       "Three different letters after three different names, all offering something that looks like therapy. Here is what actually separates them in British Columbia.",
@@ -54,7 +75,7 @@ const coreComparisons: Comparison[] = [
         ["Oversight in BC", "BCACC, a voluntary professional association, not a statutory college", "College of Health and Care Professionals of BC, statutory; \"psychologist\" is a protected title", "BC College of Social Workers, statutory; \"social worker\" is a protected title"],
         ["Can formally diagnose", "No", "Yes", "Clinical registration permits assessment and diagnosis of mental disorders"],
         ["Psychoeducational / cognitive assessments", "No", "Yes. The main thing only psychologists do", "No"],
-        ["Typical BC private fee", "Roughly $120–$180 per session", "Roughly $225–$300+ per session", "Roughly $120–$180 per session"],
+        ["Published BC fee guidance", `${BCACC_FEE_GUIDE.individual} per 50-minute individual session (BCACC 2026 fee guide, read ${FEE_READ}); ${fallbackFee('Individual Counselling')} at this practice`, `${BCPA_RECOMMENDED.hourly} an hour (BC Psychological Association recommended rate, effective ${BCPA_RECOMMENDED.effective}, read ${FEE_READ})`, "Set by each practitioner; ask for the fee before booking"],
         ["Covered by MSP", "No", "No (outside public settings)", "No (outside public settings)"],
         ["Listed by extended health plans", "Commonly, but not universally, check the wording", "Almost always", "Commonly"],
       ],
@@ -85,7 +106,7 @@ const coreComparisons: Comparison[] = [
         list: [
           { label: "You need a formal diagnosis on paper", detail: "For disability benefits, academic accommodation, a workplace process, or a legal matter, you likely need a psychologist. An RCC cannot diagnose, and should tell you so rather than working around it." },
           { label: "You need psychoeducational or cognitive testing", detail: "ADHD assessments, learning-disability assessments, IQ testing. This is the one area only psychologists do, and it is usually a separate piece of work from ongoing therapy." },
-          { label: "Cost is a real constraint", detail: "A psychologist can run twice an RCC's hourly fee. If your benefit cap is $800 a year, that is roughly three psychologist sessions or six with an RCC. For ongoing weekly therapy, that difference compounds fast." },
+          { label: "Cost is a real constraint", detail: `The BC Psychological Association recommends ${BCPA_RECOMMENDED.hourly} an hour; an individual session here is ${fallbackFee('Individual Counselling')}. If your benefit cap is $800 a year, that is about ${sessionsCovered(80000, BCPA_RECOMMENDED.cents)} sessions at the psychologists' recommended rate or ${sessionsCovered(80000, INDIVIDUAL_CENTS)} here. For ongoing weekly therapy, that difference compounds fast.` },
           { label: "Your plan only lists certain professions", detail: "Some plans reimburse psychologists and social workers but not RCCs. Read the actual wording before you book. This is the single most common source of unpleasant surprises." },
           { label: "You want a specific modality", detail: "EMDR, the Gottman Method, and most other approaches are training-based, not profession-based. Practitioners of any of the three designations may hold them. Ask about the training directly rather than inferring it from the letters." },
         ],
@@ -110,7 +131,7 @@ const coreComparisons: Comparison[] = [
       /* Search Console, 17 Sep 2026: 'what does ccc stand for in counselling', 'ma rcc meaning', 'rcc vs ccc' (position 3.5), 'rsw vs rcc' (6.3), 'registered therapeutic counsellor', 'msw rsw meaning'. */
       { q: 'What does CCC stand for, and how is it different from RCC?', a: 'CCC is Canadian Certified Counsellor, a national certification from the Canadian Counselling and Psychotherapy Association. RCC is Registered Clinical Counsellor, the British Columbia designation from the BC Association of Clinical Counsellors. They have similar entry requirements, a master\'s degree and supervised hours, and some counsellors hold both. For extended health in BC, RCC is the designation most plans name; a CCC alone is covered by some plans and not others.' },
       { q: 'What does "MA, RCC" after a counsellor\'s name mean?', a: 'MA is the master\'s degree, usually in counselling psychology; RCC is the registration with the BC Association of Clinical Counsellors that the degree, supervised hours and an ethics exam make possible. MC or MEd in the same position are also master\'s degrees. The letters after the comma are the ones an insurer looks for.' },
-      { q: 'RSW vs RCC: which should I choose?', a: 'Both can provide counselling and both are regulated. A Registered Social Worker with an MSW has clinical training plus a systems view, and often works with families, housing and benefits alongside therapy; an RCC is trained specifically in counselling and psychotherapy. Most BC extended health plans cover both. Choose on fit and approach, and check your own plan names the designation.' },
+      { q: 'RSW vs RCC: which should I choose?', a: 'Both can provide counselling and both are regulated. A Registered Social Worker with an MSW has clinical training plus a systems view, and often works with families, housing and benefits alongside therapy; an RCC is trained specifically in counselling and psychotherapy. Many BC extended health plans cover both, depending on the plan. Choose on fit and approach, and check your own plan names the designation.' },
       { q: 'Is a Registered Therapeutic Counsellor (RTC) the same as an RCC?', a: 'No. RTC is a designation from a different association with different entry requirements, and it is not the one most extended health plans in BC cover. Neither RTC nor RCC is a government licence, since counselling is not a regulated profession in BC; the practical difference is that RCC requires a master\'s degree and is what insurers most commonly name.' },
       { q: 'What does RCC stand for?', a: 'Registered Clinical Counsellor. A designation held through the BC Association of Clinical Counsellors. It signals a master\'s-level counselling qualification, supervised clinical hours, continuing education, insurance and a code of ethics with a complaints process. It is not a government licence, because counselling is not yet a regulated profession in British Columbia.' },
       { q: 'Is a "licensed counsellor" the same thing in BC?', a: 'No, and strictly there is no such thing here. "Licensed counsellor" is American phrasing and there is no British Columbian licence that corresponds to it. What exists in BC is registration: with the BC Association of Clinical Counsellors, the College of Psychologists of BC, or the BC College of Social Workers. Somebody advertising as a "licensed counsellor" in BC may be perfectly well qualified, but the word is not carrying the meaning it appears to.' },
@@ -142,6 +163,8 @@ const coreComparisons: Comparison[] = [
       { label: "Province of BC, health profession regulation", url: "https://www2.gov.bc.ca/gov/content/health/practitioner-professional-resources/professional-regulation" },
       { label: "BC Laws, Psychologists Regulation (Health Professions Act)", url: "https://www.bclaws.gov.bc.ca/civix/document/id/loo64/loo64/442_99" },
       { label: "Kelty Mental Health, psychologists and registered clinical counsellors", url: "https://keltymentalhealth.ca/what-difference-between-psychologists-and-registered-clinical-counsellors" },
+      { label: `BC Association of Clinical Counsellors, Fee Guide 2026 (read ${FEE_READ})`, url: BCACC_FEE_GUIDE.url },
+      { label: `BC Psychological Association, recommended rate 2025–2026 (read ${FEE_READ})`, url: BCPA_RECOMMENDED.url },
     ],
     related: [
       /* Search Console (6 Sep 2026): this page draws "registered clinical
@@ -220,7 +243,7 @@ const coreComparisons: Comparison[] = [
       },
     ],
     howWeFit: [
-      "Westpeak Wellness offers both [individual therapy](/services/individual-therapy) and [couples therapy](/services/couples-therapy) using the Gottman Method, virtually across BC. Because sessions are online, partners can even join from different locations when work makes that necessary.",
+      "Westpeak Wellness offers both [individual therapy](/services/individual-therapy) and Gottman-informed [couples therapy](/services/couples-therapy), virtually across BC. Because sessions are online, partners can even join from different locations when work makes that necessary.",
       "If you are unsure which to book, that is a reasonable thing to work out on the consultation call rather than in advance, and if the answer is individual therapy with someone else while couples work happens here, that is a fine outcome too.",
     ],
     midCta: {

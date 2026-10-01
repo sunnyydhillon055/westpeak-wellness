@@ -193,6 +193,13 @@ export const site = {
   /* Hours of free cancellation. Put the same number in Cliniko's "terms of
    * use" for online bookings so clients agree to it as they book. */
   cancellationHours: 24,
+  /* ICBC VENDOR STATUS — 1 Oct 2026. False: the practice is not registered
+     with ICBC, so it cannot bill ICBC, and it does not direct-bill any
+     insurer either (pay-and-submit). /pricing, /refer and /ai.json read this
+     one flag for the ICBC sentence, so if the practice is ever registered,
+     changing it here changes all three; the ICBC resource page and the
+     LeadCapture one-pager carry their own wording and must be changed with it. */
+  icbcVendor: false as boolean,
 
   domain: CANONICAL,
   /* Where this build is actually reachable. Used only by robots.txt. */

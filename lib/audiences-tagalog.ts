@@ -130,7 +130,7 @@ export const tagalogAudiences: Audience[] = [
         h2: 'Language, privacy and paying for it',
         body: [
           'Sessions run in Tagalog, in English, or moving between them, and most bilingual sessions are mixed without anyone planning it. A parent who would never do therapy in English can do it in Tagalog, with an adult child helping set up the call and then leaving the room. The [words page](/resources/counselling-in-tagalog-what-the-words-mean) explains what counselling is called in Tagalog and why none of the words is quite right.',
-          'Privacy is the barrier more often than stigma: the concern is who might hear. Sessions are by video, there is no clinic to be seen entering, and nothing goes to family, church or community. Most BC extended health plans reimburse a Registered Clinical Counsellor; the [coverage page](/resources/bc-extended-health-coverage-for-counselling) explains how to check, and [fees are published in full](/pricing).',
+          'Privacy is the barrier more often than stigma: the concern is who might hear. Sessions are by video, there is no clinic to be seen entering, and nothing goes to family, church or community. Many extended health plans reimburse a Registered Clinical Counsellor, depending on the plan; the [coverage page](/resources/bc-extended-health-coverage-for-counselling) explains how to check, and [fees are published in full](/pricing).',
         ],
       },
     ],
