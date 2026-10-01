@@ -1,4 +1,11 @@
 import type { Guide } from './guides';
+import { fallbackFee } from '@/lib/cliniko-catalog';
+
+/* What a session costs, for the leave guides: one sentence, catalogue-driven
+   (1 Oct 2026). These pages quoted the EI cap and nothing about the cost of
+   the treatment they recommend. Whether a plan keeps paying during a leave
+   is the employer's and the plan's to answer, so this page does not. */
+const SESSION_COST = `An individual session here is ${fallbackFee('Individual Counselling')} for 50 minutes, by video from anywhere in BC, paid at booking with a receipt for your plan. Whether your plan keeps paying during a leave is a question for HR or the plan administrator, and the [fees page](/pricing) has the rest.`;
 
 /* The seventh guide file: the work-and-money practicalities cluster,
  * 2026-08-28. Built from Search Console evidence, not instinct — the
@@ -46,7 +53,11 @@ export const moreGuides7: Guide[] = [
         h2: 'Where therapy fits inside the 26 weeks',
         body: [
           'A sickness claim expects you to be doing something about getting better, and counselling is a normal, recognisable part of that picture, alongside whatever your doctor prescribes. Practically, the leave is also the first time many people have the daytime hours and the reduced load that make weekly therapy feasible at all. Using some of the 26 weeks to actually treat the thing that caused them is the difference between a leave that resets you and one that merely postpones the same collapse.',
-          'The money question answers itself better than expected: MSP does not cover private counselling, but extended health benefits **usually continue during an EI sickness leave** while you remain employed, check that your plan stays active, because most do. That means the [coverage you already have](/resources/bc-extended-health-coverage-for-counselling) still reimburses Registered Clinical Counsellor sessions while your income is at 55%. The [low-cost options](/resources/low-cost-counselling-bc) exist for when it does not.',
+          /* 1 Oct 2026: "usually continue ... because most do" was a prevalence
+             claim about plans this site cannot substantiate. Coverage during a
+             leave is the employer's and the plan's to state. */
+          'The money question: MSP does not cover private counselling. Whether your extended health benefits stay active during an EI sickness leave depends on your employer and the plan, so ask HR or the plan administrator rather than assuming. Where they do, the [coverage you already have](/resources/bc-extended-health-coverage-for-counselling) can still reimburse Registered Clinical Counsellor sessions while your income is at 55%. The [low-cost options](/resources/low-cost-counselling-bc) exist for when it does not, and [what you can access, and how soon](/tools/what-can-i-access) sorts every route, free ones included, in five questions.',
+          SESSION_COST,
           'And a sequencing point from the other side of the desk: do not wait until week 20 to start. Return-to-work conversations begin before the benefits end, and arriving at them with three months of therapy behind you is a different negotiation than arriving with none. The [return-to-work guide](/guides/return-to-work-after-a-mental-health-leave) covers that stretch.',
         ],
       },
@@ -68,7 +79,7 @@ export const moreGuides7: Guide[] = [
       { q: 'How much does EI sickness pay in 2026?', a: '55% of your average insurable weekly earnings, to a maximum of $729 a week, taxable, for up to 26 weeks, after a one-week unpaid waiting period. For most full-time earners that is a substantial cut, and budgeting for it before the leave starts is part of the leave.' },
       { q: 'Can I get EI sickness benefits for burnout or anxiety?', a: 'Yes. The program does not distinguish mental from physical health. What matters is a medical practitioner certifying you are unable to work. "Burnout" itself is not the certified condition; the depression, anxiety disorder or adjustment disorder underneath it typically is.' },
       { q: 'Do I need to be seeing a therapist to keep my claim?', a: 'There is no rule requiring therapy specifically, but a sickness claim assumes you are under care and following treatment, and for a mental-health leave, counselling is a normal part of what that looks like. It also matters practically: return-to-work and any long-term disability transition go very differently with a treatment record than without one.' },
-      { q: 'Does my extended health coverage continue while I am on EI sickness?', a: 'Usually yes while you remain employed and on an approved leave, which means your plan still reimburses RCC counselling while your income is reduced. Confirm with your plan administrator rather than assuming, and check whether premiums need to be kept up during the leave.' },
+      { q: 'Does my extended health coverage continue while I am on EI sickness?', a: 'It depends on your employer and the plan. Many plans stay active while you remain employed and on an approved leave, and where yours does, it can still reimburse RCC counselling while your income is reduced. Confirm with HR or your plan administrator rather than assuming, and check whether premiums need to be kept up during the leave.' },
       { q: 'What happens if 26 weeks is not enough?', a: 'The routes beyond EI are your employer’s long-term disability plan if one exists, CPP disability for severe and prolonged conditions, and provincial assistance. Each has its own test and its own paperwork, and each is easier to satisfy with a documented history of treatment during the EI period.' },
     ],
     sources: [
@@ -83,6 +94,8 @@ export const moreGuides7: Guide[] = [
       { href: '/guides/return-to-work-after-a-mental-health-leave', label: 'Return to work after a leave' },
       { href: '/resources/bc-extended-health-coverage-for-counselling', label: 'Extended health coverage for counselling' },
       { href: '/resources/workplace-mental-health-bc', label: 'Workplace mental health in BC' },
+      { href: '/tools/what-can-i-access', label: 'What counselling can you access, and how soon?' },
+      { href: '/pricing', label: 'Fees and coverage' },
     ],
   },
 
@@ -142,6 +155,7 @@ export const moreGuides7: Guide[] = [
         body: [
           'Tell your employer in writing that you are on a medical leave and attach or offer the certificate. You do not owe an explanation beyond it, and most people say too much in this message rather than too little. Then the machinery starts: the first five days in a calendar year are paid under the Employment Standards Act once you have 90 days’ service, and beyond that you are into your employer’s short-term disability plan or [EI sickness benefits](/guides/ei-sickness-benefits-and-therapy), which have their own clock and their own paperwork.',
           'Keep copies of everything, diarise the review date, and. The step this site would say, but it is also the step the leave exists for, use some of the time for treatment rather than only for distance from the inbox. Distance treats the symptom; the [stress-leave guide](/guides/stress-leave-bc) is blunt about the return being the part nobody plans.',
+          SESSION_COST,
         ],
       },
     ],
@@ -224,6 +238,7 @@ export const moreGuides7: Guide[] = [
           'There is a version of the return nobody writes policies for: walking back in knowing that everyone knows you were away, deciding what to say, and meeting the colleague who covered your work. The workable script is short and rehearsed: "I was off for medical reasons, I’m glad to be back, I’m easing in over a few weeks." You owe context to no one, and the discomfort of the first week is mostly front-loaded. It decays faster than people fear.',
           'The more serious private work is watching your own early-warning signs with better instruments than last time. The leave taught you what your collapse looks like from inside; the return is where you get to notice the first Sunday-night dread, the first skipped lunch, the first week of five-hour sleeps, and respond at week one instead of month eight. This is precisely the stretch where continuing counselling through the return, not ending it at the return, earns its keep.',
           'And if the return teaches you that the job itself is the condition. That is a finding, not a failure. Working out what to do with that finding, with your finances and family and history on the table, is a counselling conversation this practice has constantly. The [stress-leave guide](/guides/stress-leave-bc) said the return is the part nobody plans; this page exists because planning it is possible.',
+          SESSION_COST,
         ],
       },
     ],
@@ -291,7 +306,7 @@ export const moreGuides7: Guide[] = [
           { label: 'You are rationing them by dread', detail: 'Choosing which weeks are survivable enough to skip the sick day is itself the signal. A sustainable job does not require triaging your own collapse.' },
           { label: 'The same day keeps recurring', detail: 'Monday-pattern or post-deadline-pattern sick days are a graph, and the graph is telling you what the cause is. Naming the pattern is more useful than hiding it.' },
           { label: 'Five days were gone by June', detail: 'When the annual allotment cannot cover the year, you are past the sick-day tool. The next tools are a proper assessment, possibly a [certified leave](/guides/stress-leave-bc), and treatment, in that order, before the involuntary version arrives.' },
-          { label: 'The day off does not restore anything anymore', detail: 'Early in a stress cycle, a day genuinely resets. Late in one, it does not touch the sides, and that difference is one of the more reliable home tests for "tired" versus "something needing treatment". The burnout-vs-depression guide draws that line properly.' },
+          { label: 'The day off does not restore anything anymore', detail: 'Early in a stress cycle, a day genuinely resets. Late in one, it does not touch the sides, and that difference is one of the more reliable home tests for "tired" versus "something needing treatment". The [burnout-vs-depression guide](/guides/burnout-vs-depression) draws that line properly, and the [three-minute check](/tools/burnout-or-depression) is a way to start on it without a form or a score.' },
         ],
       },
     ],
@@ -320,6 +335,7 @@ export const moreGuides7: Guide[] = [
       { href: '/guides/doctors-note-for-a-mental-health-leave', label: 'Getting the doctor’s note' },
       { href: '/guides/signs-it-might-be-time-for-therapy', label: 'Signs it might be time for therapy' },
       { href: '/resources/workplace-mental-health-bc', label: 'Workplace mental health in BC' },
+      { href: '/tools/burnout-or-depression', label: 'Burnout or depression? A three-minute check' },
     ],
   },
 ];

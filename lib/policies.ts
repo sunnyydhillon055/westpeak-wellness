@@ -90,6 +90,9 @@ export const policies: Record<string, Policy> = {
         body: [
           'The first route is the simplest one: say so in session. A counsellor who cannot hear that something is not working is not doing the job. Plans get changed, approaches get dropped, and a referral elsewhere is always an available answer.',
           'If that is not possible or not enough, you can raise a concern directly with the **BC Association of Clinical Counsellors**, which administers a complaints process independent of any individual counsellor. You do not need the counsellor\'s agreement or knowledge to do that.',
+          /* 1 Oct 2026: the route made concrete, from BCACC’s own complaints page
+             read that day. Each counsellor’s profile links back to this section. */
+          'A complaint about an RCC goes to BCACC, not to this practice, and the practice does not stand between you and BCACC.BCACC’s [complaints and investigations page](https://bcacc.ca/complaints-and-investigations/) sets out how to file. The process runs mostly in writing, BCACC shares the complaint with the counsellor, and the counsellor must respond to BCACC in writing. It covers incidents within the last five years. To confirm a counsellor is an RCC before you file, or at any time, search the [RCC Register](https://bcacc.ca/search-our-member-register/) by name or registration number.',
           'If any part of this site or of a session is unusable with your assistive technology, the [accessibility statement](/accessibility) sets out what has been tested and what has not, and how to report a problem. For privacy-specific concerns: how your information was collected, used, stored or disclosed, the **Office of the Information and Privacy Commissioner for British Columbia** oversees private-sector organisations under the Personal Information Protection Act. See the [privacy page](/privacy) for how information is handled here.',
         ],
       },

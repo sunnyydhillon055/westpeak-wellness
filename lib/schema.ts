@@ -265,6 +265,25 @@ export const priceOffer = (dollars: number, url: string) => ({
   seller: orgRef,
 });
 
+/**
+ * Person.makesOffer for a counsellor's profile: one Offer per priced session
+ * type she offers, plus the free consultation, each from the catalogue via
+ * lib/practitioner-facts.ts. Never a typed figure. 1 Oct 2026.
+ */
+export const sessionOffers = (
+  items: { name: string; cents: number; minutes: number }[],
+  url: string,
+) =>
+  items.map((i) => ({
+    '@type': 'Offer',
+    name: `${i.name}, ${i.minutes} minutes`,
+    price: (i.cents / 100).toFixed(2),
+    priceCurrency: 'CAD',
+    itemOffered: { '@type': 'Service', name: i.name },
+    url: abs(url),
+    seller: orgRef,
+  }));
+
 /* ============================================================================
    THE DIAGRAMS, AS THINGS RATHER THAN AS URLS
    ----------------------------------------------------------------------------

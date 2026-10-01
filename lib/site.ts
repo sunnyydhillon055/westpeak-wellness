@@ -96,7 +96,8 @@ export const site = {
      * invitation to check, and making that easy is the entire point. */
     registration: "20111",
     registerName: "BC Association of Clinical Counsellors",
-    registerUrl: "https://bc-counsellors.org/counsellors/",
+    /* The RCC Register, not the opt-in Find a Counsellor directory (1 Oct 2026). */
+    registerUrl: "https://bcacc.ca/search-our-member-register/",
   },
   email: "info@westpeakwellness.com",
   /* ---- Phone (dark until a number exists) --------------------------------

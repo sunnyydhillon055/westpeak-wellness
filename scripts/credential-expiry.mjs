@@ -133,6 +133,23 @@ if (uninsured > 0) {
 }
 console.log('');
 
+/* THE REGISTER CHECK, DATED — 1 Oct 2026. Each profile prints "checked on
+   the register <date>" beside its verify link (registerCheckedOn). The date
+   is honest however old it gets, but a check from last year is not much of a
+   check, so past REGISTER_DAYS it is reported, and --strict fails on it.
+   Re-read the entry (bcacc.ca/search-our-member-register/?mid=<number>) and
+   move the date; never move it without reading. */
+const REGISTER_DAYS = 90;
+const checks = [...src.matchAll(/registerCheckedOn:\s*['"](\d{4}-\d{2}-\d{2})['"]/g)].map((m) => m[1]);
+const staleChecks = checks.filter((d) => -days(d) > REGISTER_DAYS);
+console.log('  REGISTER CHECKS\n');
+console.log(`    ${checks.length} registration(s) with a dated register check`);
+for (const d of checks) {
+  const n = -days(d);
+  console.log(`    checked ${d} — ${n} days ago${n > REGISTER_DAYS ? `  STALE - over ${REGISTER_DAYS} days; re-read the register` : ''}`);
+}
+console.log('');
+
 if (lapsed.length || insLapsed.length) process.exit(1);
-if (STRICT && (soon.length || insSoon.length || insGrace.length || missing > 0 || uninsured > 0)) process.exit(1);
+if (STRICT && (soon.length || insSoon.length || insGrace.length || missing > 0 || uninsured > 0 || staleChecks.length)) process.exit(1);
 process.exit(0);

@@ -176,6 +176,14 @@ export const tools: ToolMeta[] = [
         a: 'No. It runs entirely in your browser, nothing is sent anywhere, and closing the tab discards it. There is no sign-up and no email box at the end.',
       },
     ],
+    /* Back to the work-and-leave pages that now link here (1 Oct 2026):
+       most people asking this are asking it about a job. */
+    related: [
+      { href: '/guides/burnout-vs-depression', label: 'Burnout compared with depression' },
+      { href: '/guides/sick-days-and-mental-health-days-bc', label: 'Sick days and mental-health days in BC' },
+      { href: '/guides/stress-leave-bc', label: 'How to get stress leave in BC' },
+      { href: '/resources/workplace-mental-health-bc', label: 'Mental health and work in BC' },
+    ],
   },
   {
     slug: 'what-can-i-access',

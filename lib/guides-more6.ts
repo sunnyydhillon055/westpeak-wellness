@@ -1,4 +1,11 @@
 import type { Guide } from './guides';
+import { fallbackFee } from '@/lib/cliniko-catalog';
+
+/* What a session costs, for the leave guides: one sentence, catalogue-driven
+   (1 Oct 2026). These pages quoted the EI cap and nothing about the cost of
+   the treatment they recommend. Whether a plan keeps paying during a leave
+   is the employer's and the plan's to answer, so this page does not. */
+const SESSION_COST = `An individual session here is ${fallbackFee('Individual Counselling')} for 50 minutes, by video from anywhere in BC, paid at booking with a receipt for your plan. Whether your plan keeps paying during a leave is a question for HR or the plan administrator, and the [fees page](/pricing) has the rest.`;
 
 export const moreGuides6: Guide[] = [
   {
@@ -107,6 +114,7 @@ export const moreGuides6: Guide[] = [
           'Most difficulty with stress leave happens at the end rather than the beginning. A leave that removes someone from an intolerable situation without changing anything about it produces a return to exactly the same conditions, and a second leave inside a year is common.',
           'A graduated return, reduced hours building back over four to eight weeks, is standard and is usually an accommodation an employer is required to consider. So are changes to duties, reporting line, or schedule where those are what made the work unsustainable. These are negotiated through the certifying clinician and the insurer rather than informally, and getting them in writing matters.',
           'This is the part counselling is genuinely useful for, and it is worth starting well before the return date: what actually needs to be different, what can be asked for, what happens if the answer is no, and how to notice early signs rather than at the point of another collapse. The [return-to-work guide](/guides/return-to-work-after-a-mental-health-leave) covers the graduated plan and the duty to accommodate in full.',
+          SESSION_COST,
         ],
       },
       {
@@ -114,6 +122,7 @@ export const moreGuides6: Guide[] = [
         body: [
           'A large share of people who search for this are not on leave and are trying to work out whether they need one. There is no test that settles it, but a few markers are worth taking seriously: sleep that no longer restores, physical symptoms with no medical explanation, mistakes at work that are not like you, dread that starts the evening before rather than in the morning, and drinking more to come down.',
           'The question is worth taking to a doctor before it is urgent. A leave arranged in advance is a different experience from one arranged in a week where you could not go in, and the second is far more common, because most people wait for permission that never arrives.',
+          'If you cannot tell whether it is the job or something that would come with you on a fortnight away, the [burnout or depression check](/tools/burnout-or-depression) is seven questions, three minutes, and stores nothing. It reaches no verdict; it gives you a clearer description to take to the appointment.',
           'If you are in immediate danger, call 9-1-1. For urgent mental-health support in BC at any hour, call or text 9-8-8, or call 310-6789.',
         ],
       },
@@ -165,6 +174,7 @@ export const moreGuides6: Guide[] = [
       { href: '/resources/workplace-mental-health-bc', label: 'Mental health and work in BC' },
       { href: '/resources/mental-health-leave-templates-bc', label: 'The leave request, the doctor-note checklist and the HR checklist, as templates' },
       { href: '/guides/burnout-vs-depression', label: 'Burnout or depression?' },
+      { href: '/tools/burnout-or-depression', label: 'Burnout or depression? A three-minute check' },
       { href: "/services/individual-therapy", label: "Individual counselling during stress leave" },
       { href: '/book', label: 'Book a free consultation' },
     ],

@@ -163,9 +163,12 @@ export const depth4: Record<string, DepthSection[]> = {
 
   'resources/verify-a-counsellor-in-bc': [
     {
-      h2: 'Using BCACC’s find-a-counsellor register',
+      /* 1 Oct 2026: the register and the directory are two tools. This
+         section called the directory "the register", and the directory is
+         opt-in, so a current RCC can be missing from it. */
+      h2: 'BCACC’s two tools: the register and the directory',
       body: [
-        'The register at bc-counsellors.org does two jobs, and people mostly know only one. It **verifies**, type any counsellor’s name and confirm their registration is current, which is this page’s four-minute check. It also **finds**: the same search filters by community, language and area of focus, which makes it one of the few counsellor directories in BC where every single listing is, by construction, a registered and insured practitioner. A directory that cannot contain an unregistered listing is worth more than one that merely tends not to.',
+        'BCACC runs two tools, and people mostly know only one. The [RCC Register](https://bcacc.ca/search-our-member-register/) **verifies**: search any counsellor’s name or registration number and it shows whether the registration is active, which is this page’s four-minute check. [Find a Counsellor](https://bc-counsellors.org/counsellors/) **finds**: it filters by community, language and area of focus, and every listing in it is an RCC, which makes it one of the few counsellor directories in BC that cannot contain an unregistered listing. The directory is opt-in, though. A current RCC may choose not to be listed, so a name missing from it tells you nothing; the register is where you check.',
         'The register covers RCCs only; psychologists and social workers have their own colleges’ registers, linked in the sections above. And for the fuller how-to-choose process: shortlisting, free consultations, the questions worth asking, the [finding a therapist guide](/guides/how-to-find-a-therapist-in-bc) picks up where verification ends.',
       ],
     },

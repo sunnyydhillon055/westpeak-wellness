@@ -189,6 +189,18 @@ export default async function ResourcePage({ params }: { params: { slug: string 
 
           <div className="prose">
             <Byline updated={r.updated} readMinutes={r.readMinutes} />
+
+            {r.afterShortAnswer && (
+              <div className="crisis" style={{ margin: '8px 0 36px' }}>
+                <p style={{ margin: '0 0 8px' }}><strong>{r.afterShortAnswer.heading}</strong></p>
+                <Paragraphs items={r.afterShortAnswer.body} />
+                {r.afterShortAnswer.book && (
+                  <p style={{ margin: 0 }}>
+                    <BookLink location="mid-resource" href={cta.href} className="">{r.afterShortAnswer.book}</BookLink>.
+                  </p>
+                )}
+              </div>
+            )}
           </div>
 
           {r.sections.map((s, i) => (
@@ -244,6 +256,15 @@ export default async function ResourcePage({ params }: { params: { slug: string 
               {next?.h2 === s.h2 && (
                 <div className="prose">
                   <NextConsultLine location={next.location} language={r.language} />
+                </div>
+              )}
+
+              {s.book && (
+                <div className="prose">
+                  <p>
+                    {rich(s.book.text)}{' '}
+                    <BookLink location={s.book.location} href={cta.href} className="">{s.book.label}</BookLink>.
+                  </p>
                 </div>
               )}
 
@@ -340,8 +361,8 @@ export default async function ResourcePage({ params }: { params: { slug: string 
       <CityLinks />
       <CtaBand
         bookHref={cta.href}
-        heading="Questions about cost or coverage?"
-        text="A free 30-minute consultation is a good place to ask them, before committing to anything."
+        heading={r.closingBand?.heading ?? 'Questions about cost or coverage?'}
+        text={r.closingBand?.text ?? 'A free 30-minute consultation is a good place to ask them, before committing to anything.'}
       />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
