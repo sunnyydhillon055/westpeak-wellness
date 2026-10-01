@@ -152,12 +152,23 @@ for someone who has never done this before.
                 or the English page on{' '}
                 <Link href="/services/punjabi-counselling">Punjabi-speaking counselling</Link>.
               </li>
+              <li>
+                <strong>Someone who would rather work in Tagalog</strong>, the page on{' '}
+                <Link href="/services/tagalog-counselling">Tagalog-speaking counselling</Link>,
+                and{' '}
+                <Link href="/resources/finding-a-counsellor-in-punjabi-or-tagalog-in-bc">
+                  finding a counsellor in Punjabi or Tagalog in BC
+                </Link>{' '}
+                for the wider picture.
+              </li>
             </ul>
 
             <h2>If it turns out not to be a fit</h2>
             <p>
               That is a perfectly good outcome and worth saying to whoever you pass this to.
-              This practice is virtual only, works with adults, and does not do assessments,
+              This practice is virtual only and works with adults, couples, families, and{' '}
+              <Link href="/for/teens-and-young-adults">young people</Link> who can consent to
+              their own care. It does not do assessments,
               diagnoses, court-related work or crisis response. The full list is on{' '}
               <Link href="/standards">standards and scope</Link>. Where it is not the right
               place, saying so and pointing somewhere better is the normal result of a
@@ -180,6 +191,15 @@ for someone who has never done this before.
               <Link href="/refer/doctor">the one-page summary to take to a doctor</Link> is
               written to be printed and handed over: designation, scope limits, fees, and how
               information sharing works.
+            </p>
+
+            <h2>For clinics, and for counsellors who are full</h2>
+            <p>
+              A clinic, campus or agency front desk can print{' '}
+              <Link href="/refer/handout">a sheet of four cut-out cards</Link> with the booking
+              address and the crisis lines on each. A counsellor whose own caseload is full can
+              see <Link href="/refer/counsellors">who is accepting here, and in which
+              languages</Link>, and pass a client on with no fee and nothing reciprocal.
             </p>
 
             <h2>Routes where somebody else pays</h2>
@@ -206,7 +226,9 @@ for someone who has never done this before.
               </li>
               <li>
                 <strong>Extended health.</strong> Many BC plans reimburse a Registered Clinical
-                Counsellor specifically, and a good number now direct-bill.{' '}
+                Counsellor specifically. This practice does not direct-bill: the session is paid
+                at booking and the receipt carries the counsellor&rsquo;s registration number,
+                which is what an insurer needs to reimburse it.{' '}
                 <Link href="/resources/bc-extended-health-coverage-for-counselling">
                   what BC extended health plans actually cover
                 </Link>{' '}

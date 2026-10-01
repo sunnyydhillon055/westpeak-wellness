@@ -181,7 +181,9 @@ export type Practitioner = {
   placePages: boolean;
 };
 
-export const practitioners: Practitioner[] = [
+/* The roster as recorded, before the insurance gate below is applied. Read
+   `practitioners` everywhere else. */
+const recorded: Practitioner[] = [
   {
     slug: 'aman-bains-dhillon',
     name: 'Aman Bains Dhillon',
@@ -723,6 +725,94 @@ export const practitioners: Practitioner[] = [
     acceptingNewClients: true,
   },
 ];
+
+/* ============================================================================
+   THE INSURANCE GATE ON ALBERTA AND CANADA-WIDE REACH — 1 Oct 2026
+   ----------------------------------------------------------------------------
+   Alberta opened for Camille on the strength of her liability certificate
+   (see her entry above, and ALBERTA_LAUNCH_CHECKLIST.md). Until today nothing
+   but scripts/credential-expiry.mjs read `insurance.validTo`, and that only on
+   the weekly run — so the day a policy ran out, every Alberta page and every
+   "anywhere in Canada" line would have kept asserting cover that no longer
+   existed.
+
+   Now the date decides. A policy is treated as LAPSED from validTo + 14 days
+   (America/Vancouver). The fourteen days are a grace period for a renewal
+   certificate to arrive and be typed in, not a claim that cover continues.
+   Once lapsed:
+
+     · 'AB' is dropped from `provinces`, so the Alberta place routes are not
+       generated and 404 (dynamicParams = false on that route), and the
+       sitemap, llms files and city lists stop naming them;
+     · `reach: 'canada'` is dropped, so /book, the profile and llms.txt stop
+       saying "anywhere in Canada" for her;
+     · scripts/credential-expiry.mjs exits 1, so `npm run verify` fails.
+
+   BC is not touched: BC practice rests on the BCACC registration, which the
+   same script watches separately. A practitioner with no policy recorded at
+   all is treated as lapsed for the same two things — cover that is not on
+   file cannot open a province.
+
+   The pages are static, so the gate takes effect at the next build on or
+   after the lapse date. To lift it, record the renewal's dates in the
+   `insurance` block above; nothing else needs to change.
+   ========================================================================= */
+
+export const INSURANCE_GRACE_DAYS = 14;
+
+/** Today's date in the practice's own time zone, as YYYY-MM-DD. */
+export const vancouverToday = (now: Date = new Date()): string =>
+  new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'America/Vancouver', year: 'numeric', month: '2-digit', day: '2-digit',
+  }).format(now);
+
+const addDays = (iso: string, n: number): string =>
+  new Date(Date.parse(`${iso}T00:00:00Z`) + n * 86_400_000).toISOString().slice(0, 10);
+
+/** 'current' up to and including validTo; 'grace' until validTo + 14 days;
+ *  'lapsed' from that day on; 'none' when no policy is recorded. */
+export function insuranceStatus(
+  p: Pick<Practitioner, 'insurance'>,
+  today: string,
+): 'current' | 'grace' | 'lapsed' | 'none' {
+  if (!p.insurance) return 'none';
+  if (today <= p.insurance.validTo) return 'current';
+  if (today < addDays(p.insurance.validTo, INSURANCE_GRACE_DAYS)) return 'grace';
+  return 'lapsed';
+}
+
+/** The first day the gate is closed for this practitioner, or undefined. */
+export const insuranceGateDate = (p: Pick<Practitioner, 'insurance'>): string | undefined =>
+  p.insurance ? addDays(p.insurance.validTo, INSURANCE_GRACE_DAYS) : undefined;
+
+const covered = (p: Pick<Practitioner, 'insurance'>, today: string) => {
+  const s = insuranceStatus(p, today);
+  return s === 'current' || s === 'grace';
+};
+
+/** The provinces this practitioner may be offered in today: Alberta only on a
+ *  policy that has not lapsed. */
+export const insuredProvinces = (p: Pick<Practitioner, 'provinces' | 'insurance'>, today: string): string[] =>
+  covered(p, today) ? p.provinces : p.provinces.filter((c) => c !== 'AB');
+
+/** Canada-wide reach only on a policy that has not lapsed. */
+export const insuredReach = (p: Pick<Practitioner, 'reach' | 'insurance'>, today: string): Practitioner['reach'] =>
+  covered(p, today) ? p.reach : undefined;
+
+/** One practitioner with the gate applied for a given day. */
+export function withInsuranceGate(p: Practitioner, today: string): Practitioner {
+  if (covered(p, today)) return p;
+  const { reach: _dropped, ...rest } = p;
+  void _dropped;
+  return { ...rest, provinces: insuredProvinces(p, today) };
+}
+
+/* THE ROSTER EVERY PAGE READS — gated for the day this module was loaded,
+   which for a static page is the day it was built. */
+export const practitioners: Practitioner[] = recorded.map((p) => withInsuranceGate(p, vancouverToday()));
+
+/* The roster exactly as recorded, for the tests that prove the gate. */
+export const recordedPractitioners: readonly Practitioner[] = recorded;
 
 /* Who a consultation goes to when the reader has not asked for anyone in
  * particular, or has asked for someone who is not taking new clients. The

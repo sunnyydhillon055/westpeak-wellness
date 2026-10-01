@@ -9,6 +9,7 @@ import { readCatalog, money, type CatalogItem } from '@/lib/cliniko-catalog';
 import { ogBase } from '@/lib/og-meta';
 import { webPage } from '@/lib/schema';
 import { COLLECTION_DATES, lastmodFor } from '@/lib/page-dates';
+import { acceptingCounsellors } from '../accepting';
 
 export const revalidate = 3600;
 
@@ -49,9 +50,12 @@ export const metadata: Metadata = {
  * results, no testimonials. Verifiable facts and the register they can be
  * checked in, which is a stronger thing to put in front of a clinician.
  *
- * The counsellor's personal name is not on it, per the sitewide rule in
- * lib/site.ts — designation, registration number and register are what a
- * physician would actually check, and the register lookup resolves the name.
+ * WHO THE PATIENT WOULD SEE is named on it since 1 Oct 2026, built from the
+ * accepting roster (app/refer/accepting.ts): name, designation, languages,
+ * where they may see clients and their first three areas of focus, with the
+ * profile address. Registration numbers stay on the profile, where they can
+ * be checked against the register, and nobody who is not accepting new
+ * clients is listed.
  *
  * PRINT. app/premium.css already strips chrome, forms and CTAs at print and
  * gives .callout a hard border, so the card survives a Ctrl-P as a bordered
@@ -67,6 +71,8 @@ export default async function BringToYourDoctor() {
   const individual = find('Individual Counselling');
   const couples = find('Couples Counselling');
   const intensive = find('EMDR Intensive');
+  const accepting = acceptingCounsellors();
+  const host = site.domain.replace(/^https?:\/\//, '');
 
   const fees: { label: string; item?: CatalogItem }[] = [
     { label: 'Initial consultation', item: consult },
@@ -211,7 +217,8 @@ export default async function BringToYourDoctor() {
             <p className="eyebrow" style={{ marginTop: 0 }}>For the treating physician</p>
             <h2 style={{ marginTop: 4 }}>{site.name} &mdash; practice summary</h2>
             <p>
-              Virtual counselling practice serving adults across British Columbia. Sessions are
+              Virtual counselling practice serving adults, couples, families and young people
+              across British Columbia. Sessions are
               provided by <strong>Registered Clinical Counsellors</strong>, each verifiable in the{' '}
               <a href={site.counsellor.registerUrl} rel="noreferrer">
                 {site.counsellor.registerName} register
@@ -225,7 +232,10 @@ export default async function BringToYourDoctor() {
               <li><strong>Format:</strong> video sessions only; no in-person office.</li>
               <li><strong>Area served:</strong> {site.serviceArea}.</li>
               <li><strong>Languages:</strong> {site.languages}.</li>
-              <li><strong>Population:</strong> adults and couples.</li>
+              <li>
+                <strong>Population:</strong> adults, couples, families, and young people who can
+                consent to their own care under BC&rsquo;s Infants Act.
+              </li>
               <li>
                 <strong>Access:</strong> a free 30-minute consultation is booked directly by the
                 patient at <strong>{site.domain.replace(/^https?:\/\//, '')}/book</strong>. No
@@ -236,10 +246,28 @@ export default async function BringToYourDoctor() {
             <h3>Common presentations seen</h3>
             <p>
               Anxiety, depression and low mood, trauma and PTSD (including EMDR), burnout and
-              work-related stress, grief, relationship and couples work, and cultural and
+              work-related stress, grief, relationship and couples work, family counselling, and cultural and
               intergenerational strain in South Asian families. Approaches used are listed at{' '}
               <strong>{site.domain.replace(/^https?:\/\//, '')}/approaches</strong>.
             </p>
+
+            <h3>Who a patient would see</h3>
+            {accepting.length > 0 ? (
+              <ul>
+                {accepting.map((c) => (
+                  <li key={c.slug}>
+                    <strong>{c.letters}</strong> &mdash; {c.languages.join(', ')};{' '}
+                    {c.area}. Focus: {c.focus.join('; ')}.{' '}
+                    {host}{c.profilePath}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>
+                No counsellor is taking new clients at the moment; {site.email} can say when
+                that changes.
+              </p>
+            )}
 
             <h3>Scope limits &mdash; what this practice does not do</h3>
             <ul>
@@ -321,6 +349,12 @@ export default async function BringToYourDoctor() {
               place before anyone commits. Clinics that would rather send information first can
               write to <a href={`mailto:${site.email}`}>{site.email}</a>, and{' '}
               <Link href="/contact">the enquiry form</Link> reaches the same inbox.
+            </p>
+            <p>
+              For the front desk, <Link href="/refer/handout">a sheet of four cut-out cards</Link>{' '}
+              carries the booking address and the crisis lines. Counsellors whose own caseload is
+              full can see who is accepting and how to pass a client on at{' '}
+              <Link href="/refer/counsellors">for counsellors with a full caseload</Link>.
             </p>
             <p>
               Where this practice is not the right fit, saying so is the normal outcome of a

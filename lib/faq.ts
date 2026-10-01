@@ -1,6 +1,54 @@
-import { fallbackFee } from '@/lib/cliniko-catalog';
+import { fallbackFee, FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
+import { practitioners } from '@/lib/practitioners';
 
 export type FAQ = { q: string; a: string };
+
+/* WHERE AND IN WHAT LANGUAGE, FROM THE ROSTER — 1 Oct 2026.
+ *
+ * The answers below said "across British Columbia" after Camille's reach
+ * became Canada-wide, and nothing answered Tagalog or Alberta at all. These
+ * sentences are built from lib/practitioners.ts (insurance gate applied), so
+ * when someone stops accepting, or a policy lapses and Alberta comes down,
+ * the FAQ and its FAQPage schema change with it. The consultation length is
+ * read from the Cliniko catalogue fallback, the same source the fee table uses. */
+const accepting = practitioners.filter((p) => p.acceptingNewClients);
+const firstName = (p: { name: string }) => p.name.split(' ')[0];
+const names = (ps: { name: string }[]) =>
+  ps.length <= 1 ? ps.map(firstName).join('') : `${ps.slice(0, -1).map(firstName).join(', ')} or ${firstName(ps[ps.length - 1]!)}`;
+const linked = (ps: { name: string; slug: string }[]) =>
+  ps.length <= 1
+    ? ps.map((p) => `[${p.name}](/practitioners/${p.slug})`).join('')
+    : `${ps.slice(0, -1).map((p) => `[${p.name}](/practitioners/${p.slug})`).join(', ')} and [${ps[ps.length - 1]!.name}](/practitioners/${ps[ps.length - 1]!.slug})`;
+const canadaWide = accepting.filter((p) => p.reach === 'canada');
+const alberta = accepting.filter((p) => p.reach !== 'canada' && p.provinces.includes('AB'));
+const tagalog = accepting.filter((p) => p.languages.some((l) => l.tag === 'tl'));
+const consultMinutes =
+  FALLBACK_CATALOG.items.find((i) => i.name.toLowerCase() === 'initial consultation')?.minutes ?? 30;
+
+/** "across British Columbia, and anywhere in Canada with Camille" */
+export const whereLine = (): string =>
+  canadaWide.length
+    ? `across British Columbia, and anywhere in Canada with ${names(canadaWide)}`
+    : alberta.length
+      ? `across British Columbia, and in Alberta with ${names(alberta)}`
+      : 'across British Columbia';
+
+const takingNew = accepting.length
+  ? `Yes. Westpeak Wellness is currently accepting new clients ${whereLine()}. The best first step is a free ${consultMinutes}-minute consultation, where we can see if we're a good fit before you commit to anything.`
+  : `Not at the moment. Nobody here is taking new clients right now; write through the [contact page](/contact) to hear when that changes.`;
+
+const albertaAndCanada = [
+  canadaWide.length || alberta.length
+    ? `Yes, with ${linked([...canadaWide, ...alberta])}. ${canadaWide.length ? `${names(canadaWide)} can see clients located anywhere in Canada, Alberta included` : `${names(alberta)} can see clients located in Alberta`}; every other counsellor here sees clients located in British Columbia.`
+    : 'Not at the moment. Sessions are for people located in British Columbia.',
+  'What counts is where you are during each session, not your permanent address, because a session counts as delivered where the client is sitting. Booking from a counsellor\'s own page opens that counsellor\'s calendar.',
+].join(' ');
+
+const tagalogAnswer = tagalog.length
+  ? `Yes. ${linked(tagalog)} ${tagalog.length > 1 ? 'work' : 'works'} in Tagalog and English, including moving between the two inside one session, so there is no need to translate your family or your context before you can talk about them. [Tagalog-speaking counselling](/services/tagalog-counselling) explains how it works.`
+  : 'Not at the moment. No counsellor taking new clients here works in Tagalog right now. [Finding a counsellor in Punjabi or Tagalog in BC](/resources/finding-a-counsellor-in-punjabi-or-tagalog-in-bc) lists other routes.';
+
+const onlineOrInPerson = `Online only. There is no office and no in-person option: the free ${consultMinutes}-minute consultation and every session after it are by secure video. Once you book, the link arrives by email and opens in your browser, with nothing to install and no account to create. All you need is a private space, a device with a camera, and a stable connection. Sessions are never recorded.`;
 
 // Answers written to be accurate for a fully-virtual BC RCC practice and
 // compliant with BCACC advertising standards.
@@ -22,7 +70,7 @@ export const faqs: FAQ[] = [
   },
   {
     q: "Are you taking new clients?",
-    a: "Yes. Westpeak Wellness is currently accepting new clients across British Columbia. The best first step is a free 30-minute consultation, where we can see if we're a good fit before you commit to anything.",
+    a: takingNew,
   },
   {
     q: "Why are there no client reviews on this site?",
@@ -34,7 +82,19 @@ export const faqs: FAQ[] = [
   },
   {
     q: "Is this practice fully online?",
-    a: "Yes. Westpeak Wellness is a fully virtual practice serving clients anywhere in British Columbia. Sessions take place over a secure, confidential video platform: all you need is a private space and a stable internet connection. Online sessions follow the same ethical, legal, and privacy standards as in-person therapy.",
+    a: `Yes. Westpeak Wellness is a fully virtual practice, with no office and no in-person sessions, serving clients ${whereLine()}. Sessions take place over a secure, confidential video platform: all you need is a private space and a stable internet connection. Online sessions follow the same ethical, legal, and privacy standards as in-person therapy.`,
+  },
+  {
+    q: "Is the free consultation online or in person, and how do I join?",
+    a: onlineOrInPerson,
+  },
+  {
+    q: "Can I book if I live in Alberta or elsewhere in Canada?",
+    a: albertaAndCanada,
+  },
+  {
+    q: "Do you offer sessions in Tagalog?",
+    a: tagalogAnswer,
   },
   {
     q: "Do you offer sessions in Punjabi?",
@@ -89,6 +149,9 @@ const GROUP_OF: Record<string, string> = {
   "Is this practice fully online?": 'start',
   "How do I get started?": 'start',
   "Do you offer sessions in Punjabi?": 'sessions',
+  "Do you offer sessions in Tagalog?": 'sessions',
+  "Is the free consultation online or in person, and how do I join?": 'start',
+  "Can I book if I live in Alberta or elsewhere in Canada?": 'start',
   "Are you covered by extended health benefits?": 'money',
   "What if the fee is more than I can manage?": 'money',
   "How much do sessions cost?": 'money',

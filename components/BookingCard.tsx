@@ -61,7 +61,7 @@ export default function BookingCard({
           </li>
           <li>
             <Video aria-hidden="true" strokeWidth={1.7} />
-            <span>Online by secure video, anywhere in BC; there is no office to visit. No referral needed.</span>
+            <span>Online by secure video in your browser, anywhere in BC: nothing to install, never recorded, and no office to visit. No referral needed.</span>
           </li>
           <li>
             <CalendarClock aria-hidden="true" strokeWidth={1.7} />

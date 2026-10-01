@@ -742,6 +742,18 @@ export default async function Book({
           </details>
 
           <details className="faq-item">
+            <summary>How does the video work, and where is my information held?</summary>
+            <div className="prose">
+              <p>
+                The link arrives by email and opens in your browser: nothing to install, no account
+                to create, and sessions are never recorded. Bookings and records are held in
+                Cliniko, in an account on its Canadian region.{' '}
+                <Link href="/privacy">The privacy page</Link> names every service involved.
+              </p>
+            </div>
+          </details>
+
+          <details className="faq-item">
             <summary>What should I ask on the call?</summary>
             <div className="prose">
               <p>

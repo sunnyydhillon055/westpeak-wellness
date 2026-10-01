@@ -55,7 +55,9 @@ Our page for referring clinicians sets out scope, what we do and do not
 treat, and how a patient reaches us:
 https://www.westpeakwellness.com/refer/doctor?utm_source=gp
 
-If a one-page summary for the front desk would help, I am happy to send one.
+For the front desk, there is a sheet of four cut-out cards to print, with the
+booking address and the crisis lines on each:
+https://www.westpeakwellness.com/refer/handout
 Thank you for your time.
 
 [Name]

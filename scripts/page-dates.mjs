@@ -55,6 +55,8 @@ const PAGES = {
   '/reviews': 'lib/reviews.ts',
   '/refer': 'app/refer/page.tsx',
   '/refer/doctor': 'app/refer/doctor/page.tsx',
+  '/refer/handout': 'app/refer/handout/page.tsx',
+  '/refer/counsellors': 'app/refer/counsellors/page.tsx',
   '/punjabi': 'app/punjabi/page.tsx',
   '/punjabi/regions': 'app/punjabi/regions/page.tsx',
   '/answers': 'app/answers/page.tsx',
