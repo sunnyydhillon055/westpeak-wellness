@@ -194,6 +194,8 @@ export function GET() {
        1 Oct 2026. Both are handed on rather than searched for. */
     { path: '/refer/handout', lastmod: lastmodFor('/refer/handout'), changefreq: 'yearly', priority: 0.4 },
     { path: '/refer/counsellors', lastmod: lastmodFor('/refer/counsellors'), changefreq: 'monthly', priority: 0.5 },
+    /* The employer one-pager, 1 Oct 2026: printed or attached by HR. */
+    { path: '/for/employers-and-hr/one-pager', lastmod: lastmodFor('/for/employers-and-hr/one-pager'), changefreq: 'monthly', priority: 0.4 },
     { path: '/answers', lastmod: collectionLastmod('faq'), changefreq: 'monthly', priority: 0.7 },
     { path: '/punjabi', lastmod: lastmodFor('/punjabi'), changefreq: 'monthly', priority: 0.7 },
     /* The Punjabi twin of the region index, paired with it below. */

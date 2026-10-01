@@ -59,3 +59,16 @@ export const personAreaServed = (p: Reachable) => {
   const states = p.provinces.map((c) => ({ '@type': 'State', name: PROVINCE_NAME[c as Province] ?? c }));
   return states.length === 1 ? states[0] : states;
 };
+
+/* WHERE A CLIENT CAN BE, AS ONE SENTENCE FOR PAGE COPY — 1 Oct 2026.
+   "Anywhere in Canada is possible with Camille Granda" was typed into the
+   international-students FAQ, and would have kept promising Canada-wide
+   reach after the insurance gate in lib/practitioners.ts withdrew it. Copy
+   that says where sessions are possible is built here from the accepting
+   roster instead, so it changes the day the roster does.
+   test/reach-copy.test.mts fails on the typed form anywhere else in lib/. */
+export const reachSentence = (accepting: (Reachable & { name: string })[]) => {
+  const r = practiceReach(accepting);
+  if (!r) return '';
+  return r.startsWith('anywhere') ? `Sessions are possible ${r}.` : `Sessions are possible in ${r}.`;
+};

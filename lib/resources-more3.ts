@@ -290,6 +290,7 @@ export const moreResources3: Resource[] = [
         h2: 'Template 3: the HR checklist for a mental-health leave in BC',
         body: [
           'For the manager or HR lead who has just received Template 1. The order matters: the Record of Employment has a legal deadline, the STD plan has a contractual one, and the return is the part that decides whether there is a second leave. Nothing on this list asks for a diagnosis, because nothing on this list needs one.',
+          'For the employer side beyond the leave itself, what a manager can say, what the plan should list and what a small practice can and cannot offer, the [page for employers and HR](/for/employers-and-hr) is written for you.',
         ],
         template: {
           title: 'HR checklist, from receipt of the request to the return',
@@ -353,11 +354,37 @@ export const moreResources3: Resource[] = [
           ],
         },
       },
+      /* 1 Oct 2026. The employer page has the broker's side of this email;
+         an employee whose plan does not list a counsellor had nothing to
+         send. It asks about the plan, never about the person. */
+      {
+        h2: 'Template 5: asking HR to add counsellors to the plan',
+        body: [
+          'For an employee whose plan does not list a Registered Clinical Counsellor, or caps counselling too low to be useful. It asks about the plan, not about you, and says nothing about why you are asking. Coverage changes at renewal, so the useful time to send it is a month or two before the plan year turns over.',
+        ],
+        template: {
+          title: 'Email to HR about the practitioner list',
+          lines: [
+            'Subject: Extended health plan, mental-health practitioners at renewal',
+            '',
+            'Hello [name],',
+            '',
+            'When the extended health plan next renews, could you ask the broker or insurer whether Registered Clinical Counsellors (RCC) and Canadian Certified Counsellors (CCC) can be added to the eligible mental-health practitioners?',
+            '',
+            'At the moment the plan [lists only psychologists] [has a maximum of $___ a year for mental-health practitioners]. Many counsellors in BC are RCCs, so as it stands much of the counselling available here cannot be claimed.',
+            '',
+            'The three questions for the broker: are RCC and CCC listed, what is the yearly maximum and is it shared with other practitioners, and what would it cost to add them or raise it.',
+            '',
+            'Thank you,',
+            '[your name]',
+          ],
+        },
+      },
       {
         h2: 'What counselling has to do with any of this',
         body: [
           'A counsellor cannot sign a leave, and no template on this page pretends otherwise. What counselling does is run inside the leave, which is usually what the leave is for, and it is the part that makes the return-to-work plan more than a schedule. A plan that lists a Registered Clinical Counsellor reimburses the sessions, which is plan-dependent and worth checking with the booklet before the first one; [does my plan cover counselling](/resources/does-my-plan-cover-counselling-bc) has the words to use.',
-          'If the leave is for somebody on your team rather than for you, [counselling support for BC teams](/resources/counselling-support-for-bc-teams) is the employer-facing page.',
+          'If the leave is for somebody on your team rather than for you, the [page for employers and HR](/for/employers-and-hr) is the employer-facing one, with a note a manager can send and an email for the broker at renewal.',
         ],
       },
     ],
@@ -391,7 +418,7 @@ export const moreResources3: Resource[] = [
       { href: '/guides/return-to-work-after-a-mental-health-leave', label: 'Return to work after a mental-health leave' },
       { href: '/resources/disability-benefits-and-counselling-bc', label: 'Short- and long-term disability and counselling' },
       { href: '/resources/workplace-mental-health-bc', label: 'Mental health and work in BC' },
-      { href: '/resources/counselling-support-for-bc-teams', label: 'Counselling support for BC teams' },
+      { href: '/for/employers-and-hr', label: 'For employers and HR' },
       { href: '/book', label: 'Book a free consultation' },
     ],
   },

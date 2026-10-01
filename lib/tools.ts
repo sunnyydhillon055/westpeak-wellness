@@ -567,13 +567,24 @@ export const ACCESS_ROUTES: Record<string, AccessRoute> = {
     label: 'Your employee assistance programme',
     detail:
       'Usually the fastest route open to anybody who has one, frequently within days, and already paid for. It typically covers a set number of sessions and is confidential from your employer. A great many people pay privately for something they already had.',
-    href: '/resources/counselling-support-for-bc-teams',
+    href: '/compare/efap-vs-private-counselling',
   },
   student: {
     label: 'Campus counselling',
     detail:
       'Included in fees you have already paid, and generally quicker to reach than a public community service. Session limits are real, and it is still the sensible first call while you are enrolled.',
     href: '/resources/student-mental-health-supports-bc',
+  },
+  /* 1 Oct 2026. A student without benefits through work was never told
+     about the plan in their own student fees, which is the one that pays a
+     private counsellor. Listed straight after campus counselling, which
+     stays first. Figures live in lib/student-plans.ts, not here: this file
+     is in the tool's client bundle. */
+  studentplan: {
+    label: 'Your student society’s health plan',
+    detail:
+      'Separate from campus counselling and already in your fees: most BC student-society plans reimburse sessions with a Registered Clinical Counsellor up to a yearly maximum. The student page has a table of what the main plans pay, read from each plan’s own page; your plan booklet is the authority.',
+    href: '/for/university-students#two-plans-and-who-sees-the-claim',
   },
   checkbenefits: {
     label: 'Find out what your benefits include',
@@ -620,6 +631,6 @@ export const ACCESS_ROUTES: Record<string, AccessRoute> = {
   other: {
     label: 'Outside British Columbia',
     detail:
-      'Counselling is regulated province by province and a session counts as happening where you are sitting. This practice sees clients in British Columbia with any of its counsellors, and anywhere in Canada with Camille Granda, whose national certification and cover reach across the country. Say where you are when you book and the consultation goes to the right person.',
+      'Counselling is regulated province by province and a session counts as happening where you are sitting. This practice sees clients in British Columbia with any of its counsellors, and in other provinces only where a counsellor’s registration and insurance allow; the booking page shows who, today. Say where you are when you book and the consultation goes to the right person.',
   },
 };

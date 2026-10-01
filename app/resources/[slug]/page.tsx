@@ -27,7 +27,14 @@ import NextConsultLine from '@/components/NextConsultLine';
 import CounsellorCards from '@/components/CounsellorCards';
 import CoverageLine from '@/components/CoverageLine';
 import { counsellorsForInfoPage, individualFeeLine, infoCardCopy, showsInfoCards } from '@/lib/counsellor-cards';
-import { readCatalog } from '@/lib/cliniko-catalog';
+import { readCatalog, FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
+import StudentPlanTable from '@/components/StudentPlanTable';
+import { STUDENT_PLAN_TABLE_AFTER } from '@/lib/student-plans';
+
+/* The student-plan table's sessions column (1 Oct 2026). This template is
+   static, so the fee is the catalogue's checked-in copy, which price-drift
+   compares with Cliniko, as /tools/therapy-cost-bc does. */
+const individualCents = FALLBACK_CATALOG.items.find((i) => i.name === 'Individual Counselling')?.cents;
 
 /* Which resource pages carry the email one-pager, and which pager. Money
  * pages only: the coverage checklist where the reader has a plan to check,
@@ -266,6 +273,10 @@ export default async function ResourcePage({ params }: { params: { slug: string 
                     <BookLink location={s.book.location} href={cta.href} className="">{s.book.label}</BookLink>.
                   </p>
                 </div>
+              )}
+
+              {STUDENT_PLAN_TABLE_AFTER[`resources/${r.slug}`] === s.h2 && (
+                <StudentPlanTable fee={individualCents ? individualCents / 100 : undefined} />
               )}
 
               <div className="prose">{midDevices.filter((_, k) => slots[k] === i)}</div>

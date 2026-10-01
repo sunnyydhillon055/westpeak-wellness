@@ -1,7 +1,10 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { audiences, getAudience, pasteText } from '@/lib/audiences';
+import { audiences, getAudience, pasteText, type PasteBlock } from '@/lib/audiences';
+import { hrGlance } from '@/lib/audiences-more4';
+import StudentPlanTable from '@/components/StudentPlanTable';
+import { STUDENT_PLAN_TABLE_AFTER } from '@/lib/student-plans';
 import CopyText from '@/components/CopyText';
 import { site } from '@/lib/site';
 import { getExtra } from '@/lib/depth';
@@ -55,13 +58,25 @@ export const revalidate = 3600;
 export default async function AudiencePage({ params }: { params: { slug: string } }) {
   const a = getAudience(params.slug);
   if (!a) notFound();
-  const feeLine = individualFeeLine(await readCatalog());
+  const catalog = await readCatalog();
+  const feeLine = individualFeeLine(catalog);
   const cta = bookingCtaFor({ language: a.language, service: a.service, fallback: `Book a free consultation ${a.ctaFor}` });
+
+  /* The student-plan table's sessions column divides by the individual fee
+     from the same catalogue as the fee line. lib/student-plans.ts. */
+  const individual = catalog.items.find((i) => i.name.toLowerCase() === 'individual counselling');
+  const planTableAfter = STUDENT_PLAN_TABLE_AFTER[`for/${a.slug}`];
+
+  /* Paste blocks sit after the section they name, or after the last one. */
+  const blocks = a.pasteBlocks ?? [];
+  const blocksAfter = (h2?: string) => blocks.filter((b) => b.after === h2);
+  const glance = a.glance ? hrGlance(catalog) : [];
 
   const toc = buildToc([
     'The things people actually say',
-    ...a.sections.map((s) => s.h2),
-    ...(a.pasteBlock ? [a.pasteBlock.h2] : []),
+    ...(a.glance ? [a.glance.h2] : []),
+    ...a.sections.flatMap((s) => [s.h2, ...blocksAfter(s.h2).map((b) => b.h2)]),
+    ...blocks.filter((b) => !b.after || !a.sections.some((s) => s.h2 === b.after)).map((b) => b.h2),
     ...getExtra('for', a.slug).map((s) => s.h2),
     'Services that tend to fit',
     'Common questions',
@@ -142,9 +157,23 @@ export default async function AudiencePage({ params }: { params: { slug: string 
               names the language and opens that counsellor's calendar. The
               coverage line under it was prose-only on this template; it is
               the sentence /pricing leads with. components/CoverageLine.tsx. */}
+          {/* A page whose reader is not the client (`cta`, set only on the
+              employer page) leads with its own action, and offers booking
+              on somebody else's behalf as the second button. */}
           <div className="btn-row" style={{ marginTop: 22 }}>
-            <BookLink location="hero-audience" href={cta.href}>{cta.label}</BookLink>
-            <Link className="btn btn--ghost" href="/for">Who we work with</Link>
+            {a.cta ? (
+              <>
+                <Link className="btn btn--primary" href={a.cta.primary.href}>{a.cta.primary.label}</Link>
+                {a.cta.ghost && (
+                  <BookLink location="hero-audience" href={a.cta.ghost.href} className="btn btn--ghost">{a.cta.ghost.label}</BookLink>
+                )}
+              </>
+            ) : (
+              <>
+                <BookLink location="hero-audience" href={cta.href}>{cta.label}</BookLink>
+                <Link className="btn btn--ghost" href="/for">Who we work with</Link>
+              </>
+            )}
           </div>
           <CoverageLine />
           {/* The fee, where the coverage line has just raised the question.
@@ -191,7 +220,10 @@ export default async function AudiencePage({ params }: { params: { slug: string 
           {a.figure && <Figure name={a.figure} />}
           <div className="crisis" style={{ marginTop: 32 }}>
             <p style={{ margin: 0 }}>
-              {a.midCta.text} <BookLink location="mid-audience" href={cta.href} className="">{a.midCta.label}</BookLink>.
+              {a.midCta.text}{' '}
+              {a.cta
+                ? <Link href={a.cta.primary.href}>{a.midCta.label}</Link>
+                : <BookLink location="mid-audience" href={cta.href} className="">{a.midCta.label}</BookLink>}.
             </p>
           </div>
         </div>
@@ -199,6 +231,22 @@ export default async function AudiencePage({ params }: { params: { slug: string 
 
       <section className="section">
         <div className="container prose">
+          {/* At a glance for HR: built from the catalogue and the roster at
+              render, never typed. lib/audiences-more4.ts hrGlance(). */}
+          {a.glance && glance.length > 0 && (
+            <div>
+              <h2 id={headingId(a.glance.h2)}>{a.glance.h2}</h2>
+              <p>{rich(a.glance.intro)}</p>
+              <dl className="glance-list" style={{ margin: '18px 0 32px' }}>
+                {glance.map((g) => (
+                  <div key={g.term} style={{ padding: '10px 0', borderTop: '1px solid var(--line)' }}>
+                    <dt style={{ fontWeight: 600, color: 'var(--ink)' }}>{g.term}</dt>
+                    <dd style={{ margin: '2px 0 0' }}>{g.detail}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          )}
           {a.sections.map((s, i) => (
             <div key={s.h2}>
               <h2 id={headingId(s.h2)}>{s.h2}</h2>
@@ -211,17 +259,19 @@ export default async function AudiencePage({ params }: { params: { slug: string 
                 </ul>
               )}
 
+              {/* What each BC student-society plan pays, after the section
+                  lib/student-plans.ts names for this page. */}
+              {planTableAfter === s.h2 && <StudentPlanTable fee={individual ? individual.cents / 100 : undefined} />}
+
+              {blocksAfter(s.h2).map((b) => <Paste key={b.h2} b={b} />)}
+
               {midDevices.filter((_, k) => slots[k] === i)}
             </div>
           ))}
           {/* Text for another site to paste, with a copy button. lib/audiences.ts. */}
-          {a.pasteBlock && (
-            <div>
-              <h2 id={headingId(a.pasteBlock.h2)}>{a.pasteBlock.h2}</h2>
-              <p>{a.pasteBlock.intro}</p>
-              <CopyText text={pasteText(a.pasteBlock, site.domain)} />
-            </div>
-          )}
+          {blocks
+            .filter((b) => !b.after || !a.sections.some((s) => s.h2 === b.after))
+            .map((b) => <Paste key={b.h2} b={b} />)}
         </div>
       </section>
 
@@ -301,10 +351,27 @@ export default async function AudiencePage({ params }: { params: { slug: string 
       <CtaBand
         heading="One conversation, no commitment."
         text="A free 30-minute consultation over secure video, including an honest answer if something other than counselling would serve you better."
-        bookHref={cta.href}
+        bookHref={a.cta?.ghost?.href ?? cta.href}
       />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
     </>
+  );
+}
+
+/* One copyable block: heading, intro, the lines NOT to do (shown, never
+   copied), and the text with its copy button. */
+function Paste({ b }: { b: PasteBlock }) {
+  return (
+    <div>
+      <h2 id={headingId(b.h2)}>{b.h2}</h2>
+      <p>{rich(b.intro)}</p>
+      {b.donts && (
+        <ul style={{ margin: '12px 0 4px' }}>
+          {b.donts.map((d) => <li key={d}>{d}</li>)}
+        </ul>
+      )}
+      <CopyText text={pasteText(b, site.domain)} />
+    </div>
   );
 }

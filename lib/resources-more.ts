@@ -2,25 +2,35 @@ import type { Resource } from './resources';
 import { fallbackFee, FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
 import { practitioners } from '@/lib/practitioners';
 import { acceptingSentences } from '@/lib/practitioner-facts';
+import { STUDENT_PLANS, studentPlanFaqs } from './student-plans';
 
 /* Minutes for a catalogue type, read rather than typed, beside fallbackFee. */
 const minutesOf = (name: string) => FALLBACK_CATALOG.items.find((i) => i.name === name)?.minutes;
+
+/* The range of yearly maximums across the student-society plans, for the
+   student resource's short answer. From lib/student-plans.ts, never typed. */
+const planMaxes = STUDENT_PLANS.map((p) => p.annualMax);
+const MAX_RANGE = `$${Math.min(...planMaxes).toLocaleString('en-CA')} to $${Math.max(...planMaxes).toLocaleString('en-CA')}`;
 
 export const moreResources: Resource[] = [
   {
     slug: 'student-mental-health-supports-bc',
     figure2: "first-session-flow",
     figure: 'therapy-cost-in-bc',
-    title: 'Mental health supports for students in BC',
-    metaTitle: 'Student Mental Health Supports BC | Westpeak',
+    /* RETITLED 1 Oct 2026 around the question students actually type. The
+       page had no clicks at positions 9.9 to 70 under a generic title, and
+       it is now the page that answers it, plan by plan
+       (lib/student-plans.ts). The free supports stay, below the answer. */
+    title: 'Does my student health plan cover counselling? BC student supports',
+    metaTitle: 'Does My Student Plan Cover Counselling? BC Student Supports',
     metaDescription:
-      'What is free and available to post-secondary and secondary students in British Columbia, what the campus limits are, and where to go when they run out.',
+      'What each BC student-society plan pays for a Registered Clinical Counsellor, read from the plan, plus the free routes: campus counselling, Here2Talk, Foundry.',
     eyebrow: 'BC resource',
     lede:
       'Students have more free support available than almost any other group in the province, and consistently under-use it because nobody explains what it covers.',
     shortAnswer:
-      'Every public post-secondary institution in BC provides some counselling to enrolled students at no cost, usually short-term. Alongside that: Here2Talk offers free 24/7 counselling to all BC post-secondary students, Foundry serves anyone aged 12 to 24, and most student unions carry an extended health plan that reimburses private counselling. Most students qualify for at least three of these and know about one.',
-    updated: '2026-08-28',
+      `Every public post-secondary institution in BC provides some counselling to enrolled students at no cost, usually short-term. Alongside that: Here2Talk offers free 24/7 single-session counselling to all BC post-secondary students, Foundry serves anyone aged 12 to 24, and most student societies carry an extended health plan that reimburses a Registered Clinical Counsellor: most of the main BC plans pay ${Math.min(...STUDENT_PLANS.map((p) => p.percent))}% to 100% of a session, with yearly maximums from ${MAX_RANGE}. Most students qualify for at least three of these and know about one.`,
+    updated: '2026-10-01',
     readMinutes: 7,
     sections: [
       {
@@ -36,7 +46,7 @@ export const moreResources: Resource[] = [
       {
         h2: 'The student health plan almost nobody reads',
         body: [
-          'Most student unions in British Columbia include an extended health and dental plan in student fees, and most of those plans reimburse counselling from registered practitioners up to an annual maximum. Students routinely pay for this in September and never use it.',
+          'Most student unions in British Columbia include an extended health and dental plan in student fees, and most of those plans reimburse counselling from registered practitioners up to an annual maximum. Students routinely pay for this in September and never use it. The table below shows what the main BC student-society plans pay, read from each plan\'s own page.',
           'Two details determine whether it is useful to you. First, which designations the plan reimburses. Some cover a Registered Clinical Counsellor, some cover only a psychologist, some cover both at different rates. Second, the annual maximum and when it resets, which is often the plan year rather than the calendar year.',
           'These plans usually also have an opt-out window early in the term for students with equivalent coverage elsewhere, such as a parent\'s plan. Opting out of a plan you would have used is a common and avoidable mistake, check the counselling benefit before deciding.',
           'Where you do have private coverage, [extended health coverage in BC](/resources/bc-extended-health-coverage-for-counselling) sets out how reimbursement works in practice.',
@@ -85,7 +95,9 @@ export const moreResources: Resource[] = [
       { q: 'Will my university know I used campus counselling?', a: 'Counselling records are confidential and separate from academic records. Faculty are not informed. The exceptions are the same legal ones that apply to any counselling: risk of serious harm, child protection, court order.' },
       { q: 'Can I use campus counselling and a private counsellor at the same time?', a: 'Generally yes. Tell both so that neither is working blind and the work is coordinated rather than duplicated.' },
       { q: 'Does my student health plan cover a Registered Clinical Counsellor?', a: 'Many do, and some cover only a psychologist. Check your specific plan booklet for the designation, not just the dollar amount. It is the detail that most often trips people up.' },
-      { q: 'I am an international student. Do these apply to me?', a: 'Here2Talk and campus counselling are generally available to all enrolled students regardless of status. Health plan coverage varies, so check whether your plan is the student union plan or a separate international policy.' },
+      { q: 'I am an international student. Do these apply to me?', a: 'Here2Talk and campus counselling are generally available to all enrolled students regardless of status. Health plan coverage varies: the insurance an institution arranges for the months before MSP is a separate policy from the student society\'s extended health plan, and it is usually the society plan that reimburses counselling. Check which one you are claiming on.' },
+      { q: 'Should I claim on my own student plan or a parent\'s plan?', a: 'Your own student plan first, then send what it did not pay to the parent\'s plan. A claim on a parent\'s plan appears in the parent\'s claim history; a claim on your own plan goes to you.' },
+      ...studentPlanFaqs(),
     ],
     sources: [
       { label: 'Here2Talk, BC post-secondary student counselling', url: 'https://here2talk.ca/' },
@@ -745,64 +757,10 @@ export const moreResources: Resource[] = [
     ],
   },
 
-  {
-    slug: 'counselling-support-for-bc-teams',
-    figure: 'accountability-chain',
-    figure2: 'reimbursement-flow',
-    title: 'Counselling support for BC teams: what employers can actually offer',
-    metaTitle: 'Workplace Mental Health Support Services for BC Teams',
-    metaDescription:
-      'What a small BC employer can actually do about mental health: benefits that cover RCCs, how EFAPs fall short, leave handled properly, and honest referral.',
-    eyebrow: 'Resource · For employers',
-    lede:
-      'Somebody on your team is struggling right now, statistically, several somebodies. Most employers genuinely want to help and have been sold exactly one tool. This page is the fuller toolbox.',
-    shortAnswer:
-      'For a BC employer, real mental-health support is mostly plumbing, not posters: an extended-health plan whose wording actually covers Registered Clinical Counsellors at a meaningful annual maximum; an EAP understood honestly as triage rather than treatment; sick days and leave handled the way the Employment Standards Act and Human Rights Code require, without diagnosis-fishing; and managers who can say "you seem underwater, what do you need?" without practising medicine. A practice like this one fits at the referral end: somewhere concrete to point a struggling employee, bookable that week, in English, Punjabi or Tagalog.',
-    updated: '2026-08-28',
-    readMinutes: 6,
-    sections: [
-      {
-        h2: 'The plumbing that actually moves the needle',
-        list: [
-          { label: 'Check your plan’s counselling wording', detail: 'The single highest-leverage employer action costs a phone call: confirm the extended-health plan reimburses "Registered Clinical Counsellors" (not only psychologists), and look hard at the annual maximum. A $300 cap funds two sessions and is a gesture, not a benefit. Raising the paramedical maximum is often surprisingly cheap at renewal.' },
-        { label: 'Know what your EAP is for', detail: 'Employee-assistance programs are genuinely useful triage: fast, free, confidential first conversations. They are also capped at a handful of sessions and staffed for generalist short-term work. Presenting the EAP as "we provide counselling" oversells it; presenting it as "a free first step, with real coverage behind it" is honest and works. The EAP comparison on this site is written for employees; it reads just as well for the people buying the program.' },
-          { label: 'Handle leave lawfully and gracefully', detail: 'The ESA sick days apply to mental health without qualification; medical notes need functional information, never diagnosis; and the Human Rights Code’s duty to accommodate covers psychological disability. The work-and-money cluster on this site maps the whole terrain, sending a struggling employee a link costs nothing and signals everything.' },
-          { label: 'Train the sentence, not the diagnosis', detail: 'Managers do not need mental-health-first-aid certification to say: "You seem like you are carrying a lot. What would help?" The skill is noticing plus asking plus not prescribing. Everything after that sentence belongs to professionals and to the employee’s own choices.' },
-        ],
-      },
-      {
-        h2: 'Where a practice like this one fits',
-        body: [
-          'Not as your EAP. This is a solo Registered Clinical Counsellor practice, and pretending otherwise would be the kind of overclaim this site is allergic to. Where it fits is the referral end of your toolbox: a concrete answer to "where would someone actually go?": online across all of BC, a live calendar of open times that hourly and shift staff can book around, sessions in English, Punjabi or Tagalog, fees published, receipts that work with every plan that covers RCCs, and a free 30-minute consultation an employee can book without telling anyone at work.',
-          'For Fraser Valley and Surrey employers specifically, the Punjabi-language capability may be the most useful line on this page: a meaningful share of the region’s workforce carries its hardest conversations in Punjabi, and English-only support quietly excludes them. Pointing to a bilingual option is a concrete act of inclusion that costs a bookmark.',
-          'What this page deliberately does not offer: workshops, lunch-and-learns, or wellness-week content. Those have their place; they are also the tool most often used *instead of* the plumbing above, and the plumbing is what your people will actually feel.',
-        ],
-      },
-    ],
-    midCta: {
-      text: 'The useful employer move costs a bookmark: know where you would point someone before the Tuesday you need to.',
-      label: 'See how the consultation works',
-    },
-    faqs: [
-      { q: 'Can we pay for an employee’s counselling directly?', a: 'The cleaner routes are the ones already built for it: a healthy paramedical maximum on a plan that lists RCCs, or a wellness or lifestyle spending account the employee draws on privately (a taxable benefit). A health spending account pays only CRA-eligible expenses, and the CRA does not yet list counsellors in BC, so check with its administrator. Direct employer payment creates confidentiality tangles nobody wants. The employee’s counselling should never be visible to the employer, including in gratitude.' },
-      { q: 'Will we be told if an employee books here?', a: 'No, categorically. Counselling is confidential from employers regardless of who suggested it, what benefits reimburse it, or how supportive the intent. What you get instead is the thing you actually wanted: a team member getting help.' },
-      { q: 'What should a manager do in the moment with a struggling employee?', a: 'Ask, listen, and point: "what would help?", genuine attention, and knowledge of the concrete options: the EAP for today, the benefits plan for treatment, the sick days without interrogation, and a real practice’s booking page. Managers go wrong by diagnosing or by fixing; the job is noticing and routing.' },
-      { q: 'Is an EAP enough on its own?', a: 'As triage, yes; as treatment, usually not, session caps mean anything beyond a rough patch needs a handoff to ongoing care, which is where plan coverage of RCCs becomes the load-bearing benefit. The honest employer framing: "free first conversations through the EAP, real coverage for ongoing counselling through the plan."' },
-      { q: 'Do you run workplace workshops?', a: 'No. This practice does one thing, which is counselling. For workplace education, CMHA BC offers established programs. What this practice offers your team is a concrete, bookable place to send someone, which in practice is the piece most toolboxes are missing.' },
-    ],
-    sources: [
-      { label: 'Province of BC, employment standards: leaves and sick days', url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/employment-standards/time-off/leaves-of-absence' },
-      { label: 'BC Office of the Human Rights Commissioner', url: 'https://bchumanrights.ca/' },
-      { label: 'Canadian Mental Health Association, BC Division, workplace programs', url: 'https://cmha.bc.ca/' },
-    ],
-    related: [
-      { href: '/compare/efap-vs-private-counselling', label: 'Your EAP vs a private counsellor' },
-      { href: '/resources/workplace-mental-health-bc', label: 'Workplace mental health in BC, the map' },
-      { href: '/resources/bc-extended-health-coverage-for-counselling', label: 'Extended health coverage for counselling' },
-      { href: '/guides/sick-days-and-mental-health-days-bc', label: 'Sick days and mental-health days in BC' },
-      { href: '/services/punjabi-counselling', label: 'Punjabi-language counselling' },
-    ],
-  },
+  /* /resources/counselling-support-for-bc-teams was here until 1 Oct 2026.
+     It now 301s to /for/employers-and-hr (lib/redirects.mjs), which took its
+     manager guidance, the Fraser Valley language point and the workshops
+     answer: two employer pages split the queries and neither ranked. */
 
   /* Round 2, item 52 (2026-08-28). Career-intent queries already reach the
    * site and earn clicks ("virtual counselling jobs bc" pos 9, the closed

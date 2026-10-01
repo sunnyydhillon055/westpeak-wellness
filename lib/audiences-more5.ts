@@ -1,4 +1,10 @@
 import type { Audience } from './audiences';
+import { practitioners } from './practitioners';
+import { reachSentence } from './practice-facts';
+
+/* Where sessions are possible, from the accepting roster with the insurance
+   gate applied (lib/practice-facts.ts). Never typed: see the co-op FAQ. */
+const REACH = reachSentence(practitioners.filter((p) => p.acceptingNewClients));
 
 /* Added 11 Sep 2026, from the client-acquisition review. Two audiences the
  * practice is unusually well placed for and had no page for:
@@ -112,8 +118,8 @@ export const moreAudiences5: Audience[] = [
     lede:
       'You crossed the world for this, the money is somebody else\'s sacrifice, and admitting it is hard feels like a betrayal of all of it. That is the exact situation this page is for.',
     shortAnswer:
-      'Westpeak Wellness offers online counselling to international students anywhere in British Columbia, in English, Punjabi or Tagalog, by secure video with a Registered Clinical Counsellor. Many international student health plans in BC reimburse counselling with a registered counsellor up to an annual limit; the plan booklet says how much. No referral or family doctor is needed, and the first 30-minute consultation is free.',
-    updated: '2026-09-11',
+      'Westpeak Wellness offers online counselling to international students anywhere in British Columbia, in English, Punjabi or Tagalog, by secure video with a Registered Clinical Counsellor. Most BC student-society health plans, which international students usually carry alongside the insurance that covers them before MSP, reimburse counselling with a Registered Clinical Counsellor up to a yearly maximum; the plan booklet says how much. No referral or family doctor is needed, and the first 30-minute consultation is free.',
+    updated: '2026-10-01',
     readMinutes: 7,
     opening: [
       'The pressures are specific. Grades that decide whether the permit continues. Work hours capped, rent uncapped. A family at home who paid for this and asks every week how it is going, in a language in which "fine" is the only acceptable answer. And a campus counselling service that is excellent and has a wait, a session cap, and a receptionist who is a classmate.',
@@ -130,7 +136,8 @@ export const moreAudiences5: Audience[] = [
       {
         h2: 'What your plan probably covers',
         body: [
-          'Most international students in BC are on a private plan arranged through the institution for the first months, then on MSP once eligible, with the private plan often continuing for what MSP does not cover. Counselling with a Registered Clinical Counsellor is commonly one of those things, up to an annual maximum, but the amount and the eligible practitioners are set by your plan, not by the practice.',
+          'Most international students in BC hold two different things, and they are easy to confuse. The first is the institution\'s temporary medical insurance for the months before MSP starts: at Kwantlen Polytechnic University, for example, that is guard.me, enrolled automatically at registration and dropped once MSP begins. It is medical insurance, and whether it pays for counselling is in its own policy wording, not something to assume.',
+          'The second is the student society\'s extended health plan, the one in your student fees, which usually continues after MSP starts. That is where counselling with a Registered Clinical Counsellor normally sits, up to a yearly maximum; the table below shows what the main BC society plans pay, read from each plan\'s own page. The amount and the eligible practitioners are set by your plan, not by the practice.',
           'The check takes two minutes: open the plan booklet or portal, search for "counsellor", "clinical counsellor" or "mental health", and note the maximum and whether a doctor\'s referral is mentioned. The [coverage page](/resources/does-my-plan-cover-counselling-bc) walks through it for the common insurers, and the same approach works for a student plan. You pay at booking and claim the receipt; the practice does not bill the plan directly.',
           'MSP itself does not cover private counselling. It covers a physician and, on referral, a psychiatrist; the [MSP page](/resources/msp-vs-extended-health) sets out where each fits.',
         ],
@@ -164,7 +171,7 @@ export const moreAudiences5: Audience[] = [
       { q: 'Will my school or IRCC find out?', a: 'No. Nothing goes to the institution or to Immigration, Refugees and Citizenship Canada. The only outside party that sees anything is your insurer, if you claim, and it sees a receipt for counselling.' },
       { q: 'Can I be seen in my own language?', a: 'In Punjabi, with Savneet Singh, RCC, or in Tagalog, with Camille Granda, RCC, CCC, as well as in English. Sessions can move between languages within the hour.' },
       { q: 'What if I cannot afford it after the plan maximum?', a: 'Say so at the consultation. The [low-cost counselling page](/resources/low-cost-counselling-bc) lists free and sliding-scale options across BC, including campus services, and you will be pointed there rather than asked to pay for something you cannot.' },
-      { q: 'I am on a co-op term outside BC. Can I still book?', a: 'A session counts as happening where you are sitting. Anywhere in Canada is possible with Camille Granda; elsewhere in BC with any counsellor. Outside Canada, not through this practice.' },
+      { q: 'I am on a co-op term outside BC. Can I still book?', a: `A session counts as happening where you are sitting. ${REACH} The booking page shows where each counsellor may see clients. Outside Canada, not through this practice.` },
     ],
     sources: [
       { label: 'HealthLink BC', url: 'https://www.healthlinkbc.ca/' },
@@ -198,7 +205,7 @@ export const moreAudiences5: Audience[] = [
       'Fifteen to twenty-five is the age when most mental health difficulty first shows up, and the age at which it is least likely to be brought to anyone. This page is for the teen, and for the parent reading over their shoulder.',
     shortAnswer:
       'Westpeak Wellness offers online counselling to teenagers and young adults across British Columbia, by secure video with a Registered Clinical Counsellor, in English, Punjabi or Tagalog. A teen can book with a parent or, in BC, on their own if they understand the care, under the Infants Act. What is said in session stays in session, with the limits set out at the first meeting, and a parent is included as much as the young person wants. The first 30-minute consultation is free and a parent can attend it.',
-    updated: '2026-09-14',
+    updated: '2026-10-01',
     readMinutes: 6,
     opening: [
       'The pressures at this age are concentrated: school and then university, the first relationships, a body and an identity still being decided, a family that is either too close or not close enough, and a phone that never lets any of it rest. Anxiety, low mood, panic and difficulties with eating and sleep most often begin here, and they are more workable here than at any later point.',
@@ -225,7 +232,7 @@ export const moreAudiences5: Audience[] = [
           { label: 'You can be in the first consultation', detail: 'The free 30-minute call is a chance for both of you to meet the counsellor. After that, the young person decides how much of the work is theirs alone, and most choose most of it.' },
           { label: 'What you will hear', detail: 'Whether sessions are happening, and anything the counsellor is obliged to share under the limits above. Not the content. A teen who knows this is far more likely to say what matters.' },
           { label: 'How to raise it without a fight', detail: 'Offer it as a place that is theirs, not a consequence. "You can talk to someone who is not us" lands better than "you need help". The [guide on talking to family about therapy](/guides/talking-to-your-family-about-therapy) is written for the other direction, and works for this one too.' },
-          { label: 'Paying', detail: 'A parent\'s extended health plan usually covers dependants to the same counselling maximum; the [coverage page](/resources/does-my-plan-cover-counselling-bc) says how to check. University students often have a plan of their own through the student society.' },
+          { label: 'Paying', detail: 'A parent\'s extended health plan usually covers dependants to the same counselling maximum; the [coverage page](/resources/does-my-plan-cover-counselling-bc) says how to check. A university or college student usually has a plan of their own through the student society, and the order matters: claim on the student\'s own plan first, then the parent\'s. A claim on a parent\'s plan appears in the parent\'s claim history, so for a young adult who wants the sessions private, the student plan is the private route. The [student plan table](/for/university-students#two-plans-and-who-sees-the-claim) shows what the main BC society plans pay; the booklet is the authority.' },
         ],
       },
       {
