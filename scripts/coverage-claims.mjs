@@ -26,7 +26,8 @@ import { join, relative } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 export const PATTERNS = [
-  /\bmost (?:major )?(?:BC )?(?:extended[- ]health )?plans (?:that (?:cover|list) [^.;]{1,60}? )?(?:reimburse|cover|will)\b/i,
+  /\bmost (?:major )?(?:BC )?(?:extended[- ]health |student[- ]society (?:health )?)?plans (?:that (?:cover|list) [^.;]{1,60}? )?(?:reimburse|cover|will)\b/i,
+  /\bmost (?:BC )?students are covered\b/i,
   /\bthrough most (?:BC )?extended[- ]health plans\b/i,
 ];
 

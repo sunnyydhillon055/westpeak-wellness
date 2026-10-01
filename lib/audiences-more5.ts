@@ -118,7 +118,7 @@ export const moreAudiences5: Audience[] = [
     lede:
       'You crossed the world for this, the money is somebody else\'s sacrifice, and admitting it is hard feels like a betrayal of all of it. That is the exact situation this page is for.',
     shortAnswer:
-      'Westpeak Wellness offers online counselling to international students anywhere in British Columbia, in English, Punjabi or Tagalog, by secure video with a Registered Clinical Counsellor. Most BC student-society health plans, which international students usually carry alongside the insurance that covers them before MSP, reimburse counselling with a Registered Clinical Counsellor up to a yearly maximum; the plan booklet says how much. No referral or family doctor is needed, and the first 30-minute consultation is free.',
+      'Westpeak Wellness offers online counselling to international students anywhere in British Columbia, in English, Punjabi or Tagalog, by secure video with a Registered Clinical Counsellor. Many BC student-society health plans, which international students usually carry alongside the insurance that covers them before MSP, reimburse counselling with a Registered Clinical Counsellor, depending on the plan, up to a yearly maximum; the plan booklet says how much. No referral or family doctor is needed, and the first 30-minute consultation is free.',
     updated: '2026-10-01',
     readMinutes: 7,
     opening: [

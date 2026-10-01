@@ -248,7 +248,7 @@ const coreAudiences: Audience[] = [
       {
         h2: "Two plans, and who sees the claim",
         body: [
-          "Most BC students are covered twice: by the student society's health plan, which is in your fees, and often by a parent's plan as a dependant. **Claim on your own student plan first**, then send what it did not pay to the parent's plan. That order is how coordination between plans normally works, and it is also the private one.",
+          "Many BC students have two plans: the student society's health plan, which is in your fees, and sometimes a parent's plan as a dependant. Whether either pays for an RCC depends on the plan. **Claim on your own student plan first**, then send what it did not pay to the parent's plan. That order is how coordination between plans normally works, and it is also the private one.",
           "A claim on a parent's plan shows up in the parent's claim history and on their statements: usually the provider type, the date and the amount. Counselling stays confidential, but the claim itself is not invisible to the plan member. A claim on your own student plan goes to you. If it matters who sees what, check your student plan's booklet before the first session, and claim there.",
           "What the main student-society plans pay is below, read from each plan's own page. Each yearly maximum is shared with psychologists and social workers, and resets with the plan year, usually in September.",
         ],

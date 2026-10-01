@@ -47,7 +47,7 @@ export const moreResources: Resource[] = [
       {
         h2: 'The student health plan almost nobody reads',
         body: [
-          'Most student unions in British Columbia include an extended health and dental plan in student fees, and most of those plans reimburse counselling from registered practitioners up to an annual maximum. Students routinely pay for this in September and never use it. The table below shows what the main BC student-society plans pay, read from each plan\'s own page.',
+          'Most student unions in British Columbia include an extended health and dental plan in student fees, and many of those plans reimburse counselling from registered practitioners up to an annual maximum; what yours pays depends on the plan. Students routinely pay for this in September and never use it. The table below shows what the main BC student-society plans pay, read from each plan\'s own page.',
           'Two details determine whether it is useful to you. First, which designations the plan reimburses. Some cover a Registered Clinical Counsellor, some cover only a psychologist, some cover both at different rates. Second, the annual maximum and when it resets, which is often the plan year rather than the calendar year.',
           'These plans usually also have an opt-out window early in the term for students with equivalent coverage elsewhere, such as a parent\'s plan. Opting out of a plan you would have used is a common and avoidable mistake, check the counselling benefit before deciding.',
           'Where you do have private coverage, [extended health coverage in BC](/resources/bc-extended-health-coverage-for-counselling) sets out how reimbursement works in practice.',

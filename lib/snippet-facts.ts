@@ -57,7 +57,9 @@ export function snippetFacts(args: { fee: Fee; from?: boolean; names?: string[] 
 }
 
 /** The first sentence of a typed lead, or the whole lead if it has one. */
-export const firstSentence = (s: string) => s.match(/^.*?[.!?](?=\s|$)/)?.[0] ?? s;
+/* An abbreviation is not a sentence end: "Fort St. John" cut the Fort St.
+   John hub description to "Online counselling for Fort St." (1 Oct 2026). */
+export const firstSentence = (s: string) => s.match(/^.*?(?<!\b(?:St|Mt|Ft|Dr|Mr|Ms|Mrs|vs|e\.g|i\.e))[.!?](?=\s|$)/)?.[0] ?? s;
 
 /* The page's own lead, then the facts. Whole sentences only. */
 export function withSnippet(lead: string, facts: string | undefined, max = SNIPPET_MAX): string {

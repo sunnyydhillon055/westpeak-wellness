@@ -319,7 +319,7 @@ export default async function AudiencePage({ params }: { params: { slug: string 
             {a.faqs.map((f) => (
               <details className="faq-item" key={f.q}>
                 <summary>{f.q}</summary>
-                <p>{f.a}</p>
+                <p>{rich(f.a)}</p>
               </details>
             ))}
           </div>

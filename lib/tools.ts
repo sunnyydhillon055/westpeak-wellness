@@ -583,7 +583,7 @@ export const ACCESS_ROUTES: Record<string, AccessRoute> = {
   studentplan: {
     label: 'Your student society’s health plan',
     detail:
-      'Separate from campus counselling and already in your fees: most BC student-society plans reimburse sessions with a Registered Clinical Counsellor up to a yearly maximum. The student page has a table of what the main plans pay, read from each plan’s own page; your plan booklet is the authority.',
+      'Separate from campus counselling and already in your fees: many BC student-society plans reimburse sessions with a Registered Clinical Counsellor up to a yearly maximum, depending on the plan. The student page has a table of what the main plans pay, read from each plan’s own page; your plan booklet is the authority.',
     href: '/for/university-students#two-plans-and-who-sees-the-claim',
   },
   checkbenefits: {

@@ -1,4 +1,5 @@
 import { practitioners, insuredProvinces, vancouverToday, type Practitioner } from './practitioners.ts';
+import { fallbackFee } from './cliniko-catalog.ts';
 
 export type Location = {
   slug: string;
@@ -873,7 +874,7 @@ export const locations: Location[] = [
       { q: "Is there anything available locally in Chilliwack?", a: "There is local practice, and for general counselling it may well be the right answer. This practice is virtual and covers the whole province, which matters most when what you need is specific rather than general." },
       { q: "What happens if my internet is unreliable?", a: "Sessions can run by phone instead, and turning the camera off cuts the bandwidth needed considerably. It is worth agreeing in advance what happens if a connection drops, so it is an inconvenience rather than an interruption to the work." },
       { q: "Do you cover Hope and Agassiz?", a: "Yes, anywhere in British Columbia. Being further east carries no penalty at all, which is the one respect in which virtual care is genuinely different from the alternative." },
-      { q: "What does a session cost?", a: "$140 for 50 minutes, after a free 30-minute consultation. Many extended health plans reimburse sessions with a Registered Clinical Counsellor, depending on the plan, so check yours; MSP does not cover them." },
+      { q: "What does a session cost?", a: `${fallbackFee('Individual Counselling')} for 50 minutes, after a free 30-minute consultation. Many extended health plans reimburse sessions with a Registered Clinical Counsellor, depending on the plan, so check yours; MSP does not cover them.` },
     ],
     sources: [
       { label: "Fraser Health, mental health and substance use services", url: "https://www.fraserhealth.ca/health-topics-a-to-z/mental-health-and-substance-use" },
