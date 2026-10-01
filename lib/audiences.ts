@@ -45,7 +45,17 @@ export type Audience = {
   related: { href: string; label: string }[];
   figure?: string;         // key into lib/figures.ts — renders the page's diagram
   figure2?: string;      // second diagram, further down the page
+  /* A paragraph somebody else is meant to paste into their own page — an HR
+   * team's benefits intranet, say — with a copy button. `path` is a site path
+   * (tagged with utm_source so the visits it sends can be told apart); the
+   * copied text ends with the absolute URL, built by pasteText below so the
+   * page and the test agree on exactly what lands on the clipboard. */
+  pasteBlock?: { h2: string; intro: string; text: string; path: string };
 };
+
+/** The plain text the copy button puts on the clipboard. */
+export const pasteText = (b: { text: string; path: string }, domain: string) =>
+  `${b.text} ${domain}${b.path}`;
 
 const coreAudiences: Audience[] = [
   {

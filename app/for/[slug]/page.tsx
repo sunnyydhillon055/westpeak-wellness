@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { audiences, getAudience } from '@/lib/audiences';
+import { audiences, getAudience, pasteText } from '@/lib/audiences';
+import CopyText from '@/components/CopyText';
 import { site } from '@/lib/site';
 import { getExtra } from '@/lib/depth';
 import { buildToc, headingId } from '@/lib/toc';
@@ -51,6 +52,7 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
   const toc = buildToc([
     'The things people actually say',
     ...a.sections.map((s) => s.h2),
+    ...(a.pasteBlock ? [a.pasteBlock.h2] : []),
     ...getExtra('for', a.slug).map((s) => s.h2),
     'Services that tend to fit',
     'Common questions',
@@ -201,6 +203,14 @@ export default function AudiencePage({ params }: { params: { slug: string } }) {
               {midDevices.filter((_, k) => slots[k] === i)}
             </div>
           ))}
+          {/* Text for another site to paste, with a copy button. lib/audiences.ts. */}
+          {a.pasteBlock && (
+            <div>
+              <h2 id={headingId(a.pasteBlock.h2)}>{a.pasteBlock.h2}</h2>
+              <p>{a.pasteBlock.intro}</p>
+              <CopyText text={pasteText(a.pasteBlock, site.domain)} />
+            </div>
+          )}
         </div>
       </section>
 
