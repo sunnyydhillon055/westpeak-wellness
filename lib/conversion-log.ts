@@ -1,4 +1,4 @@
-import { put, get } from '@vercel/blob';
+import { blobLedger, memoryLedger, casUpdate, type LedgerIO, type CasOptions } from '@/lib/blob-ledger';
 import { acceptedDetail, splitBookDetail } from '@/lib/conversion-detail';
 
 /* FIRST-PARTY CONVERSION COUNTS.
@@ -94,48 +94,43 @@ export type ConversionLog = {
 
 const EMPTY: ConversionLog = { events: {}, details: {}, total: 0, since: '', updatedAt: '' };
 
-/* Same dual-cache shape as lib/inbound.ts, for the same reason: Vercel Blob
- * reads are not read-after-write consistent, so a write just made has to
- * outrank whatever the blob is still serving. */
-let cache: { at: number; value: ConversionLog } | null = null;
-let lastWrite: { at: number; value: ConversionLog } | null = null;
+/* READS, WRITES AND THE CACHE BETWEEN THEM — 1 Oct 2026.
+ *
+ * This used to keep the instance's own last write as the answer to every read
+ * for 90 seconds, including the "fresh" read countConversion() built its next
+ * value on, and then wrote with a plain put(). With two serverless instances
+ * counting at once — /book fires three events seconds apart — each wrote its
+ * own copy plus one over the other's, and increments vanished. Every write now
+ * goes through casUpdate (lib/blob-ledger.ts): read with the ETag, write with
+ * `ifMatch`, re-read and re-apply on a refusal. A fresh read always goes to
+ * the store; the short cache serves /admin and nothing that writes. */
 const CACHE_MS = 20_000;
-const WRITE_AUTHORITY_MS = 90_000;
 
 /** Same same-site path rule the inbound forms use. */
 const safePath = (v: string) =>
   /^\/(?!\/)[A-Za-z0-9\-._~!$&'()*+,;=:@%/]*$/.test(v) ? v.slice(0, 120) : null;
 
 const countMap = (v: unknown): ConversionLog['events'] =>
-  (v && typeof v === 'object' ? v : {}) as ConversionLog['events'];
+  (v && typeof v === 'object' && !Array.isArray(v) ? v : {}) as ConversionLog['events'];
 
-export async function readConversions(opts?: { fresh?: boolean }): Promise<ConversionLog> {
-  if (lastWrite && Date.now() - lastWrite.at < WRITE_AUTHORITY_MS) return lastWrite.value;
-  if (!opts?.fresh && cache && Date.now() - cache.at < CACHE_MS) return cache.value;
-  if (!process.env.BLOB_READ_WRITE_TOKEN) return EMPTY;
-
-  try {
-    const hit = await get(KEY, { access: 'private', useCache: false });
-    if (!hit || hit.statusCode !== 200 || !hit.stream) return EMPTY;
-    const parsed = (await new Response(hit.stream).json()) as Partial<ConversionLog>;
-    const value: ConversionLog = {
-      events: countMap(parsed.events),
-      details: countMap(parsed.details),
-      total: Number(parsed.total) || 0,
-      since: String(parsed.since ?? ''),
-      updatedAt: String(parsed.updatedAt ?? ''),
-    };
-    cache = { at: Date.now(), value };
-    return value;
-  } catch {
-    return cache?.value ?? EMPTY;
-  }
+/** Whatever is stored, read as a log. Pure; tolerant of files written by
+ *  older code (no `details`) and of nothing at all. */
+export function parseConversions(raw: unknown): ConversionLog {
+  if (!raw || typeof raw !== 'object') return { ...EMPTY, events: {}, details: {} };
+  const parsed = raw as Partial<ConversionLog>;
+  return {
+    events: countMap(parsed.events),
+    details: countMap(parsed.details),
+    total: Number(parsed.total) || 0,
+    since: String(parsed.since ?? ''),
+    updatedAt: String(parsed.updatedAt ?? ''),
+  };
 }
 
 /* Bounded per event. A practice this size will never legitimately have 400
    distinct pages producing one event, and an unbounded map is how a counter
    becomes a memory problem. Keeps the busiest. The detail map is bounded by
-   its allow-list already (under 40 keys for the widest event) and is trimmed
+   its allow-list already (under 60 keys for the widest event) and is trimmed
    the same way so a file written by older code with stray keys cannot grow. */
 const TRIM = 400;
 const bump = (m: Record<string, number> | undefined, key: string): Record<string, number> => {
@@ -144,40 +139,76 @@ const bump = (m: Record<string, number> | undefined, key: string): Record<string
   return Object.fromEntries(Object.entries(next).sort((a, b) => b[1] - a[1]).slice(0, TRIM));
 };
 
-/** Records one event against one page, and against one detail when the
- *  detail is on the event's allow-list. Silently ignores anything unrecognised. */
-export async function countConversion(event: string, path: string, detail?: unknown): Promise<boolean> {
-  if (!COUNTED.has(event)) return false;
-  const p = safePath(path);
-  if (!p) return false;
-  const d = acceptedDetail(event, detail);
-
-  const current = await readConversions({ fresh: true });
-  const events = { ...current.events, [event]: bump(current.events[event], p) };
-  const details = d ? { ...current.details, [event]: bump(current.details[event], d) } : current.details;
-
-  const now = new Date().toISOString();
-  const value: ConversionLog = {
-    events,
-    details,
+/** One increment applied to a log. Pure, so the retry can re-apply it to
+ *  whatever the store holds now rather than to what it held before. */
+export function withIncrement(current: ConversionLog, event: string, path: string, detail: string | null, now: string): ConversionLog {
+  return {
+    events: { ...current.events, [event]: bump(current.events[event], path) },
+    details: detail ? { ...current.details, [event]: bump(current.details[event], detail) } : current.details,
     total: current.total + 1,
     since: current.since || now,
     updatedAt: now,
   };
+}
 
-  cache = { at: Date.now(), value };
-  lastWrite = { at: Date.now(), value };
+export type ConversionStore = {
+  read(opts?: { fresh?: boolean }): Promise<ConversionLog>;
+  count(event: string, path: string, detail?: unknown): Promise<boolean>;
+};
 
-  if (process.env.BLOB_READ_WRITE_TOKEN) {
-    await put(KEY, JSON.stringify(value, null, 2), {
-      access: 'private',
-      contentType: 'application/json',
-      addRandomSuffix: false,
-      allowOverwrite: true,
-      cacheControlMaxAge: 0,
-    });
+/** A store over one ledger. The module's own store (below) is the blob in
+ *  production; tests build two over one shared memory file to stand for two
+ *  serverless instances. */
+export function createConversionStore(io: () => LedgerIO | null, opts: CasOptions = {}): ConversionStore {
+  let cache: { at: number; value: ConversionLog } | null = null;
+
+  async function read(o?: { fresh?: boolean }): Promise<ConversionLog> {
+    if (!o?.fresh && cache && Date.now() - cache.at < CACHE_MS) return cache.value;
+    const ledger = io();
+    if (!ledger) return EMPTY;
+    try {
+      const hit = await ledger.read();
+      const value = parseConversions(hit?.body ?? null);
+      cache = { at: Date.now(), value };
+      return value;
+    } catch {
+      return cache?.value ?? EMPTY;
+    }
   }
-  return true;
+
+  async function count(event: string, path: string, detail?: unknown): Promise<boolean> {
+    if (!COUNTED.has(event)) return false;
+    const p = safePath(path);
+    if (!p) return false;
+    const d = acceptedDetail(event, detail);
+    const ledger = io();
+    if (!ledger) return true;
+    const written = await casUpdate(
+      ledger,
+      parseConversions,
+      (current) => withIncrement(current, event, p, d, new Date().toISOString()),
+      { label: 'conversion-log', ...opts }
+    );
+    if (written) cache = { at: Date.now(), value: written };
+    return true;
+  }
+
+  return { read, count };
+}
+
+/* Without a Blob token (local, previews, unit tests) the counts live in this
+   process, which is what the module always did there. */
+const local = memoryLedger();
+const store = createConversionStore(() => (process.env.BLOB_READ_WRITE_TOKEN ? blobLedger(KEY) : local));
+
+export function readConversions(opts?: { fresh?: boolean }): Promise<ConversionLog> {
+  return store.read(opts);
+}
+
+/** Records one event against one page, and against one detail when the
+ *  detail is on the event's allow-list. Silently ignores anything unrecognised. */
+export function countConversion(event: string, path: string, detail?: unknown): Promise<boolean> {
+  return store.count(event, path, detail);
 }
 
 export type PageConversions = { path: string; count: number };
