@@ -191,6 +191,124 @@ registration number.
 
 ---
 
+## 6. Settlement agencies, multicultural societies and employers of Punjabi- and Tagalog-speaking staff — the language-access guide
+
+Added 1 October 2026. The page is written for the person who does the
+looking on somebody else's behalf: the settlement worker, the HR lead with a
+largely Punjabi-speaking crew, the adult child. It names the free and
+low-cost Punjabi- and Tagalog-speaking services first, each checked on the
+date shown, and this practice last. That is what makes it linkable from an
+agency's own resource page: it does the agency's job, not ours.
+https://www.westpeakwellness.com/resources/finding-a-counsellor-in-punjabi-or-tagalog-in-bc
+
+Who to contact: settlement and immigrant-serving agencies in the Lower
+Mainland and Fraser Valley; the provincial umbrella for them; Filipino and
+South Asian community organisations; employers in trucking, construction,
+agriculture, care homes and hospitals with Punjabi- or Tagalog-speaking
+staff; public library reference desks. Each contact page below was loaded
+on 1 October 2026.
+
+- DIVERSEcity Community Resources Society, Surrey — https://www.dcrs.ca/contact/
+- Progressive Intercultural Community Services (PICS), Surrey — https://pics.bc.ca/contact/
+- Options Community Services, Surrey — https://www.options.bc.ca/contact-us
+- Archway Community Services, Abbotsford — https://archway.ca/contact/
+- MOSAIC, Vancouver and Burnaby — https://mosaicbc.org/contact/
+- Immigrant Services Society of BC (ISSofBC) — https://issbc.org/contact/
+- S.U.C.C.E.S.S. — https://successbc.ca/contact/
+- Multicultural Helping House Society, Vancouver — https://www.helpinghouse.org/contact
+- AMSSA, the provincial umbrella for settlement agencies — https://www.amssa.org/contact/
+- Sher Pride, Metro Vancouver — https://www.sherpride.ca/contact
+
+Several of these organisations are named on the page itself. Say so: an
+agency is more likely to link a page that describes its own service
+accurately, and more likely to tell us if we have got something wrong,
+which is the second-best outcome.
+
+**Subject:** A plain-English guide to finding counselling in Punjabi or Tagalog in BC, free to link
+
+Hello [name],
+
+Westpeak Wellness is a virtual counselling practice registered in White Rock
+whose Registered Clinical Counsellors work in Punjabi and Tagalog as well as
+English. We have published a guide written for the people who most often do
+the looking for somebody else: settlement workers, employers and family
+members.
+
+It explains in English how counselling in BC works (nobody needs a referral,
+MSP does not pay, extended health sometimes does, "counsellor" is not a
+protected title and how to check the register), the difference between
+interpretation and same-language therapy, and where free and low-cost
+Punjabi- and Tagalog-speaking support exists in the province. Every service
+is described from its own page with the date it was checked, and
+[organisation] is among them. Our own practice is named last.
+https://www.westpeakwellness.com/resources/finding-a-counsellor-in-punjabi-or-tagalog-in-bc
+
+If your resource page, staff intranet or client handouts could use it,
+please link to it freely. If anything about [organisation]'s entry is out of
+date, I would be grateful to hear it and will correct it the same week.
+
+Thank you,
+[Name]
+Westpeak Wellness · info@westpeakwellness.com
+
+---
+
+## 7. HR professionals, business associations, legal-information and mental-health organisations — the leave templates
+
+Added 1 October 2026. The stress-leave guides are the most-shown work pages
+on the site and they explain the system without giving anyone the
+documents. The templates page does: the employee's written request, what to
+ask the certifying clinician to include, an HR checklist from the Record of
+Employment deadline to the return, and a one-page graduated return-to-work
+plan, each as copyable text, every legal fact sourced to the canada.ca or
+gov.bc.ca page it came from with the date read.
+https://www.westpeakwellness.com/resources/mental-health-leave-templates-bc
+
+Who to contact: the HR professional body, chambers and boards of trade whose
+members are the small employers without an HR department, legal-information
+charities that answer "how do I take a medical leave" every week, and the
+mental-health organisations whose workplace programs point employers at
+exactly this. Each contact page below was loaded on 1 October 2026.
+
+- CPHR BC & Yukon (Chartered Professionals in Human Resources) — https://cphrbc.ca/contact/
+- BC Chamber of Commerce — https://bcchamber.org/contact
+- Abbotsford Chamber of Commerce — https://www.abbotsfordchamber.com/contact-us
+- People's Law School (free legal information for BC) — https://www.peopleslawschool.ca/contact-us/
+- Canadian Mental Health Association, BC Division (workplace programs) — https://bc.cmha.ca/contact/
+- Surrey Board of Trade — contact page could not be loaded on 1 Oct 2026 (the domain redirects twice and ends at a 404); find the current address before sending.
+- Community Legal Assistance Society — contact page could not be loaded on 1 Oct 2026; same.
+
+**Subject:** Copyable mental-health leave templates for BC, free to link from your member resources
+
+Hello [name],
+
+Westpeak Wellness is a virtual counselling practice serving all of BC. Our
+plain-language guides on stress leave, the doctor's note, EI sickness
+benefits and the return to work are among the most-read pages we publish,
+and the question readers kept asking was "but what do I actually write?"
+
+So we have published the documents: an employee's written request for a
+medical leave that gives an employer what it needs and nothing more, a
+checklist of what to ask the certifying clinician to include (functional,
+not clinical), an HR checklist from the first day to the return (the
+Employment Standards sick days, the five-day Record of Employment deadline,
+EI sickness benefits, STD and LTD handoffs, a graduated return), and a
+one-page return-to-work plan. Each is copyable text. Every legal fact cites
+the canada.ca or gov.bc.ca page it came from, with the date it was read.
+https://www.westpeakwellness.com/resources/mental-health-leave-templates-bc
+
+It is free, carries no advertising, and is written for the employee and the
+small employer rather than the insurer. If it would be useful in a member
+toolkit, a manager's guide or a legal-information page, please link to it
+freely. We will keep the figures current and are glad to hear of anything
+that should change.
+
+Thank you,
+[Name]
+Westpeak Wellness · info@westpeakwellness.com
+
+---
+
 ## What to watch afterwards
 
 Search Console → Links → "Top linking sites" should gain each site that

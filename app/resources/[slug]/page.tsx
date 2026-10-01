@@ -183,6 +183,21 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
                 </div>
               )}
 
+              {/* A copyable template. Plain text, selectable, in the reading
+                  column: a reader on a phone long-presses and copies it into
+                  an email. No copy button, because a button needs a client
+                  component and the selection already works everywhere. */}
+              {s.template && (
+                <div className="prose">
+                  <p style={{ margin: '0 0 6px', fontSize: '.86rem', letterSpacing: '.04em', textTransform: 'uppercase', color: 'var(--ink-soft)' }}>
+                    {s.template.title} · select to copy
+                  </p>
+                  <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word', fontFamily: 'inherit', fontSize: '.95rem', lineHeight: 1.6, background: 'var(--bg-tint)', border: '1px solid var(--line)', borderRadius: 8, padding: '18px 20px', margin: '0 0 32px', userSelect: 'all' }}>
+                    {s.template.lines.join('\n')}
+                  </pre>
+                </div>
+              )}
+
               <div className="prose">{midDevices.filter((_, k) => slots[k] === i)}</div>
             </div>
           ))}

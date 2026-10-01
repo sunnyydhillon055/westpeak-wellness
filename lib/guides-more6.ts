@@ -126,6 +126,7 @@ export const moreGuides6: Guide[] = [
       { href: '/resources/disability-benefits-and-counselling-bc', label: 'Short and long-term disability for mental health' },
       { href: '/resources/worksafebc-psychological-injury-claims', label: 'When it is a WorkSafeBC claim instead' },
       { href: '/resources/workplace-mental-health-bc', label: 'Mental health and work in BC' },
+      { href: '/resources/mental-health-leave-templates-bc', label: 'The leave request, the doctor-note checklist and the HR checklist, as templates' },
       { href: '/guides/burnout-vs-depression', label: 'Burnout or depression?' },
       { href: "/services/individual-therapy", label: "Individual counselling during stress leave" },
       { href: '/book', label: 'Book a free consultation' },

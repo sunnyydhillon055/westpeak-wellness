@@ -156,6 +156,7 @@ export const moreGuides7: Guide[] = [
     ],
     related: [
       { href: "/services/individual-therapy", label: "Individual counselling during a leave" },
+      { href: '/resources/mental-health-leave-templates-bc', label: 'Copyable templates: the request, the note checklist, the HR checklist' },
       { href: '/guides/stress-leave-bc', label: 'Stress leave in BC, the full picture' },
       { href: '/guides/ei-sickness-benefits-and-therapy', label: 'EI sickness benefits and therapy' },
       { href: '/guides/return-to-work-after-a-mental-health-leave', label: 'Return to work after a leave' },
