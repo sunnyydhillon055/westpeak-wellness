@@ -35,3 +35,59 @@ export function bookClickDetail(location: string, who?: string | null): string {
 export function toolDetail(tool: string, outcome?: string | null): string {
   return outcome ? `${tool}:${outcome}` : tool;
 }
+
+/* WHERE A VISIT CAME FROM, AS ONE WORD FROM A FIXED LIST — 1 Oct 2026.
+ *
+ * Two lists, both short enough to ship in the layout chunk and both enforced
+ * again by the server (ALLOWED in lib/conversion-detail.ts, which imports
+ * these rather than keeping a second copy).
+ *
+ * CHANNELS are the values a link the practice hands out may carry as
+ * ?utm_source=. Each names a KIND of organisation — a directory, a family
+ * practice, an HR team, a campus — never a person, and no link a client is
+ * given to pass on carries one: the /refer pages' "no referral codes" rule is
+ * about tracking who referred whom, and this tracks which kind of place
+ * published the link. Anything not on the list is dropped in the browser and
+ * never leaves it.
+ *
+ * REFERRER_CLASSES are what the landing page's referrer host is reduced to.
+ * The host is classified here and only the class is sent: no URL, no path,
+ * no query. A referrer from this site itself (a new tab opened from a page)
+ * is not an outside source and counts as `none`. */
+export const CHANNELS = [
+  'gbp', 'bing', 'apple', 'bcacc', 'listing', 'gp', 'clinic', 'hr', 'campus', 'community', 'counsellor',
+] as const;
+
+export const REFERRER_CLASSES = ['google', 'bing', 'duckduckgo', 'ai', 'listing', 'none', 'other'] as const;
+export type ReferrerClass = (typeof REFERRER_CLASSES)[number];
+
+/** The channel a ?utm_source= value names, or null when it names none. */
+export function channelOf(utmSource: string | null | undefined): string | null {
+  const v = (utmSource ?? '').trim().toLowerCase();
+  return (CHANNELS as readonly string[]).includes(v) ? v : null;
+}
+
+const AI_HOST = /(^|\.)(chatgpt\.com|chat\.openai\.com|openai\.com|gemini\.google\.com|bard\.google\.com|claude\.ai|anthropic\.com|perplexity\.ai|copilot\.microsoft\.com|you\.com|poe\.com|meta\.ai|mistral\.ai)$/i;
+/* The directories in docs/LISTINGS_PACK.md, plus the two maps apps whose
+   place cards link out. Search engines are their own classes. */
+const LISTING_HOST = /(^|\.)(psychologytoday\.com|bcacc\.ca|counsellingbc\.com|luminohealth\.sunlife\.ca|alignable\.com|theravive\.com|firstsession\.com|maps\.apple\.com|businessconnect\.apple\.com|bingplaces\.com|yelp\.(com|ca)|yellowpages\.ca)$/i;
+
+/** True when the host is an AI assistant. */
+export function isAssistantHost(host: string): boolean {
+  return AI_HOST.test(host);
+}
+
+/** The class of a referrer host. `ownHost` is this site's, so an internal
+ *  referrer is not mistaken for an outside one. */
+export function referrerClass(host: string, ownHost = ''): ReferrerClass {
+  const h = host.trim().toLowerCase().replace(/\.$/, '');
+  if (!h || (ownHost && h === ownHost.toLowerCase())) return 'none';
+  if (AI_HOST.test(h)) return 'ai';
+  if (LISTING_HOST.test(h)) return 'listing';
+  /* google.com, google.ca, news.google.com; the Android app's referrer is
+     the package name. */
+  if (/(^|\.)google\.(com|[a-z]{2}|co\.[a-z]{2}|com\.[a-z]{2})$/.test(h) || h === 'com.google.android.googlequicksearchbox') return 'google';
+  if (/(^|\.)bing\.com$/.test(h)) return 'bing';
+  if (/(^|\.)duckduckgo\.com$/.test(h)) return 'duckduckgo';
+  return 'other';
+}

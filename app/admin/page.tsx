@@ -14,9 +14,10 @@ import { recordAudit, recentAudit } from '@/lib/admin-audit';
 import { readCatalog } from '@/lib/cliniko-catalog';
 import { topSearchTerms, readSearchTerms, searchGaps } from '@/lib/search-log';
 import { REPLY_TEMPLATES, mailtoFor, businessDaysWaiting, replyTimeStats } from '@/lib/reply-templates';
-import { eventTotals, topPagesFor, readConversions, bookClickBreakdown, funnelCuts } from '@/lib/conversion-log';
+import { eventTotals, topPagesFor, readConversions, detailsOf, bookClickBreakdown, funnelCuts, channelVisits, clicksOfLandings } from '@/lib/conversion-log';
 import { readBookingTally, tallyRows, tallyLine } from '@/lib/booking-tally-read';
 import { funnelJoins, consultLines, enquiryLines } from '@/lib/funnel-report';
+import { recentSnapshots, lastWeek } from '@/lib/conversion-snapshots';
 import { readLedger, recordContacted } from '@/lib/lifecycle';
 import { reactivationEmail } from '@/lib/lifecycle-mail';
 import { sendDetailed, mailConfigured } from '@/lib/portal-mail';
@@ -110,7 +111,6 @@ export default async function AdminPage({
   const enquiryPages = await topPagesFor('enquiry_submit');
   const bookPages = await topPagesFor('book_click');
   const aiPages = await topPagesFor('ai_referral');
-  const gbpPages = await topPagesFor('gbp_visit');
   /* The second cut of the same counts — by button, by counsellor, by tool
      outcome — added 1 Oct 2026 when the log started keeping a detail. One
      read, split in lib/conversion-log.ts so the funnel email shows the same
@@ -146,6 +146,19 @@ export default async function AdminPage({
         ...enquiryLines(joins),
       ].join('\n')
     : '';
+  /* Where visits came from (1 Oct 2026): the kind of organisation whose
+     link was followed, and the landing page's referrer class. Booking
+     clicks per page are printed against the landings on that page, and the
+     note beside them says from when each was counted, because clicks began
+     on 18 Aug and landings on the day this shipped. */
+  const channels = channelVisits(log);
+  const landingClasses = detailsOf(log, 'landing');
+  const bookVsLanding = clicksOfLandings(log);
+  const landingsSince = log.firstSeen?.landing ?? '';
+  /* Last week: the two newest Monday snapshots, subtracted. Null until the
+     cron has run twice. See lib/conversion-snapshots.ts. */
+  const snapshots = await recentSnapshots(2);
+  const week = lastWeek(snapshots);
   const searchTotal = (await readSearchTerms()).total;
   /* Jobs that failed, or that have not reported in twice their expected
      interval — which looks identical to "fine" without the second check. */
@@ -739,6 +752,7 @@ export default async function AdminPage({
           Counted on this site rather than in Google Analytics, so it works whether or not
           GA is configured. Counts only &mdash; no sessions and no identifiers.
         </p>
+        <WeekPanel week={week} snapshots={snapshots.length} />
         {totals.length === 0 ? (
           <div className="admin-panel">
             <p style={{ margin: 0 }}>
@@ -756,18 +770,36 @@ export default async function AdminPage({
                 </li>
               ))}
             </ul>
-            {gbpPages.length > 0 && (
+            {channels.length > 0 && (
               <>
-                <h3 style={{ marginTop: 22 }}>Visits from the Google Business Profile</h3>
+                <h3 style={{ marginTop: 22 }}>Visits by channel</h3>
                 <p style={{ color: 'var(--ink-soft)', margin: '4px 0 8px', fontSize: '.92em' }}>
-                  Counted when the profile&rsquo;s website link carries ?utm_source=gbp. These clicks
-                  never appear in Search Console.
+                  Visits whose link carried ?utm_source= naming a kind of organisation: gbp is the
+                  Google Business Profile (including the earlier gbp-only count), the others are the
+                  tags in docs/LISTINGS_PACK.md and docs/OUTREACH.md. Once per session. Never a person.
                 </p>
                 <ul className="admin-terms">
-                  {gbpPages.map((p) => (
-                    <li key={p.path}>
-                      <Link href={p.path}>{p.path}</Link>
-                      <span>{p.count}</span>
+                  {channels.map((r) => (
+                    <li key={r.detail}>
+                      <span>{r.detail}</span>
+                      <span>{r.count}</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+            {landingClasses.rows.length > 0 && (
+              <>
+                <h3 style={{ marginTop: 22 }}>Where sessions began, by referrer</h3>
+                <p style={{ color: 'var(--ink-soft)', margin: '4px 0 8px', fontSize: '.92em' }}>
+                  The first page of each session, by the kind of site that linked to it. Only the
+                  class is recorded, never the address.{landingsSince && ` Counted since ${landingsSince}.`}
+                </p>
+                <ul className="admin-terms">
+                  {landingClasses.rows.map((r) => (
+                    <li key={r.detail}>
+                      <span>{r.detail}</span>
+                      <span>{r.count}</span>
                     </li>
                   ))}
                 </ul>
@@ -806,11 +838,17 @@ export default async function AdminPage({
             {bookPages.length > 0 && (
               <>
                 <h3 style={{ marginTop: 22 }}>Pages that earn booking clicks</h3>
+                <p style={{ color: 'var(--ink-soft)', margin: '4px 0 8px', fontSize: '.92em' }}>
+                  Each page&rsquo;s booking clicks against the sessions that began on it.
+                  {landingsSince
+                    ? ` Clicks are counted since ${log.since.slice(0, 10) || 'the log began'} and landings since ${landingsSince}, so read the ratio in the last-7-days panel above once it exists.`
+                    : ' Landings are not counted yet; they start with the first visit after this deploy.'}
+                </p>
                 <ul className="admin-terms">
-                  {bookPages.map((p) => (
+                  {bookVsLanding.map((p) => (
                     <li key={p.path}>
                       <Link href={p.path}>{p.path}</Link>
-                      <span>{p.count}</span>
+                      <span>{p.clicks} clicks of {p.landings} landings</span>
                     </li>
                   ))}
                 </ul>
@@ -1311,5 +1349,68 @@ export default async function AdminPage({
         </p>
       </div>
     </section>
+  );
+}
+
+/* LAST 7 DAYS — 1 Oct 2026. The two newest Monday snapshots of the counters,
+   subtracted (lib/conversion-snapshots.ts), so the week reads as counts for
+   that week rather than one total since 18 Aug. Booking clicks are shown
+   against landings here as well, where both cover the same seven days. */
+function WeekPanel({ week, snapshots }: { week: ReturnType<typeof lastWeek>; snapshots: number }) {
+  if (!week) {
+    return (
+      <div className="admin-panel">
+        <h3 style={{ marginTop: 0 }}>Last 7 days</h3>
+        <p style={{ margin: 0, color: 'var(--ink-soft)' }}>
+          {snapshots === 0
+            ? 'No weekly snapshot yet. The counters are copied every Monday; this shows the week between the two newest copies.'
+            : 'One Monday snapshot so far. The first weekly counts appear after the next one.'}
+        </p>
+      </div>
+    );
+  }
+  const day = (iso: string) => iso.slice(0, 10);
+  const clicks = week.events.find((e) => e.event === 'book_click');
+  const landings = week.events.find((e) => e.event === 'landing');
+  const landingOn = (path: string) => landings?.byPath.find((r) => r.key === path)?.count ?? 0;
+  return (
+    <div className="admin-panel">
+      <h3 style={{ marginTop: 0 }}>Last 7 days</h3>
+      <p style={{ margin: '0 0 8px', color: 'var(--ink-soft)', fontSize: '.92em' }}>
+        Counted between {day(week.from)} and {day(week.to)}: {week.total} event{week.total === 1 ? '' : 's'}.
+      </p>
+      {week.events.length === 0 ? (
+        <p style={{ margin: 0 }}>Nothing counted that week.</p>
+      ) : (
+        <ul className="admin-terms">
+          {week.events.map((e) => (
+            <li key={e.event}>
+              <span>
+                {e.event.replace(/_/g, ' ')}
+                {e.byDetail.length > 0 && (
+                  <small style={{ color: 'var(--ink-soft)' }}>
+                    {' '}({e.byDetail.slice(0, 4).map((r) => `${r.key} ${r.count}`).join(', ')})
+                  </small>
+                )}
+              </span>
+              <span>{e.count}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+      {clicks && clicks.byPath.length > 0 && (
+        <>
+          <h3 style={{ marginTop: 18 }}>Booking clicks that week, against landings</h3>
+          <ul className="admin-terms">
+            {clicks.byPath.slice(0, 10).map((r) => (
+              <li key={r.key}>
+                <Link href={r.key}>{r.key}</Link>
+                <span>{r.count} clicks of {landingOn(r.key)} landings</span>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+    </div>
   );
 }

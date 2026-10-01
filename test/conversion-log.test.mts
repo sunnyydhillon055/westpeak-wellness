@@ -7,8 +7,10 @@ import {
   BOOK_LOCATIONS, COUNSELLOR_SLUGS, TOOL_OUTCOMES, MAGNET_KEYS,
 } from '@/lib/conversion-detail';
 import {
-  countConversion, readConversions, detailsOf, bookClickBreakdown, type ConversionLog,
+  countConversion, readConversions, detailsOf, bookClickBreakdown, createConversionStore, type ConversionLog,
 } from '@/lib/conversion-log';
+import { createSearchStore } from '@/lib/search-log';
+import { memoryLedger, type LedgerIO } from '@/lib/blob-ledger';
 import { practitioners } from '@/lib/practitioners';
 import { tools } from '@/lib/tools';
 
@@ -151,7 +153,9 @@ test('the log keeps event → path → count as before, and event → detail →
   assert.equal(await countConversion('book_click', '//evil.example', 'header'), false, 'the path rule is unchanged');
 
   const log = await readConversions();
-  assert.deepEqual(Object.keys(log).sort(), ['details', 'events', 'since', 'total', 'updatedAt']);
+  /* `firstSeen` is the one key added since (1 Oct 2026), and only appears
+     once an event is counted for the first time; every older key is as it was. */
+  assert.deepEqual(Object.keys(log).filter((k) => k !== 'firstSeen').sort(), ['details', 'events', 'since', 'total', 'updatedAt']);
   assert.equal(log.total, t0 + 4);
   assert.equal(log.events.book_click?.['/practitioners/camille-granda'], (before.events.book_click?.['/practitioners/camille-granda'] ?? 0) + 1);
   assert.equal(log.events.book_click?.['/guides'], (before.events.book_click?.['/guides'] ?? 0) + 1);
@@ -196,4 +200,94 @@ test('the store keeps the button when the browser names an unknown counsellor', 
   assert.equal(acceptedDetail('tool_complete', 'which-service:not-an-outcome'), 'which-service');
   assert.equal(acceptedDetail('book_direct', 'nobody'), null);
   assert.equal(acceptedDetail('book_click', 42), null);
+});
+
+/* TWO INSTANCES, ONE FILE — 1 Oct 2026.
+ *
+ * countConversion() read the tally, added one and wrote it back with a plain
+ * put(), and answered its own "fresh" read from the instance's last write for
+ * 90 seconds. Two serverless instances counting at once each wrote their copy
+ * over the other's. These stand two stores on one shared file whose reads and
+ * writes take a random few milliseconds, so the operations interleave the way
+ * two instances' do. */
+const slow = (io: LedgerIO): LedgerIO => {
+  const jitter = () => new Promise((r) => setTimeout(r, Math.random() * 6));
+  return {
+    async read() { await jitter(); return io.read(); },
+    async write(json, cond) { await jitter(); return io.write(json, cond); },
+  };
+};
+
+test('20 concurrent increments across two instances total 20', async () => {
+  const cell = { version: 0 } as { json?: string; version: number };
+  /* Every refusal means another increment landed, so 20 increments can be
+     refused at most 19 times each: 20 attempts makes this exact, not lucky. */
+  const a = createConversionStore(() => slow(memoryLedger(cell)), { attempts: 20, backoffMs: 4 });
+  const b = createConversionStore(() => slow(memoryLedger(cell)), { attempts: 20, backoffMs: 4 });
+  const events = ['scheduler_visible', 'scheduler_interact', 'book_direct', 'book_click'];
+  await Promise.all(Array.from({ length: 20 }, (_, i) =>
+    (i % 2 ? a : b).count(events[i % events.length]!, '/book', i % 3 ? 'camille-granda' : undefined)));
+  const log = await a.read({ fresh: true });
+  assert.equal(log.total, 20);
+  const byPath = Object.values(log.events).reduce((n, m) => n + (m['/book'] ?? 0), 0);
+  assert.equal(byPath, 20, 'every increment is in the path map too');
+  assert.deepEqual(await b.read({ fresh: true }), log, 'both instances read the same file');
+});
+
+test('the shape /book produces (three events seconds apart) needs no tuning', async () => {
+  const cell = { version: 0 } as { json?: string; version: number };
+  const a = createConversionStore(() => slow(memoryLedger(cell)));
+  const b = createConversionStore(() => slow(memoryLedger(cell)));
+  await Promise.all([a.count('scheduler_visible', '/book'), b.count('scheduler_interact', '/book'), a.count('book_direct', '/book')]);
+  assert.equal((await b.read({ fresh: true })).total, 3);
+});
+
+test('the race is real: the same interleaving without ifMatch loses increments', async () => {
+  const cell = { version: 0 } as { json?: string; version: number };
+  const blind = (): LedgerIO => { const io = slow(memoryLedger(cell)); return { read: io.read, write: (j) => io.write(j) }; };
+  const a = createConversionStore(blind);
+  const b = createConversionStore(blind);
+  await Promise.all(Array.from({ length: 20 }, (_, i) => (i % 2 ? a : b).count('book_click', '/')));
+  assert.ok((await a.read({ fresh: true })).total < 20, 'if this passes at 20 the test above proves nothing');
+});
+
+test('a weak ETag is written unconditionally rather than never', async () => {
+  let stored: string | undefined;
+  const weak: LedgerIO = {
+    async read() { return stored ? { body: JSON.parse(stored), etag: 'W/"abc"' } : null; },
+    async write(json, cond) { if (cond?.ifMatch || (cond?.create && stored)) return 'conflict'; stored = json; return 'ok'; },
+  };
+  const s = createConversionStore(() => weak, { backoffMs: 0 });
+  await s.count('book_click', '/');
+  await s.count('book_click', '/');
+  assert.equal((await s.read({ fresh: true })).total, 2);
+});
+
+test('a store that refuses every write drops the one increment and keeps the file', async () => {
+  const cell = { version: 0 } as { json?: string; version: number };
+  const io = memoryLedger(cell);
+  await io.write(JSON.stringify({ events: { book_click: { '/': 5 } }, details: {}, total: 5, since: 'x', updatedAt: 'x' }));
+  const refusing: LedgerIO = { read: io.read, write: async () => 'conflict' };
+  const s = createConversionStore(() => refusing, { attempts: 3, backoffMs: 0 });
+  assert.equal(await s.count('book_click', '/'), true);
+  assert.equal((await createConversionStore(() => io).read({ fresh: true })).total, 5);
+});
+
+test('the search-term counter has the same guard', async () => {
+  const cell = { version: 0 } as { json?: string; version: number };
+  const a = createSearchStore(() => slow(memoryLedger(cell)), { attempts: 20, backoffMs: 4 });
+  const b = createSearchStore(() => slow(memoryLedger(cell)), { attempts: 20, backoffMs: 4 });
+  const results = await Promise.all(Array.from({ length: 20 }, (_, i) => (i % 2 ? a : b).count(i % 4 ? 'emdr' : 'anxiety')));
+  assert.ok(results.every(Boolean));
+  const t = await a.read({ fresh: true });
+  assert.equal(t.total, 20);
+  assert.equal((t.terms.emdr ?? 0) + (t.terms.anxiety ?? 0), 20);
+});
+
+test('neither counter keeps a lastWrite or writes with a plain put any more', () => {
+  for (const f of ['lib/conversion-log.ts', 'lib/search-log.ts']) {
+    const src = readFileSync(join(ROOT, f), 'utf8');
+    assert.doesNotMatch(src, /\blet lastWrite\b/, `${f} still answers reads from its own last write`);
+    assert.doesNotMatch(src, /from '@vercel\/blob'/, `${f} writes outside lib/blob-ledger.ts`);
+  }
 });

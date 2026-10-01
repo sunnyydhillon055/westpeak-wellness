@@ -1,5 +1,6 @@
 import { practitioners } from '@/lib/practitioners';
 import { tools, WHICH_SERVICE_OUTCOMES, ACCESS_ROUTES } from '@/lib/tools';
+import { CHANNELS, REFERRER_CLASSES } from '@/lib/conversion-detail-client';
 
 /* THE ONE EXTRA DIMENSION A CONVERSION EVENT MAY CARRY — 1 Oct 2026.
  *
@@ -140,6 +141,11 @@ const ALLOWED: Readonly<Record<string, ReadonlySet<string>>> = {
   enquiry_submit: SLUG_KEYS,
   lead_magnet_submit: MAGNET_SET,
   tool_complete: TOOL_KEYS,
+  /* Which kind of organisation published the link (?utm_source=), and what
+     kind of place the landing page's referrer was. Both lists live in the
+     browser half so the two cannot drift; see the note there. 1 Oct 2026. */
+  channel_visit: new Set<string>(CHANNELS),
+  landing: new Set<string>(REFERRER_CLASSES),
 };
 
 /** The detail to store for this event, or null to store none. Never throws,

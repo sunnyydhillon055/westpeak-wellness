@@ -12,6 +12,13 @@ Rules carried from DECISIONS.md: no testimonials or outcome claims; no
 registration numbers outside the profile pages; the founder is not offered as
 accepting clients; email over phone; nothing paid.
 
+Every link below ends in `?utm_source=` and a tag naming the kind of
+organisation it is sent to (gp, clinic, hr, campus, community, counsellor);
+/admin counts visits by that tag. It names a kind of place, never a person,
+and is never put on a link a client is given to pass on. Change the tag when
+the recipient is a different kind of place: a clinic manager is `clinic`, a
+student services office is `campus`.
+
 ---
 
 ## 1. Family doctors and nurse practitioners — a referral note
@@ -21,7 +28,7 @@ and most clinics keep a short list. The aim is to be on it. Send to clinic
 managers in White Rock, South Surrey, Surrey and Abbotsford first, because
 those are the cities with the most searches and the practice's registered
 locality. The site has a page written for this reader:
-https://www.westpeakwellness.com/refer/doctor
+https://www.westpeakwellness.com/refer/doctor?utm_source=gp
 
 **Subject:** Online counselling in English, Punjabi and Tagalog — a referral option for your patients
 
@@ -46,7 +53,7 @@ What we offer, briefly:
 
 Our page for referring clinicians sets out scope, what we do and do not
 treat, and how a patient reaches us:
-https://www.westpeakwellness.com/refer/doctor
+https://www.westpeakwellness.com/refer/doctor?utm_source=gp
 
 If a one-page summary for the front desk would help, I am happy to send one.
 Thank you for your time.
@@ -78,13 +85,13 @@ and reviewed against the current rules.
 They are free, carry no advertising, and are written for the employee, not
 the insurer. HR teams have told us they answer the questions staff are
 embarrassed to ask. The hub is here:
-https://www.westpeakwellness.com/resources/workplace-mental-health-bc
+https://www.westpeakwellness.com/resources/workplace-mental-health-bc?utm_source=hr
 
 If it would be useful on an intranet, a benefits page or a manager's
 toolkit, please link to it freely. We also offer counselling in English,
 Punjabi and Tagalog by secure video, with evening times, and a page for
 employers on what counselling support for a team can actually look like:
-https://www.westpeakwellness.com/resources/counselling-support-for-bc-teams
+https://www.westpeakwellness.com/resources/counselling-support-for-bc-teams?utm_source=hr
 
 Thank you,
 [Name]
@@ -111,7 +118,7 @@ British Columbia — 9-8-8, 3-1-0-6789, the provincial and regional lines and
 the specialised services, with what each one actually does and who it is
 for. It is reviewed on a schedule, carries no advertising, and
 is free to link or reproduce with attribution:
-https://www.westpeakwellness.com/resources/bc-crisis-and-support-directory
+https://www.westpeakwellness.com/resources/bc-crisis-and-support-directory?utm_source=community
 
 If your "where to get help" page could use it, we would be grateful for a
 link, and glad to hear of anything missing from it.
@@ -199,7 +206,7 @@ largely Punjabi-speaking crew, the adult child. It names the free and
 low-cost Punjabi- and Tagalog-speaking services first, each checked on the
 date shown, and this practice last. That is what makes it linkable from an
 agency's own resource page: it does the agency's job, not ours.
-https://www.westpeakwellness.com/resources/finding-a-counsellor-in-punjabi-or-tagalog-in-bc
+https://www.westpeakwellness.com/resources/finding-a-counsellor-in-punjabi-or-tagalog-in-bc?utm_source=community
 
 Who to contact: settlement and immigrant-serving agencies in the Lower
 Mainland and Fraser Valley; the provincial umbrella for them; Filipino and
@@ -241,7 +248,7 @@ interpretation and same-language therapy, and where free and low-cost
 Punjabi- and Tagalog-speaking support exists in the province. Every service
 is described from its own page with the date it was checked, and
 [organisation] is among them. Our own practice is named last.
-https://www.westpeakwellness.com/resources/finding-a-counsellor-in-punjabi-or-tagalog-in-bc
+https://www.westpeakwellness.com/resources/finding-a-counsellor-in-punjabi-or-tagalog-in-bc?utm_source=community
 
 If your resource page, staff intranet or client handouts could use it,
 please link to it freely. If anything about [organisation]'s entry is out of
@@ -262,7 +269,7 @@ ask the certifying clinician to include, an HR checklist from the Record of
 Employment deadline to the return, and a one-page graduated return-to-work
 plan, each as copyable text, every legal fact sourced to the canada.ca or
 gov.bc.ca page it came from with the date read.
-https://www.westpeakwellness.com/resources/mental-health-leave-templates-bc
+https://www.westpeakwellness.com/resources/mental-health-leave-templates-bc?utm_source=hr
 
 Who to contact: the HR professional body, chambers and boards of trade whose
 members are the small employers without an HR department, legal-information
@@ -295,7 +302,7 @@ Employment Standards sick days, the five-day Record of Employment deadline,
 EI sickness benefits, STD and LTD handoffs, a graduated return), and a
 one-page return-to-work plan. Each is copyable text. Every legal fact cites
 the canada.ca or gov.bc.ca page it came from, with the date it was read.
-https://www.westpeakwellness.com/resources/mental-health-leave-templates-bc
+https://www.westpeakwellness.com/resources/mental-health-leave-templates-bc?utm_source=hr
 
 It is free, carries no advertising, and is written for the employee and the
 small employer rather than the insurer. If it would be useful in a member

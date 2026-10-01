@@ -1,4 +1,4 @@
-import { put, get } from '@vercel/blob';
+import { blobLedger, casUpdate, type LedgerIO, type CasOptions } from '@/lib/blob-ledger';
 import { buildIndex, searchIndex } from './search-index';
 
 /* What people search for on this site — as counts, never as events.
@@ -54,10 +54,9 @@ export type SearchTerms = {
 
 const EMPTY: SearchTerms = { terms: {}, total: 0, updatedAt: '' };
 
-let cache: { at: number; value: SearchTerms } | null = null;
-let lastWrite: { at: number; value: SearchTerms } | null = null;
+/* No `lastWrite` any more, and no plain put(): both counters now write with
+   compare-and-swap through lib/blob-ledger.ts, which says why. */
 const CACHE_MS = 30_000;
-const WRITE_AUTHORITY_MS = 90_000;
 
 /** Lowercased, whitespace-collapsed, punctuation trimmed. Returns null when the
  *  input should not be counted at all. */
@@ -68,34 +67,20 @@ export function normalizeTerm(raw: string): string | null {
   return t;
 }
 
-export async function readSearchTerms(opts?: { fresh?: boolean }): Promise<SearchTerms> {
-  if (lastWrite && Date.now() - lastWrite.at < WRITE_AUTHORITY_MS) return lastWrite.value;
-  if (!opts?.fresh && cache && Date.now() - cache.at < CACHE_MS) return cache.value;
-  if (!process.env.BLOB_READ_WRITE_TOKEN) return EMPTY;
-
-  try {
-    const hit = await get(KEY, { access: 'private', useCache: false });
-    if (!hit || hit.statusCode !== 200 || !hit.stream) return EMPTY;
-    const v = (await new Response(hit.stream).json()) as Partial<SearchTerms>;
-    const value: SearchTerms = {
-      terms: v.terms && typeof v.terms === 'object' ? v.terms : {},
-      total: Number(v.total) || 0,
-      updatedAt: String(v.updatedAt ?? ''),
-    };
-    cache = { at: Date.now(), value };
-    return value;
-  } catch {
-    return cache?.value ?? EMPTY;
-  }
+/** Whatever is stored, read as a tally. Pure. */
+export function parseSearchTerms(raw: unknown): SearchTerms {
+  if (!raw || typeof raw !== 'object') return { terms: {}, total: 0, updatedAt: '' };
+  const v = raw as Partial<SearchTerms>;
+  return {
+    terms: v.terms && typeof v.terms === 'object' && !Array.isArray(v.terms) ? v.terms : {},
+    total: Number(v.total) || 0,
+    updatedAt: String(v.updatedAt ?? ''),
+  };
 }
 
-/** Increments one term's count. Returns false when the term was not countable. */
-export async function countSearch(raw: string): Promise<boolean> {
-  const term = normalizeTerm(raw);
-  if (!term) return false;
-  if (!process.env.BLOB_READ_WRITE_TOKEN) return false;
-
-  const current = await readSearchTerms({ fresh: true });
+/** One submission applied to a tally. Pure, so a retry re-applies it to the
+ *  store's current copy. */
+export function withTerm(current: SearchTerms, term: string, now: string): SearchTerms {
   const terms = { ...current.terms, [term]: (current.terms[term] ?? 0) + 1 };
 
   /* Bounded. Kept by frequency rather than recency, because the point is the
@@ -105,26 +90,64 @@ export async function countSearch(raw: string): Promise<boolean> {
   const keys = Object.keys(terms);
   if (keys.length > 600) {
     kept = Object.fromEntries(
-      keys.map((k) => [k, terms[k]] as const).sort((a, b) => b[1] - a[1]).slice(0, 500)
+      keys.map((k) => [k, terms[k]!] as const).sort((a, b) => b[1] - a[1]).slice(0, 500)
     );
   }
+  return { terms: kept, total: current.total + 1, updatedAt: now };
+}
 
-  const value: SearchTerms = {
-    terms: kept,
-    total: current.total + 1,
-    updatedAt: new Date().toISOString(),
-  };
-  cache = { at: Date.now(), value };
-  lastWrite = { at: Date.now(), value };
+export type SearchStore = {
+  read(opts?: { fresh?: boolean }): Promise<SearchTerms>;
+  count(raw: string): Promise<boolean>;
+};
 
-  await put(KEY, JSON.stringify(value, null, 2), {
-    access: 'private',
-    contentType: 'application/json',
-    addRandomSuffix: false,
-    allowOverwrite: true,
-    cacheControlMaxAge: 0,
-  });
-  return true;
+/** A store over one ledger; see createConversionStore in lib/conversion-log.ts. */
+export function createSearchStore(io: () => LedgerIO | null, opts: CasOptions = {}): SearchStore {
+  let cache: { at: number; value: SearchTerms } | null = null;
+
+  async function read(o?: { fresh?: boolean }): Promise<SearchTerms> {
+    if (!o?.fresh && cache && Date.now() - cache.at < CACHE_MS) return cache.value;
+    const ledger = io();
+    if (!ledger) return EMPTY;
+    try {
+      const hit = await ledger.read();
+      const value = parseSearchTerms(hit?.body ?? null);
+      cache = { at: Date.now(), value };
+      return value;
+    } catch {
+      return cache?.value ?? EMPTY;
+    }
+  }
+
+  async function count(raw: string): Promise<boolean> {
+    const term = normalizeTerm(raw);
+    if (!term) return false;
+    const ledger = io();
+    if (!ledger) return false;
+    const written = await casUpdate(
+      ledger,
+      parseSearchTerms,
+      (current) => withTerm(current, term, new Date().toISOString()),
+      { label: 'search-log', ...opts }
+    );
+    if (written) cache = { at: Date.now(), value: written };
+    return written !== null;
+  }
+
+  return { read, count };
+}
+
+/* Unlike the conversion log, searches were never counted without a Blob
+   token, and still are not: a preview's searches are the team's own. */
+const store = createSearchStore(() => (process.env.BLOB_READ_WRITE_TOKEN ? blobLedger(KEY) : null));
+
+export function readSearchTerms(opts?: { fresh?: boolean }): Promise<SearchTerms> {
+  return store.read(opts);
+}
+
+/** Increments one term's count. Returns false when the term was not countable. */
+export function countSearch(raw: string): Promise<boolean> {
+  return store.count(raw);
 }
 
 /** Most-searched first — the order anyone actually wants to read. */

@@ -5,7 +5,7 @@ import { readInbound, type Inbound } from '@/lib/inbound';
 import { isTestSubmission } from '@/lib/inbound-quality';
 import { readClients } from '@/lib/clients';
 import { readSearchTerms } from '@/lib/search-log';
-import { readConversions, bookClickBreakdown, funnelCuts, type BookClickBreakdown, type FunnelCuts } from '@/lib/conversion-log';
+import { readConversions, bookClickBreakdown, funnelCuts, channelVisits, type BookClickBreakdown, type FunnelCuts, type DetailConversions } from '@/lib/conversion-log';
 import { api, headers, listAll } from '@/lib/cliniko';
 import { practitionerSlugFor } from '@/lib/practitioner-for';
 import { locations } from '@/lib/locations';
@@ -88,6 +88,10 @@ type Counts = {
   clinikoTruncated: boolean;
   /** The booking-mail job's monthly tally for the same month. */
   bookingTally: { status: 'ok'; month: string; rows: { slug: string; row: TallyRow }[]; updatedAt: string } | { status: 'absent'; reason: string };
+  /** Visits by the kind of organisation whose link was followed
+   *  (?utm_source=, lib/conversion-detail-client.ts). All time, like the
+   *  booking clicks. Optional so a caller built before 1 Oct still renders. */
+  channels?: DetailConversions[];
 };
 
 const startOfMonthsAgo = (n: number) => {
@@ -342,6 +346,7 @@ export async function gather(opts: { now?: Date } = {}): Promise<{ counts: Count
       enquiryOutcomes: ck.enquiryOutcomes,
       clinikoTruncated: ck.truncated,
       bookingTally,
+      channels: channelVisits(log),
     },
   };
 }
@@ -518,6 +523,11 @@ export function render(counts: Counts, from: Date, to: Date, clinikoOk: boolean)
       ''
     );
   }
+  if (counts.channels?.length) {
+    lines.push('Visits by channel (all time; the ?utm_source= on a link the practice handed out):', '');
+    for (const r of counts.channels) lines.push(`  ${String(r.count).padStart(4)}  ${r.detail}`);
+    lines.push('');
+  }
 
   const clickLines = bookClickLines(counts);
   if (clickLines.length) {
@@ -590,6 +600,10 @@ ${funnelCutLines.length
   ? `<p style="margin:0 0 8px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#545e69;">Calendar, tools and checklists</p>
      <pre style="margin:0 0 8px;font-size:13px;line-height:1.6;white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;">${escHtml(funnelCutLines.join('\n'))}</pre>
      <p style="margin:0 0 16px;font-size:14px;color:#545e69;">Cumulative since 1 Oct 2026, not the month.</p>`
+  : ''}
+${counts.channels?.length
+  ? `<p style="margin:0 0 8px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#545e69;">Visits by channel, all time</p>
+     <p style="margin:0 0 16px;font-size:15px;line-height:1.8;">${counts.channels.map((r) => `${r.detail} <span style="color:#545e69;">(${r.count})</span>`).join(' · ')}</p>`
   : ''}
 ${clickLines.length
   ? `<p style="margin:0 0 8px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#545e69;">Booking clicks, by button and by counsellor</p>

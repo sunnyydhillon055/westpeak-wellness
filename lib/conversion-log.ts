@@ -1,4 +1,4 @@
-import { put, get } from '@vercel/blob';
+import { blobLedger, memoryLedger, casUpdate, type LedgerIO, type CasOptions } from '@/lib/blob-ledger';
 import { acceptedDetail, splitBookDetail, PORTAL_PREFIX } from '@/lib/conversion-detail';
 
 /* FIRST-PARTY CONVERSION COUNTS.
@@ -59,8 +59,20 @@ const COUNTED = new Set([
      the class is sent; no URL, no query, no identifier. */
   'ai_referral',
   /* A visit that arrived from the Google Business Profile's website button,
-     identified by ?utm_source=gbp on the link. 26 Sep 2026. */
+     identified by ?utm_source=gbp on the link. 26 Sep 2026. Superseded on
+     1 Oct 2026 by channel_visit with detail `gbp`; still accepted so a page
+     loaded before the deploy is not lost, and read back into the gbp row by
+     channelVisits() below. */
   'gbp_visit',
+  /* A visit whose link carried ?utm_source= naming one of the fixed
+     channels (lib/conversion-detail-client.ts): a directory, a family
+     practice, an HR team. Once per session, against the landing page; the
+     channel is the detail. Names a kind of organisation, never a person. */
+  'channel_visit',
+  /* The first page of a session, with the referrer reduced in the browser to
+     one class (google, bing, duckduckgo, ai, listing, none, other). The
+     denominator the booking clicks never had. 1 Oct 2026. */
+  'landing',
   /* Both form events are counted by the server when the record is stored
      (lib/inbound-submit.ts), not by the browser. 1 Oct 2026: six weeks of
      a beacon fired in onSubmit of a native POST recorded 3 of 40 enquiries
@@ -90,52 +102,56 @@ export type ConversionLog = {
   total: number;
   since: string;
   updatedAt: string;
+  /** event -> the UTC day it was first counted, for events first counted on
+   *  or after 1 Oct 2026. Absent for everything older (those began at
+   *  `since` or soon after). It is what lets /admin say "landings counted
+   *  since 2 Oct" beside clicks counted since 18 Aug, rather than dividing
+   *  one by the other as if they covered the same weeks. */
+  firstSeen?: Record<string, string>;
 };
 
 const EMPTY: ConversionLog = { events: {}, details: {}, total: 0, since: '', updatedAt: '' };
 
-/* Same dual-cache shape as lib/inbound.ts, for the same reason: Vercel Blob
- * reads are not read-after-write consistent, so a write just made has to
- * outrank whatever the blob is still serving. */
-let cache: { at: number; value: ConversionLog } | null = null;
-let lastWrite: { at: number; value: ConversionLog } | null = null;
+/* READS, WRITES AND THE CACHE BETWEEN THEM — 1 Oct 2026.
+ *
+ * This used to keep the instance's own last write as the answer to every read
+ * for 90 seconds, including the "fresh" read countConversion() built its next
+ * value on, and then wrote with a plain put(). With two serverless instances
+ * counting at once — /book fires three events seconds apart — each wrote its
+ * own copy plus one over the other's, and increments vanished. Every write now
+ * goes through casUpdate (lib/blob-ledger.ts): read with the ETag, write with
+ * `ifMatch`, re-read and re-apply on a refusal. A fresh read always goes to
+ * the store; the short cache serves /admin and nothing that writes. */
 const CACHE_MS = 20_000;
-const WRITE_AUTHORITY_MS = 90_000;
 
 /** Same same-site path rule the inbound forms use. */
 const safePath = (v: string) =>
   /^\/(?!\/)[A-Za-z0-9\-._~!$&'()*+,;=:@%/]*$/.test(v) ? v.slice(0, 120) : null;
 
 const countMap = (v: unknown): ConversionLog['events'] =>
-  (v && typeof v === 'object' ? v : {}) as ConversionLog['events'];
+  (v && typeof v === 'object' && !Array.isArray(v) ? v : {}) as ConversionLog['events'];
 
-export async function readConversions(opts?: { fresh?: boolean }): Promise<ConversionLog> {
-  if (lastWrite && Date.now() - lastWrite.at < WRITE_AUTHORITY_MS) return lastWrite.value;
-  if (!opts?.fresh && cache && Date.now() - cache.at < CACHE_MS) return cache.value;
-  if (!process.env.BLOB_READ_WRITE_TOKEN) return EMPTY;
-
-  try {
-    const hit = await get(KEY, { access: 'private', useCache: false });
-    if (!hit || hit.statusCode !== 200 || !hit.stream) return EMPTY;
-    const parsed = (await new Response(hit.stream).json()) as Partial<ConversionLog>;
-    const value: ConversionLog = {
-      events: countMap(parsed.events),
-      details: countMap(parsed.details),
-      total: Number(parsed.total) || 0,
-      since: String(parsed.since ?? ''),
-      updatedAt: String(parsed.updatedAt ?? ''),
-    };
-    cache = { at: Date.now(), value };
-    return value;
-  } catch {
-    return cache?.value ?? EMPTY;
-  }
+/** Whatever is stored, read as a log. Pure; tolerant of files written by
+ *  older code (no `details`) and of nothing at all. */
+export function parseConversions(raw: unknown): ConversionLog {
+  if (!raw || typeof raw !== 'object') return { ...EMPTY, events: {}, details: {} };
+  const parsed = raw as Partial<ConversionLog>;
+  return {
+    events: countMap(parsed.events),
+    details: countMap(parsed.details),
+    total: Number(parsed.total) || 0,
+    since: String(parsed.since ?? ''),
+    updatedAt: String(parsed.updatedAt ?? ''),
+    ...(parsed.firstSeen && typeof parsed.firstSeen === 'object' && !Array.isArray(parsed.firstSeen)
+      ? { firstSeen: parsed.firstSeen as Record<string, string> }
+      : {}),
+  };
 }
 
 /* Bounded per event. A practice this size will never legitimately have 400
    distinct pages producing one event, and an unbounded map is how a counter
    becomes a memory problem. Keeps the busiest. The detail map is bounded by
-   its allow-list already (under 40 keys for the widest event) and is trimmed
+   its allow-list already (under 60 keys for the widest event) and is trimmed
    the same way so a file written by older code with stray keys cannot grow. */
 const TRIM = 400;
 const bump = (m: Record<string, number> | undefined, key: string): Record<string, number> => {
@@ -144,40 +160,81 @@ const bump = (m: Record<string, number> | undefined, key: string): Record<string
   return Object.fromEntries(Object.entries(next).sort((a, b) => b[1] - a[1]).slice(0, TRIM));
 };
 
-/** Records one event against one page, and against one detail when the
- *  detail is on the event's allow-list. Silently ignores anything unrecognised. */
-export async function countConversion(event: string, path: string, detail?: unknown): Promise<boolean> {
-  if (!COUNTED.has(event)) return false;
-  const p = safePath(path);
-  if (!p) return false;
-  const d = acceptedDetail(event, detail);
-
-  const current = await readConversions({ fresh: true });
-  const events = { ...current.events, [event]: bump(current.events[event], p) };
-  const details = d ? { ...current.details, [event]: bump(current.details[event], d) } : current.details;
-
-  const now = new Date().toISOString();
-  const value: ConversionLog = {
-    events,
-    details,
+/** One increment applied to a log. Pure, so the retry can re-apply it to
+ *  whatever the store holds now rather than to what it held before. */
+export function withIncrement(current: ConversionLog, event: string, path: string, detail: string | null, now: string): ConversionLog {
+  return {
+    events: { ...current.events, [event]: bump(current.events[event], path) },
+    details: detail ? { ...current.details, [event]: bump(current.details[event], detail) } : current.details,
     total: current.total + 1,
     since: current.since || now,
     updatedAt: now,
+    /* Only when this event has never been counted before: an event that was
+       already in the file began some earlier day this cannot know. */
+    ...(current.events[event] || current.firstSeen?.[event]
+      ? current.firstSeen ? { firstSeen: current.firstSeen } : {}
+      : { firstSeen: { ...(current.firstSeen ?? {}), [event]: now.slice(0, 10) } }),
   };
+}
 
-  cache = { at: Date.now(), value };
-  lastWrite = { at: Date.now(), value };
+export type ConversionStore = {
+  read(opts?: { fresh?: boolean }): Promise<ConversionLog>;
+  count(event: string, path: string, detail?: unknown): Promise<boolean>;
+};
 
-  if (process.env.BLOB_READ_WRITE_TOKEN) {
-    await put(KEY, JSON.stringify(value, null, 2), {
-      access: 'private',
-      contentType: 'application/json',
-      addRandomSuffix: false,
-      allowOverwrite: true,
-      cacheControlMaxAge: 0,
-    });
+/** A store over one ledger. The module's own store (below) is the blob in
+ *  production; tests build two over one shared memory file to stand for two
+ *  serverless instances. */
+export function createConversionStore(io: () => LedgerIO | null, opts: CasOptions = {}): ConversionStore {
+  let cache: { at: number; value: ConversionLog } | null = null;
+
+  async function read(o?: { fresh?: boolean }): Promise<ConversionLog> {
+    if (!o?.fresh && cache && Date.now() - cache.at < CACHE_MS) return cache.value;
+    const ledger = io();
+    if (!ledger) return EMPTY;
+    try {
+      const hit = await ledger.read();
+      const value = parseConversions(hit?.body ?? null);
+      cache = { at: Date.now(), value };
+      return value;
+    } catch {
+      return cache?.value ?? EMPTY;
+    }
   }
-  return true;
+
+  async function count(event: string, path: string, detail?: unknown): Promise<boolean> {
+    if (!COUNTED.has(event)) return false;
+    const p = safePath(path);
+    if (!p) return false;
+    const d = acceptedDetail(event, detail);
+    const ledger = io();
+    if (!ledger) return true;
+    const written = await casUpdate(
+      ledger,
+      parseConversions,
+      (current) => withIncrement(current, event, p, d, new Date().toISOString()),
+      { label: 'conversion-log', ...opts }
+    );
+    if (written) cache = { at: Date.now(), value: written };
+    return true;
+  }
+
+  return { read, count };
+}
+
+/* Without a Blob token (local, previews, unit tests) the counts live in this
+   process, which is what the module always did there. */
+const local = memoryLedger();
+const store = createConversionStore(() => (process.env.BLOB_READ_WRITE_TOKEN ? blobLedger(KEY) : local));
+
+export function readConversions(opts?: { fresh?: boolean }): Promise<ConversionLog> {
+  return store.read(opts);
+}
+
+/** Records one event against one page, and against one detail when the
+ *  detail is on the event's allow-list. Silently ignores anything unrecognised. */
+export function countConversion(event: string, path: string, detail?: unknown): Promise<boolean> {
+  return store.count(event, path, detail);
 }
 
 export type PageConversions = { path: string; count: number };
@@ -298,4 +355,61 @@ export function funnelCuts(log: ConversionLog): FunnelCuts {
     toolOutcomes: detailsOf(log, 'tool_complete'),
     magnets: detailsOf(log, 'lead_magnet_submit'),
   };
+}
+
+/** Visits by the channel their link named, busiest first. The gbp row
+ *  includes the `gbp_visit` events counted before channel_visit replaced it
+ *  (26 Sep to 1 Oct 2026), so the profile's history is not cut in two. */
+export function channelVisits(log: ConversionLog): DetailConversions[] {
+  const m: Record<string, number> = { ...(log.details?.channel_visit ?? {}) };
+  const legacyGbp = sum(log.events.gbp_visit);
+  if (legacyGbp) m.gbp = (m.gbp ?? 0) + legacyGbp;
+  return Object.entries(m)
+    .map(([detail, count]) => ({ detail, count }))
+    .sort((a, b) => b.count - a.count || a.detail.localeCompare(b.detail));
+}
+
+export type ClicksOfLandings = { path: string; clicks: number; landings: number };
+
+/** Each page's booking clicks beside the sessions that began on it, busiest
+ *  first by clicks. Pure, so /admin's all-time list and its last-7-days panel
+ *  (two snapshots diffed) cut the same way. */
+export function clicksOfLandings(log: ConversionLog, limit = 15): ClicksOfLandings[] {
+  const landings = log.events.landing ?? {};
+  return Object.entries(log.events.book_click ?? {})
+    .map(([path, clicks]) => ({ path, clicks, landings: landings[path] ?? 0 }))
+    .sort((a, b) => b.clicks - a.clicks || b.landings - a.landings)
+    .slice(0, limit);
+}
+
+export type EventDiff = {
+  event: string;
+  count: number;
+  byPath: { key: string; count: number }[];
+  byDetail: { key: string; count: number }[];
+};
+
+const delta = (a: Record<string, number> | undefined, b: Record<string, number> | undefined) =>
+  Object.entries(b ?? {})
+    .map(([key, n]) => ({ key, count: Math.max(0, n - (a?.[key] ?? 0)) }))
+    .filter((r) => r.count > 0)
+    .sort((x, y) => y.count - x.count || x.key.localeCompare(y.key));
+
+/** What was counted between two copies of the log: `newer` minus `older`, by
+ *  event, path and detail. A key that shrank (trimmed out of a full map)
+ *  counts as zero rather than negative. Pure. */
+export function diffLogs(older: ConversionLog, newer: ConversionLog): { total: number; events: EventDiff[] } {
+  const events = Object.keys(newer.events)
+    .map((event) => {
+      const byPath = delta(older.events[event], newer.events[event]);
+      return {
+        event,
+        count: byPath.reduce((n, r) => n + r.count, 0),
+        byPath,
+        byDetail: delta(older.details?.[event], newer.details?.[event]),
+      };
+    })
+    .filter((e) => e.count > 0)
+    .sort((a, b) => b.count - a.count || a.event.localeCompare(b.event));
+  return { total: Math.max(0, newer.total - older.total), events };
 }
