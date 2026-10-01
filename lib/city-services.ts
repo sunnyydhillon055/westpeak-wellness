@@ -174,7 +174,7 @@ export const pairs: Pair[] = [
     ],
     faqs: [
       /* Search Console, 17 Sep 2026: couples therapy Langley and marriage counselling Langley, 17 impressions. */
-      { q: 'Is this marriage counselling?', a: 'Yes, if that is the word you use. Langley couples search for marriage counselling and couples therapy in about equal numbers and arrive at the same room. The approach is the Gottman Method, which was built on research with married and long-term couples and applies to both.' },
+      { q: 'Is this marriage counselling?', a: 'Yes, if that is the word you use. Langley couples search for marriage counselling and couples therapy in about equal numbers and arrive at the same room. The approach is Gottman-informed, drawing on research with married and long-term couples that applies to both. Ask on the consultation what training your counsellor has.' },
       { q: 'Is it too late for counselling if we are already talking about separating?', a: 'No. Some couples work is about deciding rather than repairing, and doing that deliberately, particularly where children are involved, is a legitimate use of the sessions.' },
       { q: 'Do you take sides?', a: 'No. Where something needs saying plainly it gets said plainly, which is a different thing from adjudicating between you.' },
     ],
@@ -201,7 +201,7 @@ export const pairs: Pair[] = [
       'Two people travelling together for two hours to discuss a difficult subject also has an obvious problem: the car journey home. Joining from your own kitchen at eight in the evening is not a downgrade from that arrangement.',
     ],
     faqs: [
-      { q: 'What approach do you use with couples?', a: 'Couples work at the practice draws on the Gottman Method, which is structured rather than open-ended: patterns of interaction are looked at directly rather than circled around. Ask on the consultation which approach your counsellor uses.' },
+      { q: 'What approach do you use with couples?', a: 'Couples work at the practice is Gottman-informed, which means structured rather than open-ended: patterns of interaction are looked at directly rather than circled around. Ask on the consultation which approach your counsellor uses.' },
       { q: 'Can we do this if we are in different places some weeks?', a: 'Yes. Partners joining from two locations is workable and reasonably common where shift patterns or travel make it necessary.' },
     ],
   },

@@ -259,6 +259,25 @@ for (const p of pages.values()) {
     warn('no-inlanguage', route, 'Punjabi page with no language annotation');
 }
 
+/* GOTTMAN-TRAINED ONLY WHERE THE ROSTER SAYS SO — 1 Oct 2026. A source scan,
+   not an HTML one: the claim can sit in an FAQ rendered on several routes,
+   and the file and line are what a fix needs. See scripts/lib/gottman-claims.mjs. */
+{
+  const { scanGottmanClaims } = await import('./lib/gottman-claims.mjs');
+  for (const c of scanGottmanClaims(process.cwd())) {
+    err('gottman-trained-unconfirmed', `${c.file}:${c.line}`, `"Gottman-trained" outside a roster entry that records it: ${c.text}`);
+  }
+}
+
+/* "MOST BC PLANS REIMBURSE" — 1 Oct 2026. Coverage is plan-dependent; see
+   scripts/coverage-claims.mjs, which is also runnable on its own. */
+{
+  const { scanCoverageClaims } = await import('./coverage-claims.mjs');
+  const { problems, stale } = scanCoverageClaims(process.cwd());
+  for (const c of problems) err('coverage-overclaim', `${c.file}:${c.line}`, `"${c.match}": say many plans, depending on the plan`);
+  for (const s of stale) warn('coverage-pending-stale', s.file, `PENDING entry matches nothing: ${s.fragment}`);
+}
+
 const byRule = (list) => {
   const m = new Map();
   for (const x of list) m.set(x.rule, [...(m.get(x.rule) || []), x]);

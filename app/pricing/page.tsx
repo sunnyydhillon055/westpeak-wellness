@@ -10,6 +10,7 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import { readCatalog, money, type CatalogItem } from '@/lib/cliniko-catalog';
 import { webPage } from '@/lib/schema';
 import { lastmodFor } from '@/lib/page-dates';
+import { HOW_TO_CANCEL } from '@/lib/faq';
 
 export const metadata: Metadata = {
   /* Retitled 17 Sep 2026 from "Fees & Insurance", which matched none of the
@@ -58,6 +59,32 @@ const BCACC_GUIDE = {
   couplesFamily: '$155 to $205',
 };
 
+/* THE BC PSYCHOLOGICAL ASSOCIATION'S RECOMMENDED RATE — read 1 Oct 2026.
+ *
+ * "A psychologist typically charges considerably more, often close to double"
+ * carried no source. BCPA's recommended rate is $245 an hour, effective
+ * 12 May 2025 (https://psychologists.bc.ca/professional-resources-hub/bcpa-recommended-rate-2025-2026).
+ * It is a guideline, not a fee schedule; psychologists set their own. The
+ * comparison against this practice's fee is computed below, not typed. Also
+ * quoted, with the same date, on the RCC vs psychologist comparison
+ * (lib/comparisons.ts); change both together. */
+const BCPA_RATE = {
+  url: 'https://psychologists.bc.ca/professional-resources-hub/bcpa-recommended-rate-2025-2026',
+  read: '1 October 2026',
+  effective: '12 May 2025',
+  cents: 24500,
+};
+
+/* The first-screen price list's styles, inline rather than in premium.css:
+   that file is inlined into every page, and the homepage CSS budget
+   (data/perf-budget.json) has no room for rules only /pricing uses. */
+const GLANCE = {
+  list: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: 8, margin: '18px 0 0', maxWidth: '42.9em' },
+  item: { background: 'var(--surface-0)', border: '1px solid var(--line)', borderRadius: 'var(--radius)', padding: '8px 12px' },
+  term: { fontSize: 'var(--fs-small)', color: 'var(--ink-soft)' },
+  value: { margin: 0, color: 'var(--ink)', fontWeight: 580 },
+} as const;
+
 export default async function Pricing({ searchParams }: { searchParams?: { lead?: string } }) {
   const catalog = await readCatalog();
   const find = (n: string): CatalogItem | undefined =>
@@ -77,6 +104,20 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
     (consult && consult.cents === 0 ? ` The first ${consult.minutes}-minute consultation is free.` : '') +
     ' MSP does not cover counselling with an RCC; many extended health plans reimburse it, depending on the plan.';
 
+  /* The first-screen summary: the four paid types, then the free consult. */
+  const glance = [
+    ...ROWS.filter((r) => r.clinikoName !== 'Initial Consultation').map((r) => {
+      const item = find(r.clinikoName);
+      return item ? { label: r.label, value: `${money(item.cents)} · ${item.minutes} min` } : null;
+    }),
+    consult && consult.cents === 0
+      ? { label: 'First consultation', value: `Free · ${consult.minutes} min` }
+      : null,
+  ].filter((g): g is { label: string; value: string } => g !== null);
+
+  /* How far the same annual maximum goes here, against BCPA's rate. */
+  const psychRatio = ind && ind.cents > 0 ? (BCPA_RATE.cents / ind.cents).toFixed(1) : null;
+
   return (
     <>
       <section className="hero" style={{ paddingBottom: 48 }}>
@@ -85,8 +126,22 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
           <h1>Clear, fair, accessible.</h1>
           <p className="lede">Session prices and counselling rates in full, no hidden fees, no packages, and no surprises on the invoice.</p>
           <p className="direct-answer">
-            Counselling fees at Westpeak Wellness are published in full and synced from the booking system: individual sessions, couples sessions and EMDR intensives are each priced per session, paid by card at booking, with 24 hours&rsquo; free cancellation. The first 30-minute consultation is free. Most BC extended health plans reimburse a Registered Clinical Counsellor; MSP does not cover private counselling.
+            Counselling fees at Westpeak Wellness are published in full and synced from the booking system: individual sessions, couples sessions and EMDR intensives are each priced per session, paid by card at booking, with 24 hours&rsquo; free cancellation. The first 30-minute consultation is free. Many extended health plans reimburse a Registered Clinical Counsellor, depending on the plan, so check yours; MSP does not cover private counselling.
           </p>
+          {/* PRICES IN THE PHONE'S FIRST SCREEN — 1 Oct 2026. At 390px the first
+              amount on this page sat below the fold, under an answer that names
+              no amount. Read from the same catalogue as the table below, so
+              nothing here is typed and price-drift has nothing to catch. */}
+          {glance.length > 0 && (
+            <dl className="price-glance" style={GLANCE.list}>
+              {glance.map((g) => (
+                <div key={g.label} style={GLANCE.item}>
+                  <dt style={GLANCE.term}>{g.label}</dt>
+                  <dd style={GLANCE.value}>{g.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a Free Consultation</Link>
             <Link className="btn btn--ghost" href="/resources/bc-extended-health-coverage-for-counselling">Check your coverage</Link>
@@ -143,10 +198,17 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
               guidance, and they are in line with what most RCCs across the province charge.
             </p>
             <p>
-              For comparison, a registered psychologist in BC typically charges considerably more, often
-              close to double, because of a longer training path and a broader scope that includes formal
-              assessment. That difference matters most if your benefit cap is limited: the same annual
-              maximum buys roughly twice as many sessions here.
+              For comparison, the BC Psychological Association&rsquo;s recommended rate for a
+              registered psychologist is {money(BCPA_RATE.cents)} an hour (effective {BCPA_RATE.effective}),
+              reflecting a longer training path and a broader scope that includes formal assessment.
+              {ind && psychRatio
+                ? ` An individual session here is ${money(ind.cents)}, so the same annual maximum buys about ${psychRatio} times as many sessions, which matters most if your benefit cap is limited.`
+                : ''}
+            </p>
+            <p style={{ fontSize: '.92rem', color: 'var(--ink-faint)' }}>
+              Source:{' '}
+              <a href={BCPA_RATE.url} rel="noreferrer">BCPA Recommended Rate 2025&ndash;2026</a>, read{' '}
+              {BCPA_RATE.read}. A guideline, not a fee schedule; psychologists set their own fees.
             </p>
 
               </div>
@@ -196,8 +258,12 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
             </p>
             <p>
               Some of this is covered without you paying the fee at all. ICBC pre-approves twelve
-              counselling sessions after a crash with no doctor&rsquo;s note, and several employer and
-              extended health plans pay a counsellor directly.{' '}
+              counselling sessions after a crash with no doctor&rsquo;s note.{' '}
+              {site.icbcVendor
+                ? 'This practice is registered with ICBC.'
+                : 'This practice is not currently registered with ICBC and does not direct-bill; the entitlement can be used with a registered vendor.'}{' '}
+              Pacific Blue Cross accepts direct claims from Registered Clinical Counsellors, but this
+              practice is pay-and-submit: you pay, and claim the receipt back.{' '}
               <Link href="/refer">How referrals to this practice work</Link>{' '}
               covers the funded routes and who can start one.{' '}
               <Link href="/resources/worksafebc-psychological-injury-claims">WorkSafeBC</Link> can
@@ -242,7 +308,11 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
               <span className="icon-chip" aria-hidden="true"><Wallet strokeWidth={1.6} /></span>
               <div>
                 <h3>Extended health</h3>
-                <p>Most BC plans that cover RCCs reimburse, including:</p>
+                <p>
+                  Many extended health plans reimburse an RCC, depending on the plan, so{' '}
+                  <Link href="/resources/does-my-plan-cover-counselling-bc">check yours</Link>. Insurers
+                  whose plans can include RCCs:
+                </p>
                 <ul className="checklist" style={{ marginBottom: 12 }}>
                   <li>Pacific Blue Cross</li><li>Manulife</li><li>Sun Life</li><li>Canada Life</li><li>Green Shield</li>
                 </ul>
@@ -265,6 +335,7 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
               <div>
                 <h3>Cancellation</h3>
                 <p style={{ marginBottom: 0 }}>24 hours&rsquo; notice. Cancel earlier and the fee is refunded in full; inside that window, or for a no-show, 50% is retained. Exceptions for genuine emergencies.</p>
+                <p style={{ marginBottom: 0, marginTop: 10 }}>{HOW_TO_CANCEL}</p>
               </div>
             </div>
           </div>
@@ -356,7 +427,7 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
                 name: 'Does extended health insurance cover counselling in BC?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'Most BC plans that cover Registered Clinical Counsellors reimburse, including Pacific Blue Cross, Manulife, Sun Life, Canada Life and Green Shield. You pay the practice directly and submit your receipt for reimbursement. Counselling with an RCC is not covered by MSP.',
+                  text: 'Many extended health plans reimburse a Registered Clinical Counsellor, depending on the plan, so check yours. Pacific Blue Cross, Manulife, Sun Life, Canada Life and Green Shield all administer plans that can include RCCs. This practice is pay-and-submit: you pay the practice directly and submit your receipt for reimbursement. Counselling with an RCC is not covered by MSP.',
                 },
               },
               {
@@ -384,7 +455,7 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
                 name: 'What is the cancellation policy?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: '24 hours’ notice. Cancel with at least 24 hours notice and the session fee is refunded in full. With less notice, or for a no-show, 50% of the fee is retained, because the time was held and cannot realistically be filled at that notice. There are exceptions for genuine emergencies.',
+                  text: '24 hours’ notice. Cancel with at least 24 hours notice and the session fee is refunded in full. With less notice, or for a no-show, 50% of the fee is retained, because the time was held and cannot realistically be filled at that notice. There are exceptions for genuine emergencies. ' + HOW_TO_CANCEL,
                 },
               },
             ],

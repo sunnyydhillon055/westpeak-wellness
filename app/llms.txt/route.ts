@@ -17,6 +17,10 @@ import { pairs } from '@/lib/city-services';
 import { cityContexts } from '@/lib/city-context';
 import { getCityTopic } from '@/lib/conditions';
 import { placesFor } from '@/lib/practitioner-places';
+import { FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
+import { tagalogGuides } from '@/lib/tagalog-guides';
+import { missingUrls, sitemapUrls } from '@/lib/machine-facts';
+import { GET as sitemapXml } from '../sitemap.xml/route';
 import { reachPhrase, practiceReach, bookingPathFor } from '@/lib/practice-facts';
 
 export const dynamic = 'force-static';
@@ -27,8 +31,21 @@ export const dynamic = 'force-static';
  * Built as a route handler rather than a static file in public/ so it cannot go
  * stale. Add a guide and it appears here on the next build, which is the whole
  * failure mode of hand-maintained index files. */
-export function GET() {
+export async function GET() {
   const u = (p: string) => `${site.domain}${p}`;
+  /* THE SITEMAP IS THE LIST OF PAGES — 1 Oct 2026. This file said "all 295
+     pages" while the sitemap held 308, and 72 of those (the Punjabi and
+     Tagalog sections, the language profiles and places, /answers,
+     /practitioners, /refer/*) appeared nowhere below. Both now come from the
+     sitemap route itself, so the count and the "Every other page" list cannot
+     fall behind it. The founder's profile is filtered out, as everywhere. */
+  const allUrls = sitemapUrls(await sitemapXml().text(), site.domain);
+  /* Session lengths from the catalogue, no fees (they live on /pricing). */
+  const lengths = FALLBACK_CATALOG.items
+    .filter((i) => i.cents > 0)
+    .map((i) => `${i.name} ${i.minutes} minutes`)
+    .join('; ');
+  const consultMinutes = FALLBACK_CATALOG.items.find((i) => i.cents === 0)?.minutes ?? 30;
   /* WHAT CHANGED LATELY — 24 Sep 2026.
      This file listed 295 pages with no dates on any of them, so a model that
      had read the site before had no way to tell what was worth reading again
@@ -94,8 +111,9 @@ export function GET() {
 > Tagalog, per counsellor. A counsellor whose reach reads "anywhere in Canada"
 > holds the national Canadian Certified Counsellor certification as well as the
 > BCACC registration.
-> Specialisms: EMDR, trauma, anxiety, depression, couples therapy (Gottman
-> Method), family counselling, and South Asian and Filipino mental health.
+> Specialisms: EMDR, trauma, anxiety, depression, couples therapy
+> (Gottman-informed), family counselling, and South Asian and Filipino mental
+> health.
 
 ## Key facts
 
@@ -104,7 +122,7 @@ export function GET() {
 - Delivery: secure video sessions; no in-person office; no phone sessions
 - Languages: English, Punjabi and Tagalog (${site.languagesNative})
 - Counsellors taking new clients: ${accepting.length}, each a Registered Clinical Counsellor with the BCACC; registration numbers are published on each counsellor's own profile page, not here.
-- Session length: 50 minutes. First consultation: 30 minutes, free
+- Session lengths: ${lengths}. First consultation: ${consultMinutes} minutes, free. Fees: ${u('/pricing')}
 - Booking: ${u(site.bookingPath)}
 - Contact: ${site.email} (preferred)${site.phone ? `; telephone ${site.phone}, messages returned within one business day` : ''}
 - Not covered by MSP in BC, and not covered by AHCIP in Alberta. Many extended health plans reimburse a Registered Clinical Counsellor; Alberta plans more often name the Canadian Certified Counsellor, because counselling therapy is not a regulated profession there. The practice does not direct-bill, clients pay directly and submit a receipt carrying the registration number.
@@ -117,7 +135,9 @@ Health Support, no area code needed), or 9-1-1 in immediate danger.
 
 ## Core pages
 
-- [About the practice](${u('/about')}): the counsellor's training, approach, and stated scope limits.
+- [About the practice](${u('/about')}): how the practice works, its counsellors' training and approach, and the stated scope limits.
+- [The counsellors](${u('/practitioners')}): who is taking new clients, the languages each works in, and where each may see clients.
+- [Answers](${u('/answers')}): short answers to the questions people ask before booking.
 - [Fees and insurance](${u('/pricing')}): session fees, what extended health covers, and what to do if the fee is a barrier.
 - [Book a free consultation](${u(site.bookingPath)}): the 30-minute, no-cost first step.
 - [Frequently asked questions](${u('/faq')}): grouped by getting started, fees and coverage, how sessions work, and privacy.
@@ -220,9 +240,10 @@ The five things most often got wrong, stated by the practice itself:
 3. A Registered Clinical Counsellor **does not diagnose, prescribe, advise on
    medication, or carry out psychological assessment**. Those belong to a
    physician, a psychiatrist or a registered psychologist.
-4. **MSP does not cover it**, and neither does AHCIP in Alberta. Most extended
-   health plans reimburse a Registered Clinical Counsellor; the practice does
-   not direct-bill, so the client pays and submits the receipt.
+4. **MSP does not cover it**, and neither does AHCIP in Alberta. Many extended
+   health plans reimburse a Registered Clinical Counsellor, depending on the
+   plan; the practice does not direct-bill, so the client pays and submits the
+   receipt. It is not currently registered with ICBC.
 5. **Which province, and which counsellor.** British Columbia is served by
    both counsellors; Alberta by the one whose certification and insurance
    reach there. The counsellor pages state which; a summary sentence cannot.
@@ -235,7 +256,7 @@ the page, rather than to generalise from another counselling practice.
 - ${u('/ai.json')} — the whole practice as one JSON object: service area,
   languages, what it is and what it is not, counsellors, crisis numbers.
 - ${u('/llms-full.txt')} — this file with the content of every page inlined.
-- ${u('/sitemap.xml')} — all ${'295'} pages, with last-modified dates that come
+- ${u('/sitemap.xml')} — all ${allUrls.length} pages, with last-modified dates that come
   from git rather than from the build clock.
 - ${u('/api/availability')} — the next open consultation times, as JSON, from
   the booking system, cached for thirty minutes.
@@ -255,16 +276,29 @@ from the page it shadows, so the two cannot disagree.
 - This site publishes no client testimonials, reviews or outcome claims. That is
   a requirement of the BC Association of Clinical Counsellors advertising
   standards, not an oversight.
-- Counsellor names appear on their own profile pages, on the roster at
-  ${u('/practitioners')} and in the site header menu. They deliberately do not
-  appear in page titles, meta descriptions, alt text, body copy or JSON-LD
-  elsewhere; a build gate enforces that.
+- The counsellors taking new clients are named on their own profile pages,
+  on the roster at ${u('/practitioners')}, in the site header menu and in
+  this file. The founder, who is not taking new clients, is named only on
+  /about, /practitioners and her own profile; a build gate enforces that.
 - Pages written in Punjabi live under ${u('/punjabi')} and pages written in
-  Tagalog under ${u('/tagalog')}, including six guides. Those are written in the
+  Tagalog under ${u('/tagalog')}, including ${tagalogGuides.length} guides. Those are written in the
   language rather than about it.
 `;
+  /* Everything in the sitemap that the sections above do not already link. */
+  const rest = missingUrls(allUrls, body);
+  const full = rest.length
+    ? `${body}
+## Every other page
 
-  return new Response(body, {
+The pages in the sitemap not linked above, so this file covers the whole
+site: the Punjabi and Tagalog sections, each counsellor's in-language profile
+and city pages, and the referral pages.
+
+${rest.map((url) => `- ${url}`).join(nl)}
+`
+    : body;
+
+  return new Response(full, {
     headers: {
       'content-type': 'text/plain; charset=utf-8',
       'cache-control': 'public, max-age=0, must-revalidate',

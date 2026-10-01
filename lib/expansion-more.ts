@@ -38,14 +38,14 @@ export const albertaMore: RegionPage[] = [
           { label: 'What is the annual maximum, and when does it reset?', detail: 'Usually a dollar cap per calendar year, resetting 1 January rather than on your hire date.' },
           { label: 'Is there a per-session limit as well?', detail: 'A plan can reimburse $80 a session with annual room left over, which still leaves $60 out of pocket on a $140 session.' },
           { label: 'Is the limit shared with psychology or social work?', detail: 'A combined pool means seeing two practitioners halves your effective coverage.' },
-          { label: 'Do I have a health spending account?', detail: 'The most commonly missed source of coverage. An HSA usually covers counselling even where the core plan does not list RCCs.' },
+          { label: 'Do I have a health or wellness spending account?', detail: 'A wellness or lifestyle account can usually fund counselling, as a taxable benefit. A health spending account pays only CRA-eligible expenses, and the CRA does not yet list counsellors in BC, so ask its administrator before relying on it.' },
         ],
       },
       {
         h2: 'What a receipt has to show',
         body: [
           'Practitioner name, designation, registration number, practice details, date, amount and service. **A missing registration number is the single most common reason a claim bounces.** Receipts here carry all of it.',
-          'This practice does not direct-bill, so you pay the practice directly and claim it back yourself. That is ordinary for RCCs across Canada rather than a limitation of working with someone out of province.',
+          'This practice is pay-and-submit: you pay the practice directly and claim it back yourself. Some insurers now accept direct claims from RCCs (Pacific Blue Cross has since July 2025), but this practice does not direct-bill, wherever the client is.',
         ],
       },
       {
@@ -411,7 +411,7 @@ export const ontarioPages: RegionPage[] = [
           { label: 'Which designations does the plan reimburse?', detail: 'Ontario plans commonly list Registered Psychotherapist, Psychologist and Social Worker. Ask specifically which, and ask whether a counsellor registered in another province qualifies.' },
           { label: 'Annual maximum, and reset date', detail: 'Usually a calendar-year dollar cap rather than a session count.' },
           { label: 'Is the mental-health limit shared?', detail: 'A pool shared across psychology, social work and psychotherapy halves quickly if you see more than one practitioner.' },
-          { label: 'Health spending account?', detail: 'Frequently covers counselling even where the core plan is restrictive.' },
+          { label: 'Health or wellness spending account?', detail: 'A wellness account can usually fund counselling. A health spending account pays only CRA-eligible expenses, and whether it accepts a counsellor registered in BC is for its administrator to confirm.' },
         ],
       },
     ],

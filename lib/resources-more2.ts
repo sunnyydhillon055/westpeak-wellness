@@ -1,4 +1,12 @@
 import type { Resource } from './resources';
+import { planMaximumParagraph } from '@/lib/session-arithmetic';
+
+/* The CRA's table of authorized medical practitioners, by province. Read
+   1 Oct 2026: "Counselling therapist" is marked for New Brunswick, Nova
+   Scotia and PEI only, and "not applicable" for British Columbia. That is why
+   the health-spending-account and tax-credit wording below is conditional. */
+const CRA_PRACTITIONERS =
+  'https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/about-your-tax-return/tax-return/completing-a-tax-return/deductions-credits-expenses/lines-33099-33199-eligible-medical-expenses-you-claim-on-your-tax-return/authorized-medical-practitioners-purposes-medical-expense-tax-credit.html';
 
 /* Two resources added 6 Sep 2026 from the SEO audit of the same day.
  *
@@ -133,7 +141,7 @@ export const moreResources2: Resource[] = [
     title: 'Does Pacific Blue Cross, Sun Life, Manulife or Canada Life cover counselling?',
     metaTitle: 'Does Blue Cross or Sun Life Cover Counselling? BC',
     metaDescription:
-      'Usually yes, to an annual maximum your plan sets. How to check Pacific Blue Cross, Sun Life, Manulife or Canada Life in two minutes, and the words to use.',
+      'Often, to an annual maximum your plan sets. How to check Pacific Blue Cross, Sun Life, Manulife or Canada Life in two minutes, and the words to use.',
     eyebrow: 'Resource · Coverage',
     lede:
       'The insurer\'s name is on the card. The answer is in the plan, and the plan was written by your employer.',
@@ -148,7 +156,7 @@ export const moreResources2: Resource[] = [
         body: [
           'Extended health plans reimburse **eligible practitioners** under a paramedical or mental-health benefit. The plan document lists which designations count. Psychologists are on almost every list. Registered Clinical Counsellors are on many and not all. Canadian Certified Counsellors are named on plans more often in Alberta, where counselling is not a regulated profession.',
           'So the question is not "does Sun Life cover counselling". It is: *"Under my plan, is a Registered Clinical Counsellor an eligible practitioner for the mental-health or paramedical benefit, and what is the annual maximum and any per-visit maximum?"* Ask that, in those words, and you have your answer in one call.',
-          'Both counsellors at this practice are RCCs registered with the BC Association of Clinical Counsellors; one also holds the CCC. Receipts carry the registration number the insurer needs. The practice does not bill insurers directly: you pay at booking and submit the receipt, which is how most counselling reimbursement works in BC.',
+          'Both counsellors at this practice are RCCs registered with the BC Association of Clinical Counsellors; one also holds the CCC. Receipts carry the registration number the insurer needs. This practice is pay-and-submit: you pay at booking and submit the receipt yourself. Pacific Blue Cross has accepted direct claims from RCCs since July 2025, so some practices bill it for you; this one does not.',
         ],
       },
       {
@@ -181,22 +189,26 @@ export const moreResources2: Resource[] = [
       },
       {
         h2: 'The same check, for any insurer',
+        /* 1 Oct 2026: the $500 and $1,500 below were the only figures on the
+           page, with no fee to read them against. The fees and the session
+           counts come from the catalogue (lib/session-arithmetic.ts). */
+        body: [planMaximumParagraph()],
         table: {
           columns: ['Ask or search for', 'Why it matters'],
           rows: [
             ['"Registered Clinical Counsellor" as an eligible practitioner', 'The whole question. If it is not there, ask whether a combined mental-health benefit applies.'],
-            ['Annual maximum, and any per-visit maximum', 'A $500 maximum is three or four sessions; a $1,500 maximum is a course of counselling.'],
+            ['Annual maximum, and any per-visit maximum', 'A $500 maximum is a few sessions; a $1,500 maximum is a course of counselling. The paragraph above counts them at this practice’s fees.'],
             ['Combined or separate from psychology', 'A combined maximum is shared with a psychologist you may also see.'],
             ['Physician referral required?', 'Usually no. Occasionally yes, and it is easier before the first session.'],
             ['Plan year', 'Calendar or anniversary. Coverage resets at one of them, and timing a course of sessions across the reset is legitimate.'],
-            ['Health spending account', 'Where the paramedical benefit does not list counsellors, an HSA usually reimburses any receipt the CRA treats as a medical expense, which counselling by an RCC is.'],
+            ['Health spending account', 'An HSA pays only expenses the CRA accepts as medical expenses, and the CRA does not yet list counsellors in BC as authorized practitioners. Ask the administrator before booking. A wellness or lifestyle account, where there is one, can usually fund RCC sessions as a taxable benefit.'],
           ],
         },
       },
       {
         h2: 'If the answer is no',
         body: [
-          'Three routes remain. A **health spending account**, if the plan has one, usually reimburses counselling with a registered counsellor regardless of the paramedical list. **Pay-and-claim on tax**: counselling by a registered practitioner can qualify as a medical expense for the federal medical expense tax credit; that is a question for whoever does your return. And **reduced-fee or public options** exist and are listed on the [low-cost counselling page](/resources/low-cost-counselling-bc).',
+          `Other routes depend on the plan. A **health spending account** pays only what the CRA accepts as a medical expense, and the [CRA’s list of authorized medical practitioners](${CRA_PRACTITIONERS}) has no counsellor entry for British Columbia, so ask the administrator whether it will accept an RCC receipt before relying on it. A **wellness or lifestyle spending account**, if your employer offers one, is broader and can usually fund counselling, as a taxable benefit. The **medical expense tax credit** generally does not apply to RCC fees in BC until psychotherapy is regulated (from 29 November 2027); check with whoever prepares your return. And **reduced-fee or public options** exist and are listed on the [low-cost counselling page](/resources/low-cost-counselling-bc).`,
           'What this practice will not do is tell you that a plan covers something. That is the plan\'s job, and getting it wrong costs you money after the fact, which is the outcome this page exists to prevent.',
         ],
       },
@@ -207,14 +219,14 @@ export const moreResources2: Resource[] = [
     },
     faqs: [
       /* Search Console, 17 Sep 2026: 'does blue cross cover counselling' held position 1 and 'does blue cross cover therapy' position 29, with no answer in those words. */
-      { q: 'Does Blue Cross cover counselling in BC?', a: 'Most Pacific Blue Cross extended health plans reimburse counselling with a Registered Clinical Counsellor, up to an annual maximum the employer chose, commonly between $500 and $1,500. It is the plan, not Blue Cross, that sets the amount and the eligible designations, so the two-minute check is to log in to the member site, open the benefit booklet and search for "counsellor". The practice gives you a receipt with the counsellor\'s registration number and you claim it.' },
+      { q: 'Does Blue Cross cover counselling in BC?', a: 'Many Pacific Blue Cross extended health plans reimburse counselling with a Registered Clinical Counsellor, depending on the plan, up to an annual maximum the employer chose, commonly between $500 and $1,500. It is the plan, not Blue Cross, that sets the amount and the eligible designations, so the two-minute check is to log in to the member site, open the benefit booklet and search for "counsellor". The practice gives you a receipt with the counsellor\'s registration number and you claim it.' },
       { q: 'Does Pacific Blue Cross cover a Registered Clinical Counsellor?', a: 'Many Pacific Blue Cross plans do and some do not; it depends on the plan your employer chose. Check the practitioner list in the member portal or the booklet for "Registered Clinical Counsellor", and note the annual maximum.' },
       { q: 'Does Sun Life cover counselling in BC?', a: 'It depends on the plan. Search your coverage for "clinical counsellor"; if only psychologists appear, ask whether a combined mental-health benefit applies to an RCC.' },
       { q: 'Does Manulife cover counselling with an RCC?', a: 'On many plans, under a combined psychologist, social worker or counsellor benefit. Where the wording is unclear, the plan administrator at your employer can confirm whether an RCC qualifies.' },
       { q: 'Does Canada Life cover counselling?', a: 'Plans that do usually list counsellors under a mental-health practitioner benefit. For Alberta plans, check whether the Canadian Certified Counsellor is the designation named.' },
-      { q: 'Does Westpeak Wellness bill my insurer directly?', a: 'No. You pay at booking and receive a receipt carrying the counsellor\'s registration number, which you submit to the insurer. That is how most counselling in BC is reimbursed.' },
+      { q: 'Does Westpeak Wellness bill my insurer directly?', a: 'No. This practice is pay-and-submit: you pay at booking and receive a receipt carrying the counsellor’s registration number, which you submit to the insurer. Pacific Blue Cross accepts direct claims from RCCs, so another practice may bill it for you; this one does not.' },
       { q: 'Is counselling covered by MSP?', a: 'No. MSP does not cover private counselling. It covers physicians and psychiatrists. The comparison is on the MSP vs extended health page.' },
-      { q: 'What if my plan only lists psychologists?', a: 'Ask whether a combined mental-health benefit applies, whether the plan has a health spending account, and whether counselling receipts qualify for the medical expense tax credit at tax time. All three are common routes.' },
+      { q: 'What if my plan only lists psychologists?', a: 'Ask whether a combined mental-health benefit applies, and whether the employer offers a wellness or lifestyle spending account, which can usually fund counselling as a taxable benefit. A health spending account is narrower: it pays only CRA-eligible expenses, and the CRA does not yet list counsellors in BC, so ask the administrator first. The medical expense tax credit generally does not cover RCC fees in BC until psychotherapy is regulated in November 2027.' },
     ],
     sources: [
       { label: 'Pacific Blue Cross', url: 'https://www.pac.bluecross.ca/' },
@@ -223,8 +235,11 @@ export const moreResources2: Resource[] = [
       { label: 'Canada Life', url: 'https://www.canadalife.com/' },
       { label: 'BC Association of Clinical Counsellors', url: 'https://bc-counsellors.org/' },
       { label: 'Canadian Counselling and Psychotherapy Association', url: 'https://www.ccpa-accp.ca/' },
+      { label: 'Canada Revenue Agency, authorized medical practitioners for the medical expense tax credit (read 1 Oct 2026)', url: CRA_PRACTITIONERS },
+      { label: 'Pacific Blue Cross, direct billing for mental health providers in BC (from 11 Jul 2025)', url: 'https://www.pac.bluecross.ca/providerresource/provider-news/direct-billing-for-mental-health-providers-in-bc-starting-july-11/' },
     ],
     related: [
+      { href: '/tools/therapy-cost-bc', label: 'What counselling costs in BC: the estimator' },
       { href: '/resources/bc-extended-health-coverage-for-counselling', label: 'Extended health coverage for counselling in BC' },
       { href: '/resources/msp-vs-extended-health', label: 'MSP vs extended health' },
       { href: '/resources/low-cost-counselling-bc', label: 'Low-cost counselling in BC' },

@@ -100,6 +100,7 @@ export const tools: ToolMeta[] = [
     related: [
       { href: '/pricing', label: 'Fees and coverage' },
       { href: '/resources/bc-extended-health-coverage-for-counselling', label: 'Extended health coverage in BC' },
+      { href: '/resources/does-my-plan-cover-counselling-bc', label: 'Does my plan cover counselling?' },
       { href: '/resources/msp-vs-extended-health', label: 'MSP vs extended health' },
       { href: '/resources/low-cost-counselling-bc', label: 'Low-cost counselling in BC' },
       { href: '/compare/efap-vs-private-counselling', label: 'EFAP vs private counselling' },

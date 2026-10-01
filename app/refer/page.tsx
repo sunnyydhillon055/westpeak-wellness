@@ -216,7 +216,10 @@ for someone who has never done this before.
                 Registered Clinical Counsellor in the first twelve weeks, and{' '}
                 <strong>no doctor&rsquo;s note is required</strong> to start. This is the single most
                 underused entitlement in the province. It does not need a lawyer, and using it
-                does not commit anybody to a claim decision.
+                does not commit anybody to a claim decision.{' '}
+                {site.icbcVendor
+                  ? 'This practice is registered with ICBC.'
+                  : 'This practice is not currently registered with ICBC and does not direct-bill; the entitlement can be used with a registered vendor.'}
               </li>
               <li>
                 <strong>Through an employer, EAP.</strong> Most mid-size and large Canadian
@@ -226,7 +229,8 @@ for someone who has never done this before.
               </li>
               <li>
                 <strong>Extended health.</strong> Many BC plans reimburse a Registered Clinical
-                Counsellor specifically. This practice does not direct-bill: the session is paid
+                Counsellor specifically, depending on the plan. Pacific Blue Cross accepts
+                direct claims from RCCs, but this practice is pay-and-submit: the session is paid
                 at booking and the receipt carries the counsellor&rsquo;s registration number,
                 which is what an insurer needs to reimburse it.{' '}
                 <Link href="/resources/bc-extended-health-coverage-for-counselling">

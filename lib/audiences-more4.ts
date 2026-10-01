@@ -21,7 +21,7 @@ export const moreAudiences4: Audience[] = [
     lede:
       'Somebody on your team is not alright, and you are trying to help without overstepping. This is what that looks like in practice.',
     shortAnswer:
-      'An employer in BC cannot book counselling for an employee, but it can make it reachable: a working EFAP, a plan that lists Registered Clinical Counsellors, a health spending account, paid sick leave that is actually usable, and a manager who knows what not to ask. Westpeak Wellness is a small virtual practice, not an EAP provider; employees book directly, pay at booking, and receive receipts their plan can process. What the practice can offer an employer is clarity about how that works and, within scope, attendance confirmation when an employee asks for it.',
+      'An employer in BC cannot book counselling for an employee, but it can make it reachable: a working EFAP, a plan that lists Registered Clinical Counsellors, a wellness or lifestyle spending account, paid sick leave that is actually usable, and a manager who knows what not to ask. Westpeak Wellness is a small virtual practice, not an EAP provider; employees book directly, pay at booking, and receive receipts their plan can process. What the practice can offer an employer is clarity about how that works and, within scope, attendance confirmation when an employee asks for it.',
     updated: '2026-10-01',
     readMinutes: 7,
     figure: 'reimbursement-flow',
@@ -32,7 +32,7 @@ export const moreAudiences4: Audience[] = [
     whatComesUp: [
       { label: '"We have an EFAP and nobody uses it"', detail: 'Usually because nobody knows what it covers, it is described as a crisis line, or people assume HR sees the usage. Saying plainly that it is confidential, free, and for ordinary problems changes uptake more than any poster.' },
       { label: '"They asked for stress leave and I do not know what I can ask"', detail: 'You can ask for confirmation of inability to work and an expected duration. You cannot ask for the diagnosis, the treatment, or what is discussed in sessions.' },
-      { label: '"I want to pay for their counselling"', detail: 'Generous, and it needs a structure: a health spending account, a wellness account, or a plan change. Paying a counsellor directly for a named employee creates a relationship the counsellor cannot be part of.' },
+      { label: '"I want to pay for their counselling"', detail: 'Generous, and it needs a structure: a wellness or lifestyle account, or a plan change that lists RCCs. A health spending account may not do it, because it pays only CRA-eligible expenses and the CRA does not yet list counsellors in BC. Paying a counsellor directly for a named employee creates a relationship the counsellor cannot be part of.' },
       { label: '"Can you tell us if they are fit to return?"', detail: 'A counsellor cannot. Fitness-to-work is a physician\'s or an occupational-health assessment. A counsellor can confirm attendance, with the employee\'s written consent, and nothing else.' },
       { label: '"The team is burnt out, not one person"', detail: 'Then the question is workload and design, which counselling for individuals does not fix. It can still help the individuals while the structural part is being addressed.' },
     ],
@@ -42,7 +42,7 @@ export const moreAudiences4: Audience[] = [
         list: [
           { label: 'Employee and family assistance program (EFAP)', detail: 'A contracted provider, a set number of short-term sessions, free to the employee, confidential from the employer. The most under-used benefit in most workplaces. This practice is not an EFAP provider; the comparison of EFAP and private counselling is on its own page.' },
           { label: 'Extended health plan', detail: 'Reimburses eligible practitioners up to an annual maximum. Whether a Registered Clinical Counsellor is eligible is a plan-design choice you or your broker made. If it is not, the single most useful change an employer can make is to add RCC and CCC to the practitioner list at renewal.' },
-          { label: 'Health spending account', detail: 'Reimburses any receipt that qualifies as a medical expense, which counselling by a registered counsellor does. The flexible route where the paramedical list is narrow.' },
+          { label: 'Health spending account', detail: 'Pays only expenses the CRA accepts as medical expenses, and the CRA’s list of authorized practitioners does not yet include counsellors in BC, so many administrators decline an RCC receipt. Ask the administrator before relying on it. A wellness or lifestyle spending account is broader and can fund RCC sessions, as a taxable benefit to the employee.' },
           { label: 'Paid sick leave', detail: 'The Employment Standards Act entitles most employees to paid sick days, and mental-health conditions count. Making it clear that a counselling appointment is a legitimate use is worth saying out loud.' },
           { label: 'Direct payment', detail: 'Possible only through a structure that keeps the employer out of the clinical relationship, such as a wellness account. The practice does not invoice employers for an individual\'s sessions.' },
         ],
@@ -103,12 +103,12 @@ export const moreAudiences4: Audience[] = [
       label: 'Get in touch',
     },
     faqs: [
-      { q: 'Can an employer book counselling for an employee in BC?', a: 'No. The employee books, consents and holds the relationship. An employer can make counselling reachable through the EFAP, the plan\'s practitioner list, a health spending account and usable sick leave.' },
-      { q: 'Can we pay for an employee\'s counselling directly?', a: 'Only through a structure that keeps the employer out of the clinical relationship, such as a health or wellness spending account. This practice does not invoice employers for an individual\'s sessions.' },
+      { q: 'Can an employer book counselling for an employee in BC?', a: 'No. The employee books, consents and holds the relationship. An employer can make counselling reachable through the EFAP, the plan’s practitioner list, a wellness or lifestyle spending account and usable sick leave.' },
+      { q: 'Can we pay for an employee\'s counselling directly?', a: 'Only through a structure that keeps the employer out of the clinical relationship, such as a wellness or lifestyle spending account, which is a taxable benefit. A health spending account works only if its administrator accepts an RCC receipt, which in BC is not assured, so ask first. This practice does not invoice employers for an individual\'s sessions.' },
       { q: 'Will the counsellor tell us how the employee is doing?', a: 'No. With the employee\'s written consent, the counsellor can confirm attendance on given dates. Nothing about content, and nothing without consent.' },
       { q: 'Can a counsellor confirm someone is fit to return to work?', a: 'No. Fitness-to-work comes from a physician, nurse practitioner or occupational-health assessment. A counsellor works within their scope and says so.' },
-      { q: 'Is Westpeak Wellness an EAP provider?', a: 'No. It is a small virtual practice. Employees book directly and pay at booking, and their plan or health spending account reimburses them where it lists the designation.' },
-      { q: 'What should we ask our benefits broker?', a: 'Whether the plan lists Registered Clinical Counsellors and Canadian Certified Counsellors as eligible practitioners, what the annual maximum is, and whether a health spending account can be added.' },
+      { q: 'Is Westpeak Wellness an EAP provider?', a: 'No. It is a small virtual practice. Employees book directly and pay at booking, and their plan reimburses them where it lists the designation. A health spending account pays only CRA-eligible expenses and the CRA does not yet list counsellors in BC, so its administrator decides.' },
+      { q: 'What should we ask our benefits broker?', a: 'Whether the plan lists Registered Clinical Counsellors and Canadian Certified Counsellors as eligible practitioners, what the annual maximum is, and whether a wellness or lifestyle spending account can be added. Ask too whether the health spending account accepts RCC receipts; many do not, because the CRA does not yet list counsellors in BC.' },
     ],
     sources: [
       { label: 'BC Employment Standards, leaves and job protection', url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/employment-standards/time-off' },

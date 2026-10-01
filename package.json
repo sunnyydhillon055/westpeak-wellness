@@ -54,7 +54,8 @@
     "review-dates:fix": "node scripts/review-dates-fix.mjs",
     "expiry": "node scripts/credential-expiry.mjs",
     "lang": "node scripts/html-lang.mjs --check",
-    "inline": "node scripts/inline-css.mjs --check"
+    "inline": "node scripts/inline-css.mjs --check",
+    "coverage-claims": "node scripts/coverage-claims.mjs"
   },
   "dependencies": {
     "@next/third-parties": "^16.3.0",

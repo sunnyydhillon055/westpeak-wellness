@@ -490,7 +490,7 @@ export const locations: Location[] = [
     faqs: [
       { q: "Which health authority covers Burnaby?", a: "Fraser Health, not Vancouver Coastal, which surprises a lot of people who work in Vancouver. It determines the public intake route for your address, and has no bearing at all on seeing a Registered Clinical Counsellor privately." },
       { q: "Do I need a doctor's referral?", a: "No. Counselling with an RCC is accessed directly. There is no referral, no diagnosis, and no waiting for a physician appointment first." },
-      { q: "Is counselling covered by MSP?", a: "No. MSP does not cover counselling with an RCC. Most extended health plans reimburse it, and receipts carry the registration number insurers ask for." },
+      { q: "Is counselling covered by MSP?", a: "No. MSP does not cover counselling with an RCC. Many extended health plans reimburse it, depending on the plan, so check yours; receipts carry the registration number insurers ask for." },
       { q: "Can I have a session on a work day?", a: "Times depend on the counsellor, and the booking page shows what is open. Because there is no travel, a session costs the session rather than the afternoon around it as well." },
     ],
     sources: [
@@ -530,7 +530,7 @@ export const locations: Location[] = [
     ],
     faqs: [
       { q: "Do you cover both the City of Langley and the Township?", a: "Both, and the distinction stops mattering. Sessions are by secure video anywhere in British Columbia, so where in Langley you live has no bearing on access." },
-      { q: "How do I check a counsellor is trained for what I need?", a: "Ask directly and expect a specific answer rather than a reassuring one. This practice is EMDR- and Gottman-trained, and the BCACC registration number is published so you can verify it in the public register yourself." },
+      { q: "How do I check a counsellor is trained for what I need?", a: "Ask directly and expect a specific answer rather than a reassuring one. Training here is per counsellor, not practice-wide: one counsellor taking new clients lists additional training in EMDR and relationship therapy, the other works in CBT, ACT and DBT, and couples work is Gottman-informed. Each counsellor's own profile, linked from the practitioners page, sets out her training and her BCACC registration number, so you can verify it in the public register yourself." },
       { q: "What if it turns out not to be the right fit?", a: "Say so. A referral onward is a normal outcome and a better one than continuing out of politeness." },
       { q: "Is there a free consultation first?", a: "Yes: 30 minutes by video, no charge, no card, and no obligation to book anything afterwards." },
     ],
@@ -827,7 +827,7 @@ export const locations: Location[] = [
       { q: "Is there anything available locally in Chilliwack?", a: "There is local practice, and for general counselling it may well be the right answer. This practice is virtual and covers the whole province, which matters most when what you need is specific rather than general." },
       { q: "What happens if my internet is unreliable?", a: "Sessions can run by phone instead, and turning the camera off cuts the bandwidth needed considerably. It is worth agreeing in advance what happens if a connection drops, so it is an inconvenience rather than an interruption to the work." },
       { q: "Do you cover Hope and Agassiz?", a: "Yes, anywhere in British Columbia. Being further east carries no penalty at all, which is the one respect in which virtual care is genuinely different from the alternative." },
-      { q: "What does a session cost?", a: "$140 for 50 minutes, after a free 30-minute consultation. Most extended health plans reimburse sessions with a Registered Clinical Counsellor; MSP does not cover them." },
+      { q: "What does a session cost?", a: "$140 for 50 minutes, after a free 30-minute consultation. Many extended health plans reimburse sessions with a Registered Clinical Counsellor, depending on the plan, so check yours; MSP does not cover them." },
     ],
     sources: [
       { label: "Fraser Health, mental health and substance use services", url: "https://www.fraserhealth.ca/health-topics-a-to-z/mental-health-and-substance-use" },

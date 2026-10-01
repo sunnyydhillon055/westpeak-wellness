@@ -73,7 +73,8 @@ export default function BookingCard({
           <li>
             <ShieldCheck aria-hidden="true" strokeWidth={1.7} />
             <span>
-              Most BC extended health plans reimburse RCC sessions, {' '}
+              Many extended health plans reimburse an RCC, depending on the plan;{' '}
+              <Link href="/resources/does-my-plan-cover-counselling-bc">check yours</Link>, and{' '}
               <Link href="/pricing">what that works out to</Link>.
             </span>
           </li>
