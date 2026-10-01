@@ -264,10 +264,13 @@ const recorded: Practitioner[] = [
     sameAs: [
       'https://bcacc.ca/counsellors/amandeep-bains/',
       'https://ca.linkedin.com/in/aman-bains-9ab445276',
-      /* The practice's Psychology Today profile is written as hers. Found
-         14 Sep 2026; it still says a 15-minute consultation and carries a
-         506 area-code phone number — the owner is correcting it. */
-      'https://www.psychologytoday.com/ca/therapists/westpeak-wellness-white-rock-bc/1080689',
+      /* NOT the practice's Psychology Today profile (.../westpeak-wellness-
+         white-rock-bc/1080689). Removed 1 Oct 2026: it still says a 15-minute
+         consultation, a 506 phone number, in-person sessions and a different
+         fee, and a sameAs tells an engine those facts are this person's. It
+         comes back only once the listing matches the site; see the
+         PSYCHOLOGY TODAY note on Camille's sameAs and
+         test/practitioner-sameas.test.mts. */
     ],
   },
   {
@@ -501,10 +504,17 @@ const recorded: Practitioner[] = [
        three services while her Tagalog pages and her own "better relationships
        and boundaries" line both implied four. */
     services: ['individual-therapy', 'couples-therapy', 'emdr-therapy', 'family-counselling'],
-    /* Her Psychology Today profile, found 14 Sep 2026 by searching her name
-       ("Counsellor, CCC, RCC", Richmond BC). Emitted as Person.sameAs and
-       linked from her profile. */
-    sameAs: ['https://www.psychologytoday.com/ca/therapists/camille-granda-richmond-bc/1831823'],
+    /* PSYCHOLOGY TODAY, WITHDRAWN 1 Oct 2026 — applies to every counsellor.
+       Her listing (.../camille-granda-richmond-bc/1831823, found 14 Sep 2026)
+       reads "Apollo Counselling Services", Richmond, $150 and a 15-minute
+       consultation. Person.sameAs tells an engine that page IS this person,
+       so it merges those facts into hers: the wrong practice, the wrong fee,
+       the wrong consultation length. The URL is also not linked from the
+       profile. Re-add a Psychology Today URL here only after the listing has
+       been read and matches the site (practice, fee, 30-minute consultation,
+       video only); test/practitioner-sameas.test.mts fails until the URL is
+       added to its VERIFIED list, which is where that check is recorded. */
+    sameAs: [],
     placePages: true,
     /* TRUE since 6 Sep 2026: she is on the public Cliniko booking page with
        her own practitioner id (below), and /book embeds her calendar directly.
@@ -718,7 +728,10 @@ const recorded: Practitioner[] = [
        retire the other; the designation on it (an Alberta CAP registration)
        is not on her roster record because no document for it has been
        supplied. */
-    sameAs: ['https://www.psychologytoday.com/ca/therapists/savneet-kaur-singh-edmonton-ab/1821843'],
+    /* Not .../savneet-kaur-singh-edmonton-ab/1821843: it reads "Registered
+       Provisional Psychologist", Edmonton, $220. Withdrawn 1 Oct 2026; see
+       the PSYCHOLOGY TODAY note on Camille's record. */
+    sameAs: [],
     placePages: true,
     bookable: true,
     clinikoPractitionerId: '2033684891660454425',

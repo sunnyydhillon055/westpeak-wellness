@@ -160,9 +160,13 @@ navigation or boilerplate. Every page it covers is also available at its own URL
      the file cannot drift from the site the way it just did.
      ======================================================================== */
 
-  /* The counsellors. Named, with credentials and registration numbers, because
-     an answer engine asked "who works there" should not have to infer it. */
-  for (const pr of practitioners) {
+  /* The counsellors taking new clients. Named, with their credentials, because
+     an answer engine asked "who works there" should not have to infer it.
+     Since 1 Oct 2026: no registration numbers (those are published on each
+     counsellor's own profile page and nowhere else), and only the counsellors
+     who are accepting, so the founder's name and her circumstances stay on
+     the three pages where her name is allowed. */
+  for (const pr of practitioners.filter((x) => x.acceptingNewClients)) {
     chunks.push([
       `## ${withLetters(pr)}`,
       `URL: ${site.domain}/practitioners/${pr.slug}`,
@@ -170,7 +174,7 @@ navigation or boilerplate. Every page it covers is also available at its own URL
       plain(pr.tagline),
       pr.intro.map(plain).join('\n\n'),
       `### Credentials\n\n${pr.credentials
-        .map((c) => `- ${c.full} (${c.short}), ${c.body}, registration ${c.number}${c.validTo ? `, current to ${c.validTo}` : ''}`)
+        .map((c) => `- ${c.full} (${c.short}), ${c.body}; registration number on the profile page${c.validTo ? `, current to ${c.validTo}` : ''}`)
         .join('\n')}`,
       `### Practises in\n\n${pr.reach === 'canada' ? 'Anywhere in Canada' : pr.provinces.map((c) => PROVINCE_NAME[c as Province] ?? c).join(', ')}`,
       `### Works in\n\n${pr.languages.map((l) => l.name).join(', ')}`,

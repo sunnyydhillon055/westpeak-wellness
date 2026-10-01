@@ -256,6 +256,11 @@ export const moreResources: Resource[] = [
         body: [
           'RCC is a designation granted and policed by the **BC Association of Clinical Counsellors (BCACC)**, a professional association founded in 1988. Holding it means the counsellor has cleared a specific bar: a master’s degree in counselling psychology or an equivalent discipline, a period of supervised clinical practice, current professional liability insurance, continuing education that does not stop at registration, and a code of ethics with teeth. There is a formal complaints process, and registrants can be, and are, removed.',
           'Each RCC carries a registration number, and the register is public and free to search. That combination. A number plus a register anyone can check in two minutes, is the practical meaning of the designation. A claim you can verify is categorically different from a claim you have to take on trust, and the walkthrough below shows exactly where to look.',
+          /* 1 Oct 2026: most of this page's 1,515 impressions are people looking for an RCC
+             ('registered clinical counsellor' 359, 'registered counsellor' 143), and the
+             page linked neither of the RCCs here. No numbers on this page: they are on
+             the profiles, beside the register that confirms them. */
+          'Both counsellors taking new clients at this practice are RCCs. Each one\'s registration number is on her own profile, so you can run this check on them yourself: [Camille Granda](/practitioners/camille-granda) and [Savneet Singh](/practitioners/savneet-singh).',
           'What the designation is *not*: a government licence. That distinction is not a technicality in British Columbia, and it is the next section, because it is the thing most pages on this subject skate past.',
         ],
       },
@@ -486,8 +491,13 @@ export const moreResources: Resource[] = [
        /guides/stress-leave-bc should own outright, and "wcb stress leave bc"
        itself sits at 36. The claim is this page's job, so the title leads
        with it; "WCB" and stress leave stay in the description, where they
-       describe the page rather than compete for the other one's query. */
-    metaTitle: 'WorkSafeBC Psychological Injury Claims vs Stress Leave',
+       describe the page rather than compete for the other one's query.
+       Same day, later: "WCB" back in the title. The 26 Sep export has
+       "wcb stress leave bc" (46 impressions at 36) and "worksafebc stress
+       leave" (19 at 24.9), and the retitle had dropped the one word both
+       share with the old title. The title still leads with the claim, so
+       the one-page-per-cluster decision holds: "stress leave" stays out. */
+    metaTitle: 'WCB Psychological Injury Claims in BC (WorkSafeBC)',
     metaDescription:
       'When a work-related mental injury is a WCB claim rather than a stress leave in BC, what the claim requires, and the exclusion everyone trips over.',
     eyebrow: 'Resource · Work & money',

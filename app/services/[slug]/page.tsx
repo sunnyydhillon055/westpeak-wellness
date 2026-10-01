@@ -51,6 +51,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
         ? {
             languages: {
               'en-CA': `${site.domain}/services/punjabi-counselling`,
+              'x-default': `${site.domain}/services/punjabi-counselling`,
               pa: `${site.domain}/punjabi`,
             },
           }

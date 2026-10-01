@@ -51,6 +51,7 @@ export const metadata: Metadata = {
     canonical: `${site.domain}/punjabi-counselling`,
     languages: {
       'en-CA': `${site.domain}/punjabi-counselling`,
+      'x-default': `${site.domain}/punjabi-counselling`,
       pa: `${site.domain}/punjabi/regions`,
     },
   },
@@ -154,7 +155,7 @@ export default function PunjabiCounsellingIndex() {
 
       <section className="section">
         <div className="container prose">
-          <Breadcrumbs trail={[{ name: 'Punjabi counselling by region', path: '/punjabi-counselling' }]} />
+          <Breadcrumbs trail={[{ name: 'Punjabi counselling by region', path: '/punjabi-counselling' }]} schema={false} />
 
           <h2>These pages do not all make the same argument</h2>
           <p>

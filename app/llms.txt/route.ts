@@ -4,7 +4,6 @@ import { punjabiRegions } from '@/lib/punjabi-regions';
 import { tools } from '@/lib/tools';
 import { TAGALOG_CITIES } from '@/lib/tagalog';
 import { TAGALOG_READY } from '@/lib/practitioner-tl';
-import { PROVINCE_NAME, type Province } from '@/lib/crisis';
 import { services } from '@/lib/services';
 import { approaches } from '@/lib/approaches';
 import { guides } from '@/lib/guides';
@@ -14,6 +13,11 @@ import { audiences } from '@/lib/audiences';
 import { locations } from '@/lib/locations';
 import { albertaPages } from '@/lib/expansion';
 import { ALBERTA_LIVE } from '@/lib/regions';
+import { pairs } from '@/lib/city-services';
+import { cityContexts } from '@/lib/city-context';
+import { getCityTopic } from '@/lib/conditions';
+import { placesFor } from '@/lib/practitioner-places';
+import { reachPhrase, practiceReach, bookingPathFor } from '@/lib/practice-facts';
 
 export const dynamic = 'force-static';
 
@@ -51,6 +55,34 @@ export function GET() {
       })
       .join('\n');
 
+  /* ONLY THE COUNSELLORS TAKING NEW CLIENTS, fixed 1 Oct 2026. The list
+     printed every roster entry with its registration numbers and a link whose
+     closing bracket was missing, so neither name was clickable. Registration
+     numbers belong on each counsellor's own profile page and nowhere else;
+     the founder appears only on /about, /practitioners and her own profile. */
+  const accepting = practitioners.filter((p) => p.acceptingNewClients);
+  const nl = String.fromCharCode(10);
+  const counsellorLines = accepting
+    .map((p) => `- [${withLetters(p)}](${u(`/practitioners/${p.slug}`)}): works in ${p.languages.map((l) => l.name).join(' and ')}; sees clients ${p.reach === 'canada' ? '' : 'in '}${reachPhrase(p)}. [Book a free consultation with ${p.name.split(' ')[0]}](${u(bookingPathFor(p.slug))})`)
+    .join(nl);
+  const introCounsellors = accepting
+    .map((p) => `${withLetters(p)} (${p.languages.map((l) => l.name).join(', ')}; ${reachPhrase(p)})`)
+    .join(' and ');
+  /* THE FIFTY CITY x SERVICE PAGES, which llms.txt never listed. */
+  const cityServiceLines = pairs
+    .map((pr) => {
+      const ctx = cityContexts.find((c) => c.slug === pr.city);
+      const topic = getCityTopic(pr.service);
+      if (!ctx || !topic) return null;
+      return `- [${topic.name} in ${ctx.city}](${u(`/online-counselling/${pr.city}/${pr.service}`)}): ${pr.angle}`;
+    })
+    .filter(Boolean)
+    .join(nl);
+  const placeLines = accepting
+    .filter((p) => p.placePages)
+    .map((p) => `### ${withLetters(p)}${nl}${nl}${placesFor(p.provinces).map((l) => `- [${p.name.split(' ')[0]}: counselling in ${l.city}](${u(`/practitioners/${p.slug}/${l.slug}`)})`).join(nl)}`)
+    .join(nl + nl);
+
   const body = `# ${site.name}
 
 > Virtual counselling practice serving all of British Columbia, Canada. Sessions
@@ -58,21 +90,20 @@ export function GET() {
 > option. Provided by Registered Clinical Counsellors registered with the BC
 > Association of Clinical Counsellors; each counsellor's page states their
 > registration number, languages and provinces. New clients are currently seen
-> by Camille Granda, RCC, CCC (English, Tagalog; BC and Alberta) and by Savneet
-> Singh (English, Punjabi; BC). Languages across the practice: English, Punjabi and Tagalog, per counsellor.
-> A second counsellor holds both the BCACC registration and the national
-> Canadian Certified Counsellor certification, works in English and Tagalog, and
-> can see clients located anywhere in Canada, not only British Columbia.
+> by ${introCounsellors}. Languages across the practice: English, Punjabi and
+> Tagalog, per counsellor. A counsellor whose reach reads "anywhere in Canada"
+> holds the national Canadian Certified Counsellor certification as well as the
+> BCACC registration.
 > Specialisms: EMDR, trauma, anxiety, depression, couples therapy (Gottman
 > Method), family counselling, and South Asian and Filipino mental health.
 
 ## Key facts
 
 - Practice name: ${site.name} (legal name: ${site.legalName})
-- Service area: British Columbia province-wide, remote only. Alberta is served by one counsellor of the two, see the counsellor pages, which state each person's provinces.
+- Service area: remote only; clients located in ${practiceReach(accepting)}. Each counsellor's page states where that person may see clients.
 - Delivery: secure video sessions; no in-person office; no phone sessions
 - Languages: English, Punjabi and Tagalog (${site.languagesNative})
-- Practitioners: two Registered Clinical Counsellors, both BCACC registered with numbers published on their own pages. One also holds the CCC (Canadian Counselling and Psychotherapy Association).
+- Counsellors taking new clients: ${accepting.length}, each a Registered Clinical Counsellor with the BCACC; registration numbers are published on each counsellor's own profile page, not here.
 - Session length: 50 minutes. First consultation: 30 minutes, free
 - Booking: ${u(site.bookingPath)}
 - Contact: ${site.email} (preferred)${site.phone ? `; telephone ${site.phone}, messages returned within one business day` : ''}
@@ -131,11 +162,18 @@ ${list(locations, '/online-counselling')}
 
 ## The counsellors
 
-${practitioners.map((p) => `- [${withLetters(p)}(${site.domain}/practitioners/${p.slug}): ${p.credentials.map((c) => `${c.short} ${c.number}`).join(', ')}. Works in ${p.languages.map((l) => l.name).join(' and ')}. Sees clients located in ${p.provinces.map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and ')}.`).join(String.fromCharCode(10))}
+${counsellorLines}
 
-Each counsellor has city pages of their own under the same path. Which language
-and which province applies is stated per counsellor, never practice-wide, because
-the two differ.
+Which language and which province applies is stated per counsellor, never
+practice-wide, because the two differ.
+
+## By city and service
+
+${cityServiceLines}
+
+## Each counsellor, by city
+
+${placeLines}
 
 ## Counselling in Tagalog
 

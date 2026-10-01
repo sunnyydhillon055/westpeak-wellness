@@ -54,6 +54,18 @@ const BASE = LIVE || `http://127.0.0.1:${PORT}`;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+/* Every registration number on the roster, read from the roster itself so a
+   new counsellor's number is covered the day she is added. They belong on
+   the counsellor's own profile page and in no machine-readable file. */
+const ROSTER_SRC = readFileSync(new URL('../lib/practitioners.ts', import.meta.url), 'utf8');
+const REG_NUMBERS = [...new Set([...ROSTER_SRC.matchAll(/\bnumber: '(\d{4,})'/g)].map((m) => m[1]))];
+const REG_RE = new RegExp(`\\b(${REG_NUMBERS.join('|') || 'x^'})\\b`);
+/* The founder's name and slug: allowed on /about, /practitioners and her own
+   profile, never in a file built for machines to quote. */
+const FOUNDER_RE = /Aman Bains|Bains Dhillon|aman-bains-dhillon/i;
+/* A Markdown link whose label never closes: "[Name, RCC(https://...". */
+const UNCLOSED_LINK = /\[[^\]\n]*\(https?:/;
+
 const failures = [];
 const notes = [];
 let passed = 0;
@@ -155,6 +167,21 @@ for (const path of ['/llms.txt', '/llms-full.txt']) {
   check('llms.txt states the corrections an engine gets wrong', /not a crisis service/i.test(body), 'correction block missing');
   check('llms.txt states that MSP does not cover it', /MSP does not cover/i.test(body), 'coverage correction missing');
   check('llms.txt documents the Markdown twins', /\.md/.test(body) && /ai\.json/.test(body), 'machine-readable section missing');
+
+  /* 1 Oct 2026: the counsellor list printed "[Name, RCC(url)" with no
+     closing bracket, registration numbers, and the founder. */
+  const withLinks = [...new Set([...body.matchAll(/\]\((https?:\/\/[^)\s]+\?with=[a-z-]+)\)/g)].map((m) => m[1]))];
+  check('llms.txt links each accepting counsellor to /book?with=', withLinks.length >= 2, `${withLinks.length} ?with= links`);
+  const pairLinks = new Set([...body.matchAll(/\]\((https?:\/\/[^)\s]+\/online-counselling\/[a-z-]+\/[a-z-]+)\)/g)].map((m) => m[1]));
+  check('llms.txt lists the fifty city x service pages', pairLinks.size >= 50, `${pairLinks.size} city x service links`);
+  check('llms.txt does not name the founder', !FOUNDER_RE.test(body), 'founder name or slug present');
+}
+
+for (const path of ['/llms.txt', '/llms-full.txt']) {
+  const { body } = await get(path);
+  check(`${path} carries no registration number`, !REG_RE.test(body), `matched ${body.match(REG_RE)?.[0]}`);
+  const m = body.match(UNCLOSED_LINK);
+  check(`${path} has no unclosed Markdown link`, !m, `near: ${m ? body.slice(m.index, m.index + 80) : ''}`);
 }
 
 /* ---- ai.json ------------------------------------------------------------- */
@@ -172,7 +199,12 @@ for (const path of ['/llms.txt', '/llms-full.txt']) {
     }
     check('/ai.json says plainly that it is not a crisis service', Array.isArray(doc.not) && doc.not.some((n) => /crisis/i.test(n)), 'the correction is not in `not`');
     check('/ai.json names only counsellors taking clients', Array.isArray(doc.counsellors) && doc.counsellors.every((c) => c.accepting_new_clients === true), 'a counsellor not taking clients is listed');
-    check('/ai.json carries no registration number', !/\b(20111|26894|11263060|27067)\b/.test(body), 'a registration number leaked into the machine record');
+    check('/ai.json carries no registration number', !/\b(20111|26894|11263060|27067)\b/.test(body) && !REG_RE.test(body), 'a registration number leaked into the machine record');
+    check('/ai.json does not name the founder', !FOUNDER_RE.test(body), 'founder name or slug present');
+    check('/ai.json lists the six services', Array.isArray(doc.services) && doc.services.length === 6, `${doc.services?.length ?? 0} services`);
+    check('/ai.json says who offers each service', Array.isArray(doc.services) && doc.services.every((s) => Array.isArray(s.counsellors) && s.counsellors.length > 0), 'a service names no counsellor');
+    check('/ai.json gives every counsellor a ?with= booking_url', Array.isArray(doc.counsellors) && doc.counsellors.length > 0 && doc.counsellors.every((c) => /\/book\?with=[a-z-]+$/.test(c.booking_url ?? '')), 'a counsellor has no booking_url');
+    check('/ai.json states each counsellor\'s reach', Array.isArray(doc.counsellors) && doc.counsellors.every((c) => typeof c.reach === 'string' && c.reach.length > 0), 'reach missing');
     check('/ai.json points back at the Markdown convention', /\.md/.test(JSON.stringify(doc.machine_readable ?? {})), 'convention not referenced');
   }
 }
@@ -442,6 +474,19 @@ const jsonLd = (html) => [...html.matchAll(/<script type="application\/ld\+json"
   check('a translated page says which work it translates',
     Boolean(art?.translationOfWork?.url),
     'no translationOfWork');
+}
+
+/* ---- no "Psychiatric" anywhere in the structured data -------------------- */
+
+/* The practice does not diagnose and is not psychiatric, and says so in
+   ai.json and llms.txt; the layout's MedicalBusiness node said
+   medicalSpecialty "Psychiatric" until 1 Oct 2026. The layout node is on every
+   page, so two pages cover it; the profile carries its own Person node. */
+for (const path of ['/', '/practitioners/camille-granda']) {
+  const { body } = await get(path);
+  const ld = JSON.stringify(jsonLd(body));
+  check(`${path} JSON-LD does not call the practice psychiatric`, !/Psychiatric/i.test(ld), 'medicalSpecialty Psychiatric is back');
+  check(`${path} JSON-LD carries no Psychology Today sameAs`, !/psychologytoday\.com/i.test(ld), 'a Psychology Today URL is in sameAs');
 }
 
 /* ---- the third-party links, only when asked ------------------------------ */

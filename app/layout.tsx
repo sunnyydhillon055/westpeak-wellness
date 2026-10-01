@@ -167,7 +167,9 @@ const orgSchema = {
     { '@type': 'Language', name: 'Punjabi', alternateName: 'pa' },
     { '@type': 'Language', name: 'Tagalog', alternateName: 'tl' },
   ],
-  medicalSpecialty: 'Psychiatric',
+  /* No medicalSpecialty. It said 'Psychiatric' until 1 Oct 2026, while
+     ai.json and llms.txt state that the practice does not diagnose and is not
+     psychiatric; schema.org's MedicalSpecialty list has no counselling value. */
   isAcceptingNewPatients: true,
   currenciesAccepted: 'CAD',
   /* Credit card only. This said "E-transfer, Credit Card" until 2026-08-14,

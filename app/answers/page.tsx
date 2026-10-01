@@ -95,7 +95,7 @@ export default function AnswersPage() {
 
       <section className="section" style={{ paddingTop: 28 }}>
         <div className="container" style={{ maxWidth: '52rem' }}>
-          <Breadcrumbs trail={[{ name: 'Answers', path: '/answers' }]} />
+          <Breadcrumbs trail={[{ name: 'Answers', path: '/answers' }]} schema={false} />
 
           <div className="answers-search" style={{ margin: '18px 0 10px' }}>
             <label htmlFor="ask" className="sr-only">Search the answers</label>

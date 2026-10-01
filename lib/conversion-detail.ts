@@ -71,6 +71,17 @@ export const BOOK_LOCATIONS: readonly string[] = [
   'mid-language-region',
   'hero-resource',
   'mid-resource',
+  /* The counsellor's own pages, wired 1 Oct 2026 (wf/schema): the profile
+     hero and its Tagalog and Punjabi versions, the per-city place pages and
+     their pa/tl twins, the Tagalog gabay pages (the hub itself counts as
+     hero-language, from wf/language),
+     and the next-consultation line on /guides/waiting-for-therapy-in-bc.
+     /practitioners/camille-granda/calgary had 6 GSC clicks and 0 recorded
+     book_clicks, because none of these buttons reported anything. */
+  'hero-practitioner',
+  'hero-place',
+  'hero-language-guide',
+  'guide-waiting',
   ...tools.map((t) => `tool:${t.slug}`),
 ];
 
@@ -135,7 +146,7 @@ export function splitBookDetail(key: string): { location: string; who?: string }
 }
 
 /* The allow-list proper, enumerated once so membership is a Set lookup and
- * the bound is a number somebody can read: 22 locations × 4 = 88 book_click
+ * the bound is a number somebody can read: 26 locations × 4 = 104 book_click
  * keys, 3 slugs, 3 magnets, 5 tools + 22 outcomes. */
 const BOOK_CLICK_KEYS = new Set<string>(
   BOOK_LOCATIONS.flatMap((l) => [l, ...COUNSELLOR_SLUGS.map((s) => `${l}${SEP}${s}`)])

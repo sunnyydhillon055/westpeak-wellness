@@ -78,7 +78,7 @@ export default function ApproachesHub() {
 
       <section className="section" style={{ paddingTop: 40 }}>
         <div className="container">
-          <Breadcrumbs trail={[{ name: 'Approaches', path: '/approaches' }]} />
+          <Breadcrumbs trail={[{ name: 'Approaches', path: '/approaches' }]} schema={false} />
           <Figure name="approach-selector" />
           <div className="grid grid-2" style={{ marginTop: 20 }}>
             {approaches.map((a) => (

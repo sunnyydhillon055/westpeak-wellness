@@ -184,7 +184,12 @@ export const moreGuides2: Guide[] = [
   {
     slug: 'waiting-for-therapy-in-bc',
     title: 'What to do while you are waiting for therapy in BC',
-    metaTitle: 'How Long Is the Wait for Therapy in BC? | Westpeak',
+    /* 1 Oct 2026: 91 impressions at 7.21 and no clicks, for queries that
+       compare the two routes (an AI-mode query asked which private therapists
+       have the shortest wait). The title now names the comparison the page
+       makes, and the page shows the next open consultation under the
+       private-route section (components/NextConsultLine.tsx). */
+    metaTitle: 'How Long Is the Wait for Therapy in BC? Public vs Private',
     metaDescription:
       'Months for public counselling, days for private. Which services have no wait at all, what genuinely helps meanwhile, and how to keep your place on the list.',
     eyebrow: 'Guide · BC systems',

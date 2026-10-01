@@ -1,6 +1,9 @@
 import { site } from '@/lib/site';
 import { practitioners } from '@/lib/practitioners';
 import { ORG_ID, abs } from '@/lib/schema';
+import { services } from '@/lib/services';
+import { conditions } from '@/lib/conditions';
+import { reachPhrase, bookingPathFor, offeredBy } from '@/lib/practice-facts';
 
 /* ============================================================================
    THE PRACTICE, AS ONE JSON OBJECT
@@ -69,14 +72,17 @@ export function GET() {
       'Not a medical practice. A Registered Clinical Counsellor does not diagnose, does not prescribe or advise on medication, and does not carry out formal psychological assessment.',
       'Not covered by MSP in British Columbia, and not covered by AHCIP in Alberta.',
       'Not a clinic with premises. There is no address to visit.',
-      'Not accepting clients located outside the provinces listed for each counsellor.',
+      'Not able to see a client located outside where the chosen counsellor may practise. Each counsellor’s `reach` states where she may see clients; for one of them it is anywhere in Canada.',
     ],
 
     service_area: {
       summary: site.serviceArea,
       provinces: ['BC', 'AB'],
+      /* `provinces` is where the practice has city pages. Where a counsellor
+         may actually see clients is her `reach`, below, which for one of them
+         is all of Canada (owner's instruction, 8 Sep 2026). */
       note:
-        'British Columbia is served by both counsellors. Alberta is served by the one whose certification and insurance reach there; the counsellor pages state which. A session is delivered where the CLIENT is located, not where the counsellor is.',
+        'British Columbia is served by every counsellor. One counsellor may see clients located anywhere in Canada; each counsellor\'s `reach` says which. A session is delivered where the CLIENT is located, not where the counsellor is. Some provinces (Ontario, Quebec, Nova Scotia, New Brunswick, PEI) regulate the psychotherapy or counselling-therapy titles; a client there should confirm with the counsellor before booking.',
     },
 
     languages: [
@@ -111,10 +117,29 @@ export function GET() {
       url: abs(`/practitioners/${p.slug}`),
       languages: p.languages.map((l) => l.name),
       provinces: p.provinces,
+      reach: reachPhrase(p),
+      focus: p.focus.map((f) => f.label),
+      booking_url: abs(bookingPathFor(p.slug)),
+      profile_markdown: abs(`/practitioners/${p.slug}.md`),
       accepting_new_clients: true,
       credentials: p.credentials.map((c) => ({ short: c.short, full: c.full, body: c.body, verify_at: c.verifyUrl })),
       registration_numbers:
         'Published on the counsellor’s own page, beside the public register that confirms them.',
+    })),
+
+    /* WHAT IS OFFERED, AND BY WHOM. Read from each counsellor's own roster
+       `services` (and, for a language service, the languages she works in),
+       so a service is never routed to someone who does not offer it. */
+    services: services.map((svc) => ({
+      name: svc.name,
+      url: abs(`/services/${svc.slug}`),
+      counsellors: offeredBy(svc.slug, taking).map((p) => ({ name: p.name, booking_url: abs(bookingPathFor(p.slug)) })),
+    })),
+
+    /* What people come with. Each is worked with through one of the services. */
+    concerns: conditions.map((c) => ({
+      name: c.name,
+      through_service: abs(`/services/${c.service}`),
     })),
 
     fees: {

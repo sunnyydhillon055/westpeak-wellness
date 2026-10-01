@@ -42,6 +42,7 @@ export const metadata: Metadata = {
     canonical: `${site.domain}/tagalog`,
     languages: {
       'en-CA': `${site.domain}/tagalog-counselling`,
+      'x-default': `${site.domain}/tagalog-counselling`,
       tl: `${site.domain}/tagalog`,
     },
   },
@@ -137,7 +138,7 @@ export default function TagalogPage() {
 
       <section className="section" lang="tl">
         <div className="container">
-          <Breadcrumbs trail={[{ name: 'Tagalog', path: '/tagalog' }]} />
+          <Breadcrumbs trail={[{ name: 'Tagalog', path: '/tagalog' }]} schema={false} />
 
           <div className="prose" style={{ marginTop: 20 }}>
             <h2>{T.whyHeading}</h2>

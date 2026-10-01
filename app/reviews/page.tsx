@@ -109,7 +109,7 @@ export default function ReviewsPage() {
       <section className="section" style={{ paddingTop: 36 }}>
         <div className="container reading">
           <div className="prose">
-            <Breadcrumbs trail={[{ name: 'Reviews and references', path: '/reviews' }]} />
+            <Breadcrumbs trail={[{ name: 'Reviews and references', path: '/reviews' }]} schema={false} />
 
             <h2 id="why-none">Why there are no client reviews here</h2>
             <p>

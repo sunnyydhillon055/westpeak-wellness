@@ -24,6 +24,7 @@ import { deviceSlots } from '@/lib/placement';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import LeadCapture, { type MagnetKey } from '@/components/LeadCapture';
 import { ogBase } from '@/lib/og-meta';
+import NextConsultLine from '@/components/NextConsultLine';
 
 /* Guides where "Still deciding? Book a free consultation!" is the wrong note.
  *
@@ -70,6 +71,19 @@ function guideMagnet(slug: string): MagnetKey | null {
   if (slug === 'money-stress-and-mental-health') return 'coverage-checklist';
   return 'starting-counselling';
 }
+
+/* THE NEXT FREE CONSULTATION, under the section a reader deciding between
+   the public wait and a private one is reading. One guide so far:
+   /guides/waiting-for-therapy-in-bc (1 Oct 2026). Keyed by the section's
+   heading so the line moves with the section, not with an index. */
+const NEXT_CONSULT_AFTER: Record<string, string> = {
+  'waiting-for-therapy-in-bc': 'When paying privately makes sense, and when it does not',
+};
+
+/* Re-rendered every thirty minutes, the life of the availability cache, so
+   the line above is what Cliniko is offering rather than what it offered at
+   build time. A guide without the line renders the same bytes each time. */
+export const revalidate = 1800;
 
 export function generateStaticParams() {
   return guides.map((g) => ({ slug: g.slug }));
@@ -249,6 +263,8 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
                   ))}
                 </ul>
               )}
+
+              {NEXT_CONSULT_AFTER[g.slug] === s.h2 && <NextConsultLine location="guide-waiting" />}
 
               {midDevices.filter((_, k) => slots[k] === i)}
             </div>

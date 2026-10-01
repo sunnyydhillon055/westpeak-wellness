@@ -124,7 +124,7 @@ export default function AlbertaHub() {
 
       <section className="section">
         <div className="container prose" style={{ maxWidth: '44.16em' }}>
-          <Breadcrumbs trail={[{ name: 'Alberta', path: '/alberta' }]} />
+          <Breadcrumbs trail={[{ name: 'Alberta', path: '/alberta' }]} schema={false} />
 
           <p className="designation-note">
             <strong>{DESIGNATION}</strong> Appointment times are shown in {cfg.tzLabel}.

@@ -16,6 +16,9 @@ import { consultationAvailability } from '@/lib/cliniko-availability';
 import { TAGALOG_READY } from '@/lib/practitioner-tl';
 import { getPunjabiProfile } from '@/lib/practitioner-pa';
 import { COLLECTION_DATES } from '@/lib/page-dates';
+import BookLink from '@/components/BookLink';
+import { profileTitle } from '@/lib/practitioner-titles';
+import { personAreaServed } from '@/lib/practice-facts';
 
 export function generateStaticParams() {
   return practitioners.map((p) => ({ slug: p.slug }));
@@ -24,11 +27,13 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const p = getPractitioner(params.slug);
   if (!p) return {};
-  const title = `${withLetters(p)} | Westpeak Wellness`;
+  /* Leads with the person and the language she works in, since 1 Oct 2026:
+     see lib/practitioner-titles.ts for the Search Console evidence. */
+  const title = profileTitle(p);
   /* Under 158. The first version listed the role, the practice, the province,
      both languages and all three focus areas, and ran to 205 characters —
      Google would have cut it mid-clause. */
-  const description = `${withLetters(p)}, online counselling across BC in ${p.languages.map((l) => l.name).join(' or ')}. ${p.focus.map((f) => f.label).join(', ')}.`;
+  const description = `${withLetters(p)}, online counselling ${p.reach === 'canada' ? 'anywhere in Canada' : 'across BC'} in ${p.languages.map((l) => l.name).join(' or ')}. ${p.focus.map((f) => f.label).join(', ')}.`;
   /* The profile's own language twin, declared both ways — the twin already
      points back here. Found 7 Sep 2026 by scripts/roster-compare.mjs: every
      twin declared its pair and no English profile did, so a crawler saw the
@@ -43,6 +48,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
             languages: {
               'en-CA': `${site.domain}/practitioners/${p.slug}`,
               [twinTag]: `${site.domain}/practitioners/${p.slug}/${twinTag}`,
+              'x-default': `${site.domain}/practitioners/${p.slug}`,
             },
           },
         }
@@ -139,6 +145,8 @@ export default async function PractitionerPage({ params }: { params: { slug: str
   );
 
 
+  const sameAs = (p.sameAs ?? []).filter((u) => !/psychologytoday\.com/i.test(u));
+
   const schema = [
     {
       '@context': 'https://schema.org',
@@ -149,7 +157,10 @@ export default async function PractitionerPage({ params }: { params: { slug: str
       url: abs(`/practitioners/${p.slug}`),
       worksFor: orgRef,
       knowsLanguage: p.languages.map((l) => l.tag),
-      ...(p.sameAs?.length ? { sameAs: p.sameAs } : {}),
+      /* Psychology Today never reaches sameAs, even if re-added to the roster
+         by hand: the listings carry another practice's facts (1 Oct 2026, see
+         the note on Camille's sameAs in lib/practitioners.ts). */
+      ...(sameAs.length ? { sameAs } : {}),
       ...(p.photos?.portrait ? { image: `${site.domain}${p.photos.portrait.src}` } : {}),
       knowsAbout: p.focus.map((f) => f.label),
       hasCredential: p.credentials.map((c) => ({
@@ -159,7 +170,9 @@ export default async function PractitionerPage({ params }: { params: { slug: str
         identifier: c.number,
         recognizedBy: { '@type': 'Organization', name: c.body },
       })),
-      areaServed: { '@type': 'State', name: 'British Columbia' },
+      /* From her roster `reach` and `provinces`, not a hard-coded BC: Camille
+         may see clients anywhere in Canada (owner's instruction, 8 Sep 2026). */
+      areaServed: personAreaServed(p),
     },
     {
       '@context': 'https://schema.org',
@@ -206,26 +219,20 @@ export default async function PractitionerPage({ params }: { params: { slug: str
             <div className="btn-row" style={{ marginTop: 22 }}>
               {!p.acceptingNewClients ? (
                 alt && (
-                  <Link className="btn btn--primary" href={bookHref}>
+                  <BookLink location="hero-practitioner" href={bookHref}>
                     Book a free consultation with {altFirst}
-                  </Link>
+                  </BookLink>
                 )
               ) : p.bookable ? (
-                <Link className="btn btn--primary" href={bookHref}>Book with {first}</Link>
+                <BookLink location="hero-practitioner" href={bookHref}>Book with {first}</BookLink>
               ) : (
-                <Link className="btn btn--primary" href={bookHref}>Book a free consultation</Link>
+                <BookLink location="hero-practitioner" href={bookHref}>Book a free consultation</BookLink>
               )}
               <Link className="btn btn--ghost" href="/pricing">Fees and coverage</Link>
             </div>
             {nextOpen.length > 0 && (
               <p style={{ fontSize: '.95rem', marginTop: 12 }}>
                 <strong>Next open with {first}:</strong> {nextOpen.join(' · ')}
-              </p>
-            )}
-            {p.sameAs?.some((u) => /psychologytoday\.com/.test(u)) && (
-              <p style={{ fontSize: '.9rem', color: 'var(--ink-soft)', marginTop: 12 }}>
-                Also listed on{' '}
-                <a href={p.sameAs.find((u) => /psychologytoday\.com/.test(u))} target="_blank" rel="noopener">Psychology Today</a>.
               </p>
             )}
             {!p.acceptingNewClients ? (
@@ -269,6 +276,7 @@ export default async function PractitionerPage({ params }: { params: { slug: str
               { name: 'Our counsellors', path: '/practitioners' },
               { name: p.name, path: `/practitioners/${p.slug}` },
             ]}
+            schema={false}
           />
 
           <div className="trust-bar" style={{ marginTop: 4 }}>

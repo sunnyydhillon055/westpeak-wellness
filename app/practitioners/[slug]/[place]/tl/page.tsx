@@ -16,6 +16,7 @@ import { abs, siteRef, orgRef } from '@/lib/schema';
 import { BadgeCheck } from 'lucide-react';
 import { ogBase } from '@/lib/og-meta';
 import { COLLECTION_DATES } from '@/lib/page-dates';
+import BookLink from '@/components/BookLink';
 
 /* ============================================================================
    THE TAGALOG CITY PAGES — /practitioners/<slug>/<city>/tl
@@ -75,7 +76,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
     description,
     alternates: {
       canonical: `${site.domain}${tlPath}`,
-      languages: { 'en-CA': `${site.domain}${enPath}`, tl: `${site.domain}${tlPath}` },
+      languages: { 'en-CA': `${site.domain}${enPath}`, 'x-default': `${site.domain}${enPath}`, tl: `${site.domain}${tlPath}` },
     },
     openGraph: {
       ...ogBase(tlPath),
@@ -169,7 +170,7 @@ export default function TagalogPlacePage({ params }: { params: Params }) {
               Trauma, pagkabalisa, pagluluksa. Libreng 30 minutong konsultasyon.
             </p>
             <div className="btn-row" style={{ marginTop: 22 }}>
-              <Link className="btn btn--primary" href={bookHref}>{t.cta}</Link>
+              <BookLink location="hero-place" href={bookHref}>{t.cta}</BookLink>
               <Link className="btn btn--ghost" href={enPath} hrefLang="en-CA">
                 {t.backToEnglish}
               </Link>
@@ -325,7 +326,7 @@ export default function TagalogPlacePage({ params }: { params: Params }) {
           <div className="cta-band">
             <h2>{t.ctaHeading(raw.city)}</h2>
             <p>{t.ctaText}</p>
-            <Link className="btn btn--primary" href={bookHref}>{t.cta}</Link>
+            <BookLink location="hero-place" href={bookHref}>{t.cta}</BookLink>
             <p className="cta-band-alt">
               {TL_PLACE_SHARED.notReady}{' '}
               <Link href="/contact">{TL_PLACE_SHARED.notReadyWrite}</Link> &mdash;{' '}
