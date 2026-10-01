@@ -12,7 +12,10 @@ const hitFor = (tags: string[]) =>
   WHICH_SERVICE_OUTCOMES.find((o) => tags.includes(o.tag)) ??
   WHICH_SERVICE_OUTCOMES[WHICH_SERVICE_OUTCOMES.length - 1];
 
-export default function WhichServiceTool() {
+/* `bookHrefs` maps an outcome's tag to the booking link for the service its
+   page offers, computed on the server (app/tools/which-service/page.tsx)
+   because the roster is not shipped to the browser. */
+export default function WhichServiceTool({ bookHrefs = {} }: { bookHrefs?: Record<string, string> }) {
   return (
     <Quiz
       slug="which-service"
@@ -30,7 +33,7 @@ export default function WhichServiceTool() {
                 <Link className="btn btn--ghost" href={hit.href}>{hit.hrefLabel} →</Link>
               </p>
             )}
-            {!hit.elsewhere && <ResultCta tool="which-service" />}
+            {!hit.elsewhere && <ResultCta tool="which-service" href={bookHrefs[hit.tag]} />}
             <p className="tool-disclaimer">
               This is a signpost, not an assessment. A 30-minute conversation will get you a
               better answer than five questions can, and it costs nothing.

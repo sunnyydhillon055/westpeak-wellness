@@ -8,6 +8,7 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import InboundForm from '@/components/InboundForm';
 import { Clock } from 'lucide-react';
 import { consultationAvailability, practiceHoursLine } from '@/lib/cliniko-availability';
+import MailLink from '@/components/MailLink';
 
 export const metadata: Metadata = {
   title: 'Contact & Book',
@@ -82,7 +83,7 @@ export default async function Contact({
             {site.phone && (
               <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Phone strokeWidth={1.7} /></span><div><h3>Phone</h3><p><a href={`tel:${site.phoneTel}`}>{site.phone}</a><br /><span style={{ color: 'var(--ink-faint)', fontSize: '.92em' }}>Voicemail outside session hours, leave a first name and a good time to call back</span></p></div></div>
             )}
-            <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Mail strokeWidth={1.7} /></span><div><h3>Email</h3><p><a href={`mailto:${site.email}`}>{site.email}</a><br /><span style={{ color: 'var(--ink-faint)', fontSize: '.92em' }}>{replyLine}</span></p></div></div>
+            <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Mail strokeWidth={1.7} /></span><div><h3>Email</h3><p><MailLink where="contact" /><br /><span style={{ color: 'var(--ink-faint)', fontSize: '.92em' }}>{replyLine}</span></p></div></div>
             <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><MonitorSmartphone strokeWidth={1.7} /></span><div><h3>Sessions</h3><p>Fully online, anywhere in British Columbia</p></div></div>
             <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><MapPin strokeWidth={1.7} /></span><div><h3>Service area</h3><p>Virtual: anywhere in BC</p></div></div>
             <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><LangIcon strokeWidth={1.7} /></span><div><h3>Languages</h3><p>{site.languages}</p></div></div>

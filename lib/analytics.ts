@@ -25,8 +25,93 @@ declare global {
  * gtag/js?id=undefined on all 193 pages. Server code must read
  * process.env.NEXT_PUBLIC_GA_ID directly. */
 
+/* STAFF BROWSERS ARE NOT COUNTED — 1 Oct 2026. At about fifteen calendar
+ * opens a week, the 25 production loads of /book made by builders on 1 Oct
+ * were most of a week's signal. /admin has a switch that sets this key on
+ * the browser it is pressed in (components/NoCountSwitch.tsx); while it is
+ * set nothing is sent, to GA or to the counter. Read inside try/catch: a
+ * browser that blocks storage is counted, never broken. */
+export const NO_COUNT_KEY = 'wp-no-count';
+
+export function excludedBrowser(): boolean {
+  try {
+    return !!window.localStorage.getItem(NO_COUNT_KEY);
+  } catch {
+    return false;
+  }
+}
+
+/* WHICH LANDING AND WHICH BUTTON — 1 Oct 2026.
+ *
+ * components/Analytics.tsx keeps the session's landing as
+ * "<path>|<channel or referrer class>" under LANDING_KEY (it kept only '1'
+ * before, so a session begun before this deploy credits nothing). Every
+ * book_click remembers its button under LAST_BUTTON_KEY. Both are
+ * sessionStorage: they end with the tab and never leave the browser except
+ * as the bounded detail of the three events below, which the server checks
+ * against lib/conversion-detail.ts like every other detail.
+ *
+ *   book_click        also sends click_from  (the landing)
+ *   scheduler_booked  also sends booked_from (the landing) and booked_via
+ *                     (the last button, or 'direct'), on /book only: a
+ *                     booking in the client portal is a client rebooking,
+ *                     not a visit the landing page earned.
+ *
+ * The companions go to the counter only, not to gtag. */
+export const LANDING_KEY = 'wp-land';
+const LAST_BUTTON_KEY = 'wp-last-book';
+
+const session = (k: string): string | null => {
+  try {
+    return window.sessionStorage.getItem(k);
+  } catch {
+    return null;
+  }
+};
+
+/** The landing key, or undefined for a session that began without one. */
+const landingKey = (): string | undefined => {
+  const v = session(LANDING_KEY);
+  return v && v.includes('|') ? v : undefined;
+};
+
+function companions(event: TrackedEvent, detail: string | undefined): [string, string | undefined][] {
+  if (event === 'book_click') {
+    /* The button half of "sticky/camille-granda". */
+    const button = detail ? detail.split('/')[0] : undefined;
+    if (button) {
+      try { window.sessionStorage.setItem(LAST_BUTTON_KEY, button); } catch { /* never load-bearing */ }
+    }
+    const from = landingKey();
+    return from ? [['click_from', from]] : [];
+  }
+  if (event === 'scheduler_booked' && !(detail ?? '').startsWith('portal:')) {
+    const from = landingKey();
+    return [
+      ...(from ? [['booked_from', from] as [string, string]] : []),
+      ['booked_via', session(LAST_BUTTON_KEY) || 'direct'],
+    ];
+  }
+  return [];
+}
+
+function beacon(event: string, detail: string | undefined): void {
+  const body = JSON.stringify({ event, path: window.location.pathname, detail });
+  if (navigator.sendBeacon) {
+    navigator.sendBeacon('/api/track', new Blob([body], { type: 'application/json' }));
+  } else {
+    void fetch('/api/track', {
+      method: 'POST',
+      body,
+      headers: { 'Content-Type': 'application/json' },
+      keepalive: true,
+    }).catch(() => {});
+  }
+}
+
 export function track(event: TrackedEvent, params: Params = {}): void {
   if (typeof window === 'undefined') return;
+  if (excludedBrowser()) return;
 
   /* GA, when it is configured. */
   try {
@@ -52,17 +137,8 @@ export function track(event: TrackedEvent, params: Params = {}): void {
    * book_click fires. Falls back to keepalive fetch where beacon is missing. */
   try {
     const detail = typeof params.detail === 'string' ? params.detail : undefined;
-    const body = JSON.stringify({ event, path: window.location.pathname, detail });
-    if (navigator.sendBeacon) {
-      navigator.sendBeacon('/api/track', new Blob([body], { type: 'application/json' }));
-    } else {
-      void fetch('/api/track', {
-        method: 'POST',
-        body,
-        headers: { 'Content-Type': 'application/json' },
-        keepalive: true,
-      }).catch(() => {});
-    }
+    beacon(event, detail);
+    for (const [e, d] of companions(event, detail)) beacon(e, d);
   } catch {
     /* same rule: never load-bearing */
   }
@@ -106,6 +182,11 @@ export type TrackedEvent =
   /* The calendar on /book mounted, by the button (`button`) or by arriving
    * at #calendar (`hash`). components/SchedulerGate, 1 Oct 2026. */
   | 'scheduler_open'
+  /* Cliniko's own confirmation, posted from inside the frame
+   * ('cliniko-bookings-page:confirmed', Cliniko help article 4726326) and
+   * accepted only from a *.cliniko.com origin. The step after interact that
+   * the site could never see. 1 Oct 2026. */
+  | 'scheduler_booked'
   | 'tool_start'
   | 'tool_complete'
   | 'tool_share'

@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { track } from '@/lib/analytics';
+import { track, LANDING_KEY } from '@/lib/analytics';
 import { channelOf, isAssistantHost, referrerClass } from '@/lib/conversion-detail-client';
 
 /* Page-level engagement signals that do not belong on any one component:
@@ -33,8 +33,17 @@ export default function Analytics() {
          channel mix, and nothing at all for Bing, direct or the listings.
          1 Oct 2026. A rendering crawler runs this script too, and would
          inflate the very number this exists to be honest about. */
-      if (!sessionStorage.getItem('wp-land') && !navigator.webdriver && !/bot|crawl|spider|slurp|headless|lighthouse/i.test(navigator.userAgent)) {
-        sessionStorage.setItem('wp-land', '1');
+      const cls = referrerClass(ref, window.location.hostname);
+      const linkChannel = channelOf(new URLSearchParams(window.location.search).get('utm_source'));
+      if (!sessionStorage.getItem(LANDING_KEY) && !navigator.webdriver && !/bot|crawl|spider|slurp|headless|lighthouse/i.test(navigator.userAgent)) {
+        /* Was '1'. Now the page and the one word that says how the visit
+           arrived — the link's channel when it named one, else the referrer
+           class — so a booking click or a confirmed booking later in the
+           session can be credited to where the visit began (lib/analytics.ts,
+           click_from and booked_from). Both halves were already sent on
+           their own; this keeps them in the tab until a booking needs them.
+           1 Oct 2026. */
+        sessionStorage.setItem(LANDING_KEY, `${window.location.pathname}|${linkChannel ?? cls}`);
         track('landing', { detail: referrerClass(ref, window.location.hostname) });
       }
       /* WHICH KIND OF ORGANISATION'S LINK. A link the practice hands out —
@@ -45,7 +54,7 @@ export default function Analytics() {
          here and never sent. This replaced the gbp-only counter of 26 Sep,
          whose history /admin folds into the gbp row. The parameter changes
          nothing else: the canonical tag strips it. 1 Oct 2026. */
-      const channel = channelOf(new URLSearchParams(window.location.search).get('utm_source'));
+      const channel = linkChannel;
       if (channel && !sessionStorage.getItem('wp-chan') && !(channel === 'gbp' && sessionStorage.getItem('wp-gbp'))) {
         sessionStorage.setItem('wp-chan', '1');
         track('channel_visit', { detail: channel });

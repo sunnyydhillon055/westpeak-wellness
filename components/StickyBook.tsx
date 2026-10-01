@@ -7,6 +7,7 @@ import { site } from '@/lib/site';
 import { track } from '@/lib/analytics';
 import { bookClickDetail, withSlugOf } from '@/lib/conversion-detail-client';
 import { bookHrefFor, type NavPractitioner } from '@/lib/roster-nav';
+import MailLink from '@/components/MailLink';
 
 /* THE BOOKING LINK FOLLOWS THE PAGE.
  *
@@ -168,13 +169,9 @@ export default function StickyBook({ roster }: { roster: NavPractitioner[] }) {
         <NextLine avail={avail} onSlug={onSlug} onBooking={onBooking} />
       </Suspense>
       <div className="sticky-book-actions">
-        <a
-          className="sticky-book-btn sb-mail"
-          href={`mailto:${site.email}?subject=${encodeURIComponent('Free consultation')}`}
-          onClick={() => track('email_click', { location: 'sticky' })}
-        >
+        <MailLink where="sticky" className="sticky-book-btn sb-mail" subject="Free consultation">
           <MailIcon /> Email us
-        </a>
+        </MailLink>
         {/* Counted like every other booking button, as of 1 Oct 2026. This
             bar is on every page below 1020px and was the one Book link on the
             site that fired nothing, which is why the calendar was seen 105

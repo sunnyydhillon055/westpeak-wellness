@@ -7,8 +7,16 @@ import CtaBand from '@/components/CtaBand';
 import WhichServiceTool from '@/components/tools/WhichServiceTool';
 import { site } from '@/lib/site';
 import { ogBase } from '@/lib/og-meta';
+import { bookingFor } from '@/lib/booking-cta';
 
 const tool = getTool('which-service')!;
+/* Each result books with the counsellor who offers the service its page
+   describes, when only one does (couples, EMDR). Worked out here because the
+   tool is a client component and the roster stays on the server. */
+const BOOK_HREFS: Record<string, string> = Object.fromEntries(
+  WHICH_SERVICE_OUTCOMES.filter((o) => o.href?.startsWith('/services/'))
+    .map((o) => [o.tag, bookingFor(o.href!.slice('/services/'.length)).href]),
+);
 export const metadata: Metadata = {
   /* Its own og:url. Without an openGraph object this page inherited the
      root one from layout.tsx, whose `url` is the homepage - so a link to
@@ -33,7 +41,7 @@ export default function Page() {
         </>
       }
     >
-      <WhichServiceTool />
+      <WhichServiceTool bookHrefs={BOOK_HREFS} />
 
       <div className="prose tool-prose">
           <Figure name="approach-selector" />

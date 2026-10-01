@@ -4,17 +4,18 @@ import { useEffect, useRef } from 'react';
 import { track } from '@/lib/analytics';
 import { clampFrameHeight, fromFrame, parseClinikoMessage } from '@/lib/cliniko-frame';
 
-/* THE MEASUREMENT HOOK FOR A COMPLETED BOOKING — left empty on purpose.
+/* THE MEASUREMENT HOOK FOR A COMPLETED BOOKING.
  *
  * Cliniko posts "cliniko-bookings-page:confirmed" to this window when a
  * booking inside the frame completes. This is the one place that message
- * arrives (the listener below is the only Cliniko listener on the site), so
- * whatever counts a confirmed booking belongs here and nowhere else. Not
- * counted yet: an event that is not on lib/conversion-log's COUNTED list is
- * dropped on arrival, and adding one is measurement's change to make.
- * Called at most once per mounted frame. */
+ * arrives (the listener below is the only Cliniko listener on the site, and
+ * it accepts a message only from the frame's own origin and window), so the
+ * count lives here: `scheduler_booked`, with the same detail as the visible
+ * and interact events that bracket it, so seen, touched and booked line up
+ * per counsellor and surface. Nothing in the message is read beyond its
+ * name. Called at most once per mounted frame. 1 Oct 2026. */
 function onClinikoBookingConfirmed(ctx: { page: string; who?: string }): void {
-  void ctx;
+  track('scheduler_booked', { page: ctx.page, detail: ctx.who });
 }
 
 /* Measures whether anyone actually reaches the booking calendar, and whether

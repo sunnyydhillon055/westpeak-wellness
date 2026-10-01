@@ -185,6 +185,12 @@ export const PORTAL_PREFIX = 'portal:';
 const SCHEDULER_KEYS = new Set<string>([...COUNSELLOR_SLUGS, ...COUNSELLOR_SLUGS.map((s) => `${PORTAL_PREFIX}${s}`)]);
 const MAGNET_SET = new Set<string>(MAGNET_KEYS);
 
+/** booked_via when no booking button was pressed in the session. */
+export const BOOKED_DIRECT = 'direct';
+
+/** The places the practice address is a mailto: link (components/MailLink.tsx). */
+export const EMAIL_LOCATIONS: readonly string[] = ['sticky', 'book-fallback', 'contact', 'footer', 'refer'];
+
 const ALLOWED: Readonly<Record<string, ReadonlySet<string>>> = {
   book_click: BOOK_CLICK_KEYS,
   book_direct: SLUG_KEYS,
@@ -201,12 +207,59 @@ const ALLOWED: Readonly<Record<string, ReadonlySet<string>>> = {
   landing: new Set<string>(REFERRER_CLASSES),
   /* How the /book calendar was opened (components/SchedulerGate). */
   scheduler_open: new Set<string>(['button', 'hash']),
+  /* Cliniko's own "booking confirmed" message from inside the embedded
+     calendar (components/SchedulerTelemetry.tsx): the same keys as the two
+     events that bracket it, so seen, touched and booked line up per
+     counsellor and surface. 1 Oct 2026. */
+  scheduler_booked: SCHEDULER_KEYS,
+  /* Which booking button the visit last pressed before Cliniko confirmed,
+     or `direct` when it pressed none (arrived on /book and booked). The
+     button half only, never the counsellor: that is scheduler_booked's. */
+  booked_via: new Set<string>([...BOOK_LOCATIONS, BOOKED_DIRECT]),
+  /* Which mailto: link. One per place the address is a link, from the
+     fixed list below. components/MailLink.tsx. */
+  email_click: new Set<string>(EMAIL_LOCATIONS),
+};
+
+/* WHERE THE VISIT BEGAN, FOR A CLICK AND FOR A BOOKING — 1 Oct 2026.
+ *
+ * `click_from` and `booked_from` carry "<landing path>|<word>": the first
+ * page of the session and either the ?utm_source= channel its link named or
+ * the class its referrer was reduced to. Both halves already reach this
+ * store on their own (the landing event counts path and class); this is the
+ * same two facts kept beside the click or the booking they led to, so a
+ * guide that ranks 8th and sends people who book from the homepage gets the
+ * credit. Not a list, because the paths are the site's pages, but a shape:
+ * lower-case path segments only, no query, 70 characters at most, and a
+ * word from CHANNELS or REFERRER_CLASSES. The map is trimmed to 400 keys by
+ * the store like any per-path map. */
+const LANDING_WORDS = new Set<string>([...CHANNELS, ...REFERRER_CLASSES]);
+const LANDING_PATH = /^\/(?:[a-z0-9-]+(?:\/[a-z0-9-]+)*)?$/;
+export const LANDING_SEP = '|';
+
+/** True for "<path>|<word>" as the browser composes it. Pure. */
+export function landingKeyOk(v: string): boolean {
+  const i = v.lastIndexOf(LANDING_SEP);
+  if (i < 1) return false;
+  const path = v.slice(0, i);
+  return path.length <= 70 && LANDING_PATH.test(path) && LANDING_WORDS.has(v.slice(i + 1));
+}
+
+export function splitLandingKey(v: string): { path: string; via: string } {
+  const i = v.lastIndexOf(LANDING_SEP);
+  return i < 0 ? { path: v, via: '' } : { path: v.slice(0, i), via: v.slice(i + 1) };
+}
+
+const SHAPED: Readonly<Record<string, (v: string) => boolean>> = {
+  click_from: landingKeyOk,
+  booked_from: landingKeyOk,
 };
 
 /** The detail to store for this event, or null to store none. Never throws,
  *  never trims or normalises: a key is either on the list or it is not. */
 export function allowedDetail(event: string, detail: unknown): string | null {
   if (typeof detail !== 'string' || detail.length === 0 || detail.length > 80) return null;
+  if (SHAPED[event]) return SHAPED[event](detail) ? detail : null;
   return ALLOWED[event]?.has(detail) ? detail : null;
 }
 

@@ -1,0 +1,85 @@
+{
+  "about": "The change register (lib/change-register.ts). One entry per batch that reached production: the pages it touched as path prefixes ('/' alone is the homepage, a trailing '/' means everything under it), the one metric it should move (conv:<event> from the weekly snapshots, gsc:clicks from data/gsc, tally:<field> from the booking tally, or none), and the day to read it, 28 days on. Add an entry when a change ships; node scripts/change-readout.mjs reads them out and the monthly email prints the ones that are due.",
+  "changes": [
+    {
+      "id": "2026-10-01-mail",
+      "date": "2026-10-01",
+      "pages": [],
+      "metric": "tally:paidBooked",
+      "readAfter": "2026-10-29",
+      "note": "Booking mail names the counsellor and books her calendar; the practice is told who did not book after a consultation. No page; read site-wide."
+    },
+    {
+      "id": "2026-10-01-funnel",
+      "date": "2026-10-01",
+      "pages": [],
+      "metric": "none",
+      "readAfter": "2026-10-29",
+      "note": "The monthly funnel report joins consultations, paid sessions and messages. Measurement only."
+    },
+    {
+      "id": "2026-10-01-book",
+      "date": "2026-10-01",
+      "pages": ["/book"],
+      "metric": "conv:scheduler_interact",
+      "readAfter": "2026-10-29",
+      "note": "/book reads two weeks of times, says it is online only, and states the session fee. The calendar exists only on /book and the portal, so the untouched comparison is the portal."
+    },
+    {
+      "id": "2026-10-01-services",
+      "date": "2026-10-01",
+      "pages": ["/services/", "/for/", "/online-counselling/", "/tools/therapy-cost-bc"],
+      "metric": "conv:book_click",
+      "readAfter": "2026-10-29",
+      "note": "Fees from the catalogue, one booking rule, condition sections on the service they book into."
+    },
+    {
+      "id": "2026-10-01-cards",
+      "date": "2026-10-01",
+      "pages": ["/services/", "/for/", "/online-counselling/"],
+      "metric": "conv:book_click",
+      "readAfter": "2026-10-29",
+      "note": "Who you would see on service, audience and city pages; city hubs answer cost and office. Shares its pages with services, so the two cannot be told apart."
+    },
+    {
+      "id": "2026-10-01-language",
+      "date": "2026-10-01",
+      "pages": ["/punjabi", "/punjabi-counselling", "/tagalog", "/tagalog-counselling", "/compare/", "/resources/"],
+      "metric": "conv:book_click",
+      "readAfter": "2026-10-29",
+      "note": "Language pages book with a counsellor who speaks the language and offers the service."
+    },
+    {
+      "id": "2026-10-01-trust",
+      "date": "2026-10-01",
+      "pages": ["/book", "/pricing", "/refer", "/practitioners/"],
+      "metric": "conv:book_click",
+      "readAfter": "2026-10-29",
+      "note": "Insurance gate on Alberta and Canada-wide reach, referral pages from the roster, privacy and regulation corrections."
+    },
+    {
+      "id": "2026-10-01-tech",
+      "date": "2026-10-01",
+      "pages": ["/practitioners/"],
+      "metric": "gsc:clicks",
+      "readAfter": "2026-10-29",
+      "note": "Redirects in one list without chains, IndexNow ping, one date per page, GSC pull, no evening promises. Mostly site-wide; the place pages are the touched set."
+    },
+    {
+      "id": "2026-10-01-schema",
+      "date": "2026-10-01",
+      "pages": ["/practitioners/", "/guides/", "/approaches", "/answers", "/punjabi", "/tagalog"],
+      "metric": "gsc:clicks",
+      "readAfter": "2026-10-29",
+      "note": "Counsellor titles lead with the person and her language, machine files list only accepting counsellors, one BreadcrumbList per page."
+    },
+    {
+      "id": "2026-10-01-measurement",
+      "date": "2026-10-01",
+      "pages": [],
+      "metric": "none",
+      "readAfter": "2026-10-29",
+      "note": "Cliniko-confirmed bookings, landing and button credit, email clicks, retention, the 8-week table, Search Console on /admin, this register. Measurement only."
+    }
+  ]
+}

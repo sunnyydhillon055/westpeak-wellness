@@ -4,7 +4,9 @@ import { listAll } from '@/lib/cliniko';
 import {
   consultToPaid, classifyConsults, sourceAndCity, sourceBucket, citySlug, enquiryOutcomes, totalOf,
   OTHER_PLACE, NO_PLACE, type Appt,
+  retention, retentionPatients, foldSmall, mergeRebook, median, OTHER_GROUP,
 } from '@/lib/funnel-joins';
+import { retentionLines } from '@/lib/funnel-report';
 import { practitionerSlugFor, idFromLink } from '@/lib/practitioner-for';
 import { parseBookingTally, tallyRows } from '@/lib/booking-tally-read';
 import { allowedDetail, acceptedDetail } from '@/lib/conversion-detail';
@@ -211,7 +213,74 @@ test('funnelCuts splits the calendar by surface', () => {
   };
   const { calendar } = funnelCuts(log);
   assert.deepEqual(calendar, [
-    { who: 'camille-granda', surface: 'book', seen: 4, touched: 0, opened: 1 },
-    { who: 'camille-granda', surface: 'portal', seen: 2, touched: 0, opened: 0 },
+    { who: 'camille-granda', surface: 'book', seen: 4, touched: 0, opened: 1, booked: 0 },
+    { who: 'camille-granda', surface: 'portal', seen: 2, touched: 0, opened: 0, booked: 0 },
   ]);
+});
+
+/* ---- after the first paid session (item 120, 1 Oct 2026) ---------------- */
+
+const NOW = new Date('2026-10-01T12:00:00Z');
+const rOpts = { ...SEPT, now: NOW, consultTypeId: CONSULT_TYPE, slugFor: practitionerSlugFor };
+
+/* Three patients:
+   r1 (Camille): consult, then paid 3 and 17 Sep, and 8 Oct booked. Both
+       September sessions were followed within 21 days; something is booked.
+   r2 (Savneet): one paid session on 25 Sep and nothing since. Its 21 days
+       are not up, so it is pending, not a miss; nothing is booked, so idle.
+   r3 (Camille): began 23 Jun (100 days ago), then 30 Jun, 14 Jul, 5 Sep:
+       four sessions inside the first 90 days. 5 Sep was not followed and
+       its 21 days are up; nothing is booked, so idle. */
+const retentionFixture = (): Appt[] => [
+  ap({ patient: 'r1', who: camille.clinikoPractitionerId, at: '2026-08-28T02:00:00Z' }),
+  ap({ patient: 'r1', who: camille.clinikoPractitionerId, at: '2026-09-03T02:00:00Z', type: PAID_TYPE }),
+  ap({ patient: 'r1', who: camille.clinikoPractitionerId, at: '2026-09-17T02:00:00Z', type: PAID_TYPE }),
+  ap({ patient: 'r1', who: camille.clinikoPractitionerId, at: '2026-10-08T02:00:00Z', type: PAID_TYPE }),
+  ap({ patient: 'r2', who: savneet.clinikoPractitionerId, at: '2026-09-25T02:00:00Z', type: PAID_TYPE }),
+  ap({ patient: 'r3', who: camille.clinikoPractitionerId, at: '2026-06-23T02:00:00Z', type: PAID_TYPE }),
+  ap({ patient: 'r3', who: camille.clinikoPractitionerId, at: '2026-06-30T02:00:00Z', type: PAID_TYPE }),
+  ap({ patient: 'r3', who: camille.clinikoPractitionerId, at: '2026-07-14T02:00:00Z', type: PAID_TYPE }),
+  ap({ patient: 'r3', who: camille.clinikoPractitionerId, at: '2026-09-05T02:00:00Z', type: PAID_TYPE }),
+  /* A cancelled booking is not "something booked". */
+  ap({ patient: 'r3', who: camille.clinikoPractitionerId, at: '2026-10-10T02:00:00Z', type: PAID_TYPE, cancelled: true }),
+];
+
+test('rebooking: followed within 21 days, pending while the 21 days run, by counsellor', () => {
+  const r = retention(retentionFixture(), rOpts);
+  assert.deepEqual(r.rebook.all, { sessions: 4, followed: 2, pending: 1 });
+  assert.deepEqual(r.rebook.bySlug['camille-granda'], { sessions: 3, followed: 2, pending: 0 });
+  assert.deepEqual(r.rebook.bySlug['savneet-singh'], { sessions: 1, followed: 0, pending: 1 });
+});
+
+test('depth: a client whose first 90 days have passed, counted by sessions held', () => {
+  const r = retention(retentionFixture(), rOpts);
+  assert.equal(r.depth.all.clients, 1, 'only r3 began 90 to 120 days ago');
+  assert.deepEqual([r.depth.all.reached2, r.depth.all.reached4, r.depth.all.reached6], [1, 1, 0]);
+  assert.equal(median(r.depth.all.sessions), 4);
+  assert.equal(r.depth.bySlug['camille-granda'].clients, 1);
+});
+
+test('idle: a paid session in the last 60 days and nothing live booked', () => {
+  const r = retention(retentionFixture(), rOpts);
+  assert.equal(r.idle.all, 2);
+  assert.deepEqual(r.idle.bySlug, { 'camille-granda': 1, 'savneet-singh': 1 });
+});
+
+test('retention by source, folded under three, and never a patient key', () => {
+  const sources: Record<string, string> = { r1: 'Google search', r2: 'friend or family', r3: 'Google search' };
+  assert.deepEqual(retentionPatients(retentionFixture(), rOpts).sort(), ['r1', 'r2', 'r3']);
+  const r = retention(retentionFixture(), rOpts, (k) => sources[k] ?? 'not recorded');
+  assert.equal(r.rebook.bySource['Google search'].sessions, 3);
+  const folded = foldSmall(r.rebook.bySlug, (x) => x.sessions, mergeRebook);
+  assert.deepEqual(Object.keys(folded).sort(), ['camille-granda', OTHER_GROUP]);
+  const text = retentionLines(r, 'September 2026').join('\n');
+  assert.match(text, /rebooked/);
+  assert.doesNotMatch(text, /\br[123]\b/, 'no patient key reaches the report');
+  assert.doesNotMatch(JSON.stringify(r), /"r[123]"/);
+});
+
+test('median handles even, odd and empty lists', () => {
+  assert.equal(median([]), null);
+  assert.equal(median([3, 1, 2]), 2);
+  assert.equal(median([1, 2, 3, 6]), 2.5);
 });

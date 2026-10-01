@@ -7,6 +7,7 @@ import CtaBand from '@/components/CtaBand';
 import CoverageEstimator from '@/components/tools/CoverageEstimator';
 import { site } from '@/lib/site';
 import { ogBase } from '@/lib/og-meta';
+import { bookingFor } from '@/lib/booking-cta';
 import { FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
 
 /* The estimator's fees, read from the catalogue on the server and passed
@@ -46,7 +47,7 @@ export default function Page() {
         </>
       }
     >
-      <CoverageEstimator fees={FEES} />
+      <CoverageEstimator fees={FEES} bookHrefs={{ individual: bookingFor('individual-therapy').href, couples: bookingFor('couples-therapy').href }} />
 
       <div className="prose tool-prose">
           <Figure name="therapy-cost-in-bc" />

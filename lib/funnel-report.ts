@@ -2,10 +2,11 @@ import { sendDetailed, mailConfigured } from '@/lib/portal-mail';
 import { site, CONSULT_TYPE } from '@/lib/site';
 import { isConsultAppointment } from '@/lib/booking-shape';
 import { readInbound, type Inbound } from '@/lib/inbound';
-import { isTestSubmission, isRealSubmission } from '@/lib/inbound-quality';
+import { isRealSubmission } from '@/lib/inbound-quality';
 import { readClients } from '@/lib/clients';
 import { readSearchTerms } from '@/lib/search-log';
 import { readConversions, bookClickBreakdown, funnelCuts, channelVisits, type BookClickBreakdown, type FunnelCuts, type DetailConversions } from '@/lib/conversion-log';
+import { bookingCredit, detailsOf, type BookingCredit } from '@/lib/conversion-log';
 import { api, headers, listAll } from '@/lib/cliniko';
 import { practitionerSlugFor } from '@/lib/practitioner-for';
 import { locations } from '@/lib/locations';
@@ -13,6 +14,13 @@ import {
   classifyConsults, sourceAndCity, enquiryOutcomes, totalOf, MIN_CITY, NO_PRACTITIONER,
   type Appt, type ConsultOutcome, type Converted, type EnquiryOutcomes, type EnquiryRow,
 } from '@/lib/funnel-joins';
+import {
+  retention, retentionPatients, sourceBucket, foldSmall, mergeRebook, mergeDepth, median,
+  REBOOK_DAYS, DEPTH_DAYS, IDLE_DAYS, MIN_GROUP, OTHER_GROUP, type Retention, type RebookRow, type DepthRow,
+} from '@/lib/funnel-joins';
+import { readGscSummary, readGscExports, gscLines, type GscRead } from '@/lib/gsc-summary';
+import { dueChanges, changeLines, readChanges, type ChangeReadout } from '@/lib/change-register';
+import { recentSnapshots } from '@/lib/conversion-snapshots';
 import { readBookingTally, tallyRows, tallyLine, type TallyRow } from '@/lib/booking-tally-read';
 
 /* The monthly conversion report — what happened at the top of the funnel.
@@ -92,6 +100,18 @@ type Counts = {
    *  (?utm_source=, lib/conversion-detail-client.ts). All time, like the
    *  booking clicks. Optional so a caller built before 1 Oct still renders. */
   channels?: DetailConversions[];
+  /** Booking clicks and Cliniko-confirmed bookings by the page the visit
+   *  began on, and by the button pressed last. Cumulative since 1 Oct 2026. */
+  credit?: BookingCredit;
+  /** mailto: presses by place, beside the messages. Cumulative. */
+  emailClicks?: { rows: DetailConversions[]; unattributed: number };
+  /** Rebooking, depth and paid-but-nothing-booked. Null when Cliniko could
+   *  not be read. */
+  retention?: Retention | null;
+  /** Search Console from the newest committed export. */
+  gsc?: GscRead;
+  /** Changes in data/changes.json whose read-after date has passed. */
+  changes?: ChangeReadout[];
 };
 
 const startOfMonthsAgo = (n: number) => {
@@ -217,6 +237,7 @@ export type FunnelJoins = {
   consultSources: Counts['consultSources'];
   enquiryOutcomes: EnquiryOutcomes | null;
   truncated: boolean;
+  retention?: Retention | null;
 };
 
 /** The Cliniko half of the report: the month's counts and the three joins.
@@ -224,7 +245,10 @@ export type FunnelJoins = {
  *  degrades to null for that section, never a throw. */
 export async function funnelJoins(from: Date, to: Date, enquiries: Inbound[], now = new Date()): Promise<FunnelJoins> {
   const span = await clinikoAppointments(
-    new Date(Math.min(from.getTime(), now.getTime() - ENQUIRY_DAYS * 864e5) - 90 * 864e5),
+    /* Back far enough for the retention depth cohort too: clients who began
+       DEPTH_DAYS to DEPTH_DAYS + 30 days ago, checked for a paid session in
+       the DEPTH_DAYS before that. */
+    new Date(Math.min(from.getTime(), now.getTime() - ENQUIRY_DAYS * 864e5, now.getTime() - (2 * DEPTH_DAYS + 30) * 864e5) - 90 * 864e5),
     new Date(Math.max(to.getTime(), now.getTime()) + CONVERT_DAYS * 864e5),
   );
   if (!span) {
@@ -238,15 +262,18 @@ export async function funnelJoins(from: Date, to: Date, enquiries: Inbound[], no
   });
 
   let consultSources: Counts['consultSources'] = null;
+  let ret: Retention | null = null;
   try {
-    const facts = await patientFacts(held.map((h) => h.patient));
+    const rOpts = { from, to, now, consultTypeId: CONSULT_TYPE, slugFor: practitionerSlugFor };
+    const facts = await patientFacts([...held.map((h) => h.patient), ...retentionPatients(appts, rOpts)]);
     consultSources = sourceAndCity(held, facts, locations);
+    ret = retention(appts, rOpts, (k) => sourceBucket(facts.get(k)?.referral));
   } catch { /* the section prints as unavailable */ }
 
   let outcomes: EnquiryOutcomes | null = null;
   try {
     const since = now.getTime() - ENQUIRY_DAYS * 864e5;
-    const recent = enquiries.filter((i) => i.kind === 'enquiry' && !isTestSubmission(i) && Date.parse(i.createdAt) >= since);
+    const recent = enquiries.filter((i) => i.kind === 'enquiry' && isRealSubmission(i) && Date.parse(i.createdAt) >= since);
     const ids = await patientIdsByEmail(recent.map((i) => i.email));
     outcomes = enquiryOutcomes(
       recent.map((i) => ({
@@ -260,7 +287,7 @@ export async function funnelJoins(from: Date, to: Date, enquiries: Inbound[], no
     );
   } catch { /* the section prints as unavailable */ }
 
-  return { ok: true, consults, paid, consultToPaid: bySlug, consultSources, enquiryOutcomes: outcomes, truncated };
+  return { ok: true, consults, paid, consultToPaid: bySlug, consultSources, enquiryOutcomes: outcomes, truncated, retention: ret };
 }
 
 export async function gather(opts: { now?: Date } = {}): Promise<{ counts: Counts; from: Date; to: Date; clinikoOk: boolean }> {
@@ -294,6 +321,7 @@ export async function gather(opts: { now?: Date } = {}): Promise<{ counts: Count
 
   const periodKey = `${from.getUTCFullYear()}-${String(from.getUTCMonth() + 1).padStart(2, '0')}`;
   const tallyRead = await readBookingTally();
+  const gsc = readGscSummary();
   const bookingTally: Counts['bookingTally'] = tallyRead.status === 'ok'
     ? { status: 'ok', month: periodKey, rows: tallyRows(tallyRead.tally, periodKey), updatedAt: tallyRead.tally.updatedAt }
     : tallyRead;
@@ -349,6 +377,11 @@ export async function gather(opts: { now?: Date } = {}): Promise<{ counts: Count
       clinikoTruncated: ck.truncated,
       bookingTally,
       channels: channelVisits(log),
+      credit: bookingCredit(log),
+      emailClicks: detailsOf(log, 'email_click'),
+      retention: ck.retention ?? null,
+      gsc,
+      changes: dueChanges(readChanges(), await recentSnapshots(14), readGscExports(), opts.now ?? new Date()),
     },
   };
 }
@@ -403,9 +436,9 @@ export function cutLines(c: Pick<Counts, 'cuts' | 'enquiriesByPractitioner'>): s
   const out: string[] = [];
   const { calendar, toolOutcomes, magnets } = c.cuts;
   if (calendar.length) {
-    out.push('The calendar by counsellor, seen · touched · opened in its own tab:');
+    out.push('The calendar by counsellor, seen · touched · opened in its own tab · booked (Cliniko confirmed):');
     for (const r of calendar) {
-      out.push(`  ${pad(r.seen)} · ${pad(r.touched, 3)} · ${pad(r.opened, 3)}  ${r.who}, ${r.surface === 'portal' ? 'client portal (paid)' : '/book (free consultation)'}`);
+      out.push(`  ${pad(r.seen)} · ${pad(r.touched, 3)} · ${pad(r.opened, 3)} · ${pad(r.booked ?? 0, 3)}  ${r.who}, ${r.surface === 'portal' ? 'client portal (paid)' : '/book (free consultation)'}`);
     }
     out.push('');
   }
@@ -451,6 +484,60 @@ function bookClickLines(c: Counts): string[] {
   for (const r of b.byCounsellor) out.push(`  ${String(r.count).padStart(4)}  ${r.detail}`);
   out.push(`  ${String(b.noCounsellor).padStart(4)}  (no counsellor named; /book offered both)`);
   return out;
+}
+
+/** Booking clicks and confirmed bookings by the page the visit began on,
+ *  and by the button pressed last before the calendar. Shared by the email
+ *  and /admin. Empty until something has been credited. */
+export function creditLines(credit: BookingCredit | undefined): string[] {
+  if (!credit || (!credit.byLanding.length && !credit.byButton.some((b) => b.booked))) return [];
+  const out = ['Where the visit began, for booking clicks and confirmed bookings (since 1 Oct 2026):', ''];
+  out.push('  clicks · booked  landing page (how the visit arrived)');
+  for (const r of credit.byLanding) out.push(`  ${pad(r.clicks)} · ${pad(r.booked, 4)}  ${r.path} (${r.via})`);
+  const noLanding = credit.booked - credit.bookedWithLanding;
+  if (noLanding > 0) out.push(`  ${pad(noLanding, 11)}  booked in a visit with no landing kept`);
+  out.push('', '  By the button pressed last before the calendar:', '  clicks · booked  button');
+  for (const r of credit.byButton) out.push(`  ${pad(r.clicks)} · ${pad(r.booked, 4)}  ${r.button}`);
+  return out;
+}
+
+/** Rebooking, depth and the paid-but-nothing-booked count, by counsellor
+ *  and by source, with groups under MIN_GROUP folded. Counts only. */
+export function retentionLines(r: Retention | null | undefined, month: string): string[] {
+  if (!r) return [];
+  const pct = (a: number, b: number) => (b ? `${Math.round((100 * a) / b)}%` : 'n/a');
+  const rb = (x: RebookRow) => {
+    const decided = x.sessions - x.pending;
+    return `${pad(x.sessions)} held · ${pad(x.followed, 3)} rebooked (${pct(x.followed, decided)} of ${decided} decided)${x.pending ? ` · ${x.pending} still open` : ''}`;
+  };
+  const dp = (x: DepthRow) => {
+    const m = median(x.sessions);
+    return `${pad(x.clients)} clients · reached 2: ${x.reached2}, 4: ${x.reached4}, 6: ${x.reached6} · median ${m === null ? 'n/a' : m}`;
+  };
+  const out = [`Paid sessions held in ${month}, followed by another paid booking within ${REBOOK_DAYS} days:`, `  ${rb(r.rebook.all)}  (all)`];
+  const fr = (m: Record<string, RebookRow>) => Object.entries(foldSmall(m, (x) => x.sessions, mergeRebook)).sort((a, b) => b[1].sessions - a[1].sessions);
+  for (const [k, v] of fr(r.rebook.bySlug)) out.push(`  ${rb(v)}  ${k}`);
+  for (const [k, v] of fr(r.rebook.bySource)) out.push(`  ${rb(v)}  source: ${k}`);
+  out.push('', `Paid sessions in the first ${DEPTH_DAYS} days, clients whose first began ${r.depth.from} to ${r.depth.to}:`, `  ${dp(r.depth.all)}  (all)`);
+  const fd = (m: Record<string, DepthRow>) => Object.entries(foldSmall(m, (x) => x.clients, mergeDepth)).sort((a, b) => b[1].clients - a[1].clients);
+  for (const [k, v] of fd(r.depth.bySlug)) out.push(`  ${dp(v)}  ${k}`);
+  for (const [k, v] of fd(r.depth.bySource)) out.push(`  ${dp(v)}  source: ${k}`);
+  out.push('', `Clients with a paid session in the last ${IDLE_DAYS} days and nothing booked: ${r.idle.all}`);
+  const fi = (m: Record<string, number>) => Object.entries(foldSmall(m, (x) => x, (a, b) => a + b)).sort((a, b) => b[1] - a[1]);
+  for (const [k, v] of fi(r.idle.bySlug)) out.push(`  ${pad(v)}  ${k}`);
+  for (const [k, v] of fi(r.idle.bySource)) out.push(`  ${pad(v)}  source: ${k}`);
+  out.push('', `Groups under ${MIN_GROUP} are counted as ${OTHER_GROUP}. Counts only, never a name.`);
+  return out;
+}
+
+/** mailto: presses by place. */
+export function emailClickLines(e: Counts['emailClicks']): string[] {
+  if (!e || (!e.rows.length && !e.unattributed)) return [];
+  return [
+    'Email address pressed (mailto:), by place:',
+    ...e.rows.map((r) => `  ${pad(r.count)}  ${r.detail}`),
+    ...(e.unattributed ? [`  ${pad(e.unattributed)}  (no place recorded)`] : []),
+  ];
 }
 
 /** Paths and slugs only reach these blocks, but a path is whatever the
@@ -540,6 +627,17 @@ export function render(counts: Counts, from: Date, to: Date, clinikoOk: boolean)
     );
   }
 
+  const creditBlock = creditLines(counts.credit);
+  if (creditBlock.length) lines.push(...creditBlock, '');
+  const mailBlock = emailClickLines(counts.emailClicks);
+  if (mailBlock.length) lines.push(...mailBlock, '');
+  const retentionBlock = retentionLines(counts.retention, month);
+  if (retentionBlock.length) lines.push(...retentionBlock, '');
+  const gscBlock = counts.gsc ? gscLines(counts.gsc) : [];
+  if (gscBlock.length) lines.push(...gscBlock, '');
+  const changeBlock = changeLines(counts.changes ?? []);
+  if (changeBlock.length) lines.push(...changeBlock, '');
+
   if (counts.topTerms.length) {
     lines.push('What people searched for on the site (all time):', '');
     for (const t of counts.topTerms) lines.push(`  ${String(t.n).padStart(4)}  ${t.term}`);
@@ -612,6 +710,15 @@ ${clickLines.length
      <pre style="margin:0 0 8px;font-size:13px;line-height:1.6;white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;">${clickLines.join('\n')}</pre>
      <p style="margin:0 0 16px;font-size:14px;color:#545e69;">Cumulative since the counter began, not the month. Last month's email beside this one is the month-on-month view.</p>`
   : ''}
+${([
+  ['Where the visit began, and which button', creditBlock],
+  ['Email address pressed', mailBlock],
+  ['After the first paid session', retentionBlock],
+  ['Search Console', gscBlock],
+  ['Changes due a readout', changeBlock],
+] as [string, string[]][]).filter(([, b]) => b.length).map(([h, b]) =>
+  `<p style="margin:0 0 8px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#545e69;">${h}</p>
+     <pre style="margin:0 0 16px;font-size:13px;line-height:1.6;white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;">${escHtml(b.join('\n'))}</pre>`).join('\n')}
 ${!clinikoOk ? `<p style="margin:0 0 16px;font-size:14px;color:#545e69;">Cliniko could not be reached, so booking counts are missing. The rest is from this site and is complete.</p>` : ''}
 <hr style="border:none;border-top:1px solid #e6ddce;margin:22px 0 14px;">
 <p style="margin:0;font-size:12px;line-height:1.6;color:#545e69;">

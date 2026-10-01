@@ -5,6 +5,7 @@ import Motif from '@/components/brand/Motif';
 import SectionDivider from '@/components/brand/SectionDivider';
 import { TRUST_ICONS } from '@/lib/icon-map';
 import { Mail, AtSign, LifeBuoy, Phone } from 'lucide-react';
+import MailLink from '@/components/MailLink';
 
 export default function Footer() {
   const Credential = TRUST_ICONS.credential;
@@ -60,9 +61,9 @@ export default function Footer() {
                     <Phone aria-hidden="true" strokeWidth={1.7} /><span>{site.phone}</span>
                   </a>
                 )}
-                <a href={`mailto:${site.email}`} className="footer-social-link">
+                <MailLink where="footer" className="footer-social-link">
                   <Mail aria-hidden="true" strokeWidth={1.7} /><span>{site.email}</span>
-                </a>
+                </MailLink>
                 <a href={site.instagramUrl} target="_blank" rel="noopener" className="footer-social-link">
                   <AtSign aria-hidden="true" strokeWidth={1.7} /><span>{site.instagram}</span>
                 </a>
