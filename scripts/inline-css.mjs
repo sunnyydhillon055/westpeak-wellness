@@ -107,7 +107,33 @@ if (CHECK) {
     console.log('\n  Run `node scripts/inline-css.mjs` after next build; the build script does.');
     process.exit(1);
   }
-  console.log('  every prerendered document carries its CSS inline; no stylesheet blocks first paint.\n');
+  console.log('  every prerendered document carries its CSS inline; no stylesheet blocks first paint.');
+  /* WHAT THIS CHECK CANNOT SEE — 1 Oct 2026.
+   *
+   * A route that exports `revalidate` is prerendered at build, and that
+   * document carries the block above. After its first regeneration in
+   * production the page is rendered again by the server, from React, and
+   * this script never sees it: the four stylesheet links come back, blocking.
+   * Verified on the live site the same day: /guides/stress-leave-bc (static)
+   * has the block, / (revalidate 1800) does not, and Lighthouse on the home
+   * page charges 4 render-blocking stylesheets that no static page pays.
+   *
+   * Reported, not failed. The revalidation is deliberate on each of these
+   * pages (the open-times line, Cliniko-priced sessions), and trading it for
+   * the inline block is a decision for the owner, page by page. The list is
+   * here so nobody reads "every prerendered document" as "every document". */
+  const pm = join(process.cwd(), '.next', 'prerender-manifest.json');
+  if (existsSync(pm)) {
+    const routes = JSON.parse(readFileSync(pm, 'utf8')).routes ?? {};
+    const isr = Object.entries(routes)
+      .filter(([r, v]) => !r.startsWith('/api/') && typeof v.initialRevalidateSeconds === 'number')
+      .map(([r, v]) => `${r} (${v.initialRevalidateSeconds}s)`);
+    if (isr.length) {
+      console.log(`\n  ${isr.length} route(s) revalidate at runtime and lose this block in production after their first regeneration:`);
+      for (const r of isr) console.log(`   ${r}`);
+    }
+  }
+  console.log('');
 } else {
   console.log(`  inline css: ${done} document(s) inlined, ${already} already done`);
 }
