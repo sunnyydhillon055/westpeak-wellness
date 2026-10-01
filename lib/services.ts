@@ -1,3 +1,5 @@
+import { fallbackFee } from '@/lib/cliniko-catalog';
+
 export type Service = {
   slug: string;
   name: string;
@@ -39,9 +41,15 @@ export const services: Service[] = [
     figure: "first-session-flow",
     name: "Individual Therapy",
     short: "1:1 for anxiety, depression, life transitions, identity, family dynamics.",
-    metaTitle: "Individual Counselling in BC (Online) | Westpeak Wellness",
+    /* Retitled 1 Oct 2026, per "titles follow Search Console". The 26 Sep
+       export: this page 25 impressions at 5.36; "depression counsellor" 6 at
+       7.67; "anxiety counselling" 21 at 37 and "anxiety counseling" 16 at 38
+       with no page titled for anxiety at all, because the anxiety service
+       page 301s here (next.config.mjs) and lib/conditions.ts books anxiety
+       and depression into individual therapy. The H1 keeps the service name. */
+    metaTitle: "Online Anxiety & Depression Counselling in BC | Westpeak",
     metaDescription:
-      "One-on-one online counselling across BC for anxiety, depression, trauma, life transitions and identity. Book a free 30-minute consultation.",
+      "Online counselling for anxiety, depression and burnout across BC, one-to-one by secure video with a Registered Clinical Counsellor. Free 30-min consultation.",
     hero: "1:1 sessions for the everyday weight of being human.",
     intro:
       "Individual therapy is space that belongs entirely to you: to think out loud, make sense of what you're carrying, and work toward what \"better\" looks like on your terms. Sessions are 50 minutes, weekly or biweekly, and always online so you can meet from wherever you feel most at ease in BC.",
@@ -112,7 +120,7 @@ export const services: Service[] = [
       "Online couples counselling across BC using the research-based Gottman Method: communication, conflict, and repair. Book a free consultation.",
     hero: "Strengthen communication, deepen connection, repair what's frayed.",
     intro:
-      "Every couple hits friction. Couples therapy is a structured, research-based space to understand the patterns underneath the arguments, and to build the skills to move through conflict without losing each other. Sessions are 50 minutes (or a 120-minute extended option), online across BC.",
+      "Every couple hits friction. Couples therapy is a structured, research-based space to understand the patterns underneath the arguments, and to build the skills to move through conflict without losing each other. Sessions are 50 minutes (or a 110-minute extended option), online across BC.",
     helps: [
       "Communication that keeps breaking down",
       "Recurring conflict and gridlock",
@@ -143,7 +151,7 @@ export const services: Service[] = [
       h2: "How the work is structured",
       body: [
         "Gottman work starts with a structured assessment rather than diving in: a joint session, an individual session with each partner, and questionnaires covering friendship, conflict, and shared meaning. You then get a shared picture of where the relationship is strong and where it is stuck, often the first time both people have looked at the same map.",
-        "Sessions are 50 minutes, with a 110-minute extended option that suits couples travelling in from a distance or working through something that needs more room. Much of the work happens in the room: structured conversations with the counsellor interrupting patterns in real time, rather than reporting on the week afterwards.",
+        "Sessions are 50 minutes, with a 110-minute extended option for work that keeps getting cut off at the fifty-minute mark. Every session is by secure video, together on one screen or from two places. Much of the work happens during the session itself: structured conversations with the counsellor interrupting patterns in real time, rather than reporting on the week afterwards.",
         "**On safety:** the individual sessions are partly a screen. Where there is ongoing violence or coercive control, couples therapy is not the safe starting point and can increase risk. A responsible practitioner will say so and redirect. VictimLinkBC is available 24/7 at 1-800-563-0808.",
         "**On sequencing:** if one partner is carrying untreated trauma, depression, or an addiction, individual work alongside or before couples sessions is often the more effective order. [The comparison of individual and couples therapy](/compare/individual-vs-couples-therapy) covers how to decide.",
       ],
@@ -153,6 +161,10 @@ export const services: Service[] = [
       { q: "Will the counsellor take sides?", a: "No, and the method is explicitly structured to prevent it. If you consistently feel ganged up on, name it. That is a problem with the work rather than a normal feature of it." },
       { q: "Can we attend from different locations?", a: "Yes. Because sessions are virtual, partners can join from separate places when work or travel requires it, which removes one of the most common scheduling obstacles for couples." },
       { q: "How long does couples therapy take?", a: "Assessment alone is typically two to four sessions. Beyond that it depends on what you are working on; a specific stuck pattern usually moves faster than repair after a significant breach." },
+      /* Cost and coverage, 1 Oct 2026: "online couples therapy cost" and
+         "free couples counselling surrey" reach this page and nothing on it
+         answered them. Fees from the catalogue, never typed. */
+      { q: "How much does couples counselling cost, and will insurance cover it?", a: `${fallbackFee('Couples Counselling')} for a 50-minute session, or ${fallbackFee('Couples Extended')} for the 110-minute extended session, after a free 30-minute consultation. MSP does not cover private counselling. Extended health plans that list Registered Clinical Counsellors often reimburse couples sessions, but some exclude or limit them, so check your plan's wording first. Each session has one receipt, in the name of the partner who claims it.` },
     ],
     related: [
       { href: "/guides/how-the-gottman-method-works", label: "How the Gottman Method works" },
@@ -225,9 +237,13 @@ export const services: Service[] = [
       { q: "Does EMDR work over video?", a: "Yes, with adaptation. On-screen movement, alternating audio, or self-administered tapping all work. The preparation phase matters more online, not less, and a careful practitioner will spend longer there." },
       { q: "How many sessions?", a: "Single-incident trauma in someone otherwise stable can resolve in a handful of processing sessions. Complex or intergenerational trauma is a longer piece of work, and most of the early time goes to stabilisation." },
       { q: "Can EMDR make things worse?", a: "Trauma work paced badly can destabilise anyone, which is what phases 2 and 7 exist to prevent. Distress during a session is normal and temporary; deterioration lasting days is a signal to slow down, and worth saying out loud." },
+      /* Cost, 1 Oct 2026: BC competitors rank dedicated EMDR cost pages and
+         this page did not say what EMDR costs. Fees from the catalogue. */
+      { q: "How much does EMDR therapy cost in BC?", a: `A weekly 50-minute EMDR session is ${fallbackFee('Individual Counselling')}, and the 90-minute intensive is ${fallbackFee('EMDR Intensive')}. The first 30-minute consultation is free. MSP does not pay for private EMDR; it is claimed on extended health like any session with a Registered Clinical Counsellor, so whether and how much your plan reimburses is plan-dependent. How many sessions it takes varies too widely for an honest average.` },
     ],
     related: [
-      { href: "/services/emdr-therapy", label: "EMDR intensives, the 90-minute format" },
+      /* Was "/services/emdr-therapy", a link from this page to itself. */
+      { href: "/compare/emdr-intensive-vs-weekly-emdr", label: "EMDR intensives, the 90-minute format" },
       { href: "/guides/what-is-emdr-and-how-a-session-works", label: "What is EMDR and how a session works" },
       { href: "/compare/cbt-vs-emdr-for-trauma", label: "CBT or EMDR for trauma, how they differ" },
       { href: "/services/individual-therapy", label: "Trauma therapy and trauma-informed care" },
@@ -373,7 +389,7 @@ export const services: Service[] = [
       { href: "/resources/counselling-in-punjabi-what-the-words-mean", label: "What counselling means in Punjabi, word by word" },
       { href: "/for/first-gen-south-asian-adults", label: "For first- and second-gen South Asian adults" },
       { href: "/guides/intergenerational-trauma-explained", label: "Intergenerational trauma explained" },
-      { href: "/services/punjabi-counselling", label: "South Asian mental health counselling" },
+      /* A link to this page itself, left from the South Asian consolidation, removed 1 Oct 2026. */
       { href: "/online-counselling/surrey", label: "Online counselling in Surrey" },
     ],
     sources: [

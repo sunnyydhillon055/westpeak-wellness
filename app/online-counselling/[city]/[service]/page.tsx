@@ -8,7 +8,7 @@ import { abs, orgRef, siteRef, breadcrumbs } from '@/lib/schema';
 import { therapyNode, conditionNode } from '@/lib/entities';
 import { Paragraphs } from '@/lib/rich';
 import { cityContexts, AUTHORITY_URL } from '@/lib/city-context';
-import { pairs, getPair, pairsForCity, pairsForService } from '@/lib/city-services';
+import { pairs, getPair, pairsForCity, pairsForService, CONDITION_UPLINK } from '@/lib/city-services';
 import CtaBand from '@/components/CtaBand';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import Updated from '@/components/Updated';
@@ -421,7 +421,7 @@ export default async function CityServicePage({ params }: { params: Params }) {
           <p>
             The full picture: how sessions are structured, what the first one is like, and what
             it does not do, is on{' '}
-            <Link href={`/services/${svc.bookingService}`}>the {lower(svc.name)} page</Link>. If you are
+            {CONDITION_UPLINK[svc.slug] ? <>the page for <Link href={CONDITION_UPLINK[svc.slug]!.href}>{CONDITION_UPLINK[svc.slug]!.label}</Link></> : <Link href={`/services/${svc.bookingService}`}>the {lower(svc.name)} page</Link>}. If you are
             still working out what you need,{' '}
             <Link href="/tools/which-service">the short questionnaire</Link> is a quicker route
             than reading all of them, and{' '}
