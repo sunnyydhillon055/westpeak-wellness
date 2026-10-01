@@ -42,7 +42,7 @@ export const policies: Record<string, Policy> = {
     eyebrow: 'Trust and transparency',
     lede:
       'Anyone in British Columbia can call themselves a counsellor. This page sets out what this practice is actually accountable to, and how you can check it without taking anyone at their word.',
-    updated: '2026-08-30',
+    updated: '2026-10-01',
     sections: [
       {
         h2: 'The registration behind the practice',
@@ -55,8 +55,9 @@ export const policies: Record<string, Policy> = {
       {
         h2: 'What is changing in BC regulation',
         body: [
-          'Counselling therapy in British Columbia is in the middle of a regulatory transition. The province has moved to bring counselling therapists under the **College of Health and Care Professionals of BC**, the same regulator that already oversees psychologists and several other professions. Once that transition completes, counselling therapy becomes a regulated health profession with a protected title and a statutory complaints process.',
-          'Until then, the association route. The RCC designation and the BCACC code of ethics, is the accountability structure that actually exists. This practice will register with the College when counselling therapists are brought in, and this page will be updated when that happens rather than quietly changed.',
+          'The **Health Professions and Occupations Act** has been in force in British Columbia since 1 April 2026. Under it, **psychotherapy becomes a regulated profession on 29 November 2027**, licensed by the **College of Health and Care Professionals of BC**, the same regulator that already oversees psychologists and several other professions. From that date there is a statutory complaints process, and **"psychotherapist" is the protected title**: only someone licensed by the College may use it.',
+          '**"Counsellor" stays unprotected**, before and after that date, as does "counselling therapist". Anyone may still call themselves a counsellor, which is why the question to ask is not what someone is called but who they answer to.',
+          'Until 29 November 2027, the association route, the RCC designation and the BCACC code of ethics, is the accountability structure that actually exists. This practice intends to seek licensure with the College when it opens, and this page will be updated when that happens rather than quietly changed.',
           'If you want the fuller picture of what the different designations mean in practice, the [comparison of RCC, psychologist and social worker](/compare/rcc-vs-psychologist-vs-social-worker-bc) sets them side by side.',
         ],
       },
@@ -108,7 +109,8 @@ export const policies: Record<string, Policy> = {
     ],
     sources: [
       { label: 'BC Association of Clinical Counsellors, code of ethics and standards of clinical practice', url: 'https://bcacc.ca/about-bcacc/code-of-ethical-conduct/' },
-      { label: 'College of Health and Care Professionals of BC', url: 'https://chcpbc.org/' },
+      { label: 'College of Health and Care Professionals of BC, regulating psychotherapy', url: 'https://chcpbc.org/legislation/regulating-psychotherapy/' },
+      { label: 'BC Government, Regulation of Psychotherapy Q&A (updated 27 August 2026)', url: 'https://www2.gov.bc.ca/assets/gov/health/practitioner-pro/professional-regulation/psychotherapy_qa.pdf' },
       { label: 'Office of the Information and Privacy Commissioner for BC', url: 'https://www.oipc.bc.ca/' },
     ],
     related: [
