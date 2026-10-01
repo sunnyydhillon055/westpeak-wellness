@@ -22,6 +22,7 @@ import {
   bookHrefFor, counsellorsFor, feeFor, generatedFaqs,
 } from '@/lib/city-service-page';
 import CounsellorCards from '@/components/CounsellorCards';
+import NextConsultLine from '@/components/NextConsultLine';
 
 /* THE NAME THE PAGE IS FOUND BY — 25 Sep 2026.
    Search Console shows "marriage counselling abbotsford", "marriage
@@ -256,6 +257,9 @@ export default async function CityServicePage({ params }: { params: Params }) {
               What {lower(svc.name)} involves
             </Link>
           </div>
+          {/* The next free consultation with whoever offers this service
+              (couples and EMDR: one counsellor). 1 Oct 2026. */}
+          <NextConsultLine location="next-city-service" slugs={counsellors.map((p) => p.slug)} style={{ margin: '14px 0 0', fontSize: '.95rem' }} />
           {/* One self-contained sentence for an answer engine, alongside the
               page's own argument above. Says only what is true of every
               counsellor at the practice. */}

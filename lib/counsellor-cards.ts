@@ -31,6 +31,12 @@ export const COUNSELLOR_CARD_LOCATIONS = [
   'counsellor-service',
   'counsellor-audience',
   'counsellor-city',
+  /* The informational templates, 1 Oct 2026: the resources and guides that
+     rank for workplace, leave and coverage questions (INFO_CARD_PAGES below),
+     and the confirmation page a one-pager signup lands on. */
+  'guide',
+  'resource',
+  'counsellor-lead-sent',
 ] as const;
 export type CounsellorCardLocation = (typeof COUNSELLOR_CARD_LOCATIONS)[number];
 
@@ -101,3 +107,59 @@ export const cardNoun = (name: string): string =>
           w.split('-').map((x) => (LANGUAGE_NAMES.has(x) ? x : x.toLowerCase())).join('-'),
     )
     .join(' ');
+
+/* WHO YOU WOULD TALK TO, ON THE PAGES PEOPLE ACTUALLY READ — 1 Oct 2026.
+ *
+ * /resources/workplace-mental-health-bc had 1,884 impressions, 17 clicks and
+ * no book_click: its only fee was inside the JSON-LD and every button was the
+ * practice-wide one. The cards and the fee line were on the money templates
+ * only. These are the informational pages that carry them, an explicit list
+ * for the same reason the guides' GENTLE_CTA is one: which pages suit a
+ * "who you would talk to" block is a judgement worth seeing in one place.
+ * A resource can also opt in with `whoYouWouldSee: true` (lib/resources.ts).
+ *
+ * The leave guides that sit on the GENTLE list get the same cards under a
+ * gentler heading, and still no email form. Who appears is the audience
+ * rule: the language counsellor on a page written for one language (the
+ * Punjabi words page shows only the counsellor who works in Punjabi),
+ * otherwise whoever is accepting individual clients in BC. The founder is
+ * excluded by the accepting flag, never by name. */
+export const INFO_CARD_PAGES: Readonly<Record<'guides' | 'resources', readonly string[]>> = {
+  resources: [
+    'workplace-mental-health-bc',
+    'worksafebc-psychological-injury-claims',
+    'mental-health-leave-templates-bc',
+    'verify-a-counsellor-in-bc',
+    'does-my-plan-cover-counselling-bc',
+    'counselling-in-punjabi-what-the-words-mean',
+  ],
+  guides: [
+    'sick-days-and-mental-health-days-bc',
+    'ei-sickness-benefits-and-therapy',
+    'stress-leave-bc',
+    'doctors-note-for-a-mental-health-leave',
+    'return-to-work-after-a-mental-health-leave',
+  ],
+};
+
+export const showsInfoCards = (area: 'guides' | 'resources', slug: string, optIn?: boolean): boolean =>
+  Boolean(optIn) || INFO_CARD_PAGES[area].includes(slug);
+
+/** Who the cards on an informational page show. The audience rule. */
+export const counsellorsForInfoPage = (page: { language?: string }): Practitioner[] =>
+  counsellorsForAudience(page);
+
+/** The heading and intro, plain or gentle. No outcome claim, no hours. */
+export function infoCardCopy(gentle: boolean): { heading: string; intro: string } {
+  return gentle
+    ? {
+        heading: 'If you want to talk it through with someone',
+        intro:
+          'Nothing needs deciding today. These are the counsellors taking new clients, by secure video across BC; the first conversation is a free 30 minutes and carries no obligation.',
+      }
+    : {
+        heading: 'Who you would talk to',
+        intro:
+          'Taking new clients and seeing people across BC by secure video. Each is a Registered Clinical Counsellor; the registration is on the profile and can be checked on the BCACC register.',
+      };
+}

@@ -7,7 +7,7 @@
 /** Private by design: staff, auth, the portal, and the API itself. */
 const PRIVATE = [
   '/admin', '/api', '/signin', '/forgot', '/reset', '/client-portal',
-  '/message-sent', '/punjabi/sent', '/search',
+  '/message-sent', '/one-pager-sent', '/punjabi/sent', '/search',
 ];
 
 /** `/a/b.md` → `/a/b`, rejecting anything that is not a plain path on this site. */

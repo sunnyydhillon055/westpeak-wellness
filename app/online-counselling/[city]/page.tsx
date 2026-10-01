@@ -24,6 +24,7 @@ import Updated from '@/components/Updated';
 import BookLink from '@/components/BookLink';
 import CoverageLine from '@/components/CoverageLine';
 import CounsellorCards from '@/components/CounsellorCards';
+import NextConsultLine from '@/components/NextConsultLine';
 import { counsellorsForCity } from '@/lib/counsellor-cards';
 import { cityHubFaqs, cityHubTitle, helpCardsFor } from '@/lib/city-hub';
 import { bookingCtaFor } from '@/lib/booking-cta';
@@ -218,6 +219,9 @@ export default async function CityPage({ params }: { params: { city: string } })
             )}
             <Link className="btn btn--ghost" href="/services">See all services</Link>
           </div>
+          {/* The next free consultation with this hub's counsellors, from the
+              Cliniko cache. Prints nothing when there is none. 1 Oct 2026. */}
+          <NextConsultLine location="next-city" slugs={counsellorPages.map((p) => p.slug)} style={{ margin: '14px 0 0', fontSize: '.95rem' }} />
           <CoverageLine />
         </div>
       </section>

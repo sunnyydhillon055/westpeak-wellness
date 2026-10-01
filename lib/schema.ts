@@ -23,8 +23,18 @@ export const orgRef = { '@id': ORG_ID } as const;
 /** Reference to the site itself, for isPartOf. */
 export const siteRef = { '@id': SITE_ID } as const;
 
-/** Reference to the counsellor. Only valid to *reference*; the definition lives
- *  on /about, because the personal name is scoped to that page. */
+/** Reference to a Person node at /about#person.
+ *
+ *  EMITTED NOWHERE SINCE 1 OCT 2026. /about defines no Person, so every
+ *  `reviewedBy: personRef` on the guides, resources, comparisons, approaches
+ *  and audience pages pointed at a node no page carries: a dangling @id, which
+ *  a validator ignores and an engine reconciling entities reads as a reviewer
+ *  nobody can identify. Had it ever resolved again it would have named the
+ *  founder, who is not practising, as the reviewer of pages she did not
+ *  review. The city template already said it: no reviewedBy, because nobody
+ *  signs one. It comes back only when a named reviewer is settled, and then
+ *  with a Person node that some page actually defines;
+ *  scripts/ai-crawl-audit.mjs fails if a referenced @id is defined nowhere. */
 export const personRef = { '@id': PERSON_ID } as const;
 
 /** Canonical absolute URL for a path. */
@@ -46,10 +56,7 @@ export const breadcrumbs = (trail: { name: string; path: string }[]) => ({
  * Article node for a guide-shaped page.
  *
  * `author` and `publisher` both point at the practice entity rather than
- * restating it. The counsellor is credited as the reviewer via `reviewedBy`,
- * which is the E-E-A-T signal answer engines look for, without repeating the
- * personal name outside /about — the reference resolves to the Person node
- * that /about defines.
+ * restating it. No `reviewedBy`: see personRef above.
  */
 export const articleSchema = ({
   path, headline, description, updated, images = [], section, abstract,
@@ -76,7 +83,6 @@ export const articleSchema = ({
   mainEntityOfPage: { '@type': 'WebPage', '@id': abs(path) },
   author: orgRef,
   publisher: orgRef,
-  reviewedBy: personRef,
   isPartOf: siteRef,
   /* The page's own one-sentence answer, as a field rather than as the first
      paragraph a reader has to find. `description` is written for a search
@@ -158,7 +164,7 @@ export const webPage = ({
      error, so all three are named rather than one assumed. */
   speakable: {
     '@type': 'SpeakableSpecification',
-    cssSelector: ['.short-answer', '.direct-answer', '.lede'],
+    cssSelector: ['.answer', '.short-answer', '.direct-answer', '.lede'],
   },
 });
 
@@ -222,7 +228,7 @@ export const medicalWebPage = ({
   about: orgRef,
   ...(reviewed ? { lastReviewed: reviewed } : {}),
   ...(updated ? { datePublished: updated, dateModified: updated } : {}),
-  reviewedBy: personRef,
+  /* No reviewedBy since 1 Oct 2026: see personRef above. */
   /* The practice, not a person. Every page on this site is published by the
      practice and the byline says so in words; this makes the same statement
      machine-readable. Naming an individual is a separate decision recorded in
@@ -230,13 +236,15 @@ export const medicalWebPage = ({
   author: orgRef,
   publisher: orgRef,
   ...(specialty ? { medicalAudience: 'Patient', specialty } : {}),
-  /* Both selectors, because guides render the answer as .short-answer and
-     service pages as .direct-answer. A selector that matches nothing is not an
-     error in schema, it is just silently useless — so name both rather than
-     assume the markup is uniform. */
+  /* Every selector the answer is rendered under. The guides, resources,
+     comparisons and approaches print it as .answer directly under the H1
+     since 1 Oct 2026; service pages use .direct-answer, and .short-answer
+     stays for any page still carrying it. A selector that matches nothing is
+     not an error in schema, it is just silently useless — so name them all
+     rather than assume the markup is uniform. */
   speakable: {
     '@type': 'SpeakableSpecification',
-    cssSelector: ['.short-answer', '.direct-answer'],
+    cssSelector: ['.answer', '.short-answer', '.direct-answer'],
   },
 });
 

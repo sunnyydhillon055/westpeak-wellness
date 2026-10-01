@@ -311,7 +311,60 @@ const jsonLd = (html) => [...html.matchAll(/<script type="application\/ld\+json"
   const art = nodes.find((n) => n['@type'] === 'Article');
   check('a guide offers its own summary as `abstract`', typeof art?.abstract === 'string' && art.abstract.length > 40, 'no abstract on the Article node');
   check('a guide lists its sources as `citation`', Array.isArray(art?.citation) && art.citation.length > 0, 'no citation array');
-  check('a guide still names who reviewed it', Boolean(art?.reviewedBy), 'reviewedBy gone');
+  /* Inverted 1 Oct 2026. reviewedBy pointed at /about#person, which no page
+     defines; see personRef in lib/schema.ts. It returns only with a named
+     reviewer and a Person node that resolves, which the check below holds. */
+  check('a guide names no reviewer it cannot identify', !art?.reviewedBy, `reviewedBy: ${JSON.stringify(art?.reviewedBy)}`);
+}
+
+/* EVERY @id A PAGE POINTS AT IS DEFINED SOMEWHERE — 1 Oct 2026.
+   A reference is an object whose only key is @id; a definition is a node
+   with an @id and anything else. For seven months every guide, resource,
+   comparison, approach and audience page carried reviewedBy {@id:
+   /about#person}, and /about defined no Person. A validator says nothing
+   about that, because a dangling reference is legal JSON-LD. So: read a page
+   of every template, collect what they reference, and for anything not
+   defined on a page already read, fetch the page its URL names and look
+   there. Still undefined is a failure. */
+{
+  const SAMPLE = [
+    '/', '/about', '/pricing', '/book',
+    '/guides/stress-leave-bc', '/resources/workplace-mental-health-bc',
+    '/compare/efap-vs-private-counselling', '/approaches/cognitive-behavioural-therapy',
+    '/for/teachers', '/services/emdr-therapy',
+    '/online-counselling/vancouver', '/online-counselling/vancouver/anxiety-counselling',
+    '/practitioners/camille-granda',
+  ];
+  const defined = new Set();
+  const refs = new Map(); // id -> first page that referenced it
+  const read = new Set();
+  const walk = (v, page) => {
+    if (Array.isArray(v)) { for (const x of v) walk(x, page); return; }
+    if (!v || typeof v !== 'object') return;
+    const keys = Object.keys(v);
+    if (typeof v['@id'] === 'string') {
+      if (keys.length === 1) { if (!refs.has(v['@id'])) refs.set(v['@id'], page); }
+      else defined.add(v['@id']);
+    }
+    for (const k of keys) if (k !== '@id') walk(v[k], page);
+  };
+  const readPage = async (path) => {
+    if (read.has(path)) return;
+    read.add(path);
+    const { res, body } = await get(path);
+    if (res.status === 200) for (const n of jsonLd(body)) walk(n, path);
+  };
+  for (const path of SAMPLE) await readPage(path);
+  for (const id of [...refs.keys()]) {
+    if (defined.has(id)) continue;
+    let path = null;
+    try { const u = new URL(id); path = u.pathname || '/'; } catch { /* not a URL */ }
+    if (path) await readPage(path);
+  }
+  const dangling = [...refs.entries()].filter(([id]) => !defined.has(id));
+  check('every @id the structured data references is defined on some page',
+    dangling.length === 0,
+    dangling.map(([id, page]) => `${id} (referenced on ${page})`).join('; '));
 }
 
 {

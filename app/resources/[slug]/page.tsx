@@ -5,7 +5,7 @@ import { resources, getResource } from '@/lib/resources';
 import { site } from '@/lib/site';
 import { getExtra } from '@/lib/depth';
 import { buildToc, headingId } from '@/lib/toc';
-import { orgRef, siteRef, personRef } from '@/lib/schema';
+import { orgRef, siteRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
 import BookLink from '@/components/BookLink';
@@ -23,6 +23,11 @@ import InlineRelated from '@/components/InlineRelated';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import LeadCapture, { type MagnetKey } from '@/components/LeadCapture';
 import { ogBase } from '@/lib/og-meta';
+import NextConsultLine from '@/components/NextConsultLine';
+import CounsellorCards from '@/components/CounsellorCards';
+import CoverageLine from '@/components/CoverageLine';
+import { counsellorsForInfoPage, individualFeeLine, infoCardCopy, showsInfoCards } from '@/lib/counsellor-cards';
+import { readCatalog } from '@/lib/cliniko-catalog';
 
 /* Which resource pages carry the email one-pager, and which pager. Money
  * pages only: the coverage checklist where the reader has a plan to check,
@@ -34,6 +39,24 @@ const RESOURCE_MAGNET: Record<string, MagnetKey | undefined> = {
   'msp-vs-extended-health': 'coverage-checklist',
   'low-cost-counselling-bc': 'starting-counselling',
 };
+
+/* THE NEXT FREE CONSULTATION, under the section a reader is in when the
+   next step is a conversation: the four-minute register check, the question
+   that settles coverage, and, on the Punjabi words page, the section about
+   reading the rest in Punjabi (that line names only counsellors who work in
+   the page's language). Keyed by heading, as in the guides template, so the
+   line moves with its section. Each has its own book_click location. */
+const NEXT_CONSULT_AFTER: Record<string, { h2: string; location: string }> = {
+  'verify-a-counsellor-in-bc': { h2: 'The four-minute check', location: 'next-resource-verify' },
+  'does-my-plan-cover-counselling-bc': { h2: 'The question that settles it, whichever insurer you have', location: 'next-resource-plan' },
+  'counselling-in-punjabi-what-the-words-mean': { h2: 'If you want the rest of this in Punjabi', location: 'next-resource-punjabi-words' },
+};
+
+/* Re-rendered every thirty minutes, the life of the availability cache, so
+   the line above is what Cliniko is offering, and the fee line under the
+   cards follows the catalogue. A resource without either renders the same
+   bytes each time. 1 Oct 2026. */
+export const revalidate = 1800;
 
 export function generateStaticParams() {
   return resources.map((r) => ({ slug: r.slug }));
@@ -55,9 +78,12 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 const fmt = (iso: string) =>
   new Date(iso + 'T00:00:00Z').toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
 
-export default function ResourcePage({ params }: { params: { slug: string } }) {
+export default async function ResourcePage({ params }: { params: { slug: string } }) {
   const r = getResource(params.slug);
   if (!r) notFound();
+  const cards = showsInfoCards('resources', r.slug, r.whoYouWouldSee);
+  const feeLine = cards ? individualFeeLine(await readCatalog()) : undefined;
+  const next = NEXT_CONSULT_AFTER[r.slug];
   /* A resource written for one language books with the counsellor who
      speaks it; every other resource keeps the practice calendar. */
   const cta = bookingCtaFor({ language: r.language, fallback: 'Book a free consultation' });
@@ -93,7 +119,7 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
       mainEntityOfPage: { '@type': 'WebPage', '@id': `${site.domain}/resources/${r.slug}` },
       publisher: orgRef,
       author: orgRef,
-      reviewedBy: personRef,
+      /* No reviewedBy: it pointed at /about#person, which no page defines. See personRef in lib/schema.ts. 1 Oct 2026. */
       isPartOf: siteRef,
       isAccessibleForFree: true,
     },
@@ -120,6 +146,19 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
         <div className="container container--article">
           <p className="eyebrow">{r.eyebrow}</p>
           <h1 style={{ maxWidth: '14.56em' }}>{r.title}</h1>
+          {/* THE ANSWER FIRST — 1 Oct 2026. It sat 2-3 KB down, after the
+              hook, a thirteen-item contents list and the byline; the
+              workplace, verify and EI pages were ranking with 0.3-0.9% CTR.
+              /for already led with it. .answer is the speakable selector. */}
+          <p className="answer" style={{ fontSize: '1.12rem', lineHeight: 1.55, color: 'var(--ink)', maxWidth: '35.33em', margin: '.5em 0 0' }}>
+            {r.shortAnswer}
+            {r.slug === 'verify-a-counsellor-in-bc' && (
+              <>
+                {' '}
+                <a href={site.counsellor.registerUrl} target="_blank" rel="noopener">Search the BCACC register</a>.
+              </>
+            )}
+          </p>
           <p className="lede">{r.lede}</p>
           {/* "Updated", not "Reviewed". components/Byline.tsx was fixed for exactly
               this in August: it was printing the word "Reviewed" over the date the
@@ -150,8 +189,6 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
 
           <div className="prose">
             <Byline updated={r.updated} readMinutes={r.readMinutes} />
-
-            <blockquote className="quote" style={{ margin: '0 0 36px' }}>{r.shortAnswer}</blockquote>
           </div>
 
           {r.sections.map((s, i) => (
@@ -204,6 +241,12 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
                 </div>
               )}
 
+              {next?.h2 === s.h2 && (
+                <div className="prose">
+                  <NextConsultLine location={next.location} language={r.language} />
+                </div>
+              )}
+
               <div className="prose">{midDevices.filter((_, k) => slots[k] === i)}</div>
             </div>
           ))}
@@ -248,18 +291,37 @@ export default function ResourcePage({ params }: { params: { slug: string } }) {
 
             {/* The one-pager offer, on the money pages only — an explicit map,
                 like the guides' GENTLE_CTA, because which resource pages suit
-                an email form is a judgement worth seeing in one place. Static
-                pages, so confirmations land on /message-sent. */}
+                an email form is a judgement worth seeing in one place. The
+                confirmation is /one-pager-sent, which says what a signup
+                actually starts (the one-pager, then two notes), rather than
+                /message-sent, which promises an enquiry's reply. */}
             {RESOURCE_MAGNET[r.slug] && (
               <LeadCapture
                 magnet={RESOURCE_MAGNET[r.slug]}
                 source={`/resources/${r.slug}`}
-                returnTo="/message-sent"
+                returnTo="/one-pager-sent"
               />
             )}
           </div>
         </div>
       </section>
+
+      {/* WHO YOU WOULD TALK TO, with the fee and who pays — 1 Oct 2026. See
+          INFO_CARD_PAGES in lib/counsellor-cards.ts for which pages and why. */}
+      {cards && (
+        <CounsellorCards
+          counsellors={counsellorsForInfoPage(r)}
+          location="resource"
+          className="section section--ghost"
+          {...infoCardCopy(false)}
+          footer={
+            <>
+              {feeLine && <p className="hero-note" style={{ margin: '0 0 6px' }}>{feeLine}</p>}
+              <CoverageLine />
+            </>
+          }
+        />
+      )}
 
       <section className="section section--tint">
         <div className="container">

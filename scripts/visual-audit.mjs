@@ -52,7 +52,7 @@ for (const { url, html } of pages) {
      because it repeats the crisis numbers and what happens next -- prose that
      should stay prose. Illustrating a receipt would be decoration.
      Same routes cta-audit.mjs exempts, for the same reason. */
-  if (url === '/message-sent' || url === '/punjabi/sent') continue;
+  if (url === '/message-sent' || url === '/one-pager-sent' || url === '/punjabi/sent') continue;
 
   const v = {
     figure: count(body, /<figure\b/gi),

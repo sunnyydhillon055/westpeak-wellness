@@ -30,6 +30,7 @@ export default function CounsellorCards({
   heading,
   intro,
   citySlug,
+  footer,
   className = 'section section--tint',
 }: {
   counsellors: Practitioner[];
@@ -38,6 +39,9 @@ export default function CounsellorCards({
   intro?: React.ReactNode;
   /** When set, "More about" links her page for this city if it exists. */
   citySlug?: string;
+  /** Under the grid: the fee line and the coverage line on the
+   *  informational pages. Block content, so it is not inside a <p>. */
+  footer?: React.ReactNode;
   className?: string;
 }) {
   if (counsellors.length === 0) return null;
@@ -85,6 +89,7 @@ export default function CounsellorCards({
             );
           })}
         </div>
+        {footer && <div style={{ marginTop: 18, maxWidth: 680 }}>{footer}</div>}
       </div>
     </section>
   );

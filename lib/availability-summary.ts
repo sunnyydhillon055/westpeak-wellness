@@ -20,6 +20,32 @@ export type Availability = {
   week?: { count: number; days: string[]; earliest: string; latest: string };
 };
 
+/* PACIFIC TIME, SAID — 1 Oct 2026.
+   Every time below is formatted in America/Vancouver and none of them said
+   so. Camille is listed for Alberta, and a reader in Calgary, Cranbrook or
+   Dawson Creek reading "10 am" as their own clock books the wrong hour. The
+   label goes on every sentence that prints a clock time: the /book lines,
+   the home hero, /contact and the next-consultation line. It labels the
+   times Cliniko offers; it is not an hours claim. */
+export const PACIFIC = ' (Pacific time)';
+
+/** The one sentence under the /book calendar about other clocks, or the
+ *  BC-only half of it when nobody accepting is insured for Alberta. Pure:
+ *  the page passes the accepting counsellors' insured provinces.
+ *
+ *  The facts, which are BC's and Alberta's and not the practice's: Alberta
+ *  keeps Mountain time with daylight saving, an hour ahead of Vancouver all
+ *  year, and so does most of the East Kootenay (Cranbrook, Golden,
+ *  Invermere). Creston and the Peace region (Dawson Creek, Fort St. John,
+ *  Fort Nelson) keep Mountain Standard Time all year: the same clock as
+ *  Vancouver in summer, an hour ahead from November to March. */
+export function timeZoneNote(provinces: readonly string[]): string {
+  const ahead = provinces.includes('AB')
+    ? 'Alberta and most of the East Kootenay are one hour ahead'
+    : 'most of the East Kootenay is one hour ahead';
+  return `Times on this page are Pacific time: ${ahead}, and Creston and the Peace region are one hour ahead from November to March.`;
+}
+
 /** How many days the summary covers. Two Cliniko requests of seven. */
 export const WINDOW_DAYS = 14;
 
@@ -89,7 +115,7 @@ export function availabilityLine(a: Availability | null | undefined, first: stri
   if (!a || a.error) return null;
   if (a.count === 0) return `${first} has no free-consultation times in the next two weeks; the calendar shows the next ones.`;
   const days = a.days.length >= 5 ? `${a.days[0]} to ${a.days[a.days.length - 1]}` : a.days.join(', ');
-  return `${a.count} free-consultation ${a.count === 1 ? 'time' : 'times'} open with ${first} in the next two weeks: ${days}, ${a.earliest} to ${a.latest}${a.weekend ? ', including the weekend' : ''}.`;
+  return `${a.count} free-consultation ${a.count === 1 ? 'time' : 'times'} open with ${first} in the next two weeks: ${days}, ${a.earliest} to ${a.latest}${PACIFIC}${a.weekend ? ', including the weekend' : ''}.`;
 }
 
 /** Just the span: "Tue, Thu, Fri, Sat, 9 am to 7 pm", or null. For the home hero, where a sentence is too long.
@@ -106,7 +132,7 @@ export function weekSpan(all: Record<string, Availability | null>): string | nul
   const lo = Math.min(...as.map((a) => toH(a.earliest)));
   const hi = Math.max(...as.map((a) => toH(a.latest)));
   const span = days.length >= 5 ? `${days[0]} to ${days[days.length - 1]}` : days.join(', ');
-  return `${span}, ${fmtHour(lo)} to ${fmtHour(hi)}`;
+  return `${span}, ${fmtHour(lo)} to ${fmtHour(hi)}${PACIFIC}`;
 }
 
 /** Practice-wide summary across everyone bookable, or null. */
@@ -124,5 +150,5 @@ export function practiceHoursLine(all: Record<string, Availability | null>): str
      reads as closing at six, followed by a claim that it does not. The span
      already says how late the times go; the extra words were a claim on top
      of the data, and nothing here may say more than Cliniko does. */
-  return `Appointments are set by each counsellor's own calendar. Next two weeks: ${span}, start times ${fmtHour(lo)} to ${fmtHour(hi)}${as.some((a) => a.weekend) ? ', including the weekend' : ''}.`;
+  return `Appointments are set by each counsellor's own calendar. Next two weeks: ${span}, start times ${fmtHour(lo)} to ${fmtHour(hi)}${PACIFIC}${as.some((a) => a.weekend) ? ', including the weekend' : ''}.`;
 }

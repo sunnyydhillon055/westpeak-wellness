@@ -127,6 +127,7 @@ const NEVER_LISTED = new Map([
   ['/_not-found', 'the 404 boundary, noindex'],
   ['/message-sent', 'confirmation, noindex'],
   ['/punjabi/sent', 'confirmation, noindex'],
+  ['/one-pager-sent', 'confirmation, noindex'],
   ['/signin', 'authentication'],
   ['/forgot', 'authentication'],
   ['/reset', 'authentication'],
