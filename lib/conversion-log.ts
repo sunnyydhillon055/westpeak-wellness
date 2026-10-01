@@ -59,8 +59,20 @@ const COUNTED = new Set([
      the class is sent; no URL, no query, no identifier. */
   'ai_referral',
   /* A visit that arrived from the Google Business Profile's website button,
-     identified by ?utm_source=gbp on the link. 26 Sep 2026. */
+     identified by ?utm_source=gbp on the link. 26 Sep 2026. Superseded on
+     1 Oct 2026 by channel_visit with detail `gbp`; still accepted so a page
+     loaded before the deploy is not lost, and read back into the gbp row by
+     channelVisits() below. */
   'gbp_visit',
+  /* A visit whose link carried ?utm_source= naming one of the fixed
+     channels (lib/conversion-detail-client.ts): a directory, a family
+     practice, an HR team. Once per session, against the landing page; the
+     channel is the detail. Names a kind of organisation, never a person. */
+  'channel_visit',
+  /* The first page of a session, with the referrer reduced in the browser to
+     one class (google, bing, duckduckgo, ai, listing, none, other). The
+     denominator the booking clicks never had. 1 Oct 2026. */
+  'landing',
   /* Both form events are counted by the server when the record is stored
      (lib/inbound-submit.ts), not by the browser. 1 Oct 2026: six weeks of
      a beacon fired in onSubmit of a native POST recorded 3 of 40 enquiries
@@ -90,6 +102,12 @@ export type ConversionLog = {
   total: number;
   since: string;
   updatedAt: string;
+  /** event -> the UTC day it was first counted, for events first counted on
+   *  or after 1 Oct 2026. Absent for everything older (those began at
+   *  `since` or soon after). It is what lets /admin say "landings counted
+   *  since 2 Oct" beside clicks counted since 18 Aug, rather than dividing
+   *  one by the other as if they covered the same weeks. */
+  firstSeen?: Record<string, string>;
 };
 
 const EMPTY: ConversionLog = { events: {}, details: {}, total: 0, since: '', updatedAt: '' };
@@ -124,6 +142,9 @@ export function parseConversions(raw: unknown): ConversionLog {
     total: Number(parsed.total) || 0,
     since: String(parsed.since ?? ''),
     updatedAt: String(parsed.updatedAt ?? ''),
+    ...(parsed.firstSeen && typeof parsed.firstSeen === 'object' && !Array.isArray(parsed.firstSeen)
+      ? { firstSeen: parsed.firstSeen as Record<string, string> }
+      : {}),
   };
 }
 
@@ -148,6 +169,11 @@ export function withIncrement(current: ConversionLog, event: string, path: strin
     total: current.total + 1,
     since: current.since || now,
     updatedAt: now,
+    /* Only when this event has never been counted before: an event that was
+       already in the file began some earlier day this cannot know. */
+    ...(current.events[event] || current.firstSeen?.[event]
+      ? current.firstSeen ? { firstSeen: current.firstSeen } : {}
+      : { firstSeen: { ...(current.firstSeen ?? {}), [event]: now.slice(0, 10) } }),
   };
 }
 
@@ -285,4 +311,61 @@ export function bookClickBreakdown(log: ConversionLog): BookClickBreakdown {
     noCounsellor,
     unattributed: Math.max(0, sum(log.events.book_click) - sum(log.details?.book_click)),
   };
+}
+
+/** Visits by the channel their link named, busiest first. The gbp row
+ *  includes the `gbp_visit` events counted before channel_visit replaced it
+ *  (26 Sep to 1 Oct 2026), so the profile's history is not cut in two. */
+export function channelVisits(log: ConversionLog): DetailConversions[] {
+  const m: Record<string, number> = { ...(log.details?.channel_visit ?? {}) };
+  const legacyGbp = sum(log.events.gbp_visit);
+  if (legacyGbp) m.gbp = (m.gbp ?? 0) + legacyGbp;
+  return Object.entries(m)
+    .map(([detail, count]) => ({ detail, count }))
+    .sort((a, b) => b.count - a.count || a.detail.localeCompare(b.detail));
+}
+
+export type ClicksOfLandings = { path: string; clicks: number; landings: number };
+
+/** Each page's booking clicks beside the sessions that began on it, busiest
+ *  first by clicks. Pure, so /admin's all-time list and its last-7-days panel
+ *  (two snapshots diffed) cut the same way. */
+export function clicksOfLandings(log: ConversionLog, limit = 15): ClicksOfLandings[] {
+  const landings = log.events.landing ?? {};
+  return Object.entries(log.events.book_click ?? {})
+    .map(([path, clicks]) => ({ path, clicks, landings: landings[path] ?? 0 }))
+    .sort((a, b) => b.clicks - a.clicks || b.landings - a.landings)
+    .slice(0, limit);
+}
+
+export type EventDiff = {
+  event: string;
+  count: number;
+  byPath: { key: string; count: number }[];
+  byDetail: { key: string; count: number }[];
+};
+
+const delta = (a: Record<string, number> | undefined, b: Record<string, number> | undefined) =>
+  Object.entries(b ?? {})
+    .map(([key, n]) => ({ key, count: Math.max(0, n - (a?.[key] ?? 0)) }))
+    .filter((r) => r.count > 0)
+    .sort((x, y) => y.count - x.count || x.key.localeCompare(y.key));
+
+/** What was counted between two copies of the log: `newer` minus `older`, by
+ *  event, path and detail. A key that shrank (trimmed out of a full map)
+ *  counts as zero rather than negative. Pure. */
+export function diffLogs(older: ConversionLog, newer: ConversionLog): { total: number; events: EventDiff[] } {
+  const events = Object.keys(newer.events)
+    .map((event) => {
+      const byPath = delta(older.events[event], newer.events[event]);
+      return {
+        event,
+        count: byPath.reduce((n, r) => n + r.count, 0),
+        byPath,
+        byDetail: delta(older.details?.[event], newer.details?.[event]),
+      };
+    })
+    .filter((e) => e.count > 0)
+    .sort((a, b) => b.count - a.count || a.event.localeCompare(b.event));
+  return { total: Math.max(0, newer.total - older.total), events };
 }

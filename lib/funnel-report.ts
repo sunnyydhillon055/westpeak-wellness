@@ -4,7 +4,7 @@ import { isConsultAppointment } from '@/lib/booking-shape';
 import { readInbound } from '@/lib/inbound';
 import { readClients } from '@/lib/clients';
 import { readSearchTerms } from '@/lib/search-log';
-import { readConversions, bookClickBreakdown, type BookClickBreakdown } from '@/lib/conversion-log';
+import { readConversions, bookClickBreakdown, channelVisits, type BookClickBreakdown, type DetailConversions } from '@/lib/conversion-log';
 import { api, headers } from '@/lib/cliniko';
 
 /* The monthly conversion report — what happened at the top of the funnel.
@@ -54,6 +54,10 @@ type Counts = {
   bookClicks: BookClickBreakdown;
   /** When the conversion log began, for the line above. */
   countedSince: string;
+  /** Visits by the kind of organisation whose link was followed
+   *  (?utm_source=, lib/conversion-detail-client.ts). All time, like the
+   *  booking clicks. Optional so a caller built before 1 Oct still renders. */
+  channels?: DetailConversions[];
 };
 
 const startOfMonthsAgo = (n: number) => {
@@ -165,6 +169,7 @@ export async function gather(): Promise<{ counts: Counts; from: Date; to: Date; 
         .slice(0, 8),
       bookClicks: bookClickBreakdown(log),
       countedSince: log.since ? log.since.slice(0, 10) : '',
+      channels: channelVisits(log),
     },
   };
 }
@@ -229,6 +234,12 @@ export function render(counts: Counts, from: Date, to: Date, clinikoOk: boolean)
     );
   }
 
+  if (counts.channels?.length) {
+    lines.push('Visits by channel (all time; the ?utm_source= on a link the practice handed out):', '');
+    for (const r of counts.channels) lines.push(`  ${String(r.count).padStart(4)}  ${r.detail}`);
+    lines.push('');
+  }
+
   const clickLines = bookClickLines(counts);
   if (clickLines.length) {
     lines.push(...clickLines, '',
@@ -283,6 +294,10 @@ ${counts.topTerms.length
   ? `<p style="margin:0 0 8px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#545e69;">Searched on the site</p>
      <p style="margin:0 0 16px;font-size:15px;line-height:1.8;">${counts.topTerms.map((t) => `${t.term} <span style="color:#545e69;">(${t.n})</span>`).join(' · ')}</p>
      <p style="margin:0 0 16px;font-size:14px;color:#545e69;">A term with no page behind it is a page worth writing.</p>`
+  : ''}
+${counts.channels?.length
+  ? `<p style="margin:0 0 8px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#545e69;">Visits by channel, all time</p>
+     <p style="margin:0 0 16px;font-size:15px;line-height:1.8;">${counts.channels.map((r) => `${r.detail} <span style="color:#545e69;">(${r.count})</span>`).join(' · ')}</p>`
   : ''}
 ${clickLines.length
   ? `<p style="margin:0 0 8px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#545e69;">Booking clicks, by button and by counsellor</p>

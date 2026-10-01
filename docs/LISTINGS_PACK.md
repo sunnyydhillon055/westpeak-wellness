@@ -19,7 +19,7 @@ are published (say "by appointment"); the practice prefers email; nothing paid.
 |---|---|
 | Name | Westpeak Wellness |
 | Legal name | Westpeak Wellness Counselling |
-| Website | https://www.westpeakwellness.com (on the Google Business Profile only, use https://www.westpeakwellness.com/?utm_source=gbp so those visits are counted on /admin) |
+| Website | https://www.westpeakwellness.com/?utm_source=TAG, where TAG is the one named in that listing's entry below (gbp, bing, apple, bcacc or listing). The tag names the kind of directory, never a person; /admin counts visits by it. The canonical tag strips it, so the page is the same page. |
 | Email | info@westpeakwellness.com |
 | Phone | (604) 259-0810 |
 | Booking | https://www.westpeakwellness.com/book |
@@ -99,35 +99,39 @@ above to paste. Only the free tier of anything. Do the first three this week.
    `NEXT_PUBLIC_BING_VERIFICATION`; the site already emits the tag when the
    variable exists. Submit https://www.westpeakwellness.com/sitemap.xml.
 2. **Google Business Profile** — finish video verification. Then: website
-   field to the home page, appointment link to /book, services list from the
+   field to the home page with `?utm_source=gbp`, appointment link to /book, services list from the
    Services line above, languages, "online appointments" attribute on, service
    area set to British Columbia, description = the Medium text. Post once a
    fortnight linking a guide; the stress-leave and RCC guides draw the most
    searches.
 3. **BCACC Find a Counsellor** — https://bcacc.ca/counsellors/. Each RCC edits
-   their own profile: practice name Westpeak Wellness, website, "online /
+   their own profile: practice name Westpeak Wellness, website (tag `bcacc`), "online /
    telehealth" as the session style, languages, the counsellor's own concerns
    list. This is the register the site tells readers to check, so the entries
    should match the profile pages word for word.
 4. **Counselling BC** — https://counsellingbc.com. Free basic listing per
-   counsellor; city Vancouver for one and Surrey for the other, approach
+   counsellor (website tag `listing`); city Vancouver for one and Surrey for the other, approach
    "online / telehealth / virtual counselling", languages. Short description.
 5. **Lumino Health (Sun Life)** — https://luminohealth.sunlife.ca. Free
-   provider listing; it is where Sun Life members are sent to find a covered
+   provider listing (website tag `listing`); it is where Sun Life members are sent to find a covered
    counsellor. Provider type "clinical counsellor", virtual care yes, the
    Medium description.
 6. **Psychology Today** — edit the existing profile: consultation is 30
    minutes, not 15; remove the 506 number; "online, BC and Alberta"; Savneet's
-   two Edmonton profiles corrected to RCC and BC. Fees as above.
+   two Edmonton profiles corrected to RCC and BC. Fees as above. Website
+   tag `listing`.
 7. **Apple Business Connect** — https://businessconnect.apple.com. Claim the
    White Rock place; remove the Vancouver duplicate Apple holds. Category
-   "Counselling", the Short description, website, phone.
+   "Counselling", the Short description, website (tag `apple`), phone.
 8. **Bing Places** — https://www.bingplaces.com. Import from Google Business
-   Profile once step 2 is done; nothing to type.
-9. **Alignable** — free business profile, White Rock, Long description.
+   Profile once step 2 is done, then change the imported website's tag from
+   `gbp` to `bing`.
+9. **Alignable** — free business profile, White Rock, Long description,
+   website tag `listing`.
 10. **Theravive** and **First Session** — both appeared in the competitor
     results for every city. Both have paid tiers; the free profile is enough
     for a link and a citation. Skip any that require payment to show a website.
+    Website tag `listing` on both.
 
 ## What to check a month later
 

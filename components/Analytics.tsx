@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { track } from '@/lib/analytics';
+import { channelOf, isAssistantHost, referrerClass } from '@/lib/conversion-detail-client';
 
 /* Page-level engagement signals that do not belong on any one component:
  * a 75% scroll marker, and outbound-link clicks. Both are passive listeners
@@ -20,20 +21,34 @@ export default function Analytics() {
   useEffect(() => {
     try {
       const ref = document.referrer ? new URL(document.referrer).hostname : '';
-      const isAssistant = /(^|\.)(chatgpt\.com|chat\.openai\.com|openai\.com|gemini\.google\.com|bard\.google\.com|claude\.ai|anthropic\.com|perplexity\.ai|copilot\.microsoft\.com|you\.com|poe\.com|meta\.ai|mistral\.ai)$/i.test(ref);
-      if (isAssistant && !sessionStorage.getItem('wp-ai-ref')) {
+      if (isAssistantHost(ref) && !sessionStorage.getItem('wp-ai-ref')) {
         sessionStorage.setItem('wp-ai-ref', '1');
         track('ai_referral', { host: ref, page: pathname ?? '' });
       }
-      /* Visits from the Google Business Profile. Clicks on the profile's
-         website button never appear in Search Console, so the profile's link
-         carries ?utm_source=gbp and this counts it, once per session, against
-         the landing page. The parameter changes nothing else: the canonical
-         tag strips it and the page is the same page. 26 Sep 2026. */
-      const utm = new URLSearchParams(window.location.search).get('utm_source');
-      if (utm && /^gbp$/i.test(utm) && !sessionStorage.getItem('wp-gbp')) {
-        sessionStorage.setItem('wp-gbp', '1');
-        track('gbp_visit', { page: pathname ?? '' });
+      /* THE DENOMINATOR. The first page of a session, counted once, with the
+         referrer reduced here to one class from a fixed list (google, bing,
+         duckduckgo, ai, listing, none, other). Only the class leaves the
+         browser — the host stays here. Without it a page's booking clicks
+         sat against Search Console clicks from another window and another
+         channel mix, and nothing at all for Bing, direct or the listings.
+         1 Oct 2026. A rendering crawler runs this script too, and would
+         inflate the very number this exists to be honest about. */
+      if (!sessionStorage.getItem('wp-land') && !navigator.webdriver && !/bot|crawl|spider|slurp|headless|lighthouse/i.test(navigator.userAgent)) {
+        sessionStorage.setItem('wp-land', '1');
+        track('landing', { detail: referrerClass(ref, window.location.hostname) });
+      }
+      /* WHICH KIND OF ORGANISATION'S LINK. A link the practice hands out —
+         the Google Business Profile, a directory, a note to a family
+         practice or an HR team — carries ?utm_source= naming the kind of
+         place (CHANNELS in lib/conversion-detail-client.ts). Counted once per
+         session against the landing page; a value not on the list is dropped
+         here and never sent. This replaced the gbp-only counter of 26 Sep,
+         whose history /admin folds into the gbp row. The parameter changes
+         nothing else: the canonical tag strips it. 1 Oct 2026. */
+      const channel = channelOf(new URLSearchParams(window.location.search).get('utm_source'));
+      if (channel && !sessionStorage.getItem('wp-chan') && !(channel === 'gbp' && sessionStorage.getItem('wp-gbp'))) {
+        sessionStorage.setItem('wp-chan', '1');
+        track('channel_visit', { detail: channel });
       }
     } catch { /* never load-bearing */ }
     // eslint-disable-next-line react-hooks/exhaustive-deps

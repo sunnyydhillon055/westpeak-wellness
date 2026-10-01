@@ -153,7 +153,9 @@ test('the log keeps event → path → count as before, and event → detail →
   assert.equal(await countConversion('book_click', '//evil.example', 'header'), false, 'the path rule is unchanged');
 
   const log = await readConversions();
-  assert.deepEqual(Object.keys(log).sort(), ['details', 'events', 'since', 'total', 'updatedAt']);
+  /* `firstSeen` is the one key added since (1 Oct 2026), and only appears
+     once an event is counted for the first time; every older key is as it was. */
+  assert.deepEqual(Object.keys(log).filter((k) => k !== 'firstSeen').sort(), ['details', 'events', 'since', 'total', 'updatedAt']);
   assert.equal(log.total, t0 + 4);
   assert.equal(log.events.book_click?.['/practitioners/camille-granda'], (before.events.book_click?.['/practitioners/camille-granda'] ?? 0) + 1);
   assert.equal(log.events.book_click?.['/guides'], (before.events.book_click?.['/guides'] ?? 0) + 1);

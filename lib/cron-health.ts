@@ -107,6 +107,8 @@ export const EXPECTED_EVERY_HOURS: Record<string, number> = {
   'funnel-report': 744,   // monthly
   'revenue-report': 744,
   indexnow: 168,
+  /* Mondays 08:00 UTC: copies the conversion counters (lib/conversion-snapshots.ts). */
+  'weekly-snapshot': 168,
 };
 
 /* A job name is part of a blob path. `expect:booking-mail` carries a colon,

@@ -81,7 +81,13 @@ export function track(event: TrackedEvent, params: Params = {}): void {
  * which is indistinguishable from a broken funnel. */
 export type TrackedEvent =
   | 'ai_referral'
-  | 'gbp_visit'
+  /* Which kind of organisation's link brought the visit (?utm_source= from a
+   * fixed list), and the landing page's referrer reduced to a class. Both
+   * once per session, both a word from a list in
+   * lib/conversion-detail-client.ts. `gbp_visit` was the first, single-value
+   * version of channel_visit and is no longer sent. 1 Oct 2026. */
+  | 'channel_visit'
+  | 'landing'
   | 'book_click'
   | 'book_direct'
   /* `enquiry_submit` and `lead_magnet_submit` are not here because the browser
