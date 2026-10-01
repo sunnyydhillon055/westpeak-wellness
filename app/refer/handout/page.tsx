@@ -13,7 +13,7 @@ export const revalidate = 3600;
 
 const TITLE = 'Front-desk cards for clinics';
 const DESC =
-  'A printable sheet of four cut-out cards for a clinic, campus or agency front desk: the free consultation by secure video, no referral needed, and the crisis lines.';
+  'Four cut-out cards to print for a clinic, campus or agency front desk: the free video consultation, no referral needed, and the crisis lines.';
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -61,8 +61,8 @@ export default async function ClinicHandout() {
   const bookHref = `${site.bookingPath}?utm_source=clinic`;
 
   const consultLine = consult
-    ? `${free ? 'A free ' : 'A '}${minutes ? `${minutes}-minute ` : ''}consultation by secure video.`
-    : 'A consultation by secure video.';
+    ? `${free ? 'A free ' : 'A '}${minutes ? `${minutes}-minute ` : ''}first consultation.`
+    : 'A first consultation.';
 
   const Card = () => (
     <div className="callout handout-card">
@@ -105,9 +105,9 @@ export default async function ClinicHandout() {
           __html: `.handout-sheet{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:24px}
 .handout-card{margin:0}.handout-card ul{margin:8px 0;padding-left:18px}.handout-card p{margin:6px 0}
 .handout-name{font-weight:700;font-size:1.15em}.handout-crisis{font-size:.9em}
-@media print{.handout-page .hero,.handout-page .section>.container>:not(.handout-sheet){display:none!important}
+@media print{.handout-page .section{padding:0!important;margin:0!important}.handout-page .hero,.handout-page .section>.container>:not(.handout-sheet){display:none!important}
 .handout-sheet{grid-template-columns:1fr 1fr!important;gap:6mm!important;margin:0!important}
-.handout-sheet .handout-card{border:1pt dashed #000!important;height:112mm;overflow:hidden;font-size:10.5pt;padding:7mm!important}}`,
+.handout-sheet .handout-card{border:1pt dashed #000!important;height:108mm;overflow:hidden;font-size:10.5pt;padding:7mm!important}}`,
         }}
       />
       <div className="handout-page">

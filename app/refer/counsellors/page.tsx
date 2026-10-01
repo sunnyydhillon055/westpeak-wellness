@@ -15,7 +15,7 @@ export const revalidate = 1800;
 
 const TITLE = 'For counsellors with a full caseload';
 const DESC =
-  'Who is accepting new clients at Westpeak Wellness, in which languages and provinces, and how to pass a client on. No referral fee, nothing reciprocal, nothing reported back without consent.';
+  'For a counsellor with a full caseload: who is accepting here, in which languages and where, and how a client books. No referral fee, nothing reciprocal.';
 
 export const metadata: Metadata = {
   title: TITLE,
