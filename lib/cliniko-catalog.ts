@@ -8,9 +8,11 @@ import { api, headers } from '@/lib/cliniko';
  *
  * Fees were written in three places: the /pricing table, the FEE_FOR map on
  * service pages, and a comment in lib/site.ts. An audit on 2026-08-14 found all
- * three agreeing with Cliniko exactly — $140 / $170 / $0 / $340 / $190 — which
- * is the good outcome, but it is agreement by coincidence rather than by
- * construction. Nothing stopped them drifting, and the failure mode is the
+ * three agreeing with Cliniko — individual, couples, consultation, couples
+ * extended and EMDR intensive — which is the good outcome, but it is agreement
+ * by coincidence rather than by construction. (The figures are deliberately
+ * not restated here: this comment once carried a couples fee that Cliniko had
+ * since raised, and scripts/price-drift.mjs now scans for exactly that.) Nothing stopped them drifting, and the failure mode is the
  * worst kind: the site quotes a price the practice does not charge, nobody
  * notices because nothing errors, and a client arrives at checkout expecting a
  * different number.
@@ -67,6 +69,17 @@ export const FALLBACK_CATALOG: Catalog = {
 
 export const money = (cents: number) =>
   cents === 0 ? 'Free' : `$${(cents / 100).toFixed(cents % 100 === 0 ? 0 : 2)}`;
+
+/* A fee for static prose — an FAQ answer, a list item — read from the
+ * fallback rather than typed. 1 Oct 2026: the couples fee was typed as a
+ * literal in seven places and all seven were stale when Cliniko moved. Throws
+ * on an unknown name so a renamed appointment type fails the build instead of
+ * publishing an invented price. */
+export function fallbackFee(name: string): string {
+  const item = FALLBACK_CATALOG.items.find((i) => i.name === name);
+  if (!item) throw new Error(`FALLBACK_CATALOG has no "${name}"`);
+  return money(item.cents);
+}
 
 let cache: { at: number; value: Catalog } | null = null;
 const CACHE_MS = 60_000;

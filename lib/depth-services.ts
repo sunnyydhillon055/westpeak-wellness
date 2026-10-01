@@ -1,4 +1,5 @@
 import type { DepthSection } from './depth';
+import { fallbackFee } from '@/lib/cliniko-catalog';
 
 /* Further sections for the service pages. */
 export const depthServices: Record<string, DepthSection[]> = {
@@ -11,6 +12,72 @@ export const depthServices: Record<string, DepthSection[]> = {
         '**Weeks two and three** are where a working focus emerges, and it is frequently not the one you arrived with. People come in for the job and find the job is the place a much older pattern is currently expressing itself. That is not a bait and switch; it is what happens when someone with training listens to two hours of your life.',
         '**Week four** is usually the first review. What are we aiming at, is the approach right, and how often should we be meeting. If nobody has raised those questions by session five or six, raise them yourself.',
         'A word on what individual therapy is not. It is not advice, and a counsellor who spends sessions telling you what to do about your life has drifted into something else. It is also not a place where you are assessed as a person. The material is patterns and circumstances, not character. And it is not open-ended by default: work with a clear target ends, and ending on purpose is part of it.',
+      ],
+    },
+    /* ANXIETY AND DEPRESSION, ON THE PAGE THEY BOOK INTO — 1 Oct 2026.
+       Conditions get no province page (DECISIONS) and both book into
+       individual therapy, which ranks at 5.36. Their sections were keyed to
+       services/anxiety-counselling and services/depression-counselling, slugs
+       with no route, so none had rendered. The online-anxiety cluster (about
+       160 impressions, no clicks) lands on a city page at 70; the twenty
+       anxiety and depression city pages now link here with these headings. */
+    {
+      h2: 'Online anxiety counselling in BC',
+      body: [
+        'Online anxiety counselling is available anywhere in British Columbia as individual therapy: 50-minute sessions by secure video with a Registered Clinical Counsellor, after a free 30-minute consultation, with no referral or diagnosis needed. Every counsellor taking new clients sees anxiety, and [the booking page](/book) lets you choose between them.',
+        'For anxiety specifically, online counselling solves a problem the condition itself creates: the appointment is reachable on the days the anxiety says the drive, the waiting room, or the unfamiliar building is too much. Nobody white-knuckles a commute to get help with the thing the commute triggers.',
+        'The evidence base for video-delivered anxiety treatment is among the strongest in all of online therapy, structured approaches like CBT translate almost without loss, and the skills-practice between sessions happens in the exact environment the anxiety lives in, which is a quiet advantage over learning calm in an office you will never be anxious in. The [effectiveness guide](/guides/is-online-therapy-as-effective-as-in-person) covers the research; the free consultation is how you test the fit for yourself.',
+      ],
+    },
+    {
+      h2: 'Safety behaviours, and why they keep anxiety alive',
+      body: [
+        'Most people with long-standing anxiety have built a set of small habits that make feared situations tolerable. Sitting near an exit. Carrying water. Having a friend on standby. Over-preparing to a degree nobody asked for. Rehearsing the first sentence of a conversation. Checking something a fourth time.',
+        'These are called safety behaviours, and they are the reason people can attend the meeting for years and still be terrified of it. The problem is subtle: they let you into the situation while preventing the situation from teaching you anything. Because you got through it with the water bottle, the water bottle keeps the credit, and the underlying belief that you could not have coped otherwise survives intact.',
+        'They also tend to multiply. Each one relieves anxiety slightly, which reinforces it, which makes the next one easier to add. Over a few years this produces a life with a large number of quiet conditions attached to it, none of which felt significant when it was adopted.',
+        'A significant part of anxiety work is identifying them, which is harder than it sounds because they are usually experienced as sensible preparation rather than as avoidance. The test is a useful one: *would I still do this if I were not anxious?* Preparing for a presentation is reasonable. Rehearsing it eleven times is not preparation.',
+        'Dropping them is done gradually and deliberately, usually alongside graded exposure, and the discomfort of doing so is the mechanism rather than a side effect. The point is to accumulate direct evidence that you got through it and nothing carried you.',
+      ],
+    },
+    {
+      h2: 'Reassurance-seeking, the quietest maintaining factor',
+      body: [
+        'Alongside avoidance, the most reliable maintainer of anxiety is reassurance, and it is far harder to spot, because everyone involved experiences it as support.',
+        'It takes several forms. Asking a partner repeatedly whether something is fine. Searching symptoms. Re-reading an email to confirm it was not rude. Checking a lock, a stove, a booking. Asking the same question in slightly different words so it does not sound like the same question.',
+        'The mechanism is identical to avoidance: each instance produces immediate relief, and the relief teaches the brain that the check was necessary. Anxiety returns slightly stronger and the interval to the next check shortens. Over a year this produces someone who cannot tolerate uncertainty for more than a few minutes.',
+        'It is also corrosive to relationships, in a way neither party usually names. The person providing reassurance is doing something kind that is making things worse, and they typically sense it before they can articulate it, which produces irritation, then guilt about the irritation.',
+        'The treatment is to reduce it deliberately rather than eliminate it overnight: agreeing with a partner that they will answer once and not again, extending the interval before checking, and tolerating the discomfort that follows. That discomfort is the mechanism. It falls on its own if nothing intervenes, and demonstrating that repeatedly is what teaches the system it does not need the check.',
+      ],
+    },
+    {
+      h2: 'Online depression counselling in BC',
+      body: [
+        'Online depression counselling is available anywhere in British Columbia as individual therapy: 50-minute sessions by secure video with a Registered Clinical Counsellor, after a free 30-minute consultation, with no referral or diagnosis needed. Every counsellor taking new clients sees depression and low mood, and [the booking page](/book) lets you choose between them.',
+        'For depression specifically, online counselling removes the tax the condition itself levies on getting help: the shower-dress-drive-waiting-room sequence that can consume a whole day’s capacity. A session you can attend from the corner of the couch is not a lesser session. It is the one that actually happens during the weeks when the alternative was cancelling.',
+        'Video-delivered treatment for depression carries one of the stronger evidence bases in online therapy, and behavioural approaches adapt naturally: the work happens in the environment where the patterns live. The honest caveat runs the other way, where isolation is a driver, sessions should be a bridge back toward the world, not a reason never to re-enter it, and a decent counsellor holds that line deliberately. The [effectiveness research](/guides/is-online-therapy-as-effective-as-in-person) covers the evidence in full.',
+      ],
+    },
+    {
+      h2: 'Why activity comes before motivation',
+      body: [
+        'The most counter-intuitive thing about treating depression is the sequence. Everyone assumes motivation comes first and action follows. In depression that order does not return on its own, and waiting for it is the trap the condition sets.',
+        'What happens instead is a downward loop with a simple structure. Low mood removes the desire to do things. Doing less removes the sources of reward, contact and meaning that were propping mood up. Mood drops further. Doing less becomes easier to justify. Nobody in that loop is being lazy; the loop is a feature of the condition rather than of the person.',
+        'The intervention: behavioural activation: inverts the assumption. Activity is scheduled in advance, in small specific amounts, and performed regardless of how you feel on the day. Not as discipline, but because doing the thing is what generates the mood change, rather than the other way round.',
+        'It works best when the activities are chosen for two properties rather than enjoyment: **mastery** (a sense of having accomplished something, however small) and **connection** (involving another person). Enjoyment is unreliable early on, because anhedonia flattens it, which is why "do things you enjoy" is such useless advice to someone who currently enjoys nothing.',
+        'The scale matters. Ten minutes outside is a legitimate target. A gym membership is not, at the start, because failing it produces evidence against yourself and that evidence is expensive. Targets get raised as capacity returns.',
+        'And where depression is severe enough that even this is not accessible, that is a signal to involve a physician alongside the counselling rather than to try harder: see [therapy, medication, or both](/compare/therapy-medication-or-both).',
+      ],
+    },
+    {
+      h2: 'The thinking patterns that come with it',
+      body: [
+        'Depression changes cognition in specific and recognisable ways, and knowing the shapes helps, because it converts a set of apparently self-evident conclusions into symptoms.',
+        '**Overgeneralisation.** One instance becomes a rule. A single awkward conversation becomes evidence about your whole social competence. The give-away is the words always and never.',
+        '**Discounting anything positive.** Good outcomes get reclassified as luck, timing, or other people being kind. This is why encouragement does not land. It is processed and discarded before it registers.',
+        '**Mind-reading.** Confident conclusions about what other people think, treated as observations rather than as guesses. Almost always negative and almost never checked.',
+        '**Fortune-telling.** Certainty about how something will go, which then justifies not attempting it, and the non-attempt is read afterwards as confirmation.',
+        '**Personalising.** Assuming responsibility for outcomes with many causes, including other people\'s moods.',
+        'The clinical point is not that these thoughts are irrational. It is that depression makes them feel like perception rather than interpretation. They arrive with the weight of an observation. Learning to catch them as they happen, write them down and check them against evidence is unglamorous, repetitive, and among the better-evidenced interventions available.',
       ],
     },
   ],
@@ -48,6 +115,17 @@ export const depthServices: Record<string, DepthSection[]> = {
         'None of this requires either of you to be calm, agreeable or fair-minded on arrival. It requires both of you to be willing to work inside a structure, which is a much lower bar and a much more realistic one.',
       ],
     },
+    /* Cost and coverage, 1 Oct 2026. "online couples therapy cost" and
+       "free couples counselling surrey" reach this page and no section
+       answered them. Fees from the catalogue; coverage plan-dependent. */
+    {
+      h2: 'How much does couples counselling cost in BC?',
+      body: [
+        `Couples counselling here is ${fallbackFee('Couples Counselling')} for a 50-minute session, or ${fallbackFee('Couples Extended')} for the 110-minute extended format, after a free 30-minute consultation that both partners can join. There is no GST on counselling by a Registered Clinical Counsellor in BC.`,
+        'MSP does not cover private couples counselling. Extended health plans that list Registered Clinical Counsellors often reimburse couples sessions too, but some exclude relationship counselling or limit it, so read the wording before the first paid session. Each session produces one receipt, in the name of the partner who claims it.',
+        `If cost rules private sessions out, community agencies offer sliding-scale and sometimes free couples counselling, and [low-cost counselling in BC](/resources/low-cost-counselling-bc) lists where to look. If it does not, [book the free consultation](/book?with=camille-granda) with the counsellor who takes couples work, and ask about the extended format there.`,
+      ],
+    },
   ],
 
   'services/emdr-therapy': [
@@ -62,9 +140,35 @@ export const depthServices: Record<string, DepthSection[]> = {
         'Finally, it is not the only effective trauma treatment, and anyone presenting it as uniquely powerful is overselling. Trauma-focused cognitive approaches have comparable evidence, and the better question is which suits you, see [CBT vs EMDR for trauma](/compare/cbt-vs-emdr-for-trauma).',
       ],
     },
-  ],
-
-  'services/trauma-therapy': [
+    /* Cost, 1 Oct 2026. BC competitors rank dedicated EMDR cost pages and
+       this page never said what EMDR costs. Fees from the catalogue; no
+       session count and no outcome promised. */
+    {
+      h2: 'How much does EMDR therapy cost in BC?',
+      body: [
+        `EMDR here is ${fallbackFee('Individual Counselling')} for a weekly 50-minute session and ${fallbackFee('EMDR Intensive')} for the 90-minute intensive, and the first 30-minute consultation is free. There is no GST on counselling by a Registered Clinical Counsellor in BC.`,
+        'MSP does not pay for private EMDR. It is claimed on extended health exactly like any other session with a Registered Clinical Counsellor, so whether your plan reimburses it, and how much of the annual maximum each session uses, is plan-dependent. An intensive uses more of a yearly maximum per session than a weekly appointment, which is worth checking before choosing that format.',
+        `How many sessions EMDR takes varies too widely for an honest average: preparation alone can be two sessions or two months, and a single recent event is different work from something that began in childhood. Progress should be reviewed with you openly rather than sold as a package. [Intensive or weekly EMDR](/compare/emdr-intensive-vs-weekly-emdr) compares the two formats, and the [free consultation](/book?with=camille-granda) is the place to ask about yours.`,
+      ],
+    },
+    /* ONLINE TRAUMA THERAPY, ON THE PAGE THAT TREATS IT — 1 Oct 2026.
+       The "online trauma therapy" cluster (about 290 impressions a month at
+       82-89, no clicks) lands on /online-counselling/vancouver/trauma-therapy,
+       and the three trauma sections written for this site were keyed to
+       services/trauma-therapy, a slug with no route, so none of them had ever
+       rendered. Trauma is a condition that books into EMDR here (DECISIONS:
+       no province-level trauma page), so they live on the EMDR page under a
+       heading that says what the searcher typed, and the ten trauma city
+       pages link to it with that phrase. */
+    {
+      h2: 'Online trauma therapy in BC, with and without EMDR',
+      body: [
+        'Trauma therapy is available online anywhere in British Columbia, by secure video with a Registered Clinical Counsellor, and EMDR is one route through it rather than the only one. Where a specific memory keeps intruding, EMDR is often the centre of the work; where the difficulty is more about regulation, safety and getting through the present, trauma-informed counselling without reprocessing can be the better start, and most people need some stabilisation before either. Which of those fits is what the [free 30-minute consultation](/book?with=camille-granda) is for.',
+        'Trauma therapy over secure video is an established practice, not a pandemic improvisation. The structured trauma protocols: EMDR with on-screen or self-administered bilateral stimulation, cognitive processing work, stabilisation and resourcing, all adapt to video, and the [research on video-delivered therapy](/guides/is-online-therapy-as-effective-as-in-person) includes trauma-focused work specifically.',
+        'Two things matter more online than in a room, and both are manageable. The first is your space: trauma work needs privacy and a plan for the hour after the session, not a car in a work parking lot before a shift. The second is pacing, which is a clinical skill rather than a format property: a trauma therapist who rushes is a problem in any medium, and one who paces well loses nothing over video. For some people the screen genuinely helps: being in your own home, with your own exits, changes what feels sayable.',
+        'And where the work keeps being cut short by the standard hour. A target memory that takes twenty minutes just to access. The [90-minute EMDR intensive](/compare/emdr-intensive-vs-weekly-emdr) exists for exactly that arithmetic, once stability is in place.',
+      ],
+    },
     {
       h2: 'Phase one, which is most of the work',
       body: [
@@ -75,31 +179,15 @@ export const depthServices: Record<string, DepthSection[]> = {
         'People frequently want to skip ahead, particularly if they have waited a long time to start. A counsellor who agrees to that is not being responsive; they are increasing the chance you leave a session worse than you arrived and learn that the subject is dangerous. Pacing here is a clinical decision made with you, and it is negotiable in its details but not in its existence.',
       ],
     },
-  ],
-
-  'services/anxiety-counselling': [
     {
-      h2: 'Safety behaviours, and why they keep anxiety alive',
-      body: [
-        'Most people with long-standing anxiety have built a set of small habits that make feared situations tolerable. Sitting near an exit. Carrying water. Having a friend on standby. Over-preparing to a degree nobody asked for. Rehearsing the first sentence of a conversation. Checking something a fourth time.',
-        'These are called safety behaviours, and they are the reason people can attend the meeting for years and still be terrified of it. The problem is subtle: they let you into the situation while preventing the situation from teaching you anything. Because you got through it with the water bottle, the water bottle keeps the credit, and the underlying belief that you could not have coped otherwise survives intact.',
-        'They also tend to multiply. Each one relieves anxiety slightly, which reinforces it, which makes the next one easier to add. Over a few years this produces a life with a large number of quiet conditions attached to it, none of which felt significant when it was adopted.',
-        'A significant part of anxiety work is identifying them, which is harder than it sounds because they are usually experienced as sensible preparation rather than as avoidance. The test is a useful one: *would I still do this if I were not anxious?* Preparing for a presentation is reasonable. Rehearsing it eleven times is not preparation.',
-        'Dropping them is done gradually and deliberately, usually alongside graded exposure, and the discomfort of doing so is the mechanism rather than a side effect. The point is to accumulate direct evidence that you got through it and nothing carried you.',
-      ],
-    },
-  ],
-
-  'services/depression-counselling': [
-    {
-      h2: 'Why activity comes before motivation',
-      body: [
-        'The most counter-intuitive thing about treating depression is the sequence. Everyone assumes motivation comes first and action follows. In depression that order does not return on its own, and waiting for it is the trap the condition sets.',
-        'What happens instead is a downward loop with a simple structure. Low mood removes the desire to do things. Doing less removes the sources of reward, contact and meaning that were propping mood up. Mood drops further. Doing less becomes easier to justify. Nobody in that loop is being lazy; the loop is a feature of the condition rather than of the person.',
-        'The intervention: behavioural activation: inverts the assumption. Activity is scheduled in advance, in small specific amounts, and performed regardless of how you feel on the day. Not as discipline, but because doing the thing is what generates the mood change, rather than the other way round.',
-        'It works best when the activities are chosen for two properties rather than enjoyment: **mastery** (a sense of having accomplished something, however small) and **connection** (involving another person). Enjoyment is unreliable early on, because anhedonia flattens it, which is why "do things you enjoy" is such useless advice to someone who currently enjoys nothing.',
-        'The scale matters. Ten minutes outside is a legitimate target. A gym membership is not, at the start, because failing it produces evidence against yourself and that evidence is expensive. Targets get raised as capacity returns.',
-        'And where depression is severe enough that even this is not accessible, that is a signal to involve a physician alongside the counselling rather than to try harder: see [therapy, medication, or both](/compare/therapy-medication-or-both).',
+      h2: 'Signs the pacing is wrong',
+      list: [
+        { label: 'You leave sessions unable to function', detail: 'Feeling stirred for a few hours is expected. Losing the rest of the day, repeatedly, means too much is being opened relative to current capacity.' },
+        { label: 'You dread sessions rather than find them hard', detail: 'A meaningful distinction. Difficult is normal; dread that builds through the week suggests the container is not holding.' },
+        { label: 'Sessions end abruptly at the hard part', detail: 'A well-run trauma session reserves the last ten to fifteen minutes for closing down. Finishing mid-material and sending you out is a structural problem, not a scheduling accident.' },
+        { label: 'Symptoms are worsening over weeks, not days', detail: 'A temporary increase after opening something is expected. A sustained escalation across a month is a signal to slow down and rebuild stabilisation.' },
+        { label: 'You are dissociating in sessions', detail: 'Going blank, losing time, watching from outside. It means the work has moved outside the window of tolerance and should be paused and reoriented rather than pushed through.' },
+        { label: 'You have started using something to get through', detail: 'An increase in drinking or anything else timed around sessions is the clearest signal that the pace is exceeding capacity. Say it. It changes the plan rather than ending it.' },
       ],
     },
   ],
@@ -116,9 +204,8 @@ export const depthServices: Record<string, DepthSection[]> = {
         'Sessions run in whichever language suits, including moving between them within a session, and couples work is available in Punjabi as well, which matters when the family conversation being discussed happened in Punjabi.',
       ],
     },
-  ],
-
-  'services/south-asian-mental-health': [
+    /* Folded in 1 Oct 2026 from services/south-asian-mental-health, a slug
+       with no route since that page was consolidated here. */
     {
       h2: 'The specific binds that come up most',
       list: [
@@ -130,19 +217,16 @@ export const depthServices: Record<string, DepthSection[]> = {
         { label: 'Grief across distance', detail: 'Losing someone in another country, unable to be present, and arriving late to a mourning that has already happened without you.' },
       ],
     },
-  ],
-
-  'services/online-counselling-bc': [
     {
-      h2: 'The privacy and technical setup, in specifics',
+      h2: 'What cultural competence should and should not mean',
       body: [
-        'Virtual counselling makes one demand that in-person work handles for you: the room. It is worth solving deliberately rather than improvising at the first appointment.',
-        '**Where.** A door that closes beats a good camera by a wide margin. A bedroom, a home office, a parked car, or a booked meeting room all work. If nowhere at home is private, a car is a legitimate and frequently used option, and it is worth knowing that in advance rather than concluding the format is impossible for you.',
-        '**Headphones.** The highest-value item on the list, because they remove the counsellor\'s voice from the room. This changes how freely people speak more than any other variable.',
-        '**Connection.** A stable connection matters more than a fast one, and turning your camera off reduces the bandwidth a session needs considerably. Agreeing in advance what happens if the connection drops, usually rejoining the same link, removes a background anxiety that otherwise takes up part of every session.',
-        '**Jurisdiction.** A counsellor must be registered where you are physically located during a session, which means sessions run while you are in British Columbia. If you travel, work rotationally, or study out of province, say so early so it can be planned around.',
-        '**Accommodations.** Camera off, written summaries afterwards, adjusted pacing and evening slots are all available on request. The [accessibility statement](/accessibility) lists what is offered and, just as importantly, what is not. **Afterwards.** The commute home from an in-person session did something useful. It created a transition. Ten unclaimed minutes after a video session replaces it. Going straight from a difficult session into a meeting is the most common complaint about the format, and it is entirely avoidable.',
+        'The phrase gets used loosely enough to be worth defining, because the version that helps and the version that irritates look similar from outside.',
+        '**What it should mean** is that the context does not have to be explained from scratch. That you do not spend twenty minutes establishing why a decision that looks straightforward is not. That references land. That a counsellor understands obligation as something other than dysfunction, and does not treat a family structure as a problem to be dismantled.',
+        '**What it should not mean** is a counsellor who believes they already know your family. Communities are not uniform, and assumptions about religion, region, migration history, class or generation are frequently wrong in ways that are difficult to correct once stated with confidence.',
+        'The working version is closer to cultural humility than cultural expertise: a starting position considerably closer to yours, combined with a habit of checking rather than assuming. In practice that sounds like "in some families that would mean X, is that how it works in yours?" rather than a confident account of your situation.',
+        'It also means being able to hold two things at once: that a cultural expectation can be genuinely valuable to you **and** genuinely costly, without a counsellor pushing you toward either abandoning it or accepting it. That is the specific thing people most often report not getting elsewhere.',
       ],
     },
   ],
+
 };

@@ -49,6 +49,19 @@ export const moreAudiences3: Audience[] = [
           'If the strain has already reached the point of medical leave, the [work-and-money cluster](/resources/workplace-mental-health-bc) covers the mechanics: sick days, the doctor’s note, EI, the return. Teachers use those pages every September; the aim of this one is fewer of them needing to.',
         ],
       },
+      /* TEACHER BENEFITS, BY NAME — 1 Oct 2026. Every page ranking above
+         this one for "counselling for teachers bc" leads with teacher
+         coverage, and this page never said BCTF. Plan-dependent throughout,
+         no dollar figures (those differ by district and change), and the
+         BCTF's own pages cited rather than third-party summaries of them. */
+      {
+        h2: 'Using teacher benefits for counselling',
+        body: [
+          'Most BC teachers can put counselling here through their own benefits, and the place to start is the extended health plan. For most districts that plan is administered by Pacific Blue Cross, and it usually lists Registered Clinical Counsellors as eligible practitioners. Check two things in your booklet or the Pacific Blue Cross member portal: that the counselling line names "Registered Clinical Counsellor" or "clinical counsellor", and what the annual maximum is.',
+          'Separately, the [BCTF Health and Wellness Program](https://www.bctf.ca/topics/services-information/wellness/apply-or-refer-someone-to-the-health-and-wellness-program) is a case-management program for members whose health is affecting their teaching, whether or not they are off work. A rehabilitation consultant works with you and your health care providers, and the program can help fund services such as counselling where it is part of that plan. It is a referral, not an automatic benefit, so ask the program directly what it would cover for you.',
+          'Teachers teaching on call should check whether they are enrolled at all: [the BCTF benefits page](https://www.bctf.ca/topics/services-information/benefits/health-and-dental) sets out TTOC eligibility for extended health, and enrolment is not always automatic. However you are covered, this practice does not bill the plan directly: you pay when you book, get a receipt for every session, and submit it yourself. Whether and how much is reimbursed is always a question for your plan.',
+        ],
+      },
     ],
     servicesThatFit: [
       { href: '/services/individual-therapy', label: 'Individual therapy', why: 'The core fit: burnout, anxiety, the staying question, and the perfectionism the profession selects for.' },
@@ -63,12 +76,15 @@ export const moreAudiences3: Audience[] = [
       { q: 'Can you see me only during summer?', a: 'Yes. A compressed stretch of weekly summer sessions is a legitimate shape for this work, and common among teachers. Better still is a plan that survives September: summer depth, then lighter touchpoints through the term at after-school times.' },
       { q: 'Is this confidential from my district and the TRB?', a: 'Sessions are confidential within the ordinary legal limits: risk of serious harm, children at risk, court orders, which are explained before you share anything. Attending counselling is not reportable to anyone, and no information flows to employers or regulators without your written consent.' },
       { q: 'Does my extended health cover this?', a: 'District plans commonly reimburse Registered Clinical Counsellor sessions, check your plan wording for "RCC" or "clinical counsellor" and the annual maximum. Receipts are issued for every session; most teachers pay and submit.' },
+      { q: 'Can I use my BCTF or district benefits here?', a: 'Usually, depending on your plan. Most district extended health plans for teachers are administered by Pacific Blue Cross and list Registered Clinical Counsellors; check the counselling line and the annual maximum. The BCTF Health and Wellness Program can also help fund counselling as part of a case-managed plan. There is no direct billing: you pay at booking and submit the receipt.' },
       { q: 'I think I might need a leave. Is that a different conversation?', a: 'It is a connected one. The stress-leave, doctor’s-note and EI pages on this site map the mechanics, and counselling is both part of what a certified leave typically involves and the work that makes the return hold. Reading in advance costs nothing; so does a consultation.' },
       { q: 'Do you understand the classroom reality, or will I spend sessions explaining it?', a: 'You will not need to argue that composition, marking load and the September cycle are real. They are the starting premises here, not claims to defend. The work starts from your actual Tuesday, not from a brochure version of teaching.' },
     ],
     sources: [
       { label: 'Canadian Mental Health Association, BC Division', url: 'https://cmha.bc.ca/' },
       { label: 'Anxiety Canada', url: 'https://www.anxietycanada.com/' },
+      { label: 'BCTF, health and dental benefits', url: 'https://www.bctf.ca/topics/services-information/benefits/health-and-dental' },
+      { label: 'BCTF, Health and Wellness Program', url: 'https://www.bctf.ca/topics/services-information/wellness/apply-or-refer-someone-to-the-health-and-wellness-program' },
     ],
     related: [
       { href: '/guides/burnout-vs-depression', label: 'Burnout vs depression' },

@@ -42,48 +42,6 @@ export const depth2Other: Record<string, DepthSection[]> = {
     },
   ],
 
-  'services/trauma-therapy': [
-    {
-      h2: 'Signs the pacing is wrong',
-      list: [
-        { label: 'You leave sessions unable to function', detail: 'Feeling stirred for a few hours is expected. Losing the rest of the day, repeatedly, means too much is being opened relative to current capacity.' },
-        { label: 'You dread sessions rather than find them hard', detail: 'A meaningful distinction. Difficult is normal; dread that builds through the week suggests the container is not holding.' },
-        { label: 'Sessions end abruptly at the hard part', detail: 'A well-run trauma session reserves the last ten to fifteen minutes for closing down. Finishing mid-material and sending you out is a structural problem, not a scheduling accident.' },
-        { label: 'Symptoms are worsening over weeks, not days', detail: 'A temporary increase after opening something is expected. A sustained escalation across a month is a signal to slow down and rebuild stabilisation.' },
-        { label: 'You are dissociating in sessions', detail: 'Going blank, losing time, watching from outside. It means the work has moved outside the window of tolerance and should be paused and reoriented rather than pushed through.' },
-        { label: 'You have started using something to get through', detail: 'An increase in drinking or anything else timed around sessions is the clearest signal that the pace is exceeding capacity. Say it. It changes the plan rather than ending it.' },
-      ],
-    },
-  ],
-
-  'services/anxiety-counselling': [
-    {
-      h2: 'Reassurance-seeking, the quietest maintaining factor',
-      body: [
-        'Alongside avoidance, the most reliable maintainer of anxiety is reassurance, and it is far harder to spot, because everyone involved experiences it as support.',
-        'It takes several forms. Asking a partner repeatedly whether something is fine. Searching symptoms. Re-reading an email to confirm it was not rude. Checking a lock, a stove, a booking. Asking the same question in slightly different words so it does not sound like the same question.',
-        'The mechanism is identical to avoidance: each instance produces immediate relief, and the relief teaches the brain that the check was necessary. Anxiety returns slightly stronger and the interval to the next check shortens. Over a year this produces someone who cannot tolerate uncertainty for more than a few minutes.',
-        'It is also corrosive to relationships, in a way neither party usually names. The person providing reassurance is doing something kind that is making things worse, and they typically sense it before they can articulate it, which produces irritation, then guilt about the irritation.',
-        'The treatment is to reduce it deliberately rather than eliminate it overnight: agreeing with a partner that they will answer once and not again, extending the interval before checking, and tolerating the discomfort that follows. That discomfort is the mechanism. It falls on its own if nothing intervenes, and demonstrating that repeatedly is what teaches the system it does not need the check.',
-      ],
-    },
-  ],
-
-  'services/depression-counselling': [
-    {
-      h2: 'The thinking patterns that come with it',
-      body: [
-        'Depression changes cognition in specific and recognisable ways, and knowing the shapes helps, because it converts a set of apparently self-evident conclusions into symptoms.',
-        '**Overgeneralisation.** One instance becomes a rule. A single awkward conversation becomes evidence about your whole social competence. The give-away is the words always and never.',
-        '**Discounting anything positive.** Good outcomes get reclassified as luck, timing, or other people being kind. This is why encouragement does not land. It is processed and discarded before it registers.',
-        '**Mind-reading.** Confident conclusions about what other people think, treated as observations rather than as guesses. Almost always negative and almost never checked.',
-        '**Fortune-telling.** Certainty about how something will go, which then justifies not attempting it, and the non-attempt is read afterwards as confirmation.',
-        '**Personalising.** Assuming responsibility for outcomes with many causes, including other people\'s moods.',
-        'The clinical point is not that these thoughts are irrational. It is that depression makes them feel like perception rather than interpretation. They arrive with the weight of an observation. Learning to catch them as they happen, write them down and check them against evidence is unglamorous, repetitive, and among the better-evidenced interventions available.',
-      ],
-    },
-  ],
-
   'services/punjabi-counselling': [
     {
       h2: 'Bringing family into it, or not',
@@ -93,33 +51,6 @@ export const depth2Other: Record<string, DepthSection[]> = {
         '**Reasons to be cautious.** Once a family member is in the room, what you can say changes, and it does not always change back. Where there is a significant power imbalance, a joint session can reproduce it rather than address it. And where the difficulty is partly about the freedom to have your own view, importing the audience defeats the purpose.',
         'The practical position taken here is that individual work is the default, joint sessions are possible and are planned deliberately rather than arranged casually, and nothing about your individual sessions is disclosed in a joint one without your agreement.',
         'It is also worth saying that supporting a family member without them attending is legitimate work in itself, see [how to support someone who is struggling](/guides/supporting-someone-who-is-struggling).',
-      ],
-    },
-  ],
-
-  'services/south-asian-mental-health': [
-    {
-      h2: 'What cultural competence should and should not mean',
-      body: [
-        'The phrase gets used loosely enough to be worth defining, because the version that helps and the version that irritates look similar from outside.',
-        '**What it should mean** is that the context does not have to be explained from scratch. That you do not spend twenty minutes establishing why a decision that looks straightforward is not. That references land. That a counsellor understands obligation as something other than dysfunction, and does not treat a family structure as a problem to be dismantled.',
-        '**What it should not mean** is a counsellor who believes they already know your family. Communities are not uniform, and assumptions about religion, region, migration history, class or generation are frequently wrong in ways that are difficult to correct once stated with confidence.',
-        'The working version is closer to cultural humility than cultural expertise: a starting position considerably closer to yours, combined with a habit of checking rather than assuming. In practice that sounds like "in some families that would mean X, is that how it works in yours?" rather than a confident account of your situation.',
-        'It also means being able to hold two things at once: that a cultural expectation can be genuinely valuable to you **and** genuinely costly, without a counsellor pushing you toward either abandoning it or accepting it. That is the specific thing people most often report not getting elsewhere.',
-      ],
-    },
-  ],
-
-  'services/online-counselling-bc': [
-    {
-      h2: 'What is different about the therapeutic relationship on video',
-      body: [
-        'The research finds working alliance in video therapy broadly comparable to in-person, with genuine inconsistency across studies. What that average conceals is a set of specific differences worth naming.',
-        '**Silence works differently.** In a room, a pause is comfortable and legible. On video, a few seconds of silence reads as a connection problem, and both people tend to fill it. That is a real loss, because silence in therapy is frequently where the useful thing surfaces. Counsellors who work by video learn to name it, "take your time, I am still here", and clients get used to it within a few sessions.',
-        '**You see your counsellor\'s face more closely than you would in a room,** and less of everything else. That amplifies facial expression and removes posture and gesture, which changes what you read from them.',
-        '**The transition is missing.** Arriving at a building and leaving it did psychological work. Ten unclaimed minutes on either side replaces it, and skipping that is the most common complaint about the format.',
-        '**Control shifts toward the client** in ways that are mostly beneficial. You are in your own space, you can end the call, and for people with trauma histories that additional control is frequently the reason video works better for them rather than worse.',
-        'None of this is predictable in advance. Two or three sessions is enough to know, and concluding it is not for you is a legitimate finding rather than a failure.',
       ],
     },
   ],

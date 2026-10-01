@@ -81,6 +81,18 @@ export const moreAudiences4: Audience[] = [
         ],
       },
     ],
+    /* SOMETHING HR CAN ACTUALLY USE — 1 Oct 2026. The workplace cluster is
+       the site's largest source of impressions (1,884, 17 clicks, no
+       book_click) and this page told an employer it "can make it reachable"
+       without giving them anything to make it reachable with. Neutral by
+       design: no hours, no outcomes, not described as an EAP, and nothing an
+       employee would read as the employer watching. */
+    pasteBlock: {
+      h2: 'Paste this into your benefits page',
+      intro: 'If you keep a benefits page, an intranet or a manager’s toolkit, this paragraph can go in as it stands. The link is tagged so the practice can see that a visit came from an HR page, and nothing about who.',
+      text: 'Westpeak Wellness offers counselling by secure video with Registered Clinical Counsellors, in English, Punjabi or Tagalog, anywhere in BC; one counsellor also sees clients elsewhere in Canada. The first 30-minute consultation is free. You book directly, pay at booking and claim on your own plan where it covers counselling, and your employer is not told. It is not a crisis service: in an emergency call 911 or 9-8-8. Book here:',
+      path: '/book?utm_source=hr',
+    },
     servicesThatFit: [
       { href: '/compare/efap-vs-private-counselling', label: 'EFAP vs private counselling', why: 'The comparison to send an employee who has used up the EFAP sessions or wants continuity.' },
       { href: '/resources/workplace-mental-health-bc', label: 'Mental health and work in BC', why: 'Leave, accommodation, disability insurance and WorkSafeBC, from the employee side.' },

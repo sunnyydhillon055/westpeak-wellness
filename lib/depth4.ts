@@ -74,33 +74,12 @@ export const depth4: Record<string, DepthSection[]> = {
    * existing page at query phrasings Search Console proves it is being shown
    * for but never says in a heading. Exact-match H2s, direct answers first. */
 
-  'services/trauma-therapy': [
-    {
-      h2: 'Working with an online trauma therapist',
-      body: [
-        'The phrase people actually search is "online trauma therapist", and it deserves a direct answer: trauma therapy over secure video is an established practice, not a pandemic improvisation. The structured trauma protocols: EMDR with on-screen or self-administered bilateral stimulation, cognitive processing work, stabilisation and resourcing, all adapt to video, and the [research on video-delivered therapy](/guides/is-online-therapy-as-effective-as-in-person) includes trauma-focused work specifically.',
-        'Two things matter more online than in a room, and both are manageable. The first is your space: trauma work needs privacy and a plan for the hour after the session, not a car in a work parking lot before a shift. The second is pacing, which is a clinical skill rather than a format property: a trauma therapist who rushes is a problem in any medium, and one who paces well loses nothing over video. For some people the screen genuinely helps: being in your own home, with your own exits, changes what feels sayable.',
-        'And where the work keeps being cut short by the standard hour. A target memory that takes twenty minutes just to access. The [90-minute EMDR intensive](/services/emdr-therapy) exists for exactly that arithmetic, once stability is in place.',
-      ],
-    },
-  ],
-
   'services/emdr-therapy': [
     {
       h2: 'EMDR online: how the therapy works over video',
       body: [
         'EMDR online replaces the therapist’s moving hand with an on-screen target, alternating audio tones, or self-administered tapping, adaptations with years of clinical use behind them, not workarounds. Everything else about the method is unchanged: the same eight phases, the same preparation before processing, the same closing discipline at the end of every session.',
-        'Practically, online EMDR asks for a private room, headphones, and a stable connection, and it removes the commute that would otherwise bracket an emotionally heavy hour on both sides. For the longer [90-minute intensive format](/services/emdr-therapy), that absence of a commute turns out to matter more, not less: the session can end with proper closing and then simply… end, in your own space.',
-      ],
-    },
-  ],
-
-  'services/anxiety-counselling': [
-    {
-      h2: 'Anxiety counselling online: why the format fits this problem',
-      body: [
-        'For anxiety specifically, online counselling solves a problem the condition itself creates: the appointment is reachable on the days the anxiety says the drive, the waiting room, or the unfamiliar building is too much. Nobody white-knuckles a commute to get help with the thing the commute triggers.',
-        'The evidence base for video-delivered anxiety treatment is among the strongest in all of online therapy, structured approaches like CBT translate almost without loss, and the skills-practice between sessions happens in the exact environment the anxiety lives in, which is a quiet advantage over learning calm in an office you will never be anxious in. The [effectiveness guide](/guides/is-online-therapy-as-effective-as-in-person) covers the research; the free consultation is how you test the fit for yourself.',
+        'Practically, online EMDR asks for a private room, headphones, and a stable connection, and it removes the commute that would otherwise bracket an emotionally heavy hour on both sides. For the longer [90-minute intensive format](/compare/emdr-intensive-vs-weekly-emdr), that absence of a commute turns out to matter more, not less: the session can end with proper closing and then simply… end, in your own space.',
       ],
     },
   ],
@@ -148,16 +127,6 @@ export const depth4: Record<string, DepthSection[]> = {
       body: [
         'The phrase people search is "online couples counselling bc", and the practical question inside it is simple: does couples work survive the screen? The structured approaches used here translate directly: assessment questionnaires, guided conversations, between-session practice, and the format solves the scheduling problem that sinks more couples therapy than any clinical issue does: two working adults, one appointment, no babysitter needed for the commute portion of the evening.',
         'The setup that works: both partners on one couch and one camera where possible. The therapist reads the space between you, and sharing a frame keeps that visible. Where life requires it (a rotation, a work trip, a separation-in-progress), three-way video from two locations is workable and sometimes clinically useful. The one non-negotiable is the same as in-person: a private hour, phones down, door shut.',
-      ],
-    },
-  ],
-
-  'services/depression-counselling': [
-    {
-      h2: 'Depression counselling online: when leaving the house is the barrier',
-      body: [
-        'For depression specifically, online counselling removes the tax the condition itself levies on getting help: the shower-dress-drive-waiting-room sequence that can consume a whole day’s capacity. A session you can attend from the corner of the couch is not a lesser session. It is the one that actually happens during the weeks when the alternative was cancelling.',
-        'Video-delivered treatment for depression carries one of the stronger evidence bases in online therapy, and behavioural approaches adapt naturally: the work happens in the environment where the patterns live. The honest caveat runs the other way, where isolation is a driver, sessions should be a bridge back toward the world, not a reason never to re-enter it, and a decent counsellor holds that line deliberately. The [effectiveness research](/guides/is-online-therapy-as-effective-as-in-person) covers the evidence in full.',
       ],
     },
   ],

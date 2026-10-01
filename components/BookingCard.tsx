@@ -27,6 +27,7 @@ export default function BookingCard({
   price,
   duration = '50 minutes',
   service,
+  bookHref = site.bookingPath,
 }: {
   heading?: string;
   /** Session fee for this service, e.g. "$140". Omitted on pages where a
@@ -36,6 +37,9 @@ export default function BookingCard({
   /** Named only so the copy can be specific; never used to preselect a paid
    *  service, because the public calendar offers the free consultation only. */
   service?: string;
+  /** The calendar the button opens. The service page passes the same href
+   *  as its hero, so one page never offers two calendars (1 Oct 2026). */
+  bookHref?: string;
 }) {
   return (
     <aside className="booking-card" aria-labelledby="bk-h">
@@ -76,7 +80,7 @@ export default function BookingCard({
         </ul>
 
         <div className="btn-row">
-          <Link className="btn btn--primary" href={site.bookingPath}>
+          <Link className="btn btn--primary" href={bookHref}>
             Book the free consultation
           </Link>
           <Link className="btn btn--ghost" href="/faq">

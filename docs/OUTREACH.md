@@ -89,9 +89,10 @@ https://www.westpeakwellness.com/resources/workplace-mental-health-bc?utm_source
 
 If it would be useful on an intranet, a benefits page or a manager's
 toolkit, please link to it freely. We also offer counselling in English,
-Punjabi and Tagalog by secure video, with evening times, and a page for
-employers on what counselling support for a team can actually look like:
-https://www.westpeakwellness.com/resources/counselling-support-for-bc-teams?utm_source=hr
+Punjabi and Tagalog by secure video, and our page for employers has a short
+paragraph written to be pasted straight into a benefits page, with a copy
+button:
+https://www.westpeakwellness.com/for/employers-and-hr?utm_source=hr#paste-this-into-your-benefits-page
 
 Thank you,
 [Name]

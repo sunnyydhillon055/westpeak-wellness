@@ -1,4 +1,6 @@
 import { cityContexts, type CityContext } from '@/lib/city-context';
+import { headingId } from '@/lib/toc';
+import { fallbackFee } from '@/lib/cliniko-catalog';
 
 /* FIFTY CITY × SERVICE PAGES, AND THE RULE THAT KEEPS THEM HONEST.
  *
@@ -64,7 +66,7 @@ export const pairs: Pair[] = [
     ],
     faqs: [
       { q: 'Can we join from two separate locations?', a: 'Yes, and some couples deliberately do, occasionally because one partner travels, occasionally because separate rooms make a particular conversation more possible rather than less.' },
-      { q: 'How long is a couples session?', a: 'Fifty minutes at $170, with a 110-minute extended session at $340 for work that genuinely needs the longer run. The extended format is usually a considered choice rather than the starting point.' },
+      { q: 'How long is a couples session?', a: `Fifty minutes at ${fallbackFee('Couples Counselling')}, with a 110-minute extended session at ${fallbackFee('Couples Extended')} for work that genuinely needs the longer run. The extended format is usually a considered choice rather than the starting point.` },
     ],
   },
 
@@ -146,7 +148,7 @@ export const pairs: Pair[] = [
       /* Search Console, 17 Sep 2026: 70 impressions a quarter for marriage counselling Abbotsford, and the word appeared nowhere on this page. */
       { q: 'Is this the same as marriage counselling?', a: 'Yes. "Marriage counselling" is what most people in Abbotsford type, "couples therapy" is what the profession calls it, and the work is the same: married, common-law, engaged or neither. The only difference the word makes is that a couple searching for marriage counselling is often further along, sometimes at the point where one of them has said the word divorce, and that is worth saying at the first call so the pace is right.' },
       { q: 'Do you do premarital or pre-commitment work?', a: 'Yes, and it is generally more straightforward than work begun in a crisis, largely because nobody arrives already keeping score.' },
-      { q: 'Can we book a longer first session?', a: 'A 110-minute extended session is available at $340 where there is a lot to lay out. Most couples start with the standard 50 minutes and decide from there.' },
+      { q: 'Can we book a longer first session?', a: `A 110-minute extended session is available at ${fallbackFee('Couples Extended')} where there is a lot to lay out. Most couples start with the standard 50 minutes and decide from there.` },
     ],
   },
 
@@ -731,3 +733,21 @@ export const pairsForService = (service: string) => pairs.filter((p) => p.servic
 
 export const cityFor = (slug: string): CityContext | undefined =>
   cityContexts.find((c) => c.slug === slug);
+
+/* WHERE A CONDITION CITY PAGE SENDS ITS READER UP — 1 Oct 2026.
+ *
+ * Anxiety, depression and trauma are conditions: they have city pages but no
+ * service page of their own, and their up-link read "the anxiety counselling
+ * page" while pointing at individual therapy. The province-level answer now
+ * lives under its own heading on the service each condition books into, so
+ * the link names the query and lands on that heading. The ids come from the
+ * headings through headingId, so a retitle moves the link with it. */
+const up = (service: string, h2: string, label: string) => ({
+  href: `/services/${service}#${headingId(h2)}`,
+  label,
+});
+export const CONDITION_UPLINK: Record<string, { href: string; label: string } | undefined> = {
+  'trauma-therapy': up('emdr-therapy', 'Online trauma therapy in BC, with and without EMDR', 'online trauma therapy across BC'),
+  'anxiety-counselling': up('individual-therapy', 'Online anxiety counselling in BC', 'online anxiety counselling across BC'),
+  'depression-counselling': up('individual-therapy', 'Online depression counselling in BC', 'online depression counselling across BC'),
+};

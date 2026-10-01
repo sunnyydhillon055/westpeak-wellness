@@ -1,5 +1,6 @@
 import { practitioners, type Practitioner } from '@/lib/practitioners';
 import { site } from '@/lib/site';
+import { counsellorsFor, bookHrefFor } from '@/lib/city-service-page';
 
 /* THE HERO BOOKING ACTION, ASSEMBLED FROM DATA — 1 Oct 2026.
  *
@@ -52,23 +53,63 @@ export type BookingCta = {
   practitioner?: Practitioner;
 };
 
-/* `fallback` is the page-specific label the template would show anyway —
-   "Book a free consultation in Kelowna". A language tag replaces it with the
-   counsellor-attached version and the narrowed /book URL. */
-export function bookingCtaFor(opts: { language?: string; fallback: string }): BookingCta {
-  const { language, fallback } = opts;
+/* WHICH CALENDAR A SERVICE BOOKS INTO — 1 Oct 2026.
+ *
+ * The service pages routed on language alone, so /services/couples-therapy
+ * opened the practice-wide /book, which shows a counsellor who does not offer
+ * couples work beside the one who does. The city-service template already
+ * answered this from the roster (lib/city-service-page.ts); this is the same
+ * rule exported once, so the service, card and language templates cannot
+ * each grow their own.
+ *
+ *   language set, and somebody accepting and bookable speaks it
+ *       -> that counsellor's calendar, label suffix names the language
+ *   otherwise, exactly one accepting BC counsellor offers the service and
+ *   she has an online calendar
+ *       -> her calendar, no suffix (the label never names a person)
+ *   otherwise
+ *       -> bare /book, where the reader chooses
+ *
+ * `labelSuffix` is the words to append after "Book a free consultation", or
+ * '' when the page's own label should stand. `slug` is the counsellor the
+ * link is narrowed to, undefined when it is not narrowed. */
+export type BookingTarget = { href: string; labelSuffix: string; slug: string | undefined };
+
+export function bookingFor(service: string | undefined, language?: string): BookingTarget {
   if (language) {
     const who = counsellorForLanguage(language);
     const name = who?.languages.find((l) => l.tag === language)?.name;
     if (who && name) {
       return {
         href: `${site.bookingPath}?with=${who.slug}`,
-        label: `Book a free consultation with a ${name}-speaking counsellor`,
-        practitioner: who,
+        labelSuffix: ` with a ${name}-speaking counsellor`,
+        slug: who.slug,
       };
     }
   }
-  return { href: site.bookingPath, label: fallback };
+  if (service) {
+    const offering = counsellorsFor({ bookingService: service });
+    if (offering.length === 1 && offering[0].bookable) {
+      return { href: bookHrefFor(offering), labelSuffix: '', slug: offering[0].slug };
+    }
+  }
+  return { href: site.bookingPath, labelSuffix: '', slug: undefined };
+}
+
+/* `fallback` is the page-specific label the template would show anyway —
+   "Book a free consultation in Kelowna". A language tag replaces it with the
+   counsellor-attached version and the narrowed /book URL. A `service` (its
+   slug, as the roster spells it in `services`) narrows the URL when only one
+   counsellor offers it, and keeps the page's own label. */
+export function bookingCtaFor(opts: { language?: string; service?: string; fallback: string }): BookingCta {
+  const { language, service, fallback } = opts;
+  const t = bookingFor(service, language);
+  const practitioner = t.slug ? practitioners.find((p) => p.slug === t.slug) : undefined;
+  return {
+    href: t.href,
+    label: t.labelSuffix ? `Book a free consultation${t.labelSuffix}` : fallback,
+    ...(practitioner ? { practitioner } : {}),
+  };
 }
 
 /* "EMDR Therapy" → "EMDR therapy"; "Couples Therapy" → "couples therapy".

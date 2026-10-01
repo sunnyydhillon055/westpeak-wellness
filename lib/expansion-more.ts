@@ -1,4 +1,5 @@
 import type { RegionPage } from './expansion';
+import { fallbackFee } from '@/lib/cliniko-catalog';
 
 /* Remaining Alberta pages, and the whole Ontario cluster.
  *
@@ -59,7 +60,7 @@ export const albertaMore: RegionPage[] = [
     faqs: [
       { q: 'Does AHCIP cover any counselling at all?', a: 'It covers care delivered inside the public system, Alberta Health Services programmes, and counselling provided by a physician. It does not cover a private-practice Registered Clinical Counsellor. Public options exist and carry waitlists; the Alberta Mental Health Help Line on 1-877-303-2642 can tell you what is available in your area.' },
       { q: 'Will my plan reimburse a counsellor registered in another province?', a: 'Usually, and it is worth asking explicitly. Most plans define eligibility by the practitioner’s registration rather than by where they sit, so an RCC registered in BC is typically claimable by an Alberta plan member. Some plans word it differently. Ask before booking rather than after.' },
-      { q: 'What does a session cost?', a: '$140 for a 50-minute individual session, $170 for couples, and $190 for a 90-minute EMDR intensive. The first 30-minute consultation is free.' },
+      { q: 'What does a session cost?', a: `${fallbackFee('Individual Counselling')} for a 50-minute individual session, ${fallbackFee('Couples Counselling')} for couples, and ${fallbackFee('EMDR Intensive')} for a 90-minute EMDR intensive. The first 30-minute consultation is free.` },
     ],
     related: [
       { href: '/alberta', label: 'Online counselling across Alberta' },
