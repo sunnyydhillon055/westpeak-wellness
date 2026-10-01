@@ -80,8 +80,15 @@ async function fetchOne(slug: string, practitionerId: string): Promise<Availabil
     `/appointment_types/${CONSULT_TYPE}/available_times?from=${day(from)}&to=${day(to)}`;
   try {
     /* No cache option on the fetch: unstable_cache around this function owns
-       the freshness, and a no-store fetch inside it is refused by Next 14. */
-    const res = await fetch(url, { headers: headers(a.key) });
+       the freshness, and a no-store fetch inside it is refused by Next 14.
+
+       A timeout, since 1 Oct 2026: /book streams the lines built from this
+       behind a Suspense boundary, so a Cliniko that accepts the connection
+       and never answers would hold the response open rather than merely
+       delaying the page. Eight seconds is longer than any answer seen from
+       the endpoint; past it the entry carries an error and the page prints
+       nothing, which is the honest version. */
+    const res = await fetch(url, { headers: headers(a.key), signal: AbortSignal.timeout(8_000) });
     if (!res.ok) return empty(slug, `HTTP ${res.status} ${(await res.text()).slice(0, 120)}`);
     const body = (await res.json()) as { available_times?: { appointment_start: string }[] };
     const starts = (body.available_times ?? []).map((t) => t.appointment_start).filter(Boolean);
