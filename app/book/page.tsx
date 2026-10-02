@@ -16,7 +16,7 @@ import { timeZoneNote, PACIFIC } from '@/lib/availability-summary';
 import { PROVINCE_NAME, type Province } from '@/lib/crisis';
 import { consultationAvailability, availabilityLine } from '@/lib/cliniko-availability';
 import { readCatalog, FALLBACK_CATALOG, type Catalog } from '@/lib/cliniko-catalog';
-import { sessionFeesPhrase } from '@/lib/book-fees';
+import { sessionFeesPhrase, sessionLengthsLine } from '@/lib/book-fees';
 import { shortAvailabilityLine } from '@/lib/book-card';
 import MailLink from '@/components/MailLink';
 import BookLink from '@/components/BookLink';
@@ -75,9 +75,13 @@ const availability = cache(() => consultationAvailability());
    catalogue (lib/book-fees.ts), never typed. Streamed like the lines above so
    the shell does not wait on the catalogue read; the fallback is the same
    sentence from the catalogue's known-good values, so the line is the same
-   length either way and nothing moves when the live one lands. */
-function FeesText({ catalog }: { catalog: Catalog }) {
-  const phrase = sessionFeesPhrase(catalog);
+   length either way and nothing moves when the live one lands.
+
+   Narrowed to the chosen counsellor's services on /book?with=, and to the
+   two couples formats on a couples consultation (lib/book-fees.ts). */
+type FeeOpts = { services?: readonly string[]; couples?: boolean };
+function FeesText({ catalog, opts }: { catalog: Catalog; opts: FeeOpts }) {
+  const phrase = sessionFeesPhrase(catalog, opts);
   return phrase ? (
     <>
       {' '}Sessions after it: {phrase}, card taken at booking. Whether your plan reimburses a
@@ -85,8 +89,8 @@ function FeesText({ catalog }: { catalog: Catalog }) {
     </>
   ) : null;
 }
-async function LiveFees() {
-  return <FeesText catalog={await readCatalog()} />;
+async function LiveFees({ opts }: { opts: FeeOpts }) {
+  return <FeesText catalog={await readCatalog()} opts={opts} />;
 }
 
 async function CardAvailability({ slug, first }: { slug: string; first: string }) {
@@ -201,6 +205,43 @@ export default async function Book({
      Null when it cannot be read, and then nothing is printed. */
   const who = asked && asked.acceptingNewClients ? asked : undefined;
   const askedButFull = asked && !asked.acceptingNewClients ? asked : undefined;
+
+  /* A COUPLES CONSULTATION — ?for=couples, 1 Oct 2026 (wf/book-and-cta).
+     The couples pages (/services/couples-therapy, the city couples pages,
+     /for/couples) link /book?with=<slug>&for=couples#calendar, and this page
+     read only `with`, so a couple arrived at a page written for one person:
+     "what brought you here", and an individual fee first. Honoured only with
+     a counsellor who offers couples work; anything else is ignored and the
+     page is what it was. What it changes: the heading, the question, the
+     fees (the two couples formats only), one line on how both partners join,
+     and the scheduler_open detail. Whether the consult link works on two
+     devices, and whether a separate couples consultation type is wanted, is
+     the owner's to confirm; until then the line says only what
+     lib/depth-services.ts already says, that both partners can join. */
+  const couples = searchParams?.for === 'couples' && !!who && who.services.includes('couples-therapy');
+  const feeOpts: FeeOpts = couples ? { couples: true } : { services: who?.services };
+  /* Session lengths for the checklist below, from the catalogue's known-good
+     values (static prose, like fallbackFee), narrowed the same way. */
+  const lengths = sessionLengthsLine(FALLBACK_CATALOG, feeOpts);
+
+  /* THE PUNJABI THREAD, KEPT UNDER THE HEADING — 1 Oct 2026 (wf/book-and-cta).
+     The way to /book?with=<Punjabi-speaking counsellor> runs through /punjabi
+     and the region pages' Gurmukhi buttons, and the one Gurmukhi line on this
+     page sat below the calendar and the whole request form. When the chosen
+     counsellor can be booked in Punjabi it is MOVED under the heading; on
+     bare /book it stays in the notes below the calendar. Defined once so it
+     is never on the page twice. Reused verbatim from /punjabi, which has been
+     reviewed; nothing here is newly composed Punjabi (test/book-page.test.mts). */
+  const paFirst = !!who && who.bookable && who.languages.some((l) => l.tag === 'pa');
+  const punjabiLine = (
+    <>
+      <span className={gurmukhi.className} lang="pa">
+        ਸੈਸ਼ਨ ਪੰਜਾਬੀ ਵਿੱਚ, ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ, ਜਾਂ ਦੋਹਾਂ ਵਿੱਚ ਹੋ ਸਕਦੇ ਹਨ।
+      </span>{' '}
+      The consultation can be in Punjabi, English, or both.{' '}
+      <Link href="/punjabi" lang="pa" className={gurmukhi.className}>ਪੰਜਾਬੀ ਵਿੱਚ ਜਾਣਕਾਰੀ</Link>
+    </>
+  );
   const fallback = defaultBookingPractitioner();
 
   /* The founder is on the Cliniko calendar; a counsellor who is not yet on it
@@ -262,7 +303,7 @@ export default async function Book({
         <div className="container">
           <p className="eyebrow">Free · 30 minutes · No commitment</p>
           <h1 style={{ marginBottom: 10 }}>
-            Book a free consultation{who ? ` with ${who.name.split(' ')[0]}` : accepting.length > 1 ? ` with ${accepting.map((p) => p.name.split(' ')[0]).join(' or ')}` : ''}.
+            Book a free {couples ? 'couples ' : ''}consultation{who ? ` with ${who.name.split(' ')[0]}` : accepting.length > 1 ? ` with ${accepting.map((p) => p.name.split(' ')[0]).join(' or ')}` : ''}.
           </h1>
           <p className="lede" style={{ marginBottom: 0 }}>
             A short conversation over secure video to work out whether this is a fit. Nothing is
@@ -271,6 +312,7 @@ export default async function Book({
               <> {who.name.split(' ')[0]} speaks {who.languages.map((l) => l.name).join(' and ')}.</>
             )}
           </p>
+          {paFirst && <p style={{ margin: '10px 0 0' }}>{punjabiLine}</p>}
         </div>
       </section>
 
@@ -311,14 +353,14 @@ export default async function Book({
               Registered Clinical Counsellor means {RCC_PLAIN}.
             </li>
             <li>
-              <strong>What is asked.</strong> What brought you here, in your own words. No form, and
-              no history to assemble.
+              <strong>What is asked.</strong> What brought {couples ? 'the two of you' : 'you'} here, in
+              your own words. No form, and no history to assemble.
             </li>
             <li>
               <strong>What it costs.</strong> Nothing is charged and no card is taken. You decide
               afterwards, in your own time.
-              <Suspense fallback={<FeesText catalog={FALLBACK_CATALOG} />}>
-                <LiveFees />
+              <Suspense fallback={<FeesText catalog={FALLBACK_CATALOG} opts={feeOpts} />}>
+                <LiveFees opts={feeOpts} />
               </Suspense>
               {/* 15 Oct to 31 Dec only, on the Pacific date (lib/seasonal.ts). */}
               {planYearPageLineShown() && (
@@ -510,7 +552,7 @@ export default async function Book({
                 <p className="eyebrow" style={{ margin: 0 }}>Free 30-minute consultation</p>
                 <h2 style={{ margin: '2px 0 0', fontSize: '1.7rem', lineHeight: 1.15 }}>
                   {who
-                    ? <>You are booking with {withLetters(who)}</>
+                    ? <>You are booking {couples ? 'a couples consultation ' : ''}with {withLetters(who)}</>
                     : <>Pick a time, then choose {accepting.map((p) => p.name.split(' ')[0]).join(' or ')} on the calendar</>}
                 </h2>
                 {/* ONLINE ONLY, SAID WHERE THE ADDRESS APPEARS — 1 Oct 2026.
@@ -521,6 +563,14 @@ export default async function Book({
                   Every session, this one included, is by secure video from wherever you are. There
                   is nowhere to attend, whatever address the booking summary shows.
                 </p>
+                {/* Inside the calendar box's heading on purpose: a couples link
+                    arrives at #calendar, below the hero. */}
+                {couples && (
+                  <p style={{ margin: '8px 0 0', fontSize: '.95rem', lineHeight: 1.55 }}>
+                    <strong>For the two of you:</strong> one of you picks the time, and both partners
+                    can join the free 30-minute consultation.
+                  </p>
+                )}
               </div>
               {/* THE TWO THINGS THE FUNNEL WAS MISSING — 17 Sep 2026.
                   The conversion log: 73 people reached this calendar in a month,
@@ -547,6 +597,7 @@ export default async function Book({
                 title={`Book a free 30-minute consultation${who ? ` with ${who.name.split(' ')[0]}` : ''}`}
                 page="/book"
                 who={who?.slug}
+                openDetail={couples ? 'couples' : undefined}
                 cta="Show available times"
                 placeholder={
                   <>
@@ -693,15 +744,7 @@ export default async function Book({
                 when the consultation can actually be in Punjabi: offering it to
                 somebody who arrived for a Tagalog-speaking counsellor is the
                 same false promise this page was fixed for at the other end. */}
-            {(!who || who.languages.some((l) => l.tag === 'pa')) && (
-              <p>
-                <span className={gurmukhi.className} lang="pa">
-                  ਸੈਸ਼ਨ ਪੰਜਾਬੀ ਵਿੱਚ, ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ, ਜਾਂ ਦੋਹਾਂ ਵਿੱਚ ਹੋ ਸਕਦੇ ਹਨ।
-                </span>{' '}
-                The consultation can be in Punjabi, English, or both.{' '}
-                <Link href="/punjabi">ਪੰਜਾਬੀ ਵਿੱਚ ਜਾਣਕਾਰੀ</Link>
-              </p>
-            )}
+            {(!who || who.languages.some((l) => l.tag === 'pa')) && !paFirst && <p>{punjabiLine}</p>}
             {who && !who.languages.some((l) => l.tag === 'pa') && (
               <p>
                 <strong>The consultation can be in {languageList}</strong>, including moving between
@@ -872,7 +915,7 @@ export default async function Book({
           <ul className="checklist" style={{ marginTop: 26 }}>
             <li>Sessions are fully online, anywhere in {provinceList}</li>
             <li>Available in {languageList}</li>
-            <li>Individual sessions are 50 minutes; couples sessions are 50 or 110</li>
+            {lengths && <li>{lengths}</li>}
             <li>Fees and payment are on the <Link href="/pricing">fees page</Link></li>
             <li>Many extended health plans reimburse an RCC, depending on the plan; <Link href="/resources/does-my-plan-cover-counselling-bc">check yours</Link></li>
           </ul>
@@ -880,7 +923,12 @@ export default async function Book({
           <p style={{ marginTop: 18 }}>
             Would rather read first? The <Link href="/faq">FAQ</Link> covers fees and
             confidentiality, <Link href="/services">services</Link> covers the approaches, and{' '}
-            <Link href="/about">about your counsellor</Link> covers who you would be speaking to.
+            {/* Her own profile, not /about (the practice and founder page):
+                1 Oct 2026, wf/book-and-cta. */}
+            {who
+              ? <Link href={`/practitioners/${who.slug}`}>about {who.name.split(' ')[0]}</Link>
+              : <Link href="/practitioners">the counsellors&rsquo; profiles</Link>}{' '}
+            {who ? 'covers' : 'cover'} who you would be speaking to.
             To ask something before booking anything, the <Link href="/contact">contact page</Link>{' '}
             gets a reply within one business day.
           </p>

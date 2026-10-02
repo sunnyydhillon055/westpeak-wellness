@@ -340,7 +340,7 @@ test('stale measurement is listed: GSC over 10 days, no snapshot in 8, no report
 /* ---- 185: tool results book the counsellor who offers the service -------- */
 
 test('a couples or EMDR result opens the calendar of the counsellor who offers it', () => {
-  assert.equal(bookingFor('couples-therapy').href, '/book?with=camille-granda');
+  assert.equal(bookingFor('couples-therapy').href, '/book?with=camille-granda&for=couples#calendar');
   assert.equal(bookingFor('individual-therapy').href, '/book');
   const trauma = WHICH_SERVICE_OUTCOMES.find((o) => o.tag === 'trauma')!;
   assert.equal(trauma.href, '/services/emdr-therapy');

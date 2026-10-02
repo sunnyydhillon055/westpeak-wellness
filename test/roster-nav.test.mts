@@ -49,9 +49,9 @@ test('language pages: the header and phone bar open the same calendar as the pag
     assert.equal(bookHrefFor(path, roster, B), page, `${path}: header and page disagree`);
     assert.match(page, /\?with=/, `${path}: nobody accepting speaks ${tag}`);
   }
-  assert.equal(bookHrefFor('/punjabi', roster, B), `${B}?with=savneet-singh`);
-  assert.equal(bookHrefFor('/punjabi-counselling/vancouver/', roster, B), `${B}?with=savneet-singh`);
-  assert.equal(bookHrefFor('/tagalog-counselling/surrey', roster, B), `${B}?with=camille-granda`);
+  assert.equal(bookHrefFor('/punjabi', roster, B), `${B}?with=savneet-singh#calendar`);
+  assert.equal(bookHrefFor('/punjabi-counselling/vancouver/', roster, B), `${B}?with=savneet-singh#calendar`);
+  assert.equal(bookHrefFor('/tagalog-counselling/surrey', roster, B), `${B}?with=camille-granda#calendar`);
 });
 
 test('everywhere else the Book link is unchanged', () => {
@@ -62,8 +62,8 @@ test('everywhere else the Book link is unchanged', () => {
   /* The couples page is tagged with a service nobody accepting offers in
      Punjabi, so the header must not narrow it either. */
   assert.equal(bookHrefFor('/for/punjabi-speaking-couples', roster, B), B);
-  assert.equal(bookHrefFor('/practitioners/camille-granda', roster, B), `${B}?with=camille-granda`);
-  assert.equal(bookHrefFor('/practitioners/savneet-singh/surrey/pa', roster, B), `${B}?with=savneet-singh`);
+  assert.equal(bookHrefFor('/practitioners/camille-granda', roster, B), `${B}?with=camille-granda#calendar`);
+  assert.equal(bookHrefFor('/practitioners/savneet-singh/surrey/pa', roster, B), `${B}?with=savneet-singh#calendar`);
   assert.equal(bookHrefFor('/practitioners/aman-bains-dhillon', roster, B), B);
   assert.equal(bookHrefFor(null, roster, B), B);
 });

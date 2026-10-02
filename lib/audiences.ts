@@ -73,6 +73,13 @@ export type Audience = {
    * cannot carry a fee or a reach nobody set. Only the h2 and intro live in
    * the data. */
   glance?: { h2: string; intro: string };
+  /* A READER WHOSE DAYS OFF MOVE — 1 Oct 2026 (wf/book-and-cta). Set on the
+   * shift, rotation and on-call pages (ROTATION below). The hero then offers
+   * a second route under the booking button: /book's "Ask for a time" form,
+   * where the counsellor replies with a time not yet on the calendar. The
+   * copy lives once, in app/for/[slug]/page.tsx; it names no hours, evenings
+   * or weekends, only that the reply is a time the calendar does not show. */
+  rotation?: boolean;
 };
 
 export type PasteBlock = { h2: string; intro: string; text: string; path?: string; after?: string; donts?: string[] };
@@ -351,7 +358,7 @@ const coreAudiences: Audience[] = [
     faqs: [
       { q: "Will this affect my licence or my employer?", a: "No. Private counselling is confidential and is not reported to your employer, your union, or your regulatory college. The limits are the standard ones: risk of serious harm, a child at risk, or a court order, and those apply to everyone." },
       { q: "Is this covered by WorkSafeBC?", a: "It may be, where the condition arises from work-related traumatic exposure, and a presumption applies for eligible first responders and certain other occupations. Your union or professional association can usually tell you quickly. Worth checking before paying out of pocket." },
-      { q: "I only have random days off. Can that work?", a: "Yes. Appointments do not have to be the same slot every week, and virtual sessions remove travel, which is the part that usually makes an irregular rotation unworkable." },
+      { q: "I only have random days off. Can that work?", a: "Yes. Appointments do not have to be the same slot every week, and virtual sessions remove travel, which is the part that usually makes an irregular rotation unworkable. If none of the open times on the calendar fall on your days off, [ask for a time](/book#ask-for-a-time) and the counsellor replies with one that is not on the calendar yet." },
       { q: "Does my EAP not cover this already?", a: "Often it covers a set number of sessions, and for many people that is the right starting point. Its limits are session caps and sometimes limited choice of practitioner, private therapy makes sense when you need longer work or a specific fit." },
     ],
     sources: [
@@ -460,6 +467,19 @@ const coreAudiences: Audience[] = [
   },
 ];
 
-export const audiences: Audience[] = [...coreAudiences, ...moreAudiences, ...moreAudiences2, ...moreAudiences3, ...moreAudiences4, ...moreAudiences5, ...moreAudiences6, ...punjabiAudiences, ...tagalogAudiences];
+/* The pages whose reader works shifts, rotations or on call, flagged here
+   rather than in five data files so the list is one place to read.
+   test/book-page.test.mts fails if a slug here stops resolving. */
+export const ROTATION: readonly string[] = [
+  'healthcare-and-shift-workers',
+  'rotational-and-camp-workers',
+  'first-responders',
+  'truck-drivers',
+  'trades-and-construction-workers',
+  'filipino-healthcare-workers-and-caregivers',
+];
+
+export const audiences: Audience[] = [...coreAudiences, ...moreAudiences, ...moreAudiences2, ...moreAudiences3, ...moreAudiences4, ...moreAudiences5, ...moreAudiences6, ...punjabiAudiences, ...tagalogAudiences]
+  .map((a) => (ROTATION.includes(a.slug) ? { ...a, rotation: true } : a));
 
 export const getAudience = (slug: string) => audiences.find((a) => a.slug === slug);

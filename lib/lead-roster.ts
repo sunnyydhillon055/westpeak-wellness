@@ -50,7 +50,8 @@ export function rosterLines(list: Practitioner[] = practitioners): RosterLine[] 
       return {
         slug: p.slug,
         who: withLetters(p),
-        href: `${site.domain}${bookHrefFor([p])}#calendar`,
+        /* bookHrefFor carries the #calendar hash itself since 1 Oct 2026. */
+        href: `${site.domain}${bookHrefFor([p])}`,
         detail: [
           languagePhrase(p.languages),
           andList(provinces),

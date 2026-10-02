@@ -48,7 +48,7 @@ test('every page that carries a language tag resolves to a counsellor who can ta
 test('a tagged page books with someone who speaks the language AND offers the service, or with nobody', () => {
   for (const t of allTagged) {
     const cta = bookingCtaFor({ language: t.language, service: t.service, fallback: 'fallback' });
-    const slug = new URLSearchParams(cta.href.split('?')[1] ?? '').get('with');
+    const slug = new URLSearchParams(cta.href.split('#')[0]!.split('?')[1] ?? '').get('with');
     if (!slug) {
       assert.equal(cta.href, site.bookingPath, `${t.slug}: no counsellor, so the practice calendar`);
       assert.equal(cta.label, 'fallback', `${t.slug}: no counsellor, so the page label`);
@@ -101,16 +101,16 @@ test('the English copy says Punjabi couples and EMDR are available only when som
 const hs = (t: { href: string; slug?: string }) => ({ href: t.href, ...(t.slug ? { slug: t.slug } : {}) });
 
 test('bookingFor narrows /book only to someone who fits', () => {
-  assert.deepEqual(hs(bookingFor('individual-therapy', 'pa')), { href: `${site.bookingPath}?with=savneet-singh`, slug: 'savneet-singh' });
-  assert.deepEqual(hs(bookingFor('couples-therapy', 'tl')), { href: `${site.bookingPath}?with=camille-granda`, slug: 'camille-granda' });
-  assert.deepEqual(hs(bookingFor(undefined, 'tl')), { href: `${site.bookingPath}?with=camille-granda`, slug: 'camille-granda' });
+  assert.deepEqual(hs(bookingFor('individual-therapy', 'pa')), { href: `${site.bookingPath}?with=savneet-singh#calendar`, slug: 'savneet-singh' });
+  assert.deepEqual(hs(bookingFor('couples-therapy', 'tl')), { href: `${site.bookingPath}?with=camille-granda&for=couples#calendar`, slug: 'camille-granda' });
+  assert.deepEqual(hs(bookingFor(undefined, 'tl')), { href: `${site.bookingPath}?with=camille-granda#calendar`, slug: 'camille-granda' });
   /* Nobody accepting offers couples or EMDR in Punjabi. */
   assert.deepEqual(hs(bookingFor('couples-therapy', 'pa')), { href: site.bookingPath });
   assert.deepEqual(hs(bookingFor('emdr-therapy', 'pa')), { href: site.bookingPath });
   /* Two counsellors offer individual work: the reader chooses on /book. */
   assert.deepEqual(hs(bookingFor('individual-therapy')), { href: site.bookingPath });
   /* One offers EMDR. */
-  assert.deepEqual(hs(bookingFor('emdr-therapy')), { href: `${site.bookingPath}?with=camille-granda`, slug: 'camille-granda' });
+  assert.deepEqual(hs(bookingFor('emdr-therapy')), { href: `${site.bookingPath}?with=camille-granda#calendar`, slug: 'camille-granda' });
   assert.deepEqual(hs(bookingFor(undefined)), { href: site.bookingPath });
   for (const svc of [undefined, 'individual-therapy', 'couples-therapy', 'emdr-therapy', 'punjabi-counselling']) {
     for (const lang of [undefined, 'pa', 'tl'] as const) {
@@ -122,8 +122,8 @@ test('bookingFor narrows /book only to someone who fits', () => {
 test('the language pages narrow /book to that counsellor and name the language, never the person', () => {
   const pa = bookingCtaFor({ language: 'pa', fallback: 'x' });
   const tl = bookingCtaFor({ language: 'tl', fallback: 'x' });
-  assert.equal(pa.href, `${site.bookingPath}?with=savneet-singh`);
-  assert.equal(tl.href, `${site.bookingPath}?with=camille-granda`);
+  assert.equal(pa.href, `${site.bookingPath}?with=savneet-singh#calendar`);
+  assert.equal(tl.href, `${site.bookingPath}?with=camille-granda#calendar`);
   assert.equal(pa.label, 'Book a free consultation with a Punjabi-speaking counsellor');
   assert.equal(tl.label, 'Book a free consultation with a Tagalog-speaking counsellor');
   for (const p of practitioners) {
@@ -188,7 +188,7 @@ test('#218 a province narrows /book to the one counsellor insured there, or to n
     assert.ok(insuredProvinces(p, vancouverToday()).includes('AB'), `${p.slug} is not insured for Alberta`);
   }
   const t = bookingCtaFor({ province: 'AB', fallback: 'Book' });
-  if (ab.length === 1) assert.equal(t.href, `${site.bookingPath}?with=${ab[0]!.slug}`);
+  if (ab.length === 1) assert.equal(t.href, `${site.bookingPath}?with=${ab[0]!.slug}#calendar`);
   else assert.equal(t.href, site.bookingPath);
   assert.equal(t.label, 'Book', 'the label never names a person');
   assert.equal(bookingFor(undefined, undefined, 'ZZ').href, site.bookingPath, 'a province nobody is insured in keeps the practice calendar');

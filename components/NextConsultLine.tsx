@@ -24,7 +24,11 @@ import { nextConsultEntries, NEXT_CONSULT_LABEL } from '@/lib/next-consult';
  * sends the browser two short lines; nothing here enters a client bundle
  * (the perf rule of 1 Oct 2026). It prints nothing at all when Cliniko could
  * not be read or nobody has a time this week. These are appointment times
- * Cliniko is offering, not opening hours, and they are Pacific time. */
+ * Cliniko is offering, not opening hours, and they are Pacific time.
+ *
+ * "book with Camille" ends in #calendar (1 Oct 2026, wf/book-and-cta): the
+ * reader has just been shown a time and asked for that calendar, so /book
+ * opens it on arrival instead of three screens above it. */
 export default async function NextConsultLine({
   location,
   slugs,
@@ -53,7 +57,7 @@ export default async function NextConsultLine({
         <span key={e.slug}>
           {i > 0 ? ' · ' : ''}
           {e.first}, {e.when}{' '}
-          <BookLink location={location} className="" href={`${site.bookingPath}?with=${e.slug}`}>
+          <BookLink location={location} className="" href={`${site.bookingPath}?with=${e.slug}#calendar`}>
             book with {e.first}
           </BookLink>
         </span>
