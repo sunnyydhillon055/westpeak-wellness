@@ -45,6 +45,11 @@ export type Resource = {
      counsellor who speaks it (lib/booking-cta.ts), and the header and phone
      bar follow (lib/roster-nav.ts LANGUAGE_PAGES). 1 Oct 2026. */
   language?: 'pa' | 'tl';
+  /* Set only on a page written for Alberta readers. Its booking links and
+     cards then go to the counsellor insured to practise there today
+     (insuredProvinces in lib/practitioners.ts), not the practice-wide
+     calendar, which also lists BC-only counsellors. 1 Oct 2026. */
+  province?: 'AB';
   /* Opt in to the "who you would talk to" cards, the fee line and the
      coverage line (lib/counsellor-cards.ts INFO_CARD_PAGES lists the pages
      that carry them today). 1 Oct 2026. */

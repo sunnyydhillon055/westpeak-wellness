@@ -180,6 +180,7 @@ export const moreGuides4: Guide[] = [
 
   {
     slug: 'supporting-someone-who-is-struggling',
+    service: 'family-counselling',
     title: 'How to support someone who is struggling',
     metaTitle: 'Supporting Someone Struggling | Westpeak',
     metaDescription:

@@ -1,7 +1,10 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { bookingCtaFor, bookingFor, counsellorForLanguage, serviceNoun } from '../lib/booking-cta.ts';
-import { practitioners } from '../lib/practitioners.ts';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { bookingCtaFor, bookingFor, counsellorForLanguage, counsellorsInProvince, serviceNoun } from '../lib/booking-cta.ts';
+import { practitioners, insuredProvinces, vancouverToday } from '../lib/practitioners.ts';
+import { guides } from '../lib/guides.ts';
 import { services } from '../lib/services.ts';
 import { audiences } from '../lib/audiences.ts';
 import { resources } from '../lib/resources.ts';
@@ -171,4 +174,69 @@ test('every audience page names itself on its button, in a few words', () => {
 test('a service name reads as a noun on a button, initialisms kept', () => {
   assert.equal(serviceNoun('EMDR Therapy'), 'EMDR therapy');
   assert.equal(serviceNoun('Couples Therapy'), 'couples therapy');
+});
+
+/* ---------- wf/guide-templates-next-step, 1 Oct 2026 ---------- */
+
+const read = (p: string) => readFileSync(join(import.meta.dirname, '..', p), 'utf8');
+
+test('#218 a province narrows /book to the one counsellor insured there, or to nobody', () => {
+  const ab = counsellorsInProvince('AB');
+  for (const p of ab) {
+    assert.equal(p.acceptingNewClients, true);
+    assert.equal(p.bookable, true);
+    assert.ok(insuredProvinces(p, vancouverToday()).includes('AB'), `${p.slug} is not insured for Alberta`);
+  }
+  const t = bookingCtaFor({ province: 'AB', fallback: 'Book' });
+  if (ab.length === 1) assert.equal(t.href, `${site.bookingPath}?with=${ab[0]!.slug}`);
+  else assert.equal(t.href, site.bookingPath);
+  assert.equal(t.label, 'Book', 'the label never names a person');
+  assert.equal(bookingFor(undefined, undefined, 'ZZ').href, site.bookingPath, 'a province nobody is insured in keeps the practice calendar');
+  for (const s of ['counselling-coverage-in-alberta', 'how-to-check-a-counsellor-in-alberta']) {
+    const r = resources.find((x) => x.slug === s)!;
+    assert.equal(bookingCtaFor({ language: r.language, province: r.province, fallback: 'x' }).href, t.href, `${s} does not book Alberta`);
+  }
+  /* BC-only counsellors never reach an Alberta button. */
+  const bcOnly = practitioners.filter((p) => !insuredProvinces(p, vancouverToday()).includes('AB')).map((p) => p.slug);
+  for (const s of bcOnly) assert.ok(!t.href.includes(s), `${s} is BC-only`);
+});
+
+/* Guides about one counsellor's work must say so, or their buttons open the
+   practice-wide calendar and spend a consultation on a mismatch. The one
+   exemption is a general guide whose first service link is an example. */
+const SERVICE_LINK_EXEMPT: Record<string, string> = {
+  'is-online-therapy-as-effective-as-in-person': 'about video therapy in general; EMDR is linked as one example of what works online',
+};
+
+test('#232 any guide whose first service link is couples, EMDR or family declares its service', () => {
+  for (const g of guides) {
+    const first = g.related.find((r) => r.href.startsWith('/services/'))?.href.slice('/services/'.length);
+    if (!first || !['couples-therapy', 'emdr-therapy', 'family-counselling'].includes(first)) continue;
+    if (SERVICE_LINK_EXEMPT[g.slug]) continue;
+    assert.equal(g.service, first, `${g.slug} links /services/${first} first but declares service ${g.service}`);
+  }
+  for (const k of Object.keys(SERVICE_LINK_EXEMPT)) assert.ok(guides.some((g) => g.slug === k), `exempt ${k} is not a guide`);
+});
+
+test('#232 a guide or comparison with a service books someone who offers it', () => {
+  const withService = [...guides, ...comparisons].filter((x) => x.service);
+  assert.ok(withService.length >= 10, `only ${withService.length} pages declare a service`);
+  for (const x of withService) {
+    const t = bookingFor(x.service, (x as { language?: string }).language);
+    if (t.slug) {
+      const p = practitioners.find((q) => q.slug === t.slug)!;
+      assert.ok(p.services.includes(x.service!), `${x.slug} books ${p.slug}, who does not offer ${x.service}`);
+      assert.equal(p.acceptingNewClients, true);
+    }
+  }
+  assert.match(read('app/guides/[slug]/page.tsx'), /bookingCtaFor\(\{ service: g\.service,/);
+  assert.match(read('app/compare/[slug]/page.tsx'), /bookingCtaFor\(\{ language: c\.language, service: c\.service,/);
+});
+
+test('#232 the approach buttons are counted and the band follows the page calendar', () => {
+  const a = read('app/approaches/[slug]/page.tsx');
+  assert.match(a, /<BookLink location="hero-approach"/);
+  assert.match(a, /<BookLink location="mid-approach"/);
+  assert.doesNotMatch(a, /<Link[^>]*href=\{site\.bookingPath\}/);
+  assert.match(a, /<CtaBand\s+bookHref=\{cta\.href\}/);
 });

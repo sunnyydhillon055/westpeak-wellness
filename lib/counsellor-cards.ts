@@ -1,4 +1,4 @@
-import { practitioners, withLetters, type Practitioner } from '@/lib/practitioners';
+import { practitioners, withLetters, insuredProvinces, vancouverToday, type Practitioner } from '@/lib/practitioners';
 import { placesFor } from '@/lib/practitioner-places';
 import { counsellorsFor, listOf } from '@/lib/city-service-page';
 import { money, type Catalog } from '@/lib/cliniko-catalog';
@@ -142,24 +142,135 @@ export const INFO_CARD_PAGES: Readonly<Record<'guides' | 'resources', readonly s
   ],
 };
 
+/* CARDS BY DEFAULT — 1 Oct 2026 (wf/guide-templates-next-step).
+ *
+ * INFO_CARD_PAGES above was 11 pages out of 62 guides and resources. Seven
+ * sampled live pages without it named no counsellor and offered one booking
+ * href, the bare /book; guides recorded one book_click in 44 days, on
+ * sick-days, which has the cards. So the cards are now the template's
+ * default, and the list that is kept is the list of pages that do NOT carry
+ * them:
+ *
+ *   - the crisis directory, which is for somebody who needs help now, not a
+ *     counsellor's profile;
+ *   - becoming-a-counsellor-in-bc, whose reader wants to become one;
+ *   - the GENTLE_CTA guides (lib/next-steps.ts) that did not already carry
+ *     the gentle-heading cards. Whether a guide about grief, intrusive
+ *     thoughts or watching someone drink should show a "who you would talk
+ *     to" block is the clinical judgement GENTLE_CTA's comment reserves for
+ *     the owner. They stay off until she records, page by page, which of
+ *     them get the gentle heading; removing a slug here is that decision.
+ *
+ * INFO_CARD_PAGES stays as the record of the pages that carried cards before
+ * this, which is how the gentle guides with cards (the leave guides) are told
+ * apart from the ones without. A test holds that NO_CARDS.guides is exactly
+ * GENTLE_CTA minus that list, so neither can move without the other. */
+export const NO_CARDS: Readonly<Record<'guides' | 'resources', readonly string[]>> = {
+  resources: ['bc-crisis-and-support-directory', 'becoming-a-counsellor-in-bc'],
+  guides: [
+    'intrusive-thoughts-and-what-they-mean',
+    'grief-without-a-timeline',
+    'what-trauma-actually-means',
+    'when-someone-you-love-is-drinking',
+    'supporting-someone-who-is-struggling',
+    'when-therapy-isnt-working',
+    'signs-it-might-be-time-for-therapy',
+    'workplace-bullying-in-bc',
+    'anger-that-arrives-too-fast',
+  ],
+};
+
 export const showsInfoCards = (area: 'guides' | 'resources', slug: string, optIn?: boolean): boolean =>
-  Boolean(optIn) || INFO_CARD_PAGES[area].includes(slug);
+  Boolean(optIn) || !NO_CARDS[area].includes(slug);
 
-/** Who the cards on an informational page show. The audience rule. */
-export const counsellorsForInfoPage = (page: { language?: string }): Practitioner[] =>
-  counsellorsForAudience(page);
+/** What an informational page is about, for deciding who it names. */
+export type InfoPage = { language?: string; service?: string; province?: string };
 
-/** The heading and intro, plain or gentle. No outcome claim, no hours. */
-export function infoCardCopy(gentle: boolean): { heading: string; intro: string } {
+/* Who the cards on an informational page show, and therefore whose next
+ * consultation time the closing block prints.
+ *
+ *   language  -> the audience rule: accepting, bookable, in BC, speaks it
+ *                (the Punjabi words page keeps Savneet only);
+ *   province  -> accepting and insured to practise there today
+ *                (insuredProvinces, so a lapsed policy drops her on the next
+ *                render), offering the service or individual work;
+ *   service   -> accepting, in BC, offering it (a couples guide shows only
+ *                the counsellor who does couples work);
+ *   otherwise -> accepting individual clients in BC.
+ *
+ * The founder is excluded by the accepting flag, never by name. */
+export function counsellorsForInfoPage(page: InfoPage): Practitioner[] {
+  if (page.language) {
+    const speakers = speaking(page.language);
+    return page.service ? speakers.filter((p) => p.services.includes(page.service!)) : speakers;
+  }
+  const service = page.service ?? 'individual-therapy';
+  if (page.province) {
+    const today = vancouverToday();
+    return practitioners.filter(
+      (p) => p.acceptingNewClients && insuredProvinces(p, today).includes(page.province!) && p.services.includes(service),
+    );
+  }
+  return counsellorsFor({ bookingService: service });
+}
+
+/* THE FEE FOR WHAT THE PAGE IS ABOUT — 1 Oct 2026.
+ *
+ * 37 of 42 guides stated no fee; a couples or EMDR reader who wanted the
+ * price had to find /pricing. This is the one closing line every guide,
+ * resource and comparison carries, matched to the page's service and read
+ * from the catalogue by Cliniko name, never typed. scripts/price-drift.mjs
+ * checks that every name below exists in the fallback catalogue and in
+ * Cliniko, so a renamed appointment type fails the build rather than
+ * dropping the line. Undefined when a name is missing or priced at zero:
+ * no line beats a wrong one. */
+export const FEE_LINE_ITEMS = {
+  individual: 'Individual Counselling',
+  couples: 'Couples Counselling',
+  couplesExtended: 'Couples Extended',
+  emdr: 'EMDR Intensive',
+} as const;
+
+const FEE_TAIL = ', after a free 30-minute consultation; card at booking.';
+
+export function feeLineFor(service: string | undefined, catalog: Catalog): string | undefined {
+  const item = (name: string) => {
+    const i = catalog.items.find((x) => x.name.toLowerCase() === name.toLowerCase());
+    return i && i.cents > 0 ? i : undefined;
+  };
+  const individual = item(FEE_LINE_ITEMS.individual);
+  if (service === 'couples-therapy') {
+    const couples = item(FEE_LINE_ITEMS.couples);
+    if (!couples) return undefined;
+    const ext = item(FEE_LINE_ITEMS.couplesExtended);
+    return ext
+      ? `Couples sessions are ${money(couples.cents)} for ${couples.minutes} minutes; a ${ext.minutes}-minute extended session is ${money(ext.cents)}${FEE_TAIL}`
+      : `Couples sessions are ${money(couples.cents)} for ${couples.minutes} minutes${FEE_TAIL}`;
+  }
+  if (service === 'emdr-therapy') {
+    const emdr = item(FEE_LINE_ITEMS.emdr);
+    if (!emdr) return undefined;
+    return individual
+      ? `EMDR is offered as a ${emdr.minutes}-minute intensive at ${money(emdr.cents)}, or within ${individual.minutes}-minute sessions at ${money(individual.cents)}${FEE_TAIL}`
+      : `An EMDR intensive is ${money(emdr.cents)} for ${emdr.minutes} minutes${FEE_TAIL}`;
+  }
+  return individual ? `Individual sessions are ${money(individual.cents)} for ${individual.minutes} minutes${FEE_TAIL}` : undefined;
+}
+
+/** The heading and intro, plain or gentle. No outcome claim, no hours. On a
+ *  page written for Alberta, the intro says Alberta: the cards there show
+ *  only the counsellor insured to practise in that province. */
+export function infoCardCopy(gentle: boolean, province?: string): { heading: string; intro: string } {
+  const where = province === 'AB' ? 'in Alberta' : 'across BC';
   return gentle
     ? {
         heading: 'If you want to talk it through with someone',
         intro:
-          'Nothing needs deciding today. These are the counsellors taking new clients, by secure video across BC; the first conversation is a free 30 minutes and carries no obligation.',
+          `Nothing needs deciding today. These are the counsellors taking new clients, by secure video ${where}; the first conversation is a free 30 minutes and carries no obligation.`,
       }
     : {
         heading: 'Who you would talk to',
         intro:
-          'Taking new clients and seeing people across BC by secure video. Each is a Registered Clinical Counsellor; the registration is on the profile and can be checked on the BCACC register.',
+          `Taking new clients and seeing people ${where} by secure video. Each is a Registered Clinical Counsellor; the registration is on the profile and can be checked on the BCACC register.`,
       };
 }

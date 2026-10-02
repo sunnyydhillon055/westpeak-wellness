@@ -427,6 +427,7 @@ export const moreGuides6: Guide[] = [
 
   {
     slug: 'when-someone-you-love-is-drinking',
+    service: 'family-counselling',
     title: 'When someone you love is drinking',
     metaTitle: 'When Someone You Love Is Drinking | Westpeak',
     metaDescription:

@@ -31,6 +31,13 @@ export type Guide = {
   related: { href: string; label: string }[];
   figure?: string;         // key into lib/figures.ts — renders the page's diagram
   figure2?: string;      // second diagram, further down the page
+  /* The service the guide is about, as the roster spells it in `services`,
+     set only where one counsellor's work is the subject (couples, EMDR,
+     family). Its booking links then open the calendar of the counsellor who
+     offers it (lib/booking-cta.ts), and the closing block names only her.
+     Unset means individual work, which both accepting counsellors offer.
+     1 Oct 2026. */
+  service?: 'couples-therapy' | 'emdr-therapy' | 'family-counselling';
 
   /* Written, not yet cleared to publish.
    *
@@ -146,6 +153,7 @@ const coreGuides: Guide[] = [
   },
   {
     slug: "what-is-emdr-and-how-a-session-works",
+    service: 'emdr-therapy',
     figure2: "first-session-flow",
     figure: "emdr-phases",
     title: "What is EMDR, and what actually happens in a session?",
@@ -466,6 +474,7 @@ const coreGuides: Guide[] = [
   },
   {
     slug: "how-the-gottman-method-works",
+    service: 'couples-therapy',
     figure2: "first-session-flow",
     figure: "gottman-method",
     title: "How the Gottman Method works in couples therapy",

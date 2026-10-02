@@ -40,6 +40,7 @@ export default function CtaBand({
   bookHref,
   headingLang,
   headingClassName,
+  softSteps,
 }: {
   heading?: string;
   text?: string;
@@ -53,6 +54,10 @@ export default function CtaBand({
    *  the lang attribute and the font class that actually renders it. */
   headingLang?: string;
   headingClassName?: string;
+  /** Up to three smaller steps (lib/next-steps.ts), shown in place of "or
+   *  read the guides first" on the article templates, where that line sent
+   *  a reader who had just finished a guide back to the guide index. */
+  softSteps?: { href: string; label: string }[];
 }) {
   const gentle = tone === 'gentle';
 
@@ -87,12 +92,34 @@ export default function CtaBand({
             * It also serves the larger group nobody was addressing: most people
             * researching counselling are weeks from booking, and until now no
             * page invited them to do anything except book today. */}
-          <p className="cta-band-alt">
-            Not ready to book?{' '}
-            <Link href="/contact">Send a line about what is going on</Link>. A reply comes
-            within one business day, or read{' '}
-            <Link href="/guides">the guides</Link> first and come back when you want to.
-          </p>
+          {softSteps?.length ? (
+            <>
+              <p className="cta-band-alt">
+                Not ready to book?{' '}
+                <Link href="/contact">Send a line about what is going on</Link>. A reply comes
+                within one business day.
+              </p>
+              {/* THE SMALLER STEPS, 1 Oct 2026 (lib/next-steps.ts): the tool
+                  for the page's subject, the fees, and what the free 30
+                  minutes is like. Links, not a form. */}
+              <p className="cta-band-alt">
+                Or a smaller step:{' '}
+                {softSteps.slice(0, 3).map((st, i) => (
+                  <span key={st.href}>
+                    {i > 0 ? ' · ' : ''}
+                    <Link href={st.href}>{st.label}</Link>
+                  </span>
+                ))}
+              </p>
+            </>
+          ) : (
+            <p className="cta-band-alt">
+              Not ready to book?{' '}
+              <Link href="/contact">Send a line about what is going on</Link>. A reply comes
+              within one business day, or read{' '}
+              <Link href="/guides">the guides</Link> first and come back when you want to.
+            </p>
+          )}
 
           {forSomeoneElse && (
             <p className="cta-band-alt">

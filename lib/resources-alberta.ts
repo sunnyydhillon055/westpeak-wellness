@@ -31,6 +31,7 @@ import type { Resource } from './resources';
 export const albertaResources: Resource[] = [
   {
     slug: 'counselling-coverage-in-alberta',
+    province: 'AB',
     title: 'What counselling actually costs in Alberta',
     metaTitle: 'Is Therapy Covered in Alberta? AHCIP and Your Plan',
     metaDescription:
@@ -146,6 +147,7 @@ export const albertaResources: Resource[] = [
   },
   {
     slug: 'how-to-check-a-counsellor-in-alberta',
+    province: 'AB',
     title: 'How to check a counsellor in Alberta',
     metaTitle: 'How to check a counsellor in Alberta | Westpeak Wellness',
     metaDescription:

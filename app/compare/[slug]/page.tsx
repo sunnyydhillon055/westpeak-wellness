@@ -7,7 +7,10 @@ import { getExtra } from '@/lib/depth';
 import { buildToc, headingId } from '@/lib/toc';
 import { orgRef, siteRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
-import CtaBand from '@/components/CtaBand';
+import NextStep from '@/components/NextStep';
+import { counsellorsForInfoPage, feeLineFor } from '@/lib/counsellor-cards';
+import { softStepsFor } from '@/lib/next-steps';
+import { readCatalog } from '@/lib/cliniko-catalog';
 import BookLink from '@/components/BookLink';
 import { bookingCtaFor } from '@/lib/booking-cta';
 import SceneBand from '@/components/SceneBand';
@@ -29,6 +32,11 @@ import InlineRelated from '@/components/InlineRelated';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
 
+/* Re-rendered every thirty minutes, the life of the availability cache, so
+   the closing block's next consultation time is what Cliniko is offering
+   now and its fee line follows the catalogue (1 Oct 2026). */
+export const revalidate = 1800;
+
 export function generateStaticParams() {
   return comparisons.map((c) => ({ slug: c.slug }));
 }
@@ -49,12 +57,19 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 const fmt = (iso: string) =>
   new Date(iso + 'T00:00:00Z').toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
 
-export default function ComparePage({ params }: { params: { slug: string } }) {
+export default async function ComparePage({ params }: { params: { slug: string } }) {
   const c = getComparison(params.slug);
   if (!c) notFound();
   /* A comparison written for one language books with the counsellor who
-     speaks it; every other comparison keeps the practice calendar. */
-  const cta = bookingCtaFor({ language: c.language, fallback: 'Book a free consultation' });
+     speaks it; one about couples or EMDR work (c.service) with the
+     counsellor who offers it; every other comparison keeps the practice
+     calendar. */
+  const cta = bookingCtaFor({ language: c.language, service: c.service, fallback: 'Book a free consultation' });
+  /* The closing block: no cards on a comparison (the cards are the guides'
+     and resources'), but the fee for what it compares and the next free
+     consultation with a counsellor who fits it. 1 Oct 2026. */
+  const fitting = counsellorsForInfoPage({ language: c.language, service: c.service });
+  const feeLine = feeLineFor(c.service, await readCatalog());
 
   const toc = buildToc([
     ...c.sections.map((s) => s.h2),
@@ -244,6 +259,20 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
         </div>
       </section>
 
+      {/* THE NEXT STEP, straight after Sources and the disclaimer and before
+          the link footer (components/NextStep.tsx, 1 Oct 2026). */}
+      <NextStep
+        counsellors={[]}
+        feeLine={feeLine}
+        consult={{ location: 'next-compare-close', slugs: fitting.map((p) => p.slug), language: c.language }}
+        softSteps={softStepsFor({ path: `/compare/${c.slug}`, slug: c.slug, service: c.service })}
+        band={{
+          bookHref: cta.href,
+          heading: 'Talk it through before you commit.',
+          text: 'A free 30-minute consultation, including an honest answer if what you need is someone other than an RCC.',
+        }}
+      />
+
       <section className="section section--tint">
         <div className="container">
           <p className="eyebrow">Keep reading</p>
@@ -259,11 +288,6 @@ export default function ComparePage({ params }: { params: { slug: string } }) {
       <MoreFrom items={comparisons} currentSlug={c.slug} base="/compare" heading="Other comparisons" eyebrow="Keep going" />
       <ServiceCityLinks section="compare" slug={c.slug} />
       <CityLinks />
-      <CtaBand
-        bookHref={cta.href}
-        heading="Talk it through before you commit."
-        text="A free 30-minute consultation, including an honest answer if what you need is someone other than an RCC."
-      />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
     </>
