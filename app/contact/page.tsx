@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { site } from '@/lib/site';
+import { site, REGISTERED_LOCALITY, LOCALITY_LABEL, LOCALITY_VISIBLE_NOTE } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
 import { Mail, MonitorSmartphone, MapPin, Languages as LangIcon, AtSign, Phone } from 'lucide-react';
@@ -76,11 +76,15 @@ export default async function Contact({
                 answer well, but whether they will answer at all — and it costs
                 nothing to say. Every enquiry acknowledgement makes the same
                 promise, so the two must be changed together. */}
+            {/* Email before phone, as everywhere else (item 299, 1 Oct 2026). */}
+            <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Mail strokeWidth={1.7} /></span><div><h3>Email</h3><p><MailLink where="contact" /><br /><span style={{ color: 'var(--ink-faint)', fontSize: '.92em' }}>{replyLine}</span></p></div></div>
             {/* Renders only once NEXT_PUBLIC_PHONE is set — see lib/site.ts. */}
             {site.phone && (
               <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Phone strokeWidth={1.7} /></span><div><h3>Phone</h3><p><a href={`tel:${site.phoneTel}`}>{site.phone}</a><br /><span style={{ color: 'var(--ink-faint)', fontSize: '.92em' }}>Voicemail outside session hours, leave a first name and a good time to call back</span></p></div></div>
             )}
-            <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><Mail strokeWidth={1.7} /></span><div><h3>Email</h3><p><MailLink where="contact" /><br /><span style={{ color: 'var(--ink-faint)', fontSize: '.92em' }}>{replyLine}</span></p></div></div>
+            {/* Name and registered locality, from the constant the JSON-LD, the
+                footer and the vCard read (item 299). */}
+            <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><MapPin strokeWidth={1.7} /></span><div><h3>Registered in</h3><p>{site.name} · <Link href={REGISTERED_LOCALITY.hub}>{LOCALITY_LABEL}</Link> · {LOCALITY_VISIBLE_NOTE}</p></div></div>
             <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><MonitorSmartphone strokeWidth={1.7} /></span><div><h3>Sessions</h3><p>Fully online, anywhere in British Columbia</p></div></div>
             <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><MapPin strokeWidth={1.7} /></span><div><h3>Service area</h3><p>Virtual: anywhere in BC</p></div></div>
             <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><LangIcon strokeWidth={1.7} /></span><div><h3>Languages</h3><p>{site.languages}</p></div></div>

@@ -20,6 +20,7 @@ import { getServiceIcon, HUB_ICONS } from '@/lib/icon-map';
 import { fallbackFee, FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
 import { counsellorForLanguage, bookingFor } from '@/lib/booking-cta';
 import { withLetters, practitioners } from '@/lib/practitioners';
+import { reachClause } from '@/lib/practice-facts';
 import { whoSentence, onlyWithSentence, alsoOffers, feeSentence, ownWords, orList } from '@/lib/home-copy';
 
 /* WHAT IT COSTS AND WHO SPEAKS WHAT, ON THE HOME PAGE — 1 Oct 2026.
@@ -317,8 +318,8 @@ export default async function Home() {
               <p>
                 Sessions are also available in Tagalog,{' '}
                 {TL_COUNSELLOR
-                  ? <>with {withLetters(TL_COUNSELLOR)}, who works in it and reaches Alberta as well as BC.</>
-                  : <>with a counsellor who works in it and who reaches Alberta as well as BC.</>}{' '}
+                  ? <>with {withLetters(TL_COUNSELLOR)}, who works in it and sees clients {reachClause(TL_COUNSELLOR)}.</>
+                  : <>with a counsellor who works in it.</>}{' '}
                 There is a{' '}
                 <Link href="/tagalog" lang="en">
                   page in Tagalog

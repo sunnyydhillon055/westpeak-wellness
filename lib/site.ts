@@ -214,12 +214,14 @@ export const site = {
      counsellor a person sees and Cliniko is the only thing that knows what is
      open, so on the owner's instruction nothing about hours is published
      anywhere. Do not reintroduce a field here; add it to Cliniko. */
-  /* TWO PROVINCES SINCE 1 SEP 2026, and this said one until 3 Sep. It feeds
-     the footer, the vCard and the organisation schema. Worded to stay true of
-     the practice as a whole: BC is served by both counsellors, Alberta by the
-     one whose certification and insurance reach there. The counsellor pages
-     state which is which; a summary line cannot. */
-  serviceArea: "Virtual counselling across British Columbia and Alberta",
+  /* THE CLAUSE TRUE OF EVERY COUNSELLOR — BC only, since 1 Oct 2026.
+     It said "British Columbia and Alberta" from 3 Sep, typed, and so would
+     have kept promising Alberta after the insurance gate withdrew it. The
+     wider reach is now appended from the insured, accepting roster by
+     serviceAreaLine() in lib/practitioners.ts (the footer, the vCard and
+     ai.json read that). Not built here: site.ts is imported by client
+     components and must never pull the roster into the browser bundle. */
+  serviceArea: "Virtual counselling across British Columbia",
   /* THREE LANGUAGES SINCE 1 SEP 2026, and this string said two until 3 Sep.
      Tagalog arrived with Camille Granda and reached the organisation schema and
      the root metadata that week; this constant was missed, and it feeds the GP
@@ -264,6 +266,31 @@ export const bookingsPaidUrlFor = (practitionerId?: string, typeId?: string): st
     : site.bookingsPaidUrl;
   return practitionerId ? `${base}&practitioner_id=${practitionerId}` : base;
 };
+
+/* NAME, PLACE, CONTACT: ONE CONSTANT — 1 Oct 2026 (item 299).
+   The Organization JSON-LD said addressLocality White Rock, which is where the
+   Google Business Profile and the listings pack register the practice, while
+   /contact never said White Rock, the vCard had no ADR and ai.json and
+   llms.txt never named it. A locality, province and country and no street:
+   there is no office to visit, and the note says so wherever the place is
+   printed. Kept outside `site` so client components that import `site` do not
+   carry it. test/nap-consistency.test.mts holds every surface to it. */
+export const REGISTERED_LOCALITY = {
+  locality: 'White Rock',
+  region: 'BC',
+  country: 'CA',
+  countryName: 'Canada',
+  note: 'online only, no office',
+  /** The page about the place, linked wherever the locality is shown. */
+  hub: '/online-counselling/white-rock',
+} as const;
+
+/** "White Rock, BC" */
+export const LOCALITY_LABEL = `${REGISTERED_LOCALITY.locality}, ${REGISTERED_LOCALITY.region}`;
+/** The line for machine files: "White Rock, BC (no office to visit)". */
+export const LOCALITY_MACHINE = `${LOCALITY_LABEL} (no office to visit)`;
+/** The visible tail after the name and locality. */
+export const LOCALITY_VISIBLE_NOTE = 'sessions by secure video only, no office';
 
 /* WHAT "REGISTERED CLINICAL COUNSELLOR" MEANS, ONCE, IN PLAIN WORDS — 1 Oct 2026.
    The designation is on nearly every page and was explained on one resource

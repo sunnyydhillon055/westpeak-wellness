@@ -354,7 +354,7 @@ export default function PunjabiPage() {
               <Link href="/resources/counselling-in-punjabi-what-the-words-mean">what counselling means in Punjabi</Link>.
               The same information as this page, in English, is on{' '}
               <Link href="/services/punjabi-counselling">Punjabi-speaking counselling</Link>, and{' '}
-              <Link href="/services/punjabi-counselling">counselling for South Asian adults</Link>{' '}
+              <Link href="/for/first-gen-south-asian-adults">counselling for South Asian adults</Link>{' '}
               covers the cultural side in more depth. There is a{' '}
               <Link href="/punjabi-counselling">full index of the region pages</Link>, in English, {' '}
               <Link href="/punjabi-counselling/surrey">Surrey</Link>,{' '}

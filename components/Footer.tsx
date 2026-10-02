@@ -1,13 +1,16 @@
 import Link from 'next/link';
-import { site } from '@/lib/site';
+import { site, REGISTERED_LOCALITY, LOCALITY_LABEL, LOCALITY_VISIBLE_NOTE } from '@/lib/site';
 import { services } from '@/lib/services';
 import Motif from '@/components/brand/Motif';
 import SectionDivider from '@/components/brand/SectionDivider';
 import { TRUST_ICONS } from '@/lib/icon-map';
-import { Mail, AtSign, LifeBuoy, Phone } from 'lucide-react';
+import { Mail, AtSign, LifeBuoy, Phone, MapPin } from 'lucide-react';
 import MailLink from '@/components/MailLink';
+import { serviceAreaLine } from '@/lib/practitioners';
 
 export default function Footer() {
+  /* Built from the insured roster, not typed: item 284, 1 Oct 2026. */
+  const area = serviceAreaLine();
   const Credential = TRUST_ICONS.credential;
   const Region = TRUST_ICONS.region;
   const Langs = TRUST_ICONS.languages;
@@ -27,7 +30,7 @@ export default function Footer() {
                   the founder's credential specifically. There have been two
                   Registered Clinical Counsellors here since 1 Sep 2026. */}
               <p className="footer-blurb">
-                Online counselling with Registered Clinical Counsellors. {site.serviceArea}.
+                Online counselling with Registered Clinical Counsellors. {area}.
               </p>
               <ul className="footer-facts">
                 {/* The registration number on every page rather than only the
@@ -50,20 +53,29 @@ export default function Footer() {
                     </a>
                   </span>
                 </li>
-                <li><Region aria-hidden="true" strokeWidth={1.7} /><span>{site.serviceArea}</span></li>
+                <li><Region aria-hidden="true" strokeWidth={1.7} /><span>{area}</span></li>
+                {/* Name and registered locality, from the one constant the
+                    Organization JSON-LD, the vCard and /contact read (item 299). */}
+                <li>
+                  <MapPin aria-hidden="true" strokeWidth={1.7} />
+                  <span>
+                    {site.name} · <Link href={REGISTERED_LOCALITY.hub}>{LOCALITY_LABEL}</Link> · {LOCALITY_VISIBLE_NOTE}
+                  </span>
+                </li>
               </ul>
               <div className="footer-social">
                 {/* Renders only once NEXT_PUBLIC_PHONE is set — see lib/site.ts.
                     Not a crisis line: those live in the crisis block below,
                     which is why this one carries the practice name context. */}
+                {/* Email first: the practice prefers it (item 299, 1 Oct 2026). */}
+                <MailLink where="footer" className="footer-social-link">
+                  <Mail aria-hidden="true" strokeWidth={1.7} /><span>{site.email}</span>
+                </MailLink>
                 {site.phone && (
                   <a href={`tel:${site.phoneTel}`} className="footer-social-link">
                     <Phone aria-hidden="true" strokeWidth={1.7} /><span>{site.phone}</span>
                   </a>
                 )}
-                <MailLink where="footer" className="footer-social-link">
-                  <Mail aria-hidden="true" strokeWidth={1.7} /><span>{site.email}</span>
-                </MailLink>
                 <a href={site.instagramUrl} target="_blank" rel="noopener" className="footer-social-link">
                   <AtSign aria-hidden="true" strokeWidth={1.7} /><span>{site.instagram}</span>
                   <span className="sr-only"> (opens in a new tab)</span>
@@ -160,7 +172,7 @@ export default function Footer() {
 
           <div className="footer-bottom">
             <span>© {new Date().getFullYear()} {site.name} · Registered Clinical Counsellors</span>
-            <span>{site.serviceArea}</span>
+            <span>{area}</span>
           </div>
         </div>
       </footer>

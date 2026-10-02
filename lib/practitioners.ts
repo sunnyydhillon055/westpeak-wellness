@@ -39,6 +39,7 @@
    ========================================================================= */
 
 import type { NavPractitioner } from '@/lib/roster-nav';
+import { site } from '@/lib/site';
 
 export type Credential = {
   /** e.g. 'RCC' — shown after the name. */
@@ -831,6 +832,31 @@ export const insuredProvinces = (p: Pick<Practitioner, 'provinces' | 'insurance'
 /** Canada-wide reach only on a policy that has not lapsed. */
 export const insuredReach = (p: Pick<Practitioner, 'reach' | 'insurance'>, today: string): Practitioner['reach'] =>
   covered(p, today) ? p.reach : undefined;
+
+/* THE PRACTICE'S REACH AS ONE LINE — 1 Oct 2026 (item 284).
+   lib/site.ts used to type "Virtual counselling across British Columbia and
+   Alberta" into every footer while the home page said "reaches Alberta as well
+   as BC" and the FAQ, built from the roster, said "anywhere in Canada with
+   Camille". Three statements of one fact. This builds it from the accepting
+   roster through insuredReach/insuredProvinces, so the wider clause goes the
+   day a policy lapses, exactly as the Alberta hub and the JSON-LD do.
+   site.serviceArea stays the clause that is true of every counsellor. */
+type ReachRow = Pick<Practitioner, 'name' | 'acceptingNewClients' | 'reach' | 'insurance' | 'provinces'>;
+const firstNames = (ps: ReachRow[]) => {
+  const f = ps.map((p) => p.name.split(' ')[0]);
+  return f.length <= 1 ? f.join('') : `${f.slice(0, -1).join(', ')} or ${f[f.length - 1]}`;
+};
+export function serviceAreaLine(
+  roster: readonly ReachRow[] = recorded,
+  today: string = vancouverToday(),
+): string {
+  const accepting = roster.filter((p) => p.acceptingNewClients);
+  const canada = accepting.filter((p) => insuredReach(p, today) === 'canada');
+  if (canada.length) return `${site.serviceArea}, and elsewhere in Canada with ${firstNames(canada)}`;
+  const alberta = accepting.filter((p) => insuredProvinces(p, today).includes('AB'));
+  if (alberta.length) return `${site.serviceArea}, and in Alberta with ${firstNames(alberta)}`;
+  return site.serviceArea;
+}
 
 /** One practitioner with the gate applied for a given day. */
 export function withInsuranceGate(p: Practitioner, today: string): Practitioner {

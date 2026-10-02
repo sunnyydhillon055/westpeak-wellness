@@ -26,9 +26,18 @@
  * was raised for the HTML rows on 6 Sep 2026 with this note beside it. Set
  * INLINE_CSS=0 to build without it; `--check` verifies every document has
  * the block and no blocking stylesheet link remains.
+ *
+ * ONLY THE RULES A DOCUMENT CAN USE — 1 Oct 2026 (item 301). The block is
+ * pruned per document by scripts/css-prune.mjs: a selector naming a class or
+ * id found nowhere in the document or in any client JS chunk is left out of
+ * the inline copy (the linked file still loads in full, in the same place).
+ * That took the median document from 191.6 KB to about 158 KB with no change
+ * to any rule that can match the first paint. PRUNE_CSS=0 inlines the whole
+ * sheet as before.
  */
 import { readdirSync, readFileSync, writeFileSync, statSync, existsSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
+import { pruneCss, tokensOf } from './css-prune.mjs';
 
 const ROOT = join(process.cwd(), '.next', 'server', 'app');
 const STATIC = join(process.cwd(), '.next', 'static', 'css');
@@ -69,6 +78,24 @@ const cssFor = (href) => {
   return cssCache.get(href);
 };
 
+/* Class names client code can add at runtime: every identifier in every
+   client chunk the build emitted. Deliberately broad — a token kept for
+   nothing costs a few bytes, a token missed costs a flash of unstyled UI. */
+const PRUNE = process.env.PRUNE_CSS !== '0';
+const CHUNKS = join(process.cwd(), '.next', 'static', 'chunks');
+const clientTokens = new Set();
+if (PRUNE && !CHECK && existsSync(CHUNKS)) {
+  const jsWalk = (dir) => {
+    for (const e of readdirSync(dir)) {
+      const p = join(dir, e);
+      if (statSync(p).isDirectory()) jsWalk(p);
+      else if (e.endsWith('.js')) tokensOf(readFileSync(p, 'utf8'), clientTokens);
+    }
+  };
+  jsWalk(CHUNKS);
+}
+let fullBytes = 0, keptBytes = 0;
+
 let done = 0, already = 0, checked = 0, wrong = [];
 for (const f of walk(ROOT)) {
   const route = routeOf(f);
@@ -95,7 +122,17 @@ for (const f of walk(ROOT)) {
     return deferred;
   });
   if (!parts.length) continue;
-  writeFileSync(f, next.replace('__INLINE_CSS__', parts.join('\n')));
+  let css = parts.join('\n');
+  if (PRUNE) {
+    const pageTokens = tokensOf(html);
+    const pruned = pruneCss(css, (name) => pageTokens.has(name) || clientTokens.has(name));
+    fullBytes += css.length;
+    keptBytes += pruned.length;
+    css = pruned;
+  }
+  /* A function, not a string: a replacement string would expand any `$&`
+     or `$'` the stylesheet happens to contain. */
+  writeFileSync(f, next.replace('__INLINE_CSS__', () => css));
   done++;
 }
 
@@ -136,4 +173,7 @@ if (CHECK) {
   console.log('');
 } else {
   console.log(`  inline css: ${done} document(s) inlined, ${already} already done`);
+  if (PRUNE && done) {
+    console.log(`  inline css: kept ${Math.round((keptBytes / fullBytes) * 100)}% of the sheet on average (${Math.round(keptBytes / done)} of ${Math.round(fullBytes / done)} B per document); the linked file still loads in full`);
+  }
 }

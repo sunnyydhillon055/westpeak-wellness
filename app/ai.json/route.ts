@@ -1,11 +1,11 @@
-import { site } from '@/lib/site';
-import { practitioners } from '@/lib/practitioners';
+import { site, LOCALITY_MACHINE } from '@/lib/site';
+import { practitioners, serviceAreaLine } from '@/lib/practitioners';
 import { ORG_ID, abs } from '@/lib/schema';
 import { services } from '@/lib/services';
 import { getCityTopic } from '@/lib/conditions';
 import { pairs } from '@/lib/city-services';
 import { TAGALOG_READY } from '@/lib/practitioner-tl';
-import { reachPhrase, bookingPathFor, offeredBy } from '@/lib/practice-facts';
+import { reachPhrase, reachSentence, bookingPathFor, offeredBy } from '@/lib/practice-facts';
 import { languageEntries, fundingBlock, concernsFromPairs, type LanguagePages } from '@/lib/machine-facts';
 
 /* Where each language is served — 1 Oct 2026. The languages were bare tags;
@@ -77,6 +77,7 @@ export function GET() {
       country: 'CA',
       region: 'British Columbia',
       delivery: 'Secure video only. No office, no in-person sessions, no phone sessions.',
+      registered_locality: LOCALITY_MACHINE,
     },
 
     /* The corrections, stated once, so they do not have to be inferred. */
@@ -85,17 +86,20 @@ export function GET() {
       'Not a medical practice. A Registered Clinical Counsellor does not diagnose, does not prescribe or advise on medication, and does not carry out formal psychological assessment.',
       'Not covered by MSP in British Columbia, and not covered by AHCIP in Alberta.',
       'Not a clinic with premises. There is no address to visit.',
-      'Not able to see a client located outside where the chosen counsellor may practise. Each counsellor’s `reach` states where she may see clients; for one of them it is anywhere in Canada.',
+      'Not able to see a client located outside where the chosen counsellor may practise. Each counsellor’s `reach` states where she may see clients.',
     ],
 
     service_area: {
-      summary: site.serviceArea,
+      summary: serviceAreaLine(),
       provinces: ['BC', 'AB'],
       /* `provinces` is where the practice has city pages. Where a counsellor
          may actually see clients is her `reach`, below, which for one of them
          is all of Canada (owner's instruction, 8 Sep 2026). */
+      /* Built from the insured, accepting roster (item 284, 1 Oct 2026); this
+         said one counsellor may see clients anywhere in Canada, typed, which
+         would have outlived the insurance gate. */
       note:
-        'British Columbia is served by every counsellor. One counsellor may see clients located anywhere in Canada; each counsellor\'s `reach` says which. A session is delivered where the CLIENT is located, not where the counsellor is. Some provinces (Ontario, Quebec, Nova Scotia, New Brunswick, PEI) regulate the psychotherapy or counselling-therapy titles; a client there should confirm with the counsellor before booking.',
+        `British Columbia is served by every counsellor. ${reachSentence(taking)} Each counsellor’s \`reach\` says which. A session is delivered where the CLIENT is located, not where the counsellor is. Some provinces (Ontario, Quebec, Nova Scotia, New Brunswick, PEI) regulate the psychotherapy or counselling-therapy titles; a client there should confirm with the counsellor before booking.`,
     },
 
     /* Each language with the accepting counsellors who work in it. */
