@@ -18,7 +18,11 @@ import { showsInfoCards } from '../lib/counsellor-cards.ts';
 const ROOT = process.cwd();
 const src = (p: string) => readFileSync(join(ROOT, p), 'utf8');
 /* Instants, chosen around the Pacific/UTC boundary. Vancouver is UTC-7 in
-   October (PDT) and UTC-8 from November (PST). */
+   October. From November 2026 BC stops changing its clocks, and newer tz data
+   (Node 22.23 on CI) keeps Vancouver at UTC-7 through the winter while older
+   data (Node 24.15 here) still says UTC-8. Winter instants below sit an hour
+   or more from midnight so they hold under either rule (1 Oct 2026: the
+   one-minute version passed here and failed on CI). */
 const at = (iso: string) => new Date(iso);
 const IND = FALLBACK_CATALOG.items.find((i) => i.name === 'Individual Counselling')!;
 
@@ -27,8 +31,8 @@ test('the season is read on the Pacific calendar, not UTC', () => {
   assert.equal(pacificMonthDay(at('2026-10-01T07:00:00Z')), '10-01');
   /* 4 p.m. on 31 December in Vancouver is already 1 January in UTC. */
   assert.equal(pacificMonthDay(at('2027-01-01T00:30:00Z')), '12-31');
-  assert.equal(inSeason('10-01', '12-31', at('2027-01-01T07:59:00Z')), true, 'still 31 Dec in Vancouver');
-  assert.equal(inSeason('10-01', '12-31', at('2027-01-01T08:00:00Z')), false, '1 Jan in Vancouver');
+  assert.equal(inSeason('10-01', '12-31', at('2027-01-01T05:30:00Z')), true, 'still 31 Dec in Vancouver');
+  assert.equal(inSeason('10-01', '12-31', at('2027-01-01T09:30:00Z')), false, '1 Jan in Vancouver');
   assert.equal(inSeason('10-01', '12-31', at('2026-10-01T06:59:00Z')), false, 'still 30 Sep in Vancouver');
 });
 
