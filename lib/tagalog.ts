@@ -398,6 +398,32 @@ export const TAGALOG_CITIES: TagalogCity[] = [
       { q: 'Are Quadra Island and Gold River covered?', a: 'Yes. Quadra, Gold River and the rest of the North Island are booked exactly as Campbell River is.' },
     ],
   },
+  /* NORTH VANCOUVER, 2 Oct 2026. Owner decision of the same day: the figure
+     is stated plainly, attributed in the sentence and cited on the North
+     Vancouver hub, which links here. Statistics Canada 2021 Census Profile:
+     Tagalog mother tongue 1,675 in the City of North Vancouver (CSD 5915051),
+     895 in the District (5915046) and 245 in West Vancouver (5915055), 2,815
+     in all; in the City it is third after English 35,520 and Persian 5,205,
+     ahead of French 980; Filipino 3,815 in the City.
+     https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055915051,2021A00055915046,2021A00055915055&GENDERlist=1&STATISTIClist=1&HEADERlist=0
+     read 2 Oct 2026 through StatCan's data service. The argument is
+     concentration: a community large enough to have its own networks, in
+     one municipality, so being known is the issue rather than being few.
+     English only; no Tagalog words added. */
+  {
+    slug: 'north-vancouver',
+    city: 'North Vancouver',
+    angle: 'Tagalog is the City of North Vancouver’s third most common mother tongue, ahead of French, and most of the Shore’s speakers live there.',
+    body: [
+      'In the 2021 Census 1,675 residents of the City of North Vancouver gave Tagalog as their mother tongue, after English and Persian and ahead of French, and 3,815 were counted as Filipino; across the City, the District and West Vancouver the figure is 2,815 (Statistics Canada, 2021 Census Profile). That is a community concentrated in one municipality, large enough to have its own networks and small enough that everybody in them knows somebody who knows you.',
+      'A Tagalog-speaking counsellor by video resolves that tension. The session is in the language the difficulty happened in, with somebody outside the Shore’s networks, and without a crossing to Vancouver or Surrey to find them. Moving between Tagalog and English in the middle of a sentence is normal and needs no apology.',
+    ],
+    faqs: [
+      { q: 'I live in West Vancouver, not the City. Does that change anything?', a: 'No. West Vancouver, the District, Lions Bay and Bowen Island are served exactly as Lower Lonsdale is, and the Capilano River is not a boundary for a video session.' },
+      { q: 'I speak Tagalog with my parents and English everywhere else. Is this still for me?', a: 'Yes. Plenty of people use Tagalog for family and English for work, and a session can follow whichever language a subject lives in. Nobody needs to be fluent in both.' },
+      { q: 'Can my partner and I have couples sessions in Tagalog?', a: 'Yes. Couples sessions can run in Tagalog, English or both, and EMDR is available in Tagalog as well.' },
+    ],
+  },
 ];
 
 export const getTagalogCity = (slug: string) => TAGALOG_CITIES.find((c) => c.slug === slug);

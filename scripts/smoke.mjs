@@ -166,6 +166,14 @@ const CHECKS = [
   ['/practitioners/savneet-singh/campbell-river', 200],
   ['/punjabi-counselling/campbell-river', 200],
   ['/tagalog-counselling/campbell-river', 200],
+  /* North Vancouver 308'd to Vancouver until 2 Oct 2026, when it got a page of its own; West Vancouver now lands there. */
+  ['/online-counselling/north-vancouver', 200],
+  ['/online-counselling/north-vancouver/depression-counselling', 200],
+  ['/practitioners/camille-granda/north-vancouver', 200],
+  ['/practitioners/savneet-singh/north-vancouver', 200],
+  ['/punjabi-counselling/north-vancouver', 200],
+  ['/tagalog-counselling/north-vancouver', 200],
+  ['/online-counselling/west-vancouver', 308, '/online-counselling/north-vancouver'],
   ['/for/mens-mental-health', 308, '/for'],
   /* /answers was retired 31 Aug 2026 and redirected to /faq; it came back
      on 14 Sep as the instant-answer page (checked as 200 above). */

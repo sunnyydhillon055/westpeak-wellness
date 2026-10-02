@@ -1299,6 +1299,69 @@ export const pairs: Pair[] = [
       { q: 'Does a physician need to be part of this?', a: 'If sleep, appetite or energy have changed for more than a couple of weeks, a visit is worthwhile: a physician or nurse practitioner can look for other causes and talk through medication. Counselling needs no referral, and it runs alongside medical care rather than replacing it.' },
     ],
   },
+  {
+    city: 'north-vancouver', service: 'anxiety-counselling',
+    angle: 'On the North Shore, an appointment across the water is only as dependable as two bridges and a twelve-minute ferry.',
+    body: [
+      'Anxiety and the crossing feed each other here. A session downtown means the Lions Gate, the Ironworkers or the SeaBus at both ends, and for somebody whose anxiety already runs on what might go wrong, a stalled bridge or a missed sailing is not a neutral inconvenience. It becomes the thing the appointment is about, and then the appointment is the thing that gets cancelled.',
+      'Taking the crossing out leaves the work itself. A session from Lower Lonsdale, Lynn Valley or West Vancouver spends its fifty minutes on the anxiety rather than on arriving, and what gets practised in the session is tried out in the same rooms where the worrying actually happens.',
+    ],
+    faqs: [
+      { q: 'Is it worth starting if my anxiety is mostly about getting places?', a: 'Yes. Worry that has quietly narrowed where you go, a route avoided, a bridge planned around, a trip turned down, is ordinary material for this work. Starting from home means the first step is not also the hardest one.' },
+      { q: 'Do I have to go through Central Intake first?', a: 'No. Vancouver Coastal Health’s Central Intake is the public route on the North Shore and asks for a referral from a family doctor or walk-in clinic. Counselling with a Registered Clinical Counsellor is booked directly, and staying on a public list at the same time costs nothing.' },
+    ],
+  },
+  {
+    city: 'north-vancouver', service: 'depression-counselling',
+    titleName: 'Depression Therapy',
+    angle: 'The North Shore’s public door asks for a doctor’s referral first, a sequence that depression makes hardest to start.',
+    body: [
+      'Vancouver Coastal Health’s Central Intake Team is the public route for adults on the North Shore, and it asks for a referral from a family doctor or a walk-in clinic before it gets in touch. Depression works directly against that kind of sequence: find a clinic, explain it to somebody new, then wait for a call. Each step is reasonable, and each is one more task on the days when tasks are the problem.',
+      'Two shorter routes are worth knowing. The North Vancouver Urgent and Primary Care Centre treats low mood and depression as same-day concerns, and a private Registered Clinical Counsellor needs no referral at all. Neither replaces the other, and the second can begin while the first is still being arranged.',
+    ],
+    faqs: [
+      { q: 'I have no family doctor. Can I still get help for depression here?', a: 'Yes. A walk-in clinic can make the referral to Central Intake, the Urgent and Primary Care Centre in North Vancouver offers same-day care for urgent concerns including low mood, and private counselling with an RCC needs no referral.' },
+      { q: 'What if some weeks I cannot face a video call?', a: 'Say so rather than missing it quietly. The camera can stay off, and a pause agreed with a date to come back is a plan rather than a lapse.' },
+    ],
+  },
+  {
+    city: 'north-vancouver', service: 'trauma-therapy',
+    angle: 'The Shore’s community psychiatric service is for serious or persistent illness, and the aftermath of one event rarely looks like either.',
+    body: [
+      'Vancouver Coastal Health describes its North Shore Adult Community Psychiatric Services as being for people with a serious or persistent mental illness, reached through a referral from a health-care provider. It leaves a large group in between: somebody shaken by a crash on the Upper Levels, a fall on a trail, or an emergency they were part of at work, who is still functioning, sleeping badly, and unsure their reaction counts.',
+      'It counts. Trauma-focused counselling is built for that middle ground, and it needs neither a diagnosis nor a referral to begin. By video, the first conversation about what happened takes place somewhere you already feel settled, rather than after a drive past where it happened.',
+    ],
+    faqs: [
+      { q: 'Is it trauma if nobody was badly hurt?', a: 'It can be. What matters is how the event has stayed with you: sleep, startle, avoiding a road or a trail, replaying it at odd moments. Those are reasons to talk to somebody whether or not anyone else would call it serious.' },
+      { q: 'Do I have to describe what happened in detail straight away?', a: 'No. Early sessions are about steadiness and pacing, and how much is said, and when, is agreed with you rather than expected of you.' },
+    ],
+  },
+  {
+    city: 'north-vancouver', service: 'couples-therapy',
+    angle: 'For a couple on Bowen Island, a mainland appointment means a sailing each way, together, on the ferry’s timetable rather than theirs.',
+    body: [
+      'Couples work already asks two people to be free at the same moment. On Bowen Island, which is reached by BC Ferries from Horseshoe Bay, it also asks them to fit that moment around a sailing in each direction, and in Lions Bay or Deep Cove around the drive to a bridge. The logistics can end the attempt before the relationship work has properly begun.',
+      'On a small island there is a second cost, which is being seen. Sessions by video from home remove both, and they let a couple have the difficult conversation where they actually live it, and stay there afterwards, rather than sitting side by side on the ferry home.',
+    ],
+    faqs: [
+      { q: 'One of us works across the bridge. Can we each join from where we are?', a: 'Yes. Two links or one shared screen both work, and one partner joining from a parked car or an office across the water is common enough to plan for on the free consultation.' },
+      { q: 'Is it couples counselling if we are not sure we are staying together?', a: 'Yes. Working out whether to stay is one of the ordinary reasons to start, and the sessions do not assume an answer in either direction.' },
+      { q: 'Can couples sessions be in Punjabi?', a: 'Not at the moment: couples sessions currently run in English or Tagalog. Individual counselling is available in Punjabi.' },
+    ],
+  },
+  {
+    city: 'north-vancouver', service: 'emdr-therapy',
+    angle: 'Choosing an EMDR therapist by which side of Burrard Inlet they work on narrows an already specific search.',
+    body: [
+      'EMDR is chosen by name. People arrive already knowing what they are looking for, and the clinicians trained in it are a subset of a subset. Limiting that field to whoever practises on the Shore, or within an easy crossing of it, trades the right fit for the shortest trip, which is the wrong way round for a therapy that rests on trust and careful pacing.',
+      'Processing also asks for regular sessions and a calm stretch afterwards. An appointment that ends in the queue for the Ironworkers or the SeaBus is a poor setup for that stretch. A session that ends at home, with nothing to drive, leaves room for it.',
+    ],
+    faqs: [
+      { q: 'Do I need a referral from Central Intake for EMDR?', a: 'No. Central Intake is the public route on the North Shore and asks for a referral from a family doctor or walk-in clinic. EMDR with a private Registered Clinical Counsellor is booked directly, after a free 30-minute consultation.' },
+      { q: 'What should I plan for after an EMDR session?', a: 'Some quiet time if you can arrange it. Processing can keep moving for a while after the session ends, and having nowhere to drive straight afterwards is one of the practical advantages of doing it from home.' },
+      { q: 'Can EMDR sessions be in Punjabi?', a: 'Not at the moment: EMDR sessions currently run in English or Tagalog. Individual counselling is available in Punjabi.' },
+    ],
+  },
 ];
 
 /** Cities that carry paired pages. Every one must exist in cityContexts. */

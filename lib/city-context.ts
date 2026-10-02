@@ -91,7 +91,7 @@ export const cityContexts: CityContext[] = [
       'There is no shortage of private practices here. What there is a shortage of is openings: the practices with the strongest reputations tend to hold waitlists, and a clinic that can see you this month is often one you found because nobody else could take you.',
     unlock:
       'Removing the commute is not a small convenience in this city. A 50-minute session that costs ninety minutes of travel either side is the appointment people quietly stop attending around week six.',
-    nearby: ['burnaby', 'surrey'],
+    nearby: ['burnaby', 'surrey', 'north-vancouver'],
   },
   {
     slug: 'surrey',
@@ -330,6 +330,20 @@ export const cityContexts: CityContext[] = [
     unlock:
       'The ferry and the drive south both drop out. A video session runs the same from Cortes, from Gold River, or from home in the week between trips.',
     nearby: ['courtenay', 'victoria'],
+  },
+  {
+    slug: 'north-vancouver',
+    city: 'North Vancouver',
+    inCity: 'on the North Shore',
+    region: 'North Shore',
+    authority: 'Vancouver Coastal Health',
+    travel:
+      'The North Shore reaches the rest of Metro Vancouver by two road bridges and the SeaBus, and in the 2021 Census about two in three of its commuters with a usual workplace worked outside the municipality they live in. An appointment across Burrard Inlet adds a crossing to both ends of the session.',
+    inPerson:
+      'Vancouver Coastal Health’s Central Intake Team at the HOpe Centre, on the Lions Gate Hospital campus, is the public door for adults on the Shore, and it asks for a referral from a family doctor or walk-in clinic first. Private counselling is booked directly, but a search for a particular approach can widen to Vancouver, and so to a crossing.',
+    unlock:
+      'The crossing stops being part of the appointment. Nothing about a session depends on how the Lions Gate or the Ironworkers is moving that day, or on catching a sailing from Bowen.',
+    nearby: ['vancouver', 'burnaby'],
   },
 ];
 

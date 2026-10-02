@@ -217,6 +217,13 @@ export function searchIndex(index: Entry[], query: string, limit = 25): Entry[] 
         if (titleAlt) score += (title[0] === t || alts.includes(title[0]) ? 6 : 4) * (titleDirect ? 2 : 1);
         if (summaryAlt) score += summaryDirect ? 2 : 1;
       }
+      /* 2 Oct 2026: a title the query names in full outranks a longer title
+         that merely contains it. Without this, "depression counselling
+         vancouver" opened on North Vancouver's page, whose summary happens
+         to say "depression", rather than on Vancouver’s. One-word titles
+         (a glossary term) are left out, so "emdr" still opens on a service. */
+      const titleTerms = meaningfulTerms(e.title);
+      if (titleTerms.length > 1 && titleTerms.every((w) => terms.some((t) => expand(t).includes(w)))) score += 3;
       const pin = pinned.has(e.href);
       const ok = pin || (terms.length > 0 && matched >= need);
       return { e, i, ok, pin, matched, score, rank: KIND_RANK[e.kind] ?? 1 };

@@ -72,6 +72,9 @@ test('no slug is both retired and a page: Penticton and Fort St. John are pages 
   assert.equal(dest('cranbrook'), undefined);
   assert.ok(getLocation('campbell-river'));
   assert.equal(dest('campbell-river'), undefined);
+  assert.ok(getLocation('north-vancouver'));
+  assert.equal(dest('north-vancouver'), undefined);
+  assert.equal(dest('west-vancouver'), '/online-counselling/north-vancouver');
 });
 
 test('the new pages and the community edits', () => {
@@ -115,7 +118,12 @@ test('the new pages and the community edits', () => {
   for (const t of ['Courtenay', 'Comox', 'Cumberland']) assert.ok(!getLocation('campbell-river')!.communities!.includes(t), `${t} is on the Courtenay page`);
   assert.ok(getLocation('victoria')!.localReality!.body.some((b) => b.includes('](/online-counselling/campbell-river)')), 'Victoria links Campbell River');
   assert.ok(getLocation('courtenay')!.nearby!.includes('campbell-river'), 'Courtenay links Campbell River');
-  for (const slug of ['penticton', 'fort-st-john', 'saanich', 'maple-ridge', 'vernon', 'mission', 'courtenay', 'langford', 'cranbrook', 'campbell-river']) {
+  // North Vancouver has its own hub since 2 Oct 2026, and the North Shore moved from Vancouver with it.
+  for (const t of ['North Vancouver', 'West Vancouver']) assert.ok(!getLocation('vancouver')!.communities!.includes(t), `${t} is on the North Vancouver page`);
+  for (const t of ['West Vancouver', 'Deep Cove', 'Bowen Island', 'Lions Bay']) assert.ok(getLocation('north-vancouver')!.communities!.includes(t), t);
+  assert.ok(getLocation('vancouver')!.nearby!.includes('north-vancouver'));
+  assert.ok(getLocation('vancouver')!.access!.some((a) => a.detail.includes('](/online-counselling/north-vancouver)')), 'Vancouver links North Vancouver');
+  for (const slug of ['penticton', 'fort-st-john', 'saanich', 'maple-ridge', 'vernon', 'mission', 'courtenay', 'langford', 'cranbrook', 'campbell-river', 'north-vancouver']) {
     const l = getLocation(slug)!;
     assert.ok(healthAuthorityFor(slug), `${slug} has an authority`);
     assert.ok(l.metaDescription.replace(/&/g, '&amp;').length <= 155, `${slug} description`);

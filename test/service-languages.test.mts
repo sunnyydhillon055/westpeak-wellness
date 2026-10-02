@@ -72,14 +72,17 @@ test('whole sentences only: the cut that published "Free" cannot recur', () => {
   assert.equal(fitSentences(['A sentence longer than the limit.'], 5), 'A sentence longer than the limit.');
 });
 
-test('the marriage titles fit the gate and only the two pairs Search Console names carry one', () => {
+/* North Vancouver's depression pair joined on 2 Oct 2026 for length, not
+   for Search Console: "Depression Counselling in North Vancouver | Westpeak
+   Wellness" is 61 even without ", BC", so it is titled as therapy. */
+test('the marriage titles fit the gate, only the two pairs Search Console names carry one, and North Vancouver depression is titled for length', () => {
   const titled = pairs.filter((p) => p.titleName);
-  assert.deepEqual(titled.map((p) => `${p.city}/${p.service}`).sort(), ['abbotsford/couples-therapy', 'prince-george/couples-therapy']);
+  assert.deepEqual(titled.map((p) => `${p.city}/${p.service}`).sort(), ['abbotsford/couples-therapy', 'north-vancouver/depression-counselling', 'prince-george/couples-therapy']);
   for (const p of titled) {
     const ctx = cityContexts.find((c) => c.slug === p.city)!;
     const t = `${cityServiceTitle(p.titleName!, ctx.city, 'Westpeak Wellness')} | Westpeak Wellness`;
     assert.ok(t.length <= 60, `${t} is ${t.length}`);
-    assert.match(t, /^Marriage Counselling in /);
+    assert.match(t, p.service === 'couples-therapy' ? /^Marriage Counselling in / : /^Depression Therapy in /);
   }
   assert.equal(cityServiceTitle('Marriage Counselling', 'Abbotsford', 'Westpeak Wellness'), 'Marriage Counselling in Abbotsford, BC');
   assert.equal(cityServiceTitle('Marriage Counselling', 'Prince George', 'Westpeak Wellness'), 'Marriage Counselling in Prince George');

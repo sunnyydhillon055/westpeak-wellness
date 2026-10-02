@@ -253,7 +253,7 @@ export const locations: Location[] = [
     figure2: "first-session-flow",
     figure: "bc-reach",
     city: "Vancouver",
-    communities: ["East Vancouver", "Kitsilano", "the West End", "North Vancouver", "West Vancouver"],
+    communities: ["East Vancouver", "Kitsilano", "the West End"],
     region: "Lower Mainland",
     blurb: "The most therapists in the province, and still a waitlist, because the constraint here is affordability, not supply.",
     metaDescription:
@@ -275,6 +275,7 @@ export const locations: Location[] = [
       { label: "No commute attached to the session", detail: "In a city where cross-town travel can double the time cost of an appointment, this is usually what determines whether people keep going." },
       { label: "Lunch-break appointments", detail: "A session from a closed office or a parked car is entirely workable, and removes the need to explain an absence." },
       { label: "It follows you", detail: "Moving within BC, common here, does not mean starting again with someone new." },
+      { label: "The North Shore has its own page", detail: "[North Vancouver, West Vancouver, Bowen Island and Lions Bay](/online-counselling/north-vancouver) have their own public intake team, on the Lions Gate Hospital campus, and a page of their own." },
     ],
     faqs: [
       /* 17 Sep 2026: the pages outranking this one for the Vancouver query all
@@ -293,7 +294,7 @@ export const locations: Location[] = [
       { label: "Vancouver Coastal Health, mental health and substance use", url: "https://www.vch.ca/en/health-topics/mental-health" },
       { label: "CMHA BC, programs and services", url: "https://cmha.bc.ca/" },
     ],
-    nearby: ["surrey", "victoria"],
+    nearby: ["surrey", "victoria", "north-vancouver"],
   },
 
   {
@@ -1678,6 +1679,78 @@ export const locations: Location[] = [
     ],
     nearby: ["courtenay", "nanaimo", "victoria"],
     audiences: ["rotational-and-camp-workers", "trades-and-construction-workers"],
+  },
+  /* ── North Vancouver and the North Shore, 2 Oct 2026 ─────────────────────
+   *
+   * 'north-vancouver' was retired in the Phase 1 audit and 308'd to the
+   * Vancouver page, which named "North Vancouver" and "West Vancouver" among
+   * its communities. It is removed from lib/redirects.mjs in the same change,
+   * Vancouver's communities lose both names, and 'west-vancouver' (still
+   * retired) now lands here, where West Vancouver is named.
+   *
+   * The argument no neighbour's page makes: the North Shore is its own corner
+   * of Vancouver Coastal Health with its own public front door (the Central
+   * Intake Team at the HOpe Centre, covering North and West Vancouver, Bowen
+   * Island and Lions Bay), and that door asks for a referral from a family
+   * doctor or a walk-in clinic first. Vancouver's page argues cost; this one
+   * argues a referral step and a crossing. Census commuting figures and the
+   * BC government's bridge counts are cited, not estimated. Census figures
+   * were read through Statistics Canada's data service on 2 Oct, when the
+   * www12 Census Profile pages returned 404 from here, and are cited at the
+   * Census Profile, as every other city is.
+   *
+   * Language, EMDR and couples claims sit in localReality and in faqs[5+],
+   * outside what the place pages copy (SHAPE §4). No hours, no wait times. */
+  {
+    slug: "north-vancouver",
+    figure2: "first-session-flow",
+    figure: "bc-reach",
+    city: "North Vancouver",
+    communities: ["West Vancouver", "Lower Lonsdale", "Lynn Valley", "Deep Cove", "Bowen Island", "Lions Bay"],
+    region: "North Shore",
+    blurb: "The North Shore has its own public front door, which asks for a referral, and two bridges to everywhere else.",
+    metaDescription:
+      "Online counselling for North Vancouver and the North Shore. Deep Cove to West Vancouver, Bowen Island and Lions Bay: anxiety, trauma and EMDR by video.",
+    intro: [
+      "North Vancouver is two municipalities, the City and the District, and together with West Vancouver they make up what everybody calls the North Shore. It is its own corner of Vancouver Coastal Health, with Lions Gate Hospital, a mental-health centre on the hospital campus and a public intake team that also covers Bowen Island and Lions Bay. What the Shore does not have is a short way to anywhere else.",
+      "Two road bridges and the SeaBus carry it across Burrard Inlet, and in the 2021 Census about two in three North Shore commuters with a usual workplace worked outside the municipality they live in. A weekly appointment across the water adds a crossing to both ends. A [Registered Clinical Counsellor](/compare/rcc-vs-psychologist-vs-social-worker-bc) by secure video does not, from Deep Cove to Horseshoe Bay.",
+    ],
+    localReality: {
+      h2: "One front door, and it opens with a referral",
+      body: [
+        "**The public route starts with somebody else's signature.** Vancouver Coastal Health's Central Intake Team at the HOpe Centre, on the Lions Gate Hospital campus, connects adults 19 and over in North Vancouver, West Vancouver, Bowen Island and Lions Bay with public mental-health and substance-use care. It asks for a referral from a family doctor or a walk-in clinic first. Without a family doctor, that is a step before the step. The North Vancouver Urgent and Primary Care Centre offers same-day care for urgent concerns, low mood, anxiety and depression included.",
+        "**Private counselling needs none of that.** A Registered Clinical Counsellor is booked directly: no referral, no diagnosis, and no bearing on a public list you are already on. The two run side by side, and starting one does not mean giving up the other.",
+        "**The bridges are the commute.** The Lions Gate and the Ironworkers Memorial carry about 60,000 and 125,000 trips a day between them, by the Province's count, and the SeaBus crossing from Lonsdale Quay takes twelve minutes before the walk at either end. From Lynn Valley, Deep Cove or Dundarave, an office downtown starts with a bus or a bridge. The [Vancouver page](/online-counselling/vancouver) describes the city's side of the same arithmetic.",
+        "**Bowen Island and Lions Bay are further out again.** Bowen is reached by BC Ferries from Horseshoe Bay, so any appointment on the mainland begins with a sailing; Lions Bay sits up the Sea-to-Sky. Both are inside the North Shore's public intake area, and both are identical to Lonsdale by video.",
+        "**A university and a hospital set a lot of the Shore's calendar.** Capilano University's main campus is in North Vancouver, and Lions Gate Hospital runs on rosters. Terms and rotations change week to week, which is where a fixed weekly slot across the water usually fails first. The pages for [university students](/for/university-students) and [healthcare and shift workers](/for/healthcare-and-shift-workers) cover what tends to come up.",
+        "**Language on the Shore follows its own numbers.** In the 2021 Census, Tagalog was the mother tongue of 1,675 people in the City of North Vancouver, more than French, and third there after English and Persian. Punjabi is far smaller: 745 people across all three municipalities. [Tagalog-speaking counselling for North Vancouver](/tagalog-counselling/north-vancouver) and [Punjabi-speaking counselling for the North Shore](/punjabi-counselling/north-vancouver) say what each means in practice.",
+      ],
+    },
+    access: [
+      { label: "No bridge either way", detail: "The Lions Gate, the Ironworkers Memorial or the SeaBus add a crossing to both ends of an appointment across the water. A video session adds none." },
+      { label: "No referral first", detail: "The public intake on the North Shore asks for a referral from a family doctor or walk-in clinic. Seeing a Registered Clinical Counsellor privately does not." },
+      { label: "Deep Cove to Horseshoe Bay, Bowen and Lions Bay", detail: "Lower Lonsdale, Lynn Valley, Deep Cove, West Vancouver, Bowen Island and Lions Bay on identical terms, with no sailing and no drive for being further out." },
+      { label: "Around a term or a roster", detail: "University terms and hospital rotations change week to week. Sessions are booked block by block, and the booking calendar shows each counsellor's real open times." },
+    ],
+    faqs: [
+      { q: "Which health authority covers North Vancouver?", a: "Vancouver Coastal Health, the same authority as Vancouver, but the North Shore has its own intake. The Central Intake Team at the HOpe Centre, on the Lions Gate Hospital campus, serves adults in North Vancouver, West Vancouver, Bowen Island and Lions Bay, and asks for a referral from a family doctor or walk-in clinic. Private counselling runs alongside it rather than instead of it." },
+      { q: "I don’t have a family doctor. Where do I start?", a: "A walk-in clinic can make the referral to Central Intake, and the North Vancouver Urgent and Primary Care Centre offers same-day care for urgent concerns, low mood and anxiety included. 8-1-1 connects to HealthLink BC at any hour. Seeing a Registered Clinical Counsellor privately needs no referral at all, so it can start while the public route is still being arranged." },
+      { q: "Isn’t the SeaBus quick enough to see someone downtown?", a: "For some people it is, and if an office near Waterfront suits you, that is a reasonable choice. The crossing itself is twelve minutes; the trip is the walk or bus to Lonsdale Quay, the wait, the crossing and the walk at the far end, twice. Travel is one of the ordinary reasons a course of counselling stops early, and video takes it out." },
+      { q: "Can I have sessions from Bowen Island?", a: "Yes, on exactly the same terms as anywhere on the Shore, with no sailing either way. The one thing worth doing first is testing the connection from the room you would use, and the free 30-minute consultation is a good moment to do it." },
+      { q: "Is there anything free or low-cost on the North Shore?", a: "Yes. The Canadian Mental Health Association’s North and West Vancouver branch runs short-term, low-cost counselling for adults 19 and over who live on the North Shore. Family Services of the North Shore offers affordable and sometimes subsidized counselling. Foundry North Shore has drop-in counselling for young people aged 12 to 24. If one of those fits, use it." },
+      { q: "Can I have EMDR from North Vancouver?", a: "Yes, by secure video, with the same preparation and pacing as in a room. What changes is the end of the session: it finishes where you live, not at the foot of the Lions Gate or in the SeaBus line at Waterfront, and the quiet stretch EMDR often asks for afterwards can start straight away." },
+      { q: "Can sessions run in Tagalog or Punjabi?", a: "Yes, with the counsellor who speaks each. Tagalog is available for individual counselling, couples sessions and EMDR. Punjabi is available for individual counselling; couples sessions and EMDR currently run in English or Tagalog. Moving between a language and English inside one session is normal." },
+    ],
+    sources: [
+      { label: "Vancouver Coastal Health, North Shore mental health and substance use services", url: "https://www.vch.ca/en/health-topics/north-shore-mental-health-and-substance-use-services" },
+      { label: "Vancouver Coastal Health, Central Intake Team at the HOpe Centre", url: "https://www.vch.ca/en/location-service/central-intake-team-hope-centre" },
+      { label: "Statistics Canada, 2021 Census Profile: North Vancouver (City and District) and West Vancouver", url: "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055915051,2021A00055915046,2021A00055915055&GENDERlist=1&STATISTIClist=1&HEADERlist=0" },
+      { label: "BC Government News, protections for the North Shore bridges (5 Apr 2023)", url: "https://news.gov.bc.ca/releases/2023MOTI0042-000437" },
+      { label: "TransLink, SeaBus", url: "https://www.translink.ca/schedules-and-maps/seabus" },
+      { label: "CMHA North and West Vancouver, counselling", url: "https://northwestvancouver.cmha.bc.ca/programs-and-services/counselling/" },
+    ],
+    nearby: ["vancouver", "burnaby"],
+    audiences: ["university-students", "healthcare-and-shift-workers"],
   },
 ];
 

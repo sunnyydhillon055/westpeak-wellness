@@ -1289,6 +1289,63 @@ export const punjabiRegions: PunjabiRegion[] = [
     ],
     nearby: ['courtenay', 'saanich'],
   },
+  /* NORTH VANCOUVER, 2 Oct 2026. Argues DISTANCE, like Surrey, Abbotsford and
+   * Vancouver, but from the other end: the community here is SMALL, and the
+   * page says so with the number rather than implying a large one. 745
+   * mother-tongue speakers across three municipalities (2021 Census, read
+   * through Statistics Canada's data service on 2 Oct, when the www12
+   * Census Profile pages returned 404 from here, and cited at the Census
+   * Profile, as every other city is).
+   * Scarcity is not claimed: no source was found on how many Punjabi-
+   * speaking counsellors practise on the Shore, so the page argues size,
+   * privacy and the crossing to Surrey instead. Individual only: couples and
+   * EMDR are not offered in Punjabi. */
+  {
+    slug: 'north-vancouver',
+    figure: { value: '745', label: 'North Shore residents whose mother tongue is Punjabi, across the City and District of North Vancouver and West Vancouver. A small community, and a dispersed one' },
+    region: 'North Vancouver',
+    wider: 'the North Shore',
+    blurb:
+      'Punjabi is a small language on the North Shore: 745 mother-tongue speakers across three municipalities. Small communities are the ones services are least often built around.',
+    metaDescription:
+      'Punjabi-speaking online counselling for North Vancouver and the North Shore. Punjabi, English or both, with an RCC. Free 30-minute consultation.',
+    demography: {
+      stat: 'Punjabi is the mother tongue of 745 people across the City of North Vancouver, the District of North Vancouver and West Vancouver: about 0.4% of the North Shore.',
+      body: [
+        'In the 2021 census, **335 residents of the City of North Vancouver, 310 in the District and 100 in West Vancouver gave Punjabi as their mother tongue**. Fewer speak it most often at home: 355 across the three. South Asian residents number about 6,285 on the Shore, a much larger group than the Punjabi speakers within it.',
+        'The North Shore’s larger language communities are elsewhere. Persian is the most common mother tongue after English across the three municipalities, and Mandarin, Korean, Spanish, Cantonese and Tagalog each have more than three times as many speakers as Punjabi.',
+        'This page states that size rather than inflating it. **A community this small cannot count on a Punjabi-speaking counsellor down the road**, and the province’s large Punjabi-speaking community, with its clinicians and institutions, is in Surrey: across Burrard Inlet, the length of the city, and the Fraser.',
+      ],
+    },
+    localReality: {
+      h2: 'A small community, two crossings from the large one',
+      body: [
+        'When somebody on the North Shore looks for a counsellor who speaks Punjabi in person, the search tends to lead toward Surrey, where the province’s largest Punjabi-speaking community lives. That means the Lions Gate or the Ironworkers, the length of Vancouver or Burnaby, and a second river crossing, then all of it again on the way home. For a weekly appointment, that arithmetic is what quietly ends a course of counselling.',
+        'Small has its own privacy problem. In a community this size, people tend to know each other’s families, and the chance that a Punjabi-speaking professional nearby is a friend of a friend is real. A practice outside that network, by video, removes the overlap without asking you to explain why you wanted it removed.',
+        'Vancouver Coastal Health’s Central Intake Team on the Lions Gate Hospital campus is the public door for adults on the Shore, and it asks for a referral from a family doctor or walk-in clinic. Vancouver Coastal Health offers free interpreting. Counselling held in Punjabi is a different thing from counselling held through an interpreter, and it is worth knowing which one you are being offered.',
+        'The rest of the North Shore picture, the bridges, Bowen Island and the referral step, is on [online counselling for North Vancouver](/online-counselling/north-vancouver). [Punjabi counselling for Vancouver](/punjabi-counselling/vancouver) makes a related argument for a larger community across the inlet.',
+      ],
+    },
+    access: [
+      { label: 'No trip to Surrey', detail: 'An in-person appointment in Surrey means two crossings each way from the North Shore. Sessions here happen wherever you have a private room.' },
+      { label: 'Punjabi, English, or both', detail: 'Sessions move between the two as the conversation needs. Clinical and insurance terms usually stay in English, because those are the words people actually use for them.' },
+      { label: 'Outside the community network', detail: 'In a small community, distance is what makes confidentiality feel true as well as be true.' },
+      { label: 'One-to-one sessions', detail: 'Punjabi-language counselling here is individual counselling. Couples sessions and EMDR currently run in English or Tagalog.' },
+    ],
+    faqs: [
+      { q: 'Is the Punjabi-speaking community on the North Shore really that small?', a: 'Yes, by the census. 745 people across the City of North Vancouver, the District and West Vancouver gave Punjabi as their mother tongue in 2021, about 0.4% of the Shore. That is the reason the page exists rather than a reason against it: a small community is the one services are least often built around.' },
+      { q: 'Can the whole session be in Punjabi?', a: 'Yes. Sessions run in Punjabi, in English, or moving between the two, whichever the moment calls for. Many people switch without planning to, often into Punjabi when the subject is family, and that is normal rather than something to correct.' },
+      { q: 'Can my partner and I come together for sessions in Punjabi?', a: 'Not at the moment: couples sessions currently run in English or Tagalog. Individual counselling is available in Punjabi.' },
+      { q: 'Will my extended health cover this?', a: ONLINE_COVERAGE },
+    ],
+    sources: [
+      { label: 'Statistics Canada, Census Profile, 2021 Census: North Vancouver, City (CY), British Columbia', url: 'https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055915051&GENDERlist=1&STATISTIClist=1&HEADERlist=0' },
+      { label: 'Statistics Canada, Census Profile, 2021 Census: North Vancouver, District municipality (DM), British Columbia', url: 'https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055915046&GENDERlist=1&STATISTIClist=1&HEADERlist=0' },
+      { label: 'Statistics Canada, Census Profile, 2021 Census: West Vancouver, District municipality (DM), British Columbia', url: 'https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055915055&GENDERlist=1&STATISTIClist=1&HEADERlist=0' },
+      { label: 'Vancouver Coastal Health, North Shore mental health and substance use services', url: 'https://www.vch.ca/en/health-topics/north-shore-mental-health-and-substance-use-services' },
+    ],
+    nearby: ['vancouver', 'surrey'],
+  },
 ];
 
 export const getPunjabiRegion = (slug: string) =>

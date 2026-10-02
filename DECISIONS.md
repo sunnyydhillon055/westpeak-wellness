@@ -2557,6 +2557,56 @@ No /tl or /pa place twins and no new Punjabi or Tagalog sentences.
 
 ---
 
+### North Vancouver gets its own pages, for the North Shore
+Decided 2 Oct 2026 (owner decision of the same day: each city in the October
+batch gets all ten pages). North Vancouver has a hub, five city-service pages,
+both counsellors' English place pages, a Punjabi region page and a Tagalog
+city page. Its argument, which Vancouver's page does not make: the North Shore
+is its own corner of Vancouver Coastal Health, with its own public front door
+(the Central Intake Team at the HOpe Centre, on the Lions Gate Hospital
+campus, for North and West Vancouver, Bowen Island and Lions Bay), and that
+door asks for a referral from a family doctor or walk-in clinic first.
+Vancouver's page argues cost; this one argues a referral step and a crossing.
+The bridge counts are the Province's (about 60,000 and 125,000 trips a day),
+the twelve-minute SeaBus is TransLink's, and "about two in three commuters
+worked outside the municipality they live in" is the 2021 Census, which counts
+City-to-District trips too, so the copy does not say they cross the inlet. The
+pairs take it from there: anxiety and a crossing that might stall, a referral
+sequence depression makes hardest to start, the gap below a psychiatric
+service built for serious or persistent illness, a couple on Bowen and the
+ferry, and an EMDR search narrowed by which side of the water a clinician is
+on. The depression pair is titled "Depression Therapy" because "Depression
+Counselling in North Vancouver | Westpeak Wellness" is 61 characters.
+
+The Punjabi page argues distance and says plainly how small the community is:
+745 by mother tongue across the City, the District and West Vancouver (335,
+310, 100), 355 at home, about 0.4% of the Shore. It claims no count of local
+Punjabi-speaking counsellors, because none was found; it argues size, privacy
+and the two crossings to Surrey. The Tagalog page states its figures: 1,675 by
+mother tongue in the City, third after English and Persian and ahead of
+French, 3,815 counted as Filipino, 2,815 across the Shore. Figures were read
+through Statistics Canada's data service on 2 Oct, when the www12 Census
+Profile pages returned 404 from here, and are cited at the Census Profile, as
+every other city is. No crisis line is named: VCH's North Shore pages list
+only the provincial lines, and the hub sends people to 8-1-1.
+
+`north-vancouver` leaves `retiredCitySlugs` and its `RETIRED_TOWN_HOMES`
+entry. Vancouver's communities lose North and West Vancouver, Vancouver links
+the new page from an access line and lists it in `nearby` and its city
+context, and `west-vancouver` (still retired) now lands on North Vancouver,
+which names it. Search ranks a title the query names in full above a longer
+title that contains it, so "depression counselling vancouver" still opens on
+Vancouver's page rather than North Vancouver's. EMDR, couples and language
+claims stay out of the hub's intro, access and first five FAQs. No /tl or /pa
+place twins and no new Punjabi or Tagalog sentences.
+
+*Enforced by:* `test/regional-pages.test.mts`, `test/roster-nav.test.mts`,
+`test/link-anchors.test.mts`, `test/service-languages.test.mts`,
+`test/search-index.test.mts`, `test/city-hub.test.mts`,
+`test/city-template.test.mts`, `scripts/smoke.mjs`
+
+---
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`
