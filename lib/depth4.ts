@@ -125,7 +125,7 @@ export const depth4: Record<string, DepthSection[]> = {
     {
       h2: 'Online couples counselling in BC: how two people share one session',
       body: [
-        'The phrase people search is "online couples counselling bc", and the practical question inside it is simple: does couples work survive the screen? The structured approaches used here translate directly: assessment questionnaires, guided conversations, between-session practice, and the format solves the scheduling problem that sinks more couples therapy than any clinical issue does: two working adults, one appointment, no babysitter needed for the commute portion of the evening.',
+        'The phrase people search is "online couples counselling bc", and the practical question inside it is simple: does couples work survive the screen? The structured approaches used here translate directly: assessment questionnaires, guided conversations, between-session practice, and the format solves the scheduling problem that sinks more couples therapy than any clinical issue does: two working adults, one appointment, and no commute for either of them.',
         'The setup that works: both partners on one couch and one camera where possible. The therapist reads the space between you, and sharing a frame keeps that visible. Where life requires it (a rotation, a work trip, a separation-in-progress), three-way video from two locations is workable and sometimes clinically useful. The one non-negotiable is the same as in-person: a private hour, phones down, door shut.',
       ],
     },
@@ -146,7 +146,7 @@ export const depth4: Record<string, DepthSection[]> = {
       h2: '“Counsellor near me”, when the answer is virtual',
       body: [
         'A meaningful share of the people reading this arrived through some version of "counsellor near me", and for a virtual practice, the honest response is to take the question seriously rather than dodge it. What "near me" is usually asking for is *reachable, soon, and legitimate*: an appointment that fits your week, a practitioner accountable to a real register, sessions that do not require rearranging life to attend. Distance was always a proxy for those things, not the point of them.',
-        'Video sessions answer the underlying asks directly: bookable this week, [verifiable in the BCACC register](/resources/verify-a-counsellor-in-bc), attended from wherever you are in BC, and they beat "near" precisely where near fails: evenings, small towns, mobility limits, privacy from a small community, and therapy in Punjabi outside the Lower Mainland. Where an office genuinely matters to you, that is a real preference and the city pages below link honestly to what each community offers locally. For everyone else, "near" turns out to mean "on my laptop, at 7 pm, with someone I checked out in two minutes."',
+        'Video sessions answer the underlying asks directly: bookable this week, [verifiable in the BCACC register](/resources/verify-a-counsellor-in-bc), attended from wherever you are in BC, and they beat "near" precisely where near fails: small towns, mobility limits, privacy from a small community, and therapy in Punjabi outside the Lower Mainland. Where an office genuinely matters to you, that is a real preference and the city pages below link honestly to what each community offers locally. For everyone else, "near" turns out to mean "on my laptop, at a time that works, with someone I checked out in two minutes."',
       ],
     },
   ],
