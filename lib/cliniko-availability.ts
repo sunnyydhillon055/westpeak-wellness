@@ -6,7 +6,7 @@ import { empty, summariseWindows, type Availability } from './availability-summa
 
 export {
   type Availability, WINDOW_DAYS, summarise, summariseWindows,
-  availabilityLine, weekSpan, practiceHoursLine,
+  availabilityLine, nextFreeCallLine, firstOpenDay,
 } from './availability-summary.ts';
 
 /* WHAT IS ACTUALLY OPEN — read from Cliniko, 14 Sep 2026; two weeks since 1 Oct.

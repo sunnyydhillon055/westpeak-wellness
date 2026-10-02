@@ -3,7 +3,7 @@ import { Suspense, cache } from 'react';
 import Figure from '@/components/Figure';
 import Link from 'next/link';
 import Image from 'next/image';
-import { site, bookingsUrlFor } from '@/lib/site';
+import { site, bookingsUrlFor, RCC_PLAIN } from '@/lib/site';
 import { gurmukhi } from '@/app/fonts-gurmukhi';
 import SchedulerEmbed from '@/components/SchedulerEmbed';
 import BookDirectLink from '@/components/BookDirectLink';
@@ -14,11 +14,12 @@ import { ogBase } from '@/lib/og-meta';
 import { practitioners, getPractitioner, defaultBookingPractitioner, withLetters, insuredProvinces, vancouverToday } from '@/lib/practitioners';
 import { timeZoneNote, PACIFIC } from '@/lib/availability-summary';
 import { PROVINCE_NAME, type Province } from '@/lib/crisis';
-import { consultationAvailability, availabilityLine, practiceHoursLine } from '@/lib/cliniko-availability';
+import { consultationAvailability, availabilityLine } from '@/lib/cliniko-availability';
 import { readCatalog, FALLBACK_CATALOG, type Catalog } from '@/lib/cliniko-catalog';
 import { sessionFeesPhrase } from '@/lib/book-fees';
 import { shortAvailabilityLine } from '@/lib/book-card';
 import MailLink from '@/components/MailLink';
+import BookLink from '@/components/BookLink';
 
 export const metadata: Metadata = {
   title: 'Book a Free 30-Minute Consultation',
@@ -61,11 +62,12 @@ const availability = cache(() => consultationAvailability());
  * content — carries a min-height in app/premium.css sized to the line at
  * that breakpoint, and keeps it whether the line arrives, arrives shorter,
  * or never arrives because Cliniko is down. A blank slot in the failure
- * case is the price of a page that never jumps in the normal one. */
-async function HoursLine() {
-  const line = practiceHoursLine(await availability());
-  return line ? <p className="book-credential" style={{ margin: 0 }}>{line}</p> : null;
-}
+ * case is the price of a page that never jumps in the normal one.
+ *
+ * The practice-wide hours line under the facts is gone (1 Oct 2026): it
+ * printed a span of start times merged from two calendars and ", including
+ * the weekend", and the site publishes no hours. Each card says how many
+ * times are open with that counsellor and the next day with one. */
 
 /* WHAT SESSIONS COST IF YOU CARRY ON — 1 Oct 2026. From the Cliniko
    catalogue (lib/book-fees.ts), never typed. Streamed like the lines above so
@@ -76,8 +78,8 @@ function FeesText({ catalog }: { catalog: Catalog }) {
   const phrase = sessionFeesPhrase(catalog);
   return phrase ? (
     <>
-      {' '}Sessions after it: {phrase}, card taken at booking. Insurance cover for an RCC
-      depends on your plan.
+      {' '}Sessions after it: {phrase}, card taken at booking. Whether your plan reimburses a
+      Registered Clinical Counsellor depends on the plan.
     </>
   ) : null;
 }
@@ -282,14 +284,12 @@ export default async function Book({
             <li>Online only · secure video</li>
             <li>No card</li>
             <li>No intake form</li>
-            <li>Free cancellation up to {site.cancellationHours}h</li>
+            {/* Not the 24-hour cancellation chip (1 Oct 2026): under a free,
+                no-card call that implied a later cancellation costs something.
+                The 24-hour rule is for paid sessions, on /pricing. Not "any
+                time online" either: see lib/site.ts on self-serve cancelling. */}
+            <li>No charge to move or cancel it</li>
           </ul>
-          {/* The slot is sized in CSS; see the note above HoursLine. */}
-          <div className="book-hours">
-            <Suspense fallback={<p className="book-credential" style={{ margin: 0 }} aria-hidden="true">Checking the next two weeks&rsquo; open times&hellip;</p>}>
-              <HoursLine />
-            </Suspense>
-          </div>
 
           {/* WHAT THE 30 MINUTES ARE — in view, not behind a disclosure. 1 Oct 2026.
               The funnel since 18 Aug: 94 people reached the calendar on this
@@ -304,7 +304,9 @@ export default async function Book({
               <strong>Who you talk to.</strong>{' '}
               {who
                 ? `${who.name.split(' ')[0]} directly — the counsellor you would see, not an intake worker.`
-                : `${accepting.map((p) => p.name.split(' ')[0]).join(' or ')} directly — the counsellor you would see, not an intake worker.`}
+                : `${accepting.map((p) => p.name.split(' ')[0]).join(' or ')} directly — the counsellor you would see, not an intake worker.`}{' '}
+              {/* What the letters mean, once, in plain words (lib/site.ts). */}
+              Registered Clinical Counsellor means {RCC_PLAIN}.
             </li>
             <li>
               <strong>What is asked.</strong> What brought you here, in your own words. No form, and
@@ -370,10 +372,18 @@ export default async function Book({
                 {accepting.map((p) => {
                   const first = p.name.split(' ')[0];
                   return (
+                    /* NAMED BY ITS BUTTON, NOT BY ITS WHOLE TEXT — 1 Oct 2026.
+                       The card is one link, so a screen reader announced all of
+                       it as the link's name: 314 and 257 characters, portrait
+                       description first. The name is now "Book with Camille",
+                       the rest is the description, and the portrait inside the
+                       link is decorative (the name says who). */
                     <Link
                       key={p.slug}
                       href={`${site.bookingPath}?with=${p.slug}#calendar`}
                       className="card bk-card"
+                      aria-labelledby={`bk-${p.slug}-name`}
+                      aria-describedby={`bk-${p.slug}-meta bk-${p.slug}-focus bk-${p.slug}-open`}
                     >
                       {/* A small portrait beside the name rather than a banner
                           above it — the owner asked for smaller photos on 8 Sep. */}
@@ -381,7 +391,7 @@ export default async function Book({
                         <Image
                           className="bk-card__img"
                           src={p.photos.portrait.src}
-                          alt={p.photos.portrait.alt}
+                          alt=""
                           width={p.photos.portrait.width}
                           height={p.photos.portrait.height}
                           sizes="96px"
@@ -389,20 +399,20 @@ export default async function Book({
                       )}
                       <div>
                         <h3>{withLetters(p)}</h3>
-                        <p className="bk-card__meta">
+                        <p className="bk-card__meta" id={`bk-${p.slug}-meta`}>
                           {p.languages.map((l) => l.name).join(' and ')} ·{' '}
                           {p.reach === 'canada' ? 'Anywhere in Canada' : p.provinces.map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and ')}
                         </p>
                       </div>
-                      <p className="bk-card__focus">
+                      <p className="bk-card__focus" id={`bk-${p.slug}-focus`}>
                         {p.focus.slice(0, 3).map((f) => f.label).join(', ')}
                       </p>
-                      <div className="book-card-avail">
+                      <div className="book-card-avail" id={`bk-${p.slug}-open`}>
                         <Suspense fallback={null}>
                           <CardAvailability slug={p.slug} first={first} />
                         </Suspense>
                       </div>
-                      <span className="btn btn--primary bk-card__btn">
+                      <span className="btn btn--primary bk-card__btn" id={`bk-${p.slug}-name`}>
                         Book with {first}
                       </span>
                     </Link>
@@ -495,8 +505,8 @@ export default async function Book({
                     client this week read it as where to go. The second
                     sentence goes once the booking system stops printing one. */}
                 <p style={{ margin: '8px 0 0', fontSize: '.92rem', lineHeight: 1.55, color: 'var(--ink-soft)' }}>
-                  Every session, this one included, is by secure video. There is nowhere to attend,
-                  whatever address the booking summary shows.
+                  Every session, this one included, is by secure video from wherever you are. There
+                  is nowhere to attend, whatever address the booking summary shows.
                 </p>
               </div>
               {/* THE TWO THINGS THE FUNNEL WAS MISSING — 17 Sep 2026.
@@ -572,6 +582,22 @@ export default async function Book({
                     <p style={{ margin: '6px 0 0', fontSize: '.85rem', color: 'var(--ink-soft)' }}>
                       The calendar opens here. If it does not load on your phone, the link above always will.
                     </p>
+                    {/* A ROUTE THAT IS NOT THE CALENDAR — 1 Oct 2026. Cliniko's
+                        frame is a third-party widget nobody here has tested with
+                        a screen reader (/accessibility says so), and until now
+                        a person it did not work for had only the back button.
+                        Email first, as everywhere on the site; the same form
+                        the people the times do not suit already use second.
+                        The form link counts as book_click "calendar-alt"; the
+                        address goes through MailLink like every mailto: to the
+                        practice, and counts as /book's email_click. */}
+                    <p style={{ margin: '4px 0 0', fontSize: '.85rem', color: 'var(--ink-soft)' }}>
+                      Calendar hard to use with your screen reader or device?{' '}
+                      <MailLink where="book-fallback" subject="Free 30-minute consultation">
+                        Ask for a consultation time by email
+                      </MailLink>{' '}
+                      instead, or <BookLink location="calendar-alt" className="" href="#ask-for-a-time">use the form below</BookLink>.
+                    </p>
                   </>
                 }
               />
@@ -592,7 +618,7 @@ export default async function Book({
                   and the counsellor replies with a time. It arrives through the
                   same routed alert as every other enquiry, addressed to the
                   counsellor chosen above. */}
-              <div className="crisis" style={{ marginTop: 26 }}>
+              <div className="crisis" id="ask-for-a-time" style={{ marginTop: 26, scrollMarginTop: 72 }}>
                 <h2 style={{ marginTop: 0, fontSize: '1.25rem' }}>None of these times work?</h2>
                 <p style={{ margin: '0 0 12px' }}>
                   Say when you are usually free and {who ? who.name.split(' ')[0] : 'the counsellor you choose'} will

@@ -107,6 +107,9 @@ export const BOOK_LOCATIONS: readonly string[] = [
      which had no tracked booking link of its own (1 Oct 2026). */
   'mid-resource-work',
   ...tools.map((t) => `tool:${t.slug}`),
+  /* The "calendar hard to use?" route beside the /book calendar: its email
+     link and its link to the Ask-for-a-time form (1 Oct 2026). */
+  'calendar-alt',
 ];
 
 /** Every slug on the roster, accepting or not. The founder's cannot reach a

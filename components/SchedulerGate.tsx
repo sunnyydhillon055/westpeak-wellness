@@ -56,7 +56,17 @@ import { CALENDAR_HASH, opensCalendar } from '@/lib/scheduler-open';
  * open() the button runs. Bare /book, with no hash, keeps the gate and the
  * Lighthouse figure it was built for. Each open is counted once as
  * `scheduler_open`, detail `button` or `hash`, so a frame mounted by the hash
- * is never read as a frame somebody asked for by pressing the button. */
+ * is never read as a frame somebody asked for by pressing the button.
+ *
+ * WHAT A SCREEN READER HEARS — 1 Oct 2026. Focus used to land on an unnamed
+ * div, so pressing the button announced nothing at all. The wrapper is a
+ * named region now ("Book a free 30-minute consultation with Camille", the
+ * frame's own title), and a polite status line says the calendar is loading
+ * and where the other route is, then clears when the frame has loaded. Focus
+ * still stays off the iframe, for the reason above. The status is visually
+ * hidden: the frame takes the box's full height, and a visible line that
+ * appeared and then cleared would move everything below it. */
+const LOADING = 'Calendar loading. If it does not appear, ask for a time by email in the section below the calendar.';
 export default function SchedulerGate({
   url, title, page, who, cta, children, secondary,
 }: {
@@ -74,6 +84,7 @@ export default function SchedulerGate({
   secondary?: React.ReactNode;
 }) {
   const [open, setOpen] = useState(false);
+  const [status, setStatus] = useState('');
   const box = useRef<HTMLDivElement>(null);
   const opened = useRef(false);
 
@@ -85,7 +96,11 @@ export default function SchedulerGate({
   }, [page]);
 
   useEffect(() => {
-    if (open) box.current?.focus({ preventScroll: true });
+    if (!open) return;
+    box.current?.focus({ preventScroll: true });
+    /* Set after mount, not rendered with it: a live region announces a
+       change to its content, not content it was created with. */
+    setStatus(LOADING);
   }, [open]);
 
   /* On mount, and again when the calendar URL changes (a soft navigation from
@@ -120,11 +135,13 @@ export default function SchedulerGate({
 
   if (open) {
     return (
-      <div ref={box} tabIndex={-1} style={{ outline: 'none' }}>
+      <div ref={box} tabIndex={-1} role="region" aria-label={title} style={{ outline: 'none' }}>
+        <p className="sr-only" role="status" aria-live="polite">{status}</p>
         <SchedulerTelemetry page={page} who={who}>
           <iframe
             src={url}
             title={title}
+            onLoad={() => setStatus('')}
             /* allow-forms/-scripts/-same-origin are what the booking flow needs;
                allow-popups covers the card step opening a bank 3-D Secure window. */
             sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"

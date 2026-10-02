@@ -72,3 +72,56 @@ test('every exemption still matches something, so a stale one is removed', () =>
     assert.ok(timePromises(src).some((s) => s.includes(x.phrase)), `${x.file}: "${x.phrase}" no longer present`);
   }
 });
+
+/* NO SPAN AND NO WEEKEND IN THE LIVE AVAILABILITY LINES — 1 Oct 2026.
+ *
+ * The same rule for the sentences read from Cliniko. The home hero, /book and
+ * /contact printed "9 am to 7 pm" and ", including the weekend", merged from
+ * two calendars into a span no single day offered. What may be printed is a
+ * count and the next open day per counsellor. These fixtures include weekend
+ * and late slots on purpose: the lines must not mention either. */
+import { summariseWindows, availabilityLine, nextFreeCallLine } from '../lib/availability-summary.ts';
+
+const SPAN = /\b(?:am|pm) to\b|weekend/i;
+/* Sat 3 Oct 9 am, Sun 4 Oct 7 pm, Tue 6 Oct 3 pm Pacific (PDT is UTC-7). */
+const WEEKEND_AND_LATE = ['2026-10-03T16:00:00Z', '2026-10-05T02:00:00Z', '2026-10-06T22:00:00Z'];
+const LATER = ['2026-10-09T22:00:00Z'];
+
+test('the availability lines print no span of hours and no weekend clause', () => {
+  const a = summariseWindows('camille-granda', WEEKEND_AND_LATE, LATER);
+  const b = summariseWindows('savneet-singh', ['2026-10-06T22:00:00Z'], []);
+  const lines = [
+    availabilityLine(a, 'Camille'),
+    availabilityLine(b, 'Savneet'),
+    availabilityLine(summariseWindows('x', [], []), 'Camille'),
+    nextFreeCallLine({ 'camille-granda': a, 'savneet-singh': b }, [
+      { slug: 'camille-granda', first: 'Camille' },
+      { slug: 'savneet-singh', first: 'Savneet' },
+    ]),
+  ];
+  for (const l of lines) {
+    assert.ok(l, 'each line has something to say');
+    assert.doesNotMatch(l!, SPAN, l!);
+  }
+  assert.match(lines[0]!, /^4 free-consultation times open with Camille in the next two weeks; next: Sat,? (3 Oct|Oct 3) \(Pacific time\)\.$/);
+  assert.match(lines[3]!, /^Next free call: Sat,? (3 Oct|Oct 3) with Camille · Tue,? (6 Oct|Oct 6) with Savneet \(Pacific time\)$/);
+});
+
+test('the next-free-call line skips anyone with nothing open, and says nothing when Cliniko is down', () => {
+  const a = summariseWindows('camille-granda', WEEKEND_AND_LATE, []);
+  const none = summariseWindows('savneet-singh', [], []);
+  const people = [{ slug: 'camille-granda', first: 'Camille' }, { slug: 'savneet-singh', first: 'Savneet' }];
+  assert.match(nextFreeCallLine({ 'camille-granda': a, 'savneet-singh': none }, people)!, /^Next free call: Sat,? (3 Oct|Oct 3) with Camille \(Pacific time\)$/);
+  assert.equal(nextFreeCallLine({ 'camille-granda': { ...a, error: 'down' } }, people), null);
+  assert.equal(nextFreeCallLine({}, people), null);
+});
+
+test('the span functions are gone, and no page brings a span back', () => {
+  const lib = readFileSync(join(ROOT, 'lib/availability-summary.ts'), 'utf8');
+  assert.doesNotMatch(lib, /export function (weekSpan|practiceHoursLine)\b/);
+  for (const page of ['app/page.tsx', 'app/book/page.tsx', 'app/contact/page.tsx']) {
+    const src = readFileSync(join(ROOT, page), 'utf8');
+    assert.doesNotMatch(src, /\b(weekSpan|practiceHoursLine|HoursLine)\b/, page);
+    assert.doesNotMatch(src, /including the weekend|Open this week/, page);
+  }
+});

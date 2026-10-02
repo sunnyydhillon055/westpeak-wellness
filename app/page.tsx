@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { site } from '@/lib/site';
-import { consultationAvailability, weekSpan } from '@/lib/cliniko-availability';
+import { site, RCC_PLAIN } from '@/lib/site';
+import { consultationAvailability, nextFreeCallLine } from '@/lib/cliniko-availability';
 import { gurmukhi } from '@/app/fonts-gurmukhi';
 import { lastmodFor } from '@/lib/page-dates';
 import Updated from '@/components/Updated';
@@ -19,8 +19,8 @@ import Reveal from '@/components/ui/Reveal';
 import { getServiceIcon, HUB_ICONS } from '@/lib/icon-map';
 import { fallbackFee, FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
 import { counsellorForLanguage } from '@/lib/booking-cta';
-import { withLetters } from '@/lib/practitioners';
-import { offeringLanguages, pairedLanguageClause } from '@/lib/snippet-facts';
+import { withLetters, practitioners } from '@/lib/practitioners';
+import { whoSentence, onlyWithSentence, alsoOffers, feeSentence, orList } from '@/lib/home-copy';
 
 /* WHAT IT COSTS AND WHO SPEAKS WHAT, ON THE HOME PAGE — 1 Oct 2026.
  *
@@ -35,16 +35,41 @@ const INDIVIDUAL_MIN = minutesOf('Individual Counselling');
 const COUPLES_MIN = minutesOf('Couples Counselling');
 const PA_COUNSELLOR = counsellorForLanguage('pa');
 const TL_COUNSELLOR = counsellorForLanguage('tl');
-const LANGS = offeringLanguages();
-const PAIRED = pairedLanguageClause(LANGS);
+
+/* WHO YOU WOULD TALK TO AND WHAT IT COSTS, IN THE HERO — 1 Oct 2026.
+ * The same rule counsellorForLanguage applies (accepting new clients and
+ * bookable), without the language filter: these are the people a booking
+ * button on this page can reach, so the founder is excluded by that rule and
+ * never by name. The sentences are built in lib/home-copy.ts. */
+const ACCEPTING = practitioners.filter((p) => p.acceptingNewClients && p.bookable);
+const INDIVIDUAL_FEE = fallbackFee('Individual Counselling');
+const COUPLES_FEE = ACCEPTING.some((p) => p.services.includes('couples-therapy'))
+  ? fallbackFee('Couples Counselling')
+  : null;
+const HERO_WHO = whoSentence(ACCEPTING);
+const HERO_ONLY = onlyWithSentence(ACCEPTING, [
+  { slug: 'couples-therapy', label: 'Couples counselling' },
+  { slug: 'emdr-therapy', label: 'EMDR' },
+]);
+const HERO_FEE = feeSentence({
+  consultMinutes: minutesOf('Initial Consultation'),
+  individual: INDIVIDUAL_FEE,
+  minutes: INDIVIDUAL_MIN,
+  couples: COUPLES_FEE,
+});
+const EMDR_WITH = alsoOffers(ACCEPTING, 'emdr-therapy', 'EMDR');
+const ACCEPTING_FIRSTS = orList(ACCEPTING.map((p) => p.name.split(' ')[0]!));
 
 const homeFaqs = faqs.filter((f) =>
   ['Are you taking new clients?', 'Is this practice fully online?'].includes(f.q)
 );
 
-/* Copy is unchanged from the previous build — this is a layout and craft pass
- * only. The one addition is the "Step one/two/three" micro-label on the
- * stepper, which the brief permits as a chip caption. */
+/* PLAIN STEP NAMES, AND THE FEE WHERE THE STEPS ARE — 1 Oct 2026.
+ * "Intake & goals" named a clinic's process, not the reader's; the step is
+ * the first paid session, so it says so, with the fee and length from the
+ * catalogue. "Biweekly" means both twice a week and every other week, so it
+ * is spelled out. The "Step one/two/three" micro-label stays as the chip
+ * caption. */
 const PROCESS = [
   {
     step: 'Step one',
@@ -53,13 +78,13 @@ const PROCESS = [
   },
   {
     step: 'Step two',
-    title: 'Intake & goals',
-    body: 'The first session is about your story, your goals, and what “better” looks like.',
+    title: 'Your first session',
+    body: `${INDIVIDUAL_FEE} for ${INDIVIDUAL_MIN} minutes${COUPLES_FEE ? `, or ${COUPLES_FEE} as a couple` : ''}, paid by card when you book. It is about your story, your goals, and what “better” looks like.`,
   },
   {
     step: 'Step three',
     title: 'Ongoing sessions',
-    body: '50 minutes, weekly or biweekly, online from wherever you’re comfortable in BC.',
+    body: 'Weekly or every other week, online from wherever you’re comfortable in BC. You decide each time whether to book the next one.',
   },
 ];
 
@@ -108,7 +133,13 @@ const HUBS = [
 export const revalidate = 1800;
 
 export default async function Home() {
-  const openThisWeek = weekSpan(await consultationAvailability());
+  /* "Next free call: Sat 3 Oct with Camille · Tue 6 Oct with Savneet (Pacific
+     time)". The next open DAY per counsellor, from Cliniko; no span of hours
+     and no weekend clause (1 Oct 2026, under the 6 Sep no-hours rule). */
+  const nextFree = nextFreeCallLine(
+    await consultationAvailability(),
+    ACCEPTING.map((p) => ({ slug: p.slug, first: p.name.split(' ')[0]! })),
+  );
   return (
     <>
       {/* ---------------------------------------------------------------- HERO */}
@@ -169,12 +200,13 @@ export default async function Home() {
                 />
               </div>
               <p className="lede">
-                {/* The languages are the roster's per kind of work (1 Oct 2026):
-                    this said couples therapy in English, Punjabi or Tagalog,
-                    and nobody offering couples work speaks Punjabi. */}
-                Registered Clinical Counsellors offering EMDR, trauma, anxiety, depression and
-                couples therapy, fully online, anywhere in British Columbia, in {LANGS.individual}
-                {PAIRED ? `; ${PAIRED}` : ''}.
+                {/* Who, in which language, which work only one of them does,
+                    and the fee: generated from the roster and the catalogue
+                    (lib/home-copy.ts). The languages stay per person, so no
+                    sentence offers couples work in a language nobody offering
+                    it speaks. */}
+                {HERO_WHO ?? 'Online counselling anywhere in British Columbia, by secure video.'}
+                {HERO_ONLY ? ` ${HERO_ONLY}` : ''} {HERO_FEE}
               </p>
               <div className="btn-row" style={{ marginTop: 30 }}>
                 <Link className="btn btn--primary" href={site.bookingPath}>Book a Free 30-min Consultation</Link>
@@ -184,7 +216,7 @@ export default async function Home() {
                   this line described a schedule that had changed twice. When the
                   calendar cannot be read the line says only what is always true. */}
               <p className="hero-note">
-                Free 30-minute consult · {openThisWeek ? `Open this week: ${openThisWeek}` : 'Times from the live calendar'} · No referral needed
+                {nextFree ?? 'The calendar shows real open times'} · No referral needed
               </p>
               <TrustBar />
             </div>
@@ -212,9 +244,13 @@ export default async function Home() {
               * the answer was no. */}
             <p className="eyebrow">A different kind of fit</p>
             <h2>Safe, culturally competent, built for real life.</h2>
+            {/* No practice-wide EMDR claim (1 Oct 2026): it was said of the whole
+                practice, and only one accepting counsellor offers EMDR. Who
+                does is read from the roster. The designation is explained
+                once, in plain words, from lib/site.ts. */}
             <p className="lede" style={{ marginBottom: 38 }}>
-              Work with Registered Clinical Counsellors: graduate-level counselling training,
-              EMDR-trained, with further training in trauma, relationship and body-based work.{' '}
+              Work with Registered Clinical Counsellors. That means {RCC_PLAIN}. Further training
+              in trauma, relationship and body-based work{EMDR_WITH ? `; ${EMDR_WITH}` : ''}.{' '}
               <Link href="/practitioners">Meet the counsellors</Link>.
             </p>
           </Reveal>
@@ -318,8 +354,9 @@ export default async function Home() {
             <div className="crisis" style={{ marginTop: 26, maxWidth: 720 }}>
               <p style={{ margin: 0 }}>
                 Step one costs nothing.{' '}
-                <Link href={site.bookingPath}>Book a free 30-minute consultation</Link>, and if it
-                turns out someone else is a better fit, you&rsquo;ll get told that too.
+                <Link href={site.bookingPath}>Book a free 30-minute consultation</Link>
+                {ACCEPTING.length ? ` with ${ACCEPTING_FIRSTS}` : ''}, and if it turns out someone
+                else is a better fit, you&rsquo;ll get told that too.
               </p>
             </div>
           </Reveal>
@@ -347,114 +384,12 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* --------------------------------------------------------------- HUBS */}
-      <section className="section">
-        <div className="container">
-          <Reveal>
-            <p className="eyebrow">Before you book anything</p>
-            <h2>Read first. Decide later.</h2>
-            <p className="lede" style={{ marginBottom: 26 }}>
-              Most people spend weeks deciding whether to start therapy. These are free, require no
-              booking, and several of them will point you somewhere other than here.
-            </p>
-          </Reveal>
-          <div className="grid grid-2">
-            {HUBS.map((h, i) => {
-              const Icon = h.icon;
-              return (
-                <Reveal key={h.href} delay={i * 55}>
-                  <div className="card" style={{ height: '100%' }}>
-                    <Link href={h.href} className="card-link">
-                      <div className="hub-card-head">
-                        <span className="icon-chip icon-chip--warm" aria-hidden="true">
-                          <Icon strokeWidth={1.6} />
-                        </span>
-                        <h3>{h.title}</h3>
-                      </div>
-                      <p>{h.body}</p>
-                      <span className="more">{h.cta}</span>
-                    </Link>
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ------------------------------------------------------ ROUTE BY NEED */}
-      {/* CONDENSED 31 Aug 2026. This ran to 292 words: every route was two or
-          three sentences carrying two or three links, which on a phone is a
-          wall of blue text at exactly the point someone is trying to find
-          themselves in a list. One line each now, one link each, same seven
-          routes. The guides behind them are unchanged \u2014 this section is a
-          signpost, and a signpost that needs a paragraph is not working. */}
-      <section className="section section--tint">
-        <div className="container">
-          <Reveal>
-            <p className="eyebrow">Start where you actually are</p>
-            <h2>Most people arrive with a situation, not a diagnosis</h2>
-            <p className="lede">
-              Start from whichever of these sounds most like your week.
-            </p>
-          </Reveal>
-          <Reveal>
-            <div className="route-grid">
-              <div className="route-cell">
-                <p className="route-k">Something is wrong and you cannot name it</p>
-                <p><Link href="/guides/signs-it-might-be-time-for-therapy">Signs it might be time for therapy</Link></p>
-              </div>
-              <div className="route-cell">
-                <p className="route-k">It looks fine from the outside</p>
-                <p><Link href="/guides/high-functioning-anxiety">High-functioning anxiety</Link></p>
-              </div>
-              <div className="route-cell">
-                <p className="route-k">The nights are the worst part</p>
-                <p><Link href="/guides/anxiety-and-sleep">Anxiety and sleep</Link></p>
-              </div>
-              <div className="route-cell">
-                <p className="route-k">It arrives as a sudden surge</p>
-                <p><Link href="/guides/anxiety-attack-vs-panic-attack">Anxiety attack vs panic attack</Link></p>
-              </div>
-              <div className="route-cell">
-                <p className="route-k">You are exhausted by your job</p>
-                <p><Link href="/guides/burnout-vs-depression">Burnout vs depression</Link></p>
-              </div>
-              <div className="route-cell">
-                <p className="route-k">You need time off, or an accommodation</p>
-                <p><Link href="/guides/stress-leave-bc">How stress leave works in BC</Link></p>
-                <p><Link href="/resources/workplace-mental-health-bc">Mental health and work in BC</Link></p>
-              </div>
-              <div className="route-cell">
-                <p className="route-k">Something from before is still running</p>
-                <p><Link href="/guides/what-trauma-actually-means">What trauma actually means</Link></p>
-              </div>
-              <div className="route-cell">
-                <p className="route-k">The pattern is older than you are</p>
-                <p><Link href="/guides/intergenerational-trauma-explained">Intergenerational trauma</Link></p>
-              </div>
-              <div className="route-cell">
-                <p className="route-k">It is the relationship</p>
-                <p><Link href="/guides/does-couples-therapy-work">Does couples therapy work</Link></p>
-              </div>
-              <div className="route-cell">
-                <p className="route-k">It is the family</p>
-                <p><Link href="/guides/setting-boundaries-with-family">Setting boundaries with family</Link></p>
-              </div>
-              <div className="route-cell">
-                <p className="route-k">Telling them you are going</p>
-                <p><Link href="/guides/talking-to-your-family-about-therapy">Talking to your family about therapy</Link></p>
-              </div>
-              <div className="route-cell">
-                <p className="route-k">Someone died, or something ended</p>
-                <p><Link href="/guides/grief-without-a-timeline">Grief without a timeline</Link></p>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
       {/* -------------------------------------------------- PRACTICAL / TRUST */}
+      {/* MOVED UP, 1 Oct 2026: directly after the two-question FAQ and ahead
+          of the reading hubs. At 375px the cost row sat at y=7142 of 11,848,
+          below about 2,500px of hubs, on the page that sends the most people
+          to /book; and people who reach the calendar do book (20 bookings
+          from 43 calendar interactions). */}
       {/* CONDENSED 31 Aug 2026, from 255 words. Same four questions, same
           fourteen links, one line each. The prose around them was explaining
           what each linked page contained \u2014 which is the linked page's job. */}
@@ -518,6 +453,112 @@ export default async function Home() {
               <div className="route-cell">
                 <p className="route-k">Everything else</p>
                 <p><Link href="/faq">The FAQ</Link></p>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* --------------------------------------------------------------- HUBS */}
+      <section className="section section--tint">
+        <div className="container">
+          <Reveal>
+            <p className="eyebrow">Before you book anything</p>
+            <h2>Read first. Decide later.</h2>
+            <p className="lede" style={{ marginBottom: 26 }}>
+              Not ready to talk yet? These are free to read, with no sign-up.
+            </p>
+          </Reveal>
+          <div className="grid grid-2">
+            {HUBS.map((h, i) => {
+              const Icon = h.icon;
+              return (
+                <Reveal key={h.href} delay={i * 55}>
+                  <div className="card" style={{ height: '100%' }}>
+                    <Link href={h.href} className="card-link">
+                      <div className="hub-card-head">
+                        <span className="icon-chip icon-chip--warm" aria-hidden="true">
+                          <Icon strokeWidth={1.6} />
+                        </span>
+                        <h3>{h.title}</h3>
+                      </div>
+                      <p>{h.body}</p>
+                      <span className="more">{h.cta}</span>
+                    </Link>
+                  </div>
+                </Reveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ------------------------------------------------------ ROUTE BY NEED */}
+      {/* CONDENSED 31 Aug 2026. This ran to 292 words: every route was two or
+          three sentences carrying two or three links, which on a phone is a
+          wall of blue text at exactly the point someone is trying to find
+          themselves in a list. One line each now, one link each, same seven
+          routes. The guides behind them are unchanged \u2014 this section is a
+          signpost, and a signpost that needs a paragraph is not working. */}
+      <section className="section">
+        <div className="container">
+          <Reveal>
+            <p className="eyebrow">Start where you actually are</p>
+            <h2>Most people arrive with a situation, not a diagnosis</h2>
+            <p className="lede">
+              Start from whichever of these sounds most like your week.
+            </p>
+          </Reveal>
+          <Reveal>
+            <div className="route-grid">
+              <div className="route-cell">
+                <p className="route-k">Something is wrong and you cannot name it</p>
+                <p><Link href="/guides/signs-it-might-be-time-for-therapy">Signs it might be time for therapy</Link></p>
+              </div>
+              <div className="route-cell">
+                <p className="route-k">It looks fine from the outside</p>
+                <p><Link href="/guides/high-functioning-anxiety">High-functioning anxiety</Link></p>
+              </div>
+              <div className="route-cell">
+                <p className="route-k">The nights are the worst part</p>
+                <p><Link href="/guides/anxiety-and-sleep">Anxiety and sleep</Link></p>
+              </div>
+              <div className="route-cell">
+                <p className="route-k">It arrives as a sudden surge</p>
+                <p><Link href="/guides/anxiety-attack-vs-panic-attack">Anxiety attack vs panic attack</Link></p>
+              </div>
+              <div className="route-cell">
+                <p className="route-k">You are exhausted by your job</p>
+                <p><Link href="/guides/burnout-vs-depression">Burnout vs depression</Link></p>
+              </div>
+              <div className="route-cell">
+                <p className="route-k">You need time off, or an accommodation</p>
+                <p><Link href="/guides/stress-leave-bc">How stress leave works in BC</Link></p>
+                <p><Link href="/resources/workplace-mental-health-bc">Mental health and work in BC</Link></p>
+              </div>
+              <div className="route-cell">
+                <p className="route-k">Something from before is still running</p>
+                <p><Link href="/guides/what-trauma-actually-means">What trauma actually means</Link></p>
+              </div>
+              <div className="route-cell">
+                <p className="route-k">The pattern is older than you are</p>
+                <p><Link href="/guides/intergenerational-trauma-explained">Intergenerational trauma</Link></p>
+              </div>
+              <div className="route-cell">
+                <p className="route-k">It is the relationship</p>
+                <p><Link href="/guides/does-couples-therapy-work">Does couples therapy work</Link></p>
+              </div>
+              <div className="route-cell">
+                <p className="route-k">It is the family</p>
+                <p><Link href="/guides/setting-boundaries-with-family">Setting boundaries with family</Link></p>
+              </div>
+              <div className="route-cell">
+                <p className="route-k">Telling them you are going</p>
+                <p><Link href="/guides/talking-to-your-family-about-therapy">Talking to your family about therapy</Link></p>
+              </div>
+              <div className="route-cell">
+                <p className="route-k">Someone died, or something ended</p>
+                <p><Link href="/guides/grief-without-a-timeline">Grief without a timeline</Link></p>
               </div>
             </div>
           </Reveal>
