@@ -39,6 +39,11 @@ export function generateStaticParams() {
   return locations.map((l) => ({ city: l.slug }));
 }
 
+const ogTitleFor = (title: string) => {
+  const full = `${title} | ${site.name}`;
+  return full.replace(/&/g, '&amp;').length <= 70 ? full : title;
+};
+
 export async function generateMetadata({ params }: { params: { city: string } }): Promise<Metadata> {
   const l = getLocation(params.city);
   if (!l) return {};
@@ -61,7 +66,10 @@ export async function generateMetadata({ params }: { params: { city: string } })
     title: { absolute: cityHubTitle(place) },
     description,
     alternates: { canonical: `${site.domain}/online-counselling/${l.slug}` },
-    openGraph: { ...ogBase(`/online-counselling/${l.slug}`), title: `${title} | ${site.name}`, description, url: `${site.domain}/online-counselling/${l.slug}` },
+    /* The brand suffix only where the unfurl keeps it: "White Rock & South
+       Surrey" runs to 75 with it, as the metadata gate counts "&" (70 max).
+       1 Oct 2026. */
+    openGraph: { ...ogBase(`/online-counselling/${l.slug}`), title: ogTitleFor(title), description, url: `${site.domain}/online-counselling/${l.slug}` },
   };
 }
 
