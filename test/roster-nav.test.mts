@@ -85,7 +85,7 @@ test('every Punjabi region page has the counsellor card and both of her place pa
   /* Regions added from 2 Oct 2026 are English only: no new Punjabi is written
      until it has been reviewed, so their place page has no /pa twin yet and
      the region page links the English one alone. */
-  const noTwinYet = ['saanich', 'maple-ridge', 'vernon'];
+  const noTwinYet = ['saanich', 'maple-ridge', 'vernon', 'mission'];
   for (const r of punjabiRegions) {
     assert.ok(places.includes(r.slug), `${r.slug}: no /practitioners/${who!.slug}/${r.slug}`);
     if (noTwinYet.includes(r.slug)) assert.equal(getPunjabiPlace(r.slug), undefined, `${r.slug}: a twin exists; drop it from noTwinYet`);

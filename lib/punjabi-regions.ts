@@ -516,7 +516,7 @@ export const punjabiRegions: PunjabiRegion[] = [
       },
       {
         label: 'The wider Valley on the same terms',
-        detail: 'Mission, Chilliwack, Agassiz, Hope and the rural areas east. No travel penalty for being further out, which is the whole point.',
+        detail: 'Chilliwack, Agassiz, Hope and the rural areas east. No travel penalty for being further out, which is the whole point. [Mission](/punjabi-counselling/mission) has a page of its own.',
       },
     ],
     faqs: [
@@ -538,7 +538,7 @@ export const punjabiRegions: PunjabiRegion[] = [
       },
       {
         q: 'Do you work with people in Mission, Chilliwack or Hope?',
-        a: 'Yes, and on identical terms. The practice is virtual and registered across British Columbia, so anywhere in the Fraser Valley is the same session, with no drive, which for the eastern Valley is the difference that matters most.',
+        a: 'Yes, and on identical terms. The practice is virtual and registered across British Columbia, so anywhere in the Fraser Valley is the same session, with no drive, which for the eastern Valley is the difference that matters most. Mission has a Punjabi page of its own.',
       },
       {
         q: 'Will my extended health cover this?',
@@ -559,7 +559,7 @@ export const punjabiRegions: PunjabiRegion[] = [
         url: 'https://www.fraserhealth.ca/health-topics-a-to-z/mental-health-and-substance-use',
       },
     ],
-    nearby: ['surrey', 'vancouver'],
+    nearby: ['surrey', 'vancouver', 'mission'],
   },
 
   /* VANCOUVER, ADDED 2026-08-18. THIRD IN THE "DISTANCE" GROUP, AND THE ONE
@@ -958,6 +958,81 @@ export const punjabiRegions: PunjabiRegion[] = [
       },
     ],
     nearby: ['kelowna', 'kamloops'],
+  },  /* MISSION, 2 Oct 2026. ARGUMENT: DISTANCE.
+   *
+   * Scarcity would be false: Abbotsford, across the bridge, is one of the
+   * places this file's header says Punjabi-speaking counsellors with offices
+   * are. Abbotsford's argument does not transfer either: there Punjabi is the
+   * mother tongue of nearly a quarter of the city. In Mission it is 7.1%,
+   * 2,925 people, by far the town's largest mother tongue after English
+   * (French 360 and German 345 are next), but a community of a few thousand.
+   * So this page argues two things Abbotsford's cannot: the nearby option is
+   * in another city, inside a larger community Mission families also belong
+   * to; and much of Mission works outside the Valley (about 39% of those with
+   * a usual place of work), so a weekly appointment in Abbotsford is on
+   * nobody's way. Statistics Canada 2021 Census Profile, Mission CSD 5909056:
+   * Punjabi mother tongue 2,925 of 41,030, most often at home 2,370. Read
+   * 2 Oct 2026 through StatCan's data service (the www12 Census Profile pages
+   * returned 404 from here that day); cited at the Census Profile, as every
+   * other region is.
+   *
+   * Individual only: the Punjabi speaker offers neither couples nor EMDR.
+   * No counsellor is named. */
+  {
+    slug: 'mission',
+    figure: { value: '2,925', label: 'Mission residents gave Punjabi as their mother tongue in 2021: about 7.1% of the town, its largest language after English' },
+    region: 'Mission',
+    wider: 'the north side of the Fraser Valley',
+    blurb:
+      'Punjabi is Mission’s largest language after English, and the Valley’s Punjabi-speaking practices are concentrated across the river in Abbotsford.',
+    metaDescription:
+      'Punjabi-speaking online counselling for Mission, BC. No office anywhere, no bridge to cross, no waiting room. Free 30-minute consultation.',
+    demography: {
+      stat: 'Punjabi is the mother tongue of 2,925 people in Mission, about 7% of the town and its largest mother tongue after English.',
+      body: [
+        'In the 2021 Census **Punjabi was the mother tongue of 2,925 Mission residents, about 7.1% of the population**, and 2,370 spoke it most often at home. No other language apart from English comes close: French and German, next in line, were the mother tongue of 360 and 345.',
+        'That makes Mission different from Abbotsford across the river, where Punjabi is the mother tongue of nearly a quarter of the city. In Mission it is a real and established community, but one of a few thousand people in a town of about 41,500, which is a smaller circle than Abbotsford’s rather than a quieter one.',
+        'So this page does not argue that Punjabi-speaking counselling is unavailable nearby. It is a bridge away, and anybody in Mission knows it. The question is what that option costs from here.',
+      ],
+    },
+    localReality: {
+      h2: 'The nearest option is in another city, and you are often in a third',
+      body: [
+        'The Valley’s Punjabi-speaking practices are concentrated in Abbotsford. From Mission that means the bridge, parking, and an appointment inside a larger community that many Mission families also belong to through work and family. For some people that is a comfort. For others it is the reason they never book, because a waiting room in Abbotsford is not anonymous to somebody from Mission.',
+        '**Much of Mission works outside the Valley.** In the 2021 Census only about 36% of residents with a usual place of work worked in Mission, and about 39% worked outside the Fraser Valley regional district altogether. An office in Abbotsford is south across the river while a commuter is often far to the west, and a weekly appointment there is on nobody’s way. Video reaches you on whichever side of the valley you happen to be.',
+        'Fraser Health runs public mental-health and substance-use services from its centre on Hurd Street, which accepts self-referrals from adults, and that is worth knowing whichever language you want to work in. **This page is not an argument against any of it**, or against a counsellor in Abbotsford if that suits you.',
+        'The alternative here is simple to describe. Sessions are by secure video from wherever you have a private room, and the counsellor is not part of the families, workplaces or events that Mission shares with Abbotsford. Whether that matters is for you to weigh; for some people it decides whether they book at all.',
+        'One limit, stated plainly: sessions in Punjabi are individual counselling. Couples work and EMDR currently run in English or Tagalog.',
+        'If language is not what you are solving for, [online counselling for Mission](/online-counselling/mission) covers the rest, including the commute and the communities east along the Lougheed. For the Valley’s larger community across the river, [Punjabi-speaking counselling for Abbotsford](/punjabi-counselling/abbotsford) makes its own case.',
+      ],
+    },
+    access: [
+      { label: 'No bridge, no waiting room', detail: 'Nothing to cross and nowhere to be seen arriving. A session needs a private room and a connection, at home, at work or in a parked car.' },
+      { label: 'Not part of the two-town circle', detail: 'No overlap with the families, workplaces and gatherings Mission shares with Abbotsford, which in a community of a few thousand is most of what privacy means.' },
+      { label: 'Punjabi, English, or both', detail: 'Start in whichever language is easier that day and change when it helps. Forms, plan names and therapy terms can stay in English without anyone remarking on it.' },
+      { label: 'Around the commute', detail: 'The calendar shows real open times, and the session happens from wherever you are that day rather than in a fixed slot on the far side of the river.' },
+    ],
+    faqs: [
+      { q: 'There are Punjabi-speaking counsellors in Abbotsford. Why go online from Mission?', a: 'If an Abbotsford counsellor suits you, that is a good choice, and a consultation call would say as much. Looking further usually comes down to one of two things from Mission: the trip across the bridge into a community you are also part of, or an appointment you cannot reach while working out of the Valley.' },
+      { q: 'Is the community in Mission really big enough to worry about being recognised?', a: 'Size works the other way. In a community of a few thousand that shares relatives, workplaces and events with the city across the river, a familiar face in a waiting room is more likely, not less. Whether that matters is your call; the option of avoiding it is here if it does.' },
+      { q: 'Can my spouse and I have sessions together in Punjabi?', a: 'Not at the moment. Couples sessions currently run in English or Tagalog, while individual counselling is available in Punjabi, English or a mix of the two.' },
+      { q: 'Will my extended health cover this?', a: ONLINE_COVERAGE },
+    ],
+    sources: [
+      {
+        label: 'Statistics Canada, 2021 Census Profile: Mission (CSD 5909056)',
+        url: 'https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055909056&GENDERlist=1&STATISTIClist=1&HEADERlist=0',
+      },
+      {
+        label: 'Fraser Health, Mission Mental Health and Substance Use Centre',
+        url: 'https://www.fraserhealth.ca/Service-Directory/Locations/Mission/mission-mental-health-centre',
+      },
+      {
+        label: 'Statistics Canada, Focus on Geography Series, 2021 Census, Abbotsford (Census subdivision)',
+        url: 'https://www12.statcan.gc.ca/census-recensement/2021/as-sa/fogs-spg/page.cfm?lang=E&topic=1&dguid=2021A00055909052',
+      },
+    ],
+    nearby: ['abbotsford', 'surrey', 'maple-ridge'],
   },
 ];
 

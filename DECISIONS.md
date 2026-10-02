@@ -2351,6 +2351,48 @@ number is cited to the Interior Health access page that lists it. No /tl or
 
 ---
 
+### Mission gets its own pages, and Abbotsford stops answering for it
+Decided 2 Oct 2026 (owner decision of the same day: each city in the October
+batch gets all ten pages). Mission has a hub, five city-service pages, both
+counsellors' English place pages, a Punjabi region page and a Tagalog city
+page. Its argument, which no neighbour's page makes: Mission is counted with
+the Fraser Valley, and its services and nearest larger centre are across the
+bridge in Abbotsford, but its working life points west. In the 2021 Census
+about 36% of residents with a usual place of work worked in Mission and about
+39% worked outside the Fraser Valley regional district (Abbotsford: 64% in the
+city); nearly one Mission commuter in five travelled an hour or more each way
+(Abbotsford: about one in twelve). Home, the Valley's services and the working
+day are three places, which is the corner Maple Ridge's two-place argument
+does not cover. The pairs take it from there: being an hour from home if
+something goes wrong, a winter working day that begins and ends in the dark,
+the federal institution in the district (Correctional Service Canada, medium
+and minimum units), partners working in different regions, and EMDR as the
+one session not to take from a parked car near work. The Punjabi page argues
+distance and says plainly the community is 2,925 (7.1%), a few thousand
+against Abbotsford's nearly a quarter; the Tagalog page states its 210 and
+the 480 counted as Filipino. Figures were read through Statistics Canada's
+data service on 2 Oct, when the www12 Census Profile pages returned 404 from
+here; they are cited at the Census Profile, as every other city is.
+
+`mission` leaves `retiredCitySlugs` and its `RETIRED_TOWN_HOMES` entry.
+Abbotsford drops Mission from `communities`, adds `mission` to `nearby` (hub,
+city context and Punjabi region), links the new hub from its "wider Valley"
+access line, and its Mission FAQs (hub, anxiety pair, Tagalog page) now ask
+about the rest of the Valley and point to Mission's own page; Abbotsford's
+Punjabi page links Mission's. Abbotsford's Tagalog place twin keeps its
+existing Tagalog FAQ, which is still true; no Tagalog was edited. No other
+retired town moves: Hope stays with Chilliwack and Fort Langley with Langley,
+and Fort Langley is now the mapped-redirect example in the tests and smoke.
+The draft's no-hours and no-outcome edits were kept, and its commute copy was
+rewritten where it had come out close to Maple Ridge's. No /tl or /pa place
+twins and no new Punjabi or Tagalog sentences.
+
+*Enforced by:* `test/regional-pages.test.mts`, `test/search-index.test.mts`,
+`test/roster-nav.test.mts`, `test/link-anchors.test.mts`, `scripts/smoke.mjs`,
+`npm run seo` (redirect-shadow)
+
+---
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`

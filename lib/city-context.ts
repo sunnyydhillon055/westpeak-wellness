@@ -133,7 +133,7 @@ export const cityContexts: CityContext[] = [
       'The Fraser Valley has fewer counsellors per resident than Metro Vancouver, and specialised work in particular thins out quickly east of Langley. People here are used to being told the nearest option is in Surrey.',
     unlock:
       'Specialised counselling without the highway. The choice stops being "the counsellor nearby or the right counsellor" and becomes simply the right counsellor.',
-    nearby: ['chilliwack', 'langley'],
+    nearby: ['chilliwack', 'langley', 'mission'],
   },
   {
     slug: 'langley',
@@ -260,6 +260,20 @@ export const cityContexts: CityContext[] = [
     unlock:
       'Lumby, Enderby and Cherryville get the same session as downtown Vernon, and nobody in a small town sees you arrive.',
     nearby: ['kelowna', 'kamloops'],
+  },
+  {
+    slug: 'mission',
+    city: 'Mission',
+    inCity: 'in Mission',
+    region: 'Fraser Valley',
+    authority: 'Fraser Health',
+    travel:
+      'Mission faces two ways at once. It is counted with the Fraser Valley and its nearest larger centre is Abbotsford, across the bridge, yet about four in ten residents with a fixed workplace work outside the Valley altogether, so home, the nearest clinic and the working day sit in three different places.',
+    inPerson:
+      'Fraser Health runs public intake from the Mission Mental Health and Substance Use Centre on Hurd Street, which accepts self-referrals from adults, and Fraser House Society offers substance use counselling in town. Looking for a particular approach beyond those can lead across the river or west, which for a commuter means choosing which end of the day to add it to.',
+    unlock:
+      'The session goes where you are that day, at home north of the river or parked near work, instead of being pinned to one of three places.',
+    nearby: ['abbotsford', 'chilliwack', 'maple-ridge'],
   },
 ];
 

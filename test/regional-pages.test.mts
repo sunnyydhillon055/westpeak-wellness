@@ -31,7 +31,9 @@ test('each mapped retired town 308s, in one hop, to a city page whose communitie
   assert.equal(dest('west-kelowna'), '/online-counselling/kelowna');
   assert.ok(!(RETIRED_CITY_SLUGS as string[]).includes('vernon'));
   assert.equal(dest('duncan'), '/online-counselling/nanaimo');
-  assert.equal(dest('mission'), '/online-counselling/abbotsford');
+  // Mission has its own hub since 2 Oct 2026; Fort Langley still lands on Langley.
+  assert.equal(dest('fort-langley'), '/online-counselling/langley');
+  assert.ok(!(RETIRED_CITY_SLUGS as string[]).includes('mission'));
   // Saanich has its own hub since 2 Oct 2026; the old combined slug is an alias for it.
   assert.equal(dest('victoria-saanich'), '/online-counselling/saanich');
   assert.ok(!(RETIRED_CITY_SLUGS as string[]).includes('victoria-saanich'));
@@ -59,6 +61,8 @@ test('no slug is both retired and a page: Penticton and Fort St. John are pages 
   assert.equal(dest('maple-ridge'), undefined);
   assert.ok(getLocation('vernon'));
   assert.equal(dest('vernon'), undefined);
+  assert.ok(getLocation('mission'));
+  assert.equal(dest('mission'), undefined);
 });
 
 test('the new pages and the community edits', () => {
@@ -82,7 +86,13 @@ test('the new pages and the community edits', () => {
   assert.ok(kel.nearby!.includes('vernon'));
   assert.ok(kel.access!.some((a) => a.detail.includes('](/online-counselling/vernon)')), 'Kelowna links Vernon');
   for (const t of ['Coldstream', 'Armstrong', 'Enderby', 'Lumby']) assert.ok(getLocation('vernon')!.communities!.includes(t), t);
-  for (const slug of ['penticton', 'fort-st-john', 'saanich', 'maple-ridge', 'vernon']) {
+  const abb = getLocation('abbotsford')!;
+  assert.ok(!abb.communities!.includes('Mission'), 'Mission has its own page');
+  assert.ok(abb.nearby!.includes('mission'));
+  assert.ok(abb.access!.some((a) => a.detail.includes('](/online-counselling/mission)')), 'Abbotsford links Mission');
+  assert.ok(!abb.faqs!.some((f) => f.q.includes('Mission')));
+  for (const t of ['Silverdale', 'Hatzic', 'Dewdney', 'Deroche']) assert.ok(getLocation('mission')!.communities!.includes(t), t);
+  for (const slug of ['penticton', 'fort-st-john', 'saanich', 'maple-ridge', 'vernon', 'mission']) {
     const l = getLocation(slug)!;
     assert.ok(healthAuthorityFor(slug), `${slug} has an authority`);
     assert.ok(l.metaDescription.replace(/&/g, '&amp;').length <= 155, `${slug} description`);

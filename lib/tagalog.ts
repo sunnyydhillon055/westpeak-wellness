@@ -164,7 +164,7 @@ export const TAGALOG_CITIES: TagalogCity[] = [
     ],
     faqs: [
       { q: 'Are there Tagalog-speaking counsellors in Abbotsford?', a: 'Very few. Most in the province are in the Lower Mainland, and video is what removes the drive rather than the shortage.' },
-      { q: 'Does this cover Mission and the eastern valley?', a: 'Yes, on the same terms and with no distance penalty for being further out.' },
+      { q: 'Does this cover the eastern valley?', a: 'Yes, on the same terms and with no distance penalty for being further out. Mission has a page of its own.' },
       { q: 'Can I book around a seasonal schedule?', a: 'Yes. Blocks with gaps between them are normal here and there is no cost to pausing.' },
     ],
   },
@@ -278,6 +278,28 @@ export const TAGALOG_CITIES: TagalogCity[] = [
       { q: 'The community here is small. Would anyone find out?', a: 'No. Sessions are confidential and there is no office for anyone to see you enter. The limits of confidentiality are set out on the standards page, and they are the same as anywhere.' },
       { q: 'Can my spouse and I have couples sessions in Tagalog?', a: 'Yes. Couples sessions can run in Tagalog, English or both, with each partner speaking in whichever language is easier for them.' },
       { q: 'Are Armstrong, Lumby and Enderby covered?', a: 'Yes, on identical terms anywhere in British Columbia, with no drive into Vernon for any of them.' },
+    ],
+  },  /* MISSION, 2 Oct 2026. Owner decision of the same day: the figure is
+     stated plainly, attributed in the sentence and cited on the Mission hub,
+     which links here. Statistics Canada 2021 Census Profile, Mission CSD
+     5909056: Tagalog mother tongue 210 of 41,030 (0.5%), most often at home
+     75; Filipino 480 of 40,625.
+     https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055909056&GENDERlist=1&STATISTIClist=1&HEADERlist=0
+     read 2 Oct 2026 through StatCan's data service. The argument is the
+     size itself: nobody local to ask, and privacy harder, not easier. English
+     only; no Tagalog words added. */
+  {
+    slug: 'mission',
+    city: 'Mission',
+    angle: 'Mission’s Tagalog-speaking community numbers in the hundreds, and at that size a counsellor who works in the language is rarely nearby.',
+    body: [
+      'In the 2021 Census 210 Mission residents gave Tagalog as their mother tongue, about 0.5% of the town, and 480 were counted as Filipino (Statistics Canada, 2021 Census Profile). This page does not pretend that is Surrey or Abbotsford. At that size the problem is not a long list to get onto but that there may be nobody local to ask, and a relative can end up translating at exactly the appointments where privacy matters most.',
+      'Smallness also makes privacy harder. When the Filipino community in town is a few hundred people who know each other, the people most likely to recognise you are also the ones you would most want to choose whether to tell. A counsellor elsewhere in the province, by video, with no office anywhere, takes both of those questions off the table.',
+    ],
+    faqs: [
+      { q: 'Is there a Tagalog-speaking counsellor in Mission?', a: 'This practice has no office in Mission or anywhere else. Sessions in Tagalog are by secure video, so where the counsellor sits does not matter, only that you are in British Columbia and have a private room.' },
+      { q: 'My parent lives with us. Can they have sessions in Tagalog while I am at work?', a: 'Yes, from a private room at home. You can help set up the link the first time, and after that the session is theirs. Nothing about it is shared with the family unless they choose to share it.' },
+      { q: 'Are Silverdale, Hatzic and Dewdney covered?', a: 'Yes, on identical terms across the province, with no penalty for being further east along the Lougheed.' },
     ],
   },
 ];

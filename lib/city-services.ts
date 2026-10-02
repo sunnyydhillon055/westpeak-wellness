@@ -425,7 +425,7 @@ export const pairs: Pair[] = [
     ],
     faqs: [
       { q: 'What if driving or leaving the house is part of the problem?', a: 'Then starting from home is not avoidance. It is a sensible first step, and one of the things the work can build outward from later if you want it to.' },
-      { q: 'Does this cover Mission and the eastern valley?', a: 'Yes, on the same terms, with no distance penalty for being further out.' },
+      { q: 'Does this cover the eastern valley?', a: 'Yes, on the same terms, with no distance penalty for being further out. Mission, north of the river, has an anxiety page of its own.' },
     ],
   },
   {
@@ -980,6 +980,76 @@ export const pairs: Pair[] = [
       { q: 'How do I know a counsellor is actually trained in EMDR?', a: 'Ask directly and expect a specific answer: where the training was completed and how long it has been part of the work. Each counsellor’s profile lists her training, and EMDR is offered only by a counsellor trained in it.' },
       { q: 'Can EMDR work if I share a house with family?', a: 'Yes, with planning. A closed door, headphones, and a few minutes after the session to settle before rejoining the household are the usual arrangements, and they are worked out during preparation.' },
       { q: 'Can EMDR be done in Punjabi?', a: 'Not at the moment: EMDR currently runs in English or Tagalog. Individual counselling, which does not include EMDR, is available in Punjabi, English or both.' },
+    ],
+  },  /* ---- MISSION, 2 Oct 2026 ---------------------------------------------
+     Five arguments from one fact, that Mission is counted with the Fraser
+     Valley while much of its working life happens outside it: being an hour
+     from home if something goes wrong (anxiety), a winter working day that
+     starts and ends in the dark (depression), the federal institution in the
+     district (trauma), partners working in different regions (couples), and
+     EMDR as the one session not to take from a parked car near work (EMDR).
+     Census Profile, Mission CSD 5909056: commuting 60 minutes and over
+     3,200 of 17,320 (18.5%); 5,050 of 13,015 with a usual place of work
+     worked in a different census division. Cited on the hub. No counsellor
+     is named and no language is offered here. */
+  {
+    city: 'mission', service: 'anxiety-counselling',
+    angle: 'Nearly one Mission commuter in five works an hour or more from home, and anxiety can fasten on exactly that distance.',
+    body: [
+      'Being a long way from home is simply part of the working day for many Mission households, and for an anxious mind it turns into a question that keeps being asked: what if the school calls, what if a parent falls, what if the highway closes and there is no getting back. The phone gets checked, the route home gets rehearsed, and a distance that was only part of the job starts to feel like a risk taken every morning.',
+      'Counselling for anxiety works on that pattern directly: how much of the worry is a real contingency that can be planned for once, and how much is the checking itself keeping the alarm switched on. Sessions by video add no further trip to the week and can sit on a day spent at home, so the work does not depend on being in one particular place either.',
+    ],
+    faqs: [
+      { q: 'Is it anxiety, or just being sensible about the distance?', a: 'Often both, which is why it is hard to tell. A sensible plan gets made once and then left alone; anxiety asks the same question again an hour later. Sorting one from the other is a reasonable thing to bring to a first session, and nobody needs a label for it beforehand.' },
+      { q: 'Can I have a session parked near work before driving home?', a: 'Parked, yes, if the car is private and the connection holds. Never while driving. Some people sit for a few minutes afterwards before setting off, and building that in is reasonable.' },
+    ],
+  },
+  {
+    city: 'mission', service: 'depression-counselling',
+    angle: 'For a Mission commuter an hour or more from work, a winter working day can begin and end in the dark.',
+    body: [
+      'Mission sends a large share of its workers out of the Valley, and around the shortest days a long commute can mean leaving before sunrise and arriving home after sunset. Daylight, movement and unhurried time with the people at home are among the first things depression wears away, and a schedule like that removes them before a low mood has even had the chance.',
+      'Depression then tends to argue that what is missing is the person’s own fault. Separating the two is a large part of the early work: how much of the flatness is the condition, and how much is a season with no light in the week. Sessions by video, with no extra trip either side, at least stop counselling from becoming one more thing taken out of that time.',
+    ],
+    faqs: [
+      { q: 'Is it the winter, or is it depression?', a: 'It can be either, or one on top of the other. A low that lifts every spring has a recognised pattern of its own, and a family doctor is worth seeing about it. A low that stays whatever the season is worth bringing to counselling as it is, and neither question has to be settled before you book.' },
+      { q: 'Do I need a diagnosis or a doctor’s referral first?', a: 'No. Seeing a Registered Clinical Counsellor privately needs no referral and no diagnosis. If a leave from work or a disability claim needs a formal assessment, that comes from a family doctor or nurse practitioner, and the two can run in parallel rather than one waiting on the other.' },
+    ],
+  },
+  {
+    city: 'mission', service: 'trauma-therapy',
+    angle: 'Mission Institution brings federal corrections work into the district, and its incidents do not stay behind at the end of a shift.',
+    body: [
+      'Mission Institution is a Correctional Service Canada site with medium- and minimum-security units, and the people who work there live with a particular exposure: incidents that are sudden, sometimes violent, and followed by going straight back to the unit. Many cannot point to the one incident that changed things, only to a time after which sleep, temper or patience at home did not come back. The page for first responders and corrections staff sets out what tends to come up.',
+      'Anyone whose work puts them close to other people’s worst days, in a hospital, an ambulance or a patrol car, carries a version of the same load, and from Mission they often carry it home over a long drive. With no office anywhere there is also no waiting room to share with people from work, which in a district of about 41,500 is a real consideration.',
+    ],
+    faqs: [
+      { q: 'Does it have to be one serious incident to count?', a: 'No. Corrections work more often leaves its mark through accumulation: many smaller incidents, few of them talked about afterwards. A pattern that has built up over years is as legitimate a reason to start as a single event, and it is worked with in much the same way.' },
+      { q: 'Would anyone at work know I am seeing someone?', a: 'Not from this practice. There is no local office, nothing is reported to an employer, and confidentiality has narrow legal limits that are set out on the standards page.' },
+    ],
+  },
+  {
+    city: 'mission', service: 'couples-therapy',
+    angle: 'With one partner working outside the Valley and the other in town, a Mission couple can go days without a shared free hour.',
+    body: [
+      'Couples work needs both people at once, and in Mission that is harder than it sounds. One partner is at work beyond the Valley until late in the working day, the other is in town with the school pickup, and an office appointment in either place means one of them makes a trip the other does not. That is a logistics problem, and it is worth solving before the first session rather than during it.',
+      'By video, each partner can join from wherever they are, including from two places when one is still at work. Sitting side by side is better when it can be managed, but a session held apart is better than one cancelled, and keeping the rhythm going is a large part of what lets the work build.',
+    ],
+    faqs: [
+      { q: 'Can one of us join from work?', a: 'Yes, if there is a private room and headphones. It works best occasionally rather than as the pattern, and the counsellor can help you work out which sessions are better done side by side.' },
+      { q: 'We live out past Hatzic and the signal is patchy. Can video still work?', a: 'Usually, with some planning. Audio holds up on far less bandwidth than video, so a session can carry on with cameras off for a while, and deciding beforehand who calls whom if the link fails keeps a dropout from ending the conversation. Sitting together by the stronger signal is the simplest fix of all.' },
+    ],
+  },
+  {
+    city: 'mission', service: 'emdr-therapy',
+    angle: 'EMDR is the session a Mission commuter should not take from a parked car, so it gets planned around a day at home.',
+    body: [
+      'Much of the advice for Mission assumes a session can happen wherever the day puts you: a room near work, or a car before the drive back. EMDR is the exception. Processing can leave a person tired, raw or unusually quiet for the rest of the day, and the end of each session is kept for settling before it closes. That sits badly with an hour on the Lougheed straight afterwards.',
+      'In practice that means choosing the days spent at home and protecting them. The phases stay where they always are, history and preparation before any processing, with eye movements or tapping set up for a screen, and when the session ends you are already in the room where the grounding was practised.',
+    ],
+    faqs: [
+      { q: 'Can I do EMDR from my car near work?', a: 'It is better not to. EMDR suits a private room you can stay in afterwards, so people commuting out of Mission generally keep these sessions for a day at home and use the car, if at all, for ordinary sessions.' },
+      { q: 'I only have one day a week at home. Is that enough for EMDR?', a: 'Often, yes. The sessions that ask most of you are the processing ones, and those are the ones to keep for the day at home; earlier preparation work can be arranged with your counsellor around the rest of the week. Spacing is agreed with you and reviewed as you go.' },
     ],
   },
 ];

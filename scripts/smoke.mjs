@@ -105,7 +105,9 @@ const CHECKS = [
      rather than testing nothing. */
   /* Since 1 Oct 2026 a retired town that a city page names lands on that
      page (lib/redirects.mjs); one that no page names still lands on the index. */
-  ['/online-counselling/mission', 308, '/online-counselling/abbotsford'],
+  /* mission was the mapped example until 2 Oct 2026, when it got a page;
+     fort-langley, still retired and named by the Langley page, takes its place. */
+  ['/online-counselling/fort-langley', 308, '/online-counselling/langley'],
   /* maple-ridge was the unmapped example until 2 Oct 2026, when it got a page;
      nelson, still retired and named by no page, takes its place. */
   ['/online-counselling/nelson', 308, '/online-counselling'],
@@ -133,6 +135,12 @@ const CHECKS = [
   ['/punjabi-counselling/vernon', 200],
   ['/tagalog-counselling/vernon', 200],
   ['/online-counselling/west-kelowna', 308, '/online-counselling/kelowna'],
+  /* Mission 308'd to Abbotsford until 2 Oct 2026, when it got a page of its own. */
+  ['/online-counselling/mission', 200],
+  ['/online-counselling/mission/anxiety-counselling', 200],
+  ['/practitioners/savneet-singh/mission', 200],
+  ['/punjabi-counselling/mission', 200],
+  ['/tagalog-counselling/mission', 200],
   ['/for/mens-mental-health', 308, '/for'],
   /* /answers was retired 31 Aug 2026 and redirected to /faq; it came back
      on 14 Sep as the instant-answer page (checked as 200 above). */

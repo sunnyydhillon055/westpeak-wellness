@@ -56,7 +56,8 @@ test('the pages that book are in the index', () => {
 
 test('a city hub is found by the towns it serves', () => {
   assert.ok(searchIndex(index, 'cloverdale').some((e) => e.href === '/online-counselling/surrey'));
-  assert.ok(searchIndex(index, 'mission').some((e) => e.href === '/online-counselling/abbotsford'));
+  assert.ok(searchIndex(index, 'mission').some((e) => e.href === '/online-counselling/mission'));
+  assert.ok(searchIndex(index, 'hatzic').some((e) => e.href === '/online-counselling/mission'));
 });
 
 test('only counsellors accepting clients are listed, never with a registration number', () => {

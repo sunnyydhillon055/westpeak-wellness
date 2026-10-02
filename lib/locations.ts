@@ -301,7 +301,7 @@ export const locations: Location[] = [
     figure2: "first-session-flow",
     figure: "bc-reach",
     city: "Abbotsford",
-    communities: ["Mission", "Aldergrove", "Clearbrook", "Matsqui"],
+    communities: ["Aldergrove", "Clearbrook", "Matsqui"],
     region: "Fraser Valley",
     blurb: "Fraser Valley distances make virtual sessions less a convenience than the thing that makes attending possible.",
     metaDescription:
@@ -321,12 +321,12 @@ export const locations: Location[] = [
     },
     access: [
       { label: "No drive, in any weather", detail: "Valley fog, winter roads, and harvest-season hours stop being scheduling obstacles." },
-      { label: "Serves the wider Valley", detail: "Mission, Chilliwack, Hope, and rural areas east of Abbotsford, with no travel penalty for being further out." },
+      { label: "Serves the wider Valley", detail: "Chilliwack, Hope, and rural areas east of Abbotsford, with no travel penalty for being further out. [Mission and the north bank](/online-counselling/mission) have a page of their own." },
       { label: "Punjabi or English", detail: "Including both within a session, with no need to travel to the Lower Mainland to access it." },
       { label: "No local clinic to be seen at", detail: "The privacy concern that keeps many people in a tight community from booking at all." },
     ],
     faqs: [
-      { q: "Do you serve Mission, Chilliwack, and Hope?", a: "Yes. The practice is virtual and covers all of British Columbia, so anywhere in the Fraser Valley works the same as anywhere else, with no additional travel for you." },
+      { q: "Do you serve Chilliwack, Hope and the rest of the Valley?", a: "Yes. The practice is virtual and covers all of British Columbia, so anywhere in the Fraser Valley works the same as anywhere else, with no additional travel for you. Mission, across the river, has a page of its own." },
       { q: "Can I have sessions in Punjabi?", a: "Yes, in Punjabi, English, or a mix of both, and without needing to travel to Surrey or Vancouver to find it." },
       { q: "What if my internet is unreliable out here?", a: "Turning the camera off cuts the bandwidth a session needs considerably, and it is worth agreeing in advance what happens if a connection drops mid-session so that it is an inconvenience rather than an interruption to the work." },
       { q: "There are Punjabi-speaking counsellors in Abbotsford already. Why this?", a: "For plenty of people there is no reason, and you would be told so on a consultation call, if a local office suits you, book locally with a clear conscience. The people who write in from Abbotsford are usually those for whom the local option carries a privacy cost: a familiar waiting room, a counsellor connected to the same community, a car recognised outside a clinic on a main road." },
@@ -337,7 +337,7 @@ export const locations: Location[] = [
       { label: "Fraser Health, mental health and substance use services", url: "https://www.fraserhealth.ca/health-topics-a-to-z/mental-health-and-substance-use" },
       { label: "HereToHelp BC, mental health information", url: "https://www.heretohelp.bc.ca/" },
     ],
-    nearby: ["surrey", "vancouver"],
+    nearby: ["surrey", "vancouver", "mission"],
     audiences: ["healthcare-and-shift-workers", "first-gen-south-asian-adults", "punjabi-speaking-couples"],
   },
 
@@ -1284,6 +1284,87 @@ export const locations: Location[] = [
     ],
     nearby: ["kelowna", "kamloops", "penticton"],
     audiences: ["teens-and-young-adults"],
+  },
+
+  /* ── Mission, 2 Oct 2026 ─────────────────────────────────────────────────
+   *
+   * Retired in the Phase 1 audit and 308'd to Abbotsford until today; removed
+   * from lib/redirects.mjs (list and RETIRED_TOWN_HOMES) in the same change,
+   * and Abbotsford stops naming it. The argument no neighbour's page makes:
+   *
+   *   Mission       counted with the Fraser Valley, working outside it. Its
+   *                 services and its nearest larger centre are across the
+   *                 bridge in Abbotsford, but in the 2021 Census about 36%
+   *                 of residents with a usual place of work worked in
+   *                 Mission and about 39% worked outside the Fraser Valley
+   *                 regional district altogether (Abbotsford: 64% in the
+   *                 city). Nearly one Mission commuter in five travelled an
+   *                 hour or more each way (Abbotsford: about one in twelve).
+   *                 So home, the Valley's services and the working day are
+   *                 three places, not two; Maple Ridge's page argues the
+   *                 choice between home and work, this one the third corner.
+   *
+   * Census Profile, Mission CSD 5909056: usual place of work 13,015, of
+   * whom 4,695 in Mission, 3,250 elsewhere in the census division, 5,050 in
+   * a different census division; commuting 60 minutes and over 3,200 of
+   * 17,320. Mother tongue Punjabi 2,925 and Tagalog 210 of 41,030.
+   * Abbotsford CSD 5909052: 31,680 of 49,390 in the city; 5,375 of 64,190
+   * an hour or more. Read 2 Oct 2026 through StatCan's data service, when
+   * the www12 Census Profile pages returned 404 from here; cited at the
+   * Census Profile, as every other city is. Language, EMDR and couples
+   * claims stay out of intro, access and faqs[0..4], which the place pages
+   * copy; the EMDR and couples question sits at faqs[5]. No wait times, no
+   * hours. */
+  {
+    slug: "mission",
+    figure2: "first-session-flow",
+    figure: "bc-reach",
+    city: "Mission",
+    communities: ["Silverdale", "Cedar Valley", "Hatzic", "Hatzic Prairie", "Dewdney", "Deroche"],
+    region: "Fraser Valley",
+    blurb: "Counted with the Fraser Valley, though nearly four in ten of its workers spend the working day outside it.",
+    metaDescription:
+      "Online counselling for Mission, BC, on the north bank of the Fraser. Silverdale, Hatzic, Dewdney and Deroche: anxiety, trauma and depression by video.",
+    intro: [
+      "Mission sits on the north bank of the Fraser, across the bridge from Abbotsford, and is usually filed as part of Abbotsford’s catchment. Its working life points somewhere else. In the 2021 Census, of residents with a usual place of work, about 36% worked in Mission and about 39% worked outside the Fraser Valley regional district altogether. In Abbotsford, nearly two-thirds work in the city itself.",
+      "So somebody in Mission looking for a counsellor is choosing among three places rather than one: home on the north bank, the Valley’s services across the bridge, and a workplace further west. Each is a detour from the other two. A [Registered Clinical Counsellor](/compare/rcc-vs-psychologist-vs-social-worker-bc) seen by video sits in none of them, which leaves only the question of a private room.",
+    ],
+    localReality: {
+      h2: "Counted with the Valley, working outside it",
+      body: [
+        "**Mission’s working day mostly happens elsewhere.** Of the roughly 13,000 residents the 2021 Census counted with a usual place of work, about 4,700 worked in Mission. Around 3,250 worked elsewhere in the Fraser Valley regional district, and about 5,050 left it entirely. Nearly one commuter in five spent an hour or more getting to work, one way; in Abbotsford it was about one in twelve. The West Coast Express begins its run to downtown Vancouver at Mission City station.",
+        "**Three directions, and an appointment in only one of them.** A counsellor in town is a drive back from wherever work is. One across the bridge in Abbotsford sits on nobody’s route west. One near a workplace in Metro Vancouver means staying on after work and driving the Lougheed home later still. Video takes all three detours out: the booking calendar shows each counsellor's real open times, and the session happens wherever you are when one of them suits.",
+        "**The public door is on Hurd Street.** Fraser Health is the authority for Mission, and its Mission Mental Health and Substance Use Centre takes adults 19 and over and accepts referrals from patients themselves. Fraser Health’s access line, 1-833-866-6478, helps work out which service fits. Fraser House Society offers substance use counselling in Mission, with a rural program run from Deroche. Private sessions run alongside any of those rather than replacing them, and [free and low-cost options across BC](/resources/low-cost-counselling-bc) are listed too.",
+        "**East along the Lougheed is further again.** Hatzic Prairie, Dewdney and Deroche are rural communities strung out east of town, and from there even Mission’s own services are a drive before any bridge is reached. [Abbotsford’s page](/online-counselling/abbotsford) covers the Valley south of the river. From the east end of this side, a session at home is the only kind that does not begin in the car.",
+        "**A federal institution keeps its own clock.** Mission Institution, a Correctional Service Canada site with medium- and minimum-security units, is in the district, and the people who staff it work rosters that rarely line up with a weekly appointment. What that work tends to leave behind is set out on the page for [first responders and corrections staff](/for/first-responders).",
+        "**Punjabi is Mission’s largest mother tongue after English.** In the 2021 Census 2,925 residents, about 7.1%, gave it as their mother tongue, far ahead of any other language, and 210 gave Tagalog. [Punjabi-speaking counselling for Mission](/punjabi-counselling/mission) explains why the answer is not simply Abbotsford, and [Tagalog-speaking counselling for Mission](/tagalog-counselling/mission) says plainly what a community that small means.",
+      ],
+    },
+    access: [
+      { label: "Wherever the day puts you", detail: "At home north of the river, a room with a door near work, or a parked car before the drive back. A session needs privacy and a connection, not an address in any particular town." },
+      { label: "No extra crossing", detail: "For the nearly one commuter in five already spending an hour or more each way, a counselling trip over the bridge or along the Lougheed is the first thing to be dropped." },
+      { label: "Silverdale to Deroche, on the same terms", detail: "Silverdale, Cedar Valley, Hatzic, Hatzic Prairie, Dewdney and Deroche, with no penalty for living further east." },
+      { label: "Bookable around a rotation", detail: "Rosters at the institution or on the road change from week to week. Sessions are booked from what the calendar actually has open rather than one standing slot." },
+    ],
+    faqs: [
+      { q: "I work in Metro Vancouver. Where would my sessions happen?", a: "Wherever you have privacy on the day: at home in Mission, a closed room at work, or a parked car before the drive home. Some people keep sessions for days when they are not commuting at all. Which suits your week is worth settling on the consultation call, before the first session rather than during it." },
+      { q: "Which health authority covers Mission?", a: "Fraser Health. Its Mission Mental Health and Substance Use Centre on Hurd Street serves adults 19 and over and accepts self-referrals, and the Fraser Health access line, 1-833-866-6478, helps you find the right service. Seeing a Registered Clinical Counsellor privately needs no referral and runs alongside the public route rather than replacing it." },
+      { q: "Do you cover Hatzic, Dewdney and Deroche?", a: "Yes, and on identical terms. The practice is online and covers all of British Columbia, so Silverdale, Cedar Valley, Hatzic Prairie and the communities east along the Lougheed get the same session as anywhere else, with no drive at either end." },
+      { q: "I work rotating shifts. Can counselling keep up?", a: "Yes, by booking from what the calendar shows each week rather than holding one fixed slot. Rosters at Mission Institution, in healthcare or in transport rarely repeat, and a plan that expects that from the start holds up better than one built on the same day every week." },
+      { q: "Is there something free I should look at first?", a: "Yes. Fraser Health’s Mission centre is the public route, Fraser House Society offers substance use counselling in Mission and from Deroche, 8-1-1 connects to HealthLink BC at any hour, and the low-cost counselling page lists free and reduced-fee options across the province. If one of those fits, use it." },
+      { q: "Can I have EMDR or couples sessions from Mission?", a: "Yes, by secure video, with the counsellor on the roster who offers them; the profiles say which. EMDR still begins with a preparation phase and is paced with you, and for couples, partners can join from home or from two places when one of them is still at work. Being north of the river changes nothing about either." },
+    ],
+    sources: [
+      { label: "Fraser Health, Mission Mental Health and Substance Use Centre", url: "https://www.fraserhealth.ca/Service-Directory/Locations/Mission/mission-mental-health-centre" },
+      { label: "Fraser Health, Mental Health Centres directory (access line 1-833-866-6478)", url: "https://www.fraserhealth.ca/Service-Directory/Services/mental-health-and-substance-use/mental-health-centres/mental-health-centres" },
+      { label: "Statistics Canada, 2021 Census Profile: Mission (CSD 5909056)", url: "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055909056&GENDERlist=1&STATISTIClist=1&HEADERlist=0" },
+      { label: "Statistics Canada, 2021 Census Profile: Abbotsford (CSD 5909052)", url: "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055909052&GENDERlist=1&STATISTIClist=1&HEADERlist=0" },
+      { label: "Fraser House Society, substance use counselling in Mission", url: "https://fraserhouse.org/" },
+      { label: "TransLink, West Coast Express", url: "https://www.translink.ca/schedules-and-maps/west-coast-express" },
+      { label: "Correctional Service Canada, Mission Institution", url: "https://www.canada.ca/en/correctional-service/corporate/facilities-security/institutional-profiles/pacific/mission-institution.html" },
+    ],
+    nearby: ["abbotsford", "chilliwack", "maple-ridge"],
+    audiences: ["first-responders", "healthcare-and-shift-workers"],
   },
 ];
 
