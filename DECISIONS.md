@@ -2654,6 +2654,79 @@ No /tl or /pa place twins and no new Punjabi or Tagalog sentences.
 
 ---
 
+### Ten more BC cities get their own pages
+Decided 2 Oct 2026. Saanich, Maple Ridge, Vernon, Mission, Courtenay,
+Langford, Cranbrook, Campbell River, North Vancouver and New Westminster each
+have ten pages: a hub, five city-service pages (anxiety, depression, couples,
+trauma, EMDR), both counsellors' English place pages, a Punjabi region page
+and a Tagalog city page. Each city's entry above holds its sources and its
+redirect changes; this one records what the batch decided as a whole. Each
+page stands on one argument that no neighbour's page makes:
+
+| City | The argument |
+|---|---|
+| Saanich | Greater Victoria's largest municipality, filed under "Victoria" by every listing, with its own campuses, Peninsula towns and the region's largest Punjabi- and Tagalog-speaking communities. |
+| Maple Ridge | A city its workers leave: a counsellor near home or near work, and each loses half the week. |
+| Vernon | The North Okanagan's own centre, not the far end of Kelowna's line: privacy among neighbours, and a specialist line that runs south. |
+| Mission | Counted with the Fraser Valley, served across the bridge, working west: three places, not two. |
+| Courtenay | A posting town around 19 Wing Comox, where counselling has to survive a move and stay out of sight locally. |
+| Langford | A city of recent arrivals that commutes out, with its own Western Communities intake. |
+| Cranbrook | The reader lives on a different clock from the booking calendar in every season. |
+| Campbell River | The end of one referral line and the start of another, with resource work on its own calendar. |
+| North Vancouver | Its own corner of Vancouver Coastal Health, whose public door asks for a referral first, and a crossing to everything else. |
+| New Westminster | The public door is in town; the private specialist is over a city line or a river. |
+
+**Small language communities (the owner's decision, 2 Oct 2026).** Every city
+in the batch gets its Punjabi and Tagalog pages, including those where the
+community is small. Those pages state the real 2021 Census figure plainly
+(Campbell River's 155 Punjabi mother-tongue speakers, Cranbrook's 90 Tagalog)
+and argue honestly: few same-language counsellors locally, and video reaches
+one. They do not inflate the community or claim a local count nobody has. The
+earlier rule that a language city is chosen only where the community is
+"substantial" is replaced, and `lib/tagalog.ts` and `lib/punjabi-regions.ts`
+cite this decision in their headers. Census figures were read through
+Statistics Canada's data service on 2 Oct, when the www12 Census Profile pages
+returned 404 from here, and are cited at the Census Profile URL pattern every
+other city uses, so the citations are consistent; the figures are as read.
+
+**Retired slugs that became pages.** `maple-ridge`, `vernon`, `mission`,
+`courtenay`, `cranbrook`, `campbell-river`, `north-vancouver` and
+`new-westminster` left `retiredCitySlugs` and now answer 200 where they used
+to 308. `victoria-saanich` moved to `PLACE_ALIASES` and 308s to the Saanich
+page. `pitt-meadows` now lands on Maple Ridge and `west-vancouver` on North
+Vancouver, each of which names it. `langford` was never retired. The old home
+hubs (Victoria, Kelowna, Abbotsford, Vancouver, Burnaby) stopped naming the
+towns that now have pages and link them instead.
+
+**Template fixes made for the batch** (commit 12936f0, before the first city):
+the hub title gains an "Online, Virtual Counselling <city> | Counsellors" rung
+for names of 14 characters or more, and the Tagalog city title drops ", BC"
+where it would pass 60; place pages list only the counsellor's own services,
+filtering hub copy by roster services as they already filtered languages, so
+Savneet's pages no longer offer couples work or EMDR in their copy or meta
+description; Tagalog city pages are dated by their own `tagalogCities`
+collection on screen, in schema, in the sitemap and in llms-full; and the
+Punjabi index reads its twin and city counts from the data rather than a
+typed "fifteen". The two 15-character cities title their depression pair
+"Depression Therapy" through `titleName`.
+
+**Why Alberta is not in the batch.** Alberta is gated on professional
+liability insurance (see "Alberta is gated on insurance" above): `/alberta`
+stays closed, the founder's cover does not reach it, and Savneet is BC-only,
+so an Alberta city could have at most Camille's place page, not ten pages.
+The hub, pair and Tagalog templates are also written for BC health
+authorities and BC crisis lines.
+
+No /tl or /pa place twins were added and no new Punjabi or Tagalog sentences
+were written.
+
+*Enforced by:* `test/regional-pages.test.mts`, `test/city-hub.test.mts`,
+`test/city-template.test.mts`, `test/service-languages.test.mts`,
+`scripts/uniqueness-gate.mjs`, `scripts/redirect-shadow.mjs`,
+`scripts/smoke.mjs`
+
+---
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`
