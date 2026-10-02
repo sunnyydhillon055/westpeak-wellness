@@ -33,7 +33,10 @@ export function rich(text: string): ReactNode[] {
       return <a key={i} href={href} target="_blank" rel="noopener">{inner}</a>;
     }
     const bold = part.match(/^\*\*([^*]+)\*\*$/);
-    if (bold) return <strong key={i}>{bold[1]}</strong>;
+    // A bold run may wrap a link ("**[Foundry](https://…)**", the resource
+    // lists on the find-a-therapist guide and /for/new-parents). It cannot
+    // contain another bold run, so this recurses at most one level. 1 Oct 2026.
+    if (bold) return <strong key={i}>{rich(bold[1])}</strong>;
     const em = part.match(/^\*([^*]+)\*$/);
     if (em) return <em key={i}>{em[1]}</em>;
     return <span key={i}>{part}</span>;

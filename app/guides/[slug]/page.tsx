@@ -9,6 +9,7 @@ import { getExtra } from '@/lib/depth';
 import { buildToc, headingId } from '@/lib/toc';
 import { orgRef, siteRef, medicalWebPage, figureImage } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
+import { plainText } from '@/lib/plain-text';
 import SceneBand from '@/components/SceneBand';
 import Byline from '@/components/Byline';
 import ExtraSections from '@/components/ExtraSections';
@@ -200,7 +201,7 @@ export default async function GuidePage({ params }: { params: { slug: string } }
       '@context': 'https://schema.org', '@type': 'FAQPage',
       mainEntity: g.faqs.map((f) => ({
         '@type': 'Question', name: f.q,
-        acceptedAnswer: { '@type': 'Answer', text: f.a },
+        acceptedAnswer: { '@type': 'Answer', text: plainText(f.a) },
       })),
     },
   ].filter(Boolean);
@@ -285,7 +286,7 @@ export default async function GuidePage({ params }: { params: { slug: string } }
             {g.faqs.map((f) => (
               <details className="faq-item" key={f.q}>
                 <summary>{f.q}</summary>
-                <p>{f.a}</p>
+                <p>{rich(f.a)}</p>
               </details>
             ))}
           </div>
@@ -305,16 +306,6 @@ export default async function GuidePage({ params }: { params: { slug: string } }
             (Canada, 24/7) or BC Mental Health Support at <strong>310-6789</strong>.
           </p>
 
-          {/* The confirmation is /one-pager-sent, which says what a signup
-              starts (the one-pager, then two notes), not /message-sent,
-              which promises an enquiry's reply. 1 Oct 2026. */}
-          {guideMagnet(g.slug) && (
-            <LeadCapture
-              magnet={guideMagnet(g.slug) as MagnetKey}
-              source={`/guides/${g.slug}`}
-              returnTo="/one-pager-sent"
-            />
-          )}
           </div>
         </div>
       </section>
@@ -330,7 +321,10 @@ export default async function GuidePage({ params }: { params: { slug: string } }
         cardLocation="guide"
         cardCopy={infoCardCopy(gentle)}
         feeLine={feeLine}
-        consult={cards ? { location: 'next-guide-close', slugs: counsellors.map((p) => p.slug) } : undefined}
+        /* Once per page (item 379): a guide that already printed the next
+           free consultation mid-article (NEXT_CONSULT_AFTER) does not print
+           it again here. */
+        consult={cards && !next ? { location: 'next-guide-close', slugs: counsellors.map((p) => p.slug) } : undefined}
         softSteps={softStepsFor({ path: `/guides/${g.slug}`, slug: g.slug, service: g.service })}
         band={{
           tone: gentle ? 'gentle' : 'default',
@@ -339,6 +333,27 @@ export default async function GuidePage({ params }: { params: { slug: string } }
           bookHref: cta.href,
         }}
       />
+
+      {/* The one-pager form, AFTER the next step (item 385, 1 Oct 2026): a
+          reader who finished the guide met an email box before the
+          counsellors and their calendar links. It is now the soft step after
+          "Not ready to book?"; lib/change-register.ts and data/changes.json
+          record the move. The confirmation is /one-pager-sent, which says
+          what a signup starts (the one-pager, then two notes), not
+          /message-sent, which promises an enquiry's reply. */}
+      {guideMagnet(g.slug) && (
+        <section className="section" style={{ paddingTop: 8 }}>
+          <div className="container reading">
+            <div className="prose">
+              <LeadCapture
+                magnet={guideMagnet(g.slug) as MagnetKey}
+                source={`/guides/${g.slug}`}
+                returnTo="/one-pager-sent"
+              />
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="section section--tint">
         <div className="container">

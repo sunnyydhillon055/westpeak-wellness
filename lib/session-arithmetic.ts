@@ -72,3 +72,41 @@ export function remainingBalanceSentence(catalog: Catalog = FALLBACK_CATALOG): s
     'the [cost estimator](/tools/therapy-cost-bc) does the arithmetic with your plan’s own numbers.'
   );
 }
+
+/* ICBC'S OWN COUNSELLING RATE, BESIDE THIS PRACTICE'S FEE — 1 Oct 2026 (item 366).
+ *
+ * ICBC publishes what it pays for a counselling treatment in the first twelve
+ * weeks after a crash, and re-sets it every 1 April. Read on ICBC's page
+ * "Accessing treatment during your first 12 weeks of recovery" on 1 Oct 2026:
+ * 12 pre-approved counselling treatments, 160 dollars per treatment, minimum 50
+ * minutes, for treatments between 1 April 2026 and 31 March 2027; no referral
+ * or ICBC approval needed; out-of-pocket receipts submitted within 180 days are
+ * reimbursed "to the level of our approved rates". The window is carried with
+ * the figure so a test fails once it lapses rather than the page quietly
+ * printing last year's rate. The practice's own fee comes from the catalogue. */
+export const ICBC_COUNSELLING = {
+  treatments: 12,
+  cents: 16000,
+  minMinutes: 50,
+  from: '2026-04-01',
+  to: '2027-03-31',
+  read: '2026-10-01',
+} as const;
+
+/** The sentence that sets this practice's individual fee beside ICBC's
+ *  published rate. Says which side of the rate the fee falls on and nothing
+ *  about whether ICBC will reimburse: that is the adjuster's answer. */
+export function icbcFeeSentence(catalog: Catalog = FALLBACK_CATALOG): string {
+  const ind = cents('Individual Counselling', catalog);
+  const rate = money(ICBC_COUNSELLING.cents);
+  const where =
+    ind.cents > ICBC_COUNSELLING.cents
+      ? `above ICBC’s ${rate} rate, so where ICBC reimburses a receipt from here, the ${money(ind.cents - ICBC_COUNSELLING.cents)} difference on each session stays with you`
+      : ind.cents === ICBC_COUNSELLING.cents
+        ? `the same as ICBC’s ${rate} rate`
+        : `below ICBC’s ${rate} rate`;
+  return (
+    `For comparison, an individual session at this practice is ${money(ind.cents)} for ${ind.minutes} minutes, ${where}. ` +
+    'This practice is not an ICBC vendor and does not bill ICBC directly, so you pay at booking and submit the receipt yourself; confirm with your adjuster, before the first session, that ICBC will reimburse a counsellor outside its Recovery Network.'
+  );
+}

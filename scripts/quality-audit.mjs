@@ -186,6 +186,16 @@ for (const { url, html } of pages) {
   if (!/property="og:image"/.test(head)) add('no-og-image', url);
   if (!/<html[^>]+lang=/.test(html)) add('no-lang', url);
 
+  /* ---- markdown printed as text --------------------------------------- */
+  /* RAW MARKDOWN LINKS — 1 Oct 2026 (item 370). Copy in lib/*.ts carries
+     "[label](/path)" for lib/rich.tsx to render; a renderer that printed the
+     string instead showed readers the brackets and the path. A scan of the
+     1 Oct build found it on 17 pages (FAQ answers, the practitioner place
+     pages, bold resource names wrapping a link). <main> only, scripts and
+     styles removed, so the JSON-LD is not what is measured. Zero allowed. */
+  const rawLinks = body.match(/\[[^\]]+\]\((\/|https?:)/g) || [];
+  if (rawLinks.length) add('raw-markdown-link', url, `${rawLinks.length}: ${rawLinks[0].slice(0, 50)}`);
+
   /* ---- substance ------------------------------------------------------- */
   const words = text(body).split(/\s+/).filter(Boolean).length;
   /* /_not-found is the 404 boundary, and the two /sent routes are
@@ -224,6 +234,7 @@ const LABEL = {
   'no-og-image': 'No Open Graph image',
   'no-lang': 'No lang attribute',
   'very-thin': 'Under 250 words',
+  'raw-markdown-link': 'Markdown link printed as text',
   'duplicate-title': 'Two pages share a title',
   'duplicate-description': 'Two pages share a description',
 };

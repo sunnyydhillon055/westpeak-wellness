@@ -50,7 +50,7 @@ export const albertaResources: Resource[] = [
     updated: '2026-10-01',
     readMinutes: 6,
     /* Year-end plan timing, 1 Oct to 31 Dec (item 210). The BC year-end page is not linked: its plan examples are BC ones. */
-    seasonal: yearEndSeasonal({ yearEndLink: false, designation: 'Canadian Certified Counsellor' }),
+    seasonal: yearEndSeasonal({ yearEndLink: false, designation: 'Canadian Certified Counsellor', province: 'AB' }),
     sections: [
       {
         /* Was "What AHCIP does and does not pay for" (1 Oct 2026). */
@@ -118,7 +118,8 @@ export const albertaResources: Resource[] = [
     ],
     midCta: {
       text: 'Camille Granda, RCC, CCC, can see clients in Alberta, and the first thirty minutes are free.',
-      label: 'More about Camille',
+      /* Was 'More about Camille', on a link that opens her calendar (item 384). */
+      label: 'Book a free consultation with Camille',
     },
     faqs: [
       {
@@ -230,7 +231,8 @@ export const albertaResources: Resource[] = [
     ],
     midCta: {
       text: 'Every credential named on this site is on a public register, with the number, so you can check it rather than take it on trust.',
-      label: 'See the counsellors',
+      /* Was 'See the counsellors', on a link that opens the calendar (item 384). */
+      label: 'Book a free consultation',
     },
     faqs: [
       {

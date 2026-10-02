@@ -11,6 +11,7 @@ import { getExtra } from '@/lib/depth';
 import { buildToc, headingId } from '@/lib/toc';
 import { orgRef, siteRef, medicalWebPage } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
+import { plainText } from '@/lib/plain-text';
 import CtaBand from '@/components/CtaBand';
 import SceneBand from '@/components/SceneBand';
 import Byline from '@/components/Byline';
@@ -134,7 +135,7 @@ export default async function AudiencePage({ params }: { params: { slug: string 
       '@context': 'https://schema.org', '@type': 'FAQPage',
       mainEntity: a.faqs.map((f) => ({
         '@type': 'Question', name: f.q,
-        acceptedAnswer: { '@type': 'Answer', text: f.a },
+        acceptedAnswer: { '@type': 'Answer', text: plainText(f.a) },
       })),
     },
   ];
