@@ -1,4 +1,5 @@
 import type { Resource } from './resources';
+import { CONFIDENTIALITY_LIMITS } from '@/lib/practice-facts';
 
 /* WHAT "COUNSELLING" MEANS IN PUNJABI — added 17 Sep 2026 from Search Console.
  *
@@ -52,7 +53,7 @@ export const punjabiWordsResource: Resource[] = [
         table: {
           columns: ['Punjabi', 'Said as', 'What it actually carries'],
           rows: [
-            ['ਕਾਊਂਸਲਿੰਗ', 'kaunsling', 'The English word, written in Gurmukhi. Exact in meaning and slightly foreign in feel, which is why an older relative may not recognise it.'],
+            ['ਕਾਊਂਸਲਿੰਗ', 'kaunsling', 'The English word, written in Gurmukhi. Accurate in meaning, borrowed in feel, which is why an older relative may not recognise it.'],
             ['ਸਲਾਹ-ਮਸ਼ਵਰਾ', 'salah-mashwara', 'Consultation, taking advice. Familiar and respectable, but it implies being told what to do — the opposite of how counselling works.'],
             ['ਮਾਨਸਿਕ ਸਿਹਤ', 'mansik sehat', 'Mental health, literally. Neutral and accurate. Useful precisely because it sounds medical rather than shameful.'],
             ['ਮਨੋਵਿਗਿਆਨੀ', 'manovigiaani', 'Psychologist. Often used loosely for any mental-health professional, which causes confusion about who can diagnose.'],
@@ -116,7 +117,7 @@ export const punjabiWordsResource: Resource[] = [
       { q: 'Is there a Punjabi word for depression?', a: 'Not an everyday one. ਉਦਾਸੀ (udaasi) means sadness or low mood, and it is the word most people use, but it sounds like something that will lift on its own. That mismatch is one reason a depressive episode in a Punjabi-speaking family is often heard as ordinary sadness for a long time before anybody treats it as more.' },
       { q: 'Do I have to speak Punjabi in the session?', a: 'No. Most people move between Punjabi and English in the same sentence, and that is normal here rather than something to apologise for. You can also book in English entirely and switch when a word only exists in one of them.' },
       { q: 'Who provides counselling in Punjabi at Westpeak?', a: 'Savneet Singh, a Registered Clinical Counsellor who works in Punjabi and English. Sessions are online, anywhere in British Columbia, and the first 30-minute consultation is free.' },
-      { q: 'Will my family find out?', a: 'No. What is said in a session is confidential, with the narrow legal exceptions every counsellor has — a serious risk of harm, abuse of a minor, or a court order. Those are explained plainly at the first meeting. Nothing goes to family, community or an employer.' },
+      { q: 'Will my family find out?', a: `No. What is said in a session is confidential, with the narrow legal exceptions every counsellor has: ${CONFIDENTIALITY_LIMITS}. Those are explained plainly at the first meeting. Nothing goes to family, community or an employer.` },
     ],
     sources: [
       { label: 'BC Association of Clinical Counsellors', url: 'https://bcacc.ca/' },
