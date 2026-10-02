@@ -152,6 +152,27 @@ export function scanDescriptions(root) {
   return problems;
 }
 
+/* THE CLOSING FEE LINE — 1 Oct 2026. feeLineFor in lib/counsellor-cards.ts
+ * prints the fee for a guide's, resource's or comparison's service on every
+ * one of them, reading Cliniko names from FEE_LINE_ITEMS. It types no
+ * figure, so the scan above has nothing to find; what can drift is a NAME,
+ * which would silently drop the line from ~80 pages. So every name it reads
+ * must be in FALLBACK_CATALOG with a price (checked here, no key needed) and
+ * in Cliniko (checked in main, with the key). */
+export function feeLineNames(cardsSource) {
+  const block = cardsSource.match(/export const FEE_LINE_ITEMS = \{([\s\S]*?)\}/);
+  if (!block) throw new Error('lib/counsellor-cards.ts has no FEE_LINE_ITEMS');
+  return [...block[1].matchAll(/:\s*'([^']+)'/g)].map((m) => m[1]);
+}
+
+/** FEE_LINE_ITEMS names missing from FALLBACK_CATALOG or priced at zero. */
+export function feeLineGaps(root) {
+  const names = feeLineNames(readFileSync(join(root, 'lib/counsellor-cards.ts'), 'utf8'));
+  const fallback = readFileSync(join(root, 'lib/cliniko-catalog.ts'), 'utf8');
+  const priced = new Map([...fallback.matchAll(/name: '([^']+)', minutes: \d+, cents: (\d+)/g)].map((m) => [m[1], Number(m[2])]));
+  return names.filter((n) => !(priced.get(n) > 0));
+}
+
 async function main() {
   let problems = 0;
   const bad = (msg) => { problems++; console.log(`   DRIFT  ${msg}`); };
@@ -169,6 +190,11 @@ async function main() {
   const typedDesc = scanDescriptions(process.cwd());
   for (const p of typedDesc) bad(`${p.file}:${p.line} types ${p.amount} into a description; compose it with lib/snippet-facts.ts`);
   if (!typedDesc.length) console.log('    ok    no description types a fee');
+  console.log('\n  Closing fee line names (FEE_LINE_ITEMS) vs FALLBACK_CATALOG');
+  console.log('  ' + '-'.repeat(72));
+  const gaps = feeLineGaps(process.cwd());
+  for (const n of gaps) bad(`lib/counsellor-cards.ts FEE_LINE_ITEMS reads "${n}", which FALLBACK_CATALOG does not price`);
+  if (!gaps.length) console.log('    ok    every name the closing fee line reads is priced in the fallback');
   if (problems) {
     console.log(`\n  ${problems} stray figure(s). Read the fee from lib/cliniko-catalog.ts, or allow-list a non-fee figure with a reason.\n`);
     process.exit(1);
@@ -239,6 +265,13 @@ async function main() {
   for (const m of svc.matchAll(/'([a-z-]+)':\s*'((?:Individual|Couples|EMDR)[^']*)'/g)) {
     if (!live.has(m[2])) bad(`${m[1]} bills as "${m[2]}", which Cliniko does not have`);
     else console.log(`    ok    ${m[1].padEnd(24)} ${m[2]}`);
+  }
+
+  console.log('\n  FEE_LINE_ITEMS names on the closing fee line');
+  console.log('  ' + '-'.repeat(72));
+  for (const n of feeLineNames(readFileSync('lib/counsellor-cards.ts', 'utf8'))) {
+    if (!live.has(n)) bad(`the closing fee line reads "${n}", which Cliniko does not have`);
+    else console.log(`    ok    ${n}`);
   }
 
   console.log('\n  FALLBACK in lib/cliniko-catalog.ts');

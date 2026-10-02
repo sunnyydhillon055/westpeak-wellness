@@ -3,6 +3,7 @@ import type { Guide } from './guides';
 export const moreGuides3: Guide[] = [
   {
     slug: 'talking-to-your-family-about-therapy',
+    service: 'family-counselling',
     title: 'Telling your family you are going to therapy',
     metaTitle: 'Telling Family About Therapy | Westpeak Wellness',
     metaDescription:
@@ -92,6 +93,7 @@ export const moreGuides3: Guide[] = [
 
   {
     slug: 'setting-boundaries-with-family',
+    service: 'family-counselling',
     title: 'Setting boundaries with family without detonating anything',
     metaTitle: 'What Are Family Boundaries, and How to Set One',
     metaDescription:

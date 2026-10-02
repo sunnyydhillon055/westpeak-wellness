@@ -10,6 +10,7 @@ import type { Comparison } from './comparisons';
 export const moreComparisons2: Comparison[] = [
   {
     slug: 'emdr-intensive-vs-weekly-emdr',
+    service: 'emdr-therapy',
     figure2: 'window-of-tolerance',
     figure: 'emdr-phases',
     title: 'EMDR intensives vs weekly EMDR: which format fits?',
@@ -91,6 +92,7 @@ export const moreComparisons2: Comparison[] = [
 
   {
     slug: 'gottman-method-vs-eft-for-couples',
+    service: 'couples-therapy',
     figure2: 'four-decisions',
     figure: 'gottman-method',
     title: 'Gottman Method vs EFT: two roads into couples therapy',

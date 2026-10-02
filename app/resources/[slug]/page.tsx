@@ -7,7 +7,6 @@ import { getExtra } from '@/lib/depth';
 import { buildToc, headingId } from '@/lib/toc';
 import { orgRef, siteRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
-import CtaBand from '@/components/CtaBand';
 import BookLink from '@/components/BookLink';
 import { bookingCtaFor } from '@/lib/booking-cta';
 import SceneBand from '@/components/SceneBand';
@@ -24,9 +23,9 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import LeadCapture, { type MagnetKey } from '@/components/LeadCapture';
 import { ogBase } from '@/lib/og-meta';
 import NextConsultLine from '@/components/NextConsultLine';
-import CounsellorCards from '@/components/CounsellorCards';
-import CoverageLine from '@/components/CoverageLine';
-import { counsellorsForInfoPage, individualFeeLine, infoCardCopy, showsInfoCards } from '@/lib/counsellor-cards';
+import NextStep from '@/components/NextStep';
+import { NO_CARDS, counsellorsForInfoPage, feeLineFor, infoCardCopy, showsInfoCards } from '@/lib/counsellor-cards';
+import { softStepsFor } from '@/lib/next-steps';
 import { readCatalog, FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
 import StudentPlanTable from '@/components/StudentPlanTable';
 import { STUDENT_PLAN_TABLE_AFTER } from '@/lib/student-plans';
@@ -88,12 +87,21 @@ const fmt = (iso: string) =>
 export default async function ResourcePage({ params }: { params: { slug: string } }) {
   const r = getResource(params.slug);
   if (!r) notFound();
+  /* Cards on every resource but the NO_CARDS list (lib/counsellor-cards.ts):
+     the language counsellor on a language page, the counsellor insured for
+     Alberta on an Alberta page, otherwise whoever is accepting individual
+     clients in BC. The fee line goes with them on every resource except the
+     two NO_CARDS pages, which are not about this practice's sessions (the
+     crisis directory, becoming a counsellor). The consultation time goes
+     with the cards. 1 Oct 2026. */
   const cards = showsInfoCards('resources', r.slug, r.whoYouWouldSee);
-  const feeLine = cards ? individualFeeLine(await readCatalog()) : undefined;
+  const counsellors = cards ? counsellorsForInfoPage(r) : [];
+  const feeLine = NO_CARDS.resources.includes(r.slug) ? undefined : feeLineFor(undefined, await readCatalog());
   const next = NEXT_CONSULT_AFTER[r.slug];
   /* A resource written for one language books with the counsellor who
-     speaks it; every other resource keeps the practice calendar. */
-  const cta = bookingCtaFor({ language: r.language, fallback: 'Book a free consultation' });
+     speaks it; one written for Alberta with the counsellor insured there;
+     every other resource keeps the practice calendar. */
+  const cta = bookingCtaFor({ language: r.language, province: r.province, fallback: 'Book a free consultation' });
 
   const toc = buildToc([
     ...r.sections.map((s) => s.h2),
@@ -338,22 +346,24 @@ export default async function ResourcePage({ params }: { params: { slug: string 
         </div>
       </section>
 
-      {/* WHO YOU WOULD TALK TO, with the fee and who pays — 1 Oct 2026. See
-          INFO_CARD_PAGES in lib/counsellor-cards.ts for which pages and why. */}
-      {cards && (
-        <CounsellorCards
-          counsellors={counsellorsForInfoPage(r)}
-          location="resource"
-          className="section section--ghost"
-          {...infoCardCopy(false)}
-          footer={
-            <>
-              {feeLine && <p className="hero-note" style={{ margin: '0 0 6px' }}>{feeLine}</p>}
-              <CoverageLine />
-            </>
-          }
-        />
-      )}
+      {/* THE NEXT STEP, straight after Sources and the disclaimer and before
+          the link footer (components/NextStep.tsx, 1 Oct 2026). Who appears,
+          and whose next consultation time, follows the page's language and
+          province; see counsellorsForInfoPage in lib/counsellor-cards.ts. */}
+      <NextStep
+        counsellors={counsellors}
+        cardLocation="resource"
+        cardCopy={infoCardCopy(false, r.province)}
+        feeLine={feeLine}
+        province={r.province}
+        consult={cards ? { location: 'next-resource-close', slugs: counsellors.map((p) => p.slug) } : undefined}
+        softSteps={softStepsFor({ path: `/resources/${r.slug}`, slug: r.slug })}
+        band={{
+          bookHref: cta.href,
+          heading: r.closingBand?.heading ?? 'Questions about cost or coverage?',
+          text: r.closingBand?.text ?? 'A free 30-minute consultation is a good place to ask them, before committing to anything.',
+        }}
+      />
 
       <section className="section section--tint">
         <div className="container">
@@ -370,11 +380,6 @@ export default async function ResourcePage({ params }: { params: { slug: string 
       <MoreFrom items={resources} currentSlug={r.slug} base="/resources" heading="More BC resources" eyebrow="Keep going" />
       <ServiceCityLinks section="resources" slug={r.slug} />
       <CityLinks />
-      <CtaBand
-        bookHref={cta.href}
-        heading={r.closingBand?.heading ?? 'Questions about cost or coverage?'}
-        text={r.closingBand?.text ?? 'A free 30-minute consultation is a good place to ask them, before committing to anything.'}
-      />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
     </>

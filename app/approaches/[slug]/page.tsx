@@ -9,6 +9,8 @@ import { orgRef, siteRef, medicalWebPage, figureImage } from '@/lib/schema';
 import { therapyNode } from '@/lib/entities';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
+import BookLink from '@/components/BookLink';
+import { bookingCtaFor } from '@/lib/booking-cta';
 import SceneBand from '@/components/SceneBand';
 import Byline from '@/components/Byline';
 import ExtraSections from '@/components/ExtraSections';
@@ -45,6 +47,12 @@ const fmt = (iso: string) =>
 export default function ApproachPage({ params }: { params: { slug: string } }) {
   const g = getApproach(params.slug);
   if (!g) notFound();
+  /* Every approach here is individual work, which both accepting counsellors
+     offer, so this is the practice calendar; through bookingCtaFor so the
+     rule lives in one place. The hero and mid-article buttons were plain
+     links no book_click could see; they go through BookLink since 1 Oct
+     2026. */
+  const cta = bookingCtaFor({ fallback: 'Book a free consultation' });
 
   const toc = buildToc([
     ...g.sections.map((s) => s.h2),
@@ -58,7 +66,7 @@ export default function ApproachPage({ params }: { params: { slug: string } }) {
     g.figure ? <Figure key="fig" name={g.figure} /> : null,
     <div className="crisis" key="cta" style={{ margin: '32px 0' }}>
       <p style={{ margin: 0 }}>
-        {g.midCta.text} <Link href={site.bookingPath}>{g.midCta.label}</Link>.
+        {g.midCta.text} <BookLink location="mid-approach" href={cta.href} className="">{g.midCta.label}</BookLink>.
       </p>
     </div>,
     g.related[0] ? (
@@ -148,7 +156,7 @@ export default function ApproachPage({ params }: { params: { slug: string } }) {
               the word does, which was the whole point the first time. */}
           <p className="hero-note">{g.readMinutes} min read · Updated {fmt(g.updated)}</p>
           <div className="btn-row" style={{ marginTop: 22 }}>
-            <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
+            <BookLink location="hero-approach" href={cta.href}>{cta.label}</BookLink>
             <Link className="btn btn--ghost" href="/approaches">All approaches</Link>
           </div>
         </div>
@@ -241,6 +249,7 @@ export default function ApproachPage({ params }: { params: { slug: string } }) {
       <MoreFrom items={approaches} currentSlug={g.slug} base="/approaches" heading="Other approaches" eyebrow="Keep going" />
       <CityLinks />
       <CtaBand
+        bookHref={cta.href}
         heading="Still deciding?"
         text="A free 30-minute consultation is the least committal way to find out whether this is a fit. No pressure, and no obligation to book a session afterward."
       />

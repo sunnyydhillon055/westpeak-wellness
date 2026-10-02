@@ -50,6 +50,10 @@ export type Comparison = {
      counsellor who speaks it (lib/booking-cta.ts), and the header and phone
      bar follow (lib/roster-nav.ts LANGUAGE_PAGES). 1 Oct 2026. */
   language?: 'pa' | 'tl';
+  /* The service the comparison is about (couples, EMDR), as on Guide: its
+     booking links open the calendar of the counsellor who offers it.
+     1 Oct 2026. */
+  service?: 'couples-therapy' | 'emdr-therapy' | 'family-counselling';
 };
 
 const coreComparisons: Comparison[] = [
@@ -272,6 +276,7 @@ const coreComparisons: Comparison[] = [
 
   {
     slug: "cbt-vs-emdr-for-trauma",
+    service: 'emdr-therapy',
     figure2: "window-of-tolerance",
     figure: "emdr-phases",
     title: "CBT or EMDR for trauma: how they differ",

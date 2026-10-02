@@ -3,6 +3,7 @@ import type { Guide } from './guides';
 export const moreGuides2: Guide[] = [
   {
     slug: 'does-couples-therapy-work',
+    service: 'couples-therapy',
     title: 'Does couples therapy actually work?',
     metaTitle: 'Does Couples Therapy Work? | Westpeak Wellness',
     metaDescription:

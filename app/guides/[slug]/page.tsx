@@ -9,7 +9,6 @@ import { getExtra } from '@/lib/depth';
 import { buildToc, headingId } from '@/lib/toc';
 import { orgRef, siteRef, medicalWebPage, figureImage } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
-import CtaBand from '@/components/CtaBand';
 import SceneBand from '@/components/SceneBand';
 import Byline from '@/components/Byline';
 import ExtraSections from '@/components/ExtraSections';
@@ -27,41 +26,14 @@ import { ogBase } from '@/lib/og-meta';
 import NextConsultLine from '@/components/NextConsultLine';
 import BookLink from '@/components/BookLink';
 import { bookingCtaFor } from '@/lib/booking-cta';
-import CounsellorCards from '@/components/CounsellorCards';
-import CoverageLine from '@/components/CoverageLine';
-import { counsellorsForInfoPage, individualFeeLine, infoCardCopy, showsInfoCards } from '@/lib/counsellor-cards';
+import NextStep from '@/components/NextStep';
+import { counsellorsForInfoPage, feeLineFor, infoCardCopy, showsInfoCards } from '@/lib/counsellor-cards';
+import { GENTLE_CTA, softStepsFor } from '@/lib/next-steps';
 import { readCatalog } from '@/lib/cliniko-catalog';
 
-/* Guides where "Still deciding? Book a free consultation!" is the wrong note.
- *
- * These are the pages somebody reaches while frightened, bereaved, or watching
- * somebody they love come apart — not while comparing providers. The same
- * consultation is still offered and the same form still works; only the
- * register changes, and the ask stops assuming the reader is in a position to
- * decide anything today.
- *
- * Kept as an explicit list rather than inferred from the topic, because the
- * judgement of which pages these are is a clinical one and should be visible
- * and editable in one place. */
-const GENTLE_CTA = new Set([
-  'intrusive-thoughts-and-what-they-mean',
-  'grief-without-a-timeline',
-  'what-trauma-actually-means',
-  'when-someone-you-love-is-drinking',
-  'supporting-someone-who-is-struggling',
-  'when-therapy-isnt-working',
-  'signs-it-might-be-time-for-therapy',
-  'workplace-bullying-in-bc',
-  'stress-leave-bc',
-  'anger-that-arrives-too-fast',
-  /* The work-and-money cluster, added 2026-08-28. Same reasoning as
-     stress-leave-bc: the reader is mid-difficulty, not comparison-shopping.
-     sick-days-and-mental-health-days-bc stays on the normal register — it is
-     a rights-information page people read in advance. */
-  'ei-sickness-benefits-and-therapy',
-  'doctors-note-for-a-mental-health-leave',
-  'return-to-work-after-a-mental-health-leave',
-]);
+/* GENTLE_CTA, the guides where "Still deciding? Book a free consultation!"
+   is the wrong note, lives in lib/next-steps.ts since 1 Oct 2026, so the
+   cards' NO_CARDS list (lib/counsellor-cards.ts) can be tested against it. */
 
 /* Which one-pager the email form at the end of a guide offers, if any.
  *
@@ -137,12 +109,20 @@ export default async function GuidePage({ params }: { params: { slug: string } }
   const g = getGuide(params.slug);
   if (!g) notFound();
   const gentle = GENTLE_CTA.has(g.slug);
+  /* Cards on every guide but the NO_CARDS list (lib/counsellor-cards.ts),
+     naming only counsellors who offer the guide's service. The fee line is
+     on every guide, gentle ones included: a price is information, not
+     pressure. The closing consultation time goes with the cards, so a page
+     the owner has not cleared for "who you would talk to" does not get
+     "when" either. 1 Oct 2026. */
   const cards = showsInfoCards('guides', g.slug);
-  const feeLine = cards ? individualFeeLine(await readCatalog()) : undefined;
+  const counsellors = cards ? counsellorsForInfoPage({ service: g.service }) : [];
+  const feeLine = feeLineFor(g.service, await readCatalog());
   const next = NEXT_CONSULT_AFTER[g.slug];
-  /* Guides are not written for one language or one service, so this is the
-     practice calendar; through bookingCtaFor so the rule lives in one place. */
-  const cta = bookingCtaFor({ fallback: 'Book a free consultation' });
+  /* A guide about couples, EMDR or family work books with the counsellor
+     who offers it (g.service); every other guide keeps the practice
+     calendar. Through bookingCtaFor so the rule lives in one place. */
+  const cta = bookingCtaFor({ service: g.service, fallback: 'Book a free consultation' });
 
   const toc = buildToc([
     ...g.sections.map((s) => s.h2),
@@ -339,31 +319,35 @@ export default async function GuidePage({ params }: { params: { slug: string } }
         </div>
       </section>
 
-      {/* WHO YOU WOULD TALK TO, with the fee and who pays — 1 Oct 2026. The
-          leave guides on the GENTLE list get a gentler heading and, as
-          before, no email form. See INFO_CARD_PAGES in lib/counsellor-cards.ts. */}
-      {cards && (
-        <CounsellorCards
-          counsellors={counsellorsForInfoPage({})}
-          location="guide"
-          className="section section--ghost"
-          {...infoCardCopy(gentle)}
-          footer={
-            <>
-              {feeLine && <p className="hero-note" style={{ margin: '0 0 6px' }}>{feeLine}</p>}
-              <CoverageLine />
-            </>
-          }
-        />
-      )}
+      {/* THE NEXT STEP, straight after Sources and the disclaimer and before
+          the 30-50 link footer (components/NextStep.tsx, 1 Oct 2026): who you
+          would talk to, the fee for this guide's service, the next free
+          consultation with a counsellor who fits, and the closing band with
+          its smaller steps. The GENTLE_CTA guides keep the gentle register
+          and, as before, no email form. */}
+      <NextStep
+        counsellors={counsellors}
+        cardLocation="guide"
+        cardCopy={infoCardCopy(gentle)}
+        feeLine={feeLine}
+        consult={cards ? { location: 'next-guide-close', slugs: counsellors.map((p) => p.slug) } : undefined}
+        softSteps={softStepsFor({ path: `/guides/${g.slug}`, slug: g.slug, service: g.service })}
+        band={{
+          tone: gentle ? 'gentle' : 'default',
+          heading: 'Still deciding?',
+          text: 'A free 30-minute consultation is the least committal way to find out whether this is a fit. No pressure, and no obligation to book a session afterward.',
+          bookHref: cta.href,
+        }}
+      />
 
       <section className="section section--tint">
         <div className="container">
           <p className="eyebrow">Keep reading</p>
           <h2>Related pages</h2>
           <div className="chip-grid" style={{ marginTop: 20 }}>
+            {/* A related link to /book follows the page's booking links. */}
             {g.related.map((r) => (
-              <Link className="chip" key={r.href} href={r.href}>{r.label}</Link>
+              <Link className="chip" key={r.href} href={r.href === site.bookingPath ? cta.href : r.href}>{r.label}</Link>
             ))}
           </div>
         </div>
@@ -373,11 +357,6 @@ export default async function GuidePage({ params }: { params: { slug: string } }
       <MoreFrom items={guides} currentSlug={g.slug} base="/guides" heading="More counselling guides" eyebrow="Keep going" />
       <ServiceCityLinks section="guides" slug={g.slug} />
       <CityLinks />
-      <CtaBand
-        tone={gentle ? 'gentle' : 'default'}
-        heading="Still deciding?"
-        text="A free 30-minute consultation is the least committal way to find out whether this is a fit. No pressure, and no obligation to book a session afterward."
-      />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
     </>

@@ -80,6 +80,14 @@
       "metric": "none",
       "readAfter": "2026-10-29",
       "note": "Cliniko-confirmed bookings, landing and button credit, email clicks, retention, the 8-week table, Search Console on /admin, this register. Measurement only."
+    },
+    {
+      "id": "2026-10-01-next-step",
+      "date": "2026-10-01",
+      "pages": ["/guides/", "/resources/", "/compare/", "/approaches/"],
+      "metric": "conv:book_click",
+      "readAfter": "2026-10-29",
+      "note": "The closing block moved above the link footer: counsellor cards by default, the service's fee, the next consultation, smaller steps. Guides, compares and Alberta resources book the counsellor who fits. The cta-band count before and after this date is not like for like."
     }
   ]
 }

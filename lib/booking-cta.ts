@@ -1,4 +1,4 @@
-import { practitioners, type Practitioner } from '@/lib/practitioners';
+import { practitioners, insuredProvinces, vancouverToday, type Practitioner } from '@/lib/practitioners';
 import { site } from '@/lib/site';
 import { counsellorsFor, bookHrefFor } from '@/lib/city-service-page';
 
@@ -97,7 +97,31 @@ export type BookingCta = {
  * link is narrowed to, undefined when it is not narrowed. */
 export type BookingTarget = { href: string; labelSuffix: string; slug: string | undefined };
 
-export function bookingFor(service: string | undefined, language?: string): BookingTarget {
+/* A PROVINCE, 1 Oct 2026. The two Alberta resources sent their buttons to the
+   bare /book, which also lists a counsellor insured for BC only. With a
+   province the question is who is accepting, bookable, insured to practise
+   there TODAY (insuredProvinces, so a lapsed policy drops her on the next
+   render rather than the next build), and, when given, speaks the language
+   and offers the service. Exactly one gives her calendar; none or several
+   gives the bare /book, where the reader chooses. No label suffix: the page
+   already says it is about Alberta, and the label never names a person. */
+export const counsellorsInProvince = (province: string, service?: string, language?: string): Practitioner[] =>
+  practitioners.filter(
+    (p) =>
+      p.acceptingNewClients &&
+      p.bookable &&
+      insuredProvinces(p, vancouverToday()).includes(province) &&
+      (!service || p.services.includes(service)) &&
+      (!language || p.languages.some((l) => l.tag === language)),
+  );
+
+export function bookingFor(service: string | undefined, language?: string, province?: string): BookingTarget {
+  if (province) {
+    const fit = counsellorsInProvince(province, service, language);
+    return fit.length === 1
+      ? { href: `${site.bookingPath}?with=${fit[0].slug}`, labelSuffix: '', slug: fit[0].slug }
+      : { href: site.bookingPath, labelSuffix: '', slug: undefined };
+  }
   if (language) {
     const who = counsellorForLanguage(language, service);
     const name = who?.languages.find((l) => l.tag === language)?.name;
@@ -123,10 +147,11 @@ export function bookingFor(service: string | undefined, language?: string): Book
    "Book a free consultation in Kelowna". A language tag replaces it with the
    counsellor-attached version and the narrowed /book URL. A `service` (its
    slug, as the roster spells it in `services`) narrows the URL when only one
-   counsellor offers it, and keeps the page's own label. */
-export function bookingCtaFor(opts: { language?: string; service?: string; fallback: string }): BookingCta {
-  const { language, service, fallback } = opts;
-  const t = bookingFor(service, language);
+   counsellor offers it, and keeps the page's own label. A `province` ('AB')
+   narrows to the one counsellor insured there, as bookingFor says. */
+export function bookingCtaFor(opts: { language?: string; service?: string; province?: string; fallback: string }): BookingCta {
+  const { language, service, province, fallback } = opts;
+  const t = bookingFor(service, language, province);
   const practitioner = t.slug ? practitioners.find((p) => p.slug === t.slug) : undefined;
   return {
     href: t.href,

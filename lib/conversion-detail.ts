@@ -106,6 +106,15 @@ export const BOOK_LOCATIONS: readonly string[] = [
      /resources/workplace-mental-health-bc, the site's most-shown page,
      which had no tracked booking link of its own (1 Oct 2026). */
   'mid-resource-work',
+  /* wf/guide-templates-next-step, 1 Oct 2026: the approach pages' hero and
+     mid-article buttons, which were plain links no book_click saw, and the
+     next-consultation line in the closing next-step block of each article
+     template (components/NextStep.tsx), one key per template. */
+  'mid-approach',
+  'hero-approach',
+  'next-guide-close',
+  'next-resource-close',
+  'next-compare-close',
   ...tools.map((t) => `tool:${t.slug}`),
 ];
 
