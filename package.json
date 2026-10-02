@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/tz-probe.mjs",
     "build": "next build && node scripts/html-lang.mjs && node scripts/inline-css.mjs",
     "start": "next start",
     "lint": "next lint",
@@ -75,7 +76,7 @@
     "typescript": "^5"
   },
   "engines": {
-    "node": ">=22.6.0"
+    "node": "22.x"
   },
   "browserslist": [
     "chrome >= 91",

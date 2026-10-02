@@ -10,6 +10,7 @@ import { auth, signOut } from '@/auth';
 import { isClientAllowed } from '@/lib/portal-store';
 import { readPortalAppointments, paidTypesFor } from '@/lib/portal-appointments';
 import { readCatalog, FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
+import { formatPacific } from '@/lib/pacific-time';
 
 /* Gated by middleware.ts — never served without the access code, so it is kept
  * out of the index and out of the sitemap. Deliberately short: this is a place
@@ -70,9 +71,9 @@ export default async function ClientPortalPage({
   const typeName = (id: string) => (catalog ?? FALLBACK_CATALOG).items.find((i) => i.id === id)?.name;
   const when = (iso: string) => {
     try {
-      return new Intl.DateTimeFormat('en-CA', {
-        timeZone: 'America/Vancouver', weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true,
-      }).format(new Date(iso));
+      return formatPacific(iso, {
+        weekday: 'long', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true,
+      });
     } catch {
       return iso;
     }

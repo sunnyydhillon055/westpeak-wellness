@@ -2,11 +2,14 @@ import { unstable_cache } from 'next/cache';
 import { api, headers } from './cliniko.ts';
 import { CLINIKO_BUSINESS, CONSULT_TYPE } from './site.ts';
 import { practitioners } from './practitioners.ts';
-import { empty, summariseWindows, type Availability } from './availability-summary.ts';
+import {
+  empty, summariseWindows, firstReadError, freshAvailability,
+  type Availability, type StoredAvailability,
+} from './availability-summary.ts';
 
 export {
   type Availability, WINDOW_DAYS, summarise, summariseWindows,
-  availabilityLine, nextFreeCallLine, firstOpenDay,
+  availabilityLine, nextFreeCallLine, nextFreeCallEntries, firstOpenDay,
 } from './availability-summary.ts';
 
 /* WHAT IS ACTUALLY OPEN — read from Cliniko, 14 Sep 2026; two weeks since 1 Oct.
@@ -26,8 +29,9 @@ export {
  * and one cache entry. `week` keeps the first seven days on their own for
  * the home hero, which says "Open this week".
  *
- * Cached for thirty minutes. A miss (no key, API down) returns null and the
- * pages say nothing rather than something wrong. Times are converted to
+ * Cached for thirty minutes. A miss (no key, API down) is never cached: the
+ * last good read stays for up to six hours, and with none the pages say
+ * nothing rather than something wrong. Times are converted to
  * Pacific for display; Cliniko returns UTC. */
 
 async function fetchOne(slug: string, practitionerId: string): Promise<Availability> {
@@ -75,12 +79,33 @@ export async function consultationAvailabilityNow(): Promise<Record<string, Avai
   return out;
 }
 
-/** The same, cached thirty minutes, for the public pages. */
-export const consultationAvailability = unstable_cache(
-  consultationAvailabilityNow,
+/* The cached read. It THROWS when any accepting counsellor could not be
+   read, so a failure is never stored: on a warm cache Next keeps the last
+   good value and logs the error (unstable_cache's stale branch), and on a
+   cold one the throw reaches consultationAvailability below. 2 Oct 2026. */
+const cachedRead = unstable_cache(
+  async (): Promise<StoredAvailability> => {
+    const all = await consultationAvailabilityNow();
+    const err = firstReadError(all);
+    if (err) throw new Error(`Cliniko availability: ${err}`);
+    return { readAt: Date.now(), all };
+  },
   /* v2: the shape gained `next` on 17 Sep 2026; a cached v1 object would
-     have no such field. v3: fourteen days and `week`, 1 Oct 2026. */
-  ['consultation-availability-v3'],
+     have no such field. v3: fourteen days and `week`, 1 Oct 2026.
+     v4: stored as { readAt, all }, 2 Oct 2026. */
+  ['consultation-availability-v4'],
   { revalidate: 1800 },
 );
 
+/** The same, cached thirty minutes, for the public pages. Never throws: a
+ *  cold-cache failure, or a last good read older than six hours, is {} and
+ *  every line built from it prints nothing, so /book and /api/availability
+ *  never reach the error boundary. /admin keeps calling
+ *  consultationAvailabilityNow() and so still shows the live error. */
+export async function consultationAvailability(): Promise<Record<string, Availability>> {
+  try {
+    return freshAvailability(await cachedRead());
+  } catch {
+    return {};
+  }
+}

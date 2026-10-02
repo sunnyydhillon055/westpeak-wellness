@@ -147,6 +147,8 @@ export const BOOK_LOCATIONS: readonly string[] = [
   /* The "calendar hard to use?" route beside the /book calendar: its email
      link and its link to the Ask-for-a-time form (1 Oct 2026). */
   'calendar-alt',
+  'hero-next-home',
+  'next-consult-ask',
 ];
 
 /** Every slug on the roster, accepting or not. The founder's cannot reach a

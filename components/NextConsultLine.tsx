@@ -2,7 +2,7 @@ import BookLink from '@/components/BookLink';
 import { site } from '@/lib/site';
 import { practitioners } from '@/lib/practitioners';
 import { consultationAvailability } from '@/lib/cliniko-availability';
-import { nextConsultEntries, NEXT_CONSULT_LABEL } from '@/lib/next-consult';
+import { nextConsultEntries, nextConsultNoneOpen, noConsultSentence, askForTimeHref, NEXT_CONSULT_LABEL } from '@/lib/next-consult';
 
 /* THE NEXT FREE CONSULTATION, ON A PAGE ABOUT WAITING — 1 Oct 2026.
  *
@@ -23,7 +23,9 @@ import { nextConsultEntries, NEXT_CONSULT_LABEL } from '@/lib/next-consult';
  * A SERVER component. It reads the roster and the cache on the server and
  * sends the browser two short lines; nothing here enters a client bundle
  * (the perf rule of 1 Oct 2026). It prints nothing at all when Cliniko could
- * not be read or nobody has a time this week. These are appointment times
+ * not be read. When it was read and nobody it would name has a time in the
+ * next two weeks it says so and links the ask-for-a-time form on /book
+ * (2 Oct 2026, "next-consult-ask"), naming no day and no hour. These are appointment times
  * Cliniko is offering, not opening hours, and they are Pacific time.
  *
  * "book with Camille" ends in #calendar (1 Oct 2026, wf/book-and-cta): the
@@ -49,7 +51,19 @@ export default async function NextConsultLine({
     return null;
   }
   const entries = nextConsultEntries(all, practitioners, { slugs, language });
-  if (!entries.length) return null;
+  if (!entries.length) {
+    const none = nextConsultNoneOpen(all, practitioners, { slugs, language });
+    const sentence = noConsultSentence(none);
+    if (!sentence) return null;
+    return (
+      <p className="next-consult" style={style ?? { margin: '4px 0 28px', fontSize: '.95rem' }}>
+        {sentence}{' '}
+        <BookLink location="next-consult-ask" className="" href={askForTimeHref(none, site.bookingPath)}>
+          {none.length === 1 ? `Ask ${none[0]!.first} for a time` : 'Ask for a time'}
+        </BookLink>
+      </p>
+    );
+  }
   return (
     <p className="next-consult" style={style ?? { margin: '4px 0 28px', fontSize: '.95rem' }}>
       <strong>{NEXT_CONSULT_LABEL}</strong>{' '}

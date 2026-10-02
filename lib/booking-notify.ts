@@ -10,6 +10,7 @@ import { site, CONSULT_TYPE, bookingsPaidUrlFor } from '@/lib/site';
 import { durationOf, isConsultAppointment } from '@/lib/booking-shape';
 import { practitioners, withLetters, type Practitioner } from '@/lib/practitioners';
 import { FALLBACK_CATALOG, money, readCatalog } from '@/lib/cliniko-catalog';
+import { formatPacific } from '@/lib/pacific-time';
 import { shell, p, esc } from '@/lib/booking-mail';
 import { mailtoBookingDraft } from '@/lib/reply-templates';
 import { tallyEvents, conversionEvents, addToBookingTally } from '@/lib/booking-tally';
@@ -42,7 +43,8 @@ import {
  */
 
 const KEY = 'portal/notified.json';
-const TZ = 'America/Vancouver';
+/* Times are formatted through lib/pacific-time.ts (America/Vancouver, or
+   UTC-7 on a runtime whose tz data predates BC's 1 Nov 2026 change). */
 
 /* `reminded` added 3 Sep 2026. A confirmation went out at booking and a
    follow-up the day after the session, and between them there was nothing — so
@@ -128,7 +130,7 @@ async function writeLedger(l: Ledger): Promise<void> {
 /* "Tuesday, October 6": the day a client would say, for a draft. */
 const fmtDay = (iso: string) => {
   try {
-    return new Intl.DateTimeFormat('en-CA', { timeZone: TZ, weekday: 'long', month: 'long', day: 'numeric' }).format(new Date(iso));
+    return formatPacific(iso, { weekday: 'long', month: 'long', day: 'numeric' });
   } catch {
     return iso;
   }
@@ -150,10 +152,10 @@ const bookingPractitioner = (pr?: Practitioner): BookingPractitioner | null =>
 
 const fmt = (iso: string) => {
   try {
-    return new Intl.DateTimeFormat('en-CA', {
-      timeZone: TZ, weekday: 'long', month: 'long', day: 'numeric',
+    return formatPacific(iso, {
+      weekday: 'long', month: 'long', day: 'numeric',
       hour: 'numeric', minute: '2-digit', hour12: true,
-    }).format(new Date(iso));
+    });
   } catch {
     return iso;
   }
