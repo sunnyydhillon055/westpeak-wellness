@@ -94,15 +94,23 @@ export default function LeadCapture({
 
       <p className="lead-form-title">{m.title}</p>
       <p className="lead-form-note">{m.note}</p>
+      {/* Visible labels, 1 Oct 2026, as on InboundForm: the placeholder was
+          the only visible label and it vanished on the first keystroke. The
+          button sits on the inputs' baseline rather than stretching to the
+          height of label plus input. */}
       <div className="lead-form-row">
-        <label htmlFor="lead-name" className="sr-only">First name</label>
-        <input id="lead-name" name="name" type="text" placeholder="First name" autoComplete="given-name" />
-        <label htmlFor="lead-email" className="sr-only">Email address</label>
-        <input
-          id="lead-email" name="email" type="email" required placeholder="you@example.com"
-          autoComplete="email" autoCapitalize="none" spellCheck={false}
-        />
-        <button type="submit" className="btn btn--primary">{m.button}</button>
+        <div className="lead-form-field">
+          <label htmlFor="lead-name">First name</label>
+          <input id="lead-name" name="name" type="text" placeholder="First name" autoComplete="given-name" />
+        </div>
+        <div className="lead-form-field">
+          <label htmlFor="lead-email">Email address</label>
+          <input
+            id="lead-email" name="email" type="email" required placeholder="you@example.com"
+            autoComplete="email" autoCapitalize="none" spellCheck={false}
+          />
+        </div>
+        <button type="submit" className="btn btn--primary" style={{ alignSelf: 'flex-end' }}>{m.button}</button>
       </div>
       {/* Unticked, and it must stay unticked. A pre-ticked consent box is not
           consent under CASL, and asking for a checklist is not agreement to an
