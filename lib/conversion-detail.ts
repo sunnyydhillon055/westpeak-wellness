@@ -53,6 +53,13 @@ export const BOOK_LOCATIONS: readonly string[] = [
   'hero-city-service',
   'counsellor-city-service',
   'access-city-service',
+  /* wf/book-and-cta, 1 Oct 2026: the next-consultation line under the hero
+     on each /for audience page and each Punjabi region page, and the "Ask
+     for one" link to /book#ask-for-a-time on the shift and rotation audience
+     pages. */
+  'next-audience',
+  'next-language-region',
+  'ask-time-audience',
   /* The shared "who you would see" card on the service, audience and city
      hub templates (components/CounsellorCards.tsx), and the hub's second
      hero button to the Punjabi-speaking counsellor's calendar. wf/cards,
@@ -234,8 +241,10 @@ const ALLOWED: Readonly<Record<string, ReadonlySet<string>>> = {
      browser half so the two cannot drift; see the note there. 1 Oct 2026. */
   channel_visit: new Set<string>(CHANNELS),
   landing: new Set<string>(REFERRER_CLASSES),
-  /* How the /book calendar was opened (components/SchedulerGate). */
-  scheduler_open: new Set<string>(['button', 'hash']),
+  /* How the /book calendar was opened (components/SchedulerGate), or
+     `couples` for any open of a couples consultation (/book?for=couples,
+     wf/book-and-cta), so couples intent is countable on its own. */
+  scheduler_open: new Set<string>(['button', 'hash', 'couples']),
   /* Cliniko's own "booking confirmed" message from inside the embedded
      calendar (components/SchedulerTelemetry.tsx): the same keys as the two
      events that bracket it, so seen, touched and booked line up per

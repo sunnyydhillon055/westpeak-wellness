@@ -110,6 +110,9 @@ export const moreAudiences: Audience[] = [
   {
     slug: 'couples',
     ctaFor: 'for couples',
+    /* The couples calendar, as a couples consultation (lib/booking-cta.ts,
+       /book?for=couples). wf/book-and-cta, 1 Oct 2026. */
+    service: 'couples-therapy',
     figure2: "first-session-flow",
     figure: 'gottman-method',
     title: 'Counselling for couples at a decision point',

@@ -90,9 +90,18 @@ export const profileHrefFor = (p: Practitioner, citySlug: string) =>
 /* `?with=` only when exactly one counsellor offers the service. Nobody is the
    default on /book (DECISIONS, 8 Sep 2026); narrowing to one calendar is
    honest only when there is one calendar it could be. Two counsellors means
-   the reader chooses on /book, as they do everywhere else. */
-export const bookHrefFor = (counsellors: Practitioner[]) =>
-  counsellors.length === 1 ? `${site.bookingPath}?with=${counsellors[0].slug}` : site.bookingPath;
+   the reader chooses on /book, as they do everywhere else.
+
+   #calendar AND for=couples — 1 Oct 2026 (wf/book-and-cta). A link that has
+   already named the counsellor opens her calendar on arrival (SchedulerGate
+   opens on a #calendar hash); bare /book stays unhashed so its gate and its
+   Lighthouse figure are unchanged. A couples page adds for=couples, which
+   /book reads as a couples consultation: couples fees only, and a line on
+   how both partners join. */
+export const bookHrefFor = (counsellors: Practitioner[], service?: string) =>
+  counsellors.length === 1
+    ? `${site.bookingPath}?with=${counsellors[0].slug}${service === 'couples-therapy' ? '&for=couples' : ''}#calendar`
+    : site.bookingPath;
 
 /* The Cliniko appointment type each bookable service bills as. A name, not a
    price: the price is read from the catalogue, which scripts/price-drift.mjs

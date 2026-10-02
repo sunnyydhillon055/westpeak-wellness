@@ -22,7 +22,7 @@ import { scanTree, strayPrices, cataloguePrices } from '../scripts/price-drift.m
 test('services only one counsellor offers book with her; shared ones keep the open calendar', () => {
   const camille = `${site.bookingPath}?with=camille-granda`;
   for (const slug of ['couples-therapy', 'emdr-therapy', 'family-counselling']) {
-    assert.equal(bookingFor(slug).href, camille, slug);
+    assert.equal(bookingFor(slug).href, `${camille}${slug === 'couples-therapy' ? '&for=couples' : ''}#calendar`, slug);
     assert.equal(bookingFor(slug).labelSuffix, '', `${slug}: a service link never names anyone`);
   }
   assert.equal(bookingFor('individual-therapy').href, site.bookingPath);
@@ -32,10 +32,10 @@ test('services only one counsellor offers book with her; shared ones keep the op
 
 test('a language still wins over the service, and keeps its label', () => {
   const pa = bookingFor('punjabi-counselling', 'pa');
-  assert.equal(pa.href, `${site.bookingPath}?with=savneet-singh`);
+  assert.equal(pa.href, `${site.bookingPath}?with=savneet-singh#calendar`);
   assert.equal(pa.labelSuffix, ' with a Punjabi-speaking counsellor');
   const cta = bookingCtaFor({ language: 'tl', service: 'tagalog-counselling', fallback: 'x' });
-  assert.equal(cta.href, `${site.bookingPath}?with=camille-granda`);
+  assert.equal(cta.href, `${site.bookingPath}?with=camille-granda#calendar`);
   assert.equal(cta.label, 'Book a free consultation with a Tagalog-speaking counsellor');
 });
 

@@ -9,6 +9,7 @@ import { abs, orgRef, siteRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
 import BookLink from '@/components/BookLink';
+import NextConsultLine from '@/components/NextConsultLine';
 import { bookingCtaFor } from '@/lib/booking-cta';
 import { withLetters } from '@/lib/practitioners';
 import { placesFor } from '@/lib/practitioner-places';
@@ -145,6 +146,16 @@ export default async function PunjabiRegionPage({ params }: { params: { region: 
             <BookLink location="hero-language-region" href={cta.href}>{cta.label}</BookLink>
             <Link className="btn btn--ghost" href="/punjabi">ਪੰਜਾਬੀ ਵਿੱਚ ਪੜ੍ਹੋ</Link>
           </div>
+          {/* The next free consultation with the counsellor the button books,
+              as the Surrey hub already shows it — 1 Oct 2026 (wf/book-and-cta).
+              The existing English label; no new Punjabi. Nobody, no line. */}
+          {speaker && (
+            <NextConsultLine
+              location="next-language-region"
+              slugs={[speaker.slug]}
+              style={{ margin: '14px 0 0', fontSize: '.95rem' }}
+            />
+          )}
         </div>
       </section>
 

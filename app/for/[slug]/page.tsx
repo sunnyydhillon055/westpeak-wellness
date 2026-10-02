@@ -25,7 +25,8 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
 import BookLink from '@/components/BookLink';
 import CoverageLine from '@/components/CoverageLine';
-import { bookingCtaFor } from '@/lib/booking-cta';
+import { bookingCtaFor, bookingFor, askForTimeHref, audienceConsultSlugs } from '@/lib/booking-cta';
+import NextConsultLine from '@/components/NextConsultLine';
 import CounsellorCards from '@/components/CounsellorCards';
 import { counsellorsForAudience, individualFeeLine } from '@/lib/counsellor-cards';
 import { readCatalog } from '@/lib/cliniko-catalog';
@@ -61,6 +62,10 @@ export default async function AudiencePage({ params }: { params: { slug: string 
   const catalog = await readCatalog();
   const feeLine = individualFeeLine(catalog);
   const cta = bookingCtaFor({ language: a.language, service: a.service, fallback: `Book a free consultation ${a.ctaFor}` });
+  /* The "Ask for a time" route on the shift and rotation pages goes to the
+     same counsellor the button books with, or to bare /book when the button
+     does (lib/booking-cta.ts). */
+  const askHref = a.rotation ? askForTimeHref(bookingFor(a.service, a.language).slug) : undefined;
 
   /* The student-plan table's sessions column divides by the individual fee
      from the same catalogue as the fee line. lib/student-plans.ts. */
@@ -175,6 +180,33 @@ export default async function AudiencePage({ params }: { params: { slug: string 
               </>
             )}
           </div>
+          {/* NEXT FREE CONSULTATION, UNDER THE BUTTONS — 1 Oct 2026
+              (wf/book-and-cta). The city hubs, service pages and /pricing
+              said when the next free consultation is and these twenty-odd
+              pages did not. Narrowed to whoever speaks the page's language
+              and offers its service; nobody fits, no line. Not on the HR
+              page, whose reader is not booking for themselves. */}
+          {!a.cta && (
+            <NextConsultLine
+              location="next-audience"
+              slugs={audienceConsultSlugs(a)}
+              style={{ margin: '14px 0 0', fontSize: '.95rem' }}
+            />
+          )}
+          {/* SHIFTS AND ROTATIONS — 1 Oct 2026 (wf/book-and-cta). Consults
+              are open on the days the calendar shows, and a reader on nights
+              or a fly-in rotation may find none of them theirs. /book has a
+              form for exactly that; this is the way to it. No hours, no
+              evenings, no weekends: only that the reply is a time the
+              calendar does not show yet. */}
+          {askHref && (
+            <p className="hero-note" style={{ marginTop: 10 }}>
+              <BookLink location="ask-time-audience" className="" href={askHref}>
+                Open times don&rsquo;t fit your rotation? Ask for one
+              </BookLink>
+              , and the counsellor replies with a time that is not on the calendar yet.
+            </p>
+          )}
           <CoverageLine />
           {/* The fee, where the coverage line has just raised the question.
               From the catalogue, never typed. 1 Oct 2026. */}

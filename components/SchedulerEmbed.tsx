@@ -40,7 +40,7 @@ import { withEmbedFlag } from '@/lib/cliniko-frame';
  * link below keeps the plain URL: it opens the calendar as its own page.
  */
 export default function SchedulerEmbed({
-  url, title, page, who, placeholder, secondary, cta = 'Show available times',
+  url, title, page, who, placeholder, secondary, cta = 'Show available times', openDetail,
 }: {
   url: string;
   title?: string;
@@ -51,6 +51,8 @@ export default function SchedulerEmbed({
   placeholder?: React.ReactNode;
   secondary?: React.ReactNode;
   cta?: string;
+  /** Passed to SchedulerGate: the scheduler_open detail for a couples consultation. */
+  openDetail?: 'couples';
 }) {
   const origin = new URL(url).origin;
   const frameTitle = title ?? 'Booking calendar';
@@ -65,7 +67,7 @@ export default function SchedulerEmbed({
           and appearing a moment after it. */}
       <link rel="preconnect" href={origin} />
       {placeholder ? (
-        <SchedulerGate url={frameUrl} title={frameTitle} page={page} who={who} cta={cta} secondary={secondary}>
+        <SchedulerGate url={frameUrl} title={frameTitle} page={page} who={who} cta={cta} secondary={secondary} openDetail={openDetail}>
           {placeholder}
         </SchedulerGate>
       ) : (

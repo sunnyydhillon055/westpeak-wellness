@@ -71,7 +71,11 @@ export const languageOfPath = (pathname: string | null): string | undefined => {
 /* Where a Book button points from a given page: a counsellor's own calendar
    on her profile (and only if she is accepting — the roster rule in
    DECISIONS.md), the calendar of the counsellor who speaks the language on a
-   page written for one, the practice-wide page everywhere else. */
+   page written for one, the practice-wide page everywhere else.
+
+   A link that names her ends in #calendar (1 Oct 2026, wf/book-and-cta), so
+   /book opens her calendar on arrival, as lib/booking-cta.ts does for the
+   page's own buttons; the bare practice-wide link carries no hash. */
 export const bookHrefFor = (
   pathname: string | null,
   roster: readonly NavPractitioner[],
@@ -80,8 +84,8 @@ export const bookHrefFor = (
   const m = /^\/practitioners\/([^/]+)/.exec(pathname ?? '');
   const slug = m?.[1];
   const p = slug ? roster.find((x) => x.slug === slug) : undefined;
-  if (p) return p.acceptingNewClients ? `${bookingPath}?with=${p.slug}` : bookingPath;
+  if (p) return p.acceptingNewClients ? `${bookingPath}?with=${p.slug}#calendar` : bookingPath;
   const tag = languageOfPath(pathname);
   const speaker = tag ? roster.find((x) => x.bookIn.includes(tag)) : undefined;
-  return speaker ? `${bookingPath}?with=${speaker.slug}` : bookingPath;
+  return speaker ? `${bookingPath}?with=${speaker.slug}#calendar` : bookingPath;
 };

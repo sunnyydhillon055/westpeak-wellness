@@ -182,7 +182,7 @@ export default async function CityServicePage({ params }: { params: Params }) {
      that comes from the roster and the catalogue here; lib/city-service-page
      holds the rules and the tests. */
   const counsellors = counsellorsFor(svc);
-  const bookHref = bookHrefFor(counsellors);
+  const bookHref = bookHrefFor(counsellors, svc.bookingService);
   const catalog = await readCatalog();
   const fee = feeFor(catalog, svc);
   const faqs = [...pair.faqs, ...generatedFaqs({ topic: svc, ctx, loc, counsellors, fee })];

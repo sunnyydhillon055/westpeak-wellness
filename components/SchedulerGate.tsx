@@ -68,7 +68,7 @@ import { CALENDAR_HASH, opensCalendar } from '@/lib/scheduler-open';
  * appeared and then cleared would move everything below it. */
 const LOADING = 'Calendar loading. If it does not appear, ask for a time by email in the section below the calendar.';
 export default function SchedulerGate({
-  url, title, page, who, cta, children, secondary,
+  url, title, page, who, cta, children, secondary, openDetail,
 }: {
   url: string;
   title: string;
@@ -82,6 +82,10 @@ export default function SchedulerGate({
   children: React.ReactNode;
   /** The second action — the first-party link(s) that open the calendar as a page. */
   secondary?: React.ReactNode;
+  /** Replaces `button`/`hash` as the scheduler_open detail. /book passes
+   *  'couples' for a couples consultation (?for=couples), 1 Oct 2026, so
+   *  couples opens are counted apart however the frame was opened. */
+  openDetail?: 'couples';
 }) {
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState('');
@@ -92,8 +96,8 @@ export default function SchedulerGate({
     if (opened.current) return;
     opened.current = true;
     setOpen(true);
-    track('scheduler_open', { page, detail: how });
-  }, [page]);
+    track('scheduler_open', { page, detail: openDetail ?? how });
+  }, [page, openDetail]);
 
   useEffect(() => {
     if (!open) return;

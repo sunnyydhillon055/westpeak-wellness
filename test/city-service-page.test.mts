@@ -56,9 +56,10 @@ test('only counsellors accepting new clients, insured for BC and offering the ty
 test('?with= narrows to one calendar only when there is one calendar it could be', () => {
   for (const { topic } of loaded) {
     const cs = counsellorsFor(topic);
-    const href = bookHrefFor(cs);
-    if (cs.length === 1) assert.equal(href, `/book?with=${cs[0].slug}`);
-    else assert.equal(href, '/book');
+    const href = bookHrefFor(cs, topic.bookingService);
+    const couples = topic.bookingService === 'couples-therapy' ? '&for=couples' : '';
+    if (cs.length === 1) assert.equal(href, `/book?with=${cs[0].slug}${couples}#calendar`);
+    else assert.equal(href, '/book', 'bare /book never carries the hash');
   }
 });
 

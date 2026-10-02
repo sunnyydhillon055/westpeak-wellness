@@ -97,6 +97,18 @@ export type BookingCta = {
  * link is narrowed to, undefined when it is not narrowed. */
 export type BookingTarget = { href: string; labelSuffix: string; slug: string | undefined };
 
+/* A LINK THAT NAMES THE COUNSELLOR OPENS HER CALENDAR — 1 Oct 2026
+ * (wf/book-and-cta). Every narrowed href below is built by bookHrefFor in
+ * lib/city-service-page.ts, so a couples service adds for=couples on every
+ * route alike, and every one ends in #calendar, which
+ * components/SchedulerGate reads as "already asked for": the frame opens on
+ * arrival and is counted as scheduler_open `hash`. Somebody who tapped "Book
+ * a free consultation with a Punjabi-speaking counsellor" on a money page
+ * otherwise landed about three phone screens above "Show available times".
+ * The calendar section repeats who the booking is with and that it is online
+ * only, so nothing the reader needs is skipped. Bare /book never carries the
+ * hash: its gate and its Lighthouse figure are as decided. */
+
 /* A PROVINCE, 1 Oct 2026. The two Alberta resources sent their buttons to the
    bare /book, which also lists a counsellor insured for BC only. With a
    province the question is who is accepting, bookable, insured to practise
@@ -119,7 +131,7 @@ export function bookingFor(service: string | undefined, language?: string, provi
   if (province) {
     const fit = counsellorsInProvince(province, service, language);
     return fit.length === 1
-      ? { href: `${site.bookingPath}?with=${fit[0].slug}`, labelSuffix: '', slug: fit[0].slug }
+      ? { href: bookHrefFor([fit[0]], service), labelSuffix: '', slug: fit[0].slug }
       : { href: site.bookingPath, labelSuffix: '', slug: undefined };
   }
   if (language) {
@@ -127,7 +139,7 @@ export function bookingFor(service: string | undefined, language?: string, provi
     const name = who?.languages.find((l) => l.tag === language)?.name;
     if (who && name) {
       return {
-        href: `${site.bookingPath}?with=${who.slug}`,
+        href: bookHrefFor([who], service),
         labelSuffix: ` with a ${name}-speaking counsellor`,
         slug: who.slug,
       };
@@ -137,7 +149,7 @@ export function bookingFor(service: string | undefined, language?: string, provi
   if (service) {
     const offering = counsellorsFor({ bookingService: service });
     if (offering.length === 1 && offering[0].bookable) {
-      return { href: bookHrefFor(offering), labelSuffix: '', slug: offering[0].slug };
+      return { href: bookHrefFor(offering, service), labelSuffix: '', slug: offering[0].slug };
     }
   }
   return { href: site.bookingPath, labelSuffix: '', slug: undefined };
@@ -168,3 +180,31 @@ export const serviceNoun = (name: string): string =>
     .split(' ')
     .map((w) => (w.length > 1 && w === w.toUpperCase() ? w : w.toLowerCase()))
     .join(' ');
+
+/* THE OTHER ROUTE, FOR PEOPLE WHOSE DAYS DO NOT MATCH THE CALENDAR — 1 Oct
+ * 2026 (wf/book-and-cta). /book has carried an "Ask for a time" form
+ * (#ask-for-a-time) since 18 Sep, and no page outside /book linked to it. The
+ * shift and rotation audience pages now do, narrowed to the counsellor the
+ * page's own button books with when there is one, so the request reaches her
+ * by name. The anchor is not #calendar, so SchedulerGate stays shut and the
+ * reader lands on the form. */
+export const ASK_FOR_A_TIME = '#ask-for-a-time';
+export const askForTimeHref = (slug?: string): string =>
+  slug ? `${site.bookingPath}?with=${slug}${ASK_FOR_A_TIME}` : `${site.bookingPath}${ASK_FOR_A_TIME}`;
+
+/* WHO AN AUDIENCE PAGE'S NEXT-CONSULTATION LINE NAMES — 1 Oct 2026. The same
+ * question bookingFor asks, without the "exactly one" step: everyone accepting
+ * and bookable who speaks the page's language (when it has one) AND offers its
+ * service (when it has one). A Punjabi-speaking couples page gets nobody,
+ * because nobody accepting does both, and then prints no line rather than
+ * offering a time with someone who does not do the work. */
+export const audienceConsultSlugs = (a: { language?: string; service?: string }): string[] =>
+  practitioners
+    .filter(
+      (p) =>
+        p.acceptingNewClients &&
+        p.bookable &&
+        (!a.language || p.languages.some((l) => l.tag === a.language)) &&
+        (!a.service || (a.language && a.service === LANGUAGE_SERVICE[a.language]) || p.services.includes(a.service)),
+    )
+    .map((p) => p.slug);
