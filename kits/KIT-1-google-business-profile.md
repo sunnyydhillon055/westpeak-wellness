@@ -1,5 +1,13 @@
 # Kit 1 — Google Business Profile
 
+> **SUPERSEDED, 1 October 2026. Do not paste from this file.** It was written
+> before the counsellor roster, in the founder's voice, for a one-counsellor
+> practice. The current copy is [docs/OUTREACH.md](../docs/OUTREACH.md) for
+> outreach and [docs/LISTINGS_PACK.md](../docs/LISTINGS_PACK.md) for every
+> listing; fees come from westpeakwellness.com/pricing and nowhere else.
+> Stale claims have been taken out so a stray paste does no harm, but the
+> rest is kept only as a record.
+
 **Time: 45 minutes, then ~10 days waiting for the verification postcard or
 video call.** Worth more than everything else in this folder combined.
 
@@ -64,7 +72,7 @@ Westpeak Wellness is a virtual counselling practice serving clients throughout
 British Columbia by secure video, in English and Punjabi.
 
 Individual counselling covers anxiety, depression, trauma, burnout and life
-transitions. Couples work is Gottman-informed and begins with assessment rather
+transitions. Couples work begins with assessment rather
 than advice. EMDR is available for trauma and for memories that keep intruding
 regardless of what you understand intellectually.
 
@@ -74,7 +82,7 @@ generational silence do not need explaining from scratch.
 Sessions are online, so clients anywhere in the province have the same access.
 Registered Clinical Counsellor (RCC), BC Association of Clinical Counsellors.
 
-A free 15-minute consultation is available before booking.
+A free 30-minute consultation is available before booking.
 ```
 
 *(738 characters — inside the limit.)*
@@ -87,12 +95,12 @@ read by AI answer engines pulling from the profile.
 | Service | Description |
 |---|---|
 | Individual Counselling | 50-minute online sessions for anxiety, depression, trauma, burnout and life transitions. $140. |
-| Couples Counselling | Gottman-informed couples therapy by secure video, beginning with assessment rather than advice. $170. |
+| Couples Counselling | Couples therapy by secure video, beginning with assessment rather than advice. Fees at westpeakwellness.com/pricing. |
 | EMDR Therapy | Eye Movement Desensitization and Reprocessing for trauma and intrusive memories, paced with stabilisation first. |
 | Punjabi-Speaking Counselling | Therapy in Punjabi, English, or both — with the cultural fluency to understand family context without it being explained. |
 | Anxiety Counselling | Structured, evidence-based work on worry, avoidance and panic, online across BC. |
 | Trauma Therapy | Trauma-informed counselling that sequences stabilisation before processing. |
-| Free 15-Minute Consultation | A short video call to check fit before booking anything. No cost, no obligation. |
+| Free 30-Minute Consultation | A short video call to check fit before booking anything. No cost, no obligation. |
 
 ## Step 5 — Attributes
 
@@ -133,15 +141,15 @@ business account.
    page written in Punjabi at westpeakwellness.com/punjabi.
 
 2. **Do I need a doctor's referral?**
-   No. You can book directly, including the free 15-minute consultation.
+   No. You can book directly, including the free 30-minute consultation.
 
 3. **How much does a session cost?**
-   $140 for a 50-minute individual session and $170 for couples. Fees are
-   listed at westpeakwellness.com/pricing.
+   Every fee, individual and couples, is listed at
+   westpeakwellness.com/pricing.
 
 4. **Is counselling covered by MSP?**
-   Counselling with an RCC is not covered by MSP, but most extended health
-   plans reimburse RCC sessions. A receipt suitable for claiming is issued
+   Counselling with an RCC is not covered by MSP, but many extended health
+   plans reimburse RCC sessions, depending on the plan. A receipt suitable for claiming is issued
    after every session.
 
 5. **Are sessions in person or online?**
@@ -152,12 +160,12 @@ business account.
    explanation at westpeakwellness.com/services/emdr-therapy.
 
 7. **How do I know if we are a good fit?**
-   Start with the free 15-minute consultation — it exists for exactly that,
+   Start with the free 30-minute consultation — it exists for exactly that,
    and there is no obligation to book afterwards.
 
 8. **Do you work with couples?**
-   Yes, using the Gottman Method. Couples sessions are 50 minutes at $170,
-   with a 110-minute extended option.
+   Yes. Couples sessions are 50 minutes, with a 110-minute extended option;
+   fees are at westpeakwellness.com/pricing.
 
 9. **What areas of BC do you serve?**
    All of them. Because sessions are online there is no difference in access

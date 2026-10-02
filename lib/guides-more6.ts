@@ -12,7 +12,16 @@ export const moreGuides6: Guide[] = [
     slug: 'stress-leave-bc',
     figure2: 'reimbursement-flow',
     title: 'Stress leave in BC: what it actually takes',
-    metaTitle: 'Stress Leave in BC: How to Apply, Is It Paid | Westpeak',
+    /* BOTH NAMES FOR ONE LEAVE — 1 Oct 2026 (item 264). Before: metaTitle
+       'Stress Leave in BC: How to Apply, Is It Paid | Westpeak'; the page at
+       91 impressions, position 10.49 (Search Console, 26 Sep). The same
+       export holds 47 "mental health / medical leave" queries without
+       "stress": 147 impressions, 0 clicks, mostly at positions 5 to 19
+       ("mental health leave" 27 at 11.22, "paid mental health leave bc" 12
+       at 8.83, "mental health leave of absence bc" 7 at 5.71), and the phrase
+       appeared on this page once, as an FAQ question. The title, a section
+       and the pay heading now carry it. Compare after four weeks. */
+    metaTitle: 'Stress or Mental Health Leave in BC: How to Apply, Paid?',
     metaDescription:
       'How to apply for stress leave in BC, step by step: who signs it (a doctor or NP, not a counsellor), whether it is paid, how long it runs, and where EI fits.',
     eyebrow: 'Guide · Work',
@@ -44,9 +53,16 @@ export const moreGuides6: Guide[] = [
       {
         h2: 'Medical stress leave in BC: who can sign it, and who cannot',
         body: [
-          'A Registered Clinical Counsellor **cannot certify a medical leave in British Columbia.** Not for an employer, not for a short-term disability insurer, and not for EI. That requires a physician or a nurse practitioner, and it is worth saying plainly on a counselling website because a page that leaves it vague is quietly implying otherwise to somebody who is unwell and looking for the shortest route.',
+          'A Registered Clinical Counsellor **cannot certify a medical leave in British Columbia.** Not for an employer, not for a short-term disability insurer, and not for EI. That requires a physician or a nurse practitioner (for EI, Service Canada also accepts a psychologist’s certificate), and it is worth saying plainly on a counselling website because a page that leaves it vague is quietly implying otherwise to somebody who is unwell and looking for the shortest route.',
           'So the first call is to a doctor or a nurse practitioner, not to a counsellor. If you do not have a family doctor, a walk-in clinic, an urgent and primary care centre, or a virtual visit through your provincial coverage can all assess and certify. It is not necessary to have been seeing that clinician for years.',
           'What counselling does do is run alongside. In practice it is often what the leave is *for*. A leave with nothing happening inside it tends to end with the same person returning to the same conditions in the same state. Insurers also frequently want to see that a person on a mental-health leave is engaged in treatment, and counselling records that engagement even where the counsellor is not the certifying clinician.',
+        ],
+      },
+      {
+        h2: 'Mental health leave in BC: the same leave as stress leave',
+        body: [
+          'There is no separate "mental health leave" in BC law: a mental health leave and a stress leave are the same thing, a medical leave certified by a physician or nurse practitioner. The first five days of illness in a calendar year are paid by your employer under the Employment Standards Act once you have 90 days of service; after that, income comes from EI sickness benefits or a short-term disability plan, then long-term disability if the leave outlasts it. The leave is job-protected, for a few days by the Employment Standards Act and for a longer absence by the duty to accommodate under the Human Rights Code.',
+          'So everything on this page applies whichever name you use. A mental health leave of absence, a medical leave for mental health and a stress leave ask a doctor for the same certificate, run on the same money, and end with the same return to work.',
         ],
       },
       {
@@ -72,7 +88,9 @@ export const moreGuides6: Guide[] = [
         ],
       },
       {
-        h2: 'Is stress leave paid in BC? Sick days, EI sickness benefits, STD and LTD',
+        /* Before 1 Oct 2026 (item 264): 'Is stress leave paid in BC? Sick
+           days, EI sickness benefits, STD and LTD'. */
+        h2: 'Is stress or mental health leave paid in BC? Sick days, EI, STD and LTD',
         body: [
           'Partly. The first five days of illness in a calendar year are paid by your employer under the Employment Standards Act once you have 90 days of service. After that there is no automatic pay: you are on your employer\'s short-term disability plan if one exists, or on EI sickness benefits at 55% of insurable earnings to a maximum of $729 a week in 2026, for up to 26 weeks. Which route applies depends on your plan, not on your diagnosis, and it is worth establishing before the leave starts rather than three weeks in.',
         ],

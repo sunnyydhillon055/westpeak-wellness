@@ -1,5 +1,13 @@
 # Kits 4, 5, 6 and 8
 
+> **SUPERSEDED, 1 October 2026. Do not paste from this file.** It was written
+> before the counsellor roster, in the founder's voice, for a one-counsellor
+> practice. The current copy is [docs/OUTREACH.md](../docs/OUTREACH.md) for
+> outreach and [docs/LISTINGS_PACK.md](../docs/LISTINGS_PACK.md) for every
+> listing; fees come from westpeakwellness.com/pricing and nowhere else.
+> Stale claims have been taken out so a stray paste does no harm, but the
+> rest is kept only as a record.
+
 Use the canonical NAP block in [README.md](README.md) verbatim in all of these.
 
 ---
@@ -26,7 +34,7 @@ street address.
 ```
 Virtual counselling across British Columbia in English and Punjabi. Individual
 and couples therapy, EMDR, trauma, anxiety and burnout. Registered Clinical
-Counsellor (RCC). Free 15-minute consultation.
+Counsellor (RCC). Free 30-minute consultation.
 https://www.westpeakwellness.com
 ```
 
@@ -161,9 +169,8 @@ therapy in their second language — which is harder than it sounds, because the
 vocabulary for grief, shame and family obligation often only exists properly in
 the first one.
 
-I am a Registered Clinical Counsellor offering sessions in Punjabi across BC,
-and my Master's research was on intergenerational trauma in the South Asian
-community. I am happy to speak to the access gap, why first-language therapy
+I am a Registered Clinical Counsellor offering sessions in Punjabi across BC.
+I am happy to speak to the access gap, why first-language therapy
 changes what is possible in a session, and what the stigma actually looks like
 generationally — without discussing any individual.
 
@@ -185,7 +192,7 @@ Hello,
 
 I am a Registered Clinical Counsellor with a virtual practice covering all of
 BC, offering sessions in Punjabi and English. Specialisms are EMDR and trauma,
-anxiety and depression, and Gottman-informed couples work.
+anxiety and depression, and couples work.
 
 I am writing because referrals in both directions tend to serve clients better
 than either of us managing a waitlist alone. If you ever have someone who would

@@ -41,7 +41,7 @@ function sources(dir: string, out: string[] = []): string[] {
   for (const e of readdirSync(dir)) {
     const p = join(dir, e);
     if (statSync(p).isDirectory()) sources(p, out);
-    else if (/\.(ts|tsx)$/.test(e)) out.push(p);
+    else if (/\.(ts|tsx|md|html)$/.test(e)) out.push(p);
   }
   return out;
 }
@@ -56,7 +56,10 @@ test('the scanner finds a time promise in each field form, and ignores body copy
 
 test('no title or description in app/ or lib/ promises evenings or weekends', () => {
   const found: string[] = [];
-  for (const file of [...sources(join(ROOT, 'app')), ...sources(join(ROOT, 'lib'))]) {
+  /* docs/ and kits/ since 1 Oct 2026 (item 258): the off-site copy is pasted
+     into listings verbatim. Their body copy is checked in
+     test/claims-corrections.test.mts. */
+  for (const file of ['app', 'lib', 'docs', 'kits'].flatMap((d) => sources(join(ROOT, d)))) {
     const rel = file.slice(ROOT.length + 1).replace(/\\/g, '/');
     for (const s of timePromises(readFileSync(file, 'utf8'))) {
       if (EXEMPT.some((x) => x.file === rel && s.includes(x.phrase))) continue;

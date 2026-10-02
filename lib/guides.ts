@@ -6,7 +6,7 @@ import { moreGuides5 } from './guides-more5';
 import { moreGuides6 } from './guides-more6';
 import { moreGuides7 } from './guides-more7';
 import { draftGuides } from './guides-drafts';
-import { CONFIDENTIALITY_LIMITS } from '@/lib/practice-facts';
+import { CONFIDENTIALITY_LIMITS, ONLINE_COVERAGE } from '@/lib/practice-facts';
 
 export type GuideSection = {
   h2: string;
@@ -129,7 +129,7 @@ const coreGuides: Guide[] = [
       },
       {
         q: "Will my extended health plan cover a video session?",
-        a: "Nearly all BC extended health plans that cover Registered Clinical Counsellors reimburse virtual sessions on the same terms as in-person ones. Coverage amounts and per-session limits vary by plan, so it is worth confirming your specific benefits.",
+        a: ONLINE_COVERAGE,
       },
       {
         q: "What if I try it and it does not suit me?",

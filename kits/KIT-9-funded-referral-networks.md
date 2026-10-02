@@ -1,5 +1,13 @@
 # Kit 9 — Funded referral networks
 
+> **SUPERSEDED, 1 October 2026. Do not paste from this file.** It was written
+> before the counsellor roster, in the founder's voice, for a one-counsellor
+> practice. The current copy is [docs/OUTREACH.md](../docs/OUTREACH.md) for
+> outreach and [docs/LISTINGS_PACK.md](../docs/LISTINGS_PACK.md) for every
+> listing; fees come from westpeakwellness.com/pricing and nowhere else.
+> Stale claims have been taken out so a stray paste does no harm, but the
+> rest is kept only as a record.
+
 **The highest-value item in this folder, and the one nobody thinks of.**
 
 Every other kit competes for someone who is already searching for a counsellor.
@@ -146,18 +154,19 @@ Every application above asks the same nine things. Fill these in once:
 ```
 Practitioner:        [COUNSELLOR NAME], MA, RCC
 Designation:         Registered Clinical Counsellor
-Registration:        #20111, BC Association of Clinical Counsellors
+Registration:        BC Association of Clinical Counsellors (number into the
+                     panel's own credential field only)
 Practice:            Westpeak Wellness
 Business number:     [ your GST/BN, if registered ]
 Liability insurance: [ insurer, policy number, expiry ]
 Service delivery:    Secure video only, clients physically in BC
 Languages:           English, Punjabi
-Modalities:          EMDR, CBT, Gottman-informed couples work,
+Modalities:          EMDR, CBT, couples work,
                      trauma-informed practice
 Populations:         Adults; couples; South Asian and first-generation adults;
                      healthcare and shift workers
 Availability:        [ sessions/week you will actually hold for this panel ]
-Fee (private):       $140 individual / $170 couples
+Fee (private):       as published at westpeakwellness.com/pricing
 Website:             https://www.westpeakwellness.com
 Email:               info@westpeakwellness.com
 ```

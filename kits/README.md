@@ -7,6 +7,14 @@ writing a sentence, the kit has failed — tell me and I will fix it.
 `kits/` sits outside `app/` and `public/`, so Next.js never serves it. None of
 this is reachable from the website and none of it is in the sitemap.
 
+> **The kits below are superseded (1 October 2026).** They were written before
+> the counsellor roster, in the founder's voice. Paste listings from
+> [docs/LISTINGS_PACK.md](../docs/LISTINGS_PACK.md) and outreach from
+> [docs/OUTREACH.md](../docs/OUTREACH.md). This README's NAP block and the
+> standing press bio below are current. The coverage and couples-method claim
+> checks under `scripts/` scan this folder and
+> `docs/` as well as the site, so a stale claim pasted back in fails the build.
+
 ---
 
 ## The canonical NAP block
@@ -22,11 +30,40 @@ Website:         https://www.westpeakwellness.com
 Booking:         https://www.westpeakwellness.com/book
 Email:           info@westpeakwellness.com
 Service area:    British Columbia, Canada (virtual — all of BC)
-Languages:       English, Punjabi
-Practitioner:    [COUNSELLOR NAME], MA, RCC
-Designation:     Registered Clinical Counsellor (RCC), BC Association of
+Languages:       English, Punjabi, Tagalog
+Designation:     Registered Clinical Counsellors (RCC), BC Association of
                  Clinical Counsellors
 ```
+
+No practitioner is named in the NAP block: the practice is the listing, and the
+counsellors accepting new clients change. Each counsellor's own directory
+profile names her, and her registration number goes only into that
+directory's verified credential field.
+
+## Standing press bio (journalist requests)
+
+Regenerated 1 October 2026 from the counsellors marked accepting new clients in
+`lib/practitioners.ts`. No registration number and no founder: a journalist
+verifies on the BCACC register, and the founder is not taking clients.
+
+> Westpeak Wellness is a fully virtual counselling practice serving British
+> Columbia by secure video, in English, Punjabi and Tagalog.
+>
+> Camille Granda, RCC, CCC, is a Registered Clinical Counsellor working in
+> English and Tagalog with adults on trauma, anxiety and chronic stress, and
+> grief, loss and life transitions.
+>
+> Savneet Singh, RCC, is a Registered Clinical Counsellor working in English
+> and Punjabi with adults on anxiety, depression, and trauma and attachment.
+>
+> Either can comment on therapy in a first or heritage language, how to check
+> a counsellor on the BCACC public register, and the regulation of
+> psychotherapy in BC from 29 November 2027. Contact:
+> info@westpeakwellness.com.
+
+Rules for replies to journalist queries: answer the question in the first two
+sentences; no client anecdotes, including anonymised ones; offer one checkable
+fact the journalist can keep even if the quote is cut.
 
 **Two rules that matter more than they look:**
 

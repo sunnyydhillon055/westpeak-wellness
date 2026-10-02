@@ -1,5 +1,14 @@
 # Kit 3 — Psychology Today profile
 
+> **SUPERSEDED, 1 October 2026. Do not paste from this file.** It was written
+> before the counsellor roster, in the founder's voice, for a one-counsellor
+> practice. The current copy is [docs/OUTREACH.md](../docs/OUTREACH.md) for
+> outreach and [docs/LISTINGS_PACK.md](../docs/LISTINGS_PACK.md) for every
+> listing; fees come from westpeakwellness.com/pricing and nowhere else.
+> Stale claims have been taken out so a stray paste does no harm, but the
+> rest is kept only as a record.
+> Psychology Today is a paid directory, and the practice lists on free tiers only.
+
 **Time: 30 minutes.** Paid (~CAD $40/month) and the highest-intent directory
 traffic in Canadian counselling — people arrive already looking to book.
 
@@ -20,10 +29,10 @@ You will need your BCACC registration number to verify.
 | Primary location | Surrey, BC — then tick **Online / Telehealth only** |
 | Serves | All of British Columbia |
 | Languages | English, Punjabi |
-| Session fee | `$140` |
-| Couples fee | `$170` |
+| Session fee | as published at westpeakwellness.com/pricing |
+| Couples fee | as published at westpeakwellness.com/pricing |
 | Sliding scale | **No** — do not tick this |
-| Free consultation | **Yes, 15 minutes** |
+| Free consultation | **Yes, 30 minutes** |
 | Accepting new clients | Yes |
 | Payment methods | Credit card **only** |
 
@@ -57,8 +66,7 @@ outside is not simple inside your family — you already know what that costs.
 I work with adults across British Columbia by secure video, in English and
 Punjabi. Anxiety, depression, trauma, burnout, and the particular weight
 carried by people who are the first in their family to sit in a room like this
-one. My Master's research examined intergenerational trauma in the South Asian
-community, so that context is a starting point rather than something we spend
+one. That context is a starting point rather than something we spend
 three sessions establishing.
 ```
 
@@ -85,10 +93,10 @@ legitimate answer.
 **3. "Getting started"**
 
 ```
-I offer a free 15-minute consultation by video. It is genuinely for working out
+I offer a free 30-minute consultation by video. It is genuinely for working out
 fit, and there is no obligation to book a session afterwards. The research is
 consistent that the working relationship predicts outcomes more reliably than
-the specific method does, which makes fifteen minutes a reasonable thing to
+the specific method does, which makes thirty minutes a reasonable thing to
 spend before committing to anything.
 
 Registered Clinical Counsellor (RCC) with the BC Association of Clinical
@@ -119,7 +127,7 @@ Racial Identity · Marital and Premarital · Career Counseling
 ## Modalities
 
 ```
-EMDR · Cognitive Behavioral (CBT) · Gottman Method · Emotionally Focused ·
+EMDR · Cognitive Behavioral (CBT) · Emotionally Focused ·
 Culturally Sensitive · Trauma Focused · Internal Family Systems (IFS) ·
 Mindfulness-Based (MBCT) · Narrative · Person-Centered · Somatic
 ```
@@ -141,8 +149,8 @@ say something inaccurate. The accurate position for an RCC in BC:
 ```
 Counselling with a Registered Clinical Counsellor is not covered by MSP.
 
-Most BC extended health plans do cover RCC sessions — coverage typically runs
-between $500 and $1,500 per year depending on the plan. Payment is taken at the
+Many extended health plans reimburse RCC sessions, depending on the plan,
+up to an annual maximum the plan sets. Payment is taken at the
 time of booking and a receipt suitable for submitting to your insurer is issued
 after every session.
 

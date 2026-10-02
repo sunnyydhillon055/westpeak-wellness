@@ -293,7 +293,7 @@ export const moreAudiences6: Audience[] = [
     faqs: [
       { q: 'Can I do this from the truck?', a: 'Yes, if it is private and the signal holds. Plenty of people do. A parked vehicle is often the only quiet place on a job.' },
       { q: 'Will my employer or union find out?', a: 'No. Attending is not reported to anyone, receipts go to you, and nothing leaves a session without your written consent.' },
-      { q: 'Does my union plan cover it?', a: 'Most BC trades plans reimburse a Registered Clinical Counsellor to an annual limit. Ask your benefits office for the counselling maximum and whether an RCC is a covered provider; they will not ask why.' },
+      { q: 'Does my union plan cover it?', a: 'Many trades and union plans reimburse a Registered Clinical Counsellor to an annual limit, depending on the plan. Ask your benefits office for the counselling maximum and whether an RCC is a covered provider; they will not ask why.' },
       { q: 'What if I am off on a WorkSafeBC claim?', a: 'Counselling for the psychological side of an accepted injury can be covered under the claim. The WorkSafeBC page on this site explains how that route runs, and a session can be booked in the meantime without waiting for a decision.' },
     ],
     sources: [

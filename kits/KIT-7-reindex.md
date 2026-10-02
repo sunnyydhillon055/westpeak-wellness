@@ -1,5 +1,13 @@
 # Kit 7 — Get the new site indexed
 
+> **SUPERSEDED, 1 October 2026. Do not paste from this file.** It was written
+> before the counsellor roster, in the founder's voice, for a one-counsellor
+> practice. The current copy is [docs/OUTREACH.md](../docs/OUTREACH.md) for
+> outreach and [docs/LISTINGS_PACK.md](../docs/LISTINGS_PACK.md) for every
+> listing; fees come from westpeakwellness.com/pricing and nowhere else.
+> Stale claims have been taken out so a stray paste does no harm, but the
+> rest is kept only as a record.
+
 **Time: 20 minutes. Do this one first.** Google is still serving the old Wix
 snippet for this domain. Until the new pages are crawled, every other
 improvement is invisible.

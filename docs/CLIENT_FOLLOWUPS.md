@@ -59,7 +59,7 @@ https://www.westpeakwellness.com/pricing, and there is no package or
 minimum number of sessions.
 
 [Coverage:] Whether a plan reimburses depends on the plan your employer
-bought rather than the insurer's name, so I cannot promise it, but most BC
+bought rather than the insurer's name, so I cannot promise it, but many BC
 extended health plans that list a Registered Clinical Counsellor do. The
 quickest check is the paramedical section of your benefits booklet, or the
 number on your card, asking: "Does my plan reimburse a Registered Clinical
@@ -70,7 +70,7 @@ https://www.westpeakwellness.com/resources/does-my-plan-cover-counselling-bc
 itself rather than through an interpreter, and you can switch between them
 in a session if that is what feels natural.
 
-[Evenings / times:] Evening and weekday times both exist; the calendar at
+[Times:] Times depend on the counsellor; the calendar at
 the link below shows what is actually open this week, which is more reliable
 than anything I could type here.
 

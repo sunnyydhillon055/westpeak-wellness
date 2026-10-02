@@ -5,6 +5,7 @@ import { albertaResources } from './resources-alberta';
 import { punjabiWordsResource } from './resources-punjabi-words';
 import { tagalogWordsResource } from './resources-tagalog-words';
 import { moreResources3 } from './resources-more3';
+import { ONLINE_COVERAGE } from '@/lib/practice-facts';
 
 export type ResourceSection = {
   h2: string;
@@ -68,7 +69,29 @@ export type Resource = {
      without a deploy. For year-end plan timing on the coverage pages. 1 Oct
      2026. */
   seasonal?: { from: string; to: string; h2: string; body: string[] };
+  /* A page other organisations are asked to link to or print (docs/OUTREACH.md
+     §3, §6, §7). Renders "Using this page" above Sources: free to link,
+     reproducible with attribution, the date, a citation line and where to
+     report something out of date. 1 Oct 2026 (item 275). */
+  linkable?: boolean;
 };
+
+/** The suggested citation for a linkable resource: publisher, title, date and
+ *  the canonical URL, as a plain line someone can paste into a handout. */
+export function citationFor(r: Pick<Resource, 'title' | 'slug' | 'updated'>, domain: string): string {
+  const date = new Date(r.updated + 'T00:00:00Z').toLocaleDateString('en-CA', {
+    year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC',
+  });
+  return `Westpeak Wellness, “${r.title}”, updated ${date}. ${domain}/resources/${r.slug}`;
+}
+
+/** The pages outreach asks people to link to and print. */
+export const LINKABLE_SLUGS = [
+  'bc-crisis-and-support-directory',
+  'finding-a-counsellor-in-punjabi-or-tagalog-in-bc',
+  'mental-health-leave-templates-bc',
+  'low-cost-counselling-bc',
+] as const;
 
 const coreResources: Resource[] = [
   {
@@ -147,7 +170,7 @@ const coreResources: Resource[] = [
       { q: "Does MSP cover counselling?", a: "No. BC's Medical Services Plan does not cover private counselling with any designation. Publicly funded mental-health services through health authorities are free at point of use, but they are a separate system from private practice. The difference is explained on the MSP and extended health page." },
       { q: "Is there GST on counselling?", a: "Counselling services provided by qualifying practitioners in Canada are generally exempt from GST/HST. Your receipt should reflect that." },
       { q: "Can I use my spouse's plan too?", a: "Often yes. Coordination of benefits lets you claim the remainder from a second plan after the first pays its share, which can effectively double your annual coverage. Many couples never realise this is available." },
-      { q: "Do virtual sessions get covered the same as in-person?", a: "Nearly always yes. Insurers overwhelmingly treat a virtual session with a covered practitioner identically to an in-person one. If your plan is unusually old, it is worth confirming." },
+      { q: "Do virtual sessions get covered the same as in-person?", a: ONLINE_COVERAGE },
     ],
     sources: [
       { label: "BC Association of Clinical Counsellors, about RCCs", url: "https://bcacc.ca/" },
@@ -254,6 +277,7 @@ const coreResources: Resource[] = [
 
   {
     slug: "low-cost-counselling-bc",
+    linkable: true,
     figure2: "first-session-flow",
     figure: "therapy-cost-in-bc",
     title: "Free and low-cost counselling in BC",
@@ -334,6 +358,7 @@ const coreResources: Resource[] = [
 
   {
     slug: "bc-crisis-and-support-directory",
+    linkable: true,
     figure2: "first-session-flow",
     figure: "bc-reach",
     title: "BC crisis and mental health support directory",

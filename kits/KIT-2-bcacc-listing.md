@@ -1,5 +1,13 @@
 # Kit 2 — Correct the BCACC listing
 
+> **SUPERSEDED, 1 October 2026. Do not paste from this file.** It was written
+> before the counsellor roster, in the founder's voice, for a one-counsellor
+> practice. The current copy is [docs/OUTREACH.md](../docs/OUTREACH.md) for
+> outreach and [docs/LISTINGS_PACK.md](../docs/LISTINGS_PACK.md) for every
+> listing; fees come from westpeakwellness.com/pricing and nowhere else.
+> Stale claims have been taken out so a stray paste does no harm, but the
+> rest is kept only as a record.
+
 **Time: 15 minutes. Do this second.**
 
 An incorrect citation is worse than a missing one. The BCACC register entry
@@ -40,7 +48,7 @@ below into the message.
 | Areas served | `All of British Columbia (virtual)` |
 | Languages | `English`, `Punjabi` |
 | Accepting new clients | **Yes** |
-| Session fee | `$140` individual · `$170` couples |
+| Session fee | as published at westpeakwellness.com/pricing |
 | Phone | Leave blank if permitted — see the README |
 
 > **On the City field.** Most registers require one and use it for geographic
@@ -70,13 +78,12 @@ British Columbia by secure video. Sessions are available in English and
 Punjabi.
 
 The practice offers individual counselling for anxiety, depression, trauma and
-burnout, and Gottman-informed couples therapy. EMDR is available for trauma and
+burnout, and couples therapy. EMDR is available for trauma and
 for memories that continue to intrude despite what you understand
 intellectually. Work is trauma-informed and paced deliberately — stabilisation
 before processing, and a plan that is reviewed rather than assumed.
 
-Cultural context is a particular focus. The counsellor's Master's research
-examined intergenerational trauma in the South Asian community, and sessions
+Cultural context is a particular focus, and sessions
 can be conducted in Punjabi, English, or a mix of both. Family expectation,
 obligation and generational silence around mental health do not need explaining
 from scratch.
@@ -85,7 +92,7 @@ Because the practice is entirely online, there is no commute and no waiting
 room, and clients anywhere in the province — including the North and the
 Interior — have the same access as those in the Lower Mainland.
 
-New clients are welcome. A free 15-minute consultation is available to check
+New clients are welcome. A free 30-minute consultation is available to check
 fit before booking a session: https://www.westpeakwellness.com/book
 ```
 
@@ -100,7 +107,7 @@ Intergenerational trauma · Grief and loss · Self-esteem · Life transitions
 **Modalities:**
 
 ```
-EMDR · Cognitive Behavioural Therapy (CBT) · Gottman Method ·
+EMDR · Cognitive Behavioural Therapy (CBT) ·
 Emotion-Focused Therapy · Internal Family Systems (informed) ·
 Somatic (informed) · Mindfulness-based approaches · Narrative Therapy
 ```

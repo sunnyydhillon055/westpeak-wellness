@@ -44,10 +44,12 @@ What we offer, briefly:
 - Registered Clinical Counsellors (BCACC), working in English, Punjabi and
   Tagalog, in the language itself.
 - Individual, couples and family counselling; EMDR and trauma therapy.
-- A free 30-minute consultation, usually within days, no referral required.
+- A free 30-minute consultation, no referral required; times are shown on
+  /book.
 - Sessions by secure video from anywhere in BC. Times depend on the counsellor; /book shows what is open.
-- Fees published in full at westpeakwellness.com/pricing. Most extended
-  health plans reimburse an RCC. We do not bill MSP and say so plainly.
+- Fees published in full at westpeakwellness.com/pricing. Many extended
+  health plans reimburse an RCC, depending on the plan; patients check
+  theirs. We do not bill MSP and say so plainly.
 - Not a crisis service. Anyone at immediate risk is directed to 9-8-8 or
   emergency services, and we say that on every page.
 
@@ -183,8 +185,8 @@ registration number.
 > In BC, "counsellor" is not a protected title. Anyone can use it. RCC —
 > Registered Clinical Counsellor — means a master's degree, supervised
 > hours, a code of ethics, and a complaints process, through the BC
-> Association of Clinical Counsellors. It also usually means your extended
-> health plan will reimburse the session. You can check any RCC on the
+> Association of Clinical Counsellors. Many extended health plans reimburse
+> an RCC, depending on the plan, so check yours. You can check any RCC on the
 > public register in about four minutes. I'm [name], an RCC at Westpeak
 > Wellness. The link to the register is in the description.
 
@@ -194,7 +196,8 @@ registration number.
 > doctor or nurse practitioner does. Two: it is not automatically paid. Your
 > sick days, then your employer's short-term disability if there is one,
 > then EI sickness benefits, which pay 55 percent for up to 26 weeks. Three:
-> counselling can run alongside it and most plans reimburse it. The full
+> counselling can run alongside it, and many plans reimburse it, depending
+> on the plan. The full
 > step-by-step is on our site — westpeakwellness.com, stress leave.
 
 **C. "Does MSP cover counselling?"**

@@ -433,7 +433,10 @@ export const services: Service[] = [
          pages already use, not new coinages. 25 Sep 2026. */
       { q: "What is counselling called in Punjabi?", a: "Most often it is simply written ਕਾਊਂਸਲਿੰਗ, the English word in Gurmukhi, and that is the word this site's Punjabi pages use. The older word ਸਲਾਹ means advice, which is close but not the same thing: counselling is not somebody telling you what to do. Sessions here can be entirely in Punjabi, entirely in English, or the mix most families actually speak." },
       { q: "What does burnout mean in Punjabi?", a: "There is no single Punjabi word for it. The Punjabi guides on this site describe it as a ਥਕਾਵਟ, an exhaustion, that rest does not fix, usually from work or from caring for others, and that is the honest definition in any language. If that describes you, the burnout-or-depression check on this site takes two minutes and is written in plain English." },
-
+      /* 1 Oct 2026 (item 298): the seeker's question, answered in steps on
+         the language-access resource; this points there and names whoever on
+         the roster works in Punjabi and is accepting. */
+      { q: "How do I find a Punjabi-speaking counsellor in BC?", a: `Filter BCACC’s Find a Counsellor directory by language, then check the name on the RCC Register before the first session. The free Punjabi-speaking options, each with the date it was checked, and the steps in order are on our guide to [finding a Punjabi- or Tagalog-speaking counsellor in BC](/resources/finding-a-counsellor-in-punjabi-or-tagalog-in-bc).${PA ? ` At this practice, ${PA.name} works in Punjabi and English by video.` : ''}` },
       { q: "Do sessions have to be entirely in Punjabi?", a: "No. Most people move between Punjabi and English within a single session, which is how a lot of people actually think. You do not have to choose a language in advance or stick to it." },
       { q: "Will my family find out?", a: FAMILY_FIND_OUT },
       { q: "Will I be told to cut off my family?", a: "No. That framing misreads the situation for most people. The work is usually about staying connected while stopping carrying what is not yours." },

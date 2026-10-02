@@ -1,4 +1,29 @@
 import type { Resource } from './resources';
+import { practitioners, type Practitioner } from '@/lib/practitioners';
+
+/* "HOW DO I FIND A PUNJABI-SPEAKING THERAPIST IN BC?" — 1 Oct 2026 (item 298).
+ * The language-access page was written for the helper and had no answer in
+ * the seeker's own words: it logged 0 impressions while "counselling in
+ * punjabi" showed 17 at 12.5. The answer is the order the page already
+ * argues for: the directory, the register, the free services with their
+ * check dates, and this practice last. The counsellor named is whoever on the
+ * roster is accepting and works in Punjabi, so the founder (not accepting)
+ * is never named here and a change of roster changes the sentence. */
+export const punjabiCounsellorNames = (roster: Pick<Practitioner, 'name' | 'acceptingNewClients' | 'languages'>[] = practitioners) =>
+  roster.filter((p) => p.acceptingNewClients && p.languages.some((l) => l.tag === 'pa')).map((p) => p.name);
+
+export function findPunjabiTherapistAnswer(names: string[] = punjabiCounsellorNames()): string {
+  const practice = names.length
+    ? `${names.join(' and ')}, ${names.length === 1 ? 'a Registered Clinical Counsellor who works' : 'Registered Clinical Counsellors who work'} in Punjabi and English by secure video across BC`
+    : 'a Registered Clinical Counsellor working in Punjabi and English by secure video across BC, when one is taking new clients';
+  return [
+    'In four steps.',
+    'First, filter BCACC’s Find a Counsellor directory (bc-counsellors.org) by language and choose Punjabi; it lists only the RCCs who choose to be listed.',
+    'Second, check any name you find on BCACC’s RCC Register, which shows whether the registration is active.',
+    'Third, the free options: DIVERSEcity in Surrey, Archway’s Abbotsford Addictions Centre and Fraser Health’s Roshni Clinic each named Punjabi on their own pages when read on 1 October 2026, and 2-1-1 answers in Punjabi; confirm the language before relying on it.',
+    `Last, this practice: ${practice}. The first 30-minute consultation is free.`,
+  ].join(' ');
+}
 
 /* Two resources added 1 Oct 2026, both written to be LINKED TO rather than
  * ranked for.
@@ -31,8 +56,12 @@ import type { Resource } from './resources';
 export const moreResources3: Resource[] = [
   {
     slug: 'finding-a-counsellor-in-punjabi-or-tagalog-in-bc',
+    linkable: true,
     title: 'Finding a counsellor in Punjabi or Tagalog in BC: a guide for the person helping',
-    metaTitle: 'Finding a Counsellor in Punjabi or Tagalog in BC | Westpeak',
+    /* Before 1 Oct 2026 (item 298): 'Finding a Counsellor in Punjabi or
+       Tagalog in BC | Westpeak', 0 impressions. The title now asks the
+       seeker's question; the H1 keeps the helper framing. */
+    metaTitle: 'How to Find a Punjabi or Tagalog-Speaking Counsellor in BC',
     metaDescription:
       'For settlement workers, employers and family: how counselling in BC works, checking registration, interpretation vs same-language therapy, and free services.',
     eyebrow: 'Resource · Language access',
@@ -153,6 +182,7 @@ export const moreResources3: Resource[] = [
       label: 'the 30-minute consultation is free and can be requested on their behalf',
     },
     faqs: [
+      { q: 'How do I find a Punjabi-speaking therapist in BC?', a: findPunjabiTherapistAnswer() },
       { q: 'Is there free counselling in Punjabi in BC?', a: 'Yes, in places. DIVERSEcity in Surrey offers free family, child-and-youth and substance-use counselling with Punjabi named among its languages; Archway\'s Abbotsford Addictions Centre offers free substance-use counselling in Punjabi, Hindi and Urdu; Fraser Health\'s Roshni Clinic works in English, Punjabi and Hindi for adults with substance-use concerns; Moving Forward Family Services offers free short-term and low-cost counselling and is named by the Province as working in Punjabi. Each was checked on 1 October 2026; confirm by phone before sending someone, because languages follow staff.' },
       { q: 'Is there free counselling in Tagalog in BC?', a: 'The public listings read for this page on 1 October 2026 did not turn up a free Tagalog-language counselling program. What exists in Tagalog is navigation and settlement support (2-1-1, Multicultural Helping House, S.U.C.C.E.S.S.), interpretation inside health-authority services, and Tagalog-speaking counsellors in private practice. If you find one, 2-1-1 is the place to report it so the next person can.' },
       { q: 'Does MSP cover counselling for immigrants?', a: 'MSP does not cover private counselling for anyone, immigrant or not. Free counselling comes through health authorities, non-profits, schools and employers. A workplace extended health plan may reimburse a Registered Clinical Counsellor, depending on the plan.' },
@@ -196,6 +226,7 @@ export const moreResources3: Resource[] = [
 
   {
     slug: 'mental-health-leave-templates-bc',
+    linkable: true,
     title: 'Mental-health leave templates for BC: the request, the note, and the HR checklist',
     metaTitle: 'Mental Health Leave Templates for BC: Request, Note, HR',
     metaDescription:

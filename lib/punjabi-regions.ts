@@ -1,3 +1,4 @@
+import { ONLINE_COVERAGE } from '@/lib/practice-facts';
 /**
  * Punjabi-speaking counselling, by region — the English-language cluster.
  *
@@ -146,7 +147,7 @@ export const punjabiRegions: PunjabiRegion[] = [
       },
       {
         q: 'Will my extended health cover this?',
-        a: 'Many BC extended-health plans that cover a Registered Clinical Counsellor treat virtual sessions on the same terms as in-person ones, depending on the plan. Coverage varies by plan, so it is worth checking your specific policy before booking.',
+        a: ONLINE_COVERAGE,
       },
     ],
     sources: [
@@ -218,7 +219,7 @@ export const punjabiRegions: PunjabiRegion[] = [
       },
       {
         q: 'Will my extended health cover this?',
-        a: 'Many BC extended-health plans that cover a Registered Clinical Counsellor treat virtual sessions on the same terms as in-person ones, depending on the plan. Coverage varies by plan, so check your specific policy before booking.',
+        a: ONLINE_COVERAGE,
       },
     ],
     sources: [
@@ -297,7 +298,7 @@ export const punjabiRegions: PunjabiRegion[] = [
       },
       {
         q: 'Will my extended health cover this?',
-        a: 'Many BC extended-health plans that cover a Registered Clinical Counsellor treat virtual sessions on the same terms as in-person ones, depending on the plan. Coverage varies by plan, so check your specific policy before booking.',
+        a: ONLINE_COVERAGE,
       },
       {
         q: 'I work seasonally. Can sessions stop and start?',
@@ -415,7 +416,7 @@ export const punjabiRegions: PunjabiRegion[] = [
       },
       {
         q: 'Will my extended health cover this?',
-        a: 'Many BC extended-health plans that cover a Registered Clinical Counsellor treat virtual sessions on the same terms as in-person ones, depending on the plan. Coverage varies by plan, so it is worth checking your specific policy before booking.',
+        a: ONLINE_COVERAGE,
       },
     ],
     sources: [
@@ -528,7 +529,7 @@ export const punjabiRegions: PunjabiRegion[] = [
       },
       {
         q: 'Will my extended health cover this?',
-        a: 'Many BC extended-health plans that cover a Registered Clinical Counsellor treat virtual sessions on the same terms as in-person ones, depending on the plan. Coverage varies by plan, so it is worth checking your specific policy before booking.',
+        a: ONLINE_COVERAGE,
       },
     ],
     sources: [
@@ -636,7 +637,7 @@ export const punjabiRegions: PunjabiRegion[] = [
       },
       {
         q: 'Will my extended health cover this?',
-        a: 'Many BC extended-health plans that cover a Registered Clinical Counsellor treat virtual sessions on the same terms as in-person ones, depending on the plan. Coverage varies by plan, so it is worth checking your specific policy before booking.',
+        a: ONLINE_COVERAGE,
       },
     ],
     sources: [

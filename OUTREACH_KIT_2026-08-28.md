@@ -1,5 +1,13 @@
 # Outreach kit — every send is written; the owner adds a name and presses go
 
+> **SUPERSEDED, 1 October 2026. Do not send from this file.** It was written
+> before the counsellor roster, in the founder's voice. The current drafts are
+> in [docs/OUTREACH.md](docs/OUTREACH.md), the listing copy in
+> [docs/LISTINGS_PACK.md](docs/LISTINGS_PACK.md), and the press bio in
+> [kits/README.md](kits/README.md). Registration numbers, the Gottman claim,
+> the evening-availability line and the 15-minute consultation have been
+> taken out so a stray paste does no harm.
+
 **Written:** 28 August 2026. Items 32–36 and 41 of `FIFTY_MORE_2026-08-28.md`.
 Everything below is copy-paste ready and BCACC-compliant: no outcome claims, no
 testimonials, no statistics invented for effect. Facts about the practice come from
@@ -14,14 +22,9 @@ business name.
 
 ## 1 · Standing press bio (for journalist requests — Qwoted, press queries, direct)
 
-> [COUNSELLOR NAME], MA, RCC, is a Registered Clinical Counsellor (BCACC #20111)
-> running Westpeak Wellness, a fully virtual counselling practice serving all of
-> British Columbia in English and Punjabi. Practice areas include anxiety, trauma
-> and EMDR, couples work (Gottman-trained), and South Asian mental health. the counsellor can
-> comment on: access to counselling outside BC's major cities, therapy in Punjabi
-> and heritage languages, the 2027 regulation of psychotherapy in BC, and workplace
-> mental-health topics (stress leave, return-to-work).
-> Verification: bc-counsellors.org register, #20111. Contact: info@westpeakwellness.com.
+> Retired. The current standing press bio, regenerated from the accepting
+> roster with no registration number and no founder, is in
+> [kits/README.md](kits/README.md#standing-press-bio-journalist-requests).
 
 **Rules for replies to journalist queries:** answer the actual question in the first
 two sentences; no client anecdotes, ever, including anonymised ones; offer one
@@ -44,7 +47,7 @@ Subject: **In 2027, "counsellor" finally becomes a regulated title in BC — mos
 > A explainer on my site covers the ground if useful background helps:
 > westpeakwellness.com/resources/what-is-a-registered-clinical-counsellor
 >
-> — [COUNSELLOR NAME], MA, RCC (BCACC #20111)
+> — [COUNSELLOR NAME], RCC
 
 ## 3 · University outreach (campus counselling-resource pages)
 
@@ -73,7 +76,7 @@ Line to include for settlement agencies:
 > The practice runs in English and Punjabi, virtually across all of BC — which for
 > Punjabi speakers outside the Lower Mainland is often the only in-language option.
 > If your client-facing resource lists include counselling options, we'd be glad to
-> be checked out (BCACC register #20111) and listed — or simply to have the free
+> be checked out on the BCACC register and listed — or simply to have the free
 > Punjabi-language pages linked, with no referral relationship implied.
 
 ## 5 · South Asian broadcast (RED FM 93.1, Connect FM 91.5)
@@ -81,7 +84,7 @@ Line to include for settlement agencies:
 Ask: a short Punjabi-language segment on what counselling is and how to check a
 counsellor's registration — service journalism, not advertising.
 
-> ਸਤ ਸ੍ਰੀ ਅਕਾਲ — I'm a Registered Clinical Counsellor (BCACC #20111) practising in
+> ਸਤ ਸ੍ਰੀ ਅਕਾਲ — I'm a Registered Clinical Counsellor practising in
 > Punjabi and English across BC. I'd like to offer a short call-in-friendly segment
 > answering the questions families actually ask: what happens in counselling, is it
 > confidential from family, what it costs and what benefits cover, and how to verify
@@ -99,9 +102,9 @@ Targets: family practices and UPCCs in Abbotsford, Mission, Chilliwack, Langley,
 >
 > Dr. [name] / Clinic team — for patients who would benefit from counselling and
 > ask "where do I actually go?", Westpeak Wellness may be a useful pointer:
-> Registered Clinical Counsellor (BCACC #20111, verifiable), virtual across BC,
-> evening availability, sessions in English or Punjabi, published fees, free
-> 15-minute consultation, no referral required. The practice page for clinicians —
+> Registered Clinical Counsellors (verifiable on the BCACC register), virtual
+> across BC, sessions in English, Punjabi or Tagalog, published fees, a free
+> 30-minute consultation, no referral required; times are shown on /book. The practice page for clinicians —
 > westpeakwellness.com/refer — covers scope honestly, including what is NOT seen
 > here (no diagnosis, no prescribing, not a crisis service) and coordination with
 > your care via patient consent.
