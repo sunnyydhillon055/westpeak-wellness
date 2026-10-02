@@ -103,8 +103,10 @@ export default function middleware(req: NextRequest): Response | Promise<Respons
 export const config = {
   matcher: [
     '/client-portal', '/admin', '/alberta', '/alberta/:path*', '/ontario', '/ontario/:path*',
-    /* The Alberta place pages and their language twins only (ALBERTA_PLACE_SLUGS). */
-    '/practitioners/:slug/calgary', '/practitioners/:slug/calgary/:lang',
-    '/practitioners/:slug/edmonton', '/practitioners/:slug/edmonton/:lang',
+    /* The Alberta place pages and their language twins only (ALBERTA_PLACE_SLUGS).
+       The twins are literal: Next 14 compiled a trailing ':lang' segment to
+       '(.json)', so /calgary/pa never reached the redirect (smoke, 2 Oct 2026). */
+    '/practitioners/:slug/calgary', '/practitioners/:slug/calgary/tl', '/practitioners/:slug/calgary/pa',
+    '/practitioners/:slug/edmonton', '/practitioners/:slug/edmonton/tl', '/practitioners/:slug/edmonton/pa',
   ],
 };
