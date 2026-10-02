@@ -45,3 +45,30 @@ export function planMaximumParagraph(catalog: Catalog = FALLBACK_CATALOG): strin
     'The [cost estimator](/tools/therapy-cost-bc) does the same arithmetic with your plan’s own numbers.'
   );
 }
+
+/* WHAT A REMAINING BALANCE BUYS — 1 Oct 2026 (items 210 and 212).
+ *
+ * The year-end sections talk about what is left on a plan, not the whole
+ * maximum, so the figures are the two a reader is likely to have left in
+ * the autumn, $300 and $600. Same rule as above: catalogue fee, whole
+ * sessions, rounded down, and the plan paying the full fee is an assumption
+ * stated in the sentence rather than buried. */
+
+/** Whole individual sessions a remaining balance (integer cents) covers at
+ *  the catalogue's individual fee, assuming no per-visit cap. */
+export function remainingBalanceSessions(balanceCents: number, catalog: Catalog = FALLBACK_CATALOG): number {
+  return sessionsCovered(balanceCents, cents('Individual Counselling', catalog).cents);
+}
+
+/** The sentence the year-end sections carry. */
+export function remainingBalanceSentence(catalog: Catalog = FALLBACK_CATALOG): string {
+  const ind = cents('Individual Counselling', catalog);
+  const n300 = remainingBalanceSessions(30000, catalog);
+  const n600 = remainingBalanceSessions(60000, catalog);
+  const word = (n: number) => (n === 1 ? 'session' : 'sessions');
+  return (
+    `At this practice’s individual fee of ${money(ind.cents)} for ${ind.minutes} minutes, $300 left on a plan covers ${n300} whole ${word(n300)} and $600 covers ${n600}, ` +
+    'if the plan pays the full fee. Many plans cap each visit or pay a percentage, which leaves part of every session with you and changes the count; ' +
+    'the [cost estimator](/tools/therapy-cost-bc) does the arithmetic with your plan’s own numbers.'
+  );
+}

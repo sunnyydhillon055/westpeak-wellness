@@ -1,5 +1,34 @@
 import type { Guide } from './guides';
 
+/* THE FIRST HOLIDAYS AFTER A LOSS — drafted 1 Oct 2026 (item 247), NOT LIVE.
+ *
+ * A section and one FAQ for /guides/grief-without-a-timeline, written for
+ * the owner's clinical read. CONTENT_CALENDAR.md: grief-at-Christmas content
+ * is never published without one. Until FIRST_HOLIDAYS_CLEARED is set to
+ * true, neither appears on the page, in the FAQ schema or anywhere else; the
+ * text lives here only so it can be read in the repository. Target 15 Nov.
+ *
+ * Flip the flag to publish, bump the guide's `updated`, and the holidays
+ * draft (lib/guides-drafts.ts) already links to the section's anchor,
+ * #the-first-holidays-after-a-loss. No outcome claims. */
+export const FIRST_HOLIDAYS_CLEARED: boolean = false;
+
+export const FIRST_HOLIDAYS_SECTION = {
+  h2: 'The first holidays after a loss',
+  body: [
+    'The first run of holidays after a death has a weight of its own, and it often arrives before people expect it. A season organised around who is at the table makes an absence impossible to miss: the empty chair, the gift not bought, the recipe nobody else knows, the phone call that would have come at a certain hour. Birthdays and the anniversary of the death do the same thing on a smaller scale, and the days leading up to them are frequently harder than the days themselves.',
+    'There is no right way to do it. Some people keep every tradition exactly as it was, because the continuity is the comfort. Some change one thing, a different place, a different time, a new ritual that names the person rather than working around them. Some skip the season this year altogether. Each of those is a reasonable choice, and it is fine to decide differently next year, or to plan one way and change your mind on the day.',
+    'What helps most is usually deciding in advance and saying so. Tell the people you will spend the time with what you want: whether you want the person spoken about or not, whether you will stay for the meal or leave early, whether you would rather someone else did the cooking that was theirs. People around a grieving person often go quiet because they are afraid of saying the wrong thing, and being told what you need removes the guessing for everyone.',
+    'Many people also notice a dip in late December and into January, when the gatherings end, the house is quiet again and the new year arrives without them in it. That is common and worth planning for: something in the diary for the first weeks of January, and someone who knows it might be a hard stretch.',
+    'If the season brings thoughts of not wanting to be here, that is not something to carry alone. **9-8-8**, by call or text, anywhere in Canada, twenty-four hours a day, and **310-6789** for BC Mental Health Support.',
+  ],
+};
+
+export const FIRST_HOLIDAYS_FAQ = {
+  q: 'How do I get through the first Christmas or Diwali after a death?',
+  a: 'There is no single right way. Some people keep every tradition, some change one thing, some skip the season this year, and any of those is reasonable. What helps most is deciding in advance and telling the people around you what you need: whether you want the person spoken about, how long you will stay, who does what was theirs. Expect the days before to be hard, and plan something for the quieter weeks after, when many people notice a dip.',
+};
+
 export const moreGuides3: Guide[] = [
   {
     slug: 'talking-to-your-family-about-therapy',
@@ -244,6 +273,7 @@ export const moreGuides3: Guide[] = [
           'For anyone who wants support that is not one-to-one, BC has bereavement services, hospice-based groups and peer support in most regions, much of it free. A group of people who are not surprised by anything you say is a different and sometimes better resource than a counsellor.',
         ],
       },
+      ...(FIRST_HOLIDAYS_CLEARED ? [FIRST_HOLIDAYS_SECTION] : []),
     ],
     midCta: {
       text: 'If a loss has stopped moving and there is nowhere to put it,',
@@ -256,6 +286,7 @@ export const moreGuides3: Guide[] = [
       { q: 'How long should grief last?', a: 'There is no correct duration. What matters more is whether it is changing at all, and whether life has any room in it besides the loss.' },
       { q: 'Is it normal to feel relief when someone dies?', a: 'Yes, and it is far more common than anyone admits, particularly after a long illness or a difficult relationship. Relief and grief are not mutually exclusive.' },
       { q: 'Can I grieve someone who is still alive?', a: 'Yes. Estrangement, dementia, addiction and the end of a relationship all produce genuine grief, and the absence of a death often makes it harder rather than easier.' },
+      ...(FIRST_HOLIDAYS_CLEARED ? [FIRST_HOLIDAYS_FAQ] : []),
       { q: 'Should I go to a group or see a counsellor?', a: 'Either, and sometimes both. Groups offer the specific relief of people who are not surprised by what you say; individual counselling offers depth and privacy. They are not in competition.' },
     ],
     sources: [

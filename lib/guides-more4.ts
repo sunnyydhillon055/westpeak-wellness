@@ -268,9 +268,12 @@ export const moreGuides4: Guide[] = [
   {
     slug: 'low-mood-through-a-bc-winter',
     title: 'Low mood through a British Columbia winter',
-    metaTitle: 'Low Mood in a BC Winter | Westpeak Wellness',
+    /* October refresh, 1 Oct 2026 (item 223): "seasonal depression" and
+       "SAD" in the title and description before the Nov-Feb searches. The
+       FAQ still says an RCC does not diagnose. */
+    metaTitle: 'Seasonal Depression (SAD) in a BC Winter | Westpeak',
     metaDescription:
-      'Why the coast and the north produce different winter problems, what actually helps with seasonal low mood, and when it is more than the weather.',
+      'Seasonal depression (SAD) in a BC winter: why the coast and the north differ, what helps with seasonal low mood, and when it is more than the weather.',
     eyebrow: 'Guide · Seasonal',
     lede:
       'Five months of low cloud on the coast, and five hours of daylight in the north. They are not the same problem.',

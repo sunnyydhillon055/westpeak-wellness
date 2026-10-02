@@ -88,6 +88,22 @@
       "metric": "conv:book_click",
       "readAfter": "2026-10-29",
       "note": "The closing block moved above the link footer: counsellor cards by default, the service's fee, the next consultation, smaller steps. Guides, compares and Alberta resources book the counsellor who fits. The cta-band count before and after this date is not like for like."
+    },
+    {
+      "id": "2026-10-01-seasonal",
+      "date": "2026-10-01",
+      "pages": ["/resources/does-my-plan-cover-counselling-bc", "/resources/counselling-coverage-in-alberta", "/resources/counselling-benefits-before-year-end-bc", "/pricing", "/book"],
+      "metric": "conv:book_click",
+      "readAfter": "2026-10-29",
+      "note": "Year-end plan timing: a dated section on the two coverage pages (1 Oct to 31 Dec), a new year-end benefits page, a dated line under the fees on /pricing and /book (from 15 Oct), and the claim-deadline and reset wording corrected. The /pricing and /book line only starts on 15 Oct, inside this window."
+    },
+    {
+      "id": "2026-10-01-winter-title",
+      "date": "2026-10-01",
+      "pages": ["/guides/low-mood-through-a-bc-winter"],
+      "metric": "gsc:clicks",
+      "readAfter": "2026-10-29",
+      "note": "October refresh: seasonal depression (SAD) in the title and description, counsellor cards, first in the social queue."
     }
   ]
 }

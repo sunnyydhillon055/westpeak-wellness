@@ -480,3 +480,28 @@ test('the portal lists only the paid types she offers, priced from the catalogue
   assert.ok(paidTypesFor(cam.services, FALLBACK_CATALOG).length >= types.length);
   assert.deepEqual(paidTypesFor(sav.services, { ...FALLBACK_CATALOG, items: [] }), []);
 });
+
+/* ---- #222 the calendar-year plan note in the drafts ----------------------- */
+
+test('the after-consult and after-session drafts carry the plan-year note only 15 Oct to 20 Dec', () => {
+  const link = bookingsPaidUrlFor(SAVNEET_ID, IND_TYPE);
+  const base = { firstName: 'Riya', day: 'Tuesday, October 6', link, signer: 'Savneet Singh' };
+  for (const key of ['after-consult', 'after-session'] as const) {
+    const on = (iso: string) => decodeURIComponent(mailtoBookingDraft('r@example.com', key, { ...base, now: new Date(iso) })).replace(/\s+/g, ' ');
+    assert.match(on('2026-11-02T19:00:00Z'), /sessions held by 31 December count against this year’s maximum/, key);
+    assert.match(on('2026-12-20T19:00:00Z'), /31 December/, `${key} on 20 Dec`);
+    assert.doesNotMatch(on('2026-12-21T19:00:00Z'), /31 December/, `${key} on 21 Dec`);
+    assert.doesNotMatch(on('2027-01-01T19:00:00Z'), /31 December/, `${key} on 1 Jan`);
+    assert.doesNotMatch(on('2026-10-14T19:00:00Z'), /31 December/, `${key} on 14 Oct`);
+  }
+  /* Out of season the after-session draft is byte-for-byte what it was. */
+  const sess = decodeURIComponent(mailtoBookingDraft('r@example.com', 'after-session', { ...base, now: new Date('2027-01-05T19:00:00Z') }));
+  assert.ok(!/\$|evening|weekend|better|progress|review/i.test(sess));
+  const inSeasonSess = decodeURIComponent(mailtoBookingDraft('r@example.com', 'after-session', { ...base, now: new Date('2026-11-02T19:00:00Z') }));
+  assert.ok(!/\$|evening|weekend|better|progress|review/i.test(inSeasonSess), 'the note adds no fee, time or outcome');
+  /* Never on the cancellation drafts. */
+  for (const key of ['rebook-consult', 'reschedule-session'] as const) {
+    const d = decodeURIComponent(mailtoBookingDraft('r@example.com', key, { ...base, now: new Date('2026-11-02T19:00:00Z') }));
+    assert.doesNotMatch(d, /31 December/, key);
+  }
+});
