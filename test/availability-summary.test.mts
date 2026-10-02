@@ -37,8 +37,11 @@ test('December 2026: Creston and the Peace are never named; Alberta only where i
     const s = timeZoneNote(p, DECEMBER);
     assert.match(s, /^Times on this page are Pacific time/);
     assert.doesNotMatch(s, /Creston|Peace|November to March/);
-    const differs = offsetMinutes('America/Edmonton', DECEMBER) !== offsetMinutes(PACIFIC_ZONE, DECEMBER);
-    assert.equal(/East Kootenay/.test(s), differs, 'computed from the runtime, not typed');
+    /* The East Kootenay stays on UTC-6 from 1 Nov 2026, an hour ahead of
+       Pacific whatever Alberta does (2 Oct 2026). */
+    assert.match(s, /most of the East Kootenay (is|are) one hour ahead today/);
+    const abDiffers = offsetMinutes('America/Edmonton', DECEMBER) !== offsetMinutes(PACIFIC_ZONE, DECEMBER);
+    if (p.includes('AB')) assert.equal(/Alberta/.test(s), abDiffers, 'Alberta computed from the runtime, not typed');
   }
 });
 

@@ -44,14 +44,32 @@ export const PACIFIC = ' (Pacific time)';
  *  even on stale tz data), America/Edmonton (Alberta and most of the East
  *  Kootenay) and America/Creston on the day shown, and names a place only
  *  when its clock differs from Pacific today. */
+/** The East Kootenay's clock from 1 Nov 2026: UTC-6 all year (see timeZoneNote). */
+export const EAST_KOOTENAY_FIXED_FROM = Date.parse('2026-11-01T08:00:00Z');
+export const EAST_KOOTENAY_FIXED_OFFSET = -360;
+const toDate = (d: Date | string | number): Date => (d instanceof Date ? d : new Date(d));
+
 export function timeZoneNote(provinces: readonly string[], at: Date | string | number = new Date()): string {
   const pac = offsetMinutes(PACIFIC_ZONE, at);
   const clauses: string[] = [];
   const edm = offsetMinutes('America/Edmonton', at) - pac;
-  if (edm !== 0) {
-    clauses.push(provinces.includes('AB')
-      ? `Alberta and most of the East Kootenay are ${hoursApart(edm)} today`
-      : `most of the East Kootenay is ${hoursApart(edm)} today`);
+  /* The East Kootenay used to follow Alberta's clock, so one Edmonton reading
+     covered both. From 1 Nov 2026 it does not: the Regional District voted
+     (14 Aug 2026) to stay on UTC-6 all year, the Province lists Cranbrook,
+     Fernie and Kimberley on UTC-6 (17 Sep 2026), and no tz database zone says
+     so yet. Read it as a fixed offset from that date, so Cranbrook's
+     "one hour ahead" cannot vanish in a winter when Alberta matches Pacific
+     (2 Oct 2026, the Cranbrook pages). */
+  const ekNow = toDate(at).getTime() >= EAST_KOOTENAY_FIXED_FROM
+    ? EAST_KOOTENAY_FIXED_OFFSET
+    : offsetMinutes('America/Edmonton', at);
+  const ek = ekNow - pac;
+  const ab = provinces.includes('AB') ? edm : 0;
+  if (ab !== 0 && ab === ek) {
+    clauses.push(`Alberta and most of the East Kootenay are ${hoursApart(ek)} today`);
+  } else {
+    if (ab !== 0) clauses.push(`Alberta is ${hoursApart(ab)} today`);
+    if (ek !== 0) clauses.push(`most of the East Kootenay is ${hoursApart(ek)} today`);
   }
   const cre = offsetMinutes('America/Creston', at) - pac;
   if (cre !== 0) clauses.push(`Creston and the Peace region are ${hoursApart(cre)} today`);
