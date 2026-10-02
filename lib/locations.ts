@@ -26,6 +26,21 @@ export type Location = {
   communities?: string[];
   figure?: string;         // key into lib/figures.ts — renders the page's diagram
   figure2?: string;      // second diagram, further down the page
+  /* THE NAME THE HUB IS SEARCHED BY, WHEN IT IS NOT THE CITY'S — 1 Oct 2026.
+     The title, H1 and OG title use it; the slug, the breadcrumb and every
+     sentence that means the municipality keep `city`. White Rock only: its
+     hub named South Surrey seven times and never in its title, H1 or meta,
+     and /online-counselling/south-surrey returned 404 (now a 308 here). */
+  displayPlace?: string;
+  /* Places the hub serves by name, beside the city, for areaServed. Each is
+     contained in the named municipality. */
+  areaPlaces?: { name: string; containedIn: string }[];
+  /* The /for pages written for people this hub also serves — 1 Oct 2026.
+     Rendered as one "Also written for" line under the counsellor cards, by
+     each audience's own title. Links only: no claim about local employers or
+     communities is made by listing one. Slugs must exist in lib/audiences.ts
+     (test/city-hub.test.mts). */
+  audiences?: string[];
 };
 
 /* WHO CAN SEE YOU ON THE ALBERTA SIDE — 1 Oct 2026.
@@ -60,6 +75,13 @@ export function albertaFaq(roster: readonly Rostered[], today: string): string {
   if (!n) return '';
   return ` If you would rather keep going while you are working on the Alberta side, say so when you book: ${n === 1 ? 'one counsellor here can' : `${n} counsellors here can`} see clients there, and it decides who you book with.`;
 }
+
+/* The counsellor taking new clients who works in Punjabi, for the White Rock
+   answer. Read from the roster so the name goes when she stops accepting; the
+   question is dropped rather than answered with nobody. 1 Oct 2026. */
+const PUNJABI_COUNSELLOR = practitioners.find(
+  (p) => p.acceptingNewClients && p.provinces.includes('BC') && p.languages.some((l) => l.name === 'Punjabi'),
+);
 
 const TODAY = vancouverToday();
 const ALBERTA_LINE = albertaLine(practitioners, TODAY);
@@ -171,6 +193,7 @@ export const locations: Location[] = [
       { label: "CMHA Northern BC Branch", url: "https://northernbc.cmha.ca/" },
     ],
     nearby: ["fort-st-john", "kelowna", "victoria"],
+    audiences: ["healthcare-and-shift-workers", "rotational-and-camp-workers"],
   },
 
   {
@@ -193,6 +216,10 @@ export const locations: Location[] = [
         "The barrier here is usually not availability, Surrey has more Punjabi-speaking counsellors than anywhere else in BC. It is **privacy**. [Punjabi-speaking counselling for Surrey](/punjabi-counselling/surrey) is written about that specifically, why the counsellor who comes recommended is often the one connected to the people you would least want to know. In a community this interconnected, the concern people voice most often is not whether therapy works. It is who might see them walking into a clinic, and whether it will get back to family.",
         "That concern is not paranoia, and it is not something to be talked out of. It is a realistic assessment of how information moves in a tight community. A fully virtual practice answers it directly: there is no waiting room, no parking lot, and no building. Nobody sees you arrive because there is nowhere to arrive.",
         "The second pattern specific to this community is who tends to come first. Frequently it is the second generation: adults in their twenties and thirties who grew up here, carry the family's expectations, and are the first in the family to consider therapy at all. There is often no template and nobody to ask. That is covered in more depth on the page for [first- and second-generation South Asian adults](/for/first-gen-south-asian-adults).",
+        /* Fraser Health's Mental Health Centres directory, read 1 Oct 2026:
+           the Surrey centre is at 13401 108th Avenue, and the White
+           Rock/South Surrey centre at 15521 Russell Avenue, White Rock. */
+        "**South Surrey has its own public door.** On the Semiahmoo Peninsula, Fraser Health's adult mental health intake is the White Rock/South Surrey Mental Health and Substance Use Centre on Russell Avenue in White Rock, not the Surrey centre on 108th Avenue, and both accept a self-referral. The [White Rock and South Surrey page](/online-counselling/white-rock) covers the Peninsula itself.",
       ],
     },
     access: [
@@ -210,9 +237,15 @@ export const locations: Location[] = [
     ],
     sources: [
       { label: "Fraser Health, mental health and substance use services", url: "https://www.fraserhealth.ca/health-topics-a-to-z/mental-health-and-substance-use" },
+      { label: "Fraser Health, Mental Health Centres directory", url: "https://www.fraserhealth.ca/Service-Directory/Services/mental-health-and-substance-use/mental-health-centres/mental-health-centres" },
       { label: "HereToHelp BC, mental health information", url: "https://www.heretohelp.bc.ca/" },
     ],
-    nearby: ["vancouver", "abbotsford"],
+    /* Its physical neighbours, 1 Oct 2026: White Rock sits inside Surrey and
+       Langley borders it, and the live hub linked neither (79 impressions at
+       15.41 on 26 Sep, the local page nearest page one). Vancouver is still
+       one click away through the index and every other hub. */
+    nearby: ["white-rock", "langley", "abbotsford"],
+    audiences: ["healthcare-and-shift-workers", "first-gen-south-asian-adults", "punjabi-speaking-couples"],
   },
 
   {
@@ -305,6 +338,7 @@ export const locations: Location[] = [
       { label: "HereToHelp BC, mental health information", url: "https://www.heretohelp.bc.ca/" },
     ],
     nearby: ["surrey", "vancouver"],
+    audiences: ["healthcare-and-shift-workers", "first-gen-south-asian-adults", "punjabi-speaking-couples"],
   },
 
   {
@@ -350,6 +384,7 @@ export const locations: Location[] = [
       { label: "HereToHelp BC, mental health information", url: "https://www.heretohelp.bc.ca/" },
     ],
     nearby: ["nanaimo", "vancouver"],
+    audiences: ["healthcare-and-shift-workers", "first-responders"],
   },
 
   {
@@ -394,6 +429,7 @@ export const locations: Location[] = [
       { label: "HereToHelp BC, mental health information", url: "https://www.heretohelp.bc.ca/" },
     ],
     nearby: ["penticton", "kamloops", "vancouver"],
+    audiences: ["healthcare-and-shift-workers", "university-students"],
   },
 
   /* KAMLOOPS, ADDED 2026-08-18.
@@ -482,6 +518,7 @@ export const locations: Location[] = [
       { label: "CMHA Kamloops Branch", url: "https://kamloops.cmha.bc.ca/" },
     ],
     nearby: ["kelowna", "prince-george"],
+    audiences: ["healthcare-and-shift-workers", "rotational-and-camp-workers", "university-students"],
   },
 
   /* ── Three cities brought back, 2026-08-28 ────────────────────────────────
@@ -598,33 +635,51 @@ export const locations: Location[] = [
    * list in the same change; see the note at the head of this file about what
    * happens when a page exists and a redirect still points away from it.
    *
-   * NO CENSUS FIGURES HERE, deliberately. The Abbotsford and Surrey entries
-   * quote exact mother-tongue counts because those were looked up. Nothing
-   * equivalent was verified for White Rock, and a plausible-sounding invented
-   * statistic on a counselling site is worse than no statistic — every other
-   * number on this site can be checked, and that has to stay true. What is
-   * written below is qualitative and verifiable. */
+   * ONE CENSUS FIGURE, LOOKED UP. Until 1 Oct 2026 this said no figure had
+   * been verified, and the page said the city "skews older than almost
+   * anywhere else in Metro Vancouver", a comparison nobody had checked. The
+   * age split was then read from the Statistics Canada 2021 Census Profile
+   * for White Rock (CSD 5915007): 8,185 of 21,940 residents aged 65 and over,
+   * 37.3%. It is cited in sources. Re-read the profile before changing it. A
+   * plausible-sounding invented statistic on a counselling site is worse than
+   * no statistic, and that rule still holds for everything else below.
+   *
+   * WHITE ROCK & SOUTH SURREY, 1 Oct 2026. The hub's title, H1 and meta lead
+   * with both names (displayPlace); /online-counselling/south-surrey and
+   * /semiahmoo 308 here (lib/redirects.mjs). Search Console, 26 Sep: 8
+   * impressions at 6.38, White Rock terms already at position 1, so the
+   * volume to gain is South Surrey's. Two lines left the same day: the
+   * Johnston Road doorway (the street scraper listings attach to the
+   * practice) and a sentence calling the Peninsula's Punjabi-speaking
+   * community "substantial", which was unverified and generalised about a
+   * community. */
   {
     slug: "white-rock",
     figure2: 'first-session-flow',
     figure: "bc-reach",
     city: "White Rock",
+    displayPlace: "White Rock & South Surrey",
+    areaPlaces: [{ name: "South Surrey", containedIn: "Surrey" }],
     communities: ["South Surrey", "Ocean Park", "Crescent Beach", "Morgan Creek"],
     region: "Metro Vancouver",
     blurb: "A small city on the border where the counsellor you can reach may be someone you will see again at the pier.",
     metaDescription:
-      "Online counselling for White Rock and the Semiahmoo Peninsula. EMDR, trauma, anxiety, grief and couples sessions by secure video.",
+      "Online and virtual counselling for White Rock and South Surrey. EMDR, trauma, anxiety, grief and couples sessions by secure video.",
     intro: [
       "White Rock is small in a way that changes what privacy means. A city of a few square kilometres wrapped around one hill, one promenade and one main street is a place where the person in the waiting room is quite often someone you know, and where the counsellor you would be booking with may share a grocery store, a beach walk and a dentist with you.",
-      "It is also a city that skews older than almost anywhere else in Metro Vancouver, and that shapes what people actually come to therapy for here: retirement that turned out to be harder than expected, caregiving for a partner, grief after a long marriage, health anxiety with a real diagnosis underneath it, and adult children who moved away. Those are not the presentations a general \"anxiety and depression\" page is written for.",
+      "It is also an older city: in the 2021 Census, 8,185 of White Rock's 21,940 residents, about 37%, were 65 or over. That shapes what people actually come to therapy for here: retirement that turned out to be harder than expected, caregiving for a partner, grief after a long marriage, health anxiety with a real diagnosis underneath it, and adult children who moved away. Those are not the presentations a general \"anxiety and depression\" page is written for.",
     ],
     localReality: {
       h2: "A small city, an older population, and a border",
       body: [
-        "**Small enough that discretion is a real constraint.** In a city this size the ordinary privacy of a counselling office is thinner than it looks. Being seen going in is not paranoia. It is arithmetic. A virtual practice has no doorway on Johnston Road to be noticed at, which for some people here is the difference between starting and not.",
+        "**Small enough that discretion is a real constraint.** In a city this size the ordinary privacy of a counselling office is thinner than it looks. Being seen going in is not paranoia. It is arithmetic. A virtual practice has no doorway to be noticed at, which for some people here is the difference between starting and not.",
         "**An older population needs different work, not gentler work.** Grief, retirement, chronic illness and caregiver exhaustion are the substance of a great deal of counselling on the Peninsula, and they are frequently treated as things to be endured rather than worked on. [Grief without a timeline](/guides/grief-without-a-timeline) and the page for [family caregivers](/for/family-caregivers) cover what that work actually involves.",
         "**South Surrey is next door, and is not the same thing.** White Rock is its own municipality entirely surrounded by Surrey, and residents move between the two without thinking about it, but the services, the intake queues and the counsellor listings are organised by boundaries that do not match how anyone actually lives here. [Counselling in Surrey](/online-counselling/surrey) covers the larger picture, including the Punjabi-speaking practice that many Peninsula residents are looking for and searching one city over to find.",
-        "**Public intake runs through Fraser Health.** Not Vancouver Coastal, despite the Metro Vancouver address. The same mismatch that costs Burnaby residents weeks in the wrong queue. Worth knowing before joining a waitlist.",
+        /* Fraser Health's Mental Health Centres directory, read 1 Oct 2026:
+           "White Rock/South Surrey Mental Health and Substance Use Centre,
+           15521 Russell Avenue, Russell Unit, White Rock"; adults 19+, and
+           referrals accepted from patients themselves. */
+        "**Public intake runs through Fraser Health.** Not Vancouver Coastal, despite the Metro Vancouver address. For the Peninsula the public door is the White Rock/South Surrey Mental Health and Substance Use Centre at 15521 Russell Avenue, which takes adults 19 and over and accepts a self-referral. Worth knowing before joining a waitlist anywhere else.",
       ],
     },
     access: [
@@ -634,16 +689,20 @@ export const locations: Location[] = [
       { label: "English, Punjabi or Tagalog", detail: "Which of the three depends on the counsellor. Moving between a language and English mid-session is normal, and needs no travel into Surrey to find." },
     ],
     faqs: [
-      { q: "Do you have an office in White Rock?", a: "No. The practice is fully virtual and every session happens by secure video, wherever you are. You may find the business listed with a White Rock address. That is the registered address, not a clinic you would attend, and there is no waiting room." },
+      { q: "Do you have an office in White Rock?", a: "No. Every session is by secure video; there is no office anywhere." },
       { q: "Do you cover South Surrey, Crescent Beach and Ocean Park?", a: "Yes, and on exactly the same terms. The practice covers all of British Columbia, so which side of the White Rock–Surrey boundary you live on changes nothing about availability or fee." },
       { q: "I am retired. Is counselling still worth starting?", a: "Yes, and the question comes up here more than almost anywhere. Grief, the shape of retirement, caregiving and health worry are ordinary reasons to start and respond to the work as well as anything else does. A free 30-minute consultation is a reasonable way to find out whether it is worth your time, and saying no afterwards costs nothing." },
       { q: "I am not confident with video calls. Is that a problem?", a: "No. The link opens in a browser with nothing to install and no account to create, and the first few minutes of a first session are routinely spent making sure it works. If the video is the obstacle, say so on the consultation call and it can be sorted out then rather than on the day." },
-      { q: "Can I have sessions in Punjabi?", a: "Yes: in Punjabi, English, or a mix of the two. The Peninsula's Punjabi-speaking community is substantial and continuous with South Surrey's, and a great many people here have been searching in Surrey for what is available from home." },
+      ...(PUNJABI_COUNSELLOR
+        ? [{ q: "Can I have sessions in Punjabi?", a: `Yes, with ${PUNJABI_COUNSELLOR.name}, in Punjabi, English or a mix.` }]
+        : []),
       { q: "Is it better to look for someone local?", a: "Sometimes, and you would be told so on a consultation call. A counsellor you can drive to suits plenty of people. What a local option costs in a city this small is the privacy question, and White Rock has few enough counsellors that \"local\" frequently means Surrey or Langley anyway, at which point the drive is buying you nothing." },
     ],
     sources: [
       { label: "Fraser Health, mental health and substance use services", url: "https://www.fraserhealth.ca/health-topics-a-to-z/mental-health-and-substance-use" },
       { label: "BC Association of Clinical Counsellors, find a counsellor", url: "https://bc-counsellors.org/counsellors/" },
+      { label: "Statistics Canada, 2021 Census Profile: White Rock (CSD 5915007)", url: "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055915007&GENDERlist=1&STATISTIClist=1&HEADERlist=0" },
+      { label: "Fraser Health, Mental Health Centres directory", url: "https://www.fraserhealth.ca/Service-Directory/Services/mental-health-and-substance-use/mental-health-centres/mental-health-centres" },
     ],
     nearby: ["surrey", "langley"],
   },

@@ -152,6 +152,78 @@ export const fitSentences = (sentences: string[], max: number): string => {
   return out || sentences[0];
 };
 
+/* THE NAME A CITY × SERVICE PAGE IS FOUND BY — 1 Oct 2026.
+ *
+ * Moved here from the pair page, where it handled couples only ("Couples and
+ * Marriage Counselling", 25 Sep 2026, for the "marriage counselling
+ * abbotsford" queries). Search Console, 26 Sep 2026: 19 trauma + counselling
+ * phrasings with 84 impressions and no clicks ("trauma counselling kamloops"
+ * 21 at 36.38), and anxiety/depression + therapy/therapist with 46. The H1,
+ * the description, the closing band and every link into these pages now use
+ * this one map, so an anchor and the heading it lands on say the same thing.
+ * EMDR is searched as "EMDR therapy" and keeps its name. The <title> stays on
+ * cityServiceTitle and the pair's titleName, so the 60-character gate is not
+ * involved. */
+const SEO_NAME: Record<string, string | undefined> = {
+  'couples-therapy': 'Couples and Marriage Counselling',
+  'trauma-therapy': 'Trauma Therapy and Counselling',
+  'anxiety-counselling': 'Anxiety Counselling and Therapy',
+  'depression-counselling': 'Depression Counselling and Therapy',
+};
+export const seoName = (s: { slug: string; name: string }) => SEO_NAME[s.slug] ?? s.name;
+/** "Couples and Marriage Counselling" -> "Couples and marriage counselling",
+ *  for an anchor written as a phrase rather than a heading. */
+export const sentenceName = (s: string) => {
+  const m = midSentence(s);
+  return m.charAt(0).toUpperCase() + m.slice(1);
+};
+
+/* The person the reader is looking for, as they type it — 1 Oct 2026. City
+ * queries naming a person ("emdr therapist vancouver" 14 at 59.43, "online
+ * counsellor abbotsford" 11 at 49.36) had 118 impressions and no clicks on 26
+ * Sep, and the heading over the cards named the service, not the person. */
+const PERSON_NOUN: Record<string, [one: string, many: string] | undefined> = {
+  'emdr-therapy': ['EMDR therapist', 'EMDR therapists'],
+  'trauma-therapy': ['Trauma therapist', 'Trauma therapists'],
+  'anxiety-counselling': ['Anxiety therapist', 'Anxiety therapists'],
+  'depression-counselling': ['Depression counsellor', 'Depression counsellors'],
+  'couples-therapy': ['Couples or marriage counsellor', 'Couples or marriage counsellors'],
+};
+export const personNoun = (slug: string, count: number): string => {
+  const [one, many] = PERSON_NOUN[slug] ?? ['Counsellor', 'Counsellors'];
+  return count === 1 ? one : many;
+};
+/** "EMDR therapist in Vancouver: who you would see". */
+export const whoHeading = (slug: string, city: string, count: number) =>
+  `${personNoun(slug, count)} in ${city}: who you would see`;
+
+/* THE LONGER FORMAT, OFFERED AS LATER — 1 Oct 2026.
+ *
+ * Trauma books into individual counselling: the copy on every trauma page says
+ * pacing and stabilisation come first, and the EMDR page frames the 90-minute
+ * intensive as something for "once stability is in place". Until today the
+ * ten trauma pages priced themselves at the intensive and named only the one
+ * counsellor who offers it. This is the one sentence that keeps the intensive
+ * in view, read from the catalogue and the roster like every other figure
+ * here. undefined when the catalogue lacks the type or nobody offers it. */
+const LATER_OPTION: Record<string, { service: string; item: string } | undefined> = {
+  'trauma-therapy': { service: 'emdr-therapy', item: 'EMDR Intensive' },
+};
+export const laterOption = (
+  catalog: Catalog,
+  topic: Pick<CityTopic, 'slug'>,
+  city: string,
+): string | undefined => {
+  const later = LATER_OPTION[topic.slug];
+  if (!later) return undefined;
+  const item = catalog.items.find((i) => i.name.toLowerCase() === later.item.toLowerCase());
+  const who = counsellorsFor({ bookingService: later.service });
+  if (!item || item.cents <= 0 || !who.length) return undefined;
+  /* Ends on the data, so the tail ten pages share stays short for the
+     uniqueness gate. */
+  return `For trauma work in ${city}, a memory that needs a longer run than a weekly session can move to the ${item.name} later, once stability is in place: ${money(item.cents)} for ${item.minutes} minutes with ${listOf(who.map((p) => p.name), 'or')}.`;
+};
+
 /* The city-service <title>, before the brand suffix. ", BC" where the whole
    title still fits the 60-character gate, without it where it does not.
    `name` is the pair's titleName when it has one ("Marriage Counselling"),

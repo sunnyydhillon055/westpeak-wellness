@@ -27,6 +27,8 @@ import CounsellorCards from '@/components/CounsellorCards';
 import NextConsultLine from '@/components/NextConsultLine';
 import { counsellorsForCity } from '@/lib/counsellor-cards';
 import { cityHubFaqs, cityHubTitle, helpCardsFor } from '@/lib/city-hub';
+import { seoName } from '@/lib/city-service-page';
+import { getAudience } from '@/lib/audiences';
 import { bookingCtaFor } from '@/lib/booking-cta';
 import { readCatalog } from '@/lib/cliniko-catalog';
 import { practiceSnippet, withSnippet } from '@/lib/snippet-facts';
@@ -40,7 +42,10 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { city: string } }): Promise<Metadata> {
   const l = getLocation(params.city);
   if (!l) return {};
-  const title = `Online Counselling in ${l.city}, BC`;
+  /* The searched name where it is not the city's own: "White Rock & South
+     Surrey" (lib/locations.ts displayPlace). 1 Oct 2026. */
+  const place = l.displayPlace ?? l.city;
+  const title = `Online Counselling in ${place}, BC`;
   /* The fee and who you would see, after the city's own lead — 1 Oct 2026.
      No hub description said what a session costs or who it is with. The fee
      is the catalogue's, the names are the counsellors the page's own cards
@@ -53,7 +58,7 @@ export async function generateMetadata({ params }: { params: { city: string } })
        person-named queries ("counsellor kamloops"); both are carried now.
        The SEO gate counts "&" as "&amp;", so most cities drop ", BC" to stay
        at sixty, and Prince George drops " in" as well. 1 Oct 2026. */
-    title: { absolute: cityHubTitle(l.city) },
+    title: { absolute: cityHubTitle(place) },
     description,
     alternates: { canonical: `${site.domain}/online-counselling/${l.slug}` },
     openGraph: { ...ogBase(`/online-counselling/${l.slug}`), title: `${title} | ${site.name}`, description, url: `${site.domain}/online-counselling/${l.slug}` },
@@ -81,6 +86,12 @@ export default async function CityPage({ params }: { params: { city: string } })
   /* Accepting, with her own page for this city. The cards, the Person
      schema and the "who would I see" answer all read this one list. */
   const counsellorPages = counsellorsForCity(l.slug);
+  const place = l.displayPlace ?? l.city;
+  /* "Also written for": the /for pages this city's readers are likely to
+     be, by their own titles. Links only. 1 Oct 2026. */
+  const alsoFor = (l.audiences ?? [])
+    .map((slug) => getAudience(slug))
+    .filter((a): a is NonNullable<typeof a> => Boolean(a));
   const catalog = await readCatalog();
   /* EVERY FEE THIS CITY'S COUNSELLORS CHARGE, ONE OFFER EACH — 1 Oct 2026.
      The Service below carried a single $140 Offer on a page that sells
@@ -113,7 +124,7 @@ export default async function CityPage({ params }: { params: { city: string } })
   const pageSchema = {
     ...webPage({
       path: `/online-counselling/${l.slug}`,
-      name: `Online counselling in ${l.city}, BC`,
+      name: `Online counselling in ${place}, BC`,
       description: l.metaDescription,
       updated: COLLECTION_DATES['locations'],
       /* Health information, not a menu: see the note on the type in
@@ -142,7 +153,14 @@ export default async function CityPage({ params }: { params: { city: string } })
     serviceType: 'Online counselling',
     description: l.metaDescription,
     provider: orgRef,
-    areaServed: { '@type': 'City', name: l.city, containedInPlace: placeNode('British Columbia') },
+    /* A named place beside the city where the hub carries one (South Surrey,
+       contained in Surrey). 1 Oct 2026. */
+    areaServed: l.areaPlaces?.length
+      ? [
+          { '@type': 'City', name: l.city, containedInPlace: placeNode('British Columbia') },
+          ...l.areaPlaces.map((x) => ({ '@type': 'Place', name: x.name, containedInPlace: { '@type': 'City', name: x.containedIn, containedInPlace: placeNode('British Columbia') } })),
+        ]
+      : { '@type': 'City', name: l.city, containedInPlace: placeNode('British Columbia') },
     availableChannel: {
       '@type': 'ServiceChannel',
       serviceUrl: `${site.domain}/online-counselling/${l.slug}`,
@@ -196,7 +214,7 @@ export default async function CityPage({ params }: { params: { city: string } })
       <section className="hero" style={{ paddingBottom: 48 }}>
         <div className="container">
           <p className="eyebrow">{l.region} · Online</p>
-          <h1>Online counselling in {l.city}, BC</h1>
+          <h1>Online counselling in {place}, BC</h1>
           <p className="lede">{l.blurb}</p>
           {/* A self-contained sentence an answer engine can lift whole — every
               service and guide page has one; the city pages did not. Says only
@@ -289,6 +307,23 @@ export default async function CityPage({ params }: { params: { city: string } })
         }
       />
 
+      {alsoFor.length > 0 && (
+        <section className="section" style={{ paddingTop: 0 }}>
+          <div className="container prose">
+            <p style={{ color: 'var(--ink-soft)' }}>
+              Also written for:{' '}
+              {alsoFor.map((a, i) => (
+                <span key={a.slug}>
+                  {i > 0 && (i === alsoFor.length - 1 ? ' and ' : ', ')}
+                  <Link href={`/for/${a.slug}`}>{a.title}</Link>
+                </span>
+              ))}
+              .
+            </p>
+          </div>
+        </section>
+      )}
+
       {l.localReality && (
         <section className="section section--tint">
           <div className="container prose" style={{ maxWidth: '44.16em' }}>
@@ -335,13 +370,17 @@ export default async function CityPage({ params }: { params: { city: string } })
               service page. Where this city has the page the label promises, it
               goes there; the conditions this city has pages for get cards of
               their own. A service without a city page keeps /services. */}
+          {/* The anchor is the "<name> in <city>" line alone, in the page's
+              search name, and stretches over the card in CSS (.card--stretch,
+              the fix app/for/page.tsx carries), so the card still clicks
+              everywhere but the anchor text is not the whole card. 1 Oct 2026. */}
           <div className="grid grid-3" style={{ marginTop: 24 }}>
             {helpCards.map((c) => (
-              <div className="card" key={c.slug}>
-                <Link href={c.href} className="card-link">
-                  <h3>{c.title}</h3>
-                  <p>{c.text}</p>
-                  <span className="more">{c.name} in {l.city} →</span>
+              <div className="card card--stretch" key={c.slug}>
+                <h3>{c.title}</h3>
+                <p>{c.text}</p>
+                <Link href={c.href} className="more card-stretch">
+                  {c.anchor} in {l.city}<span aria-hidden="true"> →</span>
                 </Link>
               </div>
             ))}
@@ -396,16 +435,20 @@ export default async function CityPage({ params }: { params: { city: string } })
           <div className="container">
             <p className="eyebrow">In {l.city} specifically</p>
             <div className="chip-grid">
-              {here.map((p) => (
+              {here.map((p) => {
+                const topic = getCityTopic(p.service);
+                return (
                 <Link className="chip" key={p.service} href={`/online-counselling/${l.slug}/${p.service}`}>
                   {/* getCityTopic, not getService: anxiety, trauma and depression are
                       conditions (lib/conditions.ts), so getService returned nothing and
                       the chip read "anxiety-counselling in Vancouver" — the slug as
                       anchor text, on the one page that links every service here.
                       Found in the 28 Sep link baseline; fixed 1 Oct 2026. */}
-                  {getCityTopic(p.service)?.name ?? p.service} in {l.city}
+                  {/* The search name, as the page's H1 has it. 1 Oct 2026. */}
+                  {topic ? seoName(topic) : p.service} in {l.city}
                 </Link>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>

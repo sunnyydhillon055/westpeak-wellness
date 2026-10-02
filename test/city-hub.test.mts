@@ -5,6 +5,11 @@ import { pairsForCity } from '../lib/city-services.ts';
 import { FALLBACK_CATALOG, money } from '../lib/cliniko-catalog.ts';
 import { counsellorsForCity } from '../lib/counsellor-cards.ts';
 import { cityHubFaqs, cityHubTitle, helpCardsFor, htmlLength } from '../lib/city-hub.ts';
+import { getAudience } from '../lib/audiences.ts';
+import { seoName } from '../lib/city-service-page.ts';
+import { getCityTopic } from '../lib/conditions.ts';
+// @ts-expect-error -- plain .mjs shared with next.config.mjs; no declaration file
+import { REDIRECTS } from '../lib/redirects.mjs';
 
 /* The city hubs: a title that carries "Virtual" again inside the SEO gate's
  * sixty characters as the gate counts them, three questions answered from
@@ -16,8 +21,11 @@ const INDIVIDUAL = money(FALLBACK_CATALOG.items.find((i) => i.name === 'Individu
 test('every city title says Online, Virtual and Counsellor and fits the SEO gate', () => {
   const seen = new Set<string>();
   for (const l of locations) {
-    const t = cityHubTitle(l.city);
-    for (const w of ['Online', 'Virtual', 'Counsellor', l.city]) assert.ok(t.includes(w), `${t} lacks ${w}`);
+    const t = cityHubTitle(l.displayPlace ?? l.city);
+    /* "Virtual" gives way only where the hub carries a second place name
+       (White Rock & South Surrey); see cityHubTitle. 1 Oct 2026. */
+    const must = l.displayPlace ? ['Online', 'Counsellor', l.city] : ['Online', 'Virtual', 'Counsellor', l.city];
+    for (const w of must) assert.ok(t.includes(w), `${t} lacks ${w}`);
     assert.ok(htmlLength(t) <= 60, `${t} is ${htmlLength(t)} as the gate counts it`);
     assert.ok(!seen.has(t), `duplicate title ${t}`);
     seen.add(t);
@@ -68,5 +76,78 @@ test('help cards link the city page the label promises, and only pages that exis
       }
     }
     assert.equal(helpCardsFor(l.slug, here).length, here.length ? 3 + here.filter((p) => !['couples-therapy', 'emdr-therapy'].includes(p.service)).length : 3);
+  }
+});
+
+/* 1 Oct 2026, wf/city-pages: White Rock & South Surrey. */
+test('the White Rock hub is titled for both places and fits the gate', () => {
+  const wr = locations.find((l) => l.slug === 'white-rock')!;
+  assert.equal(wr.displayPlace, 'White Rock & South Surrey');
+  const t = cityHubTitle(wr.displayPlace!);
+  assert.ok(t.includes('South Surrey'), t);
+  assert.ok(htmlLength(t) <= 60, `${t} is ${htmlLength(t)}`);
+  assert.match(wr.metaDescription, /^Online and virtual counselling for White Rock and South Surrey/);
+  assert.ok(htmlLength(wr.metaDescription) <= 155);
+  assert.deepEqual(wr.areaPlaces, [{ name: 'South Surrey', containedIn: 'Surrey' }]);
+});
+
+test('the White Rock page drops the unverified lines and cites what it states', () => {
+  const wr = locations.find((l) => l.slug === 'white-rock')!;
+  const text = JSON.stringify(wr);
+  assert.ok(!/Johnston/.test(text), 'the street scraper listings attach to the practice');
+  assert.ok(!/substantial/i.test(text), 'a generalisation about a community');
+  assert.ok(!/skews older/.test(text), 'an unchecked comparison');
+  assert.match(text, /8,185 of White Rock's 21,940/);
+  assert.ok(wr.sources!.some((s) => s.url.includes('2021A00055915007')), 'the census profile is cited');
+  assert.match(text, /15521 Russell Avenue/);
+  assert.ok(wr.sources!.some((s) => s.url.includes('fraserhealth.ca') && /Mental Health Centres/.test(s.label)));
+  assert.equal(wr.faqs!.find((f) => /office/i.test(f.q))!.a, 'No. Every session is by secure video; there is no office anywhere.');
+  const pa = wr.faqs!.find((f) => /Punjabi/.test(f.q));
+  if (pa) assert.match(pa.a, /^Yes, with [A-Z][a-z]+ [A-Z][a-z]+, in Punjabi, English or a mix\.$/);
+});
+
+test('South Surrey and Semiahmoo 308 to the White Rock hub, and no page owns either slug', () => {
+  const list = REDIRECTS as { source: string; destination: string; permanent: boolean }[];
+  for (const slug of ['south-surrey', 'semiahmoo']) {
+    const r = list.find((x) => x.source === `/online-counselling/${slug}`);
+    assert.ok(r, slug);
+    assert.equal(r.destination, '/online-counselling/white-rock');
+    assert.equal(r.permanent, true);
+    assert.ok(!locations.some((l) => l.slug === slug), `${slug} is a page and a redirect`);
+  }
+});
+
+test('Surrey links its physical neighbours and names the Peninsula’s own intake', () => {
+  const surrey = locations.find((l) => l.slug === 'surrey')!;
+  assert.deepEqual(surrey.nearby, ['white-rock', 'langley', 'abbotsford']);
+  const body = surrey.localReality!.body.join(' ');
+  assert.match(body, /White Rock\/South Surrey Mental Health and Substance Use Centre/);
+  assert.ok(body.includes('(/online-counselling/white-rock)'));
+  for (const n of surrey.nearby!) assert.ok(locations.some((l) => l.slug === n), `${n} is not a hub`);
+});
+
+test('every "Also written for" slug is a real /for page, and the healthcare page links back', () => {
+  for (const l of locations) {
+    for (const a of l.audiences ?? []) assert.ok(getAudience(a), `${l.slug}: no audience ${a}`);
+  }
+  for (const slug of ['surrey', 'kelowna', 'kamloops', 'prince-george', 'victoria', 'abbotsford']) {
+    const l = locations.find((x) => x.slug === slug)!;
+    assert.ok(l.audiences?.includes('healthcare-and-shift-workers'), slug);
+  }
+  const hc = getAudience('healthcare-and-shift-workers')!;
+  for (const c of ['surrey', 'abbotsford', 'victoria']) {
+    assert.ok(hc.related.some((r) => r.href === `/online-counselling/${c}`), c);
+  }
+});
+
+test('hub card anchors use the pair page’s search name', () => {
+  const ab = helpCardsFor('abbotsford', pairsForCity('abbotsford'));
+  const couples = ab.find((c) => c.slug === 'couples-therapy')!;
+  assert.equal(couples.anchor, 'Couples and Marriage Counselling');
+  for (const l of locations) {
+    for (const c of helpCardsFor(l.slug, pairsForCity(l.slug))) {
+      if (!c.href.startsWith('/online-counselling/')) continue;
+      assert.equal(c.anchor, seoName(getCityTopic(c.slug)!), `${l.slug}/${c.slug}`);
+    }
   }
 });

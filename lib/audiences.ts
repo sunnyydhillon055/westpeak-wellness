@@ -362,6 +362,10 @@ const coreAudiences: Audience[] = [
     related: [
       { href: '/guides/stress-leave-bc', label: 'How to get stress leave in BC' },
       { href: '/online-counselling/victoria', label: 'Online counselling in Victoria' },
+      /* Surrey and Abbotsford beside Victoria, 1 Oct 2026: their hubs now link
+         this page ("Also written for"), and it linked back to Victoria only. */
+      { href: '/online-counselling/surrey', label: 'Online counselling in Surrey' },
+      { href: '/online-counselling/abbotsford', label: 'Online counselling in Abbotsford' },
       { href: "/guides/burnout-vs-depression", label: "Burnout or depression, how to tell" },
       { href: "/services/emdr-therapy", label: "EMDR therapy across BC" },
       { href: "/guides/what-is-emdr-and-how-a-session-works", label: "What is EMDR and how a session works" },

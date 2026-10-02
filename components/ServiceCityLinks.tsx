@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import { cityContexts } from '@/lib/city-context';
 import { getAudience } from '@/lib/audiences';
-import { getSpoke, SERVICE_ANCHOR, midSentence } from '@/lib/spokes';
+import { getSpoke, midSentence } from '@/lib/spokes';
+import { getCityTopic } from '@/lib/conditions';
+import { seoName, sentenceName } from '@/lib/city-service-page';
 
 /* ============================================================================
    THE CITY × SERVICE PAGES, LINKED FROM THE GUIDE THAT LEADS TO THEM
@@ -41,7 +43,14 @@ export default function ServiceCityLinks({
 
   if (!spoke.service && audiences.length === 0) return null;
 
-  const label = spoke.service ? SERVICE_ANCHOR[spoke.service] : null;
+  /* The anchor is the target's search name in sentence case — "Couples and
+     marriage counselling in Abbotsford" — from the map the pair page's H1
+     reads (lib/city-service-page.ts), so the link and the heading it lands
+     on carry the same words. It was lib/spokes.ts SERVICE_ANCHOR, which
+     said "Couples therapy" for pages headed Couples and Marriage
+     Counselling. 1 Oct 2026. */
+  const topic = spoke.service ? getCityTopic(spoke.service) : undefined;
+  const label = topic ? sentenceName(seoName(topic)) : null;
 
   return (
     <section className="section" style={{ paddingTop: 44, paddingBottom: 44 }}>

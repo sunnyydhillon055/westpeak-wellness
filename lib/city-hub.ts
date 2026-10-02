@@ -1,6 +1,6 @@
 import type { Practitioner } from '@/lib/practitioners';
 import { money, type Catalog } from '@/lib/cliniko-catalog';
-import { listOf } from '@/lib/city-service-page';
+import { listOf, seoName } from '@/lib/city-service-page';
 import { whoLine } from '@/lib/counsellor-cards';
 import { featuredServices } from '@/lib/services';
 import { getCityTopic } from '@/lib/conditions';
@@ -27,11 +27,18 @@ const TITLE_MAX = 60;
 export const htmlLength = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').length;
 
+/* `city` is the hub's displayPlace where it has one. "White Rock & South
+   Surrey" (1 Oct 2026) fits none of the first three rungs: each "&" costs
+   five characters to the gate. The fourth rung gives up "Virtual" and spells
+   the place's "&" as "and" (60 exactly), and only that hub reaches it; its
+   description says "virtual" instead. South Surrey is the volume to gain there, and the White Rock
+   terms were already at position 1 (Search Console, 26 Sep 2026). */
 export function cityHubTitle(city: string): string {
   const ladder = [
     `Online & Virtual Counselling in ${city}, BC | Counsellors`,
     `Online & Virtual Counselling in ${city} | Counsellors`,
     `Online & Virtual Counselling ${city} | Counsellors`,
+    `Online Counselling ${city.replace(/ & /g, ' and ')} | Counsellors`,
   ];
   return ladder.find((t) => htmlLength(t) <= TITLE_MAX) ?? ladder[ladder.length - 1];
 }
@@ -107,8 +114,13 @@ export function cityHubFaqs(args: {
  * city has the pair, the card now links it; the conditions this city has
  * pages for (anxiety, trauma, depression) get cards of their own, carrying
  * the pair's one-sentence angle, which is true of that city and no other. A
- * service with no city page (individual therapy) keeps /services. */
-export type HelpCard = { slug: string; name: string; title: string; text: string; href: string };
+ * service with no city page (individual therapy) keeps /services.
+ *
+ * `anchor` is the link text, and it is the page's search name (seoName, the
+ * same map as the pair page's H1): the Abbotsford and Prince George hubs
+ * linked "Couples Therapy in ..." to pages titled and headed Marriage /
+ * "Couples and Marriage Counselling". 1 Oct 2026. */
+export type HelpCard = { slug: string; name: string; title: string; text: string; href: string; anchor: string };
 
 const shortName = (n: string) => n.replace(' Therapy', '').replace(' Counselling', '');
 
@@ -119,13 +131,14 @@ export function helpCardsFor(citySlug: string, here: Pick<Pair, 'service' | 'ang
       href: here.some((p) => p.service === s.slug)
         ? `/online-counselling/${citySlug}/${s.slug}`
         : `/services/${s.slug}`,
+      anchor: here.some((p) => p.service === s.slug) ? seoName(s) : s.name,
     })),
     ...here
       .filter((p) => !featuredServices.some((s) => s.slug === p.service))
       .flatMap((p) => {
         const t = getCityTopic(p.service);
         return t
-          ? [{ slug: p.service, name: t.name, title: shortName(t.name), text: p.angle, href: `/online-counselling/${citySlug}/${p.service}` }]
+          ? [{ slug: p.service, name: t.name, title: shortName(t.name), text: p.angle, href: `/online-counselling/${citySlug}/${p.service}`, anchor: seoName(t) }]
           : [];
       }),
   ];

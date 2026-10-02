@@ -2704,3 +2704,13 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
 @media (max-width:1020px){
   .site-footer{ padding-bottom:104px }
 }
+
+/* item 291: hub card stretched link
+   The city hub's "Ways we can help" cards wrapped the whole card in the
+   anchor, so the link text was the title, the blurb and the arrow at once.
+   The anchor is now the "<name> in <city>" line, with .card--stretch
+   (globals.css) stretching it over the card. That rule sets color:inherit on
+   the anchor, which would take the .more colour away; this puts it back.
+   Focus keeps the one site-wide ring, on the anchor's own text. 1 Oct 2026. */
+.card--stretch a.more.card-stretch{ color: var(--blue-deep) }
+.card--stretch:hover a.more.card-stretch{ color: var(--clay-deep) }
