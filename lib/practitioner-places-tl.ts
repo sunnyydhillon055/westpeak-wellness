@@ -100,10 +100,6 @@ export const TL_PLACE_SHARED = {
       detail: 'Marami sa aming mga kliyente ay nasa healthcare, care work, paliparan at hospitality. Normal ang pag-book nang paunti-unti sa paligid ng isang rotating schedule, at walang gastos ang paghinto sa pagitan.',
     },
     {
-      label: 'Gabi kung kailangan',
-      detail: 'May mga oras sa gabi ng karaniwang araw kapag hiniling.',
-    },
-    {
       label: 'Tagalog o Ingles',
       detail: 'Kasama ang paglipat sa pagitan ng dalawa sa loob ng isang sesyon, na siyang talagang ginagawa ng karamihan sa mga bilingguwal.',
     },
@@ -189,14 +185,13 @@ export const TL_PLACES: Record<string, TagalogPlaceCopy> = {
     faqs: [
       { q: 'Marami namang counsellor sa Surrey. Bakit sa labas pa?', a: 'Para sa marami, wala namang dahilan, at sasabihin sa iyo iyon sa konsultasyon. Ang dahilan ng mga sumusulat mula sa Surrey ay mas makitid: sa komunidad na magkakakilala, ang counsellor na irerekomenda sa iyo ay madalas konektado sa mismong mga taong ayaw mong makaalam.' },
       { q: 'Malalaman ba ng pamilya ko na pumupunta ako?', a: 'Hindi, maliban kung ikaw mismo ang magsabi. Tungkulin sa batas ang kompidensiyalidad, at nakalista sa pahina ng mga pamantayan ang eksaktong mga hangganan nito. Walang tinatawagan, walang sinusulatan, at walang gusaling mapapansinan ka.' },
-      { q: 'Puwede bang gabi lang ako, dahil sa shift ko?', a: 'Oo. Marami sa mga kliyente dito ay nasa healthcare at care work, at ang pag-book sa paligid ng roster, hindi ang pagpilit ng roster sa paligid ng sesyon, ang gumagana.' },
     ],
   },
   vancouver: {
     blurb: 'Matagal nang komunidad, at pangangalagang mas madaling abutin sa video kaysa sa kabilang dulo ng lungsod.',
     local: [
       'Matagal nang naitatag ang komunidad ng Pilipino sa Vancouver at kumakalat ito sa buong lungsod sa halip na magtipon sa isang lugar. Ibig sabihin, madalas na magkasalungat ang “counsellor na malapit sa akin na marunong mag-Tagalog”. Ang pinakamalapit na tumatanggap ng kliyente ay maaaring isang paglipat ng bus at isang oras bawat direksyon.',
-      'Marami rin sa trabaho ng mga Pilipino sa Vancouver ay nakabatay sa shift: healthcare, care work, hospitality, at hindi nakakaligtas ang nakatakdang oras sa isang umiikot na roster. Ang sesyon sa gabi, na walang biyahe sa magkabilang dulo, ang pagkakaiba ng pagdalo at ng pagbalak lamang.',
+      'Marami rin sa trabaho ng mga Pilipino sa Vancouver ay nakabatay sa shift: healthcare, care work, hospitality, at hindi nakakaligtas ang nakatakdang oras sa isang umiikot na roster.',
       'Ang laki ng lungsod ay hindi rin palaging katumbas ng dami ng pagpipilian. Marami sa serbisyong pangkaisipan dito ay nakatuon sa ibang wika, at ang listahan ng nagsasalita ng Tagalog na tumatanggap pa ng bagong kliyente ay mas maikli kaysa sa inaasahan ng karamihan.',
     ],
     faqs: [
@@ -235,12 +230,10 @@ export const TL_PLACES: Record<string, TagalogPlaceCopy> = {
     blurb: 'Isang lungsod na binibiyahe, at isang takdang oras na hindi na dapat maging isa pang biyahe.',
     local: [
       'Marami sa Coquitlam ang nagbibiyahe palabas ng lungsod para magtrabaho, at ang takdang oras na nangangailangan ng ikatlong biyahe sa isang araw ay ang unang nawawala kapag naging abala ang linggo.',
-      'Ang sesyon sa gabi na hindi na nangangailangan ng pag-alis sa bahay ay hindi lamang mas maginhawa, ito ang pagkakaiba ng isang serye ng terapiyang natatapos at isang natigil pagkatapos ng ikatlong sesyon.',
       'Lumaki ang Tri-Cities nang mabilis at hindi sumabay ang bilang ng counsellor na tumatanggap ng bagong kliyente. Kapag mas tiyak ang hinahanap mo, isang partikular na paraan ng pagtatrabaho, o isang sesyon sa Tagalog, mas maikli pa ang lokal na listahan kaysa sa inaasahan.',
     ],
     faqs: [
       { q: 'Sakop ba nito ang Port Coquitlam at Port Moody?', a: 'Oo, at sa parehong mga tuntunin. Walang binabago ang hangganan ng munisipyo sa oras, bayad, o pagkuha ng serbisyo.' },
-      { q: 'Umuuwi ako ng gabi. May oras ba pagkatapos ng trabaho?', a: 'Mayroon, may mga oras sa gabi ng karaniwang araw kapag hiniling, at iyon ang pinakamadalas hilingin dito.' },
       { q: 'Ano ang bayad?', a: 'Nakalista ang buong bayad sa pahina ng mga bayarin, at walang nagbabago batay sa lungsod. Libre at walang obligasyon ang unang tatlumpung minuto.' },
     ],
   },
@@ -306,7 +299,6 @@ export const TL_PLACES: Record<string, TagalogPlaceCopy> = {
     faqs: [
       { q: 'Sakop ba nito ang Agassiz at Hope?', a: 'Oo, sa parehong mga tuntunin. Walang parusa sa distansya sa loob ng lalawigan.' },
       { q: 'Paano kung mahina ang koneksyon ko?', a: 'May paraan pa rin. Kung hindi kayang buhatin ng linya ang video, maaaring tuloy sa boses, at hindi iyon nagpapababa sa halaga ng sesyon.' },
-      { q: 'Puwede bang gabi, dahil sa trabaho ko?', a: 'Oo. May mga oras sa gabi ng karaniwang araw kapag hiniling.' },
     ],
   },
   nanaimo: {
@@ -327,7 +319,7 @@ export const TL_PLACES: Record<string, TagalogPlaceCopy> = {
     local: [
       'May sariling mga counsellor ang Victoria, at para sa marami sapat na iyon. Kapag mas tiyak ang hinahanap mo, isang partikular na paraan ng pagtatrabaho, o isang sesyon sa Tagalog, mas maikli ang listahan kaysa sa inaasahan ng laki ng lungsod.',
       'Ang video ang tanging makatotohanang ruta para sa maraming naninirahan sa isla, at hindi ito kaginhawahan lamang kundi ang pagkakaiba ng pagkakaroon ng pagpipilian at ng wala.',
-      'Malaki rin ang bahagi ng trabaho dito na nasa pampublikong serbisyo at sa pangangalaga, na may sariling iskedyul. Ang sesyon na kasya sa gabi, nang walang biyahe sa magkabilang dulo, ang kadalasang natutuloy.',
+      'Malaki rin ang bahagi ng trabaho dito na nasa pampublikong serbisyo at sa pangangalaga, na may sariling iskedyul.',
     ],
     faqs: [
       { q: 'Sakop ba nito ang Saanich at Sooke?', a: 'Oo, sa parehong mga tuntunin, at walang parusa sa distansya para sa mga nasa labas ng sentro.' },
@@ -398,7 +390,6 @@ export const TL_PLACES: Record<string, TagalogPlaceCopy> = {
     ],
     faqs: [
       { q: 'Dapat ko bang iwan ang pampublikong listahan ng paghihintay?', a: 'Karaniwan, hindi. Tunay na serbisyo ang pinapatakbo ng Alberta Health Services at walang gastos ang manatili sa pila habang nagsisimula ka sa ibang lugar.' },
-      { q: 'Puwede bang gabi lang, dahil sa shift ko?', a: 'Oo. May mga oras sa gabi ng karaniwang araw kapag hiniling, at karaniwan iyon dito.' },
     ],
   },
 };
