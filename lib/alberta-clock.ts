@@ -13,23 +13,16 @@
  * the day it is rendered and says "the same clock" when they match, rather
  * than promising an hour that may not be there.
  *
- * Pure apart from `new Date()` defaults; no roster, safe anywhere. If
- * wf/pacific-time-availability lands its own offset helper, this should be
- * folded into it. */
+ * Pure apart from `new Date()` defaults; no roster, safe anywhere. Folded
+ * onto lib/pacific-time's offsetMinutes at integration (2 Oct 2026), so a
+ * runtime with stale tz data reads BC the same way the /book note
+ * (timeZoneNote) does and the two sentences cannot disagree. */
 
-const offsetMinutes = (timeZone: string, at: Date): number => {
-  const name = new Intl.DateTimeFormat('en-US', { timeZone, timeZoneName: 'longOffset' })
-    .formatToParts(at)
-    .find((p) => p.type === 'timeZoneName')?.value ?? 'GMT';
-  const m = /GMT([+-])(\d{1,2})(?::(\d{2}))?/.exec(name);
-  if (!m) return 0;
-  const mins = Number(m[2]) * 60 + Number(m[3] ?? 0);
-  return m[1] === '-' ? -mins : mins;
-};
+import { offsetMinutes, PACIFIC_ZONE } from '@/lib/pacific-time';
 
 /** Whole hours Alberta's clock is ahead of BC's at `at` (0 or 1 in practice). */
 export const albertaHoursAhead = (at: Date = new Date()): number =>
-  Math.round((offsetMinutes('America/Edmonton', at) - offsetMinutes('America/Vancouver', at)) / 60);
+  Math.round((offsetMinutes('America/Edmonton', at) - offsetMinutes(PACIFIC_ZONE, at)) / 60);
 
 /** "Times on the calendar are Pacific time; Alberta is 1 hour ahead today." */
 export function albertaClockSentence(hours: number): string {
