@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { site } from '@/lib/site';
+import { site, RCC_PLAIN } from '@/lib/site';
 import { practitioners, getPractitioner, defaultBookingPractitioner, withLetters, vancouverToday } from '@/lib/practitioners';
 import { placesFor } from '@/lib/practitioner-places';
 import { getService } from '@/lib/services';
@@ -279,6 +279,12 @@ export default async function PractitionerPage({ params }: { params: { slug: str
             {certified.length > 0 && (
               <p style={{ color: 'var(--ink-soft)', margin: '4px 0 0', fontSize: '.92rem' }}>
                 {certified.join(' ')}
+              </p>
+            )}
+            {/* Item 241, finished once RCC_PLAIN reached main (home-book-copy). */}
+            {p.credentials.some((c) => c.short === 'RCC') && (
+              <p style={{ color: 'var(--ink-soft)', margin: '4px 0 0', fontSize: '.92rem' }}>
+                An RCC means {RCC_PLAIN}.
               </p>
             )}
             <div className="btn-row" style={{ marginTop: 22 }}>
