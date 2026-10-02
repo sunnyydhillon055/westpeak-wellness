@@ -2249,6 +2249,40 @@ earlier key moves, not that 'calendar-alt' is last.
 
 ---
 
+### Saanich gets its own pages, apart from Victoria
+Decided 2 Oct 2026 (owner decision of the same day: each city in the October
+batch gets all ten pages). Saanich has a hub, five city-service pages, both
+counsellors' English place pages, a Punjabi region page and a Tagalog city
+page. Its argument, which Victoria's page does not make: Greater Victoria's
+largest municipality (117,735 in 2021, against the City of Victoria's 91,865)
+is filed under "Victoria" by every listing, while what shapes counselling
+here is its own: most of the UVic campus and Camosun's Interurban campus,
+the Peninsula's older towns, and the region's largest Punjabi- and
+Tagalog-speaking communities (2,655 of the Capital census division's 4,350
+Punjabi mother-tongue speakers; 1,375 Tagalog, more than the City of
+Victoria's 1,145). The Punjabi page argues scarcity: the counsellors who
+work in the language are mostly across the water. Figures were read through
+Statistics Canada's data service on 2 Oct, when the www12 Census Profile
+pages returned 404 from here; they are cited at the Census Profile, as every
+other city is.
+
+`victoria-saanich` is no longer a retired town. A retired town's home must
+name it in `communities`, and a hub does not list itself, so the old slug
+moved to `PLACE_ALIASES` and 308s to `/online-counselling/saanich`. Victoria
+no longer names Saanich or Sidney (its communities are now Esquimalt, Oak
+Bay, Langford, Colwood and Sooke), links the Saanich hub and Punjabi page,
+and its pair and Tagalog FAQs that asked about Saanich now ask about
+Esquimalt and Oak Bay. Its Punjabi FAQ, which said no Island page could be
+sourced, now points at the Saanich page. No /tl or /pa place twins and no
+new Punjabi or Tagalog sentences; the Punjabi region test lists Saanich as a
+region with no twin yet.
+
+*Enforced by:* `test/regional-pages.test.mts`, `test/roster-nav.test.mts`,
+`test/link-anchors.test.mts`, `scripts/smoke.mjs`, `npm run seo`
+(redirect-shadow)
+
+---
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`

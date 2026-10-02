@@ -346,7 +346,7 @@ export const locations: Location[] = [
     figure2: "first-session-flow",
     figure: "bc-reach",
     city: "Victoria",
-    communities: ["Saanich", "Langford", "Colwood", "Sidney", "Sooke"],
+    communities: ["Esquimalt", "Oak Bay", "Langford", "Colwood", "Sooke"],
     region: "Vancouver Island",
     blurb: "On the Island, specialist care has often meant a ferry, a day off, and a return sailing. It no longer has to.",
     metaDescription:
@@ -361,8 +361,8 @@ export const locations: Location[] = [
         "The Strait is not a minor inconvenience for continuity of care. Weekly therapy requiring a return sailing is not something most people can sustain financially or logistically, so Island residents have effectively been choosing from a smaller pool than mainland residents, not because of anything about the clinicians here, but because of geography.",
         "**Start with what is free, because in Victoria it is unusually good.** Island Health runs Central Access and Rapid Engagement Services (CARES) at 1119 Pembroke Street, offering **same-day assessment and walk-in counselling** for South Island residents whose mental-health or substance-use concern does not need a hospital: in person or virtually, Monday to Friday, 8:30am to 4:30pm. There is no wait and no referral. If that fits what you need, use it; a practice that did not tell you it exists would not be worth trusting on anything else. Where it runs out is ongoing specialist work, and non-urgent psychiatric care in Victoria has become harder rather than easier as recruitment has failed to keep pace with retirements.",
         "Virtual sessions remove that constraint entirely. A counsellor on the mainland is exactly as available as one in Fairfield: same 50 minutes, same platform, same [BCACC](https://bcacc.ca) obligations, no sailing.",
-        "**Language access is the sharpest version of this.** Punjabi-speaking clinicians in BC are concentrated overwhelmingly in the Lower Mainland. For Island residents wanting [therapy in Punjabi](/services/punjabi-counselling), virtual sessions are not a convenience. They are realistically the only route. The same argument, with the local numbers, is on the [Kamloops](/punjabi-counselling/kamloops) and [Prince George](/punjabi-counselling/prince-george) pages.",
-        "The same applies further up-Island. [Nanaimo](/online-counselling/nanaimo), the Comox Valley, Campbell River, and the west coast communities have thinner local coverage again, and the gap widens the further north you go.",
+        "**Language access is the sharpest version of this.** Punjabi-speaking clinicians in BC are concentrated overwhelmingly in the Lower Mainland. For Island residents wanting [therapy in Punjabi](/services/punjabi-counselling), virtual sessions are not a convenience. They are realistically the only route. The same argument, with the local numbers, is on the [Kamloops](/punjabi-counselling/kamloops) and [Prince George](/punjabi-counselling/prince-george) pages, and for the Island itself on the [Saanich](/punjabi-counselling/saanich) page, where most of the region’s Punjabi-speaking community lives.",
+        "The same applies further up-Island. [Nanaimo](/online-counselling/nanaimo), the Comox Valley, Campbell River, and the west coast communities have thinner local coverage again, and the gap widens the further north you go. Closer in, [Saanich and the Peninsula](/online-counselling/saanich) have a page of their own.",
       ],
     },
     access: [
@@ -376,14 +376,14 @@ export const locations: Location[] = [
       { q: "Do you work with people further up-Island?", a: "Yes: Nanaimo, Duncan, the Comox Valley, Campbell River, and smaller communities. Distance from Victoria makes no difference to a virtual session." },
       { q: "Is online therapy actually as good as in-person?", a: "The research finds outcomes broadly comparable for the concerns most people bring, with some genuine trade-offs. The guide on online versus in-person therapy sets out both sides." },
       { q: "Is there something free I should try first?", a: "Yes, and it is genuinely good. Island Health's CARES service at 1119 Pembroke Street offers same-day assessment and walk-in counselling, in person or virtually, with no referral and no wait. If that meets what you need, use it. Private counselling is the better fit when the work is ongoing rather than immediate, or when what you need is specific enough that the local list is short." },
-      { q: "Can I have sessions in Punjabi from the Island?", a: "Yes. Punjabi-speaking clinicians in BC are concentrated overwhelmingly in the Lower Mainland, so for Island residents virtual sessions are not a convenience. They are realistically the only route. There is no Island-specific page for this yet, deliberately: the population figure needed to write one honestly could not be sourced, and a page resting on an estimate is not worth having." },
+      { q: "Can I have sessions in Punjabi from the Island?", a: "Yes. Punjabi-speaking clinicians in BC are concentrated overwhelmingly in the Lower Mainland, so for Island residents virtual sessions are not a convenience. They are realistically the only route. Most of the region’s Punjabi-speaking community lives in Saanich, and the Punjabi-speaking counselling page for Saanich sets out the 2021 Census figures and where they come from." },
       { q: "I am moving off-Island soon. Is it worth starting?", a: "Yes, and that is one of the better arguments for working this way. Registration covers all of British Columbia, so a move from Victoria to the mainland, or back, which is just as common, does not end the work or mean repeating your history to somebody new. Continuity is worth more to most people than proximity ever was." },
     ],
     sources: [
       { label: "Island Health, mental health and substance use services", url: "https://www.islandhealth.ca/our-services/mental-health-substance-use-services" },
       { label: "HereToHelp BC, mental health information", url: "https://www.heretohelp.bc.ca/" },
     ],
-    nearby: ["nanaimo", "vancouver"],
+    nearby: ["saanich", "nanaimo", "vancouver"],
     audiences: ["healthcare-and-shift-workers", "first-responders"],
   },
 
@@ -1048,6 +1048,90 @@ export const locations: Location[] = [
       { label: "HereToHelp BC, mental health information", url: "https://www.heretohelp.bc.ca/" },
     ],
     nearby: ["prince-george", "kamloops"],
+  },
+
+  /* ── Saanich, 2 Oct 2026 ──
+   * The argument: Greater Victoria's largest municipality is filed under
+   * Victoria by every listing, and the things that shape counselling here are
+   * its own: the university (about 60% of the UVic campus is in Saanich, per
+   * UVic Campus Planning), Camosun's Interurban campus, the Peninsula's older
+   * towns (Sidney median age 62.0 in 2021) and an emergency department in
+   * Saanichton that keeps set hours, and the region's largest Punjabi-speaking
+   * community (2,655 of the Capital census division's 4,350). Victoria's page
+   * argues the strait; this one does not.
+   * Language, EMDR and couples claims are kept out of intro, access and
+   * faqs[0..4], because place pages copy those (SHAPE §4), and Savneet offers
+   * neither EMDR nor couples. No wait times, no hours, no weekday names. */
+  {
+    slug: "saanich",
+    figure2: "first-session-flow",
+    figure: "bc-reach",
+    city: "Saanich",
+    communities: ["Gordon Head", "Cordova Bay", "Royal Oak", "Central Saanich", "North Saanich", "Sidney"],
+    region: "Vancouver Island",
+    blurb: "Greater Victoria’s largest municipality is filed under Victoria by most directories, and is not the same place.",
+    metaDescription:
+      "Online counselling for Saanich and the Peninsula. Gordon Head and UVic to Sidney: trauma, anxiety, depression and couples therapy by secure video.",
+    intro: [
+      "Saanich is the largest municipality in Greater Victoria, larger than the City of Victoria itself, and almost nobody looking for a counsellor from here types its name. Listings, directories and referrals file it under Victoria. That is mostly harmless. It stops being harmless when the public door is downtown, when most of the university sits on the Saanich side of the boundary, and when the Peninsula towns at the end of Highway 17 live at a different pace from either.",
+      "None of that is a complaint about Victoria’s services, which are good. It is about the distance between where people live and where help is listed. From Sidney or North Saanich, \"in Victoria\" means Highway 17 both ways; from Gordon Head it means a bus downtown between lectures. A [Registered Clinical Counsellor](/compare/rcc-vs-psychologist-vs-social-worker-bc) by secure video takes the trip out of it, and puts Cordova Bay and Brentwood Bay on the same footing as a street off Douglas.",
+    ],
+    localReality: {
+      h2: "The municipality everyone calls Victoria",
+      body: [
+        /* Island Health news release, 13 Jun 2024, read 2 Oct 2026: CARES at
+           1119 Pembroke Street offers same-day assessment and walk-in
+           counselling to people on the South Island whose concern does not
+           need a hospital; no referral; sessions also virtual. Hours omitted
+           by rule. */
+        "**The public door is downtown, and it is a good one.** Island Health’s Central Access and Rapid Engagement Services (CARES) on Pembroke Street offers South Island residents a same-day assessment and walk-in counselling, in person or by video. For something that needs attention this week, that is the place to begin. Private counselling earns its place later: when the work runs for months rather than a visit, or calls for an approach the South Island has few people trained in.",
+        /* 2021 Census, age (Sidney), read 2 Oct 2026 through StatCan's data service; cited at the Census Profile. Island Health,
+           Saanich Peninsula Hospital page, read 2 Oct 2026: the emergency
+           department keeps set daily hours and directs people to Royal Jubilee
+           or Victoria General outside them. */
+        "**The Peninsula is older, and its emergency department keeps set hours.** In the 2021 Census, 5,540 of Sidney’s 12,320 residents were 65 or over, and the town’s median age was 62. In a town with that age profile, [grief](/guides/grief-without-a-timeline), [caregiving](/for/family-caregivers) and the shape of retirement are close to home for a great many households. Saanich Peninsula Hospital’s emergency department is not open around the clock; outside its hours Island Health directs people to Royal Jubilee or Victoria General. Better known before a hard moment than during one.",
+        /* UVic Campus Planning, read 2 Oct 2026: "approximately 40% of the
+           campus located within the District of Oak Bay and 60% in the
+           District of Saanich". Camosun: the Interurban campus is in Saanich. */
+        "**The university is mostly in Saanich.** About 60% of the University of Victoria’s campus lies inside the District of Saanich, and Camosun College’s Interurban campus is here too. Students have UVic Student Wellness and Camosun’s counselling centre, and should use them. What a campus service is not built for is the summer at home in Kelowna or Prince George: a provincial registration means the same counsellor can keep working with you in both places, as long as you are in British Columbia. More on [counselling for university students](/for/university-students).",
+        /* 2021 Census, mother tongue (single responses), read 2 Oct 2026 through
+           StatCan's data service (Table 98-10-0173-01): Saanich 2,655 Punjabi and
+           1,375 Tagalog; City of Victoria 410 and 1,145; Capital census division
+           4,350 and 4,145. Cited at the Census Profile, as every other city is. */
+        "**The region’s largest Punjabi-speaking community lives here, not downtown.** In the 2021 Census 2,655 Saanich residents reported Punjabi as their mother tongue, against 410 in the City of Victoria: about three in every five in the Capital Region. Yet the counsellors who work in Punjabi are mostly on the far side of the Salish Sea, so for a family in Royal Oak a session in the language has usually meant a sailing. [Punjabi-speaking counselling for Saanich](/punjabi-counselling/saanich) sets out the numbers.",
+        "**The same is true of Tagalog.** In the same census, 1,375 Saanich residents reported Tagalog as their mother tongue, more than in any other municipality in the region, the City of Victoria (1,145) included. [Tagalog-speaking counselling in Saanich](/tagalog-counselling/saanich) covers what that means in practice.",
+        "**On the Peninsula, the local counsellor may be a neighbour.** In Sidney, Brentwood Bay or Saanichton the person in the waiting room, or the one you would book with, may be somebody you see at the pharmacy. A practice with no local office removes the question. The [Victoria page](/online-counselling/victoria) covers what the strait costs; here, the shorter distances count because they come weekly.",
+      ],
+    },
+    access: [
+      { label: "Not filed under Victoria", detail: "Gordon Head, Cordova Bay, Royal Oak and the Peninsula on the same terms as downtown, with nothing to cross town for." },
+      { label: "Highway 17 stays out of it", detail: "From Sidney or North Saanich, a downtown appointment means the Pat Bay Highway there and back. By video the session starts where you already are." },
+      { label: "The same counsellor between terms", detail: "Students who spend the summer elsewhere in British Columbia keep working with the same person, rather than starting again each September." },
+      { label: "No one at the pharmacy knows", detail: "In Sidney or Brentwood Bay the people you would pass on the way to a local office are the people you see every week. A video session has no front door on Beacon Avenue." },
+    ],
+    faqs: [
+      { q: "Isn’t Saanich just part of Victoria?", a: "Not administratively. Saanich is its own district municipality, the largest in Greater Victoria, though most listings file it under Victoria. For counselling it makes no practical difference: Island Health is the public authority for both, and a Registered Clinical Counsellor anywhere in British Columbia can see you by secure video wherever in the district you live." },
+      { q: "Which health authority covers Saanich and the Peninsula?", a: "Island Health. Its CARES service on Pembroke Street offers South Island residents same-day assessment and walk-in counselling, in person or by video. Using CARES and seeing a private counsellor are not either-or: many people do one while waiting on, or after, the other." },
+      { q: "I study at UVic or Camosun. Should I use campus counselling first?", a: "Usually, yes. UVic Student Wellness and Camosun’s Counselling Centre exist for students, and UVic’s SupportConnect is free and confidential for UVic students. Private counselling suits people who want continuity past the end of term, including over a summer spent elsewhere in British Columbia, or whose needs are more specific than a campus service is set up for." },
+      { q: "Is Saanich Peninsula Hospital’s emergency department always open?", a: "No. It keeps set daily hours, and outside them Island Health directs people to Royal Jubilee or Victoria General. In an emergency call 9-1-1. In a crisis, 9-8-8 answers by call or text at any hour, the Vancouver Island Crisis Line is 1-888-494-3888, and 310-6789 reaches mental-health support anywhere in BC with no area code." },
+      { q: "Is there something free or low-cost I should look at first?", a: "Yes. CARES is Island Health’s public walk-in route, 8-1-1 connects to HealthLink BC at any hour, and the Greater Victoria Citizens’ Counselling Centre has a sliding fee scale based on family income. The low-cost counselling page lists more across the province. If one of those fits, use it." },
+      { q: "Can I have sessions in Punjabi from Saanich?", a: "Yes, for individual counselling, in Punjabi, English or a mix of the two, by secure video. Saanich is home to about three in five of the Capital Region’s Punjabi mother-tongue speakers, while counsellors working in the language are mostly across the water, so for most families here video is how a Punjabi session happens at all. Couples work and EMDR currently run in English or Tagalog." },
+      { q: "Is anyone working in Tagalog?", a: "Yes. Individual and couples sessions can run in Tagalog, English or both, by secure video. The Tagalog-speaking counselling page for Saanich sets out the rest." },
+    ],
+    sources: [
+      { label: "Island Health, same-day mental health and substance use supports (CARES), news release", url: "https://www.islandhealth.ca/news/news-releases/more-options-available-people-needing-same-day-mental-health-and-addiction-supports" },
+      { label: "Island Health, Saanich Peninsula Hospital", url: "https://www.islandhealth.ca/locations/hospitals-health-centre-locations/saanich-peninsula-hospital" },
+      { label: "Statistics Canada, Census Profile, 2021 Census of Population: Sidney and North Saanich (age)", url: "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055917010,2021A00055917005&GENDERlist=1&STATISTIClist=1&HEADERlist=0" },
+      { label: "Statistics Canada, Census Profile, 2021 Census of Population: Saanich, Victoria and the Capital Regional District (population, mother tongue)", url: "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055917021,2021A00055917034,2021A00035917&GENDERlist=1&STATISTIClist=1&HEADERlist=0" },
+      { label: "University of Victoria, campus planning regulations (Saanich and Oak Bay)", url: "https://www.uvic.ca/campusplanning/about/regulations/index.php" },
+      { label: "Vancouver Island Crisis Society, Vancouver Island Crisis Line", url: "https://www.vicrisis.ca/" },
+      { label: "Crisis Centre of BC, 310 Mental Health Support (310-6789) and 9-8-8", url: "https://crisiscentre.bc.ca/" },
+      { label: "University of Victoria, SupportConnect", url: "https://www.uvic.ca/student-wellness/wellness-resources/supportconnect/index.php" },
+      { label: "Camosun College, Interurban campus", url: "https://camosun.ca/about/our-campuses/interurban-campus" },
+      { label: "Greater Victoria Citizens’ Counselling Centre", url: "https://www.citizenscounselling.com/" },
+    ],
+    nearby: ["victoria", "nanaimo"],
+    audiences: ["university-students", "family-caregivers"],
   },
 ];
 

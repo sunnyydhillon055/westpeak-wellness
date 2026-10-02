@@ -39,6 +39,19 @@ import { ONLINE_COVERAGE } from '@/lib/practice-facts';
  * not built. Build it the day the census figure is sourced properly, and not
  * before.
  *
+ * SAANICH WAS ADDED ON 2026-10-02, once the figure was read from Statistics
+ * Canada directly (2021 Census, mother tongue): 2,655 of the Capital census
+ * division's 4,350 Punjabi mother-tongue speakers live in Saanich, against
+ * 410 in the City of Victoria. That is why the Island page is Saanich's and
+ * not Victoria's.
+ *
+ * OWNER DECISION, 2 Oct 2026: every city given a city page in the October
+ * batch gets its Punjabi page too, including where the community is small.
+ * Where it is small the page states the real 2021 Census figure plainly,
+ * cites it, and argues honestly from it (few same-language counsellors
+ * locally, and video reaches one) rather than inflating it. The sourcing
+ * rule above is unchanged: no figure, no page.
+ *
  * THERE ARE NOW TWO KINDS OF PAGE IN THIS FILE. DO NOT MAKE THEM MATCH.
  *
  * The three original pages — Prince George, Kamloops, Kelowna — argue from
@@ -655,6 +668,101 @@ export const punjabiRegions: PunjabiRegion[] = [
       },
     ],
     nearby: ['surrey', 'abbotsford'],
+  },
+  /* SAANICH, 2 Oct 2026. ARGUMENT: SCARCITY, with an Island twist.
+   *
+   * The Victoria page was rejected on 18 Aug 2026 because the only Capital
+   * Region figure traced to a secondary source. This one rests on Statistics
+   * Canada Table 98-10-0173-01 (2021 Census, mother tongue, single responses),
+   * read 2 Oct 2026 through StatCan's own data service (the www12 Census
+   * Profile pages returned 404 that day; the page cites the Census Profile,
+   * as every other region does): Saanich 2,655 of
+   * 115,970; City of Victoria 410; Capital census division 4,350. So about 61%
+   * of the region's Punjabi mother-tongue speakers live in Saanich, which is
+   * the page's distinct claim: the community is real, and it is here rather
+   * than downtown.
+   *
+   * Scarcity, not distance: "Punjabi-speaking clinicians are concentrated in
+   * the Lower Mainland" is the site's existing claim (header of this file and
+   * the Victoria hub). Whether any Punjabi-speaking RCC holds an office on
+   * the South Island was NOT checked independently; the copy says
+   * "concentrated", never "none".
+   *
+   * Individual only: the Punjabi speaker offers neither couples nor EMDR, and
+   * the copy says so rather than implying them. No counsellor is named. */
+  {
+    slug: 'saanich',
+    figure: { value: '2,655', label: 'Saanich residents whose mother tongue is Punjabi. About three in five of everyone in the Capital Region who learned Punjabi first' },
+    region: 'Saanich',
+    wider: 'Greater Victoria',
+    blurb:
+      'Most of the Capital Region’s Punjabi-speaking community lives in Saanich. Punjabi-speaking counsellors are mostly a ferry away.',
+    metaDescription:
+      'Punjabi-speaking online counselling for Saanich and Greater Victoria. Sessions in Punjabi, English, or both, with an RCC. Free 30-minute consultation.',
+    demography: {
+      stat: '2,655 Saanich residents reported Punjabi as their mother tongue in 2021, more than six times the City of Victoria’s 410.',
+      body: [
+        'In the 2021 census **2,655 Saanich residents reported Punjabi as their mother tongue**. Across the whole Capital census division, which takes in Greater Victoria, the figure was 4,350. About three in every five live in Saanich, and the City of Victoria, the name every directory uses, had 410.',
+        'That matters for how people search. Somebody in Royal Oak or Gordon Head looking for a Punjabi-speaking counsellor types "Victoria", and gets a list of downtown offices, very few of which offer a session in Punjabi. The counsellors who do are mostly on the mainland.',
+        'The gap is not that Saanich lacks counsellors. It is that the counsellors within reach mostly cannot hold a session in the language a family conversation actually happened in.',
+      ],
+    },
+    localReality: {
+      h2: 'What is actually available in Saanich',
+      body: [
+        'Island Health is the public route. Its Central Access and Rapid Engagement Services (CARES) on Pembroke Street offers same-day assessment and walk-in counselling for the South Island, in person or by video. If you are already connected to Island Health services, stay connected: private counselling runs alongside public care, not instead of it.',
+        'Greater Victoria has a capable private counselling sector, and for many people it is the right answer. The narrower question this page answers is whether you can be counselled **in Punjabi**, and on the Island that has generally meant looking to the mainland, which means Swartz Bay, a sailing, and most of a day.',
+        'A family argument in Royal Oak happens in Punjabi. Retelling it in English to someone who has to ask what izzat means turns a session into a translation exercise, and the part that hurt is usually the part that does not survive it.',
+        'Students are part of this picture too. Most of the University of Victoria’s campus is in Saanich, and a student whose parents think in Punjabi may want a counsellor who does not need the family explained. [Online counselling for Saanich](/online-counselling/saanich) covers the rest of the district: the Peninsula, the university and the public route.',
+      ],
+    },
+    access: [
+      {
+        label: 'Swartz Bay is not part of it',
+        detail: 'The Punjabi-speaking counsellors are mostly on the mainland, and a session should not cost a ferry booking. By video it happens in Saanich, in whatever room is private.',
+      },
+      {
+        label: 'Punjabi, English, or both',
+        detail: 'A sentence can start in one and finish in the other. Insurance and clinical words tend to stay in English, since that is how people meet them on a claim form.',
+      },
+      {
+        label: 'No one you know in the waiting room',
+        detail: 'A community of a few thousand across Greater Victoria is one where a familiar face in a waiting room is a real possibility. A video session has no waiting room at all.',
+      },
+      {
+        label: 'Cultural context without the preamble',
+        detail: 'Family expectations, generational silence and "log kya kahenge" do not need explaining from first principles before the work can start.',
+      },
+    ],
+    faqs: [
+      {
+        q: 'Can the whole session be in Punjabi?',
+        a: 'Yes, for individual counselling. It can stay in Punjabi throughout, or move into English and back when a word fits better in one. Nobody has to decide in advance.',
+      },
+      {
+        q: 'Can my partner and I have couples sessions in Punjabi?',
+        a: 'Not at the moment. Couples sessions currently run in English or Tagalog, and EMDR in English or Tagalog too. Individual counselling is available in Punjabi, and the free consultation is the place to work out what fits.',
+      },
+      {
+        q: 'Will my extended health cover this?',
+        a: ONLINE_COVERAGE,
+      },
+      {
+        q: 'Does it matter that I live in Saanich and not Victoria?',
+        a: 'Not at all. Island Health is the public authority for both, and a Registered Clinical Counsellor in BC can see you by video anywhere in the province. Sidney, Central Saanich and North Saanich are on identical terms.',
+      },
+    ],
+    sources: [
+      {
+        label: 'Statistics Canada, Census Profile, 2021 Census of Population: Saanich, Victoria and the Capital Regional District (mother tongue)',
+        url: 'https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055917021,2021A00055917034,2021A00035917&GENDERlist=1&STATISTIClist=1&HEADERlist=0',
+      },
+      {
+        label: 'Island Health, same-day mental health and substance use supports (CARES)',
+        url: 'https://www.islandhealth.ca/news/news-releases/more-options-available-people-needing-same-day-mental-health-and-addiction-supports',
+      },
+    ],
+    nearby: ['vancouver', 'kamloops'],
   },
 ];
 

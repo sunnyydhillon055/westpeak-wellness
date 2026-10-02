@@ -193,7 +193,7 @@ export const TAGALOG_CITIES: TagalogCity[] = [
     faqs: [
       { q: 'Are there Tagalog-speaking counsellors on the Island?', a: 'Few, and fewer taking new clients. Video is what makes the whole provincial field available rather than only the local one.' },
       { q: 'I work rotating shifts. Can this fit?', a: 'Yes, and it is worth saying so in the first conversation. Booking in blocks around a roster is a normal pattern rather than a special arrangement.' },
-      { q: 'Are Saanich and Sooke covered?', a: 'Yes, on identical terms, with no penalty for being outside the core.' },
+      { q: 'Are Esquimalt and Oak Bay covered?', a: 'Yes, on identical terms, with no penalty for being outside the core.' },
     ],
   },
   {
@@ -208,6 +208,29 @@ export const TAGALOG_CITIES: TagalogCity[] = [
       { q: 'I am here on a work permit. Can I still see a counsellor?', a: 'Yes. Access to a private counsellor does not depend on immigration status. What it depends on is being located in the province during the session.' },
       { q: 'Is anything reported to my employer?', a: 'No. This is a private practice with no connection to any employer, and nothing is reported to anybody. The limits of confidentiality are set out on the standards page.' },
       { q: 'Are West Kelowna and Vernon covered?', a: 'Yes, on identical terms across the province.' },
+    ],
+  },
+  /* SAANICH, 2 Oct 2026. TagalogCity has no sources field and the route
+     renders plain text, so the figure is attributed in the sentence and cited
+     on the Saanich hub, which links here. The claim behind it: Statistics Canada Table 98-10-0173-01, 2021 Census, mother
+     tongue (single responses): Saanich 1,375 Tagalog, City of Victoria 1,145,
+     Langford 670, every other Capital Region municipality fewer; Capital
+     census division 4,145. https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055917021,2021A00055917034,2021A00035917&GENDERlist=1&STATISTIClist=1&HEADERlist=0
+     read 2 Oct 2026 through StatCan's data service. Victoria's Tagalog page argues rosters and the ferry;
+     this one argues that the community is in Saanich and the listings say
+     Victoria. English only; no Tagalog sentences added. */
+  {
+    slug: 'saanich',
+    city: 'Saanich',
+    angle: 'More people in Saanich speak Tagalog as a first language than in any other municipality in the Capital Region, Victoria included.',
+    body: [
+      'Ask where Greater Victoria’s Filipino community lives and the usual answer is Victoria. The 2021 Census says Saanich: 1,375 Saanich residents reported Tagalog as their mother tongue, against 1,145 in the City of Victoria (Statistics Canada, 2021 Census Profile). That is easy to miss, including for people in the community who search for help under the city’s name and find little in their own language.',
+      'A search for a Tagalog-speaking counsellor on the South Island turns up very little, so the ordinary result is therapy in English, a second language, at exactly the moment a first language matters most. A session in Tagalog by video needs no crossing and no drive downtown, and moving between Tagalog and English inside one session is normal.',
+    ],
+    faqs: [
+      { q: 'Can sessions move between Tagalog and English?', a: 'Yes. Mixing the two is how many people talk at home, and a session can sound the same way. Nobody has to keep to one language for the counsellor’s sake.' },
+      { q: 'Can my partner and I have couples sessions in Tagalog?', a: 'Yes. Couples sessions can run in Tagalog, English or both, which helps when partners are more comfortable in different languages.' },
+      { q: 'I live in Sidney or Central Saanich. Does that change anything?', a: 'No. The Peninsula is served on identical terms, by secure video, with nothing to travel to.' },
     ],
   },
 ];

@@ -175,7 +175,7 @@ export const cityContexts: CityContext[] = [
       'Island Health runs public intake, and the private sector in Greater Victoria is active but finite. When a specific approach is not represented on the Island, the fallback has historically been to travel or to go without.',
     unlock:
       'The strait stops being a factor. Virtual care is the one arrangement where being on the Island costs nothing at all in access.',
-    nearby: ['vancouver'],
+    nearby: ['saanich', 'vancouver'],
   },
   {
     slug: 'kelowna',
@@ -218,6 +218,20 @@ export const cityContexts: CityContext[] = [
     unlock:
       'Northern BC and Metro Vancouver get the same counsellor. Virtual care is the only arrangement in which that sentence is true.',
     nearby: ['kamloops'],
+  },
+  {
+    slug: 'saanich',
+    city: 'Saanich',
+    inCity: 'in Saanich',
+    region: 'Greater Victoria',
+    authority: 'Island Health',
+    travel:
+      'Saanich runs from Gordon Head and the university to farmland and the Peninsula towns at the end of Highway 17, and the listings people search treat all of it as Victoria. From Sidney or Brentwood Bay, an appointment in town is the highway in both directions.',
+    inPerson:
+      'Island Health’s public intake for the South Island is downtown, on Pembroke Street, and a search under “Victoria” returns the whole region at once, with no sense of which end of it you live at. Students have campus counselling; the Peninsula’s towns are small enough that the local counsellor may well be a neighbour.',
+    unlock:
+      'The district stops having a far end. Cordova Bay, Gordon Head and Sidney are the same distance from a video session, and the end of a term does not have to be the end of the work.',
+    nearby: ['victoria'],
   },
 ];
 

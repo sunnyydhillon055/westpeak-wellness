@@ -116,6 +116,9 @@ const CHECKS = [
   ['/online-counselling/white-rock', 200],
   ['/online-counselling/penticton', 200],
   ['/online-counselling/fort-st-john', 200],
+  ['/online-counselling/saanich', 200],
+  /* The old combined slug is an alias for the Saanich hub since 2 Oct 2026. */
+  ['/online-counselling/victoria-saanich', 308, '/online-counselling/saanich'],
   ['/for/mens-mental-health', 308, '/for'],
   /* /answers was retired 31 Aug 2026 and redirected to /faq; it came back
      on 14 Sep as the instant-answer page (checked as 200 above). */

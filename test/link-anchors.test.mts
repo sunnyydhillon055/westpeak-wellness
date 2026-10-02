@@ -52,12 +52,12 @@ test('service cards link the name line, not the whole card', () => {
 
 /* ---------- 367 and 391: the language pages by place ---------- */
 
-test('the Punjabi row links all six region pages, Lower Mainland first, labelled from the data', () => {
+test('the Punjabi row links every region page, Lower Mainland first, labelled from the data', () => {
   const links = punjabiRegionLinks();
   assert.equal(links.length, punjabiRegions.length);
   assert.deepEqual(links.map((l) => l.href), [
     '/punjabi-counselling/surrey', '/punjabi-counselling/abbotsford', '/punjabi-counselling/vancouver',
-    '/punjabi-counselling/kamloops', '/punjabi-counselling/kelowna', '/punjabi-counselling/prince-george',
+    '/punjabi-counselling/saanich', '/punjabi-counselling/kamloops', '/punjabi-counselling/kelowna', '/punjabi-counselling/prince-george',
   ]);
   for (const r of punjabiRegions) {
     assert.ok(links.some((l) => l.href === `/punjabi-counselling/${r.slug}` && l.label === `Punjabi counselling in ${r.region}`), r.slug);

@@ -490,7 +490,7 @@ export const pairs: Pair[] = [
     faqs: [
       /* Search Console, 17 Sep 2026: Victoria BC anxiety disorder, anxiety therapy and anxiety treatment, eight impressions at 50 to 60. */
       { q: 'Is this anxiety treatment, or just talking?', a: 'It is treatment in the sense that matters: structured, evidence-based work on an anxiety disorder, whether or not one has been formally diagnosed. What it is not is medication or a diagnosis, both of which come from a physician. Many people in Victoria run the two in parallel, and the counsellor will say plainly if a doctor should be involved.' },
-      { q: 'Are Saanich and Sooke covered?', a: 'Yes, on the same terms, with no penalty for being outside the core.' },
+      { q: 'Are Esquimalt and Oak Bay covered?', a: 'Yes, on the same terms, with no penalty for being outside the core.' },
       { q: 'Will I have to travel for anything?', a: 'No. Everything including the first free consultation happens by video.' },
     ],
   },
@@ -625,7 +625,7 @@ export const pairs: Pair[] = [
       /* Search Console, 17 Sep 2026: PTSD treatment Victoria BC and Victoria BC PTSD, and trauma therapy Victoria at 27.6. */
       { q: 'Do you treat PTSD in Victoria?', a: 'Trauma therapy here includes work with people who have a PTSD diagnosis and people who do not; the diagnosis comes from a physician or psychologist, not a counsellor, and the therapy does not depend on it. In Victoria a large share of that work is with serving and former military, DND civilians and first responders, for whom the question of what goes on a file matters, and that is answered plainly in the first session.' },
       { q: 'Will this affect my career or my file?', a: 'This is a private practice and nothing is reported anywhere. The limits of confidentiality are set out on the standards page and they are narrow, specific, and the same as they would be anywhere.' },
-      { q: 'Are Saanich, Esquimalt and Sooke covered?', a: 'Yes, on identical terms. Nothing about the service depends on where in the region you are.' },
+      { q: 'Are Esquimalt, Oak Bay and View Royal covered?', a: 'Yes, on identical terms. Nothing about the service depends on where in the region you are.' },
     ],
   },
   /* ---- DEPRESSION x CITY, added 2 Sep 2026 --------------------------------
@@ -750,7 +750,79 @@ export const pairs: Pair[] = [
     ],
     faqs: [
       { q: 'I have no reason to feel like this. Does that matter?', a: 'No. Depression frequently arrives without a cause you can point to, and the absence of one is not evidence against it. It is one of the most common features.' },
-      { q: 'Are Saanich and Sooke covered?', a: 'Yes, on identical terms, with no penalty for being outside the core.' },
+      { q: 'Are Esquimalt and Oak Bay covered?', a: 'Yes, on identical terms, with no penalty for being outside the core.' },
+    ],
+  },
+  /* ---- SAANICH, 2 Oct 2026 ---------------------------------------------
+     Five arguments, none of them the strait (Victoria's): the term calendar
+     (anxiety), later-life low mood on the Peninsula (depression), the gap
+     between same-day public help and paced trauma work (trauma), marriages
+     reshaped by retirement and caregiving (couples), and fitting EMDR's phases
+     to a term (EMDR). Couples and EMDR book Camille only, so their language
+     answers do not offer Punjabi. No counsellor is named. */
+  {
+    city: 'saanich', service: 'anxiety-counselling',
+    angle: 'Around the university, anxiety runs to a term calendar, and the calendar does not pause for treatment.',
+    body: [
+      'Most of the University of Victoria sits inside Saanich, and Camosun’s Interurban campus is here too, so a large share of the anxiety people bring in this district has a date attached: a midterm, a thesis deadline, a practicum, a first term a long way from home. Anxiety that peaks on a schedule is easy to postpone dealing with, because there is always a quieter month coming.',
+      'Campus counselling exists for exactly this and is the right first call. What it is not set up for is the person whose anxiety outlasts the term, or who wants the same counsellor through the summer at home in another part of the province. Video makes that continuity possible, provided both of you are in British Columbia during the session.',
+    ],
+    faqs: [
+      { q: 'Should I use UVic or Camosun counselling instead?', a: 'If it fits, yes, and there is no reason to feel you are skipping a step by starting there. Private counselling is a reasonable next move when you want continuity past the end of term, more frequent sessions than a campus service can offer, or a specific approach to anxiety.' },
+      { q: 'Can I keep going when I go home for the summer?', a: 'Yes, as long as home is in British Columbia. A BC-registered counsellor can see you only while you are physically in the province, so a summer in Alberta or overseas means a planned pause rather than sessions from there.' },
+      { q: 'My anxiety is worst around exams. Is that worth treating?', a: 'Yes. Anxiety that arrives on a schedule is still anxiety, and the predictable timing helps: the work can be planned around the calendar, with the most practical part done before the pressure arrives rather than during it.' },
+    ],
+  },
+  {
+    city: 'saanich', service: 'depression-counselling',
+    angle: 'On the Peninsula, low mood after retirement or a loss is easily put down to age rather than recognised as depression.',
+    body: [
+      'Sidney’s median age in the 2021 Census was 62, and North Saanich’s was nearly 57. In towns this old, the losses arrive closer together: a partner, friends, a role, health that used to be taken for granted. Low mood after that run of losses is so expected that it is rarely examined, and depression hides comfortably inside what everyone agrees is simply getting older.',
+      'Age is not a cause of depression and it is not a reason to leave it alone. Counselling at seventy works on the same things it works on at thirty: what the low mood is doing to sleep, to contact with people, and to the days themselves. A session by video, from a familiar chair, removes the drive into town, which is often the first thing a low stretch makes impossible.',
+    ],
+    faqs: [
+      { q: 'Is it depression, or am I just getting older?', a: 'Getting older brings losses, and sadness about them is ordinary. Depression is different in kind: a flatness that settles in, interest that does not come back, sleep and appetite that change. A counsellor can help you tell the two apart, and a physician can rule out a medical cause.' },
+      { q: 'My doctor has suggested medication. Is counselling instead of that?', a: 'Not instead, and not in competition. Many people use both, and the decision about medication belongs to you and your doctor. Counselling works on the patterns that keep a low mood in place, whichever way that decision goes.' },
+      { q: 'I am not used to video calls. How hard is it?', a: 'Less hard than most people expect. The link opens in a browser with nothing to install, and the opening minutes of a first session are routinely spent making sure sound and picture work. A family member can help set it up and then leave the room.' },
+    ],
+  },
+  {
+    city: 'saanich', service: 'trauma-therapy',
+    angle: 'Same-day public help in Greater Victoria is good at the immediate; trauma work is rarely immediate and rarely short.',
+    body: [
+      'Island Health’s CARES service offers South Island residents a same-day assessment and walk-in counselling, and it is worth using when something needs attention now. Trauma that has been carried for years is a different kind of work. It needs time to build stability before anything difficult is approached, and a pace set together rather than by a single visit.',
+      'That is where private trauma therapy sits alongside the public route rather than against it. Sessions by video from Saanich run on a plan you agree, at a frequency that suits you, with the same counsellor from the first session onwards, and starting privately does not remove you from any public list.',
+    ],
+    faqs: [
+      { q: 'I have already been to CARES. Is private trauma therapy something different?', a: 'Usually, yes. CARES is built for same-day assessment and focused support, with follow-up and referral where needed. Trauma therapy is a longer piece of work with one counsellor, planned around stabilising first and processing later. Many people use both at different points.' },
+      { q: 'Do I have to go through the worst of it straight away?', a: 'No. The early sessions are about stability: sleep, what sets things off, and how to settle when it happens. Nothing difficult is approached until you and the counsellor agree there is enough steadiness to approach it.' },
+      { q: 'Can trauma sessions happen in Punjabi?', a: 'Yes. Trauma therapy here is booked as individual counselling, which is available in Punjabi, English or a mix, by video. About three in five of the region’s Punjabi mother-tongue speakers live in Saanich, and something hard is often easier to say in the language it happened in.' },
+    ],
+  },
+  {
+    city: 'saanich', service: 'couples-therapy',
+    angle: 'On the Peninsula, couples counselling often arrives late: after a retirement, a diagnosis, or one partner becoming the other’s carer.',
+    body: [
+      'A marriage built around two working lives has to be rebuilt when both stop, and in the Peninsula towns, where a large share of residents are past sixty-five, a great many couples are doing that at once. Time together doubles overnight. Roles that were never discussed become the whole of the day, and an illness can turn a partner into a patient with very little warning.',
+      'Couples rarely seek help at this stage, partly because counselling is assumed to be for younger marriages in trouble. It is not. Working out a retirement together, or how to stay partners while one cares for the other, is ordinary couples work, and joining from your own living room removes the drive into Victoria entirely.',
+    ],
+    faqs: [
+      { q: 'Is it too late for couples counselling after forty years together?', a: 'No. Long marriages bring their own advantages to the work, including a great deal of shared history to draw on. What tends to be harder is naming patterns that have been in place for decades, and that is exactly what the sessions are for.' },
+      { q: 'One of us is now caring for the other. Is that couples work?', a: 'It can be. Caregiving changes the balance of a relationship, and both partners often feel the loss of how things were without saying so. Sessions make room for both experiences rather than only the illness.' },
+      { q: 'Can sessions run in Punjabi if one of us is more comfortable that way?', a: 'Not for couples sessions, which currently run in English or Tagalog. Punjabi is available for individual counselling, so a partner who would rather speak Punjabi can have sessions of their own in it. The free consultation is the place to sort out which combination fits.' },
+    ],
+  },
+  {
+    city: 'saanich', service: 'emdr-therapy',
+    angle: 'For a student, EMDR’s preparation phase has to fit a term, and a term has an end date.',
+    body: [
+      'EMDR is not a single technique applied on the first day. It starts with history and preparation, practising ways to settle before any memory is processed, and the processing itself takes energy that a week of exams does not leave spare. In a district built around UVic and Camosun, the sensible question is not only whether to start, but when.',
+      'Planning the phases against the academic calendar is ordinary: preparation during a lighter stretch, processing where there is room to recover, and a pause around exams if that suits you. Because sessions run by video anywhere in British Columbia, a summer at home elsewhere in the province does not have to interrupt the work halfway.',
+    ],
+    faqs: [
+      { q: 'Should I start EMDR during exams?', a: 'Usually not the processing part. Preparation can start at almost any point, but processing a difficult memory is tiring, and it is better scheduled where there is space afterwards. The timing is agreed with you at the outset rather than assumed.' },
+      { q: 'Can EMDR continue if I go home for the summer?', a: 'Yes, if home is in British Columbia, by the same secure video and with the same counsellor. Outside the province, sessions pause until you are back, and that is planned in advance rather than discovered in June.' },
+      { q: 'Is EMDR available in Punjabi?', a: 'Not at the moment: EMDR currently runs in English or Tagalog. Individual counselling is available in Punjabi, and the free consultation is the place to talk through which fits.' },
     ],
   },
 ];

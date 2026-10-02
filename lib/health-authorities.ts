@@ -36,7 +36,7 @@ const BY_SLUG: Record<string, Source> = {
   vancouver: COASTAL, richmond: COASTAL, 'north-vancouver': COASTAL, 'west-vancouver': COASTAL,
   squamish: COASTAL, whistler: COASTAL, sechelt: COASTAL, 'powell-river': COASTAL,
   // Island Health
-  victoria: ISLAND, 'victoria-saanich': ISLAND, nanaimo: ISLAND, duncan: ISLAND,
+  victoria: ISLAND, saanich: ISLAND, 'victoria-saanich': ISLAND, nanaimo: ISLAND, duncan: ISLAND,
   parksville: ISLAND, courtenay: ISLAND, 'campbell-river': ISLAND,
   // Interior Health
   kelowna: INTERIOR, 'west-kelowna': INTERIOR, vernon: INTERIOR, penticton: INTERIOR,

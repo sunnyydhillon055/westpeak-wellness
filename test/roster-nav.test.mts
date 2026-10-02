@@ -82,8 +82,13 @@ test('every Punjabi region page has the counsellor card and both of her place pa
   assert.ok(who, 'nobody accepting speaks Punjabi');
   assert.ok(who!.placePages);
   const places = placesFor(who!.provinces).map((c) => c.slug);
+  /* Regions added from 2 Oct 2026 are English only: no new Punjabi is written
+     until it has been reviewed, so their place page has no /pa twin yet and
+     the region page links the English one alone. */
+  const noTwinYet = ['saanich'];
   for (const r of punjabiRegions) {
     assert.ok(places.includes(r.slug), `${r.slug}: no /practitioners/${who!.slug}/${r.slug}`);
-    assert.ok(getPunjabiPlace(r.slug), `${r.slug}: no Punjabi twin of the place page`);
+    if (noTwinYet.includes(r.slug)) assert.equal(getPunjabiPlace(r.slug), undefined, `${r.slug}: a twin exists; drop it from noTwinYet`);
+    else assert.ok(getPunjabiPlace(r.slug), `${r.slug}: no Punjabi twin of the place page`);
   }
 });

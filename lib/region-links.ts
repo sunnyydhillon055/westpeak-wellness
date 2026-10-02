@@ -21,7 +21,7 @@ export type RegionLink = { href: string; label: string };
 
 /* Lower Mainland first, where the readers are, then the Interior and the
    North. A region not named here still appears, after these, in data order. */
-const PUNJABI_ORDER = ['surrey', 'abbotsford', 'vancouver', 'kamloops', 'kelowna', 'prince-george'];
+const PUNJABI_ORDER = ['surrey', 'abbotsford', 'vancouver', 'saanich', 'kamloops', 'kelowna', 'prince-george'];
 
 const rank = (order: string[], slug: string) => {
   const i = order.indexOf(slug);
