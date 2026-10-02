@@ -2,9 +2,17 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { site } from '@/lib/site';
 import { abs, orgRef, siteRef } from '@/lib/schema';
-import { buildIndex, searchIndex } from '@/lib/search-index';
+import { buildIndex, searchIndex, topService } from '@/lib/search-index';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import SearchBeacon from '@/components/SearchBeacon';
+import BookLink from '@/components/BookLink';
+import CounsellorCards from '@/components/CounsellorCards';
+import CoverageLine from '@/components/CoverageLine';
+import { services, getService } from '@/lib/services';
+import { readCatalog } from '@/lib/cliniko-catalog';
+import { feeFor } from '@/lib/city-service-page';
+import { counsellorsForService } from '@/lib/counsellor-cards';
+import { bookingFor, serviceNoun } from '@/lib/booking-cta';
 
 export const metadata: Metadata = {
   title: { absolute: 'Search | Westpeak Wellness' },
@@ -35,10 +43,24 @@ export const metadata: Metadata = {
  * This page is also what makes the WebSite SearchAction in the root layout
  * honest. It was deliberately omitted before this existed: markup describing a
  * capability the site does not have is how structured data gets distrusted. */
-export default function SearchPage({ searchParams }: { searchParams?: { q?: string } }) {
+export default async function SearchPage({ searchParams }: { searchParams?: { q?: string } }) {
   const q = (searchParams?.q ?? '').trim();
   const index = buildIndex();
   const results = q ? searchIndex(index, q) : [];
+
+  /* WHEN THE TOP HIT IS A SERVICE, THE ANSWER COMES FIRST — 1 Oct 2026.
+     Somebody who searches "couples counselling abbotsford" has said what
+     they want; the results list used to make them click through to find the
+     fee and the button. The fee is the catalogue's (feeFor, the city x
+     service pages' own mapping, so no figure is typed here), the cards are
+     whoever offers it (counsellorsForService), and the button goes through
+     bookingFor(): the language counsellor for a language service, the one
+     calendar where only one counsellor offers it, /book otherwise. */
+  const top = getService(topService(results) ?? '');
+  const catalog = top ? await readCatalog() : undefined;
+  const fee = top && catalog ? feeFor(catalog, { bookingService: top.slug }) : undefined;
+  const offering = top ? counsellorsForService(top) : [];
+  const book = top ? bookingFor(top.language ? undefined : top.slug, top.language) : undefined;
 
   return (
     <>
@@ -89,6 +111,14 @@ export default function SearchPage({ searchParams }: { searchParams?: { q?: stri
           {q && results.length === 0 && (
             <>
               <h2>Nothing matched &ldquo;{q}&rdquo;</h2>
+              {/* /answers holds the full text of every answered question and
+                  filters it from ?q=, so it finds words this index (titles
+                  and summaries) does not hold. 1 Oct 2026. */}
+              <p>
+                <Link className="btn btn--primary" href={`/answers?q=${encodeURIComponent(q)}`}>
+                  Search the answered questions for &ldquo;{q}&rdquo;
+                </Link>
+              </p>
               <p>
                 Try a plainer word, this site indexes titles and summaries rather than every
                 sentence. The <Link href="/glossary">glossary</Link> defines sixty terms, and{' '}
@@ -104,20 +134,43 @@ export default function SearchPage({ searchParams }: { searchParams?: { q?: stri
               <ul className="chip-grid" style={{ listStyle: 'none', padding: 0, marginTop: 12 }}>
                 <li><Link className="chip" href="/faq">Frequently asked questions</Link></li>
                 <li><Link className="chip" href="/pricing">What it costs and what insurance covers</Link></li>
-                <li><Link className="chip" href="/services">The nine kinds of counselling offered</Link></li>
+                <li><Link className="chip" href="/services">The {services.length} kinds of counselling offered</Link></li>
                 <li><Link className="chip" href="/resources/low-cost-counselling-bc">Free and low-cost counselling in BC</Link></li>
                 <li><Link className="chip" href="/guides/what-to-expect-first-therapy-session">What happens in a first session</Link></li>
                 <li><Link className="chip" href="/resources/bc-crisis-and-support-directory">Crisis lines and urgent support</Link></li>
               </ul>
-              {/* Somebody searched, found nothing, and is one click from leaving.
-                  That is the highest-intent moment on the site and it offered
-                  only a calendar link. The term they typed is prefilled, so the
-                  question they could not find an answer to becomes the message. */}
             </>
           )}
 
           {q && results.length > 0 && (
             <>
+              {top && (
+                <div className="card" style={{ marginBottom: 28 }}>
+                  <h2 style={{ marginTop: 0 }}>{top.name}</h2>
+                  {fee && (
+                    <p>
+                      <strong>{fee.fee}</strong> for {fee.minutes} minutes. The first 30-minute
+                      consultation is free.
+                    </p>
+                  )}
+                  <CoverageLine />
+                  <p style={{ marginTop: 14 }}>
+                    <BookLink location="search" href={book?.href}>
+                      {book?.labelSuffix
+                        ? `Book a free consultation${book.labelSuffix}`
+                        : `Book a free consultation for ${serviceNoun(top.name)}`}
+                    </BookLink>
+                  </p>
+                </div>
+              )}
+              {top && offering.length > 0 && (
+                <CounsellorCards
+                  counsellors={offering}
+                  location="search"
+                  heading={`Who offers ${serviceNoun(top.name)}`}
+                  className="search-counsellors"
+                />
+              )}
               <h2>{results.length} {results.length === 1 ? 'result' : 'results'} for &ldquo;{q}&rdquo;</h2>
               <ul className="search-results">
                 {results.map((r) => (

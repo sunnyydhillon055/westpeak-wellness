@@ -106,6 +106,9 @@ export const BOOK_LOCATIONS: readonly string[] = [
      /resources/workplace-mental-health-bc, the site's most-shown page,
      which had no tracked booking link of its own (1 Oct 2026). */
   'mid-resource-work',
+  /* The service block above the results on /search, and its counsellor
+     cards, when the top hit is a bookable service (1 Oct 2026). */
+  'search',
   ...tools.map((t) => `tool:${t.slug}`),
 ];
 

@@ -596,3 +596,14 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
 @media (prefers-reduced-motion: reduce){
   .page-loading__dot{ animation:none; opacity:.45; }
 }
+
+/* Site search in the header, 1 Oct 2026 (components/Header.tsx). The icon
+   link on the desktop bar, the search box at the top of the mobile drawer;
+   one or the other, never both. */
+.nav-search-m{ display:none; }
+.nav-search-d > a{ color:var(--ink-soft); }
+@media (max-width:1020px){
+  .nav-search-d{ display:none; }
+  .nav-search-m{ display:block; padding:12px 0; }
+  .nav-search-m .search-form{ margin-top:0; }
+}
