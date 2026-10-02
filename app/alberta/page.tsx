@@ -150,7 +150,7 @@ export default function AlbertaHub() {
 
           <h2>What it costs, and who pays</h2>
           <p>
-            <strong>AHCIP does not cover counselling.</strong> Most workplace extended health plans
+            <strong>AHCIP does not cover counselling.</strong> Many workplace extended health plans
             reimburse some of it, and whether an RCC specifically is covered varies by plan.{' '}
             <Link href="/alberta/counselling-coverage-alberta">What Alberta plans cover</Link> sets
             out the five questions worth asking your insurer before booking, and{' '}

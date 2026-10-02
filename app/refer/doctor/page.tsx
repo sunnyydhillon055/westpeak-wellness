@@ -184,8 +184,8 @@ export default async function BringToYourDoctor() {
               </li>
               <li>
                 <strong>A note for a leave, and the paperwork that follows.</strong> Only a
-                physician or nurse practitioner can certify one. The{' '}
-                <Link href="/resources/workplace-mental-health-bc">work-and-leave cluster</Link>{' '}
+                physician or nurse practitioner can certify one. The page on{' '}
+                <Link href="/resources/workplace-mental-health-bc">mental health and work in BC</Link>{' '}
                 covers what to ask for and in what order.
               </li>
               <li>

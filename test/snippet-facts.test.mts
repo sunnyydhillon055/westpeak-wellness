@@ -121,7 +121,7 @@ test('the Punjabi region opening answers who, how, cost and the consultation, wi
 test('price-drift fails a fee typed into a description, and any figure in the composer', () => {
   assert.equal(typedFeeDescriptions(`  metaDescription:\n    'Sessions are $140 each.',`).length, 1);
   assert.equal(typedFeeDescriptions(`description: \`From \${fee} per session\``).length, 0);
-  assert.equal(typedFeeDescriptions(`description: 'EI pays up to $729 a week.'`).length, 0, 'allow-listed figure');
+  assert.equal(typedFeeDescriptions(`description: 'A plan might cap counselling at $500 a year.'`).length, 0, 'allow-listed figure');
   assert.equal(typedFeesInSnippetFacts('const x = 1; // costs $140').length, 1);
   assert.equal(counsellorsFor({ bookingService: 'individual-therapy' }).every((p) => p.acceptingNewClients), true);
 });

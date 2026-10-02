@@ -330,7 +330,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
                 (about 1,000 impressions a month at position 25-37, Sep 2026),
                 and the page that answers it had 24 inbound links. Every
                 service page now sends one, with the term as the anchor. */}
-            <li><BadgeCheck aria-hidden="true" strokeWidth={1.7} /><span><strong><Link href="/resources/verify-a-counsellor-in-bc">RCC</Link></strong> · BCACC registered</span></li>
+            <li><BadgeCheck aria-hidden="true" strokeWidth={1.7} /><span><strong><Link href="/resources/verify-a-counsellor-in-bc">Registered Clinical Counsellor</Link></strong> · BCACC registered</span></li>
           </ul>
           {/* THE ONE ACTION, NAMED FOR THE PAGE AND COUNTED — 1 Oct 2026. A
               plain <Link> with the same four words on all six money pages,

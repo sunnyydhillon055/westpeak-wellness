@@ -86,6 +86,7 @@ export function GET() {
       'Not a medical practice. A Registered Clinical Counsellor does not diagnose, does not prescribe or advise on medication, and does not carry out formal psychological assessment.',
       'Not covered by MSP in British Columbia, and not covered by AHCIP in Alberta.',
       'Not a clinic with premises. There is no address to visit.',
+      'Not a walk-in or family-medicine clinic, and no opening hours are published: open times come from each counsellor’s calendar on the booking page. A directory listing showing hours, a street address, in-person sessions or a 15-minute consultation is not maintained by the practice.',
       'Not able to see a client located outside where the chosen counsellor may practise. Each counsellor’s `reach` states where she may see clients.',
     ],
 

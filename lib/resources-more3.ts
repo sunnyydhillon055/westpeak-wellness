@@ -1,5 +1,6 @@
 import type { Resource } from './resources';
 import { practitioners, type Practitioner } from '@/lib/practitioners';
+import { EI_WEEKLY_IN_YEAR } from '@/lib/benefit-figures';
 
 /* "HOW DO I FIND A PUNJABI-SPEAKING THERAPIST IN BC?" — 1 Oct 2026 (item 298).
  * The language-access page was written for the helper and had no answer in
@@ -247,7 +248,7 @@ export const moreResources3: Resource[] = [
         ],
         list: [
           { label: 'BC Employment Standards Act, illness or injury leave', detail: 'After 90 days of employment, five paid and three unpaid days each calendar year. The employer may ask for "reasonably sufficient proof"; the Province\'s page says a note from a health professional is generally not required unless the absence runs past five consecutive days or is the third health-related leave of the year. Employment is continuous during the leave and the employee returns to the same or a comparable position.' },
-          { label: 'EI sickness benefits', detail: '55% of average insurable weekly earnings to a maximum of $729 a week in 2026, for up to 26 weeks. The claimant needs 600 insured hours in the 52 weeks before the claim, a drop of more than 40% in weekly earnings, and a medical certificate from an approved practitioner. Service Canada says to apply as soon as possible after stopping work and that waiting more than four weeks can cost benefits.' },
+          { label: 'EI sickness benefits', detail: `55% of average insurable weekly earnings to a maximum of ${EI_WEEKLY_IN_YEAR}, for up to 26 weeks. The claimant needs 600 insured hours in the 52 weeks before the claim, a drop of more than 40% in weekly earnings, and a medical certificate from an approved practitioner. Service Canada says to apply as soon as possible after stopping work and that waiting more than four weeks can cost benefits.` },
           { label: 'The waiting period', detail: 'One week, for sickness benefits as for the others, since 1 January 2017. Some employers top up; the employee has to ask.' },
           { label: 'The Record of Employment', detail: 'The employer issues it for every interruption of earnings; electronically, within five calendar days after the end of the pay period in which the interruption begins. Illness or injury is reason code D.' },
           { label: 'Short- and long-term disability', detail: 'Set by the plan the employer bought, not by law: its own forms, its own definition of disability, its own deadlines. The sequence is normally sick days, then STD, then EI or LTD. Our page on [disability benefits and counselling](/resources/disability-benefits-and-counselling-bc) sets the timelines side by side.' },

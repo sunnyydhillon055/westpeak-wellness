@@ -55,8 +55,8 @@ export default function BookingCard({
           <li>
             <BadgeCheck aria-hidden="true" strokeWidth={1.7} />
             <span>
-              Registered Clinical Counsellors, registered with the BCACC, {' '}
-              <Link href="/resources/verify-a-counsellor-in-bc">check the register yourself</Link>
+              Registered Clinical Counsellors, registered with the BCACC; see{' '}
+              <Link href="/resources/verify-a-counsellor-in-bc">how to check a Registered Clinical Counsellor</Link>
             </span>
           </li>
           <li>

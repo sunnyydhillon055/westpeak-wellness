@@ -12,7 +12,7 @@ import Link from 'next/link';
  *   34,280   Punjabi mother tongue in Abbotsford, 22.6% of the city
  *   128,305  the same in Surrey, the largest of any city in Canada
  *   103      CMHA clients in Prince George across 519 appointments, 30 waiting
- *   $729     the 2026 weekly EI sickness cap
+ *   the weekly EI sickness cap (lib/benefit-figures.ts, keyed by year)
  *
  * Each one does more work than the sentence around it and none of them was
  * doing any of it visually.
@@ -33,7 +33,7 @@ export default function Stat({
   href,
   tone = 'default',
 }: {
-  /** The figure itself. Kept short — "34,280", "22.6%", "$729 a week". */
+  /** The figure itself. Kept short — "34,280", "22.6%", "55%". */
   value: string;
   /** What it counts, in a phrase. */
   label: string;
