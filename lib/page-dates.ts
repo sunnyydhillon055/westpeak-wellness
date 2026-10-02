@@ -56,7 +56,7 @@ export const COLLECTION_DATES: Record<string, string> = {
   "punjabiProfiles": "2026-09-07",
   "punjabiPlaces": "2026-09-07",
   "punjabiGuides": "2026-09-07",
-  "conditions": "2026-09-03",
+  "conditions": "2026-10-01",
   "glossary": "2026-10-01",
   "faq": "2026-10-01"
 };
