@@ -46,7 +46,6 @@ export default function PunjabiNotSentPage() {
             Nothing was received from the form, so no reply is on its way. Please email{' '}
             <a href={`mailto:${site.email}`}>{site.email}</a> directly
             {who ? <>, or book a free 30-minute consultation with {who.name}</> : <>, or book a free 30-minute consultation</>}.
-            Writing in Punjabi is fine either way.
           </p>
         </div>
       </section>
