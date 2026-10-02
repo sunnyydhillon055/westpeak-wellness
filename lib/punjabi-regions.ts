@@ -1346,6 +1346,70 @@ export const punjabiRegions: PunjabiRegion[] = [
     ],
     nearby: ['vancouver', 'surrey'],
   },
+  /* NEW WESTMINSTER, added 2 Oct 2026. Argues DISTANCE, like Surrey,
+   * Abbotsford and Vancouver, because scarcity would be false one bridge from
+   * Surrey. Its own version: a MID-SIZED community in a small city whose
+   * language mix is led by Tagalog and Mandarin, sitting across the river
+   * from the largest Punjabi-speaking community in BC, so the default answer
+   * has always been "go to Surrey", and the new bridge has not changed that
+   * the trip is the cost.
+   *
+   * Figures (2021 Census, mother tongue, single responses): New
+   * Westminster CSD 5915029 total 78,270; Punjabi 2,810 (3.6%), 3,220
+   * counting multiple responses (4.1%); Tagalog 3,270; Mandarin 2,950.
+   * Surrey CSD 5915004 Punjabi 128,310. Read through Statistics Canada's
+   * data service on 2 Oct, when the www12 Census Profile pages returned 404
+   * from here, and cited at the Census Profile, as every other city is.
+   * Owner decision of 2 Oct 2026: every city in the October batch gets this
+   * page, with the real figure stated plainly. */
+  {
+    slug: 'new-westminster',
+    figure: { value: '2,810', label: 'New Westminster residents with Punjabi as their mother tongue, 3.6% of the city, behind English, Tagalog and Mandarin' },
+    region: 'New Westminster',
+    wider: 'New Westminster and Queensborough',
+    blurb:
+      'A Punjabi-speaking community of a few thousand, one river away from the largest in the province. The usual answer has been the trip to Surrey.',
+    metaDescription:
+      'Punjabi-speaking online counselling for New Westminster and Queensborough. Sessions in Punjabi, English or both, by video, with no bridge to Surrey.',
+    demography: {
+      stat: 'Punjabi is the mother tongue of 2,810 New Westminster residents: 3.6% of the city, and fourth after English, Tagalog and Mandarin.',
+      body: [
+        'In the 2021 census **Punjabi was the only mother tongue of 2,810 people in New Westminster, about 3.6% of the city**, and 3,220 counting people who learned it alongside another language. It ranked fourth, behind English, Tagalog and Mandarin.',
+        'That is a real community, and a mid-sized one. In a city where Tagalog is the most common mother tongue after English, Punjabi speakers are one language group among several rather than the group local services are built around.',
+        'Across the river the picture inverts. In the same census Surrey had more than 128,000 people whose only mother tongue is Punjabi, more than any other city in BC, which is why the usual advice from New Westminster has been to go to Surrey.',
+      ],
+    },
+    localReality: {
+      h2: 'One river from Surrey, and the river is still the cost',
+      body: [
+        'For a Punjabi speaker in New Westminster, Surrey is close. The new stal̕əw̓asəm Bridge replaced the Pattullo, and King George Boulevard is on the other side of it. Close is not the same as costless: a weekly appointment over the river, on top of a working day, is a cost paid twice a session, and for language access it falls on the people with the fewest local options.',
+        'Fraser Health runs the public route here, and adults can self-refer to the New Westminster Mental Health Centre on Sixth Street. It is worth using, and worth asking directly whether a session in Punjabi is possible rather than assuming either way.',
+        'There is a second reason some people look past the obvious option. Being one river from Surrey can mean moving in the same circles on both sides of it, and some people would rather their counsellor sat outside those circles. A counsellor with no office in either city removes the chance of a familiar face in a waiting room.',
+        'The wider picture for this city, including why the specialist rather than the public door tends to be the part that is somewhere else, is on [online counselling for New Westminster](/online-counselling/new-westminster). [Punjabi-speaking counselling in Surrey](/punjabi-counselling/surrey) covers the view from across the river.',
+      ],
+    },
+    access: [
+      { label: 'No bridge to Surrey', detail: 'The trip across the river has been the default answer for Punjabi-language counselling from New Westminster. Video removes it, from Sapperton to Queensborough.' },
+      { label: 'Punjabi, English, or both', detail: 'Sessions move between the two as the conversation needs. Many people switch into Punjabi for family and back into English for the practical planning.' },
+      { label: 'Family context without the preamble', detail: 'A counsellor who already knows what “log kya kahenge” carries means the first sessions go on the problem, not on translating the household around it.' },
+      { label: 'No waiting room on either side of the river', detail: 'There is no office in New Westminster or Surrey where anybody could see you arrive, and no reception desk on either bank of the Fraser where a cousin might be sitting.' },
+    ],
+    faqs: [
+      { q: 'Why not see somebody in Surrey?', a: 'You can, and for some people it is the right answer, and you would be told so on a consultation call. What it costs from New Westminster is the crossing, every week, and a crossing that does not happen is a session that does not happen.' },
+      { q: 'Can couples sessions be in Punjabi?', a: 'Not at the moment. Punjabi-language sessions are individual counselling. Couples sessions currently run in English or Tagalog, and the free consultation is the place to talk through which fits.' },
+      { q: 'Will my extended health cover this?', a: ONLINE_COVERAGE },
+      { q: 'Is there a free option I should try first?', a: 'Fraser Health’s mental health centre on Sixth Street takes self-referrals from adults, the Fraser Health Crisis Line answers at 604-951-8855, and 310-6789 connects to mental-health support anywhere in BC. If one of those fits, use it.' },
+    ],
+    sources: [
+      { label: 'Statistics Canada, 2021 Census Profile: New Westminster (CSD 5915029)', url: 'https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055915029&GENDERlist=1&STATISTIClist=1&HEADERlist=0' },
+      { label: 'Statistics Canada, 2021 Census Profile: Surrey (CSD 5915004)', url: 'https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055915004&GENDERlist=1&STATISTIClist=1&HEADERlist=0' },
+      { label: 'Fraser Health, Mental Health Centres directory (New Westminster Mental Health Centre, Sixth Street)', url: 'https://www.fraserhealth.ca/Service-Directory/Services/mental-health-and-substance-use/mental-health-centres/mental-health-centres' },
+      { label: 'stal̕əw̓asəm Bridge (Pattullo Bridge replacement), bridge opening', url: 'https://www.pattullobridgereplacement.ca/construction/bridge-opening/' },
+      { label: 'Fraser Health Crisis Line (Options Community Services)', url: 'https://www.options.bc.ca/program/fraser-health-crisis-line' },
+      { label: 'Crisis Centre of BC, 310 Mental Health Support (310-6789) and 9-8-8', url: 'https://crisiscentre.bc.ca/' },
+    ],
+    nearby: ['surrey', 'vancouver'],
+  },
 ];
 
 export const getPunjabiRegion = (slug: string) =>

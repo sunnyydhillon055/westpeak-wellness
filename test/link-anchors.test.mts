@@ -57,7 +57,7 @@ test('the Punjabi row links every region page, Lower Mainland first, labelled fr
   assert.equal(links.length, punjabiRegions.length);
   assert.deepEqual(links.map((l) => l.href), [
     '/punjabi-counselling/surrey', '/punjabi-counselling/abbotsford', '/punjabi-counselling/vancouver',
-    '/punjabi-counselling/north-vancouver', '/punjabi-counselling/maple-ridge', '/punjabi-counselling/mission', '/punjabi-counselling/saanich', '/punjabi-counselling/langford', '/punjabi-counselling/courtenay', '/punjabi-counselling/campbell-river', '/punjabi-counselling/kamloops', '/punjabi-counselling/kelowna', '/punjabi-counselling/vernon', '/punjabi-counselling/cranbrook', '/punjabi-counselling/prince-george',
+    '/punjabi-counselling/new-westminster', '/punjabi-counselling/north-vancouver', '/punjabi-counselling/maple-ridge', '/punjabi-counselling/mission', '/punjabi-counselling/saanich', '/punjabi-counselling/langford', '/punjabi-counselling/courtenay', '/punjabi-counselling/campbell-river', '/punjabi-counselling/kamloops', '/punjabi-counselling/kelowna', '/punjabi-counselling/vernon', '/punjabi-counselling/cranbrook', '/punjabi-counselling/prince-george',
   ]);
   for (const r of punjabiRegions) {
     assert.ok(links.some((l) => l.href === `/punjabi-counselling/${r.slug}` && l.label === `Punjabi counselling in ${r.region}`), r.slug);

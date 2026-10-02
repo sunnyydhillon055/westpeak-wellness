@@ -1361,7 +1361,70 @@ export const pairs: Pair[] = [
       { q: 'What should I plan for after an EMDR session?', a: 'Some quiet time if you can arrange it. Processing can keep moving for a while after the session ends, and having nowhere to drive straight afterwards is one of the practical advantages of doing it from home.' },
       { q: 'Can EMDR sessions be in Punjabi?', a: 'Not at the moment: EMDR sessions currently run in English or Tagalog. Individual counselling is available in Punjabi.' },
     ],
+  },  {
+    city: 'new-westminster', service: 'anxiety-counselling',
+    angle: 'For anxiety the trip is not neutral: a crowded train and a bridge are exactly what avoidance feeds on.',
+    body: [
+      'Most of what anxiety treatment asks is that you stop arranging life around the thing you fear. Getting to the appointment is the first test of that, and from New Westminster the appointment is often in Burnaby, Vancouver or Surrey: a packed SkyTrain car, a bridge at the wrong hour, a waiting room full of strangers. Those are precisely the situations an anxious nervous system has learned to dodge.',
+      'So the first casualty is often attendance itself, cancelled with a reason that sounds practical. Starting from home moves the hard part to where it belongs. The exposure work still happens, deliberately and at a pace you agree, instead of being smuggled in by the commute before the session has begun.',
+    ],
+    faqs: [
+      { q: 'Is it avoidance to choose video because travelling makes me anxious?', a: 'Not in itself. Choosing a setting where the work can actually start is sensible. If travel or crowds are part of the problem, they become part of the plan later, approached on purpose rather than endured on the way to every session.' },
+      { q: 'I get panicky on the SkyTrain. Is that something to bring?', a: 'Yes. Panic in a specific place, such as a train, a bridge or a crowded platform, is a common and well-understood pattern, and it tends to respond to a structured approach that works on the fear of the sensations as well as the place.' },
+    ],
   },
+  {
+    city: 'new-westminster', service: 'depression-counselling',
+    titleName: 'Depression Therapy', // without it the title is 61 even after the ladder drops ", BC"; with it: "Depression Therapy in New Westminster | Westpeak Wellness" (57)
+    angle: 'Douglas College brings students to New Westminster, and low mood in a first year away is easily mistaken for homesickness.',
+    body: [
+      'A first term away from home has a familiar shape: a new city, a timetable, a part-time job, and nobody nearby who knew you before. Flatness, broken sleep and pulling away from people are easy to put down to adjustment, and sometimes that is all they are. When they last through a term and start costing marks and friendships, they are worth treating as their own thing.',
+      'The college runs free counselling for registered students in credit courses, and that is the right first stop. Private sessions by video suit people who want somebody outside the institution, who have finished their studies, or who need the work to carry on through a term break without a gap.',
+    ],
+    faqs: [
+      { q: 'Should I see the college counsellors first?', a: 'If you are a registered Douglas College student in credit courses, yes, it costs nothing and they know the academic side. Private counselling makes sense when you want somebody outside the college, need continuity past the end of term, or have already used what the college offers.' },
+      { q: 'How do I tell homesickness from depression?', a: 'Homesickness usually eases as the new place becomes familiar and lifts when you are in touch with home. Depression tends to persist and spread: loss of interest in things that have nothing to do with home, sleep and appetite changes, and a sense that nothing much matters. A free consultation is a reasonable place to sort out which it is.' },
+    ],
+  },
+  {
+    city: 'new-westminster', service: 'couples-therapy',
+    angle: 'In a hospital city, couples work tends to stall on one plain problem: two rotating rosters and no shared hour off.',
+    body: [
+      'Royal Columbian runs around the clock, and when one partner, or both, works a rotating roster there, an in-person couples appointment needs both partners free at the same time and in the same place, which on two schedules that change every few weeks is the reason the first session keeps being postponed.',
+      'By video there is no shared room to reach, only a shared hour to find, and two rosters compared side by side usually show one. Planning sessions around the roster, a few close together when both of you are off and then a planned gap, keeps momentum better than a weekly slot that one of you keeps missing.',
+    ],
+    faqs: [
+      { q: 'We both work shifts. How does scheduling actually work?', a: 'Compare rosters before booking and choose blocks where you are both off, then book those sessions together. The booking calendar shows the counsellor’s real open times, and a gap planned around a heavy stretch costs nothing.' },
+      { q: 'Can couples sessions be in Punjabi?', a: 'No. Couples work here is offered in English or Tagalog only. Punjabi is available for individual counselling, so one partner could do individual work in Punjabi alongside, and the free 30-minute consultation is the place to sort out which fits.' },
+      { q: 'Can one of us join from work?', a: 'Yes, as long as the room is private and nobody can walk in. Two partners on two connections is an ordinary set-up, and both links are checked before the session gets going.' },
+    ],
+  },
+  {
+    city: 'new-westminster', service: 'trauma-therapy',
+    angle: 'New Westminster has urgent mental-health care in town; what it does not supply is the slower work once the crisis has passed.',
+    body: [
+      'Fraser Health’s Urgent Care Response Centre North at Royal Columbian offers urgent assessment, crisis support and referral, and it is the right door on a bad day. Its job is assessment, stabilising and connecting people to other services, which leaves the months of steady work that trauma often needs, once the immediate danger is over, to be found somewhere else.',
+      'That slower work is weekly or close to it, paced so that you stay within what you can handle, and it starts with stabilising skills before any memory is approached. Holding it at home, with no trip back past the hospital where the crisis was handled, removes one more reminder from a process that already has enough of them.',
+    ],
+    faqs: [
+      { q: 'I was seen at the urgent care centre. Can I start counselling as well?', a: 'Yes. Starting private counselling does not take you off any public list or service, and the two can run side by side. If you were given a referral or a follow-up plan, bring it to the free consultation so the work fits around it.' },
+      { q: 'Do I need a referral from the urgent care centre or a doctor?', a: 'No. You can book a Registered Clinical Counsellor yourself. A referral letter or care plan is useful to bring, but nothing has to come from a doctor first.' },
+      { q: 'Do I have to talk through what happened in detail?', a: 'Not at the start, and sometimes not at all. Early sessions focus on safety and on skills for managing what comes up, and how much detail is ever needed is decided with you.' },
+    ],
+  },
+  {
+    city: 'new-westminster', service: 'emdr-therapy',
+    angle: 'After EMDR processing the trip home matters, and from New Westminster most trips home cross a river or a city line.',
+    body: [
+      'An EMDR processing session can leave you tired, stirred up or simply foggy for an hour or two. When the EMDR-trained counsellor you found is in Burnaby, Vancouver or Surrey, that hour is spent in traffic over the Fraser or on a crowded train, which is about the worst setting for letting the session settle.',
+      'By video, the session ends where you already are. The preparation is unchanged: grounding skills are practised first, the on-screen bilateral stimulation is rehearsed before it is used for anything difficult, and a quiet stretch afterwards becomes easy to plan instead of something you hope the commute allows.',
+    ],
+    faqs: [
+      { q: 'What should I plan for after an EMDR session?', a: 'A buffer. Avoid booking anything demanding straight afterwards, have the grounding skills from preparation to hand, and know which crisis lines to use if something feels like too much. Sessions are booked appointments and there is nobody to page between them, so the plan for the hours after is settled before processing begins.' },
+      { q: 'Can EMDR be done in Tagalog?', a: 'Yes. EMDR currently runs in English or Tagalog, and many people move between the two when the material is from an earlier part of life. It is not offered in Punjabi at the moment.' },
+    ],
+  },
+
 ];
 
 /** Cities that carry paired pages. Every one must exist in cityContexts. */

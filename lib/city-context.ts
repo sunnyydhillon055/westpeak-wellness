@@ -119,7 +119,7 @@ export const cityContexts: CityContext[] = [
       'Public mental-health intake for Burnaby runs through Fraser Health, not Vancouver Coastal, which surprises people who work downtown and assume the city they commute to is the one that covers them. Private practices here are fewer than the population would suggest, and many people simply travel west.',
     unlock:
       'Not travelling west. A virtual session removes the assumption that serious counselling has to happen in Vancouver and be fitted around a commute in both directions.',
-    nearby: ['vancouver', 'surrey'],
+    nearby: ['vancouver', 'surrey', 'new-westminster'],
   },
   {
     slug: 'abbotsford',
@@ -344,6 +344,20 @@ export const cityContexts: CityContext[] = [
     unlock:
       'The crossing stops being part of the appointment. Nothing about a session depends on how the Lions Gate or the Ironworkers is moving that day, or on catching a sailing from Bowen.',
     nearby: ['vancouver', 'burnaby'],
+  },
+  {
+    slug: 'new-westminster',
+    city: 'New Westminster',
+    inCity: 'in New Westminster',
+    region: 'Metro Vancouver',
+    authority: 'Fraser Health',
+    travel:
+      'New Westminster is small, so the distance is short and the crossing is the problem. Queensborough is across the Fraser from the rest of the city, Surrey is over the new bridge, and Burnaby and Vancouver are a SkyTrain ride in each direction.',
+    inPerson:
+      'Fraser Health’s public services are close: a self-referral mental health centre on Sixth Street and an urgent care response centre at Royal Columbian. The private specialist often is not, because a city this size holds few of them, and searches tend to end in Burnaby or Vancouver.',
+    unlock:
+      'The city line stops mattering. The counsellor trained in what you need can be anywhere in British Columbia, and the session still starts at home.',
+    nearby: ['burnaby', 'vancouver'],
   },
 ];
 

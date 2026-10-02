@@ -424,6 +424,32 @@ export const TAGALOG_CITIES: TagalogCity[] = [
       { q: 'Can my partner and I have couples sessions in Tagalog?', a: 'Yes. Couples sessions can run in Tagalog, English or both, and EMDR is available in Tagalog as well.' },
     ],
   },
+  /* NEW WESTMINSTER, 2 Oct 2026. Owner decision of the same day: the figure
+     is stated plainly, attributed in the sentence and cited on the New
+     Westminster hub, which links here. 2021 Census, mother tongue, single
+     responses: Tagalog 3,270 of 78,270 in New Westminster (CSD 5915029),
+     4.2%, 4,235 counting multiple responses; Mandarin 2,950, Punjabi 2,810.
+     Tagalog share elsewhere: Richmond 3.7%, Surrey 3.3%, Vancouver 2.9%,
+     Burnaby 2.8%, Coquitlam 1.7%.
+     https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055915029&GENDERlist=1&STATISTIClist=1&HEADERlist=0
+     read 2 Oct 2026 through StatCan's data service. The argument is
+     closeness: the city's largest language after English, in a city small
+     enough that people keep running into each other. English only; no
+     Tagalog words added. */
+  {
+    slug: 'new-westminster',
+    city: 'New Westminster',
+    angle: 'Tagalog is New Westminster’s most common mother tongue after English, a larger share than in Vancouver, Burnaby, Surrey or Richmond.',
+    body: [
+      'In the 2021 Census 3,270 New Westminster residents gave Tagalog as their mother tongue, 4.2% of the city and more than any language other than English (Statistics Canada, 2021 Census Profile). Proportionally that is a larger share than in Vancouver, Burnaby, Coquitlam, Surrey or Richmond, in a city small enough that people keep running into each other. For some people that closeness is exactly why a counsellor from outside them is easier to talk to.',
+      'New Westminster is also a hospital city, built around Royal Columbian, and a hospital runs on rotating rosters. Sessions by video in Tagalog, English or both, with no travel either side and nobody local to run into, fit around a roster and keep what is said private.',
+    ],
+    faqs: [
+      { q: 'I live in Queensborough. Is that included?', a: 'Yes. Queensborough is part of New Westminster, across the Fraser from the rest of the city, and video sessions reach it on exactly the same terms as Sapperton or Uptown.' },
+      { q: 'I work shifts at the hospital. Can sessions fit around that?', a: 'Yes. Bring your roster to the free consultation and sessions can be placed in the weeks it leaves open, with a pause agreed for the heavy ones. The booking calendar shows the real open times.' },
+      { q: 'Could someone from my community find out I am seeing a counsellor?', a: 'Not from this practice. There is no office to be seen entering and nothing is shared with anybody without your consent. The limits of confidentiality, such as risk of serious harm, are set out on the standards page and are the same as anywhere.' },
+    ],
+  },
 ];
 
 export const getTagalogCity = (slug: string) => TAGALOG_CITIES.find((c) => c.slug === slug);

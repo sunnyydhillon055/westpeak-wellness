@@ -2607,6 +2607,53 @@ place twins and no new Punjabi or Tagalog sentences.
 
 ---
 
+### New Westminster gets its own pages, for the specialist over the line
+Decided 2 Oct 2026 (owner decision of the same day: each city in the October
+batch gets all ten pages). New Westminster has a hub, five city-service pages,
+both counsellors' English place pages, a Punjabi region page and a Tagalog
+city page. Its argument, which Burnaby's page does not make: Burnaby's is
+about landing in the wrong public queue, and here the public door is in town
+(Fraser Health's New Westminster Mental Health Centre on Sixth Street takes
+self-referrals from adults, and Fraser Health announced the Urgent Care
+Response Centre North at Royal Columbian in April 2025). What sits over a
+city line or a river is the private specialist: Burnaby and Vancouver by
+SkyTrain, Surrey over the stal̕əw̓asəm Bridge, and for Queensborough the
+Fraser itself. The pairs take it from there: anxiety and a crowded train or
+a bridge, low mood in a first year at Douglas College, the slower work after
+an urgent-care visit, two hospital rosters and no shared hour, and the trip
+home after EMDR processing. The depression pair is titled "Depression
+Therapy" because "Depression Counselling in New Westminster | Westpeak
+Wellness" is 61 characters.
+
+Tagalog is the city's most common mother tongue after English: 3,270 single
+responses of 78,270 (4.2%), ahead of Mandarin (2,950) and Punjabi (2,810),
+and a larger share than in Vancouver, Burnaby, Surrey, Richmond or
+Coquitlam. The Tagalog page states that figure. The Punjabi page argues
+distance and states its size plainly (2,810, 3.6%, fourth after English,
+Tagalog and Mandarin; 3,220 counting multiple responses), one river from
+Surrey's 128,310. Figures were read through Statistics Canada's data service
+on 2 Oct, when the www12 Census Profile pages returned 404 from here, and are
+cited at the Census Profile, as every other city is. The Fraser Health Crisis
+Line is cited to Options Community Services and 310-6789 to the Crisis Centre
+of BC, as on Maple Ridge. The Sixth Street centre is cited at Fraser Health's
+Mental Health Centres directory, which names it, rather than at a location
+page headed for a different team.
+
+`new-westminster` leaves `retiredCitySlugs` and its `RETIRED_TOWN_HOMES`
+entry. Burnaby's communities lose New Westminster, Burnaby links the new page
+from an access line and lists it in `nearby` and its city context. No other
+retired town moves: Port Coquitlam and Port Moody stay with Coquitlam. Burnaby's
+Tagalog place twin still asks, in Tagalog, whether New Westminster is covered;
+that stays true and is left for review rather than edited here. EMDR, couples
+and language claims stay out of the hub's intro, access and first five FAQs.
+No /tl or /pa place twins and no new Punjabi or Tagalog sentences.
+
+*Enforced by:* `test/regional-pages.test.mts`, `test/roster-nav.test.mts`,
+`test/link-anchors.test.mts`, `test/service-languages.test.mts`,
+`test/city-hub.test.mts`, `test/city-template.test.mts`, `scripts/smoke.mjs`
+
+---
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`

@@ -547,7 +547,7 @@ export const locations: Location[] = [
     figure2: 'first-session-flow',
     figure: "bc-reach",
     city: "Burnaby",
-    communities: ["Metrotown", "Brentwood", "Lougheed", "New Westminster"],
+    communities: ["Metrotown", "Brentwood", "Lougheed"],
     region: "Metro Vancouver",
     blurb: "Burnaby looks west for services and is covered by Fraser Health. A mismatch that costs people weeks.",
     metaDescription:
@@ -566,7 +566,7 @@ export const locations: Location[] = [
       ],
     },
     access: [
-      { label: "No trip across the city", detail: "The commute west is the most common reason a course of sessions here ends early." },
+      { label: "No trip across the city", detail: "The commute west is the most common reason a course of sessions here ends early. [New Westminster and Queensborough](/online-counselling/new-westminster) have a page of their own." },
       { label: "No referral, no diagnosis", detail: "Counselling with an RCC is accessed directly, whichever authority covers your address." },
       { label: "Punjabi or English", detail: "Including moving between both inside a single session." },
     ],
@@ -580,7 +580,7 @@ export const locations: Location[] = [
       { label: "Fraser Health, mental health and substance use services", url: "https://www.fraserhealth.ca/health-topics-a-to-z/mental-health-and-substance-use" },
       { label: "BC Association of Clinical Counsellors, find a counsellor", url: "https://bc-counsellors.org/counsellors/" },
     ],
-    nearby: ["vancouver", "surrey"],
+    nearby: ["vancouver", "surrey", "new-westminster"],
   },
   {
     slug: "langley",
@@ -1751,6 +1751,83 @@ export const locations: Location[] = [
     ],
     nearby: ["vancouver", "burnaby"],
     audiences: ["university-students", "healthcare-and-shift-workers"],
+  },
+  /* ── New Westminster, 2 Oct 2026 ──────────────────────────────────────────
+   *
+   * 'new-westminster' was retired in the Phase 1 audit and 308'd to the
+   * Burnaby page, which named "New Westminster" among its communities. It is
+   * removed from lib/redirects.mjs in the same change, Burnaby's communities
+   * lose the name, and Burnaby links here from an access line.
+   *
+   * The argument no neighbour's page makes: Burnaby's page is about the wrong
+   * public queue. Here the public door is in town (a self-referral mental
+   * health centre on Sixth Street, and Fraser Health's Urgent Care Response
+   * Centre North at Royal Columbian), and it is the private SPECIALIST that
+   * is over a city line or a river: Burnaby, Vancouver, or Surrey over the
+   * stal̕əw̓asəm Bridge, and for Queensborough the Fraser itself.
+   *
+   * Census figures (mother tongue, single responses; New Westminster CSD
+   * 5915029): total 78,270; Tagalog 3,270 (4.2%), Mandarin 2,950, Punjabi
+   * 2,810. Tagalog share elsewhere: Richmond 3.7%, Surrey 3.3%, Vancouver
+   * 2.9%, Burnaby 2.8%, Coquitlam 1.7%. Read through Statistics Canada's data
+   * service on 2 Oct, when the www12 Census Profile pages returned 404 from
+   * here, and cited at the Census Profile, as every other city is.
+   *
+   * Language, EMDR and couples claims sit in localReality and in faqs[5+],
+   * outside what the place pages copy (SHAPE §4). No hours, no wait times. */
+  {
+    slug: "new-westminster",
+    figure2: "first-session-flow",
+    figure: "bc-reach",
+    city: "New Westminster",
+    communities: ["Queensborough", "Sapperton", "Uptown", "Queen’s Park", "Brow of the Hill", "Connaught Heights"],
+    region: "Metro Vancouver",
+    blurb: "Public mental-health care is in town here. The specialist you need is often over a bridge or a city line.",
+    metaDescription:
+      "Online counselling for New Westminster, Queensborough and Sapperton. Trauma, anxiety, EMDR and couples therapy by secure video, with no bridge to cross.",
+    intro: [
+      "New Westminster is a small city with a large hospital. Royal Columbian is here, with Fraser Health’s Mental Health and Substance Use Wellness Centre on the same site, and adults can refer themselves to the city’s public mental-health centre on Sixth Street. On the public side, care is unusually close to home. The city itself is not large, wedged between Burnaby, Coquitlam and the Fraser, and that is where the private side runs out.",
+      "A city this size holds only so many counsellors, and fewer again trained in one particular approach. So a search that starts in New Westminster tends to finish in Burnaby, Vancouver or Surrey, which means a SkyTrain ride or a river crossing each way, every week. Video takes the crossing out of it. A [Registered Clinical Counsellor](/compare/rcc-vs-psychologist-vs-social-worker-bc) anywhere in BC is as available in Sapperton as next door.",
+    ],
+    localReality: {
+      h2: "Public care on the doorstep, private care over the line",
+      body: [
+        "**The public route is close, and it is Fraser Health’s.** Adults 19 and over can self-refer to the New Westminster Mental Health Centre on Sixth Street for assessment, treatment, and individual and group therapy. For something urgent that does not need a hospital bed, Fraser Health announced the Urgent Care Response Centre North at Royal Columbian in April 2025, and it takes self-referrals by phone as well as walk-ins. Both are worth using, and private counselling runs alongside them rather than instead.",
+        "**The specialist is the part that is somewhere else.** The [Burnaby page](/online-counselling/burnaby) describes people who look west and end up in the wrong public queue. From New Westminster the queue is the right one; what sits over the city line is the counsellor trained in the thing you need, whether that is trauma-focused work, [EMDR](/services/emdr-therapy) or structured couples work.",
+        "**Every way out crosses something.** Queensborough sits on Lulu Island, across the Fraser from the rest of the city. Surrey is over the stal̕əw̓asəm Bridge that replaced the Pattullo. Burnaby and Vancouver are a SkyTrain ride. None of those is far. Each is the part of a weekly appointment that has to be repeated in both directions, every week, after a working day.",
+        "**A hospital city keeps a roster.** Royal Columbian runs around the clock, and for anyone on a rotating roster there, or in the services around it, a fixed weekly slot rarely survives the schedule. The page for [healthcare and shift workers](/for/healthcare-and-shift-workers) covers what tends to come up, and the booking calendar shows each counsellor’s real open times.",
+        "**Douglas College has a campus here, on Royal Avenue.** Registered students in credit courses can see a college counsellor at no charge, and that is the right place to start. Where it is not the right fit, [counselling for university and college students](/for/university-students) sets out how private sessions sit alongside a student plan.",
+        "**Tagalog is the city’s most common mother tongue after English.** In the 2021 Census 3,270 New Westminster residents gave Tagalog as their mother tongue, 4.2% of the city, ahead of Mandarin and Punjabi and a larger share than in Vancouver, Burnaby, Surrey or Richmond. Punjabi was the mother tongue of 2,810. [Tagalog-speaking counselling in New Westminster](/tagalog-counselling/new-westminster) and [Punjabi-speaking counselling in New Westminster](/punjabi-counselling/new-westminster) say what each means for sessions.",
+      ],
+    },
+    access: [
+      { label: "No bridge, no SkyTrain transfer", detail: "From Queensborough, Sapperton or Uptown, the session starts in the room you are already in, with no crossing either side of it." },
+      { label: "Not limited to the city limits", detail: "A small city holds a handful of private practices. The search can run across every registered counsellor in British Columbia instead." },
+      { label: "Queensborough on the same terms", detail: "The island side of the city gets identical access, along with Sapperton, Uptown, Queen’s Park, Brow of the Hill and Connaught Heights." },
+      { label: "Fits a hospital roster", detail: "Sessions can be grouped into the weeks a roster leaves free, with a pause agreed in advance for the heavy stretches." },
+    ],
+    faqs: [
+      { q: "Which health authority covers New Westminster?", a: "Fraser Health. Adults 19 and over can refer themselves to the New Westminster Mental Health Centre on Sixth Street, with no doctor’s referral. None of that affects seeing a Registered Clinical Counsellor privately, and the two can run side by side." },
+      { q: "Burnaby and Vancouver are close. Why not go in person?", a: "If an in-person counsellor a SkyTrain ride away suits you, that is a reasonable choice. The difficulty is rarely the distance on a map. It is the crossing every week, on top of a working day, and a missed crossing is a missed session. By video there is no crossing to miss." },
+      { q: "I live in Queensborough. Is that any different?", a: "No. Queensborough is part of New Westminster on the far side of the Fraser, and sessions by secure video reach it exactly as they reach Sapperton or Uptown. Being on the island side changes nothing about access or fee." },
+      { q: "I work rotating shifts at the hospital. Can sessions fit?", a: "Yes, if it is planned for at the start. Sessions booked in blocks around a roster, with agreed gaps, keep the thread of the work better than a weekly slot that keeps being cancelled. The booking calendar shows each counsellor’s real open times." },
+      { q: "Is there something free I should look at first?", a: "Yes. Fraser Health’s mental health centre on Sixth Street takes self-referrals from adults, the Fraser Health Crisis Line answers at 604-951-8855, 310-6789 connects to mental-health support anywhere in BC, and 8-1-1 reaches HealthLink BC. Douglas College students in credit courses can see a college counsellor at no charge. The low-cost counselling page lists more. If one of those fits, use it." },
+      { q: "Can I have EMDR or couples therapy from New Westminster?", a: "Yes, by secure video. EMDR by video keeps its preparation and pacing, and the way bilateral stimulation is delivered on screen is explained and practised before any processing. For couples, each partner can join from wherever they are, which is often what makes a shared hour possible at all." },
+      { q: "Can sessions be in Tagalog or Punjabi from New Westminster?", a: "Yes, each with the counsellor who speaks it. In a city where Tagalog is the most common mother tongue after English, Tagalog sessions cover individual counselling, couples work and EMDR. Punjabi sessions are individual counselling only, and couples work and EMDR run in English or Tagalog. Switching into English partway through is normal either way." },
+    ],
+    sources: [
+      { label: "Fraser Health, Mental Health Centres directory (New Westminster Mental Health Centre, Sixth Street)", url: "https://www.fraserhealth.ca/Service-Directory/Services/mental-health-and-substance-use/mental-health-centres/mental-health-centres" },
+      { label: "Fraser Health, new centre reduces barriers to mental-health and substance-use care (April 2025)", url: "https://www.fraserhealth.ca/news/2025/Apr/New-centre-reduces-barriers-to-mental-health-substance-use-care" },
+      { label: "Statistics Canada, 2021 Census Profile: New Westminster (CSD 5915029)", url: "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055915029&GENDERlist=1&STATISTIClist=1&HEADERlist=0" },
+      { label: "Statistics Canada, 2021 Census Profile: Vancouver, Burnaby, Surrey and Richmond (mother tongue, for comparison)", url: "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055915022,2021A00055915025,2021A00055915004,2021A00055915015&GENDERlist=1&STATISTIClist=1&HEADERlist=0" },
+      { label: "stal̕əw̓asəm Bridge (Pattullo Bridge replacement), bridge opening", url: "https://www.pattullobridgereplacement.ca/construction/bridge-opening/" },
+      { label: "City of New Westminster, Queensborough historical context statement", url: "https://www.newwestcity.ca/database/rte/files/Queensborough%20Context%20FINAL.pdf" },
+      { label: "Douglas College, counselling services", url: "https://www.douglascollege.ca/student-services/counselling-services" },
+      { label: "Fraser Health Crisis Line (Options Community Services)", url: "https://www.options.bc.ca/program/fraser-health-crisis-line" },
+      { label: "Crisis Centre of BC, 310 Mental Health Support (310-6789) and 9-8-8", url: "https://crisiscentre.bc.ca/" },
+    ],
+    nearby: ["burnaby", "coquitlam"],
+    audiences: ["healthcare-and-shift-workers", "university-students"],
   },
 ];
 

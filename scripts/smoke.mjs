@@ -174,6 +174,13 @@ const CHECKS = [
   ['/punjabi-counselling/north-vancouver', 200],
   ['/tagalog-counselling/north-vancouver', 200],
   ['/online-counselling/west-vancouver', 308, '/online-counselling/north-vancouver'],
+  /* New Westminster 308'd to Burnaby until 2 Oct 2026, when it got a page of its own. */
+  ['/online-counselling/new-westminster', 200],
+  ['/online-counselling/new-westminster/depression-counselling', 200],
+  ['/practitioners/camille-granda/new-westminster', 200],
+  ['/practitioners/savneet-singh/new-westminster', 200],
+  ['/punjabi-counselling/new-westminster', 200],
+  ['/tagalog-counselling/new-westminster', 200],
   ['/for/mens-mental-health', 308, '/for'],
   /* /answers was retired 31 Aug 2026 and redirected to /faq; it came back
      on 14 Sep as the instant-answer page (checked as 200 above). */

@@ -75,6 +75,8 @@ test('no slug is both retired and a page: Penticton and Fort St. John are pages 
   assert.ok(getLocation('north-vancouver'));
   assert.equal(dest('north-vancouver'), undefined);
   assert.equal(dest('west-vancouver'), '/online-counselling/north-vancouver');
+  assert.ok(getLocation('new-westminster'));
+  assert.equal(dest('new-westminster'), undefined);
 });
 
 test('the new pages and the community edits', () => {
@@ -123,7 +125,12 @@ test('the new pages and the community edits', () => {
   for (const t of ['West Vancouver', 'Deep Cove', 'Bowen Island', 'Lions Bay']) assert.ok(getLocation('north-vancouver')!.communities!.includes(t), t);
   assert.ok(getLocation('vancouver')!.nearby!.includes('north-vancouver'));
   assert.ok(getLocation('vancouver')!.access!.some((a) => a.detail.includes('](/online-counselling/north-vancouver)')), 'Vancouver links North Vancouver');
-  for (const slug of ['penticton', 'fort-st-john', 'saanich', 'maple-ridge', 'vernon', 'mission', 'courtenay', 'langford', 'cranbrook', 'campbell-river', 'north-vancouver']) {
+  // New Westminster has its own hub since 2 Oct 2026; Burnaby stopped naming it and links it instead.
+  assert.ok(!getLocation('burnaby')!.communities!.includes('New Westminster'), 'New Westminster is on its own page');
+  for (const t of ['Queensborough', 'Sapperton', 'Uptown']) assert.ok(getLocation('new-westminster')!.communities!.includes(t), t);
+  assert.ok(getLocation('burnaby')!.nearby!.includes('new-westminster'));
+  assert.ok(getLocation('burnaby')!.access!.some((a) => a.detail.includes('](/online-counselling/new-westminster)')), 'Burnaby links New Westminster');
+  for (const slug of ['penticton', 'fort-st-john', 'saanich', 'maple-ridge', 'vernon', 'mission', 'courtenay', 'langford', 'cranbrook', 'campbell-river', 'north-vancouver', 'new-westminster']) {
     const l = getLocation(slug)!;
     assert.ok(healthAuthorityFor(slug), `${slug} has an authority`);
     assert.ok(l.metaDescription.replace(/&/g, '&amp;').length <= 155, `${slug} description`);
