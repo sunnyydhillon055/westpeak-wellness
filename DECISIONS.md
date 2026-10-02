@@ -1978,6 +1978,88 @@ reproduce-with-attribution terms and print without booking prompts.
 
 ---
 
+### A counsellor's booking link opens her calendar; couples consultations are their own /book; rotation pages ask for a time
+Decided 1 Oct 2026 (branch `wf/book-and-cta`, items 259, 270, 280, 281, 288,
+289). (1) A booking link that names one counsellor ends in #calendar. This
+applies to `bookHrefFor`, `bookingFor`, the header and sticky bar, and
+NextConsultLine, so /book opens her calendar on arrival. Bare /book never
+carries the hash, so its gate and its Lighthouse figure stand. (2)
+/book?for=couples is a couples consultation. It is honoured only with a
+counsellor who offers couples work, and shows a couples heading and prompt,
+the two couples catalogue formats, and the line "both partners can join".
+scheduler_open counts it as `couples`. Couples routes add it through
+`bookHrefFor(counsellors, 'couples-therapy')`. Pending with the owner: whether
+the consult link works on two devices, and whether to add a $0 couples
+consultation type. Neither is built and no copy claims either. (3)
+/book?with= shows only that counsellor's session types and lengths, read from
+the catalogue. "About" links go to her profile, or to /practitioners on bare
+/book, never /about. (4) The reviewed Gurmukhi line on /book moves under the
+heading when the chosen counsellor is bookable in Punjabi. It is never
+duplicated. (5) The next free consultation line runs on /for pages (filtered by
+language AND service; no line when nobody fits; not on the HR page) and on
+Punjabi region pages. (6) Shift and rotation audience pages (`ROTATION` in
+`lib/audiences.ts`) link /book's #ask-for-a-time form. The copy says only that
+the reply is a time not yet on the calendar.
+
+*Enforced by:* `test/book-cta-links.test.mts`, `test/booking-cta.test.mts`,
+`test/roster-nav.test.mts`
+
+---
+
+### Client email is attributed, previewed and unsubscribable; the consult follow-up has two branches
+Decided 1 Oct 2026 (branch `wf/client-mail`, items 254, 272, 285, 286, 287,
+293). (1) The day-after consult note now has two branches. If a paid session
+is still to come, it confirms it ("Your first session is booked": date,
+counsellor, first-session guide, paid cancellation terms) with no calendar
+link and no fee. Otherwise it offers only the first-session types of the
+counsellor the person met, with fees from `readCatalog()`, and opens her
+calendar narrowed to the type when there is exactly one. (2) Client email is
+attributed. `email` is a CHANNEL, appended after `press` and `student`. Every
+site link in client mail carries utm_source=email&utm_campaign=<template> from
+a fixed ten-word list. Paid-calendar links in the consult, after-session,
+missed and reactivation mail go through a new first-party redirect,
+/book/session. It validates against the roster, the paid types and the list,
+counts book_click `email:<template>[/slug]` and 302s to the same Cliniko URL.
+Nothing about the person is in any link. (3) `sendDetailed` defaults reply_to
+to info@, so portal mail replies reach a person. (4) Lead email 1 and nurture 2
+and 3 carry RFC 8058 List-Unsubscribe headers, and /api/unsubscribe accepts the
+one-click POST. Transactional mail never carries them. (5) Every client email
+has a real inbox preview line. Confirmation and reminder subjects carry the
+short day and time but never the service. (6) Nurture email 2's button is the
+free-consult page, followed by the counsellors. Email 1's counsellors are
+buttons. No new mail, no timing change, nothing sent.
+
+*Enforced by:* `test/client-mail.test.mts`, `test/booking-mail.test.mts`,
+`test/lead-pipeline.test.mts`
+
+---
+
+### The reach line is generated; one registered locality; the first-paint CSS is pruned per page
+Decided 1 Oct 2026 (branch `wf/sitewide-facts-perf`, items 283, 284, 299,
+301). (1) The practice's reach line is generated, not typed. `site.serviceArea`
+is now only the clause true of every counsellor ("Virtual counselling across
+British Columbia"). `serviceAreaLine()` in `lib/practitioners.ts` appends "and
+elsewhere in Canada with Camille" from the insured, accepting roster, and it
+drops at the same build as the Alberta hub and JSON-LD when her policy lapses
+(validTo 2026-10-01, gate 2026-10-15). (2) One registered-locality constant:
+`REGISTERED_LOCALITY` in `lib/site.ts` is White Rock, BC, CA, with no street and
+the note "online only, no office". The Organization JSON-LD, the footer,
+/contact, the vCard ADR, ai.json and llms.txt all read it. Email renders before
+phone in the footer, /contact and the vCard. (3) The inline first-paint CSS is
+pruned per document (`scripts/css-prune.mjs`): a selector is left out only if
+its class or id appears nowhere in the document or in client JS. The full
+stylesheet still loads from the same position. Median page HTML went from
+191,566 to 158,021 B and largest from 270,979 to 236,376 B on the branch.
+Homepage CSS and layout JS are unchanged. The perf baseline was not touched;
+lowering it to bank the gain is the owner's call. `PRUNE_CSS=0` reverts. (4)
+Punjabi words page: confidentiality limits now come from
+`CONFIDENTIALITY_LIMITS`, and the table's English cell was corrected.
+
+*Enforced by:* `test/service-area.test.mts`, `test/nap-consistency.test.mts`,
+`test/css-prune.test.mts`
+
+---
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`
