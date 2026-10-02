@@ -19,9 +19,11 @@ import { topSearchTerms, readSearchTerms, searchGaps } from '@/lib/search-log';
 import { REPLY_TEMPLATES, mailtoFor, businessDaysWaiting, replyTimeStats } from '@/lib/reply-templates';
 import { eventTotals, topPagesFor, readConversions, detailsOf, bookClickBreakdown, funnelCuts, channelVisits, clicksOfLandings, bookingCredit } from '@/lib/conversion-log';
 import { readBookingTally, tallyRows, tallyLine } from '@/lib/booking-tally-read';
-import { funnelJoins, consultLines, enquiryLines, retentionLines } from '@/lib/funnel-report';
+import { funnelJoins, consultLines, enquiryLines, retentionLines, arrivalRows } from '@/lib/funnel-report';
 import { recentSnapshots, lastWeek, weekTable, type WeekRow } from '@/lib/conversion-snapshots';
-import { readGscSummary, newestGscDate, gscLines } from '@/lib/gsc-summary';
+import { readGscSummary, newestGscDate, gscLines, readGscWeeks, gscWeekLines, readGscExports } from '@/lib/gsc-summary';
+import { weeklyKpis, type KpiTile } from '@/lib/weekly-kpis';
+import { dueChanges, changeLines, readChanges } from '@/lib/change-register';
 import { practitioners } from '@/lib/practitioners';
 import NoCountSwitch from '@/components/NoCountSwitch';
 import { readLedger, recordContacted } from '@/lib/lifecycle';
@@ -143,11 +145,14 @@ export default async function AdminPage({
      Cliniko calls to spend on every load of this page, so it runs when
      asked (?funnel=1). Same function as the monthly email. Counts only. */
   const joinsAsked = searchParams?.funnel === '1';
+  /* One read of every stored submission, shared by the join below and the
+     weekly table (1 Oct 2026; it was read twice). */
+  const inboundAll = (await readInbound({ fresh: true })).items;
   const joinsFrom = (() => { const d = new Date(); d.setUTCDate(1); d.setUTCHours(0, 0, 0, 0); d.setUTCMonth(d.getUTCMonth() - 1); return d; })();
   const joinsTo = (() => { const d = new Date(); d.setUTCDate(1); d.setUTCHours(0, 0, 0, 0); return d; })();
   const joinsMonth = joinsFrom.toLocaleDateString('en-CA', { month: 'long', year: 'numeric', timeZone: 'UTC' });
   const joins = joinsAsked && clinikoConfigured()
-    ? await funnelJoins(joinsFrom, joinsTo, (await readInbound({ fresh: true })).items)
+    ? await funnelJoins(joinsFrom, joinsTo, inboundAll)
     : null;
   const joinsText = joins
     ? [
@@ -173,15 +178,28 @@ export default async function AdminPage({
      2026, for the eight-week table: every neighbouring pair, per
      counsellor, with the booking tally and the consultation slots each
      snapshot copied, and the messages written on /book that week. */
-  const snapshots = await recentSnapshots(9);
+  /* Fourteen since 1 Oct 2026: the table reads the newest nine, and the
+     change readouts under the strip need a snapshot near 28 days before a
+     change as well as at it and 28 days after. Read in parallel. */
+  const snapshots = await recentSnapshots(14);
   const week = lastWeek(snapshots);
   const rosterSlugs = practitioners.filter((p) => p.acceptingNewClients && p.bookable).map((p) => p.slug);
   const bookMessages = snapshots.length > 1
-    ? (await readInbound()).items
+    ? inboundAll
         .filter((i) => i.kind === 'enquiry' && isRealSubmission(i) && (i.source || '').split('?')[0] === '/book')
         .map((i) => ({ createdAt: i.createdAt, practitioner: i.practitioner }))
     : [];
-  const weeks = weekTable(snapshots, rosterSlugs, bookMessages);
+  /* Every real enquiry and lead, not only /book's, per week and counsellor,
+     with how many were answered within a business day (1 Oct 2026). */
+  const weeks = weekTable(snapshots, rosterSlugs, bookMessages, inboundAll);
+  /* THIS WEEK: six outcome numbers against the week before and a four-week
+     mean, with the noise test (lib/weekly-kpis.ts). Search Console by
+     Monday-to-Sunday week from date-page.csv, the home page apart. */
+  const gscWeeks = readGscWeeks();
+  const kpis = weeklyKpis(weeks, gscWeeks);
+  /* The change register's readouts whose 28 days are up. Until now only the
+     monthly email printed them, and the 1 Oct batches fall due on 29 Oct. */
+  const changesDue = changeLines(dueChanges(readChanges(), snapshots, readGscExports()));
   /* Which landing and which button led to a click and to a confirmed
      booking (1 Oct 2026), and mailto: presses beside the messages. */
   const credit = bookingCredit(log);
@@ -396,6 +414,8 @@ export default async function AdminPage({
             </ul>
           </div>
         )}
+
+        <KpiStrip tiles={kpis} changes={changesDue} />
 
         {/* The promise, measured. Every page says "a reply within one business
             day"; this is the only thing that can tell you whether that is true.
@@ -841,18 +861,20 @@ export default async function AdminPage({
                 </ul>
               </>
             )}
-            {landingClasses.rows.length > 0 && (
+            {(landingClasses.rows.length > 0 || credit.byLanding.length > 0) && (
               <>
                 <h3 style={{ marginTop: 22 }}>Where sessions began, by referrer</h3>
                 <p style={{ color: 'var(--ink-soft)', margin: '4px 0 8px', fontSize: '.92em' }}>
-                  The first page of each session, by the kind of site that linked to it. Only the
-                  class is recorded, never the address.{landingsSince && ` Counted since ${landingsSince}.`}
+                  The first page of each session, by the kind of site that linked to it, beside the
+                  booking clicks and confirmed bookings those visits went on to make. edu, press and
+                  org are links earned from campuses, papers and agencies. Only the class is
+                  recorded, never the address.{landingsSince && ` Counted since ${landingsSince}.`}
                 </p>
                 <ul className="admin-terms">
-                  {landingClasses.rows.map((r) => (
-                    <li key={r.detail}>
-                      <span>{r.detail}</span>
-                      <span>{r.count}</span>
+                  {arrivalRows(credit, landingClasses.rows).map((r) => (
+                    <li key={r.via}>
+                      <span>{r.via}</span>
+                      <span>{r.sessions === null ? '–' : r.sessions} sessions · {r.clicks} clicks · {r.booked} booked</span>
                     </li>
                   ))}
                 </ul>
@@ -1067,7 +1089,7 @@ export default async function AdminPage({
 
         <div id="search-console" className="admin-panel" style={{ marginTop: 22 }}>
           <h3 style={{ marginTop: 0 }}>Search Console</h3>
-          <pre style={{ margin: '4px 0 0', fontSize: '.85rem', lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>{gscLines(gsc, googleLandings).join('\n')}</pre>
+          <pre style={{ margin: '4px 0 0', fontSize: '.85rem', lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>{[...gscLines(gsc, googleLandings), '', ...gscWeekLines(gscWeeks)].join('\n')}</pre>
         </div>
 
         <div id="funnel" className="admin-panel" style={{ marginTop: 22 }}>
@@ -1479,6 +1501,50 @@ export default async function AdminPage({
   );
 }
 
+/* THIS WEEK — 1 Oct 2026. Six outcome numbers from lib/weekly-kpis.ts,
+   each beside the week before and the four-week mean. The mark is the noise
+   test, not the arithmetic: at a handful a week most moves are chance, and
+   the tile says "too few to tell" rather than an arrow. A number that was
+   not measured shows a dash and why. Below it, the change register's
+   readouts that have fallen due. */
+function KpiStrip({ tiles, changes }: { tiles: KpiTile[]; changes: string[] }) {
+  const week = tiles.find((t) => t.id !== 'google' && t.week)?.week;
+  return (
+    <section className="admin-panel kpi-strip" aria-labelledby="this-week" style={{ marginTop: 20 }}>
+      <h2 id="this-week" style={{ marginTop: 0, fontSize: '1.05rem' }}>
+        This week{week ? <span className="kpi-week"> ({week})</span> : null}
+      </h2>
+      <div className="kpi-tiles">
+        {tiles.map((t) => (
+          <div key={t.id} className="kpi-tile">
+            <span className="kpi-label">{t.label}</span>
+            <strong className="kpi-value">
+              {t.value === null ? '–' : t.value}
+              {t.trend && <span className={`kpi-mark kpi-mark--${t.trend}`} aria-label={t.trend === 'up' ? 'up' : 'down'}>{t.trend === 'up' ? ' ▲' : ' ▼'}</span>}
+            </strong>
+            {t.value === null ? (
+              <span className="kpi-note">{t.reason}</span>
+            ) : (
+              <>
+                {t.sub && <span className="kpi-note">{t.sub}</span>}
+                <span className="kpi-note">
+                  last week {t.last === null ? '–' : t.last} · four-week mean {t.mean4 === null ? '–' : t.mean4}
+                </span>
+                <span className="kpi-note">{t.trendText}</span>
+                {t.id === 'google' && t.week && <span className="kpi-note">{t.week}</span>}
+                {t.partial && <span className="kpi-note">partial: {t.partial}</span>}
+              </>
+            )}
+          </div>
+        ))}
+      </div>
+      {changes.length > 0 && (
+        <pre style={{ margin: '14px 0 0', fontSize: '.85rem', lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>{changes.join('\n')}</pre>
+      )}
+    </section>
+  );
+}
+
 /* LAST 7 DAYS — 1 Oct 2026. The two newest Monday snapshots of the counters,
    subtracted (lib/conversion-snapshots.ts), so the week reads as counts for
    that week rather than one total since 18 Aug. Booking clicks are shown
@@ -1562,7 +1628,7 @@ function WeekTable({ rows }: { rows: WeekRow[] }) {
       {who.map((w) => (
         <div key={w} style={{ marginTop: 12, overflowX: 'auto' }}>
           <p style={{ margin: '0 0 4px', fontWeight: 600 }}>{w === 'all' ? 'The practice (/book; the portal is left out)' : w}</p>
-          <table style={{ borderCollapse: 'collapse', fontSize: '.85rem', minWidth: 640 }}>
+          <table style={{ borderCollapse: 'collapse', fontSize: '.85rem', minWidth: 900 }}>
             <thead>
               <tr>
                 <th style={{ ...head, textAlign: 'left' }}>week to</th>
@@ -1575,8 +1641,14 @@ function WeekTable({ rows }: { rows: WeekRow[] }) {
                 <th style={head}>held</th>
                 <th style={head}>paid booked</th>
                 <th style={head}>missed</th>
+                <th style={head}>new paying</th>
+                <th style={head}>paid held</th>
+                <th style={head}>paid cancelled</th>
                 <th style={head}>open consult slots</th>
                 <th style={head}>time asked for</th>
+                <th style={head}>enquiries</th>
+                <th style={head}>answered in a business day</th>
+                <th style={head}>leads</th>
               </tr>
             </thead>
             <tbody>
@@ -1592,8 +1664,14 @@ function WeekTable({ rows }: { rows: WeekRow[] }) {
                   <td style={cell}>{n(r.consultHeld)}</td>
                   <td style={cell}>{n(r.paidBooked)}</td>
                   <td style={cell}>{n(r.dna)}</td>
+                  <td style={cell}>{n(r.converted)}</td>
+                  <td style={cell}>{n(r.paidHeld)}</td>
+                  <td style={cell}>{n(r.paidCancelled)}</td>
                   <td style={cell}>{r.slots === null ? '–' : `${r.slots}${r.slotDays.length ? ` (${r.slotDays.join(', ')})` : ''}`}</td>
                   <td style={cell}>{r.timeRequests}</td>
+                  <td style={cell}>{n(r.enquiries)}</td>
+                  <td style={cell}>{n(r.answeredInDay)}</td>
+                  <td style={cell}>{n(r.leads)}</td>
                 </tr>
               ))}
             </tbody>
@@ -1608,7 +1686,10 @@ function WeekTable({ rows }: { rows: WeekRow[] }) {
       <p style={{ margin: '8px 0 0', color: 'var(--ink-soft)', fontSize: '.85rem' }}>
         Open consult slots are the free consultations Cliniko showed for the 14 days after the week
         began. A counsellor&rsquo;s book clicks are the ones whose link named her; her calendar
-        columns are her calendar on /book.
+        columns are her calendar on /book. New paying is a held consultation whose client then
+        booked a paid session. Enquiries and leads are real ones only (no probes, scripts or
+        throwaway addresses), from every form; answered means marked answered within one
+        business day.
       </p>
     </>
   );

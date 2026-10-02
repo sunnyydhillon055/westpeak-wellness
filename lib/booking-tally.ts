@@ -22,7 +22,7 @@ import { strongEtag } from '@/lib/blob-etag';
      analytics/booking-tally.json
      { months: { 'YYYY-MM': { [slug | 'unknown']: {
          consultBooked, paidBooked, consultCancelled, paidCancelled,
-         consultHeld, paidHeld, dna } } },
+         consultHeld, paidHeld, dna, consultConverted } } },
        updatedAt }
 
    WHICH MONTH. Booked counts in the month it was booked (created_at),
@@ -49,6 +49,11 @@ export type TallyCounts = {
   consultHeld: number;
   paidHeld: number;
   dna: number;
+  /** A held consultation whose patient then has a paid session booked:
+   *  a new paying client. Credited to the consultation's counsellor, in the
+   *  month the booking job first saw it. From 1 Oct 2026; see
+   *  convertedConsults in lib/booking-followups.ts. */
+  consultConverted: number;
 };
 
 export type BookingTally = {
@@ -59,7 +64,7 @@ export type BookingTally = {
 export type TallyEvent = { key: string; month: string; slug: string; field: keyof TallyCounts };
 
 export const emptyCounts = (): TallyCounts => ({
-  consultBooked: 0, paidBooked: 0, consultCancelled: 0, paidCancelled: 0, consultHeld: 0, paidHeld: 0, dna: 0,
+  consultBooked: 0, paidBooked: 0, consultCancelled: 0, paidCancelled: 0, consultHeld: 0, paidHeld: 0, dna: 0, consultConverted: 0,
 });
 
 /** 'YYYY-MM' in Vancouver, or null for a missing or unreadable time. */
@@ -119,6 +124,19 @@ export function tallyEvents<A extends ApptForTally>(
     }
   }
   return out;
+}
+
+/** One "new paying client" event per consultation, keyed "v:<id>", in the
+ *  Vancouver month it was first seen (now), under the consultation's
+ *  counsellor. Pure: the caller decides which consultations converted
+ *  (convertedConsults) and drops the keys already counted. */
+export function conversionEvents<A extends { id: string | number }>(
+  consults: A[],
+  opts: { now: number; slugFor: (ap: A) => string | undefined },
+): TallyEvent[] {
+  const month = vancouverMonth(new Date(opts.now).toISOString());
+  if (!month) return [];
+  return consults.map((ap) => ({ key: `v:${ap.id}`, month, slug: opts.slugFor(ap) || 'unknown', field: 'consultConverted' as const }));
 }
 
 /** The tally with these events added. Pure; does not mutate its input. */

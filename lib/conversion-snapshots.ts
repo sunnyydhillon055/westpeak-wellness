@@ -3,6 +3,9 @@ import { blobLedger } from '@/lib/blob-ledger';
 import { readConversions, parseConversions, diffLogs, type ConversionLog } from '@/lib/conversion-log';
 import { parseBookingTally, TALLY_FIELDS, type TallyField } from '@/lib/booking-tally-read';
 import { splitBookDetail } from '@/lib/conversion-detail';
+import { isRealSubmission, looksHuman } from '@/lib/inbound-quality';
+import { businessDaysWaiting } from '@/lib/reply-templates';
+import type { Inbound } from '@/lib/inbound';
 
 const PORTAL_PATH = '/client-portal';
 
@@ -44,7 +47,16 @@ export type Snapshot = {
    *  taken, per counsellor: how many and on which weekdays. From 1 Oct 2026,
    *  so "open more consult days" can be read against what was offered. */
   slots?: Record<string, SlotSupply>;
+  /** The booking job's last recorded run as the copy was taken (from
+   *  1 Oct 2026). The tally is written only when something new is counted,
+   *  so its own updatedAt cannot tell a quiet day from a stopped job; this
+   *  can. Absent on older snapshots. */
+  bookingJob?: { at: string; ok: boolean };
 };
+
+/** How old the booking job's last good run may be, at the copy, before the
+ *  tally in it is taken as behind. The job runs every two hours. */
+export const TALLY_STALE_HOURS = 6;
 
 export type SlotSupply = { count: number; days: string[] };
 
@@ -71,7 +83,23 @@ export function parseSnapshot(raw: unknown): Snapshot | null {
     conversions: parseConversions(r.conversions),
     ...(r.bookings !== undefined ? { bookings: r.bookings } : {}),
     ...(r.slots && typeof r.slots === 'object' ? { slots: slotSupply(r.slots as Record<string, { count?: unknown; days?: unknown }>) } : {}),
+    ...(r.bookingJob && typeof r.bookingJob === 'object' && typeof r.bookingJob.at === 'string'
+      ? { bookingJob: { at: r.bookingJob.at, ok: r.bookingJob.ok === true } }
+      : {}),
   };
+}
+
+/** Why the booking tally copied into a snapshot may be behind, or null when
+ *  it is current or there is no way to tell (a snapshot from before the job's
+ *  run was copied). Pure. */
+export function tallyStaleness(s: Pick<Snapshot, 'takenAt' | 'bookingJob'>): string | null {
+  if (!s.bookingJob) return null;
+  if (!s.bookingJob.ok) return `the booking job's last run before the ${s.takenAt.slice(0, 10)} copy failed`;
+  const hours = (Date.parse(s.takenAt) - Date.parse(s.bookingJob.at)) / 3.6e6;
+  if (!Number.isFinite(hours)) return null;
+  return hours > TALLY_STALE_HOURS
+    ? `the booking job had not run for ${Math.round(hours)} h when the ${s.takenAt.slice(0, 10)} copy was taken`
+    : null;
 }
 
 /** Copies the counters to this week's snapshot. A second run the same day
@@ -88,11 +116,18 @@ export async function takeSnapshot(now = new Date()): Promise<{ key: string; tot
     .then((m) => m.consultationAvailabilityNow())
     .then(slotSupply)
     .catch(() => null);
+  /* The booking job's last run, so a week whose tally copy was behind can
+     be marked partial (tallyStaleness). Loaded like the slots above. */
+  const job = await import('@/lib/cron-health')
+    .then((m) => m.readCronHealth())
+    .then((h) => h['booking-mail'] ?? null)
+    .catch(() => null);
   const snap: Snapshot = {
     takenAt: now.toISOString(),
     conversions,
     ...(bookings ? { bookings: bookings.body } : {}),
     ...(slots ? { slots } : {}),
+    ...(job ? { bookingJob: { at: job.at, ok: job.ok } } : {}),
   };
   const key = snapshotKey(now);
   /* Unconditional on purpose: nothing else writes a snapshot, and a rerun
@@ -113,13 +148,10 @@ export async function recentSnapshots(n = 2): Promise<Snapshot[]> {
       .sort()
       .reverse()
       .slice(0, n);
-    const out: Snapshot[] = [];
-    for (const key of newest) {
-      const hit = await blobLedger(key).read();
-      const snap = parseSnapshot(hit?.body ?? null);
-      if (snap) out.push(snap);
-    }
-    return out;
+    /* In parallel (1 Oct 2026): nine sequential reads were nine round trips
+       on every load of /admin. Order is kept by the index, not by arrival. */
+    const read = await Promise.all(newest.map((key) => blobLedger(key).read().then((hit) => parseSnapshot(hit?.body ?? null)).catch(() => null)));
+    return read.filter((x): x is Snapshot => x !== null);
   } catch {
     return [];
   }
@@ -162,15 +194,54 @@ export type WeekRow = {
   consultHeld: number | null;
   paidBooked: number | null;
   dna: number | null;
+  /** Paid sessions held and cancelled that week, from the tally. */
+  paidHeld: number | null;
+  paidCancelled: number | null;
+  /** New paying clients: held consultations whose patient then booked a
+   *  paid session (tally field consultConverted, from 1 Oct 2026). */
+  converted: number | null;
+  /** Real enquiries written that week (not a probe, not quarantined, not a
+   *  throwaway address, and not a script by lib/inbound-quality.ts). Null
+   *  when no inbound records were passed in. */
+  enquiries: number | null;
+  /** Real leads (sign-ups that ask for nothing) that week. */
+  leads: number | null;
+  /** Of `enquiries`, how many were marked answered within one business day. */
+  answeredInDay: number | null;
   /** Open consultation slots in the 14 days after the week began. */
   slots: number | null;
   slotDays: string[];
   /** Messages from /book's "None of these times work?" box that week. */
   timeRequests: number;
   partial: string[];
+  /** Set when the booking tally copied at either end was behind; the
+   *  week is then left out of the means on /admin. */
+  tallyStale?: string;
 };
 
 export type TimeRequest = { createdAt: string; practitioner?: string };
+
+/** The inbound fields the weekly counts read. The message is read only by
+ *  the bot test, never shown. */
+export type InboundLite = Pick<Inbound, 'kind' | 'email' | 'name' | 'message' | 'source' | 'triage' | 'createdAt' | 'practitioner' | 'handledAt'>;
+
+/** A real enquiry: not a probe, a quarantine or a throwaway address, and
+ *  not a script. Shared by the weekly table and the strip. */
+export const realEnquiry = (i: InboundLite) => i.kind === 'enquiry' && isRealSubmission(i) && looksHuman(i);
+/** A real lead: a lead sign-up asks for nothing, so the message-based bot
+ *  test does not apply; the honeypot band and the address do. */
+export const realLead = (i: InboundLite) => i.kind === 'lead' && isRealSubmission(i);
+/** Answered within one business day of arriving, by its handledAt. */
+export const answeredInOneDay = (i: Pick<Inbound, 'createdAt' | 'handledAt'>) =>
+  !!i.handledAt && Number.isFinite(Date.parse(i.handledAt)) && businessDaysWaiting(i.createdAt, new Date(i.handledAt)) <= 1;
+
+/** Whether a tally copy carries a field at all: a tally written before a
+ *  field existed reads it as 0, which must not be shown as "none". */
+const tallyHas = (bookings: unknown, f: TallyField): boolean => {
+  const months = (bookings as { months?: Record<string, Record<string, Record<string, unknown>>> } | undefined)?.months;
+  if (!months || typeof months !== 'object') return false;
+  return Object.values(months).some((rows) => Object.values(rows ?? {}).some((r) => !!r && typeof r === 'object' && f in r));
+};
 
 const sumAt = (m: Record<string, number> | undefined, pick: (k: string) => boolean) =>
   Object.entries(m ?? {}).reduce((n, [k, v]) => (pick(k) ? n + v : n), 0);
@@ -190,7 +261,7 @@ const tallyBy = (bookings: unknown) => {
 
 /** Eight weeks of the funnel from the newest nine snapshots (newest first),
  *  for the practice and for each slug in `slugs`. Pure. */
-export function weekTable(snaps: Snapshot[], slugs: string[], requests: TimeRequest[] = []): WeekRow[] {
+export function weekTable(snaps: Snapshot[], slugs: string[], requests: TimeRequest[] = [], inbound?: InboundLite[]): WeekRow[] {
   const rows: WeekRow[] = [];
   for (let i = 0; i + 1 < snaps.length && i < 8; i++) {
     const newer = snaps[i];
@@ -210,6 +281,15 @@ export function weekTable(snaps: Snapshot[], slugs: string[], requests: TimeRequ
     const tNew = tallyBy(newer.bookings);
     const tOld = tallyBy(older.bookings);
     const reqIn = requests.filter((r) => r.createdAt > from && r.createdAt <= to);
+    const inbIn = inbound?.filter((r) => r.createdAt > from && r.createdAt <= to);
+    const stale = Array.from(new Set([tallyStaleness(newer), tallyStaleness(older)].filter((x): x is string => !!x)));
+    if (stale.length) weekPartial.push(...stale);
+    /* New paying clients began counting on 1 Oct 2026. A copy without the
+       field cannot say how many there were, and the copy before the first
+       one that has it would turn the backfill into one week's count. */
+    const convertedState: 'none' | 'part' | 'full' = !tallyHas(newer.bookings, 'consultConverted')
+      ? 'none'
+      : tallyHas(older.bookings, 'consultConverted') ? 'full' : 'part';
 
     for (const who of ['all', ...slugs]) {
       const partial = [...weekPartial];
@@ -234,6 +314,8 @@ export function weekTable(snaps: Snapshot[], slugs: string[], requests: TimeRequ
         return Math.max(0, pick(tNew) - pick(tOld));
       };
       if (!tNew || !tOld) partial.push('no booking tally copied');
+      if (convertedState === 'part' && tNew && tOld) partial.push('new paying clients counted from this week, including the first run’s backfill');
+      const mineIn = (r: InboundLite) => who === 'all' || r.practitioner === who;
       const supply = older.slots
         ? who === 'all'
           ? { count: Object.values(older.slots).reduce((n, x) => n + x.count, 0), days: Array.from(new Set(Object.values(older.slots).flatMap((x) => x.days))) }
@@ -252,10 +334,17 @@ export function weekTable(snaps: Snapshot[], slugs: string[], requests: TimeRequ
         consultHeld: tally('consultHeld'),
         paidBooked: tally('paidBooked'),
         dna: tally('dna'),
+        paidHeld: tally('paidHeld'),
+        paidCancelled: tally('paidCancelled'),
+        converted: convertedState === 'none' ? null : tally('consultConverted'),
+        enquiries: inbIn ? inbIn.filter((r) => realEnquiry(r) && mineIn(r)).length : null,
+        leads: inbIn ? inbIn.filter((r) => realLead(r) && mineIn(r)).length : null,
+        answeredInDay: inbIn ? inbIn.filter((r) => realEnquiry(r) && mineIn(r) && answeredInOneDay(r)).length : null,
         slots: supply ? supply.count : null,
         slotDays: supply ? supply.days : [],
         timeRequests: reqIn.filter((r) => who === 'all' || r.practitioner === who).length,
         partial: Array.from(new Set(partial)),
+        ...(stale.length ? { tallyStale: stale.join('; ') } : {}),
       });
     }
   }

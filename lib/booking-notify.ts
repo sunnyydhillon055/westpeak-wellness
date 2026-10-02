@@ -12,9 +12,9 @@ import { practitioners, withLetters, type Practitioner } from '@/lib/practitione
 import { FALLBACK_CATALOG, money } from '@/lib/cliniko-catalog';
 import { shell, p, esc } from '@/lib/booking-mail';
 import { mailtoBookingDraft } from '@/lib/reply-templates';
-import { tallyEvents, addToBookingTally } from '@/lib/booking-tally';
+import { tallyEvents, conversionEvents, addToBookingTally } from '@/lib/booking-tally';
 import {
-  telehealthUrlOf, unconvertedConsults, idFromLink, consultReplyTo,
+  telehealthUrlOf, unconvertedConsults, convertedConsults, idFromLink, consultReplyTo,
   lapsedPaidClients, lapsedKey, paidFollowUpPlan, nextAfter, typeIdOf,
 } from '@/lib/booking-followups';
 
@@ -60,7 +60,8 @@ const TZ = 'America/Vancouver';
                          consultation and booked nothing after it. Patient,
                          not appointment, so nobody is the subject of that
                          notice twice whatever they book later.
-     tallied             event keys ("b:<appointment id>", "c:", "h:", "d:")
+     tallied             event keys ("b:<appointment id>", "c:", "h:", "d:",
+                         and "v:<consultation id>" for a new paying client)
                          already counted into analytics/booking-tally.json.
                          See lib/booking-tally.ts. */
 /* `lapsedAlerted` and `followUpSkipped` added 1 Oct 2026.
@@ -728,11 +729,20 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
      the whole window again. */
   const tallied = new Set(ledger.tallied);
   if (!ledger.readFailed) {
-    const fresh = tallyEvents(appts, {
-      now,
-      isConsult: (ap) => isConsultAppointment(ap, CONSULT_TYPE),
-      slugFor: (ap) => practitionerFor(ap)?.slug,
-    }).filter((e) => !tallied.has(e.key));
+    const fresh = [
+      ...tallyEvents(appts, {
+        now,
+        isConsult: (ap) => isConsultAppointment(ap, CONSULT_TYPE),
+        slugFor: (ap) => practitionerFor(ap)?.slug,
+      }),
+      /* New paying clients (1 Oct 2026): a held consultation whose patient
+         has a paid session booked, once per consultation ("v:<id>"), to the
+         consultation's counsellor. Counts only; nothing is sent. */
+      ...conversionEvents(convertedConsults(appts, { now, isConsult: (ap) => isConsultAppointment(ap, CONSULT_TYPE) }), {
+        now,
+        slugFor: (ap) => practitionerFor(ap)?.slug,
+      }),
+    ].filter((e) => !tallied.has(e.key));
     if (opts.dry) result.tallied = fresh.length;
     else if (fresh.length && (await addToBookingTally(fresh))) {
       for (const e of fresh) tallied.add(e.key);

@@ -18,7 +18,7 @@ import {
   retention, retentionPatients, sourceBucket, foldSmall, mergeRebook, mergeDepth, median,
   REBOOK_DAYS, DEPTH_DAYS, IDLE_DAYS, MIN_GROUP, OTHER_GROUP, type Retention, type RebookRow, type DepthRow,
 } from '@/lib/funnel-joins';
-import { readGscSummary, readGscExports, gscLines, type GscRead } from '@/lib/gsc-summary';
+import { readGscSummary, readGscExports, gscLines, readGscWeeks, gscWeekLines, type GscRead, type GscWeeksRead } from '@/lib/gsc-summary';
 import { dueChanges, changeLines, readChanges, type ChangeReadout } from '@/lib/change-register';
 import { recentSnapshots } from '@/lib/conversion-snapshots';
 import { readBookingTally, tallyRows, tallyLine, type TallyRow } from '@/lib/booking-tally-read';
@@ -110,6 +110,11 @@ type Counts = {
   retention?: Retention | null;
   /** Search Console from the newest committed export. */
   gsc?: GscRead;
+  /** Search Console clicks per Monday-to-Sunday week, from date-page.csv. */
+  gscWeeks?: GscWeeksRead;
+  /** Sessions by how they arrived (the landing event's referrer class).
+   *  All time, like the channels. */
+  landings?: DetailConversions[];
   /** Changes in data/changes.json whose read-after date has passed. */
   changes?: ChangeReadout[];
 };
@@ -381,6 +386,8 @@ export async function gather(opts: { now?: Date } = {}): Promise<{ counts: Count
       emailClicks: detailsOf(log, 'email_click'),
       retention: ck.retention ?? null,
       gsc,
+      gscWeeks: readGscWeeks(),
+      landings: detailsOf(log, 'landing').rows,
       changes: dueChanges(readChanges(), await recentSnapshots(14), readGscExports(), opts.now ?? new Date()),
     },
   };
@@ -489,7 +496,7 @@ function bookClickLines(c: Counts): string[] {
 /** Booking clicks and confirmed bookings by the page the visit began on,
  *  and by the button pressed last before the calendar. Shared by the email
  *  and /admin. Empty until something has been credited. */
-export function creditLines(credit: BookingCredit | undefined): string[] {
+export function creditLines(credit: BookingCredit | undefined, landings?: DetailConversions[]): string[] {
   if (!credit || (!credit.byLanding.length && !credit.byButton.some((b) => b.booked))) return [];
   const out = ['Where the visit began, for booking clicks and confirmed bookings (since 1 Oct 2026):', ''];
   out.push('  clicks · booked  landing page (how the visit arrived)');
@@ -498,7 +505,33 @@ export function creditLines(credit: BookingCredit | undefined): string[] {
   if (noLanding > 0) out.push(`  ${pad(noLanding, 11)}  booked in a visit with no landing kept`);
   out.push('', '  By the button pressed last before the calendar:', '  clicks · booked  button');
   for (const r of credit.byButton) out.push(`  ${pad(r.clicks)} · ${pad(r.booked, 4)}  ${r.button}`);
+  const arrivals = arrivalRows(credit, landings);
+  if (arrivals.length) {
+    out.push('', '  By how the visit arrived (the link’s channel, else the referrer class;',
+      '  edu, press and org are links earned from campuses, papers and agencies):',
+      '  sessions · clicks · booked  arrived by');
+    for (const r of arrivals) out.push(`  ${r.sessions === null ? '       –' : pad(r.sessions, 8)} · ${pad(r.clicks, 6)} · ${pad(r.booked, 6)}  ${r.via}`);
+  }
   return out;
+}
+
+export type ArrivalRow = { via: string; sessions: number | null; clicks: number; booked: number };
+
+/** Booking clicks and bookings summed by how the visit arrived, beside the
+ *  sessions that began that way. A channel word has no session count of its
+ *  own here (the landing event counts the referrer class), so it reads as a
+ *  dash rather than 0. Pure; shared by the email and /admin. */
+export function arrivalRows(credit: BookingCredit | undefined, landings?: DetailConversions[]): ArrivalRow[] {
+  const by = new Map<string, ArrivalRow>();
+  const sessions = new Map((landings ?? []).map((r) => [r.detail, r.count]));
+  for (const r of credit?.byLanding ?? []) {
+    const row = by.get(r.via) ?? { via: r.via, sessions: sessions.get(r.via) ?? null, clicks: 0, booked: 0 };
+    row.clicks += r.clicks;
+    row.booked += r.booked;
+    by.set(r.via, row);
+  }
+  for (const [via, n] of sessions) if (!by.has(via)) by.set(via, { via, sessions: n, clicks: 0, booked: 0 });
+  return [...by.values()].sort((a, b) => b.booked - a.booked || b.clicks - a.clicks || (b.sessions ?? 0) - (a.sessions ?? 0) || a.via.localeCompare(b.via));
 }
 
 /** Rebooking, depth and the paid-but-nothing-booked count, by counsellor
@@ -627,13 +660,13 @@ export function render(counts: Counts, from: Date, to: Date, clinikoOk: boolean)
     );
   }
 
-  const creditBlock = creditLines(counts.credit);
+  const creditBlock = creditLines(counts.credit, counts.landings);
   if (creditBlock.length) lines.push(...creditBlock, '');
   const mailBlock = emailClickLines(counts.emailClicks);
   if (mailBlock.length) lines.push(...mailBlock, '');
   const retentionBlock = retentionLines(counts.retention, month);
   if (retentionBlock.length) lines.push(...retentionBlock, '');
-  const gscBlock = counts.gsc ? gscLines(counts.gsc) : [];
+  const gscBlock = counts.gsc ? [...gscLines(counts.gsc), ...(counts.gscWeeks ? ['', ...gscWeekLines(counts.gscWeeks)] : [])] : [];
   if (gscBlock.length) lines.push(...gscBlock, '');
   const changeBlock = changeLines(counts.changes ?? []);
   if (changeBlock.length) lines.push(...changeBlock, '');

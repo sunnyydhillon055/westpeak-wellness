@@ -18,6 +18,10 @@ export const TALLY_KEY = 'analytics/booking-tally.json';
 
 export const TALLY_FIELDS = [
   'consultBooked', 'paidBooked', 'consultCancelled', 'paidCancelled', 'consultHeld', 'paidHeld', 'dna',
+  /* From 1 Oct 2026: a held consultation whose patient then booked a paid
+     session. A tally written before it existed reads 0 here; weekTable
+     checks the raw copy for the field before trusting that zero. */
+  'consultConverted',
 ] as const;
 export type TallyField = (typeof TALLY_FIELDS)[number];
 export type TallyRow = Record<TallyField, number>;
@@ -83,5 +87,6 @@ export function tallyRows(t: BookingTally, month: string): { slug: string; row: 
 /** One line per counsellor, shared by the email and /admin wording. */
 export function tallyLine(row: TallyRow): string {
   return `${row.consultBooked} consult${row.consultBooked === 1 ? '' : 's'} booked, ${row.consultHeld} held, ${row.consultCancelled} cancelled · `
-    + `${row.paidBooked} paid booked, ${row.paidHeld} held, ${row.paidCancelled} cancelled · ${row.dna} missed`;
+    + `${row.paidBooked} paid booked, ${row.paidHeld} held, ${row.paidCancelled} cancelled · ${row.dna} missed`
+    + ` · ${row.consultConverted} new paying client${row.consultConverted === 1 ? '' : 's'}`;
 }

@@ -156,3 +156,19 @@
 .admin-table td.admin-actions::before{ display:none; }
 .admin-actions form{ padding-top:4px; }
 }
+
+/* THIS WEEK strip on /admin (lib/weekly-kpis.ts) — 1 Oct 2026. Six tiles,
+   two or three across on a phone, six on a wide screen. Tokens only. */
+.kpi-week{ font-weight:400; color:var(--ink-faint); font-size:.9rem; }
+.kpi-tiles{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px;
+  background:var(--line); border:1px solid var(--line);
+  border-radius:var(--radius); overflow:hidden; margin-top:12px;
+}
+.kpi-tile{ background:var(--surface-0); padding:14px; display:grid; gap:4px; align-content:start; }
+.kpi-label{ font-size:.82rem; color:var(--ink-soft); font-weight:600; }
+.kpi-value{ font-family:var(--font-display); font-size:1.6rem; line-height:1.1; color:var(--ink); }
+.kpi-mark{ font-size:.9rem; }
+.kpi-mark--up{ color:var(--blue-deep); }
+.kpi-mark--down{ color:var(--clay-deep); }
+.kpi-note{ font-size:.78rem; color:var(--ink-faint); line-height:1.4; }
