@@ -68,3 +68,11 @@ export function placeTitle(p: Titled, city: string): string {
     `${p.name}: ${other} counselling, ${city}`,
   ]);
 }
+
+const PROVINCE_LONG: Record<string, string> = { BC: 'British Columbia', AB: 'Alberta' };
+
+/** onlineIn() spelled out for a heading: "Canada", "British Columbia", or
+ *  "British Columbia and Alberta". The profile's "Where she works" heading
+ *  said British Columbia for a counsellor whose fact strip said Canada. */
+export const onlineInLong = (p: Titled) =>
+  p.reach === 'canada' ? 'Canada' : p.provinces.map((c) => PROVINCE_LONG[c] ?? c).join(' and ');

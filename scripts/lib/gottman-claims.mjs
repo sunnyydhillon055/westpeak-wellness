@@ -12,12 +12,31 @@
  * that is the founder's, or that carries a `gottmanTraining:` field — the
  * record that would confirm a level. Add that field to a counsellor's entry
  * when the owner confirms her training (owner item #67), and her own copy may
- * then say it. Run by scripts/seo-audit.mjs; tested in test/gottman-claims. */
+ * then say it. Run by scripts/seo-audit.mjs; tested in test/gottman-claims.
+ *
+ * A BARE "GOTTMAN METHOD" CLAIM, TOO — 1 Oct 2026. "Couples work here is
+ * grounded in the Gottman Method", "using the Gottman Method", a card label
+ * "Gottman Method: …" and the service name "Gottman Method Couples Therapy"
+ * all say the practice delivers the method, which is the same unrecorded
+ * level in other words. Writing ABOUT the method stays allowed: "What makes
+ * the Gottman Method different", "How the Gottman Method works", "Gottman
+ * Method vs EFT", "Gottman Method-informed". Only these claim shapes fail. */
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
 export const FOUNDER_SLUG = 'aman-bains-dhillon';
 const CLAIM = /gottman[-\s]trained/i;
+const METHOD_CLAIMS = [
+  /* "using / grounded in / based on … the Gottman Method", not "-informed". */
+  /\b(?:using|uses|use|grounded in|based on|rooted in|practi[cs](?:e|es|ing)|offers?|offering|provides?|providing|delivers?|delivering|trained in|certified in|follows?|following)\s+(?:the\s+)?Gottman Method\b(?![-\s]informed)/i,
+  /* A label: a string that opens "Gottman Method:". */
+  /["'`]\s*Gottman Method\s*:/i,
+  /* The method named as the service itself. */
+  /["'`]Gottman Method (?:Couples )?Therapy["'`]/i,
+];
+/** True when a line claims the practice delivers the Gottman Method, or is
+ *  Gottman-trained. */
+export const isGottmanClaim = (line) => CLAIM.test(line) || METHOD_CLAIMS.some((re) => re.test(line));
 const SLUG = /^\s*slug:\s*['"]([^'"]+)['"]/;
 const EXT = /\.(ts|tsx|mts|mjs|js|md)$/;
 
@@ -44,7 +63,7 @@ export function claimsIn(file, text, isRoster = false) {
   text.split('\n').forEach((line, i) => {
     const m = line.match(SLUG);
     if (m) current = m[1];
-    if (!CLAIM.test(line)) return;
+    if (!isGottmanClaim(line)) return;
     if (isRoster && current && allowed.has(current)) return;
     out.push({ file, line: i + 1, text: line.trim().slice(0, 120) });
   });

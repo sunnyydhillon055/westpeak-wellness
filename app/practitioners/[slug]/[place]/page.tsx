@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { site } from '@/lib/site';
+import { personStub } from '@/lib/practitioner-facts';
 import { practitioners, getPractitioner, withLetters, type Practitioner, type Credential } from '@/lib/practitioners';
 import { practitionerPlaces, getPractitionerPlace, placesFor, resolvePlace } from '@/lib/practitioner-places';
 import { crisisFor } from '@/lib/crisis';
@@ -212,7 +213,9 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
       dateModified: tagalogProfileDate(),
       author: orgRef,
       isPartOf: siteRef,
-      mainEntity: { '@id': `${site.domain}/practitioners/${p.slug}#person` },
+      /* Inline, not a bare @id: the full Person is on the English profile, and
+         a ProfilePage whose subject has no name on the page is invalid. */
+      mainEntity: personStub(p),
     };
 
     return (
@@ -329,9 +332,12 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
   const schema = [
     {
       '@context': 'https://schema.org',
-      '@type': 'ProfilePage',
+      /* WebPage about her, not her ProfilePage — 1 Oct 2026. The page is
+         about a service in a city; her profile is the ProfilePage. Its main
+         entity is the Service below, and `about` carries her inline. */
+      '@type': 'WebPage',
       '@id': `${site.domain}/practitioners/${p.slug}/${loc.slug}#page`,
-      mainEntity: { '@id': `${site.domain}/practitioners/${p.slug}#person` },
+      mainEntity: { '@id': `${site.domain}/practitioners/${p.slug}/${loc.slug}#service` },
       isPartOf: siteRef,
       inLanguage: 'en-CA',
       /* Real commit date for the module this page's copy lives in, from
@@ -340,7 +346,7 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
       datePublished: placePageDate(),
       dateModified: placePageDate(),
       author: orgRef,
-      about: orgRef,
+      about: personStub(p),
     },
     {
       '@context': 'https://schema.org',
@@ -358,6 +364,7 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
     {
       '@context': 'https://schema.org',
       '@type': 'Service',
+      '@id': `${site.domain}/practitioners/${p.slug}/${loc.slug}#service`,
       name: `Online counselling in ${loc.city} with ${p.name}`,
       serviceType: 'Counselling',
       provider: { '@id': `${site.domain}/practitioners/${p.slug}#person` },
@@ -640,7 +647,7 @@ function PunjabiProfile({ p }: { p: Practitioner }) {
     dateModified: COLLECTION_DATES['punjabiProfiles'],
     author: orgRef,
     isPartOf: siteRef,
-    mainEntity: { '@id': `${site.domain}/practitioners/${p.slug}#person` },
+    mainEntity: personStub(p),
   };
 
   return (

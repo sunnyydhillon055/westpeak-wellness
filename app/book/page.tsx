@@ -21,6 +21,7 @@ import { shortAvailabilityLine } from '@/lib/book-card';
 import MailLink from '@/components/MailLink';
 import BookLink from '@/components/BookLink';
 import { planYearPageLineShown, YEAR_END_PATH } from '@/lib/seasonal';
+import { FirstSessionRows } from '@/components/FirstSessionRow';
 
 export const metadata: Metadata = {
   title: 'Book a Free 30-Minute Consultation',
@@ -428,6 +429,9 @@ export default async function Book({
                   );
                 })}
               </div>
+              {/* One secondary "first session" row per card, behind
+                  site.directFirstSession (off; lib/first-session.ts). */}
+              <FirstSessionRows people={accepting} />
               <p style={{ margin: '12px 0 0', fontSize: '.92rem', color: 'var(--ink-soft)' }}>
                 Or pick a time below and choose the counsellor on the calendar itself.
               </p>

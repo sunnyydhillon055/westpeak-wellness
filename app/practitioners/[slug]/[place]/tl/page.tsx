@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { site } from '@/lib/site';
+import { personStub } from '@/lib/practitioner-facts';
 import { practitioners, getPractitioner, withLetters } from '@/lib/practitioners';
 import { getPractitionerPlace, placesFor, resolvePlace } from '@/lib/practitioner-places';
 import { TAGALOG_READY } from '@/lib/practitioner-tl';
@@ -130,7 +131,7 @@ export default function TagalogPlacePage({ params }: { params: Params }) {
       dateModified: COLLECTION_DATES['tagalogPlaces'],
       author: orgRef,
       isPartOf: siteRef,
-      mainEntity: { '@id': `${site.domain}/practitioners/${p.slug}#person` },
+      mainEntity: personStub(p),
     },
     {
       '@context': 'https://schema.org',

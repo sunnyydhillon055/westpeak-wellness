@@ -10,7 +10,7 @@ import Analytics from '@/components/Analytics';
 import ConsentGate from '@/components/ConsentGate';
 import { site } from '@/lib/site';
 import { services } from '@/lib/services';
-import { navRoster } from '@/lib/practitioners';
+import { navRoster, orgCounsellors, servedProvinceNames } from '@/lib/practitioners';
 import { therapyNode, placeNode, KNOWS_ABOUT_ENTITIES } from '@/lib/entities';
 import { FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
 import { offeringLanguages, pairedLanguageClause, sitewideDescription } from '@/lib/snippet-facts';
@@ -23,6 +23,11 @@ import { offeringLanguages, pairedLanguageClause, sitewideDescription } from '@/
  * reaches the browser bundle. */
 const LANGS = offeringLanguages();
 const PAIRED = pairedLanguageClause(LANGS);
+
+/* The number as E.164 with separators, the form schema.org's examples use
+   and the one a parser reads without guessing at the area code. Built from
+   site.phoneTel so it cannot drift from the tel: links. */
+const TELEPHONE = site.phoneTel.replace(/^\+1(\d{3})(\d{3})(\d{4})$/, '+1-$1-$2-$3');
 
 const PRICE_RANGE = (() => {
   const cents = FALLBACK_CATALOG.items.map((i) => i.cents).filter((c) => c > 0);
@@ -161,11 +166,12 @@ const orgSchema = {
      British Columbia and more than one Alberta, and a practice that may only
      see clients sitting in these two had better mean the Canadian ones. */
   areaServed: [
-    placeNode('British Columbia'),
     /* Alberta since 1 Sep 2026, through the counsellor whose certification and
-       insurance reach there (lib/practitioners.ts). The footer, the vCard and
-       her 24 pages said so; this node still said BC only until 6 Sep. */
-    placeNode('Alberta'),
+       insurance reach there. A literal until 1 Oct 2026; now read from the
+       gated roster (servedProvinceNames in lib/practitioners.ts), so a lapsed
+       policy takes Alberta out of this node at the same build that takes her
+       Alberta pages down. test/insurance-gate.test.mts proves it. */
+    ...servedProvinceNames().map((name) => placeNode(name)),
     ...AREA_SERVED,
   ],
   /* Three languages since 1 Sep 2026. Punjabi is the founder's; Tagalog
@@ -200,12 +206,17 @@ const orgSchema = {
    * lib/site.ts. An empty telephone field in schema is worse than none. */
   ...(site.phone
     ? {
-        telephone: site.phone,
+        telephone: TELEPHONE,
+        /* Email first, as everywhere else on the site. English only on the
+           contact point since 1 Oct 2026: whoever answers info@ and the
+           phone has not been confirmed to do so in Punjabi or Tagalog, which
+           is a different promise from counselling being offered in them. */
         contactPoint: {
           '@type': 'ContactPoint',
-          telephone: site.phone,
+          email: site.email,
+          telephone: TELEPHONE,
           contactType: 'customer service',
-          availableLanguage: ['en', 'pa', 'tl'],
+          availableLanguage: 'English',
         },
       }
     : {}),
@@ -244,7 +255,10 @@ const orgSchema = {
      inventing a reference for them would be worse than the string. */
   knowsAbout: [
     ...KNOWS_ABOUT_ENTITIES,
-    'Gottman Method Couples Therapy', 'Trauma-informed care',
+    /* 'Gottman-informed', not 'Gottman Method': no counsellor taking couples
+       bookings has a recorded Gottman training level (DECISIONS, owner item
+       #67), and scripts/lib/gottman-claims.mjs now fails the bare claim. */
+    'Gottman-informed couples therapy', 'Trauma-informed care',
     'Intergenerational trauma', 'South Asian mental health',
     'Filipino mental health', 'Online psychotherapy',
     'Counselling in Punjabi', 'Counselling in Tagalog',
@@ -263,28 +277,15 @@ const orgSchema = {
    * to keep in step. `availableService` is the correct property for what a
    * MedicalBusiness provides, and it is the one that now carries the entity
    * references, the descriptions and the page URLs. */
-  memberOf: {
-    '@type': 'Organization',
-    name: 'BC Association of Clinical Counsellors',
-    url: 'https://bcacc.ca/',
-  },
-  hasCredential: {
-    '@type': 'EducationalOccupationalCredential',
-    credentialCategory: 'Professional designation',
-    name: 'Registered Clinical Counsellor (RCC)',
-    /* The registration number, machine-readable. BCACC advertising standards
-       forbid Review and AggregateRating markup here — see lib/reviews.ts — so
-       this entity has none of the signals that normally carry trust in
-       structured data. A verifiable professional identifier is the one it can
-       legitimately emit, and it is the honest substitute rather than a
-       consolation prize. */
-    /* The registration number is NOT emitted here. It used to be, on every
-       page of the site; from 30 August 2026 it appears on /about only — the
-       owner's decision, and it applies to every counsellor the practice adds.
-       It still exists in the structured data, on the Person node in
-       app/about/page.tsx, which is the one page allowed to carry it. */
-    recognizedBy: { '@type': 'Organization', name: 'BC Association of Clinical Counsellors', url: 'https://bcacc.ca/' },
-  },
+  /* NO memberOf BCACC AND NO hasCredential RCC AT THIS LEVEL — 1 Oct 2026.
+     BCACC registers individuals, not practices, so "this organisation is a
+     member" and "this organisation holds the RCC" were both untrue as
+     written. Each counsellor's Person node on her profile carries her own RCC
+     and its awarding body, which is where the credential belongs; `employee`
+     below points at those nodes. */
+  /* The counsellors taking new clients, by reference to the Person node on
+     each one's profile. Never the founder (orgCounsellors excludes her). */
+  employee: orgCounsellors().map((p) => ({ '@id': `${site.domain}/practitioners/${p.slug}#person` })),
   /* Each service carries a sameAs naming the method itself, so the practice's
      "EMDR Therapy" and the EMDR an engine already knows about are one thing
      rather than two. Added 24 Sep 2026; see lib/entities.ts. */
@@ -333,13 +334,10 @@ const orgSchema = {
        was a query, not a listing. */
     'https://share.google/lTHqqJIRmbLV8eauN',
     'https://www.google.com/search?kgmid=/g/11tmfp3w60',
-    /* NOT the BCACC profile URL. That link carries the counsellor's name in
-       its path, and the name appears nowhere on this site by the owner's
-       standing decision — scripts/expansion-verify.mjs failed the build on
-       exactly that when it was added here, which is the gate working. The
-       public register is the honest substitute: it corroborates the practice
-       without publishing the person. */
-    site.counsellor.registerUrl,
+    /* NOT the BCACC register. It was here until 1 Oct 2026, and it is a
+       search form rather than a page about this entity, so it corroborated
+       nothing; sameAs means "the same thing as". Verification lives on each
+       counsellor's profile, which links her own register entry. */
   ],
 };
 
@@ -348,6 +346,9 @@ const siteSchema = {
   '@type': 'WebSite',
   '@id': `${site.domain}/#website`,
   name: site.name,
+  /* The spellings people type ("westpeak" alone, "west peak") consolidated
+     onto the site name, as the organisation node already does. */
+  alternateName: ['Westpeak', 'West Peak Wellness'],
   url: site.domain,
   inLanguage: 'en-CA',
   publisher: { '@id': `${site.domain}/#organization` },

@@ -18,6 +18,9 @@
  *   · no value anywhere is "undefined", "null", "NaN" or "[object Object]"
  *     as a STRING — the signature of an interpolation bug
  *   · no empty-string values for name/url/@id — schema that names nothing
+ *   · a ProfilePage's mainEntity has a name on the page itself, inline or
+ *     by @id (1 Oct 2026), and each Person @id has one url across the build
+ *     (scripts/lib/schema-checks.mjs)
  *
  * It validates shape, not vocabulary. Whether "MedicalWebPage" is the right
  * type for a page is editorial judgement; whether the block parses is not.
@@ -27,6 +30,7 @@
  */
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
+import { profilePageProblems, recordPersonUrls, personUrlProblems } from './lib/schema-checks.mjs';
 
 const ROOT = join(process.cwd(), '.next', 'server', 'app');
 const WARN_ONLY = process.argv.includes('--warn');
@@ -75,6 +79,7 @@ function inspect(node, path, report) {
 }
 
 let blocks = 0;
+const personUrls = new Map();
 for (const f of files) {
   const rel = relative(ROOT, f).split(sep).join('/').replace(/\.html$/, '');
   const route = rel === 'index' ? '/' : '/' + rel;
@@ -86,6 +91,7 @@ for (const f of files) {
      carrying two identical trails, which no validator reports because each
      is individually valid. Counted across every block on the page. */
   let trails = 0;
+  const parsedBlocks = [];
 
   for (const m of html.matchAll(
     /<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g
@@ -98,6 +104,7 @@ for (const f of files) {
       report(`unparseable JSON-LD: ${e.message.slice(0, 80)}`);
       continue;
     }
+    parsedBlocks.push(parsed);
     const roots = Array.isArray(parsed) ? parsed : [parsed];
     for (const [i, root] of roots.entries()) {
       const graph = root && root['@graph'];
@@ -113,7 +120,10 @@ for (const f of files) {
     }
   }
   if (trails > 1) report(`${trails} BreadcrumbList nodes; a page carries one trail`);
+  for (const msg of profilePageProblems(parsedBlocks)) report(msg);
+  recordPersonUrls(parsedBlocks, route, personUrls);
 }
+for (const msg of personUrlProblems(personUrls)) errors.push({ route: '(across the build)', msg });
 
 console.log(`\nSchema gate — ${blocks} JSON-LD blocks across ${files.length} pages`);
 if (errors.length) {

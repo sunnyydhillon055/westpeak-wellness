@@ -60,7 +60,11 @@ export const THERAPY_ENTITY: Record<string, { name: string; sameAs: string[] }> 
   },
   'couples-therapy': {
     name: 'Couples therapy',
-    sameAs: [`${W}Couples_therapy`, `${W}Emotionally_focused_therapy`],
+    /* Couples therapy only. Emotionally_focused_therapy sat here until
+       1 Oct 2026 and told every page that this practice's couples work is
+       EFT; nothing on the roster says EFT, and the comparison page says
+       plainly that it is not offered. */
+    sameAs: [`${W}Couples_therapy`],
   },
   'family-counselling': {
     name: 'Family therapy',
