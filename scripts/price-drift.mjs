@@ -47,7 +47,6 @@ export const ALLOW = new Map([
   [300, 'market range: typical BC psychologist fee, high end'],
   [500, 'plan example: an annual maximum'],
   [600, 'plan example: a remaining balance at year end (lib/session-arithmetic.ts remainingBalanceSentence)'],
-  [729, 'EI sickness benefit weekly maximum, 2026'],
   [800, 'plan example: an annual maximum'],
   [1000, 'plan benefit: community health (CBA) mental health maximum per calendar year from 1 Jan 2026, per BCGEU (lib/resources-more2.ts, read 1 Oct 2026)'],
   [1500, 'plan example: an annual maximum'],
@@ -238,6 +237,65 @@ export function typedGuideRanges(root) {
   return found;
 }
 
+/* PUBLIC BENEFIT FIGURES BY YEAR — 2 Oct 2026 (item 386). The EI sickness
+ * weekly maximum was typed twelve times with "in 2026" beside it, and would
+ * have been last year's figure on every leave page from 1 January. It now
+ * lives in lib/benefit-figures.ts, keyed by Pacific year, and was taken off
+ * ALLOW above so the generic scan rejects it too. Here: every entry must be
+ * internally consistent (weekly = 55% of maximum insurable earnings / 52,
+ * rounded) and dated, the current Pacific year must have an entry, and no
+ * weekly figure may be typed as "$NNN" anywhere else, comments included. */
+const BENEFIT_ENTRY = /(\d{4}): \{ weekly: (\d+), maxInsurableEarnings: (\d+), sourceUrl: [^,]+, readOn: '([^']*)' \}/g;
+
+/** Entries in lib/benefit-figures.ts, as { year, weekly, mie, readOn }. */
+export function benefitEntries(source) {
+  return [...source.matchAll(BENEFIT_ENTRY)].map((m) => ({
+    year: Number(m[1]), weekly: Number(m[2]), mie: Number(m[3]), readOn: m[4],
+  }));
+}
+
+/** The calendar year in British Columbia at `now`. */
+export function pacificYear(now = new Date()) {
+  return Number(new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Vancouver', year: 'numeric' }).format(now));
+}
+
+/** What is wrong with lib/benefit-figures.ts in `year`, as sentences. */
+export function benefitFigureProblems(source, year = pacificYear()) {
+  const entries = benefitEntries(source);
+  if (!entries.length) return ['no EI_SICKNESS_MAX entries read from lib/benefit-figures.ts'];
+  const problems = [];
+  for (const e of entries) {
+    const want = Math.round((e.mie * 0.55) / 52);
+    if (want !== e.weekly) problems.push(`${e.year}: weekly ${e.weekly} is not 55% of ${e.mie} / 52 (${want})`);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(e.readOn)) problems.push(`${e.year}: readOn "${e.readOn}" is not an ISO date`);
+  }
+  if (!entries.some((e) => e.year === year)) {
+    problems.push(`no EI sickness maximum for ${year}; the leave pages are stating an earlier year's figure. Add the ${year} entry from canada.ca`);
+  }
+  return problems;
+}
+
+/** "$NNN" typed for any weekly figure outside lib/benefit-figures.ts. */
+export function typedBenefitFigures(root) {
+  const weekly = benefitEntries(readFileSync(join(root, 'lib/benefit-figures.ts'), 'utf8')).map((e) => e.weekly);
+  const found = [];
+  for (const top of ['lib', 'app', 'components']) {
+    let files;
+    try { files = [...walk(join(root, top))]; } catch { continue; }
+    for (const f of files) {
+      const rel = relative(root, f).replace(/\\/g, '/');
+      if (rel === 'lib/benefit-figures.ts') continue;
+      readFileSync(f, 'utf8').split('\n').forEach((line, i) => {
+        for (const m of line.matchAll(DOLLARS)) {
+          const n = Number(m[1].replace(/,/g, ''));
+          if (weekly.includes(n)) found.push({ file: rel, line: i + 1, amount: `$${m[1]}` });
+        }
+      });
+    }
+  }
+  return found;
+}
+
 async function main() {
   let problems = 0;
   const bad = (msg) => { problems++; console.log(`   DRIFT  ${msg}`); };
@@ -268,6 +326,16 @@ async function main() {
   for (const t of retyped) bad(`${t.file}:${t.line} types the range ${t.range}; read it from lib/fee-guides.ts`);
   if (!retyped.length && !feeGuideProblems(guideSource).length) {
     console.log(`    ok    wording and figures agree, and no other file types ${guideRanges(guideSource).join(', ')}`);
+  }
+  console.log('\n  Public benefit figures by year (lib/benefit-figures.ts)');
+  console.log('  ' + '-'.repeat(72));
+  const benefitSource = readFileSync(join(process.cwd(), 'lib/benefit-figures.ts'), 'utf8');
+  const benefitProblems = benefitFigureProblems(benefitSource);
+  for (const b of benefitProblems) bad(`lib/benefit-figures.ts: ${b}`);
+  const typedBenefit = typedBenefitFigures(process.cwd());
+  for (const t of typedBenefit) bad(`${t.file}:${t.line} types ${t.amount}; read the EI maximum from lib/benefit-figures.ts`);
+  if (!benefitProblems.length && !typedBenefit.length) {
+    console.log(`    ok    ${pacificYear()} has an entry, every entry is consistent, and no other file types a weekly maximum`);
   }
   if (problems) {
     console.log(`\n  ${problems} stray figure(s). Read the fee from lib/cliniko-catalog.ts, or allow-list a non-fee figure with a reason.\n`);

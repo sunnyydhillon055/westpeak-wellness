@@ -72,7 +72,7 @@ export const tagalogAudiences: Audience[] = [
       { q: 'Can sessions be in Tagalog?', a: 'Yes. In Tagalog, in English, or moving between the two as the conversation does. Camille Granda works in both, and most sessions with bilingual people are mixed without anyone deciding to mix them.' },
       { q: 'Will my employer or my college find out?', a: 'No. Attending counselling is not reported to anyone. Sessions are confidential within the ordinary legal limits, which are explained before you share anything, and nothing reaches an employer, a union, a licensing college or an insurer without your written consent.' },
       { q: 'I work nights and rotating shifts. Can this fit?', a: 'Yes, and it is worth planning at the start rather than discovering later. Booking block by block around a roster, with gaps, is normal here, and the calendar shows real open times.' },
-      { q: 'Does my plan cover it?', a: 'Most health-employer and union plans in BC reimburse a Registered Clinical Counsellor to an annual maximum. Check the plan booklet for "counselling" or "clinical counsellor". MSP does not cover private counselling.' },
+      { q: 'Does my plan cover it?', a: 'Many employer and union health plans in BC reimburse a Registered Clinical Counsellor to an annual maximum, depending on the plan, so check yours. Look in the plan booklet for "counselling" or "clinical counsellor". MSP does not cover private counselling.' },
     ],
     sources: [
       { label: 'BC Nurses’ Union', url: 'https://www.bcnu.org/' },

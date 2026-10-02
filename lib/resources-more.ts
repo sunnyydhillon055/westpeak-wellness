@@ -147,7 +147,7 @@ export const moreResources: Resource[] = [
         h2: 'What this page is, and what it is not',
         body: [
           'This page is the wider map: what an employer may ask, how accommodation works, how sick leave, disability insurance and a WorkSafeBC claim differ, and what returning to work can look like.',
-          'If you are trying to arrange time away from work for a mental-health reason, the [step-by-step guide](/guides/stress-leave-bc) is written for that instead. It covers who can certify one (a physician or nurse practitioner, not a counsellor), how long they usually run, whether yours is paid, and where EI sickness benefits fit.',
+          'If you are trying to arrange time away from work for a mental-health reason, the guide on [how to apply for stress leave in BC](/guides/stress-leave-bc) is written for that instead. It covers who can certify one (a physician or nurse practitioner, not a counsellor), how long they usually run, whether yours is paid, and where EI sickness benefits fit.',
         ],
       },
       {

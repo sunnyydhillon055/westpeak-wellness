@@ -43,6 +43,13 @@ export const PATTERNS = [
   /\bmost (?:BC )?students are covered\b/i,
   /\bmost (?:BC )?(?:teachers|employees|workers|union members) (?:can|are covered|have coverage)\b/i,
   /\bthrough most (?:BC )?extended[- ]health plans\b/i,
+  /* 2 Oct 2026 (item 381): "Most <up to five words> plans … reimburse", which
+     the shapes above missed in "Most health-employer and union plans in BC
+     reimburse", and "usually reimburses" an RCC or counselling, which they
+     missed on the newcomers page. A "not" or "never" in between is a denial,
+     not a claim. */
+  /\bmost (?:[\w-]+,? ){0,5}plans\b(?:(?!\b(?:not|never)\b)[^.;]){0,40}?\breimburses?\b/i,
+  /\busually reimburses? (?:a |an )?(?:Registered Clinical Counsell|RCC|counsell)/i,
 ];
 
 export const PENDING = [

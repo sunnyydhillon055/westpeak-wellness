@@ -1,5 +1,6 @@
 import type { Guide } from './guides';
 import { fallbackFee } from '@/lib/cliniko-catalog';
+import { EI_WEEKLY, EI_WEEKLY_IN_YEAR, EI_YEAR } from '@/lib/benefit-figures';
 
 /* What a session costs, for the leave guides: one sentence, catalogue-driven
    (1 Oct 2026). These pages quoted the EI cap and nothing about the cost of
@@ -13,7 +14,7 @@ const SESSION_COST = `An individual session here is ${fallbackFee('Individual Co
  * is the strongest organic asset the site has, and these four are its
  * unbuilt neighbours. Same register throughout: procedural, BC-specific,
  * every figure sourced, no clinical content. Figures that also appear on
- * /guides/stress-leave-bc (the 5 ESA days, the 55% / $729 / 26-week EI
+ * /guides/stress-leave-bc (the 5 ESA days, the 55% / weekly maximum / 26-week EI
  * shape) are kept identical — two pages quoting different numbers for the
  * same benefit is worse than either being wrong alone. */
 export const moreGuides7: Guide[] = [
@@ -22,14 +23,14 @@ export const moreGuides7: Guide[] = [
     figure2: 'reimbursement-flow',
     figure: 'bc-support-routes',
     title: 'EI sickness benefits and therapy: how the 26 weeks work',
-    metaTitle: 'How Much Does Medical EI Pay in BC? 55% to $729',
+    metaTitle: `How Much Does Medical EI Pay in BC? 55% to ${EI_WEEKLY}`,
     metaDescription:
-      '55% of insurable earnings, to $729 a week in 2026, for up to 26 weeks. Who qualifies, the medical certificate, and how to apply without losing weeks.',
+      `55% of insurable earnings, to ${EI_WEEKLY_IN_YEAR}, for up to 26 weeks. Who qualifies, the medical certificate, and how to apply without losing weeks.`,
     eyebrow: 'Guide · Work & money',
     lede:
       'The employer sick days run out fast. What most people are actually living on during a longer mental-health leave is EI sickness benefits, and almost nobody understands them until they are already off.',
     shortAnswer:
-      'EI sickness benefits replace 55% of your insurable earnings, to a maximum of $729 a week in 2026, for up to 26 weeks, and they apply to mental-health conditions exactly as they do to physical ones. You need 600 insurable hours in the qualifying period, a medical certificate saying you are unable to work, and a claim filed promptly, because there is a one-week waiting period and late claims risk losing weeks. The benefit is taxable, it is far less than a paycheque, and knowing both before the leave starts is half of surviving it.',
+      `EI sickness benefits replace 55% of your insurable earnings, to a maximum of ${EI_WEEKLY_IN_YEAR}, for up to 26 weeks, and they apply to mental-health conditions exactly as they do to physical ones. You need 600 insurable hours in the qualifying period, a medical certificate saying you are unable to work, and a claim filed promptly, because there is a one-week waiting period and late claims risk losing weeks. The benefit is taxable, it is far less than a paycheque, and knowing both before the leave starts is half of surviving it.`,
     updated: '2026-09-02',
     readMinutes: 7,
     sections: [
@@ -38,7 +39,7 @@ export const moreGuides7: Guide[] = [
         body: [
           'Yes, unambiguously. EI sickness benefits do not distinguish between a broken leg and a depressive episode. The test is that a medical practitioner certifies you are **unable to work for medical reasons**, and mental-health conditions meet it the same way anything else does. Burnout is not itself a diagnosis, but the conditions that travel under it: depression, anxiety disorders, adjustment disorder, are exactly what these claims are made of.',
           'The eligibility mechanics: **600 insurable hours** in the last 52 weeks (roughly 15 hours a week over a year of insurable employment), regular earnings reduced by more than 40%, and the medical certificate. Self-employed people are outside the program unless they opted into EI special benefits at least a year earlier. A gap that surprises a lot of contractors at the worst possible moment.',
-          'What it pays: **55% of average insurable weekly earnings, capped at $729 a week in 2026**, taxable, after a one-week unpaid waiting period. For most full-time earners that is a serious income cut, and the honest planning question is not "am I eligible" but "can the household run on 55%, and for how long".',
+          `What it pays: **55% of average insurable weekly earnings, capped at ${EI_WEEKLY_IN_YEAR}**, taxable, after a one-week unpaid waiting period. For most full-time earners that is a serious income cut, and the honest planning question is not "am I eligible" but "can the household run on 55%, and for how long".`,
         ],
       },
       {
@@ -58,7 +59,7 @@ export const moreGuides7: Guide[] = [
              leave is the employer's and the plan's to state. */
           'The money question: MSP does not cover private counselling. Whether your extended health benefits stay active during an EI sickness leave depends on your employer and the plan, so ask HR or the plan administrator rather than assuming. Where they do, the [coverage you already have](/resources/bc-extended-health-coverage-for-counselling) can still reimburse Registered Clinical Counsellor sessions while your income is at 55%. The [low-cost options](/resources/low-cost-counselling-bc) exist for when it does not, and [what you can access, and how soon](/tools/what-can-i-access) sorts every route, free ones included, in five questions.',
           SESSION_COST,
-          'And a sequencing point from the other side of the desk: do not wait until week 20 to start. Return-to-work conversations begin before the benefits end, and arriving at them with three months of therapy behind you is a different negotiation than arriving with none. The [return-to-work guide](/guides/return-to-work-after-a-mental-health-leave) covers that stretch.',
+          'And a sequencing point from the other side of the desk: do not wait until week 20 to start. Return-to-work conversations begin before the benefits end, and arriving at them with three months of therapy behind you is a different negotiation than arriving with none. The guide on [going back to work after a mental health leave](/guides/return-to-work-after-a-mental-health-leave) covers that stretch.',
         ],
       },
       {
@@ -76,7 +77,7 @@ export const moreGuides7: Guide[] = [
       label: 'Book a free consultation',
     },
     faqs: [
-      { q: 'How much does EI sickness pay in 2026?', a: '55% of your average insurable weekly earnings, to a maximum of $729 a week, taxable, for up to 26 weeks, after a one-week unpaid waiting period. For most full-time earners that is a substantial cut, and budgeting for it before the leave starts is part of the leave.' },
+      { q: `How much does EI sickness pay in ${EI_YEAR}?`, a: `55% of your average insurable weekly earnings, to a maximum of ${EI_WEEKLY} a week, taxable, for up to 26 weeks, after a one-week unpaid waiting period. For most full-time earners that is a substantial cut, and budgeting for it before the leave starts is part of the leave.` },
       { q: 'Can I get EI sickness benefits for burnout or anxiety?', a: 'Yes. The program does not distinguish mental from physical health. What matters is a medical practitioner certifying you are unable to work. "Burnout" itself is not the certified condition; the depression, anxiety disorder or adjustment disorder underneath it typically is.' },
       { q: 'Do I need to be seeing a therapist to keep my claim?', a: 'No. EI sickness benefits need a medical certificate and your biweekly reports; there is no rule that you be in treatment, and no requirement to see a therapist to keep the claim. Counselling matters later, and practically: return-to-work and any long-term disability transition go very differently with a treatment record than without one.' },
       { q: 'Does my extended health coverage continue while I am on EI sickness?', a: 'It depends on your employer and the plan. Many plans stay active while you remain employed and on an approved leave, and where yours does, it can still reimburse RCC counselling while your income is reduced. Confirm with HR or your plan administrator rather than assuming, and check whether premiums need to be kept up during the leave.' },
@@ -130,7 +131,7 @@ export const moreGuides7: Guide[] = [
         body: [
           'A workable certificate is short: the practitioner confirms you have a medical condition that makes you unable to work, states an expected duration or review date, and, where relevant, any functional limitations. That is the whole document. **It does not need your diagnosis**, and the better ones deliberately omit it. This page is about that one appointment; for the whole route, from the first call to the money to the return, start with [how stress leave works in BC](/guides/stress-leave-bc).',
           'The privacy line matters and is worth knowing cold: in BC, an employer may require "reasonably sufficient proof" that you are entitled to sick leave, and for longer absences may ask about prognosis and functional limitations: *when you might return, what you can and cannot do*. They are **not** entitled to your diagnosis, your therapy notes, or your file. A note that says "medical condition, unable to work, reassess in four weeks" answers everything an employer may properly ask.',
-          'If HR pushes for more detail than that, the response is polite and firm: further medical information goes through the doctor, addressed to functional questions. For accommodation processes the employer can request more specific functional information, still function, still not diagnosis. The [return-to-work guide](/guides/return-to-work-after-a-mental-health-leave) covers that stage.',
+          'If HR pushes for more detail than that, the response is polite and firm: further medical information goes through the doctor, addressed to functional questions. For accommodation processes the employer can request more specific functional information, still function, still not diagnosis. The guide on [going back to work after a mental health leave](/guides/return-to-work-after-a-mental-health-leave) covers that stage.',
         ],
       },
       {
@@ -305,8 +306,8 @@ export const moreGuides7: Guide[] = [
         list: [
           { label: 'You are rationing them by dread', detail: 'Choosing which weeks are survivable enough to skip the sick day is itself the signal. A sustainable job does not require triaging your own collapse.' },
           { label: 'The same day keeps recurring', detail: 'Monday-pattern or post-deadline-pattern sick days are a graph, and the graph is telling you what the cause is. Naming the pattern is more useful than hiding it.' },
-          { label: 'Five days were gone by June', detail: 'When the annual allotment cannot cover the year, you are past the sick-day tool. The next tools are a proper assessment, possibly a [certified leave](/guides/stress-leave-bc), and treatment, in that order, before the involuntary version arrives.' },
-          { label: 'The day off does not restore anything anymore', detail: 'Early in a stress cycle, a day genuinely resets. Late in one, it does not touch the sides, and that difference is one of the more reliable home tests for "tired" versus "something needing treatment". The [burnout-vs-depression guide](/guides/burnout-vs-depression) draws that line properly, and the [three-minute check](/tools/burnout-or-depression) is a way to start on it without a form or a score.' },
+          { label: 'Five days were gone by June', detail: 'When the annual allotment cannot cover the year, you are past the sick-day tool. The next tools are a proper assessment, possibly [a certified stress leave](/guides/stress-leave-bc), and treatment, in that order, before the involuntary version arrives.' },
+          { label: 'The day off does not restore anything anymore', detail: 'Early in a stress cycle, a day genuinely resets. Late in one, it does not touch the sides, and that difference is one of the more reliable home tests for "tired" versus "something needing treatment". The guide on [burnout or depression](/guides/burnout-vs-depression) draws that line properly, and the [three-minute check](/tools/burnout-or-depression) is a way to start on it without a form or a score.' },
         ],
       },
     ],

@@ -59,6 +59,16 @@ const tagalogAnswer = tagalog.length
   ? `Yes. ${linked(tagalog)} ${tagalog.length > 1 ? 'work' : 'works'} in Tagalog and English, including moving between the two inside one session, so there is no need to translate your family or your context before you can talk about them. [Tagalog-speaking counselling](/services/tagalog-counselling) explains how it works.`
   : 'Not at the moment. No counsellor taking new clients here works in Tagalog right now. [Finding a counsellor in Punjabi or Tagalog in BC](/resources/finding-a-counsellor-in-punjabi-or-tagalog-in-bc) lists other routes.';
 
+/* WHAT THIRD-PARTY LISTINGS GET WRONG — 2 Oct 2026 (item 364).
+ * Brand searches turned up a directory listing a walk-in family-practice
+ * clinic with weekday hours, another offering a 15-minute
+ * in-person consultation, and an AI summary that invented opening hours. This
+ * answer states the facts once, in the practice's own words. It names no
+ * person and states no hours: the allowed form is that the calendar shows the
+ * real open times. A phone number in a listing is not itself an error: the
+ * practice publishes one (lib/site.ts), and email is still the first route. */
+export const LISTINGS_ANSWER = `No fixed opening hours are published. Open times come from each counsellor’s own calendar, and [the booking page](/book) shows the real ones. The free consultation is ${consultMinutes} minutes. The practice is online only, with no office and no walk-in address, and the best way to reach it is by email, at ${site.email}. A directory listing that shows a street address, opening hours, in-person sessions or a 15-minute consultation is not maintained by the practice; where it disagrees with this site, this site is current.`;
+
 const onlineOrInPerson = `Online only. There is no office and no in-person option: the free ${consultMinutes}-minute consultation and every session after it are by secure video. Once you book, the link arrives by email and opens in your browser, with nothing to install and no account to create. All you need is a private space, a device with a camera, and a stable connection. Sessions are never recorded.`;
 
 // Answers written to be accurate for a fully-virtual BC RCC practice and
@@ -140,6 +150,10 @@ export const faqs: FAQ[] = [
     a: "Westpeak Wellness is not a crisis service. If you're in distress, call or text 9-8-8 (Canada's suicide crisis line, available 24/7) or the BC Mental Health Support Line at 310-6789. If you're in immediate danger, call 911.",
   },
   {
+    q: "Are there opening hours or an office, and is the listing I found elsewhere accurate?",
+    a: LISTINGS_ANSWER,
+  },
+  {
     q: "How do I get started?",
     a: "Book a free 30-minute consultation. It's a relaxed video call to ask questions, share a bit about what's going on, and see whether working together feels right, no commitment required.",
   },
@@ -159,6 +173,7 @@ const GROUP_OF: Record<string, string> = {
   "Are you taking new clients?": 'start',
   "Is this practice fully online?": 'start',
   "How do I get started?": 'start',
+  "Are there opening hours or an office, and is the listing I found elsewhere accurate?": 'start',
   "Do you offer sessions in Punjabi?": 'sessions',
   "Do you offer sessions in Tagalog?": 'sessions',
   "Is the free consultation online or in person, and how do I join?": 'start',

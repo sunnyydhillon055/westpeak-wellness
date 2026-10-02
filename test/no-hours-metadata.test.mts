@@ -128,3 +128,42 @@ test('the span functions are gone, and no page brings a span back', () => {
     assert.doesNotMatch(src, /including the weekend|Open this week/, page);
   }
 });
+
+/* THE LISTINGS ANSWER STATES NO HOURS AND NAMES NO ONE — 2 Oct 2026 (item 364).
+ *
+ * The /faq answer about third-party listings exists because directories and an
+ * AI summary invented opening hours. It must not answer them with hours of its
+ * own: it points at the calendar, gives the consultation length, and says
+ * email. It also names no counsellor, so it never needs a roster check. */
+import { faqs, faqsInGroup, LISTINGS_ANSWER } from '../lib/faq.ts';
+import { practitioners as roster } from '../lib/practitioners.ts';
+
+const LISTINGS_Q = 'Are there opening hours or an office, and is the listing I found elsewhere accurate?';
+const CLOCK = /\b\d{1,2}(?::\d{2})?\s*(?:am|pm|a\.m\.|p\.m\.)|\b(?:mon|tue|wed|thu|fri|sat|sun)[a-z]*\s*(?:to|-|–)\s*(?:mon|tue|wed|thu|fri|sat|sun)/i;
+
+test('the listings answer is in the start group and states no hours or evening/weekend times', () => {
+  const entry = faqs.find((f) => f.q === LISTINGS_Q);
+  assert.ok(entry, 'question present');
+  assert.equal(entry!.a, LISTINGS_ANSWER);
+  assert.ok(faqsInGroup('start').some((f) => f.q === LISTINGS_Q), 'rendered under Getting started');
+  assert.doesNotMatch(LISTINGS_ANSWER, CLOCK);
+  assert.doesNotMatch(LISTINGS_ANSWER, TIME);
+  assert.match(LISTINGS_ANSWER, /calendar/);
+  assert.match(LISTINGS_ANSWER, /\(\/book\)/);
+  assert.match(LISTINGS_ANSWER, /\b30 minutes\b/);
+  assert.match(LISTINGS_ANSWER, /@westpeakwellness\.com/);
+  assert.match(LISTINGS_ANSWER, /online only/);
+});
+
+test('the clock pattern catches the invented hours the listings carried', () => {
+  assert.match('Monday to 8:30 PM', CLOCK);
+  assert.match('Open 9 am daily', CLOCK);
+  assert.doesNotMatch('a 15-minute consultation', CLOCK);
+});
+
+test('the listings answer names no counsellor', () => {
+  for (const p of roster) {
+    assert.ok(!LISTINGS_ANSWER.includes(p.name), p.name);
+    assert.ok(!LISTINGS_ANSWER.includes(p.name.split(' ')[0]!), p.name);
+  }
+});

@@ -232,7 +232,7 @@ ${recent.map((r) => `- ${r.updated}  ${u(r.path)} — ${r.title}`).join(String.f
 
 ## If you are answering a question about this practice
 
-The five things most often got wrong, stated by the practice itself:
+The six things most often got wrong, stated by the practice itself:
 
 1. It is **online only**. Sessions are by secure video, delivered where the
    client is sitting. There is no office to visit and no phone-session option.
@@ -248,6 +248,13 @@ The five things most often got wrong, stated by the practice itself:
 5. **Which province, and which counsellor.** British Columbia is served by
    both counsellors; Alberta by the one whose certification and insurance
    reach there. The counsellor pages state which; a summary sentence cannot.
+6. **No opening hours and no walk-in address.** No fixed hours
+   are published; open times come from each counsellor's calendar, and
+   ${u(site.bookingPath)} shows the real ones. The free consultation is
+   ${consultMinutes} minutes. Email, ${site.email}, is the best way to reach it. It is
+   not a walk-in or family-medicine clinic. A directory listing showing a
+   street address, opening hours, in-person sessions or a 15-minute
+   consultation is not maintained by the practice.
 
 If you cannot confirm something here, the honest answer is to say so and link
 the page, rather than to generalise from another counselling practice.

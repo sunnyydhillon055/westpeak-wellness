@@ -46,7 +46,7 @@ export const moreAudiences3: Audience[] = [
         h2: 'The practical fit',
         body: [
           'Sessions are online and booked from what the counsellor has open, and summer is often when the timetable finally allows sustained work. District extended-health plans commonly reimburse Registered Clinical Counsellor sessions; the [coverage checklist](/resources/bc-extended-health-coverage-for-counselling) has the two questions to ask your plan. Where a district EFAP exists, it is a legitimate free first stop, and the [EAP comparison](/compare/efap-vs-private-counselling) is honest about where its session caps bite for anything longer than a rough patch.',
-          'If the strain has already reached the point of medical leave, the [work-and-money cluster](/resources/workplace-mental-health-bc) covers the mechanics: sick days, the doctor’s note, EI, the return. Teachers use those pages every September; the aim of this one is fewer of them needing to.',
+          'If the strain has already reached the point of medical leave, the page on [mental health and work in BC](/resources/workplace-mental-health-bc) covers the mechanics: sick days, the doctor’s note, EI, the return. Teachers use those pages every September; the aim of this one is fewer of them needing to.',
         ],
       },
       /* TEACHER BENEFITS, BY NAME — 1 Oct 2026. Every page ranking above
@@ -135,7 +135,7 @@ export const moreAudiences3: Audience[] = [
       {
         h2: 'The practical fit',
         body: [
-          'Video sessions fit a population that has no anxiety about video, and times are picked from what the counsellor has open rather than a fixed weekly slot. Tech benefits packages often reimburse Registered Clinical Counsellor sessions, depending on the plan, and a wellness or lifestyle spending account can usually fund them where the plan does not; a health spending account pays only CRA-eligible expenses, and the CRA does not yet list counsellors in BC, so ask its administrator first; the [coverage page](/resources/bc-extended-health-coverage-for-counselling) covers how to check yours in two minutes. If a layoff is already the situation, the [work-and-money cluster](/resources/workplace-mental-health-bc) maps EI and the practical scaffolding, and sessions do not require an employer to exist.',
+          'Video sessions fit a population that has no anxiety about video, and times are picked from what the counsellor has open rather than a fixed weekly slot. Tech benefits packages often reimburse Registered Clinical Counsellor sessions, depending on the plan, and a wellness or lifestyle spending account can usually fund them where the plan does not; a health spending account pays only CRA-eligible expenses, and the CRA does not yet list counsellors in BC, so ask its administrator first; the [coverage page](/resources/bc-extended-health-coverage-for-counselling) covers how to check yours in two minutes. If a layoff is already the situation, the page on [mental health and work in BC](/resources/workplace-mental-health-bc) maps EI and the practical scaffolding, and sessions do not require an employer to exist.',
           'And for the specific case where everything is attached to a visa: that pressure is carried by a lot of people in this industry’s Vancouver and it is under-discussed everywhere. It is a normal thing to bring here, in English, Punjabi or Tagalog, and it changes what "just leave the toxic job" advice is worth, which a counsellor should know before offering any.',
         ],
       },
