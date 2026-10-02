@@ -1721,6 +1721,71 @@ copy) waits on Camille confirming the content.
 
 ---
 
+### Availability is said per counsellor: a count and the next open day, never a span of start times
+Decided 1 Oct 2026 (branch `wf/home-book-copy`). Amends the 1 Oct `wf/book`
+line "Next two weeks: <days>, start times X to Y (Pacific time), including
+the weekend", under the 6 Sep rule "No hours are published, anywhere". A span
+of start times reads as hours. The practice-wide forms merged two calendars
+into a span no single day offered: production home said "Tue, Thu, Sat, 9 am
+to 7 pm" while Savneet's times were Tue/Fri afternoons and Camille's Thu/Sat.
+`weekSpan` and `practiceHoursLine` are deleted. The only Cliniko-derived
+availability text allowed now is per counsellor: a count of free-consultation
+times in the next two weeks and the next open day ("Next free call: Sat 3 Oct
+with Camille · Tue 6 Oct with Savneet (Pacific time)" on home; "42
+free-consultation times open with Camille in the next two weeks; next: Thu 2
+Oct (Pacific time)" on /book cards). The /book "Next open with …" lines inside
+the calendar box still show the first time on each of the next three open
+days, as allowed on 14 Sep. /contact has no availability line.
+
+*Enforced by:* `test/no-hours-metadata.test.mts` (fails on "am to", "pm to"
+or "weekend" in these outputs, and if the deleted functions return)
+
+---
+
+### Guides, resources and comparisons end with one NextStep block
+Decided 1 Oct 2026 (branch `wf/guide-templates-next-step`). Guides, resources
+and comparisons end with one NextStep block (`components/NextStep.tsx`),
+placed straight after Sources and before the link footer. It holds the
+counsellor cards, the catalogue fee for the page's service with
+plan-dependent coverage, the next free consultation with a counsellor who
+fits, and the closing band with up to three smaller steps from
+`lib/next-steps.ts`. Cards are on by default. `lib/counsellor-cards.ts`
+`NO_CARDS` keeps them, and the consultation time, off two pages: the crisis
+directory and becoming-a-counsellor. It also keeps them off nine GENTLE_CTA
+guides: intrusive-thoughts, grief, what-trauma, someone-drinking,
+supporting-someone, therapy-isnt-working, signs-it-might-be-time,
+workplace-bullying and anger. **Owner to record** page by page which of those
+nine get the gentle-heading cards; removing a slug from `NO_CARDS` is that
+decision. Pages that declare a service (couples, EMDR, family) or province AB
+book that counsellor's calendar via `bookingFor`; when no one counsellor
+fits, they book the bare /book.
+
+*Enforced by:* `test/counsellor-cards.test.mts`, `test/booking-cta.test.mts`,
+`scripts/price-drift.mjs` (`FEE_LINE_ITEMS` against the catalogue)
+
+---
+
+### The money pages state the fee, the counsellors and the next free consultation from data
+Decided 1 Oct 2026 (branch `wf/money-pages`). /pricing's H1 is generated
+from the Cliniko catalogue, and its lede names the counsellors accepting new
+clients and their languages from the roster. /online-counselling gains the
+shared counsellor cards and a `fallbackFee` sentence. /services is corrected:
+count from `services.length`, no Alberta, language lines from
+`offeringLanguages()`, per-card "With …". The next-consultation line is added
+to /online-counselling, /pricing and each /services/<slug>, filtered to who
+offers the service. The session-security sentence is one constant
+(`SESSION_SECURITY` in `lib/policies.ts`) that /privacy, /online-counselling,
+the city hubs and /pricing all read. Structured-data Offers are one per
+catalogue type (`sessionOffers` over `OFFERINGS.billedAs`) on the city hubs,
+the service pages and the fifty city-service pairs, which now carry a Service
+node with the named counsellors as providers. InStock is no longer used for
+sessions. City-service FAQ text is lowercased word by word (`midSentence`),
+keeping initialisms and language names.
+
+*Enforced by:* `test/city-service-page.test.mts`, `scripts/price-drift.mjs`
+
+---
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`
