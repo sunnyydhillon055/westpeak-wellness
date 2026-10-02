@@ -126,6 +126,13 @@ const CHECKS = [
   ['/online-counselling/maple-ridge/emdr-therapy', 200],
   ['/punjabi-counselling/maple-ridge', 200],
   ['/tagalog-counselling/maple-ridge', 200],
+  /* Vernon 308'd to Kelowna until 2 Oct 2026, when it got a page of its own. */
+  ['/online-counselling/vernon', 200],
+  ['/online-counselling/vernon/emdr-therapy', 200],
+  ['/practitioners/savneet-singh/vernon', 200],
+  ['/punjabi-counselling/vernon', 200],
+  ['/tagalog-counselling/vernon', 200],
+  ['/online-counselling/west-kelowna', 308, '/online-counselling/kelowna'],
   ['/for/mens-mental-health', 308, '/for'],
   /* /answers was retired 31 Aug 2026 and redirected to /faq; it came back
      on 14 Sep as the instant-answer page (checked as 200 above). */

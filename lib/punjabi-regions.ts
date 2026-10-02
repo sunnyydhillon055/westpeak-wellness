@@ -289,7 +289,7 @@ export const punjabiRegions: PunjabiRegion[] = [
       },
       {
         label: 'The whole Okanagan, not just Kelowna',
-        detail: 'Vernon, Penticton, West Kelowna, Lake Country and Summerland are the same session, distance is not a factor in a virtual practice.',
+        detail: 'Penticton, West Kelowna, Lake Country and Summerland are the same session, distance is not a factor in a virtual practice. [Vernon](/punjabi-counselling/vernon) has a page of its own.',
       },
       {
         label: 'Privacy',
@@ -303,7 +303,7 @@ export const punjabiRegions: PunjabiRegion[] = [
     faqs: [
       {
         q: 'I live in Vernon / Penticton, not Kelowna. Does that matter?',
-        a: 'No. The practice is virtual and licensed across BC, so anywhere in the Okanagan is the same session. The page says Kelowna because that is what people search for.',
+        a: 'No. The practice is virtual and licensed across BC, so anywhere in the Okanagan is the same session. The page says Kelowna because that is what people search for; Vernon has a Punjabi page of its own.',
       },
       {
         q: 'Is there a free option first?',
@@ -862,6 +862,102 @@ export const punjabiRegions: PunjabiRegion[] = [
       },
     ],
     nearby: ['surrey', 'abbotsford'],
+  },
+  /* VERNON, 2 Oct 2026. ARGUMENT: SCARCITY, said honestly about size.
+   *
+   * The Interior pattern: no Punjabi-speaking counsellor with an office
+   * nearby, and Kelowna is the next place people look. The community is
+   * small and the page says so, per the owner decision of 2 Oct 2026 above.
+   * Statistics Canada 2021 Census Profile, Vernon CSD 5937014: Punjabi
+   * mother tongue 505 of 43,730 (1.2%), knowledge 580 of 43,115, South Asian
+   * 1,040 of 43,110 (2.4%); Vernon CA 2021S0504918: 600 and 715. Read 2 Oct
+   * 2026 through StatCan's data service (the www12 Census Profile pages
+   * returned 404 from here that day); cited at the Census Profile, as every
+   * other region is.
+   *
+   * Individual only: the Punjabi speaker offers neither couples nor EMDR.
+   * No counsellor is named. */
+  {
+    slug: 'vernon',
+    figure: { value: '505', label: 'Vernon residents gave Punjabi as their mother tongue in 2021: about 1.2% of the city' },
+    region: 'Vernon',
+    wider: 'the North Okanagan',
+    blurb:
+      'About 505 people in Vernon have Punjabi as their mother tongue. A community that size is easy to overlook, and easy to be recognised in.',
+    metaDescription:
+      'Punjabi-speaking online counselling for Vernon and the North Okanagan. Sessions in Punjabi, English, or both, with an RCC. Free 30-minute consultation.',
+    demography: {
+      stat: '505 Vernon residents gave Punjabi as their mother tongue in the 2021 Census, about 1.2% of the city, and 580 could hold a conversation in it.',
+      body: [
+        'That is a small community, and this page does not pretend otherwise. Across the wider Vernon census agglomeration the figure is **600 by mother tongue and 715 who can speak Punjabi**. South Asian residents numbered 1,040 in the city itself, about 2.4%.',
+        'Small matters in two ways. Services in a language are usually built where its speakers are numerous, so a community of a few hundred tends to be served, if at all, from somewhere else. And in a community of a few hundred, people know each other, which makes a local waiting room a real concern rather than an imagined one.',
+        'Both point the same way: a Punjabi-speaking counsellor who is not part of the local community, reached by video from home.',
+      ],
+    },
+    localReality: {
+      h2: 'What is actually available in the North Okanagan',
+      body: [
+        'Interior Health runs mental-health and substance-use services from its Vernon centre on 14th Avenue, and anyone can self-refer through 310-MHSU (6478). For young people aged 12 to 24, CMHA Vernon’s Youth Integrated Services Hub offers free drop-in counselling. Both are real options and worth using.',
+        'Neither lists counselling sessions in Punjabi on its public pages. If a local service can offer Punjabi when you ask, that may suit you better, and it is worth asking.',
+        'Kelowna is the next place most people look, and [Punjabi-speaking counselling for Kelowna](/punjabi-counselling/kelowna) sets out what the Central Okanagan does and does not have. The wider picture for Vernon, from the specialist line down Highway 97 to the 2021 fire, is on [online counselling for Vernon](/online-counselling/vernon).',
+        'One limit, stated plainly: sessions in Punjabi are individual counselling. Couples work and EMDR currently run in English or Tagalog.',
+      ],
+    },
+    access: [
+      {
+        label: 'Outside the local circle',
+        detail: 'In a community of a few hundred, the counsellor you see by video is not a neighbour or a relative’s friend.',
+      },
+      {
+        label: 'Punjabi, English, or both',
+        detail: 'Use whichever language the sentence needs. Switching halfway through a thought is ordinary, and nobody stops to translate it.',
+      },
+      {
+        label: 'Armstrong to Lumby, the same session',
+        detail: 'Coldstream, Armstrong, Enderby and Lumby are covered on identical terms, with no drive into Vernon or down to Kelowna.',
+      },
+      {
+        label: 'Family is part of the work',
+        detail: 'What relatives expect, and who in a small community might hear about it, belong in the first session rather than being explained away first.',
+      },
+    ],
+    faqs: [
+      {
+        q: 'The Punjabi community in Vernon is small. Is that a reason to look elsewhere?',
+        a: 'It is the main reason this page exists. In a small community the worry is less about finding a counsellor and more about who else knows. A counsellor outside the North Okanagan, reached by video, takes that second question away.',
+      },
+      {
+        q: 'Can my partner and I come together for sessions in Punjabi?',
+        a: 'Not at the moment. Couples sessions currently run in English or Tagalog. Individual counselling is available in Punjabi, English or both.',
+      },
+      {
+        q: 'Will my extended health cover this?',
+        a: ONLINE_COVERAGE,
+      },
+      {
+        q: 'Is there anything free first?',
+        a: 'Interior Health’s Vernon centre is free and takes self-referrals, and for ages 12 to 24 the CMHA Vernon youth hub offers free drop-in counselling. Neither lists counselling sessions in Punjabi on its public pages. If language is the barrier, that is where this practice differs.',
+      },
+    ],
+    sources: [
+      {
+        label: 'Statistics Canada, 2021 Census Profile: Vernon (CSD 5937014)',
+        url: 'https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055937014&GENDERlist=1&STATISTIClist=1&HEADERlist=0',
+      },
+      {
+        label: 'Statistics Canada, 2021 Census Profile: Vernon (census agglomeration 918)',
+        url: 'https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021S0504918&GENDERlist=1&STATISTIClist=1&HEADERlist=0',
+      },
+      {
+        label: 'Interior Health, access mental health and substance use services',
+        url: 'https://www.interiorhealth.ca/services/access-mental-health-and-substance-use-services',
+      },
+      {
+        label: 'CMHA Vernon and District, youth services',
+        url: 'https://cmhavernon.ca/youth-services/',
+      },
+    ],
+    nearby: ['kelowna', 'kamloops'],
   },
 ];
 

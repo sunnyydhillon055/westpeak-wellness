@@ -392,7 +392,7 @@ export const locations: Location[] = [
     figure2: "first-session-flow",
     figure: "bc-reach",
     city: "Kelowna",
-    communities: ["West Kelowna", "Peachland", "Lake Country", "Vernon"],
+    communities: ["West Kelowna", "Peachland", "Lake Country"],
     region: "Okanagan",
     blurb: "The Okanagan's population has grown faster than its mental-health services have, and specialist options remain thin.",
     metaDescription:
@@ -413,11 +413,11 @@ export const locations: Location[] = [
     access: [
       { label: "Reaches specialisation that is not local", detail: "Modality and language options that the Central Okanagan list does not currently include." },
       { label: "Works around seasonal peaks", detail: "No travel time either side of the session, so a session costs fifty minutes rather than an afternoon." },
-      { label: "Covers the wider Okanagan", detail: "West Kelowna, Vernon, Lake Country and the smaller Interior communities where local coverage thins further. [Penticton and the South Okanagan](/online-counselling/penticton) have a page of their own." },
+      { label: "Covers the wider Okanagan", detail: "West Kelowna, Lake Country and the smaller Interior communities where local coverage thins further. [Penticton and the South Okanagan](/online-counselling/penticton) and [Vernon and the North Okanagan](/online-counselling/vernon) have pages of their own." },
       { label: "Continues through evacuation or travel", detail: "Anywhere in BC with a connection, which in a wildfire season is not a hypothetical benefit." },
     ],
     faqs: [
-      { q: "Do you work with people in Vernon, Lake Country, or West Kelowna?", a: "Yes. The practice covers all of British Columbia, so anywhere in the Okanagan works identically, and smaller communities gain the most, since local options are thinnest there." },
+      { q: "Do you work with people in Lake Country, Peachland, or West Kelowna?", a: "Yes. The practice covers all of British Columbia, so anywhere in the Okanagan works identically, and smaller communities gain the most, since local options are thinnest there. Vernon and the North Okanagan have a page of their own." },
       { q: "Can I get counselling about wildfire evacuation or loss?", a: "Yes. Evacuation, property loss, and repeated seasons of alert are legitimate reasons to seek support, and the fact that a whole community experienced it does not make your response to it less real." },
       { q: "Are sessions available in Punjabi?", a: "Yes: in Punjabi, English, or both, without needing to travel to the coast to find it. The Kelowna Punjabi page covers what is and is not available locally, with the census figures behind it." },
       { q: "I work the season. Can sessions stop and start?", a: "Yes, and in the Okanagan that is the normal pattern rather than the exception. Agricultural and hospitality work here runs on a season, and a schedule assuming the same weekday at the same time for six months straight does not survive contact with it. Booking block by block, with gaps, works, and nothing is lost by pausing. Better to plan for that than to book weekly, miss three, and conclude counselling did not suit you." },
@@ -428,7 +428,7 @@ export const locations: Location[] = [
       { label: "Interior Health, mental health and substance use services", url: "https://www.interiorhealth.ca/services/access-mental-health-and-substance-use-services" },
       { label: "HereToHelp BC, mental health information", url: "https://www.heretohelp.bc.ca/" },
     ],
-    nearby: ["penticton", "kamloops", "vancouver"],
+    nearby: ["penticton", "vernon", "kamloops", "vancouver"],
     audiences: ["healthcare-and-shift-workers", "university-students"],
   },
 
@@ -1210,6 +1210,80 @@ export const locations: Location[] = [
     ],
     nearby: ["langley", "coquitlam"],
     audiences: ["healthcare-and-shift-workers", "first-responders"],
+  },
+
+  /* ── Vernon, 2 Oct 2026 ──────────────────────────────────────────────────
+   *
+   * Retired in the Phase 1 audit and 308'd to Kelowna until today; removed
+   * from lib/redirects.mjs (list and RETIRED_TOWN_HOMES) in the same change,
+   * and Kelowna stops naming it. The argument no neighbour's page makes:
+   *
+   *   Vernon        not the far end of Kelowna's line, as Penticton is, but
+   *                 the North Okanagan's own centre, with a small-town
+   *                 catchment north on 97A (Armstrong, Spallumcheen,
+   *                 Enderby) and east on Highway 6 (Lumby, Cherryville).
+   *                 Two things follow: privacy where the local counsellor
+   *                 may be a neighbour, and a specialist line that runs
+   *                 south to Kelowna. The 2021 White Rock Lake fire burned
+   *                 homes on the Okanagan Indian Band reserve and the
+   *                 northwest shore of Okanagan Lake (The Tyee, 14 Dec 2021).
+   *
+   * Census figures (Punjabi 505, Tagalog 305 by mother tongue, of 43,730)
+   * were read 2 Oct 2026 through StatCan's data service, when the www12
+   * Census Profile pages returned 404 from here; cited at the Census
+   * Profile, as every other city is. Language, EMDR and couples claims stay
+   * out of intro, access and faqs[0..4], which the place pages copy; the
+   * EMDR question sits at faqs[5]. No wait times, no hours. */
+  {
+    slug: "vernon",
+    figure2: "first-session-flow",
+    figure: "bc-reach",
+    city: "Vernon",
+    communities: ["Coldstream", "Armstrong", "Spallumcheen", "Enderby", "Lumby", "Cherryville"],
+    region: "Okanagan",
+    blurb: "The North Okanagan’s centre, with a catchment of small towns where the counsellor nearby may be a neighbour.",
+    metaDescription:
+      "Online counselling for Vernon and the North Okanagan. Coldstream, Armstrong, Enderby and Lumby: trauma, anxiety, EMDR and couples therapy by video.",
+    intro: [
+      "Vernon is where the North Okanagan comes for services. Interior Health runs a mental-health and substance-use centre on 14th Avenue that takes self-referrals, CMHA Vernon runs a free youth drop-in, and Okanagan College has its Vernon campus on College Way in Coldstream. What makes counselling here its own problem is the catchment, which runs north along 97A to Armstrong and Enderby and east through Lumby to Cherryville.",
+      "Two things follow from that. In the smaller towns the counsellor nearby may be somebody you already know, and when what you need is something specific, the search tends to widen down Highway 97 to Kelowna. Seeing a [Registered Clinical Counsellor](/compare/rcc-vs-psychologist-vs-social-worker-bc) by video answers both at once: nobody in Enderby sees where you go, and the drive south drops out of the plan.",
+    ],
+    localReality: {
+      h2: "A regional centre with a small-town catchment",
+      body: [
+        "**Interior Health is the public door, and it takes self-referrals.** The Vernon Mental Health and Substance Use Centre on 14th Avenue offers counselling and treatment, substance-use services and crisis response, and anyone can start by calling 310-MHSU (6478) rather than waiting for a doctor’s referral. If you are connected to it already, stay connected. Private counselling runs alongside public care, not instead of it.",
+        "**The specialist line runs south.** When the North Okanagan’s own list for a particular approach is short or full, the next suggestion is usually Kelowna, which the [Kelowna page](/online-counselling/kelowna) covers from the other end. From Vernon that is a drive down Highway 97 past Kalamalka and Wood Lakes. From Enderby or Cherryville it is longer again, and it comes round every week.",
+        "**EMDR is a common example.** It is a separate training on top of counselling, so the question is not whether Vernon has counsellors but whether one trained in EMDR has an opening. [EMDR therapy](/services/emdr-therapy) is offered by secure video, and [EMDR for Vernon](/online-counselling/vernon/emdr-therapy) explains why its preparation stage is where distance hurts most.",
+        "**Small towns make privacy a practical question.** In Lumby, Armstrong or Enderby, the counsellor in town may also coach your child’s team or stand behind you at the post office. Some people are comfortable with that. Plenty are not, and quietly go without. A practice based elsewhere in the province has no waiting room and no parking lot where anyone would recognise your vehicle.",
+        "**The 2021 fire is still recent.** The White Rock Lake fire destroyed homes on the Okanagan Indian Band reserve, and at Killiney Beach and Estamont on the northwest shore of Okanagan Lake. People who were evacuated, or who spent that summer watching the smoke across the lake, often file it under “everyone went through it”. That phrase can keep a real response unspoken for years, and [trauma counselling for Vernon](/online-counselling/vernon/trauma-therapy) is written for exactly that.",
+        "**Young people have a free route of their own.** CMHA Vernon’s Youth Integrated Services Hub offers free, confidential drop-in counselling for ages 12 to 24 while Foundry North Okanagan is in development. For a student at Okanagan College’s Vernon campus or a teenager in Coldstream, that is worth trying first, and [counselling for teens and young adults](/for/teens-and-young-adults) covers what private sessions add.",
+        "**Two language communities, both small.** In the 2021 Census 505 Vernon residents gave Punjabi as their mother tongue and 305 gave Tagalog, about 1.2% and 0.7% of the city. Communities that size rarely have a local counsellor working in their language, and they are small enough that people know one another. [Punjabi-speaking counselling for Vernon](/punjabi-counselling/vernon) and [Tagalog-speaking counselling for Vernon](/tagalog-counselling/vernon) say plainly what that means.",
+      ],
+    },
+    access: [
+      { label: "No Highway 97 for a specialist", detail: "A particular approach no longer depends on who between Enderby and Kelowna has an opening. Any counsellor trained in it who practises in BC is within reach." },
+      { label: "Armstrong to Cherryville, on the same terms", detail: "Coldstream, Armstrong, Spallumcheen, Enderby, Lumby and Cherryville get the same session as downtown Vernon, with no penalty for distance." },
+      { label: "No small-town waiting room", detail: "No reception desk, no parking lot and no neighbour in the next chair. The session happens behind your own door." },
+      { label: "Winter roads stop mattering", detail: "Highway 6 from Lumby or 97A from Enderby in snow is no longer part of the appointment." },
+    ],
+    faqs: [
+      { q: "How do I get public mental-health care in Vernon?", a: "Through Interior Health, with no doctor’s referral needed. Call 310-MHSU (6478) or go to the Vernon Mental Health and Substance Use Centre on 14th Avenue; an intake clinician asks some screening questions, with your permission, and connects you with the right team. Starting privately as well does not mean leaving a public list." },
+      { q: "Should I widen my search to Kelowna?", a: "You can, and if a Kelowna practice has what you need at a time you can reach it, that is a fair choice. Count the whole trip, though: from Armstrong or Lumby a weekly appointment in Kelowna takes much of the day, and travel is one of the ordinary reasons a course of counselling stops early. A video session from home costs the session and nothing around it." },
+      { q: "Does anyone in town need to know I am seeing a counsellor?", a: "No. There is no office, no waiting room and no vehicle parked outside anywhere, so in Armstrong, Lumby or Enderby there is nothing for anyone to notice. What you tell people is your decision." },
+      { q: "What free help is there in the North Okanagan?", a: "Interior Health’s Vernon centre is the public route and is free. For ages 12 to 24, CMHA Vernon’s Youth Integrated Services Hub offers free drop-in counselling. 8-1-1 connects to HealthLink BC at any hour, and the Interior Crisis Line Network answers at 1-888-353-2273. If one of those fits, use it." },
+      { q: "We were evacuated in 2021. Is it too late to talk about it?", a: "No. What matters is whether it still shows up now, in the smell of smoke, a phone alert, or a summer you cannot relax into, not how long ago it happened. Evacuation counts even where the house survived." },
+      { q: "Is EMDR offered to people in Vernon?", a: "Yes, by secure video with a counsellor trained in it; the EMDR page for Vernon shows who that is. Preparation comes first and is not rushed, and the eye-movement or tapping part is rehearsed before any memory is worked on, so the first sessions are about getting ready rather than diving in." },
+    ],
+    sources: [
+      { label: "Interior Health, Vernon Mental Health and Substance Use Centre", url: "https://www.interiorhealth.ca/locations/vernon-mental-health-substance-use" },
+      { label: "Interior Health, access mental health and substance use services (310-MHSU self-referral, Interior Crisis Line Network)", url: "https://www.interiorhealth.ca/services/access-mental-health-and-substance-use-services" },
+      { label: "CMHA Vernon and District, youth services", url: "https://cmhavernon.ca/youth-services/" },
+      { label: "Okanagan College, Vernon campus housing (College Way, Coldstream)", url: "https://www.okanagancollege.ca/housing/campus-housing-in-vernon" },
+      { label: "The Tyee, the White Rock Lake fire, 14 December 2021", url: "https://thetyee.ca/News/2021/12/14/Everything-Is-Burning-Your-House-Is-Gone/" },
+      { label: "Statistics Canada, 2021 Census Profile: Vernon (CSD 5937014)", url: "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055937014&GENDERlist=1&STATISTIClist=1&HEADERlist=0" },
+    ],
+    nearby: ["kelowna", "kamloops", "penticton"],
+    audiences: ["teens-and-young-adults"],
   },
 ];
 

@@ -2314,6 +2314,43 @@ No /tl or /pa place twins and no new Punjabi or Tagalog sentences.
 
 ---
 
+### Vernon gets its own pages, and Kelowna stops answering for it
+Decided 2 Oct 2026 (owner decision of the same day: each city in the October
+batch gets all ten pages). Vernon has a hub, five city-service pages, both
+counsellors' English place pages, a Punjabi region page and a Tagalog city
+page. Its argument, which no neighbour's page makes: Vernon is not the far end
+of Kelowna's line, as Penticton is, but the North Okanagan's own centre, with
+a catchment of small towns (Coldstream, Armstrong, Spallumcheen, Enderby,
+Lumby, Cherryville). Two things follow: privacy where the local counsellor may
+be a neighbour, and a specialist line that runs south to Kelowna. The trauma
+page rests on the 2021 White Rock Lake fire, worded as The Tyee reports it
+(homes lost on the Okanagan Indian Band reserve and the northwest shore of
+Okanagan Lake), not as "Vernon's edge". The Punjabi page argues scarcity and
+says plainly the community is small (505 by mother tongue, 1.2%; 600 across
+the census agglomeration); the Tagalog page states its 305 and the 490 counted
+as Filipino. Figures were read through Statistics Canada's data service on
+2 Oct, when the www12 Census Profile pages returned 404 from here; they are
+cited at the Census Profile, as every other city is.
+
+`vernon` leaves `retiredCitySlugs` and its `RETIRED_TOWN_HOMES` entry.
+Kelowna drops Vernon from `communities`, adds `vernon` to `nearby` (hub and
+city context), links the new hub from its "wider Okanagan" access line, and
+its Vernon FAQs (hub, anxiety and depression pairs, Tagalog page) now ask
+about Lake Country and point to Vernon's own page. Kelowna's Punjabi page links
+the Vernon one. No other retired town moves: Salmon Arm stays with Kamloops,
+West Kelowna with Kelowna, and West Kelowna is now the redirect example in the
+tests and redirect-shadow. Okanagan College is placed on College Way in
+Coldstream, as its own page gives it, rather than "overlooking Kalamalka
+Lake", which its page says of the residence. The Interior Crisis Line Network
+number is cited to the Interior Health access page that lists it. No /tl or
+/pa place twins and no new Punjabi or Tagalog sentences.
+
+*Enforced by:* `test/regional-pages.test.mts`, `test/roster-nav.test.mts`,
+`test/link-anchors.test.mts`, `scripts/smoke.mjs`, `npm run seo`
+(redirect-shadow)
+
+---
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`

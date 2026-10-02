@@ -105,8 +105,8 @@ if (collisions.length) {
 }
 
 /* A RETIRED TOWN MUST LAND ON A PAGE THAT NAMES IT - 1 Oct 2026.
-   Vernon 308s to Kelowna because the Kelowna page lists Vernon among the
-   communities it serves. If that list loses Vernon, the redirect becomes a
+   West Kelowna 308s to Kelowna because the Kelowna page lists West Kelowna
+   among the communities it serves. If that list loses it, the redirect becomes a
    town sent to a page that never mentions it. Read from the built page, in
    the "Also serving ..." line the hub renders from `communities`. */
 const unnamed = [];

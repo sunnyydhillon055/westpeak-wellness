@@ -207,7 +207,7 @@ export const TAGALOG_CITIES: TagalogCity[] = [
     faqs: [
       { q: 'I am here on a work permit. Can I still see a counsellor?', a: 'Yes. Access to a private counsellor does not depend on immigration status. What it depends on is being located in the province during the session.' },
       { q: 'Is anything reported to my employer?', a: 'No. This is a private practice with no connection to any employer, and nothing is reported to anybody. The limits of confidentiality are set out on the standards page.' },
-      { q: 'Are West Kelowna and Vernon covered?', a: 'Yes, on identical terms across the province.' },
+      { q: 'Are West Kelowna and Lake Country covered?', a: 'Yes, on identical terms across the province. Vernon has a page of its own.' },
     ],
   },
   /* SAANICH, 2 Oct 2026. TagalogCity has no sources field and the route
@@ -255,6 +255,29 @@ export const TAGALOG_CITIES: TagalogCity[] = [
       { q: 'I arrived in the last few years. Does that change anything?', a: 'Not for counselling. A private counsellor can see anyone who is in British Columbia at the time of the session, whatever their immigration status, and settling in is an ordinary thing to bring to it.' },
       { q: 'My job is across the river. Can I join from near work?', a: 'Yes. Where you join from is up to you, as long as it is private and the connection holds. Near work that might be an empty meeting room, or the car before the drive home over the bridge.' },
       { q: 'Are Pitt Meadows and the east end of Maple Ridge included?', a: 'Yes: Pitt Meadows, Haney, Albion, Silver Valley and Whonnock, with nothing different about the service at the far east end.' },
+    ],
+  },
+  /* VERNON, 2 Oct 2026. Owner decision of the same day: the figure is
+     stated plainly, attributed in the sentence and cited on the Vernon hub,
+     which links here. Statistics Canada 2021 Census Profile, Vernon CSD
+     5937014: Tagalog mother tongue 305 of 43,730 (0.7%); Filipino 490 of
+     43,110. Read 2 Oct 2026 through StatCan's data service.
+     The Filipino Association of Vernon: Vernon Museum, Filipino Heritage
+     Month, https://vernonmuseum.ca/filipino-heritage-month/ (typhoon relief;
+     Stand Up Against Racism, Kal Beach, May 2021). English only; no Tagalog
+     words added. */
+  {
+    slug: 'vernon',
+    city: 'Vernon',
+    angle: 'Vernon’s Filipino community is a few hundred people and organised, with an association that has raised typhoon relief and led anti-racism work.',
+    body: [
+      'In the 2021 Census 305 Vernon residents gave Tagalog as their mother tongue, under 1% of the city, and 490 were counted as Filipino (Statistics Canada, 2021 Census Profile). The Filipino Association of Vernon has raised relief for families in the Philippines after typhoons and started a Stand Up Against Racism initiative with an event at Kal Beach. A community that pulls together like that is also one where being recognised is likely, which is why talking to someone inside it about a marriage, money sent home or a parent’s expectations can feel impossible.',
+      'Finding a counsellor nearby who speaks Tagalog and is not already part of that circle is hard in a town this size. One reached by video sits outside the community entirely, and sessions can move between Tagalog and English as the conversation needs.',
+    ],
+    faqs: [
+      { q: 'The community here is small. Would anyone find out?', a: 'No. Sessions are confidential and there is no office for anyone to see you enter. The limits of confidentiality are set out on the standards page, and they are the same as anywhere.' },
+      { q: 'Can my spouse and I have couples sessions in Tagalog?', a: 'Yes. Couples sessions can run in Tagalog, English or both, with each partner speaking in whichever language is easier for them.' },
+      { q: 'Are Armstrong, Lumby and Enderby covered?', a: 'Yes, on identical terms anywhere in British Columbia, with no drive into Vernon for any of them.' },
     ],
   },
 ];

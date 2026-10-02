@@ -189,7 +189,7 @@ export const cityContexts: CityContext[] = [
       'Interior Health covers public intake across the region. Private practice in Kelowna is comparatively strong for the Interior, which is precisely why it is busy, being the best-served city in a thinly-served region is not the same as being well served.',
     unlock:
       'Not competing with the whole Okanagan for the same handful of local appointments.',
-    nearby: ['kamloops'],
+    nearby: ['kamloops', 'vernon'],
   },
   {
     slug: 'kamloops',
@@ -246,6 +246,20 @@ export const cityContexts: CityContext[] = [
     unlock:
       'The session stops depending on which side of the river you happen to be on that day.',
     nearby: ['langley', 'surrey'],
+  },
+  {
+    slug: 'vernon',
+    city: 'Vernon',
+    inCity: 'in Vernon',
+    region: 'North Okanagan',
+    authority: 'Interior Health',
+    travel:
+      'Vernon is the centre for the North Okanagan, and its catchment runs out along 97A to Armstrong and Enderby and east on Highway 6 through Lumby to Cherryville. For a particular approach the next place people look is Kelowna, down Highway 97 past Kalamalka and Wood Lakes.',
+    inPerson:
+      'Interior Health runs public intake through the Vernon Mental Health and Substance Use Centre, and anyone can self-refer through 310-MHSU. General counselling is available in Vernon; for something specific the search tends to widen to Kelowna.',
+    unlock:
+      'Lumby, Enderby and Cherryville get the same session as downtown Vernon, and nobody in a small town sees you arrive.',
+    nearby: ['kelowna', 'kamloops'],
   },
 ];
 

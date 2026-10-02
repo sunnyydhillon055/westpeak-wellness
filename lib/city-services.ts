@@ -451,7 +451,7 @@ export const pairs: Pair[] = [
       /* Search Console, 17 Sep 2026: anxiety specialist Kelowna, anxiety therapist Kelowna, anxiety counselling Kelowna. */
       { q: 'Are you an anxiety specialist?', a: 'Anxiety is the most common thing brought to this practice and the counsellors work with it daily, using CBT, ACT and, where trauma sits underneath, EMDR. "Specialist" is not a protected term in counselling and it is worth being careful with; the protected credential is Registered Clinical Counsellor, and the training in anxiety-specific approaches is listed on each counsellor\'s profile.' },
       { q: 'Can I pause during my busy season?', a: 'Yes, and it is better to plan that at the start than discover it in month two. Pausing between blocks costs nothing.' },
-      { q: 'Are West Kelowna and Vernon covered?', a: 'Yes, on identical terms. The whole province is served on the same basis.' },
+      { q: 'Are West Kelowna and Lake Country covered?', a: 'Yes, on identical terms. The whole province is served on the same basis, and Vernon and the North Okanagan have pages of their own.' },
     ],
   },
   {
@@ -714,7 +714,7 @@ export const pairs: Pair[] = [
     ],
     faqs: [
       { q: 'I moved here by choice. Why do I feel worse?', a: 'Because a move removes routine and incidental contact at the same time, and both were doing more work than they appeared to. It is a common pattern rather than an indictment of the decision.' },
-      { q: 'Are West Kelowna and Vernon covered?', a: 'Yes, on identical terms across the province.' },
+      { q: 'Are West Kelowna and Lake Country covered?', a: 'Yes, on identical terms across the province. Vernon has a page of its own.' },
     ],
   },
   {
@@ -906,6 +906,80 @@ export const pairs: Pair[] = [
     faqs: [
       { q: 'What do I need at home for EMDR by video?', a: 'A private room, a stable connection, and a device with a screen large enough to follow a moving point comfortably; a laptop is better than a phone. If following on screen does not suit you, self-administered tapping is an established alternative, and both are practised before any processing begins.' },
       { q: 'Should I plan anything for after a session?', a: 'Keep the rest of the day light where you can. Most people feel tired rather than distressed, and the preparation phase includes ways to settle that you can use afterwards. If a session lands harder than expected, that is raised at the next one and the pacing is adjusted.' },
+    ],
+  },
+  /* ---- VERNON, 2 Oct 2026 ----------------------------------------------
+     Five arguments from one fact, that Vernon is the centre of a catchment
+     of small towns: being seen at the door (anxiety), the drive depression
+     cannot face (depression), the 2021 White Rock Lake fire (trauma), no
+     neutral counsellor where everyone knows everyone (couples), and the
+     preparation stage that needs steady attendance (EMDR). Couples and EMDR
+     book Camille only, so their language answers do not offer Punjabi.
+     Trauma copy names no EMDR, because Savneet's card appears on it. No
+     counsellor named. Sources are on the hub. */
+  {
+    city: 'vernon', service: 'anxiety-counselling',
+    angle: 'Where a small town knows your vehicle, worry about being seen at a counsellor’s door keeps anxiety untreated.',
+    body: [
+      'Anxiety tends to make people overestimate how closely they are being watched, and in Lumby, Armstrong or Enderby the estimate is not always wrong. A vehicle outside a small practice gets noticed. That combination, an anxious mind and a genuinely visible appointment, is one of the quieter reasons people across the North Okanagan put off starting for years.',
+      'A session by video takes the doorway out of the decision. The work itself is the ordinary work of anxiety counselling: understanding the pattern, practising a different response to it, and doing that from a room where nobody sees you arrive. For anyone aged 12 to 24, CMHA Vernon’s free youth drop-in counselling is a reasonable first step as well.',
+    ],
+    faqs: [
+      { q: 'Does anyone in town have to know I am in counselling?', a: 'No. There is no office, no waiting room and no reception desk, so there is nothing for anyone to notice. Receipts for an extended health claim come to you, and what you tell anybody else is your decision.' },
+      { q: 'My anxiety changes with the seasons. Is that worth mentioning?', a: 'Yes. A change that follows the time of year is useful information rather than a coincidence to set aside, and it shapes how the work is paced across the year, including where a planned pause makes sense.' },
+      { q: 'I study at Okanagan College in Vernon. Where should I start?', a: 'With what is free: CMHA Vernon’s youth drop-in counselling covers ages 12 to 24, which includes many students. If you want something longer or more structured than a drop-in offers, private sessions by video fit around a timetable without a trip off campus.' },
+    ],
+  },
+  {
+    city: 'vernon', service: 'depression-counselling',
+    angle: 'Depression shrinks how far a person can face travelling, and outside Vernon the nearest appointment is already a drive.',
+    body: [
+      'One of the first things low mood takes is the energy for errands, and an appointment in another town is an errand with a highway attached. From Cherryville, Lumby or Enderby, a regular session in Vernon or Kelowna asks for exactly the effort depression has removed, which is why the people who most need steady sessions are often the first to stop going.',
+      'Video changes the arithmetic rather than the work. The session comes to the kitchen table, it needs no clear road and no free afternoon around it, and missing one because the drive felt impossible stops being part of the pattern. What remains is the work itself: noticing what has narrowed, and widening it again at a pace that can be kept.',
+    ],
+    faqs: [
+      { q: 'I barely have the energy to get to work. Is counselling realistic right now?', a: 'Often that is the right time rather than the wrong one. A video session asks for fifty minutes and a private room, and starting slowly, with sessions spaced further apart at first, is a legitimate plan rather than a half measure.' },
+      { q: 'Should I see my doctor as well?', a: 'It is worth doing. A family doctor can check for physical contributors and talk through medication if that is something you want to consider. Counselling runs alongside that and needs no referral to start.' },
+      { q: 'Is there public help in Vernon too?', a: 'Yes. Interior Health’s Vernon Mental Health and Substance Use Centre is the public route, and anyone can self-refer through 310-MHSU (6478). Staying on a public list while seeing someone privately costs nothing; the two run side by side.' },
+    ],
+  },
+  {
+    city: 'vernon', service: 'trauma-therapy',
+    angle: 'The 2021 White Rock Lake fire destroyed homes on the Okanagan Indian Band reserve and the northwest shore of Okanagan Lake.',
+    body: [
+      'People who lost homes, who were evacuated, or who spent that summer watching the smoke across the lake each came away with something different, and many have since filed it under “everybody went through it”. That phrase does a lot of work in the North Okanagan. It turns a real event into something that feels self-indulgent to mention.',
+      'Trauma counselling does not require the event to have been the worst in the region. It starts with what still happens now: the smell of smoke, a phone alert, a summer that cannot be relaxed into. Those responses are understandable and workable, and the work can begin without going back through every detail of what happened.',
+    ],
+    faqs: [
+      { q: 'Our house was not lost. Does it still count?', a: 'Yes. Evacuation, days of not knowing, and helping other people through their losses are experiences in their own right, and whether your own address survived is not what decides how much they weigh.' },
+      { q: 'Is it too late to talk about something from 2021?', a: 'No. Time passing does not settle a response that is still active. What matters is whether it shows up now, not how long ago it happened.' },
+      { q: 'Can I see someone from outside the community?', a: 'Yes, and in a small place that is often the reason to work by video. Nobody local is involved, and the practice has no connection to any employer or local agency.' },
+    ],
+  },
+  {
+    city: 'vernon', service: 'couples-therapy',
+    angle: 'In a small community, finding a couples counsellor neither partner knows socially is harder than it sounds.',
+    body: [
+      'Couples work depends on both people feeling the room is neutral. In Armstrong, Lumby or Coldstream, the local options can include someone who knows a sister-in-law, coaches a child, or went to school with one of you. Even when nothing is ever said, one partner can feel the other arrived with home advantage, and the work stalls on that.',
+      'Where a farm or a family business is involved, the relationship is also a partnership with payroll, and the argument about the books is often the same argument as the one about the marriage. A counsellor from elsewhere in British Columbia, seen by video from your own kitchen, starts with no history on either side.',
+    ],
+    faqs: [
+      { q: 'Can we each join from a different place?', a: 'Yes. Partners can join from the same room or from separate ones, which helps when one of you works away for stretches or the house is never quiet enough for both.' },
+      { q: 'Is couples counselling available in Punjabi?', a: 'No. Couples sessions run in English or Tagalog for now. If one of you would rather talk on your own in Punjabi, individual counselling is offered in Punjabi, English or a mix.' },
+      { q: 'We run a business together. Is that something to bring?', a: 'Yes. When work and home share the same two people, the business is part of the relationship rather than a separate topic, and it belongs in the room alongside everything else.' },
+    ],
+  },
+  {
+    city: 'vernon', service: 'emdr-therapy',
+    angle: 'EMDR depends on steady preparation sessions, and from the edges of the North Okanagan steady attendance is the hard part.',
+    body: [
+      'EMDR is not only the processing sessions people read about. It begins with history-taking and preparation, building the skills to stay steady before any memory is approached, and that stage depends on regular contact. If the trained practitioner with an opening is in Kelowna, someone in Lumby or Enderby is signing up for a long drive before the work proper has started.',
+      'By secure video the preparation and the processing happen in the same private room each time, and the counsellor no longer has to be one of the few trained practitioners within driving distance of the North Okanagan. On screen, the bilateral part is usually following a dot with your eyes or tapping your own shoulders, rehearsed in preparation before it is used on anything difficult.',
+    ],
+    faqs: [
+      { q: 'How do I know a counsellor is actually trained in EMDR?', a: 'Ask directly and expect a specific answer: where the training was completed and how long it has been part of the work. Each counsellor’s profile lists her training, and EMDR is offered only by a counsellor trained in it.' },
+      { q: 'Can EMDR work if I share a house with family?', a: 'Yes, with planning. A closed door, headphones, and a few minutes after the session to settle before rejoining the household are the usual arrangements, and they are worked out during preparation.' },
+      { q: 'Can EMDR be done in Punjabi?', a: 'Not at the moment: EMDR currently runs in English or Tagalog. Individual counselling, which does not include EMDR, is available in Punjabi, English or both.' },
     ],
   },
 ];
