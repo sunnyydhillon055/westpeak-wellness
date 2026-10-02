@@ -38,14 +38,16 @@ test('every sentence that prints a clock time says Pacific time', () => {
 });
 
 test('the /book time-zone sentence names Alberta only while someone is insured there', () => {
-  const ab = timeZoneNote(['BC', 'AB']);
-  const bc = timeZoneNote(['BC']);
+  /* July: Alberta's clock differs from Pacific, so the clause shows (the
+     sentence is computed per day since 2 Oct 2026; test/availability-summary). */
+  const ab = timeZoneNote(['BC', 'AB'], '2026-07-15T20:00:00Z');
+  const bc = timeZoneNote(['BC'], '2026-07-15T20:00:00Z');
   assert.match(ab, /Alberta/);
   assert.doesNotMatch(bc, /Alberta/);
   for (const s of [ab, bc]) {
     assert.match(s, /^Times on this page are Pacific time/);
     assert.match(s, /East Kootenay/);
-    assert.match(s, /Peace region are one hour ahead from November to March/);
+    assert.doesNotMatch(s, /from November to March/, 'false from 1 Nov 2026');
     assert.doesNotMatch(s, /evening|weekend/i, 'a clock label, not an hours claim');
   }
   assert.match(src('app/book/page.tsx'), /timeZoneNote\(.*insuredProvinces\(p, vancouverToday\(\)\)/);

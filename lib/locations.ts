@@ -142,7 +142,7 @@ export const locations: Location[] = [
     region: "Northern BC",
     blurb: "Northern BC has the thinnest counselling coverage in the province, virtual care is how the gap gets closed.",
     metaDescription:
-      "Online counselling for Prince George and Northern BC: EMDR, trauma, anxiety, depression and couples therapy by secure video. Free 30-minute consultation.",
+      "Online counselling for Prince George and Northern BC. EMDR, trauma, anxiety, depression and couples therapy by secure video. Free 30-minute consultation.",
     intro: [
       "If you live in Prince George and have tried to find a counsellor, you already know the shape of the problem: there are not many, the ones who are here fill up, and the wait for a psychiatrist or specialist is longer than almost anywhere else in the province. That is not a failure of effort on anyone's part. It is arithmetic: Northern Health covers roughly two-thirds of BC's landmass for about 300,000 people, and mental-health clinicians cluster where the population does.",
       "Virtual counselling does not fix that arithmetic. What it does is remove distance from the equation entirely. A [Registered Clinical Counsellor](/compare/rcc-vs-psychologist-vs-social-worker-bc) working out of the Lower Mainland is exactly as available to you in Prince George as to someone in Burnaby: same 50-minute session, same secure platform, same [BCACC](https://bcacc.ca) code of ethics.",
@@ -463,7 +463,7 @@ export const locations: Location[] = [
     region: "Thompson-Nicola",
     blurb: "Kamloops is where the region's services are, which means everyone else in the region drives here for them.",
     metaDescription:
-      "Online counselling for Kamloops and the Thompson-Nicola: EMDR, trauma, anxiety, depression and couples therapy by secure video. Free 30-minute consultation.",
+      "Online counselling for Kamloops and the Thompson-Nicola. EMDR, trauma, anxiety, depression and couples therapy by secure video. Free 30-minute consultation.",
     intro: [
       "Kamloops is a regional centre, and it is worth being straightforward about what that means: there are counsellors here, Interior Health runs mental-health and substance-use services from Lansdowne Street, and Thompson Rivers University brings a steady population of students and staff with it. If you live in the city and want to see somebody in person, that is a real and reasonable option.",
       "The thing that is specific about this region is not scarcity in Kamloops. It is that Kamloops is the place the rest of the Thompson-Nicola drives to. For anyone in Clearwater, Barriere, Merritt, Ashcroft, Logan Lake, Chase or Cache Creek, \"available in Kamloops\" already means an hour or more each way, on highways that close.",
@@ -954,7 +954,9 @@ export const locations: Location[] = [
    *                 arithmetic seen from the end of the line, and Search
    *                 Console has "emdr counseling penticton" at 28 with
    *                 nothing on the site naming the town.
-   *   Fort St. John the Peace keeps Mountain Standard Time all year, works on
+   *   Fort St. John the Peace keeps UTC-7 all year (the clock BC itself
+   *                 keeps from 1 Nov 2026, so the old "an hour ahead in
+   *                 winter" no longer holds; corrected 2 Oct 2026), works on
    *                 rotation across the Alberta line, and is about 440 km
    *                 from Prince George, whose page named it only in passing.
    *
@@ -968,7 +970,7 @@ export const locations: Location[] = [
     region: "Okanagan",
     blurb: "The South Okanagan sits at the far end of a referral line that runs up the valley to Kelowna.",
     metaDescription:
-      "Online counselling for Penticton and the South Okanagan, Summerland to Osoyoos and Keremeos: EMDR, trauma, anxiety and couples therapy by video.",
+      "Online counselling for Penticton and the South Okanagan. Summerland to Osoyoos and Keremeos: EMDR, trauma, anxiety and couples therapy by video.",
     intro: [
       "Penticton is a regional centre in its own right. Penticton Regional Hospital serves the South Okanagan, Okanagan College has a campus here, and the private sector covers a good deal of general counselling well. What Penticton is not is the top of the valley's referral line. Specialised services in the Okanagan concentrate in Kelowna, and Kelowna's practices already absorb demand from Vernon and West Kelowna as well as from the south.",
       "So the South Okanagan queues behind Kelowna, and the further south you live the longer that queue looks. From Oliver or Osoyoos, \"available in Kelowna\" means Highway 97 up the length of the valley and back; from Keremeos it means the Similkameen first. Virtual counselling takes the highway out of it. A [Registered Clinical Counsellor](/compare/rcc-vs-psychologist-vs-social-worker-bc) anywhere in BC is exactly as available to you in Summerland as to somebody in downtown Kelowna.",
@@ -1011,17 +1013,17 @@ export const locations: Location[] = [
     city: "Fort St. John",
     communities: ["Dawson Creek", "Taylor", "Chetwynd", "Hudson’s Hope", "Fort Nelson"],
     region: "Northern BC",
-    blurb: "The Peace keeps its own clock, works on rotation, and sits a long day's drive from Prince George.",
+    blurb: "The Peace never changes its clocks, works on rotation, and sits a long day's drive from Prince George.",
     metaDescription:
-      "Online counselling for Fort St. John and the Peace: Dawson Creek, Chetwynd, Fort Nelson. Built around rotations and camp work, by secure video.",
+      "Online counselling for Fort St. John and the Peace region. Dawson Creek, Chetwynd, Fort Nelson: built around rotations and camp work, by video.",
     intro: [
       "Fort St. John is the largest city in BC's Peace region, and it is a long way from the rest of the province: about 440 kilometres to Prince George over the Pine Pass, and further again to anywhere on the coast. Northern Health runs mental-health and substance-use services here, and they are worth using. What the Peace does not have is depth, and specialist care has generally meant Prince George or a flight.",
       "The Peace also works differently from most of BC. Energy, the dams, construction, agriculture and the trades that follow them run on rotation, and a lot of people here split their weeks between home, camp and the Alberta side of the line. Counselling that assumes the same weekday every week, from the same town, does not fit that life. Video sessions can.",
     ],
     localReality: {
-      h2: "A different clock, and a different week",
+      h2: "A clock that never changes, and a different week",
       body: [
-        "**The Peace keeps Mountain Standard Time all year.** Fort St. John, Dawson Creek, Chetwynd, Taylor and Hudson’s Hope do not change their clocks, and Fort Nelson joined them in 2015. From November to March that puts the Peace an hour ahead of Vancouver; from March to November the two match, and Alberta is the one an hour ahead. A session booked with a counsellor on Pacific time lands at a different local hour depending on the season, so check which clock a booking confirmation is written in before the first appointment rather than on the day.",
+        "**The Peace keeps Mountain Standard Time all year.** Fort St. John, Dawson Creek, Chetwynd, Taylor and Hudson’s Hope do not change their clocks, and Fort Nelson joined them in 2015. For years that put the Peace an hour ahead of Vancouver every winter. From November 2026 British Columbia stops changing its clocks too, so a time on the booking calendar, which is Pacific time, is the same hour in the Peace all year. The Alberta side of the line is the one to check: if you book from there, look at which clock the booking confirmation is written in before the first appointment rather than on the day.",
         "**Rotation is the normal working pattern, not a niche.** The page on [counselling for rotational and camp workers](/for/rotational-and-camp-workers) sets out what tends to come up: the re-entry problem, sleep that never settles, a relationship run largely by phone. Sessions concentrated in the days at home, sessions from camp where the connection and the privacy allow, or a pattern that changes with the shift are all workable, and the booking calendar shows each counsellor's real open times.",
         "**The Alberta side of the line is a legal question, not a scheduling one.** A counsellor has to be registered where you are physically sitting during a session, so sessions with a BC Registered Clinical Counsellor run while you are in British Columbia." + ALBERTA_LINE,
         "**Prince George is the north's referral centre, and it is a long way off.** The [Prince George page](/online-counselling/prince-george) sets out how thin coverage is across Northern Health. From the Peace, that thin coverage is also a day's return drive away, over a pass that winter weather can close.",
@@ -1036,7 +1038,7 @@ export const locations: Location[] = [
       { label: "Privacy in a small community", detail: "Nobody local sees you attend, because there is nowhere to attend." },
     ],
     faqs: [
-      { q: "What time will my session be in Fort St. John?", a: "The Peace stays on Mountain Standard Time all year, so in winter it is an hour ahead of Vancouver and in summer the two match. Check which time zone a booking confirmation shows, and if anything is unclear, ask before the first session rather than on the day." },
+      { q: "What time will my session be in Fort St. John?", a: "The same hour the booking calendar shows. The Peace stays on Mountain Standard Time all year, and from November 2026 the rest of British Columbia keeps that same clock, so Pacific time and Peace time match in every season. If you book while on the Alberta side of the line, check which time zone the booking confirmation shows, and if anything is unclear, ask before the first session rather than on the day." },
       { q: "I work in Alberta part of the time. Can I still have sessions?", a: "Yes, while you are in British Columbia. A BC Registered Clinical Counsellor can only see you while you are physically in BC, so sessions are planned for the days you are back on this side of the line." + ALBERTA_FAQ },
       { q: "Can sessions happen from a work camp?", a: "Where the connection and a private room allow, yes. Privacy is usually the harder of the two: a vehicle, a closed room off-shift, or keeping sessions for the days at home are the common answers. Test the connection before booking rather than partway through a session." },
       { q: "Which health authority covers the Peace?", a: "Northern Health. Its mental-health and substance-use services are the public route, and staying on a public list while starting privately costs nothing: the two run side by side." },

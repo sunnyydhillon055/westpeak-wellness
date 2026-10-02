@@ -49,10 +49,10 @@ export const metadata: Metadata = {
  * freshness across requests (30 minutes); without this wrapper a cold miss
  * could have fired the Cliniko calls once per boundary.
  *
- * Honesty when Cliniko is down is unchanged: lib/cliniko-availability.ts
- * returns an `error` entry rather than throwing, every line here prints
- * nothing on one, and the fetch now times out instead of holding the stream
- * open. */
+ * Honesty when Cliniko is down is unchanged: consultationAvailability()
+ * never throws (2 Oct 2026: it serves the last good read for up to six
+ * hours, else {}), every line here prints nothing without an entry, and the
+ * fetch times out instead of holding the stream open. */
 const availability = cache(() => consultationAvailability());
 
 /* EACH STREAMED LINE SITS IN A SLOT THAT IS ALREADY ITS HEIGHT.
@@ -146,7 +146,18 @@ async function NextOpen({ people }: { people: { slug: string; name: string; clin
     .filter((p) => p.clinikoPractitionerId)
     .map((p) => ({ first: p.name.split(' ')[0], a: avail[p.slug] }))
     .filter(({ a }) => a && !a.error && (a.next?.length ?? 0) > 0);
-  if (!lines.length) return null;
+  /* Nothing to name (no time in two weeks, or Cliniko unread): the reserved
+     box says where the times are and where to go if none suit, rather than
+     standing empty. No day, no hour. 2 Oct 2026. */
+  if (!lines.length) {
+    return (
+      <p style={{ margin: '0 0 6px', fontSize: '.95rem', lineHeight: 1.5 }}>
+        Times are on the calendar below; if none suit,{' '}
+        <BookLink location="next-consult-ask" className="" href="#ask-for-a-time">ask for a time</BookLink>{' '}
+        by email or with the form under it.
+      </p>
+    );
+  }
   return (
     <>
       {lines.map(({ first, a }) => (

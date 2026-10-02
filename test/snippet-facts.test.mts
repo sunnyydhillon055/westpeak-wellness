@@ -125,3 +125,22 @@ test('price-drift fails a fee typed into a description, and any figure in the co
   assert.equal(typedFeesInSnippetFacts('const x = 1; // costs $140').length, 1);
   assert.equal(counsellorsFor({ bookingService: 'individual-therapy' }).every((p) => p.acceptingNewClients), true);
 });
+
+/* #382, 2 Oct 2026 (finishes #195): Prince George, Kamloops, Fort St. John
+   and Penticton led with one long sentence, so withSnippet fell back to the
+   bare lead and their snippets named neither a fee nor a counsellor. Every
+   hub description now carries the catalogue fee. */
+test('every city hub description carries the catalogue fee and an accepting counsellor', () => {
+  const ind = fee('Individual Counselling');
+  for (const l of locations) {
+    const facts = practiceSnippet(C, counsellorsForCity(l.slug));
+    if (!facts) continue;
+    const d = withSnippet(l.metaDescription, facts);
+    assert.ok(d.includes(ind), `${l.slug}: ${d}`);
+    assert.ok(metaLength(d) <= SNIPPET_MAX, `${l.slug} is ${metaLength(d)} long`);
+    assert.ok(metaLength(firstSentence(l.metaDescription)) <= 69, `${l.slug}: lead sentence too long for the facts`);
+  }
+  for (const slug of ['prince-george', 'kamloops', 'fort-st-john', 'penticton']) {
+    assert.ok(locations.some((l) => l.slug === slug), slug);
+  }
+});

@@ -83,7 +83,7 @@ test('the designation is explained in plain words, and the practice is not calle
 
 test('/book: a named calendar region, a route that is not the calendar, and short card names', () => {
   assert.ok(BOOK_LOCATIONS.includes('calendar-alt'));
-  assert.equal(BOOK_LOCATIONS[BOOK_LOCATIONS.length - 1], 'calendar-alt', 'appended, nothing reordered');
+  assert.equal(BOOK_LOCATIONS[BOOK_LOCATIONS.indexOf('email:reactivation') + 1], 'calendar-alt', 'appended, nothing reordered (later rounds append after it)');
   const gate = src('components/SchedulerGate.tsx');
   assert.match(gate, /role="region" aria-label=\{title\}/);
   assert.match(gate, /role="status" aria-live="polite"/);

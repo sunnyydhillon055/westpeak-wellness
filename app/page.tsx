@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { site, RCC_PLAIN } from '@/lib/site';
-import { consultationAvailability, nextFreeCallLine } from '@/lib/cliniko-availability';
+import { consultationAvailability, nextFreeCallEntries } from '@/lib/cliniko-availability';
+import { PACIFIC } from '@/lib/availability-summary';
+import BookLink from '@/components/BookLink';
 import { gurmukhi } from '@/app/fonts-gurmukhi';
 import { lastmodFor } from '@/lib/page-dates';
 import Updated from '@/components/Updated';
@@ -143,7 +145,10 @@ export default async function Home() {
   /* "Next free call: Sat 3 Oct with Camille · Tue 6 Oct with Savneet (Pacific
      time)". The next open DAY per counsellor, from Cliniko; no span of hours
      and no weekend clause (1 Oct 2026, under the 6 Sep no-hours rule). */
-  const nextFree = nextFreeCallLine(
+  /* Each "Sat 3 Oct with Camille" opens that counsellor's calendar (2 Oct
+     2026, "hero-next-home"): the line used to be plain text, so the page that
+     sends most people to /book sent them to the bare page. A day, no hour. */
+  const nextFree = nextFreeCallEntries(
     await consultationAvailability(),
     ACCEPTING.map((p) => ({ slug: p.slug, first: p.name.split(' ')[0]! })),
   );
@@ -223,7 +228,20 @@ export default async function Home() {
                   this line described a schedule that had changed twice. When the
                   calendar cannot be read the line says only what is always true. */}
               <p className="hero-note">
-                {nextFree ?? 'The calendar shows real open times'} · No referral needed
+                {nextFree.length ? (
+                  <>
+                    Next free call:{' '}
+                    {nextFree.map((e, i) => (
+                      <span key={e.slug}>
+                        {i > 0 ? ' · ' : ''}
+                        <BookLink location="hero-next-home" className="" href={`${site.bookingPath}?with=${e.slug}#calendar`}>
+                          {e.day} with {e.first}
+                        </BookLink>
+                      </span>
+                    ))}
+                    {PACIFIC}
+                  </>
+                ) : 'The calendar shows real open times'} · No referral needed
               </p>
               <TrustBar />
             </div>

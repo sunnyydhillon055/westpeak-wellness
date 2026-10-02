@@ -1,5 +1,6 @@
 import { site, bookingsPaidUrlFor } from '@/lib/site';
 import { FALLBACK_CATALOG, money, type Catalog } from '@/lib/cliniko-catalog';
+import { formatPacific } from '@/lib/pacific-time';
 
 /* Confirmation and follow-up email, sent from westpeakwellness.com.
  *
@@ -165,10 +166,12 @@ export function shortWhen(iso?: string | null): string | null {
   if (!iso) return null;
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return null;
-  return new Intl.DateTimeFormat('en-CA', {
-    timeZone: 'America/Vancouver', weekday: 'short', month: 'short', day: 'numeric',
+  /* Through lib/pacific-time.ts, so a runtime with pre-1 Nov 2026 tz data
+     still prints BC's UTC-7 clock in winter. */
+  return formatPacific(d, {
+    weekday: 'short', month: 'short', day: 'numeric',
     hour: 'numeric', minute: '2-digit', hour12: true,
-  }).format(d);
+  });
 }
 
 /* Wrapped at 72 characters. Some mail clients hard-wrap plain text at 78 and
