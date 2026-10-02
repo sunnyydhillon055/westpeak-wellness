@@ -325,6 +325,30 @@ export const TAGALOG_CITIES: TagalogCity[] = [
       { q: 'Are Comox, Cumberland and the islands included?', a: 'Yes. Comox, Cumberland, Royston, Union Bay, Fanny Bay, Denman and Hornby are served the same way as Courtenay, as is everywhere else in British Columbia.' },
     ],
   },
+  /* LANGFORD, 2 Oct 2026. Owner decision of the same day: the figure is
+     stated plainly, attributed in the sentence and cited on the Langford
+     hub, which links here. Statistics Canada 2021 Census Profile, Langford
+     CSD 5917044: Tagalog mother tongue 670 (1.4%); knowledge of Tagalog
+     1,035; Filipino 1,405 (3.0%). Victoria CMA 935: Filipino 8,530 (2.2%).
+     https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055917044&GENDERlist=1&STATISTIClist=1&HEADERlist=0
+     read 2 Oct 2026 through StatCan's data service. Saanich argues that the
+     community is in Saanich; this one that it is a larger share of a young
+     city of recent arrivals, and still small. English only; no Tagalog
+     words added. */
+  {
+    slug: 'langford',
+    city: 'Langford',
+    angle: 'Filipino residents are a larger share of Langford than of Greater Victoria, 3.0% against 2.2%, and still a small community.',
+    body: [
+      'In the 2021 Census 1,405 Langford residents were counted as Filipino and 670 gave Tagalog as their mother tongue, about 1.4% of the city (Statistics Canada, 2021 Census Profile). That is a real community but a small one, in a city that grew by almost a third in five years, and for many families who moved here the nearest relatives are in the Lower Mainland or overseas rather than down the road.',
+      'That makes the language harder to find, not less needed. Without video, the realistic choices from the West Shore have been counselling in English with a parent or partner translating, or a long trip to reach somebody who speaks Tagalog. Video puts a Tagalog-speaking counsellor on the same screen as the person who needs one, with no highway and no sailing.',
+    ],
+    faqs: [
+      { q: 'Is the Filipino community in Langford big enough for this to matter?', a: 'It is smaller than Surrey’s or Vancouver’s, and this page does not pretend otherwise. What matters is whether a counsellor speaks your language, and on the West Shore the realistic way to find one is by video.' },
+      { q: 'Can a parent join in Tagalog while I join in English?', a: 'Yes. Family sessions can move between Tagalog and English, and family members can join from different places, as long as everyone is in British Columbia during the session.' },
+      { q: 'Are Colwood, View Royal and Sooke covered?', a: 'Yes, with Metchosin and the Highlands. Where on the West Shore you live makes no difference to access.' },
+    ],
+  },
 ];
 
 export const getTagalogCity = (slug: string) => TAGALOG_CITIES.find((c) => c.slug === slug);

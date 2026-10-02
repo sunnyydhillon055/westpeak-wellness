@@ -66,6 +66,8 @@ test('no slug is both retired and a page: Penticton and Fort St. John are pages 
   assert.equal(dest('mission'), undefined);
   assert.ok(getLocation('courtenay'));
   assert.equal(dest('courtenay'), undefined);
+  assert.ok(getLocation('langford'));
+  assert.equal(dest('langford'), undefined);
 });
 
 test('the new pages and the community edits', () => {
@@ -77,7 +79,7 @@ test('the new pages and the community edits', () => {
   assert.ok(kel.nearby!.includes('penticton'));
   assert.ok(kel.access!.some((a) => a.detail.includes('](/online-counselling/penticton)')), 'Kelowna links Penticton');
   assert.ok(!kel.faqs!.some((f) => f.q.includes('Penticton')));
-  assert.deepEqual(getLocation('victoria')!.nearby, ['saanich', 'nanaimo', 'vancouver']);
+  assert.deepEqual(getLocation('victoria')!.nearby, ['saanich', 'langford', 'nanaimo', 'vancouver']);
   for (const t of ['Saanich', 'Sidney']) assert.ok(!getLocation('victoria')!.communities!.includes(t), `${t} is on the Saanich page`);
   assert.ok(getLocation('victoria')!.localReality!.body.some((b) => b.includes('](/online-counselling/saanich)')), 'Victoria links Saanich');
   assert.ok(getLocation('victoria')!.localReality!.body.some((b) => b.includes('](/online-counselling/nanaimo)')));
@@ -97,7 +99,11 @@ test('the new pages and the community edits', () => {
   for (const t of ['Silverdale', 'Hatzic', 'Dewdney', 'Deroche']) assert.ok(getLocation('mission')!.communities!.includes(t), t);
   for (const t of ['Comox', 'Cumberland', 'Denman Island', 'Hornby Island']) assert.ok(getLocation('courtenay')!.communities!.includes(t), t);
   assert.ok(getLocation('victoria')!.localReality!.body.some((b) => b.includes('](/online-counselling/courtenay)')), 'Victoria links Courtenay');
-  for (const slug of ['penticton', 'fort-st-john', 'saanich', 'maple-ridge', 'vernon', 'mission', 'courtenay']) {
+  // Langford has its own hub since 2 Oct 2026, and the West Shore towns moved from Victoria with it.
+  for (const t of ['Langford', 'Colwood', 'Sooke']) assert.ok(!getLocation('victoria')!.communities!.includes(t), `${t} is on the Langford page`);
+  for (const t of ['Colwood', 'View Royal', 'Metchosin', 'Highlands', 'Sooke']) assert.ok(getLocation('langford')!.communities!.includes(t), t);
+  assert.ok(getLocation('victoria')!.localReality!.body.some((b) => b.includes('](/online-counselling/langford)')), 'Victoria links Langford');
+  for (const slug of ['penticton', 'fort-st-john', 'saanich', 'maple-ridge', 'vernon', 'mission', 'courtenay', 'langford']) {
     const l = getLocation(slug)!;
     assert.ok(healthAuthorityFor(slug), `${slug} has an authority`);
     assert.ok(l.metaDescription.replace(/&/g, '&amp;').length <= 155, `${slug} description`);

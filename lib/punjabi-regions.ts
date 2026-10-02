@@ -1097,6 +1097,77 @@ export const punjabiRegions: PunjabiRegion[] = [
     ],
     nearby: ['saanich'],
   },
+  /* LANGFORD AND THE WEST SHORE, 2 Oct 2026. ARGUMENT: SCARCITY, stated as
+   * SMALL. Owner decision of the same day: every city in the October batch
+   * gets its Punjabi page, and where the community is small the page states
+   * the real figure and argues honestly (few same-language counsellors
+   * locally; online reaches one) rather than inflating it. Statistics Canada
+   * 2021 Census Profile, Langford CSD 5917044: Punjabi mother tongue 535
+   * (1.2%); knowledge of Punjabi 670; South Asian 1,880. Victoria CMA 935:
+   * Punjabi mother tongue 4,340 (1.1%). (The Capital census division figure
+   * on the Saanich page, 4,350, is a different geography.) Read 2 Oct 2026
+   * through StatCan's data service, when the www12 Census Profile pages
+   * returned 404 from here; cited at the Census Profile, as every other
+   * region is. Courtenay argues smallness inside a valley; this page argues
+   * it beside Saanich, where most of the region's speakers live, and a
+   * highway from them.
+   *
+   * Individual only: the Punjabi speaker offers neither couples nor EMDR.
+   * No counsellor is named. */
+  {
+    slug: 'langford',
+    figure: { value: '535', label: 'Langford residents gave Punjabi as their mother tongue in 2021, about 1.2% of the city: a small community, and this page does not pretend otherwise' },
+    region: 'Langford',
+    wider: 'the West Shore and Greater Victoria',
+    blurb:
+      'Langford’s Punjabi-speaking community is small, and the Punjabi-speaking counsellors with offices are concentrated on the other side of the Strait.',
+    metaDescription:
+      'Punjabi-speaking online counselling for Langford and the West Shore. Sessions in Punjabi, English or both, with an RCC. Free 30-minute consultation.',
+    demography: {
+      stat: 'In the 2021 Census, 535 Langford residents reported Punjabi as their mother tongue, about 1.2% of the city.',
+      body: [
+        'That is a small community, and this page does not pretend otherwise. Across the Victoria census metropolitan area the same census counted **4,340 people whose mother tongue is Punjabi**, about 1.1% of the region, and 670 Langford residents said they could hold a conversation in it. Set beside Surrey or Abbotsford, those are small numbers. Most of the region’s speakers live in Saanich, a highway drive away, and [Punjabi-speaking counselling for Saanich](/punjabi-counselling/saanich) sets out that community.',
+        'Small is the point. In a community of a few hundred people in one city, the chance that a counsellor, a receptionist or somebody in a waiting room knows your family is not remote. And the counsellors who can hold a session in Punjabi are concentrated in the Lower Mainland, a ferry away.',
+        'So the case here is scarcity, made sharper by size: there is no realistic local option in the language, and the privacy a large community provides simply by numbers is not available in a small one. A session by video answers both.',
+      ],
+    },
+    localReality: {
+      h2: 'What is actually available on the West Shore',
+      body: [
+        'Island Health’s Western Communities Mental Health & Substance Use team is the public route for adults on the West Shore, reached by calling it directly, and Pacific Centre Family Services Association provides funded counselling, most of it at no cost, alongside an affordable program. Both are worth using. If you are already connected to either, stay connected; private counselling runs alongside them rather than instead.',
+        'The question this page answers is narrower: whether you can be counselled **in Punjabi** without crossing the Strait. On the West Shore the realistic answer is by video.',
+        'That matters more than it sounds. Grief, a strained household, a parent’s expectations and "log kya kahenge" all carry context that takes a long time to explain in English and very little in Punjabi. Translating a feeling while you are still trying to name it costs something real.',
+        '[Online counselling for Langford](/online-counselling/langford) covers the rest of the West Shore picture, including the Highway 1 commute, and [the Victoria page](/online-counselling/victoria) sets out what the Strait does to the Island’s specialist pool.',
+      ],
+    },
+    access: [
+      { label: 'No ferry, no Highway 1', detail: 'The nearest Punjabi-speaking counsellors with offices are in the Lower Mainland. From the West Shore, a video session replaces both the sailing and the drive to the terminal.' },
+      { label: 'Punjabi, English, or both', detail: 'Switching between the two is normal and needs no announcing. Words like RCC or extended health tend to stay in English, since that is how they get said here.' },
+      { label: 'Privacy in a small community', detail: 'A few hundred Punjabi speakers in one city is a community where people know each other. There is no waiting room to be recognised in.' },
+      { label: 'Colwood to Sooke', detail: 'View Royal, Colwood, Metchosin, the Highlands and Sooke on identical terms, with no penalty for living further out.' },
+    ],
+    faqs: [
+      { q: 'Do I have to choose Punjabi or English before the first session?', a: 'No. Punjabi throughout, English throughout, or a mix that changes with the subject. None of it needs deciding in advance, and changing your mind partway through a session is fine.' },
+      { q: 'The community here is small. Who would know?', a: 'Nobody, unless you tell them. This is a virtual practice with no office anywhere, no waiting room, and nothing reported to anybody. The limits of confidentiality are narrow, and they are explained at the start.' },
+      { q: 'Could my husband or wife join a session in Punjabi?', a: 'Not as couples counselling for now: couples work runs in English or Tagalog. Sessions in Punjabi are individual, and the free 30-minute consultation is where to talk through whether that fits what you need.' },
+      { q: 'Will my extended health cover this?', a: ONLINE_COVERAGE },
+    ],
+    sources: [
+      {
+        label: 'Statistics Canada, 2021 Census Profile: Langford (CSD 5917044)',
+        url: 'https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055917044&GENDERlist=1&STATISTIClist=1&HEADERlist=0',
+      },
+      {
+        label: 'Statistics Canada, 2021 Census Profile: Victoria (census metropolitan area 935)',
+        url: 'https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021S0503935&GENDERlist=1&STATISTIClist=1&HEADERlist=0',
+      },
+      {
+        label: 'Island Health, Western Communities (formerly Westshore) Mental Health & Substance Use',
+        url: 'https://www.islandhealth.ca/our-services/mental-health-substance-use-services/adult-mental-health-substance-use-services/western-communities-formerly-westshore-mental-health-substance-use',
+      },
+    ],
+    nearby: ['saanich', 'courtenay'],
+  },
 ];
 
 export const getPunjabiRegion = (slug: string) =>

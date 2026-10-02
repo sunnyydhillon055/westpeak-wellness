@@ -346,7 +346,7 @@ export const locations: Location[] = [
     figure2: "first-session-flow",
     figure: "bc-reach",
     city: "Victoria",
-    communities: ["Esquimalt", "Oak Bay", "Langford", "Colwood", "Sooke"],
+    communities: ["Esquimalt", "Oak Bay"],
     region: "Vancouver Island",
     blurb: "On the Island, specialist care has often meant a ferry, a day off, and a return sailing. It no longer has to.",
     metaDescription:
@@ -362,7 +362,7 @@ export const locations: Location[] = [
         "**Start with what is free, because in Victoria it is unusually good.** Island Health runs Central Access and Rapid Engagement Services (CARES) at 1119 Pembroke Street, offering **same-day assessment and walk-in counselling** for South Island residents whose mental-health or substance-use concern does not need a hospital: in person or virtually, Monday to Friday, 8:30am to 4:30pm. There is no wait and no referral. If that fits what you need, use it; a practice that did not tell you it exists would not be worth trusting on anything else. Where it runs out is ongoing specialist work, and non-urgent psychiatric care in Victoria has become harder rather than easier as recruitment has failed to keep pace with retirements.",
         "Virtual sessions remove that constraint entirely. A counsellor on the mainland is exactly as available as one in Fairfield: same 50 minutes, same platform, same [BCACC](https://bcacc.ca) obligations, no sailing.",
         "**Language access is the sharpest version of this.** Punjabi-speaking clinicians in BC are concentrated overwhelmingly in the Lower Mainland. For Island residents wanting [therapy in Punjabi](/services/punjabi-counselling), virtual sessions are not a convenience. They are realistically the only route. The same argument, with the local numbers, is on the [Kamloops](/punjabi-counselling/kamloops) and [Prince George](/punjabi-counselling/prince-george) pages, and for the Island itself on the [Saanich](/punjabi-counselling/saanich) page, where most of the region’s Punjabi-speaking community lives.",
-        "The same applies further up-Island. [Nanaimo](/online-counselling/nanaimo), [the Comox Valley](/online-counselling/courtenay), Campbell River, and the west coast communities have thinner local coverage again, and the gap widens the further north you go. Closer in, [Saanich and the Peninsula](/online-counselling/saanich) have a page of their own.",
+        "The same applies further up-Island. [Nanaimo](/online-counselling/nanaimo), [the Comox Valley](/online-counselling/courtenay), Campbell River, and the west coast communities have thinner local coverage again, and the gap widens the further north you go. Closer in, [Saanich and the Peninsula](/online-counselling/saanich) and [Langford and the West Shore](/online-counselling/langford) have pages of their own.",
       ],
     },
     access: [
@@ -383,7 +383,7 @@ export const locations: Location[] = [
       { label: "Island Health, mental health and substance use services", url: "https://www.islandhealth.ca/our-services/mental-health-substance-use-services" },
       { label: "HereToHelp BC, mental health information", url: "https://www.heretohelp.bc.ca/" },
     ],
-    nearby: ["saanich", "nanaimo", "vancouver"],
+    nearby: ["saanich", "langford", "nanaimo", "vancouver"],
     audiences: ["healthcare-and-shift-workers", "first-responders"],
   },
 
@@ -1438,6 +1438,86 @@ export const locations: Location[] = [
     ],
     nearby: ["nanaimo", "victoria"],
     audiences: ["first-responders"],
+  },
+  /* ── Langford and the West Shore, 2 Oct 2026 ────────────────────────────
+   *
+   * Never retired and never a town-home, so lib/redirects.mjs does not change.
+   * Victoria named Langford, Colwood and Sooke in `communities`; they move
+   * here with View Royal, Metchosin and the Highlands, and Victoria links this
+   * page instead. The argument neither Victoria nor Saanich makes:
+   *
+   *   Langford   a city of recent arrivals that commutes out. +31.8% in five
+   *              years (Greater Victoria +8.0%); 42.7% of residents aged 5+
+   *              lived in another municipality five years earlier (CMA
+   *              33.0%); 61.4% of residents with a usual place of work commute
+   *              to another municipality, along a Highway 1 stretch the
+   *              Province calls prone to congestion. Median age 38.4 (CMA
+   *              44.8); 17.2% under 15 (CMA 12.7%). Victoria argues the
+   *              strait; Saanich the listings; this one the highway and the
+   *              move. It also has its own Island Health intake (Western
+   *              Communities, formerly Westshore), which Victoria's page does
+   *              not name. That page lists View Royal, Colwood, Metchosin,
+   *              Highlands, Sooke and Port Renfrew but not Langford by name,
+   *              so the copy says "the Western Communities" and lets the call
+   *              settle which team serves an address.
+   *
+   * Census figures: 2021 Census Profile, Langford (CSD 5917044) and Victoria
+   * (CMA 935), read 2 Oct 2026 through StatCan's data service while the www12
+   * Census Profile pages returned 404 from here, and cited at the Census
+   * Profile, as every other city is. EMDR, couples and language claims are
+   * kept out of intro, access and faqs[0..4], which the place pages copy. */
+  {
+    slug: "langford",
+    figure2: "first-session-flow",
+    figure: "bc-reach",
+    city: "Langford",
+    communities: ["Colwood", "View Royal", "Metchosin", "Highlands", "Sooke"],
+    region: "Vancouver Island",
+    blurb: "Langford grew by almost a third in five years, and an appointment in Victoria still means Highway 1 both ways.",
+    metaDescription:
+      "Online counselling for Langford and the West Shore. Colwood, View Royal, Metchosin, Highlands and Sooke: anxiety, trauma, EMDR and couples by video.",
+    intro: [
+      "Langford has grown faster than the region around it. The 2021 Census counted 46,584 residents, up 31.8% in five years against 8.0% for Greater Victoria, and 42.7% of residents aged five and over had been living in a different municipality five years earlier. It is younger, too: a median age of 38.4 against the region’s 44.8, and more children as a share of the city.",
+      "That shapes what counselling here is up against. Six in ten residents with a regular workplace commute to another municipality, so the week already includes the Highway 1 corridor at both ends, and for anyone who arrived recently the friends and family they would lean on may still be in the place they left. A [Registered Clinical Counsellor](/compare/rcc-vs-psychologist-vs-social-worker-bc) by video is the one appointment that adds no drive.",
+    ],
+    localReality: {
+      h2: "A new city, a long commute, and a network still being built",
+      body: [
+        "**Public intake on the West Shore is its own, not Victoria’s.** Island Health’s Western Communities Mental Health & Substance Use team (formerly Westshore) is the single access point for adult mental-health and substance-use services across the Western Communities. Access starts with a phone call to 250-370-5799, and the services include a same-day, single-session counselling appointment, screening and assessment, and connection to psychiatry and substance use supports. Use it; private counselling can run alongside it rather than instead of it.",
+        "**There is a local non-profit too.** Pacific Centre Family Services Association’s funded counselling programs primarily serve Langford, Colwood, Sooke, View Royal, Metchosin and the Highlands. Most of that funded counselling is provided at no cost, an affordable community counselling program reaches across the region, and every referral begins with its intake counsellor. The [free and low-cost counselling page](/resources/low-cost-counselling-bc) lists more options across BC.",
+        "**Six in ten commuters leave the city for work.** In the 2021 Census, 61.4% of Langford residents with a usual place of work commuted to another municipality in the region. The Province describes the Highway 1 stretch between the McKenzie and Colwood interchanges as prone to congestion, and bus-lane construction on it is scheduled to continue until late fall 2027. An appointment in Victoria puts that corridor on both sides of the hour, which is how a course of counselling quietly stops.",
+        "**Arriving is its own strain.** More than four in ten residents aged five and over had moved in from another municipality in the previous five years, and nearly one in ten had come from another province. A new house, a new school, a longer drive and a support network left behind are ordinary reasons to feel worse in a place that was meant to be a fresh start, and none of them needs to become a crisis before it is worth talking about.",
+        "**A younger city than the region around it.** In 2021, 17.2% of Langford’s residents were under 15, against 12.7% across Greater Victoria. Parents of young children are among the people for whom an hour across town is hardest to find, and that is the case for [counselling for new parents](/for/new-parents) by video.",
+        "**Specialist work and the language are a regional search, then a mainland one.** For [EMDR](/services/emdr-therapy) or structured couples work, a West Shore search widens to the whole of Greater Victoria and then across the water; [Victoria’s page](/online-counselling/victoria) sets out what the Strait does to that pool. Both language communities here are small: in the 2021 Census 535 Langford residents gave Punjabi as their mother tongue and 670 gave Tagalog. [Punjabi-speaking counselling for Langford](/punjabi-counselling/langford) and [Tagalog counselling for Langford](/tagalog-counselling/langford) say plainly what those numbers mean. From Langford, video takes away the highway as well.",
+      ],
+    },
+    access: [
+      { label: "No Highway 1 at either end", detail: "The session is the hour itself, from a room at home, rather than the McKenzie-to-Colwood stretch twice over and the parking in between." },
+      { label: "Colwood to Sooke, on the same terms", detail: "View Royal, Colwood, Metchosin, the Highlands and Sooke get identical access, with no penalty for living further out along Highway 14." },
+      { label: "Fits around school runs and shifts", detail: "The booking calendar shows each counsellor’s real open times, and a session needs only a private room, not a gap long enough to drive somewhere." },
+      { label: "Start before you know anyone here", detail: "No referral and no family doctor needed first, which matters in a city where so many people have only recently arrived." },
+    ],
+    faqs: [
+      { q: "Is there a public mental-health team on the West Shore, or is it all in Victoria?", a: "There is one for the West Shore. Island Health’s Western Communities (formerly Westshore) Mental Health & Substance Use team is the single access point for adult mental-health and substance-use services in the Western Communities, and access starts with a phone call to 250-370-5799; that call also settles which team serves your address. Private counselling is a separate question: a BC Registered Clinical Counsellor can see you anywhere in the province by secure video." },
+      { q: "Do I need a family doctor or a referral first?", a: "No. Counselling with an RCC is accessed directly, with no referral and no diagnosis. That matters for anyone who has moved recently and has not yet found a doctor. If medication or a diagnosis might be part of the picture, 8-1-1 is a reasonable first call, and the counsellor says plainly when a physician should be involved." },
+      { q: "I commute into Victoria. When would sessions fit?", a: "Wherever the booking calendar shows a time that suits you; it shows each counsellor’s real open times. A session can be taken from home on a day you are not driving in, or from a closed room at work. A session from a parked car is workable. A session while driving is not, and is rescheduled rather than held." },
+      { q: "We moved here recently. Is it too soon to start counselling?", a: "No. A move is one of the ordinary reasons people start, and there is no need to wait and see whether things settle on their own. A free 30-minute consultation is a reasonable first step, and deciding not to go further afterwards costs nothing." },
+      { q: "Is there a free option on the West Shore to try first?", a: "Yes. Island Health’s Western Communities team takes calls directly and offers a same-day, single-session counselling appointment. Pacific Centre Family Services Association provides most of its funded counselling at no cost, and 8-1-1 connects to HealthLink BC at any hour. If one of those fits what you need, use it." },
+      { q: "Can I have EMDR or couples counselling from Langford?", a: "Yes, both by secure video, with a counsellor who offers them. For EMDR, preparation comes before any processing starts, and the hour after a session is spent at home rather than merging onto Highway 1. Couples can join from one screen at home, or from two places when one partner is still at work." },
+      { q: "Who do I call in a crisis on the West Shore?", a: "Call or text 9-8-8 at any hour, or call the Vancouver Island Crisis Line at 1-888-494-3888, which answers around the clock for the whole Island. For emotional support, 310-6789 needs no area code. In an emergency, call 9-1-1 or go to the nearest emergency department." },
+      { q: "Can sessions be in Punjabi or Tagalog from the West Shore?", a: "Yes, by secure video. Individual counselling runs in Punjabi; individual and couples sessions run in Tagalog. Both communities in Langford are small, and the counsellors who work in either language are concentrated on the mainland, so for people here video is how a session in the language happens at all. Couples work and EMDR run in English or Tagalog." },
+    ],
+    sources: [
+      { label: "Island Health, Western Communities (formerly Westshore) Mental Health & Substance Use", url: "https://www.islandhealth.ca/our-services/mental-health-substance-use-services/adult-mental-health-substance-use-services/western-communities-formerly-westshore-mental-health-substance-use" },
+      { label: "Pacific Centre Family Services Association, counselling", url: "https://pacificcentrefamilyservices.org/counselling/" },
+      { label: "Province of BC, Highway 1 Bus on Shoulder, McKenzie to Colwood", url: "https://www2.gov.bc.ca/gov/content/transportation-projects/other-transportation-projects/highway-1-bus-on-shoulder" },
+      { label: "Statistics Canada, 2021 Census Profile: Langford (CSD 5917044)", url: "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055917044&GENDERlist=1&STATISTIClist=1&HEADERlist=0" },
+      { label: "Statistics Canada, 2021 Census Profile: Victoria (census metropolitan area 935)", url: "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021S0503935&GENDERlist=1&STATISTIClist=1&HEADERlist=0" },
+      { label: "Vancouver Island Crisis Society, Vancouver Island Crisis Line", url: "https://www.vicrisis.ca/" },
+      { label: "Crisis Centre of BC, 310 Mental Health Support (310-6789) and 9-8-8", url: "https://crisiscentre.bc.ca/" },
+    ],
+    nearby: ["victoria", "saanich", "nanaimo"],
+    audiences: ["new-parents"],
   },
 ];
 

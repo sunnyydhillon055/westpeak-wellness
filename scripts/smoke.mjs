@@ -147,6 +147,12 @@ const CHECKS = [
   ['/practitioners/savneet-singh/courtenay', 200],
   ['/punjabi-counselling/courtenay', 200],
   ['/tagalog-counselling/courtenay', 200],
+  /* Langford was never a page or a retired slug; it got its own on 2 Oct 2026. */
+  ['/online-counselling/langford', 200],
+  ['/online-counselling/langford/emdr-therapy', 200],
+  ['/practitioners/savneet-singh/langford', 200],
+  ['/punjabi-counselling/langford', 200],
+  ['/tagalog-counselling/langford', 200],
   ['/for/mens-mental-health', 308, '/for'],
   /* /answers was retired 31 Aug 2026 and redirected to /faq; it came back
      on 14 Sep as the instant-answer page (checked as 200 above). */

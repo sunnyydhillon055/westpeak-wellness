@@ -2431,6 +2431,44 @@ sentences.
 
 ---
 
+### Langford gets its own pages, for the West Shore
+Decided 2 Oct 2026 (owner decision of the same day: each city in the October
+batch gets all ten pages). Langford has a hub, five city-service pages, both
+counsellors' English place pages, a Punjabi region page and a Tagalog city
+page. Its argument, which neither Victoria's nor Saanich's page makes: Langford
+is a city of recent arrivals that commutes out. In the 2021 Census it grew
+31.8% in five years against 8.0% for Greater Victoria, 42.7% of residents aged
+five and over had lived in another municipality five years earlier, and 61.4%
+of residents with a usual place of work commuted to another municipality,
+along a Highway 1 stretch the Province calls prone to congestion. It is also
+younger (median age 38.4 against 44.8). The pairs take it from there: anxiety
+that attaches to the drive, low mood that arrives with a chosen move, a
+same-day public single session against trauma work that needs months, two
+commutes and young children, and the drive home after EMDR. The West Shore has
+its own Island Health intake (Western Communities, formerly Westshore); that
+page names the Western Communities but not Langford itself, so the copy says
+"the Western Communities" and lets the phone call settle which team serves an
+address. The Punjabi page argues scarcity and says plainly the community is
+small (535 by mother tongue, about 1.2%); the Tagalog page states its 670 and
+the 1,405 counted as Filipino. The figures were read through Statistics
+Canada's data service on 2 Oct, when the www12 Census Profile pages returned
+404 from here, and are cited at the Census Profile, as every other city is.
+
+`langford` was never retired and never a town-home, so `lib/redirects.mjs`
+does not change. Victoria stops naming Langford, Colwood and Sooke (its
+communities are now Esquimalt and Oak Bay), adds Langford to `nearby`, and its
+paragraph on nearer pages links the new hub; its trauma pair's "View Royal"
+FAQ now names James Bay, since View Royal is on the Langford page. Draft
+wording the sources did not support was reworded to what they say, the
+310-6789 line is cited to the Crisis Centre of BC, and EMDR, couples and
+language claims stay out of the hub's intro, access and first five FAQs. No
+/tl or /pa place twins and no new Punjabi or Tagalog sentences.
+
+*Enforced by:* `test/regional-pages.test.mts`, `test/roster-nav.test.mts`,
+`test/link-anchors.test.mts`, `test/snippet-facts.test.mts`, `scripts/smoke.mjs`
+
+---
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`

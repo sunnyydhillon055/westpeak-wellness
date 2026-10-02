@@ -625,7 +625,7 @@ export const pairs: Pair[] = [
       /* Search Console, 17 Sep 2026: PTSD treatment Victoria BC and Victoria BC PTSD, and trauma therapy Victoria at 27.6. */
       { q: 'Do you treat PTSD in Victoria?', a: 'Trauma therapy here includes work with people who have a PTSD diagnosis and people who do not; the diagnosis comes from a physician or psychologist, not a counsellor, and the therapy does not depend on it. In Victoria a large share of that work is with serving and former military, DND civilians and first responders, for whom the question of what goes on a file matters, and that is answered plainly in the first session.' },
       { q: 'Will this affect my career or my file?', a: 'This is a private practice and nothing is reported anywhere. The limits of confidentiality are set out on the standards page and they are narrow, specific, and the same as they would be anywhere.' },
-      { q: 'Are Esquimalt, Oak Bay and View Royal covered?', a: 'Yes, on identical terms. Nothing about the service depends on where in the region you are.' },
+      { q: 'Are Esquimalt, Oak Bay and James Bay covered?', a: 'Yes, on identical terms. Nothing about the service depends on where in the region you are.' },
     ],
   },
   /* ---- DEPRESSION x CITY, added 2 Sep 2026 --------------------------------
@@ -1114,6 +1114,67 @@ export const pairs: Pair[] = [
     faqs: [
       { q: 'Do I have to describe every call in detail?', a: 'No. EMDR works with a memory briefly held in mind rather than a full retelling, and much of the detail can stay unspoken. What is shared, and in what order, is agreed during preparation.' },
       { q: 'Is EMDR only for one big event?', a: 'No. It is used for single incidents and for a run of related ones, which is the more common pattern in rescue and emergency work. Which memories to start with is decided together during preparation rather than assumed.' },
+    ],
+  },
+  /* ── Langford, 2 Oct 2026: a commuter city of recent arrivals ── */
+  {
+    city: 'langford', service: 'anxiety-counselling',
+    angle: 'When anxiety attaches to driving, a Victoria appointment puts its hardest part on Highway 1, on both sides of the session.',
+    body: [
+      'For some people on the West Shore, anxiety has a route attached. The trip into Victoria runs along a stretch of Highway 1 that is prone to congestion and under construction until late fall 2027, and for somebody whose anxiety rises in traffic, on bridges or in merging lanes, the drive to an anxiety appointment can be the hardest part of the week.',
+      'Working from home does not avoid that problem; it sets it aside so the work can start. Avoidance can be looked at directly, at a pace you agree, rather than rehearsed every week on the way to a session. If driving is the fear itself, it becomes part of the plan instead of the obstacle to reaching one.',
+    ],
+    faqs: [
+      { q: 'Can anxiety about driving be worked on by video?', a: 'Yes. Driving anxiety is usually worked on through gradual, agreed steps between sessions, with the session used to plan them and to review how they went. None of that requires driving to the session, and some people find it easier to begin when they do not have to.' },
+      { q: 'I get anxious on video calls too. Is that a problem?', a: 'It is common, and worth saying on the free consultation. The session opens from a link, the camera can stay off for part of it, and the first minutes can be spent getting comfortable with the setup rather than going straight into the hardest material.' },
+    ],
+  },
+  {
+    city: 'langford', service: 'depression-counselling',
+    angle: 'In a city where more than four in ten residents moved in within five years, low mood can arrive with the move.',
+    body: [
+      'Langford is full of recent arrivals: more than four in ten residents aged five and over were living in another municipality five years before the 2021 Census. A move meant as a fresh start can quietly put somebody further from the people they used to see, and the low mood that follows tends to be blamed on the commute, the house or the weather rather than recognised for what it is.',
+      'Depression after a move is easy to dismiss because the move was chosen. That is not evidence against it. Counselling treats it as a condition worth working on rather than a verdict on the decision to come here, and it does not need a local network to be in place before it can start.',
+    ],
+    faqs: [
+      { q: 'I chose to move here. Can I still be depressed about it?', a: 'Yes. Choosing a change does not protect anyone from the losses that come with it: friends who are now a long drive or a ferry away, routines that did not survive the move, a commute that took the time things used to happen in. Those are ordinary contributors to depression, not ingratitude.' },
+      { q: 'I have not found a family doctor since moving. Should I see one as well?', a: 'Often it is worth it, particularly if sleep, appetite or energy have changed for weeks. A counsellor does not diagnose or prescribe, and says plainly when a physician should be involved. Until you have a doctor of your own, 8-1-1 is a reasonable first call.' },
+    ],
+  },
+  {
+    city: 'langford', service: 'trauma-therapy',
+    angle: 'The West Shore’s public front door opens with a same-day single session; trauma work usually needs a longer, paced arc.',
+    body: [
+      'Island Health’s Western Communities team is a real strength here: a phone call reaches it directly, and it offers a same-day, single-session counselling appointment. For a first conversation or a hard week, that is the right door. Trauma is often different. The work tends to run over months, at a pace the person sets, and it depends on one counsellor holding the thread.',
+      'Private counselling can run alongside the public route rather than replacing it. Staying connected to Island Health costs nothing, and a trauma-focused course by video adds the continuity a single session is not designed to provide, without a drive into Victoria to reach it.',
+    ],
+    faqs: [
+      { q: 'Should I call Island Health first or start privately?', a: 'Either order works, and many people do both. The Western Communities team can assess you and connect you to public services such as psychiatry or substance use support, which private counselling does not replace. Private trauma work adds a consistent counsellor and a pace you set.' },
+      { q: 'Does the first session mean going back over what happened?', a: 'No. Trauma work starts with safety and stability, and what you share, and when, is yours to decide. Many people begin without going into the event at all, and the counsellor checks in on pacing as the work goes on.' },
+    ],
+  },
+  {
+    city: 'langford', service: 'couples-therapy',
+    angle: 'Two commutes and young children can leave West Shore couples very little time in the same room, let alone an office.',
+    body: [
+      'Langford is younger than the region around it, with a larger share of children than Greater Victoria as a whole, and six in ten of its residents with a regular workplace commute to another municipality. For a couple that adds up to two schedules, one of them often on Highway 1, and childcare that has to be arranged before anyone can sit in a counsellor’s office together.',
+      'Joining from home changes the arithmetic. The session starts once the children are settled and both partners are in the same house, rather than when two cars can meet somewhere in Victoria. Partners can also join from two places when one is still at work or away, which keeps a session that would otherwise be cancelled.',
+    ],
+    faqs: [
+      { q: 'Can we do couples sessions from two different places?', a: 'Yes. Each partner joins the same secure session from their own device, which is often the only way a session happens at all when one of you is still at work or travelling. Joining together from one screen at home is just as common, and either can change from week to week.' },
+      { q: 'What if one of us is more reluctant than the other?', a: 'That is the usual starting point rather than a problem. The first session is partly about what each of you wants from the work, and it is reasonable for the more reluctant partner to come to find out rather than to commit. The free consultation is a lower-stakes way to try that.' },
+    ],
+  },
+  {
+    city: 'langford', service: 'emdr-therapy',
+    angle: 'An EMDR session can leave you tired or stirred up, and from Langford the drive home is Highway 1.',
+    body: [
+      'EMDR processing can leave people tired, emotional or unsettled for a while afterwards, which is why sessions close with grounding and why the time after them matters. From the West Shore, an EMDR appointment in Victoria means getting straight back onto a stretch of highway the Province itself describes as prone to congestion.',
+      'By video, the quiet half-hour after a session happens at home. Langford also draws on the same finite Island pool of EMDR-trained clinicians that Victoria does; reaching the whole provincial pool means choosing the clinician whose training fits, rather than the one with the next opening down the highway.',
+    ],
+    faqs: [
+      { q: 'Is it safe to do EMDR at home?', a: 'It can be, with preparation. Grounding and a safety plan are set up before any processing, the bilateral part uses what a screen allows, such as eyes following a target or tapping you do yourself, and the counsellor checks how you are before the session closes. A private room where you can rest afterwards matters more than where that room is.' },
+      { q: 'Can we plan around how I feel after sessions?', a: 'Yes, and it is worth doing at the start. Many people book EMDR at a time with nothing demanding straight afterwards, and the counsellor checks how the days after a session went. You set the pace together, and it can change.' },
     ],
   },
 ];

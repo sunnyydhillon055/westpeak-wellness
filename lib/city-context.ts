@@ -175,7 +175,7 @@ export const cityContexts: CityContext[] = [
       'Island Health runs public intake, and the private sector in Greater Victoria is active but finite. When a specific approach is not represented on the Island, the fallback has historically been to travel or to go without.',
     unlock:
       'The strait stops being a factor. Virtual care is the one arrangement where being on the Island costs nothing at all in access.',
-    nearby: ['saanich', 'vancouver'],
+    nearby: ['saanich', 'langford', 'vancouver'],
   },
   {
     slug: 'kelowna',
@@ -287,6 +287,20 @@ export const cityContexts: CityContext[] = [
       'Island Health’s Comox Valley Mental Health & Substance Use team is a single access point that takes self-referrals, by walk-in or phone. Private practice in the valley is real but small, and when what you need is a particular modality or language the local choice narrows quickly.',
     unlock:
       'A posting within British Columbia, a ferry or a moving schedule no longer ends the work. The same counsellor continues by video wherever in the province you are.',
+    nearby: ['victoria', 'saanich'],
+  },
+  {
+    slug: 'langford',
+    city: 'Langford',
+    inCity: 'in Langford',
+    region: 'West Shore',
+    authority: 'Island Health',
+    travel:
+      'Six in ten Langford residents with a regular workplace commute to another municipality, and the Highway 1 stretch between the McKenzie and Colwood interchanges is one the Province itself calls prone to congestion. An appointment in Victoria puts that drive on both sides of the hour.',
+    inPerson:
+      'Island Health runs public intake for the Western Communities through its own team, reached by phone, and Pacific Centre Family Services adds funded and affordable counselling locally. Private specialist work is a search across the whole of Greater Victoria, and the highway comes with it.',
+    unlock:
+      'The commute stops deciding whether you go. A session from home costs the hour itself, not the corridor at either end.',
     nearby: ['victoria', 'saanich'],
   },
 ];
