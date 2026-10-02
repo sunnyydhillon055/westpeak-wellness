@@ -2164,6 +2164,91 @@ those pages rank for, and never a bare "RCC".
 
 ---
 
+### Who finds out is answered once; the camera is optional; the consent form comes before session one; no evening wording in depth copy
+Decided 2 Oct 2026 (branch `wf/book-faq-trust`, items 358, 361, 368, 380,
+387, 388, 392, 393). (1) `lib/practice-facts.ts` holds WHO_FINDS_OUT (the
+full answer) and WHO_SEES_A_CLAIM (one line), built only from claims /privacy
+already makes. /faq (a new privacy-group question, so FAQPage carries it),
+/book (a closed disclosure), /pricing (the claiming section), the
+coverage-checklist email and nurture email 3 read them. The emails got copy
+only: no new mail, no change to timing or sending. /faq's confidentiality
+answer reads CONFIDENTIALITY_LIMITS. (2) CAMERA_OPTIONAL is /accessibility's
+sentence, read by /accessibility, /faq, /book and the confirmation and
+reminder mails. (3) /book?with=<a counsellor not taking clients> prints
+notTakingLine() and names only who is accepting. (4) BEFORE_SESSION_ONE in
+`lib/faq.ts`: the consent form puts the limits and the 24-hour rule in writing
+before the first paid session, using "consent form" as /client-portal already
+does. (5) Evening wording is gone from the depth and city x service copy and
+the /book placeholder, and is gated over pair body, angle and FAQs and every
+non-comment line of `lib/depth*.ts`, with a stale-checked allow-list for the
+reader's own evenings. (6) The worded fallback MailLinks on /book show the
+address; the sticky bar does not, for layout reasons. (7) The year-end page is
+linked by name, not "booklet", and CoverageLine links it 15 Oct to 31 Dec.
+
+*Enforced by:* `test/no-hours-metadata.test.mts`,
+`test/service-languages.test.mts`
+
+---
+
+### A not-accepting profile sends readers to a ranked pair; /practitioners books from each row; Alberta clocks are computed; a counsellor comparison
+Decided 2 Oct 2026 (branch `wf/profiles`, items 351, 355, 356, 360, 369, 376,
+378). (1) When a profile is not taking new clients it points to a ranked pair
+from alternativesFor() in `lib/practitioner-facts.ts`: first the accepting,
+bookable colleague who shares one of her non-English languages, then the one
+who offers what the first lacks. Both come from the roster and OFFERINGS, and
+no reason for the status is ever given. (2) /practitioners lists accepting
+counsellors first, each with status, lowest catalogue fee, the free
+consultation, the next Cliniko opening (Pacific) and a "Book with {first}"
+button (practitioners-row). It revalidates every 1800 seconds. (3) The English
+place pages state her fees, the free consultation, what she does not offer and
+the plan-dependent paid-at-booking line, plus a next-consult line
+(place-practitioner); the "fee does not change with distance" sentences are
+gone. The pa and tl variants are unchanged. (4) Times are never described as
+Mountain Time. Alberta-facing answers print `lib/alberta-clock.ts`'s computed
+sentence, which reads BC through `lib/pacific-time.ts`'s offsetMinutes (folded
+at integration) so it cannot disagree with the /book note. The two Tagalog
+Mountain Time FAQs were removed and wait for Camille's own wording. (5)
+`middleware.ts` returns a 308 from a counsellor's Alberta place URLs (and their
+/tl and /pa twins) to her profile on any day insuredProvinces lacks AB. (6)
+`components/CounsellorCompare.tsx` is a generated comparison of the accepting
+counsellors, open on /practitioners and closed on each profile, with no
+registration numbers; an approach is listed only if its name appears verbatim
+in her own training answer.
+
+*Enforced by:* `test/counsellor-compare.test.mts`,
+`test/profile-redirect.test.mts`
+
+---
+
+### Cards and consult lines book for the page's service; audiences pick by language and service; named anchors; the error pages book directly
+Decided 2 Oct 2026 (branch `wf/services-cards`, items 354, 362, 367, 390,
+391, 399). (1) Counsellor cards and next-consult lines take the page's service
+and book through bookHrefFor: #calendar on every named link, plus for=couples
+on couples pages. Typed /book?with= links in `lib/*.ts` must end in #calendar;
+only the #ask-for-a-time and #form anchors are exempt. (2) Audience pages pick
+counsellors by language and service, falling back to whoever offers the
+service when no speaker does; couples audience pages quote the couples fee
+line. (3) The Punjabi region pages and Tagalog city pages are linked from
+their language service pages (and the Tagalog ones from both Filipino /for
+pages) through one shared row whose labels come from the region data. (4)
+Glossary links and service-card anchors name their target; cards link only
+the "{name} in BC" line, stretched over the card, and the vague-anchor gate
+ignores a trailing arrow. (5) The error pages link each accepting counsellor's
+Cliniko calendar directly and show the email, after the crisis lines; the 404
+names who is taking new clients, and a capitalised path that 404s gets one
+client-side lowercase retry. The 404 carries links, not photo cards, because
+Next embeds the not-found tree in every page's RSC payload.
+
+Booking-location keys added this round (practitioners-row,
+place-practitioner, counsellor-compare, counsellor-not-found) are appended
+after every earlier key. The rule in `test/home-copy.test.mts` is that no
+earlier key moves, not that 'calendar-alt' is last.
+
+*Enforced by:* `test/book-cta-links.test.mts`, `test/link-anchors.test.mts`,
+`test/error-routes.test.mts`, `scripts/smoke.mjs`
+
+---
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`

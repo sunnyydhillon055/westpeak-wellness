@@ -50,7 +50,7 @@ export const COLLECTION_DATES: Record<string, string> = {
   "practitioners": "2026-10-01",
   "practitionerPlaces": "2026-10-01",
   "tagalog": "2026-09-06",
-  "tagalogPlaces": "2026-09-06",
+  "tagalogPlaces": "2026-10-01",
   "tagalogLanding": "2026-09-06",
   "tagalogProfile": "2026-09-06",
   "punjabiProfiles": "2026-09-07",
