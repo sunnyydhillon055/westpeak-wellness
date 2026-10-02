@@ -1,4 +1,4 @@
-import { site } from '@/lib/site';
+import { site, LOCALITY_MACHINE } from '@/lib/site';
 import { practitioners, withLetters } from '@/lib/practitioners';
 import { punjabiRegions } from '@/lib/punjabi-regions';
 import { tools } from '@/lib/tools';
@@ -120,6 +120,7 @@ export async function GET() {
 - Practice name: ${site.name} (legal name: ${site.legalName})
 - Service area: remote only; clients located in ${practiceReach(accepting)}. Each counsellor's page states where that person may see clients.
 - Delivery: secure video sessions; no in-person office; no phone sessions
+- Registered locality: ${LOCALITY_MACHINE}
 - Languages: English, Punjabi and Tagalog (${site.languagesNative})
 - Counsellors taking new clients: ${accepting.length}, each a Registered Clinical Counsellor with the BCACC; registration numbers are published on each counsellor's own profile page, not here.
 - Session lengths: ${lengths}. First consultation: ${consultMinutes} minutes, free. Fees: ${u('/pricing')}

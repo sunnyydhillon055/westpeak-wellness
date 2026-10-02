@@ -1,4 +1,4 @@
-import { site } from '@/lib/site';
+import { site, REGISTERED_LOCALITY } from '@/lib/site';
 import { serviceAreaLine } from '@/lib/practitioners';
 
 /* A downloadable contact card. One tap on a phone saves the practice into
@@ -21,8 +21,11 @@ export function GET() {
     'VERSION:3.0',
     `FN:${site.name}`,
     `ORG:${site.legalName}`,
+    /* Email before phone (item 299). The registered locality with no street:
+       there is no office to visit. */
+    `EMAIL;TYPE=INTERNET,PREF:${site.email}`,
     ...(site.phone ? [`TEL;TYPE=WORK,VOICE:${site.phoneTel}`] : []),
-    `EMAIL;TYPE=INTERNET:${site.email}`,
+    `ADR;TYPE=WORK:;;;${REGISTERED_LOCALITY.locality};${REGISTERED_LOCALITY.region};;${REGISTERED_LOCALITY.countryName}`,
     `URL:${site.domain}`,
     `NOTE:${serviceAreaLine()}, ${site.languages}. Free 30-minute consultation: ${site.domain}${site.bookingPath}`,
     'END:VCARD',

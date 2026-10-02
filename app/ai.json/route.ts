@@ -1,4 +1,4 @@
-import { site } from '@/lib/site';
+import { site, LOCALITY_MACHINE } from '@/lib/site';
 import { practitioners, serviceAreaLine } from '@/lib/practitioners';
 import { ORG_ID, abs } from '@/lib/schema';
 import { services } from '@/lib/services';
@@ -77,6 +77,7 @@ export function GET() {
       country: 'CA',
       region: 'British Columbia',
       delivery: 'Secure video only. No office, no in-person sessions, no phone sessions.',
+      registered_locality: LOCALITY_MACHINE,
     },
 
     /* The corrections, stated once, so they do not have to be inferred. */

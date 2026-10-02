@@ -8,7 +8,7 @@ import { AREA_SERVED } from '@/lib/area-served';
 import StickyBook from '@/components/StickyBook';
 import Analytics from '@/components/Analytics';
 import ConsentGate from '@/components/ConsentGate';
-import { site } from '@/lib/site';
+import { site, REGISTERED_LOCALITY } from '@/lib/site';
 import { services } from '@/lib/services';
 import { navRoster, orgCounsellors, servedProvinceNames } from '@/lib/practitioners';
 import { therapyNode, placeNode, KNOWS_ABOUT_ENTITIES } from '@/lib/entities';
@@ -143,7 +143,12 @@ const orgSchema = {
      province and country, and nothing more: no street, because there is no
      office to walk into, and the disambiguatingDescription below still says
      so. This is the city the profile is registered in, which is true. */
-  address: { '@type': 'PostalAddress', addressLocality: 'White Rock', addressRegion: 'BC', addressCountry: 'CA' },
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: REGISTERED_LOCALITY.locality,
+    addressRegion: REGISTERED_LOCALITY.region,
+    addressCountry: REGISTERED_LOCALITY.country,
+  },
   legalName: site.legalName,
   url: site.domain,
   email: site.email,
