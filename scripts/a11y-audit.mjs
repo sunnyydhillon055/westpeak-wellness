@@ -24,6 +24,10 @@
 
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
+import { spawn, spawnSync } from 'node:child_process';
+import { setTimeout as sleep } from 'node:timers/promises';
+import net from 'node:net';
+import { resolveStreamed, untitledFrames, silentNewTabs } from './a11y-rules.mjs';
 
 const APP = '.next/server/app';
 if (!existsSync(APP)) {
@@ -47,12 +51,11 @@ const stripScripts = (html) => html.replace(/<script[\s\S]*?<\/script>/gi, ' ');
 const files = walk(APP);
 const shells = [];
 
-for (const f of files) {
-  /* Normalise the separators BEFORE stripping the prefix. On Windows the
-     walked path uses backslashes and APP does not, so stripping first leaves
-     the whole path in the report. */
-  const route = f.split('\\').join('/').replace(APP, '').replace(/\.html$/, '') || '/';
-  const raw = readFileSync(f, 'utf8');
+/* One document, judged. `requested` marks a page fetched from the running
+   build rather than read off disk; those also get the new-tab rule (see
+   REQUESTED below). Returns false for the framework's error shell, which is
+   not judged as a page. */
+function audit(route, raw, requested = false) {
 
   /* NOT A PAGE. A route whose prerender called notFound() leaves the
      framework's own error shell in the build output — id="__next_error__", no
@@ -64,7 +67,7 @@ for (const f of files) {
      Skipped, and COUNTED OUT LOUD below rather than dropped quietly. A gate
      that silently ignores a category of document stops covering it the day
      that category comes to mean something else. */
-  if (/<html[^>]*id="__next_error__"/i.test(raw)) { shells.push(route); continue; }
+  if (/<html[^>]*id="__next_error__"/i.test(raw)) { shells.push(route); return false; }
 
   const html = stripScripts(raw);
   const main = (html.match(/<main[\s\S]*?<\/main>/i) || [''])[0];
@@ -140,7 +143,110 @@ for (const f of files) {
       break; /* one report per page; the first is enough to go and look */
     }
   }
+
+  /* ---- frames --------------------------------------------------------- */
+
+  /* A frame is announced by its title. Without one a screen reader says
+     "frame" and nothing else, and on /book the frame is the calendar. */
+  for (const fr of untitledFrames(html)) add(route, 'iframe-title', 'a frame with no title: ' + fr.slice(0, 90));
+
+  /* ---- links that open a new tab, on the routes fetched by request ----- */
+
+  /* A link that opens a new tab without saying so strands a screen-reader
+     or magnifier user in a window whose Back button does nothing. Its name
+     must say "new tab", in the text or in aria-label. Applied to the routes
+     fetched below; the static templates carry about thirty such links that
+     this rule has not been extended to yet (1 Oct 2026). */
+  if (requested) {
+    for (const name of silentNewTabs(html)) {
+      add(route, 'new-tab', 'opens a new tab without saying so: "' + name.slice(0, 60) + '"');
+    }
+  }
+  return true;
 }
+
+let judged = 0;
+for (const f of files) {
+  /* Normalise the separators BEFORE stripping the prefix. On Windows the
+     walked path uses backslashes and APP does not, so stripping first leaves
+     the whole path in the report. */
+  const route = f.split('\\').join('/').replace(APP, '').replace(/\.html$/, '') || '/';
+  if (audit(route, readFileSync(f, 'utf8'))) judged++;
+}
+
+/* ---- the routes that leave no .html, asked of the running build -------- */
+
+/* THE MONEY ROUTES, 1 Oct 2026. The walk above reads .next/server/app/**.html,
+   and a route rendered on request leaves no .html there: /book, /pricing,
+   /contact, /client-portal, /search, /signin, /forgot, /reset and
+   /one-pager-sent were never audited, while this script printed "No
+   mechanical accessibility failures" over the site. It now boots the build
+   the way scripts/smoke.mjs does and asks for them. /client-portal redirects
+   to /signin without a session, so the sign-in page is what is judged
+   there. */
+const REQUESTED = [
+  '/book', '/book?with=camille-granda', '/book?with=savneet-singh',
+  '/pricing', '/contact', '/client-portal', '/search', '/search?q=couples+counselling',
+  '/signin', '/forgot', '/reset', '/one-pager-sent',
+];
+const PORT = process.env.A11Y_PORT || 3125;
+const BASE = `http://127.0.0.1:${PORT}`;
+const isWin = process.platform === 'win32';
+let server;
+const stop = () => {
+  if (!server) return;
+  try {
+    if (!isWin && server.pid) process.kill(-server.pid, 'SIGTERM');
+    /* Synchronous on Windows: an async taskkill spawned just before exit
+       left `next start` holding the port on the first run (1 Oct 2026). */
+    else if (isWin && server.pid) spawnSync('taskkill', ['/pid', String(server.pid), '/T', '/F'], { stdio: 'ignore' });
+    else server.kill();
+  } catch { /* already gone */ }
+  try { server.stdout?.destroy(); server.stderr?.destroy(); } catch { /* fine */ }
+  server = undefined;
+};
+process.on('exit', stop);
+
+/* Refuse a port this script did not open, for smoke.mjs's reason: a stale
+   server answers for an old build, and the result describes the wrong code. */
+const portBusy = await new Promise((resolve) => {
+  const sock = net.connect({ port: Number(PORT), host: '127.0.0.1' });
+  const done = (v) => { sock.destroy(); resolve(v); };
+  sock.once('connect', () => done(true));
+  sock.once('error', () => done(false));
+  sock.setTimeout(1500, () => done(false));
+});
+if (portBusy) {
+  console.error(`\n  Port ${PORT} is in use by something this script did not start. Stop it, or set A11Y_PORT.\n`);
+  process.exit(1);
+}
+server = spawn('npx', ['next', 'start', '-p', String(PORT)], {
+  stdio: ['ignore', 'pipe', 'pipe'], shell: isWin, detached: !isWin,
+});
+let serverOut = '';
+server.stdout.on('data', (d) => { serverOut += d; });
+server.stderr.on('data', (d) => { serverOut += d; });
+let up = false;
+for (let i = 0; i < 60 && !up; i++) {
+  await sleep(1000);
+  try { up = Boolean((await fetch(`${BASE}/robots.txt`, { redirect: 'manual' })).status); } catch { /* not yet */ }
+}
+if (!up) {
+  console.error('  The build did not come up within 60s, so the request-rendered routes were NOT audited:\n');
+  console.error(serverOut.split('\n').slice(-20).join('\n'));
+  stop();
+  process.exit(1);
+}
+for (const path of REQUESTED) {
+  try {
+    const res = await fetch(BASE + path, { redirect: 'follow' });
+    if (res.status !== 200) { add(path, 'status', 'answered ' + res.status + ', so it could not be judged'); continue; }
+    if (audit(path, resolveStreamed(await res.text()), true)) judged++;
+  } catch (e) {
+    add(path, 'status', 'request failed: ' + e.message);
+  }
+}
+stop();
 
 /* ---- focus styles are a stylesheet question, asked once ---------------- */
 
@@ -157,7 +263,7 @@ for (const el of ['a', 'button', 'input', 'select', 'textarea', 'summary']) {
 
 /* ---- report ------------------------------------------------------------ */
 
-console.log('\nACCESSIBILITY - ' + (files.length - shells.length) + ' pages\n');
+console.log('\nACCESSIBILITY - ' + judged + ' pages, ' + REQUESTED.length + ' of them requested from the running build\n');
 
 if (shells.length) {
   console.log('  ' + shells.length + ' route(s) prerendered to the framework error shell, not judged as pages');
