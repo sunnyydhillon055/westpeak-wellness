@@ -33,11 +33,13 @@ test('each mapped retired town 308s, in one hop, to a city page whose communitie
   // Saanich has its own hub since 2 Oct 2026; the old combined slug is an alias for it.
   assert.equal(dest('victoria-saanich'), '/online-counselling/saanich');
   assert.ok(!(RETIRED_CITY_SLUGS as string[]).includes('victoria-saanich'));
+  // Maple Ridge has its own hub since 2 Oct 2026, and Pitt Meadows lands on it.
+  assert.equal(dest('pitt-meadows'), '/online-counselling/maple-ridge');
   assert.deepEqual(findChains(list), []);
 });
 
 test('an unmapped retired town still lands on the index, and every retired redirect is permanent', () => {
-  for (const slug of ['whistler', 'cranbrook', 'maple-ridge', 'courtenay']) assert.equal(dest(slug), '/online-counselling', slug);
+  for (const slug of ['whistler', 'cranbrook', 'nelson', 'courtenay']) assert.equal(dest(slug), '/online-counselling', slug);
   for (const slug of RETIRED_CITY_SLUGS as string[]) {
     assert.ok(list.find((r) => r.source === `/online-counselling/${slug}`)?.permanent, slug);
   }
@@ -51,6 +53,8 @@ test('no slug is both retired and a page: Penticton and Fort St. John are pages 
   assert.equal(dest('fort-st-john'), undefined);
   assert.ok(getLocation('saanich'));
   assert.equal(dest('saanich'), undefined);
+  assert.ok(getLocation('maple-ridge'));
+  assert.equal(dest('maple-ridge'), undefined);
 });
 
 test('the new pages and the community edits', () => {
@@ -68,7 +72,9 @@ test('the new pages and the community edits', () => {
   assert.ok(getLocation('victoria')!.localReality!.body.some((b) => b.includes('](/online-counselling/nanaimo)')));
   for (const t of ['Duncan', 'Chemainus', 'Port Alberni']) assert.ok(getLocation('nanaimo')!.communities!.includes(t), t);
   for (const t of ['Williams Lake', '100 Mile House', 'Clearwater', 'Revelstoke']) assert.ok(getLocation('kamloops')!.communities!.includes(t), t);
-  for (const slug of ['penticton', 'fort-st-john', 'saanich']) {
+  for (const t of ['Pitt Meadows', 'Haney', 'Whonnock']) assert.ok(getLocation('maple-ridge')!.communities!.includes(t), t);
+  for (const slug of ['langley', 'coquitlam']) assert.ok(getLocation(slug)!.nearby!.includes('maple-ridge'), `${slug} links Maple Ridge`);
+  for (const slug of ['penticton', 'fort-st-john', 'saanich', 'maple-ridge']) {
     const l = getLocation(slug)!;
     assert.ok(healthAuthorityFor(slug), `${slug} has an authority`);
     assert.ok(l.metaDescription.replace(/&/g, '&amp;').length <= 155, `${slug} description`);

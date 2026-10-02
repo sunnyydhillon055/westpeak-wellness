@@ -2283,6 +2283,37 @@ region with no twin yet.
 
 ---
 
+### Maple Ridge gets its own pages, with Pitt Meadows
+Decided 2 Oct 2026 (owner decision of the same day: each city in the October
+batch gets all ten pages). Maple Ridge has a hub, five city-service pages,
+both counsellors' English place pages, a Punjabi region page and a Tagalog
+city page. Its argument, which no neighbour's page makes: it is a city its
+workers leave. In the 2021 Census 62% of employed Maple Ridge residents with a
+usual place of work worked outside the city (80% in Pitt Meadows), 27% commuted
+45 minutes or more and 90% went by car, so the choice is a counsellor near
+home or near work, and each loses half the week. Coquitlam argues the commute
+eating the time; this is the choice between two places, seen from the far
+bank. The Punjabi page argues distance and says plainly that the community is
+small (1,360 mother-tongue speakers, 1.5%); the Tagalog page states its 1,355
+(1.5%) and that the Philippines is the most common birthplace of the city's
+immigrants. Figures were read through Statistics Canada's data service on
+2 Oct, when the www12 Census Profile pages returned 404 from here; they are
+cited at the Census Profile, as every other city is.
+
+`maple-ridge` leaves `retiredCitySlugs`, and `pitt-meadows` now 308s to the
+new hub, which names it in `communities`. No existing hub named Pitt Meadows
+or the Maple Ridge neighbourhoods, so no community moved; Langley and
+Coquitlam add `maple-ridge` to `nearby`. The unmapped-retired example in the
+tests and smoke is now `nelson`. The hub's crisis FAQ cites the Crisis Centre
+of BC for 310-6789 and 9-8-8, and the Fraser Health Crisis Line to Options.
+No /tl or /pa place twins and no new Punjabi or Tagalog sentences.
+
+*Enforced by:* `test/regional-pages.test.mts`, `test/roster-nav.test.mts`,
+`test/link-anchors.test.mts`, `scripts/smoke.mjs`, `npm run seo`
+(redirect-shadow)
+
+---
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`

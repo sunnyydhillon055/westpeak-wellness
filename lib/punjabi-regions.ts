@@ -764,6 +764,105 @@ export const punjabiRegions: PunjabiRegion[] = [
     ],
     nearby: ['vancouver', 'kamloops'],
   },
+  /* MAPLE RIDGE, 2 Oct 2026. ARGUMENT: DISTANCE, said honestly about size.
+   *
+   * Scarcity would be false here: Surrey and Abbotsford, where Punjabi-
+   * speaking counsellors with offices are concentrated (the header of this
+   * file), are a bridge or a highway away. The page argues that distance AND
+   * states plainly that the local community is small, per the owner decision
+   * of 2 Oct 2026 above. Statistics Canada 2021 Census Profile, Maple Ridge
+   * CSD 5915075: Punjabi mother tongue 1,360 of 89,970 (1.5%), knowledge
+   * 2,215, South Asian 4,245 (4.7%, the largest racialized group); Pitt
+   * Meadows CSD 5915070: 400 and 555. Read 2 Oct 2026 through StatCan's data
+   * service (the www12 Census Profile pages returned 404 from here that day);
+   * cited at the Census Profile, as every other region is. Surrey's 128,305
+   * is this file's own Surrey figure, cited at the Surrey profile.
+   *
+   * Individual only: the Punjabi speaker offers neither couples nor EMDR.
+   * No counsellor is named. */
+  {
+    slug: 'maple-ridge',
+    figure: { value: '1,360', label: 'Maple Ridge residents gave Punjabi as their mother tongue in 2021: about 1.5% of the city' },
+    region: 'Maple Ridge',
+    wider: 'Maple Ridge and Pitt Meadows',
+    blurb:
+      'A small Punjabi-speaking community a bridge away from the largest one in the province, which is close enough to visit and too far for a weekly appointment.',
+    metaDescription:
+      'Punjabi-speaking online counselling for Maple Ridge and Pitt Meadows. Punjabi, English or both, with an RCC, and no bridge to Surrey. Free consultation.',
+    demography: {
+      stat: '1,360 Maple Ridge residents gave Punjabi as their mother tongue in the 2021 Census, about 1.5% of the city.',
+      body: [
+        'In the 2021 Census **1,360 people in Maple Ridge gave Punjabi as their mother tongue, about 1.5% of residents**, and 2,215 said they could hold a conversation in it. In Pitt Meadows the figures were 400 and 555. South Asian residents, 4,245 people or about 4.7%, are the largest racialized group in Maple Ridge.',
+        'Those are honest numbers for a real community, and a small one. Punjabi sits level with Tagalog and just behind Mandarin among the city’s non-English mother tongues. It is rarely the scale at which local services are offered in a language.',
+        'Surrey, over the Golden Ears Bridge and through Langley, is different in kind. In the same census 128,305 Surrey residents gave Punjabi as their mother tongue, more than ninety times the Maple Ridge figure, and it is where Punjabi-speaking counsellors with offices are concentrated.',
+      ],
+    },
+    localReality: {
+      h2: 'Close to Surrey on a map, far from it in a week',
+      body: [
+        'From Maple Ridge, Surrey is the obvious answer to "where is there a Punjabi-speaking counsellor", and it is a genuine one. It is also over the Golden Ears Bridge, and Abbotsford is further up the valley. For a single visit that is nothing. For a weekly appointment after a working day that may already have crossed a bridge twice, it is a cost paid every week, on top of everything else.',
+        'Most working residents of Maple Ridge already leave the city every day; in the 2021 Census about six in ten of those with a usual place of work worked outside it. A Punjabi-language appointment in Surrey is then a second commute, in a different direction from the first.',
+        'A small community has its own pressure. Where the Punjabi-speaking circle is a few thousand people, someone usually knows someone, and the worry about being recognised in a waiting room is a reasonable one. A practice outside that circle, reached by video, has no waiting room to be recognised in.',
+        'Fraser Health runs the public route here, through the Maple Ridge Mental Health and Substance Use Centre, which accepts self-referral from adults. It is free and worth knowing about. If you would rather speak Punjabi there, ask whether an interpreter can join.',
+        'The wider picture for Maple Ridge, including the commute and what the public services offer, is on [online counselling for Maple Ridge](/online-counselling/maple-ridge). The larger Punjabi-speaking picture one bridge south is on [Punjabi counselling in Surrey](/punjabi-counselling/surrey).',
+      ],
+    },
+    access: [
+      {
+        label: 'No bridge to Surrey',
+        detail: 'A weekly Punjabi-language appointment without the Golden Ears Bridge, or a drive up the valley to Abbotsford, on either side of it.',
+      },
+      {
+        label: 'Punjabi, English, or both',
+        detail: 'Use whichever language a thought arrives in. Nothing has to be settled at the start, and switching halfway through a sentence is fine.',
+      },
+      {
+        label: 'Outside a small circle',
+        detail: 'In a community of a few thousand, overlapping families are the norm. A counsellor based elsewhere in BC is not part of that network, and nobody sees you arrive.',
+      },
+      {
+        label: 'Fits around a commute',
+        detail: 'A session from a parked car at work or a closed room at home costs the session itself, not the afternoon around it. The booking calendar shows the counsellor’s real open times.',
+      },
+    ],
+    faqs: [
+      {
+        q: 'Why not just go to Surrey?',
+        a: 'You can, and if an office in Surrey suits you it is a reasonable choice; a consultation call would say so. From Maple Ridge the cost is the crossing: the Golden Ears Bridge there and back, every week, on top of a working week that may already include a bridge each day. Video takes that part out and leaves the counselling.',
+      },
+      {
+        q: 'Is the Punjabi-speaking community in Maple Ridge large enough to have local services?',
+        a: 'It is real and small. About 1.5% of Maple Ridge residents gave Punjabi as their mother tongue in the 2021 Census, roughly 1,360 people. Services in a language tend to follow numbers, which is why Punjabi-speaking counsellors with offices are concentrated in Surrey, Abbotsford and Vancouver.',
+      },
+      {
+        q: 'Can sessions be in Punjabi for couples or EMDR?',
+        a: 'Not at the moment. Punjabi-language sessions are individual counselling. Couples work and EMDR currently run in English or Tagalog, and individual sessions can be in Punjabi, English or a mix.',
+      },
+      {
+        q: 'Will my extended health cover this?',
+        a: ONLINE_COVERAGE,
+      },
+    ],
+    sources: [
+      {
+        label: 'Statistics Canada, 2021 Census Profile: Maple Ridge (CSD 5915075)',
+        url: 'https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055915075&GENDERlist=1&STATISTIClist=1&HEADERlist=0',
+      },
+      {
+        label: 'Statistics Canada, 2021 Census Profile: Pitt Meadows (CSD 5915070)',
+        url: 'https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055915070&GENDERlist=1&STATISTIClist=1&HEADERlist=0',
+      },
+      {
+        label: 'Statistics Canada, 2021 Census Profile: Surrey (CSD 5915004)',
+        url: 'https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?LANG=E&DGUIDlist=2021A00055915004&SearchText=surrey',
+      },
+      {
+        label: 'Fraser Health, Mental Health Centres directory',
+        url: 'https://www.fraserhealth.ca/Service-Directory/Services/mental-health-and-substance-use/mental-health-centres/mental-health-centres',
+      },
+    ],
+    nearby: ['surrey', 'abbotsford'],
+  },
 ];
 
 export const getPunjabiRegion = (slug: string) =>

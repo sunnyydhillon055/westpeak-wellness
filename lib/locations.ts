@@ -620,7 +620,7 @@ export const locations: Location[] = [
       { label: "Fraser Health, mental health and substance use services", url: "https://www.fraserhealth.ca/health-topics-a-to-z/mental-health-and-substance-use" },
       { label: "BC Association of Clinical Counsellors, find a counsellor", url: "https://bc-counsellors.org/counsellors/" },
     ],
-    nearby: ["surrey", "abbotsford"],
+    nearby: ["surrey", "abbotsford", "maple-ridge"],
   },
 
   /* WHITE ROCK — added 31 Aug 2026, and the one city on this list with a
@@ -807,7 +807,7 @@ export const locations: Location[] = [
       { label: "Fraser Health, mental health and substance use services", url: "https://www.fraserhealth.ca/health-topics-a-to-z/mental-health-and-substance-use" },
       { label: "BC Association of Clinical Counsellors, find a counsellor", url: "https://bc-counsellors.org/counsellors/" },
     ],
-    nearby: ["burnaby", "vancouver"],
+    nearby: ["burnaby", "vancouver", "maple-ridge"],
   },
 
   {
@@ -1132,6 +1132,84 @@ export const locations: Location[] = [
     ],
     nearby: ["victoria", "nanaimo"],
     audiences: ["university-students", "family-caregivers"],
+  },
+
+  /* ── Maple Ridge, 2 Oct 2026 ─────────────────────────────────────────────
+   *
+   * Retired in the Phase 1 audit and 308'd to the index until today; removed
+   * from lib/redirects.mjs in the same change, and 'pitt-meadows' now lands
+   * here (RETIRED_TOWN_HOMES). The condition at the top of this file is met
+   * for a reason no neighbour's page makes:
+   *
+   *   Maple Ridge   a city its workers leave. 2021 Census: about 62% of
+   *                 employed residents with a usual place of work worked
+   *                 outside Maple Ridge, about 80% in Pitt Meadows, and more
+   *                 than a quarter commuted 45 minutes or more. The real
+   *                 choice is a counsellor near home or near work, and both
+   *                 lose. Coquitlam argues the commute eats the time; this is
+   *                 the choice between two places, seen from the far bank.
+   *
+   * Census figures were read from the Statistics Canada Census Profile for
+   * Maple Ridge (CSD 5915075) and Pitt Meadows (CSD 5915070), both cited in
+   * sources. Re-read them before changing a number. Read 2 Oct 2026 through StatCan's
+   * data service, when the www12 Census Profile pages returned 404 from here;
+   * cited at the Census Profile, as every other city is. Language, EMDR and
+   * couples claims stay out of intro, access and faqs[0..4], which the place
+   * pages copy. No wait times, no hours. */
+  {
+    slug: "maple-ridge",
+    figure2: "first-session-flow",
+    figure: "bc-reach",
+    city: "Maple Ridge",
+    communities: ["Pitt Meadows", "Haney", "Hammond", "Albion", "Silver Valley", "Whonnock"],
+    region: "Metro Vancouver",
+    blurb: "Most of Maple Ridge leaves town to work, so any counsellor is either near home or near work.",
+    metaDescription:
+      "Online counselling for Maple Ridge and Pitt Meadows. Haney, Albion, Silver Valley: sessions by secure video, with no bridge on either side of them.",
+    intro: [
+      "Maple Ridge is a city its workers leave. In the 2021 Census about six in ten employed residents with a usual place of work worked outside the city, and in Pitt Meadows about eight in ten. Nine in ten commuters went by car, and more than a quarter spent 45 minutes or longer getting there. The day starts on the Lougheed Highway, the Pitt River Bridge or the Golden Ears Bridge, and ends there too.",
+      "That turns finding a counsellor into a choice between two places. One near work means an hour carved out of the working day and nothing on a day off. One near home means arriving after the drive back, already tired. Video takes the place out of it. A [Registered Clinical Counsellor](/compare/rcc-vs-psychologist-vs-social-worker-bc) anywhere in BC is as reachable from Silver Valley as from a desk downtown.",
+    ],
+    localReality: {
+      h2: "A city that empties out by morning",
+      body: [
+        "**The commute sets the shape of the day.** About three in ten Maple Ridge workers left for work between five and seven in the morning in 2021, and the West Coast Express runs west from Port Haney, Maple Meadows and Pitt Meadows in the morning and back in the afternoon, at commuter peaks only. A standing appointment has to fit around that, and one that needs its own drive is hard to keep through a month of it.",
+        "**Near home or near work is a false choice.** Picking a counsellor by side of the river means picking which half of the week the work has to fit into, and the other half still happens. A session by video goes wherever you are that day: a parked car outside work, a closed door at home, or a quiet room on a day off.",
+        "**Ridge Meadows shares its public services.** Maple Ridge and Pitt Meadows are one service area for Fraser Health. Ridge Meadows Hospital serves both, with an emergency department and an inpatient psychiatry unit, and the Maple Ridge Mental Health and Substance Use Centre on Dewdney Trunk Road takes adults 19 and over and accepts referrals from patients themselves. Foundry Ridge Meadows offers free services, including counselling, for young people aged 12 to 24 and their families.",
+        "**Not everyone keeps the train's timetable.** Two provincial correctional centres, Fraser Regional and Alouette Correctional Centre for Women, are in Maple Ridge, and Ridge Meadows Hospital runs around the clock. Shift rosters do not line up with anyone's weekly slot. [Counselling for first responders and corrections staff](/for/first-responders) covers what that work leaves behind and the claim route that exists for it.",
+        "**Anything specialised usually means a bridge.** The Golden Ears Bridge replaced the Albion ferry in 2009 and connects Maple Ridge and Pitt Meadows to Langley and Surrey; the Pitt River Bridge leads west to Coquitlam. When a particular approach such as [EMDR therapy](/services/emdr-therapy) is the need, the search tends to cross one of them, and the [Langley](/online-counselling/langley) and [Coquitlam](/online-counselling/coquitlam) pages describe what is on the other side.",
+        "**Language communities here are real and small.** In the 2021 Census about 1.5% of Maple Ridge residents gave Punjabi as their mother tongue and about 1.5% gave Tagalog. That is a community, and too small for many local services to run in either language. [Punjabi-speaking counselling for Maple Ridge](/punjabi-counselling/maple-ridge) and [Tagalog-speaking counselling for Maple Ridge](/tagalog-counselling/maple-ridge) say what is available without crossing the river.",
+      ],
+    },
+    access: [
+      { label: "No third bridge crossing", detail: "For many here the working day already crosses the Pitt River or the Fraser twice. A session from home or a parked car adds nothing to that." },
+      { label: "Near home and near work at once", detail: "The session goes where you are that day, so a week split between Maple Ridge and a job across the river does not decide which counsellor you can see." },
+      { label: "Pitt Meadows to Whonnock", detail: "Pitt Meadows, Haney, Hammond, Albion, Silver Valley and Whonnock on identical terms, with no penalty for living at the far east end." },
+      { label: "Built for rosters as well as commutes", detail: "Hospital and corrections rosters change from one rotation to the next. The booking calendar shows each counsellor's real open times, so sessions can follow the roster instead of a fixed day of the week." },
+    ],
+    faqs: [
+      { q: "I work across the river. Should I look for a counsellor near work or near home?", a: "Whichever you choose, one side of the week loses. A counsellor near work means time cut out of the working day and nothing on days off; one near home means a session after the drive back. Video removes the choice: the same counsellor, from wherever you are that day, with nothing to cross." },
+      { q: "Which health authority covers Maple Ridge and Pitt Meadows?", a: "Fraser Health. The public door is the Maple Ridge Mental Health and Substance Use Centre on Dewdney Trunk Road, which takes adults 19 and over and accepts a self-referral, and Ridge Meadows Hospital has an emergency department. A place in the public queue is not given up by starting with a private counsellor in the meantime." },
+      { q: "I work shifts at a correctional centre or the hospital. Can sessions fit?", a: "Yes. Describe how the roster runs at the consultation, and sessions are spaced to match that pattern rather than pinned to one day. The booking calendar shows each counsellor's real open times. A run of nights or a stretch of overtime is a reason to space sessions further apart, not to stop." },
+      { q: "Is there something free for a teenager or young adult here?", a: "Yes. Foundry Ridge Meadows on the Lougheed Highway offers free, confidential services for young people aged 12 to 24 and their families, including counselling. For adults, Fraser Health's mental-health centre and the low-cost counselling page are the places to start." },
+      { q: "Who do I call if it cannot wait?", a: "Call or text 9-8-8 if you are thinking about suicide or worried about someone. The Fraser Health Crisis Line, 604-951-8855 or 1-877-820-7444, answers at any hour, and 310-6789 (no area code) reaches mental-health support anywhere in BC. In an emergency call 9-1-1 or go to the emergency department at Ridge Meadows Hospital. Counselling is not a crisis service." },
+      { q: "Can I have EMDR from Maple Ridge?", a: "Yes. EMDR by secure video keeps the same phases as anywhere else: history and preparation first, then processing, then a closing step that settles you before the session ends. Your eyes follow a point moving across the screen, or you tap for yourself if that suits you better, and whichever is used is rehearsed long before it touches anything difficult. Afterwards there is no bridge to cross on the way home." },
+    ],
+    sources: [
+      { label: "Fraser Health, Mental Health Centres directory (Maple Ridge Mental Health and Substance Use Centre)", url: "https://www.fraserhealth.ca/Service-Directory/Services/mental-health-and-substance-use/mental-health-centres/mental-health-centres" },
+      { label: "Statistics Canada, 2021 Census Profile: Maple Ridge (CSD 5915075)", url: "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055915075&GENDERlist=1&STATISTIClist=1&HEADERlist=0" },
+      { label: "Statistics Canada, 2021 Census Profile: Pitt Meadows (CSD 5915070)", url: "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055915070&GENDERlist=1&STATISTIClist=1&HEADERlist=0" },
+      { label: "Foundry Ridge Meadows", url: "https://foundrybc.ca/ridgemeadows/" },
+      { label: "Fraser Health, Ridge Meadows Hospital", url: "https://www.fraserhealth.ca/Service-Directory/Locations/Maple-Ridge---Pitt-Meadows/ridge-meadows-hospital" },
+      { label: "Fraser Health, Psychiatry Unit, Ridge Meadows Hospital", url: "https://www.fraserhealth.ca/Service-Directory/Service-at-Location/4/6/psychiatry-unit---ridge-meadows-hospital" },
+      { label: "Crisis Centre of BC, 310 Mental Health Support (310-6789) and 9-8-8", url: "https://crisiscentre.bc.ca/" },
+      { label: "Fraser Health Crisis Line (Options Community Services)", url: "https://www.options.bc.ca/program/fraser-health-crisis-line" },
+      { label: "Province of British Columbia, correctional centres", url: "https://www2.gov.bc.ca/gov/content/justice/criminal-justice/corrections/correctional-centres" },
+      { label: "TransLink, West Coast Express schedules", url: "https://www.translink.ca/schedules-and-maps/west-coast-express" },
+      { label: "TransLink, The Buzzer: reflecting on the Golden Ears Bridge", url: "https://buzzer.translink.ca/2011/11/reflecting-on-the-golden-ears-bridge/" },
+    ],
+    nearby: ["langley", "coquitlam"],
+    audiences: ["healthcare-and-shift-workers", "first-responders"],
   },
 ];
 

@@ -106,7 +106,10 @@ const CHECKS = [
   /* Since 1 Oct 2026 a retired town that a city page names lands on that
      page (lib/redirects.mjs); one that no page names still lands on the index. */
   ['/online-counselling/mission', 308, '/online-counselling/abbotsford'],
-  ['/online-counselling/maple-ridge', 308, '/online-counselling'],
+  /* maple-ridge was the unmapped example until 2 Oct 2026, when it got a page;
+     nelson, still retired and named by no page, takes its place. */
+  ['/online-counselling/nelson', 308, '/online-counselling'],
+  ['/online-counselling/pitt-meadows', 308, '/online-counselling/maple-ridge'],
   /* And the four that now must NOT redirect. This is the assertion that would
      have caught the shadow the moment it appeared. */
   ['/online-counselling/richmond', 200],
@@ -119,6 +122,10 @@ const CHECKS = [
   ['/online-counselling/saanich', 200],
   /* The old combined slug is an alias for the Saanich hub since 2 Oct 2026. */
   ['/online-counselling/victoria-saanich', 308, '/online-counselling/saanich'],
+  ['/online-counselling/maple-ridge', 200],
+  ['/online-counselling/maple-ridge/emdr-therapy', 200],
+  ['/punjabi-counselling/maple-ridge', 200],
+  ['/tagalog-counselling/maple-ridge', 200],
   ['/for/mens-mental-health', 308, '/for'],
   /* /answers was retired 31 Aug 2026 and redirected to /faq; it came back
      on 14 Sep as the instant-answer page (checked as 200 above). */

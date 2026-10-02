@@ -233,6 +233,30 @@ export const TAGALOG_CITIES: TagalogCity[] = [
       { q: 'I live in Sidney or Central Saanich. Does that change anything?', a: 'No. The Peninsula is served on identical terms, by secure video, with nothing to travel to.' },
     ],
   },
+  /* MAPLE RIDGE, 2 Oct 2026. Owner decision of the same day: the figure is
+     stated plainly, attributed in the sentence and cited on the Maple Ridge
+     hub, which links here. Statistics Canada 2021 Census Profile, Maple
+     Ridge CSD 5915075: Tagalog mother tongue 1,355 of 89,970 (1.5%); the
+     Philippines is the most common place of birth among immigrants (2,000
+     of 20,230) and among recent immigrants 2016 to 2021 (335 of 2,155).
+     https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055915075&GENDERlist=1&STATISTIClist=1&HEADERlist=0
+     read 2 Oct 2026 through StatCan's data service. The argument is the
+     hub's: a city its workers leave, so the session goes where the person
+     is that day. English only; no Tagalog words added. */
+  {
+    slug: 'maple-ridge',
+    city: 'Maple Ridge',
+    angle: 'The Philippines is the most common country of birth among Maple Ridge’s immigrants, in a city whose services are mostly built in English.',
+    body: [
+      'In the 2021 Census 1,355 Maple Ridge residents gave Tagalog as their mother tongue, about 1.5% of the city, and 2,000 of its 20,230 immigrants were born in the Philippines, more than in any other country (Statistics Canada, 2021 Census Profile). The community is smaller than Surrey’s or Vancouver’s, and still arriving: among people who moved here from abroad in the five years before that census, more came from the Philippines than from anywhere else.',
+      'Settling somewhere new can mean long hours and family obligations on two continents, and counselling is rarely the first thing anyone looks for. When it is, the local options are in English, and Tagalog-speaking counsellors are few anywhere in British Columbia. Video means the counsellor does not have to be found locally, and that the session fits around a commute or a shift rather than adding another drive to it.',
+    ],
+    faqs: [
+      { q: 'I arrived in the last few years. Does that change anything?', a: 'Not for counselling. A private counsellor can see anyone who is in British Columbia at the time of the session, whatever their immigration status, and settling in is an ordinary thing to bring to it.' },
+      { q: 'My job is across the river. Can I join from near work?', a: 'Yes. Where you join from is up to you, as long as it is private and the connection holds. Near work that might be an empty meeting room, or the car before the drive home over the bridge.' },
+      { q: 'Are Pitt Meadows and the east end of Maple Ridge included?', a: 'Yes: Pitt Meadows, Haney, Albion, Silver Valley and Whonnock, with nothing different about the service at the far east end.' },
+    ],
+  },
 ];
 
 export const getTagalogCity = (slug: string) => TAGALOG_CITIES.find((c) => c.slug === slug);

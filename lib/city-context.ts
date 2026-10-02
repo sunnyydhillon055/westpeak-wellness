@@ -233,6 +233,20 @@ export const cityContexts: CityContext[] = [
       'The district stops having a far end. Cordova Bay, Gordon Head and Sidney are the same distance from a video session, and the end of a term does not have to be the end of the work.',
     nearby: ['victoria'],
   },
+  {
+    slug: 'maple-ridge',
+    city: 'Maple Ridge',
+    inCity: 'in Maple Ridge',
+    region: 'Metro Vancouver',
+    authority: 'Fraser Health',
+    travel:
+      'Maple Ridge and Pitt Meadows sit on the north bank of the Fraser, east of the Pitt River, and most of their working residents leave every day: west over the Pitt River Bridge toward Coquitlam and beyond, or south over the Golden Ears Bridge to Langley and Surrey.',
+    inPerson:
+      'Fraser Health runs public intake through the Maple Ridge Mental Health and Substance Use Centre, which accepts self-referral from adults. General counselling exists locally; a particular approach usually means looking across a bridge.',
+    unlock:
+      'The session stops depending on which side of the river you happen to be on that day.',
+    nearby: ['langley', 'surrey'],
+  },
 ];
 
 export const getCityContext = (slug: string) => cityContexts.find((c) => c.slug === slug);

@@ -825,6 +825,89 @@ export const pairs: Pair[] = [
       { q: 'Is EMDR available in Punjabi?', a: 'Not at the moment: EMDR currently runs in English or Tagalog. Individual counselling is available in Punjabi, and the free consultation is the place to talk through which fits.' },
     ],
   },
+  /* ---- MAPLE RIDGE, 2 Oct 2026 -----------------------------------------
+     Five arguments from one fact, that most of Ridge Meadows leaves town to
+     work: the early start eating sleep (anxiety), the long solo drive
+     (depression), commuter and shift-roster partners (couples), the two
+     correctional centres and the hospital (trauma), and the bridge on the
+     way home after processing (EMDR). Couples and EMDR book Camille only,
+     so their language answers do not offer Punjabi. No counsellor named.
+     Census 2021, Maple Ridge (CSD 5915075): 11,880 of 37,810 commuters
+     (31.4%) left for work between 5:00 and 6:59; 27.1% commuted 45 minutes
+     or more; 31,710 (83.9%) drove themselves. Cited on the hub. */
+  {
+    city: 'maple-ridge', service: 'anxiety-counselling',
+    angle: 'When three in ten workers leave home between five and seven in the morning, anxiety takes the hours that were meant for sleep.',
+    body: [
+      'An early start on the Lougheed or the West Coast Express moves the whole day forward, and the worry that has nowhere to go in a working day tends to arrive at the one point there is quiet: lying awake, running tomorrow’s drive, tomorrow’s meeting, tomorrow’s everything. Short sleep then makes the next day’s anxiety louder, and the loop tightens without anyone deciding it should.',
+      'Anxiety work here often starts with that loop rather than with the worry itself: what keeps the mind running at night, what an early alarm does to it, and which parts of the day can absorb what currently waits for bedtime. A session from home, with no drive added to an already long day, leaves room for the sleep this is all about.',
+    ],
+    faqs: [
+      { q: 'Is lying awake worrying a reason to see a counsellor?', a: 'Yes. Night-time worry is one of the commonest ways anxiety shows itself, and it responds to the same work as daytime anxiety. If sleep is the main complaint, it is worth mentioning to a family doctor as well, so anything medical is not missed.' },
+      { q: 'I only notice it on the drive. Does that count?', a: 'It does. Anxiety that rises in traffic, on a bridge or in the last kilometre before work is specific enough to work on directly, and knowing exactly where it starts is a useful place to begin rather than a trivial one.' },
+    ],
+  },
+
+  {
+    city: 'maple-ridge', service: 'depression-counselling',
+    angle: 'More than a quarter of commuters here spend forty-five minutes or longer getting to work, and a low mood talks loudest on that drive.',
+    body: [
+      'More than eight in ten Maple Ridge commuters drive themselves to work. That is often a long stretch of the day with no one to talk to and nothing to do but think, and for someone whose mood has been sliding, the car is where the familiar lines get rehearsed: what is wrong with me, why bother, nothing changes. The drive home can feel like the worst part of the day without it being obvious why.',
+      'Counselling for depression here pays attention to those hours, not only to the hour in the session. What gets rehearsed on the bridge, what the arrival home looks like, and what small change to the drive or the first ten minutes back is possible this week are ordinary starting points. None of it needs another trip across the river to begin.',
+    ],
+    faqs: [
+      { q: 'I am functioning fine at work. Can it still be depression?', a: 'Yes. Plenty of people hold a demanding job together and come apart in the gaps: the drive, the days off, the time after the children are in bed. Being able to function at work is not evidence that nothing is wrong.' },
+      { q: 'What if I am too tired after the commute for a session?', a: 'That is a common and fair worry. A session at a point in the week with less travel in it, or from a parked car before the drive home, are both workable, and the consultation is the place to work out which.' },
+      { q: 'Should I see my doctor as well?', a: 'It is worth it. A family doctor or nurse practitioner can rule out physical causes and discuss medication if you want that conversation. Counselling and medical care run alongside each other rather than instead of each other.' },
+    ],
+  },
+
+  {
+    city: 'maple-ridge', service: 'couples-therapy',
+    angle: 'When one partner keeps the train’s timetable and the other a shift roster, shared waking hours become scarce.',
+    body: [
+      'Ridge Meadows mixes two kinds of working week: commuters who leave early and return late on the West Coast Express or the bridges, and shift workers at the hospital and the two correctional centres whose rosters move. A couple with one of each can go days sharing a house and passing in the kitchen, and an in-person couples appointment needs both of them in the same place at the same time, plus the travel either side.',
+      'Video lets the session sit inside the overlap there is, from the same couch, without anyone driving to it. It also helps with what the overlap is used for: when time together is that short it tends to fill with logistics and grievance, and a structured session makes room for the conversation that otherwise keeps getting postponed.',
+    ],
+    faqs: [
+      { q: 'We barely see each other awake. Is that a reason to start or a reason to wait?', a: 'Usually a reason to start. Couples often wait for a calmer month that does not arrive. Starting with fewer, well-planned sessions fits a tight schedule better than waiting for a regular weekly slot to appear.' },
+      { q: 'Could one of us speak Punjabi in a couples session?', a: 'Not at present. Couples sessions here are held in English or Tagalog. If either of you would rather work through your own side of things in Punjabi, individual counselling is offered in Punjabi, English or a mix of the two.' },
+      { q: 'One of us is more willing than the other. Does that matter?', a: 'It is very common and not a reason to stay away. The reluctance is part of what gets talked about, openly, and a first session that is mostly about whether to continue is a reasonable first session.' },
+    ],
+  },
+
+  /* BC Government, correctional centres list, read 2 Oct 2026: Fraser
+     Regional Correctional Centre and Alouette Correctional Centre for Women
+     are in Maple Ridge. WorkSafeBC, eligible occupations under the mental
+     disorder presumption, read 2 Oct 2026: includes correctional officer,
+     nurse and health care assistant; diagnosis by a psychiatrist or
+     psychologist is a condition of the presumption. */
+  {
+    city: 'maple-ridge', service: 'trauma-therapy',
+    angle: 'Two provincial correctional centres sit in Maple Ridge, and what happens inside them comes home on the same roads.',
+    body: [
+      'Corrections work involves violence, self-harm, overdoses and threats, often repeated and rarely talked about afterwards beyond a debrief. The effect is usually cumulative rather than tied to one event: sleep that does not settle, a shorter fuse at home, a watchfulness that does not switch off in a grocery store. Hospital staff on the emergency and psychiatric units carry a version of the same load.',
+      'A practical point is often missed. In BC, a mental disorder arising from traumatic events at work has a claim route through WorkSafeBC, and for correctional officers, nurses and several other occupations there is a legal presumption that it is work-related once a psychiatrist or psychologist has made the diagnosis. Counselling can start before any of that is settled, and from home rather than in a waiting room where colleagues might be sitting.',
+    ],
+    faqs: [
+      { q: 'I work corrections. Do I have to describe incidents in detail?', a: 'No. Trauma work does not depend on retelling every incident. What happened can be named in outline, and the work focuses on what it is doing to you now. Confidentiality and its legal limits are explained before anything else.' },
+      { q: 'Is there a claim route for a psychological injury from work?', a: 'Yes. WorkSafeBC accepts claims for mental disorders arising from work. For correctional officers, nurses, health care assistants and some other occupations, a mental disorder diagnosed by a psychiatrist or psychologist after exposure to a traumatic event at work is presumed to be work-related. The resources section has a page on psychological injury claims that sets out the steps.' },
+      { q: 'It was years ago. Is it too late to deal with it now?', a: 'No. People often come years after the event, once the effects have outlasted the explanation that it would pass. That is common rather than late.' },
+    ],
+  },
+
+  {
+    city: 'maple-ridge', service: 'emdr-therapy',
+    angle: 'EMDR can leave you tired and raw, and from Ridge Meadows a clinician elsewhere means a bridge on the drive home.',
+    body: [
+      'EMDR asks a lot of the nervous system. Processing sessions often end with people tired, a little unsettled, or simply wanting quiet, and the advice is usually to keep the rest of the day gentle. For somebody in Maple Ridge or Pitt Meadows whose EMDR clinician turned out to be over the Golden Ears or Pitt River Bridge, the rest of the day starts with a drive through traffic.',
+      'Video changes that end of the session. Processing happens from home, the closing phase that settles you before the session ends is the same as in a room, and afterwards you are already where you would want to be. The pool of trained clinicians also stops being whoever is within a bridge of Haney.',
+    ],
+    faqs: [
+      { q: 'What do I need at home for EMDR by video?', a: 'A private room, a stable connection, and a device with a screen large enough to follow a moving point comfortably; a laptop is better than a phone. If following on screen does not suit you, self-administered tapping is an established alternative, and both are practised before any processing begins.' },
+      { q: 'Should I plan anything for after a session?', a: 'Keep the rest of the day light where you can. Most people feel tired rather than distressed, and the preparation phase includes ways to settle that you can use afterwards. If a session lands harder than expected, that is raised at the next one and the pacing is adjusted.' },
+    ],
+  },
 ];
 
 /** Cities that carry paired pages. Every one must exist in cityContexts. */

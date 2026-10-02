@@ -71,6 +71,7 @@ const ARGUMENT: Record<string, 'scarcity' | 'distance'> = {
   abbotsford: 'distance',
   vancouver: 'distance',
   saanich: 'scarcity',
+  'maple-ridge': 'distance',
 };
 
 /* Counts on this page are read from the data, 2 Oct 2026: "each of her
