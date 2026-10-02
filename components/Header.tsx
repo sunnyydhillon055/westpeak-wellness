@@ -205,6 +205,18 @@ export default function Header({ roster }: { roster: NavPractitioner[] }) {
         </button>
 
         <ul id="primary-nav" className={`nav-links${open ? ' open' : ''}`}>
+          {/* SITE SEARCH, 1 Oct 2026. /search existed, but the only ways to it
+              were the 404 page and the WebSite SearchAction, and the term
+              tally held two searches in a month. On the mobile drawer it is a
+              box at the top; on the desktop bar an icon before the portal
+              link (.nav-search-* in app/globals.css shows one or the other). */}
+          <li className="nav-search-m" style={{ '--i': 0 } as CSSProperties}>
+            <form method="GET" action="/search" role="search" className="search-form">
+              <label htmlFor="nav-q" className="sr-only">Search this site</label>
+              <input id="nav-q" name="q" type="search" autoComplete="off" placeholder="Search this site" />
+              <button type="submit" className="btn btn--ghost">Search</button>
+            </form>
+          </li>
           {NAV.map((n, i) => (
             <li
               key={n.href}
@@ -298,6 +310,14 @@ export default function Header({ roster }: { roster: NavPractitioner[] }) {
               </Link>
             </li>
           )}
+          <li className="nav-search-d" style={{ '--i': NAV.length + 2 } as CSSProperties}>
+            <Link href="/search" aria-label="Search this site" aria-current={isActive('/search') ? 'page' : undefined}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                strokeWidth="2" strokeLinecap="round" aria-hidden="true" focusable="false">
+                <circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" />
+              </svg>
+            </Link>
+          </li>
           <li className="nav-portal" style={{ '--i': NAV.length + 2 } as CSSProperties}>
             <Link
               href={site.portalPath}

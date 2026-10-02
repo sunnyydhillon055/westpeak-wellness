@@ -487,7 +487,7 @@ export default async function Book({
                       {' '}· {c.full}
                       {c.verifyUrl && (
                         <>
-                          {' '}(<a href={c.verifyUrl} target="_blank" rel="noopener">verify on the {c.short === 'CCC' ? 'CCPA directory' : 'BCACC register'}</a>)
+                          {' '}(<a href={c.verifyUrl} target="_blank" rel="noopener">verify on the {c.short === 'CCC' ? 'CCPA directory' : 'BCACC register'}<span className="sr-only"> (opens in a new tab)</span></a>)
                         </>
                       )}
                     </span>
@@ -498,7 +498,7 @@ export default async function Book({
                 <p className="book-credential">
                   <strong>Registered Clinical Counsellors</strong> ·{' '}
                   <a href={site.counsellor.registerUrl} target="_blank" rel="noopener">
-                    check the BCACC register
+                    check the BCACC register<span className="sr-only"> (opens in a new tab)</span>
                   </a>
                 </p>
               )}
@@ -663,7 +663,7 @@ export default async function Book({
                   Email to book your consultation
                 </MailLink>
                 <a className="btn btn--ghost" href={site.bookingsFallbackUrl} target="_blank" rel="noopener">
-                  Try the booking page directly
+                  Try the booking page directly<span className="sr-only"> (opens in a new tab)</span>
                 </a>
               </div>
             </div>

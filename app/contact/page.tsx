@@ -69,7 +69,7 @@ export default async function Contact({
                 22 Sep 2026. It is where the practice's public reviews live;
                 they stay there, not here (BCACC advertising standard). */}
             {(
-              <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><MapPin strokeWidth={1.7} /></span><div><h3>On Google</h3><p><a href="https://share.google/lTHqqJIRmbLV8eauN" target="_blank" rel="noopener">Westpeak Wellness on Google</a>, the practice&rsquo;s verified listing.</p></div></div>
+              <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><MapPin strokeWidth={1.7} /></span><div><h3>On Google</h3><p><a href="https://share.google/lTHqqJIRmbLV8eauN" target="_blank" rel="noopener">Westpeak Wellness on Google<span className="sr-only"> (opens in a new tab)</span></a>, the practice&rsquo;s verified listing.</p></div></div>
             )}
             {/* The reply time, stated. It is the most common unspoken worry
                 when emailing a stranger about therapy — not whether they will
@@ -84,7 +84,7 @@ export default async function Contact({
             <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><MonitorSmartphone strokeWidth={1.7} /></span><div><h3>Sessions</h3><p>Fully online, anywhere in British Columbia</p></div></div>
             <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><MapPin strokeWidth={1.7} /></span><div><h3>Service area</h3><p>Virtual: anywhere in BC</p></div></div>
             <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><LangIcon strokeWidth={1.7} /></span><div><h3>Languages</h3><p>{site.languages}</p></div></div>
-            <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><AtSign strokeWidth={1.7} /></span><div><h3>Instagram</h3><p><a href={site.instagramUrl} target="_blank" rel="noopener">{site.instagram}</a></p></div></div>
+            <div className="info-block"><span className="icon-chip icon-chip--sm" aria-hidden="true"><AtSign strokeWidth={1.7} /></span><div><h3>Instagram</h3><p><a href={site.instagramUrl} target="_blank" rel="noopener">{site.instagram}<span className="sr-only"> (opens in a new tab)</span></a></p></div></div>
           </div>
           {/* Saving a contact is the low-commitment action for the person who is
               not ready to write yet. The card carries the practice details only —

@@ -83,7 +83,7 @@ export default function SchedulerEmbed({
       )}
       <p className="scheduler-fallback">
         Calendar not loading?{' '}
-        <a href={url} target="_blank" rel="noopener">Open the booking page directly</a>.
+        <a href={url} target="_blank" rel="noopener">Open the booking page directly, in a new tab</a>.
       </p>
     </div>
   );

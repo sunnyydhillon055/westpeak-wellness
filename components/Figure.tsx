@@ -47,6 +47,7 @@ export default function Figure({
             loading={eager ? 'eager' : 'lazy'}
             decoding="async"
           />
+          <span className="sr-only"> (full size, opens in a new tab)</span>
         </a>
       </div>
       <p className="figure-hint" aria-hidden="true">

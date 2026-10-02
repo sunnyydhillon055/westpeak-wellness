@@ -37,6 +37,8 @@ export const COUNSELLOR_CARD_LOCATIONS = [
   'guide',
   'resource',
   'counsellor-lead-sent',
+  /* /search, above the results when the top hit is a service (1 Oct 2026). */
+  'search',
 ] as const;
 export type CounsellorCardLocation = (typeof COUNSELLOR_CARD_LOCATIONS)[number];
 

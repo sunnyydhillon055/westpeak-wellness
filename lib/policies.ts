@@ -326,7 +326,7 @@ export const policies: Record<string, Policy> = {
     eyebrow: 'Trust and transparency',
     lede:
       'Accessibility statements are usually written to be filed rather than read. This one names what has actually been done, and what has not.',
-    updated: '2026-09-03',
+    updated: '2026-10-01',
     sections: [
       {
         h2: 'How this website is built',
@@ -345,7 +345,8 @@ export const policies: Record<string, Policy> = {
         h2: 'Accommodations in sessions',
         list: [
           { label: 'Camera off', detail: 'You are never required to be on camera to be in a session. It suits camera fatigue, lower bandwidth, and anyone who thinks better without being watched.' },
-          { label: 'Sessions in Punjabi', detail: 'Working in the language you think in is an access issue, not a preference. See [Punjabi counselling](/services/punjabi-counselling).' },
+          { label: 'Sessions in Punjabi', detail: 'Working in the language you think in is an access issue, not a preference. Savneet Singh works in Punjabi. See [Punjabi counselling](/services/punjabi-counselling).' },
+          { label: 'Sessions in Tagalog', detail: 'The same holds for Tagalog: Camille Granda works in Tagalog and English. See [Tagalog-speaking counselling](/tagalog-counselling).' },
           { label: 'Pacing and breaks', detail: 'Sessions can be paused, shortened, or restructured. For trauma work in particular, pacing is a clinical decision made with you rather than to you.' },
           { label: 'Written summaries on request', detail: 'Where it helps: memory difficulty, attention difficulty, or preferring things in writing, key points and between-session plans can be sent in writing afterward.' },
           { label: 'Scheduling', detail: 'Times depend on the counsellor, and the booking page shows what is open.' },
@@ -360,7 +361,7 @@ export const policies: Record<string, Policy> = {
           { label: 'No ASL interpretation arranged in-house', detail: 'This practice does not currently retain ASL interpreters. If you need one, say so during the consultation and the practice will work with you on arranging it or referring you to a service that provides it directly.' },
           { label: 'Languages other than English, Punjabi and Tagalog', detail: 'Sessions run in English, Punjabi or Tagalog only, and which of the three depends on which counsellor you see. The [counsellors page](/practitioners) says who works in what. Third-party interpretation changes the therapeutic relationship enough that it is worth discussing openly rather than assuming it will work.' },
           { label: 'No in-person option at all', detail: 'This is a fully virtual practice. For someone without private space, a reliable device, or an internet connection, that is a genuine barrier, and in that case a local in-person service is the better referral. The [BC resources directory](/resources/bc-crisis-and-support-directory) lists starting points.' },
-          { label: 'No screen-reader testing has been done', detail: 'This is the honest version of a sentence that used to say the opposite. The site is built to WCAG 2.1 AA principles and a great deal is checked automatically on every deploy, every page for a language declaration, a single main heading, a working skip link, labelled form fields, images with text alternatives, and a sensible heading order; every colour pair for contrast. Reflow was checked by measurement: no page scrolls sideways at a 320-pixel width, and doubling the text size loses no content. What has NOT happened is somebody sitting down with a screen reader and using this site. Automated checks find broken markup; they cannot tell you whether a page makes sense when heard, and claiming otherwise on the one page people rely on would be the worst place on this site to be inaccurate.' },
+          { label: 'No screen-reader testing has been done', detail: 'This is the honest version of a sentence that used to say the opposite. The site is built to WCAG 2.1 AA principles and a great deal is checked automatically on every deploy. Every prerendered page, and the booking, fees, contact, search and sign-in pages, which are asked of the running site because they are built on request, is checked for a language declaration, a single main heading, a working skip link, labelled form fields, images with text alternatives, titled frames and a sensible heading order; on those request-built pages, links that open a new tab must also say so. Every colour pair is checked for contrast. Reflow was checked by measurement: no page scrolls sideways at a 320-pixel width, and doubling the text size loses no content. What has NOT happened is somebody sitting down with a screen reader and using this site. Automated checks find broken markup; they cannot tell you whether a page makes sense when heard, and claiming otherwise on the one page people rely on would be the worst place on this site to be inaccurate.' },
           { label: 'This site has not had a formal third-party audit', detail: 'No external certification has been obtained. Saying "WCAG compliant" without an audit would be a claim this practice cannot support.' },
         ],
       },

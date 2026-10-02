@@ -46,7 +46,7 @@ export default function Footer() {
                         impressions of any on the site. Fixed 25 Sep 2026. */}
                     <Link href="/resources/verify-a-counsellor-in-bc">Registered Clinical Counsellors</Link> ·{' '}
                     <a href={site.counsellor.registerUrl} target="_blank" rel="noopener">
-                      BCACC register
+                      BCACC register<span className="sr-only"> (opens in a new tab)</span>
                     </a>
                   </span>
                 </li>
@@ -66,6 +66,7 @@ export default function Footer() {
                 </MailLink>
                 <a href={site.instagramUrl} target="_blank" rel="noopener" className="footer-social-link">
                   <AtSign aria-hidden="true" strokeWidth={1.7} /><span>{site.instagram}</span>
+                  <span className="sr-only"> (opens in a new tab)</span>
                 </a>
               </div>
             </div>
@@ -81,6 +82,7 @@ export default function Footer() {
             <nav className="footer-col" aria-labelledby="foot-read">
               <h2 id="foot-read">Read</h2>
               <Link href="/faq">FAQ</Link>
+              <Link href="/search">Search</Link>
               <Link href="/guides">Counselling Guides</Link>
               <Link href="/compare">Compare Your Options</Link>
               <Link href="/for">Who We Work With</Link>

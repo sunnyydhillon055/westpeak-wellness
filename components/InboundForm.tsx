@@ -149,14 +149,23 @@ export default function InboundForm({
         <input id={`hp-${kind}`} name="company" type="text" tabIndex={-1} autoComplete="off" />
       </div>
 
+      {/* VISIBLE LABELS, 1 Oct 2026 (finishing R2 #96, which did the
+          selects). These were sr-only, so the placeholder was the only
+          visible label and it vanished on the first keystroke: a hard form
+          for a second-language or stressed reader, who is who /accessibility
+          says the site is written for. */}
       <div className="lead-form-row">
-        <label htmlFor={`in-name-${kind}`} className="sr-only">First name</label>
-        <input id={`in-name-${kind}`} name="name" type="text" placeholder="First name"
-          autoComplete="given-name" />
-        <label htmlFor={`in-email-${kind}`} className="sr-only">Email address</label>
-        <input id={`in-email-${kind}`} name="email" type="email" required
-          placeholder="you@example.com" autoComplete="email" autoCapitalize="none"
-          spellCheck={false} />
+        <div className="lead-form-field">
+          <label htmlFor={`in-name-${kind}`}>First name</label>
+          <input id={`in-name-${kind}`} name="name" type="text" placeholder="First name"
+            autoComplete="given-name" />
+        </div>
+        <div className="lead-form-field">
+          <label htmlFor={`in-email-${kind}`}>Email address</label>
+          <input id={`in-email-${kind}`} name="email" type="email" required
+            placeholder="you@example.com" autoComplete="email" autoCapitalize="none"
+            spellCheck={false} />
+        </div>
       </div>
 
       {/* THREE CHOICES BEFORE THE MESSAGE — 25 Sep 2026, the owner's decision.
@@ -230,14 +239,16 @@ export default function InboundForm({
       <details className="lead-form-callback">
         <summary>Would rather be phoned than emailed?</summary>
         <div className="lead-form-row" style={{ marginTop: 10 }}>
-          <label htmlFor={`in-phone-${kind}`} className="sr-only">Phone number (optional)</label>
-          <input id={`in-phone-${kind}`} name="phone" type="tel" inputMode="tel"
-            autoComplete="tel" placeholder="Phone number (optional)" />
-          <label htmlFor={`in-callwindow-${kind}`} className="sr-only">
-            Best time to call (optional)
-          </label>
-          <input id={`in-callwindow-${kind}`} name="callWindow" type="text"
-            placeholder="Best time to call" />
+          <div className="lead-form-field">
+            <label htmlFor={`in-phone-${kind}`}>Phone number (optional)</label>
+            <input id={`in-phone-${kind}`} name="phone" type="tel" inputMode="tel"
+              autoComplete="tel" placeholder="Phone number (optional)" />
+          </div>
+          <div className="lead-form-field">
+            <label htmlFor={`in-callwindow-${kind}`}>Best time to call (optional)</label>
+            <input id={`in-callwindow-${kind}`} name="callWindow" type="text"
+              placeholder="Best time to call" />
+          </div>
         </div>
         <p className="lead-form-note" style={{ marginTop: 8 }}>
           Leave these blank and you will be answered by email as usual. If you fill them in,

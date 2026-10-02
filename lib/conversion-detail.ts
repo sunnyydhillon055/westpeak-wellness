@@ -123,6 +123,9 @@ export const BOOK_LOCATIONS: readonly string[] = [
   /* The "start with a first session" row on /book and the profiles, behind
      site.directFirstSession (lib/first-session.ts, 1 Oct 2026). */
   'first-session',
+  /* The service block above the results on /search, and its counsellor
+     cards, when the top hit is a bookable service (1 Oct 2026). */
+  'search',
   ...tools.map((t) => `tool:${t.slug}`),
   /* The "calendar hard to use?" route beside the /book calendar: its email
      link and its link to the Ask-for-a-time form (1 Oct 2026). */
