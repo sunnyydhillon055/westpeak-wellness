@@ -99,6 +99,18 @@ const TELLS = [
 
 const ONLY_DASHES = process.argv.includes('--dashes');
 
+/* FACTS, NOT STYLE — 1 Oct 2026. Unlike the tells above, these are wrong
+   rather than tired, so they fail the run. The College of Psychologists of BC
+   amalgamated into the College of Health and Care Professionals of BC; the
+   RCC vs psychologist comparison named it as current in three places,
+   including two FAQ answers that FAQPage markup hands to assistants verbatim.
+   A string may still name it alongside "formerly". */
+const FACTS = [
+  { id: 'defunct-college', re: /College of Psychologists/i, unless: /formerly/i,
+    fix: 'the College of Health and Care Professionals of BC (add "formerly" if the old name is needed)' },
+];
+const factHits = [];
+
 const perFile = [];
 let grand = 0;
 const totals = {};
@@ -118,6 +130,11 @@ for (const f of files) {
       if (samples.length < 2 && t.id !== 'em-dash') {
         samples.push(`${t.id}: ${text.slice(0, 100)}`);
       }
+    }
+  }
+  for (const { line, text } of strings) {
+    for (const r of FACTS) {
+      if (r.re.test(text) && !r.unless.test(text)) factHits.push(`${f}:${line} ${r.id} → ${r.fix}`);
     }
   }
   const count = Object.values(hits).reduce((a, b) => a + b, 0);
@@ -140,3 +157,10 @@ for (const p of perFile.slice(0, 15)) {
   for (const s of p.samples) console.log(`         ${s}`);
 }
 console.log('');
+
+if (factHits.length) {
+  console.log(`  ${factHits.length} factual error(s) in reader-facing text\n`);
+  for (const h of factHits) console.log(`  FAIL  ${h}`);
+  console.log('');
+  process.exitCode = 1;
+}

@@ -10,6 +10,8 @@
  * footnote.
  */
 
+import { BCACC_INDIVIDUAL, BCACC_COUPLES_FAMILY } from '@/lib/fee-guides';
+
 export type ToolMeta = {
   slug: string;
   title: string;
@@ -24,6 +26,15 @@ export type ToolMeta = {
   faqs?: { q: string; a: string }[];
   related?: { href: string; label: string }[];
 };
+
+/* THE ESTIMATOR'S OPENING ANSWER — 1 Oct 2026. The page's first screen said
+   the answer depends on your plan and gave no figure at all; its Markdown twin
+   reached its first dollar sign 8 KB in, inside a list of plan names. The
+   association ranges are lib/fee-guides.ts and the practice's fees are passed
+   in by the page from the catalogue, because this module also reaches client
+   bundles and must not import the catalogue. */
+export const therapyCostAnswer = (fees: { individual: string; couples: string; minutes: number }) =>
+  `The BC Association of Clinical Counsellors’ 2026 fee guide recommends ${BCACC_INDIVIDUAL.range} per 50 minutes for individual counselling with a Registered Clinical Counsellor, and ${BCACC_COUPLES_FAMILY.range} for couples and family counselling. Here an individual session is ${fees.individual} and a couples session ${fees.couples}, each ${fees.minutes} minutes, after a free 30-minute consultation. MSP does not cover private counselling, so what you pay depends on your extended health plan, and this works it out from your plan’s own numbers.`;
 
 export const tools: ToolMeta[] = [
   {
@@ -67,9 +78,13 @@ export const tools: ToolMeta[] = [
     slug: 'therapy-cost-bc',
     title: 'What counselling costs in BC',
     short: 'Work out what you would actually pay after extended health, and what to check first.',
-    metaTitle: 'How Much Does Online Therapy Cost in BC? | Westpeak',
+    /* 1 Oct 2026: was "How Much Does Online Therapy Cost in BC? | Westpeak"
+       (15 impressions at 40.5 on 26 Sep), a question this page never
+       answered with a figure while /pricing (24 at 4.38) does. /pricing now
+       carries the question; this is titled for what the page is. */
+    metaTitle: 'Therapy Cost Calculator for BC: What You Pay After Insurance',
     metaDescription:
-      'Estimate what counselling costs in British Columbia after extended health reimbursement, and the two questions to ask your plan before booking.',
+      `What counselling in BC costs you after extended health. BCACC recommends ${BCACC_INDIVIDUAL.range} per 50 minutes; two questions to ask your plan first.`,
     minutes: 2,
     faqs: [
       {
@@ -614,7 +629,11 @@ export const ACCESS_ROUTES: Record<string, AccessRoute> = {
   publicab: {
     label: 'The public system in Alberta',
     detail:
-      'Alberta Health Services runs a province-wide line on 1-844-944-4744, and Health Link on 811, for non-urgent advice and referral. Around Calgary the intake service is Access Mental Health. 211 Alberta lists community services including free and sliding-scale counselling. All of them are free to call.',
+      /* 1 Oct 2026: was "Alberta Health Services runs a province-wide line on
+         1-844-944-4744", the Indigenous Support Line. Recovery Alberta has
+         run these services since 1 Sep 2024; numbers read on
+         recoveryalberta.ca the same day. */
+      'Recovery Alberta runs the public mental health and addiction services: the Mental Health Helpline on 1-877-303-2642 and the Addiction Helpline on 1-866-332-2322, both 24/7. Health Link on 811 gives non-urgent advice and referral, and around Calgary the intake service is Access Mental Health. 211 Alberta lists community services including free and sliding-scale counselling. All of them are free to call.',
     href: '/resources/counselling-coverage-in-alberta',
   },
   private: {

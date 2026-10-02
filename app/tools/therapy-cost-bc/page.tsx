@@ -1,14 +1,14 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Figure from '@/components/Figure';
-import { getTool } from '@/lib/tools';
+import { getTool, therapyCostAnswer } from '@/lib/tools';
 import ToolShell from '@/components/tools/ToolShell';
 import CtaBand from '@/components/CtaBand';
 import CoverageEstimator from '@/components/tools/CoverageEstimator';
 import { site } from '@/lib/site';
 import { ogBase } from '@/lib/og-meta';
 import { bookingFor } from '@/lib/booking-cta';
-import { FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
+import { FALLBACK_CATALOG, fallbackFee } from '@/lib/cliniko-catalog';
 
 /* The estimator's fees, read from the catalogue on the server and passed
    down, so the client bundle carries two numbers rather than the module.
@@ -39,13 +39,11 @@ export default function Page() {
     <>
     <ToolShell
       tool={tool}
-      intro={
-        <>
-          Counselling in BC private practice is not covered by MSP, so what you actually pay
-          depends on your extended health plan. This works out the difference from the numbers
-          on your own plan, and names the two questions to ask before booking anything.
-        </>
-      }
+      intro={therapyCostAnswer({
+        individual: fallbackFee('Individual Counselling'),
+        couples: fallbackFee('Couples Counselling'),
+        minutes: FALLBACK_CATALOG.items.find((i) => i.name === 'Individual Counselling')?.minutes ?? 50,
+      })}
     >
       <CoverageEstimator fees={FEES} bookHrefs={{ individual: bookingFor('individual-therapy').href, couples: bookingFor('couples-therapy').href }} />
 
