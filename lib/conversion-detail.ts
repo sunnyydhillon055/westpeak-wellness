@@ -102,6 +102,11 @@ export const BOOK_LOCATIONS: readonly string[] = [
   'next-resource-punjabi-words',
   'next-city',
   'next-city-service',
+  /* The next-consultation line on the money pages (wf/money-pages,
+     1 Oct 2026): /online-counselling, /pricing and each /services/<slug>. */
+  'next-online',
+  'next-pricing',
+  'next-service',
   /* The next-step link closing "Where counselling fits" on
      /resources/workplace-mental-health-bc, the site's most-shown page,
      which had no tracked booking link of its own (1 Oct 2026). */

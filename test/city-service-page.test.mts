@@ -7,8 +7,12 @@ import { getLocation } from '../lib/locations.ts';
 import { practitioners } from '../lib/practitioners.ts';
 import { FALLBACK_CATALOG } from '../lib/cliniko-catalog.ts';
 import {
-  bookHrefFor, counsellorsFor, feeFor, generatedFaqs, profileHrefFor, listOf,
+  bookHrefFor, counsellorsFor, feeFor, generatedFaqs, profileHrefFor, listOf, midSentence,
 } from '../lib/city-service-page.ts';
+import { counsellorsForCity } from '../lib/counsellor-cards.ts';
+import { OFFERINGS, offerItems } from '../lib/practitioner-facts.ts';
+import { priceOffer } from '../lib/schema.ts';
+import { policies, SESSION_SECURITY, SESSION_SECURITY_MD } from '../lib/policies.ts';
 
 /* The city x service pages now name counsellors, state a fee and generate
  * three FAQs from data. Each of those is a claim a client books on, so each
@@ -100,4 +104,77 @@ test('listOf reads as English', () => {
   assert.equal(listOf(['A'], 'and'), 'A');
   assert.equal(listOf(['A', 'B'], 'or'), 'A or B');
   assert.equal(listOf(['A', 'B', 'C'], 'and'), 'A, B and C');
+});
+
+/* 1 Oct 2026, wf/money-pages. `lower` cut only the first letter, so the
+   visible FAQs and FAQPage text read "eMDR Therapy", "couples Therapy" and
+   "anxiety Counselling" on all fifty pages, and one answer said "the whole
+   of Fraser Health region". */
+test('midSentence lowercases word by word and keeps initialisms and languages', () => {
+  assert.equal(midSentence('EMDR Therapy'), 'EMDR therapy');
+  assert.equal(midSentence('Couples Therapy'), 'couples therapy');
+  assert.equal(midSentence('Anxiety Counselling'), 'anxiety counselling');
+  assert.equal(midSentence('Punjabi-Speaking Counselling'), 'Punjabi-speaking counselling');
+});
+
+test('no generated FAQ on any pair carries a broken capital or a missing article', () => {
+  for (const { p, topic, ctx, loc } of loaded) {
+    const faqs = generatedFaqs({
+      topic, ctx, loc, counsellors: counsellorsFor(topic), fee: feeFor(FALLBACK_CATALOG, topic),
+    });
+    for (const f of faqs) {
+      for (const text of [f.q, f.a]) {
+        const key = `${p.city}/${p.service}`;
+        assert.ok(!/\b[a-z][A-Z]/.test(text), `${key}: mid-word capital in "${text}"`);
+        assert.ok(!/\b(?:a|an|the|for|does|is|of)\s+[a-z]+\s+(?:Therapy|Counselling)\b/.test(text),
+          `${key}: Title Case service word mid-sentence in "${text}"`);
+        assert.ok(!/\b(?:for|of|does|is)\s+(?:Couples|Anxiety|Depression|Trauma|Individual|Family)\s+(?:Therapy|Counselling)\b/.test(text),
+          `${key}: Title Case service name mid-sentence in "${text}"`);
+        assert.ok(!/the whole of [A-Z]/.test(text), `${key}: "the whole of <region>" in "${text}"`);
+      }
+    }
+  }
+});
+
+/* The Service node on the fifty pairs and the Offers on the city hubs are
+   built from offerItems: every price must be a catalogue price, and every
+   priced service must be one somebody named on that page offers. */
+test('every Offer on a pair or a city hub is a catalogue price for a service its counsellors offer', () => {
+  const prices = new Set(FALLBACK_CATALOG.items.map((i) => i.cents));
+  for (const { p, topic } of loaded) {
+    const items = offerItems({ services: [topic.bookingService] }, FALLBACK_CATALOG);
+    assert.ok(items.some((i) => i.cents > 0), `${p.city}/${p.service} has no priced Offer`);
+    for (const i of items) assert.ok(prices.has(i.cents), `${p.city}/${p.service}: ${i.name} at ${i.cents}c is not in the catalogue`);
+    for (const c of counsellorsFor(topic)) assert.ok(c.services.includes(topic.bookingService));
+  }
+  for (const c of cityContexts) {
+    const who = counsellorsForCity(c.slug);
+    const offered = new Set(who.flatMap((x) => x.services));
+    const items = offerItems({ services: [...offered] }, FALLBACK_CATALOG);
+    for (const i of items) assert.ok(prices.has(i.cents), `${c.slug}: ${i.name} is not a catalogue price`);
+    const labels = OFFERINGS.filter((o) => !offered.has(o.service)).map((o) => o.label.toLowerCase());
+    for (const i of items) {
+      assert.ok(!labels.some((l) => i.name.toLowerCase().startsWith(l)), `${c.slug}: offers ${i.name}, which nobody on the page offers`);
+    }
+  }
+  /* The extended couples session and both EMDR formats are priced, which
+     the single Offer never said. */
+  const couples = offerItems({ services: ['couples-therapy'] }, FALLBACK_CATALOG).map((i) => i.name);
+  assert.ok(couples.includes('Couples counselling (extended)'), couples.join(', '));
+  const emdr = offerItems({ services: ['emdr-therapy'] }, FALLBACK_CATALOG).map((i) => i.name);
+  assert.ok(emdr.includes('EMDR') && emdr.includes('EMDR (intensive)'), emdr.join(', '));
+});
+
+test('priceOffer no longer speaks of stock', () => {
+  assert.equal('availability' in priceOffer(140, '/x'), false);
+});
+
+/* The "How private is the video?" block on /online-counselling, the city
+   hubs and /pricing reads the same constant /privacy publishes. */
+test('the session-security sentence is the privacy policy’s own', () => {
+  const privacy = policies['privacy']!;
+  assert.ok(privacy.sections.some((x) => x.body?.includes(SESSION_SECURITY_MD)), 'the policy no longer carries the constant');
+  assert.match(SESSION_SECURITY, /never recorded/);
+  assert.match(SESSION_SECURITY, /Canadian region/);
+  assert.ok(!SESSION_SECURITY.includes('**'));
 });

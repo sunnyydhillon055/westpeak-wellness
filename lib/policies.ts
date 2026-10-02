@@ -7,6 +7,18 @@
  *
  * HARD RULE: the counsellor's personal name never appears here. */
 
+/* HOW PRIVATE THE VIDEO IS, STATED ONCE — 1 Oct 2026.
+ *
+ * The /privacy paragraph below is the practice's one statement of where
+ * records live and what happens to a session. /online-counselling, the city
+ * hubs and /pricing now repeat it, and they read this constant rather than a
+ * copy, so the claim on a money page cannot drift from the privacy policy.
+ * The markdown form is the policy's; the plain form is for pages that do not
+ * render markdown and for FAQPage text. */
+export const SESSION_SECURITY_MD =
+  'Bookings and client records are held in **Cliniko**, the practice’s booking and records system, in an account on Cliniko’s Canadian region. Records are encrypted and access-controlled. Sessions are by secure video: the link arrives by email and opens in your browser, with nothing to install. Sessions are **never recorded**, not for notes, not for supervision, not for training.';
+export const SESSION_SECURITY = SESSION_SECURITY_MD.replace(/[*][*]/g, '');
+
 export type PolicySection = {
   h2: string;
   body?: string[];
@@ -243,7 +255,7 @@ export const policies: Record<string, Policy> = {
       {
         h2: 'Where records live and how long they are kept',
         body: [
-          'Bookings and client records are held in **Cliniko**, the practice’s booking and records system, in an account on Cliniko’s Canadian region. Records are encrypted and access-controlled. Sessions are by secure video: the link arrives by email and opens in your browser, with nothing to install. Sessions are **never recorded**, not for notes, not for supervision, not for training.',
+          SESSION_SECURITY_MD,
           'Records are retained for the period required by professional standards and applicable law, then securely destroyed. You are entitled to ask how long your specific file will be kept, and to receive that answer in writing.',
           'Anything sent through a form on this website. A message, or a request for a guide, is held separately from clinical records and is **deleted automatically after 24 months**. That is a fixed period rather than a judgement call: the purpose it was collected for is answering you, and that purpose expires. Two years leaves room for someone who enquired, waited and came back, which is a real pattern, without the practice quietly accumulating an archive of what people wrote before they had met anyone.',
           'You have the right to request access to your own records and to request correction of factual errors in them. Requests go to the address on the [contact page](/contact). Where a portion of a file cannot be released, for example, because it contains information about another person. You are told that, and told why.',

@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { getLocation } from '@/lib/locations';
 import { getCityTopic } from '@/lib/conditions';
 import { site } from '@/lib/site';
-import { abs, orgRef, siteRef, breadcrumbs } from '@/lib/schema';
+import { abs, orgRef, siteRef, breadcrumbs, sessionOffers } from '@/lib/schema';
 import { therapyNode, conditionNode } from '@/lib/entities';
 import { Paragraphs } from '@/lib/rich';
 import { cityContexts, AUTHORITY_URL } from '@/lib/city-context';
@@ -19,8 +19,10 @@ import { COLLECTION_DATES } from '@/lib/page-dates';
 import BookLink from '@/components/BookLink';
 import { readCatalog } from '@/lib/cliniko-catalog';
 import {
-  bookHrefFor, cityServiceDescription, cityServiceTitle, counsellorsFor, feeFor, generatedFaqs, languagePhrase,
+  bookHrefFor, cityServiceDescription, cityServiceTitle, counsellorsFor, feeFor, generatedFaqs, languagePhrase, languagesFor,
+  midSentence,
 } from '@/lib/city-service-page';
+import { offerItems } from '@/lib/practitioner-facts';
 import CounsellorCards from '@/components/CounsellorCards';
 import NextConsultLine from '@/components/NextConsultLine';
 
@@ -77,8 +79,10 @@ function load(params: Params) {
   return { pair, ctx, svc, loc };
 }
 
-/** "Anxiety Counselling" -> "anxiety counselling", for mid-sentence use. */
-const lower = (s: string) => s.charAt(0).toLowerCase() + s.slice(1);
+/** "Anxiety Counselling" -> "anxiety counselling", "EMDR Therapy" -> "EMDR
+ *  therapy", for mid-sentence use. Word by word since 1 Oct 2026: the first-
+ *  letter version printed "eMDR Therapy" on the hero button. */
+const lower = midSentence;
 
 /* THE DIAGRAM THAT ALREADY EXISTED — 2026-08-30.
  *
@@ -179,7 +183,8 @@ export default async function CityServicePage({ params }: { params: Params }) {
      holds the rules and the tests. */
   const counsellors = counsellorsFor(svc);
   const bookHref = bookHrefFor(counsellors);
-  const fee = feeFor(await readCatalog(), svc);
+  const catalog = await readCatalog();
+  const fee = feeFor(catalog, svc);
   const faqs = [...pair.faqs, ...generatedFaqs({ topic: svc, ctx, loc, counsellors, fee })];
 
   const path = `/online-counselling/${ctx.slug}/${svc.slug}`;
@@ -188,13 +193,41 @@ export default async function CityServicePage({ params }: { params: Params }) {
   const nearbyPairs = sameElsewhere.filter((p) => ctx.nearby.includes(p.city));
   const cityOf = (slug: string) => cityContexts.find((c) => c.slug === slug)!;
 
+  const desc = cityServiceDescription({ name: seoName(svc), city: ctx.city, counsellors });
+
+  /* THE SERVICE THIS PAGE SELLS — 1 Oct 2026. The fifty pairs carried a
+     page, a breadcrumb and an FAQ, and no Service: the FAQ stated the fee in
+     words while no Offer carried it, and the build census found 77 Service
+     nodes site-wide and none here. The providers are the counsellors the
+     cards name (the Person @ids their profiles define); the offers are every
+     catalogue type the service bills as, plus the free consultation, from
+     the same helper as the profile's makesOffer. No typed figure. */
+  const items = offerItems({ services: [svc.bookingService] }, catalog);
+  const serviceNode = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': `${abs(path)}#service`,
+    name: `${svc.name} in ${ctx.city}`,
+    serviceType: svc.name,
+    description: desc,
+    url: abs(path),
+    areaServed: { '@type': 'City', name: ctx.city, containedInPlace: { '@type': 'State', name: 'British Columbia' } },
+    availableChannel: { '@type': 'ServiceChannel', serviceUrl: abs(path), availableLanguage: languagesFor(counsellors) },
+    provider: counsellors.length
+      ? counsellors.map((p) => ({ '@type': 'Person', '@id': `${site.domain}/practitioners/${p.slug}#person`, name: p.name }))
+      : orgRef,
+    ...(items.length ? { offers: sessionOffers(items, path) } : {}),
+  };
+
   const schema = [
     {
       '@context': 'https://schema.org',
       '@type': 'MedicalWebPage',
       '@id': abs(path),
       name: `${seoName(svc)} in ${ctx.city}, BC`,
-      description: pair.angle,
+      /* The meta description, so the page node and the result say the same
+         thing. 1 Oct 2026. */
+      description: desc,
       url: abs(path),
       isPartOf: siteRef,
       /* A condition is not a therapy. Half of these fifty pages are about
@@ -211,6 +244,7 @@ export default async function CityServicePage({ params }: { params: Params }) {
       dateModified: COLLECTION_DATES['cityServices'],
       author: orgRef,
     },
+    serviceNode,
     breadcrumbs([
       { name: 'Online counselling', path: '/online-counselling' },
       { name: ctx.city, path: `/online-counselling/${ctx.slug}` },
