@@ -17,13 +17,16 @@ import { TAGALOG_READY } from '@/lib/practitioner-tl';
 import { getPunjabiProfile } from '@/lib/practitioner-pa';
 import { COLLECTION_DATES } from '@/lib/page-dates';
 import BookLink from '@/components/BookLink';
-import { profileTitle } from '@/lib/practitioner-titles';
+import { profileTitle, onlineInLong } from '@/lib/practitioner-titles';
 import { personAreaServed } from '@/lib/practice-facts';
 import { readCatalog } from '@/lib/cliniko-catalog';
 import {
   feeLines, feePhrase, consultLine, reachLine, notOffered, insuranceLine, registerEntryUrl,
   longDate, offerItems, COMPLAINTS_PATH,
+  personDescription, credentialLine, certifiedBy, notOfferedSentence,
 } from '@/lib/practitioner-facts';
+import FirstSessionRow from '@/components/FirstSessionRow';
+import { firstSessionNote, firstSessionOffers } from '@/lib/first-session';
 import { profileSnippet, withSnippet } from '@/lib/snippet-facts';
 
 export function generateStaticParams() {
@@ -168,9 +171,21 @@ export default async function PractitionerPage({ params }: { params: { slug: str
   const fees = p.acceptingNewClients ? feeLines(p, catalog) : [];
   const consult = p.acceptingNewClients ? consultLine(catalog) : null;
   const missing = p.acceptingNewClients ? notOffered(p, practitioners) : [];
-  const missingBy = missing.length && missing.every((m) => m.by.length && m.by.map((b) => b.slug).join() === missing[0]!.by.map((b) => b.slug).join())
-    ? missing[0]!.by
-    : [];
+  /* One sentence, 1 Oct 2026: "Savneet does not offer couples counselling,
+     EMDR or family counselling; Camille Granda does." It read as a label and
+     a comma list. */
+  const notOfferedLine = notOfferedSentence(first, missing);
+  /* "Already sure? Start with a first session" (lib/first-session.ts):
+     nothing while site.directFirstSession is false. */
+  const firstSession = p.acceptingNewClients ? firstSessionOffers(p, catalog) : [];
+  /* Each credential spelled out, with where it carries weight, and who
+     certifies the national one. "RCC, CCC" explained nothing (item 241). */
+  const credentialText = credentialLine(p);
+  const credentialExtras = [
+    ...p.postNominals.split(',').map((x) => x.trim()).filter((x) => x && !p.credentials.some((c) => c.short === x)),
+  ];
+  const roleExtras = p.role.split(' · ').slice(1);
+  const certified = certifiedBy(p);
   /* Read at render, not at build: the page revalidates every 30 minutes, so
      the line goes the day the policy stops being current. */
   const insured = insuranceLine(p, vancouverToday());
@@ -182,14 +197,23 @@ export default async function PractitionerPage({ params }: { params: { slug: str
       '@id': `${site.domain}/practitioners/${p.slug}#person`,
       name: p.name,
       jobTitle: p.role,
+      /* From the roster, so it cannot say something the page does not. */
+      description: personDescription(p),
       url: abs(`/practitioners/${p.slug}`),
       worksFor: orgRef,
+      /* The bodies her credentials come from, deduplicated. Not the practice:
+         BCACC registers individuals (see app/layout.tsx). */
+      ...(p.credentials.length
+        ? { memberOf: [...new Set(p.credentials.map((c) => c.body))].map((name) => ({ '@type': 'Organization', name })) }
+        : {}),
       knowsLanguage: p.languages.map((l) => l.tag),
       /* Psychology Today never reaches sameAs, even if re-added to the roster
          by hand: the listings carry another practice's facts (1 Oct 2026, see
          the note on Camille's sameAs in lib/practitioners.ts). */
       ...(sameAs.length ? { sameAs } : {}),
-      ...(p.photos?.portrait ? { image: `${site.domain}${p.photos.portrait.src}` } : {}),
+      ...(p.photos?.portrait
+        ? { image: { '@type': 'ImageObject', url: `${site.domain}${p.photos.portrait.src}`, width: p.photos.portrait.width, height: p.photos.portrait.height } }
+        : {}),
       knowsAbout: p.focus.map((f) => f.label),
       hasCredential: p.credentials.map((c) => ({
         '@type': 'EducationalOccupationalCredential',
@@ -210,6 +234,8 @@ export default async function PractitionerPage({ params }: { params: { slug: str
       '@context': 'https://schema.org',
       '@type': 'ProfilePage',
       '@id': `${site.domain}/practitioners/${p.slug}#page`,
+      url: abs(`/practitioners/${p.slug}`),
+      name: withLetters(p),
       mainEntity: { '@id': `${site.domain}/practitioners/${p.slug}#person` },
       isPartOf: siteRef,
       inLanguage: 'en-CA',
@@ -246,8 +272,15 @@ export default async function PractitionerPage({ params }: { params: { slug: str
             <p className="lede">{p.tagline}</p>
             <Updated iso={COLLECTION_DATES['practitioners']} />
             <p style={{ color: 'var(--ink-soft)', margin: '10px 0 0' }}>
-              {p.role}{p.postNominals ? ` · ${p.postNominals}` : ''}
+              {credentialText
+                ? [...credentialExtras, credentialText, ...roleExtras].join(' · ')
+                : <>{p.role}{p.postNominals ? ` · ${p.postNominals}` : ''}</>}
             </p>
+            {certified.length > 0 && (
+              <p style={{ color: 'var(--ink-soft)', margin: '4px 0 0', fontSize: '.92rem' }}>
+                {certified.join(' ')}
+              </p>
+            )}
             <div className="btn-row" style={{ marginTop: 22 }}>
               {!p.acceptingNewClients ? (
                 alt && (
@@ -337,7 +370,7 @@ export default async function PractitionerPage({ params }: { params: { slug: str
             </span>
             <span>
               <MonitorSmartphone aria-hidden="true" strokeWidth={1.7} />
-              Online across British Columbia
+              Online, anywhere in {onlineInLong(p)}
             </span>
           </div>
 
@@ -351,21 +384,22 @@ export default async function PractitionerPage({ params }: { params: { slug: str
                   </li>
                 ))}
                 <li><strong>{reachLine(p)}</strong>, in {p.languages.map((l) => l.name).join(' or ')}</li>
-                {missing.length > 0 && (
+                {notOfferedLine && (
                   <li>
-                    <strong>Not offered by {first}</strong>, {missing.map((m) => m.label).join(', ')}
-                    {missingBy.length > 0 && (
+                    {notOfferedLine.lead}
+                    {notOfferedLine.by.length > 0 ? (
                       <>
-                        {'. '}
-                        {missingBy.map((b, i) => (
+                        {'; '}
+                        {notOfferedLine.by.map((b, i) => (
                           <span key={b.slug}>{i ? ' and ' : ''}<Link href={`/practitioners/${b.slug}`}>{b.name}</Link></span>
                         ))}
-                        {missingBy.length > 1 ? ' offer' : ' offers'}{missing.length > 1 ? ' them' : ' it'}
+                        {` ${notOfferedLine.verb}.`}
                       </>
-                    )}
+                    ) : '.'}
                   </li>
                 )}
               </ul>
+              <FirstSessionRow first={first} offers={firstSession} note={firstSessionNote(catalog)} />
               <p style={{ fontSize: '.9rem', color: 'var(--ink-soft)' }}>
                 Paid at booking, with a receipt for your extended health plan; whether
                 your plan reimburses it depends on the plan. <Link href="/pricing">Fees and coverage</Link>.
@@ -463,7 +497,7 @@ export default async function PractitionerPage({ params }: { params: { slug: str
       <section className="section">
         <div className="container">
           <p className="eyebrow">Where {first} works</p>
-          <h2>Online, anywhere in British Columbia</h2>
+          <h2>Online, anywhere in {onlineInLong(p)}</h2>
           <p className="lede">
             Every session is by secure video, so where you live changes nothing about
             availability or fee. These pages cover what accessing care looks like from each place.

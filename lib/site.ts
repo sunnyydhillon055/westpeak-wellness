@@ -227,6 +227,14 @@ export const site = {
      under-describing itself in three places a machine reads. */
   languages: "English, Punjabi & Tagalog",
   languagesNative: "English · ਪੰਜਾਬੀ · Tagalog",
+  /* "ALREADY SURE? START WITH A FIRST SESSION" — built 1 Oct 2026, OFF.
+     When true, /book and each accepting counsellor's profile carry a second
+     row that books a paid first session directly (lib/first-session.ts), and
+     the individual-therapy answer says the consultation is recommended
+     rather than required. Stays false until the owner's decision is recorded
+     in DECISIONS.md; test/first-session.test.mts holds it there and requires
+     a data/changes.json entry the day it flips. */
+  directFirstSession: false as boolean,
 } as const;
 
 /* A counsellor's own booking calendar. Cliniko honours `practitioner_id` on

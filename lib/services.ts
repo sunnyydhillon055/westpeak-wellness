@@ -1,4 +1,5 @@
 import { fallbackFee } from '@/lib/cliniko-catalog';
+import { site } from '@/lib/site';
 import { withLetters, type Practitioner } from '@/lib/practitioners';
 import { counsellorsFor, languagePhrase, languagesOf, listOf } from '@/lib/city-service-page';
 import { counsellorForLanguage } from '@/lib/booking-cta';
@@ -79,7 +80,11 @@ export const services: Service[] = [
   {
     slug: "individual-therapy",
     directAnswer:
-      "Individual therapy at Westpeak Wellness is one-to-one counselling delivered by secure video anywhere in British Columbia, provided by a Registered Clinical Counsellor registered with the BC Association of Clinical Counsellors. Sessions run 50 minutes, weekly or fortnightly. It suits anxiety, low mood, burnout, self-criticism, life transitions and long-standing patterns that have stopped responding to the obvious fixes. A free 30-minute consultation comes first, and there is no referral, diagnosis or waitlist required.",
+      "Individual therapy at Westpeak Wellness is one-to-one counselling delivered by secure video anywhere in British Columbia, provided by a Registered Clinical Counsellor registered with the BC Association of Clinical Counsellors. Sessions run 50 minutes, weekly or fortnightly. It suits anxiety, low mood, burnout, self-criticism, life transitions and long-standing patterns that have stopped responding to the obvious fixes. " +
+      /* Follows site.directFirstSession (item 211): once a first session can be
+         booked directly, the consultation is recommended rather than required. */
+      (site.directFirstSession ? "A 30-minute consultation is free and recommended" : "A free 30-minute consultation comes first") +
+      ", and there is no referral, diagnosis or waitlist required.",
     figure2: "bc-reach",
     figure: "first-session-flow",
     name: "Individual Therapy",
@@ -157,10 +162,10 @@ export const services: Service[] = [
     figure2: "first-session-flow",
     figure: "gottman-method",
     name: "Couples Therapy",
-    short: "Gottman Method: communication, conflict, connection, repair.",
+    short: "Gottman-informed: communication, conflict, connection, repair.",
     metaTitle: "Gottman-Informed Couples Counselling Online in BC | Westpeak",
     metaDescription:
-      "Online couples counselling across BC using the Gottman Method. Communication, conflict and repair, by secure video.",
+      "Gottman-informed online couples counselling across BC. Communication, conflict and repair, by secure video.",
     hero: "Strengthen communication, deepen connection, repair what's frayed.",
     intro:
       "Every couple hits friction. Couples therapy is a structured, research-based space to understand the patterns underneath the arguments, and to build the skills to move through conflict without losing each other. Sessions are 50 minutes (or a 110-minute extended option), online across BC.",
@@ -172,7 +177,7 @@ export const services: Service[] = [
       "Navigating big decisions together",
     ],
     approach:
-      "Couples work here is grounded in the Gottman Method. One of the most researched approaches to couples therapy. It's practical and skills-based: you'll leave sessions with tools, not just insight, and a clearer map of how the two of you connect and repair.",
+      "Couples work here is Gottman-informed, drawing on one of the most researched approaches to couples therapy. It's practical and skills-based: you'll leave sessions with tools, not just insight, and a clearer map of how the two of you connect and repair.",
     featured: true,
     whatItIs: {
       h2: "What makes the Gottman Method different",

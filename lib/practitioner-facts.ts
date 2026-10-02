@@ -1,4 +1,5 @@
 import { money, type Catalog } from '@/lib/cliniko-catalog';
+import { site } from '@/lib/site';
 import {
   insuranceStatus, type Credential, type Practitioner,
 } from '@/lib/practitioners';
@@ -131,4 +132,58 @@ export function acceptingSentences(roster: readonly Practitioner[]): string[] {
       const services = OFFERINGS.filter((o) => p.services.includes(o.service)).map((o) => o.label);
       return `[${p.name}](/practitioners/${p.slug}) works in ${andList(p.languages.map((l) => l.name))}, by video anywhere in ${p.reach === 'canada' ? 'Canada' : 'BC'}, and offers ${andList(services)}.`;
     });
+}
+
+/* THE PERSON, INLINE, FOR PAGES THAT ARE NOT HER PROFILE — 1 Oct 2026.
+   Seventy ProfilePage nodes pointed mainEntity at /practitioners/<slug>#person,
+   a node that exists only on the profile, so on the page itself the entity had
+   no name, which Google requires. This is the minimal node those pages carry
+   instead: same @id, so it merges with the full one, and `url` always the
+   canonical profile, never the page it sits on. */
+export const personStub = (
+  p: Pick<Practitioner, 'slug' | 'name' | 'role' | 'languages' | 'photos'>,
+  domain: string = site.domain,
+) => ({
+  '@type': 'Person' as const,
+  '@id': `${domain}/practitioners/${p.slug}#person`,
+  name: p.name,
+  jobTitle: p.role,
+  url: `${domain}/practitioners/${p.slug}`,
+  ...(p.photos?.portrait ? { image: `${domain}${p.photos.portrait.src}` } : {}),
+  knowsLanguage: p.languages.map((l) => l.tag),
+});
+
+/** Person.description on the profile, from the roster: what she offers, how,
+ *  where and in which languages. No fees, numbers or availability. */
+export function personDescription(p: Pick<Practitioner, 'name' | 'role' | 'services' | 'languages' | 'reach' | 'provinces'>): string {
+  const services = OFFERINGS.filter((o) => p.services.includes(o.service)).map((o) => o.label);
+  const where = p.reach === 'canada' ? 'anywhere in Canada' : p.provinces.length > 1 ? `in ${andList(p.provinces.map((c) => PROVINCE_LONG[c] ?? c))}` : 'across British Columbia';
+  const role = p.role.split(' · ')[0];
+  return `${p.name} is a ${role} offering ${andList(services.length ? services : ['counselling'])} by secure video ${where}, in ${andList(p.languages.map((l) => l.name))}.`;
+}
+
+const PROVINCE_LONG: Record<string, string> = { BC: 'British Columbia', AB: 'Alberta' };
+
+/** "Registered Clinical Counsellor (RCC), BC · Canadian Certified Counsellor
+ *  (CCC), national": each credential spelled out with where it carries weight. */
+export const credentialLine = (p: Pick<Practitioner, 'credentials'>): string =>
+  p.credentials
+    .map((c) => `${c.full} (${c.short}), ${c.scope === 'national' ? 'national' : /\bBC\b|British Columbia/.test(c.body) ? 'BC' : 'provincial'}`)
+    .join(' · ');
+
+/** One plain sentence per national certification: who certifies it. */
+export const certifiedBy = (p: Pick<Practitioner, 'credentials'>): string[] =>
+  p.credentials.filter((c) => c.scope === 'national').map((c) => `The ${c.short} is certified by the ${c.body}.`);
+
+/** "Savneet does not offer couples counselling, EMDR or family counselling;
+ *  Camille Granda does." The colleague clause only when one set of accepting
+ *  counsellors offers all of them. */
+export function notOfferedSentence(first: string, missing: NotOffered[]): { lead: string; by: { slug: string; name: string }[]; verb: string } | null {
+  if (!missing.length) return null;
+  const labels = missing.map((m) => m.label);
+  const list = labels.length < 2 ? labels.join('') : `${labels.slice(0, -1).join(', ')} or ${labels[labels.length - 1]}`;
+  const key = (m: NotOffered) => m.by.map((b) => b.slug).join();
+  const same = missing.every((m) => m.by.length && key(m) === key(missing[0]!));
+  const by = same ? missing[0]!.by : [];
+  return { lead: `${first} does not offer ${list}`, by, verb: by.length > 1 ? 'do' : 'does' };
 }

@@ -106,6 +106,9 @@ export const BOOK_LOCATIONS: readonly string[] = [
      /resources/workplace-mental-health-bc, the site's most-shown page,
      which had no tracked booking link of its own (1 Oct 2026). */
   'mid-resource-work',
+  /* The "start with a first session" row on /book and the profiles, behind
+     site.directFirstSession (lib/first-session.ts, 1 Oct 2026). */
+  'first-session',
   ...tools.map((t) => `tool:${t.slug}`),
 ];
 

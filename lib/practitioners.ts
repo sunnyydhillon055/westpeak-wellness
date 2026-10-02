@@ -884,3 +884,23 @@ export const navRoster = (): NavPractitioner[] =>
       slug, name, postNominals, role, acceptingNewClients,
       bookIn: bookable ? languages.map((l) => l.tag).filter((t) => !t.startsWith('en')) : [],
     }));
+
+/* WHO THE ORGANISATION NODE NAMES, AND WHICH PROVINCES IT CLAIMS — 1 Oct 2026.
+
+   app/layout.tsx named Alberta as a literal on every page, so the day the
+   insurance gate above closed, 300 pages would have kept asserting a province
+   the practice could no longer offer. The provinces now come from the counsellors
+   who are taking new clients and can be booked, on the gated roster, and the
+   same list is the organisation's `employee`. The founder is never named there:
+   her name is confined to three pages, and she is not taking new clients. */
+export const orgCounsellors = (roster: readonly Practitioner[] = practitioners): Practitioner[] =>
+  roster.filter((p) => p.acceptingNewClients && p.bookable && !/founder/i.test(p.role));
+
+const PROVINCE_NAME: Record<string, string> = { BC: 'British Columbia', AB: 'Alberta' };
+
+/** Province names for the organisation's areaServed. BC always: it is where
+ *  the practice is registered and where existing clients are seen. */
+export const servedProvinceNames = (roster: readonly Practitioner[] = practitioners): string[] => {
+  const codes = new Set(['BC', ...orgCounsellors(roster).flatMap((p) => p.provinces)]);
+  return Object.keys(PROVINCE_NAME).filter((c) => codes.has(c)).map((c) => PROVINCE_NAME[c]);
+};

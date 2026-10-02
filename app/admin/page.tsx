@@ -33,6 +33,7 @@ import { consultationAvailabilityNow } from '@/lib/cliniko-availability';
 import { site } from '@/lib/site';
 import { revalidatePath } from 'next/cache';
 import NotSeenLately from '@/components/admin/NotSeenLately';
+import WaitingOnYou from '@/components/admin/WaitingOnYou';
 
 export const metadata: Metadata = {
   title: { absolute: 'Practice admin | Westpeak Wellness' },
@@ -283,6 +284,9 @@ export default async function AdminPage({
             <button type="submit" className="btn btn--ghost">Sign out</button>
           </form>
         </div>
+
+        {/* Owner-gated switches, deadlines and what each unlocks (1 Oct 2026). */}
+        <WaitingOnYou />
 
         {notices.map((n) => (
           <div className="crisis" style={{ marginTop: 18 }} key={n}>

@@ -155,7 +155,7 @@ export default async function CityPage({ params }: { params: { city: string } })
     '@id': `${site.domain}/practitioners/${p.slug}#person`,
     name: p.name,
     jobTitle: p.role,
-    url: `${site.domain}/practitioners/${p.slug}/${l.slug}`,
+    url: `${site.domain}/practitioners/${p.slug}`,
     worksFor: orgRef,
     knowsLanguage: p.languages.map((x) => x.name),
   }));
