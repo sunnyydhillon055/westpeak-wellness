@@ -184,6 +184,25 @@ const CHECKS = [
   ['/online-counselling/burnaby', 200],
   ['/online-counselling/langley', 200],
   ['/online-counselling/chilliwack', 200],
+
+  /* Guessable addresses that answered 404 in production, 1 Oct 2026
+     (lib/redirects.mjs). One per destination, landing in one hop. */
+  ['/team', 308, '/practitioners'],
+  ['/practitioners/camille', 308, '/practitioners/camille-granda'],
+  ['/savneet', 308, '/practitioners/savneet-singh'],
+  ['/services/couples-counselling', 308, '/services/couples-therapy'],
+  ['/services/family-therapy', 308, '/services/family-counselling'],
+  ['/services/anxiety', 308, '/services/individual-therapy'],
+  ['/emdr', 308, '/services/emdr-therapy'],
+  ['/booking', 308, '/book'],
+  ['/insurance', 308, '/pricing'],
+  ['/services/grief-counselling', 308, '/guides/grief-without-a-timeline'],
+
+  /* Where a refused /punjabi message lands (lib/inbound-return.ts), and a
+     search whose top hit is a service, which renders the booking block. */
+  ['/punjabi/not-sent', 200],
+  ['/search?q=couples+counselling+abbotsford', 200],
+  ['/search?q=zzzz-nothing-matches', 200],
 ];
 
 /* Matched against the <title> ONLY, and that restriction is load-bearing.
