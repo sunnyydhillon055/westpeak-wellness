@@ -1,8 +1,8 @@
 import { site } from '@/lib/site';
-import { shell, btn, p, a, esc, wrap, links } from '@/lib/booking-mail';
+import { shell, btn, p, a, esc, wrap, links, tagMail } from '@/lib/booking-mail';
 import type { Inbound } from '@/lib/inbound';
 import { LOOKING, WHERE, TIMING, labelOf } from '@/lib/enquiry-fields';
-import { rosterLines, rosterText, rosterHtml, type RosterLine } from '@/lib/lead-roster';
+import { rosterLines, rosterText, rosterButtons, type RosterLine } from '@/lib/lead-roster';
 import { magnetWords, SEQUENCE_PROMISE } from '@/lib/nurture-plan';
 import { answeredLink } from '@/lib/answered-link';
 
@@ -43,7 +43,7 @@ const leadEndingHtml = (o: LeadMailOptions) => {
     p(`That is everything you asked for. ${esc(SEQUENCE_PROMISE)}` +
       (o.unsub ? ` <span style="color:#545e69;font-size:14px;">Not wanted? ${a(o.unsub, 'One click stops them')}.</span>` : '')) +
     (roster.length
-      ? p('If you would like to talk any of it through, a free 30-minute consultation carries no obligation. Each counsellor&rsquo;s own calendar:') + rosterHtml(roster)
+      ? p('If you would like to talk any of it through, a free 30-minute consultation carries no obligation. Each counsellor&rsquo;s own calendar:') + rosterButtons(roster)
       : btn(links.book, 'Book a free 30-minute consultation')) +
     p('<span style="color:#545e69;font-size:14px;">No obligation, and deciding not to book is a completely normal outcome.</span>')
   );
@@ -144,10 +144,11 @@ ${site.domain}`);
     ).join('') +
     `</ol>` +
     p(`The longer version, with the insurer-by-insurer table, is ${a(links.coverage, 'on the site')}.`) +
-    leadEndingHtml(o)
+    leadEndingHtml(o),
+    'Eight questions to ask your plan before booking counselling with anyone',
   );
 
-  return { subject: 'Your coverage checklist', text, html };
+  return tagMail({ subject: 'Your coverage checklist', text, html }, 'magnet');
 }
 
 
@@ -238,10 +239,11 @@ ${site.domain}`
        <span style="color:#545e69;font-size:14px;">${esc(c.why)}</span></li>`
     ).join('') +
     `</ol>` +
-    leadEndingHtml(o)
+    leadEndingHtml(o),
+    'How the twelve pre-approved sessions work, and how to use them with any counsellor',
   );
 
-  return { subject: 'The ICBC counselling entitlement', text, html };
+  return tagMail({ subject: 'The ICBC counselling entitlement', text, html }, 'magnet');
 }
 
 /* ---- how to start counselling in BC, on one page -------------------------- */
@@ -314,10 +316,11 @@ ${site.domain}`);
     ).join('') +
     `</ol>` +
     p(`Current fees and how reimbursement works are ${a(`${site.domain}/pricing`, 'on the fees page')}.`) +
-    leadEndingHtml(o)
+    leadEndingHtml(o),
+    'From first thought to first session, in seven steps that apply with any counsellor',
   );
 
-  return { subject: 'Starting counselling in BC, the one-pager', text, html };
+  return tagMail({ subject: 'Starting counselling in BC, the one-pager', text, html }, 'magnet');
 }
 
 /* ---- acknowledgement of a message ---------------------------------------- */
@@ -371,10 +374,15 @@ Online counselling across British Columbia`);
     p(replyHtml) +
     p(`Two things that usually come up next: ${a(links.pricing, 'what sessions cost and how extended health works')}, and ${a(links.standards, 'how this practice works')}.`) +
     btn(book, 'Or pick a time for a free consultation') +
-    p('<span style="color:#545e69;font-size:14px;">If you are in immediate danger call 911. For urgent mental-health support in BC, call or text <strong>9-8-8</strong> at any hour.</span>')
+    p('<span style="color:#545e69;font-size:14px;">If you are in immediate danger call 911. For urgent mental-health support in BC, call or text <strong>9-8-8</strong> at any hour.</span>'),
+    /* Who replies and by when, which is what the inbox list should say
+       (1 Oct 2026); it repeated the heading. Her name without letters. */
+    by
+      ? `${by.who.split(',')[0].trim()} will reply within one business day`
+      : 'The practice will reply within one business day',
   );
 
-  return { subject: 'We have your message | Westpeak Wellness', text, html };
+  return tagMail({ subject: 'We have your message | Westpeak Wellness', text, html }, 'ack');
 }
 
 /* ---- the alert to the practice ------------------------------------------- */

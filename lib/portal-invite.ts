@@ -6,6 +6,7 @@ import { sendDetailed, mailConfigured } from '@/lib/portal-mail';
 import { site, CONSULT_TYPE } from '@/lib/site';
 import { headers } from '@/lib/cliniko';
 import { isConsultAppointment } from '@/lib/booking-shape';
+import { shell, p, btn, a, esc } from '@/lib/booking-mail';
 
 /* Invites active clients who have no portal password yet to create one.
  *
@@ -113,7 +114,7 @@ export type InviteResult = {
  * opening, because that person did not ask for anything: they were added as
  * a client and this is the practice telling them what exists and how to get
  * in. */
-function inviteBody(first: string, url: string, welcome = false): { text: string; html: string } {
+export function inviteBody(first: string, url: string, welcome = false): { text: string; html: string } {
   const opening = welcome
     ? `Welcome to Westpeak Wellness. Now that you are a client, you have a
 secure online portal where you can book sessions, see upcoming
@@ -148,16 +149,22 @@ support in BC, call or text 9-8-8 at any hour.
 Westpeak Wellness
 ${site.domain}`;
 
-  const html =
-`<div style="font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#2b3138;max-width:520px;line-height:1.65;">
-  <p style="margin:0 0 14px;font-size:15px;">Hi ${first},</p>
-  <p style="margin:0 0 14px;font-size:15px;">${openingHtml}</p>
-  <p style="margin:0 0 22px;"><a href="${url}" style="display:inline-block;background:#3d6c92;color:#fff;text-decoration:none;padding:11px 20px;border-radius:6px;font-weight:600;font-size:15px;">Choose a password</a></p>
-  <p style="margin:0 0 14px;font-size:14px;">You can also sign in at any time without a password: enter this email address at <a href="${site.domain}${site.portalPath}" style="color:#3d6c92;">${site.domain.replace(/^https?:\/\//, '')}${site.portalPath}</a> and a one-time code is sent to it.</p>
-  <p style="margin:0 0 14px;font-size:14px;">The link works once and expires. <strong>Nobody at the practice can see the password you choose</strong>. It is stored in a form that cannot be read back, so if you forget it we can only send another link like this one.</p>
-  <p style="margin:0 0 14px;font-size:14px;">If you would rather not use the portal, ignore this. It changes nothing about your appointments.</p>
-  <p style="margin:22px 0 0;font-size:12px;color:#545e69;">If you are in immediate danger call 911. For urgent mental-health support in BC, call or text <strong>9-8-8</strong> at any hour.<br>Westpeak Wellness · <a href="${site.domain}" style="color:#545e69;">${site.domain.replace(/^https?:\/\//, '')}</a></p>
-</div>`;
+  /* THE SHARED SHELL, 1 Oct 2026. This was a bare div: no colour-scheme
+     declaration (dark-mode clients inverted it), no preheader (the inbox
+     preview scraped "Hi <name>, Welcome to…"), not the practice's footer,
+     and the Cliniko first name interpolated raw, so a name holding "<" or
+     "&" broke the markup. Now shell(), with the name escaped. */
+  const portalHost = `${site.domain.replace(/^https?:\/\//, '')}${site.portalPath}`;
+  const html = shell(
+    welcome ? 'Welcome: your client portal' : 'Your client portal',
+    p(`Hi ${esc(first)},`) +
+    p(openingHtml) +
+    btn(url, 'Choose a password') +
+    p(`<span style="font-size:14px;">You can also sign in at any time without a password: enter this email address at ${a(`${site.domain}${site.portalPath}`, portalHost)} and a one-time code is sent to it.</span>`) +
+    p('<span style="font-size:14px;">The link works once and expires. <strong>Nobody at the practice can see the password you choose</strong>. It is stored in a form that cannot be read back, so if you forget it we can only send another link like this one.</span>') +
+    p('<span style="font-size:14px;">If you would rather not use the portal, ignore this. It changes nothing about your appointments.</span>'),
+    'Choose a password, or sign in any time with a one-time code to this address',
+  );
   return { text, html };
 }
 

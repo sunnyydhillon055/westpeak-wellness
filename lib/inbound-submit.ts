@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { addInbound, readInbound, annotateTriage, markAcked, type InboundKind } from '@/lib/inbound';
-import { unsubLink } from '@/lib/nurture';
+import { unsubLink, unsubHeaders } from '@/lib/nurture';
 import { triage, hasMailExchanger, withMx } from '@/lib/triage';
 import { sendDetailed } from '@/lib/portal-mail';
 import { checklistEmail, icbcEmail, startingEmail, enquiryAck, practiceAlert } from '@/lib/inbound-mail';
@@ -273,7 +273,13 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
        address, which is what the alert now says. */
     (async () => {
       if (mx === false) return;
-      const sent = await sendDetailed(email, ack.subject, ack.text, ack.html, { replyTo: ackReplyTo });
+      /* Lead email 1 carries the one-click List-Unsubscribe headers, as 2
+         and 3 do (lib/nurture.ts); an enquiry acknowledgement is a reply to
+         a person, not a list, and carries none. 1 Oct 2026. */
+      const sent = await sendDetailed(email, ack.subject, ack.text, ack.html, {
+        replyTo: ackReplyTo,
+        ...(o.kind === 'lead' ? { headers: unsubHeaders(email) } : {}),
+      });
       /* Recorded only once the provider accepted it: lib/nurture.ts follows
          only leads whose email 1 actually went (1 Oct 2026). Written after
          the triage annotation so the two writes do not race each other. */

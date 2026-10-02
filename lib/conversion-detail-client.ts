@@ -56,6 +56,11 @@ export function toolDetail(tool: string, outcome?: string | null): string {
  * is not an outside source and counts as `none`. */
 export const CHANNELS = [
   'gbp', 'bing', 'apple', 'bcacc', 'listing', 'gp', 'clinic', 'hr', 'campus', 'community', 'counsellor',
+  /* The practice's own automated email (tagMail in lib/booking-mail.ts):
+     not an organisation, but the one link source that is neither search nor
+     somebody else's page. The template rides in utm_campaign and is not
+     counted here. 1 Oct 2026. */
+  'email',
 ] as const;
 
 export const REFERRER_CLASSES = ['google', 'bing', 'duckduckgo', 'ai', 'listing', 'none', 'other'] as const;

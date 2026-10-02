@@ -1,6 +1,6 @@
 import { practitioners, withLetters, type Practitioner } from '@/lib/practitioners';
 import { bookHrefFor } from '@/lib/city-service-page';
-import { languagePhrase, esc } from '@/lib/booking-mail';
+import { languagePhrase, esc, btn } from '@/lib/booking-mail';
 import { money, type Catalog } from '@/lib/cliniko-catalog';
 import { site } from '@/lib/site';
 
@@ -33,6 +33,8 @@ const andList = (xs: string[]) =>
 
 export type RosterLine = {
   slug: string;
+  /** "Camille", for a button label or a preview line. */
+  firstName: string;
   /** "Camille Granda, RCC, CCC" */
   who: string;
   /** Absolute link to her own free-consultation calendar on /book. */
@@ -49,6 +51,7 @@ export function rosterLines(list: Practitioner[] = practitioners): RosterLine[] 
       const provinces = p.provinces.map((c) => PROVINCE_WORD[c] ?? c);
       return {
         slug: p.slug,
+        firstName: p.name.split(/\s+/)[0],
         who: withLetters(p),
         href: `${site.domain}${bookHrefFor([p])}#calendar`,
         detail: [
@@ -72,6 +75,20 @@ export function rosterHtml(lines: RosterLine[] = rosterLines()): string {
       `<p style="margin:0 0 12px;font-size:15px;line-height:1.55;">` +
       `<a href="${esc(l.href)}" style="color:#3d6c92;font-weight:600;">${esc(l.who)}</a><br>` +
       `<span style="color:#545e69;font-size:14px;">${esc(l.detail)}</span></p>`
+    )
+    .join('');
+}
+
+/* HTML block as buttons, one per counsellor, for the end of lead email 1
+   (lib/inbound-mail.ts), 1 Oct 2026: her name in bold text was the only way
+   to her calendar, and a render of the three one-pagers found no button in
+   any of them. "Free 30-minute call with Camille", the same ?with= calendar,
+   and the one line about her underneath. */
+export function rosterButtons(lines: RosterLine[] = rosterLines()): string {
+  return lines
+    .map((l) =>
+      `<p style="margin:0 0 6px;font-size:14px;line-height:1.55;color:#545e69;">${esc(l.who)} · ${esc(l.detail)}</p>` +
+      btn(l.href, `Free 30-minute call with ${l.firstName}`)
     )
     .join('');
 }

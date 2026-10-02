@@ -17,7 +17,9 @@ export const dynamic = 'force-dynamic';
  * "you were not subscribed" tells a stranger who probes the endpoint whether an
  * address is in the system.
  */
-export async function GET(req: Request) {
+/* The signed address in the link's query, opted out when the token checks.
+   Shared by the link (GET) and the mail client's one-click button (POST). */
+async function optOutFrom(req: Request): Promise<void> {
   const url = new URL(req.url);
   const email = (url.searchParams.get('e') ?? '').trim();
   const token = (url.searchParams.get('t') ?? '').trim();
@@ -32,6 +34,30 @@ export async function GET(req: Request) {
        * hand. */
     }
   }
+}
+
+/* RFC 8058 ONE-CLICK, 1 Oct 2026. Lead and nurture mail now carry
+ * List-Unsubscribe and List-Unsubscribe-Post (unsubHeaders in
+ * lib/nurture.ts), and Gmail or Yahoo answer the Unsubscribe button beside
+ * the sender with a POST to the same signed URL, body
+ * "List-Unsubscribe=One-Click". Same HMAC check, same opt-out, and the same
+ * answer whatever the outcome: a 200 with no body, because nobody is looking
+ * at the response. A POST without that body is a form or a probe, not a mail
+ * client, and is answered the same way without opting anyone out. */
+export async function POST(req: Request) {
+  let oneClick = false;
+  try {
+    const body = (await req.text()).slice(0, 200);
+    oneClick = new URLSearchParams(body).get('List-Unsubscribe') === 'One-Click';
+  } catch {
+    oneClick = false;
+  }
+  if (oneClick) await optOutFrom(req);
+  return new Response(null, { status: 200, headers: { 'x-robots-tag': 'noindex', 'cache-control': 'no-store' } });
+}
+
+export async function GET(req: Request) {
+  await optOutFrom(req);
 
   const html = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8">

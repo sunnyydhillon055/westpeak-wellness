@@ -22,7 +22,7 @@ async function send(
  * the email never came. */
 export async function sendDetailed(
   to: string | string[], subject: string, text: string, html?: string,
-  opts?: { replyTo?: string | string[]; cc?: string[] }
+  opts?: { replyTo?: string | string[]; cc?: string[]; headers?: Record<string, string> }
 ): Promise<{ ok: boolean; detail?: string }> {
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.PORTAL_FROM_EMAIL;
@@ -32,7 +32,18 @@ export async function sendDetailed(
    * on the verified subdomain and a reply to it reaches nobody. Cliniko's
    * confirmations fail in exactly this way — see the header of
    * lib/booking-mail.ts — so anything a human might answer must carry a
-   * reply-to that lands somewhere a person reads. */
+   * reply-to that lands somewhere a person reads.
+   *
+   * DEFAULTED TO THE PRACTICE ADDRESS, 1 Oct 2026. The portal welcome, the
+   * access code and the password reset passed none, so a "Can I move
+   * Thursday?" reply to the welcome (often the first email after a first
+   * paid booking) went to the sending address and nobody. A caller that
+   * names a reply-to still gets exactly that. */
+  const replyTo = opts?.replyTo && opts.replyTo.length ? opts.replyTo : site.email;
+  /* Extra message headers, passed to Resend as given. Used only for
+     List-Unsubscribe on lead and nurture mail (lib/nurture.ts); booking and
+     portal mail is transactional and never sets one. */
+  const headers = opts?.headers && Object.keys(opts.headers).length ? opts.headers : null;
   try {
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -41,7 +52,8 @@ export async function sendDetailed(
         from, to: Array.isArray(to) ? to : [to], subject, text,
         ...(html ? { html } : {}),
         ...(opts?.cc?.length ? { cc: opts.cc } : {}),
-        ...(opts?.replyTo && opts.replyTo.length ? { reply_to: Array.isArray(opts.replyTo) ? opts.replyTo : [opts.replyTo] } : {}),
+        reply_to: Array.isArray(replyTo) ? replyTo : [replyTo],
+        ...(headers ? { headers } : {}),
       }),
     });
     if (res.ok) return { ok: true };
