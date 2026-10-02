@@ -6,8 +6,11 @@ import SectionDivider from '@/components/brand/SectionDivider';
 import { TRUST_ICONS } from '@/lib/icon-map';
 import { Mail, AtSign, LifeBuoy, Phone } from 'lucide-react';
 import MailLink from '@/components/MailLink';
+import { serviceAreaLine } from '@/lib/practitioners';
 
 export default function Footer() {
+  /* Built from the insured roster, not typed: item 284, 1 Oct 2026. */
+  const area = serviceAreaLine();
   const Credential = TRUST_ICONS.credential;
   const Region = TRUST_ICONS.region;
   const Langs = TRUST_ICONS.languages;
@@ -27,7 +30,7 @@ export default function Footer() {
                   the founder's credential specifically. There have been two
                   Registered Clinical Counsellors here since 1 Sep 2026. */}
               <p className="footer-blurb">
-                Online counselling with Registered Clinical Counsellors. {site.serviceArea}.
+                Online counselling with Registered Clinical Counsellors. {area}.
               </p>
               <ul className="footer-facts">
                 {/* The registration number on every page rather than only the
@@ -50,7 +53,7 @@ export default function Footer() {
                     </a>
                   </span>
                 </li>
-                <li><Region aria-hidden="true" strokeWidth={1.7} /><span>{site.serviceArea}</span></li>
+                <li><Region aria-hidden="true" strokeWidth={1.7} /><span>{area}</span></li>
               </ul>
               <div className="footer-social">
                 {/* Renders only once NEXT_PUBLIC_PHONE is set — see lib/site.ts.
@@ -160,7 +163,7 @@ export default function Footer() {
 
           <div className="footer-bottom">
             <span>© {new Date().getFullYear()} {site.name} · Registered Clinical Counsellors</span>
-            <span>{site.serviceArea}</span>
+            <span>{area}</span>
           </div>
         </div>
       </footer>

@@ -1,4 +1,5 @@
 import { site } from '@/lib/site';
+import { serviceAreaLine } from '@/lib/practitioners';
 
 /* A downloadable contact card. One tap on a phone saves the practice into
  * contacts, which is where people actually look when they finally decide to
@@ -23,7 +24,7 @@ export function GET() {
     ...(site.phone ? [`TEL;TYPE=WORK,VOICE:${site.phoneTel}`] : []),
     `EMAIL;TYPE=INTERNET:${site.email}`,
     `URL:${site.domain}`,
-    `NOTE:${site.serviceArea}, ${site.languages}. Free 30-minute consultation: ${site.domain}${site.bookingPath}`,
+    `NOTE:${serviceAreaLine()}, ${site.languages}. Free 30-minute consultation: ${site.domain}${site.bookingPath}`,
     'END:VCARD',
   ];
   return new Response(lines.join('\r\n') + '\r\n', {

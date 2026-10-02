@@ -214,12 +214,14 @@ export const site = {
      counsellor a person sees and Cliniko is the only thing that knows what is
      open, so on the owner's instruction nothing about hours is published
      anywhere. Do not reintroduce a field here; add it to Cliniko. */
-  /* TWO PROVINCES SINCE 1 SEP 2026, and this said one until 3 Sep. It feeds
-     the footer, the vCard and the organisation schema. Worded to stay true of
-     the practice as a whole: BC is served by both counsellors, Alberta by the
-     one whose certification and insurance reach there. The counsellor pages
-     state which is which; a summary line cannot. */
-  serviceArea: "Virtual counselling across British Columbia and Alberta",
+  /* THE CLAUSE TRUE OF EVERY COUNSELLOR — BC only, since 1 Oct 2026.
+     It said "British Columbia and Alberta" from 3 Sep, typed, and so would
+     have kept promising Alberta after the insurance gate withdrew it. The
+     wider reach is now appended from the insured, accepting roster by
+     serviceAreaLine() in lib/practitioners.ts (the footer, the vCard and
+     ai.json read that). Not built here: site.ts is imported by client
+     components and must never pull the roster into the browser bundle. */
+  serviceArea: "Virtual counselling across British Columbia",
   /* THREE LANGUAGES SINCE 1 SEP 2026, and this string said two until 3 Sep.
      Tagalog arrived with Camille Granda and reached the organisation schema and
      the root metadata that week; this constant was missed, and it feeds the GP
