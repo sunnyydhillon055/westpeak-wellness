@@ -18,6 +18,16 @@ export function safePath(v: string, fallback: string): string {
   return /^\/(?!\/)[A-Za-z0-9\-._~!$&'()*+,;=:@%/]*$/.test(v) ? v : fallback;
 }
 
+/* A confirmation page that is static cannot read ?sent=, so it would show
+ * "your message has arrived" to a person whose message was refused. Each such
+ * page names its own static failure page here, and any state other than `ok`
+ * goes there instead. /punjabi/sent was the case: from 25 Sep 2026 every
+ * /punjabi post was refused (it sends no looking/where/timing) and landed on
+ * a Punjabi heading saying the message had arrived. 1 Oct 2026. */
+export const FAILED_PAGE: Readonly<Record<string, string>> = {
+  '/punjabi/sent': '/punjabi/not-sent',
+};
+
 /** "/book?with=savneet-singh&sent=ok#form", or "/contact?sent=err#form". */
 export function returnUrl(
   path: string,
@@ -25,6 +35,7 @@ export function returnUrl(
   state: string,
   opts: { bookingPath: string; practitioner?: string; accepting: readonly string[] },
 ): string {
+  if (state !== 'ok' && FAILED_PAGE[path]) return FAILED_PAGE[path];
   const keep = path === opts.bookingPath && opts.practitioner && opts.accepting.includes(opts.practitioner);
   return `${path}?${keep ? `with=${encodeURIComponent(opts.practitioner!)}&` : ''}${flag}=${state}#form`;
 }

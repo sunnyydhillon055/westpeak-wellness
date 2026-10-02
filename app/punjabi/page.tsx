@@ -303,7 +303,15 @@ export default function PunjabiPage() {
                 style={{ marginTop: 30 }}>
                 <input type="hidden" name="source" value="/punjabi" />
                 {/* The confirmation is its own Punjabi page, which is what lets
-                    this route stay static. See the note at the top. */}
+                    this route stay static. See the note at the top. A refused
+                    post goes to /punjabi/not-sent instead (FAILED_PAGE in
+                    lib/inbound-return.ts), never to the "arrived" page. The
+                    note below no longer says one line is enough: the route
+                    asks for two sentences and about twenty words. This form
+                    sends no looking/where/timing, so the route still refuses
+                    it ('choices') until the owner decides whether /punjabi
+                    should ask them (item 205); test/inbound-forms.test.mts
+                    records that exemption. 1 Oct 2026. */}
                 <input type="hidden" name="returnTo" value="/punjabi/sent" />
                 <div className="hp" aria-hidden="true">
                   <label htmlFor="hp-pa">Company</label>
@@ -311,7 +319,7 @@ export default function PunjabiPage() {
                 </div>
                 <p className="lead-form-title" lang="pa">ਜਾਂ ਬੱਸ ਲਿਖ ਕੇ ਦੱਸੋ।</p>
                 <p className="lead-form-note" lang="pa">
-                  ਇੱਕ ਲਾਈਨ ਕਾਫ਼ੀ ਹੈ। ਇਹ ਸਿੱਧਾ ਤੁਹਾਡੇ ਕਾਊਂਸਲਰ ਕੋਲ ਜਾਂਦਾ ਹੈ, ਕਿਸੇ ਸਹਾਇਕ ਕੋਲ ਨਹੀਂ,
+                  ਇਹ ਸਿੱਧਾ ਤੁਹਾਡੇ ਕਾਊਂਸਲਰ ਕੋਲ ਜਾਂਦਾ ਹੈ, ਕਿਸੇ ਸਹਾਇਕ ਕੋਲ ਨਹੀਂ,
                   ਅਤੇ ਇੱਕ ਕੰਮ-ਕਾਜੀ ਦਿਨ ਦੇ ਅੰਦਰ ਜਵਾਬ ਮਿਲੇਗਾ।
                 </p>
                 <label htmlFor="pa-message" className="sr-only">ਸੁਨੇਹਾ</label>

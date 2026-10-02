@@ -18,9 +18,14 @@
 
 export const MIN_SENTENCES = 2;
 
+/* The danda (U+0964) and double danda (U+0965) end a sentence in Gurmukhi,
+ * as a full stop does in English. Until 1 Oct 2026 they were not in the
+ * split, so a Punjabi message of several sentences counted as one and was
+ * refused for want of a second, on /punjabi and on the enquiry form on
+ * /book?with=savneet-singh alike. */
 export function countSentences(text: string): number {
   return text
-    .split(/[.!?]+(?:\s+|$)|\n+/)
+    .split(/[.!?।॥]+(?:\s+|$)|\n+/)
     .map((s) => s.trim())
     .filter((s) => s.split(/\s+/).filter(Boolean).length >= 3)
     .length;
