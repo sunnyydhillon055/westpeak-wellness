@@ -168,8 +168,12 @@ const CHECKS = [
   ['/practitioners/savneet-singh/surrey', 200],
   ['/practitioners/savneet-singh/pa', 200],
   ['/practitioners/savneet-singh/surrey/pa', 200],
-  /* BC only: no insurance certificate on file, so no Alberta pages for her. */
-  ['/practitioners/savneet-singh/calgary', 404],
+  /* BC only: no insurance certificate on file, so no Alberta page for her.
+     Since 2 Oct 2026 (wf/profiles, #376) middleware.ts sends an Alberta place
+     URL whose counsellor is not insured there to her profile with a 308,
+     rather than a blank 404. */
+  ['/practitioners/savneet-singh/calgary', 308, '/practitioners/savneet-singh'],
+  ['/practitioners/savneet-singh/edmonton/pa', 308, '/practitioners/savneet-singh'],
   ['/punjabi/guides/panic-attack-ki-hai', 200],
   ['/practitioners/aman-bains-dhillon', 200],
   /* One page for her, at the owner's instruction. A city page appearing here
