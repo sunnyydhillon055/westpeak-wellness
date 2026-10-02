@@ -8,7 +8,7 @@ import { getGuide } from '../lib/guides.ts';
 import { BOOK_LOCATIONS } from '../lib/conversion-detail.ts';
 import { nextConsultEntries, NEXT_CONSULT_LABEL } from '../lib/next-consult.ts';
 import {
-  summariseWindows, availabilityLine, practiceHoursLine, weekSpan, timeZoneNote, PACIFIC,
+  summariseWindows, availabilityLine, nextFreeCallLine, timeZoneNote, PACIFIC,
 } from '../lib/availability-summary.ts';
 import {
   INFO_CARD_PAGES, COUNSELLOR_CARD_LOCATIONS, counsellorsForInfoPage, infoCardCopy, showsInfoCards,
@@ -31,8 +31,7 @@ const SECOND = ['2026-10-08T17:00:00Z'];
 test('every sentence that prints a clock time says Pacific time', () => {
   const a = summariseWindows('camille-granda', FIRST, SECOND);
   assert.ok(availabilityLine(a, 'Camille')!.includes(PACIFIC));
-  assert.ok(practiceHoursLine({ x: a })!.includes(PACIFIC));
-  assert.ok(weekSpan({ x: a })!.endsWith(PACIFIC));
+  assert.ok(nextFreeCallLine({ x: a }, [{ slug: 'x', first: 'Camille' }])!.endsWith(PACIFIC));
   assert.match(NEXT_CONSULT_LABEL, /Pacific time/);
   assert.match(src('components/NextConsultLine.tsx'), /NEXT_CONSULT_LABEL/);
   assert.match(src('app/book/page.tsx'), /Next open with \{first\}\{PACIFIC\}/);

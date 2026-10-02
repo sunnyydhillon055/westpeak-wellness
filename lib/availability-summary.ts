@@ -110,45 +110,44 @@ export function summariseWindows(slug: string, firstWeek: string[], secondWeek: 
   return { ...all, week: { count: w.count, days: w.days, earliest: w.earliest, latest: w.latest } };
 }
 
+/* NO SPAN, NO WEEKEND, ANYWHERE — 1 Oct 2026, under the 6 Sep no-hours rule.
+ *
+ * These lines used to print the earliest and latest start times and ",
+ * including the weekend": on /book's cards, as a practice-wide line on /book
+ * and /contact, and in the home hero. The practice-wide forms merged two
+ * calendars into a span no single day offered (production, 1 Oct: home said
+ * "Tue, Thu, Sat, 9 am to 7 pm" while Savneet's times were Tue/Fri afternoons
+ * and Camille's Thu/Sat). A span of start times reads as hours, and the rule
+ * is no hours line at all, not a vaguer one. What is left is what Cliniko
+ * actually offers: how many times are open with one counsellor, and the next
+ * day that has one. weekSpan and practiceHoursLine are gone; the test in
+ * test/no-hours-metadata.test.mts fails if "am to", "pm to" or "weekend"
+ * comes back in either line below. */
+
+/** "Thu 2 Oct": the day of the first open time, from `next`. */
+export const firstOpenDay = (a: Availability | null | undefined): string | null => {
+  const n = a && !a.error && a.count > 0 ? a.next[0] : undefined;
+  return n ? n.split(' from ')[0]!.trim() : null;
+};
+
 /** One sentence for a counsellor, or null when nothing honest can be said. */
 export function availabilityLine(a: Availability | null | undefined, first: string): string | null {
   if (!a || a.error) return null;
   if (a.count === 0) return `${first} has no free-consultation times in the next two weeks; the calendar shows the next ones.`;
-  const days = a.days.length >= 5 ? `${a.days[0]} to ${a.days[a.days.length - 1]}` : a.days.join(', ');
-  return `${a.count} free-consultation ${a.count === 1 ? 'time' : 'times'} open with ${first} in the next two weeks: ${days}, ${a.earliest} to ${a.latest}${PACIFIC}${a.weekend ? ', including the weekend' : ''}.`;
+  const day = firstOpenDay(a);
+  return `${a.count} free-consultation ${a.count === 1 ? 'time' : 'times'} open with ${first} in the next two weeks${day ? `; next: ${day}${PACIFIC}` : ''}.`;
 }
 
-/** Just the span: "Tue, Thu, Fri, Sat, 9 am to 7 pm", or null. For the home hero, where a sentence is too long.
- *  The first seven days only (`week`), because the hero says "Open this week". */
-export function weekSpan(all: Record<string, Availability | null>): string | null {
-  const as = Object.values(all)
-    .filter((a): a is Availability => Boolean(a) && !a!.error)
-    .map((a) => (a.week ? { ...a, ...a.week } : a))
-    .filter((a) => a.count > 0);
-  if (!as.length) return null;
-  const order = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-  const days = order.filter((d) => as.some((a) => a.days.includes(d)));
-  const toH = (s: string) => { const [n, ap] = s.split(' '); const h = Number(n) % 12; return ap === 'pm' ? h + 12 : h; };
-  const lo = Math.min(...as.map((a) => toH(a.earliest)));
-  const hi = Math.max(...as.map((a) => toH(a.latest)));
-  const span = days.length >= 5 ? `${days[0]} to ${days[days.length - 1]}` : days.join(', ');
-  return `${span}, ${fmtHour(lo)} to ${fmtHour(hi)}${PACIFIC}`;
-}
-
-/** Practice-wide summary across everyone bookable, or null. */
-export function practiceHoursLine(all: Record<string, Availability | null>): string | null {
-  const as = Object.values(all).filter((a): a is Availability => Boolean(a) && !a!.error && a!.count > 0);
-  if (!as.length) return null;
-  const order = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-  const days = order.filter((d) => as.some((a) => a.days.includes(d)));
-  const toH = (s: string) => { const [n, ap] = s.split(' '); const h = Number(n) % 12; return ap === 'pm' ? h + 12 : h; };
-  const lo = Math.min(...as.map((a) => toH(a.earliest)));
-  const hi = Math.max(...as.map((a) => toH(a.latest)));
-  const span = days.length >= 5 ? `${days[0]} to ${days[days.length - 1]}` : days.join(', ');
-  /* No ", with evenings" since 1 Oct 2026. The span is of slot STARTS, so a
-     latest start of 6 pm printed "9 am to 6 pm, with evenings": a range that
-     reads as closing at six, followed by a claim that it does not. The span
-     already says how late the times go; the extra words were a claim on top
-     of the data, and nothing here may say more than Cliniko does. */
-  return `Appointments are set by each counsellor's own calendar. Next two weeks: ${span}, start times ${fmtHour(lo)} to ${fmtHour(hi)}${PACIFIC}${as.some((a) => a.weekend) ? ', including the weekend' : ''}.`;
+/** The home hero: "Next free call: Sat 3 Oct with Camille · Tue 6 Oct with
+ *  Savneet (Pacific time)", one entry per accepting counsellor with a time
+ *  open, in the order given. Null when nobody has one or Cliniko is down. */
+export function nextFreeCallLine(
+  all: Record<string, Availability | null | undefined>,
+  people: readonly { slug: string; first: string }[],
+): string | null {
+  const parts = people
+    .map((p) => ({ first: p.first, day: firstOpenDay(all[p.slug]) }))
+    .filter((x): x is { first: string; day: string } => Boolean(x.day))
+    .map((x) => `${x.day} with ${x.first}`);
+  return parts.length ? `Next free call: ${parts.join(' · ')}${PACIFIC}` : null;
 }

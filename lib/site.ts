@@ -256,3 +256,13 @@ export const bookingsPaidUrlFor = (practitionerId?: string, typeId?: string): st
     : site.bookingsPaidUrl;
   return practitionerId ? `${base}&practitioner_id=${practitionerId}` : base;
 };
+
+/* WHAT "REGISTERED CLINICAL COUNSELLOR" MEANS, ONCE, IN PLAIN WORDS — 1 Oct 2026.
+   The designation is on nearly every page and was explained on one resource
+   (lib/resources-more3.ts). "registered clinical counsellor" is the site's
+   most-shown query (359 impressions in the September GSC export), and the
+   home page and /book used it without saying what it is. A phrase, not a
+   sentence: callers write "Registered Clinical Counsellor means …". No
+   registration number, which belongs on the counsellor's own profile. */
+export const RCC_PLAIN =
+  'a master’s degree in counselling, supervised clinical hours, a code of ethics and a complaints process through the BCACC, which you can check yourself';

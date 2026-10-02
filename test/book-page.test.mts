@@ -6,7 +6,7 @@ import { FALLBACK_CATALOG, money, type Catalog } from '../lib/cliniko-catalog.ts
 import { sessionFees, sessionFeesPhrase } from '../lib/book-fees.ts';
 import { returnUrl, safePath } from '../lib/inbound-return.ts';
 import {
-  summarise, summariseWindows, practiceHoursLine, availabilityLine, weekSpan, WINDOW_DAYS,
+  summarise, summariseWindows, availabilityLine, nextFreeCallLine, WINDOW_DAYS,
 } from '../lib/availability-summary.ts';
 // @ts-expect-error -- a plain .mjs module shared with scripts/expansion-verify.mjs
 import { rosterNumbers, numberAllowedOn, numberLeaks } from '../scripts/roster-numbers.mjs';
@@ -76,17 +76,16 @@ test('the summary covers fourteen days and keeps the first seven as `week`', () 
   assert.deepEqual(a.week?.days, ['Tue', 'Sat']);
   assert.equal(a.week?.count, 3);
   assert.equal(a.next.length, 3, 'up to three open days');
-  assert.equal(weekSpan({ x: a }), 'Tue, Sat, 9 am to 6 pm (Pacific time)', 'the home hero says "this week" and reads the first seven days');
+  assert.match(nextFreeCallLine({ x: a }, [{ slug: 'x', first: 'Camille' }])!, /^Next free call: Sat,? (3 Oct|Oct 3) with Camille \(Pacific time\)$/, 'the home hero names the next open day, not a span');
 });
 
-test('the practice line says "next two weeks" and makes no evening claim', () => {
+test('the card line says "next two weeks" and makes no evening, weekend or span claim', () => {
   const a = summariseWindows('camille-granda', FIRST, SECOND);
-  const line = practiceHoursLine({ x: a })!;
-  assert.match(line, /Next two weeks: Tue, Thu, Fri, Sat, start times 9 am to 6 pm \(Pacific time\), including the weekend\./);
-  assert.doesNotMatch(line, /evening/i);
-  assert.match(availabilityLine(a, 'Camille')!, /in the next two weeks/);
+  const line = availabilityLine(a, 'Camille')!;
+  assert.match(line, /^5 free-consultation times open with Camille in the next two weeks; next: Sat,? (3 Oct|Oct 3) \(Pacific time\)\.$/);
+  assert.doesNotMatch(line, /evening|weekend|am to|pm to/i);
   assert.match(availabilityLine(summarise('x', []), 'Camille')!, /next two weeks/);
-  assert.equal(practiceHoursLine({ x: { ...a, error: 'down' } }), null, 'nothing printed when Cliniko cannot be read');
+  assert.equal(availabilityLine({ ...a, error: 'down' }, 'Camille'), null, 'nothing printed when Cliniko cannot be read');
 });
 
 /* ---------- #90: no roster number on /book, and the guard covers everyone ---------- */

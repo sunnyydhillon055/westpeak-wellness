@@ -30,7 +30,13 @@ export default function TrustBar() {
         {/* Linked to the explainer since 25 Sep 2026: the trust bar is on
             every page that carries it, and "registered clinical counsellor"
             is the site's most-shown query. The anchor is the term itself. */}
-        <span><strong><Link href="/resources/verify-a-counsellor-in-bc">Registered Clinical Counsellors</Link></strong> · BCACC registered</span>
+        {/* Not "· BCACC registered" (1 Oct 2026): the item beside this one
+            said exactly that, twice in one strip. This one says what the
+            designation is; the next one says where to check it. */}
+        <span>
+          <strong>Registered Clinical Counsellors</strong> ·{' '}
+          <Link className="link-standalone" href="/resources/verify-a-counsellor-in-bc">what that means</Link>
+        </span>
       </span>
       {/* THE NUMBER COMES OFF EVERY PAGE BUT /about — owner's decision,
         * 30 August 2026, and it applies to every counsellor the practice adds.
@@ -43,7 +49,7 @@ export default function TrustBar() {
       <span className="trust-item">
         <Association aria-hidden="true" strokeWidth={1.7} />
         <span>
-          <strong>BCACC registered</strong> ·{' '}
+          <strong>On the BCACC register</strong> ·{' '}
           <a
             className="link-standalone"
             href={site.counsellor.registerUrl}

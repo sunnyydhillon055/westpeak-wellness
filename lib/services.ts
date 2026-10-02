@@ -395,7 +395,7 @@ export const services: Service[] = [
       "Being the first in your family to seek therapy",
     ],
     approach:
-      "The practice is led by a Registered Clinical Counsellor whose Master's thesis focused on intergenerational trauma in the South Asian community. The work is culturally grounded from the start. You won't have to justify your context to be understood.",
+      "Sessions in Punjabi are with Savneet Singh, a Registered Clinical Counsellor who works in Punjabi and English. In her words, what family expects, what respect looks like and what silence means are not things you need to translate for her first; they are where the work starts. You won't have to justify your context to be understood.",
     whatItIs: {
       h2: "Why first language matters even when your English is fluent",
       body: [
