@@ -1863,6 +1863,121 @@ confirmed on a preview.
 
 ---
 
+### /admin opens on six weekly outcome numbers; a consultation that leads to a paid session is counted
+Decided 1 Oct 2026 (branch `wf/measurement-admin`, items 251, 255, 256, 277,
+297). /admin opens, after the health warnings, on six weekly outcome numbers
+(`lib/weekly-kpis.ts`): Google clicks without the home page, /book calendar
+seen, real enquiries and leads, consults booked against open slots, new paying
+clients and paid sessions held. Each sits beside last week and a four-week
+mean. The up or down mark is the change register's 95% Poisson test (last four
+weeks against the four before, eight whole weeks required); otherwise the tile
+says "too few to tell". Anything unmeasured shows a dash and the reason, never
+0. Due change readouts print under the strip. No email (17 Sep). New tally
+field `consultConverted`: a held consultation whose patient has a later paid
+session that is still on, counted once per consultation (ledger key
+`v:<consult id>`), to the consultation's counsellor, in the month first seen.
+It is a floor, because the job reads only 16 days back. Weekly snapshots copy
+the booking job's last run; a week whose tally copy was more than 6 h behind it
+is marked partial and left out of the tally means. This uses the job's run
+time, not `tally.updatedAt`, because the tally is written only when something
+new is counted. Search Console: "/" is its own `home` class (mostly brand
+searches) and no longer counts as a page that books. Weekly clicks come from
+date-page.csv by Monday-to-Sunday week, and only complete weeks count.
+Referrer classes edu, press and org, and channels press and student, were
+appended. Weekly enquiries count `isRealSubmission` and `looksHuman`; leads
+count `isRealSubmission` only.
+
+*Enforced by:* `test/measurement.test.mts`
+
+---
+
+### Trauma city pages book into individual counselling; city x service pages and hub links use one search name; White Rock is White Rock & South Surrey
+Decided 1 Oct 2026 (branch `wf/city-pages`, items 253, 260, 276, 282, 290,
+291, 292). Trauma, a condition, now books into individual-therapy instead of
+emdr-therapy. All ten trauma city pages had been quoting the 90-minute EMDR
+Intensive as their session fee and naming one counsellor, while their own copy
+says pacing comes first; production Vancouver trauma (298 impressions, 26 Sep)
+showed the intensive fee twice. The pages now quote the weekly Individual
+Counselling fee, name every accepting counsellor, and offer the intensive in
+one catalogue-read sentence as a later option "once stability is in place",
+which is how the EMDR page frames it. The province-level trauma reading stays
+on the EMDR page (`CONDITION_UPLINK`), and /services/trauma-therapy still 308s
+there. This is not a sixth service.
+
+`seoName()` in `lib/city-service-page.ts` is the name every city x service H1,
+description and inbound anchor uses: Couples and Marriage Counselling; Trauma
+Therapy and Counselling; Anxiety Counselling and Therapy; Depression
+Counselling and Therapy; EMDR Therapy (unchanged). Titles stay on
+`cityServiceTitle`/`titleName`. The counsellor block heading names the person
+("EMDR therapist in Vancouver: who you would see"). Hub help cards link only
+their "<name> in <city>" line, stretched over the card with CSS, as on /for.
+
+The White Rock hub's `displayPlace` is "White Rock & South Surrey". To fit the
+60-character gate, its title is the one hub title without "Virtual": "Online
+Counselling White Rock and South Surrey | Counsellors"; its description
+carries "virtual" instead. /online-counselling/south-surrey and /semiahmoo 308
+to it (`PLACE_ALIASES` in `lib/redirects.mjs`). Its age statement is the 2021
+Census figure (8,185 of 21,940 aged 65+, CSD 5915007, cited), and its public
+intake is Fraser Health's White Rock/South Surrey MHSU Centre at 15521 Russell
+Ave (cited). The Johnston Road line and the "substantial Punjabi-speaking
+community" line were removed as unverified and generalising. Surrey's sibling
+links are White Rock, Langley and Abbotsford. Six hubs link their /for pages
+in an "Also written for" line, with links only and no claims.
+
+*Enforced by:* `test/city-service-page.test.mts`, `test/city-hub.test.mts`
+
+---
+
+### Market fee figures live in one sourced constant; /pricing owns the cost query; regulator and Alberta helpline facts corrected
+Decided 1 Oct 2026 (branch `wf/fees-and-pricing`, items 257, 261, 262, 273).
+Market fee figures (BCACC Fee Guide 2026, BCPA recommended rate) live only in
+`lib/fee-guides.ts`, read 1 Oct 2026, and every page quoting them reads that
+constant. They are always labelled as the association's recommendation. This
+practice's fees still come only from `lib/cliniko-catalog.ts`. /pricing now
+owns the "How much does therapy cost in BC" query (title "How Much Does
+Therapy Cost in BC? 2026 Counselling Fees"), and /tools/therapy-cost-bc is
+titled for the calculator. The Alberta public route is Recovery Alberta (since
+1 Sep 2024): Mental Health Helpline 1-877-303-2642, Addiction Helpline
+1-866-332-2322. 1-844-944-4744 is the Indigenous Support Line and is not to be
+presented as an AHS mental health line. The College of Psychologists of BC is
+named only with "formerly"; its successor is the College of Health and Care
+Professionals of BC.
+
+*Enforced by:* `scripts/price-drift.mjs` (a range typed outside fee-guides, or
+wording that disagrees with its cents), `scripts/voice-audit.mjs` (FACTS),
+`test/fee-guides.test.mts`
+
+---
+
+### Claims gates read docs/ and kits/; one answer on video coverage; EI certificates; linkable resources
+Decided 1 Oct 2026 (branch `wf/claims-and-guides`, items 258, 263, 264, 268,
+269, 274, 275, 298). (1) The coverage gate matches across line breaks: each
+line is joined to the next two with JSX spacers, tags and markdown quote marks
+removed. It also catches list/recognise/"Most, not all"/trades-plan/"do
+cover"/"most teachers can" shapes. With the Gottman gate and the no-hours
+metadata test, it now scans docs/, kits/ and OUTREACH_KIT_2026-08-28.md as
+well as lib/app/components, because that copy is pasted onto other sites. (2)
+kits/ and the August outreach kit are superseded; listings come from
+docs/LISTINGS_PACK.md and outreach from docs/OUTREACH.md. The canonical NAP
+names no practitioner and lists English, Punjabi, Tagalog. The standing press
+bio lives in kits/README.md, is built from the accepting roster, and has no
+founder and no registration number. (3) "Is a video session covered the
+same?" has one answer, `ONLINE_COVERAGE` in `lib/practice-facts.ts`, which is
+plan-dependent and says what to ask the plan. (4) EI sickness certificates can
+come from a physician, NP or psychologist (Service Canada), and the EI guides
+no longer say a claim requires treatment. (5) /guides/stress-leave-bc carries
+"mental health leave" in its title, a section and the pay heading. Before:
+metaTitle "Stress Leave in BC: How to Apply, Is It Paid | Westpeak", 91
+impressions at 10.49; 47 mental-health-leave queries, 147 impressions, 0
+clicks (GSC 26 Sep). Compare after four weeks. (6) `Resource.linkable` marks
+pages offered for linking and printing; they state free-to-link and
+reproduce-with-attribution terms and print without booking prompts.
+
+*Enforced by:* `scripts/coverage-claims.mjs`, `scripts/lib/gottman-claims.mjs`,
+`test/no-hours-metadata.test.mts`, `test/claims-corrections.test.mts`
+
+---
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`
