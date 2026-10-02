@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
+import type { ReactNode } from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { resources, getResource } from '@/lib/resources';
+import { resources, getResource, citationFor } from '@/lib/resources';
 import { site } from '@/lib/site';
+import CopyText from '@/components/CopyText';
 import { getExtra } from '@/lib/depth';
 import { buildToc, headingId } from '@/lib/toc';
 import { orgRef, siteRef } from '@/lib/schema';
@@ -85,6 +87,13 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 const fmt = (iso: string) =>
   new Date(iso + 'T00:00:00Z').toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
 
+/* On a linkable page (item 275) the cards, the closing band and the link
+   footer are wrapped so print can drop them; on every other page nothing
+   is added to the markup. */
+function ScreenOnly({ hide, children }: { hide: boolean; children: ReactNode }) {
+  return hide ? <div className="linkable-noprint">{children}</div> : <>{children}</>;
+}
+
 export default async function ResourcePage({ params }: { params: { slug: string } }) {
   const r = getResource(params.slug);
   if (!r) notFound();
@@ -107,14 +116,18 @@ export default async function ResourcePage({ params }: { params: { slug: string 
   const toc = buildToc([
     ...r.sections.map((s) => s.h2),
     ...getExtra('resources', r.slug).map((s) => s.h2),
-    'Common questions', 'Sources',
+    'Common questions', r.linkable ? 'Using this page' : '', 'Sources',
   ]);
+  /* Booking prompts and counsellor cards are for the screen; on a linkable
+     page someone prints for a noticeboard they are dropped from paper
+     (app/premium.css, item 275 block). */
+  const np = r.linkable ? 'linkable-noprint' : undefined;
 
   /* Mid-article devices, spread by content weight rather than stacked at the
      top of the page. See lib/placement.ts. */
   const midDevices = [
     r.figure ? <Figure key="fig" name={r.figure} /> : null,
-    <div className="crisis" key="cta" style={{ margin: '8px 0 32px' }}>
+    <div className={np ? `crisis ${np}` : 'crisis'} key="cta" style={{ margin: '8px 0 32px' }}>
       <p style={{ margin: 0 }}>
         {r.midCta.text} <BookLink location="mid-resource" href={cta.href} className="">{r.midCta.label}</BookLink>.
       </p>
@@ -185,7 +198,7 @@ export default async function ResourcePage({ params }: { params: { slug: string 
               byline lower down said the honest thing. The date does not move; only
               the word does, which was the whole point the first time. */}
           <p className="hero-note">{r.readMinutes} min read · Updated {fmt(r.updated)}</p>
-          <div className="btn-row" style={{ marginTop: 22 }}>
+          <div className={np ? `btn-row ${np}` : 'btn-row'} style={{ marginTop: 22 }}>
             <BookLink location="hero-resource" href={cta.href}>{cta.label}</BookLink>
             <Link className="btn btn--ghost" href="/resources">All resources</Link>
           </div>
@@ -286,7 +299,7 @@ export default async function ResourcePage({ params }: { params: { slug: string 
               )}
 
               {s.book && (
-                <div className="prose">
+                <div className={np ? `prose ${np}` : 'prose'}>
                   <p>
                     {rich(s.book.text)}{' '}
                     <BookLink location={s.book.location} href={cta.href} className="">{s.book.label}</BookLink>.
@@ -324,6 +337,30 @@ export default async function ResourcePage({ params }: { params: { slug: string 
               ))}
             </div>
 
+            {/* USING THIS PAGE — 1 Oct 2026 (item 275). docs/OUTREACH.md
+                promised the crisis directory was "free to link or reproduce
+                with attribution", and the page never said so. The four pages
+                outreach asks people to link and print now say it, with the
+                date, a citation line and where to report a stale entry. */}
+            {r.linkable && (
+              <div className="linkable-note">
+                <h2 id="using-this-page">Using this page</h2>
+                <ul>
+                  <li>Free to link to, from any website, intranet, handout or resource list. No need to ask.</li>
+                  <li>May be reproduced, in print or online, with attribution to Westpeak Wellness and a link to this page.</li>
+                  <li>Last updated {fmt(r.updated)}.</li>
+                  <li>Spotted something out of date? Email <a href={`mailto:${site.email}`}>{site.email}</a>.</li>
+                </ul>
+                <p style={{ margin: '14px 0 0' }}><strong>Suggested citation</strong></p>
+                <div className="linkable-noprint">
+                  <CopyText text={citationFor(r, site.domain)} />
+                </div>
+                <p className="linkable-print-url" style={{ display: 'none' }}>
+                  {citationFor(r, site.domain)}
+                </p>
+              </div>
+            )}
+
             <h2 id="sources">Sources</h2>
             <ul style={{ color: 'var(--ink-soft)', fontSize: '.94rem', paddingLeft: 20 }}>
               {r.sources.map((s) => (
@@ -357,6 +394,7 @@ export default async function ResourcePage({ params }: { params: { slug: string 
         </div>
       </section>
 
+      <ScreenOnly hide={!!r.linkable}>
       {/* THE NEXT STEP, straight after Sources and the disclaimer and before
           the link footer (components/NextStep.tsx, 1 Oct 2026). Who appears,
           and whose next consultation time, follows the page's language and
@@ -391,6 +429,12 @@ export default async function ResourcePage({ params }: { params: { slug: string 
       <MoreFrom items={resources} currentSlug={r.slug} base="/resources" heading="More BC resources" eyebrow="Keep going" />
       <ServiceCityLinks section="resources" slug={r.slug} />
       <CityLinks />
+      </ScreenOnly>
+
+      {/* The address on paper, for a printed linkable page (item 275). */}
+      {r.linkable && (
+        <p className="linkable-print-url" style={{ display: 'none' }}>Printed from {site.domain}/resources/{r.slug}</p>
+      )}
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
     </>

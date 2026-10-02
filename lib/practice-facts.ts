@@ -84,3 +84,15 @@ export const reachSentence = (accepting: (Reachable & { name: string })[]) => {
  * are" or "except for". */
 export const CONFIDENTIALITY_LIMITS =
   'risk of serious harm to you or someone else, a child or vulnerable adult at risk of abuse or neglect, or a court order';
+
+/* IS A VIDEO SESSION COVERED THE SAME AS IN PERSON? — 1 Oct 2026 (item 274).
+ *
+ * The site answered this in nine places and three ways: "Nearly all BC
+ * extended health plans … reimburse virtual sessions on the same terms"
+ * (lib/guides.ts), "generally treat video sessions the same" (lib/faq.ts),
+ * and six copies of "Many … treat virtual sessions on the same terms" on the
+ * Punjabi region pages. Whether a plan pays for a video session is the
+ * plan's answer, like every other coverage question. One sentence, read from
+ * here, with the question to ask the plan. */
+export const ONLINE_COVERAGE =
+  'Plans that list an RCC usually reimburse a video session on the same terms as in person, but this depends on the plan. Ask: are virtual sessions with an RCC eligible, and on the same maximum?';

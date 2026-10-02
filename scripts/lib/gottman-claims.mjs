@@ -38,7 +38,7 @@ const METHOD_CLAIMS = [
  *  Gottman-trained. */
 export const isGottmanClaim = (line) => CLAIM.test(line) || METHOD_CLAIMS.some((re) => re.test(line));
 const SLUG = /^\s*slug:\s*['"]([^'"]+)['"]/;
-const EXT = /\.(ts|tsx|mts|mjs|js|md)$/;
+const EXT = /\.(ts|tsx|mts|mjs|js|md|html)$/;
 
 /** Roster entries in lib/practitioners.ts allowed to say it: the founder,
  *  and any entry recording a `gottmanTraining` level. */
@@ -79,12 +79,21 @@ function* walk(dir) {
   }
 }
 
-/** The scan over lib/, app/ and components/ under `root`. */
+/* docs/, kits/ and the August outreach kit too — 1 Oct 2026 (item 258). The
+   listings pack still said "Couples Therapy (Gottman Method-informed)" and
+   "using … the Gottman Method" after the site dropped both, and the pack is
+   what a directory listing is pasted from. */
+export const ROOTS = ['lib', 'app', 'components', 'docs', 'kits', 'OUTREACH_KIT_2026-08-28.md'];
+
+/** The scan over the site's source and the off-site copy under `root`. */
 export function scanGottmanClaims(root) {
   const problems = [];
-  for (const top of ['lib', 'app', 'components']) {
+  for (const top of ROOTS) {
     let files;
-    try { files = [...walk(join(root, top))]; } catch { continue; }
+    try {
+      const p = join(root, top);
+      files = statSync(p).isDirectory() ? [...walk(p)] : [p];
+    } catch { continue; }
     for (const f of files) {
       const rel = relative(root, f).replace(/\\/g, '/');
       problems.push(...claimsIn(rel, readFileSync(f, 'utf8'), rel === 'lib/practitioners.ts'));

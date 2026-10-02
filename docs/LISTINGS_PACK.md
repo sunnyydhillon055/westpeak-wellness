@@ -52,7 +52,7 @@ directory's verified credential field):
   Profile: https://www.westpeakwellness.com/practitioners/savneet-singh
 
 **Services** (the site's own names, in this order): Individual Therapy,
-Couples Therapy (Gottman Method-informed), EMDR Therapy, Family Counselling,
+Couples Therapy, EMDR Therapy, Family Counselling,
 Punjabi-Speaking Counselling, Tagalog-Speaking Counselling. Approaches: CBT, ACT, EMDR, Internal Family
 Systems, somatic, DBT-informed skills, mindfulness-based. Concerns: anxiety,
 depression, trauma and PTSD, burnout, grief, panic, relationships, family
@@ -81,9 +81,10 @@ Registered Clinical Counsellors, members of the BC Association of Clinical
 Counsellors, in English, Punjabi or Tagalog, and one counsellor is also
 certified to see clients in Alberta. The practice works with anxiety,
 depression, trauma and PTSD (including EMDR), burnout, grief, panic, and with
-couples and families, using CBT, ACT, EMDR, Internal Family Systems and the
-Gottman Method. Fees are published in full on the website; many BC extended
-health plans reimburse a Registered Clinical Counsellor (check the plan), and the first
+couples and families, using CBT, ACT, EMDR and Internal Family Systems.
+Fees are published in full on the website; many extended health plans
+reimburse a Registered Clinical Counsellor, depending on the plan, so check
+yours. The first
 30-minute consultation is free with no referral. It is not a crisis service.
 
 ## Where to put it, in order of value

@@ -1,6 +1,7 @@
 import { fallbackFee, FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
 import { practitioners } from '@/lib/practitioners';
 import { site } from '@/lib/site';
+import { ONLINE_COVERAGE } from '@/lib/practice-facts';
 
 /* HOW TO CANCEL OR MOVE A SESSION — 1 Oct 2026. The FAQ and /pricing gave the
  * 24-hour rule and never said how. This is the procedure the confirmation and
@@ -112,7 +113,7 @@ export const faqs: FAQ[] = [
   },
   {
     q: "Are you covered by extended health benefits?",
-    a: "It depends on your plan, not the insurer. Many BC extended health plans include Registered Clinical Counsellors (RCC), and the insurers behind them include Pacific Blue Cross, Manulife, Sun Life, Canada Life and Green Shield. If your plan lists RCCs, sessions here qualify: every session comes with a receipt showing the counsellor's RCC designation to claim with. Amounts and per-session limits vary, so check your benefits booklet or ask the insurer. BC's public MSP does not cover private counselling. Plans that cover RCCs generally treat video sessions the same as in-person ones.",
+    a: "It depends on your plan, not the insurer. Many BC extended health plans include Registered Clinical Counsellors (RCC), and the insurers behind them include Pacific Blue Cross, Manulife, Sun Life, Canada Life and Green Shield. If your plan lists RCCs, sessions here qualify: every session comes with a receipt showing the counsellor's RCC designation to claim with. Amounts and per-session limits vary, so check your benefits booklet or ask the insurer. BC's public MSP does not cover private counselling. " + ONLINE_COVERAGE,
   },
   {
     q: "What if the fee is more than I can manage?",

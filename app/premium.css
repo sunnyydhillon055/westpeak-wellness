@@ -2704,3 +2704,24 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
 @media (max-width:1020px){
   .site-footer{ padding-bottom:104px }
 }
+
+/* item 275: linkable resource print view
+   The four pages outreach asks organisations to link and print
+   (Resource.linkable in lib/resources.ts) drop their booking prompts, the
+   counsellor cards, the closing band and the link footer on paper, keep the
+   "Using this page" terms, and print the page's own address at the foot. The
+   header, footer, sticky bar and forms already go in the print block above;
+   this only adds the pieces that block keeps. Placed last so it outranks
+   `.crisis { display: block !important }` there, which the mid-page booking
+   prompt also carries. */
+@media print {
+  .linkable-noprint { display: none !important; }
+  .linkable-print-url {
+    display: block !important;
+    margin-top: 12pt; font-size: 9.5pt; word-break: break-all;
+  }
+  .linkable-note {
+    border: 1pt solid var(--line); padding: 8pt 10pt; margin-top: 14pt;
+    break-inside: avoid;
+  }
+}
