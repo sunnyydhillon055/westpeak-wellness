@@ -22,6 +22,8 @@ import MailLink from '@/components/MailLink';
 import BookLink from '@/components/BookLink';
 import { planYearPageLineShown, YEAR_END_PATH } from '@/lib/seasonal';
 import { FirstSessionRows } from '@/components/FirstSessionRow';
+import { notTakingLine, WHO_FINDS_OUT, CAMERA_OPTIONAL } from '@/lib/practice-facts';
+import { BEFORE_SESSION_ONE } from '@/lib/faq';
 
 export const metadata: Metadata = {
   title: 'Book a Free 30-Minute Consultation',
@@ -377,8 +379,8 @@ export default async function Book({
               {planYearPageLineShown() && (
                 <>
                   {' '}If your plan runs on the calendar year, a session held on or before 31 December
-                  counts against this year&rsquo;s maximum; whether yours does is in the{' '}
-                  <Link href={YEAR_END_PATH}>booklet</Link>.
+                  counts against this year&rsquo;s maximum; whether yours does is in your plan
+                  booklet; <Link href={YEAR_END_PATH}>how the plan year affects a claim</Link>.
                 </>
               )}
             </li>
@@ -491,12 +493,11 @@ export default async function Book({
             </div>
           )}
 
+          {/* Names nobody who is not accepting (item 361, lib/practice-facts.ts):
+              an old ?with= link would otherwise print the founder's name here. */}
           {askedButFull && (
             <p className="book-credential">
-              {askedButFull.name.split(' ')[0]} is not taking new clients at the moment.{' '}
-              {accepting.length > 1
-                ? `${accepting.map((p) => p.name.split(' ')[0]).join(' and ')} are; choose above, or pick either on the calendar below.`
-                : fallback ? `${fallback.name.split(' ')[0]} is, and the consultation below is with her.` : ''}
+              {notTakingLine(accepting.map((p) => p.name.split(' ')[0]), fallback?.name.split(' ')[0])}
             </p>
           )}
 
@@ -668,7 +669,7 @@ export default async function Book({
                         practice, and counts as /book's email_click. */}
                     <p style={{ margin: '4px 0 0', fontSize: '.85rem', color: 'var(--ink-soft)' }}>
                       Calendar hard to use with your screen reader or device?{' '}
-                      <MailLink where="book-fallback" subject="Free 30-minute consultation">
+                      <MailLink where="book-fallback" subject="Free 30-minute consultation" showAddress>
                         Ask for a consultation time by email
                       </MailLink>{' '}
                       instead, or <BookLink location="calendar-alt" className="" href="#ask-for-a-time">use the form below</BookLink>.
@@ -697,7 +698,7 @@ export default async function Book({
                 <h2 style={{ marginTop: 0, fontSize: '1.25rem' }}>None of these times work?</h2>
                 <p style={{ margin: '0 0 12px' }}>
                   Say when you are usually free and {who ? who.name.split(' ')[0] : 'the counsellor you choose'} will
-                  reply within one business day with a time that is not on the calendar yet.
+                  reply within one business day with the closest time she can offer.
                   <MeasuredReply />
                 </p>
                 <InboundForm
@@ -706,7 +707,7 @@ export default async function Book({
                   practitioner={who?.slug}
                   title="Ask for a time"
                   note="Two or three sentences: when you are usually free, and what you are looking for. You will hear back within one business day."
-                  placeholder="When you are usually free (for example, weekday evenings after 6, or Saturday mornings). Then a sentence or two on what you are looking for from counselling."
+                  placeholder="Which days and times usually suit you, then a sentence or two on what you are looking for."
                   button="Ask for a time"
                 />
               </div>
@@ -721,7 +722,7 @@ export default async function Book({
                 will be confirmed by reply.
               </p>
               <div className="btn-row" style={{ marginTop: 22 }}>
-                <MailLink where="book-fallback" className="btn btn--primary" subject="Free 30-minute consultation">
+                <MailLink where="book-fallback" className="btn btn--primary" subject="Free 30-minute consultation" showAddress>
                   Email to book your consultation
                 </MailLink>
                 <a className="btn btn--ghost" href={site.bookingsFallbackUrl} target="_blank" rel="noopener">
@@ -765,7 +766,7 @@ export default async function Book({
 
             <p>
               <strong>After you book,</strong> a confirmation email arrives with the video link.
-              Nothing to install, and any device with a camera works. No diagnosis, referral or
+              Nothing to install, and a phone, tablet or computer works. {CAMERA_OPTIONAL} No diagnosis, referral or
               decision on the spot is needed.{' '}
               <Link href="/resources/before-your-first-consultation">More on the call itself</Link>.
             </p>
@@ -845,7 +846,9 @@ export default async function Book({
             <div className="prose">
               <p>
                 <strong>Session one</strong> is the whole picture: what is going on, how long it has
-                been going on, and what you want to be different.
+                been going on, and what you want to be different.{' '}
+                {/* Item 368: the paperwork before it, from lib/faq.ts. */}
+                {BEFORE_SESSION_ONE}
               </p>
               <p>
                 <strong>Sessions two and three</strong> look for the pattern underneath the episodes
@@ -882,10 +885,19 @@ export default async function Book({
             <div className="prose">
               <p>
                 The link arrives by email and opens in your browser: nothing to install, no account
-                to create, and sessions are never recorded. Bookings and records are held in
-                Cliniko, in an account on its Canadian region.{' '}
+                to create, and sessions are never recorded. {CAMERA_OPTIONAL} Bookings and records
+                are held in Cliniko, in an account on its Canadian region.{' '}
                 <Link href="/privacy">The privacy page</Link> names every service involved.
               </p>
+            </div>
+          </details>
+
+          {/* Item 358: the question people from the workplace guides bring,
+              read from lib/practice-facts.ts like /faq and /pricing. */}
+          <details className="faq-item">
+            <summary>Will my employer, insurer or family find out?</summary>
+            <div className="prose">
+              <p>{WHO_FINDS_OUT}</p>
             </div>
           </details>
 

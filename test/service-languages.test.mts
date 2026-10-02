@@ -16,6 +16,7 @@ import {
 } from '../lib/city-service-page.ts';
 import { offeringLanguages, sitewideDescription, metaLength } from '../lib/snippet-facts.ts';
 import { CONFIDENTIALITY_LIMITS } from '../lib/practice-facts.ts';
+import { faqs } from '../lib/faq.ts';
 
 /* ROUND 1 #20, THE METADATA AND THE BODY COPY — 1 Oct 2026.
  *
@@ -157,6 +158,12 @@ test('"only limits are" never leaves out the child or vulnerable adult', () => {
   assert.match(CONFIDENTIALITY_LIMITS, /court order/);
   for (const s of strings([services, audiences, guides, resources, depthServices])) {
     if (/only limits are/i.test(s)) assert.match(s, /child/, `incomplete limits: ${s.slice(0, 160)}`);
+  }
+  /* lib/faq.ts since 2 Oct 2026 (item 358): /faq listed "a risk of serious
+     harm … or a court order" and left out the child. An answer there that
+     names the limits names all of them, from the constant. */
+  for (const f of faqs) {
+    if (/\blimits?\b/i.test(f.a) && /court order/i.test(f.a)) assert.ok(f.a.includes(CONFIDENTIALITY_LIMITS), `/faq: ${f.q}`);
   }
 });
 

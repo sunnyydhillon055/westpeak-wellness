@@ -167,3 +167,39 @@ test('the listings answer names no counsellor', () => {
     assert.ok(!LISTINGS_ANSWER.includes(p.name.split(' ')[0]!), p.name);
   }
 });
+
+/* THE DEPTH SECTIONS, BODY TEXT INCLUDED — 2 Oct 2026 (item 380).
+ *
+ * The metadata scan above missed body copy, and the city hub sections in
+ * lib/depth*.ts still said "Evening virtual sessions…" (Abbotsford) and "An
+ * evening session happens from home" (Burnaby) after R1 #53. Every
+ * non-comment line of those files fails on "evening" or "weekend" unless it
+ * holds a phrase below: each one describes the reader's own evening, not
+ * when sessions run. */
+const READER_OWN: { phrase: string; why: string }[] = [
+  { phrase: 'The evening after a demanding day', why: 'the recovery cost of a demanding day' },
+  { phrase: 'the flattened evening after a demanding day', why: 'the same, as it shortens' },
+  { phrase: 'A row that used to consume a weekend takes an evening', why: 'how long an argument lasts' },
+  { phrase: 'not a long weekend', why: 'time off work for burnout' },
+  { phrase: 'the same hour every day including weekends', why: 'a sleep schedule' },
+];
+
+function depthLines(): { file: string; line: string }[] {
+  const out: { file: string; line: string }[] = [];
+  for (const e of readdirSync(join(ROOT, 'lib')).filter((f) => /^depth.*\.ts$/.test(f))) {
+    for (const line of readFileSync(join(ROOT, 'lib', e), 'utf8').split('\n')) {
+      if (/^\s*(\/\*|\*|\/\/)/.test(line)) continue;
+      out.push({ file: `lib/${e}`, line });
+    }
+  }
+  return out;
+}
+
+test('no depth section implies evening or weekend sessions', () => {
+  const found = depthLines()
+    .filter(({ line }) => TIME.test(line) && !READER_OWN.some((x) => line.includes(x.phrase)))
+    .map(({ file, line }) => `${file}: ${line.trim().slice(0, 140)}`);
+  assert.deepEqual(found, [], 'body copy implies a time the calendar may not hold; reword to the travel saved');
+  const all = depthLines().map((l) => l.line).join('\n');
+  for (const x of READER_OWN) assert.ok(all.includes(x.phrase), `stale allow-list entry: ${x.phrase}`);
+});

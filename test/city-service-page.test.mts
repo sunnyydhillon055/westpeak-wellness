@@ -252,3 +252,24 @@ test('the Victoria EMDR answer is the Island question, from the roster and catal
   for (const p of counsellorsFor({ bookingService: 'emdr-therapy' })) assert.ok(f.a.includes(p.name));
   assert.ok(!/\b(evenings?|weekends?|\d\s?(am|pm))\b/i.test(f.a), 'no hours');
 });
+
+/* #380, 2 Oct 2026: the rule above held for one generated answer. It now
+   holds for every pair's angle, body and FAQ answers, which is where "eight
+   in the evening" and "an evening hour" sat. An evening the reader is having
+   anyway (a difficult one after a session) is not a time promise; that is
+   the allow-list, by phrase. */
+const READER_EVENINGS = ['a difficult evening'];
+test('no city x service page implies evening or weekend sessions in its angle, body or FAQs', () => {
+  const found: string[] = [];
+  for (const p of allPairs) {
+    for (const s of [p.angle, ...p.body, ...p.faqs.map((f) => f.a)]) {
+      if (!/\b(evenings?|weekends?)\b/i.test(s)) continue;
+      if (READER_EVENINGS.some((x) => s.includes(x))) continue;
+      found.push(`${p.city}/${p.service}: ${s.slice(0, 120)}`);
+    }
+  }
+  assert.deepEqual(found, []);
+  for (const x of READER_EVENINGS) {
+    assert.ok(allPairs.some((p) => [p.angle, ...p.body, ...p.faqs.map((f) => f.a)].some((s) => s.includes(x))), `stale allow-list entry: ${x}`);
+  }
+});

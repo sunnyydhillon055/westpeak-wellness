@@ -96,3 +96,66 @@ export const CONFIDENTIALITY_LIMITS =
  * here, with the question to ask the plan. */
 export const ONLINE_COVERAGE =
   'Plans that list an RCC usually reimburse a video session on the same terms as in person, but this depends on the plan. Ask: are virtual sessions with an RCC eligible, and on the same maximum?';
+
+/* WHO FINDS OUT, ANSWERED ONCE — 2 Oct 2026 (item 358).
+ *
+ * "Will my employer find out?" was answered on three audience pages in their
+ * own words and nowhere a person books or pays: /pricing said "employer" 0
+ * times, /faq said nothing about notes. The readers who worry most about it
+ * arrive from the workplace and stress-leave guides. Every sentence below is
+ * a claim /privacy (lib/policies.ts) already makes: written consent before
+ * anything goes to an employer, family, doctor or insurer; a receipt confirms
+ * that a session happened, not what was in it; an RCC does not diagnose;
+ * notes are brief working notes held in Cliniko's Canadian region; sessions
+ * are never recorded. What an insurer tells a plan sponsor is the plan's
+ * business, so the answer sends the reader to the plan rather than guessing.
+ * /faq, /book and /pricing read these, and so do the coverage-checklist and
+ * third nurture emails (item 393), so the page and the mail cannot differ. */
+const NOTHING_WITHOUT_CONSENT =
+  'Nothing goes to your employer, your family, your doctor or your insurer without your written consent.';
+const RECEIPT_SHOWS =
+  'A receipt you claim with shows that a session took place, the fee and the counsellor’s RCC designation, not what was said; an RCC does not diagnose, so there is no diagnosis on it either.';
+const MAIL_GOES_TO_YOU =
+  'Receipts and booking emails go only to the email address you give, so a personal address keeps them out of a work inbox.';
+const NOTES_KEPT =
+  'Session notes are brief working notes, not transcripts, held in Cliniko’s Canadian region, and sessions are never recorded.';
+const PLAN_SPONSOR =
+  'What an insurer reports to the employer that sponsors the plan is set by the plan, not by this practice, so if that matters to you, ask the plan.';
+
+/** The full answer: /faq's "Will my employer, insurer or family find out?"
+ *  and the matching disclosure on /book. */
+export const WHO_FINDS_OUT = [
+  NOTHING_WITHOUT_CONSENT,
+  RECEIPT_SHOWS,
+  MAIL_GOES_TO_YOU,
+  NOTES_KEPT,
+  PLAN_SPONSOR,
+  `Confidentiality has legal limits, which are ${CONFIDENTIALITY_LIMITS}.`,
+].join(' ');
+
+/** One sentence for where money and claims are the subject: /pricing's
+ *  claiming section, the coverage-checklist email and nurture email 3. */
+export const WHO_SEES_A_CLAIM =
+  'The receipt you submit shows that a session took place, the fee and the counsellor’s RCC designation, not what was said, and nothing goes to an employer from this practice without your written consent.';
+
+/* THE CAMERA CAN STAY OFF — 2 Oct 2026 (item 392). /accessibility has said
+ * it since August; /faq and /book said "a device with a camera", which reads
+ * as a requirement to the anxious first-timer most likely to hesitate over
+ * being watched. One sentence, read by /accessibility (lib/policies.ts),
+ * /faq, /book and the confirmation and reminder emails. */
+export const CAMERA_OPTIONAL = 'You are never required to be on camera to be in a session.';
+
+/* ?with= A COUNSELLOR WHO IS NOT TAKING CLIENTS — 2 Oct 2026 (item 361).
+ *
+ * /book printed "<first name> is not taking new clients at the moment" for
+ * any roster slug in ?with=, which put the founder's name on /book whenever
+ * an old link carried her slug. The line now names nobody who is not
+ * accepting; it names only the counsellors who are. */
+export const notTakingLine = (acceptingFirstNames: string[], fallbackFirst?: string): string => {
+  const head = 'That counsellor is not taking new clients at the moment.';
+  if (acceptingFirstNames.length > 1) {
+    return `${head} ${acceptingFirstNames.join(' and ')} are; choose above, or pick either on the calendar below.`;
+  }
+  if (fallbackFirst) return `${head} ${fallbackFirst} is, and the consultation below is with her.`;
+  return head;
+};

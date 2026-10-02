@@ -115,3 +115,135 @@ test('/book renders no credential number', () => {
   const page = readFileSync(join(ROOT, 'app/book/page.tsx'), 'utf8');
   assert.doesNotMatch(page, /\.number\b/, 'app/book/page.tsx reads a credential number');
 });
+
+/* ---------- Round 4 batch 2 (wf/book-faq-trust), 2 Oct 2026 ---------- */
+import { practitioners } from '../lib/practitioners.ts';
+import {
+  notTakingLine, WHO_FINDS_OUT, WHO_SEES_A_CLAIM, CAMERA_OPTIONAL, CONFIDENTIALITY_LIMITS,
+} from '../lib/practice-facts.ts';
+import { faqs, faqsInGroup, BEFORE_SESSION_ONE } from '../lib/faq.ts';
+import { policies } from '../lib/policies.ts';
+import { checklistEmail } from '../lib/inbound-mail.ts';
+import { email3 } from '../lib/nurture.ts';
+import { rosterLines } from '../lib/lead-roster.ts';
+
+const bookSrc = () => readFileSync(join(ROOT, 'app/book/page.tsx'), 'utf8');
+
+/* #361 */
+test('/book?with=<not accepting> names nobody who is not taking clients', () => {
+  const accepting = practitioners.filter((p) => p.acceptingNewClients).map((p) => p.name.split(' ')[0]!);
+  const full = practitioners.filter((p) => !p.acceptingNewClients);
+  const lines = [notTakingLine(accepting), notTakingLine([accepting[0]!], accepting[0]), notTakingLine([], undefined)];
+  for (const line of lines) {
+    assert.match(line, /^That counsellor is not taking new clients at the moment\./);
+    for (const p of full) {
+      for (const part of p.name.split(' ')) assert.ok(!line.includes(part), `${line} names ${p.name}`);
+    }
+  }
+  if (accepting.length > 1) {
+    assert.equal(lines[0], `That counsellor is not taking new clients at the moment. ${accepting.join(' and ')} are; choose above, or pick either on the calendar below.`);
+  }
+  const src = bookSrc();
+  assert.doesNotMatch(src, /askedButFull\.name/, 'the page prints the non-accepting counsellor’s name');
+  assert.match(src, /notTakingLine\(/);
+});
+
+/* #358 */
+test('WHO_FINDS_OUT is built from the privacy policy’s claims, with the full limits', () => {
+  const privacy = JSON.stringify(policies.privacy);
+  assert.match(privacy, /your employer, your doctor or your insurer without your written consent/);
+  assert.match(privacy, /never recorded/);
+  assert.match(privacy, /Canadian region/);
+  for (const re of [/without your written consent/, /not what was said/, /never recorded/, /Canadian region/, /ask the plan/]) {
+    assert.match(WHO_FINDS_OUT, re);
+  }
+  assert.ok(WHO_FINDS_OUT.includes(CONFIDENTIALITY_LIMITS));
+  assert.doesNotMatch(WHO_FINDS_OUT + WHO_SEES_A_CLAIM, /Pacific Blue Cross|Manulife|Sun Life|Canada Life|Green Shield/, 'no insurer named');
+});
+
+test('/faq answers who finds out in the privacy group, and states every limit', () => {
+  const q = faqs.find((f) => f.q === 'Will my employer, insurer or family find out?');
+  assert.ok(q);
+  assert.equal(q!.a, WHO_FINDS_OUT);
+  assert.ok(faqsInGroup('privacy').includes(q!));
+  const conf = faqs.find((f) => f.q === 'Is what I share confidential?')!;
+  assert.ok(conf.a.includes(`The limits are ${CONFIDENTIALITY_LIMITS}`));
+});
+
+test('/book and /pricing carry the who-finds-out answer from the constant', () => {
+  const book = bookSrc();
+  assert.match(book, /<summary>Will my employer, insurer or family find out\?<\/summary>/);
+  assert.match(book, /\{WHO_FINDS_OUT\}/);
+  const pricing = readFileSync(join(ROOT, 'app/pricing/page.tsx'), 'utf8');
+  assert.match(pricing, /\{WHO_SEES_A_CLAIM\}/);
+});
+
+/* #393: copy in two existing emails, text and HTML, no new mail. */
+test('the coverage checklist and nurture email 3 say what an insurer and employer see', () => {
+  const flat = (s: string) => s.replace(/\s+/g, ' ');
+  const roster = rosterLines();
+  const c = checklistEmail('Sam', { roster });
+  const n = email3('Sam', 'sam@gmail.com', undefined, { roster });
+  for (const m of [c, n]) {
+    assert.ok(flat(m.text).includes(WHO_SEES_A_CLAIM), 'text version');
+    assert.ok(m.html.includes(WHO_SEES_A_CLAIM), 'html version');
+  }
+  if (roster.length) {
+    assert.ok(flat(n.text).indexOf(WHO_SEES_A_CLAIM) < flat(n.text).indexOf('own calendar'), 'before the roster');
+  }
+});
+
+/* #368 */
+test('what comes before session one is said on /book and in /faq, from published facts', () => {
+  assert.match(BEFORE_SESSION_ONE, /consent form/);
+  assert.match(BEFORE_SESSION_ONE, /24-hour/);
+  assert.match(readFileSync(join(ROOT, 'app/client-portal/page.tsx'), 'utf8'), /the consent form you signed/);
+  assert.match(JSON.stringify(policies), /in writing before the first session/);
+  assert.ok(faqs.find((f) => f.q === 'What happens in the first session?')!.a.endsWith(BEFORE_SESSION_ONE));
+  assert.match(bookSrc(), /\{BEFORE_SESSION_ONE\}/);
+});
+
+/* #392 */
+test('the camera can stay off wherever people book, read from one sentence', () => {
+  assert.match(JSON.stringify(policies.accessibility), /never required to be on camera/);
+  assert.match(readFileSync(join(ROOT, 'lib/policies.ts'), 'utf8'), /detail: CAMERA_OPTIONAL \+/);
+  const book = bookSrc();
+  assert.doesNotMatch(book, /any device with a camera/);
+  assert.ok((book.match(/\{CAMERA_OPTIONAL\}/g) ?? []).length >= 2, '/book: after-you-book note and the video disclosure');
+  const online = faqs.find((f) => /online or in person/.test(f.q))!;
+  assert.ok(online.a.includes(CAMERA_OPTIONAL));
+  assert.doesNotMatch(online.a, /a device with a camera/);
+  assert.match(readFileSync(join(ROOT, 'lib/booking-mail.ts'), 'utf8'), /join from somewhere private\. \$\{CAMERA_OPTIONAL\}/);
+});
+
+/* #380, the /book half */
+test('the ask-for-a-time form on /book suggests no evening or weekend, and promises no off-calendar time', () => {
+  const book = bookSrc();
+  assert.doesNotMatch(book, /weekday evenings|Saturday mornings/);
+  assert.doesNotMatch(book, /a time that is not on the calendar yet/);
+  assert.match(book, /the closest time she can offer/);
+  assert.match(book, /placeholder="Which days and times usually suit you, then a sentence or two on what you are looking for\."/);
+});
+
+/* #387 */
+test('the /book fallback email links print the address', () => {
+  const book = bookSrc();
+  const worded = [...book.matchAll(/<MailLink\b[^>]*>\s*([^<{]+?)\s*<\/MailLink>/g)];
+  assert.ok(worded.length >= 2);
+  for (const m of worded) assert.match(m[0], /\bshowAddress\b/, m[1]!);
+  const comp = readFileSync(join(ROOT, 'components/MailLink.tsx'), 'utf8');
+  assert.match(comp, /children && showAddress \? ` \(\$\{site\.email\}\)` : null/);
+});
+
+/* #388 */
+test('the year-end page is linked by what it is, not as "booklet", and CoverageLine links it in season', () => {
+  for (const f of ['app/book/page.tsx', 'app/pricing/page.tsx']) {
+    const src = readFileSync(join(ROOT, f), 'utf8');
+    assert.doesNotMatch(src, /href=\{YEAR_END_PATH\}>booklet</, f);
+    assert.match(src, /<Link href=\{YEAR_END_PATH\}>how the plan year affects a claim<\/Link>/, f);
+  }
+  const line = readFileSync(join(ROOT, 'components/CoverageLine.tsx'), 'utf8');
+  assert.match(line, /\{planYearPageLineShown\(now\) && \(/);
+  assert.match(line, /<Link href=\{YEAR_END_PATH\}>using benefits before the plan year ends<\/Link>/);
+  assert.doesNotMatch(line, /Pacific Blue Cross|Manulife|Sun Life|Canada Life|Green Shield/);
+});

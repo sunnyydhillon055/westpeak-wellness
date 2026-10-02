@@ -5,6 +5,7 @@ import { LOOKING, WHERE, TIMING, labelOf } from '@/lib/enquiry-fields';
 import { rosterLines, rosterText, rosterButtons, type RosterLine } from '@/lib/lead-roster';
 import { magnetWords, SEQUENCE_PROMISE } from '@/lib/nurture-plan';
 import { answeredLink } from '@/lib/answered-link';
+import { WHO_SEES_A_CLAIM } from '@/lib/practice-facts';
 
 /* WHAT EVERY EMAIL 1 NOW ENDS WITH — 1 Oct 2026.
  *
@@ -124,6 +125,8 @@ who you spoke to.
 
 ${CHECKLIST.map((c, i) => `${i + 1}. ${c.q}\n   ${c.why}`).join('\n\n')}
 
+${WHO_SEES_A_CLAIM}
+
 The longer version, with the insurer-by-insurer table, is here:
 ${links.coverage}
 
@@ -143,6 +146,8 @@ ${site.domain}`);
        <span style="color:#545e69;font-size:14px;">${esc(c.why)}</span></li>`
     ).join('') +
     `</ol>` +
+    /* Item 393: what an insurer and an employer see, from lib/practice-facts.ts. */
+    p(esc(WHO_SEES_A_CLAIM)) +
     p(`The longer version, with the insurer-by-insurer table, is ${a(links.coverage, 'on the site')}.`) +
     leadEndingHtml(o),
     'Eight questions to ask your plan before booking counselling with anyone',

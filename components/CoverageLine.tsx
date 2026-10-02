@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { planYearPageLineShown, YEAR_END_PATH } from '@/lib/seasonal';
 
 /* ONE LINE ABOUT WHO PAYS, UNDER THE HERO BUTTON — 1 Oct 2026.
  *
@@ -27,8 +28,15 @@ import Link from 'next/link';
  * (scripts/uniqueness-gate.mjs) measures the two-segment city x service
  * pages only, by its own rule ("a city hub lives one level up"), so a shared
  * sentence on the city hubs and the audience pages is outside it. It is a
- * component so that there is one copy to keep in step with /pricing. */
-export default function CoverageLine() {
+ * component so that there is one copy to keep in step with /pricing.
+ *
+ * IN SEASON, THE PLAN YEAR — 2 Oct 2026 (item 388). From 15 Oct to 31 Dec on
+ * the Pacific date (planYearPageLineShown, lib/seasonal.ts, the same window
+ * /pricing and /book use), one clause links the year-end page from every
+ * page that carries this line. Conditional on a calendar-year plan and
+ * naming no insurer, so it stays plan-dependent. The pages that render this
+ * revalidate hourly, so the clause appears and goes on its own. */
+export default function CoverageLine({ now }: { now?: Date } = {}) {
   return (
     <p className="hero-note hero-coverage">
       Many{' '}
@@ -36,6 +44,12 @@ export default function CoverageLine() {
       reimburse a Registered Clinical Counsellor, depending on the plan, so check yours; MSP
       does not. Receipts are issued for every session, and the{' '}
       <Link href="/pricing">fees</Link> are published in full.
+      {planYearPageLineShown(now) && (
+        <>
+          {' '}On a calendar-year plan, sessions held by 31 December count against this year:{' '}
+          <Link href={YEAR_END_PATH}>using benefits before the plan year ends</Link>.
+        </>
+      )}
     </p>
   );
 }

@@ -22,12 +22,18 @@ export default function MailLink({
   subject,
   className,
   children,
+  showAddress,
   'aria-label': ariaLabel,
 }: {
   where: MailWhere;
   subject?: string;
   className?: string;
   children?: React.ReactNode;
+  /** Print the address after the words (2 Oct 2026, item 387). On a work
+   *  laptop with no mail client a mailto: opens nothing, and these links are
+   *  the last route when the calendar fails, so the address must be readable
+   *  and copyable. No effect without `children` (the address is the text). */
+  showAddress?: boolean;
   'aria-label'?: string;
 }) {
   const href = `mailto:${site.email}${subject ? `?subject=${encodeURIComponent(subject)}` : ''}`;
@@ -39,6 +45,7 @@ export default function MailLink({
       onClick={() => track('email_click', { location: where, detail: where })}
     >
       {children ?? site.email}
+      {children && showAddress ? ` (${site.email})` : null}
     </a>
   );
 }
