@@ -79,7 +79,18 @@ export const conditions: Condition[] = [
     ],
     approach:
       'Pacing first. Nothing here starts with the hardest thing: the early sessions build enough safety and enough control that the harder work is possible, and you decide what gets approached and when. EMDR is one of the tools, not the whole of it.',
-    service: 'emdr-therapy',
+    /* Individual counselling, not EMDR — 1 Oct 2026. This said
+       'emdr-therapy', so all ten trauma city pages quoted the 90-minute EMDR
+       Intensive as the session fee and named only the one counsellor who
+       offers EMDR, while the approach above says pacing comes first and the
+       EMDR page offers the intensive "once stability is in place".
+       Production /online-counselling/vancouver/trauma-therapy (298
+       impressions, 26 Sep export) printed the intensive fee twice. The weekly
+       fee and every counsellor who takes trauma clients now show; the pair
+       page offers the intensive as a later option (laterOption in
+       lib/city-service-page.ts). The province-level trauma reading still
+       lives on the EMDR page (CONDITION_UPLINK). */
+    service: 'individual-therapy',
   },
   {
     slug: 'depression-counselling',

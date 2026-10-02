@@ -8,7 +8,10 @@ import { practitioners } from '../lib/practitioners.ts';
 import { FALLBACK_CATALOG } from '../lib/cliniko-catalog.ts';
 import {
   bookHrefFor, counsellorsFor, feeFor, generatedFaqs, profileHrefFor, listOf, midSentence,
+  seoName, sentenceName, personNoun, whoHeading, laterOption,
 } from '../lib/city-service-page.ts';
+import { conditions } from '../lib/conditions.ts';
+import { pairs as allPairs, victoriaEmdrAnswer } from '../lib/city-services.ts';
 import { counsellorsForCity } from '../lib/counsellor-cards.ts';
 import { OFFERINGS, offerItems } from '../lib/practitioner-facts.ts';
 import { priceOffer } from '../lib/schema.ts';
@@ -177,4 +180,74 @@ test('the session-security sentence is the privacy policy’s own', () => {
   assert.match(SESSION_SECURITY, /never recorded/);
   assert.match(SESSION_SECURITY, /Canadian region/);
   assert.ok(!SESSION_SECURITY.includes('**'));
+});
+
+/* 1 Oct 2026, wf/city-pages. Trauma priced all ten of its city pages at the
+   EMDR intensive while its own copy says pacing comes first. Any topic whose
+   approach puts stabilisation, safety or pacing first books into the weekly
+   individual session, and its pages name every counsellor who takes it. */
+test('a topic whose copy says stabilisation comes first is priced at the weekly fee', () => {
+  const weekly = FALLBACK_CATALOG.items.find((i) => i.name === 'Individual Counselling')!;
+  const pacingFirst = conditions.filter((c) => /pacing first|stabili[sz]|safety/i.test(c.approach));
+  assert.ok(pacingFirst.some((c) => c.slug === 'trauma-therapy'), 'the trauma copy no longer says pacing first; re-read this test');
+  for (const c of pacingFirst) {
+    const topic = getCityTopic(c.slug)!;
+    const fee = feeFor(FALLBACK_CATALOG, topic)!;
+    assert.equal(fee.cents, weekly.cents, `${c.slug} is priced at ${fee.fee}`);
+    assert.equal(fee.minutes, weekly.minutes, `${c.slug} is priced for ${fee.minutes} minutes`);
+  }
+  const trauma = counsellorsFor(getCityTopic('trauma-therapy')!);
+  const individual = counsellorsFor({ bookingService: 'individual-therapy' });
+  assert.deepEqual(trauma.map((p) => p.slug), individual.map((p) => p.slug));
+});
+
+test('the EMDR intensive appears on trauma pages as a later option, from the catalogue', () => {
+  const intensive = FALLBACK_CATALOG.items.find((i) => i.name === 'EMDR Intensive')!;
+  const line = laterOption(FALLBACK_CATALOG, getCityTopic('trauma-therapy')!, 'Kamloops')!;
+  assert.ok(line.startsWith('For trauma work in Kamloops'), line);
+  assert.ok(line.includes(`$${intensive.cents / 100} for ${intensive.minutes} minutes`), line);
+  assert.match(line, /later, once stability is in place/);
+  for (const p of counsellorsFor({ bookingService: 'emdr-therapy' })) assert.ok(line.includes(p.name), `${p.name} missing`);
+  assert.equal(laterOption(FALLBACK_CATALOG, getCityTopic('anxiety-counselling')!, 'Kamloops'), undefined);
+  assert.equal(laterOption({ ...FALLBACK_CATALOG, items: FALLBACK_CATALOG.items.filter((i) => i.name !== 'EMDR Intensive') },
+    getCityTopic('trauma-therapy')!, 'Kamloops'), undefined, 'no intensive in the catalogue, no sentence');
+});
+
+test('each pair’s H1 name carries its service name, and the searched second word', () => {
+  for (const p of allPairs) {
+    const topic = getCityTopic(p.service)!;
+    const h1 = seoName(topic);
+    assert.ok(h1.includes(topic.name.split(' ')[0]), `${p.city}/${p.service}: "${h1}" lacks ${topic.name}`);
+    assert.ok(h1.startsWith(topic.name) || p.service === 'couples-therapy', `${p.city}/${p.service}: "${h1}"`);
+  }
+  assert.equal(seoName(getCityTopic('trauma-therapy')!), 'Trauma Therapy and Counselling');
+  assert.equal(seoName(getCityTopic('anxiety-counselling')!), 'Anxiety Counselling and Therapy');
+  assert.equal(seoName(getCityTopic('depression-counselling')!), 'Depression Counselling and Therapy');
+  assert.equal(seoName(getCityTopic('couples-therapy')!), 'Couples and Marriage Counselling');
+  assert.equal(seoName(getCityTopic('emdr-therapy')!), 'EMDR Therapy');
+  assert.equal(sentenceName('Couples and Marriage Counselling'), 'Couples and marriage counselling');
+  assert.equal(sentenceName('EMDR Therapy'), 'EMDR therapy');
+});
+
+test('the cards heading names the person the query names', () => {
+  assert.equal(whoHeading('emdr-therapy', 'Vancouver', 1), 'EMDR therapist in Vancouver: who you would see');
+  assert.equal(whoHeading('trauma-therapy', 'Kamloops', 2), 'Trauma therapists in Kamloops: who you would see');
+  assert.equal(personNoun('couples-therapy', 1), 'Couples or marriage counsellor');
+  assert.equal(personNoun('depression-counselling', 2), 'Depression counsellors');
+  assert.equal(personNoun('individual-therapy', 1), 'Counsellor');
+});
+
+/* 1 Oct 2026. The Victoria EMDR page answered a time-zone question with "the
+   whole province is on one clock"; the Peace region and the East Kootenay
+   keep Mountain time. */
+test('the Victoria EMDR answer is the Island question, from the roster and catalogue', () => {
+  const pair = allPairs.find((p) => p.city === 'victoria' && p.service === 'emdr-therapy')!;
+  assert.ok(!pair.faqs.some((f) => /one clock/.test(f.a)));
+  const f = pair.faqs.find((x) => x.q === 'Is EMDR therapy available in Victoria without a ferry?')!;
+  assert.equal(f.a, victoriaEmdrAnswer());
+  const intensive = FALLBACK_CATALOG.items.find((i) => i.name === 'EMDR Intensive')!;
+  assert.ok(f.a.includes(`$${intensive.cents / 100}`));
+  assert.match(f.a, /Pacific time/);
+  for (const p of counsellorsFor({ bookingService: 'emdr-therapy' })) assert.ok(f.a.includes(p.name));
+  assert.ok(!/\b(evenings?|weekends?|\d\s?(am|pm))\b/i.test(f.a), 'no hours');
 });

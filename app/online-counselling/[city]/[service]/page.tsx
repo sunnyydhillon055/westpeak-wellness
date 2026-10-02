@@ -20,7 +20,7 @@ import BookLink from '@/components/BookLink';
 import { readCatalog } from '@/lib/cliniko-catalog';
 import {
   bookHrefFor, cityServiceDescription, cityServiceTitle, counsellorsFor, feeFor, generatedFaqs, languagePhrase, languagesFor,
-  midSentence,
+  midSentence, seoName, whoHeading, laterOption,
 } from '@/lib/city-service-page';
 import { offerItems } from '@/lib/practitioner-facts';
 import CounsellorCards from '@/components/CounsellorCards';
@@ -32,9 +32,10 @@ import NextConsultLine from '@/components/NextConsultLine';
    positions 45-60 — landing on the couples pages, whose title and heading
    said only "Couples Therapy". People who are married search for marriage
    counselling. The service keeps its name everywhere else; only the title,
-   heading and description of the city pages carry both words. */
-const seoName = (s: { slug: string; name: string }) =>
-  s.slug === 'couples-therapy' ? 'Couples and Marriage Counselling' : s.name;
+   heading and description of the city pages carry both words.
+   seoName moved to lib/city-service-page.ts on 1 Oct 2026 and now covers
+   trauma, anxiety and depression too, so the links into these pages (hub
+   cards, guide spokes, the siblings below) can use the same name. */
 
 /* CITY × SERVICE — fifty pages, each with its own argument.
  *
@@ -186,6 +187,8 @@ export default async function CityServicePage({ params }: { params: Params }) {
   const catalog = await readCatalog();
   const fee = feeFor(catalog, svc);
   const faqs = [...pair.faqs, ...generatedFaqs({ topic: svc, ctx, loc, counsellors, fee })];
+  /* The EMDR intensive on the trauma pages, as a later option. 1 Oct 2026. */
+  const later = laterOption(catalog, svc, ctx.city);
 
   const path = `/online-counselling/${ctx.slug}/${svc.slug}`;
   const otherHere = pairsForCity(ctx.slug).filter((p) => p.service !== svc.slug);
@@ -282,7 +285,10 @@ export default async function CityServicePage({ params }: { params: Params }) {
             <BookLink location="hero-city-service" href={bookHref}>
               Book a free consultation for {lower(svc.name)} in {ctx.city}
             </BookLink>
-            <Link className="btn btn--ghost" href={`/services/${svc.bookingService}`}>
+            {/* The condition's own section where it has one: trauma books into
+                individual counselling since 1 Oct 2026, but what trauma
+                therapy involves is written on the EMDR page. */}
+            <Link className="btn btn--ghost" href={CONDITION_UPLINK[svc.slug]?.href ?? `/services/${svc.bookingService}`}>
               What {lower(svc.name)} involves
             </Link>
           </div>
@@ -335,6 +341,12 @@ export default async function CityServicePage({ params }: { params: Params }) {
             reimburse a Registered Clinical Counsellor; whether yours does is plan-dependent.{' '}
             <Link href="/pricing">Fees and extended-health cover</Link> are set out in full.
           </p>
+          {later ? (
+            <p>
+              {later}{' '}
+              <Link href="/compare/emdr-intensive-vs-weekly-emdr">How the intensive differs from weekly EMDR</Link>.
+            </p>
+          ) : null}
         </div>
       </section>
 
@@ -351,7 +363,9 @@ export default async function CityServicePage({ params }: { params: Params }) {
         counsellors={counsellors}
         location="counsellor-city-service"
         citySlug={ctx.slug}
-        heading={<>Who you would see for {lower(svc.name)} in {ctx.city}</>}
+        /* "EMDR therapist in Vancouver: who you would see" — the person the
+           query names, then the promise. 1 Oct 2026; lib/city-service-page.ts. */
+        heading={<>{whoHeading(svc.slug, ctx.city, counsellors.length)}</>}
         intro={
           <>
             Taking new clients for {lower(svc.name)} and seeing people in {ctx.city} by secure
@@ -468,7 +482,7 @@ export default async function CityServicePage({ params }: { params: Params }) {
               return (
                 <li key={p.service}>
                   <Link href={`/online-counselling/${ctx.slug}/${p.service}`}>
-                    {s.name} in {ctx.city}
+                    {seoName(s)} in {ctx.city}
                   </Link>,{' '}
 {p.angle}
                 </li>
@@ -483,7 +497,7 @@ export default async function CityServicePage({ params }: { params: Params }) {
                 {nearbyPairs.map((p) => (
                   <li key={p.city}>
                     <Link href={`/online-counselling/${p.city}/${p.service}`}>
-                      {svc.name} in {cityOf(p.city).city}
+                      {seoName(svc)} in {cityOf(p.city).city}
                     </Link>
                   </li>
                 ))}

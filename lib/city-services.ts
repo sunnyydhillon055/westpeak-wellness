@@ -1,6 +1,19 @@
 import { cityContexts, type CityContext } from '@/lib/city-context';
 import { headingId } from '@/lib/toc';
-import { fallbackFee } from '@/lib/cliniko-catalog';
+import { fallbackFee, FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
+import { counsellorsFor, listOf } from '@/lib/city-service-page';
+
+/* The Victoria EMDR answer, from the roster and the catalogue. EMDR bills
+   weekly as an individual session and in the longer format as the intensive
+   (lib/practitioner-facts.ts OFFERINGS). 1 Oct 2026. */
+const minutesOf = (name: string) => FALLBACK_CATALOG.items.find((i) => i.name === name)?.minutes;
+export function victoriaEmdrAnswer(): string {
+  const who = counsellorsFor({ bookingService: 'emdr-therapy' }).map((p) => p.name);
+  const offers = who.length
+    ? ` ${listOf(who, 'and')} ${who.length === 1 ? 'offers' : 'offer'} EMDR to people in Victoria: weekly at ${fallbackFee('Individual Counselling')} for ${minutesOf('Individual Counselling')} minutes, or the ${minutesOf('EMDR Intensive')}-minute intensive at ${fallbackFee('EMDR Intensive')}, after a free 30-minute consultation.`
+    : '';
+  return `Yes. EMDR runs by secure video from anywhere on the Island, so there is no sailing at either end.${offers} The booking calendar shows real open times in Pacific time, which is Victoria's own clock.`;
+}
 
 /* FIFTY CITY × SERVICE PAGES, AND THE RULE THAT KEEPS THEM HONEST.
  *
@@ -249,7 +262,14 @@ export const pairs: Pair[] = [
       'Remote delivery makes the entire provincial pool reachable from Victoria on the same terms as from Vancouver. For a modality this specific, being able to choose the clinician rather than take the one with the opening is most of the value.',
     ],
     faqs: [
-      { q: 'Does the time zone or location affect scheduling?', a: 'No. The whole province is on one clock, and there is no travel component to plan around at either end.' },
+      /* Search Console, 26 Sep 2026: "emdr therapy victoria" 9 impressions at
+         19.56 plus four variants, 14 impressions at 19-38; the page itself 20
+         at 29.65. This replaced a time-zone answer that said "the whole
+         province is on one clock", which is false: the Peace region and the
+         East Kootenay keep Mountain time, as the Fort St. John page says. Who
+         offers EMDR and what it costs are read from the roster and the
+         catalogue, never typed. 1 Oct 2026. */
+      { q: 'Is EMDR therapy available in Victoria without a ferry?', a: victoriaEmdrAnswer() },
       { q: 'Can EMDR help with things that happened a long time ago?', a: 'That is a common use of it. The relevant question is whether the memory still carries a charge now, not how long ago it occurred.' },
     ],
   },
@@ -475,8 +495,9 @@ export const pairs: Pair[] = [
     ],
   },
   /* ---- TRAUMA x CITY, added 2 Sep 2026 ------------------------------------
-     The second of the three condition sets. Routes to EMDR rather than to
-     individual therapy — see lib/conditions.ts. */
+     The second of the three condition sets. Books into individual
+     counselling since 1 Oct 2026 (it routed to EMDR before), with the EMDR
+     intensive offered as a later option — see lib/conditions.ts. */
   {
     city: 'surrey', service: 'trauma-therapy',
     angle: 'A great deal of what people carry here arrived with them, or with their parents.',
@@ -753,7 +774,10 @@ export const cityFor = (slug: string): CityContext | undefined =>
  * page" while pointing at individual therapy. The province-level answer now
  * lives under its own heading on the service each condition books into, so
  * the link names the query and lands on that heading. The ids come from the
- * headings through headingId, so a retitle moves the link with it. */
+ * headings through headingId, so a retitle moves the link with it.
+ * Trauma is the exception since 1 Oct 2026: it books into individual
+ * counselling, and its province-level reading stays on the EMDR page, where
+ * it was written. */
 const up = (service: string, h2: string, label: string) => ({
   href: `/services/${service}#${headingId(h2)}`,
   label,
