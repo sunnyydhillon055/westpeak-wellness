@@ -1,7 +1,11 @@
 import SchedulerTelemetry from '@/components/SchedulerTelemetry';
 import SchedulerGate from '@/components/SchedulerGate';
+import BookDirectLink from '@/components/BookDirectLink';
+import MailLink from '@/components/MailLink';
 import { CLINIKO_EMBED_PARAM } from '@/lib/site';
 import { withEmbedFlag } from '@/lib/cliniko-frame';
+import { PORTAL_PREFIX } from '@/lib/conversion-detail';
+import { practitioners } from '@/lib/practitioners';
 
 /**
  * Cliniko online-bookings inline embed.
@@ -38,6 +42,13 @@ import { withEmbedFlag } from '@/lib/cliniko-frame';
  * embed flag (lib/site.ts, CLINIKO_EMBED_PARAM) and SchedulerTelemetry reads
  * the height and step messages the embedded page posts back. The fallback
  * link below keeps the plain URL: it opens the calendar as its own page.
+ *
+ * IF THE FRAME NEVER DRAWS — 2 Oct 2026. `stalled` below is what
+ * SchedulerTelemetry shows above a frame that sent no resize within ten
+ * seconds of being on screen: the counsellor's calendar as its own tab and the
+ * address. On /book the link is BookDirectLink, so a stall that ends in the
+ * direct calendar is counted as book_direct like any other; in the portal it is
+ * a plain link, because book_direct is /book's free-consultation count.
  */
 export default function SchedulerEmbed({
   url, title, page, who, placeholder, secondary, cta = 'Show available times', openDetail,
@@ -57,6 +68,21 @@ export default function SchedulerEmbed({
   const origin = new URL(url).origin;
   const frameTitle = title ?? 'Booking calendar';
   const frameUrl = withEmbedFlag(url, CLINIKO_EMBED_PARAM);
+  const portal = (who ?? '').startsWith(PORTAL_PREFIX);
+  const slug = portal ? who!.slice(PORTAL_PREFIX.length) : who;
+  const first = practitioners.find((p) => p.slug === slug)?.name.split(' ')[0];
+  const label = first ? `Open ${first}’s calendar in a new tab` : 'Open the booking calendar in a new tab';
+  const stalled = (
+    <>
+      The calendar has not appeared.{' '}
+      {slug && !portal ? (
+        <BookDirectLink href={url} who={slug} className="">{label}</BookDirectLink>
+      ) : (
+        <a href={url} target="_blank" rel="noopener">{label}</a>
+      )}
+      , or email <MailLink where="book-fallback" />.
+    </>
+  );
   return (
     <div className="scheduler-embed">
       {/* Browsers honour preconnect from body markup, and this component only
@@ -67,11 +93,11 @@ export default function SchedulerEmbed({
           and appearing a moment after it. */}
       <link rel="preconnect" href={origin} />
       {placeholder ? (
-        <SchedulerGate url={frameUrl} title={frameTitle} page={page} who={who} cta={cta} secondary={secondary} openDetail={openDetail}>
+        <SchedulerGate url={frameUrl} title={frameTitle} page={page} who={who} cta={cta} secondary={secondary} openDetail={openDetail} stalled={stalled}>
           {placeholder}
         </SchedulerGate>
       ) : (
-        <SchedulerTelemetry page={page} who={who}>
+        <SchedulerTelemetry page={page} who={who} stalled={stalled}>
           <iframe
             src={frameUrl}
             title={frameTitle}

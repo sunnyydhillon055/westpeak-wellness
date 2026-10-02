@@ -263,7 +263,10 @@ for someone who has never done this before.
             {/* The ICBC entitlement is the single most underused funded route
                 in the province, and this is the page where somebody is already
                 thinking about how to help another person pay for counselling. */}
-            <LeadCapture magnet="icbc-after-a-crash" done={sent === 'ok'} />
+            {/* source="/refer" (2 Oct 2026): without it the route fell back to
+                /pricing, so a signup here was credited to /pricing and the
+                person was sent back there instead of to this page. */}
+            <LeadCapture magnet="icbc-after-a-crash" source="/refer" done={sent === 'ok'} failed={sent === 'err'} />
 
             <h2>If you are in crisis right now</h2>
             <p>

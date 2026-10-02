@@ -1,17 +1,23 @@
-# Pings /api/indexnow after every push to main, so search engines learn about
-# changes the day they ship instead of at the Monday cron. The endpoint
-# requires the same CRON_SECRET the Vercel crons use — add it once at
-#   GitHub repo → Settings → Secrets and variables → Actions → CRON_SECRET
-# Until that secret exists, this job logs a skip and exits green: a red X on
-# every push over a missing nicety would train everyone to ignore red X's.
+# Tells IndexNow (Bing, and the engines that share its submissions) which
+# URLs changed, after every push to main, instead of at the Monday cron.
 #
-# The 150s sleep is deliberate slack for the Vercel build: pinging IndexNow
-# with URLs the deployment hasn't served yet would submit a stale sitemap.
+# NO SECRET, SINCE 2 OCT 2026. This job used to POST /api/indexnow with
+# CRON_SECRET and, with the secret never added, logged a skip and exited green
+# on every push, so Bing heard nothing until Monday. The IndexNow key is
+# public by protocol (it is served at /<key>.txt for the engine to check), so
+# scripts/indexnow-deploy.mjs submits directly to api.indexnow.org with it.
+# It reads the live sitemap, keeps the URLs whose lastmod is on or after the
+# commit day, adds the retired URLs from lib/redirects.mjs, and chooses them
+# with the same parseUrlset/selectUrls as the cron (lib/indexnow.ts). One POST;
+# anything but 200 or 202 fails the job, so a green tick now means Bing
+# accepted the list.
 #
-# Until 1 Oct 2026 this POST met a route that exported only GET, so the ping
-# never submitted anything; the route now answers POST with the same handler.
-# It sends only what changed since the last successful submission, plus the
-# retired URLs in lib/redirects.mjs - see lib/indexnow.ts.
+# The 150s sleep is deliberate slack for the Vercel build: submitting before
+# the deployment serves the new sitemap would send yesterday's lastmods.
+#
+# The Monday cron (/api/indexnow, vercel.json) and the /admin button are
+# unchanged; they still need CRON_SECRET on Vercel, which is a different
+# place from this repo's Actions secrets.
 name: indexnow-on-deploy
 on:
   push:
@@ -20,19 +26,14 @@ jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      # lib/indexnow.ts imports lib/cron-health.ts, which imports @vercel/blob.
+      - run: npm ci
       - name: Wait for the Vercel deploy
         run: sleep 150
-      - name: Ping IndexNow
-        env:
-          CRON_SECRET: ${{ secrets.CRON_SECRET }}
-        run: |
-          if [ -z "$CRON_SECRET" ]; then
-            echo "CRON_SECRET not set in repo secrets — skipping (the Monday cron still covers this)."
-            exit 0
-          fi
-          code=$(curl -s -o /tmp/body -w "%{http_code}" -X POST \
-            -H "Authorization: Bearer $CRON_SECRET" \
-            "https://www.westpeakwellness.com/api/indexnow")
-          echo "indexnow responded $code"
-          cat /tmp/body
-          [ "$code" = "200" ]
+      - name: Submit changed URLs to IndexNow
+        run: node --experimental-strip-types scripts/indexnow-deploy.mjs --since "$(git log -1 --format=%cs)"

@@ -75,7 +75,8 @@ test('a referrer host is reduced to one class', () => {
 
 test('the browser sends the class and the channel, never the host or the URL', () => {
   const src = readFileSync(join(ROOT, 'components/Analytics.tsx'), 'utf8');
-  assert.match(src, /track\('landing',\s*\{\s*detail:\s*referrerClass\(/);
+  /* arrivalClass is referrerClass plus the assistant ?utm_source= case (2 Oct 2026). */
+  assert.match(src, /track\('landing',\s*\{\s*detail:\s*(referrerClass|arrivalClass)\(/);
   assert.match(src, /track\('channel_visit',\s*\{\s*detail:\s*channel\s*\}\)/);
   assert.doesNotMatch(src, /track\('(landing|channel_visit)'[^)]*\b(host|href|search|referrer)\b/);
   /* The utm-only gbp counter is replaced, not run alongside. */

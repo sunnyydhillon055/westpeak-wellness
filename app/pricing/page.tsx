@@ -430,7 +430,7 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
           </p>
           <Figure name="reimbursement-flow" />
 
-          <LeadCapture done={searchParams?.lead === 'ok'} />
+          <LeadCapture done={searchParams?.lead === 'ok'} failed={searchParams?.lead === 'err'} />
 
           <p>
             Want the arithmetic on your own plan? The{' '}

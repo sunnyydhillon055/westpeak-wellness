@@ -193,7 +193,7 @@ for (const { url, html } of pages) {
      would be a worse 404, and a confirmation page that kept talking after the
      action was taken would be a worse confirmation. Exempt rather than fixed,
      for the same reason cta-audit.mjs exempts the same routes. */
-  const SHORT_BY_DESIGN = ['/_not-found', '/punjabi/sent', '/punjabi/not-sent', '/message-sent', '/one-pager-sent'];
+  const SHORT_BY_DESIGN = ['/_not-found', '/punjabi/sent', '/punjabi/not-sent', '/message-sent', '/message-not-sent', '/one-pager-sent'];
   if (words < 250 && !SHORT_BY_DESIGN.includes(url)) add('very-thin', url, `${words} words`);
 }
 

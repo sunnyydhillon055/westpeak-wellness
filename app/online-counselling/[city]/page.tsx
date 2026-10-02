@@ -425,14 +425,22 @@ export default async function CityPage({ params }: { params: { city: string } })
           The guides have carried this form at their foot since it was built;
           the city pages, where a person actually arrives from a local search,
           offered only a link to /contact. Same form, same route, same
-          two-sentence minimum. It posts as plain HTML and the reply lands on
-          /contact, exactly as it does from a guide. */}
+          two-sentence minimum. It posts as plain HTML.
+
+          WHERE THE PERSON LANDS — 2 Oct 2026. This page is ISR and never
+          reads ?sent=, so the route's return to /online-counselling/<city>
+          ?sent=ok#form showed the same empty form again (inviting a second
+          send) and a refusal showed nothing. It now posts returnTo=
+          /message-sent; a refusal goes to /message-not-sent, which says why
+          and links back here with the message restored (FAILED_PAGE in
+          lib/inbound-return.ts). */}
       <section className="section">
         <div className="container" style={{ maxWidth: 760 }}>
           <p className="eyebrow">A question before you book</p>
           <h2>Ask about counselling in {l.city}</h2>
           <InboundForm
             kind="enquiry"
+            returnTo="/message-sent"
             note={`Tell us in a couple of sentences what you are looking for and where in ${l.city} you are writing from. It reaches the practice directly and you will have a reply within one business day.`}
           />
         </div>

@@ -201,6 +201,7 @@ const CHECKS = [
   /* Where a refused /punjabi message lands (lib/inbound-return.ts), and a
      search whose top hit is a service, which renders the booking block. */
   ['/punjabi/not-sent', 200],
+  ['/message-not-sent?why=detail&from=/online-counselling/abbotsford', 200],
   ['/search?q=couples+counselling+abbotsford', 200],
   ['/search?q=zzzz-nothing-matches', 200],
 ];

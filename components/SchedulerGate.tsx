@@ -68,7 +68,7 @@ import { CALENDAR_HASH, opensCalendar } from '@/lib/scheduler-open';
  * appeared and then cleared would move everything below it. */
 const LOADING = 'Calendar loading. If it does not appear, ask for a time by email in the section below the calendar.';
 export default function SchedulerGate({
-  url, title, page, who, cta, children, secondary, openDetail,
+  url, title, page, who, cta, children, secondary, openDetail, stalled,
 }: {
   url: string;
   title: string;
@@ -86,6 +86,9 @@ export default function SchedulerGate({
    *  'couples' for a couples consultation (?for=couples), 1 Oct 2026, so
    *  couples opens are counted apart however the frame was opened. */
   openDetail?: 'couples';
+  /** Shown above the frame when it never draws (SchedulerTelemetry's
+   *  watchdog, 2 Oct 2026): the direct calendar link and the address. */
+  stalled?: React.ReactNode;
 }) {
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState('');
@@ -141,7 +144,7 @@ export default function SchedulerGate({
     return (
       <div ref={box} tabIndex={-1} role="region" aria-label={title} style={{ outline: 'none' }}>
         <p className="sr-only" role="status" aria-live="polite">{status}</p>
-        <SchedulerTelemetry page={page} who={who}>
+        <SchedulerTelemetry page={page} who={who} stalled={stalled}>
           <iframe
             src={url}
             title={title}

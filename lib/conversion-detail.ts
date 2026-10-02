@@ -260,6 +260,8 @@ const ALLOWED: Readonly<Record<string, ReadonlySet<string>>> = {
      events that bracket it, so seen, touched and booked line up per
      counsellor and surface. 1 Oct 2026. */
   scheduler_booked: SCHEDULER_KEYS,
+  /* A frame that never drew (components/SchedulerTelemetry, 2 Oct 2026). */
+  scheduler_stalled: SCHEDULER_KEYS,
   /* Which booking button the visit last pressed before Cliniko confirmed,
      or `direct` when it pressed none (arrived on /book and booked). The
      button half only, never the counsellor: that is scheduler_booked's. */
