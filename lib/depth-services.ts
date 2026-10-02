@@ -1,5 +1,6 @@
 import type { DepthSection } from './depth';
 import { fallbackFee } from '@/lib/cliniko-catalog';
+import { BCACC_COUPLES_FAMILY, FEE_GUIDES_READ } from '@/lib/fee-guides';
 import { practitioners } from '@/lib/practitioners';
 import { offeredBy } from '@/lib/practice-facts';
 import { languagePhrase } from '@/lib/city-service-page';
@@ -136,8 +137,12 @@ export const depthServices: Record<string, DepthSection[]> = {
     {
       h2: 'How much does couples counselling cost in BC?',
       body: [
+        /* Market range first, 1 Oct 2026: the answers cited for couples
+           cost lead with one, and this page (150 impressions at 26, 0 clicks
+           on 26 Sep) led with the practice's fee alone. */
+        `The BC Association of Clinical Counsellors’ 2026 fee guide recommends ${BCACC_COUPLES_FAMILY.range} per 50 minutes for couples and family counselling with a Registered Clinical Counsellor; that is the association’s recommendation, read ${FEE_GUIDES_READ}, and practitioners set their own fees.`,
         `Couples counselling here is ${fallbackFee('Couples Counselling')} for a 50-minute session, or ${fallbackFee('Couples Extended')} for the 110-minute extended format, after a free 30-minute consultation that both partners can join. There is no GST on counselling by a Registered Clinical Counsellor in BC.`,
-        'MSP does not cover private couples counselling. Extended health plans that list Registered Clinical Counsellors often reimburse couples sessions too, but some exclude relationship counselling or limit it, so read the wording before the first paid session. Each session produces one receipt, in the name of the partner who claims it.',
+        'MSP does not cover private couples counselling. Whether an extended health plan reimburses couples sessions depends on the plan: some that list Registered Clinical Counsellors include them, and some exclude relationship counselling or limit it, so read the wording before the first paid session. Each session produces one receipt, in the name of the partner who claims it.',
         `If cost rules private sessions out, community agencies offer sliding-scale and sometimes free couples counselling, and [low-cost counselling in BC](/resources/low-cost-counselling-bc) lists where to look. If it does not, [book the free consultation](/book?with=camille-granda) with the counsellor who takes couples work, and ask about the extended format there.`,
       ],
     },

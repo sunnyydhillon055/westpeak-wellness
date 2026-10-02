@@ -17,6 +17,10 @@ import { SESSION_SECURITY, SESSION_SECURITY_MD } from '@/lib/policies';
 import { rich } from '@/lib/rich';
 import { practiceSnippet, withSnippet } from '@/lib/snippet-facts';
 import { planYearPageLineShown, YEAR_END_PATH } from '@/lib/seasonal';
+import {
+  BCACC_INDIVIDUAL, BCACC_COUPLES_FAMILY, BCPA_PSYCHOLOGIST, BCPA_EFFECTIVE,
+  TYPICAL_BC_FEES, FEE_GUIDES_READ, guidePhrase,
+} from '@/lib/fee-guides';
 
 /* The fee and who you would see, in the description — 1 Oct 2026. /pricing
    sat at 4.38 with 24 impressions and no clicks, and its description named
@@ -29,7 +33,12 @@ export async function generateMetadata(): Promise<Metadata> {
     /* Retitled 17 Sep 2026 from "Fees & Insurance", which matched none of the
        cost queries in Search Console — every one of them is phrased as a
        question about what it costs. */
-    title: 'How Much Does Counselling Cost in BC?',
+    /* 1 Oct 2026: "therapy" and the year, as the cited answers to this
+       question are titled (was "How Much Does Counselling Cost in BC?",
+       24 impressions at 4.38 on 26 Sep). Absolute, because the brand
+       suffix would take it past the 60-character gate; the tool page gave
+       this query up the same day and is titled for the calculator. */
+    title: { absolute: 'How Much Does Therapy Cost in BC? 2026 Counselling Fees' },
     description: withSnippet(
       lead,
       practiceSnippet(await readCatalog(), counsellorsFor({ bookingService: 'individual-therapy' })),
@@ -55,41 +64,11 @@ const ROWS: { clinikoName: string; label: string; highlight?: boolean }[] = [
   { clinikoName: 'EMDR Intensive', label: 'EMDR intensive' },
 ];
 
-/* THE BCACC FEE GUIDE, AS A REFERENCE POINT — read 1 Oct 2026.
- *
- * "How much does a counsellor cost in BC" is the question this page ranks for,
- * and it gave the practice's own fees with nothing to read them against. The
- * BC Association of Clinical Counsellors publishes recommended ranges, and the
- * pages that rank above this one cite them. These are BCACC's figures, quoted
- * from https://bcacc.ca/bcacc-fee-guide-2026/ on the date below, not this
- * practice's prices: those still come only from the Cliniko catalogue. If the
- * guide is reissued, re-read it and change these and the date together.
- *
- *   Individual, per 50 min: $140-$155 (less experienced), $155-$175 (more
- *     experienced), $175-$225 (specialised services)
- *   Couples and family, per 50 min: $155-$175, $175-$205 */
-const BCACC_GUIDE = {
-  url: 'https://bcacc.ca/bcacc-fee-guide-2026/',
-  read: '1 October 2026',
-  individual: '$140 to $175',
-  couplesFamily: '$155 to $205',
-};
-
-/* THE BC PSYCHOLOGICAL ASSOCIATION'S RECOMMENDED RATE — read 1 Oct 2026.
- *
- * "A psychologist typically charges considerably more, often close to double"
- * carried no source. BCPA's recommended rate is $245 an hour, effective
- * 12 May 2025 (https://psychologists.bc.ca/professional-resources-hub/bcpa-recommended-rate-2025-2026).
- * It is a guideline, not a fee schedule; psychologists set their own. The
- * comparison against this practice's fee is computed below, not typed. Also
- * quoted, with the same date, on the RCC vs psychologist comparison
- * (lib/comparisons.ts); change both together. */
-const BCPA_RATE = {
-  url: 'https://psychologists.bc.ca/professional-resources-hub/bcpa-recommended-rate-2025-2026',
-  read: '1 October 2026',
-  effective: '12 May 2025',
-  cents: 24500,
-};
+/* THE MARKET FIGURES — BCACC's fee guide and BCPA's recommended rate — live in
+ * lib/fee-guides.ts since 1 Oct 2026, read on the date stated there, with the
+ * comparison page, the couples page and the city-service cost FAQ reading the
+ * same constant. They are the associations' recommendations, not this
+ * practice's prices: those still come only from the Cliniko catalogue. */
 
 /* The first-screen price list's styles, inline rather than in premium.css:
    that file is inlined into every page, and the homepage CSS budget
@@ -115,7 +94,7 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
     cpl ? `a couples session is ${money(cpl.cents)} for ${cpl.minutes} minutes` : null,
   ].filter(Boolean).join(' and ');
   const costAnswer =
-    `The BC Association of Clinical Counsellors' 2026 fee guide recommends ${BCACC_GUIDE.individual} per 50 minutes for individual counselling with a Registered Clinical Counsellor, depending on experience, with a higher range for specialised services, and ${BCACC_GUIDE.couplesFamily} per 50 minutes for couples and family counselling.` +
+    `The BC Association of Clinical Counsellors' 2026 fee guide recommends ${BCACC_INDIVIDUAL.range} per 50 minutes for individual counselling with a Registered Clinical Counsellor, depending on experience, with a higher range for specialised services, and ${BCACC_COUPLES_FAMILY.range} per 50 minutes for couples and family counselling.` +
     (ours ? ` At Westpeak Wellness ${ours}.` : '') +
     (consult && consult.cents === 0 ? ` The first ${consult.minutes}-minute consultation is free.` : '') +
     ' MSP does not cover counselling with an RCC; many extended health plans reimburse it, depending on the plan.';
@@ -149,7 +128,7 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
     : 'Every fee in full, with no hidden fees and no packages.';
 
   /* How far the same annual maximum goes here, against BCPA's rate. */
-  const psychRatio = ind && ind.cents > 0 ? (BCPA_RATE.cents / ind.cents).toFixed(1) : null;
+  const psychRatio = ind && ind.cents > 0 ? ((BCPA_PSYCHOLOGIST.highCents ?? 0) / ind.cents).toFixed(1) : null;
 
   return (
     <>
@@ -226,9 +205,41 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
             <p>{costAnswer}</p>
             <p style={{ fontSize: '.92rem', color: 'var(--ink-faint)' }}>
               Source:{' '}
-              <a href={BCACC_GUIDE.url} rel="noreferrer">BCACC Fee Guide 2026</a>, read{' '}
-              {BCACC_GUIDE.read}. The ranges are the association&rsquo;s recommendations, not
+              <a href={BCACC_INDIVIDUAL.sourceUrl} rel="noreferrer">BCACC Fee Guide 2026</a>, read{' '}
+              {FEE_GUIDES_READ}. The ranges are the association&rsquo;s recommendations, not
               this practice&rsquo;s prices.
+            </p>
+
+            {/* THE DATED MARKET TABLE — 1 Oct 2026. The pages cited for "how
+                much does therapy cost in BC" lead with a range by who you
+                see; this page gave one sentence. Every association figure is
+                lib/fee-guides.ts; this practice's row is the catalogue. */}
+            <h2 id="typical-fees">What a 50-minute session costs in BC, by who you see (read {FEE_GUIDES_READ})</h2>
+            <table className="fee-table">
+              <thead><tr><th>Who you see</th><th>Typical fee</th><th>Whose figure</th></tr></thead>
+              <tbody>
+                {TYPICAL_BC_FEES.map((g) => (
+                  <tr key={g.label}>
+                    <td>{g.label}</td>
+                    <td>{guidePhrase(g)}{g.note ? <><br /><span style={{ fontSize: '.92rem', color: 'var(--ink-soft)' }}>{g.note}</span></> : null}</td>
+                    <td>{g.sourceUrl ? <a href={g.sourceUrl} rel="noreferrer">{g.source}</a> : g.source}</td>
+                  </tr>
+                ))}
+                {ind && (
+                  <tr className="fee-highlight">
+                    <td>This practice (Registered Clinical Counsellors)</td>
+                    <td>
+                      {money(ind.cents)} individual{cpl ? `, ${money(cpl.cents)} couples` : ''}, per {ind.minutes}-minute session
+                    </td>
+                    <td>This practice&rsquo;s fee table, above</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+            <p style={{ fontSize: '.92rem', color: 'var(--ink-faint)' }}>
+              The association figures are recommendations, read on {FEE_GUIDES_READ}; practitioners set
+              their own fees. A psychologist&rsquo;s rate is published per hour rather than per 50
+              minutes. What you pay after reimbursement depends on the plan.
             </p>
 
             <h2>What you are actually paying for</h2>
@@ -245,7 +256,7 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
             </p>
             <p>
               For comparison, the BC Psychological Association&rsquo;s recommended rate for a
-              registered psychologist is {money(BCPA_RATE.cents)} an hour (effective {BCPA_RATE.effective}),
+              registered psychologist is {BCPA_PSYCHOLOGIST.range} an hour (effective {BCPA_EFFECTIVE}),
               reflecting a longer training path and a broader scope that includes formal assessment.
               {ind && psychRatio
                 ? ` An individual session here is ${money(ind.cents)}, so the same annual maximum buys about ${psychRatio} times as many sessions, which matters most if your benefit cap is limited.`
@@ -253,8 +264,8 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
             </p>
             <p style={{ fontSize: '.92rem', color: 'var(--ink-faint)' }}>
               Source:{' '}
-              <a href={BCPA_RATE.url} rel="noreferrer">BCPA Recommended Rate 2025&ndash;2026</a>, read{' '}
-              {BCPA_RATE.read}. A guideline, not a fee schedule; psychologists set their own fees.
+              <a href={BCPA_PSYCHOLOGIST.sourceUrl} rel="noreferrer">BCPA Recommended Rate 2025&ndash;2026</a>, read{' '}
+              {FEE_GUIDES_READ}. A guideline, not a fee schedule; psychologists set their own fees.
             </p>
 
               </div>

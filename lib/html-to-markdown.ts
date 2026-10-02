@@ -31,7 +31,11 @@
    ========================================================================= */
 
 /** Elements whose entire subtree is chrome, not content. */
-const DROP = new Set(['script', 'style', 'noscript', 'svg', 'nav', 'form', 'button', 'template', 'iframe']);
+/* select and datalist added 1 Oct 2026: the cost estimator's plan picker sits
+   outside a <form>, so its <option>s reached the twin as one run-together
+   string of plan names, ahead of the prose that answers the question. A list
+   of choices is a control, not content. */
+const DROP = new Set(['script', 'style', 'noscript', 'svg', 'nav', 'form', 'button', 'template', 'iframe', 'select', 'datalist']);
 
 /** Elements that produce no markup of their own — their children pass through. */
 const PASS = new Set([

@@ -34,7 +34,12 @@ export const albertaResources: Resource[] = [
     slug: 'counselling-coverage-in-alberta',
     province: 'AB',
     title: 'What counselling actually costs in Alberta',
-    metaTitle: 'Is Therapy Covered in Alberta? AHCIP and Your Plan',
+    /* 1 Oct 2026, was "Is Therapy Covered in Alberta? AHCIP and Your Plan".
+       Searchers say "Alberta Health Care", which appeared nowhere on the
+       site: 'is therapy covered by alberta health care' 17 impressions at
+       9.53, 0 clicks; the page 245 impressions at 5.89, 2 clicks (GSC,
+       26 Sep 2026). */
+    metaTitle: 'Is Therapy Covered by Alberta Health Care (AHCIP)?',
     metaDescription:
       'No. Alberta Health Care does not pay for private counselling. What your extended health plan reimburses, which designation to ask about, and the free routes.',
     eyebrow: 'Alberta',
@@ -48,7 +53,8 @@ export const albertaResources: Resource[] = [
     seasonal: yearEndSeasonal({ yearEndLink: false, designation: 'Canadian Certified Counsellor' }),
     sections: [
       {
-        h2: 'What AHCIP does and does not pay for',
+        /* Was "What AHCIP does and does not pay for" (1 Oct 2026). */
+        h2: 'Is therapy covered by Alberta Health Care? What AHCIP pays for',
         body: [
           'Alberta Health Care Insurance Plan coverage for mental health follows the same logic as most provincial plans: it pays for physicians. A visit to your family doctor about low mood is covered. A psychiatrist, if you can get a referral and wait for one, is covered. A counsellor or psychotherapist in private practice is not.',
           'That is not a gap specific to Alberta and it is not a judgement about whether counselling works. It is a consequence of how provincial plans are structured. They insure medical services delivered by physicians, and counselling is not delivered by one. The practical effect is the same either way: the cost of private counselling falls to you or to an extended health plan.',
@@ -66,6 +72,9 @@ export const albertaResources: Resource[] = [
         h2: 'Why Alberta plans name a different designation',
         body: [
           'Counselling therapy is not a regulated profession in Alberta. There is no provincial college a counsellor can register with, which means there is no Alberta equivalent of the RCC or the Ontario CRPO designation for an insurer to name.',
+          /* CCPA and ACTA, read 1 Oct 2026: announced 1 March 2024; no
+             regulation in force yet. */
+          'That is due to change, though not yet. In March 2024 the province announced that counselling therapists will be regulated under the College of Alberta Psychologists; as of 1 October 2026 that regulation is not in effect.',
           'What fills that space is national certification. The CCC is granted against education, supervised practice hours and a code of ethics, it is held on a public register, and it is what most Alberta plans point at as a result. Some plans also name a registered psychologist, which is a separate and regulated profession in Alberta with its own college and generally a higher fee.',
         ],
       },
@@ -73,9 +82,14 @@ export const albertaResources: Resource[] = [
         h2: 'The free and lower-cost routes first',
         list: [
           {
-            label: 'Alberta Health Services addiction and mental health',
+            /* 1 Oct 2026. This named "Alberta Health Services" and a
+               province-wide line on 1-844-944-4744, which is the Indigenous
+               Support Line. Public mental health and addiction services moved
+               from AHS to Recovery Alberta on 1 Sep 2024. Numbers re-read on
+               recoveryalberta.ca, 1 Oct 2026. */
+            label: 'Recovery Alberta mental health and addiction helplines',
             detail:
-              'A province-wide line on 1-844-944-4744, and Health Link on 811, for non-urgent advice and referral into publicly funded services. In the Calgary area the intake service is Access Mental Health on 403-943-1500. All of them are free, and all of them route rather than treat.',
+              'Recovery Alberta has run the province’s public mental health and addiction services since 1 September 2024. Its Mental Health Helpline is 1-877-303-2642 and its Addiction Helpline is 1-866-332-2322, both 24/7 and confidential. Health Link on 811 gives non-urgent advice and referral into publicly funded services, and in the Calgary area the intake service is Access Mental Health on 403-943-1500. All of them are free, and all of them route rather than treat.',
           },
           {
             label: '211 Alberta',
@@ -108,8 +122,9 @@ export const albertaResources: Resource[] = [
     },
     faqs: [
       {
-        q: 'Does AHCIP cover any counselling at all?',
-        a: 'It covers physicians, so a conversation with your family doctor or a psychiatrist you have been referred to is covered. Counselling from a counsellor or psychotherapist in private practice is not, regardless of their credentials.',
+        /* Was "Does AHCIP cover any counselling at all?" (1 Oct 2026). */
+        q: 'Does Alberta Health Care cover counselling?',
+        a: 'Only through physicians. Alberta Health Care (AHCIP) covers physicians, so a conversation with your family doctor or a psychiatrist you have been referred to is covered. Counselling from a counsellor or psychotherapist in private practice is not, regardless of their credentials.',
       },
       {
         q: 'Is a Canadian Certified Counsellor recognised in Alberta?',
@@ -129,7 +144,8 @@ export const albertaResources: Resource[] = [
       /* The Page9985 URL cited here until 3 Sep answered 200 and redirected to
          NotFound.aspx — a soft 404, which link-rot.mjs catches and a status
          check alone would not. */
-      { label: 'Addiction and mental health, Alberta Health Services', url: 'https://www.albertahealthservices.ca/amh/amh.aspx' },
+      { label: 'Recovery Alberta, mental health and addiction helplines (read 1 Oct 2026)', url: 'https://recoveryalberta.ca/page14060.aspx' },
+      { label: 'Canadian Counselling and Psychotherapy Association, regulation in Alberta', url: 'https://www.ccpa-accp.ca/regulation-in-alberta/' },
       { label: '211 Alberta', url: 'https://ab.211.ca/' },
       { label: 'Canadian Counselling and Psychotherapy Association', url: 'https://www.ccpa-accp.ca/' },
     ],

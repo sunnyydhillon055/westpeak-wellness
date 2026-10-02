@@ -2,22 +2,23 @@ import { moreComparisons } from './comparisons-more';
 import { moreComparisons2 } from './comparisons-more2';
 import { fallbackFee, FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
 import { sessionsCovered } from '@/lib/session-arithmetic';
+import { BCACC_INDIVIDUAL, BCPA_PSYCHOLOGIST, BCPA_EFFECTIVE, FEE_GUIDES_READ } from '@/lib/fee-guides';
 
 /* MARKET FEE FIGURES, DATED AND SOURCED — read 1 Oct 2026.
  *
  * The RCC vs psychologist table said "roughly $120–$180" and "$225–$300+" with
  * no source, and its RCC range disagreed with /pricing. These are the two
- * associations' own published figures, the same ones /pricing quotes
- * (app/pricing/page.tsx BCACC_GUIDE and BCPA_RATE); change all of them
- * together if either is reissued. This practice's own fee comes from the
- * catalogue, never typed. */
-const FEE_READ = '1 Oct 2026';
-const BCACC_FEE_GUIDE = { url: 'https://bcacc.ca/bcacc-fee-guide-2026/', individual: '$140–$175' };
+ * associations' own published figures, read from lib/fee-guides.ts, the one
+ * place /pricing, this page, the couples page and the city-service cost FAQ
+ * take them from. This practice's own fee comes from the catalogue, never
+ * typed. */
+const FEE_READ = FEE_GUIDES_READ;
+const BCACC_FEE_GUIDE = { url: BCACC_INDIVIDUAL.sourceUrl ?? '', individual: BCACC_INDIVIDUAL.range };
 const BCPA_RECOMMENDED = {
-  url: 'https://psychologists.bc.ca/professional-resources-hub/bcpa-recommended-rate-2025-2026',
-  hourly: '$245',
-  cents: 24500,
-  effective: '12 May 2025',
+  url: BCPA_PSYCHOLOGIST.sourceUrl ?? '',
+  hourly: BCPA_PSYCHOLOGIST.range,
+  cents: BCPA_PSYCHOLOGIST.highCents ?? 0,
+  effective: BCPA_EFFECTIVE,
 };
 const INDIVIDUAL_CENTS =
   FALLBACK_CATALOG.items.find((i) => i.name === 'Individual Counselling')?.cents ?? 0;
@@ -91,7 +92,7 @@ const coreComparisons: Comparison[] = [
           'Worth settling before the comparison, because the phrase is doing more work than it looks and the search traffic for it is mostly people who have just seen the letters after somebody\'s name.',
           'RCC is a designation awarded by the **BC Association of Clinical Counsellors**, a professional association. It is not a government licence, and that distinction matters in BC more than it would elsewhere: **the words "counsellor" and "therapist" are not protected here.** Anyone may use them, with no training whatsoever and no consequence. That is not a scare tactic, it is the current state of the law.',
           'What the designation requires is a master\'s degree in counselling or a closely related field, a period of supervised clinical practice, ongoing continuing education, liability insurance, and adherence to a code of ethics with a complaints process behind it. The register is public and free to search, so the claim is checkable in a couple of minutes by anybody.',
-          '**"Licensed counsellor" is not a British Columbian term.** It appears in searches constantly because it is the American phrasing, and there is no BC licence that matches it. The nearest equivalent signal here is a registration with a regulatory college or a professional association: RCC through BCACC, R.Psych through the College of Psychologists, or RSW/RCSW through the BC College of Social Workers.',
+          '**"Licensed counsellor" is not a British Columbian term.** It appears in searches constantly because it is the American phrasing, and there is no BC licence that matches it. The nearest equivalent signal here is a registration with a regulatory college or a professional association: RCC through BCACC, R.Psych through the College of Health and Care Professionals of BC (formerly the College of Psychologists of BC), or RSW/RCSW through the BC College of Social Workers.',
           'So when the three are compared below, the comparison is between three different routes to the same broad work, with genuinely different training, scope and cost, not between a licensed professional and an unlicensed one.',
         ],
       },
@@ -115,6 +116,18 @@ const coreComparisons: Comparison[] = [
           { label: "You want a specific modality", detail: "EMDR, the Gottman Method, and most other approaches are training-based, not profession-based. Practitioners of any of the three designations may hold them. Ask about the training directly rather than inferring it from the letters." },
         ],
       },
+      /* Search Console, 26 Sep 2026: "registered psychologist bc" (6 at
+         21.7), "registered psychologists vancouver" (10 at 49.9) and "bc
+         psychologist" (7 at 45), about 40 impressions a period and no clicks.
+         No psychologist fee is quoted beyond BCPA's published rate (R2 #170). */
+      {
+        h2: "Looking for a registered psychologist in BC?",
+        body: [
+          "Psychologists in British Columbia are licensed by the **College of Health and Care Professionals of BC**, which absorbed the formerly separate College of Psychologists of BC when the colleges amalgamated. Its [public registry](https://chcpbc.alinityapp.com/client/publicdirectory) is free to search by name, and shows whether a licence is current and any restrictions on it. Licensee numbers were reissued in June 2026, so search by name rather than by an older number.",
+          "A psychologist is the right door when what you need is an assessment or a diagnosis: an ADHD, learning or cognitive assessment, or a diagnosis letter for a benefits claim, an employer, a school or a legal process. A counsellor cannot provide those, and should say so on the first call.",
+          `If what you need is counselling itself, a Registered Clinical Counsellor is a second door. An individual session here is ${fallbackFee('Individual Counselling')} for 50 minutes, after a free 30-minute consultation, and whether your extended health plan reimburses an RCC depends on the plan, so check that it names the designation. [Fees and coverage](/pricing) has the full table, including the association figures for each kind of practitioner.`,
+        ],
+      },
       {
         h2: "What matters more than the designation",
         body: [
@@ -135,12 +148,14 @@ const coreComparisons: Comparison[] = [
       /* Search Console, 17 Sep 2026: 'what does ccc stand for in counselling', 'ma rcc meaning', 'rcc vs ccc' (position 3.5), 'rsw vs rcc' (6.3), 'registered therapeutic counsellor', 'msw rsw meaning'. */
       { q: 'What does CCC stand for, and how is it different from RCC?', a: 'CCC is Canadian Certified Counsellor, a national certification from the Canadian Counselling and Psychotherapy Association. RCC is Registered Clinical Counsellor, the British Columbia designation from the BC Association of Clinical Counsellors. They have similar entry requirements, a master\'s degree and supervised hours, and some counsellors hold both. For extended health in BC, RCC is the designation most plans name; a CCC alone is covered by some plans and not others.' },
       { q: 'What does "MA, RCC" after a counsellor\'s name mean?', a: 'MA is the master\'s degree, usually in counselling psychology; RCC is the registration with the BC Association of Clinical Counsellors that the degree, supervised hours and an ethics exam make possible. MC or MEd in the same position are also master\'s degrees. The letters after the comma are the ones an insurer looks for.' },
-      { q: 'RSW vs RCC: which should I choose?', a: 'Both can provide counselling and both are regulated. A Registered Social Worker with an MSW has clinical training plus a systems view, and often works with families, housing and benefits alongside therapy; an RCC is trained specifically in counselling and psychotherapy. Many BC extended health plans cover both, depending on the plan. Choose on fit and approach, and check your own plan names the designation.' },
+      /* 1 Oct 2026: this answer opened "both are regulated", which the table
+         above contradicts: BCACC is a voluntary association, not a college. */
+      { q: 'RSW vs RCC: which should I choose?', a: 'Both can provide counselling, but they are overseen differently. A Registered Social Worker is regulated by a statutory college, the BC College of Social Workers; an RCC is registered with the BC Association of Clinical Counsellors, a professional association, until the regulation of psychotherapy in BC begins on 29 November 2027. A Registered Social Worker with an MSW has clinical training plus a systems view, and often works with families, housing and benefits alongside therapy; an RCC is trained specifically in counselling and psychotherapy. Many BC extended health plans cover both, depending on the plan. Choose on fit and approach, and check your own plan names the designation.' },
       { q: 'Is a Registered Therapeutic Counsellor (RTC) the same as an RCC?', a: 'No. RTC is a designation from a different association with different entry requirements, and it is not the one most extended health plans in BC cover. Neither RTC nor RCC is a government licence, since counselling is not a regulated profession in BC; the practical difference is that RCC requires a master\'s degree and is what insurers most commonly name.' },
       { q: 'What does RCC stand for?', a: 'Registered Clinical Counsellor. A designation held through the BC Association of Clinical Counsellors. It signals a master\'s-level counselling qualification, supervised clinical hours, continuing education, insurance and a code of ethics with a complaints process. It is not a government licence, because counselling is not yet a regulated profession in British Columbia.' },
-      { q: 'Is a "licensed counsellor" the same thing in BC?', a: 'No, and strictly there is no such thing here. "Licensed counsellor" is American phrasing and there is no British Columbian licence that corresponds to it. What exists in BC is registration: with the BC Association of Clinical Counsellors, the College of Psychologists of BC, or the BC College of Social Workers. Somebody advertising as a "licensed counsellor" in BC may be perfectly well qualified, but the word is not carrying the meaning it appears to.' },
+      { q: 'Is a "licensed counsellor" the same thing in BC?', a: 'No, and strictly there is no such thing here. "Licensed counsellor" is American phrasing and there is no British Columbian licence that corresponds to it. What exists in BC is registration: with the BC Association of Clinical Counsellors, the College of Health and Care Professionals of BC for psychologists, or the BC College of Social Workers. Somebody advertising as a "licensed counsellor" in BC may be perfectly well qualified, but the word is not carrying the meaning it appears to.' },
       { q: 'What does BCACC require to become an RCC?', a: 'A master\'s degree in counselling psychology or a closely related field, a period of supervised clinical practice, evidence of continuing education, professional liability insurance, and agreement to a code of ethics that includes a public complaints process. Requirements are set by the association and do change, so the current version is on the BCACC site rather than reproduced here.' },
-      { q: 'How do I check that someone is actually registered?', a: 'Search the public register directly rather than trusting a website. BCACC, the College of Psychologists of BC and the BC College of Social Workers each publish a free searchable register, and each will confirm whether a registration is current and in good standing. It takes about two minutes and is worth doing before booking with anybody, including this practice.' },
+      { q: 'How do I check that someone is actually registered?', a: 'Search the public register directly rather than trusting a website. BCACC, the College of Health and Care Professionals of BC (for psychologists) and the BC College of Social Workers each publish a free searchable register, and each will confirm whether a registration is current and in good standing. It takes about two minutes and is worth doing before booking with anybody, including this practice.' },
       {
         q: "Is an RCC a \"real\" therapist?",
         a: "Yes. An RCC holds a master's degree in counselling or an equivalent field, has completed supervised clinical hours, carries professional liability insurance, completes ongoing continuing education, and is bound by the BCACC code of ethics with a formal complaints process. The distinction is that BCACC is a professional association rather than a government college, and that is changing, with psychotherapy regulation beginning in BC on 29 November 2027.",

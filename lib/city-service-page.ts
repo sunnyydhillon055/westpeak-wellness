@@ -5,6 +5,7 @@ import type { CityContext } from '@/lib/city-context';
 import type { Location } from '@/lib/locations';
 import { money, type Catalog } from '@/lib/cliniko-catalog';
 import { site } from '@/lib/site';
+import { GUIDE_FOR_SERVICE } from '@/lib/fee-guides';
 
 /* WHAT A CITY × SERVICE PAGE SAYS FROM DATA — 1 Oct 2026.
  *
@@ -222,9 +223,13 @@ export function generatedFaqs(args: {
   }
 
   if (fee) {
+    /* The association's range beside the fee, 1 Oct 2026 (lib/fee-guides.ts):
+       individual and couples only; an EMDR intensive has no comparable
+       published figure. */
+    const guide = GUIDE_FOR_SERVICE[topic.bookingService];
     out.push({
       q: `What does ${svc} cost in ${ctx.city}, and will my plan cover it?`,
-      a: `In ${ctx.city}, as everywhere in BC, ${svc} is ${fee.fee} for ${fee.minutes} minutes, after a free 30-minute consultation. Many BC extended health plans reimburse a Registered Clinical Counsellor; whether yours does is plan-dependent, so check it for the RCC designation before the first paid session.`,
+      a: `In ${ctx.city}, as everywhere in BC, ${svc} is ${fee.fee} for ${fee.minutes} minutes${guide ? ` (BCACC’s 2026 fee guide recommends ${guide.range})` : ''}, after a free 30-minute consultation. Many BC extended health plans reimburse a Registered Clinical Counsellor; whether yours does is plan-dependent, so check it for the RCC designation before the first paid session.`,
     });
   }
 

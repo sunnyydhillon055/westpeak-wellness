@@ -201,6 +201,8 @@ test('/pricing renders its first-screen prices from the catalogue and sources th
   assert.match(src, /className="price-glance"/);
   assert.match(src, /money\(item\.cents\)\} · \$\{item\.minutes\} min/);
   assert.doesNotMatch(src, /close to double, because/);
-  assert.match(src, /psychologists\.bc\.ca/);
+  /* The BCPA source moved to lib/fee-guides.ts on 1 Oct 2026; the page links it from there. */
+  assert.match(src, /BCPA_PSYCHOLOGIST\.sourceUrl/);
+  assert.match(readFileSync(join(ROOT, 'lib/fee-guides.ts'), 'utf8'), /psychologists\.bc\.ca/);
   assert.match(src, /style=\{GLANCE\.list\}/, 'styles inline, not in the global stylesheet');
 });

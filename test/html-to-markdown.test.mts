@@ -44,6 +44,19 @@ test('chrome is dropped: script, style, svg, nav and the on-this-page list', () 
   assert.equal(out, 'Only this.');
 });
 
+test('a select or datalist outside a form is a control, not prose (1 Oct 2026)', () => {
+  /* The cost estimator's plan picker is not inside a <form>, and its options
+     reached the twin as one run-together line of plan names. */
+  const out = md(`<main>
+    <label for="plan">Your plan</label>
+    <select id="plan"><option>Pacific Blue Cross</option><option>Studentcare</option></select>
+    <datalist id="caps"><option value="500"></option><option value="800"></option></datalist>
+    <p>An individual session is $140.</p>
+  </main>`);
+  assert.doesNotMatch(out, /Pacific Blue Cross|Studentcare|500|800/);
+  assert.match(out, /An individual session is \$140\./);
+});
+
 test('aria-hidden decoration never reaches the text', () => {
   const out = md('<main><p><span aria-hidden="true">·</span>Real text</p></main>');
   assert.equal(out, 'Real text');

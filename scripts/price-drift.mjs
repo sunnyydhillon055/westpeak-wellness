@@ -39,10 +39,10 @@ export const ALLOW = new Map([
   [80, 'plan example: a per-session reimbursement cap'],
   [120, 'market range: typical BC RCC fee, low end'],
   [180, 'market range: typical BC RCC fee, high end'],
-  [155, 'market range: BCACC Fee Guide 2026 band boundary (app/pricing/page.tsx, read 1 Oct 2026)'],
-  [205, 'market range: BCACC Fee Guide 2026 couples and family high end (app/pricing/page.tsx)'],
-  [225, 'market range: typical BC psychologist fee, low end'],
-  [245, 'market rate: BC Psychological Association recommended hourly rate, effective 12 May 2025 (app/pricing/page.tsx, lib/comparisons.ts, read 1 Oct 2026)'],
+  [155, 'market range: BCACC Fee Guide 2026 band boundary (lib/fee-guides.ts, read 1 Oct 2026)'],
+  [205, 'market range: BCACC Fee Guide 2026 couples and family high end (lib/fee-guides.ts)'],
+  [225, 'market range: typical BC psychologist fee, low end; BCACC Fee Guide 2026 specialised services high end (lib/fee-guides.ts)'],
+  [245, 'market rate: BC Psychological Association recommended hourly rate, effective 12 May 2025 (lib/fee-guides.ts, read 1 Oct 2026)'],
   [250, 'market range: psychologist fee'],
   [300, 'market range: typical BC psychologist fee, high end'],
   [500, 'plan example: an annual maximum'],
@@ -175,6 +175,69 @@ export function feeLineGaps(root) {
   return names.filter((n) => !(priced.get(n) > 0));
 }
 
+/* THE MARKET FEE CONSTANT — 1 Oct 2026. lib/fee-guides.ts is the one place
+ * the BCACC and BCPA figures are written; /pricing, the RCC vs psychologist
+ * comparison, the couples page and the city-service cost FAQ read it. Two
+ * things can still go wrong without any page erroring: the published wording
+ * ("$155 to $205") and the numbers beside it (lowCents, highCents) can
+ * disagree, and someone can type the range again somewhere else, which is
+ * how the two copies this replaced came about. Both fail the run. */
+const GUIDE_ENTRY = /range: '([^']*)',\s*lowCents: (null|\d+),\s*highCents: (null|\d+),[\s\S]*?readOn: ([A-Z_]+|'[^']*'),/g;
+
+/** Entries in lib/fee-guides.ts whose wording, numbers or date disagree. */
+export function feeGuideProblems(source) {
+  const problems = [];
+  const read = (source.match(/FEE_GUIDES_READ_ON = '([^']+)'/) || [])[1];
+  if (!read || !/^\d{4}-\d{2}-\d{2}$/.test(read)) problems.push('FEE_GUIDES_READ_ON is not an ISO date');
+  let n = 0;
+  for (const m of source.matchAll(GUIDE_ENTRY)) {
+    n++;
+    const [, range, lo, hi, readOn] = m;
+    const date = readOn.startsWith("'") ? readOn.slice(1, -1) : read;
+    if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) problems.push(`"${range}" has no readable readOn date`);
+    const figures = [...range.matchAll(/\$(\d[\d,]*)/g)].map((f) => Number(f[1].replace(/,/g, '')) * 100);
+    if (lo === 'null' || hi === 'null') {
+      if (figures.length) problems.push(`"${range}" states a figure but its cents are null`);
+      continue;
+    }
+    const want = figures.length === 1 ? [figures[0], figures[0]] : figures;
+    if (want.length !== 2 || want[0] !== Number(lo) || want[1] !== Number(hi)) {
+      problems.push(`"${range}" does not match lowCents ${lo} / highCents ${hi}`);
+    }
+  }
+  if (n === 0) problems.push('no entries read from lib/fee-guides.ts');
+  return problems;
+}
+
+/** The published two-figure ranges in lib/fee-guides.ts ("$155 to $205"). */
+export function guideRanges(source) {
+  return [...source.matchAll(/range: '(\$\d+ to \$\d+)'/g)].map((m) => m[1]);
+}
+
+/* A range typed outside lib/fee-guides.ts, in either spelling ("$155 to
+   $205", "$155–$205", "$155-$205"). Comments included: a comment restating
+   a figure is the copy that goes stale first. */
+export function typedGuideRanges(root) {
+  const source = readFileSync(join(root, 'lib/fee-guides.ts'), 'utf8');
+  const pats = guideRanges(source).map((r) => {
+    const [a, b] = r.match(/\d+/g);
+    return { r, re: new RegExp(`\\$${a}\\s*(?:to|-|\\u2013|\\u2014)\\s*\\$${b}(?!\\d)`) };
+  });
+  const found = [];
+  for (const top of ['lib', 'app', 'components']) {
+    let files;
+    try { files = [...walk(join(root, top))]; } catch { continue; }
+    for (const f of files) {
+      const rel = relative(root, f).replace(/\\/g, '/');
+      if (rel === 'lib/fee-guides.ts') continue;
+      readFileSync(f, 'utf8').split('\n').forEach((line, i) => {
+        for (const p of pats) if (p.re.test(line)) found.push({ file: rel, line: i + 1, range: p.r });
+      });
+    }
+  }
+  return found;
+}
+
 async function main() {
   let problems = 0;
   const bad = (msg) => { problems++; console.log(`   DRIFT  ${msg}`); };
@@ -197,6 +260,15 @@ async function main() {
   const gaps = feeLineGaps(process.cwd());
   for (const n of gaps) bad(`lib/counsellor-cards.ts FEE_LINE_ITEMS reads "${n}", which FALLBACK_CATALOG does not price`);
   if (!gaps.length) console.log('    ok    every name the closing fee line reads is priced in the fallback');
+  console.log('\n  Market fee constant (lib/fee-guides.ts)');
+  console.log('  ' + '-'.repeat(72));
+  const guideSource = readFileSync(join(process.cwd(), 'lib/fee-guides.ts'), 'utf8');
+  for (const g of feeGuideProblems(guideSource)) bad(`lib/fee-guides.ts: ${g}`);
+  const retyped = typedGuideRanges(process.cwd());
+  for (const t of retyped) bad(`${t.file}:${t.line} types the range ${t.range}; read it from lib/fee-guides.ts`);
+  if (!retyped.length && !feeGuideProblems(guideSource).length) {
+    console.log(`    ok    wording and figures agree, and no other file types ${guideRanges(guideSource).join(', ')}`);
+  }
   if (problems) {
     console.log(`\n  ${problems} stray figure(s). Read the fee from lib/cliniko-catalog.ts, or allow-list a non-fee figure with a reason.\n`);
     process.exit(1);
