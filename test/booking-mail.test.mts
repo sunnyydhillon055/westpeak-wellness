@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   confirmationEmail, reminderEmail, followUpEmail, consultFollowUpEmail, feeFacts, links,
+  sessionLink, tagged, tagMail, shortWhen, firstSessionTypes, EMAIL_TEMPLATES, SESSION_TEMPLATES,
   type Booking, type BookingPractitioner,
 } from '../lib/booking-mail.ts';
 import { missedSessionEmail, reactivationEmail } from '../lib/lifecycle-mail.ts';
@@ -14,6 +15,9 @@ import {
 } from '../lib/booking-followups.ts';
 import { portalSummary, paidTypesFor } from '../lib/portal-appointments.ts';
 import { cancellationDraft } from '../lib/booking-notify.ts';
+import { resolveBookSession } from '../lib/book-session.ts';
+import { BOOK_LOCATIONS, allowedDetail } from '../lib/conversion-detail.ts';
+import { CHANNELS, channelOf } from '../lib/conversion-detail-client.ts';
 import { mailtoBookingDraft } from '../lib/reply-templates.ts';
 import { tallyEvents, applyEvents, vancouverMonth } from '../lib/booking-tally.ts';
 
@@ -42,7 +46,17 @@ const booking = (over: Partial<Booking> = {}): Booking => ({
   minutes: 30, isConsult: true, ...over,
 });
 const all = (m: { subject: string; text: string; html: string }) => `${m.subject}\n${m.text}\n${m.html}`;
-const hrefs = (html: string) => [...html.matchAll(/href="([^"]+)"/g)].map((x) => x[1]);
+/* Where each link in the HTML actually lands, since 1 Oct 2026: the email
+   source tag is removed (tagMail) and a /book/session hop is followed to
+   the calendar it redirects to (resolveBookSession), so the assertions below
+   still say which calendar a person reaches. */
+const untag = (h: string) => h.replace(/&amp;/g, '&').replace(/[?&]utm_source=email&utm_campaign=[a-z0-9]+/, (m) => (m.startsWith('?') ? '?' : '')).replace(/\?(#|$)/, '$1').replace('?&', '?');
+const land = (h: string) => {
+  const u = untag(h);
+  return u.startsWith(`${site.domain}/book/session?`) ? resolveBookSession(new URL(u).searchParams).location : u;
+};
+const rawHrefs = (html: string) => [...html.matchAll(/href="([^"]+)"/g)].map((x) => x[1]);
+const hrefs = (html: string) => rawHrefs(html).map(land);
 
 /* ---- #6 the paid follow-up books the paid calendar ---------------------- */
 
@@ -52,7 +66,9 @@ test('the after-session note books that counsellor\'s paid calendar, never /book
   assert.ok(h.some((x) => x.includes(`practitioner_id=${SAVNEET_ID}`)), 'paid calendar for her');
   assert.ok(h.some((x) => x.startsWith(site.bookingsPaidUrl)));
   assert.ok(!h.some((x) => x === `${site.domain}${site.bookingPath}` || x.startsWith(`${site.domain}${site.bookingPath}?`)), 'no /book href');
-  assert.ok(m.text.includes(`practitioner_id=${SAVNEET_ID}`));
+  /* The plain-text link is the first-party hop, which lands on her calendar. */
+  assert.ok(m.text.includes(sessionLink(SAVNEET, undefined, 'after')));
+  assert.ok(land(sessionLink(SAVNEET, undefined, 'after')).includes(`practitioner_id=${SAVNEET_ID}`));
   assert.ok(!m.text.includes(`${site.domain}/book\n`));
 });
 
@@ -174,12 +190,12 @@ test('a missed consultation rebooks the free consultation with the same counsell
   const m = missedSessionEmail('Riya', { isConsult: true, practitionerSlug: 'savneet-singh' });
   const s = all(m);
   assert.ok(s.includes('free'));
-  assert.ok(s.includes(`${site.domain}/book?with=savneet-singh#calendar`));
+  assert.ok(hrefs(m.html).includes(`${site.domain}/book?with=savneet-singh#calendar`));
   assert.ok(!s.includes(site.bookingsPaidUrl));
   assert.ok(!s.includes('$'));
   /* A missed paid session keeps its own note; with no counsellor known, the
      practice-wide paid calendar, signed by the practice. */
-  assert.ok(all(missedSessionEmail('Riya')).includes(site.bookingsPaidUrl));
+  assert.ok(hrefs(missedSessionEmail('Riya').html).includes(site.bookingsPaidUrl));
 });
 
 /* ---- #173 paid mail uses her calendar, her type and her name ------------- */
@@ -213,7 +229,8 @@ test('a paid calendar narrows to one type only when that type is a paid one', ()
 test('the paid follow-up is signed by her and opens her calendar for the same type', () => {
   const m = followUpEmail(booking({ isConsult: false, minutes: 50, practitioner: SAVNEET, typeId: IND_TYPE }));
   assert.ok(/Savneet\nWestpeak Wellness/.test(m.text));
-  assert.ok(m.text.includes(bookingsPaidUrlFor(SAVNEET_ID, IND_TYPE)));
+  assert.ok(m.text.includes(sessionLink(SAVNEET, IND_TYPE, 'after')));
+  assert.equal(land(sessionLink(SAVNEET, IND_TYPE, 'after')), bookingsPaidUrlFor(SAVNEET_ID, IND_TYPE));
 });
 
 /* ---- #172 the follow-up states the next session ------------------------- */
@@ -503,5 +520,178 @@ test('the after-consult and after-session drafts carry the plan-year note only 1
   for (const key of ['rebook-consult', 'reschedule-session'] as const) {
     const d = decodeURIComponent(mailtoBookingDraft('r@example.com', key, { ...base, now: new Date('2026-11-02T19:00:00Z') }));
     assert.doesNotMatch(d, /31 December/, key);
+  }
+});
+
+/* ---- #254 the consult follow-up: confirm a booked first session, or offer hers */
+
+const WITH_SERVICES = (slug: string): BookingPractitioner => ({
+  ...asBooking(slug),
+  services: practitioners.find((x) => x.slug === slug)!.services,
+});
+
+test('a booked first session is confirmed, with no calendar link, no fee pitch and the paid terms', () => {
+  const m = consultFollowUpEmail(booking({
+    practitioner: WITH_SERVICES('savneet-singh'),
+    next: { whenText: 'Tuesday, October 13 at 6:00 p.m.', withName: 'Savneet Singh, RCC', startsAt: '2026-10-14T01:00:00Z' },
+  }));
+  assert.equal(m.subject, 'Your first session is booked | Westpeak Wellness');
+  const s = all(m);
+  assert.ok(s.includes('Tuesday, October 13 at 6:00 p.m.') && s.includes('Savneet Singh, RCC'));
+  assert.ok(hrefs(m.html).includes(links.firstSession), 'what happens in a first full session');
+  assert.ok(m.text.replace(/\s+/g, ' ').includes('50% of the fee is kept'), 'the paid cancellation terms');
+  /* Acceptance: no paid-calendar URL in the 'next' branch, direct or by hop. */
+  assert.ok(!s.includes('cliniko.com/bookings') && !s.includes('/book/session'), 'no calendar link');
+  assert.ok(!/go ahead|\$\d/.test(s), 'no "go ahead" and no fee');
+  assert.ok(!m.html.includes('Book a first session'));
+  assert.ok(/Savneet\nWestpeak Wellness/.test(m.text));
+});
+
+test('nothing booked: a Savneet consult names only the individual fee and opens her individual calendar', () => {
+  const m = consultFollowUpEmail(booking({ practitioner: WITH_SERVICES('savneet-singh') }));
+  const ind = FALLBACK_CATALOG.items.find((i) => i.id === IND_TYPE)!;
+  const cou = FALLBACK_CATALOG.items.find((i) => i.id === '1909558292636502700')!;
+  const flat = m.text.replace(/\s+/g, ' ');
+  assert.ok(flat.includes(money(ind.cents)) && m.html.includes(money(ind.cents)));
+  assert.ok(!flat.includes(money(cou.cents)) && !/couples/i.test(flat), 'no fee for a type she does not offer');
+  assert.ok(m.html.includes('Book a first session with Savneet'));
+  const target = new URL(hrefs(m.html).find((h) => h.includes('practitioner_id='))!);
+  assert.equal(target.searchParams.get('practitioner_id'), SAVNEET_ID);
+  assert.equal(target.searchParams.get('appointment_type_id'), IND_TYPE);
+  assert.ok(m.text.includes(sessionLink(WITH_SERVICES('savneet-singh'), IND_TYPE, 'consult')));
+});
+
+test('nothing booked: Camille offers both of her first-session fees and her calendar, not narrowed to one type', () => {
+  const m = consultFollowUpEmail(booking({ practitioner: WITH_SERVICES('camille-granda') }));
+  assert.equal(firstSessionTypes(FALLBACK_CATALOG, WITH_SERVICES('camille-granda').services).length, 2);
+  const target = new URL(hrefs(m.html).find((h) => h.includes('practitioner_id='))!);
+  assert.equal(target.searchParams.get('practitioner_id'), CAMILLE_ID);
+  assert.ok((target.searchParams.get('appointment_type_id') ?? '').includes(','), 'all her paid types');
+  assert.ok(m.html.includes('Book a first session with Camille'));
+});
+
+test('the consult follow-up reads the catalogue it is given, not the fallback', () => {
+  const live = { ...FALLBACK_CATALOG, live: true, items: FALLBACK_CATALOG.items.map((i) => (i.id === IND_TYPE ? { ...i, cents: 15500 } : i)) };
+  const m = consultFollowUpEmail(booking({ practitioner: WITH_SERVICES('savneet-singh') }), live);
+  assert.ok(m.text.includes('$155') && !m.text.includes('$140'));
+  /* A catalogue with no price for her type: no fee sentence, and the button
+     opens her calendar on all paid types rather than a type it cannot price. */
+  const empty = consultFollowUpEmail(booking({ practitioner: WITH_SERVICES('savneet-singh') }), { ...FALLBACK_CATALOG, items: [] });
+  assert.ok(!empty.text.includes('$'));
+  assert.equal(new URL(hrefs(empty.html).find((h) => h.includes('practitioner_id='))!).searchParams.get('appointment_type_id')!.split(',').length, 4);
+});
+
+/* ---- #272 the email source, and the first-party hop to the paid calendar -- */
+
+test('tagged() adds the email source to site links only, before the fragment', () => {
+  assert.equal(tagged(`${site.domain}/pricing`, 'consult'), `${site.domain}/pricing?utm_source=email&utm_campaign=consult`);
+  assert.equal(tagged(`${site.domain}/book?with=camille-granda#calendar`, 'magnet'), `${site.domain}/book?with=camille-granda&utm_source=email&utm_campaign=magnet#calendar`);
+  assert.equal(tagged(site.domain, 'ack'), `${site.domain}?utm_source=email&utm_campaign=ack`);
+  for (const same of [
+    site.bookingsPaidUrl,
+    `${site.domain}/api/unsubscribe?e=a%40b.c&t=x`,
+    `${site.domain}/book/session?from=after`,
+    `${site.domain}.evil.example/x`,
+    'mailto:info@westpeakwellness.com',
+  ]) assert.equal(tagged(same, 'after'), same);
+  const m = tagMail({ text: `See ${site.domain}/faq. Or ${site.domain}/pricing, then`, html: `<a href="${site.domain}/faq">x</a>` }, 'remind');
+  assert.ok(m.text.includes(`${site.domain}/faq?utm_source=email&utm_campaign=remind. Or`), 'the full stop stays outside the link');
+  assert.ok(m.text.includes(`${site.domain}/pricing?utm_source=email&utm_campaign=remind, then`));
+  assert.ok(m.html.includes(`href="${site.domain}/faq?utm_source=email&utm_campaign=remind"`));
+});
+
+test('every site link in every booking and lifecycle email carries its template', () => {
+  const built: [string, { text: string; html: string }][] = [
+    ['confirm', confirmationEmail(booking({ practitioner: SAVNEET }))],
+    ['remind', reminderEmail(booking({ practitioner: SAVNEET }))],
+    ['consult', consultFollowUpEmail(booking({ practitioner: WITH_SERVICES('savneet-singh') }))],
+    ['after', followUpEmail(booking({ isConsult: false, practitioner: SAVNEET }))],
+    ['missed', missedSessionEmail('Riya', { isConsult: true, practitionerSlug: 'savneet-singh' })],
+    ['missed', missedSessionEmail('Riya', { isConsult: false, counsellor: { ...SAV_MAIL, slug: 'savneet-singh' }, typeId: IND_TYPE })],
+    ['reactivation', reactivationEmail('Riya', { ...SAV_MAIL, slug: 'savneet-singh' })],
+  ];
+  for (const [tpl, m] of built) {
+    assert.ok((EMAIL_TEMPLATES as readonly string[]).includes(tpl));
+    const site_ = rawHrefs(m.html).filter((h) => h.startsWith(site.domain));
+    assert.ok(site_.length > 0, tpl);
+    for (const h of site_) {
+      if (h.startsWith(`${site.domain}/book/session?`)) {
+        assert.ok(h.endsWith(`from=${tpl}`), `${tpl}: ${h}`);
+        assert.ok(SESSION_TEMPLATES.includes(tpl as never), `${tpl} is a session template`);
+      } else assert.ok(h.includes(`utm_source=email&utm_campaign=${tpl}`), `${tpl}: ${h}`);
+    }
+    assert.ok(!rawHrefs(m.html).some((h) => h.includes('cliniko.com/bookings')), `${tpl}: no raw Cliniko link`);
+  }
+});
+
+test('/book/session redirects only to a paid calendar this site builds, and counts only a listed template', () => {
+  const at = (q: string) => resolveBookSession(new URLSearchParams(q));
+  assert.deepEqual(at(`with=savneet-singh&type=${IND_TYPE}&from=consult`), {
+    location: bookingsPaidUrlFor(SAVNEET_ID, IND_TYPE), detail: 'email:consult/savneet-singh',
+  });
+  assert.deepEqual(at('from=reactivation'), { location: site.bookingsPaidUrl, detail: 'email:reactivation' });
+  /* A slug off the roster, or someone not on the online calendar: practice-wide. */
+  assert.deepEqual(at('with=nobody&from=after'), { location: site.bookingsPaidUrl, detail: 'email:after' });
+  assert.equal(at('with=aman-bains-dhillon&from=after').location, site.bookingsPaidUrl);
+  assert.equal(at('with=aman-bains-dhillon&from=after').detail, 'email:after');
+  /* The free consultation, a list, or junk is never passed through as a type. */
+  for (const t of [CONSULT_TYPE, `${IND_TYPE},999`, '999', 'https://evil.example', '']) {
+    assert.equal(at(`with=camille-granda&type=${encodeURIComponent(t)}&from=after`).location, bookingsPaidUrlFor(CAMILLE_ID), t);
+  }
+  /* A template off the list, or a template that does not link here: nothing counted. */
+  for (const f of ['', 'ack', 'magnet', 'email:consult', 'x'.repeat(90)]) assert.equal(at(`from=${encodeURIComponent(f)}`).detail, null, f);
+  for (const t of SESSION_TEMPLATES) {
+    assert.ok(BOOK_LOCATIONS.includes(`email:${t}`), `email:${t} is a known book_click location`);
+    assert.equal(allowedDetail('book_click', `email:${t}/savneet-singh`), `email:${t}/savneet-singh`);
+  }
+  assert.ok((CHANNELS as readonly string[]).includes('email'));
+  assert.equal(channelOf('email'), 'email');
+});
+
+test('the email links are built from sessionLink and carry nothing about the person', () => {
+  const href = sessionLink(SAVNEET, IND_TYPE, 'after');
+  const u = new URL(href);
+  assert.equal(u.pathname, '/book/session');
+  assert.deepEqual([...u.searchParams.keys()].sort(), ['from', 'type', 'with']);
+  /* No Cliniko id on the roster entry: not named, exactly as before. */
+  assert.ok(!sessionLink({ slug: 'aman-bains-dhillon' }, undefined, 'after').includes('with='));
+  assert.ok(!sessionLink(null, 'not-a-number', 'after').includes('type='));
+});
+
+/* ---- #287 the inbox preview line and the day in the subject -------------- */
+
+const preheaderOf = (html: string) => (/<div style="display:none;[^"]*">\s*([\s\S]*?)(?:&#8203;|<\/div>)/.exec(html)?.[1] ?? '').trim();
+const h1Of = (html: string) => (/<h1[^>]*>([\s\S]*?)<\/h1>/.exec(html)?.[1] ?? '').trim();
+
+test('confirmation and reminder put the day and time in the subject and the preview, never the service', () => {
+  const b = booking({ practitioner: CAMILLE, startsAt: '2026-10-09T21:00:00Z' });
+  assert.equal(shortWhen('2026-10-09T21:00:00Z'), 'Fri, Oct 9, 2:00 p.m.');
+  assert.equal(shortWhen(undefined), null);
+  assert.equal(shortWhen('not a date'), null);
+  const c = confirmationEmail(b);
+  assert.equal(c.subject, 'Free consultation booked: Fri, Oct 9, 2:00 p.m. | Westpeak Wellness');
+  assert.equal(preheaderOf(c.html), 'Fri, Oct 9, 2:00 p.m. Pacific · with Camille Granda · secure video, no office');
+  const r = reminderEmail({ ...b, isConsult: false, minutes: 50 });
+  assert.equal(r.subject, 'Tomorrow, Fri, Oct 9, 2:00 p.m.: your session | Westpeak Wellness');
+  for (const m of [c, r]) assert.ok(!/individual|couples|emdr|punjabi|tagalog/i.test(m.subject));
+  /* Without a start time, the subjects are what they were. */
+  assert.equal(reminderEmail(booking()).subject, 'Tomorrow: your free online consultation | Westpeak Wellness');
+});
+
+test('no client booking or lifecycle email has a preview line equal to its heading', () => {
+  const b = booking({ practitioner: SAVNEET, startsAt: '2026-10-09T21:00:00Z' });
+  const all_ = [
+    confirmationEmail(b), confirmationEmail({ ...b, isConsult: false }), confirmationEmail(booking()),
+    reminderEmail(b), reminderEmail(booking({ isConsult: false })),
+    consultFollowUpEmail(b), consultFollowUpEmail(booking()),
+    consultFollowUpEmail({ ...b, next: { whenText: 'Tuesday, October 13 at 6:00 p.m.', withName: 'Savneet Singh, RCC' } }),
+    followUpEmail({ ...b, isConsult: false }), followUpEmail(booking({ isConsult: false, next: { whenText: 'Tuesday' } })),
+    missedSessionEmail('Riya', { isConsult: true }), missedSessionEmail('Riya'), reactivationEmail('Riya'),
+  ];
+  for (const m of all_) {
+    const pre = preheaderOf(m.html);
+    assert.ok(pre.length > 10, m.subject);
+    assert.notEqual(pre, h1Of(m.html), m.subject);
+    assert.ok(!pre.includes('undefined') && !pre.includes('null'), pre);
   }
 });

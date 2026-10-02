@@ -547,7 +547,7 @@ test('297: earned links are reduced to edu, press and org, and the server takes 
     assert.equal(channelOf(c), c);
     assert.equal(allowedDetail('channel_visit', c), c);
   }
-  assert.deepEqual(CHANNELS.slice(-2), ['press', 'student'], 'appended, nothing reordered');
+  assert.deepEqual(CHANNELS.slice(-3), ['press', 'student', 'email'], 'appended, nothing reordered');
   assert.deepEqual(REFERRER_CLASSES.slice(0, 7), ['google', 'bing', 'duckduckgo', 'ai', 'listing', 'none', 'other']);
 });
 

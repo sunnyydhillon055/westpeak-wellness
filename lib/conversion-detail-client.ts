@@ -60,6 +60,11 @@ export const CHANNELS = [
      society's, which is not the campus wellness office. Appended, never
      reordered. */
   'press', 'student',
+  /* The practice's own automated email (tagMail in lib/booking-mail.ts):
+     not an organisation, but the one link source that is neither search nor
+     somebody else's page. The template rides in utm_campaign and is not
+     counted here. 1 Oct 2026. */
+  'email',
 ] as const;
 
 /* EARNED LINKS (1 Oct 2026). A paper, a university or an agency that links

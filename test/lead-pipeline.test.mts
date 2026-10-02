@@ -11,6 +11,7 @@ import { getTemplate } from '../lib/reply-templates.ts';
 import { measuredReply, measuredReplySentence, contactReplyLine } from '../lib/reply-line.ts';
 import { FALLBACK_CATALOG } from '../lib/cliniko-catalog.ts';
 import { practitioners } from '../lib/practitioners.ts';
+import { tagged } from '../lib/booking-mail.ts';
 
 /* The lead pipeline as rebuilt on 1 Oct 2026: what email 1 promises, who the
    acknowledgement names, the "mark answered" link, what counts as a real
@@ -49,7 +50,8 @@ test('email 1 offers each accepting, bookable counsellor by her own calendar', (
   }
   assert.ok(!lines.some((l) => l.slug === 'aman-bains-dhillon'));
   const m = checklistEmail('', { roster: lines });
-  for (const l of lines) assert.ok(m.text.includes(l.href) && m.html.includes(l.href));
+  /* Each link carries the email source since 1 Oct 2026 (tagMail). */
+  for (const l of lines) assert.ok(m.text.includes(tagged(l.href, 'magnet')) && m.html.includes(tagged(l.href, 'magnet')));
 });
 
 test('the HSA and direct-billing lines make no coverage promise', () => {

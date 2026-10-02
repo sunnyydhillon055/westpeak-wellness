@@ -1,5 +1,5 @@
 import { site } from '@/lib/site';
-import { shell, btn, p, a, esc, wrap, links } from '@/lib/booking-mail';
+import { shell, btn, p, a, esc, wrap, links, tagMail } from '@/lib/booking-mail';
 import { readInbound, type Inbound } from '@/lib/inbound';
 import { nurtureDecision, magnetWords, type MagnetWords, type NurtureSkip } from '@/lib/nurture-plan';
 import { rosterLines, rosterText, rosterHtml, individualFeeLine, type RosterLine } from '@/lib/lead-roster';
@@ -98,6 +98,22 @@ export function unsubLink(email: string): string {
   return `${site.domain}/api/unsubscribe?e=${encodeURIComponent(email)}&t=${unsubToken(email)}`;
 }
 
+/* ONE-CLICK UNSUBSCRIBE IN THE HEADER, 1 Oct 2026 (RFC 8058).
+ *
+ * The link was in the body only, so Gmail and Yahoo offered nothing but
+ * "Report spam" beside a lead email, and nurture mail signs on the same root
+ * domain as booking confirmations. These two headers put an Unsubscribe
+ * control next to the sender; the client POSTs "List-Unsubscribe=One-Click"
+ * to the same signed link, which app/api/unsubscribe/route.ts accepts. Lead
+ * and nurture mail only (email 1 in lib/inbound-submit.ts, emails 2 and 3
+ * below): booking and portal mail is transactional and never carries them. */
+export function unsubHeaders(email: string): Record<string, string> {
+  return {
+    'List-Unsubscribe': `<${unsubLink(email)}>, <mailto:${site.email}?subject=unsubscribe>`,
+    'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
+  };
+}
+
 export async function optOut(email: string): Promise<void> {
   const e = normalizeEmail(email);
   const current = await readSent();
@@ -114,9 +130,20 @@ const footerNote = (email: string, w: MagnetWords) =>
      <a href="${unsubLink(email)}" style="color:#545e69;">Unsubscribe</a>, one click, no questions.
    </p>`;
 
-export function email2(firstName: string, to: string, magnet?: string) {
+/* SINCE 1 OCT 2026 email 2 has a booking step. Its one button was the guide
+   to a first PAID session; it now opens the page about the free 30-minute
+   call, and the counsellors follow by name, each linking her own calendar,
+   as email 3 already does. The guide stays as a link in the paragraph. Same
+   send, same day, same consent: nothing is added to the sequence. */
+export function email2(
+  firstName: string,
+  to: string,
+  magnet?: string,
+  extras: { roster?: RosterLine[] } = {}
+) {
   const w = magnetWords(magnet);
   const hi = firstName ? `Hi ${firstName},` : 'Hi,';
+  const roster = extras.roster ?? rosterLines();
   const text = wrap(
 `${hi}
 
@@ -133,6 +160,12 @@ question than what is wrong.
 The longer version:
 ${links.firstSession}
 
+Before any of that, there is a free 30-minute call, which is a
+conversation rather than an intake. What it is like:
+${links.consultPrep}
+
+${roster.length ? `Each counsellor's own calendar:\n\n${rosterText(roster)}` : links.book}
+
 And if you are not sure which kind of counselling fits, or whether it
 is counselling you need at all. This takes about two minutes, and
 several of its answers point somewhere other than here:
@@ -147,12 +180,17 @@ Unsubscribe: ${unsubLink(to)}`);
     'What actually happens in a first session',
     p(esc(hi)) +
     p('One of the most common reasons people put off booking is not cost. It is not knowing what a first session is like, and imagining something more exposing than it is.') +
-    p('Briefly: you will not be asked to lie on anything. You will not have to start at the beginning of your life. &ldquo;I don&rsquo;t want to go into that yet&rdquo; is a complete sentence and a reasonable one. Most of a first session is working out what you want to be different, which is a more useful question than what is wrong.') +
-    btn(links.firstSession, 'The longer version') +
+    p(`Briefly: you will not be asked to lie on anything. You will not have to start at the beginning of your life. &ldquo;I don&rsquo;t want to go into that yet&rdquo; is a complete sentence and a reasonable one. Most of a first session is working out what you want to be different, which is a more useful question than what is wrong. ${a(links.firstSession, 'The longer version')}.`) +
+    p('Before any of that, there is a free 30-minute call, which is a conversation rather than an intake.') +
+    btn(links.consultPrep, 'What the free 30 minutes is like') +
+    (roster.length
+      ? p('Each counsellor&rsquo;s own calendar:') + rosterHtml(roster)
+      : btn(links.book, 'Book a free consultation')) +
     p(`And if you are not sure which kind of counselling fits, or whether it is counselling you need at all, ${a(`${site.domain}/tools/which-service`, 'this takes about two minutes')}, and several of its answers point somewhere other than here.`) +
-    footerNote(to, w)
+    footerNote(to, w),
+    'No couch, no life story, and a free 30-minute call before any of it',
   );
-  return { subject: 'What actually happens in a first session', text, html };
+  return tagMail({ subject: 'What actually happens in a first session', text, html }, 'nurture2');
 }
 
 /* Email 3 names who the consultation would be with, each linking her own
@@ -211,9 +249,12 @@ Unsubscribe: ${unsubLink(to)}`);
     (season ? p(`<span style="color:#545e69;font-size:14px;">${esc(season)}</span>`) : '') +
     p('It is also a perfectly good outcome of that call to conclude that someone else is a better fit, or that now is not the time. If that is where it lands, you will be told so plainly rather than sold to.') +
     p(`If the timing is wrong, that is completely fine, ${a(links.guides, 'the guides stay up and cost nothing')}.`) +
-    footerNote(to, w)
+    footerNote(to, w),
+    roster.length
+      ? `The last of three: a free call with ${roster.map((r) => r.firstName).join(' or ')}, if it is useful`
+      : 'The last of three: a free 30-minute call, if it is useful',
   );
-  return { subject: 'Thirty minutes, if it is useful', text, html };
+  return tagMail({ subject: 'Thirty minutes, if it is useful', text, html }, 'nurture3');
 }
 
 /* ---- the run -------------------------------------------------------------- */
@@ -279,11 +320,11 @@ export async function runNurture(opts: { dry?: boolean } = {}): Promise<NurtureR
 
     const firstName = (lead.name || '').split(/\s+/)[0] ?? '';
     const mail = next === 2
-      ? email2(firstName, e, lead.magnet)
+      ? email2(firstName, e, lead.magnet, { roster })
       : email3(firstName, e, lead.magnet, { roster, feeLine });
 
     if (opts.dry) { base.sent++; step[e] = next; continue; }
-    const res = await sendDetailed(e, mail.subject, mail.text, mail.html, { replyTo: site.email });
+    const res = await sendDetailed(e, mail.subject, mail.text, mail.html, { replyTo: site.email, headers: unsubHeaders(e) });
     if (res.ok) { step[e] = next; base.sent++; }
     else base.failures.push(`nurture ${next} -> ${e}: ${res.detail ?? 'failed'}`);
   }

@@ -1,5 +1,5 @@
 import { site } from '@/lib/site';
-import { shell, btn, p, a, esc, wrap, links, paidCalendarFor, type BookingPractitioner } from '@/lib/booking-mail';
+import { shell, btn, p, a, esc, wrap, links, paidCalendarFor, sessionLink, tagMail, type BookingPractitioner, type EmailTemplate } from '@/lib/booking-mail';
 import { consultReplyTo } from '@/lib/booking-followups';
 
 /* The counsellor a note is about, when the caller knows her. The few fields
@@ -8,12 +8,19 @@ export type MailCounsellor = Pick<BookingPractitioner, 'firstName' | 'clinikoPra
   /** False when she is not on the online calendar: then her calendar is not linked. */
   bookable?: boolean;
   alertEmail?: string;
+  /** Her roster slug, so the link can go through /book/session. */
+  slug?: string;
 };
 
-/* Her own paid calendar when she is on it, else null. */
-const herCalendar = (c?: MailCounsellor | null, typeId?: string): string | null =>
+/* Her own paid calendar when she is on it, else null. Through /book/session
+   when her slug is known (1 Oct 2026), which counts the click against the
+   template and redirects to the same calendar; straight to Cliniko when it
+   is not, as before. */
+const herCalendar = (c: MailCounsellor | null | undefined, typeId: string | undefined, from: EmailTemplate): string | null =>
   c && c.bookable !== false && c.clinikoPractitionerId
-    ? paidCalendarFor({ clinikoPractitionerId: c.clinikoPractitionerId } as BookingPractitioner, typeId)
+    ? (c.slug
+      ? sessionLink({ slug: c.slug, clinikoPractitionerId: c.clinikoPractitionerId }, typeId, from)
+      : paidCalendarFor({ clinikoPractitionerId: c.clinikoPractitionerId } as BookingPractitioner, typeId))
     : null;
 
 /* The two hardest emails in this system to write, and the two most easily got
@@ -50,8 +57,8 @@ const herCalendar = (c?: MailCounsellor | null, typeId?: string): string | null 
    `replyTo` so the caller does not have to work it out. */
 export function reactivationEmail(firstName: string, counsellor?: MailCounsellor | null) {
   const hi = firstName ? `Hi ${firstName},` : 'Hi,';
-  const own = herCalendar(counsellor);
-  const bookUrl = own ?? links.bookSession;
+  const own = herCalendar(counsellor, undefined, 'reactivation');
+  const bookUrl = own ?? sessionLink(null, undefined, 'reactivation');
   const bookLabel = own && counsellor?.firstName ? `Book a session with ${counsellor.firstName}` : 'Book a session';
   const replyTo = own ? consultReplyTo(counsellor ?? undefined) : site.email;
 
@@ -96,10 +103,11 @@ ${site.domain}`);
     btn(bookUrl, bookLabel) +
     p('There is nothing to reply to and nothing you need to do. Finishing when you did was a decision you were entitled to make, and this is not a suggestion that it was the wrong one. It is only so you know the door is open, and where it is.') +
     p(`If it would help to talk about whether now is a sensible time first, the ${a(links.book, 'free 30-minute consultation')} is still free for people who have worked with the practice before.`) +
-    p('<span style="color:#545e69;font-size:14px;">If circumstances have changed and the fee is the obstacle, say so in a reply. There are lower-cost and no-cost options in BC and it is worth being pointed at the right one rather than going without.</span>')
+    p('<span style="color:#545e69;font-size:14px;">If circumstances have changed and the fee is the obstacle, say so in a reply. There are lower-cost and no-cost options in BC and it is worth being pointed at the right one rather than going without.</span>'),
+    'A one-off note: booking is there if you want it, and nothing to reply to',
   );
 
-  return { subject: 'A one-off note from Westpeak Wellness', text, html, replyTo };
+  return tagMail({ subject: 'A one-off note from Westpeak Wellness', text, html, replyTo }, 'reactivation');
 }
 
 /* ---- missed session ------------------------------------------------------- */
@@ -146,10 +154,11 @@ ${site.name}`);
       p('No explanation needed, and nothing is assumed. Plans change, and the call is still there whenever suits.') +
       btn(again, 'Pick another time') +
       p('It is still free, still 30 minutes by secure video, and there is still no obligation to book anything afterwards.') +
-      p('If the time of day was the problem, or something else got in the way, reply and say so. It is easier to change than to work around.')
+      p('If the time of day was the problem, or something else got in the way, reply and say so. It is easier to change than to work around.'),
+      'No explanation needed. The same free 30-minute call is there whenever suits',
     );
 
-    return { subject: 'About yesterday | Westpeak Wellness', text, html };
+    return tagMail({ subject: 'About yesterday | Westpeak Wellness', text, html }, 'missed');
   }
 
   /* NOTHING ABOUT THE FEE. Deliberately, and this is the important line in the
@@ -164,8 +173,8 @@ ${site.name}`);
      was signed by the practice. It now opens her paid calendar for the same
      appointment type, and is signed with her first name; booking-notify sets
      the reply-to to her and info@. Without a counsellor, as before. */
-  const again = herCalendar(consult?.counsellor, consult?.typeId) ?? links.bookSession;
-  const signer = herCalendar(consult?.counsellor) && consult?.counsellor?.firstName
+  const again = herCalendar(consult?.counsellor, consult?.typeId, 'missed') ?? sessionLink(null, undefined, 'missed');
+  const signer = herCalendar(consult?.counsellor, undefined, 'missed') && consult?.counsellor?.firstName
     ? `${consult.counsellor.firstName}\n${site.name}`
     : site.name;
   const text = wrap(
@@ -195,8 +204,9 @@ ${signer}`);
     p('No explanation needed, and nothing is assumed. Missing one is common and it is not treated as a statement about anything.') +
     btn(again, 'Book another time') +
     p('If something got in the way that would be worth knowing about, a change in circumstances, or the time of day no longer working, reply and say so. It is easier to change than to work around.') +
-    (signer !== site.name ? p(esc(signer).replace('\n', '<br>')) : '')
+    (signer !== site.name ? p(esc(signer).replace('\n', '<br>')) : ''),
+    'No explanation needed. Booking another time, whenever suits',
   );
 
-  return { subject: 'About yesterday | Westpeak Wellness', text, html };
+  return tagMail({ subject: 'About yesterday | Westpeak Wellness', text, html }, 'missed');
 }

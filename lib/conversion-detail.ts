@@ -134,6 +134,16 @@ export const BOOK_LOCATIONS: readonly string[] = [
      cards, when the top hit is a bookable service (1 Oct 2026). */
   'search',
   ...tools.map((t) => `tool:${t.slug}`),
+  /* The paid-calendar links in client email, counted by /book/session
+     (app/book/session/route.ts, lib/book-session.ts) when they are opened:
+     one key per template, SESSION_TEMPLATES in lib/booking-mail.ts. Not a
+     button on a page; the redirect counts them server-side. wf/client-mail,
+     1 Oct 2026. Kept ahead of 'calendar-alt', which test/home-copy.test.mts
+     requires to stay last. */
+  'email:consult',
+  'email:after',
+  'email:missed',
+  'email:reactivation',
   /* The "calendar hard to use?" route beside the /book calendar: its email
      link and its link to the Ask-for-a-time form (1 Oct 2026). */
   'calendar-alt',

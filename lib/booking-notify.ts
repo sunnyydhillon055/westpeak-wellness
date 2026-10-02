@@ -9,7 +9,7 @@ import { site, CONSULT_TYPE, bookingsPaidUrlFor } from '@/lib/site';
  * Cliniko key or a mail server. See the header there. */
 import { durationOf, isConsultAppointment } from '@/lib/booking-shape';
 import { practitioners, withLetters, type Practitioner } from '@/lib/practitioners';
-import { FALLBACK_CATALOG, money } from '@/lib/cliniko-catalog';
+import { FALLBACK_CATALOG, money, readCatalog } from '@/lib/cliniko-catalog';
 import { shell, p, esc } from '@/lib/booking-mail';
 import { mailtoBookingDraft } from '@/lib/reply-templates';
 import { tallyEvents, conversionEvents, addToBookingTally } from '@/lib/booking-tally';
@@ -144,6 +144,7 @@ const bookingPractitioner = (pr?: Practitioner): BookingPractitioner | null =>
         firstName: pr.name.split(/\s+/)[0],
         languages: pr.languages.map(({ tag, name }) => ({ tag, name })),
         clinikoPractitionerId: pr.clinikoPractitionerId,
+        services: pr.services,
       }
     : null;
 
@@ -202,7 +203,7 @@ const onCalendar = (pr?: Practitioner): pr is Practitioner & { clinikoPractition
 
 /* The few fields lib/lifecycle-mail.ts needs about her. */
 const mailCounsellor = (pr?: Practitioner) =>
-  pr ? { firstName: pr.name.split(/\s+/)[0], clinikoPractitionerId: pr.clinikoPractitionerId, bookable: pr.bookable, alertEmail: pr.alertEmail } : null;
+  pr ? { firstName: pr.name.split(/\s+/)[0], clinikoPractitionerId: pr.clinikoPractitionerId, bookable: pr.bookable, alertEmail: pr.alertEmail, slug: pr.slug } : null;
 
 /* The draft in a cancellation alert, or null. Exported for the test.
  *
@@ -601,6 +602,15 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
        or when nothing is booked after this one; otherwise it is recorded as
        skipped, once. See paidFollowUpPlan(). */
     const plan = needsFollowUp && !isConsult(ap) ? paidFollowUpPlan(ap, appts, { isConsult }) : null;
+    /* A consultation's follow-up confirms the first session instead of
+       offering one when a paid session is already booked after it (1 Oct
+       2026): counsellors book session one on the call. Paid types only, and
+       still to come; a second consultation is not a first session, and one
+       already held is not "booked" (that person gets the note as before). */
+    const consultNext = needsFollowUp && isConsult(ap)
+      ? nextAfter(appts.filter((o) => o === ap || (!isConsult(o) && Date.parse(o.starts_at) > now)), ap)
+      : null;
+    const nextAppt = plan?.next ?? consultNext;
     if (plan && !plan.send) {
       needsFollowUp = false;
       followUpSkipped.add(id);
@@ -626,8 +636,9 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
       practitioner: bookingPractitioner(practitionerFor(ap)),
       telehealthUrl: telehealthUrlOf(ap),
       typeId: typeIdOf(ap),
-      next: plan?.next
-        ? { whenText: fmt(plan.next.starts_at), withName: bookingPractitioner(practitionerFor(plan.next))?.nameWithLetters }
+      startsAt,
+      next: nextAppt
+        ? { whenText: fmt(nextAppt.starts_at), withName: bookingPractitioner(practitionerFor(nextAppt))?.nameWithLetters, startsAt: nextAppt.starts_at }
         : null,
     };
     /* Replies reach the counsellor whose appointment it is, and info@, since
@@ -661,7 +672,7 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
        * person has already spoken to the practice and is deciding — and the
        * ordinary follow-up says "book your NEXT session", which is wrong for
        * someone who has not had a first one. See consultFollowUpEmail. */
-      const mail = booking.isConsult ? consultFollowUpEmail(booking) : followUpEmail(booking);
+      const mail = booking.isConsult ? consultFollowUpEmail(booking, await readCatalog()) : followUpEmail(booking);
       /* The consultation note is signed by the counsellor the person met, so
          a reply goes to her, with info@ alongside: the same rule as the
          enquiry routing ("enquiries go to the counsellor they are for"). */
