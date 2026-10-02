@@ -17,7 +17,9 @@ test('the middleware list of Alberta places matches ALBERTA_PLACES', () => {
   const mw = readFileSync('middleware.ts', 'utf8');
   for (const s of ALBERTA_PLACE_SLUGS) {
     assert.ok(mw.includes(`'/practitioners/:slug/${s}'`), s);
-    assert.ok(mw.includes(`'/practitioners/:slug/${s}/:lang'`), `${s} twins`);
+    /* Literal twins: Next 14 compiled a trailing ':lang' to '(.json)'. */
+    for (const lang of ['tl', 'pa']) assert.ok(mw.includes(`'/practitioners/:slug/${s}/${lang}'`), `${s}/${lang} twin`);
+    assert.ok(!mw.includes(`'/practitioners/:slug/${s}/:lang'`), `${s}: no :lang matcher`);
   }
 });
 
