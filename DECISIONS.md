@@ -2060,6 +2060,110 @@ Punjabi words page: confidentiality limits now come from
 
 ---
 
+### Visitor-facing Pacific times go through one helper; the time-zone sentence is computed; the availability cache never stores a failure
+Decided 2 Oct 2026 (branch `wf/pacific-time-availability`, items 353, 359,
+363, 371, 372, 382). (1) Pacific times shown to visitors and clients go
+through `lib/pacific-time.ts`. It checks that 2026-12-15T20:00Z reads 1:00
+p.m. and falls back to Etc/GMT+7 from the 2026 spring change if the runtime's
+tz data predates BC's permanent UTC-7 (Node 24.15 / tz 2026a here is stale; CI
+Node 22 is current). `engines` is pinned to 22.x, and prebuild
+(`scripts/tz-probe.mjs`) logs `process.versions.tz` and the probe; it never
+fails the build. (2) The /book time-zone sentence is computed per day from the
+Pacific, Edmonton and Creston offsets, not typed. The "Peace is an hour ahead
+Nov-Mar" claim is removed from /book and from the Fort St. John hub. (3) The
+Cliniko availability cache no longer stores failures: the cached read throws,
+Next keeps the last good value, readers drop anything older than 6h, and
+`consultationAvailability()` returns {} rather than throwing. /admin keeps the
+live read. (4) When a successful read shows no consult time in 14 days, the
+line says so and links the ask-for-a-time form (book_click
+`next-consult-ask`), naming no day or hour. (5) The home hero's next-free-call
+days link to each counsellor's calendar (book_click `hero-next-home`). (6) The
+four long hub descriptions were shortened so they carry the catalogue fee and
+counsellor names.
+
+*Enforced by:* `test/pacific-time.test.mts`,
+`test/availability-summary.test.mts`, `test/info-templates.test.mts`
+
+---
+
+### A refused enquiry lands on /message-not-sent with its reason; AI arrivals are counted; a stalled calendar says so; IndexNow at deploy uses the public key
+Decided 2 Oct 2026 (branch `wf/inbound-and-measurement`, items 357, 365, 373,
+374, 375). (1) City hub enquiries return to /message-sent, and a refusal to
+/message-not-sent (noindex), which gives the refusal rules, info@ as text and
+a mailto, the ask-for-a-time form, and a link back to the form with the draft
+restored from sessionStorage. The reason is an allow-listed `why`
+(email|detail|choices|repeated|store); for `store` the page says the fault is
+ours. /refer now credits its own signups (source=/refer). (2) An empty
+referrer with an assistant `utm_source` fires ai_referral once per session and
+lands as `ai`; Bing Copilot hosts were added to AI_HOST. (3) If Cliniko's
+frame sends no resize within 10 s of being half on screen, a server-rendered
+note offers the counsellor's calendar in a new tab or email, and
+`scheduler_stalled` fires once; /admin shows stalls against opens on /book.
+(4) The deploy-time IndexNow ping no longer uses CRON_SECRET. The IndexNow key
+is public by protocol (served at /<key>.txt so engines can verify host
+control), so `.github/workflows/indexnow.yml` runs
+`scripts/indexnow-deploy.mjs`, which submits sitemap URLs with lastmod on or
+after the commit day plus the retired redirect sources directly to
+api.indexnow.org with that key. It picks URLs with the same
+parseUrlset/selectUrls as the cron and fails on anything but 200/202.
+CRON_SECRET still guards /api/indexnow (the Monday cron and the /admin
+button), which also writes the cron health record.
+
+*Enforced by:* `test/inbound-return.test.mts`,
+`test/conversion-detail.test.mts`, `test/indexnow-deploy.test.mts`
+
+---
+
+### ICBC's own counselling figures; stored markdown always renders; one next-consult line per article; Alberta resources close in Alberta
+Decided 2 Oct 2026 (branch `wf/article-templates`, items 366, 370, 379, 383,
+384, 385). (1) The ICBC page prints ICBC's own counselling figures, read 1 Oct
+2026, from `ICBC_COUNSELLING` in `lib/session-arithmetic.ts`: 12 pre-approved
+treatments; ICBC's rate per treatment of at least 50 minutes for 1 Apr 2026 to
+31 Mar 2027; no referral; receipts reimbursed to ICBC's rate. The catalogue's
+individual fee is set beside it. A test fails when ICBC's window lapses, so
+the April re-read is forced. (2) Markdown links stored in lib copy always
+render through rich(), including inside bold runs. JSON-LD gets plainText()
+(`lib/plain-text.ts`), and quality-audit fails on any raw markdown link inside
+<main>. (3) The next free consultation prints once per page: mid-article
+where NEXT_CONSULT_AFTER names a section, otherwise in NextStep. (4) On
+coverage pages the seasonal year-end block follows the first section, appears
+in the TOC, and does not repeat session arithmetic the page already prints.
+The Alberta copy names no BC insurer. (5) Alberta resources close with the
+Recovery Alberta helpline and no BC link footer, and their midCtas say they
+book. (6) The one-pager email form follows the closing next step on guides
+and resources. `data/changes.json` reads book_click and lead_magnet_submit on
+those pages on 30 Oct.
+
+*Enforced by:* `test/book-cta-links.test.mts`, `test/seasonal.test.mts`,
+`scripts/quality-audit.mjs`
+
+---
+
+### The EI sickness maximum is written once, by year; the practice states what listings get wrong; wider coverage wording gate
+Decided 2 Oct 2026 (branch `wf/copy-figures-anchors`, items 364, 381, 386,
+389). (1) The EI sickness weekly maximum is written once, in
+`lib/benefit-figures.ts`, keyed by Pacific year: 729 for 2026 (MIE 68,900)
+and 749 for 2027 (MIE 70,800, from the ESDC release of 14 Sep 2026). A page
+states the figure for the build year. If a year has no entry, pages keep the
+latest earlier year's figure with that year named. price-drift fails in that
+case, when an entry is not 55% of MIE over 52, or when a weekly figure is
+typed anywhere else, comments included. 729 is no longer on price-drift's
+ALLOW list. Pages are static, so a deploy on or after 1 Jan is what moves them
+to 749. (2) What third-party listings get wrong is now stated by the practice
+on /faq (Getting started), in llms.txt (item 6 of six) and in ai.json `not`.
+The answer gives no hours; the calendar on /book shows the real open times. A
+listed phone number is deliberately not called an error, because the practice
+publishes (604) 259-0810. (3) coverage-claims also rejects "Most <up to five
+words> plans … reimburse" and "usually reimburses" an RCC or counselling. (4)
+Anchors into the stress-leave cluster and verify-a-counsellor use the phrases
+those pages rank for, and never a bare "RCC".
+
+*Enforced by:* `test/benefit-figures.test.mts`,
+`test/coverage-claims-wide.test.mts`, `test/no-hours-metadata.test.mts`,
+`scripts/price-drift.mjs`
+
+---
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`
