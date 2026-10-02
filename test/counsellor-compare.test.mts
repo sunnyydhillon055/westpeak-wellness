@@ -117,9 +117,10 @@ test('/practitioners lists accepting counsellors first, keeping roster order wit
   assert.ok(lowestFee(by('savneet-singh'), FALLBACK_CATALOG)?.startsWith('$'));
 });
 
-test('the new booking locations are registered and calendar-alt stays last', () => {
+test('the new booking locations are registered, appended after every earlier key', () => {
   for (const l of ['practitioners-row', 'place-practitioner', 'counsellor-compare']) assert.ok(BOOK_LOCATIONS.includes(l), l);
-  assert.equal(BOOK_LOCATIONS[BOOK_LOCATIONS.length - 1], 'calendar-alt');
+  assert.equal(BOOK_LOCATIONS[BOOK_LOCATIONS.indexOf('email:reactivation') + 1], 'calendar-alt');
+  assert.ok(BOOK_LOCATIONS.indexOf('practitioners-row') > BOOK_LOCATIONS.indexOf('next-consult-ask'));
   const page = src('app/practitioners/page.tsx');
   assert.match(page, /export const revalidate = 1800/);
   assert.match(page, /location="practitioners-row"/);

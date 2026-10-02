@@ -144,22 +144,22 @@ export const BOOK_LOCATIONS: readonly string[] = [
   'email:after',
   'email:missed',
   'email:reactivation',
-  /* wf/profiles, 2 Oct 2026: the "Book with {first}" button on each
-     accepting row of /practitioners, the next-consultation line under the
-     hero of each counsellor place page, and the "book with" links in the
-     Camille-or-Savneet comparison (components/CounsellorCompare.tsx). Kept
-     ahead of 'calendar-alt', which must stay last. */
-  'practitioners-row',
-  'place-practitioner',
-  'counsellor-compare',
-  /* The "book with {first}" links on the 404 page (2 Oct 2026, wf/services-cards).
-     Placed before 'calendar-alt', which test/home-copy.test.mts holds last. */
-  'counsellor-not-found',
   /* The "calendar hard to use?" route beside the /book calendar: its email
      link and its link to the Ask-for-a-time form (1 Oct 2026). */
   'calendar-alt',
   'hero-next-home',
   'next-consult-ask',
+  /* Batch 2, 2 Oct 2026, appended after the existing keys so no earlier
+     key moves (test/home-copy.test.mts holds 'calendar-alt' straight after
+     'email:reactivation'). wf/profiles: the "Book with {first}" button on
+     each accepting row of /practitioners, the next-consultation line under
+     the hero of each counsellor place page, and the "book with" links in the
+     Camille-or-Savneet comparison (components/CounsellorCompare.tsx).
+     wf/services-cards: the "book with {first}" links on the 404 page. */
+  'practitioners-row',
+  'place-practitioner',
+  'counsellor-compare',
+  'counsellor-not-found',
 ];
 
 /** Every slug on the roster, accepting or not. The founder's cannot reach a
