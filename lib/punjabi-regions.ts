@@ -762,7 +762,7 @@ export const punjabiRegions: PunjabiRegion[] = [
         url: 'https://www.islandhealth.ca/news/news-releases/more-options-available-people-needing-same-day-mental-health-and-addiction-supports',
       },
     ],
-    nearby: ['vancouver', 'kamloops'],
+    nearby: ['vancouver', 'kamloops', 'courtenay'],
   },
   /* MAPLE RIDGE, 2 Oct 2026. ARGUMENT: DISTANCE, said honestly about size.
    *
@@ -1033,6 +1033,69 @@ export const punjabiRegions: PunjabiRegion[] = [
       },
     ],
     nearby: ['abbotsford', 'surrey', 'maple-ridge'],
+  },
+  /* COURTENAY AND THE COMOX VALLEY, 2 Oct 2026. ARGUMENT: SCARCITY, stated
+   * as SMALL. Owner decision of the same day: every city in the October batch
+   * gets its Punjabi page, and where the community is small the page states
+   * the real figure and argues honestly (few same-language counsellors
+   * locally; online reaches one) rather than inflating it. Statistics Canada
+   * 2021 Census Profile, Courtenay census agglomeration (943): Punjabi
+   * mother tongue 185 of 62,665 (0.3%); knowledge of Punjabi 280 of 62,025;
+   * South Asian 625. Read 2 Oct 2026 through StatCan's data service (the
+   * www12 Census Profile pages returned 404 from here that day); cited at the
+   * Census Profile, as every other region is. The figures are for the
+   * census agglomeration, so the copy says so rather than "the Comox Valley".
+   *
+   * Individual only: the Punjabi speaker offers neither couples nor EMDR.
+   * No counsellor is named. */
+  {
+    slug: 'courtenay',
+    figure: { value: '185', label: 'people in the Courtenay census agglomeration gave Punjabi as their mother tongue in 2021: a small community, a long way from where Punjabi-speaking counsellors are concentrated' },
+    region: 'Courtenay',
+    wider: 'the Comox Valley',
+    blurb:
+      'The Comox Valley’s Punjabi-speaking community is small, and so is the chance of finding a counsellor in the valley who works in Punjabi.',
+    metaDescription:
+      'Punjabi-speaking online counselling for Courtenay and the Comox Valley. Individual sessions in Punjabi, English or both, with an RCC. Free consultation.',
+    demography: {
+      stat: 'In the 2021 Census, 185 people in the Courtenay census agglomeration named Punjabi as their mother tongue, and 280 could hold a conversation in it.',
+      body: [
+        'That is a small community, about three in every thousand residents of the Courtenay census agglomeration, which centres on Courtenay, Comox and Cumberland, and this page does not pretend otherwise. In the same census 625 residents identified as South Asian. The figures are in the Statistics Canada 2021 Census Profile cited below.',
+        'Small does not make the need smaller. It changes its shape. In Surrey the difficulty is anonymity inside a large community; here it is the opposite, visibility inside a small one, where the few families who share a language are likely to know each other.',
+        'Punjabi-speaking counsellors in BC are concentrated in the Lower Mainland. From the Comox Valley, seeing one in person has meant the highway south and a ferry each way, for a fifty-minute appointment.',
+      ],
+    },
+    localReality: {
+      h2: 'What is actually available in the Comox Valley',
+      body: [
+        'Island Health’s Comox Valley Mental Health & Substance Use team in Courtenay is the public route for adults, and it takes adults by walk-in or by phone, with no referral. Using it does not rule out private counselling; the two can run at the same time.',
+        'Courtenay and Comox have private counsellors, and for general work in English the valley is not badly served. What it is unlikely to offer is a session held **in Punjabi**: in a community of a few hundred speakers, that is the gap this page is about.',
+        'That gap is wider than it looks from outside. A conversation about a parent’s expectations, a marriage arranged or resisted, or money owed to family back home happens in one language and gets translated into another for an English-only session. Something is lost in that translation every time, usually the part that mattered.',
+        'The rest of what shapes access here, postings, the islands and a valley where people know each other, is set out on [online counselling for the Comox Valley](/online-counselling/courtenay). Further south, most of the Island’s Punjabi-speaking community lives in Saanich, and [Punjabi-speaking counselling for Saanich](/punjabi-counselling/saanich) makes its own case.',
+      ],
+    },
+    access: [
+      { label: 'No ferry for a language', detail: 'Punjabi-speaking counsellors are concentrated on the mainland, so in person has meant the highway south and a sailing. By video the session happens in any private room in the valley with a connection.' },
+      { label: 'Punjabi, English, or both', detail: 'Switch whenever the conversation calls for it. Nobody keeps track of which language a sentence was in, and terms like extended health tend to come out in English anyway.' },
+      { label: 'Nobody local in the room', detail: 'In a community this size, a counsellor from outside the valley is not part of anybody’s family or social circle, and there is no waiting room to be seen in.' },
+      { label: 'Individual counselling', detail: 'Sessions in Punjabi are one-to-one. Couples counselling and EMDR currently run in English or Tagalog, and that is said plainly before anybody books.' },
+    ],
+    faqs: [
+      { q: 'Is there really nobody in the Comox Valley who counsels in Punjabi?', a: 'Not one this page can point to. Punjabi-speaking counsellors in BC are concentrated in the Lower Mainland, which is why a video session is the realistic route from Courtenay, Comox or Cumberland rather than a second-best one.' },
+      { q: 'Can my spouse and I come together in Punjabi?', a: 'Not for couples work at the moment: couples sessions currently run in English or Tagalog. Individual counselling is available in Punjabi, and the free 30-minute consultation is the place to talk through what would help most.' },
+      { q: 'Will my extended health cover this?', a: ONLINE_COVERAGE },
+    ],
+    sources: [
+      {
+        label: 'Statistics Canada, 2021 Census Profile: Courtenay (census agglomeration 943)',
+        url: 'https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021S0504943&GENDERlist=1&STATISTIClist=1&HEADERlist=0',
+      },
+      {
+        label: 'Island Health, Comox Valley Mental Health & Substance Use',
+        url: 'https://www.islandhealth.ca/our-services/mental-health-substance-use-services/adult-mental-health-substance-use-services/comox-valley-mental-health-substance-use',
+      },
+    ],
+    nearby: ['saanich'],
   },
 ];
 

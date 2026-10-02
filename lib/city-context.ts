@@ -275,6 +275,20 @@ export const cityContexts: CityContext[] = [
       'The session goes where you are that day, at home north of the river or parked near work, instead of being pinned to one of three places.',
     nearby: ['abbotsford', 'chilliwack', 'maple-ridge'],
   },
+  {
+    slug: 'courtenay',
+    city: 'Courtenay',
+    inCity: 'in the Comox Valley',
+    region: 'Vancouver Island',
+    authority: 'Island Health',
+    travel:
+      'The Comox Valley sits up-Island from everything the mainland offers. A specialist in Vancouver means the drive down-Island and a ferry each way, and from Denman or Hornby a crossing comes first. For military families the larger distance is time: a posting can end a local arrangement partway through.',
+    inPerson:
+      'Island Health’s Comox Valley Mental Health & Substance Use team is a single access point that takes self-referrals, by walk-in or phone. Private practice in the valley is real but small, and when what you need is a particular modality or language the local choice narrows quickly.',
+    unlock:
+      'A posting within British Columbia, a ferry or a moving schedule no longer ends the work. The same counsellor continues by video wherever in the province you are.',
+    nearby: ['victoria', 'saanich'],
+  },
 ];
 
 export const getCityContext = (slug: string) => cityContexts.find((c) => c.slug === slug);

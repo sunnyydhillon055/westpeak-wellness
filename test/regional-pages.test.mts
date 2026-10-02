@@ -43,7 +43,8 @@ test('each mapped retired town 308s, in one hop, to a city page whose communitie
 });
 
 test('an unmapped retired town still lands on the index, and every retired redirect is permanent', () => {
-  for (const slug of ['whistler', 'cranbrook', 'nelson', 'courtenay']) assert.equal(dest(slug), '/online-counselling', slug);
+  // Courtenay has its own hub since 2 Oct 2026; Squamish takes its place as an unmapped example.
+  for (const slug of ['whistler', 'cranbrook', 'nelson', 'squamish']) assert.equal(dest(slug), '/online-counselling', slug);
   for (const slug of RETIRED_CITY_SLUGS as string[]) {
     assert.ok(list.find((r) => r.source === `/online-counselling/${slug}`)?.permanent, slug);
   }
@@ -63,6 +64,8 @@ test('no slug is both retired and a page: Penticton and Fort St. John are pages 
   assert.equal(dest('vernon'), undefined);
   assert.ok(getLocation('mission'));
   assert.equal(dest('mission'), undefined);
+  assert.ok(getLocation('courtenay'));
+  assert.equal(dest('courtenay'), undefined);
 });
 
 test('the new pages and the community edits', () => {
@@ -92,7 +95,9 @@ test('the new pages and the community edits', () => {
   assert.ok(abb.access!.some((a) => a.detail.includes('](/online-counselling/mission)')), 'Abbotsford links Mission');
   assert.ok(!abb.faqs!.some((f) => f.q.includes('Mission')));
   for (const t of ['Silverdale', 'Hatzic', 'Dewdney', 'Deroche']) assert.ok(getLocation('mission')!.communities!.includes(t), t);
-  for (const slug of ['penticton', 'fort-st-john', 'saanich', 'maple-ridge', 'vernon', 'mission']) {
+  for (const t of ['Comox', 'Cumberland', 'Denman Island', 'Hornby Island']) assert.ok(getLocation('courtenay')!.communities!.includes(t), t);
+  assert.ok(getLocation('victoria')!.localReality!.body.some((b) => b.includes('](/online-counselling/courtenay)')), 'Victoria links Courtenay');
+  for (const slug of ['penticton', 'fort-st-john', 'saanich', 'maple-ridge', 'vernon', 'mission', 'courtenay']) {
     const l = getLocation(slug)!;
     assert.ok(healthAuthorityFor(slug), `${slug} has an authority`);
     assert.ok(l.metaDescription.replace(/&/g, '&amp;').length <= 155, `${slug} description`);

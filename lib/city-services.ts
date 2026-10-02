@@ -1052,6 +1052,70 @@ export const pairs: Pair[] = [
       { q: 'I only have one day a week at home. Is that enough for EMDR?', a: 'Often, yes. The sessions that ask most of you are the processing ones, and those are the ones to keep for the day at home; earlier preparation work can be arranged with your counsellor around the rest of the week. Spacing is agreed with you and reviewed as you go.' },
     ],
   },
+
+  /* ── Courtenay, 2 Oct 2026: a posting town around a rescue base ── */
+  {
+    city: 'courtenay', service: 'anxiety-counselling',
+    angle: 'The Comox Valley’s public route starts with a walk-in screening; structured anxiety work needs the same slot for weeks.',
+    body: [
+      'Island Health’s Comox Valley team is built for first contact: walk-ins welcome, screening and assessment with the nursing team, and a connection onward, with no referral needed. That is the right shape for a bad week and a sensible first step for almost anything. It is a different shape from the work an established anxiety pattern usually needs.',
+      'Anxiety that has settled into a pattern, panic, constant checking, a dread that arrives before the day does, is usually approached through structured work done in sequence: understanding the cycle, practising against it, reviewing what happened in between. That needs continuity with one person more than it needs proximity, and continuity is what video protects in a valley where schedules and addresses move.',
+    ],
+    faqs: [
+      { q: 'Should I try the walk-in service first?', a: 'If you have not been, it is a reasonable first step and it costs nothing. Starting private counselling does not remove you from Island Health’s services, and some people use the public assessment to get clearer on what they need before choosing ongoing work.' },
+      { q: 'My anxiety is mostly about an upcoming move. Is that worth counselling?', a: 'Yes. Anticipatory anxiety about a posting, a new job or a family upheaval is ordinary and workable, and it is easier to work on before the move than in the middle of the boxes. Sessions continue after a move within British Columbia.' },
+      { q: 'Does anyone at the base find out?', a: 'Not from this practice. It is independent of the Canadian Armed Forces, sits outside the chain of command, and reports nothing to a unit, a medical officer or a supervisor. Confidentiality has narrow legal limits, and those are explained in the first session.' },
+    ],
+  },
+  {
+    city: 'courtenay', service: 'depression-counselling',
+    angle: 'In a posting town, the partner who followed starts again from nothing while the member walks into a ready-made unit.',
+    body: [
+      'Military families arrive in the Comox Valley on a posting and leave on the next one. The serving member arrives into a squadron, a role and colleagues on the first day. The partner who followed often arrives into none of that: a career paused or restarted, friendships to rebuild, children to settle, and a valley whose social circles formed long before they got here.',
+      'That isolation is easy to mistake for an adjustment period that should pass on its own, and sometimes it does. When it does not, a low mood that has outlasted the first winter is worth treating as depression rather than as a failure to settle in, and the work does not have to restart if the next posting arrives first.',
+    ],
+    faqs: [
+      { q: 'I am not in the military, just married to it. Is this for me?', a: 'Yes. The partner who followed a posting is often the one carrying the most change with the least structure around it. Member and Family Assistance Services also serves families for short-term support, and private counselling can run alongside it or after it.' },
+      { q: 'How do I tell depression from a hard move?', a: 'Duration and spread are the usual guide: a low that has lasted weeks rather than days, and has reached sleep, appetite, interest or concentration rather than staying attached to the move itself. A physician can assess it medically; counselling does not depend on a diagnosis.' },
+    ],
+  },
+  {
+    city: 'courtenay', service: 'trauma-therapy',
+    angle: 'The valley is home to the west coast’s primary air rescue unit, and rescue work rarely leaves only one memory behind.',
+    body: [
+      'From Comox, search-and-rescue crews cover British Columbia, the Yukon and hundreds of nautical miles of ocean, and the base is the centre for search-and-rescue training, home to the Canadian Forces School of Search and Rescue. The people who fly, and the people who support them, see the hard end of other people’s worst days repeatedly, debrief, and go back on the roster.',
+      'What builds up from that work is often a set of specific calls rather than one defining event: a hoist that went wrong, a search that ended badly, a voice on the radio. Alongside them, sleep changes and home gets harder to be present in. Trauma work begins by working out which of those memories are still active, and paces from there. The same pattern is common among paramedics, hospital staff and firefighters.',
+    ],
+    faqs: [
+      { q: 'My partner flies search and rescue. Can I come on my own account?', a: 'Yes. Living alongside rescue work, the call-outs, the absences, the things that are not talked about at dinner, carries its own weight, and a partner can have individual sessions in their own right without the member being involved.' },
+      { q: 'Can I start with what is happening at home rather than the incidents?', a: 'Yes. Sleep, irritability and distance at home are often where people begin, and the incidents can wait until there is enough stability to look at them. Pacing is agreed with you, not imposed.' },
+      { q: 'Is this connected to CF Health Services or Veterans Affairs?', a: 'No. This is an independent private practice. It does not replace care through the Canadian Armed Forces or Veterans Affairs Canada, and nothing is shared with either, within the narrow limits set out on the standards page.' },
+    ],
+  },
+  {
+    city: 'courtenay', service: 'couples-therapy',
+    angle: 'In a posting town, one partner’s career usually decides where both of them live, and for how long.',
+    body: [
+      'Postings, long patrols and courses away from home put a particular structure on a relationship: one career sets the address, the other bends around it, and the household reorganises every time somebody leaves or comes back. Couples in the Comox Valley often arrive partway through that cycle, still carrying the last move.',
+      'Those strains get read as incompatibility when much of them is structural. Couples work that starts by naming the structure, who gave up what, and what the next posting is likely to ask of each of you, tends to be more useful than another round on the latest argument. By video, it does not stop when the address changes within BC.',
+    ],
+    faqs: [
+      { q: 'Can we keep going while one of us is away on a course?', a: 'Where both partners are physically in British Columbia, each with a private room and a connection, yes: joining from two locations is workable. Both need to be in the province at the time of the session, so a longer course outside it is planned around rather than through.' },
+      { q: 'A posting is coming. Is it too late to start?', a: 'No. The months before a move are often when the questions are sharpest: whose work gives, and what the next place costs each of you. Moving within British Columbia does not end the work.' },
+    ],
+  },
+  {
+    city: 'courtenay', service: 'emdr-therapy',
+    angle: 'EMDR needs one clinician from preparation through processing, and in a posting town a move used to end it midway.',
+    body: [
+      'EMDR is not a single technique applied in one session. It runs in phases, history and preparation first, then processing, then review, and the preparation is what makes the processing safe. Interrupt it halfway and the honest advice is usually to rebuild that groundwork with whoever comes next.',
+      'In a valley this size, the number of EMDR-trained clinicians taking new clients at any moment can be small, and the alternative has been a drive down-Island and a sailing. By secure video the work continues with the same clinician whether you stay in Courtenay, move to Esquimalt or spend a month in Prince George, as long as you are in British Columbia.',
+    ],
+    faqs: [
+      { q: 'Do I have to describe every call in detail?', a: 'No. EMDR works with a memory briefly held in mind rather than a full retelling, and much of the detail can stay unspoken. What is shared, and in what order, is agreed during preparation.' },
+      { q: 'Is EMDR only for one big event?', a: 'No. It is used for single incidents and for a run of related ones, which is the more common pattern in rescue and emergency work. Which memories to start with is decided together during preparation rather than assumed.' },
+    ],
+  },
 ];
 
 /** Cities that carry paired pages. Every one must exist in cityContexts. */

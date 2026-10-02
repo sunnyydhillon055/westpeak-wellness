@@ -2393,6 +2393,44 @@ twins and no new Punjabi or Tagalog sentences.
 
 ---
 
+### Courtenay gets its own pages, for the Comox Valley
+Decided 2 Oct 2026 (owner decision of the same day: each city in the October
+batch gets all ten pages). Courtenay has a hub, five city-service pages, both
+counsellors' English place pages, a Punjabi region page and a Tagalog city
+page. Its argument, which neither Victoria's nor Nanaimo's page makes: the
+Comox Valley is a posting town around 19 Wing Comox, the primary air
+search-and-rescue unit on the west coast and home to the Canadian Forces
+School of Search and Rescue, in a valley small enough that people know each
+other. Counselling here has to survive a move within British Columbia and stay
+out of sight locally. The pairs take it from there: a walk-in public door
+against structured anxiety work that needs the same slot for weeks, the partner
+who followed a posting, cumulative rescue exposure, one career deciding where
+both partners live, and EMDR that a move used to end midway. The Punjabi page
+argues scarcity and says plainly the community is small (185 by mother tongue,
+about 0.3%); the Tagalog page states its 315 and the 625 counted as Filipino.
+The figures are for the Courtenay census agglomeration and the copy says so.
+They were read through Statistics Canada's data service on 2 Oct, when the
+www12 Census Profile pages returned 404 from here, and are cited at the Census
+Profile, as every other city is.
+
+`courtenay` leaves `retiredCitySlugs`. It had no `RETIRED_TOWN_HOMES` entry
+and no hub named it in `communities`, so no old home changes; Victoria's
+up-Island paragraph now links the new hub, and the Saanich Punjabi page lists
+it in `nearby`. Campbell River stays retired and unmapped until its own page
+lands. Squamish replaces Courtenay as an unmapped-redirect example in the
+tests. Draft wording the sources did not support was reworded to what they
+say (the Island Health team's walk-in description, Member and Family
+Assistance Services by its own name, the search-and-rescue training centre).
+EMDR, couples and language claims stay out of the hub's intro, access and
+first five FAQs. No /tl or /pa place twins and no new Punjabi or Tagalog
+sentences.
+
+*Enforced by:* `test/regional-pages.test.mts`, `test/roster-nav.test.mts`,
+`test/link-anchors.test.mts`, `scripts/smoke.mjs`, `npm run seo`
+(redirect-shadow)
+
+---
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`

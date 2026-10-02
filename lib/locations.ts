@@ -362,7 +362,7 @@ export const locations: Location[] = [
         "**Start with what is free, because in Victoria it is unusually good.** Island Health runs Central Access and Rapid Engagement Services (CARES) at 1119 Pembroke Street, offering **same-day assessment and walk-in counselling** for South Island residents whose mental-health or substance-use concern does not need a hospital: in person or virtually, Monday to Friday, 8:30am to 4:30pm. There is no wait and no referral. If that fits what you need, use it; a practice that did not tell you it exists would not be worth trusting on anything else. Where it runs out is ongoing specialist work, and non-urgent psychiatric care in Victoria has become harder rather than easier as recruitment has failed to keep pace with retirements.",
         "Virtual sessions remove that constraint entirely. A counsellor on the mainland is exactly as available as one in Fairfield: same 50 minutes, same platform, same [BCACC](https://bcacc.ca) obligations, no sailing.",
         "**Language access is the sharpest version of this.** Punjabi-speaking clinicians in BC are concentrated overwhelmingly in the Lower Mainland. For Island residents wanting [therapy in Punjabi](/services/punjabi-counselling), virtual sessions are not a convenience. They are realistically the only route. The same argument, with the local numbers, is on the [Kamloops](/punjabi-counselling/kamloops) and [Prince George](/punjabi-counselling/prince-george) pages, and for the Island itself on the [Saanich](/punjabi-counselling/saanich) page, where most of the region’s Punjabi-speaking community lives.",
-        "The same applies further up-Island. [Nanaimo](/online-counselling/nanaimo), the Comox Valley, Campbell River, and the west coast communities have thinner local coverage again, and the gap widens the further north you go. Closer in, [Saanich and the Peninsula](/online-counselling/saanich) have a page of their own.",
+        "The same applies further up-Island. [Nanaimo](/online-counselling/nanaimo), [the Comox Valley](/online-counselling/courtenay), Campbell River, and the west coast communities have thinner local coverage again, and the gap widens the further north you go. Closer in, [Saanich and the Peninsula](/online-counselling/saanich) have a page of their own.",
       ],
     },
     access: [
@@ -1365,6 +1365,79 @@ export const locations: Location[] = [
     ],
     nearby: ["abbotsford", "chilliwack", "maple-ridge"],
     audiences: ["first-responders", "healthcare-and-shift-workers"],
+  },
+
+  /* ── Courtenay and the Comox Valley, 2 Oct 2026 ─────────────────────────
+   *
+   * Retired in the Phase 1 audit and 308'd to the index (it had no
+   * RETIRED_TOWN_HOMES entry, and no hub named it in `communities`); removed
+   * from lib/redirects.mjs in the same change. The argument neither Victoria
+   * nor Nanaimo makes:
+   *
+   *   Courtenay     a posting town around 19 Wing Comox, the primary air
+   *                 search-and-rescue unit on the west coast, in a valley
+   *                 small enough that people know each other. Counselling
+   *                 here has to survive a move within BC and stay invisible
+   *                 locally. Victoria argues the ferry and the naval career
+   *                 fear; Nanaimo the ferry and a regional catchment.
+   *
+   * EMDR, couples and language claims are kept out of intro, access and
+   * faqs[0..4], which the place pages copy (SHAPE §4). Census figures for the
+   * Courtenay census agglomeration (943) were read through StatCan's data
+   * service on 2 Oct 2026, when the www12 Census Profile pages returned 404
+   * from here; they are cited at the Census Profile, as every other city is. */
+  {
+    slug: "courtenay",
+    figure2: "first-session-flow",
+    figure: "bc-reach",
+    city: "Courtenay",
+    communities: ["Comox", "Cumberland", "Royston", "Union Bay", "Fanny Bay", "Denman Island", "Hornby Island"],
+    region: "Vancouver Island",
+    blurb: "A posting, a drive down-Island, or two ferries from Hornby: counselling in the Comox Valley has to survive all three.",
+    metaDescription:
+      "Online counselling for Courtenay and the Comox Valley. Comox, Cumberland, Denman and Hornby: trauma, anxiety and couples therapy by secure video.",
+    intro: [
+      "Courtenay is the Comox Valley's main city, and the valley is better served than its size suggests: the Comox Valley campus of North Island Hospital, North Island College's largest campus, and an Island Health mental-health team that takes self-referrals. What shapes counselling here is less what exists than who is looking for it. CFB Comox brings families in on a posting and moves them on with the next one, and around the base the valley is small enough that people know each other.",
+      "Both of those work against a local office. A course of counselling tied to a building ends when the posting does, and in Comox or Cumberland the waiting room may hold a neighbour, somebody from the base, or a parent from your child's school. Video takes both out of it. A [Registered Clinical Counsellor](/compare/rcc-vs-psychologist-vs-social-worker-bc) anywhere in BC is as available in Royston or on Hornby Island as in downtown Courtenay.",
+    ],
+    localReality: {
+      h2: "A posting town, a rescue base, and a valley where people know each other",
+      body: [
+        "**The public route here is a single door, and it is a good one.** Island Health's Comox Valley Mental Health & Substance Use team at 941A England Avenue is the single access point for adult services across the Comox Valley. Walk-ins are welcome, or call 250-331-8524, and the nursing team offers screening, assessment and a connection onward without a referral. Use it. For anybody aged 12 to 24, Foundry Comox Valley on 10th Street is free and confidential. The Vancouver Island Crisis Line, 1-888-494-3888, answers at any hour.",
+        "**19 Wing shapes the valley.** CFB Comox flies long-range patrol over the Pacific, is the primary air search-and-rescue unit on Canada's west coast, and is home to the Canadian Forces School of Search and Rescue. Its crews cover British Columbia, the Yukon and hundreds of nautical miles of ocean. The page on [counselling for first responders](/for/first-responders) covers what repeated exposure to other people's worst days tends to leave behind.",
+        "**A posting puts a clock on the work.** Families arrive on one posting and leave on the next, and the partner who followed is often rebuilding work and friendships at the same time. Counselling that depends on a local office ends at the move. A provincial practice does not: a posting to Esquimalt or anywhere else in British Columbia changes nothing about the sessions, and the [Victoria page](/online-counselling/victoria) covers the south end of the Island.",
+        "**In a small valley, the base and the town overlap.** A squadron colleague's partner may work at the hospital, and the counsellor with a practice in town may have a child in the same class as yours. That overlap is part of why people here put off asking at all. A counsellor practising elsewhere in the province sits outside it entirely, and the session happens behind your own door.",
+        "**Particular work runs short first.** At any given moment a valley this size may have few clinicians taking new clients for [EMDR therapy](/services/emdr-therapy) or structured couples work, and fewer still with room at a time that fits. The fallback used to be the Inland Island Highway south and then a sailing; the [Nanaimo page](/online-counselling/nanaimo) describes that crossing.",
+        "**Language is thinner again.** Punjabi- and Tagalog-speaking clinicians in BC are concentrated in the Lower Mainland, and both communities in the Comox Valley are small: in the 2021 Census, 185 people in the Courtenay census agglomeration gave Punjabi as their mother tongue and 315 gave Tagalog. [Punjabi-speaking counselling for the Comox Valley](/punjabi-counselling/courtenay) and [Tagalog counselling for Courtenay](/tagalog-counselling/courtenay) say plainly what those numbers mean.",
+      ],
+    },
+    access: [
+      { label: "Survives a posting within BC", detail: "A posting from Comox to Esquimalt, or a civilian move anywhere in the province, keeps the same counsellor, with the work picking up where it paused." },
+      { label: "Outside the valley's circles", detail: "Nobody from the squadron, the school run or the street sees you walk in, because the session happens behind your own door." },
+      { label: "Comox, Cumberland and the islands", detail: "Comox, Cumberland, Royston, Union Bay, Fanny Bay, Denman and Hornby on identical terms. From Hornby that is two ferries each way that never have to be caught." },
+      { label: "Around a schedule that moves", detail: "Flying, exercises, courses away and hospital shifts rarely follow a fixed pattern. The booking calendar shows each counsellor's real open times, so you can see what fits before you book." },
+    ],
+    faqs: [
+      { q: "Can I refer myself to public mental-health services in the Comox Valley?", a: "Yes. Island Health's Comox Valley Mental Health & Substance Use team at 941A England Avenue in Courtenay is the single access point for adults, and no referral is needed: walk in, or call 250-331-8524. Starting private counselling does not take you off a public list, and the two can run side by side." },
+      { q: "I am serving at 19 Wing. Should I call Member and Family Assistance first?", a: "It is a reasonable first call. Member and Family Assistance Services, 1-800-268-7708, serves Regular Force and Reserve members and their families around the clock, and it is a short-term problem-solving service: often a few sessions, with a referral onward if more is needed. Private counselling sits outside it and outside the chain of command: nothing is reported to anybody, within the narrow limits set out on the standards page." },
+      { q: "A posting is likely in the next year or two. Should I wait until after the move?", a: "Not if the move stays inside British Columbia: Esquimalt, Victoria or anywhere else in the province is the same session, so waiting buys nothing. A posting to another province is different, because a counsellor can only see you where they are permitted to practise. Raise the expected date on the free consultation and the plan is built around it." },
+      { q: "I live on Denman or Hornby. Does that change anything?", a: "Nothing about the session itself. From Hornby, an appointment in Courtenay means the Gravelly Bay ferry, the drive across Denman and the Buckley Bay ferry, then the same again home, and that is the part video removes. Island connections vary, so test yours before the first session and settle at the start what happens if the line goes." },
+      { q: "Is there something free for a teenager or young adult?", a: "Yes. Foundry Comox Valley, run by the John Howard Society of North Island on 10th Street in Courtenay, offers free and confidential counselling, substance-use support and peer support for people aged 12 to 24 and their families. 8-1-1 connects to HealthLink BC at any hour." },
+      { q: "Is EMDR available to someone in the Comox Valley?", a: "Yes, with the counsellor on the roster who offers it. It runs by secure video from any private room, in the same phases it follows in a clinic: history, preparation, processing and review. The eye movements or tapping are set up and practised during preparation, before any memory is processed, and nothing in the protocol depends on being in Victoria or Vancouver." },
+      { q: "Can sessions be in Punjabi or Tagalog from here?", a: "Yes. Both communities in the Comox Valley are small, and clinicians who speak either language are concentrated in the Lower Mainland, so for people here video is the realistic route rather than a convenience. Individual counselling is available in Punjabi; couples work runs in English or Tagalog." },
+    ],
+    sources: [
+      { label: "Island Health, Comox Valley Mental Health & Substance Use", url: "https://www.islandhealth.ca/our-services/mental-health-substance-use-services/adult-mental-health-substance-use-services/comox-valley-mental-health-substance-use" },
+      { label: "Island Health, crisis response (Vancouver Island Crisis Line)", url: "https://www.islandhealth.ca/our-services/mental-health-substance-use-services/crisis-emergency-services" },
+      { label: "Foundry Comox Valley", url: "https://foundrybc.ca/centre/comoxvalley/" },
+      { label: "Royal Canadian Air Force, 19 Wing Comox", url: "https://www.canada.ca/en/air-force/corporate/who-we-are/organizational-structure/1-canadian-air-division/19-wing.html" },
+      { label: "National Defence, Member and Family Assistance Services", url: "https://www.canada.ca/en/department-national-defence/services/benefits-military/health-support/member-family-assistance-services.html" },
+      { label: "Island Health, Comox Valley campus of North Island Hospital", url: "https://www.islandhealth.ca/news/news-releases/comox-valley-campus-north-island-hospital-celebrates-one-year-operations" },
+      { label: "North Island College, Comox Valley campus", url: "https://www.nic.bc.ca/about/campuses/comox-valley-campus.html" },
+      { label: "Statistics Canada, 2021 Census Profile: Courtenay (census agglomeration 943)", url: "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021S0504943&GENDERlist=1&STATISTIClist=1&HEADERlist=0" },
+    ],
+    nearby: ["nanaimo", "victoria"],
+    audiences: ["first-responders"],
   },
 ];
 

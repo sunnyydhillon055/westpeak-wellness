@@ -141,6 +141,12 @@ const CHECKS = [
   ['/practitioners/savneet-singh/mission', 200],
   ['/punjabi-counselling/mission', 200],
   ['/tagalog-counselling/mission', 200],
+  /* Courtenay 308'd to the index until 2 Oct 2026, when it got a page of its own. */
+  ['/online-counselling/courtenay', 200],
+  ['/online-counselling/courtenay/emdr-therapy', 200],
+  ['/practitioners/savneet-singh/courtenay', 200],
+  ['/punjabi-counselling/courtenay', 200],
+  ['/tagalog-counselling/courtenay', 200],
   ['/for/mens-mental-health', 308, '/for'],
   /* /answers was retired 31 Aug 2026 and redirected to /faq; it came back
      on 14 Sep as the instant-answer page (checked as 200 above). */

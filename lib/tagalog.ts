@@ -301,6 +301,29 @@ export const TAGALOG_CITIES: TagalogCity[] = [
       { q: 'My parent lives with us. Can they have sessions in Tagalog while I am at work?', a: 'Yes, from a private room at home. You can help set up the link the first time, and after that the session is theirs. Nothing about it is shared with the family unless they choose to share it.' },
       { q: 'Are Silverdale, Hatzic and Dewdney covered?', a: 'Yes, on identical terms across the province, with no penalty for being further east along the Lougheed.' },
     ],
+  },  /* COURTENAY, 2 Oct 2026. Owner decision of the same day: the figure is
+     stated plainly, attributed in the sentence and cited on the Courtenay
+     hub, which links here. Statistics Canada 2021 Census Profile, Courtenay
+     census agglomeration (943): Tagalog mother tongue 315 of 62,665 (0.5%);
+     knowledge of Tagalog 435; Filipino 625.
+     https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021S0504943&GENDERlist=1&STATISTIClist=1&HEADERlist=0
+     read 2 Oct 2026 through StatCan's data service. The argument is the
+     size itself in a valley where people know each other, and the distance
+     to where Tagalog-speaking clinicians are. English only; no Tagalog words
+     added. */
+  {
+    slug: 'courtenay',
+    city: 'Courtenay',
+    angle: 'The Comox Valley’s Filipino community is small, which makes a Tagalog-speaking counsellor harder to find and privacy harder to keep.',
+    body: [
+      'In the 2021 Census 315 people in the Courtenay census agglomeration, which centres on Courtenay, Comox and Cumberland, gave Tagalog as their mother tongue, about 0.5% of the area, and 625 were counted as Filipino (Statistics Canada, 2021 Census Profile). That is real but small: small enough that people in it tend to know one another, and a long way from the Lower Mainland, where Tagalog-speaking clinicians in BC are concentrated. From the valley, the route to one in person has been the drive down-Island and a ferry.',
+      'That combination is the hard one. Talking to somebody from the community about a marriage, money sent home or a family argument carries a cost in a place this size, and talking in English means translating the feeling before you can describe it. Video removes both: a counsellor who speaks Tagalog and is not part of anybody’s circle here.',
+    ],
+    faqs: [
+      { q: 'Will anyone in the community know I am seeing a counsellor?', a: 'Not through this practice. Sessions happen from your own home, the counsellor is not part of the valley’s Filipino community, and nothing is passed on to anybody, within the narrow limits explained at the start.' },
+      { q: 'Can my spouse and I come together?', a: 'Yes. Couples sessions run in Tagalog, English or both, by secure video, and partners can join from two places as long as both are in British Columbia.' },
+      { q: 'Are Comox, Cumberland and the islands included?', a: 'Yes. Comox, Cumberland, Royston, Union Bay, Fanny Bay, Denman and Hornby are served the same way as Courtenay, as is everywhere else in British Columbia.' },
+    ],
   },
 ];
 
