@@ -349,6 +349,30 @@ export const TAGALOG_CITIES: TagalogCity[] = [
       { q: 'Are Colwood, View Royal and Sooke covered?', a: 'Yes, with Metchosin and the Highlands. Where on the West Shore you live makes no difference to access.' },
     ],
   },
+  /* CRANBROOK, 2 Oct 2026. Owner decision of the same day: the figure is
+     stated plainly, attributed in the sentence and cited on the Cranbrook
+     hub, which links here. Statistics Canada 2021 Census Profile, Cranbrook
+     CSD 5901022: Tagalog mother tongue 90, most often at home 25, knowledge
+     200; Filipino 270. East Kootenay RD 5901: knowledge of Tagalog 530.
+     https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055901022&GENDERlist=1&STATISTIClist=1&HEADERlist=0
+     read 2 Oct 2026 through StatCan's data service. The argument is the
+     smallness itself, and the clock: Cranbrook is an hour ahead of the
+     Pacific booking calendar in every season. English only; no Tagalog
+     words added. */
+  {
+    slug: 'cranbrook',
+    city: 'Cranbrook',
+    angle: 'In the East Kootenay’s small Filipino community, a local Tagalog-speaking counsellor is unlikely, and any local counsellor may already know your family.',
+    body: [
+      'In the 2021 Census 270 Cranbrook residents were counted as Filipino and 90 gave Tagalog as their mother tongue, and across the whole East Kootenay 530 people could hold a conversation in it (Statistics Canada, 2021 Census Profile). That is a real community and a small one. It looks after its own, and it is also a community where everybody knows whose family is whose, which makes talking to anybody local about a private matter harder rather than easier.',
+      'There is very little chance of finding a counsellor who works in Tagalog anywhere in the East Kootenay. Video means the person you talk to can be somebody in another part of the province who shares the language and not the social circle. One practical note: the booking calendar is in Pacific time, and Cranbrook is an hour ahead of it in every season.',
+    ],
+    faqs: [
+      { q: 'Is there anybody in the East Kootenay who counsels in Tagalog?', a: 'In a community of this size it would be unusual, and the honest answer is that you should not expect to find one locally. Sessions in Tagalog, in English or in both by video are the practical route.' },
+      { q: 'Would anybody in the community find out?', a: 'Not from the practice. Sessions are online with a counsellor outside your social circle, there is no connection to any employer or community group, and the narrow limits of confidentiality are set out on the standards page.' },
+      { q: 'What time is my session if I live in Cranbrook?', a: 'An hour later than the booking calendar shows. The calendar is in Pacific time, and says so; the East Kootenay keeps Mountain time all year.' },
+    ],
+  },
 ];
 
 export const getTagalogCity = (slug: string) => TAGALOG_CITIES.find((c) => c.slug === slug);

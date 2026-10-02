@@ -1177,6 +1177,67 @@ export const pairs: Pair[] = [
       { q: 'Can we plan around how I feel after sessions?', a: 'Yes, and it is worth doing at the start. Many people book EMDR at a time with nothing demanding straight afterwards, and the counsellor checks how the days after a session went. You set the pace together, and it can change.' },
     ],
   },
+  /* ── Cranbrook, 2 Oct 2026: Mountain clock, Pacific calendar, Elk Valley rosters ── */
+  {
+    city: 'cranbrook', service: 'anxiety-counselling',
+    angle: 'In a regional centre this size, the anxious part of booking is often who might see you walk in.',
+    body: [
+      'Cranbrook has the hospital, the college and the services of a regional centre, and the social map of a much smaller place: the person at reception may coach your child’s team or work the opposite rotation to your partner. For anxiety specifically, that matters: worrying about being seen at the appointment is itself one of the reasons the appointment gets put off.',
+      'A video session removes the building and the parked vehicle somebody might recognise outside it. There is a second, smaller anxiety it can remove too: the time. Open times are listed in Pacific time and Cranbrook is an hour ahead in every season, so the hour is translated once, before the first session, rather than worried about every week.',
+    ],
+    faqs: [
+      { q: 'What if I am anxious about the video call itself?', a: 'That is common and worth saying at the start. The free 30-minute consultation is a first go at the format with nothing to decide at the end, and being on camera is never required: camera off for part of a session is an ordinary adjustment.' },
+      { q: 'Does an anxiety session need a quiet house?', a: 'It needs somewhere private for fifty minutes, which is not always the house. A parked vehicle, a closed office or a room at a friend’s are all used, and choosing the place is part of planning the first session.' },
+    ],
+  },
+  {
+    city: 'cranbrook', service: 'depression-counselling',
+    angle: 'Shift rotations and resort seasons both pull mood around the calendar, and the quiet stretch gets mistaken for the person.',
+    body: [
+      'Much of the East Kootenay works to a calendar that is not the ordinary one: mine rotations in the Elk Valley, and ski and summer seasons in Fernie, Kimberley and the Columbia Valley. Flatness that arrives on the days off, or in the shoulder months when the work and the people thin out, is easy to read as a personal failing when the pattern is doing a share of it.',
+      'That does not make it less real, and it does not mean it lifts by itself. It means the work starts by mapping when the low points arrive, and then plans sessions to land before them rather than after, which is far easier when the session does not depend on a drive into Cranbrook.',
+    ],
+    faqs: [
+      { q: 'Is this depression, or just the off-season?', a: 'Sometimes it is both, and the distinction matters less than whether it is getting in the way. A counsellor does not diagnose depression; if a physician should be involved, that is said plainly, and the two can run in parallel.' },
+      { q: 'Can sessions follow my rotation rather than the calendar?', a: 'Yes. Blocks in the days off, a lighter pattern during the hitch, or a pause agreed in advance are all ordinary arrangements here.' },
+    ],
+  },
+  {
+    city: 'cranbrook', service: 'trauma-therapy',
+    angle: 'Four steelmaking coal mines in the Elk Valley provide about 5,500 jobs, and an incident on site comes home with the crew.',
+    body: [
+      'Fernie, Sparwood and Elkford are the towns closest to those mines. Heavy equipment, haul roads and blasting carry real risk. When something goes wrong the formal response is a debrief, and then a crew goes back to work and later goes home to a town where everybody knows what happened.',
+      'That last part is the difficult one. In a small community a serious incident becomes a shared story, and the person who was closest to it often ends up carrying the least-discussed version. A session with a counsellor outside the valley, from a private room, is somewhere that version can be said in full, at the pace you set.',
+    ],
+    faqs: [
+      { q: 'Does anything from counselling reach the mine or my employer?', a: 'There is no reporting line from a private practice to an employer, a union or a safety office, so nothing goes to any of them. The narrow legal limits on confidentiality are set out on the standards page and walked through in the first session.' },
+      { q: 'It was one incident, years ago. Is that too small for trauma therapy?', a: 'No. A single event that still produces a reaction now is the kind of thing trauma-focused work is built for, and the time since it happened does not close the door.' },
+    ],
+  },
+  {
+    city: 'cranbrook', service: 'couples-therapy',
+    angle: 'A rotation in the Elk Valley and a home in Cranbrook make a relationship that runs on two calendars.',
+    body: [
+      'Couples here often live with one partner on a mine rotation and the other holding a job, children and a house to a different schedule. The handover days, the tired first night back and the conversation that never quite happens before the next hitch are structural, not evidence that either person stopped trying.',
+      'Couples work that fits has to run on the days you are both available, and sometimes from two places at once. Video allows both: the two of you on one screen at home, or one partner joining from wherever in British Columbia the rotation has them, with the time translated once from Pacific to Mountain so neither of you is guessing.',
+    ],
+    faqs: [
+      { q: 'Can my partner join from a different town?', a: 'Yes, if each of you is in British Columbia with a private room and a workable connection. Sessions with partners in two places are an ordinary arrangement, and the counsellor sets them up so neither person is a voice on a phone.' },
+      { q: 'Which language are couples sessions in?', a: 'Couples sessions currently run in English or Tagalog. Individual counselling is available in more than one language, which the counsellor cards on this page show.' },
+    ],
+  },
+  {
+    city: 'cranbrook', service: 'emdr-therapy',
+    angle: 'After an EMDR processing session from Cranbrook, you are already home, with no mountain pass to drive while it settles.',
+    body: [
+      'EMDR processing can leave a person tired or unsettled for the rest of the day, and the usual advice is to leave room after a session rather than go straight to work or a long drive. In the East Kootenay, an in-person specialist appointment can mean exactly that long drive afterwards, over a pass in winter. By video, the room you settle in is your own.',
+      'EMDR is also the kind of specific training a regional private sector may hold one or two of, or none. By video the choice widens to clinicians trained in it anywhere in British Columbia, with the same preparation and pacing, and sessions an hour later on Cranbrook’s clock than the calendar shows.',
+    ],
+    faqs: [
+      { q: 'Is EMDR by video as thorough as in a room?', a: 'The steps are the same: history, preparation, then processing. On video the bilateral stimulation is usually eye movements following a point on screen or tapping you do yourself, and it is practised before any processing starts.' },
+      { q: 'What should I plan for after a processing session?', a: 'Some unstructured time if you can arrange it, rather than a shift or a drive. Being at home already makes that easier, and how you felt afterwards is reviewed at the start of the next session.' },
+    ],
+  },
 ];
 
 /** Cities that carry paired pages. Every one must exist in cityContexts. */

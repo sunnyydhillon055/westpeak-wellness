@@ -76,6 +76,7 @@ const ARGUMENT: Record<string, 'scarcity' | 'distance'> = {
   mission: 'distance',
   courtenay: 'scarcity',
   langford: 'scarcity',
+  cranbrook: 'scarcity',
 };
 
 /* Counts on this page are read from the data, 2 Oct 2026: "each of her

@@ -23,7 +23,7 @@ import { ONLINE_COVERAGE } from '@/lib/practice-facts';
  *
  * WHY ONLY THESE REGIONS
  * Every population figure below is from the 2021 census and is checkable at
- * the cited source. Nanaimo, the Kootenays and the Peace are equally real
+ * the cited source. Nanaimo and the Peace are equally real
  * opportunities, but Punjabi-language or South Asian population figures for
  * them could not be sourced at the same standard, and a page whose central
  * claim is "there are people like you here" cannot be built on an estimate.
@@ -53,6 +53,11 @@ import { ONLINE_COVERAGE } from '@/lib/practice-facts';
  * rule above is unchanged: no figure, no page.
  *
  * THERE ARE NOW TWO KINDS OF PAGE IN THIS FILE. DO NOT MAKE THEM MATCH.
+ *
+ * CRANBROOK WAS ADDED ON 2026-10-02 under the owner decision above, once the
+ * East Kootenay figures were read from Statistics Canada directly. The
+ * Kootenays had been listed as out for want of a figure; Cranbrook's is
+ * small (120 speak Punjabi most often at home) and the page says so.
  *
  * The three original pages — Prince George, Kamloops, Kelowna — argue from
  * SCARCITY: the nearest Punjabi-speaking counsellor with an office is hours
@@ -1167,6 +1172,61 @@ export const punjabiRegions: PunjabiRegion[] = [
       },
     ],
     nearby: ['saanich', 'courtenay'],
+  },
+  /* CRANBROOK, 2 Oct 2026. Argues SCARCITY, from a small base, and says so.
+     Owner decision of the same day: the figure is stated plainly. Statistics
+     Canada 2021 Census Profile, Cranbrook CSD 5901022: South Asian 365 (1.8%,
+     the largest racialized group); Punjabi mother tongue 165, spoken most
+     often at home 120 (the most common non-official home language in the
+     city), knowledge 230. East Kootenay RD 5901: knowledge of Punjabi 500,
+     most often at home 210 (first among non-official languages). Read 2 Oct
+     2026 through StatCan's data service while the www12 pages returned 404
+     from here; cited at the Census Profile, as every other city is. The point
+     is that a community this size is unlikely to produce a local
+     Punjabi-speaking counsellor. English only. */
+  {
+    slug: 'cranbrook',
+    figure: { value: '120', label: 'Cranbrook residents who speak Punjabi most often at home: the most common non-official home language in the city, in a community that is small' },
+    region: 'Cranbrook',
+    wider: 'the East Kootenay',
+    blurb:
+      'Punjabi is the most common non-official language spoken at home in Cranbrook. The community is small, which makes a local Punjabi-speaking counsellor unlikely.',
+    metaDescription:
+      'Punjabi-speaking online counselling for Cranbrook and the East Kootenay. Sessions in Punjabi, English or both, with an RCC. Free 30-minute consultation.',
+    demography: {
+      stat: 'In the 2021 Census about 120 Cranbrook residents spoke Punjabi most often at home, in a South Asian community of about 365.',
+      body: [
+        'Those are small numbers, and this page does not pretend otherwise. In the 2021 Census, **365 Cranbrook residents were South Asian**, about 1.8% of the city and its largest racialized group. About 165 named Punjabi as their mother tongue and 230 can hold a conversation in it. Across the whole East Kootenay, about 500 people can.',
+        'Small is still more than any other non-official language in Cranbrook homes. No other language besides English and French is spoken most often at home by more people in the city, and the same is true across the regional district.',
+        'A community of a few hundred is unlikely to produce a local Punjabi-speaking clinical counsellor, and the nearest with offices are in the Lower Mainland and the Fraser Valley, a long day’s drive west.',
+      ],
+    },
+    localReality: {
+      h2: 'Small community, one clock ahead',
+      body: [
+        'Interior Health runs mental-health and substance-use services in Cranbrook, reached through 310-MHSU (6478). If you are already connected to them, staying connected is worth doing: private virtual counselling runs alongside public care, not instead of it.',
+        'In a South Asian community of a few hundred, the same families meet at work, at weddings and in the grocery aisle. That cuts both ways. It is support, and it is also the reason somebody may not want to be seen going to a counsellor, or to talk about a family matter with anybody who might know the family. A counsellor in another part of the province, by video, removes that overlap.',
+        'The East Kootenay keeps Alberta’s clock, an hour ahead of the Pacific time the booking calendar uses, in every season. Add an hour to any open time you see; the booking page labels its times as Pacific time.',
+        'Language is one part of access here. [Online counselling for Cranbrook](/online-counselling/cranbrook) covers the rest: the Elk Valley’s shift work, the free options for young people, and why the clock matters.',
+      ],
+    },
+    access: [
+      { label: 'No drive to the Lower Mainland', detail: 'The nearest Punjabi-speaking counsellors with offices are a long day’s drive west. A session needs a private room in BC and a connection, nothing more.' },
+      { label: 'Punjabi, English, or both', detail: 'A session can move between the two as you need. Clinical words such as RCC and extended health often stay in English, because those are the words on the forms.' },
+      { label: 'Nobody from the community in the waiting room', detail: 'In a community of a few hundred, a local appointment is rarely anonymous. A video session has no waiting room at all.' },
+      { label: 'An hour ahead, translated once', detail: 'Open times are listed in Pacific time, and the booking page says so; Cranbrook is an hour later in every season.' },
+    ],
+    faqs: [
+      { q: 'Is there a Punjabi-speaking counsellor in Cranbrook?', a: 'Not with an office that this practice knows of, which in a community this size is not surprising; the nearest are in the Lower Mainland and the Fraser Valley. Sessions in Punjabi by video are the practical route here.' },
+      { q: 'Can couples sessions be in Punjabi?', a: 'Not at the moment: couples sessions currently run in English or Tagalog. Individual counselling is available in Punjabi, in English, or moving between the two.' },
+      { q: 'Will my extended health cover this?', a: ONLINE_COVERAGE },
+    ],
+    sources: [
+      { label: 'Statistics Canada, 2021 Census Profile: Cranbrook (CSD 5901022)', url: 'https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055901022&GENDERlist=1&STATISTIClist=1&HEADERlist=0' },
+      { label: 'Statistics Canada, 2021 Census Profile: East Kootenay (regional district 5901)', url: 'https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00035901&GENDERlist=1&STATISTIClist=1&HEADERlist=0' },
+      { label: 'Interior Health, Cranbrook Mental Health & Substance Use', url: 'https://www.interiorhealth.ca/locations/cranbrook-mental-health-substance-use' },
+    ],
+    nearby: ['kelowna', 'kamloops'],
   },
 ];
 

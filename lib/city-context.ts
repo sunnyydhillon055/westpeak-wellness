@@ -303,6 +303,20 @@ export const cityContexts: CityContext[] = [
       'The commute stops deciding whether you go. A session from home costs the hour itself, not the corridor at either end.',
     nearby: ['victoria', 'saanich'],
   },
+  {
+    slug: 'cranbrook',
+    city: 'Cranbrook',
+    inCity: 'in Cranbrook',
+    region: 'East Kootenay',
+    authority: 'Interior Health',
+    travel:
+      'Cranbrook is the service centre for the East Kootenay, and people come in from Kimberley, Fernie, Sparwood and Invermere for it. Anything Cranbrook does not have usually means a mountain pass west, or a provincial border east.',
+    inPerson:
+      'Interior Health runs public intake through 310-MHSU and a mental-health and substance-use centre in the city. The private sector is the size of a regional centre’s, and a specific approach or language may not be represented in it.',
+    unlock:
+      'The East Kootenay keeps Alberta’s clock. Open times are listed in Pacific time and read an hour later on Cranbrook’s clock, in every season, and the session itself happens from wherever you have a private room.',
+    nearby: ['kelowna', 'kamloops'],
+  },
 ];
 
 export const getCityContext = (slug: string) => cityContexts.find((c) => c.slug === slug);

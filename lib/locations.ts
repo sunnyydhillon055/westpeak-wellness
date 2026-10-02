@@ -1519,6 +1519,88 @@ export const locations: Location[] = [
     nearby: ["victoria", "saanich", "nanaimo"],
     audiences: ["new-parents"],
   },
+  /* ── Cranbrook and the East Kootenay, 2 Oct 2026 ─────────────────────────
+   *
+   * Retired until today; it 308'd to the index (no RETIRED_TOWN_HOMES entry,
+   * and no hub named it or its towns), so no old home hub changes. The one
+   * argument no neighbour's page makes:
+   *
+   *   Cranbrook  the reader lives on a different clock from the booking
+   *              calendar in every season. The Regional District of East
+   *              Kootenay voted on 14 Aug 2026 to stay on Mountain Daylight
+   *              Time all year, and the Province's time-zone page (17 Sep
+   *              2026) lists Cranbrook, Fernie, Sparwood, Invermere,
+   *              Kimberley, Radium Hot Springs and Elkford on UTC-6 all year,
+   *              while the rest of BC keeps Pacific time (UTC-7) all year from
+   *              1 Nov 2026. So the gap is one hour now and after November.
+   *              Golden moves to UTC-7 and Creston has kept UTC-7 for decades,
+   *              so neither is in `communities`: their clock is the calendar's.
+   *              Second strand: the Elk Valley's four steelmaking coal mines
+   *              (about 5,500 jobs) and their rosters.
+   *
+   * The copy rests on the Province page, not on what Alberta does in winter
+   * (lib/alberta-clock.ts: sources disagree). Census figures: 2021 Census
+   * Profile, Cranbrook (CSD 5901022) and East Kootenay (RD 5901), read 2 Oct
+   * 2026 through StatCan's data service while the www12 Census Profile pages
+   * returned 404 from here, and cited at the Census Profile, as every other
+   * city is. EMDR, couples, Alberta and language claims are kept out of
+   * intro, access and faqs[0..4], which the place pages copy. */
+  {
+    slug: "cranbrook",
+    figure2: "first-session-flow",
+    figure: "bc-reach",
+    city: "Cranbrook",
+    communities: ["Kimberley", "Fernie", "Sparwood", "Elkford", "Invermere", "Radium Hot Springs"],
+    region: "East Kootenay",
+    blurb: "The East Kootenay keeps Alberta’s clock, so every open time on a BC booking calendar needs translating first.",
+    metaDescription:
+      "Online counselling for Cranbrook and the East Kootenay. Kimberley, Fernie and the Elk Valley: anxiety, trauma and depression counselling by secure video.",
+    intro: [
+      "Cranbrook is the East Kootenay’s regional centre. East Kootenay Regional Hospital is here, College of the Rockies has its main campus here, and Interior Health runs a mental-health and substance-use centre in the city. What sets Cranbrook apart from every other BC city with a page on this site is smaller and more practical: the clock. The East Kootenay keeps Alberta’s time, an hour ahead of the rest of the province.",
+      "That hour matters more than it sounds. This practice’s booking calendar is written in Pacific time, and a first appointment read on the wrong clock arrives an hour early or an hour late, at exactly the point where starting was hardest. Virtual counselling with a [Registered Clinical Counsellor](/compare/rcc-vs-psychologist-vs-social-worker-bc) takes the highway out of getting help. This page is also about taking the guesswork out of when.",
+    ],
+    localReality: {
+      h2: "An hour ahead, and two valleys apart",
+      body: [
+        "**The East Kootenay chose Alberta’s clock, and kept it.** On 14 August 2026 the Regional District of East Kootenay voted to stop changing clocks and stay on Mountain Daylight Time all year. From 1 November 2026 the rest of British Columbia stays on Pacific time all year. The two never meet: Cranbrook, Kimberley, Fernie, Sparwood, Elkford, Invermere and Radium Hot Springs are an hour ahead of the booking calendar in every season. Golden moves to UTC-7 all year on the same date, and Creston stopped changing its clocks long ago, so both share the calendar’s clock and are not counted here.",
+        "**So translate once, at the start, and then stop worrying about it.** The booking calendar shows each counsellor’s real open times in Pacific time. Add an hour for Cranbrook. The booking page labels its times as Pacific time; if a time on the confirmation looks wrong, raise it before the first session.",
+        "**The Elk Valley sets the working week.** Elk Valley Resources runs four steelmaking coal mines in the valley, with jobs for about 5,500 people. A rotating roster makes a fixed weekly slot fragile, so the plan is built from the roster outward: sessions clustered in the stretch off, lighter during a block, and a restart agreed before a long run of shifts. [Counselling for rotational and camp workers](/for/rotational-and-camp-workers) covers the wider pattern.",
+        "**A site incident does not stay on site.** Haul roads, heavy equipment and blasting carry real risk, and in a valley this size the crew who saw it and the families who heard about it live in the same few towns. When one event keeps replaying, [EMDR therapy](/services/emdr-therapy) is one structured way to work on it, by video from a room at home.",
+        "**The public route is Interior Health, and it is worth using.** Calling 310-MHSU (6478) is how to self-refer to Interior Health’s mental-health and substance-use services, which in the city run from the Cranbrook centre. Foundry East Kootenay, hosted by Ktunaxa Kinbasket Child and Family Services, sees people aged 12 to 24 free of charge. The Interior Crisis Line Network answers at 1-888-353-2273 at any hour, and 9-8-8 reaches the national line. Private counselling runs alongside all of these, not instead of them.",
+        "**Language is thin here, and this page says so plainly.** In the 2021 Census about 500 people across the East Kootenay could hold a conversation in Punjabi and 530 in Tagalog: communities in the hundreds, too small to make a local counsellor in either language likely. [Punjabi-speaking counselling for Cranbrook](/punjabi-counselling/cranbrook) and [Tagalog counselling for Cranbrook](/tagalog-counselling/cranbrook) say what those numbers mean.",
+      ],
+    },
+    access: [
+      { label: "Pacific calendar, Mountain clock", detail: "Open times are listed in Pacific time, and the booking page says so. Add an hour in Cranbrook, in every season." },
+      { label: "Around the roster, not the calendar week", detail: "Sessions cluster in the stretch off and thin out during a block, so a rotation that moves does not have to end the work." },
+      { label: "Kimberley to the Elk Valley", detail: "Kimberley, Fernie, Sparwood, Elkford, Invermere and Radium Hot Springs, all on Cranbrook’s Mountain clock and on Cranbrook’s terms." },
+      { label: "Out of sight of the front desk", detail: "Where the person at reception may be a teammate’s parent or a neighbour from the next street, a session from your own room skips the front desk altogether." },
+    ],
+    faqs: [
+      { q: "What time is my session in Cranbrook?", a: "One hour later than the booking calendar shows. The calendar is in Pacific time; Cranbrook, Kimberley and the Elk Valley keep Mountain Daylight Time all year, so the gap is the same hour in every season, including after BC stops changing its clocks on 1 November 2026. If a time on your confirmation looks wrong, raise it before the first session." },
+      { q: "I work rotating shifts at a mine. Can counselling fit around that?", a: "Yes, and the roster is a good thing to bring to the first conversation. Sessions can sit in the stretch off, move with the rotation, or pause through a long block with the restart already agreed, so the plan follows the schedule rather than the other way round." },
+      { q: "Which health authority covers Cranbrook?", a: "Interior Health. Calling 310-MHSU (6478) is the self-referral route to its mental-health and substance-use services, and the Cranbrook centre lists counselling and treatment, group counselling and opioid agonist treatment among what it offers. Seeing a private counsellor as well does not take you off anything there." },
+      { q: "Is there something free I should look at first?", a: "Yes. If you are 12 to 24, Foundry East Kootenay in Cranbrook, run by Ktunaxa Kinbasket Child and Family Services Society, offers free counselling. At any age the Interior Health centre is the public route, and the [free and low-cost counselling page](/resources/low-cost-counselling-bc) lists reduced-fee options across BC. Look at those before paying for anything." },
+      { q: "Why are Golden and Creston not listed with Cranbrook?", a: "Because their clock matches the booking calendar. Golden moves to UTC-7 all year from 1 November 2026, and Creston stopped changing its clocks long ago, so neither needs the hour of translation this page is about. Both are served on identical terms; they simply do not share Cranbrook’s time-zone question." },
+      { q: "I cross into Alberta for work or family. Does that change anything?", a: "Only where you sit for the session. A BC Registered Clinical Counsellor sees you while you are in British Columbia, so the session happens from home in Cranbrook, from Fernie, or from anywhere else on the BC side of the Crowsnest Pass, rather than from a worksite or a visit across the line." + ALBERTA_FAQ },
+      { q: "Can I have EMDR from Cranbrook?", a: "Yes, by secure video, with the counsellor on the roster who offers it. Preparation comes first and includes practising the bilateral stimulation itself, usually eye movements following a point on screen or tapping you do yourself. The Cranbrook difference is the aftermath: a processing session can leave you tired, and finishing it at home means no drive over a pass afterwards." },
+    ],
+    sources: [
+      { label: "Province of BC, B.C.’s new time zone (Pacific time): East Kootenay communities on UTC-6, published 17 Sep 2026", url: "https://www2.gov.bc.ca/gov/content/governments/celebrating-british-columbia/daylight-saving-time" },
+      { label: "1029 Rewind Radio, East Kootenay will remain on Mountain Daylight Saving Time year-round (RDEK board vote), 14 Aug 2026", url: "https://1029rewindradio.ca/2026/08/14/no-more-switching-clocks-as-east-kootenay-will-remain-on-mountain-daylight-saving-time-year-round/" },
+      { label: "Creston Valley Advance, Going to Pacific time should make things less confusing, says Creston mayor, 3 Mar 2026", url: "https://crestonvalleyadvance.ca/2026/03/03/going-to-pacific-time-should-make-things-less-confusing-says-creston-mayor/" },
+      { label: "Interior Health, Cranbrook Mental Health & Substance Use", url: "https://www.interiorhealth.ca/locations/cranbrook-mental-health-substance-use" },
+      { label: "Interior Health, crisis response and the Interior Crisis Line Network", url: "https://www.interiorhealth.ca/services/crisis-response" },
+      { label: "Interior Health, East Kootenay Regional Hospital", url: "https://www.interiorhealth.ca/locations/east-kootenay-regional-hospital" },
+      { label: "College of the Rockies", url: "https://cotr.bc.ca/" },
+      { label: "Foundry East Kootenay", url: "https://foundrybc.ca/location/eastkootenay/" },
+      { label: "Glencore, Elk Valley Resources", url: "https://www.glencore.ca/en/evr" },
+      { label: "Statistics Canada, 2021 Census Profile: Cranbrook (CSD 5901022)", url: "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055901022&GENDERlist=1&STATISTIClist=1&HEADERlist=0" },
+      { label: "Statistics Canada, 2021 Census Profile: East Kootenay (regional district 5901)", url: "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00035901&GENDERlist=1&STATISTIClist=1&HEADERlist=0" },
+    ],
+    nearby: ["kelowna", "penticton"],
+    audiences: ["rotational-and-camp-workers", "healthcare-and-shift-workers"],
+  },
 ];
 
 export const getLocation = (slug: string) => locations.find((l) => l.slug === slug);

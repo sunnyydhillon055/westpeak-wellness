@@ -153,6 +153,12 @@ const CHECKS = [
   ['/practitioners/savneet-singh/langford', 200],
   ['/punjabi-counselling/langford', 200],
   ['/tagalog-counselling/langford', 200],
+  /* Cranbrook 308'd to the index until 2 Oct 2026, when it got a page of its own. */
+  ['/online-counselling/cranbrook', 200],
+  ['/online-counselling/cranbrook/emdr-therapy', 200],
+  ['/practitioners/savneet-singh/cranbrook', 200],
+  ['/punjabi-counselling/cranbrook', 200],
+  ['/tagalog-counselling/cranbrook', 200],
   ['/for/mens-mental-health', 308, '/for'],
   /* /answers was retired 31 Aug 2026 and redirected to /faq; it came back
      on 14 Sep as the instant-answer page (checked as 200 above). */

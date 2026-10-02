@@ -43,8 +43,8 @@ test('each mapped retired town 308s, in one hop, to a city page whose communitie
 });
 
 test('an unmapped retired town still lands on the index, and every retired redirect is permanent', () => {
-  // Courtenay has its own hub since 2 Oct 2026; Squamish takes its place as an unmapped example.
-  for (const slug of ['whistler', 'cranbrook', 'nelson', 'squamish']) assert.equal(dest(slug), '/online-counselling', slug);
+  // Courtenay and Cranbrook have their own hubs since 2 Oct 2026; Squamish and Powell River take their places as unmapped examples.
+  for (const slug of ['whistler', 'powell-river', 'nelson', 'squamish']) assert.equal(dest(slug), '/online-counselling', slug);
   for (const slug of RETIRED_CITY_SLUGS as string[]) {
     assert.ok(list.find((r) => r.source === `/online-counselling/${slug}`)?.permanent, slug);
   }
@@ -68,6 +68,8 @@ test('no slug is both retired and a page: Penticton and Fort St. John are pages 
   assert.equal(dest('courtenay'), undefined);
   assert.ok(getLocation('langford'));
   assert.equal(dest('langford'), undefined);
+  assert.ok(getLocation('cranbrook'));
+  assert.equal(dest('cranbrook'), undefined);
 });
 
 test('the new pages and the community edits', () => {
@@ -103,7 +105,10 @@ test('the new pages and the community edits', () => {
   for (const t of ['Langford', 'Colwood', 'Sooke']) assert.ok(!getLocation('victoria')!.communities!.includes(t), `${t} is on the Langford page`);
   for (const t of ['Colwood', 'View Royal', 'Metchosin', 'Highlands', 'Sooke']) assert.ok(getLocation('langford')!.communities!.includes(t), t);
   assert.ok(getLocation('victoria')!.localReality!.body.some((b) => b.includes('](/online-counselling/langford)')), 'Victoria links Langford');
-  for (const slug of ['penticton', 'fort-st-john', 'saanich', 'maple-ridge', 'vernon', 'mission', 'courtenay', 'langford']) {
+  // Cranbrook has its own hub since 2 Oct 2026. Golden and Creston keep the calendar's clock, so its Mountain-time page does not claim them.
+  for (const t of ['Kimberley', 'Fernie', 'Sparwood', 'Elkford', 'Invermere']) assert.ok(getLocation('cranbrook')!.communities!.includes(t), t);
+  for (const t of ['Golden', 'Creston', 'Nelson']) assert.ok(!getLocation('cranbrook')!.communities!.includes(t), `${t} is not on Cranbrook's clock`);
+  for (const slug of ['penticton', 'fort-st-john', 'saanich', 'maple-ridge', 'vernon', 'mission', 'courtenay', 'langford', 'cranbrook']) {
     const l = getLocation(slug)!;
     assert.ok(healthAuthorityFor(slug), `${slug} has an authority`);
     assert.ok(l.metaDescription.replace(/&/g, '&amp;').length <= 155, `${slug} description`);

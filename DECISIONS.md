@@ -2469,6 +2469,52 @@ language claims stay out of the hub's intro, access and first five FAQs. No
 
 ---
 
+### Cranbrook gets its own pages, for the East Kootenay
+Decided 2 Oct 2026 (owner decision of the same day: each city in the October
+batch gets all ten pages). Cranbrook has a hub, five city-service pages, both
+counsellors' English place pages, a Punjabi region page and a Tagalog city
+page. Its argument, which no neighbour's page makes: the reader lives on a
+different clock from the booking calendar in every season. The Regional
+District of East Kootenay voted on 14 Aug 2026 to stay on Mountain Daylight
+Time all year, and the Province's time-zone page (17 Sep 2026) lists
+Cranbrook, Fernie, Sparwood, Invermere, Kimberley, Radium Hot Springs and
+Elkford on UTC-6 all year while the rest of BC keeps Pacific time (UTC-7) from
+1 Nov 2026. So the page tells the reader once: open times are Pacific, add an
+hour. Golden and Creston are deliberately not in `communities`, since both keep
+the calendar's clock. The second strand is the Elk Valley: four steelmaking
+coal mines with about 5,500 jobs, and the rosters and site incidents that come
+home with the crews. The pairs take it from there: being seen walking in,
+rotations and resort seasons, an incident on site, a relationship on two
+calendars, and no pass to drive after EMDR. The copy rests on the Province
+page and does not say what Alberta's clock does in winter
+(`lib/alberta-clock.ts`: sources disagree).
+
+The Punjabi page argues scarcity and says plainly the community is small (120
+speak Punjabi most often at home, 365 South Asian residents); the Tagalog page
+states its 270 counted as Filipino and 90 by mother tongue. The figures were
+read through Statistics Canada's data service on 2 Oct, when the www12 Census
+Profile pages returned 404 from here, and are cited at the Census Profile, as
+every other city is. The Punjabi file's header no longer lists the Kootenays
+as out for want of a figure.
+
+`cranbrook` leaves `retiredCitySlugs`. It had no `RETIRED_TOWN_HOMES` entry and
+no hub named it or its towns, so no old home changes; Nelson stays on the
+index, because it is West Kootenay and on the Pacific clock. Powell River
+replaces Cranbrook as an unmapped-redirect example. EMDR, couples, Alberta and
+language claims stay out of the hub's intro, access and first five FAQs. No
+/tl or /pa place twins and no new Punjabi or Tagalog sentences.
+
+Known gap, not fixed here: `timeZoneNote()` in `lib/availability-summary.ts`
+reads the East Kootenay from `America/Edmonton`. If that zone falls back to
+UTC-7 in winter, the /book note stops mentioning the East Kootenay from
+November while this page says an hour ahead. That is a code change, left for
+its own decision.
+
+*Enforced by:* `test/regional-pages.test.mts`, `test/roster-nav.test.mts`,
+`test/link-anchors.test.mts`, `scripts/smoke.mjs`
+
+---
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`
