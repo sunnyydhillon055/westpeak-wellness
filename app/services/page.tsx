@@ -113,20 +113,24 @@ export default function Services() {
               /* Who takes this work, by first name. */
               const who = counsellorsForService(s).map((p) => firstName(p.name));
               return (
-                <div className="card svc-tile" key={s.slug}>
+                /* The anchor is the "<name> in BC" line alone, stretched over
+                   the tile by .card--stretch (globals.css), as on /for and the
+                   city hubs. The whole tile still clicks; the link text is no
+                   longer the whole tile. 2 Oct 2026. */
+                <div className="card card--stretch svc-tile" key={s.slug}>
                   <span className="svc-tile-bar" style={{ background: ACCENTS[i % ACCENTS.length] }} aria-hidden="true" />
-                  <Link href={`/services/${s.slug}`} className="card-link">
-                    <div className="svc-card-head">
-                      <span className="icon-chip" aria-hidden="true"><Icon strokeWidth={1.6} /></span>
-                      <h2 className="card-title">{s.name}</h2>
-                    </div>
-                    <p>{s.short}</p>
-                    {who.length > 0 && (
-                      <p style={{ margin: '0 0 10px', fontSize: 'var(--fs-small)', color: 'var(--ink-soft)' }}>
-                        With {listOf(who, 'or')}
-                      </p>
-                    )}
-                    <span className="more">{s.name} in BC →</span>
+                  <div className="svc-card-head">
+                    <span className="icon-chip" aria-hidden="true"><Icon strokeWidth={1.6} /></span>
+                    <h2 className="card-title">{s.name}</h2>
+                  </div>
+                  <p>{s.short}</p>
+                  {who.length > 0 && (
+                    <p style={{ margin: '0 0 10px', fontSize: 'var(--fs-small)', color: 'var(--ink-soft)' }}>
+                      With {listOf(who, 'or')}
+                    </p>
+                  )}
+                  <Link href={`/services/${s.slug}`} className="more card-stretch">
+                    {s.name} in BC<span aria-hidden="true"> →</span>
                   </Link>
                 </div>
               );

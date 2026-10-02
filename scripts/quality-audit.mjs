@@ -131,7 +131,9 @@ for (const { url, html } of pages) {
     const attrs = a[1], label = text(a[2]) || imgAlt;
     const href = (attrs.match(/href="([^"]*)"/) || [, ''])[1];
     if (!label && !/aria-label=/.test(attrs)) add('link-no-text', url, href);
-    else if (VAGUE.test(label)) add('link-vague-text', url, `"${label}" → ${href}`);
+    /* A trailing arrow does not make "Read more" descriptive: 27 "Read more →"
+       links on /glossary passed only because of it (2 Oct 2026). */
+    else if (VAGUE.test(label.replace(/\s*[→›»]+\s*$/u, ''))) add('link-vague-text', url, `"${label}" → ${href}`);
     if (/^https?:\/\//.test(href) && /target="_blank"/.test(attrs) && !/rel="[^"]*noopener/.test(attrs)) {
       add('link-blank-no-noopener', url, href);
     }

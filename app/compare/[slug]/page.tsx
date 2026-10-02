@@ -266,6 +266,7 @@ export default async function ComparePage({ params }: { params: { slug: string }
         counsellors={[]}
         feeLine={feeLine}
         consult={{ location: 'next-compare-close', slugs: fitting.map((p) => p.slug), language: c.language }}
+        service={c.service}
         softSteps={softStepsFor({ path: `/compare/${c.slug}`, slug: c.slug, service: c.service })}
         band={{
           bookHref: cta.href,

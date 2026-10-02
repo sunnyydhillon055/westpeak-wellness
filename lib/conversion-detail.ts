@@ -152,6 +152,9 @@ export const BOOK_LOCATIONS: readonly string[] = [
   'practitioners-row',
   'place-practitioner',
   'counsellor-compare',
+  /* The "book with {first}" links on the 404 page (2 Oct 2026, wf/services-cards).
+     Placed before 'calendar-alt', which test/home-copy.test.mts holds last. */
+  'counsellor-not-found',
   /* The "calendar hard to use?" route beside the /book calendar: its email
      link and its link to the Ask-for-a-time form (1 Oct 2026). */
   'calendar-alt',

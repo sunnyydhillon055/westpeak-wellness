@@ -325,6 +325,7 @@ export default async function GuidePage({ params }: { params: { slug: string } }
            free consultation mid-article (NEXT_CONSULT_AFTER) does not print
            it again here. */
         consult={cards && !next ? { location: 'next-guide-close', slugs: counsellors.map((p) => p.slug) } : undefined}
+        service={g.service}
         softSteps={softStepsFor({ path: `/guides/${g.slug}`, slug: g.slug, service: g.service })}
         band={{
           tone: gentle ? 'gentle' : 'default',

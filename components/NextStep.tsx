@@ -38,6 +38,7 @@ export default function NextStep({
   softSteps,
   band,
   province,
+  service,
 }: {
   /** The cards, or none (the NO_CARDS pages, and the comparisons). */
   counsellors: Practitioner[];
@@ -52,6 +53,10 @@ export default function NextStep({
   /** 'AB' on a page written for Alberta: the coverage sentence then names
    *  no BC programme. */
   province?: string;
+  /** The page's booking service (2 Oct 2026). On 'couples-therapy' the card
+   *  buttons and the consultation link carry for=couples, so /book opens the
+   *  couples consult rather than the individual one. */
+  service?: string;
   band: {
     heading?: string;
     text?: string;
@@ -88,6 +93,7 @@ export default function NextStep({
           location={consult.location}
           slugs={consult.slugs}
           language={consult.language}
+          service={service}
           style={{ margin: '10px 0 0', fontSize: '.95rem' }}
         />
       )}
@@ -100,6 +106,7 @@ export default function NextStep({
         <CounsellorCards
           counsellors={counsellors}
           location={cardLocation}
+          service={service}
           className="section section--ghost"
           {...cardCopy}
           footer={details}

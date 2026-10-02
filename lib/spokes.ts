@@ -133,6 +133,20 @@ export const spokes: Record<string, Spoke> = {
     audiences: ['punjabi-speaking-couples', 'south-asian-intergenerational-conflict'],
   },
   'resources/counselling-in-punjabi-what-the-words-mean': { audiences: ['punjabi-speaking-couples'] },
+  /* The two Filipino /for pages had one informational linker each, the
+     fewest of any /for page, and no spoke at all (2 Oct 2026, item 391).
+     These are the pages a Tagalog-speaking reader, or a family member
+     looking on their behalf, reads before booking. */
+  'compare/therapy-in-tagalog-vs-english': {
+    audiences: ['filipino-canadian-families', 'filipino-healthcare-workers-and-caregivers'],
+  },
+  'resources/counselling-in-tagalog-what-the-words-mean': {
+    audiences: ['filipino-canadian-families', 'filipino-healthcare-workers-and-caregivers'],
+  },
+  'resources/finding-a-counsellor-in-punjabi-or-tagalog-in-bc': {
+    audiences: ['filipino-canadian-families', 'first-gen-south-asian-adults'],
+  },
+  'guides/talking-to-your-family-about-therapy': { audiences: ['filipino-canadian-families'] },
   'guides/setting-boundaries-with-family': { audiences: ['south-asian-intergenerational-conflict'] },
   'guides/adhd-in-adults-and-what-counselling-can-do': { audiences: ['teens-and-young-adults'] },
   'guides/anger-that-arrives-too-fast': { audiences: ['trades-and-construction-workers', 'men'] },

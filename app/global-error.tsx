@@ -1,5 +1,7 @@
 'use client';
 
+import { errorConsultLinks, ERROR_EMAIL } from '@/lib/error-routes';
+
 /* ============================================================================
    WHEN THE ROOT LAYOUT ITSELF FAILS
    ----------------------------------------------------------------------------
@@ -70,6 +72,18 @@ export default function GlobalError({
             Call or text <a href="tel:988">9-8-8</a>, the Suicide Crisis Helpline:
             anywhere in Canada, 24 hours a day. In immediate danger, call{' '}
             <a href="tel:911">9-1-1</a>.
+          </p>
+
+          {/* Booking and email that do not need this site — 2 Oct 2026. Plain
+              anchors to each accepting counsellor's Cliniko calendar, from
+              constants (lib/error-routes.ts); the crisis lines stay first. */}
+          <ul style={{ margin: '0 0 0.75rem', paddingLeft: '1.25rem' }}>
+            {errorConsultLinks().map((c) => (
+              <li key={c.href}><a href={c.href}>{c.label}</a></li>
+            ))}
+          </ul>
+          <p style={{ margin: '0 0 1.5rem' }}>
+            Or email <a href={`mailto:${ERROR_EMAIL}`}>{ERROR_EMAIL}</a>.
           </p>
 
           {error.digest ? (

@@ -294,7 +294,7 @@ export default async function CityServicePage({ params }: { params: Params }) {
           </div>
           {/* The next free consultation with whoever offers this service
               (couples and EMDR: one counsellor). 1 Oct 2026. */}
-          <NextConsultLine location="next-city-service" slugs={counsellors.map((p) => p.slug)} style={{ margin: '14px 0 0', fontSize: '.95rem' }} />
+          <NextConsultLine location="next-city-service" slugs={counsellors.map((p) => p.slug)} service={svc.bookingService} style={{ margin: '14px 0 0', fontSize: '.95rem' }} />
           {/* One self-contained sentence for an answer engine, alongside the
               page's own argument above. Says only what is true of every
               counsellor at the practice. */}
@@ -361,6 +361,7 @@ export default async function CityServicePage({ params }: { params: Params }) {
           audience pages. */}
       <CounsellorCards
         counsellors={counsellors}
+        service={svc.bookingService}
         location="counsellor-city-service"
         citySlug={ctx.slug}
         /* "EMDR therapist in Vancouver: who you would see" — the person the

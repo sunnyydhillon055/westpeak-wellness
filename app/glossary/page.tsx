@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { site } from '@/lib/site';
 import { orgRef, siteRef, personRef } from '@/lib/schema';
 import { glossary, glossaryGroups, termsByGroup } from '@/lib/glossary';
+import { glossaryAnchor } from '@/lib/glossary-anchors';
 import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -138,7 +139,7 @@ export default function GlossaryPage() {
                     {t.href && (
                       <>
                         {' '}
-                        <Link href={t.href}>Read more →</Link>
+                        <Link href={t.href}>{glossaryAnchor(t.term, t.href)} →</Link>
                       </>
                     )}
                   </dd>
