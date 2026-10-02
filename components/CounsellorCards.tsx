@@ -60,9 +60,13 @@ export default function CounsellorCards({
                     <Image
                       src={p.photos.portrait.src}
                       alt={p.photos.portrait.alt}
-                      width={p.photos.portrait.width}
-                      height={p.photos.portrait.height}
-                      sizes="96px"
+                      /* Intrinsic size set to the 96px it is drawn at, with
+                         no `sizes`: Next then writes a two-entry 1x/2x
+                         srcSet instead of all sixteen widths, which was
+                         about 1.2 KB of markup per card on every page that
+                         shows cards (1 Oct 2026, perf gate). */
+                      width={96}
+                      height={Math.round((96 * p.photos.portrait.height) / p.photos.portrait.width)}
                       style={{ width: 96, height: 96, flex: '0 0 96px', objectFit: 'cover', objectPosition: 'top', borderRadius: '50%' }}
                     />
                   )}
