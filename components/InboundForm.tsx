@@ -1,10 +1,12 @@
 'use client';
 import FormStamp from '@/components/FormStamp';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import MailLink from '@/components/MailLink';
 import { detailProgress, hasEnoughDetail, MIN_SENTENCES, MIN_WORDS } from '@/lib/sentences';
 import { LOOKING, WHERE, TIMING, EMPLOYER, lookingFromAbout } from '@/lib/enquiry-fields';
+import { DRAFT_FIELDS, DRAFT_KEY, parseDraft, sendState, whySentence, type Draft, type Why } from '@/lib/inbound-return';
 
 /* The form that gives someone a way in other than picking a calendar slot.
  *
@@ -45,6 +47,15 @@ import { LOOKING, WHERE, TIMING, EMPLOYER, lookingFromAbout } from '@/lib/enquir
  * has a visible hint and a word count tied to it with aria-describedby
  * (lib/sentences.ts, detailProgress). Nothing about the rule changed; before
  * this, the first a person heard of it was the browser refusing to send.
+ *
+ * A REFUSAL SAYS WHICH RULE, AND GIVES BACK WHAT WAS TYPED — 2 Oct 2026.
+ * The route sends the reason as ?why= (lib/inbound-return.ts) and this prints
+ * the one sentence that matches; a failed store write says the fault was the
+ * practice's and shows the address. The fields are kept in sessionStorage as
+ * the form is sent, for this tab only, restored when the address bar says
+ * sent=err and cleared when it says sent=ok. Read from location after mount,
+ * like ?about=, so a static page can restore too. Nothing new leaves the
+ * browser.
  */
 
 type Kind = 'enquiry';
@@ -73,9 +84,14 @@ export default function InboundForm({
   note,
   placeholder,
   button,
+  returnTo,
 }: {
   kind: Kind;
   done?: 'ok' | 'err';
+  /* Where the person lands afterwards, for a page that cannot read ?sent=
+     itself. The city hubs pass '/message-sent'; a refusal then goes to
+     /message-not-sent (FAILED_PAGE in lib/inbound-return.ts). 2 Oct 2026. */
+  returnTo?: string;
   /* Slug of the counsellor this request is for, when the reader arrived from
      one of their pages. Server-validated against the roster; see
      lib/inbound-submit.ts. */
@@ -106,6 +122,63 @@ export default function InboundForm({
   }, []);
   const employer = looking === EMPLOYER;
 
+  /* The last send, as the address bar reports it (after mount), and the
+     draft to put back. `restore` is applied after the render that shows the
+     where/timing selects, which only exist once `looking` is not employer. */
+  const [why, setWhy] = useState<Why | null>(null);
+  const [failedHere, setFailedHere] = useState(false);
+  const [restore, setRestore] = useState<Draft | null>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  useEffect(() => {
+    try {
+      const st = sendState(window.location.search);
+      if (done === 'ok' || st.sent === 'ok') {
+        sessionStorage.removeItem(DRAFT_KEY);
+        return;
+      }
+      if (done === 'err' || st.sent === 'err') {
+        setFailedHere(st.sent === 'err');
+        setWhy(st.why);
+        const d = parseDraft(sessionStorage.getItem(DRAFT_KEY));
+        if (d) {
+          if (d.looking) setLooking(d.looking);
+          setRestore(d);
+        }
+      }
+    } catch { /* storage blocked: the form simply starts empty, as before */ }
+  }, [done]);
+  useEffect(() => {
+    const f = formRef.current;
+    if (!restore || !f) return;
+    for (const k of DRAFT_FIELDS) {
+      if (k === 'looking') continue;
+      const el = f.elements.namedItem(k);
+      const v = restore[k];
+      if (v && (el instanceof HTMLInputElement || el instanceof HTMLSelectElement || el instanceof HTMLTextAreaElement)) {
+        el.value = v;
+      }
+    }
+    if (restore.message) setMessage(restore.message);
+    if (restore.phone || restore.callWindow) f.querySelector('details')?.setAttribute('open', '');
+    setRestore(null);
+  }, [restore]);
+
+  /* Kept as the form leaves, not on every keystroke: one write, and only
+     when the person actually pressed send. */
+  const keepDraft = (f: HTMLFormElement) => {
+    try {
+      const d: Draft = {};
+      for (const k of DRAFT_FIELDS) {
+        const el = f.elements.namedItem(k);
+        if (el instanceof HTMLInputElement || el instanceof HTMLSelectElement || el instanceof HTMLTextAreaElement) {
+          if (el.value) d[k] = el.value.slice(0, 5000);
+        }
+      }
+      sessionStorage.setItem(DRAFT_KEY, JSON.stringify(d));
+    } catch { /* never load-bearing */ }
+  };
+  const failed = done === 'err' || failedHere;
+
   if (done === 'ok') {
     return (
       <div className="crisis" id="form" style={{ marginTop: 8 }}>
@@ -129,7 +202,8 @@ export default function InboundForm({
        enquiries. The server counts `enquiry_submit` when it stores the
        record (lib/inbound-submit.ts), against the `source` page below, so
        the count is the inbound store's and nothing counts twice. 1 Oct 2026. */
-    <form method="POST" action={c.action} className="lead-form" id="form">
+    <form method="POST" action={c.action} className="lead-form" id="form" ref={formRef}
+      onSubmit={(e) => keepDraft(e.currentTarget)}>
       <p className="lead-form-title">{title ?? c.title}</p>
       <p className="lead-form-note">{note ?? c.note}</p>
 
@@ -138,6 +212,7 @@ export default function InboundForm({
           same-site path; see safePath() in lib/inbound-submit.ts. */}
       <input type="hidden" name="source" value={pathname ?? '/'} />
       {practitioner && <input type="hidden" name="practitioner" value={practitioner} />}
+      {returnTo && <input type="hidden" name="returnTo" value={returnTo} />}
       <FormStamp />
 
 
@@ -257,10 +332,13 @@ export default function InboundForm({
         </p>
       </details>
 
-      {done === 'err' && (
+      {failed && (
         <p className="lead-form-note" role="alert" style={{ color: 'var(--clay-deep)' }}>
-          That did not go through. Please check the email address, answer the three questions,
-          and write at least two sentences, about {MIN_WORDS} words, on what you are looking for.
+          That did not go through. {whySentence(why, MIN_WORDS)}
+          {why === 'store' && (
+            <> Please write to <MailLink where="book-fallback" /> instead; what you typed is
+            still in the form above, so it can be copied across.</>
+          )}
         </p>
       )}
 

@@ -104,6 +104,10 @@ const COUNTED = new Set([
      after scheduler_interact that was never measured. Per counsellor and
      surface, like the two before it. 1 Oct 2026. */
   'scheduler_booked',
+  /* The frame was on screen ten seconds and Cliniko never drew in it
+     (components/SchedulerTelemetry's watchdog, 2 Oct 2026). Same detail as
+     the events around it, so opens and stalls line up per surface. */
+  'scheduler_stalled',
   /* The landing page and channel of the visit, beside the booking click and
      the confirmed booking it led to, and the button that opened the
      calendar. Sent by lib/analytics.ts alongside book_click and

@@ -41,11 +41,16 @@ export type MagnetKey = keyof typeof MAGNETS;
 
 export default function LeadCapture({
   done,
+  failed,
   magnet = 'coverage-checklist',
   source,
   returnTo,
 }: {
   done?: boolean;
+  /** The page read ?lead=err: the signup was refused or not stored. Prints the
+   *  line /one-pager-sent uses above the form, which is otherwise blank and
+   *  says nothing (2 Oct 2026; /pricing earned 17 of September's 60 leads). */
+  failed?: boolean;
   magnet?: MagnetKey;
   /** Page the form sits on, for /admin's which-page-earns-enquiries view. */
   source?: string;
@@ -94,6 +99,12 @@ export default function LeadCapture({
 
       <p className="lead-form-title">{m.title}</p>
       <p className="lead-form-note">{m.note}</p>
+      {failed && (
+        <p className="lead-form-note" role="alert" style={{ color: 'var(--clay-deep)' }}>
+          That did not go through. Nothing was stored and nothing will be sent. The usual reason
+          is an email address with a typo in it: please check it and try again.
+        </p>
+      )}
       {/* Visible labels, 1 Oct 2026, as on InboundForm: the placeholder was
           the only visible label and it vanished on the first keystroke. The
           button sits on the inputs' baseline rather than stretching to the

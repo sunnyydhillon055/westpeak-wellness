@@ -84,7 +84,10 @@ export function channelOf(utmSource: string | null | undefined): string | null {
   return (CHANNELS as readonly string[]).includes(v) ? v : null;
 }
 
-const AI_HOST = /(^|\.)(chatgpt\.com|chat\.openai\.com|openai\.com|gemini\.google\.com|bard\.google\.com|claude\.ai|anthropic\.com|perplexity\.ai|copilot\.microsoft\.com|you\.com|poe\.com|meta\.ai|mistral\.ai)$/i;
+/* edgeservices.bing.com is Copilot in the Edge sidebar and copilot.com the
+   consumer Copilot domain; both added 2 Oct 2026. Plain bing.com stays the
+   search engine's own class below. */
+const AI_HOST = /(^|\.)(chatgpt\.com|chat\.openai\.com|openai\.com|gemini\.google\.com|bard\.google\.com|claude\.ai|anthropic\.com|perplexity\.ai|copilot\.microsoft\.com|copilot\.com|edgeservices\.bing\.com|you\.com|poe\.com|meta\.ai|mistral\.ai)$/i;
 /* The directories in docs/LISTINGS_PACK.md, plus the two maps apps whose
    place cards link out. Search engines are their own classes. */
 const LISTING_HOST = /(^|\.)(psychologytoday\.com|bcacc\.ca|counsellingbc\.com|luminohealth\.sunlife\.ca|alignable\.com|theravive\.com|firstsession\.com|maps\.apple\.com|businessconnect\.apple\.com|bingplaces\.com|yelp\.(com|ca)|yellowpages\.ca)$/i;
@@ -102,6 +105,25 @@ const ORG_HOST = /(^|\.)(dcrs\.ca|pics\.bc\.ca|options\.bc\.ca|archway\.ca|mosai
 export function isAssistantHost(host: string): boolean {
   return AI_HOST.test(host);
 }
+
+/* AN ASSISTANT THAT SENDS NO REFERRER BUT TAGS THE LINK — 2 Oct 2026.
+   ChatGPT appends ?utm_source=chatgpt.com to the links it cites (OpenAI's
+   publisher FAQ) and its app usually opens them with no referrer, so those
+   visits were counted as `none`: channelOf() drops a value that is not one of
+   the CHANNELS, and an empty referrer is `none`. The value is a host, so it is
+   tested against the same AI_HOST list and nothing else; CHANNELS stays a list
+   of organisation kinds. Only a yes leaves the browser, never the value.
+   Kept to two lines: this ships in the layout chunk, which sat 1.9% over
+   its perf baseline the day it was added. */
+/** True when ?utm_source= names an AI assistant's host (a bare host, as
+ *  ChatGPT sends it; AI_HOST is anchored and case-insensitive). */
+export const assistantFromUtm = (utmSource: string | null | undefined): boolean =>
+  !!utmSource && AI_HOST.test(utmSource.trim());
+
+/** The landing class: the referrer's, except that an empty referrer with an
+ *  assistant's ?utm_source= is `ai`. An internal referrer stays `none`. */
+export const arrivalClass = (refHost: string, ownHost: string, utmSource: string | null | undefined): ReferrerClass =>
+  !refHost.trim() && assistantFromUtm(utmSource) ? 'ai' : referrerClass(refHost, ownHost);
 
 /** The class of a referrer host. `ownHost` is this site's, so an internal
  *  referrer is not mistaken for an outside one. */

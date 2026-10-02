@@ -128,6 +128,7 @@ const NEVER_LISTED = new Map([
   ['/message-sent', 'confirmation, noindex'],
   ['/punjabi/sent', 'confirmation, noindex'],
   ['/one-pager-sent', 'confirmation, noindex'],
+  ['/message-not-sent', 'refusal page, noindex'],
   ['/signin', 'authentication'],
   ['/forgot', 'authentication'],
   ['/reset', 'authentication'],

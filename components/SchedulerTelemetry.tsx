@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { track } from '@/lib/analytics';
 import { clampFrameHeight, fromFrame, parseClinikoMessage } from '@/lib/cliniko-frame';
 
@@ -65,11 +65,33 @@ function onClinikoBookingConfirmed(ctx: { page: string; who?: string }): void {
  * data-scheduler-open, which hides the sticky action bar (app/premium.css):
  * on a phone it covered the bottom of the frame and offered "Pick a time"
  * to someone already picking one.
+ *
+ * THE WATCHDOG — 2 Oct 2026. Cliniko posts a resize on its first render, so a
+ * frame that has been on screen for STALL_MS without one is blocked or blank:
+ * Safari's third-party storage rules, a content blocker, a slow Cliniko. onLoad
+ * cannot tell, because it fires for an error page too. Then `stalled` (the
+ * direct calendar link and the email address, server-rendered by
+ * SchedulerEmbed) is shown above the frame, which stays, and
+ * `scheduler_stalled` is counted once with the same detail as the events
+ * around it, so /admin can set stalls against opens. The clock starts when
+ * the frame is first half on screen, not at mount: the portal's frame is
+ * lazy and does not load until it is scrolled to. A resize arriving late
+ * takes the note away again.
  */
+export const STALL_MS = 10_000;
 export default function SchedulerTelemetry({
-  page, who, children,
-}: { page: string; who?: string; children: React.ReactNode }) {
+  page, who, stalled, children,
+}: {
+  page: string;
+  who?: string;
+  /** What to show above the frame if it never draws: the direct link and the
+   *  address. Nothing is shown, and nothing counted, without it. */
+  stalled?: React.ReactNode;
+  children: React.ReactNode;
+}) {
   const box = useRef<HTMLDivElement>(null);
+  const [stall, setStall] = useState(false);
+  const watch = Boolean(stalled);
 
   useEffect(() => {
     const el = box.current;
@@ -77,6 +99,8 @@ export default function SchedulerTelemetry({
 
     let seen = false;
     let touched = false;
+    let drew = false;
+    let timer: number | undefined;
 
     const io = new IntersectionObserver(
       (entries) => {
@@ -85,6 +109,13 @@ export default function SchedulerTelemetry({
             seen = true;
             track('scheduler_visible', { page, detail: who });
             io.disconnect();
+            if (watch && !drew) {
+              timer = window.setTimeout(() => {
+                if (drew) return;
+                setStall(true);
+                track('scheduler_stalled', { page, detail: who });
+              }, STALL_MS);
+            }
           }
         }
       },
@@ -116,6 +147,11 @@ export default function SchedulerTelemetry({
       if (!msg) return;
       if (msg.kind === 'resize') {
         frame.style.height = `${clampFrameHeight(msg.height)}px`;
+        if (!drew) {
+          drew = true;
+          window.clearTimeout(timer);
+          setStall(false);
+        }
         return;
       }
       el.scrollIntoView({ block: 'start' });
@@ -130,12 +166,22 @@ export default function SchedulerTelemetry({
     root.setAttribute('data-scheduler-open', '');
 
     return () => {
+      window.clearTimeout(timer);
       io.disconnect();
       window.removeEventListener('blur', onBlur);
       window.removeEventListener('message', onMessage);
       root.removeAttribute('data-scheduler-open');
     };
-  }, [page, who]);
+  }, [page, who, watch]);
 
-  return <div ref={box} className="scheduler-frame">{children}</div>;
+  return (
+    <div ref={box} className="scheduler-frame">
+      {stall && stalled && (
+        <p className="scheduler-fallback" role="status" style={{ marginTop: 0, marginBottom: 10 }}>
+          {stalled}
+        </p>
+      )}
+      {children}
+    </div>
+  );
 }

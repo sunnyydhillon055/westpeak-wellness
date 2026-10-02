@@ -187,6 +187,9 @@ export type TrackedEvent =
    * accepted only from a *.cliniko.com origin. The step after interact that
    * the site could never see. 1 Oct 2026. */
   | 'scheduler_booked'
+  /* The frame sent no resize within ten seconds of being on screen: blocked
+   * or blank. components/SchedulerTelemetry, 2 Oct 2026. */
+  | 'scheduler_stalled'
   | 'tool_start'
   | 'tool_complete'
   | 'tool_share'

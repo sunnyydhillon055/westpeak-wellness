@@ -1020,6 +1020,13 @@ export default async function AdminPage({
                     </li>
                   ))}
                 </ul>
+                {/* Frames that never drew (SchedulerTelemetry's watchdog), all
+                    calendars, beside the opens. 2 Oct 2026. */}
+                <p style={{ color: 'var(--ink-soft)', margin: '8px 0 0', fontSize: '.92rem' }}>
+                  Calendar stalls since 2 Oct 2026 (on screen ten seconds, nothing drawn):{' '}
+                  {totals.find((t) => t.event === 'scheduler_stalled')?.count ?? 0}, against{' '}
+                  {totals.find((t) => t.event === 'scheduler_open')?.count ?? 0} opens on /book.
+                </p>
               </>
             )}
             {(credit.byLanding.length > 0 || credit.byButton.some((b) => b.booked > 0)) && (

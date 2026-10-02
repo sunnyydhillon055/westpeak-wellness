@@ -12,7 +12,7 @@ import { hasEnoughDetail } from '@/lib/sentences';
 import { EMPLOYER, choicesComplete } from '@/lib/enquiry-fields';
 import { countConversion } from '@/lib/conversion-log';
 import { MAGNET_KEYS } from '@/lib/conversion-detail';
-import { safePath, returnUrl } from '@/lib/inbound-return';
+import { safePath, returnUrl, type Why } from '@/lib/inbound-return';
 
 /* One submit path for both inbound forms, enquiry and lead.
  *
@@ -79,11 +79,15 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
 
   /* Back to /book keeps the counsellor the form was for (?with=), since
      1 Oct 2026: see lib/inbound-return.ts. */
-  const back = (state: string) =>
+  /* A failure carries the reason (lib/inbound-return.ts, WHY) so the form
+     can say which rule it was, or that the fault was ours. 2 Oct 2026. */
+  const back = (state: string, why?: Why) =>
     NextResponse.redirect(new URL(returnUrl(returnTo, o.flag, state, {
       bookingPath: site.bookingPath,
       practitioner,
       accepting: practitioners.filter((p) => p.acceptingNewClients).map((p) => p.slug),
+      why,
+      source,
     }), req.url), 303);
 
   /* A refused enquiry leaves no record, so it is counted by reason before the
@@ -93,7 +97,7 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
     if (o.kind === 'enquiry') {
       try { await countConversion('enquiry_refused', source, reason); } catch { /* never load-bearing */ }
     }
-    return back('err');
+    return back('err', reason);
   };
 
   const honeypot = String(form.get(HONEYPOT) ?? '');
@@ -181,7 +185,9 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
     monthlyOptIn, magnet, triage: verdict, practitioner,
     looking, where, timing,
   });
-  if (!item) return back('err');
+  /* The store refused the write. Not the person's doing, and the page they
+     land on says so (`store`) and gives the address to write to instead. */
+  if (!item) return back('err', 'store');
 
   /* A tripped honeypot is the one unambiguous case: a field no human can see
      was filled in. Stored so it is countable in /admin, and silently accepted

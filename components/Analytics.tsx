@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { track, LANDING_KEY } from '@/lib/analytics';
-import { channelOf, isAssistantHost, referrerClass } from '@/lib/conversion-detail-client';
+import { arrivalClass, assistantFromUtm, channelOf, isAssistantHost } from '@/lib/conversion-detail-client';
 
 /* Page-level engagement signals that do not belong on any one component:
  * a 75% scroll marker, and outbound-link clicks. Both are passive listeners
@@ -21,9 +21,14 @@ export default function Analytics() {
   useEffect(() => {
     try {
       const ref = document.referrer ? new URL(document.referrer).hostname : '';
-      if (isAssistantHost(ref) && !sessionStorage.getItem('wp-ai-ref')) {
+      const utm = new URLSearchParams(window.location.search).get('utm_source');
+      /* No referrer but ?utm_source=chatgpt.com (or another assistant's
+         host): ChatGPT's app tags cited links and sends no referrer. Counted
+         the same way, once per session. 2 Oct 2026. */
+      const viaUtm = !ref && assistantFromUtm(utm);
+      if ((isAssistantHost(ref) || viaUtm) && !sessionStorage.getItem('wp-ai-ref')) {
         sessionStorage.setItem('wp-ai-ref', '1');
-        track('ai_referral', { host: ref, page: pathname ?? '' });
+        track('ai_referral', { host: viaUtm ? 'utm' : ref, page: pathname ?? '' });
       }
       /* THE DENOMINATOR. The first page of a session, counted once, with the
          referrer reduced here to one class from a fixed list (google, bing,
@@ -33,8 +38,8 @@ export default function Analytics() {
          channel mix, and nothing at all for Bing, direct or the listings.
          1 Oct 2026. A rendering crawler runs this script too, and would
          inflate the very number this exists to be honest about. */
-      const cls = referrerClass(ref, window.location.hostname);
-      const linkChannel = channelOf(new URLSearchParams(window.location.search).get('utm_source'));
+      const cls = arrivalClass(ref, window.location.hostname, utm);
+      const linkChannel = channelOf(utm);
       if (!sessionStorage.getItem(LANDING_KEY) && !navigator.webdriver && !/bot|crawl|spider|slurp|headless|lighthouse/i.test(navigator.userAgent)) {
         /* Was '1'. Now the page and the one word that says how the visit
            arrived — the link's channel when it named one, else the referrer
@@ -44,7 +49,7 @@ export default function Analytics() {
            their own; this keeps them in the tab until a booking needs them.
            1 Oct 2026. */
         sessionStorage.setItem(LANDING_KEY, `${window.location.pathname}|${linkChannel ?? cls}`);
-        track('landing', { detail: referrerClass(ref, window.location.hostname) });
+        track('landing', { detail: arrivalClass(ref, window.location.hostname, utm) });
       }
       /* WHICH KIND OF ORGANISATION'S LINK. A link the practice hands out —
          the Google Business Profile, a directory, a note to a family
