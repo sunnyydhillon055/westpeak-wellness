@@ -32,3 +32,8 @@ export const placePageDate = () => latestCollection('practitioners', 'practition
 
 /** /practitioners/<slug>/tl: the roster plus the Tagalog profile copy. */
 export const tagalogProfileDate = () => latestCollection('practitioners', 'tagalogProfile');
+
+/** /tagalog-counselling/<city>: lib/tagalog.ts and its route (tagalogCities).
+ *  Until `npm run dates` has written that key, the guides' date the page
+ *  showed before, rather than no date. */
+export const tagalogCityDate = () => latestCollection('tagalogCities') ?? latestCollection('tagalog');

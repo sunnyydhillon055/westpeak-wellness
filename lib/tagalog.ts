@@ -28,9 +28,16 @@ import { practitionersSpeaking } from './practitioners';
 
    CITIES ARE CHOSEN, NOT GENERATED. Filipino communities in BC are real and
    unevenly distributed, and a page for a city with no particular Filipino
-   population is a page with nothing true to say. The five below are the ones
-   where the practice already has a city page AND where the community is
-   substantial enough for the page to be about something.
+   population is a page with nothing true to say. The first cities below were
+   the ones where the practice already had a city page AND where the community
+   was substantial enough for the page to be about something.
+
+   OWNER DECISION, 2 Oct 2026: every city with a city page gets its Tagalog
+   page too, including cities where the community is small. Where it is small,
+   the page states the real 2021 Census figure plainly, cites it, and argues
+   honestly from it (few or no Tagalog-speaking counsellors locally, and video
+   reaches one) rather than inflating the community. The rule below about
+   census figures still holds: a number appears only with its source.
 
    NO INVENTED CENSUS FIGURES, same rule as everywhere else on this site. The
    Punjabi city pages quote exact mother-tongue counts because those were
@@ -206,6 +213,15 @@ export const TAGALOG_CITIES: TagalogCity[] = [
 ];
 
 export const getTagalogCity = (slug: string) => TAGALOG_CITIES.find((c) => c.slug === slug);
+
+/** "Tagalog Counselling in <City>, BC | Westpeak Wellness", or without ", BC"
+ *  where the city name (14 characters or more: Port Coquitlam, Campbell
+ *  River, North Vancouver, New Westminster) would take it past the SEO gate's
+ *  60. The H1, the description and the schema all carry the province. */
+export function tagalogCityTitle(city: string): string {
+  const withBc = `Tagalog Counselling in ${city}, BC | Westpeak Wellness`;
+  return withBc.length <= 60 ? withBc : `Tagalog Counselling in ${city} | Westpeak Wellness`;
+}
 
 /** Whether the vertical has anyone behind it. A language page with no speaker
  *  is a claim the practice cannot honour, so the pages check rather than

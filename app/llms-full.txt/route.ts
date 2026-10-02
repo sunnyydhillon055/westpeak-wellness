@@ -13,6 +13,7 @@ import { tagalogGuides } from '@/lib/tagalog-guides';
 import { tools } from '@/lib/tools';
 import { glossary } from '@/lib/glossary';
 import { COLLECTION_DATES } from '@/lib/page-dates';
+import { tagalogCityDate } from '@/lib/page-date-latest';
 import { PROVINCE_NAME, type Province } from '@/lib/crisis';
 import { services } from '@/lib/services';
 import { approaches } from '@/lib/approaches';
@@ -320,7 +321,7 @@ navigation or boilerplate. Every page it covers is also available at its own URL
     chunks.push([
       `## Tagalog-speaking counselling in ${c.city}, BC`,
       `URL: ${site.domain}/tagalog-counselling/${c.slug}`,
-      `Last reviewed: ${COLLECTION_DATES['tagalog']}`,
+      `Last reviewed: ${tagalogCityDate()}`,
       plain(c.angle),
       c.body.map(plain).join('\n\n'),
       renderFaqs(c.faqs),

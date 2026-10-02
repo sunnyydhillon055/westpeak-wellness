@@ -1,7 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { resolvePlace, placesFor } from '../lib/practitioner-places.ts';
-import { getPractitioner } from '../lib/practitioners.ts';
+import { resolvePlace, placesFor, placeDescription, SERVICE_CLAIMS } from '../lib/practitioner-places.ts';
+import { getPractitioner, practitioners } from '../lib/practitioners.ts';
+import { OFFERINGS, notOffered } from '../lib/practitioner-facts.ts';
 
 /* THE BUG THIS EXISTS FOR
  *
@@ -85,4 +86,41 @@ test('every BC city page offers Savneet in Punjabi and never in Tagalog', () => 
 test('Savneet has no Alberta pages until an insurance certificate is on file', () => {
   assert.deepEqual(savneet.provinces, ['BC']);
   assert.ok(placesFor(savneet.provinces).every((p) => p.province === 'BC'));
+});
+
+/* 2 Oct 2026: services, not only languages. Savneet offers no couples work
+   and no EMDR, and her place pages carried the hub's "Can I have EMDR from
+   Penticton?" and a meta description promising couples work. */
+test('no place page mentions a service its counsellor does not offer, in its description or FAQ questions', () => {
+  for (const o of OFFERINGS) {
+    if (o.service === 'individual-therapy') continue;
+    assert.ok(SERVICE_CLAIMS[o.service], `${o.service} has no claim pattern in lib/practitioner-places.ts`);
+  }
+  for (const p of practitioners) {
+    if (!p.placePages) continue;
+    const missing = OFFERINGS.filter((o) => !p.services.includes(o.service));
+    assert.deepEqual(missing.map((o) => o.label), notOffered(p, practitioners).map((m) => m.label));
+    for (const raw of placesFor(p.provinces)) {
+      const r = resolvePlace(raw, p);
+      const description = placeDescription(p, raw.city);
+      for (const o of missing) {
+        const rx = SERVICE_CLAIMS[o.service]!;
+        assert.doesNotMatch(description, rx, `${p.slug}/${raw.slug} description offers ${o.label}`);
+        for (const f of r.faqs) assert.doesNotMatch(f.q, rx, `${p.slug}/${raw.slug} asks about ${o.label}: ${f.q}`);
+        for (const t of [r.blurb, ...r.local, ...r.access.map((a) => `${a.label} ${a.detail}`)]) {
+          assert.doesNotMatch(t, rx, `${p.slug}/${raw.slug} offers ${o.label}: ${t.slice(0, 80)}`);
+        }
+      }
+      assert.ok(description.length <= 158, `${p.slug}/${raw.slug} description is ${description.length}`);
+    }
+  }
+});
+
+test('Savneet is described one to one, Camille keeps couples work', () => {
+  assert.match(placeDescription(savneet, 'Penticton'), /one to one/);
+  assert.doesNotMatch(placeDescription(savneet, 'Penticton'), /couples/i);
+  assert.match(placeDescription(camille, 'Kelowna'), /Trauma, anxiety, grief and couples work\./);
+  const penticton = placesFor(['BC']).find((x) => x.slug === 'penticton')!;
+  assert.ok(penticton.faqs.some((f) => /EMDR/.test(f.q)), 'the hub question this guards against has moved');
+  assert.ok(resolvePlace(penticton, camille).faqs.some((f) => /EMDR/.test(f.q)), 'Camille offers EMDR and keeps it');
 });

@@ -93,6 +93,11 @@ const COLLECTIONS = {
   practitioners: 'lib/practitioners.ts',
   practitionerPlaces: 'lib/practitioner-places.ts',
   tagalog: 'lib/tagalog-guides.ts',
+  /* The English /tagalog-counselling/<city> pages, 2 Oct 2026. They read
+     `tagalog` (the guides) on screen and `tagalogPlaces` in their schema,
+     and neither moved when lib/tagalog.ts gained a city, so a page added
+     today claimed 6 September. Module and route, as for locations. */
+  tagalogCities: ['lib/tagalog.ts', 'app/tagalog-counselling/[city]/page.tsx'],
   tagalogPlaces: 'lib/practitioner-places-tl.ts',
   tagalogLanding: 'lib/tagalog-landing.ts',
   /* The Tagalog profile's own copy, 1 Oct 2026. Until now that page claimed

@@ -32,12 +32,17 @@ export const htmlLength = (s: string) =>
    five characters to the gate. The fourth rung gives up "Virtual" and spells
    the place's "&" as "and" (60 exactly), and only that hub reaches it; its
    description says "virtual" instead. South Surrey is the volume to gain there, and the White Rock
-   terms were already at position 1 (Search Console, 26 Sep 2026). */
+   terms were already at position 1 (Search Console, 26 Sep 2026).
+   The comma rung (2 Oct 2026) is for city names of 14 characters or more
+   (Port Coquitlam, Campbell River, North Vancouver, New Westminster): the
+   "&" alone costs five characters to the gate, so a comma keeps "Virtual"
+   where the third rung no longer fits. No existing hub's title changes. */
 export function cityHubTitle(city: string): string {
   const ladder = [
     `Online & Virtual Counselling in ${city}, BC | Counsellors`,
     `Online & Virtual Counselling in ${city} | Counsellors`,
     `Online & Virtual Counselling ${city} | Counsellors`,
+    `Online, Virtual Counselling ${city} | Counsellors`,
     `Online Counselling ${city.replace(/ & /g, ' and ')} | Counsellors`,
   ];
   return ladder.find((t) => htmlLength(t) <= TITLE_MAX) ?? ladder[ladder.length - 1];

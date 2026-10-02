@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { site } from '@/lib/site';
-import { TAGALOG_CITIES, getTagalogCity, TAGALOG_SPEAKERS } from '@/lib/tagalog';
+import { TAGALOG_CITIES, getTagalogCity, TAGALOG_SPEAKERS, tagalogCityTitle } from '@/lib/tagalog';
 import { getLocation } from '@/lib/locations';
 import { orgRef, siteRef } from '@/lib/schema';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -13,7 +13,7 @@ import BookLink from '@/components/BookLink';
 import { bookingCtaFor } from '@/lib/booking-cta';
 import Figure from '@/components/Figure';
 import { ogBase } from '@/lib/og-meta';
-import { COLLECTION_DATES } from '@/lib/page-dates';
+import { tagalogCityDate } from '@/lib/page-date-latest';
 
 export function generateStaticParams() {
   return TAGALOG_CITIES.map((c) => ({ city: c.slug }));
@@ -24,8 +24,8 @@ export function generateMetadata({ params }: { params: { city: string } }): Meta
   if (!c) return {};
   /* Inside the gate's limits: 60 for a title, 158 for a description. The city
      and the language are the two words that must survive truncation, so they
-     lead. */
-  const title = `Tagalog Counselling in ${c.city}, BC | Westpeak Wellness`;
+     lead. ", BC" gives way for a long city name; see tagalogCityTitle. */
+  const title = tagalogCityTitle(c.city);
   const description = `Counselling in Tagalog or English for ${c.city}, by secure video with a Registered Clinical Counsellor. Free 30-minute consultation.`;
   return {
     title: { absolute: title },
@@ -85,9 +85,13 @@ export default function TagalogCityPage({ params }: { params: { city: string } }
       inLanguage: 'en-CA',
       /* Real commit date for the module this page's copy lives in, from
          lib/page-dates.ts. Without it this page made no freshness claim at
-         all, which a retrieval system reads as unknown rather than fresh. */
-      datePublished: COLLECTION_DATES['tagalogPlaces'],
-      dateModified: COLLECTION_DATES['tagalogPlaces'],
+         all, which a retrieval system reads as unknown rather than fresh.
+         Since 2 Oct 2026 that is lib/tagalog.ts and this route (the
+         tagalogCities collection), not the counsellor's Tagalog twins nor
+         the Tagalog guides, which the schema and the visible line read
+         before and which never moved when a city was added. */
+      datePublished: tagalogCityDate(),
+      dateModified: tagalogCityDate(),
       author: orgRef,
     },
   ];
@@ -105,7 +109,7 @@ export default function TagalogCityPage({ params }: { params: { city: string } }
             grief, family and immigration stress, and can move between the two languages within the hour.
             The first 30-minute consultation is free.
           </p>
-          <Updated iso={COLLECTION_DATES['tagalog']} />
+          <Updated iso={tagalogCityDate()} />
           <div className="btn-row" style={{ marginTop: 22 }}>
             <BookLink location="hero-language-region" href={cta.href}>{cta.label}</BookLink>
             <Link className="btn btn--ghost" href="/tagalog-counselling">All areas</Link>

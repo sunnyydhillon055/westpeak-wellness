@@ -20,7 +20,7 @@ import { resources } from '@/lib/resources';
 import { approaches } from '@/lib/approaches';
 import { getFigure } from '@/lib/figures';
 import { lastmodFor, collectionLastmod } from '@/lib/page-dates';
-import { isoDay, placePageDate, tagalogProfileDate } from '@/lib/page-date-latest';
+import { isoDay, placePageDate, tagalogProfileDate, tagalogCityDate } from '@/lib/page-date-latest';
 import { albertaPages, ontarioPages } from '@/lib/expansion';
 import { ALBERTA_LIVE, ONTARIO_LIVE } from '@/lib/regions';
 
@@ -173,7 +173,7 @@ export function GET() {
      page written IN Tagalog is gated separately, see lib/practitioner-tl.ts. */
   const tagalog: Entry[] = TAGALOG_CITIES.map((c) => ({
     path: `/tagalog-counselling/${c.slug}`,
-    lastmod: collectionLastmod('tagalog'),
+    lastmod: isoDay(tagalogCityDate()),
     changefreq: 'monthly' as const,
     priority: 0.7,
   }));

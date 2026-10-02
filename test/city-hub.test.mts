@@ -34,6 +34,15 @@ test('every city title says Online, Virtual and Counsellor and fits the SEO gate
   assert.ok(htmlLength(cityHubTitle('Prince George')) <= 60);
 });
 
+/* 2 Oct 2026: names of 14+ characters keep "Virtual" through the comma rung. */
+test('long city names keep Online, Virtual and Counsellors within the gate', () => {
+  for (const city of ['North Vancouver', 'New Westminster', 'Campbell River', 'Port Coquitlam']) {
+    const t = cityHubTitle(city);
+    assert.equal(t, `Online, Virtual Counselling ${city} | Counsellors`);
+    assert.ok(htmlLength(t) <= 60, `${t} is ${htmlLength(t)}`);
+  }
+});
+
 const faqsFor = (slug: string) => {
   const l = locations.find((x) => x.slug === slug)!;
   return cityHubFaqs({ city: l.city, counsellors: counsellorsForCity(slug), catalog: FALLBACK_CATALOG, existing: l.faqs ?? [] });

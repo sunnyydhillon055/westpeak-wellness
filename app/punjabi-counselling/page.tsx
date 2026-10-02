@@ -13,6 +13,8 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import Figure from '@/components/Figure';
 import { ogBase } from '@/lib/og-meta';
 import { COLLECTION_DATES } from '@/lib/page-dates';
+import { placesFor } from '@/lib/practitioner-places';
+import { getPunjabiPlace } from '@/lib/practitioner-places-pa';
 
 /* THE HUB THE PUNJABI CLUSTER NEVER HAD.
  *
@@ -70,6 +72,14 @@ const ARGUMENT: Record<string, 'scarcity' | 'distance'> = {
   vancouver: 'distance',
 };
 
+/* Counts on this page are read from the data, 2 Oct 2026: "each of her
+   fifteen BC city pages has a Punjabi twin" was false at seventeen pages (two
+   with no twin) and every new city made it worse. Words to twenty, as the
+   prose writes them; digits beyond. */
+const WORDS = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
+  'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'];
+const countWord = (n: number) => WORDS[n] ?? String(n);
+
 export default function PunjabiCounsellingIndex() {
   /* The Punjabi-speaking counsellor taking new clients, from the roster; the
      founder also works in Punjabi but is closed to new clients and named only
@@ -78,6 +88,11 @@ export default function PunjabiCounsellingIndex() {
   const cta = bookingCtaFor({ language: 'pa', fallback: 'Book a free consultation' });
   const scarcity = punjabiRegions.filter((r) => ARGUMENT[r.slug] !== 'distance');
   const distance = punjabiRegions.filter((r) => ARGUMENT[r.slug] === 'distance');
+  const bcPlaces = speaker ? placesFor(speaker.provinces).filter((l) => l.province === 'BC') : [];
+  const twins = bcPlaces.filter((l) => getPunjabiPlace(l.slug)).length;
+  const twinLine = twins === bcPlaces.length
+    ? `each of her ${countWord(bcPlaces.length)} BC city pages has a Punjabi twin`
+    : `${countWord(twins)} of her ${countWord(bcPlaces.length)} BC city pages have a Punjabi twin`;
 
   const schema = [
     {
@@ -190,7 +205,7 @@ export default function PunjabiCounsellingIndex() {
             choice and you would be told so on a consultation call.
           </p>
           <p>
-            The reason people write in from these three cities is narrower and harder to say
+            The reason people write in from these {countWord(distance.length)} cities is narrower and harder to say
             out loud: in a community that interconnected, the counsellor who comes recommended
             is often inside the same networks you are. Confidentiality is a legal duty
             everywhere. Distance is what makes it feel true.
@@ -209,7 +224,7 @@ export default function PunjabiCounsellingIndex() {
                 patterns, and personality disorders, with adults, one to one. Her profile is also
                 written{' '}
                 <Link href={`/practitioners/${speaker.slug}/pa`} lang="pa" hrefLang="pa">ਪੰਜਾਬੀ ਵਿੱਚ</Link>,
-                and each of her fifteen BC city pages has a Punjabi twin.
+                and {twinLine}.
               </p>
               {speaker.photos?.warm && (
                 <figure className="photo" style={{ marginTop: 18 }}>

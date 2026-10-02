@@ -9,7 +9,7 @@ import {
 import { readCatalog } from '@/lib/cliniko-catalog';
 import NextConsultLine from '@/components/NextConsultLine';
 import { practitioners, getPractitioner, withLetters, type Practitioner, type Credential } from '@/lib/practitioners';
-import { practitionerPlaces, getPractitionerPlace, placesFor, resolvePlace } from '@/lib/practitioner-places';
+import { practitionerPlaces, getPractitionerPlace, placesFor, resolvePlace, placeDescription } from '@/lib/practitioner-places';
 import { crisisFor } from '@/lib/crisis';
 import Figure from '@/components/Figure';
 import { abs, orgRef, siteRef } from '@/lib/schema';
@@ -156,11 +156,9 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
      added clause is the part a reader is actually deciding on: what the work
      covers, and that the first conversation is free. Trimmed at a word boundary
      to stay inside the 158 the SEO gate enforces, so a long city name cannot
-     push it over. */
-  const langs = p.languages.map((l) => l.name).join(' or ');
-  const full = `${withLetters(p)}: online counselling for ${loc.city} in ${langs}. Trauma, anxiety, grief and couples work. Free 30-minute consultation.`;
-  const description =
-    full.length <= 158 ? full : `${full.slice(0, full.lastIndexOf(' ', 157))}…`;
+     push it over. The work clause comes from her services and focus since
+     2 Oct 2026; see placeDescription. */
+  const description = placeDescription(p, loc.city);
   return {
     title: { absolute: title },
     description,

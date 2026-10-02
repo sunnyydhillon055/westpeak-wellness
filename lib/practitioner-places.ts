@@ -172,6 +172,38 @@ export function placesFor(provinces: string[]): PractitionerPlace[] {
 type Speaker = {
   slug: string;
   languages: { tag: string; name: string }[];
+  /** Her services from the roster (lib/practitioners.ts), the same ids
+   *  OFFERINGS and notOffered() in lib/practitioner-facts.ts read. */
+  services: readonly string[];
+};
+
+/* THE CITY COPY ALSO CLAIMS SERVICES — 2 Oct 2026.
+ *
+ * The language filter above was never matched by a service one. Savneet
+ * Singh offers individual counselling only (no couples work, no EMDR), and
+ * her place pages rendered whatever the hub said: Penticton's "Can I have
+ * EMDR from Penticton?" sat in FAQPage schema on her page, and Langley,
+ * Nanaimo and Chilliwack offered "EMDR and structured couples work" in their
+ * access lists. Keyed by the service ids OFFERINGS uses, so the profile's
+ * "not offered" line and this filter read the same roster field. Individual
+ * counselling has no entry: every counsellor offers it.
+ *
+ * FAQs are matched on the QUESTION, because an answer can describe the
+ * practice accurately ("one counsellor lists EMDR, the other CBT") without
+ * offering it from her. Blurb, local paragraphs and access lines are claims
+ * about what reaching her gives you, so they are matched in full. */
+export const SERVICE_CLAIMS: Record<string, RegExp> = {
+  'couples-therapy': /\bcouples?\b|marriage (counselling|therapy)|\bmarital\b|relationship (counselling|therapy)/i,
+  'emdr-therapy': /\bEMDR\b/,
+  'family-counselling': /family (counselling|therapy)/i,
+};
+
+/** A test for text that claims a service this counsellor does not offer. */
+export const unofferedClaim = (p: Pick<Speaker, 'services'>) => {
+  const rxs = Object.entries(SERVICE_CLAIMS)
+    .filter(([service]) => !p.services.includes(service))
+    .map(([, rx]) => rx);
+  return (text: string) => rxs.some((rx) => rx.test(text));
 };
 
 /* Every language the shared city copy can claim, with the words that signal it.
@@ -282,30 +314,73 @@ const LOCAL_OVERRIDES: Record<string, Record<string, {
 /* Resolve a shared city record against the counsellor whose page it is. */
 export function resolvePlace(place: PractitionerPlace, p: Speaker): PractitionerPlace {
   const isForeign = foreignTo(p);
+  const unoffered = unofferedClaim(p);
   const ov = LOCAL_OVERRIDES[p.slug]?.[place.slug];
 
-  const local = ov?.local ?? place.local.filter((t) => !isForeign(t));
+  const local = (ov?.local ?? place.local.filter((t) => !isForeign(t))).filter((t) => !unoffered(t));
   const blurb =
     ov?.blurb ??
-    (isForeign(place.blurb)
+    (isForeign(place.blurb) || unoffered(place.blurb)
       ? `Online counselling for ${place.city}, on the same terms as anywhere else in ${place.region}.`
       : place.blurb);
 
   /* Exactly one language line, rebuilt from the practitioner. */
   const access = [
-    ...place.access.filter((a) => !ANY_LANGUAGE.test(`${a.label} ${a.detail}`)),
+    ...place.access.filter((a) => !ANY_LANGUAGE.test(`${a.label} ${a.detail}`) && !unoffered(`${a.label} ${a.detail}`)),
     languageAccess(p),
   ];
 
   /* A dropped language FAQ is replaced rather than simply removed — the
      question is one people genuinely ask, and the honest answer is still
-     useful. */
+     useful. A question about a service she does not offer is dropped
+     without a replacement: the fact strip above already says what she does
+     not offer and who does (notOffered, lib/practitioner-facts.ts). */
   const keptFaqs = place.faqs.filter((f) => !isForeign(`${f.q} ${f.a}`));
-  const faqs = keptFaqs.length === place.faqs.length
+  const faqs = (keptFaqs.length === place.faqs.length
     ? keptFaqs
-    : [...keptFaqs, languageFaq(p), ...(ov?.faqs ?? [])];
+    : [...keptFaqs, languageFaq(p), ...(ov?.faqs ?? [])]
+  ).filter((f) => !unoffered(f.q));
 
   return { ...place, blurb, local, access, faqs };
+}
+
+/* THE PLACE PAGE'S META DESCRIPTION — 2 Oct 2026.
+ *
+ * It said "Trauma, anxiety, grief and couples work." on every place page,
+ * including Savneet's, who offers no couples work. Now the topics are the
+ * first words of her own focus labels and "couples work" is added only when
+ * the roster lists couples-therapy for her, so Camille's description reads
+ * exactly as before and Savneet's says one to one. Trimmed at a word
+ * boundary inside the 158 the SEO gate enforces, after dropping her last
+ * focus topics if that is what it takes to fit. */
+type Described = {
+  name: string;
+  postNominals: string;
+  languages: { name: string }[];
+  services: readonly string[];
+  focus: { label: string }[];
+};
+
+const listAnd = (xs: string[]) =>
+  xs.length <= 1 ? xs.join('') : `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}`;
+
+export function placeDescription(p: Described, city: string): string {
+  const letters = p.postNominals ? `${p.name}, ${p.postNominals}` : p.name;
+  const langs = p.languages.map((l) => l.name).join(' or ');
+  const topics = p.focus.map((f) => f.label.split(/,| and /)[0]!.trim().toLowerCase());
+  const couples = p.services.includes('couples-therapy');
+  const compose = (ts: string[]) => {
+    const work = couples ? `${listAnd([...ts, 'couples work'])}.` : `${listAnd(ts)}, one to one.`;
+    return `${letters}: online counselling for ${city} in ${langs}. ${work.charAt(0).toUpperCase()}${work.slice(1)} Free 30-minute consultation.`;
+  };
+  /* Her focus in roster order, shortened from the end until the sentence
+     fits, so the free consultation is never the part cut off. */
+  for (let k = topics.length; k >= 1; k--) {
+    const d = compose(topics.slice(0, k));
+    if (d.length <= 158) return d;
+  }
+  const full = compose(topics.slice(0, 1));
+  return `${full.slice(0, full.lastIndexOf(' ', 157))}…`;
 }
 
 /** Every place any practitioner can have a page for. Used for route generation. */
