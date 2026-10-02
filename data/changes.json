@@ -80,6 +80,22 @@
       "metric": "none",
       "readAfter": "2026-10-29",
       "note": "Cliniko-confirmed bookings, landing and button credit, email clicks, retention, the 8-week table, Search Console on /admin, this register. Measurement only."
+    },
+    {
+      "id": "2026-10-01-seasonal",
+      "date": "2026-10-01",
+      "pages": ["/resources/does-my-plan-cover-counselling-bc", "/resources/counselling-coverage-in-alberta", "/resources/counselling-benefits-before-year-end-bc", "/pricing", "/book"],
+      "metric": "conv:book_click",
+      "readAfter": "2026-10-29",
+      "note": "Year-end plan timing: a dated section on the two coverage pages (1 Oct to 31 Dec), a new year-end benefits page, a dated line under the fees on /pricing and /book (from 15 Oct), and the claim-deadline and reset wording corrected. The /pricing and /book line only starts on 15 Oct, inside this window."
+    },
+    {
+      "id": "2026-10-01-winter-title",
+      "date": "2026-10-01",
+      "pages": ["/guides/low-mood-through-a-bc-winter"],
+      "metric": "gsc:clicks",
+      "readAfter": "2026-10-29",
+      "note": "October refresh: seasonal depression (SAD) in the title and description, counsellor cards, first in the social queue."
     }
   ]
 }

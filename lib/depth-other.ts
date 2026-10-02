@@ -111,7 +111,7 @@ export const depthOther: Record<string, DepthSection[]> = {
       h2: 'The exact questions to ask your insurer',
       list: [
         { label: '"Is a Registered Clinical Counsellor an eligible provider under my plan?"', detail: 'Ask about the designation by name, not about "counselling". This is the single question that most often produces a surprise, because many plans cover a psychologist and not an RCC, or vice versa.' },
-        { label: '"What is my annual maximum, and when does the year reset?"', detail: 'Plan years frequently do not align with the calendar year. Knowing the reset date can be worth a full year of unused benefit.' },
+        { label: '"What is my annual maximum, and when does the year reset?"', detail: 'Many plans reset on 1 January; some run on an anniversary year. The booklet says which. Knowing the reset date can be worth a full year of unused benefit.' },
         { label: '"Is there a per-session cap as well as an annual one?"', detail: 'Some plans reimburse a fixed amount per session below the practitioner\'s fee, which changes your real cost substantially.' },
         { label: '"Do I need a physician referral for reimbursement?"', detail: 'A minority of plans require one even where the profession does not. Finding out afterwards means the claim is denied.' },
         { label: '"Is a receipt sufficient, or do you require a specific claim form?"', detail: 'Some insurers want their own form completed. Establishing this before the first session avoids a scramble later.' },

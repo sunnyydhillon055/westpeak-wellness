@@ -154,7 +154,7 @@ export const depth2Other: Record<string, DepthSection[]> = {
       h2: 'Making a claim, and what to do if it is refused',
       body: [
         'The mechanics are straightforward and the failure points are consistent, so they are worth knowing before the first claim rather than after.',
-        '**Submit promptly.** Most plans have a deadline, frequently 90 days from the date of service, sometimes to the end of the following plan year. Receipts sitting in a drawer are the most common reason benefits go unused.',
+        '**Submit promptly.** Deadlines are set by each plan and vary widely, from weeks after the service to the end of the following year; the booklet or member portal states yours. Receipts sitting in a drawer are the most common reason benefits go unused.',
         '**Check what the receipt must show.** Typically the practitioner\'s name and designation, their registration number, the date, the amount and the service. A receipt missing the registration number is the most common cause of a refusal, and it is trivially fixable by asking.',
         '**Keep the originals.** Insurers can request supporting documentation after paying, sometimes months later.',
         'If a claim is refused, the reason is usually one of four: the designation is not eligible under your plan, the annual maximum is exhausted, the receipt is incomplete, or a referral was required. Ask which, in writing, rather than assuming. Three of those four are fixable.',

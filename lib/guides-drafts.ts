@@ -700,7 +700,7 @@ export const draftGuides: Guide[] = [
         body: [
           'Some things adults are allowed to do at the holidays, listed because permission is often the missing piece: attend for two hours instead of two days. Book a hotel instead of the childhood bedroom. Bring an ally. Skip the event that always goes badly and see the safe subset of the family separately. Alternate years. And, the one people circle for a decade, not go, this year or at all, because attendance at a gathering that reliably damages you is not a moral obligation, whatever the family narrative says.',
           'For readers navigating this inside cultures where the family claim runs deeper, where skipping the gathering reads as rejecting the family itself. The calculation is genuinely different, and pretending otherwise would be advice written for someone else. The work there is usually not attendance-or-not but building a self that can be in the room without being consumed; the pages on [intergenerational conflict](/for/south-asian-intergenerational-conflict) and [boundaries with family](/guides/setting-boundaries-with-family) are written from inside that reality.',
-          'And if the difficulty in the room is grief. A first holiday season after a loss. That is its own terrain with its own page: [grief without a timeline](/guides/grief-without-a-timeline). Dread and grief often share a table in December.',
+          'And if the difficulty in the room is grief. A first holiday season after a loss. That is its own terrain with its own page: [grief without a timeline](/guides/grief-without-a-timeline#the-first-holidays-after-a-loss). Dread and grief often share a table in December.',
         ],
       },
       {

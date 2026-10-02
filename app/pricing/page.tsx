@@ -13,6 +13,7 @@ import { lastmodFor } from '@/lib/page-dates';
 import { HOW_TO_CANCEL } from '@/lib/faq';
 import { counsellorsFor } from '@/lib/city-service-page';
 import { practiceSnippet, withSnippet } from '@/lib/snippet-facts';
+import { planYearPageLineShown, YEAR_END_PATH } from '@/lib/seasonal';
 
 /* The fee and who you would see, in the description — 1 Oct 2026. /pricing
    sat at 4.38 with 24 impressions and no clicks, and its description named
@@ -186,6 +187,12 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
             </tbody>
           </table>
           <p style={{ fontSize: '.92rem', color: 'var(--ink-faint)' }}>GST does not apply to RCC counselling in BC.</p>
+          {/* 15 Oct to 31 Dec only, on the Pacific date (lib/seasonal.ts); this page re-renders hourly. */}
+          {planYearPageLineShown() && (
+            <p style={{ fontSize: '.92rem', color: 'var(--ink-soft)' }}>
+              If your plan runs on the calendar year, a session held on or before 31 December counts against this year&rsquo;s maximum; whether yours does is in the <Link href={YEAR_END_PATH}>booklet</Link>.
+            </p>
+          )}
 
           <div className="prose" style={{ marginTop: 36 }}>
             <h2>How much does a counsellor cost in BC?</h2>
@@ -301,6 +308,11 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
               source of unpleasant surprises, and the{' '}
               <Link href="/resources/bc-extended-health-coverage-for-counselling">extended health coverage page</Link>{' '}
               sets out exactly what to look for and what a claimable receipt must contain.
+            </p>
+            <p>
+              Near the end of a plan year, the session date and the claim deadline are two different
+              things; <Link href={YEAR_END_PATH}>using counselling benefits before the plan year ends</Link>{' '}
+              explains both.
             </p>
           </div>
         </div>

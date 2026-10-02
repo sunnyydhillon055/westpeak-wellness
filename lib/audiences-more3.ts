@@ -92,6 +92,7 @@ export const moreAudiences3: Audience[] = [
       { href: '/guides/sick-days-and-mental-health-days-bc', label: 'Sick days and mental-health days in BC' },
       { href: '/guides/perfectionism-and-self-criticism', label: 'Perfectionism and self-criticism' },
       { href: '/compare/efap-vs-private-counselling', label: 'Your EAP vs a private counsellor' },
+      { href: '/resources/counselling-benefits-before-year-end-bc', label: 'Using benefits before the plan year ends' },
     ],
   },
 

@@ -1,4 +1,5 @@
 import type { Resource } from './resources';
+import { yearEndSeasonal } from './resources-more2';
 
 /* ============================================================================
    ALBERTA RESOURCES
@@ -40,8 +41,10 @@ export const albertaResources: Resource[] = [
       'Alberta Health does not pay for private counselling, which surprises people who assume a provincial health card covers mental health the way it covers a fracture. Here is what actually pays, and what to ask before booking anything.',
     shortAnswer:
       'AHCIP does not cover private counselling. Most people pay through an extended health plan, out of pocket, or through a publicly funded service with a waitlist. Before booking privately, ask your insurer one question: does the plan reimburse a Canadian Certified Counsellor?',
-    updated: '2026-09-17',
+    updated: '2026-10-01',
     readMinutes: 6,
+    /* Year-end plan timing, 1 Oct to 31 Dec (item 210). The BC year-end page is not linked: its plan examples are BC ones. */
+    seasonal: yearEndSeasonal({ yearEndLink: false, designation: 'Canadian Certified Counsellor' }),
     sections: [
       {
         h2: 'What AHCIP does and does not pay for',

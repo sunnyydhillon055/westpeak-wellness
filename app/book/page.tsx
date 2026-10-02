@@ -19,6 +19,7 @@ import { readCatalog, FALLBACK_CATALOG, type Catalog } from '@/lib/cliniko-catal
 import { sessionFeesPhrase } from '@/lib/book-fees';
 import { shortAvailabilityLine } from '@/lib/book-card';
 import MailLink from '@/components/MailLink';
+import { planYearPageLineShown, YEAR_END_PATH } from '@/lib/seasonal';
 
 export const metadata: Metadata = {
   title: 'Book a Free 30-Minute Consultation',
@@ -316,6 +317,14 @@ export default async function Book({
               <Suspense fallback={<FeesText catalog={FALLBACK_CATALOG} />}>
                 <LiveFees />
               </Suspense>
+              {/* 15 Oct to 31 Dec only, on the Pacific date (lib/seasonal.ts). */}
+              {planYearPageLineShown() && (
+                <>
+                  {' '}If your plan runs on the calendar year, a session held on or before 31 December
+                  counts against this year&rsquo;s maximum; whether yours does is in the{' '}
+                  <Link href={YEAR_END_PATH}>booklet</Link>.
+                </>
+              )}
             </li>
           </ul>
 

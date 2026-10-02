@@ -4,6 +4,7 @@ import { readInbound, type Inbound } from '@/lib/inbound';
 import { nurtureDecision, magnetWords, type MagnetWords, type NurtureSkip } from '@/lib/nurture-plan';
 import { rosterLines, rosterText, rosterHtml, individualFeeLine, type RosterLine } from '@/lib/lead-roster';
 import { readCatalog } from '@/lib/cliniko-catalog';
+import { planYearMailParagraph } from '@/lib/seasonal';
 import { sendDetailed, mailConfigured } from '@/lib/portal-mail';
 import { put, get } from '@vercel/blob';
 import { normalizeEmail } from '@/lib/portal-auth';
@@ -162,12 +163,15 @@ export function email3(
   firstName: string,
   to: string,
   magnet?: string,
-  extras: { roster?: RosterLine[]; feeLine?: string | null } = {}
+  extras: { roster?: RosterLine[]; feeLine?: string | null; now?: Date } = {}
 ) {
   const w = magnetWords(magnet);
   const hi = firstName ? `Hi ${firstName},` : 'Hi,';
   const roster = extras.roster ?? rosterLines();
   const feeLine = extras.feeLine ?? null;
+  /* 15 Oct to 20 Dec only (lib/seasonal.ts), beside the fee line. Same
+     audience and same single send as before; no new email. Item 222. */
+  const season = planYearMailParagraph(extras.now ?? new Date());
   const text = wrap(
 `${hi}
 
@@ -179,7 +183,7 @@ out whether it is worth going further. It is a conversation, not an
 intake. Nothing to prepare, and no obligation to book afterwards.
 
 ${roster.length ? `Each counsellor's own calendar:\n\n${rosterText(roster)}` : links.book}
-${feeLine ? `\n${feeLine}\n` : ''}
+${feeLine ? `\n${feeLine}\n` : ''}${season ? `\n${season}\n` : ''}
 It is also a perfectly good outcome of that call to conclude that
 someone else is a better fit, or that now is not the time. If that is
 where it lands, you will be told so plainly rather than sold to.
@@ -204,6 +208,7 @@ Unsubscribe: ${unsubLink(to)}`);
       ? p('Each counsellor&rsquo;s own calendar:') + rosterHtml(roster)
       : btn(links.book, 'Book a free consultation')) +
     (feeLine ? p(`<span style="color:#545e69;font-size:14px;">${esc(feeLine)}</span>`) : '') +
+    (season ? p(`<span style="color:#545e69;font-size:14px;">${esc(season)}</span>`) : '') +
     p('It is also a perfectly good outcome of that call to conclude that someone else is a better fit, or that now is not the time. If that is where it lands, you will be told so plainly rather than sold to.') +
     p(`If the timing is wrong, that is completely fine, ${a(links.guides, 'the guides stay up and cost nothing')}.`) +
     footerNote(to, w)

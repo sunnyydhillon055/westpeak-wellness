@@ -101,6 +101,19 @@ They do different things. Medication acts on symptoms; therapy works on patterns
 https://www.westpeakwellness.com/compare/therapy-medication-or-both
 ```
 
+### 2026-10-02 — Low mood through a British Columbia winter
+
+<!-- Moved to the front by hand on 1 Oct 2026 (item 223, the October refresh
+     in CONTENT_CALENDAR.md). `npm run social` regenerates this file and will
+     put it back in its interleaved slot; re-apply if regenerated before
+     November. -->
+
+```
+Seasonal patterns in mood are real and, in a province this far north, common. The strongest single lever is light — getting daylight early, deliberately, even when it is grey. Beyond that, the same things that treat low mood generally apply, and the key judgement is whether what you have is seasonal at all: if it does not lift in April, it is not the winter.
+
+https://www.westpeakwellness.com/guides/low-mood-through-a-bc-winter
+```
+
 ### 2026-10-06 — How do you know when it is time for therapy?
 
 ```
@@ -379,14 +392,6 @@ https://www.westpeakwellness.com/guides/perfectionism-and-self-criticism
 The single most useful thing is to stay present without trying to solve it. Specific offers beat open ones — "I am bringing dinner Thursday" works where "let me know if you need anything" does not. Ask directly about suicide if you are worried; it does not plant the idea. And accept that you cannot make someone get help, only make it easier when they decide to.
 
 https://www.westpeakwellness.com/guides/supporting-someone-who-is-struggling
-```
-
-### 2027-02-04 — Low mood through a British Columbia winter
-
-```
-Seasonal patterns in mood are real and, in a province this far north, common. The strongest single lever is light — getting daylight early, deliberately, even when it is grey. Beyond that, the same things that treat low mood generally apply, and the key judgement is whether what you have is seasonal at all: if it does not lift in April, it is not the winter.
-
-https://www.westpeakwellness.com/guides/low-mood-through-a-bc-winter
 ```
 
 ### 2027-02-09 — Intrusive thoughts and what they actually mean

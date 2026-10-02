@@ -139,6 +139,8 @@ export const INFO_CARD_PAGES: Readonly<Record<'guides' | 'resources', readonly s
     'stress-leave-bc',
     'doctors-note-for-a-mental-health-leave',
     'return-to-work-after-a-mental-health-leave',
+    /* October refresh, 1 Oct 2026 (item 223): read most Nov-Feb. */
+    'low-mood-through-a-bc-winter',
   ],
 };
 

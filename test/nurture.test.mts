@@ -76,3 +76,19 @@ test('email 3 offers each counsellor her own calendar and one catalogue fee line
   assert.match(m.text, /\$140 for 50 minutes/);
   assert.match(m.text, /Unsubscribe:/);
 });
+
+/* #222: the calendar-year plan note beside the fee line, 15 Oct to 20 Dec only. */
+test('email 3 carries the plan-year note in season and not on 21 Dec or 1 Jan', () => {
+  const at = (iso: string) => email3('Sam', 'sam@gmail.com', 'coverage-checklist', { roster: [], feeLine: 'An individual session is $140 for 50 minutes.', now: new Date(iso) });
+  const nov = at('2026-11-02T19:00:00Z');
+  assert.match(nov.text.replace(/\s+/g, ' '), /sessions held by 31 December count against this year’s maximum/);
+  assert.match(nov.html, /31 December/);
+  for (const iso of ['2026-12-21T19:00:00Z', '2027-01-01T19:00:00Z', '2026-10-14T19:00:00Z']) {
+    const m = at(iso);
+    assert.doesNotMatch(m.text, /31 December/, iso);
+    assert.doesNotMatch(m.html, /31 December/, iso);
+  }
+  /* Out of season the email is exactly what it was before the change. */
+  const before = email3('Sam', 'sam@gmail.com', 'coverage-checklist', { roster: [], feeLine: 'An individual session is $140 for 50 minutes.', now: new Date('2027-01-05T19:00:00Z') });
+  assert.match(before.text, /\$140 for 50 minutes\.\n\nIt is also/);
+});

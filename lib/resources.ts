@@ -57,6 +57,12 @@ export type Resource = {
   /* The closing band's words, when the default ("Questions about cost or
      coverage?") is not what the page ends on. 1 Oct 2026. */
   closingBand?: { heading: string; text: string };
+  /* A section shown only between two dates, "MM-DD" inclusive on the Pacific
+     calendar (lib/seasonal.ts inSeason), directly under the short answer.
+     The template re-renders every 1800 s, so it appears and disappears
+     without a deploy. For year-end plan timing on the coverage pages. 1 Oct
+     2026. */
+  seasonal?: { from: string; to: string; h2: string; body: string[] };
 };
 
 const coreResources: Resource[] = [
@@ -105,7 +111,7 @@ const coreResources: Resource[] = [
       {
         h2: "How the money actually works",
         list: [
-          { label: "Annual maximum", detail: "Most plans set a dollar cap per calendar year for mental-health practitioners, commonly somewhere between a few hundred and a few thousand dollars. It usually resets on 1 January, not on your hire date." },
+          { label: "Annual maximum", detail: "Most plans set a dollar cap per calendar year for mental-health practitioners, commonly somewhere between a few hundred and a few thousand dollars. Many plans reset on 1 January; some run on an anniversary year. The booklet says which." },
           { label: "Per-session limit", detail: "Some plans reimburse a set amount per session (say $80) rather than the full fee, so a $140 session leaves $60 out of pocket even while you have annual room left." },
           { label: "Percentage coverage", detail: "Some plans pay a percentage, 80% is common, rather than the full amount up to the cap." },
           { label: "Combined pools", detail: "Watch for a shared limit across practitioner types. If psychology, social work and counselling draw on one pool, seeing two practitioners halves your effective coverage." },

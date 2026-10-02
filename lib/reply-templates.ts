@@ -1,4 +1,5 @@
 import type { Inbound } from '@/lib/inbound';
+import { planYearMailParagraph } from '@/lib/seasonal';
 import { site } from '@/lib/site';
 
 /* DRAFT REPLIES, NOT SEND BUTTONS.
@@ -242,6 +243,25 @@ export type DraftContext = {
   link: string;
   /** Who signs it. Absent leaves a [Name] bracket to fill in by hand. */
   signer?: string;
+  /** When the draft is built; decides the seasonal paragraph. Defaults to now. */
+  now?: Date;
+};
+
+/* 15 Oct to 20 Dec (lib/seasonal.ts): the calendar-year plan note, as its
+   own paragraph, in the after-consult and after-session drafts. Still a
+   mailto draft a counsellor edits and sends, or does not. Item 222. */
+const seasonalPara = (c: DraftContext) => {
+  const p = planYearMailParagraph(c.now ?? new Date());
+  if (!p) return '';
+  /* Hard-wrapped like the rest of the draft. */
+  const lines: string[] = [];
+  let line = '';
+  for (const w of p.split(' ')) {
+    if (line && (line + ' ' + w).length > 75) { lines.push(line); line = w; }
+    else line = line ? `${line} ${w}` : w;
+  }
+  lines.push(line);
+  return `${lines.join('\n')}\n\n`;
 };
 
 export type BookingDraft = { key: 'rebook-consult' | 'after-consult' | 'after-session' | 'reschedule-session'; subject: string; body: (c: DraftContext) => string };
@@ -306,7 +326,7 @@ counselling is not workable right now there are free and low-cost routes in
 BC that I will happily point you to:
 ${site.domain}/resources/low-cost-counselling-bc
 
-If you have decided this is not the right fit, or the timing is wrong, that
+${seasonalPara(c)}If you have decided this is not the right fit, or the timing is wrong, that
 is a good outcome to have reached and no reply is needed.
 
 ${sign(c)}`,
@@ -331,7 +351,7 @@ ${c.link}
 If none of them suit, reply with roughly when in a week works and I will
 look for something.
 
-${sign(c)}`,
+${seasonalPara(c)}${sign(c)}`,
   },
   {
     /* After a cancelled PAID session, when nothing has been rebooked. Send it

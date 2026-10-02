@@ -30,6 +30,7 @@ import { counsellorsForInfoPage, individualFeeLine, infoCardCopy, showsInfoCards
 import { readCatalog, FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
 import StudentPlanTable from '@/components/StudentPlanTable';
 import { STUDENT_PLAN_TABLE_AFTER } from '@/lib/student-plans';
+import { activeSeasonal } from '@/lib/seasonal';
 
 /* The student-plan table's sessions column (1 Oct 2026). This template is
    static, so the fee is the catalogue's checked-in copy, which price-drift
@@ -206,6 +207,16 @@ export default async function ResourcePage({ params }: { params: { slug: string 
                     <BookLink location="mid-resource" href={cta.href} className="">{r.afterShortAnswer.book}</BookLink>.
                   </p>
                 )}
+              </div>
+            )}
+
+            {/* A dated section, only inside its window on the Pacific date
+                (Resource.seasonal, lib/seasonal.ts). This template re-renders
+                every 1800 s, so it appears and goes without a deploy. */}
+            {activeSeasonal(r.seasonal) && (
+              <div className="crisis" style={{ margin: '8px 0 36px' }}>
+                <h2 id={headingId(r.seasonal!.h2)} style={{ marginTop: 0 }}>{r.seasonal!.h2}</h2>
+                <Paragraphs items={r.seasonal!.body} />
               </div>
             )}
           </div>
