@@ -8,6 +8,7 @@ import { buildToc, headingId } from '@/lib/toc';
 import { orgRef, siteRef, medicalWebPage, figureImage } from '@/lib/schema';
 import { therapyNode } from '@/lib/entities';
 import { Paragraphs, rich } from '@/lib/rich';
+import { plainText } from '@/lib/plain-text';
 import CtaBand from '@/components/CtaBand';
 import BookLink from '@/components/BookLink';
 import { bookingCtaFor } from '@/lib/booking-cta';
@@ -128,7 +129,7 @@ export default function ApproachPage({ params }: { params: { slug: string } }) {
       '@context': 'https://schema.org', '@type': 'FAQPage',
       mainEntity: g.faqs.map((f) => ({
         '@type': 'Question', name: f.q,
-        acceptedAnswer: { '@type': 'Answer', text: f.a },
+        acceptedAnswer: { '@type': 'Answer', text: plainText(f.a) },
       })),
     },
   ].filter(Boolean);
@@ -210,7 +211,7 @@ export default function ApproachPage({ params }: { params: { slug: string } }) {
             {g.faqs.map((f) => (
               <details className="faq-item" key={f.q}>
                 <summary>{f.q}</summary>
-                <p>{f.a}</p>
+                <p>{rich(f.a)}</p>
               </details>
             ))}
           </div>

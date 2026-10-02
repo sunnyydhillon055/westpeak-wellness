@@ -9,6 +9,7 @@ import { getExtra } from '@/lib/depth';
 import { buildToc, headingId } from '@/lib/toc';
 import { orgRef, siteRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
+import { plainText } from '@/lib/plain-text';
 import BookLink from '@/components/BookLink';
 import { bookingCtaFor } from '@/lib/booking-cta';
 import SceneBand from '@/components/SceneBand';
@@ -113,8 +114,12 @@ export default async function ResourcePage({ params }: { params: { slug: string 
      every other resource keeps the practice calendar. */
   const cta = bookingCtaFor({ language: r.language, province: r.province, fallback: 'Book a free consultation' });
 
+  /* The dated year-end section, when in season, renders after the first
+     section, so the page answers its own question before the seasonal
+     aside, and the contents list names it there (item 383, 1 Oct 2026). */
+  const seasonal = activeSeasonal(r.seasonal);
   const toc = buildToc([
-    ...r.sections.map((s) => s.h2),
+    ...r.sections.flatMap((s, i) => (i === 0 && seasonal ? [s.h2, seasonal.h2] : [s.h2])),
     ...getExtra('resources', r.slug).map((s) => s.h2),
     'Common questions', r.linkable ? 'Using this page' : '', 'Sources',
   ]);
@@ -164,7 +169,7 @@ export default async function ResourcePage({ params }: { params: { slug: string 
       '@context': 'https://schema.org', '@type': 'FAQPage',
       mainEntity: r.faqs.map((f) => ({
         '@type': 'Question', name: f.q,
-        acceptedAnswer: { '@type': 'Answer', text: f.a },
+        acceptedAnswer: { '@type': 'Answer', text: plainText(f.a) },
       })),
     },
   ];
@@ -231,15 +236,6 @@ export default async function ResourcePage({ params }: { params: { slug: string 
               </div>
             )}
 
-            {/* A dated section, only inside its window on the Pacific date
-                (Resource.seasonal, lib/seasonal.ts). This template re-renders
-                every 1800 s, so it appears and goes without a deploy. */}
-            {activeSeasonal(r.seasonal) && (
-              <div className="crisis" style={{ margin: '8px 0 36px' }}>
-                <h2 id={headingId(r.seasonal!.h2)} style={{ marginTop: 0 }}>{r.seasonal!.h2}</h2>
-                <Paragraphs items={r.seasonal!.body} />
-              </div>
-            )}
           </div>
 
           {r.sections.map((s, i) => (
@@ -312,6 +308,20 @@ export default async function ResourcePage({ params }: { params: { slug: string 
               )}
 
               <div className="prose">{midDevices.filter((_, k) => slots[k] === i)}</div>
+
+              {/* A dated section, only inside its window on the Pacific date
+                  (Resource.seasonal, lib/seasonal.ts), after the first
+                  section rather than ahead of it (item 383). This template
+                  re-renders every 1800 s, so it appears and goes without a
+                  deploy. */}
+              {i === 0 && seasonal && (
+                <div className="prose">
+                  <div className="crisis" style={{ margin: '8px 0 36px' }}>
+                    <h2 id={headingId(seasonal.h2)} style={{ marginTop: 0 }}>{seasonal.h2}</h2>
+                    <Paragraphs items={seasonal.body} />
+                  </div>
+                </div>
+              )}
             </div>
           ))}
 
@@ -332,7 +342,7 @@ export default async function ResourcePage({ params }: { params: { slug: string 
               {r.faqs.map((f) => (
                 <details className="faq-item" key={f.q}>
                   <summary>{f.q}</summary>
-                  <p>{f.a}</p>
+                  <p>{rich(f.a)}</p>
                 </details>
               ))}
             </div>
@@ -370,26 +380,20 @@ export default async function ResourcePage({ params }: { params: { slug: string 
               ))}
             </ul>
 
+            {/* The crisis line follows the page's province: an Alberta page
+                names the Recovery Alberta helpline its own body cites, not
+                BC's 310-6789 (item 384, 1 Oct 2026). */}
             <p style={{ color: 'var(--ink-faint)', fontSize: '.9rem', marginTop: 28 }}>
               General information, not clinical, financial, or legal advice. Coverage and service details
               change, verify anything decision-critical directly with the provider or insurer. If you are
-              in crisis, call or text <strong>9-8-8</strong> (Canada, 24/7) or <strong>310-6789</strong> for
-              BC Mental Health Support.
+              in crisis, call or text <strong>9-8-8</strong> (Canada, 24/7) or{' '}
+              {r.province === 'AB' ? (
+                <>the Recovery Alberta Mental Health Helpline at <strong>1-877-303-2642</strong>.</>
+              ) : (
+                <><strong>310-6789</strong> for BC Mental Health Support.</>
+              )}
             </p>
 
-            {/* The one-pager offer, on the money pages only — an explicit map,
-                like the guides' GENTLE_CTA, because which resource pages suit
-                an email form is a judgement worth seeing in one place. The
-                confirmation is /one-pager-sent, which says what a signup
-                actually starts (the one-pager, then two notes), rather than
-                /message-sent, which promises an enquiry's reply. */}
-            {RESOURCE_MAGNET[r.slug] && (
-              <LeadCapture
-                magnet={RESOURCE_MAGNET[r.slug]}
-                source={`/resources/${r.slug}`}
-                returnTo="/one-pager-sent"
-              />
-            )}
           </div>
         </div>
       </section>
@@ -405,14 +409,43 @@ export default async function ResourcePage({ params }: { params: { slug: string 
         cardCopy={infoCardCopy(false, r.province)}
         feeLine={feeLine}
         province={r.province}
-        consult={cards ? { location: 'next-resource-close', slugs: counsellors.map((p) => p.slug) } : undefined}
-        softSteps={softStepsFor({ path: `/resources/${r.slug}`, slug: r.slug })}
+        /* Once per page (item 379): a resource that already printed the
+           next free consultation mid-article (NEXT_CONSULT_AFTER) does not
+           print it again here. */
+        consult={cards && !next ? { location: 'next-resource-close', slugs: counsellors.map((p) => p.slug) } : undefined}
+        /* An Alberta page drops the BC cost estimator (item 384). */
+        softSteps={softStepsFor({ path: `/resources/${r.slug}`, slug: r.slug }).filter((s) => r.province !== 'AB' || !s.href.endsWith('-bc'))}
         band={{
           bookHref: cta.href,
           heading: r.closingBand?.heading ?? 'Questions about cost or coverage?',
           text: r.closingBand?.text ?? 'A free 30-minute consultation is a good place to ask them, before committing to anything.',
         }}
       />
+
+      {/* The one-pager offer, on the money pages only — an explicit map,
+          like the guides' GENTLE_CTA, because which resource pages suit an
+          email form is a judgement worth seeing in one place. The
+          confirmation is /one-pager-sent, which says what a signup actually
+          starts (the one-pager, then two notes), rather than /message-sent,
+          which promises an enquiry's reply.
+
+          AFTER THE NEXT STEP, not before it (item 385, 1 Oct 2026): a reader
+          who finished the article met an email box ahead of the counsellors
+          and their calendar links. It is now the soft step after "Not ready
+          to book?". lib/change-register.ts records the move. */}
+      {RESOURCE_MAGNET[r.slug] && (
+        <section className="section" style={{ paddingTop: 8 }}>
+          <div className="container reading">
+            <div className="prose">
+              <LeadCapture
+                magnet={RESOURCE_MAGNET[r.slug]}
+                source={`/resources/${r.slug}`}
+                returnTo="/one-pager-sent"
+              />
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="section section--tint">
         <div className="container">
@@ -426,9 +459,15 @@ export default async function ResourcePage({ params }: { params: { slug: string 
       </section>
 
 
-      <MoreFrom items={resources} currentSlug={r.slug} base="/resources" heading="More BC resources" eyebrow="Keep going" />
-      <ServiceCityLinks section="resources" slug={r.slug} />
-      <CityLinks />
+      {/* BC's resource list and its 17 cities are not the next page for
+          an Alberta reader (item 384); the related chips above are. */}
+      {r.province !== 'AB' && (
+        <>
+          <MoreFrom items={resources} currentSlug={r.slug} base="/resources" heading="More BC resources" eyebrow="Keep going" />
+          <ServiceCityLinks section="resources" slug={r.slug} />
+          <CityLinks />
+        </>
+      )}
       </ScreenOnly>
 
       {/* The address on paper, for a printed linkable page (item 275). */}

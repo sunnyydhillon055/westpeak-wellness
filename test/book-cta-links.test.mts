@@ -164,3 +164,106 @@ test('the new booking buttons are counted, in the middle of the list', () => {
   const at = BOOK_LOCATIONS.indexOf('access-city-service');
   assert.deepEqual(BOOK_LOCATIONS.slice(at + 1, at + 4), ['next-audience', 'next-language-region', 'ask-time-audience']);
 });
+
+/* ---------- wf/article-templates, 1 Oct 2026: items 366, 370, 379, 383, 384, 385 ---------- */
+
+test('379: the next free consultation prints once per page, mid-article or in the closing block', () => {
+  for (const [file, loc] of [['app/resources/[slug]/page.tsx', 'next-resource-close'], ['app/guides/[slug]/page.tsx', 'next-guide-close']]) {
+    const page = src(file);
+    assert.ok(page.includes(`consult={cards && !next ? { location: '${loc}'`), file);
+    assert.match(page, /const next = NEXT_CONSULT_AFTER\[/, file);
+    /* Exactly one mid-article render, keyed on the same `next`. */
+    assert.equal(page.split('<NextConsultLine').length - 1, 1, file);
+    assert.match(page, /next\?\.h2 === s\.h2 && /, file);
+  }
+});
+
+test('385: the one-pager form renders after the closing next step, not before it', () => {
+  for (const file of ['app/resources/[slug]/page.tsx', 'app/guides/[slug]/page.tsx']) {
+    const page = src(file);
+    const step = page.indexOf('<NextStep');
+    const form = page.indexOf('<LeadCapture');
+    assert.ok(step > 0 && form > step, `${file}: LeadCapture must follow NextStep`);
+    assert.ok(form < page.indexOf('Related pages'), `${file}: and still precede the link footer`);
+  }
+  const log = JSON.parse(src('data/changes.json')).changes as { id: string; metric: string }[];
+  assert.ok(log.some((c) => c.id === '2026-10-02-lead-after-next-step' && c.metric === 'conv:book_click'));
+  assert.ok(log.some((c) => c.id === '2026-10-02-lead-after-next-step-leads' && c.metric === 'conv:lead_magnet_submit'));
+});
+
+test('384: every resource midCta label rendered through BookLink names booking or a consultation', async () => {
+  const { resources } = await import('../lib/resources.ts');
+  for (const r of resources) {
+    assert.match(r.midCta.label, /book|consultation/i, `${r.slug}: "${r.midCta.label}" opens the calendar`);
+  }
+  const page = src('app/resources/[slug]/page.tsx');
+  assert.match(page, /<BookLink location="mid-resource" href=\{cta\.href\} className="">\{r\.midCta\.label\}<\/BookLink>/);
+});
+
+test('384: an Alberta resource closes with Alberta’s helpline and no BC link footer', () => {
+  const page = src('app/resources/[slug]/page.tsx');
+  assert.match(page, /r\.province === 'AB' \? \(\s*<>the Recovery Alberta Mental Health Helpline at <strong>1-877-303-2642<\/strong>/);
+  assert.match(src('lib/resources-alberta.ts'), /Mental Health Helpline is 1-877-303-2642/, 'the number the body already cites');
+  assert.match(page, /\{r\.province !== 'AB' && \(\s*<>\s*<MoreFrom/);
+  assert.match(page, /filter\(\(s\) => r\.province !== 'AB' \|\| !s\.href\.endsWith\('-bc'\)\)/);
+});
+
+test('383: the year-end block follows the first section, is in the contents, and the Alberta copy names no BC insurer', async () => {
+  const { getResource } = await import('../lib/resources.ts');
+  const page = src('app/resources/[slug]/page.tsx');
+  assert.match(page, /i === 0 && seasonal \? \[s\.h2, seasonal\.h2\] : \[s\.h2\]/);
+  assert.match(page, /\{i === 0 && seasonal && \(/);
+  assert.ok(page.indexOf('{i === 0 && seasonal && (') > page.indexOf('{r.sections.map((s, i) => ('), 'inside the section loop');
+  const ab = getResource('counselling-coverage-in-alberta')!.seasonal!.body.join('\n');
+  const bc = getResource('does-my-plan-cover-counselling-bc')!;
+  assert.doesNotMatch(ab, /Pacific Blue Cross/);
+  assert.match(bc.seasonal!.body.join('\n'), /Pacific Blue Cross/);
+  /* One session-count paragraph on the BC page: the plan-maximum one. */
+  assert.doesNotMatch(bc.seasonal!.body.join('\n'), /\$300 left/);
+  assert.equal(JSON.stringify(bc).split('annual maximum covers about').length - 1, 1);
+  assert.match(ab, /\$300 left/, 'the Alberta page has no plan-maximum paragraph, so it keeps the balance sentence');
+});
+
+test('366: the ICBC page prints ICBC’s own figures, in date, beside the catalogue fee', async () => {
+  const { getResource } = await import('../lib/resources.ts');
+  const { ICBC_COUNSELLING, icbcFeeSentence } = await import('../lib/session-arithmetic.ts');
+  const r = getResource('icbc-counselling-after-a-crash-bc')!;
+  const all = JSON.stringify(r);
+  assert.ok(all.includes(money(ICBC_COUNSELLING.cents)), 'ICBC’s rate');
+  assert.match(all, /12 pre-approved counselling treatments/);
+  assert.match(all, /at least 50 minutes/);
+  assert.match(all, /1 April 2026 to 31 March 2027/);
+  assert.match(all, /to the level of our approved rates/);
+  assert.match(all, /accessing-treatment-during-your-first-12-weeks-of-recovery/);
+  assert.doesNotMatch(all, /own one-pager/);
+  assert.match(all, /not an ICBC vendor and does not bill ICBC directly/);
+  assert.match(all, /confirm with your adjuster/);
+  const ind = fee('Individual Counselling');
+  assert.ok(icbcFeeSentence().includes(money(ind.cents)), 'the fee is the catalogue’s');
+  assert.ok(all.includes(icbcFeeSentence().slice(0, 60)));
+  /* Follows the catalogue, either side of ICBC’s rate. */
+  const at = (cents: number) => ({ ...FALLBACK_CATALOG, items: FALLBACK_CATALOG.items.map((i) => (i.name === 'Individual Counselling' ? { ...i, cents } : i)) });
+  assert.match(icbcFeeSentence(at(ICBC_COUNSELLING.cents - 2000)), /below ICBC’s/);
+  assert.match(icbcFeeSentence(at(ICBC_COUNSELLING.cents)), /the same as ICBC’s/);
+  assert.ok(icbcFeeSentence(at(ICBC_COUNSELLING.cents + 1500)).includes(`the ${money(1500)} difference`));
+  assert.doesNotMatch(icbcFeeSentence(), /'/, 'a straight apostrophe in prose');
+  /* ICBC re-sets its rate every 1 April: past the window this fails, rather than the page printing last year’s rate. */
+  assert.ok(new Date().toISOString().slice(0, 10) <= ICBC_COUNSELLING.to, 'ICBC’s 2026-27 rate has lapsed: re-read the ICBC page and update ICBC_COUNSELLING');
+});
+
+test('370: FAQ answers render through rich() and reach JSON-LD as plain text', async () => {
+  const { plainText, RAW_MD_LINK } = await import('../lib/plain-text.ts');
+  assert.equal(plainText('See [how long therapy takes](/guides/how-long-does-therapy-take).'), 'See how long therapy takes.');
+  assert.equal(plainText('**[Foundry](https://foundrybc.ca/)** for anyone aged 12–24'), 'Foundry for anyone aged 12–24');
+  assert.equal(plainText('a [paper](https://x.org/a%20(1).pdf) and *Journal*'), 'a paper and Journal');
+  assert.equal(RAW_MD_LINK.test(plainText('[a](/b) and [c](https://d.e)')), false);
+  for (const file of ['app/resources/[slug]/page.tsx', 'app/guides/[slug]/page.tsx', 'app/compare/[slug]/page.tsx', 'app/approaches/[slug]/page.tsx', 'app/for/[slug]/page.tsx']) {
+    const page = src(file);
+    assert.doesNotMatch(page, /<p>\{f\.a\}<\/p>/, file);
+    assert.match(page, /text: plainText\(f\.a\)/, file);
+  }
+  const place = src('app/practitioners/[slug]/[place]/page.tsx');
+  assert.doesNotMatch(place, /<p>\{f\.a\}<\/p>|<p key=\{x\.slice\(0, 24\)\}>\{x\}<\/p>|, \{a\.detail\}<\/li>/);
+  assert.match(src('lib/rich.tsx'), /<strong key=\{i\}>\{rich\(bold\[1\]\)\}<\/strong>/, 'a bold run may wrap a link');
+  assert.match(src('scripts/quality-audit.mjs'), /'raw-markdown-link'/);
+});

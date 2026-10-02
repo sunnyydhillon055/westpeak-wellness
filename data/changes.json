@@ -104,6 +104,22 @@
       "metric": "gsc:clicks",
       "readAfter": "2026-10-29",
       "note": "October refresh: seasonal depression (SAD) in the title and description, counsellor cards, first in the social queue."
+    },
+    {
+      "id": "2026-10-02-lead-after-next-step",
+      "date": "2026-10-02",
+      "pages": ["/guides/", "/resources/bc-extended-health-coverage-for-counselling", "/resources/msp-vs-extended-health", "/resources/low-cost-counselling-bc"],
+      "metric": "conv:book_click",
+      "readAfter": "2026-10-30",
+      "note": "Item 385: the one-pager email form moved from before the closing next step (cards, fee, consultation, band) to after it, on every guide that carries a form and the three resource pages in RESOURCE_MAGNET. Read with 2026-10-02-lead-after-next-step-leads: book_click should rise and lead_magnet_submit should not fall by more than the clicks gained."
+    },
+    {
+      "id": "2026-10-02-lead-after-next-step-leads",
+      "date": "2026-10-02",
+      "pages": ["/guides/", "/resources/bc-extended-health-coverage-for-counselling", "/resources/msp-vs-extended-health", "/resources/low-cost-counselling-bc"],
+      "metric": "conv:lead_magnet_submit",
+      "readAfter": "2026-10-30",
+      "note": "The other half of item 385: one-pager signups on the same pages after the form moved below the next step. September had 60 signups against 18 enquiries site-wide."
     }
   ]
 }

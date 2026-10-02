@@ -23,6 +23,7 @@ import Updated from '@/components/Updated';
 import { COLLECTION_DATES } from '@/lib/page-dates';
 import { placePageDate, tagalogProfileDate } from '@/lib/page-date-latest';
 import BookLink from '@/components/BookLink';
+import { rich } from '@/lib/rich';
 import { placeTitle } from '@/lib/practitioner-titles';
 
 /* Two kinds of page share this route, because they are the same page in two
@@ -437,7 +438,7 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
               what getting to an appointment in person would have cost you, and that is the part
               this removes.
             </p>
-            {loc.local.map((x) => <p key={x.slice(0, 24)}>{x}</p>)}
+            {loc.local.map((x) => <p key={x.slice(0, 24)}>{rich(x)}</p>)}
             <p>
               Her focus is {p.focus.map((f) => f.label.toLowerCase()).join(', ')}. Sessions run in{' '}
               {p.languages.map((l) => l.name).join(' or ')}, including moving between them within
@@ -475,7 +476,7 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
             {loc.access?.length ? (
               <ul className="checklist">
                 {loc.access.slice(0, 4).map((a) => (
-                  <li key={a.label}><strong>{a.label}</strong>, {a.detail}</li>
+                  <li key={a.label}><strong>{a.label}</strong>, {rich(a.detail)}</li>
                 ))}
               </ul>
             ) : (
@@ -545,7 +546,7 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
               {loc.faqs.map((f) => (
                 <details className="faq-item" key={f.q}>
                   <summary>{f.q}</summary>
-                  <p>{f.a}</p>
+                  <p>{rich(f.a)}</p>
                 </details>
               ))}
             </div>

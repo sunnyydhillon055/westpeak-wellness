@@ -1,5 +1,13 @@
 import type { Resource } from './resources';
-import { planMaximumParagraph, remainingBalanceSentence } from '@/lib/session-arithmetic';
+import { planMaximumParagraph, remainingBalanceSentence, icbcFeeSentence, ICBC_COUNSELLING } from '@/lib/session-arithmetic';
+import { money } from '@/lib/cliniko-catalog';
+
+/* ICBC's dates as prose ("1 April 2026"), from ICBC_COUNSELLING. */
+const longDate = (iso: string) =>
+  new Date(iso + 'T12:00:00Z').toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const ICBC_FROM = longDate(ICBC_COUNSELLING.from);
+const ICBC_TO = longDate(ICBC_COUNSELLING.to);
+const ICBC_READ = longDate(ICBC_COUNSELLING.read);
 import { YEAR_END_PATH } from '@/lib/seasonal';
 import { ONLINE_COVERAGE } from '@/lib/practice-facts';
 
@@ -13,17 +21,23 @@ import { ONLINE_COVERAGE } from '@/lib/practice-facts';
    maximums generally do not carry over, though some health spending
    accounts carry a balance forward one year. Session counts come from the
    catalogue. Owner fact-check before release. */
-export function yearEndSeasonal(opts: { yearEndLink: boolean; designation: string }): NonNullable<Resource['seasonal']> {
+/* 1 Oct 2026 (item 383): `province` drops the BC insurer from the claim-
+   deadline example on the Alberta page, and `balanceSentence: false` drops
+   the remaining-balance arithmetic on a page that already prints
+   planMaximumParagraph, so one page does not count sessions twice. */
+export function yearEndSeasonal(opts: { yearEndLink: boolean; designation: string; province?: 'AB'; balanceSentence?: boolean }): NonNullable<Resource['seasonal']> {
   return {
     from: '10-01',
     to: '12-31',
     h2: 'If your plan year ends on 31 December',
     body: [
       'On a plan that runs on the calendar year, the date of the session decides which year’s maximum it counts against. A session held on or before 31 December is claimed against this year’s; one held in January counts against next year’s, whenever the receipt goes in.',
-      'Submitting the claim is a separate deadline. Each plan sets its own and they vary widely, from weeks after the service to well into the following year; Pacific Blue Cross, for one, says the deadline differs by policy. The booklet or member portal states yours.',
+      opts.province === 'AB'
+        ? 'Submitting the claim is a separate deadline. Each plan sets its own and they vary widely, from weeks after the service to well into the following year. The booklet or member portal states yours.'
+        : 'Submitting the claim is a separate deadline. Each plan sets its own and they vary widely, from weeks after the service to well into the following year; Pacific Blue Cross, for one, says the deadline differs by policy. The booklet or member portal states yours.',
       `Not every plan runs on the calendar year. Some run on an anniversary year that turns over on another date, and student plans have their own plan year. Check that the plan lists a ${opts.designation} and which year it runs on before planning around 31 December.`,
       'Unused paramedical maximums generally do not carry over into the next year. Some health spending accounts do carry an unused balance forward one year, which is a feature of the account rather than of the counselling maximum; the administrator can confirm both, and whether the account accepts a counselling receipt at all.',
-      remainingBalanceSentence(),
+      ...(opts.balanceSentence === false ? [] : [remainingBalanceSentence()]),
       ...(opts.yearEndLink ? [`The longer version, with claim deadlines for some BC plans: [using counselling benefits before the year ends](${YEAR_END_PATH}).`] : []),
     ],
   };
@@ -63,7 +77,7 @@ export const moreResources2: Resource[] = [
       'Most people find out about the counselling entitlement weeks after the crash, if at all. It starts the day of the crash and it does not need a referral.',
     shortAnswer:
       'If you were injured in a crash in British Columbia on or after 1 May 2021, ICBC Enhanced Care pre-approves counselling with a qualifying counsellor in the first twelve weeks after the crash, without a doctor\'s referral or ICBC\'s advance approval. The counsellor has to meet the definition in the Insurance (Vehicle) Regulation, which a Registered Clinical Counsellor does. This practice is not currently in ICBC\'s Recovery Network, so it cannot bill ICBC directly; the entitlement is yours to use wherever you choose, and this page explains how.',
-    updated: '2026-09-26',
+    updated: '2026-10-01',
     readMinutes: 7,
     figure: 'reimbursement-flow',
     sections: [
@@ -72,7 +86,25 @@ export const moreResources2: Resource[] = [
         body: [
           'Enhanced Care replaced the old litigation model in May 2021. For injuries, it means care is paid for by ICBC regardless of who caused the crash, and a set of treatments is **pre-approved** for an early access period of twelve weeks from the date of the crash. Counselling is on that list, alongside physiotherapy, chiropractic, massage, kinesiology, acupuncture and psychology.',
           'Pre-approved means exactly that: you do not need to ask ICBC before booking, and you do not need a physician to refer you. You open a claim, and the sessions inside the pre-authorised number are funded within that window.',
-          'The number of pre-authorised sessions is set by regulation and by ICBC\'s program guide rather than by any counsellor, and it can change. At the time of writing the practice\'s own one-pager states twelve counselling sessions in the first twelve weeks; confirm the current number with ICBC when you open the claim, because that conversation is the authoritative one.',
+          'The number of pre-authorised sessions is set by regulation and by ICBC\'s program guide rather than by any counsellor, and it can change. ICBC\'s own page, below, gives the current figures; confirm them with your adjuster when you open the claim, because that conversation is the authoritative one.',
+        ],
+      },
+      /* ICBC'S OWN NUMBERS — 1 Oct 2026 (item 366). The session count was
+         sourced to "the practice's own one-pager" and the rates FAQ gave no
+         number, while the page ranked for "icbc counselling rates". Read from
+         ICBC's page the same day; the figures and their date window live in
+         lib/session-arithmetic.ts ICBC_COUNSELLING, and a test fails once the
+         window lapses. The fee beside them comes from the catalogue. */
+      {
+        h2: 'What ICBC says it pays for counselling',
+        body: [
+          `ICBC’s page on [accessing treatment during your first 12 weeks of recovery](https://icbc.com/claims/injury/accessing-treatment-during-your-first-12-weeks-of-recovery), read on ${ICBC_READ}, sets out the counselling entitlement in its own words. Confirm each figure with your adjuster; ICBC re-sets the rates every April.`,
+        ],
+        list: [
+          { label: `${ICBC_COUNSELLING.treatments} pre-approved counselling treatments`, detail: 'in the first twelve weeks after the crash.' },
+          { label: `${money(ICBC_COUNSELLING.cents)} per treatment`, detail: `ICBC’s fee for a counselling session of at least ${ICBC_COUNSELLING.minMinutes} minutes, for treatments from ${ICBC_FROM} to ${ICBC_TO}.` },
+          { label: 'No referral and no ICBC approval', detail: 'needed for those pre-approved treatments.' },
+          { label: 'Receipts reimbursed to ICBC’s rate', detail: 'if you pay up front, ICBC asks you to keep the receipt and submit it within 180 days, and reimburses it “to the level of our approved rates”.' },
         ],
       },
       {
@@ -86,7 +118,7 @@ export const moreResources2: Resource[] = [
         h2: 'What this practice can and cannot do',
         list: [
           { label: 'Cannot bill ICBC directly', detail: 'Westpeak Wellness is not currently a Recovery Network provider. Sessions here are paid at booking like any other session, with a receipt carrying the counsellor\'s registration number.' },
-          { label: 'Can be your counsellor anyway', detail: 'If you would rather see someone here, ask ICBC, when you open the claim, whether receipts from a qualified non-network counsellor can be submitted for reimbursement and at what rate. The answer comes from ICBC, not from this page, and it is worth having in writing before you start.' },
+          { label: 'Can be your counsellor anyway', detail: `${icbcFeeSentence()} The answer comes from ICBC, not from this page, and it is worth having in writing before you start.` },
           { label: 'Can write within scope', detail: 'A counsellor can provide a treatment summary and attendance confirmation. A counsellor cannot certify a leave from work or provide a medical-legal opinion; those come from a physician.' },
           { label: 'Will say so if someone else fits better', detail: 'The free consultation exists partly for this. If the pre-approved sessions with a network provider are the better route for you financially, you will be told that.' },
         ],
@@ -139,9 +171,9 @@ export const moreResources2: Resource[] = [
          answer in its own words: "icbc-approved counsellors", "icbc counselling
          rates", "icbc counselling treatment plan". 26 Sep 2026. */
       { q: 'Is there a list of ICBC-approved counsellors?', a: 'Not in the sense of a separate approval. Any counsellor who meets the definition in the Insurance (Vehicle) Regulation can provide the pre-approved sessions, and a Registered Clinical Counsellor does. What ICBC does keep is a Recovery Network of providers who bill it directly; a counsellor outside that network can still see you, and you pay and ask ICBC about reimbursement. The table on this page sets the two routes side by side.' },
-      { q: 'What are ICBC counselling rates?', a: 'ICBC pays its network providers a set fee per session, which it publishes for providers and updates from time to time; a person using a network counsellor does not see a bill. Outside the network you pay the counsellor’s own fee, which at this practice is published in full on the fees page, and you ask ICBC in advance what it will reimburse and against what receipt.' },
+      { q: 'What are ICBC counselling rates?', a: `ICBC publishes its own fee: for treatments from ${ICBC_FROM} to ${ICBC_TO} it pays ${money(ICBC_COUNSELLING.cents)} per counselling treatment of at least ${ICBC_COUNSELLING.minMinutes} minutes, and a person using a Recovery Network counsellor does not see a bill. If you pay up front, ICBC reimburses the receipt to the level of that rate. ${icbcFeeSentence()}` },
       { q: 'What is an ICBC counselling treatment plan?', a: 'The document a counsellor sends ICBC when sessions beyond the pre-approved number, or beyond the first twelve weeks, are needed: what has been done, what is recommended and why. ICBC decides further funding on it. Network providers submit it directly; if you are seeing someone outside the network, ask the adjuster what they need and in what form before the twelve weeks end.' },
-      { q: 'Does ICBC cover counselling after a car accident in BC?', a: 'Yes. Under Enhanced Care, counselling with a qualifying counsellor is pre-approved for the first twelve weeks after a crash, without a referral or advance approval, for a set number of sessions. Further counselling after that can be funded on a treatment plan.' },
+      { q: 'Does ICBC cover counselling after a car accident in BC?', a: 'Yes. Under Enhanced Care, counselling with a qualifying counsellor is pre-approved for the first twelve weeks after a crash, without a referral or advance approval, for up to ' + ICBC_COUNSELLING.treatments + ' sessions. Further counselling after that can be funded on a treatment plan.' },
       { q: 'Do I need a doctor\'s note to see a counsellor through ICBC?', a: 'No. The early access period is designed so that treatment can start without a referral. A doctor\'s note is not required for the pre-approved sessions.' },
       { q: 'Can I see any counsellor, or does it have to be an ICBC one?', a: 'The counsellor has to meet the regulation\'s definition, which a Registered Clinical Counsellor does. Whether ICBC pays them directly depends on whether they are in the Recovery Network. Ask ICBC about reimbursement for a qualified counsellor outside it before you start.' },
       { q: 'Is Westpeak Wellness an ICBC provider?', a: 'Not currently. The practice is not in the Recovery Network and cannot bill ICBC directly. You can still choose to see a counsellor here and pay at booking; whether ICBC reimburses those receipts is ICBC\'s decision, and worth confirming in writing.' },
@@ -178,7 +210,7 @@ export const moreResources2: Resource[] = [
     updated: '2026-10-01',
     readMinutes: 8,
     figure: 'reimbursement-flow',
-    seasonal: yearEndSeasonal({ yearEndLink: true, designation: 'Registered Clinical Counsellor' }),
+    seasonal: yearEndSeasonal({ yearEndLink: true, designation: 'Registered Clinical Counsellor', balanceSentence: false }),
     sections: [
       {
         h2: 'The question that settles it, whichever insurer you have',

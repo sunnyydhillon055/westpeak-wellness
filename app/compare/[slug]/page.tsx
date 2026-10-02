@@ -7,6 +7,7 @@ import { getExtra } from '@/lib/depth';
 import { buildToc, headingId } from '@/lib/toc';
 import { orgRef, siteRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
+import { plainText } from '@/lib/plain-text';
 import NextStep from '@/components/NextStep';
 import { counsellorsForInfoPage, feeLineFor } from '@/lib/counsellor-cards';
 import { softStepsFor } from '@/lib/next-steps';
@@ -118,7 +119,7 @@ export default async function ComparePage({ params }: { params: { slug: string }
       '@context': 'https://schema.org', '@type': 'FAQPage',
       mainEntity: c.faqs.map((f) => ({
         '@type': 'Question', name: f.q,
-        acceptedAnswer: { '@type': 'Answer', text: f.a },
+        acceptedAnswer: { '@type': 'Answer', text: plainText(f.a) },
       })),
     },
   ];
@@ -224,7 +225,7 @@ export default async function ComparePage({ params }: { params: { slug: string }
               {c.faqs.map((f) => (
                 <details className="faq-item" key={f.q}>
                   <summary>{f.q}</summary>
-                  <p>{f.a}</p>
+                  <p>{rich(f.a)}</p>
                 </details>
               ))}
             </div>

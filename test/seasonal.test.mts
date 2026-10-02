@@ -63,7 +63,11 @@ test('the coverage pages carry a year-end block that shows 1 Oct to 31 Dec and n
     assert.match(body, /date of the session decides/);
     assert.match(body, /anniversary year/);
     assert.match(body, /do not carry over/);
-    assert.ok(body.includes(money(IND.cents)), 'fee from the catalogue');
+    /* Item 383: the BC page prints planMaximumParagraph, so its seasonal
+       block drops the remaining-balance arithmetic; the fee is still on the
+       page, from the catalogue, once. */
+    const page = JSON.stringify(r);
+    assert.ok((r.seasonal!.body.some((p) => p.includes('$300 left')) ? body : page).includes(money(IND.cents)), 'fee from the catalogue');
     assert.doesNotMatch(body, /evening|weekend|\b\d{1,2}(:\d\d)?\s?(a\.m\.|p\.m\.|am|pm)\b/i, 'no hours');
   }
   /* Every seasonal block anywhere ends by 31 Dec unless it deliberately wraps. */
