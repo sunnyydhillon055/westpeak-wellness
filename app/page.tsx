@@ -18,9 +18,9 @@ import Stepper from '@/components/ui/Stepper';
 import Reveal from '@/components/ui/Reveal';
 import { getServiceIcon, HUB_ICONS } from '@/lib/icon-map';
 import { fallbackFee, FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
-import { counsellorForLanguage } from '@/lib/booking-cta';
+import { counsellorForLanguage, bookingFor } from '@/lib/booking-cta';
 import { withLetters, practitioners } from '@/lib/practitioners';
-import { whoSentence, onlyWithSentence, alsoOffers, feeSentence, orList } from '@/lib/home-copy';
+import { whoSentence, onlyWithSentence, alsoOffers, feeSentence, ownWords, orList } from '@/lib/home-copy';
 
 /* WHAT IT COSTS AND WHO SPEAKS WHAT, ON THE HOME PAGE — 1 Oct 2026.
  *
@@ -59,6 +59,12 @@ const HERO_FEE = feeSentence({
 });
 const EMDR_WITH = alsoOffers(ACCEPTING, 'emdr-therapy', 'EMDR');
 const ACCEPTING_FIRSTS = orList(ACCEPTING.map((p) => p.name.split(' ')[0]!));
+/* Savneet's own words about working in Punjabi, read from her roster intro
+   rather than retyped. They replace a sentence about the founder's thesis
+   that sat in the paragraph introducing the Punjabi-speaking counsellor, so
+   a reader took it as hers. */
+const PA_OWN_WORDS = PA_COUNSELLOR ? ownWords(PA_COUNSELLOR.intro, 'what silence means') : null;
+const PA_BOOK = bookingFor('punjabi-counselling', 'pa');
 
 const homeFaqs = faqs.filter((f) =>
   ['Are you taking new clients?', 'Is this practice fully online?'].includes(f.q)
@@ -286,15 +292,20 @@ export default async function Home() {
               <p className="eyebrow">Cultural context</p>
               <h2>You shouldn&rsquo;t have to explain the background first.</h2>
               <p>
-                Deep cultural competency for the South Asian community, including a
-                Master&rsquo;s thesis on intergenerational trauma. Family expectations,
-                &ldquo;log kya kahenge,&rdquo; generational silence, talk about it without
-                spending the first session setting the scene.
+                Family expectations, &ldquo;log kya kahenge,&rdquo; generational silence: talk
+                about it without spending the first session setting the scene.
               </p>
               <p>
                 Sessions are available in Punjabi as well as English
                 {PA_COUNSELLOR ? <> with {withLetters(PA_COUNSELLOR)}</> : null}, if that makes it
-                easier to say. There is a{' '}
+                easier to say.
+                {PA_COUNSELLOR && PA_OWN_WORDS ? (
+                  <>
+                    {' '}In {PA_COUNSELLOR.name.split(' ')[0]}&rsquo;s own words: &ldquo;{PA_OWN_WORDS}&rdquo;{' '}
+                    <Link href={PA_BOOK.href}>Book a free consultation with {PA_COUNSELLOR.name.split(' ')[0]}</Link>.
+                  </>
+                ) : null}{' '}
+                There is a{' '}
                 <Link href="/punjabi" lang="en">
                   page in Punjabi (ਪੰਜਾਬੀ)
                 </Link>{' '}
