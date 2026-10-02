@@ -1,5 +1,6 @@
 import type { RegionPage } from './expansion';
 import { fallbackFee } from '@/lib/cliniko-catalog';
+import { albertaClockLine } from './alberta-clock';
 
 /* Remaining Alberta pages, and the whole Ontario cluster.
  *
@@ -95,7 +96,7 @@ export const albertaMore: RegionPage[] = [
       {
         h2: 'What stays the same wherever you are',
         body: [
-          'Sessions run in Punjabi, English, or moving between them within a session. Appointment times are shown in Mountain Time. The first 30 minutes are free and carry no obligation, including no obligation to continue if it is not a fit.',
+          `Sessions run in Punjabi, English, or moving between them within a session. ${albertaClockLine()} The first 30 minutes are free and carry no obligation, including no obligation to continue if it is not a fit.`,
           'And the practice is not in Alberta, which for a great many people is the point rather than the drawback. No shared gurdwara, no mutual acquaintances, no chance of being recognised in a waiting room.',
         ],
       },

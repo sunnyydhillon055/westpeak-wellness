@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { site, RCC_PLAIN } from '@/lib/site';
-import { practitioners, getPractitioner, defaultBookingPractitioner, withLetters, vancouverToday } from '@/lib/practitioners';
+import { practitioners, getPractitioner, withLetters, vancouverToday } from '@/lib/practitioners';
 import { placesFor } from '@/lib/practitioner-places';
 import { getService } from '@/lib/services';
 import { abs, orgRef, siteRef, faqSchema, sessionOffers } from '@/lib/schema';
@@ -24,7 +24,11 @@ import {
   feeLines, feePhrase, consultLine, reachLine, notOffered, insuranceLine, registerEntryUrl,
   longDate, offerItems, COMPLAINTS_PATH,
   personDescription, credentialLine, certifiedBy, notOfferedSentence,
+  alternativesFor, alternativeLabel, notRightFit, orList, type Alternative,
 } from '@/lib/practitioner-facts';
+import { bookHrefFor } from '@/lib/city-service-page';
+import { PACIFIC } from '@/lib/availability-summary';
+import CounsellorCompare from '@/components/CounsellorCompare';
 import FirstSessionRow from '@/components/FirstSessionRow';
 import { firstSessionNote, firstSessionOffers } from '@/lib/first-session';
 import { profileSnippet, withSnippet } from '@/lib/snippet-facts';
@@ -142,12 +146,21 @@ export default async function PractitionerPage({ params }: { params: { slug: str
      counsellor so /book can speak for her. */
   /* NOT TAKING NEW CLIENTS: the page says so and sends the consultation to
      whoever is (lib/practitioners.ts, `acceptingNewClients`). No Book button
-     for a calendar that is not being opened. Decided 6 Sep 2026. */
-  const alt = p.acceptingNewClients ? undefined : defaultBookingPractitioner();
-  const altFirst = alt?.name.split(' ')[0];
+     for a calendar that is not being opened. Decided 6 Sep 2026.
+
+     RANKED, SINCE 2 OCT 2026 (alternativesFor, lib/practitioner-facts.ts).
+     This used to name the first accepting counsellor on the roster, so a
+     profile written for Punjabi readers sent all of them to a counsellor who
+     does not speak Punjabi. Now the colleague who shares her language comes
+     first, and the one who offers the services that colleague does not comes
+     second. No reason for the status is given, by rule. */
+  const alts = p.acceptingNewClients ? [] : alternativesFor(p, practitioners);
+  const altHref = (a: Alternative) => bookHrefFor(practitioners.filter((q) => q.slug === a.slug), a.bookService);
   const bookHref = p.acceptingNewClients
     ? `${site.bookingPath}?with=${p.slug}`
-    : alt ? `${site.bookingPath}?with=${alt.slug}` : site.bookingPath;
+    : alts[0] ? altHref(alts[0]) : site.bookingPath;
+  /* "For couples counselling or EMDR, Camille Granda." for the band. */
+  const altSecond = alts[1] ? `For ${orList(alts[1].services)}, ${alts[1].name}.` : '';
   /* Only languages whose page is actually published. Tagalog is written but
      gated until Camille has reviewed it (lib/practitioner-tl.ts), and linking
      to a gated route means a reader hits a 404 — which the internal-link gate
@@ -175,6 +188,9 @@ export default async function PractitionerPage({ params }: { params: { slug: str
      EMDR or family counselling; Camille Granda does." It read as a label and
      a comma list. */
   const notOfferedLine = notOfferedSentence(first, missing);
+  /* Her own first sentence on when she is not the right counsellor, quoted
+     (2 Oct 2026). Only beside fees, i.e. while she is taking new clients. */
+  const fit = p.acceptingNewClients ? notRightFit(p) : null;
   /* "Already sure? Start with a first session" (lib/first-session.ts):
      nothing while site.directFirstSession is false. */
   const firstSession = p.acceptingNewClients ? firstSessionOffers(p, catalog) : [];
@@ -289,29 +305,38 @@ export default async function PractitionerPage({ params }: { params: { slug: str
             )}
             <div className="btn-row" style={{ marginTop: 22 }}>
               {!p.acceptingNewClients ? (
-                alt && (
-                  <BookLink location="hero-practitioner" href={bookHref}>
-                    Book a free consultation with {altFirst}
+                alts.map((a, i) => (
+                  <BookLink key={a.slug} location="hero-practitioner" className={i ? 'btn btn--ghost' : undefined} href={altHref(a)}>
+                    {alternativeLabel(a)}
                   </BookLink>
-                )
+                ))
               ) : p.bookable ? (
                 <BookLink location="hero-practitioner" href={bookHref}>Book with {first}</BookLink>
               ) : (
                 <BookLink location="hero-practitioner" href={bookHref}>Book a free consultation</BookLink>
               )}
-              <Link className="btn btn--ghost" href="/pricing">Fees and coverage</Link>
+              {p.acceptingNewClients && <Link className="btn btn--ghost" href="/pricing">Fees and coverage</Link>}
             </div>
             {nextOpen.length > 0 && (
               <p style={{ fontSize: '.95rem', marginTop: 12 }}>
-                <strong>Next open with {first}:</strong> {nextOpen.join(' · ')}
+                <strong>Next open with {first}:</strong> {nextOpen.join(' · ')}{PACIFIC}
               </p>
             )}
             {!p.acceptingNewClients ? (
               <p style={{ fontSize: '.9rem', color: 'var(--ink-soft)', marginTop: 12 }}>
                 {first} is not taking new clients at the moment.
-                {alt ? (
-                  <> <Link href={`/practitioners/${alt.slug}`}>{alt.name}</Link> is, and the free
-                  consultation goes to her.</>
+                {alts.length > 0 ? (
+                  <>
+                    {alts.map((a, i) => (
+                      <span key={a.slug}>
+                        {i ? '; for ' : ' '}
+                        {a.services.length ? <>{orList(a.services)}, </> : null}
+                        <Link href={`/practitioners/${a.slug}`}>{a.name}</Link>
+                        {a.services.length ? null : <>, in {orList(a.languages)}</>}
+                      </span>
+                    ))}
+                    .
+                  </>
                 ) : (
                   <> <Link href="/contact">Send a message</Link> and you will be told when that
                   changes.</>
@@ -390,6 +415,9 @@ export default async function PractitionerPage({ params }: { params: { slug: str
                   </li>
                 ))}
                 <li><strong>{reachLine(p)}</strong>, in {p.languages.map((l) => l.name).join(' or ')}</li>
+                {fit && (
+                  <li><strong>When {first} is not the right fit</strong>, in her words: &ldquo;{fit}&rdquo;</li>
+                )}
                 {notOfferedLine && (
                   <li>
                     {notOfferedLine.lead}
@@ -465,8 +493,12 @@ export default async function PractitionerPage({ params }: { params: { slug: str
               <p className="lede">
                 Questions people have before a first session, answered by {first} herself.
               </p>
-              {p.voice.map((v) => (
-                <details className="faq-item" key={v.q}>
+              {/* The first answer ("What is it actually like to sit with
+                  you for an hour?") open, 2 Oct 2026: all eleven were
+                  closed, so the page's most persuasive paragraph was behind
+                  a click. The roster keeps the well-being answer last. */}
+              {p.voice.map((v, i) => (
+                <details className="faq-item" key={v.q} open={i === 0}>
                   <summary>{v.q}</summary>
                   {v.a.map((para) => <p key={para.slice(0, 32)}>{para}</p>)}
                 </details>
@@ -475,29 +507,6 @@ export default async function PractitionerPage({ params }: { params: { slug: str
           )}
         </div>
       </section>
-
-      {secondLanguages.length > 0 && (
-        <section className="section section--tint">
-          <div className="container">
-            <p className="eyebrow">In your language</p>
-            <h2>
-              Sessions in {secondLanguages.map((l) => l.nativeName).join(' or ')}
-            </h2>
-            <p className="lede">
-              Some things only land in the language you think in. {first} works in{' '}
-              {secondLanguages.map((l) => l.name).join(' and ')} as well as English, including
-              moving between them within one session.
-            </p>
-            <div className="chip-grid" style={{ marginTop: 18 }}>
-              {secondLanguages.map((l) => (
-                <Link className="chip" key={l.tag} href={`/practitioners/${p.slug}/${l.tag}`}>
-                  {l.nativeName} →
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
 
       {cities.length > 0 && (
       <section className="section">
@@ -542,6 +551,15 @@ export default async function PractitionerPage({ params }: { params: { slug: str
                   <Link href={hub.secondHref}>{hub.secondLabel}</Link>
                 </>
               )}
+              {/* Her own page in the language, folded in here on 2 Oct 2026:
+                  it had a section of its own ("Sessions in ਪੰਜਾਬੀ") directly
+                  above this one, so each language appeared twice. */}
+              {secondLanguages.filter((l) => l.tag === hub.tag).map((l) => (
+                <span key={l.tag}>
+                  {' · '}
+                  <Link href={`/practitioners/${p.slug}/${l.tag}`} lang={l.tag} hrefLang={l.tag}>{l.nativeName} →</Link>
+                </span>
+              ))}
             </p>
           </div>
         </section>
@@ -560,6 +578,10 @@ export default async function PractitionerPage({ params }: { params: { slug: str
               ) : null;
             })}
           </ul>
+          {/* Side by side with her colleagues, closed (2 Oct 2026). */}
+          {p.acceptingNewClients && (
+            <CounsellorCompare roster={practitioners} catalog={catalog} location="counsellor-compare" collapsed />
+          )}
           {/* The complaints route, per counsellor. /standards says where a
               complaint goes and that the practice is not the gatekeeper;
               this says it about her, by name. 1 Oct 2026. */}
@@ -572,11 +594,11 @@ export default async function PractitionerPage({ params }: { params: { slug: str
 
       <CtaBand
         bookHref={bookHref}
-        heading={p.acceptingNewClients ? `Talk to ${first} first` : altFirst ? `Talk to ${altFirst} first` : 'Therapy starts with one conversation.'}
+        heading={p.acceptingNewClients ? `Talk to ${first} first` : alts[0] ? alternativeLabel(alts[0]) : 'Therapy starts with one conversation.'}
         text={
           p.acceptingNewClients
             ? 'A free 30-minute consultation, by video. No card, and no obligation to book anything afterwards.'
-            : `${first} is not taking new clients at the moment. ${alt ? `${alt.name} is: a free 30-minute consultation by video, no card, and no obligation to book anything afterwards.` : 'Send a message and you will be told when that changes.'}`
+            : `${first} is not taking new clients at the moment. ${alts[0] ? `${alts[0].name} is: a free 30-minute consultation by video, no card, and no obligation to book anything afterwards.${altSecond ? ` ${altSecond}` : ''}` : 'Send a message and you will be told when that changes.'}`
         }
       />
 

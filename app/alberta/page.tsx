@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { site } from '@/lib/site';
 import { albertaPages } from '@/lib/expansion';
 import { crisisFor } from '@/lib/crisis';
+import { albertaClockLine } from '@/lib/alberta-clock';
 import { DESIGNATION, AB_REGULATORY_NOTE, getProvince, ALBERTA_LIVE } from '@/lib/regions';
 import { orgRef, siteRef, medicalWebPage } from '@/lib/schema';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -89,7 +90,7 @@ export default function AlbertaHub() {
           name: 'What time are appointments shown in?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Mountain Time for Alberta clients. Alberta is one hour ahead of British Columbia, so the time shown when booking is the time on your own clock.',
+            text: albertaClockLine(),
           },
         },
       ],

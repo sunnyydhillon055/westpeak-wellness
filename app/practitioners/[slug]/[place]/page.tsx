@@ -3,7 +3,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { site } from '@/lib/site';
-import { personStub } from '@/lib/practitioner-facts';
+import {
+  personStub, consultLine, feeLines, feePhrase, notOffered, notOfferedSentence,
+} from '@/lib/practitioner-facts';
+import { readCatalog } from '@/lib/cliniko-catalog';
+import NextConsultLine from '@/components/NextConsultLine';
 import { practitioners, getPractitioner, withLetters, type Practitioner, type Credential } from '@/lib/practitioners';
 import { practitionerPlaces, getPractitionerPlace, placesFor, resolvePlace } from '@/lib/practitioner-places';
 import { crisisFor } from '@/lib/crisis';
@@ -48,6 +52,11 @@ import { placeTitle } from '@/lib/practitioner-titles';
  * prerendered. `placePages: false` controlled the build output and nothing
  * else. A smoke assertion caught it: expected 404, got 200. */
 export const dynamicParams = false;
+
+/* Re-rendered every thirty minutes, since 2 Oct 2026, so the fee strip and
+   the next-consultation line under the hero are what the catalogue and
+   Cliniko say today. generateStaticParams still decides which pages exist. */
+export const revalidate = 1800;
 
 type Params = { slug: string; place: string };
 
@@ -188,7 +197,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   };
 }
 
-export default function PractitionerPlacePage({ params }: { params: Params }) {
+export default async function PractitionerPlacePage({ params }: { params: Params }) {
   const p = getPractitioner(params.slug);
   if (!p) notFound();
 
@@ -316,6 +325,18 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
      Without it a Calgary reader was told they were ineligible. */
   const bookHref = `${site.bookingPath}?with=${p.slug}`;
 
+  /* HER FACTS, IN PLACE OF "NOTHING ABOUT THE FEE CHANGES" — 2 Oct 2026.
+     These pages said three times that the fee does not change with distance
+     and never said what it is. The profile's own strip, from the same
+     helpers (lib/practitioner-facts.ts) and the same catalogue read: the
+     free consultation, her fees, what she does not offer and who does, and
+     the plan-dependent paid-at-booking line. Only while she is taking new
+     clients, as on the profile. */
+  const catalog = await readCatalog();
+  const consult = p.acceptingNewClients ? consultLine(catalog) : null;
+  const fees = p.acceptingNewClients ? feeLines(p, catalog) : [];
+  const notOfferedLine = p.acceptingNewClients ? notOfferedSentence(first, notOffered(p, practitioners)) : null;
+
   /* NEIGHBOURING CITIES, SAME COUNSELLOR.
    *
    * These pages carried five or six internal links each and not one to a
@@ -402,6 +423,9 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
             <BookLink location="hero-place" href={bookHref}>Book a free consultation</BookLink>
             <Link className="btn btn--ghost" href={`/practitioners/${p.slug}`}>More about {first}</Link>
           </div>
+          {/* Her next free consultation (Pacific, labelled by the component);
+              nothing when Cliniko has none or cannot be read. */}
+          <NextConsultLine slugs={[p.slug]} location="place-practitioner" style={{ margin: '14px 0 0', fontSize: '.95rem' }} />
         </div>
       </section>
 
@@ -433,11 +457,40 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
 
           <div className="prose" style={{ marginTop: 26 }}>
             <p>
-              {first} works with clients in {loc.city} entirely by secure video, so nothing about
-              the fee, the availability or the work changes with where you live. What changes is
+              {first} works with clients in {loc.city} entirely by secure video. What changes is
               what getting to an appointment in person would have cost you, and that is the part
               this removes.
             </p>
+            {(consult || fees.length > 0) && (
+              <>
+                <ul className="checklist" aria-label={`${first} at a glance`}>
+                  {consult && <li><strong>{consult}</strong>, by video, with no obligation to book afterwards</li>}
+                  {fees.map((f) => (
+                    <li key={f.label}>
+                      <strong>{f.label.charAt(0).toUpperCase() + f.label.slice(1)}</strong>, {feePhrase(f)}
+                    </li>
+                  ))}
+                  {notOfferedLine && (
+                    <li>
+                      {notOfferedLine.lead}
+                      {notOfferedLine.by.length > 0 ? (
+                        <>
+                          {'; '}
+                          {notOfferedLine.by.map((b, i) => (
+                            <span key={b.slug}>{i ? ' and ' : ''}<Link href={`/practitioners/${b.slug}`}>{b.name}</Link></span>
+                          ))}
+                          {` ${notOfferedLine.verb}.`}
+                        </>
+                      ) : '.'}
+                    </li>
+                  )}
+                </ul>
+                <p style={{ fontSize: '.9rem', color: 'var(--ink-soft)' }}>
+                  Paid at booking, with a receipt for your extended health plan; whether
+                  your plan reimburses it depends on the plan. <Link href="/pricing">Fees and coverage</Link>.
+                </p>
+              </>
+            )}
             {loc.local.map((x) => <p key={x.slice(0, 24)}>{rich(x)}</p>)}
             <p>
               Her focus is {p.focus.map((f) => f.label.toLowerCase()).join(', ')}. Sessions run in{' '}
@@ -473,18 +526,14 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
 
           <div className="prose" style={{ marginTop: 26 }}>
             <h2>Why a video session suits {loc.city}</h2>
-            {loc.access?.length ? (
-              <ul className="checklist">
-                {loc.access.slice(0, 4).map((a) => (
-                  <li key={a.label}><strong>{a.label}</strong>, {rich(a.detail)}</li>
-                ))}
-              </ul>
-            ) : (
-              <p>
-                Nothing about the fee or the availability changes with distance, because there is
-                no room to travel to.
-              </p>
-            )}
+            {/* resolvePlace always adds her language line, so the list is
+                never empty; the old fallback sentence about the fee and distance
+                is gone with the other two (2 Oct 2026). */}
+            <ul className="checklist">
+              {loc.access.slice(0, 4).map((a) => (
+                <li key={a.label}><strong>{a.label}</strong>, {rich(a.detail)}</li>
+              ))}
+            </ul>
           </div>
 
           <div className="prose" style={{ marginTop: 26 }}>
@@ -586,10 +635,6 @@ export default function PractitionerPlacePage({ params }: { params: Params }) {
           {nearby.length > 0 && (
             <div className="prose" style={{ marginTop: 34 }}>
               <h2>{first} also works with</h2>
-              <p>
-                The same practice, the same fee and the same availability, only the
-                journey you are not making changes.
-              </p>
               <ul className="place-siblings">
                 {nearby.map((o) => (
                   <li key={o.slug}>

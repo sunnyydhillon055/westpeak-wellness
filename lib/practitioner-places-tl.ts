@@ -381,8 +381,10 @@ export const TL_PLACES: Record<string, TagalogPlaceCopy> = {
       'May pangalawang pattern ang Calgary: ang pag-ikot ng industriya. Ang pagkabalisa na kasama ng isang mahinang taon ay hindi katulad ng anxiety disorder, makatuwirang tugon ito sa isang hindi tiyak na taon, at ibang trabaho ang kailangan nito.',
       'Malaki rin ang komunidad ng Pilipino dito, karamihan sa pangangalaga at sa serbisyo, at kakaunti ang counselling na naibibigay sa Tagalog. Ang resulta ay pamilyar: ang kaanak na pinakamagaling mag-Ingles ang nagiging tagasalin, na hindi umuubra sa terapiya.',
     ],
+    /* The time-zone question was removed 2 Oct 2026, not rewritten: it
+       promised Alberta's own clock and the calendar shows Pacific. A corrected
+       Tagalog answer waits for Camille's own wording. */
     faqs: [
-      { q: 'Anong time zone ang mga oras ng sesyon?', a: 'Ang mga oras na ipinapakita sa iyo ay Mountain Time. Ang sesyon ay pinapatakbo mula sa British Columbia, isang oras ang pagkakaiba, at inaayos iyon sa dulo ng booking kaya walang kailangang i-convert.' },
       { q: 'Rehistrado ba ang counsellor sa Alberta?', a: 'Hindi regulated na propesyon ang counselling therapy sa Alberta, kaya walang panlalawigang kolehiyo na maaaring salihan. Ang masusuri ay ang sertipikasyon: Canadian Certified Counsellor sa CCPA, at Registered Clinical Counsellor sa BCACC, pareho silang pampublikong rehistro at nakalista ang mga numero sa pahinang ito.' },
       { q: 'Sagot ba ito ng Alberta Health Care?', a: 'Hindi. Walang saklaw ang AHCIP sa pribadong counselling. Marami sa mga extended health plan dito ang nagbabalik-bayad sa isang Canadian Certified Counsellor, kaya sulit itanong sa insurer bago magsimula.' },
     ],
@@ -396,7 +398,6 @@ export const TL_PLACES: Record<string, TagalogPlaceCopy> = {
     ],
     faqs: [
       { q: 'Dapat ko bang iwan ang pampublikong listahan ng paghihintay?', a: 'Karaniwan, hindi. Tunay na serbisyo ang pinapatakbo ng Alberta Health Services at walang gastos ang manatili sa pila habang nagsisimula ka sa ibang lugar.' },
-      { q: 'Anong time zone ang sinusunod?', a: 'Mountain Time ang mga oras na ipinapakita sa iyo, kaya ang oras na nakikita mo ang oras na dadaluhan mo.' },
       { q: 'Puwede bang gabi lang, dahil sa shift ko?', a: 'Oo. May mga oras sa gabi ng karaniwang araw kapag hiniling, at karaniwan iyon dito.' },
     ],
   },
