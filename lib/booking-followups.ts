@@ -98,6 +98,49 @@ export function unconvertedConsults<A extends ApptLite>(
   return [...byPatient.values()];
 }
 
+/* A CONSULTATION THAT DID BECOME A PAYING CLIENT — 1 Oct 2026.
+ *
+ * The sibling of the test above, counted rather than alerted. "Paid booked"
+ * in the tally mixes a weekly client's rebooking with somebody's first
+ * session, and the only true join (funnelJoins in lib/funnel-report.ts) reads
+ * six months of appointments, so it runs monthly or on ?funnel=1. This makes
+ * the conversion itself a tally event, every run of the booking job:
+ *
+ *   - a consultation that was held: not cancelled, not archived, not marked
+ *     did-not-arrive, and over;
+ *   - whose patient has a later appointment, in the same list, that is not a
+ *     consultation and not cancelled or archived (booked or already held).
+ *
+ * One per patient: the EARLIEST held consultation before that session, so
+ * the answer is the same on every run while it stays in the window. The
+ * caller keys it "v:<consultation id>" in the `tallied` ledger, so it counts
+ * once. A floor: the job reads 16 days back, so a paid session booked more
+ * than about two weeks after the consultation is not seen here (the monthly
+ * join still sees it). Pure. */
+export function convertedConsults<A extends ApptLite>(
+  appts: A[],
+  opts: { now: number; isConsult: (ap: A) => boolean },
+): A[] {
+  const byPatient = new Map<string, A>();
+  for (const ap of appts) {
+    if (!opts.isConsult(ap) || ap.cancelled_at || ap.archived_at || ap.did_not_arrive) continue;
+    const pid = idFromLink(ap.patient?.links?.self);
+    if (!pid) continue;
+    const start = Date.parse(ap.starts_at as string);
+    const end = Date.parse((ap.ends_at || ap.starts_at) as string);
+    if (!Number.isFinite(start) || !Number.isFinite(end) || end > opts.now) continue;
+    const converted = appts.some((o) =>
+      o !== ap &&
+      idFromLink(o.patient?.links?.self) === pid &&
+      !opts.isConsult(o) && !o.cancelled_at && !o.archived_at &&
+      Date.parse(o.starts_at as string) > start);
+    if (!converted) continue;
+    const prev = byPatient.get(pid);
+    if (!prev || Date.parse(prev.starts_at as string) > start) byPatient.set(pid, ap);
+  }
+  return [...byPatient.values()];
+}
+
 /* ============================================================================
    PAID CLIENTS — 1 Oct 2026
    ----------------------------------------------------------------------------

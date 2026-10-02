@@ -56,9 +56,21 @@ export function toolDetail(tool: string, outcome?: string | null): string {
  * is not an outside source and counts as `none`. */
 export const CHANNELS = [
   'gbp', 'bing', 'apple', 'bcacc', 'listing', 'gp', 'clinic', 'hr', 'campus', 'community', 'counsellor',
+  /* 1 Oct 2026: a paper's link (docs/OUTREACH.md section 4) and a student
+     society's, which is not the campus wellness office. Appended, never
+     reordered. */
+  'press', 'student',
 ] as const;
 
-export const REFERRER_CLASSES = ['google', 'bing', 'duckduckgo', 'ai', 'listing', 'none', 'other'] as const;
+/* EARNED LINKS (1 Oct 2026). A paper, a university or an agency that links
+   to a page usually does so untagged, so it arrived as 'other' and the
+   outreach in docs/OUTREACH.md could only be read in the GSC Links report,
+   which shows no visits and no bookings. Three classes, from the hosts that
+   outreach names: 'edu' (BC universities, colleges and student societies),
+   'press' (local and BC papers) and 'org' (settlement agencies, chambers,
+   legal-information and mental-health organisations). Still only the class
+   leaves the browser, never the host. */
+export const REFERRER_CLASSES = ['google', 'bing', 'duckduckgo', 'ai', 'listing', 'none', 'other', 'edu', 'press', 'org'] as const;
 export type ReferrerClass = (typeof REFERRER_CLASSES)[number];
 
 /** The channel a ?utm_source= value names, or null when it names none. */
@@ -71,6 +83,15 @@ const AI_HOST = /(^|\.)(chatgpt\.com|chat\.openai\.com|openai\.com|gemini\.googl
 /* The directories in docs/LISTINGS_PACK.md, plus the two maps apps whose
    place cards link out. Search engines are their own classes. */
 const LISTING_HOST = /(^|\.)(psychologytoday\.com|bcacc\.ca|counsellingbc\.com|luminohealth\.sunlife\.ca|alignable\.com|theravive\.com|firstsession\.com|maps\.apple\.com|businessconnect\.apple\.com|bingplaces\.com|yelp\.(com|ca)|yellowpages\.ca)$/i;
+
+/* Universities and colleges in OUTREACH section 3 and the other BC public
+   ones, their student societies, and any .edu. */
+const EDU_HOST = /(^|\.)(ubc\.ca|sfu\.ca|ufv\.ca|kpu\.ca|douglascollege\.ca|viu\.ca|unbc\.ca|tru\.ca|okanagan\.bc\.ca|uvic\.ca|bcit\.ca|langara\.ca|camosun\.ca|capilanou\.ca|sfss\.ca|ufvsu\.ca|[a-z0-9-]+\.edu)$/i;
+/* The papers in OUTREACH section 4 and the BC outlets that carry their
+   stories. Kept short: this ships in the layout chunk on every page. */
+const PRESS_HOST = /(^|\.)(peacearchnews\.com|surreynowleader\.com|abbynews\.com|bclocalnews\.com|vancouversun\.com|theprovince\.com|dailyhive\.com|cbc\.ca|globalnews\.ca|ctvnews\.ca|thelinkpaper\.ca|indocanadianvoice\.com)$/i;
+/* The agencies and organisations named in OUTREACH sections 3, 6 and 7. */
+const ORG_HOST = /(^|\.)(dcrs\.ca|pics\.bc\.ca|options\.bc\.ca|archway\.ca|mosaicbc\.org|issbc\.org|successbc\.ca|helpinghouse\.org|amssa\.org|sherpride\.ca|cphrbc\.ca|bcchamber\.org|abbotsfordchamber\.com|peopleslawschool\.ca|cmha\.ca)$/i;
 
 /** True when the host is an AI assistant. */
 export function isAssistantHost(host: string): boolean {
@@ -89,5 +110,8 @@ export function referrerClass(host: string, ownHost = ''): ReferrerClass {
   if (/(^|\.)google\.(com|[a-z]{2}|co\.[a-z]{2}|com\.[a-z]{2})$/.test(h) || h === 'com.google.android.googlequicksearchbox') return 'google';
   if (/(^|\.)bing\.com$/.test(h)) return 'bing';
   if (/(^|\.)duckduckgo\.com$/.test(h)) return 'duckduckgo';
+  if (EDU_HOST.test(h)) return 'edu';
+  if (PRESS_HOST.test(h)) return 'press';
+  if (ORG_HOST.test(h)) return 'org';
   return 'other';
 }
