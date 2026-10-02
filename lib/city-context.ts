@@ -287,7 +287,7 @@ export const cityContexts: CityContext[] = [
       'Island Health’s Comox Valley Mental Health & Substance Use team is a single access point that takes self-referrals, by walk-in or phone. Private practice in the valley is real but small, and when what you need is a particular modality or language the local choice narrows quickly.',
     unlock:
       'A posting within British Columbia, a ferry or a moving schedule no longer ends the work. The same counsellor continues by video wherever in the province you are.',
-    nearby: ['victoria', 'saanich'],
+    nearby: ['victoria', 'saanich', 'campbell-river'],
   },
   {
     slug: 'langford',
@@ -316,6 +316,20 @@ export const cityContexts: CityContext[] = [
     unlock:
       'The East Kootenay keeps Alberta’s clock. Open times are listed in Pacific time and read an hour later on Cranbrook’s clock, in every season, and the session itself happens from wherever you have a private room.',
     nearby: ['kelowna', 'kamloops'],
+  },
+  {
+    slug: 'campbell-river',
+    city: 'Campbell River',
+    inCity: 'in Campbell River',
+    region: 'North Island',
+    authority: 'Island Health',
+    travel:
+      'Campbell River is the service centre for the North Island: people come in by ferry from Quadra and Cortes and by road from Sayward, Gold River and Tahsis. For specialist work the city itself looks south, to the Comox Valley, Nanaimo, or a sailing to the mainland.',
+    inPerson:
+      'Island Health runs a self-referral intake in Campbell River with same-day appointments and single-session walk-in counselling. The private sector is small for the area it serves, and the further north the town, the shorter the list for any particular approach.',
+    unlock:
+      'The ferry and the drive south both drop out. A video session runs the same from Cortes, from Gold River, or from home in the week between trips.',
+    nearby: ['courtenay', 'victoria'],
   },
 ];
 

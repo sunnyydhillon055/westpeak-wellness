@@ -362,7 +362,7 @@ export const locations: Location[] = [
         "**Start with what is free, because in Victoria it is unusually good.** Island Health runs Central Access and Rapid Engagement Services (CARES) at 1119 Pembroke Street, offering **same-day assessment and walk-in counselling** for South Island residents whose mental-health or substance-use concern does not need a hospital: in person or virtually, Monday to Friday, 8:30am to 4:30pm. There is no wait and no referral. If that fits what you need, use it; a practice that did not tell you it exists would not be worth trusting on anything else. Where it runs out is ongoing specialist work, and non-urgent psychiatric care in Victoria has become harder rather than easier as recruitment has failed to keep pace with retirements.",
         "Virtual sessions remove that constraint entirely. A counsellor on the mainland is exactly as available as one in Fairfield: same 50 minutes, same platform, same [BCACC](https://bcacc.ca) obligations, no sailing.",
         "**Language access is the sharpest version of this.** Punjabi-speaking clinicians in BC are concentrated overwhelmingly in the Lower Mainland. For Island residents wanting [therapy in Punjabi](/services/punjabi-counselling), virtual sessions are not a convenience. They are realistically the only route. The same argument, with the local numbers, is on the [Kamloops](/punjabi-counselling/kamloops) and [Prince George](/punjabi-counselling/prince-george) pages, and for the Island itself on the [Saanich](/punjabi-counselling/saanich) page, where most of the region’s Punjabi-speaking community lives.",
-        "The same applies further up-Island. [Nanaimo](/online-counselling/nanaimo), [the Comox Valley](/online-counselling/courtenay), Campbell River, and the west coast communities have thinner local coverage again, and the gap widens the further north you go. Closer in, [Saanich and the Peninsula](/online-counselling/saanich) and [Langford and the West Shore](/online-counselling/langford) have pages of their own.",
+        "The same applies further up-Island. [Nanaimo](/online-counselling/nanaimo), [the Comox Valley](/online-counselling/courtenay), [Campbell River and the North Island](/online-counselling/campbell-river), and the west coast communities have thinner local coverage again, and the gap widens the further north you go. Closer in, [Saanich and the Peninsula](/online-counselling/saanich) and [Langford and the West Shore](/online-counselling/langford) have pages of their own.",
       ],
     },
     access: [
@@ -1436,7 +1436,7 @@ export const locations: Location[] = [
       { label: "North Island College, Comox Valley campus", url: "https://www.nic.bc.ca/about/campuses/comox-valley-campus.html" },
       { label: "Statistics Canada, 2021 Census Profile: Courtenay (census agglomeration 943)", url: "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021S0504943&GENDERlist=1&STATISTIClist=1&HEADERlist=0" },
     ],
-    nearby: ["nanaimo", "victoria"],
+    nearby: ["nanaimo", "victoria", "campbell-river"],
     audiences: ["first-responders"],
   },
   /* ── Langford and the West Shore, 2 Oct 2026 ────────────────────────────
@@ -1600,6 +1600,84 @@ export const locations: Location[] = [
     ],
     nearby: ["kelowna", "penticton"],
     audiences: ["rotational-and-camp-workers", "healthcare-and-shift-workers"],
+  },
+  /* ── Campbell River and the North Island, 2 Oct 2026 ─────────────────────
+   *
+   * Retired in the Phase 1 audit and 308'd to the index (it had no
+   * RETIRED_TOWN_HOMES entry, and no hub named it or its towns); removed from
+   * lib/redirects.mjs in the same change. The argument neither Courtenay,
+   * Nanaimo nor Victoria makes:
+   *
+   *   Campbell River  the end of one referral line and the start of another.
+   *                   The North Island (Quadra and Cortes by ferry, Sayward,
+   *                   Gold River and Tahsis by road) comes in to Campbell River
+   *                   for services, and Campbell River itself looks south for
+   *                   specialists. Island Health splits intake here: the
+   *                   Campbell River intake serves the city, Quadra, Cortes,
+   *                   Gold River, Tahsis and Sayward, and Northern Vancouver
+   *                   Island MHSU serves Port Hardy, Port McNeill, Port Alice,
+   *                   Alert Bay and Sointula. Second strand: resource work on
+   *                   its own calendar, and the 30 June 2029 end date for
+   *                   open-net salmon farming that Ottawa announced in 2024.
+   *
+   * Census figures: 2021 Census Profile, Campbell River (CSD 5924034), read 2
+   * Oct 2026 through StatCan's data service while the www12 Census Profile
+   * pages returned 404 from here, and cited at the Census Profile, as every
+   * other city is. EMDR, couples and language claims are kept out of intro,
+   * access and faqs[0..4], which the place pages copy. */
+  {
+    slug: "campbell-river",
+    figure2: "first-session-flow",
+    figure: "bc-reach",
+    city: "Campbell River",
+    communities: ["Quadra Island", "Cortes Island", "Sayward", "Gold River", "Tahsis", "Port Hardy", "Port McNeill"],
+    region: "North Island",
+    blurb: "The North Island comes to Campbell River for its services, and Campbell River looks south for its specialists.",
+    metaDescription:
+      "Online counselling for Campbell River and the North Island. Quadra and Cortes to Port Hardy: EMDR, trauma, anxiety and couples therapy by video.",
+    intro: [
+      "Campbell River is the service centre for the northern half of Vancouver Island. Island Health’s mental-health and substance-use intake in town serves Quadra and Cortes, Gold River, Tahsis and Sayward as well as the city, and people from the islands and the inlets come in for what their own communities do not have. For specialist work, though, Campbell River itself looks south: to the Comox Valley, Nanaimo, Victoria, or a ferry to the mainland.",
+      "That makes the city the end of one line and the start of another. Somebody on Cortes reaches Campbell River by two ferries; somebody in Campbell River reaches a specialist by highway, and often by sea as well. Virtual counselling takes both trips out. A [Registered Clinical Counsellor](/compare/rcc-vs-psychologist-vs-social-worker-bc) anywhere in British Columbia is as available to you in Willow Point or on Quadra as to somebody in Vancouver.",
+    ],
+    localReality: {
+      h2: "A service centre that still looks south",
+      body: [
+        "**The public route starts with a phone call.** Island Health’s Campbell River Mental Health & Substance Use intake takes self-referrals, needs no doctor’s referral, and offers same-day appointments and a single-session walk-in counselling service for the city, Quadra and Cortes, Gold River, Tahsis and Sayward. If that is what you need, start there. Private counselling is the parallel route when the work is ongoing, or specific enough that the local list is short.",
+        "**North of Sayward the intake changes.** Port Hardy, Port McNeill, Port Alice, Alert Bay and Sointula have their own Island Health service, Northern Vancouver Island Mental Health & Substance Use, which also accepts self-referrals. For specialised work the far North Island looks to Campbell River, and Campbell River in turn looks down-Island: to [the Comox Valley](/online-counselling/courtenay) first, then [Nanaimo](/online-counselling/nanaimo) and Victoria.",
+        "**The water is part of the commute.** Quadra is a short sailing from downtown, and Cortes is a second ferry beyond it, from the other side of Quadra. A weekly appointment in town is a schedule built around both, and a missed connection is a missed session. A video session asks for a private room and a connection, not a timetable.",
+        "**Forestry, fishing and fish farming keep their own calendar.** The boats, the farm sites and the logging shows take people away for stretches, and a standing weekly slot rarely survives a season like that. Booking in blocks around the time at home is ordinary here; the page on [counselling for rotational and camp workers](/for/rotational-and-camp-workers) sets out what tends to come up. Where one incident on a boat or a block has stayed with you, [EMDR therapy](/services/emdr-therapy) is one way to work on it directly, and it runs by video.",
+        "**An industry under a federal deadline is its own kind of strain.** A federal plan announced in 2024 set 30 June 2029 as the end date for open-net pen salmon farming in BC’s coastal waters, and the uncertainty reaches well past the farm sites. Worry about work that may not exist in a few years is a real thing to bring to counselling, which can hold it without pretending to know how it ends.",
+        "**In a town this size, being seen is the question.** In Campbell River, on Quadra or in Gold River, the counsellor in town may coach your kid’s team or buy fish from your brother. A practice based elsewhere in the province has no waiting room, and nobody at the ferry terminal asks where you were headed.",
+        "**Language narrows the list furthest.** In the 2021 Census 155 Campbell River residents gave Punjabi as their mother tongue and 200 gave Tagalog, in a city of about 35,500. Both are real communities and both are small, which is why neither language is likely to be on offer from a counsellor in town. [Punjabi-speaking counselling for Campbell River](/punjabi-counselling/campbell-river) and [Tagalog counselling for Campbell River](/tagalog-counselling/campbell-river) set out what those numbers mean.",
+      ],
+    },
+    access: [
+      { label: "No sailing, no highway south", detail: "From Quadra or Cortes a specialist appointment used to start with a ferry; from Campbell River, with the drive down-Island. A video session starts and ends in the room you are already in." },
+      { label: "Built around the season", detail: "Blocks of sessions in the weeks at home, with a pause agreed in advance, for work on the boats, at the farm sites or in the bush." },
+      { label: "Quadra to Port Hardy", detail: "Quadra and Cortes Islands, Sayward, Gold River, Tahsis, Port Hardy and Port McNeill, booked exactly as a client in the middle of town is." },
+      { label: "Privacy where everybody knows the truck", detail: "Sessions happen from home, a parked vehicle or wherever is private, so there is no reception desk staffed by somebody you went to school with." },
+    ],
+    faqs: [
+      { q: "Should I just drive to Courtenay or Nanaimo?", a: "If a counsellor down-Island is the right fit and the drive is easy for you, that is a reasonable choice. The cost shows up over a course of work rather than in one visit: Highway 19 every week, longer again from Sayward or the islands, and the first week the trip does not happen is often where the work stalls. By video that week stays on the calendar." },
+      { q: "Which health authority covers Campbell River?", a: "Island Health. Its Campbell River Mental Health & Substance Use intake accepts self-referrals and covers Quadra and Cortes Islands, Gold River, Tahsis and Sayward as well as the city. Port Hardy, Port McNeill and the communities around them have a separate Island Health intake. Using either does not rule out private counselling alongside it, and nobody has to choose one over the other." },
+      { q: "I’m on Quadra or Cortes. Does the ferry matter?", a: "Not for a session. Everything, including the free 30-minute consultation, happens by secure video, so what matters is a private room and a connection that holds. If the signal at your end is thin, a session can run with the video switched off, and it helps to settle beforehand how a dropped call is picked back up." },
+      { q: "I work on the boats or at a camp. Does counselling have to be weekly?", a: "No. Fishing openings, farm-site rotations and logging seasons rarely leave one weekday free all year. Sessions can be grouped into the weeks at home with a gap agreed beforehand, so the work picks up where it left off instead of restarting after a month away. The booking calendar shows each counsellor’s real open times." },
+      { q: "Is there a free service in Campbell River?", a: "Yes, two. Island Health’s intake in town takes self-referrals and offers same-day appointments and single-session walk-in counselling. Foundry Campbell River, run by the John Howard Society of North Island, offers free drop-in counselling for young people aged 12 to 24 and their families. Beyond the city, 8-1-1 reaches HealthLink BC and the [low-cost counselling page](/resources/low-cost-counselling-bc) lists free and reduced-fee options. Start with whichever fits." },
+      { q: "Is EMDR available by video on the North Island?", a: "Yes. It needs a private room and a steady connection, not a particular postcode. The early sessions go to history, to ways of settling yourself, and to rehearsing the eye-movement or tapping part on screen, so the method is familiar before it is used on anything difficult. If the clinicians trained in it within driving distance have no openings, the search widens to the whole province." },
+      { q: "Who do I call if it’s urgent?", a: "Call or text 9-8-8, the Suicide Crisis Helpline, or call the Vancouver Island Crisis Line on 1-888-494-3888; both answer around the clock. The KUU-US Crisis Line, 1-800-588-8717, offers Indigenous-specific crisis support, also around the clock. In an emergency, call 9-1-1 or go to the nearest emergency department." },
+      { q: "Can I have sessions in Punjabi or Tagalog from Campbell River?", a: "Yes, by secure video. Individual counselling is available in Punjabi, and individual and couples sessions run in Tagalog. On the North Island the counsellor who shares your language is very unlikely to be in town, so the session reaches you from elsewhere in the province instead. EMDR and couples work run in English or Tagalog." },
+    ],
+    sources: [
+      { label: "Island Health, Campbell River Mental Health & Substance Use (intake)", url: "https://www.islandhealth.ca/our-services/mental-health-substance-use-services/access-referrals-mental-health-substance-use-services/intake-campbell-river-referrals-mhsu" },
+      { label: "Island Health, Northern Vancouver Island Mental Health & Substance Use", url: "https://www.islandhealth.ca/our-services/mental-health-substance-use-services/access-referrals-mental-health-substance-use-services/referrals-mount-waddington-mental-health-substance-use" },
+      { label: "Island Health, crisis response (Vancouver Island Crisis Line, KUU-US Crisis Line, 9-8-8)", url: "https://www.islandhealth.ca/our-services/mental-health-substance-use-services/crisis-emergency-services" },
+      { label: "Foundry Campbell River", url: "https://foundrybc.ca/centre/campbellriver/" },
+      { label: "Fisheries and Oceans Canada, transition from open net-pen salmon aquaculture (June 2024)", url: "https://www.canada.ca/en/fisheries-oceans/news/2024/06/responsible-realistic-and-achievable-the-government-of-canada-announces-transition-from-open-net-pen-salmon-aquaculture-in-coastal-british-columbia.html" },
+      { label: "BC Ferries, Quadra Island (Quathiaski Cove) terminal", url: "https://www.bcferries.com/travel-boarding/terminal-directions-parking-food/quadra-island-quathiaski-cove/QDR" },
+      { label: "Statistics Canada, 2021 Census Profile: Campbell River (CSD 5924034)", url: "https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055924034&GENDERlist=1&STATISTIClist=1&HEADERlist=0" },
+    ],
+    nearby: ["courtenay", "nanaimo", "victoria"],
+    audiences: ["rotational-and-camp-workers", "trades-and-construction-workers"],
   },
 ];
 

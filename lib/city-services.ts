@@ -1238,6 +1238,67 @@ export const pairs: Pair[] = [
       { q: 'What should I plan for after a processing session?', a: 'Some unstructured time if you can arrange it, rather than a shift or a drive. Being at home already makes that easier, and how you felt afterwards is reviewed at the start of the next session.' },
     ],
   },
+  /* ── Campbell River, 2 Oct 2026: the end of one referral line and the start of another ── */
+  {
+    city: 'campbell-river', service: 'anxiety-counselling',
+    angle: 'A federal end date for open-net salmon farming leaves farm households in Campbell River with a question nobody can answer yet.',
+    body: [
+      'Uncertainty of that kind is one of the ordinary ways anxiety takes hold: the mind rehearses the worst case at night, checks every update on the transition, and treats each rumour at the dock as settled. Counselling cannot settle the policy. It can work on the part that is yours, how the worry runs your sleep and your days, and how to plan for more than one outcome without living inside all of them at once.',
+      'Island Health’s single-session walk-in in town is a sensible first step for a bad week. Anxiety that keeps coming back is usually worked on over a course of sessions with one person, and from Quadra, Sayward or Gold River a weekly appointment in town is a trip as well as an hour. By video it is the same fifty minutes each time, alongside the public service rather than instead of it.',
+    ],
+    faqs: [
+      { q: 'Is one walk-in session enough?', a: 'Sometimes. A single session at Island Health’s walk-in costs nothing and can settle what kind of help fits. If it points to anxiety that needs ongoing work, private counselling is one way to do that work, and using one does not rule out the other.' },
+      { q: 'My job is fine for now. Is it worth starting before anything changes?', a: 'Yes. Worry about what might happen is still worry, and it is easier to work on before a decision lands than in the middle of one. Nothing has to go wrong first for it to be worth a conversation.' },
+    ],
+  },
+  {
+    city: 'campbell-river', service: 'trauma-therapy',
+    angle: 'Close calls on the water and in the woods come with the work, and the habit is to carry them quietly.',
+    body: [
+      'Commercial fishing, falling and fish-farm work all involve moments people do not forget: a line under tension, a tree that went the wrong way, a crewmate in the water. The culture around them in a working town is to get on with it, which is useful on the day and much less useful when the scene keeps coming back months later.',
+      'Trauma counselling here starts with what is happening now, sleep, startle, avoiding the boat or the block, and works back from there at a pace you set. The first step is an ordinary individual session by video, with nobody at the dock or the yard any the wiser.',
+    ],
+    faqs: [
+      { q: 'It happened years ago on a boat. Is it too late to deal with it?', a: 'No. What matters is whether it still shows up now, in sleep, in avoiding a place or a task, or in how quickly you are on edge, not how long ago it happened.' },
+      { q: 'Would the company or the crew hear about it?', a: 'Not from this practice. Nothing goes to an employer without your written consent, and the legal limits on confidentiality are narrow and gone through in the first session. Whether you tell anyone on the boat or the block is your call.' },
+    ],
+  },
+  {
+    city: 'campbell-river', service: 'couples-therapy',
+    angle: 'Boats, camps and farm sites take one partner away for weeks, so couples work has to fit the time both are home.',
+    body: [
+      'Plenty of Campbell River couples live a split calendar: one partner out on the water or at a remote site, one holding the house, and then a stretch together that has to absorb everything saved up from the time apart. The same argument tends to recur at the handover, which is often where a couple first notices that it is a pattern rather than a bad week.',
+      'Structured, Gottman-informed couples work can be booked into the weeks you are both home, or held with each partner joining from a different place when one is away and has a private room and a steady connection. Both partners need to be in British Columbia at the time of the session.',
+    ],
+    faqs: [
+      { q: 'Can my partner join from a work site?', a: 'Yes, if there is a private room and a connection that holds, and the site is in British Columbia. Sessions with partners in two places are workable, and some couples find a hard conversation easier that way rather than harder.' },
+      { q: 'We only get a few weeks together at a time. Is that enough?', a: 'It can be. Sessions concentrated in the weeks at home, with something agreed to practise while apart, keep the work moving between blocks rather than starting over each time.' },
+    ],
+  },
+  {
+    city: 'campbell-river', service: 'emdr-therapy',
+    angle: 'From Campbell River north, the EMDR question is often not who has an opening but who is within reach.',
+    body: [
+      'EMDR is a specific training, and a small private sector may hold a handful of people with it, or none taking new clients. From Campbell River the next pools are down-Island, in the Comox Valley, Nanaimo and Victoria, and from Port Hardy, Gold River or Cortes every one of those is a long trip to repeat for a weekly piece of work.',
+      'By video the trip disappears and the choice widens to everyone in British Columbia trained in it. That matters more for EMDR than for most approaches, because fit with the clinician and steady continuity through the preparation phase do much of the work of making processing tolerable.',
+    ],
+    faqs: [
+      { q: 'Can EMDR work over a patchy North Island connection?', a: 'It needs a connection steady enough to follow the moving point on screen, or to hear the counsellor while you tap. Testing the connection before the first processing session, and agreeing what happens if it drops, is part of preparation.' },
+      { q: 'How much happens before the processing itself?', a: 'Usually some sessions of history, preparation and practising ways to settle yourself, so that processing starts from a stable footing. How many depends on you, and it is reviewed openly rather than fixed in advance.' },
+    ],
+  },
+  {
+    city: 'campbell-river', service: 'depression-counselling',
+    angle: 'In a town built on forestry, fishing and fish farming, losing the work can mean losing the shape of a life.',
+    body: [
+      'Resource work in Campbell River is more than a pay cheque. It sets the year, the friendships and the sense of being good at something, and when a season does not come, a site closes or a body stops allowing the work, all of that goes at once. The low mood that follows is often read as a reasonable reaction to circumstances and left alone.',
+      'Circumstance can start depression without being the whole of it. When the flatness outlasts the bad news, or sleep, appetite and interest stay down after things settle, it is worth treating as a condition in its own right. Sessions by video fit around job searching, retraining or a new rotation, and do not ask anyone to be seen walking into an office in town.',
+    ],
+    faqs: [
+      { q: 'Isn’t this just a reaction to losing work?', a: 'It may have started that way. What matters is whether it has taken on a life of its own, which is worth establishing with somebody rather than assuming either way.' },
+      { q: 'Does a physician need to be part of this?', a: 'If sleep, appetite or energy have changed for more than a couple of weeks, a visit is worthwhile: a physician or nurse practitioner can look for other causes and talk through medication. Counselling needs no referral, and it runs alongside medical care rather than replacing it.' },
+    ],
+  },
 ];
 
 /** Cities that carry paired pages. Every one must exist in cityContexts. */

@@ -2515,6 +2515,48 @@ its own decision.
 
 ---
 
+### Campbell River gets its own pages, for the North Island
+Decided 2 Oct 2026 (owner decision of the same day: each city in the October
+batch gets all ten pages). Campbell River has a hub, five city-service pages,
+both counsellors' English place pages, a Punjabi region page and a Tagalog
+city page. Its argument, which neither Courtenay, Nanaimo nor Victoria makes:
+the city is the end of one referral line and the start of another. Island
+Health's Campbell River intake takes self-referrals for the city, Quadra,
+Cortes, Gold River, Tahsis and Sayward, and a separate Northern Vancouver
+Island intake serves Port Hardy, Port McNeill, Port Alice, Alert Bay and
+Sointula; the North Island comes in to Campbell River, and Campbell River
+looks down-Island for specialists. Cortes is two ferries from town. The
+second strand is resource work on its own calendar, and the 30 June 2029 end
+date for open-net salmon farming that Ottawa announced in 2024; the copy says
+"announced" and "uncertainty", nothing firmer, because press reports in 2026
+say the date has not been recommitted to. The pairs take it from there: a
+work question nobody can answer yet, close calls on the water and in the
+woods, a relationship split by rotations, EMDR out of reach rather than full,
+and losing the shape of a life with the work.
+
+The Punjabi page argues scarcity from the smallest base of any region page and
+says so (155 by mother tongue, 95 at home, 535 South Asian residents); the
+Tagalog page states its 400 counted as Filipino and 200 by mother tongue. The
+figures were read through Statistics Canada's data service on 2 Oct, when the
+www12 Census Profile pages returned 404 from here, and are cited at the Census
+Profile, as every other city is. The hub's crisis answer lists only what the
+cited Island Health page lists (9-8-8, the Vancouver Island Crisis Line and
+the KUU-US line), and no hospital or same-day claim goes beyond its source.
+
+`campbell-river` leaves `retiredCitySlugs`. It had no `RETIRED_TOWN_HOMES`
+entry and no hub named it or its towns, so no old home loses a community, and
+no retired town moves to it: Courtenay has its own page and Parksville and
+Duncan stay with Nanaimo. Victoria's hub now links it where it used to name
+it, and Courtenay lists it in `nearby` and in its city context. EMDR, couples
+and language claims stay out of the hub's intro, access and first five FAQs.
+No /tl or /pa place twins and no new Punjabi or Tagalog sentences.
+
+*Enforced by:* `test/regional-pages.test.mts`, `test/roster-nav.test.mts`,
+`test/link-anchors.test.mts`, `test/city-hub.test.mts`,
+`test/city-template.test.mts`, `scripts/smoke.mjs`
+
+---
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`

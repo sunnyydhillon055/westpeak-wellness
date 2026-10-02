@@ -70,6 +70,8 @@ test('no slug is both retired and a page: Penticton and Fort St. John are pages 
   assert.equal(dest('langford'), undefined);
   assert.ok(getLocation('cranbrook'));
   assert.equal(dest('cranbrook'), undefined);
+  assert.ok(getLocation('campbell-river'));
+  assert.equal(dest('campbell-river'), undefined);
 });
 
 test('the new pages and the community edits', () => {
@@ -108,7 +110,12 @@ test('the new pages and the community edits', () => {
   // Cranbrook has its own hub since 2 Oct 2026. Golden and Creston keep the calendar's clock, so its Mountain-time page does not claim them.
   for (const t of ['Kimberley', 'Fernie', 'Sparwood', 'Elkford', 'Invermere']) assert.ok(getLocation('cranbrook')!.communities!.includes(t), t);
   for (const t of ['Golden', 'Creston', 'Nelson']) assert.ok(!getLocation('cranbrook')!.communities!.includes(t), `${t} is not on Cranbrook's clock`);
-  for (const slug of ['penticton', 'fort-st-john', 'saanich', 'maple-ridge', 'vernon', 'mission', 'courtenay', 'langford', 'cranbrook']) {
+  // Campbell River has its own hub since 2 Oct 2026: the North Island towns that share or border its intake, and not the Comox Valley.
+  for (const t of ['Quadra Island', 'Cortes Island', 'Sayward', 'Gold River', 'Tahsis', 'Port Hardy']) assert.ok(getLocation('campbell-river')!.communities!.includes(t), t);
+  for (const t of ['Courtenay', 'Comox', 'Cumberland']) assert.ok(!getLocation('campbell-river')!.communities!.includes(t), `${t} is on the Courtenay page`);
+  assert.ok(getLocation('victoria')!.localReality!.body.some((b) => b.includes('](/online-counselling/campbell-river)')), 'Victoria links Campbell River');
+  assert.ok(getLocation('courtenay')!.nearby!.includes('campbell-river'), 'Courtenay links Campbell River');
+  for (const slug of ['penticton', 'fort-st-john', 'saanich', 'maple-ridge', 'vernon', 'mission', 'courtenay', 'langford', 'cranbrook', 'campbell-river']) {
     const l = getLocation(slug)!;
     assert.ok(healthAuthorityFor(slug), `${slug} has an authority`);
     assert.ok(l.metaDescription.replace(/&/g, '&amp;').length <= 155, `${slug} description`);

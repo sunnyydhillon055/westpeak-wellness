@@ -1228,6 +1228,67 @@ export const punjabiRegions: PunjabiRegion[] = [
     ],
     nearby: ['kelowna', 'kamloops'],
   },
+  /* CAMPBELL RIVER, 2 Oct 2026. Argues SCARCITY, from the smallest base of
+     any region page, and says so. Owner decision of the same day: the figure
+     is stated plainly. Statistics Canada 2021 Census Profile, Campbell River
+     CSD 5924034: Punjabi mother tongue 155 of 35,205 (0.4%), spoken most
+     often at home 95, knowledge 225; South Asian 535.
+     https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055924034&GENDERlist=1&STATISTIClist=1&HEADERlist=0
+     read 2 Oct 2026 through StatCan's data service, when the www12 Census
+     Profile pages returned 404 from here. The argument is not that the
+     community is large; it is that a community of this size will not produce
+     a local Punjabi-speaking counsellor, and that being few makes being seen
+     likelier. English only. */
+  {
+    slug: 'campbell-river',
+    figure: { value: '155', label: 'Campbell River residents whose mother tongue is Punjabi, 2021 Census. About 95 speak it most often at home' },
+    region: 'Campbell River',
+    wider: 'the North Island',
+    blurb:
+      'Campbell River’s Punjabi-speaking community is small, and that is the point: a community this size is unlikely to have a counsellor in town who speaks it.',
+    metaDescription:
+      'Punjabi-speaking online counselling for Campbell River and the North Island. Individual sessions in Punjabi, English or both. Free 30-minute consultation.',
+    demography: {
+      stat: 'Punjabi is the mother tongue of about 155 people in Campbell River, under half of one percent of the city, in the 2021 Census.',
+      body: [
+        'This page states that number plainly because it is small. In the 2021 Census about **155 Campbell River residents** reported Punjabi as their mother tongue, about 95 spoke it most often at home, and about 225 could hold a conversation in it. Around 535 people identified as South Asian. Those are real people and real households, and they are not a large community.',
+        'A community of that size is unlikely to sustain a Punjabi-speaking counsellor in town. The Punjabi-speaking counsellors with offices in BC are concentrated in the Lower Mainland, which from Campbell River means the length of the Island Highway and then a ferry.',
+        'Small also changes the privacy question. Where only a few hundred people share a language, the chance that someone in a waiting room knows your family is not remote, and for some people that alone is the reason they have not looked for help.',
+      ],
+    },
+    localReality: {
+      h2: 'What is actually available in Campbell River',
+      body: [
+        'Island Health runs the public route. Its Campbell River Mental Health & Substance Use intake takes self-referrals and offers same-day appointments and single-session walk-in counselling. Anyone already using it can keep using it; a private course of counselling sits beside the public one without displacing it.',
+        'There are private counsellors in Campbell River, and some are very good. The narrower question this page answers is whether you can be counselled **in Punjabi**, and for a community of this size the realistic answer is to look beyond the city.',
+        'Being few changes what isolation feels like. A family argument, a parent’s illness back home, or the weight of "log kya kahenge" lands differently when there are only a handful of households to talk to, and every one of them knows the others.',
+        'Language is one part of access here. [Online counselling for Campbell River](/online-counselling/campbell-river) covers the rest: the ferries to Quadra and Cortes, seasonal and rotational work, and the Island Health routes north and south of the city. Down-Island, [Punjabi-speaking counselling for the Comox Valley](/punjabi-counselling/courtenay) makes the same case for a slightly larger community.',
+      ],
+    },
+    access: [
+      { label: 'No ferry to the Lower Mainland', detail: 'The Punjabi-speaking counsellors with offices in BC are concentrated in the Lower Mainland. Sessions here happen wherever you have a private room and a connection, on the North Island or anywhere else in BC.' },
+      { label: 'Punjabi, English, or both', detail: 'Nobody fixes the language at the start. A worry about a parent may come out in one and a question about a claim in the other, and either is fine.' },
+      { label: 'Privacy in a very small community', detail: 'Where only a few hundred people share the language, being recognised is the real risk. A video session has no waiting room.' },
+      { label: 'Individual sessions', detail: 'Sessions in Punjabi are individual counselling. Couples work and EMDR currently run in English or Tagalog.' },
+    ],
+    faqs: [
+      { q: 'There are so few of us here. Is this really for me?', a: 'Yes. Being few is the reason it matters: in a community this size there is unlikely to be anyone local who can counsel you in Punjabi, and a counsellor elsewhere in BC by video is the realistic route.' },
+      { q: 'Can I switch between Punjabi and English?', a: 'Yes, and most people do without planning it. Whichever language something happened in is usually the easiest one to describe it in, and nobody has to choose in advance.' },
+      { q: 'Will my extended health cover this?', a: ONLINE_COVERAGE },
+      { q: 'Can we do couples counselling in Punjabi?', a: 'Not at the moment: couples sessions currently run in English or Tagalog. Individual counselling is available in Punjabi.' },
+    ],
+    sources: [
+      {
+        label: 'Statistics Canada, 2021 Census Profile: Campbell River (CSD 5924034)',
+        url: 'https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055924034&GENDERlist=1&STATISTIClist=1&HEADERlist=0',
+      },
+      {
+        label: 'Island Health, Campbell River Mental Health & Substance Use',
+        url: 'https://www.islandhealth.ca/our-services/mental-health-substance-use-services/access-referrals-mental-health-substance-use-services/intake-campbell-river-referrals-mhsu',
+      },
+    ],
+    nearby: ['courtenay', 'saanich'],
+  },
 ];
 
 export const getPunjabiRegion = (slug: string) =>

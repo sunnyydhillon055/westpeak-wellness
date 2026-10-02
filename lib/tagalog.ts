@@ -373,6 +373,31 @@ export const TAGALOG_CITIES: TagalogCity[] = [
       { q: 'What time is my session if I live in Cranbrook?', a: 'An hour later than the booking calendar shows. The calendar is in Pacific time, and says so; the East Kootenay keeps Mountain time all year.' },
     ],
   },
+  /* CAMPBELL RIVER, 2 Oct 2026. Owner decision of the same day: the figure
+     is stated plainly, attributed in the sentence and cited on the Campbell
+     River hub, which links here. Statistics Canada 2021 Census Profile,
+     Campbell River CSD 5924034: Tagalog mother tongue 200 of 35,205 (0.6%),
+     most often at home 90, knowledge 335; Filipino 400.
+     https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=E&DGUIDlist=2021A00055924034&GENDERlist=1&STATISTIClist=1&HEADERlist=0
+     read 2 Oct 2026 through StatCan's data service. The argument is the
+     smallness itself: few people, so a local Tagalog-speaking counsellor is
+     unlikely and being seen is likelier, at the far end of the Island from
+     where Tagalog-speaking clinicians are. English only; no Tagalog words
+     added. */
+  {
+    slug: 'campbell-river',
+    city: 'Campbell River',
+    angle: 'Campbell River’s Filipino community is small, which makes a Tagalog-speaking counsellor harder to find locally and harder to see without being noticed.',
+    body: [
+      'In the 2021 Census 400 Campbell River residents were counted as Filipino and 200 gave Tagalog as their mother tongue, about 0.6% of the city (Statistics Canada, 2021 Census Profile). That is a real community, and a small one. People in it know each other’s families and often each other’s workplaces, so the worry about being seen going to counselling is sharper than it would be in Surrey or Vancouver, and it keeps people from asking at all.',
+      'Tagalog-speaking clinicians in BC are concentrated on the mainland, and from the North Island the mainland is the length of the Island Highway and a ferry. Video takes away the need to find that person in town. On the North Island, that turns a choice between counselling in English or none into one that includes Tagalog.',
+    ],
+    faqs: [
+      { q: 'Do I need to find a Tagalog-speaking counsellor locally?', a: 'No. Sessions run by secure video, so the counsellor can be anywhere in British Columbia, and nobody in town needs to know you are going.' },
+      { q: 'I work shifts. Can sessions fit around a roster?', a: 'Yes. Sessions can be booked a few at a time as each new roster comes out rather than fixed to one weekday, and the booking calendar shows real open times.' },
+      { q: 'Are Quadra Island and Gold River covered?', a: 'Yes. Quadra, Gold River and the rest of the North Island are booked exactly as Campbell River is.' },
+    ],
+  },
 ];
 
 export const getTagalogCity = (slug: string) => TAGALOG_CITIES.find((c) => c.slug === slug);
