@@ -255,12 +255,15 @@ export const medicalWebPage = ({
  * types at different prices and the page deliberately shows no figure rather
  * than a misleading one — passing a made-up number here would put that wrong
  * number into search results, where nobody visits the page to be corrected.
+ *
+ * No `availability` since 1 Oct 2026: InStock is product-stock vocabulary,
+ * and a counselling session is not stock. The city hubs and the service
+ * pages now publish sessionOffers (one Offer per catalogue type) instead.
  */
 export const priceOffer = (dollars: number, url: string) => ({
   '@type': 'Offer',
   price: dollars.toFixed(2),
   priceCurrency: 'CAD',
-  availability: 'https://schema.org/InStock',
   url: abs(url),
   seller: orgRef,
 });

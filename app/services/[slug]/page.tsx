@@ -8,7 +8,7 @@ import { site } from '@/lib/site';
 import { gurmukhi } from '@/app/fonts-gurmukhi';
 import { getExtra } from '@/lib/depth';
 import { buildToc, headingId } from '@/lib/toc';
-import { orgRef, siteRef, personRef, medicalWebPage, priceOffer } from '@/lib/schema';
+import { orgRef, siteRef, personRef, medicalWebPage, sessionOffers } from '@/lib/schema';
 import { therapyNode, placeNode } from '@/lib/entities';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
@@ -33,6 +33,8 @@ import CounsellorCards from '@/components/CounsellorCards';
 import { cardNoun, counsellorsForService } from '@/lib/counsellor-cards';
 import { languagesFor } from '@/lib/city-service-page';
 import { snippetFacts, withSnippet } from '@/lib/snippet-facts';
+import NextConsultLine from '@/components/NextConsultLine';
+import { OFFERINGS, offerItems } from '@/lib/practitioner-facts';
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -172,11 +174,22 @@ export default async function ServicePage({ params }: { params: { slug: string }
      service in this file. Undefined on the two umbrella pages, which is why
      the Offer is conditional rather than defaulted — a default here would
      publish a price the practice does not charge. */
-  const feeDollars = item ? item.cents / 100 : undefined;
   const labels = SECOND_LABEL[params.slug];
   /* Who would take the work: the cards below, the schema's languages and
      the description's names all read this one list. */
   const offering = counsellorsForService(s);
+  /* EVERY PRICE THE SERVICE IS BILLED AT — 1 Oct 2026. The Offer carried one
+     figure: couples listed $175 and not the 110-minute extended session,
+     EMDR listed the intensive and not the weekly session it is billed as
+     the rest of the time. The Offers are now each catalogue type in
+     OFFERINGS.billedAs, through the helper the profile's makesOffer uses.
+     A language page (Punjabi, Tagalog) is not a service type of its own, so
+     it offers what its counsellors offer. Family counselling has no type of
+     its own and carries only the free consultation. */
+  const offerServices = OFFERINGS.some((o) => o.service === s.slug)
+    ? [s.slug]
+    : [...new Set(offering.flatMap((p) => p.services))];
+  const offers = offerItems({ services: offerServices }, catalog);
 
   /* Heading order as rendered. 'This can help with' lives in the aside
    * itself, so it is deliberately not a TOC entry. */
@@ -261,7 +274,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
          what separates these pages from a clinician-facing description of the
          same therapy. */
       audience: { '@type': 'MedicalAudience', audienceType: 'Patient', geographicArea: placeNode('British Columbia') },
-      ...(feeDollars ? { offers: priceOffer(feeDollars, `/services/${s.slug}`) } : {}),
+      ...(offers.length ? { offers: sessionOffers(offers, `/services/${s.slug}`) } : {}),
     },
     {
       '@context': 'https://schema.org', '@type': 'BreadcrumbList',
@@ -329,6 +342,11 @@ export default async function ServicePage({ params }: { params: { slug: string }
             <BookLink location="hero-service" href={cta.href}>{cta.label}</BookLink>
             <Link className="btn btn--ghost" href="/pricing">Fees and coverage</Link>
           </div>
+          {/* The next free consultation with the counsellors who offer this
+              service: couples, EMDR and family show only the counsellor who
+              does that work, Punjabi only the Punjabi-speaking counsellor.
+              Prints nothing when Cliniko has no time. 1 Oct 2026. */}
+          <NextConsultLine location="next-service" slugs={offering.map((p) => p.slug)} style={{ margin: '14px 0 0', fontSize: '.95rem' }} />
         </div>
       </section>
 

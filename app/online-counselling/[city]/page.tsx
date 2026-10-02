@@ -13,7 +13,7 @@ import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
-import { webPage, orgRef, priceOffer } from '@/lib/schema';
+import { webPage, orgRef, sessionOffers } from '@/lib/schema';
 import { placeNode } from '@/lib/entities';
 import InboundForm from '@/components/InboundForm';
 import { COLLECTION_DATES } from '@/lib/page-dates';
@@ -30,6 +30,8 @@ import { cityHubFaqs, cityHubTitle, helpCardsFor } from '@/lib/city-hub';
 import { bookingCtaFor } from '@/lib/booking-cta';
 import { readCatalog } from '@/lib/cliniko-catalog';
 import { practiceSnippet, withSnippet } from '@/lib/snippet-facts';
+import { offerItems } from '@/lib/practitioner-facts';
+import { SESSION_SECURITY_MD } from '@/lib/policies';
 
 export function generateStaticParams() {
   return locations.map((l) => ({ city: l.slug }));
@@ -80,7 +82,16 @@ export default async function CityPage({ params }: { params: { city: string } })
      schema and the "who would I see" answer all read this one list. */
   const counsellorPages = counsellorsForCity(l.slug);
   const catalog = await readCatalog();
-  const individual = catalog.items.find((i) => i.name.toLowerCase() === 'individual counselling');
+  /* EVERY FEE THIS CITY'S COUNSELLORS CHARGE, ONE OFFER EACH — 1 Oct 2026.
+     The Service below carried a single $140 Offer on a page that sells
+     individual, couples and EMDR work, so couples and the EMDR intensive
+     were priced at the individual fee in structured data. The offers are
+     now the catalogue types for the services this hub's counsellors offer,
+     through the helper the profile's makesOffer uses. */
+  const offers = offerItems(
+    { services: [...new Set(counsellorPages.flatMap((p) => p.services))] },
+    catalog,
+  );
   /* The Punjabi-speaking consultation, on the cities that have a Punjabi
      page. bookingCtaFor picks the counsellor from the roster; no name here. */
   const paCta = getPunjabiRegion(l.slug)
@@ -144,11 +155,8 @@ export default async function CityPage({ params }: { params: { city: string } })
       target: { '@type': 'EntryPoint', urlTemplate: `${site.domain}${site.bookingPath}` },
       result: { '@type': 'Reservation', name: 'Free 30-minute consultation' },
     },
-    /* The individual fee the cost answer states, as an Offer, from the
-       catalogue. Absent rather than defaulted if the catalogue lacks it. */
-    ...(individual && individual.cents > 0
-      ? { offers: priceOffer(individual.cents / 100, `/online-counselling/${l.slug}`) }
-      : {}),
+    /* Absent rather than defaulted if the catalogue holds none of them. */
+    ...(offers.length ? { offers: sessionOffers(offers, `/online-counselling/${l.slug}`) } : {}),
   };
   const peopleSchema = counsellorPages.map((p) => ({
     '@context': 'https://schema.org', '@type': 'Person',
@@ -253,6 +261,13 @@ export default async function CityPage({ params }: { params: { city: string } })
               </p>
             </>
           )}
+          {/* The /privacy sentence, read from lib/policies.ts, so a city page
+              cannot claim more about the video than the policy does. */}
+          <h2>How private is the video?</h2>
+          <p>
+            {rich(SESSION_SECURITY_MD)}{' '}
+            The <Link href="/privacy">privacy policy</Link> sets out the rest.
+          </p>
         </div>
       </section>
 

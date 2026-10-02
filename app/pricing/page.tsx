@@ -11,7 +11,10 @@ import { readCatalog, money, type CatalogItem } from '@/lib/cliniko-catalog';
 import { webPage } from '@/lib/schema';
 import { lastmodFor } from '@/lib/page-dates';
 import { HOW_TO_CANCEL } from '@/lib/faq';
-import { counsellorsFor } from '@/lib/city-service-page';
+import { counsellorsFor, languagesOf, listOf } from '@/lib/city-service-page';
+import NextConsultLine from '@/components/NextConsultLine';
+import { SESSION_SECURITY, SESSION_SECURITY_MD } from '@/lib/policies';
+import { rich } from '@/lib/rich';
 import { practiceSnippet, withSnippet } from '@/lib/snippet-facts';
 
 /* The fee and who you would see, in the description — 1 Oct 2026. /pricing
@@ -127,6 +130,23 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
       : null,
   ].filter((g): g is { label: string; value: string } => g !== null);
 
+  /* THE HEADING ANSWERS THE QUESTION — 1 Oct 2026.
+   * "Clear, fair, accessible." answered nothing; 17 of September's 60 leads
+   * came from this page against one book_click, and at 375px the first /book
+   * link sat at y=846 with neither counsellor named. The heading now states
+   * the individual fee and the free consultation, both from the catalogue,
+   * and the lede names who you would pay: every counsellor accepting
+   * individual clients in BC, with her languages, from the roster. The
+   * accepting flag keeps anyone not taking new clients off this page. */
+  const h1 =
+    ind && ind.cents > 0
+      ? `Counselling fees: ${money(ind.cents)} a session${consult && consult.cents === 0 ? `, and the first ${consult.minutes} minutes are free` : ''}`
+      : 'Counselling fees and insurance';
+  const accepting = counsellorsFor({ bookingService: 'individual-therapy' });
+  const whoLede = accepting.length
+    ? `Sessions are with ${listOf(accepting.map((p) => `${p.name} (${listOf(languagesOf(p), 'and')})`), 'or')}, ${accepting.length > 1 ? 'Registered Clinical Counsellors who see' : 'a Registered Clinical Counsellor who sees'} people by secure video anywhere in BC. No hidden fees, no packages.`
+    : 'Every fee in full, with no hidden fees and no packages.';
+
   /* How far the same annual maximum goes here, against BCPA's rate. */
   const psychRatio = ind && ind.cents > 0 ? (BCPA_RATE.cents / ind.cents).toFixed(1) : null;
 
@@ -135,10 +155,10 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
       <section className="hero" style={{ paddingBottom: 48 }}>
         <div className="container">
           <p className="eyebrow">Fees & insurance</p>
-          <h1>Clear, fair, accessible.</h1>
-          <p className="lede">Session prices and counselling rates in full, no hidden fees, no packages, and no surprises on the invoice.</p>
+          <h1>{h1}</h1>
+          <p className="lede">{whoLede}</p>
           <p className="direct-answer">
-            Counselling fees at Westpeak Wellness are published in full and synced from the booking system: individual sessions, couples sessions and EMDR intensives are each priced per session, paid by card at booking, with 24 hours&rsquo; free cancellation. The first 30-minute consultation is free. Many extended health plans reimburse a Registered Clinical Counsellor, depending on the plan, so check yours; MSP does not cover private counselling.
+            Individual sessions, couples sessions and EMDR intensives are each priced per session, paid by card at booking, with 24 hours&rsquo; free cancellation. The first 30-minute consultation is free. Many extended health plans reimburse a Registered Clinical Counsellor, depending on the plan, so check yours; MSP does not cover private counselling.
           </p>
           {/* PRICES IN THE PHONE'S FIRST SCREEN — 1 Oct 2026. At 390px the first
               amount on this page sat below the fold, under an answer that names
@@ -154,10 +174,18 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
               ))}
             </dl>
           )}
-          <div className="btn-row" style={{ marginTop: 24 }}>
+          <p style={{ margin: '22px 0 0', maxWidth: '42.9em' }}>
+            <strong>Next step:</strong> a free 30-minute video call. No card is taken for it; you
+            pay only if you book a session afterwards.
+          </p>
+          <div className="btn-row" style={{ marginTop: 14 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book a Free Consultation</Link>
             <Link className="btn btn--ghost" href="/resources/bc-extended-health-coverage-for-counselling">Check your coverage</Link>
           </div>
+          {/* The next free consultation with each counsellor taking new
+              clients, from the Cliniko cache; nothing when there is none.
+              1 Oct 2026. */}
+          <NextConsultLine location="next-pricing" slugs={accepting.map((p) => p.slug)} style={{ margin: '14px 0 0', fontSize: '.95rem' }} />
         </div>
       </section>
 
@@ -165,7 +193,6 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
         <div className="container">
           <Breadcrumbs trail={[{ name: 'Fees', path: '/pricing' }]} />
           <h2>Session fees</h2>
-          <p className="lede" style={{ marginBottom: 20 }}>In line with BC Association of Clinical Counsellors guidelines.</p>
           <table className="fee-table">
             <thead><tr><th>Session</th><th>Length</th><th>Fee (CAD)</th></tr></thead>
             <tbody>
@@ -301,6 +328,15 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
               source of unpleasant surprises, and the{' '}
               <Link href="/resources/bc-extended-health-coverage-for-counselling">extended health coverage page</Link>{' '}
               sets out exactly what to look for and what a claimable receipt must contain.
+            </p>
+
+            {/* The /privacy sentence, read from lib/policies.ts and repeated
+                in the FAQPage below, so neither can say more than the policy
+                does. 1 Oct 2026. */}
+            <h2>How private is the video?</h2>
+            <p>
+              {rich(SESSION_SECURITY_MD)}{' '}
+              The <Link href="/privacy">privacy policy</Link> sets out the rest.
             </p>
           </div>
         </div>
@@ -461,6 +497,11 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
                    * Keep this wording and lib/faq.ts saying the same thing. */
                   text: 'By credit card: Visa, Mastercard or Amex, taken at the time you book, not at the end of the session. Cancel with at least 24 hours notice and the fee is refunded in full.',
                 },
+              },
+              {
+                '@type': 'Question',
+                name: 'How private is the video?',
+                acceptedAnswer: { '@type': 'Answer', text: SESSION_SECURITY },
               },
               {
                 '@type': 'Question',

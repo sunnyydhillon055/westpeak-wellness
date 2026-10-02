@@ -46,7 +46,18 @@ import { site } from '@/lib/site';
  * `acceptingNewClients`, not a name.
  */
 
-const lower = (s: string) => s.charAt(0).toLowerCase() + s.slice(1);
+/* A Title Case name for use mid-sentence — 1 Oct 2026. This lowercased the
+   first character only, so the FAQs on all fifty pages read "eMDR Therapy",
+   "couples Therapy" and "anxiety Counselling". Word by word now: an
+   initialism (EMDR) and a language name keep their capitals, everything else
+   is lowercased, hyphenated parts included. */
+const PROPER = new Set(['English', 'Punjabi', 'Tagalog', 'BC', 'Gottman']);
+const lowerWord = (w: string): string =>
+  w.includes('-')
+    ? w.split('-').map(lowerWord).join('-')
+    : (w.length > 1 && w === w.toUpperCase()) || PROPER.has(w) ? w : w.toLowerCase();
+export const midSentence = (s: string) => s.split(' ').map(lowerWord).join(' ');
+const lower = midSentence;
 
 /** "a, b and c" / "a or b". One item returns itself. */
 export const listOf = (items: string[], conj: 'and' | 'or') =>
@@ -206,7 +217,7 @@ export function generatedFaqs(args: {
   if (loc.communities?.length) {
     out.push({
       q: `Is ${svc} available in ${listOf(loc.communities, 'or')}?`,
-      a: `Yes. ${topic.name} by secure video reaches ${listOf(loc.communities, 'and')} exactly as it reaches ${ctx.city}: there is no office to get to and the same fee applies however far out you are. ${ctx.authority} is the public route for the whole of ${ctx.region}; this is the private one, and it needs no referral.`,
+      a: `Yes. ${topic.name} by secure video reaches ${listOf(loc.communities, 'and')} exactly as it reaches ${ctx.city}: there is no office to get to and the same fee applies however far out you are. ${ctx.authority} is the public route for ${ctx.city} and the rest of its region; this is the private one, and it needs no referral.`,
     });
   }
 

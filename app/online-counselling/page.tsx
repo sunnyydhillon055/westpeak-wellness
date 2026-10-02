@@ -13,6 +13,12 @@ import { ogBase } from '@/lib/og-meta';
 import { webPage } from '@/lib/schema';
 import { COLLECTION_DATES } from '@/lib/page-dates';
 import { townFinder } from '@/lib/health-authorities';
+import CounsellorCards from '@/components/CounsellorCards';
+import NextConsultLine from '@/components/NextConsultLine';
+import { counsellorsFor } from '@/lib/city-service-page';
+import { FALLBACK_CATALOG, fallbackFee } from '@/lib/cliniko-catalog';
+import { SESSION_SECURITY_MD } from '@/lib/policies';
+import { rich } from '@/lib/rich';
 
 export const metadata: Metadata = {
   /* Its own og:url. Without an openGraph object this page inherited the
@@ -36,7 +42,30 @@ export const metadata: Metadata = {
   alternates: { canonical: `${site.domain}/online-counselling` },
 };
 
+/* Hourly, as the city hubs are: the next-consultation line under the hero
+   reads the thirty-minute Cliniko cache, and a page built once would print a
+   day that has already passed. 1 Oct 2026. */
+export const revalidate = 3600;
+
+/* WHO YOU WOULD SEE, AND WHAT IT COSTS — 1 Oct 2026.
+ *
+ * The province-wide head page for "online counselling bc", "online
+ * counsellor bc" and "virtual counselling bc" (48 impressions at 25.19 on
+ * 26 Sep, no clicks) named no counsellor and stated no fee: "$140" was only
+ * in the Organization JSON-LD. The pages ranking above it (New Tides,
+ * Thrive) show the team and the fees on exactly this page type.
+ *
+ * Who: every counsellor accepting individual clients in BC, which is every
+ * counsellor accepting new clients, by the same rule the city-service pages
+ * use (lib/city-service-page.ts), so the founder is excluded by the flag.
+ * The fee: fallbackFee, the figures scripts/price-drift.mjs checks against
+ * Cliniko on every build. Coverage stays plan-dependent. */
+const minutesOf = (name: string) => FALLBACK_CATALOG.items.find((i) => i.name === name)?.minutes;
+const FEE_SENTENCE =
+  `An individual session is ${fallbackFee('Individual Counselling')} for ${minutesOf('Individual Counselling')} minutes and a couples session ${fallbackFee('Couples Counselling')} for ${minutesOf('Couples Counselling')} minutes, paid by card when you book a session; the free consultation takes no card. Whether your extended health plan reimburses it depends on the plan.`;
+
 export default function LocationsIndex() {
+  const counsellors = counsellorsFor({ bookingService: 'individual-therapy' });
   const byRegion = locations.reduce<Record<string, typeof locations>>((acc, l) => {
     (acc[l.region] ||= []).push(l); return acc;
   }, {});
@@ -75,6 +104,10 @@ export default function LocationsIndex() {
             <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
             <Link className="btn btn--ghost" href="/services">See counselling services</Link>
           </div>
+          {/* The next free consultation with each counsellor taking new
+              clients, from the Cliniko cache. Prints nothing when there is
+              none, and promises no hours. 1 Oct 2026. */}
+          <NextConsultLine location="next-online" slugs={counsellors.map((p) => p.slug)} style={{ margin: '14px 0 0', fontSize: '.95rem' }} />
         </div>
       </section>
       <section className="section">
@@ -137,6 +170,23 @@ export default function LocationsIndex() {
               <Link href="/resources/icbc-counselling-after-a-crash-bc">ICBC about reimbursement</Link> before you start.
             </li>
           </ol>
+        </div>
+      </section>
+
+      <CounsellorCards
+        counsellors={counsellors}
+        location="counsellor-city"
+        heading="Who you would see"
+        intro="Taking new clients and seeing people anywhere in BC by secure video. Each is a Registered Clinical Counsellor; the registration is on the profile and can be checked on the BCACC register."
+        footer={
+          <p style={{ margin: 0 }}>
+            {FEE_SENTENCE} <Link href="/pricing">Every fee is on the fees page</Link>.
+          </p>
+        }
+      />
+
+      <section className="section">
+        <div className="container prose">
 
           {/* Derived, because this said "six" for a month after the count
               reached fifteen. */}
@@ -261,6 +311,14 @@ export default function LocationsIndex() {
             You are never required to be on camera. Turning it off is a real option rather than a
             concession. It suits camera fatigue, lower bandwidth, and anyone who thinks more
             clearly without being watched.
+          </p>
+
+          {/* The same sentence /privacy publishes, read from lib/policies.ts so
+              this page cannot claim more than the policy does. 1 Oct 2026. */}
+          <h3>How private is the video?</h3>
+          <p>
+            {rich(SESSION_SECURITY_MD)}{' '}
+            The <Link href="/privacy">privacy policy</Link> sets out the rest.
           </p>
 
           <h2>The part that is a legal requirement, not a preference</h2>

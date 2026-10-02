@@ -11,6 +11,10 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
 import { webPage } from '@/lib/schema';
 import { COLLECTION_DATES } from '@/lib/page-dates';
+import { counsellorsFor, listOf } from '@/lib/city-service-page';
+import { counsellorsForService } from '@/lib/counsellor-cards';
+import { offeringLanguages, pairedLanguageClause } from '@/lib/snippet-facts';
+import { FALLBACK_CATALOG, fallbackFee } from '@/lib/cliniko-catalog';
 
 export const metadata: Metadata = {
   /* Its own og:url. Without an openGraph object this page inherited the
@@ -24,7 +28,38 @@ export const metadata: Metadata = {
   alternates: { canonical: `${site.domain}/services` },
 };
 
+/* WHO, WHAT IT COSTS AND IN WHICH LANGUAGE, FROM DATA — 1 Oct 2026.
+ *
+ * This hub said it offered "five counselling services ... across British
+ * Columbia and Alberta" above six cards, told readers that "any service can
+ * run in either language" when couples and EMDR are not offered in Punjabi,
+ * named no counsellor and stated no fee (production at 375px: the diagram at
+ * y=1279, the first card at 1392, no $ figure, Savneet never named; 3 of 34
+ * book_clicks). Each of those is now read from where it is decided:
+ *
+ *   - the count from lib/services.ts, in words;
+ *   - who: the counsellors accepting individual clients in BC (everyone
+ *     accepting new clients), and per card the counsellors who offer that
+ *     service (lib/counsellor-cards.ts, the service pages' own rule), so the
+ *     founder is excluded by the accepting flag, never by name;
+ *   - the fees from fallbackFee, which scripts/price-drift.mjs checks;
+ *   - the languages from offeringLanguages() (lib/snippet-facts.ts).
+ *
+ * Alberta is not mentioned: that reach is gated. */
+const NUMBER_WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
+const inWords = (n: number) => NUMBER_WORDS[n] ?? String(n);
+const minutesOf = (name: string) => FALLBACK_CATALOG.items.find((i) => i.name === name)?.minutes;
+const firstName = (name: string) => name.split(' ')[0];
+const cap = (x: string) => x.charAt(0).toUpperCase() + x.slice(1);
+
 export default function Services() {
+  const accepting = counsellorsFor({ bookingService: 'individual-therapy' });
+  const langs = offeringLanguages();
+  const paired = pairedLanguageClause(langs);
+  const languageLine = `Individual counselling in ${langs.individual}${paired ? `; ${paired}` : ''}.`;
+  const lede =
+    `Individual, couples, EMDR and family counselling by video anywhere in BC, with ${listOf(accepting.map((p) => p.name), 'or')}. ` +
+    `Sessions are ${fallbackFee('Individual Counselling')} for ${minutesOf('Individual Counselling')} minutes (${fallbackFee('Couples Counselling')} for a couple) after a free 30-minute call.`;
   return (
     <>
       {/* This page carried no page-level entity. The layout's organisation and
@@ -50,9 +85,9 @@ export default function Services() {
         <div className="container">
           <p className="eyebrow">Our services</p>
           <h1>Counselling matched to what you need.</h1>
-          <p className="lede">Focused services rooted in evidence-based modalities, all offered online, anywhere in British Columbia.</p>
+          <p className="lede">{lede}</p>
           <p className="direct-answer">
-            Westpeak Wellness offers five counselling services online across British Columbia and Alberta: individual therapy (for anxiety, depression, trauma and life transitions), Gottman-informed couples therapy, EMDR therapy, family counselling, and Punjabi-speaking counselling. All are delivered by Registered Clinical Counsellors over secure video, are reimbursable through many extended health plans, depending on the plan, and begin with a free 30-minute consultation.
+            Westpeak Wellness offers {inWords(services.length)} counselling services online across British Columbia: individual therapy (for anxiety, depression, trauma and life transitions), Gottman-informed couples therapy, EMDR therapy, family counselling, Punjabi-speaking counselling and Tagalog-speaking counselling. All are delivered by Registered Clinical Counsellors over secure video, are reimbursable through many extended health plans, depending on the plan, and begin with a free 30-minute consultation.
           </p>
           <Updated iso={COLLECTION_DATES['services']} />
           <div className="btn-row" style={{ marginTop: 24 }}>
@@ -65,7 +100,6 @@ export default function Services() {
       <section className="section">
         <div className="container">
           <Breadcrumbs trail={[{ name: 'Services', path: '/services' }]} />
-          <Figure name="service-axes" />
           <div className="grid grid-3">
             {services.map((s, i) => {
               const Icon = getServiceIcon(s.slug);
@@ -76,6 +110,8 @@ export default function Services() {
                 'var(--clay-deep)', 'var(--blue-deeper)', 'var(--clay)',
                 'var(--blue)', 'var(--blue-deep)', 'var(--clay-deep)',
               ];
+              /* Who takes this work, by first name. */
+              const who = counsellorsForService(s).map((p) => firstName(p.name));
               return (
                 <div className="card svc-tile" key={s.slug}>
                   <span className="svc-tile-bar" style={{ background: ACCENTS[i % ACCENTS.length] }} aria-hidden="true" />
@@ -85,12 +121,20 @@ export default function Services() {
                       <h2 className="card-title">{s.name}</h2>
                     </div>
                     <p>{s.short}</p>
+                    {who.length > 0 && (
+                      <p style={{ margin: '0 0 10px', fontSize: 'var(--fs-small)', color: 'var(--ink-soft)' }}>
+                        With {listOf(who, 'or')}
+                      </p>
+                    )}
                     <span className="more">{s.name} in BC →</span>
                   </Link>
                 </div>
               );
             })}
           </div>
+          {/* Below the cards since 1 Oct 2026: at 375px the diagram sat
+              above them and pushed the first card to y=1392. */}
+          <Figure name="service-axes" />
         </div>
       </section>
 
@@ -165,10 +209,8 @@ export default function Services() {
               </p>
             </div>
             <div className="card">
-              <h3>English, Punjabi or Tagalog</h3>
-              <p style={{ marginBottom: 0 }}>
-                Any service can run in either language, or both within a session.
-              </p>
+              <h3>{cap(langs.individual)}</h3>
+              <p style={{ marginBottom: 0 }}>{languageLine}</p>
             </div>
             <div className="card">
               <h3>Free 30-minute start</h3>
@@ -189,9 +231,9 @@ export default function Services() {
       <section className="section section--ghost">
         <div className="container prose">
           <p className="eyebrow">Choosing between them</p>
-          <h2>The list is not nine separate products</h2>
+          <h2>Not sure which one you need?</h2>
           <p>
-            Nine service pages can imply nine different things being sold, which is not how the work
+            {cap(inWords(services.length))} service pages can imply {inWords(services.length)} different things being sold, which is not how the work
             actually runs. Most of these overlap heavily, and a fair number of people end up doing two
             of them at once. The distinctions that genuinely matter are only three.
           </p>
