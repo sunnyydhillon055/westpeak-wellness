@@ -89,3 +89,18 @@ test('the heading keeps an acronym and lowers an ordinary word', () => {
   assert.equal(midSentence('EMDR therapy'), 'EMDR therapy');
   assert.equal(midSentence('Anxiety counselling'), 'anxiety counselling');
 });
+
+/* Item 391, 2 Oct 2026: the two Filipino /for pages had one informational
+ * linker each and no spoke. */
+test('the Filipino /for pages are named by the Tagalog pages, within four audiences each', () => {
+  const named = (slug: string) => Object.entries(spokes).filter(([, s]) => s.audiences?.includes(slug)).map(([k]) => k);
+  assert.deepEqual(named('filipino-canadian-families').sort(), [
+    'compare/therapy-in-tagalog-vs-english',
+    'guides/talking-to-your-family-about-therapy',
+    'resources/counselling-in-tagalog-what-the-words-mean',
+    'resources/finding-a-counsellor-in-punjabi-or-tagalog-in-bc',
+  ]);
+  assert.ok(named('filipino-healthcare-workers-and-caregivers').length >= 2);
+  assert.ok(spokes['resources/finding-a-counsellor-in-punjabi-or-tagalog-in-bc'].audiences!.includes('first-gen-south-asian-adults'));
+  for (const s of Object.values(spokes)) assert.ok((s.audiences?.length ?? 0) <= 4);
+});

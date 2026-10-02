@@ -1,8 +1,8 @@
 import BookLink from '@/components/BookLink';
-import { site } from '@/lib/site';
 import { practitioners } from '@/lib/practitioners';
 import { consultationAvailability } from '@/lib/cliniko-availability';
 import { nextConsultEntries, NEXT_CONSULT_LABEL } from '@/lib/next-consult';
+import { bookHrefFor } from '@/lib/city-service-page';
 
 /* THE NEXT FREE CONSULTATION, ON A PAGE ABOUT WAITING — 1 Oct 2026.
  *
@@ -28,11 +28,17 @@ import { nextConsultEntries, NEXT_CONSULT_LABEL } from '@/lib/next-consult';
  *
  * "book with Camille" ends in #calendar (1 Oct 2026, wf/book-and-cta): the
  * reader has just been shown a time and asked for that calendar, so /book
- * opens it on arrival instead of three screens above it. */
+ * opens it on arrival instead of three screens above it.
+ *
+ * `service` (2 Oct 2026, wf/services-cards): on a couples page the link also
+ * carries for=couples, so /book opens the couples consult type. Before this,
+ * /for/couples and /services/couples-therapy linked ?with=camille-granda
+ * #calendar, which opens the individual consult. */
 export default async function NextConsultLine({
   location,
   slugs,
   language,
+  service,
   style,
 }: {
   location: string;
@@ -40,6 +46,8 @@ export default async function NextConsultLine({
   slugs?: readonly string[];
   /** Only counsellors who work in this roster language tag ('pa', 'tl'). */
   language?: string;
+  /** The page's booking service; 'couples-therapy' adds for=couples. */
+  service?: string;
   style?: React.CSSProperties;
 }) {
   let all;
@@ -57,7 +65,7 @@ export default async function NextConsultLine({
         <span key={e.slug}>
           {i > 0 ? ' · ' : ''}
           {e.first}, {e.when}{' '}
-          <BookLink location={location} className="" href={`${site.bookingPath}?with=${e.slug}#calendar`}>
+          <BookLink location={location} className="" href={bookHrefFor(practitioners.filter((p) => p.slug === e.slug), service)}>
             book with {e.first}
           </BookLink>
         </span>

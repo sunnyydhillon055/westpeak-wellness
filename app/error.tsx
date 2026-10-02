@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect } from 'react';
+import { errorConsultLinks, ERROR_EMAIL } from '@/lib/error-routes';
 
 /* ============================================================================
    WHAT A CRASHED PAGE SHOWS
@@ -60,12 +61,26 @@ export default function Error({
           24/7. In immediate danger, call <a href="tel:911">9-1-1</a>.
         </p>
 
+        {/* BOOKING THAT DOES NOT DEPEND ON THIS SITE — 2 Oct 2026. The old
+            link went to /book, the page most likely to be the one that just
+            crashed. These are plain anchors to each accepting counsellor's
+            calendar on Cliniko's own host, from constants (lib/error-routes.ts),
+            so they work when nothing here does. */}
+        <h2>Booking a free consultation</h2>
+        <ul>
+          {errorConsultLinks().map((c) => (
+            <li key={c.href}><a href={c.href}>{c.label}</a></li>
+          ))}
+        </ul>
+        <p>
+          Or email <a href={`mailto:${ERROR_EMAIL}`}>{ERROR_EMAIL}</a>.
+        </p>
+
         <h2>Where you were probably going</h2>
         <ul>
           <li><Link href="/">Home</Link></li>
           <li><Link href="/services">Counselling services</Link></li>
           <li><Link href="/pricing">Fees and insurance</Link></li>
-          <li><Link href="/book">Book a free 30-minute consultation</Link></li>
           <li><Link href="/contact">Contact the practice</Link></li>
         </ul>
 

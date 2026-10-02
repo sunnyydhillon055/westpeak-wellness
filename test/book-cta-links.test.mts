@@ -10,6 +10,8 @@ import { practitioners } from '../lib/practitioners.ts';
 import { allowedDetail, BOOK_LOCATIONS } from '../lib/conversion-detail.ts';
 import { withSlugOf } from '../lib/conversion-detail-client.ts';
 import { opensCalendar } from '../lib/scheduler-open.ts';
+import { bookHrefFor } from '../lib/city-service-page.ts';
+import { readdirSync } from 'node:fs';
 
 /* wf/book-and-cta, 1 Oct 2026: items 259, 270, 280, 281, 288, 289. */
 
@@ -94,7 +96,9 @@ test('every narrowed booking href ends in #calendar; bare /book never does', () 
       else assert.equal(t.href, '/book', `${svc}/${lang}`);
     }
   }
-  assert.match(src('components/NextConsultLine.tsx'), /\?with=\$\{e\.slug\}#calendar/);
+  /* Since 2 Oct 2026 the line builds its href with bookHrefFor, which ends
+     in #calendar and adds for=couples on a couples page (item 354). */
+  assert.match(src('components/NextConsultLine.tsx'), /href=\{bookHrefFor\(practitioners\.filter\(\(p\) => p\.slug === e\.slug\), service\)\}/);
   assert.doesNotMatch(src('lib/lead-roster.ts'), /bookHrefFor\(\[p\]\)\}#calendar/, 'no doubled hash');
 });
 
@@ -163,4 +167,58 @@ test('the new booking buttons are counted, in the middle of the list', () => {
   for (const l of ['next-audience', 'next-language-region', 'ask-time-audience']) assert.ok(BOOK_LOCATIONS.includes(l), l);
   const at = BOOK_LOCATIONS.indexOf('access-city-service');
   assert.deepEqual(BOOK_LOCATIONS.slice(at + 1, at + 4), ['next-audience', 'next-language-region', 'ask-time-audience']);
+});
+
+/* ---------- 354, 2 Oct 2026: the cards and next-consult lines book through bookHrefFor ---------- */
+
+test('a single-counsellor link ends in #calendar, and carries for=couples only on a couples page', () => {
+  for (const p of practitioners.filter((x) => x.acceptingNewClients && x.bookable)) {
+    for (const svc of [undefined, 'individual-therapy', 'emdr-therapy', 'punjabi-counselling', 'tagalog-counselling']) {
+      assert.equal(bookHrefFor([p], svc), `/book?with=${p.slug}#calendar`, `${p.slug}/${svc}`);
+    }
+    assert.equal(bookHrefFor([p], 'couples-therapy'), `/book?with=${p.slug}&for=couples#calendar`);
+  }
+});
+
+test('the cards and the next-consult line build their href with bookHrefFor and the page’s service', () => {
+  const cards = src('components/CounsellorCards.tsx');
+  assert.match(cards, /href=\{bookHrefFor\(\[p\], service\)\}/);
+  assert.doesNotMatch(cards, /\?with=\$\{p\.slug\}`/, 'no hand-built href without the hash');
+  /* Every template that has a service passes it. */
+  assert.match(src('app/services/[slug]/page.tsx'), /counsellors=\{offering\}\s+service=\{s\.slug\}/);
+  assert.match(src('app/services/[slug]/page.tsx'), /location="next-service" slugs=\{offering\.map\(\(p\) => p\.slug\)\} service=\{s\.slug\}/);
+  assert.match(src('app/online-counselling/[city]/[service]/page.tsx'), /counsellors=\{counsellors\}\s+service=\{svc\.bookingService\}/);
+  assert.match(src('app/online-counselling/[city]/[service]/page.tsx'), /location="next-city-service"[^\n]*service=\{svc\.bookingService\}/);
+  assert.match(src('app/search/page.tsx'), /counsellors=\{offering\}\s+service=\{top\.slug\}/);
+  const step = src('components/NextStep.tsx');
+  assert.equal(step.split('service={service}').length - 1, 2, 'NextStep passes it to both the cards and the line');
+});
+
+test('no typed /book?with= link in lib/*.ts misses #calendar, and couples links carry for=couples', () => {
+  const dir = join(ROOT, 'lib');
+  for (const f of readdirSync(dir).filter((x) => x.endsWith('.ts'))) {
+    const text = readFileSync(join(dir, f), 'utf8');
+    /* Markdown links and quoted literals with a concrete slug; comments that
+       name a URL in prose are not links. */
+    const links = [
+      ...[...text.matchAll(/\]\((\/book\?with=[^)\s]+)\)/g)].map((m) => m[1]),
+      ...[...text.matchAll(/['"`](\/book\?with=[a-z-]+[^'"`\s]*)['"`]/g)].map((m) => m[1]),
+    ];
+    for (const href of links) {
+      /* The two forms on /book are deliberate destinations of their own:
+         Ask for a time (item 289) and the returned-message anchor. */
+      if (/#(ask-for-a-time|form)$/.test(href)) continue;
+      assert.match(href, /#calendar$/, `lib/${f}: ${href} opens /book without its calendar`);
+    }
+  }
+  const depth = src('lib/depth-services.ts');
+  assert.match(depth, /\(\/book\?with=camille-granda&for=couples#calendar\) with the counsellor who takes couples work/);
+});
+
+test('every /book?with= link on a couples page’s typed copy carries for=couples', async () => {
+  const { depthServices } = await import('../lib/depth-services.ts');
+  for (const key of ['services/couples-therapy']) {
+    const text = JSON.stringify(depthServices[key] ?? []);
+    for (const m of text.matchAll(/\/book\?with=[^)\s"]+/g)) assert.match(m[0], /&for=couples#calendar$/, `${key}: ${m[0]}`);
+  }
 });

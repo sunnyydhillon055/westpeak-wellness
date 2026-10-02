@@ -61,7 +61,10 @@ test('audience pages: the language counsellor on a language page, otherwise indi
     const cs = counsellorsForAudience(a);
     assert.ok(cs.length > 0, `/for/${a.slug} would name nobody`);
     for (const p of cs) {
-      if (a.language) {
+      /* A page with a service names only who offers it, in its language when
+         anyone does (2 Oct 2026); checked in the next test. */
+      if (a.service) assert.ok(p.services.includes(a.service), `/for/${a.slug} shows ${p.slug}, who does not offer ${a.service}`);
+      else if (a.language) {
         assert.ok(p.languages.some((l) => l.tag === a.language), `/for/${a.slug} shows ${p.slug}, who does not speak ${a.language}`);
         assert.equal(p.bookable, true);
       } else {
@@ -228,4 +231,40 @@ test('#217 the next step sits after Sources and before the link footer on all th
   for (const l of ['next-guide-close', 'next-resource-close', 'next-compare-close', 'mid-approach', 'hero-approach']) {
     assert.ok(BOOK_LOCATIONS.includes(l), `${l} is not on BOOK_LOCATIONS`);
   }
+});
+
+/* ---------- item 362, 2 Oct 2026: the audience page's service ---------- */
+
+test('no counsellor without couples work appears on a couples audience page', () => {
+  const couplesPages = audiences.filter((a) => a.service === 'couples-therapy');
+  assert.ok(couplesPages.length >= 2, 'premise: /for/couples and /for/punjabi-speaking-couples');
+  for (const a of couplesPages) {
+    const cs = counsellorsForAudience(a);
+    assert.ok(cs.length > 0, `/for/${a.slug} names nobody`);
+    for (const p of cs) assert.ok(p.services.includes('couples-therapy'), `/for/${a.slug} offers ${p.slug}, who lists no couples work`);
+  }
+  /* Language and service with no speaker who offers it: whoever offers it. */
+  const paCouples = counsellorsForAudience(getAudience('punjabi-speaking-couples')!);
+  assert.deepEqual(slugs(paCouples), slugs(counsellorsForAudience({ service: 'couples-therapy' })));
+  /* Language alone is unchanged; neither is the individual rule. */
+  for (const p of counsellorsForAudience({ language: 'pa' })) assert.ok(p.languages.some((l) => l.tag === 'pa'));
+  assert.deepEqual(slugs(counsellorsForAudience({})), slugs(counsellorsForService(getService('individual-therapy')!)));
+});
+
+test('the /for page passes its service to the cards and the next-consult line', () => {
+  const page = readFileSync(join(ROOT, 'app/for/[slug]/page.tsx'), 'utf8');
+  assert.match(page, /<CounsellorCards\s+counsellors=\{counsellors\}\s+service=\{a\.service\}/);
+  assert.match(page, /slugs=\{audienceConsultSlugs\(a\)\}\s+service=\{a\.service\}/);
+});
+
+test('the 404 names who is taking new clients, counted under its own location', () => {
+  assert.ok(BOOK_LOCATIONS.includes('counsellor-not-found'));
+  const nf = readFileSync(join(ROOT, 'app/not-found.tsx'), 'utf8');
+  assert.match(nf, /counsellorsForAudience\(\{\}\)\.map/);
+  assert.match(nf, /<BookLink location="counsellor-not-found" className="" href=\{bookHrefFor\(\[p\]\)\}>/);
+  assert.doesNotMatch(nf, /<CounsellorCards/, 'the photo cards ride in every page’s RSC payload');
+  assert.doesNotMatch(nf, /href="\/about"/, 'the founder page is not the 404’s answer to who');
+  assert.match(nf, /href="\/practitioners">The counsellors taking new clients</);
+  assert.match(nf, /href="\/tagalog"/);
+  assert.match(nf, /mailto:/);
 });

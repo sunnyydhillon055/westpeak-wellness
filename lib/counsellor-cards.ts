@@ -64,9 +64,27 @@ export const counsellorsForService = (s: { slug: string; language?: string }): P
 /* /for/<slug>. A page written for Punjabi or Tagalog speakers shows the
    counsellor who works in that language; every other audience page is about
    a person's situation, which is individual work, so it shows whoever is
-   accepting individual clients in BC. */
-export const counsellorsForAudience = (a: { language?: string }): Practitioner[] =>
-  a.language ? speaking(a.language) : counsellorsFor({ bookingService: 'individual-therapy' });
+   accepting individual clients in BC.
+
+   THE PAGE'S SERVICE, TOO — 2 Oct 2026 (wf/services-cards). This read only
+   the language, so /for/couples (service 'couples-therapy') showed every
+   counsellor accepting individual clients, including one whose roster lists
+   no couples work, and her card booked an individual consult. Now:
+     - language and service: the speakers who offer the service; when none
+       does, whoever offers the service (/for/punjabi-speaking-couples shows
+       the couples counsellor, whose joint sessions that page already says
+       run in English);
+     - service only: whoever offers it;
+     - neither: individual work, as before. */
+export const counsellorsForAudience = (a: { language?: string; service?: string }): Practitioner[] => {
+  if (a.language) {
+    const speakers = speaking(a.language);
+    if (!a.service) return speakers;
+    const both = speakers.filter((p) => p.services.includes(a.service!));
+    return both.length ? both : counsellorsFor({ bookingService: a.service });
+  }
+  return counsellorsFor({ bookingService: a.service ?? 'individual-therapy' });
+};
 
 /* /online-counselling/<city>. The counsellors with their own page for this
    city — the set the hub's Person schema already lists — limited to those

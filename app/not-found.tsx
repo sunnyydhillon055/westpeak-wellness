@@ -1,6 +1,10 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { site } from '@/lib/site';
+import BookLink from '@/components/BookLink';
+import { counsellorsForAudience } from '@/lib/counsellor-cards';
+import { bookHrefFor } from '@/lib/city-service-page';
+import { LOWERCASE_RETRY } from '@/lib/error-routes';
 
 export const metadata: Metadata = {
   title: 'Page not found',
@@ -35,6 +39,11 @@ export const metadata: Metadata = {
  */
 export default function NotFound() {
   return (
+    <>
+    {/* Every route here is lowercase; /Book and /Services/EMDR-Therapy 404'd
+        in production. One lowercase retry, client-side, so no middleware runs
+        on every request (lib/error-routes.ts, finishing R3 #245). */}
+    <script dangerouslySetInnerHTML={{ __html: LOWERCASE_RETRY }} />
     <section className="section" style={{ paddingTop: 80 }}>
       <div className="container prose" style={{ maxWidth: '44rem' }}>
         <p className="eyebrow">Page not found</p>
@@ -65,8 +74,26 @@ export default function NotFound() {
           <li><Link href="/pricing">Fees and insurance</Link>, what a session costs and how coverage works</li>
           <li><Link href={site.bookingPath}>Book a free 30-minute consultation</Link></li>
           <li><Link href="/guides">Counselling guides</Link>, plain answers to common questions</li>
-          <li><Link href="/faq">FAQ</Link> · <Link href="/contact">Contact</Link> · <Link href="/about">About the counsellor</Link></li>
-          <li><Link href="/punjabi" lang="pa">ਪੰਜਾਬੀ</Link>, this practice&rsquo;s pages in Punjabi</li>
+          {/* WHO IS TAKING NEW CLIENTS, BY NAME — 2 Oct 2026. The 404 named
+              nobody and linked the founder's /about page. The same rule as the
+              audience pages (lib/counsellor-cards.ts), each name opening her
+              own calendar. A line of links rather than the photo cards: Next
+              embeds this page in the RSC payload of every page on the site,
+              and the cards cost about 4 KB on each of them (measured on the
+              2 Oct build). */}
+          <li>
+            <Link href="/practitioners">The counsellors taking new clients</Link>
+            {counsellorsForAudience({}).map((p) => (
+              <span key={p.slug}>
+                {' · '}
+                <BookLink location="counsellor-not-found" className="" href={bookHrefFor([p])}>
+                  book with {p.name.split(' ')[0]}
+                </BookLink>
+              </span>
+            ))}
+          </li>
+          <li><Link href="/faq">FAQ</Link> · <Link href="/contact">Contact</Link> · email <a href={`mailto:${site.email}`}>{site.email}</a></li>
+          <li><Link href="/punjabi" lang="pa">ਪੰਜਾਬੀ</Link>, this practice&rsquo;s pages in Punjabi · <Link href="/tagalog" lang="tl">Tagalog</Link>, its pages in Tagalog</li>
         </ul>
 
         {/* A 404 is not an error page, it is a person who wanted something and
@@ -83,5 +110,6 @@ export default function NotFound() {
         </p>
       </div>
     </section>
+    </>
   );
 }

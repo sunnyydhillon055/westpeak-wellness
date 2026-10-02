@@ -266,14 +266,18 @@ export default async function Home() {
               const Icon = getServiceIcon(s.slug);
               return (
                 <Reveal key={s.slug} delay={i * 55}>
-                  <div className="card" style={{ height: '100%' }}>
-                    <Link href={`/services/${s.slug}`} className="card-link">
-                      <div className="svc-card-head">
-                        <span className="icon-chip" aria-hidden="true"><Icon strokeWidth={1.6} /></span>
-                        <h3>{s.name.replace(' Therapy', '').replace(' Counselling', '')}</h3>
-                      </div>
-                      <p>{s.hero}</p>
-                      <span className="more">Learn more →</span>
+                  {/* The anchor is the "<name> in BC" line, stretched over the
+                      card (.card--stretch, globals.css), not the whole card:
+                      "Learn more" said nothing, and the card made a 70-odd
+                      character anchor. 2 Oct 2026. */}
+                  <div className="card card--stretch" style={{ height: '100%' }}>
+                    <div className="svc-card-head">
+                      <span className="icon-chip" aria-hidden="true"><Icon strokeWidth={1.6} /></span>
+                      <h3>{s.name.replace(' Therapy', '').replace(' Counselling', '')}</h3>
+                    </div>
+                    <p>{s.hero}</p>
+                    <Link href={`/services/${s.slug}`} className="more card-stretch">
+                      {s.name} in BC<span aria-hidden="true"> →</span>
                     </Link>
                   </div>
                 </Reveal>

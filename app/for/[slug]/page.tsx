@@ -28,7 +28,9 @@ import CoverageLine from '@/components/CoverageLine';
 import { bookingCtaFor, bookingFor, askForTimeHref, audienceConsultSlugs } from '@/lib/booking-cta';
 import NextConsultLine from '@/components/NextConsultLine';
 import CounsellorCards from '@/components/CounsellorCards';
-import { counsellorsForAudience, individualFeeLine } from '@/lib/counsellor-cards';
+import RegionLinks from '@/components/RegionLinks';
+import { regionLinksFor } from '@/lib/region-links';
+import { counsellorsForAudience, individualFeeLine, feeLineFor } from '@/lib/counsellor-cards';
 import { readCatalog } from '@/lib/cliniko-catalog';
 
 export function generateStaticParams() {
@@ -60,7 +62,13 @@ export default async function AudiencePage({ params }: { params: { slug: string 
   const a = getAudience(params.slug);
   if (!a) notFound();
   const catalog = await readCatalog();
-  const feeLine = individualFeeLine(catalog);
+  /* A couples page quotes the couples fees, not the individual one
+     (2 Oct 2026); every other audience page is individual work. */
+  const feeLine = a.service === 'couples-therapy' ? feeLineFor(a.service, catalog) : individualFeeLine(catalog);
+  /* Who the cards name, and therefore which consult type their buttons
+     open: the page's language AND its service (lib/counsellor-cards.ts). */
+  const counsellors = counsellorsForAudience(a);
+  const regionRow = a.language === 'tl' ? regionLinksFor('tl') : undefined;
   const cta = bookingCtaFor({ language: a.language, service: a.service, fallback: `Book a free consultation ${a.ctaFor}` });
   /* The "Ask for a time" route on the shift and rotation pages goes to the
      same counsellor the button books with, or to bare /book when the button
@@ -190,6 +198,7 @@ export default async function AudiencePage({ params }: { params: { slug: string 
             <NextConsultLine
               location="next-audience"
               slugs={audienceConsultSlugs(a)}
+              service={a.service}
               style={{ margin: '14px 0 0', fontSize: '.95rem' }}
             />
           )}
@@ -309,9 +318,12 @@ export default async function AudiencePage({ params }: { params: { slug: string 
 
       {/* WHO YOU WOULD SEE — 1 Oct 2026. On a page written for one language,
           the counsellor who works in it; otherwise whoever is accepting
-          individual clients in BC. lib/counsellor-cards.ts decides. */}
+          individual clients in BC; on a couples page, whoever offers couples
+          work, and the button opens the couples consult (2 Oct 2026).
+          lib/counsellor-cards.ts decides. */}
       <CounsellorCards
-        counsellors={counsellorsForAudience(a)}
+        counsellors={counsellors}
+        service={a.service}
         location="counsellor-audience"
         heading="Who you would see"
         intro="Taking new clients and seeing people across BC by secure video. Each is a Registered Clinical Counsellor; the registration is on the profile and can be checked on the BCACC register."
@@ -368,6 +380,11 @@ export default async function AudiencePage({ params }: { params: { slug: string 
           <div className="chip-grid" style={{ marginTop: 28 }}>
             {a.related.map((r) => <Link className="chip" key={r.href} href={r.href}>{r.label}</Link>)}
           </div>
+
+          {/* The Tagalog city pages, on the two Filipino pages — 2 Oct 2026
+              (item 391). Each city page had three inbound links. Links only;
+              the row is shared with /services/tagalog-counselling. */}
+          {regionRow && <RegionLinks heading={regionRow.heading} links={regionRow.links} style={{ marginTop: 28 }} />}
 
           <p style={{ color: 'var(--ink-faint)', fontSize: '.9rem', marginTop: 28 }}>
             General information, not clinical advice, and not a diagnosis. If you are in crisis, call or

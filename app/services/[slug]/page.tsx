@@ -34,6 +34,8 @@ import { cardNoun, counsellorsForService } from '@/lib/counsellor-cards';
 import { languagesFor } from '@/lib/city-service-page';
 import { snippetFacts, withSnippet } from '@/lib/snippet-facts';
 import NextConsultLine from '@/components/NextConsultLine';
+import RegionLinks from '@/components/RegionLinks';
+import { regionLinksFor } from '@/lib/region-links';
 import { OFFERINGS, offerItems } from '@/lib/practitioner-facts';
 
 export function generateStaticParams() {
@@ -209,6 +211,8 @@ export default async function ServicePage({ params }: { params: { slug: string }
     'Go deeper',
   ]);
   const others = services.filter((x) => x.slug !== s.slug).slice(0, 3);
+  /* Punjabi and Tagalog only: the language's pages by region (lib/region-links.ts). */
+  const regionRow = regionLinksFor(s.language);
 
   /* This page is composed of distinct blocks rather than one section list, so
      it already breaks up well — except through the depth sections, which ran as
@@ -346,7 +350,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
               service: couples, EMDR and family show only the counsellor who
               does that work, Punjabi only the Punjabi-speaking counsellor.
               Prints nothing when Cliniko has no time. 1 Oct 2026. */}
-          <NextConsultLine location="next-service" slugs={offering.map((p) => p.slug)} style={{ margin: '14px 0 0', fontSize: '.95rem' }} />
+          <NextConsultLine location="next-service" slugs={offering.map((p) => p.slug)} service={s.slug} style={{ margin: '14px 0 0', fontSize: '.95rem' }} />
         </div>
       </section>
 
@@ -401,6 +405,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
           roster in lib/counsellor-cards.ts; drawn by the shared card. */}
       <CounsellorCards
         counsellors={offering}
+        service={s.slug}
         location="counsellor-service"
         heading={<>Who you would see for {cardNoun(s.name)}</>}
         intro="Taking new clients and seeing people across BC by secure video. Each is a Registered Clinical Counsellor; the registration is on the profile and can be checked on the BCACC register."
@@ -544,10 +549,14 @@ export default async function ServicePage({ params }: { params: { slug: string }
           <h2>Other ways we can work together</h2>
           <div className="grid grid-3" style={{ marginTop: 24 }}>
             {others.map((o) => (
-              <div className="card" key={o.slug}>
-                <Link href={`/services/${o.slug}`} className="card-link">
-                  <h3>{o.name}</h3><p>{o.short}</p>
-                  <span className="more">{o.name} in BC →</span>
+              /* The anchor is the "<name> in BC" line alone, stretched over
+                 the card by .card--stretch (globals.css), as on /for and the
+                 city hubs: the whole card still clicks, but the link text is
+                 no longer 70-odd characters of card. 2 Oct 2026. */
+              <div className="card card--stretch" key={o.slug}>
+                <h3>{o.name}</h3><p>{o.short}</p>
+                <Link href={`/services/${o.slug}`} className="more card-stretch">
+                  {o.name} in BC<span aria-hidden="true"> →</span>
                 </Link>
               </div>
             ))}
@@ -573,6 +582,18 @@ export default async function ServicePage({ params }: { params: { slug: string }
               ))}
               <Link className="chip" href="/online-counselling">All areas served</Link>
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* THE LANGUAGE PAGES BY PLACE — 2 Oct 2026 (items 367, 391). The two
+          language services have no city x service pages, so the by-area row
+          above never renders for them; their own region pages had no link
+          from here at all. Links only, labels from the region data. */}
+      {regionRow && (
+        <section className="section">
+          <div className="container">
+            <RegionLinks heading={regionRow.heading} links={regionRow.links} />
           </div>
         </section>
       )}

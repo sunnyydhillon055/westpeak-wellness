@@ -203,6 +203,12 @@ const CHECKS = [
   ['/punjabi/not-sent', 200],
   ['/search?q=couples+counselling+abbotsford', 200],
   ['/search?q=zzzz-nothing-matches', 200],
+
+  /* A capitalised path still 404s on the server (no middleware), and the 404
+     carries the one-line lowercase retry (lib/error-routes.ts, 2 Oct 2026),
+     checked in the loop below. /book is the page it retries to. */
+  ['/book', 200],
+  ['/Book', 404],
 ];
 
 /* Matched against the <title> ONLY, and that restriction is load-bearing.
@@ -334,6 +340,16 @@ for (const [path, want, wantDest] of CHECKS) {
     const got = (res.headers.get('location') || '').replace(/^https?:\/\/[^/]+/, '');
     if (got.replace(/\/$/, '') !== wantDest.replace(/\/$/, '')) {
       failures.push(`${path} - redirects to ${got || '(no Location)'}, expected ${wantDest}`);
+      continue;
+    }
+  }
+
+  /* A 404 on a capitalised path must carry the lowercase retry, or /Book is
+     still a dead end for the reader who typed it. */
+  if (want === 404 && /[A-Z]/.test(path)) {
+    const body = await res.text();
+    if (!body.includes('l.replace(p.toLowerCase()+l.search+l.hash)')) {
+      failures.push(`${path} - 404 without the lowercase retry`);
       continue;
     }
   }

@@ -331,6 +331,7 @@ export default async function GuidePage({ params }: { params: { slug: string } }
         cardCopy={infoCardCopy(gentle)}
         feeLine={feeLine}
         consult={cards ? { location: 'next-guide-close', slugs: counsellors.map((p) => p.slug) } : undefined}
+        service={g.service}
         softSteps={softStepsFor({ path: `/guides/${g.slug}`, slug: g.slug, service: g.service })}
         band={{
           tone: gentle ? 'gentle' : 'default',

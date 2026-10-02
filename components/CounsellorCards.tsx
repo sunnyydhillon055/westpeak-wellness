@@ -1,9 +1,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import BookLink from '@/components/BookLink';
-import { site } from '@/lib/site';
 import { withLetters, type Practitioner } from '@/lib/practitioners';
-import { listOf, languagesOf, profileHrefFor } from '@/lib/city-service-page';
+import { listOf, languagesOf, profileHrefFor, bookHrefFor } from '@/lib/city-service-page';
 import type { CounsellorCardLocation } from '@/lib/counsellor-cards';
 
 /* WHO YOU WOULD SEE — one block, four templates. 1 Oct 2026.
@@ -23,7 +22,13 @@ import type { CounsellorCardLocation } from '@/lib/counsellor-cards';
  * Credential names only (withLetters). No registration number — those are on
  * the profile page and nowhere else. No availability line — hours are not
  * published anywhere. Renders nothing when nobody is accepting, rather than
- * a heading over an empty grid. */
+ * a heading over an empty grid.
+ *
+ * `service` (2 Oct 2026, wf/services-cards): the button is built by
+ * bookHrefFor, so it ends in #calendar (SchedulerGate opens only on the hash)
+ * and, on a couples page, carries for=couples so /book opens the couples
+ * consult type rather than the individual one. Live /services/couples-therapy
+ * had 3 of its 8 booking links opening the individual consult. */
 export default function CounsellorCards({
   counsellors,
   location,
@@ -31,6 +36,7 @@ export default function CounsellorCards({
   intro,
   citySlug,
   footer,
+  service,
   className = 'section section--tint',
 }: {
   counsellors: Practitioner[];
@@ -43,6 +49,8 @@ export default function CounsellorCards({
    *  informational pages. Block content, so it is not inside a <p>. */
   footer?: React.ReactNode;
   className?: string;
+  /** The page's booking service; 'couples-therapy' adds for=couples. */
+  service?: string;
 }) {
   if (counsellors.length === 0) return null;
   return (
@@ -81,7 +89,7 @@ export default function CounsellorCards({
                   {/* Only a counsellor with an online calendar gets the button;
                       ?with= on /book opens nothing for one who books by reply. */}
                   {p.bookable && (
-                    <BookLink location={location} href={`${site.bookingPath}?with=${p.slug}`}>
+                    <BookLink location={location} href={bookHrefFor([p], service)}>
                       Book with {first}
                     </BookLink>
                   )}

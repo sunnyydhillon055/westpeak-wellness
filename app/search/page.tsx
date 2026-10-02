@@ -166,6 +166,7 @@ export default async function SearchPage({ searchParams }: { searchParams?: { q?
               {top && offering.length > 0 && (
                 <CounsellorCards
                   counsellors={offering}
+                  service={top.slug}
                   location="search"
                   heading={`Who offers ${serviceNoun(top.name)}`}
                   className="search-counsellors"
