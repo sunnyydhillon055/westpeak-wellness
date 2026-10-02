@@ -134,7 +134,7 @@ export const pairs: Pair[] = [
     angle: 'Two Burnaby commutes rarely converge anywhere convenient, which is why couples work here so often stalls at scheduling.',
     body: [
       'Couples in Burnaby frequently work in two different directions, one toward Vancouver, one east into Fraser Health territory, and an in-person appointment has to find a time and a place that defeats neither commute. That is a harder problem than it sounds, and it is the reason a lot of couples counselling here never gets past the enquiry.',
-      'Removing the location from the equation leaves only the time, which is a solvable problem. It also means a session can happen on an evening when one of you is still at work and the other is at home, which is a compromise that in-person scheduling cannot offer at all.',
+      'Removing the location from the equation leaves only the time, which is a solvable problem. It also means the two of you can join from different places, one still at work and the other at home, which is a compromise that in-person scheduling cannot offer at all, and the calendar shows the real open times.',
     ],
     faqs: [
       { q: 'Do both of us need to be there every time?', a: 'Usually yes, though individual sessions within couples work happen when there is a clear reason for them, agreed openly rather than arranged privately.' },
@@ -220,7 +220,7 @@ export const pairs: Pair[] = [
     angle: 'Structured couples work is one of the things the eastern valley most often simply does not have.',
     body: [
       'General counselling exists in Chilliwack. Structured couples work with specific training behind it is a narrower field, and in a smaller market the honest local answer is frequently that it is not available. The fallback has been to travel or to go without, and most couples choose the second.',
-      'Two people travelling together for two hours to discuss a difficult subject also has an obvious problem: the car journey home. Joining from your own kitchen at eight in the evening is not a downgrade from that arrangement.',
+      'Two people travelling together for two hours to discuss a difficult subject also has an obvious problem: the car journey home. Joining from your own kitchen, with no drive either side of the session, is not a downgrade from that arrangement.',
     ],
     faqs: [
       { q: 'What approach do you use with couples?', a: 'Couples work at the practice is Gottman-informed, which means structured rather than open-ended: patterns of interaction are looked at directly rather than circled around. Ask on the consultation which approach your counsellor uses.' },
@@ -484,7 +484,7 @@ export const pairs: Pair[] = [
     city: 'victoria', service: 'anxiety-counselling',
     angle: 'A city with real services, where the specific thing you need is still across the water.',
     body: [
-      'Victoria is not short of counselling in general. It is short of the particular, a specific approach, an evening hour, somebody taking new clients this month, and for anxiety the particular is usually what matters, because the version that responds fastest to structured work is easy to mistreat with general support.',
+      'Victoria is not short of counselling in general. It is short of the particular, a specific approach, a time that fits without a commute, somebody taking new clients this month, and for anxiety the particular is usually what matters, because the version that responds fastest to structured work is easy to mistreat with general support.',
       'The traditional answer has been a ferry, which for weekly work is not an answer at all. A virtual practice turns the question from who happens to be on the Island into who is right, which is the question that should have been asked first.',
     ],
     faqs: [

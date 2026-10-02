@@ -1,5 +1,6 @@
 import { site, bookingsPaidUrlFor } from '@/lib/site';
 import { FALLBACK_CATALOG, money, type Catalog } from '@/lib/cliniko-catalog';
+import { CAMERA_OPTIONAL } from '@/lib/practice-facts';
 
 /* Confirmation and follow-up email, sent from westpeakwellness.com.
  *
@@ -329,8 +330,11 @@ export function inLanguageGuide(pr?: BookingPractitioner | null): { href: string
 export const paidCalendarFor = (pr?: BookingPractitioner | null, typeId?: string) =>
   bookingsPaidUrlFor(pr?.clinikoPractitionerId, typeId);
 
+/* The camera sentence is /accessibility's, read from lib/practice-facts.ts
+   (item 392, 2 Oct 2026): copy in the existing confirmation and reminder,
+   no new mail and no change to when either is sent. */
 const ONLINE_LINE =
-  'This is an online appointment by secure video. There is no office to come to; join from somewhere private.';
+  `This is an online appointment by secure video. There is no office to come to; join from somewhere private. ${CAMERA_OPTIONAL}`;
 
 /* The cancellation terms for a PAID booking, worded as /pricing and the FAQ
    word them (24 hours from site.cancellationHours; 50% as published there).

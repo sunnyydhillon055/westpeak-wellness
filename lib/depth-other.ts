@@ -373,7 +373,7 @@ export const depthOther: Record<string, DepthSection[]> = {
       body: [
         'Abbotsford sits in a particular position: large enough to have services, small enough that the community networks are dense, and close enough to Metro Vancouver that many residents work in one place and live in another. Each of those has a counselling consequence.',
         'The density of community networks makes local confidentiality a genuine consideration, particularly within faith communities and within the South Asian community. A local counsellor may be connected to your family, your employer, or your congregation. That is not a hypothetical concern and it keeps people from booking.',
-        'The commute pattern matters for scheduling. Anyone driving into Metro Vancouver for work has a day that already contains two hours of highway, and a counselling appointment that adds travel is unlikely to survive the winter. Evening virtual sessions are frequently the only format that holds.',
+        'The commute pattern matters for scheduling. Anyone driving into Metro Vancouver for work has a day that already contains two hours of highway, and a counselling appointment that adds travel is unlikely to survive the winter. A video session adds no travel at all, which is frequently the only format that holds; the [booking calendar](/book) shows the real open times.',
         'The agricultural and trades economy also means a substantial number of people work schedules that do not fit a nine-to-five service, and seasonal work adds an income pattern that makes a fixed weekly commitment difficult. Being direct about what you can sustain changes how the work is planned, see [weekly vs biweekly sessions](/compare/weekly-vs-biweekly-sessions).',
       ],
     },

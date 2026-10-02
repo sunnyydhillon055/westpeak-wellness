@@ -7,6 +7,8 @@
  *
  * HARD RULE: the counsellor's personal name never appears here. */
 
+import { CAMERA_OPTIONAL } from '@/lib/practice-facts';
+
 /* HOW PRIVATE THE VIDEO IS, STATED ONCE — 1 Oct 2026.
  *
  * The /privacy paragraph below is the practice's one statement of where
@@ -344,7 +346,7 @@ export const policies: Record<string, Policy> = {
       {
         h2: 'Accommodations in sessions',
         list: [
-          { label: 'Camera off', detail: 'You are never required to be on camera to be in a session. It suits camera fatigue, lower bandwidth, and anyone who thinks better without being watched.' },
+          { label: 'Camera off', detail: CAMERA_OPTIONAL + ' It suits camera fatigue, lower bandwidth, and anyone who thinks better without being watched.' },
           { label: 'Sessions in Punjabi', detail: 'Working in the language you think in is an access issue, not a preference. Savneet Singh works in Punjabi. See [Punjabi counselling](/services/punjabi-counselling).' },
           { label: 'Sessions in Tagalog', detail: 'The same holds for Tagalog: Camille Granda works in Tagalog and English. See [Tagalog-speaking counselling](/tagalog-counselling).' },
           { label: 'Pacing and breaks', detail: 'Sessions can be paused, shortened, or restructured. For trauma work in particular, pacing is a clinical decision made with you rather than to you.' },

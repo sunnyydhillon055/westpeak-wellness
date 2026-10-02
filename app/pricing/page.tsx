@@ -17,6 +17,7 @@ import { SESSION_SECURITY, SESSION_SECURITY_MD } from '@/lib/policies';
 import { rich } from '@/lib/rich';
 import { practiceSnippet, withSnippet } from '@/lib/snippet-facts';
 import { planYearPageLineShown, YEAR_END_PATH } from '@/lib/seasonal';
+import { WHO_SEES_A_CLAIM } from '@/lib/practice-facts';
 import {
   BCACC_INDIVIDUAL, BCACC_COUPLES_FAMILY, BCPA_PSYCHOLOGIST, BCPA_EFFECTIVE,
   TYPICAL_BC_FEES, FEE_GUIDES_READ, guidePhrase,
@@ -196,7 +197,7 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
           {/* 15 Oct to 31 Dec only, on the Pacific date (lib/seasonal.ts); this page re-renders hourly. */}
           {planYearPageLineShown() && (
             <p style={{ fontSize: '.92rem', color: 'var(--ink-soft)' }}>
-              If your plan runs on the calendar year, a session held on or before 31 December counts against this year&rsquo;s maximum; whether yours does is in the <Link href={YEAR_END_PATH}>booklet</Link>.
+              If your plan runs on the calendar year, a session held on or before 31 December counts against this year&rsquo;s maximum; whether yours does is in your plan booklet; <Link href={YEAR_END_PATH}>how the plan year affects a claim</Link>.
             </p>
           )}
 
@@ -422,6 +423,8 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
             you. Whether your plan covers a Registered Clinical Counsellor is worth confirming before
             you book &mdash; see <a href="/resources/bc-extended-health-coverage-for-counselling">extended health coverage in BC</a>.
           </p>
+          {/* Who sees what when you claim: lib/practice-facts.ts (item 358). */}
+          <p>{WHO_SEES_A_CLAIM}</p>
           <p>
             Sessions are paid by credit card when you book rather than at the end of the hour, and
             cancellation is free up to 24 hours beforehand. The{' '}

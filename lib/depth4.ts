@@ -14,8 +14,8 @@ export const depth4: Record<string, DepthSection[]> = {
     {
       h2: 'Counselling around a Burnaby commute',
       body: [
-        'Burnaby sits in the middle of everything, which is exactly the problem. A large share of the city works somewhere else: downtown Vancouver, Surrey, the Tri-Cities, and the SkyTrain that makes that workable also makes a 5:30 pm appointment anywhere a fiction. The classic Burnaby counselling arrangement is a lunchtime office you can never quite reach or an evening slot that costs ninety minutes of travel for fifty minutes of session.',
-        'Video sessions dissolve that arithmetic. An evening session happens from home in Brentwood, Edmonds or Metrotown without re-crossing the region, and a lunchtime session happens from a booked meeting room or a parked car near work. The practical requirement is privacy for the hour, not geography, and the [booking calendar](/book) shows the open times each counsellor actually holds rather than implying them.',
+        'Burnaby sits in the middle of everything, which is exactly the problem. A large share of the city works somewhere else: downtown Vancouver, Surrey, the Tri-Cities, and the SkyTrain that makes that workable also makes a 5:30 pm appointment anywhere a fiction. The classic Burnaby counselling arrangement is a lunchtime office you can never quite reach or an after-work appointment that costs ninety minutes of travel for fifty minutes of session.',
+        'Video sessions dissolve that arithmetic. A session happens from home in Brentwood, Edmonds or Metrotown without re-crossing the region, or from a booked meeting room or a parked car near work, and the travel time it would have cost is simply not spent. The practical requirement is privacy for the hour, not geography, and the [booking calendar](/book) shows the open times each counsellor actually holds rather than implying them.',
         'One Burnaby-specific note: SFU students on the mountain already have a no-cost route in [Here2Talk](https://here2talk.ca), the province-wide 24/7 service for post-secondary students, alongside campus health and counselling. Private counselling is a complement to those, not a replacement. The fuller picture is on the [student supports page](/resources/student-mental-health-supports-bc).',
       ],
     },
@@ -25,7 +25,7 @@ export const depth4: Record<string, DepthSection[]> = {
         { label: 'You want a room to go to', detail: 'Burnaby and the neighbouring cities have plenty of in-person practices, and for some people leaving the house is part of what makes therapy work. That is a legitimate preference, and this virtual practice is honestly not the fit for it.' },
         { label: 'Privacy from a shared household', detail: 'A common reason Burnaby residents choose video with a camera in a parked car or a booked room rather than a home office: multi-generational households where a weekly "appointment" invites questions. Sessions here can also run in Punjabi, relevant to exactly the households where that privacy question is sharpest.' },
         { label: 'Continuity beats geography', detail: 'Renters move, Burnaby to New West to Coquitlam is a normal three-year arc. A virtual practice serving all of BC means the counsellor does not change when the postal code does.' },
-        { label: 'The evening problem, solved differently', detail: 'In-person evening slots are the scarcest thing in Lower Mainland counselling. Video evening slots are scarce too, but they compete on availability, not on who can physically reach an office by 6 pm.' },
+        { label: 'The travel problem, solved differently', detail: 'An in-person appointment costs the session plus the trip to reach the office, and across the Lower Mainland the trip is often the longer part. A video session costs only the hour itself. Which hours are open is a matter of the calendar, which shows the real open times rather than promising particular ones.' },
       ],
     },
   ],
@@ -189,7 +189,7 @@ export const depth4: Record<string, DepthSection[]> = {
       h2: 'Langley has counsellors. Here is when virtual still wins.',
       body: [
         'Unlike most pages in this set, the honest starting point for Langley is abundance: the City and the Township hold a genuine concentration of counselling practices, and someone who wants an office to drive to has real choices here. A page that pretended otherwise would be advertising, not information.',
-        'So the Langley case for virtual is specific rather than general. It is the fastest-growing corner of the Lower Mainland, which means new arrivals without a local anything yet; it is a commuter base for Surrey and Vancouver jobs, which recreates the evening-slot problem the SkyTrain cities know; and it is geographically enormous, Walnut Grove to Aldergrove is a real drive, and “in Langley” on a directory listing can still mean forty minutes away.',
+        'So the Langley case for virtual is specific rather than general. It is the fastest-growing corner of the Lower Mainland, which means new arrivals without a local anything yet; it is a commuter base for Surrey and Vancouver jobs, which recreates the commuting problem the SkyTrain cities know; and it is geographically enormous, Walnut Grove to Aldergrove is a real drive, and “in Langley” on a directory listing can still mean forty minutes away.',
         'The other Langley-specific factor is proximity itself. In a community of connected congregations, schools and businesses, some people specifically do not want their car in a local counsellor’s parking lot. A virtual practice based nowhere nearby is the structural answer to that concern, confidentiality plus distance, which the [privacy page](/privacy) treats as the legitimate consideration it is.',
       ],
     },
@@ -197,7 +197,7 @@ export const depth4: Record<string, DepthSection[]> = {
       h2: 'Sorting the Langley options quickly',
       list: [
         { label: 'You want in-person, full stop', detail: 'Then use the local abundance: check any candidate in the BCACC register first, use their free consultations, and choose on fit. The how-to-choose guide applies to any practice, including ones that are not this one.' },
-        { label: 'Evenings are the constraint', detail: 'Commuters lose the 9-to-5 window entirely, and in-person evening slots are the scarcest resource in local counselling. A video session from home skips the drive that makes a 6 pm appointment impossible.' },
+        { label: 'The commute is the constraint', detail: 'Commuters lose a large part of the working day to the drive, and an in-person appointment adds another one. A video session from home skips that drive, so the only time it costs is the session itself; the calendar shows the real open times.' },
         { label: 'You just moved here', detail: 'Langley’s growth means thousands of households each year with no local GP, no local anything. A virtual counsellor works from day one and does not need re-choosing if the next move is Abbotsford or back across the river.' },
         { label: 'Punjabi or bilingual sessions', detail: 'Langley’s Punjabi-speaking community is substantial and the local Punjabi-language counselling supply is not. Sessions here run in Punjabi, English, or moving between the two. The comparison page on therapy language covers why that flexibility matters.' },
       ],

@@ -5,6 +5,7 @@ import { nurtureDecision, magnetWords, type MagnetWords, type NurtureSkip } from
 import { rosterLines, rosterText, rosterHtml, individualFeeLine, type RosterLine } from '@/lib/lead-roster';
 import { readCatalog } from '@/lib/cliniko-catalog';
 import { planYearMailParagraph } from '@/lib/seasonal';
+import { WHO_SEES_A_CLAIM } from '@/lib/practice-facts';
 import { sendDetailed, mailConfigured } from '@/lib/portal-mail';
 import { put, get } from '@vercel/blob';
 import { normalizeEmail } from '@/lib/portal-auth';
@@ -220,6 +221,8 @@ a free thirty-minute consultation is the least committal way to find
 out whether it is worth going further. It is a conversation, not an
 intake. Nothing to prepare, and no obligation to book afterwards.
 
+${WHO_SEES_A_CLAIM}
+
 ${roster.length ? `Each counsellor's own calendar:\n\n${rosterText(roster)}` : links.book}
 ${feeLine ? `\n${feeLine}\n` : ''}${season ? `\n${season}\n` : ''}
 It is also a perfectly good outcome of that call to conclude that
@@ -242,6 +245,8 @@ Unsubscribe: ${unsubLink(to)}`);
     p(esc(hi)) +
     p('Last one from me.') +
     p(`If you have been turning this over since you asked for ${esc(w.that)}, a free thirty-minute consultation is the least committal way to find out whether it is worth going further. It is a conversation, not an intake, nothing to prepare, and no obligation to book afterwards.`) +
+    /* Item 393: the same sentence as the text version and /pricing. */
+    p(esc(WHO_SEES_A_CLAIM)) +
     (roster.length
       ? p('Each counsellor&rsquo;s own calendar:') + rosterHtml(roster)
       : btn(links.book, 'Book a free consultation')) +

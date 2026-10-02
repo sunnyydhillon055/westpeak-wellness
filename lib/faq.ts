@@ -1,7 +1,7 @@
 import { fallbackFee, FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
 import { practitioners } from '@/lib/practitioners';
 import { site } from '@/lib/site';
-import { ONLINE_COVERAGE } from '@/lib/practice-facts';
+import { ONLINE_COVERAGE, CONFIDENTIALITY_LIMITS, WHO_FINDS_OUT, CAMERA_OPTIONAL } from '@/lib/practice-facts';
 
 /* HOW TO CANCEL OR MOVE A SESSION — 1 Oct 2026. The FAQ and /pricing gave the
  * 24-hour rule and never said how. This is the procedure the confirmation and
@@ -59,7 +59,14 @@ const tagalogAnswer = tagalog.length
   ? `Yes. ${linked(tagalog)} ${tagalog.length > 1 ? 'work' : 'works'} in Tagalog and English, including moving between the two inside one session, so there is no need to translate your family or your context before you can talk about them. [Tagalog-speaking counselling](/services/tagalog-counselling) explains how it works.`
   : 'Not at the moment. No counsellor taking new clients here works in Tagalog right now. [Finding a counsellor in Punjabi or Tagalog in BC](/resources/finding-a-counsellor-in-punjabi-or-tagalog-in-bc) lists other routes.';
 
-const onlineOrInPerson = `Online only. There is no office and no in-person option: the free ${consultMinutes}-minute consultation and every session after it are by secure video. Once you book, the link arrives by email and opens in your browser, with nothing to install and no account to create. All you need is a private space, a device with a camera, and a stable connection. Sessions are never recorded.`;
+const onlineOrInPerson = `Online only. There is no office and no in-person option: the free ${consultMinutes}-minute consultation and every session after it are by secure video. Once you book, the link arrives by email and opens in your browser, with nothing to install and no account to create. All you need is a private space, a phone, tablet or computer, and a stable connection. ${CAMERA_OPTIONAL} Sessions are never recorded.`;
+
+/* WHAT COMES BEFORE SESSION ONE — 2 Oct 2026 (item 368). The consultation
+   has no form; the first paid session does have paperwork, and nothing said
+   so. Only what /standards ("named in writing before the first session"),
+   /client-portal ("the consent form you signed") and the /privacy intake list
+   already say. Read by /book's "first few sessions" disclosure as well. */
+export const BEFORE_SESSION_ONE = `Before the first paid session you sign the practice’s consent form, which puts the limits of confidentiality and the 24-hour cancellation rule in writing. Session one then covers what brought you, some history, current concerns and safety, and you can decline to go into anything.`;
 
 // Answers written to be accurate for a fully-virtual BC RCC practice and
 // compliant with BCACC advertising standards.
@@ -129,11 +136,16 @@ export const faqs: FAQ[] = [
   },
   {
     q: "Is what I share confidential?",
-    a: "Yes. Everything you share is confidential and protected under BCACC's code of ethics and BC privacy law. There are a few legal limits, such as a risk of serious harm to yourself or someone else, or a court order, and your counsellor will explain these clearly at the start of your work together.",
+    a: `Yes. Everything you share is confidential and protected under BCACC's code of ethics and BC privacy law. The limits are ${CONFIDENTIALITY_LIMITS}, and they are set out in writing before your first session.`,
+  },
+  /* Item 358: the question the workplace and stress-leave readers bring. */
+  {
+    q: "Will my employer, insurer or family find out?",
+    a: WHO_FINDS_OUT,
   },
   {
     q: "What happens in the first session?",
-    a: "The first session is about your story: what brought you in, what you're hoping for, and what \"better\" would look like. It's also a chance to get comfortable with how your counsellor works. There's no pressure to have everything figured out; that's what the work is for.",
+    a: "The first session is about your story: what brought you in, what you're hoping for, and what \"better\" would look like. It's also a chance to get comfortable with how your counsellor works. There's no pressure to have everything figured out; that's what the work is for. " + BEFORE_SESSION_ONE,
   },
   {
     q: "What if I'm in crisis?",
@@ -168,6 +180,7 @@ const GROUP_OF: Record<string, string> = {
   "How much do sessions cost?": 'money',
   "How long are sessions, and how often will we meet?": 'sessions',
   "Is what I share confidential?": 'privacy',
+  "Will my employer, insurer or family find out?": 'privacy',
   "What happens in the first session?": 'sessions',
   "What if I'm in crisis?": 'privacy',
   /* Without an entry here a question renders nowhere — faqsInGroup filters on
