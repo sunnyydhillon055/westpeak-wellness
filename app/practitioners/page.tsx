@@ -9,6 +9,13 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import CtaBand from '@/components/CtaBand';
 import { ogBase } from '@/lib/og-meta';
 import { COLLECTION_DATES } from '@/lib/page-dates';
+import BookLink from '@/components/BookLink';
+import CounsellorCompare from '@/components/CounsellorCompare';
+import { readCatalog } from '@/lib/cliniko-catalog';
+import { consultationAvailability } from '@/lib/cliniko-availability';
+import { nextConsultEntries } from '@/lib/next-consult';
+import { PACIFIC } from '@/lib/availability-summary';
+import { lowestFee, consultLine, rosterOrder } from '@/lib/practitioner-facts';
 
 const TITLE = 'Our Counsellors | Westpeak Wellness';
 const DESC =
@@ -27,8 +34,27 @@ export const metadata: Metadata = {
  * summarise them twice. Each card carries the name, the credentials a stranger
  * can verify, the languages, and one line — everything else is on the profile.
  *
- * The founder is not listed. See the header of lib/practitioners.ts. */
-export default function PractitionersPage() {
+ * Counsellors taking new clients first, each with her status, lowest fee,
+ * next free consultation and her own Book button; anyone not taking new
+ * clients last, as a short row that says so and links her profile, with no
+ * reason given (2 Oct 2026). The only Book link here used to be the closing
+ * band, and the first row was someone who cannot be booked. */
+
+/* Re-rendered every thirty minutes so each row's next free consultation is
+   what Cliniko is offering, as on the profiles. */
+export const revalidate = 1800;
+
+export default async function PractitionersPage() {
+  const roster = rosterOrder(practitioners);
+  const catalog = await readCatalog();
+  const consult = consultLine(catalog);
+  let next: Record<string, string> = {};
+  try {
+    next = Object.fromEntries(nextConsultEntries(await consultationAvailability(), practitioners).map((e) => [e.slug, e.when]));
+  } catch {
+    next = {};
+  }
+
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
@@ -44,7 +70,7 @@ export default function PractitionersPage() {
     datePublished: COLLECTION_DATES['practitioners'],
     dateModified: COLLECTION_DATES['practitioners'],
     author: orgRef,
-    hasPart: practitioners.map((p) => ({
+    hasPart: roster.map((p) => ({
       '@type': 'Person',
       name: p.name,
       jobTitle: p.role,
@@ -61,8 +87,8 @@ export default function PractitionersPage() {
           <p className="eyebrow">Our counsellors</p>
           <h1>Who you would be working with.</h1>
           <p className="lede">
-            Every counsellor here is registered, and every registration number below can be
-            checked against a public register in about two minutes.
+            Every counsellor here is registered, and each profile carries her registration
+            number, which can be checked against a public register in about two minutes.
           </p>
           <p className="direct-answer">
             Westpeak Wellness is a virtual counselling practice whose counsellors are Registered Clinical Counsellors with the BC Association of Clinical Counsellors. Sessions are offered in English, Punjabi and Tagalog by secure video across British Columbia and, for the counsellor certified there, Alberta. Each profile lists training, languages, areas of focus, registration and whether the counsellor is currently taking new clients.
@@ -85,8 +111,8 @@ export default function PractitionersPage() {
             <p>
               Each profile below sets out what that counsellor works with, how they work, and the
               languages they practise in, including sessions that move between two languages
-              within the hour. Registration numbers are shown in full so you can check them
-              against a public register before booking anything, here or anywhere else.
+              within the hour. The registration number is on each profile in full, so you can
+              check it against a public register before booking anything, here or anywhere else.
             </p>
             <p>
               If you are not sure who to choose, the{' '}
@@ -102,10 +128,16 @@ export default function PractitionersPage() {
               Tagalog, choose the person who works in it, even if the rest of the profile reads
               as a slightly less exact match. Then look at focus. A counsellor who names trauma
               and EMDR is telling you where their training and their caseload sit; one who names
-              family and immigration stress is telling you something different. Neither is
-              better, and the wrong fit is not a failure of either of you. It is simply
-              information, and the consultation exists so that it costs nothing to find out.
+              CBT, ACT and DBT is telling you something different. Neither is better, and the
+              wrong fit is not a failure of either of you. It is simply information, and the
+              consultation exists so that it costs nothing to find out.
             </p>
+          </div>
+
+          {/* Side by side, every cell computed (components/CounsellorCompare.tsx). */}
+          <CounsellorCompare roster={practitioners} catalog={catalog} location="counsellor-compare" />
+
+          <div className="prose" style={{ marginTop: 24, marginBottom: 8 }}>
             <p>
               Availability is the last filter, not the first. A profile marked as not taking new
               clients still tells you what the practice as a whole works with, and the
@@ -145,7 +177,7 @@ export default function PractitionersPage() {
               onClick would have needed a keyboard handler, a role and a
               tabindex to be equivalent, and would still not be a link. */}
           <div className="practitioner-list">
-            {practitioners.map((p) => (
+            {roster.map((p) => (
               <article className="practitioner-row" key={p.slug}>
                 {p.photos?.portrait && (
                   <Image
@@ -165,9 +197,15 @@ export default function PractitionersPage() {
                   </h2>
                   <p className="practitioner-row-role">{p.role}{p.postNominals ? ` · ${p.postNominals}` : ''}</p>
                   <p className="practitioner-row-tagline">{p.tagline}</p>
-                  <ul className="practitioner-row-focus">
-                    {p.focus.map((f) => <li key={f.label}>{f.label}</li>)}
-                  </ul>
+                  <p className="practitioner-row-langs" style={{ color: 'var(--ink)', fontWeight: 600 }}>
+                    {p.acceptingNewClients ? 'Taking new clients' : 'Not taking new clients'}
+                  </p>
+                  {/* Focus areas only for someone a reader can book. */}
+                  {p.acceptingNewClients && (
+                    <ul className="practitioner-row-focus">
+                      {p.focus.map((f) => <li key={f.label}>{f.label}</li>)}
+                    </ul>
+                  )}
                   <p className="practitioner-row-langs">
                     {/* Languages and designations only — NO registration
                         numbers. Those are confined to /about and each
@@ -180,9 +218,29 @@ export default function PractitionersPage() {
                       ? ` · ${p.credentials.map((c) => c.short).join(', ')}, verifiable on her profile`
                       : ''}
                   </p>
-                  <span className="practitioner-row-more" aria-hidden="true">
-                    Read more about {p.name.split(' ')[0]} &rarr;
-                  </span>
+                  {p.acceptingNewClients && (lowestFee(p, catalog) || consult) && (
+                    <p className="practitioner-row-langs">
+                      {[lowestFee(p, catalog) ? `From ${lowestFee(p, catalog)}` : null, consult ? consult.charAt(0).toLowerCase() + consult.slice(1) : null].filter(Boolean).join(' · ')}
+                    </p>
+                  )}
+                  {p.acceptingNewClients && next[p.slug] && (
+                    <p className="practitioner-row-langs">
+                      Next free consultation: {next[p.slug]}{PACIFIC}
+                    </p>
+                  )}
+                  {/* Above the row's stretched link (its ::after covers the
+                      card), so the button is its own target. */}
+                  {p.acceptingNewClients && p.bookable ? (
+                    <div style={{ position: 'relative', zIndex: 1, marginTop: 4 }}>
+                      <BookLink location="practitioners-row" href={`${site.bookingPath}?with=${p.slug}#calendar`}>
+                        Book with {p.name.split(' ')[0]}
+                      </BookLink>
+                    </div>
+                  ) : (
+                    <span className="practitioner-row-more" aria-hidden="true">
+                      Read more about {p.name.split(' ')[0]} &rarr;
+                    </span>
+                  )}
                 </div>
               </article>
             ))}

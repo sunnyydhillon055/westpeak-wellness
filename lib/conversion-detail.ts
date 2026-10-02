@@ -144,6 +144,14 @@ export const BOOK_LOCATIONS: readonly string[] = [
   'email:after',
   'email:missed',
   'email:reactivation',
+  /* wf/profiles, 2 Oct 2026: the "Book with {first}" button on each
+     accepting row of /practitioners, the next-consultation line under the
+     hero of each counsellor place page, and the "book with" links in the
+     Camille-or-Savneet comparison (components/CounsellorCompare.tsx). Kept
+     ahead of 'calendar-alt', which must stay last. */
+  'practitioners-row',
+  'place-practitioner',
+  'counsellor-compare',
   /* The "calendar hard to use?" route beside the /book calendar: its email
      link and its link to the Ask-for-a-time form (1 Oct 2026). */
   'calendar-alt',

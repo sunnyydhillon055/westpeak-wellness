@@ -1,5 +1,6 @@
 import type { Province } from './crisis';
 import { albertaMore, ontarioPages } from './expansion-more';
+import { albertaClockLine } from './alberta-clock';
 
 /* ALBERTA AND ONTARIO PAGE DATA.
  *
@@ -211,7 +212,9 @@ const albertaCore: RegionPage[] = [
       },
       {
         q: 'Does the time difference make booking difficult?',
-        a: 'Alberta is one hour ahead of BC. Appointment times are shown in Mountain Time for Alberta clients, so the time you see is the time in your own kitchen.',
+        /* Computed (lib/alberta-clock.ts): the calendar shows Pacific time,
+           never Mountain. 2 Oct 2026. */
+        a: albertaClockLine(),
       },
       {
         q: 'Is the counsellor registered in Alberta?',

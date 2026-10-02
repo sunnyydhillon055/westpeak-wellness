@@ -1,5 +1,6 @@
 import { locations } from './locations.ts';
 import type { Province } from './crisis.ts';
+import { albertaClockLine } from './alberta-clock.ts';
 
 /* ============================================================================
    WHERE A PRACTITIONER'S CITY PAGES EXIST, AND WHAT MAKES EACH ONE DIFFERENT
@@ -71,7 +72,11 @@ const ALBERTA: PractitionerPlace[] = [
     ],
     faqs: [
       { q: 'Is the counsellor registered in Alberta?', a: 'Counselling therapy is not a regulated profession in Alberta, so there is no provincial college a counsellor can register with. What can be checked is the certification: Canadian Certified Counsellor with the CCPA, plus Registered Clinical Counsellor with the BCACC, both public registers, both listed with numbers on this page.' },
-      { q: 'What time zone are appointments in?', a: 'Times shown to you are Mountain Time. Sessions run from British Columbia, an hour behind, which is handled at the booking end so nothing needs converting.' },
+      /* Pacific, said, and the gap computed when the page renders (a getter,
+         so a page revalidated on the day BC's clock changes says the new
+         gap). It used to promise Mountain Time "so nothing needs
+         converting", which the calendar has never done. 2 Oct 2026. */
+      { q: 'What time zone are appointments in?', get a() { return albertaClockLine(); } },
       { q: 'Does Alberta Health Care cover counselling?', a: 'No. AHCIP does not cover private counselling. Many Alberta extended health plans do reimburse a Canadian Certified Counsellor, worth confirming the designation with your insurer before booking, because plans vary on which credentials they accept.' },
       { q: 'I work a rotation. Can therapy fit around it?', a: 'Yes, and planning for it at the start works far better than discovering it in month two. Booking in blocks around a rotation, with gaps between them, is an ordinary pattern rather than a compromise.' },
       { q: 'What if I am in crisis tonight?', a: 'This is not a crisis service. In Alberta, call or text 9-8-8 at any hour, or the Alberta Mental Health Help Line at 1-877-303-2642, which is province-wide and 24/7. If you are in immediate danger, call 911.' },
@@ -112,7 +117,7 @@ const BC: PractitionerPlace[] = locations.map((l) => ({
   province: 'BC' as Province,
   blurb: l.blurb,
   local: l.intro?.slice(0, 2) ?? [
-    `Every session with a client in ${l.city} runs by secure video, so nothing about the fee or the availability changes with where you live.`,
+    `Every session with a client in ${l.city} runs by secure video.`,
   ],
   access: l.access ?? [],
   faqs: (l.faqs ?? []).slice(0, 5),

@@ -1,6 +1,8 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { auth } from '@/auth';
 import { ALBERTA_LIVE, ONTARIO_LIVE } from '@/lib/regions';
+import { recordedPractitioners, vancouverToday } from '@/lib/practitioners';
+import { albertaPlaceRedirect } from '@/lib/place-redirect';
 
 /* ============================================================================
    TWO UNRELATED JOBS, BOTH OF WHICH HAVE TO HAPPEN BEFORE A PAGE RENDERS
@@ -82,9 +84,27 @@ export default function middleware(req: NextRequest): Response | Promise<Respons
     url.pathname = '/_province-not-available';
     return NextResponse.rewrite(url, { status: 404 });
   }
+  /* A counsellor's Alberta place page once she cannot be offered there
+     (lib/place-redirect.ts, 2 Oct 2026): 308 to her profile rather than the
+     blank 404 dynamicParams = false would give it. Public URLs, so they
+     never reach the session lookup either: anything else on these paths
+     goes straight through. */
+  if (req.nextUrl.pathname.startsWith('/practitioners/')) {
+    const to = albertaPlaceRedirect(req.nextUrl.pathname, recordedPractitioners, vancouverToday());
+    if (!to) return NextResponse.next();
+    const url = req.nextUrl.clone();
+    url.pathname = to;
+    url.search = '';
+    return NextResponse.redirect(url, 308);
+  }
   return authGate(req);
 }
 
 export const config = {
-  matcher: ['/client-portal', '/admin', '/alberta', '/alberta/:path*', '/ontario', '/ontario/:path*'],
+  matcher: [
+    '/client-portal', '/admin', '/alberta', '/alberta/:path*', '/ontario', '/ontario/:path*',
+    /* The Alberta place pages and their language twins only (ALBERTA_PLACE_SLUGS). */
+    '/practitioners/:slug/calgary', '/practitioners/:slug/calgary/:lang',
+    '/practitioners/:slug/edmonton', '/practitioners/:slug/edmonton/:lang',
+  ],
 };
