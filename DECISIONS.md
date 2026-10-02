@@ -1786,6 +1786,83 @@ keeping initialisms and language names.
 
 ---
 
+### Seasonal copy is gated by the Pacific date, not by a deploy
+Decided 1 Oct 2026 (branch `wf/seasonal-coverage`). `lib/seasonal.ts`
+`inSeason(from, to)` reads the America/Vancouver calendar date, so a year-end
+line does not disappear at 4 p.m. Pacific on 31 December. A malformed window
+is never in season. Windows: the year-end section on the two coverage pages
+(`Resource.seasonal`) runs 1 Oct to 31 Dec; the /pricing and /book line runs
+15 Oct to 31 Dec; the counsellor drafts (after-consult, after-session) and
+nurture email 3 carry the note 15 Oct to 20 Dec, adding no new send and no new
+audience, and out of season their output is byte-identical to before. The
+year-end page /resources/counselling-benefits-before-year-end-bc keeps its URL
+and in January is rewritten into the February "maximum just reset" piece. The
+grief holiday section and FAQ go live only when `FIRST_HOLIDAYS_CLEARED` in
+`lib/guides-more3.ts` is set to true after the owner's clinical read.
+`scripts/price-drift.mjs` ALLOW gains $600 (the remaining-balance example) and
+$1,000 (the CBA community health mental health maximum per calendar year).
+The SAD guide's social post was moved to the front of SOCIAL_QUEUE.md by hand;
+`npm run social` will put it back unless the slug is added to PRIORITY in
+`scripts/social-queue.mjs`.
+
+*Enforced by:* `test/seasonal.test.mts`, `scripts/price-drift.mjs`,
+`scripts/coverage-claims.mjs`
+
+---
+
+### Structured data reads the roster; couples work is Gottman-informed; a first session is built but off
+Decided 1 Oct 2026 (branch `wf/schema-profiles-admin`). Organization JSON-LD
+reads its provinces from the gated roster, so a lapsed liability policy
+removes Alberta sitewide at the next build, and `employee` lists only
+accepting, bookable counsellors, never the founder. The practice node no
+longer claims BCACC membership or the RCC (BCACC registers individuals; each
+Person carries her own), and the register search form is not a sameAs.
+Couples work is "Gottman-informed" everywhere the practice describes itself,
+and `scripts/lib/gottman-claims.mjs` fails a bare "Gottman Method" claim until
+a gottmanTraining level is recorded (owner item #67). Pages that are not her
+profile carry an inline Person, and Person.url is always the canonical
+profile. Profiles spell each credential out, name the CCC's certifier and say
+what an RCC means (`RCC_PLAIN`). "Already sure? Start with a first session" is
+built behind `site.directFirstSession = false`. **Owner to record** before
+flipping it: an entry here, a data/changes.json entry (a test enforces it) and,
+for couples, Camille's slug in `FIRST_SESSION_COUPLES`. A booking from that row
+is not yet credited to `first-session` as booked_via, because the paid
+calendar opens as its own page. /admin "Waiting on you" replaces the "Open, and
+owned by a person" table; flip `CLIENT_AGREEMENT_LIVE` / `PUNJABI_FORM_DECIDED`
+in `lib/waiting-on-you.ts` when those land.
+
+*Enforced by:* `scripts/schema-validate.mjs` with `scripts/lib/schema-checks.mjs`,
+`test/gottman-method-claims.test.mts`, `test/first-session.test.mts`,
+`test/profile-schema.test.mts`, `test/waiting-on-you.test.mts`
+
+---
+
+### Search finds the pages that book; forms are labelled; refusals are never shown as sent
+Decided 1 Oct 2026 (branch `wf/search-forms-a11y`). (1) A refused enquiry from
+a static confirmation flow goes to that flow's own static failure page
+(`FAILED_PAGE` in `lib/inbound-return.ts`). /punjabi refusals land on
+/punjabi/not-sent, English only and noindex, offering email and the
+Punjabi-speaking counsellor's calendar; /punjabi/sent never shows a refusal as
+"arrived". Whether /punjabi asks the three enquiry choices waits on owner item
+205; until then `test/inbound-forms.test.mts` records /punjabi as the one
+exempt form. (2) A danda ends a sentence for the enquiry word and sentence
+floor. (3) Site search indexes the pages that book: accepting counsellors (no
+registration numbers; the founder excluded by the accepting flag), city hubs
+with communities, city x service pages, conditions, /pricing, /book, /faq,
+/answers and the English language hubs. It matches whole words with stems and
+synonyms, and every synonym or phrase row in `lib/search-synonyms.ts` must cite
+the GSC query behind it. (4) The a11y gate requests the routes rendered on
+request and requires titled iframes and new-tab wording on those routes.
+/accessibility says exactly which pages are checked, not "every page". (5)
+Uppercase-path lowercasing in middleware was not shipped: on Vercel it would
+put every request through middleware unless the matcher's case-sensitivity is
+confirmed on a preview.
+
+*Enforced by:* `test/inbound-forms.test.mts`, `test/a11y-rules.test.mts`,
+`scripts/a11y-audit.mjs`, `scripts/smoke.mjs`
+
+---
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`
