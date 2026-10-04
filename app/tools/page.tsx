@@ -10,10 +10,13 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
 import { COLLECTION_DATES, lastmodFor } from '@/lib/page-dates';
 import Updated from '@/components/Updated';
+import BookLink from '@/components/BookLink';
+import { bookingFor } from '@/lib/booking-cta';
+import ToolCounsellors from '@/components/tools/ToolCounsellors';
 
 const TITLE = 'Free counselling tools | Westpeak Wellness';
 const DESC =
-  'Three short, private tools: which counselling fits, what it costs in BC after extended health, and a reflection on how things have been. Nothing stored.';
+  'Five short, private tools: which counselling fits, what it costs in BC, what you can access, burnout or depression, and how things have been. Nothing stored.';
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -58,14 +61,25 @@ export default function ToolsIndex() {
       <section className="hero" style={{ paddingBottom: 36 }}>
         <div className="container">
           <p className="eyebrow">Free · no sign-up</p>
-          <h1>Tools</h1>
+          <h1>Free counselling tools</h1>
           <Updated iso={lastmodFor('/tools')} />
           <p className="direct-answer">
-            Three short tools for the questions people ask before they book anything: which kind
+            Five short tools for the questions people ask before they book anything: which kind
             of counselling fits, what it costs in British Columbia once extended health is taken
-            into account, and a plain reflection on how the last few weeks have been. Each runs
-            entirely in your browser. Nothing is stored, nothing is sent, and none of them ask
-            for an email address.
+            into account, which routes are open to you and how soon, whether it looks more like
+            burnout or depression, and a plain reflection on how the last few weeks have been.
+            Each runs entirely in your browser. Nothing is stored, nothing is sent, and none of
+            them ask for an email address.
+          </p>
+          {/* The hub's only booking link sat under the grid, after five card
+              headings (4 Oct 2026). One quiet line in the hero, the same
+              shape the tool pages carry. */}
+          <p className="hero-note hero-coverage">
+            Rather skip the tools and ask a person?{' '}
+            <BookLink location="hero-tool" className="" href={bookingFor(undefined).href}>
+              Book a free 15-minute consultation
+            </BookLink>
+            .
           </p>
         </div>
       </section>
@@ -139,12 +153,20 @@ export default function ToolsIndex() {
             <p>
               If you are not sure counselling is the right thing at all, start with the{' '}
               <Link href="/tools/stress-check">reflection on how things have been</Link>. It is
-              the least committal of the three, and its job is to hand you language rather than a
+              the least committal of the five, and its job is to hand you language rather than a
               conclusion. If you have decided to go ahead but not what kind,{' '}
               <Link href="/tools/which-service">which kind of counselling fits</Link> sorts that in
               about two minutes. If the question is affordability rather than fit, go straight to{' '}
               <Link href="/tools/therapy-cost-bc">what counselling costs in BC</Link>, because the
               answer depends on your extended health plan rather than on anything published here.
+            </p>
+            <p>
+              If the question is whether it is the job or something that would follow you on
+              holiday, <Link href="/tools/burnout-or-depression">burnout or depression</Link> is
+              built around that one difference. And if you already know you want help and are
+              weighing an employee assistance programme, a public service or paying privately,{' '}
+              <Link href="/tools/what-can-i-access">what counselling you can access</Link> sorts
+              the routes by how quickly they tend to open.
             </p>
             <p>
               Prefer to read? The <Link href="/guides">counselling guides</Link> cover the same
@@ -155,6 +177,8 @@ export default function ToolsIndex() {
           </div>
         </div>
       </section>
+
+      <ToolCounsellors />
 
       <SceneBand seed={'tools'} />
 

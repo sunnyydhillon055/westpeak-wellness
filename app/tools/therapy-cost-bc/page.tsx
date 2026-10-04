@@ -39,6 +39,12 @@ export default function Page() {
     <>
     <ToolShell
       tool={tool}
+      heading="What therapy costs in BC after insurance"
+      consult={{
+        lead: 'Questions the estimate cannot answer can go to a counsellor in a',
+        label: 'free 15-minute consultation',
+        tail: ', before you pay for anything.',
+      }}
       intro={therapyCostAnswer({
         individual: fallbackFee('Individual Counselling'),
         couples: fallbackFee('Couples Counselling'),

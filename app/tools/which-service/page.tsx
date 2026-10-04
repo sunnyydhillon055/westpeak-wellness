@@ -33,6 +33,11 @@ export default function Page() {
     <>
     <ToolShell
       tool={tool}
+      consult={{
+        lead: 'Rather ask a person?',
+        label: 'Book a free 15-minute consultation',
+        tail: ', and a counsellor will check the starting point with you.',
+      }}
       intro={
         <>
           Five questions about what has been going on, and a suggested place to start. Some
