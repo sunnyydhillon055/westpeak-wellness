@@ -43,7 +43,7 @@ export const moreAudiences4: Audience[] = [
     },
     glance: {
       h2: 'At a glance for HR',
-      intro: 'The facts a benefits page or a manager’s toolkit needs, in one place. The fees and the consultation are read from the booking system, and where sessions are possible from the counsellors’ registration and insurance, so this list changes when they do. There is a [printable one-page version](/for/employers-and-hr/one-pager).',
+      intro: 'The facts a benefits page or a manager’s toolkit needs, in one place. The fees and the consultation are read from the booking system, and where sessions are possible from the counsellors’ registration and insurance, so this list changes when they do. There is a [printable one-page version](/for/employers-and-hr/one-pager), and for a staff room or reception desk, [four cut-out cards](/refer/handout) with the free consultation and the crisis lines.',
     },
     eyebrow: 'For employers and HR',
     lede:

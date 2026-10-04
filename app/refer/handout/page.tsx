@@ -115,7 +115,7 @@ export default async function ClinicHandout() {
         <section className="hero no-print" style={{ paddingBottom: 32 }}>
           <div className="container container--narrow">
             <p className="eyebrow">For the front desk</p>
-            <h1>Four cards to print and cut.</h1>
+            <h1>Four front-desk cards to print and cut.</h1>
             <p className="lede">
               For a clinic, a campus wellness office or an agency: one page, four identical
               cards, for the person who asks whether there is a counsellor they can see.
@@ -144,6 +144,22 @@ export default async function ClinicHandout() {
                 from a card. A physician who wants the longer summary, with scope limits and fees,
                 can have <Link href="/refer/doctor">the one-page sheet for doctors</Link>.
               </p>
+              {accepting.length ? (
+                <p>
+                  The card names nobody, because a printed card outlives a full caseload. Today the
+                  person would see{' '}
+                  {accepting.map((c, i) => (
+                    <span key={c.slug}>
+                      {i > 0 ? (i === accepting.length - 1 ? ' or ' : ', ') : null}
+                      <Link href={c.profilePath}>{c.letters}</Link> (in {c.languages.join(' or ')})
+                    </span>
+                  ))}
+                  . Each profile carries the registration number, and{' '}
+                  <Link href="/resources/verify-a-counsellor-in-bc">how to check a counsellor in
+                  BC</Link> shows where to look it up. The card gives only the free consultation;
+                  session fees and plan coverage are on <Link href="/pricing">the fees page</Link>.
+                </p>
+              ) : null}
             </div>
 
             <div className="handout-sheet" id="cards">
@@ -158,7 +174,9 @@ export default async function ClinicHandout() {
                 A counsellor whose own caseload is full can see who is accepting here at{' '}
                 <Link href="/refer/counsellors">for counsellors with a full caseload</Link>. A
                 clinic that wants a stack of these sent, or something worded differently, can
-                write to <MailLink where="refer" />.
+                write to <MailLink where="refer" />. For an employer, the same first facts for HR
+                with fees and plan wording are in{' '}
+                <Link href="/for/employers-and-hr/one-pager">the one-page summary for HR</Link>.
               </p>
             </div>
           </div>

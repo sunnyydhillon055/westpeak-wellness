@@ -130,6 +130,11 @@ export default function ForHub() {
               is written for exactly that position, and the{' '}
               <Link href="/guides">counselling guides</Link> cover the rest.
             </p>
+            <p>
+              If you are reading on someone else’s behalf, <Link href="/refer">passing it on</Link>{' '}
+              has what is useful to send a friend or a patient, and an HR or benefits lead can print{' '}
+              <Link href="/for/employers-and-hr/one-pager">the one-page summary for HR</Link>.
+            </p>
           </div>
         </div>
       </section>

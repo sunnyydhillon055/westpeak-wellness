@@ -10,7 +10,7 @@ import Figure from '@/components/Figure';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBasePunjabi } from '@/lib/og-meta';
 import { COLLECTION_DATES } from '@/lib/page-dates';
-import { punjabiRegions } from '@/lib/punjabi-regions';
+import { punjabiRegions, PA_INDEX_SCARCITY as SCARCITY, PA_INDEX_DISTANCE as DISTANCE } from '@/lib/punjabi-regions';
 import { practitioners, withLetters } from '@/lib/practitioners';
 import { placesFor } from '@/lib/practitioner-places';
 import { PA_CITY, getPunjabiPlace } from '@/lib/practitioner-places-pa';
@@ -83,9 +83,6 @@ const PA: Record<string, { name: string; line: string }> = {
     line: 'ਉੱਤਰੀ ਬੀ.ਸੀ. ਵਿੱਚ ਪੰਜਾਬੀ ਵਿੱਚ ਕਾਊਂਸਲਿੰਗ ਦਾ ਸਥਾਨਕ ਬਦਲ ਲਗਭਗ ਕੋਈ ਨਹੀਂ। ਇਹ ਪੰਨਾ ਉਸ ਸੱਚ ਤੋਂ ਸ਼ੁਰੂ ਹੁੰਦਾ ਹੈ।',
   },
 };
-
-const SCARCITY = ['kelowna', 'kamloops', 'prince-george'];
-const DISTANCE = ['surrey', 'abbotsford', 'vancouver'];
 
 export default function PunjabiRegionsPage() {
   const speaker = practitioners.find((p) => p.acceptingNewClients && p.languages.some((l) => l.tag === 'pa') && p.placePages);
@@ -258,6 +255,13 @@ export default function PunjabiRegionsPage() {
               <Link href="/punjabi-counselling/kelowna">Kelowna</Link>,{' '}
               <Link href="/punjabi-counselling/kamloops">Kamloops</Link> and{' '}
               <Link href="/punjabi-counselling/prince-george">Prince George</Link>.
+            </p>
+            <p lang="en" style={{ fontSize: '.92rem', color: 'var(--ink-faint)' }}>
+              The first step is a free 15-minute video consultation. Session fees and what
+              extended-health plans cover are on <Link href="/pricing">the fees and coverage page</Link>,
+              anyone can <Link href="/resources/verify-a-counsellor-in-bc">check a counsellor’s
+              registration in BC</Link> before booking, and a question in Punjabi or English can go
+              through <Link href="/contact">the contact form</Link>.
             </p>
           </div>
         </div>

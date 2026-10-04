@@ -355,7 +355,10 @@ export default async function BringToYourDoctor() {
               For the front desk, <Link href="/refer/handout">a sheet of four cut-out cards</Link>{' '}
               carries the booking address and the crisis lines. Counsellors whose own caseload is
               full can see who is accepting and how to pass a client on at{' '}
-              <Link href="/refer/counsellors">for counsellors with a full caseload</Link>.
+              <Link href="/refer/counsellors">for counsellors with a full caseload</Link>. Where a
+              leave or a return to work brings the employer in, their HR team can have{' '}
+              <Link href="/for/employers-and-hr/one-pager">the one-page summary for HR</Link>, which
+              explains what an employer receives (nothing, without the employee’s written consent).
             </p>
             <p>
               Where this practice is not the right fit, saying so is the normal outcome of a
