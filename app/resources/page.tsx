@@ -100,7 +100,9 @@ export default function ResourcesHub() {
           <p style={{ marginTop: 32 }}>
             Looking for something else? The <Link href="/guides">counselling guides</Link> cover
             what therapy involves, and <Link href="/compare">the comparisons</Link> cover choosing
-            between options.
+            between options. For a single question, such as whether a plan covers an RCC or whether
+            a December receipt can be claimed in January, <Link href="/answers">the searchable list of answered questions</Link>{' '}
+            gathers the short answer from every resource and links back to the one it came from.
           </p>
         </div>
       </section>

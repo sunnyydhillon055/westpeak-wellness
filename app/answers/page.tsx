@@ -2,11 +2,13 @@ import type { Metadata } from 'next';
 import './answers.css';
 import Link from 'next/link';
 import { site } from '@/lib/site';
-import { abs, orgRef, siteRef } from '@/lib/schema';
+import { abs, orgRef, siteRef, webPage } from '@/lib/schema';
 import { ogBase } from '@/lib/og-meta';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import CtaBand from '@/components/CtaBand';
 import Updated from '@/components/Updated';
+import BookLink from '@/components/BookLink';
+import { bookingFor } from '@/lib/booking-cta';
 import { COLLECTION_DATES } from '@/lib/page-dates';
 import { buildAnswers, TOPICS } from '@/lib/answers';
 import { practitioners } from '@/lib/practitioners';
@@ -45,6 +47,18 @@ export const metadata: Metadata = {
 
 export default function AnswersPage() {
   const schema = [
+    /* The page is an index of the site's answers, so it says so: a
+       CollectionPage, with the FAQPage below as the list it holds. */
+    {
+      ...webPage({
+        path: '/answers',
+        name: TITLE,
+        description: DESC,
+        updated: COLLECTION_DATES['faq'],
+        type: 'CollectionPage',
+      }),
+      mainEntity: { '@id': abs('/answers#faq') },
+    },
     {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
@@ -83,7 +97,7 @@ export default function AnswersPage() {
       <section className="hero" style={{ paddingBottom: 30 }}>
         <div className="container">
           <p className="eyebrow">Instant answers · {answers.length} questions</p>
-          <h1>Ask it here first.</h1>
+          <h1>Your counselling questions, answered in one place.</h1>
           <p className="lede">
             Every question this practice answers anywhere on the site, in one place. Start typing and
             the list narrows to what matches; each answer links to the page that says more.
@@ -95,6 +109,18 @@ export default function AnswersPage() {
             choose between a counsellor, a psychologist and a psychiatrist, and what each counsellor
             would say to the questions people ask before booking. Anything not here can be asked at
             the consultation, or by message with a reply within one business day.
+          </p>
+          {/* A visible way to ask a person (wf/s7-answers, 4 Oct 2026): the
+              page's only booking link sat in the search-miss message, hidden
+              until a search found nothing. No service, language or province
+              applies here, so bookingFor gives the bare /book, where the
+              reader chooses. */}
+          <p style={{ marginTop: 18 }}>
+            Would you rather ask a person?{' '}
+            <BookLink location="hero-answers" className="" href={bookingFor(undefined).href}>
+              Book the free 15-minute consultation
+            </BookLink>{' '}
+            and bring the question with you.
           </p>
           <Updated iso={COLLECTION_DATES['faq']} />
         </div>
@@ -130,7 +156,7 @@ export default function AnswersPage() {
               <details className="faq-item ans" key={i} data-topic={x.topic}>
                 <summary>{x.q}</summary>
                 <p>{x.a}</p>
-                <p style={{ fontSize: '.88rem', color: 'var(--ink-soft)', margin: '6px 0 0' }}>
+                <p className="ans-from">
                   From <Link href={x.href}>{x.from}</Link>
                 </p>
               </details>

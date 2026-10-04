@@ -111,6 +111,8 @@ export default async function Contact({
             If you already know you want to start, the fastest route is to{' '}
             <Link href={site.bookingPath}>book a free 15-minute consultation</Link> directly. The
             form above is better for questions you want answered before committing to a call.
+            General ones, such as what a session costs or what happens in a first session, may
+            already be answered on <Link href="/answers">the instant answers page</Link>.
           </p>
 
           <div className="prose" style={{ marginTop: 36 }}>

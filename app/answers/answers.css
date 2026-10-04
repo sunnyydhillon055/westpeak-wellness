@@ -71,3 +71,8 @@
 @media (prefers-reduced-motion: reduce) {
   .answers-list dt a::after { transition: none; }
 }
+
+/* The source line under each answer. A class, not an inline style: the
+   style object was repeated in the HTML and again in the RSC payload for
+   every one of several hundred answers (wf/s7-answers, 4 Oct 2026). */
+.faq-item .ans-from { font-size: .88rem; color: var(--ink-soft); margin: 6px 0 0; }
