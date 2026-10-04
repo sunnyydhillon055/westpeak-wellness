@@ -97,7 +97,8 @@ export function deployUrls({ changed, removed, retired }, origin = ORIGIN) {
   return paths.map((p) => `${origin}${p === '/' ? '/' : p}`).slice(0, MAX_URLS);
 }
 
-const git = (args) => execFileSync('git', args, { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
+/* stderr is dropped: a file missing at a commit is an answer here, not an error. */
+const git = (args) => execFileSync('git', args, { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024, stdio: ['ignore', 'pipe', 'ignore'] });
 
 /** The file at a commit, or null when it did not exist there. */
 function fileAt(sha, path) {
