@@ -4110,5 +4110,1675 @@
       "title": "Page not found | Westpeak Wellness",
       "desc": "That page has moved or never existed. Search the site, or jump to services, fees, guides or booking."
     }
+  },
+  "2026-10-04": {
+    "/about": {
+      "title": "About Westpeak Wellness: Counselling in BC and Alberta",
+      "desc": "A virtual counselling practice serving all of British Columbia. Therapy in English, Punjabi or Tagalog with Registered Clinical Counsellors."
+    },
+    "/accessibility": {
+      "title": "Accessibility | Westpeak Wellness",
+      "desc": "How this website is built for assistive technology, and the practical accommodations available in sessions, including what this practice cannot yet do."
+    },
+    "/alberta": {
+      "title": "Page not found | Westpeak Wellness",
+      "desc": "That page has moved or never existed. Search the site, or jump to services, fees, guides or booking."
+    },
+    "/answers": {
+      "title": "Instant answers to 570+ counselling questions | Westpeak",
+      "desc": "Every question this practice answers, in one searchable place: cost and coverage, first sessions, stress leave, choosing a counsellor. Type to find yours."
+    },
+    "/approaches/acceptance-and-commitment-therapy": {
+      "title": "What Is Acceptance and Commitment Therapy? | Westpeak",
+      "desc": "What ACT does differently from CBT, why it targets the struggle rather than the symptom, and who it tends to suit when other approaches have stalled."
+    },
+    "/approaches/cognitive-behavioural-therapy": {
+      "title": "CBT Explained | Westpeak Wellness",
+      "desc": "What CBT actually involves session by session, what the evidence supports it for, where it works poorly, and how to tell it is being done properly."
+    },
+    "/approaches/dbt-informed-skills": {
+      "title": "DBT-Informed Skills | Westpeak Wellness",
+      "desc": "The difference between full DBT and DBT-informed individual work, which skills transfer, and when the full programme is what you actually need."
+    },
+    "/approaches/internal-family-systems": {
+      "title": "Internal Family Systems (IFS) | Westpeak",
+      "desc": "What parts work involves, why it suits people who feel divided against themselves, and an honest account of where its evidence base currently stands."
+    },
+    "/approaches/mindfulness-based-approaches": {
+      "title": "Mindfulness-Based Therapy | Westpeak",
+      "desc": "What MBCT and MBSR actually are, what the evidence supports them for, and the specific situations where mindfulness practice is a poor idea."
+    },
+    "/approaches/somatic-therapy": {
+      "title": "Somatic Therapy Explained | Westpeak",
+      "desc": "Why trauma work involves the body, what somatic sessions actually consist of, and how to tell a careful body-based practitioner from an unqualified one."
+    },
+    "/approaches": {
+      "title": "Counselling Approaches Explained | Westpeak",
+      "desc": "What CBT, ACT, IFS, somatic work, DBT skills and mindfulness-based programmes actually involve, including where each one works poorly."
+    },
+    "/compare/cbt-vs-emdr-for-trauma": {
+      "title": "CBT vs EMDR for Trauma | Westpeak Wellness",
+      "desc": "Two evidence-based trauma treatments compared: how each works, how much you have to talk, and which tends to suit what."
+    },
+    "/compare/efap-vs-private-counselling": {
+      "title": "EAP vs Therapy: Which to Use | Westpeak Wellness",
+      "desc": "What an EAP or EFAP actually gives you, where the session cap bites, and how to use the free route and a private counsellor in the right order."
+    },
+    "/compare/emdr-intensive-vs-weekly-emdr": {
+      "title": "EMDR Intensives vs Weekly EMDR | Westpeak Wellness",
+      "desc": "Same therapy, two schedules. What an EMDR intensive actually is, when concentrated sessions make sense, and when weekly pacing is the safer choice."
+    },
+    "/compare/gottman-method-vs-eft-for-couples": {
+      "title": "Gottman Method vs EFT for Couples | Westpeak Wellness",
+      "desc": "The two best-researched couples approaches differ in where they start: observable patterns or underlying attachment. What each looks like in the room."
+    },
+    "/compare/individual-vs-couples-therapy": {
+      "title": "Individual vs Couples Therapy | Westpeak Wellness",
+      "desc": "When relationship difficulty is better addressed individually, when couples sessions make more sense, and when to do both."
+    },
+    "/compare/psychiatrist-vs-counsellor-bc": {
+      "title": "Psychiatrist vs Counsellor in BC | Westpeak Wellness",
+      "desc": "One is a physician reached by referral and covered by MSP; one you can book this week. What each actually does, and how the two roads combine."
+    },
+    "/compare/psychologist-vs-psychiatrist-bc": {
+      "title": "Psychologist vs Psychiatrist in BC | Westpeak",
+      "desc": "One is a physician reached by referral and covered by MSP; one is a doctoral clinician you book privately. Who does what in BC, and who to see first."
+    },
+    "/compare/rcc-vs-psychologist-vs-social-worker-bc": {
+      "title": "RCC vs Psychologist: What Is the Difference in BC?",
+      "desc": "A psychologist can diagnose and charges more; an RCC cannot. Many plans cover both without a referral, depending on the plan. Training, fees and fit."
+    },
+    "/compare/therapy-apps-ai-vs-counselling": {
+      "title": "Is an AI Therapy Chatbot as Good as Counselling?",
+      "desc": "For tracking a mood and practising a skill at 2am, they are good. For anything relational, they stop. Where the line is, from a practice that uses both."
+    },
+    "/compare/therapy-in-punjabi-vs-english": {
+      "title": "Therapy in Punjabi vs English | Westpeak Wellness",
+      "desc": "For bilingual Punjabi speakers, which language therapy happens in changes what can be said. When each fits, and why switching mid-session is allowed."
+    },
+    "/compare/therapy-in-tagalog-vs-english": {
+      "title": "Therapy in Tagalog vs English | Westpeak Wellness",
+      "desc": "For bilingual Filipinos in BC, which language therapy happens in changes what can be said. When each fits, why Taglish is allowed, and where to find it."
+    },
+    "/compare/therapy-medication-or-both": {
+      "title": "Therapy, Medication, or Both? | Westpeak Wellness",
+      "desc": "What each option does, who decides, and how the choice is usually made. General information only, medication decisions belong with a prescriber."
+    },
+    "/compare/therapy-vs-coaching": {
+      "title": "Therapy vs Coaching | Westpeak Wellness",
+      "desc": "Coaching and counselling overlap in the room and differ completely in accountability. What each is for, and the questions that separate them."
+    },
+    "/compare/weekly-vs-biweekly-sessions": {
+      "title": "Weekly vs Biweekly Therapy | Westpeak Wellness",
+      "desc": "Session frequency is a clinical decision, not an administrative one. When weekly matters, when fortnightly is fine, and how cost fits in honestly."
+    },
+    "/compare": {
+      "title": "Compare Your Options | Westpeak Wellness",
+      "desc": "Straight comparisons for people deciding about therapy in BC: types of therapist, formats, and approaches, with the trade-offs stated plainly."
+    },
+    "/editorial-policy": {
+      "title": "Editorial Policy | Westpeak Wellness",
+      "desc": "Who writes the guides on this site, what counts as a source, how often pages are reviewed, and what this site will never publish."
+    },
+    "/faq": {
+      "title": "Frequently Asked Questions | Westpeak Wellness",
+      "desc": "Answers about online counselling in BC: booking, fees, extended health coverage, Punjabi sessions, confidentiality, and what to expect."
+    },
+    "/for/couples": {
+      "title": "Counselling for Couples in BC | Westpeak Wellness",
+      "desc": "Online couples counselling across BC, the same fight on repeat, drifting apart, rebuilding after a breach, and deciding whether to continue."
+    },
+    "/for/employers-and-hr/one-pager": {
+      "title": "One-page summary for HR | Westpeak Wellness",
+      "desc": "A printable page for HR and benefits leads in BC: the counsellors, fees, the free consultation, what a receipt carries, plan wording and confidentiality."
+    },
+    "/for/employers-and-hr": {
+      "title": "Workplace Mental Health Support for BC Employers and Teams",
+      "desc": "For BC employers and HR: how counselling is paid for, what you may ask, a note for managers and one for your broker, and what this practice offers a team."
+    },
+    "/for/family-caregivers": {
+      "title": "Counselling for Family Caregivers BC | Westpeak",
+      "desc": "Online counselling for people caring for an aging or ill parent in BC, the anticipatory grief, the resentment nobody admits to, and the sibling problem."
+    },
+    "/for/filipino-canadian-families": {
+      "title": "Counselling for Filipino-Canadian Families in BC | Westpeak",
+      "desc": "Counselling in Tagalog or English for Filipino-Canadian adults and families in BC: hiya, utang na loob, the eldest daughter, talking to parents about it."
+    },
+    "/for/filipino-healthcare-workers-and-caregivers": {
+      "title": "Counselling for Filipino Healthcare Workers in BC | Westpeak",
+      "desc": "Counselling in Tagalog or English for Filipino nurses, care aides and caregivers in BC, online around shifts. Burnout, family abroad, being the one who copes."
+    },
+    "/for/first-gen-south-asian-adults": {
+      "title": "South Asian Counselling in BC | Westpeak Wellness",
+      "desc": "Online counselling in Punjabi or English for South Asian adults in BC: family expectation, duty, identity, and generational silence."
+    },
+    "/for/first-responders": {
+      "title": "Counselling for First Responders in BC | Westpeak Wellness",
+      "desc": "Counselling for BC police, firefighters, paramedics, dispatchers and corrections staff, online around shifts. Trauma, EMDR and the WorkSafeBC presumption."
+    },
+    "/for/healthcare-and-shift-workers": {
+      "title": "Counselling for Shift Workers BC | Westpeak Wellness",
+      "desc": "Online counselling for nurses, care aides, first responders, and shift workers across BC: burnout, moral injury, and sleep disruption."
+    },
+    "/for/international-students": {
+      "title": "Counselling for International Students in BC | Westpeak",
+      "desc": "Online counselling for international students in BC: what your health plan covers, where campus counselling stops, and how to book without a family doctor."
+    },
+    "/for/men": {
+      "title": "Counselling for Men in BC | Online, Direct | Westpeak",
+      "desc": "Counselling for men across BC by video: anger, stress, burnout, drinking that crept up, a relationship on the edge. Free 30-minute consultation."
+    },
+    "/for/new-parents": {
+      "title": "Counselling for New Parents in BC | Westpeak Wellness",
+      "desc": "Counselling for new moms and dads across BC: postpartum depression and anxiety, identity shift, and relationship strain. Free 30-minute consultation."
+    },
+    "/for/newcomers-to-canada": {
+      "title": "Counselling for Newcomers to Canada in BC | Westpeak",
+      "desc": "Counselling for immigrants and international workers in BC, online in English, Punjabi or Tagalog. Settlement stress, family far away, how coverage works."
+    },
+    "/for/punjabi-speaking-couples": {
+      "title": "Punjabi Couples Counselling in BC | Westpeak Wellness",
+      "desc": "Couples counselling online across BC for a marriage involving two families. Joint sessions run in English; individual sessions in Punjabi are available."
+    },
+    "/for/rotational-and-camp-workers": {
+      "title": "Counselling for Camp Workers BC | Westpeak",
+      "desc": "Online counselling built around rotation schedules: two weeks in, two weeks out, no local counsellor, and the re-entry problem nobody warns you about."
+    },
+    "/for/south-asian-intergenerational-conflict": {
+      "title": "Intergenerational Conflict Counselling in Punjabi | BC",
+      "desc": "Counselling in Punjabi or English for South Asian families where both sides are reasonable and neither can hear the other. Online across BC."
+    },
+    "/for/teachers": {
+      "title": "Counselling for Teachers in BC | Westpeak Wellness",
+      "desc": "Counselling for BC teachers and TTOCs. The September cliff, classroom load, marking that eats evenings, and whether to stay in the profession."
+    },
+    "/for/tech-workers": {
+      "title": "Counselling for Tech Workers in BC | Westpeak",
+      "desc": "Counselling for BC tech workers: layoff cycles and survivor guilt, performance-review dread, work-permit stress, and remote isolation. Online, by video."
+    },
+    "/for/teens-and-young-adults": {
+      "title": "Counselling for Teens and Young Adults in BC | Westpeak",
+      "desc": "Online counselling for teens and young adults across BC: anxiety, school pressure, identity, family. How consent works for a teen, and what a parent is told."
+    },
+    "/for/trades-and-construction-workers": {
+      "title": "Counselling for Trades Workers in BC | Westpeak Wellness",
+      "desc": "Counselling for BC tradespeople and construction workers, online after the shift. Pain, injury, drinking, and a body that is the paycheque."
+    },
+    "/for/truck-drivers": {
+      "title": "Counselling for Truck Drivers in BC | Westpeak Wellness",
+      "desc": "Online counselling that books around a run: from the cab, in Punjabi or English, between loads. For long-haul and local drivers in BC."
+    },
+    "/for/university-students": {
+      "title": "Counselling for BC Students | Westpeak Wellness",
+      "desc": "Online counselling for post-secondary students across BC: anxiety, burnout, family expectation, and the free options worth using first."
+    },
+    "/for/women": {
+      "title": "Counselling for Women in BC | Westpeak Wellness",
+      "desc": "Online counselling for women across BC, the invisible load, anger with nowhere to go, caregiving, and identity after a life transition."
+    },
+    "/for": {
+      "title": "Who We Work With | Westpeak Wellness",
+      "desc": "Online counselling across BC for new parents, students, shift workers, and others, written for the specific pressures each group carries."
+    },
+    "/glossary": {
+      "title": "Counselling Terms Glossary | Westpeak Wellness",
+      "desc": "Plain-language definitions of the therapy, mental-health and BC coverage terms you will meet when looking for a counsellor, without the jargon."
+    },
+    "/guides/adhd-in-adults-and-what-counselling-can-do": {
+      "title": "Adult ADHD in BC: Assessment, Diagnosis, Counselling",
+      "desc": "How assessment works in BC, what it costs, and the honest boundary between what a counsellor can help with and what needs a psychologist or physician."
+    },
+    "/guides/anger-that-arrives-too-fast": {
+      "title": "Anger That Arrives Too Fast | Westpeak Wellness",
+      "desc": "Why anger outruns thought, what it is usually protecting, and what actually reduces it, beyond counting to ten, which does not work."
+    },
+    "/guides/anxiety-and-sleep": {
+      "title": "Anxiety and Sleep | Westpeak Wellness",
+      "desc": "Why anxiety peaks at night, how sleep loss feeds it back, and which parts of the loop are actually treatable rather than just endured."
+    },
+    "/guides/anxiety-attack-vs-panic-attack": {
+      "title": "Anxiety Attack vs Panic Attack | Westpeak Wellness",
+      "desc": "Panic attacks are a defined clinical term; anxiety attacks are not. What separates them, why it matters, and what helps in the moment."
+    },
+    "/guides/burnout-vs-depression": {
+      "title": "Burnout vs Depression: The Difference | Westpeak Wellness",
+      "desc": "Burnout is an occupational phenomenon, not a medical diagnosis. How it differs from depression, where they overlap, and what each needs."
+    },
+    "/guides/chronic-illness-and-mood": {
+      "title": "Chronic Illness and Mood | Westpeak Wellness",
+      "desc": "Why low mood with a chronic condition is not a reaction, the grief involved, and what counselling can address when the illness will not change."
+    },
+    "/guides/doctors-note-for-a-mental-health-leave": {
+      "title": "Doctor’s Note for a Mental-Health or Stress Leave in BC",
+      "desc": "What to say to your doctor, what the note for a mental-health or stress leave in BC must and must not contain, and what to do with no family doctor."
+    },
+    "/guides/does-couples-therapy-work": {
+      "title": "Does Couples Therapy Work? | Westpeak Wellness",
+      "desc": "What the research shows about couples therapy, what makes it more or less likely to help, and the single biggest predictor of a poor outcome."
+    },
+    "/guides/ei-sickness-benefits-and-therapy": {
+      "title": "How Much Does Medical EI Pay in BC? 55% to $729",
+      "desc": "55% of insurable earnings, to $729 a week in 2026, for up to 26 weeks. Who qualifies, the medical certificate, and how to apply without losing weeks."
+    },
+    "/guides/grief-without-a-timeline": {
+      "title": "How Long Before Bereavement Counselling? No Rule",
+      "desc": "There is no waiting period before grief counselling, and no month it is too late. Why the five stages are not a schedule, and when to bring grief to someone."
+    },
+    "/guides/health-anxiety": {
+      "title": "Health Anxiety | Westpeak Wellness",
+      "desc": "Why reassurance stops working, how checking and searching maintain health anxiety, and what treatment involves, with the medical caveats stated properly."
+    },
+    "/guides/high-functioning-anxiety": {
+      "title": "High-Functioning Anxiety: Signs | Westpeak Wellness",
+      "desc": "High-functioning anxiety is not a diagnosis, but the pattern is real: driven, capable, and exhausted. What it looks like and what helps."
+    },
+    "/guides/how-long-does-therapy-take": {
+      "title": "How Long Does Therapy Take? | Westpeak Wellness",
+      "desc": "Why session counts vary so much, what makes therapy shorter or longer, and how to tell whether you are making progress or just attending."
+    },
+    "/guides/how-the-gottman-method-works": {
+      "title": "How the Gottman Method Works, and Who Uses It in BC",
+      "desc": "The research behind the Gottman Method, the Four Horsemen, what an assessment involves, and what couples actually do in session."
+    },
+    "/guides/how-to-find-a-therapist-in-bc": {
+      "title": "How to Find a Therapist in BC | Westpeak Wellness",
+      "desc": "Where to look for a therapist in BC, how to verify a credential with the regulator, what free options exist, and what to ask before booking."
+    },
+    "/guides/imposter-feelings-at-work": {
+      "title": "Imposter Feelings at Work | Westpeak",
+      "desc": "Why achievement does not resolve imposter feelings, the specific costs they carry, and what changes them when reassurance does not."
+    },
+    "/guides/intergenerational-trauma-explained": {
+      "title": "Intergenerational Trauma Explained | Westpeak Wellness",
+      "desc": "How trauma travels between generations through behaviour, silence, and family rules, and what can be worked with in therapy."
+    },
+    "/guides/intrusive-thoughts-and-what-they-mean": {
+      "title": "Intrusive Thoughts Explained | Westpeak",
+      "desc": "Why almost everyone has disturbing unwanted thoughts, why the content is not the problem, and what makes them stick for some people and not others."
+    },
+    "/guides/is-online-therapy-as-effective-as-in-person": {
+      "title": "Is Online Therapy as Effective? | Westpeak Wellness",
+      "desc": "What the research says about video therapy versus in-person, where the evidence is strongest, and the trade-offs worth knowing before you book."
+    },
+    "/guides/life-transitions-and-identity": {
+      "title": "Life Transitions &amp; Identity | Westpeak",
+      "desc": "Why transitions that look positive can be destabilising, why the difficult part often arrives months later, and what the work actually involves."
+    },
+    "/guides/loneliness-in-adulthood": {
+      "title": "Loneliness in Adulthood | Westpeak Wellness",
+      "desc": "Why adult friendship gets harder after thirty, why loneliness is so difficult to admit, and what actually rebuilds connection rather than just advising it."
+    },
+    "/guides/low-mood-through-a-bc-winter": {
+      "title": "Seasonal Depression (SAD) in a BC Winter | Westpeak",
+      "desc": "Seasonal depression (SAD) in a BC winter: why the coast and the north differ, what helps with seasonal low mood, and when it is more than the weather."
+    },
+    "/guides/money-stress-and-mental-health": {
+      "title": "Money Stress &amp; Mental Health | Westpeak",
+      "desc": "Why financial strain affects mental health so directly, why shame keeps it unspoken, and what counselling can and cannot do about it."
+    },
+    "/guides/panic-attacks-at-work": {
+      "title": "Panic Attacks at Work | Westpeak Wellness",
+      "desc": "Getting through one without leaving, why the fear of the next one becomes the real problem, and what to say to a manager if you decide to say anything."
+    },
+    "/guides/perfectionism-and-self-criticism": {
+      "title": "Perfectionism &amp; Self-Criticism | Westpeak",
+      "desc": "Why perfectionism is so hard to give up when the world keeps rewarding it, and why the standard is rarely the part that needs to change."
+    },
+    "/guides/procrastination-that-is-not-laziness": {
+      "title": "Procrastination Explained | Westpeak Wellness",
+      "desc": "Why procrastination is an emotion-regulation problem rather than a time-management one, and what actually works once you know that."
+    },
+    "/guides/questions-to-ask-a-therapist": {
+      "title": "Questions to Ask a Therapist | Westpeak Wellness",
+      "desc": "A consultation goes both ways. The questions that actually tell you something, the answers to be wary of, and what you never have to justify."
+    },
+    "/guides/return-to-work-after-a-mental-health-leave": {
+      "title": "Going Back to Work After Mental-Health or Stress Leave",
+      "desc": "Graduated returns, accommodations and BC’s duty to accommodate: how to go back after a mental-health or stress leave without rebuilding the collapse you left."
+    },
+    "/guides/setting-boundaries-with-family": {
+      "title": "What Are Family Boundaries, and How to Set One",
+      "desc": "A boundary is a rule about what you will do, not a rule for them. Why the usual advice fails with family, and how to hold one without their agreement."
+    },
+    "/guides/sick-days-and-mental-health-days-bc": {
+      "title": "Can You Use Sick Days for Mental Health in BC? (2026)",
+      "desc": "BC’s paid sick days cover mental health. How the 5 ESA days work, what proof an employer can ask for, and when a mental-health day is a signal, not a fix."
+    },
+    "/guides/signs-it-might-be-time-for-therapy": {
+      "title": "Signs It Might Be Time for Therapy | Westpeak",
+      "desc": "Most people wait far longer than they needed to. The signals worth taking seriously, and why &quot;it is not bad enough&quot; is the wrong test."
+    },
+    "/guides/social-anxiety-in-adults": {
+      "title": "Social Anxiety in Adults | Westpeak Wellness",
+      "desc": "Why social anxiety is frequently invisible from outside, the safety behaviours that keep it running, and what actually reduces it in adulthood."
+    },
+    "/guides/stress-leave-bc": {
+      "title": "Stress or Mental Health Leave in BC: How to Apply, Paid?",
+      "desc": "How to apply for stress leave in BC, step by step: who signs it (a doctor or NP, not a counsellor), whether it is paid, how long it runs, and where EI fits."
+    },
+    "/guides/supporting-someone-who-is-struggling": {
+      "title": "Supporting Someone Struggling | Westpeak",
+      "desc": "What actually helps when someone you love is not coping, what to say instead of advice, and how to raise the subject of professional help."
+    },
+    "/guides/talking-to-your-family-about-therapy": {
+      "title": "Telling Family About Therapy | Westpeak Wellness",
+      "desc": "You do not owe anyone this information. If you decide to share it, here is how to do it without handing over more than you meant to."
+    },
+    "/guides/waiting-for-therapy-in-bc": {
+      "title": "How Long Is the Wait for Therapy in BC? Public vs Private",
+      "desc": "Months for public counselling, days for private. Which services have no wait at all, what genuinely helps meanwhile, and how to keep your place on the list."
+    },
+    "/guides/what-is-emdr-and-how-a-session-works": {
+      "title": "What Is EMDR &amp; How Sessions Work | Westpeak Wellness",
+      "desc": "A plain explanation of EMDR therapy. The eight phases, what bilateral stimulation is, how it works online, and who it suits."
+    },
+    "/guides/what-to-expect-first-therapy-session": {
+      "title": "What to Expect: First Therapy Session | Westpeak Wellness",
+      "desc": "What a first counselling session involves, what you will be asked, what you do not have to share, and how to tell whether it is a fit."
+    },
+    "/guides/what-trauma-actually-means": {
+      "title": "What Trauma Actually Means | Westpeak Wellness",
+      "desc": "The word has stretched to cover everything and therefore nothing. What clinicians mean by trauma, why the event is not the measure, and what follows."
+    },
+    "/guides/when-someone-you-love-is-drinking": {
+      "title": "When Someone You Love Is Drinking | Westpeak",
+      "desc": "What helps and what reliably does not when a family member is drinking, why ultimatums usually fail, and support available to you in your own right."
+    },
+    "/guides/when-therapy-isnt-working": {
+      "title": "When Therapy Is Not Working | Westpeak Wellness",
+      "desc": "How to tell the difference between therapy that is hard and therapy that is stuck, how to raise it, and when changing counsellor is the right call."
+    },
+    "/guides/workplace-bullying-in-bc": {
+      "title": "Workplace Bullying in BC | Westpeak",
+      "desc": "How BC defines workplace bullying, what employers are legally required to do, how to document it, and what counselling can address while it continues."
+    },
+    "/guides": {
+      "title": "Counselling Guides | Westpeak Wellness",
+      "desc": "Plain-language guides to therapy in BC: what the research says, what to expect, and how to decide. Written by a Registered Clinical Counsellor."
+    },
+    "/": {
+      "title": "Online Counselling in BC | Westpeak Wellness",
+      "desc": "Online counselling across BC with a Registered Clinical Counsellor, in English, Punjabi or Tagalog. Couples and EMDR therapy in English or Tagalog."
+    },
+    "/message-sent": {
+      "title": "Your message has arrived | Westpeak Wellness",
+      "desc": "Confirmation that your message reached Westpeak Wellness."
+    },
+    "/online-counselling/abbotsford/anxiety-counselling": {
+      "title": "Anxiety Counselling in Abbotsford, BC | Westpeak Wellness",
+      "desc": "Anxiety Counselling and Therapy for Abbotsford, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/abbotsford/couples-therapy": {
+      "title": "Marriage Counselling in Abbotsford, BC | Westpeak Wellness",
+      "desc": "Couples and Marriage Counselling for Abbotsford, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog."
+    },
+    "/online-counselling/abbotsford/depression-counselling": {
+      "title": "Depression Counselling in Abbotsford, BC | Westpeak Wellness",
+      "desc": "Depression Counselling and Therapy for Abbotsford, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/abbotsford/emdr-therapy": {
+      "title": "EMDR Therapy in Abbotsford, BC | Westpeak Wellness",
+      "desc": "EMDR Therapy for Abbotsford, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog. Free 30-minute consultation."
+    },
+    "/online-counselling/abbotsford/trauma-therapy": {
+      "title": "Trauma Therapy in Abbotsford, BC | Westpeak Wellness",
+      "desc": "Trauma Therapy and Counselling for Abbotsford, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/abbotsford": {
+      "title": "Online &amp; Virtual Counselling in Abbotsford | Counsellors",
+      "desc": "Online counselling for Abbotsford with a Punjabi-speaking counsellor. From $140 per 50-min session · free 30-min consult · Camille Granda or Savneet Singh."
+    },
+    "/online-counselling/burnaby/anxiety-counselling": {
+      "title": "Anxiety Counselling in Burnaby, BC | Westpeak Wellness",
+      "desc": "Anxiety Counselling and Therapy for Burnaby, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/burnaby/couples-therapy": {
+      "title": "Couples Therapy in Burnaby, BC | Westpeak Wellness",
+      "desc": "Couples and Marriage Counselling for Burnaby, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog."
+    },
+    "/online-counselling/burnaby/depression-counselling": {
+      "title": "Depression Counselling in Burnaby, BC | Westpeak Wellness",
+      "desc": "Depression Counselling and Therapy for Burnaby, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/burnaby/emdr-therapy": {
+      "title": "EMDR Therapy in Burnaby, BC | Westpeak Wellness",
+      "desc": "EMDR Therapy for Burnaby, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog. Free 30-minute consultation."
+    },
+    "/online-counselling/burnaby/trauma-therapy": {
+      "title": "Trauma Therapy in Burnaby, BC | Westpeak Wellness",
+      "desc": "Trauma Therapy and Counselling for Burnaby, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/burnaby": {
+      "title": "Online &amp; Virtual Counselling in Burnaby | Counsellors",
+      "desc": "Online counselling for Burnaby, BC. From $140 per 50-min session · free 30-min consult · Camille Granda or Savneet Singh."
+    },
+    "/online-counselling/campbell-river/anxiety-counselling": {
+      "title": "Anxiety Counselling in Campbell River | Westpeak Wellness",
+      "desc": "Anxiety Counselling and Therapy for Campbell River, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/campbell-river/couples-therapy": {
+      "title": "Couples Therapy in Campbell River, BC | Westpeak Wellness",
+      "desc": "Couples and Marriage Counselling for Campbell River, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog."
+    },
+    "/online-counselling/campbell-river/depression-counselling": {
+      "title": "Depression Counselling in Campbell River | Westpeak Wellness",
+      "desc": "Depression Counselling and Therapy for Campbell River, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/campbell-river/emdr-therapy": {
+      "title": "EMDR Therapy in Campbell River, BC | Westpeak Wellness",
+      "desc": "EMDR Therapy for Campbell River, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog. Free 30-minute consultation."
+    },
+    "/online-counselling/campbell-river/trauma-therapy": {
+      "title": "Trauma Therapy in Campbell River, BC | Westpeak Wellness",
+      "desc": "Trauma Therapy and Counselling for Campbell River, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/campbell-river": {
+      "title": "Online, Virtual Counselling Campbell River | Counsellors",
+      "desc": "Online counselling for Campbell River and the North Island. From $140 per 50-min session · free 30-min consult · Camille Granda or Savneet Singh."
+    },
+    "/online-counselling/chilliwack/anxiety-counselling": {
+      "title": "Anxiety Counselling in Chilliwack, BC | Westpeak Wellness",
+      "desc": "Anxiety Counselling and Therapy for Chilliwack, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/chilliwack/couples-therapy": {
+      "title": "Couples Therapy in Chilliwack, BC | Westpeak Wellness",
+      "desc": "Couples and Marriage Counselling for Chilliwack, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog."
+    },
+    "/online-counselling/chilliwack/depression-counselling": {
+      "title": "Depression Counselling in Chilliwack, BC | Westpeak Wellness",
+      "desc": "Depression Counselling and Therapy for Chilliwack, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/chilliwack/emdr-therapy": {
+      "title": "EMDR Therapy in Chilliwack, BC | Westpeak Wellness",
+      "desc": "EMDR Therapy for Chilliwack, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog. Free 30-minute consultation."
+    },
+    "/online-counselling/chilliwack/trauma-therapy": {
+      "title": "Trauma Therapy in Chilliwack, BC | Westpeak Wellness",
+      "desc": "Trauma Therapy and Counselling for Chilliwack, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/chilliwack": {
+      "title": "Online &amp; Virtual Counselling in Chilliwack | Counsellors",
+      "desc": "Online counselling for Chilliwack and the eastern Fraser Valley. From $140 per 50-min session · free 30-min consult · Camille Granda or Savneet Singh."
+    },
+    "/online-counselling/coquitlam": {
+      "title": "Online &amp; Virtual Counselling in Coquitlam | Counsellors",
+      "desc": "Online counselling for Coquitlam and the Tri-Cities. From $140 per 50-min session · free 30-min consult · Camille Granda or Savneet Singh."
+    },
+    "/online-counselling/courtenay/anxiety-counselling": {
+      "title": "Anxiety Counselling in Courtenay, BC | Westpeak Wellness",
+      "desc": "Anxiety Counselling and Therapy for Courtenay, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/courtenay/couples-therapy": {
+      "title": "Couples Therapy in Courtenay, BC | Westpeak Wellness",
+      "desc": "Couples and Marriage Counselling for Courtenay, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog."
+    },
+    "/online-counselling/courtenay/depression-counselling": {
+      "title": "Depression Counselling in Courtenay, BC | Westpeak Wellness",
+      "desc": "Depression Counselling and Therapy for Courtenay, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/courtenay/emdr-therapy": {
+      "title": "EMDR Therapy in Courtenay, BC | Westpeak Wellness",
+      "desc": "EMDR Therapy for Courtenay, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog. Free 30-minute consultation."
+    },
+    "/online-counselling/courtenay/trauma-therapy": {
+      "title": "Trauma Therapy in Courtenay, BC | Westpeak Wellness",
+      "desc": "Trauma Therapy and Counselling for Courtenay, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/courtenay": {
+      "title": "Online &amp; Virtual Counselling in Courtenay | Counsellors",
+      "desc": "Online counselling for Courtenay and the Comox Valley. From $140 per 50-min session · free 30-min consult · Camille Granda or Savneet Singh."
+    },
+    "/online-counselling/cranbrook/anxiety-counselling": {
+      "title": "Anxiety Counselling in Cranbrook, BC | Westpeak Wellness",
+      "desc": "Anxiety Counselling and Therapy for Cranbrook, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/cranbrook/couples-therapy": {
+      "title": "Couples Therapy in Cranbrook, BC | Westpeak Wellness",
+      "desc": "Couples and Marriage Counselling for Cranbrook, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog."
+    },
+    "/online-counselling/cranbrook/depression-counselling": {
+      "title": "Depression Counselling in Cranbrook, BC | Westpeak Wellness",
+      "desc": "Depression Counselling and Therapy for Cranbrook, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/cranbrook/emdr-therapy": {
+      "title": "EMDR Therapy in Cranbrook, BC | Westpeak Wellness",
+      "desc": "EMDR Therapy for Cranbrook, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog. Free 30-minute consultation."
+    },
+    "/online-counselling/cranbrook/trauma-therapy": {
+      "title": "Trauma Therapy in Cranbrook, BC | Westpeak Wellness",
+      "desc": "Trauma Therapy and Counselling for Cranbrook, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/cranbrook": {
+      "title": "Online &amp; Virtual Counselling in Cranbrook | Counsellors",
+      "desc": "Online counselling for Cranbrook and the East Kootenay. From $140 per 50-min session · free 30-min consult · Camille Granda or Savneet Singh."
+    },
+    "/online-counselling/delta": {
+      "title": "Online &amp; Virtual Counselling in Delta, BC | Counsellors",
+      "desc": "Online counselling for Delta: North Delta, Ladner and Tsawwassen. From $140 per 50-min session · free 30-min consult · Camille Granda or Savneet Singh."
+    },
+    "/online-counselling/fort-st-john": {
+      "title": "Online &amp; Virtual Counselling Fort St. John | Counsellors",
+      "desc": "Online counselling for Fort St. John and the Peace region. From $140 per 50-min session · free 30-min consult · Camille Granda or Savneet Singh."
+    },
+    "/online-counselling/kamloops/anxiety-counselling": {
+      "title": "Anxiety Counselling in Kamloops, BC | Westpeak Wellness",
+      "desc": "Anxiety Counselling and Therapy for Kamloops, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/kamloops/couples-therapy": {
+      "title": "Couples Therapy in Kamloops, BC | Westpeak Wellness",
+      "desc": "Couples and Marriage Counselling for Kamloops, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog."
+    },
+    "/online-counselling/kamloops/depression-counselling": {
+      "title": "Depression Counselling in Kamloops, BC | Westpeak Wellness",
+      "desc": "Depression Counselling and Therapy for Kamloops, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/kamloops/emdr-therapy": {
+      "title": "EMDR Therapy in Kamloops, BC | Westpeak Wellness",
+      "desc": "EMDR Therapy for Kamloops, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog. Free 30-minute consultation."
+    },
+    "/online-counselling/kamloops/trauma-therapy": {
+      "title": "Trauma Therapy in Kamloops, BC | Westpeak Wellness",
+      "desc": "Trauma Therapy and Counselling for Kamloops, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/kamloops": {
+      "title": "Online &amp; Virtual Counselling in Kamloops | Counsellors",
+      "desc": "Online counselling for Kamloops and the Thompson-Nicola. From $140 per 50-min session · free 30-min consult · Camille Granda or Savneet Singh."
+    },
+    "/online-counselling/kelowna/anxiety-counselling": {
+      "title": "Anxiety Counselling in Kelowna, BC | Westpeak Wellness",
+      "desc": "Anxiety Counselling and Therapy for Kelowna, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/kelowna/couples-therapy": {
+      "title": "Couples Therapy in Kelowna, BC | Westpeak Wellness",
+      "desc": "Couples and Marriage Counselling for Kelowna, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog."
+    },
+    "/online-counselling/kelowna/depression-counselling": {
+      "title": "Depression Counselling in Kelowna, BC | Westpeak Wellness",
+      "desc": "Depression Counselling and Therapy for Kelowna, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/kelowna/emdr-therapy": {
+      "title": "EMDR Therapy in Kelowna, BC | Westpeak Wellness",
+      "desc": "EMDR Therapy for Kelowna, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog. Free 30-minute consultation."
+    },
+    "/online-counselling/kelowna/trauma-therapy": {
+      "title": "Trauma Therapy in Kelowna, BC | Westpeak Wellness",
+      "desc": "Trauma Therapy and Counselling for Kelowna, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/kelowna": {
+      "title": "Online &amp; Virtual Counselling in Kelowna | Counsellors",
+      "desc": "Online counselling for Kelowna and the Central Okanagan. From $140 per 50-min session · free 30-min consult · Camille Granda or Savneet Singh."
+    },
+    "/online-counselling/langford/anxiety-counselling": {
+      "title": "Anxiety Counselling in Langford, BC | Westpeak Wellness",
+      "desc": "Anxiety Counselling and Therapy for Langford, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/langford/couples-therapy": {
+      "title": "Couples Therapy in Langford, BC | Westpeak Wellness",
+      "desc": "Couples and Marriage Counselling for Langford, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog."
+    },
+    "/online-counselling/langford/depression-counselling": {
+      "title": "Depression Counselling in Langford, BC | Westpeak Wellness",
+      "desc": "Depression Counselling and Therapy for Langford, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/langford/emdr-therapy": {
+      "title": "EMDR Therapy in Langford, BC | Westpeak Wellness",
+      "desc": "EMDR Therapy for Langford, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog. Free 30-minute consultation."
+    },
+    "/online-counselling/langford/trauma-therapy": {
+      "title": "Trauma Therapy in Langford, BC | Westpeak Wellness",
+      "desc": "Trauma Therapy and Counselling for Langford, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/langford": {
+      "title": "Online &amp; Virtual Counselling in Langford | Counsellors",
+      "desc": "Online counselling for Langford and the West Shore. From $140 per 50-min session · free 30-min consult · Camille Granda or Savneet Singh."
+    },
+    "/online-counselling/langley/anxiety-counselling": {
+      "title": "Anxiety Counselling in Langley, BC | Westpeak Wellness",
+      "desc": "Anxiety Counselling and Therapy for Langley, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/langley/couples-therapy": {
+      "title": "Couples Therapy in Langley, BC | Westpeak Wellness",
+      "desc": "Couples and Marriage Counselling for Langley, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog."
+    },
+    "/online-counselling/langley/depression-counselling": {
+      "title": "Depression Counselling in Langley, BC | Westpeak Wellness",
+      "desc": "Depression Counselling and Therapy for Langley, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/langley/emdr-therapy": {
+      "title": "EMDR Therapy in Langley, BC | Westpeak Wellness",
+      "desc": "EMDR Therapy for Langley, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog. Free 30-minute consultation."
+    },
+    "/online-counselling/langley/trauma-therapy": {
+      "title": "Trauma Therapy in Langley, BC | Westpeak Wellness",
+      "desc": "Trauma Therapy and Counselling for Langley, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/langley": {
+      "title": "Online &amp; Virtual Counselling in Langley | Counsellors",
+      "desc": "Online counselling for Langley City and the Township. From $140 per 50-min session · free 30-min consult · Camille Granda or Savneet Singh."
+    },
+    "/online-counselling/maple-ridge/anxiety-counselling": {
+      "title": "Anxiety Counselling in Maple Ridge, BC | Westpeak Wellness",
+      "desc": "Anxiety Counselling and Therapy for Maple Ridge, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/maple-ridge/couples-therapy": {
+      "title": "Couples Therapy in Maple Ridge, BC | Westpeak Wellness",
+      "desc": "Couples and Marriage Counselling for Maple Ridge, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog."
+    },
+    "/online-counselling/maple-ridge/depression-counselling": {
+      "title": "Depression Counselling in Maple Ridge | Westpeak Wellness",
+      "desc": "Depression Counselling and Therapy for Maple Ridge, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/maple-ridge/emdr-therapy": {
+      "title": "EMDR Therapy in Maple Ridge, BC | Westpeak Wellness",
+      "desc": "EMDR Therapy for Maple Ridge, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog. Free 30-minute consultation."
+    },
+    "/online-counselling/maple-ridge/trauma-therapy": {
+      "title": "Trauma Therapy in Maple Ridge, BC | Westpeak Wellness",
+      "desc": "Trauma Therapy and Counselling for Maple Ridge, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/maple-ridge": {
+      "title": "Online &amp; Virtual Counselling Maple Ridge | Counsellors",
+      "desc": "Online counselling for Maple Ridge and Pitt Meadows. From $140 per 50-min session · free 30-min consult · Camille Granda or Savneet Singh."
+    },
+    "/online-counselling/mission/anxiety-counselling": {
+      "title": "Anxiety Counselling in Mission, BC | Westpeak Wellness",
+      "desc": "Anxiety Counselling and Therapy for Mission, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/mission/couples-therapy": {
+      "title": "Couples Therapy in Mission, BC | Westpeak Wellness",
+      "desc": "Couples and Marriage Counselling for Mission, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog."
+    },
+    "/online-counselling/mission/depression-counselling": {
+      "title": "Depression Counselling in Mission, BC | Westpeak Wellness",
+      "desc": "Depression Counselling and Therapy for Mission, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/mission/emdr-therapy": {
+      "title": "EMDR Therapy in Mission, BC | Westpeak Wellness",
+      "desc": "EMDR Therapy for Mission, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog. Free 30-minute consultation."
+    },
+    "/online-counselling/mission/trauma-therapy": {
+      "title": "Trauma Therapy in Mission, BC | Westpeak Wellness",
+      "desc": "Trauma Therapy and Counselling for Mission, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/mission": {
+      "title": "Online &amp; Virtual Counselling in Mission | Counsellors",
+      "desc": "Online counselling for Mission, BC, on the north bank of the Fraser. From $140 per 50-min session · free 30-min consult · Camille Granda or Savneet Singh."
+    },
+    "/online-counselling/nanaimo": {
+      "title": "Online &amp; Virtual Counselling in Nanaimo | Counsellors",
+      "desc": "Online counselling for Nanaimo and central Vancouver Island. From $140 per 50-min session · free 30-min consult · Camille Granda or Savneet Singh."
+    },
+    "/online-counselling/new-westminster/anxiety-counselling": {
+      "title": "Anxiety Counselling in New Westminster | Westpeak Wellness",
+      "desc": "Anxiety Counselling and Therapy for New Westminster, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/new-westminster/couples-therapy": {
+      "title": "Couples Therapy in New Westminster, BC | Westpeak Wellness",
+      "desc": "Couples and Marriage Counselling for New Westminster, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog."
+    },
+    "/online-counselling/new-westminster/depression-counselling": {
+      "title": "Depression Therapy in New Westminster | Westpeak Wellness",
+      "desc": "Depression Counselling and Therapy for New Westminster, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/new-westminster/emdr-therapy": {
+      "title": "EMDR Therapy in New Westminster, BC | Westpeak Wellness",
+      "desc": "EMDR Therapy for New Westminster, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog. Free 30-minute consultation."
+    },
+    "/online-counselling/new-westminster/trauma-therapy": {
+      "title": "Trauma Therapy in New Westminster, BC | Westpeak Wellness",
+      "desc": "Trauma Therapy and Counselling for New Westminster, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/new-westminster": {
+      "title": "Online, Virtual Counselling New Westminster | Counsellors",
+      "desc": "Online counselling for New Westminster, Queensborough and Sapperton. From $140 per 50-min session · free 30-min consult · Camille Granda or Savneet Singh."
+    },
+    "/online-counselling/north-vancouver/anxiety-counselling": {
+      "title": "Anxiety Counselling in North Vancouver | Westpeak Wellness",
+      "desc": "Anxiety Counselling and Therapy for North Vancouver, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/north-vancouver/couples-therapy": {
+      "title": "Couples Therapy in North Vancouver, BC | Westpeak Wellness",
+      "desc": "Couples and Marriage Counselling for North Vancouver, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog."
+    },
+    "/online-counselling/north-vancouver/depression-counselling": {
+      "title": "Depression Therapy in North Vancouver | Westpeak Wellness",
+      "desc": "Depression Counselling and Therapy for North Vancouver, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/north-vancouver/emdr-therapy": {
+      "title": "EMDR Therapy in North Vancouver, BC | Westpeak Wellness",
+      "desc": "EMDR Therapy for North Vancouver, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog. Free 30-minute consultation."
+    },
+    "/online-counselling/north-vancouver/trauma-therapy": {
+      "title": "Trauma Therapy in North Vancouver, BC | Westpeak Wellness",
+      "desc": "Trauma Therapy and Counselling for North Vancouver, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/north-vancouver": {
+      "title": "Online, Virtual Counselling North Vancouver | Counsellors",
+      "desc": "Online counselling for North Vancouver and the North Shore. From $140 per 50-min session · free 30-min consult · Camille Granda or Savneet Singh."
+    },
+    "/online-counselling/penticton": {
+      "title": "Online &amp; Virtual Counselling in Penticton | Counsellors",
+      "desc": "Online counselling for Penticton and the South Okanagan. From $140 per 50-min session · free 30-min consult · Camille Granda or Savneet Singh."
+    },
+    "/online-counselling/prince-george/anxiety-counselling": {
+      "title": "Anxiety Counselling in Prince George, BC | Westpeak Wellness",
+      "desc": "Anxiety Counselling and Therapy for Prince George, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/prince-george/couples-therapy": {
+      "title": "Marriage Counselling in Prince George | Westpeak Wellness",
+      "desc": "Couples and Marriage Counselling for Prince George, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog."
+    },
+    "/online-counselling/prince-george/depression-counselling": {
+      "title": "Depression Counselling in Prince George | Westpeak Wellness",
+      "desc": "Depression Counselling and Therapy for Prince George, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/prince-george/emdr-therapy": {
+      "title": "EMDR Therapy in Prince George, BC | Westpeak Wellness",
+      "desc": "EMDR Therapy for Prince George, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog. Free 30-minute consultation."
+    },
+    "/online-counselling/prince-george/trauma-therapy": {
+      "title": "Trauma Therapy in Prince George, BC | Westpeak Wellness",
+      "desc": "Trauma Therapy and Counselling for Prince George, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/prince-george": {
+      "title": "Online &amp; Virtual Counselling Prince George | Counsellors",
+      "desc": "Online counselling for Prince George and Northern BC. From $140 per 50-min session · free 30-min consult · Camille Granda or Savneet Singh."
+    },
+    "/online-counselling/richmond": {
+      "title": "Online &amp; Virtual Counselling in Richmond | Counsellors",
+      "desc": "Online counselling for Richmond, BC. From $140 per 50-min session · free 30-min consult · Camille Granda or Savneet Singh."
+    },
+    "/online-counselling/saanich/anxiety-counselling": {
+      "title": "Anxiety Counselling in Saanich, BC | Westpeak Wellness",
+      "desc": "Anxiety Counselling and Therapy for Saanich, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/saanich/couples-therapy": {
+      "title": "Couples Therapy in Saanich, BC | Westpeak Wellness",
+      "desc": "Couples and Marriage Counselling for Saanich, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog."
+    },
+    "/online-counselling/saanich/depression-counselling": {
+      "title": "Depression Counselling in Saanich, BC | Westpeak Wellness",
+      "desc": "Depression Counselling and Therapy for Saanich, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/saanich/emdr-therapy": {
+      "title": "EMDR Therapy in Saanich, BC | Westpeak Wellness",
+      "desc": "EMDR Therapy for Saanich, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog. Free 30-minute consultation."
+    },
+    "/online-counselling/saanich/trauma-therapy": {
+      "title": "Trauma Therapy in Saanich, BC | Westpeak Wellness",
+      "desc": "Trauma Therapy and Counselling for Saanich, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/saanich": {
+      "title": "Online &amp; Virtual Counselling in Saanich | Counsellors",
+      "desc": "Online counselling for Saanich and the Peninsula. From $140 per 50-min session · free 30-min consult · Camille Granda or Savneet Singh."
+    },
+    "/online-counselling/surrey/anxiety-counselling": {
+      "title": "Anxiety Counselling in Surrey, BC | Westpeak Wellness",
+      "desc": "Anxiety Counselling and Therapy for Surrey, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/surrey/couples-therapy": {
+      "title": "Couples Therapy in Surrey, BC | Westpeak Wellness",
+      "desc": "Couples and Marriage Counselling for Surrey, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog."
+    },
+    "/online-counselling/surrey/depression-counselling": {
+      "title": "Depression Counselling in Surrey, BC | Westpeak Wellness",
+      "desc": "Depression Counselling and Therapy for Surrey, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/surrey/emdr-therapy": {
+      "title": "EMDR Therapy in Surrey, BC | Westpeak Wellness",
+      "desc": "EMDR Therapy for Surrey, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog. Free 30-minute consultation."
+    },
+    "/online-counselling/surrey/trauma-therapy": {
+      "title": "Trauma Therapy in Surrey, BC | Westpeak Wellness",
+      "desc": "Trauma Therapy and Counselling for Surrey, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/surrey": {
+      "title": "Online &amp; Virtual Counselling in Surrey, BC | Counsellors",
+      "desc": "Online counselling for Surrey with a Punjabi-speaking counsellor. From $140 per 50-min session · free 30-min consult · Camille Granda or Savneet Singh."
+    },
+    "/online-counselling/vancouver/anxiety-counselling": {
+      "title": "Anxiety Counselling in Vancouver, BC | Westpeak Wellness",
+      "desc": "Anxiety Counselling and Therapy for Vancouver, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/vancouver/couples-therapy": {
+      "title": "Couples Therapy in Vancouver, BC | Westpeak Wellness",
+      "desc": "Couples and Marriage Counselling for Vancouver, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog."
+    },
+    "/online-counselling/vancouver/depression-counselling": {
+      "title": "Depression Counselling in Vancouver, BC | Westpeak Wellness",
+      "desc": "Depression Counselling and Therapy for Vancouver, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/vancouver/emdr-therapy": {
+      "title": "EMDR Therapy in Vancouver, BC | Westpeak Wellness",
+      "desc": "EMDR Therapy for Vancouver, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog. Free 30-minute consultation."
+    },
+    "/online-counselling/vancouver/trauma-therapy": {
+      "title": "Trauma Therapy in Vancouver, BC | Westpeak Wellness",
+      "desc": "Trauma Therapy and Counselling for Vancouver, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/vancouver": {
+      "title": "Online &amp; Virtual Counselling in Vancouver | Counsellors",
+      "desc": "Online and virtual counselling for Vancouver, BC. From $140 per 50-min session · free 30-min consult · Camille Granda or Savneet Singh."
+    },
+    "/online-counselling/vernon/anxiety-counselling": {
+      "title": "Anxiety Counselling in Vernon, BC | Westpeak Wellness",
+      "desc": "Anxiety Counselling and Therapy for Vernon, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/vernon/couples-therapy": {
+      "title": "Couples Therapy in Vernon, BC | Westpeak Wellness",
+      "desc": "Couples and Marriage Counselling for Vernon, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog."
+    },
+    "/online-counselling/vernon/depression-counselling": {
+      "title": "Depression Counselling in Vernon, BC | Westpeak Wellness",
+      "desc": "Depression Counselling and Therapy for Vernon, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/vernon/emdr-therapy": {
+      "title": "EMDR Therapy in Vernon, BC | Westpeak Wellness",
+      "desc": "EMDR Therapy for Vernon, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog. Free 30-minute consultation."
+    },
+    "/online-counselling/vernon/trauma-therapy": {
+      "title": "Trauma Therapy in Vernon, BC | Westpeak Wellness",
+      "desc": "Trauma Therapy and Counselling for Vernon, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/vernon": {
+      "title": "Online &amp; Virtual Counselling in Vernon, BC | Counsellors",
+      "desc": "Online counselling for Vernon and the North Okanagan. From $140 per 50-min session · free 30-min consult · Camille Granda or Savneet Singh."
+    },
+    "/online-counselling/victoria/anxiety-counselling": {
+      "title": "Anxiety Counselling in Victoria, BC | Westpeak Wellness",
+      "desc": "Anxiety Counselling and Therapy for Victoria, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/victoria/couples-therapy": {
+      "title": "Couples Therapy in Victoria, BC | Westpeak Wellness",
+      "desc": "Couples and Marriage Counselling for Victoria, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog."
+    },
+    "/online-counselling/victoria/depression-counselling": {
+      "title": "Depression Counselling in Victoria, BC | Westpeak Wellness",
+      "desc": "Depression Counselling and Therapy for Victoria, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/victoria/emdr-therapy": {
+      "title": "EMDR Therapy in Victoria, BC | Westpeak Wellness",
+      "desc": "EMDR Therapy for Victoria, by secure video across BC with a Registered Clinical Counsellor. In English or Tagalog. Free 30-minute consultation."
+    },
+    "/online-counselling/victoria/trauma-therapy": {
+      "title": "Trauma Therapy in Victoria, BC | Westpeak Wellness",
+      "desc": "Trauma Therapy and Counselling for Victoria, by secure video across BC with a Registered Clinical Counsellor. In English, Punjabi or Tagalog."
+    },
+    "/online-counselling/victoria": {
+      "title": "Online &amp; Virtual Counselling in Victoria | Counsellors",
+      "desc": "Online counselling for Victoria and Vancouver Island. From $140 per 50-min session · free 30-min consult · Camille Granda or Savneet Singh."
+    },
+    "/online-counselling/white-rock": {
+      "title": "Online Counselling White Rock and South Surrey | Counsellors",
+      "desc": "Online and virtual counselling for White Rock and South Surrey. From $140 per 50-min session · free 30-min consult · Camille Granda or Savneet Singh."
+    },
+    "/online-counselling": {
+      "title": "Online Counselling in BC | Virtual Therapy, Province-Wide",
+      "desc": "Online counselling anywhere in BC with Registered Clinical Counsellors, in English, Punjabi or Tagalog. Free 30-minute consultation, no referral needed."
+    },
+    "/ontario": {
+      "title": "Page not found | Westpeak Wellness",
+      "desc": "That page has moved or never existed. Search the site, or jump to services, fees, guides or booking."
+    },
+    "/practitioners/aman-bains-dhillon": {
+      "title": "Aman Bains Dhillon, RCC: Punjabi counsellor, online in BC",
+      "desc": "Aman Bains Dhillon, MA, RCC, online counselling across BC in English or Punjabi. Trauma and EMDR, Couples work, Culture, family and identity."
+    },
+    "/practitioners/camille-granda/abbotsford/tl": {
+      "title": "Counselling sa Tagalog sa Abbotsford | Camille Granda",
+      "desc": "Mga sesyon sa Tagalog o Ingles kasama si Camille Granda, RCC, CCC, para sa Abbotsford. Trauma, pagkabalisa, pagluluksa. Libreng 30 minutong konsultasyon."
+    },
+    "/practitioners/camille-granda/abbotsford": {
+      "title": "Camille Granda, RCC: Tagalog counsellor for Abbotsford",
+      "desc": "Camille Granda, RCC, CCC: online counselling for Abbotsford in English or Tagalog. Trauma, anxiety, grief and couples work. Free 30-minute consultation."
+    },
+    "/practitioners/camille-granda/burnaby/tl": {
+      "title": "Counselling sa Tagalog sa Burnaby | Camille Granda",
+      "desc": "Mga sesyon sa Tagalog o Ingles kasama si Camille Granda, RCC, CCC, para sa Burnaby. Trauma, pagkabalisa, pagluluksa. Libreng 30 minutong konsultasyon."
+    },
+    "/practitioners/camille-granda/burnaby": {
+      "title": "Camille Granda, RCC: Tagalog counsellor for Burnaby",
+      "desc": "Camille Granda, RCC, CCC: online counselling for Burnaby in English or Tagalog. Trauma, anxiety, grief and couples work. Free 30-minute consultation."
+    },
+    "/practitioners/camille-granda/calgary/tl": {
+      "title": "Counselling sa Tagalog sa Calgary | Camille Granda",
+      "desc": "Mga sesyon sa Tagalog o Ingles kasama si Camille Granda, RCC, CCC, para sa Calgary. Trauma, pagkabalisa, pagluluksa. Libreng 30 minutong konsultasyon."
+    },
+    "/practitioners/camille-granda/calgary": {
+      "title": "Camille Granda, RCC: Tagalog counsellor for Calgary",
+      "desc": "Camille Granda, RCC, CCC: online counselling for Calgary in English or Tagalog. Trauma, anxiety, grief and couples work. Free 30-minute consultation."
+    },
+    "/practitioners/camille-granda/campbell-river": {
+      "title": "Camille Granda, RCC: Tagalog counsellor for Campbell River",
+      "desc": "Camille Granda, RCC, CCC: online counselling for Campbell River in English or Tagalog. Trauma, anxiety, grief and couples work. Free 30-minute consultation."
+    },
+    "/practitioners/camille-granda/chilliwack/tl": {
+      "title": "Counselling sa Tagalog sa Chilliwack | Camille Granda",
+      "desc": "Mga sesyon sa Tagalog o Ingles kasama si Camille Granda, RCC, CCC, para sa Chilliwack. Trauma, pagkabalisa, pagluluksa. Libreng 30 minutong konsultasyon."
+    },
+    "/practitioners/camille-granda/chilliwack": {
+      "title": "Camille Granda, RCC: Tagalog counsellor for Chilliwack",
+      "desc": "Camille Granda, RCC, CCC: online counselling for Chilliwack in English or Tagalog. Trauma, anxiety, grief and couples work. Free 30-minute consultation."
+    },
+    "/practitioners/camille-granda/coquitlam/tl": {
+      "title": "Counselling sa Tagalog sa Coquitlam | Camille Granda",
+      "desc": "Mga sesyon sa Tagalog o Ingles kasama si Camille Granda, RCC, CCC, para sa Coquitlam. Trauma, pagkabalisa, pagluluksa. Libreng 30 minutong konsultasyon."
+    },
+    "/practitioners/camille-granda/coquitlam": {
+      "title": "Camille Granda, RCC: Tagalog counsellor for Coquitlam",
+      "desc": "Camille Granda, RCC, CCC: online counselling for Coquitlam in English or Tagalog. Trauma, anxiety, grief and couples work. Free 30-minute consultation."
+    },
+    "/practitioners/camille-granda/courtenay": {
+      "title": "Camille Granda, RCC: Tagalog counsellor for Courtenay",
+      "desc": "Camille Granda, RCC, CCC: online counselling for Courtenay in English or Tagalog. Trauma, anxiety, grief and couples work. Free 30-minute consultation."
+    },
+    "/practitioners/camille-granda/cranbrook": {
+      "title": "Camille Granda, RCC: Tagalog counsellor for Cranbrook",
+      "desc": "Camille Granda, RCC, CCC: online counselling for Cranbrook in English or Tagalog. Trauma, anxiety, grief and couples work. Free 30-minute consultation."
+    },
+    "/practitioners/camille-granda/delta/tl": {
+      "title": "Counselling sa Tagalog sa Delta | Camille Granda",
+      "desc": "Mga sesyon sa Tagalog o Ingles kasama si Camille Granda, RCC, CCC, para sa Delta. Trauma, pagkabalisa, pagluluksa. Libreng 30 minutong konsultasyon."
+    },
+    "/practitioners/camille-granda/delta": {
+      "title": "Camille Granda, RCC: Tagalog counsellor for Delta",
+      "desc": "Camille Granda, RCC, CCC: online counselling for Delta in English or Tagalog. Trauma, anxiety, grief and couples work. Free 30-minute consultation."
+    },
+    "/practitioners/camille-granda/edmonton/tl": {
+      "title": "Counselling sa Tagalog sa Edmonton | Camille Granda",
+      "desc": "Mga sesyon sa Tagalog o Ingles kasama si Camille Granda, RCC, CCC, para sa Edmonton. Trauma, pagkabalisa, pagluluksa. Libreng 30 minutong konsultasyon."
+    },
+    "/practitioners/camille-granda/edmonton": {
+      "title": "Camille Granda, RCC: Tagalog counsellor for Edmonton",
+      "desc": "Camille Granda, RCC, CCC: online counselling for Edmonton in English or Tagalog. Trauma, anxiety, grief and couples work. Free 30-minute consultation."
+    },
+    "/practitioners/camille-granda/fort-st-john": {
+      "title": "Camille Granda, RCC: Tagalog counsellor for Fort St. John",
+      "desc": "Camille Granda, RCC, CCC: online counselling for Fort St. John in English or Tagalog. Trauma, anxiety, grief and couples work. Free 30-minute consultation."
+    },
+    "/practitioners/camille-granda/kamloops/tl": {
+      "title": "Counselling sa Tagalog sa Kamloops | Camille Granda",
+      "desc": "Mga sesyon sa Tagalog o Ingles kasama si Camille Granda, RCC, CCC, para sa Kamloops. Trauma, pagkabalisa, pagluluksa. Libreng 30 minutong konsultasyon."
+    },
+    "/practitioners/camille-granda/kamloops": {
+      "title": "Camille Granda, RCC: Tagalog counsellor for Kamloops",
+      "desc": "Camille Granda, RCC, CCC: online counselling for Kamloops in English or Tagalog. Trauma, anxiety, grief and couples work. Free 30-minute consultation."
+    },
+    "/practitioners/camille-granda/kelowna/tl": {
+      "title": "Counselling sa Tagalog sa Kelowna | Camille Granda",
+      "desc": "Mga sesyon sa Tagalog o Ingles kasama si Camille Granda, RCC, CCC, para sa Kelowna. Trauma, pagkabalisa, pagluluksa. Libreng 30 minutong konsultasyon."
+    },
+    "/practitioners/camille-granda/kelowna": {
+      "title": "Camille Granda, RCC: Tagalog counsellor for Kelowna",
+      "desc": "Camille Granda, RCC, CCC: online counselling for Kelowna in English or Tagalog. Trauma, anxiety, grief and couples work. Free 30-minute consultation."
+    },
+    "/practitioners/camille-granda/langford": {
+      "title": "Camille Granda, RCC: Tagalog counsellor for Langford",
+      "desc": "Camille Granda, RCC, CCC: online counselling for Langford in English or Tagalog. Trauma, anxiety, grief and couples work. Free 30-minute consultation."
+    },
+    "/practitioners/camille-granda/langley/tl": {
+      "title": "Counselling sa Tagalog sa Langley | Camille Granda",
+      "desc": "Mga sesyon sa Tagalog o Ingles kasama si Camille Granda, RCC, CCC, para sa Langley. Trauma, pagkabalisa, pagluluksa. Libreng 30 minutong konsultasyon."
+    },
+    "/practitioners/camille-granda/langley": {
+      "title": "Camille Granda, RCC: Tagalog counsellor for Langley",
+      "desc": "Camille Granda, RCC, CCC: online counselling for Langley in English or Tagalog. Trauma, anxiety, grief and couples work. Free 30-minute consultation."
+    },
+    "/practitioners/camille-granda/maple-ridge": {
+      "title": "Camille Granda, RCC: Tagalog counsellor for Maple Ridge",
+      "desc": "Camille Granda, RCC, CCC: online counselling for Maple Ridge in English or Tagalog. Trauma, anxiety, grief and couples work. Free 30-minute consultation."
+    },
+    "/practitioners/camille-granda/mission": {
+      "title": "Camille Granda, RCC: Tagalog counsellor for Mission",
+      "desc": "Camille Granda, RCC, CCC: online counselling for Mission in English or Tagalog. Trauma, anxiety, grief and couples work. Free 30-minute consultation."
+    },
+    "/practitioners/camille-granda/nanaimo/tl": {
+      "title": "Counselling sa Tagalog sa Nanaimo | Camille Granda",
+      "desc": "Mga sesyon sa Tagalog o Ingles kasama si Camille Granda, RCC, CCC, para sa Nanaimo. Trauma, pagkabalisa, pagluluksa. Libreng 30 minutong konsultasyon."
+    },
+    "/practitioners/camille-granda/nanaimo": {
+      "title": "Camille Granda, RCC: Tagalog counsellor for Nanaimo",
+      "desc": "Camille Granda, RCC, CCC: online counselling for Nanaimo in English or Tagalog. Trauma, anxiety, grief and couples work. Free 30-minute consultation."
+    },
+    "/practitioners/camille-granda/new-westminster": {
+      "title": "Camille Granda, RCC: Tagalog counsellor for New Westminster",
+      "desc": "Camille Granda, RCC, CCC: online counselling for New Westminster in English or Tagalog. Trauma, anxiety, grief and couples work. Free 30-minute consultation."
+    },
+    "/practitioners/camille-granda/north-vancouver": {
+      "title": "Camille Granda, RCC: Tagalog counsellor for North Vancouver",
+      "desc": "Camille Granda, RCC, CCC: online counselling for North Vancouver in English or Tagalog. Trauma, anxiety, grief and couples work. Free 30-minute consultation."
+    },
+    "/practitioners/camille-granda/penticton": {
+      "title": "Camille Granda, RCC: Tagalog counsellor for Penticton",
+      "desc": "Camille Granda, RCC, CCC: online counselling for Penticton in English or Tagalog. Trauma, anxiety, grief and couples work. Free 30-minute consultation."
+    },
+    "/practitioners/camille-granda/prince-george/tl": {
+      "title": "Counselling sa Tagalog sa Prince George | Camille Granda",
+      "desc": "Mga sesyon sa Tagalog o Ingles kasama si Camille Granda, RCC, CCC, para sa Prince George. Trauma, pagkabalisa, pagluluksa. Libreng 30 minutong konsultasyon."
+    },
+    "/practitioners/camille-granda/prince-george": {
+      "title": "Camille Granda, RCC: Tagalog counsellor for Prince George",
+      "desc": "Camille Granda, RCC, CCC: online counselling for Prince George in English or Tagalog. Trauma, anxiety, grief and couples work. Free 30-minute consultation."
+    },
+    "/practitioners/camille-granda/richmond/tl": {
+      "title": "Counselling sa Tagalog sa Richmond | Camille Granda",
+      "desc": "Mga sesyon sa Tagalog o Ingles kasama si Camille Granda, RCC, CCC, para sa Richmond. Trauma, pagkabalisa, pagluluksa. Libreng 30 minutong konsultasyon."
+    },
+    "/practitioners/camille-granda/richmond": {
+      "title": "Camille Granda, RCC: Tagalog counsellor for Richmond",
+      "desc": "Camille Granda, RCC, CCC: online counselling for Richmond in English or Tagalog. Trauma, anxiety, grief and couples work. Free 30-minute consultation."
+    },
+    "/practitioners/camille-granda/saanich": {
+      "title": "Camille Granda, RCC: Tagalog counsellor for Saanich",
+      "desc": "Camille Granda, RCC, CCC: online counselling for Saanich in English or Tagalog. Trauma, anxiety, grief and couples work. Free 30-minute consultation."
+    },
+    "/practitioners/camille-granda/surrey/tl": {
+      "title": "Counselling sa Tagalog sa Surrey | Camille Granda",
+      "desc": "Mga sesyon sa Tagalog o Ingles kasama si Camille Granda, RCC, CCC, para sa Surrey. Trauma, pagkabalisa, pagluluksa. Libreng 30 minutong konsultasyon."
+    },
+    "/practitioners/camille-granda/surrey": {
+      "title": "Camille Granda, RCC: Tagalog counsellor for Surrey",
+      "desc": "Camille Granda, RCC, CCC: online counselling for Surrey in English or Tagalog. Trauma, anxiety, grief and couples work. Free 30-minute consultation."
+    },
+    "/practitioners/camille-granda/tl": {
+      "title": "Counselling sa Tagalog, Camille Granda | Westpeak Wellness",
+      "desc": "Counselling sa Tagalog o Ingles kasama si Camille Granda, RCC, CCC. Online sa buong British Columbia. Libreng 30 minutong konsultasyon."
+    },
+    "/practitioners/camille-granda/vancouver/tl": {
+      "title": "Counselling sa Tagalog sa Vancouver | Camille Granda",
+      "desc": "Mga sesyon sa Tagalog o Ingles kasama si Camille Granda, RCC, CCC, para sa Vancouver. Trauma, pagkabalisa, pagluluksa. Libreng 30 minutong konsultasyon."
+    },
+    "/practitioners/camille-granda/vancouver": {
+      "title": "Camille Granda, RCC: Tagalog counsellor for Vancouver",
+      "desc": "Camille Granda, RCC, CCC: online counselling for Vancouver in English or Tagalog. Trauma, anxiety, grief and couples work. Free 30-minute consultation."
+    },
+    "/practitioners/camille-granda/vernon": {
+      "title": "Camille Granda, RCC: Tagalog counsellor for Vernon",
+      "desc": "Camille Granda, RCC, CCC: online counselling for Vernon in English or Tagalog. Trauma, anxiety, grief and couples work. Free 30-minute consultation."
+    },
+    "/practitioners/camille-granda/victoria/tl": {
+      "title": "Counselling sa Tagalog sa Victoria | Camille Granda",
+      "desc": "Mga sesyon sa Tagalog o Ingles kasama si Camille Granda, RCC, CCC, para sa Victoria. Trauma, pagkabalisa, pagluluksa. Libreng 30 minutong konsultasyon."
+    },
+    "/practitioners/camille-granda/victoria": {
+      "title": "Camille Granda, RCC: Tagalog counsellor for Victoria",
+      "desc": "Camille Granda, RCC, CCC: online counselling for Victoria in English or Tagalog. Trauma, anxiety, grief and couples work. Free 30-minute consultation."
+    },
+    "/practitioners/camille-granda/white-rock/tl": {
+      "title": "Counselling sa Tagalog sa White Rock | Camille Granda",
+      "desc": "Mga sesyon sa Tagalog o Ingles kasama si Camille Granda, RCC, CCC, para sa White Rock. Trauma, pagkabalisa, pagluluksa. Libreng 30 minutong konsultasyon."
+    },
+    "/practitioners/camille-granda/white-rock": {
+      "title": "Camille Granda, RCC: Tagalog counsellor for White Rock",
+      "desc": "Camille Granda, RCC, CCC: online counselling for White Rock in English or Tagalog. Trauma, anxiety, grief and couples work. Free 30-minute consultation."
+    },
+    "/practitioners/camille-granda": {
+      "title": "Camille Granda, RCC: Tagalog counsellor, online in Canada",
+      "desc": "Camille Granda, RCC, CCC, online counselling anywhere in Canada in English or Tagalog. From $140 per 50-min session · free 30-min consult."
+    },
+    "/practitioners/savneet-singh/abbotsford/pa": {
+      "title": "ਐਬਟਸਫੋਰਡ ਵਿੱਚ ਪੰਜਾਬੀ ਕਾਊਂਸਲਿੰਗ | Savneet Singh",
+      "desc": "Savneet Singh, RCC ਨਾਲ ਐਬਟਸਫੋਰਡ ਲਈ ਪੰਜਾਬੀ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਸੈਸ਼ਨ, ਸੁਰੱਖਿਅਤ ਵੀਡੀਓ ਰਾਹੀਂ। ਚਿੰਤਾ, ਉਦਾਸੀ, ਟਰੌਮਾ। ਪਹਿਲੀ 30 ਮਿੰਟ ਦੀ ਗੱਲਬਾਤ ਮੁਫ਼ਤ।"
+    },
+    "/practitioners/savneet-singh/abbotsford": {
+      "title": "Savneet Singh, RCC: Punjabi counsellor for Abbotsford",
+      "desc": "Savneet Singh, RCC: online counselling for Abbotsford in English or Punjabi. Anxiety, depression and trauma, one to one. Free 30-minute consultation."
+    },
+    "/practitioners/savneet-singh/burnaby/pa": {
+      "title": "ਬਰਨਬੀ ਵਿੱਚ ਪੰਜਾਬੀ ਕਾਊਂਸਲਿੰਗ | Savneet Singh",
+      "desc": "Savneet Singh, RCC ਨਾਲ ਬਰਨਬੀ ਲਈ ਪੰਜਾਬੀ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਸੈਸ਼ਨ, ਸੁਰੱਖਿਅਤ ਵੀਡੀਓ ਰਾਹੀਂ। ਚਿੰਤਾ, ਉਦਾਸੀ, ਟਰੌਮਾ। ਪਹਿਲੀ 30 ਮਿੰਟ ਦੀ ਗੱਲਬਾਤ ਮੁਫ਼ਤ।"
+    },
+    "/practitioners/savneet-singh/burnaby": {
+      "title": "Savneet Singh, RCC: Punjabi counsellor for Burnaby",
+      "desc": "Savneet Singh, RCC: online counselling for Burnaby in English or Punjabi. Anxiety, depression and trauma, one to one. Free 30-minute consultation."
+    },
+    "/practitioners/savneet-singh/campbell-river": {
+      "title": "Savneet Singh, RCC: Punjabi counsellor for Campbell River",
+      "desc": "Savneet Singh, RCC: online counselling for Campbell River in English or Punjabi. Anxiety, depression and trauma, one to one. Free 30-minute consultation."
+    },
+    "/practitioners/savneet-singh/chilliwack/pa": {
+      "title": "ਚਿਲੀਵੈਕ ਵਿੱਚ ਪੰਜਾਬੀ ਕਾਊਂਸਲਿੰਗ | Savneet Singh",
+      "desc": "Savneet Singh, RCC ਨਾਲ ਚਿਲੀਵੈਕ ਲਈ ਪੰਜਾਬੀ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਸੈਸ਼ਨ, ਸੁਰੱਖਿਅਤ ਵੀਡੀਓ ਰਾਹੀਂ। ਚਿੰਤਾ, ਉਦਾਸੀ, ਟਰੌਮਾ। ਪਹਿਲੀ 30 ਮਿੰਟ ਦੀ ਗੱਲਬਾਤ ਮੁਫ਼ਤ।"
+    },
+    "/practitioners/savneet-singh/chilliwack": {
+      "title": "Savneet Singh, RCC: Punjabi counsellor for Chilliwack",
+      "desc": "Savneet Singh, RCC: online counselling for Chilliwack in English or Punjabi. Anxiety, depression and trauma, one to one. Free 30-minute consultation."
+    },
+    "/practitioners/savneet-singh/coquitlam/pa": {
+      "title": "ਕੋਕਿਟਲਮ ਵਿੱਚ ਪੰਜਾਬੀ ਕਾਊਂਸਲਿੰਗ | Savneet Singh",
+      "desc": "Savneet Singh, RCC ਨਾਲ ਕੋਕਿਟਲਮ ਲਈ ਪੰਜਾਬੀ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਸੈਸ਼ਨ, ਸੁਰੱਖਿਅਤ ਵੀਡੀਓ ਰਾਹੀਂ। ਚਿੰਤਾ, ਉਦਾਸੀ, ਟਰੌਮਾ। ਪਹਿਲੀ 30 ਮਿੰਟ ਦੀ ਗੱਲਬਾਤ ਮੁਫ਼ਤ।"
+    },
+    "/practitioners/savneet-singh/coquitlam": {
+      "title": "Savneet Singh, RCC: Punjabi counsellor for Coquitlam",
+      "desc": "Savneet Singh, RCC: online counselling for Coquitlam in English or Punjabi. Anxiety, depression and trauma, one to one. Free 30-minute consultation."
+    },
+    "/practitioners/savneet-singh/courtenay": {
+      "title": "Savneet Singh, RCC: Punjabi counsellor for Courtenay",
+      "desc": "Savneet Singh, RCC: online counselling for Courtenay in English or Punjabi. Anxiety, depression and trauma, one to one. Free 30-minute consultation."
+    },
+    "/practitioners/savneet-singh/cranbrook": {
+      "title": "Savneet Singh, RCC: Punjabi counsellor for Cranbrook",
+      "desc": "Savneet Singh, RCC: online counselling for Cranbrook in English or Punjabi. Anxiety, depression and trauma, one to one. Free 30-minute consultation."
+    },
+    "/practitioners/savneet-singh/delta/pa": {
+      "title": "ਡੈਲਟਾ ਵਿੱਚ ਪੰਜਾਬੀ ਕਾਊਂਸਲਿੰਗ | Savneet Singh",
+      "desc": "Savneet Singh, RCC ਨਾਲ ਡੈਲਟਾ ਲਈ ਪੰਜਾਬੀ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਸੈਸ਼ਨ, ਸੁਰੱਖਿਅਤ ਵੀਡੀਓ ਰਾਹੀਂ। ਚਿੰਤਾ, ਉਦਾਸੀ, ਟਰੌਮਾ। ਪਹਿਲੀ 30 ਮਿੰਟ ਦੀ ਗੱਲਬਾਤ ਮੁਫ਼ਤ।"
+    },
+    "/practitioners/savneet-singh/delta": {
+      "title": "Savneet Singh, RCC: Punjabi counsellor for Delta",
+      "desc": "Savneet Singh, RCC: online counselling for Delta in English or Punjabi. Anxiety, depression and trauma, one to one. Free 30-minute consultation."
+    },
+    "/practitioners/savneet-singh/fort-st-john": {
+      "title": "Savneet Singh, RCC: Punjabi counsellor for Fort St. John",
+      "desc": "Savneet Singh, RCC: online counselling for Fort St. John in English or Punjabi. Anxiety, depression and trauma, one to one. Free 30-minute consultation."
+    },
+    "/practitioners/savneet-singh/kamloops/pa": {
+      "title": "ਕੈਮਲੂਪਸ ਵਿੱਚ ਪੰਜਾਬੀ ਕਾਊਂਸਲਿੰਗ | Savneet Singh",
+      "desc": "Savneet Singh, RCC ਨਾਲ ਕੈਮਲੂਪਸ ਲਈ ਪੰਜਾਬੀ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਸੈਸ਼ਨ, ਸੁਰੱਖਿਅਤ ਵੀਡੀਓ ਰਾਹੀਂ। ਚਿੰਤਾ, ਉਦਾਸੀ, ਟਰੌਮਾ। ਪਹਿਲੀ 30 ਮਿੰਟ ਦੀ ਗੱਲਬਾਤ ਮੁਫ਼ਤ।"
+    },
+    "/practitioners/savneet-singh/kamloops": {
+      "title": "Savneet Singh, RCC: Punjabi counsellor for Kamloops",
+      "desc": "Savneet Singh, RCC: online counselling for Kamloops in English or Punjabi. Anxiety, depression and trauma, one to one. Free 30-minute consultation."
+    },
+    "/practitioners/savneet-singh/kelowna/pa": {
+      "title": "ਕੈਲੋਨਾ ਵਿੱਚ ਪੰਜਾਬੀ ਕਾਊਂਸਲਿੰਗ | Savneet Singh",
+      "desc": "Savneet Singh, RCC ਨਾਲ ਕੈਲੋਨਾ ਲਈ ਪੰਜਾਬੀ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਸੈਸ਼ਨ, ਸੁਰੱਖਿਅਤ ਵੀਡੀਓ ਰਾਹੀਂ। ਚਿੰਤਾ, ਉਦਾਸੀ, ਟਰੌਮਾ। ਪਹਿਲੀ 30 ਮਿੰਟ ਦੀ ਗੱਲਬਾਤ ਮੁਫ਼ਤ।"
+    },
+    "/practitioners/savneet-singh/kelowna": {
+      "title": "Savneet Singh, RCC: Punjabi counsellor for Kelowna",
+      "desc": "Savneet Singh, RCC: online counselling for Kelowna in English or Punjabi. Anxiety, depression and trauma, one to one. Free 30-minute consultation."
+    },
+    "/practitioners/savneet-singh/langford": {
+      "title": "Savneet Singh, RCC: Punjabi counsellor for Langford",
+      "desc": "Savneet Singh, RCC: online counselling for Langford in English or Punjabi. Anxiety, depression and trauma, one to one. Free 30-minute consultation."
+    },
+    "/practitioners/savneet-singh/langley/pa": {
+      "title": "ਲੈਂਗਲੀ ਵਿੱਚ ਪੰਜਾਬੀ ਕਾਊਂਸਲਿੰਗ | Savneet Singh",
+      "desc": "Savneet Singh, RCC ਨਾਲ ਲੈਂਗਲੀ ਲਈ ਪੰਜਾਬੀ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਸੈਸ਼ਨ, ਸੁਰੱਖਿਅਤ ਵੀਡੀਓ ਰਾਹੀਂ। ਚਿੰਤਾ, ਉਦਾਸੀ, ਟਰੌਮਾ। ਪਹਿਲੀ 30 ਮਿੰਟ ਦੀ ਗੱਲਬਾਤ ਮੁਫ਼ਤ।"
+    },
+    "/practitioners/savneet-singh/langley": {
+      "title": "Savneet Singh, RCC: Punjabi counsellor for Langley",
+      "desc": "Savneet Singh, RCC: online counselling for Langley in English or Punjabi. Anxiety, depression and trauma, one to one. Free 30-minute consultation."
+    },
+    "/practitioners/savneet-singh/maple-ridge": {
+      "title": "Savneet Singh, RCC: Punjabi counsellor for Maple Ridge",
+      "desc": "Savneet Singh, RCC: online counselling for Maple Ridge in English or Punjabi. Anxiety, depression and trauma, one to one. Free 30-minute consultation."
+    },
+    "/practitioners/savneet-singh/mission": {
+      "title": "Savneet Singh, RCC: Punjabi counsellor for Mission",
+      "desc": "Savneet Singh, RCC: online counselling for Mission in English or Punjabi. Anxiety, depression and trauma, one to one. Free 30-minute consultation."
+    },
+    "/practitioners/savneet-singh/nanaimo/pa": {
+      "title": "ਨਨਾਇਮੋ ਵਿੱਚ ਪੰਜਾਬੀ ਕਾਊਂਸਲਿੰਗ | Savneet Singh",
+      "desc": "Savneet Singh, RCC ਨਾਲ ਨਨਾਇਮੋ ਲਈ ਪੰਜਾਬੀ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਸੈਸ਼ਨ, ਸੁਰੱਖਿਅਤ ਵੀਡੀਓ ਰਾਹੀਂ। ਚਿੰਤਾ, ਉਦਾਸੀ, ਟਰੌਮਾ। ਪਹਿਲੀ 30 ਮਿੰਟ ਦੀ ਗੱਲਬਾਤ ਮੁਫ਼ਤ।"
+    },
+    "/practitioners/savneet-singh/nanaimo": {
+      "title": "Savneet Singh, RCC: Punjabi counsellor for Nanaimo",
+      "desc": "Savneet Singh, RCC: online counselling for Nanaimo in English or Punjabi. Anxiety, depression and trauma, one to one. Free 30-minute consultation."
+    },
+    "/practitioners/savneet-singh/new-westminster": {
+      "title": "Savneet Singh, RCC: Punjabi counsellor for New Westminster",
+      "desc": "Savneet Singh, RCC: online counselling for New Westminster in English or Punjabi. Anxiety, depression and trauma, one to one. Free 30-minute consultation."
+    },
+    "/practitioners/savneet-singh/north-vancouver": {
+      "title": "Savneet Singh, RCC: Punjabi counsellor for North Vancouver",
+      "desc": "Savneet Singh, RCC: online counselling for North Vancouver in English or Punjabi. Anxiety, depression and trauma, one to one. Free 30-minute consultation."
+    },
+    "/practitioners/savneet-singh/pa": {
+      "title": "ਪੰਜਾਬੀ ਵਿੱਚ ਕਾਊਂਸਲਿੰਗ, ਸਵਨੀਤ ਸਿੰਘ | Westpeak Wellness",
+      "desc": "ਸਵਨੀਤ ਸਿੰਘ ਨਾਲ ਪੰਜਾਬੀ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਕਾਊਂਸਲਿੰਗ। ਪੂਰੇ ਬ੍ਰਿਟਿਸ਼ ਕੋਲੰਬੀਆ ਵਿੱਚ ਆਨਲਾਈਨ। ਪਹਿਲੀ 30 ਮਿੰਟ ਦੀ ਗੱਲਬਾਤ ਮੁਫ਼ਤ।"
+    },
+    "/practitioners/savneet-singh/penticton": {
+      "title": "Savneet Singh, RCC: Punjabi counsellor for Penticton",
+      "desc": "Savneet Singh, RCC: online counselling for Penticton in English or Punjabi. Anxiety, depression and trauma, one to one. Free 30-minute consultation."
+    },
+    "/practitioners/savneet-singh/prince-george/pa": {
+      "title": "ਪ੍ਰਿੰਸ ਜਾਰਜ ਵਿੱਚ ਪੰਜਾਬੀ ਕਾਊਂਸਲਿੰਗ | Savneet Singh",
+      "desc": "Savneet Singh, RCC ਨਾਲ ਪ੍ਰਿੰਸ ਜਾਰਜ ਲਈ ਪੰਜਾਬੀ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਸੈਸ਼ਨ, ਸੁਰੱਖਿਅਤ ਵੀਡੀਓ ਰਾਹੀਂ। ਚਿੰਤਾ, ਉਦਾਸੀ, ਟਰੌਮਾ। ਪਹਿਲੀ 30 ਮਿੰਟ ਦੀ ਗੱਲਬਾਤ ਮੁਫ਼ਤ।"
+    },
+    "/practitioners/savneet-singh/prince-george": {
+      "title": "Savneet Singh, RCC: Punjabi counsellor for Prince George",
+      "desc": "Savneet Singh, RCC: online counselling for Prince George in English or Punjabi. Anxiety, depression and trauma, one to one. Free 30-minute consultation."
+    },
+    "/practitioners/savneet-singh/richmond/pa": {
+      "title": "ਰਿਚਮੰਡ ਵਿੱਚ ਪੰਜਾਬੀ ਕਾਊਂਸਲਿੰਗ | Savneet Singh",
+      "desc": "Savneet Singh, RCC ਨਾਲ ਰਿਚਮੰਡ ਲਈ ਪੰਜਾਬੀ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਸੈਸ਼ਨ, ਸੁਰੱਖਿਅਤ ਵੀਡੀਓ ਰਾਹੀਂ। ਚਿੰਤਾ, ਉਦਾਸੀ, ਟਰੌਮਾ। ਪਹਿਲੀ 30 ਮਿੰਟ ਦੀ ਗੱਲਬਾਤ ਮੁਫ਼ਤ।"
+    },
+    "/practitioners/savneet-singh/richmond": {
+      "title": "Savneet Singh, RCC: Punjabi counsellor for Richmond",
+      "desc": "Savneet Singh, RCC: online counselling for Richmond in English or Punjabi. Anxiety, depression and trauma, one to one. Free 30-minute consultation."
+    },
+    "/practitioners/savneet-singh/saanich": {
+      "title": "Savneet Singh, RCC: Punjabi counsellor for Saanich",
+      "desc": "Savneet Singh, RCC: online counselling for Saanich in English or Punjabi. Anxiety, depression and trauma, one to one. Free 30-minute consultation."
+    },
+    "/practitioners/savneet-singh/surrey/pa": {
+      "title": "ਸਰੀ ਵਿੱਚ ਪੰਜਾਬੀ ਕਾਊਂਸਲਿੰਗ | Savneet Singh",
+      "desc": "Savneet Singh, RCC ਨਾਲ ਸਰੀ ਲਈ ਪੰਜਾਬੀ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਸੈਸ਼ਨ, ਸੁਰੱਖਿਅਤ ਵੀਡੀਓ ਰਾਹੀਂ। ਚਿੰਤਾ, ਉਦਾਸੀ, ਟਰੌਮਾ। ਪਹਿਲੀ 30 ਮਿੰਟ ਦੀ ਗੱਲਬਾਤ ਮੁਫ਼ਤ।"
+    },
+    "/practitioners/savneet-singh/surrey": {
+      "title": "Savneet Singh, RCC: Punjabi counsellor for Surrey",
+      "desc": "Savneet Singh, RCC: online counselling for Surrey in English or Punjabi. Anxiety, depression and trauma, one to one. Free 30-minute consultation."
+    },
+    "/practitioners/savneet-singh/vancouver/pa": {
+      "title": "ਵੈਨਕੂਵਰ ਵਿੱਚ ਪੰਜਾਬੀ ਕਾਊਂਸਲਿੰਗ | Savneet Singh",
+      "desc": "Savneet Singh, RCC ਨਾਲ ਵੈਨਕੂਵਰ ਲਈ ਪੰਜਾਬੀ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਸੈਸ਼ਨ, ਸੁਰੱਖਿਅਤ ਵੀਡੀਓ ਰਾਹੀਂ। ਚਿੰਤਾ, ਉਦਾਸੀ, ਟਰੌਮਾ। ਪਹਿਲੀ 30 ਮਿੰਟ ਦੀ ਗੱਲਬਾਤ ਮੁਫ਼ਤ।"
+    },
+    "/practitioners/savneet-singh/vancouver": {
+      "title": "Savneet Singh, RCC: Punjabi counsellor for Vancouver",
+      "desc": "Savneet Singh, RCC: online counselling for Vancouver in English or Punjabi. Anxiety, depression and trauma, one to one. Free 30-minute consultation."
+    },
+    "/practitioners/savneet-singh/vernon": {
+      "title": "Savneet Singh, RCC: Punjabi counsellor for Vernon",
+      "desc": "Savneet Singh, RCC: online counselling for Vernon in English or Punjabi. Anxiety, depression and trauma, one to one. Free 30-minute consultation."
+    },
+    "/practitioners/savneet-singh/victoria/pa": {
+      "title": "ਵਿਕਟੋਰੀਆ ਵਿੱਚ ਪੰਜਾਬੀ ਕਾਊਂਸਲਿੰਗ | Savneet Singh",
+      "desc": "Savneet Singh, RCC ਨਾਲ ਵਿਕਟੋਰੀਆ ਲਈ ਪੰਜਾਬੀ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਸੈਸ਼ਨ, ਸੁਰੱਖਿਅਤ ਵੀਡੀਓ ਰਾਹੀਂ। ਚਿੰਤਾ, ਉਦਾਸੀ, ਟਰੌਮਾ। ਪਹਿਲੀ 30 ਮਿੰਟ ਦੀ ਗੱਲਬਾਤ ਮੁਫ਼ਤ।"
+    },
+    "/practitioners/savneet-singh/victoria": {
+      "title": "Savneet Singh, RCC: Punjabi counsellor for Victoria",
+      "desc": "Savneet Singh, RCC: online counselling for Victoria in English or Punjabi. Anxiety, depression and trauma, one to one. Free 30-minute consultation."
+    },
+    "/practitioners/savneet-singh/white-rock/pa": {
+      "title": "ਵ੍ਹਾਈਟ ਰੌਕ ਵਿੱਚ ਪੰਜਾਬੀ ਕਾਊਂਸਲਿੰਗ | Savneet Singh",
+      "desc": "Savneet Singh, RCC ਨਾਲ ਵ੍ਹਾਈਟ ਰੌਕ ਲਈ ਪੰਜਾਬੀ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਸੈਸ਼ਨ, ਸੁਰੱਖਿਅਤ ਵੀਡੀਓ ਰਾਹੀਂ। ਚਿੰਤਾ, ਉਦਾਸੀ, ਟਰੌਮਾ। ਪਹਿਲੀ 30 ਮਿੰਟ ਦੀ ਗੱਲਬਾਤ ਮੁਫ਼ਤ।"
+    },
+    "/practitioners/savneet-singh/white-rock": {
+      "title": "Savneet Singh, RCC: Punjabi counsellor for White Rock",
+      "desc": "Savneet Singh, RCC: online counselling for White Rock in English or Punjabi. Anxiety, depression and trauma, one to one. Free 30-minute consultation."
+    },
+    "/practitioners/savneet-singh": {
+      "title": "Savneet Singh, RCC: Punjabi counsellor, online in BC",
+      "desc": "Savneet Singh, RCC, online counselling across BC in English or Punjabi. $140 per 50-min session · free 30-min consult."
+    },
+    "/practitioners": {
+      "title": "Our Counsellors | Westpeak Wellness",
+      "desc": "The Registered Clinical Counsellors at Westpeak Wellness: credentials, areas of focus, and the languages each of them works in."
+    },
+    "/privacy": {
+      "title": "Privacy &amp; Confidentiality | Westpeak Wellness",
+      "desc": "What is collected, where session records are kept, the legal limits of confidentiality, and how this website handles your data, in plain language."
+    },
+    "/punjabi/guides/panic-attack-ki-hai": {
+      "title": "ਪੈਨਿਕ ਅਟੈਕ ਕੀ ਹੈ? | Westpeak Wellness",
+      "desc": "ਪੈਨਿਕ ਅਟੈਕ ਦਿਲ ਦੇ ਦੌਰੇ ਵਰਗਾ ਕਿਉਂ ਲੱਗਦਾ ਹੈ, ਸਰੀਰ ਵਿੱਚ ਕੀ ਹੁੰਦਾ ਹੈ, ਅਤੇ ਇਹ ਕਦੋਂ ਵੱਡੇ ਪੈਟਰਨ ਦਾ ਹਿੱਸਾ ਬਣ ਜਾਂਦਾ ਹੈ।"
+    },
+    "/punjabi/guides/parivar-naal-therapy-di-gall": {
+      "title": "ਪਰਿਵਾਰ ਨੂੰ ਥੈਰਪੀ ਬਾਰੇ ਦੱਸਣਾ | Westpeak Wellness",
+      "desc": "ਪੰਜਾਬੀ ਪਰਿਵਾਰ ਵਿੱਚ ਕਾਊਂਸਲਿੰਗ ਦੀ ਗੱਲ ਕਰਨੀ: ਦੱਸਣਾ ਜ਼ਰੂਰੀ ਹੈ ਜਾਂ ਨਹੀਂ, ਕਿਵੇਂ ਕਹੀਏ, ਅਤੇ &quot;ਲੋਕ ਕੀ ਕਹਿਣਗੇ&quot; ਦਾ ਕੀ ਕਰੀਏ।"
+    },
+    "/punjabi/guides/pehle-session-vich-ki-hunda-hai": {
+      "title": "ਪਹਿਲੇ ਸੈਸ਼ਨ ਵਿੱਚ ਕੀ ਹੁੰਦਾ ਹੈ? | Westpeak Wellness",
+      "desc": "ਮੁਫ਼ਤ 30 ਮਿੰਟ ਦੀ ਗੱਲਬਾਤ ਅਤੇ ਪਹਿਲੇ ਪੂਰੇ ਸੈਸ਼ਨ ਵਿੱਚ ਅਸਲ ਵਿੱਚ ਕੀ ਹੁੰਦਾ ਹੈ। ਕੋਈ ਫ਼ਾਰਮ ਨਹੀਂ, ਕੋਈ ਟੈਸਟ ਨਹੀਂ, ਕੁਝ ਤਿਆਰ ਕਰਨ ਦੀ ਲੋੜ ਨਹੀਂ।"
+    },
+    "/punjabi/guides/udaasi-jaan-thakevan": {
+      "title": "ਉਦਾਸੀ ਜਾਂ ਥਕੇਵਾਂ? | Westpeak Wellness",
+      "desc": "Burnout ਅਤੇ depression ਵਿੱਚ ਫ਼ਰਕ ਕਿਵੇਂ ਪਛਾਣੀਏ, ਦੋਵੇਂ ਇਕੱਠੇ ਕਿਵੇਂ ਹੋ ਸਕਦੇ ਹਨ, ਅਤੇ ਹਰੇਕ ਲਈ ਕੀ ਕੰਮ ਕਰਦਾ ਹੈ।"
+    },
+    "/punjabi/not-sent": {
+      "title": "Your message did not go through | Westpeak Wellness",
+      "desc": "The message from the Punjabi page was not sent. Email the practice or book a free consultation instead."
+    },
+    "/punjabi/regions": {
+      "title": "ਖੇਤਰ ਅਨੁਸਾਰ ਪੰਜਾਬੀ ਕਾਊਂਸਲਿੰਗ | Punjabi counselling by region",
+      "desc": "ਸਰੀ, ਐਬਟਸਫੋਰਡ, ਵੈਨਕੂਵਰ, ਕੈਲੋਨਾ, ਕੈਮਲੂਪਸ ਅਤੇ ਪ੍ਰਿੰਸ ਜਾਰਜ ਲਈ ਪੰਜਾਬੀ ਬੋਲਣ ਵਾਲੇ ਕਾਊਂਸਲਰ ਨਾਲ ਆਨਲਾਈਨ ਕਾਊਂਸਲਿੰਗ। ਸੈਸ਼ਨ ਪੰਜਾਬੀ, ਅੰਗਰੇਜ਼ੀ ਜਾਂ ਦੋਹਾਂ ਵਿੱਚ।"
+    },
+    "/punjabi/sent": {
+      "title": "ਤੁਹਾਡਾ ਸੁਨੇਹਾ ਪਹੁੰਚ ਗਿਆ ਹੈ | Westpeak Wellness",
+      "desc": "Confirmation, in Punjabi, that your message reached Westpeak Wellness."
+    },
+    "/punjabi-counselling/abbotsford": {
+      "title": "Punjabi Counselling in Abbotsford, BC | Westpeak",
+      "desc": "Punjabi-speaking online counselling for Abbotsford, from outside the Fraser Valley. $140 per 50-min session · free 30-min consult · Savneet Singh."
+    },
+    "/punjabi-counselling/campbell-river": {
+      "title": "Punjabi Counselling in Campbell River, BC | Westpeak",
+      "desc": "Punjabi-speaking online counselling for Campbell River and the North Island. $140 per 50-min session · free 30-min consult · Savneet Singh."
+    },
+    "/punjabi-counselling/courtenay": {
+      "title": "Punjabi Counselling in Courtenay, BC | Westpeak",
+      "desc": "Punjabi-speaking online counselling for Courtenay and the Comox Valley. $140 per 50-min session · free 30-min consult · Savneet Singh."
+    },
+    "/punjabi-counselling/cranbrook": {
+      "title": "Punjabi Counselling in Cranbrook, BC | Westpeak",
+      "desc": "Punjabi-speaking online counselling for Cranbrook and the East Kootenay. $140 per 50-min session · free 30-min consult · Savneet Singh."
+    },
+    "/punjabi-counselling/kamloops": {
+      "title": "Punjabi Counselling in Kamloops, BC | Westpeak",
+      "desc": "Punjabi-speaking online counselling for Kamloops and the Thompson-Nicola. $140 per 50-min session · free 30-min consult · Savneet Singh."
+    },
+    "/punjabi-counselling/kelowna": {
+      "title": "Punjabi Counselling in Kelowna, BC | Westpeak",
+      "desc": "Punjabi-speaking online counselling for Kelowna and the Okanagan. $140 per 50-min session · free 30-min consult · Savneet Singh."
+    },
+    "/punjabi-counselling/langford": {
+      "title": "Punjabi Counselling in Langford, BC | Westpeak",
+      "desc": "Punjabi-speaking online counselling for Langford and the West Shore. $140 per 50-min session · free 30-min consult · Savneet Singh."
+    },
+    "/punjabi-counselling/maple-ridge": {
+      "title": "Punjabi Counselling in Maple Ridge, BC | Westpeak",
+      "desc": "Punjabi-speaking online counselling for Maple Ridge and Pitt Meadows. $140 per 50-min session · free 30-min consult · Savneet Singh."
+    },
+    "/punjabi-counselling/mission": {
+      "title": "Punjabi Counselling in Mission, BC | Westpeak",
+      "desc": "Punjabi-speaking online counselling for Mission, BC. $140 per 50-min session · free 30-min consult · Savneet Singh."
+    },
+    "/punjabi-counselling/new-westminster": {
+      "title": "Punjabi Counselling in New Westminster, BC | Westpeak",
+      "desc": "Punjabi-speaking online counselling for New Westminster and Queensborough. $140 per 50-min session · free 30-min consult · Savneet Singh."
+    },
+    "/punjabi-counselling/north-vancouver": {
+      "title": "Punjabi Counselling in North Vancouver, BC | Westpeak",
+      "desc": "Punjabi-speaking online counselling for North Vancouver and the North Shore. $140 per 50-min session · free 30-min consult · Savneet Singh."
+    },
+    "/punjabi-counselling/prince-george": {
+      "title": "Punjabi Counselling in Prince George, BC | Westpeak",
+      "desc": "Punjabi-speaking online counselling for Prince George and Northern BC. $140 per 50-min session · free 30-min consult · Savneet Singh."
+    },
+    "/punjabi-counselling/saanich": {
+      "title": "Punjabi Counselling in Saanich, BC | Westpeak",
+      "desc": "Punjabi-speaking online counselling for Saanich and Greater Victoria. $140 per 50-min session · free 30-min consult · Savneet Singh."
+    },
+    "/punjabi-counselling/surrey": {
+      "title": "Punjabi Counselling in Surrey, BC | Westpeak",
+      "desc": "Punjabi-speaking online counselling for Surrey, from outside Surrey. $140 per 50-min session · free 30-min consult · Savneet Singh."
+    },
+    "/punjabi-counselling/vancouver": {
+      "title": "Punjabi Counselling in Vancouver, BC | Westpeak",
+      "desc": "Punjabi-speaking online counselling for Vancouver. $140 per 50-min session · free 30-min consult · Savneet Singh."
+    },
+    "/punjabi-counselling/vernon": {
+      "title": "Punjabi Counselling in Vernon, BC | Westpeak",
+      "desc": "Punjabi-speaking online counselling for Vernon and the North Okanagan. $140 per 50-min session · free 30-min consult · Savneet Singh."
+    },
+    "/punjabi-counselling": {
+      "title": "Punjabi Counselling by Region in BC | Westpeak Wellness",
+      "desc": "Punjabi-speaking online counselling across BC: Surrey, Abbotsford, Vancouver, Kelowna, Kamloops and Prince George. Sessions in Punjabi, English, or both."
+    },
+    "/punjabi": {
+      "title": "ਪੰਜਾਬੀ ਵਿੱਚ ਕਾਊਂਸਲਿੰਗ | Punjabi Counselling in BC",
+      "desc": "ਬ੍ਰਿਟਿਸ਼ ਕੋਲੰਬੀਆ ਵਿੱਚ ਪੰਜਾਬੀ ਬੋਲਣ ਵਾਲੇ Registered Clinical Counsellor ਨਾਲ ਆਨਲਾਈਨ ਕਾਊਂਸਲਿੰਗ। Online counselling in Punjabi anywhere in BC."
+    },
+    "/refer/counsellors": {
+      "title": "For counsellors with a full caseload | Westpeak Wellness",
+      "desc": "For a counsellor with a full caseload: who is accepting here, in which languages and where, and how a client books. No referral fee, nothing reciprocal."
+    },
+    "/refer/doctor": {
+      "title": "Bring this to your doctor | Westpeak Wellness",
+      "desc": "A one-page summary to print or take to your GP in BC: designation, scope limits, fees, and why no referral is needed to see a counsellor."
+    },
+    "/refer/handout": {
+      "title": "Front-desk cards for clinics | Westpeak Wellness",
+      "desc": "Four cut-out cards to print for a clinic, campus or agency front desk: the free video consultation, no referral needed, and the crisis lines."
+    },
+    "/resources/bc-crisis-and-support-directory": {
+      "title": "BC Crisis &amp; Support Directory | Westpeak Wellness",
+      "desc": "Every crisis line and mental health hotline covering British Columbia, who to call, when, and what each service actually does."
+    },
+    "/resources/bc-extended-health-coverage-for-counselling": {
+      "title": "BC Extended Health &amp; Counselling | Westpeak Wellness",
+      "desc": "Which BC extended health plans cover Registered Clinical Counsellors, how reimbursement works, and the exact wording to check first."
+    },
+    "/resources/becoming-a-counsellor-in-bc": {
+      "title": "How to Become a Counsellor in BC | Westpeak",
+      "desc": "The real route to practising as a counsellor in BC. The master’s, supervised hours, RCC or CCC registration, what it costs, and how 2027 changes the field."
+    },
+    "/resources/before-your-first-consultation": {
+      "title": "Before Your First Consultation | Westpeak",
+      "desc": "What actually happens on the free 30-minute call, the one thing worth preparing, the tech checklist, and every version of nervous that is normal."
+    },
+    "/resources/counselling-benefits-before-year-end-bc": {
+      "title": "Counselling Benefits Before Year End, BC | Westpeak",
+      "desc": "On a calendar-year plan, the session date decides which year’s maximum it uses. Claim deadlines, anniversary years, HSAs and what carries over, for BC."
+    },
+    "/resources/counselling-coverage-in-alberta": {
+      "title": "Is Therapy Covered by Alberta Health Care (AHCIP)?",
+      "desc": "No. Alberta Health Care does not pay for private counselling. What your extended health plan reimburses, which designation to ask about, and the free routes."
+    },
+    "/resources/counselling-in-punjabi-what-the-words-mean": {
+      "title": "Counselling Meaning in Punjabi (ਕਾਊਂਸਲਿੰਗ), Therapy, Consult",
+      "desc": "ਕਾਊਂਸਲਿੰਗ, ਸਲਾਹ-ਮਸ਼ਵਰਾ, ਮਾਨਸਿਕ ਸਿਹਤ: the Punjabi words for counselling and what each one carries, including the ones that do not translate cleanly."
+    },
+    "/resources/counselling-in-tagalog-what-the-words-mean": {
+      "title": "Counselling Meaning in Tagalog: Pagpapayo, Therapy, Burnout",
+      "desc": "Pagpapayo, konsultasyon, kalusugang pangkaisipan: the Tagalog words for counselling, what each one carries, and the ones that do not translate."
+    },
+    "/resources/disability-benefits-and-counselling-bc": {
+      "title": "Short and Long-Term Disability for Mental Health in BC",
+      "desc": "How STD and LTD work for mental-health claims in BC: timelines, the treatment expectation, the own-occupation switch, and where counselling fits."
+    },
+    "/resources/does-my-plan-cover-counselling-bc": {
+      "title": "Does Blue Cross or Sun Life Cover Counselling? BC",
+      "desc": "Often, to an annual maximum your plan sets. How to check Pacific Blue Cross, Sun Life, Manulife or Canada Life in two minutes, and the words to use."
+    },
+    "/resources/finding-a-counsellor-in-punjabi-or-tagalog-in-bc": {
+      "title": "How to Find a Punjabi or Tagalog-Speaking Counsellor in BC",
+      "desc": "For settlement workers, employers and family: how counselling in BC works, checking registration, interpretation vs same-language therapy, and free services."
+    },
+    "/resources/how-to-check-a-counsellor-in-alberta": {
+      "title": "How to check a counsellor in Alberta | Westpeak Wellness",
+      "desc": "Counselling therapy is not regulated in Alberta, so there is no college to search. What can be verified instead, and the registers that let you do it."
+    },
+    "/resources/icbc-counselling-after-a-crash-bc": {
+      "title": "ICBC Counselling in BC: Approved Counsellors, Rates, Plan",
+      "desc": "What ICBC Enhanced Care pre-approves for counselling after a crash, who can provide it, how to use it, and what this practice can and cannot do with it."
+    },
+    "/resources/low-cost-counselling-bc": {
+      "title": "Free &amp; Low-Cost Counselling in BC | Westpeak Wellness",
+      "desc": "A working list of free and reduced-cost mental health support in British Columbia, who qualifies, what it covers, and how to access it."
+    },
+    "/resources/mental-health-leave-templates-bc": {
+      "title": "Mental Health Leave Templates for BC: Request, Note, HR",
+      "desc": "Copyable templates for a medical leave in BC: a request letter for the employee, what to ask the doctor for, and an HR checklist with ESA, EI and the return."
+    },
+    "/resources/msp-vs-extended-health": {
+      "title": "Does MSP Cover Therapy in BC? Is Therapy Free?",
+      "desc": "No. MSP does not pay for private counselling. Three routes that are genuinely free, what extended health reimburses, and what a session costs if you pay."
+    },
+    "/resources/psychiatry-and-assessment-in-bc": {
+      "title": "Psychiatry &amp; Assessment in BC | Westpeak",
+      "desc": "How to get a psychiatric referral in BC without a family doctor, what a private ADHD or psychological assessment costs, and the wait for each route."
+    },
+    "/resources/student-mental-health-supports-bc": {
+      "title": "Does My Student Plan Cover Counselling? BC Student Supports",
+      "desc": "What each BC student-society plan pays for a Registered Clinical Counsellor, read from the plan, plus the free routes: campus counselling, Here2Talk, Foundry."
+    },
+    "/resources/verify-a-counsellor-in-bc": {
+      "title": "Registered Clinical Counsellor (RCC): Meaning, BCACC Lookup",
+      "desc": "What RCC means after a counsellor’s name in BC, how it differs from “licensed” or “registered counsellor”, and the free four-minute register check."
+    },
+    "/resources/workplace-mental-health-bc": {
+      "title": "Mental Health at Work BC: Leave, Accommodation | Westpeak",
+      "desc": "What your employer may and may not ask, how accommodation actually works, and where sick leave, short-term disability and a WorkSafeBC claim differ."
+    },
+    "/resources/worksafebc-psychological-injury-claims": {
+      "title": "WCB Psychological Injury Claims in BC (WorkSafeBC)",
+      "desc": "When a work-related mental injury is a WCB claim rather than a stress leave in BC, what the claim requires, and the exclusion everyone trips over."
+    },
+    "/resources": {
+      "title": "BC Mental Health Resources | Westpeak Wellness",
+      "desc": "Practical reference for mental health in BC: insurance coverage, MSP, free and low-cost counselling, and crisis support numbers."
+    },
+    "/reviews": {
+      "title": "Reviews and references | Westpeak Wellness",
+      "desc": "Why this practice publishes no client testimonials, what can be verified instead, and how to check a counsellor’s registration in BC yourself."
+    },
+    "/services/couples-therapy": {
+      "title": "Gottman-Informed Couples Counselling Online in BC | Westpeak",
+      "desc": "Gottman-informed online couples counselling across BC. $175 per 50-min session · free 30-min consult · Camille Granda."
+    },
+    "/services/emdr-therapy": {
+      "title": "Online EMDR Therapist in BC | Trauma Therapy | Westpeak",
+      "desc": "Online EMDR and trauma therapy across BC for PTSD, anxiety and grief. $190 per 90-min session · free 30-min consult · Camille Granda."
+    },
+    "/services/family-counselling": {
+      "title": "Online Family Counselling in BC | Westpeak Wellness",
+      "desc": "Online family counselling across BC in English or Tagalog. Conflict, communication, and the gap between generations. Free 30-minute consultation."
+    },
+    "/services/individual-therapy": {
+      "title": "Online Anxiety &amp; Depression Counselling in BC | Westpeak",
+      "desc": "Online counselling for anxiety, depression and burnout across BC. $140 per 50-min session · free 30-min consult · Camille Granda or Savneet Singh."
+    },
+    "/services/punjabi-counselling": {
+      "title": "Punjabi Counselling Online in BC | Punjabi-Speaking RCC",
+      "desc": "Online counselling in Punjabi, English or both, anywhere in BC. $140 per 50-min session · free 30-min consult · Savneet Singh."
+    },
+    "/services/tagalog-counselling": {
+      "title": "Filipino, Tagalog-Speaking Counselling in BC | Westpeak",
+      "desc": "Online counselling in Tagalog, English or both, across BC and Alberta. From $140 per 50-min session · free 30-min consult · Camille Granda."
+    },
+    "/services": {
+      "title": "Counselling Services (Online, BC-wide) | Westpeak Wellness",
+      "desc": "Online counselling across BC: individual and couples therapy, EMDR, trauma, anxiety and depression. Book a free consultation."
+    },
+    "/standards": {
+      "title": "Standards &amp; Accountability | Westpeak Wellness",
+      "desc": "The registration, ethical code, scope limits and complaints route this practice works under, and how to verify any of it yourself."
+    },
+    "/tagalog/gabay/ano-ang-mangyayari-sa-unang-sesyon": {
+      "title": "Ang unang sesyon: ano ang aasahan | Westpeak Wellness",
+      "desc": "Ano talaga ang nangyayari sa libreng tatlumpung minuto at sa unang buong sesyon. Walang form, walang diagnosis, at walang kailangang ihanda."
+    },
+    "/tagalog/gabay/ano-ang-panic-attack": {
+      "title": "Ano ang panic attack? | Westpeak Wellness",
+      "desc": "Bakit parang atake sa puso ang panic attack, ano ang nangyayari sa katawan, at kailan ito nagiging bahagi ng mas malaking pattern."
+    },
+    "/tagalog/gabay/depresyon-o-pagod-lang": {
+      "title": "Depresyon o pagod lang? | Westpeak Wellness",
+      "desc": "Ang pagkakaiba ng pagod at ng depresyon, bakit hindi ito natutulungan ng pahinga, at bakit tinatawag itong katamaran ng mismong nakakaranas."
+    },
+    "/tagalog/gabay/pag-uusap-sa-pamilya-tungkol-sa-therapy": {
+      "title": "Pagsasabi sa pamilya tungkol sa therapy | Westpeak Wellness",
+      "desc": "Ano ang sasabihin, kung kailangan mo bang magsabi, at paano kung ang reaksyon ay hindi maganda. Walang kailangang aminin bago ka magsimula."
+    },
+    "/tagalog/gabay/pagod-sa-pag-aalaga": {
+      "title": "Burnout sa caregiving at healthcare | Westpeak Wellness",
+      "desc": "Bakit ibang klase ang pagkaubos sa care work at healthcare, bakit hindi ito napapansin, at ano ang pagkakaiba nito sa ordinaryong stress sa trabaho."
+    },
+    "/tagalog/gabay/trauma-na-naipapasa-sa-pamilya": {
+      "title": "Trauma na naipapasa sa pamilya | Westpeak Wellness",
+      "desc": "Bakit may dalang bigat ang ikalawang henerasyon mula sa mga pangyayaring hindi nila naranasan, at ano ang aktuwal na naipapasa."
+    },
+    "/tagalog-counselling/abbotsford": {
+      "title": "Tagalog Counselling in Abbotsford, BC | Westpeak Wellness",
+      "desc": "Counselling in Tagalog or English for Abbotsford, by secure video with a Registered Clinical Counsellor. Free 30-minute consultation."
+    },
+    "/tagalog-counselling/burnaby": {
+      "title": "Tagalog Counselling in Burnaby, BC | Westpeak Wellness",
+      "desc": "Counselling in Tagalog or English for Burnaby, by secure video with a Registered Clinical Counsellor. Free 30-minute consultation."
+    },
+    "/tagalog-counselling/campbell-river": {
+      "title": "Tagalog Counselling in Campbell River | Westpeak Wellness",
+      "desc": "Counselling in Tagalog or English for Campbell River, by secure video with a Registered Clinical Counsellor. Free 30-minute consultation."
+    },
+    "/tagalog-counselling/coquitlam": {
+      "title": "Tagalog Counselling in Coquitlam, BC | Westpeak Wellness",
+      "desc": "Counselling in Tagalog or English for Coquitlam, by secure video with a Registered Clinical Counsellor. Free 30-minute consultation."
+    },
+    "/tagalog-counselling/courtenay": {
+      "title": "Tagalog Counselling in Courtenay, BC | Westpeak Wellness",
+      "desc": "Counselling in Tagalog or English for Courtenay, by secure video with a Registered Clinical Counsellor. Free 30-minute consultation."
+    },
+    "/tagalog-counselling/cranbrook": {
+      "title": "Tagalog Counselling in Cranbrook, BC | Westpeak Wellness",
+      "desc": "Counselling in Tagalog or English for Cranbrook, by secure video with a Registered Clinical Counsellor. Free 30-minute consultation."
+    },
+    "/tagalog-counselling/delta": {
+      "title": "Tagalog Counselling in Delta, BC | Westpeak Wellness",
+      "desc": "Counselling in Tagalog or English for Delta, by secure video with a Registered Clinical Counsellor. Free 30-minute consultation."
+    },
+    "/tagalog-counselling/kelowna": {
+      "title": "Tagalog Counselling in Kelowna, BC | Westpeak Wellness",
+      "desc": "Counselling in Tagalog or English for Kelowna, by secure video with a Registered Clinical Counsellor. Free 30-minute consultation."
+    },
+    "/tagalog-counselling/langford": {
+      "title": "Tagalog Counselling in Langford, BC | Westpeak Wellness",
+      "desc": "Counselling in Tagalog or English for Langford, by secure video with a Registered Clinical Counsellor. Free 30-minute consultation."
+    },
+    "/tagalog-counselling/langley": {
+      "title": "Tagalog Counselling in Langley, BC | Westpeak Wellness",
+      "desc": "Counselling in Tagalog or English for Langley, by secure video with a Registered Clinical Counsellor. Free 30-minute consultation."
+    },
+    "/tagalog-counselling/maple-ridge": {
+      "title": "Tagalog Counselling in Maple Ridge, BC | Westpeak Wellness",
+      "desc": "Counselling in Tagalog or English for Maple Ridge, by secure video with a Registered Clinical Counsellor. Free 30-minute consultation."
+    },
+    "/tagalog-counselling/mission": {
+      "title": "Tagalog Counselling in Mission, BC | Westpeak Wellness",
+      "desc": "Counselling in Tagalog or English for Mission, by secure video with a Registered Clinical Counsellor. Free 30-minute consultation."
+    },
+    "/tagalog-counselling/new-westminster": {
+      "title": "Tagalog Counselling in New Westminster | Westpeak Wellness",
+      "desc": "Counselling in Tagalog or English for New Westminster, by secure video with a Registered Clinical Counsellor. Free 30-minute consultation."
+    },
+    "/tagalog-counselling/north-vancouver": {
+      "title": "Tagalog Counselling in North Vancouver | Westpeak Wellness",
+      "desc": "Counselling in Tagalog or English for North Vancouver, by secure video with a Registered Clinical Counsellor. Free 30-minute consultation."
+    },
+    "/tagalog-counselling/richmond": {
+      "title": "Tagalog Counselling in Richmond, BC | Westpeak Wellness",
+      "desc": "Counselling in Tagalog or English for Richmond, by secure video with a Registered Clinical Counsellor. Free 30-minute consultation."
+    },
+    "/tagalog-counselling/saanich": {
+      "title": "Tagalog Counselling in Saanich, BC | Westpeak Wellness",
+      "desc": "Counselling in Tagalog or English for Saanich, by secure video with a Registered Clinical Counsellor. Free 30-minute consultation."
+    },
+    "/tagalog-counselling/surrey": {
+      "title": "Tagalog Counselling in Surrey, BC | Westpeak Wellness",
+      "desc": "Counselling in Tagalog or English for Surrey, by secure video with a Registered Clinical Counsellor. Free 30-minute consultation."
+    },
+    "/tagalog-counselling/vancouver": {
+      "title": "Tagalog Counselling in Vancouver, BC | Westpeak Wellness",
+      "desc": "Counselling in Tagalog or English for Vancouver, by secure video with a Registered Clinical Counsellor. Free 30-minute consultation."
+    },
+    "/tagalog-counselling/vernon": {
+      "title": "Tagalog Counselling in Vernon, BC | Westpeak Wellness",
+      "desc": "Counselling in Tagalog or English for Vernon, by secure video with a Registered Clinical Counsellor. Free 30-minute consultation."
+    },
+    "/tagalog-counselling/victoria": {
+      "title": "Tagalog Counselling in Victoria, BC | Westpeak Wellness",
+      "desc": "Counselling in Tagalog or English for Victoria, by secure video with a Registered Clinical Counsellor. Free 30-minute consultation."
+    },
+    "/tagalog-counselling/white-rock": {
+      "title": "Tagalog Counselling in White Rock, BC | Westpeak Wellness",
+      "desc": "Counselling in Tagalog or English for White Rock, by secure video with a Registered Clinical Counsellor. Free 30-minute consultation."
+    },
+    "/tagalog-counselling": {
+      "title": "Tagalog-Speaking Counselling in BC | Westpeak Wellness",
+      "desc": "Online counselling in Tagalog or English across British Columbia with a Registered Clinical Counsellor. Free 30-minute consultation, no referral needed."
+    },
+    "/tagalog": {
+      "title": "Counselling sa Tagalog | Westpeak Wellness",
+      "desc": "Counselling sa Tagalog o Ingles sa buong British Columbia at Alberta. Libreng 30 minutong konsultasyon, walang bayad at walang obligasyon."
+    },
+    "/tools/burnout-or-depression": {
+      "title": "Burnout or depression? A short check | Westpeak Wellness",
+      "desc": "They look identical from inside and respond to different things. Seven questions on what separates them. Not a test, not a diagnosis, nothing stored."
+    },
+    "/tools/stress-check": {
+      "title": "How have things been? A reflection | Westpeak Wellness",
+      "desc": "Six calm questions to help put words to how the last few weeks have been. Not a screening tool, not a diagnosis, and nothing is stored."
+    },
+    "/tools/therapy-cost-bc": {
+      "title": "Therapy Cost Calculator for BC: What You Pay After Insurance",
+      "desc": "What counselling in BC costs you after extended health. BCACC recommends $140 to $175 per 50 minutes; two questions to ask your plan first."
+    },
+    "/tools/what-can-i-access": {
+      "title": "What counselling can you access? | Westpeak Wellness",
+      "desc": "Five questions that sort the routes to counselling in BC and Alberta by what you qualify for, including free options people already have. Nothing stored."
+    },
+    "/tools/which-service": {
+      "title": "Which kind of counselling fits? | Westpeak Wellness",
+      "desc": "A short, private questionnaire that suggests where to start: individual, couples, EMDR or something outside counselling. No sign-up, nothing stored."
+    },
+    "/tools": {
+      "title": "Free counselling tools | Westpeak Wellness",
+      "desc": "Three short, private tools: which counselling fits, what it costs in BC after extended health, and a reflection on how things have been. Nothing stored."
+    },
+    "/_not-found": {
+      "title": "Page not found | Westpeak Wellness",
+      "desc": "That page has moved or never existed. Search the site, or jump to services, fees, guides or booking."
+    }
   }
 }
