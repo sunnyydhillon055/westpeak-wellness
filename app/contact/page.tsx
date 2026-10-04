@@ -7,11 +7,17 @@ import { Mail, MonitorSmartphone, MapPin, Languages as LangIcon, AtSign, Phone }
 import Breadcrumbs from '@/components/Breadcrumbs';
 import InboundForm from '@/components/InboundForm';
 import MailLink from '@/components/MailLink';
+import { webPage } from '@/lib/schema';
+import { lastmodFor } from '@/lib/page-dates';
+import { practitioners, insuredProvinces, vancouverToday, withLetters } from '@/lib/practitioners';
+import { listOf } from '@/lib/city-service-page';
+
+const DESC =
+  'One line is enough to start. The reply comes from your counsellor, not an assistant, within one business day. English, Punjabi or Tagalog, anywhere in BC.';
 
 export const metadata: Metadata = {
   title: 'Contact & Book',
-  description:
-    'One line is enough to start, and the reply comes from your counsellor rather than an assistant, within one business day. English, Punjabi or Tagalog, anywhere in BC.',
+  description: DESC,
   alternates: { canonical: `${site.domain}/contact` },
 };
 
@@ -43,12 +49,37 @@ export default async function Contact({
   }
   const sent = searchParams?.sent === 'ok' ? 'ok'
     : searchParams?.sent === 'err' ? 'err' : undefined;
+  /* WHO IS TAKING NEW CLIENTS, NAMED — 4 Oct 2026. The page that produces
+     half the enquiries named nobody, so a reader writing in did not know
+     who might answer. The rule is lib/counsellor-cards.ts's: accepting and
+     insured for BC today, which leaves the founder out by flag, not by
+     name. Credential letters only; registration numbers stay on the
+     profiles, which is where the verify link beside the names sends people
+     to look them up. The page renders on demand, so a change of status
+     shows on the next request. */
+  const accepting = practitioners.filter(
+    (p) => p.acceptingNewClients && insuredProvinces(p, vancouverToday()).includes('BC'),
+  );
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            webPage({
+              path: '/contact',
+              name: 'Contact & Book',
+              description: DESC,
+              updated: lastmodFor('/contact') ?? undefined,
+              type: 'ContactPage',
+            }),
+          ),
+        }}
+      />
       <section className="hero" style={{ paddingBottom: 48 }}>
         <div className="container">
           <p className="eyebrow">Get in touch</p>
-          <h1>Let&rsquo;s see if we&rsquo;re a good fit.</h1>
+          <h1>Contact us to see if we&rsquo;re a good fit.</h1>
           <p className="lede">A free 15-minute consultation is the easiest way to start.</p>
           <div className="btn-row" style={{ marginTop: 24 }}>
             <Link className="btn btn--primary" href={site.bookingPath}>Book Free Consultation</Link>
@@ -139,6 +170,22 @@ export default async function Contact({
               limits of what this practice does are set out plainly on{' '}
               <Link href="/standards">standards and accountability</Link>.
             </p>
+            {accepting.length > 0 && (
+              <p>
+                {accepting.length === 1 ? 'The counsellor accepting new clients at the moment is ' : 'The counsellors accepting new clients at the moment are '}
+                {accepting.map((p, i) => (
+                  <span key={p.slug}>
+                    {i === 0 ? '' : i === accepting.length - 1 ? (accepting.length > 2 ? '; and ' : ', and ') : '; '}
+                    <Link href={`/practitioners/${p.slug}`}>{withLetters(p)}</Link>, who works in{' '}
+                    {listOf(p.languages.map((l) => l.name), 'and')}
+                  </span>
+                ))}
+                . {accepting.length === 1 ? 'The profile sets' : 'Each profile sets'} out training, approach and the
+                services offered, with the registration number to look up;{' '}
+                <Link href="/resources/verify-a-counsellor-in-bc">how to verify a counsellor in BC</Link> shows
+                how to check it on the public register yourself.
+              </p>
+            )}
             <p>
               The consultation itself is fifteen minutes over secure video, at no cost. You describe
               what is going on in as much or as little detail as you want; you hear how the work would

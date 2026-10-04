@@ -9,6 +9,8 @@ import Figure from '@/components/Figure';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
 import { COLLECTION_DATES, lastmodFor } from '@/lib/page-dates';
+import { bookingFor } from '@/lib/booking-cta';
+import { practitioners, insuredProvinces, vancouverToday } from '@/lib/practitioners';
 
 const TITLE = 'Reviews and references | Westpeak Wellness';
 const DESC =
@@ -33,7 +35,23 @@ export const metadata: Metadata = {
 export default function ReviewsPage() {
   const agg = aggregate();
   const hasReal = reviews.length > 0;
-  const googleUrl = process.env.NEXT_PUBLIC_GOOGLE_REVIEW_URL;
+  /* The listing link, for somebody who has ALREADY decided to leave a review
+     (REVIEW_REQUEST.md: publishing it where it can be found is not
+     solicitation; sending it to a client is). It stays in that one section,
+     never in the hero, a button or the closing band, and only an https URL
+     renders, so a mistyped variable cannot become a script link. */
+  const rawGoogleUrl = process.env.NEXT_PUBLIC_GOOGLE_REVIEW_URL;
+  const googleUrl = rawGoogleUrl && rawGoogleUrl.toLowerCase().startsWith('https://') ? rawGoogleUrl : undefined;
+  /* The consultation link, through the one routing rule. The page is about
+     no service, so it is the bare /book, where the reader chooses. */
+  const book = bookingFor(undefined);
+  /* The counsellors a reader would actually be checking: accepting and
+     insured for BC, the lib/counsellor-cards.ts rule, so the founder is left
+     out by flag. Names only here; the registration numbers are on the
+     profiles, which is why they are linked from the verify step. */
+  const accepting = practitioners.filter(
+    (p) => p.acceptingNewClients && insuredProvinces(p, vancouverToday()).includes('BC'),
+  );
 
   const schema = [
     {
@@ -101,7 +119,8 @@ export default function ReviewsPage() {
             oversight: the BC Association of Clinical Counsellors prohibits soliciting them,
             because someone in a therapeutic relationship is not in a position to freely decline.
             What can be verified instead is below, and it is checkable by you rather than
-            asserted by us.
+            asserted by us. The other way to judge fit is to ask in a{' '}
+            <Link href={book.href}>free 15-minute consultation</Link>.
           </p>
         </div>
       </section>
@@ -135,6 +154,19 @@ export default function ReviewsPage() {
                 <Link href="/resources/verify-a-counsellor-in-bc">How to verify a counsellor in BC</Link>{' '}
                 walks through it, and it is worth doing before booking with anyone, here
                 included.
+                {accepting.length > 0 && (
+                  <>
+                    {' '}To check the counsellors taking new clients here, start from{' '}
+                    {accepting.map((p, i) => (
+                      <span key={p.slug}>
+                        {i === 0 ? '' : i === accepting.length - 1 ? ' and ' : ', '}
+                        <Link href={`/practitioners/${p.slug}`}>{p.name}&rsquo;s profile</Link>
+                      </span>
+                    ))}
+                    , {accepting.length === 1 ? 'which gives' : 'each of which gives'} the registration number to
+                    search for.
+                  </>
+                )}
               </li>
               <li>
                 <strong>What the designation means.</strong>{' '}
@@ -205,9 +237,10 @@ export default function ReviewsPage() {
             <h2 id="deciding">Deciding without reviews</h2>
             <p>
               The honest substitute for a testimonial is a conversation.{' '}
-              <Link href={site.bookingPath}>The free 15-minute consultation</Link> costs nothing
+              <Link href={book.href}>The free 15-minute consultation</Link> costs nothing
               and carries no obligation, and it will tell you more about fit than any number of
-              strangers&rsquo; opinions.{' '}
+              strangers&rsquo; opinions. What sessions cost after it, and how extended-health
+              reimbursement works, is set out on <Link href="/pricing">fees and insurance</Link>.{' '}
               <Link href="/guides/how-to-find-a-therapist-in-bc">How to find a therapist in BC</Link>{' '}
               covers what to listen for, and{' '}
               <Link href="/faq">the frequently asked questions</Link> answer most of what people
