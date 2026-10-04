@@ -357,6 +357,10 @@ export const PA_EVENING_PROMISES: ReadonlySet<string> = new Set([
   'ਕੀ ਇੰਟੀਰੀਅਰ ਵਿੱਚ ਹੋਣ ਕਰਕੇ ਸਮੇਂ ਵੱਖਰੇ ਹਨ?',
   /* Coquitlam: "weekday evening times are available on request". */
   'ਮੈਂ ਸ਼ਾਮ ਸੱਤ ਵਜੇ ਤੋਂ ਪਹਿਲਾਂ ਘਰ ਨਹੀਂ ਪਹੁੰਚਦਾ। ਕੀ ਇੰਨੀ ਦੇਰ ਨਾਲ ਸੈਸ਼ਨ ਹੋ ਸਕਦਾ ਹੈ?',
+  /* Coquitlam (4 Oct 2026, critic): "a video session after you get home, or
+     after a shift, gives back the evening the commute took" implies an
+     after-work time the calendar may not have. */
+  'ਵੀਡੀਓ ਰਾਹੀਂ ਸੈਸ਼ਨ ਘਰ ਪਹੁੰਚਣ ਤੋਂ ਬਾਅਦ, ਜਾਂ ਕੰਮ ਵਾਲੀ ਥਾਂ ਸ਼ਿਫ਼ਟ ਤੋਂ ਬਾਅਦ, ਸ਼ਾਮ ਨੂੰ ਵਾਪਸ ਕਰ ਦਿੰਦਾ ਹੈ ਜੋ ਸਫ਼ਰ ਲੈ ਗਿਆ ਸੀ।',
 ]);
 
 /** The access cards a Punjabi page may show: the shared four less the evening promise. */
