@@ -469,7 +469,7 @@ export const pairs: Pair[] = [
     ],
     faqs: [
       /* Search Console, 17 Sep 2026: acceptance and commitment therapy Kamloops (12) and narrative therapy Kamloops (11), positions 47 to 50. */
-      { q: 'Do you use ACT or narrative therapy?', a: 'Both are part of the anxiety work here. Acceptance and commitment therapy is used because anxiety rarely leaves on request and the useful question becomes what you do while it is present; narrative approaches because the story a person tells about their anxiety is often the thing keeping it in place. Kamloops has few practitioners naming either, which is why those searches arrive at a page about online sessions.' },
+      { q: 'Do you use ACT or narrative therapy?', a: 'ACT, yes. Acceptance and commitment therapy is part of Savneet Singh’s training, alongside CBT and DBT, and it suits anxiety work because anxiety rarely leaves on request, so the useful question becomes what you do while it is present. Narrative therapy is not an approach either counsellor here lists. If it is the approach you want, ask about it on the free 30-minute consultation, or look for a counsellor who names it on their profile.' },
       { q: 'I work rotating shifts. Can this fit?', a: 'Yes, and say so in the first conversation. Booking in blocks around a rotation is a normal pattern here rather than a special arrangement.' },
       { q: 'Are Merritt and Salmon Arm covered?', a: 'Yes, on the same terms, with no distance penalty for being further out.' },
     ],
