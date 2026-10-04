@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { site } from '@/lib/site';
 import BookLink from '@/components/BookLink';
+import LanguageGuideNextSteps from '@/components/LanguageGuideNextSteps';
 import { bookingCtaFor } from '@/lib/booking-cta';
 import { abs, orgRef, siteRef } from '@/lib/schema';
 import { ogBasePunjabi } from '@/lib/og-meta';
@@ -67,6 +68,9 @@ export default function PunjabiGuidePage({ params }: { params: Params }) {
     .filter((r): r is NonNullable<typeof r> => Boolean(r) && r!.slug !== g.slug);
 
   const path = `/punjabi/guides/${g.slug}`;
+  /* One href for both buttons: the Punjabi-speaking counsellor’s calendar
+     (lib/booking-cta.ts bookingFor), never a colleague who does not speak it. */
+  const book = bookingCtaFor({ language: 'pa', fallback: '' }).href;
 
   const schema = [
     {
@@ -125,6 +129,13 @@ export default function PunjabiGuidePage({ params }: { params: Params }) {
           <h1 className="gurmukhi">{g.title}</h1>
           <p className="lede">{g.lede}</p>
           <Updated iso={COLLECTION_DATES['punjabiGuides']} lang="en-CA" />
+          {/* The booking button used to sit only in the closing band, at 96% of
+              the page. A reader who already knows they want to talk had to
+              read the whole guide to find it (4 Oct 2026). Same words as the
+              band: a free consultation, never a hard sell. */}
+          <div className="btn-row" style={{ marginTop: 20 }}>
+            <BookLink location="hero-language-guide" href={book}>{PA_PLACE_SHARED.cta}</BookLink>
+          </div>
         </div>
       </section>
 
@@ -178,6 +189,8 @@ export default function PunjabiGuidePage({ params }: { params: Params }) {
             <p>
               <Link href="/punjabi">ਪੰਜਾਬੀ ਵਿੱਚ ਸਭ ਕੁਝ</Link>
             </p>
+
+            <LanguageGuideNextSteps sources={g.sources} />
           </div>
 
           <div className="crisis" style={{ marginTop: 26 }}>
@@ -195,7 +208,7 @@ export default function PunjabiGuidePage({ params }: { params: Params }) {
           <div className="cta-band">
             <h2>ਪਹਿਲਾਂ ਗੱਲ ਕਰ ਲਈਏ</h2>
             <p>{PA_PLACE_SHARED.ctaText}</p>
-            <BookLink location="cta-band" href={bookingCtaFor({ language: 'pa', fallback: '' }).href}>
+            <BookLink location="cta-band" href={book}>
               {PA_PLACE_SHARED.cta}
             </BookLink>
             <p className="cta-band-alt">
