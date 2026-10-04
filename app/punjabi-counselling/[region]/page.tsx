@@ -3,7 +3,7 @@ import Updated from '@/components/Updated';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { punjabiRegions, getPunjabiRegion, regionOpening } from '@/lib/punjabi-regions';
+import { punjabiRegions, getPunjabiRegion, regionOpening, inPunjabiIndex } from '@/lib/punjabi-regions';
 import { site } from '@/lib/site';
 import { abs, orgRef, siteRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
@@ -287,7 +287,14 @@ export default async function PunjabiRegionPage({ params }: { params: { region: 
           <p style={{ marginTop: 24 }}>
             More in the <Link href="/faq">full list of frequently asked questions</Link>, or see{' '}
             <Link href="/pricing">fees and extended-health coverage</Link>. There is also a{' '}
-            <Link href="/punjabi">full page in Punjabi (ਪੰਜਾਬੀ)</Link>.
+            <Link href="/punjabi">full page in Punjabi (ਪੰਜਾਬੀ)</Link>
+            {inPunjabiIndex(r.slug) ? (
+              <>
+                , and {r.region} has its own card, in Punjabi, in{' '}
+                <Link href="/punjabi/regions" lang="pa" hrefLang="pa">the Punjabi-language index of regions</Link>
+              </>
+            ) : null}
+            .
           </p>
         </div>
       </section>

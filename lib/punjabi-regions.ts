@@ -1420,6 +1420,19 @@ export const punjabiRegions: PunjabiRegion[] = [
 export const getPunjabiRegion = (slug: string) =>
   punjabiRegions.find((r) => r.slug === slug);
 
+/* THE REGIONS THE PUNJABI INDEX (/punjabi/regions) CARRIES — 4 Oct 2026.
+ *
+ * That page has a Punjabi card for six regions, three where the nearest
+ * Punjabi-speaking counsellor is hours away and three where there is no
+ * shortage. The list lived only in that page, so the six English region pages
+ * could not tell their reader the same argument exists in Punjabi. One list,
+ * read by both: the index draws its cards from it and a region page links to
+ * the index only when it is on it. */
+export const PA_INDEX_SCARCITY = ['kelowna', 'kamloops', 'prince-george'] as const;
+export const PA_INDEX_DISTANCE = ['surrey', 'abbotsford', 'vancouver'] as const;
+export const inPunjabiIndex = (slug: string) =>
+  (PA_INDEX_SCARCITY as readonly string[]).includes(slug) || (PA_INDEX_DISTANCE as readonly string[]).includes(slug);
+
 /* THE OPENING, ANSWER FIRST — 1 Oct 2026.
  *
  * /punjabi-counselling/vancouver had about 189 page-one impressions at 9-10

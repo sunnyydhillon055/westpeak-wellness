@@ -8,6 +8,7 @@ import { ogBase } from '@/lib/og-meta';
 import { webPage } from '@/lib/schema';
 import { getAudience } from '@/lib/audiences';
 import { hrGlance } from '@/lib/audiences-more4';
+import { acceptingCounsellors } from '@/app/refer/accepting';
 
 /* Hourly, as /refer/handout: the fees on the sheet are read from the
    catalogue, and a price change reaches the next print without a deploy. */
@@ -43,6 +44,7 @@ export default async function EmployerOnePager() {
   const glance = hrGlance(await readCatalog());
   const host = site.domain.replace(/^https?:\/\//, '').replace(/^www\./, '');
   const updated = getAudience('employers-and-hr')?.updated;
+  const accepting = acceptingCounsellors();
 
   return (
     <>
@@ -97,10 +99,31 @@ export default async function EmployerOnePager() {
             <div className="hr-sheet callout">
               <p className="hr-sheet-name">{site.name}: counselling for your team, at a glance</p>
               <dl className="hr-sheet-list">
-                {glance.map((g) => (
+                {glance.map((g, i) => (
                   <div key={g.term}>
                     <dt>{g.term}</dt>
                     <dd>{g.detail}</dd>
+                    {/* Who an employee would actually see, from the same
+                        roster as /refer/counsellors: names and profile links,
+                        never registration numbers (those stay on the profile,
+                        where the register link sits beside them). */}
+                    {i === 0 && accepting.length ? (
+                      <dd>
+                        Accepting new clients now:{' '}
+                        {accepting.map((c, j) => (
+                          <span key={c.slug}>
+                            {j > 0 ? (j === accepting.length - 1 ? ' and ' : ', ') : null}
+                            <Link href={`${c.profilePath}?utm_source=hr`}>{c.letters}</Link> (in{' '}
+                            {c.languages.join(' or ')})
+                          </span>
+                        ))}
+                        . Anyone can{' '}
+                        <Link href="/resources/verify-a-counsellor-in-bc?utm_source=hr">
+                          check a counsellor’s registration in BC
+                        </Link>
+                        .
+                      </dd>
+                    ) : null}
                   </div>
                 ))}
               </dl>
@@ -112,6 +135,13 @@ export default async function EmployerOnePager() {
                 Employees book at <Link href="/book?utm_source=hr">{host}/book</Link>. HR questions
                 by email: <a href={`mailto:${site.email}`}>{site.email}</a>. More for employers:{' '}
                 <Link href="/for/employers-and-hr?utm_source=hr">{host}/for/employers-and-hr</Link>
+              </p>
+            </div>
+            <div className="no-print prose" style={{ marginTop: 24 }}>
+              <p>
+                For a staff room, a reception desk or a wellness board, the consultation and the
+                crisis lines also come as{' '}
+                <Link href="/refer/handout">four cut-out cards on one printable page</Link>.
               </p>
             </div>
           </div>

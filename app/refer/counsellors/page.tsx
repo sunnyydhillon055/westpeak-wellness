@@ -180,7 +180,9 @@ export default async function ForCounsellors() {
               no court-related work. They are set out on <Link href="/standards">standards and
               scope</Link>. For a physician, <Link href="/refer/doctor">the one-page summary for
               doctors</Link> covers the same ground, and a clinic front desk can use{' '}
-              <Link href="/refer/handout">the printable cards</Link>.
+              <Link href="/refer/handout">the printable cards</Link>. When an employer’s HR team is
+              the one asking, <Link href="/for/employers-and-hr/one-pager">the one-page summary for
+              HR</Link> covers fees, receipts and confidentiality from their side.
             </p>
           </div>
         </div>

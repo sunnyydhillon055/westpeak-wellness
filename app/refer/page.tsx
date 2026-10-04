@@ -193,13 +193,16 @@ for someone who has never done this before.
               information sharing works.
             </p>
 
-            <h2>For clinics, and for counsellors who are full</h2>
+            <h2>For clinics, employers, and counsellors who are full</h2>
             <p>
               A clinic, campus or agency front desk can print{' '}
               <Link href="/refer/handout">a sheet of four cut-out cards</Link> with the booking
               address and the crisis lines on each. A counsellor whose own caseload is full can
               see <Link href="/refer/counsellors">who is accepting here, and in which
-              languages</Link>, and pass a client on with no fee and nothing reciprocal.
+              languages</Link>, and pass a client on with no fee and nothing reciprocal. An HR or
+              benefits lead who wants something to attach to a benefits pack has{' '}
+              <Link href="/for/employers-and-hr/one-pager">the one-page summary for HR</Link>: fees,
+              what a receipt carries, and the plan wording to look for.
             </p>
 
             <h2>Routes where somebody else pays</h2>
