@@ -84,26 +84,31 @@ export function channelOf(utmSource: string | null | undefined): string | null {
   return (CHANNELS as readonly string[]).includes(v) ? v : null;
 }
 
+/* A host list, matched as the host or any subdomain of it, case-insensitive.
+   The dots are escaped here, not typed: the lists ship in the layout chunk
+   on every page, and the escapes were bytes (integration, 3 Oct 2026). */
+const hosts = (list: string) => new RegExp(`(^|\\.)(${list.replace(/\./g, '\\.')})$`, 'i');
+
 /* edgeservices.bing.com is Copilot in the Edge sidebar and copilot.com the
    consumer Copilot domain; both added 2 Oct 2026. Plain bing.com stays the
    search engine's own class below. */
-const AI_HOST = /(^|\.)(chatgpt\.com|chat\.openai\.com|openai\.com|gemini\.google\.com|bard\.google\.com|claude\.ai|anthropic\.com|perplexity\.ai|copilot\.microsoft\.com|copilot\.com|edgeservices\.bing\.com|you\.com|poe\.com|meta\.ai|mistral\.ai)$/i;
+const AI_HOST = hosts('chatgpt.com|chat.openai.com|openai.com|gemini.google.com|bard.google.com|claude.ai|anthropic.com|perplexity.ai|copilot.microsoft.com|copilot.com|edgeservices.bing.com|you.com|poe.com|meta.ai|mistral.ai');
 /* The directories in docs/LISTINGS_PACK.md, plus the two maps apps whose
    place cards link out. Search engines are their own classes. CCPA, AMHC,
    EMDR Canada and EMDRIA added 3 Oct 2026. */
-const LISTING_HOST = /(^|\.)(psychologytoday\.com|bcacc\.ca|counsellingbc\.com|luminohealth\.sunlife\.ca|alignable\.com|theravive\.com|firstsession\.com|maps\.apple\.com|businessconnect\.apple\.com|bingplaces\.com|yelp\.(com|ca)|yellowpages\.ca|ccpa-accp\.ca|asianmhc\.org|emdrcanada\.org|emdria\.org)$/i;
+const LISTING_HOST = hosts('psychologytoday.com|bcacc.ca|counsellingbc.com|luminohealth.sunlife.ca|alignable.com|theravive.com|firstsession.com|maps.apple.com|businessconnect.apple.com|bingplaces.com|yelp.(com|ca)|yellowpages.ca|ccpa-accp.ca|asianmhc.org|emdrcanada.org|emdria.org');
 
 /* Universities and colleges in OUTREACH section 3 and the other BC public
    ones, their student societies, and any .edu. */
-const EDU_HOST = /(^|\.)(ubc\.ca|sfu\.ca|ufv\.ca|kpu\.ca|douglascollege\.ca|viu\.ca|unbc\.ca|tru\.ca|okanagan\.bc\.ca|uvic\.ca|bcit\.ca|langara\.ca|camosun\.ca|capilanou\.ca|sfss\.ca|ufvsu\.ca|[a-z0-9-]+\.edu)$/i;
+const EDU_HOST = hosts('ubc.ca|sfu.ca|ufv.ca|kpu.ca|douglascollege.ca|viu.ca|unbc.ca|tru.ca|okanagan.bc.ca|uvic.ca|bcit.ca|langara.ca|camosun.ca|capilanou.ca|sfss.ca|ufvsu.ca|[a-z0-9-]+.edu');
 /* The papers in OUTREACH section 4 and the BC outlets that carry their
    stories. Kept short: this ships in the layout chunk on every page.
    3 Oct 2026: Punjabi (RED FM, Connect FM) and Filipino outlets added, each
    host loaded first; Indo-Canadian Voice is voiceonline.com, and the old
    indocanadianvoice.com no longer resolves, so it was dropped. */
-const PRESS_HOST = /(^|\.)(peacearchnews\.com|surreynowleader\.com|abbynews\.com|bclocalnews\.com|vancouversun\.com|theprovince\.com|dailyhive\.com|cbc\.ca|globalnews\.ca|ctvnews\.ca|thelinkpaper\.ca|voiceonline\.com|redfm\.ca|connectfm\.ca|thefilipinopost\.com|canadianinquirer\.net|philippinecanadiannews\.com)$/i;
+const PRESS_HOST = hosts('peacearchnews.com|surreynowleader.com|abbynews.com|bclocalnews.com|vancouversun.com|theprovince.com|dailyhive.com|cbc.ca|globalnews.ca|ctvnews.ca|thelinkpaper.ca|voiceonline.com|redfm.ca|connectfm.ca|thefilipinopost.com|canadianinquirer.net|philippinecanadiannews.com');
 /* The agencies and organisations named in OUTREACH sections 3 and 6-13. */
-const ORG_HOST = /(^|\.)(dcrs\.ca|pics\.bc\.ca|options\.bc\.ca|archway\.ca|mosaicbc\.org|issbc\.org|successbc\.ca|helpinghouse\.org|amssa\.org|sherpride\.ca|cphrbc\.ca|bcchamber\.org|abbotsfordchamber\.com|peopleslawschool\.ca|cmha\.ca|vancouverpcg\.org|dmw\.gov\.ph|movingforward\.help|bcbh\.ca)$/i;
+const ORG_HOST = hosts('dcrs.ca|pics.bc.ca|options.bc.ca|archway.ca|mosaicbc.org|issbc.org|successbc.ca|helpinghouse.org|amssa.org|sherpride.ca|cphrbc.ca|bcchamber.org|abbotsfordchamber.com|peopleslawschool.ca|cmha.ca|vancouverpcg.org|dmw.gov.ph|movingforward.help|bcbh.ca');
 
 /** True when the host is an AI assistant. */
 export function isAssistantHost(host: string): boolean {
