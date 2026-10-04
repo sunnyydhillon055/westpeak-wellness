@@ -4,7 +4,7 @@
  *
  * WHY THIS EXISTS
  *
- * app/sitemap.xml/route.ts is hand-assembled from fourteen imported
+ * lib/sitemap.ts (app/sitemap.xml/route.ts until 3 Oct 2026) is hand-assembled from fourteen imported
  * collections, and its own header comment explains why: Next 14 discards the
  * image entries this site needs. That is the right call, and it has a cost
  * nothing was paying attention to - the sitemap is a SECOND list of every URL
@@ -34,6 +34,7 @@
 
 import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
+import { readBuiltSitemap } from './lib/built-sitemap.mjs';
 
 const BUILT = join(process.cwd(), '.next', 'server', 'app');
 if (!existsSync(BUILT)) {
@@ -43,20 +44,20 @@ if (!existsSync(BUILT)) {
 
 /* ---- the sitemap as built --------------------------------------------- */
 
-const XML_CANDIDATES = [
-  join(BUILT, 'sitemap.xml.body'),
-  join(BUILT, 'sitemap.xml.html'),
-  join(BUILT, 'sitemap.xml'),
-];
-let xml = null;
-for (const c of XML_CANDIDATES) {
-  if (existsSync(c) && statSync(c).isFile()) { xml = readFileSync(c, 'utf8'); break; }
-}
-if (!xml) {
+/* An index since 3 Oct 2026: the urls live in the per-template children, and
+   this reads their union (scripts/lib/built-sitemap.mjs). A child the index
+   names that was not built is a phantom of the worst kind, a whole file of
+   errors, so it fails here before anything else is compared. */
+const builtSitemap = readBuiltSitemap(BUILT);
+if (!builtSitemap) {
   console.error('  sitemap.xml was not prerendered to disk - nothing to compare against.');
-  console.error('  looked in:', XML_CANDIDATES.map((c) => relative(process.cwd(), c)).join(', '));
   process.exit(0);
 }
+if (builtSitemap.missing.length) {
+  console.error(`  FAIL - the sitemap index names children that were not built: ${builtSitemap.missing.join(', ')}`);
+  process.exit(1);
+}
+const xml = builtSitemap.xml;
 
 /* [^/<] and not [^/]: the first draft of this line ended the origin at the
    next slash, which for `<loc>https://host</loc>` is never reached, so the

@@ -18,6 +18,13 @@
  * lib/indexnow.ts, so the cron and the deploy pick URLs the same way. One
  * POST; anything but 200 or 202 fails the job.
  *
+ * ONLY THE PAGES THAT CHANGED — 3 Oct 2026. <lastmod> is now each page's own
+ * date (lib/url-dates.ts, from a hash of its rendered content), not its
+ * collection's, so a one-FAQ edit pings the one page rather than all 143 that
+ * shared lib/city-services.ts's date. And /sitemap.xml is an index: its
+ * children (/sitemaps/<part>.xml) are read and their union is what is
+ * filtered, which sitemapEntries below already did.
+ *
  * The Monday cron (/api/indexnow) and the /admin button are unchanged and
  * still send everything since the cron's own last success.
  *

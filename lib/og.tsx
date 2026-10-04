@@ -39,11 +39,21 @@ function titleSize(title: string) {
    same still-water photograph the homepage opens on, faded into the cream so
    the title stays on a plain ground and the contrast the a11y audit measures
    is untouched. Fetched once per isolate and cached as a data URL; the file
-   is bundled with the route, so no network call leaves the edge at render. */
+   is bundled with the route, so no network call leaves the edge at render.
+
+   A FRAMED, SOFTENED CROP — 3 Oct 2026.
+   The full-height photograph under a fade made every card a 611 KB PNG
+   (production, 3 Oct: 610,907 bytes in 2.4 s), and the og:image is the only
+   raster image most pages have. A PNG cannot compress a photograph, so the
+   cost was the photo's area. It is now a 300x470 framed panel drawn from a
+   640px, lightly blurred copy (still-water-bc-og.jpg, 18 KB), with no fade
+   over it: the title still sits on plain cream, and the card measured
+   225 KB on the home route. 300 KB is the ceiling; a new layer that costs
+   more than that belongs somewhere else. */
 let photoCache: Promise<string> | undefined;
 function photo(): Promise<string> {
   if (!photoCache) {
-    photoCache = fetch(new URL('../public/img/photo/still-water-bc.jpg', import.meta.url))
+    photoCache = fetch(new URL('../public/img/photo/still-water-bc-og.jpg', import.meta.url))
       .then((r) => r.arrayBuffer())
       .then((buf) => {
         const bytes = new Uint8Array(buf);
@@ -107,25 +117,14 @@ export async function ogImage({
           }}
         />
 
-        {/* The photograph, right-hand side, faded into the cream on its left
-            edge so the title sits on a plain ground. */}
+        {/* The photograph, a framed panel on the right, clear of the title's
+            column so the title sits on a plain ground. */}
         <img
           src={src}
           alt=""
-          width={620}
-          height={630}
-          style={{ position: 'absolute', right: 0, top: 0, width: 620, height: 630, objectFit: 'cover' }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            right: 0,
-            top: 0,
-            width: 620,
-            height: 630,
-            display: 'flex',
-            background: `linear-gradient(90deg, ${BG} 0%, rgba(250,247,241,0.92) 22%, rgba(250,247,241,0.35) 52%, rgba(250,247,241,0) 100%)`,
-          }}
+          width={300}
+          height={470}
+          style={{ position: 'absolute', right: 64, top: 80, width: 300, height: 470, objectFit: 'cover', borderRadius: 28 }}
         />
         {/* Header row: peak mark + practice name */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
@@ -145,7 +144,7 @@ export async function ogImage({
         </div>
 
         {/* Body */}
-        <div style={{ display: 'flex', flexDirection: 'column', maxWidth: 760 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', maxWidth: 720 }}>
           <div
             style={{
               fontSize: 20,
@@ -171,8 +170,9 @@ export async function ogImage({
           </div>
         </div>
 
-        {/* Footer */}
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        {/* Footer, kept to the title's column so a longer note wraps
+            before it reaches the photograph. */}
+        <div style={{ display: 'flex', flexDirection: 'column', maxWidth: 720 }}>
           <div style={{ display: 'flex', width: 132, height: 5, background: BLUE, borderRadius: 4, marginBottom: 20 }} />
           <div style={{ fontSize: 24, color: INK_SOFT, letterSpacing: -0.2 }}>{note}</div>
         </div>

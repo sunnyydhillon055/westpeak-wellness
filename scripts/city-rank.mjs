@@ -238,6 +238,8 @@ function pageFacts(url) {
 /* The sitemap is a route handler at app/sitemap.xml/route.ts, not app/sitemap.ts.
    Checking the wrong path returns false and quietly docks every city 10 points. */
 const smCandidates = [
+  /* the list moved out of the route into lib/sitemap.ts on 3 Oct 2026 */
+  join(ROOT, 'lib', 'sitemap.ts'),
   join(ROOT, 'app', 'sitemap.xml', 'route.ts'),
   join(ROOT, 'app', 'sitemap.ts'),
 ];

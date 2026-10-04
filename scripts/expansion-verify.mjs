@@ -23,6 +23,7 @@
 import { readdirSync, readFileSync, statSync, existsSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 import { rosterNumbers, numberLeaks } from './roster-numbers.mjs';
+import { readBuiltSitemap } from './lib/built-sitemap.mjs';
 
 const APP = join(process.cwd(), '.next', 'server', 'app');
 const fail = [];
@@ -93,11 +94,11 @@ for (const g of GATED) {
 if (!GATED.length) note.push('No province is gated in this build — check that is intended');
 
 /* ---------- 2. ONTARIO MUST NOT BE IN THE SITEMAP ---------- */
-let sitemapText = '';
-for (const cand of ['sitemap.xml.body', 'sitemap.xml']) {
-  const p = join(APP, cand);
-  if (existsSync(p) && statSync(p).isFile()) sitemapText = readFileSync(p, 'utf8');
-}
+/* The union of the index and its children (3 Oct 2026): reading only
+   sitemap.xml, now an index with no <url> in it, would pass vacuously. */
+const builtSitemap = readBuiltSitemap(APP);
+if (builtSitemap?.missing.length) fail.push(`SITEMAP: index names unbuilt children: ${builtSitemap.missing.join(', ')}`);
+const sitemapText = builtSitemap ? `${builtSitemap.index ?? ''}\n${builtSitemap.xml}` : '';
 if (sitemapText) {
   for (const g of GATED) {
     const n = (sitemapText.match(new RegExp(`/${g.slug}`, 'g')) || []).length;

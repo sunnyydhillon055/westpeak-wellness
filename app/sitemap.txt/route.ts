@@ -1,4 +1,5 @@
 import { site } from '@/lib/site';
+import { sitemapPageUrls } from '@/lib/sitemap';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -20,40 +21,24 @@ export const dynamic = 'force-dynamic';
    are, so a search engine reading this file top-down finds the canonical
    pages first.
 
-   WHY IT DERIVES FROM THE XML RATHER THAN REBUILDING THE LIST
-   The URL list in app/sitemap.xml/route.ts is 170 lines of imports and
-   composition, and two independently built lists of the same thing is two
-   lists that will one day disagree — which is exactly the failure this site
-   has already had with sitemaps, twice. This reads the XML sitemap and
-   reformats it, so it is the same list by construction. One extra internal
-   request, cached for a day.
+   WHY IT READS THE SAME LIST AS THE XML
+   Two independently built lists of the same thing will one day disagree,
+   which this site has already had happen with sitemaps, twice. This used to
+   fetch /sitemap.xml and reformat it; since that became an index of
+   per-template children (3 Oct 2026) it reads lib/sitemap.ts, the list every
+   child is built from, so it is still the same list by construction and
+   costs no internal request.
    ========================================================================= */
 
-export async function GET(request: Request) {
-  const origin = new URL(request.url).origin;
-  const res = await fetch(`${origin}/sitemap.xml`, { next: { revalidate: 86400 } });
-
-  if (!res.ok) {
-    return new Response('The sitemap could not be read.\n', {
-      status: 502,
-      headers: { 'content-type': 'text/plain; charset=utf-8' },
-    });
-  }
-
-  const xml = await res.text();
-  const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)]
-    .map((m) => m[1].trim())
-    /* <loc> also appears inside <image:image>. Only the page URLs belong in a
-       sitemap of pages, and an image loc sits inside image:loc, so this is
-       already right — but the filter is explicit rather than implied. */
-    .filter((u) => u.startsWith(site.domain) && !/\/img\//.test(u));
+export async function GET() {
+  const urls = sitemapPageUrls();
 
   /* The home page's twin is /index.md: it has no slug of its own. */
   const twin = (u: string) => (u === site.domain || u === `${site.domain}/` ? `${site.domain}/index.md` : `${u}.md`);
 
   const body = [
     `# ${site.name} — every page on this site, one URL per line.`,
-    '# Plain-text sitemap. The XML one, with dates and languages, is at',
+    '# Plain-text sitemap. The XML index, with dates and languages, is at',
     `# ${site.domain}/sitemap.xml`,
     '',
     ...urls,

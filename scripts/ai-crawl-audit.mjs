@@ -425,8 +425,13 @@ const jsonLd = (html) => [...html.matchAll(/<script type="application\/ld\+json"
 {
   const { body } = await get('/punjabi/guides/panic-attack-ki-hai.md');
   check('a Punjabi twin declares its language', /^lang: pa$/m.test(body), 'front matter has no lang: pa');
+  /* Read from /punjabi, a real translation of /services/punjabi-counselling.
+     The Punjabi guides lost their hreflang on 3 Oct 2026 (they were written
+     for a Punjabi reader, not translated, and the English guides never named
+     them back), so their twins rightly list no translation. */
+  const paired = (await get('/punjabi.md')).body;
   check('a Punjabi twin names its English original',
-    /^translations:/m.test(body) && /lang: en-CA/.test(body),
+    /^translations:/m.test(paired) && /lang: en-CA/.test(paired),
     'front matter lists no translation');
   check('a Punjabi twin is actually in Punjabi', /[਀-੿]/.test(body), 'no Gurmukhi in the body');
 }
