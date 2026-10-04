@@ -72,7 +72,63 @@ export type Pair = {
      description and the schema keep the service name. The page composes it
      to fit the 60-character gate. 1 Oct 2026. */
   titleName?: string;
+  /* The public route for THIS condition in THIS city, in place of the
+     generic health-authority paragraph every city page shared. 3 Oct 2026,
+     see PUBLIC_ROUTE_SOURCES. */
+  publicRoute?: { text: string; sources: { label: string; url: string }[] };
 };
+
+/* THE CONDITION'S OWN PUBLIC ROUTE — 3 Oct 2026.
+ *
+ * A city's anxiety and depression pages were the most alike in the matrix:
+ * Prince George's pair 46% similar by 8-word shingle, and every page with
+ * the lowest unique share (18-20%) an anxiety or depression page. Both
+ * carried the same paragraph naming the health authority as "the public
+ * route". For Chilliwack, Langley, Kamloops and Prince George (and Victoria's
+ * depression page) that paragraph
+ * is replaced by what the authority (or the province-wide program it points
+ * to) actually offers for that condition. Each page was read on 3 Oct 2026:
+ *
+ *   Fraser Health, Regional Group Therapy Service: CBT for Depression (two
+ *     hours, 10 weeks) and CBT for Mixed Anxiety (two hours, 12 weeks,
+ *     graduated exposure), adults 19+, moderate to severe, virtual and in
+ *     person, self-referral on 1-833-866-6478 or the online form.
+ *   Fraser Health, Chilliwack MHSU Centre (45470 Menholm Road): 19+,
+ *     self-referral services, lists the Regional Group Therapy Service.
+ *   Fraser Health, Langley MHSU Centre (305-20300 Fraser Highway): 19+,
+ *     self-referral services, Adult Short-Term Assessment and Treatment.
+ *   Interior Health, Mental Health Group Counselling & Education: moderate
+ *     to severe concerns, no referral required, available virtually, 310-MHSU.
+ *   Interior Health, Kamloops MHSU (100-235 Lansdowne Street): lists group
+ *     counselling and Counselling & Treatment Services.
+ *   CMHA BC, BounceBack: free, low mood, mild to moderate depression,
+ *     anxiety, stress or worry; the online program needs no referral.
+ *   Northern Health, MHSU programs: in Prince George, CAST and COAST are
+ *     reached by referral from a family doctor, nurse practitioner or
+ *     interprofessional team.
+ *   Island Health, CARES (news release of 13 Jun 2024, the page the
+ *     authority links): same-day assessment or walk-in, goal-oriented
+ *     counselling at 1119 Pembroke Street; "most appropriate for clients
+ *     experiencing a moderate mental health condition"; common presenting
+ *     issues include anxiety and depression. Victoria depression joined the
+ *     eight because it was the one page left under the raised floor (24.2%
+ *     unique after the cuts).
+ *
+ * No hours and no outcome claim. Where the authority publishes nothing
+ * condition-specific (Interior, Northern) the page says what it does publish
+ * and nothing more. Anxiety Canada, the obvious anxiety resource, ceased
+ * operations on 1 April 2026 (its own site, read 3 Oct 2026), so it is not
+ * named. */
+const READ = 'read 3 Oct 2026';
+const FH_GROUPS = { label: `Fraser Health, Regional Group Therapy Service (${READ})`, url: 'https://www.fraserhealth.ca/Service-Directory/Services/mental-health-and-substance-use/mental-health---community-services/Regional-Group-Therapy' };
+const FH_CHILLIWACK = { label: `Fraser Health, Chilliwack Mental Health and Substance Use Centre (${READ})`, url: 'https://www.fraserhealth.ca/Service-Directory/Locations/Chilliwack/chilliwack-mental-health-centre' };
+const FH_LANGLEY = { label: `Fraser Health, Langley Mental Health and Substance Use Centre (${READ})`, url: 'https://www.fraserhealth.ca/Service-Directory/Locations/Langley/langley-mental-health-centre' };
+const IH_GROUPS = { label: `Interior Health, Mental Health Group Counselling & Education (${READ})`, url: 'https://www.interiorhealth.ca/services/group-counselling-education' };
+const IH_KAMLOOPS = { label: `Interior Health, Kamloops Mental Health & Substance Use (${READ})`, url: 'https://www.interiorhealth.ca/locations/kamloops-mental-health-substance-use' };
+const BOUNCEBACK = { label: `CMHA BC, BounceBack (${READ})`, url: 'https://bouncebackbc.ca/' };
+const IH_CARES = { label: `Island Health, same-day mental health and substance use supports at CARES (13 Jun 2024, ${READ})`, url: 'https://www.islandhealth.ca/node/3033' };
+const NH_PROGRAMS = { label: `Northern Health, mental health and substance use programs (${READ})`, url: 'https://www.northernhealth.ca/services/mental-health-substance-use/programs-and-services' };
+export const PUBLIC_ROUTE_SOURCES = [FH_GROUPS, FH_CHILLIWACK, FH_LANGLEY, IH_GROUPS, IH_KAMLOOPS, IH_CARES, BOUNCEBACK, NH_PROGRAMS];
 
 export const pairs: Pair[] = [
   {
@@ -413,6 +469,10 @@ export const pairs: Pair[] = [
   {
     city: 'langley', service: 'anxiety-counselling',
     angle: 'The population grew faster than the number of people qualified to treat this.',
+    publicRoute: {
+      text: 'Langley’s public door is the Mental Health and Substance Use Centre on Fraser Highway, which takes self-referrals from adults 19 and over and runs an Adult Short-Term Assessment and Treatment Program. For anxiety specifically, Fraser Health’s Regional Group Therapy Service offers CBT for Mixed Anxiety over 12 weeks, virtual or in person, and you can ask for it yourself through the access line, 1-833-866-6478. Either can run alongside private sessions.',
+      sources: [FH_LANGLEY, FH_GROUPS],
+    },
     body: [
       'Langley has added residents at a rate the local counselling capacity has not matched, and the effect shows up as waiting rather than as absence. There are counsellors; the ones taking new clients for anxiety specifically, at hours that suit somebody working, are a much shorter list than the size of the community implies.',
       'Waiting is its own problem here. Anxiety left alone tends to widen. The avoidance grows to cover more situations, and each one is harder to reverse than it would have been in month one. A virtual practice widens the field to the whole province without adding a drive west at the wrong hour.',
@@ -437,6 +497,10 @@ export const pairs: Pair[] = [
   {
     city: 'chilliwack', service: 'anxiety-counselling',
     angle: 'A single highway decides whether you attend, which is a poor foundation for weekly work.',
+    publicRoute: {
+      text: 'Fraser Health’s public route for anxiety has a specific shape. Its Regional Group Therapy Service runs CBT for Mixed Anxiety, a 12-week group built on facing feared situations in small, manageable steps, for adults 19 and over with moderate to severe difficulties, virtually or in person. The Chilliwack Mental Health and Substance Use Centre on Menholm Road lists that service among its own, and adults can refer themselves through Fraser Health’s access line, 1-833-866-6478, or its online form. A private counsellor needs no referral and can run alongside it.',
+      sources: [FH_GROUPS, FH_CHILLIWACK],
+    },
     body: [
       'Travelling west from Chilliwack is a plan until it is not. The weather, a closure, an accident at the wrong point of Highway 1. An appointment that depends on one road is an appointment cancelled repeatedly, and repeated cancellation is corrosive for anxiety work specifically, because the gap between sessions is when the avoidance quietly rebuilds.',
       'Nothing about weather changes a video session. For somebody in the eastern valley that is not a convenience argument; it is the difference between a course of sessions that finishes and one that stops in February.',
@@ -463,6 +527,10 @@ export const pairs: Pair[] = [
   {
     city: 'kamloops', service: 'anxiety-counselling',
     angle: 'Shift work keeps the body braced, and a braced body reads as anxiety long after the shift ends.',
+    publicRoute: {
+      text: 'Interior Health asks for no referral for its Mental Health Group Counselling & Education service, which is for moderate to severe concerns and can be joined virtually, so somebody in Kamloops with anxiety can call 310-MHSU (6478) and ask for it directly. The Lansdowne Street centre lists it alongside individual counselling and treatment. A rotation is worth mentioning in that first call, as it is here.',
+      sources: [IH_GROUPS, IH_KAMLOOPS],
+    },
     body: [
       'Rotating shifts are ordinary in Kamloops, and they do something specific to anxiety: sleep goes first, and once sleep is unreliable the physical symptoms arrive on their own. The racing heart, the shallow breathing, the sense of being permanently about to react. People often reach for a psychological explanation for something a schedule is producing.',
       'That does not mean the anxiety is imaginary; it means the work has to include the pattern that is feeding it. Sessions booked around a rotation, rather than a rotation forced around a standing appointment, are the version that survives past week four.',
@@ -477,6 +545,10 @@ export const pairs: Pair[] = [
   {
     city: 'prince-george', service: 'anxiety-counselling',
     angle: 'A short local list and a long winter, which is a harder combination than either alone.',
+    publicRoute: {
+      text: 'For worry and anxiety on the milder side, BounceBack, CMHA BC’s free skill-building program, needs no referral for its online version, so nothing about it depends on a road or a local opening. Northern Health’s community teams in Prince George, the CAST and COAST services, are not something you phone yourself: the way in is a referral from your own GP or nurse practitioner.',
+      sources: [BOUNCEBACK, NH_PROGRAMS],
+    },
     body: [
       'There are counsellors in Prince George, the ones taking clients fill quickly, and the wait for anything specialised is longer than almost anywhere else in the province. That is the arithmetic rather than a complaint about the place. For anxiety it bites twice, because the waiting itself becomes something to be anxious about.',
       'The winters are the other half. Months of darkness and limited movement narrow the range of things a person does, and a narrowed range is exactly the condition in which anxiety consolidates. A course of sessions that does not depend on a road or the weather is, for much of Northern BC, the only version that finishes.',
@@ -681,6 +753,10 @@ export const pairs: Pair[] = [
   {
     city: 'langley', service: 'depression-counselling',
     angle: 'People move here for room, and sometimes trade away the network that came with being crowded.',
+    publicRoute: {
+      text: 'If the low mood is moderate or worse, Fraser Health’s CBT for Depression group, ten weeks on thinking, emotions, behaviour and social life, is open to adults in Langley by self-referral through 1-833-866-6478, and it can be joined virtually. The individual route is the short-term assessment and treatment program at the Fraser Highway centre, which accepts people who refer themselves.',
+      sources: [FH_GROUPS, FH_LANGLEY],
+    },
     body: [
       'A common Langley story: a move outward for space, a garden, a bedroom per child, and a quiet loss of the incidental contact that came with living closer in. Nobody drops by any more, the friendships require planning, and the social life that used to happen by accident now has to be organised by somebody who has less energy than they used to.',
       'That is a structural change rather than a character flaw, and it is worth treating as one. The work looks at what actually rebuilds contact at a scale that is possible right now, rather than at the version that assumes the energy has already returned.',
@@ -707,6 +783,10 @@ export const pairs: Pair[] = [
   {
     city: 'chilliwack', service: 'depression-counselling',
     angle: 'In a town this size, being seen getting help is a real calculation rather than a paranoid one.',
+    publicRoute: {
+      text: 'For low mood that has settled in, Fraser Health runs CBT for Depression: a 10-week group on how thinking, emotions, behaviour and social life bear on recovery, for adults 19 and over, offered virtually as well as in person. The referral is your own to make, by calling Fraser Health’s access line on 1-833-866-6478 or using its online form, and the centre on Menholm Road is the local door for anything wider than a group.',
+      sources: [FH_GROUPS, FH_CHILLIWACK],
+    },
     body: [
       'Chilliwack is large enough to have services and small enough that people know each other, and that combination produces a specific silence. Somebody weighing up counselling here is also weighing up whether the receptionist knows their family, whether the car is recognisable outside, and what gets said if it comes up. For depression that calculation is especially costly, because the condition already argues for staying home.',
       'A practice with no building removes the calculation entirely. It is a small structural point and it repeatedly turns out to be the deciding one.',
@@ -731,6 +811,10 @@ export const pairs: Pair[] = [
   {
     city: 'kamloops', service: 'depression-counselling',
     angle: 'Night shifts flatten mood through the body clock, and it gets read as a character problem.',
+    publicRoute: {
+      text: 'For milder low mood, BounceBack, a free CMHA BC program for low mood, mild to moderate depression and stress, can be started online with no referral. When it is heavier than that, Interior Health’s Kamloops centre on Lansdowne Street offers counselling and treatment, reached by calling 310-MHSU (6478).',
+      sources: [BOUNCEBACK, IH_KAMLOOPS],
+    },
     body: [
       'Shift work is ordinary in Kamloops, and prolonged night and rotating shifts do measurable things to sleep and daylight exposure, both of which sit close to mood. People working those patterns frequently describe flatness, irritability and a loss of interest, and then conclude something is wrong with them rather than with the schedule.',
       'The schedule is often not negotiable, so the work is not about advising a different job. It is about what can be protected inside the pattern that exists: light, timing, and the small number of things that hold a day together when the day starts at four in the afternoon.',
@@ -743,6 +827,10 @@ export const pairs: Pair[] = [
   {
     city: 'prince-george', service: 'depression-counselling',
     angle: 'The darkest winter in the province, and the least local capacity to treat what it does.',
+    publicRoute: {
+      text: 'In Prince George the public route for depression starts in primary care: Northern Health’s CAST and COAST teams take referrals from a family doctor, a nurse practitioner or an interprofessional team. That appointment is also where a diagnosis or a conversation about medication belongs, and neither is something a counsellor provides.',
+      sources: [NH_PROGRAMS],
+    },
     body: [
       'Northern BC gets meaningfully less winter daylight than the south, and the effect on mood is well described rather than anecdotal. Combine that with months where getting anywhere is difficult and the range of things a person does contracts sharply, and a contracted range is one of the conditions in which low mood entrenches.',
       'The local counselling capacity is also the thinnest in the province, so the season with the highest need coincides with the longest wait. Sessions that do not depend on a road or the weather are, for a great many people here, the only version that runs through the months when it is actually needed.',
@@ -755,6 +843,10 @@ export const pairs: Pair[] = [
   {
     city: 'victoria', service: 'depression-counselling',
     angle: 'Feeling low in a place everybody else calls idyllic makes the feeling harder to say.',
+    publicRoute: {
+      text: 'Island Health lists depression and anxiety among the common reasons people come to CARES, its office on Pembroke Street for a same-day assessment or a walk-in, goal-oriented counselling session, with a follow-up intake when more is needed. It is meant for a moderate condition that does not need a hospital. For milder low mood, CMHA BC’s free BounceBack program has an online version that needs no referral.',
+      sources: [IH_CARES, BOUNCEBACK],
+    },
     body: [
       'Victoria is mild, attractive and widely envied, and that produces a particular difficulty for anybody depressed in it. The setting invalidates the complaint before it is made: by family elsewhere, and more effectively by the person themselves, who concludes there is no legitimate reason to feel this way and therefore says nothing.',
       'Depression does not require a legitimate reason and does not respond to being argued out of one. What it responds to is being treated as a condition rather than as a failure of perspective, which is where the work starts.',

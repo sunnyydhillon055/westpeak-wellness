@@ -5,8 +5,8 @@ import {
   TYPICAL_BC_FEES, BCACC_INDIVIDUAL, BCACC_COUPLES_FAMILY, GUIDE_FOR_SERVICE, guidePhrase,
 } from '../lib/fee-guides.ts';
 import { feeGuideProblems, guideRanges, typedGuideRanges } from '../scripts/price-drift.mjs';
-import { generatedFaqs, feeFor, counsellorsFor } from '../lib/city-service-page.ts';
-import { FALLBACK_CATALOG, fallbackFee } from '../lib/cliniko-catalog.ts';
+import { guideNote, COVERAGE_LINE } from '../lib/city-service-page.ts';
+import { fallbackFee } from '../lib/cliniko-catalog.ts';
 import { getTool, therapyCostAnswer } from '../lib/tools.ts';
 
 /* THE MARKET FEE CONSTANT — 1 Oct 2026.
@@ -50,22 +50,20 @@ test('the guides are the associations’ figures, never this practice’s fee ro
   assert.equal(guidePhrase(BCACC_INDIVIDUAL), '$140 to $175 per 50-minute session');
 });
 
-test('the city-service cost FAQ carries the association range for individual and couples only', () => {
-  const ctx = { city: 'Abbotsford', region: 'Fraser Valley', authority: 'Fraser Health' };
-  const loc = { communities: [] as string[] };
-  const costAnswer = (svc: string, name: string) => {
-    const topic = { name, bookingService: svc } as Parameters<typeof generatedFaqs>[0]['topic'];
-    const faqs = generatedFaqs({ topic, ctx, loc, counsellors: counsellorsFor(topic), fee: feeFor(FALLBACK_CATALOG, topic) });
-    return faqs.find((f) => /cost/.test(f.q))?.a ?? '';
-  };
-  const couples = costAnswer('couples-therapy', 'Couples Therapy');
-  assert.ok(couples.includes(BCACC_COUPLES_FAMILY.range), couples);
-  assert.ok(couples.includes(fallbackFee('Couples Counselling')), couples);
-  assert.match(couples, /plan-dependent/);
-  assert.ok(costAnswer('individual-therapy', 'Anxiety Counselling').includes(BCACC_INDIVIDUAL.range));
-  const emdr = costAnswer('emdr-therapy', 'EMDR Therapy');
-  assert.ok(emdr && !/BCACC/.test(emdr), 'an EMDR intensive has no comparable published range');
+/* 3 Oct 2026 (#437): the cost FAQ folded into the fee line on the
+   city-service pages, which now carries the association range beside the
+   catalogue fee and the coverage sentence the FAQ held. */
+test('the city-service fee line carries the association range for individual and couples only', () => {
+  assert.equal(guideNote('couples-therapy'), ` (BCACC’s 2026 fee guide recommends ${BCACC_COUPLES_FAMILY.range})`);
+  assert.equal(guideNote('individual-therapy'), ` (BCACC’s 2026 fee guide recommends ${BCACC_INDIVIDUAL.range})`);
+  assert.equal(guideNote('emdr-therapy'), '', 'weekly EMDR has no separate published range');
   assert.equal(GUIDE_FOR_SERVICE['emdr-therapy'], undefined);
+  assert.match(COVERAGE_LINE, /plan-dependent/);
+  assert.match(COVERAGE_LINE, /RCC designation/);
+  const page = src('app/online-counselling/[city]/[service]/page.tsx');
+  assert.match(page, /guideNote\(svc\.bookingService\)/);
+  assert.match(page, /\{COVERAGE_LINE\}/);
+  assert.ok(fallbackFee('Couples Counselling'), 'the catalogue still prices couples');
 });
 
 test('the cost tool states a figure in its first screen and is titled for the calculator', () => {

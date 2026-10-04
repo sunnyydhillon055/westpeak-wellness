@@ -1,4 +1,4 @@
-import { practitioners, withLetters, type Practitioner } from '@/lib/practitioners';
+import { practitioners, type Practitioner } from '@/lib/practitioners';
 import { placesFor } from '@/lib/practitioner-places';
 import type { CityTopic } from '@/lib/conditions';
 import type { CityContext } from '@/lib/city-context';
@@ -6,6 +6,9 @@ import type { Location } from '@/lib/locations';
 import { money, type Catalog } from '@/lib/cliniko-catalog';
 import { site } from '@/lib/site';
 import { GUIDE_FOR_SERVICE } from '@/lib/fee-guides';
+/* metaLength only, called at run time: lib/snippet-facts.ts imports this
+   file too, and neither touches the other at module load. */
+import { metaLength } from '@/lib/snippet-facts';
 
 /* WHAT A CITY × SERVICE PAGE SAYS FROM DATA — 1 Oct 2026.
  *
@@ -29,7 +32,7 @@ import { GUIDE_FOR_SERVICE } from '@/lib/fee-guides';
  *
  * WHY THE SENTENCES ARE SHAPED THE WAY THEY ARE
  *
- * scripts/uniqueness-gate.mjs fails the build if any page is less than 18%
+ * scripts/uniqueness-gate.mjs fails the build if any page is less than 18% (25% since 3 Oct 2026)
  * unique by 8-word shingle, and the pages sat at 21% before this. Text that
  * is generated per page but reads the same on all fifty is exactly the
  * boilerplate the gate exists to catch. So every generated sentence carries
@@ -253,76 +256,121 @@ export const cityServiceTitle = (name: string, city: string, brand: string, max 
   return `${withBc} | ${brand}`.length <= max ? withBc : `${name} in ${city}`;
 };
 
-/* The city-service description. `name` is what the result is searched as
-   (Couples and Marriage Counselling), the languages are the roster's for
-   this service, and the consultation sentence is dropped before anything is
-   cut. */
-export const cityServiceDescription = (args: {
-  name: string;
-  city: string;
-  counsellors: Pick<Practitioner, 'languages'>[];
-  max?: number;
-}): string => {
-  const { name, city, counsellors, max = 158 } = args;
-  const langs = languagePhrase(counsellors);
-  return fitSentences(
-    [
-      `${name} for ${city}, by secure video across BC with a Registered Clinical Counsellor.`,
-      ...(langs ? [`In ${langs}.`] : []),
-      'Free 30-minute consultation.',
-    ],
-    max,
-  );
+/* THE CITY-SERVICE DESCRIPTION — rewritten 3 Oct 2026.
+ *
+ * In the 3 Oct build all 100 city-service descriptions read "<Service> for
+ * <City>, by secure video across BC with a Registered Clinical Counsellor.
+ * In ..." and none carried a fee, while the hubs, sixteen of seventeen
+ * Punjabi regions and five of seven service pages did. The 3 Oct export shows
+ * no clicks on any city-service page. A description is now the pair's own
+ * argument, the counsellors who would take the work by first name, and the
+ * service's catalogue fee with the free consultation:
+ *
+ *   {first sentence of pair.angle} With {first names}, {fee} per {min}-min
+ *   session · free 30-min consult.
+ *
+ * `facts` is serviceSnippet(catalog, service, []) from lib/snippet-facts.ts,
+ * passed in by the page, so this file still types no figure. The angle is the
+ * only part that is cut: whole sentence first; on a page two counsellors share,
+ * the names are dropped before the angle is touched; failing that, the angle
+ * ends at the last whole clause that fits (cutAtClause), and only then is it
+ * cut at a word boundary and marked with an ellipsis. Couples and EMDR keep
+ * the one name, because the name is the answer to who takes that work.
+ * scripts/uniqueness-gate.mjs fails if two descriptions share more than 60%
+ * of their word 4-grams. */
+const firstSentenceOf = (s: string) => s.match(/^.*?[.!?](?=\s|$)/)?.[0] ?? s;
+const firstNames = (counsellors: Pick<Practitioner, 'name'>[]) =>
+  listOf(counsellors.map((p) => p.name.split(' ')[0]), 'or');
+
+/** Whole words of `s`, as many as fit `max` (by metaLength), ending in "…". */
+export const cutAtWord = (s: string, max: number): string => {
+  const words = s.replace(/[.!?]$/, '').split(' ');
+  let out = '';
+  for (const w of words) {
+    const next = out ? `${out} ${w}` : w;
+    if (metaLength(`${next}…`) > max) break;
+    out = next;
+  }
+  return `${out.replace(/[,;:]$/, '')}…`;
 };
 
-/* The three questions the ranking pages answer and the pair authors did not:
-   who you would see, whether the places around the city count, and what it
-   costs. Each answer is built from the page's own data so that the same
-   question reads differently on every page, and is published in the FAQPage
-   schema beside the pair's own questions. */
+/** The longest run of `s` ending where a whole clause ends that fits `max`,
+ *  closed with a full stop: at a semicolon or colon, or at a comma before a
+ *  coordinating "and", "but", "so", "yet", "which", "because" or "while".
+ *  A bare comma is never a cut point, and neither is any comma in a sentence
+ *  that opens on a subordinate clause ("When anxiety attaches to driving,"),
+ *  because the head would be a fragment. The Surrey EMDR angle is why this
+ *  exists: cut at a word, it published "finding one who also works in
+ *  Punjabi has been…" beside a counsellor who does not. */
+const SUBORDINATE_OPENING = /^(When|If|Although|Though|Because|While|Once|Since|After|Before|As|With|Unless|Until|Where)\b/;
+export const cutAtClause = (s: string, max: number): string | undefined => {
+  let best: string | undefined;
+  const commaOk = !SUBORDINATE_OPENING.test(s);
+  for (const m of s.matchAll(/[;:](?=\s)|,(?= (?:and|but|so|yet|which|because|while) )/g)) {
+    if (m[0] === ',' && !commaOk) continue;
+    const head = `${s.slice(0, m.index)}.`;
+    if (metaLength(head) <= max) best = head;
+  }
+  return best;
+};
+
+export const cityServiceDescription = (args: {
+  angle: string;
+  counsellors: Pick<Practitioner, 'name'>[];
+  facts?: string;
+  max?: number;
+}): string => {
+  const { angle, counsellors, facts, max = 158 } = args;
+  const lead = firstSentenceOf(angle);
+  const names = counsellors.length ? firstNames(counsellors) : '';
+  const tail = (withNames: boolean) => {
+    if (!facts) return withNames && names ? ` With ${names}.` : '';
+    return withNames && names ? ` With ${names}, ${facts}.` : ` ${facts.charAt(0).toUpperCase()}${facts.slice(1)}.`;
+  };
+  const full = `${lead}${tail(true)}`;
+  if (metaLength(full) <= max) return full;
+  if (counsellors.length > 1) {
+    const unnamed = `${lead}${tail(false)}`;
+    if (metaLength(unnamed) <= max) return unnamed;
+  }
+  const keep = counsellors.length > 1 ? tail(false) : tail(true);
+  return `${cutAtClause(lead, max - metaLength(keep)) ?? cutAtWord(lead, max - metaLength(keep))}${keep}`;
+};
+
+/* WHAT IS LEFT OF THE GENERATED FAQS — 3 Oct 2026.
+ *
+ * Three questions were generated here on 1 Oct: who you would see, whether the
+ * places around the city count, and what it costs. In the built FAQPage across
+ * the 127 /online-counselling pages the first and the last each appeared 80
+ * times (plus 20 trauma variants), and "Questions from <city>" became the
+ * largest shared block on these pages. The counsellor cards above the FAQs
+ * already name who you would see, so that question went. The cost answer's
+ * fee, the association range and the coverage sentence moved into the fee
+ * line under the cards (guideNote below, and COVERAGE_LINE), so they are said
+ * once per page rather than twice. The city hubs keep their own "Who would I
+ * see" (lib/city-hub.ts). */
 export function generatedFaqs(args: {
-  topic: Pick<CityTopic, 'name' | 'bookingService'>;
-  ctx: Pick<CityContext, 'city' | 'region' | 'authority'>;
+  topic: Pick<CityTopic, 'name'>;
+  ctx: Pick<CityContext, 'city' | 'authority'>;
   loc: Pick<Location, 'communities'>;
-  counsellors: Practitioner[];
-  fee?: Fee;
 }): { q: string; a: string }[] {
-  const { topic, ctx, loc, counsellors, fee } = args;
+  const { topic, ctx, loc } = args;
   const svc = lower(topic.name);
-  const out: { q: string; a: string }[] = [];
-
-  if (counsellors.length) {
-    const who = counsellors.map((p) => `${withLetters(p)}, who works in ${listOf(languagesOf(p), 'and')}`);
-    const first = counsellors[0].name.split(' ')[0];
-    out.push({
-      q: `Who would I see for ${svc} in ${ctx.city}?`,
-      /* The service is in the answer, not only the question: the same
-         counsellor serves couples and EMDR, and without it two pages for one
-         city carried one answer. The test on this file caught it. */
-      a:
-        counsellors.length === 1
-          ? `For ${svc} in ${ctx.city}, ${who[0]}. Every session is by secure video, and the free consultation is with ${first} as well, so the person you meet first is the person you would see.`
-          : `For ${svc} in ${ctx.city}, ${listOf(who, 'or')}. Each sees people by secure video, and the free consultation is with whichever of them you choose, so the person you meet first is the person you would see.`,
-    });
-  }
-
-  if (loc.communities?.length) {
-    out.push({
-      q: `Is ${svc} available in ${listOf(loc.communities, 'or')}?`,
-      a: `Yes. ${topic.name} by secure video reaches ${listOf(loc.communities, 'and')} exactly as it reaches ${ctx.city}: there is no office to get to and the same fee applies however far out you are. ${ctx.authority} is the public route for ${ctx.city} and the rest of its region; this is the private one, and it needs no referral.`,
-    });
-  }
-
-  if (fee) {
-    /* The association's range beside the fee, 1 Oct 2026 (lib/fee-guides.ts):
-       individual and couples only; an EMDR intensive has no comparable
-       published figure. */
-    const guide = GUIDE_FOR_SERVICE[topic.bookingService];
-    out.push({
-      q: `What does ${svc} cost in ${ctx.city}, and will my plan cover it?`,
-      a: `In ${ctx.city}, as everywhere in BC, ${svc} is ${fee.fee} for ${fee.minutes} minutes${guide ? ` (BCACC’s 2026 fee guide recommends ${guide.range})` : ''}, after a free 30-minute consultation. Many BC extended health plans reimburse a Registered Clinical Counsellor; whether yours does is plan-dependent, so check it for the RCC designation before the first paid session.`,
-    });
-  }
-
-  return out;
+  if (!loc.communities?.length) return [];
+  return [{
+    q: `Is ${svc} available in ${listOf(loc.communities, 'or')}?`,
+    a: `Yes. ${topic.name} by secure video reaches ${listOf(loc.communities, 'and')} exactly as it reaches ${ctx.city}: there is no office to get to and the same fee applies however far out you are. ${ctx.authority} is the public route for ${ctx.city} and the rest of its region; this is the private one, and it needs no referral.`,
+  }];
 }
+
+/* The association's range beside the fee line, 1 Oct 2026 (lib/fee-guides.ts),
+   moved here from the cost FAQ on 3 Oct: individual and couples only; weekly
+   EMDR has no separate published figure. Empty when there is none. */
+export const guideNote = (bookingService: string): string => {
+  const guide = GUIDE_FOR_SERVICE[bookingService];
+  return guide ? ` (BCACC’s 2026 fee guide recommends ${guide.range})` : '';
+};
+
+/* The coverage sentence the cost FAQ carried, now said once, in the fee line. */
+export const COVERAGE_LINE =
+  'Many BC extended health plans reimburse a Registered Clinical Counsellor; whether yours does is plan-dependent, so check it for the RCC designation before the first paid session.';

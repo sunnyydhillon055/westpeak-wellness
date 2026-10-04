@@ -160,6 +160,19 @@ const coreComparisons: Comparison[] = [
       { q: 'What does RCC stand for?', a: 'Registered Clinical Counsellor. A designation held through the BC Association of Clinical Counsellors. It signals a master\'s-level counselling qualification, supervised clinical hours, continuing education, insurance and a code of ethics with a complaints process. It is not a government licence, because counselling is not yet a regulated profession in British Columbia.' },
       { q: 'Is a "licensed counsellor" the same thing in BC?', a: 'No, and strictly there is no such thing here. "Licensed counsellor" is American phrasing and there is no British Columbian licence that corresponds to it. What exists in BC is registration: with the BC Association of Clinical Counsellors, the College of Health and Care Professionals of BC for psychologists, or the BC College of Social Workers. Somebody advertising as a "licensed counsellor" in BC may be perfectly well qualified, but the word is not carrying the meaning it appears to.' },
       { q: 'What does BCACC require to become an RCC?', a: 'A master\'s degree in counselling psychology or a closely related field, a period of supervised clinical practice, evidence of continuing education, professional liability insurance, and agreement to a code of ethics that includes a public complaints process. Requirements are set by the association and do change, so the current version is on the BCACC site rather than reproduced here.' },
+      /* Psychologist-seeking queries, about 107 impressions and no clicks in
+         the 3 Oct export ("registered psychologist bc" 39 at 28). Read 3 Oct
+         2026: BCPA's Find a Psychologist page (search by location, area of
+         concern, language, new-client availability and virtual or in-person;
+         BCPA's own referral service, which does not include every
+         psychologist), and CHCPBC's psychology page ("the title
+         'psychologist' can only be used by professionals who are licensed by
+         CHCPBC, unless specifically exempted by regulation"; its Public
+         Registry). The rate is BCPA_RECOMMENDED, the fee the catalogue's. */
+      {
+        q: 'How do I find a registered psychologist in BC?',
+        a: `Two free searches. The BC Psychological Association’s [Find a Psychologist](https://psychologists.bc.ca/find-psychologist) service filters by location, area of concern, language, new-client availability and virtual or in-person sessions; it is the association’s referral list rather than the whole profession, so confirm the licence on the College of Health and Care Professionals of BC’s [public registry](https://chcpbc.alinityapp.com/client/publicdirectory), searching by name. In BC the title “psychologist” is reserved for people that college licenses. BCPA recommends ${BCPA_RECOMMENDED.hourly} an hour (effective ${BCPA_RECOMMENDED.effective}); an individual session with a Registered Clinical Counsellor here is ${fallbackFee('Individual Counselling')} for 50 minutes, so when what you need is counselling rather than an assessment or a diagnosis, an RCC is often the more practical route. [Psychiatry and assessment in BC](/resources/psychiatry-and-assessment-in-bc) covers the assessment side.`,
+      },
       { q: 'How do I check that someone is actually registered?', a: 'Search the public register directly rather than trusting a website. BCACC, the College of Health and Care Professionals of BC (for psychologists) and the BC College of Social Workers each publish a free searchable register, and each will confirm whether a registration is current and in good standing. It takes about two minutes and is worth doing before booking with anybody, including this practice.' },
       {
         q: "Is an RCC a \"real\" therapist?",
@@ -189,6 +202,8 @@ const coreComparisons: Comparison[] = [
       { label: "Kelty Mental Health, psychologists and registered clinical counsellors", url: "https://keltymentalhealth.ca/what-difference-between-psychologists-and-registered-clinical-counsellors" },
       { label: `BC Association of Clinical Counsellors, Fee Guide 2026 (read ${FEE_READ})`, url: BCACC_FEE_GUIDE.url },
       { label: `BC Psychological Association, recommended rate 2025–2026 (read ${FEE_READ})`, url: BCPA_RECOMMENDED.url },
+      { label: "BC Psychological Association, Find a Psychologist (read 3 Oct 2026)", url: "https://psychologists.bc.ca/find-psychologist" },
+      { label: "College of Health and Care Professionals of BC, psychology (read 3 Oct 2026)", url: "https://chcpbc.org/?p=665" },
     ],
     related: [
       /* Search Console (6 Sep 2026): this page draws "registered clinical

@@ -17,11 +17,14 @@ import Figure from '@/components/Figure';
 import { ogBase } from '@/lib/og-meta';
 import { COLLECTION_DATES } from '@/lib/page-dates';
 import BookLink from '@/components/BookLink';
-import { readCatalog } from '@/lib/cliniko-catalog';
+import { readCatalog, type Catalog } from '@/lib/cliniko-catalog';
 import {
   bookHrefFor, cityServiceDescription, cityServiceTitle, counsellorsFor, feeFor, generatedFaqs, languagePhrase, languagesFor,
-  midSentence, seoName, whoHeading, laterOption,
+  midSentence, seoName, whoHeading, laterOption, guideNote, COVERAGE_LINE,
 } from '@/lib/city-service-page';
+import { serviceSnippet } from '@/lib/snippet-facts';
+import type { Pair } from '@/lib/city-services';
+import type { CityTopic } from '@/lib/conditions';
 import { offerItems } from '@/lib/practitioner-facts';
 import CounsellorCards from '@/components/CounsellorCards';
 import NextConsultLine from '@/components/NextConsultLine';
@@ -115,7 +118,18 @@ const SERVICE_FIGURE: Record<string, string> = {
   'trauma-therapy': 'window-of-tolerance',
 };
 
-export function generateMetadata({ params }: { params: Params }): Metadata {
+/* The description, for the result, the page node and the Service node alike:
+   the pair's angle, the counsellors who would take the work, and the
+   service's catalogue fee (lib/city-service-page.ts). 3 Oct 2026. */
+function describe(pair: Pair, svc: CityTopic, catalog: Catalog) {
+  return cityServiceDescription({
+    angle: pair.angle,
+    counsellors: counsellorsFor(svc),
+    facts: serviceSnippet(catalog, svc.bookingService, []),
+  });
+}
+
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const d = load(params);
   if (!d) return {};
   const { ctx, svc, pair } = d;
@@ -146,7 +160,9 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
      Punjabi or Tagalog" on the couples and EMDR pages, where nobody offering
      the work speaks Punjabi, and the old guard sliced at a space, so the
      Abbotsford couples result ended on the word "Free". */
-  const desc = cityServiceDescription({ name: seoName(svc), city: ctx.city, counsellors: counsellorsFor(svc) });
+  /* Since 3 Oct 2026 the pair's own angle, first names and the catalogue fee;
+     see describe() above. */
+  const desc = describe(pair, svc, await readCatalog());
   return {
     title: { absolute: `${title} | ${site.name}` },
     description: desc,
@@ -186,7 +202,7 @@ export default async function CityServicePage({ params }: { params: Params }) {
   const bookHref = bookHrefFor(counsellors, svc.bookingService);
   const catalog = await readCatalog();
   const fee = feeFor(catalog, svc);
-  const faqs = [...pair.faqs, ...generatedFaqs({ topic: svc, ctx, loc, counsellors, fee })];
+  const faqs = [...pair.faqs, ...generatedFaqs({ topic: svc, ctx, loc })];
   /* The EMDR intensive on the trauma pages, as a later option. 1 Oct 2026. */
   const later = laterOption(catalog, svc, ctx.city);
 
@@ -196,7 +212,7 @@ export default async function CityServicePage({ params }: { params: Params }) {
   const nearbyPairs = sameElsewhere.filter((p) => ctx.nearby.includes(p.city));
   const cityOf = (slug: string) => cityContexts.find((c) => c.slug === slug)!;
 
-  const desc = cityServiceDescription({ name: seoName(svc), city: ctx.city, counsellors });
+  const desc = describe(pair, svc, catalog);
 
   /* THE SERVICE THIS PAGE SELLS — 1 Oct 2026. The fifty pairs carried a
      page, a breadcrumb and an FAQ, and no Service: the FAQ stated the fee in
@@ -332,13 +348,16 @@ export default async function CityServicePage({ params }: { params: Params }) {
               EMDR, a different length. The one competitor that ranks first for
               couples in Abbotsford states its fee and says coverage varies;
               this does the same, and coverage stays plan-dependent. */}
+          {/* 3 Oct 2026: the generated cost FAQ ("What does <service> cost in
+              <city>, and will my plan cover it?") folded in here. Its fee was
+              this line's fee; the association range and the coverage sentence
+              are what it added, and they are now said once. */}
           <p>
             {fee
-              ? `Sessions are ${fee.fee} for ${fee.minutes} minutes and start with a `
+              ? `Sessions are ${fee.fee} for ${fee.minutes} minutes${guideNote(svc.bookingService)} and start with a `
               : 'Sessions start with a '}
             <Link href={bookHref}>free 30-minute video call</Link>, no charge, no card,
-            and no obligation to book anything afterwards. Many BC extended health plans
-            reimburse a Registered Clinical Counsellor; whether yours does is plan-dependent.{' '}
+            and no obligation to book anything afterwards. {COVERAGE_LINE}{' '}
             <Link href="/pricing">Fees and extended-health cover</Link> are set out in full.
           </p>
           {later ? (
@@ -391,7 +410,10 @@ export default async function CityServicePage({ params }: { params: Params }) {
               is the same claim on all fifty — the pair-specific argument is
               carried by the text above it and by the service diagram below. */}
           <Figure name="bc-reach" caption={`Anywhere in BC includes ${ctx.city}. There is no catchment, because there is no office.`} />
-          <p>
+          {/* The condition’s own public route where the pair has one (nine
+              anxiety and depression pages, 3 Oct 2026, cited below), else
+              the generic paragraph every page of this city shares. */}
+          {pair.publicRoute ? <p>{pair.publicRoute.text}</p> : <p>
             Public mental-health intake for {ctx.city} runs through{' '}
             <a href={AUTHORITY_URL[ctx.authority]} target="_blank" rel="noopener">
               {ctx.authority}
@@ -403,7 +425,7 @@ export default async function CityServicePage({ params }: { params: Params }) {
               how RCCs, psychologists and social workers differ
             </Link>
             .
-          </p>
+          </p>}
           <p><strong>{ctx.unlock}</strong></p>
           <p>
             More on this city, including who else it serves and what the local picture looks
@@ -420,17 +442,12 @@ export default async function CityServicePage({ params }: { params: Params }) {
       <section className="section">
         <div className="container prose">
           <h2>What {lower(svc.name).replace(/ in bc.*/i, '')} involves</h2>
-          <p>{svc.intro}</p>
-          {svc.helps?.length ? (
-            <>
-              <h3>What it is commonly used for</h3>
-              <ul>
-                {svc.helps.map((h) => <li key={h}>{h}</li>)}
-              </ul>
-            </>
-          ) : null}
-          <p>{svc.approach}</p>
-
+          {/* The service's intro, its "commonly used for" list and its
+              approach paragraph were cut on 3 Oct 2026. In the built HTML
+              they were identical on all twenty pages of each service, 16.7%
+              of all city-service text, and they are the service page's own
+              copy, one link away below. The heading, the diagram and that
+              link stay. */}
           {SERVICE_FIGURE[svc.slug] ? <Figure name={SERVICE_FIGURE[svc.slug]} /> : null}
 
           <p>
@@ -448,9 +465,10 @@ export default async function CityServicePage({ params }: { params: Params }) {
         </div>
       </section>
 
-      {/* FAQs — the pair's own first, then the three every ranking page
-          answers (who, the places around the city, the cost) generated from
-          this page's data. The same list feeds the FAQPage schema above. */}
+      {/* FAQs — the pair's own first, then the places around the city,
+          generated from this page's data (who and cost went on 3 Oct 2026:
+          the cards and the fee line answer them). The same list feeds the
+          FAQPage schema above. */}
       <section className="section section--ghost">
         <div className="container prose">
           <h2>Questions from {ctx.city}</h2>
@@ -481,11 +499,15 @@ export default async function CityServicePage({ params }: { params: Params }) {
             {otherHere.map((p) => {
               const s = getCityTopic(p.service)!;
               return (
+                /* The link only since 3 Oct 2026. Each sibling's angle was
+                   printed here too, so every pair's thesis, the sentence
+                   written to be true on one page only, appeared on five,
+                   and the list was the second-largest shared block on
+                   the page after the counsellor cards. */
                 <li key={p.service}>
                   <Link href={`/online-counselling/${ctx.slug}/${p.service}`}>
                     {seoName(s)} in {ctx.city}
-                  </Link>,{' '}
-{p.angle}
+                  </Link>
                 </li>
               );
             })}
@@ -525,7 +547,7 @@ export default async function CityServicePage({ params }: { params: Params }) {
               lib/health-authorities.ts for why it is keyed by city. */}
           <p className="eyebrow" style={{ marginTop: 28 }}>Sources</p>
           <ul style={{ color: 'var(--ink-soft)', fontSize: '.94rem', paddingLeft: 20, margin: 0 }}>
-            {[...(healthAuthorityFor(ctx.slug) ? [healthAuthorityFor(ctx.slug)!] : []), HEALTHLINK].map((s) => (
+            {[...(healthAuthorityFor(ctx.slug) ? [healthAuthorityFor(ctx.slug)!] : []), ...(pair.publicRoute?.sources ?? []), HEALTHLINK].map((s) => (
               <li key={s.url}>
                 <a href={s.url} target="_blank" rel="noopener">{s.label}</a>
               </li>
