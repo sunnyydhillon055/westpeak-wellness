@@ -179,7 +179,7 @@ export async function invoiceDetail(period: Period, maxRows = 120): Promise<Invo
  * refund is seen only when the invoice's status says so; a refund recorded as
  * a separate payment on a still-"Paid" invoice cannot be seen, and the page
  * says to check Cliniko's Payment summary for those. */
-const NOT_KEPT = /refund|credit|void|written.?off|cancel/i;
+export const NOT_KEPT = /refund|credit|void|written.?off|cancel/i;
 
 export function whyNotCounted(r: InvoiceRow): string | null {
   if (r.isConsult) return 'initial consultation';
