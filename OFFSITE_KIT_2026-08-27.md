@@ -1,5 +1,7 @@
 # Off-site kit — everything the audit says only you can do
 
+> **Superseded 3 Oct 2026.** This kit was written for the founder, who is not taking new clients. Use docs/LISTINGS_PACK.md and docs/OUTREACH.md instead: they cover the accepting counsellors, drop the paid directories, and are scanned by the claims gates. The consultation is 30 minutes (Cliniko); the figures below are kept only as history.
+
 **Written:** 27 August 2026
 **Why this exists:** the [50-category audit](VISIBILITY_50_2026-08-27.md) found 561 weighted
 points available. Roughly 194 of them are code and have been taken. The rest — about
@@ -40,7 +42,7 @@ Counselling" and "Westpeak Wellness" are two different businesses to a crawler.
 | Languages | English, Punjabi |
 | Booking | `https://westpeak-wellness.ca1.cliniko.com/bookings` |
 
-**Fees** — free 15-minute consultation · $140 / 50 min individual · $170 / 50 min couples ·
+**Fees** — free 30-minute consultation · $140 / 50 min individual · $170 / 50 min couples ·
 $340 / 110 min couples extended · $190 / 90 min EMDR intensive · free cancellation to 24 hours.
 
 **Hours** — Mon 10:00–15:00 · Tue 09:00–18:00 · Wed 18:00–19:00 · Thu 18:00–19:00 · Fri 18:00–19:00.
@@ -87,7 +89,7 @@ therapy, alongside support for anxiety, depression, grief and workplace stress. 
 include CBT, ACT, IFS-informed and somatic work — matched to the person rather than applied
 from a template.
 
-Every consultation begins with a free 15-minute video call, with no charge, no card and no
+Every consultation begins with a free 30-minute video call, with no charge, no card and no
 obligation to book anything afterwards. Registration can be verified in the public BCACC
 register before you make contact. Counselling is not covered by MSP; most extended health
 plans reimburse sessions with an RCC.
@@ -151,7 +153,7 @@ I offer sessions in English and Punjabi. For South Asian clients, that often mat
 vocabulary than for not having to explain the context first — family obligation, the weight of
 what other people will say, the gap between generations under one roof.
 
-Every enquiry starts with a free 15-minute video call. No charge, no card, no obligation to book
+Every enquiry starts with a free 30-minute video call. No charge, no card, no obligation to book
 anything afterwards. It exists so you can find out whether talking to me feels workable before
 committing to anything.
 
@@ -163,7 +165,7 @@ My registration can be checked in the public BCACC register at any time.
 ```
 Registered Clinical Counsellor (MA, RCC) offering online therapy across BC in English and
 Punjabi. Individual and couples work for anxiety, depression, trauma, grief and burnout.
-EMDR- and Gottman-trained. Every enquiry starts with a free 15-minute video call.
+EMDR- and Gottman-trained. Every enquiry starts with a free 30-minute video call.
 ```
 
 **Specialties — tick these and stop.** Directories reward focus; a profile claiming thirty
@@ -180,7 +182,7 @@ under-18s.
 |---|---|
 | Session fee | `$140` |
 | Sliding scale | Only if true |
-| Free consultation | `Yes — 15 minutes` |
+| Free consultation | `Yes — 30 minutes` |
 | Insurance | `Extended health / employee benefit plans. Not MSP.` |
 | Session format | `Online video only` |
 | Years in practice | Answer honestly. A new practice is not a weakness; a wrong number is. |

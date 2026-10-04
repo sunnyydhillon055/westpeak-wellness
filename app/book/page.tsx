@@ -30,7 +30,7 @@ import { BEFORE_SESSION_ONE } from '@/lib/faq';
 export const metadata: Metadata = {
   title: 'Book a Free 30-Minute Consultation',
   description:
-    'A free 30-minute video call. No card, no obligation, and if someone else would suit you better you will be told so. Anywhere in BC, in English, Punjabi or Tagalog.',
+    'A free 30-minute video call, with no card and no obligation. Online counselling anywhere in BC, in English, Punjabi or Tagalog.',
   alternates: { canonical: `${site.domain}/book` },
   openGraph: { ...ogBase(`/book`),
     title: `Book a Free 30-Minute Consultation | ${site.name}`,
