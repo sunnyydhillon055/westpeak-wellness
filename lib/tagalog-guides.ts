@@ -25,6 +25,9 @@
    work, how well, or how fast.
    ========================================================================= */
 
+import type { Source } from '@/lib/health-authorities';
+import { GUIDE_SOURCES } from '@/lib/punjabi-guides';
+
 export type TagalogGuideSection = { h2: string; body: string[] };
 
 export type TagalogGuide = {
@@ -65,6 +68,9 @@ export type TagalogGuide = {
   /** The English page on the same subject, for a bilingual reader. */
   englishHref?: string;
   englishLabel?: string;
+  /** What backs the guide’s factual statements, shown in English. Shared
+      with the Punjabi set (GUIDE_SOURCES in lib/punjabi-guides.ts). */
+  sources: Source[];
 };
 
 export const tagalogGuides: TagalogGuide[] = [
@@ -128,6 +134,7 @@ export const tagalogGuides: TagalogGuide[] = [
     ],
     englishHref: '/guides/anxiety-attack-vs-panic-attack',
     englishLabel: 'Anxiety attack vs panic attack',
+    sources: [GUIDE_SOURCES.panic, GUIDE_SOURCES.counselling],
   },
   {
     slug: 'depresyon-o-pagod-lang',
@@ -189,6 +196,7 @@ export const tagalogGuides: TagalogGuide[] = [
     ],
     englishHref: '/guides/burnout-vs-depression',
     englishLabel: 'Burnout vs depression',
+    sources: [GUIDE_SOURCES.depression, GUIDE_SOURCES.burnout],
   },
   {
     slug: 'pag-uusap-sa-pamilya-tungkol-sa-therapy',
@@ -249,6 +257,7 @@ export const tagalogGuides: TagalogGuide[] = [
     figure: 'language-in-therapy-tl',
     englishHref: '/guides/talking-to-your-family-about-therapy',
     englishLabel: 'Talking to your family about therapy',
+    sources: [GUIDE_SOURCES.counselling],
   },
   {
     slug: 'ano-ang-mangyayari-sa-unang-sesyon',
@@ -308,6 +317,7 @@ export const tagalogGuides: TagalogGuide[] = [
     ],
     englishHref: '/guides/what-to-expect-first-therapy-session',
     englishLabel: 'What to expect in a first session',
+    sources: [GUIDE_SOURCES.counselling, GUIDE_SOURCES.choosing],
   },
   {
     slug: 'trauma-na-naipapasa-sa-pamilya',
@@ -368,6 +378,7 @@ export const tagalogGuides: TagalogGuide[] = [
     figure: 'language-in-therapy-tl',
     englishHref: '/guides/intergenerational-trauma-explained',
     englishLabel: 'Intergenerational trauma explained',
+    sources: [GUIDE_SOURCES.emdr],
   },
   {
     slug: 'pagod-sa-pag-aalaga',
@@ -412,6 +423,7 @@ export const tagalogGuides: TagalogGuide[] = [
     ],
     figure: 'burnout-vs-depression-tl',
     related: ['depresyon-o-pagod-lang', 'trauma-na-naipapasa-sa-pamilya'],
+    sources: [GUIDE_SOURCES.burnout, GUIDE_SOURCES.depression],
     faqs: [
       {
         q: 'Malalaman ba ng employer ko?',

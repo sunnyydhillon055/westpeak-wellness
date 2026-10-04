@@ -14,6 +14,7 @@ import { TAGALOG_LANDING } from '@/lib/tagalog-landing';
 import { practitioners } from '@/lib/practitioners';
 import { COLLECTION_DATES } from '@/lib/page-dates';
 import BookLink from '@/components/BookLink';
+import LanguageGuideNextSteps from '@/components/LanguageGuideNextSteps';
 import { bookHrefFor } from '@/lib/city-service-page';
 
 /* ============================================================================
@@ -139,6 +140,12 @@ export default function TagalogGuidePage({ params }: { params: Params }) {
           <h1>{g.title}</h1>
           <p className="lede">{g.lede}</p>
           <Updated iso={COLLECTION_DATES['tagalog']} />
+          {/* The booking button used to sit only in the closing band, at 93-96%
+              of the page (4 Oct 2026). Same words as the Tagalog place pages:
+              asking for a free consultation, never a hard sell. */}
+          <div className="btn-row" style={{ marginTop: 20 }}>
+            <BookLink location="hero-language-guide" href={speaker ? bookHrefFor([speaker]) : site.bookingPath}>{TL_PLACE_SHARED.cta}</BookLink>
+          </div>
         </div>
       </section>
 
@@ -212,6 +219,8 @@ ang kaugnay na pahina sa Ingles.
             <p>
               <Link href="/tagalog">Lahat ng nasa Tagalog</Link>
             </p>
+
+            <LanguageGuideNextSteps sources={g.sources} />
           </div>
 
           <div className="crisis" style={{ marginTop: 26 }}>
@@ -229,7 +238,7 @@ ang kaugnay na pahina sa Ingles.
           <div className="cta-band">
             <h2>{TAGALOG_LANDING.ctaHeading}</h2>
             <p>{TAGALOG_LANDING.lede}</p>
-            <BookLink location="hero-language-guide" href={speaker ? bookHrefFor([speaker]) : site.bookingPath}>
+            <BookLink location="cta-band" href={speaker ? bookHrefFor([speaker]) : site.bookingPath}>
               {TAGALOG_LANDING.cta}
             </BookLink>
             <p className="cta-band-alt">

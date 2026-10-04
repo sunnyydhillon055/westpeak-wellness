@@ -24,6 +24,47 @@
    another language, which is what hreflang is for.
    ========================================================================= */
 
+import type { Source } from '@/lib/health-authorities';
+
+/* SOURCES FOR THE LANGUAGE GUIDES — 4 Oct 2026.
+ *
+ * The Punjabi and Tagalog guides made factual statements (a panic attack
+ * peaks within minutes, a counsellor in BC neither diagnoses nor prescribes,
+ * burnout belongs to work) and cited nothing a reader could open. Each guide
+ * now names the pages that back what it says, in English, the way the
+ * /practitioners/<slug>/<place>/pa pages list theirs. Every one was read on
+ * the official site on 4 Oct 2026 and is cited only for what it says there.
+ * Shared with lib/tagalog-guides.ts, because the two sets ask the same
+ * questions and should rest on the same evidence.
+ *
+ * Not Anxiety Canada: anxietycanada.com now carries only a closure notice. */
+export const GUIDE_SOURCES = {
+  panic: {
+    label: 'HeretoHelp (CMHA BC Division), Panic disorder: how quickly attacks peak, the fear of another one, and CBT',
+    url: 'https://www.heretohelp.bc.ca/infosheet/panic-disorder',
+  },
+  depression: {
+    label: 'HeretoHelp (CMHA BC Division), Depression: the signs, and when to talk to a health care provider',
+    url: 'https://www.heretohelp.bc.ca/infosheet/depression',
+  },
+  burnout: {
+    label: 'World Health Organization, Burn-out as an occupational phenomenon in ICD-11, not a medical condition',
+    url: 'https://www.who.int/news/item/28-05-2019-burn-out-an-occupational-phenomenon-international-classification-of-diseases',
+  },
+  counselling: {
+    label: 'BC Association of Clinical Counsellors, What is psychotherapy? (RCCs do not diagnose or prescribe; sessions are confidential)',
+    url: 'https://bcacc.ca/what-is-counselling/',
+  },
+  choosing: {
+    label: 'BC Association of Clinical Counsellors, How to choose a counsellor, including trusting your first impressions',
+    url: 'https://bcacc.ca/how-to-choose-a-counsellor/',
+  },
+  emdr: {
+    label: 'EMDR International Association, About EMDR therapy (it does not require talking in detail about what happened)',
+    url: 'https://www.emdria.org/about-emdr-therapy/',
+  },
+} satisfies Record<string, Source>;
+
 export type PunjabiGuideSection = { h2: string; body: string[] };
 export type PunjabiGuide = {
   slug: string;
@@ -38,6 +79,8 @@ export type PunjabiGuide = {
   related?: [string, string];
   englishHref: string;
   englishLabel: string;
+  /** What backs the guide's factual statements, shown in English. */
+  sources: Source[];
 };
 
 export const punjabiGuides: PunjabiGuide[] = [
@@ -91,6 +134,7 @@ export const punjabiGuides: PunjabiGuide[] = [
     ],
     englishHref: '/guides/anxiety-attack-vs-panic-attack',
     englishLabel: 'Anxiety attack vs panic attack',
+    sources: [GUIDE_SOURCES.panic, GUIDE_SOURCES.counselling],
   },
   {
     slug: 'udaasi-jaan-thakevan',
@@ -141,6 +185,7 @@ export const punjabiGuides: PunjabiGuide[] = [
     ],
     englishHref: '/guides/burnout-vs-depression',
     englishLabel: 'Burnout vs depression',
+    sources: [GUIDE_SOURCES.depression, GUIDE_SOURCES.burnout],
   },
   {
     slug: 'parivar-naal-therapy-di-gall',
@@ -191,6 +236,7 @@ export const punjabiGuides: PunjabiGuide[] = [
     ],
     englishHref: '/guides/talking-to-your-family-about-therapy',
     englishLabel: 'Talking to your family about therapy',
+    sources: [GUIDE_SOURCES.counselling],
   },
   {
     slug: 'pehle-session-vich-ki-hunda-hai',
@@ -242,6 +288,7 @@ export const punjabiGuides: PunjabiGuide[] = [
     ],
     englishHref: '/guides/what-to-expect-first-therapy-session',
     englishLabel: 'What to expect in your first therapy session',
+    sources: [GUIDE_SOURCES.counselling, GUIDE_SOURCES.choosing],
   },
 ];
 
