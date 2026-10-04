@@ -160,7 +160,7 @@ export const albertaResources: Resource[] = [
       },
     ],
     midCta: {
-      text: 'Camille Granda, RCC, CCC, can see clients in Alberta, and the first thirty minutes are free.',
+      text: 'Camille Granda, RCC, CCC, can see clients in Alberta, and the first fifteen minutes are free.',
       /* Was 'More about Camille', on a link that opens her calendar (item 384). */
       label: 'Book a free consultation with Camille',
     },
@@ -204,8 +204,9 @@ export const albertaResources: Resource[] = [
       { label: 'Canadian Counselling and Psychotherapy Association', url: 'https://www.ccpa-accp.ca/' },
     ],
     related: [
-      /* Camille sees clients anywhere in Canada and holds a national policy;
-         her Alberta pages are the ones an Alberta reader can actually book
+      /* Camille holds a national policy and sees Alberta clients while her
+         insurance gate is open (her Canada-wide reach was withdrawn 3 Oct
+         2026); her Alberta pages are the ones an Alberta reader can actually book
          from. Search Console, 17 Sep 2026: 'counselling alberta' at position
          6.5 and her Calgary page converting a fifth of its impressions. */
       { href: '/practitioners/camille-granda/calgary', label: 'Camille Granda in Calgary' },

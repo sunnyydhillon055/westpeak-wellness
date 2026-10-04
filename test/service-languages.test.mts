@@ -69,7 +69,7 @@ test('the couples and EMDR city pages do not offer Punjabi when nobody offering 
 });
 
 test('whole sentences only: the cut that published "Free" cannot recur', () => {
-  assert.equal(fitSentences(['One two.', 'Three four.', 'Free 30-minute consultation.'], 20), 'One two. Three four.');
+  assert.equal(fitSentences(['One two.', 'Three four.', 'Free 15-minute consultation.'], 20), 'One two. Three four.');
   assert.equal(fitSentences(['A sentence longer than the limit.'], 5), 'A sentence longer than the limit.');
 });
 

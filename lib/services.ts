@@ -95,7 +95,7 @@ export const services: Service[] = [
       "Individual therapy at Westpeak Wellness is one-to-one counselling delivered by secure video anywhere in British Columbia, provided by a Registered Clinical Counsellor registered with the BC Association of Clinical Counsellors. Sessions run 50 minutes, weekly or fortnightly. It suits anxiety, low mood, burnout, self-criticism, life transitions and long-standing patterns that have stopped responding to the obvious fixes. " +
       /* Follows site.directFirstSession (item 211): once a first session can be
          booked directly, the consultation is recommended rather than required. */
-      (site.directFirstSession ? "A 30-minute consultation is free and recommended" : "A free 30-minute consultation comes first") +
+      (site.directFirstSession ? "A 15-minute consultation is free and recommended" : "A free 15-minute consultation comes first") +
       ", and there is no referral, diagnosis or waitlist required.",
     figure2: "bc-reach",
     figure: "first-session-flow",
@@ -157,7 +157,7 @@ export const services: Service[] = [
       /* 3 Oct 2026 (item 413): impressions 6 → 25 → 59 at 10.2 with no
          clicks, and cost queries pooled at 259 impressions ("is therapy free
          in bc" 38); couples and EMDR answered cost, this page did not. */
-      { q: "How much does individual counselling cost, and will insurance cover it?", a: `An individual session is ${individualFeePhrase()}, after a free 30-minute consultation. ${COST_AND_COVER}` },
+      { q: "How much does individual counselling cost, and will insurance cover it?", a: `An individual session is ${individualFeePhrase()}, after a free 15-minute consultation. ${COST_AND_COVER}` },
     ],
     related: [
       { href: "/guides/what-to-expect-first-therapy-session", label: "What to expect in a first session" },
@@ -247,7 +247,7 @@ export const services: Service[] = [
          practice's couples work is informed by the method, and no training
          level is claimed until one is recorded (DECISIONS, 1 Oct). */
       { q: "Is this Gottman Method couples therapy?", a: "It is Gottman Method-informed. The structured assessment, the work on criticism, contempt, defensiveness and stonewalling, and the repair conversations described on this page come from the Gottman Institute’s model. The Institute trains clinicians in three levels, and Certified Gottman Therapist is a separate, longer designation; neither replaces the Registered Clinical Counsellor registration that is the regulated credential in BC. Asking which level a counsellor has completed is a reasonable question for the free consultation, here or anywhere else. [How the Gottman Method works](/guides/how-the-gottman-method-works) explains the model itself." },
-      { q: "How much does couples counselling cost, and will insurance cover it?", a: `${fallbackFee('Couples Counselling')} for a 50-minute session, or ${fallbackFee('Couples Extended')} for the 110-minute extended session, after a free 30-minute consultation. MSP does not cover private counselling. Many extended health plans reimburse a Registered Clinical Counsellor, depending on the plan, and some that do exclude or limit couples sessions, so check your plan's wording first. Each session has one receipt, in the name of the partner who claims it.` },
+      { q: "How much does couples counselling cost, and will insurance cover it?", a: `${fallbackFee('Couples Counselling')} for a 50-minute session, or ${fallbackFee('Couples Extended')} for the 110-minute extended session, after a free 15-minute consultation. MSP does not cover private counselling. Many extended health plans reimburse a Registered Clinical Counsellor, depending on the plan, and some that do exclude or limit couples sessions, so check your plan's wording first. Each session has one receipt, in the name of the partner who claims it.` },
     ],
     related: [
       { href: "/guides/how-the-gottman-method-works", label: "How the Gottman Method works" },
@@ -328,7 +328,7 @@ export const services: Service[] = [
       { q: "Can EMDR make things worse?", a: "Trauma work paced badly can destabilise anyone, which is what phases 2 and 7 exist to prevent. Distress during a session is normal and temporary; deterioration lasting days is a signal to slow down, and worth saying out loud." },
       /* Cost, 1 Oct 2026: BC competitors rank dedicated EMDR cost pages and
          this page did not say what EMDR costs. Fees from the catalogue. */
-      { q: "How much does EMDR therapy cost in BC?", a: `A weekly 50-minute EMDR session is ${fallbackFee('Individual Counselling')}, and the 90-minute intensive is ${fallbackFee('EMDR Intensive')}. The first 30-minute consultation is free. MSP does not pay for private EMDR; it is claimed on extended health like any session with a Registered Clinical Counsellor, so whether and how much your plan reimburses is plan-dependent. How many sessions it takes varies too widely for an honest average.` },
+      { q: "How much does EMDR therapy cost in BC?", a: `A weekly 50-minute EMDR session is ${fallbackFee('Individual Counselling')}, and the 90-minute intensive is ${fallbackFee('EMDR Intensive')}. The first 15-minute consultation is free. MSP does not pay for private EMDR; it is claimed on extended health like any session with a Registered Clinical Counsellor, so whether and how much your plan reimburses is plan-dependent. How many sessions it takes varies too widely for an honest average.` },
     ],
     related: [
       /* Was "/services/emdr-therapy", a link from this page to itself. */
@@ -365,7 +365,7 @@ export const services: Service[] = [
     short: "For the pattern between you, not the person you think is the problem.",
     metaTitle: "Online Family Counselling in BC | Westpeak Wellness",
     metaDescription:
-      `Online family counselling across BC in ${FAMILY_LANGS}. Conflict, communication, and the gap between generations. Free 30-minute consultation.`,
+      `Online family counselling across BC in ${FAMILY_LANGS}. Conflict, communication, and the gap between generations. Free 15-minute consultation.`,
     hero: "When the difficulty lives between people, not inside one of them.",
     directAnswer:
       `Family counselling at Westpeak Wellness is relationship work involving more than one family member, delivered by secure video across British Columbia by a Registered Clinical Counsellor, in ${FAMILY_LANGS}. It treats the pattern between people rather than one person's behaviour, and is used for recurring conflict, communication that has broken down, adult children and parents who cannot talk, blended-family adjustment, and the distance that opens between generations in immigrant families. Not everyone needs to attend every session.`,
@@ -396,7 +396,7 @@ export const services: Service[] = [
     },
     faqs: [
       /* Search Console, 17 Sep 2026: 'how can i book a session for my family to improve our relationships?' at position 17.5, 'family therapy online', 'family counselling online'. */
-      { q: 'How do I book a session for my family?', a: 'Book the free 30-minute consultation as one person and say it is for the family; the counsellor will ask who is involved and what you are hoping changes, and then set up the first full session. Family members can join from the same room or from separate homes on the same video call, which is how most families here do it when someone has moved out or is away.' },
+      { q: 'How do I book a session for my family?', a: 'Book the free 15-minute consultation as one person and say it is for the family; the counsellor will ask who is involved and what you are hoping changes, and then set up the first full session. Family members can join from the same room or from separate homes on the same video call, which is how most families here do it when someone has moved out or is away.' },
       { q: "Does everyone have to come?", a: "No. Useful family work regularly happens with two or three people rather than everyone, and who attends can change between sessions. It is worth raising on the free consultation, because the answer depends on what is actually going on." },
       { q: "Can sessions run in Punjabi?", a: FAMILY_IN_PUNJABI },
       { q: "What if someone refuses to attend?", a: "That is common and it is not a dead end. Work can start with whoever is willing, and a family pattern often shifts when one person changes how they respond to it. Nobody is required to be there." },
@@ -484,7 +484,7 @@ export const services: Service[] = [
          the roster works in Punjabi and is accepting. */
       { q: "How do I find a Punjabi-speaking counsellor in BC?", a: `Filter BCACC’s Find a Counsellor directory by language, then check the name on the RCC Register before the first session. The free Punjabi-speaking options, each with the date it was checked, and the steps in order are on our guide to [finding a Punjabi- or Tagalog-speaking counsellor in BC](/resources/finding-a-counsellor-in-punjabi-or-tagalog-in-bc).${PA ? ` At this practice, ${PA.name} works in Punjabi and English by video.` : ''}` },
       /* 3 Oct 2026 (item 413): the page answered nothing about cost. */
-      { q: "What does counselling in Punjabi cost, and is it covered?", a: `An individual session in Punjabi is ${individualFeePhrase()}, the same fee as in English, after a free 30-minute consultation. ${COST_AND_COVER}` },
+      { q: "What does counselling in Punjabi cost, and is it covered?", a: `An individual session in Punjabi is ${individualFeePhrase()}, the same fee as in English, after a free 15-minute consultation. ${COST_AND_COVER}` },
       { q: "Do sessions have to be entirely in Punjabi?", a: "No. Most people move between Punjabi and English within a single session, which is how a lot of people actually think. You do not have to choose a language in advance or stick to it." },
       { q: "Will my family find out?", a: FAMILY_FIND_OUT },
       { q: "Will I be told to cut off my family?", a: "No. That framing misreads the situation for most people. The work is usually about staying connected while stopping carrying what is not yours." },
@@ -567,7 +567,7 @@ export const services: Service[] = [
         ? [{ q: "Can you see me in Alberta?", a: "Yes. Camille holds the Canadian Certified Counsellor designation and professional insurance that reach Alberta, so sessions in Tagalog or English are available anywhere in the province by video. Her Calgary and Edmonton pages cover the local detail." }]
         : []),
       /* 3 Oct 2026 (item 413): the page answered nothing about cost. */
-      { q: "What does counselling in Tagalog cost, and is it covered?", a: `An individual session in Tagalog is ${individualFeePhrase()}, the same fee as in English, after a free 30-minute consultation; the [fees page](/pricing) has the rest. ${COST_AND_COVER}` },
+      { q: "What does counselling in Tagalog cost, and is it covered?", a: `An individual session in Tagalog is ${individualFeePhrase()}, the same fee as in English, after a free 15-minute consultation; the [fees page](/pricing) has the rest. ${COST_AND_COVER}` },
       { q: "Will my family find out?", a: FAMILY_FIND_OUT },
       { q: "Will I be told to cut off my family?", a: "No. That framing misreads the situation for most people. The work is usually about staying connected while stopping carrying what is not yours." },
       { q: "My parents think therapy is for the seriously ill. Are they wrong?", a: "They are describing a generation's understanding of it, formed where the only visible mental-health care was for crisis. Most therapy is ordinary people working on ordinary difficulty before it becomes serious." },

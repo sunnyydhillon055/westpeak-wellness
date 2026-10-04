@@ -26,7 +26,7 @@ export function generateMetadata({ params }: { params: { city: string } }): Meta
      and the language are the two words that must survive truncation, so they
      lead. ", BC" gives way for a long city name; see tagalogCityTitle. */
   const title = tagalogCityTitle(c.city);
-  const description = `Counselling in Tagalog or English for ${c.city}, by secure video with a Registered Clinical Counsellor. Free 30-minute consultation.`;
+  const description = `Counselling in Tagalog or English for ${c.city}, by secure video with a Registered Clinical Counsellor. Free 15-minute consultation.`;
   return {
     title: { absolute: title },
     description,
@@ -107,7 +107,7 @@ export default function TagalogCityPage({ params }: { params: { city: string } }
             Westpeak Wellness offers counselling in Tagalog or English for {c.city}, by secure video with
             a Registered Clinical Counsellor who is a native Tagalog speaker. Sessions cover anxiety, trauma,
             grief, family and immigration stress, and can move between the two languages within the hour.
-            The first 30-minute consultation is free.
+            The first 15-minute consultation is free.
           </p>
           <Updated iso={tagalogCityDate()} />
           <div className="btn-row" style={{ marginTop: 22 }}>
@@ -211,7 +211,7 @@ export default function TagalogCityPage({ params }: { params: { city: string } }
       <CtaBand
         bookHref={cta.href}
         heading={`Tagalog counselling for ${c.city}`}
-        text="A free 30-minute consultation by video, in Tagalog or English. No card, no obligation."
+        text="A free 15-minute consultation by video, in Tagalog or English. No card, no obligation."
       />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />

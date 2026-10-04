@@ -22,12 +22,12 @@ export const moreAudiences6: Audience[] = [
        the title said neither online therapy nor therapy. */
     metaTitle: 'Online Therapy and Counselling for Men in BC | Westpeak',
     metaDescription:
-      'Counselling for men across BC by video: anger, stress, burnout, drinking that crept up, a relationship on the edge. Free 30-minute consultation.',
+      'Counselling for men across BC by video: anger, stress, burnout, drinking that crept up, a relationship on the edge. Free 15-minute consultation.',
     eyebrow: 'For · Men',
     lede:
       'Most men who come to counselling did not decide to. Something forced the question: a partner, a doctor, a night they do not want to repeat. This page is for the moment before that.',
     shortAnswer:
-      'Counselling for men in BC, online by secure video in English or Punjabi, with a Registered Clinical Counsellor. The work is practical and direct: anger that arrives faster than it used to, stress that has become the default, drinking or gaming that has quietly taken over evenings, a relationship that is one argument from ending, and the flatness men rarely call depression. Sessions are 50 minutes, booked from the counsellor’s open times, and the first 30-minute consultation is free.',
+      'Counselling for men in BC, online by secure video in English or Punjabi, with a Registered Clinical Counsellor. The work is practical and direct: anger that arrives faster than it used to, stress that has become the default, drinking or gaming that has quietly taken over evenings, a relationship that is one argument from ending, and the flatness men rarely call depression. Sessions are 50 minutes, booked from the counsellor’s open times, and the first 15-minute consultation is free.',
     updated: '2026-09-25',
     readMinutes: 6,
     opening: [
@@ -47,7 +47,7 @@ export const moreAudiences6: Audience[] = [
       {
         h2: 'What the sessions are actually like',
         body: [
-          'The first 30 minutes are free and are a conversation, not an assessment. You say what is going on in whatever words you have; the counsellor says how they would work with it and what a first stretch of sessions would look like. If it does not fit, that is a fine outcome and nobody chases you.',
+          'The first 15 minutes are free and are a conversation, not an assessment. You say what is going on in whatever words you have; the counsellor says how they would work with it and what a first stretch of sessions would look like. If it does not fit, that is a fine outcome and nobody chases you.',
           'After that, sessions are 50 minutes, weekly or every two weeks, and they have a shape. There is something you are working toward and a way of knowing whether you are getting there. Approaches used most with men at this practice are [CBT](/approaches/cognitive-behavioural-therapy), which is structured and skills-based, and [ACT](/approaches/acceptance-and-commitment-therapy), which suits people who understand their patterns fine and are still stuck in them. Where there is a history that keeps intruding, [EMDR](/services/emdr-therapy) is available.',
           'None of it requires you to be a talker. Plenty of men do their best work in this format precisely because there is a task in front of them rather than an open silence.',
         ],
@@ -66,7 +66,7 @@ export const moreAudiences6: Audience[] = [
       { href: '/services/couples-therapy', label: 'Couples therapy', why: 'When the relationship is the reason you are here and both of you are willing.' },
     ],
     midCta: {
-      text: 'Thirty minutes, free, by video, no forms first. That is the whole barrier.',
+      text: 'Fifteen minutes, free, by video, no forms first. That is the whole barrier.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -141,7 +141,7 @@ export const moreAudiences6: Audience[] = [
       { href: '/services/couples-therapy', label: 'Couples therapy', why: 'When the job has come home for years and the relationship is where it shows.' },
     ],
     midCta: {
-      text: 'A free 30-minute consultation, by video, at an hour that fits the rotation.',
+      text: 'A free 15-minute consultation, by video, at an hour that fits the rotation.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -199,7 +199,7 @@ export const moreAudiences6: Audience[] = [
         body: [
           'This confuses everyone and the confusion costs people months. MSP, the provincial health plan, does not pay for private counselling at any point, for anyone. That is not a newcomer rule; it is the rule. What pays is extended health insurance from an employer, which in many plans reimburses a Registered Clinical Counsellor up to an annual limit, depending on the plan, and which many newcomers have without knowing it. The [coverage page](/resources/bc-extended-health-coverage-for-counselling) explains how to check in two minutes.',
           'Refugee claimants and some other groups have federal interim health coverage that includes counselling; a settlement agency can confirm whether you do. For the first months, before any plan starts, the [low-cost counselling page](/resources/low-cost-counselling-bc) lists the free and sliding-scale routes in BC, and settlement organisations such as MOSAIC, ISSofBC and DIVERSEcity offer free counselling and referrals in many languages.',
-          'Private fees at this practice are [published in full](/pricing), and the first 30-minute consultation is free. Nothing about immigration status is asked, recorded or reported.',
+          'Private fees at this practice are [published in full](/pricing), and the first 15-minute consultation is free. Nothing about immigration status is asked, recorded or reported.',
         ],
       },
       {
@@ -216,7 +216,7 @@ export const moreAudiences6: Audience[] = [
       { href: '/services/couples-therapy', label: 'Couples therapy', why: 'For a marriage carrying the whole move, with nobody else to lean on.' },
     ],
     midCta: {
-      text: 'Thirty free minutes, in your language, from home. Nothing about your status is asked.',
+      text: 'Fifteen free minutes, in your language, from home. Nothing about your status is asked.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -272,7 +272,7 @@ export const moreAudiences6: Audience[] = [
       {
         h2: 'How this fits around a trade',
         body: [
-          'Sessions are by video, 50 minutes, and the calendar shows each counsellor’s real open times. There is no office to get to after a ten-hour day and no waiting room to be seen in. The first 30 minutes are free and are a conversation about what is going on; if it does not fit, that is the end of it.',
+          'Sessions are by video, 50 minutes, and the calendar shows each counsellor’s real open times. There is no office to get to after a ten-hour day and no waiting room to be seen in. The first 15 minutes are free and are a conversation about what is going on; if it does not fit, that is the end of it.',
           'The work is practical. [CBT](/approaches/cognitive-behavioural-therapy) suits people who want a task and a way of knowing it is working. Where there was an incident on a site, a serious injury, a death on a crew, [EMDR](/services/emdr-therapy) is available and does not require talking through the event in detail. Sleep, pain and drinking are treated as the clinical material they are.',
         ],
       },
@@ -290,7 +290,7 @@ export const moreAudiences6: Audience[] = [
       { href: '/services/punjabi-counselling', label: 'Counselling in Punjabi', why: 'For the Lower Mainland crews where Punjabi is the language of the site.' },
     ],
     midCta: {
-      text: 'Thirty free minutes, by video, after the shift. No forms, no waiting room.',
+      text: 'Fifteen free minutes, by video, after the shift. No forms, no waiting room.',
       label: 'Book a free consultation',
     },
     faqs: [

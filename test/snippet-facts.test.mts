@@ -32,7 +32,7 @@ test('the facts line reads the catalogue and the roster', () => {
   const ind = feeFor(C, { bookingService: 'individual-therapy' })!;
   assert.equal(
     snippetFacts({ fee: ind, names: ['A B', 'C D'] }),
-    `${fee('Individual Counselling')} per 50-min session · free 30-min consult · A B or C D`,
+    `${fee('Individual Counselling')} per 50-min session · free 15-min consult · A B or C D`,
   );
   assert.match(snippetFacts({ fee: ind, from: true }), /^From /);
 });
@@ -47,7 +47,7 @@ test('lowestFee says "from" only when the services differ in price', () => {
 });
 
 test('withSnippet never exceeds the limit and never cuts a sentence', () => {
-  const facts = '$1 per 50-min session · free 30-min consult';
+  const facts = '$1 per 50-min session · free 15-min consult';
   const long = 'A first sentence that is short. ' + 'Then a second sentence that goes on and on '.repeat(5) + 'until it ends.';
   const out = withSnippet(long, facts);
   assert.ok(metaLength(out) <= SNIPPET_MAX);
@@ -64,7 +64,7 @@ test('nobody who is not taking new clients is named or priced', () => {
     assert.doesNotMatch(practiceSnippet(C, practitioners) ?? '', new RegExp(founder.name));
   }
   for (const p of practitioners.filter((x) => x.acceptingNewClients)) {
-    assert.match(profileSnippet(C, p)!, /free 30-min consult$/);
+    assert.match(profileSnippet(C, p)!, /free 15-min consult$/);
   }
 });
 
@@ -109,13 +109,13 @@ test('the Punjabi region opening answers who, how, cost and the consultation, wi
     assert.match(o, new RegExp(speaker.name));
     assert.match(o, /secure video/);
     assert.ok(o.includes(fee('Individual Counselling')));
-    assert.match(o, /free 30-minute consultation/);
+    assert.match(o, /free 15-minute consultation/);
     assert.match(o, /depends on the plan/);
     assert.doesNotMatch(o, /[਀-੿]/);
     if (r.figure) assert.ok(!o.includes(r.figure.value), `${r.slug} repeats the census figure`);
     assert.doesNotMatch(o, /\d+(\.\d+)?%/);
   }
-  assert.match(regionOpening({ region: 'X' }), /free 30-minute consultation/);
+  assert.match(regionOpening({ region: 'X' }), /free 15-minute consultation/);
 });
 
 test('price-drift fails a fee typed into a description, and any figure in the composer', () => {

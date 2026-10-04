@@ -41,7 +41,7 @@ export const tagalogWordsResource: Resource[] = [
             ['counseling', 'The English word, used as it is, and the one most Filipinos in Canada actually say. Exact in meaning and slightly institutional in feel, because it is also what a school or an HR department offers.'],
             ['pagpapayo', 'Giving advice or guidance, from payo, advice. The formal word, and the one on a guidance counsellor’s door. It implies being told what to do, which is the opposite of how counselling works.'],
             ['tagapayo', 'Adviser, counsellor. Used for a guidance counsellor, a spiritual adviser and a financial one, so it does not say what kind of help is meant.'],
-            ['konsultasyon', 'Consultation. Medical in feel, and accurate for the free 30-minute consultation this practice starts with, which is a conversation rather than an assessment.'],
+            ['konsultasyon', 'Consultation. Medical in feel, and accurate for the free 15-minute consultation this practice starts with, which is a conversation rather than an assessment.'],
             ['kalusugang pangkaisipan', 'Mental health, literally. Formal and neutral; the phrase public health material uses. Useful precisely because it sounds like a medical topic rather than a family one.'],
             ['sikolohista', 'Psychologist. Often used loosely for any mental-health professional, which causes confusion about who can diagnose. A counsellor is not one.'],
             ['therapy, therapist', 'Borrowed as they are, sometimes spelled terapiya. Understood by everyone under sixty and by most people over it.'],
@@ -84,7 +84,7 @@ export const tagalogWordsResource: Resource[] = [
       },
     ],
     midCta: {
-      text: 'A free 30-minute consultation, in Tagalog, English, or both in the same conversation. No card, and no obligation.',
+      text: 'A free 15-minute consultation, in Tagalog, English, or both in the same conversation. No card, and no obligation.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -94,7 +94,7 @@ export const tagalogWordsResource: Resource[] = [
       { q: 'Is there a Tagalog word for anxiety?', a: 'Pagkabalisa is the closest to the clinical sense, and kaba, nervousness, is the everyday word. Most people use either for both. A counsellor who works in Tagalog hears which one is meant.' },
       { q: 'Is there a Tagalog word for depression?', a: 'Depresyon, borrowed from English, carries the clinical meaning. Kalungkutan means sadness and is the word most families use, and it sounds like something that will lift on its own, which is one reason a depressive episode in a Filipino family is often heard as ordinary sadness for a long time.' },
       { q: 'Do I have to speak Tagalog in the session?', a: 'No. Most people move between Tagalog and English in the same sentence, Taglish, and that is normal here rather than something to apologise for. You can also book in English entirely and switch when a word only exists in one of them.' },
-      { q: 'Who provides counselling in Tagalog at Westpeak?', a: 'Camille Granda, a Registered Clinical Counsellor and Canadian Certified Counsellor who works in Tagalog and English, in British Columbia and Alberta. Sessions are online and the first 30-minute consultation is free.' },
+      { q: 'Who provides counselling in Tagalog at Westpeak?', a: 'Camille Granda, a Registered Clinical Counsellor and Canadian Certified Counsellor who works in Tagalog and English, in British Columbia and Alberta. Sessions are online and the first 15-minute consultation is free.' },
       { q: 'Will my family find out?', a: 'No. What is said in a session is confidential, with the narrow legal exceptions every counsellor has: a serious risk of harm, abuse of a minor, a court order. Sessions are by video, so there is no clinic anybody could be seen entering.' },
     ],
     sources: [

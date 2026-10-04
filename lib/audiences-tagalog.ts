@@ -54,7 +54,7 @@ export const tagalogAudiences: Audience[] = [
         h2: 'Fitting it around a roster, and paying for it',
         body: [
           'Sessions are 50 minutes by video and the calendar shows real open times. Booking in blocks around a rotation, with gaps between blocks, is an ordinary pattern here and pausing costs nothing. A session after a night shift is possible if that is when you can think; a session on a day off is usually better.',
-          'Health-employer and union extended health plans in BC commonly reimburse a Registered Clinical Counsellor; the [coverage page](/resources/bc-extended-health-coverage-for-counselling) has the two questions to ask. Where an incident at work has become a claim, the [WorkSafeBC page](/resources/worksafebc-psychological-injury-claims) explains that route. Private fees are [published in full](/pricing), and the first 30 minutes are free.',
+          'Health-employer and union extended health plans in BC commonly reimburse a Registered Clinical Counsellor; the [coverage page](/resources/bc-extended-health-coverage-for-counselling) has the two questions to ask. Where an incident at work has become a claim, the [WorkSafeBC page](/resources/worksafebc-psychological-injury-claims) explains that route. Private fees are [published in full](/pricing), and the first 15 minutes are free.',
           'The [healthcare and shift workers page](/for/healthcare-and-shift-workers) covers the occupational side in more depth; this page is the one about carrying it in two languages and for two families.',
         ],
       },
@@ -65,7 +65,7 @@ export const tagalogAudiences: Audience[] = [
       { href: '/services/emdr-therapy', label: 'EMDR and trauma therapy', why: 'For the incident on the unit, the death, the assault, that has not left.' },
     ],
     midCta: {
-      text: 'Thirty free minutes, in Tagalog or English, at an hour that fits the roster.',
+      text: 'Fifteen free minutes, in Tagalog or English, at an hour that fits the roster.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -140,7 +140,7 @@ export const tagalogAudiences: Audience[] = [
       { href: '/services/couples-therapy', label: 'Couples therapy', why: 'For a marriage carrying two families, with both partners willing.' },
     ],
     midCta: {
-      text: 'Thirty free minutes, in Tagalog or English, to see whether it fits. Nobody in the family is told.',
+      text: 'Fifteen free minutes, in Tagalog or English, to see whether it fits. Nobody in the family is told.',
       label: 'Book a free consultation',
     },
     faqs: [

@@ -35,7 +35,7 @@ export default function WhichServiceTool({ bookHrefs = {} }: { bookHrefs?: Recor
             )}
             {!hit.elsewhere && <ResultCta tool="which-service" href={bookHrefs[hit.tag]} />}
             <p className="tool-disclaimer">
-              This is a signpost, not an assessment. A 30-minute conversation will get you a
+              This is a signpost, not an assessment. A 15-minute conversation will get you a
               better answer than five questions can, and it costs nothing.
             </p>
           </>

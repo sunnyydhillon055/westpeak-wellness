@@ -97,7 +97,7 @@ const homeFaqs = faqs.filter((f) =>
 const PROCESS = [
   {
     step: 'Step one',
-    title: 'Free 30-min consult',
+    title: 'Free 15-min consult',
     body: 'A short video call to see if it’s a good fit. No pressure.',
   },
   {
@@ -238,7 +238,7 @@ export default function Home() {
                 {HERO_ONLY ? ` ${HERO_ONLY}` : ''} {HERO_FEE}
               </p>
               <div className="btn-row" style={{ marginTop: 30 }}>
-                <Link className="btn btn--primary" href={site.bookingPath}>Book a Free 30-min Consultation</Link>
+                <Link className="btn btn--primary" href={site.bookingPath}>Book a Free 15-min Consultation</Link>
                 <Link className="btn btn--ghost" href="/services">See counselling services</Link>
               </div>
               {/* Read from Cliniko, not typed: the last hand-written version of
@@ -396,7 +396,7 @@ export default function Home() {
             <div className="crisis" style={{ marginTop: 26, maxWidth: 720 }}>
               <p style={{ margin: 0 }}>
                 Step one costs nothing.{' '}
-                <Link href={site.bookingPath}>Book a free 30-minute consultation</Link>
+                <Link href={site.bookingPath}>Book a free 15-minute consultation</Link>
                 {ACCEPTING.length ? ` with ${ACCEPTING_FIRSTS}` : ''}, and if it turns out someone
                 else is a better fit, you&rsquo;ll get told that too.
               </p>
@@ -448,7 +448,7 @@ export default function Home() {
                 <p>
                   {fallbackFee('Individual Counselling')} for {INDIVIDUAL_MIN} minutes individually,{' '}
                   {fallbackFee('Couples Counselling')} for {COUPLES_MIN} minutes as a couple; the
-                  first 30-minute consultation is free.
+                  first 15-minute consultation is free.
                 </p>
                 <p><Link href="/pricing">Fees and insurance</Link></p>
               </div>

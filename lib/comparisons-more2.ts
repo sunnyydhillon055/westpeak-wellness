@@ -74,10 +74,10 @@ export const moreComparisons2: Comparison[] = [
     ],
     howWeFit: [
       'Westpeak Wellness offers both formats: standard 50-minute sessions in which EMDR is one of the approaches used, and a dedicated 90-minute EMDR intensive. Current pricing for each is on the [fees page](/pricing), kept in sync with the booking system.',
-      'Which format fits is a clinical question before it is a scheduling one, and it is exactly the kind of question a [free 30-minute consultation](/book) settles quickly, including honestly, when the answer is that weekly pacing or stabilisation-first work is the right starting point.',
+      'Which format fits is a clinical question before it is a scheduling one, and it is exactly the kind of question a [free 15-minute consultation](/book) settles quickly, including honestly, when the answer is that weekly pacing or stabilisation-first work is the right starting point.',
     ],
     midCta: {
-      text: 'Unsure whether your situation suits concentrated work? That is a clinical question with a quick answer, ask it on a free 30-minute call.',
+      text: 'Unsure whether your situation suits concentrated work? That is a clinical question with a quick answer, ask it on a free 15-minute call.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -165,7 +165,7 @@ export const moreComparisons2: Comparison[] = [
       'If you have read this far and it is specifically EFT you want, the right move is an ICEEFT-trained therapist, and their directory is the place to find one. That is not this practice, and pretending otherwise would be a poor way to start a therapeutic relationship. If you are undecided, a [free consultation](/book) with both partners on the call is a reasonable way to hear how the Gottman-informed version would approach your situation.',
     ],
     midCta: {
-      text: 'Deciding between approaches is easier with a concrete case, yours. A free 30-minute call with both of you is how that conversation starts.',
+      text: 'Deciding between approaches is easier with a concrete case, yours. A free 15-minute call with both of you is how that conversation starts.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -205,7 +205,7 @@ export const moreComparisons2: Comparison[] = [
     lede:
       'Millions of people now type their 2 a.m. worries into an app or a chatbot before they would ever email a counsellor. That deserves a straight comparison, not a defensive one.',
     shortAnswer:
-      `Apps and AI chatbots are genuinely good at some things: always available, free or cheap, useful for skills practice, mood tracking, psychoeducation, and rehearsing a hard conversation nobody is judging. What they are not is therapy. No app is accountable to a regulator, bound by a clinical code of ethics, able to read what you are not saying, or responsible for you in a crisis, and a system built to be agreeable cannot do the useful disagreeing a good therapist does. The strongest position is not either/or: use the tools for what they are good at, and a human for what they cannot do. On cost, an app is free or a subscription; an individual session here is ${individualFeePhrase()} after a free 30-minute consultation, and many extended health plans reimburse a Registered Clinical Counsellor, depending on the plan.`,
+      `Apps and AI chatbots are genuinely good at some things: always available, free or cheap, useful for skills practice, mood tracking, psychoeducation, and rehearsing a hard conversation nobody is judging. What they are not is therapy. No app is accountable to a regulator, bound by a clinical code of ethics, able to read what you are not saying, or responsible for you in a crisis, and a system built to be agreeable cannot do the useful disagreeing a good therapist does. The strongest position is not either/or: use the tools for what they are good at, and a human for what they cannot do. On cost, an app is free or a subscription; an individual session here is ${individualFeePhrase()} after a free 15-minute consultation, and many extended health plans reimburse a Registered Clinical Counsellor, depending on the plan.`,
     updated: '2026-08-30',
     readMinutes: 7,
     table: {
@@ -214,7 +214,7 @@ export const moreComparisons2: Comparison[] = [
         ['Availability', 'Always, instantly, at 2 a.m.', 'Scheduled sessions; replies within business hours'],
         /* 3 Oct 2026 (item 431): was "Session fees" and an "often partly
            reimbursed" line: no figure, and a prevalence claim. */
-        ['Cost', 'Free to low subscription', `${individualFeePhrase()} for an individual session here, and the first 30-minute consultation is free; many extended health plans reimburse a Registered Clinical Counsellor, depending on the plan`],
+        ['Cost', 'Free to low subscription', `${individualFeePhrase()} for an individual session here, and the first 15-minute consultation is free; many extended health plans reimburse a Registered Clinical Counsellor, depending on the plan`],
         ['Accountability', 'None, no regulator, no complaints process, terms of service only', 'Registration, a code of ethics, insurance, and a public register you can check'],
         ['Privacy', 'Set by the company; data practices vary widely and can change', 'Bound by law and professional standards; limits of confidentiality stated up front'],
         ['Crisis response', 'Cannot assess or take responsibility; at best displays a hotline', 'Trained to assess risk and act on it, with a duty of care'],
@@ -255,7 +255,7 @@ export const moreComparisons2: Comparison[] = [
       'If cost is what has you in an app instead of counselling, two pages here may change the arithmetic: [what extended health plans cover](/resources/bc-extended-health-coverage-for-counselling), and the [genuinely low-cost options in BC](/resources/low-cost-counselling-bc), including ones that are not this practice.',
     ],
     midCta: {
-      text: 'If an app got you as far as reading this, the next step costs thirty minutes and nothing else, a free consultation with a person.',
+      text: 'If an app got you as far as reading this, the next step costs fifteen minutes and nothing else, a free consultation with a person.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -266,7 +266,7 @@ export const moreComparisons2: Comparison[] = [
       /* 3 Oct 2026 (item 431): 'how much does an ai mental health companion
          app cost compared to seeing a therapist?' reached this page at 3.75.
          No app price is given: none was read from a vendor today. */
-      { q: 'How much does an AI mental-health app cost compared with seeing a therapist in BC?', a: `Apps range from free to a monthly subscription, and the price is the vendor’s to state, so check the app’s own pricing page. For a Registered Clinical Counsellor in BC, the BC Association of Clinical Counsellors’ fee guide recommends ${guidePhrase(BCACC_INDIVIDUAL)} for individual counselling (read ${FEE_GUIDES_READ}). Here an individual session is ${individualFeePhrase()}, after a free 30-minute consultation. MSP does not cover private counselling; many extended health plans reimburse a Registered Clinical Counsellor, depending on the plan, so check yours. The [cost estimator](/tools/therapy-cost-bc) works out what a session costs you after your plan.` },
+      { q: 'How much does an AI mental-health app cost compared with seeing a therapist in BC?', a: `Apps range from free to a monthly subscription, and the price is the vendor’s to state, so check the app’s own pricing page. For a Registered Clinical Counsellor in BC, the BC Association of Clinical Counsellors’ fee guide recommends ${guidePhrase(BCACC_INDIVIDUAL)} for individual counselling (read ${FEE_GUIDES_READ}). Here an individual session is ${individualFeePhrase()}, after a free 15-minute consultation. MSP does not cover private counselling; many extended health plans reimburse a Registered Clinical Counsellor, depending on the plan, so check yours. The [cost estimator](/tools/therapy-cost-bc) works out what a session costs you after your plan.` },
       { q: 'Will a counsellor judge me for having used these?', a: 'Not here, and not anywhere good. A third of the people reading this page likely tried an app first; it is simply how help-seeking works now. What matters is what you need next, not the order you tried things in.' },
     ],
     sources: [
@@ -341,7 +341,7 @@ export const moreComparisons2: Comparison[] = [
       'The practice is virtual and serves all of BC, which matters most exactly where Punjabi-speaking counsellors are scarcest, outside the Lower Mainland. And the smaller-community privacy concern is taken seriously here: confidentiality and its limits are set out plainly on the [privacy page](/privacy), and it is a welcome question on a consultation call.',
     ],
     midCta: {
-      text: 'The consultation itself can be in either language, which is, conveniently, a thirty-minute answer to most of this page.',
+      text: 'The consultation itself can be in either language, which is, conveniently, a fifteen-minute answer to most of this page.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -423,7 +423,7 @@ export const moreComparisons2: Comparison[] = [
       'Where both roads are in play, the practical offer is this: therapy can begin now rather than after the wait, and with your consent the work coordinates with your doctor rather than around them.',
     ],
     midCta: {
-      text: 'Unsure which door your situation needs? That is a fair question for a free 30-minute call, including when the honest answer is a doctor first.',
+      text: 'Unsure which door your situation needs? That is a fair question for a free 15-minute call, including when the honest answer is a doctor first.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -500,7 +500,7 @@ export const moreComparisons2: Comparison[] = [
           { label: 'You need an assessment on paper', detail: 'ADHD, learning disability, cognitive or psychoeducational testing for school, work or benefits: a registered psychologist, privately, with a written report at the end. Budget for the assessment cost and the waitlist.' },
           { label: 'Something serious is unfolding', detail: 'Psychosis, mania, severe depression with risk: medical first, GP urgently, or emergency services. If safety is immediate: 9-8-8 by call or text.' },
           { label: 'You want ongoing weekly therapy', detail: 'Counsellors and therapy-practising psychologists do this work; psychiatrists in BC mostly do not. The price difference between an RCC and a psychologist for the same weekly hour is substantial, and the fit question matters more than the title.' },
-          { label: 'You are not sure', detail: 'A GP visit sorts the medical question in one appointment, and a free counselling consultation sorts the therapy question in thirty minutes. Neither commits you to anything, and the two roads run in parallel without conflict.' },
+          { label: 'You are not sure', detail: 'A GP visit sorts the medical question in one appointment, and a free counselling consultation sorts the therapy question in fifteen minutes. Neither commits you to anything, and the two roads run in parallel without conflict.' },
         ],
       },
     ],
@@ -509,7 +509,7 @@ export const moreComparisons2: Comparison[] = [
       'Where the medical or assessment door is yours, the [psychiatry and assessment resource](/resources/psychiatry-and-assessment-in-bc) maps the referral road honestly, and therapy here can start now and coordinate with whichever specialist arrives later, with your written consent.',
     ],
     midCta: {
-      text: 'Thirty free minutes sorts which of the three doors: psychiatry, psychology, counselling. Your situation actually needs. Including when the answer is not this one.',
+      text: 'Fifteen free minutes sorts which of the three doors: psychiatry, psychology, counselling. Your situation actually needs. Including when the answer is not this one.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -603,7 +603,7 @@ export const moreComparisons2: Comparison[] = [
       `The practice is virtual and serves all of ${PROVINCES}, which matters most exactly where Tagalog-speaking counsellors are scarcest, outside Metro Vancouver. And the smaller-community privacy concern is taken seriously here: confidentiality and its limits are set out plainly on the [privacy page](/privacy), and it is a welcome question on a consultation call.`,
     ],
     midCta: {
-      text: 'The consultation itself can be in either language, which is, conveniently, a thirty-minute answer to most of this page.',
+      text: 'The consultation itself can be in either language, which is, conveniently, a fifteen-minute answer to most of this page.',
       label: 'Book a free consultation',
     },
     faqs: [

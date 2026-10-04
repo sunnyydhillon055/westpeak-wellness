@@ -11,7 +11,7 @@
  * 42 guides linked no tool, 33 linked no /pricing, and the consultation-prep
  * page was linked from one guide. These are the three smaller things a
  * reader who is not ready to book can usefully do next: the tool that fits
- * the page's subject, what sessions cost, and what the free 30 minutes is
+ * the page's subject, what sessions cost, and what the free 15 minutes is
  * like. Links only; no form. tool_complete is already counted
  * (lib/conversion-log.ts), so whether anybody takes them is measurable. */
 
@@ -74,7 +74,7 @@ const TOPIC_TOOLS: { test: RegExp; step: SoftStep }[] = [
 export const PRICING_STEP: SoftStep = { href: '/pricing', label: 'What sessions cost' };
 export const CONSULT_PREP_STEP: SoftStep = {
   href: '/resources/before-your-first-consultation',
-  label: 'What the free 30 minutes is like',
+  label: 'What the free 15 minutes is like',
 };
 
 /** Up to three small steps for the closing block: the matching tool, if any,

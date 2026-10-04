@@ -1,4 +1,5 @@
-import { fallbackFee, FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
+import { fallbackFee, CONSULT_MINUTES } from '@/lib/cliniko-catalog';
+import { CANCELLATION_RULE } from '@/lib/policies';
 import { practitioners } from '@/lib/practitioners';
 import { site } from '@/lib/site';
 import { ONLINE_COVERAGE, CONFIDENTIALITY_LIMITS, WHO_FINDS_OUT, CAMERA_OPTIONAL } from '@/lib/practice-facts';
@@ -33,8 +34,7 @@ const linked = (ps: { name: string; slug: string }[]) =>
 const canadaWide = accepting.filter((p) => p.reach === 'canada');
 const alberta = accepting.filter((p) => p.reach !== 'canada' && p.provinces.includes('AB'));
 const tagalog = accepting.filter((p) => p.languages.some((l) => l.tag === 'tl'));
-const consultMinutes =
-  FALLBACK_CATALOG.items.find((i) => i.name.toLowerCase() === 'initial consultation')?.minutes ?? 30;
+const consultMinutes = CONSULT_MINUTES;
 
 /** "across British Columbia, and anywhere in Canada with Camille" */
 export const whereLine = (): string =>
@@ -67,7 +67,7 @@ const tagalogAnswer = tagalog.length
  * person and states no hours: the allowed form is that the calendar shows the
  * real open times. A phone number in a listing is not itself an error: the
  * practice publishes one (lib/site.ts), and email is still the first route. */
-export const LISTINGS_ANSWER = `No fixed opening hours are published. Open times come from each counsellor’s own calendar, and [the booking page](/book) shows the real ones. The free consultation is ${consultMinutes} minutes. The practice is online only, with no office and no walk-in address, and the best way to reach it is by email, at ${site.email}. A directory listing that shows a street address, opening hours, in-person sessions or a 15-minute consultation is not maintained by the practice; where it disagrees with this site, this site is current.`;
+export const LISTINGS_ANSWER = `No fixed opening hours are published. Open times come from each counsellor’s own calendar, and [the booking page](/book) shows the real ones. The free consultation is ${consultMinutes} minutes. The practice is online only, with no office and no walk-in address, and the best way to reach it is by email, at ${site.email}. A directory listing that shows a street address, opening hours, in-person sessions or a consultation of any other length is not maintained by the practice; where it disagrees with this site, this site is current.`;
 
 const onlineOrInPerson = `Online only. There is no office and no in-person option: the free ${consultMinutes}-minute consultation and every session after it are by secure video. Once you book, the link arrives by email and opens in your browser, with nothing to install and no account to create. All you need is a private space, a phone, tablet or computer, and a stable connection. ${CAMERA_OPTIONAL} Sessions are never recorded.`;
 
@@ -94,7 +94,7 @@ export const faqs: FAQ[] = [
   },
   {
     q: "How do I pay, and when?",
-    a: "Sessions are paid by credit card at the time you book, not at the end of the hour. Cancel with at least 24 hours notice and the fee is refunded in full. Inside that window, or for a no-show, 50% of the fee is retained. The time was held and cannot realistically be filled at that notice. The client portal sets out the whole process, including what happens if something unavoidable comes up. " + HOW_TO_CANCEL,
+    a: `Sessions are paid by credit card at the time you book, not at the end of the hour. ${CANCELLATION_RULE} The time was held and cannot realistically be filled at that notice. The client portal sets out the whole process, including what happens if something unavoidable comes up. ${HOW_TO_CANCEL}`,
   },
   {
     q: "Are you taking new clients?",
@@ -167,7 +167,7 @@ export const faqs: FAQ[] = [
   },
   {
     q: "How do I get started?",
-    a: "Book a free 30-minute consultation. It's a relaxed video call to ask questions, share a bit about what's going on, and see whether working together feels right, no commitment required.",
+    a: "Book a free 15-minute consultation. It's a relaxed video call to ask questions, share a bit about what's going on, and see whether working together feels right, no commitment required.",
   },
 ];
 

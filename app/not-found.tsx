@@ -72,7 +72,7 @@ export default function NotFound() {
         <ul>
           <li><Link href="/services">All counselling services</Link>: individual, couples, EMDR, trauma</li>
           <li><Link href="/pricing">Fees and insurance</Link>, what a session costs and how coverage works</li>
-          <li><Link href={site.bookingPath}>Book a free 30-minute consultation</Link></li>
+          <li><Link href={site.bookingPath}>Book a free 15-minute consultation</Link></li>
           <li><Link href="/guides">Counselling guides</Link>, plain answers to common questions</li>
           {/* WHO IS TAKING NEW CLIENTS, BY NAME — 2 Oct 2026. The 404 named
               nobody and linked the founder's /about page. The same rule as the

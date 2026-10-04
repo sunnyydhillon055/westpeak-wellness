@@ -27,7 +27,7 @@ export function GET() {
     ...(site.phone ? [`TEL;TYPE=WORK,VOICE:${site.phoneTel}`] : []),
     `ADR;TYPE=WORK:;;;${REGISTERED_LOCALITY.locality};${REGISTERED_LOCALITY.region};;${REGISTERED_LOCALITY.countryName}`,
     `URL:${site.domain}`,
-    `NOTE:${serviceAreaLine()}, ${site.languages}. Free 30-minute consultation: ${site.domain}${site.bookingPath}`,
+    `NOTE:${serviceAreaLine()}, ${site.languages}. Free 15-minute consultation: ${site.domain}${site.bookingPath}`,
     'END:VCARD',
   ];
   return new Response(lines.join('\r\n') + '\r\n', {

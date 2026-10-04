@@ -1,6 +1,7 @@
 import { bookingsPaidUrlFor, site } from '@/lib/site';
 import type { Catalog } from '@/lib/cliniko-catalog';
 import { money } from '@/lib/cliniko-catalog';
+import { CANCELLATION_TERMS } from '@/lib/policies';
 import type { Practitioner } from '@/lib/practitioners';
 
 /* "ALREADY SURE? START WITH A FIRST SESSION" — 1 Oct 2026, built behind
@@ -57,5 +58,5 @@ export function firstSessionOffers(
 export function firstSessionNote(catalog: Catalog): string {
   const consult = catalog.items.find((i) => i.name.toLowerCase() === 'initial consultation' && i.cents === 0);
   const minutes = consult ? `${consult.minutes}-minute ` : '';
-  return `If you are unsure, the free ${minutes}consultation is still recommended. The card is taken at booking, and cancelling with at least ${site.cancellationHours} hours’ notice refunds the fee in full.`;
+  return `If you are unsure, the free ${minutes}consultation is still recommended. ${CANCELLATION_TERMS}`;
 }

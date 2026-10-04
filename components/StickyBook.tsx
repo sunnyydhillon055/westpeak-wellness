@@ -67,7 +67,7 @@ const PhoneIcon = () => (
  * countdown or scarcity language — a health site should not pressure anyone. */
 type Avail = Record<string, { first: string; next: string[]; count: number }>;
 
-const DEFAULT_LINE = 'Free 30-minute consultation · no referral needed';
+const DEFAULT_LINE = 'Free 15-minute consultation · no referral needed';
 
 /* The line names a time, and on /book?with= it names the CHOSEN counsellor's
    time — 1 Oct 2026. It used to advertise whoever was soonest, so a reader on
@@ -115,7 +115,7 @@ function NextLine({ avail, onSlug, onBooking }: { avail: Avail | null; onSlug?: 
 export default function StickyBook({ roster }: { roster: NavPractitioner[] }) {
   const pathname = usePathname();
   /* The next open consultation, fetched once per page view from a
-     thirty-minute cache (app/api/availability). "Free 30-minute consult" is
+     thirty-minute cache (app/api/availability). "Free 15-minute consult" is
      true on every page and moves nobody; "next: Sat from 9 am" is the thing a
      person on a stress-leave guide at 11pm actually wants to know. Rendered
      only once it arrives; the bar is complete without it. */

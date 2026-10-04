@@ -1,5 +1,6 @@
 import { put, get } from '@vercel/blob';
 import { api, headers } from '@/lib/cliniko';
+import { CONSULT_TYPE } from '@/lib/site';
 
 /* The service catalogue — names, durations and prices — with Cliniko as the
  * source of truth.
@@ -57,7 +58,7 @@ export type Catalog = {
  * build time, which is a worse trade for the same number. */
 export const FALLBACK_CATALOG: Catalog = {
   items: [
-    { id: '2013349744314681520', name: 'Initial Consultation', minutes: 30, cents: 0, onlineBookable: true },
+    { id: '2013349744314681520', name: 'Initial Consultation', minutes: 15, cents: 0, onlineBookable: true },
     { id: '1466854657459489533', name: 'Individual Counselling', minutes: 50, cents: 14000, onlineBookable: true },
     { id: '1909558292636502700', name: 'Couples Counselling', minutes: 50, cents: 17500, onlineBookable: true },
     { id: '2013350310713493681', name: 'Couples Extended', minutes: 110, cents: 34000, onlineBookable: true },
@@ -66,6 +67,26 @@ export const FALLBACK_CATALOG: Catalog = {
   fetchedAt: '',
   live: false,
 };
+
+/* THE FREE CONSULTATION IS 15 MINUTES — owner decision, 3 Oct 2026, replacing
+ * the earlier half-hour one. Cliniko normally leads on durations, but this
+ * one was decided before Cliniko's Initial Consultation type was switched, and
+ * prose across the site now says 15. So readCatalog() pins the consultation
+ * row to this value: a live catalogue still saying 30 would otherwise put
+ * "Free · 30 min" in the /pricing table under a page that says 15.
+ * scripts/price-drift.mjs still compares the fallback with Cliniko and reports
+ * the mismatch until the appointment type is changed there. */
+export const CONSULT_MINUTES: number =
+  FALLBACK_CATALOG.items.find((i) => i.id === CONSULT_TYPE)!.minutes;
+
+/** The catalogue with the consultation row held to CONSULT_MINUTES. */
+export function withDecidedConsult(c: Catalog): Catalog {
+  if (!c.items.some((i) => i.id === CONSULT_TYPE && i.minutes !== CONSULT_MINUTES)) return c;
+  return {
+    ...c,
+    items: c.items.map((i) => (i.id === CONSULT_TYPE ? { ...i, minutes: CONSULT_MINUTES } : i)),
+  };
+}
 
 export const money = (cents: number) =>
   cents === 0 ? 'Free' : `$${(cents / 100).toFixed(cents % 100 === 0 ? 0 : 2)}`;
@@ -92,8 +113,9 @@ export async function readCatalog(): Promise<Catalog> {
     if (!hit || hit.statusCode !== 200 || !hit.stream) return FALLBACK_CATALOG;
     const value = (await new Response(hit.stream).json()) as Catalog;
     if (!Array.isArray(value.items) || value.items.length === 0) return FALLBACK_CATALOG;
-    cache = { at: Date.now(), value };
-    return value;
+    const pinned = withDecidedConsult(value);
+    cache = { at: Date.now(), value: pinned };
+    return pinned;
   } catch {
     return FALLBACK_CATALOG;
   }
@@ -188,7 +210,7 @@ export async function refreshCatalog(): Promise<
   const previous = await readCatalog();
   const key = (c: Catalog) =>
     c.items.map((i) => `${i.id}:${i.name}:${i.minutes}:${i.cents}`).sort().join('|');
-  const changed = key(previous) !== key({ items, fetchedAt: '', live: true });
+  const changed = key(previous) !== key(withDecidedConsult({ items, fetchedAt: '', live: true }));
 
   const catalog: Catalog = { items, fetchedAt: new Date().toISOString(), live: true };
   await put(KEY, JSON.stringify(catalog, null, 2), {
@@ -198,7 +220,7 @@ export async function refreshCatalog(): Promise<
     allowOverwrite: true,
     cacheControlMaxAge: 0,
   });
-  cache = { at: Date.now(), value: catalog };
+  cache = { at: Date.now(), value: withDecidedConsult(catalog) };
   return { ok: true, catalog, changed };
 }
 

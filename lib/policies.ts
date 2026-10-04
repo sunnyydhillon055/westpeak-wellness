@@ -8,6 +8,26 @@
  * HARD RULE: the counsellor's personal name never appears here. */
 
 import { CAMERA_OPTIONAL } from '@/lib/practice-facts';
+import { site } from '@/lib/site';
+
+/* PAYMENT AND CANCELLATION, STATED ONCE — owner decision, 3 Oct 2026.
+ *
+ * The card is taken at booking. At least 24 hours' notice: full refund. Less
+ * than 24 hours' notice, or a no-show: 50% of the fee is kept. The rule had
+ * been written out by hand in a dozen places, and half of them gave only the
+ * refund and left out what a late cancellation costs. Every page, email and
+ * feed that states the rule reads one of these, so it cannot be published
+ * half-told again. The hours come from site.cancellationHours (the number
+ * Cliniko's booking terms carry). test/cancellation-terms.test.mts holds the
+ * three facts in place. */
+export const LATE_CANCELLATION_KEPT_PERCENT = 50;
+
+/** The rule alone, for a sentence that has already said the card is taken at booking. */
+export const CANCELLATION_RULE =
+  `Cancelling or moving a paid session with at least ${site.cancellationHours} hours’ notice gets a full refund. With less than ${site.cancellationHours} hours’ notice, or for a no-show, ${LATE_CANCELLATION_KEPT_PERCENT}% of the fee is kept.`;
+
+/** Payment and cancellation together. */
+export const CANCELLATION_TERMS = `The card is taken at booking. ${CANCELLATION_RULE}`;
 
 /* HOW PRIVATE THE VIDEO IS, STATED ONCE — 1 Oct 2026.
  *

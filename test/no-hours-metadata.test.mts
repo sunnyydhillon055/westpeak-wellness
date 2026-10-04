@@ -7,7 +7,7 @@ import { join } from 'node:path';
  *
  * Commit 8fe40bc took the evening and weekend promises out of twenty sentences
  * of body copy, and missed the one place a searcher reads before the page: the
- * /online-counselling meta description still said "Free 30-minute
+ * /online-counselling meta description still said "Free 15-minute
  * consultation, evenings, no referral." The calendar holds what it holds, and
  * the allowed form is that it shows the real open times.
  *
@@ -47,7 +47,7 @@ function sources(dir: string, out: string[] = []): string[] {
 }
 
 test('the scanner finds a time promise in each field form, and ignores body copy', () => {
-  assert.deepEqual(timePromises(`description:\n    'Free 30-minute consultation, evenings, no referral.',`), ['Free 30-minute consultation, evenings, no referral.']);
+  assert.deepEqual(timePromises(`description:\n    'Free 15-minute consultation, evenings, no referral.',`), ['Free 15-minute consultation, evenings, no referral.']);
   assert.deepEqual(timePromises(`metaDescription: "Weekend sessions available"`), ['Weekend sessions available']);
   assert.deepEqual(timePromises(`title: 'Evening counselling in BC'`), ['Evening counselling in BC']);
   assert.deepEqual(timePromises(`body: ['an evening in complete silence']`), []);
@@ -150,7 +150,7 @@ test('the listings answer is in the start group and states no hours or evening/w
   assert.doesNotMatch(LISTINGS_ANSWER, TIME);
   assert.match(LISTINGS_ANSWER, /calendar/);
   assert.match(LISTINGS_ANSWER, /\(\/book\)/);
-  assert.match(LISTINGS_ANSWER, /\b30 minutes\b/);
+  assert.match(LISTINGS_ANSWER, /\b15 minutes\b/);
   assert.match(LISTINGS_ANSWER, /@westpeakwellness\.com/);
   assert.match(LISTINGS_ANSWER, /online only/);
 });

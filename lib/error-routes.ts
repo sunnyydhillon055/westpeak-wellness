@@ -3,7 +3,7 @@ import { bookingsUrlFor, site } from '@/lib/site';
 /* WHERE A CRASHED PAGE CAN STILL SEND SOMEBODY — 2 Oct 2026
  * (wf/services-cards, item 399).
  *
- * app/error.tsx sent "Book a free 30-minute consultation" to /book, which is
+ * app/error.tsx sent "Book a free 15-minute consultation" to /book, which is
  * the page most likely to be the one that crashed (it embeds Cliniko), and
  * app/global-error.tsx offered only "/". Both are CLIENT components, and the
  * error boundary ships with the root layout, so neither may import the roster

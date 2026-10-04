@@ -26,8 +26,8 @@ are the house style and are not optional:
 - No urgency, no scarcity, no "spots are filling". Saying no is a normal
   outcome and the message should make that visible, not merely permitted.
 - Email over phone. Offer a reply, not a call.
-- The free consultation is 30 minutes because Cliniko says so. If Cliniko
-  changes, these drafts change.
+- The free consultation is 15 minutes (owner decision, 3 Oct 2026; Cliniko
+  is switched to match). If it changes again, these drafts change.
 - Coverage is plan-dependent. Never "your insurance will cover this".
 - The founder is not offered as the person they will see.
 - One message each. None of these is the first of a sequence, and each says
@@ -74,13 +74,13 @@ in a session if that is what feels natural.
 the link below shows what is actually open this week, which is more reliable
 than anything I could type here.
 
-[The consultation:] It is a free 30-minute conversation by secure video.
+[The consultation:] It is a free 15-minute conversation by secure video.
 You say what is going on in your own words, ask whatever you want to ask,
 and we work out together whether this is the right fit. Nothing is diagnosed
 and nothing is decided on the call.
 
 If it would help to talk it through before deciding anything, the free
-30-minute consultation is here, and it carries no obligation:
+15-minute consultation is here, and it carries no obligation:
 https://www.westpeakwellness.com/book
 
 If you would rather keep reading first, these answer the questions people

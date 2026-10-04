@@ -15,12 +15,15 @@ const camille = getPractitioner('camille-granda')!;
 const savneet = getPractitioner('savneet-singh')!;
 const accepting = practitioners.filter((p) => p.acceptingNewClients);
 
-test('reach comes from the roster: Canada-wide for Camille, BC for Savneet', () => {
-  assert.equal(reachPhrase(camille), 'anywhere in Canada');
+test('reach comes from the roster: provinces for Camille (Canada-wide removed 3 Oct 2026), BC for Savneet', () => {
+  assert.match(reachPhrase(camille), /^British Columbia/);
+  assert.equal(reachPhrase({ ...camille, reach: 'canada' }), 'anywhere in Canada');
   assert.equal(reachPhrase(savneet), 'British Columbia');
   assert.match(practiceReach(accepting), /British Columbia/);
-  assert.match(practiceReach(accepting), /anywhere in Canada with Camille/);
-  assert.deepEqual(personAreaServed(camille), { '@type': 'Country', name: 'Canada' });
+  assert.doesNotMatch(practiceReach(accepting), /Canada/);
+  assert.match(practiceReach([...accepting.filter((p) => p !== camille), { ...camille, reach: 'canada' }]), /anywhere in Canada with Camille/);
+  assert.deepEqual(personAreaServed({ ...camille, reach: 'canada' }), { '@type': 'Country', name: 'Canada' });
+  assert.notDeepEqual(personAreaServed(camille), { '@type': 'Country', name: 'Canada' });
   assert.deepEqual(personAreaServed(savneet), { '@type': 'State', name: 'British Columbia' });
   assert.equal(bookingPathFor('savneet-singh'), '/book?with=savneet-singh');
 });
@@ -55,7 +58,7 @@ test('profile titles lead with the person and the non-English language, within 6
     assert.doesNotMatch(t, /&/);
   }
   assert.match(profileTitle(camille), /Tagalog/);
-  assert.match(profileTitle(camille), /Canada/);
+  assert.doesNotMatch(profileTitle(camille), /Canada/);
   assert.match(profileTitle(savneet), /Punjabi/);
   assert.match(profileTitle(savneet), /BC/);
 });

@@ -103,7 +103,7 @@ export const counsellorsForCity = (citySlug: string): Practitioner[] =>
    no such item, and the line then does not render rather than guess. */
 export function individualFeeLine(catalog: Catalog): string | undefined {
   const item = catalog.items.find((i) => i.name.toLowerCase() === 'individual counselling');
-  return item ? `Individual sessions are ${money(item.cents)} for ${item.minutes} minutes, after a free 30-minute consultation.` : undefined;
+  return item ? `Individual sessions are ${money(item.cents)} for ${item.minutes} minutes, after a free 15-minute consultation.` : undefined;
 }
 
 /* "Camille Granda, RCC, CCC, who works in English and Tagalog". Shared by
@@ -253,7 +253,7 @@ export const FEE_LINE_ITEMS = {
   emdr: 'EMDR Intensive',
 } as const;
 
-const FEE_TAIL = ', after a free 30-minute consultation; card at booking.';
+const FEE_TAIL = ', after a free 15-minute consultation; card at booking.';
 
 export function feeLineFor(service: string | undefined, catalog: Catalog): string | undefined {
   const item = (name: string) => {
@@ -288,7 +288,7 @@ export function infoCardCopy(gentle: boolean, province?: string): { heading: str
     ? {
         heading: 'If you want to talk it through with someone',
         intro:
-          `Nothing needs deciding today. These are the counsellors taking new clients, by secure video ${where}; the first conversation is a free 30 minutes and carries no obligation.`,
+          `Nothing needs deciding today. These are the counsellors taking new clients, by secure video ${where}; the first conversation is a free 15 minutes and carries no obligation.`,
       }
     : {
         heading: 'Who you would talk to',

@@ -44,7 +44,7 @@ test('both word tables lead with the English word a searcher typed', () => {
 test('the page bridges to a Punjabi-speaking counsellor who can be booked', () => {
   assert.equal(r.language, 'pa');
   assert.match(r.midCta.text, /Punjabi-speaking counsellor/);
-  assert.match(r.midCta.text, /30-minute/);
+  assert.match(r.midCta.text, /15-minute/);
   const p = counsellorForLanguage('pa');
   assert.ok(p, 'someone accepting and bookable speaks Punjabi');
   assert.ok(!/founder/i.test(p!.role));

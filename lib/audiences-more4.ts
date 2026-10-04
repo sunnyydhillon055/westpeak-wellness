@@ -3,6 +3,7 @@ import type { Catalog } from './cliniko-catalog';
 import { money } from './cliniko-catalog';
 import { practitioners, type Practitioner } from './practitioners';
 import { reachSentence } from './practice-facts';
+import { CANCELLATION_TERMS } from './policies';
 
 /* Added 6 Sep 2026. Search Console showed HR-side queries ("stay at work
  * services", return-to-work) reaching the workplace resource at #48, which is
@@ -178,7 +179,7 @@ export const moreAudiences4: Audience[] = [
           'Do not follow up on whether they booked.',
           'Do not book for them.',
         ],
-        text: 'I wanted to pass this on in case it is ever useful. Westpeak Wellness offers counselling by secure video with Registered Clinical Counsellors, and the first 30-minute consultation is free. You book it yourself, privately. Nobody at work is told, and I will not ask. The booking page:',
+        text: 'I wanted to pass this on in case it is ever useful. Westpeak Wellness offers counselling by secure video with Registered Clinical Counsellors, and the first 15-minute consultation is free. You book it yourself, privately. Nobody at work is told, and I will not ask. The booking page:',
         path: '/book?utm_source=hr',
       },
       {
@@ -190,7 +191,7 @@ export const moreAudiences4: Audience[] = [
       {
         h2: 'Paste this into your benefits page',
         intro: 'If you keep a benefits page, an intranet or a manager’s toolkit, this paragraph can go in as it stands. The link is tagged so the practice can see that a visit came from an HR page, and nothing about who.',
-        text: 'Westpeak Wellness offers counselling by secure video with Registered Clinical Counsellors, in English, Punjabi or Tagalog, in BC, and in other provinces where a counsellor’s registration and insurance allow; the booking page shows who. The first 30-minute consultation is free. You book directly, pay at booking and claim on your own plan where it covers counselling, and your employer is not told. It is not a crisis service: in an emergency call 911 or 9-8-8. Book here:',
+        text: 'Westpeak Wellness offers counselling by secure video with Registered Clinical Counsellors, in English, Punjabi or Tagalog, in BC, and in other provinces where a counsellor’s registration and insurance allow; the booking page shows who. The first 15-minute consultation is free. You book directly, pay at booking and claim on your own plan where it covers counselling, and your employer is not told. It is not a crisis service: in an emergency call 911 or 9-8-8. Book here:',
         path: '/book?utm_source=hr',
       },
     ],
@@ -276,7 +277,7 @@ export function hrGlance(catalog: Catalog, roster: Practitioner[] = practitioner
     out.push({ term: 'Fees', detail: `${line.charAt(0).toUpperCase()}${line.slice(1)}. Every fee is on the pricing page.` });
   }
   out.push(
-    { term: 'Payment', detail: 'By card when the employee books. Cancel at least 24 hours ahead and the fee is refunded in full.' },
+    { term: 'Payment', detail: CANCELLATION_TERMS },
     { term: 'The receipt', detail: 'The counsellor’s name, designation and registration number, the date and the fee: what a plan needs to reimburse. The employee claims it; the practice does not bill an employer or a plan.' },
     { term: 'Plan wording to look for', detail: '“Registered Clinical Counsellor” (RCC) or “Canadian Certified Counsellor” (CCC) on the practitioner list. Coverage depends on the plan; one that names only psychologists will not reimburse these sessions.' },
     { term: 'What the employer receives', detail: 'Nothing, unless the employee gives written consent. With it, confirmation of attendance on given dates, and nothing about content.' },

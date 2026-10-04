@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { site } from '@/lib/site';
+import { CANCELLATION_RULE } from '@/lib/policies';
 import { BadgeCheck, Video, CalendarClock, ShieldCheck } from 'lucide-react';
 
 /* A mid-page booking card.
@@ -46,7 +47,7 @@ export default function BookingCard({
       <div className="booking-card-main">
         <h2 id="bk-h">{heading}</h2>
         <p>
-          A free 30-minute video call{service ? ` about ${service.toLowerCase()}` : ''}. No
+          A free 15-minute video call{service ? ` about ${service.toLowerCase()}` : ''}. No
           charge, no card, and no obligation to book anything afterwards. It exists so you can
           find out whether this is a good fit before spending money on it.
         </p>
@@ -67,7 +68,7 @@ export default function BookingCard({
             <CalendarClock aria-hidden="true" strokeWidth={1.7} />
             <span>
               {price ? `${price} for ${duration} once you start. ` : `${duration} sessions. `}
-              Free cancellation up to {site.cancellationHours} hours before.
+              {CANCELLATION_RULE}
             </span>
           </li>
           <li>

@@ -146,7 +146,7 @@ test('the employers paste block copies as plain text ending in the tagged bookin
   assert.ok(text.endsWith(`${site.domain}/book?utm_source=hr`));
   assert.doesNotMatch(text, /[<>*\[\]]/, 'markup in the copied text');
   assert.doesNotMatch(text, /\b(hours?|evenings?|weekends?|EAP provider)\b|\d\s?(am|pm)\b/i);
-  assert.match(text, /30-minute consultation is free/);
+  assert.match(text, /15-minute consultation is free/);
   assert.match(text, /not a crisis service/);
   const words = block.text.split(/\s+/).length;
   assert.ok(words >= 45 && words <= 85, `${words} words`);

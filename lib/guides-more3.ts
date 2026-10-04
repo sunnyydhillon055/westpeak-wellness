@@ -277,7 +277,7 @@ export const moreGuides3: Guide[] = [
     ],
     midCta: {
       text: 'If a loss has stopped moving and there is nowhere to put it,',
-      label: 'a free 30-minute consultation is a place to start',
+      label: 'a free 15-minute consultation is a place to start',
     },
     faqs: [
       /* Search Console, 17 Sep 2026: 'how long should you wait for bereavement counselling', 36 impressions at position 47, and no direct answer on the page. */
@@ -367,7 +367,7 @@ export const moreGuides3: Guide[] = [
     ],
     midCta: {
       text: 'If you have started structuring your week around avoiding another one,',
-      label: 'a free 30-minute consultation is a sensible next step',
+      label: 'a free 15-minute consultation is a sensible next step',
     },
     faqs: [
       { q: 'Can a panic attack actually hurt me?', a: 'The attack itself is not dangerous, however convincingly it feels otherwise. That said, a first episode of chest pain or breathlessness should always be assessed medically.' },

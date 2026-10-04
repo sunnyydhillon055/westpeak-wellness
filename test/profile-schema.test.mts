@@ -62,7 +62,9 @@ test('the Person description is built from the roster', () => {
     personDescription(savneet),
     'Savneet Singh is a Registered Clinical Counsellor offering individual counselling by secure video across British Columbia, in English and Punjabi.',
   );
-  assert.match(personDescription(camille), /anywhere in Canada/);
+  /* 3 Oct 2026: her Canada-wide reach was removed; provinces decide. */
+  assert.doesNotMatch(personDescription(camille), /Canada/);
+  assert.match(personDescription(camille), /British Columbia/);
   assert.doesNotMatch(personDescription(camille), /\d/);
 });
 
@@ -76,7 +78,8 @@ test('credentials are spelled out with where they carry weight', () => {
 });
 
 test('the reach heading follows reach, not a hard-coded BC', () => {
-  assert.equal(onlineInLong(camille), 'Canada');
+  assert.equal(onlineInLong({ ...camille, reach: 'canada' }), 'Canada');
+  assert.match(onlineInLong(camille), /^British Columbia/);
   assert.equal(onlineInLong(savneet), 'British Columbia');
   assert.equal(onlineInLong({ ...savneet, provinces: ['BC', 'AB'] }), 'British Columbia and Alberta');
 });

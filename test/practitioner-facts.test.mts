@@ -38,14 +38,15 @@ test('fees come from the catalogue for exactly the services she offers', () => {
 });
 
 test('the free consultation line reads its length from the catalogue', () => {
-  assert.equal(consultLine(FALLBACK_CATALOG), 'First 30-minute consultation free');
+  assert.equal(consultLine(FALLBACK_CATALOG), 'First 15-minute consultation free');
   const paid: Catalog = { ...FALLBACK_CATALOG, items: FALLBACK_CATALOG.items.map((i) => (i.name === 'Initial Consultation' ? { ...i, cents: 5000 } : i)) };
   assert.equal(consultLine(paid), null);
 });
 
 test('reach follows the gated roster', () => {
   assert.equal(reachLine(savneet), 'Online only, anywhere in BC');
-  assert.equal(reachLine(camille), 'Online only, anywhere in Canada');
+  assert.equal(reachLine(camille), 'Online only, anywhere in BC');
+  assert.equal(reachLine({ reach: 'canada' }), 'Online only, anywhere in Canada');
   assert.equal(reachLine({ reach: undefined }), 'Online only, anywhere in BC');
 });
 

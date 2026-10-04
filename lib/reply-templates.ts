@@ -65,7 +65,7 @@ export const REPLY_TEMPLATES: ReplyTemplate[] = [
 
 Thank you for writing, and for saying as much as you did.
 
-The next step, if you want it, is a free 30-minute consultation by video. It is
+The next step, if you want it, is a free 15-minute consultation by video. It is
 a conversation rather than an assessment: you say what is going on in your own
 words, ask whatever you want to ask, and we work out together whether this is
 the right fit. Nothing is diagnosed and nothing is decided on the call.
@@ -156,7 +156,7 @@ write to you directly if something opens that fits. There is no obligation
 attached to that.
 ${c?.other ? `
 If you would rather not wait, ${c.other.who}, also works in this practice
-and takes the kind of work you described. A free 30-minute consultation with
+and takes the kind of work you described. A free 15-minute consultation with
 her is booked here, and the calendar shows real open times:
 ${c.other.link}
 ` : ''}
@@ -185,7 +185,7 @@ Thank you for writing about your team.
 [: answer their question first, in a line or two. ]
 
 How it works, in short: an employee books directly, privately, and the
-first 30-minute consultation is free. They pay at booking and claim the
+first 15-minute consultation is free. They pay at booking and claim the
 receipt on their own plan where it covers a Registered Clinical Counsellor.
 The practice is not an EAP and has no employer contract. Nothing about an
 employee comes to you; with their written consent, a counsellor can confirm

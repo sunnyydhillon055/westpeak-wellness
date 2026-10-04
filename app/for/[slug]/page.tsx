@@ -404,7 +404,7 @@ export default async function AudiencePage({ params }: { params: { slug: string 
       <CityLinks />
       <CtaBand
         heading="One conversation, no commitment."
-        text="A free 30-minute consultation over secure video, including an honest answer if something other than counselling would serve you better."
+        text="A free 15-minute consultation over secure video, including an honest answer if something other than counselling would serve you better."
         bookHref={a.cta?.ghost?.href ?? cta.href}
       />
 

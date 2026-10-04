@@ -93,7 +93,7 @@ export default function MessageNotSentPage({
               Email <strong>{site.email}</strong> directly
               (<a href={`mailto:${site.email}`}>open your email app</a>). Or{' '}
               <Link href={askForTimeHref()}>ask for a time on the booking page</Link>, where the
-              calendar shows real open times for a free 30-minute consultation.
+              calendar shows real open times for a free 15-minute consultation.
             </p>
 
             <p>

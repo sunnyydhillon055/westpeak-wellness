@@ -97,7 +97,7 @@ const coreAudiences: Audience[] = [
     title: "Counselling for new parents in BC",
     metaTitle: "Counselling for New Parents in BC | Westpeak Wellness",
     metaDescription:
-      "Counselling for new moms and dads across BC: postpartum depression and anxiety, identity shift, and relationship strain. Free 30-minute consultation.",
+      "Counselling for new moms and dads across BC: postpartum depression and anxiety, identity shift, and relationship strain. Free 15-minute consultation.",
     eyebrow: "For · New and expecting parents",
     lede:
       "The gap between how you were told this would feel and how it actually feels can be enormous, and there is little permission to say so out loud.",
@@ -163,7 +163,7 @@ const coreAudiences: Audience[] = [
       { href: "/services/individual-therapy", label: "Trauma therapy", why: "For a birth that was frightening, or a medical experience that has not settled." },
     ],
     midCta: {
-      text: "If you have read this far, some of it probably landed. Thirty minutes on a call costs nothing and commits you to nothing.",
+      text: "If you have read this far, some of it probably landed. Fifteen minutes on a call costs nothing and commits you to nothing.",
       label: "Book a free consultation",
     },
     faqs: [
@@ -267,7 +267,7 @@ const coreAudiences: Audience[] = [
       { href: "/tagalog-counselling", label: "Tagalog-speaking counselling", why: "Sessions in Tagalog or English, for a student whose family lives in one language and whose campus runs in the other." },
     ],
     midCta: {
-      text: "If the free campus service has a three-week waitlist and three weeks is too long, a free 30-minute call is a reasonable next step.",
+      text: "If the free campus service has a three-week waitlist and three weeks is too long, a free 15-minute call is a reasonable next step.",
       label: "Book a free consultation",
     },
     faqs: [

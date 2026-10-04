@@ -132,7 +132,7 @@ const footerNote = (email: string, w: MagnetWords) =>
    </p>`;
 
 /* SINCE 1 OCT 2026 email 2 has a booking step. Its one button was the guide
-   to a first PAID session; it now opens the page about the free 30-minute
+   to a first PAID session; it now opens the page about the free 15-minute
    call, and the counsellors follow by name, each linking her own calendar,
    as email 3 already does. The guide stays as a link in the paragraph. Same
    send, same day, same consent: nothing is added to the sequence. */
@@ -161,7 +161,7 @@ question than what is wrong.
 The longer version:
 ${links.firstSession}
 
-Before any of that, there is a free 30-minute call, which is a
+Before any of that, there is a free 15-minute call, which is a
 conversation rather than an intake. What it is like:
 ${links.consultPrep}
 
@@ -182,14 +182,14 @@ Unsubscribe: ${unsubLink(to)}`);
     p(esc(hi)) +
     p('One of the most common reasons people put off booking is not cost. It is not knowing what a first session is like, and imagining something more exposing than it is.') +
     p(`Briefly: you will not be asked to lie on anything. You will not have to start at the beginning of your life. &ldquo;I don&rsquo;t want to go into that yet&rdquo; is a complete sentence and a reasonable one. Most of a first session is working out what you want to be different, which is a more useful question than what is wrong. ${a(links.firstSession, 'The longer version')}.`) +
-    p('Before any of that, there is a free 30-minute call, which is a conversation rather than an intake.') +
-    btn(links.consultPrep, 'What the free 30 minutes is like') +
+    p('Before any of that, there is a free 15-minute call, which is a conversation rather than an intake.') +
+    btn(links.consultPrep, 'What the free 15 minutes is like') +
     (roster.length
       ? p('Each counsellor&rsquo;s own calendar:') + rosterHtml(roster)
       : btn(links.book, 'Book a free consultation')) +
     p(`And if you are not sure which kind of counselling fits, or whether it is counselling you need at all, ${a(`${site.domain}/tools/which-service`, 'this takes about two minutes')}, and several of its answers point somewhere other than here.`) +
     footerNote(to, w),
-    'No couch, no life story, and a free 30-minute call before any of it',
+    'No couch, no life story, and a free 15-minute call before any of it',
   );
   return tagMail({ subject: 'What actually happens in a first session', text, html }, 'nurture2');
 }
@@ -217,7 +217,7 @@ export function email3(
 Last one from me.
 
 If you have been turning this over since you asked for ${w.that},
-a free thirty-minute consultation is the least committal way to find
+a free fifteen-minute consultation is the least committal way to find
 out whether it is worth going further. It is a conversation, not an
 intake. Nothing to prepare, and no obligation to book afterwards.
 
@@ -241,10 +241,10 @@ is the last of three; there is nothing after it.
 Unsubscribe: ${unsubLink(to)}`);
 
   const html = shell(
-    'Thirty minutes, if it is useful',
+    'Fifteen minutes, if it is useful',
     p(esc(hi)) +
     p('Last one from me.') +
-    p(`If you have been turning this over since you asked for ${esc(w.that)}, a free thirty-minute consultation is the least committal way to find out whether it is worth going further. It is a conversation, not an intake, nothing to prepare, and no obligation to book afterwards.`) +
+    p(`If you have been turning this over since you asked for ${esc(w.that)}, a free fifteen-minute consultation is the least committal way to find out whether it is worth going further. It is a conversation, not an intake, nothing to prepare, and no obligation to book afterwards.`) +
     /* Item 393: the same sentence as the text version and /pricing. */
     p(esc(WHO_SEES_A_CLAIM)) +
     (roster.length
@@ -257,9 +257,9 @@ Unsubscribe: ${unsubLink(to)}`);
     footerNote(to, w),
     roster.length
       ? `The last of three: a free call with ${roster.map((r) => r.firstName).join(' or ')}, if it is useful`
-      : 'The last of three: a free 30-minute call, if it is useful',
+      : 'The last of three: a free 15-minute call, if it is useful',
   );
-  return tagMail({ subject: 'Thirty minutes, if it is useful', text, html }, 'nurture3');
+  return tagMail({ subject: 'Fifteen minutes, if it is useful', text, html }, 'nurture3');
 }
 
 /* ---- the run -------------------------------------------------------------- */

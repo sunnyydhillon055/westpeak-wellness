@@ -9,7 +9,7 @@
  * of those results answer none of them either.
  *
  * Plain data, so a test can hold the rules every answer here must keep: no
- * typed hours, no "most plans", no outcome claim, the consultation is thirty
+ * typed hours, no "most plans", no outcome claim, the consultation is fifteen
  * minutes. Markdown links render through rich() on the page and are stripped
  * by plainText() in the FAQPage schema.
  *
@@ -28,7 +28,7 @@ export const BC_HUB_FAQS: readonly HubFaq[] = [
   },
   {
     q: 'Do I need a referral from a doctor?',
-    a: 'No. You book the free 30-minute consultation yourself, with no referral and no intake form. Whether an extended health plan reimburses the sessions afterwards, and on what conditions, depends on the plan, so check its wording for Registered Clinical Counsellors; [what BC extended health plans reimburse](/resources/bc-extended-health-coverage-for-counselling) explains what to look for.',
+    a: 'No. You book the free 15-minute consultation yourself, with no referral and no intake form. Whether an extended health plan reimburses the sessions afterwards, and on what conditions, depends on the plan, so check its wording for Registered Clinical Counsellors; [what BC extended health plans reimburse](/resources/bc-extended-health-coverage-for-counselling) explains what to look for.',
   },
   {
     q: 'Is “counsellor” a protected title in BC?',

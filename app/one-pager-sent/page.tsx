@@ -106,7 +106,7 @@ export default function OnePagerSentPage({
 
             <h2>If you would rather talk it through</h2>
             <p>
-              A free 30-minute consultation by secure video is the next step, and it carries no
+              A free 15-minute consultation by secure video is the next step, and it carries no
               obligation to book anything afterwards. The calendar shows real open times.
             </p>
             <NextConsultLine location="lead-sent" />

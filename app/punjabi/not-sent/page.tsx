@@ -45,7 +45,7 @@ export default function PunjabiNotSentPage() {
           <p className="direct-answer">
             Nothing was received from the form, so no reply is on its way. Please email{' '}
             <a href={`mailto:${site.email}`}>{site.email}</a> directly
-            {who ? <>, or book a free 30-minute consultation with {who.name}</> : <>, or book a free 30-minute consultation</>}.
+            {who ? <>, or book a free 15-minute consultation with {who.name}</> : <>, or book a free 15-minute consultation</>}.
           </p>
         </div>
       </section>

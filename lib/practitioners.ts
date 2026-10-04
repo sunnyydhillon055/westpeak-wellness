@@ -100,7 +100,9 @@ export type Practitioner = {
      certification and her cover is a national policy. `provinces` still lists
      the places she has city pages for; this governs the boundary sentence on
      /book, /about, the tools and llms.txt. Not set means `provinces` is the
-     whole answer. */
+     whole answer. Removed from Camille's record on 3 Oct 2026 (owner
+     decision: British Columbia, not "anywhere in Canada"); nobody carries it
+     now, and the field stays so the gate and its tests keep working. */
   reach?: 'canada';
   /* Where this counsellor's enquiries are sent (lib/inbound-routing.ts), with
      info@ always in copy. Set 11 Sep 2026 on the owner's instruction. A
@@ -257,7 +259,7 @@ const recorded: Practitioner[] = [
       'Wanting to work in Punjabi, or move between Punjabi and English',
     ],
     sessionNote:
-      'The first thirty minutes are free and there is no obligation attached to them. If it turns out I am not the right fit, I will say so and point you somewhere better.',
+      'The first fifteen minutes are free and there is no obligation attached to them. If it turns out I am not the right fit, I will say so and point you somewhere better.',
     services: ['individual-therapy', 'couples-therapy', 'emdr-therapy', 'punjabi-counselling'],
     /* Bookable: the practice's existing Cliniko types are hers. */
     /* FALSE since 8 Sep 2026, on the owner's instruction: she stays hidden
@@ -350,7 +352,13 @@ const recorded: Practitioner[] = [
      * This reads an insurance certificate; it is not insurance advice. If
      * certainty is wanted, BMS confirms scope in one email. */
     provinces: ['BC', 'AB'],
-    reach: 'canada',
+    /* `reach: 'canada'` REMOVED — owner decision, 3 Oct 2026. Her card said
+       "Anywhere in Canada"; it is to say British Columbia. With no `reach`,
+       `provinces` is the whole answer, so /book, her profile, /refer and
+       llms-full print provinces. 'AB' stays: Alberta is not withdrawn by this
+       decision, it stands or falls on the insurance gate below (open until
+       2026-10-15 on the current certificate), so while the gate is open those
+       pages read "British Columbia and Alberta". */
     alertEmail: 'camille.westpeakwellness@gmail.com',
     insurance: {
       program: 'BMS / Berkley, CCPA member policy',
@@ -535,7 +543,7 @@ const recorded: Practitioner[] = [
        so it merges those facts into hers: the wrong practice, the wrong fee,
        the wrong consultation length. The URL is also not linked from the
        profile. Re-add a Psychology Today URL here only after the listing has
-       been read and matches the site (practice, fee, 30-minute consultation,
+       been read and matches the site (practice, fee, 15-minute consultation,
        video only); test/practitioner-sameas.test.mts fails until the URL is
        added to its VERIFIED list, which is where that check is recorded. */
     sameAs: [],

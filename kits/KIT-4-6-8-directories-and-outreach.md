@@ -34,7 +34,7 @@ street address.
 ```
 Virtual counselling across British Columbia in English and Punjabi. Individual
 and couples therapy, EMDR, trauma, anxiety and burnout. Registered Clinical
-Counsellor (RCC). Free 30-minute consultation.
+Counsellor (RCC). Free 15-minute consultation.
 https://www.westpeakwellness.com
 ```
 

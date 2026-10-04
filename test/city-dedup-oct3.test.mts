@@ -35,7 +35,7 @@ test('#422 every city-service description carries the catalogue fee, the free co
     const key = `${p.city}/${p.service}`;
     assert.ok(metaLength(d) <= 158, `${key}: ${metaLength(d)} chars: ${d}`);
     assert.ok(d.includes(`${fallbackFee(topic.bookingService === 'couples-therapy' ? 'Couples Counselling' : 'Individual Counselling')} per 50-min session`), `${key}: ${d}`);
-    assert.match(d, /free 30-min consult\.$/, key);
+    assert.match(d, /free 15-min consult\.$/, key);
     assert.ok(!HOURS.test(d), `${key} names a time: ${d}`);
     assert.ok(d.startsWith(p.angle.split(' ').slice(0, 3).join(' ')), `${key} does not open on its angle: ${d}`);
   }
@@ -86,7 +86,7 @@ test('#422 no two descriptions share more than 60% of their word 4-grams (the ga
 test('cutAtWord keeps whole words, drops a trailing comma and marks the cut', () => {
   assert.equal(cutAtWord('One two, three four.', 11), 'One two…');
   assert.ok(metaLength(cutAtWord('A long sentence that will need cutting here.', 20)) <= 20);
-  const d = cityServiceDescription({ angle: 'x '.repeat(120).trim() + '.', counsellors: [{ name: 'Ann Bee' }], facts: '$1 per 50-min session · free 30-min consult' });
+  const d = cityServiceDescription({ angle: 'x '.repeat(120).trim() + '.', counsellors: [{ name: 'Ann Bee' }], facts: '$1 per 50-min session · free 15-min consult' });
   assert.ok(metaLength(d) <= 158 && d.includes('… With Ann,'), d);
 });
 
@@ -159,7 +159,7 @@ test('#432 Surrey answers free counselling, couples included, from sourced facts
   assert.match(f.a, /Fraser Health’s Surrey Mental Health and Substance Use Centre/);
   assert.match(f.a, /\(\/resources\/low-cost-counselling-bc\)/);
   assert.ok(f.a.includes(fallbackFee('Individual Counselling')) && f.a.includes(fallbackFee('Couples Counselling')));
-  assert.match(f.a, /free 30-minute consultation\.$/);
+  assert.match(f.a, /free 15-minute consultation\.$/);
   assert.ok(!HOURS.test(f.a));
   assert.ok(!/\b(cost|fee)\b/i.test(f.q), 'a cost word in the question would suppress the generated cost FAQ');
   const urls = surrey.sources!.map((s) => s.url);

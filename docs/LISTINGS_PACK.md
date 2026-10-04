@@ -27,11 +27,11 @@ are published (say "by appointment"); the practice prefers email; nothing paid.
 | Service area | All of British Columbia; Alberta through one counsellor certified there |
 | Delivery | Secure video only |
 | Languages | English, Punjabi (ਪੰਜਾਬੀ), Tagalog |
-| First consultation | Free, 30 minutes, by video, no referral needed |
+| First consultation | Free, 15 minutes, by video, no referral needed |
 | Individual session | $140, 50 minutes |
 | Couples session | $175, 50 minutes; $340, 110 minutes |
 | EMDR intensive | $190, 90 minutes |
-| Payment | Card at booking, 24 hours' free cancellation; receipts for extended health |
+| Payment | Card at booking; full refund with 24+ hours' notice, 50% kept for less notice or a no-show; receipts for extended health |
 | Coverage | Many BC extended health plans reimburse a Registered Clinical Counsellor; it depends on the plan. MSP does not cover private counselling |
 | Hours | By appointment. Times depend on the counsellor; /book shows what is open |
 | Category, primary | Counsellor / Mental health service |
@@ -62,7 +62,7 @@ dynamics, life transitions.
 
 **Short (under 160 characters):**
 Online counselling across BC with Registered Clinical Counsellors, in English,
-Punjabi or Tagalog. Trauma, EMDR, anxiety, depression, couples. Free 30-minute
+Punjabi or Tagalog. Trauma, EMDR, anxiety, depression, couples. Free 15-minute
 consultation.
 
 **Medium (about 300 characters):**
@@ -70,7 +70,7 @@ Westpeak Wellness is a fully virtual counselling practice serving all of
 British Columbia by secure video, with a counsellor certified in Alberta as
 well. Registered Clinical Counsellors work in English, Punjabi or Tagalog on
 anxiety, depression, trauma and EMDR, burnout, grief, and couples and family
-relationships. The first 30-minute consultation is free and no referral is
+relationships. The first 15-minute consultation is free and no referral is
 needed.
 
 **Long (about 700 characters):**
@@ -85,7 +85,7 @@ couples and families, using CBT, ACT, EMDR and Internal Family Systems.
 Fees are published in full on the website; many extended health plans
 reimburse a Registered Clinical Counsellor, depending on the plan, so check
 yours. The first
-30-minute consultation is free with no referral. It is not a crisis service.
+15-minute consultation is free with no referral. It is not a crisis service.
 
 ## Where to put it, in order of value
 
@@ -176,7 +176,7 @@ as a second practice; if not, replace it.
   Westpeak has no office.
 - Accepting new clients: Yes
 - Bio line to add: "Also sees clients online across British Columbia, and in
-  Alberta, through Westpeak Wellness, in English or Tagalog. A free 30-minute
+  Alberta, through Westpeak Wellness, in English or Tagalog. A free 15-minute
   video consultation is available on the Westpeak Wellness website."
   Drop "and in Alberta" if her liability renewal has not been recorded by
   15 Oct 2026, when the site's Alberta gate closes.
@@ -196,7 +196,7 @@ as a second practice; if not, replace it.
 - Description: "Canadian Certified Counsellor and Registered Clinical
   Counsellor seeing clients online through Westpeak Wellness, in English or
   Tagalog. Individual, couples and family counselling, and EMDR. A free
-  30-minute video consultation is available through the Westpeak Wellness
+  15-minute video consultation is available through the Westpeak Wellness
   website. Westpeak Wellness is not a crisis service: in Canada call or text
   9-8-8."
 
@@ -218,7 +218,7 @@ Camille:
 - Services: individual, couples, family, EMDR
 - About: "I see clients online across British Columbia through Westpeak
   Wellness, in English or Tagalog, for individual, couples and family
-  counselling and EMDR. The first conversation is a free 30-minute video
+  counselling and EMDR. The first conversation is a free 15-minute video
   consultation, booked on the Westpeak Wellness website."
 
 Savneet:
@@ -233,7 +233,7 @@ Savneet:
   EMDR here.
 - About: "I see adults online across British Columbia through Westpeak
   Wellness, in English or Punjabi, for individual counselling. The first
-  conversation is a free 30-minute video consultation, booked on the
+  conversation is a free 15-minute video consultation, booked on the
   Westpeak Wellness website."
 
 ### EMDR Canada / EMDRIA (item 12, existing membership only)
@@ -245,7 +245,7 @@ online across BC (and Alberta while insured); English, Tagalog; accepting
 new clients. Description: "EMDR by secure video for adults in British
 Columbia, in English or Tagalog, through Westpeak Wellness. Weekly EMDR
 sessions and a longer intensive format are both offered; fees are on the
-website. A free 30-minute video consultation comes first."
+website. A free 15-minute video consultation comes first."
 
 ## Checked 3 Oct 2026, not eligible or paid
 

@@ -17,7 +17,7 @@ import { HOW_TO_CANCEL } from '@/lib/faq';
 import { counsellorsFor, languagesOf, listOf } from '@/lib/city-service-page';
 import { HeroNextDays } from '@/components/NextConsultLine';
 import { consultPeople, heroBookingCta } from '@/lib/booking-cta';
-import { SESSION_SECURITY, SESSION_SECURITY_MD } from '@/lib/policies';
+import { SESSION_SECURITY, SESSION_SECURITY_MD, CANCELLATION_RULE, CANCELLATION_TERMS } from '@/lib/policies';
 import { rich } from '@/lib/rich';
 import { practiceSnippet, withSnippet } from '@/lib/snippet-facts';
 import { planYearPageLineShown, YEAR_END_PATH } from '@/lib/seasonal';
@@ -155,7 +155,7 @@ export default async function Pricing() {
           <h1>{h1}</h1>
           <p className="lede">{whoLede}</p>
           <p className="direct-answer">
-            Individual sessions, couples sessions and EMDR intensives are each priced per session, paid by card at booking, with 24 hours&rsquo; free cancellation. The first 30-minute consultation is free. Many extended health plans reimburse a Registered Clinical Counsellor, depending on the plan, so check yours; MSP does not cover private counselling.
+            Individual sessions, couples sessions and EMDR intensives are each priced per session, and the card is taken at booking. {CANCELLATION_RULE} The first 15-minute consultation is free. Many extended health plans reimburse a Registered Clinical Counsellor, depending on the plan, so check yours; MSP does not cover private counselling.
           </p>
           {/* PRICES IN THE PHONE'S FIRST SCREEN — 1 Oct 2026. At 390px the first
               amount on this page sat below the fold, under an answer that names
@@ -172,7 +172,7 @@ export default async function Pricing() {
             </dl>
           )}
           <p style={{ margin: '22px 0 0', maxWidth: '42.9em' }}>
-            <strong>Next step:</strong> a free 30-minute video call. No card is taken for it; you
+            <strong>Next step:</strong> a free 15-minute video call. No card is taken for it; you
             pay only if you book a session afterwards.
           </p>
           <div className="btn-row" style={{ marginTop: 14 }}>
@@ -302,7 +302,7 @@ export default async function Pricing() {
               <Link href="/resources/low-cost-counselling-bc">free and low-cost counselling page</Link>,
               and for a lot of people one of those options is genuinely the better place to start. Saying
               so on a{' '}
-              <Link href={site.bookingPath}>free 30-minute consultation</Link> is a perfectly good outcome
+              <Link href={site.bookingPath}>free 15-minute consultation</Link> is a perfectly good outcome
               of that call.
             </p>
 
@@ -390,7 +390,7 @@ export default async function Pricing() {
               <span className="icon-chip" aria-hidden="true"><Video strokeWidth={1.6} /></span>
               <div>
                 <h3>Free consultation</h3>
-                <p style={{ marginBottom: 0 }}>Every working relationship starts with a free 30-minute call. No charge, and no obligation to book a session afterward.</p>
+                <p style={{ marginBottom: 0 }}>Every working relationship starts with a free 15-minute call. No charge, and no obligation to book a session afterward.</p>
               </div>
             </div>
             <div className="card cred-card">
@@ -423,7 +423,7 @@ export default async function Pricing() {
               <span className="icon-chip" aria-hidden="true"><CalendarX strokeWidth={1.6} /></span>
               <div>
                 <h3>Cancellation</h3>
-                <p style={{ marginBottom: 0 }}>24 hours&rsquo; notice. Cancel earlier and the fee is refunded in full; inside that window, or for a no-show, 50% is retained. Exceptions for genuine emergencies.</p>
+                <p style={{ marginBottom: 0 }}>{CANCELLATION_RULE} Exceptions for genuine emergencies.</p>
                 <p style={{ marginBottom: 0, marginTop: 10 }}>{HOW_TO_CANCEL}</p>
               </div>
             </div>
@@ -444,10 +444,10 @@ export default async function Pricing() {
           {/* Who sees what when you claim: lib/practice-facts.ts (item 358). */}
           <p>{WHO_SEES_A_CLAIM}</p>
           <p>
-            Sessions are paid by credit card when you book rather than at the end of the hour, and
-            cancellation is free up to 24 hours beforehand. The{' '}
-            <a href="/client-portal">client portal</a> covers how that works, what happens inside
-            the 24-hour window, and where your receipts appear.
+            Sessions are paid by credit card when you book rather than at the end of the hour.{' '}
+            {CANCELLATION_RULE} The{' '}
+            <a href="/client-portal">client portal</a> covers how that works and where your
+            receipts appear.
           </p>
           <Figure name="reimbursement-flow" />
 
@@ -466,7 +466,7 @@ export default async function Pricing() {
         </div>
       </section>
 
-      <CtaBand heading="Questions about fees?" text="Ask during your free 30-minute consultation." />
+      <CtaBand heading="Questions about fees?" text="Ask during your free 15-minute consultation." />
 
       {/* FAQPage for the four cards above.
         *
@@ -490,7 +490,7 @@ export default async function Pricing() {
             path: '/pricing',
             name: 'Counselling fees and insurance',
             description:
-              'Session fees in full, what extended health usually reimburses, and what the free 30-minute consultation covers.',
+              'Session fees in full, what extended health usually reimburses, and what the free 15-minute consultation covers.',
             updated: lastmodFor('/pricing') ?? undefined,
           })),
         }}
@@ -514,7 +514,7 @@ export default async function Pricing() {
                 name: 'Is the first consultation free?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: 'Yes. Every working relationship starts with a free 30-minute call. There is no charge, and no obligation to book a session afterward.',
+                  text: 'Yes. Every working relationship starts with a free 15-minute call. There is no charge, and no obligation to book a session afterward.',
                 },
               },
               {
@@ -542,7 +542,7 @@ export default async function Pricing() {
                    * the wrong answer was the one most likely to be shown.
                    *
                    * Keep this wording and lib/faq.ts saying the same thing. */
-                  text: 'By credit card: Visa, Mastercard or Amex, taken at the time you book, not at the end of the session. Cancel with at least 24 hours notice and the fee is refunded in full.',
+                  text: `By credit card: Visa, Mastercard or Amex, taken at the time you book, not at the end of the session. ${CANCELLATION_RULE}`,
                 },
               },
               {
@@ -555,7 +555,7 @@ export default async function Pricing() {
                 name: 'What is the cancellation policy?',
                 acceptedAnswer: {
                   '@type': 'Answer',
-                  text: '24 hours’ notice. Cancel with at least 24 hours notice and the session fee is refunded in full. With less notice, or for a no-show, 50% of the fee is retained, because the time was held and cannot realistically be filled at that notice. There are exceptions for genuine emergencies. ' + HOW_TO_CANCEL,
+                  text: `${CANCELLATION_TERMS} The time was held and cannot realistically be filled at that notice. There are exceptions for genuine emergencies. ${HOW_TO_CANCEL}`,
                 },
               },
             ],

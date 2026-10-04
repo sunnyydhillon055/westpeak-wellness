@@ -669,7 +669,7 @@ export default async function PractitionerPlacePage({ params }: { params: Params
       <CtaBand
         bookHref={bookHref}
         heading={`Counselling in ${loc.city}, without the drive`}
-        text="A free 30-minute consultation by video. No card, and no obligation afterwards."
+        text="A free 15-minute consultation by video. No card, and no obligation afterwards."
       />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />

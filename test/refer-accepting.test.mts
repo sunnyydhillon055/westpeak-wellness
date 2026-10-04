@@ -32,9 +32,9 @@ test('three focus labels at most, services named, profile and booking paths buil
 
 test('Canada-wide reach reads as such; a province list reads as names', () => {
   const camille = recordedPractitioners.find((p) => p.slug === 'camille-granda')!;
-  const [wide] = acceptingFrom([camille]);
+  const [wide] = acceptingFrom([{ ...camille, reach: 'canada' }]);
   assert.equal(wide!.area, 'Anywhere in Canada');
-  const [narrow] = acceptingFrom([{ ...camille, reach: undefined }]);
+  const [narrow] = acceptingFrom([camille]);
   assert.equal(narrow!.area, 'British Columbia and Alberta');
 });
 

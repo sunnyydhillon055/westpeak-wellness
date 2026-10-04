@@ -59,7 +59,7 @@ export default function Services() {
   const languageLine = `Individual counselling in ${langs.individual}${paired ? `; ${paired}` : ''}.`;
   const lede =
     `Individual, couples, EMDR and family counselling by video anywhere in BC, with ${listOf(accepting.map((p) => p.name), 'or')}. ` +
-    `Sessions are ${fallbackFee('Individual Counselling')} for ${minutesOf('Individual Counselling')} minutes (${fallbackFee('Couples Counselling')} for a couple) after a free 30-minute call.`;
+    `Sessions are ${fallbackFee('Individual Counselling')} for ${minutesOf('Individual Counselling')} minutes (${fallbackFee('Couples Counselling')} for a couple) after a free 15-minute call.`;
   return (
     <>
       {/* This page carried no page-level entity. The layout's organisation and
@@ -87,7 +87,7 @@ export default function Services() {
           <h1>Counselling matched to what you need.</h1>
           <p className="lede">{lede}</p>
           <p className="direct-answer">
-            Westpeak Wellness offers {inWords(services.length)} counselling services online across British Columbia: individual therapy (for anxiety, depression, trauma and life transitions), Gottman-informed couples therapy, EMDR therapy, family counselling, Punjabi-speaking counselling and Tagalog-speaking counselling. All are delivered by Registered Clinical Counsellors over secure video, are reimbursable through many extended health plans, depending on the plan, and begin with a free 30-minute consultation.
+            Westpeak Wellness offers {inWords(services.length)} counselling services online across British Columbia: individual therapy (for anxiety, depression, trauma and life transitions), Gottman-informed couples therapy, EMDR therapy, family counselling, Punjabi-speaking counselling and Tagalog-speaking counselling. All are delivered by Registered Clinical Counsellors over secure video, are reimbursable through many extended health plans, depending on the plan, and begin with a free 15-minute consultation.
           </p>
           <Updated iso={COLLECTION_DATES['services']} />
           <div className="btn-row" style={{ marginTop: 24 }}>
@@ -217,7 +217,7 @@ export default function Services() {
               <p style={{ marginBottom: 0 }}>{languageLine}</p>
             </div>
             <div className="card">
-              <h3>Free 30-minute start</h3>
+              <h3>Free 15-minute start</h3>
               <p style={{ marginBottom: 0 }}>
                 Every service begins with{' '}
                 <Link href="/book">a no-cost consultation</Link>, with no obligation afterward.
@@ -328,7 +328,7 @@ export default function Services() {
           </p>
         </div>
       </section>
-      <CtaBand heading="Not sure where to start?" text="Book a free 30-minute consultation. We&rsquo;ll figure it out together." />
+      <CtaBand heading="Not sure where to start?" text="Book a free 15-minute consultation. We&rsquo;ll figure it out together." />
     </>
   );
 }

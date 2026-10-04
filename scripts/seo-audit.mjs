@@ -346,7 +346,7 @@ for (const p of pages.values()) {
  *
  * The descriptions on /pricing, the service pages, the city hubs, the
  * Punjabi region pages and the counsellor profiles now end with a generated
- * "{fee} per {minutes}-min session · free 30-min consult · {names}"
+ * "{fee} per {minutes}-min session · free 15-min consult · {names}"
  * (lib/snippet-facts.ts). That line is the part a reader decides on, so it
  * must not be the part Google cuts: on these routes a description that
  * carries a fee is held to 155 characters as served, not the general 158.

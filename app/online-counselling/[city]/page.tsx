@@ -186,9 +186,9 @@ export default async function CityPage({ params }: { params: { city: string } })
     audience: { '@type': 'MedicalAudience', audienceType: 'Patient', geographicArea: { '@type': 'City', name: l.city } },
     potentialAction: {
       '@type': 'ReserveAction',
-      name: `Book a free 30-minute consultation about counselling in ${l.city}`,
+      name: `Book a free 15-minute consultation about counselling in ${l.city}`,
       target: { '@type': 'EntryPoint', urlTemplate: `${site.domain}${site.bookingPath}` },
-      result: { '@type': 'Reservation', name: 'Free 30-minute consultation' },
+      result: { '@type': 'Reservation', name: 'Free 15-minute consultation' },
     },
     /* Absent rather than defaulted if the catalogue holds none of them. */
     ...(offers.length ? { offers: sessionOffers(offers, `/online-counselling/${l.slug}`) } : {}),
@@ -207,7 +207,7 @@ export default async function CityPage({ params }: { params: { city: string } })
      generated from the list on the location so the answer and the schema
      cannot disagree with the sentence in the hero. */
   const communityFaq = l.communities?.length
-    ? [{ q: `Do you see people in ${l.communities.slice(0, -1).join(', ')} or ${l.communities[l.communities.length - 1]}?`, a: `Yes, on exactly the same terms as ${l.city}. Every session is by secure video, so ${l.communities.join(', ')} and the rest of ${l.region} are served the same way: a Registered Clinical Counsellor, a free 30-minute consultation first, and no travel at either end.` }]
+    ? [{ q: `Do you see people in ${l.communities.slice(0, -1).join(', ')} or ${l.communities[l.communities.length - 1]}?`, a: `Yes, on exactly the same terms as ${l.city}. Every session is by secure video, so ${l.communities.join(', ')} and the rest of ${l.region} are served the same way: a Registered Clinical Counsellor, a free 15-minute consultation first, and no travel at either end.` }]
     : [];
   /* Cost, who you would see, and whether there is an office: the three
      questions asked before booking anywhere, generated from the catalogue
@@ -384,7 +384,7 @@ export default async function CityPage({ params }: { params: { city: string } })
             <div className="crisis" style={{ marginTop: 32 }}>
               <p style={{ margin: 0 }}>
                 Not sure which kind of support fits? A{' '}
-                <Link href={site.bookingPath}>free 30-minute consultation</Link> is the fastest way
+                <Link href={site.bookingPath}>free 15-minute consultation</Link> is the fastest way
                 to find out, and it is a fine outcome if the answer is a referral somewhere else.
               </p>
             </div>
@@ -555,7 +555,7 @@ export default async function CityPage({ params }: { params: { city: string } })
 
       <CtaBand
         heading={`Counselling in ${l.city}, starting with a conversation`}
-        text="A free 30-minute consultation over secure video. No pressure, no commitment, and no obligation to book a session afterward."
+        text="A free 15-minute consultation over secure video. No pressure, no commitment, and no obligation to book a session afterward."
       />
 
       {/* Unconditional. The FAQ block below is rightly conditional on the city

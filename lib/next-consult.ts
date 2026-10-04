@@ -49,7 +49,7 @@ export function nextConsultEntries(
 /** The label the line prints before the times. Every time it lists is
  *  Pacific (lib/availability-summary.ts formats them in America/Vancouver),
  *  and a reader in Calgary or Cranbrook is an hour ahead, so it says so. */
-export const NEXT_CONSULT_LABEL = 'Next free 30-minute consultation (Pacific time):';
+export const NEXT_CONSULT_LABEL = 'Next free 15-minute consultation (Pacific time):';
 
 /* WHEN NOTHING IS OPEN, SAY SO — 2 Oct 2026.
    With consults on two days a week, "no time in the next fourteen days" is an

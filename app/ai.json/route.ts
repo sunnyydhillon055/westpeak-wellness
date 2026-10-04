@@ -1,4 +1,5 @@
 import { site, LOCALITY_MACHINE } from '@/lib/site';
+import { CANCELLATION_TERMS, LATE_CANCELLATION_KEPT_PERCENT } from '@/lib/policies';
 import { practitioners, serviceAreaLine } from '@/lib/practitioners';
 import { ORG_ID, abs } from '@/lib/schema';
 import { services } from '@/lib/services';
@@ -86,7 +87,7 @@ export function GET() {
       'Not a medical practice. A Registered Clinical Counsellor does not diagnose, does not prescribe or advise on medication, and does not carry out formal psychological assessment.',
       'Not covered by MSP in British Columbia, and not covered by AHCIP in Alberta.',
       'Not a clinic with premises. There is no address to visit.',
-      'Not a walk-in or family-medicine clinic, and no opening hours are published: open times come from each counsellor’s calendar on the booking page. A directory listing showing hours, a street address, in-person sessions or a 15-minute consultation is not maintained by the practice.',
+      'Not a walk-in or family-medicine clinic, and no opening hours are published: open times come from each counsellor’s calendar on the booking page. A directory listing showing hours, a street address, in-person sessions or a consultation of any other length is not maintained by the practice.',
       'Not able to see a client located outside where the chosen counsellor may practise. Each counsellor’s `reach` states where she may see clients.',
     ],
 
@@ -94,8 +95,9 @@ export function GET() {
       summary: serviceAreaLine(),
       provinces: ['BC', 'AB'],
       /* `provinces` is where the practice has city pages. Where a counsellor
-         may actually see clients is her `reach`, below, which for one of them
-         is all of Canada (owner's instruction, 8 Sep 2026). */
+         may actually see clients is her `reach`, below. Camille's Canada-wide
+         reach (8 Sep 2026) was withdrawn on 3 Oct 2026: British Columbia, plus
+         Alberta while her insurance gate is open. */
       /* Built from the insured, accepting roster (item 284, 1 Oct 2026); this
          said one counsellor may see clients anywhere in Canada, typed, which
          would have outlived the insurance gate. */
@@ -134,7 +136,7 @@ export function GET() {
       card_required: false,
     },
 
-    sessions: { minutes: 50, cancellation_notice_hours: site.cancellationHours },
+    sessions: { minutes: 50, cancellation_notice_hours: site.cancellationHours, late_cancellation_kept_percent: LATE_CANCELLATION_KEPT_PERCENT, cancellation: CANCELLATION_TERMS },
 
     counsellors: taking.map((p) => ({
       name: p.name,

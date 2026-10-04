@@ -124,7 +124,7 @@ export default async function SearchPage({ searchParams }: { searchParams?: { q?
                 sentence. The <Link href="/glossary">glossary</Link> defines sixty terms, and{' '}
                 <Link href="/guides">the guides</Link> cover most of what people arrive looking
                 for. If it is quicker to ask,{' '}
-                <Link href={site.bookingPath}>a free 30-minute consultation</Link> costs nothing.
+                <Link href={site.bookingPath}>a free 15-minute consultation</Link> costs nothing.
               </p>
               {/* A dead end that only says "try again" wastes the one thing this
                   person has given you, which is their attention. These are the
@@ -149,7 +149,7 @@ export default async function SearchPage({ searchParams }: { searchParams?: { q?
                   <h2 style={{ marginTop: 0 }}>{top.name}</h2>
                   {fee && (
                     <p>
-                      <strong>{fee.fee}</strong> for {fee.minutes} minutes. The first 30-minute
+                      <strong>{fee.fee}</strong> for {fee.minutes} minutes. The first 15-minute
                       consultation is free.
                     </p>
                   )}

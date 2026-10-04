@@ -118,7 +118,7 @@ export const punjabiRegions: PunjabiRegion[] = [
     blurb:
       'South Asian residents are the largest racialized group in Kamloops, and Punjabi is the most common non-official language spoken at home. Punjabi-speaking counsellors are not.',
     metaDescription:
-      'Punjabi-speaking online counselling for Kamloops and the Thompson-Nicola. Sessions in Punjabi, English, or both, with an RCC. Free 30-minute consultation.',
+      'Punjabi-speaking online counselling for Kamloops and the Thompson-Nicola. Sessions in Punjabi, English, or both, with an RCC. Free 15-minute consultation.',
     demography: {
       stat: 'South Asian residents are the largest racialized group in Kamloops: about 4,260 people, 4.5% of the city.',
       body: [
@@ -189,7 +189,7 @@ export const punjabiRegions: PunjabiRegion[] = [
     blurb:
       'Northern BC has the thinnest counselling coverage in the province. In Punjabi, it is thinner still, and virtual access is the only realistic route.',
     metaDescription:
-      'Punjabi-speaking online counselling for Prince George and Northern BC. Sessions in Punjabi, English, or both, with an RCC. Free 30-minute consultation.',
+      'Punjabi-speaking online counselling for Prince George and Northern BC. Sessions in Punjabi, English, or both, with an RCC. Free 15-minute consultation.',
     demography: {
       stat: 'About 4.2% of Prince George residents are South Asian, and Punjabi has long been among the most common mother tongues in the city.',
       body: [
@@ -265,7 +265,7 @@ export const punjabiRegions: PunjabiRegion[] = [
     blurb:
       'Kelowna\'s Punjabi-speaking population has grown by half in five years. The number of Punjabi-speaking counsellors in the Okanagan has not moved.',
     metaDescription:
-      'Punjabi-speaking online counselling for Kelowna and the Okanagan. Sessions in Punjabi, English, or both, with an RCC. Free 30-minute consultation.',
+      'Punjabi-speaking online counselling for Kelowna and the Okanagan. Sessions in Punjabi, English, or both, with an RCC. Free 15-minute consultation.',
     demography: {
       stat: 'Punjabi speakers grew from 1.2% of Kelowna in 2016 to 1.8% in 2021, a rise of half again in five years.',
       body: [
@@ -708,7 +708,7 @@ export const punjabiRegions: PunjabiRegion[] = [
     blurb:
       'Most of the Capital Region’s Punjabi-speaking community lives in Saanich. Punjabi-speaking counsellors are mostly a ferry away.',
     metaDescription:
-      'Punjabi-speaking online counselling for Saanich and Greater Victoria. Sessions in Punjabi, English, or both, with an RCC. Free 30-minute consultation.',
+      'Punjabi-speaking online counselling for Saanich and Greater Victoria. Sessions in Punjabi, English, or both, with an RCC. Free 15-minute consultation.',
     demography: {
       stat: '2,655 Saanich residents reported Punjabi as their mother tongue in 2021, more than six times the City of Victoria’s 410.',
       body: [
@@ -895,7 +895,7 @@ export const punjabiRegions: PunjabiRegion[] = [
     blurb:
       'About 505 people in Vernon have Punjabi as their mother tongue. A community that size is easy to overlook, and easy to be recognised in.',
     metaDescription:
-      'Punjabi-speaking online counselling for Vernon and the North Okanagan. Sessions in Punjabi, English, or both, with an RCC. Free 30-minute consultation.',
+      'Punjabi-speaking online counselling for Vernon and the North Okanagan. Sessions in Punjabi, English, or both, with an RCC. Free 15-minute consultation.',
     demography: {
       stat: '505 Vernon residents gave Punjabi as their mother tongue in the 2021 Census, about 1.2% of the city, and 580 could hold a conversation in it.',
       body: [
@@ -996,7 +996,7 @@ export const punjabiRegions: PunjabiRegion[] = [
     blurb:
       'Punjabi is Mission’s largest language after English, and the Valley’s Punjabi-speaking practices are concentrated across the river in Abbotsford.',
     metaDescription:
-      'Punjabi-speaking online counselling for Mission, BC. No office anywhere, no bridge to cross, no waiting room. Free 30-minute consultation.',
+      'Punjabi-speaking online counselling for Mission, BC. No office anywhere, no bridge to cross, no waiting room. Free 15-minute consultation.',
     demography: {
       stat: 'Punjabi is the mother tongue of 2,925 people in Mission, about 7% of the town and its largest mother tongue after English.',
       body: [
@@ -1092,7 +1092,7 @@ export const punjabiRegions: PunjabiRegion[] = [
     ],
     faqs: [
       { q: 'Is there really nobody in the Comox Valley who counsels in Punjabi?', a: 'Not one this page can point to. Punjabi-speaking counsellors in BC are concentrated in the Lower Mainland, which is why a video session is the realistic route from Courtenay, Comox or Cumberland rather than a second-best one.' },
-      { q: 'Can my spouse and I come together in Punjabi?', a: 'Not for couples work at the moment: couples sessions currently run in English or Tagalog. Individual counselling is available in Punjabi, and the free 30-minute consultation is the place to talk through what would help most.' },
+      { q: 'Can my spouse and I come together in Punjabi?', a: 'Not for couples work at the moment: couples sessions currently run in English or Tagalog. Individual counselling is available in Punjabi, and the free 15-minute consultation is the place to talk through what would help most.' },
       { q: 'Will my extended health cover this?', a: ONLINE_COVERAGE },
     ],
     sources: [
@@ -1132,7 +1132,7 @@ export const punjabiRegions: PunjabiRegion[] = [
     blurb:
       'Langford’s Punjabi-speaking community is small, and the Punjabi-speaking counsellors with offices are concentrated on the other side of the Strait.',
     metaDescription:
-      'Punjabi-speaking online counselling for Langford and the West Shore. Sessions in Punjabi, English or both, with an RCC. Free 30-minute consultation.',
+      'Punjabi-speaking online counselling for Langford and the West Shore. Sessions in Punjabi, English or both, with an RCC. Free 15-minute consultation.',
     demography: {
       stat: 'In the 2021 Census, 535 Langford residents reported Punjabi as their mother tongue, about 1.2% of the city.',
       body: [
@@ -1159,7 +1159,7 @@ export const punjabiRegions: PunjabiRegion[] = [
     faqs: [
       { q: 'Do I have to choose Punjabi or English before the first session?', a: 'No. Punjabi throughout, English throughout, or a mix that changes with the subject. None of it needs deciding in advance, and changing your mind partway through a session is fine.' },
       { q: 'The community here is small. Who would know?', a: 'Nobody, unless you tell them. This is a virtual practice with no office anywhere, no waiting room, and nothing reported to anybody. The limits of confidentiality are narrow, and they are explained at the start.' },
-      { q: 'Could my husband or wife join a session in Punjabi?', a: 'Not as couples counselling for now: couples work runs in English or Tagalog. Sessions in Punjabi are individual, and the free 30-minute consultation is where to talk through whether that fits what you need.' },
+      { q: 'Could my husband or wife join a session in Punjabi?', a: 'Not as couples counselling for now: couples work runs in English or Tagalog. Sessions in Punjabi are individual, and the free 15-minute consultation is where to talk through whether that fits what you need.' },
       { q: 'Will my extended health cover this?', a: ONLINE_COVERAGE },
     ],
     sources: [
@@ -1197,7 +1197,7 @@ export const punjabiRegions: PunjabiRegion[] = [
     blurb:
       'Punjabi is the most common non-official language spoken at home in Cranbrook. The community is small, which makes a local Punjabi-speaking counsellor unlikely.',
     metaDescription:
-      'Punjabi-speaking online counselling for Cranbrook and the East Kootenay. Sessions in Punjabi, English or both, with an RCC. Free 30-minute consultation.',
+      'Punjabi-speaking online counselling for Cranbrook and the East Kootenay. Sessions in Punjabi, English or both, with an RCC. Free 15-minute consultation.',
     demography: {
       stat: 'In the 2021 Census about 120 Cranbrook residents spoke Punjabi most often at home, in a South Asian community of about 365.',
       body: [
@@ -1252,7 +1252,7 @@ export const punjabiRegions: PunjabiRegion[] = [
     blurb:
       'Campbell River’s Punjabi-speaking community is small, and that is the point: a community this size is unlikely to have a counsellor in town who speaks it.',
     metaDescription:
-      'Punjabi-speaking online counselling for Campbell River and the North Island. Individual sessions in Punjabi, English or both. Free 30-minute consultation.',
+      'Punjabi-speaking online counselling for Campbell River and the North Island. Individual sessions in Punjabi, English or both. Free 15-minute consultation.',
     demography: {
       stat: 'Punjabi is the mother tongue of about 155 people in Campbell River, under half of one percent of the city, in the 2021 Census.',
       body: [
@@ -1313,7 +1313,7 @@ export const punjabiRegions: PunjabiRegion[] = [
     blurb:
       'Punjabi is a small language on the North Shore: 745 mother-tongue speakers across three municipalities. Small communities are the ones services are least often built around.',
     metaDescription:
-      'Punjabi-speaking online counselling for North Vancouver and the North Shore. Punjabi, English or both, with an RCC. Free 30-minute consultation.',
+      'Punjabi-speaking online counselling for North Vancouver and the North Shore. Punjabi, English or both, with an RCC. Free 15-minute consultation.',
     demography: {
       stat: 'Punjabi is the mother tongue of 745 people across the City of North Vancouver, the District of North Vancouver and West Vancouver: about 0.4% of the North Shore.',
       body: [
@@ -1445,7 +1445,7 @@ export function regionOpening(args: {
     ? `Punjabi-speaking counselling for ${region} is with ${who}, by secure video, in ${languages ?? 'Punjabi or English'}, or a mix of both.`
     : `Punjabi-speaking counselling for ${region} is by secure video with a Registered Clinical Counsellor, in Punjabi or English, or a mix of both.`;
   const cost = fee
-    ? `Individual sessions are ${fee.fee} for ${fee.minutes} minutes, after a free 30-minute consultation`
-    : 'It starts with a free 30-minute consultation';
+    ? `Individual sessions are ${fee.fee} for ${fee.minutes} minutes, after a free 15-minute consultation`
+    : 'It starts with a free 15-minute consultation';
   return `${lead} ${cost}, and whether an extended health plan reimburses it depends on the plan.`;
 }

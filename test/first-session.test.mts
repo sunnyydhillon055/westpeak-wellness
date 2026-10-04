@@ -54,8 +54,9 @@ test('never the founder, and never someone not taking new clients', () => {
 
 test('the note keeps the consultation recommended and the 24-hour rule', () => {
   const n = firstSessionNote(FALLBACK_CATALOG);
-  assert.match(n, /free 30-minute consultation is still recommended/);
-  assert.match(n, /at least 24 hours’ notice refunds the fee in full/);
+  assert.match(n, /free 15-minute consultation is still recommended/);
+  assert.match(n, /at least 24 hours’ notice gets a full refund/);
+  assert.match(n, /50% of the fee is kept/);
   assert.doesNotMatch(n, /evening|weekend|\bhours\b.*open/i);
 });
 
@@ -65,5 +66,5 @@ test('the click is a counted book location', () => {
 
 test('the individual-therapy answer follows the flag', () => {
   const a = getService('individual-therapy')!.directAnswer!;
-  assert.match(a, site.directFirstSession ? /is free and recommended/ : /A free 30-minute consultation comes first/);
+  assert.match(a, site.directFirstSession ? /is free and recommended/ : /A free 15-minute consultation comes first/);
 });

@@ -274,7 +274,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
          them" had to infer it from a button it cannot see. */
       potentialAction: {
         '@type': 'ReserveAction',
-        name: `Book a free 30-minute consultation about ${s.name.toLowerCase()}`,
+        name: `Book a free 15-minute consultation about ${s.name.toLowerCase()}`,
         target: {
           '@type': 'EntryPoint',
           urlTemplate: `${site.domain}${cta.href}`,
@@ -283,7 +283,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
             'https://schema.org/MobileWebPlatform',
           ],
         },
-        result: { '@type': 'Reservation', name: 'Free 30-minute consultation' },
+        result: { '@type': 'Reservation', name: 'Free 15-minute consultation' },
       },
       /* Who it is for. `MedicalAudience` is the type that says "this is health
          information addressed to the person receiving care", which is exactly
@@ -327,7 +327,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
           <ul className="glance">
             <li><Clock aria-hidden="true" strokeWidth={1.7} /><span><strong>{DURATION_FOR[s.slug] ?? '50 minutes'}</strong> per session</span></li>
             <li><MonitorSmartphone aria-hidden="true" strokeWidth={1.7} /><span><strong>Secure video</strong> sessions</span></li>
-            <li><LangIcon aria-hidden="true" strokeWidth={1.7} /><span><strong>Free</strong> 30-min consult</span></li>
+            <li><LangIcon aria-hidden="true" strokeWidth={1.7} /><span><strong>Free</strong> 15-min consult</span></li>
             {/* The fee, at the top, on the page where the question is asked.
                 It lived on /pricing — three clicks away — and price silence
                 reads as expensive. The number already reaches the page for the
@@ -445,7 +445,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
             <div className="crisis" style={{ marginTop: 32 }}>
               <p style={{ margin: 0 }}>
                 Recognise several of these? A{' '}
-                <Link href={cta.href}>free 30-minute consultation</Link> is the least
+                <Link href={cta.href}>free 15-minute consultation</Link> is the least
                 committal way to find out whether this is the right approach, including if the
                 answer turns out to be something else.
               </p>
@@ -623,7 +623,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
           heading="ਮੁਫ਼ਤ ਸਲਾਹ-ਮਸ਼ਵਰਾ ਬੁੱਕ ਕਰੋ"
           headingLang="pa"
           headingClassName={gurmukhi.className}
-          text="Book a free 30-minute consultation: in Punjabi, English, or both. No pressure, and no obligation afterward."
+          text="Book a free 15-minute consultation: in Punjabi, English, or both. No pressure, and no obligation afterward."
           bookHref={cta.href}
         />
       ) : (

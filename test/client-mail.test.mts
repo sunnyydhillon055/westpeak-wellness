@@ -53,7 +53,7 @@ test('nurture email 2 leads to the free call: its button is the consultation pag
   const roster = rosterLines();
   const m = email2('Sam', 'sam@gmail.com', undefined, { roster });
   const first = buttons(m.html)[0];
-  assert.equal(first.label, 'What the free 30 minutes is like');
+  assert.equal(first.label, 'What the free 15 minutes is like');
   assert.equal(first.href, tagged(links.consultPrep, 'nurture2'));
   /* The paid first-session guide stays, as a link rather than the button. */
   assert.ok(hrefs(m.html).includes(tagged(links.firstSession, 'nurture2')));
@@ -68,14 +68,14 @@ test('nurture email 2 leads to the free call: its button is the consultation pag
   assert.ok(buttons(none.html).some((b) => b.href === tagged(links.book, 'nurture2')));
 });
 
-test('email 1 ends with a button per counsellor, "Free 30-minute call with <name>", to her calendar', () => {
+test('email 1 ends with a button per counsellor, "Free 15-minute call with <name>", to her calendar', () => {
   const roster = rosterLines();
   assert.ok(roster.length >= 1);
   for (const make of [checklistEmail, icbcEmail, startingEmail]) {
     const m = make('Sam', { unsub: UNSUB, roster });
     const bs = buttons(m.html);
     for (const l of roster) {
-      assert.ok(bs.some((b) => b.label === `Free 30-minute call with ${l.firstName}` && b.href === tagged(l.href, 'magnet')), `${make.name}: ${l.slug}`);
+      assert.ok(bs.some((b) => b.label === `Free 15-minute call with ${l.firstName}` && b.href === tagged(l.href, 'magnet')), `${make.name}: ${l.slug}`);
     }
   }
   assert.equal(rosterButtons([]), '');

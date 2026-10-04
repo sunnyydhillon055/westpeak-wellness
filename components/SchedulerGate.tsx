@@ -60,7 +60,7 @@ import { CALENDAR_HASH, opensCalendar } from '@/lib/scheduler-open';
  *
  * WHAT A SCREEN READER HEARS — 1 Oct 2026. Focus used to land on an unnamed
  * div, so pressing the button announced nothing at all. The wrapper is a
- * named region now ("Book a free 30-minute consultation with Camille", the
+ * named region now ("Book a free 15-minute consultation with Camille", the
  * frame's own title), and a polite status line says the calendar is loading
  * and where the other route is, then clears when the frame has loaded. Focus
  * still stays off the iframe, for the reason above. The status is visually
