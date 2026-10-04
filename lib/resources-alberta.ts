@@ -45,9 +45,15 @@ export const albertaResources: Resource[] = [
     eyebrow: 'Alberta',
     lede:
       'Alberta Health does not pay for private counselling, which surprises people who assume a provincial health card covers mental health the way it covers a fracture. Here is what actually pays, and what to ask before booking anything.',
+    /* 3 Oct 2026: "is therapy covered by alberta health care" 24 at 9.67
+       and "counselling alberta" 13 at 6.46, no clicks (Search Console,
+       3 Oct). The top results name two things this page did not: the
+       government's Non-Group Coverage psychologist benefit, and Counselling
+       Alberta, the government-funded service whose name is that query. Both
+       read on their own sites 3 Oct 2026 (sources). */
     shortAnswer:
-      'AHCIP does not cover private counselling. Most people pay through an extended health plan, out of pocket, or through a publicly funded service with a waitlist. Before booking privately, ask your insurer one question: does the plan reimburse a Canadian Certified Counsellor?',
-    updated: '2026-10-01',
+      'No. Alberta Health Care (AHCIP) does not cover private counselling; it pays for physicians, including a psychiatrist on referral. Two partial exceptions: the government’s optional Non-Group Coverage plan pays up to $60 a visit toward a registered psychologist, to $300 per family each benefit year, and Counselling Alberta, a government-funded service, charges on a sliding fee scale. Otherwise people pay through an extended health plan or out of pocket. Before booking privately, ask your insurer one question: does the plan reimburse a Canadian Certified Counsellor?',
+    updated: '2026-10-03',
     readMinutes: 6,
     /* Year-end plan timing, 1 Oct to 31 Dec (item 210). The BC year-end page is not linked: its plan examples are BC ones. */
     seasonal: yearEndSeasonal({ yearEndLink: false, designation: 'Canadian Certified Counsellor', province: 'AB' }),
@@ -58,6 +64,7 @@ export const albertaResources: Resource[] = [
         body: [
           'Alberta Health Care Insurance Plan coverage for mental health follows the same logic as most provincial plans: it pays for physicians. A visit to your family doctor about low mood is covered. A psychiatrist, if you can get a referral and wait for one, is covered. A counsellor or psychotherapist in private practice is not.',
           'That is not a gap specific to Alberta and it is not a judgement about whether counselling works. It is a consequence of how provincial plans are structured. They insure medical services delivered by physicians, and counselling is not delivered by one. The practical effect is the same either way: the cost of private counselling falls to you or to an extended health plan.',
+          'One government plan does pay something. **Non-Group Coverage** is optional supplementary health insurance from the Government of Alberta, open to residents under 65 registered with AHCIP, for a monthly premium (subsidies are available on a low income). It pays up to $60 a visit for treatment by a registered psychologist, to a maximum of $300 per family each benefit year. It does not name counsellors, and $300 is a few sessions rather than a course of therapy.',
         ],
       },
       {
@@ -81,6 +88,12 @@ export const albertaResources: Resource[] = [
       {
         h2: 'The free and lower-cost routes first',
         list: [
+          {
+            /* counsellingalberta.com, read 3 Oct 2026. */
+            label: 'Counselling Alberta',
+            detail:
+              'A division of Calgary Counselling Centre, run in partnership with the Government of Alberta. It offers counselling online anywhere in Alberta and in person in nine cities, for individuals, couples, families and children, on a sliding fee scale, and its site says there is no waitlist. Registration is online or by phone on 833-827-4230.',
+          },
           {
             /* 1 Oct 2026. This named "Alberta Health Services" and a
                province-wide line on 1-844-944-4744, which is the Indigenous
@@ -124,8 +137,16 @@ export const albertaResources: Resource[] = [
     faqs: [
       {
         /* Was "Does AHCIP cover any counselling at all?" (1 Oct 2026). */
-        q: 'Does Alberta Health Care cover counselling?',
+        q: 'Is therapy covered by Alberta Health Care?',
         a: 'Only through physicians. Alberta Health Care (AHCIP) covers physicians, so a conversation with your family doctor or a psychiatrist you have been referred to is covered. Counselling from a counsellor or psychotherapist in private practice is not, regardless of their credentials.',
+      },
+      {
+        q: 'Does Alberta Health Care cover a psychologist?',
+        a: 'AHCIP itself does not. The government’s separate Non-Group Coverage plan, which you buy for a monthly premium if you are under 65, pays up to $60 a visit toward a registered psychologist, to a maximum of $300 per family each benefit year. Extended health plans through an employer commonly pay more.',
+      },
+      {
+        q: 'What is Counselling Alberta?',
+        a: 'A government-funded division of Calgary Counselling Centre that offers counselling online anywhere in Alberta and in person in nine cities, on a sliding fee scale. It is a separate organisation from this practice.',
       },
       {
         q: 'Is a Canadian Certified Counsellor recognised in Alberta?',
@@ -142,6 +163,8 @@ export const albertaResources: Resource[] = [
     ],
     sources: [
       { label: 'Alberta Health Care Insurance Plan, Government of Alberta', url: 'https://www.alberta.ca/ahcip.aspx' },
+      { label: 'Non-Group Coverage, Government of Alberta: clinical psychological services, premiums and eligibility (read 3 Oct 2026)', url: 'https://www.alberta.ca/non-group-coverage' },
+      { label: 'Counselling Alberta, a division of Calgary Counselling Centre (read 3 Oct 2026)', url: 'https://counsellingalberta.com/' },
       /* The Page9985 URL cited here until 3 Sep answered 200 and redirected to
          NotFound.aspx — a soft 404, which link-rot.mjs catches and a status
          check alone would not. */
@@ -158,8 +181,7 @@ export const albertaResources: Resource[] = [
       { href: '/practitioners/camille-granda/calgary', label: 'Camille Granda in Calgary' },
       { href: '/practitioners/camille-granda/edmonton', label: 'Camille Granda in Edmonton' },
       { href: '/practitioners/camille-granda', label: 'Camille Granda, RCC, CCC, Alberta and BC' },
-      { href: '/practitioners/camille-granda/calgary', label: 'Counselling in Calgary' },
-      { href: '/practitioners/camille-granda/edmonton', label: 'Counselling in Edmonton' },
+      { href: '/resources/how-to-check-a-counsellor-in-alberta', label: 'How to check a counsellor in Alberta' },
       { href: '/tools/therapy-cost-bc', label: 'Work out what a session would actually cost you' },
       { href: '/pricing', label: 'Fees at this practice' },
     ],
@@ -176,8 +198,8 @@ export const albertaResources: Resource[] = [
     lede:
       'In British Columbia you can look a counsellor up in a public register in about two minutes. In Alberta there is no equivalent college, which does not mean nothing can be checked. It means checking a different thing.',
     shortAnswer:
-      'Counselling therapy is not a regulated profession in Alberta, so there is no provincial college and no licence to verify. What you can verify is national certification: a Canadian Certified Counsellor is listed on the CCPA register, and anyone claiming the title can be confirmed there. Psychologists are separately regulated and appear on their own college register.',
-    updated: '2026-09-03',
+      'Counselling therapy is not a regulated profession in Alberta, so there is no provincial college and no licence to verify. The province announced in March 2024 that counsellors will be regulated under the College of Alberta Psychologists, but no start date has been set. What you can verify today is national certification: a Canadian Certified Counsellor is listed on the CCPA register, and anyone claiming the title can be confirmed there. Psychologists are separately regulated and appear on their own college register.',
+    updated: '2026-10-03',
     readMinutes: 5,
     sections: [
       {
@@ -224,7 +246,7 @@ export const albertaResources: Resource[] = [
       {
         h2: 'What this practice publishes',
         body: [
-          'Both counsellors here list their credentials with numbers on their own pages, and both bodies hold public registers you can search yourself. The counsellor who can see Alberta clients holds the CCC as well as a BC registration, and the Alberta-relevant one is named first on her Alberta pages for that reason.',
+          'Each counsellor here lists her credentials with numbers on her own page, and the bodies behind them hold public registers you can search yourself. The counsellor who can see Alberta clients holds the CCC as well as a BC registration, and the Alberta-relevant one is named first on her Alberta pages for that reason.',
           'The site also publishes no client testimonials, which is not modesty. The BC association prohibits them. Where reviews would normally sit, checkable credentials do instead.',
         ],
       },
@@ -238,6 +260,12 @@ export const albertaResources: Resource[] = [
       {
         q: 'Is there an Alberta college of counselling therapists?',
         a: 'Not at present. Counselling therapy is not a regulated profession in Alberta, so there is no college, no licence and no provincial register of counsellors. Psychologists are regulated separately and do have one.',
+      },
+      {
+        /* 3 Oct 2026: "is psychotherapy regulated in alberta", position 1.
+           CCPA's Alberta regulation page, read 3 Oct 2026. */
+        q: 'Is psychotherapy regulated in Alberta?',
+        a: 'Not yet for counsellors. On 1 March 2024 the Alberta government announced that counsellors will be regulated under the College of Alberta Psychologists, and no proclamation date has been set, so as of October 2026 the title counsellor is still unprotected. Psychologists, who also provide psychotherapy, are regulated by that college now.',
       },
       {
         q: 'So can anyone call themselves a counsellor there?',
@@ -254,6 +282,7 @@ export const albertaResources: Resource[] = [
     ],
     sources: [
       { label: 'Canadian Counselling and Psychotherapy Association, certification', url: 'https://www.ccpa-accp.ca/' },
+      { label: 'Canadian Counselling and Psychotherapy Association, regulation in Alberta (read 3 Oct 2026)', url: 'https://www.ccpa-accp.ca/regulation-in-alberta/' },
       { label: 'College of Alberta Psychologists', url: 'https://cap.ab.ca/' },
       /* The .aspx URL cited here until 3 Sep returned 404. This page is also the
          better source for the claim: it lists the professions Alberta does

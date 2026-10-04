@@ -271,7 +271,9 @@ const coreResources: Resource[] = [
       { href: "/resources/low-cost-counselling-bc", label: "Free and low-cost counselling in BC" },
       { href: "/pricing", label: "Fees and coverage" },
       { href: "/guides/how-to-find-a-therapist-in-bc", label: "How to find a therapist in BC" },
-      { href: "/tools/therapy-cost-bc", label: "Work out what it costs after coverage" },
+      /* 3 Oct 2026: replaced a second link to the cost tool. */
+      { href: "/compare/psychologist-vs-psychiatrist-bc", label: "Psychologist vs psychiatrist in BC" },
+      { href: "/resources/counselling-coverage-in-alberta", label: "Is therapy covered by Alberta Health Care?" },
     ],
   },
 

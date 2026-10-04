@@ -71,7 +71,7 @@ const coreComparisons: Comparison[] = [
       "Three different letters after three different names, all offering something that looks like therapy. Here is what actually separates them in British Columbia.",
     shortAnswer:
       "If you want talk therapy, an RCC, a clinical social worker, and a psychologist can all provide it, and all three hold master's-level training or higher. The practical differences are diagnosis (psychologists and some clinical social workers can formally diagnose; RCCs cannot), formal assessments (psychologists only), cost (psychologists are typically the most expensive), and what your extended health plan happens to list.",
-    updated: '2026-09-17',
+    updated: '2026-10-03',
     readMinutes: 7,
     table: {
       columns: ["", "Registered Clinical Counsellor (RCC)", "Registered Psychologist (R.Psych)", "Registered Clinical Social Worker (RCSW/RSW)"],
@@ -87,12 +87,17 @@ const coreComparisons: Comparison[] = [
     },
     sections: [
       {
-        h2: 'What "Registered Clinical Counsellor" actually means',
+        /* 3 Oct 2026: was 'What "Registered Clinical Counsellor" actually
+           means', four paragraphs defining the RCC. That definition is the
+           job of /resources/verify-a-counsellor-in-bc, which had 1,581
+           impressions at 13.55 to this page's 82 at 7.68 (Search Console,
+           3 Oct), and "registered clinical counsellor" (317 at 23.5) was
+           landing on both. This page keeps the choosing intent; the
+           definition is a summary and a link, so one page carries it. */
+        h2: 'Before comparing: what the three sets of letters certify',
         body: [
-          'Worth settling before the comparison, because the phrase is doing more work than it looks and the search traffic for it is mostly people who have just seen the letters after somebody\'s name.',
-          'RCC is a designation awarded by the **BC Association of Clinical Counsellors**, a professional association. It is not a government licence, and that distinction matters in BC more than it would elsewhere: **the words "counsellor" and "therapist" are not protected here.** Anyone may use them, with no training whatsoever and no consequence. That is not a scare tactic, it is the current state of the law.',
-          'What the designation requires is a master\'s degree in counselling or a closely related field, a period of supervised clinical practice, ongoing continuing education, liability insurance, and adherence to a code of ethics with a complaints process behind it. The register is public and free to search, so the claim is checkable in a couple of minutes by anybody.',
-          '**"Licensed counsellor" is not a British Columbian term.** It appears in searches constantly because it is the American phrasing, and there is no BC licence that matches it. The nearest equivalent signal here is a registration with a regulatory college or a professional association: RCC through BCACC, R.Psych through the College of Health and Care Professionals of BC (formerly the College of Psychologists of BC), or RSW/RCSW through the BC College of Social Workers.',
+          'RCC is a designation awarded by the **BC Association of Clinical Counsellors**, a professional association, against a master’s degree in counselling or a closely related field, supervised clinical practice, continuing education, liability insurance and a code of ethics with a complaints process. It is not a government licence, and **the words "counsellor" and "therapist" are not protected in BC**: anyone may use them. [What a Registered Clinical Counsellor is, and how to check one](/resources/verify-a-counsellor-in-bc) covers the designation in full, with the four-minute register check.',
+          '**"Licensed counsellor" is not a British Columbian term.** It is the American phrasing, and there is no BC licence that matches it. What exists here is registration: RCC through BCACC, R.Psych through the College of Health and Care Professionals of BC (formerly the College of Psychologists of BC), or RSW/RCSW through the BC College of Social Workers.',
           'So when the three are compared below, the comparison is between three different routes to the same broad work, with genuinely different training, scope and cost, not between a licensed professional and an unlicensed one.',
         ],
       },
@@ -189,8 +194,8 @@ const coreComparisons: Comparison[] = [
       /* Search Console (6 Sep 2026): this page draws "registered clinical
          counsellor" impressions at #14 while the two resource pages that
          answer that query directly sit at #31 and #37 with no link from here. */
-      { href: "/resources/verify-a-counsellor-in-bc", label: "What is a Registered Clinical Counsellor?" },
-      { href: "/resources/verify-a-counsellor-in-bc", label: "How to verify a counsellor's registration in BC" },
+      { href: "/resources/verify-a-counsellor-in-bc", label: "What a Registered Clinical Counsellor is, and how to check one" },
+      { href: "/compare/psychologist-vs-psychiatrist-bc", label: "Psychologist vs psychiatrist in BC" },
       { href: "/guides/is-online-therapy-as-effective-as-in-person", label: "Is online therapy as effective as in-person?" },
       { href: "/pricing", label: "Fees and extended health coverage" },
       { href: "/services", label: "Counselling services offered across BC" },
