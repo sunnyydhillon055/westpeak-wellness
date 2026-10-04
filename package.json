@@ -13,7 +13,7 @@
     "drift": "node scripts/price-drift.mjs",
     "social": "node scripts/social-queue.mjs",
     "reels": "node scripts/reels.mjs",
-    "seo": "node scripts/redirect-shadow.mjs && node scripts/seo-audit.mjs",
+    "seo": "node scripts/redirect-shadow.mjs && node scripts/seo-audit.mjs && node scripts/uniqueness-gate.mjs --gsc",
     "seo:warn": "node scripts/seo-audit.mjs --warn",
     "redirect-shadow": "node scripts/redirect-shadow.mjs",
     "ai-crawl": "node scripts/ai-crawl-audit.mjs",

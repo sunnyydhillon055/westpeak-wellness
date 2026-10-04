@@ -253,10 +253,28 @@ export const locations: Location[] = [
       { q: "Surrey has plenty of Punjabi-speaking counsellors. Why look outside it?", a: "For many people there is no reason to, and you would be told so on a consultation call. The reason people write in from Surrey is narrower: in a community this interconnected, the counsellor who comes recommended is often connected to the very people you would least want to know you are going. Confidentiality is a legal duty everywhere, distance is what makes it feel true." },
       { q: "I am the first person in my family to consider therapy. Where do I even start?", a: "That is the most common position people arrive in from Surrey, and there is no template because the generation before did not have one either. A free 30-minute consultation is a reasonable place to work out what you are actually looking for, with no obligation attached, and if somebody else would be a better fit, you would be told that plainly." },
       { q: "Do my parents have to be involved if the problem is my parents?", a: "No. Individual counselling is yours, and what you discuss stays confidential within the usual legal limits. Some people later choose to bring a family member into a session and some never do; both are ordinary. Nothing is disclosed to family because they asked." },
+      /* "free couples counselling surrey" (25 impressions at 37.9) and
+         "online counselling surrey" (59 at 21.8) in the 3 Oct export; no
+         Surrey answer named a free option. Read 3 Oct 2026: SFU Surrey
+         Community Counselling's own pages (free individual and group
+         counselling for people who live in Surrey and the Lower Mainland, by
+         Counsellor-Trainees in SFU's Master's in Counselling Psychology under
+         the supervision of registered counsellors and psychologists;
+         "relationship struggles" among its concerns; couples counselling not
+         listed; no SFU students), and Fraser Health's Surrey Mental Health
+         and Substance Use Centre page (19+, self-referral services,
+         individual and group therapy). Fraser Health's page states no cost,
+         so none is claimed. The last sentence is the catalogue's. */
+      {
+        q: "Is there free counselling in Surrey, including for couples?",
+        a: `Some, and it is worth checking first. SFU Surrey Community Counselling offers free individual and group counselling to people who live in Surrey and the Lower Mainland, provided by Counsellor-Trainees in SFU’s Master’s program in Counselling Psychology under the supervision of registered counsellors and psychologists. Relationship struggles are among the concerns it lists, though couples sessions are not, and it does not see SFU students. Fraser Health’s Surrey Mental Health and Substance Use Centre on 108th Avenue takes self-referrals from adults 19 and over for assessment, treatment, and individual and group therapy. [Free and low-cost counselling across BC](/resources/low-cost-counselling-bc) lists more. Here, an individual session is ${fallbackFee('Individual Counselling')} and a couples session ${fallbackFee('Couples Counselling')}, each 50 minutes, after a free 30-minute consultation.`,
+      },
     ],
     sources: [
       { label: "Fraser Health, mental health and substance use services", url: "https://www.fraserhealth.ca/health-topics-a-to-z/mental-health-and-substance-use" },
       { label: "Fraser Health, Mental Health Centres directory", url: "https://www.fraserhealth.ca/Service-Directory/Services/mental-health-and-substance-use/mental-health-centres/mental-health-centres" },
+      { label: "Fraser Health, Surrey Mental Health and Substance Use Centre (read 3 Oct 2026)", url: "https://www.fraserhealth.ca/Service-Directory/Locations/Surrey/surrey-mental-health-centre" },
+      { label: "SFU Surrey Community Counselling (read 3 Oct 2026)", url: "https://www.sfu.ca/education/community-engagement/surrey-community-counselling.html" },
       { label: "HereToHelp BC, mental health information", url: "https://www.heretohelp.bc.ca/" },
     ],
     /* Its physical neighbours, 1 Oct 2026: White Rock sits inside Surrey and

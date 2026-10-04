@@ -100,13 +100,14 @@ test('EMDR city pages quote the weekly session and keep the intensive as a later
   assert.notEqual(line, laterOption(FALLBACK_CATALOG, getCityTopic('trauma-therapy')!, 'Kelowna'));
 });
 
-test('generated FAQs exist for every pair and no two pages share an answer', () => {
+test('the generated FAQ is the places question only, and no two pages share an answer', () => {
   const seen = new Map<string, string>();
   for (const { p, topic, ctx, loc } of loaded) {
-    const faqs = generatedFaqs({
-      topic, ctx, loc, counsellors: counsellorsFor(topic), fee: feeFor(FALLBACK_CATALOG, topic),
-    });
-    assert.ok(faqs.length >= 2, `${p.city}/${p.service} generated ${faqs.length} FAQs`);
+    const faqs = generatedFaqs({ topic, ctx, loc });
+    /* 3 Oct 2026 (#437): only the places question is generated now; who
+       and cost are answered by the cards and the fee line. */
+    assert.equal(faqs.length, loc.communities?.length ? 1 : 0, `${p.city}/${p.service} generated ${faqs.length} FAQs`);
+    assert.ok(!faqs.some((f) => /^Who would I see|cost/i.test(f.q)), `${p.city}/${p.service} still generates who or cost`);
     for (const f of faqs) {
       const key = `${p.city}/${p.service}`;
       assert.ok(!seen.has(f.a), `${key} repeats an answer from ${seen.get(f.a)}: "${f.a.slice(0, 60)}"`);
@@ -137,9 +138,7 @@ test('midSentence lowercases word by word and keeps initialisms and languages', 
 
 test('no generated FAQ on any pair carries a broken capital or a missing article', () => {
   for (const { p, topic, ctx, loc } of loaded) {
-    const faqs = generatedFaqs({
-      topic, ctx, loc, counsellors: counsellorsFor(topic), fee: feeFor(FALLBACK_CATALOG, topic),
-    });
+    const faqs = generatedFaqs({ topic, ctx, loc });
     for (const f of faqs) {
       for (const text of [f.q, f.a]) {
         const key = `${p.city}/${p.service}`;
