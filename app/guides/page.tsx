@@ -101,7 +101,9 @@ export default function GuidesHub() {
             or see <Link href="/pricing">fees and extended-health coverage</Link>. If you want
             the answer without the guide,{' '}
             <Link href="/faq">the FAQ</Link> carries the opening paragraph of
-            every one of these in a single list.
+            every one of these in a single list, and{' '}
+            <Link href="/answers">the instant answers search</Link> finds the questions answered at
+            the foot of each guide, such as how long a stress leave can last, by a word you type.
           </p>
         </div>
       </section>

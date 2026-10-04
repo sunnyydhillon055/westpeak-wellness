@@ -171,6 +171,10 @@ export const BOOK_LOCATIONS: readonly string[] = [
   /* r6-static-speed, 3 Oct 2026 (item 409): the next free day under the
      hero button of each guide, resource and comparison and of /pricing. */
   'hero-next-article',
+  /* wf/s7-answers, 4 Oct 2026: the hero link on /answers, whose only booking
+     link until then was the search-miss message, hidden until a search
+     finds nothing. */
+  'hero-answers',
 ];
 
 /** Every slug on the roster, accepting or not. The founder's cannot reach a
