@@ -58,7 +58,8 @@
     "lang": "node scripts/html-lang.mjs --check",
     "inline": "node scripts/inline-css.mjs --check",
     "coverage-claims": "node scripts/coverage-claims.mjs",
-    "unpaid": "node --experimental-strip-types --no-warnings scripts/unpaid-bookings.mjs"
+    "unpaid": "node --experimental-strip-types --no-warnings scripts/unpaid-bookings.mjs",
+    "score:pages": "node scripts/page-score.mjs"
   },
   "dependencies": {
     "@next/third-parties": "^16.3.0",

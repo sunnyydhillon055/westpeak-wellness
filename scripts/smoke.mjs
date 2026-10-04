@@ -37,10 +37,8 @@
  * Usage:  npm run build && npm run smoke
  */
 
-import { spawn } from 'node:child_process';
-import { setTimeout as sleep } from 'node:timers/promises';
-import net from 'node:net';
 import { readFileSync } from 'node:fs';
+import { bootNext } from './lib/next-server.mjs';
 
 const PORT = process.env.SMOKE_PORT || 3123;
 const BASE = `http://127.0.0.1:${PORT}`;
@@ -290,103 +288,24 @@ const CHECKS = [
    appears only when the 404 is what was actually served. */
 const NOT_FOUND_TITLE = /page not found/i;
 
-/* REFUSE TO TEST A SERVER THIS SCRIPT DID NOT START.
- *
- * On 31 Aug 2026 a `next start` from an earlier run was still holding 3123 on
- * the dev machine, serving a build several commits old. Every local smoke run
- * silently checked THAT - reporting 36/36 while two of the assertions it was
- * making had already stopped being true of the current build. It surfaced only
- * on CI, where the port is always free and the checks ran against the code
- * actually being shipped.
- *
- * A green check against stale code is worse than no check: it is precisely
- * what made two wrong assertions look correct for a whole session. So a busy
- * port is a hard stop, never something to work around. */
-const portBusy = await new Promise((resolve) => {
-  /* A raw socket, not fetch. process.exit() while an undici request is still
-     tearing down trips `Assertion failed: !(handle->flags & UV_HANDLE_CLOSING)`
-     on Windows, printing a crash under a message that had already read
-     cleanly. A net socket closes deterministically. */
-  const sock = net.connect({ port: Number(PORT), host: '127.0.0.1' });
-  const done = (v) => { sock.destroy(); resolve(v); };
-  sock.once('connect', () => done(true));
-  sock.once('error', () => done(false));
-  sock.setTimeout(1500, () => done(false));
-});
-
-if (portBusy) {
-  console.error(`
-  Port ${PORT} is already in use.
-
-  Something is serving on it that this script did not start, so any result
-  would describe that process rather than this build. Stop it and run again,
-  or set SMOKE_PORT to a free port.
-`);
-  process.exit(1);
-}
-
+/* REFUSE TO TEST A SERVER THIS SCRIPT DID NOT START, and take down the one
+ * it did. The boot, the busy-port refusal, the process-group kill and the
+ * wait-by-asking moved to scripts/lib/next-server.mjs on 4 Oct 2026 so the
+ * page scorer boots the build the same way; the reasons (31 Aug 2026: a stale
+ * `next start` on 3123 made every local run check a build several commits
+ * old; commit 220de52's unapplied process-group fix) are recorded there. */
 console.log(`\nSMOKE - booting the built site on ${PORT}\n`);
-
-const isWin = process.platform === 'win32';
-
-/* `detached` on POSIX so the server gets its own PROCESS GROUP.
- *
- * npx spawns `next start` as a grandchild. Killing npx alone leaves that
- * grandchild running — holding the port, and holding the stdout/stderr pipes
- * this process inherited to it, so the streams never end and a successful run
- * never exits.
- *
- * This was described in commit 220de52 and NOT actually applied: the edit that
- * was supposed to make it aborted partway and only the backstop timer landed.
- * CI went green because that timer force-exits after 5s, which hid the hang
- * without fixing the leak — and the leak is what left a stale `next start`
- * holding 3123 on the dev machine, which is what made every local smoke run
- * report success against a build several commits old. One unapplied edit,
- * three downstream failures. */
-const server = spawn('npx', ['next', 'start', '-p', String(PORT)], {
-  stdio: ['ignore', 'pipe', 'pipe'],
-  shell: isWin,
-  detached: !isWin,
-});
-
-let serverOut = '';
-server.stdout.on('data', (d) => { serverOut += d; });
-server.stderr.on('data', (d) => { serverOut += d; });
-
-const stop = () => {
-  try {
-    if (!isWin && server.pid) {
-      /* Negative pid = the whole group, so the grandchild goes too. */
-      process.kill(-server.pid, 'SIGTERM');
-    } else if (isWin && server.pid) {
-      /* Windows has no process group to signal, and server.kill() takes down
-         only the shell. /T kills the tree. */
-      spawn('taskkill', ['/pid', String(server.pid), '/T', '/F'], { stdio: 'ignore' });
-    } else {
-      server.kill();
-    }
-  } catch { /* already gone */ }
-  /* Release the pipes too: a stream still attached to a dead process is
-     enough on its own to hold the event loop open. */
-  try { server.stdout?.destroy(); server.stderr?.destroy(); } catch { /* fine */ }
-};
-process.on('exit', stop);
+const booted = await bootNext({ port: PORT });
+const stop = booted.stop;
 process.on('SIGINT', () => { stop(); process.exit(130); });
+if (booted.error) {
+  console.error(`
+  ${booted.error}
 
-/* Wait for the server rather than sleeping a fixed amount: a fixed sleep is
-   either slower than it needs to be or flaky on a cold CI runner. */
-let up = false;
-for (let i = 0; i < 60; i++) {
-  await sleep(1000);
-  try {
-    const r = await fetch(`${BASE}/robots.txt`, { redirect: 'manual' });
-    if (r.status) { up = true; break; }
-  } catch { /* not listening yet */ }
-}
-if (!up) {
-  console.error('  server did not come up within 60s. Output:\n');
-  console.error(serverOut.split('\n').slice(-25).join('\n'));
-  stop();
+  Any result would describe that process rather than this build. Stop it and
+  run again, or set SMOKE_PORT to a free port.
+`);
+  console.error(booted.output().split('\n').slice(-25).join('\n'));
   process.exit(1);
 }
 

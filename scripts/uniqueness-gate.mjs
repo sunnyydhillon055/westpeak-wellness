@@ -38,6 +38,7 @@
 import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { execFileSync } from 'node:child_process';
+import { mainText, shingles, jaccard } from './lib/shingles.mjs';
 
 const ROOT = new URL('..', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
 const SERVER = join(ROOT, '.next', 'server', 'app', 'online-counselling');
@@ -85,36 +86,9 @@ function collect(dir, out = []) {
   return out;
 }
 
-/* <main> only. The flight payload and the shared header/footer are not content
-   and counting them would drown the signal. */
-function mainText(html) {
-  const m = html.match(/<main[^>]*>([\s\S]*?)<\/main>/i);
-  const scope = m ? m[1] : html;
-  return scope
-    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
-    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
-    .replace(/<svg[\s\S]*?<\/svg>/gi, ' ')
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/&[a-z#0-9]+;/gi, ' ')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .toLowerCase();
-}
-
-/** Overlapping 8-word shingles — long enough that a shared stock phrase does
- *  not register, short enough that a lightly reworded paragraph still does. */
-function shingles(text, n = 8) {
-  const w = text.split(' ').filter(Boolean);
-  const s = new Set();
-  for (let i = 0; i + n <= w.length; i++) s.add(w.slice(i, i + n).join(' '));
-  return s;
-}
-
-const jaccard = (a, b) => {
-  let inter = 0;
-  for (const x of a) if (b.has(x)) inter++;
-  return inter / (a.size + b.size - inter || 1);
-};
+/* <main> only, 8-word shingles, Jaccard. The measure lives in
+   scripts/lib/shingles.mjs since 4 Oct 2026, so the page scorer
+   (scripts/page-score.mjs) judges near-duplication exactly as this gate does. */
 
 /* ---- --gsc: THE CANDIDATES FOR THE ZERO-IMPRESSION RULE — 3 Oct 2026 ----
  *

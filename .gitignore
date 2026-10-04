@@ -38,3 +38,6 @@ qa/
 .patch-*.py
 .decision*.md
 .recent.txt
+
+# The page scorer's output (scripts/page-score.mjs): regenerated from each build.
+data/page-scores.json
