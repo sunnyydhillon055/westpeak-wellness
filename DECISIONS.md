@@ -2890,6 +2890,143 @@ deliberately not typed.
 `test/service-languages.test.mts`, `scripts/seo-audit.mjs`
 
 ---
+
+### Page-one informational snippets carry the fee; "BC and Alberta" and "often covered" are never typed
+Decided 3 Oct 2026 (branch `wf/r6-snippets-content`). The plan-coverage, MSP
+and waiting-time pages, which rank on page one, now end their meta description
+with a generated "{fee} per {minutes}-min session · free 30-min consult" line
+(`feeSnippet`, no names, because the leads plus names exceed 155 characters).
+The home page has its own description built with `practiceSnippet`. The
+Alberta coverage page names the one counsellor insured for Alberta, with her
+CCC and fee, only while `insuredProvinces` includes AB; otherwise it falls
+back to a line with no name and no fee.
+
+**Coverage wording.** "Often" joins "most" as a prevalence claim the coverage
+gate rejects: a coverage answer opening "Often,", "plans … often
+cover/reimburse" without "depending on the plan" in the same sentence, and
+"often reimbursed by … plans". Every cost answer uses the `PLAN_COVERAGE`
+constant in `lib/practice-facts.ts`.
+
+**Reach.** "BC and Alberta" is never typed. `servedProvinces()` and
+`reachesAlberta()` build it from the gated roster, and
+`scripts/coverage-claims.mjs` fails on a typed "(BC|British Columbia)
+(and|or) Alberta" in lib/, app/ or components/, comments excluded. Three
+reasoned exemptions (the access tool's scope, the no-dataset sentence, an
+internal mail label) and two pending files owned elsewhere
+(`app/for/page.tsx`, `lib/resources-tagalog-words.ts`), plus one pending
+"often partly covered" line in `lib/guides-drafts.ts`, are listed in the
+script. `lib/tools.ts` reaches client bundles, so it does not import the
+roster; its reach sentence was rewritten so that it is not a reach claim.
+
+**Titles.** No metaTitle may type a year (`test/meta-title-year.test.mts`);
+the sick-days and medical EI titles take theirs from `pacificYear()` and
+`eiSicknessMax()`. Title changes, with before and after recorded under the
+new `title-changes` key in `data/gsc/snippets.json`: the coverage resource,
+medical EI, the Punjabi service, /for/men and high-functioning anxiety.
+
+**Evidence.** The new couples FAQ on video counselling rests on one RCT
+(Kysely et al. 2022, Frontiers in Psychology, 30 couples, one therapist, read
+on PMC 3 Oct 2026) and says how small that is. The AI comparison's cost cell
+states this practice's catalogue fee and the BCACC fee guide; it quotes no app
+price, because none was read from a vendor.
+
+No noindex, redirect or consolidation.
+
+*Enforced by:* `scripts/coverage-claims.mjs` (run by `seo-audit`),
+`test/meta-title-year.test.mts`, `test/snippets-oct3.test.mts`
+
+---
+
+### Every "Book with {name}" ends at her calendar; replies and acknowledgements carry Cliniko's next days
+Decided 3 Oct 2026 (branch `wf/r6-book-paths`). Every hand-built booking href
+now goes through `bookHrefFor` and ends in `#calendar`: the profile, the place
+pages, the pa and tl twins and the Tagalog guides (which fall back to bare
+/book when no speaker exists rather than building `?with=`).
+`test/book-cta-links.test.mts` scans app/**/*.tsx for a hand-built or typed
+`/book?with=` link missing `#calendar`. The profile's "Next open" days are
+links (book_click location `next-practitioner`).
+
+**Mail.** Enquiry acknowledgements list each routed counsellor's next three
+free consultation days (from Cliniko, Pacific time, days only; left out when
+the read fails or finds nothing; the read gives up after 2.5 s). The alert to
+a single routed, accepting counsellor carries a `mailto:` reply draft: her
+days, her calendar, her catalogue fees narrowed to her own services, signed
+with her first name. The site sends nothing new and adds no mail type; the
+draft goes nowhere until she sends it herself.
+
+**Closed profiles.** A profile not taking new clients says so in its meta
+description and names the first accepting colleague who shares a non-English
+language (`lib/closed-profile-snippet.ts`). No reason and no dates.
+
+**Pages.** /punjabi names Savneet in one English line under the Gurmukhi
+button, with her next free day as a link (`hero-next-language`); no new
+Punjabi prose. /message-sent no longer says "solo practice" or "always within
+two", tells people to reply to their copy rather than resubmit, and links the
+next free calls (`next-message-sent`). Both pages revalidate every 1800 s.
+
+**Counting.** New counted event `book_arrive` (details: roster slug, `none`,
+`ask`), fired once per session on /book, so /admin and the weekly table show
+/book stage by stage (arrived, calendar opened, touched, booked). "Calendar
+opened" is practice-wide only, because `scheduler_open` carries no
+counsellor. Counts only.
+
+Nothing is noindexed, redirected or consolidated.
+
+*Enforced by:* `test/book-cta-links.test.mts`, `test/book-arrive.test.mts`,
+`lib/conversion-detail.ts` (`BOOK_LOCATIONS`, `ALLOWED`)
+
+---
+
+### City-service pages drop the blocks they shared; the uniqueness floor rises to 25%
+Decided 3 Oct 2026 (branch `wf/r6-city-dedup`; items 415, 422, 432, 433, 437,
+449, 464). Consolidation rules, with counts:
+
+1. Section 3 of the 100 city × service pages no longer renders the service
+   intro, its "commonly used for" list or its approach paragraph. Kept: the
+   h2, the service figure, and the links to the service or condition page,
+   /tools/which-service and the first-session guide. In the built HTML that
+   block was identical on each service's 20 pages and was 16.7% of all
+   city-service text.
+2. The "Other counselling in {city}" list prints the link only, not each
+   sibling's angle, on all 100 pages. Before, every angle appeared on 5 pages.
+3. The generated "Who would I see for {svc} in {city}?" and "What does {svc}
+   cost in {city}, and will my plan cover it?" FAQs are removed from the
+   visible FAQ and FAQPage on all 100 pages (80 copies each, plus 20 trauma
+   variants). The BCACC range and the coverage sentence moved into the
+   existing fee line (`guideNote`, `COVERAGE_LINE`). The 27 city hubs keep
+   their own generated who/cost FAQs.
+4. `MIN_UNIQUE_SHARE` for city-service pages rises from 0.18 to 0.25: min
+   25%, median 31%. There is no headroom; any shared text added to these
+   pages fails the gate. Counsellor place pages keep 0.18 as
+   `PLACE_MIN_UNIQUE_SHARE` (their min is 24%).
+5. Descriptions are composed as the pair's angle (cut at a whole clause, else
+   at a word with an ellipsis), then "With {first names},", then
+   `serviceSnippet`. 23 of 100 still end the angle with an ellipsis. No two
+   descriptions may share more than 60% of their word 4-grams (current max
+   54%).
+6. New pairwise ceilings in `scripts/uniqueness-gate.mjs`: /tl twins 0.50,
+   /pa twins 0.52 (temporary; target 0.50), Tagalog cities 0.40, hub vs hub
+   0.40, Punjabi regions 0.30.
+7. `uniqueness-gate.mjs --gsc`, run by `npm run seo`, reports pages live 42
+   or more days with no impressions, with their nearest neighbour. Report
+   only: it noindexes, redirects and consolidates nothing. Today it lists 34
+   pages across 6 exports.
+
+**Sourced additions, read 3 Oct 2026.** Nine anxiety and depression pairs
+carry a condition-specific public route in place of the shared
+health-authority paragraph: Chilliwack, Langley, Kamloops and Prince George
+(both conditions) and Victoria (depression), each cited in
+`PUBLIC_ROUTE_SOURCES`. The Surrey hub answers free counselling (SFU Surrey
+Community Counselling; Fraser Health's Surrey MHSU centre, not called free
+because its page states no cost). The RCC vs psychologist comparison answers
+how to find a registered psychologist (BCPA Find a Psychologist, the CHCPBC
+registry). No hours and no outcome claims.
+
+*Enforced by:* `scripts/uniqueness-gate.mjs`, `test/city-dedup-oct3.test.mts`,
+`test/city-service-page.test.mts`
+
+---
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`
