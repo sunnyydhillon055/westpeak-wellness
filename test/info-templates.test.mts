@@ -33,7 +33,8 @@ test('every sentence that prints a clock time says Pacific time', () => {
   assert.ok(availabilityLine(a, 'Camille')!.includes(PACIFIC));
   assert.ok(nextFreeCallLine({ x: a }, [{ slug: 'x', first: 'Camille' }])!.endsWith(PACIFIC));
   assert.match(NEXT_CONSULT_LABEL, /Pacific time/);
-  assert.match(src('components/NextConsultLine.tsx'), /NEXT_CONSULT_LABEL/);
+  assert.match(src('components/NextConsultSlot.tsx'), /<strong>\{NEXT_CONSULT_LABEL\}<\/strong>/);
+  assert.match(src('components/NextConsultSlot.tsx'), /\{PACIFIC_LABEL\}/);
   assert.match(src('app/book/page.tsx'), /Next open with \{first\}\{PACIFIC\}/);
 });
 

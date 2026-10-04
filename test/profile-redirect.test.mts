@@ -82,7 +82,7 @@ test('the place pages state her facts instead of "nothing about the fee changes"
   assert.doesNotMatch(page, /nothing about\s+the fee|same fee and the same availability|changes with distance/);
   assert.match(page, /feeLines\(p, catalog\)/);
   assert.match(page, /<NextConsultLine slugs=\{\[p\.slug\]\} location="place-practitioner"/);
-  assert.match(page, /export const revalidate = 1800/);
+  assert.doesNotMatch(page, /export const revalidate/, 'static since 3 Oct 2026 (item 429); the line fills in on the client');
   assert.match(page, /export function generateStaticParams/);
   assert.doesNotMatch(readFileSync('lib/practitioner-places.ts', 'utf8'), /nothing about the fee/);
 });

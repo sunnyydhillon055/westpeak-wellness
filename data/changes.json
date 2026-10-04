@@ -120,6 +120,14 @@
       "metric": "conv:lead_magnet_submit",
       "readAfter": "2026-10-30",
       "note": "The other half of item 385: one-pager signups on the same pages after the form moved below the next step. September had 60 signups against 18 enquiries site-wide."
+    },
+    {
+      "id": "2026-10-03-hero-next-article",
+      "date": "2026-10-03",
+      "pages": ["/guides/", "/resources/", "/compare/", "/pricing"],
+      "metric": "conv:book_click",
+      "readAfter": "2026-10-31",
+      "note": "Item 409, registered as its own change: the next free day with the counsellor who fits (from Cliniko, days only) moved from the closing block, or from mid-article on five pages, to under the hero button, counted as hero-next-article; where one counsellor fits, the hero button names her and her languages. On /pricing it replaces the next-pricing sentence. The same day the pages became fully static (item 429), so the line is filled in by the browser. Overlaps 2026-10-01-next-step and 2026-10-02-lead-after-next-step on /guides/ and /resources/; read hero-next-article clicks alongside them, not instead. If this ships after 3 Oct, move date and readAfter to the deploy day."
     }
   ]
 }

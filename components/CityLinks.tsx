@@ -49,7 +49,7 @@ export default function CityLinks() {
         </p>
         <div className="chip-grid" style={{ marginTop: 16 }}>
           {cityLinkTargets.map((c) => (
-            <Link className="chip" key={c.slug} href={`/online-counselling/${c.slug}`}>
+            <Link prefetch={false} className="chip" key={c.slug} href={`/online-counselling/${c.slug}`}>
               Online counselling in {c.city}
             </Link>
           ))}

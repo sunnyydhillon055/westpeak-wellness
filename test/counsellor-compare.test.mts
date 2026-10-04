@@ -56,7 +56,8 @@ test('the profile builds its hero, line and band from alternativesFor, not the f
   assert.doesNotMatch(page, /defaultBookingPractitioner/);
   assert.match(page, /alternativesFor\(p, practitioners\)/);
   assert.match(page, /alternativeLabel\(alts\[0\]\)/, 'the band uses the same pair');
-  assert.match(page, /\{nextOpen\.join\(' · '\)\}\{PACIFIC\}/, 'next open is labelled Pacific');
+  assert.match(page, /<OpenDays slug=\{p\.slug\} first=\{first!\} \/>/, 'next open, filled in by the browser');
+  assert.match(src('components/NextConsultSlot.tsx'), /\{days\.join\(' · '\)\}\{PACIFIC_LABEL\}/, 'next open is labelled Pacific');
   assert.match(page, /open=\{i === 0\}/, 'the first answer is open');
   assert.doesNotMatch(page, /secondLanguages\.length > 0 &&/, 'one language section, not two');
 });
@@ -122,11 +123,13 @@ test('the new booking locations are registered, appended after every earlier key
   assert.equal(BOOK_LOCATIONS[BOOK_LOCATIONS.indexOf('email:reactivation') + 1], 'calendar-alt');
   assert.ok(BOOK_LOCATIONS.indexOf('practitioners-row') > BOOK_LOCATIONS.indexOf('next-consult-ask'));
   const page = src('app/practitioners/page.tsx');
-  assert.match(page, /export const revalidate = 1800/);
+  assert.doesNotMatch(page, /export const revalidate/);
+  assert.match(page, /<FirstOpen slug=\{p\.slug\} prefix="Next free consultation: " \/>/);
   assert.match(page, /location="practitioners-row"/);
   assert.doesNotMatch(page, /immigration stress/);
   assert.doesNotMatch(page, /Registration numbers are shown in full/);
-  assert.match(src('components/CounsellorCompare.tsx'), /PACIFIC/);
+  assert.match(src('components/CounsellorCompare.tsx'), /<FirstOpen/);
+  assert.match(src('components/NextConsultSlot.tsx'), /\{when\}\{PACIFIC_LABEL\}/);
   assert.doesNotMatch(src('components/CounsellorCompare.tsx'), /^'use client'/);
 });
 

@@ -162,6 +162,9 @@ export const BOOK_LOCATIONS: readonly string[] = [
   'counsellor-not-found',
   /* wf/tp-places, 3 Oct 2026: the hero button on /online-counselling. */
   'hero-online',
+  /* r6-static-speed, 3 Oct 2026 (item 409): the next free day under the
+     hero button of each guide, resource and comparison and of /pricing. */
+  'hero-next-article',
 ];
 
 /** Every slug on the roster, accepting or not. The founder's cannot reach a

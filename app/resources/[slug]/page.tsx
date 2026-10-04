@@ -11,7 +11,7 @@ import { orgRef, siteRef } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import { plainText } from '@/lib/plain-text';
 import BookLink from '@/components/BookLink';
-import { bookingCtaFor } from '@/lib/booking-cta';
+import { bookingCtaFor, consultPeople, heroBookingCta } from '@/lib/booking-cta';
 import SceneBand from '@/components/SceneBand';
 import Byline from '@/components/Byline';
 import ExtraSections from '@/components/ExtraSections';
@@ -25,7 +25,7 @@ import InlineRelated from '@/components/InlineRelated';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import LeadCapture, { type MagnetKey } from '@/components/LeadCapture';
 import { ogBase } from '@/lib/og-meta';
-import NextConsultLine from '@/components/NextConsultLine';
+import { HeroNextDays } from '@/components/NextConsultLine';
 import NextStep from '@/components/NextStep';
 import { NO_CARDS, counsellorsForInfoPage, feeLineFor, infoCardCopy, showsInfoCards } from '@/lib/counsellor-cards';
 import { softStepsFor } from '@/lib/next-steps';
@@ -55,18 +55,26 @@ const RESOURCE_MAGNET: Record<string, MagnetKey | undefined> = {
    that settles coverage, and, on the Punjabi words page, the section about
    reading the rest in Punjabi (that line names only counsellors who work in
    the page's language). Keyed by heading, as in the guides template, so the
-   line moves with its section. Each has its own book_click location. */
+   line moves with its section. Each has its own book_click location.
+
+   Since 3 Oct 2026 (item 409) the line prints under the hero button instead,
+   counted as 'hero-next-article', and this list only says which resources
+   carry it although they show no counsellor cards. The three locations stay
+   in BOOK_LOCATIONS for the clicks already recorded. */
 const NEXT_CONSULT_AFTER: Record<string, { h2: string; location: string }> = {
   'verify-a-counsellor-in-bc': { h2: 'The four-minute check', location: 'next-resource-verify' },
   'does-my-plan-cover-counselling-bc': { h2: 'The question that settles it, whichever insurer you have', location: 'next-resource-plan' },
   'counselling-in-punjabi-what-the-words-mean': { h2: 'If you want the rest of this in Punjabi', location: 'next-resource-punjabi-words' },
 };
 
-/* Re-rendered every thirty minutes, the life of the availability cache, so
-   the line above is what Cliniko is offering, and the fee line under the
-   cards follows the catalogue. A resource without either renders the same
-   bytes each time. 1 Oct 2026. */
-export const revalidate = 1800;
+/* FULLY STATIC — 3 Oct 2026 (item 429). This page exported `revalidate`
+   for the catalogue fee and the next-consultation line. A page Next
+   re-renders in production goes out without the inlined first-paint CSS
+   (scripts/inline-css.mjs only sees the build), and production served these
+   templates with blocking stylesheet links. The fee is now a build-time fact
+   (a price change in Cliniko reaches the page with the next deploy) and the
+   next consultation is filled in by the browser (components/NextConsultSlot.tsx).
+   `inline-css --check` fails if an indexable route exports revalidate again. */
 
 export function generateStaticParams() {
   return resources.map((r) => ({ slug: r.slug }));
@@ -113,6 +121,16 @@ export default async function ResourcePage({ params }: { params: { slug: string 
      speaks it; one written for Alberta with the counsellor insured there;
      every other resource keeps the practice calendar. */
   const cta = bookingCtaFor({ language: r.language, province: r.province, fallback: 'Book a free consultation' });
+  /* The next free consultation, once per page, under the hero button since
+     3 Oct 2026 (item 409): with the counsellors the closing cards show (the
+     page's language and province already applied), or, on a resource that
+     printed it mid-article, with every counsellor taking new clients who
+     works in the page's language, as that line did. When exactly one fits,
+     the button names her. */
+  const heroPeople = cards
+    ? consultPeople({ slugs: counsellors.map((p) => p.slug) })
+    : next ? consultPeople({ language: r.language }) : [];
+  const heroCta = heroBookingCta(cta, heroPeople);
 
   /* The dated year-end section, when in season, renders after the first
      section, so the page answers its own question before the seasonal
@@ -204,9 +222,10 @@ export default async function ResourcePage({ params }: { params: { slug: string 
               the word does, which was the whole point the first time. */}
           <p className="hero-note">{r.readMinutes} min read · Updated {fmt(r.updated)}</p>
           <div className={np ? `btn-row ${np}` : 'btn-row'} style={{ marginTop: 22 }}>
-            <BookLink location="hero-resource" href={cta.href}>{cta.label}</BookLink>
+            <BookLink location="hero-resource" href={heroCta.href}>{heroCta.label}</BookLink>
             <Link className="btn btn--ghost" href="/resources">All resources</Link>
           </div>
+          <HeroNextDays people={heroPeople} className={np} />
         </div>
       </section>
 
@@ -285,12 +304,6 @@ export default async function ResourcePage({ params }: { params: { slug: string 
                   <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word', fontFamily: 'inherit', fontSize: '.95rem', lineHeight: 1.6, background: 'var(--bg-tint)', border: '1px solid var(--line)', borderRadius: 8, padding: '18px 20px', margin: '0 0 32px', userSelect: 'all' }}>
                     {s.template.lines.join('\n')}
                   </pre>
-                </div>
-              )}
-
-              {next?.h2 === s.h2 && (
-                <div className="prose">
-                  <NextConsultLine location={next.location} language={r.language} />
                 </div>
               )}
 
@@ -409,10 +422,8 @@ export default async function ResourcePage({ params }: { params: { slug: string 
         cardCopy={infoCardCopy(false, r.province)}
         feeLine={feeLine}
         province={r.province}
-        /* Once per page (item 379): a resource that already printed the
-           next free consultation mid-article (NEXT_CONSULT_AFTER) does not
-           print it again here. */
-        consult={cards && !next ? { location: 'next-resource-close', slugs: counsellors.map((p) => p.slug) } : undefined}
+        /* No consult: once per page (item 379), and since 3 Oct 2026
+           (item 409) it prints under the hero button (HeroNextDays). */
         /* An Alberta page drops the BC cost estimator (item 384). */
         softSteps={softStepsFor({ path: `/resources/${r.slug}`, slug: r.slug }).filter((s) => r.province !== 'AB' || !s.href.endsWith('-bc'))}
         band={{

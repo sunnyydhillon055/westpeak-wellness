@@ -53,10 +53,14 @@ import { placeTitle } from '@/lib/practitioner-titles';
  * else. A smoke assertion caught it: expected 404, got 200. */
 export const dynamicParams = false;
 
-/* Re-rendered every thirty minutes, since 2 Oct 2026, so the fee strip and
-   the next-consultation line under the hero are what the catalogue and
-   Cliniko say today. generateStaticParams still decides which pages exist. */
-export const revalidate = 1800;
+/* FULLY STATIC — 3 Oct 2026 (item 429). This page exported `revalidate`
+   for the catalogue fee and the next-consultation line. A page Next
+   re-renders in production goes out without the inlined first-paint CSS
+   (scripts/inline-css.mjs only sees the build), and production served these
+   templates with blocking stylesheet links. The fee is now a build-time fact
+   (a price change in Cliniko reaches the page with the next deploy) and the
+   next consultation is filled in by the browser (components/NextConsultSlot.tsx).
+   `inline-css --check` fails if an indexable route exports revalidate again. */
 
 type Params = { slug: string; place: string };
 

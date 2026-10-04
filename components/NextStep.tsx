@@ -47,7 +47,10 @@ export default function NextStep({
   /** From feeLineFor (lib/counsellor-cards.ts); undefined prints no fee. */
   feeLine?: string;
   /** The next-consultation line: who it may name and its book_click key.
-   *  Undefined prints none. */
+   *  Undefined prints none. Since 3 Oct 2026 (item 409) the guide, resource
+   *  and comparison templates pass none: the line prints once per page,
+   *  under the hero button (HeroNextDays in components/NextConsultLine.tsx),
+   *  where a reader meets it before the article rather than after it. */
   consult?: { location: string; slugs: readonly string[]; language?: string };
   softSteps: SoftStep[];
   /** 'AB' on a page written for Alberta: the coverage sentence then names

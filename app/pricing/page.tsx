@@ -6,13 +6,17 @@ import SceneBand from '@/components/SceneBand';
 import { Wallet, Video, CreditCard, CalendarX } from 'lucide-react';
 import Figure from '@/components/Figure';
 import LeadCapture from '@/components/LeadCapture';
+import LeadCaptureFromQuery from '@/components/LeadCaptureFromQuery';
+import { Suspense } from 'react';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { readCatalog, money, type CatalogItem } from '@/lib/cliniko-catalog';
 import { webPage } from '@/lib/schema';
+import { ogBase } from '@/lib/og-meta';
 import { lastmodFor } from '@/lib/page-dates';
 import { HOW_TO_CANCEL } from '@/lib/faq';
 import { counsellorsFor, languagesOf, listOf } from '@/lib/city-service-page';
-import NextConsultLine from '@/components/NextConsultLine';
+import { HeroNextDays } from '@/components/NextConsultLine';
+import { consultPeople, heroBookingCta } from '@/lib/booking-cta';
 import { SESSION_SECURITY, SESSION_SECURITY_MD } from '@/lib/policies';
 import { rich } from '@/lib/rich';
 import { practiceSnippet, withSnippet } from '@/lib/snippet-facts';
@@ -30,6 +34,10 @@ import {
 export async function generateMetadata(): Promise<Metadata> {
   const lead =
     'Every counselling fee in full, in line with BCACC guidelines. What extended health usually reimburses, and what the free consultation covers.';
+  const description = withSnippet(
+    lead,
+    practiceSnippet(await readCatalog(), counsellorsFor({ bookingService: 'individual-therapy' })),
+  );
   return {
     /* Retitled 17 Sep 2026 from "Fees & Insurance", which matched none of the
        cost queries in Search Console — every one of them is phrased as a
@@ -40,18 +48,22 @@ export async function generateMetadata(): Promise<Metadata> {
        suffix would take it past the 60-character gate; the tool page gave
        this query up the same day and is titled for the calculator. */
     title: { absolute: 'How Much Does Therapy Cost in BC? 2026 Counselling Fees' },
-    description: withSnippet(
-      lead,
-      practiceSnippet(await readCatalog(), counsellorsFor({ bookingService: 'individual-therapy' })),
-    ),
+    description,
     alternates: { canonical: `${site.domain}/pricing` },
+    /* Its own og:url since 3 Oct 2026: as a static page the metadata audit
+       reads it, and the inherited card pointed at the home page. */
+    openGraph: { ...ogBase('/pricing'), title: 'How Much Does Therapy Cost in BC? 2026 Counselling Fees', description },
   };
 }
 
-/* Revalidate hourly so a price changed in Cliniko reaches this page without a
- * redeploy. The nightly cron refreshes the cached catalogue; this decides how
- * quickly the rendered page picks that up. */
-export const revalidate = 3600;
+/* FULLY STATIC — 3 Oct 2026 (item 429). This page exported `revalidate`
+   for the catalogue fee and the next-consultation line. A page Next
+   re-renders in production goes out without the inlined first-paint CSS
+   (scripts/inline-css.mjs only sees the build), and production served these
+   templates with blocking stylesheet links. The fee is now a build-time fact
+   (a price change in Cliniko reaches the page with the next deploy) and the
+   next consultation is filled in by the browser (components/NextConsultSlot.tsx).
+   `inline-css --check` fails if an indexable route exports revalidate again. */
 
 /* Display order and labels. Cliniko returns types in its own order with its own
  * names, and the fee table has always read "Individual" rather than "Individual
@@ -81,7 +93,7 @@ const GLANCE = {
   value: { margin: 0, color: 'var(--ink)', fontWeight: 580 },
 } as const;
 
-export default async function Pricing({ searchParams }: { searchParams?: { lead?: string } }) {
+export default async function Pricing() {
   const catalog = await readCatalog();
   const find = (n: string): CatalogItem | undefined =>
     catalog.items.find((i) => i.name.toLowerCase() === n.toLowerCase());
@@ -124,6 +136,10 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
       ? `Counselling fees: ${money(ind.cents)} a session${consult && consult.cents === 0 ? `, and the first ${consult.minutes} minutes are free` : ''}`
       : 'Counselling fees and insurance';
   const accepting = counsellorsFor({ bookingService: 'individual-therapy' });
+  /* Who the day list under the hero button may name, and, when that is one
+     counsellor, the button names her (item 409, 3 Oct 2026). */
+  const heroPeople = consultPeople({ slugs: accepting.map((p) => p.slug) });
+  const heroCta = heroBookingCta({ href: site.bookingPath, label: 'Book a Free Consultation' }, heroPeople);
   const whoLede = accepting.length
     ? `Sessions are with ${listOf(accepting.map((p) => `${p.name} (${listOf(languagesOf(p), 'and')})`), 'or')}, ${accepting.length > 1 ? 'Registered Clinical Counsellors who see' : 'a Registered Clinical Counsellor who sees'} people by secure video anywhere in BC. No hidden fees, no packages.`
     : 'Every fee in full, with no hidden fees and no packages.';
@@ -160,13 +176,15 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
             pay only if you book a session afterwards.
           </p>
           <div className="btn-row" style={{ marginTop: 14 }}>
-            <Link className="btn btn--primary" href={site.bookingPath}>Book a Free Consultation</Link>
+            <Link className="btn btn--primary" href={heroCta.href}>{heroCta.label}</Link>
             <Link className="btn btn--ghost" href="/resources/bc-extended-health-coverage-for-counselling">Check your coverage</Link>
           </div>
-          {/* The next free consultation with each counsellor taking new
-              clients, from the Cliniko cache; nothing when there is none.
-              1 Oct 2026. */}
-          <NextConsultLine location="next-pricing" slugs={accepting.map((p) => p.slug)} style={{ margin: '14px 0 0', fontSize: '.95rem' }} />
+          {/* The next free day with each counsellor taking new clients, from
+              the Cliniko cache, filled in by the browser; nothing when there
+              is none. A sentence counted as 'next-pricing' from 1 Oct 2026,
+              the home hero's day list counted as 'hero-next-article' from
+              3 Oct (item 409). */}
+          <HeroNextDays people={heroPeople} />
         </div>
       </section>
 
@@ -433,7 +451,11 @@ export default async function Pricing({ searchParams }: { searchParams?: { lead?
           </p>
           <Figure name="reimbursement-flow" />
 
-          <LeadCapture done={searchParams?.lead === 'ok'} failed={searchParams?.lead === 'err'} />
+          {/* The ?lead= flag is read in the browser so this page can be
+              static (components/LeadCaptureFromQuery.tsx, 3 Oct 2026). */}
+          <Suspense fallback={<LeadCapture />}>
+            <LeadCaptureFromQuery />
+          </Suspense>
 
           <p>
             Want the arithmetic on your own plan? The{' '}

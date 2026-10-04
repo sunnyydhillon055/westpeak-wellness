@@ -24,9 +24,9 @@ import { deviceSlots } from '@/lib/placement';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import LeadCapture, { type MagnetKey } from '@/components/LeadCapture';
 import { ogBase } from '@/lib/og-meta';
-import NextConsultLine from '@/components/NextConsultLine';
+import { HeroNextDays } from '@/components/NextConsultLine';
 import BookLink from '@/components/BookLink';
-import { bookingCtaFor } from '@/lib/booking-cta';
+import { bookingCtaFor, consultPeople, heroBookingCta } from '@/lib/booking-cta';
 import NextStep from '@/components/NextStep';
 import { counsellorsForInfoPage, feeLineFor, infoCardCopy, showsInfoCards } from '@/lib/counsellor-cards';
 import { GENTLE_CTA, softStepsFor } from '@/lib/next-steps';
@@ -56,16 +56,25 @@ function guideMagnet(slug: string): MagnetKey | null {
    in-bc (1 Oct 2026), and the sick-days guide's section on when the days
    become a pattern worth talking about (10 clicks, 1 book_click). Keyed by
    the section's heading so the line moves with the section, not with an
-   index; each has its own book_click location. */
+   index; each has its own book_click location.
+
+   Since 3 Oct 2026 (item 409) the line prints under the hero button instead,
+   counted as 'hero-next-article', and this list only says which guides
+   carry it although they show no counsellor cards. The two locations stay
+   in BOOK_LOCATIONS for the clicks already recorded. */
 const NEXT_CONSULT_AFTER: Record<string, { h2: string; location: string }> = {
   'waiting-for-therapy-in-bc': { h2: 'When paying privately makes sense, and when it does not', location: 'guide-waiting' },
   'sick-days-and-mental-health-days-bc': { h2: 'When the days become data', location: 'next-guide-sick-days' },
 };
 
-/* Re-rendered every thirty minutes, the life of the availability cache, so
-   the line above is what Cliniko is offering rather than what it offered at
-   build time. A guide without the line renders the same bytes each time. */
-export const revalidate = 1800;
+/* FULLY STATIC — 3 Oct 2026 (item 429). This page exported `revalidate`
+   for the catalogue fee and the next-consultation line. A page Next
+   re-renders in production goes out without the inlined first-paint CSS
+   (scripts/inline-css.mjs only sees the build), and production served these
+   templates with blocking stylesheet links. The fee is now a build-time fact
+   (a price change in Cliniko reaches the page with the next deploy) and the
+   next consultation is filled in by the browser (components/NextConsultSlot.tsx).
+   `inline-css --check` fails if an indexable route exports revalidate again. */
 
 export function generateStaticParams() {
   return guides.map((g) => ({ slug: g.slug }));
@@ -124,6 +133,15 @@ export default async function GuidePage({ params }: { params: { slug: string } }
      who offers it (g.service); every other guide keeps the practice
      calendar. Through bookingCtaFor so the rule lives in one place. */
   const cta = bookingCtaFor({ service: g.service, fallback: 'Book a free consultation' });
+  /* The next free consultation, once per page, under the hero button since
+     3 Oct 2026 (item 409): with the counsellors the closing cards show, or,
+     on a guide that printed it mid-article (NEXT_CONSULT_AFTER), with every
+     counsellor taking new clients, as that line did. A guide with neither
+     prints none. When exactly one fits, the button names her. */
+  const heroPeople = cards
+    ? consultPeople({ slugs: counsellors.map((p) => p.slug), service: g.service })
+    : next ? consultPeople({ service: g.service }) : [];
+  const heroCta = heroBookingCta(cta, heroPeople);
 
   const toc = buildToc([
     ...g.sections.map((s) => s.h2),
@@ -231,9 +249,10 @@ export default async function GuidePage({ params }: { params: { slug: string } }
           <div className="btn-row" style={{ marginTop: 22 }}>
             {/* Counted since 1 Oct 2026: book_click was recorded on one guide
                 in six weeks because neither guide button reported anything. */}
-            <BookLink location="hero-guide" href={cta.href}>{cta.label}</BookLink>
+            <BookLink location="hero-guide" href={heroCta.href}>{heroCta.label}</BookLink>
             <Link className="btn btn--ghost" href="/guides">All guides</Link>
           </div>
+          <HeroNextDays people={heroPeople} />
         </div>
       </section>
 
@@ -264,8 +283,6 @@ export default async function GuidePage({ params }: { params: { slug: string } }
                   ))}
                 </ul>
               )}
-
-              {next?.h2 === s.h2 && <NextConsultLine location={next.location} />}
 
               {midDevices.filter((_, k) => slots[k] === i)}
             </div>
@@ -321,10 +338,8 @@ export default async function GuidePage({ params }: { params: { slug: string } }
         cardLocation="guide"
         cardCopy={infoCardCopy(gentle)}
         feeLine={feeLine}
-        /* Once per page (item 379): a guide that already printed the next
-           free consultation mid-article (NEXT_CONSULT_AFTER) does not print
-           it again here. */
-        consult={cards && !next ? { location: 'next-guide-close', slugs: counsellors.map((p) => p.slug) } : undefined}
+        /* No consult: once per page (item 379), and since 3 Oct 2026
+           (item 409) it prints under the hero button (HeroNextDays). */
         service={g.service}
         softSteps={softStepsFor({ path: `/guides/${g.slug}`, slug: g.slug, service: g.service })}
         band={{

@@ -98,7 +98,9 @@ test('every narrowed booking href ends in #calendar; bare /book never does', () 
   }
   /* Since 2 Oct 2026 the line builds its href with bookHrefFor, which ends
      in #calendar and adds for=couples on a couples page (item 354). */
-  assert.match(src('components/NextConsultLine.tsx'), /href=\{bookHrefFor\(practitioners\.filter\(\(p\) => p\.slug === e\.slug\), service\)\}/);
+  /* Since 3 Oct 2026 the roster half lives in consultPeople (item 429). */
+  assert.match(src('lib/booking-cta.ts'), /href: bookHrefFor\(\[p\], service\)/);
+  assert.match(src('components/NextConsultLine.tsx'), /consultPeople\(\{ slugs, language, service \}\)/);
   assert.doesNotMatch(src('lib/lead-roster.ts'), /bookHrefFor\(\[p\]\)\}#calendar/, 'no doubled hash');
 });
 
@@ -171,14 +173,18 @@ test('the new booking buttons are counted, in the middle of the list', () => {
 
 /* ---------- wf/article-templates, 1 Oct 2026: items 366, 370, 379, 383, 384, 385 ---------- */
 
-test('379: the next free consultation prints once per page, mid-article or in the closing block', () => {
-  for (const [file, loc] of [['app/resources/[slug]/page.tsx', 'next-resource-close'], ['app/guides/[slug]/page.tsx', 'next-guide-close']]) {
+test('379: the next free consultation prints once per page, under the hero button since 409', () => {
+  for (const file of ['app/resources/[slug]/page.tsx', 'app/guides/[slug]/page.tsx', 'app/compare/[slug]/page.tsx', 'app/pricing/page.tsx']) {
     const page = src(file);
-    assert.ok(page.includes(`consult={cards && !next ? { location: '${loc}'`), file);
-    assert.match(page, /const next = NEXT_CONSULT_AFTER\[/, file);
-    /* Exactly one mid-article render, keyed on the same `next`. */
-    assert.equal(page.split('<NextConsultLine').length - 1, 1, file);
-    assert.match(page, /next\?\.h2 === s\.h2 && /, file);
+    /* One render, at the top; none mid-article, none in the closing block. */
+    assert.equal(page.split('<HeroNextDays').length - 1, 1, file);
+    assert.equal(page.split('<NextConsultLine').length - 1, 0, file);
+    assert.doesNotMatch(page, /\bconsult=\{/, file);
+  }
+  for (const file of ['app/resources/[slug]/page.tsx', 'app/guides/[slug]/page.tsx']) {
+    /* A page without cards keeps the line only where it printed one mid-article before. */
+    assert.match(src(file), /const heroPeople = cards\s+\? consultPeople\(\{ slugs: counsellors\.map\(\(p\) => p\.slug\)/, file);
+    assert.match(src(file), /: next \? consultPeople\(/, file);
   }
 });
 

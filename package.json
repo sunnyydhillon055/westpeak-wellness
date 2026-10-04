@@ -46,7 +46,7 @@
     "fresh": "node scripts/build-freshness.mjs",
     "link-rot": "node scripts/link-rot.mjs",
     "price-drift": "node --experimental-strip-types --no-warnings scripts/price-drift.mjs",
-    "verify:weekly": "npm run link-rot && npm run offsite && npm run audit && npm run review-dates && node scripts/credential-expiry.mjs --strict",
+    "verify:weekly": "npm run link-rot && npm run offsite && npm run audit && npm run review-dates && node scripts/credential-expiry.mjs --strict && node scripts/live-speed.mjs",
     "test": "node --import ./test/resolve-alias.mjs --experimental-strip-types --test test/**/*.test.mts",
     "audit": "npm audit --omit=dev --audit-level=high",
     "composition": "node scripts/bundle-composition.mjs",

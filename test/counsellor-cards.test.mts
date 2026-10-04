@@ -221,10 +221,13 @@ test('#217 the next step sits after Sources and before the link footer on all th
     assert.doesNotMatch(s, /<CtaBand/, `${f} renders a second closing band`);
     assert.doesNotMatch(s, /<CounsellorCards/, `${f} draws cards outside NextStep`);
   }
-  assert.match(src('app/guides/[slug]/page.tsx'), /location: 'next-guide-close'/);
-  assert.match(src('app/resources/[slug]/page.tsx'), /location: 'next-resource-close'/);
-  assert.match(src('app/compare/[slug]/page.tsx'), /location: 'next-compare-close'/);
-  assert.match(src('app/compare/[slug]/page.tsx'), /export const revalidate = 1800/, 'a consultation time on a page never re-rendered goes stale');
+  /* Since 3 Oct 2026 the next consultation prints under the hero (item 409),
+     filled in by the browser so the page can stay static (item 429). */
+  for (const f of ['guides', 'resources', 'compare']) {
+    const s = src(`app/${f}/[slug]/page.tsx`);
+    assert.match(s, /<HeroNextDays people=\{heroPeople\}/, f);
+    assert.doesNotMatch(s, /export const revalidate/, `${f}: a revalidating page loses its inlined CSS in production`);
+  }
   const ns = src('components/NextStep.tsx');
   assert.ok(!/^\s*['"]use client['"]/m.test(ns), 'NextStep must stay a server component');
   assert.doesNotMatch(ns.replace(/\/\*[\s\S]*?\*\//g, ''), /\bMost\b|evening|weekend/, 'coverage is plan-dependent; no hours');
