@@ -137,7 +137,7 @@ export const moreResources: Resource[] = [
       'Most people discover how any of this works at the exact moment they are least able to research it. This is the map, in advance.',
     shortAnswer:
       'BC employees are entitled to paid sick leave under the Employment Standards Act, and mental-health conditions count. Beyond that there are three separate systems that get confused with each other: workplace accommodation under human rights law, disability benefits through an insurer, and WorkSafeBC claims for work-caused injury. Your employer is entitled to know your limitations, not your diagnosis.',
-    updated: '2026-09-17',
+    updated: '2026-10-03',
     readMinutes: 8,
     sections: [
       {
@@ -153,17 +153,20 @@ export const moreResources: Resource[] = [
       {
         h2: 'Paid sick leave',
         body: [
-          'Under the BC Employment Standards Act, eligible employees are entitled to paid sick leave each calendar year after an initial qualifying period of employment, with unpaid leave available beyond it. Mental-health conditions are illness for these purposes. There is no separate or lesser category.',
+          /* 3 Oct 2026: the figures, not a paraphrase of them. Read today on the
+             Province's paid sick leave page: five paid and three unpaid days,
+             after 90 days with the employer. */
+          'Under the BC Employment Standards Act, an employee who has worked for the employer for 90 days gets five paid and three unpaid days of illness or injury leave each calendar year. Mental-health conditions are illness for these purposes. There is no separate or lesser category, and [sick days and mental-health days in BC](/guides/sick-days-and-mental-health-days-bc) covers how to use them.',
           'An employer may ask for reasonable proof that leave is warranted. Reasonable proof is confirmation that you are unable to work and for roughly how long. It is **not** your diagnosis, your treatment, or the content of your appointments, and an employer is not entitled to those.',
-          'The Employment Standards Branch covers most provincially regulated workplaces. Federally regulated ones: banks, telecoms, interprovincial transport, and others, sit under the Canada Labour Code with different entitlements, and unionised workplaces are governed by their collective agreement, which frequently provides more.',
+          'The Employment Standards Branch covers most provincially regulated workplaces. Federally regulated ones: banks, telecoms, interprovincial transport, and others, sit under the Canada Labour Code, which gives up to 10 paid medical leave days a year and up to 27 weeks of unpaid medical leave, and unionised workplaces are governed by their collective agreement, which frequently provides more.',
         ],
       },
       {
         h2: 'Three systems that get confused',
         list: [
           { label: 'Accommodation (human rights law)', detail: 'A mental-health condition can be a disability under the BC Human Rights Code, and employers have a duty to accommodate to the point of undue hardship. Accommodation is about changing how you work: hours, workload, deadlines, a graduated return, a change of duties, not about time away.' },
-          { label: 'Disability benefits (an insurance contract)', detail: 'Short-term and long-term disability are insurance products bought by your employer, governed by a policy rather than by legislation. The insurer decides eligibility using its own definitions, and mental-health claims frequently require more documentation than physical ones.' },
-          { label: 'WorkSafeBC (a claim against work causation)', detail: 'A separate system for injuries caused by work. Mental-health claims are accepted in defined circumstances, most clearly for a traumatic event experienced at work, and in some cases for cumulative work-related stressors. It requires demonstrating that work caused the condition, which is a higher bar than having it.' },
+          { label: 'Disability benefits (an insurance contract)', detail: 'Short-term and long-term disability are insurance products bought by your employer, governed by a policy rather than by legislation. The insurer decides eligibility using its own definitions, and mental-health claims frequently require more documentation than physical ones. [Short and long-term disability for mental health](/resources/disability-benefits-and-counselling-bc) sets out how a claim runs.' },
+          { label: 'WorkSafeBC (a claim against work causation)', detail: 'A separate system for injuries caused by work. Mental-health claims are accepted in defined circumstances, most clearly for a traumatic event experienced at work, and in some cases for cumulative work-related stressors. It requires demonstrating that work caused the condition, which is a higher bar than having it. [WCB psychological injury claims](/resources/worksafebc-psychological-injury-claims) covers the test and the exclusion.' },
         ],
       },
       {
@@ -198,9 +201,14 @@ export const moreResources: Resource[] = [
         /* "stay at work services" is the single largest query this page is
            shown for that it did not answer in a heading: 92 impressions in the
            September export, position 48, one FAQ two screens down. 25 Sep 2026. */
-        h2: 'Stay-at-work services, and what they are not',
+        /* 3 Oct 2026: the definition and who provides the service moved to
+           /for/employers-and-hr ("Stay-at-work services in BC: who provides
+           them"). The query is an employer's (63 impressions at 38.8, the
+           results above are providers and insurers), and two pages defining
+           the same phrase split it. This section keeps the employee's side. */
+        h2: 'If you are offered a stay-at-work plan',
         body: [
-          'A "stay-at-work" or "return-to-work" service is a program, run by an insurer, an employer or WorkSafeBC, whose aim is to keep a person working with adjustments rather than off on a full leave: reduced hours for a period, changed duties, a modified schedule, or treatment arranged alongside work. In BC the phrase appears most often in WorkSafeBC material and in the disability-management language of the larger group insurers. Some employers buy the service from a rehabilitation provider; most people first meet it as a letter from an insurer offering a "stay-at-work plan".',
+          'Most people first meet a stay-at-work plan as a letter from an insurer or HR: instead of a full leave, you keep working with adjustments, such as reduced hours for a period, changed duties, a modified schedule, or treatment arranged alongside work. Who runs these in BC (WorkSafeBC on an accepted claim, a group insurer, an occupational-health provider, sometimes the EFAP) is set out on the [stay-at-work services page for BC employers](/for/employers-and-hr#stay-at-work-services-in-bc-who-provides-them).',
           'Whether one is offered depends on the employer and the plan, not on the diagnosis, and it is worth being clear about what it is and is not. It is a workplace arrangement. It is not care. A plan that changes the hours and leaves the cause untouched tends to become a leave a few months later, which is why counselling commonly runs beside a stay-at-work plan rather than instead of it, and why a good plan names who is providing the treatment.',
           'If you have been offered one, the questions worth asking are who designed it, what it commits the employer to, when it is reviewed, and what happens if it does not work. The [WorkSafeBC route](/resources/worksafebc-psychological-injury-claims) is different again: that is a claim, with its own assessment and its own timelines, and the two are regularly confused.',
         ],
@@ -231,7 +239,7 @@ export const moreResources: Resource[] = [
       label: 'that is worth a free 30-minute consultation',
     },
     faqs: [
-      { q: 'What are "stay at work" services?', a: 'Programs, usually run by an insurer, an employer or WorkSafeBC, that aim to keep someone working with adjustments rather than off on a full leave: reduced hours, changed duties, a modified schedule, or treatment arranged alongside work. In BC the phrase most often appears in WorkSafeBC and disability-insurer material. They are not a substitute for care; counselling commonly runs beside a stay-at-work plan, and a stay-at-work arrangement that leaves the cause untouched tends to become a leave later. Whether one is offered depends on your employer and plan, not on your diagnosis.' },
+      { q: 'Can I see my own counsellor while on a stay-at-work plan?', a: 'Yes. A stay-at-work plan is a workplace arrangement, and it does not choose your treatment for you. You can see a counsellor privately alongside it, booked and paid by you and claimed on your own extended health plan where it covers counselling, and the practice does not report to your employer. A good plan names who is providing the treatment, so it is worth saying who that is when the plan is written.' },
       { q: 'Does my employer have to know my diagnosis?', a: 'Generally no. Employers are entitled to functional limitations and prognosis, not diagnosis. Ask your physician to write the note in terms of capacity rather than condition.' },
       { q: 'Can a counsellor write my sick note?', a: 'Usually not for these purposes. Employers and insurers typically require documentation from a physician, nurse practitioner or psychologist, partly because a Registered Clinical Counsellor does not diagnose.' },
       { q: 'Can I be fired for taking mental-health leave?', a: 'Protected leave and disability-related discrimination are covered by BC employment standards and human rights law. If you believe you have been penalised for taking leave, the Employment Standards Branch and the BC Human Rights Tribunal are the routes.' },
@@ -576,7 +584,7 @@ export const moreResources: Resource[] = [
       'A stress leave says "I am unwell and need time." A WorkSafeBC claim says something stronger: "work injured me." Different systems, different tests, and mixing them up costs people months.',
     shortAnswer:
       'WorkSafeBC compensates psychological injury in two situations: a reaction to one or more traumatic events at work, or a mental disorder predominantly caused by significant work-related stressors, which includes bullying and harassment. Two hard edges define the system: the condition must be diagnosed by a psychologist or psychiatrist (not self-described burnout), and injuries caused by ordinary employer decisions: workload changes, discipline, termination, are excluded by statute. A claim is not a lawsuit and costs nothing to file; it is also not the right tool for every bad workplace, and this page is honest about which is which.',
-    updated: '2026-10-01',
+    updated: '2026-10-03',
     readMinutes: 7,
     sections: [
       {
@@ -585,6 +593,19 @@ export const moreResources: Resource[] = [
           'The first door is **traumatic events**: a worker experiences or witnesses something at work of the kind nobody is expected to absorb: violence, a serious accident, a death, a threat. First responders and health-care workers are the obvious cases, but the door is not restricted to them; a bank teller in a robbery or a transit worker after a fatality stands in the same doorway. If what you have is strain rather than an injury with a work cause, this is not your page: [how stress leave works in BC](/guides/stress-leave-bc) is the route for that, and most people who search "WCB stress leave" belong there.',
           'The second door is **significant work-related stressors**: a mental disorder predominantly caused by ongoing, exceptional workplace stressors, and BC explicitly includes **bullying and harassment** here. "Significant" is doing legal work in that sentence: it means beyond the ordinary pressures of employment, sustained or severe, and documented well enough to be found as fact.',
           'Both doors require the same key: a **diagnosis by a psychologist or psychiatrist** of a recognised condition. Distress, burnout, and "my doctor said stress" do not open either door on their own, which is not a comment on how real they are, only on what this particular system requires. Getting that assessment is usually the first practical step of a serious claim.',
+        ],
+      },
+      {
+        /* THE PRESUMPTION — 3 Oct 2026. "wcb stress leave bc" (37 impressions
+           at 34.4) and "worksafebc stress leave" (12 at 26.1), Search Console
+           3 Oct. The page never mentioned the rule that decides most
+           first-responder and health-care claims. Read today from WorkSafeBC's
+           mental-health claims page and its 10 June 2024 announcement. */
+        h2: 'WCB stress leave in BC for first responders, nurses and other listed jobs',
+        body: [
+          'For some occupations the law presumes the work caused it. If a worker in an eligible occupation is exposed to one or more traumatic events at work and a psychiatrist or psychologist diagnoses a mental disorder that can arise from that exposure, WorkSafeBC presumes the disorder is work-related unless the contrary is shown. The worker does not have to prove the link; the diagnosis is still required.',
+          'The presumption covered police officers, firefighters, paramedics (emergency medical assistants), sheriffs, correctional officers, emergency response dispatchers, nurses and publicly funded health-care assistants first. From 10 June 2024 it was extended to eleven more: community-integration specialists, coroners, harm-reduction workers, parole officers, probation officers, respiratory therapists, shelter workers, social workers, transition house workers, victim service workers and withdrawal-management workers. WorkSafeBC’s practice directive defines each occupation, and that definition is what decides a claim.',
+          'Outside those occupations, or for a stressor rather than a traumatic event, the ordinary test above applies. Counselling for workers in these roles, alongside or outside a claim, is on [counselling for healthcare and shift workers](/for/healthcare-and-shift-workers).',
         ],
       },
       {
@@ -616,11 +637,16 @@ export const moreResources: Resource[] = [
       { q: 'Can I claim WorkSafeBC for stress or burnout?', a: 'Not for ordinary job stress or burnout as such. Compensable psychological injury requires either work-related traumatic events or significant work-related stressors, including bullying and harassment, plus a psychologist’s or psychiatrist’s diagnosis of a recognised disorder. Ordinary workload pressure and employer decisions like discipline or termination are excluded by statute.' },
       { q: 'Does bullying at work qualify?', a: 'It can, bullying and harassment are named examples of significant work-related stressors. The claim still needs the formal diagnosis and evidence that the conduct was beyond ordinary employment pressures, which is where documentation (dates, messages, witnesses) becomes decisive. There is also a separate WorkSafeBC prevention route aimed at stopping the conduct itself.' },
       { q: 'Do I need a lawyer to file?', a: 'No, filing is free and the system is designed to be used without one. For advice, the Workers’ Advisers Office is a free government service for exactly these questions, including whether your situation clears the "significant stressor" bar and how to handle a denial.' },
+      /* 3 Oct 2026: "worksafebc counselling" (2 at 14.5), "work injury
+         counselling bc" (2 at 15), "worksafebc counselling bc". */
+      { q: 'Does WorkSafeBC pay for counselling?', a: 'On an accepted claim, yes: WorkSafeBC says benefits on a mental health claim may include wage-loss payments, treatment costs, prescription medication and return-to-work support, and its mental health claims team arranges the treatment, which runs through its own providers. Before a claim is accepted, or when the situation falls outside the claim system, counselling is paid privately or through an extended health plan where it covers counselling. Westpeak Wellness is not a WorkSafeBC provider.' },
       { q: 'Can I see my own counsellor during a claim?', a: 'You can always see whoever you choose privately, through extended health or out of pocket, including while a claim is adjudicated. Treatment funded by an accepted claim runs through WorkSafeBC’s own provider network, which this practice is not part of, and the two can coexist.' },
       { q: 'What if my claim is denied?', a: 'Ask for a review, psychological claims are denied at meaningful rates and succeed on review often enough that giving up at the first letter is a mistake. Time limits apply to reviews too, so move promptly, and take the file to the Workers’ Advisers Office before deciding it is over.' },
     ],
     sources: [
       { label: 'WorkSafeBC', url: 'https://www.worksafebc.com/en' },
+      { label: 'WorkSafeBC, mental health injury claims', url: 'https://www.worksafebc.com/en/claims/report-workplace-injury-illness/mental-health-injury-claims' },
+      { label: 'WorkSafeBC, mental health presumption extended to 11 new occupations (10 June 2024)', url: 'https://www.worksafebc.com/en/about-us/news-events/announcements/2024/June/mental-health-presumption-extended-to-11-new-occupations' },
       { label: 'Province of BC, Workers’ Advisers Office', url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/personal-injury-and-workplace-safety' },
       { label: 'Canadian Mental Health Association, BC Division', url: 'https://cmha.bc.ca/' },
     ],
@@ -646,7 +672,7 @@ export const moreResources: Resource[] = [
       'Mental-health conditions are among the most common reasons for disability claims in Canada, and the system that pays them is the one working people understand least, because nobody reads the booklet until they need it.',
     shortAnswer:
       'Short-term disability is an employer or insurer plan that replaces part of your income for the early months of a medical absence; long-term disability takes over when STD ends, typically replacing a percentage of salary while you remain unable to work. Three things decide mental-health claims more than anything else: whether you are under regular, appropriate care, which usually includes counselling or psychiatric treatment; the definition switch, where "unable to do your own job" becomes "unable to do any job" (commonly around the two-year mark); and paperwork discipline. None of this is uniform: the plan wording, not this page, is the contract.',
-    updated: '2026-09-17',
+    updated: '2026-10-03',
     readMinutes: 7,
     sections: [
       {
@@ -682,6 +708,10 @@ export const moreResources: Resource[] = [
     faqs: [
       /* Search Console, 17 Sep 2026: short term disability british columbia (20), long term disability bc (43), short term disability stress leave, mental health long term disability. */
       { q: 'How much does short-term disability pay in BC?', a: 'Whatever your plan says, and nothing is set by the province. Most employer short-term disability plans replace a percentage of salary, commonly somewhere between half and two-thirds, for a defined period, often 15 to 26 weeks, before long-term disability is assessed. The plan booklet states the figure; if there is no plan, EI sickness benefits are the fallback at 55% of insurable earnings to a weekly maximum.' },
+      /* 3 Oct 2026: "short term disability bc" (2 at 34), "short term
+         disability british columbia" (2 at 20), "short term disability bc
+         canada" (2 at 30). The page answered how much, never whether. */
+      { q: 'Is short-term disability mandatory in BC?', a: 'No. No BC law requires an employer to offer short-term disability; it is an insurance plan an employer chooses to buy, and its terms are in the plan booklet. Where there is no plan, the public fallback is EI sickness benefits, which pay 55% of insurable earnings, to a weekly maximum, for up to 26 weeks once a medical practitioner certifies that you cannot work.' },
       { q: 'Is short-term disability available for stress leave in BC?', a: 'Yes, if you have a plan and a physician certifies that you cannot work. Insurers treat mental-health conditions the same way as physical ones in principle, and in practice ask for more: a diagnosis from the certifying doctor, evidence of treatment, and often a treatment plan. Counselling with a Registered Clinical Counsellor is usually accepted as treatment for that purpose.' },
       { q: 'Can I get disability benefits for depression or anxiety in BC?', a: 'Yes, mental-health conditions are among the most common bases for STD and LTD claims in Canada. What the claims turn on is a diagnosed condition, documented functional limitations, and being under regular appropriate care, which usually includes counselling or psychiatric treatment.' },
       { q: 'Do I have to be in therapy to keep LTD benefits?', a: 'Policies require appropriate treatment for the condition, and for psychological claims insurers generally expect ongoing care, commonly a physician plus counselling or psychiatry. Refusing all treatment is a standard reason for termination of benefits. The wording of your policy governs; "appropriate" is judged against your condition’s severity.' },
@@ -700,6 +730,7 @@ export const moreResources: Resource[] = [
       { href: '/guides/return-to-work-after-a-mental-health-leave', label: 'Return to work after a leave' },
       { href: '/resources/bc-extended-health-coverage-for-counselling', label: 'Extended health coverage for counselling' },
       { href: '/resources/psychiatry-and-assessment-in-bc', label: 'Psychiatry and assessment in BC' },
+      { href: '/resources/workplace-mental-health-bc', label: 'Mental health at work in BC: accommodation and leave' },
     ],
   },
 

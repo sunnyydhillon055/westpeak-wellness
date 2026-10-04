@@ -49,7 +49,7 @@ export const moreAudiences4: Audience[] = [
       'Somebody on your team is not alright, and you are trying to help without overstepping. This is what that looks like in practice.',
     shortAnswer:
       'An employer in BC cannot book counselling for an employee, but it can make it reachable: a working EFAP, a plan that lists Registered Clinical Counsellors, a wellness or lifestyle spending account, paid sick leave that is actually usable, and a manager who knows what not to ask. Westpeak Wellness is a small virtual practice, not an EAP provider; employees book directly, pay at booking, and receive receipts their plan can process. What the practice can offer an employer is clarity about how that works and, within scope, attendance confirmation when an employee asks for it.',
-    updated: '2026-10-01',
+    updated: '2026-10-03',
     readMinutes: 7,
     figure: 'reimbursement-flow',
     opening: [
@@ -80,6 +80,35 @@ export const moreAudiences4: Audience[] = [
           'An employer is entitled to **functional** information: that an employee cannot perform their duties or needs an accommodation, what the limitations are, and when this will be reviewed. That comes from a physician or nurse practitioner, not from a counsellor.',
           'An employer is not entitled to a diagnosis, to treatment details, or to anything said in a session. Asking is a human-rights problem as well as a trust problem. If a leave is in play, the [stress leave guide](/guides/stress-leave-bc) sets out the routes and the [workplace mental-health resource](/resources/workplace-mental-health-bc) covers accommodation and return to work in more depth.',
           'The duty to accommodate under the BC Human Rights Code applies to mental-health disabilities. In practice it means adjusting hours, duties or location where that is reasonable, and documenting the conversation. It does not mean diagnosing or managing the condition.',
+        ],
+      },
+      {
+        /* STAY-AT-WORK SERVICES, ON THE PAGE WRITTEN FOR WHO SEARCHES IT — 3 Oct
+           2026. "stay at work services" is the largest query in the workplace
+           cluster (Search Console 3 Oct: 63 impressions at position 38.8, no
+           clicks) and the pages above it are the people who sell or contract
+           the service: an insurer's stay-at-work product page, WorkSafeBC's
+           list of Return to Work Support Services providers, a university's
+           occupational-health office. That is an employer's search. It reached
+           /resources/workplace-mental-health-bc, written for the employee, so
+           the definition now lives here and that page keeps the employee's
+           side ("if you are offered a stay-at-work plan") with a link here.
+           Nothing below says this practice is a stay-at-work provider. */
+        h2: 'Stay-at-work services in BC: who provides them',
+        body: [
+          'A stay-at-work service keeps an employee with a health condition working, with adjustments, instead of off on a full leave: reduced hours for a period, changed duties or schedule, and treatment arranged alongside the work. A return-to-work service is the same thing from the other end, after a leave. In BC they come from four places, and which one applies depends on why the employee is struggling and what the employer has bought.',
+        ],
+        list: [
+          { label: 'WorkSafeBC, for an accepted claim', detail: 'Where the injury is work-caused and the claim is accepted, WorkSafeBC coordinates return-to-work support and contracts Return to Work Support Services providers around the province. That is inside the claim; an employer does not buy it. [WCB psychological injury claims](/resources/worksafebc-psychological-injury-claims) sets out when a mental-health injury is one.' },
+          { label: 'Your group benefits insurer', detail: 'Many group disability carriers sell stay-at-work or early-intervention services to plan sponsors, usually tied to the short-term disability plan. Your broker can say whether your contract includes it and what it costs to add.' },
+          { label: 'An occupational health or disability-management provider', detail: 'Larger employers contract one directly, or run it in-house, to design graduated returns and modified duties with the employee’s physician.' },
+          { label: 'Your EFAP', detail: 'Some EFAP contracts include manager consultation and short-term counselling aimed at keeping someone at work. Check the contract before assuming it does.' },
+        ],
+      },
+      {
+        h2: 'Where counselling sits beside a stay-at-work plan',
+        body: [
+          'A stay-at-work plan is a workplace arrangement, not care. One that changes the hours and leaves the cause untouched tends to become a leave a few months later, which is why a good plan names who is providing the treatment. This practice is not a stay-at-work or disability-management provider and does not design plans or report to employers. What it is: a place an employee on such a plan can see a Registered Clinical Counsellor privately, by video, booked and paid by them and claimed on their own plan where it covers counselling. The employee’s side of the arrangement, including what to ask before agreeing to one, is in [mental health and work in BC](/resources/workplace-mental-health-bc#if-you-are-offered-a-stay-at-work-plan).',
         ],
       },
       {
@@ -175,6 +204,8 @@ export const moreAudiences4: Audience[] = [
       label: 'Email the practice',
     },
     faqs: [
+      /* 3 Oct 2026: "stay at work services", 63 impressions at 38.8. */
+      { q: 'What are stay-at-work services?', a: 'Services that keep an employee with a health condition working, with adjustments, instead of off on a full leave: reduced hours for a period, changed duties or schedule, and treatment arranged alongside. In BC they come from WorkSafeBC on an accepted work-injury claim, from group benefits insurers as part of a disability plan, from occupational-health or disability-management providers an employer contracts, and sometimes from an EFAP. Westpeak Wellness is not a stay-at-work provider; an employee on such a plan can see a counsellor here privately alongside it.' },
       { q: 'Can an employer book counselling for an employee in BC?', a: 'No. The employee books, consents and holds the relationship. An employer can make counselling reachable through the EFAP, the plan’s practitioner list, a wellness or lifestyle spending account and usable sick leave.' },
       { q: 'Can we pay for an employee\'s counselling directly?', a: 'Only through a structure that keeps the employer out of the clinical relationship, such as a wellness or lifestyle spending account, which is a taxable benefit. A health spending account works only if its administrator accepts an RCC receipt, which in BC is not assured, so ask first. This practice does not invoice employers for an individual\'s sessions.' },
       { q: 'Will the counsellor tell us how the employee is doing?', a: 'No. With the employee\'s written consent, the counsellor can confirm attendance on given dates. Nothing about content, and nothing without consent.' },

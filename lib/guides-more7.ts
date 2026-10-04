@@ -31,7 +31,7 @@ export const moreGuides7: Guide[] = [
       'The employer sick days run out fast. What most people are actually living on during a longer mental-health leave is EI sickness benefits, and almost nobody understands them until they are already off.',
     shortAnswer:
       `EI sickness benefits replace 55% of your insurable earnings, to a maximum of ${EI_WEEKLY_IN_YEAR}, for up to 26 weeks, and they apply to mental-health conditions exactly as they do to physical ones. You need 600 insurable hours in the qualifying period, a medical certificate saying you are unable to work, and a claim filed promptly, because there is a one-week waiting period and late claims risk losing weeks. The benefit is taxable, it is far less than a paycheque, and knowing both before the leave starts is half of surviving it.`,
-    updated: '2026-09-02',
+    updated: '2026-10-03',
     readMinutes: 7,
     sections: [
       {
@@ -81,11 +81,15 @@ export const moreGuides7: Guide[] = [
       { q: 'Can I get EI sickness benefits for burnout or anxiety?', a: 'Yes. The program does not distinguish mental from physical health. What matters is a medical practitioner certifying you are unable to work. "Burnout" itself is not the certified condition; the depression, anxiety disorder or adjustment disorder underneath it typically is.' },
       { q: 'Do I need to be seeing a therapist to keep my claim?', a: 'No. EI sickness benefits need a medical certificate and your biweekly reports; there is no rule that you be in treatment, and no requirement to see a therapist to keep the claim. Counselling matters later, and practically: return-to-work and any long-term disability transition go very differently with a treatment record than without one.' },
       { q: 'Does my extended health coverage continue while I am on EI sickness?', a: 'It depends on your employer and the plan. Many plans stay active while you remain employed and on an approved leave, and where yours does, it can still reimburse RCC counselling while your income is reduced. Confirm with HR or your plan administrator rather than assuming, and check whether premiums need to be kept up during the leave.' },
+      /* 3 Oct 2026: "ei sickness benefits login" (Search Console). Read today
+         from canada.ca, My Service Canada Account, EI services. */
+      { q: 'Where do I log in to check my EI sickness claim?', a: 'My Service Canada Account on canada.ca, signing in with a GCKey, an Interac Sign-In Partner (your bank login) or the BC Services Card provincial sign-in, whichever you registered with. It shows the claim status and messages, your benefit rate and weeks paid, your payments, your Record of Employment and, from February, your T4E. The biweekly reports are filed through Service Canada’s Internet Reporting Service, which the account links to.' },
       { q: 'What happens if 26 weeks is not enough?', a: 'The routes beyond EI are your employer’s long-term disability plan if one exists, CPP disability for severe and prolonged conditions, and provincial assistance. Each has its own test and its own paperwork, and each is easier to satisfy with a documented history of treatment during the EI period.' },
     ],
     sources: [
       { label: 'Government of Canada, EI sickness benefits', url: 'https://www.canada.ca/en/services/benefits/ei/ei-sickness.html' },
       { label: 'Province of BC, leaves of absence under the Employment Standards Act', url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/employment-standards/time-off/leaves-of-absence' },
+      { label: 'Government of Canada, My Service Canada Account: EI', url: 'https://www.canada.ca/en/employment-social-development/services/my-account/ei.html' },
       { label: 'Canadian Mental Health Association, BC Division', url: 'https://cmha.bc.ca/' },
     ],
     related: [
@@ -95,6 +99,7 @@ export const moreGuides7: Guide[] = [
       { href: '/guides/return-to-work-after-a-mental-health-leave', label: 'Return to work after a leave' },
       { href: '/resources/bc-extended-health-coverage-for-counselling', label: 'Extended health coverage for counselling' },
       { href: '/resources/workplace-mental-health-bc', label: 'Workplace mental health in BC' },
+      { href: '/resources/disability-benefits-and-counselling-bc', label: 'Short-term disability in BC, if your employer has a plan' },
       { href: '/tools/what-can-i-access', label: 'What counselling can you access, and how soon?' },
       { href: '/pricing', label: 'Fees and coverage' },
     ],
@@ -282,13 +287,13 @@ export const moreGuides7: Guide[] = [
       'There is no separate "mental-health day" in BC law, and there does not need to be, because the ordinary sick day already covers it. Most people just don’t know that.',
     shortAnswer:
       'BC’s Employment Standards Act gives most employees 5 paid sick days and 3 unpaid days per calendar year after 90 days of employment, and illness includes mental health. A day taken for anxiety, depression or a breaking point is as legitimate as one taken for the flu, your employer may ask for reasonably sufficient proof but not your diagnosis, and "I am unwell" is a complete sentence. The larger question this page also answers: when mental-health days keep being needed, they have stopped being days off and started being data.',
-    updated: '2026-09-17',
+    updated: '2026-10-03',
     readMinutes: 6,
     sections: [
       {
         h2: 'The entitlement, without folklore',
         body: [
-          'Since 2022, the BC Employment Standards Act provides employees with **5 paid sick days and 3 unpaid sick days per calendar year**, after 90 days with the employer. They cover personal illness or injury, and mental health is health in that sentence, without any asterisk. The days do not carry over, they are paid at an average day’s pay, and they belong to ESA-covered employees; federally regulated workers (banks, telecoms, airlines) are under the Canada Labour Code’s medical-leave provisions instead, and unionised or contract terms can only improve on the floor, not dig under it.',
+          'Since 2022, the BC Employment Standards Act provides employees with **5 paid sick days and 3 unpaid sick days per calendar year**, after 90 days with the employer. They cover personal illness or injury, and mental health is health in that sentence, without any asterisk. The days do not carry over, they are paid at an average day’s pay, and they belong to ESA-covered employees; federally regulated workers (banks, telecoms, airlines) are under the Canada Labour Code instead, which gives up to 10 paid medical leave days a year, and unionised or contract terms can only improve on the floor, not dig under it.',
           '"Reasonably sufficient proof" is the phrase doing the work on the employer side: they may ask for it, and for a day or two most reasonable employers ask for nothing. What they are never entitled to is your diagnosis or the content of your health information. A theme that runs through this whole cluster, from [the doctor’s note](/guides/doctors-note-for-a-mental-health-leave) to [the return](/guides/return-to-work-after-a-mental-health-leave).',
           'And the sentence itself: "I’m unwell and taking a sick day." Not "it’s just a headache", not a manufactured stomach bug to launder a panic attack into something that feels tellable. The legal entitlement does not require the illness to be visible, physical, or explained.',
         ],
@@ -322,11 +327,17 @@ export const moreGuides7: Guide[] = [
       { q: 'Can I take a sick day for mental health in BC?', a: 'Yes. The ESA’s paid sick days cover personal illness, and mental health is included without qualification. A day taken for anxiety or depression is as protected as one taken for the flu, and you do not have to disclose which it was.' },
       { q: 'How many paid sick days do BC employees get?', a: 'Five paid and three unpaid per calendar year under the Employment Standards Act, after 90 days of employment. They do not carry over. Federally regulated employees are under the Canada Labour Code instead, which provides up to ten paid medical days, and better contractual terms override both floors upward.' },
       { q: 'Does my employer need a doctor’s note for one mental-health day?', a: 'They may ask for reasonably sufficient proof, and for a single day most do not. If yours does, a simple medical note suffices. It never needs to state a diagnosis. A pattern of demanding notes for every single day is worth a conversation with the Employment Standards Branch.' },
-      { q: 'Is a "mental-health day" different from a sick day?', a: 'Legally, no, BC has one sick-leave entitlement and mental health is inside it. Culturally the phrase does useful work, but do not let it create a second-class category in your head: you are not borrowing the real entitlement, you are using it.' },
+      { q: 'Do mental health days count as sick days in BC?', a: 'Yes. Legally there is no difference: BC has one sick-leave entitlement and mental health is inside it. Culturally the phrase does useful work, but do not let it create a second-class category in your head: you are not borrowing the real entitlement, you are using it.' },
+      /* 3 Oct 2026, from Search Console: "are mental health days paid",
+         "do you get paid for mental health days", "can psychologists write
+         sick notes", "can a psychologist give a sick note". */
+      { q: 'Are mental health days paid in BC?', a: 'The first five sick days in a calendar year are, at an average day’s pay, once you have worked for the employer for 90 days, and a mental-health day is a sick day. The next three are unpaid but still job-protected. Anything an employer offers above that, such as wellness days or a larger sick-leave bank, is paid on the employer’s policy or your collective agreement.' },
+      { q: 'Can a psychologist write a sick note?', a: 'The Employment Standards Act asks only for reasonably sufficient proof and does not name who must write it, so whether an employer accepts a registered psychologist’s note is the employer’s call; most accept a physician’s or nurse practitioner’s. For EI sickness benefits, Service Canada accepts a medical certificate from a psychologist as well as a doctor or nurse practitioner. A Registered Clinical Counsellor does not diagnose and is not the person to certify an absence.' },
       { q: 'What if I need more days than exist?', a: 'That is the signal to change tools: an honest medical assessment, the possibility of a certified leave with job protection, and treatment for whatever is consuming the days. The stress-leave guide covers the whole path, including the money.' },
     ],
     sources: [
-      { label: 'Province of BC, paid sick leave', url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/employment-standards/time-off/leaves-of-absence' },
+      { label: 'Province of BC, paid sick leave', url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/paid-sick-leave' },
+      { label: 'Government of Canada, medical leave with pay for federally regulated employees', url: 'https://www.canada.ca/en/employment-social-development/programs/laws-regulations/labour/interpretations-policies/medical-leave-pay.html' },
       { label: 'Canadian Mental Health Association, BC Division', url: 'https://cmha.bc.ca/' },
     ],
     related: [
