@@ -30,7 +30,7 @@ export const moreGuides6: Guide[] = [
       'The paperwork question and the clinical question are different, and most pages about this answer neither.',
     shortAnswer:
       `A stress leave in BC needs certification from a physician or nurse practitioner. A Registered Clinical Counsellor cannot sign one, and any counsellor implying otherwise is misleading you. Income during leave usually comes from either EI sickness benefits (up to 26 weeks, 55% of insurable earnings to a maximum of ${EI_WEEKLY_IN_YEAR}) or an employer short-term disability plan, and which applies depends on your plan rather than on your diagnosis. Counselling runs alongside that process; it is not the route into it.`,
-    updated: '2026-10-01',
+    updated: '2026-10-03',
     readMinutes: 9,
     figure: 'burnout-vs-depression',
     /* THE HEADINGS ARE THE QUERIES — 1 Oct 2026.
@@ -71,9 +71,32 @@ export const moreGuides6: Guide[] = [
         body: [
           'In one paragraph: a doctor or nurse practitioner certifies that you cannot work; you tell your employer you are on a medical leave and give them the certificate; your job is protected, for a few days by the Employment Standards Act and for a longer absence by the duty to accommodate under the Human Rights Code; and income comes from paid sick days first, then a short-term disability plan or EI sickness benefits. The certificate runs for a set period and is reviewed and extended if needed. The rest of this page takes each of those in turn.',
           'It is not a category in BC employment law. The phrase covers a medical leave taken for a mental-health reason, and which protections apply depends on the route.',
-          'The BC **Employment Standards Act** provides unpaid, job-protected illness or injury leave of up to five days a year for most employees who have worked 90 days. That is the floor and it is short. It is not the mechanism for a leave of weeks or months.',
+          /* Corrected 3 Oct 2026: this said "unpaid ... up to five days",
+             which contradicted the step list below and the Province's page
+             (five paid and three unpaid days after 90 days, read today). */
+          'The BC **Employment Standards Act** provides job-protected illness or injury leave of five paid and three unpaid days a calendar year for employees who have worked 90 days. That is the floor and it is short. It is not the mechanism for a leave of weeks or months.',
           'Longer leave usually sits under a combination of your employer\'s policies, an insurance plan, and the duty to accommodate a disability under the **BC Human Rights Code**. That duty is the substantive protection for a longer absence: an employer must accommodate a disability to the point of undue hardship, and a mental-health condition supported by medical documentation is a disability for these purposes.',
           'None of this is legal advice, and where an employer is disputing a leave or a termination follows one, an employment lawyer is the right call rather than a counsellor. Many offer a free initial consultation.',
+        ],
+      },
+      {
+        /* WHICH RULES APPLY — 3 Oct 2026. The pages ranking above this one for
+           "how to get stress leave in bc" (law-firm and benefits explainers)
+           quote "27 weeks of unpaid, job-protected leave" without saying it is
+           the Canada Labour Code's, which covers federally regulated work
+           only. A reader in a BC-regulated job then plans around a leave the
+           Employment Standards Act does not give. Figures read today from
+           gov.bc.ca (paid sick leave), canada.ca IPG-118 (medical leave with
+           pay, modified 12 May 2025) and the Code, s. 239(1). */
+        h2: 'Which leave rules apply to you: BC, federal or union',
+        body: [
+          'Which law sets your leave depends on who regulates your employer, not on where you live. Most BC workplaces fall under the BC Employment Standards Act; banks, airlines, telecoms, interprovincial trucking and other federally regulated employers fall under the Canada Labour Code; and a unionised job adds whatever the collective agreement gives on top.',
+        ],
+        list: [
+          { label: 'BC-regulated job (most employers)', detail: 'Five paid and three unpaid sick days a calendar year after 90 days of employment, under the Employment Standards Act. For anything longer, the protection is the duty to accommodate under the Human Rights Code rather than a fixed number of weeks. The [sick days and mental-health days guide](/guides/sick-days-and-mental-health-days-bc) covers the short end.' },
+          { label: 'Federally regulated job', detail: 'Up to 10 days of medical leave with pay a year under the Canada Labour Code (three after 30 days of continuous employment, then one a month), plus up to 27 weeks of unpaid, job-protected medical leave. The employer can ask for a medical certificate once a leave runs five consecutive days. The 27 weeks you may have read about elsewhere is this federal rule; the BC Act has no equivalent.' },
+          { label: 'Unionised job', detail: 'The collective agreement can only improve on the statutory floor, and often adds sick-leave banks or a short-term disability plan. Your steward will know the clause.' },
+          { label: 'Every route', detail: 'Income beyond the paid days comes from a short-term disability plan or EI sickness benefits, which are federal and the same everywhere in Canada.' },
         ],
       },
       {
@@ -165,6 +188,9 @@ export const moreGuides6: Guide[] = [
       { q: 'Can I get EI sickness benefits for a mental-health leave?', a: 'Yes. EI sickness benefits do not distinguish between a physical and a mental-health condition, what matters is that a medical practitioner certifies you are unable to work. Claims established since December 2022 can run to 26 weeks. Apply as soon as the leave is certified rather than waiting, because there is normally a one-week unpaid waiting period and benefits are not backdated indefinitely.' },
       { q: 'Is my job protected while I am off?', a: 'The Employment Standards Act leave is job-protected, and for longer absences the BC Human Rights Code requires an employer to accommodate a disability, which a mental-health condition can be, to the point of undue hardship. That is a real protection and it is not unlimited. If you are being pressured to return, or your role changes while you are away, that is an employment-law question rather than a counselling one, and worth getting proper advice on early.' },
       { q: 'Does WorkSafeBC cover stress leave?', a: 'Only when the cause is the work itself. A WorkSafeBC claim for a mental-health injury generally requires either a traumatic event at work or a significant work-related stressor such as bullying or harassment, not the accumulated strain of a demanding job. It is a different process from EI or short-term disability, with its own evidence requirements, and the two are not interchangeable.' },
+      /* 3 Oct 2026: the results above this page for "how to get stress leave
+         in bc" state a 27-week leave without saying it is federal. */
+      { q: 'Is there a 27-week stress leave in BC?', a: 'Not under BC law. The 27 weeks of unpaid, job-protected medical leave is in the Canada Labour Code, so it covers federally regulated employees such as those at banks, airlines and telecoms, who also get up to 10 paid medical leave days a year. In a BC-regulated job the Employment Standards Act gives five paid and three unpaid sick days a year, and a longer leave is protected by the duty to accommodate under the Human Rights Code rather than by a set number of weeks. EI sickness benefits, up to 26 weeks, apply either way.' },
       { q: 'Can a counsellor sign my stress leave forms?', a: 'No. In British Columbia a medical leave is certified by a physician or a nurse practitioner. A Registered Clinical Counsellor cannot sign for an employer, an insurer or EI, and any counsellor suggesting otherwise is misleading you. Counselling runs alongside the leave rather than being the route into it.' },
       { q: 'How long can a stress leave last?', a: 'It depends on the funding route rather than on a fixed rule. EI sickness benefits run to a maximum of 26 weeks. An employer short-term disability plan sets its own limit, commonly between 15 and 26 weeks, after which long-term disability may apply. The medical certificate itself usually sets a review date rather than an end date.' },
       { q: 'Does my employer get told my diagnosis?', a: 'No. An employer is entitled to functional information. That you cannot perform your duties, what the limitations are, and when this will be reviewed. They are not entitled to your diagnosis or your clinical notes. Insurers can ask for more than employers can, but still less than people usually give them.' },
@@ -177,6 +203,8 @@ export const moreGuides6: Guide[] = [
       { label: 'BC Employment Standards Act, illness or injury leave', url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/paid-sick-leave' },
       { label: 'BC Human Rights Code, duty to accommodate', url: 'https://bchumanrights.ca/' },
       { label: 'WorkSafeBC, mental health', url: 'https://www.worksafebc.com/en/claims/report-workplace-injury-illness/mental-health-injury-claims' },
+      { label: 'Government of Canada, medical leave with pay (federally regulated employers, IPG-118)', url: 'https://www.canada.ca/en/employment-social-development/programs/laws-regulations/labour/interpretations-policies/medical-leave-pay.html' },
+      { label: 'Canada Labour Code, s. 239, medical leave of up to 27 weeks', url: 'https://laws-lois.justice.gc.ca/eng/acts/L-2/section-239.html' },
     ],
     related: [
       /* THE REST OF THE LEAVE SERIES, from the page that leads it — 25 Sep 2026.
