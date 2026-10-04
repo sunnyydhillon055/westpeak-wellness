@@ -503,7 +503,7 @@ export default async function PractitionerPlacePage({ params }: { params: Params
               <p>
                 For the fuller picture of accessing counselling from {loc.city}: waitlists, the
                 health authority, and what is available locally. See{' '}
-                <Link href={`/online-counselling/${loc.slug}`}>counselling in {loc.city}</Link>.
+                <Link href={`/online-counselling/${loc.slug}`}>online counselling in {loc.city}</Link>.
               </p>
             )}
           </div>

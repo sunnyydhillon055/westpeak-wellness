@@ -160,6 +160,8 @@ export const BOOK_LOCATIONS: readonly string[] = [
   'place-practitioner',
   'counsellor-compare',
   'counsellor-not-found',
+  /* wf/tp-places, 3 Oct 2026: the hero button on /online-counselling. */
+  'hero-online',
 ];
 
 /** Every slug on the roster, accepting or not. The founder's cannot reach a
