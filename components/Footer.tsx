@@ -47,7 +47,7 @@ export default function Footer() {
                         redirects — a site-wide internal link through a 308 on
                         all 295 pages, for the page that draws the most search
                         impressions of any on the site. Fixed 25 Sep 2026. */}
-                    <Link href="/resources/verify-a-counsellor-in-bc">Registered Clinical Counsellors</Link> ·{' '}
+                    <Link prefetch={false} href="/resources/verify-a-counsellor-in-bc">Registered Clinical Counsellors</Link> ·{' '}
                     <a href={site.counsellor.registerUrl} target="_blank" rel="noopener">
                       BCACC register<span className="sr-only"> (opens in a new tab)</span>
                     </a>
@@ -59,7 +59,7 @@ export default function Footer() {
                 <li>
                   <MapPin aria-hidden="true" strokeWidth={1.7} />
                   <span>
-                    {site.name} · <Link href={REGISTERED_LOCALITY.hub}>{LOCALITY_LABEL}</Link> · {LOCALITY_VISIBLE_NOTE}
+                    {site.name} · <Link prefetch={false} href={REGISTERED_LOCALITY.hub}>{LOCALITY_LABEL}</Link> · {LOCALITY_VISIBLE_NOTE}
                   </span>
                 </li>
               </ul>
@@ -86,43 +86,43 @@ export default function Footer() {
             <nav className="footer-col" aria-labelledby="foot-svc">
               <h2 id="foot-svc">Services</h2>
               {services.slice(0, 5).map((s) => (
-                <Link key={s.slug} href={`/services/${s.slug}`}>{s.name}</Link>
+                <Link prefetch={false} key={s.slug} href={`/services/${s.slug}`}>{s.name}</Link>
               ))}
-              <Link href="/services" className="footer-more">All services →</Link>
+              <Link prefetch={false} href="/services" className="footer-more">All services →</Link>
             </nav>
 
             <nav className="footer-col" aria-labelledby="foot-read">
               <h2 id="foot-read">Read</h2>
-              <Link href="/faq">FAQ</Link>
-              <Link href="/search">Search</Link>
-              <Link href="/guides">Counselling Guides</Link>
-              <Link href="/compare">Compare Your Options</Link>
-              <Link href="/for">Who We Work With</Link>
-              <Link href="/resources">BC Resources</Link>
-              <Link href="/tools">Free Tools</Link>
-              <Link href="/glossary">Glossary</Link>
-              <Link href="/approaches">Approaches</Link>
-              <Link href="/punjabi" lang="pa">ਪੰਜਾਬੀ</Link>
+              <Link prefetch={false} href="/faq">FAQ</Link>
+              <Link prefetch={false} href="/search">Search</Link>
+              <Link prefetch={false} href="/guides">Counselling Guides</Link>
+              <Link prefetch={false} href="/compare">Compare Your Options</Link>
+              <Link prefetch={false} href="/for">Who We Work With</Link>
+              <Link prefetch={false} href="/resources">BC Resources</Link>
+              <Link prefetch={false} href="/tools">Free Tools</Link>
+              <Link prefetch={false} href="/glossary">Glossary</Link>
+              <Link prefetch={false} href="/approaches">Approaches</Link>
+              <Link prefetch={false} href="/punjabi" lang="pa">ਪੰਜਾਬੀ</Link>
               {/* The by-region index, added when the hub was built on 18 Aug and
                   missed here — the cluster it indexes was the least-linked on the
                   site partly because of this. */}
-              <Link href="/punjabi-counselling">Punjabi counselling by region</Link>
-              <Link href="/tagalog-counselling">Tagalog-speaking counselling</Link>
-              <Link href="/tagalog" lang="tl" hrefLang="tl">Tagalog</Link>
+              <Link prefetch={false} href="/punjabi-counselling">Punjabi counselling by region</Link>
+              <Link prefetch={false} href="/tagalog-counselling">Tagalog-speaking counselling</Link>
+              <Link prefetch={false} href="/tagalog" lang="tl" hrefLang="tl">Tagalog</Link>
             </nav>
 
             <nav className="footer-col" aria-labelledby="foot-practice">
               <h2 id="foot-practice">Practice</h2>
-              <Link href="/about">About us</Link>
-              <Link href="/practitioners">Our counsellors</Link>
-              <Link href="/pricing">Fees &amp; Insurance</Link>
-              <Link href="/faq">FAQ</Link>
-              <Link href="/reviews">Reviews &amp; references</Link>
-              <Link href="/refer">Passing it on</Link>
-              <Link href="/refer/counsellors">For counsellors</Link>
-              <Link href="/online-counselling">Areas Served in BC</Link>
-              <Link href="/contact">Contact</Link>
-              <Link href={site.portalPath} className="footer-more">Client Portal &rarr;</Link>
+              <Link prefetch={false} href="/about">About us</Link>
+              <Link prefetch={false} href="/practitioners">Our counsellors</Link>
+              <Link prefetch={false} href="/pricing">Fees &amp; Insurance</Link>
+              <Link prefetch={false} href="/faq">FAQ</Link>
+              <Link prefetch={false} href="/reviews">Reviews &amp; references</Link>
+              <Link prefetch={false} href="/refer">Passing it on</Link>
+              <Link prefetch={false} href="/refer/counsellors">For counsellors</Link>
+              <Link prefetch={false} href="/online-counselling">Areas Served in BC</Link>
+              <Link prefetch={false} href="/contact">Contact</Link>
+              <Link prefetch={false} href={site.portalPath} className="footer-more">Client Portal &rarr;</Link>
             </nav>
           </div>
 
@@ -153,21 +153,21 @@ export default function Footer() {
               <strong>Not a crisis service.</strong> If you are in crisis, call or text{' '}
               <a href="tel:988">9-8-8</a>, the Suicide Crisis Helpline, anywhere in Canada,
               24/7. In immediate danger, call <a href="tel:911">9-1-1</a>.{' '}
-              <Link href="/resources/bc-crisis-and-support-directory">
+              <Link prefetch={false} href="/resources/bc-crisis-and-support-directory">
                 Crisis and support directory&nbsp;&rarr;
               </Link>
             </p>
           </div>
 
           <nav className="footer-legal" aria-label="Policies">
-            <Link href="/standards">Standards &amp; accountability</Link>
-            <Link href="/editorial-policy">Editorial policy</Link>
-            <Link href="/privacy">Privacy &amp; confidentiality</Link>
-            <Link href="/accessibility">Accessibility</Link>
+            <Link prefetch={false} href="/standards">Standards &amp; accountability</Link>
+            <Link prefetch={false} href="/editorial-policy">Editorial policy</Link>
+            <Link prefetch={false} href="/privacy">Privacy &amp; confidentiality</Link>
+            <Link prefetch={false} href="/accessibility">Accessibility</Link>
             {/* Staff entrance. Discreet by placement rather than by secrecy —
               * the gate is a signed session, so a visible link costs nothing.
               * nofollow because there is nothing here for a crawler to index. */}
-            <Link href="/admin" rel="nofollow" className="footer-admin">Admin</Link>
+            <Link prefetch={false} href="/admin" rel="nofollow" className="footer-admin">Admin</Link>
           </nav>
 
           <div className="footer-bottom">

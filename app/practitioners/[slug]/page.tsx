@@ -12,7 +12,7 @@ import Updated from '@/components/Updated';
 import CtaBand from '@/components/CtaBand';
 import { BadgeCheck, Languages as LangIcon, MonitorSmartphone } from 'lucide-react';
 import { ogBase } from '@/lib/og-meta';
-import { consultationAvailability } from '@/lib/cliniko-availability';
+import { OpenDays } from '@/components/NextConsultSlot';
 import { TAGALOG_READY } from '@/lib/practitioner-tl';
 import { getPunjabiProfile } from '@/lib/practitioner-pa';
 import { COLLECTION_DATES } from '@/lib/page-dates';
@@ -27,7 +27,6 @@ import {
   alternativesFor, alternativeLabel, notRightFit, orList, type Alternative,
 } from '@/lib/practitioner-facts';
 import { bookHrefFor } from '@/lib/city-service-page';
-import { PACIFIC } from '@/lib/availability-summary';
 import CounsellorCompare from '@/components/CounsellorCompare';
 import FirstSessionRow from '@/components/FirstSessionRow';
 import { firstSessionNote, firstSessionOffers } from '@/lib/first-session';
@@ -132,11 +131,13 @@ const LANGUAGE_HUBS: {
     : []),
 ];
 
-/* Re-rendered every thirty minutes so the open-times line beside the Book
-   button is what Cliniko is offering. The counsellor pages convert clicks to
-   bookings better than anything else on the site, and they said nothing
-   about when. */
-export const revalidate = 1800;
+/* The open-times line beside the Book button is what Cliniko is offering:
+   the counsellor pages convert clicks to bookings better than anything else
+   on the site, and they said nothing about when. Until 3 Oct 2026 the page
+   re-rendered every thirty minutes for it, and each re-render went out
+   without the inlined CSS; the browser now fills the line in from
+   /api/availability (components/NextConsultSlot.tsx, item 429) and the page
+   is fully static. */
 
 export default async function PractitionerPage({ params }: { params: { slug: string } }) {
   const p = getPractitioner(params.slug);
@@ -144,7 +145,7 @@ export default async function PractitionerPage({ params }: { params: { slug: str
 
   const first = p.name.split(' ')[0];
 
-  const nextOpen = p.acceptingNewClients && p.bookable ? ((await consultationAvailability())[p.slug]?.next ?? []) : [];
+  const opens = p.acceptingNewClients && p.bookable;
   const cities = p.placePages ? placesFor(p.provinces) : [];
   /* See the note on the city pages: the consultation is attached to this
      counsellor so /book can speak for her. */
@@ -206,8 +207,9 @@ export default async function PractitionerPage({ params }: { params: { slug: str
   ];
   const roleExtras = p.role.split(' · ').slice(1);
   const certified = certifiedBy(p);
-  /* Read at render, not at build: the page revalidates every 30 minutes, so
-     the line goes the day the policy stops being current. */
+  /* Read at build since 3 Oct 2026, when the page stopped revalidating
+     (item 429): the line goes with the first deploy on or after the day
+     the policy stops being current. */
   const insured = insuranceLine(p, vancouverToday());
 
   const schema = [
@@ -321,17 +323,10 @@ export default async function PractitionerPage({ params }: { params: { slug: str
               )}
               {p.acceptingNewClients && <Link className="btn btn--ghost" href="/pricing">Fees and coverage</Link>}
             </div>
-            {nextOpen.length > 0 && (
-              <p style={{ fontSize: '.95rem', marginTop: 12 }}>
+            {opens && (
+              <p className="consult-slot" style={{ fontSize: '.95rem', marginTop: 12, '--lm': 4, '--ld': 2 } as React.CSSProperties}>
                 {/* Each day opens her calendar (3 Oct 2026), as the home hero's do. */}
-                <strong>Next open with {first}:</strong>{' '}
-                {nextOpen.map((d, i) => (
-                  <span key={d}>
-                    {i > 0 && ' · '}
-                    <BookLink location="next-practitioner" className="" href={bookHref}>{d}</BookLink>
-                  </span>
-                ))}
-                {PACIFIC}
+                <OpenDays slug={p.slug} first={first!} href={bookHref} location="next-practitioner" />
               </p>
             )}
             {!p.acceptingNewClients ? (

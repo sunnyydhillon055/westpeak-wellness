@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import './answers.css';
 import Link from 'next/link';
 import { site } from '@/lib/site';
 import { abs, orgRef, siteRef } from '@/lib/schema';

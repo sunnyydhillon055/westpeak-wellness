@@ -181,10 +181,14 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   };
 }
 
-/* ISR, as the service pages are. The fee below is read from the Cliniko
-   catalogue, and an hourly re-render picks up a price change without giving
-   up static serving. 1 Oct 2026. */
-export const revalidate = 3600;
+/* FULLY STATIC — 3 Oct 2026 (item 429). This page exported `revalidate`
+   for the catalogue fee and the next-consultation line. A page Next
+   re-renders in production goes out without the inlined first-paint CSS
+   (scripts/inline-css.mjs only sees the build), and production served these
+   templates with blocking stylesheet links. The fee is now a build-time fact
+   (a price change in Cliniko reaches the page with the next deploy) and the
+   next consultation is filled in by the browser (components/NextConsultSlot.tsx).
+   `inline-css --check` fails if an indexable route exports revalidate again. */
 
 export default async function CityServicePage({ params }: { params: Params }) {
   const d = load(params);

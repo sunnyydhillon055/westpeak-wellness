@@ -4,9 +4,7 @@ import { site } from '@/lib/site';
 import type { Practitioner } from '@/lib/practitioners';
 import type { Catalog } from '@/lib/cliniko-catalog';
 import { compareColumns, groupMissing, orList } from '@/lib/practitioner-facts';
-import { consultationAvailability } from '@/lib/cliniko-availability';
-import { nextConsultEntries } from '@/lib/next-consult';
-import { PACIFIC } from '@/lib/availability-summary';
+import { FirstOpen } from '@/components/NextConsultSlot';
 
 /* "CAMILLE OR SAVNEET?" — 2 Oct 2026.
  *
@@ -15,7 +13,8 @@ import { PACIFIC } from '@/lib/availability-summary';
  * and types nothing: every cell comes from compareColumns() in
  * lib/practitioner-facts.ts (the gated roster, OFFERINGS, her own published
  * answers, the Cliniko catalogue) or, for the next free consultation, from
- * the same thirty-minute availability cache as the profile hero. Those times
+ * the same thirty-minute availability cache as the profile hero, read by
+ * the browser since 3 Oct 2026. Those times
  * are Pacific and are labelled so; they are what Cliniko offers, not hours.
  *
  * On /practitioners it is open, under "How to choose between counsellors";
@@ -24,7 +23,7 @@ import { PACIFIC } from '@/lib/availability-summary';
  * A SERVER component: it reads the roster on the server and the browser gets
  * a table and BookLink's two strings. Renders nothing with fewer than two
  * counsellors taking new clients, since a comparison of one is a profile. */
-export default async function CounsellorCompare({
+export default function CounsellorCompare({
   roster,
   catalog,
   location,
@@ -37,13 +36,6 @@ export default async function CounsellorCompare({
 }) {
   const cols = compareColumns(roster, catalog);
   if (cols.length < 2) return null;
-
-  let next: Record<string, string> = {};
-  try {
-    next = Object.fromEntries(nextConsultEntries(await consultationAvailability(), [...roster]).map((e) => [e.slug, e.when]));
-  } catch {
-    next = {};
-  }
 
   const firsts = cols.map((c) => c.first);
   const title = `Deciding between ${firsts.slice(0, -1).join(', ')} and ${firsts[firsts.length - 1]}?`;
@@ -80,19 +72,23 @@ export default async function CounsellorCompare({
     },
     {
       label: 'Next free consultation',
-      cell: (c) =>
-        next[c.slug] ? (
-          <>
-            {next[c.slug]}{PACIFIC},{' '}
-            <BookLink location={location} className="" href={`${site.bookingPath}?with=${c.slug}#calendar`}>
-              book with {c.first}
-            </BookLink>
-          </>
-        ) : (
-          <BookLink location={location} className="" href={`${site.bookingPath}?with=${c.slug}#calendar`}>
-            The calendar shows {c.first}&rsquo;s open times
-          </BookLink>
-        ),
+      /* Filled in by the browser since 3 Oct 2026 (item 429), so the pages
+         that carry this table can be fully static. Until the time arrives,
+         and when there is none, the cell links her calendar. */
+      cell: (c) => {
+        const href = `${site.bookingPath}?with=${c.slug}#calendar`;
+        return (
+          <FirstOpen
+            slug={c.slug}
+            suffix={<>,{' '}<BookLink location={location} className="" href={href}>book with {c.first}</BookLink></>}
+            fallback={
+              <BookLink location={location} className="" href={href}>
+                The calendar shows {c.first}&rsquo;s open times
+              </BookLink>
+            }
+          />
+        );
+      },
     },
   ];
 

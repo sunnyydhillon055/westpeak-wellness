@@ -93,6 +93,8 @@ test('/message-not-sent never says the message arrived, is noindex, and offers t
 
 test('/pricing and /refer show an error state on ?lead=err', () => {
   assert.match(src('components/LeadCapture.tsx'), /failed\?: boolean/);
-  assert.match(src('app/pricing/page.tsx'), /failed=\{searchParams\?\.lead === 'err'\}/);
+  /* Read in the browser since 3 Oct 2026, so /pricing can be static (item 429). */
+  assert.match(src('app/pricing/page.tsx'), /<Suspense fallback=\{<LeadCapture \/>\}>\s*<LeadCaptureFromQuery \/>/);
+  assert.match(src('components/LeadCaptureFromQuery.tsx'), /failed=\{lead === 'err'\}/);
   assert.match(src('app/refer/page.tsx'), /source="\/refer" done=\{sent === 'ok'\} failed=\{sent === 'err'\}/);
 });

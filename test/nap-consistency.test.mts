@@ -51,7 +51,7 @@ test('ai.json and llms.txt name the registered locality', () => {
 test('the footer and /contact show the name and locality, linked to the hub, and render email before phone', () => {
   for (const f of ['components/Footer.tsx', 'app/contact/page.tsx']) {
     const s = src(f);
-    assert.match(s, /\{site\.name\} · <Link href=\{REGISTERED_LOCALITY\.hub\}>\{LOCALITY_LABEL\}<\/Link> · \{LOCALITY_VISIBLE_NOTE\}/, f);
+    assert.match(s, /\{site\.name\} · <Link (?:prefetch=\{false\} )?href=\{REGISTERED_LOCALITY\.hub\}>\{LOCALITY_LABEL\}<\/Link> · \{LOCALITY_VISIBLE_NOTE\}/, f);
     const mail = s.indexOf('<MailLink');
     const tel = s.indexOf('href={`tel:${site.phoneTel}`}');
     assert.ok(mail > -1 && tel > -1, f);

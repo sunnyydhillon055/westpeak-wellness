@@ -76,8 +76,12 @@ test('the hero entries carry the slug for each calendar link and a day only', ()
   for (const x of e) assert.doesNotMatch(x.day, /\d+:\d\d|\b(am|pm)\b/, 'no hour on the hero');
   assert.equal(nextFreeCallLine({ 'camille-granda': a, 'savneet-singh': b }, people), `Next free call: ${e.map((x) => `${x.day} with ${x.first}`).join(' · ')} (Pacific time)`);
   assert.deepEqual(nextFreeCallEntries({ 'camille-granda': { ...a, error: 'down' } }, people), []);
+  /* Since 3 Oct 2026 (item 429) the browser fills the days in: the home
+     page passes who may be named, the slot links each day to her calendar. */
   const home = src('app/page.tsx');
-  assert.match(home, /<BookLink location="hero-next-home" className="" href=\{`\$\{site\.bookingPath\}\?with=\$\{e\.slug\}#calendar`\}>/);
+  assert.match(home, /<ConsultDays\s+people=\{HERO_PEOPLE\}\s+location="hero-next-home"/);
+  assert.match(home, /const HERO_PEOPLE = consultPeople\(\{\}\);/);
+  assert.match(src('components/NextConsultSlot.tsx'), /<BookLink location=\{location\} className="" href=\{e\.href\}>\{e\.day\} with \{e\.first\}<\/BookLink>/);
   assert.ok(BOOK_LOCATIONS.includes('hero-next-home'));
 });
 
@@ -131,7 +135,8 @@ test('nothing open in two weeks is said, and only when the read succeeded', () =
 test('the empty states link the ask-for-a-time form and claim no day or hour', () => {
   assert.ok(BOOK_LOCATIONS.includes('next-consult-ask'));
   const line = src('components/NextConsultLine.tsx');
-  assert.match(line, /<BookLink location="next-consult-ask" className="" href=\{askForTimeHref\(none, site\.bookingPath\)\}>/);
+  assert.match(line, /askHref=\{askForTimeHref\(people, site\.bookingPath\)\}/);
+  assert.match(src('components/NextConsultSlot.tsx'), /<BookLink location="next-consult-ask" className="" href=\{askHref\}>/);
   const book = src('app/book/page.tsx');
   assert.match(book, /Times are on the calendar below; if none suit,\{' '\}\s*<BookLink location="next-consult-ask" className="" href="#ask-for-a-time">ask for a time<\/BookLink>/);
   const z = availabilityLine(zero('camille-granda'), 'Camille')!;

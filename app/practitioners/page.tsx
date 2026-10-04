@@ -13,9 +13,7 @@ import { COLLECTION_DATES } from '@/lib/page-dates';
 import BookLink from '@/components/BookLink';
 import CounsellorCompare from '@/components/CounsellorCompare';
 import { readCatalog } from '@/lib/cliniko-catalog';
-import { consultationAvailability } from '@/lib/cliniko-availability';
-import { nextConsultEntries } from '@/lib/next-consult';
-import { PACIFIC } from '@/lib/availability-summary';
+import { FirstOpen } from '@/components/NextConsultSlot';
 import { lowestFee, consultLine, rosterOrder } from '@/lib/practitioner-facts';
 
 const TITLE = 'Our Counsellors | Westpeak Wellness';
@@ -41,20 +39,14 @@ export const metadata: Metadata = {
  * reason given (2 Oct 2026). The only Book link here used to be the closing
  * band, and the first row was someone who cannot be booked. */
 
-/* Re-rendered every thirty minutes so each row's next free consultation is
-   what Cliniko is offering, as on the profiles. */
-export const revalidate = 1800;
-
+/* Fully static since 3 Oct 2026 (item 429). Each row's next free
+   consultation is filled in by the browser from /api/availability
+   (components/NextConsultSlot.tsx), so the page no longer re-renders every
+   thirty minutes and keeps its inlined first-paint CSS in production. */
 export default async function PractitionersPage() {
   const roster = rosterOrder(practitioners);
   const catalog = await readCatalog();
   const consult = consultLine(catalog);
-  let next: Record<string, string> = {};
-  try {
-    next = Object.fromEntries(nextConsultEntries(await consultationAvailability(), practitioners).map((e) => [e.slug, e.when]));
-  } catch {
-    next = {};
-  }
 
   const schema = {
     '@context': 'https://schema.org',
@@ -224,9 +216,11 @@ export default async function PractitionersPage() {
                       {[lowestFee(p, catalog) ? `From ${lowestFee(p, catalog)}` : null, consult ? consult.charAt(0).toLowerCase() + consult.slice(1) : null].filter(Boolean).join(' · ')}
                     </p>
                   )}
-                  {p.acceptingNewClients && next[p.slug] && (
-                    <p className="practitioner-row-langs">
-                      Next free consultation: {next[p.slug]}{PACIFIC}
+                  {/* One line held open for the time, so the button under it
+                      does not move when it arrives. */}
+                  {p.acceptingNewClients && p.bookable && (
+                    <p className="practitioner-row-langs consult-slot" style={{ '--lm': 1, '--ld': 1 } as React.CSSProperties}>
+                      <FirstOpen slug={p.slug} prefix="Next free consultation: " />
                     </p>
                   )}
                   {/* Above the row's stretched link (its ::after covers the

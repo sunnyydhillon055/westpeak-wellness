@@ -45,10 +45,14 @@ export const metadata: Metadata = {
   alternates: { canonical: `${site.domain}/online-counselling` },
 };
 
-/* Hourly, as the city hubs are: the next-consultation line under the hero
-   reads the thirty-minute Cliniko cache, and a page built once would print a
-   day that has already passed. 1 Oct 2026. */
-export const revalidate = 3600;
+/* FULLY STATIC — 3 Oct 2026 (item 429). This page exported `revalidate`
+   for the catalogue fee and the next-consultation line. A page Next
+   re-renders in production goes out without the inlined first-paint CSS
+   (scripts/inline-css.mjs only sees the build), and production served these
+   templates with blocking stylesheet links. The fee is now a build-time fact
+   (a price change in Cliniko reaches the page with the next deploy) and the
+   next consultation is filled in by the browser (components/NextConsultSlot.tsx).
+   `inline-css --check` fails if an indexable route exports revalidate again. */
 
 /* WHO YOU WOULD SEE, AND WHAT IT COSTS — 1 Oct 2026.
  *

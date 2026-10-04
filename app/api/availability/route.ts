@@ -2,7 +2,8 @@ import { NextResponse } from 'next/server';
 import { consultationAvailability } from '@/lib/cliniko-availability';
 import { practitioners } from '@/lib/practitioners';
 
-/* THE NEXT OPEN TIME, FOR THE STICKY BAR — 17 Sep 2026.
+/* THE NEXT OPEN TIME, FOR THE STICKY BAR — 17 Sep 2026; and since 3 Oct
+ * 2026 for every next-consultation line on a static page (item 429).
  *
  * Every page is static, and the one thing worth saying on all of them is the
  * one thing that changes: when the next free consultation actually is. This
@@ -21,7 +22,11 @@ export async function GET() {
     if (!a || a.error) continue;
     out[p.slug] = { first: p.name.split(' ')[0] ?? p.name, next: a.next ?? [], count: a.count };
   }
+  /* max-age=60, since 3 Oct 2026 (item 429): the sticky bar and the
+     consultation slots on a page (components/NextConsultSlot.tsx) each ask
+     for this, and a browser that may keep the answer for a minute answers
+     the second ask from its own cache instead of the network. */
   return NextResponse.json(out, {
-    headers: { 'Cache-Control': 'public, s-maxage=1800, stale-while-revalidate=3600' },
+    headers: { 'Cache-Control': 'public, max-age=60, s-maxage=1800, stale-while-revalidate=3600' },
   });
 }

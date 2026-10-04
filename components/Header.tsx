@@ -187,7 +187,15 @@ export default function Header({ roster }: { roster: NavPractitioner[] }) {
       data-open={open ? 'true' : 'false'}
     >
       <div className="container container--wide nav">
-        <Link href="/" className="brand" aria-label={`${site.name}, home`}>
+        {/* NO PREFETCH FROM THE CHROME — 3 Oct 2026 (item 441). Every link in
+            the header, trust bar, footer and city chips was prefetched as it
+            scrolled into view: Lighthouse counted 4-7 RSC prefetches per load
+            (131-242 KB) from 1.25 s on mobile, competing with the page the
+            reader came for, and each one is a request against the Vercel
+            checkpoint. These links are prefetch={false}; the Book button below
+            and every BookLink keep the default, since that is the navigation
+            worth having ready. */}
+        <Link prefetch={false} href="/" className="brand" aria-label={`${site.name}, home`}>
           <span className="brand-mark" aria-hidden="true"><Motif variant="mark" /></span>
           <span className="brand-word">Westpeak <span>Wellness</span></span>
         </Link>
@@ -224,6 +232,7 @@ export default function Header({ roster }: { roster: NavPractitioner[] }) {
               className={n.href === '/practitioners' ? 'nav-has-sub' : undefined}
             >
               <Link
+                prefetch={false}
                 href={n.href}
                 aria-current={isActive(n.href) ? 'page' : undefined}
                 onClick={() => setOpen(false)}
@@ -251,6 +260,7 @@ export default function Header({ roster }: { roster: NavPractitioner[] }) {
                   {roster.map((p) => (
                     <li key={p.slug}>
                       <Link
+                        prefetch={false}
                         href={`/practitioners/${p.slug}`}
                         onClick={() => setOpen(false)}
                         aria-current={isActive(`/practitioners/${p.slug}`) ? 'page' : undefined}
@@ -261,7 +271,7 @@ export default function Header({ roster }: { roster: NavPractitioner[] }) {
                     </li>
                   ))}
                   <li className="nav-sub-all">
-                    <Link href="/practitioners" onClick={() => setOpen(false)}>
+                    <Link prefetch={false} href="/practitioners" onClick={() => setOpen(false)}>
                       {isTagalog ? TL_CHROME.allCounsellors : 'All counsellors'} &rarr;
                     </Link>
                   </li>
@@ -284,6 +294,7 @@ export default function Header({ roster }: { roster: NavPractitioner[] }) {
             * different promise from the English word "Punjabi" on a menu. */}
           <li className="nav-lang" style={{ '--i': NAV.length } as CSSProperties}>
             <Link
+              prefetch={false}
               href="/punjabi"
               lang="pa"
               hrefLang="pa"
@@ -300,6 +311,7 @@ export default function Header({ roster }: { roster: NavPractitioner[] }) {
           {TAGALOG_READY && (
             <li className="nav-lang" style={{ '--i': NAV.length + 1 } as CSSProperties}>
               <Link
+                prefetch={false}
                 href="/tagalog"
                 lang="tl"
                 hrefLang="tl"
@@ -311,7 +323,7 @@ export default function Header({ roster }: { roster: NavPractitioner[] }) {
             </li>
           )}
           <li className="nav-search-d" style={{ '--i': NAV.length + 2 } as CSSProperties}>
-            <Link href="/search" aria-label="Search this site" aria-current={isActive('/search') ? 'page' : undefined}>
+            <Link prefetch={false} href="/search" aria-label="Search this site" aria-current={isActive('/search') ? 'page' : undefined}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                 strokeWidth="2" strokeLinecap="round" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" />
@@ -320,6 +332,7 @@ export default function Header({ roster }: { roster: NavPractitioner[] }) {
           </li>
           <li className="nav-portal" style={{ '--i': NAV.length + 2 } as CSSProperties}>
             <Link
+              prefetch={false}
               href={site.portalPath}
               aria-current={isActive(site.portalPath) ? 'page' : undefined}
               onClick={() => setOpen(false)}

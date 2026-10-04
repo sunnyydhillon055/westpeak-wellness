@@ -13,7 +13,8 @@ import { counsellorsForInfoPage, feeLineFor } from '@/lib/counsellor-cards';
 import { softStepsFor } from '@/lib/next-steps';
 import { readCatalog } from '@/lib/cliniko-catalog';
 import BookLink from '@/components/BookLink';
-import { bookingCtaFor } from '@/lib/booking-cta';
+import { bookingCtaFor, consultPeople, heroBookingCta } from '@/lib/booking-cta';
+import { HeroNextDays } from '@/components/NextConsultLine';
 import SceneBand from '@/components/SceneBand';
 import Byline from '@/components/Byline';
 import ExtraSections from '@/components/ExtraSections';
@@ -33,10 +34,14 @@ import InlineRelated from '@/components/InlineRelated';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
 
-/* Re-rendered every thirty minutes, the life of the availability cache, so
-   the closing block's next consultation time is what Cliniko is offering
-   now and its fee line follows the catalogue (1 Oct 2026). */
-export const revalidate = 1800;
+/* FULLY STATIC — 3 Oct 2026 (item 429). This page exported `revalidate`
+   for the catalogue fee and the next-consultation line. A page Next
+   re-renders in production goes out without the inlined first-paint CSS
+   (scripts/inline-css.mjs only sees the build), and production served these
+   templates with blocking stylesheet links. The fee is now a build-time fact
+   (a price change in Cliniko reaches the page with the next deploy) and the
+   next consultation is filled in by the browser (components/NextConsultSlot.tsx).
+   `inline-css --check` fails if an indexable route exports revalidate again. */
 
 export function generateStaticParams() {
   return comparisons.map((c) => ({ slug: c.slug }));
@@ -71,6 +76,11 @@ export default async function ComparePage({ params }: { params: { slug: string }
      consultation with a counsellor who fits it. 1 Oct 2026. */
   const fitting = counsellorsForInfoPage({ language: c.language, service: c.service });
   const feeLine = feeLineFor(c.service, await readCatalog());
+  /* The next free consultation with those counsellors, under the hero
+     button since 3 Oct 2026 (item 409) rather than in the closing block,
+     once per page. When exactly one fits, the button names her. */
+  const heroPeople = consultPeople({ slugs: fitting.map((p) => p.slug), language: c.language, service: c.service });
+  const heroCta = heroBookingCta(cta, heroPeople);
 
   const toc = buildToc([
     ...c.sections.map((s) => s.h2),
@@ -147,9 +157,10 @@ export default async function ComparePage({ params }: { params: { slug: string }
               the word does, which was the whole point the first time. */}
           <p className="hero-note">{c.readMinutes} min read · Updated {fmt(c.updated)}</p>
           <div className="btn-row" style={{ marginTop: 22 }}>
-            <BookLink location="hero-resource" href={cta.href}>{cta.label}</BookLink>
+            <BookLink location="hero-resource" href={heroCta.href}>{heroCta.label}</BookLink>
             <Link className="btn btn--ghost" href="/compare">All comparisons</Link>
           </div>
+          <HeroNextDays people={heroPeople} />
         </div>
       </section>
 
@@ -265,7 +276,8 @@ export default async function ComparePage({ params }: { params: { slug: string }
       <NextStep
         counsellors={[]}
         feeLine={feeLine}
-        consult={{ location: 'next-compare-close', slugs: fitting.map((p) => p.slug), language: c.language }}
+        /* No consult: it prints under the hero button since 3 Oct 2026
+           (item 409, HeroNextDays), once per page. */
         service={c.service}
         softSteps={softStepsFor({ path: `/compare/${c.slug}`, slug: c.slug, service: c.service })}
         band={{

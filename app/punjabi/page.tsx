@@ -15,13 +15,12 @@ import { practitioners, withLetters } from '@/lib/practitioners';
 import { punjabiGuides } from '@/lib/punjabi-guides';
 import { placesFor } from '@/lib/practitioner-places';
 import { PA_CITY, getPunjabiPlace } from '@/lib/practitioner-places-pa';
-import { consultationAvailability, nextFreeCallEntries } from '@/lib/cliniko-availability';
-import { PACIFIC } from '@/lib/availability-summary';
+import { NextFreeDay } from '@/components/NextConsultSlot';
 import { bookHrefFor } from '@/lib/city-service-page';
 
-/* Re-rendered every thirty minutes since 3 Oct 2026, for the next free day
-   under the hero button. Still generated at build, so `npm run seo` sees it. */
-export const revalidate = 1800;
+/* FULLY STATIC (3 Oct 2026, item 429). The next free day under the hero
+   button is filled in by the browser (NextFreeDay), so this page keeps the
+   inlined first-paint CSS; `inline-css --check` fails if it revalidates. */
 
 /* GURMUKHI FIRST, 1 Oct 2026, reversing the "English first" order of 17 Sep.
    That change was a code-comment choice, not a DECISIONS entry. It moved the
@@ -93,8 +92,8 @@ export default async function PunjabiPage() {
      first named about 680 words down. One Latin-script line of roster facts
      and her next free day from Cliniko, a day and never an hour; no new
      Punjabi prose. */
-  const speakerNext = speaker && speaker.bookable
-    ? nextFreeCallEntries(await consultationAvailability(), [{ slug: speaker.slug, first: speaker.name.split(' ')[0]! }])[0]
+  const speakerSlot = speaker && speaker.acceptingNewClients && speaker.bookable
+    ? { slug: speaker.slug, first: speaker.name.split(' ')[0]!, href: bookHrefFor([speaker]) }
     : undefined;
   const schema = [
     {
@@ -150,13 +149,7 @@ export default async function PunjabiPage() {
             <p lang="en" style={{ fontSize: '.95rem', marginTop: 12 }}>
               <Link href={`/practitioners/${speaker.slug}`}>{withLetters(speaker)}</Link>
               {' · '}{speaker.languages.map((l) => l.name).join(' and ')}
-              {speakerNext && (
-                <>
-                  {' · next free call '}
-                  <BookLink location="hero-next-language" className="" href={bookHrefFor([speaker])}>{speakerNext.day}</BookLink>
-                  {PACIFIC}
-                </>
-              )}
+              {speakerSlot && <NextFreeDay person={speakerSlot} location="hero-next-language" />}
             </p>
           )}
         </div>

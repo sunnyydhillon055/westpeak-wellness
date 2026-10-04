@@ -168,6 +168,9 @@ export const BOOK_LOCATIONS: readonly string[] = [
   'next-practitioner',
   'hero-next-language',
   'next-message-sent',
+  /* r6-static-speed, 3 Oct 2026 (item 409): the next free day under the
+     hero button of each guide, resource and comparison and of /pricing. */
+  'hero-next-article',
 ];
 
 /** Every slug on the roster, accepting or not. The founder's cannot reach a

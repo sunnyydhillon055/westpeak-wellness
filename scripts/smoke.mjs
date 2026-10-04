@@ -40,6 +40,7 @@
 import { spawn } from 'node:child_process';
 import { setTimeout as sleep } from 'node:timers/promises';
 import net from 'node:net';
+import { readFileSync } from 'node:fs';
 
 const PORT = process.env.SMOKE_PORT || 3123;
 const BASE = `http://127.0.0.1:${PORT}`;
@@ -447,9 +448,48 @@ for (const [path, want, wantDest] of CHECKS) {
   passed++;
 }
 
+/* THE INLINED CSS, ON ONE PAGE OF EACH TEMPLATE — 3 Oct 2026 (item 429).
+ *
+ * scripts/inline-css.mjs puts the stylesheet into each prerendered document,
+ * and a page Next regenerates at runtime goes out without it. That is how
+ * production came to serve guides and resources with three blocking
+ * stylesheet links on 3 Oct while every local check passed. So, asked of
+ * the server: the page carries <style data-inlined>, and the build's
+ * prerender manifest lists it as static (initialRevalidateSeconds false)
+ * rather than as one Next will re-render, which is what would drop the
+ * block in production. The response header cannot say this: next.config
+ * sets the same Cache-Control on every page. */
+const TEMPLATES = [
+  '/',
+  '/guides/stress-leave-bc',
+  '/resources/msp-vs-extended-health',
+  '/compare/therapy-in-punjabi-vs-english',
+  '/practitioners/savneet-singh',
+  '/practitioners/savneet-singh/surrey',
+  '/online-counselling/surrey',
+  '/online-counselling/surrey/emdr-therapy',
+];
+let inlined = 0;
+const prerendered = (() => {
+  try { return JSON.parse(readFileSync('.next/prerender-manifest.json', 'utf8')).routes ?? {}; } catch { return {}; }
+})();
+for (const path of TEMPLATES) {
+  try {
+    const res = await fetch(BASE + path, { redirect: 'manual' });
+    const body = await res.text();
+    const revalidate = prerendered[path]?.initialRevalidateSeconds;
+    if (res.status !== 200) failures.push(`${path} - expected 200 for the inline-CSS check, got ${res.status}`);
+    else if (!body.includes('<style data-inlined>')) failures.push(`${path} - no <style data-inlined>: first paint waits on the stylesheet`);
+    else if (revalidate !== false) failures.push(`${path} - not a static document (revalidate ${revalidate}); production would drop the inlined CSS`);
+    else inlined++;
+  } catch (e) {
+    failures.push(`${path} - request failed: ${e.message}`);
+  }
+}
+
 stop();
 
-console.log(`  ${passed}/${CHECKS.length} checks passed\n`);
+console.log(`  ${passed}/${CHECKS.length} checks passed; ${inlined}/${TEMPLATES.length} templates static with their CSS inlined\n`);
 if (failures.length) {
   console.log('FAILED');
   for (const f of failures) console.log(`   ${f}`);

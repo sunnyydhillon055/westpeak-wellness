@@ -1972,32 +1972,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
   .footer-bottom { font-size: .78rem; line-height: 1.5; }
 }
 
-/* ── /answers index ────────────────────────────────────────────────────── */
-.answers-jump {
-  display: flex; flex-wrap: wrap; gap: 0.5rem 0.75rem;
-  margin: 0 0 2rem; padding: 0.9rem 1rem;
-  border: 1px solid var(--line); border-radius: 10px; background: var(--bg-card);
-  font-size: 0.9rem;
-}
-.answers-jump a { padding: 0.3rem 0; margin: -0.3rem 0; display: inline-block; }
-/* ONE PER ROW ON A PHONE — 30 August 2026.
-   Six labels of unequal length in a flex-wrap produce four rows of one and a
-   fifth row of two, purely because the last two happened to fit together. It
-   reads as a mistake rather than as a list. Below 620px each label takes its
-   own row, which is what five of the six were doing anyway. */
-@media (max-width: 620px){
-  .answers-jump{ display: grid; grid-template-columns: 1fr; gap: 0 }
-  .answers-jump a{ padding: 0.45rem 0; margin: 0 }
-  .answers-jump a + a{ border-top: 1px solid var(--line) }
-}
-.answers-blurb { color: var(--ink-soft); margin-top: -0.4rem; }
-.answers-list { margin: 0 0 2rem; }
-.answers-list > div { padding: 1rem 0; border-bottom: 1px solid var(--line); }
-.answers-list > div:last-child { border-bottom: 0; }
-.answers-list dt { font-weight: 650; margin: 0 0 0.4rem; }
-.answers-list dt a { text-decoration: none; }
-.answers-list dt a:hover { text-decoration: underline; }
-.answers-list dd { margin: 0; color: var(--ink-soft); line-height: 1.65; }
+/* The /answers index rules live in app/answers/answers.css since 3 Oct 2026 (item 470). */
 
 /* ── Mid-page booking card ────────────────────────────────────────────────
    Restrained on purpose. No countdown, no scarcity, no dismissable overlay —
@@ -2396,44 +2371,6 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
   .stat { grid-template-columns: 1fr; gap: .5rem; }
 }
 
-/* ── Answers: 78 questions is a directory, not an essay ───────────────────
-   The visual audit measured this page at 1,088 words per visual break, twice
-   the next worst on the site, and 29 screens of scroll. The markup was already
-   right — a <dl> is what a list of question/answer pairs IS — so nothing here
-   changes the semantics. What was missing was any weight difference between a
-   question and its answer, which is what turns a directory into a wall. */
-.answers-list > div { padding: 1.15rem 0 1.25rem; }
-.answers-list dt {
-  font-weight: 660; font-size: 1.06rem; line-height: 1.35;
-  letter-spacing: -.008em; color: var(--ink); margin: 0 0 .45rem;
-}
-.answers-list dt a { color: var(--ink); }
-.answers-list dt a:hover { color: var(--blue-deeper); }
-/* A question you can act on should look like one. */
-.answers-list dt a::after {
-  content: " →"; color: var(--blue); font-weight: 400;
-  opacity: 0; transition: opacity var(--dur-fast) var(--ease);
-}
-.answers-list dt a:hover::after, .answers-list dt a:focus-visible::after { opacity: 1; }
-
-/* Section headers get a count, so "Questions people ask" becomes a promise
-   with a size attached rather than an unknown scroll. */
-.answers-count {
-  display: inline-block; margin-left: .55rem; padding: .12em .5em;
-  font-size: .62em; font-weight: 600; vertical-align: middle;
-  color: var(--ink-faint); background: var(--surface-3);
-  border: 1px solid var(--line); border-radius: var(--radius-pill);
-  font-variant-numeric: tabular-nums;
-}
-
-/* The jump nav is the only navigation on a 29-screen page, so it stays put. */
-@media (min-width: 900px) {
-  .answers-jump { position: sticky; top: 12px; z-index: 3; backdrop-filter: blur(6px); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .answers-list dt a::after { transition: none; }
-}
-
 /* ---- Optional callback disclosure -----------------------------------------
    The practice publishes no phone number, so the only way a call can happen is
    if the visitor asks for one. This has to read as an offer rather than as
@@ -2714,6 +2651,14 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
    Focus keeps the one site-wide ring, on the anchor's own text. 1 Oct 2026. */
 .card--stretch a.more.card-stretch{ color: var(--blue-deep) }
 .card--stretch:hover a.more.card-stretch{ color: var(--clay-deep) }
+
+/* A NEXT-CONSULTATION LINE THE BROWSER FILLS IN — 3 Oct 2026 (item 429).
+   components/NextConsultSlot.tsx prints the days after /api/availability
+   answers; the page around it is static. The box is laid out at the height
+   the filled text will take (--lm lines on a phone, --ld wider, set by the
+   page from who it may name), so nothing under it moves when it arrives. */
+.consult-slot { min-height: calc(1.62em * var(--lm, 1)); }
+@media (min-width: 900px) { .consult-slot { min-height: calc(1.62em * var(--ld, 1)); } }
 
 /* item 275: linkable resource print view
    The four pages outreach asks organisations to link and print

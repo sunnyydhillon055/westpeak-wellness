@@ -245,7 +245,8 @@ test('the register is seeded with today’s batches, each read 28 days on', () =
     assert.equal((Date.parse(c.readAfter) - Date.parse(c.date)) / 864e5, 28, c.id);
   }
   assert.deepEqual(dueChanges(changes, [], [], new Date('2026-10-15T00:00:00Z')), []);
-  const due = dueChanges(changes, [], [], new Date('2026-10-30T00:00:00Z'));
+  /* 2026-11-01: the latest entry (item 409, 3 Oct) reads on 31 Oct. */
+  const due = dueChanges(changes, [], [], new Date('2026-11-01T00:00:00Z'));
   assert.equal(due.length, changes.length);
   assert.match(changeLines(due).join('\n'), /Changes whose 28 days are up/);
 });

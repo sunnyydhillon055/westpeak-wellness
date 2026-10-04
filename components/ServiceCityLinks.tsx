@@ -65,7 +65,7 @@ export default function ServiceCityLinks({
             </p>
             <div className="chip-grid" style={{ marginTop: 16 }}>
               {cityContexts.map((c) => (
-                <Link className="chip" key={c.slug} href={`/online-counselling/${c.slug}/${spoke.service}`}>
+                <Link prefetch={false} className="chip" key={c.slug} href={`/online-counselling/${c.slug}/${spoke.service}`}>
                   {label} in {c.city}
                 </Link>
               ))}
@@ -78,7 +78,7 @@ export default function ServiceCityLinks({
             {audiences.map((a, i) => (
               <span key={a.slug}>
                 {i > 0 && (i === audiences.length - 1 ? ' and ' : ', ')}
-                <Link href={`/for/${a.slug}`}>{a.title}</Link>
+                <Link prefetch={false} href={`/for/${a.slug}`}>{a.title}</Link>
               </span>
             ))}
             .

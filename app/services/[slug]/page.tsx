@@ -155,10 +155,14 @@ const DURATION_FOR: Record<string, string | undefined> = {
   'emdr-intensive': '90 minutes',
 };
 
-/* ISR rather than fully dynamic. These nine pages are the fastest on the site
- * and should stay statically served; an hourly re-render picks up a Cliniko
- * price change without giving that up. */
-export const revalidate = 3600;
+/* FULLY STATIC — 3 Oct 2026 (item 429). This page exported `revalidate`
+   for the catalogue fee and the next-consultation line. A page Next
+   re-renders in production goes out without the inlined first-paint CSS
+   (scripts/inline-css.mjs only sees the build), and production served these
+   templates with blocking stylesheet links. The fee is now a build-time fact
+   (a price change in Cliniko reaches the page with the next deploy) and the
+   next consultation is filled in by the browser (components/NextConsultSlot.tsx).
+   `inline-css --check` fails if an indexable route exports revalidate again. */
 
 export default async function ServicePage({ params }: { params: { slug: string } }) {
   const s = getService(params.slug);

@@ -1,6 +1,7 @@
 import { practitioners, insuredProvinces, vancouverToday, type Practitioner } from '@/lib/practitioners';
 import { site } from '@/lib/site';
 import { counsellorsFor, bookHrefFor } from '@/lib/city-service-page';
+import type { SlotPerson } from '@/lib/consult-slot';
 
 /* THE HERO BOOKING ACTION, ASSEMBLED FROM DATA — 1 Oct 2026.
  *
@@ -208,3 +209,47 @@ export const audienceConsultSlugs = (a: { language?: string; service?: string })
         (!a.service || (a.language && a.service === LANGUAGE_SERVICE[a.language]) || p.services.includes(a.service)),
     )
     .map((p) => p.slug);
+
+/* WHO A CONSULTATION SLOT MAY NAME — 3 Oct 2026 (items 429 and 409).
+ *
+ * The roster half of every next-consultation line, decided on the server so
+ * the browser half (components/NextConsultSlot.tsx) receives first names and
+ * links and never the roster. Accepting, bookable online, and narrowed by
+ * `slugs` and `language` exactly as lib/next-consult.ts narrows them, in
+ * roster order. `service` only shapes the link (for=couples). */
+export function consultPeople({ slugs, language, service }: { slugs?: readonly string[]; language?: string; service?: string }): SlotPerson[] {
+  return practitioners
+    .filter(
+      (p) =>
+        p.acceptingNewClients &&
+        p.bookable &&
+        (!slugs || slugs.includes(p.slug)) &&
+        (!language || p.languages.some((l) => l.tag === language)),
+    )
+    .map((p) => ({ slug: p.slug, first: p.name.split(' ')[0]!, href: bookHrefFor([p], service) }));
+}
+
+/* THE ARTICLE HERO NAMES WHO YOU WOULD TALK TO — 3 Oct 2026 (item 409).
+ *
+ * On the live guides and resources a reader went 900 to 2,700 words past
+ * the H1 before any counsellor was named (workplace mental health 2,723,
+ * EI 1,730, the Punjabi words resource 1,142, sick days 905), while the home
+ * hero, which names them and their next free day, earned 12 of 38
+ * book_clicks. The article heroes now do the same: the day list under the
+ * button (components/NextConsultLine.tsx, HeroNextDays), and when the page
+ * fits exactly one counsellor the button names her and opens her calendar:
+ * "Book a free consultation with Savneet (English and Punjabi)". Her first
+ * name and her languages come from the roster, so the words follow it; the
+ * founder is never accepting or bookable and so is never named here. */
+export function heroBookingCta(cta: BookingCta, people: readonly SlotPerson[]): BookingCta {
+  if (people.length !== 1) return cta;
+  const p = practitioners.find((x) => x.slug === people[0]!.slug);
+  if (!p) return cta;
+  const langs = p.languages.map((l) => l.name);
+  const list = langs.length > 1 ? `${langs.slice(0, -1).join(', ')} and ${langs[langs.length - 1]}` : langs[0];
+  return {
+    href: people[0]!.href,
+    label: `Book a free consultation with ${people[0]!.first}${list ? ` (${list})` : ''}`,
+    practitioner: p,
+  };
+}

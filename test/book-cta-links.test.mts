@@ -98,7 +98,9 @@ test('every narrowed booking href ends in #calendar; bare /book never does', () 
   }
   /* Since 2 Oct 2026 the line builds its href with bookHrefFor, which ends
      in #calendar and adds for=couples on a couples page (item 354). */
-  assert.match(src('components/NextConsultLine.tsx'), /href=\{bookHrefFor\(practitioners\.filter\(\(p\) => p\.slug === e\.slug\), service\)\}/);
+  /* Since 3 Oct 2026 the roster half lives in consultPeople (item 429). */
+  assert.match(src('lib/booking-cta.ts'), /href: bookHrefFor\(\[p\], service\)/);
+  assert.match(src('components/NextConsultLine.tsx'), /consultPeople\(\{ slugs, language, service \}\)/);
   assert.doesNotMatch(src('lib/lead-roster.ts'), /bookHrefFor\(\[p\]\)\}#calendar/, 'no doubled hash');
 });
 
@@ -171,14 +173,18 @@ test('the new booking buttons are counted, in the middle of the list', () => {
 
 /* ---------- wf/article-templates, 1 Oct 2026: items 366, 370, 379, 383, 384, 385 ---------- */
 
-test('379: the next free consultation prints once per page, mid-article or in the closing block', () => {
-  for (const [file, loc] of [['app/resources/[slug]/page.tsx', 'next-resource-close'], ['app/guides/[slug]/page.tsx', 'next-guide-close']]) {
+test('379: the next free consultation prints once per page, under the hero button since 409', () => {
+  for (const file of ['app/resources/[slug]/page.tsx', 'app/guides/[slug]/page.tsx', 'app/compare/[slug]/page.tsx', 'app/pricing/page.tsx']) {
     const page = src(file);
-    assert.ok(page.includes(`consult={cards && !next ? { location: '${loc}'`), file);
-    assert.match(page, /const next = NEXT_CONSULT_AFTER\[/, file);
-    /* Exactly one mid-article render, keyed on the same `next`. */
-    assert.equal(page.split('<NextConsultLine').length - 1, 1, file);
-    assert.match(page, /next\?\.h2 === s\.h2 && /, file);
+    /* One render, at the top; none mid-article, none in the closing block. */
+    assert.equal(page.split('<HeroNextDays').length - 1, 1, file);
+    assert.equal(page.split('<NextConsultLine').length - 1, 0, file);
+    assert.doesNotMatch(page, /\bconsult=\{/, file);
+  }
+  for (const file of ['app/resources/[slug]/page.tsx', 'app/guides/[slug]/page.tsx']) {
+    /* A page without cards keeps the line only where it printed one mid-article before. */
+    assert.match(src(file), /const heroPeople = cards\s+\? consultPeople\(\{ slugs: counsellors\.map\(\(p\) => p\.slug\)/, file);
+    assert.match(src(file), /: next \? consultPeople\(/, file);
   }
 });
 
@@ -347,7 +353,8 @@ test('402: no hand-built /book?with= href in app/**/*.tsx misses #calendar', () 
 test('402: the profile, place pages, their twins and the Tagalog guides book through bookHrefFor', () => {
   const profile = src('app/practitioners/[slug]/page.tsx');
   assert.match(profile, /\? bookHrefFor\(\[p\]\)\s*: alts\[0\]/);
-  assert.match(profile, /<BookLink location="next-practitioner" className="" href=\{bookHref\}>\{d\}<\/BookLink>/);
+  /* The days are filled in by the browser since r6-static-speed (3 Oct 2026). */
+  assert.match(profile, /<OpenDays slug=\{p\.slug\} first=\{first!\} href=\{bookHref\} location="next-practitioner" \/>/);
   const place = src('app/practitioners/[slug]/[place]/page.tsx');
   assert.equal(place.split('const bookHref = bookHrefFor([p]);').length - 1, 2);
   assert.match(place, /href=\{p\.acceptingNewClients \? bookHrefFor\(\[p\]\) : site\.bookingPath\}/);
@@ -356,7 +363,7 @@ test('402: the profile, place pages, their twins and the Tagalog guides book thr
   }
   assert.match(src('app/tagalog/gabay/[slug]/page.tsx'), /href=\{speaker \? bookHrefFor\(\[speaker\]\) : site\.bookingPath\}/);
   for (const l of ['next-practitioner', 'hero-next-language', 'next-message-sent']) assert.ok(BOOK_LOCATIONS.includes(l), l);
-  assert.deepEqual(BOOK_LOCATIONS.slice(BOOK_LOCATIONS.indexOf('hero-online') + 1), ['next-practitioner', 'hero-next-language', 'next-message-sent']);
+  assert.deepEqual(BOOK_LOCATIONS.slice(BOOK_LOCATIONS.indexOf('hero-online') + 1), ['next-practitioner', 'hero-next-language', 'next-message-sent', 'hero-next-article']);
 });
 
 test('456: a profile not taking new clients says so and names the colleague who shares her language', async () => {
@@ -482,7 +489,10 @@ test('460: /punjabi names its counsellor in one Latin-script line, with her next
   const block = page.slice(at, page.indexOf('</p>', at));
   assert.match(block, /<p lang="en"/);
   assert.match(block, /<Link href=\{`\/practitioners\/\$\{speaker\.slug\}`\}>\{withLetters\(speaker\)\}<\/Link>/);
-  assert.match(block, /<BookLink location="hero-next-language" className="" href=\{bookHrefFor\(\[speaker\]\)\}>\{speakerNext\.day\}<\/BookLink>/);
+  /* The day is filled in by the browser since integration with r6-static-speed (3 Oct 2026). */
+  assert.match(block, /<NextFreeDay person=\{speakerSlot\} location="hero-next-language" \/>/);
+  assert.match(page, /href: bookHrefFor\(\[speaker\]\) \}/);
+  assert.doesNotMatch(page, /export const revalidate/);
   assert.doesNotMatch(block, /[਀-੿]/, 'no new Punjabi prose');
   const speaker = practitioners.find((p) => p.acceptingNewClients && p.languages.some((l) => l.tag === 'pa') && p.placePages)!;
   assert.equal(speaker.slug, savneet.slug);

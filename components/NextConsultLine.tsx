@@ -1,8 +1,7 @@
-import BookLink from '@/components/BookLink';
-import { practitioners } from '@/lib/practitioners';
-import { consultationAvailability } from '@/lib/cliniko-availability';
-import { nextConsultEntries, nextConsultNoneOpen, noConsultSentence, askForTimeHref, NEXT_CONSULT_LABEL } from '@/lib/next-consult';
-import { bookHrefFor } from '@/lib/city-service-page';
+import { ConsultLine, ConsultDays } from '@/components/NextConsultSlot';
+import { askForTimeHref } from '@/lib/next-consult';
+import { consultPeople } from '@/lib/booking-cta';
+import { consultLines, daysLines, type SlotPerson } from '@/lib/consult-slot';
 import { site } from '@/lib/site';
 
 /* THE NEXT FREE CONSULTATION, ON A PAGE ABOUT WAITING — 1 Oct 2026.
@@ -21,10 +20,13 @@ import { site } from '@/lib/site';
  * works in Punjabi. Each placement passes its own `location`, on
  * BOOK_LOCATIONS, so which of them earns a booking is countable.
  *
- * A SERVER component. It reads the roster and the cache on the server and
- * sends the browser two short lines; nothing here enters a client bundle
- * (the perf rule of 1 Oct 2026). It prints nothing at all when Cliniko could
- * not be read. When it was read and nobody it would name has a time in the
+ * A SERVER component that reads the roster; since 3 Oct 2026 (item 429)
+ * it no longer reads Cliniko. It decides who the line may name and hands
+ * those first names and links to ConsultLine (components/NextConsultSlot.tsx),
+ * which asks /api/availability in the browser, so the page around it can be
+ * fully static and keep its inlined CSS. The roster never enters a client
+ * bundle (the perf rule of 1 Oct 2026). It prints nothing at all when Cliniko
+ * could not be read. When it was read and nobody it would name has a time in the
  * next two weeks it says so and links the ask-for-a-time form on /book
  * (2 Oct 2026, "next-consult-ask"), naming no day and no hour. These are appointment times
  * Cliniko is offering, not opening hours, and they are Pacific time.
@@ -37,7 +39,7 @@ import { site } from '@/lib/site';
  * carries for=couples, so /book opens the couples consult type. Before this,
  * /for/couples and /services/couples-therapy linked ?with=camille-granda
  * #calendar, which opens the individual consult. */
-export default async function NextConsultLine({
+export default function NextConsultLine({
   location,
   slugs,
   language,
@@ -53,38 +55,37 @@ export default async function NextConsultLine({
   service?: string;
   style?: React.CSSProperties;
 }) {
-  let all;
-  try {
-    all = await consultationAvailability();
-  } catch {
-    return null;
-  }
-  const entries = nextConsultEntries(all, practitioners, { slugs, language });
-  if (!entries.length) {
-    const none = nextConsultNoneOpen(all, practitioners, { slugs, language });
-    const sentence = noConsultSentence(none);
-    if (!sentence) return null;
-    return (
-      <p className="next-consult" style={style ?? { margin: '4px 0 28px', fontSize: '.95rem' }}>
-        {sentence}{' '}
-        <BookLink location="next-consult-ask" className="" href={askForTimeHref(none, site.bookingPath)}>
-          {none.length === 1 ? `Ask ${none[0]!.first} for a time` : 'Ask for a time'}
-        </BookLink>
-      </p>
-    );
-  }
+  const people = consultPeople({ slugs, language, service });
+  if (!people.length) return null;
+  const [lm, ld] = consultLines(people);
   return (
-    <p className="next-consult" style={style ?? { margin: '4px 0 28px', fontSize: '.95rem' }}>
-      <strong>{NEXT_CONSULT_LABEL}</strong>{' '}
-      {entries.map((e, i) => (
-        <span key={e.slug}>
-          {i > 0 ? ' · ' : ''}
-          {e.first}, {e.when}{' '}
-          <BookLink location={location} className="" href={bookHrefFor(practitioners.filter((p) => p.slug === e.slug), service)}>
-            book with {e.first}
-          </BookLink>
-        </span>
-      ))}
+    <ConsultLine
+      people={people}
+      location={location}
+      askHref={askForTimeHref(people, site.bookingPath)}
+      style={style}
+      lm={lm}
+      ld={ld}
+    />
+  );
+}
+
+/* THE NEXT FREE DAY UNDER AN ARTICLE'S HERO BUTTON — 3 Oct 2026 (item 409).
+ * "Next free call: Thu 22 Oct with Savneet (Pacific time)", each day a link
+ * to her calendar counted as 'hero-next-article', as the home hero does it.
+ * The page passes the people its closing block used to name (consultPeople
+ * in lib/booking-cta.ts) and stops printing that copy, so the next
+ * consultation still prints once per page, now at the top. Days only, from
+ * Cliniko, filled in by the browser; the paragraph holds its height first. */
+export function HeroNextDays({ people, className }: { people: SlotPerson[]; className?: string }) {
+  if (!people.length) return null;
+  const [lm, ld] = daysLines(people);
+  return (
+    <p
+      className={`hero-note consult-slot${className ? ` ${className}` : ''}`}
+      style={{ marginTop: 14, '--lm': lm, '--ld': ld } as React.CSSProperties}
+    >
+      <ConsultDays people={people} location="hero-next-article" />
     </p>
   );
 }

@@ -56,8 +56,10 @@ test('the profile builds its hero, line and band from alternativesFor, not the f
   assert.doesNotMatch(page, /defaultBookingPractitioner/);
   assert.match(page, /alternativesFor\(p, practitioners\)/);
   assert.match(page, /alternativeLabel\(alts\[0\]\)/, 'the band uses the same pair');
-  /* Each day is a link to her calendar since 3 Oct 2026 (wf/r6-book-paths). */
-  assert.match(page, /\{nextOpen\.map\([\s\S]*?<BookLink location="next-practitioner"[\s\S]*?\{PACIFIC\}/, 'next open is labelled Pacific');
+  /* Filled in by the browser since r6-static-speed, each day a link to her
+     calendar since r6-book-paths (both 3 Oct 2026). */
+  assert.match(page, /<OpenDays slug=\{p\.slug\} first=\{first!\} href=\{bookHref\} location="next-practitioner" \/>/, 'next open, filled in by the browser');
+  assert.match(src('components/NextConsultSlot.tsx'), /<BookLink location=\{location\} className="" href=\{href\}>\{d\}<\/BookLink>[\s\S]*?\{PACIFIC_LABEL\}/, 'each day links, labelled Pacific');
   assert.match(page, /open=\{i === 0\}/, 'the first answer is open');
   assert.doesNotMatch(page, /secondLanguages\.length > 0 &&/, 'one language section, not two');
 });
@@ -123,11 +125,13 @@ test('the new booking locations are registered, appended after every earlier key
   assert.equal(BOOK_LOCATIONS[BOOK_LOCATIONS.indexOf('email:reactivation') + 1], 'calendar-alt');
   assert.ok(BOOK_LOCATIONS.indexOf('practitioners-row') > BOOK_LOCATIONS.indexOf('next-consult-ask'));
   const page = src('app/practitioners/page.tsx');
-  assert.match(page, /export const revalidate = 1800/);
+  assert.doesNotMatch(page, /export const revalidate/);
+  assert.match(page, /<FirstOpen slug=\{p\.slug\} prefix="Next free consultation: " \/>/);
   assert.match(page, /location="practitioners-row"/);
   assert.doesNotMatch(page, /immigration stress/);
   assert.doesNotMatch(page, /Registration numbers are shown in full/);
-  assert.match(src('components/CounsellorCompare.tsx'), /PACIFIC/);
+  assert.match(src('components/CounsellorCompare.tsx'), /<FirstOpen/);
+  assert.match(src('components/NextConsultSlot.tsx'), /\{when\}\{PACIFIC_LABEL\}/);
   assert.doesNotMatch(src('components/CounsellorCompare.tsx'), /^'use client'/);
 });
 

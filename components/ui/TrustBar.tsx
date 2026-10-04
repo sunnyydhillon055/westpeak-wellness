@@ -35,7 +35,7 @@ export default function TrustBar() {
             designation is; the next one says where to check it. */}
         <span>
           <strong>Registered Clinical Counsellors</strong> ·{' '}
-          <Link className="link-standalone" href="/resources/verify-a-counsellor-in-bc">what that means</Link>
+          <Link prefetch={false} className="link-standalone" href="/resources/verify-a-counsellor-in-bc">what that means</Link>
         </span>
       </span>
       {/* THE NUMBER COMES OFF EVERY PAGE BUT /about — owner's decision,
@@ -66,7 +66,7 @@ export default function TrustBar() {
       </span>
       <span className="trust-item">
         <Coverage aria-hidden="true" strokeWidth={1.7} />
-        <Link className="link-standalone" href="/resources/bc-extended-health-coverage-for-counselling">
+        <Link prefetch={false} className="link-standalone" href="/resources/bc-extended-health-coverage-for-counselling">
           Receipts for extended health
         </Link>
       </span>

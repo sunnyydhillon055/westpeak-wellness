@@ -155,19 +155,47 @@ if (CHECK) {
    * has the block, / (revalidate 1800) does not, and Lighthouse on the home
    * page charges 4 render-blocking stylesheets that no static page pays.
    *
-   * Reported, not failed. The revalidation is deliberate on each of these
-   * pages (the open-times line, Cliniko-priced sessions), and trading it for
-   * the inline block is a decision for the owner, page by page. The list is
-   * here so nobody reads "every prerendered document" as "every document". */
+   * FAILED, NOT REPORTED, SINCE 3 OCT 2026 (item 429). Reporting it let the
+   * list grow from 11 routes on 1 Oct to 317 on 3 Oct, and production served
+   * guides and resources with three plain stylesheet links. The Cliniko lines
+   * that were the reason now fill in on the client (components/
+   * NextConsultSlot.tsx), so an indexable page that revalidates is a
+   * regression. A noindex page may still revalidate (nobody arrives on it
+   * from search), and so may the routes in REVALIDATE_ALLOWED, each with its
+   * reason; take one off the list when its page stops revalidating. */
+  const REVALIDATE_ALLOWED = {
+    '/refer/counsellors': 'reads Cliniko at render for its next-open line; not moved to the client slot yet',
+    '/refer/doctor': 'a print handout whose fees re-read the catalogue hourly; low search traffic',
+    '/refer/handout': 'a print handout whose fees re-read the catalogue hourly; low search traffic',
+    '/for/employers-and-hr/one-pager': 'a print one-pager whose fees re-read the catalogue hourly',
+  };
   const pm = join(process.cwd(), '.next', 'prerender-manifest.json');
   if (existsSync(pm)) {
     const routes = JSON.parse(readFileSync(pm, 'utf8')).routes ?? {};
     const isr = Object.entries(routes)
-      .filter(([r, v]) => !r.startsWith('/api/') && typeof v.initialRevalidateSeconds === 'number')
-      .map(([r, v]) => `${r} (${v.initialRevalidateSeconds}s)`);
-    if (isr.length) {
-      console.log(`\n  ${isr.length} route(s) revalidate at runtime and lose this block in production after their first regeneration:`);
-      for (const r of isr) console.log(`   ${r}`);
+      .filter(([r, v]) => !r.startsWith('/api/') && typeof v.initialRevalidateSeconds === 'number');
+    const failing = [];
+    const allowed = [];
+    for (const [r, v] of isr) {
+      const file = join(ROOT, `${r === '/' ? 'index' : r.slice(1)}.html`);
+      const html = existsSync(file) ? readFileSync(file, 'utf8') : '';
+      const noindex = /<meta name="robots" content="[^"]*noindex/i.test(html);
+      const line = `${r} (${v.initialRevalidateSeconds}s)`;
+      if (noindex) allowed.push(`${line}  noindex`);
+      else if (REVALIDATE_ALLOWED[r]) allowed.push(`${line}  allowed: ${REVALIDATE_ALLOWED[r]}`);
+      else failing.push(line);
+    }
+    if (allowed.length) {
+      console.log(`\n  ${allowed.length} route(s) revalidate at runtime and lose this block in production after their first regeneration (allowed):`);
+      for (const r of allowed) console.log(`   ${r}`);
+    }
+    if (failing.length) {
+      console.log(`\n  ${failing.length} indexable route(s) revalidate at runtime and would lose this block in production:\n`);
+      for (const r of failing) console.log(`   ${r}`);
+      console.log('\n  Remove `export const revalidate` (and anything that reads Cliniko at render, which');
+      console.log('  sets it for the page: unstable_cache revalidates). Put a live line in the client');
+      console.log('  slot, components/NextConsultSlot.tsx, instead.\n');
+      process.exit(1);
     }
   }
   console.log('');

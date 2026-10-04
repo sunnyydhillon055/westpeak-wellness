@@ -40,9 +40,14 @@ export function generateStaticParams() {
   return punjabiRegions.map((r) => ({ region: r.slug }));
 }
 
-/* ISR, as the other money pages are: the opening and the description read
-   the individual fee from the Cliniko catalogue. 1 Oct 2026. */
-export const revalidate = 3600;
+/* FULLY STATIC — 3 Oct 2026 (item 429). This page exported `revalidate`
+   for the catalogue fee and the next-consultation line. A page Next
+   re-renders in production goes out without the inlined first-paint CSS
+   (scripts/inline-css.mjs only sees the build), and production served these
+   templates with blocking stylesheet links. The fee is now a build-time fact
+   (a price change in Cliniko reaches the page with the next deploy) and the
+   next consultation is filled in by the browser (components/NextConsultSlot.tsx).
+   `inline-css --check` fails if an indexable route exports revalidate again. */
 
 export async function generateMetadata({ params }: { params: { region: string } }): Promise<Metadata> {
   const r = getPunjabiRegion(params.region);
