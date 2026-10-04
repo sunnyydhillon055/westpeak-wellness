@@ -51,7 +51,7 @@ export function feeLines(p: Pick<Practitioner, 'services'>, catalog: Catalog): F
 export const feePhrase = (l: FeeLine): string =>
   l.parts.map((x, i) => `${i ? 'or ' : ''}${x.as ? `${x.as} ` : ''}${x.fee} for ${x.minutes} minutes`).join(', ');
 
-/** "First 30-minute consultation free", from the catalogue's own free type. */
+/** "First 15-minute consultation free", from the catalogue's own free type. */
 export function consultLine(catalog: Catalog): string | null {
   const c = find(catalog, 'Initial Consultation');
   return c && c.cents === 0 ? `First ${c.minutes}-minute consultation free` : null;

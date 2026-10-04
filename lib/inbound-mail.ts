@@ -34,8 +34,8 @@ const leadEndingText = (o: LeadMailOptions) => {
     ...(o.unsub ? [`Not wanted? One click stops them: ${o.unsub}`] : []),
     '',
     roster.length
-      ? `If you would like to talk any of it through, a free 30-minute\nconsultation carries no obligation. Each counsellor's own calendar:\n\n${rosterText(roster)}`
-      : `If you would like to talk any of it through, a free 30-minute\nconsultation carries no obligation:\n${links.book}`,
+      ? `If you would like to talk any of it through, a free 15-minute\nconsultation carries no obligation. Each counsellor's own calendar:\n\n${rosterText(roster)}`
+      : `If you would like to talk any of it through, a free 15-minute\nconsultation carries no obligation:\n${links.book}`,
   ].join('\n');
 };
 
@@ -45,8 +45,8 @@ const leadEndingHtml = (o: LeadMailOptions) => {
     p(`That is everything you asked for. ${esc(SEQUENCE_PROMISE)}` +
       (o.unsub ? ` <span style="color:#545e69;font-size:14px;">Not wanted? ${a(o.unsub, 'One click stops them')}.</span>` : '')) +
     (roster.length
-      ? p('If you would like to talk any of it through, a free 30-minute consultation carries no obligation. Each counsellor&rsquo;s own calendar:') + rosterButtons(roster)
-      : btn(links.book, 'Book a free 30-minute consultation')) +
+      ? p('If you would like to talk any of it through, a free 15-minute consultation carries no obligation. Each counsellor&rsquo;s own calendar:') + rosterButtons(roster)
+      : btn(links.book, 'Book a free 15-minute consultation')) +
     p('<span style="color:#545e69;font-size:14px;">No obligation, and deciding not to book is a completely normal outcome.</span>')
   );
 };
@@ -383,7 +383,7 @@ come next:
   How this practice works, and what is outside its scope
   ${links.standards}
 
-If you would rather just pick a time, the free 30-minute consultation
+If you would rather just pick a time, the free 15-minute consultation
 is here and carries no obligation:${daysText}
 ${book}
 
@@ -447,8 +447,8 @@ export function replyDraftBody(firstName: string, d: ReplyDraft): string {
     'Thank you for your message.',
     '',
     listed
-      ? `My next free 30-minute consultation days are ${listed}${PACIFIC}. You can choose a time here:`
-      : 'You can choose a time for a free 30-minute consultation here:',
+      ? `My next free 15-minute consultation days are ${listed}${PACIFIC}. You can choose a time here:`
+      : 'You can choose a time for a free 15-minute consultation here:',
     d.bookHref,
     ...(d.fees ? ['', `After the consultation, sessions are ${d.fees}.`] : []),
     '',

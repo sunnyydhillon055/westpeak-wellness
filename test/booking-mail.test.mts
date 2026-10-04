@@ -111,7 +111,7 @@ test('no counsellor on the roster: no name, no "With", no "undefined", no langua
 test('a paid booking states the cancellation terms; the free consultation never mentions a fee', () => {
   const paid = all(confirmationEmail(booking({ isConsult: false, minutes: 50, practitioner: SAVNEET })));
   assert.equal(confirmationEmail(booking({ isConsult: false })).subject, 'Your online session is booked | Westpeak Wellness');
-  assert.ok(paid.includes(`more than ${site.cancellationHours} hours ahead is refunded in full`));
+  assert.ok(paid.includes(`at least ${site.cancellationHours} hours’ notice gets a full refund`));
   assert.ok(paid.includes('50% of the fee is kept'));
   assert.ok(all(reminderEmail(booking({ isConsult: false, minutes: 50 }))).includes('50% of the fee is kept'));
   for (const m of [confirmationEmail(booking()), reminderEmail(booking())]) {

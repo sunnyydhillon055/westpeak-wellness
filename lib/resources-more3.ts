@@ -22,7 +22,7 @@ export function findPunjabiTherapistAnswer(names: string[] = punjabiCounsellorNa
     'First, filter BCACC’s Find a Counsellor directory (bc-counsellors.org) by language and choose Punjabi; it lists only the RCCs who choose to be listed.',
     'Second, check any name you find on BCACC’s RCC Register, which shows whether the registration is active.',
     'Third, the free options: DIVERSEcity in Surrey, Archway’s Abbotsford Addictions Centre and Fraser Health’s Roshni Clinic each named Punjabi on their own pages when read on 1 October 2026, and 2-1-1 answers in Punjabi; confirm the language before relying on it.',
-    `Last, this practice: ${practice}. The first 30-minute consultation is free.`,
+    `Last, this practice: ${practice}. The first 15-minute consultation is free.`,
   ].join(' ');
 }
 
@@ -51,7 +51,7 @@ export function findPunjabiTherapistAnswer(names: string[] = punjabiCounsellorNa
  * is sourced to a canada.ca or gov.bc.ca page read the same day.
  *
  * Both pages observe the rules every other page does: no outcome claims, no
- * testimonials, coverage is plan-dependent, the consultation is 30 minutes
+ * testimonials, coverage is plan-dependent, the consultation is 15 minutes
  * because Cliniko says so, no hours published, nothing clinical. */
 
 export const moreResources3: Resource[] = [
@@ -162,7 +162,7 @@ export const moreResources3: Resource[] = [
         h2: 'What this practice offers, named last on purpose',
         body: [
           'Westpeak Wellness is a private, fully online counselling practice registered in White Rock and working across BC by secure video. Its Registered Clinical Counsellors work in English, Punjabi and Tagalog, in the language itself rather than through an interpreter. The practice does not bill MSP and says so; fees are published in full; a plan that lists an RCC reimburses the sessions, and whether a given plan does is always plan-dependent.',
-          'The first step is a free 30-minute consultation by video, which can be booked for the person or requested on their behalf. The in-language pages exist for the reader who wants to send them along: [counselling in Punjabi](/punjabi) and [counselling in Tagalog](/tagalog), with the English service pages at [Punjabi-speaking counselling](/services/punjabi-counselling) and [Tagalog-speaking counselling](/services/tagalog-counselling). Two short glossaries, [what the Punjabi words mean](/resources/counselling-in-punjabi-what-the-words-mean) and [what the Tagalog words mean](/resources/counselling-in-tagalog-what-the-words-mean), are written for exactly the conversation where a family is deciding whether to try.',
+          'The first step is a free 15-minute consultation by video, which can be booked for the person or requested on their behalf. The in-language pages exist for the reader who wants to send them along: [counselling in Punjabi](/punjabi) and [counselling in Tagalog](/tagalog), with the English service pages at [Punjabi-speaking counselling](/services/punjabi-counselling) and [Tagalog-speaking counselling](/services/tagalog-counselling). Two short glossaries, [what the Punjabi words mean](/resources/counselling-in-punjabi-what-the-words-mean) and [what the Tagalog words mean](/resources/counselling-in-tagalog-what-the-words-mean), are written for exactly the conversation where a family is deciding whether to try.',
           'If you are referring somebody professionally, the [referral page](/refer) sets out what the practice does and does not treat. Email is the better route than phone; it is answered within one business day by the counsellor.',
         ],
       },
@@ -180,7 +180,7 @@ export const moreResources3: Resource[] = [
     ],
     midCta: {
       text: 'If you are helping someone decide and would like to ask about language, fees or fit before anything is booked,',
-      label: 'the 30-minute consultation is free and can be requested on their behalf',
+      label: 'the 15-minute consultation is free and can be requested on their behalf',
     },
     faqs: [
       { q: 'How do I find a Punjabi-speaking therapist in BC?', a: findPunjabiTherapistAnswer() },
@@ -190,7 +190,7 @@ export const moreResources3: Resource[] = [
       { q: 'Can a family member interpret in a counselling session?', a: 'They can be asked to, and they should not. It changes what the person can say and often puts the interpreter inside the problem being discussed. Ask the service for a professional interpreter, which health-authority services provide free, or look for a counsellor who works in the language.' },
       { q: 'How do I check that a Punjabi- or Tagalog-speaking counsellor is registered?', a: 'Ask for their designation and look them up on that body\'s public register: BCACC for an RCC, CCPA for a CCC, the BC College of Social Workers for an RSW, the College of Health and Care Professionals of BC for a psychologist. A fluent speaker who is not on any register is not a registered counsellor, however good the conversation.' },
       { q: 'Does the person need a doctor\'s referral?', a: 'No, not for private counselling or for most non-profit counselling. A doctor can refer into health-authority mental-health services and is the right first call where medication, a medical leave or an assessment is in question.' },
-      { q: 'What does a free consultation actually involve?', a: 'A short video or phone conversation, before any booking or payment, in which the person says what is going on, asks about language, fees and coverage, and the counsellor says whether they can help. Nothing is diagnosed. Saying no afterwards is a normal outcome. At this practice it is 30 minutes.' },
+      { q: 'What does a free consultation actually involve?', a: 'A short video or phone conversation, before any booking or payment, in which the person says what is going on, asks about language, fees and coverage, and the counsellor says whether they can help. Nothing is diagnosed. Saying no afterwards is a normal outcome. At this practice it is 15 minutes.' },
       { q: 'Can an employer or settlement worker book the consultation for someone?', a: 'They can request it on the person\'s behalf by email, with the person\'s agreement. The counselling itself is between the counsellor and the client; the helper is not part of the sessions and is not told what is discussed.' },
     ],
     sources: [
@@ -422,7 +422,7 @@ export const moreResources3: Resource[] = [
     ],
     midCta: {
       text: 'If you are working out whether a leave is what you need, or you are on one and want the time inside it to count,',
-      label: 'the 30-minute consultation is free and carries no obligation',
+      label: 'the 15-minute consultation is free and carries no obligation',
     },
     faqs: [
       { q: 'Can I use these templates in Alberta or Ontario?', a: 'The EI sickness and Record of Employment facts are federal and apply everywhere in Canada. The sick-day entitlement, the proof an employer may ask for and the job-protection rules are provincial and the figures on this page are British Columbia\'s. Replace those lines with your province\'s employment standards before using the employee letter or the HR checklist elsewhere.' },

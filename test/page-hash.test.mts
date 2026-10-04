@@ -22,7 +22,7 @@ test('a re-dated page does not change its own hash, or the next build would re-d
 });
 
 test('the Cliniko next-consultation line and appointment times are not content', () => {
-  const a = page('<p class="next-consult"><strong>Next free 30-minute consultation (Pacific time):</strong> Camille, Tue Oct 7, 10:00 am <a href="/book">book with Camille</a></p><p>Body.</p><td>Thu Oct 9, 2:30 pm (3 times)</td>');
+  const a = page('<p class="next-consult"><strong>Next free 15-minute consultation (Pacific time):</strong> Camille, Tue Oct 7, 10:00 am <a href="/book">book with Camille</a></p><p>Body.</p><td>Thu Oct 9, 2:30 pm (3 times)</td>');
   const b = page('<p class="next-consult">No one has a time in the next two weeks. <a href="/book">Ask for a time</a></p><p>Body.</p><td>tomorrow 9:00 am</td>');
   assert.equal(hashText(mainText(a)), hashText(mainText(b)));
 });

@@ -289,7 +289,7 @@ test('the claims gates scan docs/, kits/ and the August outreach kit', () => {
 });
 
 test('nothing in docs/ or kits/ carries a retired claim', () => {
-  const banned = [/Gottman/i, /\$170\b/, /20111/, /Master's research/i, /most extended health/i, /within days/i, /\b15[- ]minute consult/i];
+  const banned = [/Gottman/i, /\$170\b/, /20111/, /Master's research/i, /most extended health/i, /within days/i, /\b30[- ]minute consult/i];
   for (const f of offsite()) {
     const src = readFileSync(f, 'utf8');
     for (const re of banned) assert.doesNotMatch(src, re, `${f}: ${re}`);

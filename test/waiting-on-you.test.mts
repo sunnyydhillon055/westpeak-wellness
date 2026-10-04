@@ -28,7 +28,7 @@ test('the insurance row names the gate date and what it keeps', () => {
   assert.equal(r.due, '2026-10-15');
   assert.match(r.state, /grace, gate closes 2026-10-15/);
   assert.match(r.unlocks, /7 Alberta place pages/);
-  assert.match(r.unlocks, /anywhere in Canada/);
+  assert.doesNotMatch(r.unlocks, /anywhere in Canada/); // reach removed 3 Oct 2026
   assert.equal(r.urgent, true);
 });
 

@@ -15,7 +15,7 @@ import { counsellorsFor, feeFor, languagePhrase, listOf, type Fee } from '@/lib/
  *
  * So the tail of those descriptions is generated here:
  *
- *   {fee} per {minutes}-min session · free 30-min consult · {names}
+ *   {fee} per {minutes}-min session · free 15-min consult · {names}
  *
  * The fee is read from the Cliniko catalogue (readCatalog, falling back to
  * FALLBACK_CATALOG, which scripts/price-drift.mjs checks), never typed; this
@@ -48,10 +48,10 @@ export const metaLength = (s: string) =>
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#x27;').length;
 
-/** "{fee} per {minutes}-min session · free 30-min consult · {names}", names joined with "or". */
+/** "{fee} per {minutes}-min session · free 15-min consult · {names}", names joined with "or". */
 export function snippetFacts(args: { fee: Fee; from?: boolean; names?: string[] }): string {
   const { fee, from, names } = args;
-  const parts = [`${from ? 'From ' : ''}${fee.fee} per ${fee.minutes}-min session`, 'free 30-min consult'];
+  const parts = [`${from ? 'From ' : ''}${fee.fee} per ${fee.minutes}-min session`, 'free 15-min consult'];
   if (names?.length) parts.push(listOf(names, 'or'));
   return parts.join(' · ');
 }

@@ -88,7 +88,7 @@ export function buildIndex(): Entry[] {
     }),
     { href: '/pricing', title: 'Fees, insurance and receipts', kind: 'Page',
       summary: 'What a session costs, how extended health plans and receipts work, and whether a plan may cover it. Coverage depends on the plan.' },
-    { href: '/book', title: 'Book a free 30-minute consultation', kind: 'Page',
+    { href: '/book', title: 'Book a free 15-minute consultation', kind: 'Page',
       summary: 'Choose a counsellor and a time to talk. The calendar shows real open times.' },
     { href: '/faq', title: 'Frequently asked questions', kind: 'Page',
       summary: 'Cost, coverage, first sessions, online counselling and how booking works.' },

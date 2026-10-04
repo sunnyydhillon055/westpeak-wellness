@@ -71,8 +71,8 @@ test('/book honours for=couples only with a counsellor who offers couples work, 
   assert.match(page, /openDetail=\{couples \? 'couples' : undefined\}/);
   /* Owner check pending (two devices, a separate $0 type): the line says no
      more than lib/depth-services.ts already does. */
-  assert.match(src('lib/depth-services.ts'), /free 30-minute consultation that both partners can join/);
-  assert.match(page, /both partners\s+can join the free 30-minute consultation/);
+  assert.match(src('lib/depth-services.ts'), /free 15-minute consultation that both partners can join/);
+  assert.match(page, /both partners\s+can join the free 15-minute consultation/);
   assert.doesNotMatch(page, /two devices|same video link/);
 });
 
@@ -443,7 +443,7 @@ test('424: an enquiry routed to one counsellor carries a mailto reply draft, and
   const draft = { counsellor: 'Savneet', bookHref: 'https://www.westpeakwellness.com/book?with=savneet-singh#calendar', days: ['Tue 6 Oct', 'Fri 9 Oct', 'Tue 13 Oct'], fees };
   const body = replyDraftBody('Sam', draft);
   assert.match(body, /^Hi Sam,/);
-  assert.ok(body.includes('My next free 30-minute consultation days are Tue 6 Oct, Fri 9 Oct and Tue 13 Oct (Pacific time).'), body);
+  assert.ok(body.includes('My next free 15-minute consultation days are Tue 6 Oct, Fri 9 Oct and Tue 13 Oct (Pacific time).'), body);
   assert.ok(body.includes(draft.bookHref));
   assert.ok(body.includes(`sessions are ${fees}.`) && fees!.includes(money(fee('Individual Counselling').cents)), 'the catalogue fee');
   assert.doesNotMatch(body, /couples/, 'only what she offers');
@@ -463,7 +463,7 @@ test('424: an enquiry routed to one counsellor carries a mailto reply draft, and
   assert.doesNotMatch(practiceAlert(item).html, /Reply with your next times/);
   assert.doesNotMatch(practiceAlert({ ...item, kind: 'lead' as const, magnet: 'coverage-checklist' }, draft).html, /Reply with your next times/);
   /* No days read: the draft still opens her calendar, naming none. */
-  assert.match(replyDraftBody('', { ...draft, days: [] }), /^Hi,\n[\s\S]*You can choose a time for a free 30-minute consultation here:/);
+  assert.match(replyDraftBody('', { ...draft, days: [] }), /^Hi,\n[\s\S]*You can choose a time for a free 15-minute consultation here:/);
   const submit = src('lib/inbound-submit.ts');
   assert.match(submit, /practiceAlert\(\{ \.\.\.item, triage: finalVerdict \}, draft\)/);
   const mail = src('lib/inbound-mail.ts');

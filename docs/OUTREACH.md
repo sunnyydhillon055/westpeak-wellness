@@ -44,7 +44,7 @@ What we offer, briefly:
 - Registered Clinical Counsellors (BCACC), working in English, Punjabi and
   Tagalog, in the language itself.
 - Individual, couples and family counselling; EMDR and trauma therapy.
-- A free 30-minute consultation, no referral required; times are shown on
+- A free 15-minute consultation, no referral required; times are shown on
   /book.
 - Sessions by secure video from anywhere in BC. Times depend on the counsellor; /book shows what is open.
 - Fees published in full at westpeakwellness.com/pricing. Many extended
@@ -510,7 +510,7 @@ video, so she is available to people in any BC community.
 Does your Provincial Resource Guide include private counsellors who charge a
 fee? If it does, we would be grateful to be considered as a Tagalog-language
 option. Many extended-health plans reimburse a Registered Clinical
-Counsellor, depending on the plan. The first 30-minute consultation is free.
+Counsellor, depending on the plan. The first 15-minute consultation is free.
 If the guide covers only free and non-profit services, we understand
 completely.
 

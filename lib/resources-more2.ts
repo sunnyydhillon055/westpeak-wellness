@@ -165,7 +165,7 @@ export const moreResources2: Resource[] = [
     ],
     midCta: {
       text: 'If you want to talk it through before deciding which route to take,',
-      label: 'the 30-minute consultation is free and carries no obligation',
+      label: 'the 15-minute consultation is free and carries no obligation',
     },
     faqs: [
       /* The three phrasings Search Console shows for this page that it did not
@@ -296,7 +296,7 @@ export const moreResources2: Resource[] = [
       },
     ],
     midCta: {
-      text: 'Once you know what the plan says, the next step is a thirty-minute call to see whether the fit is right.',
+      text: 'Once you know what the plan says, the next step is a fifteen-minute call to see whether the fit is right.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -404,9 +404,9 @@ export const moreResources2: Resource[] = [
         ],
       },
       {
-        h2: 'A free 30-minute consultation comes first',
+        h2: 'A free 15-minute consultation comes first',
         body: [
-          'The first conversation is a free 30-minute consultation by video. Nothing is charged for it, so it uses none of your maximum, and it settles whether the fit is right before any paid session is booked.',
+          'The first conversation is a free 15-minute consultation by video. Nothing is charged for it, so it uses none of your maximum, and it settles whether the fit is right before any paid session is booked.',
         ],
         book: {
           text: 'The calendar shows real open times.',
@@ -416,7 +416,7 @@ export const moreResources2: Resource[] = [
       },
     ],
     midCta: {
-      text: 'If there is a balance left this year and you have been meaning to start, the first step is a free thirty-minute call.',
+      text: 'If there is a balance left this year and you have been meaning to start, the first step is a free fifteen-minute call.',
       label: 'Book a free consultation',
     },
     faqs: [

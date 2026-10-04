@@ -22,7 +22,7 @@ const TL_PROVINCES = servedProvinces(TL ? [TL] : [], 'long');
 
 const TITLE = 'Tagalog-Speaking Counselling in BC | Westpeak Wellness';
 const DESC =
-  'Online counselling in Tagalog or English across British Columbia with a Registered Clinical Counsellor. Free 30-minute consultation, no referral needed.';
+  'Online counselling in Tagalog or English across British Columbia with a Registered Clinical Counsellor. Free 15-minute consultation, no referral needed.';
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -107,7 +107,7 @@ export default function TagalogCounsellingHub() {
             themselves to be understood.
           </p>
           <p className="direct-answer">
-            Westpeak Wellness offers counselling in Tagalog or English with Camille Granda, a Registered Clinical Counsellor who is a native Tagalog speaker, by secure video across {TL_PROVINCES}. Sessions cover anxiety, trauma, grief, family and immigration stress. The first 30-minute consultation is free, and city pages describe what Filipino-community support exists locally.
+            Westpeak Wellness offers counselling in Tagalog or English with Camille Granda, a Registered Clinical Counsellor who is a native Tagalog speaker, by secure video across {TL_PROVINCES}. Sessions cover anxiety, trauma, grief, family and immigration stress. The first 15-minute consultation is free, and city pages describe what Filipino-community support exists locally.
           </p>
           <Updated iso={COLLECTION_DATES['tagalogLanding']} />
           <div className="btn-row" style={{ marginTop: 22 }}>
@@ -252,7 +252,7 @@ export default function TagalogCounsellingHub() {
       <CtaBand
         bookHref={cta.href}
         heading="Start with a conversation"
-        text="A free 30-minute consultation by video, in Tagalog or English. No card, no obligation."
+        text="A free 15-minute consultation by video, in Tagalog or English. No card, no obligation."
       />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />

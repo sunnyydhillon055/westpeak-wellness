@@ -91,7 +91,7 @@ export default function AnswersPage() {
           <p className="direct-answer">
             Westpeak Wellness answers {answers.length} questions about online counselling in{' '}
             {PROVINCES}: what it costs and what extended health covers, what a first session
-            and the free 30-minute consultation are like, how stress leave and sick days work, how to
+            and the free 15-minute consultation are like, how stress leave and sick days work, how to
             choose between a counsellor, a psychologist and a psychiatrist, and what each counsellor
             would say to the questions people ask before booking. Anything not here can be asked at
             the consultation, or by message with a reply within one business day.

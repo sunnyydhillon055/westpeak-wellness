@@ -360,7 +360,7 @@ export default async function CityServicePage({ params }: { params: Params }) {
             {fee
               ? `Sessions are ${fee.fee} for ${fee.minutes} minutes${guideNote(svc.bookingService)} and start with a `
               : 'Sessions start with a '}
-            <Link href={bookHref}>free 30-minute video call</Link>, no charge, no card,
+            <Link href={bookHref}>free 15-minute video call</Link>, no charge, no card,
             and no obligation to book anything afterwards. {COVERAGE_LINE}{' '}
             <Link href="/pricing">Fees and extended-health cover</Link> are set out in full.
           </p>
@@ -566,7 +566,7 @@ export default async function CityServicePage({ params }: { params: Params }) {
       <CtaBand
         bookHref={bookHref}
         heading={`${seoName(svc)} in ${ctx.city}, without the travel`}
-        text={`A free 30-minute video call, in ${languagePhrase(counsellors)}. No charge, no card, and no obligation to book anything afterwards.`}
+        text={`A free 15-minute video call, in ${languagePhrase(counsellors)}. No charge, no card, and no obligation to book anything afterwards.`}
       />
     </>
   );

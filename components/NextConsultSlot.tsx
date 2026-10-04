@@ -33,7 +33,7 @@ function useAvailability(): ClientAvailability | null {
 
 const lines = (m: number, d: number) => ({ '--lm': m, '--ld': d }) as CSSProperties;
 
-/** "Next free 30-minute consultation (Pacific time): Camille, Thu 2 Oct from
+/** "Next free 15-minute consultation (Pacific time): Camille, Thu 2 Oct from
  *  10 am book with Camille", or the ask-for-a-time sentence, or nothing. */
 export function ConsultLine({
   people, location, askHref, style, lm, ld,

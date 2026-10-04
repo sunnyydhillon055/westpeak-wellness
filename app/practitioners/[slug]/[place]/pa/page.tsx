@@ -65,7 +65,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   const city = PA_CITY[raw.slug] ?? raw.city;
   /* Under 60 with the site suffix the gate counts. */
   const title = `${city} ਵਿੱਚ ਪੰਜਾਬੀ ਕਾਊਂਸਲਿੰਗ | ${p.name}`;
-  const description = `${withLetters(p)} ਨਾਲ ${city} ਲਈ ਪੰਜਾਬੀ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਸੈਸ਼ਨ, ਸੁਰੱਖਿਅਤ ਵੀਡੀਓ ਰਾਹੀਂ। ਚਿੰਤਾ, ਉਦਾਸੀ, ਟਰੌਮਾ। ਪਹਿਲੀ 30 ਮਿੰਟ ਦੀ ਗੱਲਬਾਤ ਮੁਫ਼ਤ।`;
+  const description = `${withLetters(p)} ਨਾਲ ${city} ਲਈ ਪੰਜਾਬੀ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਸੈਸ਼ਨ, ਸੁਰੱਖਿਅਤ ਵੀਡੀਓ ਰਾਹੀਂ। ਚਿੰਤਾ, ਉਦਾਸੀ, ਟਰੌਮਾ। ਪਹਿਲੀ 15 ਮਿੰਟ ਦੀ ਗੱਲਬਾਤ ਮੁਫ਼ਤ।`;
 
   return {
     title: { absolute: title },
@@ -153,7 +153,7 @@ export default function PunjabiPlacePage({ params }: { params: Params }) {
             <p className="lede">{pa.blurb}</p>
             <p className="direct-answer">
               {withLetters(p)} ਨਾਲ {city} ਲਈ ਪੰਜਾਬੀ ਜਾਂ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਸੈਸ਼ਨ, ਸੁਰੱਖਿਅਤ ਵੀਡੀਓ ਰਾਹੀਂ।
-              ਚਿੰਤਾ, ਉਦਾਸੀ, ਟਰੌਮਾ ਅਤੇ ਰਿਸ਼ਤਿਆਂ ਦੇ ਪੈਟਰਨ। ਪਹਿਲੀ 30 ਮਿੰਟ ਦੀ ਗੱਲਬਾਤ ਮੁਫ਼ਤ।
+              ਚਿੰਤਾ, ਉਦਾਸੀ, ਟਰੌਮਾ ਅਤੇ ਰਿਸ਼ਤਿਆਂ ਦੇ ਪੈਟਰਨ। ਪਹਿਲੀ 15 ਮਿੰਟ ਦੀ ਗੱਲਬਾਤ ਮੁਫ਼ਤ।
             </p>
             <div className="btn-row" style={{ marginTop: 22 }}>
               <BookLink location="hero-place" href={bookHref}>{t.cta}</BookLink>

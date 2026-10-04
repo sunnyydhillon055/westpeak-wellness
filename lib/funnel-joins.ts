@@ -2,7 +2,7 @@
  *
  * The report counted consultations and paid sessions as two unrelated
  * numbers, and messages as a third. The question the practice depends on is
- * the join between them: of the people who had the free 30-minute
+ * the join between them: of the people who had the free 15-minute
  * consultation, how many went on to book a paid session, with whom, where
  * they heard of the practice, and whether the people who wrote first ever
  * booked at all. A $0 consultation is only worth its hour if that ratio is

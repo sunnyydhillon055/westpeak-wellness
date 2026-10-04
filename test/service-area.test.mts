@@ -10,7 +10,9 @@ import { site } from '../lib/site.ts';
  * Camille". These prove the line follows the insurance gate. */
 
 const camille = recordedPractitioners.find((p) => p.slug === 'camille-granda')!;
-const withPolicy = (validTo: string): Practitioner => ({ ...camille, insurance: { ...camille.insurance!, validTo } });
+/* Canada-wide reach is synthetic since 3 Oct 2026 (removed from her record);
+   the line must still follow the gate for whoever carries it. */
+const withPolicy = (validTo: string): Practitioner => ({ ...camille, reach: 'canada', insurance: { ...camille.insurance!, validTo } });
 const others = recordedPractitioners.filter((p) => p.slug !== 'camille-granda');
 
 test('the base clause is true of every counsellor: British Columbia only', () => {

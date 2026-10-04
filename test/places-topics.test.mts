@@ -47,7 +47,7 @@ test('the /online-counselling questions keep the practice rules', () => {
   for (const f of BC_HUB_FAQS) {
     const text = `${f.q} ${f.a}`;
     for (const [re, why] of RULES) assert.ok(!re.test(text), `${f.q}: ${why}`);
-    assert.ok(!/\b(15|45|60)-minute consultation/.test(text), 'the free consultation is 30 minutes');
+    assert.ok(!/\b(30|45|60)-minute consultation/.test(text), 'the free consultation is 15 minutes');
     assert.ok(!f.a.includes("'"), `${f.q}: typographic apostrophes only`);
   }
   assert.ok(BC_HUB_FAQS.some((f) => /waitlist/i.test(f.q)));

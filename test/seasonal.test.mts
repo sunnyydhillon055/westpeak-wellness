@@ -116,7 +116,7 @@ test('the year-end page exists, carries cards, cites its facts, and promises no 
   assert.match(all, /\$1,000 per calendar year/);
   assert.match(all, /members only/);
   assert.match(all, /\/for\/university-students/);
-  assert.match(all, /free 30-minute consultation/);
+  assert.match(all, /free 15-minute consultation/);
   assert.match(all, /real open times/);
   assert.doesNotMatch(all, /evening|weekend|slots? left|spots? left/i);
   assert.ok(r.sources.some((s) => s.url.includes('pac.bluecross.ca')));

@@ -8,6 +8,7 @@ import Motif from '@/components/brand/Motif';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { practitioners } from '@/lib/practitioners';
 import { servedProvinces } from '@/lib/practice-facts';
+import { CANCELLATION_TERMS } from '@/lib/policies';
 
 /* "BC and Alberta" was typed into the title and the direct answer; Alberta
    rests on one counsellor's policy and goes with it at the next build after
@@ -84,13 +85,13 @@ const BLOCKS: { h: string; p: string; href: string; cta: string }[] = [
   },
   {
     h: 'A free first call',
-    p: 'Thirty minutes by video, no card and no obligation. It is for working out fit, and if someone else is a better fit, we will say so on the call.',
+    p: 'Fifteen minutes by video, no card and no obligation. It is for working out fit, and if someone else is a better fit, we will say so on the call.',
     href: site.bookingPath,
     cta: 'Book the consultation',
   },
   {
     h: 'Clear about money',
-    p: 'Fees are published, the card is taken when you book, and cancelling more than 24 hours ahead is refunded in full. Nothing about the invoice should be a surprise.',
+    p: `Fees are published. ${CANCELLATION_TERMS} Nothing about the invoice should be a surprise.`,
     href: '/pricing',
     cta: 'Fees and coverage',
   },
@@ -130,7 +131,7 @@ export default function About() {
               working in English, Punjabi and Tagalog with Registered Clinical Counsellors.
             </p>
             <p className="direct-answer">
-              Westpeak Wellness is an online counselling practice founded in British Columbia and serving all of {PROVINCES} by secure video. Its counsellors are Registered Clinical Counsellors with the BC Association of Clinical Counsellors, offering individual, couples, family, EMDR and trauma therapy in English and Tagalog, and individual counselling in Punjabi. There is no waitlist; the first 30-minute consultation is free.
+              Westpeak Wellness is an online counselling practice founded in British Columbia and serving all of {PROVINCES} by secure video. Its counsellors are Registered Clinical Counsellors with the BC Association of Clinical Counsellors, offering individual, couples, family, EMDR and trauma therapy in English and Tagalog, and individual counselling in Punjabi. There is no waitlist; the first 15-minute consultation is free.
             </p>
             <Updated iso={COLLECTION_DATES['practitioners']} />
             <div className="btn-row" style={{ marginTop: 24 }}>
@@ -311,7 +312,7 @@ export default function About() {
 
       <CtaBand
         heading="Not sure yet?"
-        text="A free 30-minute consultation is the easiest way to find out. No card, no commitment."
+        text="A free 15-minute consultation is the easiest way to find out. No card, no commitment."
       />
     </>
   );

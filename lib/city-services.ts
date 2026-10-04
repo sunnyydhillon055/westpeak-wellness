@@ -10,7 +10,7 @@ const minutesOf = (name: string) => FALLBACK_CATALOG.items.find((i) => i.name ==
 export function victoriaEmdrAnswer(): string {
   const who = counsellorsFor({ bookingService: 'emdr-therapy' }).map((p) => p.name);
   const offers = who.length
-    ? ` ${listOf(who, 'and')} ${who.length === 1 ? 'offers' : 'offer'} EMDR to people in Victoria: weekly at ${fallbackFee('Individual Counselling')} for ${minutesOf('Individual Counselling')} minutes, or the ${minutesOf('EMDR Intensive')}-minute intensive at ${fallbackFee('EMDR Intensive')}, after a free 30-minute consultation.`
+    ? ` ${listOf(who, 'and')} ${who.length === 1 ? 'offers' : 'offer'} EMDR to people in Victoria: weekly at ${fallbackFee('Individual Counselling')} for ${minutesOf('Individual Counselling')} minutes, or the ${minutesOf('EMDR Intensive')}-minute intensive at ${fallbackFee('EMDR Intensive')}, after a free 15-minute consultation.`
     : '';
   return `Yes. EMDR runs by secure video from anywhere on the Island, so there is no sailing at either end.${offers} The booking calendar shows real open times in Pacific time, which is Victoria's own clock.`;
 }
@@ -406,9 +406,9 @@ export const pairs: Pair[] = [
     ],
     faqs: [
       /* Search Console, 17 Sep 2026: marriage counselling Prince George, nine impressions across three phrasings, position 36 to 38. */
-      { q: 'Is there marriage counselling in Prince George?', a: 'Very little, which is why people search for it. A handful of practitioners in the city see couples, most have waits, and the alternative is a drive to nowhere closer. Online marriage counselling from a BC counsellor happens from your own home, with both of you on the same screen or on two, and the first 30-minute consultation is free.' },
+      { q: 'Is there marriage counselling in Prince George?', a: 'Very little, which is why people search for it. A handful of practitioners in the city see couples, most have waits, and the alternative is a drive to nowhere closer. Online marriage counselling from a BC counsellor happens from your own home, with both of you on the same screen or on two, and the first 15-minute consultation is free.' },
       { q: 'Is there anything for couples locally?', a: 'General counselling exists in Prince George. Structured couples work with specific training is less reliably available, which is usually the gap people are trying to fill.' },
-      { q: 'How do we start?', a: 'A free 30-minute video call, either together or one of you first. Both are ordinary ways to begin.' },
+      { q: 'How do we start?', a: 'A free 15-minute video call, either together or one of you first. Both are ordinary ways to begin.' },
     ],
   },
 
@@ -479,7 +479,7 @@ export const pairs: Pair[] = [
     ],
     faqs: [
       { q: 'Is Aldergrove covered?', a: 'Yes, on identical terms. Nothing about the service depends on distance inside the province.' },
-      { q: 'How soon could I start?', a: 'Usually sooner than a public waitlist. The first step is a free thirty-minute consultation, and the real timeline gets discussed there rather than promised here.' },
+      { q: 'How soon could I start?', a: 'Usually sooner than a public waitlist. The first step is a free fifteen-minute consultation, and the real timeline gets discussed there rather than promised here.' },
     ],
   },
   {
@@ -537,7 +537,7 @@ export const pairs: Pair[] = [
     ],
     faqs: [
       /* Search Console, 17 Sep 2026: acceptance and commitment therapy Kamloops (12) and narrative therapy Kamloops (11), positions 47 to 50. */
-      { q: 'Do you use ACT or narrative therapy?', a: 'ACT, yes. Acceptance and commitment therapy is part of Savneet Singh’s training, alongside CBT and DBT, and it suits anxiety work because anxiety rarely leaves on request, so the useful question becomes what you do while it is present. Narrative therapy is not an approach either counsellor here lists. If it is the approach you want, ask about it on the free 30-minute consultation, or look for a counsellor who names it on their profile.' },
+      { q: 'Do you use ACT or narrative therapy?', a: 'ACT, yes. Acceptance and commitment therapy is part of Savneet Singh’s training, alongside CBT and DBT, and it suits anxiety work because anxiety rarely leaves on request, so the useful question becomes what you do while it is present. Narrative therapy is not an approach either counsellor here lists. If it is the approach you want, ask about it on the free 15-minute consultation, or look for a counsellor who names it on their profile.' },
       { q: 'I work rotating shifts. Can this fit?', a: 'Yes, and say so in the first conversation. Booking in blocks around a rotation is a normal pattern here rather than a special arrangement.' },
       { q: 'Are Merritt and Salmon Arm covered?', a: 'Yes, on the same terms, with no distance penalty for being further out.' },
     ],
@@ -1289,7 +1289,7 @@ export const pairs: Pair[] = [
       'A video session removes the building and the parked vehicle somebody might recognise outside it. There is a second, smaller anxiety it can remove too: the time. Open times are listed in Pacific time and Cranbrook is an hour ahead in every season, so the hour is translated once, before the first session, rather than worried about every week.',
     ],
     faqs: [
-      { q: 'What if I am anxious about the video call itself?', a: 'That is common and worth saying at the start. The free 30-minute consultation is a first go at the format with nothing to decide at the end, and being on camera is never required: camera off for part of a session is an ordinary adjustment.' },
+      { q: 'What if I am anxious about the video call itself?', a: 'That is common and worth saying at the start. The free 15-minute consultation is a first go at the format with nothing to decide at the end, and being on camera is never required: camera off for part of a session is an ordinary adjustment.' },
       { q: 'Does an anxiety session need a quiet house?', a: 'It needs somewhere private for fifty minutes, which is not always the house. A parked vehicle, a closed office or a room at a friend’s are all used, and choosing the place is part of planning the first session.' },
     ],
   },
@@ -1460,7 +1460,7 @@ export const pairs: Pair[] = [
       'Processing also asks for regular sessions and a calm stretch afterwards. An appointment that ends in the queue for the Ironworkers or the SeaBus is a poor setup for that stretch. A session that ends at home, with nothing to drive, leaves room for it.',
     ],
     faqs: [
-      { q: 'Do I need a referral from Central Intake for EMDR?', a: 'No. Central Intake is the public route on the North Shore and asks for a referral from a family doctor or walk-in clinic. EMDR with a private Registered Clinical Counsellor is booked directly, after a free 30-minute consultation.' },
+      { q: 'Do I need a referral from Central Intake for EMDR?', a: 'No. Central Intake is the public route on the North Shore and asks for a referral from a family doctor or walk-in clinic. EMDR with a private Registered Clinical Counsellor is booked directly, after a free 15-minute consultation.' },
       { q: 'What should I plan for after an EMDR session?', a: 'Some quiet time if you can arrange it. Processing can keep moving for a while after the session ends, and having nowhere to drive straight afterwards is one of the practical advantages of doing it from home.' },
       { q: 'Can EMDR sessions be in Punjabi?', a: 'Not at the moment: EMDR sessions currently run in English or Tagalog. Individual counselling is available in Punjabi.' },
     ],
@@ -1498,7 +1498,7 @@ export const pairs: Pair[] = [
     ],
     faqs: [
       { q: 'We both work shifts. How does scheduling actually work?', a: 'Compare rosters before booking and choose blocks where you are both off, then book those sessions together. The booking calendar shows the counsellor’s real open times, and a gap planned around a heavy stretch costs nothing.' },
-      { q: 'Can couples sessions be in Punjabi?', a: 'No. Couples work here is offered in English or Tagalog only. Punjabi is available for individual counselling, so one partner could do individual work in Punjabi alongside, and the free 30-minute consultation is the place to sort out which fits.' },
+      { q: 'Can couples sessions be in Punjabi?', a: 'No. Couples work here is offered in English or Tagalog only. Punjabi is available for individual counselling, so one partner could do individual work in Punjabi alongside, and the free 15-minute consultation is the place to sort out which fits.' },
       { q: 'Can one of us join from work?', a: 'Yes, as long as the room is private and nobody can walk in. Two partners on two connections is an ordinary set-up, and both links are checked before the session gets going.' },
     ],
   },

@@ -87,7 +87,7 @@ export function cityHubFaqs(args: {
     ].filter((x): x is [string, string] => !!x[1]).map(([n, f]) => `${n} ${f}`);
     out.push({
       q: `What does counselling cost in ${city}?`,
-      a: `From ${city}, an individual session is ${individual}${others.length ? `, ${listOf(others, 'and')}` : ''}, and the first 30-minute consultation is free. The fee is the same anywhere in BC. Many extended health plans reimburse a Registered Clinical Counsellor, but whether yours does is plan-dependent, so check it for the RCC designation before the first paid session.`,
+      a: `From ${city}, an individual session is ${individual}${others.length ? `, ${listOf(others, 'and')}` : ''}, and the first 15-minute consultation is free. The fee is the same anywhere in BC. Many extended health plans reimburse a Registered Clinical Counsellor, but whether yours does is plan-dependent, so check it for the RCC designation before the first paid session.`,
     });
   }
 

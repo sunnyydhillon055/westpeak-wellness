@@ -37,7 +37,7 @@ export const moreAudiences5: Audience[] = [
     lede:
       'The job is long hours alone, a schedule set somewhere else, and a body that sits for twelve of them. Counselling has never been built for that. This is.',
     shortAnswer:
-      'Westpeak Wellness offers online counselling for long-haul and local truck drivers anywhere in British Columbia, in English or Punjabi, by video from a parked cab or from home between runs. Sessions are booked run by run rather than at a fixed weekly time, from the open times on the counsellor’s calendar, and pausing between blocks costs nothing. The first 30-minute consultation is free.',
+      'Westpeak Wellness offers online counselling for long-haul and local truck drivers anywhere in British Columbia, in English or Punjabi, by video from a parked cab or from home between runs. Sessions are booked run by run rather than at a fixed weekly time, from the open times on the counsellor’s calendar, and pausing between blocks costs nothing. The first 15-minute consultation is free.',
     updated: '2026-09-11',
     readMinutes: 6,
     opening: [
@@ -83,7 +83,7 @@ export const moreAudiences5: Audience[] = [
       { href: '/services/emdr-therapy', label: 'EMDR and trauma therapy', why: 'For the crash or the near-miss that comes back on the same stretch of road.' },
     ],
     midCta: {
-      text: 'A free 30-minute consultation, from wherever you are stopped. No card, and no obligation.',
+      text: 'A free 15-minute consultation, from wherever you are stopped. No card, and no obligation.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -118,7 +118,7 @@ export const moreAudiences5: Audience[] = [
     lede:
       'You crossed the world for this, the money is somebody else\'s sacrifice, and admitting it is hard feels like a betrayal of all of it. That is the exact situation this page is for.',
     shortAnswer:
-      'Westpeak Wellness offers online counselling to international students anywhere in British Columbia, in English, Punjabi or Tagalog, by secure video with a Registered Clinical Counsellor. Many BC student-society health plans, which international students usually carry alongside the insurance that covers them before MSP, reimburse counselling with a Registered Clinical Counsellor, depending on the plan, up to a yearly maximum; the plan booklet says how much. No referral or family doctor is needed, and the first 30-minute consultation is free.',
+      'Westpeak Wellness offers online counselling to international students anywhere in British Columbia, in English, Punjabi or Tagalog, by secure video with a Registered Clinical Counsellor. Many BC student-society health plans, which international students usually carry alongside the insurance that covers them before MSP, reimburse counselling with a Registered Clinical Counsellor, depending on the plan, up to a yearly maximum; the plan booklet says how much. No referral or family doctor is needed, and the first 15-minute consultation is free.',
     updated: '2026-10-01',
     readMinutes: 7,
     opening: [
@@ -163,7 +163,7 @@ export const moreAudiences5: Audience[] = [
       { href: '/tagalog-counselling', label: 'Tagalog-speaking counselling', why: 'Sessions in Tagalog or English with Camille Granda, RCC, CCC.' },
     ],
     midCta: {
-      text: 'A free 30-minute consultation, by video, in English, Punjabi or Tagalog. No card, no referral, no obligation.',
+      text: 'A free 15-minute consultation, by video, in English, Punjabi or Tagalog. No card, no referral, no obligation.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -204,7 +204,7 @@ export const moreAudiences5: Audience[] = [
     lede:
       'Fifteen to twenty-five is the age when most mental health difficulty first shows up, and the age at which it is least likely to be brought to anyone. This page is for the teen, and for the parent reading over their shoulder.',
     shortAnswer:
-      'Westpeak Wellness offers online counselling to teenagers and young adults across British Columbia, by secure video with a Registered Clinical Counsellor, in English, Punjabi or Tagalog. A teen can book with a parent or, in BC, on their own if they understand the care, under the Infants Act. What is said in session stays in session, with the limits set out at the first meeting, and a parent is included as much as the young person wants. The first 30-minute consultation is free and a parent can attend it.',
+      'Westpeak Wellness offers online counselling to teenagers and young adults across British Columbia, by secure video with a Registered Clinical Counsellor, in English, Punjabi or Tagalog. A teen can book with a parent or, in BC, on their own if they understand the care, under the Infants Act. What is said in session stays in session, with the limits set out at the first meeting, and a parent is included as much as the young person wants. The first 15-minute consultation is free and a parent can attend it.',
     updated: '2026-10-01',
     readMinutes: 6,
     opening: [
@@ -229,7 +229,7 @@ export const moreAudiences5: Audience[] = [
       {
         h2: 'For the parent',
         list: [
-          { label: 'You can be in the first consultation', detail: 'The free 30-minute call is a chance for both of you to meet the counsellor. After that, the young person decides how much of the work is theirs alone, and most choose most of it.' },
+          { label: 'You can be in the first consultation', detail: 'The free 15-minute call is a chance for both of you to meet the counsellor. After that, the young person decides how much of the work is theirs alone, and most choose most of it.' },
           { label: 'What you will hear', detail: 'Whether sessions are happening, and anything the counsellor is obliged to share under the limits above. Not the content. A teen who knows this is far more likely to say what matters.' },
           { label: 'How to raise it without a fight', detail: 'Offer it as a place that is theirs, not a consequence. "You can talk to someone who is not us" lands better than "you need help". The [guide on talking to family about therapy](/guides/talking-to-your-family-about-therapy) is written for the other direction, and works for this one too.' },
           { label: 'Paying', detail: 'A parent\'s extended health plan usually covers dependants to the same counselling maximum; the [coverage page](/resources/does-my-plan-cover-counselling-bc) says how to check. A university or college student usually has a plan of their own through the student society, and the order matters: claim on the student\'s own plan first, then the parent\'s. A claim on a parent\'s plan appears in the parent\'s claim history, so for a young adult who wants the sessions private, the student plan is the private route. The [student plan table](/for/university-students#two-plans-and-who-sees-the-claim) shows what the main BC society plans pay; the booklet is the authority.' },
@@ -249,7 +249,7 @@ export const moreAudiences5: Audience[] = [
       { href: '/tagalog-counselling', label: 'Tagalog-speaking counselling', why: 'The same, for a Filipino family.' },
     ],
     midCta: {
-      text: 'A free 30-minute consultation, with or without a parent on the call. No card, and no obligation.',
+      text: 'A free 15-minute consultation, with or without a parent on the call. No card, and no obligation.',
       label: 'Book a free consultation',
     },
     faqs: [

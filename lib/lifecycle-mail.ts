@@ -79,7 +79,7 @@ this is not a suggestion that it was the wrong one. It is only so that
 you know the door is open and know where it is.
 
 If it would help to talk about whether now is a sensible time before
-committing to a session, the free 30-minute consultation is still free
+committing to a session, the free 15-minute consultation is still free
 for people who have worked with the practice before:
 
 ${links.book}
@@ -102,7 +102,7 @@ ${site.domain}`);
     p('The practice has openings again. If at some point you want to pick things up, soon, months from now, or not at all, booking is below and you would not be starting from scratch.') +
     btn(bookUrl, bookLabel) +
     p('There is nothing to reply to and nothing you need to do. Finishing when you did was a decision you were entitled to make, and this is not a suggestion that it was the wrong one. It is only so you know the door is open, and where it is.') +
-    p(`If it would help to talk about whether now is a sensible time first, the ${a(links.book, 'free 30-minute consultation')} is still free for people who have worked with the practice before.`) +
+    p(`If it would help to talk about whether now is a sensible time first, the ${a(links.book, 'free 15-minute consultation')} is still free for people who have worked with the practice before.`) +
     p('<span style="color:#545e69;font-size:14px;">If circumstances have changed and the fee is the obstacle, say so in a reply. There are lower-cost and no-cost options in BC and it is worth being pointed at the right one rather than going without.</span>'),
     'A one-off note: booking is there if you want it, and nothing to reply to',
   );
@@ -136,7 +136,7 @@ No explanation needed, and nothing is assumed. Plans change, and the
 call is still there whenever suits. Here is the same calendar:
 ${again}
 
-It is still free, still 30 minutes by secure video, and there is still
+It is still free, still 15 minutes by secure video, and there is still
 no obligation to book anything afterwards.
 
 If the time of day was the problem, or something else got in the way,
@@ -153,9 +153,9 @@ ${site.name}`);
       p('Your free consultation was booked for yesterday and it did not happen.') +
       p('No explanation needed, and nothing is assumed. Plans change, and the call is still there whenever suits.') +
       btn(again, 'Pick another time') +
-      p('It is still free, still 30 minutes by secure video, and there is still no obligation to book anything afterwards.') +
+      p('It is still free, still 15 minutes by secure video, and there is still no obligation to book anything afterwards.') +
       p('If the time of day was the problem, or something else got in the way, reply and say so. It is easier to change than to work around.'),
-      'No explanation needed. The same free 30-minute call is there whenever suits',
+      'No explanation needed. The same free 15-minute call is there whenever suits',
     );
 
     return tagMail({ subject: 'About yesterday | Westpeak Wellness', text, html }, 'missed');

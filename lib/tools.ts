@@ -34,7 +34,7 @@ export type ToolMeta = {
    in by the page from the catalogue, because this module also reaches client
    bundles and must not import the catalogue. */
 export const therapyCostAnswer = (fees: { individual: string; couples: string; minutes: number }) =>
-  `The BC Association of Clinical Counsellors’ 2026 fee guide recommends ${BCACC_INDIVIDUAL.range} per 50 minutes for individual counselling with a Registered Clinical Counsellor, and ${BCACC_COUPLES_FAMILY.range} for couples and family counselling. Here an individual session is ${fees.individual} and a couples session ${fees.couples}, each ${fees.minutes} minutes, after a free 30-minute consultation. MSP does not cover private counselling, so what you pay depends on your extended health plan, and this works it out from your plan’s own numbers.`;
+  `The BC Association of Clinical Counsellors’ 2026 fee guide recommends ${BCACC_INDIVIDUAL.range} per 50 minutes for individual counselling with a Registered Clinical Counsellor, and ${BCACC_COUPLES_FAMILY.range} for couples and family counselling. Here an individual session is ${fees.individual} and a couples session ${fees.couples}, each ${fees.minutes} minutes, after a free 15-minute consultation. MSP does not cover private counselling, so what you pay depends on your extended health plan, and this works it out from your plan’s own numbers.`;
 
 export const tools: ToolMeta[] = [
   {
@@ -64,7 +64,7 @@ export const tools: ToolMeta[] = [
       },
       {
         q: 'Does the suggestion commit me to anything?',
-        a: 'Not in the slightest. It is a starting point for a conversation, and the free 30-minute consultation exists precisely so that the starting point can be checked before anybody books a session. Changing direction after that conversation is normal and costs nothing.',
+        a: 'Not in the slightest. It is a starting point for a conversation, and the free 15-minute consultation exists precisely so that the starting point can be checked before anybody books a session. Changing direction after that conversation is normal and costs nothing.',
       },
     ],
     related: [
@@ -156,7 +156,7 @@ export const tools: ToolMeta[] = [
        * answer BC has to offer for it. */
       {
         q: 'Is there such a thing as a mental health check-up?',
-        a: 'Not as a standardised service the way a physical or a dental cleaning is, which is partly why people search for one. The nearest real equivalents in BC: raising mental health at your regular GP visit (a legitimate use of it, and where formal screening lives), a one-off counselling session used as exactly this kind of stocktake, or a free 30-minute consultation to talk through whether anything needs attention. This reflection is the self-serve version: language for how things have been, with no score pretending to be medicine.',
+        a: 'Not as a standardised service the way a physical or a dental cleaning is, which is partly why people search for one. The nearest real equivalents in BC: raising mental health at your regular GP visit (a legitimate use of it, and where formal screening lives), a one-off counselling session used as exactly this kind of stocktake, or a free 15-minute consultation to talk through whether anything needs attention. This reflection is the self-serve version: language for how things have been, with no score pretending to be medicine.',
       },
     ],
     related: [

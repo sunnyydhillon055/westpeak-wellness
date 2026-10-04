@@ -92,7 +92,7 @@ Because the practice is entirely online, there is no commute and no waiting
 room, and clients anywhere in the province — including the North and the
 Interior — have the same access as those in the Lower Mainland.
 
-New clients are welcome. A free 30-minute consultation is available to check
+New clients are welcome. A free 15-minute consultation is available to check
 fit before booking a session: https://www.westpeakwellness.com/book
 ```
 

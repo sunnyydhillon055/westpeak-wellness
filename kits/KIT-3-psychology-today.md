@@ -32,7 +32,7 @@ You will need your BCACC registration number to verify.
 | Session fee | as published at westpeakwellness.com/pricing |
 | Couples fee | as published at westpeakwellness.com/pricing |
 | Sliding scale | **No** — do not tick this |
-| Free consultation | **Yes, 30 minutes** |
+| Free consultation | **Yes, 15 minutes** |
 | Accepting new clients | Yes |
 | Payment methods | Credit card **only** |
 
@@ -93,10 +93,10 @@ legitimate answer.
 **3. "Getting started"**
 
 ```
-I offer a free 30-minute consultation by video. It is genuinely for working out
+I offer a free 15-minute consultation by video. It is genuinely for working out
 fit, and there is no obligation to book a session afterwards. The research is
 consistent that the working relationship predicts outcomes more reliably than
-the specific method does, which makes thirty minutes a reasonable thing to
+the specific method does, which makes fifteen minutes a reasonable thing to
 spend before committing to anything.
 
 Registered Clinical Counsellor (RCC) with the BC Association of Clinical

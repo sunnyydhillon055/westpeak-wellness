@@ -54,8 +54,8 @@ test('the fee sentence carries the catalogue figures, and the couples fee only w
     minutes: minutes('Individual Counselling'),
     couples: fallbackFee('Couples Counselling'),
   });
-  assert.equal(s, `It starts with a free 30-minute call; sessions after that are ${fallbackFee('Individual Counselling')} for ${minutes('Individual Counselling')} minutes (${fallbackFee('Couples Counselling')} for a couple).`);
-  assert.equal(feeSentence({ consultMinutes: 30, individual: '$1', minutes: 50, couples: null }), 'It starts with a free 30-minute call; sessions after that are $1 for 50 minutes.');
+  assert.equal(s, `It starts with a free 15-minute call; sessions after that are ${fallbackFee('Individual Counselling')} for ${minutes('Individual Counselling')} minutes (${fallbackFee('Couples Counselling')} for a couple).`);
+  assert.equal(feeSentence({ consultMinutes: 15, individual: '$1', minutes: 50, couples: null }), 'It starts with a free 15-minute call; sessions after that are $1 for 50 minutes.');
   assert.doesNotMatch(src('app/page.tsx'), /\$1[0-9]{2}\b/, 'no fee typed into the home page');
 });
 

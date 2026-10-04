@@ -21,7 +21,7 @@ import { guides } from '@/lib/guides';
 import { comparisons } from '@/lib/comparisons';
 import { resources } from '@/lib/resources';
 import { audiences } from '@/lib/audiences';
-import { policyList } from '@/lib/policies';
+import { policyList, CANCELLATION_RULE } from '@/lib/policies';
 import { getExtra } from '@/lib/depth';
 
 export const dynamic = 'force-static';
@@ -94,7 +94,7 @@ on each of their own pages, below.
 Languages across the practice: ${site.languages}.
 
 Service area: British Columbia province-wide; Alberta through one counsellor of
-the two. Session length: 50 minutes. First consultation: 30 minutes, free.
+the two. Session length: 50 minutes. First consultation: 15 minutes, free.
 Booking: ${site.domain}${site.bookingPath}. Contact: ${site.email}.
 
 Not covered by MSP in BC, and not covered by AHCIP in Alberta. Many BC extended
@@ -360,7 +360,7 @@ navigation or boilerplate. Every page it covers is also available at its own URL
       .map((i) => `- ${i.name}: ${money(i.cents)}${i.minutes ? ` (${i.minutes} minutes)` : ''}`)
       .join('\n')}`,
     'Counselling with a Registered Clinical Counsellor is not covered by MSP in British Columbia, and not covered by AHCIP in Alberta. Many extended health plans reimburse an RCC; Alberta plans more often name the Canadian Certified Counsellor, because counselling therapy is not a regulated profession there.',
-    `The practice does not direct-bill. The card is charged by Visa, Mastercard or Amex at the time of booking rather than at the end of the session, and the client receives a receipt carrying the registration number, which is what an insurer asks for. Cancelling or rescheduling at least ${site.cancellationHours} hours ahead is free and the fee is refunded in full.`,
+    `The practice does not direct-bill. The card is charged by Visa, Mastercard or Amex at the time of booking rather than at the end of the session, and the client receives a receipt carrying the registration number, which is what an insurer asks for. ${CANCELLATION_RULE}`,
     'If the fee is the obstacle, say so: there are lower-cost and no-cost counselling routes in BC and being pointed at the right one is better than going without.',
   ].join('\n\n'));
 
@@ -387,7 +387,7 @@ navigation or boilerplate. Every page it covers is also available at its own URL
     `URL: ${site.domain}/refer`,
     `Last reviewed: ${COLLECTION_DATES['services']}`,
     'How to point a friend, family member, colleague or patient toward this practice, and what happens after they get in touch.',
-    `No physician referral is required to book. A person can book the free 30-minute consultation themselves at ${site.domain}${site.bookingPath}.`,
+    `No physician referral is required to book. A person can book the free 15-minute consultation themselves at ${site.domain}${site.bookingPath}.`,
     `There is a one-page summary written for a GP in British Columbia at ${site.domain}/refer/doctor: designation, scope limits, fees, and what a referring physician does and does not need to do. Clinical information is released only with the patient's written consent.`,
     `A printable sheet of four front-desk cards for clinics, campuses and agencies is at ${site.domain}/refer/handout.`,
     `For employers and HR: ${site.domain}/for/employers-and-hr covers how counselling is paid for in a BC workplace, what an employer may ask, a note a manager can send one employee and an email for the broker at renewal, and a printable one-page summary is at ${site.domain}/for/employers-and-hr/one-pager. The practice is not an EAP; employees book directly and the employer is told nothing without the employee's written consent. Employers write by email through the contact form.`,

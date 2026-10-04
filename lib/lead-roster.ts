@@ -83,13 +83,13 @@ export function rosterHtml(lines: RosterLine[] = rosterLines()): string {
 /* HTML block as buttons, one per counsellor, for the end of lead email 1
    (lib/inbound-mail.ts), 1 Oct 2026: her name in bold text was the only way
    to her calendar, and a render of the three one-pagers found no button in
-   any of them. "Free 30-minute call with Camille", the same ?with= calendar,
+   any of them. "Free 15-minute call with Camille", the same ?with= calendar,
    and the one line about her underneath. */
 export function rosterButtons(lines: RosterLine[] = rosterLines()): string {
   return lines
     .map((l) =>
       `<p style="margin:0 0 6px;font-size:14px;line-height:1.55;color:#545e69;">${esc(l.who)} · ${esc(l.detail)}</p>` +
-      btn(l.href, `Free 30-minute call with ${l.firstName}`)
+      btn(l.href, `Free 15-minute call with ${l.firstName}`)
     )
     .join('');
 }

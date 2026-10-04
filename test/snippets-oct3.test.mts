@@ -19,13 +19,13 @@ const IND = money(C.items.find((i) => i.name === 'Individual Counselling')!.cent
 const camille = recordedPractitioners.find((p) => p.slug === 'camille-granda')!;
 
 test('feeSnippet is the fee and the free consult, no names', () => {
-  assert.equal(feeSnippet(C), `${IND} per 50-min session · free 30-min consult`);
+  assert.equal(feeSnippet(C), `${IND} per 50-min session · free 15-min consult`);
   assert.equal(feeSnippet(C, 'no-such-service'), undefined);
 });
 
 test('namedProfileSnippet names her with her letters and no registration number', () => {
   const s = namedProfileSnippet(C, { ...camille, acceptingNewClients: true }, 'CCC')!;
-  assert.match(s, /^Camille Granda, CCC: from \$\d+ per 50-min session · free 30-min consult$/);
+  assert.match(s, /^Camille Granda, CCC: from \$\d+ per 50-min session · free 15-min consult$/);
   for (const c of camille.credentials) assert.ok(!s.includes(c.number), 'no registration number');
   assert.equal(namedProfileSnippet(C, { ...camille, acceptingNewClients: false }, 'CCC'), undefined);
 });
@@ -54,7 +54,7 @@ test('the rewritten descriptions carry the fee and fit, and none opens "No." or 
     pick(guides, 'waiting-for-therapy-in-bc').metaDescription,
   ];
   for (const d of descs) {
-    assert.ok(d.includes(`${IND} per 50-min session · free 30-min consult`), d);
+    assert.ok(d.includes(`${IND} per 50-min session · free 15-min consult`), d);
     assert.ok(metaLength(d) <= SNIPPET_MAX, `${metaLength(d)}: ${d}`);
     assert.doesNotMatch(d, /^(No|Often)[.,]/);
     assert.equal(coverageClaims(d).length, 0, d);
@@ -85,7 +85,7 @@ test('individual, Punjabi and Tagalog pages answer cost and coverage in the hous
     const f = services.find((s) => s.slug === slug)!.faqs!.find((x) => q.test(x.q));
     assert.ok(f, slug);
     assert.ok(f.a.includes(IND), `${slug} fee`);
-    assert.ok(f.a.includes('free 30-minute consultation'), slug);
+    assert.ok(f.a.includes('free 15-minute consultation'), slug);
     assert.ok(f.a.includes('MSP does not cover private counselling'), slug);
     assert.ok(f.a.includes(PLAN_COVERAGE), slug);
     assert.ok(f.a.includes('registration number'), slug);
@@ -118,7 +118,7 @@ test('the AI comparison prices its Cost row and drops "a practice that uses both
   const cost = c.table.rows.find((r) => r[0] === 'Cost')!;
   assert.ok(cost[2]!.includes(IND));
   assert.match(cost[2]!, /depending on the plan/);
-  assert.match(cost[2]!, /30-minute consultation is free/);
+  assert.match(cost[2]!, /15-minute consultation is free/);
   assert.doesNotMatch(c.metaDescription, /uses both/);
   assert.ok(c.shortAnswer.includes(IND));
   const f = c.faqs.find((x) => /AI mental-health app cost/.test(x.q))!;

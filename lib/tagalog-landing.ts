@@ -22,12 +22,12 @@
 export const TAGALOG_LANDING = {
   metaTitle: 'Counselling sa Tagalog | Westpeak Wellness',
   metaDescription:
-    'Counselling sa Tagalog o Ingles sa buong British Columbia at Alberta. Libreng 30 minutong konsultasyon, walang bayad at walang obligasyon.',
+    'Counselling sa Tagalog o Ingles sa buong British Columbia at Alberta. Libreng 15 minutong konsultasyon, walang bayad at walang obligasyon.',
 
   eyebrow: 'Sa Tagalog',
   h1: 'Counselling sa sariling wika',
   lede:
-    'Mga sesyon sa Tagalog o Ingles, buo sa video, saanman sa British Columbia at Alberta. Libre ang unang tatlumpung minuto at walang obligasyon pagkatapos.',
+    'Mga sesyon sa Tagalog o Ingles, buo sa video, saanman sa British Columbia at Alberta. Libre ang unang labinlimang minuto at walang obligasyon pagkatapos.',
 
   cta: 'Humiling ng libreng konsultasyon',
   englishLink: 'Read this page in English',

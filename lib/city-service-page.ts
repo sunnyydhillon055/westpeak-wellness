@@ -267,7 +267,7 @@ export const cityServiceTitle = (name: string, city: string, brand: string, max 
  * service's catalogue fee with the free consultation:
  *
  *   {first sentence of pair.angle} With {first names}, {fee} per {min}-min
- *   session · free 30-min consult.
+ *   session · free 15-min consult.
  *
  * `facts` is serviceSnippet(catalog, service, []) from lib/snippet-facts.ts,
  * passed in by the page, so this file still types no figure. The angle is the

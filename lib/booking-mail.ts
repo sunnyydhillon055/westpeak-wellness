@@ -2,6 +2,7 @@ import { site, bookingsPaidUrlFor } from '@/lib/site';
 import { FALLBACK_CATALOG, money, type Catalog } from '@/lib/cliniko-catalog';
 import { formatPacific } from '@/lib/pacific-time';
 import { CAMERA_OPTIONAL } from '@/lib/practice-facts';
+import { CANCELLATION_RULE } from '@/lib/policies';
 
 /* Confirmation and follow-up email, sent from westpeakwellness.com.
  *
@@ -339,11 +340,11 @@ export const paidCalendarFor = (pr?: BookingPractitioner | null, typeId?: string
 const ONLINE_LINE =
   `This is an online appointment by secure video. There is no office to come to; join from somewhere private. ${CAMERA_OPTIONAL}`;
 
-/* The cancellation terms for a PAID booking, worded as /pricing and the FAQ
-   word them (24 hours from site.cancellationHours; 50% as published there).
+/* The cancellation terms for a PAID booking: CANCELLATION_RULE from
+   lib/policies.ts, the same sentence /pricing and the FAQ print.
    Never shown for the free consultation, where nothing is charged. */
 export const paidCancellationTerms = () =>
-  `Need to change or cancel? Reply to this email. Cancelling or moving it more than ${site.cancellationHours} hours ahead is refunded in full; inside ${site.cancellationHours} hours, or for a missed session, 50% of the fee is kept. There are exceptions for genuine emergencies.`;
+  `Need to change or cancel? Reply to this email. ${CANCELLATION_RULE} There are exceptions for genuine emergencies.`;
 
 /* The fees a consult attendee is weighing, read from the catalogue by
    appointment-type id and formatted with money(). Never typed here: change
@@ -380,7 +381,7 @@ export function feeFacts(catalog: Catalog = FALLBACK_CATALOG, services?: string[
     .map((i) => `${i.name.toLowerCase().replace(/ counselling$/, '')} counselling, ${i.minutes} minutes, is ${money(i.cents)}`);
   if (parts.length === 0) return null;
   const fees = parts.join('; ');
-  return `${fees.charAt(0).toUpperCase()}${fees.slice(1)}. Cliniko takes the card when you book. Cancelling more than ${site.cancellationHours} hours ahead is refunded in full. The practice does not direct-bill: the receipt carries the registration number an insurer asks for, and whether your plan reimburses depends on the plan.`;
+  return `${fees.charAt(0).toUpperCase()}${fees.slice(1)}. Cliniko takes the card when you book. ${CANCELLATION_RULE} The practice does not direct-bill: the receipt carries the registration number an insurer asks for, and whether your plan reimburses depends on the plan.`;
 }
 
 /* The video button, when the link is known. */
@@ -392,11 +393,11 @@ const joinBtn = (b: Booking) => (b.telehealthUrl ? btn(b.telehealthUrl, 'Join th
    if it finds a bare one, because a null rendered directly reads "null
    minutes" to a client. */
 
-/** "30 minutes, by secure video", or just "by secure video". */
+/** "15 minutes, by secure video", or just "by secure video". */
 const lengthPhrase = (m: number | null) =>
   m ? `${m} minutes, by secure video` : 'by secure video';
 
-/** "30 minutes · secure video", or just "secure video". */
+/** "15 minutes · secure video", or just "secure video". */
 const lengthChip = (m: number | null) =>
   m ? `${m} minutes &middot; secure video` : 'secure video';
 
@@ -475,7 +476,7 @@ cliniko.com, worth checking your spam folder if you do not see it, and
 marking it as safe so future ones arrive.`}
 
 ${b.isConsult
-  ? `Before the call, this covers what the thirty minutes contain:`
+  ? `Before the call, this covers what the fifteen minutes contain:`
   : `If it is your first time, this walks through what actually happens:`}
 ${prepLink(b)}
 ${guide ? `\n${guide.label}:\n${guide.href}\n` : ''}
@@ -509,7 +510,7 @@ ${BASE}`);
       ? p(`Cliniko, our booking system, also sends a confirmation from <strong>notifications@cliniko.com</strong> with the same link and the calendar invite.`)
       : p(`You will get a separate email from Cliniko, our booking system, carrying the video link and calendar invite. It arrives from <strong>notifications@cliniko.com</strong>, worth checking spam if it is not there, and marking it safe so future ones land.`)) +
     (b.isConsult
-      ? p(`This is a free 30-minute conversation to work out whether this is the right fit. There is no obligation to book anything afterwards, and a referral elsewhere is a perfectly good outcome.`)
+      ? p(`This is a free 15-minute conversation to work out whether this is the right fit. There is no obligation to book anything afterwards, and a referral elsewhere is a perfectly good outcome.`)
       : '') +
     btn(prepLink(b), 'What to expect') +
     (guide ? p(a(guide.href, guide.label)) : '') +
@@ -572,7 +573,7 @@ Rearranging is genuinely easier for everybody than a missed appointment,
 and there is nothing awkward about asking.
 
 ${b.isConsult
-  ? `This is a free 30-minute conversation. Nothing to prepare, nothing to
+  ? `This is a free 15-minute conversation. Nothing to prepare, nothing to
 bring, and no obligation to book anything afterwards.`
   : `Nothing to prepare. If there is something you want to start with, it
 is a good thing to arrive with, and it is equally fine not to have one.`}
@@ -596,7 +597,7 @@ ${BASE}`);
       : p(`The video link is in the email Cliniko sent when you booked, from <strong>notifications@cliniko.com</strong>, worth checking spam if it is not in your inbox.`)) +
     p(`<strong>If tomorrow no longer works, just reply.</strong> Moving it is easier for everybody than a missed appointment, and there is nothing awkward about asking.`) +
     (b.isConsult
-      ? p(`This is a free 30-minute conversation. Nothing to prepare, nothing to bring, and no obligation to book anything afterwards.`)
+      ? p(`This is a free 15-minute conversation. Nothing to prepare, nothing to bring, and no obligation to book anything afterwards.`)
       : p(`Nothing to prepare. If there is something you want to start with, it is a good thing to arrive with, and equally fine not to have one.`)) +
     btn(prepLink(b), 'What actually happens') +
     (guide ? p(a(guide.href, guide.label)) : '') +
@@ -615,7 +616,7 @@ ${BASE}`);
  * below says "book your NEXT session", wrong for someone who has not had a
  * first one.
  *
- * Its restraint is the point. Someone who had a thirty-minute call and did not
+ * Its restraint is the point. Someone who had a fifteen-minute call and did not
  * book may be thinking about it, may have decided against it, or may have found
  * the call itself hard. A nudge written for the first reading is unpleasant for
  * the other two, and BCACC's advertising standards rule out the usual toolkit

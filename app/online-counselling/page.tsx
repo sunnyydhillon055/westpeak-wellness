@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   /* No "evenings" since 1 Oct 2026: the calendar holds what it holds, and a
      description is the one sentence a searcher reads before the page. */
   description:
-    'Online counselling anywhere in BC with Registered Clinical Counsellors, in English, Punjabi or Tagalog. Free 30-minute consultation, no referral needed.',
+    'Online counselling anywhere in BC with Registered Clinical Counsellors, in English, Punjabi or Tagalog. Free 15-minute consultation, no referral needed.',
   alternates: { canonical: `${site.domain}/online-counselling` },
 };
 
@@ -110,7 +110,7 @@ export default function LocationsIndex() {
               clause: who may be seen in Alberta is gated on insurance and
               said where it is generated (serviceAreaLine). 3 Oct 2026. */}
           <p className="direct-answer">
-            Online counselling in BC is a scheduled session by secure video with a Registered Clinical Counsellor, from wherever in the province you are: Vancouver, Surrey, Victoria, Kelowna, Kamloops, Prince George or a town too small to have a counselling office. At Westpeak Wellness every session works this way, in English, Punjabi or Tagalog depending on the counsellor, with a free 30-minute consultation first and no referral needed.
+            Online counselling in BC is a scheduled session by secure video with a Registered Clinical Counsellor, from wherever in the province you are: Vancouver, Surrey, Victoria, Kelowna, Kamloops, Prince George or a town too small to have a counselling office. At Westpeak Wellness every session works this way, in English, Punjabi or Tagalog depending on the counsellor, with a free 15-minute consultation first and no referral needed.
           </p>
           <Updated iso={COLLECTION_DATES['locations']} />
           <div className="btn-row" style={{ marginTop: 24 }}>
@@ -168,12 +168,12 @@ export default function LocationsIndex() {
           <h2>How online counselling works here, in three steps</h2>
           <ol>
             <li>
-              <strong>Book a free 30-minute consultation.</strong> Pick a counsellor and a time on the{' '}
+              <strong>Book a free 15-minute consultation.</strong> Pick a counsellor and a time on the{' '}
               <Link href={site.bookingPath}>booking page</Link>; the next open times are printed there.
               No card, no intake form, no referral.
             </li>
             <li>
-              <strong>Talk, and decide.</strong> Thirty minutes by secure video to say what is going on
+              <strong>Talk, and decide.</strong> Fifteen minutes by secure video to say what is going on
               and hear how the counsellor would work with it. Nothing is diagnosed and nothing is owed.
             </li>
             <li>
@@ -280,7 +280,7 @@ export default function LocationsIndex() {
             <div className="card">
               <h3>Free consultation</h3>
               <p style={{ marginBottom: 0 }}>
-                Thirty minutes over secure video, at no cost. See{' '}
+                Fifteen minutes over secure video, at no cost. See{' '}
                 <Link href="/book">how the free consultation works</Link>.
               </p>
             </div>
@@ -405,7 +405,7 @@ export default function LocationsIndex() {
 
       <CtaBand
         heading="Same care, wherever you are in BC"
-        text="A free 30-minute consultation over secure video. No pressure, no commitment."
+        text="A free 15-minute consultation over secure video. No pressure, no commitment."
       />
     </>
   );

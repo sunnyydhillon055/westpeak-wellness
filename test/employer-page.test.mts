@@ -134,7 +134,7 @@ test('at a glance is built from the catalogue and carries no hours or numbers it
     assert.ok(terms.includes(t), t);
   }
   const text = JSON.stringify(g);
-  assert.match(g.find((x) => x.term === 'First step')!.detail, /^A free 30-minute consultation/);
+  assert.match(g.find((x) => x.term === 'First step')!.detail, /^A free 15-minute consultation/);
   const ind = FALLBACK_CATALOG.items.find((i) => i.name === 'Individual Counselling')!;
   assert.match(g.find((x) => x.term === 'Fees')!.detail, new RegExp(`\\$${ind.cents / 100}`));
   assert.doesNotMatch(text, /\b(evenings?|weekends?)\b|\d\s?(am|pm)\b/i);

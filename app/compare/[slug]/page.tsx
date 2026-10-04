@@ -283,7 +283,7 @@ export default async function ComparePage({ params }: { params: { slug: string }
         band={{
           bookHref: cta.href,
           heading: 'Talk it through before you commit.',
-          text: 'A free 30-minute consultation, including an honest answer if what you need is someone other than an RCC.',
+          text: 'A free 15-minute consultation, including an honest answer if what you need is someone other than an RCC.',
         }}
       />
 

@@ -244,8 +244,8 @@ export default async function PractitionerPage({ params }: { params: { slug: str
         identifier: c.number,
         recognizedBy: { '@type': 'Organization', name: c.body },
       })),
-      /* From her roster `reach` and `provinces`, not a hard-coded BC: Camille
-         may see clients anywhere in Canada (owner's instruction, 8 Sep 2026). */
+      /* From her roster `reach` and `provinces`, not a hard-coded BC. (Camille's
+         Canada-wide reach was withdrawn 3 Oct 2026; provinces now decide.) */
       areaServed: personAreaServed(p),
       /* From the same catalogue read as the fact strip, so the markup cannot
          state a fee the page does not. Omitted for anyone not taking new
@@ -604,8 +604,8 @@ export default async function PractitionerPage({ params }: { params: { slug: str
         heading={p.acceptingNewClients ? `Talk to ${first} first` : alts[0] ? alternativeLabel(alts[0]) : 'Therapy starts with one conversation.'}
         text={
           p.acceptingNewClients
-            ? 'A free 30-minute consultation, by video. No card, and no obligation to book anything afterwards.'
-            : `${first} is not taking new clients at the moment. ${alts[0] ? `${alts[0].name} is: a free 30-minute consultation by video, no card, and no obligation to book anything afterwards.${altSecond ? ` ${altSecond}` : ''}` : 'Send a message and you will be told when that changes.'}`
+            ? 'A free 15-minute consultation, by video. No card, and no obligation to book anything afterwards.'
+            : `${first} is not taking new clients at the moment. ${alts[0] ? `${alts[0].name} is: a free 15-minute consultation by video, no card, and no obligation to book anything afterwards.${altSecond ? ` ${altSecond}` : ''}` : 'Send a message and you will be told when that changes.'}`
         }
       />
 

@@ -135,7 +135,7 @@ export const figures: Record<string, Figure> = {
     width: 1040,
     height: 344,
     title: "How a first counselling session unfolds",
-    alt: "A four-step diagram: a free thirty-minute video consultation, an intake form sent before the session, the fifty-minute first session covering history and goals, and a decision at the end about whether and how often to continue.",
+    alt: "A four-step diagram: a free fifteen-minute video consultation, an intake form sent before the session, the fifty-minute first session covering history and goals, and a decision at the end about whether and how often to continue.",
     caption: "The path from first contact to the end of session one.",
   },
   'four-decisions': {
@@ -229,7 +229,7 @@ export const figures: Record<string, Figure> = {
     width: 1040,
     height: 344,
     title: 'Ang daloy mula sa unang ugnayan hanggang sa unang sesyon',
-    alt: 'Apat na hakbang: libreng tatlumpung minutong konsultasyon, intake at pahintulot, ang unang buong sesyon, at ang pagpapasya kung ano ang susunod.',
+    alt: 'Apat na hakbang: libreng labinlimang minutong konsultasyon, intake at pahintulot, ang unang buong sesyon, at ang pagpapasya kung ano ang susunod.',
     caption: 'Normal na resulta ang hindi magpatuloy pagkatapos ng alinman sa mga hakbang na ito.',
   },
   'panic-vs-anxiety': {

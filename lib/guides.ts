@@ -115,8 +115,8 @@ const coreGuides: Guide[] = [
       },
     ],
     midCta: {
-      text: "The most reliable way to find out whether video suits you is to try thirty minutes of it at no cost.",
-      label: "Book a free 30-minute consultation",
+      text: "The most reliable way to find out whether video suits you is to try fifteen minutes of it at no cost.",
+      label: "Book a free 15-minute consultation",
     },
     faqs: [
       {
@@ -215,7 +215,7 @@ const coreGuides: Guide[] = [
       },
     ],
     midCta: {
-      text: "Wondering whether EMDR fits what you are carrying? That is exactly the kind of question a free 30-minute call is for.",
+      text: "Wondering whether EMDR fits what you are carrying? That is exactly the kind of question a free 15-minute call is for.",
       label: "Book a free consultation",
     },
     faqs: [
@@ -368,7 +368,7 @@ const coreGuides: Guide[] = [
       },
     ],
     midCta: {
-      text: "If \"nothing is actually wrong, I am just tired all the time\" is a sentence you have said, it is worth thirty minutes.",
+      text: "If \"nothing is actually wrong, I am just tired all the time\" is a sentence you have said, it is worth fifteen minutes.",
       label: "Book a free consultation",
     },
     faqs: [
@@ -454,7 +454,7 @@ const coreGuides: Guide[] = [
       },
     ],
     midCta: {
-      text: "The 30-minute consultation is a lower-stakes version of all of this, and it costs nothing.",
+      text: "The 15-minute consultation is a lower-stakes version of all of this, and it costs nothing.",
       label: "Book a free consultation",
     },
     faqs: [
@@ -470,8 +470,8 @@ const coreGuides: Guide[] = [
     ],
     related: [
       { href: "/services/individual-therapy", label: "Where individual counselling begins" },
-      { href: "/resources/before-your-first-consultation", label: "Before your first consultation, the 30-minute version" },
-      { href: "/book", label: "Book a free 30-minute consultation" },
+      { href: "/resources/before-your-first-consultation", label: "Before your first consultation, the 15-minute version" },
+      { href: "/book", label: "Book a free 15-minute consultation" },
       { href: "/faq", label: "Frequently asked questions about starting therapy" },
       { href: "/compare/rcc-vs-psychologist-vs-social-worker-bc", label: "RCC, psychologist, or social worker in BC" },
       { href: "/pricing", label: "Fees and extended health coverage" },
@@ -548,12 +548,12 @@ const coreGuides: Guide[] = [
              The near-duplicate "Finding Gottman Method couples counselling
              in British Columbia" section from lib/depth4.ts was folded in
              here the same day: two headings for one thing on one page. */
-          'At this practice, [Gottman-informed couples counselling in BC](/services/couples-therapy) is delivered online across British Columbia by a Registered Clinical Counsellor, which removes the usual difficulty of finding two people free at the same hour in the same city. The Gottman Institute\'s own referral directory lists clinicians by region and training level if you want to compare. For how the method sits against the other major evidence-based couples approach, the [Gottman vs EFT comparison](/compare/gottman-method-vs-eft-for-couples) sets the two side by side. The first 30-minute consultation is free and both partners are welcome on it.',
+          'At this practice, [Gottman-informed couples counselling in BC](/services/couples-therapy) is delivered online across British Columbia by a Registered Clinical Counsellor, which removes the usual difficulty of finding two people free at the same hour in the same city. The Gottman Institute\'s own referral directory lists clinicians by region and training level if you want to compare. For how the method sits against the other major evidence-based couples approach, the [Gottman vs EFT comparison](/compare/gottman-method-vs-eft-for-couples) sets the two side by side. The first 15-minute consultation is free and both partners are welcome on it.',
         ],
       },
     ],
     midCta: {
-      text: "Not sure whether to start with couples sessions or individually? That is worth thirty minutes before committing either way.",
+      text: "Not sure whether to start with couples sessions or individually? That is worth fifteen minutes before committing either way.",
       label: "Book a free consultation",
     },
 faqs: [
@@ -629,7 +629,7 @@ faqs: [
       },
     ],
     midCta: {
-      text: "If you cannot tell which of these it is, that is a good use of a free 30-minute call rather than a reason to wait.",
+      text: "If you cannot tell which of these it is, that is a good use of a free 15-minute call rather than a reason to wait.",
       label: "Book a free consultation",
     },
     faqs: [
@@ -780,7 +780,7 @@ faqs: [
       {
         h2: "What to ask on a consultation call",
         body: [
-          "Nearly every private practitioner in BC offers a free 30-minute consultation, and it exists so you can assess them. Worth asking:",
+          "Nearly every private practitioner in BC offers a free 15-minute consultation, and it exists so you can assess them. Worth asking:",
         ],
         list: [
           { label: "Have you worked with this before?", detail: "Specific experience with what you are actually bringing, not general competence." },
@@ -800,7 +800,7 @@ faqs: [
       },
     ],
     midCta: {
-      text: "If you are shortlisting, a free 30-minute call is how you test this one, no obligation either way.",
+      text: "If you are shortlisting, a free 15-minute call is how you test this one, no obligation either way.",
       label: "Book a free consultation",
     },
     faqs: [

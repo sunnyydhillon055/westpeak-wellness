@@ -429,7 +429,7 @@ export default async function ResourcePage({ params }: { params: { slug: string 
         band={{
           bookHref: cta.href,
           heading: r.closingBand?.heading ?? 'Questions about cost or coverage?',
-          text: r.closingBand?.text ?? 'A free 30-minute consultation is a good place to ask them, before committing to anything.',
+          text: r.closingBand?.text ?? 'A free 15-minute consultation is a good place to ask them, before committing to anything.',
         }}
       />
 

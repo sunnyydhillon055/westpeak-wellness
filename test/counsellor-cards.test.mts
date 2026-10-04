@@ -166,14 +166,14 @@ test('#218 the Alberta resources carry the province and show only who is insured
 
 test('#219 the closing fee line is the catalogue figure for the service the page is about', () => {
   const ind = feeLineFor(undefined, FALLBACK_CATALOG)!;
-  assert.equal(ind, `Individual sessions are ${priced('Individual Counselling')} for 50 minutes, after a free 30-minute consultation; card at booking.`);
+  assert.equal(ind, `Individual sessions are ${priced('Individual Counselling')} for 50 minutes, after a free 15-minute consultation; card at booking.`);
   const cp = feeLineFor('couples-therapy', FALLBACK_CATALOG)!;
   assert.ok(cp.includes(priced('Couples Counselling')) && cp.includes(priced('Couples Extended')) && cp.includes('110-minute'), cp);
   const em = feeLineFor('emdr-therapy', FALLBACK_CATALOG)!;
   assert.ok(em.includes(priced('EMDR Intensive')) && em.includes(priced('Individual Counselling')), em);
   assert.equal(feeLineFor('family-counselling', FALLBACK_CATALOG), ind, 'family work is not in the catalogue; the individual line stands');
   for (const l of [ind, cp, em]) {
-    assert.match(l, /after a free 30-minute consultation; card at booking\.$/);
+    assert.match(l, /after a free 15-minute consultation; card at booking\.$/);
     assert.doesNotMatch(l, /evening|weekend|most .*plans/i);
   }
   assert.equal(feeLineFor('couples-therapy', { ...FALLBACK_CATALOG, items: [] }), undefined, 'no couples price, no line');

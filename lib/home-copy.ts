@@ -73,7 +73,7 @@ export function alsoOffers(people: readonly LedePerson[], slug: string, label: s
   return `${andList(offering.map(firstOf))} also ${offering.length > 1 ? 'offer' : 'offers'} ${label}`;
 }
 
-/** "It starts with a free 30-minute call; sessions after that are $140 for
+/** "It starts with a free 15-minute call; sessions after that are $140 for
  *  50 minutes ($175 for a couple)." Every figure is passed in from the
  *  catalogue; the couples fee is said only when somebody offers couples work. */
 export function feeSentence(f: {

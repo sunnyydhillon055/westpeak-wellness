@@ -82,7 +82,7 @@ generational silence do not need explaining from scratch.
 Sessions are online, so clients anywhere in the province have the same access.
 Registered Clinical Counsellor (RCC), BC Association of Clinical Counsellors.
 
-A free 30-minute consultation is available before booking.
+A free 15-minute consultation is available before booking.
 ```
 
 *(738 characters — inside the limit.)*
@@ -100,7 +100,7 @@ read by AI answer engines pulling from the profile.
 | Punjabi-Speaking Counselling | Therapy in Punjabi, English, or both — with the cultural fluency to understand family context without it being explained. |
 | Anxiety Counselling | Structured, evidence-based work on worry, avoidance and panic, online across BC. |
 | Trauma Therapy | Trauma-informed counselling that sequences stabilisation before processing. |
-| Free 30-Minute Consultation | A short video call to check fit before booking anything. No cost, no obligation. |
+| Free 15-Minute Consultation | A short video call to check fit before booking anything. No cost, no obligation. |
 
 ## Step 5 — Attributes
 
@@ -141,7 +141,7 @@ business account.
    page written in Punjabi at westpeakwellness.com/punjabi.
 
 2. **Do I need a doctor's referral?**
-   No. You can book directly, including the free 30-minute consultation.
+   No. You can book directly, including the free 15-minute consultation.
 
 3. **How much does a session cost?**
    Every fee, individual and couples, is listed at
@@ -160,7 +160,7 @@ business account.
    explanation at westpeakwellness.com/services/emdr-therapy.
 
 7. **How do I know if we are a good fit?**
-   Start with the free 30-minute consultation — it exists for exactly that,
+   Start with the free 15-minute consultation — it exists for exactly that,
    and there is no obligation to book afterwards.
 
 8. **Do you work with couples?**

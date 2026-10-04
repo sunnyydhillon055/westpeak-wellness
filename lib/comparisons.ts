@@ -130,7 +130,7 @@ const coreComparisons: Comparison[] = [
         body: [
           "Psychologists in British Columbia are licensed by the **College of Health and Care Professionals of BC**, which absorbed the formerly separate College of Psychologists of BC when the colleges amalgamated. Its [public registry](https://chcpbc.alinityapp.com/client/publicdirectory) is free to search by name, and shows whether a licence is current and any restrictions on it. Licensee numbers were reissued in June 2026, so search by name rather than by an older number.",
           "A psychologist is the right door when what you need is an assessment or a diagnosis: an ADHD, learning or cognitive assessment, or a diagnosis letter for a benefits claim, an employer, a school or a legal process. A counsellor cannot provide those, and should say so on the first call.",
-          `If what you need is counselling itself, a Registered Clinical Counsellor is a second door. An individual session here is ${fallbackFee('Individual Counselling')} for 50 minutes, after a free 30-minute consultation, and whether your extended health plan reimburses an RCC depends on the plan, so check that it names the designation. [Fees and coverage](/pricing) has the full table, including the association figures for each kind of practitioner.`,
+          `If what you need is counselling itself, a Registered Clinical Counsellor is a second door. An individual session here is ${fallbackFee('Individual Counselling')} for 50 minutes, after a free 15-minute consultation, and whether your extended health plan reimburses an RCC depends on the plan, so check that it names the designation. [Fees and coverage](/pricing) has the full table, including the association figures for each kind of practitioner.`,
         ],
       },
       {
@@ -146,7 +146,7 @@ const coreComparisons: Comparison[] = [
       "So if what you need is an ADHD assessment or a diagnosis for a benefits claim, this is not the right door, and saying so on a consultation call takes about a minute. If what you need is ongoing therapy for anxiety, depression, trauma, or a relationship under strain, [particularly in Punjabi](/services/punjabi-counselling), where the options in BC are genuinely limited, then it may be.",
     ],
     midCta: {
-      text: "Not sure which of the three you need? That is a reasonable thing to work out on a free 30-minute call, including if the answer is someone else.",
+      text: "Not sure which of the three you need? That is a reasonable thing to work out on a free 15-minute call, including if the answer is someone else.",
       label: "Book a free consultation",
     },
     faqs: [
@@ -286,7 +286,7 @@ const coreComparisons: Comparison[] = [
       "If you are unsure which to book, that is a reasonable thing to work out on the consultation call rather than in advance, and if the answer is individual therapy with someone else while couples work happens here, that is a fine outcome too.",
     ],
     midCta: {
-      text: "Not sure which format fits? Thirty minutes on a call usually settles it.",
+      text: "Not sure which format fits? Fifteen minutes on a call usually settles it.",
       label: "Book a free consultation",
     },
     faqs: [
@@ -368,7 +368,7 @@ const coreComparisons: Comparison[] = [
       "If what you actually need is a formal PTSD diagnosis for a benefits claim or a legal process, that requires a psychologist or physician rather than a counsellor, [the comparison of BC therapist types](/compare/rcc-vs-psychologist-vs-social-worker-bc) sets out why.",
     ],
     midCta: {
-      text: "Unsure which fits what you are carrying? That is a good use of a free 30-minute call, before committing to either.",
+      text: "Unsure which fits what you are carrying? That is a good use of a free 15-minute call, before committing to either.",
       label: "Book a free consultation",
     },
     faqs: [

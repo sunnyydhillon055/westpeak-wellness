@@ -69,7 +69,7 @@ export const moreAudiences3: Audience[] = [
       { href: '/services/individual-therapy', label: 'Depression counselling', why: 'For the Octobers that do not lift, and the flatness that outlasts the term.' },
     ],
     midCta: {
-      text: 'A free 30-minute consultation fits in a spare block, and July exists. Either works.',
+      text: 'A free 15-minute consultation fits in a spare block, and July exists. Either works.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -154,7 +154,7 @@ export const moreAudiences3: Audience[] = [
       { q: 'Is any of this visible to my employer?', a: 'No. Paying through extended health means the insurer processes a counselling receipt; employers do not see claims detail. Nothing about attending, or what is said, reaches a workplace without your written consent, and sessions here are booked and paid by you, not through any corporate program.' },
       { q: 'I was just laid off and my benefits end soon. What is the smart order?', a: 'Use the coverage before it lapses. Many plans cover you to the end of the month or the severance period, and receipts dated inside that window still reimburse. Then: EI promptly, the low-cost options page if the gap stretches, and honestly, some of the best counselling work in a layoff happens in the first weeks, before the story about what it meant sets.' },
       { q: 'My work permit depends on my job and the anxiety is constant. Can counselling actually help with that?', a: 'It cannot change the immigration system, and it will not pretend to. What it can do is real: separate the rational planning problem from the ambient dread so each gets the right tool, build the capacity to function while carrying genuine uncertainty, and be one hour where the pressure can be said out loud in either English or Punjabi.' },
-      { q: 'Can sessions fit around sprint schedules and on-call?', a: 'Times depend on the counsellor, and the booking page shows what is open; sessions are 50 minutes by video, and rescheduling with 24 hours’ notice is free. A cadence that flexes with release cycles, weekly in rough stretches, biweekly in calm ones, is a normal arrangement.' },
+      { q: 'Can sessions fit around sprint schedules and on-call?', a: 'Times depend on the counsellor, and the booking page shows what is open; sessions are 50 minutes by video, and rescheduling with at least 24 hours’ notice is free (with less notice, or for a no-show, 50% of the fee is kept). A cadence that flexes with release cycles, weekly in rough stretches, biweekly in calm ones, is a normal arrangement.' },
     ],
     sources: [
       { label: 'Canadian Mental Health Association, BC Division', url: 'https://cmha.bc.ca/' },

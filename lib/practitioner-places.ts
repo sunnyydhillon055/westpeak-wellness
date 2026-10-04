@@ -371,7 +371,7 @@ export function placeDescription(p: Described, city: string): string {
   const couples = p.services.includes('couples-therapy');
   const compose = (ts: string[]) => {
     const work = couples ? `${listAnd([...ts, 'couples work'])}.` : `${listAnd(ts)}, one to one.`;
-    return `${letters}: online counselling for ${city} in ${langs}. ${work.charAt(0).toUpperCase()}${work.slice(1)} Free 30-minute consultation.`;
+    return `${letters}: online counselling for ${city} in ${langs}. ${work.charAt(0).toUpperCase()}${work.slice(1)} Free 15-minute consultation.`;
   };
   /* Her focus in roster order, shortened from the end until the sentence
      fits, so the free consultation is never the part cut off. */

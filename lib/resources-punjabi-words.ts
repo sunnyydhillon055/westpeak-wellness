@@ -79,7 +79,7 @@ export const punjabiWordsResource: Resource[] = [
             ['Counsellor, counselor', 'ਕਾਊਂਸਲਰ', 'kaunslar', 'Counsellor, the English word in Gurmukhi. The older word ਸਲਾਹਕਾਰ (salahkaar) means adviser and is used for lawyers and financial advisers too, which is not the same job.'],
             ['Therapy', 'ਥੈਰੇਪੀ', 'therapy', 'Therapy, borrowed as it is. ਇਲਾਜ (ilaaj) means treatment and sounds medical, which is sometimes useful and sometimes exactly the wrong note.'],
             ['Therapist', 'ਥੈਰੇਪਿਸਟ', 'therapist', 'Therapist. No native equivalent; ਮਨੋਵਿਗਿਆਨੀ above is the word people reach for, and it means psychologist, which a counsellor is not.'],
-            ['To consult', 'ਸਲਾਹ ਲੈਣਾ', 'salah laina', 'To consult, literally to take advice. The free 30-minute consultation at this practice is a ਮੁਫ਼ਤ ਸਲਾਹ-ਮਸ਼ਵਰਾ, and it is a conversation, not advice.'],
+            ['To consult', 'ਸਲਾਹ ਲੈਣਾ', 'salah laina', 'To consult, literally to take advice. The free 15-minute consultation at this practice is a ਮੁਫ਼ਤ ਸਲਾਹ-ਮਸ਼ਵਰਾ, and it is a conversation, not advice.'],
           ],
         },
         body: [
@@ -123,7 +123,7 @@ export const punjabiWordsResource: Resource[] = [
          came for a meaning, and this is where the page says the thing itself
          is available in Punjabi. The button books the Punjabi-speaking
          counsellor's calendar (bookingCtaFor, language 'pa'). */
-      text: 'Looking for counselling in Punjabi, not only the word for it? A free 30-minute consultation with a Punjabi-speaking counsellor, in Punjabi, English, or both in the same conversation. No card, and no obligation.',
+      text: 'Looking for counselling in Punjabi, not only the word for it? A free 15-minute consultation with a Punjabi-speaking counsellor, in Punjabi, English, or both in the same conversation. No card, and no obligation.',
       label: 'Book a free consultation',
     },
     faqs: [
@@ -132,11 +132,11 @@ export const punjabiWordsResource: Resource[] = [
       { q: 'What does counsel mean in Punjabi?', a: 'As a noun, counsel is ਸਲਾਹ (salah), advice, the same word that begins ਸਲਾਹ-ਮਸ਼ਵਰਾ. An adviser is ਸਲਾਹਕਾਰ (salahkaar), which also covers lawyers and financial advisers. Counselling in the mental-health sense is usually just ਕਾਊਂਸਲਿੰਗ.' },
       { q: 'What is therapy in Punjabi?', a: 'Usually ਥੈਰੇਪੀ, the English word in Gurmukhi. ਇਲਾਜ (ilaaj) means treatment and is what a doctor gives; some families prefer it because it sounds medical rather than personal, and some avoid it for the same reason. In a session either word is understood.' },
       { q: 'What is counsellor or therapist in Punjabi?', a: 'ਕਾਊਂਸਲਰ (kaunslar) and ਥੈਰੇਪਿਸਟ (therapist), both borrowed. ਸਲਾਹਕਾਰ (salahkaar) means adviser and is also used for lawyers and financial advisers, so it does not say what kind of help is meant. ਮਨੋਵਿਗਿਆਨੀ (manovigiaani) means psychologist, which a counsellor is not.' },
-      { q: 'What is consult or consultation in Punjabi?', a: 'ਸਲਾਹ ਲੈਣਾ (salah laina), to take advice, or ਸਲਾਹ-ਮਸ਼ਵਰਾ (salah-mashwara), a consultation. The first 30 minutes at this practice are a free consultation, a ਮੁਫ਼ਤ ਸਲਾਹ-ਮਸ਼ਵਰਾ, in Punjabi or English, and nothing is decided in it.' },
+      { q: 'What is consult or consultation in Punjabi?', a: 'ਸਲਾਹ ਲੈਣਾ (salah laina), to take advice, or ਸਲਾਹ-ਮਸ਼ਵਰਾ (salah-mashwara), a consultation. The first 15 minutes at this practice are a free consultation, a ਮੁਫ਼ਤ ਸਲਾਹ-ਮਸ਼ਵਰਾ, in Punjabi or English, and nothing is decided in it.' },
       { q: 'What is burnout in Punjabi?', a: 'There is no clinical term. It is described as ਥਕਾਵਟ (thakavat), exhaustion, and sometimes as ਤਣਾਅ (tanaa), stress. Both place it in the body rather than the mind, which is often how it is first noticed and which makes it easier to say out loud at home.' },
       { q: 'Is there a Punjabi word for depression?', a: 'Not an everyday one. ਉਦਾਸੀ (udaasi) means sadness or low mood, and it is the word most people use, but it sounds like something that will lift on its own. That mismatch is one reason a depressive episode in a Punjabi-speaking family is often heard as ordinary sadness for a long time before anybody treats it as more.' },
       { q: 'Do I have to speak Punjabi in the session?', a: 'No. Most people move between Punjabi and English in the same sentence, and that is normal here rather than something to apologise for. You can also book in English entirely and switch when a word only exists in one of them.' },
-      { q: 'Who provides counselling in Punjabi at Westpeak?', a: 'Savneet Singh, a Registered Clinical Counsellor who works in Punjabi and English. Sessions are online, anywhere in British Columbia, and the first 30-minute consultation is free.' },
+      { q: 'Who provides counselling in Punjabi at Westpeak?', a: 'Savneet Singh, a Registered Clinical Counsellor who works in Punjabi and English. Sessions are online, anywhere in British Columbia, and the first 15-minute consultation is free.' },
       { q: 'Will my family find out?', a: `No. What is said in a session is confidential, with the narrow legal exceptions every counsellor has: ${CONFIDENTIALITY_LIMITS}. Those are explained plainly at the first meeting. Nothing goes to family, community or an employer.` },
     ],
     sources: [

@@ -11,6 +11,7 @@ import { isClientAllowed } from '@/lib/portal-store';
 import { readPortalAppointments, paidTypesFor } from '@/lib/portal-appointments';
 import { readCatalog, FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
 import { formatPacific } from '@/lib/pacific-time';
+import { CANCELLATION_RULE, LATE_CANCELLATION_KEPT_PERCENT } from '@/lib/policies';
 
 /* Gated by middleware.ts — never served without the access code, so it is kept
  * out of the index and out of the sitemap. Deliberately short: this is a place
@@ -87,7 +88,7 @@ export default async function ClientPortalPage({
         <p className="lede" style={{ fontSize: '1.02rem', marginBottom: 34 }}>
           Book a session and pay in one step. Live availability comes from the booking
           calendar below.{' '}
-          Cancelling is free up to {site.cancellationHours} hours before.
+          {CANCELLATION_RULE}
         </p>
 
         {/* What is already booked, from Cliniko. Nothing at all when Cliniko
@@ -233,12 +234,12 @@ export default async function ClientPortalPage({
         <h2 id="cancelling" style={{ marginTop: 38 }}>Cancelling</h2>
         <ul className="checklist">
           <li>
-            <strong>More than {site.cancellationHours} hours ahead</strong> &mdash; refunded in
-            full, no reason needed. Reply to your confirmation email.
+            <strong>At least {site.cancellationHours} hours&rsquo; notice</strong> &mdash; a full
+            refund, no reason needed. Reply to your confirmation email.
           </li>
           <li>
-            <strong>Less than {site.cancellationHours} hours, or a missed session</strong> &mdash;
-            half the fee is refunded and half is retained, because the time was held and cannot be
+            <strong>Less than {site.cancellationHours} hours&rsquo; notice, or a no-show</strong> &mdash;
+            {LATE_CANCELLATION_KEPT_PERCENT}% of the fee is kept, because the time was held and cannot be
             filled at that notice. This is the figure in the consent form you signed.
           </li>
           <li>

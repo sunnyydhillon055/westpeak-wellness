@@ -132,14 +132,17 @@ for (const f of files) {
 const faq = readFileSync(join(ROOT, 'lib', 'faq.ts'), 'utf8');
 const pricing = readFileSync(join(ROOT, 'app', 'pricing', 'page.tsx'), 'utf8');
 
-const faqAnswer = faq.match(/How do I pay, and when\?[\s\S]{0,400}?a:\s*"([^"]+)"/)?.[1];
+/* Quoted or a template literal: since 3 Oct 2026 both answers interpolate
+   CANCELLATION_RULE from lib/policies.ts, and "at booking" stays in the
+   literal text around it, which is what is checked. */
+const faqAnswer = faq.match(/How do I pay, and when\?[\s\S]{0,400}?a:\s*(["`])((?:(?!\1)[\s\S])+)\1/)?.[2];
 if (!faqAnswer) {
   fails.push('lib/faq.ts  the "How do I pay, and when?" answer is gone');
 } else if (!WHEN_PAID.test(faqAnswer)) {
   fails.push('lib/faq.ts  the payment answer no longer says the card is taken at booking');
 }
 
-const schemaAnswer = pricing.match(/How do I pay for a counselling session\?[\s\S]{0,3000}?text:\s*'([^']+)'/)?.[1];
+const schemaAnswer = pricing.match(/How do I pay for a counselling session\?[\s\S]{0,3000}?text:\s*(['`])((?:(?!\1)[\s\S])+)\1/)?.[2];
 if (!schemaAnswer) {
   fails.push('app/pricing/page.tsx  the payment question is missing from the FAQ schema');
 } else if (!WHEN_PAID.test(schemaAnswer)) {

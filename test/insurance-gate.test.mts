@@ -14,8 +14,11 @@ import { placesFor, ALBERTA_PLACES } from '../lib/practitioner-places.ts';
  * validTo, a 14-day grace for the renewal to be typed in, then gated. */
 
 const camille = recordedPractitioners.find((p) => p.slug === 'camille-granda')!;
+/* `reach: 'canada'` is set here, not read from her record: it came off the
+   roster on 3 Oct 2026, and the gate must still drop it for whoever carries it. */
 const policy = (validTo: string): Practitioner => ({
   ...camille,
+  reach: 'canada',
   insurance: { ...camille.insurance!, validTo },
 });
 
