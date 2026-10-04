@@ -363,7 +363,7 @@ test('402: the profile, place pages, their twins and the Tagalog guides book thr
   }
   assert.match(src('app/tagalog/gabay/[slug]/page.tsx'), /href=\{speaker \? bookHrefFor\(\[speaker\]\) : site\.bookingPath\}/);
   for (const l of ['next-practitioner', 'hero-next-language', 'next-message-sent']) assert.ok(BOOK_LOCATIONS.includes(l), l);
-  assert.deepEqual(BOOK_LOCATIONS.slice(BOOK_LOCATIONS.indexOf('hero-online') + 1), ['next-practitioner', 'hero-next-language', 'next-message-sent', 'hero-next-article']);
+  assert.deepEqual(BOOK_LOCATIONS.slice(BOOK_LOCATIONS.indexOf('hero-online') + 1, BOOK_LOCATIONS.indexOf('hero-online') + 5), ['next-practitioner', 'hero-next-language', 'next-message-sent', 'hero-next-article']);
 });
 
 test('456: a profile not taking new clients says so and names the colleague who shares her language', async () => {

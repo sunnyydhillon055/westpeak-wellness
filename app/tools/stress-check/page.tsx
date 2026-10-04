@@ -47,6 +47,12 @@ export default function Page() {
     <>
     <ToolShell
       tool={tool}
+      gentle
+      consult={{
+        lead: 'If you would rather talk it through with someone, there is a',
+        label: 'free 15-minute conversation with a counsellor',
+        tail: ', with nothing to decide beforehand.',
+      }}
       intro={
         <>
           Six questions to help put words to how the last few weeks have actually been. This is

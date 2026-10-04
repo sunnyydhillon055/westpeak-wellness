@@ -171,6 +171,11 @@ export const BOOK_LOCATIONS: readonly string[] = [
   /* r6-static-speed, 3 Oct 2026 (item 409): the next free day under the
      hero button of each guide, resource and comparison and of /pricing. */
   'hero-next-article',
+  /* wf/s7-tools, 4 Oct 2026, appended: the consultation link under each
+     tool's intro and the /tools hub's, and the "who you would talk to" cards
+     under them (components/tools/ToolShell, ToolCounsellors). */
+  'hero-tool',
+  'counsellor-tool',
 ];
 
 /** Every slug on the roster, accepting or not. The founder's cannot reach a

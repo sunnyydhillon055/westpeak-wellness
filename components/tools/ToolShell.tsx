@@ -5,6 +5,9 @@ import type { ToolMeta } from '@/lib/tools';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import Updated from '@/components/Updated';
 import { COLLECTION_DATES } from '@/lib/page-dates';
+import BookLink from '@/components/BookLink';
+import { bookingFor } from '@/lib/booking-cta';
+import ToolCounsellors from '@/components/tools/ToolCounsellors';
 
 /* Shared frame for every tool: heading, schema, and the closing CTA.
  *
@@ -14,11 +17,29 @@ export default function ToolShell({
   tool,
   children,
   intro,
+  heading,
+  consult,
+  gentle = false,
 }: {
   tool: ToolMeta;
   intro: React.ReactNode;
   children: React.ReactNode;
+  /** The H1 when it should differ from tool.title, which stays the name the
+   *  hub, breadcrumb and schema use. Set where the H1 shared no topic word
+   *  with the page title (scripts/page-score.mjs seo.h1). */
+  heading?: string;
+  /** The one line under the intro that offers a person instead of the tool:
+   *  the words before the link, the link's own words, and any after. Written
+   *  per page, because a reader halfway through a burnout reflection and one
+   *  pricing a session are not asking the same thing. */
+  consult: { lead: string; label: string; tail?: string };
+  /** The two reflection tools: the cards take the gentle heading. */
+  gentle?: boolean;
 }) {
+  /* No tool books one service, so this is the practice-wide /book, where
+     the reader chooses; routed through bookingFor so that changes in one
+     place if a tool ever does. */
+  const book = bookingFor(undefined);
   const schema = [
     {
       '@context': 'https://schema.org',
@@ -47,8 +68,8 @@ export default function ToolShell({
      *
      * WebApplication says "this is a tool". HowTo says what using it involves,
      * which is the shape an assistant can answer a question from. The steps are
-     * deliberately the same across all three tools because they are true of all
-     * three — none asks for an account, none stores anything, and each ends by
+     * deliberately the same across all five tools because they are true of all
+     * five — none asks for an account, none stores anything, and each ends by
      * pointing somewhere rather than selling. Writing per-tool steps that
      * overstated what a tool does would be worse than the generic truth. */
     {
@@ -110,9 +131,19 @@ export default function ToolShell({
       <section className="hero" style={{ paddingBottom: 34 }}>
         <div className="container container--narrow">
           <p className="eyebrow">Free tool · about {tool.minutes} minutes</p>
-          <h1>{tool.title}</h1>
+          <h1>{heading ?? tool.title}</h1>
           <Updated iso={COLLECTION_DATES['tools']} />
           <p className="direct-answer">{intro}</p>
+          {/* A person, offered before the tool rather than only after a
+              finished result: the result's button renders client-side and
+              only on completion, so until 4 Oct 2026 the first booking link
+              sat 300-950 words down. A text link, not a button: the tool is
+              still this page's job. */}
+          <p className="hero-note hero-coverage">
+            {consult.lead}{' '}
+            <BookLink location="hero-tool" className="" href={book.href}>{consult.label}</BookLink>
+            {consult.tail ?? '.'}
+          </p>
         </div>
       </section>
 
@@ -140,8 +171,18 @@ export default function ToolShell({
               </div>
             </div>
           )}
+
+          {/* The hub had two pages linking to it from their content; each
+              tool now points at its four siblings through it. */}
+          <p style={{ color: 'var(--ink-soft)', marginTop: 24 }}>
+            This is one of five <Link href="/tools">free counselling tools</Link>, from which kind
+            of counselling fits to what it costs after extended health. Each runs in your browser
+            and none asks for an email address.
+          </p>
         </div>
       </section>
+
+      <ToolCounsellors gentle={gentle} />
 
       {tool.related && tool.related.length > 0 && (
         <section className="section section--tint">

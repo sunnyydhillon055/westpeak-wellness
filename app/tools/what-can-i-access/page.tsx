@@ -22,6 +22,12 @@ export default function Page() {
     <>
     <ToolShell
       tool={tool}
+      heading="What counselling can you access, and how soon?"
+      consult={{
+        lead: 'If private counselling is one of the routes you are weighing, a',
+        label: 'free 15-minute consultation',
+        tail: ' is the way to check it fits before you pay for anything.',
+      }}
       intro={
         <>
           Most people looking for counselling compare two options: wait for the public system,

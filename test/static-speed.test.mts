@@ -127,7 +127,7 @@ test('one counsellor fits: the hero button names her and her languages, and open
 
 test('the hero day list is counted on its own key, and the five article templates print it once', () => {
   assert.ok(BOOK_LOCATIONS.includes('hero-next-article'));
-  assert.equal(BOOK_LOCATIONS[BOOK_LOCATIONS.length - 1], 'hero-next-article', 'appended, no earlier key moved');
+  assert.equal(BOOK_LOCATIONS[BOOK_LOCATIONS.indexOf('next-message-sent') + 1], 'hero-next-article', 'appended, no earlier key moved');
   const line = src('components/NextConsultLine.tsx');
   assert.match(line, /<ConsultDays people=\{people\} location="hero-next-article" \/>/);
   for (const f of ['app/guides/[slug]/page.tsx', 'app/resources/[slug]/page.tsx', 'app/compare/[slug]/page.tsx']) {

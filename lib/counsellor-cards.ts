@@ -39,6 +39,9 @@ export const COUNSELLOR_CARD_LOCATIONS = [
   'counsellor-lead-sent',
   /* /search, above the results when the top hit is a service (1 Oct 2026). */
   'search',
+  /* The five tools and the /tools hub (components/tools/ToolCounsellors,
+     wf/s7-tools, 4 Oct 2026). */
+  'counsellor-tool',
 ] as const;
 export type CounsellorCardLocation = (typeof COUNSELLOR_CARD_LOCATIONS)[number];
 

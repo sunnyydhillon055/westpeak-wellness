@@ -22,6 +22,12 @@ export default function Page() {
     <>
     <ToolShell
       tool={tool}
+      gentle
+      consult={{
+        lead: 'If you would rather talk it through than answer questions, a',
+        label: 'free 15-minute consultation',
+        tail: ' is a conversation, not a commitment.',
+      }}
       intro={
         <>
           They produce almost identical days from the inside: flat, tired, short-tempered,
