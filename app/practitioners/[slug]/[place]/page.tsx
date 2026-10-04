@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { linkPhrases, RegisterName } from './twin-links';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { site } from '@/lib/site';
@@ -268,7 +269,7 @@ export default async function PractitionerPlacePage({ params }: { params: Params
               {p.credentials.map((c) => (
                 <span key={c.short}>
                   <BadgeCheck aria-hidden="true" strokeWidth={1.7} />
-                  {c.full} · {c.body} #{c.number}
+                  {c.full} · <RegisterName c={c} /> #{c.number}
                 </span>
               ))}
             </div>
@@ -292,6 +293,7 @@ export default async function PractitionerPlacePage({ params }: { params: Params
             {p.placePages && (
               <div className="prose" style={{ marginTop: 30 }} lang="tl">
                 <h2>{TL_PLACE_SHARED.nearbyHeading}</h2>
+                <p>{linkPhrases(TL_PLACE_SHARED.nearbyNote, [['bayad', '/pricing']])}</p>
                 <ul className="place-siblings">
                   {placesFor(p.provinces).filter((c) => getTagalogPlace(c.slug)).map((c) => (
                     <li key={c.slug}>
@@ -738,7 +740,7 @@ function PunjabiProfile({ p }: { p: Practitioner }) {
               {p.credentials.map((c) => (
                 <span key={c.short}>
                   <BadgeCheck aria-hidden="true" strokeWidth={1.7} />
-                  {c.full} · {c.body} #{c.number}
+                  {c.full} · <RegisterName c={c} /> #{c.number}
                 </span>
               ))}
             </div>
@@ -769,7 +771,7 @@ function PunjabiProfile({ p }: { p: Practitioner }) {
           {cities.length > 0 && (
             <div className="prose" style={{ marginTop: 30 }}>
               <h2>{PA_PLACE_SHARED.nearbyHeading(first)}</h2>
-              <p>{PA_PLACE_SHARED.nearbyNote}</p>
+              <p>{linkPhrases(PA_PLACE_SHARED.nearbyNote, [['ਫ਼ੀਸ', '/pricing']])}</p>
               <ul className="place-siblings">
                 {cities.map((c) => (
                   <li key={c.slug}>
