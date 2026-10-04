@@ -2727,6 +2727,169 @@ were written.
 
 ---
 
+### The leave pages say whose law gives which leave; "stay at work services" is answered on the employer page
+Decided 3 Oct 2026 (branch `wf/tp-leave`), from the 3 Oct Search Console
+export. (1) The stress-leave cluster had 596 impressions, 0 clicks, at an
+average position of 15.7, and the results above /guides/stress-leave-bc quote
+"27 weeks of unpaid, job-protected leave" without saying it is the Canada
+Labour Code's, which covers federally regulated employers only. The guide now
+carries "Which leave rules apply to you: BC, federal or union" and an FAQ, "Is
+there a 27-week stress leave in BC?". The figures were checked on 3 Oct
+against canada.ca IPG-118 (10 paid medical days: 3 after 30 days, then 1 a
+month; certificate after 5 consecutive days) and s. 239(1) (27 weeks). The
+same guide called the five ESA days "unpaid", contradicting its own step list
+and gov.bc.ca; it now says five paid and three unpaid after 90 days, as do the
+workplace resource and the sick-days guide. A test fails if "27 weeks" appears
+in the guide without the federal attribution. (2) "stay at work services" (63
+impressions at 38.8) is an employer's query: the results above it are an
+insurer's product page, WorkSafeBC's Return to Work Support Services provider
+list and an occupational-health office. The definition and who provides the
+service in BC now live on /for/employers-and-hr ("Stay-at-work services in BC:
+who provides them", plus an FAQ). /resources/workplace-mental-health-bc keeps
+the employee's side under "If you are offered a stay-at-work plan", and each
+page links the other's section by anchor. This partly reverses the 25 Sep
+choice to answer the phrase on the employee page, because two pages were
+defining one phrase. The practice is stated not to be a stay-at-work provider.
+(3) The WorkSafeBC resource gains the mental-disorder presumption and the
+eleven occupations added on 10 June 2024, from WorkSafeBC's own pages, under a
+heading that says "WCB stress leave" in qualified form. "Stress leave" stays
+out of its title, as the 1 Oct decision requires. (4) No titles changed: all
+were set on 1-2 Oct and the next export reads against them. Before figures:
+hub 50 impressions at 9.78; workplace resource 2104 at 10.45; WorkSafeBC 41 at
+13.78; sick days 419 at 7.18; EI 297 at 8.19; disability 75 at 15.32.
+
+*Enforced by:* `test/leave-cluster.test.mts`, `scripts/price-drift.mjs` (no
+typed EI figure), `scripts/coverage-claims.mjs`, the next `data/gsc/` export
+read against the figures above
+
+---
+
+### The RCC page carries the definition; the comparison links to it; Alberta coverage names what the government does pay
+Decided 3 Oct 2026 (branch `wf/tp-rcc`). Search Console 3 Oct:
+/resources/verify-a-counsellor-in-bc 1,581 impressions at 13.55, 6 clicks;
+"registered clinical counsellor" 317 at 23.5 and "registered counsellor" 124
+at 28, no clicks. Those queries were landing on both the RCC page and
+/compare/rcc-vs-psychologist-vs-social-worker-bc, which re-defined the
+designation in four paragraphs. The comparison now summarises the designation
+and links the RCC page in its body. The RCC page carries a definition table
+and BCACC's count (10,000 RCCs, about 90% of BC clinical counsellors, BCACC
+release of 12 Aug 2026). Its description names the head query and how to find
+one. The glossary's RCC entry points at it. Title unchanged.
+
+/compare/psychologist-vs-psychiatrist-bc stops quoting a typed "$225–$300+"
+range and reads BCPA's rate from lib/fee-guides.ts. It gains a Royal College
+training row and is linked from five neighbouring pages.
+
+/resources/counselling-coverage-in-alberta names what Alberta's government
+does fund: the Non-Group Coverage psychologist benefit (up to $60 a visit,
+$300 per family each benefit year) and Counselling Alberta (sliding scale).
+Both were read at source on 3 Oct 2026. The premium figure is left out because
+the catalogue price scan rejects untracked dollar amounts. The Alberta check
+page answers whether psychotherapy is regulated there (announced 1 March 2024,
+no proclamation date).
+
+*Enforced by:* `test/rcc-cluster.test.mts`, `test/link-anchors.test.mts`,
+`test/claims-corrections.test.mts`
+
+---
+
+### The Punjabi words page answers in English first; /about says the practice is not recruiting
+Decided 3 Oct 2026 (branch `wf/tp-language-brand`), from the 3 Oct Search
+Console export. /resources/counselling-in-punjabi-what-the-words-mean had
+1,036 impressions at position 8.8 and one click. Every query asks for a
+meaning ("counselling meaning in punjabi" 248, therapy 65, consult 61,
+counselor 56, "salah mashwara in english" 56), and the description opened in
+Gurmukhi. The description now gives the answer in English first. Both word
+tables lead with an English column, as a dictionary result does. A "Counsel,
+advice" row and FAQ reuse the page's existing gloss of ਸਲਾਹ, and the
+salah-mashwara answer separates it from salah, the prayer. The mid-page prompt
+bridges from the word to a consultation with the Punjabi-speaking counsellor.
+The title is unchanged, and no new Gurmukhi words or translations were
+introduced. /careers still drew 639 impressions and 35 clicks for BC
+counselling-job searches while 308ing to /about. /about now carries one line,
+in the owner's 1 Sep terms, saying the practice is not recruiting and not
+taking speculative applications. This does not reopen the careers page. The
+/about direct answer no longer implies couples or EMDR work in Punjabi.
+
+*Enforced by:* `test/language-brand-oct3.test.mts`
+
+---
+
+### EMDR is priced at its weekly session; the intensive is the second format
+Decided 3 Oct 2026 (branch `wf/tp-modalities`), from the 3 Oct Search Console
+export. /services/emdr-therapy (105 impressions at 31.8, no clicks) showed
+"$190 per 90-min session" in its search result, and every EMDR city page
+opened "Sessions are $190 for 90 minutes". That is the EMDR Intensive. Most
+EMDR is taken weekly and billed as an Individual Counselling session
+(OFFERINGS in lib/practitioner-facts.ts). This is the same trap the trauma
+city pages were taken out of on 1 Oct. Both BILLED_AS maps
+(app/services/[slug]/page.tsx and lib/city-service-page.ts) now bill
+emdr-therapy as Individual Counselling. The service page shows the intensive
+beside it (EXTENDED_AS, labelled weekly and intensive). The EMDR city pages
+offer it through LATER_OPTION with their own sentence. The 1 Oct test that
+EMDR city fees must differ from individual fees is reversed; couples still
+must differ. Also decided the same day: Kamloops trauma is titled "Trauma
+Counselling", because two exports carried only that wording ("trauma
+counselling kamloops" 21 at 36 on 17 Sep, 8 at 36.75 on 3 Oct). Couples copy
+answers "Is this Gottman Method couples therapy?" as Gottman Method-informed,
+with no level claimed until owner item #67 records one.
+
+At integration the same day, two claims flagged by the builders were
+corrected: the Kamloops anxiety FAQ said narrative therapy was part of the
+work, which no counsellor's profile lists, so it now says ACT is part of
+Savneet Singh's training and narrative therapy is not offered here; and
+/for/first-responders no longer calls EMDR "first-line", since the APA
+guideline rates it conditionally.
+
+*Enforced by:* `test/city-service-page.test.mts` (EMDR fee equals the weekly
+individual fee; the EMDR later-option line), `test/service-languages.test.mts`
+(titled pairs), `test/snippet-facts.test.mts`, `scripts/price-drift.mjs`
+(BILLED_AS names)
+
+---
+
+### City hubs answer the local question, show the fee beside the counsellors, and one hub may carry its own title
+Decided 3 Oct 2026 (branch `wf/tp-places`), from the Search Console export of
+3 Oct.
+
+**A hub may override its composed title when its searches do not say
+"online".** `Location.hubTitle` is used ahead of `cityHubTitle()`; only
+Kamloops uses it ("Kamloops Therapists & Counsellors | Online Therapy"). 36 of
+Kamloops's 42 impressions were "kamloops therapist", "therapy kamloops" and
+"counsellor kamloops" at 58-77. The hub itself was shown 4 times, while the
+depression and trauma pair pages took the generic queries at 45-60. The field
+is named `hubTitle`, not `title`, because `MoreFrom` labels chips with `title
+?? name ?? city`. The first build put the search title on every "Other areas
+served" chip, and a test now forbids either field on a Location. Every other
+hub keeps the 17 Sep / 1 Oct title ladder.
+
+**The hub's counsellor cards carry the catalogue fee** (`feeLineFor`, as the
+guide, resource and audience templates already do) and link /pricing. The
+directories that hold the top of these results print a fee on every card.
+Before this, our hubs stated the fee only in the meta description and the FAQ
+at the foot.
+
+**FAQ answers on the hubs may contain links.** They render through `rich()`
+and are written into FAQPage as `plainText()`, the pattern the article
+templates adopted on 1 Oct.
+
+**/online-counselling answers the questions it is shown for**
+(lib/bc-hub-faqs.ts): waitlist, referral, whether "counsellor" is a protected
+title (regulation from 29 Nov 2027), and the client sign-in. Its H1 now says
+"in BC". Its direct answer no longer types an Alberta clause, because Alberta
+reach is gated on insurance and is said only where `serviceAreaLine` generates
+it. Its hero button is counted (`hero-online`).
+
+**Local free-option answers are sourced and dated.** Kamloops names Interior
+Health's self-referral line (310-MHSU). Prince George names Foundry's drop-in
+for ages 12-24 and the CMHA pilot paused on 31 Mar 2026. Both were read on the
+official pages on 3 Oct 2026. Intake hours of third-party services are
+deliberately not typed.
+
+*Enforced by:* `test/places-topics.test.mts`, `test/snippet-facts.test.mts`,
+`test/service-languages.test.mts`, `scripts/seo-audit.mjs`
+
+---
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`
