@@ -33,33 +33,14 @@
 
 import { readFileSync, writeFileSync, existsSync, readdirSync, mkdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
+import { parseCsv, num, isConversational, topicOf } from './lib/query-topics.mjs';
 
 const ROOT = process.cwd();
 const GSC = join(ROOT, 'data', 'gsc');
 const BUILT = join(ROOT, '.next', 'server', 'app');
 
-/* ── tiny CSV reader. GSC exports are well-formed and quote only when needed. */
-function parseCsv(text) {
-  const rows = [];
-  let row = [], field = '', quoted = false;
-  for (let i = 0; i < text.length; i++) {
-    const c = text[i];
-    if (quoted) {
-      if (c === '"' && text[i + 1] === '"') { field += '"'; i++; }
-      else if (c === '"') quoted = false;
-      else field += c;
-    } else if (c === '"') quoted = true;
-    else if (c === ',') { row.push(field); field = ''; }
-    else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
-    else if (c !== '\r') field += c;
-  }
-  if (field || row.length) { row.push(field); rows.push(row); }
-  const head = rows.shift().map((h) => h.replace(/^﻿/, '').trim());
-  return rows.filter((r) => r.length === head.length && r.some(Boolean))
-    .map((r) => Object.fromEntries(head.map((h, i) => [h, r[i]])));
-}
-
-const num = (v) => Number(String(v ?? '').replace(/[%,]/g, '')) || 0;
+/* The CSV reader and num() live in scripts/lib/query-topics.mjs since 3 Oct
+   2026, shared with scripts/bing-ai.mjs. */
 
 function loadExports(kind) {
   if (!existsSync(GSC)) return [];
@@ -125,6 +106,58 @@ const pad = (s, n) => String(s).padEnd(n);
 const lpad = (s, n) => String(s).padStart(n);
 const short = (u) => u.replace(/^https?:\/\/[^/]+/, '') || '/';
 
+/* ── conversational follow-ups, as their own series (3 Oct 2026) ───────────
+   Google's AI Mode sends the follow-up line of a conversation as a query:
+   "what about bc?", "can i be fired for this?". They were 18 on 6 Sep and 41
+   with 57 impressions on 3 Oct, and a page tuned for "stress leave bc" is not
+   what they land on. Counted per export, listed by 3 Oct topic bucket, with
+   the landing page when a page-query export sits beside the newest one. */
+function conversationalSeries() {
+  const exports = loadExports('queries');
+  if (!exports.length) return;
+  console.log('CONVERSATIONAL FOLLOW-UPS (AI Mode style: 9+ words, a "?", or an opener such as "what about")\n');
+  const H = '  ' + pad('export', 12) + lpad('queries', 8) + lpad('imp', 7) + lpad('clicks', 8) + lpad('mean pos', 10);
+  console.log(H); console.log('  ' + '-'.repeat(H.length - 2));
+  let last = [];
+  for (const e of exports) {
+    const conv = e.rows.filter((r) => isConversational(r['Top queries']));
+    const imp = conv.reduce((n, r) => n + num(r.Impressions), 0);
+    const clicks = conv.reduce((n, r) => n + num(r.Clicks), 0);
+    const pos = conv.length ? conv.reduce((n, r) => n + num(r.Position), 0) / conv.length : 0;
+    console.log('  ' + pad(e.date, 12) + lpad(conv.length, 8) + lpad(imp, 7) + lpad(clicks, 8) + lpad(conv.length ? pos.toFixed(1) : '-', 10));
+    last = conv;
+  }
+  if (!last.length) { console.log(); return; }
+  const newest = exports[exports.length - 1];
+  /* gsc-pull.mjs writes <date>-page-query.csv; a hand export may be plain
+     page-query.csv. Either, the newest. */
+  const pq = existsSync(GSC)
+    ? readdirSync(GSC).filter((f) => /(^|-)page-query\.csv$/.test(f)).sort().pop()
+    : undefined;
+  const landing = {};
+  if (pq) {
+    for (const r of parseCsv(readFileSync(join(GSC, pq), 'utf8'))) {
+      const q = String(r.Query ?? '').trim().toLowerCase();
+      if (!isConversational(q)) continue;
+      const imp = num(r.Impressions);
+      if (!landing[q] || imp > landing[q].imp) landing[q] = { page: short(r.Page ?? ''), imp };
+    }
+  }
+  console.log(`\n  ${newest.date}, by topic${pq ? ` (landing page from ${pq})` : ' (no page-query export, so no landing page)'}:`);
+  const byTopic = {};
+  for (const r of last) (byTopic[topicOf(r['Top queries'])] ||= []).push(r);
+  for (const [topic, list] of Object.entries(byTopic).sort((a, b) => b[1].length - a[1].length)) {
+    const imp = list.reduce((n, r) => n + num(r.Impressions), 0);
+    console.log(`\n  ${topic}: ${list.length} queries, ${imp} impressions`);
+    for (const r of list.sort((a, b) => num(b.Impressions) - num(a.Impressions))) {
+      const q = String(r['Top queries']).replace(/\s+/g, ' ').trim();
+      const land = landing[q.toLowerCase()];
+      console.log(`    ${lpad(num(r.Impressions), 4)}  ${lpad(num(r.Position).toFixed(1), 5)}  ${q}${land ? `  -> ${land.page}` : ''}`);
+    }
+  }
+  console.log();
+}
+
 if (pages.length === 1) {
   const only = pages[0];
   console.log(`\nONE EXPORT ONLY (${only.date}) — nothing to compare against yet.\n`);
@@ -157,6 +190,7 @@ if (pages.length === 1) {
   console.log(`about ${Math.round(ti * 0.04)} clicks rather than ${tc}.\n`);
   console.log('Run with --snapshot to record the current titles, then compare after the');
   console.log('next export.\n');
+  conversationalSeries();
   process.exit(0);
 }
 
@@ -229,3 +263,5 @@ if (changedHeld.length) {
   console.log('nothing here supports a claim either way yet.');
 }
 console.log();
+
+conversationalSeries();

@@ -131,7 +131,10 @@ Westpeak Wellness · https://www.westpeakwellness.com
 
 ### (c) HARO / Connectively expert response
 
-Monitor [connectively.us](https://connectively.us/) and
+Connectively (connectively.us) closed in December 2024; HARO was relaunched
+by Featured.com in April 2025. The current
+sign-up text and reply template are in
+[docs/OUTREACH.md §10](../docs/OUTREACH.md). Monitor
 [featured.com](https://featured.com/) for queries on: therapy access,
 mental-health costs, EMDR, couples counselling, immigrant and second-generation
 mental health, burnout.
