@@ -112,7 +112,12 @@ export const bookHrefFor = (counsellors: Practitioner[], service?: string) =>
 const BILLED_AS: Record<string, string | undefined> = {
   'individual-therapy': 'Individual Counselling',
   'couples-therapy': 'Couples Counselling',
-  'emdr-therapy': 'EMDR Intensive',
+  /* Weekly EMDR, 3 Oct 2026. EMDR is billed as an individual session week
+     to week and the intensive only when that longer format is chosen
+     (lib/practitioner-facts.ts OFFERINGS), yet every EMDR city page opened
+     "Sessions are $190 for 90 minutes": the trap the trauma pages were taken
+     out of on 1 Oct. The intensive is now the later option below. */
+  'emdr-therapy': 'Individual Counselling',
 };
 
 /* `cents` rides along so a caller comparing fees (the lowest a counsellor
@@ -218,6 +223,7 @@ export const whoHeading = (slug: string, city: string, count: number) =>
  * here. undefined when the catalogue lacks the type or nobody offers it. */
 const LATER_OPTION: Record<string, { service: string; item: string } | undefined> = {
   'trauma-therapy': { service: 'emdr-therapy', item: 'EMDR Intensive' },
+  'emdr-therapy': { service: 'emdr-therapy', item: 'EMDR Intensive' },
 };
 export const laterOption = (
   catalog: Catalog,
@@ -231,7 +237,11 @@ export const laterOption = (
   if (!item || item.cents <= 0 || !who.length) return undefined;
   /* Ends on the data, so the tail ten pages share stays short for the
      uniqueness gate. */
-  return `For trauma work in ${city}, a memory that needs a longer run than a weekly session can move to the ${item.name} later, once stability is in place: ${money(item.cents)} for ${item.minutes} minutes with ${listOf(who.map((p) => p.name), 'or')}.`;
+  const names = listOf(who.map((p) => p.name), 'or');
+  if (topic.slug === 'emdr-therapy') {
+    return `EMDR from ${city} can also run as the ${item.name} once preparation is done: ${money(item.cents)} for ${item.minutes} minutes with ${names}.`;
+  }
+  return `For trauma work in ${city}, a memory that needs a longer run than a weekly session can move to the ${item.name} later, once stability is in place: ${money(item.cents)} for ${item.minutes} minutes with ${names}.`;
 };
 
 /* The city-service <title>, before the brand suffix. ", BC" where the whole

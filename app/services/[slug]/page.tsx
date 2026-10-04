@@ -116,7 +116,14 @@ const BILLED_AS: Record<string, string | undefined> = {
      Camille also runs in Tagalog, is shown beside it (EXTENDED_AS). */
   'tagalog-counselling': 'Individual Counselling',
   'couples-therapy': 'Couples Counselling',
-  'emdr-therapy': 'EMDR Intensive',
+  /* Weekly EMDR, 3 Oct 2026. This was 'EMDR Intensive', so the search
+     result read "$190 per 90-min session" (snippets.json, 4 Oct) for a
+     service most people take weekly at the individual fee: the trap the
+     trauma city pages were taken out of on 1 Oct (DECISIONS). The page has
+     105 impressions at 31.8 and no clicks in the 3 Oct export. The intensive
+     now shows beside it (EXTENDED_AS), as couples shows its extended
+     session. */
+  'emdr-therapy': 'Individual Counselling',
   'emdr-intensive': 'EMDR Intensive',
 };
 
@@ -134,16 +141,17 @@ const billedItem = (c: Catalog, name: string | undefined) =>
 const EXTENDED_AS: Record<string, string | undefined> = {
   'couples-therapy': 'Couples Extended',
   'tagalog-counselling': 'Couples Counselling',
+  'emdr-therapy': 'EMDR Intensive',
 };
 /* The second fee on the couples page is the same service at a longer length,
    so it needs no label. On the Tagalog page it is a different service at the
    same length, so each fee says which it is. */
 const SECOND_LABEL: Record<string, [string, string] | undefined> = {
   'tagalog-counselling': ['individual', 'couples'],
+  'emdr-therapy': ['weekly', 'intensive'],
 };
 
 const DURATION_FOR: Record<string, string | undefined> = {
-  'emdr-therapy': '90 minutes',
   'emdr-intensive': '90 minutes',
 };
 

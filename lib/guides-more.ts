@@ -199,8 +199,14 @@ export const moreGuides: Guide[] = [
     eyebrow: 'Guide · Trauma',
     lede:
       'A word that describes both a car crash and a rude email has stopped doing useful work. It is worth reclaiming the distinction.',
+    /* The definition first, 3 Oct 2026. "what is trauma", "trauma means",
+       "what is the medical definition of trauma" and six variants: 13
+       impressions at 75-99 in the 3 Oct export, and this answer opened on a
+       distinction without ever giving the definition the searcher asked
+       for. SAMHSA's working definition is the one most cited by clinicians;
+       the medical sense of the word is said in one clause. */
     shortAnswer:
-      'Clinically, trauma refers less to an event than to what the event did, specifically, to a memory that did not get filed properly and so keeps behaving as though it is still happening. That is why two people can go through the same thing and only one is still carrying it, and why "it was not that bad" is not evidence of anything.',
+      'Trauma is the lasting effect of an event, a series of events or a set of circumstances that a person experienced as physically or emotionally harmful or life-threatening, which is close to how SAMHSA, the US mental health agency, defines it; in general medicine the same word also means a physical injury. Clinically, trauma refers less to an event than to what the event did, specifically, to a memory that did not get filed properly and so keeps behaving as though it is still happening. That is why two people can go through the same thing and only one is still carrying it, and why "it was not that bad" is not evidence of anything.',
     updated: '2026-08-31',
     readMinutes: 8,
     figure: 'window-of-tolerance',
@@ -267,16 +273,22 @@ export const moreGuides: Guide[] = [
       { q: 'Do I have to describe what happened in detail?', a: 'No. Effective trauma work does not require a full narrative account, and several approaches deliberately require little verbal detail. You control what is said and when.' },
       { q: 'Can something be trauma if I do not remember it clearly?', a: 'Yes. Fragmented, patchy or largely absent memory is common rather than disqualifying. It is one of the things a nervous system does under extreme load.' },
       { q: 'Is trauma therapy going to make me feel worse?', a: 'Approaching difficult material can be temporarily hard, which is exactly why sequencing and pacing are clinical decisions rather than preferences. Well-conducted trauma therapy builds capacity before it opens anything, and closes each session deliberately.' },
+      { q: 'What is the medical definition of trauma?', a: 'The word has two medical senses. In general medicine and emergency care, trauma is a physical injury: a wound, a fracture, a head injury. In mental health it means the psychological effect of an event or circumstances experienced as harmful or life-threatening. The diagnosis of post-traumatic stress disorder sets a narrower bar for the event itself, exposure to actual or threatened death, serious injury or sexual violence, but trauma responses are not limited to people who meet it.' },
       { q: 'What is the difference between trauma and PTSD?', a: 'Post-traumatic stress disorder is a formal diagnosis with defined criteria, made by a qualified professional. Trauma is the broader phenomenon. Many people carry trauma responses without meeting the criteria for the diagnosis, and they are still treatable.' },
     ],
     sources: [
       { label: 'HealthLink BC, mental health and substance use', url: 'https://www.healthlinkbc.ca/mental-health-substance-use' },
       { label: 'Canadian Mental Health Association, BC Division', url: 'https://bc.cmha.ca/' },
       { label: 'World Health Organization, ICD-11 browser', url: 'https://icd.who.int/browse11/l-m/en' },
+      { label: 'SAMHSA, Concept of Trauma and Guidance for a Trauma-Informed Approach (2014)', url: 'https://ncsacw.acf.hhs.gov/userfiles/files/SAMHSA_Trauma.pdf' },
     ],
     related: [
-      { href: '/services/individual-therapy', label: 'Trauma therapy' },
-      { href: '/services/emdr-therapy', label: 'EMDR therapy' },
+      /* 3 Oct 2026: the province-level trauma reading lives on the EMDR page
+         (DECISIONS, 1 Oct), so its link carries the searched phrase. Trauma
+         books into individual counselling, which both counsellors offer, so
+         that stays the first service link (test #232). */
+      { href: '/services/individual-therapy', label: 'Trauma-informed individual counselling' },
+      { href: '/services/emdr-therapy', label: 'Online trauma therapy and EMDR in BC' },
       { href: '/guides/intergenerational-trauma-explained', label: 'Intergenerational trauma' },
       { href: '/compare/cbt-vs-emdr-for-trauma', label: 'CBT vs EMDR for trauma' },
       { href: '/services/emdr-therapy', label: 'EMDR intensives, the 90-minute format' },

@@ -315,6 +315,7 @@ export const moreGuides5: Guide[] = [
       { href: '/services/individual-therapy', label: 'Anxiety counselling' },
       { href: '/guides/intrusive-thoughts-and-what-they-mean', label: 'Intrusive thoughts' },
       { href: '/guides/anxiety-and-sleep', label: 'Anxiety and sleep' },
+      { href: '/guides/social-anxiety-in-adults', label: 'Social anxiety in adults' },
       { href: '/resources/psychiatry-and-assessment-in-bc', label: 'Psychiatry and assessment in BC' },
       { href: '/book', label: 'Book a free consultation' },
     ],

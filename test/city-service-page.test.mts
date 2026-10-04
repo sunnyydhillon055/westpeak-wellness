@@ -79,11 +79,25 @@ test('the fee is the catalogue entry for the type the topic books into', () => {
     assert.ok(f, `${p.city}/${p.service} has no fee; the line would print without a number`);
     fees.set(topic.bookingService, `${f.fee}/${f.minutes}`);
   }
-  /* The bug this replaces: one typed figure on all fifty pages. Couples and
-     EMDR bill differently from individual work on the catalogue, so the
-     pages must now differ too. */
+  /* The bug this replaces: one typed figure on all fifty pages. Couples
+     bills differently from individual work on the catalogue, so its pages
+     must differ too. Weekly EMDR is billed as an individual session
+     (OFFERINGS), so its pages quote that, and the intensive is the later
+     option (3 Oct 2026). */
   assert.notEqual(fees.get('couples-therapy'), fees.get('individual-therapy'));
-  assert.notEqual(fees.get('emdr-therapy'), fees.get('individual-therapy'));
+  assert.equal(fees.get('emdr-therapy'), fees.get('individual-therapy'));
+});
+
+test('EMDR city pages quote the weekly session and keep the intensive as a later option', () => {
+  const intensive = FALLBACK_CATALOG.items.find((i) => i.name === 'EMDR Intensive')!;
+  const weekly = FALLBACK_CATALOG.items.find((i) => i.name === 'Individual Counselling')!;
+  const topic = getCityTopic('emdr-therapy')!;
+  assert.equal(feeFor(FALLBACK_CATALOG, topic)!.cents, weekly.cents);
+  const line = laterOption(FALLBACK_CATALOG, topic, 'Kelowna')!;
+  assert.ok(line.startsWith('EMDR from Kelowna'), line);
+  assert.ok(line.includes(`$${intensive.cents / 100} for ${intensive.minutes} minutes`), line);
+  for (const p of counsellorsFor(topic)) assert.ok(line.includes(p.name), `${p.name} missing`);
+  assert.notEqual(line, laterOption(FALLBACK_CATALOG, getCityTopic('trauma-therapy')!, 'Kelowna'));
 });
 
 test('generated FAQs exist for every pair and no two pages share an answer', () => {
