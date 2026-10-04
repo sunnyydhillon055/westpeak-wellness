@@ -24,6 +24,21 @@ import { counsellorForLanguage, bookingFor } from '@/lib/booking-cta';
 import { withLetters, practitioners } from '@/lib/practitioners';
 import { reachClause } from '@/lib/practice-facts';
 import { whoSentence, onlyWithSentence, alsoOffers, feeSentence, ownWords, orList } from '@/lib/home-copy';
+import type { Metadata } from 'next';
+import { offeringLanguages, practiceSnippet, withSnippet } from '@/lib/snippet-facts';
+import { counsellorsFor } from '@/lib/city-service-page';
+
+/* THE HOME PAGE'S OWN DESCRIPTION — 3 Oct 2026 (item 412). It inherited the
+   site-wide fallback, with no consultation, no fee and no names, while home
+   CTR fell 35.0% → 22.4% → 15.1% at a steady 9-10. Languages, fee and names
+   are generated (offeringLanguages, the catalogue, accepting counsellors);
+   sitewideDescription() in the layout stays the fallback for other pages. */
+export const metadata: Metadata = {
+  description: withSnippet(
+    `Online counselling in ${offeringLanguages().individual}, anywhere in BC.`,
+    practiceSnippet(FALLBACK_CATALOG, counsellorsFor({ bookingService: 'individual-therapy' })),
+  ),
+};
 
 /* WHAT IT COSTS AND WHO SPEAKS WHAT, ON THE HOME PAGE — 1 Oct 2026.
  *

@@ -1,6 +1,7 @@
 import type { Resource } from './resources';
 import { planMaximumParagraph, remainingBalanceSentence, icbcFeeSentence, ICBC_COUNSELLING } from '@/lib/session-arithmetic';
-import { money } from '@/lib/cliniko-catalog';
+import { money, FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
+import { feeSnippet, withSnippet } from '@/lib/snippet-facts';
 
 /* ICBC's dates as prose ("1 April 2026"), from ICBC_COUNSELLING. */
 const longDate = (iso: string) =>
@@ -199,9 +200,17 @@ export const moreResources2: Resource[] = [
   {
     slug: 'does-my-plan-cover-counselling-bc',
     title: 'Does Pacific Blue Cross, Sun Life, Manulife or Canada Life cover counselling?',
-    metaTitle: 'Does Blue Cross or Sun Life Cover Counselling? BC',
-    metaDescription:
-      'Often, to an annual maximum your plan sets. How to check Pacific Blue Cross, Sun Life, Manulife or Canada Life in two minutes, and the words to use.',
+    /* 3 Oct 2026 (item 408): 577 impressions at 6.2 and 0.52% CTR, and
+       'pacific blue cross counselling coverage' at 1.14 with no clicks. The
+       insurer's own name now leads the title, and the description opened
+       with the word often, a prevalence claim the house wording does not make
+       (scripts/coverage-claims.mjs now fails on it). The fee and the free
+       consult are generated; nothing in this description is typed. */
+    metaTitle: 'Does Pacific Blue Cross or Sun Life Cover Counselling in BC?',
+    metaDescription: withSnippet(
+      'Many plans do, depending on the plan: the one question to ask Pacific Blue Cross or Sun Life.',
+      feeSnippet(FALLBACK_CATALOG),
+    ),
     eyebrow: 'Resource · Coverage',
     lede:
       'The insurer\'s name is on the card. The answer is in the plan, and the plan was written by your employer.',

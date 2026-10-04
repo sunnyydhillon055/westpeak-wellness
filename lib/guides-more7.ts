@@ -1,6 +1,6 @@
 import type { Guide } from './guides';
 import { fallbackFee } from '@/lib/cliniko-catalog';
-import { EI_WEEKLY, EI_WEEKLY_IN_YEAR, EI_YEAR } from '@/lib/benefit-figures';
+import { EI_WEEKLY, EI_WEEKLY_IN_YEAR, EI_YEAR, pacificYear } from '@/lib/benefit-figures';
 
 /* What a session costs, for the leave guides: one sentence, catalogue-driven
    (1 Oct 2026). These pages quoted the EI cap and nothing about the cost of
@@ -22,8 +22,13 @@ export const moreGuides7: Guide[] = [
     slug: 'ei-sickness-benefits-and-therapy',
     figure2: 'reimbursement-flow',
     figure: 'bc-support-routes',
-    title: 'EI sickness benefits and therapy: how the 26 weeks work',
-    metaTitle: `How Much Does Medical EI Pay in BC? 55% to ${EI_WEEKLY}`,
+    /* 3 Oct 2026 (item 421): CTR 0.84% → 0.33% → 0.00% (297 impressions at
+       8.2) after "55% to" the weekly maximum went into the title on 17 Sep,
+       while the position improved: the whole answer was in the result. The
+       title asks the question with the year the figure applies to; the rate
+       and the maximum stay in the description, from lib/benefit-figures.ts. */
+    title: 'How much medical EI pays in BC, and how the 26 weeks work',
+    metaTitle: `How Much Does Medical EI Pay in BC in ${EI_YEAR}? Rate, 26 Weeks`,
     metaDescription:
       `55% of insurable earnings, to ${EI_WEEKLY_IN_YEAR}, for up to 26 weeks. Who qualifies, the medical certificate, and how to apply without losing weeks.`,
     eyebrow: 'Guide · Work & money',
@@ -279,7 +284,10 @@ export const moreGuides7: Guide[] = [
     figure2: 'bc-support-routes',
     figure: 'accountability-chain',
     title: 'Sick days and mental-health days in BC: what you’re actually entitled to',
-    metaTitle: 'Can You Use Sick Days for Mental Health in BC? (2026)',
+    /* The year is the build's Pacific year, 3 Oct 2026 (item 457): a typed
+       "(2026)" would have gone stale on 1 January on the best-earning guide.
+       test/meta-title-year.test.mts fails on a typed year in any metaTitle. */
+    metaTitle: `Can You Use Sick Days for Mental Health in BC? (${pacificYear()})`,
     metaDescription:
       'BC’s paid sick days cover mental health. How the 5 ESA days work, what proof an employer can ask for, and when a mental-health day is a signal, not a fix.',
     eyebrow: 'Guide · Work & money',

@@ -110,3 +110,12 @@ export function icbcFeeSentence(catalog: Catalog = FALLBACK_CATALOG): string {
     'This practice is not an ICBC vendor and does not bill ICBC directly, so you pay at booking and submit the receipt yourself; confirm with your adjuster, before the first session, that ICBC will reimburse a counsellor outside its Recovery Network.'
   );
 }
+
+/* THE INDIVIDUAL FEE AS A PHRASE — 3 Oct 2026 (item 431). For a table cell
+   or a sentence that sets this practice's fee beside something else ("an
+   individual session here is …"), read from the catalogue like every figure
+   above. */
+export function individualFeePhrase(catalog: Catalog = FALLBACK_CATALOG): string {
+  const ind = cents('Individual Counselling', catalog);
+  return `${money(ind.cents)} for ${ind.minutes} minutes`;
+}

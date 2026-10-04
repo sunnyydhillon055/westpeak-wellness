@@ -9,10 +9,16 @@ import { abs, orgRef, siteRef } from '@/lib/schema';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import CtaBand from '@/components/CtaBand';
 import BookLink from '@/components/BookLink';
-import { bookingCtaFor } from '@/lib/booking-cta';
+import { bookingCtaFor, counsellorForLanguage } from '@/lib/booking-cta';
+import { servedProvinces } from '@/lib/practice-facts';
 import Figure from '@/components/Figure';
 import { ogBase } from '@/lib/og-meta';
 import { COLLECTION_DATES } from '@/lib/page-dates';
+
+/* Where the practice can see people, from the gated roster (item 438,
+   3 Oct 2026): Alberta was typed here and rests on one counsellor's policy. */
+const TL = counsellorForLanguage('tl');
+const TL_PROVINCES = servedProvinces(TL ? [TL] : [], 'long');
 
 const TITLE = 'Tagalog-Speaking Counselling in BC | Westpeak Wellness';
 const DESC =
@@ -101,7 +107,7 @@ export default function TagalogCounsellingHub() {
             themselves to be understood.
           </p>
           <p className="direct-answer">
-            Westpeak Wellness offers counselling in Tagalog or English with Camille Granda, a Registered Clinical Counsellor who is a native Tagalog speaker, by secure video across British Columbia and Alberta. Sessions cover anxiety, trauma, grief, family and immigration stress. The first 30-minute consultation is free, and city pages describe what Filipino-community support exists locally.
+            Westpeak Wellness offers counselling in Tagalog or English with Camille Granda, a Registered Clinical Counsellor who is a native Tagalog speaker, by secure video across {TL_PROVINCES}. Sessions cover anxiety, trauma, grief, family and immigration stress. The first 30-minute consultation is free, and city pages describe what Filipino-community support exists locally.
           </p>
           <Updated iso={COLLECTION_DATES['tagalogLanding']} />
           <div className="btn-row" style={{ marginTop: 22 }}>

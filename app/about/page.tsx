@@ -7,6 +7,12 @@ import CtaBand from '@/components/CtaBand';
 import Motif from '@/components/brand/Motif';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { practitioners } from '@/lib/practitioners';
+import { servedProvinces } from '@/lib/practice-facts';
+
+/* "BC and Alberta" was typed into the title and the direct answer; Alberta
+   rests on one counsellor's policy and goes with it at the next build after
+   the gate closes (item 438, 3 Oct 2026). Read from the gated roster. */
+const PROVINCES = servedProvinces(practitioners.filter((p) => p.acceptingNewClients));
 import { ogBase } from '@/lib/og-meta';
 import { webPage } from '@/lib/schema';
 import { COLLECTION_DATES } from '@/lib/page-dates';
@@ -43,7 +49,7 @@ export const metadata: Metadata = {
   /* Absolute, so the template does not append the practice name to a title
      that already carries it. "and" rather than "&": the SEO gate measures the
      rendered HTML, where an ampersand is five characters. */
-  title: { absolute: 'About Westpeak Wellness: Counselling in BC and Alberta' },
+  title: { absolute: `About Westpeak Wellness: Counselling in ${PROVINCES}` },
   description:
     'A virtual counselling practice serving all of British Columbia. Therapy in English, Punjabi or Tagalog with Registered Clinical Counsellors.',
   alternates: { canonical: `${site.domain}/about` },
@@ -124,7 +130,7 @@ export default function About() {
               working in English, Punjabi and Tagalog with Registered Clinical Counsellors.
             </p>
             <p className="direct-answer">
-              Westpeak Wellness is an online counselling practice founded in British Columbia and serving all of BC and Alberta by secure video. Its counsellors are Registered Clinical Counsellors with the BC Association of Clinical Counsellors, offering individual, couples, family, EMDR and trauma therapy in English and Tagalog, and individual counselling in Punjabi. There is no waitlist; the first 30-minute consultation is free.
+              Westpeak Wellness is an online counselling practice founded in British Columbia and serving all of {PROVINCES} by secure video. Its counsellors are Registered Clinical Counsellors with the BC Association of Clinical Counsellors, offering individual, couples, family, EMDR and trauma therapy in English and Tagalog, and individual counselling in Punjabi. There is no waitlist; the first 30-minute consultation is free.
             </p>
             <Updated iso={COLLECTION_DATES['practitioners']} />
             <div className="btn-row" style={{ marginTop: 24 }}>

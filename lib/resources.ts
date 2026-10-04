@@ -6,6 +6,8 @@ import { punjabiWordsResource } from './resources-punjabi-words';
 import { tagalogWordsResource } from './resources-tagalog-words';
 import { moreResources3 } from './resources-more3';
 import { ONLINE_COVERAGE } from '@/lib/practice-facts';
+import { FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
+import { feeSnippet, withSnippet } from '@/lib/snippet-facts';
 
 export type ResourceSection = {
   h2: string;
@@ -193,8 +195,13 @@ const coreResources: Resource[] = [
     figure: "therapy-cost-in-bc",
     title: "MSP vs extended health: what actually covers therapy in BC",
     metaTitle: "Does MSP Cover Therapy in BC? Is Therapy Free?",
-    metaDescription:
-      "No. MSP does not pay for private counselling. Three routes that are genuinely free, what extended health reimburses, and what a session costs if you pay.",
+    /* 3 Oct 2026 (item 458): 257 impressions at 10.2 and 0.39% CTR under
+       the "No." answer-first description. The routes, the house coverage
+       words and the generated fee instead. */
+    metaDescription: withSnippet(
+      "MSP does not cover private counselling. Three routes are free; many plans pay, depending on the plan.",
+      feeSnippet(FALLBACK_CATALOG),
+    ),
     eyebrow: "Resource · Coverage",
     lede:
       "British Columbians are used to health care being covered. Mental health is the place where that assumption breaks.",

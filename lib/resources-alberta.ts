@@ -1,5 +1,35 @@
 import type { Resource } from './resources';
 import { yearEndSeasonal } from './resources-more2';
+import { FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
+import { practitioners, insuredProvinces, vancouverToday } from '@/lib/practitioners';
+import { namedProfileSnippet, withSnippet } from '@/lib/snippet-facts';
+
+/* THE ALBERTA COVERAGE DESCRIPTION — 3 Oct 2026 (item 423).
+   391 impressions at 6.5 with 0.51% CTR, and 'is therapy covered by alberta
+   health care' 24 at 9.7 with no clicks. The description opened "No." and
+   offered nothing a searcher could act on. It now answers, in the house
+   coverage words, and names the one counsellor who can see an Albertan, with
+   her own fee and the free consult. Her name and fee appear only while her
+   policy reaches Alberta (insuredProvinces, which closes 14 days after
+   validTo); after that the description is the answer alone. The letters are
+   her CCC, the designation Alberta plans name; no registration number. */
+const ALBERTA_ANSWER = 'Alberta Health Care does not; many plans do, depending on the plan.';
+const ALBERTA_FALLBACK =
+  'Alberta Health Care does not pay for private counselling; many extended plans do, depending on the plan. The free routes, and which designation to ask about.';
+const TODAY = vancouverToday();
+const albertaCounsellor = practitioners.find(
+  (p) => p.acceptingNewClients && insuredProvinces(p, TODAY).includes('AB'),
+);
+const albertaFacts = albertaCounsellor
+  ? namedProfileSnippet(
+      FALLBACK_CATALOG,
+      albertaCounsellor,
+      albertaCounsellor.credentials.some((c) => c.short === 'CCC') ? 'CCC' : undefined,
+    )
+  : undefined;
+export const albertaCoverageDescription = albertaFacts
+  ? withSnippet(ALBERTA_ANSWER, albertaFacts)
+  : ALBERTA_FALLBACK;
 
 /* ============================================================================
    ALBERTA RESOURCES
@@ -33,15 +63,15 @@ export const albertaResources: Resource[] = [
   {
     slug: 'counselling-coverage-in-alberta',
     province: 'AB',
-    title: 'What counselling actually costs in Alberta',
+    /* H1 matches the query and the title, 3 Oct 2026 (item 423). */
+    title: 'Is therapy covered by Alberta Health Care? What counselling costs in Alberta',
     /* 1 Oct 2026, was "Is Therapy Covered in Alberta? AHCIP and Your Plan".
        Searchers say "Alberta Health Care", which appeared nowhere on the
        site: 'is therapy covered by alberta health care' 17 impressions at
        9.53, 0 clicks; the page 245 impressions at 5.89, 2 clicks (GSC,
        26 Sep 2026). */
     metaTitle: 'Is Therapy Covered by Alberta Health Care (AHCIP)?',
-    metaDescription:
-      'No. Alberta Health Care does not pay for private counselling. What your extended health plan reimburses, which designation to ask about, and the free routes.',
+    metaDescription: albertaCoverageDescription,
     eyebrow: 'Alberta',
     lede:
       'Alberta Health does not pay for private counselling, which surprises people who assume a provincial health card covers mental health the way it covers a fracture. Here is what actually pays, and what to ask before booking anything.',

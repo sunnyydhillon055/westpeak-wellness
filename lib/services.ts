@@ -4,7 +4,8 @@ import { withLetters, type Practitioner } from '@/lib/practitioners';
 import { counsellorsFor, languagePhrase, languagesOf, listOf } from '@/lib/city-service-page';
 import { counsellorForLanguage } from '@/lib/booking-cta';
 import { PROVINCE_NAME, type Province } from '@/lib/crisis';
-import { CONFIDENTIALITY_LIMITS } from '@/lib/practice-facts';
+import { CONFIDENTIALITY_LIMITS, PLAN_COVERAGE, servedProvinces, reachesAlberta } from '@/lib/practice-facts';
+import { individualFeePhrase } from '@/lib/session-arithmetic';
 
 /* WHO AND WHICH LANGUAGES, FROM THE ROSTER — 1 Oct 2026.
  *
@@ -28,6 +29,17 @@ const languageLede = (p: Practitioner | undefined, language: string, fallback: s
   p
     ? `Counselling in ${language} at Westpeak Wellness is with ${withLetters(p)}, who works in ${listOf(languagesOf(p), 'and')} by secure video anywhere in ${provincesOf(p)}.`
     : fallback;
+/* Where the Tagalog counsellor can see people, from the gated roster (item
+   438, 3 Oct 2026). The description, intro, approach and session copy typed
+   "BC and Alberta", and Alberta rests on one policy whose gate closes 15 Oct
+   unless the renewal is recorded (lib/practitioners.ts). */
+const TL_PROVINCES = TL ? servedProvinces([TL]) : 'BC';
+const TL_PROVINCES_LONG = TL ? servedProvinces([TL], 'long') : 'British Columbia';
+const TL_ALBERTA = TL ? reachesAlberta([TL]) : false;
+/* What a session costs and whether a plan pays, for the cost FAQs on the
+   individual and language pages (item 413). Fee from the catalogue; coverage
+   in the house words; the receipt is how pay-and-submit works. */
+const COST_AND_COVER = `MSP does not cover private counselling. ${PLAN_COVERAGE} This practice is pay-and-submit: you pay at booking and submit the receipt, which carries the counsellor’s registration number, to your plan. [Does my plan cover counselling?](/resources/does-my-plan-cover-counselling-bc) gives the one question to ask your insurer.`;
 const COUPLES_LANGS = languagePhrase(counsellorsFor({ bookingService: 'couples-therapy' }));
 const EMDR_LANGS = languagePhrase(counsellorsFor({ bookingService: 'emdr-therapy' }));
 const FAMILY = counsellorsFor({ bookingService: 'family-counselling' });
@@ -142,6 +154,10 @@ export const services: Service[] = [
       { q: "How many sessions will I need?", a: "It varies with what you are bringing. A specific, contained difficulty often takes six to twelve sessions. Long-standing patterns or trauma take longer. Your counsellor should be able to give you a rough sense after two or three sessions." },
       { q: "What if I do not like my counsellor?", a: "Say so, or leave. Both are acceptable. Fit predicts outcomes more reliably than technique does, and staying with a poor fit out of politeness wastes your money and your time." },
       { q: "Is it confidential from my employer or family?", a: `Yes. The only limits are ${CONFIDENTIALITY_LIMITS}. These get explained in the first session.` },
+      /* 3 Oct 2026 (item 413): impressions 6 → 25 → 59 at 10.2 with no
+         clicks, and cost queries pooled at 259 impressions ("is therapy free
+         in bc" 38); couples and EMDR answered cost, this page did not. */
+      { q: "How much does individual counselling cost, and will insurance cover it?", a: `An individual session is ${individualFeePhrase()}, after a free 30-minute consultation. ${COST_AND_COVER}` },
     ],
     related: [
       { href: "/guides/what-to-expect-first-therapy-session", label: "What to expect in a first session" },
@@ -214,6 +230,12 @@ export const services: Service[] = [
       { q: "Does my partner have to be willing?", a: "For couples work, yes. It does not function with one participant. But individual therapy about a relationship is useful in its own right, and changing your side of a pattern sometimes shifts things enough that the other person reconsiders." },
       { q: "Will the counsellor take sides?", a: "No, and the method is explicitly structured to prevent it. If you consistently feel ganged up on, name it. That is a problem with the work rather than a normal feature of it." },
       { q: "Can we attend from different locations?", a: "Yes. Because sessions are virtual, partners can join from separate places when work or travel requires it, which removes one of the most common scheduling obstacles for couples." },
+      /* Sourced 3 Oct 2026 (item 436): the online-couples query family, 169
+         impressions at about 87. One randomised trial, read on PMC that day;
+         its size and its one therapist are stated, as the EMDR-over-video
+         answer states its own limits. Nothing here is about this practice's
+         clients. */
+      { q: "Does online couples counselling work as well as in person?", a: "The evidence is encouraging and still small. A 2022 randomised trial of 30 couples ([Kysely et al., Frontiers in Psychology](https://pmc.ncbi.nlm.nih.gov/articles/PMC8855148/)) delivered the same six-session couples programme by video or face to face, and found relationship satisfaction, stress and the working relationship with the therapist improved about equally in both groups, with the gains in satisfaction still there three months later. It was one therapist running a structured relationship-education programme, and too small to rule out smaller differences, so it is a pointer rather than proof. The safety screen described above matters as much by video as in a room. [Is online therapy as effective as in person?](/guides/is-online-therapy-as-effective-as-in-person) covers the wider research." },
       { q: "How long does couples therapy take?", a: "Assessment alone is typically two to four sessions. Beyond that it depends on what you are working on; a specific stuck pattern usually moves faster than repair after a significant breach." },
       /* Cost and coverage, 1 Oct 2026: "online couples therapy cost" and
          "free couples counselling surrey" reach this page and nothing on it
@@ -225,7 +247,7 @@ export const services: Service[] = [
          practice's couples work is informed by the method, and no training
          level is claimed until one is recorded (DECISIONS, 1 Oct). */
       { q: "Is this Gottman Method couples therapy?", a: "It is Gottman Method-informed. The structured assessment, the work on criticism, contempt, defensiveness and stonewalling, and the repair conversations described on this page come from the Gottman Institute’s model. The Institute trains clinicians in three levels, and Certified Gottman Therapist is a separate, longer designation; neither replaces the Registered Clinical Counsellor registration that is the regulated credential in BC. Asking which level a counsellor has completed is a reasonable question for the free consultation, here or anywhere else. [How the Gottman Method works](/guides/how-the-gottman-method-works) explains the model itself." },
-      { q: "How much does couples counselling cost, and will insurance cover it?", a: `${fallbackFee('Couples Counselling')} for a 50-minute session, or ${fallbackFee('Couples Extended')} for the 110-minute extended session, after a free 30-minute consultation. MSP does not cover private counselling. Extended health plans that list Registered Clinical Counsellors often reimburse couples sessions, but some exclude or limit them, so check your plan's wording first. Each session has one receipt, in the name of the partner who claims it.` },
+      { q: "How much does couples counselling cost, and will insurance cover it?", a: `${fallbackFee('Couples Counselling')} for a 50-minute session, or ${fallbackFee('Couples Extended')} for the 110-minute extended session, after a free 30-minute consultation. MSP does not cover private counselling. Many extended health plans reimburse a Registered Clinical Counsellor, depending on the plan, and some that do exclude or limit couples sessions, so check your plan's wording first. Each session has one receipt, in the name of the partner who claims it.` },
     ],
     related: [
       { href: "/guides/how-the-gottman-method-works", label: "How the Gottman Method works" },
@@ -235,6 +257,7 @@ export const services: Service[] = [
     ],
     sources: [
       { label: "The Gottman Institute, research", url: "https://www.gottman.com/about/research/" },
+      { label: "Kysely et al. (2022), couples therapy delivered through videoconferencing, Frontiers in Psychology", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC8855148/" },
       { label: "VictimLinkBC, 24/7 support, 1-800-563-0808", url: "https://www2.gov.bc.ca/gov/content/justice/criminal-justice/victims-of-crime/victimlinkbc" },
     ],
   },
@@ -405,9 +428,13 @@ export const services: Service[] = [
        in punjabi" (17 at 12.5) were being answered by a page whose heading is
        in Gurmukhi. The English words lead here, and /punjabi leads with its
        own script. */
-    metaTitle: "Punjabi Counselling Online in BC | Punjabi-Speaking RCC",
+    /* 3 Oct 2026 (item 435): 'punjabi therapist near me' 6 at 7.0,
+       'punjabi therapist' 5 at 7.8, no clicks; the title said counsellor
+       and RCC only. Before: "Punjabi Counselling Online in BC |
+       Punjabi-Speaking RCC" (data/gsc/snippets.json). */
+    metaTitle: "Punjabi-Speaking Therapist and Counsellor Online in BC",
     metaDescription:
-      "Online counselling in Punjabi, English or both, anywhere in BC. Culturally fluent, with a Registered Clinical Counsellor.",
+      "A Punjabi-speaking therapist online: Punjabi, English or both, anywhere in BC. Culturally fluent, with a Registered Clinical Counsellor.",
     hero: "You don't have to translate yourself.",
     intro:
       "Some things only land in your first language. Sessions are available in Punjabi, English, or a mix of both: with the cultural fluency to understand family expectations, generational silence, and \"log kya kahenge\" without needing it explained. Online across BC. There is also a [full page in Punjabi (ਪੰਜਾਬੀ)](/punjabi) covering services, fees and what a first session involves.",
@@ -456,6 +483,8 @@ export const services: Service[] = [
          the language-access resource; this points there and names whoever on
          the roster works in Punjabi and is accepting. */
       { q: "How do I find a Punjabi-speaking counsellor in BC?", a: `Filter BCACC’s Find a Counsellor directory by language, then check the name on the RCC Register before the first session. The free Punjabi-speaking options, each with the date it was checked, and the steps in order are on our guide to [finding a Punjabi- or Tagalog-speaking counsellor in BC](/resources/finding-a-counsellor-in-punjabi-or-tagalog-in-bc).${PA ? ` At this practice, ${PA.name} works in Punjabi and English by video.` : ''}` },
+      /* 3 Oct 2026 (item 413): the page answered nothing about cost. */
+      { q: "What does counselling in Punjabi cost, and is it covered?", a: `An individual session in Punjabi is ${individualFeePhrase()}, the same fee as in English, after a free 30-minute consultation. ${COST_AND_COVER}` },
       { q: "Do sessions have to be entirely in Punjabi?", a: "No. Most people move between Punjabi and English within a single session, which is how a lot of people actually think. You do not have to choose a language in advance or stick to it." },
       { q: "Will my family find out?", a: FAMILY_FIND_OUT },
       { q: "Will I be told to cut off my family?", a: "No. That framing misreads the situation for most people. The work is usually about staying connected while stopping carrying what is not yours." },
@@ -483,17 +512,17 @@ export const services: Service[] = [
     slug: "tagalog-counselling",
     language: "tl",
     directAnswer:
-      `${languageLede(TL, 'Tagalog', 'Westpeak Wellness offers counselling in Tagalog by secure video anywhere in British Columbia and Alberta, provided by a Registered Clinical Counsellor who works in Tagalog and English.')} Working in the language you think in removes the translation overhead from material that is difficult to say once, and means Filipino family context, hiya, utang na loob, the eldest-daughter role, does not have to be explained from scratch. Individual, couples and family sessions are available in Tagalog, and you can move between Tagalog and English within a session.`,
+      `${languageLede(TL, 'Tagalog', 'Westpeak Wellness offers counselling in Tagalog by secure video anywhere in British Columbia, provided by a Registered Clinical Counsellor who works in Tagalog and English.')} Working in the language you think in removes the translation overhead from material that is difficult to say once, and means Filipino family context, hiya, utang na loob, the eldest-daughter role, does not have to be explained from scratch. Individual, couples and family sessions are available in Tagalog, and you can move between Tagalog and English within a session.`,
     figure2: "first-session-flow-tl",
     figure: "bc-reach",
     name: "Tagalog-Speaking Counselling",
     short: "Therapy in Tagalog, English, or both, with Filipino family context understood.",
     metaTitle: "Filipino, Tagalog-Speaking Counselling in BC | Westpeak",
     metaDescription:
-      "Online counselling in Tagalog, English or both, across BC and Alberta. Filipino family context understood, by secure video.",
+      `Online counselling in Tagalog, English or both, across ${TL_PROVINCES}. Filipino family context understood, by secure video.`,
     hero: "Say it in the language it happened in.",
     intro:
-      "Some things only land in your first language, and for a great many Filipinos in Canada that language is Taglish. Sessions are available in Tagalog, English, or a mix of both, with the context to understand hiya, utang na loob and what the relatives will say without needing it explained. Online across BC and Alberta. There is also a [page in Tagalog](/tagalog) covering services, fees and what a first session involves.",
+      `Some things only land in your first language, and for a great many Filipinos in Canada that language is Taglish. Sessions are available in Tagalog, English, or a mix of both, with the context to understand hiya, utang na loob and what the relatives will say without needing it explained. Online across ${TL_PROVINCES}. There is also a [page in Tagalog](/tagalog) covering services, fees and what a first session involves.`,
     helps: [
       "Therapy in Tagalog or English (or both in one session)",
       "Family obligation and the debt of gratitude",
@@ -502,7 +531,7 @@ export const services: Service[] = [
       "Grief at a distance, and family across two countries",
     ],
     approach:
-      "Sessions are with Camille Granda, a Registered Clinical Counsellor and Canadian Certified Counsellor who works in Tagalog and English and is certified to see clients in both British Columbia and Alberta. The work is collaborative and practical: what is keeping the pattern going, and what you leave with that you can use.",
+      `Sessions are with Camille Granda, a Registered Clinical Counsellor and Canadian Certified Counsellor who works in Tagalog and English and can see clients in ${TL_PROVINCES_LONG}. The work is collaborative and practical: what is keeping the pattern going, and what you leave with that you can use.`,
     whatItIs: {
       h2: "Why first language matters even when your English is fluent",
       body: [
@@ -522,8 +551,8 @@ export const services: Service[] = [
     sessionShape: {
       h2: "How sessions work",
       body: [
-        "Sessions run in Tagalog, in English, or moving between them. You do not have to decide in advance, and most people end up doing both without planning it. Sessions are 50 minutes, fully virtual, anywhere in British Columbia or Alberta.",
-        "That reach matters more here than for most services. **Tagalog-speaking counsellors in BC are few and concentrated in Metro Vancouver**, which means that for anyone in the Interior, the North, on the Island, or in Alberta, virtual sessions are not a convenience. They are realistically the only route to therapy in Tagalog at all. The [Tagalog counselling by city](/tagalog-counselling) pages set out what that gap looks like locally.",
+        `Sessions run in Tagalog, in English, or moving between them. You do not have to decide in advance, and most people end up doing both without planning it. Sessions are 50 minutes, fully virtual, anywhere in ${TL_PROVINCES_LONG}.`,
+        `That reach matters more here than for most services. **Tagalog-speaking counsellors in BC are few and concentrated in Metro Vancouver**, which means that for anyone in the Interior, the North${TL_ALBERTA ? ', on the Island, or in Alberta' : ' or on the Island'}, virtual sessions are not a convenience. They are realistically the only route to therapy in Tagalog at all. The [Tagalog counselling by city](/tagalog-counselling) pages set out what that gap looks like locally.`,
         "**On shift work:** a great deal of Filipino employment in BC is in healthcare, care work and hospitality, on rosters that change. Booking in blocks around a rotation, with gaps between blocks, is an ordinary pattern here, and the calendar shows real open times. The [page for Filipino healthcare workers and caregivers](/for/filipino-healthcare-workers-and-caregivers) goes into this.",
         "**On what the work is not:** it is not therapy that treats your family as the diagnosis and distance as the cure. Most people arriving here want something harder, to stay in relationship with their family and stop carrying the parts that are not theirs. That is a legitimate goal and it is workable, and any decision about distance stays yours.",
         `**On confidentiality:** nothing is shared with your family, your church or your employer without your consent, and because sessions are virtual there is no clinic to be seen entering. The only limits are ${CONFIDENTIALITY_LIMITS}.`,
@@ -533,7 +562,12 @@ export const services: Service[] = [
       { q: "What is counselling called in Tagalog?", a: "Most often simply counseling, the English word used as it is, or pagpapayo, the formal word for giving guidance or advice, which is what a school guidance counsellor does. Neither is exact, and the [words page](/resources/counselling-in-tagalog-what-the-words-mean) explains what each carries. Sessions here can be entirely in Tagalog, entirely in English, or the Taglish most families actually speak." },
       { q: "What does burnout mean in Tagalog?", a: "There is no single Tagalog word for it. The Tagalog guides on this site describe it as pagod, or pagod na pagod, an exhaustion that rest does not fix, usually from work or from caring for others, and that is the honest definition in any language. If that describes you, the burnout-or-depression check on this site takes two minutes." },
       { q: "Do sessions have to be entirely in Tagalog?", a: "No. Most people move between Tagalog and English within a single session, which is how a lot of people actually think. You do not have to choose a language in advance or stick to it." },
-      { q: "Can you see me in Alberta?", a: "Yes. Camille holds the Canadian Certified Counsellor designation and professional insurance that reach Alberta, so sessions in Tagalog or English are available anywhere in the province by video. Her Calgary and Edmonton pages cover the local detail." },
+      /* Only while her Alberta cover is current or in grace (item 438). */
+      ...(TL_ALBERTA
+        ? [{ q: "Can you see me in Alberta?", a: "Yes. Camille holds the Canadian Certified Counsellor designation and professional insurance that reach Alberta, so sessions in Tagalog or English are available anywhere in the province by video. Her Calgary and Edmonton pages cover the local detail." }]
+        : []),
+      /* 3 Oct 2026 (item 413): the page answered nothing about cost. */
+      { q: "What does counselling in Tagalog cost, and is it covered?", a: `An individual session in Tagalog is ${individualFeePhrase()}, the same fee as in English, after a free 30-minute consultation; the [fees page](/pricing) has the rest. ${COST_AND_COVER}` },
       { q: "Will my family find out?", a: FAMILY_FIND_OUT },
       { q: "Will I be told to cut off my family?", a: "No. That framing misreads the situation for most people. The work is usually about staying connected while stopping carrying what is not yours." },
       { q: "My parents think therapy is for the seriously ill. Are they wrong?", a: "They are describing a generation's understanding of it, formed where the only visible mental-health care was for crisis. Most therapy is ordinary people working on ordinary difficulty before it becomes serious." },

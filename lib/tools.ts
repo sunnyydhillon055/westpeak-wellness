@@ -220,7 +220,7 @@ export const tools: ToolMeta[] = [
       },
       {
         q: 'Does it work if I am in Alberta?',
-        a: 'Yes. The public and free routes differ by province, Alberta has its own navigation line and its own health plan rules, so the answers change depending on where you say you are. One counsellor at this practice can see Alberta clients; the pages say which.',
+        a: 'Yes. The public and free routes differ by province, Alberta has its own navigation line and its own health plan rules, so the answers change depending on where you say you are. Whether a counsellor at this practice can see you in Alberta is on each counsellor’s profile, kept in step with their insurance.',
       },
       {
         q: 'Is anything stored?',

@@ -36,6 +36,28 @@ export const practiceReach = (accepting: (Reachable & { name: string })[]) => {
   return `${provinceList(narrow)} with every counsellor, and anywhere in Canada with ${wide.join(' or ')}`;
 };
 
+/* THE PROVINCES, NOT TYPED — 3 Oct 2026 (item 438).
+   "BC and Alberta" was typed into the /about title, its direct answer, the
+   Tagalog service page and four index pages, while Alberta rests on one
+   counsellor's policy (validTo 2026-10-01, gate closing 15 Oct). Pass the
+   GATED roster (lib/practitioners.ts `practitioners`, where insuredProvinces
+   has already dropped a lapsed 'AB'), filtered to whoever the sentence is
+   about. BC always comes first: it is where the practice is registered.
+   scripts/coverage-claims.mjs fails on the typed clause anywhere else. */
+export const servedProvinces = (
+  people: { provinces: string[]; acceptingNewClients?: boolean }[],
+  form: 'short' | 'long' = 'short',
+): string => {
+  const codes = new Set(['BC', ...people.filter((p) => p.acceptingNewClients !== false).flatMap((p) => p.provinces)]);
+  return ['BC', ...[...codes].filter((c) => c !== 'BC')]
+    .map((c) => (c === 'BC' && form === 'short' ? 'BC' : PROVINCE_NAME[c as Province] ?? c))
+    .join(' and ');
+};
+
+/** True when someone in `people` (gated roster) may be offered in Alberta. */
+export const reachesAlberta = (people: { provinces: string[]; acceptingNewClients?: boolean }[]) =>
+  people.some((p) => p.acceptingNewClients !== false && p.provinces.includes('AB'));
+
 /* Language services are offered by whoever works in the language; every other
    service by whoever lists it in her roster `services`. */
 const LANGUAGE_SERVICE: Record<string, string> = {
@@ -96,6 +118,13 @@ export const CONFIDENTIALITY_LIMITS =
  * here, with the question to ask the plan. */
 export const ONLINE_COVERAGE =
   'Plans that list an RCC usually reimburse a video session on the same terms as in person, but this depends on the plan. Ask: are virtual sessions with an RCC eligible, and on the same maximum?';
+
+/* WHETHER A PLAN PAYS FOR AN RCC, IN THE HOUSE WORDS — 3 Oct 2026 (item 413).
+   The cost answers on the service pages and the comparisons each phrased
+   this their own way, and two said "often". One sentence, read from here;
+   scripts/coverage-claims.mjs fails on the "most" and "often" shapes. */
+export const PLAN_COVERAGE =
+  'Many extended health plans reimburse a Registered Clinical Counsellor, depending on the plan, so check yours.';
 
 /* WHO FINDS OUT, ANSWERED ONCE — 2 Oct 2026 (item 358).
  *
