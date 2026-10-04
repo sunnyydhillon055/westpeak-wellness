@@ -429,7 +429,7 @@ export const glossary: Term[] = [
     term: 'Licensed counsellor',
     group: 'bc',
     definition:
-      'An American title with no BC equivalent. British Columbia does not license counsellors; what exists is registration, such as the RCC through BCACC, or R.Psych and RSW through their colleges. Psychotherapy becomes a regulated profession in BC on 29 November 2027.',
+      'An American title with no BC equivalent. British Columbia does not license counsellors; what exists is registration, such as the RCC through BCACC, or R.Psych and RSW through their colleges. BCACC reports that psychotherapy becomes a regulated profession in BC on 29 November 2027.',
   },
   {
     term: 'Unprotected titles',

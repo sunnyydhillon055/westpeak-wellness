@@ -142,7 +142,7 @@ export const albertaResources: Resource[] = [
       },
       {
         q: 'Does Alberta Health Care cover a psychologist?',
-        a: 'AHCIP itself does not. The government’s separate Non-Group Coverage plan, which you buy for a monthly premium if you are under 65, pays up to $60 a visit toward a registered psychologist, to a maximum of $300 per family each benefit year. Extended health plans through an employer commonly pay more.',
+        a: 'AHCIP itself does not. The government’s separate Non-Group Coverage plan, which you buy for a monthly premium if you are under 65, pays up to $60 a visit toward a registered psychologist, to a maximum of $300 per family each benefit year. An employer’s extended health plan sets its own amount, depending on the plan.',
       },
       {
         q: 'What is Counselling Alberta?',

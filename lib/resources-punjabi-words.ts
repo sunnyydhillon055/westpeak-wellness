@@ -69,7 +69,7 @@ export const punjabiWordsResource: Resource[] = [
           rows: [
             ['Counselling', 'ਕਾਊਂਸਲਿੰਗ', 'kaunsling', 'The English word, written in Gurmukhi. Accurate in meaning, borrowed in feel, which is why an older relative may not recognise it.'],
             ['Consultation, counselling', 'ਸਲਾਹ-ਮਸ਼ਵਰਾ', 'salah-mashwara', 'Consultation, taking advice. Familiar and respectable, but it implies being told what to do — the opposite of how counselling works.'],
-            ['Counsel, advice', 'ਸਲਾਹ', 'salah', 'Advice: the first half of salah-mashwara. It is a different word from salah, the Islamic prayer, although the two look the same in English letters.'],
+            ['Counsel, advice', 'ਸਲਾਹ', 'salah', 'Advice: the first half of salah-mashwara.'],
             ['Mental health', 'ਮਾਨਸਿਕ ਸਿਹਤ', 'mansik sehat', 'Mental health, literally. Neutral and accurate. Useful precisely because it sounds medical rather than shameful.'],
             ['Psychologist', 'ਮਨੋਵਿਗਿਆਨੀ', 'manovigiaani', 'Psychologist. Often used loosely for any mental-health professional, which causes confusion about who can diagnose.'],
             /* The next four rows answer the queries Search Console shows this
@@ -128,7 +128,7 @@ export const punjabiWordsResource: Resource[] = [
     },
     faqs: [
       { q: 'What is counselling in Punjabi?', a: 'Most often ਕਾਊਂਸਲਿੰਗ (kaunsling), the English word written in Gurmukhi, or ਸਲਾਹ-ਮਸ਼ਵਰਾ (salah-mashwara), meaning consultation. When explaining it to an older relative, ਮਾਨਸਿਕ ਸਿਹਤ ਬਾਰੇ ਗੱਲ ਕਰਨਾ — talking about mental health — is usually understood more easily than either, because it says what happens instead of naming a service.' },
-      { q: 'What does salah mashwara mean in English?', a: 'ਸਲਾਹ-ਮਸ਼ਵਰਾ (salah-mashwara) means consultation, or taking advice: ਸਲਾਹ is advice and ਮਸ਼ਵਰਾ is a consultation or discussion. This salah is not salah, the Islamic prayer: they are different words that look the same in English letters. It is the respectable, familiar word for what a counsellor does, and slightly wrong, because it suggests being told what to do. Counselling is closer to ਮਾਨਸਿਕ ਸਿਹਤ ਬਾਰੇ ਗੱਲ ਕਰਨਾ, talking about mental health.' },
+      { q: 'What does salah mashwara mean in English?', a: 'ਸਲਾਹ-ਮਸ਼ਵਰਾ (salah-mashwara) means consultation, or taking advice: ਸਲਾਹ is advice and ਮਸ਼ਵਰਾ is a consultation or discussion. It is the respectable, familiar word for what a counsellor does, and slightly wrong, because it suggests being told what to do. Counselling is closer to ਮਾਨਸਿਕ ਸਿਹਤ ਬਾਰੇ ਗੱਲ ਕਰਨਾ, talking about mental health.' },
       { q: 'What does counsel mean in Punjabi?', a: 'As a noun, counsel is ਸਲਾਹ (salah), advice, the same word that begins ਸਲਾਹ-ਮਸ਼ਵਰਾ. An adviser is ਸਲਾਹਕਾਰ (salahkaar), which also covers lawyers and financial advisers. Counselling in the mental-health sense is usually just ਕਾਊਂਸਲਿੰਗ.' },
       { q: 'What is therapy in Punjabi?', a: 'Usually ਥੈਰੇਪੀ, the English word in Gurmukhi. ਇਲਾਜ (ilaaj) means treatment and is what a doctor gives; some families prefer it because it sounds medical rather than personal, and some avoid it for the same reason. In a session either word is understood.' },
       { q: 'What is counsellor or therapist in Punjabi?', a: 'ਕਾਊਂਸਲਰ (kaunslar) and ਥੈਰੇਪਿਸਟ (therapist), both borrowed. ਸਲਾਹਕਾਰ (salahkaar) means adviser and is also used for lawyers and financial advisers, so it does not say what kind of help is meant. ਮਨੋਵਿਗਿਆਨੀ (manovigiaani) means psychologist, which a counsellor is not.' },
