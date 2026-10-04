@@ -34,6 +34,8 @@ import { readCatalog } from '@/lib/cliniko-catalog';
 import { practiceSnippet, withSnippet } from '@/lib/snippet-facts';
 import { offerItems } from '@/lib/practitioner-facts';
 import { SESSION_SECURITY_MD } from '@/lib/policies';
+import { feeLineFor } from '@/lib/counsellor-cards';
+import { plainText } from '@/lib/plain-text';
 
 export function generateStaticParams() {
   return locations.map((l) => ({ city: l.slug }));
@@ -63,7 +65,10 @@ export async function generateMetadata({ params }: { params: { city: string } })
        person-named queries ("counsellor kamloops"); both are carried now.
        The SEO gate counts "&" as "&amp;", so most cities drop ", BC" to stay
        at sixty, and Prince George drops " in" as well. 1 Oct 2026. */
-    title: { absolute: cityHubTitle(place) },
+    /* A hub whose searches do not say "online" carries its own title
+       (Location.hubTitle: Kamloops, 3 Oct 2026); every other hub keeps the
+       composed one. */
+    title: { absolute: l.hubTitle ?? cityHubTitle(place) },
     description,
     alternates: { canonical: `${site.domain}/online-counselling/${l.slug}` },
     /* The brand suffix only where the unfurl keeps it: "White Rock & South
@@ -213,7 +218,7 @@ export default async function CityPage({ params }: { params: { city: string } })
     '@context': 'https://schema.org', '@type': 'FAQPage',
     mainEntity: faqs.map((f) => ({
       '@type': 'Question', name: f.q,
-      acceptedAnswer: { '@type': 'Answer', text: f.a },
+      acceptedAnswer: { '@type': 'Answer', text: plainText(f.a) },
     })),
   };
 
@@ -313,6 +318,19 @@ export default async function CityPage({ params }: { params: { city: string } })
             checked on the BCACC register.
           </>
         }
+        /* The fee beside the people — 3 Oct 2026. The directories that hold
+           the top of "online counsellor abbotsford" and "counselling in
+           prince george bc" print a fee on every card; this hub had it only
+           in the meta description and the FAQ at the foot. From the
+           catalogue, or nothing. */
+        footer={(() => {
+          const fee = feeLineFor(undefined, catalog);
+          return fee ? (
+            <p style={{ margin: 0 }}>
+              {fee} <Link href="/pricing">Every fee, and what plans reimburse</Link>.
+            </p>
+          ) : undefined;
+        })()}
       />
 
       {alsoFor.length > 0 && (
@@ -409,7 +427,7 @@ export default async function CityPage({ params }: { params: { city: string } })
               {faqs.map((f) => (
                 <details className="faq-item" key={f.q}>
                   <summary>{f.q}</summary>
-                  <p>{f.a}</p>
+                  <p>{rich(f.a)}</p>
                 </details>
               ))}
             </div>

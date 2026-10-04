@@ -7,6 +7,13 @@ export type Location = {
   region: string;
   blurb: string;            // hero one-liner
   metaDescription: string;  // <= 155 chars
+  /* THE HUB'S OWN TITLE, WHERE ITS SEARCHES DO NOT SAY "ONLINE" — 3 Oct 2026.
+     Absent everywhere but Kamloops, whose hub was shown 4 times at 58 while
+     "kamloops therapist", "therapy kamloops", "counsellor kamloops" and their
+     variants carried 36 of the topic's 42 impressions, none of them with
+     "online" or "virtual" in it. Must fit the SEO gate (60, "&" as "&amp;");
+     test/city-hub.test.mts holds that. */
+  hubTitle?: string;
 
   // Rich fields. A city page only earns its place if these can be written with
   // real, checkable local substance — see SEO_AUDIT.md §2. Optional so pages can
@@ -182,6 +189,14 @@ export const locations: Location[] = [
         q: "I work a camp rotation. Can I have sessions from site?",
         a: "Often yes, and it is worth testing the connection before booking rather than discovering it mid-session. Camp internet varies enormously. Turning the camera off cuts the bandwidth a session needs considerably, and scheduling around a rotation, blocks with gaps rather than the same weekday for six months, is the normal pattern here rather than the exception.",
       },
+      /* "counselling in prince george bc" (5 impressions at 15.8): the
+         results above this page lead with free options. CMHA Northern BC's
+         counselling page and Foundry Prince George's location page, read
+         3 Oct 2026. */
+      {
+        q: "Is there free counselling in Prince George?",
+        a: "Some, and it is worth trying first. Foundry Prince George on 7th Avenue offers free, confidential drop-in counselling for young people aged 12 to 24. CMHA Northern BC's no-barrier counselling program paused on 31 March 2026 when its pilot funding ended, and the branch says it is seeking new funding. Northern Health's mental-health and substance-use services are free, and some are reached through a family doctor or nurse practitioner. [Free and low-cost counselling across BC](/resources/low-cost-counselling-bc) lists the province-wide options, including Here2Talk for students.",
+      },
       {
         q: "Winter here is long. Does that actually come up in counselling?",
         a: "Frequently, and it is not a small thing. Prince George gets meaningfully less daylight in December than the south coast, and low mood that arrives every year on roughly the same schedule is a real pattern rather than a character flaw. It responds to treatment, and it is worth naming rather than waiting out.",
@@ -191,8 +206,12 @@ export const locations: Location[] = [
       { label: "CMHA Northern BC, no-barrier counselling program (Prince George Daily News, Feb 2026)", url: "https://pgdailynews.ca/index.php/2026/02/25/cmha-of-northern-bc-pauses-no-barrier-prince-george-counselling-program-as-pilot-funding-concludes/" },
       { label: "Northern Health, mental health and substance use programs", url: "https://www.northernhealth.ca/services/mental-health-substance-use/programs-and-services" },
       { label: "CMHA Northern BC Branch", url: "https://northernbc.cmha.ca/" },
+      { label: "CMHA Northern BC, counselling services", url: "https://northernbc.cmha.ca/counselling-services/" },
+      { label: "Foundry Prince George", url: "https://foundrybc.ca/location/princegeorge" },
     ],
-    nearby: ["fort-st-john", "kelowna", "victoria"],
+    /* Kamloops added 3 Oct 2026: the next Interior centre south on Highway 5
+       and 97, nearer than Victoria, and the hub with the fewest links in. */
+    nearby: ["fort-st-john", "kamloops", "kelowna", "victoria"],
     audiences: ["healthcare-and-shift-workers", "rotational-and-camp-workers"],
   },
 
@@ -306,7 +325,7 @@ export const locations: Location[] = [
     region: "Fraser Valley",
     blurb: "Fraser Valley distances make virtual sessions less a convenience than the thing that makes attending possible.",
     metaDescription:
-      "Online counselling for Abbotsford with a Punjabi-speaking counsellor. EMDR, trauma, anxiety and couples sessions across the Fraser Valley.",
+      "Private online counselling for Abbotsford and the Fraser Valley. Trauma, anxiety and couples work by video. Individual sessions in Punjabi, too.",
     intro: [
       "Abbotsford sits in a particular gap. It is large enough to have services, far enough from Vancouver that accessing the Lower Mainland's depth of specialists means a real commitment of a day, and spread out enough that even a local appointment can involve a significant drive.",
       "It also has one of the largest Punjabi-speaking communities in Canada, and the scale of it is easy to underestimate from outside: in the 2021 census **Punjabi was the mother tongue of 34,280 Abbotsford residents, 22.6% of the city**, second only to English at 61%. Nearly a quarter of a city is not a minority community in any ordinary sense. It brings much the same dynamic as Surrey. A strong community, and a corresponding concern about privacy that keeps people from walking into a local clinic.",
@@ -397,7 +416,7 @@ export const locations: Location[] = [
     region: "Okanagan",
     blurb: "The Okanagan's population has grown faster than its mental-health services have, and specialist options remain thin.",
     metaDescription:
-      "Online counselling for Kelowna and the Central Okanagan. EMDR, trauma, anxiety and couples therapy by secure video.",
+      "Online counselling and therapy for Kelowna and the Okanagan. EMDR, trauma, anxiety and couples therapy by secure video.",
     intro: [
       "Kelowna has grown quickly, and it has grown in a specific way: retirees, remote workers who left the coast, students at UBC Okanagan, and a large seasonal workforce in agriculture and tourism. Health and social services have not expanded at the same pace, and mental health is where that gap shows most clearly.",
       "The result is that local options exist but fill up, and the specialist end. A particular modality, a particular language, is thin enough that many people do without.",
@@ -463,8 +482,9 @@ export const locations: Location[] = [
     communities: ["Merritt", "Salmon Arm", "Chase", "Sun Peaks", "Logan Lake", "Clearwater", "Revelstoke", "100 Mile House", "Williams Lake"],
     region: "Thompson-Nicola",
     blurb: "Kamloops is where the region's services are, which means everyone else in the region drives here for them.",
+    hubTitle: "Kamloops Therapists & Counsellors | Online Therapy",
     metaDescription:
-      "Online counselling for Kamloops and the Thompson-Nicola. EMDR, trauma, anxiety, depression and couples therapy by secure video. Free 30-minute consultation.",
+      "Therapy in Kamloops and the Thompson-Nicola, by secure video. Registered Clinical Counsellors, EMDR, trauma, anxiety and couples work.",
     intro: [
       "Kamloops is a regional centre, and it is worth being straightforward about what that means: there are counsellors here, Interior Health runs mental-health and substance-use services from Lansdowne Street, and Thompson Rivers University brings a steady population of students and staff with it. If you live in the city and want to see somebody in person, that is a real and reasonable option.",
       "The thing that is specific about this region is not scarcity in Kamloops. It is that Kamloops is the place the rest of the Thompson-Nicola drives to. For anyone in Clearwater, Barriere, Merritt, Ashcroft, Logan Lake, Chase or Cache Creek, \"available in Kamloops\" already means an hour or more each way, on highways that close.",
@@ -502,6 +522,15 @@ export const locations: Location[] = [
       {
         q: "Can I have sessions in Punjabi?",
         a: "Yes: in Punjabi, English, or moving between them within a session, without the drive to the Lower Mainland that has historically been the only way to find it from here. The Kamloops Punjabi page covers what is and is not available locally.",
+      },
+      /* "kamloops therapist", "counsellor kamloops", "therapy kamloops": the
+         results above this page are directories listing local offices. This
+         answers the question they stand in for, with the free route first.
+         Interior Health's Kamloops MHSU page, read 3 Oct 2026: 100-235
+         Lansdowne Street, self-referral by 310-MHSU (6478) or at intake. */
+      {
+        q: "How do I find a therapist or counsellor in Kamloops?",
+        a: "There are three routes, and they are not exclusive. Interior Health's Kamloops Mental Health & Substance Use centre on Lansdowne Street is free and takes self-referrals: call 310-MHSU (6478) or go in to intake. A private Registered Clinical Counsellor with an office in town can be checked on the BCACC register before you book, which [how to check a counsellor in BC](/resources/verify-a-counsellor-in-bc) walks through. Or see one of the counsellors on this page by video, from Kamloops or anywhere in the Thompson-Nicola, starting with a free 30-minute consultation.",
       },
       {
         q: "I am a student at TRU. Is there something cheaper first?",

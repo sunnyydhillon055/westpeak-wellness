@@ -19,6 +19,9 @@ import { counsellorsFor } from '@/lib/city-service-page';
 import { FALLBACK_CATALOG, fallbackFee } from '@/lib/cliniko-catalog';
 import { SESSION_SECURITY_MD } from '@/lib/policies';
 import { rich } from '@/lib/rich';
+import BookLink from '@/components/BookLink';
+import { plainText } from '@/lib/plain-text';
+import { BC_HUB_FAQS } from '@/lib/bc-hub-faqs';
 
 export const metadata: Metadata = {
   /* Its own og:url. Without an openGraph object this page inherited the
@@ -94,14 +97,22 @@ export default function LocationsIndex() {
       <section className="hero hero--locations" style={{ paddingBottom: 40 }}>
         <div className="container">
           <p className="eyebrow">Serving all of BC</p>
-          <h1>Online counselling across British Columbia</h1>
+          {/* "in BC", the words of the head queries ("online counselling bc",
+              "online counsellor bc", 28 of 125 impressions at 35 on 3 Oct
+              2026), as the title already says. 3 Oct 2026. */}
+          <h1>Online counselling in BC, anywhere in the province</h1>
           <p className="lede">Westpeak Wellness is fully virtual, wherever you are in BC, you can work with a Registered Clinical Counsellor from the comfort of your own space.</p>
+          {/* The answer first, in the searcher's words, and no typed Alberta
+              clause: who may be seen in Alberta is gated on insurance and
+              said where it is generated (serviceAreaLine). 3 Oct 2026. */}
           <p className="direct-answer">
-            Westpeak Wellness provides online counselling to every part of British Columbia, from Vancouver, Surrey and Victoria to Kelowna, Kamloops, Prince George and the communities between them, plus Alberta through a counsellor certified there. Sessions are by secure video with a Registered Clinical Counsellor in English, Punjabi or Tagalog. The city pages describe what local public services exist and what online counselling adds to them.
+            Online counselling in BC is a scheduled session by secure video with a Registered Clinical Counsellor, from wherever in the province you are: Vancouver, Surrey, Victoria, Kelowna, Kamloops, Prince George or a town too small to have a counselling office. At Westpeak Wellness every session works this way, in English, Punjabi or Tagalog depending on the counsellor, with a free 30-minute consultation first and no referral needed.
           </p>
           <Updated iso={COLLECTION_DATES['locations']} />
           <div className="btn-row" style={{ marginTop: 24 }}>
-            <Link className="btn btn--primary" href={site.bookingPath}>Book a free consultation</Link>
+            {/* A counted button: this was a plain <Link> no book_click saw, on
+                the province-wide landing page. 3 Oct 2026. */}
+            <BookLink location="hero-online">Book a free consultation</BookLink>
             <Link className="btn btn--ghost" href="/services">See counselling services</Link>
           </div>
           {/* The next free consultation with each counsellor taking new
@@ -131,9 +142,7 @@ export default function LocationsIndex() {
           <p>
             The one requirement is that you are physically in British Columbia at the time of your
             appointment. Registration is provincial, travelling within BC is fine, travelling outside
-            it is not. There is more on how virtual sessions run on the{' '}
-            <Link href="/online-counselling">online counselling service page</Link>, and on
-            the evidence behind them in the guide to{' '}
+            it is not. There is more on the evidence behind video sessions in the guide to{' '}
             <Link href="/guides/is-online-therapy-as-effective-as-in-person">whether online therapy is as effective as in-person</Link>.
           </p>
           {/* Search Console, 17 Sep 2026: the province searches for this in words
@@ -355,6 +364,38 @@ export default function LocationsIndex() {
               extra sections under the synthetic slug 'index'. */}
           <ExtraSections area="online-counselling" slug="index" />
         </div>
+      </section>
+
+      {/* THE QUESTIONS THE PROVINCE-WIDE QUERIES ASK — 3 Oct 2026. Search
+          Console shows this page for "no waitlist counsellor bc", "counselling
+          bc login", "is counsellor a protected title in canada" and "immediate
+          therapy session", and nothing here answered them. lib/bc-hub-faqs.ts
+          holds the answers; rich() on the page, plain text in the schema. */}
+      <section className="section">
+        <div className="container">
+          <p className="eyebrow">Questions from across BC</p>
+          <h2>Online counselling in BC: before you book</h2>
+          <div style={{ marginTop: 24, maxWidth: 760 }}>
+            {BC_HUB_FAQS.map((f) => (
+              <details className="faq-item" key={f.q}>
+                <summary>{f.q}</summary>
+                <p>{rich(f.a)}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org', '@type': 'FAQPage',
+              mainEntity: BC_HUB_FAQS.map((f) => ({
+                '@type': 'Question', name: f.q,
+                acceptedAnswer: { '@type': 'Answer', text: plainText(f.a) },
+              })),
+            }),
+          }}
+        />
       </section>
       <SceneBand seed={'locations'} />
 
