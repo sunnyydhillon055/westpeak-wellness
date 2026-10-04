@@ -3207,6 +3207,184 @@ This is the owner's decision, and it replaces the 30-minute consultation and the
 3. Camille's `reach: 'canada'` is removed and her `provinces` decide what her card says. Her card reads "British Columbia and Alberta" while her Alberta insurance gate is open (grace period to 15 Oct 2026), and "British Columbia" after that unless a renewal is recorded.
 4. Payment and cancellation are stated once, in `lib/policies.ts`. The card is taken at booking. Cancelling with at least 24 hours' notice gets a full refund. With less notice, or for a no-show, 50% of the fee is kept. Pages, the FAQ, JSON-LD, emails, ai.json and llms-full all read that one rule. `test/consult-and-cancellation.test.mts` holds both rules. The owner confirmed on 3 Oct that "Exceptions for genuine emergencies" stays, and that Camille keeps "British Columbia and Alberta" until the 15 Oct gate rather than switching to BC only early. Cliniko was updated the same day: the Initial Consultation is 15 minutes, and the online-booking terms and confirmation email state the 24-hour / 50% rule.
 
+### The place twins read their own consultation wording, link what they already say, and stop promising evenings
+Decided 4 Oct 2026 (branch `wf/s7-place-twins`).
+
+1. **Scorer: the consult check reads Tagalog and Punjabi.** In
+   `scripts/lib/page-score-core.mjs` the fifteen-minute match is
+   `FIFTEEN_MINUTES = /\b(?:15|fifteen)[- ]minutes?\b|\b(?:15|labinlima)(?:ng)?[- ]minuto(?:ng)?\b|(?<!\d)15[- ]ਮਿੰਟ/gi`.
+   A match counts only when, within 60 characters before or 80 after, it
+   meets `CONSULT_NEAR = /consult|\bfree\b|\bcall\b|conversation|\blibre(?:ng)?\b|konsultasyon|ਮੁ(?:ਫ਼|ਫ਼)ਤ|ਗੱਲਬਾਤ|ਸਲਾਹ/i`.
+   The thirty-minute guard (`THIRTY_CONSULT`, any one scores zero):
+   `/\b(30|thirty)[- ]minutes?\s+(free\s+)?consult/i`;
+   `/free\s+(30|thirty)[- ]minute/i`;
+   `/\b(?:30|tatlumpu)(?:ng)?[- ]minuto(?:ng)?\s+(?:na\s+)?(?:libreng\s+)?konsultasyon/i`;
+   `/\blibre(?:ng)?\s+(?:na\s+)?(?:30|tatlumpu)(?:ng)?[- ]minuto/i`;
+   `/(?<!\d)30[- ]ਮਿੰਟ(?:\s+ਦੀ)?\s+(?:ਮੁ(?:ਫ਼|ਫ਼)ਤ\s+)?(?:ਗੱਲਬਾਤ|ਸਲਾਹ)/`.
+   English behaviour is unchanged; a fixture test proves an English page
+   without the consultation still scores 0. Pages moved: 47, each consult
+   0 -> 300: 15 /pa place twins, 17 /tl place twins, the 2 profile twins,
+   /punjabi, /punjabi/regions, /tagalog, 4 /punjabi/guides and 6
+   /tagalog/gabay.
+2. **Evening promises withheld** (no hours are published; this completes
+   20dc997 of 1 Oct, which missed the Punjabi twins). 5 exact strings in
+   `PA_EVENING_PROMISES` (lib/practitioner-places-pa.ts) are kept off
+   /practitioners/savneet-singh/<city>/pa: 1 shared access card on all 15
+   pages, 1 Surrey local paragraph, and the Surrey, Kamloops and Coquitlam
+   FAQs, each removed with its answer. The data is not reworded and waits for
+   Savneet. Commute prose about a client's evening stays. Pages that render
+   Punjabi place data use `getPunjabiPlaceForPage()` / `paAccessForPage()`.
+3. **Twins link what they already say.** The existing fee word links
+   /pricing; FAQ phrases already present link /pricing and /standards; the
+   trust-bar register name links her register entry. No new Tagalog or
+   Punjabi prose, no new numbers, no registration numbers added.
+4. **Sibling block.** On /pa and /tl twins, "the first six same-province
+   cities in roster order" is replaced by `siblingRing()`: ±1, ±2, ±3 around
+   the city in roster order, wrapping, same province only, up to 6. Every BC
+   twin now has 6 sibling inbound links; Calgary and Edmonton /tl keep 1
+   sibling each (4 inbound in all), not padded with BC links.
+
+Titles and H1s: none changed. No noindex, redirect or consolidation.
+
+*Enforced by:* `test/place-twins.test.mts`, `test/page-score.test.mts`
+
+---
+
+### The language guides offer the consultation up front and cite their sources
+Decided 4 Oct 2026 (branch `wf/s7-language-guides`).
+
+The ten Punjabi and Tagalog guides (/punjabi/guides/*, /tagalog/gabay/*)
+were the lowest-scoring pages on the site, 7,950-8,300. Their only booking
+button sat at 93-96% of the page, and they cited nothing and said nothing
+about the fee, the free consultation, registration or a way to write.
+
+1. The existing free-consultation button also goes in the hero, with the same
+   in-language wording as the place pages, location `hero-language-guide`.
+   The Tagalog closing band's key is corrected to `cta-band`.
+2. Each guide closes with `components/LanguageGuideNextSteps.tsx`
+   (server-rendered): one English sentence (free 15-minute consultation,
+   /pricing, verify a counsellor, /contact) and the guide's own English
+   sources. English because no new Punjabi or Tagalog prose is written
+   without a native reviewer.
+3. Sources live in `lib/punjabi-guides.ts` `GUIDE_SOURCES`, shared by both
+   sets. Each was read on the official page on 4 Oct 2026 and is cited only
+   for what the guide states: HeretoHelp panic-disorder and depression, the
+   WHO ICD-11 burn-out note, BCACC what-is-counselling and
+   how-to-choose-a-counsellor, EMDRIA about-EMDR. Anxiety Canada is not cited
+   because anxietycanada.com now shows only a closure notice.
+
+No title, H1, hreflang, noindex or redirect change; 0 pages consolidated.
+Result: 9 guides at 10,000; /tagalog/gabay/ano-ang-mangyayari-sa-unang-sesyon
+at 9,999 (599 of 600 words), left rather than padded.
+
+---
+
+### Tool pages offer a person
+Decided 4 Oct 2026 (branch `wf/s7-tools`).
+
+1. Each of the five /tools pages and the /tools hub has one text link to the
+   free 15-minute consultation under the intro, through `bookingFor(undefined)`
+   (the bare /book, because no tool books one service), worded per page and
+   gently on stress-check and burnout-or-depression.
+2. Under each tool, the existing CounsellorCards for whoever is accepting
+   individual clients in BC (`counsellorsForInfoPage({})`), through the new
+   server component `components/tools/ToolCounsellors.tsx`. Its footer has the
+   catalogue fee line (`feeLineFor` on `FALLBACK_CATALOG`, so the pages stay
+   static), a /pricing link and the verify-a-counsellor link. Client widgets
+   are unchanged and import no data module.
+3. Each tool links /tools in one sentence.
+4. H1 changes only, titles untouched: /tools 'Tools' -> 'Free counselling
+   tools'; /tools/therapy-cost-bc 'What counselling costs in BC' -> 'What
+   therapy costs in BC after insurance'; /tools/what-can-i-access 'What can
+   you actually get, and how soon?' -> 'What counselling can you access, and
+   how soon?'. The hub's meta description and intro said 'three' tools beside
+   a grid of five and now say five.
+5. New book_click keys `hero-tool` and `counsellor-tool` (BOOK_LOCATIONS) and
+   `counsellor-tool` (COUNSELLOR_CARD_LOCATIONS).
+
+No noindex, redirect or consolidation. Scores: /tools 8,547 -> 10,000;
+what-can-i-access 8,250 -> 10,000; burnout-or-depression 8,400 -> 10,000;
+which-service 8,693 -> 10,000; therapy-cost-bc 8,725 -> 10,000; stress-check
+8,770 -> 10,000.
+
+---
+
+### /answers gets a visible way to ask a person, and its weight is left on purpose
+Decided 4 Oct 2026 (branch `wf/s7-answers`).
+
+The hub had fallen to 8,160 when hidden markup stopped counting, because its
+only booking link was the hidden search-miss message.
+
+1. A gentle hero link through `bookingFor()` (BookLink location
+   `hero-answers`, appended to BOOK_LOCATIONS).
+2. A CollectionPage JSON-LD block (mainEntity -> the existing FAQPage).
+3. Five indexable pages link to it from <main>: /faq and /services already
+   did; /guides, /resources and /contact now do, each inside a sentence.
+4. H1: 'Ask it here first.' -> 'Your counselling questions, answered in one
+   place.' No title changed.
+5. The weight check is left at -150 on purpose: the answers' text alone is
+   about 220 KB against the 267,728 B maximum, and moving answers behind a
+   fetch would hide them from readers without JS and from crawlers. A
+   per-answer inline style became a class (1,026,306 B -> 962,493 B).
+
+Score 8,160 -> 9,850. No noindex, redirect or consolidation.
+
+---
+
+### /contact and /reviews name the counsellors taking new clients; /contact gets a ContactPage node
+Decided 4 Oct 2026 (branch `wf/s7-contact-reviews`).
+
+1. /contact names the counsellors accepting new clients, links their profiles
+   and puts the verify-a-counsellor guide beside them. The rule matches
+   lib/counsellor-cards.ts: acceptingNewClients and insured for BC today, so
+   the founder is left out by flag, not by name. Credential letters only;
+   registration numbers stay on the profiles. The page renders on demand, so
+   a change of status shows on the next request.
+2. /contact H1: "Let’s see if we’re a good fit." -> "Contact us to see if
+   we’re a good fit." (title unchanged). Meta description 165 -> 154
+   characters. A ContactPage node now comes from lib/schema.ts webPage.
+3. /reviews: the hero offers the free 15-minute consultation through
+   `bookingFor()` (plain /book). The registration step links each accepting
+   counsellor's profile as the place to find the number to look up. The
+   closing section links /pricing. Nothing on the page asks for a review,
+   quotes anyone or claims an outcome; lib/reviews.ts is still empty.
+4. The NEXT_PUBLIC_GOOGLE_REVIEW_URL link stays where REVIEW_REQUEST.md put
+   it, in the section for people who have already decided to leave a review,
+   and now renders only for an https URL. It must never move into the hero, a
+   button or the closing band.
+
+No noindex, redirect or consolidation. Scores: /contact 8,950 -> 10,000;
+/reviews 8,441 -> 10,000.
+
+---
+
+### The print pages name who is accepting on screen, and the Punjabi region index is linked from its regions
+Decided 4 Oct 2026 (branch `wf/s7-referral-punjabi-hub`).
+
+1. /refer/handout and /for/employers-and-hr/one-pager name the counsellors
+   accepting new clients on screen, from app/refer/accepting.ts, with profile
+   links, languages and the guide on checking a counsellor's registration; no
+   registration numbers, no hours. The printed cards still name nobody, on
+   purpose.
+2. H1: /refer/handout 'Four cards to print and cut.' -> 'Four front-desk
+   cards to print and cut.' (shared 1 of 4 title topic words). H2: /refer
+   'For clinics, and for counsellors who are full' -> 'For clinics,
+   employers, and counsellors who are full'. No title changed.
+3. New contextual links: the one-pager from /refer, /refer/doctor,
+   /refer/counsellors, /for and /refer/handout (5); the handout from the
+   one-pager and /for/employers-and-hr (2).
+4. A region page links /punjabi/regions only if that index has a Punjabi card
+   for it; the shared list is in lib/punjabi-regions.ts. That is 6 of 16
+   region pages (surrey, abbotsford, vancouver, kelowna, kamloops,
+   prince-george), each with one clause naming its own region.
+5. /punjabi/regions gained one English line (free 15-minute consultation,
+   /pricing, verify guide, /contact) and no new Punjabi prose.
+
+No noindex, redirect or consolidation. Scores: handout 8,765 -> 10,000,
+one-pager 8,780 -> 10,000, /punjabi/regions 8,790 -> 10,000. Family minimums
+unchanged (audience 9,750, Punjabi region 9,540); Punjabi-region uniqueness
+25% against a 30% ceiling.
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`
