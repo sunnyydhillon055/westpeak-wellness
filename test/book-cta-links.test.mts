@@ -325,3 +325,166 @@ test('every /book?with= link on a couples page’s typed copy carries for=couple
     for (const m of text.matchAll(/\/book\?with=[^)\s"]+/g)) assert.match(m[0], /&for=couples#calendar$/, `${key}: ${m[0]}`);
   }
 });
+
+/* ---------- wf/r6-book-paths, 3 Oct 2026: items 402, 424, 425, 456, 459, 460 ---------- */
+
+test('402: no hand-built /book?with= href in app/**/*.tsx misses #calendar', () => {
+  const files = (readdirSync(join(ROOT, 'app'), { recursive: true }) as string[])
+    .filter((f) => f.endsWith('.tsx'))
+    .map((f) => `app/${f.replace(/\\/g, '/')}`);
+  assert.ok(files.length > 50, 'the scan found the app tree');
+  for (const f of files) {
+    const text = src(f);
+    const built = [...text.matchAll(/`\$\{site\.bookingPath\}\?with=\$\{[^}]+\}([^`]*)`/g)].map((m) => m[0]);
+    const typed = [...text.matchAll(/['"`](\/book\?with=[a-z-]+[^'"`\s]*)['"`]/g)].map((m) => m[1]);
+    for (const href of [...built, ...typed]) {
+      if (/#(ask-for-a-time|form)/.test(href)) continue;
+      assert.match(href, /#calendar/, `${f}: ${href} opens /book without its calendar`);
+    }
+  }
+});
+
+test('402: the profile, place pages, their twins and the Tagalog guides book through bookHrefFor', () => {
+  const profile = src('app/practitioners/[slug]/page.tsx');
+  assert.match(profile, /\? bookHrefFor\(\[p\]\)\s*: alts\[0\]/);
+  assert.match(profile, /<BookLink location="next-practitioner" className="" href=\{bookHref\}>\{d\}<\/BookLink>/);
+  const place = src('app/practitioners/[slug]/[place]/page.tsx');
+  assert.equal(place.split('const bookHref = bookHrefFor([p]);').length - 1, 2);
+  assert.match(place, /href=\{p\.acceptingNewClients \? bookHrefFor\(\[p\]\) : site\.bookingPath\}/);
+  for (const f of ['app/practitioners/[slug]/[place]/pa/page.tsx', 'app/practitioners/[slug]/[place]/tl/page.tsx']) {
+    assert.match(src(f), /const bookHref = bookHrefFor\(\[p\]\);/, f);
+  }
+  assert.match(src('app/tagalog/gabay/[slug]/page.tsx'), /href=\{speaker \? bookHrefFor\(\[speaker\]\) : site\.bookingPath\}/);
+  for (const l of ['next-practitioner', 'hero-next-language', 'next-message-sent']) assert.ok(BOOK_LOCATIONS.includes(l), l);
+  assert.deepEqual(BOOK_LOCATIONS.slice(BOOK_LOCATIONS.indexOf('hero-online') + 1), ['next-practitioner', 'hero-next-language', 'next-message-sent']);
+});
+
+test('456: a profile not taking new clients says so and names the colleague who shares her language', async () => {
+  const { notAcceptingSentence, closedProfileDescription } = await import('../lib/closed-profile-snippet.ts');
+  const { metaLength } = await import('../lib/snippet-facts.ts');
+  const closed = practitioners.filter((p) => !p.acceptingNewClients);
+  assert.ok(closed.length >= 1, 'premise: someone on the roster is not accepting');
+  for (const p of closed) {
+    const s = notAcceptingSentence(p, practitioners)!;
+    assert.match(s, /^Not taking new clients at present\./);
+    const shared = practitioners.find((q) => q.acceptingNewClients && q.slug !== p.slug
+      && p.languages.some((l) => !l.tag.startsWith('en') && q.languages.some((m) => m.tag === l.tag)));
+    if (shared) assert.ok(s.includes(`see ${shared.name}, ${shared.postNominals}.`), s);
+    const lead = `${p.name}, online counselling across BC in ${p.languages.map((l) => l.name).join(' or ')}. ${p.focus.map((f) => f.label).join(', ')}.`;
+    const d = closedProfileDescription(lead, p, practitioners);
+    assert.ok(d.includes(s), d);
+    assert.ok(metaLength(d) <= 155, `${d} (${metaLength(d)})`);
+    /* No reason, no dates. */
+    assert.doesNotMatch(d, /leave|return|until|20\d\d|January|February|March|April|June|July|August|September|October|November|December/i);
+  }
+  assert.equal(notAcceptingSentence(savneet, practitioners), null);
+  /* A closed profile that works in Punjabi names the Punjabi-speaking colleague. */
+  const shape = { name: 'A B', postNominals: 'RCC', slug: 'a', acceptingNewClients: false, languages: [{ tag: 'en-CA', name: 'English' }, { tag: 'pa', name: 'Punjabi' }] };
+  assert.equal(notAcceptingSentence(shape, practitioners), `Not taking new clients at present. For counselling in Punjabi, see ${savneet.name}, ${savneet.postNominals}.`);
+  assert.equal(notAcceptingSentence({ ...shape, languages: [{ tag: 'en-CA', name: 'English' }] }, practitioners), 'Not taking new clients at present.');
+  /* Too long for the lead: the sentence stays and the lead gives way. */
+  const long = closedProfileDescription('x'.repeat(200) + '.', shape, practitioners);
+  assert.ok(long.includes('Not taking new clients') && metaLength(long) <= 155, long);
+  assert.match(src('app/practitioners/[slug]/page.tsx'), /: closedProfileDescription\(lead, p, practitioners\);/);
+});
+
+test('425: the acknowledgement lists each routed counsellor’s next free days, days only', async () => {
+  const { enquiryAck } = await import('../lib/inbound-mail.ts');
+  const { openDays, consultDaysLine } = await import('../lib/availability-summary.ts');
+  const a = {
+    slug: 'camille-granda', count: 5, days: ['Thu', 'Sat'], earliest: '9 am', latest: '7 pm', weekend: true, evening: true,
+    next: ['Thu 8 Oct from 10 am (3 times)', 'Sat 10 Oct from 9 am', 'Thu 15 Oct from 1 pm (2 times)'],
+  };
+  assert.deepEqual(openDays(a), ['Thu 8 Oct', 'Sat 10 Oct', 'Thu 15 Oct']);
+  assert.deepEqual(openDays({ ...a, error: 'HTTP 500' }), []);
+  assert.deepEqual(openDays({ ...a, count: 0 }), []);
+  assert.deepEqual(openDays(null), []);
+  assert.equal(consultDaysLine('Camille', []), null);
+  const line = consultDaysLine('Camille', openDays(a))!;
+  assert.equal(line, 'Camille’s next free consultation days: Thu 8 Oct · Sat 10 Oct · Thu 15 Oct (Pacific time)');
+  const href = 'https://www.westpeakwellness.com/book?with=camille-granda#calendar';
+  const one = enquiryAck('Sam', { who: 'Camille Granda, RCC, CCC', bookHref: href }, [{ first: 'Camille', bookHref: href, days: openDays(a) }]);
+  const flat = one.text.replace(/\s+/g, ' ');
+  assert.ok(flat.includes(line), flat);
+  assert.ok(one.html.indexOf('next free consultation days') < one.html.indexOf('Or pick a time for a free consultation'), 'above the button');
+  for (const m of [one.text, one.html]) assert.doesNotMatch(m, /\b\d{1,2}\s?(am|pm)\b/, 'no hour reaches the person');
+  /* Two counsellors: one line each, each with her own calendar. */
+  const sHref = 'https://www.westpeakwellness.com/book?with=savneet-singh#calendar';
+  const two = enquiryAck('Sam', undefined, [
+    { first: 'Camille', bookHref: href, days: ['Thu 8 Oct'] },
+    { first: 'Savneet', bookHref: sHref, days: ['Tue 6 Oct'] },
+    { first: 'Nobody', bookHref: sHref, days: [] },
+  ]);
+  assert.match(two.text.replace(/\s+/g, ' '), /Camille’s next free consultation days: Thu 8 Oct \(Pacific time\)/);
+  assert.match(two.text.replace(/\s+/g, ' '), /Savneet’s next free consultation days: Tue 6 Oct \(Pacific time\)/);
+  assert.doesNotMatch(two.text, /Nobody/, 'a failed read prints no line');
+  assert.ok(two.html.includes('?with=savneet-singh'), 'her own calendar');
+  /* No days, no change. */
+  assert.equal(enquiryAck('Sam').text, enquiryAck('Sam', undefined, []).text);
+  const submit = src('lib/inbound-submit.ts');
+  assert.match(submit, /enquiryAck\(firstName, by, open\)/);
+  assert.match(submit, /days: openDays\(/);
+});
+
+test('424: an enquiry routed to one counsellor carries a mailto reply draft, and sends nothing', async () => {
+  const { practiceAlert, replyDraftBody, replyDraftHref, REPLY_SUBJECT } = await import('../lib/inbound-mail.ts');
+  const item = {
+    id: 'abc12345', kind: 'enquiry' as const, name: 'Sam Lee', email: 'sam@gmail.com',
+    message: 'I would like to talk to someone.', source: '/contact', createdAt: '2026-10-01T17:00:00Z', handled: false,
+  };
+  const fees = sessionFeesPhrase(FALLBACK_CATALOG, { services: savneet.services });
+  const draft = { counsellor: 'Savneet', bookHref: 'https://www.westpeakwellness.com/book?with=savneet-singh#calendar', days: ['Tue 6 Oct', 'Fri 9 Oct', 'Tue 13 Oct'], fees };
+  const body = replyDraftBody('Sam', draft);
+  assert.match(body, /^Hi Sam,/);
+  assert.ok(body.includes('My next free 30-minute consultation days are Tue 6 Oct, Fri 9 Oct and Tue 13 Oct (Pacific time).'), body);
+  assert.ok(body.includes(draft.bookHref));
+  assert.ok(body.includes(`sessions are ${fees}.`) && fees!.includes(money(fee('Individual Counselling').cents)), 'the catalogue fee');
+  assert.doesNotMatch(body, /couples/, 'only what she offers');
+  assert.doesNotMatch(body, /\b\d{1,2}\s?(am|pm)\b|evening|weekend/i);
+  assert.match(body, /Savneet$/);
+  const href = replyDraftHref(item.email, 'Sam', draft);
+  assert.ok(href.startsWith('mailto:sam@gmail.com?subject='));
+  const q = new URLSearchParams(href.slice(href.indexOf('?') + 1));
+  assert.equal(q.get('subject'), REPLY_SUBJECT);
+  assert.equal(REPLY_SUBJECT, 'Re: your message to Westpeak Wellness');
+  assert.equal(q.get('body'), body.replace(/\n/g, '\r\n'));
+  const a = practiceAlert(item, draft);
+  assert.ok(a.text.includes(href));
+  assert.match(a.html, /Reply with your next times/);
+  assert.match(a.html, /href="mailto:sam@gmail\.com\?subject=[^"]*&amp;body=/);
+  /* Not routed to one counsellor, or not an enquiry: no draft. */
+  assert.doesNotMatch(practiceAlert(item).html, /Reply with your next times/);
+  assert.doesNotMatch(practiceAlert({ ...item, kind: 'lead' as const, magnet: 'coverage-checklist' }, draft).html, /Reply with your next times/);
+  /* No days read: the draft still opens her calendar, naming none. */
+  assert.match(replyDraftBody('', { ...draft, days: [] }), /^Hi,\n[\s\S]*You can choose a time for a free 30-minute consultation here:/);
+  const submit = src('lib/inbound-submit.ts');
+  assert.match(submit, /practiceAlert\(\{ \.\.\.item, triage: finalVerdict \}, draft\)/);
+  const mail = src('lib/inbound-mail.ts');
+  const block = mail.slice(mail.indexOf('A ONE-TAP REPLY DRAFT'), mail.indexOf('export function practiceAlert'));
+  assert.doesNotMatch(block, /sendDetailed|fetch\(/, 'the draft sends nothing');
+});
+
+test('459: /message-sent drops the solo-practice line and "always within two", and links the next free calls', () => {
+  const page = src('app/message-sent/page.tsx');
+  assert.doesNotMatch(page, /solo practice|always within two/);
+  assert.match(page, /usually within one business\s+day\./);
+  assert.match(page, /The counsellor your message is\s+for is the one who reads it and answers it\./);
+  assert.match(page, /Forgot something, like a\s+phone number\? Reply to the copy in your inbox; no need to send the form again\./);
+  assert.match(page, /location="next-message-sent"/);
+  assert.match(page, /href=\{bookHrefFor\(practitioners\.filter\(\(p\) => p\.slug === e\.slug\)\)\}/);
+  assert.match(page, /\{PACIFIC\}/);
+});
+
+test('460: /punjabi names its counsellor in one Latin-script line, with her next free day as a link', () => {
+  const page = src('app/punjabi/page.tsx');
+  const at = page.indexOf('{speaker && (');
+  assert.ok(at > page.indexOf('Read this in English') && at < page.indexOf('</section>', at), 'under the hero buttons');
+  const block = page.slice(at, page.indexOf('</p>', at));
+  assert.match(block, /<p lang="en"/);
+  assert.match(block, /<Link href=\{`\/practitioners\/\$\{speaker\.slug\}`\}>\{withLetters\(speaker\)\}<\/Link>/);
+  assert.match(block, /<BookLink location="hero-next-language" className="" href=\{bookHrefFor\(\[speaker\]\)\}>\{speakerNext\.day\}<\/BookLink>/);
+  assert.doesNotMatch(block, /[਀-੿]/, 'no new Punjabi prose');
+  const speaker = practitioners.find((p) => p.acceptingNewClients && p.languages.some((l) => l.tag === 'pa') && p.placePages)!;
+  assert.equal(speaker.slug, savneet.slug);
+  assert.equal(bookHrefFor([speaker]), '/book?with=savneet-singh#calendar');
+});

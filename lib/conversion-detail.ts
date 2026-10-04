@@ -162,6 +162,12 @@ export const BOOK_LOCATIONS: readonly string[] = [
   'counsellor-not-found',
   /* wf/tp-places, 3 Oct 2026: the hero button on /online-counselling. */
   'hero-online',
+  /* wf/r6-book-paths, 3 Oct 2026: each day in a profile's "Next open with
+     {first}" line, and the Latin-script next-free-call day under the /punjabi
+     hero button, and the next-free-call days on /message-sent. */
+  'next-practitioner',
+  'hero-next-language',
+  'next-message-sent',
 ];
 
 /** Every slug on the roster, accepting or not. The founder's cannot reach a
@@ -247,6 +253,9 @@ const MAGNET_SET = new Set<string>(MAGNET_KEYS);
 /** booked_via when no booking button was pressed in the session. */
 export const BOOKED_DIRECT = 'direct';
 
+/** The two book_arrive details that are not a counsellor. */
+export const BOOK_ARRIVE_OTHER: readonly string[] = ['none', 'ask'];
+
 /** The places the practice address is a mailto: link (components/MailLink.tsx). */
 export const EMAIL_LOCATIONS: readonly string[] = ['sticky', 'book-fallback', 'contact', 'footer', 'refer'];
 
@@ -270,6 +279,9 @@ const ALLOWED: Readonly<Record<string, ReadonlySet<string>>> = {
      `couples` for any open of a couples consultation (/book?for=couples,
      wf/book-and-cta), so couples intent is countable on its own. */
   scheduler_open: new Set<string>(['button', 'hash', 'couples']),
+  /* Who an arrival on /book asked for (components/BookArrive.tsx, 3 Oct
+     2026): a roster slug, `none` with no ?with=, `ask` for the form. */
+  book_arrive: new Set<string>([...COUNSELLOR_SLUGS, ...BOOK_ARRIVE_OTHER]),
   /* Cliniko's own "booking confirmed" message from inside the embedded
      calendar (components/SchedulerTelemetry.tsx): the same keys as the two
      events that bracket it, so seen, touched and booked line up per

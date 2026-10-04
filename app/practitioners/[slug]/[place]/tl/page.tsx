@@ -18,6 +18,7 @@ import { BadgeCheck } from 'lucide-react';
 import { ogBase } from '@/lib/og-meta';
 import { COLLECTION_DATES } from '@/lib/page-dates';
 import BookLink from '@/components/BookLink';
+import { bookHrefFor } from '@/lib/city-service-page';
 
 /* ============================================================================
    THE TAGALOG CITY PAGES — /practitioners/<slug>/<city>/tl
@@ -109,7 +110,7 @@ export default function TagalogPlacePage({ params }: { params: Params }) {
   const first = p.name.split(' ')[0];
   const enPath = `/practitioners/${p.slug}/${raw.slug}`;
   const tlPath = `${enPath}/tl`;
-  const bookHref = `${site.bookingPath}?with=${p.slug}`;
+  const bookHref = bookHrefFor([p]);
 
   const faqs = [...tl.faqs, ...t.sharedFaqs];
 

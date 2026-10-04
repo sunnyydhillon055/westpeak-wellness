@@ -190,6 +190,8 @@ export type TrackedEvent =
   /* The frame sent no resize within ten seconds of being on screen: blocked
    * or blank. components/SchedulerTelemetry, 2 Oct 2026. */
   | 'scheduler_stalled'
+  /* An arrival on /book, once per session (components/BookArrive, 3 Oct 2026). */
+  | 'book_arrive'
   | 'tool_start'
   | 'tool_complete'
   | 'tool_share'

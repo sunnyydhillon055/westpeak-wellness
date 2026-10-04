@@ -15,6 +15,13 @@ import { practitioners, withLetters } from '@/lib/practitioners';
 import { punjabiGuides } from '@/lib/punjabi-guides';
 import { placesFor } from '@/lib/practitioner-places';
 import { PA_CITY, getPunjabiPlace } from '@/lib/practitioner-places-pa';
+import { consultationAvailability, nextFreeCallEntries } from '@/lib/cliniko-availability';
+import { PACIFIC } from '@/lib/availability-summary';
+import { bookHrefFor } from '@/lib/city-service-page';
+
+/* Re-rendered every thirty minutes since 3 Oct 2026, for the next free day
+   under the hero button. Still generated at build, so `npm run seo` sees it. */
+export const revalidate = 1800;
 
 /* GURMUKHI FIRST, 1 Oct 2026, reversing the "English first" order of 17 Sep.
    That change was a code-comment choice, not a DECISIONS entry. It moved the
@@ -75,12 +82,20 @@ export const metadata: Metadata = {
  * The confirmation now lives at /punjabi/sent, in Punjabi, built entirely from
  * the strings that were already here. The reasoning is preserved and the route
  * is static again. */
-export default function PunjabiPage() {
+export default async function PunjabiPage() {
   /* The Punjabi-speaking counsellor taking new clients, from the roster. */
   const speaker = practitioners.find((p) => p.acceptingNewClients && p.languages.some((l) => l.tag === 'pa') && p.placePages);
   /* Both booking buttons open the Punjabi-speaking counsellor's calendar
      (lib/booking-cta.ts). The button words stay as they were. */
   const book = bookingCtaFor({ language: 'pa', fallback: '' }).href;
+  /* HER NAME UNDER THE BUTTON, IN ENGLISH — 3 Oct 2026. /punjabi had 142
+     impressions at 9.9 and no clicks, and the counsellor the button books was
+     first named about 680 words down. One Latin-script line of roster facts
+     and her next free day from Cliniko, a day and never an hour; no new
+     Punjabi prose. */
+  const speakerNext = speaker && speaker.bookable
+    ? nextFreeCallEntries(await consultationAvailability(), [{ slug: speaker.slug, first: speaker.name.split(' ')[0]! }])[0]
+    : undefined;
   const schema = [
     {
       '@context': 'https://schema.org',
@@ -131,6 +146,19 @@ export default function PunjabiPage() {
               Read this in English
             </Link>
           </div>
+          {speaker && (
+            <p lang="en" style={{ fontSize: '.95rem', marginTop: 12 }}>
+              <Link href={`/practitioners/${speaker.slug}`}>{withLetters(speaker)}</Link>
+              {' · '}{speaker.languages.map((l) => l.name).join(' and ')}
+              {speakerNext && (
+                <>
+                  {' · next free call '}
+                  <BookLink location="hero-next-language" className="" href={bookHrefFor([speaker])}>{speakerNext.day}</BookLink>
+                  {PACIFIC}
+                </>
+              )}
+            </p>
+          )}
         </div>
       </section>
 

@@ -56,7 +56,8 @@ test('the profile builds its hero, line and band from alternativesFor, not the f
   assert.doesNotMatch(page, /defaultBookingPractitioner/);
   assert.match(page, /alternativesFor\(p, practitioners\)/);
   assert.match(page, /alternativeLabel\(alts\[0\]\)/, 'the band uses the same pair');
-  assert.match(page, /\{nextOpen\.join\(' · '\)\}\{PACIFIC\}/, 'next open is labelled Pacific');
+  /* Each day is a link to her calendar since 3 Oct 2026 (wf/r6-book-paths). */
+  assert.match(page, /\{nextOpen\.map\([\s\S]*?<BookLink location="next-practitioner"[\s\S]*?\{PACIFIC\}/, 'next open is labelled Pacific');
   assert.match(page, /open=\{i === 0\}/, 'the first answer is open');
   assert.doesNotMatch(page, /secondLanguages\.length > 0 &&/, 'one language section, not two');
 });

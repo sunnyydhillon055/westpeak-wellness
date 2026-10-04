@@ -1029,6 +1029,17 @@ export default async function AdminPage({
                 </p>
               </>
             )}
+            {/* /book stage by stage, from arrivals (book_arrive, counted from
+                3 Oct 2026, once per session). Opens are not per counsellor. */}
+            <h3 style={{ marginTop: 22 }}>/book, stage by stage</h3>
+            <ul className="admin-terms">
+              {funnelCuts(log).book.map((r) => (
+                <li key={r.who}>
+                  <span>{r.who === 'all' ? 'all arrivals' : r.who === 'none' ? 'nobody named' : r.who === 'ask' ? 'the ask-for-a-time form' : r.who}</span>
+                  <span>{r.arrive} arrived{r.open === null ? '' : ` · ${r.open} opened the calendar`} · {r.interact} touched · {r.booked} booked</span>
+                </li>
+              ))}
+            </ul>
             {(credit.byLanding.length > 0 || credit.byButton.some((b) => b.booked > 0)) && (
               <>
                 <h3 style={{ marginTop: 22 }}>Bookings by the page the visit began on</h3>

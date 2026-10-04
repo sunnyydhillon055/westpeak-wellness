@@ -18,6 +18,7 @@ import { BadgeCheck } from 'lucide-react';
 import { ogBasePunjabi } from '@/lib/og-meta';
 import { COLLECTION_DATES } from '@/lib/page-dates';
 import BookLink from '@/components/BookLink';
+import { bookHrefFor } from '@/lib/city-service-page';
 
 /* ============================================================================
    THE PUNJABI CITY PAGES — /practitioners/<slug>/<city>/pa
@@ -100,7 +101,7 @@ export default function PunjabiPlacePage({ params }: { params: Params }) {
   const city = PA_CITY[raw.slug] ?? raw.city;
   const enPath = `/practitioners/${p.slug}/${raw.slug}`;
   const paPath = `${enPath}/pa`;
-  const bookHref = `${site.bookingPath}?with=${p.slug}`;
+  const bookHref = bookHrefFor([p]);
 
   const faqs = [...pa.faqs, ...t.sharedFaqs];
 
