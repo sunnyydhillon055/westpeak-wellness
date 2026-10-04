@@ -638,8 +638,13 @@ export const punjabiRegions: PunjabiRegion[] = [
         a: 'You can, and for some people that is the right answer. The choice is wider there and you would be told so on a consultation call. What Surrey costs from Vancouver is the travel: a bridge or tunnel, rush-hour transit, and an appointment that takes most of an evening rather than fifty minutes. That cost is the single most common reason weekly therapy quietly stops.',
       },
       {
-        q: 'Are there really few Punjabi-speaking counsellors in Vancouver itself?',
-        a: 'Fewer than the city\'s reputation for diversity would suggest, and the reason is arithmetic rather than neglect. Punjabi is the fifth mother tongue here at 2.0%; Cantonese and Mandarin are several times larger. Services follow the numbers, so Vancouver\'s multilingual mental-health provision is genuinely strong and mostly not in Punjabi.',
+        /* "or therapists", 3 Oct 2026: this page had 93 impressions at
+           position 8.2 and no clicks in the 3 Oct export, and the searches
+           behind it say "punjabi therapist vancouver" (position 13.5), a word
+           the page never used. Same question, the searched word, and one
+           sentence saying who would see a Vancouver client. */
+        q: 'Are there really few Punjabi-speaking counsellors or therapists in Vancouver itself?',
+        a: 'Fewer than the city\'s reputation for diversity would suggest, and the reason is arithmetic rather than neglect. Punjabi is the fifth mother tongue here at 2.0%; Cantonese and Mandarin are several times larger. Services follow the numbers, so Vancouver\'s multilingual mental-health provision is genuinely strong and mostly not in Punjabi. Therapist and counsellor describe the same work here; this practice’s Punjabi-speaking counsellor is a Registered Clinical Counsellor who sees Vancouver clients by secure video.',
       },
       {
         q: 'Can the whole session be in Punjabi?',
