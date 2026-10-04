@@ -3027,6 +3027,165 @@ registry). No hours and no outcome claims.
 
 ---
 
+### The founder's BCACC entry leaves her sameAs; the listings pack stops sending the owner to paid directories
+Decided 3 Oct 2026 (branch `wf/r6-offsite-ai`; items 411, 416, 443, 444, 455,
+463, 468).
+
+**sameAs.** On 3 Oct the founder's BCACC Find a Counsellor entry said
+in-person, telephone and Surrey. The site offers video only, and an AI answer
+to the brand query repeated the entry's facts. Person.sameAs tells an engine
+that page is her, so the URL is withdrawn under the same rule as the
+Psychology Today URLs on 1 Oct. Her LinkedIn stays. The credential's
+verifyUrl (the register) is a link, not a sameAs, and is unchanged.
+`test/practitioner-sameas.test.mts`, cited by earlier comments but never
+created, now fails any sameAs URL without a VERIFIED row recording the URL,
+the date it was read and what it said. A REJECTED URL cannot return without a
+newer read. Re-add the BCACC URL after item 403, once she has edited the
+entry and it has been re-read.
+
+**Listings.** Counselling BC is paid (a free first month, then an annual
+fee), so it is item 4 as the owner's decision, not a free listing. Theravive
+($10 a month, or free in exchange for a link: a link scheme) and First
+Session ($500 plus 25%) are removed. Added: CCPA Find-a-CCC (Camille, within
+the membership she already holds), AMHC (free; each counsellor applies only
+if she identifies as Asian), and EMDR Canada/EMDRIA (only an existing
+membership). A dated "Checked 3 Oct 2026, not eligible or paid" list covers
+bc211, HealthLink, Healing in Colour, Inclusive Therapists, South Asian
+Therapists, Counselling BC, Theravive, First Session and TherapyDen's paid
+tier. bc211's criteria were read at source: non-profit, community,
+government, or government-contracted free or low-cost services.
+
+**Gated copy.** The 3 Oct outreach drafts are now docs/OUTREACH.md §8-13 and
+the LISTINGS_PACK field blocks, where coverage-claims, the couples-method
+check and no-hours read them. All pass. OFFSITE_KIT_2026-08-27.md is not in
+either gate's ROOTS; it still says "15-minute" consultation and carries US$
+directory prices and an RCC number in a field table. Reported, not yet fixed.
+
+**Measurement.** Fourteen new referrer hosts are classified
+(listing/org/press). indocanadianvoice.com no longer resolves and is replaced
+by voiceonline.com. ctr-delta prints AI-Mode-style follow-ups as their own
+series: 18, 28, 38, 41 queries from 6 Sep to 3 Oct. scripts/bing-ai.mjs and
+an /admin line read Bing AI Performance exports from
+data/bing/<date>-ai-*.csv and report "no Bing export yet" until one exists.
+
+Nothing is noindexed, redirected or consolidated.
+
+*Enforced by:* `test/practitioner-sameas.test.mts`,
+`test/referrer-hosts-oct3.test.mts`, `test/bing-ai.test.mts`,
+`scripts/coverage-claims.mjs`, `test/no-hours-metadata.test.mts`,
+`test/gottman-method-claims.test.mts`
+
+---
+
+### Content pages are fully static; Cliniko times are filled in by the browser
+Decided 3 Oct 2026 (branch `wf/r6-static-speed`; items 429, 409, 441, 470 in
+part, 471).
+
+**Rule.** No indexable public route may export `revalidate` or read Cliniko
+during the server render; `scripts/inline-css.mjs --check` fails the build if
+one does. Exceptions by name: /refer/counsellors, /refer/doctor,
+/refer/handout and /for/employers-and-hr/one-pager. noindex pages may
+revalidate.
+
+**Counts.** On main, 317 prerendered routes revalidated (312 at 1800 s, 5 at
+3600 s) and lost the inlined CSS after their first regeneration. After this
+change, 0 indexable routes revalidate; 5 remain (the 4 named above and
+/message-sent, which is noindex). revalidate was removed from 14 route files:
+app/page.tsx, guides/[slug], resources/[slug], compare/[slug], pricing,
+services/[slug], for/[slug], practitioners/page.tsx, practitioners/[slug],
+practitioners/[slug]/[place], online-counselling/page.tsx,
+online-counselling/[city], online-counselling/[city]/[service],
+punjabi-counselling/[region]. /pricing was rendered per request
+(searchParams) and is now prerendered. At integration /punjabi, which
+`wf/r6-book-paths` had set to revalidate every 1800 s for its next free day,
+was made static the same way (`NextFreeDay`), so the "both pages revalidate"
+line of the book-paths entry now holds for /message-sent only.
+
+**Consequences decided with this.** Catalogue fees and date-gated lines are
+set when the site is built. A price change in Cliniko, the /pricing plan-year
+line (shows from 15 Oct), seasonal resource sections, and insuredProvinces /
+insuranceLine (a policy with validTo 2026-10-01 lapses after its 14-day grace
+on 15 Oct) take effect with the next deploy, not within the hour.
+
+**409.** The next free day prints once per page, under the hero button of
+guides, resources, comparisons and /pricing (`hero-next-article`), instead of
+in the closing block or the five mid-article spots. Where one counsellor
+fits, the button names her and her languages from the roster. Registered as
+change 2026-10-03-hero-next-article. Item 414's line under the waiting
+guide's short answer is the same line; at integration it became this hero
+line, a few lines lower, still once per page. The profile's "Next open" days
+stay links to her calendar (`next-practitioner`), now filled in by the
+browser.
+
+**441.** Chrome links (header, trust bar, footer, city chips) do not
+prefetch; booking links do.
+
+**471.** live-speed.mjs is the last step of verify:weekly.
+
+**Blocked.** Item 430 (place-page cut, 0.35 containment ceiling) waits for a
+Google-selected canonical for the Victoria, Richmond, Coquitlam, Delta and
+Nanaimo hubs; nothing was built.
+
+Nothing is noindexed, redirected or consolidated.
+
+*Enforced by:* `scripts/inline-css.mjs --check`, `scripts/smoke.mjs`,
+`test/static-speed.test.mts`, `test/live-speed.test.mts`,
+`test/book-cta-links.test.mts`
+
+---
+
+### Social cards are crawlable, hreflang runs both ways, lastmod is per page, and the sitemap is an index
+Decided 3 Oct 2026 (branch `wf/r6-crawl-signals`; items 410, 440, 448, 450).
+
+1. **The social card is crawlable.** robots.txt disallowed /opengraph-image
+   and /*/opengraph-image for every agent from df53a32, with no recorded
+   reason. Every page's og:image and its Article/Organization JSON-LD image
+   point at those URLs. The Disallow now applies only to 11 named training
+   crawlers (GPTBot, ClaudeBot, anthropic-ai, Google-Extended,
+   Applebot-Extended, Meta-ExternalAgent, meta-externalagent, Bytespider,
+   CCBot, cohere-ai, AI2Bot). * and every search, preview and retrieval bot
+   get Allow: / only. Pages affected: every page with an og:image (seo-audit
+   counted 1,740 blocked image references on main's build). The card is now a
+   framed 300x470 crop of a softened copy of the still-water photo, at
+   210-225 KB instead of 611 KB. seo-audit fails if any og:image or JSON-LD
+   image matches a Disallow for * or Googlebot.
+2. **hreflang only between real translations, and only both ways.** The
+   Tagalog caregiver guide (pagod-sa-pag-aalaga) no longer pairs with
+   /guides/burnout-vs-depression; that pair belongs to
+   depresyon-o-pagod-lang. The 4 Punjabi guides lose their en-CA/x-default
+   alternates in the page and the sitemap, because they were written, not
+   translated, and the English guides never named them back. Their visible
+   English link and translationOfWork stay. 10 one-way alternates on 5 pages
+   removed, 0 added. seo-audit now fails on one-way, duplicate-language or
+   missing-self alternates, and on any page whose sitemap cluster differs
+   from its HTML cluster.
+3. **lastmod is per page.** A page's date is the day the visible words of its
+   <main> last changed: dates, clock times and the Cliniko next-consultation
+   line are excluded. It is recorded in data/page-hashes.json and generated
+   into lib/url-dates.ts by `npm run hashes` after a build. The collection
+   date from page-dates.mjs is the fallback for a page not yet hashed, and
+   for the 4 pages rendered on demand (/pricing, /contact, /book, /refer).
+   The first seeding kept every existing sitemap date, then backdated pages
+   whose rendered text matched a 2 Oct build (7e7c308) to that build's date:
+   98 URLs moved earlier and none later. Workflow: after content changes run
+   `npm run build && npm run hashes && npm run dates`, and commit all three
+   outputs. Known gap: JSON-LD dateModified and the visible "Updated" line on
+   collection pages still read collection dates.
+4. **/sitemap.xml is a sitemap index** of 7 per-template children at
+   /sitemaps/<part>.xml: core 47, guides 99 (guides, resources, compare,
+   for), city-hubs 27, city-services 100, places 56, communities 39 (Punjabi
+   regions and Tagalog cities), languages 47 (pages written in pa/tl). Same
+   415 URLs and image rows. The part is derived from the path in
+   lib/sitemap-shape.ts partOf. Edit lib/sitemap.ts, not the route.
+
+No noindex, redirect or consolidation of any page.
+
+*Enforced by:* `scripts/seo-audit.mjs`, `test/crawl-signals.test.mts`,
+`scripts/sitemap-parity.mjs`, `scripts/expansion-verify.mjs`,
+`scripts/page-hash-dates.mjs --check`
+
+---
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`
