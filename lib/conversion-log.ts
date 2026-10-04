@@ -90,6 +90,12 @@ const COUNTED = new Set([
   'book_direct',
   'scheduler_visible',
   'scheduler_interact',
+  /* An arrival on /book, once per session per counsellor named, from
+     components/BookArrive.tsx: the roster slug of ?with=, `none` for bare
+     /book, `ask` for bare /book#ask-for-a-time. The denominator the
+     calendar's own events never had, so a page that loses people can be
+     told from a calendar that does (3 Oct 2026). */
+  'book_arrive',
   'tool_share',
   /* Finishing a tool is the most qualified moment on the site, and what the
      tool concluded says which service page the warm reader was pointed at.
@@ -359,6 +365,8 @@ export type FunnelCuts = {
   calendar: CalendarRow[];
   toolOutcomes: { rows: DetailConversions[]; unattributed: number };
   magnets: { rows: DetailConversions[]; unattributed: number };
+  /** /book stage by stage (bookStages), 3 Oct 2026. */
+  book: BookStageRow[];
 };
 
 /** The calendar by counsellor and surface, the tools' outcomes and the
@@ -386,7 +394,46 @@ export function funnelCuts(log: ConversionLog): FunnelCuts {
     calendar,
     toolOutcomes: detailsOf(log, 'tool_complete'),
     magnets: detailsOf(log, 'lead_magnet_submit'),
+    book: bookStages(log),
   };
+}
+
+export type BookStageRow = {
+  /** 'all', a roster slug, `none` or `ask`. */
+  who: string;
+  arrive: number;
+  /** How the gated calendar was opened is not per counsellor, so only the
+   *  'all' row has it. */
+  open: number | null;
+  interact: number;
+  booked: number;
+};
+
+/** /book, stage by stage: arrivals, calendar opens, touches and confirmed
+ *  bookings, for the practice and for each detail an arrival was counted
+ *  under. The free-consultation calendar only: a portal key is never a
+ *  /book stage. Cumulative over the log; pure. */
+export function bookStages(log: ConversionLog): BookStageRow[] {
+  const d = (event: string) => log.details?.[event] ?? {};
+  const pathNotPortal = (m: Record<string, number> | undefined) =>
+    Object.entries(m ?? {}).reduce((n, [k, v]) => (k === '/client-portal' ? n : n + v), 0);
+  const all: BookStageRow = {
+    who: 'all',
+    arrive: sum(log.events.book_arrive),
+    open: sum(log.events.scheduler_open),
+    interact: pathNotPortal(log.events.scheduler_interact),
+    booked: pathNotPortal(log.events.scheduler_booked),
+  };
+  const rows = Object.entries(d('book_arrive'))
+    .sort((a, b) => b[1] - a[1])
+    .map(([who, arrive]): BookStageRow => ({
+      who,
+      arrive,
+      open: null,
+      interact: d('scheduler_interact')[who] ?? 0,
+      booked: d('scheduler_booked')[who] ?? 0,
+    }));
+  return [all, ...rows];
 }
 
 /** Visits by the channel their link named, busiest first. The gbp row

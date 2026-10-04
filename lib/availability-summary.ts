@@ -198,6 +198,21 @@ export function nextFreeCallEntries(
     .filter((x): x is { slug: string; first: string; day: string } => Boolean(x.day));
 }
 
+/** Up to `n` days with a free consultation open, from `next`: "Thu 8 Oct".
+ *  Days only, never an hour. Empty when the read failed or nothing is open,
+ *  so whatever prints them prints nothing (wf/r6-book-paths, 3 Oct 2026:
+ *  the enquiry acknowledgement and the counsellor's reply draft). */
+export function openDays(a: Availability | null | undefined, n = 3): string[] {
+  if (!a || a.error || a.count === 0) return [];
+  return a.next.map((x) => x.split(' from ')[0]!.trim()).filter(Boolean).slice(0, n);
+}
+
+/** "Camille’s next free consultation days: Thu 8 Oct · Sat 10 Oct (Pacific
+ *  time)", or null with no days. */
+export function consultDaysLine(first: string, days: readonly string[]): string | null {
+  return days.length ? `${first}’s next free consultation days: ${days.join(' · ')}${PACIFIC}` : null;
+}
+
 /* THE LAST GOOD READ, NOT THE LAST FAILURE — 2 Oct 2026.
  *
  * lib/cliniko-availability.ts used to store a failed read (an `error` entry)

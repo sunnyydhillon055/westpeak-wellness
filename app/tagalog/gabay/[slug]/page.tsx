@@ -14,6 +14,7 @@ import { TAGALOG_LANDING } from '@/lib/tagalog-landing';
 import { practitioners } from '@/lib/practitioners';
 import { COLLECTION_DATES } from '@/lib/page-dates';
 import BookLink from '@/components/BookLink';
+import { bookHrefFor } from '@/lib/city-service-page';
 
 /* ============================================================================
    GABAY — the Tagalog guides.
@@ -228,7 +229,7 @@ ang kaugnay na pahina sa Ingles.
           <div className="cta-band">
             <h2>{TAGALOG_LANDING.ctaHeading}</h2>
             <p>{TAGALOG_LANDING.lede}</p>
-            <BookLink location="hero-language-guide" href={`${site.bookingPath}?with=${speaker?.slug ?? ''}`}>
+            <BookLink location="hero-language-guide" href={speaker ? bookHrefFor([speaker]) : site.bookingPath}>
               {TAGALOG_LANDING.cta}
             </BookLink>
             <p className="cta-band-alt">

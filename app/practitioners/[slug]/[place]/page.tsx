@@ -27,6 +27,7 @@ import Updated from '@/components/Updated';
 import { COLLECTION_DATES } from '@/lib/page-dates';
 import { placePageDate, tagalogProfileDate } from '@/lib/page-date-latest';
 import BookLink from '@/components/BookLink';
+import { bookHrefFor } from '@/lib/city-service-page';
 import { rich } from '@/lib/rich';
 import { placeTitle } from '@/lib/practitioner-titles';
 
@@ -236,7 +237,7 @@ export default async function PractitionerPlacePage({ params }: { params: Params
               <p className="lede" lang="tl">{t.lede}</p>
               <Updated iso={tagalogProfileDate()} />
               <div className="btn-row" style={{ marginTop: 22 }}>
-                <BookLink location="hero-practitioner" href={p.acceptingNewClients ? `${site.bookingPath}?with=${p.slug}` : site.bookingPath}>{t.cta}</BookLink>
+                <BookLink location="hero-practitioner" href={p.acceptingNewClients ? bookHrefFor([p]) : site.bookingPath}>{t.cta}</BookLink>
                 <Link className="btn btn--ghost" href={`/practitioners/${p.slug}`} hrefLang="en-CA">{t.englishLink}</Link>
               </div>
             </div>
@@ -321,7 +322,7 @@ export default async function PractitionerPlacePage({ params }: { params: Params
   /* Every call to action on this page names the counsellor it came from, so
      /book can state her provinces and languages rather than the practice's.
      Without it a Calgary reader was told they were ineligible. */
-  const bookHref = `${site.bookingPath}?with=${p.slug}`;
+  const bookHref = bookHrefFor([p]);
 
   /* HER FACTS, IN PLACE OF "NOTHING ABOUT THE FEE CHANGES" — 2 Oct 2026.
      These pages said three times that the fee does not change with distance
@@ -679,7 +680,7 @@ function PunjabiProfile({ p }: { p: Practitioner }) {
   const t = getPunjabiProfile(p.slug)!;
   const first = p.name.split(' ')[0];
   const paPath = `/practitioners/${p.slug}/pa`;
-  const bookHref = `${site.bookingPath}?with=${p.slug}`;
+  const bookHref = bookHrefFor([p]);
   const cities = p.placePages ? placesFor(p.provinces).filter((c) => getPunjabiPlace(c.slug)) : [];
 
   const schema = {

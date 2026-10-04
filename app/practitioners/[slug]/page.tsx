@@ -32,6 +32,7 @@ import CounsellorCompare from '@/components/CounsellorCompare';
 import FirstSessionRow from '@/components/FirstSessionRow';
 import { firstSessionNote, firstSessionOffers } from '@/lib/first-session';
 import { profileSnippet, withSnippet } from '@/lib/snippet-facts';
+import { closedProfileDescription } from '@/lib/closed-profile-snippet';
 
 export function generateStaticParams() {
   return practitioners.map((p) => ({ slug: p.slug }));
@@ -50,10 +51,13 @@ export async function generateMetadata({ params }: { params: { slug: string } })
      taking new clients (lib/snippet-facts.ts) — 1 Oct 2026. The profiles sat
      at 7.7-8.1 with no clicks and no fee in the result. The focus areas give
      way first when both do not fit. */
-  const description = withSnippet(
-    `${withLetters(p)}, online counselling ${p.reach === 'canada' ? 'anywhere in Canada' : 'across BC'} in ${p.languages.map((l) => l.name).join(' or ')}. ${p.focus.map((f) => f.label).join(', ')}.`,
-    profileSnippet(await readCatalog(), p),
-  );
+  const lead = `${withLetters(p)}, online counselling ${p.reach === 'canada' ? 'anywhere in Canada' : 'across BC'} in ${p.languages.map((l) => l.name).join(' or ')}. ${p.focus.map((f) => f.label).join(', ')}.`;
+  /* Not taking new clients: the description says so and names the accepting
+     colleague who shares her language (lib/closed-profile-snippet.ts, 3 Oct
+     2026). It used to read as available. */
+  const description = p.acceptingNewClients
+    ? withSnippet(lead, profileSnippet(await readCatalog(), p))
+    : closedProfileDescription(lead, p, practitioners);
   /* The profile's own language twin, declared both ways — the twin already
      points back here. Found 7 Sep 2026 by scripts/roster-compare.mjs: every
      twin declared its pair and no English profile did, so a crawler saw the
@@ -157,7 +161,7 @@ export default async function PractitionerPage({ params }: { params: { slug: str
   const alts = p.acceptingNewClients ? [] : alternativesFor(p, practitioners);
   const altHref = (a: Alternative) => bookHrefFor(practitioners.filter((q) => q.slug === a.slug), a.bookService);
   const bookHref = p.acceptingNewClients
-    ? `${site.bookingPath}?with=${p.slug}`
+    ? bookHrefFor([p])
     : alts[0] ? altHref(alts[0]) : site.bookingPath;
   /* "For couples counselling or EMDR, Camille Granda." for the band. */
   const altSecond = alts[1] ? `For ${orList(alts[1].services)}, ${alts[1].name}.` : '';
@@ -319,7 +323,15 @@ export default async function PractitionerPage({ params }: { params: { slug: str
             </div>
             {nextOpen.length > 0 && (
               <p style={{ fontSize: '.95rem', marginTop: 12 }}>
-                <strong>Next open with {first}:</strong> {nextOpen.join(' · ')}{PACIFIC}
+                {/* Each day opens her calendar (3 Oct 2026), as the home hero's do. */}
+                <strong>Next open with {first}:</strong>{' '}
+                {nextOpen.map((d, i) => (
+                  <span key={d}>
+                    {i > 0 && ' · '}
+                    <BookLink location="next-practitioner" className="" href={bookHref}>{d}</BookLink>
+                  </span>
+                ))}
+                {PACIFIC}
               </p>
             )}
             {!p.acceptingNewClients ? (

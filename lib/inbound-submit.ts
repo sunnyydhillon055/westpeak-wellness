@@ -3,7 +3,12 @@ import { addInbound, readInbound, annotateTriage, markAcked, type InboundKind } 
 import { unsubLink, unsubHeaders } from '@/lib/nurture';
 import { triage, hasMailExchanger, withMx } from '@/lib/triage';
 import { sendDetailed } from '@/lib/portal-mail';
-import { checklistEmail, icbcEmail, startingEmail, enquiryAck, practiceAlert } from '@/lib/inbound-mail';
+import { checklistEmail, icbcEmail, startingEmail, enquiryAck, practiceAlert, type AckDays, type ReplyDraft } from '@/lib/inbound-mail';
+import { consultationAvailability } from '@/lib/cliniko-availability';
+import { openDays, type Availability } from '@/lib/availability-summary';
+import { bookHrefFor } from '@/lib/city-service-page';
+import { readCatalog } from '@/lib/cliniko-catalog';
+import { sessionFeesPhrase } from '@/lib/book-fees';
 import { site } from '@/lib/site';
 import { practitioners, withLetters } from '@/lib/practitioners';
 import { clientKey, rateCheck } from '@/lib/rate-limit';
@@ -254,6 +259,34 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
     : undefined;
   const ackReplyTo = only?.alertEmail ? [only.alertEmail, site.email] : site.email;
 
+  /* The next free consultation days of whoever the enquiry was routed to,
+     for the acknowledgement (one line each) and, routed to one counsellor,
+     her reply draft in the alert (3 Oct 2026). Never load-bearing: the read
+     is the cached one the pages use, given 2.5 s, and a slow or failed read
+     leaves the days out rather than holding the mail. */
+  const routed = route.practitioners
+    .map((s) => practitioners.find((p) => p.slug === s))
+    .filter((p): p is NonNullable<typeof p> => !!p && p.bookable && p.acceptingNewClients);
+  const avail = routed.length
+    ? await Promise.race([
+        consultationAvailability().catch(() => ({})),
+        new Promise<Record<string, never>>((r) => setTimeout(() => r({}), 2500)),
+      ])
+    : {};
+  const open: AckDays[] = routed.map((p) => ({
+    first: p.name.split(' ')[0] ?? p.name,
+    bookHref: `${site.domain}${bookHrefFor([p])}`,
+    days: openDays((avail as Record<string, Availability>)[p.slug]),
+  }));
+  const draft: ReplyDraft | undefined = only && open.length === 1 && open[0]
+    ? {
+        counsellor: open[0].first,
+        bookHref: open[0].bookHref,
+        days: open[0].days,
+        fees: await readCatalog().then((c) => sessionFeesPhrase(c, { services: only.services })).catch(() => null),
+      }
+    : undefined;
+
   /* The one-click stop for emails 2 and 3 travels in email 1 (lib/nurture.ts). */
   const leadOpts = { unsub: unsubLink(email) };
   const ack =
@@ -261,7 +294,7 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
       ? (magnet === 'icbc-after-a-crash' ? icbcEmail(firstName, leadOpts)
         : magnet === 'starting-counselling' ? startingEmail(firstName, leadOpts)
         : checklistEmail(firstName, leadOpts))
-    : enquiryAck(firstName, by);
+    : enquiryAck(firstName, by, open);
 
   /* Can this address receive mail at all? A network call, so it happens here.
      after the store, and fails open: a DNS timeout means "unknown", never
@@ -296,7 +329,7 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
     })(),
     annotating,
     (async () => {
-      const alert = practiceAlert({ ...item, triage: finalVerdict });
+      const alert = practiceAlert({ ...item, triage: finalVerdict }, draft);
       /* Reply-to is the person who wrote in, so whoever picks it up answers
        * by hitting reply. */
       return sendDetailed(route.to, alert.subject, alert.text, alert.html, { replyTo: email, cc: route.cc });

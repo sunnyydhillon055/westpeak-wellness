@@ -187,6 +187,9 @@ export type WeekRow = {
   who: string;
   landing: number | null;
   bookClick: number | null;
+  /** Arrivals on /book (book_arrive, from 3 Oct 2026): every arrival for
+   *  the practice, the ones whose ?with= named her for a counsellor. */
+  arrive?: number | null;
   visible: number | null;
   interact: number | null;
   booked: number | null;
@@ -327,6 +330,7 @@ export function weekTable(snaps: Snapshot[], slugs: string[], requests: TimeRequ
         /* A counsellor's clicks are the ones whose link named her; the
            scheduler's are her calendar on /book, never the portal's. */
         bookClick: who === 'all' ? ev('book_click', all, false) : ev('book_click', clickMine, true),
+        arrive: who === 'all' ? ev('book_arrive', all, false) : ev('book_arrive', mine, true),
         visible: who === 'all' ? ev('scheduler_visible', notPortal, false) : ev('scheduler_visible', mine, true),
         interact: who === 'all' ? ev('scheduler_interact', notPortal, false) : ev('scheduler_interact', mine, true),
         booked: who === 'all' ? ev('scheduler_booked', notPortal, false) : ev('scheduler_booked', mine, true),

@@ -6,6 +6,7 @@ import { rosterLines, rosterText, rosterButtons, type RosterLine } from '@/lib/l
 import { magnetWords, SEQUENCE_PROMISE } from '@/lib/nurture-plan';
 import { answeredLink } from '@/lib/answered-link';
 import { WHO_SEES_A_CLAIM } from '@/lib/practice-facts';
+import { consultDaysLine, PACIFIC } from '@/lib/availability-summary';
 
 /* WHAT EVERY EMAIL 1 NOW ENDS WITH — 1 Oct 2026.
  *
@@ -337,9 +338,28 @@ ${site.domain}`);
  * practice-wide wording, because naming one would be a guess. */
 export type AckCounsellor = { who: string; bookHref: string };
 
-export function enquiryAck(firstName: string, by?: AckCounsellor) {
+/* HER NEXT FREE DAYS, SO THE PERSON CAN BOOK BEFORE THE REPLY — 3 Oct 2026.
+ * One line per counsellor the enquiry was routed to, from
+ * consultationAvailability() (Cliniko, Pacific time), days only. The 2 Oct
+ * sender wanted to start "as soon as possible" and was told only that a reply
+ * would come. A counsellor whose calendar could not be read gets no line. */
+export type AckDays = { first: string; bookHref: string; days: string[] };
+
+export function enquiryAck(firstName: string, by?: AckCounsellor, open: readonly AckDays[] = []) {
   const hi = firstName ? `Hi ${firstName},` : 'Hi,';
   const book = by?.bookHref ?? links.book;
+  const dayLines = open.flatMap((o) => {
+    const line = consultDaysLine(o.first, o.days);
+    return line ? [{ ...o, line }] : [];
+  });
+  /* With one line its link is the button below; with two, each line carries
+     her own calendar. */
+  const daysText = dayLines.length
+    ? `\n${dayLines.map((d) => (dayLines.length > 1 ? `${d.line}\n${d.bookHref}` : d.line)).join('\n\n')}\n`
+    : '';
+  const daysHtml = dayLines
+    .map((d) => p(dayLines.length > 1 ? a(d.bookHref, d.line) : esc(d.line)))
+    .join('');
   const replyText = by
     ? `Thank you for writing. Your message has reached the practice and\n${by.who}, will reply within one business day.`
     : 'Thank you for writing. Your message has reached the practice and you\nwill have a reply within one business day.';
@@ -364,7 +384,7 @@ come next:
   ${links.standards}
 
 If you would rather just pick a time, the free 30-minute consultation
-is here and carries no obligation:
+is here and carries no obligation:${daysText}
 ${book}
 
 If you are in immediate danger call 911. For urgent mental-health
@@ -378,6 +398,7 @@ Online counselling across British Columbia`);
     p(esc(hi)) +
     p(replyHtml) +
     p(`Two things that usually come up next: ${a(links.pricing, 'what sessions cost and how extended health works')}, and ${a(links.standards, 'how this practice works')}.`) +
+    daysHtml +
     btn(book, 'Or pick a time for a free consultation') +
     p('<span style="color:#545e69;font-size:14px;">If you are in immediate danger call 911. For urgent mental-health support in BC, call or text <strong>9-8-8</strong> at any hour.</span>'),
     /* Who replies and by when, which is what the inbox list should say
@@ -398,10 +419,54 @@ Online counselling across British Columbia`);
 const labelFor = (item: Pick<Inbound, 'kind' | 'magnet'>) =>
   item.kind === 'enquiry' ? 'New enquiry' : magnetWords(item.magnet).alert;
 
-export function practiceAlert(item: Inbound) {
+/* A ONE-TAP REPLY DRAFT FOR THE COUNSELLOR — 3 Oct 2026.
+ * 0 of 34 enquiries were ever ticked in /admin, so replies are written from
+ * this alert, not from the drafts in /admin. When an enquiry is routed to one
+ * counsellor, the alert carries a mailto: link that opens her mail app with a
+ * reply already addressed: the person's first name, her next three
+ * consultation days (Cliniko, Pacific time, days only), her calendar and her
+ * fees from the catalogue, narrowed to what she offers. It is a draft she
+ * edits and sends herself; the site sends nothing. */
+export type ReplyDraft = {
+  /** The counsellor's first name, to sign with. */
+  counsellor: string;
+  /** Absolute /book?with=<slug>#calendar. */
+  bookHref: string;
+  days: string[];
+  /** sessionFeesPhrase for her services, or null when the catalogue has none. */
+  fees: string | null;
+};
+
+export const REPLY_SUBJECT = 'Re: your message to Westpeak Wellness';
+
+export function replyDraftBody(firstName: string, d: ReplyDraft): string {
+  const listed = d.days.length > 1 ? `${d.days.slice(0, -1).join(', ')} and ${d.days[d.days.length - 1]}` : d.days[0];
+  return [
+    firstName ? `Hi ${firstName},` : 'Hi,',
+    '',
+    'Thank you for your message.',
+    '',
+    listed
+      ? `My next free 30-minute consultation days are ${listed}${PACIFIC}. You can choose a time here:`
+      : 'You can choose a time for a free 30-minute consultation here:',
+    d.bookHref,
+    ...(d.fees ? ['', `After the consultation, sessions are ${d.fees}.`] : []),
+    '',
+    d.counsellor,
+  ].join('\n');
+}
+
+export function replyDraftHref(to: string, firstName: string, d: ReplyDraft): string {
+  const q = (s: string) => encodeURIComponent(s.replace(/\n/g, '\r\n'));
+  return `mailto:${encodeURIComponent(to).replace(/%40/g, '@')}?subject=${q(REPLY_SUBJECT)}&body=${q(replyDraftBody(firstName, d))}`;
+}
+
+export function practiceAlert(item: Inbound, draft?: ReplyDraft) {
   /* Enquiries only: nobody replies to a one-pager request. Null when links
      cannot be signed (no PORTAL_SECRET), and then nothing is printed. */
   const answered = item.kind === 'enquiry' ? answeredLink(item.id) : null;
+  const firstName = (item.name || '').trim().split(/\s+/)[0] ?? '';
+  const reply = item.kind === 'enquiry' && draft ? replyDraftHref(item.email, firstName, draft) : null;
   /* The only place a person's own words are reproduced. This goes to the
    * practice inbox and nowhere else. */
   const lines = [
@@ -423,6 +488,7 @@ export function practiceAlert(item: Inbound) {
     '',
     ...(item.message ? ['Message:', '', item.message, ''] : []),
     `Reply directly to this email to answer them.`,
+    ...(reply ? ['', 'Or reply with your next times (a draft opens; nothing is sent until you send it):', reply] : []),
     ...(answered ? ['', 'Once you have replied, mark it answered so the reply time is measured:', answered] : []),
   ];
 
@@ -443,6 +509,7 @@ export function practiceAlert(item: Inbound) {
       ? `<div style="background:#f7f2e8;border-radius:8px;padding:16px 18px;margin:0 0 18px;font-size:15px;line-height:1.65;white-space:pre-wrap;">${esc(item.message)}</div>`
       : '') +
     p('<span style="color:#545e69;font-size:14px;">Reply directly to this email to answer them.</span>') +
+    (reply ? btn(esc(reply), 'Reply with your next times') : '') +
     (answered
       ? p(`<span style="color:#545e69;font-size:14px;">Once you have replied, ${a(answered, 'mark it answered')} so the reply time is measured. The link opens /admin and nothing is recorded until you press the button there.</span>`)
       : ''),

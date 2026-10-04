@@ -4,11 +4,18 @@ import { site } from '@/lib/site';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
 import MeasuredReply from '@/components/MeasuredReply';
+import BookLink from '@/components/BookLink';
+import { practitioners } from '@/lib/practitioners';
+import { consultationAvailability, nextFreeCallEntries } from '@/lib/cliniko-availability';
+import { PACIFIC } from '@/lib/availability-summary';
+import { bookHrefFor } from '@/lib/city-service-page';
 
 /* Rebuilt hourly so the measured reply time (components/MeasuredReply.tsx)
    follows the store. Until five replies are measured it renders nothing and
    the page is byte-for-byte what it was. 1 Oct 2026. */
-export const revalidate = 3600;
+/* Half-hourly since 3 Oct 2026, the life of the cached Cliniko read behind
+   the next-free-call line under the lede. */
+export const revalidate = 1800;
 
 /* The confirmation for the sitewide "ask instead" form.
  *
@@ -43,7 +50,16 @@ export const metadata: Metadata = {
   alternates: { canonical: `${site.domain}/message-sent` },
 };
 
-export default function MessageSentPage() {
+export default async function MessageSentPage() {
+  /* The home hero's "Next free call" line, each day opening that
+     counsellor's calendar (3 Oct 2026): someone who wrote in can book before
+     the reply arrives. A day, never an hour; nothing when Cliniko is down. */
+  const nextFree = nextFreeCallEntries(
+    await consultationAvailability(),
+    practitioners
+      .filter((p) => p.acceptingNewClients && p.bookable)
+      .map((p) => ({ slug: p.slug, first: p.name.split(' ')[0]! })),
+  );
   return (
     <div>
       <section className="hero" style={{ paddingBottom: 40 }}>
@@ -53,9 +69,27 @@ export default function MessageSentPage() {
           <p className="lede">
             Writing the first message is the part most people find hardest, and it is done. A
             reply comes from a counsellor rather than an assistant, usually within one business
-            day and always within two. Nothing else is needed from you in the meantime, and there
-            is no form to complete before anyone reads it.
+            day. Nothing else is needed from you in the meantime, and there is no form to complete
+            before anyone reads it.
           </p>
+          {nextFree.length > 0 && (
+            <p className="hero-note">
+              Next free call:{' '}
+              {nextFree.map((e, i) => (
+                <span key={e.slug}>
+                  {i > 0 ? ' · ' : ''}
+                  <BookLink
+                    location="next-message-sent"
+                    className=""
+                    href={bookHrefFor(practitioners.filter((p) => p.slug === e.slug))}
+                  >
+                    {e.day} with {e.first}
+                  </BookLink>
+                </span>
+              ))}
+              {PACIFIC}
+            </p>
+          )}
         </div>
       </section>
 
@@ -68,13 +102,14 @@ export default function MessageSentPage() {
             <ul>
               <li>
                 <strong>A reply within one business day</strong>, written by your counsellor
-                rather than an assistant or an automated system. This is a solo practice, so the
-                person who reads your message is the person you would be working with.
+                rather than an assistant or an automated system. The counsellor your message is
+                for is the one who reads it and answers it.
                 <MeasuredReply />
               </li>
               <li>
                 <strong>A copy is in your inbox</strong>, so you have a record of what you sent.
-                Check spam if it has not appeared within a few minutes.
+                Check spam if it has not appeared within a few minutes. Forgot something, like a
+                phone number? Reply to the copy in your inbox; no need to send the form again.
               </li>
               <li>
                 <strong>The reply will be a real answer</strong>, including, where it is the

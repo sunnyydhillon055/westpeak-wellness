@@ -20,6 +20,8 @@ import { sessionFeesPhrase, sessionLengthsLine } from '@/lib/book-fees';
 import { shortAvailabilityLine } from '@/lib/book-card';
 import MailLink from '@/components/MailLink';
 import BookLink from '@/components/BookLink';
+import BookArrive from '@/components/BookArrive';
+import { arriveDetailFor } from '@/lib/book-arrive';
 import { planYearPageLineShown, YEAR_END_PATH } from '@/lib/seasonal';
 import { FirstSessionRows } from '@/components/FirstSessionRow';
 import { notTakingLine, WHO_FINDS_OUT, CAMERA_OPTIONAL } from '@/lib/practice-facts';
@@ -289,6 +291,8 @@ export default async function Book({
 
   return (
     <>
+      {/* Counts the arrival, once per session (3 Oct 2026). */}
+      <BookArrive detail={arriveDetailFor(asked?.slug)} />
       {/* ======================================================================
           SLIMMED 3 Sep 2026, AND THE REASON IS THE ORDER, NOT THE LENGTH.
 
