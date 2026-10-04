@@ -1412,6 +1412,9 @@ export default async function AdminPage({
           <p style={{ marginBottom: 0 }}>
             <Link href="/admin/revenue">Every invoice by month, with the session, type and payment behind it</Link>
           </p>
+          <p style={{ marginBottom: 0 }}>
+            <Link href="/admin/unpaid">Upcoming paid sessions with no payment in Cliniko</Link>
+          </p>
         </div>
 
         {/* ---------------------------------------------------------- CLINIKO */}

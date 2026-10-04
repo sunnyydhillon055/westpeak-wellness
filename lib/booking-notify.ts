@@ -10,6 +10,9 @@ import { site, CONSULT_TYPE, bookingsPaidUrlFor } from '@/lib/site';
 import { durationOf, isConsultAppointment } from '@/lib/booking-shape';
 import { practitioners, withLetters, type Practitioner } from '@/lib/practitioners';
 import { FALLBACK_CATALOG, money, readCatalog } from '@/lib/cliniko-catalog';
+import { paymentStatus, paymentLine, type InvoiceRead, type PaymentStatus } from '@/lib/payment-status';
+import { readInvoices, upcomingPaid, isPaidType } from '@/lib/unpaid-bookings';
+import { initials } from '@/lib/cliniko-invoice-detail';
 import { formatPacific } from '@/lib/pacific-time';
 import { shell, p, esc } from '@/lib/booking-mail';
 import { mailtoBookingDraft } from '@/lib/reply-templates';
@@ -75,13 +78,17 @@ const KEY = 'portal/notified.json';
                       sent because it was not the first with that counsellor
                       and the next one was already booked. Recorded so the
                       decision is made once and can be read back. */
-type Ledger = {
+/* `unpaidAlerted` added 3 Oct 2026: appointment ids the practice has been
+     told are a paid type, still to come, with no paid invoice. Once each,
+     whether by the booking notice or the unpaid notice. See
+     lib/payment-status.ts. */
+export type Ledger = {
   confirmed: string[]; followedUp: string[]; reminded: string[]; alerted: string[]; cancelAlerted: string[];
-  unconvertedAlerted: string[]; tallied: string[]; lapsedAlerted: string[]; followUpSkipped: string[]; updatedAt: string;
+  unconvertedAlerted: string[]; tallied: string[]; lapsedAlerted: string[]; followUpSkipped: string[]; unpaidAlerted: string[]; updatedAt: string;
   /** Not stored. True when the ledger exists but could not be read. */
   readFailed?: boolean;
 };
-const EMPTY: Ledger = { confirmed: [], followedUp: [], reminded: [], alerted: [], cancelAlerted: [], unconvertedAlerted: [], tallied: [], lapsedAlerted: [], followUpSkipped: [], updatedAt: '' };
+const EMPTY: Ledger = { confirmed: [], followedUp: [], reminded: [], alerted: [], cancelAlerted: [], unconvertedAlerted: [], tallied: [], lapsedAlerted: [], followUpSkipped: [], unpaidAlerted: [], updatedAt: '' };
 
 async function readLedger(): Promise<Ledger> {
   if (!process.env.BLOB_READ_WRITE_TOKEN) return EMPTY;
@@ -102,6 +109,7 @@ async function readLedger(): Promise<Ledger> {
       tallied: Array.isArray(v.tallied) ? v.tallied : [],
       lapsedAlerted: Array.isArray(v.lapsedAlerted) ? v.lapsedAlerted : [],
       followUpSkipped: Array.isArray(v.followUpSkipped) ? v.followUpSkipped : [],
+      unpaidAlerted: Array.isArray(v.unpaidAlerted) ? v.unpaidAlerted : [],
       updatedAt: v.updatedAt ?? '',
     };
   } catch {
@@ -122,7 +130,7 @@ async function writeLedger(l: Ledger): Promise<void> {
        6,000 is far more than the 136-day window ever holds, which is what
        matters, since a key trimmed while its appointment is still in the
        window would be counted again. */
-    JSON.stringify({ confirmed: trim(l.confirmed), followedUp: trim(l.followedUp), reminded: trim(l.reminded), alerted: trim(l.alerted), cancelAlerted: trim(l.cancelAlerted), unconvertedAlerted: trim(l.unconvertedAlerted), tallied: trim(l.tallied, 6000), lapsedAlerted: trim(l.lapsedAlerted), followUpSkipped: trim(l.followUpSkipped), updatedAt: new Date().toISOString() }, null, 2),
+    JSON.stringify({ confirmed: trim(l.confirmed), followedUp: trim(l.followedUp), reminded: trim(l.reminded), alerted: trim(l.alerted), cancelAlerted: trim(l.cancelAlerted), unconvertedAlerted: trim(l.unconvertedAlerted), tallied: trim(l.tallied, 6000), lapsedAlerted: trim(l.lapsedAlerted), followUpSkipped: trim(l.followUpSkipped), unpaidAlerted: trim(l.unpaidAlerted), updatedAt: new Date().toISOString() }, null, 2),
     { access: 'private', contentType: 'application/json', addRandomSuffix: false, allowOverwrite: true, cacheControlMaxAge: 0 }
   );
 }
@@ -161,6 +169,10 @@ const fmt = (iso: string) => {
   }
 };
 
+/** Where the ledger lives. Blob by default; a test passes its own. */
+export type LedgerStore = { read(): Promise<Ledger>; write(l: Ledger): Promise<void> };
+const blobStore: LedgerStore = { read: readLedger, write: writeLedger };
+
 export type NotifyResult = {
   ok: boolean;
   confirmations: number;
@@ -183,6 +195,11 @@ export type NotifyResult = {
   lapsed: number;
   /** Dry runs only: the last-session appointment ids that would be noticed. */
   lapsedCandidates?: string[];
+  /** Notices to the practice: upcoming paid-type appointments with no paid
+      invoice. One message per run listing every new one. */
+  unpaid: number;
+  /** Dry runs only: the appointment ids that would be in that notice. */
+  unpaidCandidates?: string[];
   /** repeatFollowUp: paid after-session notes not sent because the next
       session was already booked and it was not the first with her. */
   skipped: { noEmail: number; alreadySent: number; repeatFollowUp: number };
@@ -262,9 +279,10 @@ function unconvertedDraftFor(ap: any, who: { firstName: string; email: string },
   });
 }
 
-export async function runBookingNotifications(opts: { dry?: boolean } = {}): Promise<NotifyResult> {
+export async function runBookingNotifications(opts: { dry?: boolean; store?: LedgerStore } = {}): Promise<NotifyResult> {
+  const store = opts.store ?? blobStore;
   const base: NotifyResult = {
-    ok: false, confirmations: 0, reminders: 0, followUps: 0, missed: 0, alerts: 0, cancellations: 0, unconverted: 0, tallied: 0, lapsed: 0,
+    ok: false, confirmations: 0, reminders: 0, followUps: 0, missed: 0, alerts: 0, cancellations: 0, unconverted: 0, tallied: 0, lapsed: 0, unpaid: 0,
     skipped: { noEmail: 0, alreadySent: 0, repeatFollowUp: 0 }, failures: [],
   };
 
@@ -316,7 +334,7 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
     return { ...base, reason: e instanceof Error ? e.message : 'request failed' };
   }
 
-  const ledger = await readLedger();
+  const ledger = await store.read();
   const confirmed = new Set(ledger.confirmed);
   const followedUp = new Set(ledger.followedUp);
   const reminded = new Set(ledger.reminded);
@@ -340,6 +358,27 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
   const result = { ...base, ok: true };
   const alerted = new Set(ledger.alerted);
   const cancelAlerted = new Set(ledger.cancelAlerted);
+  const unpaidAlerted = new Set(ledger.unpaidAlerted);
+
+  /* PAYMENT, READ NOT ASSUMED — 3 Oct 2026. Every booking notice for a paid
+     type used to say the card was taken by Cliniko at booking. It was not,
+     for at least one. Invoices are read (GETs, bounded, per client) only for
+     the paid-type appointments this run will speak about: bookings about to
+     be announced, and upcoming ones not yet listed. lib/payment-status.ts
+     says what counts as paid. */
+  const catalog = await readCatalog();
+  const aboutToAnnounce = (ap: any) => !ap.cancelled_at && !ap.archived_at && !alerted.has(String(ap.id))
+    && now - Date.parse(ap.created_at ?? '') < 3 * 864e5;
+  const toCheck = appts.filter((ap) => isPaidType(ap, catalog)
+    && (aboutToAnnounce(ap) || (upcomingPaid([ap], now, catalog).length > 0 && !unpaidAlerted.has(String(ap.id)))));
+  let invoiceReads = new Map<string, InvoiceRead>();
+  try {
+    invoiceReads = await readInvoices(conn, toCheck);
+  } catch {
+    /* Each appointment then reads as unknown, never as paid. */
+  }
+  const paymentOf = (ap: any): PaymentStatus =>
+    paymentStatus(ap, invoiceReads.get(String(ap.id)) ?? { error: 'invoices not read this run' }, catalog);
 
   /* THE PRACTICE IS TOLD — 28 Sep 2026.
    *
@@ -374,7 +413,7 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
       ['Appointment', t.label],
       ['When', when],
       ['With', pr ? pr.name : '(not on the roster)'],
-      ...(kind === 'booked' ? [['Payment', t.paid ? 'Paid type: the card is taken by Cliniko at booking' : 'Free, nothing charged'] as [string, string]] : []),
+      ...(kind === 'booked' ? [paymentLine(paymentOf(ap))] : []),
       ...(kind === 'booked' && ap.created_at ? [['Booked at', fmt(ap.created_at)] as [string, string]] : []),
       ...(kind === 'cancelled' && ap.cancelled_at ? [['Cancelled at', fmt(ap.cancelled_at)] as [string, string]] : []),
       ...(kind === 'cancelled' && ap.cancellation_note ? [['Note', String(ap.cancellation_note)] as [string, string]] : []),
@@ -503,7 +542,12 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
         if (opts.dry) result.alerts++;
         else {
           const sent = await sendDetailed(recipients(ap), mail.subject, mail.text, mail.html, { replyTo: site.email });
-          if (sent.ok) { alerted.add(id); result.alerts++; }
+          if (sent.ok) {
+            alerted.add(id); result.alerts++;
+            /* The notice said NOT RECEIVED, which is the alert. A second
+               message about the same booking would be noise. */
+            if (paymentOf(ap).state === 'not-received' && upcomingPaid([ap], now, catalog).length) unpaidAlerted.add(id);
+          }
           else result.failures.push(`alert ${id}: ${sent.detail ?? 'failed'}`);
         }
       } else alerted.add(id);
@@ -735,6 +779,52 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
     else result.failures.push(`lapsed ${ap.id}: ${sent.detail ?? 'failed'}`);
   }
 
+  /* UPCOMING PAID SESSIONS WITH NO PAYMENT — 3 Oct 2026.
+   *
+   * To the practice inbox only, never to a client and never to a counsellor's
+   * own address. One message per run, listing every upcoming paid-type
+   * appointment newly found with no paid invoice; each is listed once, ever.
+   * Initials only, no notes. Skipped when the ledger could not be read, or
+   * every one would be listed again. Could-not-be-checked is not listed: it is
+   * not evidence of anything, and /admin/unpaid shows it. */
+  const unpaid: any[] = ledger.readFailed ? [] : upcomingPaid(appts, now, catalog)
+    .filter((ap) => !unpaidAlerted.has(String(ap.id)) && paymentOf(ap).state === 'not-received');
+  if (opts.dry) result.unpaidCandidates = unpaid.map((ap) => String(ap.id));
+  if (unpaid.length) {
+    const heads = ['Appointment', 'When', 'Type', 'With', 'Client', 'Payment'];
+    const rows: string[][] = [];
+    for (const ap of unpaid) {
+      const purl = ap.patient?.links?.self;
+      const who = purl ? await patient(purl) : null;
+      const [, pay] = paymentLine(paymentOf(ap));
+      rows.push([
+        String(ap.id), fmt(ap.starts_at), typeFor(ap).label.split(',')[0],
+        practitionerFor(ap)?.name ?? '(not on the roster)',
+        who ? initials(who.firstName === 'there' ? '' : who.firstName, who.lastName) : 'unknown',
+        pay,
+      ]);
+    }
+    const n = unpaid.length;
+    const lead = `${n === 1 ? 'An upcoming paid session has' : `${n} upcoming paid sessions have`} no paid Cliniko invoice. The website cannot book or charge, so ${n === 1 ? 'it was' : 'these were'} booked in Cliniko directly, or its payment step was skipped.`;
+    const how = 'Open each in Cliniko and invoice it, or take payment, before the session. Nothing has been sent to the client.';
+    const subject = `Payment not received: ${n} upcoming session${n === 1 ? '' : 's'}`;
+    const text = [lead, '', ...rows.map((r) => r.map((v, i) => `${heads[i].padEnd(12)} ${v}`).join('\n') + '\n'), how, '', 'Each appointment is listed once.'].join('\n');
+    const html = shell(
+      'Payment not received',
+      p(esc(lead)) +
+      rows.map((r) => `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 14px;font-size:14px;line-height:1.7;">${r.map((v, i) => `<tr><td style="color:#545e69;padding-right:14px;">${esc(heads[i])}</td><td>${esc(v)}</td></tr>`).join('')}</table>`).join('') +
+      p(esc(how)) +
+      p('<span style="color:#545e69;font-size:14px;">Each appointment is listed once.</span>'),
+      'Upcoming paid sessions with no payment',
+    );
+    if (opts.dry) result.unpaid = n;
+    else {
+      const sent = await sendDetailed(site.email, subject, text, html, { replyTo: site.email });
+      if (sent.ok) { for (const ap of unpaid) unpaidAlerted.add(String(ap.id)); result.unpaid = n; }
+      else result.failures.push(`unpaid: ${sent.detail ?? 'failed'}`);
+    }
+  }
+
   /* THE MONTHLY TALLY. Counts only; see lib/booking-tally.ts. The keys join
      the ledger only once the tally has been written, so a failed write means
      the same events are tried next run rather than lost or counted twice.
@@ -768,9 +858,10 @@ export async function runBookingNotifications(opts: { dry?: boolean } = {}): Pro
   const ledgerChanged = result.confirmations > 0 || result.reminders > 0 || result.followUps > 0
     || alerted.size !== ledger.alerted.length || cancelAlerted.size !== ledger.cancelAlerted.length
     || unconvertedAlerted.size !== ledger.unconvertedAlerted.length || tallied.size !== ledger.tallied.length
-    || lapsedAlerted.size !== ledger.lapsedAlerted.length || followUpSkipped.size !== ledger.followUpSkipped.length;
+    || lapsedAlerted.size !== ledger.lapsedAlerted.length || followUpSkipped.size !== ledger.followUpSkipped.length
+    || unpaidAlerted.size !== ledger.unpaidAlerted.length;
   if (!opts.dry && ledgerChanged) {
-    await writeLedger({ confirmed: [...confirmed], followedUp: [...followedUp], reminded: [...reminded], alerted: [...alerted], cancelAlerted: [...cancelAlerted], unconvertedAlerted: [...unconvertedAlerted], tallied: [...tallied], lapsedAlerted: [...lapsedAlerted], followUpSkipped: [...followUpSkipped], updatedAt: '' });
+    await store.write({ confirmed: [...confirmed], followedUp: [...followedUp], reminded: [...reminded], alerted: [...alerted], cancelAlerted: [...cancelAlerted], unconvertedAlerted: [...unconvertedAlerted], tallied: [...tallied], lapsedAlerted: [...lapsedAlerted], followUpSkipped: [...followUpSkipped], unpaidAlerted: [...unpaidAlerted], updatedAt: '' });
   }
 
   return result;
