@@ -66,7 +66,7 @@ const BLOCKS: { h: string; p: string; href: string; cta: string }[] = [
   },
   {
     h: 'English, Punjabi or Tagalog',
-    p: 'Any session can run in either language, or move between the two. For a lot of people that is the difference between explaining a feeling and actually having it understood.',
+    p: 'A session can run in English or in your counsellor’s other language, or move between the two. For a lot of people that is the difference between explaining a feeling and actually having it understood.',
     href: '/punjabi',
     cta: 'ਪੰਜਾਬੀ ਵਿੱਚ',
   },
@@ -124,7 +124,7 @@ export default function About() {
               working in English, Punjabi and Tagalog with Registered Clinical Counsellors.
             </p>
             <p className="direct-answer">
-              Westpeak Wellness is an online counselling practice founded in British Columbia and serving all of BC and Alberta by secure video. Its counsellors are Registered Clinical Counsellors with the BC Association of Clinical Counsellors, offering individual, couples, family, EMDR and trauma therapy in English, Punjabi and Tagalog. There is no waitlist; the first 30-minute consultation is free.
+              Westpeak Wellness is an online counselling practice founded in British Columbia and serving all of BC and Alberta by secure video. Its counsellors are Registered Clinical Counsellors with the BC Association of Clinical Counsellors, offering individual, couples, family, EMDR and trauma therapy in English and Tagalog, and individual counselling in Punjabi. There is no waitlist; the first 30-minute consultation is free.
             </p>
             <Updated iso={COLLECTION_DATES['practitioners']} />
             <div className="btn-row" style={{ marginTop: 24 }}>
@@ -286,6 +286,19 @@ export default function About() {
             better place to start. We would rather say so than take a booking.{' '}
             <Link href="/resources/low-cost-counselling-bc">Low-cost counselling in BC</Link> lists
             them.
+          </p>
+          {/* FOR JOB SEEKERS, 3 Oct 2026. /careers has 308'd here since the
+              owner retired it on 1 Sep, and the 3 Oct export still shows it at
+              639 impressions and 35 clicks for "virtual counselling jobs bc",
+              "remote counselling jobs bc" and the like: people who wanted a
+              job and arrived at a page that never mentioned one. One honest
+              line, in the owner's own terms (not recruiting, no speculative
+              applications), so they know without having to write in. Not a
+              careers page, which the owner has said not to build yet. */}
+          <p>
+            <strong>Looking for counselling work?</strong> Westpeak is not recruiting at the moment
+            and is not taking speculative applications. The counsellor role advertised earlier
+            this year has closed.
           </p>
         </div>
       </section>
