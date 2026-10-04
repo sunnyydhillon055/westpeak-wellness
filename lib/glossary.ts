@@ -388,8 +388,12 @@ export const glossary: Term[] = [
     also: 'RCC',
     group: 'bc',
     definition:
-      'A designation held through the BC Association of Clinical Counsellors, requiring a master\'s degree in counselling or a closely related field, supervised clinical hours, continuing education, liability insurance and adherence to a code of ethics, with a complaints process behind it.',
-    href: '/compare/rcc-vs-psychologist-vs-social-worker-bc',
+      'A designation held through the BC Association of Clinical Counsellors, requiring a master\'s degree in counselling or a closely related field, supervised clinical hours, continuing education, liability insurance and adherence to a code of ethics, with a complaints process behind it. In BC, “registered counsellor” and “clinical counsellor” almost always mean an RCC.',
+    /* 3 Oct 2026: was the RCC vs psychologist comparison. The RCC page is
+       /resources/verify-a-counsellor-in-bc ("registered clinical counsellor"
+       317 impressions at 23.5, Search Console 3 Oct), and the glossary's
+       definition of the term now points at it. */
+    href: '/resources/verify-a-counsellor-in-bc',
   },
   {
     term: 'Registered Psychologist',
@@ -397,6 +401,14 @@ export const glossary: Term[] = [
     group: 'bc',
     definition:
       'A regulated health professional in BC, typically holding a doctoral degree, and the designation qualified to conduct formal psychological assessment and diagnosis. Regulated by the College of Health and Care Professionals of BC.',
+    href: '/compare/psychologist-vs-psychiatrist-bc',
+  },
+  {
+    term: 'Psychiatrist',
+    group: 'bc',
+    definition:
+      'A medical doctor who has gone on to five years of residency in psychiatry. Diagnoses, prescribes and manages medication. In BC a psychiatrist is reached by referral from a physician or nurse practitioner, and MSP pays.',
+    href: '/resources/psychiatry-and-assessment-in-bc',
   },
   {
     term: 'Registered Social Worker',
@@ -410,7 +422,14 @@ export const glossary: Term[] = [
     also: 'CCC',
     group: 'bc',
     definition:
-      'A national certification through the Canadian Counselling and Psychotherapy Association. Some BC counsellors hold both CCC and RCC. Whether a given plan reimburses one, both or neither varies and is worth checking before booking.',
+      'A national certification through the Canadian Counselling and Psychotherapy Association. Some BC counsellors hold both CCC and RCC. Whether a given plan reimburses one, both or neither varies and is worth checking before booking. In Alberta, where counselling is not yet regulated, it is the credential plans most often name.',
+    href: '/resources/how-to-check-a-counsellor-in-alberta',
+  },
+  {
+    term: 'Licensed counsellor',
+    group: 'bc',
+    definition:
+      'An American title with no BC equivalent. British Columbia does not license counsellors; what exists is registration, such as the RCC through BCACC, or R.Psych and RSW through their colleges. Psychotherapy becomes a regulated profession in BC on 29 November 2027.',
   },
   {
     term: 'Unprotected titles',
@@ -426,6 +445,14 @@ export const glossary: Term[] = [
     definition:
       'British Columbia\'s public health insurance. It covers medically necessary physician services, including psychiatry with a referral. It does not cover counselling delivered in private practice by a Registered Clinical Counsellor.',
     href: '/resources/msp-vs-extended-health',
+  },
+  {
+    term: 'AHCIP',
+    also: 'Alberta Health Care Insurance Plan',
+    group: 'bc',
+    definition:
+      'Alberta\'s public health insurance, the Alberta counterpart of MSP. It covers physician services, including psychiatry on referral, and does not cover counselling in private practice.',
+    href: '/resources/counselling-coverage-in-alberta',
   },
   {
     term: 'Extended health benefits',

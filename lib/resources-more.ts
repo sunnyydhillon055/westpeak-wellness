@@ -283,11 +283,18 @@ export const moreResources: Resource[] = [
        answers. The definition now lives here, the other URL redirects, and
        one page carries the signal two were dividing. */
     metaTitle: 'Registered Clinical Counsellor (RCC): Meaning, BCACC Lookup',
+    /* 3 Oct 2026: the description now carries the head query in full.
+       Search Console 3 Oct: 1,581 impressions at 13.55 and 6 clicks (0.38%);
+       "registered clinical counsellor" 317 at 23.5 and "registered
+       counsellor" 124 at 28, no clicks, and the old description said only
+       "RCC". The top results for that query are directories and booking
+       pages, so it also says how to find one. Title unchanged since 26 Sep
+       so the next export measures one change at a time. */
     metaDescription:
-      "What RCC means after a counsellor’s name in BC, how it differs from “licensed” or “registered counsellor”, and the free four-minute register check.",
+      "What a Registered Clinical Counsellor (RCC) is in BC, what “registered” and “licensed counsellor” mean, the free BCACC register check, and how to find one.",
     eyebrow: 'BC resource',
     lede:
-      'This takes about four minutes and almost nobody does it. It is the single most useful piece of due diligence available to you.',
+      'RCC is the set of letters most BC counsellors put after their name. Here is what it certifies, what it does not, and the four-minute check that confirms it.',
     /* 1 Oct 2026 (item 269): the answer now opens with what an RCC is, in the
        same words as home, /book and the TrustBar (RCC_PLAIN), so the speakable
        selector (R2 #160) reads a definition first. Most of the 1,515
@@ -297,8 +304,8 @@ export const moreResources: Resource[] = [
     shortAnswer:
       `A Registered Clinical Counsellor (RCC) in BC is a counsellor with ${RCC_PLAIN}. It is a professional registration, not a government licence; psychotherapy becomes regulated in BC on 29 November 2027. You can check any RCC free on the BCACC register. ` +
       'To check anyone, ask which designation the person holds and which body holds it, then search that body’s public register yourself: BCACC for a Registered Clinical Counsellor, the College of Health and Care Professionals of BC for a psychologist, the BC College of Social Workers for a social worker. If they hold no designation with any body, there is no complaints process and no minimum standard behind the title.',
-    updated: '2026-09-26',
-    readMinutes: 6,
+    updated: '2026-10-03',
+    readMinutes: 7,
     /* 1 Oct 2026 (finishes round 1 #83). Most of this page's 1,515 impressions
        are people looking for an RCC, not checking one: 'registered clinical
        counsellor' 359 at position 27. The page named the two RCCs here once,
@@ -327,7 +334,26 @@ export const moreResources: Resource[] = [
           /* The sentence naming the two RCCs here moved up to afterShortAnswer,
              with their reach, services and the fee, 1 Oct 2026. */
           'What the designation is *not*: a government licence. That distinction is not a technicality in British Columbia, and it has its own section below, because it is the thing most pages on this subject skate past.',
+          /* BCACC news release, 12 Aug 2026, read 3 Oct 2026 (sources). */
+          'It is also the designation you are most likely to meet. In August 2026 BCACC reported 10,000 Registered Clinical Counsellors, about 90% of the clinical counsellors and psychotherapists in BC.',
         ],
+        /* 3 Oct 2026: the definition as a table, the shape the top results
+           for "registered clinical counsellor" (317 impressions at 23.5) and
+           "what is a registered clinical counsellor" give and this page did
+           not. Every row repeats a fact sourced elsewhere on the page. */
+        table: {
+          columns: ['Registered Clinical Counsellor (RCC)', 'In BC'],
+          rows: [
+            ['Granted by', 'The BC Association of Clinical Counsellors (BCACC), since 1988'],
+            ['Minimum training', 'A master’s degree in counselling or a closely related field, plus supervised clinical hours'],
+            ['Kept up by', 'Liability insurance, continuing education, and the BCACC code of ethics and complaints process'],
+            ['A government licence?', 'No. A professional registration; psychotherapy becomes a regulated profession in BC on 29 November 2027'],
+            ['Can diagnose or prescribe?', 'No. Counselling and psychotherapy; diagnosis and medication sit with physicians, psychologists and some clinical social workers'],
+            ['Covered by MSP?', 'No. Many extended health plans reimburse an RCC, depending on the plan'],
+            ['How many in BC', '10,000, about 90% of BC’s clinical counsellors and psychotherapists (BCACC, August 2026)'],
+            ['How to check one', 'The RCC Register on bcacc.ca, free, by name or registration number'],
+          ],
+        },
       },
       /* 1 Oct 2026 (item 269): was "RCC, CCC, RSW, R.Psych, a thirty-second
          orientation", the last section on the page. Renamed to the phrases
@@ -372,9 +398,9 @@ export const moreResources: Resource[] = [
         h2: 'What each designation actually requires',
         body: [
           'A **Registered Clinical Counsellor (RCC)** holds a master\'s degree in counselling or a closely related field, has completed supervised clinical hours, maintains continuing education and liability insurance, and works under the BCACC code of ethics.',
-          'A **Registered Psychologist (R.Psych)** typically holds a doctoral degree and is a regulated health professional, the designation qualified to conduct formal psychological assessment and diagnosis, which counsellors are not.',
+          'A **Registered Psychologist (R.Psych)** typically holds a doctoral degree and is a regulated health professional, the designation qualified to conduct formal psychological assessment and diagnosis, which counsellors are not. A psychiatrist is a medical doctor, which is a different road again: [psychologist vs psychiatrist in BC](/compare/psychologist-vs-psychiatrist-bc) sets the two side by side.',
           'A **Registered Social Worker (RSW)** is regulated by the BC College of Social Workers; the RCSW designation denotes clinical specialisation. Many social workers in clinical practice provide counselling.',
-          'A **Canadian Certified Counsellor (CCC)** holds a national certification through the Canadian Counselling and Psychotherapy Association. Some BC counsellors hold both CCC and RCC.',
+          'A **Canadian Certified Counsellor (CCC)** holds a national certification through the Canadian Counselling and Psychotherapy Association. Some BC counsellors hold both CCC and RCC. In Alberta, where counselling is not a regulated profession, the CCC is the credential that carries the weight: [how to check a counsellor in Alberta](/resources/how-to-check-a-counsellor-in-alberta).',
           '[The full comparison](/compare/rcc-vs-psychologist-vs-social-worker-bc) sets out what each can and cannot do, which matters if you need something specific like a formal assessment.',
         ],
       },
@@ -420,6 +446,13 @@ export const moreResources: Resource[] = [
          switch her listing off, and one of this practice's own counsellors
          has. The register is the check. */
       { q: 'How do I use the BCACC Find a Counsellor tool?', a: 'BCACC has two tools, and they answer different questions. Find a Counsellor, at bc-counsellors.org, is for finding someone: filter by city, concern, language and whether they offer online sessions. It lists only RCCs who choose to be listed, so a counsellor missing from it tells you nothing. To check a particular counsellor, use the RCC Register instead (bcacc.ca/search-our-member-register): search by name or registration number, and it shows whether the registration is active and any notes.' },
+      /* 3 Oct 2026: "registered clinical counsellor" 317 at 23.5 and
+         "registered counsellor" 124 at 28 lead to directories and booking
+         pages, so the finding question is answered beside the checking one;
+         "what is bcacc" 5 at 12.4 had no answer in those words. */
+      { q: 'How do I find a Registered Clinical Counsellor in BC?', a: 'Two places. BCACC’s Find a Counsellor directory, at bc-counsellors.org, lists the RCCs who choose to be listed and filters by city, concern, language and online sessions. A practice’s own website should name each counsellor’s designation and registration number, which you can then confirm on the RCC Register. Many RCCs work by secure video anywhere in BC, so where you live limits the choice less than it once did, and many offer a free first conversation to check fit before any paid session.' },
+      { q: 'What is BCACC?', a: 'The BC Association of Clinical Counsellors, founded in 1988: the professional association that grants the RCC designation, keeps the public RCC Register and runs a complaints process for its registrants. It is the largest association for clinical counsellors and psychotherapists in BC. It is not a government regulator; psychotherapy comes under the College of Health and Care Professionals of BC on 29 November 2027.' },
+      { q: 'How many Registered Clinical Counsellors are there in BC?', a: 'BCACC reported 10,000 Registered Clinical Counsellors in August 2026, about 90% of the clinical counsellors and psychotherapists in the province.' },
       { q: 'What does RCC stand for?', a: 'Registered Clinical Counsellor: the designation granted by the BC Association of Clinical Counsellors (BCACC) to counsellors who meet its education, supervision, insurance and ethics requirements. It is a BC designation; the national equivalent from the Canadian Counselling and Psychotherapy Association is CCC, Canadian Certified Counsellor.' },
       { q: 'Is a registered counsellor the same as a Registered Clinical Counsellor?', a: 'In BC, in practice, yes: when a website or an insurer says "registered counsellor" it almost always means an RCC, because BCACC is the BC association that grants the designation. The precise question to ask is which register the person is on, since "registered" on its own could refer to any association, including ones with no clinical requirements.' },
       { q: 'What is the difference between an RCC and a psychologist?', a: 'Training level and scope. A registered psychologist in BC holds a doctorate, is regulated under the College of Health and Care Professionals of BC, and can formally diagnose and conduct psychological assessments. An RCC holds a master\'s degree, is registered with a professional association rather than a regulatory college until 2027, and provides counselling and psychotherapy but does not diagnose. For talk therapy the two overlap heavily; for a diagnosis or an assessment you need the psychologist. Fees differ accordingly.' },
@@ -440,11 +473,13 @@ export const moreResources: Resource[] = [
       { label: 'BCACC, RCC Register (to verify a counsellor)', url: 'https://bcacc.ca/search-our-member-register/' },
       { label: 'BCACC, Find a Counsellor (an opt-in directory, to find one)', url: 'https://bc-counsellors.org/counsellors/' },
       { label: 'BCACC, complaints and investigations', url: 'https://bcacc.ca/complaints-and-investigations/' },
+      { label: 'BCACC, who we are (founded 1988; read 3 Oct 2026)', url: 'https://bcacc.ca/about-us/' },
+      { label: 'BCACC news release, RCCs surpass the 10,000 mark, 12 Aug 2026 (read 3 Oct 2026)', url: 'https://www.newswire.ca/news-releases/bcacc-s-registered-clinical-counsellors-rccs-surpass-the-10-000-mark-strengthening-access-to-professional-mental-health-care-across-bc-855452758.html' },
       { label: 'College of Health and Care Professionals of BC', url: 'https://chcpbc.org/' },
       { label: 'BC College of Social Workers', url: 'https://bccsw.ca/' },
     ],
     related: [
-            { href: '/compare/rcc-vs-psychologist-vs-social-worker-bc', label: 'RCC vs psychologist vs social worker' },
+      { href: '/compare/rcc-vs-psychologist-vs-social-worker-bc', label: 'RCC vs psychologist vs social worker' },
       { href: '/guides/questions-to-ask-a-therapist', label: 'Questions to ask a therapist' },
       { href: '/guides/how-to-find-a-therapist-in-bc', label: 'How to find a therapist in BC' },
       { href: '/standards', label: 'Standards and accountability' },
@@ -472,7 +507,7 @@ export const moreResources: Resource[] = [
       {
         h2: 'Which professional does what',
         list: [
-          { label: 'Psychiatrist', detail: 'A medical doctor specialising in mental health. Diagnoses, prescribes and manages medication, and handles complex presentations. Covered by MSP. Requires a referral from a physician or nurse practitioner.' },
+          { label: 'Psychiatrist', detail: 'A medical doctor specialising in mental health. Diagnoses, prescribes and manages medication, and handles complex presentations. Covered by MSP. Requires a referral from a physician or nurse practitioner. [Psychologist vs psychiatrist in BC](/compare/psychologist-vs-psychiatrist-bc) compares the two side by side.' },
           { label: 'Family physician or nurse practitioner', detail: 'Can diagnose and prescribe for many common presentations, and is the gateway to a psychiatric referral. For a substantial proportion of people, this is the appropriate medical route and psychiatry is not needed.' },
           { label: 'Registered psychologist', detail: 'The designation qualified to conduct formal psychological assessment: ADHD, autism, psychoeducational, cognitive. Does not prescribe. Largely not covered by MSP in private practice.' },
           { label: 'Registered Clinical Counsellor', detail: 'Provides counselling and psychotherapy. Does not diagnose, prescribe or conduct formal assessment. See the [stated scope](/standards).' },
@@ -526,6 +561,8 @@ export const moreResources: Resource[] = [
       { q: 'What is a psychiatric consultation service for primary care?', a: 'In BC, family doctors and nurse practitioners can consult a psychiatrist about a patient without the patient being referred, through services such as the Rapid Access to Consultative Expertise (RACE) line. For you it means your own doctor may be able to get specialist advice on diagnosis or medication within days, when a full psychiatry referral could take months. Ask your doctor whether a consultation, rather than a referral, would answer the question.' },
       { q: 'Can I refer myself to a psychiatrist in BC?', a: 'No. A referral from a physician or nurse practitioner is required. Some urgent-response services can be accessed more directly in a crisis.' },
       { q: 'Does MSP cover a psychologist?', a: 'Psychological services in private practice are generally not covered by MSP. Psychologists working within some public health-authority programmes are, but access is limited and usually programme-specific.' },
+      /* 3 Oct 2026: 'where do i get a psychological assessment' 4 at 62. */
+      { q: 'Where do I get a psychological assessment in BC?', a: 'From a registered psychologist, booked directly and privately; no referral is needed. The BC Psychological Association’s Find a Psychologist search at psychologists.bc.ca lists its member psychologists by city, area of concern and language, and the College of Health and Care Professionals of BC’s public directory confirms that someone is registered. Lower-cost routes are university training clinics, school-district assessments for students, and some health-authority programmes, all with waits. If medication or a medical diagnosis is the question, start with a family doctor or nurse practitioner instead.' },
       { q: 'Can a counsellor diagnose ADHD?', a: 'No. Formal assessment requires a registered psychologist, and diagnosis may also come from a physician or psychiatrist depending on the condition and the purpose.' },
       { q: 'How long do psychiatry waits actually run?', a: 'It varies substantially by region and urgency and can extend to many months for non-urgent referrals. Ask the referring clinician for the current local picture rather than relying on general figures.' },
     ],
@@ -533,8 +570,10 @@ export const moreResources: Resource[] = [
       { label: 'HealthLink BC, call 8-1-1', url: 'https://www.healthlinkbc.ca/' },
       { label: 'BC Provincial Attachment System, Health Connect Registry', url: 'https://www2.gov.bc.ca/gov/content/health/accessing-health-care/bcs-primary-care-system/provincial-attachment-system' },
       { label: 'College of Health and Care Professionals of BC', url: 'https://chcpbc.org/' },
+      { label: 'BC Psychological Association, Find a Psychologist (read 3 Oct 2026)', url: 'https://psychologists.bc.ca/find-psychologist' },
     ],
     related: [
+      { href: '/compare/psychologist-vs-psychiatrist-bc', label: 'Psychologist vs psychiatrist in BC' },
       { href: '/compare/therapy-medication-or-both', label: 'Therapy, medication, or both?' },
       { href: '/standards', label: 'Standards and accountability' },
       { href: '/resources/msp-vs-extended-health', label: 'MSP vs extended health' },

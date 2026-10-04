@@ -1,4 +1,5 @@
 import type { Comparison } from './comparisons';
+import { BCPA_PSYCHOLOGIST, BCPA_EFFECTIVE } from './fee-guides';
 
 /* The second expansion of the compare set — five decisions people actually
  * face, written 2026-08-28.
@@ -421,6 +422,7 @@ export const moreComparisons2: Comparison[] = [
     ],
     related: [
       { href: '/resources/psychiatry-and-assessment-in-bc', label: 'Psychiatry and assessment in BC' },
+      { href: '/compare/psychologist-vs-psychiatrist-bc', label: 'Psychologist vs psychiatrist in BC' },
       { href: '/compare/therapy-medication-or-both', label: 'Therapy, medication, or both' },
       { href: '/compare/rcc-vs-psychologist-vs-social-worker-bc', label: 'RCC vs psychologist vs social worker' },
       { href: '/guides/how-to-find-a-therapist-in-bc', label: 'How to find a therapist in BC' },
@@ -445,14 +447,20 @@ export const moreComparisons2: Comparison[] = [
       'Two titles that share four letters and almost nothing else about how you reach them, what they cost, and what happens in the room.',
     shortAnswer:
       'A psychiatrist is a medical doctor: reached by physician referral, covered by MSP, able to prescribe, and focused in BC’s system on diagnosis, medication and complex conditions. A psychologist holds a doctorate in psychology: booked privately (or via extended health), unable to prescribe, and the one profession that performs formal psychological assessments: ADHD, learning disabilities, cognitive testing. The practical sorting question is not "which is more serious" but which door your situation needs: medication and medical diagnosis point to psychiatry; assessment on paper points to a psychologist; ongoing talk therapy is done by both far less often than people assume. That is mostly counsellors’ and psychologists’ territory, at very different price points.',
-    updated: '2026-08-28',
+    updated: '2026-10-03',
     readMinutes: 6,
     table: {
       columns: ['', 'Psychiatrist', 'Registered Psychologist'],
       rows: [
         ['What they are', 'A physician (MD) with specialty training in psychiatry', 'A doctoral-level clinician (PhD/PsyD) registered with the College of Health and Care Professionals of BC'],
+        /* 3 Oct 2026: the training row the top results for "psychiatrist vs
+           psychologist" lead with. Royal College standard read 3 Oct. */
+        ['Training', 'A medical degree, then 60 months of Royal College psychiatry residency', 'A doctorate in psychology, then supervised practice and registration exams'],
         ['How you reach one', 'Referral from a doctor or nurse practitioner', 'Directly. No referral needed (some insurers ask for a doctor’s note)'],
-        ['Cost in BC', 'MSP-covered', 'Private fee, commonly ~$225–$300+/session; extended health often reimburses'],
+        /* 3 Oct 2026: was "commonly ~$225–$300+/session", a range typed here
+           and sourced nowhere. Now BCPA's published rate, from the one file
+           that holds market fee figures (lib/fee-guides.ts). */
+        ['Cost in BC', 'MSP-covered', `Private. The BC Psychological Association recommends ${BCPA_PSYCHOLOGIST.range} an hour (effective ${BCPA_EFFECTIVE}); each psychologist sets their own fee. Extended health plans commonly reimburse`],
         ['Prescribes medication', 'Yes', 'No'],
         ['Formal assessments (ADHD, psychoeducational, cognitive)', 'Diagnoses clinically; formal psychometric testing is not the usual role', 'Yes. This is the thing only psychologists do'],
         ['Ongoing weekly psychotherapy', 'Uncommon in the BC public system; many consult and hand care back to the GP', 'Some offer it; many focus on assessment. Ask directly'],
@@ -480,7 +488,7 @@ export const moreComparisons2: Comparison[] = [
       },
     ],
     howWeFit: [
-      'Westpeak Wellness is neither of these professions, and this page exists because the practice keeps meeting people who spent months in the wrong queue. What this practice is: a Registered Clinical Counsellor doing the ongoing therapy work, bookable this week, that neither psychiatry’s waitlist nor a psychologist’s assessment calendar is built for.',
+      'Westpeak Wellness is neither of these professions, and this page exists because the practice keeps meeting people who spent months in the wrong queue. What this practice is: [Registered Clinical Counsellors](/resources/verify-a-counsellor-in-bc) doing the ongoing therapy work, booked directly with no referral, that neither psychiatry’s waitlist nor a psychologist’s assessment calendar is built for.',
       'Where the medical or assessment door is yours, the [psychiatry and assessment resource](/resources/psychiatry-and-assessment-in-bc) maps the referral road honestly, and therapy here can start now and coordinate with whichever specialist arrives later, with your written consent.',
     ],
     midCta: {
@@ -488,6 +496,10 @@ export const moreComparisons2: Comparison[] = [
       label: 'Book a free consultation',
     },
     faqs: [
+      /* 3 Oct 2026: "psychiatrist vs psychologist" 9 at 34.2 and its
+         reversals; "psychologist vs psychiatrist for depression" 1 at 36. */
+      { q: 'What is the difference between a psychologist and a psychiatrist?', a: 'A psychiatrist is a medical doctor who can prescribe medication, is reached by referral and is covered by MSP. A psychologist holds a doctorate in psychology, cannot prescribe, is booked directly and privately, and is the one who does formal psychological testing. Both can diagnose.' },
+      { q: 'Should I see a psychologist or a psychiatrist for depression?', a: 'Usually neither first. A family doctor or nurse practitioner can assess depression, start medication if it is wanted and refer to a psychiatrist when a case is complex or not responding. Talk therapy for depression is offered by counsellors and by psychologists who practise therapy, without a referral. If you are thinking about suicide, call or text 9-8-8 now.' },
       { q: 'Is a psychologist a doctor?', a: 'A doctoral-level clinician, yes, PhD or PsyD, but not a medical doctor. Psychologists in BC diagnose and perform formal assessments; they do not prescribe. "Doctor" on a psychologist’s door refers to the doctorate, and the profession is regulated under the College of Health and Care Professionals of BC.' },
       { q: 'Do I need a referral to see a psychologist in BC?', a: 'No, psychologists are booked directly. Some extended-health plans require a physician’s recommendation before they will reimburse sessions, which is a plan rule rather than a legal one. Psychiatrists are the referral-only profession.' },
       { q: 'Who can diagnose ADHD in BC?', a: 'Physicians (including psychiatrists) diagnose clinically, and registered psychologists diagnose through formal psychoeducational assessment. The version that produces the documented report schools, universities and some workplaces require. Counsellors cannot diagnose it, and will say so.' },
@@ -498,13 +510,16 @@ export const moreComparisons2: Comparison[] = [
       { label: 'CAMH, mental illness and addiction index', url: 'https://www.camh.ca/en/health-info/mental-illness-and-addiction-index' },
       { label: 'Canadian Psychiatric Association', url: 'https://www.cpa-apc.org/' },
       { label: 'College of Health and Care Professionals of BC', url: 'https://chcpbc.org/' },
+      { label: 'Royal College of Physicians and Surgeons of Canada, psychiatry training requirements (read 3 Oct 2026)', url: 'https://royalcollege.ca/content/dam/documents/ibd/psychiatry/psychiatry_str_e.html' },
+      { label: 'HereToHelp BC, the difference between a psychiatrist and a registered psychologist (read 3 Oct 2026)', url: 'https://www.heretohelp.bc.ca/ask-us/whats-the-difference-between-a-psychiatrist-and-a-registered-psychologist' },
+      { label: `BC Psychological Association, recommended rate (effective ${BCPA_EFFECTIVE})`, url: BCPA_PSYCHOLOGIST.sourceUrl ?? 'https://psychologists.bc.ca/' },
     ],
     related: [
       { href: '/compare/psychiatrist-vs-counsellor-bc', label: 'Psychiatrist vs counsellor' },
       { href: '/compare/rcc-vs-psychologist-vs-social-worker-bc', label: 'RCC vs psychologist vs social worker' },
       { href: '/resources/psychiatry-and-assessment-in-bc', label: 'Psychiatry and assessment in BC' },
       { href: '/compare/therapy-medication-or-both', label: 'Therapy, medication, or both' },
-      { href: '/resources/verify-a-counsellor-in-bc', label: 'What is an RCC?' },
+      { href: '/resources/verify-a-counsellor-in-bc', label: 'What a Registered Clinical Counsellor is' },
     ],
   },
 

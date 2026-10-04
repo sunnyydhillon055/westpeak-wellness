@@ -245,7 +245,7 @@ export const moreResources2: Resource[] = [
         h2: 'Canada Life and counselling',
         body: [
           'Canada Life, which absorbed Great-West Life, administers plans with a similar range. The member site lists paramedical practitioners and maximums; plans that cover counsellors commonly do so under a mental-health practitioner benefit alongside psychologists and social workers.',
-          'What to check: the designation, the maximum, and, for anyone in Alberta, whether the plan names the Canadian Certified Counsellor rather than the RCC. Alberta plans more often do, because counselling is not a regulated profession there.',
+          'What to check: the designation, the maximum, and, for anyone in Alberta, whether the plan names the Canadian Certified Counsellor rather than the RCC. Alberta plans more often do, because counselling is not a regulated profession there; [counselling coverage in Alberta](/resources/counselling-coverage-in-alberta) covers what Alberta Health Care does and does not pay.',
         ],
       },
       {
