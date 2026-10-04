@@ -153,3 +153,28 @@ export function sitewideDescription(max = SNIPPET_MAX): string {
     `${lead}, in ${l.individual}.`,
   ], max);
 }
+
+/* THE FACTS WITHOUT THE NAMES — 3 Oct 2026 (items 408, 414, 458).
+ *
+ * The informational pages that rank on page one (the plan-coverage resource
+ * at 6.2, the waiting guide at 7.5, the MSP resource at 10.2) carried no fee
+ * at all, and their leads are answers that cannot be cut short enough to sit
+ * beside two names inside SNIPPET_MAX. The fee and the free consult are the
+ * two facts a reader choosing a result is looking for; the names are on the
+ * page. Same catalogue, same "never cut" rule: withSnippet still drops the
+ * whole tail rather than trim a sentence. */
+export function feeSnippet(catalog: Catalog, bookingService = 'individual-therapy'): string | undefined {
+  const fee = feeFor(catalog, { bookingService });
+  return fee ? snippetFacts({ fee }) : undefined;
+}
+
+/* One named counsellor and her own lowest fee: "Camille Granda, CCC: from …".
+ * For a page written for a province where one counsellor is the only person
+ * who can see the reader (the Alberta coverage resource). The letters are
+ * passed in, never a registration number, which lives on her profile alone.
+ * Nothing for a counsellor not taking new clients, as profileSnippet. */
+export function namedProfileSnippet(catalog: Catalog, p: Practitioner, letters?: string): string | undefined {
+  const facts = profileSnippet(catalog, p);
+  if (!facts) return undefined;
+  return `${p.name}${letters ? `, ${letters}` : ''}: ${facts.charAt(0).toLowerCase()}${facts.slice(1)}`;
+}

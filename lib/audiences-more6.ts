@@ -17,7 +17,10 @@ export const moreAudiences6: Audience[] = [
     figure: 'anxiety-avoidance-cycle',
     figure2: 'first-session-flow',
     title: 'Counselling for men in BC',
-    metaTitle: 'Counselling for Men in BC | Online, Direct | Westpeak',
+    /* 3 Oct 2026 (item 465): 'british columbia online therapy for men' at
+       16 and 'victoria online therapy for men' at 18 in that day's export;
+       the title said neither online therapy nor therapy. */
+    metaTitle: 'Online Therapy and Counselling for Men in BC | Westpeak',
     metaDescription:
       'Counselling for men across BC by video: anger, stress, burnout, drinking that crept up, a relationship on the edge. Free 30-minute consultation.',
     eyebrow: 'For · Men',

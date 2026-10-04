@@ -316,7 +316,11 @@ const coreGuides: Guide[] = [
     figure2: "first-session-flow",
     figure: "anxiety-avoidance-cycle",
     title: "High-functioning anxiety: when everything looks fine from outside",
-    metaTitle: "High-Functioning Anxiety: Signs | Westpeak Wellness",
+    /* 3 Oct 2026 (item 466): 'high functioning anxiety therapy' 38
+       impressions at 87.9 while the guide climbed 65 → 51 → 31; the page
+       already has "What actually helps" and "Do I need therapy if I am
+       coping?". */
+    metaTitle: "High-Functioning Anxiety: Signs, and the Therapy That Helps",
     metaDescription:
       "High-functioning anxiety is not a diagnosis, but the pattern is real: driven, capable, and exhausted. What it looks like and what helps.",
     eyebrow: "Guide · Anxiety",

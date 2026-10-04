@@ -1,5 +1,15 @@
 import type { Comparison } from './comparisons';
-import { BCPA_PSYCHOLOGIST, BCPA_EFFECTIVE } from './fee-guides';
+import { BCPA_PSYCHOLOGIST, BCPA_EFFECTIVE, BCACC_INDIVIDUAL, FEE_GUIDES_READ, guidePhrase } from './fee-guides';
+import { individualFeePhrase } from '@/lib/session-arithmetic';
+import { practitioners } from '@/lib/practitioners';
+import { servedProvinces, reachesAlberta } from '@/lib/practice-facts';
+
+/* Where the practice can see people, from the gated roster (item 438, 3 Oct
+   2026): "BC and Alberta" was typed here, and Alberta closes the day the one
+   policy that covers it lapses (lib/practitioners.ts insurance gate). */
+const ACCEPTING = practitioners.filter((p) => p.acceptingNewClients);
+const PROVINCES = servedProvinces(ACCEPTING);
+const AND_ALBERTA = reachesAlberta(ACCEPTING) ? ' and to Alberta' : '';
 
 /* The second expansion of the compare set — five decisions people actually
  * face, written 2026-08-28.
@@ -190,19 +200,21 @@ export const moreComparisons2: Comparison[] = [
     title: 'Mental-health apps and AI chatbots vs counselling',
     metaTitle: 'Is an AI Therapy Chatbot as Good as Counselling?',
     metaDescription:
-      'For tracking a mood and practising a skill at 2am, they are good. For anything relational, they stop. Where the line is, from a practice that uses both.',
+      'For tracking a mood and practising a skill at 2am, they are good. For anything relational, they stop. Where the line is, and what each costs.',
     eyebrow: 'Comparison · Getting support',
     lede:
       'Millions of people now type their 2 a.m. worries into an app or a chatbot before they would ever email a counsellor. That deserves a straight comparison, not a defensive one.',
     shortAnswer:
-      'Apps and AI chatbots are genuinely good at some things: always available, free or cheap, useful for skills practice, mood tracking, psychoeducation, and rehearsing a hard conversation nobody is judging. What they are not is therapy. No app is accountable to a regulator, bound by a clinical code of ethics, able to read what you are not saying, or responsible for you in a crisis, and a system built to be agreeable cannot do the useful disagreeing a good therapist does. The strongest position is not either/or: use the tools for what they are good at, and a human for what they cannot do.',
+      `Apps and AI chatbots are genuinely good at some things: always available, free or cheap, useful for skills practice, mood tracking, psychoeducation, and rehearsing a hard conversation nobody is judging. What they are not is therapy. No app is accountable to a regulator, bound by a clinical code of ethics, able to read what you are not saying, or responsible for you in a crisis, and a system built to be agreeable cannot do the useful disagreeing a good therapist does. The strongest position is not either/or: use the tools for what they are good at, and a human for what they cannot do. On cost, an app is free or a subscription; an individual session here is ${individualFeePhrase()} after a free 30-minute consultation, and many extended health plans reimburse a Registered Clinical Counsellor, depending on the plan.`,
     updated: '2026-08-30',
     readMinutes: 7,
     table: {
       columns: ['', 'Apps & AI chatbots', 'Counselling with a registered professional'],
       rows: [
         ['Availability', 'Always, instantly, at 2 a.m.', 'Scheduled sessions; replies within business hours'],
-        ['Cost', 'Free to low subscription', 'Session fees; often partly reimbursed by extended health plans'],
+        /* 3 Oct 2026 (item 431): was "Session fees" and an "often partly
+           reimbursed" line: no figure, and a prevalence claim. */
+        ['Cost', 'Free to low subscription', `${individualFeePhrase()} for an individual session here, and the first 30-minute consultation is free; many extended health plans reimburse a Registered Clinical Counsellor, depending on the plan`],
         ['Accountability', 'None, no regulator, no complaints process, terms of service only', 'Registration, a code of ethics, insurance, and a public register you can check'],
         ['Privacy', 'Set by the company; data practices vary widely and can change', 'Bound by law and professional standards; limits of confidentiality stated up front'],
         ['Crisis response', 'Cannot assess or take responsibility; at best displays a hotline', 'Trained to assess risk and act on it, with a duty of care'],
@@ -251,10 +263,15 @@ export const moreComparisons2: Comparison[] = [
       { q: 'Can I bring what I told a chatbot into therapy?', a: 'Yes, and it is often useful. People sometimes find their clearest articulation of a problem at 2 a.m. in a chat window. Bringing that text to a session gives the work a running start, and no counsellor worth seeing will be precious about where the words were first found.' },
       { q: 'Do any apps actually have evidence behind them?', a: 'Some do, particularly structured CBT-based programs, several of which have trial support. The market also contains a great deal with none. The MIND database from the Division of Digital Psychiatry evaluates apps on privacy and evidence and is a better guide than an app-store ranking.' },
       { q: 'Is talking to an AI at night a bad sign?', a: 'No, reaching for support is the healthy instinct in that picture. The only caution is direction: if the tool is a bridge toward sleep, skills, or eventually a human conversation, it is helping. If it has quietly become the only place you say true things, that is worth noticing.' },
+      /* 3 Oct 2026 (item 431): 'how much does an ai mental health companion
+         app cost compared to seeing a therapist?' reached this page at 3.75.
+         No app price is given: none was read from a vendor today. */
+      { q: 'How much does an AI mental-health app cost compared with seeing a therapist in BC?', a: `Apps range from free to a monthly subscription, and the price is the vendor’s to state, so check the app’s own pricing page. For a Registered Clinical Counsellor in BC, the BC Association of Clinical Counsellors’ fee guide recommends ${guidePhrase(BCACC_INDIVIDUAL)} for individual counselling (read ${FEE_GUIDES_READ}). Here an individual session is ${individualFeePhrase()}, after a free 30-minute consultation. MSP does not cover private counselling; many extended health plans reimburse a Registered Clinical Counsellor, depending on the plan, so check yours. The [cost estimator](/tools/therapy-cost-bc) works out what a session costs you after your plan.` },
       { q: 'Will a counsellor judge me for having used these?', a: 'Not here, and not anywhere good. A third of the people reading this page likely tried an app first; it is simply how help-seeking works now. What matters is what you need next, not the order you tried things in.' },
     ],
     sources: [
       { label: 'MIND, app evaluation database, Division of Digital Psychiatry', url: 'https://mindapps.org/' },
+      { label: BCACC_INDIVIDUAL.source, url: BCACC_INDIVIDUAL.sourceUrl ?? 'https://bcacc.ca/' },
       { label: 'American Psychological Association, artificial intelligence topic hub', url: 'https://www.apa.org/topics/artificial-intelligence-machine-learning' },
     ],
     related: [
@@ -550,7 +567,7 @@ export const moreComparisons2: Comparison[] = [
         ['Emotional register', 'The language much of the feeling originally happened in, often closer, sometimes overwhelming', 'A step of distance, sometimes flattening, sometimes exactly the space needed to speak'],
         ['Family material', 'Relationships, obligations and phrases can be discussed in their own words, untranslated', 'Constant translation, and some of what matters most translates badly'],
         ['Untranslatables', 'Hiya, utang na loob, pakikisama, carried whole, with their real weight', 'Rendered as "shame", "gratitude", "getting along", related words that are not the same words'],
-        ['Availability in BC', 'Genuinely limited, concentrated in Metro Vancouver; virtual widens it to the province and to Alberta', 'Wide'],
+        ['Availability in BC', `Genuinely limited, concentrated in Metro Vancouver; virtual widens it to the province${AND_ALBERTA}`, 'Wide'],
         ['Privacy within community', 'A smaller circle of practitioners; worth asking any practice how it handles this', 'Larger pool, easier anonymity'],
         ['Mixing', 'Fully available with a bilingual counsellor. Most sessions with Filipinos are Taglish in practice', 'Only if the counsellor can follow where the Tagalog goes'],
       ],
@@ -583,7 +600,7 @@ export const moreComparisons2: Comparison[] = [
     ],
     howWeFit: [
       'Westpeak Wellness runs sessions in English, in Tagalog, or moving between the two as the material requires. The counsellor is bilingual, so nothing you say in either language needs translating. The [Tagalog counselling page](/services/tagalog-counselling) covers the service in English, and [counselling sa Tagalog](/tagalog) is written in Tagalog.',
-      'The practice is virtual and serves all of BC and Alberta, which matters most exactly where Tagalog-speaking counsellors are scarcest, outside Metro Vancouver. And the smaller-community privacy concern is taken seriously here: confidentiality and its limits are set out plainly on the [privacy page](/privacy), and it is a welcome question on a consultation call.',
+      `The practice is virtual and serves all of ${PROVINCES}, which matters most exactly where Tagalog-speaking counsellors are scarcest, outside Metro Vancouver. And the smaller-community privacy concern is taken seriously here: confidentiality and its limits are set out plainly on the [privacy page](/privacy), and it is a welcome question on a consultation call.`,
     ],
     midCta: {
       text: 'The consultation itself can be in either language, which is, conveniently, a thirty-minute answer to most of this page.',

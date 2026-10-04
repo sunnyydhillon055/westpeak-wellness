@@ -5780,5 +5780,42 @@
       "title": "Page not found | Westpeak Wellness",
       "desc": "That page has moved or never existed. Search the site, or jump to services, fees, guides or booking."
     }
-  }
+  },
+  "title-changes": [
+    {
+      "date": "2026-10-03",
+      "path": "/resources/does-my-plan-cover-counselling-bc",
+      "item": 408,
+      "before": "Does Blue Cross or Sun Life Cover Counselling? BC",
+      "after": "Does Pacific Blue Cross or Sun Life Cover Counselling in BC?"
+    },
+    {
+      "date": "2026-10-03",
+      "path": "/guides/ei-sickness-benefits-and-therapy",
+      "item": 421,
+      "before": "How Much Does Medical EI Pay in BC? 55% to $729",
+      "after": "How Much Does Medical EI Pay in BC in 2026? Rate, 26 Weeks"
+    },
+    {
+      "date": "2026-10-03",
+      "path": "/services/punjabi-counselling",
+      "item": 435,
+      "before": "Punjabi Counselling Online in BC | Punjabi-Speaking RCC",
+      "after": "Punjabi-Speaking Therapist and Counsellor Online in BC"
+    },
+    {
+      "date": "2026-10-03",
+      "path": "/for/men",
+      "item": 465,
+      "before": "Counselling for Men in BC | Online, Direct | Westpeak",
+      "after": "Online Therapy and Counselling for Men in BC | Westpeak"
+    },
+    {
+      "date": "2026-10-03",
+      "path": "/guides/high-functioning-anxiety",
+      "item": 466,
+      "before": "High-Functioning Anxiety: Signs | Westpeak Wellness",
+      "after": "High-Functioning Anxiety: Signs, and the Therapy That Helps"
+    }
+  ]
 }

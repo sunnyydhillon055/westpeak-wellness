@@ -1,4 +1,6 @@
 import type { Guide } from './guides';
+import { FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
+import { feeSnippet, withSnippet } from '@/lib/snippet-facts';
 
 export const moreGuides2: Guide[] = [
   {
@@ -184,20 +186,30 @@ export const moreGuides2: Guide[] = [
 
   {
     slug: 'waiting-for-therapy-in-bc',
-    title: 'What to do while you are waiting for therapy in BC',
+    /* 3 Oct 2026 (item 414): 133 impressions at 7.49 and 1 click; the AI
+       Mode query asking which private therapists have the shortest wait
+       showed this page at 1 with no click, and the short answer covered the
+       public route only. The H1 now matches the title's question, the short
+       answer opens with both routes, the description carries the fee and the
+       free consult, and the next open consultation sits straight under the
+       short answer (app/guides/[slug]/page.tsx). The title was tuned on
+       1 Oct and is left alone. */
+    title: 'How long the wait for therapy is in BC, and what to do meanwhile',
     /* 1 Oct 2026: 91 impressions at 7.21 and no clicks, for queries that
        compare the two routes (an AI-mode query asked which private therapists
        have the shortest wait). The title now names the comparison the page
        makes, and the page shows the next open consultation under the
        private-route section (components/NextConsultLine.tsx). */
     metaTitle: 'How Long Is the Wait for Therapy in BC? Public vs Private',
-    metaDescription:
-      'Months for public counselling, days for private. Which services have no wait at all, what genuinely helps meanwhile, and how to keep your place on the list.',
+    metaDescription: withSnippet(
+      'Months for public counselling, days for private, and the services with no wait at all.',
+      feeSnippet(FALLBACK_CATALOG),
+    ),
     eyebrow: 'Guide · BC systems',
     lede:
       'Being told the wait is four to eight months is its own kind of blow. There is more available in the meantime than most people are told.',
     shortAnswer:
-      'Waitlists for publicly funded counselling in BC are real and often long. In the meantime: get onto the list properly and stay in contact with it, use the services that have no wait at all (crisis and support lines, Foundry for under-25s, an EFAP if you have one, campus counselling if you are a student), and treat the interval as something to be structured rather than endured.',
+      'Publicly funded counselling in BC is triaged and the wait is often months; private Registered Clinical Counsellors book from their own calendars, with no central list. If you are waiting for the public route, in the meantime: get onto the list properly and stay in contact with it, use the services that have no wait at all (crisis and support lines, Foundry for under-25s, an EFAP if you have one, campus counselling if you are a student), and treat the interval as something to be structured rather than endured.',
     updated: '2026-09-02',
     readMinutes: 8,
     figure: 'therapy-cost-in-bc',

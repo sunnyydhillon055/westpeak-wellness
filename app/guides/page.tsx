@@ -11,6 +11,12 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
 import { webPage } from '@/lib/schema';
 import { COLLECTION_DATES, latestOf } from '@/lib/page-dates';
+import { practitioners } from '@/lib/practitioners';
+import { servedProvinces } from '@/lib/practice-facts';
+
+/* Where the practice can see people, from the gated roster (item 438,
+   3 Oct 2026): Alberta was typed here and rests on one counsellor's policy. */
+const PROVINCES = servedProvinces(practitioners.filter((p) => p.acceptingNewClients), 'long');
 
 export const metadata: Metadata = {
   /* Its own og:url. Without an openGraph object this page inherited the
@@ -55,7 +61,7 @@ export default function GuidesHub() {
             live in British Columbia.
           </p>
           <p className="direct-answer">
-            Westpeak Wellness publishes plain-language counselling guides for people in British Columbia and Alberta: what therapy involves, how long it takes, what it costs after extended health, how stress leave and sick days work in BC, and how to choose between an RCC, a psychologist and a social worker. Each guide is dated, cites its sources, and is written by the practice&rsquo;s Registered Clinical Counsellors. None requires booking anything.
+            Westpeak Wellness publishes plain-language counselling guides for people in {PROVINCES}: what therapy involves, how long it takes, what it costs after extended health, how stress leave and sick days work in BC, and how to choose between an RCC, a psychologist and a social worker. Each guide is dated, cites its sources, and is written by the practice&rsquo;s Registered Clinical Counsellors. None requires booking anything.
           </p>
           <Updated iso={latestOf(guides)} />
           <div className="btn-row" style={{ marginTop: 24 }}>

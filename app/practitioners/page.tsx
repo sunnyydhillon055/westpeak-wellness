@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { site } from '@/lib/site';
 import { practitioners } from '@/lib/practitioners';
+import { reachesAlberta } from '@/lib/practice-facts';
 import { abs, orgRef } from '@/lib/schema';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import CtaBand from '@/components/CtaBand';
@@ -91,7 +92,7 @@ export default async function PractitionersPage() {
             number, which can be checked against a public register in about two minutes.
           </p>
           <p className="direct-answer">
-            Westpeak Wellness is a virtual counselling practice whose counsellors are Registered Clinical Counsellors with the BC Association of Clinical Counsellors. Sessions are offered in English, Punjabi and Tagalog by secure video across British Columbia and, for the counsellor certified there, Alberta. Each profile lists training, languages, areas of focus, registration and whether the counsellor is currently taking new clients.
+            Westpeak Wellness is a virtual counselling practice whose counsellors are Registered Clinical Counsellors with the BC Association of Clinical Counsellors. Sessions are offered in English, Punjabi and Tagalog by secure video across British Columbia{reachesAlberta(practitioners) ? ' and, for the counsellor certified there, Alberta' : ''}. Each profile lists training, languages, areas of focus, registration and whether the counsellor is currently taking new clients.
           </p>
           <Updated iso={COLLECTION_DATES['practitioners']} />
         </div>

@@ -8,6 +8,12 @@ import CtaBand from '@/components/CtaBand';
 import Updated from '@/components/Updated';
 import { COLLECTION_DATES } from '@/lib/page-dates';
 import { buildAnswers, TOPICS } from '@/lib/answers';
+import { practitioners } from '@/lib/practitioners';
+import { servedProvinces } from '@/lib/practice-facts';
+
+/* Where the practice can see people, from the gated roster (item 438,
+   3 Oct 2026): Alberta was typed here and rests on one counsellor's policy. */
+const PROVINCES = servedProvinces(practitioners.filter((p) => p.acceptingNewClients), 'long');
 
 /* INSTANT ANSWERS — /answers, rebuilt 14 Sep 2026 at the owner's request.
  *
@@ -82,8 +88,8 @@ export default function AnswersPage() {
             the list narrows to what matches; each answer links to the page that says more.
           </p>
           <p className="direct-answer">
-            Westpeak Wellness answers {answers.length} questions about online counselling in British
-            Columbia and Alberta: what it costs and what extended health covers, what a first session
+            Westpeak Wellness answers {answers.length} questions about online counselling in{' '}
+            {PROVINCES}: what it costs and what extended health covers, what a first session
             and the free 30-minute consultation are like, how stress leave and sick days work, how to
             choose between a counsellor, a psychologist and a psychiatrist, and what each counsellor
             would say to the questions people ask before booking. Anything not here can be asked at

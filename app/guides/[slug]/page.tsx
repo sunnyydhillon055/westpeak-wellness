@@ -61,6 +61,11 @@ const NEXT_CONSULT_AFTER: Record<string, { h2: string; location: string }> = {
   'waiting-for-therapy-in-bc': { h2: 'When paying privately makes sense, and when it does not', location: 'guide-waiting' },
   'sick-days-and-mental-health-days-bc': { h2: 'When the days become data', location: 'next-guide-sick-days' },
 };
+/* 3 Oct 2026 (item 414): on the waiting guide the same line, with the same
+   location, sits straight under the short answer that says private
+   counsellors book from their own calendars, instead of five sections down.
+   Still rendered once per page. */
+const NEXT_CONSULT_UNDER_ANSWER = new Set(['waiting-for-therapy-in-bc']);
 
 /* Re-rendered every thirty minutes, the life of the availability cache, so
    the line above is what Cliniko is offering rather than what it offered at
@@ -120,6 +125,10 @@ export default async function GuidePage({ params }: { params: { slug: string } }
   const counsellors = cards ? counsellorsForInfoPage({ service: g.service }) : [];
   const feeLine = feeLineFor(g.service, await readCatalog());
   const next = NEXT_CONSULT_AFTER[g.slug];
+  const nextUnderAnswer = !!next && NEXT_CONSULT_UNDER_ANSWER.has(g.slug);
+  const nextLine = next && (
+    <NextConsultLine location={next.location} style={nextUnderAnswer ? { margin: '.75em 0 0', fontSize: '.95rem' } : undefined} />
+  );
   /* A guide about couples, EMDR or family work books with the counsellor
      who offers it (g.service); every other guide keeps the practice
      calendar. Through bookingCtaFor so the rule lives in one place. */
@@ -218,6 +227,7 @@ export default async function GuidePage({ params }: { params: { slug: string } }
           <p className="answer" style={{ fontSize: '1.12rem', lineHeight: 1.55, color: 'var(--ink)', maxWidth: '35.33em', margin: '.5em 0 0' }}>
             {g.shortAnswer}
           </p>
+          {nextUnderAnswer && nextLine}
           <p className="lede">{g.lede}</p>
           {/* "Updated", not "Reviewed". components/Byline.tsx was fixed for exactly
               this in August: it was printing the word "Reviewed" over the date the
@@ -265,7 +275,7 @@ export default async function GuidePage({ params }: { params: { slug: string } }
                 </ul>
               )}
 
-              {next?.h2 === s.h2 && <NextConsultLine location={next.location} />}
+              {next?.h2 === s.h2 && !nextUnderAnswer && nextLine}
 
               {midDevices.filter((_, k) => slots[k] === i)}
             </div>
