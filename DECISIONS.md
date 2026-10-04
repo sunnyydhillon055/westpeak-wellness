@@ -3186,6 +3186,27 @@ No noindex, redirect or consolidation of any page.
 
 ---
 
+### Payment is read from Cliniko invoices, never assumed from the appointment type (3 Oct 2026)
+
+The owner found a paid Individual Counselling appointment (id 2053155793196288137, booked 3 Oct at 12:34 pm) with no Cliniko invoice and no Stripe charge. At the same time, the booking notice for every paid type said "the card is taken by Cliniko at booking". An audit found that the site never creates appointments. /book embeds Cliniko's hosted booking page, which carries Cliniko's own card step, and the only Cliniko write in the code is the patient reminder-preference PATCH. So that appointment was made inside Cliniko, or Cliniko's payment step did not run. Decided:
+
+1. "Paid" means an invoice linked to that appointment that is closed or Paid, is not refunded, credited, voided or written off, and covers at least the catalogue fee (`lib/payment-status.ts`). Anything less is NOT RECEIVED. Anything that cannot be read is "could not be checked", and is never treated as paid.
+2. The booking notice prints `Paid: $X (Cliniko invoice #N)` or `Payment: NOT RECEIVED (expected $X)`.
+3. The booking cron sends one internal notice to info@ for each upcoming paid-type appointment without payment (ledger key `unpaidAlerted`). The notice gives client initials only and never goes to the client.
+4. `/admin/unpaid` and `npm run unpaid` list the same rows, read only.
+5. `test/no-appointment-writes.test.mts` fails the suite if any code writes to a Cliniko appointment, booking or invoice endpoint. The site therefore cannot be the source of an unpaid booking, and payment stays Cliniko's job (Stripe through Cliniko's booking page).
+
+Cliniko's API has no payments endpoint, and this project holds no Stripe key, so the notice names the Cliniko invoice and not a Stripe reference.
+
+### Free consultation is 15 minutes; Camille's area follows her provinces; one cancellation rule (3 Oct 2026)
+
+This is the owner's decision, and it replaces the 30-minute consultation and the 8 Sep "Camille can see anyone from Canada" instruction.
+
+1. The free consultation is 15 minutes. `FALLBACK_CATALOG` holds 15, and `withDecidedConsult()` pins the consultation row to it, so a live Cliniko value cannot contradict the pages. The owner switches Cliniko's Initial Consultation type to 15. Until then, `price-drift` reports the mismatch, and Cliniko's own calendar and emails show Cliniko's length.
+2. In Punjabi and Tagalog strings only the number changed, with no new prose. Those strings are queued for native review.
+3. Camille's `reach: 'canada'` is removed and her `provinces` decide what her card says. Her card reads "British Columbia and Alberta" while her Alberta insurance gate is open (grace period to 15 Oct 2026), and "British Columbia" after that unless a renewal is recorded.
+4. Payment and cancellation are stated once, in `lib/policies.ts`. The card is taken at booking. Cancelling with at least 24 hours' notice gets a full refund. With less notice, or for a no-show, 50% of the fee is kept. Pages, the FAQ, JSON-LD, emails, ai.json and llms-full all read that one rule. `test/consult-and-cancellation.test.mts` holds both rules. Whether "exceptions for genuine emergencies" stays is the owner's call.
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`
