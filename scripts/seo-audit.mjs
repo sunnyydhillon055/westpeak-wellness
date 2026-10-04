@@ -23,6 +23,8 @@
  */
 import { readdirSync, readFileSync, statSync, existsSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
+import { blockedImages, namedImages, htmlAlternates, hreflangProblems, sitemapAlternates, clusterMismatches, parseRobots, rulesFor } from './lib/crawl-signals.mjs';
+import { readBuiltSitemap } from './lib/built-sitemap.mjs';
 
 const ROOT = join(process.cwd(), '.next', 'server', 'app');
 const WARN_ONLY = process.argv.includes('--warn');
@@ -140,6 +142,10 @@ for (const f of files) {
           /\[object(%20| )Object\]/.test(u)
       ),
     links,
+    /* Kept for the robots-against-images and hreflang checks below. */
+    canonical: grab(/<link[^>]*rel="canonical"[^>]*href="([^"]*)"/i),
+    alts: htmlAlternates(html),
+    images: namedImages(html),
   });
 }
 
@@ -257,6 +263,64 @@ for (const p of pages.values()) {
     warn('no-price-schema', route, '');
   if ((route.startsWith('/punjabi') || route === '/punjabi') && !p.lang)
     warn('no-inlanguage', route, 'Punjabi page with no language annotation');
+}
+
+/* ROBOTS AGAINST THE IMAGES PAGES NAME — 3 Oct 2026.
+ * robots.txt disallowed /opengraph-image for every agent while every page's
+ * og:image and JSON-LD image pointed there, so Googlebot could not fetch the
+ * image the structured data names. Checked against the `*` group and against
+ * Googlebot's, which is the group Google actually reads. A preview build's
+ * robots.txt disallows everything on purpose, so the check says so and stops. */
+{
+  const robotsFile = ['robots.txt.body', 'robots.txt'].map((f) => join(ROOT, f)).find((f) => existsSync(f) && statSync(f).isFile());
+  const home = pages.get('/');
+  const origin = home && home.canonical ? new URL(home.canonical).origin : null;
+  if (!robotsFile || !origin) {
+    warn('robots-unread', '/robots.txt', robotsFile ? 'no canonical origin on the home page' : 'robots.txt was not prerendered');
+  } else {
+    const robots = readFileSync(robotsFile, 'utf8');
+    const wholeSite = rulesFor(parseRobots(robots), '*').some((r) => r.type === 'disallow' && r.path === '/');
+    if (wholeSite) {
+      warn('robots-preview', '/robots.txt', 'disallows the whole site (a preview build); image check skipped');
+    } else {
+      for (const p of pages.values()) {
+        if (p.notFound || p.noindex) continue;
+        for (const agent of ['*', 'Googlebot']) {
+          for (const [url, rule] of blockedImages(p.images, robots, origin, agent))
+            err('image-blocked-by-robots', p.route, `${agent} cannot fetch ${url} (Disallow: ${rule})`);
+        }
+      }
+    }
+  }
+}
+
+/* HREFLANG CLUSTERS, RECIPROCAL AND UNIQUE — 3 Oct 2026.
+ * An alternate counts only when both pages state it. Two Tagalog guides
+ * claimed one English guide (the HTML named the first, the sitemap the last)
+ * and the Punjabi guides declared English twins that never answered. Read from
+ * the prerendered heads and from the sitemap children, and the two must agree
+ * with each other as well as within themselves. A twin rendered on demand has
+ * no file to read; it is reported as unverified, not as wrong. */
+{
+  const fromHtml = new Map();
+  for (const p of pages.values()) {
+    if (p.notFound || !p.canonical) continue;
+    fromHtml.set(p.canonical, p.alts);
+  }
+  for (const pr of hreflangProblems(new Map([...fromHtml].filter(([, a]) => a.length)), new Set(fromHtml.keys()))) {
+    if (pr.kind === 'unverified') warn('hreflang-unverified', pr.page, pr.detail);
+    else err(`hreflang-${pr.kind}`, pr.page, pr.detail);
+  }
+  const built = readBuiltSitemap(ROOT);
+  if (built) {
+    const fromSitemap = sitemapAlternates(built.xml);
+    const listed = new Set([...built.xml.matchAll(/<url>\s*<loc>([^<]+)<\/loc>/g)].map((m) => m[1].trim().replace(/&amp;/g, '&')));
+    for (const pr of hreflangProblems(fromSitemap, listed)) {
+      if (pr.kind === 'unverified') err('sitemap-hreflang-unlisted', pr.page, pr.detail);
+      else err(`sitemap-hreflang-${pr.kind}`, pr.page, pr.detail);
+    }
+    for (const [url, detail] of clusterMismatches(fromHtml, fromSitemap, listed)) err('hreflang-sitemap-vs-page', url, detail);
+  }
 }
 
 /* GOTTMAN-TRAINED ONLY WHERE THE ROSTER SAYS SO — 1 Oct 2026. A source scan,

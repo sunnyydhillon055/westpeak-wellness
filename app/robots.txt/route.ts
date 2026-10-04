@@ -88,10 +88,28 @@ const AI_CRAWLERS = [
 
 export const dynamic = 'force-static';
 
-const DISALLOW = ['/*/opengraph-image', '/opengraph-image'];
+/* THE SOCIAL CARD IS NOT HIDDEN FROM SEARCH OR LINK PREVIEWS — 3 Oct 2026.
+ * The card routes were disallowed for every agent, `*` included, from
+ * df53a32 with no recorded reason. Every page's og:image and its Article and
+ * Organization JSON-LD image point at exactly those URLs, and on most pages
+ * they are the only raster image: Googlebot could not fetch the image the
+ * structured data names, and a preview bot that honours robots.txt drew a
+ * blank card. The rule now applies only to the crawlers that gather training
+ * corpora, the one place "a lot of PNG for no reader" holds.
+ * scripts/seo-audit.mjs fails if a page's og:image or JSON-LD image matches a
+ * Disallow line in the `*` group. */
+const TRAINING_ONLY = new Set([
+  'GPTBot', 'ClaudeBot', 'anthropic-ai', 'Google-Extended', 'Applebot-Extended',
+  'Meta-ExternalAgent', 'meta-externalagent', 'Bytespider', 'CCBot', 'cohere-ai', 'AI2Bot',
+]);
+const CARD_DISALLOW = ['/*/opengraph-image', '/opengraph-image'];
 
 const group = (agent: string) =>
-  [`User-Agent: ${agent}`, 'Allow: /', ...DISALLOW.map((d) => `Disallow: ${d}`)].join('\n');
+  [
+    `User-Agent: ${agent}`,
+    'Allow: /',
+    ...(TRAINING_ONLY.has(agent) ? CARD_DISALLOW.map((d) => `Disallow: ${d}`) : []),
+  ].join('\n');
 
 function text(body: string) {
   return new Response(`${body}\n`, {

@@ -20,7 +20,7 @@ test('isoDay writes the day the way the sitemap does, and null for unknown', () 
 /* The point of the change is that three surfaces read one value. A source
    check is crude, and it is the only one that runs without a build. */
 test('city-service and place pages take their sitemap date from the source their page states', () => {
-  const sitemap = readFileSync('app/sitemap.xml/route.ts', 'utf8');
+  const sitemap = readFileSync('lib/sitemap.ts', 'utf8'); // the list moved here from app/sitemap.xml/route.ts, 3 Oct 2026
   const pair = readFileSync('app/online-counselling/[city]/[service]/page.tsx', 'utf8');
   const place = readFileSync('app/practitioners/[slug]/[place]/page.tsx', 'utf8');
   assert.match(sitemap, /\$\{p\.service\}`,[\s\S]{0,400}?collectionLastmod\('cityServices'\)/);

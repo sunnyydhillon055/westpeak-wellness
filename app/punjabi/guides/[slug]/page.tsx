@@ -18,9 +18,10 @@ import { COLLECTION_DATES } from '@/lib/page-dates';
    ----------------------------------------------------------------------------
    The mirror of app/tagalog/gabay/[slug]/page.tsx. Written for a Punjabi
    reader rather than translated (see lib/punjabi-guides.ts). Each declares
-   inLanguage pa and pairs by hreflang with the English guide on the same
-   question. Lives under /punjabi/ so the document-language rule and the
-   Punjabi checks in the SEO gate apply without a new case.
+   inLanguage pa and points to the English guide on the same question by a
+   visible link (no hreflang since 3 Oct 2026). Lives under /punjabi/ so the
+   document-language rule and the Punjabi checks in the SEO gate apply
+   without a new case.
    ========================================================================= */
 
 export const dynamicParams = false;
@@ -40,11 +41,11 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
     description: g.metaDescription,
     alternates: {
       canonical: `${site.domain}${path}`,
-      languages: {
-        'en-CA': `${site.domain}${g.englishHref}`,
-        pa: `${site.domain}${path}`,
-        'x-default': `${site.domain}${g.englishHref}`,
-      },
+      /* No hreflang, 3 Oct 2026. These guides are written for a Punjabi
+         reader, not translated, and the English guides never declared them
+         back, so the en-CA and x-default alternates here were one-way and
+         ignored. The visible link to the English guide and translationOfWork
+         stay. */
     },
     openGraph: {
       ...ogBasePunjabi(path),

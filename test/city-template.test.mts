@@ -28,7 +28,7 @@ test('a Tagalog city page is dated by lib/tagalog.ts and its route, on every sur
   assert.match(route, /dateModified: tagalogCityDate\(\)/);
   assert.match(route, /<Updated iso=\{tagalogCityDate\(\)\} \/>/);
   assert.doesNotMatch(route, /COLLECTION_DATES/);
-  const sitemap = readFileSync('app/sitemap.xml/route.ts', 'utf8');
+  const sitemap = readFileSync('lib/sitemap.ts', 'utf8'); // the list moved here from app/sitemap.xml/route.ts, 3 Oct 2026
   assert.match(sitemap, /tagalog-counselling\/\$\{c\.slug\}`,\s*lastmod: isoDay\(tagalogCityDate\(\)\)/);
   const llms = readFileSync('app/llms-full.txt/route.ts', 'utf8');
   assert.match(llms, /tagalog-counselling\/\$\{c\.slug\}`,\s*`Last reviewed: \$\{tagalogCityDate\(\)\}`/);

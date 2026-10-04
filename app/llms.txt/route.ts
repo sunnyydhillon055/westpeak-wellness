@@ -19,8 +19,8 @@ import { getCityTopic } from '@/lib/conditions';
 import { placesFor } from '@/lib/practitioner-places';
 import { FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
 import { tagalogGuides } from '@/lib/tagalog-guides';
-import { missingUrls, sitemapUrls } from '@/lib/machine-facts';
-import { GET as sitemapXml } from '../sitemap.xml/route';
+import { missingUrls } from '@/lib/machine-facts';
+import { sitemapPageUrls } from '@/lib/sitemap';
 import { reachPhrase, practiceReach, bookingPathFor } from '@/lib/practice-facts';
 
 export const dynamic = 'force-static';
@@ -39,7 +39,9 @@ export async function GET() {
      /practitioners, /refer/*) appeared nowhere below. Both now come from the
      sitemap route itself, so the count and the "Every other page" list cannot
      fall behind it. The founder's profile is filtered out, as everywhere. */
-  const allUrls = sitemapUrls(await sitemapXml().text(), site.domain);
+  /* The union of the child sitemaps since /sitemap.xml became an index
+     (3 Oct 2026), read from the list they are all built from. */
+  const allUrls = sitemapPageUrls();
   /* Session lengths from the catalogue, no fees (they live on /pricing). */
   const lengths = FALLBACK_CATALOG.items
     .filter((i) => i.cents > 0)

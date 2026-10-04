@@ -426,8 +426,12 @@ export const tagalogGuides: TagalogGuide[] = [
         a: 'Magkatulad sila mula sa loob at magkaiba ang tugon nila. Ang pinakamalinaw na pagkakaiba ay kung gumagaan ito kapag talagang malayo ka sa trabaho, at kung hindi mo matandaan ang huling tunay na pahinga, iyon ay sagot din.',
       },
     ],
-    englishHref: '/guides/burnout-vs-depression',
-    englishLabel: 'Burnout vs depression',
+    /* No English pair, 3 Oct 2026. This guide also claimed
+       /guides/burnout-vs-depression, which depresyon-o-pagod-lang is the Tagalog
+       version of; the English page could name only one, and the HTML named
+       the first while the sitemap named the last. It is about care work, not
+       that comparison, and no English page is its translation, so it pairs
+       with none (hreflang is for real translations only). */
   },
 ];
 

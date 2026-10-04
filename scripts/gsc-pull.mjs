@@ -169,7 +169,13 @@ let inspected = 0;
 if (!NO_INSPECT) {
   const res = await fetch(`${SITE}/sitemap.xml`, { headers: { 'user-agent': 'westpeak-gsc-pull' } });
   if (res.ok) {
-    const targets = inspectionTargets(sitemapLocs(await res.text()), pages.map((r) => r.keys[0]), SITE);
+    /* An index of per-template children since 3 Oct 2026: read each child. */
+    let xml = await res.text();
+    if (/<sitemapindex\b/.test(xml)) {
+      const kids = [...xml.matchAll(/<sitemap>\s*<loc>([^<]+)<\/loc>/g)].map((m) => m[1].trim());
+      xml = (await Promise.all(kids.map((k) => fetch(k, { headers: { 'user-agent': 'westpeak-gsc-pull' } }).then((r) => r.text())))).join('\n');
+    }
+    const targets = inspectionTargets(sitemapLocs(xml), pages.map((r) => r.keys[0]), SITE);
     const rows = await inspect(token, targets);
     inspected = rows.length;
     write('inspect.json', JSON.stringify({ inspectedAt: new Date().toISOString(), property: PROPERTY, rows }, null, 2) + '\n');
