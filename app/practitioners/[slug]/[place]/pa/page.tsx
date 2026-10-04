@@ -6,7 +6,7 @@ import { site } from '@/lib/site';
 import { personStub } from '@/lib/practitioner-facts';
 import { practitioners, getPractitioner, withLetters } from '@/lib/practitioners';
 import { getPractitionerPlace, placesFor, resolvePlace } from '@/lib/practitioner-places';
-import { PA_PLACE_SHARED, PA_CITY, getPunjabiPlace } from '@/lib/practitioner-places-pa';
+import { PA_PLACE_SHARED, PA_CITY, getPunjabiPlace, getPunjabiPlaceForPage, paAccessForPage, siblingRing } from '@/lib/practitioner-places-pa';
 import { punjabiGuides } from '@/lib/punjabi-guides';
 import { gurmukhi } from '@/app/fonts-gurmukhi';
 import Figure from '@/components/Figure';
@@ -19,6 +19,8 @@ import { ogBasePunjabi } from '@/lib/og-meta';
 import { COLLECTION_DATES } from '@/lib/page-dates';
 import BookLink from '@/components/BookLink';
 import { bookHrefFor } from '@/lib/city-service-page';
+import MailLink from '@/components/MailLink';
+import { linkPhrases, PA_PHRASE_LINKS, RegisterName } from '../twin-links';
 
 /* ============================================================================
    THE PUNJABI CITY PAGES — /practitioners/<slug>/<city>/pa
@@ -44,6 +46,15 @@ export const dynamicParams = false;
 type Params = { slug: string; place: string };
 
 const speaksPunjabi = (p: { languages: { tag: string }[] }) => p.languages.some((l) => l.tag === 'pa');
+
+/* The two focus areas a Punjabi guide on this site is about, linked from the
+   label the page already shows: depression to "ਉਦਾਸੀ ਹੈ, ਜਾਂ ਸਿਰਫ਼ ਥਕੇਵਾਂ?",
+   anxiety to the panic-attack guide. The same guides are listed bare further
+   down; here they sit beside the sentence that says why to read them. */
+const FOCUS_GUIDE: Record<string, string> = {
+  'ਚਿੰਤਾ (anxiety)': 'panic-attack-ki-hai',
+  'ਉਦਾਸੀ (depression)': 'udaasi-jaan-thakevan',
+};
 
 export function generateStaticParams() {
   const out: Params[] = [];
@@ -93,7 +104,9 @@ export default function PunjabiPlacePage({ params }: { params: Params }) {
   if (!raw) notFound();
   const loc = resolvePlace(raw, p);
 
-  const pa = getPunjabiPlace(raw.slug);
+  /* The copy less any line that promises an evening time (see
+     PA_EVENING_PROMISES in lib/practitioner-places-pa.ts). */
+  const pa = getPunjabiPlaceForPage(raw.slug);
   if (!pa) notFound();
 
   const t = PA_PLACE_SHARED;
@@ -105,9 +118,13 @@ export default function PunjabiPlacePage({ params }: { params: Params }) {
 
   const faqs = [...pa.faqs, ...t.sharedFaqs];
 
-  const nearby = placesFor(p.provinces)
-    .filter((o) => o.slug !== raw.slug && o.province === raw.province && getPunjabiPlace(o.slug))
-    .slice(0, 6);
+  /* A ring over the same-province twins, not the first six in roster order
+     (siblingRing in lib/practitioner-places-pa.ts): every twin is linked by
+     six siblings, where the late ones in the list were linked by none. */
+  const nearby = siblingRing(
+    placesFor(p.provinces).filter((o) => o.province === raw.province && getPunjabiPlace(o.slug)),
+    raw.slug,
+  );
 
   const schema = [
     {
@@ -194,14 +211,16 @@ export default function PunjabiPlacePage({ params }: { params: Params }) {
               {p.credentials.map((c) => (
                 <span key={c.short}>
                   <BadgeCheck aria-hidden="true" strokeWidth={1.7} />
-                  {c.full} · {c.body} #{c.number}
+                  {c.full} · <RegisterName c={c} /> #{c.number}
                 </span>
               ))}
             </div>
           )}
 
           <div className="prose" style={{ marginTop: 26 }}>
-            <p>{t.opening(city, first)}</p>
+            {/* "The fee, the time or the work does not change with where you
+                live": the fee is linked to the page that states it. */}
+            <p>{linkPhrases(t.opening(city, first), [['ਫ਼ੀਸ', '/pricing']])}</p>
             {pa.local.map((x) => <p key={x.slice(0, 24)}>{x}</p>)}
           </div>
 
@@ -222,7 +241,7 @@ export default function PunjabiPlacePage({ params }: { params: Params }) {
           <div className="prose" style={{ marginTop: 30 }}>
             <h2>{t.accessHeading(city)}</h2>
             <ul className="checklist">
-              {t.access.map((a) => (
+              {paAccessForPage().map((a) => (
                 <li key={a.label}>
                   <strong>{a.label}</strong>, {a.detail}
                 </li>
@@ -236,7 +255,9 @@ export default function PunjabiPlacePage({ params }: { params: Params }) {
             <ul className="checklist">
               {t.focus.map((f) => (
                 <li key={f.label}>
-                  <strong>{f.label}</strong>, {f.detail}
+                  <strong>
+                    {FOCUS_GUIDE[f.label] ? <Link href={`/punjabi/guides/${FOCUS_GUIDE[f.label]}`}>{f.label}</Link> : f.label}
+                  </strong>, {f.detail}
                 </li>
               ))}
             </ul>
@@ -249,7 +270,7 @@ export default function PunjabiPlacePage({ params }: { params: Params }) {
             {faqs.map((f) => (
               <details className="faq-item" key={f.q}>
                 <summary>{f.q}</summary>
-                <p>{f.a}</p>
+                <p>{linkPhrases(f.a, PA_PHRASE_LINKS)}</p>
               </details>
             ))}
           </div>
@@ -310,7 +331,8 @@ export default function PunjabiPlacePage({ params }: { params: Params }) {
             <BookLink location="hero-place" href={bookHref}>{t.cta}</BookLink>
             <p className="cta-band-alt">
               {t.notReady}{' '}
-              <Link href="/punjabi#form">{t.notReadyWrite}</Link> &mdash;{' '}
+              <Link href="/punjabi#form">{t.notReadyWrite}</Link>{' '}
+              (<MailLink where="contact" />) &mdash;{' '}
               {t.notReadyReply}, {t.notReadyOr}{' '}
               <Link href="/punjabi#guides">{t.notReadyGuides}</Link>.
             </p>

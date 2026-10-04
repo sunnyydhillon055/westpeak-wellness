@@ -327,3 +327,73 @@ export const PA_PLACES: Record<string, PunjabiPlaceCopy> = {
 };
 
 export const getPunjabiPlace = (slug: string): PunjabiPlaceCopy | undefined => PA_PLACES[slug];
+
+/* ============================================================================
+   WHAT THE PAGE MAY STILL SAY — 4 Oct 2026
+   ----------------------------------------------------------------------------
+   On 1 Oct the English city, region and audience pages stopped promising
+   evening appointments (DECISIONS: no hours are published anywhere; the live
+   Cliniko calendar that day showed no evening at all). These Punjabi twins
+   were missed: the shared access card "ਲੋੜ ਪਵੇ ਤਾਂ ਸ਼ਾਮ ਨੂੰ" ("weekday evening
+   times on request") sat on all fifteen, and four city items made the same
+   promise. Rewording them means new Punjabi, which waits for Savneet, so the
+   promise is withheld from the page instead: the strings below are exactly
+   the ones that promise a time, and nothing else is touched. Prose about a
+   commute eating a client's evening describes the client's day, not the
+   practice's, and stays (the same line the 1 Oct change drew).
+
+   The data above is left as written, because other pages import it and a
+   rewrite is Savneet's; test/place-twins.test.mts fails if an entry here no
+   longer matches anything, so a correction from her retires it.
+   ========================================================================= */
+export const PA_EVENING_PROMISES: ReadonlySet<string> = new Set([
+  /* The shared access card. */
+  'ਲੋੜ ਪਵੇ ਤਾਂ ਸ਼ਾਮ ਨੂੰ',
+  /* Surrey: "video sessions, in the evening if needed, remove the part that
+     was breaking", and "I can only do evenings. Will it work?" "Yes." */
+  'ਵੀਡੀਓ ਰਾਹੀਂ ਸੈਸ਼ਨ, ਲੋੜ ਪਵੇ ਤਾਂ ਸ਼ਾਮ ਨੂੰ, ਉਹ ਹਿੱਸਾ ਹਟਾ ਦਿੰਦਾ ਹੈ ਜੋ ਟੁੱਟ ਰਿਹਾ ਸੀ। ਕੋਈ ਵੇਟਿੰਗ ਰੂਮ ਨਹੀਂ, ਕੋਈ ਪਾਰਕਿੰਗ ਵਿੱਚ ਪਛਾਣੀ ਜਾਣ ਵਾਲੀ ਗੱਡੀ ਨਹੀਂ, ਕੋਈ ਇਹ ਸਮਝਾਉਣਾ ਨਹੀਂ ਕਿ ਤੁਸੀਂ ਕਿੱਥੇ ਗਏ ਸੀ।',
+  'ਮੇਰੀ ਸ਼ਿਫ਼ਟ ਕਰਕੇ ਮੈਂ ਸਿਰਫ਼ ਸ਼ਾਮ ਨੂੰ ਹੀ ਹੋ ਸਕਦਾ ਹਾਂ। ਚੱਲੇਗਾ?',
+  /* Kamloops: "same province, same time zone, the same evening times on request". */
+  'ਕੀ ਇੰਟੀਰੀਅਰ ਵਿੱਚ ਹੋਣ ਕਰਕੇ ਸਮੇਂ ਵੱਖਰੇ ਹਨ?',
+  /* Coquitlam: "weekday evening times are available on request". */
+  'ਮੈਂ ਸ਼ਾਮ ਸੱਤ ਵਜੇ ਤੋਂ ਪਹਿਲਾਂ ਘਰ ਨਹੀਂ ਪਹੁੰਚਦਾ। ਕੀ ਇੰਨੀ ਦੇਰ ਨਾਲ ਸੈਸ਼ਨ ਹੋ ਸਕਦਾ ਹੈ?',
+]);
+
+/** The access cards a Punjabi page may show: the shared four less the evening promise. */
+export const paAccessForPage = () => PA_PLACE_SHARED.access.filter((a) => !PA_EVENING_PROMISES.has(a.label));
+
+/** A city's Punjabi copy as the page may show it: local paragraphs and
+ *  questions that promise an evening time withheld (keyed by paragraph, or by
+ *  the question for an FAQ). */
+export function getPunjabiPlaceForPage(slug: string): PunjabiPlaceCopy | undefined {
+  const c = PA_PLACES[slug];
+  if (!c) return undefined;
+  return {
+    blurb: c.blurb,
+    local: c.local.filter((x) => !PA_EVENING_PROMISES.has(x)),
+    faqs: c.faqs.filter((f) => !PA_EVENING_PROMISES.has(f.q)),
+  };
+}
+
+/* THE SIBLING RING — 4 Oct 2026. The "also here" block on a twin was the
+   same-province list in roster order, cut at six, so the first six cities
+   linked one another and the late ones (White Rock, Richmond, Nanaimo...)
+   were linked by no sibling at all: three or four inbound pages each. A ring
+   instead: each city links the cities either side of it in that same order,
+   one step out, then two, then three, wrapping at the ends. Every city then
+   links, and is linked by, the same number of siblings (min(n-1, 6)), and the
+   result depends only on the list, so it is the same on every build. Same
+   province only, as before: an Albertan has no use for Nanaimo. */
+export function siblingRing<T extends { slug: string }>(list: readonly T[], slug: string, max = 6): T[] {
+  const i = list.findIndex((x) => x.slug === slug);
+  const n = list.length;
+  if (i === -1 || n < 2) return [];
+  const out: T[] = [];
+  const seen = new Set<number>([i]);
+  for (let step = 1; out.length < Math.min(max, n - 1) && step < n; step++) {
+    for (const j of [(i + step) % n, (i - step + n) % n]) {
+      if (out.length < max && !seen.has(j)) { seen.add(j); out.push(list[j]); }
+    }
+  }
+  return out;
+}

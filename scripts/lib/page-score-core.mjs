@@ -625,6 +625,28 @@ export const isAuthority = (href) => {
   return AUTHORITY.some((d) => (d.startsWith('.') ? host.endsWith(d) : host === d || host.endsWith(`.${d}`)));
 };
 
+/* THE FREE CONSULTATION, IN THE PAGE'S OWN LANGUAGE — 4 Oct 2026. The
+   Tagalog and Punjabi twins state it in Tagalog ("Libreng 15 minutong
+   konsultasyon", "isang libreng labinlimang minutong konsultasyon") and in
+   Punjabi ("ਪਹਿਲੀ 15 ਮਿੰਟ ਦੀ ਗੱਲਬਾਤ ਮੁਫ਼ਤ"), and an English-only match
+   docked all 34 of them for a sentence they carry. Same rule in each
+   language: the fifteen minutes, with the consultation or "free" within a
+   sentence's reach; and a stated thirty-minute consultation scores zero
+   whichever language states it. Gurmukhi has no \b (it is not an ASCII word
+   character), so the Punjabi numeral is fenced with a digit lookbehind, and
+   ਮੁਫ਼ਤ is matched with the nukta both precomposed (U+0A5E) and combining
+   (U+0A3C). */
+const MUFT = 'ਮੁ(?:ਫ\\u0A3C|\\u0A5E)ਤ';
+const FIFTEEN_MINUTES = /\b(?:15|fifteen)[- ]minutes?\b|\b(?:15|labinlima)(?:ng)?[- ]minuto(?:ng)?\b|(?<!\d)15[- ]ਮਿੰਟ/gi;
+const CONSULT_NEAR = new RegExp(`consult|\\bfree\\b|\\bcall\\b|conversation|\\blibre(?:ng)?\\b|konsultasyon|${MUFT}|ਗੱਲਬਾਤ|ਸਲਾਹ`, 'i');
+const THIRTY_CONSULT = [
+  /\b(30|thirty)[- ]minutes?\s+(free\s+)?consult/i,
+  /free\s+(30|thirty)[- ]minute/i,
+  /\b(?:30|tatlumpu)(?:ng)?[- ]minuto(?:ng)?\s+(?:na\s+)?(?:libreng\s+)?konsultasyon/i,
+  /\blibre(?:ng)?\s+(?:na\s+)?(?:30|tatlumpu)(?:ng)?[- ]minuto/i,
+  new RegExp(`(?<!\\d)30[- ]ਮਿੰਟ(?:\\s+ਦੀ)?\\s+(?:${MUFT}\\s+)?(?:ਗੱਲਬਾਤ|ਸਲਾਹ)`),
+];
+
 const VERIFY = /bcacc\.ca\/search-our-member-register|ccpa-accp\.ca\/find|^\/resources\/verify-a-counsellor-in-bc|^\/compare\/rcc-vs-psychologist-vs-social-worker-bc/;
 /* A phone line or the crisis directory: on a gentle page, calling somebody
    is as much a next step as booking. */
@@ -962,9 +984,9 @@ export function scorePage(p, ctx) {
          And the fifteen minutes must sit beside the consultation (within a
          sentence's reach), not anywhere on a page that says "free" somewhere
          and "15 minutes" of breathing practice somewhere else. */
-      const thirty = /\b(30|thirty)[- ]minutes?\s+(free\s+)?consult/i.test(t) || /free\s+(30|thirty)[- ]minute/i.test(t);
-      const fifteen = [...t.matchAll(/\b(?:15|fifteen)[- ]minutes?\b/gi)].some((m) =>
-        /consult|\bfree\b|\bcall\b|conversation/i.test(t.slice(Math.max(0, m.index - 60), m.index + m[0].length + 80)));
+      const thirty = THIRTY_CONSULT.some((re) => re.test(t));
+      const fifteen = [...t.matchAll(FIFTEEN_MINUTES)].some((m) =>
+        CONSULT_NEAR.test(t.slice(Math.max(0, m.index - 60), m.index + m[0].length + 80)));
       add('clients', 'consult', C.consult, thirty ? 0 : fifteen || crisis ? C.consult : 0,
         thirty ? 'states a 30-minute consultation; the owner set 15 minutes (3 Oct, lib/cliniko-catalog.ts CONSULT_MINUTES)' : 'the free 15-minute consultation is not mentioned in <main>');
     }

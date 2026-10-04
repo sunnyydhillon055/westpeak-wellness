@@ -187,7 +187,12 @@
  *   consult 300        the free 15-minute consultation in <main>, the fifteen
  *                      minutes within a sentence of "consult", "free", "call"
  *                      or "conversation"; zero if it says 30 minutes (owner,
- *                      3 Oct; CONSULT_MINUTES).
+ *                      3 Oct; CONSULT_MINUTES). The Tagalog and Punjabi
+ *                      twins say it in their own language ("Libreng 15
+ *                      minutong konsultasyon", "15 ਮਿੰਟ ਦੀ ਮੁਫ਼ਤ ਗੱਲਬਾਤ"), and
+ *                      both the fifteen and the thirty are read in those
+ *                      words too (4 Oct 2026): the English-only match was a
+ *                      defect in the check, not in the 34 pages it docked.
  *   trust 300          a link to verify registration or the RCC explainer in
  *                      <main> 200 (100 when only the footer has one), the
  *                      privacy policy linked 100.

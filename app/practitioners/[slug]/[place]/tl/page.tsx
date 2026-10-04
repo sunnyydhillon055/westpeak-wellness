@@ -19,6 +19,8 @@ import { ogBase } from '@/lib/og-meta';
 import { COLLECTION_DATES } from '@/lib/page-dates';
 import BookLink from '@/components/BookLink';
 import { bookHrefFor } from '@/lib/city-service-page';
+import { siblingRing } from '@/lib/practitioner-places-pa';
+import { linkPhrases, TL_PHRASE_LINKS, RegisterName } from '../twin-links';
 
 /* ============================================================================
    THE TAGALOG CITY PAGES — /practitioners/<slug>/<city>/tl
@@ -114,10 +116,14 @@ export default function TagalogPlacePage({ params }: { params: Params }) {
 
   const faqs = [...tl.faqs, ...t.sharedFaqs];
 
-  /* Same province only, matching the English page. */
-  const nearby = placesFor(p.provinces)
-    .filter((o) => o.slug !== raw.slug && o.province === raw.province && getTagalogPlace(o.slug))
-    .slice(0, 6);
+  /* Same province only, matching the English page, as a ring rather than
+     the first six in roster order (siblingRing in
+     lib/practitioner-places-pa.ts): every BC twin is linked by six siblings,
+     where Burnaby, Langley, Richmond and the rest were linked by none. */
+  const nearby = siblingRing(
+    placesFor(p.provinces).filter((o) => o.province === raw.province && getTagalogPlace(o.slug)),
+    raw.slug,
+  );
 
   const schema = [
     {
@@ -213,13 +219,15 @@ export default function TagalogPlacePage({ params }: { params: Params }) {
             {p.credentials.map((c) => (
               <span key={c.short}>
                 <BadgeCheck aria-hidden="true" strokeWidth={1.7} />
-                {c.full} · {c.body} #{c.number}
+                {c.full} · <RegisterName c={c} /> #{c.number}
               </span>
             ))}
           </div>
 
           <div className="prose" style={{ marginTop: 26 }}>
-            <p>{t.opening(raw.city)}</p>
+            {/* "The fee, the hours or the work do not change with where you
+                live": the fee is linked to the page that states it. */}
+            <p>{linkPhrases(t.opening(raw.city), [['bayad', '/pricing']])}</p>
             {tl.local.map((x) => <p key={x.slice(0, 24)}>{x}</p>)}
           </div>
 
@@ -263,7 +271,7 @@ export default function TagalogPlacePage({ params }: { params: Params }) {
             {faqs.map((f) => (
               <details className="faq-item" key={f.q}>
                 <summary>{f.q}</summary>
-                <p>{f.a}</p>
+                <p>{linkPhrases(f.a, TL_PHRASE_LINKS)}</p>
               </details>
             ))}
           </div>
@@ -285,12 +293,6 @@ export default function TagalogPlacePage({ params }: { params: Params }) {
           <div className="crisis" style={{ marginTop: 30 }}>
             <p style={{ margin: 0 }}>
               <strong>{t.notCrisis}</strong> {t.urgent} 9-8-8. {t.immediateDanger}
-            </p>
-          </div>
-
-          <div className="prose" style={{ marginTop: 30 }}>
-            <p>
-              <Link href={enPath} hrefLang="en-CA">{t.backToEnglish}</Link>
             </p>
           </div>
 
@@ -320,6 +322,8 @@ export default function TagalogPlacePage({ params }: { params: Params }) {
           <div className="prose" style={{ marginTop: 30 }}>
             <p>
               <Link href={enPath} hrefLang="en-CA">{t.backToEnglish}</Link>
+              {' · '}
+              <Link href={`/practitioners/${p.slug}/tl`}>Ang profile ni {first} sa Tagalog</Link>
             </p>
           </div>
         </div>

@@ -445,3 +445,31 @@ test('routing: a misrouted sticky bar is a misroute, though it sits outside <mai
   assert.equal(c.points, 0);
   assert.match(c.reason, /savneet-singh/);
 });
+
+test('consult: the Tagalog and Punjabi twins state the fifteen minutes in their own language', () => {
+  const without = GOOD_MAIN().replace('the free 15-minute consultation comes first with', 'you meet');
+  const score = (extra: string, base = without) => {
+    const pages = site((i) => (i === 0 ? { main: base + extra } : {}));
+    return check(scoreAll(pages, opts(pages))[0], 'consult');
+  };
+  /* An English page without the consultation still fails, Tagalog and
+     Punjabi matching notwithstanding. */
+  assert.equal(score('').points, 0);
+  assert.equal(score('<p>Try 15 minuto ng mabagal na paghinga bawat araw.</p>').points, 0);
+  assert.equal(score('<p>ਹਰ ਰੋਜ਼ 15 ਮਿੰਟ ਹੌਲੀ ਸਾਹ ਲਓ।</p>').points, 0);
+  /* The wording the twins carry. */
+  const full = RUBRIC.clients.consult;
+  assert.equal(score('<p>Trauma, pagkabalisa, pagluluksa. Libreng 15 minutong konsultasyon.</p>').points, full);
+  assert.equal(score('<p>Isang libreng labinlimang minutong konsultasyon sa video.</p>').points, full);
+  assert.equal(score('<p>ਚਿੰਤਾ, ਉਦਾਸੀ, ਟਰੌਮਾ। ਪਹਿਲੀ 15 ਮਿੰਟ ਦੀ ਗੱਲਬਾਤ ਮੁਫ਼ਤ।</p>').points, full);
+  assert.equal(score('<p>ਵੀਡੀਓ ਰਾਹੀਂ 15 ਮਿੰਟ ਦੀ ਮੁਫ਼ਤ ਗੱਲਬਾਤ।</p>').points, full);
+  /* ਮੁਫ਼ਤ with the precomposed nukta letter (U+0A5E) reads the same. */
+  assert.equal(score('<p>ਵੀਡੀਓ ਰਾਹੀਂ 15 ਮਿੰਟ ਦੀ ਮੁ\u0A5Eਤ ਗੱਲਬਾਤ।</p>').points, full);
+  /* A thirty-minute consultation scores zero in either language, even beside
+     a correct fifteen. */
+  const fifteen = '<p>Libreng 15 minutong konsultasyon.</p>';
+  assert.match(score(fifteen + '<p>Isang libreng 30 minutong konsultasyon.</p>').reason, /30-minute/);
+  assert.equal(score(fifteen + '<p>Isang 30 minutong konsultasyon, libre.</p>').points, 0);
+  assert.equal(score(fifteen + '<p>ਵੀਡੀਓ ਰਾਹੀਂ 30 ਮਿੰਟ ਦੀ ਮੁਫ਼ਤ ਗੱਲਬਾਤ।</p>').points, 0);
+  assert.equal(score(fifteen + '<p>ਪਹਿਲੀ 30 ਮਿੰਟ ਦੀ ਗੱਲਬਾਤ ਮੁਫ਼ਤ।</p>').points, 0);
+});
