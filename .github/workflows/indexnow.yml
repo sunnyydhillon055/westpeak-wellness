@@ -1,23 +1,23 @@
 # Tells IndexNow (Bing, and the engines that share its submissions) which
 # URLs changed, after every push to main, instead of at the Monday cron.
 #
-# NO SECRET, SINCE 2 OCT 2026. This job used to POST /api/indexnow with
-# CRON_SECRET and, with the secret never added, logged a skip and exited green
-# on every push, so Bing heard nothing until Monday. The IndexNow key is
-# public by protocol (it is served at /<key>.txt for the engine to check), so
+# NO SECRET, SINCE 2 OCT 2026. The IndexNow key is public by protocol (it is
+# served at /<key>.txt for the engine to check), so
 # scripts/indexnow-deploy.mjs submits directly to api.indexnow.org with it.
-# It reads the live sitemap, keeps the URLs whose lastmod is on or after the
-# commit day, adds the retired URLs from lib/redirects.mjs, and chooses them
-# with the same parseUrlset/selectUrls as the cron (lib/indexnow.ts). One POST;
-# anything but 200 or 202 fails the job, so a green tick now means Bing
-# accepted the list.
 #
-# The 150s sleep is deliberate slack for the Vercel build: submitting before
-# the deployment serves the new sitemap would send yesterday's lastmods.
+# ONLY WHAT THIS PUSH CHANGED, SINCE 4 OCT 2026. The script compares
+# data/page-hashes.json (a hash of each listed page's rendered content) at
+# the commit before the push with the pushed commit, and sends the pages
+# whose hash moved, pages that were added or removed, and redirects added in
+# the range. Nothing changed means nothing is sent. verify:ci runs
+# `npm run hashes:check`, so a commit cannot change pages without moving the
+# record. One POST; anything but 200 or 202 fails the job.
+#
+# The 150s sleep is deliberate slack for the Vercel build, so an engine that
+# fetches straight away gets the new page.
 #
 # The Monday cron (/api/indexnow, vercel.json) and the /admin button are
-# unchanged; they still need CRON_SECRET on Vercel, which is a different
-# place from this repo's Actions secrets.
+# unchanged; they still need CRON_SECRET on Vercel.
 name: indexnow-on-deploy
 on:
   push:
@@ -27,6 +27,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # The commit before the push has to be here to diff against.
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
@@ -36,4 +39,10 @@ jobs:
       - name: Wait for the Vercel deploy
         run: sleep 150
       - name: Submit changed URLs to IndexNow
-        run: node --experimental-strip-types scripts/indexnow-deploy.mjs --since "$(git log -1 --format=%cs)"
+        env:
+          BEFORE: ${{ github.event.before }}
+        run: |
+          # A new branch or a force push can leave BEFORE unusable; then the
+          # parent of the pushed commit is the honest "before".
+          if [ -n "$BEFORE" ] && git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then FROM="$BEFORE"; else FROM="$(git rev-parse HEAD~1)"; fi
+          node --experimental-strip-types scripts/indexnow-deploy.mjs --from "$FROM" --to "$GITHUB_SHA"

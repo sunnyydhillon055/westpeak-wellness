@@ -12,40 +12,53 @@
  * which also writes the cron's health record; this script writes nothing on
  * the site. It submits straight to api.indexnow.org with the public key.
  *
- * WHAT IT SENDS. The live sitemap's <loc>s whose <lastmod> is on or after the
- * commit day (`git log -1 --format=%cs`, passed as --since), plus the retired
- * URLs from lib/redirects.mjs, chosen by parseUrlset and selectUrls in
- * lib/indexnow.ts, so the cron and the deploy pick URLs the same way. One
- * POST; anything but 200 or 202 fails the job.
+ * ONLY WHAT THIS DEPLOY CHANGED — 4 Oct 2026. It used to send every sitemap
+ * URL whose <lastmod> fell on or after the commit day, plus every retired URL
+ * in lib/redirects.mjs, on every push. Three pushes in a day re-sent the same
+ * pages three times, the ~retired list went out each time whether or not a
+ * redirect had been added, and a commit that changed pages without
+ * re-running `npm run hashes` (the 15-minute consultation change, 3 Oct,
+ * about 190 files) moved no lastmod and so sent none of them.
  *
- * ONLY THE PAGES THAT CHANGED — 3 Oct 2026. <lastmod> is now each page's own
- * date (lib/url-dates.ts, from a hash of its rendered content), not its
- * collection's, so a one-FAQ edit pings the one page rather than all 143 that
- * shared lib/city-services.ts's date. And /sitemap.xml is an index: its
- * children (/sitemaps/<part>.xml) are read and their union is what is
- * filtered, which sitemapEntries below already did.
+ * Now the pushed range decides. data/page-hashes.json records a hash of each
+ * listed page's rendered <main> text (scripts/page-hash-dates.mjs), and
+ * `npm run hashes:check` in verify:ci fails a commit whose pages moved
+ * without the record moving with them. So the record at the pushed commit
+ * against the record at the commit before the push says exactly which pages
+ * changed. Sent:
+ *   - pages whose hash differs, and pages new to the record;
+ *   - pages that left the record (removed or no longer listed), so an engine
+ *     re-fetches them and sees the 404 or redirect;
+ *   - redirect sources added to lib/redirects.mjs in the range.
+ * Nothing changed means no POST at all. A page's <title> or description
+ * changing alone does not move its hash (the hash is <main> only, by design:
+ * see scripts/lib/page-hash.mjs).
  *
  * The Monday cron (/api/indexnow) and the /admin button are unchanged and
- * still send everything since the cron's own last success.
+ * still send everything whose lastmod is after the cron's last success.
  *
- *   node --experimental-strip-types scripts/indexnow-deploy.mjs --since 2026-10-02
- *   node --experimental-strip-types scripts/indexnow-deploy.mjs --since 2026-10-02 --dry
+ *   node --experimental-strip-types scripts/indexnow-deploy.mjs --from <sha> --to <sha>
+ *   node --experimental-strip-types scripts/indexnow-deploy.mjs --from <sha> --to <sha> --dry
  */
+import { execFileSync } from 'node:child_process';
+import { mkdtempSync, writeFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { parseUrlset, selectUrls, INDEXNOW_KEY } from '../lib/indexnow.ts';
-import { permanentLiteralSources } from '../lib/redirects.mjs';
+import { INDEXNOW_KEY } from '../lib/indexnow.ts';
 
 export const ENDPOINT = 'https://api.indexnow.org/indexnow';
 export const ORIGIN = 'https://www.westpeakwellness.com';
-/* The site answers a bare client differently from a browser on some edges;
-   ask the way a person's browser would. */
-const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36';
+export const RECORD = 'data/page-hashes.json';
+const REDIRECTS = 'lib/redirects.mjs';
+/** IndexNow's own ceiling for one submission. */
+export const MAX_URLS = 10000;
 
-/** A YYYY-MM-DD day, or null. */
-export function dayArg(argv) {
-  const i = argv.indexOf('--since');
+/** A commit id after `flag`, or null. Only hex, so nothing else reaches git. */
+export function shaArg(argv, flag) {
+  const i = argv.indexOf(flag);
   const v = i >= 0 ? argv[i + 1] : '';
-  return /^\d{4}-\d{2}-\d{2}$/.test(v ?? '') ? v : null;
+  return /^[0-9a-f]{7,40}$/i.test(v ?? '') && !/^0+$/.test(v) ? v : null;
 }
 
 /** The request body for one submission. */
@@ -61,33 +74,79 @@ export function payload(urls, origin = ORIGIN) {
 /** True for the two statuses IndexNow uses for an accepted submission. */
 export const accepted = (status) => status === 200 || status === 202;
 
-async function getText(url) {
-  const r = await fetch(url, { headers: { 'user-agent': UA, accept: 'application/xml,text/xml;q=0.9,*/*;q=0.8' } });
-  if (!r.ok) throw new Error(`${url}: HTTP ${r.status}`);
-  return r.text();
+/** Paths whose page changed between two hash records, and paths that left. */
+export function diffRecords(before, after) {
+  const changed = [];
+  const removed = [];
+  for (const [path, v] of Object.entries(after)) {
+    if (!before[path] || before[path].hash !== v.hash) changed.push(path);
+  }
+  for (const path of Object.keys(before)) if (!after[path]) removed.push(path);
+  return { changed: changed.sort(), removed: removed.sort() };
 }
 
-async function sitemapEntries(origin) {
-  const xml = await getText(`${origin}/sitemap.xml`);
-  if (!/<sitemapindex/.test(xml)) return parseUrlset(xml);
-  const out = [];
-  for (const m of xml.matchAll(/<loc>([^<]+)<\/loc>/g)) out.push(...parseUrlset(await getText(m[1].trim())));
-  return out;
+/** Redirect sources present after and not before. */
+export const addedSources = (before, after) => {
+  const had = new Set(before);
+  return [...new Set(after)].filter((s) => !had.has(s)).sort();
+};
+
+/** The absolute URLs to send, deduplicated, at most MAX_URLS. */
+export function deployUrls({ changed, removed, retired }, origin = ORIGIN) {
+  const paths = [...new Set([...changed, ...removed, ...retired])];
+  return paths.map((p) => `${origin}${p === '/' ? '/' : p}`).slice(0, MAX_URLS);
+}
+
+const git = (args) => execFileSync('git', args, { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
+
+/** The file at a commit, or null when it did not exist there. */
+function fileAt(sha, path) {
+  try {
+    return git(['show', `${sha}:${path}`]);
+  } catch {
+    return null;
+  }
+}
+
+/** permanentLiteralSources() as lib/redirects.mjs stood at a commit. */
+async function retiredAt(sha) {
+  const src = fileAt(sha, REDIRECTS);
+  if (src == null) return [];
+  const dir = mkdtempSync(join(tmpdir(), 'indexnow-'));
+  try {
+    const file = join(dir, `redirects-${sha}.mjs`);
+    writeFileSync(file, src);
+    const mod = await import(pathToFileURL(file).href);
+    return mod.permanentLiteralSources();
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
 }
 
 async function main(argv) {
-  const since = dayArg(argv);
-  if (!since) {
-    console.error('Pass --since YYYY-MM-DD (the commit day).');
+  const from = shaArg(argv, '--from');
+  const to = shaArg(argv, '--to') ?? 'HEAD';
+  if (!from) {
+    console.error('Pass --from <sha> (the commit before the push) and --to <sha>.');
     return 1;
   }
-  const entries = await sitemapEntries(ORIGIN);
-  if (!entries.length) {
-    console.error('The sitemap yielded no URLs.');
+  const beforeRaw = fileAt(from, RECORD);
+  const afterRaw = fileAt(to, RECORD);
+  if (afterRaw == null) {
+    console.error(`${RECORD} is missing at ${to}.`);
     return 1;
   }
-  const urls = selectUrls(entries, since, permanentLiteralSources(), ORIGIN);
-  console.log(`${urls.length} URLs: lastmod on or after ${since}, plus ${permanentLiteralSources().length} retired.`);
+  const before = beforeRaw == null ? {} : JSON.parse(beforeRaw);
+  const after = JSON.parse(afterRaw);
+  const { changed, removed } = diffRecords(before, after);
+  const retired = addedSources(await retiredAt(from), await retiredAt(to));
+  const urls = deployUrls({ changed, removed, retired });
+
+  console.log(`${from.slice(0, 7)}..${String(to).slice(0, 7)}: ${changed.length} changed or new, ${removed.length} removed, ${retired.length} new redirects.`);
+  if (!urls.length) {
+    console.log('No page content changed in this deploy; nothing sent.');
+    return 0;
+  }
   if (argv.includes('--dry')) {
     for (const u of urls) console.log(`  ${u}`);
     return 0;
@@ -97,7 +156,7 @@ async function main(argv) {
     headers: { 'Content-Type': 'application/json; charset=utf-8' },
     body: JSON.stringify(payload(urls)),
   });
-  console.log(`IndexNow answered ${r.status}`);
+  console.log(`IndexNow answered ${r.status} for ${urls.length} URLs`);
   if (!accepted(r.status)) {
     console.error((await r.text()).slice(0, 600));
     return 1;

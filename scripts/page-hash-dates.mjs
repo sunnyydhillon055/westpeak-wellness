@@ -86,8 +86,11 @@ function main(argv) {
   if (unhashed.length) console.log(`  not hashed (rendered on demand, collection date kept): ${unhashed.join(', ')}`);
 
   if (argv.includes('--check')) {
-    if (changed.length || added.length) {
-      console.log('  content moved without a new date: run `npm run hashes` after the build and commit both files.');
+    /* Removed pages count too since 4 Oct 2026: the IndexNow deploy ping
+       reads this record to decide what to send, so a page that left the
+       sitemap without leaving the record would never be sent as gone. */
+    if (changed.length || added.length || removed.length) {
+      console.log('  the pages moved without the record: run `npm run hashes` after the build and commit data/page-hashes.json and lib/url-dates.ts.');
       return 1;
     }
     return 0;
