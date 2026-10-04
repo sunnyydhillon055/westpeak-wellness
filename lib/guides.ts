@@ -384,6 +384,7 @@ const coreGuides: Guide[] = [
       { href: "/services/individual-therapy", label: "Anxiety counselling across BC" },
       { href: "/guides/burnout-vs-depression", label: "Burnout or depression, how to tell" },
       { href: "/guides/anxiety-attack-vs-panic-attack", label: "Anxiety attack vs panic attack" },
+      { href: "/guides/social-anxiety-in-adults", label: "Social anxiety in adults" },
       { href: "/for/first-gen-south-asian-adults", label: "Counselling for first- and second-gen South Asian adults" },
     ],
   },
@@ -543,7 +544,7 @@ const coreGuides: Guide[] = [
              The near-duplicate "Finding Gottman Method couples counselling
              in British Columbia" section from lib/depth4.ts was folded in
              here the same day: two headings for one thing on one page. */
-          'At this practice, [Gottman-informed couples counselling in BC](/services/couples-therapy) is delivered online across British Columbia by a Registered Clinical Counsellor, which removes the usual difficulty of finding two people the same free evening in the same city. The Gottman Institute\'s own referral directory lists clinicians by region and training level if you want to compare. For how the method sits against the other major evidence-based couples approach, the [Gottman vs EFT comparison](/compare/gottman-method-vs-eft-for-couples) sets the two side by side. The first 30-minute consultation is free and both partners are welcome on it.',
+          'At this practice, [Gottman-informed couples counselling in BC](/services/couples-therapy) is delivered online across British Columbia by a Registered Clinical Counsellor, which removes the usual difficulty of finding two people free at the same hour in the same city. The Gottman Institute\'s own referral directory lists clinicians by region and training level if you want to compare. For how the method sits against the other major evidence-based couples approach, the [Gottman vs EFT comparison](/compare/gottman-method-vs-eft-for-couples) sets the two side by side. The first 30-minute consultation is free and both partners are welcome on it.',
         ],
       },
     ],
@@ -630,6 +631,11 @@ faqs: [
     faqs: [
       { q: "Can I get a doctor's note for burnout?", a: "A physician can certify you unfit for work based on your symptoms. They will document it in whatever terms are clinically appropriate, burn-out itself is classified as an occupational phenomenon rather than a medical condition, but the exhaustion and its effects are real and documentable." },
       { q: "How long does burnout take to recover from?", a: "It varies widely and depends heavily on whether the conditions change. Recovery that consists of resting and then returning to an unchanged workload tends not to hold." },
+      /* 3 Oct 2026: "burnout time off work" reached this page at position 1,
+         "what's the difference between clinical burnout and clinical
+         depression?" at 6, and neither had an answer of its own. */
+      { q: "Should I take time off work for burnout?", a: "Sometimes, and it is a decision to make with a physician, who decides whether you are fit for work and can certify sick leave on the symptoms. Time off helps burnout most when something about the conditions you return to changes; rest followed by an unchanged workload tends not to hold. If a break of two weeks or more changes nothing, mention that to the physician as well, because it points toward depression. [Stress or mental health leave in BC](/guides/stress-leave-bc) covers who signs the note, whether it is paid, and planning the return." },
+      { q: "Is burnout a type of depression?", a: "No. The World Health Organization lists burn-out in ICD-11 under factors influencing health status, not as a medical condition, and defines it only in relation to work; depression is a diagnosable mental health condition that reaches every area of life. They overlap, and prolonged burnout can develop into depression, which is why a physician should hear about symptoms that persist away from work." },
       { q: "Is burnout just stress?", a: "No. Stress usually involves over-engagement and urgency. Burnout is closer to the opposite: depletion, disengagement, and blunting. Chronic unmanaged stress is the route to it, but they are different states." },
       { q: "What if I cannot change my job?", a: "That is the common situation. The work then focuses on what is genuinely within your control: boundaries, recovery, the internal rules that make overwork feel non-negotiable, while being honest that this manages the cost rather than removing the cause." },
     ],
@@ -644,7 +650,6 @@ faqs: [
       { href: "/services/individual-therapy", label: "Depression counselling across BC" },
       { href: "/guides/high-functioning-anxiety", label: "High-functioning anxiety" },
       { href: "/for/healthcare-and-shift-workers", label: "Counselling for healthcare and shift workers" },
-      { href: "/services/individual-therapy", label: "Anxiety counselling" },
       { href: "/tools/stress-check", label: "A reflection on how things have been" },
     ],
   },

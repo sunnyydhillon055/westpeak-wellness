@@ -147,6 +147,7 @@ export const services: Service[] = [
       { href: "/guides/what-to-expect-first-therapy-session", label: "What to expect in a first session" },
       { href: "/guides/how-to-find-a-therapist-in-bc", label: "How to find a therapist in BC" },
       { href: "/compare/individual-vs-couples-therapy", label: "Individual or couples therapy, which first?" },
+      { href: "/guides/social-anxiety-in-adults", label: "Social anxiety in adults" },
       { href: "/pricing", label: "Fees and coverage" },
     ],
     sources: [
@@ -164,8 +165,13 @@ export const services: Service[] = [
     name: "Couples Therapy",
     short: "Gottman-informed: communication, conflict, connection, repair.",
     metaTitle: "Gottman-Informed Couples Counselling Online in BC | Westpeak",
+    /* "Marriage" added 3 Oct 2026. The 3 Oct export: "gottman method
+       marriage counselling british columbia" 24 impressions at 34.4, the
+       largest query in the Gottman family, and "marriage counselling" in
+       eight more queries; the description never said the word. The title
+       is unchanged (tuned 1 Oct, still being measured). */
     metaDescription:
-      "Gottman-informed online couples counselling across BC. Communication, conflict and repair, by secure video.",
+      "Gottman-informed online couples and marriage counselling across BC. Communication, conflict and repair, by secure video.",
     hero: "Strengthen communication, deepen connection, repair what's frayed.",
     intro:
       "Every couple hits friction. Couples therapy is a structured, research-based space to understand the patterns underneath the arguments, and to build the skills to move through conflict without losing each other. Sessions are 50 minutes (or a 110-minute extended option), online across BC.",
@@ -212,6 +218,13 @@ export const services: Service[] = [
       /* Cost and coverage, 1 Oct 2026: "online couples therapy cost" and
          "free couples counselling surrey" reach this page and nothing on it
          answered them. Fees from the catalogue, never typed. */
+      /* 3 Oct 2026: "gottman method counsellor british columbia" (20 at
+         26.3), "gottman method therapist british columbia" (5 at 33) and
+         "gottman method couples therapy bc" (7 at 38.9) all ask whether the
+         person is a Gottman therapist. This answers it honestly: the
+         practice's couples work is informed by the method, and no training
+         level is claimed until one is recorded (DECISIONS, 1 Oct). */
+      { q: "Is this Gottman Method couples therapy?", a: "It is Gottman Method-informed. The structured assessment, the work on criticism, contempt, defensiveness and stonewalling, and the repair conversations described on this page come from the Gottman Institute’s model. The Institute trains clinicians in three levels, and Certified Gottman Therapist is a separate, longer designation; neither replaces the Registered Clinical Counsellor registration that is the regulated credential in BC. Asking which level a counsellor has completed is a reasonable question for the free consultation, here or anywhere else. [How the Gottman Method works](/guides/how-the-gottman-method-works) explains the model itself." },
       { q: "How much does couples counselling cost, and will insurance cover it?", a: `${fallbackFee('Couples Counselling')} for a 50-minute session, or ${fallbackFee('Couples Extended')} for the 110-minute extended session, after a free 30-minute consultation. MSP does not cover private counselling. Extended health plans that list Registered Clinical Counsellors often reimburse couples sessions, but some exclude or limit them, so check your plan's wording first. Each session has one receipt, in the name of the partner who claims it.` },
     ],
     related: [
@@ -282,7 +295,12 @@ export const services: Service[] = [
     },
     faqs: [
       { q: "Do I have to tell you what happened?", a: "Not in detail. Your counsellor needs enough to identify the target. An image, the belief attached to it, where it sits in your body, but the processing itself does not require narration. Many people say little during a set." },
-      { q: "Does EMDR work over video?", a: "Yes, with adaptation. On-screen movement, alternating audio, or self-administered tapping all work. The preparation phase matters more online, not less, and a careful practitioner will spend longer there." },
+      /* Sourced 3 Oct 2026. "emdr therapy online" (8 at 65.8), "online emdr
+         therapists" (7 at 72.1), "emdr therapist online" (4 at 74.3) and
+         "licensed emdr virtual therapy providers" (3 at 54.7): the answer
+         said it works and cited nothing. The research is real and still
+         thin, so it says both. */
+      { q: "Does EMDR work over video?", a: "It can, with adaptation. On-screen movement, alternating audio, or self-administered tapping replace the hand movements of an office session, and the preparation phase matters more online, not less. The research on video-delivered EMDR is still small: a 2021 study of 102 sessions run by 23 therapists ([Mischler et al., Frontiers in Psychology](https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2021.748712/full)) found distress ratings fell within sessions by an amount similar to in-person EMDR studies, while noting its therapists were a self-selected group. In BC, check that the person is registered (an RCC, for example) and ask what EMDR training they have completed." },
       { q: "How many sessions?", a: "Single-incident trauma in someone otherwise stable can resolve in a handful of processing sessions. Complex or intergenerational trauma is a longer piece of work, and most of the early time goes to stabilisation." },
       { q: "Can EMDR make things worse?", a: "Trauma work paced badly can destabilise anyone, which is what phases 2 and 7 exist to prevent. Distress during a session is normal and temporary; deterioration lasting days is a signal to slow down, and worth saying out loud." },
       /* Cost, 1 Oct 2026: BC competitors rank dedicated EMDR cost pages and
@@ -299,7 +317,8 @@ export const services: Service[] = [
     ],
     sources: [
       { label: "NICE, Post-traumatic stress disorder guideline (NG116)", url: "https://www.nice.org.uk/guidance/ng116" },
-      { label: "EMDR International Association", url: "https://www.apa.org/ptsd-guideline/treatments/eye-movement-reprocessing" },
+      { label: "American Psychological Association, PTSD guideline: EMDR", url: "https://www.apa.org/ptsd-guideline/treatments/eye-movement-reprocessing" },
+      { label: "Mischler et al. (2021), videoconference-based EMDR, Frontiers in Psychology", url: "https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2021.748712/full" },
     ],
   },
 

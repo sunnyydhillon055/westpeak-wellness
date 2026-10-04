@@ -169,6 +169,12 @@ export const pairs: Pair[] = [
     faqs: [
       /* Search Console, 17 Sep 2026: 70 impressions a quarter for marriage counselling Abbotsford, and the word appeared nowhere on this page. */
       { q: 'Is this the same as marriage counselling?', a: 'Yes. "Marriage counselling" is what most people in Abbotsford type, "couples therapy" is what the profession calls it, and the work is the same: married, common-law, engaged or neither. The only difference the word makes is that a couple searching for marriage counselling is often further along, sometimes at the point where one of them has said the word divorce, and that is worth saying at the first call so the pace is right.' },
+      /* 3 Oct 2026: "marriage counselling abbotsford" and its variants were
+         58 impressions at 44-53, below directories whose listings sort
+         counsellors by approach (Gottman, EFT, Imago). This page never said
+         which approach it uses. FAQ answers here render as plain text, so
+         the comparison is named in words. */
+      { q: 'What approach does the marriage counselling use?', a: 'Gottman Method-informed. It opens with a structured assessment, a joint session and one with each of you, and then works on the specific patterns in how the two of you argue and repair rather than on general advice. Abbotsford listings often name Gottman, emotionally focused therapy (EFT) or Imago; only the first is used here, and the Gottman vs EFT comparison on this site sets out how the two best-researched ones differ.' },
       { q: 'Do you do premarital or pre-commitment work?', a: 'Yes, and it is generally more straightforward than work begun in a crisis, largely because nobody arrives already keeping score.' },
       { q: 'Can we book a longer first session?', a: `A 110-minute extended session is available at ${fallbackFee('Couples Extended')} where there is a lot to lay out. Most couples start with the standard 50 minutes and decide from there.` },
     ],
@@ -588,6 +594,11 @@ export const pairs: Pair[] = [
   },
   {
     city: 'kamloops', service: 'trauma-therapy',
+    /* Search Console, 3 Oct 2026: "trauma counselling kamloops" 8
+       impressions at 36.75 and no "trauma therapy kamloops" at all; on
+       17 Sep the same query was 21 at 36. Two exports agree, so the title
+       says what Kamloops types. The heading keeps both words (seoName). */
+    titleName: 'Trauma Counselling',
     angle: 'Trades and transport, and a workforce that arrives about a decade after the event.',
     body: [
       'Kamloops works in rail, transport, trades and resource industries, and those are settings where serious incidents are part of the job rather than an aberration. They are also settings where the culture around them is to carry on. The result is a very common presentation here: somebody in their forties or fifties describing something that happened long ago, who has never told anybody the whole of it.',

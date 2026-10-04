@@ -78,12 +78,14 @@ test('whole sentences only: the cut that published "Free" cannot recur', () => {
    Westminster's, so both are titled as therapy. */
 test('the marriage titles fit the gate, only the two pairs Search Console names carry one, and the 15-character cities title depression for length', () => {
   const titled = pairs.filter((p) => p.titleName);
-  assert.deepEqual(titled.map((p) => `${p.city}/${p.service}`).sort(), ['abbotsford/couples-therapy', 'new-westminster/depression-counselling', 'north-vancouver/depression-counselling', 'prince-george/couples-therapy']);
+  assert.deepEqual(titled.map((p) => `${p.city}/${p.service}`).sort(), ['abbotsford/couples-therapy', 'kamloops/trauma-therapy', 'new-westminster/depression-counselling', 'north-vancouver/depression-counselling', 'prince-george/couples-therapy']);
   for (const p of titled) {
     const ctx = cityContexts.find((c) => c.slug === p.city)!;
     const t = `${cityServiceTitle(p.titleName!, ctx.city, 'Westpeak Wellness')} | Westpeak Wellness`;
     assert.ok(t.length <= 60, `${t} is ${t.length}`);
-    assert.match(t, p.service === 'couples-therapy' ? /^Marriage Counselling in / : /^Depression Therapy in /);
+    /* Kamloops trauma joined 3 Oct 2026: "trauma counselling kamloops" in two
+       exports, "trauma therapy kamloops" in neither. */
+    assert.match(t, p.service === 'couples-therapy' ? /^Marriage Counselling in / : p.service === 'trauma-therapy' ? /^Trauma Counselling in / : /^Depression Therapy in /);
   }
   assert.equal(cityServiceTitle('Marriage Counselling', 'Abbotsford', 'Westpeak Wellness'), 'Marriage Counselling in Abbotsford, BC');
   assert.equal(cityServiceTitle('Marriage Counselling', 'Prince George', 'Westpeak Wellness'), 'Marriage Counselling in Prince George');
