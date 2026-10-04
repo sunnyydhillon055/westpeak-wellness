@@ -272,12 +272,19 @@ const recorded: Practitioner[] = [
     acceptingNewClients: false,
     /* ONE PAGE TOTAL. See the note on the field. */
     placePages: false,
-    /* Her BCACC register entry and her LinkedIn, both public, both found by
-       the 6 Sep 2026 audit as the only third-party pages that name her with
-       the practice. On her own profile, where her name is allowed. */
+    /* Her LinkedIn, found by the 6 Sep 2026 audit as a third-party page that
+       names her with the practice. On her own profile, where her name is
+       allowed. */
     sameAs: [
-      'https://bcacc.ca/counsellors/amandeep-bains/',
       'https://ca.linkedin.com/in/aman-bains-9ab445276',
+      /* NOT her BCACC Find a Counsellor entry (bcacc.ca/counsellors/
+         amandeep-bains/). Withdrawn 3 Oct 2026: it says in-person and
+         telephone sessions and Surrey, where the site says video only, and an
+         AI answer to a brand query was already repeating it. Her register
+         status is still linked from the credential (verifyUrl above), which
+         is a link, not a sameAs. It comes back once she has edited the entry
+         to match the site and the entry has been re-read; record that read in
+         VERIFIED in test/practitioner-sameas.test.mts. */
       /* NOT the practice's Psychology Today profile (.../westpeak-wellness-
          white-rock-bc/1080689). Removed 1 Oct 2026: it still says a 15-minute
          consultation, a 506 phone number, in-person sessions and a different

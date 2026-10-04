@@ -105,7 +105,7 @@ const nextConfig = {
    * so the files are named here or the functions ship without them. */
   experimental: {
     outputFileTracingIncludes: {
-      '/admin': ['./data/gsc/*-pages*.csv', './data/changes.json'],
+      '/admin': ['./data/gsc/*-pages*.csv', './data/changes.json', './data/bing/*-ai-*.csv'],
       '/api/cron/funnel-report': ['./data/gsc/*-pages*.csv', './data/changes.json'],
     },
   },

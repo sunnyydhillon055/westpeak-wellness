@@ -22,6 +22,7 @@ import { readBookingTally, tallyRows, tallyLine } from '@/lib/booking-tally-read
 import { funnelJoins, consultLines, enquiryLines, retentionLines, arrivalRows } from '@/lib/funnel-report';
 import { recentSnapshots, lastWeek, weekTable, type WeekRow } from '@/lib/conversion-snapshots';
 import { readGscSummary, newestGscDate, gscLines, readGscWeeks, gscWeekLines, readGscExports } from '@/lib/gsc-summary';
+import { bingAiLine } from '@/lib/bing-ai';
 import { weeklyKpis, type KpiTile } from '@/lib/weekly-kpis';
 import { dueChanges, changeLines, readChanges } from '@/lib/change-register';
 import { practitioners } from '@/lib/practitioners';
@@ -1096,7 +1097,7 @@ export default async function AdminPage({
 
         <div id="search-console" className="admin-panel" style={{ marginTop: 22 }}>
           <h3 style={{ marginTop: 0 }}>Search Console</h3>
-          <pre style={{ margin: '4px 0 0', fontSize: '.85rem', lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>{[...gscLines(gsc, googleLandings), '', ...gscWeekLines(gscWeeks)].join('\n')}</pre>
+          <pre style={{ margin: '4px 0 0', fontSize: '.85rem', lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>{[...gscLines(gsc, googleLandings), '', ...gscWeekLines(gscWeeks), '', bingAiLine()].join('\n')}</pre>
         </div>
 
         <div id="funnel" className="admin-panel" style={{ marginTop: 22 }}>

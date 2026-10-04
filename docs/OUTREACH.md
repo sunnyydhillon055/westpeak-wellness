@@ -332,6 +332,230 @@ Westpeak Wellness · info@westpeakwellness.com
 
 ---
 
+Sections 8 to 13 were drafted on 3 October 2026 and moved here so the claims,
+coverage, couples-method and hours checks read them before anything is sent.
+The directory field blocks from the same round, including EMDR Canada, are in
+[LISTINGS_PACK.md](LISTINGS_PACK.md). Fees are never typed: where a reply
+needs one, link /pricing, which reads the live catalogue.
+
+## 8. Philippine Consulate General in Vancouver — Assistance to Nationals and the Migrant Workers Office
+
+To: the Assistance to Nationals address, copied to the Migrant Workers Office
+Vancouver, both as published on https://www.vancouverpcg.org. Read both on
+the consulate's ATN and MWO pages on the day of sending.
+
+**Subject:** A free BC resource on finding counselling in Tagalog, for your referral list
+
+Good day,
+
+We are a small online counselling practice in British Columbia. We keep a
+plain-language guide for anyone looking for counselling in Tagalog or Punjabi
+in BC. It lists the free and low-cost services first, each checked against
+its own website with the date shown, and says plainly where no free
+Tagalog-language counselling program could be found:
+
+https://www.westpeakwellness.com/resources/finding-a-counsellor-in-punjabi-or-tagalog-in-bc?utm_source=community
+
+Your Assistance to Nationals team and the Migrant Workers Office help
+caregivers, temporary workers and students who sometimes need to talk to
+someone in their own language. If it would help, you are welcome to add the
+guide to your referral list or to the FilNet Bayanihan Information Hub. It is
+free to link and to print, and nothing on it needs a sign-up.
+
+One of our counsellors, Camille Granda (RCC, CCC), works in English and
+Tagalog. If a future orientation or community conference has room for a
+short, information-only segment, she would be glad to take part: how
+counselling works in BC, what is kept confidential, and how anyone can check
+that a counsellor is registered. She would not discuss any client or promote
+a service.
+
+If anything on the guide is out of date for your community, please tell us
+and we will correct it.
+
+Westpeak Wellness
+info@westpeakwellness.com
+https://www.westpeakwellness.com
+
+---
+
+## 9. FilNet — Filipino settlement and social-service workers, Lower Mainland
+
+FilNet has no website of its own; it posts through the consulate's FilNet
+Bayanihan Information Hub and its Facebook page. Send through the consulate
+(section 8 already asks) or by Facebook message. Ask Camille first whether
+she knows a FilNet member: a colleague's introduction is better than a cold
+message.
+
+**Subject:** For FilNet members: a checked list of Tagalog-language counselling options in BC
+
+Hello,
+
+Settlement workers are often the first people asked "is there anyone who can
+help in Tagalog?" We keep a guide that tries to answer that honestly. It names
+the free and low-cost services first and our own practice last, and every
+entry shows the date it was checked:
+
+https://www.westpeakwellness.com/resources/finding-a-counsellor-in-punjabi-or-tagalog-in-bc?utm_source=community
+
+There is also a page written for Filipino health-care workers and
+caregivers:
+
+https://www.westpeakwellness.com/for/filipino-healthcare-workers-and-caregivers?utm_source=community
+
+You are welcome to share or print either one. If you know of a
+Tagalog-speaking service we have missed, please tell us. The guide is meant
+to be complete, not to be about us.
+
+Westpeak Wellness
+info@westpeakwellness.com
+
+---
+
+## 10. Journalist requests — HARO and Qwoted
+
+- HARO: https://www.helpareporter.com. Connectively closed in December 2024;
+  Featured.com relaunched HARO in April 2025, free for sources.
+- Qwoted: https://app.qwoted.com. The free Basic plan allows a small number
+  of pitches a month; read the current limit when signing up.
+
+Source profile (both sites):
+
+> Westpeak Wellness is an online counselling practice serving British
+> Columbia by secure video. Its Registered Clinical Counsellors work in
+> English, Tagalog and Punjabi. Spokespeople: Camille Granda, RCC, CCC
+> (English and Tagalog; individual, couples and family counselling, EMDR) and
+> Savneet Singh, RCC (English and Punjabi; individual counselling). Topics:
+> finding a counsellor in BC and checking that one is registered; what
+> extended-health plans do and do not cover (it depends on the plan);
+> counselling in a first language; workplace mental-health leave in BC;
+> couples counselling (Camille); EMDR (Camille). Contact:
+> info@westpeakwellness.com. Website:
+> https://www.westpeakwellness.com/?utm_source=press
+
+Keywords to watch: therapy cost Canada, counselling BC, mental health leave,
+EMDR, couples therapy, Filipino or Tagalog mental health, Punjabi or South
+Asian mental health, immigrant mental health, burnout, registered counsellor.
+
+Reply template (under 200 words, one per query, written by the counsellor):
+
+**Subject:** [Query title], Registered Clinical Counsellor, British Columbia
+
+[Name], [RCC / RCC, CCC], Westpeak Wellness (online counselling, British
+Columbia). https://www.westpeakwellness.com
+
+[Two short paragraphs that answer only what was asked, from training and
+published evidence. No client stories, not even composite or anonymised
+ones. No claims about results. If the evidence is mixed, say so.]
+
+Happy to answer follow-ups by email at info@westpeakwellness.com.
+
+Westpeak Wellness
+
+Answer only queries within the counsellor's own services: Savneet does not
+answer couples or EMDR queries. Ignore any query that asks for payment for a
+link.
+
+---
+
+## 11. Moving Forward Family Services — a correction request
+
+The language-access guide names this Surrey service among the Punjabi-language
+options, and it is the one named service section 6 does not reach. This is a
+courtesy note and a correction request, not a request for a link.
+
+To: the contact address on https://movingforward.help/
+
+**Subject:** You are listed on our guide to counselling in Punjabi in BC; is it right?
+
+Hello,
+
+We keep a free guide for people looking for counselling in Punjabi or Tagalog
+in British Columbia. It lists the free and low-cost services first, and
+Moving Forward Family Services is among them:
+
+https://www.westpeakwellness.com/resources/finding-a-counsellor-in-punjabi-or-tagalog-in-bc?utm_source=community
+
+Could you check that what we say about your service is accurate and current?
+We would rather correct it than send someone to the wrong place. If the guide
+is useful to the people you work with, you are welcome to share or link it.
+
+Our Punjabi-speaking counsellor, Savneet Singh (RCC), sees adults online
+across BC for individual counselling. If someone you speak with wants private
+counselling in Punjabi, perhaps because their extended-health plan may
+reimburse it (depending on the plan), she is one option. We are equally glad
+to point people your way.
+
+Westpeak Wellness
+info@westpeakwellness.com
+
+---
+
+## 12. BC Bereavement Helpline — the Provincial Resource Guide
+
+The Helpline's volunteers refer callers using a provincial guide to
+grief-support services. The ask is whether private, fee-charging counsellors
+can be listed. If they cannot, accept the answer.
+
+To: the email published on https://bcbh.ca (read it on the day of sending).
+
+**Subject:** Question about your Provincial Resource Guide: grief counselling in Tagalog, online across BC
+
+Hello,
+
+We are a small online counselling practice in British Columbia. One of our
+Registered Clinical Counsellors, Camille Granda (RCC, CCC), works in English
+and Tagalog, and grief and loss are part of her practice. Sessions are by
+video, so she is available to people in any BC community.
+
+Does your Provincial Resource Guide include private counsellors who charge a
+fee? If it does, we would be grateful to be considered as a Tagalog-language
+option. Many extended-health plans reimburse a Registered Clinical
+Counsellor, depending on the plan. The first 30-minute consultation is free.
+If the guide covers only free and non-profit services, we understand
+completely.
+
+Separately, our guide to grief, written for the public, is free to share:
+https://www.westpeakwellness.com/guides/grief-without-a-timeline?utm_source=community
+
+Westpeak Wellness
+info@westpeakwellness.com
+
+---
+
+## 13. CCPA Cognica — an article pitch (Camille; deadline 1 March 2027)
+
+Cognica is CCPA's bilingual member publication, published twice a year with
+member submissions due 1 March and 1 September. Send to the editorial address
+on https://www.ccpa-accp.ca/cognica/ and read the length limit there on the
+day. The angle must differ from the BCACC INSIGHTS pitch, so it is not the
+same article twice. Camille writes and owns the article; send the pitch only
+while her Alberta cover is current.
+
+**Subject:** Cognica submission (spring 2027): practising across two provinces by video as a CCC
+
+Hello,
+
+I am a Canadian Certified Counsellor and a Registered Clinical Counsellor in
+British Columbia, certified to see clients in Alberta by video as well. I
+would like to submit a short practice article for the spring 2027 issue on
+what a counsellor needs to check before working across a provincial line
+online. It would cover:
+
+- which body's rules apply where the client sits
+- liability insurance that names both provinces
+- emergency planning when you do not know the local services
+- consent and confidentiality for video sessions
+
+It would contain no client material, and every regulatory statement would
+cite its source.
+
+I can send a draft by [date before 1 March 2027].
+
+Camille Granda, RCC, CCC
+Westpeak Wellness · https://www.westpeakwellness.com/practitioners/camille-granda
+
+---
+
 ## What to watch afterwards
 
 Search Console → Links → "Top linking sites" should gain each site that

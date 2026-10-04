@@ -128,6 +128,54 @@ page and it becomes honest; until then it is omitted.
 
 ---
 
+## 7. Baseline: who AI answers cited, 3 October 2026
+
+The earlier baselines (AI_VISIBILITY_AUDIT_2026-09-06.md,
+VISIBILITY_25_AI_2026-08-28.md) predate the 1 Oct changes, so this one
+replaces them as the comparison point. Seven questions were put to AI
+assistants on 3 Oct 2026 by the round-6 research pass. This records what that
+pass reported. The full question wording and each answer's source list were
+not kept with it, so for the re-run, **write each question and every cited
+URL down verbatim in this section**; a baseline that cannot be re-asked word
+for word is not a baseline.
+
+| Question, as recorded | Who was cited | Westpeak cited? |
+|---|---|---|
+| Punjabi-speaking counsellor in BC | Psychology Today profiles 5 times, counsellingbc.com twice | No |
+| The practice by name (brand query) | The founder's BCACC Find a Counsellor entry, which says in-person, telephone and Surrey; the answer repeated those facts | Only through that wrong entry |
+| Five further questions (wording not recorded) | Not recorded | No |
+
+**Result.** Westpeak was cited in none of the seven answers except the
+brand query, and there only through a third-party page whose facts the site
+contradicts. Its informational pages rank 6 to 14 in Google on the same
+topics (Search Console, 3 Oct export), so the gap is retrieval and
+corroboration, not content.
+
+**What changed the same day.** The BCACC entry was taken out of the
+founder's Person.sameAs (lib/practitioners.ts; the guard is
+test/practitioner-sameas.test.mts), so the site no longer tells an engine
+that page is her. It returns once she has edited it to video only and it has
+been re-read. Counselling BC, which the Punjabi answer cited, is paid; it is
+recorded as the owner's decision in docs/LISTINGS_PACK.md item 4.
+
+**Untested, not absent:**
+
+- Bing `site:` coverage of westpeakwellness.com. Copilot and ChatGPT search
+  retrieve through Bing; nobody has counted what Bing holds. The first Bing
+  AI Performance export answers part of it: `node scripts/bing-ai.mjs`, and
+  the "Copilot citations, 7 days" line on /admin.
+- Whether Vercel's bot checkpoint lets Perplexity-User and ChatGPT-User
+  fetches through. Those agents fetch a page at the moment a person asks; a
+  challenge page there means no citation whatever robots.txt allows. Test
+  from those agents' own published IP ranges, not by spoofing a user agent.
+
+**Re-run** the same seven questions, in the same assistants, after items 403
+(the founder's BCACC entry corrected), 404, 419 and 427 have landed. Record
+the date, each answer's cited URLs, and whether Westpeak appears, beside the
+rows above.
+
+---
+
 ## The part the site cannot do
 
 On-site work makes the site **eligible** to be cited. It does not make it cited.

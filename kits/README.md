@@ -14,6 +14,9 @@ this is reachable from the website and none of it is in the sitemap.
 > standing press bio below are current. The coverage and couples-method claim
 > checks under `scripts/` scan this folder and
 > `docs/` as well as the site, so a stale claim pasted back in fails the build.
+> Before joining any directory a kit names, read "Checked 3 Oct 2026, not
+> eligible or paid" in the listings pack: Counselling BC, Theravive, First
+> Session, South Asian Therapists and bc211 are on it.
 
 ---
 

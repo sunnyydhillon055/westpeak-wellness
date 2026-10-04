@@ -198,9 +198,11 @@ under-18s.
 
 ### Also worth doing, same copy
 
-**South Asian Therapists** (`southasiantherapists.org`) — a directory the audit found ranking for
-exactly the Punjabi and South Asian queries this practice is differentiated on, where the
-competition is thin. Of everything on this page, it is the best fit-to-effort ratio.
+**South Asian Therapists** (`southasiantherapists.org`) — corrected 3 Oct 2026: not free. It
+costs £19.59 a month and lists only registered charities free, so it is out under the
+no-paid-directories rule. See "Checked 3 Oct 2026, not eligible or paid" in
+[docs/LISTINGS_PACK.md](docs/LISTINGS_PACK.md), which also covers Counselling BC, Theravive and
+First Session above.
 
 ---
 
@@ -232,7 +234,10 @@ page.
   for the Fraser Valley.
 - **EAP panels** — Homewood Health, Morneau Shepell/TELUS Health, LifeWorks. Panel work is lower
   fee and steadier, and the panel listing itself is a citation.
-- **BC211** — the province's referral database.
+- **BC211** — corrected 3 Oct 2026: not eligible. Its listing inclusion criteria
+  (bc.211.ca/listing-inclusion-criteria, read 3 Oct 2026) admit non-profit, community and
+  government services and businesses licensed or contracted by government to provide free or
+  low-cost services. A fee-for-service private practice is none of those. Do not apply.
 - **University counselling offices** — UFV is in Abbotsford and maintains referral lists for
   students needing more than campus counselling can offer.
 
