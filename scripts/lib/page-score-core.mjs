@@ -39,12 +39,16 @@ export const RUBRIC = {
 /* ---- thresholds (sources in scripts/page-score.mjs) --------------------- */
 
 export const T = {
-  titleMin: 30, titleMax: 60,          // seo-audit.mjs TITLE_MAX; Google: avoid vague (short) and verbose titles
+  /* titleMax is seo-audit.mjs TITLE_MAX. titleMin has NO published source:
+     Google asks for titles that are not vague and gives no length, and no
+     repo gate sets a minimum. 30 is the owner's tripwire for a vague title;
+     no sitemap page is under it on 4 Oct 2026, so it costs nothing today. */
+  titleMin: 30, titleMax: 60,
   descMin: 70, descMax: 158,           // seo-audit.mjs DESC_MIN / DESC_MAX, & counted as &amp;
   inboundFull: 5,                      // owner's brief; Google: every page linked from at least one other
   outboundMin: 3, outboundFull: 20, outboundSoft: 30, outboundZero: 60,
   firstScreenShare: 0.2, firstScreenZero: 0.5, // NN/g 2018: 57% of viewing time above the fold, 74% in two screens
-  contextWords: 3,                     // words beside a link, in its own p/li, for it to be contextual
+  contextWords: 3,                     // words beside a link, in its own p/li; Google says "surrounding text", the 3 is the owner's
   healthySimilarity: 0.5,              // uniqueness-gate.mjs TWIN_CEILING, "the line the researcher's audit drew"
 };
 
@@ -185,6 +189,41 @@ export function removeElements(html, tag, drop = () => true) {
   return out + html.slice(pos);
 }
 
+const VOID = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'source', 'track', 'wbr']);
+
+/** html with every element whose open tag satisfies `drop(openTag)` removed, whatever its tag (void tags left alone). */
+export function removeWhere(html, drop) {
+  const re = /<([a-z][\w-]*)\b[^>]*>/gi;
+  let out = '';
+  let pos = 0;
+  let m;
+  while ((m = re.exec(html))) {
+    if (m.index < pos || VOID.has(m[1].toLowerCase()) || m[0].endsWith('/>') || !drop(m[0])) continue;
+    const [s, e] = elementSpan(html, m[1], m.index);
+    out += html.slice(pos, s) + ' ';
+    pos = e;
+    re.lastIndex = e;
+  }
+  return out + html.slice(pos);
+}
+
+/* HIDDEN FROM THE READER (4 Oct 2026 review). An element with the `hidden`
+   attribute or aria-hidden="true" is not shown to, or not read to, the
+   person on the page: the figure hint ("Tap the diagram to open it full
+   size", aria-hidden, on 700 figures), the form honeypot, /answers' empty-
+   search message. None of it is editorial, so none of it may earn words,
+   links or a client signal. Attribute values are blanked before testing, so
+   class="a hidden b" is not mistaken for the attribute. */
+export const isHiddenTag = (tag) =>
+  /\saria-hidden\s*=\s*["']?true/i.test(tag) || /\shidden(?=[\s>=/])/i.test(tag.replace(/"[^"]*"|'[^']*'/g, '""'));
+/* Visually hidden text (.sr-only) is real for a screen reader and stays in a
+   link's accessible name, but text nobody can see does not count as words on
+   the page: the house rule is no hidden text, and a word floor must not be
+   reachable through it. */
+const isSrOnly = (tag) => /\sclass\s*=\s*"(?:[^"]*\s)?sr-only(?:\s[^"]*)?"/i.test(tag);
+/** The words a sighted reader sees in an editorial fragment. */
+export const readableText = (fragment) => visibleText(removeWhere(fragment, isSrOnly));
+
 /** Visible text: tags, style, svg and templates dropped, entities decoded. */
 export function visibleText(fragment) {
   return decode(
@@ -230,6 +269,11 @@ export function internalPath(href) {
   return path.length > 1 ? path.replace(/\/+$/, '') : '/';
 }
 
+/** A build file that renders the not-found page (the gated provinces, /_not-found):
+    seo-audit.mjs's own test. It exists on disk and answers 404, so a link to
+    it is a broken link and a sitemap URL that renders it is not a page. */
+export const isNotFoundShell = (html) => /page not found/i.test((String(html).match(/<title[^>]*>([\s\S]*?)<\/title>/i) || ['', ''])[1]);
+
 const isBookHref = (href) => /^\/book(?:[?#]|$)/.test(href) || /^https?:\/\/[^/]*cliniko/i.test(href);
 
 /**
@@ -269,9 +313,14 @@ export function parsePage(path, raw, { headers = {}, dynamic = false } = {}) {
     main += ' ' + doc.slice(s + m[0].length, e).replace(/<\/div>\s*$/i, '');
   }
   /* Editorial body: <main> without the navigation inside it (breadcrumb,
-     table of contents) and without any header or footer that moved in. */
-  const body = ['nav', 'header', 'footer'].reduce((h, t) => removeElements(h, t), main);
+     table of contents), without any header or footer that moved in, and
+     without what is hidden from the reader (isHiddenTag). Every check that
+     asks what the page SAYS reads this; the table of contents repeats each
+     H2 and the breadcrumb is chrome, so neither counts as words, as a
+     booking link's position, or as a client signal (4 Oct 2026 review). */
+  const body = removeWhere(['nav', 'header', 'footer'].reduce((h, t) => removeElements(h, t), main), isHiddenTag);
   const mainText = visibleText(main);
+  const bodyText = readableText(body);
 
   const titleRaw = (head.match(/<title[^>]*>([\s\S]*?)<\/title>/i) || [, null])[1];
   const htmlTag = (doc.match(/<html\b[^>]*>/i) || [''])[0];
@@ -304,7 +353,8 @@ export function parsePage(path, raw, { headers = {}, dynamic = false } = {}) {
     main,
     body,
     mainText,
-    words: wordCount(mainText),
+    bodyText,
+    words: wordCount(bodyText),
     mainAnchors: anchorsIn(main),
     bodyAnchors: anchorsIn(body),
     docAnchors: anchorsIn(doc),
@@ -382,6 +432,13 @@ export function buildContext(pages, opts = {}) {
     byFamily.get(p.family).push(p);
   }
   const twinsOf = (p) => new Set(p.alternates.map((a) => { try { return internalPath(a.href); } catch { return null; } }).filter(Boolean));
+  /* A translation is in another language. Two English pages that name each
+     other in hreflang are not localized versions, whatever the tags say, so
+     the exemption needs the two <html lang> primary subtags to differ —
+     otherwise a pair of near-copies could tag their way out of the measure
+     (4 Oct 2026 review). */
+  const primary = (p) => String(p.lang ?? '').toLowerCase().split('-')[0];
+  const translated = (a, b) => primary(a) !== '' && primary(b) !== '' && primary(a) !== primary(b);
   const dup = new Map();
   for (const [family, list] of byFamily) {
     const sh = list.map((p) => shingles(textOf(p.main)));
@@ -390,13 +447,25 @@ export function buildContext(pages, opts = {}) {
       let near = { v: 0, path: null };
       let compared = 0;
       for (let j = 0; j < list.length; j++) {
-        if (j === i || twins[i].has(list[j].path) || twins[j].has(p.path)) continue;
+        if (j === i) continue;
+        if ((twins[i].has(list[j].path) || twins[j].has(p.path)) && translated(p, list[j])) continue;
         compared++;
         const v = jaccard(sh[i], sh[j]);
         if (v > near.v) near = { v, path: list[j].path };
       }
       dup.set(p.path, { family, siblings: compared, nearest: near });
     });
+  }
+
+  /* A translation of a gentle page is gentle. GENTLE_CTA names English guide
+     slugs; when a Punjabi or Tagalog guide is the hreflang twin of one, the
+     owner's judgement about the subject applies to it in every language, so
+     the scorer never asks a translated grief or trauma guide for a first-
+     screen booking button its English original is spared (4 Oct 2026
+     review). */
+  const gentle = new Set(opts.gentle ?? []);
+  for (const p of pages) {
+    if ([...twinsOf(p)].some((t) => t !== p.path && (opts.gentle ?? new Set()).has(t))) gentle.add(p.path);
   }
 
   return {
@@ -406,16 +475,28 @@ export function buildContext(pages, opts = {}) {
     roster: opts.roster ?? { counsellors: [], services: {} },
     perf: opts.perf ?? { medianHtml: Infinity, maxHtml: Infinity },
     robotsRules: opts.robotsRules ?? [],
-    gentle: opts.gentle ?? new Set(),
+    gentle,
     titleCount, descCount, inbound, dup,
   };
 }
 
 /* ---- redirects ---------------------------------------------------------- */
 
-/** next.config-style source -> RegExp: ':slug', ':path*', ':path+'. */
+/** next.config-style source -> RegExp: ':slug', ':path*', ':path+', and a
+    parameter with its own pattern, ':path((?!api/).*)'. The pattern is split
+    off before the path is cut into segments, because it may hold a slash. */
 export function sourceRegex(source) {
-  const esc = source.replace(/\/$/, '').split('/').map((seg) => {
+  const custom = [];
+  const s = source.replace(/:([A-Za-z_]\w*)\(((?:[^()]|\([^()]*\))*)\)([*+?]?)/g, (_, name, re, mod) => {
+    custom.push({ re, mod });
+    return `\u0000${custom.length - 1}\u0000`;
+  });
+  const esc = s.replace(/\/$/, '').split('/').map((seg) => {
+    const c = seg.match(/^\u0000(\d+)\u0000$/);
+    if (c) {
+      const { re, mod } = custom[Number(c[1])];
+      return mod === '*' || mod === '?' ? `(?:${re})?` : mod === '+' ? `(?:${re})(?:/(?:${re}))*` : `(?:${re})`;
+    }
     const m = seg.match(/^:([A-Za-z_]\w*)([*+?]?)$/);
     if (!m) return seg.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     if (m[2] === '*') return '(?:.*)?';
@@ -425,8 +506,20 @@ export function sourceRegex(source) {
   return new RegExp(`^${esc.replace(/\/\(\?:\.\*\)\?$/, '(?:/.*)?')}$`);
 }
 
+/* A redirect with a `has` condition fires only when the request carries it.
+   The one this site declares sends the old vercel.app host to www; a link on
+   www never meets it. A host condition is tested against the production
+   host; any other `has` (a header, a cookie, a query) is a request a link
+   does not make, so it does not apply. Before this (4 Oct 2026 review) the
+   host redirect's custom pattern simply failed to parse into anything; read
+   properly without the condition it would have matched every path on the
+   site and called every broken link a redirect. */
+const HOST = new URL(ORIGIN).host;
+const applies = (r) => !(r.has ?? []).some((h) => (h.type === 'host' ? !new RegExp(`^(?:${h.value})$`).test(HOST) : true));
+
 export function redirectFor(path, redirects) {
   for (const r of redirects) {
+    if (!applies(r)) continue;
     if (!r._re) r._re = sourceRegex(r.source);
     if (r._re.test(path)) return r;
   }
@@ -613,7 +706,11 @@ export function scorePage(p, ctx) {
     if (!/noindex/i.test(p.robots)) got += 150; else parts.push(`robots "${p.robots}" on a sitemap URL`);
     const rule = blockedBy(ctx.robotsRules, p.path);
     if (!rule) got += 75; else parts.push(`robots.txt ${rule}`);
-    if (ctx.sitemap.has(p.path)) got += 75; else parts.push('not in the sitemap');
+    /* A redirect declared in next.config runs before the route, so a sitemap
+       URL that is also a redirect source is never served as this page. */
+    const redirected = redirectFor(p.path, ctx.redirects);
+    if (ctx.sitemap.has(p.path) && !redirected) got += 75;
+    else parts.push(redirected ? `in the sitemap but next.config redirects it to ${redirected.destination}` : 'not in the sitemap');
     add('seo', 'indexable', max, got, parts.join('; '));
   }
   {
@@ -737,7 +834,7 @@ export function scorePage(p, ctx) {
   }
   {
     const max = R.links.anchors;
-    const links = p.mainAnchors.filter((a) => !a.href.startsWith('#'));
+    const links = p.bodyAnchors.filter((a) => !a.href.startsWith('#'));
     const generic = links.filter((a) => !a.name || GENERIC.test(a.name.replace(/\s*[→›»]+\s*$/u, '')));
     const share = links.length ? 1 - generic.length / links.length : 1;
     add('links', 'anchors', max, pts(max, share), generic.length ? `${generic.length} of ${links.length} link(s) say nothing out of context: ${[...new Set(generic.map((a) => `"${a.name}"`))].slice(0, 3).join(', ')}` : '');
@@ -749,10 +846,11 @@ export function scorePage(p, ctx) {
       const t = internalPath(a.href);
       if (!t || t.startsWith('/_next/')) continue;
       const base = t.replace(/\.md$/, '') || '/';
-      if (ctx.known.has(t) || ctx.known.has(base === '/index' ? '/' : base)) continue;
+      /* Redirects first: Next applies them before the filesystem, so a link
+         to a built page that a redirect shadows still costs the hop. */
       const r = redirectFor(t, ctx.redirects);
       if (r) viaRedirect.add(`${t} → ${r.destination}`);
-      else broken.add(t);
+      else if (!(ctx.known.has(t) || ctx.known.has(base === '/index' ? '/' : base))) broken.add(t);
     }
     add('links', 'broken', R.links.broken, R.links.broken - 250 * broken.size, broken.size ? `${broken.size} internal link(s) to nothing: ${[...broken].slice(0, 3).join(', ')}` : '');
     add('links', 'redirects', R.links.redirects, R.links.redirects - 100 * viaRedirect.size, viaRedirect.size ? `${viaRedirect.size} link(s) through a redirect: ${[...viaRedirect].slice(0, 3).join(', ')}` : '');
@@ -761,15 +859,18 @@ export function scorePage(p, ctx) {
     const max = R.links.citations;
     if (!FACTUAL.has(p.family)) add('links', 'citations', max, max);
     else {
-      const cited = p.mainAnchors.some((a) => isAuthority(a.href));
+      const cited = p.bodyAnchors.some((a) => isAuthority(a.href));
       add('links', 'citations', max, cited ? max : 0, 'no https link to a government, regulator, association or peer-reviewed source in <main>');
     }
   }
   add('links', 'breadcrumb', R.links.breadcrumb, p.breadcrumbNav || p.path === '/' ? R.links.breadcrumb : 0, 'no visible breadcrumb <nav aria-label="Breadcrumb">');
 
   /* ================= CLIENTS ================= */
-  const books = p.mainAnchors.filter((a) => isBookHref(a.href));
-  const mailOrContact = p.mainAnchors.some((a) => /^mailto:/i.test(a.href) || internalPath(a.href) === '/contact') || /<form\b/i.test(p.main);
+  /* What the page itself offers: <main> as a reader meets it (p.body), not
+     its breadcrumb, table of contents or hidden markup. */
+  const books = p.bodyAnchors.filter((a) => isBookHref(a.href));
+  const mailOrContact = p.bodyAnchors.some((a) => /^mailto:/i.test(a.href) || internalPath(a.href) === '/contact') || /<form\b/i.test(p.body);
+  const crisis = p.path === CRISIS_PAGE;
 
   if (policy) {
     /* Policy and legal pages: the brief scores them on the smaller ask and a
@@ -784,7 +885,7 @@ export function scorePage(p, ctx) {
       /* GENTLE_CTA guides and the crisis directory: "an appropriate next step
          is offered" stands in for the first-screen CTA and the named
          counsellor, so the full pillar is reachable without a hard sell. */
-      const steps = p.mainAnchors.filter((a) => isBookHref(a.href) || internalPath(a.href) === '/contact' || /^mailto:/i.test(a.href) || CRISIS.test(a.href));
+      const steps = p.bodyAnchors.filter((a) => isBookHref(a.href) || internalPath(a.href) === '/contact' || /^mailto:/i.test(a.href) || CRISIS.test(a.href));
       const hard = steps.filter((a) => isBookHref(a.href) && HARD_SELL.test(a.name));
       const max = C.firstScreen + C.counsellor;
       add('clients', 'gentleNextStep', max, !steps.length ? 0 : hard.length ? max / 2 : max,
@@ -795,16 +896,20 @@ export function scorePage(p, ctx) {
       else if (!books.length) add('clients', 'firstScreen', max, 0, 'no /book link in <main>');
       else {
         const first = books[0];
-        const before = wordCount(visibleText(p.main.slice(0, first.index)));
+        const before = wordCount(readableText(p.body.slice(0, first.index)));
         const share = p.words ? before / p.words : 0;
-        const h2 = p.main.search(/<h2\b/i);
-        const inHero = h2 === -1 || first.index < h2;
+        const h2 = p.body.search(/<h2\b/i);
+        /* Before the first H2 is the hero. A page with no H2 has no hero
+           boundary, so it is held to the word share alone; before this (4 Oct
+           2026 review) a page without an H2 passed with its only booking link
+           at the very end. */
+        const inHero = h2 !== -1 && first.index < h2;
         const got = inHero || share <= T.firstScreenShare ? max : pts(max, (T.firstScreenZero - share) / (T.firstScreenZero - T.firstScreenShare));
-        add('clients', 'firstScreen', max, got, `first booking link ${before} words (${Math.round(share * 100)}%) into <main>, after the first H2`);
+        add('clients', 'firstScreen', max, got, `first booking link ${before} words (${Math.round(share * 100)}%) into <main>, ${h2 === -1 ? 'on a page with no H2' : 'after the first H2'}`);
       }
       const named = ctx.roster.counsellors.filter((c) => c.accepting).some((c) =>
-        p.mainAnchors.some((a) => internalPath(a.href)?.startsWith(`/practitioners/${c.slug}`) || new RegExp(`[?&]with=${c.slug}\\b`).test(a.href)) ||
-        p.mainText.includes(c.name));
+        p.bodyAnchors.some((a) => internalPath(a.href)?.startsWith(`/practitioners/${c.slug}`) || new RegExp(`[?&]with=${c.slug}\\b`).test(a.href)) ||
+        p.bodyText.includes(c.name));
       add('clients', 'counsellor', C.counsellor, named ? C.counsellor : 0, 'no accepting counsellor named or linked in <main>');
     }
 
@@ -827,7 +932,10 @@ export function scorePage(p, ctx) {
       const fitSlugs = new Set(fit.map((c) => c.slug));
       const withOf = (a) => (a.href.match(/[?&]with=([a-z0-9-]+)/) || [])[1];
       const withs = books.map(withOf).filter(Boolean);
-      const wrong = own ? [] : withs.filter((w) => (constrained ? !fitSlugs.has(w) : !accepting.has(w)));
+      /* Misroutes are looked for on the whole page: the sticky bar and the
+         header are booking buttons too, and the most-tapped ones on a phone. */
+      const allWiths = p.docAnchors.filter((a) => isBookHref(a.href)).map(withOf).filter(Boolean);
+      const wrong = own ? [] : allWiths.filter((w) => (constrained ? !fitSlugs.has(w) : !accepting.has(w)));
       if (p.path === '/book') add('clients', 'routing', max, max);
       else if (!books.length) add('clients', 'routing', max, gentle ? max : 0, 'no booking link to route');
       else if (own) {
@@ -840,20 +948,28 @@ export function scorePage(p, ctx) {
       } else add('clients', 'routing', max, max);
     }
 
-    const fee = /\$\s?\d/.test(p.mainText) || p.mainAnchors.some((a) => internalPath(a.href) === '/pricing');
-    add('clients', 'fee', C.fee, fee ? C.fee : 0, 'no fee and no /pricing link in <main>');
+    /* The crisis directory is not asked for a price or the consultation: it
+       keeps its gentle treatment, and a scorer that docked it would be
+       asking somebody to put fees on a page read in a crisis. What it
+       already says, it may say; it is never required to (4 Oct 2026 review). */
+    const fee = /\$\s?\d/.test(p.bodyText) || p.bodyAnchors.some((a) => internalPath(a.href) === '/pricing');
+    add('clients', 'fee', C.fee, fee || crisis ? C.fee : 0, 'no fee and no /pricing link in <main>');
 
     {
-      const t = p.mainText;
+      const t = p.bodyText;
       /* The consultation itself, not any thirty minutes: "a thirty-minute
-         medication consult" with a psychiatrist is a fact about somebody else. */
+         medication consult" with a psychiatrist is a fact about somebody else.
+         And the fifteen minutes must sit beside the consultation (within a
+         sentence's reach), not anywhere on a page that says "free" somewhere
+         and "15 minutes" of breathing practice somewhere else. */
       const thirty = /\b(30|thirty)[- ]minutes?\s+(free\s+)?consult/i.test(t) || /free\s+(30|thirty)[- ]minute/i.test(t);
-      const fifteen = /\b(15|fifteen)[- ]minutes?\b/i.test(t) && /consult|free/i.test(t);
-      add('clients', 'consult', C.consult, thirty ? 0 : fifteen ? C.consult : 0,
+      const fifteen = [...t.matchAll(/\b(?:15|fifteen)[- ]minutes?\b/gi)].some((m) =>
+        /consult|\bfree\b|\bcall\b|conversation/i.test(t.slice(Math.max(0, m.index - 60), m.index + m[0].length + 80)));
+      add('clients', 'consult', C.consult, thirty ? 0 : fifteen || crisis ? C.consult : 0,
         thirty ? 'states a 30-minute consultation; the owner set 15 minutes (3 Oct, lib/cliniko-catalog.ts CONSULT_MINUTES)' : 'the free 15-minute consultation is not mentioned in <main>');
     }
     {
-      const inMain = p.mainAnchors.some((a) => VERIFY.test(a.href) || VERIFY.test(internalPath(a.href) ?? ''));
+      const inMain = p.bodyAnchors.some((a) => VERIFY.test(a.href) || VERIFY.test(internalPath(a.href) ?? ''));
       const anywhere = p.docAnchors.some((a) => VERIFY.test(a.href) || VERIFY.test(internalPath(a.href) ?? ''));
       const privacy = p.docAnchors.some((a) => internalPath(a.href) === '/privacy');
       const got = (inMain ? 200 : anywhere ? 100 : 0) + (privacy ? 100 : 0);
@@ -862,8 +978,7 @@ export function scorePage(p, ctx) {
     add('clients', 'email', C.email, mailOrContact ? C.email : 0, 'no email address, /contact link or form in <main>');
     /* The crisis directory carries no booking prompt anywhere, the sticky bar
        included (components/StickyBook.tsx returns null there on purpose). */
-    const noBar = p.path === CRISIS_PAGE;
-    add('clients', 'sticky', C.sticky, p.sticky || noBar ? C.sticky : 0, 'no mobile StickyBook bar');
+    add('clients', 'sticky', C.sticky, p.sticky || crisis ? C.sticky : 0, 'no mobile StickyBook bar');
   }
 
   const pillars = { seo: 0, links: 0, clients: 0 };

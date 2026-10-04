@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   RUBRIC, parsePage, scoreAll, buildContext, scorePage, sourceRegex, redirectFor, rosterFromAiJson,
-  bookingSubject, fittingCounsellors, contextualAnchors, isAuthority, familyOf, topicWords,
+  bookingSubject, fittingCounsellors, contextualAnchors, isAuthority, familyOf, topicWords, isNotFoundShell,
 } from '../scripts/lib/page-score-core.mjs';
 
 /* The page scorer (scripts/page-score.mjs), 4 Oct 2026: every check on a
@@ -199,9 +199,15 @@ test('uniqueness: a near-copy of a sibling scores zero; hreflang twins are not c
 
   const alt = (self: string, other: string) => `<link rel="alternate" hreflang="en" href="${ORIGIN}${self}"/><link rel="alternate" hreflang="tl" href="${ORIGIN}${other}"/>`;
   const x = parsePage('/guides/x', doc('/guides/x', { main: same, head: alt('/guides/x', '/guides/y') }));
-  const y = parsePage('/guides/y', doc('/guides/y', { main: same, head: alt('/guides/y', '/guides/x') }));
+  const y = parsePage('/guides/y', doc('/guides/y', { main: same, lang: 'tl', head: alt('/guides/y', '/guides/x') }));
   const r2 = scoreAll([x, y], opts([x, y]));
   assert.equal(check(r2[0], 'uniqueness').points, RUBRIC.seo.uniqueness);
+
+  /* Two English pages cannot tag their way out of the measure: a translation
+     is in another language. */
+  const y2 = parsePage('/guides/y', doc('/guides/y', { main: same, head: alt('/guides/y', '/guides/x') }));
+  const r3 = scoreAll([x, y2], opts([x, y2]));
+  assert.equal(check(r3[0], 'uniqueness').points, 0);
 });
 
 test('images, Open Graph, lang and hreflang reciprocity', () => {
@@ -356,4 +362,86 @@ test('the output is deterministic: path order, whatever order the pages arrive i
   const b = JSON.stringify(scoreAll([...pages].reverse(), opts([...pages].reverse())));
   assert.equal(a, b);
   assert.deepEqual(JSON.parse(a).map((r: { path: string }) => r.path), [...pages.map((p) => p.path)].sort());
+});
+
+/* ---- the 4 Oct 2026 review ---------------------------------------------- */
+
+test('hidden markup, the table of contents and .sr-only text earn no words, no booking link and no counsellor', () => {
+  const hidden = `<div class="figure" aria-hidden="true"><p>${words(400, 'hid')} <a href="/book">Book</a> Camille Granda</p></div>`
+    + `<div hidden=""><p>${words(400, 'hd')}</p></div>`
+    + `<nav aria-label="On this page"><ul><li><a href="#x">${words(400, 'toc')}</a></li></ul></nav>`
+    + `<span class="sr-only">${words(400, 'sr')}</span>`;
+  const main = `<h1>Stress leave in British Columbia</h1><h2>What it is</h2><p>${words(290)}</p>${hidden}`;
+  const pages = site((i) => (i === 0 ? { main } : {}));
+  const r = scoreAll(pages, opts(pages))[0];
+  assert.equal(check(r, 'words').points, 0, 'only the 298 visible words count, under half the floor');
+  assert.match(check(r, 'firstScreen').reason, /no \/book link/);
+  assert.equal(check(r, 'counsellor').points, 0);
+
+  /* A class that merely contains the word is not the attribute. */
+  const shown = site((i) => (i === 0 ? { main: GOOD_MAIN(`<div class="a hidden b"><p>${words(10, 'v')}</p></div>`) } : {}));
+  assert.equal(check(scoreAll(shown, opts(shown))[0], 'words').points, RUBRIC.seo.words);
+});
+
+test('first screen: a page with no H2 is held to the word share, not waved through', () => {
+  const late = `<h1>Stress leave in British Columbia</h1><p>${words(700)}</p><p>When ready, <a href="/book">book a free consultation</a> with us.</p>`;
+  const pages = site((i) => (i === 0 ? { main: late } : {}));
+  const c = check(scoreAll(pages, opts(pages))[0], 'firstScreen');
+  assert.equal(c.points, 0);
+  assert.match(c.reason, /no H2/);
+});
+
+test('redirects: a host-conditional catch-all never swallows a broken link; patterns with their own regex parse; redirects run before routes', () => {
+  const vercel = { source: '/:path((?!api/).*)', has: [{ type: 'host', value: 'westpeak-wellness\.vercel\.app' }], destination: 'https://www.westpeakwellness.com/:path' };
+  assert.ok(sourceRegex(vercel.source).test('/guides/a'));
+  assert.ok(!sourceRegex(vercel.source).test('/api/x'));
+  assert.equal(redirectFor('/guides/a', [vercel]), null, 'the condition is the vercel.app host, never www');
+  assert.ok(redirectFor('/guides/a', [{ ...vercel, has: [{ type: 'host', value: 'www\.westpeakwellness\.com' }] }]));
+
+  const pages = site((i) => (i === 0 ? { main: GOOD_MAIN('<p>See <a href="/nope">the missing guide</a> and <a href="/guides/b">the shadowed one</a> first.</p>') } : {}));
+  const redirects = [vercel, { source: '/guides/b', destination: '/guides/c' }];
+  const r = scoreAll(pages, opts(pages, { redirects }));
+  assert.match(check(r[0], 'broken').reason, /\/nope/);
+  assert.match(check(r[0], 'redirects').reason, /\/guides\/b → \/guides\/c/);
+  /* And /guides/b is in the sitemap while next.config redirects it. */
+  const b = check(r[1], 'indexable');
+  assert.equal(b.points, RUBRIC.seo.indexable - 75);
+  assert.match(b.reason, /redirects it to \/guides\/c/);
+});
+
+test('a not-found shell is recognised by its title, as seo-audit.mjs does', () => {
+  assert.ok(isNotFoundShell('<html><head><title>Page not found | Westpeak Wellness</title></head></html>'));
+  assert.ok(!isNotFoundShell(doc('/guides/a')));
+});
+
+test('a translation of a gentle guide is gentle; the crisis directory is never asked for a fee or the consultation', () => {
+  const alt = (self: string, other: string) => `<link rel="alternate" hreflang="en-CA" href="${ORIGIN}${other}"/><link rel="alternate" hreflang="tl" href="${ORIGIN}${self}"/>`;
+  const en = parsePage('/guides/grief', doc('/guides/grief', { main: GOOD_MAIN(), head: alt('/tagalog/gabay/lungkot', '/guides/grief') }));
+  const tl = parsePage('/tagalog/gabay/lungkot', doc('/tagalog/gabay/lungkot', { lang: 'tl', main: `<h1>Lungkot</h1><p>${words(700)}</p><p>Write to <a href="/contact">the practice</a> any time.</p>`, head: alt('/tagalog/gabay/lungkot', '/guides/grief') }));
+  const r = scoreAll([en, tl], opts([en, tl], { gentle: new Set(['/guides/grief']) })).find((x) => x.path === '/tagalog/gabay/lungkot')!;
+  assert.equal(r.gentle, true);
+  assert.equal(check(r, 'gentleNextStep').points, RUBRIC.clients.firstScreen + RUBRIC.clients.counsellor);
+
+  const crisisPath = '/resources/bc-crisis-and-support-directory';
+  const c = parsePage(crisisPath, doc(crisisPath, { sticky: false, main: `<h1>Crisis and support lines in BC</h1><p>${words(700)}</p><p>Call <a href="tel:988">988</a> any time, day or night.</p>` }));
+  const cr = scoreAll([c], opts([c], { gentle: new Set([crisisPath]) }))[0];
+  for (const id of ['fee', 'consult', 'sticky', 'gentleNextStep']) assert.equal(check(cr, id).max, check(cr, id).points, id);
+});
+
+test('consult: fifteen minutes must sit beside the consultation, not anywhere on a page that says "free"', () => {
+  const page = GOOD_MAIN().replace('the free 15-minute consultation comes first with', 'you meet') + `<p>${words(200, 'gap')}</p><p>Try 15 minutes of slow breathing each evening.</p>`;
+  const pages = site((i) => (i === 0 ? { main: page } : {}));
+  assert.equal(check(scoreAll(pages, opts(pages))[0], 'consult').points, 0);
+});
+
+test('routing: a misrouted sticky bar is a misroute, though it sits outside <main>', () => {
+  const p = parsePage('/services/couples-therapy', doc('/services/couples-therapy', {
+    main: GOOD_MAIN().replace('href="/book"', 'href="/book?with=camille-granda&amp;for=couples#calendar"'),
+    ld: LD('/services/couples-therapy', 'Service'),
+    sticky: false,
+    footer: '<a href="/privacy">Privacy</a><div class="sticky-book"><a href="/book?with=savneet-singh">Book</a></div>',
+  }));
+  const c = check(scoreAll([p], opts([p]))[0], 'routing');
+  assert.equal(c.points, 0);
+  assert.match(c.reason, /savneet-singh/);
 });

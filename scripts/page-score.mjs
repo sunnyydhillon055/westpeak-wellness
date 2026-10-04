@@ -31,10 +31,13 @@
  * SEO 4,000
  *   title 600          present 200, unique 200, 30-60 chars 200. 60 is
  *                      scripts/seo-audit.mjs TITLE_MAX (raw HTML length, as the
- *                      gate counts it). 30: Google, "Influencing title links"
+ *                      gate counts it). Google, "Influencing title links"
  *                      (developers.google.com/search/docs/appearance/title-link):
  *                      avoid vague titles and "unnecessarily long or verbose"
  *                      ones; each page needs "distinct text that describes" it.
+ *                      30 is NOT sourced: Google gives no minimum and no repo
+ *                      gate sets one. It is the owner's vagueness tripwire and
+ *                      no sitemap page is under it.
  *   description 500    present 150, unique 150, 70-158 chars 200 — seo-audit.mjs
  *                      DESC_MIN/DESC_MAX, & counted as &amp;. Google, "Control
  *                      your snippets": a unique description per page.
@@ -50,7 +53,9 @@
  *                      URLs; a canonical that disagrees with the sitemap is a
  *                      mixed signal.
  *   indexable 300      no noindex (meta or X-Robots-Tag) 150, not disallowed
- *                      for Googlebot in robots.txt 75, in the sitemap 75.
+ *                      for Googlebot in robots.txt 75, in the sitemap and not
+ *                      a next.config redirect source 75 (a redirect runs
+ *                      before the route, so such a URL is never served).
  *                      Google, "Block indexing with noindex" / "Build a sitemap".
  *   jsonld 400         every block parses and one exists 100 (schema-validate.mjs),
  *                      a type that fits the family 200, BreadcrumbList 100 (not
@@ -66,7 +71,9 @@
  *                      Open Graph 200, and its SEO items summed to 4,200; these
  *                      two, the ones Google says do not move ranking, were
  *                      halved to make the pillar 4,000.)
- *   words 400          <main> words against the family floor: content 600,
+ *   words 400          words a reader sees in <main> (breadcrumb, table of
+ *                      contents, hidden / aria-hidden markup and .sr-only text
+ *                      left out) against the family floor: content 600,
  *                      hubs 350, profiles 400, utility/policy 150 (the brief);
  *                      zero at half the floor, linear to full at it. Google:
  *                      "there's no magical word count target" — so this is a
@@ -81,7 +88,9 @@
  *                      fail line for the family (MAX_SIMILARITY 62%; hubs 40%,
  *                      Tagalog cities 40%, Punjabi regions 30%, /tl 50%, /pa
  *                      52%); linear between. A pair that names each other in
- *                      hreflang is one page in two languages and not compared.
+ *                      hreflang AND whose <html lang> differs is one page in
+ *                      two languages and not compared; two English pages
+ *                      cannot tag their way out.
  *   images 200         every <img> has alt 100 and width+height 100, pro rata.
  *                      Lighthouse "image-alt"; web.dev "Optimize CLS" (images
  *                      without dimensions). Repo: quality-audit img-no-dimensions.
@@ -130,9 +139,15 @@
  *   broken 500         every internal href on the page (chrome included)
  *                      resolves to a built page, a routed path, a public file
  *                      or a .md twin; 250 off per broken target
- *                      (internal-links.mjs).
+ *                      (internal-links.mjs). A built file that renders the
+ *                      not-found page (/alberta, /ontario, /_not-found) is not
+ *                      a target: a link to it is broken.
  *   redirects 200      no internal href is a redirect source in next.config
- *                      (lib/redirects.mjs, patterns included); 100 off each.
+ *                      (lib/redirects.mjs, patterns and :param(regex)
+ *                      included), checked BEFORE routes because Next applies
+ *                      redirects first; 100 off each. A redirect with a `has`
+ *                      condition applies only when it can: the vercel.app
+ *                      host redirect never matches a link on www.
  *   citations 200      factual families only (guides, language guides,
  *                      resources, comparisons, glossary): one https link in
  *                      <main> to government, a public health body, a regulator,
@@ -144,6 +159,10 @@
  * CLIENTS 3,000
  *   firstScreen 800    a /book (or Cliniko) link in <main> before the first H2
  *                      or within its first 20% of words; linear to zero at 50%.
+ *                      A page with no H2 is held to the share alone. Hidden
+ *                      markup does not count (/answers' search-miss message
+ *                      carries a booking link but is hidden until a search
+ *                      finds nothing).
  *                      NN/g "Scrolling and Attention" (2018): 57% of viewing
  *                      time above the fold, 74% in the first two screenfuls.
  *                      Repo: lib/city-service-page.ts — ten of thirteen ranking
@@ -158,13 +177,17 @@
  *                      counsellor's own pages (profile, place, twins) the
  *                      FIRST booking link must open her calendar while she is
  *                      accepting; a colleague's card further down is a
- *                      deliberate alternative, not a misroute.
+ *                      deliberate alternative, not a misroute. Misroutes are
+ *                      looked for on the whole page, sticky bar and header
+ *                      included.
  *   counsellor 400     an accepting counsellor named or linked in <main>
  *                      (lib/booking-cta.ts item 409: the home hero naming them
  *                      earned 12 of 38 book_clicks).
  *   fee 300            a dollar figure or a /pricing link in <main>.
- *   consult 300        the free 15-minute consultation in <main>; zero if it
- *                      says 30 minutes (owner, 3 Oct; CONSULT_MINUTES).
+ *   consult 300        the free 15-minute consultation in <main>, the fifteen
+ *                      minutes within a sentence of "consult", "free", "call"
+ *                      or "conversation"; zero if it says 30 minutes (owner,
+ *                      3 Oct; CONSULT_MINUTES).
  *   trust 300          a link to verify registration or the RCC explainer in
  *                      <main> 200 (100 when only the footer has one), the
  *                      privacy policy linked 100.
@@ -175,14 +198,43 @@
  *                      purpose).
  *
  *   FAMILY OVERRIDES
- *   GENTLE_CTA guides (lib/next-steps.ts) and the crisis directory replace
- *   firstScreen + counsellor (1,200) with gentleNextStep: a booking, contact,
- *   email or phone/crisis-line link anywhere in <main>, halved if a booking
- *   link's wording is a hard sell ("!", "book now", "don't wait").
+ *   GENTLE_CTA guides (lib/next-steps.ts), their hreflang translations, and
+ *   the crisis directory replace firstScreen + counsellor (1,200) with
+ *   gentleNextStep: a booking, contact, email or phone/crisis-line link
+ *   anywhere in <main>, halved if a booking link's wording is a hard sell
+ *   ("!", "book now", "don't wait"). The crisis directory is also never asked
+ *   for a fee or the consultation (full points whatever it says), so the
+ *   scorer can never be the reason a price lands on a page read in a crisis.
  *   A gentle page with no booking link is not docked for routing. Policy pages
  *   (/privacy, /accessibility, /editorial-policy, /standards) score clients on
  *   two things, 1,500 each: the smaller ask in <main>, and a /book link
  *   anywhere on the page — cta-audit.mjs exempts them from an in-page CTA.
+ *
+ * ADVERSARIAL REVIEW, 4 Oct 2026 (what was checked and what changed)
+ *
+ *   Measured on the build and found sound: no page duplicates a link block
+ *   for mobile and desktop (the only display-toggled copy is the figure hint,
+ *   now excluded as aria-hidden); the Cliniko slot lines (HeroNextDays,
+ *   NextConsultLine) are empty in the built HTML and filled in the browser,
+ *   so live times never enter a score and two runs stay byte-identical; no
+ *   page links Cliniko directly; no sticky bar or header carries a ?with=;
+ *   no sitemap URL is noindex, a 404 shell or a redirect source; every built
+ *   or routed page outside the sitemap has a reason.
+ *   Fixed: hidden and screen-reader-only text earned words and client
+ *   signals; the table of contents and breadcrumb counted as words and as
+ *   client signals; a page with no H2 passed firstScreen wherever its booking
+ *   link sat; two same-language pages could escape the duplicate measure by
+ *   hreflang; a translated gentle guide would have been asked for a first-
+ *   screen CTA; the crisis directory could be docked for having no price;
+ *   "15 minutes" anywhere plus "free" anywhere passed consult; the host-
+ *   conditional redirect would, once its pattern parsed, have turned every
+ *   broken link into a "redirect"; links to /alberta and /ontario (404
+ *   shells) counted as working; redirects were checked after routes.
+ *   Left as built, with the risk named: trust gives its last 100 only for a
+ *   verify or RCC-explainer link in <main>, which a builder could meet with
+ *   the same sentence on 227 pages. Meet it through a shared component placed
+ *   where it helps (beside the counsellor cards), never as pasted
+ *   boilerplate; the uniqueness check is too coarse to catch one sentence.
  *
  * USAGE
  *
@@ -206,7 +258,7 @@ import { pathToFileURL } from 'node:url';
 import { readBuiltSitemap } from './lib/built-sitemap.mjs';
 import { parseRobots, rulesFor } from './lib/crawl-signals.mjs';
 import { bootNext } from './lib/next-server.mjs';
-import { parsePage, scoreAll, rosterFromAiJson, RUBRIC, T, WORD_FLOOR } from './lib/page-score-core.mjs';
+import { parsePage, scoreAll, rosterFromAiJson, isNotFoundShell, RUBRIC, T, WORD_FLOOR } from './lib/page-score-core.mjs';
 
 const ROOT = process.cwd();
 const NEXT = join(ROOT, '.next');
@@ -318,7 +370,11 @@ if (dynamicScored.length || dynamicExcluded.length) {
 
 /* ---- context ------------------------------------------------------------ */
 
-const known = new Set([...built.keys(), ...routed, ...publicFiles, ...sitemap]);
+/* A link target is known when it answers with a page or a file. The gated
+   provinces and /_not-found are built files that render the 404, so a link
+   to one is broken, not known (4 Oct 2026 review). */
+const notFound = new Set([...built].filter(([, f]) => isNotFoundShell(readFileSync(f, 'utf8'))).map(([p]) => p));
+const known = new Set([...built.keys(), ...routed, ...publicFiles, ...sitemap].filter((p) => !notFound.has(p)));
 
 let redirects = [];
 try {
@@ -357,10 +413,12 @@ const gentle = new Set([
 const pages = [];
 const unreadable = [];
 for (const p of sitemapPaths) {
-  if (built.has(p)) pages.push(parsePage(p, readFileSync(built.get(p), 'utf8')));
-  else {
+  if (built.has(p)) {
+    if (notFound.has(p)) unreadable.push({ path: p, status: '404 (renders the not-found page)', location: null });
+    else pages.push(parsePage(p, readFileSync(built.get(p), 'utf8')));
+  } else {
     const f = fetched.get(p);
-    if (f && f.status === 200) pages.push(parsePage(p, f.body, { headers: f.headers, dynamic: true }));
+    if (f && f.status === 200 && !isNotFoundShell(f.body)) pages.push(parsePage(p, f.body, { headers: f.headers, dynamic: true }));
     else unreadable.push({ path: p, status: f?.status ?? 'not fetched', location: f?.location ?? null });
   }
 }
