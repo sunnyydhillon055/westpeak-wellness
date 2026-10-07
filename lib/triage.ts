@@ -15,8 +15,9 @@ import type { Inbound, InboundKind } from '@/lib/inbound';
    important message the practice will get that week.
 
    So the rule this file is built on: SORT, NEVER SILENCE. Every submission is
-   stored, and every submission except a tripped honeypot still raises the
-   practice alert. What triage buys is an ordered inbox — a chip in /admin that
+   stored, and every submission except a tripped honeypot, or a message using
+   two or more newsletter/sales-script phrases (6 Oct 2026, MARKETING below,
+   kept in full in /admin), still raises the practice alert. What triage buys is an ordered inbox — a chip in /admin that
    says why something looks automated — not a bin.
 
    WHAT IS DELIBERATELY NOT A SIGNAL
@@ -48,7 +49,8 @@ export type TriageFlag =
   | 'fast'        /* submitted faster than the form can be read */
   | 'disposable'  /* known throwaway mail provider */
   | 'duplicate'   /* identical message already stored */
-  | 'burst';      /* same address, repeatedly, in a day */
+  | 'burst'       /* same address, repeatedly, in a day */
+  | 'marketing';  /* two or more newsletter/sales-script phrases */
 
 export type TriageBand = 'clear' | 'review' | 'quarantine';
 
@@ -79,6 +81,27 @@ const MIN_FILL_MS = 2500;
 
 const countLinks = (s: string) => (s.match(LINK_RE) ?? []).length;
 
+/* NEWSLETTER AND SALES SCRIPTS — 6 Oct 2026. The /contact enquiry that
+   prompted this read, in full: "Hi! I'm interested in special offers. Please
+   keep me posted. I appreciate it. Please send me news and updates by email",
+   with a second pitch pasted into the best-time box ("I'd like to hear more
+   about email updates… your latest news"). It passed every rule above and was
+   emailed to info@ and both counsellors. lib/inbound-quality.ts already
+   recognised it as a script; the alert did not ask.
+
+   Each phrase is one a counselling enquiry has no reason to use, and TWO
+   distinct ones are required, so a person who mentions the newsletter once,
+   or asks to be kept posted about an opening, is never caught. */
+const MARKETING: readonly RegExp[] = [
+  /\bnewsletters?\b/i, /\bnews and updates\b/i, /\bemail updates\b/i, /\bspecial offers?\b/i,
+  /\blatest news\b/i, /\bpromo(tional)? codes?\b/i, /\bdiscount codes?\b/i, /\bseo\b/i,
+  /\bgoogle rankings?\b/i, /\bbacklinks?\b/i, /\bbitcoin\b|\bcrypto(currency)?\b/i,
+  /\bcasino\b|\bjackpot\b/i, /\bweekly updates\b/i, /\bmailing list\b/i,
+];
+
+/** How many distinct marketing phrases a text uses. */
+export const marketingHits = (text: string): number => MARKETING.filter((re) => re.test(text)).length;
+
 const domainOf = (email: string) => email.split('@')[1]?.toLowerCase() ?? '';
 
 /** Collapse whitespace and case so "  Hello   there " and "hello there" are
@@ -95,6 +118,9 @@ export type TriageInput = {
    *  client supplied it. Undefined is NEUTRAL, never a penalty: a form posted
    *  without JavaScript is a supported way to reach this practice. */
   fillMs?: number;
+  /** The "best time to call" text, when the form had it. Scripts paste their
+   *  pitch into every text box, so it is read for the same phrases. */
+  callWindow?: string;
 };
 
 /**
@@ -118,6 +144,8 @@ export function triage(input: TriageInput, existing: Inbound[]): TriageVerdict {
      shape of an SEO pitch. `review` either way, so a wrong call costs a chip
      in /admin and nothing else. */
   if (input.kind === 'enquiry' && countLinks(input.message) >= 2) flags.push('links');
+
+  if (input.kind === 'enquiry' && marketingHits(`${input.message} ${input.callWindow ?? ''}`) >= 2) flags.push('marketing');
 
   /* Compared as hashes as well as text, since 1 Oct 2026: a quarantined
      record keeps only a hash of its address and message (lib/inbound.ts
@@ -208,7 +236,14 @@ const REASON: Record<TriageFlag, string> = {
   disposable: 'throwaway email provider',
   duplicate: 'identical message already received',
   burst: 'third message from this address today',
+  marketing: 'newsletter or sales-script wording, so no email was sent; the message is kept here',
 };
+
+/** True when the submission is stored and shown in /admin but no email goes
+ *  out for it: no practice alert and no acknowledgement to the address. Only
+ *  the marketing-script case, which is decided on what was written, never on
+ *  who wrote it. */
+export const withholdsMail = (v: Pick<TriageVerdict, 'flags'>): boolean => v.flags.includes('marketing');
 
 function verdict(flags: TriageFlag[]): TriageVerdict {
   if (flags.length === 0) return { band: 'clear', flags: [], why: '' };

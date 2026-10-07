@@ -131,6 +131,16 @@ if (triageFn) {
       want: (v) => v.band === 'quarantine' && v.flags.includes('honeypot'),
     },
     {
+      name: 'a newsletter script (the 6 Oct /contact enquiry) is flagged marketing',
+      got: () => triageFn({ ...base, message: "Hi! I'm interested in special offers. Please keep me posted. I appreciate it. Please send me news and updates by email.", callWindow: "Hi there! I'd like to hear more about email updates. I am interested in your latest news." }, []),
+      want: (v) => v.flags.includes('marketing') && v.band === 'review',
+    },
+    {
+      name: 'a person who mentions the newsletter once, and asks to be kept posted, is not',
+      got: () => triageFn({ ...base, message: 'I signed up for your newsletter last month. My anxiety has been worse since my job changed and I would like to talk to someone. Please keep me posted about openings.' }, []),
+      want: (v) => !v.flags.includes('marketing') && v.band === 'clear',
+    },
+    {
       name: 'missing fillMs is neutral, never a penalty',
       got: () => triageFn({ ...base, fillMs: undefined }, []),
       want: (v) => v.band === 'clear',

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { addInbound, readInbound, annotateTriage, markAcked, type InboundKind } from '@/lib/inbound';
 import { unsubLink, unsubHeaders } from '@/lib/nurture';
-import { triage, hasMailExchanger, withMx } from '@/lib/triage';
+import { triage, hasMailExchanger, withMx, withholdsMail } from '@/lib/triage';
 import { sendDetailed } from '@/lib/portal-mail';
 import { checklistEmail, icbcEmail, startingEmail, enquiryAck, practiceAlert, type AckDays, type ReplyDraft } from '@/lib/inbound-mail';
 import { consultationAvailability } from '@/lib/cliniko-availability';
@@ -172,7 +172,7 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
   const stampedAt = Number(form.get('renderedAt'));
   const verdict = triage(
     {
-      kind: o.kind, email, message, honeypot,
+      kind: o.kind, email, message, honeypot, callWindow,
       fillMs: Number.isFinite(stampedAt) && stampedAt > 0 ? Date.now() - stampedAt : undefined,
     },
     (await readInbound()).items
@@ -202,6 +202,14 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
      Nothing else stops here. A `review` verdict is a chip in /admin, never a
      reason to withhold a message from a counsellor. */
   if (verdict.band === 'quarantine') return back('ok');
+
+  /* A newsletter or sales script (6 Oct 2026, lib/triage.ts MARKETING): kept
+     in full and shown in /admin with its reason, but not counted as an
+     enquiry and not emailed to anyone, because sending an acknowledgement to
+     a script's address costs mail reputation and the alert costs the
+     counsellors' attention. Two distinct phrases are required, so this never
+     catches a person. */
+  if (withholdsMail(verdict)) return back('ok');
 
   /* COUNTED HERE, NOT IN THE BROWSER — 1 Oct 2026.
    *

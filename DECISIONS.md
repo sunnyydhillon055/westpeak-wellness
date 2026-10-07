@@ -3385,6 +3385,12 @@ one-pager 8,780 -> 10,000, /punjabi/regions 8,790 -> 10,000. Family minimums
 unchanged (audience 9,750, Punjabi region 9,540); Punjabi-region uniqueness
 25% against a 30% ceiling.
 
+### Newsletter and sales scripts are kept in /admin and emailed to no one (6 Oct 2026)
+
+The owner was receiving, and forwarding to both counsellors, enquiries that are scripts. The 6 Oct one on /contact asked for "special offers" and "news and updates by email", with a second pitch pasted into the best-time box. Until now every submission except a tripped honeypot raised the alert, on the rule "sort, never silence".
+
+That rule stands for every signal about how a message was sent: speed, duplicates, links, throwaway addresses. It now has one narrow exception about what was written. An enquiry that uses two or more distinct newsletter or sales-script phrases (lib/triage.ts MARKETING) is stored in full and shown in /admin with the reason. It is not counted as an enquiry, and no mail goes out for it: no alert, and no acknowledgement to the script's address. Requiring two phrases is the safeguard: a person who mentions the newsletter once, or asks to be kept posted, still gets through. scripts/triage-guard.mjs and test/triage-marketing.test.mts hold both cases. Names, IP addresses and geography are still never read.
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`
