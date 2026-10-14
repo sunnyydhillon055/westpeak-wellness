@@ -255,9 +255,9 @@ export default function About() {
           <p>
             Counselling is regulated province by province, and a session counts as happening where
             you are sitting rather than where your counsellor is. This practice works across all of
-            British Columbia. One counsellor, Camille Granda, who holds the national CCC
-            certification alongside her BC registration, can see clients located anywhere in
-            Canada; the others see clients in British Columbia.
+            British Columbia, and every counsellor sees clients here. A counsellor who also holds
+            the standing and cover to work in another province can see clients there while that
+            cover is in place, and their page says so.
           </p>
           <p>
             Say where you are when you book, and the consultation goes to a counsellor who can
