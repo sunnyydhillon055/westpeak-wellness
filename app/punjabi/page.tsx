@@ -17,6 +17,8 @@ import { placesFor } from '@/lib/practitioner-places';
 import { PA_CITY, getPunjabiPlace } from '@/lib/practitioner-places-pa';
 import { NextFreeDay } from '@/components/NextConsultSlot';
 import { bookHrefFor } from '@/lib/city-service-page';
+import { readCatalog, CONSULT_MINUTES } from '@/lib/cliniko-catalog';
+import { serviceSnippet, withSnippet } from '@/lib/snippet-facts';
 
 /* FULLY STATIC (3 Oct 2026, item 429). The next free day under the hero
    button is filled in by the browser (NextFreeDay), so this page keeps the
@@ -33,23 +35,47 @@ import { bookHrefFor } from '@/lib/city-service-page';
    page's title (lib/services.ts), and this page leads with the Gurmukhi it
    is written in, for people searching in Punjabi and for the WhatsApp
    shares where that half is the one that matters. Same words, reordered. */
-const TITLE = 'ਪੰਜਾਬੀ ਵਿੱਚ ਕਾਊਂਸਲਿੰਗ | Punjabi Counselling in BC';
-const DESC =
-  'ਬ੍ਰਿਟਿਸ਼ ਕੋਲੰਬੀਆ ਵਿੱਚ ਪੰਜਾਬੀ ਬੋਲਣ ਵਾਲੇ Registered Clinical Counsellor ਨਾਲ ਆਨਲਾਈਨ ਕਾਊਂਸਲਿੰਗ। Online counselling in Punjabi anywhere in BC.';
+/* THE ENGLISH QUERY, IN ENGLISH, FIRST — 13 Oct 2026. Neither order of the
+   title has earned a click: English first, 111 impressions at 10.3 (17 Sep)
+   and 134 at 9.8 (26 Sep); Gurmukhi first, 142 at 9.9 (3 Oct) and 111 at
+   9.5 (13 Oct). The reason given above for Gurmukhi first did not come
+   true either: /services/punjabi-counselling did not take the English
+   queries back (2 impressions at 25 on 3 Oct, absent from the 13 Oct
+   export), so Google answers "counselling in punjabi" (27 at 9.4) and
+   "therapy in punjabi" (13 at 11) with this page whatever its title says.
+   What never changed was the description, which opened in Gurmukhi every
+   time, so an English searcher saw a line they could not read and no
+   price or name. Now the head query leads both in English, the Gurmukhi
+   stays in each, and the description carries the fee from the catalogue,
+   the free consultation and the counsellor, as the region pages' do. The
+   hreflang pair is unchanged. Before: "ਪੰਜਾਬੀ ਵਿੱਚ ਕਾਊਂਸਲਿੰਗ | Punjabi
+   Counselling in BC" (data/gsc/snippets.json). */
+const TITLE = 'Counselling in Punjabi, Online in BC | ਪੰਜਾਬੀ ਵਿੱਚ ਕਾਊਂਸਲਿੰਗ';
+const LEAD = 'Counselling in Punjabi (ਪੰਜਾਬੀ ਵਿੱਚ ਕਾਊਂਸਲਿੰਗ), English or both, online anywhere in BC.';
 
-export const metadata: Metadata = {
-  title: { absolute: TITLE },
-  description: DESC,
-  alternates: {
-    canonical: `${site.domain}/punjabi`,
-    languages: {
-      'en-CA': `${site.domain}/services/punjabi-counselling`,
-      'x-default': `${site.domain}/services/punjabi-counselling`,
-      'pa': `${site.domain}/punjabi`,
+/* The lead, then the fee, the consultation and who the button books, read
+   from the catalogue at build time (the page is static). */
+async function description(): Promise<string> {
+  const speaker = bookingCtaFor({ language: 'pa', service: 'individual-therapy', fallback: '' }).practitioner;
+  return withSnippet(LEAD, speaker ? serviceSnippet(await readCatalog(), 'individual-therapy', [speaker]) : undefined);
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const DESC = await description();
+  return {
+    title: { absolute: TITLE },
+    description: DESC,
+    alternates: {
+      canonical: `${site.domain}/punjabi`,
+      languages: {
+        'en-CA': `${site.domain}/services/punjabi-counselling`,
+        'x-default': `${site.domain}/services/punjabi-counselling`,
+        'pa': `${site.domain}/punjabi`,
+      },
     },
-  },
-  openGraph: { ...ogBasePunjabi(`/punjabi`), title: TITLE, description: DESC, locale: 'pa_IN' },
-};
+    openGraph: { ...ogBasePunjabi(`/punjabi`), title: TITLE, description: DESC, locale: 'pa_IN' },
+  };
+}
 
 /* The Punjabi-language surface.
  *
@@ -82,6 +108,7 @@ export const metadata: Metadata = {
  * the strings that were already here. The reasoning is preserved and the route
  * is static again. */
 export default async function PunjabiPage() {
+  const DESC = await description();
   /* The Punjabi-speaking counsellor taking new clients, from the roster. */
   const speaker = practitioners.find((p) => p.acceptingNewClients && p.languages.some((l) => l.tag === 'pa') && p.placePages);
   /* Both booking buttons open the Punjabi-speaking counsellor's calendar
@@ -131,6 +158,15 @@ export default async function PunjabiPage() {
         <div className="container container--article">
           <p className="eyebrow" lang="en">Online across British Columbia</p>
           <h1 className="gurmukhi">ਕੁਝ ਗੱਲਾਂ ਆਪਣੀ ਭਾਸ਼ਾ ਵਿੱਚ ਹੀ ਠੀਕ ਲੱਗਦੀਆਂ ਹਨ।</h1>
+          {/* IN ENGLISH, BEFORE THE GURMUKHI — 13 Oct 2026. Most of the
+              people Google sends here typed English ("counselling in
+              punjabi"); this is the answer they came for, in one line, and
+              the button beside it reads the rest in English. No new
+              Punjabi. */}
+          <p className="lede" lang="en">
+            Counselling in Punjabi, English or both, by secure video anywhere in British Columbia, with a
+            Registered Clinical Counsellor who speaks Punjabi. The first {CONSULT_MINUTES} minutes are a free consultation.
+          </p>
           <Updated iso={lastmodFor('/punjabi')} lang="en-CA" />
           <p className="direct-answer">
             ਬ੍ਰਿਟਿਸ਼ ਕੋਲੰਬੀਆ ਵਿੱਚ ਕਿਤੇ ਵੀ, ਪੰਜਾਬੀ ਬੋਲਣ ਵਾਲੇ Registered Clinical Counsellor

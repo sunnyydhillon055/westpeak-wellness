@@ -64,7 +64,7 @@ const RESOURCE_MAGNET: Record<string, MagnetKey | undefined> = {
 const NEXT_CONSULT_AFTER: Record<string, { h2: string; location: string }> = {
   'verify-a-counsellor-in-bc': { h2: 'The four-minute check', location: 'next-resource-verify' },
   'does-my-plan-cover-counselling-bc': { h2: 'The question that settles it, whichever insurer you have', location: 'next-resource-plan' },
-  'counselling-in-punjabi-what-the-words-mean': { h2: 'If you want the rest of this in Punjabi', location: 'next-resource-punjabi-words' },
+  'counselling-in-punjabi-what-the-words-mean': { h2: 'If you want counselling in Punjabi, not only the word', location: 'next-resource-punjabi-words' },
 };
 
 /* FULLY STATIC — 3 Oct 2026 (item 429). This page exported `revalidate`

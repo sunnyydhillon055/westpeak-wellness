@@ -17,8 +17,10 @@ const GURMUKHI = /[਀-੿]/;
 test('the Punjabi words description answers in English first and fits the SERP', () => {
   const d = r.metaDescription.replace(/&/g, '&amp;');
   assert.ok(d.length <= 158, `${d.length}`);
-  assert.match(d, /^Counselling in Punjabi is /);
-  for (const w of ['Therapy', 'therapist', 'consult', 'burnout']) assert.ok(d.includes(w), w);
+  /* Since 13 Oct 2026 the description names the words and promises the
+     table and examples instead of giving one word away (test/language-c8). */
+  assert.match(d, /^Counselling, counsellor, therapy, therapist, consult/);
+  assert.ok(!GURMUKHI.test(d), 'an English searcher can read all of it');
   assert.ok(r.metaTitle.length <= 60 && /Counselling Meaning in Punjabi/.test(r.metaTitle));
 });
 

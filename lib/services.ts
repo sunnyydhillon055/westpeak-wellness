@@ -517,9 +517,18 @@ export const services: Service[] = [
     figure: "bc-reach",
     name: "Tagalog-Speaking Counselling",
     short: "Therapy in Tagalog, English, or both, with Filipino family context understood.",
-    metaTitle: "Filipino, Tagalog-Speaking Counselling in BC | Westpeak",
+    /* THE QUERY'S OWN WORDS — 13 Oct 2026. 24 impressions at 8.6 and no
+       clicks. The searches are "counselling in tagalog" (4 at 8), "therapy
+       in tagalog" (8, though the comparison page took those, at 19),
+       "counseling in tagalog" (1 at 2) and "filipino counsellor" (2 at 8);
+       the title said "Tagalog-Speaking Counselling", a phrase nobody
+       typed, and never "therapy". Before: "Filipino, Tagalog-Speaking
+       Counselling in BC | Westpeak" (data/gsc/snippets.json). "For
+       Filipinos" names the audience, not the counsellor's background,
+       which this site does not state. */
+    metaTitle: "Counselling & Therapy in Tagalog for Filipinos in BC",
     metaDescription:
-      `Online counselling in Tagalog, English or both, across ${TL_PROVINCES}. Filipino family context understood, by secure video.`,
+      `Counselling and therapy in Tagalog, English or both, online in ${TL_PROVINCES}. Filipino family context understood, by secure video.`,
     hero: "Say it in the language it happened in.",
     intro:
       `Some things only land in your first language, and for a great many Filipinos in Canada that language is Taglish. Sessions are available in Tagalog, English, or a mix of both, with the context to understand hiya, utang na loob and what the relatives will say without needing it explained. Online across ${TL_PROVINCES}. There is also a [page in Tagalog](/tagalog) covering services, fees and what a first session involves.`,
