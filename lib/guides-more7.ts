@@ -1,6 +1,15 @@
 import type { Guide } from './guides';
 import { fallbackFee } from '@/lib/cliniko-catalog';
-import { EI_WEEKLY, EI_WEEKLY_IN_YEAR, EI_YEAR, pacificYear } from '@/lib/benefit-figures';
+import { EI_WEEKLY, EI_WEEKLY_IN_YEAR, EI_YEAR, eiSicknessMax, pacificYear } from '@/lib/benefit-figures';
+
+/* A worked EI example, computed rather than typed (13 Oct 2026), so that
+   scripts/price-drift.mjs never sees a dollar literal and the figures move
+   with lib/benefit-figures.ts. The earnings at which the weekly maximum is
+   reached is the year's maximum insurable earnings over 52. */
+const usd = (n: number) => '$' + n.toLocaleString('en-CA');
+const EI_FIG = eiSicknessMax();
+const EI_EXAMPLE_WAGE = 1000;
+const EI_WORKED = `A worked example: insurable earnings averaging ${usd(EI_EXAMPLE_WAGE)} a week give ${usd(Math.round(EI_EXAMPLE_WAGE * 0.55))} a week before tax. Anyone averaging more than about ${usd(Math.round(EI_FIG.maxInsurableEarnings / 52))} a week (the ${EI_YEAR} maximum insurable earnings of ${usd(EI_FIG.maxInsurableEarnings)}, over 52 weeks) gets the maximum, ${EI_WEEKLY}, however much more they earn. The benefit is taxable income, so what lands in your account is less again.`;
 
 /* What a session costs, for the leave guides: one sentence, catalogue-driven
    (1 Oct 2026). These pages quoted the EI cap and nothing about the cost of
@@ -28,15 +37,26 @@ export const moreGuides7: Guide[] = [
        title asks the question with the year the figure applies to; the rate
        and the maximum stay in the description, from lib/benefit-figures.ts. */
     title: 'How much medical EI pays in BC, and how the 26 weeks work',
-    metaTitle: `How Much Does Medical EI Pay in BC in ${EI_YEAR}? Rate, 26 Weeks`,
+    /* 13 Oct 2026: 415 impressions at 8.15 and 1 click (0.24%) in the 13
+       Oct export, after 297 at 8.19 and 0 clicks under the 3 Oct title. The
+       head queries Search Console shows are "how much does medical ei pay in
+       bc" (3 at 7.33, 3 Oct) and "ei mental health leave" (1 at 11, 13 Oct).
+       The description gave the rate, the maximum and the length, which is
+       every answer the result needed, so nobody clicked. The title now names
+       the mental-health leave the page is about, and the description keeps
+       the rate (the test requires it) but promises what the results above
+       it do not show: a worked weekly amount, the 600-hour rule and the
+       four-week deadline. Before: 'How Much Does Medical EI Pay in BC in
+       {year}? Rate, 26 Weeks'. */
+    metaTitle: `How Much Medical EI Pays in BC (${EI_YEAR}): Mental Health Leave`,
     metaDescription:
-      `55% of insurable earnings, to ${EI_WEEKLY_IN_YEAR}, for up to 26 weeks. Who qualifies, the medical certificate, and how to apply without losing weeks.`,
+      `55% of earnings to ${EI_WEEKLY} a week for up to 26 weeks, taxable. A worked example of your weekly amount, the 600-hour rule and the 4-week deadline.`,
     eyebrow: 'Guide · Work & money',
     lede:
-      'The employer sick days run out fast. What most people are actually living on during a longer mental-health leave is EI sickness benefits, and almost nobody understands them until they are already off.',
+      'Medical EI is the everyday name for EI sickness benefits: the federal benefit that pays part of your earnings while a medical condition, mental health included, stops you working. For a longer leave it is what most people actually live on.',
     shortAnswer:
-      `EI sickness benefits replace 55% of your insurable earnings, to a maximum of ${EI_WEEKLY_IN_YEAR}, for up to 26 weeks, and they apply to mental-health conditions exactly as they do to physical ones. You need 600 insurable hours in the qualifying period, a medical certificate saying you are unable to work, and a claim filed promptly, because there is a one-week waiting period and late claims risk losing weeks. The benefit is taxable, it is far less than a paycheque, and knowing both before the leave starts is half of surviving it.`,
-    updated: '2026-10-03',
+      `Medical EI pays 55% of your average insurable weekly earnings, to a maximum of ${EI_WEEKLY_IN_YEAR}, for up to 26 weeks, and a mental-health leave qualifies exactly as a physical illness does. You need 600 insurable hours in the qualifying period, a medical certificate saying you are unable to work, and a claim filed promptly, because there is a one-week waiting period and late claims risk losing weeks. The benefit is taxable, it is far less than a paycheque, and knowing both before the leave starts is half of surviving it.`,
+    updated: '2026-10-13',
     readMinutes: 7,
     sections: [
       {
@@ -45,6 +65,7 @@ export const moreGuides7: Guide[] = [
           'Yes, unambiguously. EI sickness benefits do not distinguish between a broken leg and a depressive episode. The test is that a medical practitioner certifies you are **unable to work for medical reasons**, and mental-health conditions meet it the same way anything else does. Burnout is not itself a diagnosis, but the conditions that travel under it: depression, anxiety disorders, adjustment disorder, are exactly what these claims are made of.',
           'The eligibility mechanics: **600 insurable hours** in the last 52 weeks (roughly 15 hours a week over a year of insurable employment), regular earnings reduced by more than 40%, and the medical certificate. Self-employed people are outside the program unless they opted into EI special benefits at least a year earlier. A gap that surprises a lot of contractors at the worst possible moment.',
           `What it pays: **55% of average insurable weekly earnings, capped at ${EI_WEEKLY_IN_YEAR}**, taxable, after a one-week unpaid waiting period. For most full-time earners that is a serious income cut, and the honest planning question is not "am I eligible" but "can the household run on 55%, and for how long".`,
+          EI_WORKED,
         ],
       },
       {
@@ -52,7 +73,7 @@ export const moreGuides7: Guide[] = [
         body: [
           'First, get the medical certificate at the appointment where the leave is decided. A family doctor or nurse practitioner completes it, and it needs to state that you cannot work and roughly for how long, not your diagnosis. Second, get your **Record of Employment**. Your employer files it electronically when your pay stops, and claims stall more on missing ROEs than on anything else. Third, **apply online at Canada.ca immediately**, even if the ROE has not landed yet; you can submit the application and the paperwork can follow.',
           'The timing rule that costs people real money: apply within four weeks of your last day worked. Wait longer and you can permanently lose benefit weeks, because claims are not backdated indefinitely. Applying is free, decisions usually arrive within a few weeks, and payments continue only while you file your biweekly reports, set a reminder, because a missed report pauses everything.',
-          'If your employer has a short-term disability plan, it usually replaces EI for the early weeks (often at a better rate), check which applies to you before filing, because the sequencing differs plan to plan. The [stress-leave guide](/guides/stress-leave-bc) covers how the job-protection side runs alongside all of this.',
+          'If your employer has a short-term disability plan, it usually replaces EI for the early weeks (often at a better rate), check which applies to you before filing, because the sequencing differs plan to plan. [Stress leave in BC](/resources/workplace-mental-health-bc) sets EI beside the sick days, disability plans and WorkSafeBC in one table, and covers how the job-protection side runs alongside all of this.',
         ],
       },
       {
@@ -83,7 +104,11 @@ export const moreGuides7: Guide[] = [
     },
     faqs: [
       { q: `How much does EI sickness pay in ${EI_YEAR}?`, a: `55% of your average insurable weekly earnings, to a maximum of ${EI_WEEKLY} a week, taxable, for up to 26 weeks, after a one-week unpaid waiting period. For most full-time earners that is a substantial cut, and budgeting for it before the leave starts is part of the leave.` },
-      { q: 'Can I get EI sickness benefits for burnout or anxiety?', a: 'Yes. The program does not distinguish mental from physical health. What matters is a medical practitioner certifying you are unable to work. "Burnout" itself is not the certified condition; the depression, anxiety disorder or adjustment disorder underneath it typically is.' },
+      { q: 'Can I get EI for a mental health leave, burnout or anxiety?', a: 'Yes. The program does not distinguish mental from physical health. What matters is a medical practitioner certifying you are unable to work. "Burnout" itself is not the certified condition; the depression, anxiety disorder or adjustment disorder underneath it typically is.' },
+      /* 13 Oct 2026: "ei mental health leave" (1 at 11). Read today on
+         canada.ca: EI sickness "Apply" (modified 2 Jun 2026) and "Do you
+         qualify" (modified 16 Jul 2026). */
+      { q: 'How do I apply for EI on a mental health leave?', a: 'Online at canada.ca, as soon as you stop working: Service Canada says applying more than four weeks after your last day of work can cost you benefits. You need 600 insured hours in the 52 weeks before the claim, weekly earnings down by more than 40%, and a medical certificate from one of the practitioners Service Canada lists, which includes a physician, a nurse practitioner and a psychologist. Your employer issues the Record of Employment; apply without waiting for it.' },
       { q: 'Do I need to be seeing a therapist to keep my claim?', a: 'No. EI sickness benefits need a medical certificate and your biweekly reports; there is no rule that you be in treatment, and no requirement to see a therapist to keep the claim. Counselling matters later, and practically: return-to-work and any long-term disability transition go very differently with a treatment record than without one.' },
       { q: 'Does my extended health coverage continue while I am on EI sickness?', a: 'It depends on your employer and the plan. Many plans stay active while you remain employed and on an approved leave, and where yours does, it can still reimburse RCC counselling while your income is reduced. Confirm with HR or your plan administrator rather than assuming, and check whether premiums need to be kept up during the leave.' },
       /* 3 Oct 2026: "ei sickness benefits login" (Search Console). Read today
@@ -99,11 +124,10 @@ export const moreGuides7: Guide[] = [
     ],
     related: [
       { href: "/services/individual-therapy", label: "Individual counselling while you are off work" },
-      { href: '/guides/stress-leave-bc', label: 'Stress leave in BC, the full picture' },
+      { href: '/resources/workplace-mental-health-bc', label: 'Stress leave in BC, the full picture' },
       { href: '/guides/doctors-note-for-a-mental-health-leave', label: 'Getting the doctor’s note' },
       { href: '/guides/return-to-work-after-a-mental-health-leave', label: 'Return to work after a leave' },
       { href: '/resources/bc-extended-health-coverage-for-counselling', label: 'Extended health coverage for counselling' },
-      { href: '/resources/workplace-mental-health-bc', label: 'Workplace mental health in BC' },
       { href: '/resources/disability-benefits-and-counselling-bc', label: 'Short-term disability in BC, if your employer has a plan' },
       { href: '/tools/what-can-i-access', label: 'What counselling can you access, and how soon?' },
       { href: '/pricing', label: 'Fees and coverage' },
@@ -130,16 +154,16 @@ export const moreGuides7: Guide[] = [
       'What to say to your doctor, what the note for a mental-health or stress leave in BC must and must not contain, and what to do with no family doctor.',
     eyebrow: 'Guide · Work & money',
     lede:
-      'The whole leave usually hinges on one short appointment most people walk into unprepared, and walk out of having minimised everything they came to say.',
+      'A doctor’s note for a mental-health leave is a medical certificate from a physician or nurse practitioner saying you are unable to work and until when. The whole leave hinges on that one short appointment, which most people walk into unprepared.',
     shortAnswer:
       'A mental-health leave in BC runs on a medical certificate from a doctor or nurse practitioner stating that you are unable to work and for roughly how long. It does not need to name your diagnosis, and your employer is not entitled to one. They may ask for reasonably sufficient proof of illness, which the note itself is. The honest preparation for the appointment is a plain account of symptoms and function: sleep, concentration, mood, what work currently does to you. Understatement is the main failure mode; doctors certify what they are shown.',
-    updated: '2026-10-01',
+    updated: '2026-10-13',
     readMinutes: 6,
     sections: [
       {
         h2: 'What the note actually needs to say, and what it must not',
         body: [
-          'A workable certificate is short: the practitioner confirms you have a medical condition that makes you unable to work, states an expected duration or review date, and, where relevant, any functional limitations. That is the whole document. **It does not need your diagnosis**, and the better ones deliberately omit it. This page is about that one appointment; for the whole route, from the first call to the money to the return, start with [how stress leave works in BC](/guides/stress-leave-bc).',
+          'A workable certificate is short: the practitioner confirms you have a medical condition that makes you unable to work, states an expected duration or review date, and, where relevant, any functional limitations. That is the whole document. **It does not need your diagnosis**, and the better ones deliberately omit it. This page is about that one appointment; for the whole route, from the first call to the money to the return, start with [how stress leave works in BC](/resources/workplace-mental-health-bc).',
           'The privacy line matters and is worth knowing cold: in BC, an employer may require "reasonably sufficient proof" that you are entitled to sick leave, and for longer absences may ask about prognosis and functional limitations: *when you might return, what you can and cannot do*. They are **not** entitled to your diagnosis, your therapy notes, or your file. A note that says "medical condition, unable to work, reassess in four weeks" answers everything an employer may properly ask.',
           'If HR pushes for more detail than that, the response is polite and firm: further medical information goes through the doctor, addressed to functional questions. For accommodation processes the employer can request more specific functional information, still function, still not diagnosis. The guide on [going back to work after a mental health leave](/guides/return-to-work-after-a-mental-health-leave) covers that stage.',
         ],
@@ -179,6 +203,10 @@ export const moreGuides7: Guide[] = [
       { q: 'Can a counsellor or psychologist write a sick note?', a: 'A counsellor cannot; a psychologist can, for EI. A Registered Clinical Counsellor cannot certify that you are unable to work. For EI sickness benefits, Service Canada accepts the medical certificate from a physician, a nurse practitioner or a psychologist; for an employer’s leave, ask HR whose note the policy accepts. A counsellor can write a letter confirming you are in treatment, which insurers often ask for alongside the medical note, and that is a different document.' },
       { q: 'How long will a doctor sign you off for stress?', a: 'Usually in blocks of two to six weeks, with a review before each extension, rather than one long certificate. A doctor is certifying a current inability to work and will want to see you again before extending it. A note that says "indefinitely" is rare and tends to cause problems with insurers, so a defined period with a review date is the normal shape.' },
       { q: 'Does my employer have to accept a doctor’s note for stress leave?', a: 'BC employers may require reasonably sufficient proof of entitlement to sick leave, and a medical certificate is exactly that proof. They are not entitled to your diagnosis, and the ESA’s job-protected illness leave plus the Human Rights Code’s duty to accommodate sit behind a certified medical absence.' },
+      /* 13 Oct 2026, from Search Console: "can my doctor sign me off work
+         for mental health" (1 at 11), "mental health note for work" (1 at 6). */
+      { q: 'Can my doctor sign me off work for mental health?', a: 'Yes. A physician or nurse practitioner can certify that you are unable to work for a mental-health reason exactly as for a physical one, usually for a set period with a review date. Describe what is happening to your sleep, concentration, mood and work in plain terms; a doctor certifies what they are shown.' },
+      { q: 'What is a mental health note for work?', a: 'A medical certificate saying you have a medical condition, are unable to work (or can work only with stated limits), and when that will be reviewed. It does not name a diagnosis and does not need to. Your employer may ask for reasonably sufficient proof of illness, and this is it.' },
       { q: 'Will the note say I have a mental illness?', a: 'It should not, and you can ask the doctor to keep it functional: medical condition, unable to work, expected duration. Diagnosis stays between you and your clinicians; employers deal in function and timelines.' },
       { q: 'Can a walk-in doctor or telehealth appointment give me a leave note?', a: 'Yes. Any physician or nurse practitioner can certify a medical absence, including virtually. For longer leaves, a consistent clinician who can re-certify at review dates works better than a series of unconnected notes. A UPCC or one virtual clinic used consistently gets you most of that.' },
       { q: 'What if the doctor says no?', a: 'Usually it is not a refusal of you but of what they were shown, the composed version. Go back with the written, functional account, or ask directly what they would need to see. A second opinion is always available, and so is starting with a shorter certified period plus a review date.' },
@@ -192,11 +220,10 @@ export const moreGuides7: Guide[] = [
     related: [
       { href: "/services/individual-therapy", label: "Individual counselling during a leave" },
       { href: '/resources/mental-health-leave-templates-bc', label: 'Copyable templates: the request, the note checklist, the HR checklist' },
-      { href: '/guides/stress-leave-bc', label: 'Stress leave in BC, the full picture' },
+      { href: '/resources/workplace-mental-health-bc', label: 'Stress leave in BC, the full picture' },
       { href: '/guides/ei-sickness-benefits-and-therapy', label: 'EI sickness benefits and therapy' },
       { href: '/guides/return-to-work-after-a-mental-health-leave', label: 'Return to work after a leave' },
       { href: '/guides/sick-days-and-mental-health-days-bc', label: 'Sick days and mental-health days in BC' },
-      { href: '/resources/workplace-mental-health-bc', label: 'Workplace mental health in BC' },
       { href: '/refer/doctor', label: 'A one-page summary to take to your doctor' },
     ],
   },
@@ -219,16 +246,16 @@ export const moreGuides7: Guide[] = [
       'Graduated returns, accommodations and BC’s duty to accommodate: how to go back after a mental-health or stress leave without rebuilding the collapse you left.',
     eyebrow: 'Guide · Work & money',
     lede:
-      'The leave has an end date. The condition does not check the calendar, which is why the return is where a good leave either consolidates or unravels.',
+      'A return to work after a mental-health leave in BC is usually graduated: reduced hours or duties for several weeks, set out in writing from your doctor’s functional limits, which your employer must accommodate to the point of undue hardship. The return is where a good leave either holds or unravels.',
     shortAnswer:
       'A return that holds is usually gradual, negotiated, and honest about what caused the leave. In BC, an employer has a duty under the Human Rights Code to accommodate a mental-health disability to the point of undue hardship, which in practice supports graduated hours, modified duties, and changes to the specific conditions that broke you. The functional questions belong in a return-to-work plan from your doctor; your diagnosis still belongs to you. And the least-discussed truth: returning to an unchanged situation at full speed is how second leaves happen.',
-    updated: '2026-10-01',
+    updated: '2026-10-13',
     readMinutes: 7,
     sections: [
       {
         h2: 'The mistake built into most returns',
         body: [
-          'The standard return is binary: fully off, then. One Monday: fully on. Nothing about recovery works that way. Stamina, concentration and stress tolerance come back on a slope, not a switch, and a full-speed Monday spends in one week the reserves the whole leave built. If you are still at the start rather than the end, [how stress leave works in BC](/guides/stress-leave-bc) covers the certificate, the money and the job protection; this page picks up where the leave ends.',
+          'The standard return is binary: fully off, then. One Monday: fully on. Nothing about recovery works that way. Stamina, concentration and stress tolerance come back on a slope, not a switch, and a full-speed Monday spends in one week the reserves the whole leave built. If you are still at the start rather than the end, [how stress leave works in BC](/resources/workplace-mental-health-bc) covers the certificate, the money and the job protection; this page picks up where the leave ends.',
           'The alternative is boringly effective: a **graduated return-to-work plan**: reduced days or hours stepping up over several weeks, agreed in writing, with a review point. Doctors write these routinely, insurers and EI both have mechanisms that support partial returns, and BC employers accommodate them because the alternative conversation involves the Human Rights Code. If your workplace treats "graduated" as exotic, that is information about the workplace.',
           'The second mistake is returning to an unchanged situation. If the leave was caused or accelerated by specific conditions. A workload, a manager, an on-call rotation, a harassment situation. A return that restores everything exactly as it was is a return *to the cause*. Some of that is negotiable through accommodation; some of it becomes a decision about the job itself, which is its own piece of work and a legitimate topic for counselling rather than a failure of it.',
         ],
@@ -259,6 +286,7 @@ export const moreGuides7: Guide[] = [
     },
     faqs: [
       { q: 'Can my employer demand my diagnosis before I return?', a: 'No. They are entitled to functional information: what you can do, what limitations apply, the expected timeline, normally via your doctor in a return-to-work plan. Diagnosis remains private. Employers deal in function; clinicians hold the rest.' },
+      { q: 'How do I go back to work after stress leave?', a: 'Before the certificate ends, ask your doctor for a return-to-work note in functional terms: the hours, duties and limits you can manage, and for how long. Give it to your employer and agree a written plan with a review date. A graduated return, building back over several weeks, is the usual shape, and your employer must consider it as an accommodation.' },
       { q: 'What is a graduated return-to-work plan?', a: 'A written schedule stepping from reduced hours or days back to full time over several weeks, with a review date. Your doctor sets the medical parameters, the employer accommodates them under the Human Rights Code, and both EI and most disability insurers have partial-return mechanisms that keep some income flowing during it.' },
       { q: 'What if my employer refuses to accommodate?', a: 'The duty to accommodate a disability, including a mental-health disability, is law in BC, to the point of undue hardship. Refusals get tested against that standard. Document the requests and responses, keep everything functional and in writing, and get advice: the Human Rights Clinic and the Employment Standards Branch are the public routes, before any lawyer.' },
       { q: 'Should I go back to the same job at all?', a: 'Sometimes the honest answer is no, and it deserves better than being decided in week one back, at your most financially anxious. A useful sequencing: return, stabilise, then decide from stability, unless the situation that broke you is intact and non-negotiable, in which case the decision may be the treatment.' },
@@ -271,10 +299,9 @@ export const moreGuides7: Guide[] = [
     ],
     related: [
       { href: "/services/individual-therapy", label: "Individual counselling through a return to work" },
-      { href: '/guides/stress-leave-bc', label: 'Stress leave in BC, the full picture' },
+      { href: '/resources/workplace-mental-health-bc', label: 'Stress leave in BC, the full picture' },
       { href: '/guides/ei-sickness-benefits-and-therapy', label: 'EI sickness benefits and therapy' },
       { href: '/guides/burnout-vs-depression', label: 'Burnout vs depression' },
-      { href: '/resources/workplace-mental-health-bc', label: 'Workplace mental health in BC' },
       { href: '/guides/workplace-bullying-in-bc', label: 'Workplace bullying in BC' },
     ],
   },
@@ -287,15 +314,27 @@ export const moreGuides7: Guide[] = [
     /* The year is the build's Pacific year, 3 Oct 2026 (item 457): a typed
        "(2026)" would have gone stale on 1 January on the best-earning guide.
        test/meta-title-year.test.mts fails on a typed year in any metaTitle. */
-    metaTitle: `Can You Use Sick Days for Mental Health in BC? (${pacificYear()})`,
+    /* 13 Oct 2026: 531 impressions at 7.07, 9 clicks (1.69%), below what
+       position 7 earns. The largest query Search Console shows for it is
+       "mental health days bc" (25 at 5.6, 0 clicks), with "mental health days
+       off work bc" (7 at 8.86) beside it, and the old title never said
+       "mental health days". The "can you use sick days" wording stays for
+       "can you use sick days for mental health" (4 at 10.5) and its
+       one-impression variants. The description now promises what the
+       results above it leave out: what to say when you call in, and what to
+       do when five days are not enough. Before: 'Can You Use Sick Days for
+       Mental Health in BC? ({year})' and 'BC’s paid sick days cover mental
+       health. How the 5 ESA days work, what proof an employer can ask for,
+       and when a mental-health day is a signal, not a fix.' */
+    metaTitle: `Mental Health Days in BC: Can You Use Sick Days? (${pacificYear()})`,
     metaDescription:
-      'BC’s paid sick days cover mental health. How the 5 ESA days work, what proof an employer can ask for, and when a mental-health day is a signal, not a fix.',
+      'Yes: a mental health day is a sick day. BC’s 5 paid and 3 unpaid days, the proof an employer may ask for, what to say when you call in, and when 5 run out.',
     eyebrow: 'Guide · Work & money',
     lede:
-      'There is no separate "mental-health day" in BC law, and there does not need to be, because the ordinary sick day already covers it. Most people just don’t know that.',
+      'A mental-health day in BC is a sick day. There is no separate category in BC law and none is needed: the paid sick days under the Employment Standards Act cover illness, and mental health is illness.',
     shortAnswer:
       'BC’s Employment Standards Act gives most employees 5 paid sick days and 3 unpaid days per calendar year after 90 days of employment, and illness includes mental health. A day taken for anxiety, depression or a breaking point is as legitimate as one taken for the flu, your employer may ask for reasonably sufficient proof but not your diagnosis, and "I am unwell" is a complete sentence. The larger question this page also answers: when mental-health days keep being needed, they have stopped being days off and started being data.',
-    updated: '2026-10-03',
+    updated: '2026-10-13',
     readMinutes: 6,
     sections: [
       {
@@ -319,7 +358,7 @@ export const moreGuides7: Guide[] = [
         list: [
           { label: 'You are rationing them by dread', detail: 'Choosing which weeks are survivable enough to skip the sick day is itself the signal. A sustainable job does not require triaging your own collapse.' },
           { label: 'The same day keeps recurring', detail: 'Monday-pattern or post-deadline-pattern sick days are a graph, and the graph is telling you what the cause is. Naming the pattern is more useful than hiding it.' },
-          { label: 'Five days were gone by June', detail: 'When the annual allotment cannot cover the year, you are past the sick-day tool. The next tools are a proper assessment, possibly [a certified stress leave](/guides/stress-leave-bc), and treatment, in that order, before the involuntary version arrives.' },
+          { label: 'Five days were gone by June', detail: 'When the annual allotment cannot cover the year, you are past the sick-day tool. The next tools are a proper assessment, possibly [a certified stress leave](/resources/workplace-mental-health-bc), and treatment, in that order, before the involuntary version arrives.' },
           { label: 'The day off does not restore anything anymore', detail: 'Early in a stress cycle, a day genuinely resets. Late in one, it does not touch the sides, and that difference is one of the more reliable home tests for "tired" versus "something needing treatment". The guide on [burnout or depression](/guides/burnout-vs-depression) draws that line properly, and the [three-minute check](/tools/burnout-or-depression) is a way to start on it without a form or a score.' },
         ],
       },
@@ -339,6 +378,12 @@ export const moreGuides7: Guide[] = [
       /* 3 Oct 2026, from Search Console: "are mental health days paid",
          "do you get paid for mental health days", "can psychologists write
          sick notes", "can a psychologist give a sick note". */
+      /* 13 Oct 2026, from Search Console: "how many mental health days can
+         you take from work" (2 at 10), "can you call in sick for mental
+         health" (2 at 8) and "can i call in sick for mental health" (2 at 11),
+         "are you allowed to take mental health days from work" (3 at 6.67). */
+      { q: 'How many mental health days can you take from work in BC?', a: 'As many sick days as you have: five paid and three unpaid each calendar year under the Employment Standards Act once you have worked for the employer for 90 days, and a mental-health day comes out of the same allowance. Your employer’s policy or a collective agreement may give more. Beyond those days, a longer absence needs a medical certificate from a physician or nurse practitioner, which is a medical leave rather than a run of sick days.' },
+      { q: 'Can you call in sick for mental health?', a: 'Yes. Say you are unwell and taking a sick day; you do not have to say what kind of unwell. Your employer may ask for reasonably sufficient proof but is not entitled to your diagnosis, and a mental-health day is as protected as one taken for the flu.' },
       { q: 'Are mental health days paid in BC?', a: 'The first five sick days in a calendar year are, at an average day’s pay, once you have worked for the employer for 90 days, and a mental-health day is a sick day. The next three are unpaid but still job-protected. Anything an employer offers above that, such as wellness days or a larger sick-leave bank, is paid on the employer’s policy or your collective agreement.' },
       { q: 'Can a psychologist write a sick note?', a: 'The Employment Standards Act asks only for reasonably sufficient proof and does not name who must write it, so whether an employer accepts a registered psychologist’s note is the employer’s call; most accept a physician’s or nurse practitioner’s. For EI sickness benefits, Service Canada asks for a certificate from your treating medical practitioner; canada.ca lists who that can be. A Registered Clinical Counsellor does not diagnose and is not the person to certify an absence.' },
       { q: 'What if I need more days than exist?', a: 'That is the signal to change tools: an honest medical assessment, the possibility of a certified leave with job protection, and treatment for whatever is consuming the days. The stress-leave guide covers the whole path, including the money.' },
@@ -350,11 +395,10 @@ export const moreGuides7: Guide[] = [
     ],
     related: [
       { href: "/services/individual-therapy", label: "Individual counselling for burnout and stress" },
-      { href: '/guides/stress-leave-bc', label: 'Stress leave in BC, the full picture' },
+      { href: '/resources/workplace-mental-health-bc', label: 'Stress leave in BC, the full picture' },
       { href: '/guides/burnout-vs-depression', label: 'Burnout vs depression' },
       { href: '/guides/doctors-note-for-a-mental-health-leave', label: 'Getting the doctor’s note' },
       { href: '/guides/signs-it-might-be-time-for-therapy', label: 'Signs it might be time for therapy' },
-      { href: '/resources/workplace-mental-health-bc', label: 'Workplace mental health in BC' },
       { href: '/tools/burnout-or-depression', label: 'Burnout or depression? A three-minute check' },
     ],
   },

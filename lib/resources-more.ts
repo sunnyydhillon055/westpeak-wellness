@@ -5,6 +5,7 @@ import { acceptingSentences } from '@/lib/practitioner-facts';
 import { STUDENT_PLANS, studentPlanFaqs } from './student-plans';
 import { CONFIDENTIALITY_LIMITS } from '@/lib/practice-facts';
 import { RCC_PLAIN } from '@/lib/site';
+import { EI_WEEKLY_IN_YEAR } from '@/lib/benefit-figures';
 
 /* Minutes for a catalogue type, read rather than typed, beside fallbackFee. */
 const minutesOf = (name: string) => FALLBACK_CATALOG.items.find((i) => i.name === name)?.minutes;
@@ -119,7 +120,7 @@ export const moreResources: Resource[] = [
     slug: 'workplace-mental-health-bc',
     figure2: "burnout-vs-depression",
     figure: 'reimbursement-flow',
-    title: 'Mental health and work in BC: leave, accommodation and coverage',
+    title: 'Stress leave in BC: how to get it, whether it is paid, and your rights at work',
     /* Retitled 2026-08-28: 230 impressions at 0.87% CTR, and the queries
        finding this page are stress-leave-family — lead with their words. */
     /* Retitled again 6 Sep 2026. Search Console showed this page and
@@ -129,36 +130,88 @@ export const moreResources: Resource[] = [
        to "how do I get one"; this page keeps the wider ground it also ranks
        for (accommodation, return to work, "stay at work services") and
        hands the how-to query on in its first section. */
-    metaTitle: 'Mental Health at Work BC: Leave, Accommodation | Westpeak',
+    /* THE ONE STRESS-LEAVE PAGE — 13 Oct 2026. The 6 Sep and 1 Oct decisions
+       made /guides/stress-leave-bc the answer to "how do I get one" and had
+       this page hand the query on. Google did the opposite, five exports
+       running: the guide went 98 impressions (6 Sep) -> 117 -> 91 -> 50 at
+       9.78 (3 Oct) -> no row at all in the 13 Oct export, while this page
+       went 2,104 at 10.45 -> 2,278 at 9.86 with 22 clicks. Google prefers
+       this URL for the cluster, so this URL now gives the whole answer:
+       how to get it in five steps, a paid-or-unpaid table source by source,
+       how long, who signs, and FAQs in the searchers' words. Search Console
+       13 Oct: "how to go on stress leave bc" 44 at 18.68, "how does stress
+       leave work in bc" 44 at 18.8, "how to get stress leave in bc" 43 at
+       16.67 (1 click), "is stress leave paid in bc" 38 at 12.26, "medical
+       stress leave bc" 38 at 18.34, "how to apply for stress leave in bc" 37
+       at 20.59, "bc stress leave" 34 at 19.56, "stress leave bc" 25 at
+       16.76: about 600 impressions across ~25 stress-leave queries, 1 click.
+       Before: metaTitle 'Mental Health at Work BC: Leave, Accommodation |
+       Westpeak', which did not contain the head query. The guide stays live
+       as the longer walk-through and links here from its first paragraph. */
+    metaTitle: 'Stress Leave in BC: How to Get It, Is It Paid, Your Rights',
     metaDescription:
-      'What your employer may and may not ask, how accommodation actually works, and where sick leave, short-term disability and a WorkSafeBC claim differ.',
+      'Who signs a stress leave in BC, the 5 paid and 3 unpaid ESA days, EI at 55% for up to 26 weeks, STD and WorkSafeBC, and what your employer may ask.',
     eyebrow: 'BC resource',
     lede:
-      'Most people discover how any of this works at the exact moment they are least able to research it. This is the map, in advance.',
+      'Stress leave is not a separate law in BC. It is a medical leave for a mental-health reason: certified by a doctor or nurse practitioner, paid from sick days, EI or an employer plan, and protected by employment standards and human rights law.',
     shortAnswer:
-      'BC employees are entitled to paid sick leave under the Employment Standards Act, and mental-health conditions count. Beyond that there are three separate systems that get confused with each other: workplace accommodation under human rights law, disability benefits through an insurer, and WorkSafeBC claims for work-caused injury. Your employer is entitled to know your limitations, not your diagnosis.',
-    updated: '2026-10-03',
-    readMinutes: 8,
+      `To get stress leave in BC, see a physician or nurse practitioner, who certifies that you are unable to work and until when; give that note to your employer; then claim income the same week. It is partly paid: five paid and three unpaid sick days a year under the Employment Standards Act once you have 90 days of service, then an employer short-term disability plan or EI sickness benefits (55% of insurable earnings, to ${EI_WEEKLY_IN_YEAR}, for up to 26 weeks). It lasts as long as the certificate says, reviewed in blocks. A counsellor cannot sign it, and your employer is entitled to your limitations, not your diagnosis.`,
+    updated: '2026-10-13',
+    readMinutes: 10,
     sections: [
       {
-        /* This heading used to read "If you are here to find out how to get a
-           stress leave", which is the query it was trying to hand to the guide
-           and which kept this page ranking for it. See the note at the top. */
-        h2: 'What this page is, and what it is not',
+        /* Was 'What this page is, and what it is not', which sent the how-to
+           query to the guide. See THE ONE STRESS-LEAVE PAGE above. */
+        h2: 'How to get stress leave in BC, in five steps',
         body: [
-          'This page is the wider map: what an employer may ask, how accommodation works, how sick leave, disability insurance and a WorkSafeBC claim differ, and what returning to work can look like.',
-          'If you are trying to arrange time away from work for a mental-health reason, the guide on [how to apply for stress leave in BC](/guides/stress-leave-bc) is written for that instead. It covers who can certify one (a physician or nurse practitioner, not a counsellor), how long they usually run, whether yours is paid, and where EI sickness benefits fit.',
+          'There is no government form and no approval step beyond a medical certificate. What catches people is the order, so this is the order.',
+          '**1. Use the sick days you already have.** Under the BC Employment Standards Act, an employee who has worked for the employer for 90 days gets five paid and three unpaid days of illness or injury leave each calendar year, and mental health counts. For a bad week that may be the whole answer; [sick days and mental-health days in BC](/guides/sick-days-and-mental-health-days-bc) covers how to use them.',
+          '**2. See a physician or nurse practitioner.** For anything longer, someone medically qualified certifies that you are unable to work and sets a review date. A walk-in clinic, an urgent and primary care centre or a virtual visit can do it if you have no family doctor. [What to say to get the doctor’s note](/guides/doctors-note-for-a-mental-health-leave) covers the appointment.',
+          '**3. Tell your employer in writing.** That you are on a medical leave, from when, and when it will be reviewed, with the certificate attached or to follow. Not why. A [copyable request email](/resources/mental-health-leave-templates-bc) says exactly that much.',
+          '**4. Start the income claim the same week.** If your employer has a short-term disability plan, its forms and deadlines come first. If not, apply for EI sickness benefits online as soon as you stop working: Service Canada says applying more than four weeks after your last day of work can cost you benefits. [The EI guide](/guides/ei-sickness-benefits-and-therapy) works through what it pays.',
+          '**5. Diarise the review date and plan the return.** Certificates run in blocks and are extended at review. A graduated return is usually an accommodation your employer has to consider, and [returning to work after a mental-health leave](/guides/return-to-work-after-a-mental-health-leave) covers it.',
+          'The longer walk-through, with what to say at work and why the order matters, is [going on stress leave in BC, step by step](/guides/stress-leave-bc).',
         ],
       },
       {
-        h2: 'Paid sick leave',
+        /* Figures read 13 Oct 2026: gov.bc.ca paid sick leave (5 paid, 3
+           unpaid, 90 days, "reasonably sufficient proof"); canada.ca EI
+           sickness (55%, 26 weeks, maximum from lib/benefit-figures.ts),
+           "Do you qualify" (600 insured hours in 52 weeks, earnings down more
+           than 40%, modified 16 Jul 2026) and "Apply" (more than 4 weeks
+           after the last day of work may lose benefits, modified 2 Jun 2026);
+           WorkSafeBC mental health injury claims (significant work-related
+           stressor or traumatic event, diagnosed condition, the employer-
+           decision exclusion). Federal figures as read 3 Oct (IPG-118, s. 239). */
+        h2: 'Is stress leave paid in BC? Paid and unpaid, source by source',
         body: [
-          /* 3 Oct 2026: the figures, not a paraphrase of them. Read today on the
-             Province's paid sick leave page: five paid and three unpaid days,
-             after 90 days with the employer. */
-          'Under the BC Employment Standards Act, an employee who has worked for the employer for 90 days gets five paid and three unpaid days of illness or injury leave each calendar year. Mental-health conditions are illness for these purposes. There is no separate or lesser category, and [sick days and mental-health days in BC](/guides/sick-days-and-mental-health-days-bc) covers how to use them.',
-          'An employer may ask for reasonable proof that leave is warranted. Reasonable proof is confirmation that you are unable to work and for roughly how long. It is **not** your diagnosis, your treatment, or the content of your appointments, and an employer is not entitled to those.',
-          'The Employment Standards Branch covers most provincially regulated workplaces. Federally regulated ones: banks, telecoms, interprovincial transport, and others, sit under the Canada Labour Code, which gives up to 10 paid medical leave days a year and up to 27 weeks of unpaid medical leave, and unionised workplaces are governed by their collective agreement, which frequently provides more.',
+          'Partly, and from different places in turn. Your employer pays the first five sick days of the calendar year; after that nobody pays automatically, and income comes from an employer disability plan or EI. A WorkSafeBC claim pays only when work caused the injury. Which row applies to you depends on your job and your plan, not on your diagnosis, so work it out before the leave starts rather than three weeks in. A collective agreement can only add to these floors, often with a sick-leave bank.',
+        ],
+        table: {
+          columns: ['Source', 'Paid?', 'How much, how long', 'Who it covers, what it needs'],
+          rows: [
+            ['BC sick days (Employment Standards Act)', '5 days paid, then 3 unpaid', 'Each calendar year, job-protected', 'Employees with 90 days of service; the employer may ask for reasonably sufficient proof'],
+            ['EI sickness benefits (federal)', 'Paid, taxable', `55% of insurable earnings, to ${EI_WEEKLY_IN_YEAR}, for up to 26 weeks`, '600 insured hours in the last 52 weeks, earnings down more than 40%, a medical certificate; apply within 4 weeks of your last day'],
+            ['Short-term disability (employer plan)', 'Paid, if your employer has a plan', 'Set by the policy, commonly 15 to 26 weeks', 'Plan members; the insurer’s own forms, deadlines and definition of disability'],
+            ['Long-term disability (employer plan)', 'Paid, if your employer has a plan', 'Starts when short-term disability ends', 'Plan members still unable to work; the definition often tightens at two years'],
+            ['WorkSafeBC', 'Paid, if the claim is accepted', 'Wage-loss benefits and treatment', 'A diagnosed condition caused by a significant work-related stressor or a traumatic event at work; not employer decisions such as workload, discipline or reorganisation'],
+            ['Federally regulated job (Canada Labour Code)', '10 days paid, then unpaid', 'Up to 10 paid medical leave days a year, plus up to 27 weeks of unpaid, job-protected medical leave', 'Banks, airlines, telecoms, interprovincial transport and other federal employers'],
+            ['A longer leave in a BC-regulated job', 'Not paid by the employer', 'Protected by the duty to accommodate under the Human Rights Code, not by a set number of weeks', 'Income comes from the EI or disability rows above'],
+          ],
+        },
+      },
+      {
+        h2: 'How long can you be on stress leave in BC?',
+        body: [
+          'As long as a physician or nurse practitioner certifies that you are unable to work, reviewed in blocks: a first certificate commonly runs two to six weeks and is extended at review. The money sets the practical limits. EI sickness benefits run for up to 26 weeks, and a short-term disability plan sets its own length before long-term disability is assessed.',
+          'The 27 weeks quoted on many pages is the Canada Labour Code’s unpaid medical leave, which covers federally regulated employees only; the BC Act has no equivalent. In a BC-regulated job, what protects a longer absence is the duty to accommodate a disability to the point of undue hardship, and a mental-health condition supported by medical documentation is a disability for that purpose.',
+        ],
+      },
+      {
+        h2: 'Who can put you on stress leave: a doctor or nurse practitioner, not a counsellor',
+        body: [
+          'A physician or nurse practitioner certifies a medical leave in BC. For EI sickness benefits Service Canada also accepts a psychologist, among the practitioners it lists. A Registered Clinical Counsellor or any other therapist cannot certify that you are unable to work, for an employer, an insurer or EI.',
+          'What a counsellor can do is tell you, and your doctor if you ask, that time off looks warranted, write a letter confirming you are in treatment where an insurer asks for one, and work on what the leave is for. The certificate itself is the doctor’s.',
         ],
       },
       {
@@ -238,20 +291,41 @@ export const moreResources: Resource[] = [
       text: 'If work is the thing that is making you unwell rather than the thing you are recovering to do,',
       label: 'that is worth a free 15-minute consultation',
     },
+    /* The first seven are the 13 Oct Search Console queries in the
+       searchers' words: "how to get stress leave in bc" 43 at 16.67, "is
+       stress leave paid in bc" 38 at 12.26, "how long can i take off work for
+       mental health" 1 at 7, "can a therapist put you on stress leave" 1 at
+       1, "can an employer deny mental health leave" 1 at 1, "wcb stress leave
+       bc" 32 at 39.06 with "worksafebc stress leave" 29 at 23.76, and the
+       27-week figure the results above this page state without its source. */
     faqs: [
+      { q: 'How do I get stress leave in BC?', a: 'See a physician or nurse practitioner and describe what is happening to your ability to work. If they agree, they give you a certificate saying you are unable to work and when that will be reviewed. Give it to your employer, then start the income claim the same week: your employer’s short-term disability plan if there is one, otherwise EI sickness benefits online. Your first five sick days of the year are paid by your employer once you have 90 days of service.' },
+      { q: 'Is stress leave paid in BC?', a: `Partly. The first five sick days in a calendar year are paid by your employer under the Employment Standards Act once you have 90 days of service, and three more are unpaid. After that there is no automatic pay: income comes from an employer short-term disability plan if one exists, or from EI sickness benefits at 55% of insurable earnings, to ${EI_WEEKLY_IN_YEAR}, for up to 26 weeks. WorkSafeBC pays only on an accepted claim for an injury caused by work.` },
+      { q: 'How long can I take off work for mental health in BC?', a: 'A day or a few days on your Employment Standards Act sick days, with no note needed unless your employer asks for reasonably sufficient proof. For longer, as long as a physician or nurse practitioner certifies that you cannot work, usually in blocks of two to six weeks with a review before each extension. EI sickness benefits pay for up to 26 weeks; an employer disability plan sets its own length.' },
+      { q: 'Can a therapist put you on stress leave?', a: 'No. In BC a physician or nurse practitioner certifies a medical leave, and for EI Service Canada also accepts a psychologist. A counsellor or therapist cannot sign a stress leave for an employer, an insurer or EI. A therapist can recommend time off, tell your doctor so if you ask, and write a letter confirming you are in treatment, which insurers sometimes want alongside the medical note.' },
+      { q: 'Can an employer deny a mental health leave?', a: 'Not a certified one, in the ordinary case. The Employment Standards Act sick days are job-protected, the employer may ask only for reasonably sufficient proof, and for a longer absence the Human Rights Code requires an employer to accommodate a mental-health disability to the point of undue hardship. An employer can ask for functional information, such as when you expect to return, but not your diagnosis. If a leave is refused or you are penalised for taking one, the Employment Standards Branch and the BC Human Rights Tribunal are the routes, and an employment lawyer is worth calling early.' },
+      { q: 'Is there a 27-week stress leave in BC?', a: 'Not under BC law. The 27 weeks of unpaid, job-protected medical leave is in the Canada Labour Code, so it covers federally regulated employees such as those at banks, airlines and telecoms. In a BC-regulated job, the Employment Standards Act gives five paid and three unpaid sick days a year, and a longer leave is protected by the duty to accommodate rather than a set number of weeks. EI sickness benefits, up to 26 weeks, apply either way.' },
+      { q: 'Does WorkSafeBC pay for stress leave?', a: 'Only when work caused the injury. WorkSafeBC accepts a mental-health claim where a diagnosed condition results from a significant work-related stressor or a traumatic event at work, and it excludes conditions caused by an employer’s decisions about employment, such as workload, discipline or reorganisation. An accepted claim pays wage-loss benefits and treatment. Ordinary overload goes down the medical-leave route instead; [WorkSafeBC psychological injury claims](/resources/worksafebc-psychological-injury-claims) sets out the test.' },
       { q: 'Can I see my own counsellor while on a stay-at-work plan?', a: 'Yes. A stay-at-work plan is a workplace arrangement, and it does not choose your treatment for you. You can see a counsellor privately alongside it, booked and paid by you and claimed on your own extended health plan where it covers counselling, and the practice does not report to your employer. A good plan names who is providing the treatment, so it is worth saying who that is when the plan is written.' },
       { q: 'Does my employer have to know my diagnosis?', a: 'Generally no. Employers are entitled to functional limitations and prognosis, not diagnosis. Ask your physician to write the note in terms of capacity rather than condition.' },
-      { q: 'Can a counsellor write my sick note?', a: 'Usually not for these purposes. Employers and insurers typically require documentation from a physician, nurse practitioner or psychologist, partly because a Registered Clinical Counsellor does not diagnose.' },
       { q: 'Can I be fired for taking mental-health leave?', a: 'Protected leave and disability-related discrimination are covered by BC employment standards and human rights law. If you believe you have been penalised for taking leave, the Employment Standards Branch and the BC Human Rights Tribunal are the routes.' },
       { q: 'Is burnout covered by disability insurance?', a: 'Burnout is classified as an occupational phenomenon rather than a medical condition, so claims usually turn on an accompanying diagnosable condition. This is exactly why the wording of medical documentation matters.' },
     ],
     sources: [
+      { label: 'Province of BC, paid sick leave (read 13 Oct 2026)', url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/paid-sick-leave' },
       { label: 'BC Employment Standards, leaves and job protection', url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/employment-standards/time-off' },
+      { label: 'Government of Canada, EI sickness benefits: do you qualify (read 13 Oct 2026)', url: 'https://www.canada.ca/en/services/benefits/ei/ei-sickness/qualify.html' },
+      { label: 'Government of Canada, EI sickness benefits: apply (read 13 Oct 2026)', url: 'https://www.canada.ca/en/services/benefits/ei/ei-sickness/apply.html' },
+      { label: 'Government of Canada, medical leave with pay (federally regulated employers, IPG-118)', url: 'https://www.canada.ca/en/employment-social-development/programs/laws-regulations/labour/interpretations-policies/medical-leave-pay.html' },
+      { label: 'Canada Labour Code, s. 239, medical leave of up to 27 weeks', url: 'https://laws-lois.justice.gc.ca/eng/acts/L-2/section-239.html' },
       { label: 'BC Human Rights Tribunal', url: 'https://www.bchrt.bc.ca/' },
-      { label: 'WorkSafeBC, mental health claims', url: 'https://www.worksafebc.com/en/claims/report-workplace-injury-illness/mental-health-injury-claims' },
+      { label: 'WorkSafeBC, mental health claims (read 13 Oct 2026)', url: 'https://www.worksafebc.com/en/claims/report-workplace-injury-illness/mental-health-injury-claims' },
     ],
     related: [
-      { href: '/guides/stress-leave-bc', label: 'How to get stress leave in BC' },
+      { href: '/guides/stress-leave-bc', label: 'Going on stress leave in BC, step by step' },
+      { href: '/resources/mental-health-leave-templates-bc', label: 'The leave request email and HR checklist, as templates' },
+      { href: '/guides/doctors-note-for-a-mental-health-leave', label: 'What to say to get the doctor’s note' },
+      { href: '/guides/ei-sickness-benefits-and-therapy', label: 'What medical EI pays on a mental-health leave' },
       { href: '/guides/sick-days-and-mental-health-days-bc', label: 'Sick days and mental-health days in BC' },
       { href: '/guides/burnout-vs-depression', label: 'Burnout vs depression' },
       { href: '/for/employers-and-hr', label: 'For employers and HR' },
@@ -629,7 +703,7 @@ export const moreResources: Resource[] = [
       {
         h2: 'The two doors into a claim',
         body: [
-          'The first door is **traumatic events**: a worker experiences or witnesses something at work of the kind nobody is expected to absorb: violence, a serious accident, a death, a threat. First responders and health-care workers are the obvious cases, but the door is not restricted to them; a bank teller in a robbery or a transit worker after a fatality stands in the same doorway. If what you have is strain rather than an injury with a work cause, this is not your page: [how stress leave works in BC](/guides/stress-leave-bc) is the route for that, and most people who search "WCB stress leave" belong there.',
+          'The first door is **traumatic events**: a worker experiences or witnesses something at work of the kind nobody is expected to absorb: violence, a serious accident, a death, a threat. First responders and health-care workers are the obvious cases, but the door is not restricted to them; a bank teller in a robbery or a transit worker after a fatality stands in the same doorway. If what you have is strain rather than an injury with a work cause, this is not your page: [how stress leave works in BC](/resources/workplace-mental-health-bc) is the route for that, and most people who search "WCB stress leave" belong there.',
           'The second door is **significant work-related stressors**: a mental disorder predominantly caused by ongoing, exceptional workplace stressors, and BC explicitly includes **bullying and harassment** here. "Significant" is doing legal work in that sentence: it means beyond the ordinary pressures of employment, sustained or severe, and documented well enough to be found as fact.',
           'Both doors require the same key: a **diagnosis by a psychologist or psychiatrist** of a recognised condition. Distress, burnout, and "my doctor said stress" do not open either door on their own, which is not a comment on how real they are, only on what this particular system requires. Getting that assessment is usually the first practical step of a serious claim.',
         ],
@@ -691,9 +765,8 @@ export const moreResources: Resource[] = [
     ],
     related: [
       { href: '/guides/workplace-bullying-in-bc', label: 'Workplace bullying in BC' },
-      { href: '/guides/stress-leave-bc', label: 'Stress leave in BC' },
+      { href: '/resources/workplace-mental-health-bc', label: 'Stress leave in BC: how to get it, is it paid' },
       { href: '/guides/ei-sickness-benefits-and-therapy', label: 'EI sickness benefits and therapy' },
-      { href: '/resources/workplace-mental-health-bc', label: 'Workplace mental health in BC' },
       { href: '/resources/psychiatry-and-assessment-in-bc', label: 'Psychiatry and assessment in BC' },
     ],
   },
@@ -765,11 +838,10 @@ export const moreResources: Resource[] = [
     ],
     related: [
       { href: '/guides/ei-sickness-benefits-and-therapy', label: 'EI sickness benefits and therapy' },
-      { href: '/guides/stress-leave-bc', label: 'Stress leave in BC' },
+      { href: '/resources/workplace-mental-health-bc', label: 'Stress leave in BC: how to get it, is it paid' },
       { href: '/guides/return-to-work-after-a-mental-health-leave', label: 'Return to work after a leave' },
       { href: '/resources/bc-extended-health-coverage-for-counselling', label: 'Extended health coverage for counselling' },
       { href: '/resources/psychiatry-and-assessment-in-bc', label: 'Psychiatry and assessment in BC' },
-      { href: '/resources/workplace-mental-health-bc', label: 'Mental health at work in BC: accommodation and leave' },
     ],
   },
 
