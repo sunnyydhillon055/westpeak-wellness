@@ -91,6 +91,7 @@ test('the condition city pages link to a heading that is on the target page', ()
   assert.equal(CONDITION_UPLINK['trauma-therapy']!.label, 'online trauma therapy across BC');
   assert.equal(CONDITION_UPLINK['anxiety-counselling']!.label, 'online anxiety counselling across BC');
   assert.equal(CONDITION_UPLINK['depression-counselling']!.label, 'online depression counselling across BC');
+  assert.equal(CONDITION_UPLINK['couples-therapy']!.label, 'online couples and marriage counselling across BC');
 });
 
 test('the new service headings and FAQs are there, and EMDR no longer links to itself', () => {

@@ -124,14 +124,20 @@ export const moreGuides3: Guide[] = [
     slug: 'setting-boundaries-with-family',
     service: 'family-counselling',
     title: 'Setting boundaries with family without detonating anything',
-    metaTitle: 'What Are Family Boundaries, and How to Set One',
+    /* 13 Oct 2026: 178 impressions at 7.4 and no clicks (13 Oct export;
+       53 at 9.6 on 3 Oct). The query the page is found by is "what are
+       family boundaries" (2 at 6 in each of the last three exports) and
+       "setting family boundaries" (1 at 44). Searchers asking "what are"
+       want examples, and the page has them; the title and description now
+       say so and the short answer opens with the definition. */
+    metaTitle: 'What Are Family Boundaries? Examples, and How to Set Them',
     metaDescription:
-      'A boundary is a rule about what you will do, not a rule for them. Why the usual advice fails with family, and how to hold one without their agreement.',
+      'Family boundaries are rules about what you will do, not rules for them. Examples that work with parents, what to say, and what to do when they push back.',
     eyebrow: 'Guide · Relationships',
     lede:
       'Most boundary advice assumes a reasonable counterpart and a relationship you can afford to lose. Families frequently offer neither.',
     shortAnswer:
-      'A boundary is a statement about what you will do, not a rule imposed on someone else, which is why it does not require their agreement. That distinction is what makes boundaries workable with family members who will never consent to one. The hard part is not the wording; it is deciding in advance what you are prepared to follow through on, and accepting the cost.',
+      'Family boundaries are statements about what you will do, not rules imposed on someone else: “If the conversation turns into a criticism of my marriage, I am going to end the call.” A boundary does not require their agreement, and that is what makes boundaries workable with family members who will never consent to one. The hard part is not the wording; it is deciding in advance what you are prepared to follow through on, and accepting the cost.',
     updated: '2026-09-02',
     readMinutes: 7,
     figure: 'anxiety-avoidance-cycle',
@@ -308,9 +314,14 @@ export const moreGuides3: Guide[] = [
   {
     slug: 'panic-attacks-at-work',
     title: 'Panic attacks at work: what to do in the moment and after',
-    metaTitle: 'Panic Attacks at Work | Westpeak Wellness',
+    /* 13 Oct 2026: 30 impressions at 9.1 and no clicks (17 at 7.7 on
+       3 Oct). The query is the title's own words, "panic attacks at work"
+       (3 at 46.7 in the August and September exports). The title said
+       nothing a result list does not; it now carries the H1's promise, and
+       the description opens with the answer. */
+    metaTitle: 'Panic Attacks at Work: What to Do in the Moment and After',
     metaDescription:
-      'Getting through one without leaving, why the fear of the next one becomes the real problem, and what to say to a manager if you decide to say anything.',
+      'A panic attack peaks in about ten minutes and passes. Getting through one at your desk, why the next one is feared, and what to tell a manager.',
     eyebrow: 'Guide · Anxiety',
     lede:
       'The attack itself lasts minutes. The dread of having another one at the same desk can last months.',

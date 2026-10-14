@@ -321,8 +321,12 @@ const coreGuides: Guide[] = [
        already has "What actually helps" and "Do I need therapy if I am
        coping?". */
     metaTitle: "High-Functioning Anxiety: Signs, and the Therapy That Helps",
+    /* 13 Oct 2026: 32 impressions at 10.5, no clicks. The title changed on
+       3 Oct and the page has climbed 31 → 10.5 since, so it is left to be
+       measured; the description now names the signs and says what the
+       page answers. */
     metaDescription:
-      "High-functioning anxiety is not a diagnosis, but the pattern is real: driven, capable, and exhausted. What it looks like and what helps.",
+      "High-functioning anxiety is not a diagnosis, but the pattern is real: driven, capable, privately exhausted. The signs, why it hides, and what helps.",
     eyebrow: "Guide · Anxiety",
     lede:
       "The version of anxiety that gets promoted, hits deadlines, remembers birthdays, and cannot sleep.",
@@ -483,9 +487,15 @@ const coreGuides: Guide[] = [
     figure2: "first-session-flow",
     figure: "gottman-method",
     title: "How the Gottman Method works in couples therapy",
-    metaTitle: "How the Gottman Method Works, and Who Uses It in BC",
+    /* 13 Oct 2026: 27 impressions at 7.5, no clicks (37 at 7.1 on 3 Oct).
+       The BC booking queries ("gottman method marriage counselling british
+       columbia" 17 at 30.6) belong to /services/couples-therapy, which now
+       carries them; this title matches its H1 and "gottman method couples
+       therapy" (3 at 66.7), and the description leads with what the
+       method is. */
+    metaTitle: "How the Gottman Method Works in Couples Therapy | Westpeak",
     metaDescription:
-      "The research behind the Gottman Method, the Four Horsemen, what an assessment involves, and what couples actually do in session.",
+      "The Four Horsemen, an assessment first, then skills for conflict and repair: what the Gottman Method is, its research, and what couples do in session.",
     eyebrow: "Guide · Couples",
     lede:
       "Built on decades of watching couples argue in a lab, and unusually specific about what predicts trouble.",
@@ -582,14 +592,19 @@ faqs: [
     figure2: "first-session-flow",
     figure: "burnout-vs-depression",
     title: "Burnout or depression: how to tell the difference",
-    metaTitle: "Burnout vs Depression: The Difference | Westpeak Wellness",
+    /* 13 Oct 2026: 100 impressions at 12.2, no clicks, in this export and
+       the last. Head query "burnout vs depression" (3 at 82; 6 at 80 on
+       3 Oct), with "what's the difference between clinical burnout and
+       clinical depression?" 1 at 6. The title says "how to tell", as the
+       H1 does, and the description answers before it lists. */
+    metaTitle: "Burnout vs Depression: How to Tell the Difference",
     metaDescription:
-      "Burnout is an occupational phenomenon, not a medical diagnosis. How it differs from depression, where they overlap, and what each needs.",
+      "Burnout is tied to work; depression colours everything. The WHO definition, a two-week test, where the two overlap, and what each one needs.",
     eyebrow: "Guide · Burnout",
     lede:
       "They feel similar from inside, they need different things, and the distinction is not always clean.",
     shortAnswer:
-      "The World Health Organization classifies burn-out as an occupational phenomenon: exhaustion, mental distance from your job, and reduced effectiveness, explicitly not a medical condition, and specifically tied to work. Depression is a diagnosable condition that colours everything, not only work. The most useful practical test: if a genuine two-week break with no work contact changes things substantially, it points toward burnout. If it changes nothing, that points elsewhere.",
+      "Burnout is tied to work; depression is not. The World Health Organization classifies burn-out as an occupational phenomenon: exhaustion, mental distance from your job, and reduced effectiveness, explicitly not a medical condition. Depression is a diagnosable condition that colours everything, not only work. The most useful practical test: if a genuine two-week break with no work contact changes things substantially, it points toward burnout. If it changes nothing, that points elsewhere.",
     updated: "2026-08-31",
     readMinutes: 6,
     sections: [
