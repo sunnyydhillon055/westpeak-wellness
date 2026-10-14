@@ -37,11 +37,18 @@ export const metadata: Metadata = {
      the query all title themselves "Online Counselling <place> | Virtual
      Therapy ..." and open with a three-step "how it works". This page is now
      the landing page for the province-wide query, not an index of cities. */
-  title: { absolute: 'Online Counselling in BC | Virtual Therapy, Province-Wide' },
+  /* 13 Oct 2026. The export shows this page's head queries at 29-42:
+     "online counselling bc" 48 at 38, "online counsellor bc" 48 at 39,
+     "online therapy bc" 25 at 42, "virtual counselling bc" 16 at 36,
+     "virtual therapy bc" 11 at 36, "online therapy british columbia" 10 at
+     29 (its one click). The title had "Virtual Therapy" but neither
+     "counsellor" nor "online therapy"; it now carries all three heads.
+     Before: "Online Counselling in BC | Virtual Therapy, Province-Wide". */
+  title: { absolute: 'Online Counselling & Therapy in BC | Virtual Counsellors' },
   /* No "evenings" since 1 Oct 2026: the calendar holds what it holds, and a
      description is the one sentence a searcher reads before the page. */
   description:
-    'Online counselling anywhere in BC with Registered Clinical Counsellors, in English, Punjabi or Tagalog. Free 15-minute consultation, no referral needed.',
+    'Online counselling and therapy anywhere in BC with Registered Clinical Counsellors, in English, Punjabi or Tagalog. Free 15-minute consult, no referral.',
   alternates: { canonical: `${site.domain}/online-counselling` },
 };
 
@@ -104,7 +111,9 @@ export default function LocationsIndex() {
           {/* "in BC", the words of the head queries ("online counselling bc",
               "online counsellor bc", 28 of 125 impressions at 35 on 3 Oct
               2026), as the title already says. 3 Oct 2026. */}
-          <h1>Online counselling in BC, anywhere in the province</h1>
+          {/* "and therapy", 13 Oct 2026: "online therapy bc" 25 at 42 and
+              "online therapy british columbia" 10 at 29, as the title. */}
+          <h1>Online counselling and therapy in BC, anywhere in the province</h1>
           <p className="lede">Westpeak Wellness is fully virtual, wherever you are in BC, you can work with a Registered Clinical Counsellor from the comfort of your own space.</p>
           {/* The answer first, in the searcher's words, and no typed Alberta
               clause: who may be seen in Alberta is gated on insurance and

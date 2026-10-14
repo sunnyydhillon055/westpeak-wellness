@@ -231,7 +231,10 @@ export default async function CityPage({ params }: { params: { city: string } })
       <section className="hero" style={{ paddingBottom: 48 }}>
         <div className="container">
           <p className="eyebrow">{l.region} · Online</p>
-          <h1>Online counselling in {place}, BC</h1>
+          {/* A hub whose searches say therapy or plain "counselling <city>"
+              carries its own H1 beside its own title (Location.hubH1,
+              13 Oct 2026); every other hub keeps the composed one. */}
+          <h1>{l.hubH1 ?? `Online counselling in ${place}, BC`}</h1>
           <p className="lede">{l.blurb}</p>
           {/* A self-contained sentence an answer engine can lift whole — every
               service and guide page has one; the city pages did not. Says only
