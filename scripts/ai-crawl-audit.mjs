@@ -276,7 +276,7 @@ for (const path of ['/admin', '/signin', '/client-portal', '/search']) {
   const { res } = await get(path);
   const robots = res.headers.get('x-robots-tag') || '';
   check(`${path} is told not to be indexed`,
-    /noindex/.test(robots) && !/(^|,|\s)index/.test(robots.replace(/noindex/g, '')),
+    /noindex/.test(robots) && !/(^|,|\s)index\b/.test(robots.replace(/noindex/g, '')),
     `X-Robots-Tag: ${robots || '(none)'}`);
 }
 

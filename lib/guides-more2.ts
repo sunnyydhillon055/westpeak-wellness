@@ -279,7 +279,7 @@ export const moreGuides2: Guide[] = [
       {
         h2: 'When paying privately makes sense, and when it does not',
         body: [
-          'Private counselling has no waitlist and a real cost, and it is worth being straightforward about the trade-off rather than presenting it as an obvious answer.',
+          'Private counselling usually has a much shorter wait and a real cost, and it is worth being straightforward about the trade-off rather than presenting it as an obvious answer. The booking calendar shows the real next open times.',
           'It makes sense when the wait would be materially harmful, when you have extended health benefits that will cover some or all of it, when the difficulty is time-sensitive, a deteriorating relationship, an impending decision, or when you need a specific approach the public system does not offer quickly. Even a handful of sessions during a long wait can stop things sliding.',
           'It makes less sense when it would create financial strain that becomes its own stressor, or when what you actually need is medical assessment, psychiatric input or an intensive programme, none of which private counselling substitutes for. In that case the better move is to keep pushing the medical route and use the free services in the meantime. [Extended health coverage in BC](/resources/bc-extended-health-coverage-for-counselling) sets out what plans usually cover, and [MSP vs extended health](/resources/msp-vs-extended-health) explains what the public plan does not.',
         ],

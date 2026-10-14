@@ -90,7 +90,7 @@ function decide(before, after) {
      stands on its own, the subordinate clause starts a new sentence. */
   const beforeIsSentence =
     /(^|[.!?]\s)[^.!?]{8,}$/.test(head) && VERBS.test(head.slice(-70));
-  if (/^(if|when|where|while|because|although|though|unless|until|once|after|before)/i.test(tail)
+  if (/^(if|when|where|while|because|although|though|unless|until|once|after|before)\b/i.test(tail)
       && beforeIsSentence) {
     changes.period++;
     return { punct: '.', tail: tail.charAt(0).toUpperCase() + tail.slice(1) };
@@ -101,7 +101,7 @@ function decide(before, after) {
      "...will be judged, see [questions...]", which is a comma splice and reads
      as though the list is part of the previous clause. These are almost all
      cross-references at the end of a paragraph, so they want a full stop. */
-  if (/^(see|read|ask|check|call|book|write|use|try|start|bring|tell|note)/i.test(tail)
+  if (/^(see|read|ask|check|call|book|write|use|try|start|bring|tell|note)\b/i.test(tail)
       && beforeIsSentence) {
     changes.period++;
     return { punct: '.', tail: tail.charAt(0).toUpperCase() + tail.slice(1) };
@@ -113,7 +113,7 @@ function decide(before, after) {
      own tell — a page that reaches for a colon every third sentence does not
      read any more human than one reaching for a dash. */
   const listish = (tail.slice(0, 120).match(/,/g) || []).length >= 2
-    || /^[^.]{0,70},[^.]{0,40}and/i.test(tail);
+    || /^[^.]{0,70},[^.]{0,40}\band\b/i.test(tail);
   if (listish && !SUBORDINATE.test(tail) && !SUBJECT_START.test(tail)) {
     changes.colon++;
     return { punct: ':', tail };
@@ -170,7 +170,7 @@ function rewrite(src, file) {
     if (c === '/') {
       const prev = out.replace(/\s+$/, '').slice(-1);
       const isRegexStart = prev === '' || '=(,:[!&|?{};+-*%<>~^'.includes(prev)
-        || /return$/.test(out.replace(/\s+$/, ''));
+        || /\breturn$/.test(out.replace(/\s+$/, ''));
       if (isRegexStart) {
         const BACKSLASH = String.fromCharCode(92);
         let j = i + 1;

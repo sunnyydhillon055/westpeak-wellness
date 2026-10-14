@@ -371,7 +371,7 @@ export const URL_DATES: Record<string, string> = {
   "/resources/low-cost-counselling-bc": "2026-10-13",
   "/resources/mental-health-leave-templates-bc": "2026-10-13",
   "/resources/msp-vs-extended-health": "2026-10-13",
-  "/resources/psychiatry-and-assessment-in-bc": "2026-10-04",
+  "/resources/psychiatry-and-assessment-in-bc": "2026-10-13",
   "/resources/student-mental-health-supports-bc": "2026-10-13",
   "/resources/verify-a-counsellor-in-bc": "2026-10-13",
   "/resources/workplace-mental-health-bc": "2026-10-13",

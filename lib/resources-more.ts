@@ -644,7 +644,7 @@ export const moreResources: Resource[] = [
         h2: 'When counselling is the right route anyway',
         body: [
           'A large proportion of people who think they need a psychiatrist need something else. Psychiatry is a medical specialty for diagnosis and medication management of more complex presentations. It is not, generally, where you go for weekly talking therapy, and most psychiatrists in BC do not provide ongoing psychotherapy.',
-          'If what you want is to work on patterns, relationships, trauma or skills, counselling is the direct route and needs no referral, no diagnosis and [no waitlist in private practice](/guides/waiting-for-therapy-in-bc). If what you want is a medication conversation, a family physician can often handle it without a psychiatric referral at all.',
+          'If what you want is to work on patterns, relationships, trauma or skills, counselling is the direct route and needs no referral and no diagnosis, and in private practice [the wait is usually much shorter](/guides/waiting-for-therapy-in-bc). If what you want is a medication conversation, a family physician can often handle it without a psychiatric referral at all.',
           'And the two coexist perfectly well. Plenty of people see a prescriber for medication and a counsellor for the work, and with written consent the two can coordinate directly. [Therapy, medication, or both](/compare/therapy-medication-or-both) sets out how that decision is usually framed.',
         ],
       },

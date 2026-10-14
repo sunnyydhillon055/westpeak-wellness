@@ -1,0 +1,32 @@
+# Rebuilds the site on the morning a date-gated page changes state.
+#
+# WHY, 13 OCT 2026. Content pages are static, so anything decided by today's
+# date is decided when the site is built. Camille Granda's Alberta pages, the
+# "BC and Alberta" wording on the Tagalog service page and the Alberta booking
+# path close on 15 Oct 2026 unless her insurance renewal is recorded
+# (lib/practitioners.ts, lib/resources-alberta.ts ALBERTA_OPEN). Without a
+# build that day, production would keep offering Alberta until the next
+# unrelated push.
+#
+# HOW. At 07:20 UTC (00:20 Pacific) on each listed date this pushes one empty
+# commit to main; Vercel deploys every push to main, and the build reads the
+# new date. If the renewal has been recorded by then, the rebuild changes
+# nothing. Add a line to `on.schedule` for any future gate date.
+name: rebuild-on-gate-dates
+on:
+  schedule:
+    - cron: '20 7 15 10 *'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Push an empty commit so Vercel rebuilds
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit --allow-empty -m "Rebuild for date-gated pages ($(date -u +%F))"
+          git push origin HEAD:main
