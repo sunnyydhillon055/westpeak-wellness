@@ -24,7 +24,12 @@ export type HubFaq = { q: string; a: string };
 export const BC_HUB_FAQS: readonly HubFaq[] = [
   {
     q: 'Is there a waitlist for online counselling in BC?',
-    a: 'Not here. There is no list to join: the [booking calendar](/book) shows each counsellor’s real open consultation times, and the line under the button at the top of this page names the next one when there is one. If none of the times suits you, the booking page has a way to ask for one. Public services are free and triaged, so they usually do have a wait, and [free and low-cost counselling in BC](/resources/low-cost-counselling-bc) sets out which.',
+    /* 13 Oct 2026: "no waitlist counsellor bc" 7 at 6.1, "no waitlist
+       counselling bc" 6 at 10, "no waitlist therapist bc" 5 at 11. The
+       answer no longer opens "Not here": whether there is a wait is what the
+       live calendar shows, so the answer points at it and promises nothing.
+       The full comparison is the waiting guide's. */
+    a: 'Here the booking calendar is the only queue: the [booking calendar](/book) shows each counsellor’s real open consultation times, and the line under the button at the top of this page names the next ones when there are some. If none of the times suits you, the booking page has a way to ask for one. Public services are free and triaged, so they usually do have a wait; [how long the wait for therapy is in BC](/guides/waiting-for-therapy-in-bc) compares the routes, and [free and low-cost counselling in BC](/resources/low-cost-counselling-bc) sets out the free ones.',
   },
   {
     q: 'Do I need a referral from a doctor?',

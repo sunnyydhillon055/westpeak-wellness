@@ -12,8 +12,16 @@ export type Location = {
      "kamloops therapist", "therapy kamloops", "counsellor kamloops" and their
      variants carried 36 of the topic's 42 impressions, none of them with
      "online" or "virtual" in it. Must fit the SEO gate (60, "&" as "&amp;");
-     test/city-hub.test.mts holds that. */
+     test/city-hub.test.mts holds that.
+     13 Oct 2026: Vancouver, Prince George, Vernon and Langford join it, each
+     carrying the words its own head queries use (the Search Console numbers
+     are on each entry). test/places-topics.test.mts holds the list. */
   hubTitle?: string;
+  /* THE HUB'S OWN H1, beside its own title — 13 Oct 2026. The composed H1
+     is "Online counselling in <city>, BC"; a hub whose searches say therapy,
+     therapist or plain "counselling <city>" says that instead. Absent, the
+     composed one stands. */
+  hubH1?: string;
 
   // Rich fields. A city page only earns its place if these can be written with
   // real, checkable local substance — see SEO_AUDIT.md §2. Optional so pages can
@@ -147,12 +155,21 @@ export const locations: Location[] = [
        URL now lands on this page (lib/redirects.mjs). */
     communities: ["Quesnel", "Vanderhoof", "Mackenzie", "Terrace", "Prince Rupert"],
     region: "Northern BC",
-    blurb: "Northern BC has the thinnest counselling coverage in the province, virtual care is how the gap gets closed.",
+    /* 13 Oct 2026. The hub had 182 impressions at 15.2, and the searches
+       that reach it say therapy and therapist: "anxiety therapy prince
+       george" 17 at 15.7, "therapist prince george" 13 at 20.3, "therapy
+       prince george" 12 at 15.4, "prince george therapy" 11 at 15.2, against
+       "counselling in prince george bc" 9 at 17.4. None of them says
+       "online". The title, H1 and lede now say what they say, and the lede
+       answers before it argues. Kamloops's pattern (3 Oct). */
+    hubTitle: "Prince George Therapy & Counselling | Online Therapists",
+    hubH1: "Therapy and counselling in Prince George, BC",
+    blurb: "Therapy in Prince George by secure video, booked directly: a Registered Clinical Counsellor for anxiety, depression or trauma, with no referral and no drive, in the city where the no-barrier counselling pilot paused in March.",
     metaDescription:
-      "Online counselling for Prince George and Northern BC. EMDR, trauma, anxiety, depression and couples therapy by secure video. Free 15-minute consultation.",
+      "Therapy and counselling in Prince George, BC, by secure video. Anxiety, depression, trauma, EMDR and couples therapy. Free 15-minute consultation.",
     intro: [
       "If you live in Prince George and have tried to find a counsellor, you already know the shape of the problem: there are not many, the ones who are here fill up, and the wait for a psychiatrist or specialist is longer than almost anywhere else in the province. That is not a failure of effort on anyone's part. It is arithmetic: Northern Health covers roughly two-thirds of BC's landmass for about 300,000 people, and mental-health clinicians cluster where the population does.",
-      "Virtual counselling does not fix that arithmetic. What it does is remove distance from the equation entirely. A [Registered Clinical Counsellor](/compare/rcc-vs-psychologist-vs-social-worker-bc) working out of the Lower Mainland is exactly as available to you in Prince George as to someone in Burnaby: same 50-minute session, same secure platform, same [BCACC](https://bcacc.ca) code of ethics.",
+      "Virtual counselling does not fix that arithmetic. What it does is remove distance from the equation entirely. A [Registered Clinical Counsellor](/compare/rcc-vs-psychologist-vs-social-worker-bc) working out of the Lower Mainland is exactly as available to you in Prince George as to someone in Burnaby: same 50-minute session, same secure platform, same [BCACC](https://bcacc.ca) code of ethics. Anxiety is the reason most often searched from here, and [anxiety therapy in Prince George](/online-counselling/prince-george/anxiety-counselling) has a page of its own.",
     ],
     localReality: {
       h2: "What access actually looks like here",
@@ -222,7 +239,11 @@ export const locations: Location[] = [
     city: "Surrey",
     communities: ["Guildford", "Newton", "Fleetwood", "Cloverdale", "South Surrey"],
     region: "Lower Mainland",
-    blurb: "Home ground, and the community where the demand for Punjabi-language therapy is highest in the province.",
+    /* 13 Oct 2026: "online counselling surrey" 25 impressions at 9.2 and
+       "online counsellor surrey" 5 at 8.8, the hub 166 at 14.2. The title
+       already says it; the lede now answers it before the community
+       argument begins. */
+    blurb: "Online counselling in Surrey is booked directly, in English or Punjabi, with no referral and no waiting room for anyone to see you in: a Registered Clinical Counsellor by secure video, after a free 15-minute consultation.",
     metaDescription:
       "Online counselling for Surrey with a Punjabi-speaking counsellor. EMDR, trauma, anxiety and couples counselling by secure video.",
     intro: [
@@ -292,25 +313,47 @@ export const locations: Location[] = [
     city: "Vancouver",
     communities: ["East Vancouver", "Kitsilano", "the West End"],
     region: "Lower Mainland",
-    blurb: "The most therapists in the province, and still a waitlist, because the constraint here is affordability, not supply.",
+    /* WHY THIS HUB VANISHED, AND WHAT ANSWERS IT NOW — 13 Oct 2026.
+       The hub had 680 impressions at 51.7 in the 6 Sep export and none
+       after 17 Sep, while it stayed 200, indexable, self-canonical and in
+       the sitemap. In the 13 Oct export the Vancouver head queries are back
+       ("online counselling vancouver" 35 at 22.7, "virtual counselling
+       vancouver" 32 at 26.9, "online therapy vancouver" 26 at 33.7,
+       "virtual therapy vancouver" 23 at 25.8, "counsellor online vancouver"
+       15 at 25.1), and the page Google shows for them is the North
+       Vancouver hub: 171 impressions at 19.5, with barely ten from queries
+       that say "north". Its depression pair (109 at 22.1) carries
+       "depression counselling vancouver" (32 at 25.8) and "depression
+       therapy vancouver" (27 at 25) the same way. This hub lost because it
+       did not answer the query: its lede argued affordability, its fee was
+       typed, its one hard number (a rent figure) had no source, and its
+       only local fact was shared with every BC page. It now answers first,
+       says therapy as its searchers do, and carries the one thing true of
+       Vancouver alone: the city's public front door, read on VCH's own page
+       on 13 Oct 2026, does not provide or refer to counselling. North
+       Vancouver now links here by the query's own words. */
+    hubTitle: "Online Counselling & Virtual Therapy in Vancouver, BC",
+    hubH1: "Online counselling and therapy in Vancouver, BC",
+    blurb: "Online counselling in Vancouver is booked directly with a Registered Clinical Counsellor, by secure video: no referral, a free 15-minute consultation first, and no trip across town, in a city whose public front door does not offer counselling.",
     metaDescription:
-      "Online and virtual counselling for Vancouver, BC. Trauma, EMDR, anxiety and couples therapy by secure video, with no commute across town.",
+      "Online counselling and virtual therapy in Vancouver, BC. Depression, anxiety, trauma, EMDR and couples therapy by secure video, no referral needed.",
     intro: [
-      "Vancouver has more counsellors per capita than anywhere else in British Columbia. It is also the city where people most often report giving up on finding one, which sounds contradictory until you look at what the actual constraint is.",
-      "It is not supply. It is cost, time, and the specific difficulty of finding someone who is both a genuine fit and currently accepting clients. In a city where housing already takes an outsized share of income, a $140 weekly session is a real decision rather than an obvious one.",
+      `Online or virtual therapy in Vancouver works the same way from Kitsilano as from East Vancouver: a scheduled 50-minute session by secure video with a [Registered Clinical Counsellor](/compare/rcc-vs-psychologist-vs-social-worker-bc), booked yourself from the counsellor's calendar. An individual session is ${fallbackFee('Individual Counselling')}, after a free 15-minute consultation. Most people arrive with a particular reason in mind: [depression counselling and therapy in Vancouver](/online-counselling/vancouver/depression-counselling), anxiety and trauma each have a page of their own below.`,
+      "Vancouver has more counsellors than any other city in British Columbia, and it is still where people most often report giving up on finding one. The constraint is not supply. It is where the public route sends you, what a weekly fee competes with, and the time a cross-town appointment really takes.",
     ],
     localReality: {
-      h2: "The Vancouver-specific obstacles",
+      h2: "Where counselling in Vancouver starts, and what gets in the way",
       body: [
-        "**Cost against cost of living, with the actual number attached.** In the first quarter of 2025 Vancouver had **the highest average asking rent for a two-bedroom apartment in Canada, at $3,170**: ahead of Toronto, Victoria and Ottawa. Against a figure like that, a $140 weekly session is not an obvious decision, and treating it as one would be dishonest. Therapy competes directly with rent here in a way it does not in most of the province, which is exactly why it is worth checking [what your extended health plan reimburses](/resources/bc-extended-health-coverage-for-counselling), and what [free and low-cost options exist across BC](/resources/low-cost-counselling-bc), before deciding you cannot afford it.",
+        "**The public front door does not offer counselling.** Vancouver Coastal Health's Access and Assessment Centre, in the Joseph & Rosalie Segal & Family Health Centre on the Vancouver General Hospital campus, is where City of Vancouver residents aged 17 and over start with public mental-health and substance-use care: call 604-675-3700 or walk in, with no referral. It assesses, connects people to VCH services and handles crises, and it is worth using for those. Its own page lists counselling, and referral to counselling, among the services it does not provide. Counselling itself is found through a community agency, a workplace program or a private counsellor, and [free and low-cost counselling in BC](/resources/low-cost-counselling-bc) lists the first two.",
+        `**Cost against the cost of living.** In a city where rent already takes an outsized share of income, a ${fallbackFee('Individual Counselling')} weekly session is a real decision rather than an obvious one, and treating it as one would be dishonest. Therapy competes with rent here in a way it does not in most of the province, which is why it is worth checking [what your extended health plan reimburses](/resources/bc-extended-health-coverage-for-counselling) before deciding you cannot afford it.`,
         "**Language access is quietly harder here than the city's reputation suggests.** Vancouver is one of the most linguistically diverse cities in the country, but Punjabi is only the fifth mother tongue at 2.0%, well behind Cantonese and Mandarin, so services offered \"in your language\" here usually are not. [Punjabi-speaking counselling for Vancouver](/punjabi-counselling/vancouver) covers what that means in practice, and why the answer has historically been a trip to Surrey.",
-        "**Time and geography.** A 50-minute session that requires crossing the city at 5pm is not a 50-minute commitment; it is closer to two hours. That is the single most common reason people book therapy and then quietly stop going. Removing the travel changes the arithmetic. A session becomes something that fits in a lunch break or between the end of work and dinner.",
+        "**Time and geography.** A 50-minute session that means crossing the city at rush hour is not a 50-minute commitment; it is closer to two hours. That is the single most common reason people book therapy and then quietly stop going. Removing the travel changes the arithmetic: the session is the fifty minutes and nothing else.",
         "**Isolation in density.** Vancouver has a well-documented reputation for being a hard city to make friends in, particularly for people who moved here as adults. A great deal of what comes up in this work is not a diagnosable condition at all. It is loneliness in a place where everyone appears to have arrived with their social life already assembled.",
       ],
     },
     access: [
       { label: "No commute attached to the session", detail: "In a city where cross-town travel can double the time cost of an appointment, this is usually what determines whether people keep going." },
-      { label: "Lunch-break appointments", detail: "A session from a closed office or a parked car is entirely workable, and removes the need to explain an absence." },
+      { label: "A session from work, without explaining an absence", detail: "A closed office, a booked meeting room or a parked car is entirely workable, at whichever of the calendar's open times suits you." },
       { label: "It follows you", detail: "Moving within BC, common here, does not mean starting again with someone new." },
       { label: "The North Shore has its own page", detail: "[North Vancouver, West Vancouver, Bowen Island and Lions Bay](/online-counselling/north-vancouver) have their own public intake team, on the Lions Gate Hospital campus, and a page of their own." },
     ],
@@ -323,11 +366,16 @@ export const locations: Location[] = [
       { q: "Is virtual therapy cheaper than in-person?", a: "Fees here are the same either way. What virtual removes is the surrounding cost: transit or parking, and the hour or more of travel that an in-person appointment adds to a working day." },
       { q: "I have extended health through work. Will it cover this?", a: "Many plans that list Registered Clinical Counsellors will, depending on the plan. Some list only psychologists and social workers, so it is worth checking the exact wording, the extended health coverage page explains what to look for." },
       { q: "What if I cannot afford private fees?", a: "Vancouver Coastal Health runs free mental-health services, and there is a broader set of free and low-cost options across BC worth checking before paying out of pocket. Those are listed on the free and low-cost counselling page." },
-      { q: "Can I have sessions in Punjabi without going to Surrey?", a: "Yes, and that is most of why the Vancouver Punjabi page exists. Punjabi is the fifth mother tongue in Vancouver proper and the community's clinicians and institutions are largely across the river, so the historic answer has been a bridge and most of an evening. Sessions here run in Punjabi, English, or moving between them, from wherever you are." },
+      /* 13 Oct 2026: "no waitlist counselling vancouver" 3 at 14.3 and
+         "counselling waitlist vancouver" 3 at 15.3. The answer is the AAC's
+         own page (read 13 Oct 2026) and the live calendar, never a promise. */
+      { q: "Is there counselling in Vancouver without a waitlist?", a: "Not through the public front door, because it does not offer counselling: Vancouver Coastal Health's Access and Assessment Centre assesses and connects people to VCH services, and lists counselling among what it does not provide. Free community programs usually keep a list of their own. A private counsellor books from their own calendar, so the wait is simply the next open time; the line under the button at the top of this page shows the next open consultation times here. [How long the wait is in BC](/guides/waiting-for-therapy-in-bc) compares every route." },
+      { q: "Can I have sessions in Punjabi without going to Surrey?", a: "Yes, and that is most of why the Vancouver Punjabi page exists. Punjabi is the fifth mother tongue in Vancouver proper and the community's clinicians and institutions are largely across the river, so the historic answer has been a bridge and a long trip each way. Sessions here run in Punjabi, English, or moving between them, from wherever you are." },
       { q: "I just moved here and do not know anyone. Is that a reason to come?", a: "Yes, and it is one of the more common ones. Vancouver has a well-documented reputation as a hard city to build a social life in, particularly for people who arrived as adults, and a great deal of what comes up in this work is not a diagnosable condition at all. It is loneliness in a place where everyone appears to have arrived with their friendships already assembled. That is worth working on rather than waiting out." },
       { q: "Does a session have to be from home? I have roommates.", a: "No, and in this city that question comes up constantly. A closed office, a booked meeting room, a parked car, all of them work, and headphones do more for privacy than most people expect. It is worth raising on the consultation call so it is solved before the first session rather than during it." },
     ],
     sources: [
+      { label: "Vancouver Coastal Health, Access and Assessment Centre at Vancouver General Hospital (read 13 Oct 2026)", url: "https://www.vch.ca/en/service/access-and-assessment-centre-aac" },
       { label: "Vancouver Coastal Health, mental health and substance use", url: "https://www.vch.ca/en/health-topics/mental-health" },
       { label: "CMHA BC, programs and services", url: "https://cmha.bc.ca/" },
     ],
@@ -1061,7 +1109,8 @@ export const locations: Location[] = [
     city: "Fort St. John",
     communities: ["Dawson Creek", "Taylor", "Chetwynd", "Hudson’s Hope", "Fort Nelson"],
     region: "Northern BC",
-    blurb: "The Peace never changes its clocks, works on rotation, and sits a long day's drive from Prince George.",
+    /* 13 Oct 2026: "counselling fort st john" 8 at 11, the hub 59 at 12.4. The composed title already reads "Counselling Fort St. John" in that order, so it stays; the lede answers first. */
+    blurb: "Counselling in Fort St. John by secure video, booked directly: a Registered Clinical Counsellor who fits around a rotation, for a city that keeps its own clock and sits a long day's drive from Prince George.",
     metaDescription:
       "Online counselling for Fort St. John and the Peace region. Dawson Creek, Chetwynd, Fort Nelson: built around rotations and camp work, by video.",
     intro: [
@@ -1289,9 +1338,18 @@ export const locations: Location[] = [
     city: "Vernon",
     communities: ["Coldstream", "Armstrong", "Spallumcheen", "Enderby", "Lumby", "Cherryville"],
     region: "Okanagan",
-    blurb: "The North Okanagan’s centre, with a catchment of small towns where the counsellor nearby may be a neighbour.",
+    /* 13 Oct 2026. Vernon is the nearest city to page one: "emdr therapy
+       vernon" 22 at 9.6 (the EMDR pair's), "online therapy vernon" 10 at
+       8.5, "counselling vernon bc" 7 at 20.1, "vernon counselling" and
+       "counselling vernon" 4 each at 20-21.5, and about twenty therapist,
+       depression and anxiety variants at 9-15. The hub (25 at 16.6) said
+       "Online & Virtual Counselling"; it now says "Online Therapy &
+       Counselling", the words of the two hub-level heads, and answers first. */
+    hubTitle: "Online Therapy & Counselling in Vernon, BC | Counsellors",
+    hubH1: "Online therapy and counselling in Vernon, BC",
+    blurb: "Therapy in Vernon by secure video, booked directly: a Registered Clinical Counsellor for anxiety, depression, trauma or EMDR, with nobody in Enderby or Armstrong seeing where you go and no drive down Highway 97 for a specialist.",
     metaDescription:
-      "Online counselling for Vernon and the North Okanagan. Coldstream, Armstrong, Enderby and Lumby: trauma, anxiety, EMDR and couples therapy by video.",
+      "Online therapy and counselling for Vernon and the North Okanagan. Coldstream, Armstrong, Enderby, Lumby: trauma, anxiety, EMDR and couples, by video.",
     intro: [
       "Vernon is where the North Okanagan comes for services. Interior Health runs a mental-health and substance-use centre on 14th Avenue that takes self-referrals, CMHA Vernon runs a free youth drop-in, and Okanagan College has its Vernon campus on College Way in Coldstream. What makes counselling here its own problem is the catchment, which runs north along 97A to Armstrong and Enderby and east through Lumby to Cherryville.",
       "Two things follow from that. In the smaller towns the counsellor nearby may be somebody you already know, and when what you need is something specific, the search tends to widen down Highway 97 to Kelowna. Seeing a [Registered Clinical Counsellor](/compare/rcc-vs-psychologist-vs-social-worker-bc) by video answers both at once: nobody in Enderby sees where you go, and the drive south drops out of the plan.",
@@ -1441,7 +1499,8 @@ export const locations: Location[] = [
     city: "Courtenay",
     communities: ["Comox", "Cumberland", "Royston", "Union Bay", "Fanny Bay", "Denman Island", "Hornby Island"],
     region: "Vancouver Island",
-    blurb: "A posting, a drive down-Island, or two ferries from Hornby: counselling in the Comox Valley has to survive all three.",
+    /* 13 Oct 2026: the hub 15 impressions at 19.5; its searches are pair-level ("couples counselling courtenay" 5 at 9.4, "emdr therapy courtenay" 5 at 10, "therapy courtenay" 2 at 23.5). The title stays; the lede answers first. */
+    blurb: "Counselling and therapy in Courtenay by secure video, booked directly with a Registered Clinical Counsellor: care for the Comox Valley that survives a posting, a drive down-Island or two ferries from Hornby.",
     metaDescription:
       "Online counselling for Courtenay and the Comox Valley. Comox, Cumberland, Denman and Hornby: trauma, anxiety and couples therapy by secure video.",
     intro: [
@@ -1521,9 +1580,16 @@ export const locations: Location[] = [
     city: "Langford",
     communities: ["Colwood", "View Royal", "Metchosin", "Highlands", "Sooke"],
     region: "Vancouver Island",
-    blurb: "Langford grew by almost a third in five years, and an appointment in Victoria still means Highway 1 both ways.",
+    /* 13 Oct 2026. "counselling langford" 10 impressions at 35.9,
+       "counselling in langford" 4 at 11.3, "counsellor langford" 4 at 31.8,
+       "counsellors langford" 3 at 20.3, "therapist langford" 2 at 33; the
+       hub 32 at 18.9. None says online or virtual, and the composed title
+       put "Counselling" fourth. It now opens with the query. */
+    hubTitle: "Counselling in Langford, BC | Online, Virtual Counsellors",
+    hubH1: "Counselling in Langford and the West Shore, online",
+    blurb: "Counselling in Langford without the Highway 1 drive: a Registered Clinical Counsellor by secure video, booked directly with no referral, for a city that grew by almost a third in five years.",
     metaDescription:
-      "Online counselling for Langford and the West Shore. Colwood, View Royal, Metchosin, Highlands and Sooke: anxiety, trauma, EMDR and couples by video.",
+      "Counselling in Langford and the West Shore, online. Colwood, View Royal, Metchosin, Highlands and Sooke: anxiety, trauma, EMDR and couples by video.",
     intro: [
       "Langford has grown faster than the region around it. The 2021 Census counted 46,584 residents, up 31.8% in five years against 8.0% for Greater Victoria, and 42.7% of residents aged five and over had been living in a different municipality five years earlier. It is younger, too: a median age of 38.4 against the region’s 44.8, and more children as a share of the city.",
       "That shapes what counselling here is up against. Six in ten residents with a regular workplace commute to another municipality, so the week already includes the Highway 1 corridor at both ends, and for anyone who arrived recently the friends and family they would lean on may still be in the place they left. A [Registered Clinical Counsellor](/compare/rcc-vs-psychologist-vs-social-worker-bc) by video is the one appointment that adds no drive.",
@@ -1755,7 +1821,8 @@ export const locations: Location[] = [
     city: "North Vancouver",
     communities: ["West Vancouver", "Lower Lonsdale", "Lynn Valley", "Deep Cove", "Bowen Island", "Lions Bay"],
     region: "North Shore",
-    blurb: "The North Shore has its own public front door, which asks for a referral, and two bridges to everywhere else.",
+    /* 13 Oct 2026: 171 impressions at 19.5, most of them for Vancouver queries the Vancouver hub should hold (see the note on that entry). The lede now says North Shore twice before anything else, and the page sends City of Vancouver readers there by the query's own words. */
+    blurb: "Counselling in North Vancouver and across the North Shore by secure video, booked directly with no referral, where the public front door asks for one and everything else is over a bridge.",
     metaDescription:
       "Online counselling for North Vancouver and the North Shore. Deep Cove to West Vancouver, Bowen Island and Lions Bay: anxiety, trauma and EMDR by video.",
     intro: [
@@ -1767,7 +1834,7 @@ export const locations: Location[] = [
       body: [
         "**The public route starts with somebody else's signature.** Vancouver Coastal Health's Central Intake Team at the HOpe Centre, on the Lions Gate Hospital campus, connects adults 19 and over in North Vancouver, West Vancouver, Bowen Island and Lions Bay with public mental-health and substance-use care. It asks for a referral from a family doctor or a walk-in clinic first. Without a family doctor, that is a step before the step. The North Vancouver Urgent and Primary Care Centre offers same-day care for urgent concerns, low mood, anxiety and depression included.",
         "**Private counselling needs none of that.** A Registered Clinical Counsellor is booked directly: no referral, no diagnosis, and no bearing on a public list you are already on. The two run side by side, and starting one does not mean giving up the other.",
-        "**The bridges are the commute.** The Lions Gate and the Ironworkers Memorial carry about 60,000 and 125,000 trips a day between them, by the Province's count, and the SeaBus crossing from Lonsdale Quay takes twelve minutes before the walk at either end. From Lynn Valley, Deep Cove or Dundarave, an office downtown starts with a bus or a bridge. The [Vancouver page](/online-counselling/vancouver) describes the city's side of the same arithmetic.",
+        "**The bridges are the commute.** The Lions Gate and the Ironworkers Memorial carry about 60,000 and 125,000 trips a day between them, by the Province's count, and the SeaBus crossing from Lonsdale Quay takes twelve minutes before the walk at either end. From Lynn Valley, Deep Cove or Dundarave, an office downtown starts with a bus or a bridge. [Online counselling in Vancouver](/online-counselling/vancouver) covers the city's side of the same arithmetic, and its own public door.",
         "**Bowen Island and Lions Bay are further out again.** Bowen is reached by BC Ferries from Horseshoe Bay, so any appointment on the mainland begins with a sailing; Lions Bay sits up the Sea-to-Sky. Both are inside the North Shore's public intake area, and both are identical to Lonsdale by video.",
         "**A university and a hospital set a lot of the Shore's calendar.** Capilano University's main campus is in North Vancouver, and Lions Gate Hospital runs on rosters. Terms and rotations change week to week, which is where a fixed weekly slot across the water usually fails first. The pages for [university students](/for/university-students) and [healthcare and shift workers](/for/healthcare-and-shift-workers) cover what tends to come up.",
         "**Language on the Shore follows its own numbers.** In the 2021 Census, Tagalog was the mother tongue of 1,675 people in the City of North Vancouver, more than French, and third there after English and Persian. Punjabi is far smaller: 745 people across all three municipalities. [Tagalog-speaking counselling for North Vancouver](/tagalog-counselling/north-vancouver) and [Punjabi-speaking counselling for the North Shore](/punjabi-counselling/north-vancouver) say what each means in practice.",
@@ -1778,6 +1845,7 @@ export const locations: Location[] = [
       { label: "No referral first", detail: "The public intake on the North Shore asks for a referral from a family doctor or walk-in clinic. Seeing a Registered Clinical Counsellor privately does not." },
       { label: "Deep Cove to Horseshoe Bay, Bowen and Lions Bay", detail: "Lower Lonsdale, Lynn Valley, Deep Cove, West Vancouver, Bowen Island and Lions Bay on identical terms, with no sailing and no drive for being further out." },
       { label: "Around a term or a roster", detail: "University terms and hospital rotations change week to week. Sessions are booked block by block, and the booking calendar shows each counsellor's real open times." },
+      { label: "South of the inlet instead?", detail: "If you live in the City of Vancouver, its public door is a different one, and [online counselling in Vancouver](/online-counselling/vancouver) is the page for it." },
     ],
     faqs: [
       { q: "Which health authority covers North Vancouver?", a: "Vancouver Coastal Health, the same authority as Vancouver, but the North Shore has its own intake. The Central Intake Team at the HOpe Centre, on the Lions Gate Hospital campus, serves adults in North Vancouver, West Vancouver, Bowen Island and Lions Bay, and asks for a referral from a family doctor or walk-in clinic. Private counselling runs alongside it rather than instead of it." },

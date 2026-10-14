@@ -194,23 +194,34 @@ export const moreGuides2: Guide[] = [
        free consult, and the next open consultation sits straight under the
        short answer (app/guides/[slug]/page.tsx). The title was tuned on
        1 Oct and is left alone. */
-    title: 'How long the wait for therapy is in BC, and what to do meanwhile',
+    /* 13 Oct 2026: 195 impressions at 7.76 and 1 click. The only queries
+       the export names for it are the no-waitlist family: "no waitlist
+       counsellor bc" 7 at 6.1, "no waitlist counselling bc" 6 at 10, "no
+       waitlist therapist bc" 5 at 11, "no waitlist therapy bc" 3 at 5.7,
+       "no waitlist counselling vancouver" 3 at 14.3, "no waitlist
+       counselling abbotsford" 3 at 8, and the AI question "which private
+       therapists near me have the shortest wait?" 3 at 1, none of which the
+       title, H1 or short answer said. They now ask it as a question and the
+       answer says how to find the shortest private wait and where the live
+       next openings are, without promising there is one. Before: "How Long
+       Is the Wait for Therapy in BC? Public vs Private". */
+    title: 'Is there counselling in BC with no waitlist? How long each route waits',
     /* 1 Oct 2026: 91 impressions at 7.21 and no clicks, for queries that
        compare the two routes (an AI-mode query asked which private therapists
        have the shortest wait). The title now names the comparison the page
        makes, and the page shows the next open consultation under the
        private-route section (components/NextConsultLine.tsx). */
-    metaTitle: 'How Long Is the Wait for Therapy in BC? Public vs Private',
+    metaTitle: 'No Waitlist Counselling or Therapy in BC? How Long Waits Are',
     metaDescription: withSnippet(
-      'Months for public counselling, days for private, and the services with no wait at all.',
+      'Public counselling in BC can take months. Private counsellors book from calendars: see the next open times.',
       feeSnippet(FALLBACK_CATALOG),
     ),
     eyebrow: 'Guide · BC systems',
     lede:
       'Being told the wait is four to eight months is its own kind of blow. There is more available in the meantime than most people are told.',
     shortAnswer:
-      'Publicly funded counselling in BC is triaged and the wait is often months; private Registered Clinical Counsellors book from their own calendars, with no central list. If you are waiting for the public route, in the meantime: get onto the list properly and stay in contact with it, use the services that have no wait at all (crisis and support lines, Foundry for under-25s, an EFAP if you have one, campus counselling if you are a student), and treat the interval as something to be structured rather than endured.',
-    updated: '2026-09-02',
+      'Publicly funded counselling in BC is triaged and the wait is often months. Private Registered Clinical Counsellors keep no central list: each books from their own calendar, so the shortest private wait is whoever has an open time soonest, and the reliable way to find out is a calendar that shows real openings rather than an “accepting clients” label. The next open free consultation times here are shown just below, when the calendar has any. The services with no wait at all are the crisis and support lines, Foundry for ages 12 to 24, an EFAP if you have one, and campus counselling if you are a student.',
+    updated: '2026-10-13',
     readMinutes: 8,
     figure: 'therapy-cost-in-bc',
     figure2: "first-session-flow",
@@ -244,6 +255,18 @@ export const moreGuides2: Guide[] = [
           { label: 'Bounce Back and structured self-help', detail: 'Free, guided, evidence-based programmes for low mood and anxiety, delivered by phone and workbook with a coach. Not the same as therapy, and considerably better than nothing for months.' },
         ],
       },
+      /* 13 Oct 2026: the AI question "which private therapists near me have
+         the shortest wait?" had nothing on this page that answered it. */
+      {
+        h2: 'Finding a private counsellor with the shortest wait',
+        list: [
+          { label: 'Look for a live calendar, not a label', detail: 'Directory profiles carry an “accepting new clients” flag that the counsellor sets by hand, and it can be weeks out of date. A booking calendar that shows real open times answers the question directly, and a free consultation slot shows how soon you could start.' },
+          { label: 'Ask two questions on the first call', detail: 'When the first regular session could be, not only the consultation, and whether there is a short-notice list for cancellations. Being able to take a time at a day’s notice often moves the start forward.' },
+          { label: 'Widen the map, not the standard', detail: 'Registration covers the whole province, so a Registered Clinical Counsellor by video in another BC city is as available to you as one down the street. Keep the fit: the approach, the language and the designation matter more than a week saved.' },
+          { label: 'Check the cost side before the first paid session', detail: 'Whether an extended health plan reimburses a counsellor depends on the plan and on the designation it names. [What BC plans reimburse](/resources/bc-extended-health-coverage-for-counselling) shows what to look for.' },
+          { label: 'Here, the calendar is the only queue', detail: 'Each counsellor’s open consultation times are on the [booking calendar](/book), and the line under the button at the top of this page names the next ones when there are some. If none suits you, the booking page has a way to ask for a time.' },
+        ],
+      },
       {
         h2: 'Structuring the interval',
         body: [
@@ -275,6 +298,8 @@ export const moreGuides2: Guide[] = [
       label: 'a free 15-minute consultation costs nothing to find out',
     },
     faqs: [
+      { q: 'Which private therapists have the shortest wait?', a: 'Whoever has an open time soonest, which changes week to week, so no list of names stays true for long. Private counsellors book from their own calendars, so look for one that shows real open times rather than an “accepting clients” label, and ask when the first regular session could be. The next open consultation times for the counsellors here are printed under the button at the top of this page.' },
+      { q: 'Is there counselling in BC with no waitlist?', a: 'The crisis and support lines, 9-8-8 and 310-6789, have no list at all, and an EFAP, campus counselling or Foundry for ages 12 to 24 usually start far sooner than community services. For regular counselling sessions, a private counsellor’s wait is simply their next open time: see the next open consultation times at the top of this page rather than taking a “no waitlist” claim on trust, including this one.' },
       { q: 'How long are the waits, really?', a: 'They vary widely by health authority, by service and by urgency, from weeks to many months. The only reliable number is the one the specific service gives you when you ask, and it is worth asking directly rather than relying on general figures.' },
       { q: 'Does going private remove me from the public waitlist?', a: 'Not automatically, but policies differ by service. Ask the service directly, and tell them if you want to stay on the list.' },
       { q: 'Is Bounce Back the same as therapy?', a: 'No. It is a structured, coach-supported self-help programme with real evidence behind it for mild to moderate low mood and anxiety. It is a genuine option during a wait rather than a replacement for counselling.' },
@@ -289,6 +314,7 @@ export const moreGuides2: Guide[] = [
       { href: '/tools/stress-check', label: 'While you wait: a two-minute reflection on how things have been' },
       { href: "/services", label: "What is available here, and when" },
       { href: '/online-counselling/victoria', label: 'Online counselling in Victoria' },
+      { href: '/online-counselling/vancouver', label: 'Online counselling in Vancouver' },
       { href: '/resources/low-cost-counselling-bc', label: 'Low-cost counselling in BC' },
       { href: '/resources/bc-crisis-and-support-directory', label: 'BC crisis and support directory' },
       { href: '/resources/msp-vs-extended-health', label: 'MSP vs extended health' },
