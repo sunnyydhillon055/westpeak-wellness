@@ -199,32 +199,56 @@ export const moreResources2: Resource[] = [
 
   {
     slug: 'does-my-plan-cover-counselling-bc',
-    title: 'Does Pacific Blue Cross, Sun Life, Manulife or Canada Life cover counselling?',
+    title: 'Does Pacific Blue Cross, Sun Life, Manulife, Canada Life or GreenShield cover counselling?',
     /* 3 Oct 2026 (item 408): 577 impressions at 6.2 and 0.52% CTR, and
        'pacific blue cross counselling coverage' at 1.14 with no clicks. The
        insurer's own name now leads the title, and the description opened
        with the word often, a prevalence claim the house wording does not make
        (scripts/coverage-claims.mjs now fails on it). The fee and the free
        consult are generated; nothing in this description is typed. */
-    metaTitle: 'Does Pacific Blue Cross or Sun Life Cover Counselling in BC?',
+    /* 13 Oct 2026: 628 impressions at 6.28 and 0.48% CTR (Search Console
+       13 Oct), flat on the 3 Oct title (0.52%). The head query is
+       "pacific blue cross counselling coverage", 7 at 1.14, and the other
+       insurer queries name Manulife ("manulife counselling coverage" 3 at
+       28.3, "... bc" 1 at 13) and Sun Life ("is it covered by sunlife" 1 at
+       4). The title now carries the three insurers and the query's own
+       words, and the description promises the insurer-by-insurer answers
+       the page now opens with. */
+    metaTitle: 'Pacific Blue Cross, Sun Life, Manulife: Counselling Coverage',
     metaDescription: withSnippet(
-      'Many plans do, depending on the plan: the one question to ask Pacific Blue Cross or Sun Life.',
+      'Pacific Blue Cross, Sun Life, Manulife and more: what each pays for an RCC, depending on the plan.',
       feeSnippet(FALLBACK_CATALOG),
     ),
     eyebrow: 'Resource · Coverage',
     lede:
       'The insurer\'s name is on the card. The answer is in the plan, and the plan was written by your employer.',
     shortAnswer:
-      'Whether your plan covers counselling depends on the plan your employer bought, not on the insurer that administers it. Pacific Blue Cross, Sun Life, Manulife and Canada Life all administer plans that reimburse a Registered Clinical Counsellor and plans that do not. The way to find out is one question to the insurer or one search of the plan booklet: is a Registered Clinical Counsellor (or, in Alberta, a Canadian Certified Counsellor) listed as an eligible paramedical practitioner, and what is the annual maximum. This page gives the wording for each insurer.',
-    updated: '2026-10-01',
-    readMinutes: 8,
+      'Whether your plan covers counselling depends on the plan your employer bought, not on the insurer that administers it. Pacific Blue Cross, Sun Life, Manulife, Canada Life and GreenShield all administer plans that reimburse a Registered Clinical Counsellor and plans that do not. The way to find out is one question to the insurer or one search of the plan booklet: is a Registered Clinical Counsellor (or, in Alberta, a Canadian Certified Counsellor) listed as an eligible paramedical practitioner, and what is the annual maximum. The table below gives the short answer for each insurer.',
+    updated: '2026-10-13',
+    readMinutes: 9,
     figure: 'reimbursement-flow',
     seasonal: yearEndSeasonal({ yearEndLink: true, designation: 'Registered Clinical Counsellor', balanceSentence: false }),
     sections: [
+      /* 13 Oct 2026: the short answer for each insurer, first, in one table.
+         Each cell says only what the insurer's own page (sources) says, and
+         every coverage answer is plan-dependent. */
+      {
+        h2: 'Short answers, insurer by insurer',
+        table: {
+          columns: ['Insurer', 'Does it cover a Registered Clinical Counsellor?', 'Where to check', 'Worth knowing'],
+          rows: [
+            ['Pacific Blue Cross', 'Many of its BC plans do, depending on the plan; some list psychologists only', 'The member portal, under coverage, or the plan booklet', 'Has accepted direct claims from RCCs since 11 July 2025. This practice is pay-and-submit, so you claim the receipt yourself'],
+            ['Sun Life', 'Sun Life added clinical counsellors and psychotherapists to its standard extended health plans from 12 May 2024; an employer’s own plan wording still decides', 'my Sun Life app or mysunlife.ca, under extended health', 'Sun Life Provider Search, formerly Lumino Health, is a directory of providers. It is not your coverage: the plan’s practitioner list is'],
+            ['Manulife', 'Many group plans do, under a psychologist, social worker or counsellor benefit, depending on the plan', 'The benefit booklet or the member portal', 'Wording like “or equivalent” is for your plan administrator to confirm'],
+            ['Canada Life', 'Plans that cover counsellors list them under a mental-health practitioner benefit, depending on the plan', 'My Canada Life at Work', 'Canada Life absorbed Great-West Life, so an older booklet may carry that name'],
+            ['GreenShield', 'Depends on the plan: some list clinical counsellors; some list only psychologists, social workers or psychotherapists', 'GreenShield+ (member site and app)', 'GreenShield also runs its own counselling platform with its own practitioners. Whether the plan pays for sessions there is a separate line from claiming another counsellor’s receipt'],
+          ],
+        },
+      },
       {
         h2: 'The question that settles it, whichever insurer you have',
         body: [
-          'Extended health plans reimburse **eligible practitioners** under a paramedical or mental-health benefit. The plan document lists which designations count. Psychologists are on almost every list. Registered Clinical Counsellors are on many and not all. Canadian Certified Counsellors are named on plans more often in Alberta, where counselling is not a regulated profession.',
+          'Extended health plans reimburse **eligible practitioners** under a paramedical or mental-health benefit. The plan document lists which designations count. Psychologists are listed on many. Registered Clinical Counsellors are on many and not all. Canadian Certified Counsellors are named on plans more often in Alberta, where counselling is not a regulated profession.',
           'So the question is not "does Sun Life cover counselling". It is: *"Under my plan, is a Registered Clinical Counsellor an eligible practitioner for the mental-health or paramedical benefit, and what is the annual maximum and any per-visit maximum?"* Ask that, in those words, and you have your answer in one call.',
           'Both counsellors at this practice are RCCs registered with the BC Association of Clinical Counsellors; one also holds the CCC. Receipts carry the registration number the insurer needs. This practice is pay-and-submit: you pay at booking and submit the receipt yourself. Pacific Blue Cross has accepted direct claims from RCCs since July 2025, so some practices bill it for you; this one does not.',
         ],
@@ -233,14 +257,14 @@ export const moreResources2: Resource[] = [
         h2: 'Pacific Blue Cross and counselling',
         body: [
           'Pacific Blue Cross administers a large share of BC employer plans, including many public-sector ones. Many of its plans list Registered Clinical Counsellors under psychology or counselling benefits; some list psychologists only. The plan booklet, or the member portal under "coverage", shows the practitioner list and the maximum.',
-          'What to check: the exact designation wording, whether the counselling maximum is shared with psychology, and whether a physician\'s referral is required. Most plans do not require one; a few do, and it is cheaper to know before the first session than after.',
+          'What to check: the exact designation wording, whether the counselling maximum is shared with psychology, and whether a physician\'s referral is required. Many plans do not, depending on the plan; a few do, and it is cheaper to know before the first session than after.',
         ],
       },
       {
         h2: 'Sun Life and counselling',
         body: [
-          'Sun Life plans vary widely by employer. The member site and app show the covered practitioners under the extended health benefit, usually as a list of paramedical services with a per-year maximum each. Search the list for "clinical counsellor" and for "psychologist"; if only the second appears, the plan may still cover a counsellor under a combined mental-health benefit, and the plan document or a call settles it.',
-          'What to check: whether "registered clinical counsellor" is named, the maximum, and whether it is per practitioner type or combined.',
+          'Sun Life says it added clinical counsellors and psychotherapists to its standard extended health plans from 12 May 2024. Plans still vary by employer, because an employer can buy different wording. The member site and app show the covered practitioners under the extended health benefit, usually as a list of paramedical services with a per-year maximum each. Search the list for "clinical counsellor" and for "psychologist"; if only the second appears, the plan may still cover a counsellor under a combined mental-health benefit, and the plan document or a call settles it.',
+          'What to check: whether "registered clinical counsellor" is named, the maximum, and whether it is per practitioner type or combined. Sun Life Provider Search, which used to be called Lumino Health, finds providers near you; a counsellor’s absence from it says nothing about whether your plan reimburses her.',
         ],
       },
       {
@@ -255,6 +279,14 @@ export const moreResources2: Resource[] = [
         body: [
           'Canada Life, which absorbed Great-West Life, administers plans with a similar range. The member site lists paramedical practitioners and maximums; plans that cover counsellors commonly do so under a mental-health practitioner benefit alongside psychologists and social workers.',
           'What to check: the designation, the maximum, and, for anyone in Alberta, whether the plan names the Canadian Certified Counsellor rather than the RCC. Alberta plans more often do, because counselling is not a regulated profession there; [counselling coverage in Alberta](/resources/counselling-coverage-in-alberta) covers what Alberta Health Care does and does not pay.',
+        ],
+      },
+      {
+        h2: 'GreenShield and counselling',
+        body: [
+          'GreenShield administers group plans with the same range as the others: some name clinical counsellors as eligible practitioners, some name only psychologists, social workers or psychotherapists. GreenShield+, its member site and app, shows the practitioner list and the maximum.',
+          'GreenShield also runs its own counselling platform, with practitioners it vets, and some plans pay for a set amount of time there. That is a separate benefit from the paramedical maximum that reimburses a counsellor you choose yourself, so ask which one your plan has, or whether it has both.',
+          'What to check: whether a clinical counsellor is an eligible practitioner under the extended health benefit, the maximum, and whether a counselling platform benefit sits beside it.',
         ],
       },
       {
@@ -306,6 +338,10 @@ export const moreResources2: Resource[] = [
       { q: 'Does Sun Life cover counselling in BC?', a: 'It depends on the plan. Search your coverage for "clinical counsellor"; if only psychologists appear, ask whether a combined mental-health benefit applies to an RCC.' },
       { q: 'Does Manulife cover counselling with an RCC?', a: 'On many plans, under a combined psychologist, social worker or counsellor benefit. Where the wording is unclear, the plan administrator at your employer can confirm whether an RCC qualifies.' },
       { q: 'Does Canada Life cover counselling?', a: 'Plans that do usually list counsellors under a mental-health practitioner benefit. For Alberta plans, check whether the Canadian Certified Counsellor is the designation named.' },
+      /* 13 Oct 2026: GreenShield joins the four, and Sun Life's provider
+         directory is answered by name. */
+      { q: 'Does GreenShield cover counselling?', a: 'It depends on the plan. Some GreenShield plans list clinical counsellors as eligible practitioners and some list only psychologists, social workers or psychotherapists; GreenShield+ shows yours. GreenShield also runs its own counselling platform, and a plan may pay for time there as a separate benefit from reimbursing a counsellor you choose.' },
+      { q: 'What is Lumino Health?', a: 'Sun Life’s provider directory, now called Sun Life Provider Search. It helps plan members find providers; it does not decide what your plan pays. Whether a Registered Clinical Counsellor is reimbursed is in your plan’s practitioner list, and a counsellor who is not in the directory can still issue a receipt you claim.' },
       { q: 'Is online counselling covered the same as in person?', a: ONLINE_COVERAGE },
       { q: 'Does Westpeak Wellness bill my insurer directly?', a: 'No. This practice is pay-and-submit: you pay at booking and receive a receipt carrying the counsellor’s registration number, which you submit to the insurer. Pacific Blue Cross accepts direct claims from RCCs, so another practice may bill it for you; this one does not.' },
       { q: 'Is counselling covered by MSP?', a: 'No. MSP does not cover private counselling. It covers physicians and psychiatrists. The comparison is on the MSP vs extended health page.' },
@@ -319,6 +355,8 @@ export const moreResources2: Resource[] = [
       { label: 'Sun Life, adding clinical counsellors and psychotherapists to standard extended health plans from 12 May 2024 (read 1 Oct 2026)', url: 'https://www.sunlife.ca/workplace/en/group-benefits/advisor/advisor-latest-news/adding-new-mental-health-practitioners-to-standard-ehc-benefits-plans/' },
       { label: 'Manulife, mental health and counselling services: practitioner types and maximums vary by plan (read 1 Oct 2026)', url: 'https://www.manulife.ca/personal/group-plans/group-benefits/mental-health-counselling-services.html' },
       { label: 'Canada Life, mental health in workplace benefits: check your plan in My Canada Life at Work (read 1 Oct 2026)', url: 'https://www.canadalife.com/insurance/workplace-benefits/mental-health.html' },
+      { label: 'GreenShield, mental health services FAQ: its counselling platform and the practitioners it vets (read 13 Oct 2026)', url: 'https://www.greenshield.ca/en-ca/faq' },
+      { label: 'Sun Life, Provider Search and profiles (formerly Lumino Health Provider Search; read 13 Oct 2026)', url: 'https://www.sunlife.ca/sl/provider/en/support/faqs/provider-search-and-profiles/' },
       { label: 'BC Association of Clinical Counsellors', url: 'https://bc-counsellors.org/' },
       { label: 'Canadian Counselling and Psychotherapy Association', url: 'https://www.ccpa-accp.ca/' },
       { label: 'Canada Revenue Agency, authorized medical practitioners for the medical expense tax credit (read 1 Oct 2026)', url: CRA_PRACTITIONERS },

@@ -1,35 +1,38 @@
 import type { Resource } from './resources';
 import { yearEndSeasonal } from './resources-more2';
-import { FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
 import { practitioners, insuredProvinces, vancouverToday } from '@/lib/practitioners';
-import { namedProfileSnippet, withSnippet } from '@/lib/snippet-facts';
 
-/* THE ALBERTA COVERAGE DESCRIPTION — 3 Oct 2026 (item 423).
-   391 impressions at 6.5 with 0.51% CTR, and 'is therapy covered by alberta
-   health care' 24 at 9.7 with no clicks. The description opened "No." and
-   offered nothing a searcher could act on. It now answers, in the house
-   coverage words, and names the one counsellor who can see an Albertan, with
-   her own fee and the free consult. Her name and fee appear only while her
-   policy reaches Alberta (insuredProvinces, which closes 14 days after
-   validTo); after that the description is the answer alone. The letters are
-   her CCC, the designation Alberta plans name; no registration number. */
-const ALBERTA_ANSWER = 'Alberta Health Care does not; many plans do, depending on the plan.';
-const ALBERTA_FALLBACK =
-  'Alberta Health Care does not pay for private counselling; many extended plans do, depending on the plan. The free routes, and which designation to ask about.';
+/* THE ALBERTA COVERAGE DESCRIPTION.
+   3 Oct 2026 (item 423): it opened "No." and offered nothing to act on, so
+   it was rewritten in the house coverage words and, while her policy reached
+   Alberta, named Camille with her CCC, her fee and the free consult.
+
+   13 Oct 2026: answer first, in the query's own words, and one description
+   whatever the gate. Search Console 13 Oct: 412 impressions at 6.48 and
+   0.49% CTR, flat on the named version (0.51% on 3 Oct); "is therapy
+   covered by alberta health care" 25 at 9.72. An answer that says what is
+   covered as well as what is not, plus her name and fee, does not fit 155
+   characters, and the name had not moved the click rate. Her name, fee and
+   calendar stay on the page while the gate is open: the cards, the hero
+   button and the mid-page line below. */
+export const albertaCoverageDescription =
+  'Therapy is not covered by Alberta Health Care unless a physician provides it, such as your doctor or a psychiatrist. Many plans pay, depending on the plan.';
 const TODAY = vancouverToday();
-const albertaCounsellor = practitioners.find(
+
+/* THE GATE ON THE TYPED SENTENCES — 13 Oct 2026. Camille's Alberta cover
+   closes on 15 Oct 2026 unless the renewal is recorded (insuranceGateDate in
+   lib/practitioners.ts). The cards and the hero button already followed
+   insuredProvinces; the mid-page line, one answer, the related links and a
+   paragraph on the check page were typed, and would have gone on naming
+   her, and linking Alberta place pages that redirect, after the gate
+   closed. They follow the same roster now, read at build time like every
+   static page. When nobody is insured for Alberta the booking buttons still
+   go to /book, which says sessions are for people in British Columbia, and
+   their label says so before the click. */
+export const ALBERTA_OPEN = practitioners.some(
   (p) => p.acceptingNewClients && insuredProvinces(p, TODAY).includes('AB'),
 );
-const albertaFacts = albertaCounsellor
-  ? namedProfileSnippet(
-      FALLBACK_CATALOG,
-      albertaCounsellor,
-      albertaCounsellor.credentials.some((c) => c.short === 'CCC') ? 'CCC' : undefined,
-    )
-  : undefined;
-export const albertaCoverageDescription = albertaFacts
-  ? withSnippet(ALBERTA_ANSWER, albertaFacts)
-  : ALBERTA_FALLBACK;
+export const BC_ONLY_LABEL = 'Book a free consultation in BC';
 
 /* ============================================================================
    ALBERTA RESOURCES
@@ -73,8 +76,10 @@ export const albertaResources: Resource[] = [
     metaTitle: 'Is Therapy Covered by Alberta Health Care (AHCIP)?',
     metaDescription: albertaCoverageDescription,
     eyebrow: 'Alberta',
+    /* 13 Oct 2026: answer first (see ALBERTA_ANSWER). Was "Alberta Health
+       does not pay for private counselling, which surprises people...". */
     lede:
-      'Alberta Health does not pay for private counselling, which surprises people who assume a provincial health card covers mental health the way it covers a fracture. Here is what actually pays, and what to ask before booking anything.',
+      'Therapy with a counsellor or psychologist in private practice is not covered by Alberta Health Care; a doctor or psychiatrist is. What does pay is a government add-on plan, Counselling Alberta’s sliding scale, and an extended health plan, depending on the plan. Here is each, and the one question to ask before booking.',
     /* 3 Oct 2026: "is therapy covered by alberta health care" 24 at 9.67
        and "counselling alberta" 13 at 6.46, no clicks (Search Console,
        3 Oct). The top results name two things this page did not: the
@@ -83,8 +88,9 @@ export const albertaResources: Resource[] = [
        read on their own sites 3 Oct 2026 (sources). */
     shortAnswer:
       'No. Alberta Health Care (AHCIP) does not cover private counselling; it pays for physicians, including a psychiatrist on referral. Two partial exceptions: the government’s optional Non-Group Coverage plan pays up to $60 a visit toward a registered psychologist, to $300 per family each benefit year, and Counselling Alberta, a government-funded service, charges on a sliding fee scale. Otherwise people pay through an extended health plan or out of pocket. Before booking privately, ask your insurer one question: does the plan reimburse a Canadian Certified Counsellor?',
-    updated: '2026-10-03',
+    updated: '2026-10-13',
     readMinutes: 6,
+    ...(ALBERTA_OPEN ? {} : { bookLabel: BC_ONLY_LABEL }),
     /* Year-end plan timing, 1 Oct to 31 Dec (item 210). The BC year-end page is not linked: its plan examples are BC ones. */
     seasonal: yearEndSeasonal({ yearEndLink: false, designation: 'Canadian Certified Counsellor', province: 'AB' }),
     sections: [
@@ -92,7 +98,7 @@ export const albertaResources: Resource[] = [
         /* Was "What AHCIP does and does not pay for" (1 Oct 2026). */
         h2: 'Is therapy covered by Alberta Health Care? What AHCIP pays for',
         body: [
-          'Alberta Health Care Insurance Plan coverage for mental health follows the same logic as most provincial plans: it pays for physicians. A visit to your family doctor about low mood is covered. A psychiatrist, if you can get a referral and wait for one, is covered. A counsellor or psychotherapist in private practice is not.',
+          'Alberta Health Care Insurance Plan coverage for mental health follows the same logic as other provincial plans: it pays for physicians. The government’s own list of what AHCIP does not cover names health services from a provider other than a physician, a psychologist among them, and clinical psychologist services. A visit to your family doctor about low mood is covered. A psychiatrist, if you can get a referral and wait for one, is covered. A counsellor or psychotherapist in private practice is not.',
           'That is not a gap specific to Alberta and it is not a judgement about whether counselling works. It is a consequence of how provincial plans are structured. They insure medical services delivered by physicians, and counselling is not delivered by one. The practical effect is the same either way: the cost of private counselling falls to you or to an extended health plan.',
           'One government plan does pay something. **Non-Group Coverage** is optional supplementary health insurance from the Government of Alberta, open to residents under 65 registered with AHCIP, for a monthly premium (subsidies are available on a low income). It pays up to $60 a visit for treatment by a registered psychologist, to a maximum of $300 per family each benefit year. It does not name counsellors, and $300 is a few sessions rather than a course of therapy.',
         ],
@@ -112,7 +118,7 @@ export const albertaResources: Resource[] = [
           /* CCPA and ACTA, read 1 Oct 2026: announced 1 March 2024; no
              regulation in force yet. */
           'That is due to change, though not yet. In March 2024 the province announced that counselling therapists will be regulated under the College of Alberta Psychologists; as of 1 October 2026 that regulation is not in effect.',
-          'What fills that space is national certification. The CCC is granted against education, supervised practice hours and a code of ethics, it is held on a public register, and it is what most Alberta plans point at as a result. Some plans also name a registered psychologist, which is a separate and regulated profession in Alberta with its own college and generally a higher fee.',
+          'What fills that space is national certification. The CCC is granted against education, supervised practice hours and a code of ethics, it is held on a public register, and it is the designation to ask an Alberta plan about as a result. Some plans also name a registered psychologist, which is a separate and regulated profession in Alberta with its own college and generally a higher fee.',
         ],
       },
       {
@@ -154,16 +160,21 @@ export const albertaResources: Resource[] = [
       {
         h2: 'If you do pay privately',
         body: [
-          'Ask for the receipt to carry the counsellor’s certification number. Most plans want it, and a receipt without one is the most common reason a legitimate claim gets returned.',
+          'Ask for the receipt to carry the counsellor’s certification number. Insurers ask for it, and a receipt without one is the most common reason a legitimate claim gets returned.',
           'Ask also whether the practice direct-bills or whether you pay and submit. Both are ordinary; the difference decides whether you are out of pocket for a month, which matters more to some people than the fee itself.',
         ],
       },
     ],
-    midCta: {
-      text: 'Camille Granda, RCC, CCC, can see clients in Alberta, and the first fifteen minutes are free.',
-      /* Was 'More about Camille', on a link that opens her calendar (item 384). */
-      label: 'Book a free consultation with Camille',
-    },
+    midCta: ALBERTA_OPEN
+      ? {
+          text: 'Camille Granda, RCC, CCC, can see clients in Alberta, and the first fifteen minutes are free.',
+          /* Was 'More about Camille', on a link that opens her calendar (item 384). */
+          label: 'Book a free consultation with Camille',
+        }
+      : {
+          text: 'No counsellor at this practice is insured to see clients in Alberta at the moment, so the routes on this page are the place to start.',
+          label: 'If you are in British Columbia, book a free consultation',
+        },
     faqs: [
       {
         /* Was "Does AHCIP cover any counselling at all?" (1 Oct 2026). */
@@ -184,7 +195,9 @@ export const albertaResources: Resource[] = [
       },
       {
         q: 'Can a counsellor based in BC see me in Alberta?',
-        a: 'It depends on their certification and their insurance rather than on where they sit. Counselling therapy is not regulated in Alberta, so the questions that matter are whether they hold a recognised certification and whether their liability cover extends to Alberta clients. At this practice one counsellor meets both conditions and the pages say which.',
+        a: 'It depends on their certification and their insurance rather than on where they sit. Counselling therapy is not regulated in Alberta, so the questions that matter are whether they hold a recognised certification and whether their liability cover extends to Alberta clients. ' + (ALBERTA_OPEN
+          ? 'At this practice one counsellor meets both conditions and the pages say which.'
+          : 'At this practice nobody is insured to see clients in Alberta at the moment, so sessions here are for people in British Columbia.'),
       },
       {
         q: 'Do I need a referral?',
@@ -193,7 +206,8 @@ export const albertaResources: Resource[] = [
     ],
     sources: [
       { label: 'Alberta Health Care Insurance Plan, Government of Alberta', url: 'https://www.alberta.ca/ahcip.aspx' },
-      { label: 'Non-Group Coverage, Government of Alberta: clinical psychological services, premiums and eligibility (read 3 Oct 2026)', url: 'https://www.alberta.ca/non-group-coverage' },
+      { label: 'AHCIP, what is covered and what is not: psychologists and other non-physician providers are not (Government of Alberta, read 13 Oct 2026)', url: 'https://www.alberta.ca/ahcip-what-is-covered' },
+      { label: 'Non-Group Coverage, Government of Alberta: clinical psychological services, premiums and eligibility (read 3 Oct and 13 Oct 2026)', url: 'https://www.alberta.ca/non-group-coverage' },
       { label: 'Counselling Alberta, a division of Calgary Counselling Centre (read 3 Oct 2026)', url: 'https://counsellingalberta.com/' },
       /* The Page9985 URL cited here until 3 Sep answered 200 and redirected to
          NotFound.aspx — a soft 404, which link-rot.mjs catches and a status
@@ -208,10 +222,16 @@ export const albertaResources: Resource[] = [
          insurance gate is open (her Canada-wide reach was withdrawn 3 Oct
          2026); her Alberta pages are the ones an Alberta reader can actually book
          from. Search Console, 17 Sep 2026: 'counselling alberta' at position
-         6.5 and her Calgary page converting a fifth of its impressions. */
-      { href: '/practitioners/camille-granda/calgary', label: 'Camille Granda in Calgary' },
-      { href: '/practitioners/camille-granda/edmonton', label: 'Camille Granda in Edmonton' },
-      { href: '/practitioners/camille-granda', label: 'Camille Granda, RCC, CCC, Alberta and BC' },
+         6.5 and her Calgary page converting a fifth of its impressions. With
+         the gate closed those place pages redirect, so they are not linked
+         (13 Oct 2026). */
+      ...(ALBERTA_OPEN
+        ? [
+            { href: '/practitioners/camille-granda/calgary', label: 'Camille Granda in Calgary' },
+            { href: '/practitioners/camille-granda/edmonton', label: 'Camille Granda in Edmonton' },
+            { href: '/practitioners/camille-granda', label: 'Camille Granda, RCC, CCC, Alberta and BC' },
+          ]
+        : [{ href: '/resources/does-my-plan-cover-counselling-bc', label: 'The question to ask Sun Life, Canada Life or GreenShield' }]),
       { href: '/resources/how-to-check-a-counsellor-in-alberta', label: 'How to check a counsellor in Alberta' },
       { href: '/tools/therapy-cost-bc', label: 'Work out what a session would actually cost you' },
       { href: '/pricing', label: 'Fees at this practice' },
@@ -232,6 +252,7 @@ export const albertaResources: Resource[] = [
       'Counselling therapy is not a regulated profession in Alberta, so there is no provincial college and no licence to verify. The province announced in March 2024 that counsellors will be regulated under the College of Alberta Psychologists, but no start date has been set. What you can verify today is national certification: a Canadian Certified Counsellor is listed on the CCPA register, and anyone claiming the title can be confirmed there. Psychologists are separately regulated and appear on their own college register.',
     updated: '2026-10-03',
     readMinutes: 5,
+    ...(ALBERTA_OPEN ? {} : { bookLabel: BC_ONLY_LABEL }),
     sections: [
       {
         h2: 'What "unregulated" actually means',
@@ -277,7 +298,9 @@ export const albertaResources: Resource[] = [
       {
         h2: 'What this practice publishes',
         body: [
-          'Each counsellor here lists her credentials with numbers on her own page, and the bodies behind them hold public registers you can search yourself. The counsellor who can see Alberta clients holds the CCC as well as a BC registration, and the Alberta-relevant one is named first on her Alberta pages for that reason.',
+          'Each counsellor here lists her credentials with numbers on her own page, and the bodies behind them hold public registers you can search yourself. ' + (ALBERTA_OPEN
+            ? 'The counsellor who can see Alberta clients holds the CCC as well as a BC registration, and the Alberta-relevant one is named first on her Alberta pages for that reason.'
+            : 'Nobody here is insured to see clients in Alberta at the moment, which is the kind of answer the insurance question above is meant to get.'),
           'The site also publishes no client testimonials, which is not modesty. The BC association prohibits them. Where reviews would normally sit, checkable credentials do instead.',
         ],
       },
@@ -285,7 +308,7 @@ export const albertaResources: Resource[] = [
     midCta: {
       text: 'Every credential named on this site is on a public register, with the number, so you can check it rather than take it on trust.',
       /* Was 'See the counsellors', on a link that opens the calendar (item 384). */
-      label: 'Book a free consultation',
+      label: ALBERTA_OPEN ? 'Book a free consultation' : 'If you are in British Columbia, book a free consultation',
     },
     faqs: [
       {
