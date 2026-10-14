@@ -70,7 +70,7 @@ export const moreGuides2: Guide[] = [
         h2: 'Doing it online',
         body: [
           'Couples work by video has one practical complication and one underrated advantage. The complication is logistics: two people, one camera, and the need for genuine privacy from children and housemates, which is harder than it sounds and worth solving before the first session rather than during it.',
-          'The advantage is that it removes the commute for two people rather than one, which is often the difference between a couple sustaining weekly sessions and quietly stopping after four. For couples on different shift patterns, or where one partner works away, virtual sessions are frequently the only format that survives contact with real life.',
+          'The advantage is that it removes the commute for two people rather than one, which is often the difference between a couple sustaining weekly sessions and quietly stopping after four. For couples on different shift patterns, or where one partner works away, virtual sessions are frequently the only format that survives contact with real life. That is how [online couples and marriage counselling](/services/couples-therapy) runs at this practice, by secure video anywhere in BC.',
           'Sitting side by side on one device works better than two devices in two rooms, which tends to reproduce the distance the therapy is trying to close. Where partners genuinely cannot be in the same place, it can still work. It is worth naming as a constraint rather than pretending it is neutral.',
         ],
       },

@@ -58,7 +58,7 @@ export const moreGuides: Guide[] = [
         h2: 'Weekly, biweekly, or something else',
         body: [
           'Frequency is a real variable, not an administrative detail. Weekly sessions build momentum and are usually recommended at the start and during any intensive piece of work, trauma reprocessing in particular is difficult to do well at a fortnightly pace, because too much of each session is spent re-establishing where you were.',
-          'Biweekly can work well once things are stable, when the work is largely about practising something between sessions, or when cost makes weekly unsustainable. Stretching to monthly is usually maintenance rather than treatment, and it is worth naming it as that rather than pretending it is the same thing more slowly.',
+          'Biweekly can work well once things are stable, when the work is largely about practising something between sessions, or when cost makes weekly unsustainable. Stretching to monthly is usually maintenance rather than treatment, and it is worth naming it as that rather than pretending it is the same thing more slowly. [Weekly vs biweekly sessions](/compare/weekly-vs-biweekly-sessions) sets the two side by side.',
           'Cost is a legitimate input to this decision and there is no need to be coy about it. Fewer sessions you can actually afford, spaced deliberately, beats a weekly plan you abandon in week five. The [fees page](/pricing) sets out what a session costs, and [paying for counselling in BC](/resources/msp-vs-extended-health) covers the routes.',
         ],
       },

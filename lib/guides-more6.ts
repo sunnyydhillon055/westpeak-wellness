@@ -422,7 +422,7 @@ export const moreGuides6: Guide[] = [
       {
         h2: 'What it costs',
         list: [
-          { label: 'Chronic over-preparation', detail: 'The most common compensation. Frequently rewarded, entirely invisible, and the reason the work looks manageable from outside while the person is running at capacity.' },
+          { label: 'Chronic over-preparation', detail: 'The most common compensation. Frequently rewarded, entirely invisible, and the reason the work looks manageable from outside while the person is running at capacity. It is also the signature of [high-functioning anxiety](/guides/high-functioning-anxiety).' },
           { label: 'Not applying', detail: 'Roles, promotions, opportunities declined pre-emptively on the grounds of not being ready. Compounds over a career in a way that is impossible to see from inside it.' },
           { label: 'Difficulty delegating', detail: 'Not control. An unwillingness to have your name on anything you did not verify. A major driver of overload in senior roles.' },
           { label: 'Inability to be visible', detail: 'Avoiding presenting, publishing or claiming credit, which then genuinely reduces recognition and supplies real evidence for the belief.' },

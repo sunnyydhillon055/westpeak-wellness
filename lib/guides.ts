@@ -283,7 +283,7 @@ const coreGuides: Guide[] = [
       {
         h2: "When it is worth getting support",
         body: [
-          "One panic attack in a stressful period is common and not necessarily a sign of anything ongoing. The pattern worth acting on is when the fear of the next one starts shaping your decisions: avoiding the highway, the supermarket, the meeting, being alone. That avoidance is what converts an unpleasant experience into a condition that narrows your life.",
+          "One panic attack in a stressful period is common and not necessarily a sign of anything ongoing. The pattern worth acting on is when the fear of the next one starts shaping your decisions: avoiding the highway, the supermarket, the meeting, being alone. That avoidance is what converts an unpleasant experience into a condition that narrows your life. When the attacks cluster around the job, [panic attacks at work](/guides/panic-attacks-at-work) covers the moment itself and what to tell a manager; when the fear is of being watched and judged rather than of the body’s alarm, [social anxiety in adults](/guides/social-anxiety-in-adults) is the closer description.",
           "Panic responds well to structured treatment, particularly CBT-based approaches that work directly on the catastrophic interpretation of body sensations. That is the core of [anxiety counselling](/services/individual-therapy). If the anxiety instead runs quietly underneath a life that looks entirely functional from outside, [the guide on high-functioning anxiety](/guides/high-functioning-anxiety) is the more relevant one.",
         ],
       },
@@ -339,7 +339,7 @@ const coreGuides: Guide[] = [
         h2: "Why it goes unnoticed",
         body: [
           "Most descriptions of anxiety centre on impairment. The person who cannot go to work, cannot leave the house, cannot cope. If your anxiety has produced the opposite, that description does not fit, so you conclude you do not qualify. If you want to put words to it first, the [reflection tool](/tools/stress-check) asks six questions and gives no score.",
-          "The pattern that gets called high-functioning anxiety runs the other way. The worry becomes fuel. You are early, over-prepared, and reliable. You reply immediately. You reread the message before sending. You are the person others describe as having it together, and none of it feels like competence from inside. It feels like staying just ahead of something.",
+          "The pattern that gets called high-functioning anxiety runs the other way. The worry becomes fuel. You are early, over-prepared, and reliable. You reply immediately. You reread the message before sending. You are the person others describe as having it together, and none of it feels like competence from inside. It feels like staying just ahead of something. Where the dread centres on being judged in company rather than on falling behind, [social anxiety in adults](/guides/social-anxiety-in-adults) is the closer description.",
           "**The reason to take it seriously is not that it stops you functioning. It is what the functioning costs.** Rest that is not restful, achievement that produces relief rather than satisfaction, and a nervous system that has not been off in years.",
         ],
       },
@@ -612,7 +612,7 @@ faqs: [
         h2: "What burnout officially is",
         body: [
           "In [ICD-11 the WHO defines burn-out](https://www.who.int/news/item/28-05-2019-burn-out-an-occupational-phenomenon-international-classification-of-diseases) as a syndrome resulting from chronic workplace stress that has not been successfully managed, with three dimensions: energy depletion or exhaustion, increased mental distance from one's job or feelings of cynicism about it, and reduced professional efficacy.",
-          "Two things in that definition matter. First, it is **specifically occupational**. The WHO states it should not be applied to experiences in other areas of life. Second, it is **not classified as a medical condition**; it is an occupational phenomenon. So while a doctor can sign you off sick for the exhaustion, \"burnout\" itself is not a diagnosis they are making.",
+          "Two things in that definition matter. First, it is **specifically occupational**. The WHO states it should not be applied to experiences in other areas of life. Second, it is **not classified as a medical condition**; it is an occupational phenomenon. So while a doctor can sign you off sick for the exhaustion ([how stress leave works in BC](/resources/workplace-mental-health-bc) covers that route), \"burnout\" itself is not a diagnosis they are making.",
           "That framing has a consequence people find either clarifying or infuriating: **burnout is a description of what a situation has done to a person.** The situation is part of the problem, and no amount of self-care resolves an unsustainable workload.",
         ],
       },

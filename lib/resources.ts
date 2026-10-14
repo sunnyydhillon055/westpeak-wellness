@@ -248,7 +248,7 @@ const coreResources: Resource[] = [
         h2: "What MSP does cover for mental health",
         body: [
           "It is worth being precise, because \"MSP doesn't cover therapy\" leads some people to assume nothing is available publicly, which is not true.",
-          "**Your GP is covered**, and a GP appointment about mental health is a legitimate use of one. They can assess, discuss medication, sign you off work, and refer onward. **A psychiatrist is covered on referral**: psychiatrists are physicians, so their services fall under MSP. The constraint is availability rather than cost, and wait times can be long, particularly outside the Lower Mainland.",
+          "**Your GP is covered**, and a GP appointment about mental health is a legitimate use of one. They can assess, discuss medication, sign you off work, and refer onward. **A psychiatrist is covered on referral**: psychiatrists are physicians, so their services fall under MSP. The constraint is availability rather than cost, and wait times can be long, particularly outside the Lower Mainland. [Psychiatry and assessment in BC](/resources/psychiatry-and-assessment-in-bc) sets out the referral routes, including without a family doctor.",
           "**Health authority mental-health and substance-use services are free at point of use.** Each authority: Fraser Health, Vancouver Coastal, Island Health, Interior Health, Northern Health: runs assessment, counselling, and treatment programs, generally accessible by self-referral or GP referral.",
         ],
       },
@@ -355,7 +355,7 @@ const coreResources: Resource[] = [
           "**If you are a post-secondary student**, use Here2Talk and your campus service. Both are already paid for.",
           "**If you are employed**, check whether you have an EAP before paying for anything.",
           "**If cost is the binding constraint and you can wait**, your health authority's service is free and the referral process is straightforward.",
-          "**If you need to start soon, or need a specific language or specialisation**, private practice is usually the faster route, and fee policies vary between practitioners. There is more on how to compare them in the [guide to finding a therapist in BC](/guides/how-to-find-a-therapist-in-bc).",
+          "**If you need to start soon, or need a specific language or specialisation**, private practice is usually the faster route, and fee policies vary between practitioners. [No waitlist counselling or therapy in BC?](/guides/waiting-for-therapy-in-bc) sets out how long each route really takes. There is more on how to compare them in the [guide to finding a therapist in BC](/guides/how-to-find-a-therapist-in-bc).",
         ],
       },
     ],

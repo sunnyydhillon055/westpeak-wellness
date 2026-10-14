@@ -305,7 +305,11 @@ export default function About() {
           <p>
             <strong>Looking for counselling work?</strong> Westpeak is not recruiting at the moment
             and is not taking speculative applications. The counsellor role advertised earlier
-            this year has closed.
+            this year has closed. If you are still training,{' '}
+            <Link href="/resources/becoming-a-counsellor-in-bc">
+              how to become a Registered Clinical Counsellor in BC
+            </Link>{' '}
+            sets out the route, stage by stage.
           </p>
         </div>
       </section>

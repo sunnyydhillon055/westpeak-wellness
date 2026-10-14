@@ -18,7 +18,7 @@ export const moreAudiences2: Audience[] = [
     updated: '2026-08-31',
     readMinutes: 7,
     opening: [
-      'A great deal of British Columbia’s work happens on rotation: mining, forestry, energy, marine, remote construction, wildfire crews, and the trades that follow them. It pays well and it structures a life around a calendar that almost no service in the province is designed for.',
+      'A great deal of British Columbia’s work happens on rotation: mining, forestry, energy, marine, remote construction, wildfire crews, and the trades that follow them (the site side has a page of its own, on [counselling for tradespeople](/for/trades-and-construction-workers)). It pays well and it structures a life around a calendar that almost no service in the province is designed for. In the Peace it is the ordinary working week, which is why [counselling in Fort St. John](/online-counselling/fort-st-john) is set up around a rotation.',
       'The counselling problem is straightforward and rarely solved. Weekly appointments do not survive a two-week rotation. Camp connectivity is unreliable. There is frequently no counsellor within two hours of site. And the fortnight at home is already spoken for by the family, the house, and everything deferred while you were away.',
       'What tends to bring people here is not the job itself. It is that the pattern has started costing something at home, and the two weeks off have stopped feeling like time off.',
     ],

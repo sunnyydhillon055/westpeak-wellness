@@ -120,7 +120,7 @@ export const moreGuides5: Guide[] = [
       {
         h2: 'What treatment actually involves',
         body: [
-          'Social anxiety responds well to structured cognitive-behavioural work, and the shape of that work surprises people, because it involves doing less rather than coping better.',
+          'Social anxiety responds well to structured cognitive-behavioural work, the kind [individual counselling](/services/individual-therapy) is built around, and the shape of that work surprises people, because it involves doing less rather than coping better.',
           '**Attention training comes first.** Deliberately moving attention outward in a feared situation, onto what the other person is actually saying, onto details of the room, rather than onto your own performance. This alone changes the experience substantially, and it is trainable.',
           '**Then dropping safety behaviours,** deliberately and one at a time. Speaking without the rehearsed sentence. Not holding the glass. Making eye contact. This is uncomfortable by design, and the discomfort is the mechanism. It is what allows a situation to demonstrate that you were fine without the prop.',
           '**Then behavioural experiments rather than exposure alone.** Not enduring a situation, but testing a specific prediction: "if I pause mid-sentence, people will visibly judge me." Then checking. The predictions are almost never confirmed, and the accumulation of that evidence is what shifts the belief.',
