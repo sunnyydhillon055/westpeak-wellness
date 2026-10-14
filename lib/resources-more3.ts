@@ -229,21 +229,33 @@ export const moreResources3: Resource[] = [
     slug: 'mental-health-leave-templates-bc',
     linkable: true,
     title: 'Mental-health leave templates for BC: the request, the note, and the HR checklist',
-    metaTitle: 'Mental Health Leave Templates for BC: Request, Note, HR',
+    /* 13 Oct 2026: 101 impressions at 9.94, 0 clicks, in the 13 Oct export.
+       Search Console shows no query with "template" in it; what it does show
+       near this page is "asking for mental health leave" (1 at 10) and
+       "mental health leave" (28 at 9.64), the searcher's task being to ask.
+       The results above it for "mental health leave letter to employer" are
+       a WorkSafeBC employer form, UK and US templates and law-firm articles;
+       none is a BC employee's email to copy. The title now says what the
+       page is for (asking) and what it gives (the letter), and keeps "mental
+       health leave". Before: 'Mental Health Leave Templates for BC: Request,
+       Note, HR' and 'Copyable templates for a medical leave in BC: a request
+       letter for the employee, what to ask the doctor for, and an HR
+       checklist with ESA, EI and the return.' */
+    metaTitle: 'How to Ask for a Mental Health Leave: BC Letter Templates',
     metaDescription:
-      'Copyable templates for a medical leave in BC: a request letter for the employee, what to ask the doctor for, and an HR checklist with ESA, EI and the return.',
+      'A copy-and-paste email asking your employer for a mental health leave, a checklist for your doctor’s note, and a BC HR checklist: ESA days, EI and the ROE.',
     eyebrow: 'Resource · Work',
     lede:
-      'Our guide to stress leave explains how a mental-health leave in BC works. This page is the paperwork: three things to copy, adapt and send.',
+      'To ask for a mental health leave, email your manager or HR that you need a medical leave from a date, that a certificate confirms it, and when it will be reviewed, and nothing about why. The first template below is that email; the other two are the doctor’s checklist and the employer’s.',
     shortAnswer:
-      'A mental-health leave in BC is a medical leave certified by a physician or nurse practitioner, with income from paid sick days, an employer\'s short-term disability plan if there is one, or EI sickness benefits. The templates below give the employee a written request that says what the employer needs and nothing more, a note on what to ask the certifying clinician to include, and an employer a checklist from the first day to the return. Every legal fact is sourced to the government page it came from, read on 1 October 2026; the explanation of why each step exists lives in the stress-leave guide and is not repeated here.',
+      'A mental-health leave in BC is a medical leave certified by a physician or nurse practitioner, with income from paid sick days, an employer\'s short-term disability plan if there is one, or EI sickness benefits. The templates below give the employee a written request that says what the employer needs and nothing more, a note on what to ask the certifying clinician to include, and an employer a checklist from the first day to the return. Every legal fact is sourced to the government page it came from, read on 1 October 2026; the explanation of why each step exists is on the stress leave in BC page and is not repeated here.',
     updated: '2026-10-01',
     readMinutes: 9,
     sections: [
       {
         h2: 'Read the guide first, then come back for the paperwork',
         body: [
-          'Everything about *why* is in [stress leave in BC: what it actually takes](/guides/stress-leave-bc): who can certify a leave and who cannot, what "stress leave" means legally, where the money comes from, and why the return is the part nobody plans. The three companion guides go deeper on [the doctor\'s note](/guides/doctors-note-for-a-mental-health-leave), [EI sickness benefits](/guides/ei-sickness-benefits-and-therapy) and [the return to work](/guides/return-to-work-after-a-mental-health-leave). This page assumes you have read the first one and gives you the documents.',
+          'Everything about *why* is in [stress leave in BC: how to get it, whether it is paid, and your rights at work](/resources/workplace-mental-health-bc): who can certify a leave and who cannot, what "stress leave" means legally, where the money comes from, and how the return is planned. [Going on stress leave, step by step](/guides/stress-leave-bc) is the longer walk-through, and three companion guides go deeper on [the doctor\'s note](/guides/doctors-note-for-a-mental-health-leave), [EI sickness benefits](/guides/ei-sickness-benefits-and-therapy) and [the return to work](/guides/return-to-work-after-a-mental-health-leave). This page assumes you have read the first one and gives you the documents.',
           'The facts the templates rest on, each from the government page named in the sources, read on 1 October 2026:',
         ],
         list: [

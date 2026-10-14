@@ -30,7 +30,7 @@ export const moreGuides6: Guide[] = [
       'The paperwork question and the clinical question are different, and most pages about this answer neither.',
     shortAnswer:
       `A stress leave in BC needs certification from a physician or nurse practitioner. A Registered Clinical Counsellor cannot sign one, and any counsellor implying otherwise is misleading you. Income during leave usually comes from either EI sickness benefits (up to 26 weeks, 55% of insurable earnings to a maximum of ${EI_WEEKLY_IN_YEAR}) or an employer short-term disability plan, and which applies depends on your plan rather than on your diagnosis. Counselling runs alongside that process; it is not the route into it.`,
-    updated: '2026-10-03',
+    updated: '2026-10-13',
     readMinutes: 9,
     figure: 'burnout-vs-depression',
     /* THE HEADINGS ARE THE QUERIES — 1 Oct 2026.
@@ -54,6 +54,12 @@ export const moreGuides6: Guide[] = [
       {
         h2: 'Medical stress leave in BC: who can sign it, and who cannot',
         body: [
+          /* 13 Oct 2026: Google prefers /resources/workplace-mental-health-bc
+             for this cluster (2,278 impressions at 9.86, 22 clicks, 13 Oct
+             export) and showed this guide nowhere in the same export. That page
+             is now the one-page answer; this one is the longer walk-through
+             and says so before anything else. */
+          'If you want the one-page answer first, with the paid-or-unpaid table source by source, [stress leave in BC: how to get it, whether it is paid, and your rights at work](/resources/workplace-mental-health-bc) has it. This guide is the longer walk-through: who signs, the order to do things in, and what to say at work.',
           'A Registered Clinical Counsellor **cannot certify a medical leave in British Columbia.** Not for an employer, not for a short-term disability insurer, and not for EI. That requires a physician or a nurse practitioner (for EI, Service Canada also accepts a psychologist’s certificate), and it is worth saying plainly on a counselling website because a page that leaves it vague is quietly implying otherwise to somebody who is unwell and looking for the shortest route.',
           'So the first call is to a doctor or a nurse practitioner, not to a counsellor. If you do not have a family doctor, a walk-in clinic, an urgent and primary care centre, or a virtual visit through your provincial coverage can all assess and certify. It is not necessary to have been seeing that clinician for years.',
           'What counselling does do is run alongside. In practice it is often what the leave is *for*. A leave with nothing happening inside it tends to end with the same person returning to the same conditions in the same state. Insurers also frequently want to see that a person on a mental-health leave is engaged in treatment, and counselling records that engagement even where the counsellor is not the certifying clinician.',
@@ -213,12 +219,12 @@ export const moreGuides6: Guide[] = [
          the six other pages on the same subject. A reader who lands here and
          needs the doctor's note, the EI figures or the disability route was
          being sent back to Google to find them on this same site. */
+      { href: '/resources/workplace-mental-health-bc', label: 'Stress leave in BC on one page: how to get it, is it paid' },
       { href: '/guides/doctors-note-for-a-mental-health-leave', label: 'Getting the doctor\'s note for a stress leave' },
       { href: '/guides/ei-sickness-benefits-and-therapy', label: 'EI sickness benefits: 55% for up to 26 weeks' },
       { href: '/guides/sick-days-and-mental-health-days-bc', label: 'Paid sick days and mental-health days in BC' },
       { href: '/resources/disability-benefits-and-counselling-bc', label: 'Short and long-term disability for mental health' },
       { href: '/resources/worksafebc-psychological-injury-claims', label: 'When it is a WorkSafeBC claim instead' },
-      { href: '/resources/workplace-mental-health-bc', label: 'Mental health and work in BC' },
       { href: '/resources/mental-health-leave-templates-bc', label: 'The leave request, the doctor-note checklist and the HR checklist, as templates' },
       { href: '/guides/burnout-vs-depression', label: 'Burnout or depression?' },
       { href: '/tools/burnout-or-depression', label: 'Burnout or depression? A three-minute check' },
