@@ -1,5 +1,7 @@
 import type { Resource } from './resources';
 import { CONFIDENTIALITY_LIMITS } from '@/lib/practice-facts';
+import { individualFeePhrase } from '@/lib/session-arithmetic';
+import { CONSULT_MINUTES } from '@/lib/cliniko-catalog';
 
 /* WHAT "COUNSELLING" MEANS IN PUNJABI — added 17 Sep 2026 from Search Console.
  *
@@ -37,7 +39,19 @@ export const punjabiWordsResource: Resource[] = [
     language: 'pa',
     figure: 'first-session-flow',
     title: 'What counselling means in Punjabi, word by word',
-    metaTitle: 'Counselling Meaning in Punjabi (ਕਾਊਂਸਲਿੰਗ), Therapy, Consult',
+    /* A LIST, NOT A WORD — 13 Oct 2026. The 13 Oct export has this page at
+       1,932 impressions, position 8.8, one click (0.05%): "counselling
+       meaning in punjabi" 384 at 9.6, "counseling meaning in punjabi" 153,
+       "consult meaning in punjabi" 113, "counselor meaning in punjabi" 105,
+       "therapy meaning in punjabi" 96, "salah mashwara in english" 76, "...
+       with example" 20. Impressions nearly doubled on the 3 Oct answer-first
+       snippet and CTR halved: the description WAS the answer, so the result
+       was read and not clicked. The title keeps the head query and now
+       promises what a snippet cannot hold, the whole word list and example
+       sentences; the description names the words and the family phrasing
+       instead of giving one of them away. Before: "Counselling Meaning in
+       Punjabi (ਕਾਊਂਸਲਿੰਗ), Therapy, Consult" (data/gsc/snippets.json). */
+    metaTitle: 'Counselling Meaning in Punjabi: Word List, With Examples',
     /* ANSWER IN THE SNIPPET, 3 Oct 2026. The 3 Oct export has this page at
        1,036 impressions, position 8.8, one click (0.1%). Every query is "X
        meaning in punjabi" (counselling 248, therapy 65, consult 61, counselor
@@ -45,45 +59,72 @@ export const punjabiWordsResource: Resource[] = [
        Gurmukhi words and no answer, so an English searcher scanning for a
        meaning saw a line they could not read. It now leads in English with the
        answer and names the other words the page answers. The title is
-       unchanged: it already carries the head query. */
+       unchanged: it already carries the head query. Replaced 13 Oct 2026,
+       see the title note above. */
     metaDescription:
-      'Counselling in Punjabi is ਕਾਊਂਸਲਿੰਗ (kaunsling) or ਸਲਾਹ-ਮਸ਼ਵਰਾ (salah-mashwara). Therapy, therapist, consult and burnout too, and what each word carries.',
+      'Counselling, counsellor, therapy, therapist, consult and salah-mashwara in one Punjabi word table, with example sentences and what to say to parents.',
     eyebrow: 'Punjabi · Words',
     lede:
       'There is no single Punjabi word that means what English means by counselling, and that gap is doing more damage in more families than any of the words themselves.',
     shortAnswer:
       'Counselling is most often said in Punjabi as ਕਾਊਂਸਲਿੰਗ (kaunsling), the English word written in Gurmukhi, or as ਸਲਾਹ-ਮਸ਼ਵਰਾ (salah-mashwara), which means consultation or taking advice. Neither is exact: the first is borrowed and the second suggests someone telling you what to do, which is not what a counsellor does. Related words are ਮਾਨਸਿਕ ਸਿਹਤ (mansik sehat, mental health), ਚਿੰਤਾ (chinta, worry or anxiety), ਉਦਾਸੀ (udaasi, low mood), ਤਣਾਅ (tanaa, stress) and ਥਕਾਵਟ (thakavat, exhaustion, which is how burnout is usually described). The word most families fear is ਪਾਗਲ (paagal, mad) and it has nothing to do with any of this.',
-    updated: '2026-10-03',
-    readMinutes: 5,
+    updated: '2026-10-13',
+    readMinutes: 6,
     sections: [
       {
-        h2: 'The two words people reach for, and why neither is quite right',
-        /* ENGLISH COLUMN FIRST, 3 Oct 2026. The searchers arrive with the
-           English word ("therapy meaning in punjabi") and scan for it, the way
-           a dictionary result lays it out; the rows had the Gurmukhi first and
-           the English only inside the explanation. Same words, same glosses,
-           one column added. The "Counsel" row answers "counsel meaning in
-           punjabi" (17 impressions) from the FAQ's existing gloss of ਸਲਾਹ. */
+        h2: 'Counselling meaning in Punjabi: the words in one table',
+        /* THE TABLE LEADS, 13 Oct 2026. Every query this page is shown for
+           is "X meaning in punjabi" (see the title note), and the first
+           table sat under a heading that named none of them, after a
+           paragraph, with cells of two or three sentences each. Now the
+           heading carries the head query, nothing stands between it and
+           the table, and each cell is a meaning short enough to be read
+           at a glance or lifted whole. What each word carries moved into
+           the section below, unchanged in substance. Same words as before;
+           ਸਲਾਹਕਾਰ and ਇਲਾਜ, which the old cells named inside their
+           explanations, get rows of their own. No new Gurmukhi. */
         table: {
-          columns: ['English', 'Punjabi', 'Said as', 'What it actually carries'],
+          columns: ['English', 'Punjabi', 'Said as', 'Meaning'],
           rows: [
-            ['Counselling', 'ਕਾਊਂਸਲਿੰਗ', 'kaunsling', 'The English word, written in Gurmukhi. Accurate in meaning, borrowed in feel, which is why an older relative may not recognise it.'],
-            ['Consultation, counselling', 'ਸਲਾਹ-ਮਸ਼ਵਰਾ', 'salah-mashwara', 'Consultation, taking advice. Familiar and respectable, but it implies being told what to do — the opposite of how counselling works.'],
-            ['Counsel, advice', 'ਸਲਾਹ', 'salah', 'Advice: the first half of salah-mashwara.'],
-            ['Mental health', 'ਮਾਨਸਿਕ ਸਿਹਤ', 'mansik sehat', 'Mental health, literally. Neutral and accurate. Useful precisely because it sounds medical rather than shameful.'],
-            ['Psychologist', 'ਮਨੋਵਿਗਿਆਨੀ', 'manovigiaani', 'Psychologist. Often used loosely for any mental-health professional, which causes confusion about who can diagnose.'],
-            /* The next four rows answer the queries Search Console shows this
-               page for and it did not name: "counsellor / therapist / therapy
-               / consult meaning in punjabi", about 90 impressions a month
-               between them at positions 9-12. Added 26 Sep 2026. */
-            ['Counsellor, counselor', 'ਕਾਊਂਸਲਰ', 'kaunslar', 'Counsellor, the English word in Gurmukhi. The older word ਸਲਾਹਕਾਰ (salahkaar) means adviser and is used for lawyers and financial advisers too, which is not the same job.'],
-            ['Therapy', 'ਥੈਰੇਪੀ', 'therapy', 'Therapy, borrowed as it is. ਇਲਾਜ (ilaaj) means treatment and sounds medical, which is sometimes useful and sometimes exactly the wrong note.'],
-            ['Therapist', 'ਥੈਰੇਪਿਸਟ', 'therapist', 'Therapist. No native equivalent; ਮਨੋਵਿਗਿਆਨੀ above is the word people reach for, and it means psychologist, which a counsellor is not.'],
-            ['To consult', 'ਸਲਾਹ ਲੈਣਾ', 'salah laina', 'To consult, literally to take advice. The free 15-minute consultation at this practice is a ਮੁਫ਼ਤ ਸਲਾਹ-ਮਸ਼ਵਰਾ, and it is a conversation, not advice.'],
+            ['Counselling, counseling', 'ਕਾਊਂਸਲਿੰਗ', 'kaunsling', 'The English word, written in Gurmukhi'],
+            ['Consultation', 'ਸਲਾਹ-ਮਸ਼ਵਰਾ', 'salah-mashwara', 'Consultation, taking advice; the formal word for counselling'],
+            ['Counsellor, counselor', 'ਕਾਊਂਸਲਰ', 'kaunslar', 'The English word, written in Gurmukhi'],
+            ['To consult', 'ਸਲਾਹ ਲੈਣਾ', 'salah laina', 'To take advice'],
+            ['Counsel, advice', 'ਸਲਾਹ', 'salah', 'Advice'],
+            ['Adviser', 'ਸਲਾਹਕਾਰ', 'salahkaar', 'Any adviser, including a lawyer or a financial adviser'],
+            ['Therapy', 'ਥੈਰੇਪੀ', 'therapy', 'The English word, borrowed as it is'],
+            ['Treatment', 'ਇਲਾਜ', 'ilaaj', 'Treatment, as a doctor gives it'],
+            ['Therapist', 'ਥੈਰੇਪਿਸਟ', 'therapist', 'The English word; there is no native equivalent'],
+            ['Psychologist', 'ਮਨੋਵਿਗਿਆਨੀ', 'manovigiaani', 'Psychologist, which a counsellor is not'],
+            ['Mental health', 'ਮਾਨਸਿਕ ਸਿਹਤ', 'mansik sehat', 'Mental health, literally'],
           ],
         },
+      },
+      {
+        h2: 'Why neither word for counselling is quite right',
         body: [
-          'In practice most Punjabi speakers in Canada use ਕਾਊਂਸਲਿੰਗ when speaking to someone their own age and ਸਲਾਹ-ਮਸ਼ਵਰਾ or ਮਾਨਸਿਕ ਸਿਹਤ when explaining it to a parent or grandparent. Both are correct. If you are trying to describe it to family, ਮਾਨਸਿਕ ਸਿਹਤ ਬਾਰੇ ਗੱਲ ਕਰਨਾ — talking about mental health — lands more easily than either, because it describes what happens rather than naming a service nobody has used.',
+          'ਕਾਊਂਸਲਿੰਗ is accurate in meaning and borrowed in feel, which is why an older relative may not recognise it. ਸਲਾਹ-ਮਸ਼ਵਰਾ is familiar and respectable, but it implies being told what to do, the opposite of how counselling works. ਸਲਾਹ on its own is advice, the first half of salah-mashwara.',
+          'The older word for a counsellor, ਸਲਾਹਕਾਰ, means adviser and is used for lawyers and financial advisers too, which is not the same job. ਮਨੋਵਿਗਿਆਨੀ is the word people reach for when they mean therapist, and it means psychologist, which a counsellor is not; it is also used loosely for any mental-health professional, which causes confusion about who can diagnose. ਇਲਾਜ sounds medical, which is sometimes useful and sometimes exactly the wrong note.',
+          'ਮਾਨਸਿਕ ਸਿਹਤ is neutral and accurate, and useful precisely because it sounds medical rather than shameful. In practice most Punjabi speakers in Canada use ਕਾਊਂਸਲਿੰਗ when speaking to someone their own age and ਸਲਾਹ-ਮਸ਼ਵਰਾ or ਮਾਨਸਿਕ ਸਿਹਤ when explaining it to a parent or grandparent. Both are correct.',
+        ],
+      },
+      {
+        h2: 'How to say it to family, with example sentences',
+        /* 13 Oct 2026: "counselling meaning in punjabi with example" and
+           "counseling ... with example", 10 impressions each at 8.7-9.5.
+           Every Punjabi sentence below is quoted as it already stands on
+           this site: the first two from the Punjabi guide on talking to
+           family (lib/punjabi-guides.ts, parivar-naal-therapy-di-gall), the
+           third from the same guide's questions, the fourth the Punjabi
+           pages' own booking button. Only the English beside them is new. */
+        body: [
+          'If you are trying to describe it to family, ਮਾਨਸਿਕ ਸਿਹਤ ਬਾਰੇ ਗੱਲ ਕਰਨਾ, talking about mental health, lands more easily than either word, because it describes what happens rather than naming a service nobody has used. The site’s Punjabi guide on [talking to family about therapy](/punjabi/guides/parivar-naal-therapy-di-gall) suggests the language of getting on with things rather than the language of illness. These are its examples, and two lines from elsewhere on the Punjabi pages:',
+        ],
+        list: [
+          { label: 'ਮੈਂ ਕਿਸੇ ਨਾਲ ਗੱਲ ਕਰ ਰਿਹਾ ਹਾਂ ਤਾਂ ਜੋ ਬਿਹਤਰ ਸੰਭਾਲ ਸਕਾਂ।', detail: 'I am talking with someone so that I can manage things better.' },
+          { label: 'ਮੈਂ ਕਿਸੇ ਨਾਲ ਗੱਲ ਕਰ ਰਿਹਾ ਹਾਂ ਜੋ ਲੋਕਾਂ ਨੂੰ ਤਣਾਅ ਸੰਭਾਲਣਾ ਸਿਖਾਉਂਦਾ ਹੈ।', detail: 'I am talking with someone who teaches people to handle stress.' },
+          { label: 'ਕੀ ਮੈਂ ਮਾਪਿਆਂ ਨੂੰ ਵੀ ਕਾਊਂਸਲਿੰਗ ਲਈ ਲਿਆ ਸਕਦਾ ਹਾਂ?', detail: 'Can I bring my parents to counselling too? ਕਾਊਂਸਲਿੰਗ used in a sentence, as most families say it.' },
+          { label: 'ਮੁਫ਼ਤ ਸਲਾਹ-ਮਸ਼ਵਰਾ ਬੁੱਕ ਕਰੋ', detail: 'Book a free consultation. ਸਲਾਹ-ਮਸ਼ਵਰਾ in use, on the button of every Punjabi page here.' },
         ],
       },
       {
@@ -111,10 +152,19 @@ export const punjabiWordsResource: Resource[] = [
         ],
       },
       {
-        h2: 'If you want the rest of this in Punjabi',
+        /* THE BRIDGE, 13 Oct 2026. Of 1,932 searchers a few want the thing
+           and not the word ("counselling in punjabi" 27 at 9.4, "therapy in
+           punjabi" 13 at 11). This section said where to read more and
+           never who to see; it now names her, what she offers (individual
+           counselling, OFFERINGS), the fee from the catalogue and the free
+           consultation; the next-consultation line the template already keys
+           to this section (NEXT_CONSULT_AFTER, app/resources/[slug]) follows
+           with her next opening. Merged here rather than added as a block. */
+        h2: 'If you want counselling in Punjabi, not only the word',
         body: [
+          `Savneet Singh, a Registered Clinical Counsellor, offers individual counselling in Punjabi, English, or both in the same session, by secure video anywhere in British Columbia. A session is ${individualFeePhrase()}, after a free ${CONSULT_MINUTES}-minute consultation that can be in Punjabi too. [Her profile](/practitioners/savneet-singh) says how she works.`,
           'The practice keeps a full set of pages written in Punjabi rather than translated word for word: [ਪੰਜਾਬੀ ਵਿੱਚ ਕਾਊਂਸਲਿੰਗ](/punjabi) is the main one, with guides on [what happens in a first session](/punjabi/guides/pehle-session-vich-ki-hunda-hai) and [low mood and exhaustion](/punjabi/guides/udaasi-jaan-thakevan).',
-          'In English, [Punjabi-speaking counselling](/services/punjabi-counselling) explains how sessions work and who provides them, and [therapy in Punjabi versus English](/compare/therapy-in-punjabi-vs-english) is about which language to actually choose, which is a harder question than it looks when you think in both.',
+          'In English, [Punjabi-speaking counselling](/services/punjabi-counselling) explains how sessions work, and [therapy in Punjabi versus English](/compare/therapy-in-punjabi-vs-english) is about which language to actually choose, which is a harder question than it looks when you think in both.',
         ],
       },
     ],

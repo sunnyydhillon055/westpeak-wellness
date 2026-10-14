@@ -83,6 +83,11 @@ export type PunjabiRegion = {
   region: string;          // display name, e.g. "Prince George"
   wider: string;           // e.g. "Northern BC"
   metaDescription: string; // <= 155 chars
+  /* The region's own title, when its searches use a word the composed one
+     ("Punjabi Counselling in {region}, BC | Westpeak") lacks, as
+     Location.hubTitle does for the Kamloops hub. Only where an export shows
+     the query; <= 60 characters. 13 Oct 2026. */
+  metaTitle?: string;
   blurb: string;           // hero one-liner
 
   /** The demographic fact the page rests on. Must be sourced. */
@@ -587,10 +592,15 @@ export const punjabiRegions: PunjabiRegion[] = [
     figure: { value: "13,305", label: "Vancouver residents, just 2.0%, Punjabi is only the fifth mother tongue here, behind Cantonese and Mandarin" },
     region: 'Vancouver',
     wider: 'the city proper, not the suburbs',
+    /* 13 Oct 2026: 57 impressions at 9.1 and no clicks, and the one query
+       naming the city was "punjabi therapist vancouver", 8 at 12. The
+       composed title said counselling only. Before: "Punjabi Counselling in
+       Vancouver, BC | Westpeak". */
+    metaTitle: 'Punjabi Therapist in Vancouver, BC | Online Counselling',
     blurb:
       'Punjabi is the fifth mother tongue in Vancouver, behind Cantonese and Mandarin. Being multilingual as a city is not the same as being multilingual in your language.',
     metaDescription:
-      'Punjabi-speaking online counselling for Vancouver. Sessions in Punjabi, English, or both, with an RCC, without the trip to Surrey. Free consultation.',
+      'A Punjabi-speaking therapist for Vancouver, online. Sessions in Punjabi, English, or both, with an RCC, without the trip to Surrey. Free consultation.',
     demography: {
       stat: 'Punjabi is the mother tongue of 13,305 Vancouver residents: 2.0%, and fifth in the city behind English, Cantonese, Mandarin and Tagalog.',
       body: [

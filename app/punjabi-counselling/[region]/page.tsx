@@ -62,7 +62,7 @@ export async function generateMetadata({ params }: { params: { region: string } 
     speaker ? serviceSnippet(await readCatalog(), 'individual-therapy', [speaker]) : undefined,
   );
   return {
-    title: { absolute: `Punjabi Counselling in ${r.region}, BC | Westpeak` },
+    title: { absolute: r.metaTitle ?? `Punjabi Counselling in ${r.region}, BC | Westpeak` },
     description,
     /* Canonical only. This page declared hreflang pa -> /punjabi until 1 Oct
        2026, but /punjabi is not a translation of a region page and pairs with
@@ -145,7 +145,14 @@ export default async function PunjabiRegionPage({ params }: { params: { region: 
         <div className="container">
           <p className="eyebrow">{r.wider} · Online · ਪੰਜਾਬੀ</p>
           <h1>Punjabi-speaking counselling in {r.region}</h1>
-          <p className="lede">{r.blurb}</p>
+          {/* THE ANSWER UNDER THE HEADING — 13 Oct 2026. Vancouver (57 at
+              9.1), North Vancouver (42 at 7), Courtenay (32 at 7.1) and New
+              Westminster (21 at 10.5): no clicks between them. The hero
+              opened with the region's census line and the sentence saying
+              who, how, what it costs and the free consultation sat below
+              the breadcrumbs. It now leads; the census line takes its old
+              place, where the local section it introduces begins. */}
+          <p className="lede direct-answer">{opening}</p>
           <Updated iso={COLLECTION_DATES['punjabiRegions']} />
           <div className="btn-row" style={{ marginTop: 24 }}>
             <BookLink location="hero-language-region" href={cta.href}>{cta.label}</BookLink>
@@ -173,14 +180,10 @@ export default async function PunjabiRegionPage({ params }: { params: { region: 
             ]}
           />
 
-          {/* The direct-answer block. Stated plainly and early, because this is
-              the sentence somebody is scanning for and it is what gets lifted
-              into a featured snippet or an AI overview. Since 1 Oct 2026 it
-              answers who, how, what it costs and the consultation; it opened
-              with the census figure, which the Stat block and the first
-              paragraph then said twice more. The census now leads the local
-              section below, where it is the argument. */}
-          <p className="lede direct-answer" style={{ marginTop: 8 }}>{opening}</p>
+          {/* The region's one-liner, here since 13 Oct 2026, when the
+              direct answer (who, how, what it costs, the consultation; since
+              1 Oct) moved up under the heading. */}
+          <p className="lede" style={{ marginTop: 8 }}>{r.blurb}</p>
 
           {speaker && (
             <>
