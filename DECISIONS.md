@@ -3391,6 +3391,137 @@ The owner was receiving, and forwarding to both counsellors, enquiries that are 
 
 That rule stands for every signal about how a message was sent: speed, duplicates, links, throwaway addresses. It now has one narrow exception about what was written. An enquiry that uses two or more distinct newsletter or sales-script phrases (lib/triage.ts MARKETING) is stored in full and shown in /admin with the reason. It is not counted as an enquiry, and no mail goes out for it: no alert, and no acknowledgement to the script's address. Requiring two phrases is the safeguard: a person who mentions the newsletter once, or asks to be kept posted, still gets through. scripts/triage-guard.mjs and test/triage-marketing.test.mts hold both cases. Names, IP addresses and geography are still never read.
 
+---
+
+### The workplace page is the one stress-leave answer; the guide is its long form (13 Oct 2026)
+Decided 13 Oct 2026 (branch `wf/c8-leave`), from the 13 Oct Search Console export. This reverses the 6 Sep and 1 Oct choices, which made /guides/stress-leave-bc the hub and had /resources/workplace-mental-health-bc hand the how-to query on to it. Google did the opposite across five exports. The guide went 98 impressions (6 Sep) -> 117 -> 91 -> 50 at 9.78 (3 Oct), and then had no row at all in the 13 Oct pages export, which lists pages down to 1 impression. It is still served as indexable with a self-canonical. Over the same period the workplace page went 2,104 at 10.45 -> 2,278 at 9.86, with 22 clicks.
+
+The ~25 stress-leave queries came to about 600 impressions at positions 12-20 with 1 click: "how to go on stress leave bc" 44 at 18.68, "how does stress leave work in bc" 44 at 18.8, "how to get stress leave in bc" 43 at 16.67, "is stress leave paid in bc" 38 at 12.26, "medical stress leave bc" 38 at 18.34, "how to apply for stress leave in bc" 37 at 20.59, "bc stress leave" 34 at 19.56 and "stress leave bc" 25 at 16.76.
+
+A query family still gets one page, and it is now the page Google shows. The workplace page carries:
+- an answer-first short answer;
+- "How to get stress leave in BC, in five steps";
+- a paid-or-unpaid table, source by source (ESA, EI, STD, LTD, WorkSafeBC, Canada Labour Code, the duty to accommodate);
+- how long it lasts and who signs;
+- seven FAQs in the searchers' words.
+
+Its title changed from 'Mental Health at Work BC: Leave, Accommodation | Westpeak', which did not contain the head query, to 'Stress Leave in BC: How to Get It, Is It Paid, Your Rights'.
+
+The guide stays live and indexable, keeps its title, and opens by sending the reader to the one-page answer. The siblings' "how stress leave works in BC" anchors and their "full picture" related links now point at the workplace page. There is no redirect, canonical or noindex. The guide is not a duplicate (it has the walk-through and the what-to-say detail), and about fifteen other files link to it. If the next export again shows the guide absent while the workplace page gains, a 301 with those counts is the next decision.
+
+Facts were re-read on 13 Oct:
+- gov.bc.ca paid sick leave: 5 paid, 3 unpaid, 90 days, "reasonably sufficient proof".
+- canada.ca EI sickness: 55% to the maximum, 26 weeks. "Do you qualify" (modified 16 Jul 2026): 600 insured hours in 52 weeks, earnings down more than 40%, a psychologist among the certifiers. "Apply" (modified 2 Jun 2026): more than 4 weeks after the last day of work may cost benefits.
+- WorkSafeBC mental-health claims: a diagnosed condition from a significant work-related stressor or a traumatic event; the employer-decision exclusion.
+
+Same day, item 12 and 14a title and description changes, with before and after so the next export can measure them:
+- Sick days (531 at 7.07, 9 clicks): 'Can You Use Sick Days for Mental Health in BC? ({year})' -> 'Mental Health Days in BC: Can You Use Sick Days? ({year})'. Head query "mental health days bc", 25 at 5.6.
+- Medical EI (415 at 8.15, 1 click): 'How Much Does Medical EI Pay in BC in {year}? Rate, 26 Weeks' -> 'How Much Medical EI Pays in BC ({year}): Mental Health Leave'. The description no longer gives the whole answer; it promises a worked example, computed from lib/benefit-figures.ts so that no dollar figure is typed.
+- Templates (101 at 9.94, 0 clicks): 'Mental Health Leave Templates for BC: Request, Note, HR' -> 'How to Ask for a Mental Health Leave: BC Letter Templates'.
+- The doctor's-note and return-to-work titles are unchanged (2.61% and 5.08% CTR). Those two pages got answer-first ledes and query FAQs only.
+
+*Enforced by:* `test/leave-cluster.test.mts`, `test/meta-title-year.test.mts`, `scripts/price-drift.mjs`, `scripts/coverage-claims.mjs`, and the next `data/gsc/` export read against the figures above.
+
+---
+
+### The RCC page compares the four designations; insurer-by-insurer coverage answers; MSP and Alberta answer in the searchers' words; Alberta's typed lines follow the gate
+Decided 13 Oct 2026 (branch `wf/c8-rcc-coverage`), from the Search Console export of 13 Oct.
+
+**RCC.** /resources/verify-a-counsellor-in-bc had 1,862 impressions at 10.91 and 16 clicks (0.86%). "registered clinical counsellor" was 286 at 22.31, "what is a registered clinical counsellor" 23 at 13.3, "rcc vs ccc" 4 at 7.5 and "bcacc find a counsellor" 78 at 9.03. The first H2 now asks "What is a Registered Clinical Counsellor (RCC)?". The four-paragraph designations section became an RCC vs CCC vs psychologist vs social worker table: who grants each, minimum training, whether it can diagnose, and where to check it. The CCC row was read at CCPA on 13 Oct 2026. The comparison page keeps fees and scope. Because "bcacc find a counsellor" is a navigational search, the answer links BCACC's Find a Counsellor directory beside the register. The title is unchanged: CTR went from 0.38% to 0.86% under it, and the next export should measure the content change alone.
+
+**Plan coverage.** /resources/does-my-plan-cover-counselling-bc had 628 impressions at 6.28 and 0.48% CTR, flat after the 3 Oct title. It now opens with a short answer for each of Pacific Blue Cross, Sun Life, Manulife, Canada Life and GreenShield, all plan-dependent, with each insurer's own page as the source. GreenShield's FAQ and Sun Life's Provider Search FAQ (formerly Lumino Health) were read 13 Oct 2026. Title 'Does Pacific Blue Cross or Sun Life Cover Counselling in BC?' -> 'Pacific Blue Cross, Sun Life, Manulife: Counselling Coverage'. Head query "pacific blue cross counselling coverage", 7 at 1.14; "manulife counselling coverage" 3 at 28.3. "Psychologists are on almost every list" and "Most plans do not require one" are reworded.
+
+**MSP.** /resources/msp-vs-extended-health had 128 impressions at 9.65 and no clicks. "counselling covered by msp bc" was 4 at 17.75. Title 'Does MSP Cover Therapy in BC? Is Therapy Free?' -> 'Is Counselling Covered by MSP in BC? MSP vs Extended Health'. The answer quotes the province's own list of services MSP does not cover ("services of counsellors or psychologists", gov.bc.ca, read 13 Oct 2026). The table's "Almost always covered" is gone, and the typed $250 psychologist rate now reads BCPA_PSYCHOLOGIST.
+
+**Alberta.** /resources/counselling-coverage-in-alberta had 412 impressions at 6.48 and 0.49% CTR, flat on the 3 Oct description that named Camille. "is therapy covered by alberta health care" was 25 at 9.72. The description and lede now answer first. The description is the same whatever the gate: the answer plus her name and fee do not fit in 155 characters, and the name had not moved CTR. The AHCIP not-covered list and Non-Group Coverage were re-read on alberta.ca on 13 Oct 2026.
+
+Camille's Alberta cover closes on 15 Oct 2026 unless the renewal is recorded. Some lines were typed and would have gone on naming her after that: the mid-page line, one FAQ answer, the related links to her Calgary and Edmonton pages (which redirect once the gate closes), and the check page's paragraph. These now follow `ALBERTA_OPEN`, which is built from the gated roster. When nobody is insured for Alberta, the booking buttons still go to /book, which says sessions are for people in British Columbia, and their labels now say so: the optional `Resource.bookLabel` gives "Book a free consultation in BC", and the mid-page link reads "If you are in British Columbia, book a free consultation". The gate state is taken at build time, so the first build on or after 15 Oct without a recorded renewal renders the closed state.
+
+No new page, redirect, canonical or noindex.
+
+*Enforced by:* `test/c8-rcc-coverage.test.mts`, `test/snippets-oct3.test.mts`, `test/claims-corrections.test.mts`, `scripts/coverage-claims.mjs`
+
+---
+
+### The Punjabi words page promises the list and leads with its table; /punjabi, Punjabi Vancouver and the Tagalog service page are titled in the words searched
+Decided 13 Oct 2026 (branch `wf/c8-language`), from the 13 Oct Search Console export.
+
+**Words page.** /resources/counselling-in-punjabi-what-the-words-mean had 1,932 impressions at position 8.8 and one click (0.05%). The queries: "counselling meaning in punjabi" 384 at 9.6, "counseling" 153, "consult" 113, "counselor" 105, "therapy" 96, "salah mashwara in english" 76, and "with example" 20. Impressions nearly doubled on the 3 Oct answer-in-the-snippet description and CTR halved. The result itself answered the question, so nobody clicked.
+
+- The title keeps the head query and promises what a snippet cannot hold: "Counselling Meaning in Punjabi: Word List, With Examples".
+- The description names the words, the table and the family phrasing instead of giving one word away.
+- The page now opens on a short English-first word table under a heading that carries the head query, with nothing between the heading and the table. What each word carries moved into prose.
+- A new section gives four example sentences, each quoted exactly as it already stands on the site's Punjabi pages, with English glosses. No new Punjabi.
+- The closing section now names Savneet Singh, individual counselling, the catalogue fee and the free consultation. The existing next-consultation line follows it.
+
+**/punjabi.** It has had 0 clicks in every export under both title orders: English first 111 at 10.3 and 134 at 9.8; Gurmukhi first 142 at 9.9 and 111 at 9.5. The 1 Oct reason for putting Gurmukhi first (letting /services/punjabi-counselling win the English queries) did not come true: that page had 2 impressions at 25, then none. The description had opened in Gurmukhi throughout. The title and description now lead with "Counselling in Punjabi" in English. The Gurmukhi stays in both, and the description carries the fee, the consultation and the counsellor. One English line sits under the H1. The hreflang pair is unchanged.
+
+**Punjabi region pages.** Vancouver had 57 impressions at 9.1, North Vancouver 42 at 7 and Courtenay 32 at 7.1, all with no clicks. The direct answer (who, how, what it costs, the consultation) now sits under the H1, and the census blurb takes its old place. A region may carry its own `metaTitle`, as Location.hubTitle does, only where an export shows the query. Only Vancouver does: "Punjabi Therapist in Vancouver, BC | Online Counselling", for "punjabi therapist vancouver" (8 impressions at 12).
+
+**/services/tagalog-counselling.** It had 24 impressions at 8.6 and no clicks. It is titled "Counselling & Therapy in Tagalog for Filipinos in BC" for "counselling in tagalog" (4 at 8) and "filipino counsellor" (2 at 8). "For Filipinos" names the audience, not the counsellor's background.
+
+Builders must not use `git stash` in this repo: the stash is shared by every worktree, and two builders' stashes crossed during this round (both trees were restored and checked before commit).
+
+*Enforced by:* `test/language-c8.test.mts`, `test/language-brand-oct3.test.mts`
+
+---
+
+### Vancouver's hub answers its own query; the BC hub, four city hubs and the waiting guide carry their searchers' words (13 Oct 2026)
+Decided 13 Oct 2026 (branch `wf/c8-places`), from the Search Console export of 13 Oct.
+
+**Why the Vancouver hub vanished.** /online-counselling/vancouver had 680 impressions at 51.7 (6 Sep) and none in the 26 Sep, 3 Oct or 13 Oct exports. Live on 13 Oct it is 200, index/follow, self-canonical and in sitemaps/city-hubs.xml, so the cause is not technical. Its head queries came back on 13 Oct ("online counselling vancouver" 35 at 22.7, "virtual counselling vancouver" 32 at 26.9, "online therapy vancouver" 26 at 33.7, "virtual therapy vancouver" 23 at 25.8, "counsellor online vancouver" 15 at 25.1). The page Google shows for them is the North Vancouver hub: 171 impressions at 19.5, of which only about 10 come from queries saying "north". north-vancouver/depression-counselling (109 at 22.1) takes "depression counselling/therapy vancouver" (59) the same way. The Vancouver hub did not answer its query. Its lede argued affordability, its fee was typed, its one hard number (a 2025 rent figure) had no source, and it implied lunch-break and after-work times.
+
+What changed:
+- The hub now answers first and says "therapy" as its searchers do.
+- The fee comes from `fallbackFee`. The rent figure and the availability wording are gone.
+- It carries the one fact true of Vancouver alone, read on VCH's own page on 13 Oct 2026: the Access and Assessment Centre (City of Vancouver residents 17+, self-referral by phone or walk-in) lists "Counselling or referral to counselling services" among services it does not provide. That page is cited in the hub's sources.
+- North Vancouver links the hub with "online counselling in Vancouver" and a "South of the inlet instead?" card.
+
+**Hub titles and H1s may follow their own head queries.** `Location.hubTitle` now covers Kamloops plus Vancouver, Prince George, Vernon and Langford, and a new `Location.hubH1` sits beside it (only where a hubTitle exists; test/places-topics.test.mts). Before -> after, with each hub's head queries:
+- Vancouver: "Online & Virtual Counselling in Vancouver | Counsellors" -> "Online Counselling & Virtual Therapy in Vancouver, BC".
+- Prince George: "Online & Virtual Counselling Prince George | Counsellors" -> "Prince George Therapy & Counselling | Online Therapists" ("anxiety therapy prince george" 17 at 15.7, "therapist prince george" 13 at 20.3, "therapy prince george" 12 at 15.4; hub 182 at 15.2).
+- Vernon: "Online & Virtual Counselling in Vernon, BC | Counsellors" -> "Online Therapy & Counselling in Vernon, BC | Counsellors" ("online therapy vernon" 10 at 8.5, "counselling vernon bc" 7 at 20.1).
+- Langford: "Online & Virtual Counselling in Langford | Counsellors" -> "Counselling in Langford, BC | Online, Virtual Counsellors" ("counselling langford" 10 at 35.9).
+
+Surrey, Courtenay, Fort St. John and North Vancouver keep their composed titles and get answer-first ledes.
+
+**/online-counselling is the one BC target.** It had 238 impressions at 31.8; /services/online-counselling-bc had 6 at 7.5 and has been a 308 to it since 31 Aug, so no new redirect or canonical was needed. The title changed from "Online Counselling in BC | Virtual Therapy, Province-Wide" to "Online Counselling & Therapy in BC | Virtual Counsellors" ("online counselling bc" 48 at 38, "online counsellor bc" 48 at 39, "online therapy bc" 25 at 42, "online therapy british columbia" 10 at 29), and the H1 adds "and therapy". Its waitlist answer no longer opens "Not here": it points at the live next-consultation line and links the waiting guide.
+
+**The no-waitlist family is answered by the waiting guide, not a new page.** /guides/waiting-for-therapy-in-bc had 195 impressions at 7.76. Its named queries are "no waitlist counsellor/counselling/therapist/therapy bc" (21 at 5.7-11), the Vancouver and Abbotsford variants, and the AI question about the shortest private wait. The title changed from "How Long Is the Wait for Therapy in BC? Public vs Private" to "No Waitlist Counselling or Therapy in BC? How Long Waits Are", and the H1 now asks the question. The page gains a section on finding the shortest private wait and two FAQs. It never promises "no waitlist": it points at the next open consultation times the page already loads from Cliniko in the browser. No new page, redirect, canonical or noindex.
+
+*Enforced by:* `test/places-topics.test.mts`, `test/snippets-oct3.test.mts`, the SEO gate's title and description limits.
+
+---
+
+### Trauma and couples get a BC pillar each, in the page that already held the answer; five guides answer in their snippets
+Decided 13 Oct 2026 (branch `wf/c8-modalities`), from the Search Console export of 13 Oct.
+
+**Cause.** City pages were ranking for province-wide queries. /online-counselling/north-vancouver/trauma-therapy had 965 impressions at 51.3 and no clicks, nearly all national: "trauma counselling" 81 at 52.5, "online therapy for trauma" 39 at 69.7, "trauma therapist online" 35 at 62.6, "trauma counselling vancouver" 26 at 39.5, "online trauma therapy bc" 7 at 20.7. /online-counselling/mission/couples-therapy had 395 at 25.2, while /services/couples-therapy had 152 at 28.7 with 1 click. The service pages that should hold those queries had a title and H1 naming only the method. The section written for the province-wide query ("Online trauma therapy in BC, with and without EMDR"; "Gottman-informed couples counselling in BC") sat inside the collapsed "More on how this work runs" fold, which is also where the trauma city pages' `CONDITION_UPLINK` anchor landed.
+
+**Decision.** /services/emdr-therapy is the BC trauma pillar and /services/couples-therapy the BC couples and marriage pillar. /services/trauma-therapy stays a 308 to EMDR, because trauma is a condition, not a sixth service (31 Aug, 1 Oct). New optional `Service` fields:
+- `heading` replaces the name in the H1.
+- `leadSection` renders one depth section open under the intro. It goes first in the TOC and `ExtraSections` skips it in the fold.
+- `areaAlso` makes the EMDR page also link down to the 20 trauma city pages.
+
+By-area chips now carry named anchors ("Trauma Therapy and Counselling in Vernon", "EMDR Therapy in Vernon", "Couples and Marriage Counselling in Mission"). `CONDITION_UPLINK['couples-therapy']` sends the 20 couples city pages to the open Gottman section as "online couples and marriage counselling across BC". Both pillar sections name who takes the work from the roster: trauma-informed counselling with every accepting counsellor (it books into individual counselling), EMDR and couples with whoever lists them. Gottman wording stays "-informed", with no level claimed.
+
+**Titles** (before -> after, for the next export):
+- /services/emdr-therapy: "Online EMDR Therapist in BC | Trauma Therapy | Westpeak" -> "Online Trauma Therapy, Counselling and EMDR in BC | Westpeak".
+- /services/couples-therapy: "Gottman-Informed Couples Counselling Online in BC | Westpeak" -> "Gottman-Informed Couples and Marriage Counselling Online BC" (head query "gottman method marriage counselling british columbia" 17 at 30.6).
+- /guides/setting-boundaries-with-family: "What Are Family Boundaries, and How to Set One" -> "What Are Family Boundaries? Examples, and How to Set Them" (178 at 7.4; "what are family boundaries" 2 at 6).
+- /guides/burnout-vs-depression: "Burnout vs Depression: The Difference | Westpeak Wellness" -> "Burnout vs Depression: How to Tell the Difference" (100 at 12.2).
+- /guides/panic-attacks-at-work: "Panic Attacks at Work | Westpeak Wellness" -> "Panic Attacks at Work: What to Do in the Moment and After" (30 at 9.1).
+- /guides/how-the-gottman-method-works: "How the Gottman Method Works, and Who Uses It in BC" -> "How the Gottman Method Works in Couples Therapy | Westpeak" (27 at 7.5).
+- /guides/high-functioning-anxiety: description only. Its 3 Oct title is still being measured (31 -> 10.5).
+
+The boundaries and burnout short answers now open with the direct answer. All seven descriptions were rewritten to answer first; the served lengths are 140 to 155.
+
+No page added, no noindex, redirect or canonical change; 0 pages consolidated.
+
+*Enforced by:* `test/modality-pillars-oct13.test.mts`, `test/services-pages.test.mts` (couples up-link), `scripts/uniqueness-gate.mjs`, `scripts/seo-audit.mjs`
+
+All 22 title changes from this round are recorded in `data/gsc/snippets.json` `title-changes`, dated 2026-10-13 and tagged with their item (c8-1 ... c8-15c), as served after the merged build.
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`
