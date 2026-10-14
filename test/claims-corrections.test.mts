@@ -365,7 +365,7 @@ test('the RCC page opens with the definition and has one "not regulated" section
   assert.match(r.shortAnswer, /not a government licence; psychotherapy becomes regulated in BC on 29 November 2027/);
   const h2s = r.sections.map((s) => s.h2);
   assert.equal(h2s[1], 'Registered counsellor, clinical counsellor, licensed counsellor: what each title means in BC');
-  assert.equal(h2s[0], 'What the letters actually certify');
+  assert.equal(h2s[0], 'What is a Registered Clinical Counsellor (RCC)?'); // 13 Oct 2026, was 'What the letters actually certify'
   assert.ok(!h2s.includes('Why this is necessary in BC specifically'));
   assert.ok(!h2s.some((h) => /thirty-second orientation/.test(h)));
   const titles = r.sections[1].body!.join(' ');

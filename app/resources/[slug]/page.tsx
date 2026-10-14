@@ -120,7 +120,7 @@ export default async function ResourcePage({ params }: { params: { slug: string 
   /* A resource written for one language books with the counsellor who
      speaks it; one written for Alberta with the counsellor insured there;
      every other resource keeps the practice calendar. */
-  const cta = bookingCtaFor({ language: r.language, province: r.province, fallback: 'Book a free consultation' });
+  const cta = bookingCtaFor({ language: r.language, province: r.province, fallback: r.bookLabel ?? 'Book a free consultation' });
   /* The next free consultation, once per page, under the hero button since
      3 Oct 2026 (item 409): with the counsellors the closing cards show (the
      page's language and province already applied), or, on a resource that
@@ -207,7 +207,11 @@ export default async function ResourcePage({ params }: { params: { slug: string 
             {r.slug === 'verify-a-counsellor-in-bc' && (
               <>
                 {' '}
-                <a href={site.counsellor.registerUrl} target="_blank" rel="noopener">Search the BCACC register</a>.
+                {/* "bcacc find a counsellor", 78 impressions at 9.0 (Search
+                    Console 13 Oct 2026), is a navigational search: the
+                    directory goes beside the register, in the answer. */}
+                <a href={site.counsellor.registerUrl} target="_blank" rel="noopener">Search the BCACC register</a>, or
+                find one in <a href="https://bc-counsellors.org/counsellors/" target="_blank" rel="noopener">BCACC’s Find a Counsellor directory</a>.
               </>
             )}
           </p>

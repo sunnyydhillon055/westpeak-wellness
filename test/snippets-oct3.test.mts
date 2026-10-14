@@ -64,14 +64,15 @@ test('the rewritten descriptions carry the fee and fit, and none opens "No." or 
   assert.doesNotMatch(ab.metaDescription, /^No\./);
   assert.match(ab.metaDescription, /depending on the plan/);
   assert.equal(ab.title, 'Is therapy covered by Alberta Health Care? What counselling costs in Alberta');
-  /* Her name and fee only while the gated roster still offers her in Alberta. */
-  const live = reachesAlberta(practitioners.filter((p) => p.acceptingNewClients));
-  assert.equal(ab.metaDescription.includes('Camille Granda'), live);
+  /* 13 Oct 2026: one answer-first description whatever the gate; her name
+     and fee stay on the page (test/c8-rcc-coverage.test.mts). */
+  assert.ok(!ab.metaDescription.includes('Camille Granda'));
 });
 
 test('the coverage resource title names the insurer in full, within 60', () => {
   const r = resources.find((x) => x.slug === 'does-my-plan-cover-counselling-bc')!;
-  assert.equal(r.metaTitle, 'Does Pacific Blue Cross or Sun Life Cover Counselling in BC?');
+  /* 13 Oct 2026: the head query's words, "pacific blue cross counselling coverage". */
+  assert.equal(r.metaTitle, 'Pacific Blue Cross, Sun Life, Manulife: Counselling Coverage');
   assert.ok(r.metaTitle.length <= 60);
 });
 

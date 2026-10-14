@@ -8,6 +8,12 @@ import { moreResources3 } from './resources-more3';
 import { ONLINE_COVERAGE } from '@/lib/practice-facts';
 import { FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
 import { feeSnippet, withSnippet } from '@/lib/snippet-facts';
+import { BCPA_PSYCHOLOGIST } from '@/lib/fee-guides';
+
+/* The province's own list of what MSP does not pay for, read 13 Oct 2026:
+   it names "services of counsellors or psychologists". */
+const MSP_NOT_COVERED =
+  'https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/benefits/services-not-covered-by-msp';
 
 export type ResourceSection = {
   h2: string;
@@ -53,6 +59,11 @@ export type Resource = {
      (insuredProvinces in lib/practitioners.ts), not the practice-wide
      calendar, which also lists BC-only counsellors. 1 Oct 2026. */
   province?: 'AB';
+  /* The booking buttons' label when the page's own default would mislead:
+     on an Alberta page while nobody is insured there, "Book a free
+     consultation in BC", since the button can only reach /book, which is
+     for people in British Columbia. 13 Oct 2026. */
+  bookLabel?: string;
   /* Opt in to the "who you would talk to" cards, the fee line and the
      coverage line (lib/counsellor-cards.ts INFO_CARD_PAGES lists the pages
      that carry them today). 1 Oct 2026. */
@@ -194,20 +205,27 @@ const coreResources: Resource[] = [
     figure2: "first-session-flow",
     figure: "therapy-cost-in-bc",
     title: "MSP vs extended health: what actually covers therapy in BC",
-    metaTitle: "Does MSP Cover Therapy in BC? Is Therapy Free?",
-    /* 3 Oct 2026 (item 458): 257 impressions at 10.2 and 0.39% CTR under
-       the "No." answer-first description. The routes, the house coverage
-       words and the generated fee instead. */
+    /* 13 Oct 2026: 128 impressions at 9.65 and no clicks (Search Console
+       13 Oct). The searches say "counselling" and "covered by msp", not
+       "therapy" and "free": "counselling covered by msp bc" 4 at 17.75,
+       "is counselling covered by msp" 1 at 9, "counselling covered by msp"
+       1 at 13, "is therapy covered by msp" 2 at 34. The title now asks
+       their question and keeps the page's own name; the description answers
+       it in the province's words and keeps the generated fee. Was "Does MSP
+       Cover Therapy in BC? Is Therapy Free?". */
+    metaTitle: "Is Counselling Covered by MSP in BC? MSP vs Extended Health",
     metaDescription: withSnippet(
-      "MSP does not cover private counselling. Three routes are free; many plans pay, depending on the plan.",
+      "Counselling is not covered by MSP in BC; your doctor and a psychiatrist are. What is free, and what extended health pays.",
       feeSnippet(FALLBACK_CATALOG),
     ),
     eyebrow: "Resource · Coverage",
     lede:
       "British Columbians are used to health care being covered. Mental health is the place where that assumption breaks.",
+    /* 13 Oct 2026: the answer opens with the query's words and the
+       province's own list (MSP_NOT_COVERED, read 13 Oct 2026). */
     shortAnswer:
-      "MSP covers medically necessary physician services, including your GP and, on referral, a psychiatrist. It does not cover private counselling with a counsellor, psychologist, or social worker. Free publicly funded mental-health care does exist through health authorities and community programs; private therapy is paid for out of pocket or through an extended health plan.",
-    updated: '2026-09-17',
+      "Counselling is not covered by MSP in BC: the province lists the services of counsellors and psychologists among the things MSP does not pay for. MSP covers medically necessary physician services, including your GP and, on referral, a psychiatrist. It does not cover private counselling with a counsellor, psychologist, or social worker. Free publicly funded mental-health care does exist through health authorities and community programs; private therapy is paid for out of pocket or through an extended health plan.",
+    updated: '2026-10-13',
     readMinutes: 5,
     sections: [
       {
@@ -219,8 +237,8 @@ const coreResources: Resource[] = [
             ["GP appointments", "Covered", "Not applicable"],
             ["Psychiatrist (on referral)", "Covered", "Not applicable"],
             ["Health authority mental-health services", "Covered", "Not applicable"],
-            ["Private counselling (RCC)", "Not covered", "Commonly covered, check your plan wording"],
-            ["Private psychologist", "Not covered", "Almost always covered"],
+            ["Private counselling (RCC)", "Not covered", "Many plans, depending on the plan; check the wording"],
+            ["Private psychologist", "Not covered", "Many plans, depending on the plan"],
             ["Medication", "Not covered by MSP itself", "Often covered; PharmaCare may also apply"],
             ["Wait time", "Varies by region and urgency", "Usually days to a couple of weeks"],
           ],
@@ -238,7 +256,7 @@ const coreResources: Resource[] = [
         h2: "What it does not cover, and why",
         body: [
           "MSP funds *medically necessary services delivered by physicians*. A Registered Clinical Counsellor is not a physician, so counselling sits outside the scheme regardless of how necessary it is. The same applies to psychologists and social workers in private practice.",
-          "That is a structural feature of how the plan is defined rather than a judgement about whether therapy works, and it is why the private and public mental-health systems in BC feel so disconnected. It also explains the odd situation where a psychiatrist is free and a psychologist costs $250 an hour.",
+          `That is a structural feature of how the plan is defined rather than a judgement about whether therapy works, and it is why the private and public mental-health systems in BC feel so disconnected. It also explains the odd situation where a psychiatrist is free and a psychologist costs ${BCPA_PSYCHOLOGIST.range} ${BCPA_PSYCHOLOGIST.unit} at the BC Psychological Association’s recommended rate.`,
           "The practical consequence: for most people the route to therapy without a long wait runs through an [extended health plan](/resources/bc-extended-health-coverage-for-counselling) or out-of-pocket payment, or through the [free and low-cost services](/resources/low-cost-counselling-bc) that do exist, if you can wait.",
         ],
       },
@@ -259,6 +277,9 @@ const coreResources: Resource[] = [
       label: "Book a free consultation",
     },
     faqs: [
+      /* 13 Oct 2026: the page's searches in their own words (see metaTitle). */
+      { q: "Is counselling covered by MSP in BC?", a: `No. The province’s own list of [services not covered by MSP](${MSP_NOT_COVERED}) includes the services of counsellors and psychologists. MSP pays for physicians, so a GP visit about your mental health is covered, and so is a psychiatrist you are referred to. Counselling in a health authority program is free at the point of use; counselling in private practice is paid by you or by an extended health plan, depending on the plan.` },
+      { q: "Do MSP supplementary benefits cover counselling?", a: `No. MSP’s supplementary benefits, for the people who qualify for them, are acupuncture, chiropractic, massage therapy, naturopathy, physiotherapy and non-surgical podiatry, as the province lists them. Counselling is not on that list.` },
       /* Search Console, 17 Sep 2026: 'is therapy free in bc', thirteen impressions at position 24, plus 'is it covered by msp' and 'does msp cover counselling'. */
       { q: 'Is therapy free in BC?', a: 'Some of it. MSP pays for a family doctor and, on referral, a psychiatrist. Counselling is free through a handful of public and community routes, all with waits and session limits: a few sessions through a community mental health team, employer assistance programs, and services such as Foundry for young people. Private counselling with a Registered Clinical Counsellor is not free, and many extended health plans reimburse it, depending on the plan; the [fees page](/pricing) has every number.' },
       { q: "Can my GP refer me to a counsellor and have MSP pay?", a: "No. A GP referral does not convert private counselling into an MSP-covered service. A GP can, however, refer you into free health authority programs and to a psychiatrist, both of which are covered." },
@@ -268,6 +289,8 @@ const coreResources: Resource[] = [
     ],
     sources: [
       { label: "Province of BC, Medical Services Plan", url: "https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp" },
+      { label: "Province of BC, services not covered by MSP: “services of counsellors or psychologists” (read 13 Oct 2026)", url: MSP_NOT_COVERED },
+      { label: "Province of BC, services covered by MSP, including supplementary benefits (read 13 Oct 2026)", url: "https://www2.gov.bc.ca/gov/content/health/health-drug-coverage/msp/bc-residents/benefits/services-covered-by-msp" },
       { label: "Province of BC, mental health and substance use support", url: "https://www2.gov.bc.ca/gov/content/mental-health-support-in-bc" },
       { label: "HereToHelp BC, navigating the system", url: "https://www.heretohelp.bc.ca/" },
     ],
