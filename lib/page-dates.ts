@@ -19,7 +19,7 @@ export { urlLastmod };
 
 export const PAGE_DATES: Record<string, string> = {
   "": "2026-10-03",
-  "/about": "2026-10-03",
+  "/about": "2026-10-13",
   "/services": "2026-10-03",
   "/approaches": "2026-10-03",
   "/pricing": "2026-10-03",

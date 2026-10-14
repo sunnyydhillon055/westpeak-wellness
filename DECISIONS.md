@@ -3522,6 +3522,43 @@ No page added, no noindex, redirect or canonical change; 0 pages consolidated.
 
 All 22 title changes from this round are recorded in `data/gsc/snippets.json` `title-changes`, dated 2026-10-13 and tagged with their item (c8-1 ... c8-15c), as served after the merged build.
 
+---
+
+### Pages on page two get contextual links from the strongest related pages (13 Oct 2026)
+Decided 13 Oct 2026 (branch `wf/c8-links`), from the Search Console export of 13 Oct.
+
+The export has 34 pages at average position 8-20 with 30 or more impressions. Batch 1 adds seven targets: the stress-leave answer, the RCC page, the Vancouver hub, /online-counselling, the trauma and couples pillars, and the waiting guide.
+
+Most of these pages were linked from lists, chips and related blocks, and from little body copy. Some examples:
+- the social anxiety guide (74 at 13.97): one paragraph link;
+- panic attacks at work (30 at 9.1): one;
+- becoming a counsellor (231 at 9.19): one;
+- the disability page (56 at 9.3): two;
+- the leave templates (101 at 9.94): two;
+- the Langford and Courtenay couples pages (35 at 14.0, 33 at 10.09): none.
+
+58 links were added in 33 source pages. Each one is in a sentence that already discussed the topic, and the anchor uses the target's searched words: "how to ask for a mental health leave", "counselling meaning in Punjabi", "online trauma therapy in BC", "couples and marriage counselling", "a Punjabi therapist in Vancouver", "therapy in Prince George", "how to become a Registered Clinical Counsellor in BC". The rules:
+- no new block and no sitewide or footer link;
+- no source page gains more than three;
+- the gentle leave guides (EI, doctor's note, return to work) gain only links to other leave and benefit information, never to a service or booking page;
+- the Alberta link sits in an ungated sentence;
+- no Punjabi was added.
+
+Measured on the built HTML. The figure is distinct sitemap pages linking from a paragraph in <main> (nav, header, footer and breadcrumb excluded), before -> after:
+- social anxiety 1 -> 4; panic at work 1 -> 4; becoming a counsellor 1 -> 4;
+- disability 2 -> 5; templates 2 -> 4; Alberta check 2 -> 4; Fort St. John 2 -> 4;
+- Punjabi words 3 -> 6; Punjabi Vancouver 4 -> 5; weekly vs biweekly 6 -> 8;
+- waiting guide 7 -> 9; MSP 10 -> 12; burnout vs depression 11 -> 13; psychiatry 13 -> 15;
+- couples pillar 30 -> 32; the Vernon, Langford and Courtenay pair pages 0-1 -> 1-2.
+
+Not given links:
+- /pricing (368 sources) and /punjabi (48) are already saturated.
+- The North Vancouver, Maple Ridge and Langford hubs are already linked by every neighbour that names them, and the remaining mentions argue against travelling there.
+
+There is no new page, title, redirect, canonical or noindex. The next export should be read for the position of each target against its 13 Oct figure.
+
+*Enforced by:* `scripts/internal-links.mjs` (every link resolves), `scripts/uniqueness-gate.mjs`, `scripts/page-score.mjs` (links pillar).
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`
