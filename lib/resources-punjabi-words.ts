@@ -140,7 +140,7 @@ export const punjabiWordsResource: Resource[] = [
           ],
         },
         body: [
-          'This is the practical reason a session in Punjabi is different from a session in English with a Punjabi name on the door. Somebody describing ਥਕਾਵਟ is not making a smaller claim than somebody describing burnout; they are using the word their language gives them. A counsellor who works in both hears which one it is.',
+          'This is the practical reason a session in Punjabi is different from a session in English with a Punjabi name on the door. Somebody describing ਥਕਾਵਟ is not making a smaller claim than somebody describing [burnout in English](/guides/burnout-vs-depression); they are using the word their language gives them. A counsellor who works in both hears which one it is.',
         ],
       },
       {
@@ -162,7 +162,7 @@ export const punjabiWordsResource: Resource[] = [
            with her next opening. Merged here rather than added as a block. */
         h2: 'If you want counselling in Punjabi, not only the word',
         body: [
-          `Savneet Singh, a Registered Clinical Counsellor, offers individual counselling in Punjabi, English, or both in the same session, by secure video anywhere in British Columbia. A session is ${individualFeePhrase()}, after a free ${CONSULT_MINUTES}-minute consultation that can be in Punjabi too. [Her profile](/practitioners/savneet-singh) says how she works.`,
+          `Savneet Singh, a Registered Clinical Counsellor, offers individual counselling in Punjabi, English, or both in the same session, by secure video anywhere in British Columbia, including for anyone looking for [a Punjabi therapist in Vancouver](/punjabi-counselling/vancouver). A session is ${individualFeePhrase()}, after a free ${CONSULT_MINUTES}-minute consultation that can be in Punjabi too. [Her profile](/practitioners/savneet-singh) says how she works.`,
           'The practice keeps a full set of pages written in Punjabi rather than translated word for word: [ਪੰਜਾਬੀ ਵਿੱਚ ਕਾਊਂਸਲਿੰਗ](/punjabi) is the main one, with guides on [what happens in a first session](/punjabi/guides/pehle-session-vich-ki-hunda-hai) and [low mood and exhaustion](/punjabi/guides/udaasi-jaan-thakevan).',
           'In English, [Punjabi-speaking counselling](/services/punjabi-counselling) explains how sessions work, and [therapy in Punjabi versus English](/compare/therapy-in-punjabi-vs-english) is about which language to actually choose, which is a harder question than it looks when you think in both.',
         ],

@@ -158,7 +158,7 @@ export const moreResources2: Resource[] = [
       {
         h2: 'If the crash is still with you',
         body: [
-          'Being fine physically and not fine at all is common after a collision, and it is one of the reasons counselling is on the pre-approved list. Sleep that has not returned, driving that now takes effort, irritability that arrived with the crash, replaying it. Those are ordinary responses to a frightening event, and they respond to counselling, including EMDR, which is worth asking about specifically for a single-incident trauma.',
+          'Being fine physically and not fine at all is common after a collision, and it is one of the reasons counselling is on the pre-approved list. Sleep that has not returned, driving that now takes effort, irritability that arrived with the crash, replaying it. Those are ordinary responses to a frightening event, and they respond to counselling, including EMDR, which is worth asking about specifically for a single-incident trauma; [online trauma therapy in BC](/services/emdr-therapy) sets out both.',
           'None of that requires a diagnosis to start, and none of it needs to have reached a crisis. The entitlement exists so that it does not.',
         ],
       },
@@ -248,7 +248,7 @@ export const moreResources2: Resource[] = [
       {
         h2: 'The question that settles it, whichever insurer you have',
         body: [
-          'Extended health plans reimburse **eligible practitioners** under a paramedical or mental-health benefit. The plan document lists which designations count. Psychologists are listed on many. Registered Clinical Counsellors are on many and not all. Canadian Certified Counsellors are named on plans more often in Alberta, where counselling is not a regulated profession.',
+          'Extended health plans reimburse **eligible practitioners** under a paramedical or mental-health benefit. The plan document lists which designations count. Psychologists are listed on many. [Registered Clinical Counsellors](/resources/verify-a-counsellor-in-bc) are on many and not all. Canadian Certified Counsellors are named on plans more often in Alberta, where counselling is not a regulated profession; [how to check a counsellor in Alberta](/resources/how-to-check-a-counsellor-in-alberta) shows where that certification is looked up.',
           'So the question is not "does Sun Life cover counselling". It is: *"Under my plan, is a Registered Clinical Counsellor an eligible practitioner for the mental-health or paramedical benefit, and what is the annual maximum and any per-visit maximum?"* Ask that, in those words, and you have your answer in one call.',
           'Both counsellors at this practice are RCCs registered with the BC Association of Clinical Counsellors; one also holds the CCC. Receipts carry the registration number the insurer needs. This practice is pay-and-submit: you pay at booking and submit the receipt yourself. Pacific Blue Cross has accepted direct claims from RCCs since July 2025, so some practices bill it for you; this one does not.',
         ],
@@ -322,7 +322,7 @@ export const moreResources2: Resource[] = [
       {
         h2: 'If the answer is no',
         body: [
-          `Other routes depend on the plan. A **health spending account** pays only what the CRA accepts as a medical expense, and the [CRA’s list of authorized medical practitioners](${CRA_PRACTITIONERS}) has no counsellor entry for British Columbia, so ask the administrator whether it will accept an RCC receipt before relying on it. A **wellness or lifestyle spending account**, if your employer offers one, is broader and can usually fund counselling, as a taxable benefit. The **medical expense tax credit** generally does not apply to RCC fees in BC until psychotherapy is regulated (from 29 November 2027); check with whoever prepares your return. And **reduced-fee or public options** exist and are listed on the [low-cost counselling page](/resources/low-cost-counselling-bc).`,
+          `MSP will not fill the gap: [is counselling covered by MSP in BC](/resources/msp-vs-extended-health) explains why. Other routes depend on the plan. A **health spending account** pays only what the CRA accepts as a medical expense, and the [CRA’s list of authorized medical practitioners](${CRA_PRACTITIONERS}) has no counsellor entry for British Columbia, so ask the administrator whether it will accept an RCC receipt before relying on it. A **wellness or lifestyle spending account**, if your employer offers one, is broader and can usually fund counselling, as a taxable benefit. The **medical expense tax credit** generally does not apply to RCC fees in BC until psychotherapy is regulated (from 29 November 2027); check with whoever prepares your return. And **reduced-fee or public options** exist and are listed on the [low-cost counselling page](/resources/low-cost-counselling-bc).`,
           'What this practice will not do is tell you that a plan covers something. That is the plan\'s job, and getting it wrong costs you money after the fact, which is the outcome this page exists to prevent.',
         ],
       },

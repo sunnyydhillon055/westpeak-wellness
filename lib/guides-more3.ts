@@ -190,7 +190,7 @@ export const moreGuides3: Guide[] = [
         body: [
           'In many families, particularly where duty to parents is a core value rather than an optional one. The framing of boundaries as self-care lands badly, because it presumes an individualism that is not shared. Telling someone to prioritise themselves is not neutral advice; it is advice from one value system delivered into another.',
           'The more useful question is usually not how to become less obligated, but which obligations you actually endorse and what they cost. People can carry a great deal willingly. What corrodes is carrying things nobody ever asked about, resenting it, and having no way to say so.',
-          'Working out which is which takes time and is difficult to do alone, particularly when the guilt arrives faster than the thought. [Counselling for first-generation South Asian adults](/for/first-gen-south-asian-adults) and [intergenerational trauma](/guides/intergenerational-trauma-explained) both go further into this territory.',
+          'Working out which is which takes time and is difficult to do alone, particularly when the guilt arrives faster than the thought. [Counselling for first-generation South Asian adults](/for/first-gen-south-asian-adults) and [intergenerational trauma](/guides/intergenerational-trauma-explained) both go further into this territory. Where the tangle runs through a marriage, with one partner caught between a parent and a spouse, [couples and marriage counselling](/services/couples-therapy) gives both of you the same room to say it.',
         ],
       },
     ],
@@ -364,7 +364,7 @@ export const moreGuides3: Guide[] = [
         body: [
           'You are under no obligation to disclose anything. Where disclosure genuinely helps is when you want a specific accommodation: being able to step out of a long meeting without it being an event, a change to a presentation format, some flexibility about the commute.',
           'If you do say something, keep it functional rather than diagnostic. *"I sometimes need to step out for a few minutes; it is nothing to do with the meeting and I will come back"* gives a manager what they need to act on without handing over medical information. Your employer is entitled to know your limitations, not your diagnosis, see [mental health and work in BC](/resources/workplace-mental-health-bc).',
-          'One person who knows is often worth more than a formal process. A colleague who understands that you occasionally leave the room and come back is enough to remove most of the social dread, which is frequently the heaviest part of the load.',
+          'One person who knows is often worth more than a formal process. A colleague who understands that you occasionally leave the room and come back is enough to remove most of the social dread, which is frequently the heaviest part of the load. Where being seen is the fear in its own right, panic or not, [social anxiety in adults](/guides/social-anxiety-in-adults) covers that.',
         ],
       },
       {

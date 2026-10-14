@@ -105,7 +105,9 @@ export default async function PractitionersPage() {
               Each profile below sets out what that counsellor works with, how they work, and the
               languages they practise in, including sessions that move between two languages
               within the hour. The registration number is on each profile in full, so you can
-              check it against a public register before booking anything, here or anywhere else.
+              check it against a public register before booking anything, here or anywhere else.{' '}
+              <Link href="/about">About Westpeak Wellness</Link> covers how the practice itself
+              is run.
             </p>
             <p>
               If you are not sure who to choose, the{' '}

@@ -288,7 +288,7 @@ export const moreGuides4: Guide[] = [
         h2: 'Two different winters',
         body: [
           'British Columbia produces two distinct seasonal problems and they get discussed as one. On the south coast: Vancouver, the Fraser Valley, Victoria: daylight hours are not extreme, but the cloud is relentless. Weeks pass without direct sun, everything is wet, and the effect is less a sharp seasonal dip than a long grey flattening that people describe as being slightly switched off from November to March.',
-          'North of Prince George the problem is genuinely astronomical. Daylight contracts to a few hours, you leave for work in the dark and return in the dark, and for stretches of the winter you do not see the sun during a working week at all. That produces a sharper, more classically seasonal pattern.',
+          'North of Prince George the problem is genuinely astronomical. Daylight contracts to a few hours, you leave for work in the dark and return in the dark, and for stretches of the winter you do not see the sun during a working week at all. That produces a sharper, more classically seasonal pattern, and it is a standing topic for anyone looking for [therapy in Prince George](/online-counselling/prince-george) or [counselling in Fort St. John](/online-counselling/fort-st-john).',
           'The interior adds cold and isolation to the mix, and communities without a local counsellor add a third layer: the season when you would most benefit from support is also the season when driving four hours for it is least appealing. That is a substantial part of why a virtual practice matters in this province specifically, [areas served across BC](/online-counselling) covers the reach.',
         ],
       },

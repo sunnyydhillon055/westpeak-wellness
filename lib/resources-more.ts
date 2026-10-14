@@ -269,7 +269,7 @@ export const moreResources: Resource[] = [
       {
         h2: 'Where counselling fits',
         body: [
-          'Counselling does not produce the documentation these systems require, and it is important to be straightforward about that. What it does is work on what is actually happening, the burnout, the anxiety, the aftermath of an incident at work, the decision about whether to stay.',
+          'Counselling does not produce the documentation these systems require, and it is important to be straightforward about that. What it does is work on what is actually happening, the burnout, the anxiety or [panic attacks at work](/guides/panic-attacks-at-work), the aftermath of an incident at work, the decision about whether to stay.',
           'It is also useful for the process itself, which is its own stressor. Preparing for a difficult conversation with a manager, deciding what to disclose and to whom, and managing the strain of an appeal are all legitimate session material.',
           /* 1 Oct 2026: the site's most-shown page ended here on a further
              read, with no tracked booking link and no link to the EFAP
@@ -277,7 +277,7 @@ export const moreResources: Resource[] = [
              step. The fee is the catalogue's. */
           'If you are not sure whether this is burnout or something that travels with you, the [burnout or depression check](/tools/burnout-or-depression) takes three minutes and stores nothing, and [what you can access, and how soon](/tools/what-can-i-access) sorts the routes open to you, including the free ones most people never use. [Burnout compared with depression](/guides/burnout-vs-depression) and [counselling for healthcare and shift workers](/for/healthcare-and-shift-workers) cover the ground in more depth.',
           '**If you want to talk to someone, the order that usually works.** First, an employee and family assistance programme if your employer has one: it costs you nothing at the point of use, and [EFAP compared with private counselling](/compare/efap-vs-private-counselling) sets out what it covers and where it stops.',
-          `**Then, privately.** A Registered Clinical Counsellor by video from anywhere in BC, ${fallbackFee('Individual Counselling')} for a ${minutesOf('Individual Counselling')}-minute individual session, paid at booking with a receipt for your extended health plan. Whether the plan reimburses it depends on the plan.`,
+          `**Then, privately.** [Online counselling in BC](/online-counselling): a Registered Clinical Counsellor by video from anywhere in the province, ${fallbackFee('Individual Counselling')} for a ${minutesOf('Individual Counselling')}-minute individual session, paid at booking with a receipt for your extended health plan. Whether the plan reimburses it depends on the plan.`,
           'Reading this as the manager or HR? [Counselling support for employers and HR](/for/employers-and-hr) is this page from your side of the desk.',
         ],
         book: {
@@ -408,7 +408,7 @@ export const moreResources: Resource[] = [
       {
         h2: 'What is a Registered Clinical Counsellor (RCC)?',
         body: [
-          'RCC is a designation granted and policed by the **BC Association of Clinical Counsellors (BCACC)**, a professional association founded in 1988. Holding it means the counsellor has cleared a specific bar: a master’s degree in counselling psychology or an equivalent discipline, a period of supervised clinical practice, current professional liability insurance, continuing education that does not stop at registration, and a code of ethics with teeth. There is a formal complaints process, and registrants can be, and are, removed.',
+          'RCC is a designation granted and policed by the **BC Association of Clinical Counsellors (BCACC)**, a professional association founded in 1988. Holding it means the counsellor has cleared a specific bar: a master’s degree in counselling psychology or an equivalent discipline, a period of supervised clinical practice, current professional liability insurance, continuing education that does not stop at registration, and a code of ethics with teeth. There is a formal complaints process, and registrants can be, and are, removed. The same bar, read from the applicant’s side, is [how to become a Registered Clinical Counsellor in BC](/resources/becoming-a-counsellor-in-bc).',
           'Each RCC carries a registration number, and the [RCC Register](https://bcacc.ca/search-our-member-register/) is public and free to search. That combination. A number plus a register anyone can check in two minutes, is the practical meaning of the designation. A claim you can verify is categorically different from a claim you have to take on trust, and the walkthrough below shows exactly where to look.',
           /* The sentence naming the two RCCs here moved up to afterShortAnswer,
              with their reach, services and the fee, 1 Oct 2026. */
@@ -644,7 +644,7 @@ export const moreResources: Resource[] = [
         h2: 'When counselling is the right route anyway',
         body: [
           'A large proportion of people who think they need a psychiatrist need something else. Psychiatry is a medical specialty for diagnosis and medication management of more complex presentations. It is not, generally, where you go for weekly talking therapy, and most psychiatrists in BC do not provide ongoing psychotherapy.',
-          'If what you want is to work on patterns, relationships, trauma or skills, counselling is the direct route and needs no referral, no diagnosis and no waitlist in private practice. If what you want is a medication conversation, a family physician can often handle it without a psychiatric referral at all.',
+          'If what you want is to work on patterns, relationships, trauma or skills, counselling is the direct route and needs no referral, no diagnosis and [no waitlist in private practice](/guides/waiting-for-therapy-in-bc). If what you want is a medication conversation, a family physician can often handle it without a psychiatric referral at all.',
           'And the two coexist perfectly well. Plenty of people see a prescriber for medication and a counsellor for the work, and with written consent the two can coordinate directly. [Therapy, medication, or both](/compare/therapy-medication-or-both) sets out how that decision is usually framed.',
         ],
       },
@@ -759,9 +759,9 @@ export const moreResources: Resource[] = [
         h2: 'How a claim actually runs, and where counselling fits',
         list: [
           { label: 'Report early', detail: 'Tell your employer, see a doctor, and report to WorkSafeBC promptly. There is a one-year time limit on filing, and contemporaneous records beat reconstructed ones in every adjudication ever run.' },
-          { label: 'Expect a psychological assessment', detail: 'The diagnosis requirement means an assessment by a psychologist or psychiatrist is part of the process. Waits for these are real; the claim can be filed while the assessment is pending.' },
+          { label: 'Expect a psychological assessment', detail: 'The diagnosis requirement means [an assessment by a psychologist or psychiatrist](/resources/psychiatry-and-assessment-in-bc) is part of the process. Waits for these are real; the claim can be filed while the assessment is pending.' },
           { label: 'Accepted claims fund treatment', detail: 'An accepted psychological-injury claim can cover treatment and wage-loss benefits. One of the few routes in BC where therapy for the injury is paid rather than reimbursed. The treatment itself runs through WorkSafeBC’s provider arrangements.' },
-          { label: 'This practice’s honest position', detail: 'Westpeak Wellness is not a WorkSafeBC provider, and claim-funded treatment happens inside their network. Where this practice fits is everything around the claim: the parallel private counselling many workers want during a long adjudication, and the situations the exclusion sorts out of the system altogether.' },
+          { label: 'This practice’s honest position', detail: 'Westpeak Wellness is not a WorkSafeBC provider, and claim-funded treatment happens inside their network. Where this practice fits is everything around the claim: the parallel private counselling many workers want during a long adjudication (after a traumatic event, often [online trauma therapy in BC](/services/emdr-therapy)), and the situations the exclusion sorts out of the system altogether.' },
           { label: 'Denials are appealable', detail: 'Psychological claims are denied more often than physical ones and overturned on review often enough to matter. The Workers’ Advisers Office exists for exactly this and costs nothing.' },
       ],
       },
@@ -824,7 +824,7 @@ export const moreResources: Resource[] = [
       {
         h2: 'What mental-health claims turn on',
         list: [
-          { label: 'Regular, appropriate care', detail: 'Every policy requires it, and for psychological claims insurers read it as: a physician involved, treatment underway, and usually counselling or psychiatric care consistent with the condition’s severity. A claim that says "too unwell to work" with no treatment record is the claim that gets denied, and honestly, treatment is also the route back.' },
+          { label: 'Regular, appropriate care', detail: 'Every policy requires it, and for psychological claims insurers read it as: a physician involved, treatment underway, and usually counselling or psychiatric care consistent with the condition’s severity. A claim that says "too unwell to work" with no treatment record is the claim that gets denied, and honestly, treatment is also [the route back to work after a mental health leave](/guides/return-to-work-after-a-mental-health-leave).' },
           { label: 'Function, documented', detail: 'Like everything in this cluster, the currency is function: what you cannot sustain: concentration, reliability, interaction, attested consistently by the people treating you. Vague letters lose to specific ones.' },
           { label: 'The own-occupation switch', detail: 'Most policies pay for the first period (commonly two years) if you cannot do YOUR job, then switch to paying only if you cannot do ANY job you are reasonably suited for. Mental-health claims are re-examined hard at that switch, and knowing the date matters.' },
           { label: 'Surveillance-proof honesty', detail: 'Insurers investigate. The claimant who is consistent, with their doctors, their forms and their actual life, has nothing to manage. Exaggeration sinks valid claims; so does the heroic minimising that says "fine, coping" to the insurer’s nurse on a bad week.' },
@@ -833,7 +833,7 @@ export const moreResources: Resource[] = [
       {
         h2: 'Where counselling sits, practically',
         body: [
-          'For an STD/LTD mental-health claim, counselling is usually part of the "appropriate treatment" picture, often alongside a family doctor and sometimes psychiatry. Some insurers cover or arrange treatment; more commonly you fund it through [extended health](/resources/bc-extended-health-coverage-for-counselling), which typically continues during an approved leave. Receipts and attendance records from a Registered Clinical Counsellor are ordinary supporting evidence insurers accept.',
+          'For an STD/LTD mental-health claim, counselling is usually part of the "appropriate treatment" picture, often alongside a family doctor and sometimes [psychiatry or a formal assessment](/resources/psychiatry-and-assessment-in-bc). Where work itself caused the injury, [a WorkSafeBC stress claim](/resources/worksafebc-psychological-injury-claims) is a separate route with its own test. Some insurers cover or arrange treatment; more commonly you fund it through [extended health](/resources/bc-extended-health-coverage-for-counselling), which typically continues during an approved leave. Receipts and attendance records from a Registered Clinical Counsellor are ordinary supporting evidence insurers accept.',
           'Worth saying from this side of the desk: therapy during a disability leave has a different job than the paperwork it also feeds. The claim needs documentation; you need treatment. When those are the same sessions, good, but a claim managed so carefully that treatment becomes performance is treating the insurer, not the person. A counsellor’s notes stay confidential; what goes to an insurer is what you and your clinicians agree goes, usually via forms addressed to function.',
           'And if a claim is denied or cut off, common at the own-occupation switch. The sequence is: internal appeal with better functional evidence, then advice. Community legal resources and plaintiff-side disability lawyers (most consult free) exist precisely for LTD terminations, and limitation periods make speed matter.',
         ],

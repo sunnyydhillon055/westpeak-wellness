@@ -496,7 +496,7 @@ export const services: Service[] = [
       h2: "Why first language matters even when your English is fluent",
       body: [
         "People who work, study and socialise in English often assume Punjabi-language therapy is not meant for them. In practice, the language you are fluent in and the language your feelings live in are frequently not the same one.",
-        "You can be entirely comfortable presenting in a boardroom and still find that the words for grief, shame, obligation, or the exact texture of a family argument only exist properly in Punjabi. Some things flatten in translation. And if you spend a session translating, you spend it one step removed from what you actually feel, describing the emotion rather than being in it.",
+        "You can be entirely comfortable presenting in a boardroom and still find that the words for grief, shame, obligation, or the exact texture of a family argument only exist properly in Punjabi. Some things flatten in translation, starting with the word for counselling itself, which [what counselling means in Punjabi](/resources/counselling-in-punjabi-what-the-words-mean) unpacks. And if you spend a session translating, you spend it one step removed from what you actually feel, describing the emotion rather than being in it.",
         "**There is also the effort you never have to spend.** Explaining what *log kya kahenge* means, why moving out is not simple, why a parent's disappointment carries the weight it does. That is twenty minutes of every session recovered, and more importantly it removes the low-level work of translating yourself to be understood.",
       ],
     },

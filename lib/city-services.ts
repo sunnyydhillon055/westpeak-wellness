@@ -1051,7 +1051,7 @@ export const pairs: Pair[] = [
     angle: 'The 2021 White Rock Lake fire destroyed homes on the Okanagan Indian Band reserve and the northwest shore of Okanagan Lake.',
     body: [
       'People who lost homes, who were evacuated, or who spent that summer watching the smoke across the lake each came away with something different, and many have since filed it under “everybody went through it”. That phrase does a lot of work in the North Okanagan. It turns a real event into something that feels self-indulgent to mention.',
-      'Trauma counselling does not require the event to have been the worst in the region. It starts with what still happens now: the smell of smoke, a phone alert, a summer that cannot be relaxed into. Those responses are understandable and workable, and the work can begin without going back through every detail of what happened.',
+      'Trauma counselling does not require the event to have been the worst in the region. It starts with what still happens now: the smell of smoke, a phone alert, a summer that cannot be relaxed into. Those responses are understandable and workable, and the work can begin without going back through every detail of what happened. [EMDR therapy in Vernon](/online-counselling/vernon/emdr-therapy) is one structured way to do that, by video.',
     ],
     faqs: [
       { q: 'Our house was not lost. Does it still count?', a: 'Yes. Evacuation, days of not knowing, and helping other people through their losses are experiences in their own right, and whether your own address survived is not what decides how much they weigh.' },
