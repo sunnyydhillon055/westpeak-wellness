@@ -1,6 +1,6 @@
 import type { Guide } from './guides';
 import { fallbackFee } from '@/lib/cliniko-catalog';
-import { EI_WEEKLY, EI_WEEKLY_IN_YEAR, EI_YEAR, eiSicknessMax, pacificYear } from '@/lib/benefit-figures';
+import { EI_WEEKLY, EI_WEEKLY_IN_YEAR, EI_YEAR, EI_WAITING_CLAUSE, eiSicknessMax, pacificYear } from '@/lib/benefit-figures';
 
 /* A worked EI example, computed rather than typed (13 Oct 2026), so that
    scripts/price-drift.mjs never sees a dollar literal and the figures move
@@ -55,7 +55,7 @@ export const moreGuides7: Guide[] = [
     lede:
       'Medical EI is the everyday name for EI sickness benefits: the federal benefit that pays part of your earnings while a medical condition, mental health included, stops you working. For a longer leave it is what most people actually live on.',
     shortAnswer:
-      `Medical EI pays 55% of your average insurable weekly earnings, to a maximum of ${EI_WEEKLY_IN_YEAR}, for up to 26 weeks, and a mental-health leave qualifies exactly as a physical illness does. You need 600 insurable hours in the qualifying period, a medical certificate saying you are unable to work, and a claim filed promptly, because there is a one-week waiting period and late claims risk losing weeks. The benefit is taxable, it is far less than a paycheque, and knowing both before the leave starts is half of surviving it.`,
+      `Medical EI pays 55% of your average insurable weekly earnings, to a maximum of ${EI_WEEKLY_IN_YEAR}, for up to 26 weeks, and a mental-health leave qualifies exactly as a physical illness does. You need 600 insurable hours in the qualifying period, a medical certificate saying you are unable to work, and a claim filed promptly, because late claims risk losing weeks, and ${EI_WAITING_CLAUSE}. The benefit is taxable, it is far less than a paycheque, and knowing both before the leave starts is half of surviving it.`,
     updated: '2026-10-13',
     readMinutes: 7,
     sections: [
@@ -64,8 +64,9 @@ export const moreGuides7: Guide[] = [
         body: [
           'Yes, unambiguously. EI sickness benefits do not distinguish between a broken leg and a depressive episode. The test is that a medical practitioner certifies you are **unable to work for medical reasons**, and mental-health conditions meet it the same way anything else does. Burnout is not itself a diagnosis ([burnout vs depression](/guides/burnout-vs-depression) sets out the difference), but the conditions that travel under it: depression, anxiety disorders, adjustment disorder, are exactly what these claims are made of.',
           'The eligibility mechanics: **600 insurable hours** in the last 52 weeks (roughly 15 hours a week over a year of insurable employment), regular earnings reduced by more than 40%, and the medical certificate. Self-employed people are outside the program unless they opted into EI special benefits at least a year earlier. A gap that surprises a lot of contractors at the worst possible moment.',
-          `What it pays: **55% of average insurable weekly earnings, capped at ${EI_WEEKLY_IN_YEAR}**, taxable, after a one-week unpaid waiting period. For most full-time earners that is a serious income cut, and the honest planning question is not "am I eligible" but "can the household run on 55%, and for how long".`,
+          `What it pays: **55% of average insurable weekly earnings, capped at ${EI_WEEKLY_IN_YEAR}**, taxable; ${EI_WAITING_CLAUSE}. For most full-time earners that is a serious income cut, and the honest planning question is not "am I eligible" but "can the household run on 55%, and for how long".`,
           EI_WORKED,
+          'To run your own figure, the [stress leave pay calculator](/tools/stress-leave-pay-calculator) shows what medical EI would pay you each week after your BC sick days, and where an employer disability plan would take over instead.',
         ],
       },
       {
@@ -103,7 +104,7 @@ export const moreGuides7: Guide[] = [
       label: 'Book a free consultation',
     },
     faqs: [
-      { q: `How much does EI sickness pay in ${EI_YEAR}?`, a: `55% of your average insurable weekly earnings, to a maximum of ${EI_WEEKLY} a week, taxable, for up to 26 weeks, after a one-week unpaid waiting period. For most full-time earners that is a substantial cut, and budgeting for it before the leave starts is part of the leave.` },
+      { q: `How much does EI sickness pay in ${EI_YEAR}?`, a: `55% of your average insurable weekly earnings, to a maximum of ${EI_WEEKLY} a week, taxable, for up to 26 weeks, and ${EI_WAITING_CLAUSE}. For most full-time earners that is a substantial cut, and budgeting for it before the leave starts is part of the leave.` },
       { q: 'Can I get EI for a mental health leave, burnout or anxiety?', a: 'Yes. The program does not distinguish mental from physical health. What matters is a medical practitioner certifying you are unable to work. "Burnout" itself is not the certified condition; the depression, anxiety disorder or adjustment disorder underneath it typically is.' },
       /* 13 Oct 2026: "ei mental health leave" (1 at 11). Read today on
          canada.ca: EI sickness "Apply" (modified 2 Jun 2026) and "Do you
@@ -358,7 +359,7 @@ export const moreGuides7: Guide[] = [
         list: [
           { label: 'You are rationing them by dread', detail: 'Choosing which weeks are survivable enough to skip the sick day is itself the signal. A sustainable job does not require triaging your own collapse.' },
           { label: 'The same day keeps recurring', detail: 'Monday-pattern or post-deadline-pattern sick days are a graph, and the graph is telling you what the cause is. Naming the pattern is more useful than hiding it.' },
-          { label: 'Five days were gone by June', detail: 'When the annual allotment cannot cover the year, you are past the sick-day tool. The next tools are a proper assessment, possibly [a certified stress leave](/resources/workplace-mental-health-bc), which [medical EI](/guides/ei-sickness-benefits-and-therapy) can part-pay, and treatment, in that order, before the involuntary version arrives.' },
+          { label: 'Five days were gone by June', detail: 'When the annual allotment cannot cover the year, you are past the sick-day tool. The next tools are a proper assessment, possibly [a certified stress leave](/resources/workplace-mental-health-bc), which [medical EI](/guides/ei-sickness-benefits-and-therapy) can part-pay ([what a stress leave would pay you, week by week](/tools/stress-leave-pay-calculator)), and treatment, in that order, before the involuntary version arrives.' },
           { label: 'The day off does not restore anything anymore', detail: 'Early in a stress cycle, a day genuinely resets. Late in one, it does not touch the sides, and that difference is one of the more reliable home tests for "tired" versus "something needing treatment". The guide on [burnout or depression](/guides/burnout-vs-depression) draws that line properly, and the [three-minute check](/tools/burnout-or-depression) is a way to start on it without a form or a score.' },
         ],
       },

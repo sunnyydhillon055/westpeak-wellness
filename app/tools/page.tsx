@@ -16,7 +16,7 @@ import ToolCounsellors from '@/components/tools/ToolCounsellors';
 
 const TITLE = 'Free counselling tools | Westpeak Wellness';
 const DESC =
-  'Five short, private tools: which counselling fits, what it costs in BC, what you can access, burnout or depression, and how things have been. Nothing stored.';
+  'Six short, private tools: which counselling fits, what it costs in BC, what a stress leave pays, what you can access, burnout or depression. Nothing stored.';
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -64,10 +64,11 @@ export default function ToolsIndex() {
           <h1>Free counselling tools</h1>
           <Updated iso={lastmodFor('/tools')} />
           <p className="direct-answer">
-            Five short tools for the questions people ask before they book anything: which kind
+            Six short tools for the questions people ask before they book anything: which kind
             of counselling fits, what it costs in British Columbia once extended health is taken
-            into account, which routes are open to you and how soon, whether it looks more like
-            burnout or depression, and a plain reflection on how the last few weeks have been.
+            into account, what a stress leave would pay you week by week, which routes are open to
+            you and how soon, whether it looks more like burnout or depression, and a plain
+            reflection on how the last few weeks have been.
             Each runs entirely in your browser. Nothing is stored, nothing is sent, and none of
             them ask for an email address.
           </p>
@@ -153,7 +154,7 @@ export default function ToolsIndex() {
             <p>
               If you are not sure counselling is the right thing at all, start with the{' '}
               <Link href="/tools/stress-check">reflection on how things have been</Link>. It is
-              the least committal of the five, and its job is to hand you language rather than a
+              the least committal of the six, and its job is to hand you language rather than a
               conclusion. If you have decided to go ahead but not what kind,{' '}
               <Link href="/tools/which-service">which kind of counselling fits</Link> sorts that in
               about two minutes. If the question is affordability rather than fit, go straight to{' '}
@@ -167,6 +168,13 @@ export default function ToolsIndex() {
               weighing an employee assistance programme, a public service or paying privately,{' '}
               <Link href="/tools/what-can-i-access">what counselling you can access</Link> sorts
               the routes by how quickly they tend to open.
+            </p>
+            <p>
+              If you are facing time off work and the first question is money, the{' '}
+              <Link href="/tools/stress-leave-pay-calculator">stress leave pay calculator for BC</Link>{' '}
+              turns your weekly pay into a week-by-week picture: the paid sick days, EI sickness
+              benefits at 55% for up to 26 weeks, and where a disability plan or WorkSafeBC would
+              take over instead.
             </p>
             <p>
               Prefer to read? The <Link href="/guides">counselling guides</Link> cover the same

@@ -11,6 +11,14 @@
  */
 
 import { BCACC_INDIVIDUAL, BCACC_COUPLES_FAMILY } from '@/lib/fee-guides';
+import { EI_WEEKLY_IN_YEAR, EI_WAITING_WAIVED, EI_WAITING_WAIVER, longDate, eiSicknessMax } from '@/lib/benefit-figures';
+
+/* The calculator's worked figure, computed (13 Oct 2026): 55% of a typical
+   week, rounded to the dollar and held to the year's maximum. */
+const EXAMPLE_WAGE = 1000;
+const usd = (n: number) => '$' + n.toLocaleString('en-CA');
+const EXAMPLE_WEEKLY = usd(EXAMPLE_WAGE);
+const EXAMPLE_EI = usd(Math.min(Math.round(EXAMPLE_WAGE * 0.55), eiSicknessMax().weekly));
 
 export type ToolMeta = {
   slug: string;
@@ -226,6 +234,66 @@ export const tools: ToolMeta[] = [
         q: 'Is anything stored?',
         a: 'No. It runs in your browser, nothing is sent anywhere and closing the tab discards it. There is no sign-up and no email box at the end.',
       },
+    ],
+  },
+  /* 13 Oct 2026. "is stress leave paid in bc" (38 impressions at 12.26),
+     "is stress leave paid" (7 at 17.57), "stress leave from work paid" (9),
+     "do you get paid on stress leave" (7) and "paid stress leave bc" (2) in
+     the 13 Oct export, and the stress-leave answer page at 2,278 impressions
+     and position 9.9 with a 0.97% CTR: the question is a number, per reader,
+     and a table can only give the shape. Every EI figure here and on the page
+     comes from lib/benefit-figures.ts; the worked figure is computed. */
+  {
+    slug: 'stress-leave-pay-calculator',
+    title: 'Stress leave pay calculator',
+    short: 'Your weekly pay in, a week-by-week picture out: BC sick days, EI sickness benefits, and where a disability plan or WorkSafeBC takes over.',
+    metaTitle: 'Stress Leave Pay Calculator for BC: EI Sickness by the Week',
+    metaDescription:
+      'Is stress leave paid in BC? Enter your weekly pay to see each week: 5 paid sick days, then EI sickness at 55% for up to 26 weeks, and where STD fits.',
+    minutes: 2,
+    faqs: [
+      {
+        q: 'Is stress leave paid in BC?',
+        a: `Partly, and by different payers in turn. Once you have worked for the employer for 90 days, the Employment Standards Act gives five paid and three unpaid sick days a calendar year. After that nobody pays automatically: an employer short-term disability plan pays on its own terms if there is one, and otherwise EI sickness benefits pay 55% of your average insurable weekly earnings, to ${EI_WEEKLY_IN_YEAR}, for up to 26 weeks. WorkSafeBC pays only on an accepted claim for an injury caused by work.`,
+      },
+      {
+        q: 'How much does medical EI pay?',
+        a: `55% of your average insurable weekly earnings before tax, to a maximum of ${EI_WEEKLY_IN_YEAR}, and the benefit is taxable. The average is taken over your best 14 to 22 weeks of the last year, depending on the unemployment rate where you live. Someone averaging ${EXAMPLE_WEEKLY} a week would get about ${EXAMPLE_EI} a week before tax; past the year’s maximum insurable earnings, everyone gets the same maximum.`,
+      },
+      {
+        q: 'Is there a waiting week for EI sickness benefits?',
+        a: EI_WAITING_WAIVED
+          ? `Not for a claim made now. Normally the first week of a claim is unpaid, like a deductible, but a temporary federal measure waives it for all new EI claims that start between ${longDate(EI_WAITING_WAIVER.from)} and ${longDate(EI_WAITING_WAIVER.to)} (canada.ca, read ${longDate(EI_WAITING_WAIVER.readOn)}). The first payment still arrives about 28 days after you apply, so plan for the gap.`
+          : 'Yes. The first week of a claim is unpaid, like a deductible, and the first payment arrives about 28 days after you apply, so plan for the gap.',
+      },
+      {
+        q: 'Who qualifies for EI sickness benefits?',
+        a: 'Someone with 600 insured hours of work in the 52 weeks before the claim, whose regular weekly earnings have dropped by more than 40%, and who has a medical certificate saying they cannot work. A mental-health condition qualifies exactly as a physical one does. Apply online as soon as you stop working: Service Canada says applying more than four weeks after your last day can cost you benefits.',
+      },
+      {
+        q: 'What if my employer has short-term disability?',
+        a: 'Then the plan’s own terms decide what you are paid, for how long and after what waiting period, and it usually comes before EI rather than on top of it. What it pays differs from plan to plan, so the calculator does not put a number on it: only the plan’s booklet or the insurer can. It shows what EI would pay instead, which is the figure to compare against.',
+      },
+      {
+        q: 'What if work caused it?',
+        a: 'Then WorkSafeBC is a separate route. It accepts a mental-health claim where a diagnosed condition results from a significant work-related stressor or a traumatic event at work, and excludes conditions caused by an employer’s decisions about your job, such as workload, discipline or reorganisation. An accepted claim pays wage-loss benefits at amounts WorkSafeBC sets, which is why the calculator names the route and gives no figure for it.',
+      },
+      {
+        q: 'I work for a bank, an airline or a telecom. Is it different?',
+        a: 'Yes. Federally regulated jobs fall under the Canada Labour Code: up to 10 paid medical leave days a year (three after 30 days of continuous employment, then one a month), and up to 27 weeks of job-protected medical leave, which is protection rather than pay. EI sickness benefits are the same federal benefit either way. Choose a federally regulated employer in the calculator to see that version.',
+      },
+      {
+        q: 'Is this what I will actually be paid?',
+        a: 'No. It is an estimate from the figures you enter, and Service Canada decides what EI pays you, from your Record of Employment and your best weeks. Use it to plan the household budget and to know which questions to ask HR and your insurer before the leave starts.',
+      },
+    ],
+    related: [
+      { href: '/resources/workplace-mental-health-bc', label: 'Stress leave in BC: how to get it, is it paid' },
+      { href: '/guides/ei-sickness-benefits-and-therapy', label: 'What medical EI pays on a mental-health leave' },
+      { href: '/guides/sick-days-and-mental-health-days-bc', label: 'Sick days and mental-health days in BC' },
+      { href: '/guides/stress-leave-bc', label: 'Going on stress leave in BC, step by step' },
+      { href: '/resources/disability-benefits-and-counselling-bc', label: 'Short and long-term disability for mental health' },
+      { href: '/resources/worksafebc-psychological-injury-claims', label: 'WorkSafeBC psychological injury claims' },
     ],
   },
 ];

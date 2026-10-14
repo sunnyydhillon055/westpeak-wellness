@@ -414,12 +414,13 @@ export const URL_DATES: Record<string, string> = {
   "/tagalog/gabay/pag-uusap-sa-pamilya-tungkol-sa-therapy": "2026-10-04",
   "/tagalog/gabay/pagod-sa-pag-aalaga": "2026-10-04",
   "/tagalog/gabay/trauma-na-naipapasa-sa-pamilya": "2026-10-04",
-  "/tools": "2026-10-04",
-  "/tools/burnout-or-depression": "2026-10-04",
-  "/tools/stress-check": "2026-10-04",
-  "/tools/therapy-cost-bc": "2026-10-04",
-  "/tools/what-can-i-access": "2026-10-04",
-  "/tools/which-service": "2026-10-04",
+  "/tools": "2026-10-13",
+  "/tools/burnout-or-depression": "2026-10-13",
+  "/tools/stress-check": "2026-10-13",
+  "/tools/stress-leave-pay-calculator": "2026-10-03",
+  "/tools/therapy-cost-bc": "2026-10-13",
+  "/tools/what-can-i-access": "2026-10-13",
+  "/tools/which-service": "2026-10-13",
 };
 
 /** The page's own date, or `fallback` (an ISO string) when it has none. */

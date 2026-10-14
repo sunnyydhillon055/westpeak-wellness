@@ -200,6 +200,8 @@ export const TOOL_OUTCOMES: Readonly<Record<string, readonly string[]>> = {
   'therapy-cost-bc': ['yes', 'no', 'unsure'],
   'stress-check': [],
   'burnout-or-depression': [],
+  /* The route the picture took, never the earnings typed (13 Oct 2026). */
+  'stress-leave-pay-calculator': ['bc', 'federal', 'plan', 'worksafe'],
 };
 
 /* `book_click` is one key with two readable halves: the button, and the

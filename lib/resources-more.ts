@@ -185,7 +185,7 @@ export const moreResources: Resource[] = [
            decision exclusion). Federal figures as read 3 Oct (IPG-118, s. 239). */
         h2: 'Is stress leave paid in BC? Paid and unpaid, source by source',
         body: [
-          'Partly, and from different places in turn. Your employer pays the first five sick days of the calendar year; after that nobody pays automatically, and income comes from an employer disability plan or EI. A WorkSafeBC claim pays only when work caused the injury. Which row applies to you depends on your job and your plan, not on your diagnosis, so work it out before the leave starts rather than three weeks in. A collective agreement can only add to these floors, often with a sick-leave bank.',
+          'Partly, and from different places in turn. Your employer pays the first five sick days of the calendar year; after that nobody pays automatically, and income comes from an employer disability plan or EI. A WorkSafeBC claim pays only when work caused the injury. Which row applies to you depends on your job and your plan, not on your diagnosis, so work it out before the leave starts rather than three weeks in. A collective agreement can only add to these floors, often with a sick-leave bank. To see it as your own weeks, the [stress leave pay calculator for BC](/tools/stress-leave-pay-calculator) turns your weekly pay into the paid sick days, the EI weeks and an estimated dollar figure for each.',
         ],
         table: {
           columns: ['Source', 'Paid?', 'How much, how long', 'Who it covers, what it needs'],

@@ -76,3 +76,56 @@ export const EI_YEAR = String(EI.year);
 export const EI_WEEKLY = `$${EI.weekly}`;
 /** "<dollar figure> a week in <year>". */
 export const EI_WEEKLY_IN_YEAR = `${EI_WEEKLY} a week in ${EI_YEAR}`;
+
+/* THE WAITING WEEK, AND THE MEASURE THAT WAIVES IT — 13 Oct 2026.
+ *
+ * Six leave pages said EI sickness starts "after a one-week unpaid waiting
+ * period". Canada.ca, read 13 Oct 2026: the sickness "After you apply" page
+ * still describes the one unpaid week, and links to "Temporary Employment
+ * Insurance measures to respond to major changes in economic conditions"
+ * (modified 6 Oct 2026), which says the waiting period "is waived for all new
+ * claims for EI benefits that start between March 30, 2025, and October 9,
+ * 2027". So for anyone claiming today there is no unpaid week, and the pages
+ * say so while the window is open and say the ordinary rule once it closes,
+ * from the same two dates. The pages are static: a build after the end date
+ * is what moves them back. test/benefit-figures.test.mts fails once the end
+ * date has passed, so the window is re-read rather than left to rot. */
+export const EI_WAITING_SOURCE =
+  'https://www.canada.ca/en/services/benefits/ei/temporary-measures-for-major-economic-conditions.html';
+export const EI_SICKNESS_AFTER_APPLYING =
+  'https://www.canada.ca/en/services/benefits/ei/ei-sickness/after-applying.html';
+
+export type WaitingWaiver = { from: string; to: string; sourceUrl: string; readOn: string };
+
+/** Claims starting on or between these Pacific dates serve no waiting week. */
+export const EI_WAITING_WAIVER: WaitingWaiver = {
+  from: '2025-03-30',
+  to: '2027-10-09',
+  sourceUrl: EI_WAITING_SOURCE,
+  readOn: '2026-10-13',
+};
+
+/** The date in British Columbia at `now`, as YYYY-MM-DD. */
+export function pacificDate(now: Date = new Date()): string {
+  return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Vancouver', year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
+}
+
+/** Whether a claim starting at `now` falls inside the waiver. */
+export function eiWaitingWaived(now: Date = new Date(), w: WaitingWaiver = EI_WAITING_WAIVER): boolean {
+  const d = pacificDate(now);
+  return d >= w.from && d <= w.to;
+}
+
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+/** "9 October 2027" from "2027-10-09". */
+export function longDate(iso: string): string {
+  const [y, m, d] = iso.split('-').map(Number);
+  return `${d} ${MONTHS[m! - 1]} ${y}`;
+}
+
+/** True when a claim made on the build date serves no waiting week. */
+export const EI_WAITING_WAIVED = eiWaitingWaived();
+/** A clause that follows "and": what the waiting week is for a claim made now. */
+export const EI_WAITING_CLAUSE = EI_WAITING_WAIVED
+  ? `the usual one-week unpaid waiting period is waived for new claims that start by ${longDate(EI_WAITING_WAIVER.to)}`
+  : 'there is a one-week unpaid waiting period before benefits start';

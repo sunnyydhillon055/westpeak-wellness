@@ -175,9 +175,9 @@ export default function ToolShell({
           {/* The hub had two pages linking to it from their content; each
               tool now points at its four siblings through it. */}
           <p style={{ color: 'var(--ink-soft)', marginTop: 24 }}>
-            This is one of five <Link href="/tools">free counselling tools</Link>, from which kind
-            of counselling fits to what it costs after extended health. Each runs in your browser
-            and none asks for an email address.
+            This is one of six <Link href="/tools">free counselling tools</Link>, from which kind
+            of counselling fits to what it costs after extended health and what a stress leave
+            pays. Each runs in your browser and none asks for an email address.
           </p>
         </div>
       </section>

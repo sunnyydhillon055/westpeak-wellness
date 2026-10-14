@@ -3559,6 +3559,45 @@ There is no new page, title, redirect, canonical or noindex. The next export sho
 
 *Enforced by:* `scripts/internal-links.mjs` (every link resolves), `scripts/uniqueness-gate.mjs`, `scripts/page-score.mjs` (links pillar).
 
+---
+
+### A stress-leave pay calculator, and the EI waiting week said as it is today (13 Oct 2026)
+Decided 13 Oct 2026, from the Search Console export of 13 Oct (`data/gsc/2026-10-13-queries.csv`).
+
+The stress-leave answer page, /resources/workplace-mental-health-bc, is the site's most-shown page: 2,278 impressions at position 9.9 and a 0.97% CTR. The money question around it is asked as a number:
+- "is stress leave paid in bc" 38 at 12.26, "is stress leave paid" 7 at 17.57;
+- "stress leave from work paid" 9 at 17.33, "do you get paid on stress leave" 7 at 15, "do you get paid for stress leave" 2 at 6;
+- "paid stress leave bc" 2 at 14, "stress leave pay" 1 at 10, "can i go on stress leave and get paid" 1 at 11;
+- beside them, the EI guide at 415 impressions and 1 click.
+
+A table can only give the shape of the answer. The figure depends on the reader's pay, so the sixth tool, /tools/stress-leave-pay-calculator, takes a weekly figure and draws the weeks:
+- the BC Employment Standards Act days (5 paid and 3 unpaid after 90 days, less any used this year);
+- or, for a federally regulated job, the Canada Labour Code's paid medical days (3 after 30 days, then one a month, to 10) and its 27 weeks of protection, which is protection and not pay;
+- EI sickness at 55%, rounded to the dollar and held to the year's maximum, for up to 26 weeks;
+- a short-term disability plan and WorkSafeBC are named as routes with no figure. Their amounts are the plan's and the Board's to set.
+
+How it is built:
+- The arithmetic is `lib/leave-pay.ts`, which imports nothing.
+- The server page reads the EI maximum and the waiting-week window from `lib/benefit-figures.ts` and passes them to the client component as props. The client half imports neither that module nor `lib/tools.ts`.
+- A worked example ($1,000 a week, and a high earner who reaches the cap) is the same function run at build time. The answer is in the HTML without JavaScript.
+- No dollar figure is typed. The worked figures in the FAQ are computed.
+
+Canada.ca, read today, changed one fact the leave pages stated. The sickness "After you apply" page still describes one unpaid waiting week. It links to the temporary EI measures page (modified 6 Oct 2026), which waives the waiting period for all new claims starting between 30 March 2025 and 9 October 2027. Six sentences on three leave pages said there was a one-week unpaid waiting period:
+- the EI guide (three), the stress-leave guide (two), and the templates resource (one, which also dated the rule to 2017);
+- two more on the stress-leave guide leaned on it ("bridge the waiting period", "the waiting period runs from then") and now name the real gap, the first payment about 28 days after applying.
+
+Those sentences now read `EI_WAITING_CLAUSE` from `lib/benefit-figures.ts`, built from the two dates. The calculator also checks the window against the reader's own date. The pages are static, so a build after 9 October 2027 moves them back to the ordinary rule. The test fails once that date has passed, so the page is re-read rather than trusted.
+
+Linked in body copy, with the searched words as anchors, from:
+- the stress-leave answer page ("stress leave pay calculator for BC");
+- the EI guide and the stress-leave guide ("stress leave pay calculator");
+- the sick-days guide ("what a stress leave would pay you, week by week");
+- the /tools hub.
+
+The gentle leave guides gain a link to benefit information only, as the 13 Oct linking rule requires. The tool's result button routes through `bookingFor('individual-therapy')`. The cards take the gentle heading. The next export should be read for the answer page's CTR and for any calculator queries.
+
+*Enforced by:* `test/leave-pay.test.mts` (rounding, the cap, the waiting week, the 26-week limit, under 90 days, the federal case, no plan figure, the waiver window, the links, the client imports), `test/benefit-figures.test.mts`, `scripts/price-drift.mjs` (no typed weekly maximum), `scripts/perf-budget.mjs`, `scripts/page-score.mjs`.
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`
