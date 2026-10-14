@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { services, getService } from '@/lib/services';
 import { pairsForService } from '@/lib/city-services';
+import { seoName } from '@/lib/city-service-page';
+import { getCityTopic } from '@/lib/conditions';
 import { getLocation } from '@/lib/locations';
 import { site } from '@/lib/site';
 import { gurmukhi } from '@/app/fonts-gurmukhi';
@@ -207,7 +209,11 @@ export default async function ServicePage({ params }: { params: { slug: string }
 
   /* Heading order as rendered. 'This can help with' lives in the aside
    * itself, so it is deliberately not a TOC entry. */
+  /* The pillar section, open under the intro (13 Oct 2026; Service.leadSection). */
+  const lead = s.leadSection ? getExtra('services', s.slug).find((x) => x.h2 === s.leadSection) : undefined;
+  const extras = getExtra('services', s.slug).filter((x) => x !== lead);
   const toc = buildToc([
+    ...(lead ? [lead.h2] : []),
     'How we approach it',
     ...(s.whatItIs ? [s.whatItIs.h2] : []),
     /* Conditional, like every other optional section. It was unconditional,
@@ -218,7 +224,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
        did not, and the internal-link gate caught it on the first build. */
     ...(s.signs?.length ? ['What people tend to arrive with'] : []),
     ...(s.sessionShape ? [s.sessionShape.h2] : []),
-    ...getExtra('services', s.slug).map((x) => x.h2),
+    ...extras.map((x) => x.h2),
     'Before you book',
     'Go deeper',
   ]);
@@ -235,7 +241,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
     ) : null,
     s.figure2 ? <Figure key="fig2" name={s.figure2} /> : null,
   ].filter(Boolean);
-  const slots = deviceSlots(getExtra('services', s.slug), midDevices.length);
+  const slots = deviceSlots(extras, midDevices.length);
 
   const schema = [
     medicalWebPage({
@@ -320,7 +326,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
               small eyebrow above it. A heading is the strongest on-page
               signal after the title, and none of these said what the page
               sells. The tagline stays; the name leads it. */}
-          <h1>{s.name}: {s.hero}</h1>
+          <h1>{s.heading ?? s.name}: {s.hero}</h1>
           {s.directAnswer && (
             <p className="direct-answer">{s.directAnswer}</p>
           )}
@@ -385,6 +391,12 @@ export default async function ServicePage({ params }: { params: { slug: string }
                   page from here, and the bare string printed the markdown. */}
               <p className="lede" style={{ marginBottom: 24 }}>{rich(s.intro)}</p>
               <Updated iso={COLLECTION_DATES['services']} />
+              {lead && (
+                <>
+                  <h2 id={headingId(lead.h2)}>{lead.h2}</h2>
+                  {lead.body && <Paragraphs items={lead.body} />}
+                </>
+              )}
               <h2 id="how-we-approach-it">How we approach it</h2>
               <p>{s.approach}</p>
               {s.whatItIs && (
@@ -496,6 +508,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
               slots={slots}
               collapsible
               summary="More on how this work runs"
+              skip={lead ? [lead.h2] : undefined}
             />
 
             {/* DEVICES WITH NOWHERE TO GO STILL HAVE TO GO SOMEWHERE.
@@ -582,21 +595,30 @@ export default async function ServicePage({ params }: { params: { slug: string }
           them sat at 1-2 in-body inbound links in the SEO gate. The service
           they belong to is the other natural place to link from, and it is the
           page with the authority to pass. */}
-      {pairsForService(s.slug).length > 0 && (
-        <section className="section">
-          <div className="container">
-            <p className="eyebrow">{s.name} by area</p>
-            <div className="chip-grid">
-              {pairsForService(s.slug).map((pr) => (
-                <Link className="chip" key={pr.city} href={`/online-counselling/${pr.city}/${s.slug}`}>
-                  {getLocation(pr.city)?.city ?? pr.city}
-                </Link>
-              ))}
-              <Link className="chip" href="/online-counselling">All areas served</Link>
+      {/* Named anchors since 13 Oct 2026 ("EMDR Therapy in Vernon", not
+          "Vernon"), and the trauma city pages too on the EMDR page, which is
+          the BC trauma pillar they link up to (Service.areaAlso). */}
+      {[s.slug, ...(s.areaAlso ? [s.areaAlso] : [])].map((slug) => {
+        const topic = getCityTopic(slug);
+        const list = pairsForService(slug);
+        if (!topic || !list.length) return null;
+        const label = seoName(topic);
+        return (
+          <section className="section" key={slug}>
+            <div className="container">
+              <p className="eyebrow">{label} by area</p>
+              <div className="chip-grid">
+                {list.map((pr) => (
+                  <Link className="chip" key={pr.city} href={`/online-counselling/${pr.city}/${slug}`}>
+                    {`${label} in ${getLocation(pr.city)?.city ?? pr.city}`}
+                  </Link>
+                ))}
+                {slug === s.slug && <Link className="chip" href="/online-counselling">All areas served</Link>}
+              </div>
             </div>
-          </div>
-        </section>
-      )}
+          </section>
+        );
+      })}
 
       {/* THE LANGUAGE PAGES BY PLACE — 2 Oct 2026 (items 367, 391). The two
           language services have no city x service pages, so the by-area row

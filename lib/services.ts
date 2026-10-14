@@ -86,6 +86,17 @@ export type Service = {
   sources?: { label: string; url: string }[];
   figure?: string;         // key into lib/figures.ts — renders the page's diagram
   figure2?: string;      // second diagram, further down the page
+  /* THE PILLAR FIELDS — 13 Oct 2026. The province-wide answers for trauma
+     and for couples sat in depth sections inside the collapsed "More on how
+     this work runs" fold, under an H1 and title that named only the method,
+     so the city pages ranked for the national queries instead.
+     `heading` replaces the name in the H1 (the eyebrow, cards and schema
+     keep `name`); `leadSection` is the h2 of one depth section rendered open
+     under the intro instead of in the fold; `areaAlso` is a condition whose
+     city pages this service page also links down to. */
+  heading?: string;
+  leadSection?: string;
+  areaAlso?: string;
 };
 
 export const services: Service[] = [
@@ -179,15 +190,30 @@ export const services: Service[] = [
     figure2: "first-session-flow",
     figure: "gottman-method",
     name: "Couples Therapy",
+    /* THE BC PILLAR FOR ONLINE COUPLES AND MARRIAGE COUNSELLING — 13 Oct
+       2026. Export of 13 Oct: this page 152 impressions at 28.7 and one
+       click, while /online-counselling/mission/couples-therapy took 395 at
+       25.2 with none, for queries with no Mission in them ("online couples
+       therapy" 9 at 78, "online marriage counseling" 6 at 89). Head query
+       "gottman method marriage counselling british columbia" 17 at 30.6
+       (24 at 34.4 on 3 Oct), then "gottman method counsellor british
+       columbia" 13 at 25.5, "online marriage counselling vancouver" 7 at
+       20, "online couples therapy bc" 5 at 26.8. The title had no
+       "marriage" in it; the H1 said "Couples Therapy" only; the Gottman
+       section that answers the head query was folded shut. */
+    heading: "Online Couples and Marriage Counselling in BC",
+    leadSection: "Gottman-informed couples counselling in BC",
     short: "Gottman-informed: communication, conflict, connection, repair.",
-    metaTitle: "Gottman-Informed Couples Counselling Online in BC | Westpeak",
+    metaTitle: "Gottman-Informed Couples and Marriage Counselling Online BC",
     /* "Marriage" added 3 Oct 2026. The 3 Oct export: "gottman method
        marriage counselling british columbia" 24 impressions at 34.4, the
        largest query in the Gottman family, and "marriage counselling" in
        eight more queries; the description never said the word. The title
        is unchanged (tuned 1 Oct, still being measured). */
+    /* 13 Oct 2026: one sentence, so the fee line still fits behind it
+       (lib/snippet-facts.ts keeps only whole sentences): served at 153. */
     metaDescription:
-      "Gottman-informed online couples and marriage counselling across BC. Communication, conflict and repair, by secure video.",
+      "Gottman-informed online couples and marriage counselling anywhere in BC, by secure video.",
     hero: "Strengthen communication, deepen connection, repair what's frayed.",
     intro:
       "Every couple hits friction. Couples therapy is a structured, research-based space to understand the patterns underneath the arguments, and to build the skills to move through conflict without losing each other. Sessions are 50 minutes (or a 110-minute extended option), online across BC.",
@@ -264,8 +290,10 @@ export const services: Service[] = [
 
   {
     slug: "emdr-therapy",
+    /* Trauma first since 13 Oct 2026: this is the BC trauma pillar (see
+       metaTitle below). The EMDR sentences are the ones it carried before. */
     directAnswer:
-      "EMDR (Eye Movement Desensitization and Reprocessing) at Westpeak Wellness is a structured eight-phase therapy for distressing memories, delivered by secure video across British Columbia by an EMDR-trained Registered Clinical Counsellor. It has a strong evidence base for post-traumatic stress and is used for trauma, PTSD, anxiety and grief. Most of the protocol is preparation rather than eye movements: reprocessing does not begin until the regulation skills to come back down are reliably in place.",
+      "Online trauma therapy at Westpeak Wellness is paced, trauma-informed counselling by secure video anywhere in British Columbia with a Registered Clinical Counsellor, and EMDR (Eye Movement Desensitization and Reprocessing) is one route through it: a structured eight-phase therapy for distressing memories, with a strong evidence base for post-traumatic stress. Most of the protocol is preparation rather than eye movements: reprocessing does not begin until the regulation skills to come back down are reliably in place.",
     figure2: "first-session-flow",
     figure: "emdr-phases",
     name: "EMDR Therapy",
@@ -275,9 +303,26 @@ export const services: Service[] = [
        therapists", all landing at position 80+ on a city page. Trauma is a
        condition, not a service (DECISIONS.md), and EMDR is the service that
        treats it, so this is the page that should answer those queries. */
-    metaTitle: "Online EMDR Therapist in BC | Trauma Therapy | Westpeak",
+    /* THE BC TRAUMA PILLAR — 13 Oct 2026. The 13 Oct export:
+       /online-counselling/north-vancouver/trauma-therapy 965 impressions
+       at 51.3 and no clicks, almost all of them national queries with no
+       North Vancouver in them ("trauma counselling" 81 at 52.5, "online
+       therapy for trauma" 39 at 69.7, "trauma therapist online" 35 at
+       62.6, "trauma counselling vancouver" 26 at 39.5, "online trauma
+       therapy bc" 7 at 20.7), while this page had 138 at 37.6, mostly
+       EMDR queries, and /services/trauma-therapy (a 308 here since 1 Oct)
+       10 at 67.5. This page stays the pillar rather than bringing
+       /services/trauma-therapy back: trauma is a condition, not a sixth
+       service (DECISIONS, 31 Aug and 1 Oct). The title now leads with the
+       trauma wording that carries ~600 impressions and keeps "counselling"
+       for the largest single query; the H1 says the same; the trauma
+       section opens under the intro instead of sitting in the fold. */
+    heading: "Online Trauma Therapy and EMDR in BC",
+    leadSection: "Online trauma therapy in BC, with and without EMDR",
+    areaAlso: "trauma-therapy",
+    metaTitle: "Online Trauma Therapy, Counselling and EMDR in BC | Westpeak",
     metaDescription:
-      "Online EMDR and trauma therapy across BC for PTSD, anxiety and grief. With an EMDR-trained Registered Clinical Counsellor, by secure video.",
+      "Online trauma therapy and counselling across BC, paced first, with EMDR when you are ready.",
     hero: "Process painful memories so they stop running the show.",
     intro:
       "EMDR (Eye Movement Desensitization and Reprocessing) is an evidence-supported therapy that helps the brain reprocess distressing memories so they lose their grip. You don't have to relive everything in detail or explain it perfectly: EMDR works with how memory is stored, not just how it's told. Available online across BC, including a 90-minute intensive format.",

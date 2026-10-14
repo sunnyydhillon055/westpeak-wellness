@@ -1561,4 +1561,10 @@ export const CONDITION_UPLINK: Record<string, { href: string; label: string } | 
   'trauma-therapy': up('emdr-therapy', 'Online trauma therapy in BC, with and without EMDR', 'online trauma therapy across BC'),
   'anxiety-counselling': up('individual-therapy', 'Online anxiety counselling in BC', 'online anxiety counselling across BC'),
   'depression-counselling': up('individual-therapy', 'Online depression counselling in BC', 'online depression counselling across BC'),
+  /* Couples is a service, not a condition, but its city pages linked up as
+     "the couples therapy page" while Mission's took 395 impressions at 25
+     for province-wide couples queries (13 Oct export). They now name the
+     BC pillar and land on its Gottman section, which opens under the
+     intro (Service.leadSection). 13 Oct 2026. */
+  'couples-therapy': up('couples-therapy', 'Gottman-informed couples counselling in BC', 'online couples and marriage counselling across BC'),
 };

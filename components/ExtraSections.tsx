@@ -23,6 +23,7 @@ export default function ExtraSections({
   offset = 0,
   collapsible = false,
   summary = 'More detail',
+  skip,
 }: {
   area: string;
   slug: string;
@@ -32,8 +33,11 @@ export default function ExtraSections({
   /* Service pages only, as of 31 Aug 2026. See the note below. */
   collapsible?: boolean;
   summary?: string;
+  /* Headings rendered elsewhere on the page, open (a service page's
+     leadSection, 13 Oct 2026), so they are not printed twice. */
+  skip?: string[];
 }) {
-  const sections = getExtra(area, slug);
+  const sections = getExtra(area, slug).filter((s) => !skip?.includes(s.h2));
   if (!sections.length) return null;
 
   /* COLLAPSIBLE ON SERVICE PAGES, expanded everywhere else.

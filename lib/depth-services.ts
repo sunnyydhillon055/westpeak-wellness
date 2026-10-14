@@ -3,7 +3,30 @@ import { fallbackFee } from '@/lib/cliniko-catalog';
 import { BCACC_COUPLES_FAMILY, FEE_GUIDES_READ } from '@/lib/fee-guides';
 import { practitioners } from '@/lib/practitioners';
 import { offeredBy } from '@/lib/practice-facts';
-import { languagePhrase } from '@/lib/city-service-page';
+import { counsellorsFor, languagePhrase, listOf } from '@/lib/city-service-page';
+import { withLetters } from '@/lib/practitioners';
+
+/* WHO TAKES TRAUMA WORK AND WHO TAKES COUPLES WORK, FROM THE ROSTER — 13 Oct
+   2026. The two pillar sections now open under the intro of their service
+   pages, and they said "a Registered Clinical Counsellor" without saying
+   who. Trauma books into individual counselling (lib/conditions.ts), which
+   every accepting counsellor offers; EMDR and couples are whoever lists
+   them in `services`. Same rule as the city-service pages' cards. */
+const namesFor = (service: string) => listOf(counsellorsFor({ bookingService: service }).map(withLetters), 'and');
+const TRAUMA_WHO = (() => {
+  const all = namesFor('individual-therapy');
+  const emdr = namesFor('emdr-therapy');
+  if (!all) return '';
+  return emdr
+    ? ` Trauma-informed counselling here is with ${all}; EMDR is with ${emdr}.`
+    : ` Trauma-informed counselling here is with ${all}.`;
+})();
+const COUPLES_WHO = (() => {
+  const who = counsellorsFor({ bookingService: 'couples-therapy' });
+  return who.length
+    ? ` Couples sessions are with ${listOf(who.map(withLetters), 'and')}, in ${languagePhrase(who)}.`
+    : '';
+})();
 
 /* WHAT LANGUAGE COUPLES WORK RUNS IN, FROM THE ROSTER — 1 Oct 2026.
    The Punjabi service page said "couples work is available in Punjabi as
@@ -115,7 +138,8 @@ export const depthServices: Record<string, DepthSection[]> = {
       h2: 'Gottman-informed couples counselling in BC',
       body: [
         'Plainly, what this is: couples counselling that uses the structure and the tools of the Gottman Method, delivered by secure video to couples anywhere in British Columbia by a Registered Clinical Counsellor registered with the BC Association of Clinical Counsellors. "Gottman-informed" is the accurate phrase. The method is a body of training rather than a licence, and the regulated credential underneath it is the RCC designation, which is what you are entitled to check.',
-        'What that looks like in practice is the assessment-first structure described above: a joint session, an individual session with each partner, the questionnaires, and then a treatment plan agreed with both of you. Sessions are 50 minutes, with a longer extended option, at a time the two of you can actually both make, from one couch or from two cities. Both partners are welcome on the free 15-minute consultation, and that call is the right place to ask how the counsellor was trained and how much of their work is with couples.',
+        `Marriage counselling and couples counselling are the same work here, at the same fee: nothing about the sessions depends on whether you are married. Online means anywhere in the province, from Victoria to Fort St. John, and the two of you can join from one screen or from two places.${COUPLES_WHO}`,
+        'What that looks like in practice is the assessment-first structure described below: a joint session, an individual session with each partner, the questionnaires, and then a treatment plan agreed with both of you. Sessions are 50 minutes, with a longer extended option, at a time the two of you can actually both make, from one couch or from two cities. Both partners are welcome on the free 15-minute consultation, and that call is the right place to ask how the counsellor was trained and how much of their work is with couples.',
         'If it is specifically Emotionally Focused Therapy you are after, this is not the practice for it, and the [Gottman vs EFT comparison](/compare/gottman-method-vs-eft-for-couples) says so rather than pretending otherwise. For the method itself, the research behind it and what the Four Horsemen are, [the guide to how the Gottman Method works](/guides/how-the-gottman-method-works) is the longer read.',
       ],
     },
@@ -183,7 +207,7 @@ export const depthServices: Record<string, DepthSection[]> = {
     {
       h2: 'Online trauma therapy in BC, with and without EMDR',
       body: [
-        'Trauma therapy is available online anywhere in British Columbia, by secure video with a Registered Clinical Counsellor, and EMDR is one route through it rather than the only one. Where a specific memory keeps intruding, EMDR is often the centre of the work; where the difficulty is more about regulation, safety and getting through the present, trauma-informed counselling without reprocessing can be the better start, and most people need some stabilisation before either. Which of those fits is what the [free 15-minute consultation](/book?with=camille-granda#calendar) is for. If you are not sure whether what you carry counts as trauma at all, [what trauma actually means](/guides/what-trauma-actually-means) starts there.',
+        `Trauma therapy is available online anywhere in British Columbia, by secure video with a Registered Clinical Counsellor, and EMDR is one route through it rather than the only one. Where a specific memory keeps intruding, EMDR is often the centre of the work; where the difficulty is more about regulation, safety and getting through the present, trauma-informed counselling without reprocessing can be the better start, and most people need some stabilisation before either. Which of those fits is what the [free 15-minute consultation](/book?with=camille-granda#calendar) is for.${TRAUMA_WHO} If you are not sure whether what you carry counts as trauma at all, [what trauma actually means](/guides/what-trauma-actually-means) starts there.`,
         'Trauma therapy over secure video is an established practice, not a pandemic improvisation. The structured trauma protocols: EMDR with on-screen or self-administered bilateral stimulation, cognitive processing work, stabilisation and resourcing, all adapt to video, and the [research on video-delivered therapy](/guides/is-online-therapy-as-effective-as-in-person) includes trauma-focused work specifically.',
         'Two things matter more online than in a room, and both are manageable. The first is your space: trauma work needs privacy and a plan for the hour after the session, not a car in a work parking lot before a shift. The second is pacing, which is a clinical skill rather than a format property: a trauma therapist who rushes is a problem in any medium, and one who paces well loses nothing over video. For some people the screen genuinely helps: being in your own home, with your own exits, changes what feels sayable.',
         'And where the work keeps being cut short by the standard hour. A target memory that takes twenty minutes just to access. The [90-minute EMDR intensive](/compare/emdr-intensive-vs-weekly-emdr) exists for exactly that arithmetic, once stability is in place.',
