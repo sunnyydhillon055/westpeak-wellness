@@ -24,6 +24,8 @@ import { PA_PLACE_SHARED, PA_CITY, getPunjabiPlace } from '@/lib/practitioner-pl
 import { gurmukhi } from '@/app/fonts-gurmukhi';
 import { TL_PLACE_SHARED, getTagalogPlace } from '@/lib/practitioner-places-tl';
 import { getTagalogCity } from '@/lib/tagalog';
+import { getPunjabiRegion } from '@/lib/punjabi-regions';
+import { getLocation } from '@/lib/locations';
 import Updated from '@/components/Updated';
 import { COLLECTION_DATES } from '@/lib/page-dates';
 import { placePageDate, tagalogProfileDate } from '@/lib/page-date-latest';
@@ -353,9 +355,30 @@ export default async function PractitionerPlacePage({ params }: { params: Params
    * Same province only: an Albertan has no use for Nanaimo, and pretending the
    * set is one region is how a city page stops being about a city. Ordered as
    * the roster lists them and capped at six so the row stays a row. */
-  const nearby = placesFor(p.provinces)
-    .filter((o) => o.slug !== loc.slug && o.province === loc.province)
-    .slice(0, 6);
+  /* REAL NEIGHBOURS FIRST — 15 Oct 2026. Roster order alone meant the first
+     six cities were named on every page and the rest on none: Fort St. John
+     and Penticton were linked from <main> by two pages each. The city's own
+     neighbours (lib/locations.ts `nearby`) now lead, in BOTH directions —
+     Prince George names Fort St. John, so Fort St. John names Prince George
+     — and roster order fills the row to six as before. */
+  const ownNearby = getLocation(loc.slug)?.nearby ?? [];
+  const isNeighbour = (o: { slug: string }) =>
+    ownNearby.includes(o.slug) || (getLocation(o.slug)?.nearby ?? []).includes(loc.slug);
+  const sameProvince = placesFor(p.provinces).filter((o) => o.slug !== loc.slug && o.province === loc.province);
+  const nearby = [
+    ...sameProvince.filter(isNeighbour),
+    ...sameProvince.filter((o) => !isNeighbour(o)),
+  ].slice(0, 6);
+
+  /* THE COLLEAGUE'S PAGE FOR THE SAME CITY — 15 Oct 2026. Two counsellors
+     have a page for most cities and neither page named the other. The
+     difference between them is real (languages, and what each offers), so
+     the sentence states it from the roster rather than in prose. */
+  const colleagues = practitioners.filter(
+    (o) => o.slug !== p.slug && o.acceptingNewClients && o.placePages &&
+      placesFor(o.provinces).some((c) => c.slug === loc.slug),
+  );
+  const ownCredential = p.credentials.find((c) => c.scope === 'provincial') ?? p.credentials[0];
 
   const schema = [
     {
@@ -460,6 +483,13 @@ export default async function PractitionerPlacePage({ params }: { params: Params
               </span>
             ))}
           </div>
+          {ownCredential && loc.province === 'BC' && (
+            <p style={{ marginTop: 10, fontSize: '.95rem' }}>
+              {ownCredential.body} keeps a public register, so you can{' '}
+              <Link href="/resources/verify-a-counsellor-in-bc">check {first}’s registration</Link>{' '}
+              yourself before a consultation in {loc.city}.
+            </p>
+          )}
 
           <div className="prose" style={{ marginTop: 26 }}>
             <p>
@@ -623,20 +653,44 @@ export default async function PractitionerPlacePage({ params }: { params: Params
                 <Link href={`/practitioners/${p.slug}/${loc.slug}/tl`} hrefLang="tl" lang="tl">
                   Basahin ang pahinang ito sa Tagalog
                 </Link>
-                {/* The practice's own Tagalog page for this city had one inbound
-                    link (the Tagalog hub). This counsellor's page for the same
-                    city is the most relevant place on the site to link it from. */}
-                {getTagalogCity(loc.slug) && (
-                  <>
-                    {' · '}
-                    <Link href={`/tagalog-counselling/${loc.slug}`}>
-                      Tagalog counselling in {loc.city}
-                    </Link>
-                  </>
-                )}
               </p>
             </div>
           )}
+
+          {/* THE PRACTICE'S LANGUAGE PAGE FOR THIS CITY — 15 Oct 2026. The
+              Tagalog link used to sit beside the Tagalog twin, so the ten
+              cities added on 2 Oct (no twin yet) never linked their Tagalog
+              city page, and no Savneet page linked a Punjabi region page.
+              Now: whichever of the two exists for this city, for a
+              counsellor who speaks that language, one plain sentence. */}
+          {(() => {
+            const langPages = [
+              p.languages.some((l) => l.tag === 'tl') && getTagalogCity(loc.slug)
+                ? { href: `/tagalog-counselling/${loc.slug}`, label: `Tagalog counselling in ${loc.city}`, lang: 'Tagalog' }
+                : null,
+              p.languages.some((l) => l.tag === 'pa') && getPunjabiRegion(loc.slug)
+                ? { href: `/punjabi-counselling/${loc.slug}`, label: `Punjabi-speaking counselling in ${loc.city}`, lang: 'Punjabi' }
+                : null,
+            ].filter((x): x is { href: string; label: string; lang: string } => Boolean(x));
+            if (langPages.length === 0 && colleagues.length === 0) return null;
+            return (
+              <div className="prose" style={{ marginTop: 30 }}>
+                {langPages.map((x) => (
+                  <p key={x.href}>
+                    For what working in {x.lang} means for someone in {loc.city}, the practice’s page on{' '}
+                    <Link href={x.href}>{x.label}</Link> covers it.
+                  </p>
+                ))}
+                {colleagues.map((o) => (
+                  <p key={o.slug}>
+                    {o.name} also sees clients in {loc.city} by video, in{' '}
+                    {o.languages.map((l) => l.name).join(' or ')}:{' '}
+                    <Link href={`/practitioners/${o.slug}/${loc.slug}`}>{o.name.split(' ')[0]}’s page for {loc.city}</Link>.
+                  </p>
+                ))}
+              </div>
+            );
+          })()}
 
           {nearby.length > 0 && (
             <div className="prose" style={{ marginTop: 34 }}>

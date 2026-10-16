@@ -1,4 +1,5 @@
 import { practitionersSpeaking } from './practitioners';
+import { siblingRing } from './practitioner-places-pa';
 
 /* ============================================================================
    THE TAGALOG VERTICAL
@@ -453,6 +454,30 @@ export const TAGALOG_CITIES: TagalogCity[] = [
 ];
 
 export const getTagalogCity = (slug: string) => TAGALOG_CITIES.find((c) => c.slug === slug);
+
+/* THE SIBLING RING — 15 Oct 2026. Each city page was linked from <main> by
+   two or three pages (its hub, the Tagalog index, and, for eleven of them,
+   Camille's page for the city), so ten of the twenty-one sat on two. Every
+   page now names three others, chosen by walking this order (north Island,
+   south Island, the Lower Mainland east and back west, then the Interior)
+   with siblingRing, which makes the links symmetric: each page is named by
+   exactly three others. The order is geographic so most neighbours are real
+   neighbours; the sentence on the page says "other BC cities", not "nearby",
+   because the ring's two seams (Langford to Richmond, Cranbrook back to
+   Campbell River) are not. test/tagalog-ring.test.mts holds that the order
+   names every city exactly once. */
+export const TAGALOG_RING_ORDER = [
+  'campbell-river', 'courtenay', 'saanich', 'victoria', 'langford',
+  'richmond', 'delta', 'white-rock', 'surrey', 'langley', 'abbotsford',
+  'mission', 'maple-ridge', 'coquitlam', 'new-westminster', 'burnaby',
+  'vancouver', 'north-vancouver', 'kelowna', 'vernon', 'cranbrook',
+] as const;
+
+/** Three other Tagalog city pages to name on this one (see the ring above). */
+export function tagalogSiblings(slug: string): TagalogCity[] {
+  const ordered = TAGALOG_RING_ORDER.map((s) => getTagalogCity(s)).filter((c): c is TagalogCity => Boolean(c));
+  return siblingRing(ordered, slug, 3);
+}
 
 /** "Tagalog Counselling in <City>, BC | Westpeak Wellness", or without ", BC"
  *  where the city name (14 characters or more: Port Coquitlam, Campbell

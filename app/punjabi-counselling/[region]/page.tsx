@@ -191,7 +191,10 @@ export default async function PunjabiRegionPage({ params }: { params: { region: 
               <p>
                 <Link href={`/practitioners/${speaker.slug}`}>{withLetters(speaker)}</Link>:{' '}
                 {speaker.role}, working in Punjabi and English by secure video. She works with{' '}
-                {speaker.focus.map((f) => f.label.toLowerCase()).join(', ')}.
+                {speaker.focus.map((f) => f.label.toLowerCase()).join(', ')}. Her registration number
+                is on her profile, and you can{' '}
+                <Link href="/resources/verify-a-counsellor-in-bc">check her registration with BCACC</Link>{' '}
+                before booking from {r.region}.
               </p>
               {place && (
                 <p>

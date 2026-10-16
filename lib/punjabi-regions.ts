@@ -183,7 +183,7 @@ export const punjabiRegions: PunjabiRegion[] = [
         url: 'https://www.interiorhealth.ca/health-and-wellness/mental-health-and-substance-use/mental-health',
       },
     ],
-    nearby: ['kelowna', 'prince-george'],
+    nearby: ['kelowna', 'prince-george', 'vernon'],
   },
 
   {
@@ -346,7 +346,7 @@ export const punjabiRegions: PunjabiRegion[] = [
         url: 'https://www.cmhakelowna.com/programs-supports/virtual-counselling-services',
       },
     ],
-    nearby: ['kamloops', 'prince-george'],
+    nearby: ['kamloops', 'prince-george', 'vernon', 'cranbrook'],
   },
 
   /* SURREY IS THE EXCEPTION IN THIS FILE, AND ITS ARGUMENT IS INVERTED.
@@ -456,7 +456,7 @@ export const punjabiRegions: PunjabiRegion[] = [
         url: 'https://www.fraserhealth.ca/health-topics-a-to-z/mental-health-and-substance-use',
       },
     ],
-    nearby: ['kamloops', 'kelowna', 'abbotsford'],
+    nearby: ['kamloops', 'kelowna', 'abbotsford', 'new-westminster'],
   },
 
   /* ABBOTSFORD, ADDED 2026-08-18. SECOND PAGE IN THE "DISTANCE" GROUP.
@@ -569,7 +569,7 @@ export const punjabiRegions: PunjabiRegion[] = [
         url: 'https://www.fraserhealth.ca/health-topics-a-to-z/mental-health-and-substance-use',
       },
     ],
-    nearby: ['surrey', 'vancouver', 'mission'],
+    nearby: ['surrey', 'vancouver', 'mission', 'maple-ridge'],
   },
 
   /* VANCOUVER, ADDED 2026-08-18. THIRD IN THE "DISTANCE" GROUP, AND THE ONE
@@ -687,7 +687,7 @@ export const punjabiRegions: PunjabiRegion[] = [
         url: 'https://www.vch.ca/en/health-topics/mental-health',
       },
     ],
-    nearby: ['surrey', 'abbotsford'],
+    nearby: ['surrey', 'abbotsford', 'north-vancouver', 'new-westminster'],
   },
   /* SAANICH, 2 Oct 2026. ARGUMENT: SCARCITY, with an Island twist.
    *
@@ -782,7 +782,7 @@ export const punjabiRegions: PunjabiRegion[] = [
         url: 'https://www.islandhealth.ca/news/news-releases/more-options-available-people-needing-same-day-mental-health-and-addiction-supports',
       },
     ],
-    nearby: ['vancouver', 'kamloops', 'courtenay'],
+    nearby: ['vancouver', 'kamloops', 'courtenay', 'langford'],
   },
   /* MAPLE RIDGE, 2 Oct 2026. ARGUMENT: DISTANCE, said honestly about size.
    *
@@ -881,7 +881,7 @@ export const punjabiRegions: PunjabiRegion[] = [
         url: 'https://www.fraserhealth.ca/Service-Directory/Services/mental-health-and-substance-use/mental-health-centres/mental-health-centres',
       },
     ],
-    nearby: ['surrey', 'abbotsford'],
+    nearby: ['surrey', 'abbotsford', 'mission'],
   },
   /* VERNON, 2 Oct 2026. ARGUMENT: SCARCITY, said honestly about size.
    *
@@ -977,7 +977,7 @@ export const punjabiRegions: PunjabiRegion[] = [
         url: 'https://cmhavernon.ca/youth-services/',
       },
     ],
-    nearby: ['kelowna', 'kamloops'],
+    nearby: ['kelowna', 'kamloops', 'cranbrook'],
   },  /* MISSION, 2 Oct 2026. ARGUMENT: DISTANCE.
    *
    * Scarcity would be false: Abbotsford, across the bridge, is one of the
@@ -1115,7 +1115,7 @@ export const punjabiRegions: PunjabiRegion[] = [
         url: 'https://www.islandhealth.ca/our-services/mental-health-substance-use-services/adult-mental-health-substance-use-services/comox-valley-mental-health-substance-use',
       },
     ],
-    nearby: ['saanich'],
+    nearby: ['saanich', 'campbell-river', 'langford'],
   },
   /* LANGFORD AND THE WEST SHORE, 2 Oct 2026. ARGUMENT: SCARCITY, stated as
    * SMALL. Owner decision of the same day: every city in the October batch
@@ -1186,7 +1186,7 @@ export const punjabiRegions: PunjabiRegion[] = [
         url: 'https://www.islandhealth.ca/our-services/mental-health-substance-use-services/adult-mental-health-substance-use-services/western-communities-formerly-westshore-mental-health-substance-use',
       },
     ],
-    nearby: ['saanich', 'courtenay'],
+    nearby: ['saanich', 'courtenay', 'campbell-river'],
   },
   /* CRANBROOK, 2 Oct 2026. Argues SCARCITY, from a small base, and says so.
      Owner decision of the same day: the figure is stated plainly. Statistics
@@ -1423,7 +1423,7 @@ export const punjabiRegions: PunjabiRegion[] = [
       { label: 'Fraser Health Crisis Line (Options Community Services)', url: 'https://www.options.bc.ca/program/fraser-health-crisis-line' },
       { label: 'Crisis Centre of BC, 310 Mental Health Support (310-6789) and 9-8-8', url: 'https://crisiscentre.bc.ca/' },
     ],
-    nearby: ['surrey', 'vancouver'],
+    nearby: ['surrey', 'vancouver', 'north-vancouver'],
   },
 ];
 

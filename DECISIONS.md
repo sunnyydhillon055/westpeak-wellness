@@ -3847,6 +3847,18 @@ No noindex or consolidation of any URL.
 
 *Enforced by:* `scripts/coverage-claims.mjs`, `test/coverage-claims-adverbs.test.mts`, `scripts/smoke.mjs`, `test/language-brand-oct3.test.mts`.
 
+### Every city landing page carries its fee, a registration check and five pages pointing at it (15 Oct 2026)
+Decided 15 Oct 2026 (branch `wf/city9500`). Owner goal: every city landing page at 9,500 or more on `scripts/page-score.mjs`. Before: Tagalog city pages 9,060-9,240 (no fee in `<main>`, registration check only in the footer, two or three inbound pages, eight under the 600-word floor); four place pages for Fort St. John and Penticton 9,200-9,407 (two inbound); Punjabi region pages from 9,540. After: all 21 Tagalog city pages and all 16 Punjabi region pages 10,000; place pages min 9,789 (what is left is the two counsellors' pages for one city sharing 53-56% of their text); no page anywhere fell.
+
+- **Tagalog city pages** (`app/tagalog-counselling/[city]/page.tsx`): the counsellor paragraph links `/resources/verify-a-counsellor-in-bc` ("check her registration with BCACC"); a fee sentence reads `individualFeePhrase()` and `CONSULT_MINUTES` and links /pricing, with the coverage wording "many plans ..., depending on the plan"; each page names three other Tagalog city pages from `TAGALOG_RING_ORDER` in `lib/tagalog.ts` (geographic, walked with `siblingRing`, so each page is named by exactly three). The sentence says "other BC cities", not "nearby", because the ring has two seams. English only; no new Tagalog.
+- **Place pages** (`app/practitioners/[slug]/[place]/page.tsx`): under the credential bar, a line that her body keeps a public register with a link to the verify page (BC pages only). The Tagalog city link no longer depends on a Tagalog twin existing, so the ten cities added 2 Oct link theirs, and a Punjabi speaker's page links the Punjabi region page for the city. Each page names the colleague who also has a page for the city, stating only her languages from the roster. "Also works with" lists the city's real neighbours first, both directions of `lib/locations.ts` `nearby`, then roster order to six as before; this is what gave Fort St. John and Penticton their links.
+- **Punjabi region pages**: the counsellor paragraph links the verify page; `nearby` in `lib/punjabi-regions.ts` grew so every region is named by at least two others (Campbell River, Cranbrook, Langford, New Westminster, North Vancouver had none). No chip row passes five regions plus the hub.
+- /services/tagalog-counselling already lists every city page in a `<nav>` chip grid; it stays navigation and was not reshaped to earn links.
+
+No new pages, no client JS, no budget change, no noindex or redirect. The fee comes from the catalogue; no figure was typed.
+
+*Enforced by:* `test/tagalog-ring.test.mts`, `scripts/page-score.mjs`, the uniqueness gate.
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`

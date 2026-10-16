@@ -3,7 +3,9 @@ import Link from 'next/link';
 import Image from '@/components/ui/Img';
 import { notFound } from 'next/navigation';
 import { site } from '@/lib/site';
-import { TAGALOG_CITIES, getTagalogCity, TAGALOG_SPEAKERS, tagalogCityTitle } from '@/lib/tagalog';
+import { TAGALOG_CITIES, getTagalogCity, TAGALOG_SPEAKERS, tagalogCityTitle, tagalogSiblings } from '@/lib/tagalog';
+import { individualFeePhrase } from '@/lib/session-arithmetic';
+import { CONSULT_MINUTES } from '@/lib/cliniko-catalog';
 import { getLocation } from '@/lib/locations';
 import { orgRef, siteRef } from '@/lib/schema';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -43,6 +45,7 @@ export default function TagalogCityPage({ params }: { params: { city: string } }
   const speaker = TAGALOG_SPEAKERS[0];
   const cta = bookingCtaFor({ language: 'tl', fallback: 'Book a free consultation' });
   const loc = getLocation(c.slug);
+  const siblings = tagalogSiblings(c.slug);
 
   const schema = [
     {
@@ -149,8 +152,16 @@ export default function TagalogCityPage({ params }: { params: { city: string } }
                 <Link href={`/practitioners/${speaker.slug}`}>{speaker.name}</Link>,{' '}
                 {speaker.postNominals}: {speaker.role}. She works with{' '}
                 {speaker.focus.map((f) => f.label.toLowerCase()).join(', ')}, and her registration
-                numbers are published in full on her profile so you can check them before booking
-                anything.
+                numbers are published in full on her profile so you can{' '}
+                <Link href="/resources/verify-a-counsellor-in-bc">check her registration with BCACC</Link>{' '}
+                before booking anything.
+              </p>
+              <p>
+                From {c.city}, an individual session with {speaker.name.split(' ')[0]} is{' '}
+                {individualFeePhrase()}, whether it runs in Tagalog or English, and it starts with
+                the free {CONSULT_MINUTES}-minute consultation.{' '}
+                <Link href="/pricing">Fees and extended-health coverage</Link> has the couples and
+                EMDR fees; many plans reimburse a Registered Clinical Counsellor, depending on the plan.
               </p>
               <p>
                 There is also a page for{' '}
@@ -195,6 +206,18 @@ export default function TagalogCityPage({ params }: { params: { city: string } }
               <Link href={`/online-counselling/${c.slug}`}>counselling in {c.city}</Link> covers
               it. {loc ? loc.blurb : ''}
             </p>
+            {siblings.length > 0 && (
+              <p>
+                Other BC cities with a page of their own on Tagalog-speaking counselling:{' '}
+                {siblings.map((s, i) => (
+                  <span key={s.slug}>
+                    {i === 0 ? '' : i === siblings.length - 1 ? ' and ' : ', '}
+                    <Link href={`/tagalog-counselling/${s.slug}`}>Tagalog counselling in {s.city}</Link>
+                  </span>
+                ))}
+                . The sessions are the same from {c.city} as from each of them.
+              </p>
+            )}
           </div>
 
           <div className="crisis" style={{ marginTop: 26 }}>
