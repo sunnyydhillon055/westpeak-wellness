@@ -95,6 +95,27 @@ const securityHeaders = [
   { key: 'Access-Control-Allow-Origin', value: 'https://www.westpeakwellness.com' },
 ];
 
+/* THE ONE ROUTE ANOTHER SITE MAY FRAME — 15 Oct 2026.
+ *
+ * /embed/stress-leave-pay-calculator exists to sit in an iframe on HR, union
+ * and benefits sites (pages/embed/). Everywhere else the site refuses to be
+ * framed, twice: frame-ancestors 'none' and X-Frame-Options: DENY. For /embed/
+ * only, the same policy with frame-ancestors * and no X-Frame-Options at all
+ * (it has no "allow any" value, and DENY would be ignored beside
+ * frame-ancestors by current browsers but obeyed by older ones). Every other
+ * security header is kept. noindex, follow: the indexable copy is the /tools
+ * page, and the credit link should still be followed. The Link header points
+ * at the /tools page's Markdown twin, since the frame has none of its own. */
+const EMBED_HEADERS = [
+  ...securityHeaders
+    .filter((h) => h.key !== 'X-Frame-Options')
+    .map((h) => (h.key === 'Content-Security-Policy'
+      ? { key: h.key, value: h.value.replace("frame-ancestors 'none'", 'frame-ancestors *') }
+      : h)),
+  { key: 'X-Robots-Tag', value: 'noindex, follow' },
+  { key: 'Link', value: LINKS('/tools/stress-leave-pay-calculator.md') },
+];
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -118,7 +139,9 @@ const nextConfig = {
    * is content-visibility on below-fold sections (globals.css). */
   async headers() {
     return [
-      { source: '/:path*', headers: securityHeaders },
+      /* Every path but /embed/ (15 Oct 2026: see EMBED_HEADERS below). The
+       * pattern also matches '/', which '/:path*' did. */
+      { source: '/:path((?!embed/).*)', headers: securityHeaders },
       /* WHAT AN ANSWER ENGINE MAY QUOTE — 24 Sep 2026.
        *
        * The page-level <meta name="robots"> says index,follow and nothing
@@ -193,6 +216,8 @@ const nextConfig = {
           { key: 'Link', value: LINKS('/:path.md') },
         ],
       },
+      /* Last, so it wins every key it shares with the rules above. */
+      { source: '/embed/:path+', headers: EMBED_HEADERS },
     ];
   },
   async rewrites() {

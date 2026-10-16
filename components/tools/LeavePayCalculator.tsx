@@ -19,10 +19,16 @@ import {
  * claim date is today in BC, read when the reader asks, so a page built
  * before the waiver ends still answers correctly after it. */
 
+/* `embed` is set only by the framed copy at /embed/stress-leave-pay-calculator
+   (pages/embed/, 15 Oct 2026). Inside someone else's page a site link must
+   open a new tab at the full address rather than navigate the frame, and the
+   booking and share buttons are left out: the host page carries one credit
+   line instead. `origin` comes from lib/site.ts on the server. */
 type Props = {
   ei: { weekly: number; year: number };
   waiver: { from: string; to: string; toLabel: string };
   bookHref?: string;
+  embed?: { origin: string };
 };
 
 type Tri = 'yes' | 'no' | 'unsure';
@@ -62,9 +68,15 @@ function Choice<T extends string>({ value, set, options }: { value: T; set: (v: 
   );
 }
 
+function SiteLink({ origin, href, children }: { origin?: string; href: string; children: React.ReactNode }) {
+  return origin
+    ? <a href={`${origin}${href}`} target="_blank" rel="noopener">{children}</a>
+    : <Link href={href}>{children}</Link>;
+}
+
 const TRI = [['yes', 'Yes'], ['no', 'No'], ['unsure', 'Not sure']] as const;
 
-export default function LeavePayCalculator({ ei, waiver, bookHref }: Props) {
+export default function LeavePayCalculator({ ei, waiver, bookHref, embed }: Props) {
   const [earnings, setEarnings] = useState('');
   const [law, setLaw] = useState<'bc' | 'federal'>('bc');
   const [months, setMonths] = useState(9);
@@ -246,17 +258,17 @@ export default function LeavePayCalculator({ ei, waiver, bookHref }: Props) {
               If work caused it, WorkSafeBC is a separate route: an accepted claim pays wage-loss
               benefits and treatment, at amounts WorkSafeBC sets, and ordinary overload or an
               employer’s decisions about your job are excluded.{' '}
-              <Link href="/resources/worksafebc-psychological-injury-claims">How a WorkSafeBC psychological injury claim works</Link>.
+              <SiteLink origin={embed?.origin} href="/resources/worksafebc-psychological-injury-claims">How a WorkSafeBC psychological injury claim works</SiteLink>.
             </p>
           )}
           <p>
             To qualify for EI you need 600 insured hours in the last 52 weeks, weekly earnings down by
             more than 40%, and a medical certificate. Apply within four weeks of your last day of work.
-            More detail: <Link href="/guides/ei-sickness-benefits-and-therapy">what medical EI pays and how to apply</Link>{' '}
-            · <Link href="/resources/workplace-mental-health-bc">how stress leave works in BC</Link>
+            More detail: <SiteLink origin={embed?.origin} href="/guides/ei-sickness-benefits-and-therapy">what medical EI pays and how to apply</SiteLink>{' '}
+            · <SiteLink origin={embed?.origin} href="/resources/workplace-mental-health-bc">how stress leave works in BC</SiteLink>
           </p>
 
-          <ResultCta tool="stress-leave-pay-calculator" href={bookHref} />
+          {!embed && <ResultCta tool="stress-leave-pay-calculator" href={bookHref} />}
           <p className="tool-disclaimer">
             This is an estimate from the figures you entered, not advice and not a decision. Service
             Canada decides your EI, your insurer decides any disability claim and WorkSafeBC decides
