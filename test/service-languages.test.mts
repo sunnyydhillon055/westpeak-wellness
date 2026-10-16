@@ -48,7 +48,7 @@ test('no city-service description names a language nobody offering the service s
     const topic = getCityTopic(p.service)!;
     const offering = counsellorsFor(topic);
     const allowed = languagesFor(offering);
-    const d = cityServiceDescription({ angle: p.angle, counsellors: offering, facts: serviceSnippet(FALLBACK_CATALOG, topic.bookingService, []) });
+    const d = cityServiceDescription({ service: topic.name, city: cityContexts.find((c) => c.slug === p.city)!.city, angle: p.angle, snippet: p.snippet, counsellors: offering, facts: serviceSnippet(FALLBACK_CATALOG, topic.bookingService, []) });
     assert.ok(metaLength(d) <= 158, `${p.city}/${p.service}: ${metaLength(d)} chars`);
     assert.ok(endsClean(d), `${p.city}/${p.service} ends on a dangling word: ${d}`);
     for (const l of named(d)) assert.ok(allowed.includes(l), `${p.city}/${p.service} names ${l}: ${d}`);
@@ -61,8 +61,8 @@ test('the couples and EMDR city pages do not offer Punjabi when nobody offering 
   for (const service of ['couples-therapy', 'emdr-therapy']) {
     const offering = counsellorsFor({ bookingService: service });
     if (offering.some((p) => p.languages.some((l) => l.tag === 'pa'))) continue;
-    const angle = pairs.find((p) => p.city === 'abbotsford' && p.service === service)!.angle;
-    const d = cityServiceDescription({ angle, counsellors: offering, facts: serviceSnippet(FALLBACK_CATALOG, service, []) });
+    const { angle, snippet } = pairs.find((p) => p.city === 'abbotsford' && p.service === service)!;
+    const d = cityServiceDescription({ service: getCityTopic(service)!.name, city: 'Abbotsford', angle, snippet, counsellors: offering, facts: serviceSnippet(FALLBACK_CATALOG, service, []) });
     assert.doesNotMatch(d, /Punjabi/, d);
     assert.doesNotMatch(languagePhrase(offering), /Punjabi/);
   }

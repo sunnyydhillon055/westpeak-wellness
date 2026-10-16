@@ -20,7 +20,7 @@ import BookLink from '@/components/BookLink';
 import { readCatalog, type Catalog } from '@/lib/cliniko-catalog';
 import {
   bookHrefFor, cityServiceDescription, cityServiceTitle, counsellorsFor, feeFor, generatedFaqs, languagePhrase, languagesFor,
-  midSentence, seoName, whoHeading, laterOption, guideNote, COVERAGE_LINE,
+  midSentence, seoName, serviceDirectAnswer, whoHeading, laterOption, guideNote, COVERAGE_LINE,
 } from '@/lib/city-service-page';
 import { serviceSnippet } from '@/lib/snippet-facts';
 import type { Pair } from '@/lib/city-services';
@@ -120,10 +120,14 @@ const SERVICE_FIGURE: Record<string, string> = {
 
 /* The description, for the result, the page node and the Service node alike:
    the pair's angle, the counsellors who would take the work, and the
-   service's catalogue fee (lib/city-service-page.ts). 3 Oct 2026. */
-function describe(pair: Pair, svc: CityTopic, catalog: Catalog) {
+   service's catalogue fee (lib/city-service-page.ts). 3 Oct 2026. Since
+   15 Oct it opens "Online {service} for {City}" and never cuts the angle. */
+function describe(pair: Pair, svc: CityTopic, catalog: Catalog, city: string) {
   return cityServiceDescription({
+    service: svc.name,
+    city,
     angle: pair.angle,
+    snippet: pair.snippet,
     counsellors: counsellorsFor(svc),
     facts: serviceSnippet(catalog, svc.bookingService, []),
   });
@@ -162,7 +166,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
      Abbotsford couples result ended on the word "Free". */
   /* Since 3 Oct 2026 the pair's own angle, first names and the catalogue fee;
      see describe() above. */
-  const desc = describe(pair, svc, await readCatalog());
+  const desc = describe(pair, svc, await readCatalog(), ctx.city);
   return {
     title: { absolute: `${title} | ${site.name}` },
     description: desc,
@@ -219,7 +223,7 @@ export default async function CityServicePage({ params }: { params: Params }) {
      meant it (CityContext.meantInstead, North Vancouver only). 15 Oct 2026. */
   const meant = ctx.meantInstead && getPair(ctx.meantInstead.slug, svc.slug) ? ctx.meantInstead : undefined;
 
-  const desc = describe(pair, svc, catalog);
+  const desc = describe(pair, svc, catalog, ctx.city);
 
   /* THE SERVICE THIS PAGE SELLS — 1 Oct 2026. The fifty pairs carried a
      page, a breadcrumb and an FAQ, and no Service: the FAQ stated the fee in
@@ -319,13 +323,11 @@ export default async function CityServicePage({ params }: { params: Params }) {
               (couples and EMDR: one counsellor). 1 Oct 2026. */}
           <NextConsultLine location="next-city-service" slugs={counsellors.map((p) => p.slug)} service={svc.bookingService} style={{ margin: '14px 0 0', fontSize: '.95rem' }} />
           {/* One self-contained sentence for an answer engine, alongside the
-              page's own argument above. Says only what is true of every
-              counsellor at the practice. */}
+              page's own argument above. Names the counsellors who offer this
+              service (lib/city-service-page.ts serviceDirectAnswer), 15 Oct
+              2026. */}
           <p className="direct-answer" style={{ marginTop: 22 }}>
-            {svc.name} for people in {ctx.city} is delivered by secure video by Registered
-            Clinical Counsellors registered with the BC Association of Clinical Counsellors,
-            with a free first consultation, no referral, and receipts your extended health plan
-            can process.
+            {serviceDirectAnswer(svc.name, ctx.city, counsellors)}
           </p>
           {meant ? (
             <p style={{ fontSize: '.95rem' }}>

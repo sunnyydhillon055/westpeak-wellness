@@ -179,7 +179,7 @@ export const cityContexts: CityContext[] = [
     travel:
       'Victoria is a ferry or a flight from the mainland, which means the specialist pool is genuinely bounded rather than merely inconvenient. If the practitioner you need is in Vancouver, "going to see them" is a day.',
     inPerson:
-      'Island Health runs public intake, and the private sector in Greater Victoria is active but finite. When a specific approach is not represented on the Island, the fallback has historically been to travel or to go without.',
+      'Island Health runs public intake, and the private sector in Greater Victoria is active. When the specific approach you want has no opening on the Island, the next option on the mainland involves a sailing.',
     unlock:
       'The strait stops being a factor. Virtual care is the one arrangement where being on the Island costs nothing at all in access.',
     nearby: ['saanich', 'langford', 'vancouver'],
@@ -193,9 +193,9 @@ export const cityContexts: CityContext[] = [
     travel:
       'Kelowna serves as the referral hub for much of the Okanagan, which means local practices absorb demand from Vernon, West Kelowna and Penticton as well as the city itself.',
     inPerson:
-      'Interior Health covers public intake across the region. Private practice in Kelowna is comparatively strong for the Interior, which is precisely why it is busy, being the best-served city in a thinly-served region is not the same as being well served.',
+      'Interior Health covers public intake across the region. Private practice in Kelowna is comparatively strong for the Interior, and it draws people from across the valley, so openings vary.',
     unlock:
-      'Not competing with the whole Okanagan for the same handful of local appointments.',
+      'Your choice of counsellor is not limited to who practises within a drive of Kelowna.',
     nearby: ['kamloops', 'vernon'],
   },
   {
@@ -207,7 +207,7 @@ export const cityContexts: CityContext[] = [
     travel:
       'Kamloops is a hub for a very large and very sparse catchment. People drive in from Merritt, Chase and Barriere, and in winter that drive is a real deterrent rather than a theoretical one.',
     inPerson:
-      'Interior Health runs public intake. The local private sector is small relative to the area it effectively serves, and specialised modalities are not reliably represented.',
+      'Interior Health runs public intake. The local private sector is small relative to the area it effectively serves, so the choice for a specific approach is narrower than on the coast, and openings vary.',
     unlock:
       'Weather stops being a reason to miss a session. A snowed-in highway does not cancel a video appointment.',
     nearby: ['kelowna'],
@@ -221,7 +221,7 @@ export const cityContexts: CityContext[] = [
     travel:
       'Prince George is the largest city in the north and the referral centre for an area larger than most countries. "The nearest specialist" can mean a flight, not a drive.',
     inPerson:
-      'Northern Health covers a catchment with the thinnest counselling coverage in the province. For specialised work the honest local answer has often been that it is not available here.',
+      'Northern Health covers a very large catchment, and for specialised work the local choice is narrower than in the south, with openings that vary.',
     unlock:
       'Northern BC and Metro Vancouver get the same counsellor. Virtual care is the only arrangement in which that sentence is true.',
     nearby: ['kamloops'],
@@ -317,7 +317,7 @@ export const cityContexts: CityContext[] = [
     region: 'East Kootenay',
     authority: 'Interior Health',
     travel:
-      'Cranbrook is the service centre for the East Kootenay, and people come in from Kimberley, Fernie, Sparwood and Invermere for it. Anything Cranbrook does not have usually means a mountain pass west, or a provincial border east.',
+      'Cranbrook is the service centre for the East Kootenay, and people come in from Kimberley, Fernie, Sparwood and Invermere for it. Whatever is not offered in Cranbrook usually means a mountain pass west, or a provincial border east.',
     inPerson:
       'Interior Health runs public intake through 310-MHSU and a mental-health and substance-use centre in the city. The private sector is the size of a regional centre’s, and a specific approach or language may not be represented in it.',
     unlock:

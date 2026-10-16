@@ -627,10 +627,10 @@ export default function Home() {
             <p style={{ maxWidth: '68ch' }}>
               The practice is virtual and registered across British Columbia, so where you live
               makes no difference to the session itself. It makes a considerable difference to
-              what is available to you locally, and these are the places where that gap changes
-              what there is to say. The scarcity of clinicians in the north, the cost of a
-              ferry, the drive into a regional hub, the concentration of Punjabi-speaking
-              counsellors in the Lower Mainland.
+              what is available to you locally, and these are the places where that difference
+              changes what there is to say: the distances in the north, the cost of a ferry, the
+              drive into a regional hub, and how far the search for a counsellor who speaks
+              Punjabi can run.
             </p>
           </Reveal>
           <Reveal>

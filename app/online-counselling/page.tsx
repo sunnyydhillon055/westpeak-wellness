@@ -222,9 +222,9 @@ export default function LocationsIndex() {
           </p>
           <p>
             So there are pages for the {locations.length} places where something true and specific about accessing
-            care there actually changes what the page says: the scarcity of clinicians in the north,
-            the cost of a ferry for weekly appointments, the concentration of Punjabi-speaking
-            counsellors in the Lower Mainland. Everywhere else is served identically. There is simply
+            care there actually changes what the page says: the distances in the north, the cost of
+            a ferry for weekly appointments, how far the search for a Punjabi-speaking counsellor
+            can run. Everywhere else is served identically. There is simply
             nothing distinct to write, and pretending otherwise would waste your time.
           </p>
         </div>

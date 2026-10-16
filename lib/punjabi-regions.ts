@@ -192,7 +192,7 @@ export const punjabiRegions: PunjabiRegion[] = [
     region: 'Prince George',
     wider: 'Northern BC',
     blurb:
-      'Northern BC has the thinnest counselling coverage in the province. In Punjabi, it is thinner still, and virtual access is the only realistic route.',
+      'Northern BC covers a vast area, and the choice narrows again if you want sessions in Punjabi. Virtual access adds a route that does not depend on the drive.',
     metaDescription:
       'Punjabi-speaking online counselling for Prince George and Northern BC. Sessions in Punjabi, English, or both, with an RCC. Free 15-minute consultation.',
     demography: {
@@ -200,7 +200,7 @@ export const punjabiRegions: PunjabiRegion[] = [
       body: [
         'In the 2021 census roughly **4.2% of Prince George residents identified as South Asian**: in the wider Cariboo: Prince George region, about 4,195 people. Punjabi has been among the most commonly reported mother tongues in the city for well over a decade; in the 2011 census it was the second most common after German.',
         'Prince George has had a Punjabi-speaking community since the sawmills, which is to say for generations. This is not a new or transient population, and it is not small.',
-        'What it does not have is a Punjabi-speaking clinical counsellor. Not a shortage of them, an absence.',
+        'Whether a Punjabi-speaking clinical counsellor is taking clients near Prince George is worth checking in the BC Association of Clinical Counsellors’ directory rather than assuming either way.',
       ],
     },
     localReality: {
@@ -208,7 +208,7 @@ export const punjabiRegions: PunjabiRegion[] = [
       body: [
         'In February 2026 the Canadian Mental Health Association\'s Northern BC branch reported that its no-barrier counselling programme in Prince George, funded as a Northern Health pilot, had supported **103 clients across 519 appointments in ten months and still carried a waitlist of 30 people**. The programme paused on 31 March 2026 when the pilot funding concluded.',
         'CMHA Northern BC has also said plainly that in-person one-to-one services across the north remain sparse, and that people seeking a specialist or psychiatrist in the region routinely wait longer than elsewhere in BC.',
-        'Those figures describe counselling in English. Add the requirement that the counsellor speak Punjabi and the local supply does not thin out. It disappears. Every Punjabi-speaking counsellor in BC with an office is in the Lower Mainland, roughly eight hours south.',
+        'Those figures describe counselling in English. Add the requirement that the counsellor speak Punjabi and the choice near Prince George narrows again. By video, a Punjabi-speaking counsellor anywhere in BC is as reachable as one across town.',
         'Northern Health does run mental-health and substance-use services in Prince George, delivered in person, by phone and by video. If you are connected to them, stay connected. Private virtual counselling is most useful when the wait for a public service is longer than you can comfortably hold, or when you want continuity that does not depend on a pilot\'s funding cycle.',
         'If language is not the barrier you are trying to solve, [online counselling for Prince George](/online-counselling/prince-george) covers the same access gap in English, with the same figures behind it.',
       ],
@@ -224,7 +224,7 @@ export const punjabiRegions: PunjabiRegion[] = [
       },
       {
         label: 'Continuity through rotations',
-        detail: 'Work camps, rotations and moves within BC do not interrupt the work. The practice is licensed to see clients anywhere in the province.',
+        detail: 'Work camps, rotations and moves within BC do not interrupt the work. The counsellors are registered to see clients anywhere in the province.',
       },
       {
         label: 'Punjabi, English, or both',

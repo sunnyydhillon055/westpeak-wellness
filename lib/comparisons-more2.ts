@@ -338,7 +338,7 @@ export const moreComparisons2: Comparison[] = [
     ],
     howWeFit: [
       'Westpeak Wellness runs sessions in English, in Punjabi, or moving between the two as the material requires. The counsellor is bilingual, so nothing you say in either language needs translating. The [Punjabi counselling page](/services/punjabi-counselling) covers the service in English, and [ਪੰਜਾਬੀ ਵਿੱਚ ਜਾਣਕਾਰੀ](/punjabi) is available in Gurmukhi.',
-      'The practice is virtual and serves all of BC, which matters most exactly where Punjabi-speaking counsellors are scarcest, outside the Lower Mainland. And the smaller-community privacy concern is taken seriously here: confidentiality and its limits are set out plainly on the [privacy page](/privacy), and it is a welcome question on a consultation call.',
+      'The practice is virtual and serves all of BC, which matters most for anyone outside the Lower Mainland who wants sessions in Punjabi. And the smaller-community privacy concern is taken seriously here: confidentiality and its limits are set out plainly on the [privacy page](/privacy), and it is a welcome question on a consultation call.',
     ],
     midCta: {
       text: 'The consultation itself can be in either language, which is, conveniently, a fifteen-minute answer to most of this page.',
@@ -600,7 +600,7 @@ export const moreComparisons2: Comparison[] = [
     ],
     howWeFit: [
       'Westpeak Wellness runs sessions in English, in Tagalog, or moving between the two as the material requires. The counsellor is bilingual, so nothing you say in either language needs translating. The [Tagalog counselling page](/services/tagalog-counselling) covers the service in English, and [counselling sa Tagalog](/tagalog) is written in Tagalog.',
-      `The practice is virtual and serves all of ${PROVINCES}, which matters most exactly where Tagalog-speaking counsellors are scarcest, outside Metro Vancouver. And the smaller-community privacy concern is taken seriously here: confidentiality and its limits are set out plainly on the [privacy page](/privacy), and it is a welcome question on a consultation call.`,
+      `The practice is virtual and serves all of ${PROVINCES}, which matters most for anyone outside Metro Vancouver who wants sessions in Tagalog. And the smaller-community privacy concern is taken seriously here: confidentiality and its limits are set out plainly on the [privacy page](/privacy), and it is a welcome question on a consultation call.`,
     ],
     midCta: {
       text: 'The consultation itself can be in either language, which is, conveniently, a fifteen-minute answer to most of this page.',
