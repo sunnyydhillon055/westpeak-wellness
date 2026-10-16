@@ -48,8 +48,8 @@ test('an employer enquiry goes to info@ only, and drops where and timing', () =>
   /* One route decision since the batch-2 merge: an employer joins the lead
      case (info@ alone, no counsellor named in the acknowledgement). */
   assert.match(src, /const route = o\.kind === 'lead' \|\| isEmployer\s*\?\s*\{ to: \[site\.email\], cc: \[\] as string\[\]/);
-  assert.match(src, /const where = isEmployer \? '' :/);
-  assert.match(src, /const timing = isEmployer \? '' :/);
+  assert.match(src, /const where = isEmployer(?: \|\| fromPunjabiPage)? \? '' :/);
+  assert.match(src, /const timing = isEmployer(?: \|\| fromPunjabiPage)? \? '' :/);
 });
 
 test('?about=employer preselects the employer choice; anything else preselects nothing', () => {

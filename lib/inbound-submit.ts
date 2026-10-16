@@ -145,9 +145,17 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
    * them is dropped rather than stored. */
   const looking = String(form.get('looking') ?? '').trim();
   const isEmployer = looking === EMPLOYER;
-  const where = isEmployer ? '' : String(form.get('where') ?? '').trim();
-  const timing = isEmployer ? '' : String(form.get('timing') ?? '').trim();
-  if (o.kind === 'enquiry' && !choicesComplete(looking, where, timing)) {
+  /* THE PUNJABI PAGE'S FORM — 15 Oct 2026 (item 502, owner: "do the
+   * recommended"). /punjabi asks in Punjabi and has no approved Punjabi labels
+   * for where and how soon, so every post from it was refused as 'choices'
+   * (3 refused, 0 stored since 1 Oct). It now sends looking=punjabi, which is
+   * simply true of that page, and where/timing are not asked of it, as for an
+   * employer. The address, message-floor, honeypot and triage rules are
+   * unchanged. Only a post whose source is /punjabi gets the exemption. */
+  const fromPunjabiPage = source === '/punjabi' && looking === 'punjabi';
+  const where = isEmployer || fromPunjabiPage ? '' : String(form.get('where') ?? '').trim();
+  const timing = isEmployer || fromPunjabiPage ? '' : String(form.get('timing') ?? '').trim();
+  if (o.kind === 'enquiry' && !fromPunjabiPage && !choicesComplete(looking, where, timing)) {
     return refuse('choices');
   }
 

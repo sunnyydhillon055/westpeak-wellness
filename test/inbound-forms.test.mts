@@ -17,8 +17,19 @@ import { returnUrl, FAILED_PAGE } from '../lib/inbound-return.ts';
 
 const EXEMPT: Record<string, string> = {
   'app/punjabi/page.tsx':
-    'Sends message and email only. Refused as "choices" until the owner decides whether /punjabi asks the three choices (item 205); refusals land on /punjabi/not-sent.',
+    'Sends looking=punjabi with message and email; the route exempts this source from where/timing (15 Oct 2026, item 502); refusals land on /punjabi/not-sent.',
 };
+
+/* 15 Oct 2026, item 502: the exemption is real, narrow, and in both places. */
+test('/punjabi posts looking=punjabi and the route exempts only that source from where/timing', () => {
+  const page = readFileSync('app/punjabi/page.tsx', 'utf8');
+  assert.match(page, /name="looking" value="punjabi"/);
+  const route = readFileSync('lib/inbound-submit.ts', 'utf8');
+  assert.match(route, /const fromPunjabiPage = source === '\/punjabi' && looking === 'punjabi';/);
+  assert.match(route, /o\.kind === 'enquiry' && !fromPunjabiPage && !choicesComplete\(looking, where, timing\)/);
+  // The message floor and the address rule still run before it.
+  assert.ok(route.indexOf("refuse('detail')") < route.indexOf('fromPunjabiPage'));
+});
 
 function walk(dir: string, out: string[] = []): string[] {
   for (const e of readdirSync(dir)) {
@@ -53,7 +64,7 @@ test('an exemption is not left behind once the form is fixed or gone', () => {
   for (const f of Object.keys(EXEMPT)) {
     assert.ok(posting.includes(f), `${f} is exempt but no longer posts to /api/enquiry`);
     const src = readFileSync(f, 'utf8');
-    assert.ok(!/name="looking"/.test(src), `${f} now sends the choices; drop its exemption`);
+    assert.ok(!(/name="where"/.test(src) && /name="timing"/.test(src)), `${f} now sends the choices; drop its exemption`);
   }
 });
 

@@ -373,11 +373,12 @@ export default async function PunjabiPage() {
                     lib/inbound-return.ts), never to the "arrived" page. The
                     note below no longer says one line is enough: the route
                     asks for two sentences and about twenty words. This form
-                    sends no looking/where/timing, so the route still refuses
-                    it ('choices') until the owner decides whether /punjabi
-                    should ask them (item 205); test/inbound-forms.test.mts
-                    records that exemption. 1 Oct 2026. */}
+                    sends looking=punjabi and no where/timing; the route
+                    accepts that from this page only (lib/inbound-submit.ts,
+                    15 Oct 2026, item 502). Until then every post from here
+                    was refused as 'choices'. */}
                 <input type="hidden" name="returnTo" value="/punjabi/sent" />
+                <input type="hidden" name="looking" value="punjabi" />
                 <div className="hp" aria-hidden="true">
                   <label htmlFor="hp-pa">Company</label>
                   <input id="hp-pa" name="company" type="text" tabIndex={-1} autoComplete="off" />
