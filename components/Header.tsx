@@ -1,13 +1,12 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState, type CSSProperties } from 'react';
+import { useEffect, useState, type CSSProperties, type ReactNode } from 'react';
 import { site } from '@/lib/site';
 import { TAGALOG_READY } from '@/lib/practitioner-tl';
 import { TL_CHROME } from '@/lib/practitioner-places-tl';
 import { track } from '@/lib/analytics';
 import { bookClickDetail, withSlugOf } from '@/lib/conversion-detail-client';
-import Motif from '@/components/brand/Motif';
 import { bookHrefFor, type NavPractitioner } from '@/lib/roster-nav';
 
 /* Five items, deliberately. With the portal pill and the booking CTA the bar
@@ -40,8 +39,10 @@ const NAV = [
 
 /* `roster` arrives from the root layout, trimmed to the five fields the menu
    shows (lib/roster-nav.ts). Importing the roster here put the whole of
-   lib/practitioners.ts in every page's layout chunk. 1 Oct 2026. */
-export default function Header({ roster }: { roster: NavPractitioner[] }) {
+   lib/practitioners.ts in every page's layout chunk. 1 Oct 2026. `mark` is
+   the brand mark, rendered by the layout on the server (<Motif variant=
+   "mark"/>) for the same reason: imported here, every variant shipped. */
+export default function Header({ roster, mark }: { roster: NavPractitioner[]; mark: ReactNode }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   /* `!` is type-only (no emitted bytes): with a pages/ directory present
@@ -199,7 +200,7 @@ export default function Header({ roster }: { roster: NavPractitioner[] }) {
             and every BookLink keep the default, since that is the navigation
             worth having ready. */}
         <Link prefetch={false} href="/" className="brand" aria-label={`${site.name}, home`}>
-          <span className="brand-mark" aria-hidden="true"><Motif variant="mark" /></span>
+          <span className="brand-mark" aria-hidden="true">{mark}</span>
           <span className="brand-word">Westpeak <span>Wellness</span></span>
         </Link>
 

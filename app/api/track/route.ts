@@ -15,13 +15,17 @@ export const dynamic = 'force-dynamic';
  */
 export async function POST(req: Request) {
   try {
-    const body = (await req.json()) as { event?: unknown; path?: unknown; detail?: unknown };
+    const body = (await req.json()) as { event?: unknown; path?: unknown; detail?: unknown; also?: unknown };
     const event = typeof body.event === 'string' ? body.event : '';
     const path = typeof body.path === 'string' ? body.path : '';
     /* `detail` is passed through as-is: the store accepts it only from a
        per-event allow-list and drops anything else, so there is nothing to
-       validate here that would not be validated again there. */
-    if (event && path) await countConversion(event, path, body.detail);
+       validate here that would not be validated again there. `also` is an
+       event's companions (book_click's click_from, scheduler_booked's
+       booked_from and booked_via), counted in the same write so they
+       cannot race each other; the store accepts only those pairs, each
+       detail by the same rule (lib/conversion-log.ts, 15 Oct 2026). */
+    if (event && path) await countConversion(event, path, body.detail, body.also);
   } catch {
     /* malformed body — nothing to count, nothing to report */
   }

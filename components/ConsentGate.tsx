@@ -1,7 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import dynamic from 'next/dynamic';
+import { useEffect, useState, type ComponentType } from 'react';
 
 /* The GA component is fetched only once someone has said yes.
  *
@@ -11,11 +10,15 @@ import dynamic from 'next/dynamic';
  * a dynamic import the code is downloaded on the render that follows a
  * "granted" choice (now or on a later visit), which is the first moment it
  * has anything to do. No server render: this only ever mounts in a browser,
- * after a localStorage read. 1 Oct 2026. */
-const GoogleAnalytics = dynamic(
-  () => import('@next/third-parties/google').then((m) => m.GoogleAnalytics),
-  { ssr: false },
-);
+ * after a localStorage read. 1 Oct 2026.
+ *
+ * A plain import() in an effect since 15 Oct 2026, not next/dynamic. The
+ * wrapper brought its own loadable, BailoutToCSR and PreloadCss modules into
+ * the layout chunk (2,917 B) to do what one effect does here: this component
+ * never renders on the server anyway, so there was nothing for it to bail
+ * out of. The import still happens only after "granted", and a failed one
+ * renders nothing, which is the declined behaviour. */
+type GA = ComponentType<{ gaId: string }>;
 
 /* Consent before Google Analytics — nothing loads until a person says yes.
  *
@@ -54,9 +57,20 @@ export default function ConsentGate({ gaId }: { gaId: string }) {
    * the choice is only knowable in the browser. */
   const [choice, setChoice] = useState<Choice | 'unset'>('unset');
 
+  const [Ga, setGa] = useState<GA | null>(null);
+
   useEffect(() => {
     setChoice(read());
   }, []);
+
+  useEffect(() => {
+    if (choice !== 'granted') return;
+    let live = true;
+    import('@next/third-parties/google')
+      .then((m) => { if (live) setGa(() => m.GoogleAnalytics); })
+      .catch(() => { /* no analytics, never a broken page */ });
+    return () => { live = false; };
+  }, [choice]);
 
   const decide = (c: Exclude<Choice, null>) => {
     try {
@@ -68,7 +82,7 @@ export default function ConsentGate({ gaId }: { gaId: string }) {
   };
 
   if (choice === 'unset') return null;
-  if (choice === 'granted') return <GoogleAnalytics gaId={gaId} />;
+  if (choice === 'granted') return Ga ? <Ga gaId={gaId} /> : null;
   if (choice === 'declined') return null;
 
   return (

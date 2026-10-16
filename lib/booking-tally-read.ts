@@ -90,3 +90,40 @@ export function tallyLine(row: TallyRow): string {
     + `${row.paidBooked} paid booked, ${row.paidHeld} held, ${row.paidCancelled} cancelled · ${row.dna} missed`
     + ` · ${row.consultConverted} new paying client${row.consultConverted === 1 ? '' : 's'}`;
 }
+
+/* CLINIKO'S COUNT BESIDE THE EMBED'S — 15 Oct 2026.
+ *
+ * /admin's "/book, stage by stage" ends at scheduler_booked: a booking Cliniko
+ * confirmed from inside the embedded calendar, counted from 1 Oct 2026. The
+ * tally is what Cliniko itself recorded, however it was booked. Printed side
+ * by side, a gap that remains says bookings are being made outside the embed
+ * (Cliniko's own page, a staff entry) or confirmations are being lost, which
+ * is how the 13 Oct booking was found: the tally had it and the counter had
+ * only one of its three writes. Summed from the month the embed's count began,
+ * so the two cover the same weeks. */
+export const EMBED_BOOKED_FROM = '2026-10';
+
+export type TallyBooked = { from: string; consult: number; paid: number };
+
+/** consultBooked and paidBooked over every slug, from `from` (YYYY-MM) on. Pure. */
+export function tallyBookedSince(t: BookingTally, from: string = EMBED_BOOKED_FROM): TallyBooked {
+  let consult = 0;
+  let paid = 0;
+  for (const [m, rows] of Object.entries(t.months)) {
+    if (m < from) continue;
+    for (const r of Object.values(rows)) {
+      consult += r.consultBooked;
+      paid += r.paidBooked;
+    }
+  }
+  return { from, consult, paid };
+}
+
+/** "Cliniko counted N, the embed confirmed M" as one clause. */
+export function bookedGap(cliniko: number, embed: number): string {
+  const d = cliniko - embed;
+  if (d === 0) return 'the two agree';
+  return d > 0
+    ? `${d} booked outside the embed or not counted`
+    : `${-d} more than Cliniko has tallied so far`;
+}

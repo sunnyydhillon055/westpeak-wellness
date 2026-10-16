@@ -18,7 +18,7 @@ import { readCatalog } from '@/lib/cliniko-catalog';
 import { topSearchTerms, readSearchTerms, searchGaps } from '@/lib/search-log';
 import { REPLY_TEMPLATES, mailtoFor, businessDaysWaiting, replyTimeStats } from '@/lib/reply-templates';
 import { eventTotals, topPagesFor, readConversions, detailsOf, bookClickBreakdown, funnelCuts, channelVisits, clicksOfLandings, bookingCredit } from '@/lib/conversion-log';
-import { readBookingTally, tallyRows, tallyLine } from '@/lib/booking-tally-read';
+import { readBookingTally, tallyRows, tallyLine, tallyBookedSince, bookedGap } from '@/lib/booking-tally-read';
 import { funnelJoins, consultLines, enquiryLines, retentionLines, arrivalRows } from '@/lib/funnel-report';
 import { recentSnapshots, lastWeek, weekTable, type WeekRow } from '@/lib/conversion-snapshots';
 import { readGscSummary, newestGscDate, gscLines, readGscWeeks, gscWeekLines, readGscExports } from '@/lib/gsc-summary';
@@ -1040,6 +1040,22 @@ export default async function AdminPage({
                   <span>{r.arrive} arrived{r.open === null ? '' : ` · ${r.open} opened the calendar`} · {r.interact} touched · {r.booked} booked</span>
                 </li>
               ))}
+              {/* Cliniko's own count beside the embed's (15 Oct 2026): a gap
+                  that stays points at bookings made outside the embed. */}
+              {tallyRead.status === 'ok' && (() => {
+                const t = tallyBookedSince(tallyRead.tally);
+                const embed = funnelCuts(log).book[0]?.booked ?? 0;
+                const portal = log.events.scheduler_booked?.['/client-portal'] ?? 0;
+                return (
+                  <li key="cliniko-tally">
+                    <span>Cliniko&rsquo;s tally, {t.from} on</span>
+                    <span>
+                      {t.consult} consult{t.consult === 1 ? '' : 's'} booked, {embed} confirmed in /book&rsquo;s calendar ({bookedGap(t.consult, embed)})
+                      {' · '}{t.paid} paid booked, {portal} confirmed in the portal ({bookedGap(t.paid, portal)})
+                    </span>
+                  </li>
+                );
+              })()}
             </ul>
             {(credit.byLanding.length > 0 || credit.byButton.some((b) => b.booked > 0)) && (
               <>
