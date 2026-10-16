@@ -134,7 +134,9 @@ test('the /pricing and /book line shows 15 Oct to 31 Dec only', () => {
   assert.equal(planYearPageLineShown(at('2026-10-15T19:00:00Z')), true);
   assert.equal(planYearPageLineShown(at('2026-12-31T19:00:00Z')), true);
   assert.equal(planYearPageLineShown(at('2027-01-01T19:00:00Z')), false);
-  for (const f of ['app/pricing/page.tsx', 'app/book/page.tsx']) assert.match(src(f), /planYearPageLineShown\(\)/, f);
+  assert.match(src('app/pricing/page.tsx'), /planYearPageLineShown\(\)/);
+  /* /book's line is in its client island, on the visitor’s date (item 514). */
+  assert.match(src('components/BookChoice.tsx'), /planYearPageLineShown\(now\)/);
 });
 
 test('the mail paragraph runs 15 Oct to 20 Dec and is gone on 21 Dec and 1 Jan', () => {

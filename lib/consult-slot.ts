@@ -119,3 +119,22 @@ export function loadAvailability(
 export function resetAvailabilityForTests(): void {
   pending = null;
 }
+
+/** One counsellor's entry, in the shape lib/availability-summary.ts's
+ *  sentences read (availabilityLine, shortAvailabilityLine), for /book's
+ *  cards and calendar box (components/BookChoice.tsx, 15 Oct 2026). Only
+ *  the count and the open days travel through /api/availability; the
+ *  fields those sentences do not read are empty. Undefined while unknown,
+ *  so nothing is printed, as on the server before. */
+export type BookSummary = {
+  slug: string; count: number; next: string[]; days: string[];
+  earliest: string; latest: string; weekend: boolean; evening: boolean; error?: string;
+};
+export function bookSummary(all: ClientAvailability | null | undefined, slug: string): BookSummary | undefined {
+  const a = all?.[slug];
+  if (!a) return undefined;
+  return {
+    slug, count: a.count, next: Array.isArray(a.next) ? a.next : [],
+    days: [], earliest: '', latest: '', weekend: false, evening: false,
+  };
+}

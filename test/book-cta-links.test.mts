@@ -16,7 +16,9 @@ import { readdirSync } from 'node:fs';
 /* wf/book-and-cta, 1 Oct 2026: items 259, 270, 280, 281, 288, 289. */
 
 const ROOT = process.cwd();
-const src = (p: string) => readFileSync(join(ROOT, p), 'utf8');
+const src = (p: string) => readFileSync(join(ROOT, p), 'utf8')
+  /* /book's branches live in its client island since 15 Oct 2026 (item 514). */
+  + (p === 'app/book/page.tsx' ? readFileSync(join(ROOT, 'components/BookChoice.tsx'), 'utf8') : '');
 const fee = (name: string) => FALLBACK_CATALOG.items.find((i) => i.name === name)!;
 const savneet = practitioners.find((p) => p.slug === 'savneet-singh')!;
 const camille = practitioners.find((p) => p.slug === 'camille-granda')!;
@@ -66,7 +68,8 @@ test('a couples consultation shows the two couples formats and nothing else', ()
 
 test('/book honours for=couples only with a counsellor who offers couples work, and says only what is already said', () => {
   const page = src('app/book/page.tsx');
-  assert.match(page, /searchParams\?\.for === 'couples' && !!who && who\.services\.includes\('couples-therapy'\)/);
+  assert.match(page, /params\.get\('for'\) === 'couples' && !!who && who\.couples/);
+  assert.match(page, /const couples = p\.services\.includes\('couples-therapy'\);/);
   assert.match(page, /What brought \{couples \? 'the two of you' : 'you'\} here/);
   assert.match(page, /openDetail=\{couples \? 'couples' : undefined\}/);
   /* Owner check pending (two devices, a separate $0 type): the line says no

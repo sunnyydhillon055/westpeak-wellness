@@ -35,7 +35,7 @@ test('every sentence that prints a clock time says Pacific time', () => {
   assert.match(NEXT_CONSULT_LABEL, /Pacific time/);
   assert.match(src('components/NextConsultSlot.tsx'), /<strong>\{NEXT_CONSULT_LABEL\}<\/strong>/);
   assert.match(src('components/NextConsultSlot.tsx'), /\{PACIFIC_LABEL\}/);
-  assert.match(src('app/book/page.tsx'), /Next open with \{first\}\{PACIFIC\}/);
+  assert.match(src('components/BookChoice.tsx'), /Next open with \{first\}\{PACIFIC\}/);
 });
 
 test('the /book time-zone sentence names Alberta only while someone is insured there', () => {
@@ -51,7 +51,8 @@ test('the /book time-zone sentence names Alberta only while someone is insured t
     assert.doesNotMatch(s, /from November to March/, 'false from 1 Nov 2026');
     assert.doesNotMatch(s, /evening|weekend/i, 'a clock label, not an hours claim');
   }
-  assert.match(src('app/book/page.tsx'), /timeZoneNote\(.*insuredProvinces\(p, vancouverToday\(\)\)/);
+  assert.match(src('app/book/page.tsx'), /insured: insuredProvinces\(p, today\)/);
+  assert.match(src('components/BookChoice.tsx'), /timeZoneNote\(people\.flatMap\(\(p\) => p\.insured\), at\)/);
 });
 
 /* ---------- #163/#164: the next-consultation line, filtered ---------- */

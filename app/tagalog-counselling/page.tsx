@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Updated from '@/components/Updated';
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from '@/components/ui/Img';
 import { site } from '@/lib/site';
 import { TAGALOG_READY } from '@/lib/practitioner-tl';
 import { TAGALOG_CITIES, TAGALOG_SPEAKERS } from '@/lib/tagalog';

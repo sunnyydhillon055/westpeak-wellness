@@ -61,7 +61,11 @@ test('the sentence is a clock label, never an hours claim, and /book passes it t
   for (const at of [JULY, DECEMBER, JANUARY_2026]) {
     assert.doesNotMatch(timeZoneNote(['BC', 'AB'], at), /evening|weekend|am to|pm to/i);
   }
-  assert.match(src('app/book/page.tsx'), /timeZoneNote\(.*insuredProvinces\(p, vancouverToday\(\)\)/);
+  /* Static since 15 Oct 2026: the page works out who is insured where at build,
+     and the island prints the sentence on the visitor’s day (item 514). */
+  assert.match(src('app/book/page.tsx'), /insured: insuredProvinces\(p, today\)/);
+  assert.match(src('app/book/page.tsx'), /const today = vancouverToday\(\);/);
+  assert.match(src('components/BookChoice.tsx'), /timeZoneNote\(people\.flatMap\(\(p\) => p\.insured\), at\)/);
 });
 
 /* ---------- #363 ---------- */
@@ -137,7 +141,7 @@ test('the empty states link the ask-for-a-time form and claim no day or hour', (
   const line = src('components/NextConsultLine.tsx');
   assert.match(line, /askHref=\{askForTimeHref\(people, site\.bookingPath\)\}/);
   assert.match(src('components/NextConsultSlot.tsx'), /<BookLink location="next-consult-ask" className="" href=\{askHref\}>/);
-  const book = src('app/book/page.tsx');
+  const book = src('components/BookChoice.tsx');
   assert.match(book, /Times are on the calendar below; if none suit,\{' '\}\s*<BookLink location="next-consult-ask" className="" href="#ask-for-a-time">ask for a time<\/BookLink>/);
   const z = availabilityLine(zero('camille-granda'), 'Camille')!;
   assert.match(z, /ask for a time with the form under it/);

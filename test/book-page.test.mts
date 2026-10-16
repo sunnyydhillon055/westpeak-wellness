@@ -12,6 +12,8 @@ import {
 import { rosterNumbers, numberAllowedOn, numberLeaks } from '../scripts/roster-numbers.mjs';
 
 const ROOT = process.cwd();
+/* /book is the static page plus its client island since 15 Oct 2026 (item 514). */
+const bookAll = () => readFileSync(join(ROOT, 'app/book/page.tsx'), 'utf8') + readFileSync(join(ROOT, 'components/BookChoice.tsx'), 'utf8');
 
 /* ---------- #29: the fee after the consult comes from the catalogue ---------- */
 
@@ -34,7 +36,7 @@ test('/book states the individual and couples fee from the catalogue, never type
   assert.equal(sessionFees(noCouples).length, 1, 'a type the catalogue does not hold is left out, not guessed');
   assert.equal(sessionFeesPhrase({ ...FALLBACK_CATALOG, items: [] }), null);
 
-  const page = readFileSync(join(ROOT, 'app/book/page.tsx'), 'utf8');
+  const page = bookAll();
   assert.doesNotMatch(page, /\$1[0-9]{2}\b/, 'no dollar figure typed into app/book/page.tsx');
 });
 
@@ -57,7 +59,7 @@ test('safePath still refuses anything but a same-site path', () => {
 });
 
 test('the /book request form no longer calls a required message optional', () => {
-  const page = readFileSync(join(ROOT, 'app/book/page.tsx'), 'utf8');
+  const page = bookAll();
   assert.doesNotMatch(page, /is optional/);
   assert.match(page, /Two or three sentences: when you are usually free, and what you are looking for\./);
 });
@@ -112,7 +114,7 @@ test('every roster number is read, and allowed only on its owner\'s pages', () =
 });
 
 test('/book renders no credential number', () => {
-  const page = readFileSync(join(ROOT, 'app/book/page.tsx'), 'utf8');
+  const page = bookAll();
   assert.doesNotMatch(page, /\.number\b/, 'app/book/page.tsx reads a credential number');
 });
 
@@ -127,7 +129,7 @@ import { checklistEmail } from '../lib/inbound-mail.ts';
 import { email3 } from '../lib/nurture.ts';
 import { rosterLines } from '../lib/lead-roster.ts';
 
-const bookSrc = () => readFileSync(join(ROOT, 'app/book/page.tsx'), 'utf8');
+const bookSrc = bookAll;
 
 /* #361 */
 test('/book?with=<not accepting> names nobody who is not taking clients', () => {
@@ -209,7 +211,10 @@ test('the camera can stay off wherever people book, read from one sentence', () 
   assert.match(readFileSync(join(ROOT, 'lib/policies.ts'), 'utf8'), /detail: CAMERA_OPTIONAL \+/);
   const book = bookSrc();
   assert.doesNotMatch(book, /any device with a camera/);
-  assert.ok((book.match(/\{CAMERA_OPTIONAL\}/g) ?? []).length >= 2, '/book: after-you-book note and the video disclosure');
+  /* The after-you-book note is in the client island, which takes the
+     sentence from the page as data (item 514). */
+  assert.match(book, /cameraOptional: CAMERA_OPTIONAL,/);
+  assert.ok((book.match(/\{CAMERA_OPTIONAL\}|\{data\.cameraOptional\}/g) ?? []).length >= 2, '/book: after-you-book note and the video disclosure');
   const online = faqs.find((f) => /online or in person/.test(f.q))!;
   assert.ok(online.a.includes(CAMERA_OPTIONAL));
   assert.doesNotMatch(online.a, /a device with a camera/);
@@ -237,7 +242,7 @@ test('the /book fallback email links print the address', () => {
 
 /* #388 */
 test('the year-end page is linked by what it is, not as "booklet", and CoverageLine links it in season', () => {
-  for (const f of ['app/book/page.tsx', 'app/pricing/page.tsx']) {
+  for (const f of ['components/BookChoice.tsx', 'app/pricing/page.tsx']) {
     const src = readFileSync(join(ROOT, f), 'utf8');
     assert.doesNotMatch(src, /href=\{YEAR_END_PATH\}>booklet</, f);
     assert.match(src, /<Link href=\{YEAR_END_PATH\}>how the plan year affects a claim<\/Link>/, f);

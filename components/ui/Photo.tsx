@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from '@/components/ui/Img';
 
 /* Unified photography treatment.
  *
@@ -11,7 +11,10 @@ import Image from 'next/image';
  * Sizing is explicit and the aspect ratio is set by a class, so the box is
  * reserved before the file arrives. That is the CLS-critical part.
  *
- * `priority` should be true for exactly one image per page — the LCP element. */
+ * `priority` should be true for exactly one image per page — the LCP element.
+ *
+ * The <img> comes from components/ui/Img.tsx since 15 Oct 2026 (item 542):
+ * the same markup next/image rendered, without its client chunk. */
 export default function Photo({
   src,
   alt,

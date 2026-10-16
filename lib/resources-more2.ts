@@ -9,7 +9,7 @@ const longDate = (iso: string) =>
 const ICBC_FROM = longDate(ICBC_COUNSELLING.from);
 const ICBC_TO = longDate(ICBC_COUNSELLING.to);
 const ICBC_READ = longDate(ICBC_COUNSELLING.read);
-import { YEAR_END_PATH } from '@/lib/seasonal';
+import { YEAR_END_PATH, planResetPageLineShown } from '@/lib/seasonal';
 import { pacificYear } from '@/lib/benefit-figures';
 
 /* THE YEAR-END PAGE'S DATES AND FEES — 15 Oct 2026. Computed, never typed:
@@ -20,6 +20,33 @@ const YE_IND = FALLBACK_CATALOG.items.find((i) => i.name === 'Individual Counsel
 const YE_IND_FEE = money(YE_IND.cents);
 const YE_IND_MIN = YE_IND.minutes;
 const YE_COUPLES_FEE = money(FALLBACK_CATALOG.items.find((i) => i.name === 'Couples Counselling')!.cents);
+
+/* THE SAME URL IN JANUARY — 15 Oct 2026 (item 513), as decided on 1 Oct
+   ("in January is rewritten into the February 'maximum just reset'
+   piece"). Gated here in the data, never in the template: on a build whose
+   Pacific date falls in PLAN_RESET_PAGE_WINDOW (1 Jan to 15 Feb) the title,
+   the description, the lede, the short answer and the first section say
+   what reset; every other build, today's included, prints exactly what it
+   printed before. The rebuild on 1 January is item 511's GATE_DATES. The
+   facts are the ones this page already states (the date of the session
+   decides the year; claim deadlines are separate and set per plan; some
+   plans run on an anniversary year), turned to face the new year. */
+const YE_RESET = planResetPageLineShown();
+const YE_JAN1 = `1 January ${YE_YEAR}`;
+const RESET_COPY = {
+  title: `Did your counselling benefits reset on ${YE_JAN1}?`,
+  metaTitle: `Counselling Benefits Reset on 1 January? BC (${YE_YEAR})`,
+  metaDescription: `On a calendar-year plan the counselling maximum started again on ${YE_JAN1}. Some plans run on another year, depending on the plan.`,
+  lede: `On a plan that runs on the calendar year, the counselling maximum started again on ${YE_JAN1}. Two things are worth checking now: the new balance, and the claim deadline for any December session not yet submitted.`,
+  shortAnswer: `On an extended health plan that runs on the calendar year, yes: the counselling maximum started again on ${YE_JAN1}, and sessions from that date count against ${YE_YEAR}’s amount. Some plans run on an anniversary year that resets on another date, depending on the plan. A session held in December still counts against last year’s maximum, and its claim goes in under the deadline the plan sets, which is a separate date. The plan booklet or member portal shows the new balance and the deadline.`,
+  first: {
+    h2: 'What reset on 1 January, and what did not',
+    body: [
+      'Extended health plans count a paramedical claim against the maximum for the period in which the service was provided. On a calendar-year plan, a session on 30 December used last year’s maximum and a session on 5 January uses this year’s, even if both receipts are submitted on the same day.',
+      'So what reset is the amount available for sessions held from 1 January. A December session that has not been claimed yet still belongs to last year, and goes in under the claim deadline the booklet or member portal states.',
+    ],
+  },
+};
 import { ONLINE_COVERAGE } from '@/lib/practice-facts';
 
 /* THE YEAR-END SECTION — 1 Oct 2026 (item 210). Shown 1 Oct to 31 Dec on the
@@ -398,22 +425,22 @@ export const moreResources2: Resource[] = [
        january 1 bc". Title was 'Counselling Benefits Before Year End, BC |
        Westpeak', which had neither the verb nor the year. The year is the
        build's Pacific year (YE_YEAR), never typed; the page rebuilds daily. */
-    title: `How to use counselling benefits before the end of ${YE_YEAR}`,
-    metaTitle: `Use Counselling Benefits Before Year End in BC (${YE_YEAR})`,
+    title: YE_RESET ? RESET_COPY.title : `How to use counselling benefits before the end of ${YE_YEAR}`,
+    metaTitle: YE_RESET ? RESET_COPY.metaTitle : `Use Counselling Benefits Before Year End in BC (${YE_YEAR})`,
     metaDescription: withSnippet(
-      `Sessions by ${YE_DEC31} use ${YE_YEAR}’s maximum on a calendar-year plan. Many reset on 1 January, not all.`,
+      YE_RESET ? RESET_COPY.metaDescription : `Sessions by ${YE_DEC31} use ${YE_YEAR}’s maximum on a calendar-year plan. Many reset on 1 January, not all.`,
       feeSnippet(FALLBACK_CATALOG),
     ),
     eyebrow: 'Resource · Coverage',
-    lede:
+    lede: YE_RESET ? RESET_COPY.lede :
       `Two dates decide it: the date of the session, which on a calendar-year plan has to fall on or before ${YE_DEC31}, and the claim deadline, which each plan sets separately and which is often later.`,
-    shortAnswer:
+    shortAnswer: YE_RESET ? RESET_COPY.shortAnswer :
       `Book the session for a date on or before ${YE_DEC31}. On an extended health plan that runs on the calendar year, a counselling session held by then counts against ${YE_YEAR}’s maximum, whenever the receipt is submitted. Many plans reset on 1 January; some run on an anniversary year that resets on another date, depending on the plan. Unused paramedical maximums generally do not carry over, and the claim deadline is a separate date each plan sets. The plan booklet or member portal answers all three for your plan.`,
     updated: '2026-10-15',
     readMinutes: 7,
     whoYouWouldSee: true,
     sections: [
-      {
+      YE_RESET ? RESET_COPY.first : {
         h2: 'The date of the session decides the year',
         body: [
           'Extended health plans count a paramedical claim against the maximum for the period in which the service was provided. On a calendar-year plan, a session on 30 December uses this year’s maximum and a session on 5 January uses next year’s, even if both receipts are submitted on the same day in January.',

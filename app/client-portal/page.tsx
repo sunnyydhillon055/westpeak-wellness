@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { site, bookingsPaidUrlFor } from '@/lib/site';
-import Image from 'next/image';
+import Image from '@/components/ui/Img';
 import { practitioners, getPractitioner, withLetters } from '@/lib/practitioners';
 import SchedulerEmbed from '@/components/SchedulerEmbed';
 import { auth, signOut } from '@/auth';

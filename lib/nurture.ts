@@ -4,7 +4,7 @@ import { readInbound, type Inbound } from '@/lib/inbound';
 import { nurtureDecision, magnetWords, type MagnetWords, type NurtureSkip } from '@/lib/nurture-plan';
 import { rosterLines, rosterText, rosterHtml, individualFeeLine, type RosterLine } from '@/lib/lead-roster';
 import { readCatalog } from '@/lib/cliniko-catalog';
-import { planYearMailParagraph } from '@/lib/seasonal';
+import { seasonalMailParagraph } from '@/lib/seasonal';
 import { WHO_SEES_A_CLAIM } from '@/lib/practice-facts';
 import { sendDetailed, mailConfigured } from '@/lib/portal-mail';
 import { put, get } from '@vercel/blob';
@@ -209,8 +209,9 @@ export function email3(
   const roster = extras.roster ?? rosterLines();
   const feeLine = extras.feeLine ?? null;
   /* 15 Oct to 20 Dec only (lib/seasonal.ts), beside the fee line. Same
-     audience and same single send as before; no new email. Item 222. */
-  const season = planYearMailParagraph(extras.now ?? new Date());
+     audience and same single send as before; no new email. Item 222.
+     5 Jan to 15 Feb, the January note instead (item 513). */
+  const season = seasonalMailParagraph(extras.now ?? new Date());
   const text = wrap(
 `${hi}
 

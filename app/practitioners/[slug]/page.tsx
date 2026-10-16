@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from '@/components/ui/Img';
 import { notFound } from 'next/navigation';
 import { site, RCC_PLAIN } from '@/lib/site';
 import { practitioners, getPractitioner, withLetters, vancouverToday } from '@/lib/practitioners';

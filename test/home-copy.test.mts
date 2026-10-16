@@ -73,7 +73,8 @@ test('the designation is explained in plain words, and the practice is not calle
   assert.match(RCC_PLAIN, /master’s degree in counselling/);
   assert.doesNotMatch(RCC_PLAIN, /'/, 'typographic apostrophe only');
   assert.match(src('app/page.tsx'), /RCC_PLAIN/);
-  assert.match(src('app/book/page.tsx'), /RCC_PLAIN/);
+  assert.match(src('app/book/page.tsx'), /rccPlain: RCC_PLAIN,/);
+  assert.match(src('components/BookChoice.tsx'), /\{data\.rccPlain\}/);
   assert.doesNotMatch(src('app/page.tsx'), /EMDR-trained/);
   const bar = src('components/ui/TrustBar.tsx');
   assert.equal((bar.match(/<strong>BCACC registered/g) ?? []).length, 0, 'not said twice in one strip');
@@ -87,7 +88,7 @@ test('/book: a named calendar region, a route that is not the calendar, and shor
   const gate = src('components/SchedulerGate.tsx');
   assert.match(gate, /role="region" aria-label=\{title\}/);
   assert.match(gate, /role="status" aria-live="polite"/);
-  const book = src('app/book/page.tsx');
+  const book = src('components/BookChoice.tsx');
   assert.match(book, /id="ask-for-a-time"/);
   assert.match(book, /href="#ask-for-a-time"/);
   assert.match(book, /Calendar hard to use with your screen reader or device\?\{' '\}\s*<MailLink where="book-fallback"/, 'email first');

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from '@/components/ui/Img';
 import BookLink from '@/components/BookLink';
 import { withLetters, type Practitioner } from '@/lib/practitioners';
 import { listOf, languagesOf, profileHrefFor, bookHrefFor } from '@/lib/city-service-page';

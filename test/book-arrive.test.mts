@@ -69,9 +69,12 @@ test('weekTable carries arrivals per week, per counsellor, and null before they 
 });
 
 test('/book mounts the arrival counter once, from the slug it resolved; the component imports no roster', () => {
-  const page = src('app/book/page.tsx');
+  /* In the client island since 15 Oct 2026 (item 514), counted once the
+     address has been read. */
+  const page = src('app/book/page.tsx') + src('components/BookChoice.tsx');
   assert.equal(page.split('<BookArrive ').length - 1, 1);
-  assert.match(page, /<BookArrive detail=\{arriveDetailFor\(asked\?\.slug\)\} \/>/);
+  assert.match(page, /\{ready && <BookArrive detail=\{arriveDetailFor\(asked\?\.slug\)\} \/>\}/);
+  assert.doesNotMatch(src('components/BookChoice.tsx'), /lib\/practitioners|lib\/tools|conversion-detail'/, 'no large data module in the island');
   const c = src('components/BookArrive.tsx');
   assert.match(c, /^'use client';/);
   assert.doesNotMatch(c, /lib\/practitioners|lib\/tools|conversion-detail'/, 'no large data module in a client component');

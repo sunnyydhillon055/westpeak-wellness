@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { planYearPageLineShown, YEAR_END_PATH } from '@/lib/seasonal';
+import { planYearPageLineShown, planResetPageLineShown, PLAN_RESET_LINE, YEAR_END_PATH } from '@/lib/seasonal';
 
 /* ONE LINE ABOUT WHO PAYS, UNDER THE HERO BUTTON — 1 Oct 2026.
  *
@@ -35,7 +35,11 @@ import { planYearPageLineShown, YEAR_END_PATH } from '@/lib/seasonal';
  * /pricing and /book use), one clause links the year-end page from every
  * page that carries this line. Conditional on a calendar-year plan and
  * naming no insurer, so it stays plan-dependent. The pages that render this
- * revalidate hourly, so the clause appears and goes on its own. */
+ * revalidate hourly, so the clause appears and goes on its own.
+ *
+ * AND IN JANUARY, THE RESET — 15 Oct 2026 (item 513). 1 Jan to 15 Feb, the
+ * same place carries PLAN_RESET_LINE and the same page, which in January
+ * is the "maximum just reset" piece. The two windows never overlap. */
 export default function CoverageLine({ now }: { now?: Date } = {}) {
   return (
     <p className="hero-note hero-coverage">
@@ -48,6 +52,12 @@ export default function CoverageLine({ now }: { now?: Date } = {}) {
         <>
           {' '}On a calendar-year plan, sessions held by 31 December count against this year:{' '}
           <Link href={YEAR_END_PATH}>using benefits before the plan year ends</Link>.
+        </>
+      )}
+      {planResetPageLineShown(now) && (
+        <>
+          {' '}{PLAN_RESET_LINE}{' '}
+          <Link href={YEAR_END_PATH}>What resets on 1 January, and what does not</Link>.
         </>
       )}
     </p>

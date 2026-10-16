@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Updated from '@/components/Updated';
 import Link from 'next/link';
 import { punjabiRegions } from '@/lib/punjabi-regions';
-import Image from 'next/image';
+import Image from '@/components/ui/Img';
 import { practitioners, withLetters } from '@/lib/practitioners';
 import { site } from '@/lib/site';
 import { abs, orgRef, siteRef } from '@/lib/schema';

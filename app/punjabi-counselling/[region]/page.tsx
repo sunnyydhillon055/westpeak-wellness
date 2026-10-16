@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Updated from '@/components/Updated';
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from '@/components/ui/Img';
 import { notFound } from 'next/navigation';
 import { punjabiRegions, getPunjabiRegion, regionOpening, inPunjabiIndex } from '@/lib/punjabi-regions';
 import { site } from '@/lib/site';
