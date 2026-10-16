@@ -317,7 +317,7 @@ export const draftGuides: Guide[] = [
         list: [
           { label: 'Here2Talk: free, 24/7, already yours', detail: 'Every student registered at a BC post-secondary institution has free single-session counselling by app, phone or chat, day and night, in multiple languages. No diagnosis, no referral, no cost. For a hard night in residence, this is the shortest path to a real person.' },
           { label: 'Campus counselling and health services', detail: 'Every major BC campus runs a counselling service covered by your fees. Demand peaks late in term, so booking when you first notice the slide, rather than at the December cliff, is the practical move.' },
-          { label: 'Your student health and dental plan', detail: 'Most student unions carry extended health coverage that reimburses private counselling, commonly including Registered Clinical Counsellors. If campus waitlists are long, the plan usually funds an alternative, check its wording for the professions covered and the annual cap.' },
+          { label: 'Your student health and dental plan', detail: 'Many student unions carry an extended health plan that may reimburse private counselling, including a Registered Clinical Counsellor, depending on the plan. If campus waitlists are long, check its wording for the professions covered and the annual cap.' },
           { label: 'Structure as treatment', detail: 'The undramatic levers still carry most of the load: a sleep schedule that survives weekends, food at intervals, one activity with repeated contact (club, gym, job, faith community), and daylight, which in a BC October must be sought on purpose.' },
         ],
       },

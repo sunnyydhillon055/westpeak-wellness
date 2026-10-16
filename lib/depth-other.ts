@@ -193,7 +193,6 @@ export const depthOther: Record<string, DepthSection[]> = {
     {
       h2: 'What to do if the register says something unexpected',
       list: [
-        { label: 'They are not listed at all', detail: 'There are innocent explanations: registration under a legal name that differs from the working name, a recent change, or membership of a body you have not checked. Ask directly. A registered professional will answer without offence; evasion is itself an answer.' },
         { label: 'The designation is not the one advertised', detail: 'Worth clarifying. Some practitioners hold several, and some describe themselves loosely. The question is whether the specific designation you were told about is current.' },
         { label: 'The registration is listed as inactive or lapsed', detail: 'This matters. An inactive registration generally means the person is not currently entitled to practise under that designation, and it may also mean no insurance and no complaints route.' },
         { label: 'There is a published disciplinary history', detail: 'Read it rather than reacting to its existence. Bodies publish outcomes, and the substance ranges from administrative matters to serious findings. What it is matters more than that it is there.' },

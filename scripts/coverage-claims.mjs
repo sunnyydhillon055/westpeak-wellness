@@ -61,6 +61,21 @@ export const PATTERNS = [
   /(?:^|['"`]|:\s)\s*Often,[^.;]{0,60}?\b(?:plans?|maximum|insur\w*|reimburs\w*|cover(?:s|ed|age)?|claims?)\b/i,
   /\b(?:plans?|packages?|insurers?|benefits|coverage|extended health)\b[^.;]{0,60}?\boften (?:partly |partially )?(?:cover|reimburse)[sd]?\b(?![^.;]*\bdepending on the plan\b)/i,
   /\boften (?:partly |partially )?(?:covered|reimbursed) by [^.;]{0,30}?\bplans?\b/i,
+  /* 15 Oct 2026 (item 530): "commonly", "typically" and "generally" are the
+     same prevalence claim again. "District plans commonly reimburse
+     Registered Clinical Counsellor sessions" sat on /for/teachers three
+     times, and the UFV, TRU, Filipino-nurses and psychologist-comparison
+     pages said it too, because the shapes above name only "most", "usually"
+     and "often". Caught: plans or extended health, then one of those adverbs
+     and reimburse/cover, in the same sentence, unless that sentence says
+     "depending on the plan". Not caught: a question ("What Alberta plans
+     typically reimburse"), a period of weeks ("a disability plan typically
+     covers 15 to 26 weeks"), "generally reimburse it regardless of session
+     length" (a plan that already reimburses), and an EAP, which is not a
+     plan. Also: "most student societies/unions … reimburse/pay/cover",
+     which said the prevalence about the student plans. */
+  /(?<!\bwhat\b[^.;?]*)\b(?:plans?|extended[- ]health)\b[^.;?]{0,60}?\b(?:commonly|typically|generally) (?:partly |partially )?(?:reimburse|cover)s?\b(?!\s+(?:it\b|\d))(?![^.;]*\bdepending on the plan\b)/i,
+  /\bmost student (?:societies|unions)\b(?:(?!\b(?:not|never)\b)[^.;]){0,120}?\b(?:reimburs\w*|pays?|cover(?:s|age)?)\b(?![^.;]*\bdepend(?:s|ing) on the plan\b)/i,
 ];
 
 export const PENDING = [
@@ -68,6 +83,11 @@ export const PENDING = [
      belongs to another change. Say "which many student plans reimburse,
      depending on the plan". */
   { file: 'lib/guides-drafts.ts', fragment: 'often partly covered by the student plan' },
+  /* 15 Oct 2026: found by the "commonly" shape (item 530); the trades
+     page is item 525's. Say "Many union and employer plans … reimburse a
+     Registered Clinical Counsellor, depending on the plan". */
+  { file: 'lib/audiences-more6.ts', fragment: 'in the BC trades commonly reimburse' },
+  { file: 'lib/audiences-more6.ts', fragment: 'through a union or employer commonly reimburses' },
 ];
 
 /* What a line looks like once the markup between words is gone: JSX spacers

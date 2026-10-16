@@ -131,7 +131,7 @@ export default function About() {
               working in English, Punjabi and Tagalog with Registered Clinical Counsellors.
             </p>
             <p className="direct-answer">
-              Westpeak Wellness is an online counselling practice founded in British Columbia and serving all of {PROVINCES} by secure video. Its counsellors are Registered Clinical Counsellors with the BC Association of Clinical Counsellors, offering individual, couples, family, EMDR and trauma therapy in English and Tagalog, and individual counselling in Punjabi. There is no waitlist; the first 15-minute consultation is free.
+              Westpeak Wellness is an online counselling practice founded in British Columbia and serving all of {PROVINCES} by secure video. Its counsellors are Registered Clinical Counsellors with the BC Association of Clinical Counsellors, offering individual, couples, family, EMDR and trauma therapy in English and Tagalog, and individual counselling in Punjabi. The <Link href="/book#calendar">booking calendar</Link> shows the real open times, and the first 15-minute consultation is free.
             </p>
             <Updated iso={COLLECTION_DATES['practitioners']} />
             <div className="btn-row" style={{ marginTop: 24 }}>
@@ -245,7 +245,7 @@ export default function About() {
           </p>
           <p>
             It also removes an explaining step. What relatives will say, what is owed to a family,
-            what gets carried down. Those are the starting context of a session rather than
+            what gets carried down: those are the starting context of a session rather than
             something to be taught at the beginning of one. There are pages written in{' '}
             <Link href="/punjabi" lang="pa" hrefLang="pa">ਪੰਜਾਬੀ</Link> and in{' '}
             <Link href="/tagalog" lang="tl" hrefLang="tl">Tagalog</Link> rather than about them.
@@ -302,7 +302,7 @@ export default function About() {
               line, in the owner's own terms (not recruiting, no speculative
               applications), so they know without having to write in. Not a
               careers page, which the owner has said not to build yet. */}
-          <p>
+          <p id="counselling-work" style={{ scrollMarginTop: 72 }}>
             <strong>Looking for counselling work?</strong> Westpeak is not recruiting at the moment
             and is not taking speculative applications. The counsellor role advertised earlier
             this year has closed. If you are still training,{' '}

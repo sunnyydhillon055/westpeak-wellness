@@ -57,7 +57,7 @@ test('/about tells job seekers the practice is not recruiting, and /careers stil
   assert.match(about, /not recruiting at the moment/);
   assert.match(about, /not taking speculative applications/);
   const careers = (REDIRECTS as { source: string; destination: string }[]).find((x) => x.source === '/careers');
-  assert.equal(careers?.destination, '/about');
+  assert.equal(careers?.destination, '/about#counselling-work');
 });
 
 test('/about does not say Punjabi sessions include couples or EMDR work', () => {

@@ -43,7 +43,7 @@ export const depth4: Record<string, DepthSection[]> = {
       h2: 'What Chilliwack residents ask before booking',
       list: [
         { label: 'Is video counselling as private as an office visit?', detail: 'The session itself is: secure video, no waiting room, and confidentiality bound by the same professional standards either way. The private space on your end is the one part you control; a parked truck works better than people expect.' },
-        { label: 'Does my UFV status get me anything?', detail: 'Yes, UFV’s Chilliwack campus students have campus counselling and the province-wide Here2Talk service at no cost, and student plans commonly reimburse private RCC sessions on top. The student supports page has the full map.' },
+        { label: 'Does my UFV status get me anything?', detail: 'Yes, UFV’s Chilliwack campus students have campus counselling and the province-wide Here2Talk service at no cost, and many student plans reimburse private RCC sessions on top, depending on the plan. The student supports page has the full map.' },
         { label: 'What about the drive I was already making?', detail: 'If you have been commuting to an Abbotsford or Langley counsellor and it works, keep it, continuity matters more than format. The people this page is for are the ones for whom the drive is why counselling keeps not happening.' },
         { label: 'Punjabi-speaking options east of Abbotsford', detail: 'Effectively nonexistent locally. Sessions here run in Punjabi or English from anywhere in the valley, for Punjabi-speaking Chilliwack, virtual is not one option among several; it is the option.' },
       ],
@@ -56,7 +56,7 @@ export const depth4: Record<string, DepthSection[]> = {
       body: [
         'Kamloops is the hub of a region where distance is the defining fact of health care. The city itself has counsellors: fewer per capita than the coast, with the waitlists that implies, and the moment you live outside it, in Barriere, Chase, Merritt, Logan Lake or anywhere up the North Thompson, “seeing someone in town” means winter driving on the exact weeks you least have the capacity for it.',
         'That is the honest case for video counselling in the Interior: not that it is more convenient, but that it is the version of weekly therapy that survives January. A session from home happens whether or not the Coquihalla is a mess, and a practice serving all of BC by video is indifferent to which side of the river, or which town. You are on.',
-        'TRU students have the same provincial floor as every BC campus: [Here2Talk](https://here2talk.ca), 24/7 and free, plus campus counselling, and student extended-health plans commonly reimburse private RCC sessions when campus waitlists lengthen late in term.',
+        'TRU students have the same provincial floor as every BC campus: [Here2Talk](https://here2talk.ca), 24/7 and free, plus campus counselling. When campus waitlists lengthen late in term, many student extended-health plans reimburse private RCC sessions, depending on the plan.',
       ],
     },
     {
@@ -161,18 +161,12 @@ export const depth4: Record<string, DepthSection[]> = {
     },
   ],
 
-  'resources/verify-a-counsellor-in-bc': [
-    {
-      /* 1 Oct 2026: the register and the directory are two tools. This
-         section called the directory "the register", and the directory is
-         opt-in, so a current RCC can be missing from it. */
-      h2: 'BCACC’s two tools: the register and the directory',
-      body: [
-        'BCACC runs two tools, and people mostly know only one. The [RCC Register](https://bcacc.ca/search-our-member-register/) **verifies**: search any counsellor’s name or registration number and it shows whether the registration is active, which is this page’s four-minute check. [Find a Counsellor](https://bc-counsellors.org/counsellors/) **finds**: it filters by community, language and area of focus, and every listing in it is an RCC, which makes it one of the few counsellor directories in BC that cannot contain an unregistered listing. The directory is opt-in, though. A current RCC may choose not to be listed, so a name missing from it tells you nothing; the register is where you check.',
-        'The register covers RCCs only; psychologists and social workers have their own colleges’ registers, linked in the sections above. And for the fuller how-to-choose process: shortlisting, free consultations, the questions worth asking, the [finding a therapist guide](/guides/how-to-find-a-therapist-in-bc) picks up where verification ends.',
-      ],
-    },
-  ],
+  /* 15 Oct 2026 (item 547): 'resources/verify-a-counsellor-in-bc' had
+     "BCACC’s two tools: the register and the directory" here, which said
+     what the FAQ "How do I use the BCACC Find a Counsellor tool?" says. The
+     FAQ, in the words searched ("bcacc find a counsellor" 78 at 9.03, Search
+     Console 13 Oct), now carries the two facts only this section had, and
+     the finding guide is in the page’s related links. */
 
   'resources/workplace-mental-health-bc': [
     {

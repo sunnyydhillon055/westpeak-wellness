@@ -26,7 +26,7 @@ export const tagalogAudiences: Audience[] = [
     lede:
       'You look after everyone: patients, residents, the family here, the family there. The question of who looks after you tends to get answered with a shrug and another shift.',
     shortAnswer:
-      'Counselling for Filipino nurses, licensed practical nurses, care aides, personal support workers and caregivers in British Columbia, online by secure video in Tagalog, English or both, with a Registered Clinical Counsellor who works in Tagalog. Sessions fit around rotating shifts and nights. The recurring material is specific: burnout that is treated as normal, the weight of being the family’s provider on two continents, grief at a distance, a workplace that runs on Filipino staff and rarely says so, and a culture where asking for help feels like a failure of hiya. Extended health through a health employer or union commonly reimburses; nothing said reaches an employer or a licensing body.',
+      'Counselling for Filipino nurses, licensed practical nurses, care aides, personal support workers and caregivers in British Columbia, online by secure video in Tagalog, English or both, with a Registered Clinical Counsellor who works in Tagalog. Sessions fit around rotating shifts and nights. The recurring material is specific: burnout that is treated as normal, the weight of being the family’s provider on two continents, grief at a distance, a workplace that runs on Filipino staff and rarely says so, and a culture where asking for help feels like a failure of hiya. Many health-employer and union extended health plans reimburse an RCC, depending on the plan; nothing said reaches an employer or a licensing body.',
     updated: '2026-09-26',
     readMinutes: 6,
     opening: [
@@ -54,7 +54,7 @@ export const tagalogAudiences: Audience[] = [
         h2: 'Fitting it around a roster, and paying for it',
         body: [
           'Sessions are 50 minutes by video and the calendar shows real open times. Booking in blocks around a rotation, with gaps between blocks, is an ordinary pattern here and pausing costs nothing. A session after a night shift is possible if that is when you can think; a session on a day off is usually better.',
-          'Health-employer and union extended health plans in BC commonly reimburse a Registered Clinical Counsellor; the [coverage page](/resources/bc-extended-health-coverage-for-counselling) has the two questions to ask. Where an incident at work has become a claim, the [WorkSafeBC page](/resources/worksafebc-psychological-injury-claims) explains that route. Private fees are [published in full](/pricing), and the first 15 minutes are free.',
+          'Many health-employer and union extended health plans in BC reimburse a Registered Clinical Counsellor, depending on the plan; the [coverage page](/resources/bc-extended-health-coverage-for-counselling) has the two questions to ask. Where an incident at work has become a claim, the [WorkSafeBC page](/resources/worksafebc-psychological-injury-claims) explains that route. Private fees are [published in full](/pricing), and the first 15 minutes are free.',
           'The [healthcare and shift workers page](/for/healthcare-and-shift-workers) covers the occupational side in more depth; this page is the one about carrying it in two languages and for two families.',
         ],
       },
