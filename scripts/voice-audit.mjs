@@ -108,6 +108,13 @@ const ONLY_DASHES = process.argv.includes('--dashes');
 const FACTS = [
   { id: 'defunct-college', re: /College of Psychologists/i, unless: /formerly/i,
     fix: 'the College of Health and Care Professionals of BC (add "formerly" if the old name is needed)' },
+  /* 15 Oct 2026 (item 525). Commit 8fe40bc took the evening and weekend
+     promises out, and three "after the shift" lines on the trades page
+     survived it: a session time the calendar may not hold, said another way.
+     The one allowed use is a symptom, not a time (the anxiety service-city
+     angle, "long after the shift ends"). */
+  { id: 'shift-timing', re: /\b(after the shift|around the shift)\b/i, unless: /after the shift ends/i,
+    fix: 'point to the calendar’s real open times, or say nothing about when' },
 ];
 const factHits = [];
 

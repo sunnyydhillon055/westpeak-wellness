@@ -10,7 +10,7 @@ import { useState } from 'react';
  * carrying this site's styles. Styled with existing classes and two inline
  * rules: global CSS is inlined into every page's HTML, and one page's button
  * is not worth that. Takes a string and imports no data module. */
-export default function CopyText({ text }: { text: string }) {
+export default function CopyText({ text, label = 'Copy this paragraph' }: { text: string; label?: string }) {
   const [copied, setCopied] = useState(false);
 
   async function copy() {
@@ -30,7 +30,7 @@ export default function CopyText({ text }: { text: string }) {
         {text}
       </blockquote>
       <button type="button" className="btn btn--ghost" onClick={copy} aria-live="polite">
-        {copied ? 'Copied' : 'Copy this paragraph'}
+        {copied ? 'Copied' : label}
       </button>
     </div>
   );

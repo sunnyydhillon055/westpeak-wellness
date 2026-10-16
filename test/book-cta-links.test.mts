@@ -234,7 +234,11 @@ test('383: the year-end block follows the first section, is in the contents, and
   /* One session-count paragraph on the BC page: the plan-maximum one. */
   assert.doesNotMatch(bc.seasonal!.body.join('\n'), /\$300 left/);
   assert.equal(JSON.stringify(bc).split('annual maximum covers about').length - 1, 1);
-  assert.match(ab, /\$300 left/, 'the Alberta page has no plan-maximum paragraph, so it keeps the balance sentence');
+  /* Item 549: with nobody insured for Alberta the page prices nothing, so
+     the balance sentence goes with the gate and returns with it. */
+  const { ALBERTA_OPEN } = await import('../lib/resources-alberta.ts');
+  if (ALBERTA_OPEN) assert.match(ab, /\$300 left/, 'the Alberta page has no plan-maximum paragraph, so it keeps the balance sentence');
+  else assert.doesNotMatch(ab, /\$300 left/, 'the gate is shut, so the Alberta page prices nothing');
 });
 
 test('366: the ICBC page prints ICBC’s own figures, in date, beside the catalogue fee', async () => {

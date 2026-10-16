@@ -87,15 +87,29 @@ export type Resource = {
      reproducible with attribution, the date, a citation line and where to
      report something out of date. 1 Oct 2026 (item 275). */
   linkable?: boolean;
+  /* In place of the fee line and the closing booking band: the routes the
+     page itself sources, then one small booking link for a reader in BC.
+     Set by an Alberta page while nobody here is insured to see Alberta
+     clients (ALBERTA_OPEN in lib/resources-alberta.ts), when a BC fee and a
+     "Book Free Consultation" band would be selling something the reader
+     cannot have. 15 Oct 2026 (item 549). */
+  routesCloser?: {
+    heading: string;
+    text: string;
+    routes: { label: string; detail: string; url?: string }[];
+    bcLabel: string;
+  };
 };
 
 /** The suggested citation for a linkable resource: publisher, title, date and
- *  the canonical URL, as a plain line someone can paste into a handout. */
-export function citationFor(r: Pick<Resource, 'title' | 'slug' | 'updated'>, domain: string): string {
+ *  the canonical URL, as a plain line someone can paste into a handout.
+ *  `path` is for a page that is not a resource (the stress-leave calculator's
+ *  figures, item 510); it defaults to the resource's own address. */
+export function citationFor(r: Pick<Resource, 'title' | 'slug' | 'updated'>, domain: string, path = `/resources/${r.slug}`): string {
   const date = new Date(r.updated + 'T00:00:00Z').toLocaleDateString('en-CA', {
     year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC',
   });
-  return `Westpeak Wellness, “${r.title}”, updated ${date}. ${domain}/resources/${r.slug}`;
+  return `Westpeak Wellness, “${r.title}”, updated ${date}. ${domain}${path}`;
 }
 
 /** The pages outreach asks people to link to and print. */
@@ -104,6 +118,12 @@ export const LINKABLE_SLUGS = [
   'finding-a-counsellor-in-punjabi-or-tagalog-in-bc',
   'mental-health-leave-templates-bc',
   'low-cost-counselling-bc',
+  /* 15 Oct 2026 (item 529): the pages the OUTREACH §16 social pack links,
+     and the student-plan table that §21 asks student societies to check. */
+  'verify-a-counsellor-in-bc',
+  'workplace-mental-health-bc',
+  'counselling-in-punjabi-what-the-words-mean',
+  'student-mental-health-supports-bc',
 ] as const;
 
 const coreResources: Resource[] = [

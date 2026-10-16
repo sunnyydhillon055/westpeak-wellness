@@ -34,6 +34,7 @@ import { readCatalog, FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
 import StudentPlanTable from '@/components/StudentPlanTable';
 import { STUDENT_PLAN_TABLE_AFTER } from '@/lib/student-plans';
 import { activeSeasonal } from '@/lib/seasonal';
+import { PDF_PATH } from '@/app/print/punjabi-words/sheet';
 
 /* The student-plan table's sessions column (1 Oct 2026). This template is
    static, so the fee is the catalogue's checked-in copy, which price-drift
@@ -379,6 +380,11 @@ export default async function ResourcePage({ params }: { params: { slug: string 
                 <ul>
                   <li>Free to link to, from any website, intranet, handout or resource list. No need to ask.</li>
                   <li>May be reproduced, in print or online, with attribution to Westpeak Wellness and a link to this page.</li>
+                  {/* The words page's printed sheet carries the same terms
+                      (item 529, 15 Oct 2026); the body already links it. */}
+                  {r.slug === 'counselling-in-punjabi-what-the-words-mean' && (
+                    <li>The <a href={PDF_PATH}>one-page printable version (PDF)</a>, for a notice board or front desk, may be printed and posted on the same terms.</li>
+                  )}
                   <li>Last updated {fmt(r.updated)}.</li>
                   <li>Spotted something out of date? Email <a href={`mailto:${site.email}`}>{site.email}</a>.</li>
                 </ul>
@@ -424,6 +430,29 @@ export default async function ResourcePage({ params }: { params: { slug: string 
           the link footer (components/NextStep.tsx, 1 Oct 2026). Who appears,
           and whose next consultation time, follows the page's language and
           province; see counsellorsForInfoPage in lib/counsellor-cards.ts. */}
+      {/* An Alberta page with nobody insured there closes on the routes it
+          sources, not on a BC fee and a booking band (item 549). */}
+      {r.routesCloser ? (
+        <section className="section section--ghost">
+          <div className="container reading">
+            <div className="prose">
+              <h2 id="where-to-start">{r.routesCloser.heading}</h2>
+              <p>{r.routesCloser.text}</p>
+              <ul>
+                {r.routesCloser.routes.map((x) => (
+                  <li key={x.label} style={{ marginBottom: 8 }}>
+                    <strong>{x.url ? <a href={x.url} target="_blank" rel="noopener">{x.label}</a> : x.label}</strong>. {x.detail}
+                  </li>
+                ))}
+              </ul>
+              <p style={{ fontSize: '.94rem', color: 'var(--ink-soft)' }}>
+                <BookLink location="cta-band" href={cta.href} className="">{r.routesCloser.bcLabel}</BookLink>.
+                A question about this page goes to <a href={`mailto:${site.email}`}>{site.email}</a>.
+              </p>
+            </div>
+          </div>
+        </section>
+      ) : (
       <NextStep
         counsellors={counsellors}
         cardLocation="resource"
@@ -440,6 +469,7 @@ export default async function ResourcePage({ params }: { params: { slug: string 
           text: r.closingBand?.text ?? 'A free 15-minute consultation is a good place to ask them, before committing to anything.',
         }}
       />
+      )}
 
       {/* The one-pager offer, on the money pages only — an explicit map,
           like the guides' GENTLE_CTA, because which resource pages suit an

@@ -122,7 +122,10 @@ export const moreGuides3: Guide[] = [
 
   {
     slug: 'setting-boundaries-with-family',
-    service: 'family-counselling',
+    /* No service since 15 Oct 2026 (item 522): the reader is one person
+       setting a boundary, which is individual work both accepting
+       counsellors offer. 'family-counselling' sent all six booking links to
+       one calendar. Family sessions are still linked in the body. */
     title: 'Setting boundaries with family without detonating anything',
     /* 13 Oct 2026: 178 impressions at 7.4 and no clicks (13 Oct export;
        53 at 9.6 on 3 Oct). The query the page is found by is "what are
@@ -173,22 +176,20 @@ export const moreGuides3: Guide[] = [
         h2: 'Saying it, and then the part nobody warns you about',
         body: [
           'The wording matters less than people think. Short, unapologetic, and without a case attached: *"I am not going to discuss my weight. If it comes up, I will change the subject, and if it continues I will head off."* Adding justification invites negotiation, and there is nothing to negotiate.',
-          'What follows is the difficult part and it is predictable enough to plan for. Boundaries in long-standing relationships frequently produce escalation before they produce change, a testing period in which the behaviour intensifies to establish whether the new position is real. This is not evidence that it went wrong. It is the normal shape.',
-          'Which is why follow-through, calmly and repeatedly, is the whole intervention. The first three enforcements are the ones that count. After that, most systems adjust, not because anyone was persuaded but because the terrain changed.',
+          'The part nobody warns you about is that the behaviour often gets worse before it changes, which is why follow-through, calmly and repeatedly, is the whole intervention. The first three enforcements are the ones that count; the first three months, further down, have a predictable shape.',
         ],
       },
       {
         h2: 'When the other person will not accept it',
         body: [
           'Some family members will not adjust. The relationship then has to be reorganised around what is actually available rather than what you would want it to be: less contact, contact in specific settings, contact with an exit planned, or in some cases much less contact than the surrounding family finds acceptable.',
-          'That is a genuine loss and it deserves to be grieved rather than reframed as a triumph. A large amount of boundary content online treats distance as liberation, which is not most people\'s experience. Losing the version of a parent you had hoped to eventually have is a real bereavement, and it is a common thing to work on in counselling.',
           'Distance is also not the only outcome. Plenty of relationships improve considerably once the terms are honest, and a boundary held consistently for a year frequently produces a better relationship than a decade of resentful compliance did.',
         ],
       },
       {
         h2: 'Where obligation and love are genuinely tangled',
         body: [
-          'In many families, particularly where duty to parents is a core value rather than an optional one. The framing of boundaries as self-care lands badly, because it presumes an individualism that is not shared. Telling someone to prioritise themselves is not neutral advice; it is advice from one value system delivered into another.',
+          'In many families, particularly where duty to parents is a core value rather than an optional one, the framing of boundaries as self-care lands badly, because it presumes an individualism that is not shared. Telling someone to prioritise themselves is not neutral advice; it is advice from one value system delivered into another.',
           'The more useful question is usually not how to become less obligated, but which obligations you actually endorse and what they cost. People can carry a great deal willingly. What corrodes is carrying things nobody ever asked about, resenting it, and having no way to say so.',
           'Working out which is which takes time and is difficult to do alone, particularly when the guilt arrives faster than the thought. [Counselling for first-generation South Asian adults](/for/first-gen-south-asian-adults) and [intergenerational trauma](/guides/intergenerational-trauma-explained) both go further into this territory. Where the tangle runs through a marriage, with one partner caught between a parent and a spouse, [couples and marriage counselling](/services/couples-therapy) gives both of you the same room to say it.',
         ],
@@ -210,6 +211,7 @@ export const moreGuides3: Guide[] = [
       { label: 'HealthLink BC, mental health and substance use', url: 'https://www.healthlinkbc.ca/mental-health-substance-use' },
     ],
     related: [
+      { href: '/services/individual-therapy', label: 'Individual counselling for holding the boundary' },
       { href: "/services/family-counselling", label: "Family counselling for the pattern between you" },
       { href: '/online-counselling/abbotsford', label: 'Online counselling in Abbotsford' },
       { href: '/for/first-gen-south-asian-adults', label: 'First-generation South Asian adults' },

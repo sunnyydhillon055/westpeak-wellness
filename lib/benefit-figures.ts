@@ -48,6 +48,24 @@ export type WeeklyBenefitMax = {
 export const EI_SICKNESS_SOURCE =
   'https://www.canada.ca/en/services/benefits/ei/ei-sickness/benefit-amount.html';
 
+/* Where the maximum insurable earnings are published: the CRA's EI premium
+   rates and maximums table, which lists 68,900 for 2026 and 70,800 for 2027
+   (read 15 Oct 2026). The EI sickness page states the weekly maximum but not
+   the MIE, so the calculator's figures table cites this one for that row. */
+export const EI_MIE_SOURCE =
+  'https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/payroll/payroll-deductions-contributions/employment-insurance-ei/ei-premium-rates-maximums.html';
+
+/* Three leave rules the calculator's figures table states that lib/leave-pay.ts
+   does not model as numbers (item 510). Each was read on its official page on
+   15 Oct 2026: BC paid sick leave ("at least 90 days"), BC leaves of absence
+   ("up to 27 weeks of unpaid leave within any 52-week period") and IPG-118
+   ("first 3 days ... after completing their initial 30-day qualifying
+   period"). */
+export const BC_SICK_DAYS_QUALIFYING_DAYS = 90;
+export const ESA_ILLNESS_LEAVE_WEEKS = 27;
+export const CLC_FIRST_MEDICAL_DAYS = 3;
+export const CLC_QUALIFYING_DAYS = 30;
+
 /** EI sickness benefit weekly maximum, by Pacific calendar year. */
 export const EI_SICKNESS_MAX: Record<number, WeeklyBenefitMax> = {
   2026: { weekly: 729, maxInsurableEarnings: 68900, sourceUrl: EI_SICKNESS_SOURCE, readOn: '2026-10-02' },
