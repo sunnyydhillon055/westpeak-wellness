@@ -225,9 +225,14 @@ const CHECKS = [
   ['/practitioners/camille-granda/vancouver', 200],
   ['/practitioners/camille-granda/tl', 200],
   ['/practitioners/camille-granda/surrey/tl', 200],
-  ['/practitioners/camille-granda/calgary/tl', 200],
-  ['/practitioners/camille-granda/calgary', 200],
-  ['/practitioners/camille-granda/edmonton', 200],
+  /* Her Alberta pages: 200 while her Alberta gate was open. The policy on
+     file ran to 1 Oct 2026 and its 14-day grace ended on 15 Oct 2026, so
+     middleware.ts now sends them to her profile, as for Savneet below. When
+     a renewal is recorded these turn red, which is correct: put them back
+     to 200 in the same change. */
+  ['/practitioners/camille-granda/calgary/tl', 308, '/practitioners/camille-granda'],
+  ['/practitioners/camille-granda/calgary', 308, '/practitioners/camille-granda'],
+  ['/practitioners/camille-granda/edmonton', 308, '/practitioners/camille-granda'],
   ['/practitioners/savneet-singh', 200],
   ['/practitioners/savneet-singh/surrey', 200],
   ['/practitioners/savneet-singh/pa', 200],
