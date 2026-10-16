@@ -6,6 +6,8 @@ import { services } from '@/lib/services';
 import { locations } from '@/lib/locations';
 import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
+import Art, { serviceArt } from '@/components/Art';
+import '@/app/art.css';
 import { getServiceIcon } from '@/lib/icon-map';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
@@ -119,6 +121,7 @@ export default function Services() {
                    longer the whole tile. 2 Oct 2026. */
                 <div className="card card--stretch svc-tile" key={s.slug}>
                   <span className="svc-tile-bar" style={{ background: ACCENTS[i % ACCENTS.length] }} aria-hidden="true" />
+                  <Art name={serviceArt(s.slug)} className="card-art" />
                   <div className="svc-card-head">
                     <span className="icon-chip" aria-hidden="true"><Icon strokeWidth={1.6} /></span>
                     <h2 className="card-title">{s.name}</h2>
@@ -139,6 +142,7 @@ export default function Services() {
           {/* Below the cards since 1 Oct 2026: at 375px the diagram sat
               above them and pushed the first card to y=1392. */}
           <Figure name="service-axes" />
+          <Art name="wave" className="wave-art" />
         </div>
       </section>
 

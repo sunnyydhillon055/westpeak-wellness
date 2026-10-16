@@ -1,0 +1,45 @@
+/* DECORATIVE ART, OFF THE HOME PAGE — 15 Oct 2026 (components/Art.tsx).
+   Imported by the routes that draw it, so the home page's stylesheet does not
+   carry it. Colour comes from the artwork files and the tokens; none here. */
+
+/* /book: the three steps, drawn and then said in text underneath. */
+.steps-art{ max-width: 720px; margin: 4px auto 28px }
+.steps-art img{ display: block; width: 100%; height: auto }
+.steps-art ol{
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+  list-style: none; margin: 10px 0 0; padding: 0; text-align: center;
+  font-size: var(--fs-small); line-height: 1.4; color: var(--ink-soft);
+}
+
+/* City hubs: an abstract landscape set into the opening text. */
+.art-float{
+  float: right; width: min(40%, 340px); height: auto;
+  margin: 6px 0 16px 28px; border-radius: var(--radius-lg);
+}
+@media (max-width: 620px){ .art-float{ width: 44%; margin-left: 16px } }
+
+/* /pricing: a quiet photograph beside the fees intro, on wide screens only,
+   so the prices stay in a phone's first screen (1 Oct 2026). Lazy and
+   display:none below 900px, so a phone never fetches it. */
+.photo.pricing-art{ float: right; width: min(30%, 280px); aspect-ratio: 4/5; margin: 4px 0 20px 32px }
+@media (max-width: 899px){ .photo.pricing-art{ display: none } }
+
+/* /online-counselling: contour lines behind one section. */
+.art-topo{ background: url(/img/art/topo.svg) no-repeat right -140px top -60px / min(900px, 95%) auto }
+
+/* Guide and resource heroes: an accent in the margin beside the article
+   column, where there is a margin. Never under the text. */
+.hero-accent{ display: none }
+@media (min-width: 1240px){
+  .hero-accent{
+    display: block; position: absolute; top: 56px; left: calc(50% + 440px);
+    width: 240px; aspect-ratio: 680/440; pointer-events: none;
+    background: no-repeat center / contain;
+  }
+}
+.hero-accent--leaf{ background-image: url(/img/art/leaf.svg) }
+.hero-accent--topo{ background-image: url(/img/art/topo.svg) }
+
+/* The service page's aside, and the one wave on /services. */
+.svc-aside-card .photo{ aspect-ratio: 2/1; margin: 0 0 18px; box-shadow: none; border-radius: var(--radius-sm) }
+.wave-art{ display: block; width: min(560px, 80%); height: auto; margin: 40px auto 0 }

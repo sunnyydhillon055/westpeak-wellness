@@ -3696,6 +3696,34 @@ The subreddit and Quora rules could not be read on 15 Oct 2026: reddit.com requi
 
 *Enforced by:* `scripts/coverage-claims.mjs`, `test/claims-corrections.test.mts` (retired claims, evening/weekend promises, couples-method wording in docs/ and kits/), `test/no-hours-metadata.test.mts`, `test/leave-cluster.test.mts`.
 
+---
+
+### More visuals, from the October package, in the site's own colours (15 Oct 2026)
+Decided 15 Oct 2026 (branch `wf/visuals`), on the owner's ask: "Take some of the redesign and apply it. Just stick to the same colours, use what is valuable about it. I feel we need more visuals."
+
+**What was taken, and what was not.** The package's artwork was taken. Its palette (evergreen, sage, terracotta) was not. Every SVG in `public/img/art/` keeps the package's shape and is redrawn in token values, so `scripts/palette-guard.mjs` holds it to the palette like every other file. The photographs are resized WebP copies of the package files in `public/img/photo/ai/`. The sources are about 765px wide, so the largest variant is the original and nothing is upscaled. There was no sharp in node_modules; the variants were made once with Pillow.
+
+**Where it went.**
+- Home: each service card opens with a small drawing for its service; the cultural-context quote card gets the language-connections drawing; a coastline photograph closes "Where you are".
+- /services: the same drawing on each tile, and one wave under the service diagram.
+- Service pages: the same drawing at the top of the aside card. Individual therapy gets the still-water photograph instead.
+- /book: the three steps drawn above "Before you decide". The steps are an HTML list under the drawing, so the drawing carries nothing the text does not.
+- /pricing: a quiet-room photograph beside the fees intro, 900px and wider only. On a phone it is not shown and not fetched, so the prices stay in the first screen (the 1 Oct rule).
+- /online-counselling: contour lines behind "Getting started". City hubs: an abstract landscape beside the opening text, the same drawing on every hub.
+- Guide and resource templates: an accent in the hero's right margin, 1240px and wider, where the article column leaves a margin. It is never drawn under text.
+
+**Rules it keeps.**
+- Every image is decorative: alt="" or a CSS background, with no caption.
+- No photograph is named as a place, an office or a session. Provenance is in `docs/IMAGE_PROVENANCE.md`.
+- No image of a person was added. The counsellor portraits are untouched. The home page still carries no portrait (30 Aug 2026); both counsellors are already named in its hero, and its next-consultation line links each one's calendar.
+- Plain `<img>` from a server component (`components/Art.tsx`), with width and height, all lazy. There is no new eager image and no client JS.
+- The rules the home page needs are in premium.css, eight lines. The rest are in `app/art.css`, imported only by the routes that draw them, so the home stylesheet grew by 266 B. No route changed rendering mode.
+- The home page's process diagram and stepper already show the steps, so the step drawing went to /book and not there.
+
+The site renders light on every device (color-scheme: light; dark was removed, see the foot of premium.css), so the artwork is drawn for the cream grounds only.
+
+*Enforced by:* `scripts/palette-guard.mjs` (SVG colours), `scripts/perf-budget.mjs`, `scripts/a11y-audit.mjs`, `scripts/inline-css.mjs --check`.
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`

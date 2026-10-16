@@ -5,6 +5,7 @@ import { locations } from '@/lib/locations';
 import { site } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
 import SceneBand from '@/components/SceneBand';
+import '@/app/art.css';
 import Photo from '@/components/ui/Photo';
 import Figure from '@/components/Figure';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -281,7 +282,8 @@ export default function LocationsIndex() {
         </div>
       </section>
 
-      <section className="section">
+      {/* Contour lines behind the three first steps (app/art.css): decoration. */}
+      <section className="section art-topo">
         <div className="container">
           <p className="eyebrow">Getting started</p>
           <h2>Wherever you are, the first step is the same</h2>

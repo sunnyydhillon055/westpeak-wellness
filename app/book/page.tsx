@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Suspense, cache } from 'react';
 import Figure from '@/components/Figure';
+import { StepsArt } from '@/components/Art';
+import '@/app/art.css';
 import Link from 'next/link';
 import Image from 'next/image';
 import { site, bookingsUrlFor, RCC_PLAIN } from '@/lib/site';
@@ -811,6 +813,15 @@ export default async function Book({
       <section className="section section--tint">
         <div className="container container--article">
           <h2 style={{ marginTop: 0 }}>Before you decide</h2>
+          {/* The whole path in three steps (15 Oct 2026). The drawing is
+              decoration; the list under it says the same thing in text. */}
+          <StepsArt
+            steps={[
+              'Book the free 15-minute consultation',
+              'Meet by secure video',
+              'Book sessions if you want to carry on',
+            ]}
+          />
 
           {/* Open by default: it is the question a booking summary with a
               street address on it raises, and the answer is one line. */}

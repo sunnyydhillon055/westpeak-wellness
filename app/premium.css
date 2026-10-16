@@ -2652,6 +2652,14 @@ input:focus-visible, select:focus-visible, textarea:focus-visible,
 .card--stretch a.more.card-stretch{ color: var(--blue-deep) }
 .card--stretch:hover a.more.card-stretch{ color: var(--clay-deep) }
 
+/* DECORATIVE ART — 15 Oct 2026 (components/Art.tsx). The rules the home page
+   and the service cards use; everything else is in app/art.css, loaded only
+   by the routes that draw it. */
+.card-art{ display: block; width: 100%; height: auto; margin: 0 0 16px; border-radius: var(--radius-sm) }
+.photo--band{ aspect-ratio: 21/8; margin: 24px 0 }
+.signature-art{ display: block; width: 100%; height: auto; margin: 28px 0 4px }
+@media (max-width: 620px){ .photo--band{ aspect-ratio: 16/9 } }
+
 /* A NEXT-CONSULTATION LINE THE BROWSER FILLS IN — 3 Oct 2026 (item 429).
    components/NextConsultSlot.tsx prints the days after /api/availability
    answers; the page around it is static. The box is laid out at the height

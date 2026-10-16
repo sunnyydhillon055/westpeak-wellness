@@ -8,6 +8,8 @@ import { site } from '@/lib/site';
 import { Paragraphs, rich } from '@/lib/rich';
 import CtaBand from '@/components/CtaBand';
 import SceneBand from '@/components/SceneBand';
+import Art from '@/components/Art';
+import '@/app/art.css';
 import ExtraSections from '@/components/ExtraSections';
 import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
@@ -286,6 +288,9 @@ export default async function CityPage({ params }: { params: { city: string } })
               { name: l.city, path: `/online-counselling/${l.slug}` },
             ]}
           />
+          {/* An abstract landscape, not this city or any other: the same
+              drawing on every hub, decoration only (15 Oct 2026). */}
+          <Art name="mountains" className="art-float" />
 
           {l.intro ? <Paragraphs items={l.intro} /> : (
             <>

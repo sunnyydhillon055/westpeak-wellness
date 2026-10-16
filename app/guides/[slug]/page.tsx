@@ -11,6 +11,7 @@ import { orgRef, siteRef, medicalWebPage, figureImage } from '@/lib/schema';
 import { Paragraphs, rich } from '@/lib/rich';
 import { plainText } from '@/lib/plain-text';
 import SceneBand from '@/components/SceneBand';
+import '@/app/art.css';
 import Byline from '@/components/Byline';
 import ExtraSections from '@/components/ExtraSections';
 import Toc from '@/components/Toc';
@@ -232,6 +233,9 @@ export default async function GuidePage({ params }: { params: { slug: string } }
   return (
     <>
       <section className="hero" style={{ paddingBottom: 44 }}>
+        {/* A light accent in the margin beside the article column, wide
+            screens only (app/art.css). Decoration: a CSS background. */}
+        <span className="hero-accent hero-accent--leaf" aria-hidden="true" />
         <div className="container container--article">
           <p className="eyebrow">{g.eyebrow}</p>
           <h1 style={{ maxWidth: '14.56em' }}>{g.title}</h1>

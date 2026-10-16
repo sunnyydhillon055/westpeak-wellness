@@ -22,6 +22,8 @@ import ExtraSections from '@/components/ExtraSections';
 import Toc from '@/components/Toc';
 import MoreFrom from '@/components/MoreFrom';
 import Figure from '@/components/Figure';
+import Art, { ArtPhoto, serviceArt } from '@/components/Art';
+import '@/app/art.css';
 import InlineRelated from '@/components/InlineRelated';
 import { deviceSlots } from '@/lib/placement';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -408,6 +410,12 @@ export default async function ServicePage({ params }: { params: { slug: string }
             </div>
             <aside className="svc-aside">
               <div className="svc-aside-card">
+                {/* The service's own accent, as on its card (components/Art.tsx);
+                    individual work gets the still-water photograph. Decoration
+                    only: it shows no treatment and promises no outcome. */}
+                {s.slug === 'individual-therapy'
+                  ? <ArtPhoto name="still-water-stones" sizes="300px" />
+                  : <Art name={serviceArt(s.slug)} className="card-art" />}
                 <h2>This can help with</h2>
                 <ul>
                   {s.helps.map((h) => <li key={h}>{h}</li>)}

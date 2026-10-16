@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { site } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
 import SceneBand from '@/components/SceneBand';
+import { ArtPhoto } from '@/components/Art';
+import '@/app/art.css';
 import { Wallet, Video, CreditCard, CalendarX } from 'lucide-react';
 import Figure from '@/components/Figure';
 import LeadCapture from '@/components/LeadCapture';
@@ -151,6 +153,9 @@ export default async function Pricing() {
     <>
       <section className="hero" style={{ paddingBottom: 48 }}>
         <div className="container">
+          {/* A quiet room beside the fees intro, wide screens only (app/art.css).
+              AI-generated and decorative: not an office, so no caption. */}
+          <ArtPhoto name="quiet-nook" className="pricing-art" sizes="280px" />
           <p className="eyebrow">Fees & insurance</p>
           <h1>{h1}</h1>
           <p className="lede">{whoLede}</p>

@@ -13,6 +13,7 @@ import { plainText } from '@/lib/plain-text';
 import BookLink from '@/components/BookLink';
 import { bookingCtaFor, consultPeople, heroBookingCta } from '@/lib/booking-cta';
 import SceneBand from '@/components/SceneBand';
+import '@/app/art.css';
 import Byline from '@/components/Byline';
 import ExtraSections from '@/components/ExtraSections';
 import { deviceSlots } from '@/lib/placement';
@@ -195,6 +196,9 @@ export default async function ResourcePage({ params }: { params: { slug: string 
   return (
     <>
       <section className="hero" style={{ paddingBottom: 44 }}>
+        {/* A light accent in the margin beside the article column, wide
+            screens only (app/art.css). Decoration: a CSS background. */}
+        <span className="hero-accent hero-accent--topo" aria-hidden="true" />
         <div className="container container--article">
           <p className="eyebrow">{r.eyebrow}</p>
           <h1 style={{ maxWidth: '14.56em' }}>{r.title}</h1>

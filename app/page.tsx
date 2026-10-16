@@ -12,6 +12,7 @@ import { punjabiRegions } from '@/lib/punjabi-regions';
 import { faqs } from '@/lib/faq';
 import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
+import Art, { ArtPhoto, serviceArt } from '@/components/Art';
 import Motif from '@/components/brand/Motif';
 import SectionDivider from '@/components/brand/SectionDivider';
 import Photo from '@/components/ui/Photo';
@@ -297,6 +298,7 @@ export default function Home() {
                       "Learn more" said nothing, and the card made a 70-odd
                       character anchor. 2 Oct 2026. */}
                   <div className="card card--stretch" style={{ height: '100%' }}>
+                    <Art name={serviceArt(s.slug)} className="card-art" />
                     <div className="svc-card-head">
                       <span className="icon-chip" aria-hidden="true"><Icon strokeWidth={1.6} /></span>
                       <h3>{s.name.replace(' Therapy', '').replace(' Counselling', '')}</h3>
@@ -370,6 +372,7 @@ export default function Home() {
                 Some things take a long time to explain, and shouldn&rsquo;t.
                 <cite> | Westpeak Wellness</cite>
               </blockquote>
+              <Art name="language-ink" className="signature-art" />
               <Motif variant="arc" className="signature-arc" />
             </div>
           </div>
@@ -664,6 +667,9 @@ export default function Home() {
               closest thing to your situation.
             </p>
           </Reveal>
+          {/* Decoration only, and not a place: an AI-generated coastline
+              (docs/IMAGE_PROVENANCE.md), so it carries no caption. */}
+          <ArtPhoto name="coast-morning" className="photo--band" sizes="(max-width: 1080px) 92vw, 1032px" />
         </div>
       </section>
 
