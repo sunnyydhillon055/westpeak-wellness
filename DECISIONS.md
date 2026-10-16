@@ -3794,6 +3794,59 @@ Decided 15 Oct 2026 (branch `wf/r10-content-linkable-coverage`, items 510, 522, 
 
 *Enforced by:* `test/r10-linkable-coverage.test.mts`, `scripts/voice-audit.mjs`.
 
+### Every seasonal boundary is a rebuild day, a winter time-change section, and a This season shelf (15 Oct 2026)
+Decided 15 Oct 2026 (branch `wf/r10-seasonal-gates`, items 511, 512, 538, 548).
+
+- **511. Rule:** every Pacific MM-DD on which a static page changes because of the date alone is listed in `GATE_DATES` (`lib/seasonal.ts`), and `.github/workflows/rebuild-on-gate-dates.yml` has a cron line for it at an hour between 08 and 23 UTC, so the BC date is the same on UTC-7 or UTC-8. `test/gate-dates.test.mts` enforces both directions.
+- The job builds, runs `npm run hashes`, commits `data/page-hashes.json` and `lib/url-dates.ts`, pushes, waits 150 s and sends IndexNow, because a GITHUB_TOKEN push starts no other workflow.
+- Current gates: 01-01, 02-01, 02-16, 03-01, 10-01, 10-10, 10-15, 10-20. 02-16 was added at integration: batch 1's `PLAN_RESET_PAGE_WINDOW` (1 Jan to 15 Feb) closes then, and the test now collects that window too.
+- **512.** `Guide.seasonal` exists, has the same shape and placement as `Resource.seasonal`, and its windows join GATE_DATES. The winter guide's 'This winter the clocks do not go back' section (10-20 to 02-28) is cited to gov.bc.ca and the NRC sun calculator, read 15 Oct 2026, and makes no prediction.
+- **538.** The 'This season' shelf (`SEASONAL_SHELF`, `components/SeasonalShelf.tsx`) is a server component and never links a draft guide or a flag-gated anchor.
+- **548.** Coverage page: the online-coverage H2 was removed; its question is answered in the FAQ and the table row. HSA/CRA is explained once, under 'If the answer is no'. Pay-and-submit appears only in the PBC row and the direct-billing FAQ. The mid CTA is pinned with `Resource.midCtaAfter` after 'The same check, for any insurer'. The page's spoke moved from newcomers-to-canada to employers-and-hr.
+
+No noindex, redirect or consolidation. No title changed.
+
+*Enforced by:* `test/gate-dates.test.mts`, `test/claims-corrections.test.mts`.
+
+### Bare /book offers each counsellor's own calendar, and the funnel counts where people stop (15 Oct 2026)
+Decided 15 Oct 2026 (branch `wf/r10-booking-measurement`, items 505, 537, 536, 545, 507, 528, 546, 541).
+
+- **537.** Bare /book: one 'Times with {name}' button per accepting, bookable counsellor, each opening her own Cliniko calendar in place. Scheduler events carry her slug; `scheduler_open` stays 'button'. A #calendar arrival still opens the practice-wide page, so nobody is the default (8 Sep rule kept).
+- **505.** /book choosing cards show what she offers (from OFFERINGS) and 'sessions from' her lowest catalogue fee, and link /practitioners#compare. Since /book is static (batch 1, item 514), both are computed in `app/book/page.tsx` at build and rendered by `components/BookChoice.tsx`; `SchedulerEmbedView` takes the `choices`.
+- **545.** 'Not the right fit' quotes her first sentence plus, after an ellipsis, the first sentence of the next paragraph of her own answer.
+- **536/546.** A sent message on /contact and /book, and a non-reflection tool result, show each counsellor's next free consultation day as a booking link: days only, filled by the browser, nothing when Cliniko is unreadable.
+- **507/541.** New counted events: `enquiry_blocked` (the first browser-side rule word, once per form view), `tool_start` (tool slug or by page), `embed_view` (host domain from the OUTREACH §14 list, else 'other'). `enquiry_refused` details gain ':stamped'/':unstamped' (FormStamp older than 2.5 s). Framed-calculator results gain ':embed'. `safePath` rejects ' ( ).
+- **528.** The email inputs carry the server's dot-after-@ rule as a pattern attribute with an English title, including on /punjabi.
+
+No noindex, redirect or consolidation. Review after 2-4 weeks: 'short' blocks against stored enquiries is the measured cost of the 20-word floor before any change to the 25 Sep rule (candidate 53 stays deferred).
+
+*Enforced by:* `test/booking-measurement.test.mts`, `test/conversion-log.test.mts`, `test/counsellor-compare.test.mts`.
+
+### Counsellor snippets carry what she offers and her fee, and /practitioners leads with who is bookable (15 Oct 2026)
+Decided 15 Oct 2026 (branch `wf/r10-profiles-snippets`, items 524, 531, 533, 535, 543).
+
+- Profile descriptions are built by `profileDescription` in `lib/snippet-facts.ts`: the counsellor's priced OFFERINGS services beyond individual work, then her focus topics, shortened from the end until the lead fits beside her catalogue fee and the free consult inside 155 characters as served.
+- Place-page descriptions take the catalogue and end with her lowest fee and the consult. Where a city name leaves no room for the fee beside one topic, the previous ending is kept whole.
+- Counsellor cards lead with the page's service only when the roster lists it for her (`lib/card-focus.ts`).
+- /practitioners shows bookable rows and the comparison before the guidance and registration explainer, with anyone not taking new clients last. Its description is generated from accepting counsellors, their languages and the lowest fee.
+
+No titles changed. No noindex, redirect or consolidation.
+
+*Enforced by:* `test/profile-snippets-oct15.test.mts`.
+
+### /careers lands on its paragraph, the coverage gate catches hedging adverbs, and the RCC page says each thing once (15 Oct 2026)
+Decided 15 Oct 2026 (branch `wf/r10-content-claims`, items 530, 547, 550, 521; 527 waits for the owner).
+
+- **521.** /careers and /careers/:slug stay permanent (308) redirects to /about, now at the fragment /about#counselling-work, the not-recruiting paragraph (`id="counselling-work"`). The 1 Sep decision that /careers stays redirected is unchanged; the fragment only scrolls. The other career aliases (/jobs, /apply, /work-here, etc.) still go to /about.
+- **530.** The coverage gate (`scripts/coverage-claims.mjs`) now also rejects 'plans/extended health ... commonly/typically/generally reimburse/cover' and 'most student societies/unions ... reimburse/pay/cover' unless the sentence says 'depending on the plan'. Two trades lines in `lib/audiences-more6.ts` are PENDING for item 525's rewrite.
+- **547.** On the RCC verify page, the depth4 'BCACC's two tools' section was folded into its FAQ, and the FAQ pair on 'registered counsellor' is now one question. The testimonial rule is stated once, under 'Verifying a practice'. Both are body changes on the same URL.
+- **550.** Fragmented sentences were rejoined; `scripts/fragment-scan.mjs` lists the remaining candidates for a hand read and is not part of verify:ci.
+- **527.** Not done: the holidays guide is still a draft (owner item 509), so it was not published, linked, queued or sent to IndexNow.
+
+No noindex or consolidation of any URL.
+
+*Enforced by:* `scripts/coverage-claims.mjs`, `test/coverage-claims-adverbs.test.mts`, `scripts/smoke.mjs`, `test/language-brand-oct3.test.mts`.
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`
