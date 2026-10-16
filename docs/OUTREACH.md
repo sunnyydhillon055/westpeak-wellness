@@ -596,6 +596,9 @@ The rules above still hold, and three more apply to this round:
   site code and belongs to another change; the checklist puts it first.
   Corrected on 15 Oct 2026 at integration (commit 96ae223): confirm the live
   page names the Employment Standards Act's 27 weeks, then release 14 and 15.
+  **Released 15 Oct 2026:** the live calculator page was read that day and
+  names "serious personal illness or injury leave"; the first five sends
+  are in §23.
 
 ---
 
@@ -1054,8 +1057,9 @@ and blocked to automated reads).
 
 ## 15. Press pitch — "What a stress leave actually pays in BC"
 
-Hold until the calculator page's federal paragraph is corrected (see the
-note at the top of this round). Every number below is the calculator's own
+~~Hold until the calculator page's federal paragraph is corrected (see the
+note at the top of this round).~~ Released 15 Oct 2026: the live page was
+read and is corrected (§23). Every number below is the calculator's own
 worked example, computed by `lib/leave-pay.ts` and live on the page on
 15 Oct 2026. The pitch offers figures and a tool, not a client story, and no
 counsellor is offered for interview until she has agreed to it.
@@ -1736,6 +1740,9 @@ request the calculator and the stress-leave answer page once more.
 
 ### Bing Webmaster Tools — about 15 minutes
 
+*15 Oct 2026: use §28 instead. Production has no `msvalidate.01` tag, and
+the import in step 2 verifies the site without one, so step 3 is optional.*
+
 1. Go to https://www.bing.com/webmasters and sign in with the Microsoft,
    Google or Facebook account the practice uses.
 2. Choose **Import your sites from Google Search Console**, sign in with
@@ -1892,3 +1899,919 @@ plans make six emails.
 What to watch afterwards: a reply goes into `lib/student-plans.ts` the same
 day, with a new `checkedOn`, and the student pages pick it up at the next
 deploy. Note each send and reply in DECISIONS.md's open list.
+
+---
+
+# Added 15 October 2026 — the round-10 owner items
+
+Sections 22 to 30 answer the owner's "do the recommended for all" on the
+round-10 owner items (501, 504, 509, 515 to 520). The order to do them in,
+with what to click, paste and send, is
+[OWNER-ACTIONS-2026-10-15.md](OWNER-ACTIONS-2026-10-15.md). Everything here
+is a draft for the owner: nothing has been sent, submitted, changed in
+Cliniko or edited on any listing by anyone else. The rules at the top of
+this file hold for every draft below, and coverage is said as "many plans,
+depending on the plan".
+
+## 22. Cliniko — making the free consultation quicker to book
+
+Observed on 15 Oct 2026 on Cliniko's own booking page for the **Initial
+Consultation** (read only; nothing was entered or submitted). Before a
+visitor can book the free 15 minutes, the form requires First name, Last
+name, Date of birth, Email and Mobile phone, and two "I accept" boxes.
+Comments are optional. There is a marketing checkbox, and **Pay now / Pay
+later** choices are present on the page. For a free 15-minute call, the
+date of birth, the payment choice and the marketing box are friction with
+no use yet.
+
+What Cliniko's help centre says it allows (help.cliniko.com, read 15 Oct
+2026), and so what can and cannot be changed:
+
+| Field | Can it be changed? | Where |
+|---|---|---|
+| Payment at booking | **Yes, per appointment type.** Each type has an "Online payments" setting: Disabled, Allow payment during booking, Require deposit during booking, Require payment during booking. Pay now / Pay later on the page means the consultation is not on Disabled | Settings → Appointment types → Initial Consultation |
+| Mobile phone | **No, as documented.** The only patient-detail switch is "Require address of patient"; with it off, email and mobile are still required. It is a setting for all types, not one | Settings → Online bookings |
+| Date of birth | **Not documented either way.** No help article says it can be made optional, globally or per type | Ask Cliniko (step 4) |
+| Marketing box | The box sets the patient's marketing preference ("SMS & Email" when ticked, "None" when not). Whether it starts ticked, and whether the default can be changed, is **not documented** | Cliniko's "Customise marketing settings" article; check on the page (step 5) |
+| The "I accept" boxes | One is the privacy-policy consent, which Cliniko requires once a privacy policy link is set; the other comes with "Terms of use". Leave both: they are consent, not friction to remove | Settings → Online bookings |
+
+### Steps, about 10 minutes, in Cliniko as the account owner
+
+1. **Settings → Appointment types → Initial Consultation.** Confirm
+   "Show in online bookings" is ticked, the price is $0 (the site's
+   /pricing shows it as Free, 15 minutes), and set **Online payments** to
+   **Disabled**. Save. Leave every paid type exactly as it is.
+2. Still on that type, if the page offers a setting to hide the price,
+   leave it showing: "Free" is a reason to book.
+3. **Settings → Online bookings.** Check that "Require address of patient"
+   is **off** (it adds a full address for every booking). Do not change
+   the privacy policy link or the terms of use.
+4. **Ask Cliniko about date of birth and mobile.** In Cliniko, open the
+   in-app help chat (the help or chat button in the app) and paste:
+
+   > Hello. For one appointment type (our free 15-minute Initial
+   > Consultation), can the online booking form stop requiring date of
+   > birth, and can mobile phone be optional? If it can only be done for
+   > all appointment types, please tell us where the setting is. If neither
+   > is possible, a quick confirmation is enough. Thank you.
+
+   If Cliniko says yes, per type: turn both off for the Initial
+   Consultation only. If only globally: leave mobile as it is (the
+   appointment reminders use it) and switch off date of birth only if the
+   intake for paid sessions collects it later anyway. If neither: nothing
+   to do, and the field list on this page stands.
+5. **Marketing box.** If Cliniko has a setting for the marketing checkbox's
+   default, set it to **unticked**. The practice sends no marketing, so an
+   unticked box is the honest default; a pre-ticked one is not consent.
+   If there is no setting, note what the phone test in step 6 shows.
+
+### The 2-minute phone test
+
+On a phone, in a private browser window, not signed in to Cliniko:
+
+1. Open https://www.westpeakwellness.com/book and choose a counsellor,
+   then the free consultation, then the first time offered.
+2. Fill in the form with your own details, marked as a test in Comments
+   ("Test booking, owner, please ignore").
+3. Check: **no** Pay now / Pay later and no card field; the marketing box
+   is **unticked**; date of birth and mobile are optional if step 4 made
+   them so. Tick the two "I accept" boxes and book.
+4. Open the confirmation email. Use its cancel link to cancel the test
+   (the link exists only if Settings → Appointment confirmations carries
+   the cancellation-link placeholder; if there is no link, cancel the
+   appointment in Cliniko instead, and add the link to the confirmation
+   email while you are there).
+5. In Cliniko, check the appointment shows as cancelled and the slot is
+   free again. Archive the test patient record so it does not sit in the
+   patient list.
+
+If anything in step 3 is still there, go back to the setting named for it.
+Time the test: if the form takes longer than about a minute for someone
+who knows what to type, it is still too long for a stranger.
+
+## 23. Releasing the calculator outreach (§14) and the press pitch (§15)
+
+**The hold is lifted.** Read on 15 Oct 2026, the live page
+https://www.westpeakwellness.com/tools/stress-leave-pay-calculator says a
+BC-regulated job has "up to 27 weeks of unpaid, job-protected serious
+personal illness or injury leave in any 52-week period under the Employment
+Standards Act", lists "BC serious personal illness or injury leave" in its
+figures table with the gov.bc.ca source, and no longer carries "no
+equivalent number of weeks". The stress-leave guide
+(/guides/stress-leave-bc) and the workplace resource
+(/resources/workplace-mental-health-bc) were read the same day: both name
+the leave and neither says "Not under BC law". Items 4 and 5 in
+[REACH-2026-10-15.md](REACH-2026-10-15.md) are annotated to match.
+
+Nothing in the §14 or §15 drafts needs changing for the correction: §15
+already states the 27-week protection, and §14 promises only what the
+calculator computes.
+
+### The first five sends, in this order
+
+Send one at a time from info@westpeakwellness.com, a few minutes apart, to
+the address shown in the section. Paste the draft as written; change only
+`[name]` where a name is published on the organisation's own page.
+
+1. **Press pitch to Surrey Now-Leader** (§15 table) —
+   newstips@surreynowleader.com. Subject and body: §15 as written, link
+   tagged `?utm_source=press`. Local paper, the widest Fraser Valley reach,
+   and the one table row with a Surrey angle to lead with.
+2. **Press pitch to Abbotsford News** (§15 table) — newstips@abbynews.com.
+   The same email. Send separately, not as a CC.
+3. **Calculator outreach 14.1, People's Law School** —
+   info@peopleslawschool.ca. The draft under 14.1, link tagged
+   `?utm_source=legal`. Its "Taking sick days" page is the best fit of the
+   25.
+4. **Calculator outreach 14.6, go2HR** — hr@go2hr.ca. The draft under
+   14.6. Its page is about the very leave the correction added.
+5. **Calculator outreach 14.2, Clicklaw** — editor@clicklaw.bc.ca. The
+   draft under 14.2, asking first whether a practice's tool can be listed
+   at all.
+
+Then carry on as REACH items 4 and 5 say: the rest of the §15 table one
+outlet at a time (CBC to one show only), and §14 five a day from 14.3. A
+reply from a reporter is the only one that needs an answer the same day.
+
+## 24. Clinical read — the holidays guide and the grief guide's holidays section
+
+Two pieces of seasonal writing are finished and held back for one
+clinical read. Neither is on the site. Deadline for the read: **Sunday
+1 November 2026**, a week before Diwali on Sunday 8 November 2026, so both
+are live for Diwali, Hanukkah and Christmas, and before the "This season"
+shelf on /guides starts linking them (it already lists them, and shows
+each only once it is live).
+
+| Piece | Where it lives | What publishes it |
+|---|---|---|
+| The guide "When the holidays mean seeing family you find difficult" | `lib/guides-drafts.ts`, slug `holidays-with-family-you-find-difficult` | Removing `draft: true` from that entry. It then appears at /guides/holidays-with-family-you-find-difficult, in the sitemap and on the shelf |
+| The section "The first holidays after a loss", and one FAQ, for /guides/grief-without-a-timeline | `lib/guides-more3.ts`, `FIRST_HOLIDAYS_SECTION` and `FIRST_HOLIDAYS_FAQ` | Setting `FIRST_HOLIDAYS_CLEARED` to `true` in that file, and bumping the grief guide's `updated` date. The section then appears at /guides/grief-without-a-timeline#the-first-holidays-after-a-loss |
+
+### How to give the read, and how to say "approved"
+
+Read the text below (it is copied from the two files on 15 Oct 2026; if
+the files change, the files win). Mark changes inline in any way that is
+easy: a reply with "para 3: change X to Y" is enough. Then tell Claude, in
+a session in this repository, one of these exactly:
+
+- **"Holidays guide approved"** — Claude removes `draft: true`, sets the
+  guide's `updated` to that day, and deploys.
+- **"Holidays guide approved with these changes: …"** — Claude makes the
+  changes word for word, then does the same.
+- **"Grief holidays section approved"** (with or without changes) — Claude
+  sets `FIRST_HOLIDAYS_CLEARED = true`, bumps the grief guide's `updated`,
+  and deploys.
+- **"Not this year"** for either — it stays held and the shelf keeps
+  hiding it.
+
+Approving one does not approve the other. Nothing goes live on a partial
+answer, and Claude does not infer approval from silence or from the
+deadline passing.
+
+### What the reviewer must confirm
+
+Tick each one, for both pieces:
+
+- [ ] Nothing in it is clinically wrong or could harm a reader who is
+      grieving, estranged, or in a family where they are not safe.
+- [ ] It does not read as advice to stay in, or return to, a situation of
+      abuse or danger. (The holidays guide says not going is allowed; check
+      that is clear enough for someone whose family is unsafe, not merely
+      difficult.)
+- [ ] No outcome claims. Three lines to look at specifically in the
+      holidays guide: the FAQ answer "preparation measurably changes how
+      these evenings go"; the section line "it tends to make every
+      subsequent December cheaper"; and the FAQ line "Couples work sees a
+      reliable December spike for exactly this". Keep, soften or cut each.
+- [ ] The cultural paragraph (families where skipping the gathering reads
+      as rejecting the family) is fair and not a stereotype.
+- [ ] The crisis lines in the grief section are right: 9-8-8 by call or
+      text, and 310-6789 for BC Mental Health Support. Consider whether the
+      holidays guide should carry the same two lines (it does not now).
+- [ ] The grief FAQ's question names Christmas and Diwali. Confirm both,
+      or say what else to name.
+- [ ] The sources are the right ones (holidays guide: CMHA BC Division and
+      Anxiety Canada; grief section: none of its own, it sits in a guide
+      that has them).
+- [ ] The two calls to action are acceptable in this context (holidays
+      guide: "If the dread has already started, a session before the season
+      is preparation, and one booked for early January is honest
+      planning." with "Book a free consultation").
+
+### The text to review, piece 1: the holidays guide
+
+**Title:** When the holidays mean seeing family you find difficult
+**Search title:** Difficult Family at the Holidays | Westpeak
+**Search description:** Not general holiday stress. The specific dread of a
+room you have to be in. Preparation that works, exits that preserve
+dignity, and what counselling adds.
+
+**Lede:** This is not a page about holiday stress in general. It is about
+the specific arithmetic of a season that puts you in a room with people
+you have history with, and no meeting agenda.
+
+**Short answer:** Dreading holiday gatherings with difficult family is one
+of the most common things counsellors hear about from October onward, and
+it is rarely about the turkey. The dread is anticipatory: old dynamics
+reassert themselves within minutes, and adults find themselves playing a
+part they retired years ago. What actually helps is specific preparation:
+limits decided before the drive, exits that preserve everyone's dignity,
+and one realistic goal for the visit that is not "finally fix it".
+Attending is a choice, limits are allowed, and so is not going.
+
+**Why a grown adult regresses in one particular living room**
+
+1. The most disorienting part of a difficult family gathering is not what
+   anyone says. It is who you become while they say it. People with
+   mortgages and teams and considered opinions find themselves, within an
+   hour of arriving, thirteen again: defensive at the old triggers, silent
+   in the old places, playing a role they did not choose and thought they
+   had quit.
+2. This is ordinary human machinery, not weakness. Families are systems
+   with long-rehearsed choreography, and a room containing the original
+   cast, in the original configuration, at an occasion loaded with
+   expectation, is the most powerful cue that choreography will ever get.
+   Everyone regresses somewhat at these tables; the differences are how
+   much it costs you, and what happens in the room when you decline your
+   old part.
+3. Naming the specific dynamic in advance. The comparisons, the criticism
+   dressed as concern, the topic that always detonates, the person whose
+   drinking changes the evening at nine o'clock, is worth more than any
+   general resolution to "stay calm". You cannot prepare for weather; you
+   can prepare for a forecast.
+
+(Editorial note for the reviewer: paragraph 3 opens with a sentence
+fragment that reads as a typing slip, "Naming the specific dynamic in
+advance. The comparisons…". It was probably meant as "Naming the specific
+dynamic in advance (the comparisons, …) is worth more than…". Approve the
+fix along with the read.)
+
+**Preparation that actually works**
+
+- **Decide your limits before the drive, not during the argument.** The
+  two or three things you will not discuss, the behaviour that ends the
+  evening for you, and what you will do when they occur. A limit invented
+  mid-conflict sounds like an attack; one decided calmly in advance is just
+  a fact about you.
+- **Have an exit that preserves dignity, everyone's.** Your own transport,
+  a stated end time on arrival, and a rehearsed sentence for leaving early
+  that assigns no blame. The point of an exit is not to use it; it is that
+  a person who can leave is a different person in the room.
+- **Set one realistic goal.** "Get through the evening with my own self
+  intact" is achievable. "Finally get Dad to acknowledge it" is a script
+  for the drive home you have already had a hundred times. The gathering is
+  the wrong venue for the reckoning, not because the reckoning does not
+  matter, but because it deserves a better one.
+- **Plan the decompression before you need it.** The hour after matters as
+  much as the hours during: the walk, the debrief with someone safe, the
+  deliberate return to your own life. Budget for it the way you budget for
+  the traffic.
+- **Rehearse the two sentences you always need.** One for deflecting the
+  intrusive question ("we're not discussing that today, how's the new
+  place?") and one for exiting an escalation ("I'm going to step outside
+  for a bit"). Under stress, people fall to the level of their preparation,
+  not the height of their intentions.
+
+**The permission section**
+
+1. Some things adults are allowed to do at the holidays, listed because
+   permission is often the missing piece: attend for two hours instead of
+   two days. Book a hotel instead of the childhood bedroom. Bring an ally.
+   Skip the event that always goes badly and see the safe subset of the
+   family separately. Alternate years. And, the one people circle for a
+   decade, not go, this year or at all, because attendance at a gathering
+   that reliably damages you is not a moral obligation, whatever the family
+   narrative says.
+2. For readers navigating this inside cultures where the family claim runs
+   deeper, where skipping the gathering reads as rejecting the family
+   itself. The calculation is genuinely different, and pretending otherwise
+   would be advice written for someone else. The work there is usually not
+   attendance-or-not but building a self that can be in the room without
+   being consumed; the pages on intergenerational conflict
+   (/for/south-asian-intergenerational-conflict) and boundaries with family
+   (/guides/setting-boundaries-with-family) are written from inside that
+   reality.
+3. And if the difficulty in the room is grief. A first holiday season after
+   a loss. That is its own terrain with its own page: grief without a
+   timeline (/guides/grief-without-a-timeline#the-first-holidays-after-a-loss).
+   Dread and grief often share a table in December.
+
+(Editorial note: paragraphs 2 and 3 also open with fragments ending in a
+full stop where a comma or dash was meant. Same fix, same approval.)
+
+**Where counselling fits, seasonally and otherwise**
+
+1. The October-to-December stretch is when family material walks into
+   counselling rooms on its own schedule. Useful work before the season:
+   mapping the specific dynamics, rehearsing the limits out loud. They hold
+   better spoken than imagined, and separating what you can control in that
+   room from what you have spent years trying to. Useful work after: the
+   January conversations, when the visit has clarified, sometimes
+   painfully, what the ongoing relationship can and cannot be.
+2. The deeper version, when you are ready for it, is not about December at
+   all. The gathering is two days; the dynamics are decades. Working on
+   your side of a lifelong pattern: what it built in you, what it still
+   triggers, what boundaries would make the relationship sustainable at any
+   time of year, is standard counselling terrain, and it tends to make
+   every subsequent December cheaper.
+
+**Call to action:** If the dread has already started, a session before the
+season is preparation, and one booked for early January is honest
+planning. [Book a free consultation]
+
+**Questions and answers**
+
+- *Is it wrong to skip a family holiday gathering?* It is a choice with
+  costs, not a moral failing. Where a gathering reliably harms you and
+  limits have not held, declining is a legitimate act of self-protection.
+  Middle paths exist: shorter visits, hotels, alternate years, seeing safe
+  family members separately, and so does the full no.
+- *How do I handle the relative who always starts something?* With
+  decisions made in advance rather than reflexes in the moment: which
+  topics you will not engage, a rehearsed deflection, and an exit you are
+  genuinely willing to use. You cannot control their opening move; you can
+  retire your half of the routine, which changes the game more than winning
+  it would.
+- *Why do I feel awful for days after these visits?* A visit like that is
+  hours of vigilance, role-strain and old material. A genuine exertion,
+  whatever it looks like from outside. The post-visit crash is the bill
+  arriving. Planning decompression, and taking the crash as information
+  about the dynamics rather than about your resilience, both help.
+- *Can one counselling session before the holidays actually help?* One
+  session can realistically produce a concrete plan: named dynamics,
+  decided limits, rehearsed sentences, an exit. That is preparation, and
+  preparation measurably changes how these evenings go. The longer pattern
+  behind the dread takes longer, but the season does not require the whole
+  renovation, just a working door.
+- *What if the clash is between my partner and my family?* Then the
+  preparation is a couples conversation before the season: agreed signals,
+  a united front on limits, and clarity about whose family gets which days.
+  Couples work sees a reliable December spike for exactly this, and the
+  planning version in November beats the repair version in January.
+
+**Sources:** Canadian Mental Health Association, BC Division
+(https://cmha.bc.ca/); Anxiety Canada (https://www.anxietycanada.com/).
+
+**Related pages:** Setting boundaries with family; Intergenerational and
+cultural family conflict; Grief without a timeline; Talking to your family
+about therapy; Couples therapy.
+
+### The text to review, piece 2: "The first holidays after a loss"
+
+Added as the last section of /guides/grief-without-a-timeline, after "What
+grief counselling involves".
+
+**The first holidays after a loss**
+
+1. The first run of holidays after a death has a weight of its own, and it
+   often arrives before people expect it. A season organised around who is
+   at the table makes an absence impossible to miss: the empty chair, the
+   gift not bought, the recipe nobody else knows, the phone call that would
+   have come at a certain hour. Birthdays and the anniversary of the death
+   do the same thing on a smaller scale, and the days leading up to them
+   are frequently harder than the days themselves.
+2. There is no right way to do it. Some people keep every tradition exactly
+   as it was, because the continuity is the comfort. Some change one thing,
+   a different place, a different time, a new ritual that names the person
+   rather than working around them. Some skip the season this year
+   altogether. Each of those is a reasonable choice, and it is fine to
+   decide differently next year, or to plan one way and change your mind on
+   the day.
+3. What helps most is usually deciding in advance and saying so. Tell the
+   people you will spend the time with what you want: whether you want the
+   person spoken about or not, whether you will stay for the meal or leave
+   early, whether you would rather someone else did the cooking that was
+   theirs. People around a grieving person often go quiet because they are
+   afraid of saying the wrong thing, and being told what you need removes
+   the guessing for everyone.
+4. Many people also notice a dip in late December and into January, when
+   the gatherings end, the house is quiet again and the new year arrives
+   without them in it. That is common and worth planning for: something in
+   the diary for the first weeks of January, and someone who knows it might
+   be a hard stretch.
+5. If the season brings thoughts of not wanting to be here, that is not
+   something to carry alone. **9-8-8**, by call or text, anywhere in
+   Canada, twenty-four hours a day, and **310-6789** for BC Mental Health
+   Support.
+
+**The FAQ added to the same guide**
+
+- *How do I get through the first Christmas or Diwali after a death?* There
+  is no single right way. Some people keep every tradition, some change one
+  thing, some skip the season this year, and any of those is reasonable.
+  What helps most is deciding in advance and telling the people around you
+  what you need: whether you want the person spoken about, how long you
+  will stay, who does what was theirs. Expect the days before to be hard,
+  and plan something for the quieter weeks after, when many people notice
+  a dip.
+
+## 25. BCACC Find a Counsellor — the two listings
+
+The directory is https://bcacc.ca/counsellors/ (bc-counsellors.org now
+redirects there). It is opt-in: each counsellor edits her own entry after
+signing in to the BCACC member portal at https://members.bcacc.ca/login.
+The menu path inside the portal is not published, so it could not be
+checked from here; the owner sends each counsellor her block below and she
+makes the edit herself. Nobody signs in to a counsellor's account for her.
+
+A published profile, read on 15 Oct 2026, shows these headings: Website,
+Session Style, About, Areas of Practice, Modalities, Locations, Gender,
+Language. The directory's filters add Availability ("Accepting new
+clients") and Session Style ("In-person counselling", "Online
+counselling", "Telephone counselling"). No fee field was seen; if the form
+has one, copy the fee from https://www.westpeakwellness.com/pricing on the
+day (on 15 Oct 2026: free 15-minute consultation; Individual Counselling
+$140 for 50 minutes; Couples Counselling $175 for 50 minutes; Couples
+Extended $340 for 110 minutes; EMDR Intensive $190 for 90 minutes), and
+only for a service she offers.
+
+Gender is hers to set or leave blank. Registration numbers stay in BCACC's
+own fields; nothing below adds one.
+
+### 25.1 Camille — correct the existing entry
+
+Read on 3 Oct 2026 her entry named another practice, with that practice's
+Richmond street address, a 778 number and a booking link elsewhere, and
+English as the only language. Ask her first whether she still practises
+there. If she does, add Westpeak Wellness beside it and leave the other
+practice alone; if she does not, replace it.
+
+- **Website:** https://www.westpeakwellness.com/practitioners/camille-granda?utm_source=bcacc
+- **Practice name** (if the form has one): Westpeak Wellness
+- **Email:** info@westpeakwellness.com
+- **Session Style:** Online counselling. Untick In-person; keep Telephone
+  only if she offers it at Westpeak.
+- **Availability:** Accepting new clients
+- **Language:** English, Tagalog
+- **Areas of Practice:** the options closest to the three on her profile
+  page: Trauma; Anxiety and chronic stress; Grief, loss and life
+  transitions. Add couples / relationships and family only as the services
+  she offers here.
+- **Modalities:** EMDR, and any others she chooses from the training her
+  own profile names. Nothing she has not named.
+- **Locations:** no Westpeak street address, because there is no office.
+  If the form needs a location, White Rock, BC, marked online. Remove the
+  other practice's address only if she has left it.
+- **About** (her own words from her profile, with one practical line; she
+  may change it):
+
+  > I work with adults and young adults who are thoughtfully self-aware
+  > and ready to understand themselves better, even if they are not at all
+  > sure where to begin. Sessions are collaborative and practical, in
+  > English or Tagalog, and plenty of them move between the two. I see
+  > clients online across British Columbia through Westpeak Wellness:
+  > individual, couples and family counselling, and EMDR. A free 15-minute
+  > video consultation is available on the Westpeak Wellness website.
+
+This replaces the 3 Oct bio line, which mentioned Alberta and an older
+consultation length. Name Alberta in the listing only once her profile
+page on the site names it again.
+
+### 25.2 Savneet — a new entry
+
+Her listing is switched off: the directory has no entry for her. She turns
+it on in the member portal and fills it in.
+
+- **Website:** https://www.westpeakwellness.com/practitioners/savneet-singh?utm_source=bcacc
+- **Practice name** (if the form has one): Westpeak Wellness
+- **Email:** info@westpeakwellness.com
+- **Session Style:** Online counselling only
+- **Availability:** Accepting new clients
+- **Language:** English, Punjabi
+- **Areas of Practice:** the options closest to the four on her profile
+  page: Anxiety; Depression; Trauma and attachment; Personality disorders.
+  Not couples: her own profile says she is not the right fit for
+  specialised couples therapy.
+- **Modalities:** CBT, ACT, DBT (the three she names)
+- **Locations:** no street address. If the form needs a location, White
+  Rock, BC, marked online. If it insists on a street, stop and ask BCACC
+  through the contact page on bcacc.ca rather than typing one.
+- **About** (her own words from her profile, with one practical line):
+
+  > Most of the people I work with are not looking for someone to fix
+  > them. They are looking for someone to help them understand what is
+  > actually going on underneath the surface, and what to do about it. I
+  > work with individual adults, in English or Punjabi, and many clients
+  > move between the two. My training is in CBT, ACT and DBT. I see
+  > clients online across British Columbia through Westpeak Wellness, and
+  > a free 15-minute video consultation is available on the Westpeak
+  > Wellness website.
+
+After both are saved, open https://bcacc.ca/counsellors/ in a private
+window, filter Session Style to Online counselling and Language to Tagalog
+(then Punjabi), and check each entry appears with the Westpeak link.
+
+## 26. January 2027 — open the calendar by 1 December
+
+The two-line instruction:
+
+In Cliniko, by **Tuesday 1 December 2026**: open availability for Camille
+and Savneet for **Monday 4 to Friday 15 January 2027**, with free Initial
+Consultation (15 min) times and paid session times in each week, at
+whatever hours each counsellor chooses (the site names none). If their
+regular hours already cover those dates, check nothing blocks them; if
+not, **Appointments → go to the date → Availability → One-off
+availability**, click the time, set the length, **Save availability**
+(a one-off block cannot be edited afterwards, only covered by an
+unavailable block, so check the time before saving).
+
+Then open https://www.westpeakwellness.com/book in a private window, pick
+each counsellor, and check that a January date shows times for both the
+free consultation and a paid session; that is what the holidays guide's
+"one booked for early January" and the January shelf send people to.
+
+## 27. Third-party listings on the brand results — four corrections
+
+Searched on 15 Oct 2026 for "Westpeak Wellness", "Westpeak Wellness White
+Rock", "westpeak" with BC and counselling, and "West Peak Wellness". Three
+listings describe this practice; two of them describe it as a walk-in
+office with the wrong phone number. Nothing has been corrected: each item
+below is a request for the owner to make, through the route that site
+publishes.
+
+**Start with the Google place, because the others copy it.** Both wrong
+listings point at the same Google Maps place (ClinicFinder links its
+reviews: `https://search.google.com/local/reviews?placeid=ChIJDRwO4nbDhVQRpEuoz_VSfu0`).
+As the directories show it, that place carries a street address,
+1548 Johnston Rd, White Rock V4B 3Z8 (a shared counselling building, where
+other practices are listed), and the phone (778) 384-1343, which is not
+the practice's number. The Google profile itself could not be opened from
+here, so who controls it and exactly what it shows are unverified. Until it
+is right, scraped directories will keep copying it back.
+
+### 27.0 The Google Business Profile (the owner's own account)
+
+1. Sign in at https://business.google.com with the account that holds the
+   practice's profile. If the White Rock place is not in that account, it
+   is a second place: open it on Google Maps and use **Suggest an edit**
+   (or **Claim this business**, the owner's call) rather than leaving it.
+2. **Edit profile → Location:** remove or hide the street address and set
+   the business up as a service-area business, service area British
+   Columbia. Google's labels for this change from time to time; the setting
+   is the one that stops the address showing to customers. The site's own
+   rule is locality only: White Rock, BC, no street, online only.
+3. **Edit profile → Contact:** phone (604) 259-0810; website
+   https://www.westpeakwellness.com/?utm_source=gbp
+4. **Hours:** none, or "online appointments" only if the form insists.
+   The site promises no hours.
+5. Category: Counselor (or the nearest counselling category), with
+   "online appointments" on. Not a medical or family-practice category.
+
+Re-read the directories below a week after the Google profile is right;
+some may correct themselves.
+
+### 27.1 ClinicFinder.ca
+
+- **URL:** https://clinicfinder.ca/mental-health/bc/white-rock/westpeak-wellness/
+- **What is wrong (read 15 Oct 2026):** it calls the practice "a mental
+  health clinic located at 1548 Johnston Road" and, in its page
+  description, "a family medicine clinic"; phone (778) 384-1343; opening
+  hours (Monday 8:00 AM to 8:30 PM, and others) "last checked September
+  2026"; directions, "plan your visit" and nearby walk-in clinics, all of
+  which tell a reader they can walk in. It is not in the site's "Virtual
+  care" section. The listing is unclaimed.
+- **Correction route on the site:** the edit request form at
+  https://clinicfinder.ca/edit/?clinic=westpeak-wellness (it covers phone,
+  website, address, hours, category and description; the site says
+  requests from the clinic's own email domain are faster, so use
+  info@westpeakwellness.com). If the form does not load the listing, use
+  info@clinicfinder.ca or the form at https://clinicfinder.ca/contact/,
+  topic "Report incorrect information".
+- **What to enter in the edit form:** Address: none (online only; if a
+  value is required, "White Rock, BC" with no street). Phone:
+  (604) 259-0810. Website:
+  https://www.westpeakwellness.com/?utm_source=listing. Hours: remove.
+  Category: counselling, virtual care. Description: the text below.
+
+> **Subject:** Correction request: Westpeak Wellness, White Rock
+>
+> Hello,
+>
+> Your listing for Westpeak Wellness
+> (https://clinicfinder.ca/mental-health/bc/white-rock/westpeak-wellness/)
+> describes a clinic at 1548 Johnston Road with opening hours and
+> directions, and the phone number (778) 384-1343. Westpeak Wellness is a
+> fully virtual counselling practice: Registered Clinical Counsellors see
+> clients by secure video across British Columbia, and there is no office
+> to visit. It is not a family medicine clinic.
+>
+> Could you correct the listing to:
+>
+> - No street address (online only; registered in White Rock, BC)
+> - Phone: (604) 259-0810
+> - Email: info@westpeakwellness.com
+> - Website: https://www.westpeakwellness.com/
+> - No opening hours
+> - Category: counselling, listed under virtual care
+>
+> A free 15-minute video consultation is available through the website.
+> Thank you,
+> Westpeak Wellness
+
+### 27.2 MentalHealthDirectories.com
+
+- **URL:** https://mentalhealthdirectories.com/canada/british-columbia/white-rock
+  (the practice is a card on the city page; no separate profile page was
+  found)
+- **What is wrong:** 1548 Johnston Rd, White Rock, BC V4B 3Z8, phone
+  778-384-1343, "View on Google Maps", and nothing that says it is
+  virtual. Category "Counselor" is right.
+- **Correction route on the site:** the free one, hello@directoriesnetwork.com
+  or the form at https://mentalhealthdirectories.com/contact. The site
+  also offers a "Verify listing" for a one-time $19; do not pay it
+  (nothing paid).
+
+> **Subject:** Correction request: Westpeak Wellness, White Rock card
+>
+> Hello,
+>
+> The Westpeak Wellness card on your White Rock page
+> (https://mentalhealthdirectories.com/canada/british-columbia/white-rock)
+> shows a street address, 1548 Johnston Rd, and the phone number
+> 778-384-1343. Neither is ours. Westpeak Wellness is a fully virtual
+> counselling practice registered in White Rock, with Registered Clinical
+> Counsellors seeing clients by secure video across British Columbia, and
+> there is no office to visit.
+>
+> Could you remove the street address and the map link, mark the listing
+> as online or virtual, and change the phone to (604) 259-0810? The
+> website and email are https://www.westpeakwellness.com/ and
+> info@westpeakwellness.com.
+>
+> Thank you,
+> Westpeak Wellness
+
+### 27.3 Psychology Today (the practice's profile, in the founder's account)
+
+- **URL:** https://www.psychologytoday.com/ca/therapists/westpeak-wellness-white-rock-bc/1080689
+- **What it shows:** "Available online only", "Serving all of British
+  Columbia virtually", phone (604) 259-0810, fees that match /pricing,
+  both counsellors named. Mostly right.
+- **What to fix:** an additional location, "Abbotsford, BC V2T", reads as
+  a second office; remove it or make sure it is labelled online. Check
+  that the consultation is described as free and 15 minutes (the
+  October listings pack's item 6 gives an older length; ignore it). Check the
+  "accepting new clients" setting matches the site, which says the founder
+  is not taking new clients and routes people to the two counsellors.
+- **Route:** only the account holder can edit it, by signing in to the
+  Psychology Today member account and editing the profile. No email is
+  needed. (The public "Report an issue" link at the foot of the profile is
+  for other people's corrections.)
+
+### 27.4 Checked and not found, or not readable
+
+- Yellow Pages: no listing for the practice. It shows West Peak
+  Construction Inc and West Peak Insulation Ltd in Surrey: different
+  businesses, leave them alone.
+- Hotfrog, HealthLinkBC: no listing found.
+- "West Peak Wellness" elsewhere: only unrelated businesses in the United
+  States. No Canadian lookalike.
+- **Not verified:** Yelp, Cylex and Counselling BC refused the request
+  (HTTP 403); Bing Places and Apple Maps could not be searched from here.
+  The October listings pack already notes an Apple duplicate in Vancouver.
+  Check these four by hand after the Google profile is fixed.
+
+## 28. Bing Webmaster Tools — the route with no tag, and the weekly AI export
+
+Read on 15 Oct 2026: production carries **no** `msvalidate.01` tag, so the
+meta-tag route in §19 step 3 is not done. It is also not needed. Importing
+from Google Search Console verifies the site on its own. Do this instead
+of §19's Bing steps.
+
+### Add the site, about 5 minutes
+
+1. Go to https://www.bing.com/webmasters and sign in with the Microsoft,
+   Google or Facebook account the practice uses.
+2. **Add site → Import your sites from GSC** (on the My Sites page the
+   button reads **Import**). Sign in with the Google account that owns the
+   Search Console property, click **Allow** for the read-only access, tick
+   `https://www.westpeakwellness.com/`, click **Import**. Imported sites
+   are verified automatically and their sitemaps come across.
+3. Select the site, then **Sitemaps** in the left menu. If
+   `https://www.westpeakwellness.com/sitemap.xml` is not listed, click
+   **Submit sitemap** (top right), paste it, click **Submit**.
+4. Optional, once: **URL Submission**, paste URLs 1 to 10 from §19.
+
+Skip the `NEXT_PUBLIC_BING_VERIFICATION` step unless the Google account
+ever changes; if it does, §19 step 3 still describes it.
+
+### The AI Performance export, every Monday, 3 minutes
+
+The **AI Performance** report (left menu, or
+https://www.bing.com/webmasters/aiperformance) counts how often Copilot
+and Bing's AI answers cite the site, which pages, and the grounding
+queries. It needs a few days of data after the site is added.
+
+1. Open **AI Performance**, set the range to the last 7 days (or the
+   longest offered).
+2. Export each view the page offers (the daily overview, the pages, and
+   the grounding queries) with its export or download button. The button's
+   exact label was not published when this was written.
+3. Save each CSV into the repository's `data/bing/` folder, named with
+   the day of the export: `2026-10-19-ai-daily.csv`,
+   `2026-10-19-ai-pages.csv`, `2026-10-19-ai-queries.csv`. Any name of the
+   form `<YYYY-MM-DD>-ai-<anything>.csv` works.
+4. Tell Claude "Bing export saved" in a session in this repository, or run
+   `node scripts/bing-ai.mjs` yourself. It reports citations over the
+   last 7 days, the most-cited pages and the queries by topic, and /admin
+   shows the same line after the next deploy. A file it does not recognise
+   is listed as unrecognised, never guessed at.
+
+## 29. Pathways BC and the White Rock-South Surrey FETCH directory — two enquiries
+
+Two directories family doctors and patients in the practice's own
+locality use. Both are enquiries, not applications: neither publishes
+whether a private, fee-paying counselling practice can be listed, so the
+emails ask.
+
+What was found on 15 Oct 2026:
+
+- **Pathways BC** lists about 3,000 community and allied-health services
+  for doctors, nurse practitioners and their staff, including counselling
+  entries in some regions. The published description of what goes in is
+  "a wide range of free or low-cost services", reviewed by a clinical
+  committee before they are added, and data entry is done by the
+  Pathways team, not by providers. The published route for a new
+  resource is through the local Division of Family Practice; Pathways'
+  own community-services address is community-services@pathwaysbc.ca
+  (shown on pathwaysbc.ca/community). No published rule says whether a
+  private counsellor qualifies, and no mental-health exception was found
+  in writing. Whether White Rock-South Surrey has its own public Pathways
+  directory could not be confirmed.
+- **FETCH White Rock-South Surrey** ("For Everything That's Community
+  Health", sswr.fetchbc.ca) returned an error every time it was tried,
+  and the Division's new website (wrssdivision.ca) does not mention it.
+  It may be offline or retired. Elsewhere, FETCH lets community health and
+  social-service providers list themselves for free. The Division's
+  published address is info@wrssdivision.ca.
+
+So: the Pathways enquiry goes to Pathways, the FETCH enquiry to the
+Division. If the Division replies that FETCH is retired, stop there; do
+not ask for anything in its place.
+
+### 29.1 Pathways BC — community-services@pathwaysbc.ca
+
+> **Subject:** Enquiry: can a virtual counselling practice be listed in Pathways (White Rock-South Surrey)?
+>
+> Hello,
+>
+> We are a small counselling practice registered in White Rock, Westpeak
+> Wellness, and we would like to ask whether a practice like ours can be
+> listed in Pathways for the White Rock-South Surrey division, and if so,
+> how.
+>
+> The practice is fully virtual: Registered Clinical Counsellors see
+> clients by secure video anywhere in British Columbia, so there is no
+> office or waitlist location to list. Two counsellors are taking new
+> clients:
+>
+> - Camille Granda, RCC: individual counselling, couples counselling,
+>   family counselling and EMDR, in English or Tagalog
+> - Savneet Singh, RCC: individual counselling, in English or Punjabi
+>
+> No referral is needed. Anyone can book a free 15-minute video
+> consultation first. Sessions are fee-paying (individual counselling is
+> $140 for 50 minutes), and many extended health plans cover a Registered
+> Clinical Counsellor, depending on the plan.
+>
+> We understand Pathways lists mainly free or low-cost services, so a
+> plain "not eligible" is a helpful answer too. If it is possible, we
+> would be glad to send whatever your committee needs. Our page for
+> referring clinicians is
+> https://www.westpeakwellness.com/refer/doctor?utm_source=gp
+>
+> Thank you,
+> Westpeak Wellness
+> info@westpeakwellness.com
+
+### 29.2 FETCH White Rock-South Surrey — info@wrssdivision.ca
+
+> **Subject:** Enquiry: listing a virtual counselling practice in FETCH White Rock-South Surrey
+>
+> Hello,
+>
+> We would like to ask whether the FETCH directory for White Rock-South
+> Surrey is still in use, and if so, whether a counselling practice like
+> ours can be listed in it and how to apply.
+>
+> Westpeak Wellness is registered in White Rock and is fully virtual:
+> Registered Clinical Counsellors see clients by secure video anywhere in
+> British Columbia. Two counsellors are taking new clients: Camille
+> Granda, RCC, offering individual, couples and family counselling and
+> EMDR in English or Tagalog, and Savneet Singh, RCC, offering individual
+> counselling in English or Punjabi. No
+> referral is needed, and anyone can book a free 15-minute video
+> consultation first. Sessions are fee-paying; many extended health plans
+> cover a Registered Clinical Counsellor, depending on the plan.
+>
+> If FETCH is no longer running, or private practices are not listed, a
+> short reply saying so is all we need. Our site is
+> https://www.westpeakwellness.com/?utm_source=community
+>
+> Thank you,
+> Westpeak Wellness
+> info@westpeakwellness.com
+
+## 30. Press pitch — BC's first winter without falling back (week of 26 October)
+
+**Verified on gov.bc.ca, 15 Oct 2026:** the page "B.C.'s new time zone
+(Pacific time)",
+https://www2.gov.bc.ca/gov/content/governments/celebrating-british-columbia/daylight-saving-time
+(updated 17 Sep 2026), says that on 1 November 2026, when clocks would
+previously have gone back an hour, "no change will be made". Pacific time
+stays at seven hours behind UTC all year. The southeastern communities
+that keep Alberta's time stay on mountain daylight time; the Peace region
+was already on mountain standard time.
+
+The site's guide covers it:
+https://www.westpeakwellness.com/guides/low-mood-through-a-bc-winter. Its
+section "This winter the clocks do not go back" appears on the page from
+**20 October**, so send the pitch on **Tuesday 20 or Wednesday 21
+October**, not before, and no later than Friday 23 October for the week
+of the 26th.
+
+Every figure below is the guide's own, from the National Research
+Council's sunrise and sunset calculator, read 15 Oct 2026, moved to the
+clock BC now keeps.
+
+**Subject:** BC's first winter without falling back: what it means for the morning light
+
+Hello,
+
+On Sunday 1 November, for the first time, BC's clocks will not go back
+an hour. A lot of people will notice in the week after, when sunrise
+arrives later than they are used to, and some of them will be people
+who already find the winter hard.
+
+We wrote a short, practical piece on what changes and what does not.
+The useful facts for a morning segment or a short article:
+
+1. **The daylight does not change; the clock does.** On the shortest
+   day, 21 December, Vancouver gets the same light as any other winter,
+   but sunrise is at 9:05 a.m. and sunset at 5:16 p.m. on the clock BC
+   now keeps. In Prince George it is 9:28 a.m. and 4:51 p.m.
+2. **Morning light moves into the working day.** Morning light is the
+   strongest signal the body clock receives. In late December, "get
+   outside before ten" leaves under an hour of daylight in Vancouver.
+   The practical version is a mid-morning break or lunch outside on a
+   working day, and the first hour after sunrise on a day off.
+3. **The rest of the winter advice stands:** a fixed wake time, activity
+   and social plans made in advance rather than waited for, and a word
+   with a doctor before buying a light box (HealthLink BC says people
+   with sensitive eyes or skin should check first).
+4. **Not all of BC is on the same clock.** The southeastern communities
+   that keep Alberta's time stay on mountain daylight time; the Peace
+   region does not change.
+
+Nobody in BC has lived a winter on this clock yet, so the piece makes no
+prediction about how it will feel. It sets out what to plan for.
+
+A line you are welcome to quote, attributed to Westpeak Wellness:
+
+> "Nothing about the daylight changes this winter, only where it sits on
+> the clock. In late December the sun comes up in Vancouver just after
+> nine. The practical step is to plan for the light you can get, a
+> mid-morning break or lunch outside, rather than wait for a morning that
+> will not come before work."
+
+The guide, with its sources:
+https://www.westpeakwellness.com/guides/low-mood-through-a-bc-winter?utm_source=press
+
+Sources, read 15 October 2026:
+- Government of British Columbia, "B.C.'s new time zone (Pacific time)",
+  updated 17 Sep 2026:
+  https://www2.gov.bc.ca/gov/content/governments/celebrating-british-columbia/daylight-saving-time
+- National Research Council Canada, sunrise and sunset calculator:
+  https://nrc.canada.ca/en/research-development/products-services/software-applications/sun-calculator/
+- HealthLink BC, light therapy:
+  https://www.healthlinkbc.ca/healthwise/light-therapy
+
+Westpeak Wellness is a virtual counselling practice registered in White
+Rock, with Registered Clinical Counsellors working in English, Punjabi and
+Tagalog across BC. Anyone who wants to talk to a counsellor can book a
+free 15-minute video consultation at https://www.westpeakwellness.com/book.
+If a follow-up would help, reply to this address.
+
+Westpeak Wellness
+info@westpeakwellness.com
+
+### Where to send it — each route read on the outlet's own site, 15 Oct 2026
+
+One outlet at a time, in this order, separate emails, never a CC list. Do
+not offer a counsellor for interview until she has agreed to it; if a
+show asks for a guest, reply that you will come back to them the same
+day, and ask her.
+
+| # | Outlet | Route | Where it is shown |
+|---|---|---|---|
+| 1 | Global BC, Global News Morning | MorningNews@globaltv.com | globalnews.ca/pages/global-bc-contact-information/ (news tips: globalbc.newstips@globaltv.com) |
+| 2 | CTV News Vancouver, Morning Live | bcassign@ctv.ca (news tips and press releases; no Morning Live address is published) | ctvnews.ca/vancouver/contact-us |
+| 3 | CBC Radio One, The Early Edition | earlyed@cbc.ca | The Early Edition's programme page on cbc.ca, and the CBC BC contact page in §15. CBC blocked the page on 15 Oct; the address is the one §15 recorded the same day |
+| 4 | Abbotsford News | newstips@abbynews.com, or the form at abbynews.com/services/news-tips/ | abbynews.com contact page |
+| 5 | Chilliwack Progress | newstips@theprogress.com, or the form at theprogress.com/services/news-tips/ | theprogress.com/services/contact-us/ |
+| 6 | Surrey Now-Leader | newstips@surreynowleader.com, or the form at surreynowleader.com/services/news-tips/ | surreynowleader.com/services/contact-us/ |
+
+For the Fraser Valley papers, add one line after the first paragraph:
+"The change applies in the Fraser Valley exactly as in Vancouver." Do not
+add sunrise times for Abbotsford or Chilliwack; the guide gives none, and
+none were read.
