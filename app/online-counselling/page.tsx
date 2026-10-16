@@ -370,10 +370,10 @@ export default function LocationsIndex() {
             this practice does not do.
           </p>
           <p>
-            On whether video therapy works at all. A fair question, and one with a real research base
-            behind it, {' '}
+            Whether video therapy works at all is a fair question, and one with a real research base
+            behind it: the guide{' '}
             <Link href="/guides/is-online-therapy-as-effective-as-in-person">is online therapy as effective as in person</Link>{' '}
-            sets out the evidence including the places where it is weaker.
+            sets out the evidence, including the places where it is weaker.
           </p>
           {/* The hub is a static page, not a [city] route, so it takes its
               extra sections under the synthetic slug 'index'. */}

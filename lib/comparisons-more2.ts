@@ -477,7 +477,7 @@ export const moreComparisons2: Comparison[] = [
         /* 3 Oct 2026: was "commonly ~$225–$300+/session", a range typed here
            and sourced nowhere. Now BCPA's published rate, from the one file
            that holds market fee figures (lib/fee-guides.ts). */
-        ['Cost in BC', 'MSP-covered', `Private. The BC Psychological Association recommends ${BCPA_PSYCHOLOGIST.range} an hour (effective ${BCPA_EFFECTIVE}); each psychologist sets their own fee. Extended health plans commonly reimburse`],
+        ['Cost in BC', 'MSP-covered', `Private. The BC Psychological Association recommends ${BCPA_PSYCHOLOGIST.range} an hour (effective ${BCPA_EFFECTIVE}); each psychologist sets their own fee. Many extended health plans reimburse, depending on the plan`],
         ['Prescribes medication', 'Yes', 'No'],
         ['Formal assessments (ADHD, psychoeducational, cognitive)', 'Diagnoses clinically; formal psychometric testing is not the usual role', 'Yes. This is the thing only psychologists do'],
         ['Ongoing weekly psychotherapy', 'Uncommon in the BC public system; many consult and hand care back to the GP', 'Some offer it; many focus on assessment. Ask directly'],

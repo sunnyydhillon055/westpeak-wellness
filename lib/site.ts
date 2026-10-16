@@ -300,4 +300,4 @@ export const LOCALITY_VISIBLE_NOTE = 'sessions by secure video only, no office';
    sentence: callers write "Registered Clinical Counsellor means …". No
    registration number, which belongs on the counsellor's own profile. */
 export const RCC_PLAIN =
-  'a master’s degree in counselling, supervised clinical hours, a code of ethics and a complaints process through the BCACC, which you can check yourself';
+  'a master’s degree in counselling, supervised clinical hours, a code of ethics and a complaints process through the BC Association of Clinical Counsellors (BCACC), the professional body that grants the RCC and keeps a register you can check yourself';

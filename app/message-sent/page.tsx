@@ -156,7 +156,7 @@ export default async function MessageSentPage() {
               <Link href="/faq">The FAQ</Link> covers
               cost, coverage and what a first session involves.{' '}
               <Link href="/pricing">Fees and coverage</Link> sets out what sessions cost and what
-              BC extended health plans typically reimburse. And{' '}
+              many BC extended health plans reimburse, depending on the plan. And{' '}
               <Link href="/guides/what-to-expect-first-therapy-session">
                 what happens in a first session
               </Link>{' '}

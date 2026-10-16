@@ -184,7 +184,7 @@ export default function PunjabiCounsellingIndex() {
 
           <h2>These pages do not all make the same argument</h2>
           <p>
-            That is worth saying at the top, because the obvious assumption. That a page for
+            That is worth saying at the top, because the obvious assumption, that a page for
             each region says the same thing with the place name swapped, is wrong here, and
             a reader who assumes it will read the wrong page for where they live.
           </p>

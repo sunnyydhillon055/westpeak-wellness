@@ -63,7 +63,7 @@ export const moreGuides7: Guide[] = [
         h2: 'Does a mental-health leave qualify for EI sickness benefits?',
         body: [
           'Yes, unambiguously. EI sickness benefits do not distinguish between a broken leg and a depressive episode. The test is that a medical practitioner certifies you are **unable to work for medical reasons**, and mental-health conditions meet it the same way anything else does. Burnout is not itself a diagnosis ([burnout vs depression](/guides/burnout-vs-depression) sets out the difference), but the conditions that travel under it: depression, anxiety disorders, adjustment disorder, are exactly what these claims are made of.',
-          'The eligibility mechanics: **600 insurable hours** in the last 52 weeks (roughly 15 hours a week over a year of insurable employment), regular earnings reduced by more than 40%, and the medical certificate. Self-employed people are outside the program unless they opted into EI special benefits at least a year earlier. A gap that surprises a lot of contractors at the worst possible moment.',
+          'The eligibility mechanics: **600 insurable hours** in the last 52 weeks (roughly 15 hours a week over a year of insurable employment), regular earnings reduced by more than 40%, and the medical certificate. Self-employed people are outside the program unless they opted into EI special benefits at least a year earlier, a gap that surprises a lot of contractors at the worst possible moment.',
           `What it pays: **55% of average insurable weekly earnings, capped at ${EI_WEEKLY_IN_YEAR}**, taxable; ${EI_WAITING_CLAUSE}. For most full-time earners that is a serious income cut, and the honest planning question is not "am I eligible" but "can the household run on 55%, and for how long".`,
           EI_WORKED,
           'To run your own figure, the [stress leave pay calculator](/tools/stress-leave-pay-calculator) shows what medical EI would pay you each week after your BC sick days, and where an employer disability plan would take over instead.',
@@ -342,7 +342,7 @@ export const moreGuides7: Guide[] = [
         h2: 'The entitlement, without folklore',
         body: [
           'Since 2022, the BC Employment Standards Act provides employees with **5 paid sick days and 3 unpaid sick days per calendar year**, after 90 days with the employer. They cover personal illness or injury, and mental health is health in that sentence, without any asterisk. The days do not carry over, they are paid at an average day’s pay, and they belong to ESA-covered employees; federally regulated workers (banks, telecoms, airlines) are under the Canada Labour Code instead, which gives up to 10 paid medical leave days a year, and unionised or contract terms can only improve on the floor, not dig under it.',
-          '"Reasonably sufficient proof" is the phrase doing the work on the employer side: they may ask for it, and for a day or two most reasonable employers ask for nothing. What they are never entitled to is your diagnosis or the content of your health information. A theme that runs through this whole cluster, from [the doctor’s note](/guides/doctors-note-for-a-mental-health-leave) and [how to ask for a mental health leave](/resources/mental-health-leave-templates-bc) to [the return](/guides/return-to-work-after-a-mental-health-leave).',
+          '"Reasonably sufficient proof" is the phrase doing the work on the employer side: they may ask for it, and for a day or two most reasonable employers ask for nothing. What they are never entitled to is your diagnosis or the content of your health information, a theme that runs through this whole cluster, from [the doctor’s note](/guides/doctors-note-for-a-mental-health-leave) and [how to ask for a mental health leave](/resources/mental-health-leave-templates-bc) to [the return](/guides/return-to-work-after-a-mental-health-leave).',
           'And the sentence itself: "I’m unwell and taking a sick day." Not "it’s just a headache", not a manufactured stomach bug to launder a [panic attack at work](/guides/panic-attacks-at-work) into something that feels tellable. The legal entitlement does not require the illness to be visible, physical, or explained.',
         ],
       },
@@ -350,7 +350,7 @@ export const moreGuides7: Guide[] = [
         h2: 'Using a mental-health day so it actually works',
         body: [
           'A mental-health day spent doomscrolling in the same room as the laptop treats nothing. What the day is for, mechanically, is interrupting a stress cycle that has stopped self-interrupting: sleep that is actually sleep, daylight, movement, one honest conversation, and genuine distance from the inbox, which means notifications off, not merely "not replying".',
-          'It is also a fair day for maintenance you have been deferring *because* of work: the doctor’s appointment, the first therapy consultation, the benefits phone call. One of the quiet findings from this practice’s side of the desk is how often the first-ever counselling session happens on a sick day. The entitlement buying the hour that the calendar never would.',
+          'It is also a fair day for maintenance you have been deferring *because* of work: the doctor’s appointment, the first therapy consultation, the benefits phone call. The entitlement can buy the hour that the calendar never would.',
           'What a single day cannot do is treat an actual depressive episode, an anxiety disorder, or a burnout that has been building for a year. That is not a criticism of the day; it is a statement of dosage.',
         ],
       },
@@ -365,7 +365,7 @@ export const moreGuides7: Guide[] = [
       },
     ],
     midCta: {
-      text: 'If you are reading this to work out whether you are allowed to be as tired as you are. That is answerable in fifteen minutes, free, from your sofa.',
+      text: 'If you are reading this to work out whether you are allowed to be as tired as you are, that is answerable in fifteen minutes, free, from your sofa.',
       label: 'Book a free consultation',
     },
     faqs: [
