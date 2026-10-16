@@ -126,6 +126,40 @@ const COUNTED = new Set([
   'email_click',
 ]);
 
+/* AN EVENT AND ITS COMPANIONS ARE ONE WRITE — 15 Oct 2026.
+ *
+ * lib/analytics.ts used to send scheduler_booked, booked_from and booked_via
+ * as three beacons in the same tick. Each became its own casUpdate on this
+ * one file, and on a weak ETag (lib/blob-etag.ts) casUpdate writes
+ * unconditionally, so the last write won: the booking of 13 Oct left
+ * booked_from = 1 and no scheduler_booked or booked_via at all. The browser
+ * now sends the companions in the event's own request as `also`, and they
+ * are applied in the same increment.
+ *
+ * Only the companions an event really has are accepted, each at most once,
+ * and each detail passes the same acceptedDetail rule it would alone, so
+ * `also` cannot be used to count anything a separate request could not.
+ * click_from, booked_from and booked_via stay on COUNTED, so a page loaded
+ * before this deploy still counts them the old way. */
+const COMPANIONS: Record<string, readonly string[]> = {
+  book_click: ['click_from'],
+  scheduler_booked: ['booked_from', 'booked_via'],
+};
+
+/** The accepted companions of one event, from whatever `also` held. Pure. */
+export function acceptedCompanions(event: string, also: unknown): [string, string | null][] {
+  const allowed = COMPANIONS[event];
+  if (!allowed || !Array.isArray(also)) return [];
+  const out: [string, string | null][] = [];
+  for (const pair of also.slice(0, 4)) {
+    if (!Array.isArray(pair) || typeof pair[0] !== 'string') continue;
+    const e = pair[0];
+    if (!allowed.includes(e) || !COUNTED.has(e) || out.some(([x]) => x === e)) continue;
+    out.push([e, acceptedDetail(e, pair[1])]);
+  }
+  return out;
+}
+
 export type ConversionLog = {
   /** event -> path -> count */
   events: Record<string, Record<string, number>>;
@@ -213,7 +247,8 @@ export function withIncrement(current: ConversionLog, event: string, path: strin
 
 export type ConversionStore = {
   read(opts?: { fresh?: boolean }): Promise<ConversionLog>;
-  count(event: string, path: string, detail?: unknown): Promise<boolean>;
+  /** `also`: the event's companions, applied in the same write. */
+  count(event: string, path: string, detail?: unknown, also?: unknown): Promise<boolean>;
 };
 
 /** A store over one ledger. The module's own store (below) is the blob in
@@ -236,17 +271,20 @@ export function createConversionStore(io: () => LedgerIO | null, opts: CasOption
     }
   }
 
-  async function count(event: string, path: string, detail?: unknown): Promise<boolean> {
+  async function count(event: string, path: string, detail?: unknown, also?: unknown): Promise<boolean> {
     if (!COUNTED.has(event)) return false;
     const p = safePath(path);
     if (!p) return false;
-    const d = acceptedDetail(event, detail);
+    const all: [string, string | null][] = [[event, acceptedDetail(event, detail)], ...acceptedCompanions(event, also)];
     const ledger = io();
     if (!ledger) return true;
     const written = await casUpdate(
       ledger,
       parseConversions,
-      (current) => withIncrement(current, event, p, d, new Date().toISOString()),
+      (current) => {
+        const now = new Date().toISOString();
+        return all.reduce((log, [e, d]) => withIncrement(log, e, p, d, now), current);
+      },
       { label: 'conversion-log', ...opts }
     );
     if (written) cache = { at: Date.now(), value: written };
@@ -266,9 +304,10 @@ export function readConversions(opts?: { fresh?: boolean }): Promise<ConversionL
 }
 
 /** Records one event against one page, and against one detail when the
- *  detail is on the event's allow-list. Silently ignores anything unrecognised. */
-export function countConversion(event: string, path: string, detail?: unknown): Promise<boolean> {
-  return store.count(event, path, detail);
+ *  detail is on the event's allow-list, with its companions (`also`) in the
+ *  same write. Silently ignores anything unrecognised. */
+export function countConversion(event: string, path: string, detail?: unknown, also?: unknown): Promise<boolean> {
+  return store.count(event, path, detail, also);
 }
 
 export type PageConversions = { path: string; count: number };

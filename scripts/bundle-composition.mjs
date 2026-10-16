@@ -45,6 +45,16 @@ const SERVER_ONLY = [
   { pkg: 'node:crypto / bcrypt', marks: ['bcrypt_lib', 'scryptSync'] },
 ];
 
+/* Not server-only, but never wanted: code that ships only because something
+   went wrong upstream. The `process` polyfill (next/dist/compiled/process)
+   is bundled whenever client code reads a `process.env.X` that Next did not
+   inline; the five lib/site.ts reads are inlined in next.config.mjs `env`
+   for exactly that reason (15 Oct 2026), which took it out of the layout
+   chunk and 37 others. The string is the polyfill's own error message. */
+const MUST_NOT_SHIP = [
+  { pkg: 'process polyfill (an env read Next did not inline; add it to next.config.mjs env)', marks: ['setTimeout has not been defined'] },
+];
+
 /* Environment variable names that are not NEXT_PUBLIC_ and therefore must
    never be referenced from client code at all. Next replaces NEXT_PUBLIC_ ones
    at build time and leaves the rest as `process.env.X`, which is `undefined`
@@ -70,7 +80,7 @@ const hits = [];
 
 for (const f of files) {
   const src = readFileSync(f, 'utf8');
-  for (const { pkg, marks } of SERVER_ONLY) {
+  for (const { pkg, marks } of [...SERVER_ONLY, ...MUST_NOT_SHIP]) {
     const found = marks.filter((m) => src.includes(m));
     if (found.length) hits.push({ file: f, what: pkg, why: found.join(', ') });
   }
@@ -82,7 +92,7 @@ for (const f of files) {
 console.log(`\nBUNDLE COMPOSITION - ${files.length} client chunks\n`);
 
 if (!hits.length) {
-  console.log('  No server-only package or secret name reached the browser.\n');
+  console.log('  No server-only package, secret name or process polyfill reached the browser.\n');
   process.exit(0);
 }
 

@@ -8,6 +8,7 @@ import { track } from '@/lib/analytics';
 import { bookClickDetail, withSlugOf } from '@/lib/conversion-detail-client';
 import { bookHrefFor, type NavPractitioner } from '@/lib/roster-nav';
 import MailLink from '@/components/MailLink';
+import { loadAvailability } from '@/lib/consult-slot';
 
 /* THE BOOKING LINK FOLLOWS THE PAGE.
  *
@@ -142,7 +143,11 @@ export default function StickyBook({ roster }: { roster: NavPractitioner[] }) {
 
   useEffect(() => {
     let live = true;
-    fetch('/api/availability').then((r) => (r.ok ? r.json() : null)).then((j) => { if (live && j) setAvail(j); }).catch(() => {});
+    /* The shared request (lib/consult-slot.ts): a page with a consult slot
+       asked /api/availability twice, once here and once for the slot, 1 ms
+       apart (324 and 325 ms in a load trace). 15 Oct 2026. A failure resolves to {},
+       which prints the default line, as no answer did before. */
+    loadAvailability().then((j) => { if (live) setAvail(j); });
     return () => { live = false; };
   }, []);
 

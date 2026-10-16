@@ -120,6 +120,27 @@ const EMBED_HEADERS = [
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  /* THE FIVE VARIABLES lib/site.ts READS, FIXED AT BUILD — 15 Oct 2026.
+   *
+   * lib/site.ts reaches the browser through every client component that
+   * names the practice. Next inlines a NEXT_PUBLIC_ variable only when it is
+   * set at build, and never inlines VERCEL_ENV or
+   * VERCEL_PROJECT_PRODUCTION_URL, so the client copy kept live
+   * `process.env.X` reads and webpack bundled a whole `process` polyfill to
+   * answer them: 2,055 B in the layout chunk and a copy in 37 others, to
+   * return undefined. Each is inlined here instead, '' when unset; every read
+   * in lib/site.ts already falls back with ||, so '' behaves exactly as
+   * undefined did. A Vercel build has the deployment's own values (Vercel
+   * exposes its system variables at build time), so the server sees what it
+   * saw at runtime before. scripts/bundle-composition.mjs fails if the
+   * polyfill ships again. */
+  env: {
+    VERCEL_ENV: process.env.VERCEL_ENV || '',
+    VERCEL_PROJECT_PRODUCTION_URL: process.env.VERCEL_PROJECT_PRODUCTION_URL || '',
+    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL || '',
+    NEXT_PUBLIC_PHONE: process.env.NEXT_PUBLIC_PHONE || '',
+    NEXT_PUBLIC_CLINIKO_URL: process.env.NEXT_PUBLIC_CLINIKO_URL || '',
+  },
   /* /admin and the monthly report read the committed Search Console exports
    * and the change register from disk (lib/gsc-summary.ts,
    * lib/change-register.ts). The file tracer cannot see a directory read,

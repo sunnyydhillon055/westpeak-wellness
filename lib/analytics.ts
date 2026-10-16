@@ -57,7 +57,12 @@ export function excludedBrowser(): boolean {
  *                     booking in the client portal is a client rebooking,
  *                     not a visit the landing page earned.
  *
- * The companions go to the counter only, not to gtag. */
+ * The companions go to the counter only, not to gtag, and in the SAME
+ * request as their event (`also`), since 15 Oct 2026. Sent as three beacons
+ * in one tick, they became three writes to one blob racing each other, and
+ * on Vercel's weak ETags the last write won: the 13 Oct booking left
+ * booked_from counted and scheduler_booked and booked_via gone. The server
+ * applies an event and its companions as one increment. */
 export const LANDING_KEY = 'wp-land';
 const LAST_BUTTON_KEY = 'wp-last-book';
 
@@ -95,8 +100,8 @@ function companions(event: TrackedEvent, detail: string | undefined): [string, s
   return [];
 }
 
-function beacon(event: string, detail: string | undefined): void {
-  const body = JSON.stringify({ event, path: window.location.pathname, detail });
+function beacon(event: string, detail: string | undefined, also: [string, string | undefined][]): void {
+  const body = JSON.stringify({ event, path: window.location.pathname, detail, also });
   if (navigator.sendBeacon) {
     navigator.sendBeacon('/api/track', new Blob([body], { type: 'application/json' }));
   } else {
@@ -137,8 +142,7 @@ export function track(event: TrackedEvent, params: Params = {}): void {
    * book_click fires. Falls back to keepalive fetch where beacon is missing. */
   try {
     const detail = typeof params.detail === 'string' ? params.detail : undefined;
-    beacon(event, detail);
-    for (const [e, d] of companions(event, detail)) beacon(e, d);
+    beacon(event, detail, companions(event, detail));
   } catch {
     /* same rule: never load-bearing */
   }

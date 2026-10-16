@@ -3,6 +3,7 @@ import './globals.css';
 import './premium.css';
 import { fontVars, body as bodyFont } from './fonts';
 import Header from '@/components/Header';
+import Motif from '@/components/brand/Motif';
 import Footer from '@/components/Footer';
 import { AREA_SERVED } from '@/lib/area-served';
 import StickyBook from '@/components/StickyBook';
@@ -391,7 +392,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             Tagalog page does not read the navigation with Tagalog rules.
             display:contents keeps the wrapper out of the layout. */}
         <div lang="en-CA" style={{ display: 'contents' }}>
-          <Header roster={roster} />
+          {/* The mark is drawn here, on the server, and handed to the client
+              header as markup: imported inside Header it shipped all four
+              Motif variants in the layout chunk to draw one (15 Oct 2026). */}
+          <Header roster={roster} mark={<Motif variant="mark" />} />
         </div>
         <main id="main">{children}</main>
         <div lang="en-CA" style={{ display: 'contents' }}>
