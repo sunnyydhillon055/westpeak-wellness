@@ -46,8 +46,11 @@ import { practitioners } from '@/lib/practitioners';
  * direct calendar is counted as book_direct like any other; in the portal it is
  * a plain link, because book_direct is /book's free-consultation count.
  */
+/** One counsellor's calendar, offered as its own button in the gated box. */
+export type SchedulerChoice = { slug: string; url: string; label: string; title: string };
+
 export default function SchedulerEmbed({
-  url, title, page, who, placeholder, secondary, cta = 'Show available times', openDetail,
+  url, title, page, who, placeholder, secondary, cta = 'Show available times', openDetail, choices,
 }: {
   url: string;
   title?: string;
@@ -60,6 +63,9 @@ export default function SchedulerEmbed({
   cta?: string;
   /** Passed to SchedulerGate: the scheduler_open detail for a couples consultation. */
   openDetail?: 'couples';
+  /** Gated mode only: one primary button per counsellor in place of `cta`,
+   *  each opening her own calendar (bare /book, 15 Oct 2026). */
+  choices?: SchedulerChoice[];
 }) {
   /* The markup lives in components/SchedulerEmbedView.tsx since 15 Oct 2026,
      so /book's client island can render it without the roster; this server
@@ -70,7 +76,7 @@ export default function SchedulerEmbed({
   return (
     <SchedulerEmbedView
       url={url} embedParam={CLINIKO_EMBED_PARAM} title={title} page={page} who={who} first={first} portal={portal}
-      placeholder={placeholder} secondary={secondary} cta={cta} openDetail={openDetail}
+      placeholder={placeholder} secondary={secondary} cta={cta} openDetail={openDetail} choices={choices}
     />
   );
 }

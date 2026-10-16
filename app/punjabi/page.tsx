@@ -18,6 +18,7 @@ import { PA_CITY, getPunjabiPlace } from '@/lib/practitioner-places-pa';
 import { NextFreeDay } from '@/components/NextConsultSlot';
 import { bookHrefFor } from '@/lib/city-service-page';
 import { readCatalog, CONSULT_MINUTES } from '@/lib/cliniko-catalog';
+import { EMAIL_PATTERN, EMAIL_TITLE } from '@/lib/inbound-return';
 import { serviceSnippet, withSnippet } from '@/lib/snippet-facts';
 import { PDF_PATH } from '@/app/print/punjabi-words/sheet';
 
@@ -391,7 +392,11 @@ export default async function PunjabiPage() {
                   className="lead-form-area" placeholder="ਜੋ ਵੀ ਤੁਸੀਂ ਲਿਖ ਸਕਦੇ ਹੋ।" />
                 <div className="lead-form-row">
                   <label htmlFor="pa-email" className="sr-only">ਈਮੇਲ</label>
+                  {/* The server's address rule at the field (lib/inbound-return.ts,
+                      15 Oct 2026). The title is English, marked so: no new
+                      Punjabi is composed for it. */}
                   <input id="pa-email" name="email" type="email" required
+                    pattern={EMAIL_PATTERN} title={EMAIL_TITLE} lang="en"
                     placeholder="you@example.com" autoComplete="email"
                     autoCapitalize="none" spellCheck={false} />
                   <button type="submit" className="btn btn--primary" lang="pa">ਭੇਜੋ</button>

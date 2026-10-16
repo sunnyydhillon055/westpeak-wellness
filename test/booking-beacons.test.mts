@@ -68,7 +68,9 @@ test('the browser sends companions in the event request, not as beacons of their
   assert.match(a, /beacon\(event, detail, companions\(event, detail\)\)/);
   assert.doesNotMatch(a, /for \(const \[e, d\] of companions/);
   assert.match(a, /JSON\.stringify\(\{ event, path: window\.location\.pathname, detail, also \}\)/);
-  assert.match(src('app/api/track/route.ts'), /countConversion\(event, path, body\.detail, body\.also\)/);
+  assert.match(src('app/api/track/route.ts'), /countConversion\(event, path, detail, body\.also\)/);
+  /* `detail` is body.detail, except embed_view's host (r10-booking-measurement). */
+  assert.match(src('app/api/track/route.ts'), /const detail = event === 'embed_view' \? embedHostDetail\(body\.detail\) : body\.detail;/);
 });
 
 const row = (consultBooked: number, paidBooked: number): TallyRow => ({

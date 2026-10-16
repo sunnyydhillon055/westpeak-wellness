@@ -18,6 +18,7 @@ import { imgProps } from '@/lib/img-props';
 import { FirstSessionRows } from '@/components/FirstSessionRow';
 import { notTakingLine, WHO_FINDS_OUT, CAMERA_OPTIONAL } from '@/lib/practice-facts';
 import { BEFORE_SESSION_ONE } from '@/lib/faq';
+import { lowestFee, offersShort } from '@/lib/practitioner-facts';
 
 export const metadata: Metadata = {
   title: 'Book a Free 15-Minute Consultation',
@@ -59,10 +60,11 @@ export const metadata: Metadata = {
  * inlined into every document on the site. */
 const CARD_CSS = `
 .bk-card{display:grid;grid-template-columns:96px minmax(0,1fr);gap:0 14px;align-items:center;text-decoration:none;color:inherit}
-.bk-card__img{grid-row:1/span 3;width:96px;height:96px;object-fit:cover;object-position:top;border-radius:50%}
+.bk-card__img{grid-row:1/span 4;width:96px;height:96px;object-fit:cover;object-position:top;border-radius:50%}
 .bk-card h3{margin:0 0 2px;font-size:1.15rem}
 .bk-card p.bk-card__meta,.bk-card p.bk-card__focus{margin:0;color:var(--ink-soft);font-size:.92rem}
 .bk-card p.bk-card__focus{margin-top:4px;font-size:.9rem}
+.bk-card p.bk-card__offers{color:var(--ink);font-weight:600}
 .bk-card .book-card-avail{grid-column:2}
 .bk-card p.bk-card__open{margin:0;font-size:.9rem;line-height:1.5;color:var(--blue-deep);font-weight:600}
 .bk-card__btn{grid-column:1/-1;justify-self:start;margin-top:14px}
@@ -111,6 +113,13 @@ export default async function Book() {
       cardArea: p.reach === 'canada' ? 'Anywhere in Canada' : p.provinces.map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and '),
       ...(p.reach ? { reach: p.reach } : {}),
       focus: p.focus.slice(0, 3).map((f) => f.label).join(', '),
+      /* WHAT SHE OFFERS AND FROM WHAT FEE — 15 Oct 2026 (item 505). The
+         focus lines read alike for both counsellors, so a couples or EMDR
+         seeker could book a consultation that could not lead anywhere. From
+         OFFERINGS ({offersShort(p)}) and her lowest priced session in the
+         catalogue at build (lowestFee), never typed. */
+      offers: offersShort(p),
+      cardFee: lowestFee(p, catalog),
       bookable: p.bookable,
       couples,
       ...(p.clinikoPractitionerId ? { clinikoPractitionerId: p.clinikoPractitionerId } : {}),

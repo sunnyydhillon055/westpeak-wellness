@@ -120,12 +120,14 @@ export default function CounsellorCompare({
     </div>
   );
 
+  /* id="compare" (15 Oct 2026): /book's choosing cards link
+     /practitioners#compare. One comparison per page, so one id. */
   return collapsed ? (
-    <details className="faq-item" style={{ marginTop: 24 }}>
+    <details className="faq-item" id="compare" style={{ marginTop: 24, scrollMarginTop: 72 }}>
       <summary>{title}</summary>
       {table}
     </details>
   ) : (
-    table
+    <div id="compare" style={{ scrollMarginTop: 72 }}>{table}</div>
   );
 }

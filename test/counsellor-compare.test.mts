@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { FALLBACK_CATALOG } from '../lib/cliniko-catalog.ts';
 import { recordedPractitioners, withInsuranceGate, type Practitioner } from '../lib/practitioners.ts';
 import {
-  alternativesFor, alternativeLabel, notRightFit, approachTerms, compareColumns, lowestFee, rosterOrder, groupMissing,
+  alternativesFor, alternativeLabel, notRightFit, notRightScope, approachTerms, compareColumns, lowestFee, rosterOrder, groupMissing,
   TRAINING_QUESTION, NOT_RIGHT_QUESTION, APPROACH_TERMS,
 } from '../lib/practitioner-facts.ts';
 import { BOOK_LOCATIONS } from '../lib/conversion-detail.ts';
@@ -66,14 +66,23 @@ test('the profile builds its hero, line and band from alternativesFor, not the f
 
 /* ---------- #369: her own sentence ---------- */
 
-test('"not the right fit" is the first sentence of her own answer, verbatim', () => {
+test('"not the right fit" is the first sentence of her own answer, then her scope sentence, verbatim', () => {
   for (const p of recordedPractitioners.filter((x) => x.voice?.some((v) => NOT_RIGHT_QUESTION.test(v.q)))) {
-    const answer = p.voice!.find((v) => NOT_RIGHT_QUESTION.test(v.q))!.a[0]!;
-    const s = notRightFit(p)!;
-    assert.ok(answer.startsWith(s), p.slug);
-    assert.match(s, /[.!?]$/);
-    assert.ok(s.length < answer.length || !/[.!?]\s/.test(answer));
+    const answer = p.voice!.find((v) => NOT_RIGHT_QUESTION.test(v.q))!.a;
+    const [first, scope] = notRightFit(p)!.split(' … ') as [string, string | undefined];
+    assert.ok(answer[0]!.startsWith(first), p.slug);
+    assert.match(first, /[.!?]$/);
+    assert.ok(first.length < answer[0]!.length || !/[.!?]\s/.test(answer[0]!));
+    /* wf/r10-booking-measurement, 15 Oct 2026 (item 545): the first sentence
+       of her second paragraph, quoted after an ellipsis. */
+    if (answer[1]) {
+      assert.ok(scope && answer[1].startsWith(scope), `${p.slug} scope`);
+      assert.equal(notRightScope(p), scope);
+      assert.match(scope!, /[.!?]$/);
+    } else assert.equal(scope, undefined);
   }
+  assert.match(notRightFit(by('camille-granda'))!, /formal psychological diagnosis or assessment, which falls outside my scope/);
+  assert.match(notRightFit(by('savneet-singh'))!, /specialised couples therapy, or intensive treatment that falls outside my scope/);
   assert.equal(notRightFit(founder), null, 'no answer, no line');
 });
 

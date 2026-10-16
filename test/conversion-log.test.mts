@@ -135,7 +135,12 @@ test('the sticky bar fires book_click and the forms no longer fire anything', ()
      that would count the same submission twice. */
   for (const f of ['components/InboundForm.tsx', 'components/LeadCapture.tsx']) {
     const src = readFileSync(join(ROOT, f), 'utf8');
-    assert.doesNotMatch(src, /\btrack\(/, `${f} still fires a client event`);
+    /* One exception since 15 Oct 2026: InboundForm counts a send its own
+       browser checks stopped (enquiry_blocked), which never reaches the
+       server and so cannot be counted twice. Nothing fires on submit. */
+    const calls = [...src.matchAll(/\btrack\(([^,]+),/g)].map((m) => m[1]!.trim());
+    assert.deepEqual(calls, f === 'components/InboundForm.tsx' ? ['BLOCKED_EVENT as TrackedEvent'] : [], `${f} still fires a client event`);
+    assert.doesNotMatch(src, /onSubmit=\{[^}]*track\(/, `${f} fires on submit`);
   }
   const submit = readFileSync(join(ROOT, 'lib/inbound-submit.ts'), 'utf8');
   assert.match(submit, /countConversion\(/);

@@ -21,7 +21,7 @@ import { withEmbedFlag } from '@/lib/cliniko-frame';
  * same markup SchedulerGate draws closed (.scheduler-wait), so nothing moves
  * when the real gate replaces it. */
 export default function SchedulerEmbedView({
-  url, embedParam, title, page, who, first, portal = false, placeholder, secondary, cta = 'Show available times', openDetail, pending = false,
+  url, embedParam, title, page, who, first, portal = false, placeholder, secondary, cta = 'Show available times', openDetail, pending = false, choices,
 }: {
   url: string;
   /** CLINIKO_EMBED_PARAM (lib/site.ts), passed in so this file adds no
@@ -39,10 +39,15 @@ export default function SchedulerEmbedView({
   cta?: string;
   openDetail?: 'couples';
   pending?: boolean;
+  /** Gated mode only: one primary button per counsellor in place of `cta`,
+   *  each opening her own calendar in this box (bare /book, 15 Oct 2026).
+   *  The URLs are plain; the embed flag is added here. */
+  choices?: { slug: string; url: string; label: string; title: string }[];
 }) {
   const origin = new URL(url).origin;
   const frameTitle = title ?? 'Booking calendar';
   const frameUrl = withEmbedFlag(url, embedParam);
+  const framedChoices = choices?.map((c) => ({ ...c, url: withEmbedFlag(c.url, embedParam) }));
   const slug = portal && who ? who.slice(who.indexOf(':') + 1) : who;
   const label = first ? `Open ${first}’s calendar in a new tab` : 'Open the booking calendar in a new tab';
   const stalled = (
@@ -63,12 +68,14 @@ export default function SchedulerEmbedView({
         <div className="scheduler-wait">
           {placeholder}
           <div className="scheduler-wait__actions">
-            <button type="button" className="btn btn--primary">{cta}</button>
+            {framedChoices?.length
+              ? framedChoices.map((c) => <button key={c.slug} type="button" className="btn btn--primary">{c.label}</button>)
+              : <button type="button" className="btn btn--primary">{cta}</button>}
             {secondary}
           </div>
         </div>
       ) : placeholder ? (
-        <SchedulerGate url={frameUrl} title={frameTitle} page={page} who={who} cta={cta} secondary={secondary} openDetail={openDetail} stalled={stalled}>
+        <SchedulerGate url={frameUrl} title={frameTitle} page={page} who={who} cta={cta} secondary={secondary} openDetail={openDetail} stalled={stalled} choices={framedChoices}>
           {placeholder}
         </SchedulerGate>
       ) : (

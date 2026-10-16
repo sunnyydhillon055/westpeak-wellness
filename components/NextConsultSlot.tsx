@@ -79,10 +79,14 @@ export function ConsultLine({
 export function ConsultDays({ people, location, fallback = null }: { people: SlotPerson[]; location: string; fallback?: ReactNode }) {
   const s = slotState(useAvailability(), people);
   if (s.kind !== 'times') return <>{fallback}</>;
+  return <DaysText entries={s.entries} location={location} />;
+}
+
+function DaysText({ entries, location }: { entries: { slug: string; first: string; day: string; href: string }[]; location: string }) {
   return (
     <>
       Next free call:{' '}
-      {s.entries.map((e, i) => (
+      {entries.map((e, i) => (
         <span key={e.slug}>
           {i > 0 ? ' · ' : ''}
           <BookLink location={location} className="" href={e.href}>{e.day} with {e.first}</BookLink>
@@ -91,6 +95,34 @@ export function ConsultDays({ people, location, fallback = null }: { people: Slo
       {PACIFIC_LABEL}
     </>
   );
+}
+
+/** The same day list as its own paragraph, or nothing at all: no reserved
+ *  box, for a place nothing sits under that could move (a sent message's
+ *  confirmation, a tool's result). wf/r10-booking-measurement, 15 Oct 2026. */
+export function ConsultDaysLine({ people, location, style }: { people: SlotPerson[]; location: string; style?: CSSProperties }) {
+  const s = slotState(useAvailability(), people);
+  if (s.kind !== 'times') return null;
+  return <p className="next-consult" style={style ?? { margin: '10px 0 0', fontSize: '.95rem' }}><DaysText entries={s.entries} location={location} /></p>;
+}
+
+/** Under a tool's result: the next free day with whoever the result's
+ *  booking link names (`?with=`, decided on the server by bookingFor), or
+ *  with each counsellor /api/availability answers for when it names nobody.
+ *  That answer only ever holds counsellors taking new clients and bookable
+ *  online (app/api/availability), so nobody else can be named. Days only;
+ *  nothing while unknown or when Cliniko could not be read. 15 Oct 2026. */
+export function ResultDays({ href, bookingPath, location }: { href?: string; bookingPath: string; location: string }) {
+  const all = useAvailability();
+  if (!all) return null;
+  const q = href?.indexOf('?') ?? -1;
+  const named = href && q >= 0 ? new URLSearchParams(href.slice(q + 1).split('#')[0]).get('with') : null;
+  const people: SlotPerson[] = named
+    ? (all[named] ? [{ slug: named, first: all[named]!.first, href: href! }] : [])
+    : Object.entries(all).map(([slug, a]) => ({ slug, first: a.first, href: `${bookingPath}?with=${slug}#calendar` }));
+  const s = slotState(all, people);
+  if (s.kind !== 'times') return null;
+  return <p className="next-consult" style={{ margin: '12px 0 0', fontSize: '.95rem' }}><DaysText entries={s.entries} location={location} /></p>;
 }
 
 /** " · next free call Sat 3 Oct (Pacific time)" for one counsellor, the day

@@ -14,8 +14,12 @@
 /** A same-site absolute path, or the fallback. A redirect target taken from a
  *  request body is an open redirect the moment it is trusted, and
  *  `//evil.example` is a protocol-relative URL that looks like a path. */
+/* No quote or parenthesis since 15 Oct 2026: refused posts arrived from
+   "/online-counselling/new-westminster')" and "…new-westminster)", which no
+   form on the site produces (no page path holds one), so such a path now
+   falls back to the form's own page. */
 export function safePath(v: string, fallback: string): string {
-  return /^\/(?!\/)[A-Za-z0-9\-._~!$&'()*+,;=:@%/]*$/.test(v) ? v : fallback;
+  return /^\/(?!\/)[A-Za-z0-9\-._~!$&*+,;=:@%/]*$/.test(v) ? v : fallback;
 }
 
 /* A confirmation page that is static cannot read ?sent=, so it would show
@@ -136,3 +140,12 @@ export function sendState(search: string): { sent: 'ok' | 'err' | null; why: Why
   const s = q.get('sent');
   return { sent: s === 'ok' || s === 'err' ? s : null, why: whyOf(q.get('why')) };
 }
+
+/* THE SERVER'S ADDRESS RULE, IN THE BROWSER — 15 Oct 2026. The same test
+   lib/inbound-submit.ts applies (a dot in the part after the @), as the
+   email inputs' pattern attribute, so "name@gmail" is caught at the field
+   with no script instead of by a full-page refusal. The title is the line
+   the browser adds to its own prompt. English on /punjabi too: no new
+   Punjabi is composed for it. */
+export const EMAIL_PATTERN = String.raw`[^@\s]+@[^@\s.]+\.[^@\s]+`;
+export const EMAIL_TITLE = 'Include the part after the dot, like gmail.com';

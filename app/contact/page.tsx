@@ -6,6 +6,7 @@ import Figure from '@/components/Figure';
 import { Mail, MonitorSmartphone, MapPin, Languages as LangIcon, AtSign, Phone } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import SentInboundForm from '@/components/SentInboundForm';
+import { ConsultDaysLine } from '@/components/NextConsultSlot';
 import MailLink from '@/components/MailLink';
 import { webPage } from '@/lib/schema';
 import { ogBase } from '@/lib/og-meta';
@@ -135,7 +136,23 @@ export default async function Contact() {
             and it will be there when you are.
           </p>
 
-          <SentInboundForm kind="enquiry" />
+          {/* Once the message is sent, each counsellor's next free
+              consultation day as a link to her calendar (15 Oct 2026), as
+              /message-sent shows: someone who has just written can book the
+              free call without waiting for the reply. Days only, filled in
+              by the browser, nothing when Cliniko cannot be read.
+              SentInboundForm passes doneExtra through to InboundForm. */}
+          <SentInboundForm
+            kind="enquiry"
+            doneExtra={
+              <ConsultDaysLine
+                location="next-contact-sent"
+                people={practitioners
+                  .filter((p) => p.acceptingNewClients && p.bookable)
+                  .map((p) => ({ slug: p.slug, first: p.name.split(' ')[0]!, href: `${site.bookingPath}?with=${p.slug}#calendar` }))}
+              />
+            }
+          />
 
           {/* THE MAP AFTER THE FORM — 1 Oct 2026. It sat between the hero and
               the form, and on a phone pushed the form to y=2414 on the page

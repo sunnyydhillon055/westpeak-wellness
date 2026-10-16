@@ -306,8 +306,10 @@ export default function Page() {
             page and answer it there. It is free to use, there is nothing to sign up for, and the
             framed version carries only the calculator and one credit line: no booking buttons, no
             counsellor listings, no advertising and no third-party analytics. The weekly earnings a
-            reader enters stay in their browser. The only thing counted is that a result was shown,
-            and whether it was the BC, federal, disability-plan or WorkSafeBC route.
+            reader enters stay in their browser. The only things counted are that the calculator
+            loaded, with your site&rsquo;s domain (never the page address), that a reader began
+            filling it in, and that a result was shown, with whether it was the BC, federal,
+            disability-plan or WorkSafeBC route.
           </p>
           <p>
             Paste this where you want the calculator to appear. It runs on the same figures as this

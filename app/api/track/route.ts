@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { countConversion } from '@/lib/conversion-log';
+import { embedHostDetail } from '@/lib/conversion-detail';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -25,7 +26,12 @@ export async function POST(req: Request) {
        booked_from and booked_via), counted in the same write so they
        cannot race each other; the store accepts only those pairs, each
        detail by the same rule (lib/conversion-log.ts, 15 Oct 2026). */
-    if (event && path) await countConversion(event, path, body.detail, body.also);
+    /* The one exception: a framed calculator sends its host page's
+       hostname, and only a host on EMBED_HOSTS (the outreach list) is kept;
+       any other becomes `other` here, so no unlisted site is ever a key.
+       15 Oct 2026. */
+    const detail = event === 'embed_view' ? embedHostDetail(body.detail) : body.detail;
+    if (event && path) await countConversion(event, path, detail, body.also);
   } catch {
     /* malformed body — nothing to count, nothing to report */
   }

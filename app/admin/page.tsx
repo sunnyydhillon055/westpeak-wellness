@@ -17,7 +17,8 @@ import { recordAudit, recentAudit } from '@/lib/admin-audit';
 import { readCatalog } from '@/lib/cliniko-catalog';
 import { topSearchTerms, readSearchTerms, searchGaps } from '@/lib/search-log';
 import { REPLY_TEMPLATES, mailtoFor, businessDaysWaiting, replyTimeStats } from '@/lib/reply-templates';
-import { eventTotals, topPagesFor, readConversions, detailsOf, bookClickBreakdown, funnelCuts, channelVisits, clicksOfLandings, bookingCredit } from '@/lib/conversion-log';
+import { eventTotals, topPagesFor, readConversions, detailsOf, bookClickBreakdown, funnelCuts, channelVisits, clicksOfLandings, bookingCredit, refusalRows, toolFunnel } from '@/lib/conversion-log';
+import { TOOL_OUTCOMES, EMBEDDED_TOOLS } from '@/lib/conversion-detail';
 import { readBookingTally, tallyRows, tallyLine, tallyBookedSince, bookedGap } from '@/lib/booking-tally-read';
 import { funnelJoins, consultLines, enquiryLines, retentionLines, arrivalRows } from '@/lib/funnel-report';
 import { recentSnapshots, lastWeek, weekTable, type WeekRow } from '@/lib/conversion-snapshots';
@@ -86,6 +87,21 @@ const STATUS_LABEL: Record<string, string> = {
   active: 'Active',
   paused: 'Paused',
   former: 'Former',
+};
+
+/* The words on /admin for the enquiry rules: the server's refusal reasons
+   and the browser's first blocking rule (15 Oct 2026). */
+const REFUSAL_LABEL: Record<string, string> = {
+  email: 'email address not valid',
+  detail: 'under about twenty words or one sentence',
+  choices: 'a required choice missing',
+  repeated: 'same text in every field',
+};
+const BLOCK_LABEL: Record<string, string> = {
+  short: 'under about twenty words',
+  'one-sentence': 'enough words, one sentence',
+  choices: 'a required choice missing',
+  email: 'email address missing or without a dot after the @',
 };
 
 export default async function AdminPage({
@@ -207,6 +223,14 @@ export default async function AdminPage({
   const emailClicks = detailsOf(log, 'email_click');
   /* Enquiries the server turned back, by the rule they failed (1 Oct 2026). */
   const refused = detailsOf(log, 'enquiry_refused');
+  /* Split by whether the form had been on screen 2.5 seconds (15 Oct 2026),
+     and the sends the browser stopped before they reached the server. */
+  const refusals = refusalRows(log);
+  const blocked = detailsOf(log, 'enquiry_blocked');
+  /* Each tool from first input to booking click, and the framed calculator
+     by the host domain that loaded it (15 Oct 2026). */
+  const tools = toolFunnel(log, Object.keys(TOOL_OUTCOMES)).filter((t) => t.started || t.finished || t.booked || t.embedStarted || t.embedFinished);
+  const embeds = detailsOf(log, 'embed_view', 30);
   /* Search Console from the newest committed export, beside this site's own
      count of sessions that arrived from Google. */
   const gsc = readGscSummary();
@@ -934,10 +958,25 @@ export default async function AdminPage({
               <>
                 <h3 style={{ marginTop: 22 }}>Messages the form turned back</h3>
                 <p style={{ color: 'var(--ink-soft)', fontSize: 14 }}>Counted since 1 Oct 2026, by the rule the message failed. Nothing of what was typed is kept. A high &ldquo;detail&rdquo; count means the twenty-word rule is stopping people.</p>
+                <p style={{ color: 'var(--ink-soft)', fontSize: 14 }}>Since 15 Oct 2026 each refusal says whether the form had been on screen more than 2.5 seconds when it was sent: &ldquo;stamped&rdquo; reads as a person, &ldquo;unstamped&rdquo; as a script or a browser without JavaScript. Earlier refusals carry neither.</p>
                 <ul className="admin-terms">
-                  {refused.rows.map((r) => (
+                  {refusals.map((r) => (
+                    <li key={r.reason}>
+                      <span>{REFUSAL_LABEL[r.reason] ?? r.reason}</span>
+                      <span>{r.stamped} stamped · {r.unstamped} unstamped{r.before ? ` · ${r.before} before stamping` : ''}</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+            {blocked.rows.length > 0 && (
+              <>
+                <h3 style={{ marginTop: 22 }}>Sends the browser stopped</h3>
+                <p style={{ color: 'var(--ink-soft)', fontSize: 14 }}>Counted since 15 Oct 2026, once per form view, by the first rule the form&rsquo;s own checks refused before anything was sent. Against the stored messages above, &ldquo;short&rdquo; is the measured cost of the twenty-word floor. Nothing typed is kept.</p>
+                <ul className="admin-terms">
+                  {blocked.rows.map((r) => (
                     <li key={r.detail}>
-                      <span>{({ email: 'email address not valid', detail: 'under about twenty words or one sentence', choices: 'a required choice missing', repeated: 'same text in every field' } as Record<string, string>)[r.detail] ?? r.detail}</span>
+                      <span>{BLOCK_LABEL[r.detail] ?? r.detail}</span>
                       <span>{r.count}</span>
                     </li>
                   ))}
@@ -1084,6 +1123,43 @@ export default async function AdminPage({
                     <li key={r.button}>
                       <span>{r.button}</span>
                       <span>{r.clicks} clicks · {r.booked} booked</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+            {tools.length > 0 && (
+              <>
+                <h3 style={{ marginTop: 22 }}>Tools: started, finished, booked</h3>
+                <p style={{ color: 'var(--ink-soft)', margin: '4px 0 8px', fontSize: '.92rem' }}>
+                  Per tool page since 15 Oct 2026: views that began it (first input), finished it, and
+                  booking clicks on that page. A start with no finish is a reader who gave up; no start
+                  at all is a tool nobody opened.
+                  {EMBEDDED_TOOLS.length > 0 && ' The framed calculator on other sites is counted apart, and has no booking buttons.'}
+                </p>
+                <ul className="admin-terms">
+                  {tools.map((t) => (
+                    <li key={t.slug}>
+                      <Link href={`/tools/${t.slug}`}>{t.slug}</Link>
+                      <span>{t.started} started · {t.finished} finished · {t.booked} booking clicks{t.embedStarted || t.embedFinished ? ` · framed elsewhere: ${t.embedStarted} started, ${t.embedFinished} finished` : ''}</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+            {embeds.rows.length > 0 && (
+              <>
+                <h3 style={{ marginTop: 22 }}>Calculator embeds</h3>
+                <p style={{ color: 'var(--ink-soft)', margin: '4px 0 8px', fontSize: '.92rem' }}>
+                  Loads of the framed stress-leave pay calculator since 15 Oct 2026, by the domain of the
+                  page that framed it. Only the organisations in docs/OUTREACH.md section 14 are named;
+                  every other site, or a page that sends no referrer, is &ldquo;other&rdquo;.
+                </p>
+                <ul className="admin-terms">
+                  {embeds.rows.map((r) => (
+                    <li key={r.detail}>
+                      <span>{r.detail}</span>
+                      <span>{r.count}</span>
                     </li>
                   ))}
                 </ul>

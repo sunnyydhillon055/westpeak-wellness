@@ -84,6 +84,11 @@ const COUNTED = new Set([
      zero enquiries under the 25 Sep rules left nobody able to tell "nobody
      wrote" from "people wrote and were refused". */
   'enquiry_refused',
+  /* A send the form's own browser checks stopped, once per form view, by
+     the first rule it failed (components/InboundForm, 15 Oct 2026). The
+     server never sees these posts, so without this they were counted
+     nowhere. The rule word only. */
+  'enquiry_blocked',
   'lead_magnet_submit',
   'book_click',
   /* The direct-to-Cliniko link on /book, beside the embedded frame (17 Sep 2026). */
@@ -97,6 +102,16 @@ const COUNTED = new Set([
      told from a calendar that does (3 Oct 2026). */
   'book_arrive',
   'tool_share',
+  /* A tool's first input, once per view (Quiz, CoverageEstimator,
+     LeavePayCalculator). Fired by the quizzes since they were built and
+     dropped here; counted from 15 Oct 2026, so "unused" can be told from
+     "abandoned" against tool_complete. */
+  'tool_start',
+  /* One load of the framed calculator on another site
+     (pages/embed/stress-leave-pay-calculator), with the host's domain when it
+     is on EMBED_HOSTS in lib/conversion-detail.ts and `other` otherwise.
+     15 Oct 2026. */
+  'embed_view',
   /* Finishing a tool is the most qualified moment on the site, and what the
      tool concluded says which service page the warm reader was pointed at.
      Fired and dropped since the tools were built; counted from 1 Oct 2026. */
@@ -346,6 +361,43 @@ export function detailsOf(log: ConversionLog, event: string, limit = 20): { rows
     .sort((a, b) => b.count - a.count)
     .slice(0, limit);
   return { rows, unattributed: Math.max(0, sum(log.events[event]) - sum(log.details?.[event])) };
+}
+
+/* EACH TOOL, START TO BOOKING — 15 Oct 2026. Per tool page: views that
+   began it (tool_start), finished it (tool_complete), and booking clicks on
+   that page (book_click, every button on it); and for a tool that can be
+   framed elsewhere, the same first two on its /embed/ page, where there are
+   no booking buttons. By page rather than by detail because the quizzes send
+   tool_start with none. Pure; cumulative over the log. */
+export type ToolFunnelRow = { slug: string; started: number; finished: number; booked: number; embedStarted: number; embedFinished: number };
+
+export function toolFunnel(log: ConversionLog, slugs: readonly string[]): ToolFunnelRow[] {
+  const at = (event: string, path: string) => log.events[event]?.[path] ?? 0;
+  return slugs.map((slug) => ({
+    slug,
+    started: at('tool_start', `/tools/${slug}`),
+    finished: at('tool_complete', `/tools/${slug}`),
+    booked: at('book_click', `/tools/${slug}`),
+    embedStarted: at('tool_start', `/embed/${slug}`),
+    embedFinished: at('tool_complete', `/embed/${slug}`),
+  }));
+}
+
+/* A refusal key is "<reason>" (before 15 Oct 2026) or "<reason>:<stamp>".
+   One row per reason, the stamped and unstamped counts beside it. */
+export type RefusalRow = { reason: string; stamped: number; unstamped: number; before: number };
+
+export function refusalRows(log: ConversionLog): RefusalRow[] {
+  const out = new Map<string, RefusalRow>();
+  for (const [key, n] of Object.entries(log.details?.enquiry_refused ?? {})) {
+    const [reason, stamp] = key.split(':') as [string, string | undefined];
+    const row = out.get(reason) ?? { reason, stamped: 0, unstamped: 0, before: 0 };
+    if (stamp === 'stamped') row.stamped += n;
+    else if (stamp === 'unstamped') row.unstamped += n;
+    else row.before += n;
+    out.set(reason, row);
+  }
+  return [...out.values()].sort((a, b) => (b.stamped + b.unstamped + b.before) - (a.stamped + a.unstamped + a.before));
 }
 
 export async function detailsFor(event: string, limit = 20) {

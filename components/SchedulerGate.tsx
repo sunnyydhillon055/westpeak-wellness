@@ -67,8 +67,18 @@ import { CALENDAR_HASH, opensCalendar } from '@/lib/scheduler-open';
  * hidden: the frame takes the box's full height, and a visible line that
  * appeared and then cleared would move everything below it. */
 const LOADING = 'Calendar loading. If it does not appear, ask for a time by email in the section below the calendar.';
+/* ONE BUTTON PER COUNSELLOR — 15 Oct 2026. With `choices` (bare /book),
+ * the single "Show available times" button that mounted Cliniko's
+ * practice-wide page becomes one primary button per counsellor taking new
+ * clients, each mounting the same frame in the same box with her own
+ * calendar URL. The frame's telemetry then carries her slug, so a calendar
+ * opened from bare /book is attributed to the counsellor it shows. The open
+ * itself is still counted as `button`; an arrival at #calendar still opens
+ * the practice-wide `url`, because nothing chose anybody. */
+type Choice = { slug: string; url: string; label: string; title: string };
+
 export default function SchedulerGate({
-  url, title, page, who, cta, children, secondary, openDetail, stalled,
+  url, title: baseTitle, page, who, cta, children, secondary, openDetail, stalled, choices,
 }: {
   url: string;
   title: string;
@@ -89,8 +99,11 @@ export default function SchedulerGate({
   /** Shown above the frame when it never draws (SchedulerTelemetry's
    *  watchdog, 2 Oct 2026): the direct calendar link and the address. */
   stalled?: React.ReactNode;
+  /** One button per counsellor in place of `cta`. */
+  choices?: Choice[];
 }) {
   const [open, setOpen] = useState(false);
+  const [chosen, setChosen] = useState<Choice | null>(null);
   const [status, setStatus] = useState('');
   const box = useRef<HTMLDivElement>(null);
   const opened = useRef(false);
@@ -141,12 +154,13 @@ export default function SchedulerGate({
   }, [openFrom]);
 
   if (open) {
+    const title = chosen?.title ?? baseTitle;
     return (
       <div ref={box} tabIndex={-1} role="region" aria-label={title} style={{ outline: 'none' }}>
         <p className="sr-only" role="status" aria-live="polite">{status}</p>
-        <SchedulerTelemetry page={page} who={who} stalled={stalled}>
+        <SchedulerTelemetry page={page} who={chosen?.slug ?? who} stalled={stalled}>
           <iframe
-            src={url}
+            src={chosen?.url ?? url}
             title={title}
             onLoad={() => setStatus('')}
             /* allow-forms/-scripts/-same-origin are what the booking flow needs;
@@ -163,9 +177,17 @@ export default function SchedulerGate({
     <div className="scheduler-wait">
       {children}
       <div className="scheduler-wait__actions">
-        <button type="button" className="btn btn--primary" onClick={() => openFrom('button')}>
-          {cta}
-        </button>
+        {choices?.length ? (
+          choices.map((c) => (
+            <button key={c.slug} type="button" className="btn btn--primary" onClick={() => { setChosen(c); openFrom('button'); }}>
+              {c.label}
+            </button>
+          ))
+        ) : (
+          <button type="button" className="btn btn--primary" onClick={() => openFrom('button')}>
+            {cta}
+          </button>
+        )}
         {secondary}
       </div>
     </div>
