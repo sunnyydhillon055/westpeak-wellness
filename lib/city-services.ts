@@ -172,10 +172,10 @@ export const pairs: Pair[] = [
 
   {
     city: 'surrey', service: 'emdr-therapy',
-    angle: 'Finding an EMDR clinician in Surrey is possible; finding one who also works in Punjabi has been close to impossible.',
+    angle: 'EMDR is offered in Surrey; what decides the fit is the language you want to work in and whether a weekly trip across the city is realistic.',
     body: [
-      'EMDR is available in Surrey. The combination of EMDR training and Punjabi has been another matter, and for anyone who wants both, the historical options have been to accept one or the other or to travel and still not find it.',
-      'That combination is a specific thing rather than a general claim about cultural fit. EMDR involves identifying the memory and the belief attached to it, and beliefs about shame, duty and reputation frequently sit in a first language. Working in the language the belief was formed in is not a nicety in this modality. It is closer to a working requirement.',
+      'Surrey has EMDR-trained clinicians, and the BC Association of Clinical Counsellors’ directory and EMDR Canada’s list are the places to find them. At this practice EMDR runs by secure video in English or Tagalog, with Camille Granda; it is not offered in Punjabi.',
+      'Language still matters in this work. EMDR involves naming a memory and the belief attached to it, and beliefs about shame, duty and reputation often sit in a first language. For someone who wants to do trauma work in Punjabi, individual counselling in Punjabi with Savneet Singh is available here, and the free consultation is the place to talk through which route fits.',
     ],
     faqs: [
       /* Search Console, 17 Sep 2026: EMDR therapy Guildford, twelve impressions at position 50, and the neighbourhood was not named. */

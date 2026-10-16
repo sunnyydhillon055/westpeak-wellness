@@ -111,7 +111,7 @@ export const cityContexts: CityContext[] = [
     inPerson:
       'Public intake runs through Fraser Health, and private practices cluster around the city centre and Guildford rather than spreading evenly. For a lot of Surrey residents the nearest practice with the right specialism is in Langley or Burnaby.',
     unlock:
-      'Sessions in Punjabi as well as English, without needing the counsellor who speaks your language to also happen to have an office you can reach. For a lot of families here that combination has never previously existed within driving distance.',
+      'Sessions in Punjabi as well as English, without needing the counsellor who speaks your language to also happen to have an office you can reach.',
     nearby: ['langley', 'burnaby'],
   },
   {
