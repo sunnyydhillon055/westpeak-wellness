@@ -444,7 +444,7 @@ export const pairs: Pair[] = [
   },
   {
     city: 'vancouver', service: 'anxiety-counselling',
-    angle: 'A city that rewards looking fine, and charges the difference privately.',
+    angle: 'Vancouver rewards looking fine, and charges the difference privately.',
     body: [
       'Vancouver runs on a lot of jobs where visible composure is part of the work: tech, film, hospitality, health care, anything client-facing. High-functioning anxiety is not a lesser version of the condition; it is the version that gets no help, because everybody around you can see the delivery and nobody can see the cost of producing it.',
       'The other Vancouver pattern is cost. Anxiety about money in an expensive city is a rational response to an expensive city, and treating it as a disorder misses the point. What can change is the part that has stopped being proportionate. The checking, the sleeplessness, the planning that never converts into rest.',
@@ -590,7 +590,7 @@ export const pairs: Pair[] = [
   },
   {
     city: 'vancouver', service: 'trauma-therapy',
-    angle: 'Some of the heaviest exposure in the province belongs to people who were at work when it happened.',
+    angle: 'In Vancouver, some of the heaviest exposure in the province belongs to people who were at work when it happened.',
     body: [
       'Vancouver concentrates the hospitals, the ambulance service, the emergency departments and the downtown outreach work, and a large number of people here absorb other people\'s worst days as a condition of employment. Vicarious trauma has a specific shape: it accumulates rather than arriving, so there is rarely a single incident to point at, which is exactly why it goes unaddressed for years.',
       'The other reason it goes unaddressed is professional. People whose competence is the job are slow to describe themselves as affected by it, and a workplace culture that treats resilience as a personality trait rather than a finite resource makes that worse. Sessions outside the workplace, with no colleague in the building, are for a lot of people the only version they will actually attend.',
@@ -728,7 +728,7 @@ export const pairs: Pair[] = [
   },
   {
     city: 'vancouver', service: 'depression-counselling',
-    angle: 'Grieving a future that got priced out is not the same as failing at it.',
+    angle: 'In Vancouver, grieving a future that got priced out is not the same as failing at it.',
     body: [
       'A particular version of low mood shows up in Vancouver: people who are working hard, earning reasonably, and watching the life they assumed they were building become arithmetically impossible. The house, the space, the timeline for children. That is a real loss rather than a distorted thought, and treating it as faulty thinking is both wrong and insulting.',
       'What the work can do is separate the grief, which is proportionate, from what has grown around it. The withdrawal, the comparison, the conclusion that the shortfall is a personal failure rather than a market. The first is worked with. The second is what tends to be doing the damage.',
@@ -1429,7 +1429,7 @@ export const pairs: Pair[] = [
   },
   {
     city: 'north-vancouver', service: 'trauma-therapy',
-    angle: 'The Shore’s community psychiatric service is for serious or persistent illness, and the aftermath of one event rarely looks like either.',
+    angle: 'The North Shore’s community psychiatric service is for serious or persistent illness, and the aftermath of one event rarely looks like either.',
     body: [
       'Vancouver Coastal Health describes its North Shore Adult Community Psychiatric Services as being for people with a serious or persistent mental illness, reached through a referral from a health-care provider. It leaves a large group in between: somebody shaken by a crash on the Upper Levels, a fall on a trail, or an emergency they were part of at work, who is still functioning, sleeping badly, and unsure their reaction counts.',
       'It counts. Trauma-focused counselling is built for that middle ground, and it needs neither a diagnosis nor a referral to begin. By video, the first conversation about what happened takes place somewhere you already feel settled, rather than after a drive past where it happened.',
@@ -1441,7 +1441,7 @@ export const pairs: Pair[] = [
   },
   {
     city: 'north-vancouver', service: 'couples-therapy',
-    angle: 'For a couple on Bowen Island, a mainland appointment means a sailing each way, together, on the ferry’s timetable rather than theirs.',
+    angle: 'For a North Shore couple on Bowen Island, a mainland appointment means a sailing each way, together, on the ferry’s timetable rather than theirs.',
     body: [
       'Couples work already asks two people to be free at the same moment. On Bowen Island, which is reached by BC Ferries from Horseshoe Bay, it also asks them to fit that moment around a sailing in each direction, and in Lions Bay or Deep Cove around the drive to a bridge. The logistics can end the attempt before the relationship work has properly begun.',
       'On a small island there is a second cost, which is being seen. Sessions by video from home remove both, and they let a couple have the difficult conversation where they actually live it, and stay there afterwards, rather than sitting side by side on the ferry home.',
@@ -1454,7 +1454,7 @@ export const pairs: Pair[] = [
   },
   {
     city: 'north-vancouver', service: 'emdr-therapy',
-    angle: 'Choosing an EMDR therapist by which side of Burrard Inlet they work on narrows an already specific search.',
+    angle: 'On the North Shore, choosing an EMDR therapist by which side of Burrard Inlet they work on narrows an already specific search.',
     body: [
       'EMDR is chosen by name. People arrive already knowing what they are looking for, and the clinicians trained in it are a subset of a subset. Limiting that field to whoever practises on the Shore, or within an easy crossing of it, trades the right fit for the shortest trip, which is the wrong way round for a therapy that rests on trust and careful pacing.',
       'Processing also asks for regular sessions and a calm stretch afterwards. An appointment that ends in the queue for the Ironworkers or the SeaBus is a poor setup for that stretch. A session that ends at home, with nothing to drive, leaves room for it.',

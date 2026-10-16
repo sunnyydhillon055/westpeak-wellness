@@ -1821,12 +1821,23 @@ export const locations: Location[] = [
     city: "North Vancouver",
     communities: ["West Vancouver", "Lower Lonsdale", "Lynn Valley", "Deep Cove", "Bowen Island", "Lions Bay"],
     region: "North Shore",
+    /* 15 Oct 2026 (r9 item 6): the hub's own title and H1, so a result can
+       no longer be read as the City of Vancouver's. 171 impressions at 19.5
+       in the 13 Oct export, about ten of them from queries saying "north";
+       the rest were "online counselling vancouver" 35, "virtual counselling
+       vancouver" 32 and the like, which the Vancouver hub should hold. The
+       North Shore's own queries ("north vancouver stress and anxiety
+       clinic" 8 at 7.1, "counsellor north vancouver" 1 at 15) keep "North
+       Vancouver" first. Was the composed "Online, Virtual Counselling North
+       Vancouver | Counsellors". */
+    hubTitle: "Online Counselling in North Vancouver & the North Shore",
+    hubH1: "Online counselling in North Vancouver and the North Shore",
     /* 13 Oct 2026: 171 impressions at 19.5, most of them for Vancouver queries the Vancouver hub should hold (see the note on that entry). The lede now says North Shore twice before anything else, and the page sends City of Vancouver readers there by the query's own words. */
     blurb: "Counselling in North Vancouver and across the North Shore by secure video, booked directly with no referral, where the public front door asks for one and everything else is over a bridge.",
     metaDescription:
       "Online counselling for North Vancouver and the North Shore. Deep Cove to West Vancouver, Bowen Island and Lions Bay: anxiety, trauma and EMDR by video.",
     intro: [
-      "North Vancouver is two municipalities, the City and the District, and together with West Vancouver they make up what everybody calls the North Shore. It is its own corner of Vancouver Coastal Health, with Lions Gate Hospital, a mental-health centre on the hospital campus and a public intake team that also covers Bowen Island and Lions Bay. What the Shore does not have is a short way to anywhere else.",
+      "North Vancouver is two municipalities, the City and the District, and together with West Vancouver they make up what everybody calls the North Shore. It is its own corner of Vancouver Coastal Health, with Lions Gate Hospital, a mental-health centre on the hospital campus and a public intake team that also covers Bowen Island and Lions Bay. What the Shore does not have is a short way to anywhere else. If you live in the City of Vancouver, south of Burrard Inlet, [online counselling in Vancouver](/online-counselling/vancouver) is the page for the city itself.",
       "Two road bridges and the SeaBus carry it across Burrard Inlet, and in the 2021 Census about two in three North Shore commuters with a usual workplace worked outside the municipality they live in. A weekly appointment across the water adds a crossing to both ends. A [Registered Clinical Counsellor](/compare/rcc-vs-psychologist-vs-social-worker-bc) by secure video does not, from Deep Cove to Horseshoe Bay.",
     ],
     localReality: {
@@ -1845,7 +1856,6 @@ export const locations: Location[] = [
       { label: "No referral first", detail: "The public intake on the North Shore asks for a referral from a family doctor or walk-in clinic. Seeing a Registered Clinical Counsellor privately does not." },
       { label: "Deep Cove to Horseshoe Bay, Bowen and Lions Bay", detail: "Lower Lonsdale, Lynn Valley, Deep Cove, West Vancouver, Bowen Island and Lions Bay on identical terms, with no sailing and no drive for being further out." },
       { label: "Around a term or a roster", detail: "University terms and hospital rotations change week to week. Sessions are booked block by block, and the booking calendar shows each counsellor's real open times." },
-      { label: "South of the inlet instead?", detail: "If you live in the City of Vancouver, its public door is a different one, and [online counselling in Vancouver](/online-counselling/vancouver) is the page for it." },
     ],
     faqs: [
       { q: "Which health authority covers North Vancouver?", a: "Vancouver Coastal Health, the same authority as Vancouver, but the North Shore has its own intake. The Central Intake Team at the HOpe Centre, on the Lions Gate Hospital campus, serves adults in North Vancouver, West Vancouver, Bowen Island and Lions Bay, and asks for a referral from a family doctor or walk-in clinic. Private counselling runs alongside it rather than instead of it." },

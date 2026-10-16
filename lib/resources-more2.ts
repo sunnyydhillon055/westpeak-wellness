@@ -10,6 +10,16 @@ const ICBC_FROM = longDate(ICBC_COUNSELLING.from);
 const ICBC_TO = longDate(ICBC_COUNSELLING.to);
 const ICBC_READ = longDate(ICBC_COUNSELLING.read);
 import { YEAR_END_PATH } from '@/lib/seasonal';
+import { pacificYear } from '@/lib/benefit-figures';
+
+/* THE YEAR-END PAGE'S DATES AND FEES — 15 Oct 2026. Computed, never typed:
+   the year is the build's Pacific year and the fees are the catalogue's. */
+const YE_YEAR = pacificYear();
+const YE_DEC31 = `31 December ${YE_YEAR}`;
+const YE_IND = FALLBACK_CATALOG.items.find((i) => i.name === 'Individual Counselling')!;
+const YE_IND_FEE = money(YE_IND.cents);
+const YE_IND_MIN = YE_IND.minutes;
+const YE_COUPLES_FEE = money(FALLBACK_CATALOG.items.find((i) => i.name === 'Couples Counselling')!.cents);
 import { ONLINE_COVERAGE } from '@/lib/practice-facts';
 
 /* THE YEAR-END SECTION — 1 Oct 2026 (item 210). Shown 1 Oct to 31 Dec on the
@@ -345,7 +355,7 @@ export const moreResources2: Resource[] = [
       { q: 'Is online counselling covered the same as in person?', a: ONLINE_COVERAGE },
       { q: 'Does Westpeak Wellness bill my insurer directly?', a: 'No. This practice is pay-and-submit: you pay at booking and receive a receipt carrying the counsellor’s registration number, which you submit to the insurer. Pacific Blue Cross accepts direct claims from RCCs, so another practice may bill it for you; this one does not.' },
       { q: 'Is counselling covered by MSP?', a: 'No. MSP does not cover private counselling. It covers physicians and psychiatrists. The comparison is on the MSP vs extended health page.' },
-      { q: 'Do unused counselling benefits carry over?', a: 'It depends on the plan. Unused paramedical maximums, which is where counselling usually sits, generally do not carry over: what is left at the end of the plan year is gone. Some health spending accounts carry an unused balance forward one year. Whether your plan runs on the calendar year or an anniversary year, and what happens to an unused balance, is in the booklet or the member portal.' },
+      { q: 'Do unused counselling benefits carry over?', a: 'It depends on the plan. Unused paramedical maximums, which is where counselling usually sits, generally do not carry over: what is left at the end of the plan year is gone. Some health spending accounts carry an unused balance forward one year. Whether your plan runs on the calendar year or an anniversary year, and what happens to an unused balance, is in the booklet or the member portal; [using counselling benefits before the end of the year](/resources/counselling-benefits-before-year-end-bc) sets out the dates.' },
       { q: 'What if my plan only lists psychologists?', a: 'Ask whether a combined mental-health benefit applies, and whether the employer offers a wellness or lifestyle spending account, which can usually fund counselling as a taxable benefit. A health spending account is narrower: it pays only CRA-eligible expenses, and the CRA does not yet list counsellors in BC, so ask the administrator first. The medical expense tax credit generally does not cover RCC fees in BC until psychotherapy is regulated in November 2027.' },
     ],
     sources: [
@@ -381,17 +391,26 @@ export const moreResources2: Resource[] = [
      catalogue (lib/session-arithmetic.ts); no time is promised. */
   {
     slug: 'counselling-benefits-before-year-end-bc',
-    title: 'Using counselling benefits before your plan year ends',
-    metaTitle: 'Counselling Benefits Before Year End, BC | Westpeak',
-    metaDescription:
-      'On a calendar-year plan, the session date decides which year’s maximum it uses. Claim deadlines, anniversary years, HSAs and what carries over, for BC.',
+    /* 15 Oct 2026 (r9 item 4): 25 impressions at 4.88 and no clicks in the
+       13 Oct export, before the November-December climb in searches for
+       using a benefit before 31 December. The owner's named queries are
+       "use counselling benefits before end of year" and "do benefits reset
+       january 1 bc". Title was 'Counselling Benefits Before Year End, BC |
+       Westpeak', which had neither the verb nor the year. The year is the
+       build's Pacific year (YE_YEAR), never typed; the page rebuilds daily. */
+    title: `How to use counselling benefits before the end of ${YE_YEAR}`,
+    metaTitle: `Use Counselling Benefits Before Year End in BC (${YE_YEAR})`,
+    metaDescription: withSnippet(
+      `Sessions by ${YE_DEC31} use ${YE_YEAR}’s maximum on a calendar-year plan. Many reset on 1 January, not all.`,
+      feeSnippet(FALLBACK_CATALOG),
+    ),
     eyebrow: 'Resource · Coverage',
     lede:
-      'Two dates matter at the end of a plan year, and people usually know only one of them.',
+      `Two dates decide it: the date of the session, which on a calendar-year plan has to fall on or before ${YE_DEC31}, and the claim deadline, which each plan sets separately and which is often later.`,
     shortAnswer:
-      'On an extended health plan that runs on the calendar year, a counselling session held on or before 31 December counts against this year’s maximum, whenever the receipt is submitted. The deadline for submitting the claim is a separate date, set by each plan. Some plans run on an anniversary year instead, and unused paramedical maximums generally do not carry over. The plan booklet or member portal answers all three for your plan.',
-    updated: '2026-10-01',
-    readMinutes: 6,
+      `Book the session for a date on or before ${YE_DEC31}. On an extended health plan that runs on the calendar year, a counselling session held by then counts against ${YE_YEAR}’s maximum, whenever the receipt is submitted. Many plans reset on 1 January; some run on an anniversary year that resets on another date, depending on the plan. Unused paramedical maximums generally do not carry over, and the claim deadline is a separate date each plan sets. The plan booklet or member portal answers all three for your plan.`,
+    updated: '2026-10-15',
+    readMinutes: 7,
     whoYouWouldSee: true,
     sections: [
       {
@@ -400,6 +419,23 @@ export const moreResources2: Resource[] = [
           'Extended health plans count a paramedical claim against the maximum for the period in which the service was provided. On a calendar-year plan, a session on 30 December uses this year’s maximum and a session on 5 January uses next year’s, even if both receipts are submitted on the same day in January.',
           'So a balance left on this year’s counselling maximum can only be used by sessions held before the plan year ends. It cannot be used by submitting a January receipt early, or a December receipt late.',
         ],
+      },
+      /* 15 Oct 2026: the steps, merged with the consultation section that
+         used to close the page, so there is one booking block, not two. No
+         date or availability is promised: the calendar is the answer. */
+      {
+        h2: 'How to book a session before the year ends',
+        body: [
+          '**1. Check two things in the member portal or booklet.** What is left on the counselling or paramedical maximum, and whether the plan year ends on 31 December or on another date. Check, too, that the plan lists a [Registered Clinical Counsellor](/compare/rcc-vs-psychologist-vs-social-worker-bc).',
+          '**2. Book the free 15-minute consultation.** It is by video and nothing is charged for it, so it uses none of your maximum, and it settles whether the fit is right before any paid session is booked. The calendar shows real open times; nothing on this page can promise a particular date, and booking earlier leaves more dates to choose from before the year ends.',
+          `**3. Book the paid session for a date on or before ${YE_DEC31}.** An individual session is ${YE_IND_FEE} for ${YE_IND_MIN} minutes and a couples session ${YE_COUPLES_FEE}, paid by card at booking.`,
+          '**4. Submit the receipt soon after the session.** It carries the counsellor’s registration number, which is what the insurer needs, and claiming promptly keeps the claim deadline from becoming a question.',
+        ],
+        book: {
+          text: 'The calendar shows real open times.',
+          label: 'See the consultation calendar',
+          location: 'mid-resource',
+        },
       },
       {
         h2: 'Claim deadlines are a separate date',
@@ -431,7 +467,7 @@ export const moreResources2: Resource[] = [
         h2: 'Community health workers: the $1,000 mental health benefit',
         body: [
           'From 1 January 2026, members under the community health collective agreement (the Community Bargaining Association) have a Mental Health and Wellness Benefit on their Pacific Blue Cross extended health plan, with a combined maximum of $1,000 per calendar year. Registered Clinical Counsellors are among the eligible practitioners, with psychologists, social workers and marriage and family therapists.',
-          'Two details from the BCGEU’s summary: the benefit is for members only and does not extend to enrolled dependents, and each visit is paid up to Pacific Blue Cross’s reasonable and customary limit, subject to coinsurance. Because it is a calendar-year maximum, a 2026 balance is used by sessions held by 31 December 2026.',
+          `Two details from the BCGEU’s summary: the benefit is for members only and does not extend to enrolled dependents, and each visit is paid up to Pacific Blue Cross’s reasonable and customary limit, subject to coinsurance. Because it is a calendar-year maximum, a ${YE_YEAR} balance is used by sessions held by ${YE_DEC31}.`,
         ],
       },
       {
@@ -441,36 +477,29 @@ export const moreResources2: Resource[] = [
           'This practice is pay-and-submit: you pay by card at booking and get a receipt carrying the counsellor’s registration number, which is what the insurer needs.',
         ],
       },
-      {
-        h2: 'A free 15-minute consultation comes first',
-        body: [
-          'The first conversation is a free 15-minute consultation by video. Nothing is charged for it, so it uses none of your maximum, and it settles whether the fit is right before any paid session is booked.',
-        ],
-        book: {
-          text: 'The calendar shows real open times.',
-          label: 'See the consultation calendar',
-          location: 'mid-resource',
-        },
-      },
     ],
     midCta: {
       text: 'If there is a balance left this year and you have been meaning to start, the first step is a free fifteen-minute call.',
       label: 'Book a free consultation',
     },
     faqs: [
+      /* 15 Oct 2026: the owner's two named queries, in their words. */
+      { q: 'How do I use my counselling benefits before the end of the year?', a: `If your plan runs on the calendar year, book the session for a date on or before ${YE_DEC31}; it then counts against ${YE_YEAR}’s maximum, whenever the receipt goes in. Check the balance and the plan year in the member portal first, then book the free 15-minute consultation. The calendar shows real open times, and an individual session here is ${YE_IND_FEE}.` },
+      { q: 'Do benefits reset on 1 January in BC?', a: 'Many plans do, and some do not. The date is set by the plan, not by the province: a calendar-year plan resets on 1 January, while an anniversary-year plan resets on the date the policy renews or another date the plan sets, depending on the plan. A students’ society plan often follows the academic year. The booklet or member portal states yours.' },
       { q: 'Does a session on 31 December count against this year’s maximum?', a: 'On a plan that runs on the calendar year, yes: the date of the session decides the year, not the date the receipt is submitted. On an anniversary-year plan the cut-off is a different date, which the booklet states.' },
       { q: 'Can I submit a December receipt in January?', a: 'Usually, yes. The claim deadline is separate from the end of the plan year and is set by each plan; Pacific Blue Cross, for one, says it differs by policy. The booklet or member portal gives yours. Submitting soon after each session avoids the question.' },
       { q: 'Do unused counselling benefits carry over?', a: 'It depends on the plan. Unused paramedical maximums generally do not carry over. Some health spending accounts carry an unused balance forward one year, but an HSA pays only CRA-eligible expenses, so ask the administrator whether it accepts a counsellor’s receipt.' },
       { q: 'Does the free consultation use any of my maximum?', a: 'No. It is free, so there is nothing to claim. The first paid session is the first one that counts.' },
     ],
     sources: [
-      { label: 'Pacific Blue Cross, claiming deadline information (read 1 Oct 2026)', url: 'https://www.pac.bluecross.ca/advicecentre/story/annual-claim-deadline' },
-      { label: 'Public Education Benefits Trust, making claims (read 1 Oct 2026)', url: 'https://www.pebt.ca/pebt-program-benefits/making-claims/' },
-      { label: 'BCGEU, new mental health and wellness benefit from 1 January 2026 (read 1 Oct 2026)', url: 'https://www.bcgeu.ca/c8_-_new_mental_health_wellness_benefit_launching_january_1_2026' },
-      { label: 'Canada Revenue Agency, authorized medical practitioners for the medical expense tax credit (read 1 Oct 2026)', url: CRA_PRACTITIONERS },
+      { label: 'Pacific Blue Cross, claiming deadline information (read 15 Oct 2026)', url: 'https://www.pac.bluecross.ca/advicecentre/story/annual-claim-deadline' },
+      { label: 'Public Education Benefits Trust, making claims (read 15 Oct 2026)', url: 'https://www.pebt.ca/pebt-program-benefits/making-claims/' },
+      { label: 'BCGEU, new mental health and wellness benefit from 1 January 2026 (read 15 Oct 2026)', url: 'https://www.bcgeu.ca/c8_-_new_mental_health_wellness_benefit_launching_january_1_2026' },
+      { label: 'Canada Revenue Agency, authorized medical practitioners for the medical expense tax credit (modified 22 Jan 2026, read 15 Oct 2026)', url: CRA_PRACTITIONERS },
     ],
     related: [
       { href: '/resources/does-my-plan-cover-counselling-bc', label: 'Does my plan cover counselling?' },
+      { href: '/resources/msp-vs-extended-health', label: 'Is counselling covered by MSP in BC?' },
       { href: '/tools/therapy-cost-bc', label: 'What counselling costs in BC: the estimator' },
       { href: '/pricing', label: 'Fees and receipts' },
       { href: '/for/teachers', label: 'Counselling for teachers in BC' },

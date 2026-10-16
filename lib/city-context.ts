@@ -76,6 +76,13 @@ export type CityContext = {
   unlock: string;
   /** Neighbouring slugs, for genuine cross-links rather than a footer dump. */
   nearby: string[];
+  /* THE CITY A SEARCHER MAY HAVE MEANT INSTEAD — 15 Oct 2026. Google showed
+     North Vancouver's pages for City of Vancouver queries ("depression
+     counselling vancouver" 32 at 25.8 went to the North Vancouver
+     depression page, 13 Oct export). A page with this set says, under its
+     direct answer, which page is the other city's, by that city's name.
+     Only North Vancouver carries it. */
+  meantInstead?: { slug: string; lead: string };
 };
 
 export const cityContexts: CityContext[] = [
@@ -86,7 +93,7 @@ export const cityContexts: CityContext[] = [
     region: 'Metro Vancouver',
     authority: 'Vancouver Coastal Health',
     travel:
-      'Vancouver has more counsellors per resident than anywhere else in the province, and the constraint is almost never distance. It is that the ones taking new clients are booked, and the commute to a downtown or Kitsilano office at 5pm costs more time than the session itself.',
+      'Vancouver has more counsellors per resident than anywhere else in the province, and the constraint is almost never distance. It is that the ones taking new clients are booked, and the commute to a downtown or Kitsilano office at rush hour costs more time than the session itself.',
     inPerson:
       'There is no shortage of private practices here. What there is a shortage of is openings: the practices with the strongest reputations tend to hold waitlists, and a clinic that can see you this month is often one you found because nobody else could take you.',
     unlock:
@@ -344,6 +351,7 @@ export const cityContexts: CityContext[] = [
     unlock:
       'The crossing stops being part of the appointment. Nothing about a session depends on how the Lions Gate or the Ironworkers is moving that day, or on catching a sailing from Bowen.',
     nearby: ['vancouver', 'burnaby'],
+    meantInstead: { slug: 'vancouver', lead: 'This page is for North Vancouver and the North Shore. In the City of Vancouver, south of Burrard Inlet?' },
   },
   {
     slug: 'new-westminster',
