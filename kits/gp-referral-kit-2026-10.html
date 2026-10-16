@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Westpeak Wellness referral sheet</title>
+<!--
+  FAMILY-DOCTOR REFERRAL SHEET, 15 OCTOBER 2026. Replaces referral-one-pager.html
+  (superseded 1 Oct 2026, written before the counsellor roster).
+
+  Built from the sources the site uses, read 15 Oct 2026:
+    who is accepting, languages, services   lib/practitioners.ts (acceptingNewClients,
+                                            languages, services) and OFFERINGS in
+                                            lib/practitioner-facts.ts
+    fees and minutes                        lib/cliniko-catalog.ts FALLBACK_CATALOG
+    free consultation length                CONSULT_MINUTES (15)
+    scope limits                            /refer/doctor practice summary
+  Camille's Alberta cover closed on 15 Oct 2026, so both counsellors are listed
+  for British Columbia only. No registration numbers (they live on the profile
+  pages), no founder, no testimonials, no outcome claims, no typed hours.
+
+  PDF: kits/gp-referral-kit-2026-10.pdf, printed from this file with Chrome
+  headless (one sheet of US Letter). Re-print after any fee or roster change:
+    chrome --headless --print-to-pdf=kits/gp-referral-kit-2026-10.pdf
+           --no-pdf-header-footer kits/gp-referral-kit-2026-10.html
+-->
+<style>
+  :root {
+    --ink: #1f2a30; --soft: #4a5660; --muted: #6b7680; --line: #d5dbe0;
+    --brand: #1f3d4d; --panel: #f5f7f8; --warm: #fbf8f3; --alert: #a3432b; --alert-bg: #fdf5f2;
+  }
+  @page { size: letter; margin: 11mm 12mm; }
+  * { box-sizing: border-box; }
+  html { background: #ffffff; }
+  body {
+    margin: 0; background: #ffffff; color: var(--ink);
+    font: 9.3pt/1.4 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .sheet { max-width: 192mm; margin: 0 auto; }
+  header { border-bottom: 2px solid var(--brand); padding-bottom: 6px; margin-bottom: 9px; }
+  .eyebrow { margin: 0 0 2px; font-size: 7.8pt; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  h1 { margin: 0 0 2px; font-size: 16pt; color: var(--brand); letter-spacing: -.01em; }
+  .sub { margin: 0; font-size: 10pt; color: var(--soft); }
+  h2 { margin: 9px 0 4px; font-size: 8.8pt; color: var(--brand); letter-spacing: .05em; text-transform: uppercase; }
+  p { margin: 0 0 5px; }
+  ul { margin: 0 0 5px; padding-left: 15px; }
+  li { margin: 0 0 2px; }
+  .how { border: 1.5px solid var(--brand); border-radius: 5px; padding: 8px 11px; background: var(--panel); }
+  .how h2 { margin-top: 0; }
+  .how p:last-child { margin-bottom: 0; }
+  .cols { display: flex; gap: 12px; }
+  .cols > * { flex: 1 1 0; min-width: 0; }
+  .card { border: 1px solid var(--line); border-radius: 5px; padding: 7px 10px; background: var(--warm); }
+  .card h3 { margin: 0 0 2px; font-size: 10.2pt; color: var(--brand); }
+  .card .meta { margin: 0 0 4px; color: var(--soft); }
+  table { width: 100%; border-collapse: collapse; }
+  td { padding: 2px 0; vertical-align: top; border-bottom: 1px solid var(--line); }
+  td:last-child { text-align: right; white-space: nowrap; padding-left: 8px; }
+  .crisis { border-left: 3px solid var(--alert); background: var(--alert-bg); padding: 5px 0 5px 10px; margin-top: 8px; }
+  footer {
+    margin-top: 9px; padding-top: 6px; border-top: 1px solid var(--line);
+    font-size: 8.4pt; color: var(--muted); display: flex; justify-content: space-between; gap: 10px;
+  }
+  a { color: var(--brand); }
+  .noprint {
+    max-width: 192mm; margin: 0 auto 12px; padding: 8px 12px; border: 1px solid var(--line);
+    border-radius: 5px; background: var(--warm); color: var(--soft); font-size: 9pt;
+  }
+  @media print { .noprint { display: none !important; } }
+  @media (max-width: 640px) {
+    body { padding: 0 16px; }
+    .cols { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+<p class="noprint"><strong>Print, then Save as PDF.</strong> One sheet of US Letter. This note does not print. Check the fees against westpeakwellness.com/pricing and the counsellors against /refer/doctor before printing a new batch.</p>
+
+<div class="sheet">
+  <header>
+    <p class="eyebrow">For family doctors, nurse practitioners and clinic staff in BC</p>
+    <h1>Westpeak Wellness</h1>
+    <p class="sub">Online counselling across British Columbia, by secure video, in English, Punjabi and Tagalog</p>
+  </header>
+
+  <div class="how">
+    <h2>How a patient gets here: no referral needed</h2>
+    <p>
+      Counselling with a Registered Clinical Counsellor is not an MSP service, so there is no referral
+      form and no letter to write. The patient books a <strong>free 15-minute consultation</strong>
+      themselves at <strong>westpeakwellness.com/book</strong>, which shows the real open times. The
+      consultation is where fit and scope are settled, and where a counsellor will say plainly if
+      another service would suit the patient better.
+    </p>
+    <p>
+      To ask about scope or fit before suggesting us, email <strong>info@westpeakwellness.com</strong>.
+      With the patient&rsquo;s written consent, information can be shared with the clinic; without it,
+      nothing about a patient can be confirmed.
+    </p>
+  </div>
+
+  <h2>Who a patient would see</h2>
+  <div class="cols">
+    <div class="card">
+      <h3>Camille Granda, RCC, CCC</h3>
+      <p class="meta">English and Tagalog &middot; sees clients in British Columbia</p>
+      <p><strong>Offers:</strong> individual counselling, couples counselling, family counselling and EMDR.</p>
+      <p><strong>Focus:</strong> trauma; anxiety and chronic stress; grief, loss and life transitions.</p>
+      <p style="margin:0">westpeakwellness.com/practitioners/camille-granda</p>
+    </div>
+    <div class="card">
+      <h3>Savneet Singh, RCC</h3>
+      <p class="meta">English and Punjabi &middot; sees clients in British Columbia</p>
+      <p><strong>Offers:</strong> individual counselling.</p>
+      <p><strong>Focus:</strong> anxiety; depression; trauma and attachment.</p>
+      <p style="margin:0">westpeakwellness.com/practitioners/savneet-singh</p>
+    </div>
+  </div>
+
+  <div class="cols" style="margin-top:2px">
+    <div>
+      <h2>Fees</h2>
+      <table>
+        <tr><td>Initial consultation, 15 min</td><td>Free</td></tr>
+        <tr><td>Individual counselling, 50 min</td><td>$140</td></tr>
+        <tr><td>Couples counselling, 50 min</td><td>$175</td></tr>
+        <tr><td>Couples, extended, 110 min</td><td>$340</td></tr>
+        <tr><td>EMDR intensive, 90 min</td><td>$190</td></tr>
+      </table>
+      <p style="margin-top:4px">
+        Weekly EMDR is billed as an individual session. Many extended health plans reimburse an RCC,
+        depending on the plan; patients check theirs. No MSP billing and no direct billing.
+        After a crash, ICBC pre-approves 12 counselling sessions in the first 12 weeks with no
+        referral; this practice is not in ICBC&rsquo;s Recovery Network, so the patient pays and claims.
+      </p>
+    </div>
+    <div>
+      <h2>For a patient on a medical leave</h2>
+      <p>
+        The free <strong>stress leave pay calculator</strong> at
+        <strong>westpeakwellness.com/tools/stress-leave-pay-calculator</strong> shows a patient,
+        week by week, what BC sick days and EI sickness benefits would pay on their own wage, and
+        where a disability plan or WorkSafeBC takes over. Only a physician or nurse practitioner can
+        certify the leave itself; a counsellor cannot.
+      </p>
+      <h2>Scope limits</h2>
+      <ul>
+        <li>No diagnosis, prescribing or formal psychological assessment.</li>
+        <li>No court-ordered, custody or forensic work.</li>
+        <li>Not a crisis service: sessions are scheduled, with no on-call line.</li>
+        <li>Active psychosis, eating disorders needing medical monitoring, or withdrawal management are better held by a specialised team.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="crisis">
+    <strong>In crisis:</strong> 9-1-1 if in immediate danger &middot; 9-8-8, call or text &middot;
+    BC Mental Health Support Line 310-6789, no area code needed.
+  </div>
+
+  <footer>
+    <span><strong>Westpeak Wellness</strong> &middot; info@westpeakwellness.com &middot; westpeakwellness.com/refer/doctor</span>
+    <span>Online across BC &middot; Updated 15 October 2026</span>
+  </footer>
+</div>
+</body>
+</html>
