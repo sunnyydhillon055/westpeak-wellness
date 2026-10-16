@@ -1,5 +1,5 @@
 import type { Inbound } from '@/lib/inbound';
-import { planYearMailParagraph } from '@/lib/seasonal';
+import { seasonalMailParagraph } from '@/lib/seasonal';
 import { site } from '@/lib/site';
 
 /* DRAFT REPLIES, NOT SEND BUTTONS.
@@ -249,9 +249,10 @@ export type DraftContext = {
 
 /* 15 Oct to 20 Dec (lib/seasonal.ts): the calendar-year plan note, as its
    own paragraph, in the after-consult and after-session drafts. Still a
-   mailto draft a counsellor edits and sends, or does not. Item 222. */
+   mailto draft a counsellor edits and sends, or does not. Item 222. And
+   5 Jan to 15 Feb the January note in the same place (item 513). */
 const seasonalPara = (c: DraftContext) => {
-  const p = planYearMailParagraph(c.now ?? new Date());
+  const p = seasonalMailParagraph(c.now ?? new Date());
   if (!p) return '';
   /* Hard-wrapped like the rest of the draft. */
   const lines: string[] = [];

@@ -56,7 +56,7 @@ test('scheduler_stalled is counted, allow-listed and fired by the watchdog only'
   assert.match(t, /export const STALL_MS = 10_000/);
   assert.equal(t.match(/track\('scheduler_stalled'/g)?.length, 1);
   assert.match(t, /drew = true;\s+window\.clearTimeout\(timer\)/);
-  const e = readFileSync('components/SchedulerEmbed.tsx', 'utf8');
+  const e = readFileSync('components/SchedulerEmbedView.tsx', 'utf8');
   assert.equal(e.match(/stalled=\{stalled\}/g)?.length, 2, 'gated and portal embeds both watched');
   assert.match(e, /The calendar has not appeared/);
   assert.match(readFileSync('app/admin/page.tsx', 'utf8'), /t\.event === 'scheduler_stalled'/);

@@ -1,30 +1,20 @@
 import type { Metadata } from 'next';
-import { Suspense, cache } from 'react';
+import type { CSSProperties } from 'react';
 import Figure from '@/components/Figure';
 import { StepsArt } from '@/components/Art';
 import '@/app/art.css';
 import Link from 'next/link';
-import Image from 'next/image';
-import { site, bookingsUrlFor, RCC_PLAIN } from '@/lib/site';
+import { site, bookingsUrlFor, RCC_PLAIN, CLINIKO_EMBED_PARAM } from '@/lib/site';
 import { gurmukhi } from '@/app/fonts-gurmukhi';
-import SchedulerEmbed from '@/components/SchedulerEmbed';
-import BookDirectLink from '@/components/BookDirectLink';
 import Breadcrumbs from '@/components/Breadcrumbs';
-import InboundForm from '@/components/InboundForm';
 import MeasuredReply from '@/components/MeasuredReply';
+import BookChoice, { type BookData, type BookPerson } from '@/components/BookChoice';
 import { ogBase } from '@/lib/og-meta';
-import { practitioners, getPractitioner, defaultBookingPractitioner, withLetters, insuredProvinces, vancouverToday } from '@/lib/practitioners';
-import { timeZoneNote, PACIFIC } from '@/lib/availability-summary';
+import { practitioners, defaultBookingPractitioner, withLetters, insuredProvinces, vancouverToday, type Practitioner } from '@/lib/practitioners';
 import { PROVINCE_NAME, type Province } from '@/lib/crisis';
-import { consultationAvailability, availabilityLine } from '@/lib/cliniko-availability';
-import { readCatalog, FALLBACK_CATALOG, type Catalog } from '@/lib/cliniko-catalog';
+import { readCatalog, FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
 import { sessionFeesPhrase, sessionLengthsLine } from '@/lib/book-fees';
-import { shortAvailabilityLine } from '@/lib/book-card';
-import MailLink from '@/components/MailLink';
-import BookLink from '@/components/BookLink';
-import BookArrive from '@/components/BookArrive';
-import { arriveDetailFor } from '@/lib/book-arrive';
-import { planYearPageLineShown, YEAR_END_PATH } from '@/lib/seasonal';
+import { imgProps } from '@/lib/img-props';
 import { FirstSessionRows } from '@/components/FirstSessionRow';
 import { notTakingLine, WHO_FINDS_OUT, CAMERA_OPTIONAL } from '@/lib/practice-facts';
 import { BEFORE_SESSION_ONE } from '@/lib/faq';
@@ -40,76 +30,22 @@ export const metadata: Metadata = {
   },
 };
 
-/* THE SLOW PART IS STREAMED, NOT AWAITED — 1 Oct 2026.
+/* STATIC SINCE 15 OCT 2026 (item 514).
  *
- * This page used to `await consultationAvailability()` before returning a
- * single byte of its own markup, so on a cold cache the whole page — hero,
- * facts, counsellor cards — waited on two Cliniko API calls, and the visitor
- * looked at app/book/loading.tsx until they came back. Only three things on
- * the page need that answer: the this-week line under the facts, the
- * open-times line on each card, and the next-open times in the calendar box.
- * Each of those is now its own async component inside a Suspense boundary,
- * so the shell paints at once and the three lines stream in behind it.
- *
- * `cache` makes the three share one read per request. unstable_cache owns
- * freshness across requests (30 minutes); without this wrapper a cold miss
- * could have fired the Cliniko calls once per boundary.
- *
- * Honesty when Cliniko is down is unchanged: consultationAvailability()
- * never throws (2 Oct 2026: it serves the last good read for up to six
- * hours, else {}), every line here prints nothing without an entry, and the
- * fetch times out instead of holding the stream open. */
-const availability = cache(() => consultationAvailability());
-
-/* EACH STREAMED LINE SITS IN A SLOT THAT IS ALREADY ITS HEIGHT.
- *
- * A streamed line that arrives after the shell has painted pushes everything
- * under it down; measured on the first cut of this change, the this-week
- * line alone moved the whole page by one line (CLS 0.014 from a fallback
- * that collapsed). So the wrapper around each boundary — not the boundary's
- * content — carries a min-height in app/premium.css sized to the line at
- * that breakpoint, and keeps it whether the line arrives, arrives shorter,
- * or never arrives because Cliniko is down. A blank slot in the failure
- * case is the price of a page that never jumps in the normal one.
- *
- * The practice-wide hours line under the facts is gone (1 Oct 2026): it
- * printed a span of start times merged from two calendars and ", including
- * the weekend", and the site publishes no hours. Each card says how many
- * times are open with that counsellor and the next day with one. */
-
-/* WHAT SESSIONS COST IF YOU CARRY ON — 1 Oct 2026. From the Cliniko
-   catalogue (lib/book-fees.ts), never typed. Streamed like the lines above so
-   the shell does not wait on the catalogue read; the fallback is the same
-   sentence from the catalogue's known-good values, so the line is the same
-   length either way and nothing moves when the live one lands.
-
-   Narrowed to the chosen counsellor's services on /book?with=, and to the
-   two couples formats on a couples consultation (lib/book-fees.ts). */
-type FeeOpts = { services?: readonly string[]; couples?: boolean };
-function FeesText({ catalog, opts }: { catalog: Catalog; opts: FeeOpts }) {
-  const phrase = sessionFeesPhrase(catalog, opts);
-  return phrase ? (
-    <>
-      {' '}Sessions after it: {phrase}, card taken at booking. Whether your plan reimburses a
-      Registered Clinical Counsellor depends on the plan.
-    </>
-  ) : null;
-}
-async function LiveFees({ opts }: { opts: FeeOpts }) {
-  return <FeesText catalog={await readCatalog()} opts={opts} />;
-}
-
-async function CardAvailability({ slug, first }: { slug: string; first: string }) {
-  const a = (await availability())[slug];
-  const line = availabilityLine(a, first);
-  const short = shortAvailabilityLine(a);
-  return line ? (
-    <p className="bk-card__open">
-      <span className="bk-long">{line}</span>
-      {short && <span className="bk-short">{short}</span>}
-    </p>
-  ) : null;
-}
+ * This page used to read ?with=, ?for= and ?sent= on the server and stream
+ * three Cliniko reads, so it rendered per request: no edge cache, and five
+ * render-blocking stylesheets, because scripts/inline-css.mjs only reaches
+ * prerendered documents (curl, 15 Oct: `private, no-cache, no-store`,
+ * X-Vercel-Cache MISS, 5 blocking links, 0 inlined blocks). It is now
+ * prerendered as bare /book. Everything that depends on the address is
+ * decided in the browser by components/BookChoice.tsx, from the plain data
+ * built below, and the Cliniko lines come from /api/availability there.
+ * What stays here is what the roster, the catalogue and the inbound store
+ * say at build: the fees (from the catalogue, never typed), who is
+ * accepting, who is insured where, the measured reply line and the
+ * photographs. The history of each branch (1 Sep, 6 Sep, 8 Sep, 1 Oct,
+ * 3 Oct) is kept beside the JSX in BookChoice, which carries the same
+ * branches. */
 
 /* THE /book COUNSELLOR CARDS, COMPACT ON A PHONE — 1 Oct 2026.
  *
@@ -143,113 +79,89 @@ const CARD_CSS = `
 .bk-card__btn{justify-self:stretch;margin-top:8px}
 }`;
 
-/* The next open days with each counsellor, inside the calendar box, before
-   the frame exists. Concrete days before the tap are what stop somebody
-   discovering two screens in that the open days are not theirs. */
-async function NextOpen({ people }: { people: { slug: string; name: string; clinikoPractitionerId?: string }[] }) {
-  const avail = await availability();
-  const lines = people
-    .filter((p) => p.clinikoPractitionerId)
-    .map((p) => ({ first: p.name.split(' ')[0], a: avail[p.slug] }))
-    .filter(({ a }) => a && !a.error && (a.next?.length ?? 0) > 0);
-  /* Nothing to name (no time in two weeks, or Cliniko unread): the reserved
-     box says where the times are and where to go if none suit, rather than
-     standing empty. No day, no hour. 2 Oct 2026. */
-  if (!lines.length) {
-    return (
-      <p style={{ margin: '0 0 6px', fontSize: '.95rem', lineHeight: 1.5 }}>
-        Times are on the calendar below; if none suit,{' '}
-        <BookLink location="next-consult-ask" className="" href="#ask-for-a-time">ask for a time</BookLink>{' '}
-        by email or with the form under it.
-      </p>
-    );
-  }
-  return (
-    <>
-      {lines.map(({ first, a }) => (
-        <p key={first} style={{ margin: '0 0 6px', fontSize: '.95rem', lineHeight: 1.5 }}>
-          <strong>Next open with {first}{PACIFIC}:</strong> {a!.next.join(' · ')}
-        </p>
-      ))}
-    </>
-  );
-}
+const areaOf = (p: { provinces: string[]; reach?: 'canada' }) =>
+  p.reach === 'canada' ? 'anywhere in Canada' : p.provinces.map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and ');
 
-export default async function Book({
-  searchParams,
-}: {
-  searchParams?: Record<string, string | string[] | undefined>;
-}) {
-  /* The enquiry form posts to /api/enquiry, which sends the person back to
-     the page the form was on with ?sent=ok or ?sent=err. */
-  const sent = searchParams?.sent === 'ok' ? 'ok'
-    : searchParams?.sent === 'err' ? 'err' : undefined;
-
-  /* WHO THE READER CAME FOR — ?with=<slug>.
-   *
-   * Until 1 Sep 2026 every call to action on Camille's 24 pages pointed here
-   * with nothing attached, and this page is written for the founder. So a
-   * reader who had just spent a thousand words on Camille's Calgary page was
-   * told "Sessions are for people located in British Columbia" and "Available
-   * in English, Punjabi, or a mix of both" — ineligible on the first line and,
-   * if they came for Tagalog, offered the wrong language on the second.
-   *
-   * The province and language lines below now come from whoever the reader
-   * actually arrived for. With no ?with= the page is exactly what it was. */
-  const withSlug = typeof searchParams?.with === 'string' ? searchParams.with : '';
-  const asked = withSlug ? getPractitioner(withSlug) : undefined;
-
-  /* WHO ACTUALLY TAKES THE CONSULTATION — decided 6 Sep 2026.
-   *
-   * The founder is not taking new clients. So a bare /book, and a /book that
-   * asks for her by name, both go to whoever on the roster is accepting
-   * (lib/practitioners.ts, `acceptingNewClients`). Her Cliniko calendar is no
-   * longer offered here to anyone; existing clients reach it through the
-   * portal. If the reader asked for someone who is not accepting, the page
-   * says so in one line rather than silently swapping the name. */
-  /* NOBODY IS THE DEFAULT ANY MORE — 8 Sep 2026, second pass.
-     A bare /book used to embed the first-listed counsellor's calendar; the
-     owner's instruction is that a reader picks. So with no ?with= the page
-     shows both counsellors as cards AND embeds Cliniko's own consultation
-     page for the practice business, which lists every practitioner who
-     offers the type (verified: Camille and Savneet, the founder hidden). A
-     reader who asked for someone by name still gets that person's calendar;
-     one who asked for someone not accepting is told so and offered the
-     choice. */
+export default async function Book() {
+  /* WHO ACTUALLY TAKES THE CONSULTATION — decided 6 Sep 2026: whoever on
+     the roster is accepting. Nobody is the default (8 Sep): bare /book shows
+     every accepting counsellor and the practice-wide calendar. */
   const accepting = practitioners.filter((p) => p.acceptingNewClients);
-  /* Real openings from Cliniko for the next two weeks, per counsellor:
-     lib/cliniko-availability.ts, read inside the streamed components above.
-     Null when it cannot be read, and then nothing is printed. */
-  const who = asked && asked.acceptingNewClients ? asked : undefined;
-  const askedButFull = asked && !asked.acceptingNewClients ? asked : undefined;
+  const fallback = defaultBookingPractitioner();
+  /* The fees, from the catalogue as it stands at build, through the same
+     reader the streamed line used. Session lengths for the checklist come
+     from the catalogue's known-good values, as before. */
+  const catalog = await readCatalog();
+  const today = vancouverToday();
 
-  /* A COUPLES CONSULTATION — ?for=couples, 1 Oct 2026 (wf/book-and-cta).
-     The couples pages (/services/couples-therapy, the city couples pages,
-     /for/couples) link /book?with=<slug>&for=couples#calendar, and this page
-     read only `with`, so a couple arrived at a page written for one person:
-     "what brought you here", and an individual fee first. Honoured only with
-     a counsellor who offers couples work; anything else is ignored and the
-     page is what it was. What it changes: the heading, the question, the
-     fees (the two couples formats only), one line on how both partners join,
-     and the scheduler_open detail. Whether the consult link works on two
-     devices, and whether a separate couples consultation type is wanted, is
-     the owner's to confirm; until then the line says only what
-     lib/depth-services.ts already says, that both partners can join. */
-  const couples = searchParams?.for === 'couples' && !!who && who.services.includes('couples-therapy');
-  const feeOpts: FeeOpts = couples ? { couples: true } : { services: who?.services };
-  /* Session lengths for the checklist below, from the catalogue's known-good
-     values (static prose, like fallbackFee), narrowed the same way. */
-  const lengths = sessionLengthsLine(FALLBACK_CATALOG, feeOpts);
+  const person = (p: Practitioner): BookPerson => {
+    const portrait = p.photos?.portrait;
+    const shot = (sizes: string, extra: { alt?: string; className?: string; style?: CSSProperties }) =>
+      imgProps({
+        src: portrait!.src, alt: extra.alt ?? portrait!.alt, width: portrait!.width, height: portrait!.height,
+        sizes, className: extra.className, style: extra.style,
+      });
+    const couples = p.services.includes('couples-therapy');
+    return {
+      slug: p.slug,
+      name: p.name,
+      letters: withLetters(p),
+      languages: p.languages.map((l) => ({ name: l.name, tag: l.tag })),
+      area: areaOf(p),
+      cardArea: p.reach === 'canada' ? 'Anywhere in Canada' : p.provinces.map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and '),
+      ...(p.reach ? { reach: p.reach } : {}),
+      focus: p.focus.slice(0, 3).map((f) => f.label).join(', '),
+      bookable: p.bookable,
+      couples,
+      ...(p.clinikoPractitionerId ? { clinikoPractitionerId: p.clinikoPractitionerId } : {}),
+      bookingsUrl: bookingsUrlFor(p.clinikoPractitionerId),
+      /* Credential letters and verify links only; no registration number. */
+      credentials: p.credentials.map((c) => ({ short: c.short, full: c.full, ...(c.verifyUrl ? { verifyUrl: c.verifyUrl } : {}) })),
+      insured: insuredProvinces(p, today),
+      ...(portrait ? {
+        img: {
+          row: shot('48px', { style: { width: 48, height: 48, flex: '0 0 48px', objectFit: 'cover', objectPosition: 'top', borderRadius: '50%' } }),
+          card: shot('96px', { alt: '', className: 'bk-card__img' }),
+          wait: shot('72px', { style: { width: 72, height: 72, objectFit: 'cover', objectPosition: 'top', borderRadius: '50%' } }),
+        },
+      } : {}),
+      fees: sessionFeesPhrase(catalog, { services: p.services }),
+      feesCouples: couples ? sessionFeesPhrase(catalog, { couples: true }) : null,
+      lengths: sessionLengthsLine(FALLBACK_CATALOG, { services: p.services }),
+      lengthsCouples: couples ? sessionLengthsLine(FALLBACK_CATALOG, { couples: true }) : null,
+    };
+  };
 
-  /* THE PUNJABI THREAD, KEPT UNDER THE HEADING — 1 Oct 2026 (wf/book-and-cta).
-     The way to /book?with=<Punjabi-speaking counsellor> runs through /punjabi
-     and the region pages' Gurmukhi buttons, and the one Gurmukhi line on this
-     page sat below the calendar and the whole request form. When the chosen
-     counsellor can be booked in Punjabi it is MOVED under the heading; on
-     bare /book it stays in the notes below the calendar. Defined once so it
-     is never on the page twice. Reused verbatim from /punjabi, which has been
-     reviewed; nothing here is newly composed Punjabi (test/book-page.test.mts). */
-  const paFirst = !!who && who.bookable && who.languages.some((l) => l.tag === 'pa');
+  /* WITH NO ?with=, THIS IS THE WHOLE PRACTICE, NOT THE FOUNDER: the
+     provinces of everyone accepting; BookChoice takes the languages from
+     site.languages. */
+  const provinceList = accepting.some((p) => p.reach === 'canada')
+    ? `${[...new Set(accepting.filter((p) => !p.reach).flatMap((p) => p.provinces))].map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and ')}, or anywhere in Canada with ${accepting.filter((p) => p.reach === 'canada').map((p) => p.name.split(' ')[0]).join(' or ')}`
+    : [...new Set(accepting.flatMap((p) => p.provinces))].map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and ');
+
+  const data: BookData = {
+    accepting: accepting.map(person),
+    others: practitioners.filter((p) => !p.acceptingNewClients).map((p) => p.slug),
+    bare: {
+      fees: sessionFeesPhrase(catalog, {}),
+      lengths: sessionLengthsLine(FALLBACK_CATALOG, {}),
+      provinceList,
+      canadaWide: accepting.some((p) => p.reach === 'canada'),
+      bookingsUrl: bookingsUrlFor(undefined),
+    },
+    /* Names nobody who is not accepting (item 361, lib/practice-facts.ts). */
+    notTaking: notTakingLine(accepting.map((p) => p.name.split(' ')[0]!), fallback?.name.split(' ')[0]),
+    cameraOptional: CAMERA_OPTIONAL,
+    rccPlain: RCC_PLAIN,
+    embedParam: CLINIKO_EMBED_PARAM,
+    builtAt: Date.now(),
+  };
+
+  /* THE PUNJABI THREAD — 1 Oct 2026 (wf/book-and-cta). Reused verbatim from
+     /punjabi, which has been reviewed; nothing here is newly composed
+     Punjabi (test/book-page.test.mts). BookChoice places it once: under the
+     heading when the chosen counsellor can be booked in Punjabi, otherwise
+     in the notes below the calendar. */
   const punjabiLine = (
     <>
       <span className={gurmukhi.className} lang="pa">
@@ -259,719 +171,163 @@ export default async function Book({
       <Link href="/punjabi" lang="pa" className={gurmukhi.className}>ਪੰਜਾਬੀ ਵਿੱਚ ਜਾਣਕਾਰੀ</Link>
     </>
   );
-  const fallback = defaultBookingPractitioner();
-
-  /* The founder is on the Cliniko calendar; a counsellor who is not yet on it
-     cannot be booked by an embed that books somebody else. For them the page
-     offers a request instead of a calendar, which is the honest version — and
-     the request carries their name so whoever answers it knows. */
-  const schedulable = !who || who.bookable;
-
-  const areaOf = (p: { provinces: string[]; reach?: 'canada' }) =>
-    p.reach === 'canada' ? 'anywhere in Canada' : p.provinces.map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and ');
-  const provinceList = who
-    ? areaOf(who)
-    : accepting.some((p) => p.reach === 'canada')
-      ? `${[...new Set(accepting.filter((p) => !p.reach).flatMap((p) => p.provinces))].map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and ')}, or anywhere in Canada with ${accepting.filter((p) => p.reach === 'canada').map((p) => p.name.split(' ')[0]).join(' or ')}`
-      : [...new Set(accepting.flatMap((p) => p.provinces))].map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and ');
-  const canadaWide = who ? who.reach === 'canada' : accepting.some((p) => p.reach === 'canada');
-  /* WITH NO ?with=, THIS IS THE WHOLE PRACTICE, NOT THE FOUNDER.
-     The fallback said "English, Punjabi, or a mix of both", which was true
-     when there was one counsellor and stopped being true the day Camille
-     joined: she works in English and Tagalog. A Tagalog speaker reaching the
-     booking page was told the consultation could be in two languages, neither
-     of which was theirs. Taken from site.languages so it cannot drift again.
-
-     Note for whoever picks this up: the same stale pair is still in about 45
-     other places, /about and /contact among them. Not swept here because those
-     strings sit next to the per-practitioner resolver in
-     lib/practitioner-places.ts and its tests, and that is a change worth
-     making deliberately rather than at the end of an unrelated one. */
-  const languageList = who
-    ? who.languages.map((l) => l.name).join(' or ')
-    : site.languages;
 
   return (
     <>
-      {/* Counts the arrival, once per session (3 Oct 2026). */}
-      <BookArrive detail={arriveDetailFor(asked?.slug)} />
-      {/* ======================================================================
-          SLIMMED 3 Sep 2026, AND THE REASON IS THE ORDER, NOT THE LENGTH.
+      {/* The compact card rules, for the bare page's two cards. */}
+      <style dangerouslySetInnerHTML={{ __html: CARD_CSS }} />
+      <BookChoice
+        data={data}
+        breadcrumbs={<Breadcrumbs trail={[{ name: 'Book', path: '/book' }]} />}
+        punjabiLine={punjabiLine}
+        measured={<MeasuredReply />}
+        firstSession={<FirstSessionRows people={accepting} />}
+      >
+        {/* ======================================================================
+            WHAT WAS FOUR FULL SECTIONS (3 Sep 2026). Closed by default, and
+            each summary is a real question rather than a heading. Native
+            details, so it works with no JavaScript, and a browser's
+            find-in-page opens one when the answer is inside it. Nothing here
+            changes with ?with=, so it stays server-rendered.
+            ====================================================================== */}
+        <h2 style={{ marginTop: 0 }}>Before you decide</h2>
+        {/* The whole path in three steps (15 Oct 2026). The drawing is
+            decoration; the list under it says the same thing in text. */}
+        <StepsArt
+          steps={[
+            'Book the free 15-minute consultation',
+            'Meet by secure video',
+            'Book sessions if you want to carry on',
+          ]}
+        />
 
-          This page had nine sections, two diagrams and about 860 words of
-          prose, and the calendar sat behind roughly 500 of them. Somebody who
-          arrives here has already decided to book: the click that got them
-          here was the decision. Everything before the calendar was reassurance
-          offered to a person who had stopped needing it, and on a phone it was
-          several screens of scrolling to reach the one control the page exists
-          for.
-
-          The content is not gone. What was five paragraphs above the calendar
-          is now a strip of facts and one boundary note; the four long
-          explanatory sections are behind disclosures below it, where the person
-          who wants them can still get them and the person who does not is not
-          made to scroll past them. The crisis block stays open, always, because
-          it is the one thing nobody should have to expand to find.
-
-          One of the two diagrams went. booking-payment-flow and
-          first-session-flow sat in the same section saying overlapping things,
-          and the payment one belongs on /pricing.
-          ====================================================================== */}
-
-      <section className="hero" style={{ paddingBottom: 24 }}>
-        <div className="container">
-          <p className="eyebrow">Free · 15 minutes · No commitment</p>
-          <h1 style={{ marginBottom: 10 }}>
-            Book a free {couples ? 'couples ' : ''}consultation{who ? ` with ${who.name.split(' ')[0]}` : accepting.length > 1 ? ` with ${accepting.map((p) => p.name.split(' ')[0]).join(' or ')}` : ''}.
-          </h1>
-          <p className="lede" style={{ marginBottom: 0 }}>
-            A short conversation over secure video to work out whether this is a fit. Nothing is
-            diagnosed, and there is no obligation to book a session afterwards.
-            {who && who.languages.length > 1 && (
-              <> {who.name.split(' ')[0]} speaks {who.languages.map((l) => l.name).join(' and ')}.</>
-            )}
-          </p>
-          {paFirst && <p style={{ margin: '10px 0 0' }}>{punjabiLine}</p>}
-        </div>
-      </section>
-
-      <section className="section" style={{ paddingTop: 24 }}>
-        <div className="container">
-          <Breadcrumbs trail={[{ name: 'Book', path: '/book' }]} />
-
-          {/* Five paragraphs became five facts. Every one was already true and
-              already on this page; what changed is that they can be taken in at
-              a glance instead of read. */}
-          <ul className="book-facts">
-            <li>15 minutes</li>
-            <li>Online only · secure video</li>
-            <li>No card</li>
-            <li>No intake form</li>
-            {/* Not the 24-hour cancellation chip (1 Oct 2026): under a free,
-                no-card call that implied a later cancellation costs something.
-                The 24-hour rule is for paid sessions, on /pricing. Not "any
-                time online" either: see lib/site.ts on self-serve cancelling. */}
-            <li>No charge to move or cancel it</li>
-          </ul>
-
-          {/* WHAT THE 15 MINUTES ARE — in view, not behind a disclosure. 1 Oct 2026.
-              The funnel since 18 Aug: 94 people reached the calendar on this
-              page and 43 touched it. The one thing the page said about the call
-              itself sat in a closed <details> below the calendar, so the person
-              deciding whether to tap was deciding without it. Three lines, the
-              same facts the disclosure still carries at length, placed where the
-              decision is made: who they will be talking to, what they will be
-              asked, and that nothing is charged. No new claims. */}
-          <ul className="book-what">
-            <li>
-              <strong>Who you talk to.</strong>{' '}
-              {who
-                ? `${who.name.split(' ')[0]} directly — the counsellor you would see, not an intake worker.`
-                : `${accepting.map((p) => p.name.split(' ')[0]).join(' or ')} directly — the counsellor you would see, not an intake worker.`}{' '}
-              {/* What the letters mean, once, in plain words (lib/site.ts). */}
-              Registered Clinical Counsellor means {RCC_PLAIN}.
-            </li>
-            <li>
-              <strong>What is asked.</strong> What brought {couples ? 'the two of you' : 'you'} here, in
-              your own words. No form, and no history to assemble.
-            </li>
-            <li>
-              <strong>What it costs.</strong> Nothing is charged and no card is taken. You decide
-              afterwards, in your own time.
-              <Suspense fallback={<FeesText catalog={FALLBACK_CATALOG} opts={feeOpts} />}>
-                <LiveFees opts={feeOpts} />
-              </Suspense>
-              {/* 15 Oct to 31 Dec only, on the Pacific date (lib/seasonal.ts). */}
-              {planYearPageLineShown() && (
-                <>
-                  {' '}If your plan runs on the calendar year, a session held on or before 31 December
-                  counts against this year&rsquo;s maximum; whether yours does is in your plan
-                  booklet; <Link href={YEAR_END_PATH}>how the plan year affects a claim</Link>.
-                </>
-              )}
-            </li>
-          </ul>
-
-          {/* ?with= HAS ALREADY CHOSEN — 1 Oct 2026. Thirteen producers send a
-              reader here with a counsellor named (profiles, place pages,
-              language guides), and the two full cards still stood between them
-              and the calendar: ~940px on a phone, asking a question they had
-              already answered. One row instead, with the way back to the
-              choice. Bare /book keeps the grid. */}
-          {accepting.length > 1 && who && (
-            /* Inline rather than in app/premium.css: these rules are for this
-               one page, and the sitewide stylesheet is measured by the perf
-               gate on every page. Fixed portrait size, so nothing moves. */
-            <div
-              className="card"
-              style={{ display: 'flex', gap: 12, alignItems: 'center', margin: '16px 0 12px', padding: '10px 14px' }}
-            >
-              {who.photos?.portrait && (
-                <Image
-                  src={who.photos.portrait.src}
-                  alt={who.photos.portrait.alt}
-                  width={who.photos.portrait.width}
-                  height={who.photos.portrait.height}
-                  sizes="48px"
-                  style={{ width: 48, height: 48, flex: '0 0 48px', objectFit: 'cover', objectPosition: 'top', borderRadius: '50%' }}
-                />
-              )}
-              <div>
-                <p style={{ margin: 0, fontSize: '.95rem', lineHeight: 1.45 }}>
-                  <strong>Booking with {withLetters(who)}</strong> · {who.languages.map((l) => l.name).join(' and ')}
-                </p>
-                <p style={{ margin: '2px 0 0', fontSize: '.88rem', lineHeight: 1.45, color: 'var(--ink-soft)' }}>
-                  {accepting.filter((p) => p.slug !== who.slug).map((p) => (
-                    <span key={p.slug}>
-                      <Link href={`${site.bookingPath}?with=${p.slug}#calendar`}>
-                        Switch to {p.name.split(' ')[0]}
-                      </Link>
-                      {' · '}
-                    </span>
-                  ))}
-                  <Link href={site.bookingPath}>See both calendars</Link>
-                </p>
-              </div>
-            </div>
-          )}
-
-          {accepting.length > 1 && !who && (
-            <div className="book-choose" style={{ margin: '18px 0 14px' }}>
-              <style dangerouslySetInnerHTML={{ __html: CARD_CSS }} />
-              <h2 style={{ margin: '0 0 12px', fontSize: '1.45rem' }}>Who would you like to talk to?</h2>
-              <div className="grid grid-2" style={{ gap: 14 }}>
-                {accepting.map((p) => {
-                  const first = p.name.split(' ')[0];
-                  return (
-                    /* NAMED BY ITS BUTTON, NOT BY ITS WHOLE TEXT — 1 Oct 2026.
-                       The card is one link, so a screen reader announced all of
-                       it as the link's name: 314 and 257 characters, portrait
-                       description first. The name is now "Book with Camille",
-                       the rest is the description, and the portrait inside the
-                       link is decorative (the name says who). */
-                    <Link
-                      key={p.slug}
-                      href={`${site.bookingPath}?with=${p.slug}#calendar`}
-                      className="card bk-card"
-                      aria-labelledby={`bk-${p.slug}-name`}
-                      aria-describedby={`bk-${p.slug}-meta bk-${p.slug}-focus bk-${p.slug}-open`}
-                    >
-                      {/* A small portrait beside the name rather than a banner
-                          above it — the owner asked for smaller photos on 8 Sep. */}
-                      {p.photos?.portrait && (
-                        <Image
-                          className="bk-card__img"
-                          src={p.photos.portrait.src}
-                          alt=""
-                          width={p.photos.portrait.width}
-                          height={p.photos.portrait.height}
-                          sizes="96px"
-                        />
-                      )}
-                      <div>
-                        <h3>{withLetters(p)}</h3>
-                        <p className="bk-card__meta" id={`bk-${p.slug}-meta`}>
-                          {p.languages.map((l) => l.name).join(' and ')} ·{' '}
-                          {p.reach === 'canada' ? 'Anywhere in Canada' : p.provinces.map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and ')}
-                        </p>
-                      </div>
-                      <p className="bk-card__focus" id={`bk-${p.slug}-focus`}>
-                        {p.focus.slice(0, 3).map((f) => f.label).join(', ')}
-                      </p>
-                      <div className="book-card-avail" id={`bk-${p.slug}-open`}>
-                        <Suspense fallback={null}>
-                          <CardAvailability slug={p.slug} first={first} />
-                        </Suspense>
-                      </div>
-                      <span className="btn btn--primary bk-card__btn" id={`bk-${p.slug}-name`}>
-                        Book with {first}
-                      </span>
-                    </Link>
-                  );
-                })}
-              </div>
-              {/* One secondary "first session" row per card, behind
-                  site.directFirstSession (off; lib/first-session.ts). */}
-              <FirstSessionRows people={accepting} />
-              <p style={{ margin: '12px 0 0', fontSize: '.92rem', color: 'var(--ink-soft)' }}>
-                Or pick a time below and choose the counsellor on the calendar itself.
-              </p>
-            </div>
-          )}
-
-          {/* Names nobody who is not accepting (item 361, lib/practice-facts.ts):
-              an old ?with= link would otherwise print the founder's name here. */}
-          {askedButFull && (
-            <p className="book-credential">
-              {notTakingLine(accepting.map((p) => p.name.split(' ')[0]), fallback?.name.split(' ')[0])}
-            </p>
-          )}
-
-          {who && !schedulable ? (
-            <div className="crisis" style={{ marginTop: 8 }}>
-              <h2 style={{ marginTop: 0 }}>Request a consultation with {who.name.split(' ')[0]}</h2>
-              <p>
-                {who.name.split(' ')[0]} is not on the online calendar yet, so this one is arranged
-                by reply rather than by picking a slot. Leave your name and email, say in a couple
-                of sentences what you are looking for and roughly when you are free, and you will
-                hear back within one business day to fix a time.
-              </p>
-              <p>
-                {withLetters(who)}, anywhere in {provinceList}.{' '}
-                <strong>{who.name.split(' ')[0]} works in {languageList}</strong>
-                {who.languages.length > 1
-                  ? ', so the consultation and your sessions can be in either, or move between the two.'
-                  : '.'}{' '}
-                <Link href={`/practitioners/${who.slug}`}>More about {who.name.split(' ')[0]}</Link>.
-              </p>
-              <InboundForm
-                kind="enquiry"
-                done={sent}
-                practitioner={who.slug}
-                title="Request your free consultation"
-                note={`Tell ${who.name.split(' ')[0]} in at least two sentences what you are looking for, and roughly when you are free. You will hear back within one business day to fix a time.`}
-                placeholder="What is going on for you, what you are hoping for from counselling, and when you are usually free."
-                button="Request a consultation"
-              />
-            </div>
-          ) : site.bookingReady ? (
-            <>
-              {/* The credentials at the moment of commitment. Everything here is
-                  verifiable and already published elsewhere on the site: this is
-                  placement, not new claims. */}
-              {who ? (
-                <p className="book-credential">
-                  <strong>{withLetters(who)}</strong>
-                  {who.credentials.map((c) => (
-                    <span key={c.short}>
-                      {' '}· {c.full}
-                      {c.verifyUrl && (
-                        <>
-                          {' '}(<a href={c.verifyUrl} target="_blank" rel="noopener">verify on the {c.short === 'CCC' ? 'CCPA directory' : 'BCACC register'}<span className="sr-only"> (opens in a new tab)</span></a>)
-                        </>
-                      )}
-                    </span>
-                  ))}
-                  {' '}· works in {who.languages.map((l) => l.name).join(' and ')}
-                </p>
-              ) : (
-                <p className="book-credential">
-                  <strong>Registered Clinical Counsellors</strong> ·{' '}
-                  <a href={site.counsellor.registerUrl} target="_blank" rel="noopener">
-                    check the BCACC register<span className="sr-only"> (opens in a new tab)</span>
-                  </a>
-                </p>
-              )}
-              {/* HER calendar, not the practice's. bookingsUrlFor() adds
-                  ?practitioner_id= so Cliniko opens on her times and nobody
-                  has to pick a counsellor from a list that also shows one who
-                  is not taking new clients. */}
-              <div id="calendar" style={{ margin: '26px 0 12px', scrollMarginTop: 72 }}>
-                <p className="eyebrow" style={{ margin: 0 }}>Free 15-minute consultation</p>
-                <h2 style={{ margin: '2px 0 0', fontSize: '1.7rem', lineHeight: 1.15 }}>
-                  {who
-                    ? <>You are booking {couples ? 'a couples consultation ' : ''}with {withLetters(who)}</>
-                    : <>Pick a time, then choose {accepting.map((p) => p.name.split(' ')[0]).join(' or ')} on the calendar</>}
-                </h2>
-                {/* ONLINE ONLY, SAID WHERE THE ADDRESS APPEARS — 1 Oct 2026.
-                    Cliniko's booking summary prints a street address, and a
-                    client this week read it as where to go. The second
-                    sentence goes once the booking system stops printing one. */}
-                <p style={{ margin: '8px 0 0', fontSize: '.92rem', lineHeight: 1.55, color: 'var(--ink-soft)' }}>
-                  Every session, this one included, is by secure video from wherever you are. There
-                  is nowhere to attend, whatever address the booking summary shows.
-                </p>
-                {/* Inside the calendar box's heading on purpose: a couples link
-                    arrives at #calendar, below the hero. */}
-                {couples && (
-                  <p style={{ margin: '8px 0 0', fontSize: '.95rem', lineHeight: 1.55 }}>
-                    <strong>For the two of you:</strong> one of you picks the time, and both partners
-                    can join the free 15-minute consultation.
-                  </p>
-                )}
-              </div>
-              {/* THE TWO THINGS THE FUNNEL WAS MISSING — 17 Sep 2026.
-                  The conversion log: 73 people reached this calendar in a month,
-                  38 interacted with it, and the client book did not move. So,
-                  before the embedded frame: the actual next open times, read
-                  from Cliniko, so nobody discovers two screens in that the open
-                  days are not theirs; and a plain link that opens the same
-                  calendar as its own page. An embedded booking form is a
-                  third-party frame, and browsers that block third-party
-                  cookies (Safari by default, and increasingly Chrome) can show
-                  it and then refuse the session it needs to submit. The link
-                  is first-party and works everywhere.
-
-                  AND THE FRAME ITSELF WAITS TO BE ASKED FOR — 1 Oct 2026.
-                  Both of those now live inside the calendar box, with the
-                  portrait, and the frame is mounted by the primary button
-                  rather than shipped in the HTML. The frame was 2.6 MB of
-                  Cliniko, Stripe and Google Fonts on first view, and the
-                  reason this page scored 38 on a phone when every other page
-                  scores 75-80. See components/SchedulerGate. The next-open
-                  lines stream in behind the shell (see `availability` above). */}
-              <SchedulerEmbed
-                url={bookingsUrlFor(who?.clinikoPractitionerId)}
-                title={`Book a free 15-minute consultation${who ? ` with ${who.name.split(' ')[0]}` : ''}`}
-                page="/book"
-                who={who?.slug}
-                openDetail={couples ? 'couples' : undefined}
-                cta="Show available times"
-                placeholder={
-                  <>
-                    <div className="scheduler-wait__who">
-                      {(who ? [who] : accepting).map((p) => p.photos?.portrait && (
-                        <Image
-                          key={p.slug}
-                          src={p.photos.portrait.src}
-                          alt={p.photos.portrait.alt}
-                          width={p.photos.portrait.width}
-                          height={p.photos.portrait.height}
-                          sizes="72px"
-                          style={{ width: 72, height: 72, objectFit: 'cover', objectPosition: 'top', borderRadius: '50%' }}
-                        />
-                      ))}
-                      <p style={{ margin: 0, fontSize: '1.05rem', fontWeight: 600, lineHeight: 1.3 }}>
-                        {who
-                          ? <>Pick a time with {who.name.split(' ')[0]}</>
-                          : <>Pick a time with {accepting.map((p) => p.name.split(' ')[0]).join(' or ')}</>}
-                      </p>
-                    </div>
-                    {/* One reserved block per counsellor shown; --next-lines is
-                        set per breakpoint in app/premium.css. */}
-                    <div
-                      className="scheduler-wait__next"
-                      style={{ minHeight: `calc(${(who ? [who] : accepting).filter((p) => p.clinikoPractitionerId).length} * (var(--next-lines) * 1.5em + 6px))` }}
-                    >
-                      <Suspense fallback={null}>
-                        <NextOpen people={who ? [who] : accepting} />
-                      </Suspense>
-                    </div>
-                  </>
-                }
-                secondary={
-                  <>
-                    {(who ? [who] : accepting).map((p) => p.clinikoPractitionerId && (
-                      <BookDirectLink
-                        key={p.slug}
-                        className="btn btn--ghost"
-                        href={bookingsUrlFor(p.clinikoPractitionerId)}
-                        who={p.slug}
-                      >
-                        Open {p.name.split(' ')[0]}&rsquo;s calendar in a new tab
-                      </BookDirectLink>
-                    ))}
-                    <p style={{ margin: '6px 0 0', fontSize: '.85rem', color: 'var(--ink-soft)' }}>
-                      The calendar opens here. If it does not load on your phone, the link above always will.
-                    </p>
-                    {/* A ROUTE THAT IS NOT THE CALENDAR — 1 Oct 2026. Cliniko's
-                        frame is a third-party widget nobody here has tested with
-                        a screen reader (/accessibility says so), and until now
-                        a person it did not work for had only the back button.
-                        Email first, as everywhere on the site; the same form
-                        the people the times do not suit already use second.
-                        The form link counts as book_click "calendar-alt"; the
-                        address goes through MailLink like every mailto: to the
-                        practice, and counts as /book's email_click. */}
-                    <p style={{ margin: '4px 0 0', fontSize: '.85rem', color: 'var(--ink-soft)' }}>
-                      Calendar hard to use with your screen reader or device?{' '}
-                      <MailLink where="book-fallback" subject="Free 15-minute consultation" showAddress>
-                        Ask for a consultation time by email
-                      </MailLink>{' '}
-                      instead, or <BookLink location="calendar-alt" className="" href="#ask-for-a-time">use the form below</BookLink>.
-                    </p>
-                  </>
-                }
-              />
-              {/* WHICH CLOCK — 1 Oct 2026. Every time on this page is Pacific,
-                  and Camille sees clients in Alberta. The Alberta half shows
-                  only while someone accepting is insured there today
-                  (insuredProvinces); the BC half always, for the East
-                  Kootenay and the Peace. A label on Cliniko's times, not hours. */}
-              <p style={{ margin: '4px 0 0', fontSize: '.85rem', lineHeight: 1.5, color: 'var(--ink-soft)' }}>
-                {timeZoneNote((who ? [who] : accepting).flatMap((p) => insuredProvinces(p, vancouverToday())))}
-              </p>
-              {/* THE PEOPLE THE CALENDAR LOSES — 18 Sep 2026.
-                  Thirty-eight people a month interact with the calendar and
-                  next to none book. With two or three open days a week, a
-                  large share of them simply do not find a time that is theirs,
-                  and until now the page had nothing for them but the back
-                  button. This catches them: name, email, when they are free,
-                  and the counsellor replies with a time. It arrives through the
-                  same routed alert as every other enquiry, addressed to the
-                  counsellor chosen above. */}
-              <div className="crisis" id="ask-for-a-time" style={{ marginTop: 26, scrollMarginTop: 72 }}>
-                <h2 style={{ marginTop: 0, fontSize: '1.25rem' }}>None of these times work?</h2>
-                <p style={{ margin: '0 0 12px' }}>
-                  Say when you are usually free and {who ? who.name.split(' ')[0] : 'the counsellor you choose'} will
-                  reply within one business day with the closest time she can offer.
-                  <MeasuredReply />
-                </p>
-                <InboundForm
-                  kind="enquiry"
-                  done={sent}
-                  practitioner={who?.slug}
-                  title="Ask for a time"
-                  note="Two or three sentences: when you are usually free, and what you are looking for. You will hear back within one business day."
-                  placeholder="Which days and times usually suit you, then a sentence or two on what you are looking for."
-                  button="Ask for a time"
-                />
-              </div>
-            </>
-          ) : (
-            <div className="crisis" style={{ marginTop: 8 }}>
-              <h2 style={{ marginTop: 0 }}>Online scheduling is being set up</h2>
-              <p>
-                The booking calendar goes live here shortly. In the meantime, email{' '}
-                <MailLink where="book-fallback" /> with a sentence about what
-                you&rsquo;re looking for and a couple of times that suit you, and your consultation
-                will be confirmed by reply.
-              </p>
-              <div className="btn-row" style={{ marginTop: 22 }}>
-                <MailLink where="book-fallback" className="btn btn--primary" subject="Free 15-minute consultation" showAddress>
-                  Email to book your consultation
-                </MailLink>
-                <a className="btn btn--ghost" href={site.bookingsFallbackUrl} target="_blank" rel="noopener">
-                  Try the booking page directly<span className="sr-only"> (opens in a new tab)</span>
-                </a>
-              </div>
-            </div>
-          )}
-
-          {/* WHERE THE CLIENT IS SITTING DECIDES WHICH PROVINCE THE SESSION
-              HAPPENS IN. Counselling is regulated provincially and a session
-              counts as happening where the client is, not where the counsellor
-              is. Kept immediately UNDER the calendar rather than above it: it is
-              a correction for the minority who are outside the province, and it
-              should not be the first thing the majority read. */}
-          <div className="book-notes">
+        {/* Open by default: it is the question a booking summary with a
+            street address on it raises, and the answer is one line. */}
+        <details className="faq-item" open>
+          <summary>Is this online or in person?</summary>
+          <div className="prose">
             <p>
-              <strong>
-                Sessions {who ? `with ${who.name.split(' ')[0]} ` : ''}are for people located {who?.reach === 'canada' ? '' : 'in '}{provinceList}.
-              </strong>{' '}
-              A session counts as happening where you are sitting, so this is a registration and
-              insurance boundary rather than a preference.
-              {!canadaWide && (
-                <> If you are elsewhere in Canada, say so on the call and you will be pointed toward
-                someone who can properly see you.</>
-              )}
-            </p>
-
-            {/* The Gurmukhi sentence is reused verbatim from /punjabi, which has
-                been reviewed. Nothing here is newly composed Punjabi. Shown only
-                when the consultation can actually be in Punjabi: offering it to
-                somebody who arrived for a Tagalog-speaking counsellor is the
-                same false promise this page was fixed for at the other end. */}
-            {(!who || who.languages.some((l) => l.tag === 'pa')) && !paFirst && <p>{punjabiLine}</p>}
-            {who && !who.languages.some((l) => l.tag === 'pa') && (
-              <p>
-                <strong>The consultation can be in {languageList}</strong>, including moving between
-                them, which is what most bilingual people end up doing.
-              </p>
-            )}
-
-            <p>
-              <strong>After you book,</strong> a confirmation email arrives with the video link.
-              Nothing to install, and a phone, tablet or computer works. {CAMERA_OPTIONAL} No diagnosis, referral or
-              decision on the spot is needed.{' '}
-              <Link href="/resources/before-your-first-consultation">More on the call itself</Link>.
+              Online. The consultation and every session are by secure video, from wherever you
+              are sitting. There is no office and nowhere to attend; any address on a
+              booking confirmation is the booking system&rsquo;s mailing record, not a place to go.
             </p>
           </div>
+        </details>
 
-          {/* THE CALENDAR OFFERS 17 HOURS A WEEK, three of the five days being a
-              single evening hour. A waitlist form used to sit beside these hours
-              for the people none of them suited. Removed 6 Sep 2026: it was
-              being read as an alternative to booking rather than a fallback,
-              and people joined the list instead of picking a slot. The hours
-              stay, and anyone they do not suit is pointed at a message, which
-              reaches the practice the same way and gets a human reply. */}
-          {/* No hours here at all. A grid of consultation hours and a waitlist
-              form sat here until 6 Sep 2026; both were removed at the owner's
-              instruction. The calendar, when there is one, shows what is
-              actually open, and the request form asks when the person is free. */}
+        <details className="faq-item">
+          <summary>What actually happens in the 15 minutes?</summary>
+          <div className="prose">
+            <p>
+              You say what brought you here, in your own words. There is no form and no history
+              to assemble. &ldquo;Something is off and I do not know what&rdquo; is an ordinary
+              opening, and a large share of consultations start close to it.
+            </p>
+            <p>
+              You hear how the work would go: the approach that fits what you have described,
+              roughly how long that tends to take, and what it costs. Then you decide, in your
+              own time. Nobody is asked to commit on the call.
+            </p>
+            <Figure
+              name="first-session-flow"
+              caption="The consultation is step one of four, and stopping after it is a normal outcome."
+            />
+          </div>
+        </details>
 
-          {/* Always open, never behind a disclosure. */}
-          <div className="crisis" style={{ marginTop: 28 }}>
-            <p style={{ margin: 0 }}>
-              <strong>If you are in crisis:</strong> this is not a crisis service. Call or text{' '}
-              <a href="tel:988"><strong>9-8-8</strong></a> (Canada, 24/7) or BC Mental Health at{' '}
-              <a href="tel:3106789"><strong>310-6789</strong></a>. In immediate danger, call{' '}
-              <a href="tel:911"><strong>911</strong></a>.
+        <details className="faq-item">
+          <summary>What do the first few sessions look like if I carry on?</summary>
+          <div className="prose">
+            <p>
+              <strong>Session one</strong> is the whole picture: what is going on, how long it has
+              been going on, and what you want to be different.{' '}
+              {/* Item 368: the paperwork before it, from lib/faq.ts. */}
+              {BEFORE_SESSION_ONE}
+            </p>
+            <p>
+              <strong>Sessions two and three</strong> look for the pattern underneath the episodes
+              rather than working through them one at a time.
+            </p>
+            <p>
+              <strong>Around session four</strong> there is a deliberate check on whether this is
+              working, asked out loud rather than left to you to raise.
+            </p>
+            <p>
+              <strong>After that it is your call, every time.</strong>{' '}
+              <Link href="/guides/how-long-does-therapy-take">How long therapy takes</Link> covers
+              the commitment honestly, and{' '}
+              <Link href="/guides/when-therapy-isnt-working">when therapy is not working</Link>{' '}
+              covers what to do if it is not.
             </p>
           </div>
-        </div>
-      </section>
+        </details>
 
-      {/* ======================================================================
-          WHAT WAS FOUR FULL SECTIONS.
+        <details className="faq-item">
+          <summary>Is there anything I should prepare?</summary>
+          <div className="prose">
+            <p>
+              No. You are also not expected to tell the whole story: fifteen minutes is not enough
+              for that and it is not what the call is for. If it helps to arrive with anything,
+              one sentence on what is going on and one on how long it has been going on is more
+              than sufficient.
+            </p>
+          </div>
+        </details>
 
-          Closed by default, and each summary is a real question rather than a
-          heading, so the line is worth reading on its own. Native details, so it
-          works with no JavaScript, is keyboard-operable for free, and is opened
-          by a browser's find-in-page when the answer is inside it.
-          ====================================================================== */}
-      <section className="section section--tint">
-        <div className="container container--article">
-          <h2 style={{ marginTop: 0 }}>Before you decide</h2>
-          {/* The whole path in three steps (15 Oct 2026). The drawing is
-              decoration; the list under it says the same thing in text. */}
-          <StepsArt
-            steps={[
-              'Book the free 15-minute consultation',
-              'Meet by secure video',
-              'Book sessions if you want to carry on',
-            ]}
-          />
+        <details className="faq-item">
+          <summary>How does the video work, and where is my information held?</summary>
+          <div className="prose">
+            <p>
+              The link arrives by email and opens in your browser: nothing to install, no account
+              to create, and sessions are never recorded. {CAMERA_OPTIONAL} Bookings and records
+              are held in Cliniko, in an account on its Canadian region.{' '}
+              <Link href="/privacy">The privacy page</Link> names every service involved.
+            </p>
+          </div>
+        </details>
 
-          {/* Open by default: it is the question a booking summary with a
-              street address on it raises, and the answer is one line. */}
-          <details className="faq-item" open>
-            <summary>Is this online or in person?</summary>
-            <div className="prose">
-              <p>
-                Online. The consultation and every session are by secure video, from wherever you
-                are sitting. There is no office and nowhere to attend; any address on a
-                booking confirmation is the booking system&rsquo;s mailing record, not a place to go.
-              </p>
-            </div>
-          </details>
+        {/* Item 358: the question people from the workplace guides bring,
+            read from lib/practice-facts.ts like /faq and /pricing. */}
+        <details className="faq-item">
+          <summary>Will my employer, insurer or family find out?</summary>
+          <div className="prose">
+            <p>{WHO_FINDS_OUT}</p>
+          </div>
+        </details>
 
-          <details className="faq-item">
-            <summary>What actually happens in the 15 minutes?</summary>
-            <div className="prose">
-              <p>
-                You say what brought you here, in your own words. There is no form and no history
-                to assemble. &ldquo;Something is off and I do not know what&rdquo; is an ordinary
-                opening, and a large share of consultations start close to it.
-              </p>
-              <p>
-                You hear how the work would go: the approach that fits what you have described,
-                roughly how long that tends to take, and what it costs. Then you decide, in your
-                own time. Nobody is asked to commit on the call.
-              </p>
-              <Figure
-                name="first-session-flow"
-                caption="The consultation is step one of four, and stopping after it is a normal outcome."
-              />
-            </div>
-          </details>
+        <details className="faq-item">
+          <summary>What should I ask on the call?</summary>
+          <div className="prose">
+            <p>
+              The consultation goes both ways, and the more useful version has you asking rather
+              than only answering. What approach would you use for this and why. How would we know
+              it was working. What do you not work with. What does it cost and is that the whole
+              cost.{' '}
+              <Link href="/guides/questions-to-ask-a-therapist">Questions worth asking a therapist</Link>{' '}
+              sets out the full list along with the answers that should make you wary. Every one
+              of them is fair game here.
+            </p>
+          </div>
+        </details>
 
-          <details className="faq-item">
-            <summary>What do the first few sessions look like if I carry on?</summary>
-            <div className="prose">
-              <p>
-                <strong>Session one</strong> is the whole picture: what is going on, how long it has
-                been going on, and what you want to be different.{' '}
-                {/* Item 368: the paperwork before it, from lib/faq.ts. */}
-                {BEFORE_SESSION_ONE}
-              </p>
-              <p>
-                <strong>Sessions two and three</strong> look for the pattern underneath the episodes
-                rather than working through them one at a time.
-              </p>
-              <p>
-                <strong>Around session four</strong> there is a deliberate check on whether this is
-                working, asked out loud rather than left to you to raise.
-              </p>
-              <p>
-                <strong>After that it is your call, every time.</strong>{' '}
-                <Link href="/guides/how-long-does-therapy-take">How long therapy takes</Link> covers
-                the commitment honestly, and{' '}
-                <Link href="/guides/when-therapy-isnt-working">when therapy is not working</Link>{' '}
-                covers what to do if it is not.
-              </p>
-            </div>
-          </details>
-
-          <details className="faq-item">
-            <summary>Is there anything I should prepare?</summary>
-            <div className="prose">
-              <p>
-                No. You are also not expected to tell the whole story: fifteen minutes is not enough
-                for that and it is not what the call is for. If it helps to arrive with anything,
-                one sentence on what is going on and one on how long it has been going on is more
-                than sufficient.
-              </p>
-            </div>
-          </details>
-
-          <details className="faq-item">
-            <summary>How does the video work, and where is my information held?</summary>
-            <div className="prose">
-              <p>
-                The link arrives by email and opens in your browser: nothing to install, no account
-                to create, and sessions are never recorded. {CAMERA_OPTIONAL} Bookings and records
-                are held in Cliniko, in an account on its Canadian region.{' '}
-                <Link href="/privacy">The privacy page</Link> names every service involved.
-              </p>
-            </div>
-          </details>
-
-          {/* Item 358: the question people from the workplace guides bring,
-              read from lib/practice-facts.ts like /faq and /pricing. */}
-          <details className="faq-item">
-            <summary>Will my employer, insurer or family find out?</summary>
-            <div className="prose">
-              <p>{WHO_FINDS_OUT}</p>
-            </div>
-          </details>
-
-          <details className="faq-item">
-            <summary>What should I ask on the call?</summary>
-            <div className="prose">
-              <p>
-                The consultation goes both ways, and the more useful version has you asking rather
-                than only answering. What approach would you use for this and why. How would we know
-                it was working. What do you not work with. What does it cost and is that the whole
-                cost.{' '}
-                <Link href="/guides/questions-to-ask-a-therapist">Questions worth asking a therapist</Link>{' '}
-                sets out the full list along with the answers that should make you wary. Every one
-                of them is fair game here.
-              </p>
-            </div>
-          </details>
-
-          <details className="faq-item">
-            <summary>What if it turns out not to be a fit?</summary>
-            <div className="prose">
-              <p>
-                A consultation that ends with &ldquo;this is not the right fit&rdquo; is a success,
-                not a failure. Sometimes that means a different counsellor; sometimes a physician, a
-                psychologist for a formal assessment, or a specialised service. The limits of what
-                this practice does are listed openly on{' '}
-                <Link href="/standards">standards and accountability</Link>, and being told one of
-                them applies to you is a better result than a booking that was never going to help.
-              </p>
-              <p>
-                If cost is the obstacle,{' '}
-                <Link href="/resources/low-cost-counselling-bc">low-cost counselling in BC</Link>{' '}
-                lists the free and reduced-cost routes, several of which have no waitlist at all.
-              </p>
-            </div>
-          </details>
-
-          <ul className="checklist" style={{ marginTop: 26 }}>
-            <li>Sessions are fully online, anywhere in {provinceList}</li>
-            <li>Available in {languageList}</li>
-            {lengths && <li>{lengths}</li>}
-            <li>Fees and payment are on the <Link href="/pricing">fees page</Link></li>
-            <li>Many extended health plans reimburse an RCC, depending on the plan; <Link href="/resources/does-my-plan-cover-counselling-bc">check yours</Link></li>
-          </ul>
-
-          <p style={{ marginTop: 18 }}>
-            Would rather read first? The <Link href="/faq">FAQ</Link> covers fees and
-            confidentiality, <Link href="/services">services</Link> covers the approaches, and{' '}
-            {/* Her own profile, not /about (the practice and founder page):
-                1 Oct 2026, wf/book-and-cta. */}
-            {who
-              ? <Link href={`/practitioners/${who.slug}`}>about {who.name.split(' ')[0]}</Link>
-              : <Link href="/practitioners">the counsellors&rsquo; profiles</Link>}{' '}
-            {who ? 'covers' : 'cover'} who you would be speaking to.
-            To ask something before booking anything, the <Link href="/contact">contact page</Link>{' '}
-            gets a reply within one business day.
-          </p>
-        </div>
-      </section>
+        <details className="faq-item">
+          <summary>What if it turns out not to be a fit?</summary>
+          <div className="prose">
+            <p>
+              A consultation that ends with &ldquo;this is not the right fit&rdquo; is a success,
+              not a failure. Sometimes that means a different counsellor; sometimes a physician, a
+              psychologist for a formal assessment, or a specialised service. The limits of what
+              this practice does are listed openly on{' '}
+              <Link href="/standards">standards and accountability</Link>, and being told one of
+              them applies to you is a better result than a booking that was never going to help.
+            </p>
+            <p>
+              If cost is the obstacle,{' '}
+              <Link href="/resources/low-cost-counselling-bc">low-cost counselling in BC</Link>{' '}
+              lists the free and reduced-cost routes, several of which have no waitlist at all.
+            </p>
+          </div>
+        </details>
+      </BookChoice>
     </>
   );
 }

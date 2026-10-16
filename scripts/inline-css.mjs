@@ -198,6 +198,59 @@ if (CHECK) {
       process.exit(1);
     }
   }
+
+  /* AN INDEXABLE PAGE WITH NO PRERENDERED DOCUMENT — 15 Oct 2026 (item 514).
+   *
+   * The checks above only see documents the build wrote, so a page rendered
+   * per request was invisible to them: /book (read ?with=, ?for= and ?sent=
+   * on the server, and Cliniko) and /contact (?sent=) shipped five and three
+   * blocking stylesheet links with `private, no-store` and no edge cache,
+   * and this script never named either. Every URL the sitemap lists must
+   * now have a document here, or the check fails and says which. Read from
+   * the build's own sitemap bodies, so the list is the one Google is given.
+   * ALLOW_PER_REQUEST names a page that may render per request, with why. */
+  const ALLOW_PER_REQUEST = {
+    /* Found by this check on its first run, 15 Oct 2026: app/refer/page.tsx
+       reads ?lead= on the server for its sent banner. Same fix as /contact
+       (components/SentInboundForm.tsx's pattern); not in this change. */
+    '/refer': 'reads ?lead= on the server for its sent banner; move it to a client island, then remove this line',
+  };
+  const sitemapBodies = [];
+  const walkBodies = (dir) => {
+    for (const e of readdirSync(dir)) {
+      const p = join(dir, e);
+      if (statSync(p).isDirectory()) walkBodies(p);
+      else if (e.endsWith('.body') && /sitemap/i.test(relative(ROOT, p))) sitemapBodies.push(p);
+    }
+  };
+  walkBodies(ROOT);
+  const listed = new Set();
+  for (const f of sitemapBodies) {
+    for (const m of readFileSync(f, 'utf8').matchAll(/<loc>\s*https?:\/\/[^/<]+(\/[^<\s]*)?\s*<\/loc>/g)) {
+      const path = (m[1] ?? '/').split(/[?#]/)[0] || '/';
+      if (/\.(xml|txt)$/.test(path)) continue;
+      listed.add(path === '/' ? '/' : path.replace(/\/$/, ''));
+    }
+  }
+  if (!sitemapBodies.length || !listed.size) {
+    console.log('\n  no sitemap body in the build, so pages rendered per request were not checked.');
+  } else {
+    const perRequest = [...listed]
+      .filter((r) => !existsSync(join(ROOT, `${r === '/' ? 'index' : decodeURIComponent(r.slice(1))}.html`)))
+      .sort();
+    const allowedPR = perRequest.filter((r) => ALLOW_PER_REQUEST[r]);
+    const failingPR = perRequest.filter((r) => !ALLOW_PER_REQUEST[r]);
+    console.log(`\n  ${listed.size} sitemap URL(s): ${listed.size - perRequest.length} have a prerendered document.`);
+    for (const r of allowedPR) console.log(`   ${r}  renders per request (allowed: ${ALLOW_PER_REQUEST[r]})`);
+    if (failingPR.length) {
+      console.log(`\n  ${failingPR.length} indexable page(s) render per request, so none of the above reaches them:\n`);
+      for (const r of failingPR) console.log(`   ${r}`);
+      console.log('\n  Something on the page makes it dynamic: searchParams, cookies() or headers(), a');
+      console.log('  no-store fetch, or force-dynamic. Read the query string in a client island instead');
+      console.log('  (components/BookChoice.tsx, components/SentInboundForm.tsx).\n');
+      process.exit(1);
+    }
+  }
   console.log('');
 } else {
   console.log(`  inline css: ${done} document(s) inlined, ${already} already done`);

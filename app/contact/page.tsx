@@ -5,9 +5,10 @@ import CtaBand from '@/components/CtaBand';
 import Figure from '@/components/Figure';
 import { Mail, MonitorSmartphone, MapPin, Languages as LangIcon, AtSign, Phone } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
-import InboundForm from '@/components/InboundForm';
+import SentInboundForm from '@/components/SentInboundForm';
 import MailLink from '@/components/MailLink';
 import { webPage } from '@/lib/schema';
+import { ogBase } from '@/lib/og-meta';
 import { lastmodFor } from '@/lib/page-dates';
 import { practitioners, insuredProvinces, vancouverToday, withLetters } from '@/lib/practitioners';
 import { listOf } from '@/lib/city-service-page';
@@ -19,13 +20,20 @@ export const metadata: Metadata = {
   title: 'Contact & Book',
   description: DESC,
   alternates: { canonical: `${site.domain}/contact` },
+  /* Its own og:url since 15 Oct 2026: rendered per request, the page was
+     never seen by scripts/metadata-audit.mjs, and it inherited the home
+     page's og:url. The title is the same name the <title> carries. */
+  openGraph: { ...ogBase('/contact'), title: `Contact & Book | ${site.name}`, description: DESC },
 };
 
-export default async function Contact({
-  searchParams,
-}: {
-  searchParams?: Record<string, string | string[] | undefined>;
-}) {
+/* STATIC SINCE 15 OCT 2026 (item 514). This page read ?sent= on the server,
+   which made it render per request: production served it `private,
+   no-cache, no-store` with three render-blocking stylesheet links and no
+   inlined CSS. The acknowledgement is now chosen in the browser
+   (components/SentInboundForm.tsx), and everything else here is read at
+   build: the measured reply line from the inbound store and the counsellors
+   accepting today. A change to either shows with the next build. */
+export default async function Contact() {
   /* No "Hours" block since 1 Oct 2026. It printed a practice-wide span of
      start times plus a weekend clause, merged from two calendars;
      the site publishes no hours (6 Sep), and the calendar shows real open
@@ -47,16 +55,14 @@ export default async function Contact({
   } catch {
     /* store unreachable — the unmeasured promise stands */
   }
-  const sent = searchParams?.sent === 'ok' ? 'ok'
-    : searchParams?.sent === 'err' ? 'err' : undefined;
   /* WHO IS TAKING NEW CLIENTS, NAMED — 4 Oct 2026. The page that produces
      half the enquiries named nobody, so a reader writing in did not know
      who might answer. The rule is lib/counsellor-cards.ts's: accepting and
      insured for BC today, which leaves the founder out by flag, not by
      name. Credential letters only; registration numbers stay on the
      profiles, which is where the verify link beside the names sends people
-     to look them up. The page renders on demand, so a change of status
-     shows on the next request. */
+     to look them up. Read at build since 15 Oct 2026, so a change of status
+     shows with the next build. */
   const accepting = practitioners.filter(
     (p) => p.acceptingNewClients && insuredProvinces(p, vancouverToday()).includes('BC'),
   );
@@ -129,7 +135,7 @@ export default async function Contact({
             and it will be there when you are.
           </p>
 
-          <InboundForm kind="enquiry" done={sent} />
+          <SentInboundForm kind="enquiry" />
 
           {/* THE MAP AFTER THE FORM — 1 Oct 2026. It sat between the hero and
               the form, and on a phone pushed the form to y=2414 on the page

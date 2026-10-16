@@ -10,7 +10,7 @@ import Figure from '@/components/Figure';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBasePunjabi } from '@/lib/og-meta';
 import { COLLECTION_DATES, lastmodFor } from '@/lib/page-dates';
-import Image from 'next/image';
+import Image from '@/components/ui/Img';
 import { practitioners, withLetters } from '@/lib/practitioners';
 import { punjabiGuides } from '@/lib/punjabi-guides';
 import { placesFor } from '@/lib/practitioner-places';

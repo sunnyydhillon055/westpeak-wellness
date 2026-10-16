@@ -89,6 +89,6 @@ test('email 3 carries the plan-year note in season and not on 21 Dec or 1 Jan', 
     assert.doesNotMatch(m.html, /31 December/, iso);
   }
   /* Out of season the email is exactly what it was before the change. */
-  const before = email3('Sam', 'sam@gmail.com', 'coverage-checklist', { roster: [], feeLine: 'An individual session is $140 for 50 minutes.', now: new Date('2027-01-05T19:00:00Z') });
+  const before = email3('Sam', 'sam@gmail.com', 'coverage-checklist', { roster: [], feeLine: 'An individual session is $140 for 50 minutes.', now: new Date('2027-02-20T19:00:00Z') });
   assert.match(before.text, /\$140 for 50 minutes\.\n\nIt is also/);
 });

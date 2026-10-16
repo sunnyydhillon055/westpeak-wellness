@@ -1,9 +1,5 @@
-import SchedulerTelemetry from '@/components/SchedulerTelemetry';
-import SchedulerGate from '@/components/SchedulerGate';
-import BookDirectLink from '@/components/BookDirectLink';
-import MailLink from '@/components/MailLink';
+import SchedulerEmbedView from '@/components/SchedulerEmbedView';
 import { CLINIKO_EMBED_PARAM } from '@/lib/site';
-import { withEmbedFlag } from '@/lib/cliniko-frame';
 import { PORTAL_PREFIX } from '@/lib/conversion-detail';
 import { practitioners } from '@/lib/practitioners';
 
@@ -65,54 +61,16 @@ export default function SchedulerEmbed({
   /** Passed to SchedulerGate: the scheduler_open detail for a couples consultation. */
   openDetail?: 'couples';
 }) {
-  const origin = new URL(url).origin;
-  const frameTitle = title ?? 'Booking calendar';
-  const frameUrl = withEmbedFlag(url, CLINIKO_EMBED_PARAM);
+  /* The markup lives in components/SchedulerEmbedView.tsx since 15 Oct 2026,
+     so /book's client island can render it without the roster; this server
+     wrapper only looks up the first name. */
   const portal = (who ?? '').startsWith(PORTAL_PREFIX);
   const slug = portal ? who!.slice(PORTAL_PREFIX.length) : who;
   const first = practitioners.find((p) => p.slug === slug)?.name.split(' ')[0];
-  const label = first ? `Open ${first}’s calendar in a new tab` : 'Open the booking calendar in a new tab';
-  const stalled = (
-    <>
-      The calendar has not appeared.{' '}
-      {slug && !portal ? (
-        <BookDirectLink href={url} who={slug} className="">{label}</BookDirectLink>
-      ) : (
-        <a href={url} target="_blank" rel="noopener">{label}</a>
-      )}
-      , or email <MailLink where="book-fallback" />.
-    </>
-  );
   return (
-    <div className="scheduler-embed">
-      {/* Browsers honour preconnect from body markup, and this component only
-          renders on pages that embed the calendar — so the DNS + TLS setup to
-          Cliniko's shard starts before the frame asks for it, on exactly the
-          pages that will. Kept in the gated mode too: one handshake is cheap,
-          and it is the difference between the calendar appearing on the tap
-          and appearing a moment after it. */}
-      <link rel="preconnect" href={origin} />
-      {placeholder ? (
-        <SchedulerGate url={frameUrl} title={frameTitle} page={page} who={who} cta={cta} secondary={secondary} openDetail={openDetail} stalled={stalled}>
-          {placeholder}
-        </SchedulerGate>
-      ) : (
-        <SchedulerTelemetry page={page} who={who} stalled={stalled}>
-          <iframe
-            src={frameUrl}
-            title={frameTitle}
-            loading="lazy"
-            /* allow-forms/-scripts/-same-origin are what the booking flow needs;
-               allow-popups covers the card step opening a bank 3-D Secure window. */
-            sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
-        </SchedulerTelemetry>
-      )}
-      <p className="scheduler-fallback">
-        Calendar not loading?{' '}
-        <a href={url} target="_blank" rel="noopener">Open the booking page directly, in a new tab</a>.
-      </p>
-    </div>
+    <SchedulerEmbedView
+      url={url} embedParam={CLINIKO_EMBED_PARAM} title={title} page={page} who={who} first={first} portal={portal}
+      placeholder={placeholder} secondary={secondary} cta={cta} openDetail={openDetail}
+    />
   );
 }

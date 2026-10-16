@@ -261,7 +261,7 @@ test('email_click is counted, from the fixed list of places', () => {
 });
 
 test('every mailto: to the practice in these files goes through MailLink', () => {
-  for (const f of ['app/book/page.tsx', 'app/contact/page.tsx', 'components/Footer.tsx', 'components/StickyBook.tsx',
+  for (const f of ['components/BookChoice.tsx', 'app/contact/page.tsx', 'components/Footer.tsx', 'components/StickyBook.tsx',
     'app/refer/counsellors/page.tsx', 'app/refer/doctor/page.tsx', 'app/refer/handout/page.tsx']) {
     const s = src(f);
     assert.doesNotMatch(s, /href=\{`mailto:/, `${f} still has a bare mailto:`);

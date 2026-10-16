@@ -22,7 +22,7 @@ import { consultPeople, heroBookingCta } from '@/lib/booking-cta';
 import { SESSION_SECURITY, SESSION_SECURITY_MD, CANCELLATION_RULE, CANCELLATION_TERMS } from '@/lib/policies';
 import { rich } from '@/lib/rich';
 import { practiceSnippet, withSnippet } from '@/lib/snippet-facts';
-import { planYearPageLineShown, YEAR_END_PATH } from '@/lib/seasonal';
+import { planYearPageLineShown, planResetPageLineShown, PLAN_RESET_LINE, YEAR_END_PATH } from '@/lib/seasonal';
 import { WHO_SEES_A_CLAIM } from '@/lib/practice-facts';
 import {
   BCACC_INDIVIDUAL, BCACC_COUPLES_FAMILY, BCPA_PSYCHOLOGIST, BCPA_EFFECTIVE,
@@ -221,6 +221,12 @@ export default async function Pricing() {
           {planYearPageLineShown() && (
             <p style={{ fontSize: '.92rem', color: 'var(--ink-soft)' }}>
               If your plan runs on the calendar year, a session held on or before 31 December counts against this year&rsquo;s maximum; whether yours does is in your plan booklet; <Link href={YEAR_END_PATH}>how the plan year affects a claim</Link>.
+            </p>
+          )}
+          {/* 1 Jan to 15 Feb only, the January counterpart (item 513). */}
+          {planResetPageLineShown() && (
+            <p style={{ fontSize: '.92rem', color: 'var(--ink-soft)' }}>
+              {PLAN_RESET_LINE} <Link href={YEAR_END_PATH}>What resets on 1 January, and what does not</Link>.
             </p>
           )}
 

@@ -55,7 +55,9 @@ test('a message is read only from the frame’s own window and origin', () => {
 });
 
 test('the embedded src is used for the frame only; the fallback link keeps the plain URL', () => {
-  const src = readFileSync(join(ROOT, 'components/SchedulerEmbed.tsx'), 'utf8');
+  /* The markup moved to SchedulerEmbedView on 15 Oct 2026 (item 514). */
+  const src = readFileSync(join(ROOT, 'components/SchedulerEmbedView.tsx'), 'utf8');
+  assert.match(src, /withEmbedFlag\(url, embedParam\)/);
   assert.match(src, /src=\{frameUrl\}/);
   assert.match(src, /<SchedulerGate url=\{frameUrl\}/);
   assert.match(src, /<a href=\{url\} target="_blank"/);
@@ -140,7 +142,8 @@ test('the sticky bar stands down for the calendar and for typing; repeated figur
   assert.match(css, /html\[data-scheduler-open\] \.sticky-book, html\[data-typing\] \.sticky-book\{ display:none \}/);
   assert.match(css, /\.figure--repeats\{ display:none; \}/);
   const contact = readFileSync(join(ROOT, 'app/contact/page.tsx'), 'utf8');
-  assert.ok(contact.indexOf('<InboundForm') < contact.indexOf('<Figure name="bc-reach"'), 'the map comes after the form');
+  const form = contact.indexOf('<SentInboundForm');
+  assert.ok(form > -1 && form < contact.indexOf('<Figure name="bc-reach"'), 'the map comes after the form');
   const fig = readFileSync(join(ROOT, 'components/Figure.tsx'), 'utf8');
   assert.match(fig, /<a href=\{`\/img\/\$\{f\.file\}`\}/);
 });

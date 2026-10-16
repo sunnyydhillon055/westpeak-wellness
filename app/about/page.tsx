@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Updated from '@/components/Updated';
 import type { Metadata } from 'next';
-import Image from 'next/image';
+import Image from '@/components/ui/Img';
 import { site } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
 import Motif from '@/components/brand/Motif';

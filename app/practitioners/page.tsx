@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Updated from '@/components/Updated';
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from '@/components/ui/Img';
 import { site } from '@/lib/site';
 import { practitioners } from '@/lib/practitioners';
 import { reachesAlberta } from '@/lib/practice-facts';

@@ -6,10 +6,13 @@
  * and take it out in January, the copy carries its own window and this
  * module decides, on the Pacific calendar date, whether today is inside it.
  *
- * The pages that use it re-render on their own (the resource template every
- * 1800 s, /pricing every 3600 s, /book on every request), so a window opens
- * and closes without a deploy. The drafts and nurture email 3 read it at the
- * moment they are built.
+ * The pages that use it were re-rendered on a timer when this was written.
+ * Since 3 Oct 2026 (and /book since 15 Oct) they are static, so a server-
+ * rendered line follows the date of the last build: a window opens and
+ * closes with the next rebuild, which is what item 511's GATE_DATES
+ * schedules. /book's lines are also re-checked in the browser on the day
+ * (components/BookChoice.tsx). The drafts and nurture email 3 read it at
+ * the moment they are built.
  *
  * Pacific, not UTC: at 4 p.m. on 31 December in Vancouver it is already
  * 1 January in UTC, and a year-end line that vanished eight hours early
@@ -67,4 +70,53 @@ export function planYearMailParagraph(now: Date = new Date()): string | null {
 
 export function planYearPageLineShown(now: Date = new Date()): boolean {
   return inSeason(PLAN_YEAR_PAGE_WINDOW.from, PLAN_YEAR_PAGE_WINDOW.to, now);
+}
+
+/* ---- the January counterpart: the maximum that just reset (item 513) --- */
+
+/* 15 Oct 2026. The autumn line has a January twin, and CONTENT_CALENDAR.md
+ * calls the reset piece the commercially strongest of the year: a person
+ * whose counselling maximum has just started again has a full balance and a
+ * reason to use it. Same rules as the autumn line: conditional on a
+ * calendar-year plan, no insurer named, no fee, no time, no outcome, and the
+ * house coverage wording ("depending on the plan"). Out of these windows
+ * every page and email is byte-identical to before.
+ *
+ * The page window runs from New Year's Day; the mail window starts on
+ * 5 January, once the holiday inbox has cleared, so a note about a new
+ * balance is read rather than buried. Both end on 15
+ * February, by which point the reset is old news. The window ends, with the
+ * autumn ones, are what item 511's GATE_DATES lists for the scheduled
+ * rebuild that flips the static pages. */
+
+/** /pricing, /book and CoverageLine, where the autumn page line renders. */
+export const PLAN_RESET_PAGE_WINDOW = { from: '01-01', to: '02-15' } as const;
+
+/** The after-consult and after-session drafts and nurture email 3. */
+export const PLAN_RESET_MAIL_WINDOW = { from: '01-05', to: '02-15' } as const;
+
+/** Every seasonal window this module owns, by name, for GATE_DATES. */
+export const SEASONAL_WINDOWS = {
+  PLAN_YEAR_PAGE_WINDOW,
+  PLAN_YEAR_MAIL_WINDOW,
+  PLAN_RESET_PAGE_WINDOW,
+  PLAN_RESET_MAIL_WINDOW,
+} as const;
+
+/** The sentence pages and emails carry in January and early February. */
+export const PLAN_RESET_LINE =
+  'If your extended health plan runs on the calendar year, its counselling maximum started again on 1 January, and your insurer can confirm the new balance. Some plans run on another year, depending on the plan.';
+
+export function planResetPageLineShown(now: Date = new Date()): boolean {
+  return inSeason(PLAN_RESET_PAGE_WINDOW.from, PLAN_RESET_PAGE_WINDOW.to, now);
+}
+
+export function planResetMailParagraph(now: Date = new Date()): string | null {
+  return inSeason(PLAN_RESET_MAIL_WINDOW.from, PLAN_RESET_MAIL_WINDOW.to, now) ? PLAN_RESET_LINE : null;
+}
+
+/** The one seasonal paragraph a draft or email 3 carries today: the autumn
+ *  note, the January note, or nothing. The two windows never overlap. */
+export function seasonalMailParagraph(now: Date = new Date()): string | null {
+  return planYearMailParagraph(now) ?? planResetMailParagraph(now);
 }

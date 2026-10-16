@@ -42,7 +42,7 @@ test('a link that opens a new tab must say so, in text, aria-label or an image a
 });
 
 test('the shared components on the money routes say "new tab"', () => {
-  for (const f of ['components/Footer.tsx', 'components/SchedulerEmbed.tsx', 'components/Figure.tsx', 'app/contact/page.tsx', 'app/book/page.tsx']) {
+  for (const f of ['components/Footer.tsx', 'components/SchedulerEmbed.tsx', 'components/Figure.tsx', 'app/contact/page.tsx', 'app/book/page.tsx', 'components/BookChoice.tsx', 'components/SchedulerEmbedView.tsx']) {
     const src = readFileSync(f, 'utf8');
     const blanks = (src.match(/target="_blank"/g) || []).length;
     const said = (src.match(/new tab/g) || []).length;
