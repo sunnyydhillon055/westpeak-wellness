@@ -36,6 +36,7 @@ import { CONSULT_MINUTES } from '@/lib/cliniko-catalog';
 export const punjabiWordsResource: Resource[] = [
   {
     slug: 'counselling-in-punjabi-what-the-words-mean',
+    linkable: true,
     language: 'pa',
     figure: 'first-session-flow',
     title: 'What counselling means in Punjabi, word by word',

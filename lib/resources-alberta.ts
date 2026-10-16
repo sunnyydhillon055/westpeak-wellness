@@ -34,6 +34,34 @@ export const ALBERTA_OPEN = practitioners.some(
 );
 export const BC_ONLY_LABEL = 'Book a free consultation in BC';
 
+/* WITH THE GATE SHUT, THE COVERAGE PAGE STOPS SELLING — 15 Oct 2026 (item
+   549). Live on 15 Oct the page told an Alberta reader nobody here is
+   insured to see them, then priced this practice's sessions against a
+   $300 plan balance, drew the reimbursement diagram and closed on the BC
+   fee and "Book Free Consultation". While ALBERTA_OPEN is false the
+   balance arithmetic and the diagram are dropped, the free and lower-cost
+   routes move up to follow the AHCIP answer, and the closing band becomes
+   the routes the page already sources, with one small link for a reader
+   who is in BC. All of it returns on its own when the gate reopens. */
+const ROUTES_H2 = 'The free and lower-cost routes first';
+function routesFirstWhenClosed<T extends { h2: string }>(sections: T[]): T[] {
+  if (ALBERTA_OPEN) return sections;
+  const i = sections.findIndex((s) => s.h2 === ROUTES_H2);
+  if (i < 1) return sections;
+  const rest = sections.filter((_, j) => j !== i);
+  return [rest[0]!, sections[i]!, ...rest.slice(1)];
+}
+const ALBERTA_ROUTES_CLOSER: NonNullable<Resource['routesCloser']> = {
+  heading: 'Where to start in Alberta',
+  text: 'No counsellor at this practice is insured to see clients in Alberta at the moment. These are the routes this page sources, for an Alberta reader whatever their plan.',
+  routes: [
+    { label: 'Counselling Alberta', detail: 'Government-funded counselling online anywhere in Alberta, on a sliding fee scale. Registration is online or by phone on 833-827-4230.', url: 'https://counsellingalberta.com/' },
+    { label: 'Health Link, 811', detail: 'Free, non-urgent advice and referral into publicly funded mental health services.' },
+    { label: '211 Alberta', detail: 'A directory of community counselling offered on a sliding scale or at no cost, by phone, text and web.', url: 'https://ab.211.ca/' },
+  ],
+  bcLabel: 'In BC? Book a free consultation',
+};
+
 /* ============================================================================
    ALBERTA RESOURCES
    ----------------------------------------------------------------------------
@@ -92,8 +120,9 @@ export const albertaResources: Resource[] = [
     readMinutes: 6,
     ...(ALBERTA_OPEN ? {} : { bookLabel: BC_ONLY_LABEL }),
     /* Year-end plan timing, 1 Oct to 31 Dec (item 210). The BC year-end page is not linked: its plan examples are BC ones. */
-    seasonal: yearEndSeasonal({ yearEndLink: false, designation: 'Canadian Certified Counsellor', province: 'AB' }),
-    sections: [
+    seasonal: yearEndSeasonal({ yearEndLink: false, designation: 'Canadian Certified Counsellor', province: 'AB', ...(ALBERTA_OPEN ? {} : { balanceSentence: false }) }),
+    ...(ALBERTA_OPEN ? {} : { routesCloser: ALBERTA_ROUTES_CLOSER }),
+    sections: routesFirstWhenClosed([
       {
         /* Was "What AHCIP does and does not pay for" (1 Oct 2026). */
         h2: 'Is therapy covered by Alberta Health Care? What AHCIP pays for',
@@ -122,7 +151,7 @@ export const albertaResources: Resource[] = [
         ],
       },
       {
-        h2: 'The free and lower-cost routes first',
+        h2: ROUTES_H2,
         list: [
           {
             /* counsellingalberta.com, read 3 Oct 2026. */
@@ -164,7 +193,7 @@ export const albertaResources: Resource[] = [
           'Ask also whether the practice direct-bills or whether you pay and submit. Both are ordinary; the difference decides whether you are out of pocket for a month, which matters more to some people than the fee itself.',
         ],
       },
-    ],
+    ]),
     midCta: ALBERTA_OPEN
       ? {
           text: 'Camille Granda, RCC, CCC, can see clients in Alberta, and the first fifteen minutes are free.',
@@ -236,7 +265,7 @@ export const albertaResources: Resource[] = [
       { href: '/tools/therapy-cost-bc', label: 'Work out what a session would actually cost you' },
       { href: '/pricing', label: 'Fees at this practice' },
     ],
-    figure: 'reimbursement-flow',
+    ...(ALBERTA_OPEN ? { figure: 'reimbursement-flow' } : {}),
   },
   {
     slug: 'how-to-check-a-counsellor-in-alberta',

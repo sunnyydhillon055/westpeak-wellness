@@ -8,11 +8,17 @@ import { site } from '@/lib/site';
 import { ogBase } from '@/lib/og-meta';
 import { bookingFor } from '@/lib/booking-cta';
 import { fallbackFee, FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
+import CopyText from '@/components/CopyText';
+import { citationFor } from '@/lib/resources';
 import {
   eiSicknessMax, EI_SICKNESS_SOURCE, EI_SICKNESS_AFTER_APPLYING, EI_WAITING_WAIVER, EI_WAITING_WAIVED,
-  EI_WAITING_CLAUSE, EI_WEEKLY_IN_YEAR, longDate,
+  EI_WAITING_CLAUSE, EI_WEEKLY_IN_YEAR, EI_MIE_SOURCE, BC_SICK_DAYS_QUALIFYING_DAYS, ESA_ILLNESS_LEAVE_WEEKS,
+  CLC_FIRST_MEDICAL_DAYS, CLC_QUALIFYING_DAYS, longDate,
 } from '@/lib/benefit-figures';
-import { leavePay, weekRange, dollars, type LeavePicture, type Phase } from '@/lib/leave-pay';
+import {
+  leavePay, weekRange, dollars, EI_RATE, EI_SICKNESS_WEEKS, BC_PAID_DAYS, FEDERAL_MAX_DAYS, FEDERAL_PROTECTED_WEEKS,
+  type LeavePicture, type Phase,
+} from '@/lib/leave-pay';
 
 /* THE STRESS-LEAVE PAY CALCULATOR — 13 Oct 2026.
  *
@@ -96,18 +102,55 @@ const EMBED_SNIPPET = [
 ].join('\n');
 const EMBED_RESIZE = `<script>addEventListener("message",function(e){if(e.origin==="${site.domain}"&&e.data&&e.data.type==="westpeak-embed-height"){var f=document.getElementById("westpeak-leave-pay");if(f)f.style.height=e.data.height+"px";}});</script>`;
 
+/* Each source carries the date it was read, and the Sources list and the
+   figures table below both print it from here (item 510, 15 Oct 2026: the
+   pages behind the table were re-read that day). */
 const SOURCES = [
-  { label: 'Government of Canada, EI sickness benefits: how much you could receive (read 13 Oct 2026)', url: EI_SICKNESS_SOURCE },
-  { label: 'Government of Canada, EI sickness benefits: do you qualify (read 13 Oct 2026)', url: 'https://www.canada.ca/en/services/benefits/ei/ei-sickness/qualify.html' },
-  { label: 'Government of Canada, EI sickness benefits: apply (read 13 Oct 2026)', url: 'https://www.canada.ca/en/services/benefits/ei/ei-sickness/apply.html' },
-  { label: 'Government of Canada, EI sickness benefits: after you apply, the waiting period and the first payment (read 13 Oct 2026)', url: EI_SICKNESS_AFTER_APPLYING },
-  { label: `Government of Canada, temporary EI measures: waiving the waiting period (read ${longDate(EI_WAITING_WAIVER.readOn)})`, url: EI_WAITING_WAIVER.sourceUrl },
-  { label: 'Province of BC, paid sick leave (read 13 Oct 2026)', url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/paid-sick-leave' },
-  { label: 'Government of Canada, medical leave with pay for federally regulated employees, IPG-118 (read 13 Oct 2026)', url: 'https://www.canada.ca/en/employment-social-development/programs/laws-regulations/labour/interpretations-policies/medical-leave-pay.html' },
-  { label: 'Province of BC, leaves of absence: serious personal illness or injury leave (read 15 Oct 2026)', url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/employment-standards/time-off/leaves-of-absence' },
-  { label: 'Canada Labour Code, s. 239, medical leave of up to 27 weeks (read 13 Oct 2026)', url: 'https://laws-lois.justice.gc.ca/eng/acts/L-2/section-239.html' },
-  { label: 'WorkSafeBC, mental health claims (read 13 Oct 2026)', url: 'https://www.worksafebc.com/en/claims/report-workplace-injury-illness/mental-health-injury-claims' },
+  { label: 'Government of Canada, EI sickness benefits: how much you could receive', read: '2026-10-15', url: EI_SICKNESS_SOURCE },
+  { label: 'Canada Revenue Agency, EI premium rates and maximums: maximum annual insurable earnings', read: '2026-10-15', url: EI_MIE_SOURCE },
+  { label: 'Government of Canada, EI sickness benefits: do you qualify', read: '2026-10-13', url: 'https://www.canada.ca/en/services/benefits/ei/ei-sickness/qualify.html' },
+  { label: 'Government of Canada, EI sickness benefits: apply', read: '2026-10-13', url: 'https://www.canada.ca/en/services/benefits/ei/ei-sickness/apply.html' },
+  { label: 'Government of Canada, EI sickness benefits: after you apply, the waiting period and the first payment', read: '2026-10-13', url: EI_SICKNESS_AFTER_APPLYING },
+  { label: 'Government of Canada, temporary EI measures: waiving the waiting period', read: '2026-10-15', url: EI_WAITING_WAIVER.sourceUrl },
+  { label: 'Province of BC, paid sick leave', read: '2026-10-15', url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/paid-sick-leave' },
+  { label: 'Government of Canada, medical leave with pay for federally regulated employees, IPG-118', read: '2026-10-15', url: 'https://www.canada.ca/en/employment-social-development/programs/laws-regulations/labour/interpretations-policies/medical-leave-pay.html' },
+  { label: 'Province of BC, leaves of absence: serious personal illness or injury leave', read: '2026-10-15', url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/employment-standards/time-off/leaves-of-absence' },
+  { label: 'Canada Labour Code, s. 239, medical leave of up to 27 weeks', read: '2026-10-15', url: 'https://laws-lois.justice.gc.ca/eng/acts/L-2/section-239.html' },
+  { label: 'WorkSafeBC, mental health claims', read: '2026-10-13', url: 'https://www.worksafebc.com/en/claims/report-workplace-injury-illness/mental-health-injury-claims' },
 ];
+const sourceFor = (url: string) => SOURCES.find((x) => x.url === url)!;
+
+/* THE FIGURES IT USES — 15 Oct 2026 (item 510). The pitch in
+   docs/REACH-2026-10-15.md asks reporters and HR teams to quote these
+   numbers; until now they sat only in prose, and the Sources list gave ten
+   links with no value beside any of them. Every value comes from
+   lib/benefit-figures.ts or lib/leave-pay.ts, the same constants the
+   calculator runs on, and every source and date from SOURCES above, so the
+   table cannot say one thing while the calculator does another. */
+const FIGURES: { figure: string; value: string; url: string }[] = [
+  { figure: 'EI sickness benefit rate', value: `${Math.round(EI_RATE * 100)}% of average weekly insurable earnings`, url: EI_SICKNESS_SOURCE },
+  { figure: `EI sickness weekly maximum, ${EI.year}`, value: `${dollars(EI.weekly)} a week, before tax`, url: EI_SICKNESS_SOURCE },
+  { figure: `Maximum insurable earnings, ${EI.year}`, value: `${dollars(EI.maxInsurableEarnings)} a year`, url: EI_MIE_SOURCE },
+  { figure: 'Length of EI sickness benefits', value: `Up to ${EI_SICKNESS_WEEKS} weeks`, url: EI_SICKNESS_SOURCE },
+  {
+    figure: 'EI waiting week',
+    value: EI_WAITING_WAIVED
+      ? `Waived for new claims starting ${longDate(EI_WAITING_WAIVER.from)} to ${longDate(EI_WAITING_WAIVER.to)}`
+      : 'One unpaid week before benefits start',
+    url: EI_WAITING_WAIVER.sourceUrl,
+  },
+  { figure: 'BC paid sick days (Employment Standards Act)', value: `${BC_PAID_DAYS} a year, after ${BC_SICK_DAYS_QUALIFYING_DAYS} days with the employer`, url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/paid-sick-leave' },
+  { figure: 'BC serious personal illness or injury leave', value: `Up to ${ESA_ILLNESS_LEAVE_WEEKS} weeks in any 52-week period, unpaid and job-protected`, url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/employment-standards/time-off/leaves-of-absence' },
+  { figure: 'Canada Labour Code medical leave with pay', value: `${CLC_FIRST_MEDICAL_DAYS} days after ${CLC_QUALIFYING_DAYS} days of employment, then 1 a month, to ${FEDERAL_MAX_DAYS} a year`, url: 'https://www.canada.ca/en/employment-social-development/programs/laws-regulations/labour/interpretations-policies/medical-leave-pay.html' },
+  { figure: 'Canada Labour Code medical leave', value: `Up to ${FEDERAL_PROTECTED_WEEKS} weeks, job-protected, unpaid by the employer`, url: 'https://laws-lois.justice.gc.ca/eng/acts/L-2/section-239.html' },
+];
+/** The newest read date behind the table: when the figures were last checked. */
+const FIGURES_CHECKED = FIGURES.map((f) => sourceFor(f.url).read).sort().at(-1)!;
+const CITATION = citationFor(
+  { title: 'Stress leave pay calculator for BC', slug: tool.slug, updated: FIGURES_CHECKED },
+  site.domain,
+  `/tools/${tool.slug}#figures`,
+);
 
 export default function Page() {
   const book = bookingFor('individual-therapy');
@@ -211,6 +254,51 @@ export default function Page() {
             has the rest.
           </p>
 
+          <h2 id="figures">The figures it uses</h2>
+          <p>
+            Every number the calculator and this page use, with the government page it comes from
+            and the date that page was read. When a figure changes, it changes here and in the
+            calculator together.
+          </p>
+          <div className="table-scroll" style={{ margin: '8px 0 14px' }}>
+            <table className="fee-table">
+              <caption className="sr-only">The figures behind the stress leave pay calculator, with sources and dates read</caption>
+              <thead>
+                <tr>
+                  <th>Figure</th>
+                  <th>Value</th>
+                  <th>Source</th>
+                  <th>Read on</th>
+                </tr>
+              </thead>
+              <tbody>
+                {FIGURES.map((f) => {
+                  const src = sourceFor(f.url);
+                  return (
+                    <tr key={f.figure}>
+                      <td style={{ fontWeight: 600, color: 'var(--ink)' }}>{f.figure}</td>
+                      <td style={{ fontWeight: 400 }}>{f.value}</td>
+                      <td style={{ fontWeight: 400 }}><a href={src.url} target="_blank" rel="noopener">{src.label}</a></td>
+                      <td style={{ fontWeight: 400 }}>{longDate(src.read)}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="linkable-note">
+            <h2 id="citing">Using and citing this calculator</h2>
+            <ul>
+              <li>Free to link to, from any website, intranet, HR page, handout or article. No need to ask.</li>
+              <li>The figures above may be quoted, in print or online, with attribution to Westpeak Wellness and a link to this page.</li>
+              <li>Figures last checked {longDate(FIGURES_CHECKED)}.</li>
+              <li>Spotted something out of date? Email <a href={`mailto:${site.email}`}>{site.email}</a>.</li>
+            </ul>
+            <p style={{ margin: '14px 0 0' }}><strong>Suggested citation</strong></p>
+            <CopyText text={CITATION} label="Copy this citation" />
+          </div>
+
           <h2 id="embed">Embed this calculator on your site</h2>
           <p>
             HR teams, union locals and benefits advisers hear the same question from people about to
@@ -254,7 +342,7 @@ export default function Page() {
           <ul style={{ color: 'var(--ink-soft)', fontSize: '.94rem', paddingLeft: 20 }}>
             {SOURCES.map((s) => (
               <li key={s.url} style={{ marginBottom: 8 }}>
-                <a href={s.url} target="_blank" rel="noopener">{s.label}</a>
+                <a href={s.url} target="_blank" rel="noopener">{s.label} (read {longDate(s.read)})</a>
               </li>
             ))}
           </ul>

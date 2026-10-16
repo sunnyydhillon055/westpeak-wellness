@@ -5,7 +5,7 @@ import { acceptingSentences } from '@/lib/practitioner-facts';
 import { STUDENT_PLANS, studentPlanFaqs } from './student-plans';
 import { CONFIDENTIALITY_LIMITS } from '@/lib/practice-facts';
 import { RCC_PLAIN } from '@/lib/site';
-import { EI_WEEKLY_IN_YEAR } from '@/lib/benefit-figures';
+import { EI_WEEKLY_IN_YEAR, EI_WAITING_CLAUSE } from '@/lib/benefit-figures';
 
 /* Minutes for a catalogue type, read rather than typed, beside fallbackFee. */
 const minutesOf = (name: string) => FALLBACK_CATALOG.items.find((i) => i.name === name)?.minutes;
@@ -18,6 +18,7 @@ const MAX_RANGE = `$${Math.min(...planMaxes).toLocaleString('en-CA')} to $${Math
 export const moreResources: Resource[] = [
   {
     slug: 'student-mental-health-supports-bc',
+    linkable: true,
     figure2: "first-session-flow",
     figure: 'therapy-cost-in-bc',
     /* RETITLED 1 Oct 2026 around the question students actually type. The
@@ -118,6 +119,7 @@ export const moreResources: Resource[] = [
 
   {
     slug: 'workplace-mental-health-bc',
+    linkable: true,
     figure2: "burnout-vs-depression",
     figure: 'reimbursement-flow',
     title: 'Stress leave in BC: how to get it, whether it is paid, and your rights at work',
@@ -226,7 +228,7 @@ export const moreResources: Resource[] = [
         h2: 'What your employer is entitled to know',
         body: [
           'This is the question that causes the most anxiety and has the clearest answer. Your employer is generally entitled to know your **functional limitations**: what you can and cannot currently do, what accommodations would help, and expected timelines. They are not entitled to your diagnosis, your treatment, your medication or your appointment content.',
-          'A well-written medical note therefore describes capacity rather than condition: "unable to work until 14 September" or "able to return to modified duties, no client-facing work, maximum six hours daily for four weeks". It should not name a condition, and a physician will usually write it that way if asked.',
+          'A well-written medical note therefore describes capacity rather than condition: "unable to work for four weeks, to be reviewed then" or "able to return to modified duties, no client-facing work, maximum six hours daily for four weeks". It should not name a condition, and a physician will usually write it that way if asked.',
           'An insurer, by contrast, will require considerably more detail, because it is assessing a claim rather than arranging accommodation. That information goes to the insurer, not to your employer, and the distinction matters, insurers are typically permitted to share only what is necessary for administering the claim.',
           'Note also that a Registered Clinical Counsellor does not diagnose, which means counselling notes generally cannot serve as the medical documentation these processes require. That usually needs a physician, nurse practitioner or psychologist. It is worth knowing before a deadline, not after.',
         ],
@@ -300,15 +302,19 @@ export const moreResources: Resource[] = [
        27-week figure the results above this page state without its source. */
     faqs: [
       { q: 'How do I get stress leave in BC?', a: 'See a physician or nurse practitioner and describe what is happening to your ability to work. If they agree, they give you a certificate saying you are unable to work and when that will be reviewed. Give it to your employer, then start the income claim the same week: your employer’s short-term disability plan if there is one, otherwise EI sickness benefits online. Your first five sick days of the year are paid by your employer once you have 90 days of service.' },
-      { q: 'Is stress leave paid in BC?', a: `Partly. The first five sick days in a calendar year are paid by your employer under the Employment Standards Act once you have 90 days of service, and three more are unpaid. After that there is no automatic pay: income comes from an employer short-term disability plan if one exists, or from EI sickness benefits at 55% of insurable earnings, to ${EI_WEEKLY_IN_YEAR}, for up to 26 weeks. WorkSafeBC pays only on an accepted claim for an injury caused by work.` },
+      /* 15 Oct 2026 (item 523): asked in searchers' words. GSC 13 Oct:
+         "mental health leave" 28 impressions at 9.64 and "paid mental health
+         leave bc" 16 at 7.69, no clicks, on a page whose first screen said
+         "stress leave" nine times and "mental health leave" never. Was "Is
+         stress leave paid in BC?", which the section heading above already
+         asks. Figures from lib/benefit-figures.ts. */
+      { q: 'Is mental health leave paid in BC?', a: `Partly, and it is the same leave as stress leave: a medical leave for a mental-health reason, paid from different places in turn. The first five sick days in a calendar year are paid by your employer under the Employment Standards Act once you have 90 days of service, and three more are unpaid. After that there is no automatic pay: income comes from an employer short-term disability plan if one exists, or from EI sickness benefits at 55% of insurable earnings, to ${EI_WEEKLY_IN_YEAR}, for up to 26 weeks, and ${EI_WAITING_CLAUSE}. The serious personal illness or injury leave of up to 27 weeks protects the job but is unpaid. WorkSafeBC pays only on an accepted claim for an injury caused by work.` },
       { q: 'How long can I take off work for mental health in BC?', a: 'A day or a few days on your Employment Standards Act sick days, with no note needed unless your employer asks for reasonably sufficient proof. For longer, as long as a physician or nurse practitioner certifies that you cannot work, usually in blocks of two to six weeks with a review before each extension. EI sickness benefits pay for up to 26 weeks; an employer disability plan sets its own length.' },
       { q: 'Can a therapist put you on stress leave?', a: 'No. In BC a physician or nurse practitioner certifies a medical leave, and for EI Service Canada also accepts a psychologist. A counsellor or therapist cannot sign a stress leave for an employer, an insurer or EI. A therapist can recommend time off, tell your doctor so if you ask, and write a letter confirming you are in treatment, which insurers sometimes want alongside the medical note.' },
-      { q: 'Can an employer deny a mental health leave?', a: 'Not a certified one, in the ordinary case. The Employment Standards Act sick days and its serious personal illness or injury leave of up to 27 weeks are job-protected, the employer may ask only for reasonably sufficient proof, and the Human Rights Code requires an employer to accommodate a mental-health disability to the point of undue hardship. An employer can ask for functional information, such as when you expect to return, but not your diagnosis. If a leave is refused or you are penalised for taking one, the Employment Standards Branch and the BC Human Rights Tribunal are the routes, and an employment lawyer is worth calling early.' },
+      { q: 'Can an employer deny a mental health leave?', a: 'Not a certified one, in the ordinary case. The Employment Standards Act sick days and its serious personal illness or injury leave of up to 27 weeks are job-protected, the employer may ask only for reasonably sufficient proof, and the Human Rights Code requires an employer to accommodate a mental-health disability to the point of undue hardship. An employer can ask for functional information, such as when you expect to return, but not your diagnosis. If a leave is refused, or you are penalised or dismissed for taking one, the Employment Standards Branch and the BC Human Rights Tribunal are the routes, and an employment lawyer is worth calling early.' },
       { q: 'Is there a 27-week stress leave in BC?', a: 'Yes. The Employment Standards Act gives up to 27 weeks of unpaid, job-protected serious personal illness or injury leave in any 52-week period, regardless of how long you have worked there, with a certificate from a doctor, nurse practitioner or other designated health professional. It is separate from the five paid and three unpaid sick days a year. Federally regulated employees, such as those at banks, airlines and telecoms, have a 27-week medical leave under the Canada Labour Code instead. Neither leave pays: EI sickness benefits, up to 26 weeks, or a disability plan provide the income.' },
       { q: 'Does WorkSafeBC pay for stress leave?', a: 'Only when work caused the injury. WorkSafeBC accepts a mental-health claim where a diagnosed condition results from a significant work-related stressor or a traumatic event at work, and it excludes conditions caused by an employer’s decisions about employment, such as workload, discipline or reorganisation. An accepted claim pays wage-loss benefits and treatment. Ordinary overload goes down the medical-leave route instead; [WorkSafeBC psychological injury claims](/resources/worksafebc-psychological-injury-claims) sets out the test.' },
       { q: 'Can I see my own counsellor while on a stay-at-work plan?', a: 'Yes. A stay-at-work plan is a workplace arrangement, and it does not choose your treatment for you. You can see a counsellor privately alongside it, booked and paid by you and claimed on your own extended health plan where it covers counselling, and the practice does not report to your employer. A good plan names who is providing the treatment, so it is worth saying who that is when the plan is written.' },
-      { q: 'Does my employer have to know my diagnosis?', a: 'Generally no. Employers are entitled to functional limitations and prognosis, not diagnosis. Ask your physician to write the note in terms of capacity rather than condition.' },
-      { q: 'Can I be fired for taking mental-health leave?', a: 'Protected leave and disability-related discrimination are covered by BC employment standards and human rights law. If you believe you have been penalised for taking leave, the Employment Standards Branch and the BC Human Rights Tribunal are the routes.' },
       { q: 'Is burnout covered by disability insurance?', a: 'Burnout is classified as an occupational phenomenon rather than a medical condition, so claims usually turn on an accompanying diagnosable condition. This is exactly why the wording of medical documentation matters.' },
     ],
     sources: [
@@ -341,6 +347,7 @@ export const moreResources: Resource[] = [
 
   {
     slug: 'verify-a-counsellor-in-bc',
+    linkable: true,
     figure2: "first-session-flow",
     figure: 'designations-bc',
     /* Retitled 6 Sep 2026. Search Console: 1,003 impressions in a month at

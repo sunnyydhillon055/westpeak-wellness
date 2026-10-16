@@ -244,20 +244,26 @@ export const moreAudiences6: Audience[] = [
     ctaFor: 'for trades and construction workers',
     figure: 'anxiety-avoidance-cycle',
     figure2: 'bc-reach',
-    title: 'Counselling for trades and construction workers in BC',
-    metaTitle: 'Counselling for Trades Workers in BC | Westpeak Wellness',
+    /* 15 Oct 2026 (item 525): titled in the searcher's word. GSC 13 Oct:
+       "counselling for tradespeople" 8 impressions at 5.62, no clicks; the
+       page 33 at 13.3, no clicks, under "Trades Workers". The description,
+       short answer, opening and mid CTA no longer promise "after the shift"
+       or "around the shift": the calendar holds what it holds, and
+       scripts/voice-audit.mjs now fails on either phrase. */
+    title: 'Counselling for tradespeople and construction workers in BC',
+    metaTitle: 'Counselling for Tradespeople and Construction Workers in BC',
     metaDescription:
-      'Counselling for BC tradespeople and construction workers, online after the shift. Pain, injury, drinking, and a body that is the paycheque.',
+      'Counselling for BC tradespeople and construction workers, online by secure video. Pain, injury, drinking, and a body that is the paycheque.',
     eyebrow: 'For · Trades and construction',
     lede:
       'The site runs on the idea that everyone is fine. The numbers for the industry say otherwise, and most of the people in them never told anyone.',
     shortAnswer:
-      'Counselling for tradespeople and construction workers in BC, online by secure video, booked around the shift, with a Registered Clinical Counsellor. The recurring material is specific: a body that is the paycheque and is wearing out, chronic pain and what gets taken for it, drinking that the crew treats as normal, the boom-and-bust of contract work, being away on camp jobs, and a culture where saying anything is a risk. Extended health through a union or employer commonly reimburses; sessions leave no trace on a site.',
+      'Counselling for tradespeople and construction workers in BC, online by secure video, booked from the times the counsellor has open, with a Registered Clinical Counsellor. The recurring material is specific: a body that is the paycheque and is wearing out, chronic pain and what gets taken for it, drinking that the crew treats as normal, the boom-and-bust of contract work, being away on camp jobs, and a culture where saying anything is a risk. Many union and employer extended health plans reimburse a Registered Clinical Counsellor, depending on the plan; sessions leave no trace on a site.',
     updated: '2026-09-25',
     readMinutes: 6,
     opening: [
       'Construction in Canada has among the highest rates of suicide of any industry, and the sector knows it: the BC Construction Safety Alliance and industry programs across the province now run mental-health training on the same footing as fall protection. The reasons are not mysterious. A workforce that is mostly men, physically worn, often in pain, paid by the contract, away from home for stretches, and steeped in a culture where the correct answer to "how are you" is "good".',
-      'Counselling does not ask you to change the culture. It asks what the job is costing you specifically, and what you want to do about that part. Sessions are by video after the shift, from the truck if that is where the privacy is, and nothing about them reaches a foreman, a union, or a WorkSafeBC file without your written consent.',
+      'Counselling does not ask you to change the culture. It asks what the job is costing you specifically, and what you want to do about that part. Sessions are by video, from the truck if that is where the privacy is, and nothing about them reaches a foreman, a union, or a WorkSafeBC file without your written consent.',
       'The counsellors here work in English and Punjabi, which in the Lower Mainland trades is not a small thing.',
     ],
     whatComesUp: [
@@ -279,7 +285,7 @@ export const moreAudiences6: Audience[] = [
       {
         h2: 'Paying, and who knows',
         body: [
-          'Union and employer extended health plans in the BC trades commonly reimburse a Registered Clinical Counsellor; the [coverage page](/resources/bc-extended-health-coverage-for-counselling) has the two questions to ask, and a benefits office will answer them without asking why. Where an injury has an accepted WorkSafeBC claim, treatment for its psychological aftermath can be covered under the claim. Paying privately is also an option, and [fees are published in full](/pricing).',
+          'Many union and employer extended health plans reimburse a Registered Clinical Counsellor, depending on the plan; the [coverage page](/resources/bc-extended-health-coverage-for-counselling) has the two questions to ask, and a benefits office will answer them without asking why. Where an injury has an accepted WorkSafeBC claim, treatment for its psychological aftermath can be covered under the claim. Paying privately is also an option, and [fees are published in full](/pricing).',
           'Nothing said in a session reaches an employer, a union, a foreman or an insurer without your written consent. Attending counselling is not reported anywhere. The limits of confidentiality are the ordinary legal ones and are explained before you say anything.',
         ],
       },
@@ -290,7 +296,7 @@ export const moreAudiences6: Audience[] = [
       { href: '/services/punjabi-counselling', label: 'Counselling in Punjabi', why: 'For the Lower Mainland crews where Punjabi is the language of the site.' },
     ],
     midCta: {
-      text: 'Fifteen free minutes, by video, after the shift. No forms, no waiting room.',
+      text: 'Fifteen free minutes, by video. No forms, no waiting room.',
       label: 'Book a free consultation',
     },
     faqs: [

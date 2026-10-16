@@ -1761,3 +1761,134 @@ request the calculator and the stress-leave answer page once more.
    one-off nudge, not a routine.
 6. A week later, **Search Performance** shows whether Bing is showing the
    pages; note the date in DECISIONS.md's open list.
+
+## 21. Student health plans — seven correction requests for the BC plan table
+
+The student resource
+(https://www.westpeakwellness.com/resources/student-mental-health-supports-bc)
+carries a table of what seven BC student-society health plans pay for a
+Registered Clinical Counsellor: the share of each visit, the yearly
+maximum, whether the plan names an RCC, the referral rule, the plan page it
+was read from and the date it was read (all 1 Oct 2026, from
+`lib/student-plans.ts`). Since 15 Oct 2026 the page also says it is free to
+link and gives a citation line. These drafts ask each plan's own contact
+route to tell us when the table goes out of date. They ask for a
+correction, not a link, and offer nothing in return.
+
+How to send them:
+
+- One at a time, from info@westpeakwellness.com, through the route given.
+  Each plan page links a "Contact Us" page on its own alumo.ca address,
+  which opens the plan administrator's (Studentcare's) support form for
+  that society; the SFSS page also links the form at
+  contact.studentcare.ca/en/contact/82. If the form asks for a student
+  number, stop: the request is not from a student, and it goes to the
+  society's own office instead, through the contact page on the society's
+  main website.
+- Start with SFSS, then UBC AMS/GSS, UVSS, Langara, KSA and Douglas.
+- Coverage is said as the plan page says it, and every plan as
+  "depending on the plan". No outcome claims, no counsellor named, no fee.
+- The student counselling page for the same readers is
+  https://www.westpeakwellness.com/for/university-students. Mention it
+  once, as below, and only as where the table also appears.
+
+**Before sending, re-read two rows.** A read of the plan pages on 15 Oct
+2026 summarised two of them differently from the table: the Langara page
+was summarised as paying "reasonable and customary fees" up to $500 rather
+than 100% of each visit, and the KSA page's list as naming "registered
+counsellor" and "licensed counsellor" rather than "registered clinical
+counsellor". Open both pages yourself; if the table is wrong, correct
+`lib/student-plans.ts` (and its `checkedOn`) before sending, so the email
+does not ask a society to check a number we already know is stale.
+
+The shared body, after each plan's opening line:
+
+> The table lists, for your plan, the share of each visit, the yearly
+> maximum (shared with psychologists and social workers), whether the plan
+> names a Registered Clinical Counsellor and the referral rule, each read
+> from your plan page on 1 October 2026, with the link and the date beside
+> it. Students use it to work out what a counselling session would cost
+> them before they book anywhere, on or off campus. Coverage always
+> depends on the plan, and the table says so.
+>
+> We re-read every row at least once a year. If your plan changes before
+> then, or if anything in the row is wrong now, a short reply to
+> info@westpeakwellness.com is all it takes and we will correct it. The
+> same table appears on our page for university and college students,
+> https://www.westpeakwellness.com/for/university-students.
+>
+> Thank you,
+> Westpeak Wellness
+
+**21.1 SFSS Enhanced and SFSS Basic (Simon Fraser University)** — plan page: https://sfss.alumo.ca/health — route: the page's Contact Us, or contact.studentcare.ca/en/contact/82.
+
+> **Subject:** Your plan in our BC student health-plan table: please tell us if it changes
+>
+> Hello,
+>
+> Our table of BC student health plans lists both SFSS plans as read from https://sfss.alumo.ca/health on 1 October 2026: Enhanced at 90% of each visit to $750 a policy year, Basic at $30 of each visit to $650, both naming the Registered Clinical Counsellor:
+> https://www.westpeakwellness.com/resources/student-mental-health-supports-bc
+>
+> [shared body]
+
+**21.2 UBC AMS/GSS (University of British Columbia, Vancouver)** — plan page: https://ubc-ams-gss.alumo.ca/health — route: the page's Contact Us.
+
+> **Subject:** The AMS/GSS plan in our BC student health-plan table
+>
+> Hello,
+>
+> Our table of BC student health plans lists the AMS/GSS plan as read from https://ubc-ams-gss.alumo.ca/health on 1 October 2026: 100% of each visit to a mental health practitioner, to $1,250 a policy year, naming the Registered Clinical Counsellor:
+> https://www.westpeakwellness.com/resources/student-mental-health-supports-bc
+>
+> [shared body]
+
+**21.3 UVSS (University of Victoria)** — plan page: https://uvss.alumo.ca/health — route: the page's Contact Us.
+
+> **Subject:** The UVSS plan in our BC student health-plan table
+>
+> Hello,
+>
+> Our table of BC student health plans lists the UVSS plan as read from https://uvss.alumo.ca/health on 1 October 2026: 70% of each visit, to a combined $800 a policy year, naming the Registered Clinical Counsellor, with no referral stated for mental-health practitioners:
+> https://www.westpeakwellness.com/resources/student-mental-health-supports-bc
+>
+> [shared body]
+
+**21.4 Langara Students' Union (Langara College)** — plan page: https://lsu.alumo.ca/health — route: the page's Contact Us. Re-read the row first (see above).
+
+> **Subject:** The Langara Students' Union plan in our BC student health-plan table
+>
+> Hello,
+>
+> Our table of BC student health plans lists the Langara Students' Union plan as read from https://lsu.alumo.ca/health, to $500 a policy year combined, naming the Registered Clinical Counsellor:
+> https://www.westpeakwellness.com/resources/student-mental-health-supports-bc
+>
+> [shared body, with the date the row was last read]
+
+**21.5 Kwantlen Student Association (Kwantlen Polytechnic University)** — plan page: https://ksa.alumo.ca/health-coverage — route: the page's Contact Us. Re-read the row first (see above).
+
+> **Subject:** The KSA plan in our BC student health-plan table
+>
+> Hello,
+>
+> Our table of BC student health plans lists the KSA plan as read from https://ksa.alumo.ca/health-coverage: 80% of each visit, to a combined $500 a benefit year:
+> https://www.westpeakwellness.com/resources/student-mental-health-supports-bc
+>
+> [shared body, with the date the row was last read]
+
+**21.6 Douglas Students' Union (Douglas College)** — plan page: https://douglas-dsu.alumo.ca/health-coverage — route: the page's Contact Us.
+
+> **Subject:** The Douglas Students' Union plan in our BC student health-plan table
+>
+> Hello,
+>
+> Our table of BC student health plans lists the DSU plan as read from https://douglas-dsu.alumo.ca/health-coverage on 1 October 2026: 80% of each visit, to a combined $450 for 1 September 2026 to 31 August 2027. The page says "counsellor" without naming the Registered Clinical Counsellor, so the table tells students to confirm with the plan before booking an RCC. If the plan does include RCCs, that is the line we would most like to get right:
+> https://www.westpeakwellness.com/resources/student-mental-health-supports-bc
+>
+> [shared body]
+
+SFSS's two plans share one page and one email (21.1), which is why seven
+plans make six emails.
+
+What to watch afterwards: a reply goes into `lib/student-plans.ts` the same
+day, with a new `checkedOn`, and the student pages pick it up at the next
+deploy. Note each send and reply in DECISIONS.md's open list.

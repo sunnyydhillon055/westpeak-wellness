@@ -220,7 +220,9 @@ test('#232 any guide whose first service link is couples, EMDR or family declare
 
 test('#232 a guide or comparison with a service books someone who offers it', () => {
   const withService = [...guides, ...comparisons].filter((x) => x.service);
-  assert.ok(withService.length >= 10, `only ${withService.length} pages declare a service`);
+  /* 9 since 15 Oct 2026 (item 522): setting-boundaries-with-family is
+     individual work and no longer declares family-counselling. */
+  assert.ok(withService.length >= 9, `only ${withService.length} pages declare a service`);
   for (const x of withService) {
     const t = bookingFor(x.service, (x as { language?: string }).language);
     if (t.slug) {
