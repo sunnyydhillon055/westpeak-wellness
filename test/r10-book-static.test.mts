@@ -64,7 +64,7 @@ test('the year-end page turns into the reset piece in the data, not the template
   for (const field of ['title', 'metaTitle', 'lede', 'shortAnswer']) {
     assert.match(s, new RegExp(`${field}: YE_RESET \\? RESET_COPY\\.${field} :`), field);
   }
-  assert.match(s, /YE_RESET \? RESET_COPY\.first : \{\n\s+h2: 'The date of the session decides the year'/);
+  assert.match(s, /YE_RESET \? RESET_COPY\.first : \{\s+h2: 'The date of the session decides the year'/);
   assert.doesNotMatch(src('app/resources/[slug]/page.tsx'), /YE_RESET|RESET_COPY|planReset/, 'the template is untouched');
 });
 
