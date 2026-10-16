@@ -30,7 +30,7 @@ import { bookHrefFor } from '@/lib/city-service-page';
 import CounsellorCompare from '@/components/CounsellorCompare';
 import FirstSessionRow from '@/components/FirstSessionRow';
 import { firstSessionNote, firstSessionOffers } from '@/lib/first-session';
-import { profileSnippet, withSnippet } from '@/lib/snippet-facts';
+import { profileDescription } from '@/lib/snippet-facts';
 import { closedProfileDescription } from '@/lib/closed-profile-snippet';
 
 export function generateStaticParams() {
@@ -54,8 +54,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   /* Not taking new clients: the description says so and names the accepting
      colleague who shares her language (lib/closed-profile-snippet.ts, 3 Oct
      2026). It used to read as available. */
+  /* 15 Oct 2026 (item 524): what she works with now stays beside the fee.
+     The lead above never fitted with it, so withSnippet fell back to the
+     first sentence and both descriptions read as fee only. profileDescription
+     shortens the focus from the end instead (lib/snippet-facts.ts). */
   const description = p.acceptingNewClients
-    ? withSnippet(lead, profileSnippet(await readCatalog(), p))
+    ? profileDescription(await readCatalog(), p, lead)
     : closedProfileDescription(lead, p, practitioners);
   /* The profile's own language twin, declared both ways — the twin already
      points back here. Found 7 Sep 2026 by scripts/roster-compare.mjs: every

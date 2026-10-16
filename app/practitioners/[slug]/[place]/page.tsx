@@ -109,7 +109,7 @@ const hasPunjabiPage = (p: Practitioner) =>
 const isLang = (p: Practitioner, place: string) =>
   (place === 'tl' && p.languages.some((l) => l.tag === 'tl')) || (place === 'pa' && hasPunjabiPage(p));
 
-export function generateMetadata({ params }: { params: Params }): Metadata {
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const p = getPractitioner(params.slug);
   if (!p) return {};
 
@@ -164,7 +164,8 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
      to stay inside the 158 the SEO gate enforces, so a long city name cannot
      push it over. The work clause comes from her services and focus since
      2 Oct 2026; see placeDescription. */
-  const description = placeDescription(p, loc.city);
+  /* With her fee from the catalogue since 15 Oct 2026 (item 533). */
+  const description = placeDescription(p, loc.city, await readCatalog());
   return {
     title: { absolute: title },
     description,
