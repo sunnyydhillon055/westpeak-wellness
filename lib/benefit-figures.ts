@@ -72,6 +72,12 @@ export const EI_SICKNESS_MAX: Record<number, WeeklyBenefitMax> = {
   2027: { weekly: 749, maxInsurableEarnings: 70800, sourceUrl: EI_SICKNESS_SOURCE, readOn: '2026-10-02' },
 };
 
+/** The Pacific "MM-DD" on which eiSicknessMax() moves to the next year's
+ *  entry. The pages only move with a build, so this day is in GATE_DATES
+ *  (lib/seasonal.ts) and the rebuild workflow has a line for it; the test in
+ *  test/gate-dates.test.mts reads it from here. */
+export const EI_YEAR_SWITCH = '01-01';
+
 /** The calendar year in British Columbia at `now`. */
 export function pacificYear(now: Date = new Date()): number {
   return Number(new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Vancouver', year: 'numeric' }).format(now));

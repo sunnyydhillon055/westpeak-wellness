@@ -164,6 +164,10 @@ export default async function ResourcePage({ params }: { params: { slug: string 
   ].filter(Boolean);
   const articleSections = [...r.sections, ...getExtra('resources', r.slug)];
   const slots = deviceSlots(articleSections, midDevices.length);
+  /* A resource can pin its booking line after a named section (item 548). */
+  const ctaAt = r.midCtaAfter ? articleSections.findIndex((s) => s.h2 === r.midCtaAfter) : -1;
+  const ctaK = midDevices.findIndex((d) => d?.key === 'cta');
+  if (ctaAt >= 0 && ctaK >= 0) slots[ctaK] = ctaAt;
 
   const schema = [
     {

@@ -39,6 +39,15 @@ export type Guide = {
      1 Oct 2026. */
   service?: 'couples-therapy' | 'emdr-therapy' | 'family-counselling';
 
+  /* A section that is only true for part of the year, shown after the first
+     section and named in the contents list while the Pacific date is inside
+     [from, to] ("MM-DD", inclusive; lib/seasonal.ts activeSeasonal), the
+     same shape and placement as Resource.seasonal. Guides are static, so it
+     appears and goes with a build: both boundaries belong in GATE_DATES
+     (lib/seasonal.ts), and test/gate-dates.test.mts fails if they are not.
+     15 Oct 2026 (item 512). */
+  seasonal?: { from: string; to: string; h2: string; body: string[] };
+
   /* Written, not yet cleared to publish.
    *
    * Clinical content on this site does not go live on the strength of being

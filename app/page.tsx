@@ -28,6 +28,7 @@ import { whoSentence, onlyWithSentence, alsoOffers, feeSentence, ownWords, orLis
 import type { Metadata } from 'next';
 import { offeringLanguages, practiceSnippet, withSnippet } from '@/lib/snippet-facts';
 import { counsellorsFor } from '@/lib/city-service-page';
+import SeasonalShelf from '@/components/SeasonalShelf';
 
 /* THE HOME PAGE'S OWN DESCRIPTION — 3 Oct 2026 (item 412). It inherited the
    site-wide fallback, with no consultation, no fee and no names, while home
@@ -605,6 +606,8 @@ export default function Home() {
                 <p className="route-k">Someone died, or something ended</p>
                 <p><Link href="/guides/grief-without-a-timeline">Grief without a timeline</Link></p>
               </div>
+              {/* In season only (lib/seasonal.ts SEASONAL_SHELF, item 538). */}
+              <SeasonalShelf variant="cell" />
             </div>
           </Reveal>
         </div>

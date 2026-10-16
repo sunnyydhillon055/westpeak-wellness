@@ -32,6 +32,7 @@ import NextStep from '@/components/NextStep';
 import { counsellorsForInfoPage, feeLineFor, infoCardCopy, showsInfoCards } from '@/lib/counsellor-cards';
 import { GENTLE_CTA, softStepsFor } from '@/lib/next-steps';
 import { readCatalog } from '@/lib/cliniko-catalog';
+import { activeSeasonal } from '@/lib/seasonal';
 
 /* GENTLE_CTA, the guides where "Still deciding? Book a free consultation!"
    is the wrong note, lives in lib/next-steps.ts since 1 Oct 2026, so the
@@ -149,8 +150,12 @@ export default async function GuidePage({ params }: { params: { slug: string } }
     : next ? consultPeople({ service: g.service }) : [];
   const heroCta = heroBookingCta(cta, heroPeople);
 
+  /* The dated section, when in season (Guide.seasonal, item 512), renders
+     after the first section and the contents list names it there, as on
+     the resources. The page is static, so the date is the build's. */
+  const seasonal = activeSeasonal(g.seasonal);
   const toc = buildToc([
-    ...g.sections.map((s) => s.h2),
+    ...g.sections.flatMap((s, i) => (i === 0 && seasonal ? [s.h2, seasonal.h2] : [s.h2])),
     ...getExtra('guides', g.slug).map((s) => s.h2),
     'Common questions', 'Sources',
   ]);
@@ -294,6 +299,13 @@ export default async function GuidePage({ params }: { params: { slug: string } }
               )}
 
               {midDevices.filter((_, k) => slots[k] === i)}
+
+              {i === 0 && seasonal && (
+                <div className="crisis" style={{ margin: '8px 0 36px' }}>
+                  <h2 id={headingId(seasonal.h2)} style={{ marginTop: 0 }}>{seasonal.h2}</h2>
+                  <Paragraphs items={seasonal.body} />
+                </div>
+              )}
             </div>
           ))}
 

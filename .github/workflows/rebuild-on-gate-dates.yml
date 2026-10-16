@@ -3,30 +3,84 @@
 # WHY, 13 OCT 2026. Content pages are static, so anything decided by today's
 # date is decided when the site is built. Camille Granda's Alberta pages, the
 # "BC and Alberta" wording on the Tagalog service page and the Alberta booking
-# path close on 15 Oct 2026 unless her insurance renewal is recorded
+# path closed on 15 Oct 2026 unless her insurance renewal was recorded
 # (lib/practitioners.ts, lib/resources-alberta.ts ALBERTA_OPEN). Without a
-# build that day, production would keep offering Alberta until the next
+# build that day, production would have kept offering Alberta until the next
 # unrelated push.
 #
-# HOW. At 07:20 UTC (00:20 Pacific) on each listed date this pushes one empty
-# commit to main; Vercel deploys every push to main, and the build reads the
-# new date. If the renewal has been recorded by then, the rebuild changes
-# nothing. Add a line to `on.schedule` for any future gate date.
+# EVERY SEASONAL BOUNDARY, SINCE 15 OCT 2026 (item 511). The same is true of
+# every window in lib/seasonal.ts: the year-end benefits page, its "31
+# December" lines and its title year, the EI figure that changes on 1 January
+# (lib/benefit-figures.ts), the winter guide's time-change section and the
+# "This season" shelf on /guides and the homepage. GATE_DATES in
+# lib/seasonal.ts lists each day one of them opens or closes, and
+# test/gate-dates.test.mts fails when a gate has no line below, or a line
+# below has no gate. Add the window first; the test then names the missing
+# line.
+#
+# WHY 09:20 UTC. That is 01:20 or 02:20 in British Columbia whether the
+# runner's tz data puts Vancouver on UTC-8 (old data) or UTC-7 (Pacific time
+# since 1 Nov 2026), so the Pacific date is the gate date either way. 07:20
+# UTC would be 23:20 the evening before on UTC-8. The test checks the hour.
+#
+# HOW, SINCE 15 OCT 2026. It used to push an empty commit. A push made with
+# GITHUB_TOKEN starts no other workflow, so indexnow-on-deploy never ran, and
+# an empty commit moves no page hash, so the date-flipped pages were never
+# sent to IndexNow and the next human push failed `hashes:check` until
+# somebody rehashed by hand (47327bb, 5a4fe55). Now the job builds, runs
+# `npm run hashes`, commits data/page-hashes.json and lib/url-dates.ts, pushes
+# (Vercel deploys every push to main), waits for the deploy and sends the
+# pages whose hash moved. A gate that changed no page's content still pushes
+# an empty commit, so the rebuild happens, and IndexNow is sent nothing.
 name: rebuild-on-gate-dates
 on:
   schedule:
-    - cron: '20 7 15 10 *'
+    - cron: '20 9 1 1 *'
+    - cron: '20 9 1 2 *'
+    - cron: '20 9 16 2 *'
+    - cron: '20 9 1 3 *'
+    - cron: '20 9 1 10 *'
+    - cron: '20 9 10 10 *'
+    - cron: '20 9 15 10 *'
+    - cron: '20 9 20 10 *'
   workflow_dispatch:
 permissions:
   contents: write
+concurrency:
+  group: rebuild-on-gate-dates
+  cancel-in-progress: false
 jobs:
   rebuild:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
-      - name: Push an empty commit so Vercel rebuilds
+        with:
+          # HEAD~1 has to be here for the IndexNow diff.
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      # Built exactly as verify.yml builds, with no secrets, which is the
+      # build the committed hash record is checked against.
+      - name: Build
+        run: npm run build
+      - name: Rehash the pages the new date changed
+        run: npm run hashes
+      - name: Commit the record and push, so Vercel rebuilds
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit --allow-empty -m "Rebuild for date-gated pages ($(date -u +%F))"
+          git add data/page-hashes.json lib/url-dates.ts
+          if git diff --cached --quiet; then
+            git commit --allow-empty -m "Rebuild for date-gated pages ($(date -u +%F)); no page content moved"
+          else
+            git commit -m "Rehash pages for the date gate of $(date -u +%F)"
+          fi
           git push origin HEAD:main
+      - name: Wait for the Vercel deploy
+        run: sleep 150
+      - name: Submit the changed URLs to IndexNow
+        run: node --experimental-strip-types scripts/indexnow-deploy.mjs --from "$(git rev-parse HEAD~1)" --to "$(git rev-parse HEAD)"

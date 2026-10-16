@@ -390,8 +390,9 @@ test('online coverage is answered once, plan-dependent, wherever it is asked', (
     assert.match(src, /ONLINE_COVERAGE/, f);
   }
   const page = getResource('does-my-plan-cover-counselling-bc')!;
-  const sec = page.sections.find((s) => s.h2 === 'Is online counselling covered the same as in person?')!;
-  assert.equal(sec.body![0], ONLINE_COVERAGE);
+  /* 15 Oct 2026 (item 548): answered once, in the FAQ and the table row;
+     the H2 that repeated both is gone. */
+  assert.ok(!page.sections.some((s) => s.h2 === 'Is online counselling covered the same as in person?'));
   assert.equal(page.faqs.find((f) => f.q === 'Is online counselling covered the same as in person?')!.a, ONLINE_COVERAGE);
   assert.ok(page.sections.some((s) => s.table?.rows.some((row) => /Virtual sessions/.test(row[0]))));
   for (const home of ['https://www.pac.bluecross.ca/', 'https://www.sunlife.ca/', 'https://www.manulife.ca/', 'https://www.canadalife.com/']) {
