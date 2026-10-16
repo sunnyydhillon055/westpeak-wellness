@@ -3724,6 +3724,76 @@ The site renders light on every device (color-scheme: light; dark was removed, s
 
 *Enforced by:* `scripts/palette-guard.mjs` (SVG colours), `scripts/perf-budget.mjs`, `scripts/a11y-audit.mjs`, `scripts/inline-css.mjs --check`.
 
+---
+
+### Layout JS loses 6.3 KB, and a booking's companion counts travel in one request (15 Oct 2026)
+Decided 15 Oct 2026 (branch `wf/r10-layout-js-and-beacons`, items 539 and 506).
+
+**539, layout JS.**
+- `next.config.mjs` has an `env` block that inlines VERCEL_ENV, VERCEL_PROJECT_PRODUCTION_URL, NEXT_PUBLIC_SITE_URL, NEXT_PUBLIC_PHONE and NEXT_PUBLIC_CLINIKO_URL at build, with '' when unset. Rule: any new client-reachable `process.env` read must be added there, or the `process` polyfill ships again. `scripts/bundle-composition.mjs` fails on its fingerprint, 'setTimeout has not been defined'.
+- ConsentGate loads GA with a plain `import()` after consent, not next/dynamic.
+- Header takes the brand mark as a prop that the layout renders on the server.
+- `components/Footer.tsx` must not import lucide-react; its v1 Icon is 'use client'. The footer icons are server SVG with lucide's paths.
+- StickyBook reads the consult slot through `loadAvailability`, so a page makes one /api/availability request, not two.
+- Layout JS went from 357,448 B to 351,151 B on the branch; the integration build of batch 1 measured 351,331 B. `data/perf-budget.json` is unchanged: the build is still above the 350,474 B baseline, so lowering the baseline would fail the gate. A follow-up (moving `loadAvailability` into an import-free module) would free about 2.2 KB more, and the baseline can be lowered after that.
+- The `env` block also fixes VERCEL_ENV in server code at build, so a preview build promoted without a rebuild would keep `isPreview` true. Vercel rebuilds on promote.
+
+**506, beacons.** An event's companions (book_click with click_from; scheduler_booked with booked_from and booked_via) are sent inside the event's own /api/track request as `also`, and applied in one casUpdate so they cannot race on weak ETags. Only those pairs are accepted, each once, at most four entries read, each detail checked by `acceptedDetail`. The three companion events stay on COUNTED so pages still running old JS keep counting. /admin's '/book, stage by stage' list shows Cliniko's booking tally from 2026-10 beside the bookings the embed and the portal confirmed, with the difference.
+
+No noindex, redirect or consolidation.
+
+*Enforced by:* `scripts/bundle-composition.mjs`, `scripts/perf-budget.mjs`, `test/booking-beacons.test.mts`.
+
+### /book and /contact are prerendered; the query string is read in the browser (15 Oct 2026)
+Decided 15 Oct 2026 (branch `wf/r10-book-static-images`, items 514, 542, 513).
+
+**514.** /book and /contact used to render per request: /book read ?with=, ?for= and ?sent= and Cliniko on the server, and /contact read ?sent=. Production served both `private, no-cache, no-store` with 5 and 3 render-blocking stylesheet links and no inlined CSS. Both are now static.
+- Everything on /book that depends on the address lives in `components/BookChoice.tsx`, a client island fed plain data by `app/book/page.tsx`. It never imports the roster, the catalogue or lib/practitioners, and it reads nothing from lib/site except `site`, because lib/site is in the layout chunk.
+- The island reads the address with useSearchParams in a child under its own Suspense. Until the address is read, the calendar box is drawn closed and inert (`SchedulerEmbedView pending`).
+- The Cliniko lines come from /api/availability through `loadAvailability`.
+- Fees, who is accepting, insured provinces and the measured reply line are fixed at build, so a change to any of them shows with the next build.
+- /contact's acknowledgement comes from `components/SentInboundForm.tsx`.
+- `scripts/inline-css.mjs --check` now fails on any sitemap URL with no prerendered document. `ALLOW_PER_REQUEST` names exceptions with a reason; only /refer is listed (it reads ?lead=). /book and /contact may never be added to it.
+
+**542.** next/image is not imported anywhere under app/ or components/.
+- Use `components/ui/Img.tsx` (same props, server-rendered) or `imgProps()` from `lib/img-props.ts` for a client island.
+- Do not use `getImageProps` from next/image: that module requires the client image component, so the chunk ships anyway.
+
+**513.** January windows:
+- `PLAN_RESET_PAGE_WINDOW` (1 Jan to 15 Feb) gates the /pricing, /book and CoverageLine line.
+- `PLAN_RESET_MAIL_WINDOW` (5 Jan to 15 Feb) gates the drafts and nurture email 3, through `seasonalMailParagraph`. This adds no send and no audience.
+- The text is `PLAN_RESET_LINE`, which is plan-dependent and names no insurer.
+- On a build inside the page window, /resources/counselling-benefits-before-year-end-bc gets its January title, description, lede, short answer and first section from the data (`lib/resources-more2.ts`). This is the 1 Oct decision carried out, not a re-title.
+- `SEASONAL_WINDOWS` lists every window for GATE_DATES.
+
+*Enforced by:* `test/r10-book-static.test.mts`, `scripts/inline-css.mjs --check`, `scripts/metadata-audit.mjs`.
+
+### City-service snippets lead with the query, and local scarcity wording is retired (15 Oct 2026)
+Decided 15 Oct 2026 (branch `wf/r10-city-scarcity-snippets`, items 508, 532, 534, 544, 526).
+
+- City-service meta descriptions open "Online {service} for {City}" (with ", by secure video" when it fits). They then carry one whole sentence: the pair's angle first sentence, or a short per-pair `snippet` in `lib/city-services.ts` that restates it. They are never cut with an ellipsis. Titles are unchanged.
+- Local-scarcity wording ("does not have", "absent", "not represented", "fill up", "handful", "only realistic route", "thinnest", "scarcest") is replaced by "openings vary" with a pointer to the BCACC directory. `test/city-scarcity-snippets.test.mts` gates that pattern over every city-service description, angle, body, FAQ and city context.
+- "Licensed to see clients" becomes "registered", because BC has no licensed counsellor.
+- The direct-answer sentence on city and city-service pages names the counsellors who offer the service (`withLetters`, CONSULT_MINUTES).
+- The winter guide is linked from five depression city pages and individual therapy. Chilliwack's depression page has no winter or daylight sentence, so it was not given one.
+- When an angle's first sentence becomes short enough to fit, its `snippet` must be deleted; the test fails otherwise.
+
+No noindex, redirect or consolidation.
+
+*Enforced by:* `test/city-scarcity-snippets.test.mts`, `test/city-dedup-oct3.test.mts`.
+
+### Calculator figures, four more linkable resources, and the Alberta page stops selling while its gate is shut (15 Oct 2026)
+Decided 15 Oct 2026 (branch `wf/r10-content-linkable-coverage`, items 510, 522, 523, 525, 529, 540, 549). Nothing was set to noindex or redirected, and no page was consolidated.
+
+- **510.** The stress-leave calculator gains `#figures`, a dated table of every figure it uses. Values come only from `lib/benefit-figures.ts` and `lib/leave-pay.ts`, and sources and read dates only from the page's SOURCES. Six government pages were re-read on 15 Oct 2026, plus the CRA MIE table, which was added as a source. A 'Using and citing' block gives free-to-link and quote-with-attribution terms and a citation ending `#figures`. No schema was added and no new client module.
+- **529/540.** Linkable now covers 8 resources: verify-a-counsellor-in-bc, workplace-mental-health-bc, counselling-in-punjabi-what-the-words-mean and student-mental-health-supports-bc were added. OUTREACH §21 holds the student-plan correction drafts; the owner sends them.
+- **549.** Rule: while ALBERTA_OPEN is false, an Alberta resource may set `routesCloser`, which replaces the fee line and booking band with the routes the page sources and one small BC booking link. The coverage page also drops the balance arithmetic and the reimbursement figure, and moves its free routes up. All of it reverts automatically when the gate reopens.
+- **522.** The family-boundaries guide declares no service, which means individual work for both counsellors. The #232 guard is lowered from 10 to 9 declared services.
+- **523.** The cluster map was removed from the stress-leave page. Its FAQs are folded, and 'Is mental health leave paid in BC?' replaces 'Is stress leave paid in BC?'. The line under the short answer waits for the next GSC export.
+- **525.** The trades title is now 'Counselling for Tradespeople and Construction Workers in BC'. voice-audit fails on 'after the shift' or 'around the shift' except in 'after the shift ends'.
+
+*Enforced by:* `test/r10-linkable-coverage.test.mts`, `scripts/voice-audit.mjs`.
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`
