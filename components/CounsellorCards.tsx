@@ -4,6 +4,7 @@ import BookLink from '@/components/BookLink';
 import { withLetters, type Practitioner } from '@/lib/practitioners';
 import { listOf, languagesOf, profileHrefFor, bookHrefFor } from '@/lib/city-service-page';
 import type { CounsellorCardLocation } from '@/lib/counsellor-cards';
+import { cardFocusLine } from '@/lib/card-focus';
 
 /* WHO YOU WOULD SEE — one block, four templates. 1 Oct 2026.
  *
@@ -81,7 +82,8 @@ export default function CounsellorCards({
                   <div>
                     <h3 style={{ margin: '0 0 2px', fontSize: '1.15rem' }}>{withLetters(p)}</h3>
                     <p style={{ margin: 0, color: 'var(--ink-soft)', fontSize: '.92rem' }}>
-                      {listOf(languagesOf(p), 'and')} · {p.focus.slice(0, 3).map((f) => f.label).join(', ')}
+                      {/* The page's service first when she offers it (lib/card-focus.ts). */}
+                      {listOf(languagesOf(p), 'and')} · {cardFocusLine(p, service).join(', ')}
                     </p>
                   </div>
                 </div>

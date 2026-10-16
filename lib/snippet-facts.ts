@@ -1,5 +1,6 @@
 import type { Catalog } from '@/lib/cliniko-catalog';
-import type { Practitioner } from '@/lib/practitioners';
+import { withLetters, type Practitioner } from '@/lib/practitioners';
+import { OFFERINGS } from '@/lib/practitioner-facts';
 import { counsellorsFor, feeFor, languagePhrase, listOf, type Fee } from '@/lib/city-service-page';
 
 /* WHAT A SEARCH RESULT SAYS BEFORE ANYONE CLICKS — 1 Oct 2026.
@@ -177,4 +178,82 @@ export function namedProfileSnippet(catalog: Catalog, p: Practitioner, letters?:
   const facts = profileSnippet(catalog, p);
   if (!facts) return undefined;
   return `${p.name}${letters ? `, ${letters}` : ''}: ${facts.charAt(0).toLowerCase()}${facts.slice(1)}`;
+}
+
+/* WHAT SHE WORKS WITH, BESIDE THE FEE — 15 Oct 2026 (item 524).
+ *
+ * The profile lead ran the full focus list after the languages, so it never
+ * fitted beside the fee and withSnippet fell back to the first sentence: both
+ * live descriptions said who, where and what it costs, and neither said what
+ * she treats (Savneet 23 impressions at 6.1, Camille 21 at 6.2, Search
+ * Console 13 Oct). Now the lead is built in shrinking versions and the first
+ * one that fits beside the fee is used, so the focus is shortened from the
+ * end before anything else gives way.
+ *
+ * The work named is hers alone: the practice's services she offers that the
+ * catalogue prices (OFFERINGS, so EMDR and couples for Camille, nothing extra
+ * for Savneet), then the first words of her own focus labels. Nothing is
+ * typed per counsellor. */
+const topicOf = (label: string) => label.split(/,| and /)[0]!.trim().toLowerCase();
+
+export function profileLeads(catalog: Catalog, p: Practitioner): string[] {
+  const reach = p.reach === 'canada' ? 'anywhere in Canada' : 'across BC';
+  const langs = p.languages.map((l) => l.name).join(' or ');
+  const who = withLetters(p);
+  /* "EMDR" leads; a "… counselling" label goes last and shares the noun. */
+  const offered = OFFERINGS.filter(
+    (o) => o.service !== 'individual-therapy' && p.services.includes(o.service) && feeFor(catalog, { bookingService: o.service }),
+  ).map((o) => o.label);
+  const before = offered.filter((l) => !/ counselling$/.test(l));
+  const after = offered.filter((l) => / counselling$/.test(l)).map((l) => l.replace(/ counselling$/, ''));
+  const topics = p.focus.map((f) => topicOf(f.label));
+  const leads: string[] = [];
+  for (let k = topics.length; k >= 0; k--) {
+    const ts = topics.slice(0, k);
+    if (offered.length) {
+      leads.push(`${who}: ${listOf([...before, ...ts, ...after], 'and')} counselling online ${reach}, in ${langs}.`);
+    } else if (ts.length) {
+      leads.push(`${who}: online counselling ${reach} in ${langs}, for ${listOf(ts, 'and')}.`);
+    }
+  }
+  return leads;
+}
+
+/** A profile's description: the longest lead that fits beside her fee. */
+export function profileDescription(catalog: Catalog, p: Practitioner, fallbackLead: string): string {
+  const facts = profileSnippet(catalog, p);
+  if (!facts) return fallbackLead;
+  for (const lead of profileLeads(catalog, p)) {
+    const d = `${lead} ${facts}.`;
+    if (metaLength(d) <= SNIPPET_MAX) return d;
+  }
+  return withSnippet(fallbackLead, facts);
+}
+
+/* THE ROSTER INDEX — 15 Oct 2026 (item 543). /practitioners sits at 1.8-2.3
+ * for name and navigational queries and took 2 clicks from 72 impressions
+ * with a typed line about credentials. It now names who can be booked, in the
+ * languages each works in, and the practice's lowest fee. Accepting
+ * counsellors only, so nobody who cannot be booked is offered, and the
+ * founder never appears here. */
+export function rosterDescription(catalog: Catalog, roster: Practitioner[], fallback: string): string {
+  const open = accepting(roster);
+  if (!open.length) return fallback;
+  const names = listOf(open.map((p) => `${p.name} (${p.languages.map((l) => l.name).join(', ')})`), 'and');
+  const plain = listOf(open.map((p) => p.name), 'and');
+  const verb = open.length > 1 ? 'are' : 'is';
+  const see = open.length > 1 ? 'see' : 'sees';
+  const low = lowestFee(catalog, ['individual-therapy', 'couples-therapy', 'emdr-therapy']);
+  const facts = low ? snippetFacts(low) : undefined;
+  const leads = [
+    `${names} ${verb} taking new clients online across BC.`,
+    `${names} ${see} new clients online in BC.`,
+    `${plain} ${verb} taking new clients online across BC.`,
+  ];
+  if (!facts) return leads[0]!;
+  for (const lead of leads) {
+    const d = `${lead} ${facts}.`;
+    if (metaLength(d) <= SNIPPET_MAX) return d;
+  }
+  return leads[0]!;
 }

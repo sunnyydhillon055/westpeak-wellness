@@ -1,6 +1,8 @@
 import { locations } from './locations.ts';
 import type { Province } from './crisis.ts';
 import { albertaClockLine } from './alberta-clock.ts';
+import type { Catalog } from './cliniko-catalog.ts';
+import { feeLines } from './practitioner-facts.ts';
 
 /* ============================================================================
    WHERE A PRACTITIONER'S CITY PAGES EXIST, AND WHAT MAKES EACH ONE DIFFERENT
@@ -364,22 +366,52 @@ type Described = {
 const listAnd = (xs: string[]) =>
   xs.length <= 1 ? xs.join('') : `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}`;
 
-export function placeDescription(p: Described, city: string): string {
+/* THE FEE, SINCE 15 OCT 2026 (item 533). The profiles, the city hubs and the
+   money pages carry her session fee; these 44 pages did not (Savneet's 21:
+   183 impressions, 3 clicks at 11.7; Camille's 23: 114 and 3 at 10.4, Search
+   Console 13 Oct). With the catalogue passed in, the ending is her lowest fee
+   across what she offers (feeLines, lib/practitioner-facts.ts) and the free
+   consultation, both read from Cliniko, never typed. "From" when her services
+   span more than one price. The SEO gate holds a description carrying a fee
+   to 155 as served (SNIPPET_MAX in lib/snippet-facts.ts, not imported here
+   because that module reaches back into this one), so that is the limit
+   then. If even her first topic will not fit beside the fee, the description
+   is the one without it, so a long city name cuts the fee whole rather than
+   in half. Without a catalogue the ending is the free consultation alone. */
+const metaLen = (s: string) => s.replace(/&/g, '&amp;').replace(/'/g, '&#x27;').replace(/"/g, '&quot;').length;
+
+function feeEnding(p: Described, catalog: Catalog): string | undefined {
+  const parts = feeLines({ services: [...p.services] }, catalog).flatMap((l) => l.parts);
+  if (!parts.length) return undefined;
+  const low = parts.reduce((a, b) => (b.cents < a.cents ? b : a));
+  const consult = catalog.items.find((i) => i.name.toLowerCase() === 'initial consultation');
+  const free = consult && consult.cents === 0 ? ` · free ${consult.minutes}-min consult` : '';
+  return `${new Set(parts.map((x) => x.cents)).size > 1 ? 'From ' : ''}${low.fee} per ${low.minutes} min${free}.`;
+}
+
+export function placeDescription(p: Described, city: string, catalog?: Catalog): string {
   const letters = p.postNominals ? `${p.name}, ${p.postNominals}` : p.name;
   const langs = p.languages.map((l) => l.name).join(' or ');
   const topics = p.focus.map((f) => f.label.split(/,| and /)[0]!.trim().toLowerCase());
   const couples = p.services.includes('couples-therapy');
-  const compose = (ts: string[]) => {
+  const compose = (ts: string[], ending: string) => {
     const work = couples ? `${listAnd([...ts, 'couples work'])}.` : `${listAnd(ts)}, one to one.`;
-    return `${letters}: online counselling for ${city} in ${langs}. ${work.charAt(0).toUpperCase()}${work.slice(1)} Free 15-minute consultation.`;
+    return `${letters}: online counselling for ${city} in ${langs}. ${work.charAt(0).toUpperCase()}${work.slice(1)} ${ending}`;
   };
   /* Her focus in roster order, shortened from the end until the sentence
-     fits, so the free consultation is never the part cut off. */
-  for (let k = topics.length; k >= 1; k--) {
-    const d = compose(topics.slice(0, k));
-    if (d.length <= 158) return d;
+     fits, so the fee and the free consultation are never the part cut off. */
+  const fee = catalog ? feeEnding(p, catalog) : undefined;
+  const endings: [string, number][] = [
+    ...(fee ? [[fee, 155] as [string, number]] : []),
+    ['Free 15-minute consultation.', 158],
+  ];
+  for (const [ending, max] of endings) {
+    for (let k = topics.length; k >= 1; k--) {
+      const d = compose(topics.slice(0, k), ending);
+      if (metaLen(d) <= max) return d;
+    }
   }
-  const full = compose(topics.slice(0, 1));
+  const full = compose(topics.slice(0, 1), 'Free 15-minute consultation.');
   return `${full.slice(0, full.lastIndexOf(' ', 157))}…`;
 }
 
