@@ -28,6 +28,8 @@ import { planYearPageLineShown, YEAR_END_PATH } from '@/lib/seasonal';
 import { FirstSessionRows } from '@/components/FirstSessionRow';
 import { notTakingLine, WHO_FINDS_OUT, CAMERA_OPTIONAL } from '@/lib/practice-facts';
 import { BEFORE_SESSION_ONE } from '@/lib/faq';
+import { lowestFee, offersShort } from '@/lib/practitioner-facts';
+import { ConsultDaysLine } from '@/components/NextConsultSlot';
 
 export const metadata: Metadata = {
   title: 'Book a Free 15-Minute Consultation',
@@ -99,6 +101,18 @@ async function LiveFees({ opts }: { opts: FeeOpts }) {
   return <FeesText catalog={await readCatalog()} opts={opts} />;
 }
 
+/* "Sessions from" a fee, on each choosing card (15 Oct 2026): her lowest
+   priced session in the Cliniko catalogue (lib/practitioner-facts.ts
+   lowestFee), streamed like the fees line, with the catalogue's known-good
+   values as the fallback so the line is the same length either way. */
+function CardFeeText({ catalog, p }: { catalog: Catalog; p: (typeof practitioners)[number] }) {
+  const fee = lowestFee(p, catalog);
+  return fee ? <>{' '}· sessions from {fee}</> : null;
+}
+async function LiveCardFee({ p }: { p: (typeof practitioners)[number] }) {
+  return <CardFeeText catalog={await readCatalog()} p={p} />;
+}
+
 async function CardAvailability({ slug, first }: { slug: string; first: string }) {
   const a = (await availability())[slug];
   const line = availabilityLine(a, first);
@@ -123,10 +137,11 @@ async function CardAvailability({ slug, first }: { slug: string; first: string }
  * inlined into every document on the site. */
 const CARD_CSS = `
 .bk-card{display:grid;grid-template-columns:96px minmax(0,1fr);gap:0 14px;align-items:center;text-decoration:none;color:inherit}
-.bk-card__img{grid-row:1/span 3;width:96px;height:96px;object-fit:cover;object-position:top;border-radius:50%}
+.bk-card__img{grid-row:1/span 4;width:96px;height:96px;object-fit:cover;object-position:top;border-radius:50%}
 .bk-card h3{margin:0 0 2px;font-size:1.15rem}
 .bk-card p.bk-card__meta,.bk-card p.bk-card__focus{margin:0;color:var(--ink-soft);font-size:.92rem}
 .bk-card p.bk-card__focus{margin-top:4px;font-size:.9rem}
+.bk-card p.bk-card__offers{color:var(--ink);font-weight:600}
 .bk-card .book-card-avail{grid-column:2}
 .bk-card p.bk-card__open{margin:0;font-size:.9rem;line-height:1.5;color:var(--blue-deep);font-weight:600}
 .bk-card__btn{grid-column:1/-1;justify-self:start;margin-top:14px}
@@ -260,6 +275,24 @@ export default async function Book({
     </>
   );
   const fallback = defaultBookingPractitioner();
+  /* Who the bare calendar box offers a button for: taking new clients and
+     on the online calendar (15 Oct 2026). */
+  const calendarPeople = accepting.filter((p) => p.bookable && p.clinikoPractitionerId);
+  /* AFTER A MESSAGE IS SENT — 15 Oct 2026. The next free consultation day
+     with each counsellor the form could have gone to, each a link to her
+     calendar, as /message-sent has shown since 3 Oct. Filled in by the
+     browser (components/NextConsultSlot), days only, nothing when Cliniko
+     cannot be read. */
+  const sentDays = (
+    <ConsultDaysLine
+      location="next-book-sent"
+      people={(who ? [who] : calendarPeople).filter((p) => p.bookable).map((p) => ({
+        slug: p.slug,
+        first: p.name.split(' ')[0]!,
+        href: `${site.bookingPath}?with=${p.slug}#calendar`,
+      }))}
+    />
+  );
 
   /* The founder is on the Cliniko calendar; a counsellor who is not yet on it
      cannot be booked by an embed that books somebody else. For them the page
@@ -454,7 +487,7 @@ export default async function Book({
                       href={`${site.bookingPath}?with=${p.slug}#calendar`}
                       className="card bk-card"
                       aria-labelledby={`bk-${p.slug}-name`}
-                      aria-describedby={`bk-${p.slug}-meta bk-${p.slug}-focus bk-${p.slug}-open`}
+                      aria-describedby={`bk-${p.slug}-meta bk-${p.slug}-offers bk-${p.slug}-focus bk-${p.slug}-open`}
                     >
                       {/* A small portrait beside the name rather than a banner
                           above it — the owner asked for smaller photos on 8 Sep. */}
@@ -475,6 +508,17 @@ export default async function Book({
                           {p.reach === 'canada' ? 'Anywhere in Canada' : p.provinces.map((c) => PROVINCE_NAME[c as Province] ?? c).join(' and ')}
                         </p>
                       </div>
+                      {/* WHAT SHE OFFERS AND FROM WHAT FEE — 15 Oct 2026. The
+                          focus lines below read alike for both counsellors, so
+                          a couples or EMDR seeker could book a consultation
+                          that could not lead anywhere. From OFFERINGS and the
+                          catalogue, never typed. */}
+                      <p className="bk-card__focus bk-card__offers" id={`bk-${p.slug}-offers`}>
+                        {offersShort(p)}
+                        <Suspense fallback={<CardFeeText catalog={FALLBACK_CATALOG} p={p} />}>
+                          <LiveCardFee p={p} />
+                        </Suspense>
+                      </p>
                       <p className="bk-card__focus" id={`bk-${p.slug}-focus`}>
                         {p.focus.slice(0, 3).map((f) => f.label).join(', ')}
                       </p>
@@ -494,7 +538,12 @@ export default async function Book({
                   site.directFirstSession (off; lib/first-session.ts). */}
               <FirstSessionRows people={accepting} />
               <p style={{ margin: '12px 0 0', fontSize: '.92rem', color: 'var(--ink-soft)' }}>
-                Or pick a time below and choose the counsellor on the calendar itself.
+                Or open either counsellor&rsquo;s times in the calendar box below.{' '}
+                {/* The side-by-side table on /practitioners (id="compare",
+                    components/CounsellorCompare.tsx), 15 Oct 2026. */}
+                <Link href="/practitioners#compare">
+                  Compare {accepting.map((p) => p.name.split(' ')[0]).join(' and ')} side by side
+                </Link>.
               </p>
             </div>
           )}
@@ -571,7 +620,7 @@ export default async function Book({
                 <h2 style={{ margin: '2px 0 0', fontSize: '1.7rem', lineHeight: 1.15 }}>
                   {who
                     ? <>You are booking {couples ? 'a couples consultation ' : ''}with {withLetters(who)}</>
-                    : <>Pick a time, then choose {accepting.map((p) => p.name.split(' ')[0]).join(' or ')} on the calendar</>}
+                    : <>Choose {calendarPeople.map((p) => p.name.split(' ')[0]).join(' or ')}, then pick a time</>}
                 </h2>
                 {/* ONLINE ONLY, SAID WHERE THE ADDRESS APPEARS — 1 Oct 2026.
                     Cliniko's booking summary prints a street address, and a
@@ -617,6 +666,21 @@ export default async function Book({
                 who={who?.slug}
                 openDetail={couples ? 'couples' : undefined}
                 cta="Show available times"
+                /* ONE BUTTON PER COUNSELLOR ON BARE /book — 15 Oct 2026.
+                   68% of arrivals since 4 Oct named nobody, and the one
+                   button opened Cliniko's practice-wide page, where the
+                   choice of counsellor was made a second time inside a
+                   third-party frame. Each button now opens her own calendar
+                   in the same box (bookingsUrlFor), counted under her slug.
+                   Nobody is the default (8 Sep 2026): the reader still
+                   picks, here rather than in the frame. A #calendar arrival
+                   still opens the practice-wide page. */
+                choices={who ? undefined : calendarPeople.map((p) => ({
+                  slug: p.slug,
+                  url: bookingsUrlFor(p.clinikoPractitionerId),
+                  label: `Times with ${p.name.split(' ')[0]}`,
+                  title: `Book a free 15-minute consultation with ${p.name.split(' ')[0]}`,
+                }))}
                 placeholder={
                   <>
                     <div className="scheduler-wait__who">
@@ -710,6 +774,7 @@ export default async function Book({
                 <InboundForm
                   kind="enquiry"
                   done={sent}
+                  doneExtra={sentDays}
                   practitioner={who?.slug}
                   title="Ask for a time"
                   note="Two or three sentences: when you are usually free, and what you are looking for. You will hear back within one business day."

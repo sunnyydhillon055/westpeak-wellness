@@ -180,6 +180,12 @@ export const BOOK_LOCATIONS: readonly string[] = [
      link until then was the search-miss message, hidden until a search
      finds nothing. */
   'hero-answers',
+  /* wf/r10-booking-measurement, 15 Oct 2026, appended: the next free
+     consultation days shown once a message is sent on /contact and on
+     /book, and under a tool's result (components/tools/ResultCta). */
+  'next-contact-sent',
+  'next-book-sent',
+  'next-tool-result',
 ];
 
 /** Every slug on the roster, accepting or not. The founder's cannot reach a
@@ -250,9 +256,54 @@ export function splitBookDetail(key: string): { location: string; who?: string }
 const BOOK_CLICK_KEYS = new Set<string>(
   BOOK_LOCATIONS.flatMap((l) => [l, ...COUNSELLOR_SLUGS.map((s) => `${l}${SEP}${s}`)])
 );
+/* The calculator framed on another site counts its result with `:embed`
+   after the route (wf/r10-booking-measurement, 15 Oct 2026), so a partner's
+   readers are never read as this site's own. */
+export const EMBED_SUFFIX = ':embed';
+export const EMBEDDED_TOOLS: readonly string[] = ['stress-leave-pay-calculator'];
 const TOOL_KEYS = new Set<string>(
-  Object.entries(TOOL_OUTCOMES).flatMap(([t, os]) => [t, ...os.map((o) => `${t}:${o}`)])
+  Object.entries(TOOL_OUTCOMES).flatMap(([t, os]) => {
+    const keys = [t, ...os.map((o) => `${t}:${o}`)];
+    return EMBEDDED_TOOLS.includes(t) ? [...keys, ...keys.map((k) => `${k}${EMBED_SUFFIX}`)] : keys;
+  })
 );
+
+/* WHAT THE BROWSER STOPPED BEFORE IT WAS SENT — 15 Oct 2026. The first rule
+   the form's own checks refused on a send (components/InboundForm), counted
+   once per form view as `enquiry_blocked`. The word only: nothing typed and
+   no address leaves the browser. Against `enquiry_refused` (the server's
+   count) and `enquiry_submit`, this is the measured cost of each rule. */
+export const ENQUIRY_BLOCKS: readonly string[] = ['short', 'one-sentence', 'choices', 'email'];
+
+/* A server refusal says whether the form had been on screen for more than
+   2.5 seconds when it was sent (FormStamp's renderedAt): `stamped` reads as
+   a person, `unstamped` as a script or a post with no JavaScript. Appended
+   to the reason word by lib/inbound-submit.ts refuse(). */
+export const REFUSAL_REASONS: readonly string[] = ['email', 'detail', 'choices', 'repeated'];
+export const REFUSAL_STAMPS: readonly string[] = ['stamped', 'unstamped'];
+export const STAMPED_AFTER_MS = 2500;
+
+/* WHO EMBEDDED THE CALCULATOR — 15 Oct 2026. The host site's domain, only
+   when it is one of the 25 organisations docs/OUTREACH.md section 14 asks to
+   embed or link it (test/booking-measurement.test.mts holds this list to that
+   section); any other host is stored as `other`, so a page address or an
+   unknown site never becomes a key. Matched as the domain or any subdomain
+   of it (bc.cmha.ca is cmha.ca). */
+export const EMBED_HOSTS: readonly string[] = [
+  'peopleslawschool.ca', 'clicklaw.bc.ca', 'disabilityalliancebc.org', 'tapsbc.ca', 'achkarlaw.com',
+  'go2hr.ca', 'safetyalliancebc.ca', 'swrbot.com', 'abbotsfordchamber.com', 'cmha.ca',
+  'bcgeu.ca', 'heu.org', 'hsabc.org', 'ufcw1518.com', 'aaps.ubc.ca',
+  'mosaicbc.org', 'mwcbc.ca', 'pics.bc.ca', 'dcrs.ca', 'issbc.org',
+  'successbc.ca', 'lcss.ca', 'icavictoria.org', 'pirs.bc.ca', 'immigrantservices.ca',
+];
+export const EMBED_OTHER = 'other';
+
+/** The embed_view detail for a referrer hostname: a listed domain, or `other`. */
+export function embedHostDetail(host: unknown): string {
+  const h = typeof host === 'string' ? host.trim().toLowerCase().replace(/\.$/, '') : '';
+  if (!h || h.length > 120) return EMBED_OTHER;
+  return EMBED_HOSTS.find((d) => h === d || h.endsWith(`.${d}`)) ?? EMBED_OTHER;
+}
 const SLUG_KEYS = new Set<string>(COUNSELLOR_SLUGS);
 /* THE PAID CALENDAR, COUNTED APART — 1 Oct 2026. /client-portal embeds the
    full calendar ($140 and up) and /book the free consultation, and both sent
@@ -281,7 +332,16 @@ const ALLOWED: Readonly<Record<string, ReadonlySet<string>>> = {
   /* Which counsellor the message asked for, when it came from her page. */
   enquiry_submit: SLUG_KEYS,
   /* Which rule an enquiry failed on the server (lib/inbound-submit.ts). */
-  enquiry_refused: new Set<string>(['email', 'detail', 'choices', 'repeated']),
+  /* With `:stamped` or `:unstamped` since 15 Oct 2026; the bare word is
+     what was stored before. */
+  enquiry_refused: new Set<string>(REFUSAL_REASONS.flatMap((r) => [r, ...REFUSAL_STAMPS.map((s) => `${r}:${s}`)])),
+  /* The first rule the browser refused on a send (components/InboundForm). */
+  enquiry_blocked: new Set<string>(ENQUIRY_BLOCKS),
+  /* A tool's first input, by tool (15 Oct 2026). Quiz-based tools send none
+     and are counted by page. */
+  tool_start: new Set<string>(Object.keys(TOOL_OUTCOMES)),
+  /* The host domain of a page that framed the calculator, or `other`. */
+  embed_view: new Set<string>([...EMBED_HOSTS, EMBED_OTHER]),
   lead_magnet_submit: MAGNET_SET,
   tool_complete: TOOL_KEYS,
   /* Which kind of organisation published the link (?utm_source=), and what

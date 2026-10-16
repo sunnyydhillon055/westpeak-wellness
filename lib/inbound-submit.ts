@@ -16,7 +16,7 @@ import { routeInbound } from '@/lib/inbound-routing';
 import { hasEnoughDetail } from '@/lib/sentences';
 import { EMPLOYER, choicesComplete } from '@/lib/enquiry-fields';
 import { countConversion } from '@/lib/conversion-log';
-import { MAGNET_KEYS } from '@/lib/conversion-detail';
+import { MAGNET_KEYS, STAMPED_AFTER_MS } from '@/lib/conversion-detail';
 import { safePath, returnUrl, type Why } from '@/lib/inbound-return';
 
 /* One submit path for both inbound forms, enquiry and lead.
@@ -98,9 +98,15 @@ export async function handleInbound(req: Request, o: SubmitOptions) {
   /* A refused enquiry leaves no record, so it is counted by reason before the
      redirect: awaited like the success count, and caught, because a counter
      must never decide what happens to a person. */
+  /* Stamped or not (15 Oct 2026): a form on screen for more than 2.5
+     seconds before it was sent (FormStamp's renderedAt) reads as a person,
+     anything else as a script or a post without JavaScript. /admin splits
+     each reason by it, so a high count can be told apart from bot noise. */
+  const renderedAt = Number(form.get('renderedAt'));
+  const stamp = Number.isFinite(renderedAt) && renderedAt > 0 && Date.now() - renderedAt > STAMPED_AFTER_MS ? 'stamped' : 'unstamped';
   const refuse = async (reason: 'email' | 'detail' | 'choices' | 'repeated') => {
     if (o.kind === 'enquiry') {
-      try { await countConversion('enquiry_refused', source, reason); } catch { /* never load-bearing */ }
+      try { await countConversion('enquiry_refused', source, `${reason}:${stamp}`); } catch { /* never load-bearing */ }
     }
     return back('err', reason);
   };

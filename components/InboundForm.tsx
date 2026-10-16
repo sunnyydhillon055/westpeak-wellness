@@ -6,7 +6,26 @@ import { usePathname } from 'next/navigation';
 import MailLink from '@/components/MailLink';
 import { detailProgress, hasEnoughDetail, MIN_SENTENCES, MIN_WORDS } from '@/lib/sentences';
 import { LOOKING, WHERE, TIMING, EMPLOYER, lookingFromAbout } from '@/lib/enquiry-fields';
-import { DRAFT_FIELDS, DRAFT_KEY, parseDraft, sendState, whySentence, type Draft, type Why } from '@/lib/inbound-return';
+import { DRAFT_FIELDS, DRAFT_KEY, EMAIL_PATTERN, EMAIL_TITLE, parseDraft, sendState, whySentence, type Draft, type Why } from '@/lib/inbound-return';
+import { track, type TrackedEvent } from '@/lib/analytics';
+
+/* `enquiry_blocked` is counted (COUNTED in lib/conversion-log.ts) but not
+   yet in TrackedEvent: lib/analytics.ts is shared by the layout and is not
+   this change's to edit. A type-only addition there at integration removes
+   this widening; it costs no bytes either way. */
+const BLOCKED_EVENT: string = 'enquiry_blocked';
+/* Which rule a blocked send failed first, as one word from
+   ENQUIRY_BLOCKS in lib/conversion-detail.ts (kept as literals here: that
+   module carries the roster). Nothing typed is read beyond the count. */
+function blockedRule(el: EventTarget | null): string | null {
+  if (el instanceof HTMLTextAreaElement) {
+    const p = detailProgress(el.value);
+    return p.stage === 'one-sentence' ? 'one-sentence' : 'short';
+  }
+  if (el instanceof HTMLSelectElement) return 'choices';
+  if (el instanceof HTMLInputElement && el.name === 'email') return 'email';
+  return null;
+}
 
 /* The form that gives someone a way in other than picking a calendar slot.
  *
@@ -85,9 +104,15 @@ export default function InboundForm({
   placeholder,
   button,
   returnTo,
+  doneExtra,
 }: {
   kind: Kind;
   done?: 'ok' | 'err';
+  /* Shown under the confirmation once a message is sent: /contact and /book
+     pass each counsellor's next free consultation day as a booking link
+     (15 Oct 2026), so a person who has just written can book the free call
+     without waiting for the reply. Server-built; nothing when absent. */
+  doneExtra?: React.ReactNode;
   /* Where the person lands afterwards, for a page that cannot read ?sent=
      itself. The city hubs pass '/message-sent'; a refusal then goes to
      /message-not-sent (FAILED_PAGE in lib/inbound-return.ts). 2 Oct 2026. */
@@ -179,12 +204,35 @@ export default function InboundForm({
   };
   const failed = done === 'err' || failedHere;
 
+  /* A SEND THE BROWSER STOPPED — 15 Oct 2026. The native checks below
+     block the post, so the server never hears of it and nothing counted
+     it. `invalid` fires on each failing control, in order, when the person
+     presses send; the first one names the rule, once per form view. Only
+     the rule word and the page leave the browser (lib/conversion-detail.ts
+     ENQUIRY_BLOCKS). A listener on the form in the capture phase, because
+     `invalid` does not bubble. */
+  const blockedOnce = useRef(false);
+  useEffect(() => {
+    const f = formRef.current;
+    if (!f) return;
+    const onInvalid = (e: Event) => {
+      if (blockedOnce.current) return;
+      const rule = blockedRule(e.target);
+      if (!rule) return;
+      blockedOnce.current = true;
+      track(BLOCKED_EVENT as TrackedEvent, { detail: rule });
+    };
+    f.addEventListener('invalid', onInvalid, true);
+    return () => f.removeEventListener('invalid', onInvalid, true);
+  }, []);
+
   if (done === 'ok') {
     return (
       <div className="crisis" id="form" style={{ marginTop: 8 }}>
         <p style={{ margin: 0 }}>
           <strong>{c.doneTitle}</strong> {c.doneBody}
         </p>
+        {doneExtra}
       </div>
     );
   }
@@ -238,6 +286,7 @@ export default function InboundForm({
         <div className="lead-form-field">
           <label htmlFor={`in-email-${kind}`}>Email address</label>
           <input id={`in-email-${kind}`} name="email" type="email" required
+            pattern={EMAIL_PATTERN} title={EMAIL_TITLE}
             placeholder="you@example.com" autoComplete="email" autoCapitalize="none"
             spellCheck={false} />
         </div>

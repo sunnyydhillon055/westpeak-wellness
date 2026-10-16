@@ -7,6 +7,12 @@ import { fontVars, body as bodyFont } from '@/app/fonts';
    the page receives four numbers and two strings, never the modules. */
 import { eiSicknessMax, EI_WAITING_WAIVER, longDate } from '@/lib/benefit-figures';
 import { site } from '@/lib/site';
+import { track, type TrackedEvent } from '@/lib/analytics';
+
+/* Counted (COUNTED in lib/conversion-log.ts), not yet in TrackedEvent, which
+   lives in the shared lib/analytics.ts; a type-only addition there at
+   integration removes this widening. */
+const EMBED_EVENT: string = 'embed_view';
 
 /* THE EMBEDDABLE STRESS-LEAVE PAY CALCULATOR — 15 Oct 2026.
  *
@@ -46,6 +52,18 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
 export default function EmbedLeavePay({ ei, waiver, origin }: Props) {
   const box = useRef<HTMLDivElement>(null);
+
+  /* WHO EMBEDDED IT — 15 Oct 2026. One `embed_view` per load while framed,
+     carrying the host page's domain only (the hostname of the referrer,
+     never its path or query). /api/track keeps it only when it is one of
+     the organisations docs/OUTREACH.md section 14 asked, and stores
+     `other` for anything else. No cookie, no identifier. */
+  useEffect(() => {
+    if (window.parent === window) return;
+    let host = '';
+    try { host = document.referrer ? new URL(document.referrer).hostname : ''; } catch { /* unreadable: other */ }
+    track(EMBED_EVENT as TrackedEvent, { detail: host || 'none' });
+  }, []);
 
   /* Auto-height, for a host page that adds the optional listener in the
      snippet. Only the height is sent, and only when this page is framed. */

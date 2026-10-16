@@ -4,6 +4,10 @@ import Link from 'next/link';
 import { site } from '@/lib/site';
 import { track } from '@/lib/analytics';
 import { bookClickDetail, withSlugOf } from '@/lib/conversion-detail-client';
+import { ResultDays } from '@/components/NextConsultSlot';
+
+/* The reflection tools (ToolShell's `gentle`): no next-day line under them. */
+const GENTLE_TOOLS = ['stress-check', 'burnout-or-depression'];
 
 /* Closing action on a tool result. Share is a Web Share sheet where the browser
  * supports it and a clipboard copy where it does not — no third-party buttons,
@@ -45,13 +49,17 @@ export default function ResultCta({ tool, label, href }: { tool: string; label?:
       </button>
       <p className="tool-cta-note">Free · secure video · no obligation, and no sign-up to use this.</p>
 
-      {/* Finishing a tool is the most qualified moment on this site, and until
-          now the only thing offered here was the largest possible ask. Someone
-          who has just worked out what therapy would cost them, or that their
-          answers point at couples work, is warm — and may still not be ready to
-          put a video call in the diary. */}
-      <div className="tool-cta-ask">
-      </div>
+      {/* Finishing a tool is the most qualified moment on this site. The
+          empty box that held "ask instead" (removed in c400eb9) now says when
+          the free call could actually be: the next open day with whoever the
+          result's link names, or with each counsellor taking new clients when
+          it names nobody, each day a link to her calendar. Days only, and
+          nothing at all while unknown or when Cliniko cannot be read.
+          15 Oct 2026. Not under the two reflection tools, which keep their
+          gentle close. */}
+      {!GENTLE_TOOLS.includes(tool) && (
+        <ResultDays href={href} bookingPath={site.bookingPath} location="next-tool-result" />
+      )}
     </div>
   );
 }

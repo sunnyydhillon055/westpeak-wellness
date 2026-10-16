@@ -257,11 +257,29 @@ export const alternativeLabel = (a: Alternative): string =>
    by the question's wording and quoted verbatim. Null without that answer. */
 export const NOT_RIGHT_QUESTION = /when are you not the right counsellor/i;
 
+/* AND HER SECOND, MORE DECISIVE ONE — 15 Oct 2026. The first sentence is,
+   for both counsellors, the generic "tell you what to do", so the comparison
+   row read the same twice. The scope fact (an assessment for Camille,
+   specialised couples work for Savneet) is the first sentence of the next
+   paragraph of the same answer. It is quoted verbatim after an ellipsis,
+   because the two sentences are not adjacent in what she wrote. */
+const firstSentence = (s: string | undefined): string | null => {
+  const t = s?.trim();
+  if (!t) return null;
+  const m = /^.*?[.!?](?=\s|$)/.exec(t);
+  return m ? m[0] : t;
+};
+
+/** The first sentence of the second paragraph of her answer, or null. */
+export function notRightScope(p: Pick<Practitioner, 'voice'>): string | null {
+  return firstSentence(p.voice?.find((v) => NOT_RIGHT_QUESTION.test(v.q))?.a[1]);
+}
+
 export function notRightFit(p: Pick<Practitioner, 'voice'>): string | null {
-  const a = p.voice?.find((v) => NOT_RIGHT_QUESTION.test(v.q))?.a[0]?.trim();
-  if (!a) return null;
-  const m = /^.*?[.!?](?=\s|$)/.exec(a);
-  return m ? m[0] : a;
+  const first = firstSentence(p.voice?.find((v) => NOT_RIGHT_QUESTION.test(v.q))?.a[0]);
+  if (!first) return null;
+  const scope = notRightScope(p);
+  return scope ? `${first} … ${scope}` : first;
 }
 
 /* HOW SHE WORKS, FROM HER OWN TRAINING ANSWER — 2 Oct 2026. Approach names
@@ -282,6 +300,19 @@ export function approachTerms(p: Pick<Practitioner, 'voice'>): string[] {
     .filter((x) => x.i >= 0)
     .sort((x, y) => x.i - y.i)
     .map((x) => x.t);
+}
+
+/** What she offers, from OFFERINGS, in the short form for a card:
+ *  "Individual, couples, EMDR and family counselling", "Individual
+ *  counselling". A shared trailing "counselling" is said once. /book's
+ *  choosing cards, 15 Oct 2026, where the two focus lines read alike. */
+export function offersShort(p: Pick<Practitioner, 'services'>): string | null {
+  const labels = OFFERINGS.filter((o) => p.services.includes(o.service)).map((o) => o.label);
+  if (!labels.length) return null;
+  const tail = ' counselling';
+  const shared = labels[labels.length - 1]!.endsWith(tail);
+  const words = labels.map((l, i) => (shared && i < labels.length - 1 && l.endsWith(tail) ? l.slice(0, -tail.length) : l));
+  return cap(andList(words));
 }
 
 /** Her lowest priced session in the catalogue, e.g. "$140", or null. */

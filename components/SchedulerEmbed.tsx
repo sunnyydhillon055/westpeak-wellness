@@ -50,8 +50,11 @@ import { practitioners } from '@/lib/practitioners';
  * direct calendar is counted as book_direct like any other; in the portal it is
  * a plain link, because book_direct is /book's free-consultation count.
  */
+/** One counsellor's calendar, offered as its own button in the gated box. */
+export type SchedulerChoice = { slug: string; url: string; label: string; title: string };
+
 export default function SchedulerEmbed({
-  url, title, page, who, placeholder, secondary, cta = 'Show available times', openDetail,
+  url, title, page, who, placeholder, secondary, cta = 'Show available times', openDetail, choices,
 }: {
   url: string;
   title?: string;
@@ -64,6 +67,9 @@ export default function SchedulerEmbed({
   cta?: string;
   /** Passed to SchedulerGate: the scheduler_open detail for a couples consultation. */
   openDetail?: 'couples';
+  /** Gated mode only: one primary button per counsellor in place of `cta`,
+   *  each opening her own calendar (bare /book, 15 Oct 2026). */
+  choices?: SchedulerChoice[];
 }) {
   const origin = new URL(url).origin;
   const frameTitle = title ?? 'Booking calendar';
@@ -93,7 +99,8 @@ export default function SchedulerEmbed({
           and appearing a moment after it. */}
       <link rel="preconnect" href={origin} />
       {placeholder ? (
-        <SchedulerGate url={frameUrl} title={frameTitle} page={page} who={who} cta={cta} secondary={secondary} openDetail={openDetail} stalled={stalled}>
+        <SchedulerGate url={frameUrl} title={frameTitle} page={page} who={who} cta={cta} secondary={secondary} openDetail={openDetail} stalled={stalled}
+          choices={choices?.map((c) => ({ ...c, url: withEmbedFlag(c.url, CLINIKO_EMBED_PARAM) }))}>
           {placeholder}
         </SchedulerGate>
       ) : (

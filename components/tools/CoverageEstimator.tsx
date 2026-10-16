@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { track } from '@/lib/analytics';
 import ResultCta from '@/components/tools/ResultCta';
+import { useToolStart } from '@/components/tools/useToolStart';
 import { toolDetail } from '@/lib/conversion-detail-client';
 /* Seven rows and four small functions, no imports: small enough for a
    client bundle, and the same rows the student pages print. */
@@ -39,6 +40,8 @@ export default function CoverageEstimator({ fees: FEES, bookHrefs }: { fees: Est
      typed figures, so a student does not have to find them first. */
   const [planId, setPlanId] = useState('');
   const plan = planId ? getStudentPlan(planId) : undefined;
+  /* tool_start on the first input (components/tools/useToolStart). */
+  const startHandlers = useToolStart('therapy-cost-bc');
 
   const fee = FEES[kind];
   const per = plan ? reimbursedPerSession(plan, fee) : Math.max(0, Number(perSession) || 0);
@@ -48,7 +51,7 @@ export default function CoverageEstimator({ fees: FEES, bookHrefs }: { fees: Est
   const sessionsCovered = backPerSession > 0 && cap > 0 ? Math.floor(cap / backPerSession) : null;
 
   return (
-    <div className="quiz">
+    <div className="quiz" {...startHandlers}>
       <fieldset className="quiz-set">
         <legend className="quiz-q">What would you be booking?</legend>
         <div className="est-row">

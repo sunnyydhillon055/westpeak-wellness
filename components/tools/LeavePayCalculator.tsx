@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { track } from '@/lib/analytics';
 import ResultCta from '@/components/tools/ResultCta';
+import { useToolStart } from '@/components/tools/useToolStart';
 import { toolDetail } from '@/lib/conversion-detail-client';
 /* Pure arithmetic, no imports of its own: the only module this needs. */
 import {
@@ -84,6 +85,9 @@ export default function LeavePayCalculator({ ei, waiver, bookHref, embed }: Prop
   const [std, setStd] = useState<Tri>('no');
   const [work, setWork] = useState<Tri>('no');
   const [shown, setShown] = useState(false);
+  /* tool_start on the first input (components/tools/useToolStart); on the
+     framed copy it is counted against the /embed/ page. */
+  const startHandlers = useToolStart('stress-leave-pay-calculator');
 
   const weekly = Number(earnings) || 0;
   const federal = law === 'federal';
@@ -119,7 +123,7 @@ export default function LeavePayCalculator({ ei, waiver, bookHref, embed }: Prop
   const ready = weekly > 0;
 
   return (
-    <div className="quiz">
+    <div className="quiz" {...startHandlers}>
       <fieldset className="quiz-set">
         <legend className="quiz-q">What do you earn in an average week, before tax?</legend>
         <p className="quiz-help">
@@ -178,7 +182,11 @@ export default function LeavePayCalculator({ ei, waiver, bookHref, embed }: Prop
           setShown(true);
           /* Counted by route only. The earnings typed are never sent. */
           const route = std === 'yes' ? 'plan' : work === 'yes' ? 'worksafe' : law;
-          track('tool_complete', { tool: 'stress-leave-pay-calculator', route, detail: toolDetail('stress-leave-pay-calculator', route) });
+          /* Framed on another site, the route carries `:embed` (15 Oct
+             2026), so a partner's readers are counted apart from this
+             site's own (EMBEDDED_TOOLS in lib/conversion-detail.ts). */
+          const detail = toolDetail('stress-leave-pay-calculator', route);
+          track('tool_complete', { tool: 'stress-leave-pay-calculator', route, detail: embed ? `${detail}:embed` : detail });
         }}
       >
         Show me the weeks
