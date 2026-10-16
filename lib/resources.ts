@@ -257,7 +257,7 @@ const coreResources: Resource[] = [
         body: [
           "MSP funds *medically necessary services delivered by physicians*. A Registered Clinical Counsellor is not a physician, so counselling sits outside the scheme regardless of how necessary it is. The same applies to psychologists and social workers in private practice.",
           `That is a structural feature of how the plan is defined rather than a judgement about whether therapy works, and it is why the private and public mental-health systems in BC feel so disconnected. It also explains the odd situation where a psychiatrist is free and a psychologist costs ${BCPA_PSYCHOLOGIST.range} ${BCPA_PSYCHOLOGIST.unit} at the BC Psychological Association’s recommended rate.`,
-          "The practical consequence: for most people the route to therapy without a long wait runs through an [extended health plan](/resources/bc-extended-health-coverage-for-counselling) or out-of-pocket payment, or through the [free and low-cost services](/resources/low-cost-counselling-bc) that do exist, if you can wait.",
+          "The practical consequence: for most people the route to therapy without a long wait runs through an [extended health plan](/resources/bc-extended-health-coverage-for-counselling) or out-of-pocket payment, or through the [free and low-cost services](/resources/low-cost-counselling-bc) that do exist, if you can wait. An extended health maximum also runs on a plan year, so a balance left at the end of it is worth knowing about: [using counselling benefits before the end of the year](/resources/counselling-benefits-before-year-end-bc) explains which date counts.",
         ],
       },
       {

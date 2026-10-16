@@ -13,10 +13,11 @@ import { fallbackFee } from '../lib/cliniko-catalog.ts';
 test('a hub title override fits the SEO gate and names its city', () => {
   const overridden = locations.filter((l) => l.hubTitle);
   /* Kamloops 3 Oct 2026; the other four 13 Oct 2026, each from its own
-     head queries (the notes on the entries). */
+     head queries (the notes on the entries); North Vancouver 15 Oct 2026,
+     to say North Shore where Vancouver queries were landing. */
   assert.deepEqual(
     overridden.map((l) => l.slug).sort(),
-    ['kamloops', 'langford', 'prince-george', 'vancouver', 'vernon'],
+    ['kamloops', 'langford', 'north-vancouver', 'prince-george', 'vancouver', 'vernon'],
     'only these hubs carry their own title',
   );
   for (const l of overridden) {

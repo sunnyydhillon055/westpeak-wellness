@@ -215,6 +215,9 @@ export default async function CityServicePage({ params }: { params: Params }) {
   const sameElsewhere = pairsForService(svc.slug).filter((p) => p.city !== ctx.slug);
   const nearbyPairs = sameElsewhere.filter((p) => ctx.nearby.includes(p.city));
   const cityOf = (slug: string) => cityContexts.find((c) => c.slug === slug)!;
+  /* The other city's page for this same service, where a searcher may have
+     meant it (CityContext.meantInstead, North Vancouver only). 15 Oct 2026. */
+  const meant = ctx.meantInstead && getPair(ctx.meantInstead.slug, svc.slug) ? ctx.meantInstead : undefined;
 
   const desc = describe(pair, svc, catalog);
 
@@ -324,6 +327,13 @@ export default async function CityServicePage({ params }: { params: Params }) {
             with a free first consultation, no referral, and receipts your extended health plan
             can process.
           </p>
+          {meant ? (
+            <p style={{ fontSize: '.95rem' }}>
+              {meant.lead}{' '}
+              <Link href={`/online-counselling/${meant.slug}/${svc.slug}`}>{seoName(svc)} in {cityOf(meant.slug).city}</Link>{' '}
+              is that city’s page.
+            </p>
+          ) : null}
           <Updated iso={COLLECTION_DATES['cityServices']} />
         </div>
       </section>
