@@ -2,6 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { routeInbound } from '../lib/inbound-routing.ts';
 import { site } from '../lib/site.ts';
+import { practitioners, insuredProvinces, vancouverToday } from '../lib/practitioners.ts';
 
 /* The routing decided 11 Sep 2026: named counsellor first, then the page's
    language, then the script of the message, then everyone accepting. info@ is
@@ -56,9 +57,14 @@ test('tagalog, couples, trauma and family go to the counsellor who offers them',
   }
 });
 
-test('where=ab goes to the counsellor who may see clients in Alberta', () => {
+test('where=ab goes to the counsellor who may see clients in Alberta, or to nobody in particular once the gate is shut', () => {
   const r = routeInbound({ source: '/contact', message: 'x', name: 'H', looking: 'individual', where: 'ab' });
-  assert.deepEqual(r.to, [CAMILLE]);
+  /* Camille's Alberta gate closed on 15 Oct 2026. While it was open, where=ab
+     narrowed to her; with nobody insured in Alberta the answer narrows
+     nothing and the pool is everyone accepting, as for where=bc. */
+  const ab = practitioners.filter((p) => p.acceptingNewClients && insuredProvinces(p, vancouverToday()).includes('AB'));
+  if (ab.some((p) => p.slug === 'camille-granda')) assert.deepEqual(r.to, [CAMILLE]);
+  else if (ab.length === 0) assert.deepEqual([...r.to].sort(), [CAMILLE, SAVNEET].sort());
 });
 
 test('answers both counsellors fit, or nobody fits, leave the pool as it was', () => {

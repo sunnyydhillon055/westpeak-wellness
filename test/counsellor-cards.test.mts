@@ -133,7 +133,13 @@ test('#209 every page with cards names somebody accepting, who fits the page', (
   assert.ok(pages.length > 50, `only ${pages.length} pages carry cards`);
   for (const { slug, page } of pages) {
     const cs = counsellorsForInfoPage(page);
-    assert.ok(cs.length > 0, `${slug} names nobody`);
+    /* A province page names nobody when nobody accepting is insured there
+       today: the Alberta gate closed on 15 Oct 2026, and the cards follow
+       the gate rather than outlive it. Every other page must name someone. */
+    const insuredThere = page.province
+      ? practitioners.some((p) => p.acceptingNewClients && insuredProvinces(p, vancouverToday()).includes(page.province!))
+      : true;
+    assert.ok(cs.length > 0 || !insuredThere, `${slug} names nobody`);
     for (const p of cs) {
       assert.equal(p.acceptingNewClients, true, `${slug}: ${p.slug} is not accepting`);
       if (page.service) assert.ok(p.services.includes(page.service), `${slug}: ${p.slug} does not offer ${page.service}`);
