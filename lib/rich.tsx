@@ -29,6 +29,9 @@ export function rich(text: string): ReactNode[] {
       // so run them through the same formatter. Labels cannot contain links,
       // so this recurses at most one level.
       const inner = rich(label);
+      /* A file in public/ (the printable PDFs) is a plain link: next/link
+         would prefetch it as if it were a route. 15 Oct 2026. */
+      if (href.startsWith('/') && href.endsWith('.pdf')) return <a key={i} href={href}>{inner}</a>;
       if (href.startsWith('/')) return <Link key={i} href={href}>{inner}</Link>;
       return <a key={i} href={href} target="_blank" rel="noopener">{inner}</a>;
     }

@@ -136,6 +136,7 @@ const NEVER_LISTED = new Map([
   ['/admin', 'private'],
   ['/client-portal', 'private'],
   ['/search', 'a results page, not content'],
+  ['/print/punjabi-words', 'print copy of the Punjabi words page, noindex'],
 ]);
 const isGated = (r) =>
   ['/alberta', '/ontario'].some((g) => r === g || r.startsWith(g + '/'));

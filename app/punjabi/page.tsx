@@ -19,6 +19,7 @@ import { NextFreeDay } from '@/components/NextConsultSlot';
 import { bookHrefFor } from '@/lib/city-service-page';
 import { readCatalog, CONSULT_MINUTES } from '@/lib/cliniko-catalog';
 import { serviceSnippet, withSnippet } from '@/lib/snippet-facts';
+import { PDF_PATH } from '@/app/print/punjabi-words/sheet';
 
 /* FULLY STATIC (3 Oct 2026, item 429). The next free day under the hero
    button is filled in by the browser (NextFreeDay), so this page keeps the
@@ -338,6 +339,12 @@ export default async function PunjabiPage() {
                 <li key={g.slug}><Link href={`/punjabi/guides/${g.slug}`}>{g.title}</Link></li>
               ))}
             </ul>
+            {/* 15 Oct 2026: the printable word sheet, in English and with no
+                new Punjabi; app/print/punjabi-words says what it holds. */}
+            <p lang="en">
+              To print for a gurdwara, a community centre or a doctor&rsquo;s office:{' '}
+              <a href={PDF_PATH}>a one-page sheet of counselling words in Punjabi, with English meanings (PDF)</a>.
+            </p>
 
             <h2>ਅਗਲਾ ਕਦਮ</h2>
             <p>
