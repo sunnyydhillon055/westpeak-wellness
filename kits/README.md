@@ -113,6 +113,12 @@ and can follow in any order.
 
 ## Also here
 
+**[gp-referral-kit-2026-10.pdf](gp-referral-kit-2026-10.pdf)** (source:
+[gp-referral-kit-2026-10.html](gp-referral-kit-2026-10.html)) is the current
+family-doctor sheet, from 15 Oct 2026: both accepting counsellors, British
+Columbia only. The email and the clinic list are docs/OUTREACH.md section 18.
+It supersedes referral-one-pager.html below.
+
 **[referral-one-pager.html](referral-one-pager.html)** — printable leave-behind for
 GPs, physios and naturopaths. Open it in a browser, Print → Save as PDF; it is
 sized to one sheet of Letter. Kit 6(e) has the email that opens the

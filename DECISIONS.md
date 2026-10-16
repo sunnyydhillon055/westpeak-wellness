@@ -3598,6 +3598,104 @@ The gentle leave guides gain a link to benefit information only, as the 13 Oct l
 
 *Enforced by:* `test/leave-pay.test.mts` (rounding, the cap, the waiting week, the 26-week limit, under 90 days, the federal case, no plan figure, the waiver window, the links, the client imports), `test/benefit-figures.test.mts`, `scripts/price-drift.mjs` (no typed weekly maximum), `scripts/perf-budget.mjs`, `scripts/page-score.mjs`.
 
+---
+
+### The stress-leave pay calculator can be embedded on HR, union and benefits sites; the site's one pages/ route; framing allowed for /embed/ only (15 Oct 2026)
+Decided 15 Oct 2026 (branch `wf/r9-embed`). The 13 Oct calculator answers the question HR teams, union locals and benefits advisers are asked on every leave: what will I be paid, and when. An embed puts the calculator, and a credit link back to it, on their pages.
+
+**The route.** /embed/stress-leave-pay-calculator shows the calculator and one credit line. The credit line reads "Calculator by Westpeak Wellness:" and links the /tools page with the anchor text "the BC stress leave pay calculator, with a worked example and its sources". There is no header, footer, phone booking bar, consent banner, analytics loader, counsellor cards, or booking/share buttons: `LeavePayCalculator` takes an optional `embed={{ origin }}`, which opens site links in a new tab at the absolute URL and leaves out ResultCta. The EI figures arrive as props from lib/benefit-figures.ts through getStaticProps, as the /tools page passes them. A ResizeObserver posts `{type: 'westpeak-embed-height', height}` to the parent, and only when the page is framed.
+
+**Why pages/.** Every app/ route renders inside app/layout.tsx. A nested layout cannot remove what the root layout draws, and giving the embed a second root layout would mean moving every route into a route group. A page in pages/ never passes through app/layout.tsx, so the root layout's JavaScript does not change: 357,441 B against main's 357,448 B. pages/_app.tsx loads the site's two stylesheets and pages/_document.tsx sets lang=en-CA. Once a pages/ directory exists, Next types usePathname() as `string | null`. components/Header.tsx therefore gains a type-only `!`, which emits no bytes. pages/ is for this route alone; do not add a page there without a reason as narrow as this one.
+
+**noindex.** The exact reason: the route is a frame for other people's pages, and the indexable copy, with the worked example, the sources and the snippet, is /tools/stress-leave-pay-calculator. Both the robots meta and X-Robots-Tag say `noindex, follow`, so the credit link is still followed. The Link header points at the /tools page's Markdown twin, because the frame has no twin of its own. The route is not in the sitemap and robots.txt does not disallow it: a disallow would stop Google seeing the noindex.
+
+**Framing.** The site refused to be framed everywhere (`frame-ancestors 'none'` and `X-Frame-Options: DENY`). That stays for every path except /embed/<something>. The securityHeaders rule's source is now `/:path((?!embed/).*)`, which still matches '/'. A last rule for `/embed/:path+` sends the same headers with `frame-ancestors *` and no X-Frame-Options, because XFO has no "allow any" value. Bare /embed (a 404) is still denied. All of this was checked on a local `next start`.
+
+**The /tools page** gains "Embed this calculator on your site", with:
+- the iframe snippet;
+- a plain fallback link under it: "BC stress leave pay calculator from Westpeak Wellness". It is the credit on the host page itself, and the way in for a reader whose browser blocks frames;
+- an optional listener that checks `e.origin` and changes only the frame's height;
+- what the frame does not carry, and email for questions.
+
+It adds no new government facts.
+
+*Enforced by:* `test/embed-leave-pay.test.mts`, which runs next.config's headers() through Next's own matcher.
+
+---
+
+### The year-end page names its year and how to book before it ends; North Vancouver says North Shore and sends the City of Vancouver to its own pages (15 Oct 2026)
+Decided 15 Oct 2026 (branch `wf/r9-content`), from the Search Console export of 13 Oct.
+
+**Year-end page.** /resources/counselling-benefits-before-year-end-bc had 25 impressions at 4.88 and no clicks. Searches for using a benefit before 31 December climb in November and December. The owner's named queries are "use counselling benefits before end of year" and "do benefits reset january 1 bc".
+
+What changed:
+- The page now reads the build's Pacific year from `pacificYear()`. Nothing in the copy types a year except the CBA benefit's real start date.
+- It opens with the answer ("Book the session for a date on or before 31 December {year}") and gives the plan-year caveat: many plans reset on 1 January, some on another date, depending on the plan.
+- It gains a four-step "How to book a session before the year ends" section, merged with the old consultation block so there is still one booking block. The calendar shows real open times, and no date is promised.
+- Individual and couples fees come from the catalogue.
+- Two FAQs answer the named queries.
+- Title 'Counselling Benefits Before Year End, BC | Westpeak' -> 'Use Counselling Benefits Before Year End in BC ({year})'. The description answers the reset question and carries the fee snippet.
+- Sources re-read 15 Oct 2026: Pacific Blue Cross (the deadline differs by policy, and claims do not necessarily have to be in by 31 December), PEBT (30 June or 31 December of the following year; 90 days after leaving), BCGEU ($1,000 per calendar year, members only), and the CRA practitioner table (BC not applicable; modified 22 Jan 2026).
+- Linked in body copy from the plan-coverage FAQ, the MSP page and the stress-leave page. /pricing already linked it twice.
+
+**North Vancouver vs Vancouver.** The North Vancouver hub (171 impressions at 19.5, about ten from queries that say "north") and its depression page (109 at 22.1) were taking City of Vancouver queries. What changed:
+- The hub gets `hubTitle` 'Online Counselling in North Vancouver & the North Shore' (was the composed 'Online, Virtual Counselling North Vancouver | Counsellors') and `hubH1` 'Online counselling in North Vancouver and the North Shore'.
+- Its first intro paragraph sends City of Vancouver readers to [online counselling in Vancouver], which replaces the access card that said the same thing further down.
+- A new optional `CityContext.meantInstead`, set on North Vancouver only, puts a line under each North Vancouver service page's direct answer naming the Vancouver page for the same service, by that city's name.
+- All five North Vancouver ledes say North Shore.
+- All five Vancouver ledes say Vancouver.
+- The Vancouver context's typed "5pm" becomes "rush hour".
+
+Both title changes are recorded in `data/gsc/snippets.json` title-changes (r9-4, r9-6). There is no new page, redirect, canonical or noindex. The next export should be read for the Vancouver hub's position on "online counselling vancouver" and for how many Vancouver-only queries still land on North Vancouver.
+
+*Enforced by:* `test/r9-content.test.mts`, `test/places-topics.test.mts`, `test/seasonal.test.mts`, `scripts/uniqueness-gate.mjs`, `scripts/seo-audit.mjs`.
+
+---
+
+### A printable sheet of counselling words in Punjabi, at /print/punjabi-words and as a PDF (15 Oct 2026)
+Decided 15 Oct 2026 (branch `wf/r9-print`), item 5 of the owner's 20-item list.
+
+The sheet is for gurdwaras, community centres and Punjabi-speaking family doctors' offices: one page they can put on a counter. It says what counselling is and that it is confidential, gives the Punjabi words for counselling and for feelings with English meanings, and says who offers counselling in Punjabi here (Savneet Singh, RCC, individual counselling in Punjabi or English, online across BC). It also gives the free 15-minute consultation, westpeakwellness.com/punjabi, info@ and the crisis lines. It has no fee, no hours, no practice phone number, no registration number and no founder.
+
+**No new Punjabi.** `app/print/punjabi-words/sheet.ts` reads both word tables from `lib/resources-punjabi-words.ts`. It takes ਇੱਜ਼ਤ, ਸ਼ਰਮ and ਪਾਗਲ from that page's prose with the glosses the prose gives them, and two phrases the page already uses. `test/print-punjabi-words.test.mts` fails if any Gurmukhi on the sheet is not already in the words page source. The counsellor is read from the roster: accepting new clients, speaks Punjabi, offers individual-therapy, BC. If nobody fits, the sheet names nobody. The sheet should be read by the Punjabi-speaking counsellor before a stack is printed.
+
+**Noindex, follow, self-canonical, out of the sitemap.** Exact reason: /print/punjabi-words reprints the words page's two tables in a paper layout. As a search result it would be a thinner copy of a page that already holds the same queries (1,932 impressions at 8.8 on 13 Oct). So it is offered by link from that page and from /punjabi, not put forward for indexing. It is listed in `scripts/sitemap-parity.mjs` NEVER_LISTED for that reason. No redirect.
+
+**The PDF.** `public/downloads/counselling-words-in-punjabi.pdf` was printed from the page by Chrome headless (`--print-to-pdf --no-pdf-header-footer`): one Letter page, with Noto Serif Gurmukhi embedded. The layout also fits A4. When the words page's tables or the roster change, remake the PDF and move `SHEET_DATE` in sheet.ts. PDF links in data copy (`lib/rich.tsx`) now render as plain anchors, because next/link would prefetch them as routes.
+
+*Enforced by:* `test/print-punjabi-words.test.mts`, `scripts/sitemap-parity.mjs` (NEVER_LISTED)
+
+---
+
+### The reach drafts of 15 Oct 2026, and a BC leave fact the site got wrong, corrected the same day
+Decided 15 Oct 2026 (branch `wf/r9-drafts`, and the integration that merged it). The drafts branch makes no change to redirects, canonicals, noindex or site code. The off-site drafts the owner asked for are appended to docs/OUTREACH.md as sections 14 to 19, and the send order is in docs/REACH-2026-10-15.md:
+- calculator outreach to 25 named BC organisations, each with its page and the contact route it publishes;
+- the press pitch, with 12 outlet routes read on the outlets' own sites;
+- 30 days of posts;
+- 15 answers for Reddit and Quora;
+- the family-doctor email and a 15-clinic send list;
+- the Search Console and Bing list.
+
+The family-doctor sheet is now kits/gp-referral-kit-2026-10.html, with its PDF. It names both accepting counsellors for British Columbia only, because Camille's Alberta gate closed on 15 Oct 2026. referral-one-pager.html stays superseded.
+
+Every leave-pay figure in the drafts is the calculator's own worked example, run through lib/leave-pay.ts and lib/benefit-figures.ts and checked on the live page on 15 Oct 2026:
+- $1,000 a week: $1,000 in week 1, then $550 a week, about $15,300 against $27,000 over 27 weeks;
+- the 2026 cap is $729 a week, reached above about $1,325 a week; at $1,600 a week, $20,554 against $43,200;
+- the waiting week is waived for claims starting 30 Mar 2025 to 9 Oct 2027.
+
+**Found while checking, and corrected at integration:** the BC Employment Standards Act has had a serious personal illness or injury leave since 28 Nov 2025. It gives up to 27 weeks of unpaid, job-protected leave in any 52-week period, regardless of length of service, taken in whole weeks, with a certificate from a doctor, nurse practitioner or other designated health professional. Sources: gov.bc.ca "Leaves of absence", updated 13 Aug 2026, re-read 15 Oct 2026; news.gov.bc.ca release of 28 Nov 2025. The site denied it in four places, and all four now state it, citing that page:
+- /tools/stress-leave-pay-calculator's federal section ("a BC-regulated job has no equivalent number of weeks"), and the calculator's own result line ("not by a set number of weeks");
+- the stress-leave answer page's table row, its "How long" section and its "Is there a 27-week stress leave in BC?" FAQ (`lib/resources-more.ts`);
+- the stress-leave guide's summary, its "which rules apply" list and the same FAQ (`lib/guides-more6.ts`).
+
+The duty to accommodate under the Human Rights Code is still named, beside the leave rather than instead of it. `test/leave-cluster.test.mts` now requires every 27-week sentence in the guide to name its law, either the Employment Standards Act or the Canada Labour Code. The calculator outreach and the press pitch were held on this; they can go once the live page shows the correction. The sick-note rule of 12 Nov 2025 (no note for the first two absences of five days or fewer in a year) is cited in the drafts. The site does not mention it yet.
+
+The subreddit and Quora rules could not be read on 15 Oct 2026: reddit.com required a login, and old.reddit.com, redditinc.com and Quora's help centre refused the fetch. The drafts quote no rule as read and leave that check to the owner before each post.
+
+**Two tests follow the Alberta gate.** Camille's Alberta gate closed on 15 Oct 2026, so the Alberta coverage page names nobody (CounsellorCards renders nothing) and a where=ab answer narrows nothing. `test/counsellor-cards.test.mts` #209 and `test/inbound-routing.test.mts` assumed the gate was open; they now read the roster for today and hold on either side of it.
+
+*Enforced by:* `scripts/coverage-claims.mjs`, `test/claims-corrections.test.mts` (retired claims, evening/weekend promises, couples-method wording in docs/ and kits/), `test/no-hours-metadata.test.mts`, `test/leave-cluster.test.mts`.
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`

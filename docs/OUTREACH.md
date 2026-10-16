@@ -594,6 +594,8 @@ The rules above still hold, and three more apply to this round:
   BC law" answer sits in the stress-leave answer page's FAQ and the
   stress-leave guide. An HR adviser or a reporter will notice. The fix is
   site code and belongs to another change; the checklist puts it first.
+  Corrected on 15 Oct 2026 at integration (commit 96ae223): confirm the live
+  page names the Employment Standards Act's 27 weeks, then release 14 and 15.
 
 ---
 

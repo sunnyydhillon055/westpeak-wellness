@@ -90,8 +90,9 @@ export const moreGuides6: Guide[] = [
            "how to get stress leave in bc" (law-firm and benefits explainers)
            quote "27 weeks of unpaid, job-protected leave" without saying it is
            the Canada Labour Code's, which covers federally regulated work
-           only. A reader in a BC-regulated job then plans around a leave the
-           Employment Standards Act does not give. Figures read today from
+           only. Corrected 15 Oct 2026: the Employment Standards Act now has
+           its own 27 weeks (serious personal illness or injury leave, since
+           28 Nov 2025), so both laws are named wherever 27 weeks appears. Figures read today from
            gov.bc.ca (paid sick leave), canada.ca IPG-118 (medical leave with
            pay, modified 12 May 2025) and the Code, s. 239(1). */
         h2: 'Which leave rules apply to you: BC, federal or union',
