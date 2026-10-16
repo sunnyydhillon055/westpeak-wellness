@@ -81,6 +81,21 @@ function ExampleTable({ pic, weekly }: { pic: LeavePicture; weekly: number }) {
   );
 }
 
+/* EMBED THIS CALCULATOR — 15 Oct 2026. The copy-paste snippet for HR, union
+   and benefits sites. The frame is /embed/stress-leave-pay-calculator
+   (pages/embed/, noindex, the one route next.config.mjs lets another site
+   frame). The paragraph after the iframe is the fallback and the credit: a
+   reader whose browser blocks frames still reaches this page, and it is a
+   plain link on the host's own page rather than one inside the frame. The
+   listener is optional and sizes the frame from the height the embed posts. */
+const EMBED_URL = `${site.domain}/embed/${tool.slug}`;
+const TOOL_URL = `${site.domain}/tools/${tool.slug}`;
+const EMBED_SNIPPET = [
+  `<iframe src="${EMBED_URL}" id="westpeak-leave-pay" title="BC stress leave pay calculator" width="100%" height="1400" style="border:0;max-width:760px" loading="lazy"></iframe>`,
+  `<p><a href="${TOOL_URL}">BC stress leave pay calculator</a> from Westpeak Wellness</p>`,
+].join('\n');
+const EMBED_RESIZE = `<script>addEventListener("message",function(e){if(e.origin==="${site.domain}"&&e.data&&e.data.type==="westpeak-embed-height"){var f=document.getElementById("westpeak-leave-pay");if(f)f.style.height=e.data.height+"px";}});</script>`;
+
 const SOURCES = [
   { label: 'Government of Canada, EI sickness benefits: how much you could receive (read 13 Oct 2026)', url: EI_SICKNESS_SOURCE },
   { label: 'Government of Canada, EI sickness benefits: do you qualify (read 13 Oct 2026)', url: 'https://www.canada.ca/en/services/benefits/ei/ei-sickness/qualify.html' },
@@ -190,6 +205,45 @@ export default function Page() {
             {fallbackFee('Individual Counselling')} for {SESSION_MINUTES} minutes by video, and whether your plan keeps
             reimbursing during a leave is a question for HR; the <Link href="/pricing">fees and coverage page</Link>{' '}
             has the rest.
+          </p>
+
+          <h2 id="embed">Embed this calculator on your site</h2>
+          <p>
+            HR teams, union locals and benefits advisers hear the same question from people about to
+            go on leave: what will I actually be paid, and when. The calculator can sit on your own
+            page and answer it there. It is free to use, there is nothing to sign up for, and the
+            framed version carries only the calculator and one credit line: no booking buttons, no
+            counsellor listings, no advertising and no third-party analytics. The weekly earnings a
+            reader enters stay in their browser. The only thing counted is that a result was shown,
+            and whether it was the BC, federal, disability-plan or WorkSafeBC route.
+          </p>
+          <p>
+            Paste this where you want the calculator to appear. It runs on the same figures as this
+            page, so when the EI maximum or the waiting-week rule is updated here, the copy on your
+            site changes with it:
+          </p>
+          <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-all', fontSize: '.85rem', lineHeight: 1.6, background: 'var(--bg-tint)', border: '1px solid var(--line)', borderRadius: 8, padding: '16px 18px', margin: '0 0 16px', userSelect: 'all' }}>
+            <code>{EMBED_SNIPPET}</code>
+          </pre>
+          <p>
+            The line under the frame is the fallback. A reader whose browser or privacy settings block
+            embedded frames still gets a working link to the full calculator, with the worked example
+            and the government sources it is built on. Please keep it with the frame.
+          </p>
+          <p>
+            The frame is set tall enough for a long result. To have it fit its content instead, add
+            this once on the same page. It listens only for messages from this site, and changes
+            nothing but the frame&rsquo;s height:
+          </p>
+          <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-all', fontSize: '.85rem', lineHeight: 1.6, background: 'var(--bg-tint)', border: '1px solid var(--line)', borderRadius: 8, padding: '16px 18px', margin: '0 0 16px', userSelect: 'all' }}>
+            <code>{EMBED_RESIZE}</code>
+          </pre>
+          <p>
+            The calculator covers BC-regulated and federally regulated employees, and it is an
+            estimate rather than advice: Service Canada, the insurer and WorkSafeBC each decide their
+            own claims. Questions about putting it on your site, or a correction to report, go to{' '}
+            <a href={`mailto:${site.email}`}>{site.email}</a>. For what employers can offer beyond the
+            calculator, see <Link href="/for/employers-and-hr">counselling for employers and HR teams</Link>.
           </p>
 
           <h2 id="sources">Sources</h2>

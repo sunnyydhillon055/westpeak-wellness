@@ -44,7 +44,10 @@ const NAV = [
 export default function Header({ roster }: { roster: NavPractitioner[] }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const pathname = usePathname();
+  /* `!` is type-only (no emitted bytes): with a pages/ directory present
+     (pages/embed/, 15 Oct 2026) Next types usePathname() as string | null,
+     which is only ever null in pages/, and the header is never rendered there. */
+  const pathname = usePathname()!;
 
   /* IS THIS A TAGALOG PAGE?
    *
