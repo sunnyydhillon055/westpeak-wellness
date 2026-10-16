@@ -1,9 +1,9 @@
-import { practitioners, type Practitioner } from '@/lib/practitioners';
+import { practitioners, withLetters, type Practitioner } from '@/lib/practitioners';
 import { placesFor } from '@/lib/practitioner-places';
 import type { CityTopic } from '@/lib/conditions';
 import type { CityContext } from '@/lib/city-context';
 import type { Location } from '@/lib/locations';
-import { money, type Catalog } from '@/lib/cliniko-catalog';
+import { CONSULT_MINUTES, money, type Catalog } from '@/lib/cliniko-catalog';
 import { site } from '@/lib/site';
 import { GUIDE_FOR_SERVICE } from '@/lib/fee-guides';
 /* metaLength only, called at run time: lib/snippet-facts.ts imports this
@@ -256,28 +256,32 @@ export const cityServiceTitle = (name: string, city: string, brand: string, max 
   return `${withBc} | ${brand}`.length <= max ? withBc : `${name} in ${city}`;
 };
 
-/* THE CITY-SERVICE DESCRIPTION — rewritten 3 Oct 2026.
+/* THE CITY-SERVICE DESCRIPTION — rewritten 3 Oct 2026, led by the query
+ * since 15 Oct 2026.
  *
  * In the 3 Oct build all 100 city-service descriptions read "<Service> for
  * <City>, by secure video across BC with a Registered Clinical Counsellor.
- * In ..." and none carried a fee, while the hubs, sixteen of seventeen
- * Punjabi regions and five of seven service pages did. The 3 Oct export shows
- * no clicks on any city-service page. A description is now the pair's own
- * argument, the counsellors who would take the work by first name, and the
- * service's catalogue fee with the free consultation:
+ * In ..." and none carried a fee. From 3 Oct a description was the pair's
+ * angle, the counsellors by first name and the catalogue fee. On 15 Oct a
+ * scan of the build found 70 of the 100 without the city's name, none saying
+ * "online", and about 30 ending the angle in "…" (kamloops/couples,
+ * mission/couples); vernon/emdr-therapy had 79 impressions at 12.1 and no
+ * click. A description is now:
  *
- *   {first sentence of pair.angle} With {first names}, {fee} per {min}-min
- *   session · free 15-min consult.
+ *   Online {service} for {City}[, by secure video]. {one whole sentence}
+ *   With {first names}, {fee} per {min}-min session · free 15-min consult.
  *
- * `facts` is serviceSnippet(catalog, service, []) from lib/snippet-facts.ts,
- * passed in by the page, so this file still types no figure. The angle is the
- * only part that is cut: whole sentence first; on a page two counsellors share,
- * the names are dropped before the angle is touched; failing that, the angle
- * ends at the last whole clause that fits (cutAtClause), and only then is it
- * cut at a word boundary and marked with an ellipsis. Couples and EMDR keep
- * the one name, because the name is the answer to who takes that work.
- * scripts/uniqueness-gate.mjs fails if two descriptions share more than 60%
- * of their word 4-grams. */
+ * The sentence is the angle's first when it fits whole, otherwise the pair's
+ * `snippet` (lib/city-services.ts), the same argument written short. Nothing
+ * is cut: "by secure video" goes first, then, on a page two counsellors
+ * share, the names. Couples and EMDR keep the one name, because the name is
+ * the answer to who takes that work. `facts` is serviceSnippet(catalog,
+ * service, []) from lib/snippet-facts.ts, passed in by the page, so this file
+ * still types no figure. scripts/uniqueness-gate.mjs fails if two
+ * descriptions share more than 60% of their word 4-grams, which is why the
+ * pair's own sentence is never dropped: test/city-scarcity-snippets.test.mts
+ * fails if any description lacks it. cutAtWord and cutAtClause below no
+ * longer shape the description; they stay for the clause rule's tests. */
 const firstSentenceOf = (s: string) => s.match(/^.*?[.!?](?=\s|$)/)?.[0] ?? s;
 const firstNames = (counsellors: Pick<Practitioner, 'name'>[]) =>
   listOf(counsellors.map((p) => p.name.split(' ')[0]), 'or');
@@ -315,27 +319,62 @@ export const cutAtClause = (s: string, max: number): string | undefined => {
 };
 
 export const cityServiceDescription = (args: {
+  /** The service's own name ("EMDR Therapy"); lowercased mid-sentence. */
+  service: string;
+  city: string;
   angle: string;
+  snippet?: string;
   counsellors: Pick<Practitioner, 'name'>[];
   facts?: string;
   max?: number;
 }): string => {
-  const { angle, counsellors, facts, max = 158 } = args;
-  const lead = firstSentenceOf(angle);
+  const { service, city, angle, snippet, counsellors, facts, max = 158 } = args;
+  const svc = midSentence(service);
+  const leads = [`Online ${svc} for ${city}, by secure video.`, `Online ${svc} for ${city}.`];
   const names = counsellors.length ? firstNames(counsellors) : '';
   const tail = (withNames: boolean) => {
     if (!facts) return withNames && names ? ` With ${names}.` : '';
     return withNames && names ? ` With ${names}, ${facts}.` : ` ${facts.charAt(0).toUpperCase()}${facts.slice(1)}.`;
   };
-  const full = `${lead}${tail(true)}`;
-  if (metaLength(full) <= max) return full;
-  if (counsellors.length > 1) {
-    const unnamed = `${lead}${tail(false)}`;
-    if (metaLength(unnamed) <= max) return unnamed;
+  const tails = counsellors.length > 1 ? [tail(true), tail(false)] : [tail(true)];
+  const own = [firstSentenceOf(angle), ...(snippet ? [snippet] : [])];
+  for (const sentence of own) {
+    for (const t of tails) {
+      for (const lead of leads) {
+        const d = `${lead} ${sentence}${t}`;
+        if (metaLength(d) <= max) return d;
+      }
+    }
   }
-  const keep = counsellors.length > 1 ? tail(false) : tail(true);
-  return `${cutAtClause(lead, max - metaLength(keep)) ?? cutAtWord(lead, max - metaLength(keep))}${keep}`;
+  return `${leads[1]}${tails[tails.length - 1]}`;
 };
+
+/* WHO THE DIRECT ANSWER NAMES — 15 Oct 2026.
+ *
+ * The one sentence an answer engine lifts from a city or city-service page
+ * said "by Registered Clinical Counsellors" on every page, including the
+ * couples and EMDR pages, where one counsellor offers the work. The 13 Oct
+ * export had person-seeking queries at 8-19 with no click ("emdr therapist
+ * vernon" 9 at 12.44, "marriage counselling vernon" 8 at 13.62). The
+ * sentence now names whoever counsellorsFor() returns, with her letters from
+ * the roster (withLetters) and the consultation length from CONSULT_MINUTES,
+ * so a second EMDR counsellor, or none, changes it without an edit. No
+ * registration number: those stay on the profile pages. */
+const whoLine = (counsellors: Pick<Practitioner, 'name' | 'postNominals'>[]) =>
+  counsellors.length === 1
+    ? withLetters(counsellors[0])
+    : counsellors.length
+      ? `${listOf(counsellors.map((p) => p.name), 'or')}, ${counsellors.length === 2 ? 'both' : 'all'} Registered Clinical Counsellors`
+      : 'Registered Clinical Counsellors registered with the BC Association of Clinical Counsellors';
+
+/** "EMDR Therapy for people in Vernon is with Camille Granda, RCC, CCC, by
+ *  secure video, with a free 15-minute consultation, …" */
+export const serviceDirectAnswer = (service: string, city: string, counsellors: Pick<Practitioner, 'name' | 'postNominals'>[]) =>
+  `${service} for people in ${city} is with ${whoLine(counsellors)}, by secure video, with a free ${CONSULT_MINUTES}-minute consultation, no referral, and receipts your extended health plan can process.`;
+
+/** The city hub's version, which also says the languages. */
+export const hubDirectAnswer = (city: string, counsellors: Pick<Practitioner, 'name' | 'postNominals' | 'languages'>[]) =>
+  `Online counselling for people in ${city} is with ${whoLine(counsellors)}, by secure video in ${languagePhrase(counsellors)}${counsellors.length > 1 ? ' depending on the counsellor' : ''}, with a free ${CONSULT_MINUTES}-minute consultation and no referral needed.`;
 
 /* WHAT IS LEFT OF THE GENERATED FAQS — 3 Oct 2026.
  *

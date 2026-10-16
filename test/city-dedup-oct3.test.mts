@@ -4,9 +4,10 @@ import { readFileSync } from 'node:fs';
 import { pairs, PUBLIC_ROUTE_SOURCES } from '../lib/city-services.ts';
 import { getCityTopic } from '../lib/conditions.ts';
 import { FALLBACK_CATALOG, fallbackFee } from '../lib/cliniko-catalog.ts';
-import { cityServiceDescription, counsellorsFor, cutAtClause, cutAtWord, generatedFaqs } from '../lib/city-service-page.ts';
+import { cityServiceDescription, counsellorsFor, cutAtClause, cutAtWord, generatedFaqs, midSentence } from '../lib/city-service-page.ts';
 import { metaLength, serviceSnippet } from '../lib/snippet-facts.ts';
 import { getLocation } from '../lib/locations.ts';
+import { getCityContext } from '../lib/city-context.ts';
 import { comparisons } from '../lib/comparisons.ts';
 import { BCPA_PSYCHOLOGIST } from '../lib/fee-guides.ts';
 
@@ -22,7 +23,10 @@ const HOURS = /\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday|eveni
 const describe = (p: (typeof pairs)[number]) => {
   const topic = getCityTopic(p.service)!;
   return cityServiceDescription({
+    service: topic.name,
+    city: getCityContext(p.city)!.city,
     angle: p.angle,
+    snippet: p.snippet,
     counsellors: counsellorsFor(topic),
     facts: serviceSnippet(FALLBACK_CATALOG, topic.bookingService, []),
   });
@@ -37,7 +41,8 @@ test('#422 every city-service description carries the catalogue fee, the free co
     assert.ok(d.includes(`${fallbackFee(topic.bookingService === 'couples-therapy' ? 'Couples Counselling' : 'Individual Counselling')} per 50-min session`), `${key}: ${d}`);
     assert.match(d, /free 15-min consult\.$/, key);
     assert.ok(!HOURS.test(d), `${key} names a time: ${d}`);
-    assert.ok(d.startsWith(p.angle.split(' ').slice(0, 3).join(' ')), `${key} does not open on its angle: ${d}`);
+    /* Since 15 Oct 2026 the query opens it (test/city-scarcity-snippets.test.mts). */
+    assert.ok(d.startsWith(`Online ${midSentence(topic.name)} for `), `${key} does not open on the query: ${d}`);
   }
 });
 
@@ -61,7 +66,7 @@ test('#422 the seven pages holding most impressions keep their whole angle sente
     const d = describe(p);
     assert.ok(d.includes('$'), `${key}: ${d}`);
     const first = p.angle.match(/^.*?[.!?](?=\s|$)/)![0];
-    if (metaLength(first) <= 100) assert.ok(d.startsWith(first), `${key} cut a short angle: ${d}`);
+    assert.ok(d.includes(first) || d.includes(p.snippet ?? first), `${key} lost its own sentence: ${d}`);
   }
 });
 
@@ -86,8 +91,10 @@ test('#422 no two descriptions share more than 60% of their word 4-grams (the ga
 test('cutAtWord keeps whole words, drops a trailing comma and marks the cut', () => {
   assert.equal(cutAtWord('One two, three four.', 11), 'One two…');
   assert.ok(metaLength(cutAtWord('A long sentence that will need cutting here.', 20)) <= 20);
-  const d = cityServiceDescription({ angle: 'x '.repeat(120).trim() + '.', counsellors: [{ name: 'Ann Bee' }], facts: '$1 per 50-min session · free 15-min consult' });
-  assert.ok(metaLength(d) <= 158 && d.includes('… With Ann,'), d);
+  /* The description no longer uses it: an angle too long for the gate is
+     dropped whole, never cut (15 Oct 2026). */
+  const d = cityServiceDescription({ service: 'EMDR Therapy', city: 'Annville', angle: 'x '.repeat(120).trim() + '.', counsellors: [{ name: 'Ann Bee' }], facts: '$1 per 50-min session · free 15-min consult' });
+  assert.equal(d, 'Online EMDR therapy for Annville. With Ann, $1 per 50-min session · free 15-min consult.');
 });
 
 test('cutAtClause ends on a whole clause, never on a fragment', () => {

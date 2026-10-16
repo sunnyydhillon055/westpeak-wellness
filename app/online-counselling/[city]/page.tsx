@@ -29,7 +29,7 @@ import CounsellorCards from '@/components/CounsellorCards';
 import NextConsultLine from '@/components/NextConsultLine';
 import { counsellorsForCity } from '@/lib/counsellor-cards';
 import { cityHubFaqs, cityHubTitle, helpCardsFor } from '@/lib/city-hub';
-import { seoName } from '@/lib/city-service-page';
+import { counsellorsFor, hubDirectAnswer, seoName } from '@/lib/city-service-page';
 import { getAudience } from '@/lib/audiences';
 import { bookingCtaFor } from '@/lib/booking-cta';
 import { readCatalog } from '@/lib/cliniko-catalog';
@@ -240,12 +240,10 @@ export default async function CityPage({ params }: { params: { city: string } })
           <p className="lede">{l.blurb}</p>
           {/* A self-contained sentence an answer engine can lift whole — every
               service and guide page has one; the city pages did not. Says only
-              what is true of every counsellor at the practice. */}
+              what is true of every counsellor at the practice. Names who
+              takes individual work, 15 Oct 2026 (hubDirectAnswer). */}
           <p className="direct-answer">
-            Online counselling for people in {l.city} is delivered by secure video by Registered
-            Clinical Counsellors registered with the BC Association of Clinical Counsellors, in
-            English, Punjabi or Tagalog depending on the counsellor, with a free first consultation
-            and no referral needed.
+            {hubDirectAnswer(l.city, counsellorsFor({ bookingService: 'individual-therapy' }))}
           </p>
           {l.communities?.length ? (
             <p style={{ color: 'var(--ink-soft)', marginTop: 10 }}>

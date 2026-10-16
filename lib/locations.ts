@@ -168,22 +168,22 @@ export const locations: Location[] = [
     metaDescription:
       "Therapy and counselling in Prince George, BC, by secure video. Anxiety, depression, trauma, EMDR and couples therapy. Free 15-minute consultation.",
     intro: [
-      "If you live in Prince George and have tried to find a counsellor, you already know the shape of the problem: there are not many, the ones who are here fill up, and the wait for a psychiatrist or specialist is longer than almost anywhere else in the province. That is not a failure of effort on anyone's part. It is arithmetic: Northern Health covers roughly two-thirds of BC's landmass for about 300,000 people, and mental-health clinicians cluster where the population does.",
+      "If you live in Prince George and have tried to find a counsellor, you may already know the shape of the problem: openings vary, and a wait for a psychiatrist or specialist can be long. That is not a failure of effort on anyone's part. It is arithmetic: Northern Health covers roughly two-thirds of BC's landmass for about 300,000 people, and mental-health clinicians cluster where the population does.",
       "Virtual counselling does not fix that arithmetic. What it does is remove distance from the equation entirely. A [Registered Clinical Counsellor](/compare/rcc-vs-psychologist-vs-social-worker-bc) working out of the Lower Mainland is exactly as available to you in Prince George as to someone in Burnaby: same 50-minute session, same secure platform, same [BCACC](https://bcacc.ca) code of ethics. Anxiety is the reason most often searched from here, and [anxiety therapy in Prince George](/online-counselling/prince-george/anxiety-counselling) has a page of its own.",
     ],
     localReality: {
       h2: "What access actually looks like here",
       body: [
         "The gap is documented, not anecdotal. In February 2026 the Canadian Mental Health Association's Northern BC branch reported that its no-barrier counselling program in Prince George, funded as a Northern Health pilot, had supported **103 clients across 519 appointments in ten months and still carried a waitlist of 30 people**. The program paused on 31 March 2026 when the pilot funding concluded.",
-        "CMHA Northern BC has also said plainly that in-person, one-to-one services across the north remain sparse, and that people seeking a specialist or psychiatrist in the region routinely wait longer than elsewhere in BC.",
+        "One program’s waitlist is not the whole picture, and openings at other practices vary. The BC Association of Clinical Counsellors’ directory shows who is taking clients in and around Prince George.",
         "None of that means there is nothing available. Northern Health runs mental-health and substance-use services in Prince George: assessment, treatment, counselling, education and referral: delivered in person, by phone, and by video. If you are already connected to those services, staying connected to them is worth doing. Private virtual counselling is a parallel option, not a replacement, and it is most useful when the wait for a public service is longer than you can comfortably hold, or when you want continuity that does not depend on a pilot's funding cycle.",
-        "Those figures describe counselling in English. Add the requirement that the counsellor speak Punjabi and the local supply does not thin out. It disappears, and the nearest with an office is roughly eight hours south. [Punjabi-speaking counselling for Prince George](/punjabi-counselling/prince-george) covers that specifically, with the local numbers.",
+        "Those figures describe counselling in English. Add the requirement that the counsellor speak Punjabi and the choice near Prince George narrows again. [Punjabi-speaking counselling for Prince George](/punjabi-counselling/prince-george) covers that specifically, with the local numbers.",
       ],
     },
     access: [
-      { label: "No drive, no weather", detail: "Sessions happen wherever you have a private room and a connection. January in the Interior stops being a scheduling problem." },
-      { label: "Continuity if you move or travel", detail: "Work camps, rotations, and moves within BC do not interrupt the work. The practice is licensed to see clients anywhere in the province." },
-      { label: "Punjabi-language sessions", detail: "Punjabi-speaking counsellors are concentrated in the Lower Mainland. Virtual access is, for most of Northern BC, the only realistic route to therapy in Punjabi." },
+      { label: "No drive, no weather", detail: "Sessions happen wherever you have a private room and a connection. January in the north stops being a scheduling problem." },
+      { label: "Continuity if you move or travel", detail: "Work camps, rotations, and moves within BC do not interrupt the work. The practice’s counsellors are registered to see clients anywhere in the province." },
+      { label: "Punjabi-language sessions", detail: "Sessions can run in Punjabi by video from anywhere in Northern BC, so the language does not depend on who practises nearby." },
     ],
     faqs: [
       {
@@ -485,13 +485,13 @@ export const locations: Location[] = [
       "Online counselling and therapy for Kelowna and the Okanagan. EMDR, trauma, anxiety and couples therapy by secure video.",
     intro: [
       "Kelowna has grown quickly, and it has grown in a specific way: retirees, remote workers who left the coast, students at UBC Okanagan, and a large seasonal workforce in agriculture and tourism. Health and social services have not expanded at the same pace, and mental health is where that gap shows most clearly.",
-      "The result is that local options exist but fill up, and the specialist end. A particular modality, a particular language, is thin enough that many people do without.",
+      "The result is that local options exist and openings vary, most of all at the specialist end: a particular modality, or a particular language.",
     ],
     localReality: {
       h2: "What the Okanagan gap looks like",
       body: [
-        "**Specialisation is the scarce thing, not counsellors in general.** If what you need is a practitioner trained in a specific approach for what you are carrying, the Central Okanagan list is short, and a short list with waitlists is not a choice.",
-        "**Language access is scarcer still.** The Okanagan has a long-established South Asian community, particularly through agriculture, and few Punjabi-speaking clinicians. Virtual sessions are, for most people here, the only realistic route to [counselling in Punjabi](/services/punjabi-counselling), and [Punjabi-speaking counselling for Kelowna](/punjabi-counselling/kelowna) covers what is and is not available locally.",
+        "**Specialisation is where the choice narrows, not counsellors in general.** If what you need is a practitioner trained in a specific approach for what you are carrying, the Central Okanagan choice is narrower than the coast’s and openings vary; the BC Association of Clinical Counsellors’ directory shows who practises locally.",
+        "**Language narrows it again.** The Okanagan has a long-established South Asian community, particularly through agriculture, and if you want sessions in Punjabi the local choice is smaller still. Virtual sessions add a route to [counselling in Punjabi](/services/punjabi-counselling) from anywhere in the valley, and [Punjabi-speaking counselling for Kelowna](/punjabi-counselling/kelowna) covers what is and is not available locally.",
         "**Seasonal work resists standard scheduling.** Agricultural and tourism employment peaks hard, and during a peak a fixed weekly daytime appointment is not attendable. Flexibility about timing, and no travel either side, is what makes therapy possible rather than theoretical during those months.",
         "**Wildfire seasons have left a mark.** Recent years in the Interior have included evacuations, property loss, and repeated summers of smoke and alert. That is a genuine and recurring source of anxiety and trauma in this region, and it is the kind of thing people tend to describe as \"everyone went through it\" rather than as something worth addressing. It is worth addressing, [trauma therapy](/services/individual-therapy) and [EMDR](/services/emdr-therapy) are both well suited to a specific, identifiable event.",
       ],
@@ -1927,7 +1927,7 @@ export const locations: Location[] = [
     },
     access: [
       { label: "No bridge, no SkyTrain transfer", detail: "From Queensborough, Sapperton or Uptown, the session starts in the room you are already in, with no crossing either side of it." },
-      { label: "Not limited to the city limits", detail: "A small city holds a handful of private practices. The search can run across every registered counsellor in British Columbia instead." },
+      { label: "Not limited to the city limits", detail: "The search does not have to stop at New Westminster’s own private practices; it can run across every registered counsellor in British Columbia." },
       { label: "Queensborough on the same terms", detail: "The island side of the city gets identical access, along with Sapperton, Uptown, Queen’s Park, Brow of the Hill and Connaught Heights." },
       { label: "Fits a hospital roster", detail: "Sessions can be grouped into the weeks a roster leaves free, with a pause agreed in advance for the heavy stretches." },
     ],
