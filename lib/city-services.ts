@@ -240,7 +240,7 @@ export const pairs: Pair[] = [
     city: 'abbotsford', service: 'emdr-therapy',
     angle: 'EMDR is one of the modalities the Fraser Valley most reliably does not have locally.',
     body: [
-      'Ask for EMDR in Abbotsford and the answer has commonly been that the nearest trained clinician is west of you. It is a specific enough training that a smaller local sector simply may not contain it, which is different from a service being busy. It is a service being absent.',
+      'Abbotsford has EMDR-trained clinicians, and the BC Association of Clinical Counsellors’ directory and EMDR Canada’s list are the places to find them. What varies is who is taking new clients, at what times, and whether the weekly drive fits around work. Online EMDR adds a BC option to that list rather than replacing the local ones.',
       'Delivered by video, that absence stops being geographic. The protocol is unchanged, the bilateral stimulation is delivered on screen or by self-administered tapping, and the preparation phase that makes EMDR safe to do happens exactly as it would in a room.',
     ],
     faqs: [
@@ -268,7 +268,7 @@ export const pairs: Pair[] = [
     city: 'langley', service: 'emdr-therapy',
     angle: 'EMDR in Langley is available in principle and hard to book in practice, because the trained clinicians serve the whole eastern corridor.',
     body: [
-      'The handful of EMDR-trained practitioners around Langley are absorbing demand from Surrey to Abbotsford, which is why the search so often ends in a waitlist. That is not a local failing. It is what happens when a specific training is thinly distributed across a wide corridor.',
+      'Langley has EMDR-trained practitioners, and people from Surrey to Abbotsford look for them too. Whether one has an opening at a time that works is the practical question, and the directories of the BC Association of Clinical Counsellors and EMDR Canada are the honest place to check. Online EMDR is one more route, not a judgement on the local ones.',
       'Remote delivery widens the pool from whoever is within driving distance to whoever is registered in British Columbia. For a modality this specific, that is the difference between choosing a clinician and taking whoever has an opening.',
     ],
     faqs: [
@@ -294,7 +294,7 @@ export const pairs: Pair[] = [
     city: 'chilliwack', service: 'emdr-therapy',
     angle: 'In the eastern Fraser Valley, EMDR is not a service that is busy. It is a service that is absent.',
     body: [
-      'There is a difference between a modality being oversubscribed and a modality not being present, and Chilliwack usually meets the second. EMDR requires specific training that a smaller local sector may simply not contain, so the search does not end in a waitlist; it ends in nothing.',
+      'EMDR requires specific training, so in a smaller city the choice of clinicians who offer it is narrower than in Vancouver, and openings vary. The BC Association of Clinical Counsellors’ directory and EMDR Canada’s list show who practises near Chilliwack; online EMDR from anywhere in BC widens that choice without replacing it.',
       'This is the clearest case in the province for remote delivery. The protocol does not lose anything to video, bilateral stimulation is delivered on screen or by self-administered tapping, both established remote practice, and the alternative is not a different local option but no option at all.',
     ],
     faqs: [
@@ -406,7 +406,7 @@ export const pairs: Pair[] = [
     ],
     faqs: [
       /* Search Console, 17 Sep 2026: marriage counselling Prince George, nine impressions across three phrasings, position 36 to 38. */
-      { q: 'Is there marriage counselling in Prince George?', a: 'Very little, which is why people search for it. A handful of practitioners in the city see couples, most have waits, and the alternative is a drive to nowhere closer. Online marriage counselling from a BC counsellor happens from your own home, with both of you on the same screen or on two, and the first 15-minute consultation is free.' },
+      { q: 'Is there marriage counselling in Prince George?', a: 'Yes. Several practitioners in the city see couples, and openings vary, so it is worth checking the BC Association of Clinical Counsellors’ directory. Online marriage counselling from a BC counsellor happens from your own home, with both of you on the same screen or on two, and the first 15-minute consultation is free.' },
       { q: 'Is there anything for couples locally?', a: 'General counselling exists in Prince George. Structured couples work with specific training is less reliably available, which is usually the gap people are trying to fill.' },
       { q: 'How do we start?', a: 'A free 15-minute video call, either together or one of you first. Both are ordinary ways to begin.' },
     ],
@@ -687,7 +687,7 @@ export const pairs: Pair[] = [
     city: 'prince-george', service: 'trauma-therapy',
     angle: 'Serious incidents in the resource sector, a long way from anybody trained to treat the aftermath.',
     body: [
-      'Forestry, milling, heavy transport and camp work carry real risk, and Northern BC is where a great deal of that work happens. When something goes wrong the physical response is well organised. The psychological one is not, because trauma-trained clinicians are concentrated in the south and the nearest one may be a long drive or a flight away.',
+      'Forestry, milling, heavy transport and camp work carry real risk, and Northern BC is where a great deal of that work happens. When something goes wrong the physical response is well organised. The psychological one can be harder to reach, because the choice of trauma-trained clinicians is wider in the Lower Mainland and on the south Island than in the north.',
       'That gap is why so much of this goes untreated here rather than because people are unwilling. Virtual sessions remove the distance from the equation entirely, which for trauma work matters more than for most things. It needs continuity, and continuity is exactly what an eight-hour round trip destroys.',
     ],
     faqs: [
@@ -1382,7 +1382,7 @@ export const pairs: Pair[] = [
     city: 'campbell-river', service: 'emdr-therapy',
     angle: 'From Campbell River north, the EMDR question is often not who has an opening but who is within reach.',
     body: [
-      'EMDR is a specific training, and a small private sector may hold a handful of people with it, or none taking new clients. From Campbell River the next pools are down-Island, in the Comox Valley, Nanaimo and Victoria, and from Port Hardy, Gold River or Cortes every one of those is a long trip to repeat for a weekly piece of work.',
+      'EMDR is a specific training, so the choice of clinicians who offer it locally is narrower than in a large city, and openings vary. From Campbell River the next pools are down-Island, in the Comox Valley, Nanaimo and Victoria, and from Port Hardy, Gold River or Cortes every one of those is a long trip to repeat for a weekly piece of work.',
       'By video the trip disappears and the choice widens to everyone in British Columbia trained in it. That matters more for EMDR than for most approaches, because fit with the clinician and steady continuity through the preparation phase do much of the work of making processing tolerable.',
     ],
     faqs: [
