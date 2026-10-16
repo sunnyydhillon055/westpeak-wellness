@@ -639,6 +639,8 @@ The facts every email may state, and nothing beyond them:
 >
 > Thank you for considering it.
 >
+> If anyone you advise would like to talk to a counsellor, the first 15 minutes are a free video consultation: https://www.westpeakwellness.com/book
+>
 > Westpeak Wellness
 > info@westpeakwellness.com
 
@@ -654,6 +656,8 @@ The facts every email may state, and nothing beyond them:
 > https://www.westpeakwellness.com/tools/stress-leave-pay-calculator?utm_source=legal
 >
 > Thank you either way.
+>
+> If anyone you advise would like to talk to a counsellor, the first 15 minutes are a free video consultation: https://www.westpeakwellness.com/book
 >
 > Westpeak Wellness
 > info@westpeakwellness.com
@@ -671,6 +675,8 @@ The facts every email may state, and nothing beyond them:
 >
 > Thank you for the work you do.
 >
+> If anyone you advise would like to talk to a counsellor, the first 15 minutes are a free video consultation: https://www.westpeakwellness.com/book
+>
 > Westpeak Wellness
 > info@westpeakwellness.com
 
@@ -685,6 +691,8 @@ The facts every email may state, and nothing beyond them:
 > If your advocates would find it useful for clients:
 > https://www.westpeakwellness.com/tools/stress-leave-pay-calculator?utm_source=community
 >
+> If anyone you advise would like to talk to a counsellor, the first 15 minutes are a free video consultation: https://www.westpeakwellness.com/book
+>
 > Westpeak Wellness
 > info@westpeakwellness.com
 
@@ -698,6 +706,8 @@ The facts every email may state, and nothing beyond them:
 >
 > If it adds something for your readers, here it is:
 > https://www.westpeakwellness.com/tools/stress-leave-pay-calculator?utm_source=legal
+>
+> If anyone you advise would like to talk to a counsellor, the first 15 minutes are a free video consultation: https://www.westpeakwellness.com/book
 >
 > Westpeak Wellness
 > info@westpeakwellness.com
@@ -715,6 +725,8 @@ The facts every email may state, and nothing beyond them:
 > If it would help employers answer that question:
 > https://www.westpeakwellness.com/tools/stress-leave-pay-calculator?utm_source=hr
 >
+> If anyone you advise would like to talk to a counsellor, the first 15 minutes are a free video consultation: https://www.westpeakwellness.com/book
+>
 > Westpeak Wellness
 > info@westpeakwellness.com
 
@@ -728,6 +740,8 @@ The facts every email may state, and nothing beyond them:
 >
 > If it would be useful to your members' HR and safety staff:
 > https://www.westpeakwellness.com/tools/stress-leave-pay-calculator?utm_source=hr
+>
+> If anyone you advise would like to talk to a counsellor, the first 15 minutes are a free video consultation: https://www.westpeakwellness.com/book
 >
 > Westpeak Wellness
 > info@westpeakwellness.com
@@ -745,6 +759,8 @@ The facts every email may state, and nothing beyond them:
 >
 > Westpeak Wellness is registered in White Rock and serves BC by secure video.
 >
+> If anyone you advise would like to talk to a counsellor, the first 15 minutes are a free video consultation: https://www.westpeakwellness.com/book
+>
 > Westpeak Wellness
 > info@westpeakwellness.com
 
@@ -759,6 +775,8 @@ The facts every email may state, and nothing beyond them:
 > If it would be useful on your Business Resources page:
 > https://www.westpeakwellness.com/tools/stress-leave-pay-calculator?utm_source=hr
 >
+> If anyone you advise would like to talk to a counsellor, the first 15 minutes are a free video consultation: https://www.westpeakwellness.com/book
+>
 > Westpeak Wellness
 > info@westpeakwellness.com
 
@@ -772,6 +790,8 @@ The facts every email may state, and nothing beyond them:
 >
 > If it would be a useful handout link:
 > https://www.westpeakwellness.com/tools/stress-leave-pay-calculator?utm_source=community
+>
+> If anyone you advise would like to talk to a counsellor, the first 15 minutes are a free video consultation: https://www.westpeakwellness.com/book
 >
 > Westpeak Wellness
 > info@westpeakwellness.com
@@ -789,6 +809,8 @@ The facts every email may state, and nothing beyond them:
 > Could you pass this to whoever looks after member resources?
 > https://www.westpeakwellness.com/tools/stress-leave-pay-calculator?utm_source=union
 >
+> If anyone you advise would like to talk to a counsellor, the first 15 minutes are a free video consultation: https://www.westpeakwellness.com/book
+>
 > Westpeak Wellness
 > info@westpeakwellness.com
 
@@ -802,6 +824,8 @@ The facts every email may state, and nothing beyond them:
 >
 > If it would help members on your LTD page:
 > https://www.westpeakwellness.com/tools/stress-leave-pay-calculator?utm_source=union
+>
+> If anyone you advise would like to talk to a counsellor, the first 15 minutes are a free video consultation: https://www.westpeakwellness.com/book
 >
 > Westpeak Wellness
 > info@westpeakwellness.com
@@ -817,6 +841,8 @@ The facts every email may state, and nothing beyond them:
 > If it would be useful beside that section:
 > https://www.westpeakwellness.com/tools/stress-leave-pay-calculator?utm_source=union
 >
+> If anyone you advise would like to talk to a counsellor, the first 15 minutes are a free video consultation: https://www.westpeakwellness.com/book
+>
 > Westpeak Wellness
 > info@westpeakwellness.com
 
@@ -831,6 +857,8 @@ The facts every email may state, and nothing beyond them:
 > If it would be useful in your member resources:
 > https://www.westpeakwellness.com/tools/stress-leave-pay-calculator?utm_source=union
 >
+> If anyone you advise would like to talk to a counsellor, the first 15 minutes are a free video consultation: https://www.westpeakwellness.com/book
+>
 > Westpeak Wellness
 > info@westpeakwellness.com
 
@@ -844,6 +872,8 @@ The facts every email may state, and nothing beyond them:
 >
 > If it fits:
 > https://www.westpeakwellness.com/tools/stress-leave-pay-calculator?utm_source=union
+>
+> If anyone you advise would like to talk to a counsellor, the first 15 minutes are a free video consultation: https://www.westpeakwellness.com/book
 >
 > Westpeak Wellness
 > info@westpeakwellness.com
@@ -864,6 +894,8 @@ calculator is in English only; say so rather than implying otherwise.
 > If it would help your Know Your Rights clients:
 > https://www.westpeakwellness.com/tools/stress-leave-pay-calculator?utm_source=community
 >
+> If anyone you advise would like to talk to a counsellor, the first 15 minutes are a free video consultation: https://www.westpeakwellness.com/book
+>
 > Westpeak Wellness
 > info@westpeakwellness.com
 
@@ -876,6 +908,8 @@ calculator is in English only; say so rather than implying otherwise.
 > Your resources page says you are compiling trusted organisations. One thing we publish may be useful to workers you assist with EI: a free calculator that shows what BC sick days and EI sickness benefits pay on a worker's own wage, week by week, with the government sources linked. It is in English and it is information, not legal advice.
 >
 > https://www.westpeakwellness.com/tools/stress-leave-pay-calculator?utm_source=community
+>
+> If anyone you advise would like to talk to a counsellor, the first 15 minutes are a free video consultation: https://www.westpeakwellness.com/book
 >
 > Westpeak Wellness
 > info@westpeakwellness.com
@@ -891,6 +925,8 @@ calculator is in English only; say so rather than implying otherwise.
 > If it would help your advocates explain the numbers:
 > https://www.westpeakwellness.com/tools/stress-leave-pay-calculator?utm_source=community
 >
+> If anyone you advise would like to talk to a counsellor, the first 15 minutes are a free video consultation: https://www.westpeakwellness.com/book
+>
 > Westpeak Wellness
 > info@westpeakwellness.com
 
@@ -904,6 +940,8 @@ calculator is in English only; say so rather than implying otherwise.
 >
 > If it would be useful to your team:
 > https://www.westpeakwellness.com/tools/stress-leave-pay-calculator?utm_source=community
+>
+> If anyone you advise would like to talk to a counsellor, the first 15 minutes are a free video consultation: https://www.westpeakwellness.com/book
 >
 > Westpeak Wellness
 > info@westpeakwellness.com
@@ -919,6 +957,8 @@ calculator is in English only; say so rather than implying otherwise.
 > If it fits your Tools & Resources page:
 > https://www.westpeakwellness.com/tools/stress-leave-pay-calculator?utm_source=community
 >
+> If anyone you advise would like to talk to a counsellor, the first 15 minutes are a free video consultation: https://www.westpeakwellness.com/book
+>
 > Westpeak Wellness
 > info@westpeakwellness.com
 
@@ -932,6 +972,8 @@ calculator is in English only; say so rather than implying otherwise.
 >
 > Could you pass it to the employment team?
 > https://www.westpeakwellness.com/tools/stress-leave-pay-calculator?utm_source=community
+>
+> If anyone you advise would like to talk to a counsellor, the first 15 minutes are a free video consultation: https://www.westpeakwellness.com/book
 >
 > Westpeak Wellness
 > info@westpeakwellness.com
@@ -947,6 +989,8 @@ calculator is in English only; say so rather than implying otherwise.
 > If it would help your advocates:
 > https://www.westpeakwellness.com/tools/stress-leave-pay-calculator?utm_source=community
 >
+> If anyone you advise would like to talk to a counsellor, the first 15 minutes are a free video consultation: https://www.westpeakwellness.com/book
+>
 > Westpeak Wellness
 > info@westpeakwellness.com
 
@@ -960,6 +1004,8 @@ calculator is in English only; say so rather than implying otherwise.
 >
 > If your employment team would find it useful:
 > https://www.westpeakwellness.com/tools/stress-leave-pay-calculator?utm_source=community
+>
+> If anyone you advise would like to talk to a counsellor, the first 15 minutes are a free video consultation: https://www.westpeakwellness.com/book
 >
 > Westpeak Wellness
 > info@westpeakwellness.com
@@ -975,6 +1021,8 @@ calculator is in English only; say so rather than implying otherwise.
 > If it would be useful in your materials:
 > https://www.westpeakwellness.com/tools/stress-leave-pay-calculator?utm_source=community
 >
+> If anyone you advise would like to talk to a counsellor, the first 15 minutes are a free video consultation: https://www.westpeakwellness.com/book
+>
 > Westpeak Wellness
 > info@westpeakwellness.com
 
@@ -988,6 +1036,8 @@ calculator is in English only; say so rather than implying otherwise.
 >
 > If it would help newcomers you support into work:
 > https://www.westpeakwellness.com/tools/stress-leave-pay-calculator?utm_source=community
+>
+> If anyone you advise would like to talk to a counsellor, the first 15 minutes are a free video consultation: https://www.westpeakwellness.com/book
 >
 > Westpeak Wellness
 > info@westpeakwellness.com
@@ -1062,7 +1112,9 @@ Sources, read 15 October 2026:
 
 Westpeak Wellness is a virtual counselling practice registered in White
 Rock, with Registered Clinical Counsellors working in English, Punjabi and
-Tagalog across BC. If a follow-up would help, reply to this address.
+Tagalog across BC. Anyone who wants to talk to a counsellor can book a
+free 15-minute video consultation at https://www.westpeakwellness.com/book.
+If a follow-up would help, reply to this address.
 
 Westpeak Wellness
 info@westpeakwellness.com

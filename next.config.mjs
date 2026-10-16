@@ -162,15 +162,15 @@ const nextConfig = {
        * on which to send `index, follow` for the staff inbox. Two rules, each
        * saying one thing, and the lookahead keeps them from both matching. */
       {
-        source: '/:path(admin|signin|forgot|reset|client-portal|message-sent|one-pager-sent|search)/:rest*',
+        source: '/:path(admin|signin|forgot|reset|client-portal|message-sent|one-pager-sent|search|print)/:rest*',
         headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
       },
       {
-        source: '/:path(admin|signin|forgot|reset|client-portal|message-sent|one-pager-sent|search)',
+        source: '/:path(admin|signin|forgot|reset|client-portal|message-sent|one-pager-sent|search|print)',
         headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
       },
       {
-        source: '/:path((?!admin|signin|forgot|reset|client-portal|message-sent|one-pager-sent|search).*)',
+        source: '/:path((?!admin|signin|forgot|reset|client-portal|message-sent|one-pager-sent|search|print).*)',
         headers: [
           { key: 'X-Robots-Tag', value: 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1' },
         ],
@@ -211,7 +211,7 @@ const nextConfig = {
       },
       { source: '/', headers: [{ key: 'Link', value: LINKS('/index.md') }] },
       {
-        source: '/:path((?!api/|_next/|admin|signin|forgot|reset|client-portal)(?!.*\\.(?:md|xml|txt|json|ico|svg|png|jpg|jpeg|webp|avif|vcf|webmanifest)$).+)',
+        source: '/:path((?!api/|_next/|admin|signin|forgot|reset|client-portal|print/)(?!.*\\.(?:md|xml|txt|json|ico|svg|png|jpg|jpeg|webp|avif|vcf|webmanifest)$).+)',
         headers: [
           { key: 'Link', value: LINKS('/:path.md') },
         ],
