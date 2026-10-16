@@ -68,7 +68,7 @@ export const CLC_QUALIFYING_DAYS = 30;
 
 /** EI sickness benefit weekly maximum, by Pacific calendar year. */
 export const EI_SICKNESS_MAX: Record<number, WeeklyBenefitMax> = {
-  2026: { weekly: 729, maxInsurableEarnings: 68900, sourceUrl: EI_SICKNESS_SOURCE, readOn: '2026-10-02' },
+  2026: { weekly: 729, maxInsurableEarnings: 68900, sourceUrl: EI_SICKNESS_SOURCE, readOn: '2026-10-15' },
   2027: { weekly: 749, maxInsurableEarnings: 70800, sourceUrl: EI_SICKNESS_SOURCE, readOn: '2026-10-02' },
 };
 

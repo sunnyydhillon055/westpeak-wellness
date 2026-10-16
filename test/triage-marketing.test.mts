@@ -40,5 +40,5 @@ test('the submit path stores first and withholds only the mail', () => {
   const mailed = s.indexOf('sendDetailed(');
   assert.ok(stored > 0 && held > stored, 'stored before the decision');
   assert.ok(held < counted && held < mailed, 'decided before counting or sending');
-  assert.match(s, /callWindow,\n\s+fillMs:/);
+  assert.match(s, /callWindow,\r?\n\s+fillMs:/);
 });

@@ -56,7 +56,7 @@ const ALBERTA_ROUTES_CLOSER: NonNullable<Resource['routesCloser']> = {
   text: 'No counsellor at this practice is insured to see clients in Alberta at the moment. These are the routes this page sources, for an Alberta reader whatever their plan.',
   routes: [
     { label: 'Counselling Alberta', detail: 'Government-funded counselling online anywhere in Alberta, on a sliding fee scale. Registration is online or by phone on 833-827-4230.', url: 'https://counsellingalberta.com/' },
-    { label: 'Health Link, 811', detail: 'Free, non-urgent advice and referral into publicly funded mental health services.' },
+    { label: 'Health Link, 811', detail: 'Free, non-urgent advice and referral into publicly funded mental health services.', url: 'https://www.albertahealthservices.ca/healthlink/healthlink.aspx' },
     { label: '211 Alberta', detail: 'A directory of community counselling offered on a sliding scale or at no cost, by phone, text and web.', url: 'https://ab.211.ca/' },
   ],
   bcLabel: 'In BC? Book a free consultation',
@@ -237,7 +237,8 @@ export const albertaResources: Resource[] = [
       { label: 'Alberta Health Care Insurance Plan, Government of Alberta', url: 'https://www.alberta.ca/ahcip.aspx' },
       { label: 'AHCIP, what is covered and what is not: psychologists and other non-physician providers are not (Government of Alberta, read 13 Oct 2026)', url: 'https://www.alberta.ca/ahcip-what-is-covered' },
       { label: 'Non-Group Coverage, Government of Alberta: clinical psychological services, premiums and eligibility (read 3 Oct and 13 Oct 2026)', url: 'https://www.alberta.ca/non-group-coverage' },
-      { label: 'Counselling Alberta, a division of Calgary Counselling Centre (read 3 Oct 2026)', url: 'https://counsellingalberta.com/' },
+      { label: 'Counselling Alberta, a division of Calgary Counselling Centre (read 3 Oct and 15 Oct 2026)', url: 'https://counsellingalberta.com/' },
+      { label: 'Health Link 811, Alberta Health Services (read 15 Oct 2026)', url: 'https://www.albertahealthservices.ca/healthlink/healthlink.aspx' },
       /* The Page9985 URL cited here until 3 Sep answered 200 and redirected to
          NotFound.aspx — a soft 404, which link-rot.mjs catches and a status
          check alone would not. */
