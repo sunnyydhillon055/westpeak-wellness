@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { guides } from '@/lib/guides';
 import { site } from '@/lib/site';
 import CtaBand from '@/components/CtaBand';
+import SeasonalShelf from '@/components/SeasonalShelf';
 import SceneBand from '@/components/SceneBand';
 import Figure from '@/components/Figure';
 import { BookOpen } from 'lucide-react';
@@ -74,6 +75,9 @@ export default function GuidesHub() {
       <section className="section" style={{ paddingTop: 40 }}>
         <div className="container">
           <Breadcrumbs trail={[{ name: 'Guides', path: '/guides' }]} />
+          {/* What this time of year brings people here, ahead of the full
+              list (lib/seasonal.ts SEASONAL_SHELF, item 538). */}
+          <SeasonalShelf variant="block" />
           <Figure name="first-session-flow" />
           <div className="grid grid-2" style={{ marginTop: 20 }}>
             {guides.map((g) => (

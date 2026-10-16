@@ -279,10 +279,30 @@ export const moreGuides4: Guide[] = [
       'Five months of low cloud on the coast, and five hours of daylight in the north. They are not the same problem.',
     shortAnswer:
       'Seasonal patterns in mood are real and, in a province this far north, common. The strongest single lever is light: getting daylight early, deliberately, even when it is grey. Beyond that, the same things that treat low mood generally apply, and the key judgement is whether what you have is seasonal at all: if it does not lift in April, it is not the winter.',
-    updated: '2026-08-31',
-    readMinutes: 6,
+    updated: '2026-10-15',
+    readMinutes: 7,
     figure: 'bc-reach',
     figure2: "burnout-vs-depression",
+    /* BC'S FIRST WINTER WITHOUT FALLING BACK — 15 Oct 2026 (item 512).
+       gov.bc.ca (published 17 Sep 2026, read 15 Oct 2026): on 1 November
+       2026 "no change will be made" to clocks and Pacific time (UTC-7) is
+       kept all year; the southeastern communities stay on mountain daylight
+       time, Golden moves to mountain standard time, the Peace region was
+       already on it. Sunrise and sunset for 21 December from the NRC
+       calculator, read 15 Oct 2026, which lists Vancouver and Prince George
+       in standard time (UTC-8) and says to add an hour where daylight time
+       is kept: Vancouver 8:05 and 16:16, Prince George 8:28 and 15:51.
+       Shown 20 Oct to 28 Feb; both boundaries are in GATE_DATES. */
+    seasonal: {
+      from: '10-20',
+      to: '02-28',
+      h2: 'This winter the clocks do not go back',
+      body: [
+        'On 1 November 2026, when clocks would previously have gone back an hour, [no change will be made](https://www2.gov.bc.ca/gov/content/governments/celebrating-british-columbia/daylight-saving-time): British Columbia stays on Pacific time, seven hours behind UTC, all year. The province gives more usable light later in the day in winter as one of its reasons. Cranbrook, Fernie, Invermere and the other southeastern communities that keep Alberta’s time stay on mountain daylight time year-round; Golden makes its last change on 1 November, to mountain standard time; and the Peace region, Dawson Creek and Fort St. John among them, was already on mountain standard time all year and does not change.',
+        'The daylight itself is the same as in any other winter. What moves is where it sits on the clock: sunrise and sunset both come an hour later than they did in past winters. The National Research Council’s [sunrise and sunset calculator](https://nrc.canada.ca/en/research-development/products-services/software-applications/sun-calculator/) gives the shortest day, 21 December, as sunrise at 8:05 a.m. and sunset at 4:16 p.m. in Vancouver, and 8:28 a.m. and 3:51 p.m. in Prince George, in standard time. On the clock BC now keeps, that is sunrise at 9:05 a.m. and sunset at 5:16 p.m. in Vancouver, and 9:28 a.m. and 4:51 p.m. in Prince George.',
+        'For the advice below about getting daylight early, that changes the arithmetic rather than the advice. In late December, “before ten” leaves under an hour of daylight in Vancouver and about half an hour in Prince George, so on a working day the realistic window may be a mid-morning break or lunch outside, and on a day off, the first hour after sunrise. [HealthLink BC](https://www.healthlinkbc.ca/healthwise/light-therapy) describes light therapy as usually started in the fall and continued through spring, and says people with sensitive eyes or skin should talk with a doctor before using it.',
+      ],
+    },
     sections: [
       {
         h2: 'Two different winters',
@@ -329,11 +349,15 @@ export const moreGuides4: Guide[] = [
       { q: 'Do light boxes work?', a: 'They have a genuine evidence base for seasonal patterns, and they are not suitable for everyone. Raise it with a physician before buying one, particularly if you have an eye condition or any history of bipolar presentation.' },
       { q: 'Is it worse in northern BC?', a: 'The daylight contraction is far more extreme in the north, while the south coast produces a longer, greyer version. Both are real, and they tend to need slightly different responses.' },
       { q: 'Should I start counselling in autumn rather than winter?', a: 'If your pattern is predictable, yes, building structure before the descent is considerably easier than assembling it with no energy in January.' },
+      { q: 'Does ending the time change affect winter low mood?', a: 'It changes the clock, not the light. From 1 November 2026 most of BC no longer turns its clocks back, so winter sunrise and sunset come an hour later by the clock than in past winters, and the daylight on any given day is the same length. Morning light is the strongest signal the body clock receives, so the practical difference is when that light is available: on a December working day it may be mid-morning or midday rather than before work. The change takes effect this winter, so there is no BC experience of it to report yet, and this guide makes no prediction about it. The steps above apply either way.' },
     ],
+    /* 15 Oct 2026 (item 512): the three general hubs replaced by the pages
+       that say something about this guide's subject, each read that day. */
     sources: [
-      { label: 'HealthLink BC, mental health and substance use', url: 'https://www.healthlinkbc.ca/mental-health-substance-use' },
-      { label: 'Canadian Mental Health Association, BC Division', url: 'https://bc.cmha.ca/' },
-      { label: 'BC government, mental health and substance use support', url: 'https://www2.gov.bc.ca/gov/content/health/managing-your-health/mental-health-substance-use' },
+      { label: 'HealthLink BC, light therapy', url: 'https://www.healthlinkbc.ca/healthwise/light-therapy' },
+      { label: 'UBC Mood Disorders Centre, seasonal affective disorder', url: 'https://sad.psychiatry.ubc.ca/' },
+      { label: 'Government of British Columbia, permanent daylight saving time', url: 'https://www2.gov.bc.ca/gov/content/governments/celebrating-british-columbia/daylight-saving-time' },
+      { label: 'National Research Council Canada, sunrise and sunset calculator', url: 'https://nrc.canada.ca/en/research-development/products-services/software-applications/sun-calculator/' },
     ],
     related: [
       { href: '/online-counselling/kamloops', label: 'Online counselling in Kamloops' },

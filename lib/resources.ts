@@ -44,6 +44,10 @@ export type Resource = {
   readMinutes: number;
   sections: ResourceSection[];
   midCta: { text: string; label: string };
+  /* The h2 of the section the mid-article booking line follows, where the
+     content-weight placement (lib/placement.ts) would put it inside the
+     wrong argument. Unset keeps the weighted slot. 15 Oct 2026 (item 548). */
+  midCtaAfter?: string;
   faqs: { q: string; a: string }[];
   sources: { label: string; url: string }[];
   related: { href: string; label: string }[];

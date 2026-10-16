@@ -127,7 +127,12 @@ export const spokes: Record<string, Spoke> = {
   },
   'resources/student-mental-health-supports-bc': { audiences: ['international-students', 'teens-and-young-adults'] },
   'resources/low-cost-counselling-bc': { audiences: ['international-students', 'newcomers-to-canada'] },
-  'resources/does-my-plan-cover-counselling-bc': { audiences: ['newcomers-to-canada'] },
+  /* 15 Oct 2026 (item 548): this pointed at newcomers-to-canada, the
+     readers least likely to hold an employer plan yet. A reader asking what
+     their group plan pays is reading the plan an employer chose, so the
+     spoke goes to the employer and HR page instead. Newcomers keep the
+     low-cost and MSP spokes above and below. */
+  'resources/does-my-plan-cover-counselling-bc': { audiences: ['employers-and-hr'] },
   'resources/msp-vs-extended-health': { audiences: ['newcomers-to-canada'] },
   'compare/therapy-in-punjabi-vs-english': {
     audiences: ['punjabi-speaking-couples', 'south-asian-intergenerational-conflict'],

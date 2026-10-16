@@ -260,7 +260,7 @@ export const moreResources2: Resource[] = [
         body: [
           'Extended health plans reimburse **eligible practitioners** under a paramedical or mental-health benefit. The plan document lists which designations count. Psychologists are listed on many. [Registered Clinical Counsellors](/resources/verify-a-counsellor-in-bc) are on many and not all. Canadian Certified Counsellors are named on plans more often in Alberta, where counselling is not a regulated profession; [how to check a counsellor in Alberta](/resources/how-to-check-a-counsellor-in-alberta) shows where that certification is looked up.',
           'So the question is not "does Sun Life cover counselling". It is: *"Under my plan, is a Registered Clinical Counsellor an eligible practitioner for the mental-health or paramedical benefit, and what is the annual maximum and any per-visit maximum?"* Ask that, in those words, and you have your answer in one call.',
-          'Both counsellors at this practice are RCCs registered with the BC Association of Clinical Counsellors; one also holds the CCC. Receipts carry the registration number the insurer needs. This practice is pay-and-submit: you pay at booking and submit the receipt yourself. Pacific Blue Cross has accepted direct claims from RCCs since July 2025, so some practices bill it for you; this one does not.',
+          'Both counsellors at this practice are RCCs registered with the BC Association of Clinical Counsellors; one also holds the CCC. Receipts carry the registration number the insurer needs.',
         ],
       },
       {
@@ -314,21 +314,17 @@ export const moreResources2: Resource[] = [
             ['Physician referral required?', 'Usually no. Occasionally yes, and it is easier before the first session.'],
             ['Plan year', 'Calendar or anniversary. Coverage resets at one of them, and timing a course of sessions across the reset is legitimate.'],
             ['Virtual sessions with an RCC eligible, on the same maximum?', 'Plans that list an RCC usually treat a video session like an in-person one, but it depends on the plan, and every session at this practice is by video.'],
-            ['Health spending account', 'An HSA pays only expenses the CRA accepts as medical expenses, and the CRA does not yet list counsellors in BC as authorized practitioners. Ask the administrator before booking. A wellness or lifestyle account, where there is one, can usually fund RCC sessions as a taxable benefit.'],
+            ['Health spending account', 'Narrower than it looks for an RCC receipt. “If the answer is no”, below, says why, and what a wellness account can do instead.'],
           ],
         },
       },
-      /* 1 Oct 2026 (item 274): the site's best-ranked coverage page (428
-         impressions at 5.76) had no sentence on video sessions, while three
-         other pages answered it three different ways. One answer, from
-         lib/practice-facts.ts. */
-      {
-        h2: 'Is online counselling covered the same as in person?',
-        body: [
-          ONLINE_COVERAGE,
-          'Every session at this practice is by secure video, so if your plan treats virtual sessions differently, that is the one thing to settle before the first session rather than after it. The receipt is the same either way, and you submit it yourself.',
-        ],
-      },
+      /* 15 Oct 2026 (item 548): the H2 "Is online counselling covered the
+         same as in person?" (item 274) is gone. It said what the FAQ of the
+         same name and the table row above say, from the same
+         ONLINE_COVERAGE, and the page answered it three times in 21k
+         characters. The FAQ and the row stay. HSA and CRA are explained
+         once, below; pay-and-submit is in the Pacific Blue Cross row and the
+         direct-billing FAQ. */
       {
         h2: 'If the answer is no',
         body: [
@@ -341,6 +337,9 @@ export const moreResources2: Resource[] = [
       text: 'Once you know what the plan says, the next step is a fifteen-minute call to see whether the fit is right.',
       label: 'Book a free consultation',
     },
+    /* After the checklist, when the reader has the questions to ask; the
+       weighted slot put it inside the Canada Life section (item 548). */
+    midCtaAfter: 'The same check, for any insurer',
     faqs: [
       /* Search Console, 17 Sep 2026: 'does blue cross cover counselling' held position 1 and 'does blue cross cover therapy' position 29, with no answer in those words. */
       { q: 'Does Blue Cross cover counselling in BC?', a: 'Many Pacific Blue Cross extended health plans reimburse counselling with a Registered Clinical Counsellor, depending on the plan, up to an annual maximum the employer chose, commonly between $500 and $1,500. It is the plan, not Blue Cross, that sets the amount and the eligible designations, so the two-minute check is to log in to the member site, open the benefit booklet and search for "counsellor". The practice gives you a receipt with the counsellor\'s registration number and you claim it.' },
@@ -356,7 +355,7 @@ export const moreResources2: Resource[] = [
       { q: 'Does Westpeak Wellness bill my insurer directly?', a: 'No. This practice is pay-and-submit: you pay at booking and receive a receipt carrying the counsellor’s registration number, which you submit to the insurer. Pacific Blue Cross accepts direct claims from RCCs, so another practice may bill it for you; this one does not.' },
       { q: 'Is counselling covered by MSP?', a: 'No. MSP does not cover private counselling. It covers physicians and psychiatrists. The comparison is on the MSP vs extended health page.' },
       { q: 'Do unused counselling benefits carry over?', a: 'It depends on the plan. Unused paramedical maximums, which is where counselling usually sits, generally do not carry over: what is left at the end of the plan year is gone. Some health spending accounts carry an unused balance forward one year. Whether your plan runs on the calendar year or an anniversary year, and what happens to an unused balance, is in the booklet or the member portal; [using counselling benefits before the end of the year](/resources/counselling-benefits-before-year-end-bc) sets out the dates.' },
-      { q: 'What if my plan only lists psychologists?', a: 'Ask whether a combined mental-health benefit applies, and whether the employer offers a wellness or lifestyle spending account, which can usually fund counselling as a taxable benefit. A health spending account is narrower: it pays only CRA-eligible expenses, and the CRA does not yet list counsellors in BC, so ask the administrator first. The medical expense tax credit generally does not cover RCC fees in BC until psychotherapy is regulated in November 2027.' },
+      { q: 'What if my plan only lists psychologists?', a: 'Ask whether a combined mental-health benefit applies, and whether the employer offers a wellness or lifestyle spending account, which can usually fund counselling as a taxable benefit. A health spending account and the medical expense tax credit are narrower for an RCC receipt in BC; [if the answer is no](/resources/does-my-plan-cover-counselling-bc#if-the-answer-is-no) explains both.' },
     ],
     sources: [
       /* 1 Oct 2026 (item 274): these were the four insurers' home pages. Each
@@ -397,7 +396,9 @@ export const moreResources2: Resource[] = [
        "use counselling benefits before end of year" and "do benefits reset
        january 1 bc". Title was 'Counselling Benefits Before Year End, BC |
        Westpeak', which had neither the verb nor the year. The year is the
-       build's Pacific year (YE_YEAR), never typed; the page rebuilds daily. */
+       build's Pacific year (YE_YEAR), never typed. The page is static, so
+       the year moves with a build: rebuild-on-gate-dates.yml rebuilds and
+       rehashes on 1 January (GATE_DATES in lib/seasonal.ts). */
     title: `How to use counselling benefits before the end of ${YE_YEAR}`,
     metaTitle: `Use Counselling Benefits Before Year End in BC (${YE_YEAR})`,
     metaDescription: withSnippet(
