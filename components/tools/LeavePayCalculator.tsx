@@ -223,8 +223,8 @@ export default function LeavePayCalculator({ ei, waiver, bookHref, embed }: Prop
           {!federal && pic.unpaidDays > 0 && (
             <p>
               Your {BC_UNPAID_DAYS} unpaid sick days protect the job rather than paying anything; EI
-              pays across them. A longer leave in a BC-regulated job is protected by the duty to
-              accommodate under the Human Rights Code, not by a set number of weeks.
+              pays across them. A longer leave in a BC-regulated job is protected for up to 27 weeks in
+              a 52-week period by the Employment Standards Act, with a medical certificate.
             </p>
           )}
           {!federal && months < 3 && (

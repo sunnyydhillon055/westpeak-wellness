@@ -27,12 +27,12 @@ test('the BC sick-day floor is five paid and three unpaid wherever the leave pag
   }
 });
 
-test('the 27-week medical leave is attributed to the Canada Labour Code, never to BC law', () => {
+test('every 27-week figure names its law: the Employment Standards Act or the Canada Labour Code', () => {
   const g = getGuide('stress-leave-bc');
   assert.ok(g);
   const t = text(g);
   for (const sentence of t.split(/(?<=\.)\s+/).filter((x) => /27 weeks/.test(x))) {
-    assert.match(sentence, /Canada Labour Code|federal|Not under BC law|BC Act has no equivalent/i, `27 weeks without its source: ${sentence}`);
+    assert.match(sentence, /Canada Labour Code|federal|Employment Standards Act/i, `27 weeks without its source: ${sentence}`);
   }
   assert.ok(g.sources.some((s) => s.url.includes('laws-lois.justice.gc.ca/eng/acts/L-2/section-239')), 'the s. 239 source is cited');
 });

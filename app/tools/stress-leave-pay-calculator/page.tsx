@@ -104,6 +104,7 @@ const SOURCES = [
   { label: `Government of Canada, temporary EI measures: waiving the waiting period (read ${longDate(EI_WAITING_WAIVER.readOn)})`, url: EI_WAITING_WAIVER.sourceUrl },
   { label: 'Province of BC, paid sick leave (read 13 Oct 2026)', url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/paid-sick-leave' },
   { label: 'Government of Canada, medical leave with pay for federally regulated employees, IPG-118 (read 13 Oct 2026)', url: 'https://www.canada.ca/en/employment-social-development/programs/laws-regulations/labour/interpretations-policies/medical-leave-pay.html' },
+  { label: 'Province of BC, leaves of absence: serious personal illness or injury leave (read 15 Oct 2026)', url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/employment-standards/time-off/leaves-of-absence' },
   { label: 'Canada Labour Code, s. 239, medical leave of up to 27 weeks (read 13 Oct 2026)', url: 'https://laws-lois.justice.gc.ca/eng/acts/L-2/section-239.html' },
   { label: 'WorkSafeBC, mental health claims (read 13 Oct 2026)', url: 'https://www.worksafebc.com/en/claims/report-workplace-injury-illness/mental-health-injury-claims' },
 ];
@@ -192,7 +193,10 @@ export default function Page() {
             of continuous employment, then one more a month, to ten a year, at your regular rate. The
             Code also protects your job through up to 27 weeks of medical leave, which is protection,
             not pay. EI sickness benefits are the same either way. The 27 weeks quoted on many pages
-            is this federal rule; a BC-regulated job has no equivalent number of weeks.
+            is not only federal: a BC-regulated job has up to 27 weeks of unpaid, job-protected
+            serious personal illness or injury leave in any 52-week period under the Employment
+            Standards Act, with a certificate from a doctor, nurse practitioner or other designated
+            health professional.
           </p>
 
           <h2 id="where-counselling-fits">Where counselling fits</h2>
