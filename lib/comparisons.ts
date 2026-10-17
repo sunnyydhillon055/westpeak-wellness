@@ -82,7 +82,7 @@ const coreComparisons: Comparison[] = [
         ["Psychoeducational / cognitive assessments", "No", "Yes. The main thing only psychologists do", "No"],
         ["Published BC fee guidance", `${BCACC_FEE_GUIDE.individual} per 50-minute individual session (BCACC 2026 fee guide, read ${FEE_READ}); ${fallbackFee('Individual Counselling')} at this practice`, `${BCPA_RECOMMENDED.hourly} an hour (BC Psychological Association recommended rate, effective ${BCPA_RECOMMENDED.effective}, read ${FEE_READ})`, "Set by each practitioner; ask for the fee before booking"],
         ["Covered by MSP", "No", "No (outside public settings)", "No (outside public settings)"],
-        ["Listed by extended health plans", "Commonly, but not universally, check the wording", "Almost always", "Commonly"],
+        ["Listed by extended health plans", "Many plans, depending on the plan; check the wording", "Almost always", "Commonly"],
       ],
     },
     sections: [

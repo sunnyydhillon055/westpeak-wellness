@@ -345,11 +345,16 @@ export default function LocationsIndex() {
             The <Link href="/privacy">privacy policy</Link> sets out the rest.
           </p>
 
-          <h2>The part that is a legal requirement, not a preference</h2>
+          {/* 16 Oct 2026 (item 581): was "The part that is a legal requirement,
+              not a preference" over "A counsellor has to be registered in the
+              jurisdiction where the client is physically located", a law BC
+              does not have. Regulation date read on chcpbc.org 16 Oct 2026. */}
+          <h2>Why you need to be in BC for each session</h2>
           <p>
-            A counsellor has to be registered in the jurisdiction where the client is physically
-            located during a session. In practice that means sessions run when you are in British
-            Columbia, so if you travel, work rotationally out of province, or study elsewhere for part
+            No BC law requires a counsellor to be registered until psychotherapy is regulated on
+            29 November 2027. The counsellors here are RCCs whose registration and insurance cover
+            clients located in BC, and other provinces set their own rules, so sessions run when you
+            are in British Columbia, so if you travel, work rotationally out of province, or study elsewhere for part
             of the year, mention it and it can be planned around rather than discovered mid-course.
             It is also why you are asked where in BC you are, which occasionally surprises people who
             expected a virtual practice not to care.

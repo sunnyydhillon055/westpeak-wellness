@@ -43,6 +43,7 @@ on:
     - cron: '20 9 10 10 *'
     - cron: '20 9 15 10 *'
     - cron: '20 9 20 10 *'
+    - cron: '20 9 1 12 *'
   workflow_dispatch:
 permissions:
   contents: write

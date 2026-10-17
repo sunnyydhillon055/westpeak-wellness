@@ -1,7 +1,6 @@
 import Link from 'next/link';
-import { guides } from '@/lib/guides';
-import { FIRST_HOLIDAYS_CLEARED } from '@/lib/guides-more3';
-import { liveShelfLinks, type ShelfLink } from '@/lib/seasonal';
+import { liveShelfLinks } from '@/lib/seasonal';
+import { LINK_FLAGS, PUBLISHED_GUIDES } from '@/lib/live-links';
 
 /* THE "THIS SEASON" SHELF — 15 Oct 2026 (item 538).
  *
@@ -16,16 +15,14 @@ import { liveShelfLinks, type ShelfLink } from '@/lib/seasonal';
  * is only linked once that section is on the page. Both are read, never
  * set, here: lib/guides-drafts.ts and lib/guides-more3.ts own them. */
 
-const FLAGS: Record<NonNullable<ShelfLink['flag']>, boolean> = {
-  FIRST_HOLIDAYS_CLEARED,
-};
-
-const PUBLISHED = new Set(guides.map((g) => g.slug));
+/* What is published and which flags are on come from lib/live-links.ts,
+   which the related links on guides, /for pages and services read too
+   (item 558, 16 Oct 2026). */
 
 /** `block` heads the /guides index; `cell` is one entry in the homepage's
  *  "Most people arrive with a situation" grid. Nothing renders out of season. */
 export default function SeasonalShelf({ variant }: { variant: 'block' | 'cell' }) {
-  const links = liveShelfLinks(PUBLISHED, FLAGS);
+  const links = liveShelfLinks(PUBLISHED_GUIDES, LINK_FLAGS);
   if (!links.length) return null;
   if (variant === 'cell') {
     return (

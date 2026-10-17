@@ -170,6 +170,18 @@ export const punjabiWordsResource: Resource[] = [
         ],
       },
     ],
+    /* 16 Oct 2026 (item 585): the mid-CTA landed straight before "Keep
+       reading" link to /punjabi and an H2 that said the same thing, three
+       blocks in a row offering counselling in Punjabi. It now follows the
+       family sentences, where booking is a natural next thought, and the
+       inline link goes to a page the closing section does not link. */
+    midCtaAfter: 'How to say it to family, with example sentences',
+    /* 16 Oct 2026 (item 564): the default closer asked about cost and
+       coverage. English only; the reviewed Gurmukhi is untouched. */
+    closingBand: {
+      heading: 'Counselling in Punjabi, not only the word',
+      text: 'A free 15-minute consultation with Savneet Singh, a Registered Clinical Counsellor, in Punjabi, English or both in the same conversation, by secure video anywhere in BC. No obligation to book anything afterwards.',
+    },
     midCta: {
       /* The bridge from the word to the service, 3 Oct 2026: most readers
          came for a meaning, and this is where the page says the thing itself
@@ -196,6 +208,9 @@ export const punjabiWordsResource: Resource[] = [
       { label: 'HealthLink BC — mental health', url: 'https://www.healthlinkbc.ca/mental-health-substance-use' },
     ],
     related: [
+      /* First, so it is the inline link (item 585): the family conversation,
+         which no section on this page links. */
+      { href: '/for/south-asian-intergenerational-conflict', label: 'When you and your parents cannot find each other' },
       { href: '/punjabi', label: 'ਪੰਜਾਬੀ ਵਿੱਚ ਕਾਊਂਸਲਿੰਗ' },
       { href: '/services/punjabi-counselling', label: 'Punjabi-speaking counselling' },
       { href: '/compare/therapy-in-punjabi-vs-english', label: 'Therapy in Punjabi or English' },

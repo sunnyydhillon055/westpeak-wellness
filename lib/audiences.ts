@@ -1,3 +1,4 @@
+import type { GatedLink } from '@/lib/seasonal';
 import { moreAudiences } from './audiences-more';
 import { moreAudiences2 } from './audiences-more2';
 import { moreAudiences3 } from './audiences-more3';
@@ -47,7 +48,9 @@ export type Audience = {
   midCta: { text: string; label: string };
   faqs: { q: string; a: string }[];
   sources: { label: string; url: string }[];
-  related: { href: string; label: string }[];
+  /* GatedLink (lib/seasonal.ts, item 558): may name a draft guide or a flag;
+     the template drops the link until it is live. */
+  related: GatedLink[];
   figure?: string;         // key into lib/figures.ts — renders the page's diagram
   figure2?: string;      // second diagram, further down the page
   /* A paragraph somebody else is meant to paste into their own page — an HR

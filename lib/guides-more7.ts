@@ -1,6 +1,6 @@
 import type { Guide } from './guides';
 import { fallbackFee } from '@/lib/cliniko-catalog';
-import { EI_WEEKLY, EI_WEEKLY_IN_YEAR, EI_YEAR, EI_WAITING_CLAUSE, eiSicknessMax, pacificYear } from '@/lib/benefit-figures';
+import { EI_WEEKLY, EI_WEEKLY_IN_YEAR, EI_YEAR, EI_WAITING_CLAUSE, BC_SICK_DAYS_QUALIFYING_DAYS, eiSicknessMax, pacificYear } from '@/lib/benefit-figures';
 
 /* A worked EI example, computed rather than typed (13 Oct 2026), so that
    scripts/price-drift.mjs never sees a dollar literal and the figures move
@@ -29,6 +29,7 @@ const SESSION_COST = `An individual session here is ${fallbackFee('Individual Co
 export const moreGuides7: Guide[] = [
   {
     slug: 'ei-sickness-benefits-and-therapy',
+    heroSecondary: { href: '/tools/stress-leave-pay-calculator', label: 'Work out what your leave pays' },
     figure2: 'reimbursement-flow',
     figure: 'bc-support-routes',
     /* 3 Oct 2026 (item 421): CTR 0.84% → 0.33% → 0.00% (297 impressions at
@@ -309,6 +310,7 @@ export const moreGuides7: Guide[] = [
 
   {
     slug: 'sick-days-and-mental-health-days-bc',
+    heroSecondary: { href: '/tools/stress-leave-pay-calculator', label: 'Work out what your leave pays' },
     figure2: 'bc-support-routes',
     figure: 'accountability-chain',
     title: 'Sick days and mental-health days in BC: what you’re actually entitled to',
@@ -337,6 +339,24 @@ export const moreGuides7: Guide[] = [
       'BC’s Employment Standards Act gives most employees 5 paid sick days and 3 unpaid days per calendar year after 90 days of employment, and illness includes mental health. A day taken for anxiety, depression or a breaking point is as legitimate as one taken for the flu, your employer may ask for reasonably sufficient proof but not your diagnosis, and "I am unwell" is a complete sentence. The larger question this page also answers: when mental-health days keep being needed, they have stopped being days off and started being data.',
     updated: '2026-10-13',
     readMinutes: 6,
+    /* THE RESET, IN DECEMBER AND JANUARY — 16 Oct 2026 (item 576). The page
+       said "per calendar year" and never said when the allowance restarts,
+       on the best-earning guide (531 impressions at 7.07, 9 clicks, 13 Oct).
+       ESA s. 49.1, read on bclaws 16 Oct 2026: "After 90 consecutive days of
+       employment with an employer, an employee, for personal illness or
+       injury, is entitled, in each calendar year, to (a) paid leave ... and
+       (b) unpaid leave for up to 3 days." Both boundaries are in GATE_DATES
+       (lib/seasonal.ts): 12-01 opens it, 02-01 closes it. The permanent
+       answer is the FAQ "Do BC sick days reset on January 1?". */
+    seasonal: {
+      from: '12-01',
+      to: '01-31',
+      h2: 'Your five paid days start again on 1 January',
+      body: [
+        'The Employment Standards Act grants the sick days "in each calendar year" ([section 49.1](https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/96113_01), read 16 Oct 2026), so the allowance restarts on 1 January: five paid days and three unpaid, however many you used this year. Days you did not use do not carry over into the new year.',
+        `The ${BC_SICK_DAYS_QUALIFYING_DAYS}-day condition belongs to the job, not the year. The section applies "after ${BC_SICK_DAYS_QUALIFYING_DAYS} consecutive days of employment with an employer", so if you started a new job this autumn you may still be inside those ${BC_SICK_DAYS_QUALIFYING_DAYS} days in January, and the new allowance is usable once you are through them. An employer policy or a collective agreement can give more, and may run on its own year rather than the calendar one.`,
+      ],
+    },
     sections: [
       {
         h2: 'The entitlement, without folklore',
@@ -344,6 +364,22 @@ export const moreGuides7: Guide[] = [
           'Since 2022, the BC Employment Standards Act provides employees with **5 paid sick days and 3 unpaid sick days per calendar year**, after 90 days with the employer. They cover personal illness or injury, and mental health is health in that sentence, without any asterisk. The days do not carry over, they are paid at an average day’s pay, and they belong to ESA-covered employees; federally regulated workers (banks, telecoms, airlines) are under the Canada Labour Code instead, which gives up to 10 paid medical leave days a year, and unionised or contract terms can only improve on the floor, not dig under it.',
           '"Reasonably sufficient proof" is the phrase doing the work on the employer side: they may ask for it, and for a day or two most reasonable employers ask for nothing. What they are never entitled to is your diagnosis or the content of your health information, a theme that runs through this whole cluster, from [the doctor’s note](/guides/doctors-note-for-a-mental-health-leave) and [how to ask for a mental health leave](/resources/mental-health-leave-templates-bc) to [the return](/guides/return-to-work-after-a-mental-health-leave).',
           'And the sentence itself: "I’m unwell and taking a sick day." Not "it’s just a headache", not a manufactured stomach bug to launder a [panic attack at work](/guides/panic-attacks-at-work) into something that feels tellable. The legal entitlement does not require the illness to be visible, physical, or explained.',
+        ],
+      },
+      {
+        /* 16 Oct 2026 (item 574). Search Console 13 Oct: ".ental health day
+           leave bcpa" 39 impressions at 5.74 and "short term leave for mental
+           health" 18 at 9.2, no clicks, on a page that told every reader only
+           the ESA floor applied. STIIP read on www2.gov.bc.ca 16 Oct 2026
+           (page last updated 3 Jul 2025): "a benefit for employees who are
+           unable to work because of an illness or injury due to physical
+           and/or mental health concerns", with the three stages for regular
+           employees quoted below. */
+        h2: 'If you work for the BC Public Service, or under a collective agreement',
+        body: [
+          'The five paid days are a floor, and many BC employees stand on something higher. Employees of the BC Public Service are covered by the Short Term Illness and Injury Plan (STIIP), which the province describes as a benefit for employees unable to work "because of an illness or injury due to physical and/or mental health concerns". A mental-health absence is inside it on the same terms as a physical one.',
+          'What STIIP pays depends on length of service. For regular employees, as the [BC Public Service STIIP page](https://www2.gov.bc.ca/gov/content/careers-myhr/all-employees/leave-time-off/sick-leave/stiip) set it out when read on 16 Oct 2026: under three months, a maximum of six days a calendar year at 75% of the regular rate of pay; from three to six months, a maximum of 15 weeks, at 75% for the first six days and 66% after that; from six months, a maximum of six calendar months at 75%. Auxiliary and part-time employees are asked to confirm their eligibility through AskMyHR.',
+          'Teachers, health-authority staff, municipal employees and many others have a sick-leave bank or plan in their collective agreement instead; for teachers, [counselling for BC teachers](/for/teachers) sets out how district sick leave and the BCTF plan follow each other. Whatever the agreement says, it can only improve on the Employment Standards Act floor, never take you below it.',
         ],
       },
       {
@@ -387,10 +423,17 @@ export const moreGuides7: Guide[] = [
       { q: 'Can you call in sick for mental health?', a: 'Yes. Say you are unwell and taking a sick day; you do not have to say what kind of unwell. Your employer may ask for reasonably sufficient proof but is not entitled to your diagnosis, and a mental-health day is as protected as one taken for the flu.' },
       { q: 'Are mental health days paid in BC?', a: 'The first five sick days in a calendar year are, at an average day’s pay, once you have worked for the employer for 90 days, and a mental-health day is a sick day. The next three are unpaid but still job-protected. Anything an employer offers above that, such as wellness days or a larger sick-leave bank, is paid on the employer’s policy or your collective agreement.' },
       { q: 'Can a psychologist write a sick note?', a: 'The Employment Standards Act asks only for reasonably sufficient proof and does not name who must write it, so whether an employer accepts a registered psychologist’s note is the employer’s call; most accept a physician’s or nurse practitioner’s. For EI sickness benefits, Service Canada asks for a certificate from your treating medical practitioner; canada.ca lists who that can be. A Registered Clinical Counsellor does not diagnose and is not the person to certify an absence.' },
+      /* 16 Oct 2026 (item 574): the public-service query in its own words. */
+      { q: 'Is mental health leave paid for BC government employees?', a: 'For BC Public Service employees, yes, through the Short Term Illness and Injury Plan (STIIP), which covers an illness or injury "due to physical and/or mental health concerns". A regular employee with six months or more of service can receive up to six calendar months at 75% of the regular rate of pay; shorter service gets less, as the BC Public Service STIIP page sets out. Other public employers, such as health authorities, school districts and municipalities, have their own plans in their collective agreements, which can only improve on the five paid days in the Employment Standards Act.' },
+      /* 16 Oct 2026 (item 576): the permanent half of the December and
+         January section. ESA s. 49.1, read 16 Oct 2026. */
+      { q: 'Do BC sick days reset on January 1?', a: `Yes. The Employment Standards Act grants the five paid and three unpaid days "in each calendar year", so the allowance starts again on 1 January. Unused days do not carry over, and in a new job the ${BC_SICK_DAYS_QUALIFYING_DAYS}-day qualifying period still comes first. An employer policy or collective agreement can be more generous and may run on its own year.` },
       { q: 'What if I need more days than exist?', a: 'That is the signal to change tools: an honest medical assessment, the possibility of a certified leave with job protection, and treatment for whatever is consuming the days. The stress-leave guide covers the whole path, including the money.' },
     ],
     sources: [
       { label: 'Province of BC, paid sick leave', url: 'https://www2.gov.bc.ca/gov/content/employment-business/employment-standards-advice/paid-sick-leave' },
+      { label: 'Employment Standards Act, s. 49.1, illness or injury leave (read 16 Oct 2026)', url: 'https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/96113_01' },
+      { label: 'BC Public Service, Short Term Illness and Injury Plan (STIIP) (read 16 Oct 2026)', url: 'https://www2.gov.bc.ca/gov/content/careers-myhr/all-employees/leave-time-off/sick-leave/stiip' },
       { label: 'Government of Canada, medical leave with pay for federally regulated employees', url: 'https://www.canada.ca/en/employment-social-development/programs/laws-regulations/labour/interpretations-policies/medical-leave-pay.html' },
       { label: 'Canadian Mental Health Association, BC Division', url: 'https://cmha.bc.ca/' },
     ],

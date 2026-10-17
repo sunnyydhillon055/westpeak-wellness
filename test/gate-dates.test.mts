@@ -159,6 +159,26 @@ test('the shelf is a server component wired into /guides and the homepage list',
   assert.ok(i > 0 && j > i && j < home.indexOf('WHERE YOU ARE'), 'one cell, inside the situation grid');
 });
 
+/* ---- the sick-days guide's reset section (item 576) -------------------- */
+
+test('the sick-days guide carries the reset section from 1 Dec to 31 Jan, cited, with a permanent FAQ and a shelf link', () => {
+  const g = getGuide('sick-days-and-mental-health-days-bc')!;
+  assert.ok(g.seasonal);
+  assert.equal(g.seasonal.from, '12-01');
+  assert.equal(g.seasonal.to, '01-31');
+  assert.equal(activeSeasonal(g.seasonal, at('2026-11-30T19:00:00Z')), null);
+  assert.ok(activeSeasonal(g.seasonal, at('2026-12-01T19:00:00Z')));
+  assert.ok(activeSeasonal(g.seasonal, at('2027-01-31T19:00:00Z')));
+  assert.equal(activeSeasonal(g.seasonal, at('2027-02-01T19:00:00Z')), null);
+  assert.match(g.seasonal.body.join('\n'), /bclaws\.gov\.bc\.ca/);
+  assert.ok(g.faqs.some((f) => f.q === 'Do BC sick days reset on January 1?'));
+  const href = '/guides/sick-days-and-mental-health-days-bc';
+  const on = (iso: string) => liveShelfLinks(PUBLISHED, FLAGS, at(iso)).some((l) => l.href === href);
+  assert.ok(!on('2026-11-20T19:00:00Z'), 'not on the shelf before the section opens');
+  assert.ok(on('2026-12-10T19:00:00Z'));
+  assert.ok(on('2027-01-10T19:00:00Z'));
+});
+
 /* ---- the winter guide's dated section (item 512) ----------------------- */
 
 test('the winter guide carries the time-change section from 20 Oct to 28 Feb, and the page renders it', () => {

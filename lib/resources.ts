@@ -80,6 +80,9 @@ export type Resource = {
   /* The closing band's words, when the default ("Questions about cost or
      coverage?") is not what the page ends on. 1 Oct 2026. */
   closingBand?: { heading: string; text: string };
+  /* The hero's second button, in place of "All resources", as on Guide
+     (item 570, 16 Oct 2026). Static link. */
+  heroSecondary?: { href: string; label: string };
   /* A section shown only between two dates, "MM-DD" inclusive on the Pacific
      calendar (lib/seasonal.ts inSeason), directly under the short answer.
      The template re-renders every 1800 s, so it appears and disappears

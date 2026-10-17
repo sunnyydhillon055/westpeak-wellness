@@ -119,6 +119,16 @@ export const moreResources: Resource[] = [
 
   {
     slug: 'workplace-mental-health-bc',
+    heroSecondary: { href: '/tools/stress-leave-pay-calculator', label: 'Work out what your leave pays' },
+    /* 16 Oct 2026 (item 564): the template default ("Questions about cost
+       or coverage?") closed the site's most-shown page (2,278 impressions,
+       13 Oct). The consultation is framed as a place to talk the leave
+       through; nothing here says a counsellor documents or certifies it,
+       which the page itself says a counsellor cannot. */
+    closingBand: {
+      heading: 'Working out the leave, or what it is for?',
+      text: 'A free 15-minute consultation by video is a place to talk it through: what is happening at work, what you want the time to change, and whether counselling alongside it would help. No obligation to book anything afterwards.',
+    },
     linkable: true,
     figure2: "burnout-vs-depression",
     figure: 'reimbursement-flow',
@@ -308,7 +318,7 @@ export const moreResources: Resource[] = [
          "stress leave" nine times and "mental health leave" never. Was "Is
          stress leave paid in BC?", which the section heading above already
          asks. Figures from lib/benefit-figures.ts. */
-      { q: 'Is mental health leave paid in BC?', a: `Partly, and it is the same leave as stress leave: a medical leave for a mental-health reason, paid from different places in turn. The first five sick days in a calendar year are paid by your employer under the Employment Standards Act once you have 90 days of service, and three more are unpaid. After that there is no automatic pay: income comes from an employer short-term disability plan if one exists, or from EI sickness benefits at 55% of insurable earnings, to ${EI_WEEKLY_IN_YEAR}, for up to 26 weeks, and ${EI_WAITING_CLAUSE}. The serious personal illness or injury leave of up to 27 weeks protects the job but is unpaid. WorkSafeBC pays only on an accepted claim for an injury caused by work.` },
+      { q: 'Is mental health leave paid in BC?', a: `Partly, and it is the same leave as stress leave: a medical leave for a mental-health reason, paid from different places in turn. The first five sick days in a calendar year are paid by your employer under the Employment Standards Act once you have 90 days of service, and three more are unpaid. After that there is no automatic pay: income comes from an employer short-term disability plan if one exists, or from EI sickness benefits at 55% of insurable earnings, to ${EI_WEEKLY_IN_YEAR}, for up to 26 weeks, and ${EI_WAITING_CLAUSE}. The serious personal illness or injury leave of up to 27 weeks protects the job but is unpaid. WorkSafeBC pays only on an accepted claim for an injury caused by work. BC Public Service employees have their own plan, STIIP, and many collective agreements carry a sick-leave plan of their own; [sick days and mental-health days in BC](/guides/sick-days-and-mental-health-days-bc#if-you-work-for-the-bc-public-service-or-under-a-collective-agre) sets both out.` },
       { q: 'How long can I take off work for mental health in BC?', a: 'A day or a few days on your Employment Standards Act sick days, with no note needed unless your employer asks for reasonably sufficient proof. For longer, as long as a physician or nurse practitioner certifies that you cannot work, usually in blocks of two to six weeks with a review before each extension. EI sickness benefits pay for up to 26 weeks; an employer disability plan sets its own length.' },
       { q: 'Can a therapist put you on stress leave?', a: 'No. In BC a physician or nurse practitioner certifies a medical leave, and for EI Service Canada also accepts a psychologist. A counsellor or therapist cannot sign a stress leave for an employer, an insurer or EI. A therapist can recommend time off, tell your doctor so if you ask, and write a letter confirming you are in treatment, which insurers sometimes want alongside the medical note.' },
       { q: 'Can an employer deny a mental health leave?', a: 'Not a certified one, in the ordinary case. The Employment Standards Act sick days and its serious personal illness or injury leave of up to 27 weeks are job-protected, the employer may ask only for reasonably sufficient proof, and the Human Rights Code requires an employer to accommodate a mental-health disability to the point of undue hardship. An employer can ask for functional information, such as when you expect to return, but not your diagnosis. If a leave is refused, or you are penalised or dismissed for taking one, the Employment Standards Branch and the BC Human Rights Tribunal are the routes, and an employment lawyer is worth calling early.' },
@@ -545,6 +555,11 @@ export const moreResources: Resource[] = [
          should be asked why, but the directory is opt-in: a current RCC can
          switch her listing off, and one of this practice's own counsellors
          has. The register is the check. */
+      /* 16 Oct 2026 (item 591): the noun searchers type. Search Console 13
+         Oct, 0 clicks each: "registered clinical counselor bc lookup" 23 at
+         11.3, "bcacc registry" 14 at 7.3, "rcc registry" 3; the page never
+         said "registry". Every clause is sourced in the sections above. */
+      { q: 'Where is the BCACC registry, and how do I look up an RCC?', a: 'BCACC calls its registry the RCC Register, at [bcacc.ca/search-our-member-register](https://bcacc.ca/search-our-member-register/). It is free and public: search by name or registration number, and it shows whether the registration is active. BCACC’s Find a Counsellor directory is a different tool, opt-in and for finding someone, so a counsellor missing from it tells you nothing; the register is the check.' },
       { q: 'How do I use the BCACC Find a Counsellor tool?', a: 'BCACC has two tools, and they answer different questions. Find a Counsellor, at bc-counsellors.org, is for finding someone: filter by city, concern, language and whether they offer online sessions. Every listing in it is an RCC, which makes it a directory of BCACC’s own registrants, so it cannot list someone who is not registered, but it lists only RCCs who choose to be listed, so a counsellor missing from it tells you nothing. To check a particular counsellor, use the RCC Register instead (bcacc.ca/search-our-member-register): search by name or registration number, and it shows whether the registration is active and any notes. The register covers RCCs only; psychologists and social workers are on their own colleges’ registers.' },
       /* 3 Oct 2026: "registered clinical counsellor" 317 at 23.5 and
          "registered counsellor" 124 at 28 lead to directories and booking
@@ -562,19 +577,28 @@ export const moreResources: Resource[] = [
       { q: 'What is the difference between an RCC and a psychologist?', a: 'Training level and scope. A registered psychologist in BC holds a doctorate, is regulated under the College of Health and Care Professionals of BC, and can formally diagnose and conduct psychological assessments. An RCC holds a master\'s degree, is registered with a professional association rather than a regulatory college until 2027, and provides counselling and psychotherapy but does not diagnose. For talk therapy the two overlap heavily; for a diagnosis or an assessment you need the psychologist. Fees differ accordingly.' },
       { q: 'Is an RCC a real therapist?', a: 'Yes: master’s-level training, supervised hours, insurance, continuing education and a code of ethics with a complaints process. The designation exists precisely to separate trained, accountable practitioners from the anyone-at-all who may legally use the word "counsellor" in BC today.' },
       { q: 'Is RCC the same as a licensed counsellor?', a: 'There is no such thing as a "licensed counsellor" in BC. The phrase is American. RCC is a professional registration, which is the closest thing BC currently has, and it becomes a regulated-profession framework when psychotherapy comes under the College of Health and Care Professionals of BC in late 2027.' },
-      { q: 'Does insurance cover an RCC?', a: 'Commonly, not universally. Many extended health plans reimburse RCC counselling, depending on the plan; some list only psychologists and social workers. The plan wording, not the plan brand, decides, and the coverage guide lists the exact questions to ask.' },
+      /* 16 Oct 2026 (item 580): opened on "commonly" and "not universally", a
+         prevalence claim the practice cannot make. The house form. */
+      { q: 'Does insurance cover an RCC?', a: 'Many extended health plans reimburse an RCC, depending on the plan; some list only psychologists and social workers. The plan wording, not the plan brand, decides, and the coverage guide lists the exact questions to ask.' },
       { q: 'What does it take to become an RCC?', a: 'A master’s degree in counselling psychology or a closely related field, supervised clinical practice, professional liability insurance, continuing education, and agreement to the BCACC code of ethics and complaints process. Current requirements live on the BCACC site, since they do change.' },
       { q: 'What happens to RCCs when regulation arrives in 2027?', a: 'Psychotherapy becomes a regulated profession under the College of Health and Care Professionals of BC on 29 November 2027, on a protected-title model. The practical effect for clients: the accountability that is currently voluntary through BCACC becomes statutory. Existing qualified practitioners transition into the new framework.' },
       { q: 'What is a registered counsellor in BC, and is it the same as an RCC?', a: 'In practice, the same thing: when a website or an insurer in BC says "registered counsellor" it almost always means a Registered Clinical Counsellor (RCC), a member of the BC Association of Clinical Counsellors who holds a master’s degree, has completed supervised clinical hours, carries liability insurance and is bound by a code of ethics and a complaints process. The precise question to ask is which register the person is on, since "registered" on its own could refer to any association, including ones with no clinical requirements. Registration is voluntary until psychotherapy is regulated in 2027, which is exactly why checking the register matters: the title "counsellor" alone certifies nothing.' },
       { q: 'How do I check if a counsellor is registered in BC?', a: 'Ask which designation they hold, then search that body\'s own public register: BCACC’s RCC Register for an RCC, the College of Health and Care Professionals of BC for a psychologist, the BC College of Social Workers for a social worker. Search by surname. A registered person appears with their status; a name that returns nothing is a question to put to them, as step 5 of the check above says, since a registration can sit under a different legal name.' },
       { q: 'Is it rude to check?', a: 'No, and a registered professional will not be offended. Public registers exist precisely so that anyone can search them without asking permission.' },
       { q: 'What if someone is registered but has no complaints history shown?', a: 'That is the normal case. Most practitioners have no disciplinary history, and its absence is not evidence of anything either way.' },
-      { q: 'Does a counsellor have to be registered in BC to see me?', a: 'A counsellor must be appropriately registered in the jurisdiction where the client is physically located during the session. This is why you are asked where in BC you are, and why it matters if you travel.' },
+      /* 16 Oct 2026 (item 581): said a counsellor "must be appropriately
+         registered in the jurisdiction where the client is physically
+         located", a legal requirement BC does not have, on the page that
+         says "counsellor" is not a protected title. Regulation date read on
+         chcpbc.org (Regulating Psychotherapists) 16 Oct 2026: licensure
+         "will take effect on November 29, 2027". */
+      { q: 'Does a counsellor have to be registered in BC to see me?', a: 'No BC law requires a counsellor to be registered until psychotherapy is regulated on 29 November 2027. Registration is still the thing to check: this practice’s counsellors are RCCs whose registration and insurance cover clients located in BC, and other provinces set their own rules, so you need to be in BC for each session. That is why you are asked where in BC you are, and why it matters if you travel.' },
       { q: 'Are there good counsellors without a designation?', a: 'Possibly. The point is not that everyone unregistered is unskilled. It is that you have no way to tell, and no recourse if it goes wrong.' },
     ],
     sources: [
       { label: 'BC Association of Clinical Counsellors', url: 'https://bcacc.ca/' },
       { label: 'BCACC, RCC Register (to verify a counsellor)', url: 'https://bcacc.ca/search-our-member-register/' },
+      { label: 'College of Health and Care Professionals of BC, regulating psychotherapists (read 16 Oct 2026)', url: 'https://chcpbc.org/legislation/regulating-psychotherapists/' },
       { label: 'BCACC, Find a Counsellor (an opt-in directory, to find one)', url: 'https://bc-counsellors.org/counsellors/' },
       { label: 'BCACC, complaints and investigations', url: 'https://bcacc.ca/complaints-and-investigations/' },
       { label: 'BCACC, who we are (founded 1988; read 3 Oct 2026)', url: 'https://bcacc.ca/about-us/' },
@@ -706,7 +730,7 @@ export const moreResources: Resource[] = [
    * policy, the page says "check the wording" instead of guessing. */
   {
     slug: 'worksafebc-psychological-injury-claims',
-    figure2: 'bc-support-routes',
+    /* figure2 was 'bc-support-routes' too, so the diagram printed twice; removed 16 Oct 2026 (item 593). */
     figure: 'bc-support-routes',
     title: 'WorkSafeBC psychological-injury claims, explained',
     /* Retitled 1 Oct 2026. The 17 Sep title led with "WCB Stress Leave in
@@ -805,7 +829,7 @@ export const moreResources: Resource[] = [
 
   {
     slug: 'disability-benefits-and-counselling-bc',
-    figure2: 'reimbursement-flow',
+    /* figure2 was 'reimbursement-flow' too, so the diagram printed twice; removed 16 Oct 2026 (item 593). */
     figure: 'reimbursement-flow',
     title: 'Short-term disability, long-term disability, and counselling in BC',
     metaTitle: 'Short and Long-Term Disability for Mental Health in BC',
@@ -882,7 +906,7 @@ export const moreResources: Resource[] = [
    * client channel no competitor in the measured set serves). */
   {
     slug: 'before-your-first-consultation',
-    figure2: 'first-session-flow',
+    /* figure2 was 'first-session-flow' too, so the diagram printed twice; removed 16 Oct 2026 (item 593). */
     figure: 'first-session-flow',
     title: 'Before your first consultation: what to expect, what to bring',
     metaTitle: 'Before Your First Consultation | Westpeak',
@@ -958,6 +982,13 @@ export const moreResources: Resource[] = [
    * quietly feeds PATH_TO_950's second-practitioner pipeline. */
   {
     slug: 'becoming-a-counsellor-in-bc',
+    /* 16 Oct 2026 (item 564): the default closer asked about cost and
+       coverage on a careers page. Some readers come to the profession by
+       way of their own counselling. */
+    closingBand: {
+      heading: 'If your own counselling is what brought you here',
+      text: 'Some people come to the profession by way of their own counselling. If something you are carrying is part of why you are reading this, a free 15-minute consultation by video is a quiet place to start, with no obligation to book anything afterwards.',
+    },
     figure: 'designations-bc',
     figure2: 'accountability-chain',
     title: 'Becoming a counsellor in BC: the actual path',

@@ -125,35 +125,57 @@ export function seasonalMailParagraph(now: Date = new Date()): string | null {
 
 /* ---- the "This season" shelf (item 538, 15 Oct 2026) ----------------- */
 
-/** A shelf link. `guide` names the guide the href lands on, so the shelf can
- *  drop it while that guide is a draft (its URL 404s); `flag` names a
- *  publishing flag the link needs, so an anchor is never linked before the
- *  section it points at is on the page. Both are read by
- *  components/SeasonalShelf.tsx, never decided here. */
-export type ShelfLink = { href: string; label: string; guide?: string; flag?: 'FIRST_HOLIDAYS_CLEARED' };
+/** A link that may land on something not yet live. `guide` names the guide
+ *  the href lands on, so the link is dropped while that guide is a draft (its
+ *  URL 404s); `flag` names a publishing flag the link needs, so an anchor is
+ *  never linked before the section it points at is on the page. Since 16 Oct
+ *  2026 (item 558) the related links on guides, /for pages and services carry
+ *  the same keys as the shelf, and every one of them goes through liveLinks
+ *  below, so a draft can be linked from today and the links appear on the
+ *  build that publishes it. Read here, never decided: lib/live-links.ts
+ *  supplies what is published and which flags are on. */
+export type GatedLink = { href: string; label: string; guide?: string; flag?: 'FIRST_HOLIDAYS_CLEARED' };
+export type LinkFlags = Record<NonNullable<GatedLink['flag']>, boolean>;
+
+/** The links that are live: a link to a guide only when that guide is
+ *  published, a link that needs a flag only when the flag is on. Order and
+ *  every other field are kept, so a page whose gated links are all off
+ *  renders exactly as it did before they were added. */
+export function liveLinks<T extends GatedLink>(links: readonly T[], published: ReadonlySet<string>, flags: LinkFlags): T[] {
+  return links.filter((l) => (!l.guide || published.has(l.guide)) && (!l.flag || flags[l.flag]));
+}
+
+/** A shelf link: a GatedLink, read by components/SeasonalShelf.tsx. */
+export type ShelfLink = GatedLink;
 export type ShelfWindow = { from: string; to: string; links: ShelfLink[] };
 
 const WINTER_GUIDE: ShelfLink = { href: '/guides/low-mood-through-a-bc-winter', label: 'Low mood through a BC winter', guide: 'low-mood-through-a-bc-winter' };
 
+/* The sick-days guide's reset section runs 1 Dec to 31 Jan (Guide.seasonal,
+   item 576, 16 Oct 2026), and the shelf carries the guide for the same
+   weeks: the autumn window is split at 1 December so the link starts with
+   the section, not six weeks before it. */
+const SICK_DAYS_RESET: ShelfLink = { href: '/guides/sick-days-and-mental-health-days-bc', label: 'Your sick days start again on 1 January', guide: 'sick-days-and-mental-health-days-bc' };
+
+const AUTUMN_LINKS: ShelfLink[] = [
+  { href: YEAR_END_PATH, label: 'Using counselling benefits before the year ends' },
+  WINTER_GUIDE,
+  { href: '/guides/holidays-with-family-you-find-difficult', label: 'Holidays with family you find difficult', guide: 'holidays-with-family-you-find-difficult' },
+  { href: '/guides/grief-without-a-timeline#the-first-holidays-after-a-loss', label: 'The first holidays after a loss', guide: 'grief-without-a-timeline', flag: 'FIRST_HOLIDAYS_CLEARED' },
+];
+
 /** What the shelf on /guides and the homepage line show, by Pacific date.
- *  Outside both windows the shelf renders nothing. */
+ *  Outside these windows the shelf renders nothing. */
 export const SEASONAL_SHELF: readonly ShelfWindow[] = [
-  {
-    from: '10-15',
-    to: '12-31',
-    links: [
-      { href: YEAR_END_PATH, label: 'Using counselling benefits before the year ends' },
-      WINTER_GUIDE,
-      { href: '/guides/holidays-with-family-you-find-difficult', label: 'Holidays with family you find difficult', guide: 'holidays-with-family-you-find-difficult' },
-      { href: '/guides/grief-without-a-timeline#the-first-holidays-after-a-loss', label: 'The first holidays after a loss', guide: 'grief-without-a-timeline', flag: 'FIRST_HOLIDAYS_CLEARED' },
-    ],
-  },
+  { from: '10-15', to: '11-30', links: AUTUMN_LINKS },
+  { from: '12-01', to: '12-31', links: [...AUTUMN_LINKS, SICK_DAYS_RESET] },
   {
     from: '01-01',
     to: '01-31',
     links: [
       { href: '/guides/return-to-work-after-a-mental-health-leave', label: 'Returning to work after a mental health leave', guide: 'return-to-work-after-a-mental-health-leave' },
       { href: '/resources/does-my-plan-cover-counselling-bc', label: 'Does my plan cover counselling?' },
+      SICK_DAYS_RESET,
       WINTER_GUIDE,
     ],
   },
@@ -170,12 +192,12 @@ export function activeShelf(now: Date = new Date()): ShelfWindow | null {
  *  nothing. */
 export function liveShelfLinks(
   published: ReadonlySet<string>,
-  flags: Record<NonNullable<ShelfLink['flag']>, boolean>,
+  flags: LinkFlags,
   now: Date = new Date(),
 ): ShelfLink[] {
   const w = activeShelf(now);
   if (!w) return [];
-  return w.links.filter((l) => (!l.guide || published.has(l.guide)) && (!l.flag || flags[l.flag]));
+  return liveLinks(w.links, published, flags);
 }
 
 /* ---- the days the site has to be rebuilt (item 511, 15 Oct 2026) ------ */
@@ -202,11 +224,12 @@ export function windowGates(w: { from: string; to: string }): [string, string] {
  *  the plan-year line) goes here in the same commit. */
 export const GATE_DATES: readonly { md: string; why: string }[] = [
   { md: '01-01', why: 'Plan-year line on /pricing, the year-end section on the coverage resources and the shelf close; the 2027 EI figure and the next YE_YEAR take over; the January shelf and the plan-reset line (PLAN_RESET_PAGE_WINDOW) open.' },
-  { md: '02-01', why: 'The January shelf closes.' },
+  { md: '02-01', why: 'The January shelf and the sick-days guide’s reset section close.' },
   { md: '02-16', why: 'The January plan-reset line on /pricing, /book and the coverage lines, and the reset title on the year-end page, close (PLAN_RESET_PAGE_WINDOW).' },
   { md: '03-01', why: 'The winter guide’s time-change section closes.' },
   { md: '10-01', why: 'The year-end section on the coverage resources opens (yearEndSeasonal).' },
   { md: '10-10', why: 'The EI waiting-week waiver ends after 9 October 2027 (EI_WAITING_WAIVER).' },
   { md: '10-15', why: 'The plan-year line on /pricing and the autumn shelf open.' },
   { md: '10-20', why: 'The winter guide’s time-change section opens.' },
+  { md: '12-01', why: 'The sick-days guide’s reset section and the December shelf, which adds that guide, open (item 576).' },
 ];
