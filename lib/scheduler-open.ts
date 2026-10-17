@@ -4,6 +4,12 @@
 
 export const CALENDAR_HASH = '#calendar';
 
+/* The counsellor choice on bare /book (components/BookChoice, .book-choose).
+   A jump to it scrolls and opens nothing: opensCalendar() is false for it,
+   so the practice-wide calendar is never mounted by the sticky bar
+   (item 584, 16 Oct 2026). */
+export const CHOOSE_HASH = '#choose';
+
 /** True when `href` points at #calendar on the page at `pathname`: "#calendar",
  *  "?with=x#calendar", or "/book?with=x#calendar" while on /book. A link to
  *  another page's #calendar is a navigation, and that page decides. */

@@ -6,7 +6,7 @@ import { fontVars, body as bodyFont } from '@/app/fonts';
 /* Used in getStaticProps only, so Next strips both from the browser bundle:
    the page receives four numbers and two strings, never the modules. */
 import { eiSicknessMax, EI_WAITING_WAIVER, longDate } from '@/lib/benefit-figures';
-import { site } from '@/lib/site';
+import { site } from '@/lib/site-client';
 import { track, type TrackedEvent } from '@/lib/analytics';
 
 /* Counted (COUNTED in lib/conversion-log.ts), not yet in TrackedEvent, which

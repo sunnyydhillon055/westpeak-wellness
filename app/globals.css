@@ -559,6 +559,33 @@ a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var
   .sticky-book-btn{font-size:.82rem;padding:0 9px;gap:5px}
 }
 
+/* THE ANALYTICS QUESTION SITS ON TOP OF THE BAR, NOT OVER IT — 16 Oct 2026
+   (item 551). components/ConsentBanner.tsx. It was at bottom 0, z-index 60,
+   exactly where the bar is, and covered "Book free consult" on every screen
+   up to 1020px. Below that width it stands on the bar's measured height
+   (--sticky-h, published by components/StickyBook.tsx, 0 when the bar is not
+   shown), and it hides with the bar while Cliniko's calendar is open or a
+   field has focus, so it never covers Cliniko's own Book button or what is
+   being typed. */
+.consent-banner{
+  position:fixed;left:0;right:0;bottom:0;z-index:60;
+  background:var(--surface, var(--bg));border-top:1px solid var(--line);
+  box-shadow:0 -4px 18px rgba(43,49,56,.12);padding:12px 0;
+}
+.consent-banner__in{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
+.consent-banner p{margin:0;flex:1 1 320px;font-size:.9rem;line-height:1.4}
+.consent-banner__btns{display:flex;gap:10px}
+@media (max-width:1020px){
+  .consent-banner{bottom:var(--sticky-h, 0px);padding:10px 0}
+  html[data-scheduler-open] .consent-banner, html[data-typing] .consent-banner{display:none}
+  body:has(.lead-form :focus) .consent-banner{display:none}
+}
+@media (max-width:620px){
+  .consent-banner p{flex-basis:100%;font-size:.84rem;line-height:1.35}
+  .consent-banner__btns{width:100%}
+  .consent-banner__btns .btn{flex:1 1 0;padding:8px 12px;font-size:.88rem}
+}
+
 @media (max-width:420px){
   .container{padding:0 18px}
   .hero{padding:40px 0 36px}

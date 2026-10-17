@@ -3,7 +3,7 @@
 import { Suspense, useEffect, useState, type ReactNode } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { site } from '@/lib/site';
+import { site } from '@/lib/site-client';
 import InboundForm from '@/components/InboundForm';
 import MailLink from '@/components/MailLink';
 import BookLink from '@/components/BookLink';
@@ -357,7 +357,7 @@ export default function BookChoice({
                 <p style={{ margin: '2px 0 0', fontSize: '.88rem', lineHeight: 1.45, color: 'var(--ink-soft)' }}>
                   {accepting.filter((p) => p.slug !== who.slug).map((p) => (
                     <span key={p.slug}>
-                      <Link href={`${site.bookingPath}?with=${p.slug}#calendar`}>
+                      <Link href={`${site.bookingPath}?with=${p.slug}#calendar`} prefetch={false}>
                         Switch to {p.name.split(' ')[0]}
                       </Link>
                       {' · '}
@@ -370,7 +370,9 @@ export default function BookChoice({
           )}
 
           {accepting.length > 1 && !who && (
-            <div className="book-choose" style={{ margin: '18px 0 14px' }}>
+            /* #choose: where the sticky bar's "Pick a time" lands while
+               nobody is chosen (components/StickyBook, item 584). */
+            <div id="choose" className="book-choose" style={{ margin: '18px 0 14px', scrollMarginTop: 72 }}>
               <h2 style={{ margin: '0 0 12px', fontSize: '1.45rem' }}>Who would you like to talk to?</h2>
               <div className="grid grid-2" style={{ gap: 14 }}>
                 {accepting.map((p) => {
@@ -380,6 +382,8 @@ export default function BookChoice({
                     <Link
                       key={p.slug}
                       href={`${site.bookingPath}?with=${p.slug}#calendar`}
+                      /* The same static payload as /book (item 575). */
+                      prefetch={false}
                       className="card bk-card"
                       aria-labelledby={`bk-${p.slug}-name`}
                       aria-describedby={`bk-${p.slug}-meta bk-${p.slug}-offers bk-${p.slug}-focus bk-${p.slug}-open`}

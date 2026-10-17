@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { partOf, clusterAlternates, renderIndex, renderUrlset, newest, SITEMAP_PARTS } from '../lib/sitemap-shape.ts';
+import { partOf, clusterAlternates, renderIndex, renderUrlset, newest, w3cDate, SITEMAP_PARTS } from '../lib/sitemap-shape.ts';
 import { tagalogGuides } from '../lib/tagalog-guides.ts';
 import { urlLastmod, URL_DATES } from '../lib/url-dates.ts';
 // @ts-expect-error -- plain .mjs script helper; no declaration file
@@ -68,6 +68,23 @@ test('the index lists each child with its newest date, and the gates can read it
     { path: '/b', lastmod: null, changefreq: 'monthly', priority: 1 },
     { path: '/c', lastmod: '2026-10-02T00:00:00.000Z', changefreq: 'monthly', priority: 1 },
   ]), '2026-10-02T00:00:00.000Z');
+});
+
+test('lastmod is written as the day, never as UTC midnight (item 566)', () => {
+  /* 2026-10-15T00:00:00.000Z is 17:00 PDT on the 14th: a deploy that evening
+     looked older than a crawl made that afternoon. */
+  assert.equal(w3cDate('2026-10-15T00:00:00.000Z'), '2026-10-15');
+  assert.equal(w3cDate('2026-10-15T00:00:00Z'), '2026-10-15');
+  assert.equal(w3cDate('2026-10-15'), '2026-10-15');
+  assert.equal(w3cDate('2026-10-16T06:26:00.000Z'), '2026-10-16T06:26:00.000Z', 'a real time is kept');
+  const index = renderIndex([{ loc: `${O}/sitemaps/core.xml`, lastmod: '2026-10-15T00:00:00.000Z' }]);
+  assert.match(index, /<lastmod>2026-10-15<\/lastmod>/);
+  const set = renderUrlset(
+    [{ path: '/a', lastmod: '2026-09-01T00:00:00.000Z', changefreq: 'monthly', priority: 1 }],
+    O, new Map(), () => undefined,
+  );
+  assert.match(set, /<lastmod>2026-09-01<\/lastmod>/);
+  assert.doesNotMatch(index + set, /T00:00:00/);
 });
 
 test('a child keeps its hreflang and image rows', () => {

@@ -411,9 +411,35 @@ for (const path of TEMPLATES) {
   }
 }
 
+/* THREE THINGS ONLY THE SERVER CAN SAY — 16 Oct 2026 (items 597, 566, 551).
+ *   - /img/* carries a day of browser cache (next.config.mjs headers()); the
+ *     header exists only when next start answers, never on disk.
+ *   - the sitemap index writes days, not UTC midnight (lib/sitemap-shape.ts).
+ *   - the consent banner stands on the phone booking bar instead of over it.
+ *     This runner has no browser, so it cannot ask elementFromPoint at the
+ *     centre of .sb-book; it asks the stylesheet the home page actually
+ *     inlines for the rule that puts the banner at var(--sticky-h) below
+ *     1020px and hides it with the bar. */
+const extra = [];
+try {
+  const r = await fetch(BASE + '/img/photo/still-water-bc.jpg');
+  const cc = r.headers.get('cache-control') || '';
+  if (r.status !== 200 || !/max-age=86400/.test(cc)) extra.push(`/img/photo/still-water-bc.jpg - Cache-Control "${cc}", expected max-age=86400`);
+} catch (e) { extra.push(`/img - request failed: ${e.message}`); }
+try {
+  const xml = await (await fetch(BASE + '/sitemap.xml')).text();
+  if (/<lastmod>[^<]*T00:00:00/.test(xml)) extra.push('/sitemap.xml - a lastmod is written as UTC midnight, not as the day');
+} catch (e) { extra.push(`/sitemap.xml - request failed: ${e.message}`); }
+try {
+  const css = (await (await fetch(BASE + '/')).text()).replace(/\s+/g, '');
+  if (!/\.consent-banner\{bottom:var\(--sticky-h/.test(css)) extra.push('/ - no rule puts .consent-banner at var(--sticky-h): it would cover the Book button');
+  if (!/html\[data-scheduler-open\]\.consent-banner/.test(css)) extra.push('/ - the consent banner does not hide while the calendar is open');
+} catch (e) { extra.push(`/ - request failed: ${e.message}`); }
+failures.push(...extra);
+
 stop();
 
-console.log(`  ${passed}/${CHECKS.length} checks passed; ${inlined}/${TEMPLATES.length} templates static with their CSS inlined\n`);
+console.log(`  ${passed}/${CHECKS.length} checks passed; ${inlined}/${TEMPLATES.length} templates static with their CSS inlined; ${extra.length ? `${extra.length} of the image-cache, lastmod and banner checks failed` : 'image cache, lastmod and banner placement as intended'}\n`);
 if (failures.length) {
   console.log('FAILED');
   for (const f of failures) console.log(`   ${f}`);

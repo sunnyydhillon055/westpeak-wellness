@@ -1,14 +1,17 @@
 'use client';
 
 import Link from 'next/link';
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { site } from '@/lib/site';
+import { site } from '@/lib/site-client';
 import { track } from '@/lib/analytics';
 import { bookClickDetail, withSlugOf } from '@/lib/conversion-detail-client';
 import { bookHrefFor, type NavPractitioner } from '@/lib/roster-nav';
 import MailLink from '@/components/MailLink';
-import { loadAvailability } from '@/lib/consult-slot';
+/* Not lib/consult-slot: that module brings lib/next-consult.ts, which this
+   bar never uses, into the layout chunk (item 599). */
+import { loadAvailability } from '@/lib/availability-fetch';
+import { CALENDAR_HASH, CHOOSE_HASH } from '@/lib/scheduler-open';
 
 /* THE BOOKING LINK FOLLOWS THE PAGE.
  *
@@ -105,6 +108,7 @@ function NextLine({ avail, onSlug, onBooking }: { avail: Avail | null; onSlug?: 
     <p className="sticky-book-text">
       <Link
         href={`${site.bookingPath}?with=${encodeURIComponent(slug)}#calendar`}
+        prefetch={false}
         onClick={() => track('book_click', { location: 'sticky-next', detail: bookClickDetail('sticky-next', slug) })}
       >
         Next free consult: {pick.next[0].replace(/\s\(\d+ times\)$/, '')} with {pick.first}
@@ -141,6 +145,24 @@ export default function StickyBook({ roster }: { roster: NavPractitioner[] }) {
     };
   }, []);
 
+  /* THE BAR'S HEIGHT, FOR WHAT STANDS ON IT — 16 Oct 2026 (item 551). The
+     consent banner sat at bottom 0 over this bar and hid "Book free consult";
+     it now sits at var(--sticky-h) (app/globals.css). Measured rather than
+     guessed, because the line above the buttons wraps on a narrow phone and
+     the safe-area inset varies; 0 when the bar is not drawn (above 1020px,
+     while typing, on the crisis directory). */
+  const bar = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const root = document.documentElement;
+    const el = bar.current;
+    const set = () => root.style.setProperty('--sticky-h', `${el ? el.offsetHeight : 0}px`);
+    set();
+    if (!el || typeof ResizeObserver === 'undefined') return;
+    const ro = new ResizeObserver(set);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [pathname]);
+
   useEffect(() => {
     let live = true;
     /* The shared request (lib/consult-slot.ts): a page with a consult slot
@@ -169,7 +191,7 @@ export default function StickyBook({ roster }: { roster: NavPractitioner[] }) {
   const onSlug = withSlugOf(bookHref);
 
   return (
-    <div className="sticky-book" role="navigation" aria-label="Contact the practice">
+    <div ref={bar} className="sticky-book" role="navigation" aria-label="Contact the practice">
       <Suspense fallback={<p className="sticky-book-text">{DEFAULT_LINE}</p>}>
         <NextLine avail={avail} onSlug={onSlug} onBooking={onBooking} />
       </Suspense>
@@ -187,6 +209,9 @@ export default function StickyBook({ roster }: { roster: NavPractitioner[] }) {
           <Link
             className="sticky-book-btn sb-book"
             href={bookHref}
+            /* /book?with= is the same static payload as /book, cached per
+               URL: prefetch the bare one only (item 575). */
+            prefetch={bookHref === site.bookingPath ? undefined : false}
             onClick={() => track('book_click', {
               location: 'sticky',
               detail: bookClickDetail('sticky', onSlug),
@@ -200,15 +225,32 @@ export default function StickyBook({ roster }: { roster: NavPractitioner[] }) {
             while the bar's wide dark button was "Call us", the opposite of
             email-over-phone. Now the primary slot is a jump to #calendar, and
             the phone keeps the same small icon it has on every other page.
-            Counted as its own button so a jump is never read as an arrival. */}
+            Counted as its own button so a jump is never read as an arrival.
+
+            WITH NOBODY CHOSEN IT JUMPS TO THE CHOICE — 16 Oct 2026 (item
+            584). #calendar opens the calendar box (components/SchedulerGate),
+            and on bare /book that mounted the practice-wide page item 537
+            took off the buttons. The choice of counsellor (#choose, drawn by
+            components/BookChoice only while nobody is chosen) comes first, so
+            the jump scrolls there and opens nothing. With ?with=, or with one
+            counsellor and no choice to make, there is no #choose and the jump
+            is #calendar exactly as before. */}
         {onBooking && (
           <a
             className="sticky-book-btn sb-book"
-            href="#calendar"
-            onClick={() => track('book_click', {
-              location: 'sticky-book-jump',
-              detail: bookClickDetail('sticky-book-jump', withSlugOf(window.location.search)),
-            })}
+            href={CHOOSE_HASH}
+            onClick={(e) => {
+              track('book_click', {
+                location: 'sticky-book-jump',
+                detail: bookClickDetail('sticky-book-jump', withSlugOf(window.location.search)),
+              });
+              /* Set on every click, before the browser follows the link and
+                 before SchedulerGate's document listener reads it, so a
+                 later soft navigation between ?with= and bare /book cannot
+                 leave the other target behind. */
+              e.currentTarget.setAttribute('href',
+                document.getElementById(CHOOSE_HASH.slice(1)) ? CHOOSE_HASH : CALENDAR_HASH);
+            }}
           >
             Pick a time &darr;
           </a>

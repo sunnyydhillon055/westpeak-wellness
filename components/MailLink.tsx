@@ -1,6 +1,6 @@
 'use client';
 
-import { site } from '@/lib/site';
+import { site } from '@/lib/site-client';
 import { track } from '@/lib/analytics';
 
 /* EVERY mailto: TO THE PRACTICE GOES THROUGH HERE — 1 Oct 2026.
