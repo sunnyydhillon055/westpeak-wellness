@@ -207,5 +207,8 @@ test('a browser /admin has excluded is never shown the consent banner and never 
   const c = src('components/ConsentGate.tsx');
   assert.match(c, /import \{ excludedBrowser \} from '@\/lib\/analytics';/);
   assert.match(c, /try \{\s*if \(excludedBrowser\(\)\) return 'declined';/);
-  assert.match(c, /if \(choice !== null\) return choice === 'granted' && Ga \? <Ga gaId=\{gaId\} \/> : null;/);
+  /* After the batch-1 banner split (item 551): 'declined' renders nothing
+     and fetches neither GA nor the banner. */
+  assert.match(c, /if \(choice === 'unset' \|\| choice === 'declined'\) return;/);
+  assert.match(c, /if \(choice === 'unset' \|\| choice === 'declined' \|\| !part \|\| part\.for !== choice\) return null;/);
 });

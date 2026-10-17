@@ -145,7 +145,7 @@ test('bare /book renders "Who would you like to talk to?" straight after the fac
     return m.index;
   };
   const facts = at(/<ul className="book-facts">/);
-  const choose = at(/<div className="book-choose"/);
+  const choose = at(/<div (?:id="choose" )?className="book-choose"/);
   const what = at(/<ul className="book-what">/);
   const calendar = at(/<div id="calendar"/);
   /* Measured on production at 375x812 on 16 Oct 2026 with the block moved in
@@ -154,7 +154,7 @@ test('bare /book renders "Who would you like to talk to?" straight after the fac
      520px. The order in the source is the order in the HTML. */
   assert.ok(facts < choose && choose < what && what < calendar, `facts ${facts}, choose ${choose}, what ${what}, calendar ${calendar}`);
   /* Still only on bare /book, and nothing went behind a disclosure. */
-  assert.match(s, /\{accepting\.length > 1 && !who && \(\s*<div className="book-choose"/);
+  assert.match(s, /\{accepting\.length > 1 && !who && \(\s*(?:\/\*[^]*?\*\/\s*)?<div (?:id="choose" )?className="book-choose"/);
   assert.doesNotMatch(s.slice(facts, calendar), /<details/);
   const css = src('app/book/page.tsx');
   assert.ok(css.indexOf('.book-facts{margin-bottom:12px}') > css.indexOf('@media (max-width:520px){'), 'phones only');
