@@ -1,5 +1,5 @@
 import type { Resource } from './resources';
-import { fallbackFee, FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
+import { fallbackFee, FALLBACK_CATALOG, CONSULT_MINUTES } from '@/lib/cliniko-catalog';
 import { practitioners } from '@/lib/practitioners';
 import { acceptingSentences } from '@/lib/practitioner-facts';
 import { STUDENT_PLANS, studentPlanFaqs } from './student-plans';
@@ -93,7 +93,7 @@ export const moreResources: Resource[] = [
     ],
     midCta: {
       text: 'If campus sessions have run out and the work was not finished,',
-      label: 'a free 15-minute consultation is a straightforward next step',
+      label: `a free ${CONSULT_MINUTES}-minute consultation is a straightforward next step`,
     },
     faqs: [
       { q: 'Will my university know I used campus counselling?', a: `Counselling records are confidential and separate from academic records. Faculty are not informed. The exceptions are the same legal ones that apply to any counselling: ${CONFIDENTIALITY_LIMITS}.` },
@@ -127,7 +127,7 @@ export const moreResources: Resource[] = [
        which the page itself says a counsellor cannot. */
     closingBand: {
       heading: 'Working out the leave, or what it is for?',
-      text: 'A free 15-minute consultation by video is a place to talk it through: what is happening at work, what you want the time to change, and whether counselling alongside it would help. No obligation to book anything afterwards.',
+      text: `A free ${CONSULT_MINUTES}-minute consultation by video is a place to talk it through: what is happening at work, what you want the time to change, and whether counselling alongside it would help. No obligation to book anything afterwards.`,
     },
     linkable: true,
     figure2: "burnout-vs-depression",
@@ -293,7 +293,7 @@ export const moreResources: Resource[] = [
           'Reading this as the manager or HR? [Counselling support for employers and HR](/for/employers-and-hr) is this page from your side of the desk.',
         ],
         book: {
-          text: 'A free 15-minute consultation is where the private route starts, and a fair place to ask whether it is the right one:',
+          text: `A free ${CONSULT_MINUTES}-minute consultation is where the private route starts, and a fair place to ask whether it is the right one:`,
           label: 'book one',
           location: 'mid-resource-work',
         },
@@ -301,7 +301,7 @@ export const moreResources: Resource[] = [
     ],
     midCta: {
       text: 'If work is the thing that is making you unwell rather than the thing you are recovering to do,',
-      label: 'that is worth a free 15-minute consultation',
+      label: `that is worth a free ${CONSULT_MINUTES}-minute consultation`,
     },
     /* The first seven are the 13 Oct Search Console queries in the
        searchers' words: "how to get stress leave in bc" 43 at 16.67, "is
@@ -411,11 +411,11 @@ export const moreResources: Resource[] = [
         `The counsellors taking new clients at this practice are RCCs. ${acceptingSentences(practitioners).join(' ')}`,
         `An individual session is ${fallbackFee('Individual Counselling')} for ${minutesOf('Individual Counselling')} minutes, and every fee is on the [fees page](/pricing). Check them on the register first, then talk to one of them.`,
       ],
-      book: 'Book a free 15-minute consultation',
+      book: `Book a free ${CONSULT_MINUTES}-minute consultation`,
     },
     closingBand: {
       heading: 'Check us on the register, then talk to one of us',
-      text: 'Each counsellor’s profile carries her registration number beside a link to her entry on the BCACC register. When you have checked, a free 15-minute consultation by video is the next step, with no obligation to book anything afterwards.',
+      text: `Each counsellor’s profile carries her registration number beside a link to her entry on the BCACC register. When you have checked, a free ${CONSULT_MINUTES}-minute consultation by video is the next step, with no obligation to book anything afterwards.`,
     },
     sections: [
       /* 13 Oct 2026: was "What the letters actually certify". Search Console
@@ -545,7 +545,7 @@ export const moreResources: Resource[] = [
     ],
     midCta: {
       text: 'Every claim on this site is checkable, and you are encouraged to check it: ',
-      label: 'then book a free 15-minute consultation',
+      label: `then book a free ${CONSULT_MINUTES}-minute consultation`,
     },
     faqs: [
       /* "bcacc find a counsellor", 47 impressions a month at position 9.6 and
@@ -681,7 +681,7 @@ export const moreResources: Resource[] = [
     ],
     midCta: {
       text: 'If you are not sure whether you need a counsellor, a doctor or an assessment,',
-      label: 'a free 15-minute consultation will tell you honestly',
+      label: `a free ${CONSULT_MINUTES}-minute consultation will tell you honestly`,
     },
     faqs: [
       /* Search Console, 17 Sep 2026: 'can a counselor refer you to a psychiatrist' at position 7, 'how to see a psychiatrist in bc', 'psychiatrist referral', 'private psychiatrist bc'. */
@@ -911,12 +911,12 @@ export const moreResources: Resource[] = [
     title: 'Before your first consultation: what to expect, what to bring',
     metaTitle: 'Before Your First Consultation | Westpeak',
     metaDescription:
-      'What actually happens on the free 15-minute call, the one thing worth preparing, the tech checklist, and every version of nervous that is normal.',
+      `What actually happens on the free ${CONSULT_MINUTES}-minute call, the one thing worth preparing, the tech checklist, and every version of nervous that is normal.`,
     eyebrow: 'Resource · Getting started',
     lede:
       'Fifteen minutes, no card, no couch. Here is the whole shape of it, so the only unknown left is whether the fit feels right, which is the one thing the call exists to find out.',
     shortAnswer:
-      'The free consultation is a 15-minute video call with your counsellor, not a therapy session, not an intake interview, and not a commitment. You will be asked, gently, what brings you; you can ask anything about how the work runs; and both of you are deciding fit. Preparation is one sentence: what you would want to be different. The tech is any device with a camera and a private-enough corner. Nerves are the normal state on this call, and mentioning them is allowed. It tends to help.',
+      `The free consultation is a ${CONSULT_MINUTES}-minute video call with your counsellor, not a therapy session, not an intake interview, and not a commitment. You will be asked, gently, what brings you; you can ask anything about how the work runs; and both of you are deciding fit. Preparation is one sentence: what you would want to be different. The tech is any device with a camera and a private-enough corner. Nerves are the normal state on this call, and mentioning them is allowed. It tends to help.`,
     updated: '2026-10-01',
     readMinutes: 4,
     sections: [
@@ -987,7 +987,7 @@ export const moreResources: Resource[] = [
        way of their own counselling. */
     closingBand: {
       heading: 'If your own counselling is what brought you here',
-      text: 'Some people come to the profession by way of their own counselling. If something you are carrying is part of why you are reading this, a free 15-minute consultation by video is a quiet place to start, with no obligation to book anything afterwards.',
+      text: `Some people come to the profession by way of their own counselling. If something you are carrying is part of why you are reading this, a free ${CONSULT_MINUTES}-minute consultation by video is a quiet place to start, with no obligation to book anything afterwards.`,
     },
     figure: 'designations-bc',
     figure2: 'accountability-chain',

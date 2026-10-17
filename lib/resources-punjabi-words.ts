@@ -2,6 +2,15 @@ import type { Resource } from './resources';
 import { CONFIDENTIALITY_LIMITS } from '@/lib/practice-facts';
 import { individualFeePhrase } from '@/lib/session-arithmetic';
 import { CONSULT_MINUTES } from '@/lib/cliniko-catalog';
+import { practitionersSpeaking } from '@/lib/practitioners';
+
+/* 16 Oct 2026 (round 11): the closing band named the counsellor by hand.
+   It now reads the accepting Punjabi-speaking counsellor from the roster on
+   the server, and falls back to a description if nobody is accepting. */
+const PA_COUNSELLOR = practitionersSpeaking('pa').find((p) => p.acceptingNewClients);
+const PA_WITH = PA_COUNSELLOR
+  ? `with ${PA_COUNSELLOR.name}, a Registered Clinical Counsellor,`
+  : 'with a Punjabi-speaking Registered Clinical Counsellor,';
 
 /* WHAT "COUNSELLING" MEANS IN PUNJABI — added 17 Sep 2026 from Search Console.
  *
@@ -180,14 +189,14 @@ export const punjabiWordsResource: Resource[] = [
        coverage. English only; the reviewed Gurmukhi is untouched. */
     closingBand: {
       heading: 'Counselling in Punjabi, not only the word',
-      text: 'A free 15-minute consultation with Savneet Singh, a Registered Clinical Counsellor, in Punjabi, English or both in the same conversation, by secure video anywhere in BC. No obligation to book anything afterwards.',
+      text: `A free ${CONSULT_MINUTES}-minute consultation ${PA_WITH} in Punjabi, English or both in the same conversation, by secure video anywhere in BC. No obligation to book anything afterwards.`,
     },
     midCta: {
       /* The bridge from the word to the service, 3 Oct 2026: most readers
          came for a meaning, and this is where the page says the thing itself
          is available in Punjabi. The button books the Punjabi-speaking
          counsellor's calendar (bookingCtaFor, language 'pa'). */
-      text: 'Looking for counselling in Punjabi, not only the word for it? A free 15-minute consultation with a Punjabi-speaking counsellor, in Punjabi, English, or both in the same conversation. No card, and no obligation.',
+      text: `Looking for counselling in Punjabi, not only the word for it? A free ${CONSULT_MINUTES}-minute consultation with a Punjabi-speaking counsellor, in Punjabi, English, or both in the same conversation. No card, and no obligation.`,
       label: 'Book a free consultation',
     },
     faqs: [
@@ -200,7 +209,7 @@ export const punjabiWordsResource: Resource[] = [
       { q: 'What is burnout in Punjabi?', a: 'There is no clinical term. It is described as ਥਕਾਵਟ (thakavat), exhaustion, and sometimes as ਤਣਾਅ (tanaa), stress. Both place it in the body rather than the mind, which is often how it is first noticed and which makes it easier to say out loud at home.' },
       { q: 'Is there a Punjabi word for depression?', a: 'Not an everyday one. ਉਦਾਸੀ (udaasi) means sadness or low mood, and it is the word most people use, but it sounds like something that will lift on its own. That mismatch is one reason a depressive episode in a Punjabi-speaking family is often heard as ordinary sadness for a long time before anybody treats it as more.' },
       { q: 'Do I have to speak Punjabi in the session?', a: 'No. Most people move between Punjabi and English in the same sentence, and that is normal here rather than something to apologise for. You can also book in English entirely and switch when a word only exists in one of them.' },
-      { q: 'Who provides counselling in Punjabi at Westpeak?', a: 'Savneet Singh, a Registered Clinical Counsellor who works in Punjabi and English. Sessions are online, anywhere in British Columbia, and the first 15-minute consultation is free.' },
+      { q: 'Who provides counselling in Punjabi at Westpeak?', a: `Savneet Singh, a Registered Clinical Counsellor who works in Punjabi and English. Sessions are online, anywhere in British Columbia, and the first ${CONSULT_MINUTES}-minute consultation is free.` },
       { q: 'Will my family find out?', a: `No. What is said in a session is confidential, with the narrow legal exceptions every counsellor has: ${CONFIDENTIALITY_LIMITS}. Those are explained plainly at the first meeting. Nothing goes to family, community or an employer.` },
     ],
     sources: [

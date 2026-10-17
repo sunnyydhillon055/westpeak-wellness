@@ -386,7 +386,7 @@ export const URL_DATES: Record<string, string> = {
   "/tagalog": "2026-10-15",
   "/tagalog-counselling": "2026-10-15",
   "/tagalog-counselling/abbotsford": "2026-10-16",
-  "/tagalog-counselling/burnaby": "2026-10-15",
+  "/tagalog-counselling/burnaby": "2026-10-16",
   "/tagalog-counselling/campbell-river": "2026-10-15",
   "/tagalog-counselling/coquitlam": "2026-10-15",
   "/tagalog-counselling/courtenay": "2026-10-15",

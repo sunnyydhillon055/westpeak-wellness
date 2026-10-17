@@ -348,13 +348,18 @@ export default function LocationsIndex() {
           {/* 16 Oct 2026 (item 581): was "The part that is a legal requirement,
               not a preference" over "A counsellor has to be registered in the
               jurisdiction where the client is physically located", a law BC
-              does not have. Regulation date read on chcpbc.org 16 Oct 2026. */}
+              does not have. Regulation date read on chcpbc.org 16 Oct 2026.
+              16 Oct 2026 (round 11): the date now carries its source, the
+              same CHCPBC page lib/resources-more.ts cites, and the doubled
+              "so" is gone. */}
           <h2>Why you need to be in BC for each session</h2>
           <p>
             No BC law requires a counsellor to be registered until psychotherapy is regulated on
-            29 November 2027. The counsellors here are RCCs whose registration and insurance cover
+            29 November 2027, the date the{' '}
+            <a href="https://chcpbc.org/legislation/regulating-psychotherapists/" target="_blank" rel="noopener">College of Health and Care Professionals of BC<span className="sr-only"> (opens in a new tab)</span></a>{' '}
+            gives for licensure. The counsellors here are RCCs whose registration and insurance cover
             clients located in BC, and other provinces set their own rules, so sessions run when you
-            are in British Columbia, so if you travel, work rotationally out of province, or study elsewhere for part
+            are in British Columbia. If you travel, work rotationally out of province, or study elsewhere for part
             of the year, mention it and it can be planned around rather than discovered mid-course.
             It is also why you are asked where in BC you are, which occasionally surprises people who
             expected a virtual practice not to care.

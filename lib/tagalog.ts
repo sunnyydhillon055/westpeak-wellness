@@ -104,7 +104,7 @@ export const TAGALOG_CITIES: TagalogCity[] = [
     city: 'Burnaby',
     angle: 'A growing Filipino population, and public intake that runs through the health authority people do not expect.',
     body: [
-      'Burnaby\'s Filipino community has grown substantially, and the counselling available in Tagalog has not grown with it. People here also hit a specific administrative trap: Burnaby looks west to Vancouver for most things but sits in Fraser Health, and a referral into the wrong queue costs weeks that nobody flags at the time.',
+      'Burnaby’s Filipino community has grown substantially, and whether a counsellor who works in Tagalog has an opening nearby varies from month to month; BCACC’s Find a Counsellor directory filters by language. People here also hit a specific administrative trap: Burnaby looks west to Vancouver for most things but sits in Fraser Health, and a referral into the wrong queue costs weeks that nobody flags at the time.',
       'Private counselling in Tagalog sidesteps the queue question entirely, and works perfectly well alongside a public wait rather than instead of one.',
     ],
     faqs: [

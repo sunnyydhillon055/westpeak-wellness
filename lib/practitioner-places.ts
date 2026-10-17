@@ -274,7 +274,7 @@ const LOCAL_OVERRIDES: Record<string, Record<string, {
       ],
       blurb: 'A city big enough to have counsellors, where the one who fits may still be somewhere else in BC.',
       local: [
-        'Surrey is one of the fastest-growing cities in Canada, and the counselling here has not grown with it at the same rate. The lists are long, and the people who get seen quickest are usually the ones who can take a weekday afternoon off to do it.',
+        'Surrey is one of the fastest-growing cities in Canada, and its counsellors work across private practices, community agencies and Fraser Health services, each with openings that change from month to month. Seeing one in person also means time away from work to get there; by video, counsellors elsewhere in BC join the choice and the travel drops out.',
         'It is also a city that works shifts: healthcare, the airport, warehousing, care work. A standing Tuesday at two does not survive a rotating roster, and an appointment you keep missing turns into an appointment you stop booking. Sessions by video, at a time picked from what the counsellor has open, remove the part that was breaking.',
       ],
     },

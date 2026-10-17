@@ -118,8 +118,12 @@ export type BookData = {
   paymentStepOff: boolean;
   /* The panel shown above the frame once Cliniko confirms (item 569), per
      roster slug, and under '' for the practice-wide calendar, which names
-     nobody. bookedPanelText() in lib/practice-facts.ts. */
+     nobody. bookedPanelText() in lib/policies.ts. */
   booked: Record<string, string>;
+  /* The free consultation's "no charge to move or cancel" chip, 16 Oct 2026
+     (round 11): CONSULT_FREE_NO_CHARGE in lib/policies.ts, passed as plain
+     data so this client island still imports no server module. */
+  consultNoCharge: string;
 };
 
 /* Inline styles kept verbatim from the server page. */
@@ -327,7 +331,7 @@ export default function BookChoice({
             {/* Not the 24-hour cancellation chip (1 Oct 2026): under a free,
                 no-card call that implied a later cancellation costs something.
                 The 24-hour rule is for paid sessions, on /pricing. */}
-            <li>No charge to move or cancel it</li>
+            <li>{data.consultNoCharge}</li>
           </ul>
 
           {/* THE CHOICE BEFORE THE EXPLAINER — 16 Oct 2026 (item 560). On

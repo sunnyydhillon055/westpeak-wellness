@@ -94,7 +94,9 @@ test('/book: a named calendar region, a route that is not the calendar, and shor
   assert.match(book, /Calendar hard to use with your screen reader or device\?\{' '\}\s*<MailLink where="book-fallback"/, 'email first');
   assert.match(book, /<BookLink location="calendar-alt" className="" href="#ask-for-a-time">/);
   assert.match(book, /aria-labelledby=\{`bk-\$\{p\.slug\}-name`\}/);
-  assert.match(book, /No charge to move or cancel it/);
+  /* Since 16 Oct 2026 (round 11) the chip is CONSULT_FREE_NO_CHARGE from
+     lib/policies.ts, passed in as data; test/book-page.test.mts holds it. */
+  assert.match(book, /<li>\{data\.consultNoCharge\}<\/li>/);
   assert.doesNotMatch(book, /Free cancellation up to/);
 });
 

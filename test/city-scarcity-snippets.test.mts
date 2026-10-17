@@ -248,6 +248,40 @@ function after571(used: Set<string>) {
   }
 }
 
+/* ROUND 11 — 16 Oct 2026. The #571 pattern missed claims phrased as growth
+ * outrunning supply ("has not grown with it", "the lists are long"), as
+ * coverage ("thinner local coverage", "the Island field is thin on"), as
+ * queues ("queueing behind a region", "short or full", "few clinicians taking
+ * new clients") and as regional deficit ("service gaps", "one option or none",
+ * "a metropolitan privilege", the Prince George depth section). None was
+ * sourced, so these phrasings fail on the same pages plus the depth sections
+ * (lib/depth.ts, which carries lib/depth-other.ts). */
+const ROUND11_SCARCITY = /has not grown with it|lists? (?:are|is) long|thinner (?:local )?coverage|queueing behind|(?:field|list) is thin|\bthin on\b|short or full|few clinicians|service gaps|one option or none|metropolitan privilege|runs short first/i;
+
+test('round 11: growth, coverage and queue phrasings of local scarcity are caught too', async () => {
+  const { depthOther } = await import('../lib/depth-other.ts');
+  const found: string[] = [];
+  const check = (where: string, texts: string[]) => {
+    for (const t of texts) {
+      const m = t.match(new RegExp(`.{0,50}(${ROUND11_SCARCITY.source}).{0,50}`, 'i'));
+      if (m) found.push(`${where}: ${m[0]}`);
+    }
+  };
+  for (const r of punjabiRegions) check(`/punjabi-counselling/${r.slug}`, strings(r));
+  for (const c of TAGALOG_CITIES) check(`/tagalog-counselling/${c.slug}`, strings(c));
+  for (const l of locations) check(`/online-counselling/${l.slug}`, strings(l));
+  for (const c of cityContexts) check(`city context ${c.slug}`, strings(c));
+  for (const p of pairs) check(`${p.city}/${p.service}`, strings(p));
+  for (const [k, v] of Object.entries(depthOther)) check(`depth ${k}`, strings(v));
+  for (const p of practitioners) {
+    for (const place of placesFor(p.provinces)) check(`/practitioners/${p.slug}/${place.slug}`, strings(resolvePlace(place, p)));
+  }
+  assert.deepEqual(found, [], `local-scarcity claims:\n${found.join('\n')}`);
+  /* Two of the rewrites held to their new wording, so a revert is noticed. */
+  assert.match(strings(getLocation('nanaimo')).join(' '), /openings for a given approach come and go/);
+  assert.match(strings(getLocation('courtenay')).join(' '), /Particular work is where choice matters/);
+});
+
 test('#571 a place page asks about the counsellor’s second language once', () => {
   for (const p of practitioners) {
     const second = p.languages[1]?.name;

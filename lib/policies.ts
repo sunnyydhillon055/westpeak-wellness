@@ -29,6 +29,19 @@ export const CANCELLATION_RULE =
 /** Payment and cancellation together. */
 export const CANCELLATION_TERMS = `The card is taken at booking. ${CANCELLATION_RULE}`;
 
+/* THE FREE CONSULTATION'S OWN RULE — 16 Oct 2026 (round 11). The free
+ * consultation costs nothing to move or cancel; the 24-hour rule above is for
+ * paid sessions only. Typed once here and read by the /book chip
+ * (components/BookChoice.tsx, passed from app/book/page.tsx as data) and the
+ * after-booking panel below, which had each typed it by hand. */
+export const CONSULT_FREE_NO_CHARGE = 'No charge to move or cancel it';
+
+/** The panel shown above the /book frame once Cliniko confirms (item 569),
+ *  for one counsellor or (practice-wide calendar) none. Moved here from
+ *  lib/practice-facts.ts on 16 Oct 2026. */
+export const bookedPanelText = (first?: string): string =>
+  `${first ? `Booked with ${first}.` : 'Booked.'} Cliniko is emailing your confirmation now; the video link is in it (check spam). Nothing to install; ${CAMERA_OPTIONAL.charAt(0).toLowerCase()}${CAMERA_OPTIONAL.slice(1)} ${CONSULT_FREE_NO_CHARGE}: use the link in that email.`;
+
 /* HOW PRIVATE THE VIDEO IS, STATED ONCE — 1 Oct 2026.
  *
  * The /privacy paragraph below is the practice's one statement of where

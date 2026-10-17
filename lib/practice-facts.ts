@@ -1,5 +1,4 @@
 import { PROVINCE_NAME, type Province } from '@/lib/crisis';
-
 /* MACHINE-READABLE FACTS ABOUT ONE COUNSELLOR, DERIVED ONCE.
  *
  * llms.txt, llms-full.txt and ai.json each said where a counsellor sees
@@ -215,9 +214,7 @@ export const bookingFormLine = (paymentStepOff: boolean): string =>
  * book"), nothing to install, CAMERA_OPTIONAL, and the "No charge to move or
  * cancel it" chip, which is about the free consultation (the 24-hour rule in
  * lib/policies.ts is for paid sessions and is deliberately not repeated
- * here). No fee. */
-export const CONSULT_NO_CHARGE = 'No charge to move or cancel it';
-
-/** The panel's text, for one counsellor or (practice-wide calendar) none. */
-export const bookedPanelText = (first?: string): string =>
-  `${first ? `Booked with ${first}.` : 'Booked.'} Cliniko is emailing your confirmation now; the video link is in it (check spam). Nothing to install; ${CAMERA_OPTIONAL.charAt(0).toLowerCase()}${CAMERA_OPTIONAL.slice(1)} ${CONSULT_NO_CHARGE}: use the link in that email.`;
+ * here). No fee. Moved to lib/policies.ts as bookedPanelText(), beside
+ * CONSULT_FREE_NO_CHARGE, on 16 Oct 2026 (round 11): lib/policies.ts already
+ * reads CAMERA_OPTIONAL from here, so importing the chip back would be a
+ * cycle that breaks whenever this module loads first. */

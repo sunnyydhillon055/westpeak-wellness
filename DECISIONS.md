@@ -3945,6 +3945,18 @@ No noindex, redirect or consolidation.
 
 *Enforced by:* `test/city-scarcity-snippets.test.mts`, `scripts/coverage-claims.mjs`.
 
+### Round-11 review follow-ups: the regulation date cited, consult facts typed once, more scarcity phrasings caught (16 Oct 2026)
+Decided 16 Oct 2026 (round-11 review findings 1 to 4).
+
+- **Regulation date.** /online-counselling's "29 November 2027" now links the CHCPBC regulating-psychotherapists page (read 16 Oct 2026: licensure takes effect November 29, 2027), the source /resources already cites. The doubled "so" is gone.
+- **Free-consultation cancellation.** "No charge to move or cancel it" is `CONSULT_FREE_NO_CHARGE` in lib/policies.ts. The /book chip gets it as server data (`consultNoCharge`), so the client island still imports no server module. `bookedPanelText()` moved from lib/practice-facts.ts to lib/policies.ts, because lib/policies.ts already imports CAMERA_OPTIONAL from practice-facts and the reverse import was a cycle that threw at load.
+- **Consultation length and counsellor name.** lib/resources-more.ts and lib/resources-punjabi-words.ts read CONSULT_MINUTES instead of typing 15. The Punjabi-words closing band names the accepting Punjabi-speaking counsellor from the roster, with a neutral fallback if nobody is accepting.
+- **Local scarcity, second pass.** Surrey, Burnaby (English body of the Tagalog page), up-Island, Nanaimo, Vernon, the Comox Valley, Richmond and the Prince George depth section no longer claim local shortage. Each now says that openings vary and that video adds counsellors from across BC. A new test pattern catches growth, coverage and queue phrasings ('has not grown with it', 'lists are long', 'thinner coverage', 'queueing behind', 'short or full', 'few clinicians', 'service gaps', 'one option or none'), and it also scans lib/depth-other.ts. Richmond was found by the new pattern. No Tagalog or Punjabi prose was touched.
+
+No noindex, redirect or consolidation.
+
+*Enforced by:* `test/city-scarcity-snippets.test.mts`, `test/book-page.test.mts`.
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`

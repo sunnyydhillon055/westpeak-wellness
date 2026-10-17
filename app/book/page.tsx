@@ -16,7 +16,8 @@ import { readCatalog, FALLBACK_CATALOG } from '@/lib/cliniko-catalog';
 import { sessionFeesPhrase, sessionLengthsLine } from '@/lib/book-fees';
 import { imgProps } from '@/lib/img-props';
 import { FirstSessionRows } from '@/components/FirstSessionRow';
-import { notTakingLine, WHO_FINDS_OUT, CAMERA_OPTIONAL, bookingFormLine, bookedPanelText } from '@/lib/practice-facts';
+import { notTakingLine, WHO_FINDS_OUT, CAMERA_OPTIONAL, bookingFormLine } from '@/lib/practice-facts';
+import { bookedPanelText, CONSULT_FREE_NO_CHARGE } from '@/lib/policies';
 import { BEFORE_SESSION_ONE } from '@/lib/faq';
 import { lowestFee, offersShort } from '@/lib/practitioner-facts';
 
@@ -173,6 +174,7 @@ export default async function Book() {
       ['', bookedPanelText()],
       ...accepting.map((p) => [p.slug, bookedPanelText(p.name.split(' ')[0])]),
     ]),
+    consultNoCharge: CONSULT_FREE_NO_CHARGE,
   };
 
   /* THE PUNJABI THREAD — 1 Oct 2026 (wf/book-and-cta). Reused verbatim from

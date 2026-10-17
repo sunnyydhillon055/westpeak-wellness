@@ -254,7 +254,8 @@ test('the year-end page is linked by what it is, not as "booklet", and CoverageL
 });
 
 /* ---------- Round 11 (wf/r11-booking-telemetry-forms), 16 Oct 2026 ---------- */
-import { bookingFormLine, bookedPanelText, CONSULT_NO_CHARGE, BOOKING_FORM_FIELDS } from '../lib/practice-facts.ts';
+import { bookingFormLine, BOOKING_FORM_FIELDS } from '../lib/practice-facts.ts';
+import { bookedPanelText, CONSULT_FREE_NO_CHARGE } from '../lib/policies.ts';
 import { consultPaymentStepOff } from '../lib/site.ts';
 import { waitingRows } from '../lib/waiting-on-you.ts';
 
@@ -298,7 +299,16 @@ test('the booked panel says where the video link comes from, from the house sent
   assert.doesNotMatch(t, /\$|refund|24 hours|%/, 'no fee and no paid-session cancellation rule');
   assert.doesNotMatch(t, /'/, 'typographic apostrophes only');
   const book = readFileSync(join(ROOT, 'components/BookChoice.tsx'), 'utf8');
-  assert.match(book, new RegExp(`<li>${CONSULT_NO_CHARGE}</li>`), 'the panel repeats the /book chip word for word');
+  /* Round 11, 16 Oct 2026: chip and panel both read CONSULT_FREE_NO_CHARGE
+     (lib/policies.ts); the client island gets it as data, typed nowhere. */
+  assert.equal(CONSULT_FREE_NO_CHARGE, 'No charge to move or cancel it');
+  assert.ok(t.includes(`${CONSULT_FREE_NO_CHARGE}: use the link`), 'the panel repeats the /book chip word for word');
+  assert.match(book, /<li>\{data\.consultNoCharge\}<\/li>/);
+  assert.doesNotMatch(book, /No charge to move or cancel/, 'typed by hand in the client island');
+  assert.doesNotMatch(book, /^import[^\n]*lib\/policies/m, 'the client island imports no server module');
+  const bookPage = readFileSync(join(ROOT, 'app/book/page.tsx'), 'utf8');
+  assert.match(bookPage, /consultNoCharge: CONSULT_FREE_NO_CHARGE,/);
+  assert.doesNotMatch(readFileSync(join(ROOT, 'lib/practice-facts.ts'), 'utf8'), /'No charge to move or cancel/);
   assert.match(book, /booked=\{Object\.fromEntries\(Object\.entries\(data\.booked\)/);
   assert.match(book, /<Link href="\/resources\/before-your-first-consultation">What to expect on the call<\/Link>/);
   const tele = readFileSync(join(ROOT, 'components/SchedulerTelemetry.tsx'), 'utf8');
