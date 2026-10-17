@@ -104,7 +104,7 @@ test('the consent banner is fetched only when a choice is needed, and stands on 
 test('?with= links do not prefetch the same /book payload again; bare /book still does (item 575)', () => {
   const book = src('components/BookLink.tsx');
   assert.match(book, /prefetch=\{to\.includes\('\?'\) \? false : undefined\}/);
-  assert.match(src('components/StickyBook.tsx'), /\?with=\$\{encodeURIComponent\(slug\)\}#calendar`\}\n\s*prefetch=\{false\}/);
+  assert.match(src('components/StickyBook.tsx'), /\?with=\$\{encodeURIComponent\(slug\)\}#calendar`\}\r?\n\s*prefetch=\{false\}/);
   assert.match(src('components/StickyBook.tsx'), /prefetch=\{bookHref === site\.bookingPath \? undefined : false\}/);
   assert.match(src('components/Header.tsx'), /prefetch=\{bookHref === site\.bookingPath \? undefined : false\}/);
   const choice = src('components/BookChoice.tsx');
