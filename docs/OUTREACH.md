@@ -528,23 +528,29 @@ Cognica is CCPA's bilingual member publication, published twice a year with
 member submissions due 1 March and 1 September. Send to the editorial address
 on https://www.ccpa-accp.ca/cognica/ and read the length limit there on the
 day. The angle must differ from the BCACC INSIGHTS pitch, so it is not the
-same article twice. Camille writes and owns the article; send the pitch only
-while her Alberta cover is current.
+same article twice. Camille writes and owns the article.
 
-**Subject:** Cognica submission (spring 2027): practising across two provinces by video as a CCC
+[16 Oct 2026: rewritten to British Columbia only. The earlier draft pitched
+practising across two provinces and leaned on her Alberta cover, which
+closed on 15 Oct 2026. If her renewed policy is recorded and the site's
+Alberta gate (`ALBERTA_OPEN`) reopens before 1 March 2027, she may return to
+the two-province angle; until then, send this one.]
+
+**Subject:** Cognica submission (spring 2027): one province, all of it, by video
 
 Hello,
 
 I am a Canadian Certified Counsellor and a Registered Clinical Counsellor in
-British Columbia, certified to see clients in Alberta by video as well. I
-would like to submit a short practice article for the spring 2027 issue on
-what a counsellor needs to check before working across a provincial line
-online. It would cover:
+British Columbia, and I see clients by secure video anywhere in the
+province. I would like to submit a short practice article for the spring
+2027 issue on what a counsellor needs to check before seeing clients by
+video across a province as large as BC, where the client may be in a city,
+a small town or a remote community. It would cover:
 
-- which body's rules apply where the client sits
-- liability insurance that names both provinces
+- confirming where the client is at the start of each session
 - emergency planning when you do not know the local services
 - consent and confidentiality for video sessions
+- what changes when a session moves between two languages
 
 It would contain no client material, and every regulatory statement would
 cite its source.
@@ -614,6 +620,15 @@ info@westpeakwellness.com, and only to the address given.
 Calculator link for these emails, with the tag naming the kind of
 organisation (change the tag as the entry says):
 https://www.westpeakwellness.com/tools/stress-leave-pay-calculator?utm_source=hr
+
+**Added 16 Oct 2026, for the entries not yet sent.** Where the organisation
+keeps a resource list or a handout shelf, add one line before "Thank you",
+with the same tag as the calculator link (`legal`, `hr`, `union` or
+`community`), for example:
+"Our other free pages, each free to link, print or quote with a citation
+line, are listed here:
+https://www.westpeakwellness.com/refer?utm_source=legal#free-resources"
+Do not resend an entry already sent to add it.
 
 The facts every email may state, and nothing beyond them:
 
@@ -1101,6 +1116,9 @@ A line you are welcome to quote, attributed to Westpeak Wellness:
 
 The calculator, free and with every rule linked to its source:
 https://www.westpeakwellness.com/tools/stress-leave-pay-calculator?utm_source=press
+Every figure, its source and the date it was read, as a table and a CSV,
+with the other free pages you may quote or link:
+https://www.westpeakwellness.com/refer?utm_source=press#free-resources
 
 Sources, read 15 October 2026:
 - EI sickness amount, 55% and $729 a week in 2026, up to 26 weeks:
@@ -1117,7 +1135,8 @@ Sources, read 15 October 2026:
 Westpeak Wellness is a virtual counselling practice registered in White
 Rock, with Registered Clinical Counsellors working in English, Punjabi and
 Tagalog across BC. Anyone who wants to talk to a counsellor can book a
-free 15-minute video consultation at https://www.westpeakwellness.com/book.
+free 15-minute video consultation at
+https://www.westpeakwellness.com/book?utm_source=press
 If a follow-up would help, reply to this address.
 
 Westpeak Wellness
@@ -2479,8 +2498,8 @@ some may correct themselves.
   topic "Report incorrect information".
 - **What to enter in the edit form:** Address: none (online only; if a
   value is required, "White Rock, BC" with no street). Phone:
-  (604) 259-0810. Website:
-  https://www.westpeakwellness.com/?utm_source=listing. Hours: remove.
+  (604) 259-0810. Website (paste it without a full stop after it):
+  `https://www.westpeakwellness.com/?utm_source=listing`. Hours: remove.
   Category: counselling, virtual care. Description: the text below.
 
 > **Subject:** Correction request: Westpeak Wellness, White Rock
@@ -2649,6 +2668,12 @@ So: the Pathways enquiry goes to Pathways, the FETCH enquiry to the
 Division. If the Division replies that FETCH is retired, stop there; do
 not ask for anything in its place.
 
+**16 Oct 2026:** a research note says FETCH directories are fed from bc211,
+whose inclusion criteria exclude a fee-for-service practice (LISTINGS_PACK,
+"checked, not eligible or paid"). fetchbc.ca answered 503 that day, so it
+could not be re-read. If the Division confirms the bc211 feed, take 29.2's
+answer as "not eligible" and do not apply to bc211.
+
 ### 29.1 Pathways BC — community-services@pathwaysbc.ca
 
 > **Subject:** Enquiry: can a virtual counselling practice be listed in Pathways (White Rock-South Surrey)?
@@ -2679,6 +2704,9 @@ not ask for anything in its place.
 > would be glad to send whatever your committee needs. Our page for
 > referring clinicians is
 > https://www.westpeakwellness.com/refer/doctor?utm_source=gp
+> and our free pages for patients, including free and low-cost
+> counselling in BC and the BC crisis directory, are listed at
+> https://www.westpeakwellness.com/refer?utm_source=gp#free-resources
 >
 > Thank you,
 > Westpeak Wellness
@@ -2707,6 +2735,8 @@ not ask for anything in its place.
 > If FETCH is no longer running, or private practices are not listed, a
 > short reply saying so is all we need. Our site is
 > https://www.westpeakwellness.com/?utm_source=community
+> and the free pages any directory may link are listed at
+> https://www.westpeakwellness.com/refer?utm_source=community#free-resources
 >
 > Thank you,
 > Westpeak Wellness
@@ -2776,6 +2806,8 @@ A line you are welcome to quote, attributed to Westpeak Wellness:
 
 The guide, with its sources:
 https://www.westpeakwellness.com/guides/low-mood-through-a-bc-winter?utm_source=press
+Other free pages you may quote or link, each with a citation line:
+https://www.westpeakwellness.com/refer?utm_source=press#free-resources
 
 Sources, read 15 October 2026:
 - Government of British Columbia, "B.C.'s new time zone (Pacific time)",
@@ -2789,7 +2821,8 @@ Sources, read 15 October 2026:
 Westpeak Wellness is a virtual counselling practice registered in White
 Rock, with Registered Clinical Counsellors working in English, Punjabi and
 Tagalog across BC. Anyone who wants to talk to a counsellor can book a
-free 15-minute video consultation at https://www.westpeakwellness.com/book.
+free 15-minute video consultation at
+https://www.westpeakwellness.com/book?utm_source=press
 If a follow-up would help, reply to this address.
 
 Westpeak Wellness
@@ -2815,3 +2848,113 @@ For the Fraser Valley papers, add one line after the first paragraph:
 "The change applies in the Fraser Valley exactly as in Vancouver." Do not
 add sunrise times for Abbotsford or Chilliwack; the guide gives none, and
 none were read.
+
+---
+
+## 31. Two free placements — HeadsUpGuys and Archway's external counselling list
+
+Drafts only, written 16 Oct 2026. Nothing has been sent. Free only: no
+payment, no link exchange, nothing offered in return. No testimonials, no
+outcome claims and no registration numbers in either; a directory that has
+a verified credential field gets the number there, typed by the counsellor.
+
+### 31.1 HeadsUpGuys therapist directory (men's mental health)
+
+Read 16 Oct 2026 on headsupguys.org/find-a-therapist/ and
+/find-a-therapist-directory-sign-up/: the listing is free ("a completely
+free way to expand your client base", in their words); a therapist needs a
+Master's-level degree in a relevant discipline, membership or licensure
+with the governing body where she practises, and experience working with
+men's mental health. Sign-up is by email to directory@headsupguys.org
+with name and location; they reply with the form.
+
+Each counsellor decides for herself whether she has the men's mental
+health experience the directory asks for. The owner does not answer that
+for her, and does not send for anyone who has not said yes. Send one email
+per counsellor.
+
+> **Subject:** Therapist directory sign-up: [counsellor's name], British Columbia
+>
+> Hello Colin,
+>
+> I would like to join the HeadsUpGuys therapist directory. I am
+> [counsellor's name], a Registered Clinical Counsellor in British
+> Columbia, seeing clients by secure video anywhere in the province through
+> Westpeak Wellness, a virtual practice registered in White Rock, BC.
+> Please send the sign-up form when you can.
+>
+> Westpeak Wellness
+> info@westpeakwellness.com
+
+Field blocks for the form, from the site's own offerings for each
+counsellor accepting new clients (nothing she does not offer here):
+
+**Camille Granda**
+- Name and credentials: Camille Granda, RCC, CCC
+- Location: virtual, all of BC
+- Practice: Westpeak Wellness
+- Website: https://www.westpeakwellness.com/for/men?utm_source=listing
+- Email: info@westpeakwellness.com
+- Languages: English, Tagalog
+- Services: individual counselling, couples counselling, family counselling, EMDR
+- Format: online (video) only
+- Note for the form, if it has one: "A free 15-minute video consultation
+  comes first, booked on the Westpeak Wellness website."
+
+**Savneet Singh**
+- Name and credentials: Savneet Singh, RCC
+- Location: virtual, all of BC
+- Practice: Westpeak Wellness
+- Website: https://www.westpeakwellness.com/for/men?utm_source=listing
+- Email: info@westpeakwellness.com
+- Languages: English, Punjabi
+- Services: individual counselling only. She does not offer couples work,
+  family counselling or EMDR here.
+- Format: online (video) only
+- Note for the form, if it has one: "A free 15-minute video consultation
+  comes first, booked on the Westpeak Wellness website."
+
+Fees are not typed into the form: where it asks, copy them from
+https://www.westpeakwellness.com/pricing on the day.
+
+### 31.2 Archway Community Services — External Counselling Resources
+
+Read 16 Oct 2026: https://archway.ca/external-counselling-resources/ lists
+free and low-cost counselling in the Fraser Valley under "General",
+"Children & Youth" and "24/7 Phone Lines", and sends anyone looking for a
+private therapist to Psychology Today and South Asian Therapists, the
+second a paid directory (LISTINGS_PACK, "not eligible or paid"). The page
+says reduced-cost or free options may ask to be added at hello@archway.ca.
+
+This practice is fee-paying, so it does not ask to be listed as a
+counselling option. It offers two free reference pages that fit the page's
+purpose: the free and low-cost list for BC, and the guide for someone
+helping a person find a counsellor in Punjabi or Tagalog.
+
+> **Subject:** Two free reference pages for your External Counselling Resources list
+>
+> Hello,
+>
+> Your External Counselling Resources page is a useful list for people in
+> the Fraser Valley who cannot use Archway's own programs. We would like to
+> offer two free reference pages that might sit beside it. We are a
+> fee-paying practice, so we are not asking to be listed as a counselling
+> option.
+>
+> 1. Free and low-cost counselling in BC: the free and reduced-cost routes
+>    across the province, who qualifies for each, and how to reach them.
+>    https://www.westpeakwellness.com/resources/low-cost-counselling-bc?utm_source=community
+> 2. Finding a counsellor in Punjabi or Tagalog in BC: for a settlement
+>    worker, employer or relative helping someone find counselling in
+>    their own language, including how to check a counsellor's
+>    registration and the difference between an interpreter and
+>    same-language counselling.
+>    https://www.westpeakwellness.com/resources/finding-a-counsellor-in-punjabi-or-tagalog-in-bc?utm_source=community
+>
+> Both are free to link or print, with no need to ask, and each carries a
+> citation line. If neither fits, no reply is needed.
+>
+> Thank you for the work you do.
+>
+> Westpeak Wellness
+> info@westpeakwellness.com

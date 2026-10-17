@@ -65,6 +65,10 @@ export const CHANNELS = [
      somebody else's page. The template rides in utm_campaign and is not
      counted here. 1 Oct 2026. */
   'email',
+  /* 16 Oct 2026: the 30-day social pack (OUTREACH section 16) and the union
+     and legal-information sends (section 14) carry these, and channelOf()
+     dropped them. Appended, never reordered. */
+  'linkedin', 'instagram', 'facebook', 'union', 'legal',
 ] as const;
 
 /* EARNED LINKS (1 Oct 2026). A paper, a university or an agency that links
@@ -86,29 +90,35 @@ export function channelOf(utmSource: string | null | undefined): string | null {
 
 /* A host list, matched as the host or any subdomain of it, case-insensitive.
    The dots are escaped here, not typed: the lists ship in the layout chunk
-   on every page, and the escapes were bytes (integration, 3 Oct 2026). */
+   on every page, and the escapes were bytes (integration, 3 Oct 2026).
+   Hosts that share a suffix are grouped, '(a|b).ca', as yelp.(com|ca)
+   already was: that paid for the hosts and channels added 16 Oct 2026. */
 const hosts = (list: string) => new RegExp(`(^|\\.)(${list.replace(/\./g, '\\.')})$`, 'i');
 
 /* edgeservices.bing.com is Copilot in the Edge sidebar and copilot.com the
    consumer Copilot domain; both added 2 Oct 2026. Plain bing.com stays the
    search engine's own class below. */
-const AI_HOST = hosts('chatgpt.com|chat.openai.com|openai.com|gemini.google.com|bard.google.com|claude.ai|anthropic.com|perplexity.ai|copilot.microsoft.com|copilot.com|edgeservices.bing.com|you.com|poe.com|meta.ai|mistral.ai');
+const AI_HOST = hosts('(chatgpt|chat.openai|openai|gemini.google|bard.google|anthropic|copilot.microsoft|copilot|edgeservices.bing|you|poe).com|(claude|perplexity|meta|mistral).ai');
 /* The directories in docs/LISTINGS_PACK.md, plus the two maps apps whose
    place cards link out. Search engines are their own classes. CCPA, AMHC,
-   EMDR Canada and EMDRIA added 3 Oct 2026. */
-const LISTING_HOST = hosts('psychologytoday.com|bcacc.ca|counsellingbc.com|luminohealth.sunlife.ca|alignable.com|theravive.com|firstsession.com|maps.apple.com|businessconnect.apple.com|bingplaces.com|yelp.(com|ca)|yellowpages.ca|ccpa-accp.ca|asianmhc.org|emdrcanada.org|emdria.org');
+   EMDR Canada and EMDRIA added 3 Oct 2026; ClinicFinder and
+   DirectoriesNetwork (OUTREACH section 27) 16 Oct 2026. */
+const LISTING_HOST = hosts('(psychologytoday|counsellingbc|alignable|theravive|firstsession|maps.apple|businessconnect.apple|bingplaces|directoriesnetwork).com|(bcacc|luminohealth.sunlife|yellowpages|ccpa-accp|clinicfinder).ca|(asianmhc|emdrcanada|emdria).org|yelp.(com|ca)');
 
 /* Universities and colleges in OUTREACH section 3 and the other BC public
    ones, their student societies, and any .edu. */
-const EDU_HOST = hosts('ubc.ca|sfu.ca|ufv.ca|kpu.ca|douglascollege.ca|viu.ca|unbc.ca|tru.ca|okanagan.bc.ca|uvic.ca|bcit.ca|langara.ca|camosun.ca|capilanou.ca|sfss.ca|ufvsu.ca|[a-z0-9-]+.edu');
+const EDU_HOST = hosts('(ubc|sfu|ufv|kpu|douglascollege|viu|unbc|tru|okanagan.bc|uvic|bcit|langara|camosun|capilanou|sfss|ufvsu).ca|[a-z0-9-]+.edu');
 /* The papers in OUTREACH section 4 and the BC outlets that carry their
    stories. Kept short: this ships in the layout chunk on every page.
    3 Oct 2026: Punjabi (RED FM, Connect FM) and Filipino outlets added, each
    host loaded first; Indo-Canadian Voice is voiceonline.com, and the old
-   indocanadianvoice.com no longer resolves, so it was dropped. */
-const PRESS_HOST = hosts('peacearchnews.com|surreynowleader.com|abbynews.com|bclocalnews.com|vancouversun.com|theprovince.com|dailyhive.com|cbc.ca|globalnews.ca|ctvnews.ca|thelinkpaper.ca|voiceonline.com|redfm.ca|connectfm.ca|thefilipinopost.com|canadianinquirer.net|philippinecanadiannews.com');
-/* The agencies and organisations named in OUTREACH sections 3 and 6-13. */
-const ORG_HOST = hosts('dcrs.ca|pics.bc.ca|options.bc.ca|archway.ca|mosaicbc.org|issbc.org|successbc.ca|helpinghouse.org|amssa.org|sherpride.ca|cphrbc.ca|bcchamber.org|abbotsfordchamber.com|peopleslawschool.ca|cmha.ca|vancouverpcg.org|dmw.gov.ph|movingforward.help|bcbh.ca');
+   indocanadianvoice.com no longer resolves, so it was dropped.
+   16 Oct 2026: the Chilliwack Progress (section 30). */
+const PRESS_HOST = hosts('(peacearchnews|surreynowleader|abbynews|bclocalnews|vancouversun|theprovince|dailyhive|voiceonline|thefilipinopost|philippinecanadiannews|theprogress).com|(cbc|globalnews|ctvnews|thelinkpaper|redfm|connectfm).ca|canadianinquirer.net');
+/* The agencies and organisations named in OUTREACH sections 3 and 6-13.
+   16 Oct 2026: Clicklaw and go2HR (section 14), Pathways BC and the
+   White Rock-South Surrey Division of Family Practice (section 29). */
+const ORG_HOST = hosts('(dcrs|pics.bc|options.bc|archway|successbc|sherpride|cphrbc|peopleslawschool|cmha|bcbh|clicklaw.bc|go2hr|pathwaysbc|wrssdivision).ca|(mosaicbc|issbc|helpinghouse|amssa|bcchamber|vancouverpcg).org|abbotsfordchamber.com|dmw.gov.ph|movingforward.help');
 
 /** True when the host is an AI assistant. */
 export function isAssistantHost(host: string): boolean {

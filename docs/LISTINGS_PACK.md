@@ -13,6 +13,14 @@ registration numbers are entered into a directory's own verified field, never
 into a description; the founder is not listed as accepting clients; no hours
 are published (say "by appointment"); the practice prefers email; nothing paid.
 
+[Alberta, 16 Oct 2026: every entry below is British Columbia only. Camille's
+Alberta cover closed on 15 Oct 2026 and the site's Alberta gate
+(`ALBERTA_OPEN` in lib/resources-alberta.ts) is shut. When her renewed
+policy is recorded and the gate reopens, restore "and Alberta, through one
+counsellor certified there" to the service area, her line under the
+counsellors, the Medium and Long descriptions and her field blocks, and
+nowhere before that.]
+
 ## The facts
 
 | | |
@@ -24,7 +32,7 @@ are published (say "by appointment"); the practice prefers email; nothing paid.
 | Phone | (604) 259-0810 |
 | Booking | https://www.westpeakwellness.com/book |
 | Registered locality | White Rock, BC, Canada (no walk-in office; fully virtual) |
-| Service area | All of British Columbia; Alberta through one counsellor certified there |
+| Service area | All of British Columbia |
 | Delivery | Secure video only |
 | Languages | English, Punjabi (ਪੰਜਾਬੀ), Tagalog |
 | First consultation | Free, 15 minutes, by video, no referral needed |
@@ -46,7 +54,7 @@ are published (say "by appointment"); the practice prefers email; nothing paid.
 directory's verified credential field):
 
 - Camille Granda, Registered Clinical Counsellor (RCC) and Canadian Certified
-  Counsellor (CCC). English and Tagalog. BC and Alberta. Profile:
+  Counsellor (CCC). English and Tagalog. BC. Profile:
   https://www.westpeakwellness.com/practitioners/camille-granda
 - Savneet Singh, Registered Clinical Counsellor (RCC). English and Punjabi. BC.
   Profile: https://www.westpeakwellness.com/practitioners/savneet-singh
@@ -67,8 +75,7 @@ consultation.
 
 **Medium (about 300 characters):**
 Westpeak Wellness is a fully virtual counselling practice serving all of
-British Columbia by secure video, with a counsellor certified in Alberta as
-well. Registered Clinical Counsellors work in English, Punjabi or Tagalog on
+British Columbia by secure video. Registered Clinical Counsellors work in English, Punjabi or Tagalog on
 anxiety, depression, trauma and EMDR, burnout, grief, and couples and family
 relationships. The first 15-minute consultation is free and no referral is
 needed.
@@ -78,8 +85,7 @@ Westpeak Wellness is a virtual counselling practice registered in White Rock
 and serving every part of British Columbia by secure video, from Vancouver,
 Surrey and Victoria to Kelowna, Kamloops and Prince George. Sessions are with
 Registered Clinical Counsellors, members of the BC Association of Clinical
-Counsellors, in English, Punjabi or Tagalog, and one counsellor is also
-certified to see clients in Alberta. The practice works with anxiety,
+Counsellors, in English, Punjabi or Tagalog. The practice works with anxiety,
 depression, trauma and PTSD (including EMDR), burnout, grief, panic, and with
 couples and families, using CBT, ACT, EMDR and Internal Family Systems.
 Fees are published in full on the website; many extended health plans
@@ -125,9 +131,9 @@ above to paste. Only the free tier of anything. Do the first three this week.
    provider listing (website tag `listing`); it is where Sun Life members are sent to find a covered
    counsellor. Provider type "clinical counsellor", virtual care yes, the
    Medium description.
-6. **Psychology Today** — edit the existing profile: consultation is 30
-   minutes, not 15; remove the 506 number; "online, BC and Alberta"; Savneet's
-   two Edmonton profiles corrected to RCC and BC. Fees as above. Website
+6. **Psychology Today** — edit the existing profile: the free consultation
+   is 15 minutes; remove the 506 number; "online, BC"; Savneet's two Edmonton
+   profiles corrected to RCC and BC. Fees as above. Website
    tag `listing`.
 7. **Apple Business Connect** — https://businessconnect.apple.com. Claim the
    White Rock place; remove the Vancouver duplicate Apple holds. Category
@@ -175,11 +181,10 @@ as a second practice; if not, replace it.
 - Address: hide the street, or remove it if it is the other practice's.
   Westpeak has no office.
 - Accepting new clients: Yes
-- Bio line to add: "Also sees clients online across British Columbia, and in
-  Alberta, through Westpeak Wellness, in English or Tagalog. A free 15-minute
-  video consultation is available on the Westpeak Wellness website."
-  Drop "and in Alberta" if her liability renewal has not been recorded by
-  15 Oct 2026, when the site's Alberta gate closes.
+- Bio line to add: "Also sees clients online across British Columbia
+  through Westpeak Wellness, in English or Tagalog. A free 15-minute video
+  consultation is available on the Westpeak Wellness website." (OUTREACH
+  §25 holds the current wording; use that one if the two differ.)
 
 ### Camille, CCPA Find a CCC (item 10)
 
@@ -187,7 +192,7 @@ as a second practice; if not, replace it.
 - Practice: Westpeak Wellness
 - Website: https://www.westpeakwellness.com/practitioners/camille-granda?utm_source=listing
 - Email: info@westpeakwellness.com
-- Provinces: British Columbia, plus Alberta while her policy is current
+- Provinces: British Columbia
 - Delivery: online / virtual
 - Languages: English, Tagalog
 - Specialisations: only what she offers here (individual, couples, family,
@@ -210,7 +215,7 @@ reduced-fee work and the owner's decision.
 Camille:
 
 - Name and credentials: Camille Granda, RCC, CCC
-- Province: British Columbia (Alberta too while her policy is current)
+- Province: British Columbia
 - Practice: Westpeak Wellness
 - Website: https://www.westpeakwellness.com/practitioners/camille-granda?utm_source=listing
 - Languages: English, Tagalog
@@ -241,7 +246,7 @@ Savneet:
 Ask Camille whether her EMDR training came with EMDR Canada or EMDRIA
 membership. Fields: Westpeak Wellness; website
 https://www.westpeakwellness.com/services/emdr-therapy?utm_source=listing;
-online across BC (and Alberta while insured); English, Tagalog; accepting
+online across BC; English, Tagalog; accepting
 new clients. Description: "EMDR by secure video for adults in British
 Columbia, in English or Tagalog, through Westpeak Wellness. Weekly EMDR
 sessions and a longer intensive format are both offered; fees are on the
@@ -270,6 +275,18 @@ day; re-read before acting if a year has passed.
 - **First Session** — $500 onboarding plus 25% commission.
 - **TherapyDen paid tier** — the free profile does not appear in TherapyDen's
   own search results, so it is a link page only; the paid tier is not taken.
+
+Added 16 Oct 2026:
+
+- **Theralist** — reported by the 16 Oct research pass as $8 a month with no
+  free tier, so paid. Not re-read: theralist.ca refused the request (403)
+  and theralist.com redirects to a domain-sale page.
+- **FETCH (For Everything That's Community Health)** — reported by the same
+  pass as fed from bc211, whose criteria above exclude a fee-for-service
+  practice. fetchbc.ca answered 503 on 16 Oct and the White Rock-South
+  Surrey site errored on 15 Oct, so neither could be re-read; OUTREACH §29.2
+  asks the Division directly, and its answer settles it.
+- **HeadsUpGuys** is free and is not on this list: see OUTREACH §31.1.
 
 ## What to check a month later
 

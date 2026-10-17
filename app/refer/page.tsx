@@ -7,6 +7,11 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import Figure from '@/components/Figure';
 import CtaBand from '@/components/CtaBand';
 import LeadCapture from '@/components/LeadCapture';
+import CopyText from '@/components/CopyText';
+import { getResource, citationFor, LINKABLE_SLUGS, type Resource } from '@/lib/resources';
+import { getFigure } from '@/lib/figures';
+import { FIGURES_CHECKED, FIGURES_CSV_PATH } from '@/lib/benefit-figures';
+import { PDF_PATH } from '@/app/print/punjabi-words/sheet';
 
 export const metadata: Metadata = {
   title: 'Passing on a counsellor’s details',
@@ -14,6 +19,28 @@ export const metadata: Metadata = {
     'How to pass Westpeak Wellness on to someone who is looking for a counsellor in BC, what to send, and what this practice will never ask you for.',
   alternates: { canonical: `${site.domain}/refer` },
 };
+
+/* What each free-to-reuse page is for, in one line (item 578). Keyed by
+   the slugs in LINKABLE_SLUGS; test/refer-free-resources.test.mts fails if
+   a slug is added there without a line here. */
+const PURPOSE: Record<(typeof LINKABLE_SLUGS)[number], string> = {
+  'bc-crisis-and-support-directory': 'Every crisis and support line covering BC, with who each one is for and when to call it.',
+  'finding-a-counsellor-in-punjabi-or-tagalog-in-bc': 'For the settlement worker, employer or relative helping someone find a counsellor in their own language.',
+  'mental-health-leave-templates-bc': 'The leave request email, the doctor’s-note checklist and the HR checklist, ready to copy.',
+  'low-cost-counselling-bc': 'Free and reduced-cost counselling across BC, and who qualifies for each.',
+  'verify-a-counsellor-in-bc': 'What RCC means, and how to check a counsellor on the free BCACC register.',
+  'workplace-mental-health-bc': 'Stress leave in BC: who signs it, what is paid, and what an employer may ask.',
+  'counselling-in-punjabi-what-the-words-mean': 'The Punjabi words for counselling and therapy, in one table, for families and front desks.',
+  'student-mental-health-supports-bc': 'What each BC student-society plan pays for counselling, and the free campus routes.',
+};
+const FREE_RESOURCES = LINKABLE_SLUGS.map((slug) => ({ r: getResource(slug) as Resource, purpose: PURPOSE[slug] }));
+const CALCULATOR = '/tools/stress-leave-pay-calculator';
+const CALCULATOR_CITATION = citationFor(
+  { title: 'Stress leave pay calculator for BC', slug: 'stress-leave-pay-calculator', updated: FIGURES_CHECKED },
+  site.domain,
+  `${CALCULATOR}#figures`,
+);
+const ROUTES_FIGURE = getFigure('bc-support-routes')!;
 
 /* WHY THIS PAGE EXISTS, AND WHY IT DID NOT UNTIL NOW
  *
@@ -204,6 +231,61 @@ for someone who has never done this before.
               <Link href="/for/employers-and-hr/one-pager">the one-page summary for HR</Link>: fees,
               what a receipt carries, and the plan wording to look for.
             </p>
+
+            {/* FREE TO LINK, PRINT OR EMBED — 16 Oct 2026 (item 578).
+                lib/resources.ts has listed the pages outreach asks people to
+                link and print (LINKABLE_SLUGS) since 1 Oct, and nothing read
+                the list: each outreach draft named eight to ten pages one by
+                one, and a librarian, HR lead or settlement worker had no one
+                place to see what may be reused and how to credit it. The
+                titles and citations come from the resources themselves, so
+                a renamed page renames here; the one-line purposes are this
+                page's own. The sends that point here stay with the owner. */}
+            <h2 id="free-resources">Free to link, print or embed</h2>
+            <p>
+              For a clinic, campus, library, union, HR team or settlement agency putting together a
+              resource list. Every page below is free to link to, with no need to ask, and may be
+              reproduced in print or online with attribution to Westpeak Wellness and a link to the
+              page. Each carries a citation line to copy. To report something out of date, email{' '}
+              <a href={`mailto:${site.email}`}>{site.email}</a>.
+            </p>
+            <ul style={{ listStyle: 'none', padding: 0 }}>
+              {FREE_RESOURCES.map(({ r, purpose }) => (
+                <li key={r.slug} style={{ marginBottom: 6 }}>
+                  <strong>
+                    <Link href={`/resources/${r.slug}`}>{r.title}</Link>
+                  </strong>
+                  . {purpose}
+                  {r.slug === 'counselling-in-punjabi-what-the-words-mean' && (
+                    <>
+                      {' '}The <a href={PDF_PATH}>one-page printable sheet (PDF)</a> may be printed and
+                      posted on a notice board or front desk on the same terms.
+                    </>
+                  )}
+                  <CopyText text={citationFor(r, site.domain)} label="Copy the citation" />
+                </li>
+              ))}
+              <li style={{ marginBottom: 6 }}>
+                <strong>
+                  <Link href={CALCULATOR}>The stress leave pay calculator for BC</Link>
+                </strong>
+                . What a leave pays week by week, on a person&rsquo;s own wage. Its{' '}
+                <Link href={`${CALCULATOR}#figures`}>figures table</Link> may be quoted with
+                attribution, and comes as a <a href={FIGURES_CSV_PATH}>CSV file</a>; the calculator
+                itself can be <Link href={`${CALCULATOR}#embed`}>embedded on your own site</Link> by
+                pasting a short snippet.
+                <CopyText text={CALCULATOR_CITATION} label="Copy the citation" />
+              </li>
+              <li style={{ marginBottom: 6 }}>
+                <strong>
+                  <a href={`/img/${ROUTES_FIGURE.file}`}>{ROUTES_FIGURE.title}</a>
+                </strong>
+                . A one-picture summary of the three ways in: services that answer now, publicly
+                funded services, and private counselling. Shown on{' '}
+                <Link href="/compare/psychiatrist-vs-counsellor-bc">psychiatrist or counsellor in BC</Link>;
+                the diagram may be reproduced on the same terms as the pages above.
+              </li>
+            </ul>
 
             <h2>Routes where somebody else pays</h2>
             <p>

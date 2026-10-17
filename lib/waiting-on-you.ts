@@ -24,8 +24,11 @@ import type { Availability } from '@/lib/availability-summary';
    true to app/ by test/waiting-on-you.test.mts. */
 export const CLIENT_AGREEMENT_LIVE = false;
 /* Set true when the owner's decision on the /punjabi form (item 205) is
-   recorded in DECISIONS.md. */
-export const PUNJABI_FORM_DECIDED = false;
+   recorded in DECISIONS.md. Decided 15 Oct 2026 (commit 80aa79e): the form
+   sends looking=punjabi and is exempt from where and timing. Recorded in
+   the 1 Oct DECISIONS.md entry on 16 Oct 2026; test/waiting-on-you.test.mts
+   holds this true to app/punjabi/page.tsx and lib/inbound-submit.ts. */
+export const PUNJABI_FORM_DECIDED = true;
 
 export type WaitingRow = {
   /** What is waiting. */

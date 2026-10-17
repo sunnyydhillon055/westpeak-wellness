@@ -21,7 +21,10 @@ test('510: the calculator prints a figures table and a citation ending #figures,
   assert.match(src, /`\/tools\/\$\{tool\.slug\}#figures`/);
   assert.match(src, /<CopyText text=\{CITATION\}/);
   /* Values come from the constants, never typed beside the figure. */
-  const table = src.slice(src.indexOf('const FIGURES'), src.indexOf('const FIGURES_CHECKED'));
+  /* The rows moved to lib/benefit-figures.ts on 16 Oct 2026 (item 579). */
+  const lib = read('lib/benefit-figures.ts');
+  const table = lib.slice(lib.indexOf('export const LEAVE_PAY_FIGURES'), lib.indexOf('export const FIGURES_CHECKED'));
+  assert.ok(table.length > 200, 'the figures rows are where this test reads them');
   assert.doesNotMatch(table, /\$\d|\b(729|749|68,?900|70,?800)\b/);
   const c = citationFor({ title: 'Stress leave pay calculator for BC', slug: 'x', updated: '2026-10-15' }, 'https://www.westpeakwellness.com', '/tools/stress-leave-pay-calculator#figures');
   assert.ok(c.endsWith('https://www.westpeakwellness.com/tools/stress-leave-pay-calculator#figures'), c);
