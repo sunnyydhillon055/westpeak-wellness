@@ -49,7 +49,7 @@ test('bare /book offers one calendar button per counsellor, each opening her own
 /* ---------- 536 and 546: next free days after a send and under a result ---------- */
 
 test('the new next-day placements are booking locations, appended', () => {
-  assert.deepEqual(BOOK_LOCATIONS.slice(-3), ['next-contact-sent', 'next-book-sent', 'next-tool-result']);
+  assert.deepEqual(BOOK_LOCATIONS.slice(BOOK_LOCATIONS.indexOf('next-contact-sent'), BOOK_LOCATIONS.indexOf('next-contact-sent') + 3), ['next-contact-sent', 'next-book-sent', 'next-tool-result']);
   assert.match(src('app/contact/page.tsx'), /doneExtra=\{\s*<ConsultDaysLine\s+location="next-contact-sent"/);
   assert.match(src('components/BookChoice.tsx'), /location="next-book-sent"/);
   assert.match(src('components/InboundForm.tsx'), /\{doneExtra\}/);

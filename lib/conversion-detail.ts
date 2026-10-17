@@ -186,6 +186,10 @@ export const BOOK_LOCATIONS: readonly string[] = [
   'next-contact-sent',
   'next-book-sent',
   'next-tool-result',
+  /* wf/r11-profiles-choice, 16 Oct 2026, appended: "book couples
+     counselling with Camille" and the like, in the not-offered sentence on
+     the profile and the place pages and in the comparison. */
+  'not-offered-alt',
 ];
 
 /** Every slug on the roster, accepting or not. The founder's cannot reach a

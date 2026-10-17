@@ -5,6 +5,7 @@ import { withLetters, type Practitioner } from '@/lib/practitioners';
 import { listOf, languagesOf, profileHrefFor, bookHrefFor } from '@/lib/city-service-page';
 import type { CounsellorCardLocation } from '@/lib/counsellor-cards';
 import { cardFocusLine } from '@/lib/card-focus';
+import { sessionInHerWords } from '@/lib/practitioner-facts';
 
 /* WHO YOU WOULD SEE — one block, four templates. 1 Oct 2026.
  *
@@ -54,6 +55,11 @@ export default function CounsellorCards({
   service?: string;
 }) {
   if (counsellors.length === 0) return null;
+  /* Not on the city x service matrix: the same two sentences on all of its
+     pages took Vancouver's anxiety and depression pages to 24.9% unique
+     text, under the uniqueness gate's 25% floor (measured on the 16 Oct
+     build; 25.7% without them). */
+  const herWords = location !== 'counsellor-city-service';
   return (
     <section className={className}>
       <div className="container">
@@ -87,6 +93,15 @@ export default function CounsellorCards({
                     </p>
                   </div>
                 </div>
+                {/* Her own one-line description of a session, from her
+                    published answer to "What is it actually like to sit with
+                    you for an hour?", labelled as hers (item 572, 16 Oct
+                    2026). Server-rendered; nothing a client said. */}
+                {herWords && sessionInHerWords(p) && (
+                  <p style={{ margin: '12px 0 0', fontSize: '.95rem' }}>
+                    In her words: &ldquo;{sessionInHerWords(p)}&rdquo;
+                  </p>
+                )}
                 <div className="btn-row" style={{ marginTop: 14 }}>
                   {/* Only a counsellor with an online calendar gets the button;
                       ?with= on /book opens nothing for one who books by reply. */}

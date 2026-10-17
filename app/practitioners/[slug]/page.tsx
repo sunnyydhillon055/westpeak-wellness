@@ -24,14 +24,17 @@ import {
   feeLines, feePhrase, consultLine, reachLine, notOffered, insuranceLine, registerEntryUrl,
   longDate, offerItems, COMPLAINTS_PATH,
   personDescription, credentialLine, certifiedBy, notOfferedSentence,
-  alternativesFor, alternativeLabel, notRightFit, orList, type Alternative,
+  alternativesFor, alternativeLabel, notRightFit, orList, andList, type Alternative,
+  lowestFee, compareColumns, OFFERINGS,
 } from '@/lib/practitioner-facts';
 import { bookHrefFor } from '@/lib/city-service-page';
-import CounsellorCompare from '@/components/CounsellorCompare';
+import CounsellorCompare, { NotOfferedLinks } from '@/components/CounsellorCompare';
 import FirstSessionRow from '@/components/FirstSessionRow';
 import { firstSessionNote, firstSessionOffers } from '@/lib/first-session';
 import { profileDescription } from '@/lib/snippet-facts';
 import { closedProfileDescription } from '@/lib/closed-profile-snippet';
+
+const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 export function generateStaticParams() {
   return practitioners.map((p) => ({ slug: p.slug }));
@@ -215,6 +218,25 @@ export default async function PractitionerPage({ params }: { params: { slug: str
      (item 429): the line goes with the first deploy on or after the day
      the policy stops being current. */
   const insured = insuranceLine(p, vancouverToday());
+  /* "Fees: from $140" in the hero, to her own strip (item 582, 16 Oct
+     2026). The button went to /pricing, which does not know who the reader
+     was looking at; /pricing stays linked under the strip. */
+  const from = p.acceptingNewClients ? lowestFee(p, catalog) : null;
+  /* The comparison sits under the strip and the hero links it (item 562):
+     it was 73% of the way down the page on a phone. */
+  const compareWith = p.acceptingNewClients
+    ? compareColumns(practitioners, catalog).filter((c) => c.slug !== p.slug).map((c) => c.first)
+    : [];
+  /* What she offers, one card per service on her roster, with her fee from
+     the catalogue and a button that books that service (item 557). Her
+     roster's services and nothing else: a service she does not offer is
+     never a card, it is the not-offered sentence in the strip. */
+  const offerCards = p.services.flatMap((s) => {
+    const svc = getService(s);
+    /* The button names the service in the practice's own words
+       (OFFERINGS): "Book couples counselling with Camille". */
+    return svc ? [{ svc, fee: fees.find((f) => f.service === s), label: OFFERINGS.find((o) => o.service === s)?.label }] : [];
+  });
 
   const schema = [
     {
@@ -325,12 +347,19 @@ export default async function PractitionerPage({ params }: { params: { slug: str
               ) : (
                 <BookLink location="hero-practitioner" href={bookHref}>Book a free consultation</BookLink>
               )}
-              {p.acceptingNewClients && <Link className="btn btn--ghost" href="/pricing">Fees and coverage</Link>}
+              {p.acceptingNewClients && (from && (fees.length > 0 || consult)
+                ? <a className="btn btn--ghost" href="#fees">Fees: from {from}</a>
+                : <Link className="btn btn--ghost" href="/pricing">Fees and coverage</Link>)}
             </div>
             {opens && (
               <p className="consult-slot" style={{ fontSize: '.95rem', marginTop: 12, '--lm': 4, '--ld': 2 } as React.CSSProperties}>
                 {/* Each day opens her calendar (3 Oct 2026), as the home hero's do. */}
                 <OpenDays slug={p.slug} first={first!} href={bookHref} location="next-practitioner" />
+              </p>
+            )}
+            {compareWith.length > 0 && (
+              <p style={{ fontSize: '.92rem', marginTop: 8 }}>
+                <a href="#compare">Compare {first} and {andList(compareWith)} side by side</a>
               </p>
             )}
             {!p.acceptingNewClients ? (
@@ -418,13 +447,18 @@ export default async function PractitionerPage({ params }: { params: { slug: str
 
           {(fees.length > 0 || consult) && (
             <div className="prose" style={{ marginTop: 20 }}>
-              <ul className="checklist" aria-label={`${first} at a glance`}>
+              <ul className="checklist" id="fees" aria-label={`${first} at a glance`} style={{ scrollMarginTop: 72 }}>
                 {consult && <li><strong>{consult}</strong>, by video, with no obligation to book afterwards</li>}
-                {fees.map((f) => (
-                  <li key={f.label}>
-                    <strong>{f.label.charAt(0).toUpperCase() + f.label.slice(1)}</strong>, {feePhrase(f)}
-                  </li>
-                ))}
+                {fees.map((f) => {
+                  /* The label links the service page (item 557). */
+                  const svc = getService(f.service);
+                  const label = f.label.charAt(0).toUpperCase() + f.label.slice(1);
+                  return (
+                    <li key={f.label}>
+                      <strong>{svc ? <Link href={`/services/${svc.slug}`}>{label}</Link> : label}</strong>, {feePhrase(f)}
+                    </li>
+                  );
+                })}
                 <li><strong>{reachLine(p)}</strong>, in {p.languages.map((l) => l.name).join(' or ')}</li>
                 {fit && (
                   <li><strong>When {first} is not the right fit</strong>, in her words: &ldquo;{fit}&rdquo;</li>
@@ -435,15 +469,25 @@ export default async function PractitionerPage({ params }: { params: { slug: str
                     {notOfferedLine.by.length > 0 ? (
                       <>
                         {'; '}
-                        {notOfferedLine.by.map((b, i) => (
-                          <span key={b.slug}>{i ? ' and ' : ''}<Link href={`/practitioners/${b.slug}`}>{b.name}</Link></span>
-                        ))}
-                        {` ${notOfferedLine.verb}.`}
+                        {/* Books the colleague for that service (item 561). */}
+                        <NotOfferedLinks
+                          by={notOfferedLine.by}
+                          labels={missing.map((m) => m.label)}
+                          services={notOfferedLine.services}
+                          roster={practitioners}
+                          verb={notOfferedLine.verb}
+                        />
+                        .
                       </>
                     ) : '.'}
                   </li>
                 )}
               </ul>
+              {/* Side by side with her colleagues, closed, directly under her
+                  own facts since 16 Oct 2026 (item 562). */}
+              {compareWith.length > 0 && (
+                <CounsellorCompare roster={practitioners} catalog={catalog} location="counsellor-compare" collapsed />
+              )}
               <FirstSessionRow first={first} offers={firstSession} note={firstSessionNote(catalog)} />
               <p style={{ fontSize: '.9rem', color: 'var(--ink-soft)' }}>
                 Paid at booking, with a receipt for your extended health plan; whether
@@ -463,6 +507,26 @@ export default async function PractitionerPage({ params }: { params: { slug: str
               <div className="card" key={f.label}>
                 <h3>{f.label}</h3>
                 <p style={{ marginBottom: 0 }}>{f.detail}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* WHAT SHE OFFERS, AS CARDS, right after what she works with
+              (item 557, 16 Oct 2026). It was a list at the foot of the page:
+              on a phone the first EMDR link on Camille's sat at 9,212 px of
+              12,877. */}
+          <h2 style={{ marginTop: 36 }}>What {first} offers</h2>
+          <div className="grid grid-2" style={{ marginTop: 20 }}>
+            {offerCards.map(({ svc, fee, label }) => (
+              <div className="card" key={svc.slug}>
+                <h3><Link href={`/services/${svc.slug}`}>{svc.name}</Link></h3>
+                <p>{svc.short}</p>
+                {fee && <p style={{ color: 'var(--ink-soft)', fontSize: '.95rem' }}>{cap(feePhrase(fee))}</p>}
+                {p.acceptingNewClients && p.bookable && (
+                  <BookLink location="hero-practitioner" className="btn btn--ghost" href={bookHrefFor([p], svc.slug)}>
+                    {label ? `Book ${label} with ${first}` : `Book with ${first}`}
+                  </BookLink>
+                )}
               </div>
             ))}
           </div>
@@ -578,21 +642,6 @@ export default async function PractitionerPage({ params }: { params: { slug: str
 
       <section className="section section--ghost">
         <div className="container prose">
-          <h2>What {first} offers</h2>
-          <ul className="checklist">
-            {p.services.map((s) => {
-              const svc = getService(s);
-              return svc ? (
-                <li key={s}>
-                  <Link href={`/services/${svc.slug}`}>{svc.name}</Link>, {svc.short}
-                </li>
-              ) : null;
-            })}
-          </ul>
-          {/* Side by side with her colleagues, closed (2 Oct 2026). */}
-          {p.acceptingNewClients && (
-            <CounsellorCompare roster={practitioners} catalog={catalog} location="counsellor-compare" collapsed />
-          )}
           {/* The complaints route, per counsellor. /standards says where a
               complaint goes and that the practice is not the gatekeeper;
               this says it about her, by name. 1 Oct 2026. */}
