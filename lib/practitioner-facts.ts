@@ -31,7 +31,7 @@ export const OFFERINGS: readonly {
   { service: 'family-counselling', label: 'family counselling', billedAs: [] },
 ];
 
-export type FeeLine = { label: string; parts: { fee: string; minutes: number; as?: string; cents: number }[] };
+export type FeeLine = { label: string; service: string; parts: { fee: string; minutes: number; as?: string; cents: number }[] };
 
 const find = (c: Catalog, name: string) => c.items.find((i) => i.name.toLowerCase() === name.toLowerCase());
 
@@ -43,7 +43,7 @@ export function feeLines(p: Pick<Practitioner, 'services'>, catalog: Catalog): F
       const item = find(catalog, b.name);
       return item && item.cents > 0 ? [{ fee: money(item.cents), minutes: item.minutes, as: b.as, cents: item.cents }] : [];
     });
-    return parts.length ? [{ label: o.label, parts }] : [];
+    return parts.length ? [{ label: o.label, service: o.service, parts }] : [];
   });
 }
 
@@ -62,7 +62,7 @@ export function consultLine(catalog: Catalog): string | null {
 export const reachLine = (p: Pick<Practitioner, 'reach'>): string =>
   `Online only, anywhere in ${p.reach === 'canada' ? 'Canada' : 'BC'}`;
 
-export type NotOffered = { label: string; by: { slug: string; name: string }[] };
+export type NotOffered = { label: string; service: string; by: { slug: string; name: string }[] };
 
 /** The practice's services she does not offer, each with the colleagues
  *  taking new clients who do. Only accepting counsellors are named, so the
@@ -70,6 +70,7 @@ export type NotOffered = { label: string; by: { slug: string; name: string }[] }
 export function notOffered(p: Pick<Practitioner, 'slug' | 'services'>, roster: readonly Practitioner[]): NotOffered[] {
   return OFFERINGS.filter((o) => !p.services.includes(o.service)).map((o) => ({
     label: o.label,
+    service: o.service,
     by: roster
       .filter((q) => q.slug !== p.slug && q.acceptingNewClients && q.services.includes(o.service))
       .map((q) => ({ slug: q.slug, name: q.name })),
@@ -118,7 +119,7 @@ export function offerItems(p: Pick<Practitioner, 'services'>, catalog: Catalog):
   ];
 }
 
-const andList = (xs: string[]) => (xs.length < 2 ? xs.join('') : `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}`);
+export const andList = (xs: readonly string[]) => (xs.length < 2 ? xs.join('') : `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}`);
 
 /** One sentence per counsellor taking new clients, for prose that names who
  *  a reader could see: profile link, languages, reach, services. Built from
@@ -178,14 +179,14 @@ export const certifiedBy = (p: Pick<Practitioner, 'credentials'>): string[] =>
 /** "Savneet does not offer couples counselling, EMDR or family counselling;
  *  Camille Granda does." The colleague clause only when one set of accepting
  *  counsellors offers all of them. */
-export function notOfferedSentence(first: string, missing: NotOffered[]): { lead: string; by: { slug: string; name: string }[]; verb: string } | null {
+export function notOfferedSentence(first: string, missing: NotOffered[]): { lead: string; by: { slug: string; name: string }[]; verb: string; services: string[] } | null {
   if (!missing.length) return null;
   const labels = missing.map((m) => m.label);
   const list = labels.length < 2 ? labels.join('') : `${labels.slice(0, -1).join(', ')} or ${labels[labels.length - 1]}`;
   const key = (m: NotOffered) => m.by.map((b) => b.slug).join();
   const same = missing.every((m) => m.by.length && key(m) === key(missing[0]!));
   const by = same ? missing[0]!.by : [];
-  return { lead: `${first} does not offer ${list}`, by, verb: by.length > 1 ? 'do' : 'does' };
+  return { lead: `${first} does not offer ${list}`, by, verb: by.length > 1 ? 'do' : 'does', services: missing.map((m) => m.service) };
 }
 
 /* WHO TO SEE INSTEAD, ON A PROFILE THAT IS NOT TAKING CLIENTS — 2 Oct 2026.
@@ -338,6 +339,14 @@ export type CompareColumn = {
   approaches: string[];
   notRightFit: string | null;
   fees: string[];
+  /** Her focus labels, as one line (item 572). */
+  worksWith: string;
+  /** Individuals, and couples and families only when OFFERINGS lists them. */
+  sees: string;
+  /** The first sentence of her own description of who she works with. */
+  seesWords: string | null;
+  /** Her own one-line session description (sessionInHerWords). */
+  session: string | null;
 };
 
 export function compareColumns(roster: readonly Practitioner[], catalog: Catalog): CompareColumn[] {
@@ -354,6 +363,10 @@ export function compareColumns(roster: readonly Practitioner[], catalog: Catalog
       approaches: approachTerms(p),
       notRightFit: notRightFit(p),
       fees: feeLines(p, catalog).map((l) => `${cap(l.label)}: ${feePhrase(l)}`),
+      worksWith: cap(p.focus.map((f) => lowerFirst(f.label)).join('; ')),
+      sees: whoSheSees(p),
+      seesWords: firstSentence(p.intro[0]),
+      session: sessionInHerWords(p),
     }));
 }
 
@@ -366,13 +379,110 @@ export const rosterOrder = <T extends Pick<Practitioner, 'acceptingNewClients'>>
 /** Not-offered services grouped by the colleagues who offer them, in
  *  OFFERINGS order: [{ labels: ['couples counselling', 'EMDR', 'family
  *  counselling'], by: [Camille] }]. */
-export function groupMissing(missing: readonly NotOffered[]): { labels: string[]; by: NotOffered['by'] }[] {
-  const out: { key: string; labels: string[]; by: NotOffered['by'] }[] = [];
+export function groupMissing(missing: readonly NotOffered[]): { labels: string[]; services: string[]; by: NotOffered['by'] }[] {
+  const out: { key: string; labels: string[]; services: string[]; by: NotOffered['by'] }[] = [];
   for (const m of missing) {
     const key = m.by.map((b) => b.slug).join();
     const g = out.find((x) => x.key === key);
-    if (g) g.labels.push(m.label);
-    else out.push({ key, labels: [m.label], by: m.by });
+    if (g) { g.labels.push(m.label); g.services.push(m.service); }
+    else out.push({ key, labels: [m.label], services: [m.service], by: m.by });
   }
-  return out.map(({ labels, by }) => ({ labels, by }));
+  return out.map(({ labels, services, by }) => ({ labels, services, by }));
+}
+
+/* BOOK THE COLLEAGUE FOR WHAT SHE DOES NOT OFFER — 16 Oct 2026 (item 561).
+   "Savneet does not offer couples counselling, EMDR or family counselling;
+   Camille Granda does" linked Camille's 12,000 px profile, so a couples or
+   EMDR seeker on Savneet's pages had to read it before booking. The labels
+   are split by the booking each needs: couples work opens the couples
+   consultation (for=couples in bookHrefFor), everything else her calendar.
+   The service ids only; the page builds the href. */
+export function altBookings(labels: readonly string[], services: readonly string[]): { labels: string[]; service?: string }[] {
+  const couples = services.indexOf('couples-therapy');
+  const rest = labels.filter((_, i) => i !== couples);
+  return [
+    ...(couples >= 0 ? [{ labels: [labels[couples]!], service: 'couples-therapy' }] : []),
+    ...(rest.length ? [{ labels: rest }] : []),
+  ];
+}
+
+/* HER OWN ONE-LINE SESSION DESCRIPTION — 16 Oct 2026 (item 572). The first
+   sentence of her published answer to "What is it actually like to sit with
+   you for an hour?", quoted and labelled as her words. It is the counsellor
+   describing her own sessions, not anything a client said. Null without the
+   answer. */
+export const SESSION_QUESTION = /what is it actually like to sit with you/i;
+
+export const sessionInHerWords = (p: Pick<Practitioner, 'voice'>): string | null =>
+  firstSentence(p.voice?.find((v) => SESSION_QUESTION.test(v.q))?.a[0]);
+
+/* WHAT SHE OFTEN WORKS WITH, AS TERMS — 16 Oct 2026 (items 572, 573). Her
+   focus labels split on commas and "and", lower-cased: "Grief, loss and
+   life transitions" is grief, loss and life transitions. Nothing is added
+   that her labels do not say, so a term one counsellor lists and the other
+   does not is a real difference in the roster, not a judgement. */
+const lowerFirst = (s: string) => (/^[A-Z][a-z]/.test(s) ? s.charAt(0).toLowerCase() + s.slice(1) : s);
+
+export const focusTerms = (p: Pick<Practitioner, 'focus'>): string[] =>
+  [...new Set(p.focus.flatMap((f) => f.label.split(/,\s*|\s+and\s+/).map((t) => lowerFirst(t.trim())).filter(Boolean)))];
+
+/** "Individuals, couples and families", from OFFERINGS: couples and families
+ *  only when she offers that work. No age is claimed. */
+export function whoSheSees(p: Pick<Practitioner, 'services'>): string {
+  const who = ['individuals'];
+  if (p.services.includes('couples-therapy')) who.push('couples');
+  if (p.services.includes('family-counselling')) who.push('families');
+  return cap(andList(who));
+}
+
+/* "IF YOU WANT …, BOOK …" — 16 Oct 2026 (item 573). The /practitioners
+   paragraph on choosing named neither counsellor. These lines are generated
+   from the counsellors taking new clients and bookable, and nothing else:
+   a non-English language only one of them works in, a service in OFFERINGS
+   only one of them offers, a focus term only one of them lists, and the
+   focus terms they all list. A line with one counsellor names her and the
+   service her link books; a shared line names nobody. */
+export type ChooserLine = {
+  kind: 'language' | 'service' | 'focus' | 'shared';
+  /** What the reader wants, as the roster says it: "Punjabi", ["couples counselling"], ["grief", "loss"]. */
+  terms: string[];
+  /** The one counsellor, or null when they all fit. */
+  slug: string | null;
+  first: string | null;
+  /** The service the link books, for couples work. */
+  service?: string;
+};
+
+export function chooserLines(roster: readonly Practitioner[], catalog: Catalog): ChooserLine[] {
+  const open = roster.filter((p) => p.acceptingNewClients && p.bookable);
+  if (open.length < 2) return [];
+  const firstOf = (p: Practitioner) => p.name.split(' ')[0]!;
+  const out: ChooserLine[] = [];
+  /* Languages, in roster order, non-English only. */
+  const langs = [...new Map(open.flatMap((p) => p.languages).filter((l) => !l.tag.startsWith('en')).map((l) => [l.tag, l.name])).entries()];
+  for (const [tag, name] of langs) {
+    const who = open.filter((p) => p.languages.some((l) => l.tag === tag));
+    if (who.length === 1) out.push({ kind: 'language', terms: [name], slug: who[0]!.slug, first: firstOf(who[0]!) });
+  }
+  /* Services only one offers, couples work on its own line for its own
+     consultation. EMDR says "including the intensive" only when her fee
+     line in the catalogue has one. */
+  for (const p of open) {
+    const only = OFFERINGS.filter((o) => p.services.includes(o.service) && open.every((q) => q === p || !q.services.includes(o.service)));
+    if (!only.length) continue;
+    const intensive = feeLines(p, catalog).some((l) => l.service === 'emdr-therapy' && l.parts.some((x) => x.as === 'intensive'));
+    const label = (o: (typeof OFFERINGS)[number]) => (o.service === 'emdr-therapy' && intensive ? 'EMDR, including the intensive,' : o.label);
+    for (const b of altBookings(only.map(label), only.map((o) => o.service))) {
+      out.push({ kind: 'service', terms: b.labels, slug: p.slug, first: firstOf(p), ...(b.service ? { service: b.service } : {}) });
+    }
+  }
+  /* Focus terms. */
+  const terms = open.map((p) => ({ p, t: focusTerms(p) }));
+  for (const { p, t } of terms) {
+    const only = t.filter((x) => terms.every((o) => o.p === p || !o.t.includes(x)));
+    if (only.length) out.push({ kind: 'focus', terms: only, slug: p.slug, first: firstOf(p) });
+  }
+  const shared = terms[0]!.t.filter((x) => terms.every((o) => o.t.includes(x)));
+  if (shared.length) out.push({ kind: 'shared', terms: shared, slug: null, first: null });
+  return out;
 }

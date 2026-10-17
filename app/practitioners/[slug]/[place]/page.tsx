@@ -30,6 +30,7 @@ import Updated from '@/components/Updated';
 import { COLLECTION_DATES } from '@/lib/page-dates';
 import { placePageDate, tagalogProfileDate } from '@/lib/page-date-latest';
 import BookLink from '@/components/BookLink';
+import CounsellorCompare, { NotOfferedLinks } from '@/components/CounsellorCompare';
 import { bookHrefFor } from '@/lib/city-service-page';
 import { rich } from '@/lib/rich';
 import { placeTitle } from '@/lib/practitioner-titles';
@@ -512,10 +513,17 @@ export default async function PractitionerPlacePage({ params }: { params: Params
                       {notOfferedLine.by.length > 0 ? (
                         <>
                           {'; '}
-                          {notOfferedLine.by.map((b, i) => (
-                            <span key={b.slug}>{i ? ' and ' : ''}<Link href={`/practitioners/${b.slug}`}>{b.name}</Link></span>
-                          ))}
-                          {` ${notOfferedLine.verb}.`}
+                          {/* Books the colleague for that service, and her
+                              name links her page for this city (item 561). */}
+                          <NotOfferedLinks
+                            by={notOfferedLine.by}
+                            labels={notOffered(p, practitioners).map((m) => m.label)}
+                            services={notOfferedLine.services}
+                            roster={practitioners}
+                            citySlug={loc.slug}
+                            verb={notOfferedLine.verb}
+                          />
+                          .
                         </>
                       ) : '.'}
                     </li>
@@ -672,7 +680,13 @@ export default async function PractitionerPlacePage({ params }: { params: Params
                 ? { href: `/punjabi-counselling/${loc.slug}`, label: `Punjabi-speaking counselling in ${loc.city}`, lang: 'Punjabi' }
                 : null,
             ].filter((x): x is { href: string; label: string; lang: string } => Boolean(x));
-            if (langPages.length === 0 && colleagues.length === 0) return null;
+            /* The colleague's page for this city is a column header of the
+               closed comparison since 16 Oct 2026 (item 583), in place of
+               one sentence naming her: the 36 place pages had more
+               impressions than the profile and nothing set the two
+               counsellors side by side. */
+            const compare = p.acceptingNewClients && colleagues.length > 0;
+            if (langPages.length === 0 && !compare) return null;
             return (
               <div className="prose" style={{ marginTop: 30 }}>
                 {langPages.map((x) => (
@@ -681,13 +695,9 @@ export default async function PractitionerPlacePage({ params }: { params: Params
                     <Link href={x.href}>{x.label}</Link> covers it.
                   </p>
                 ))}
-                {colleagues.map((o) => (
-                  <p key={o.slug}>
-                    {o.name} also sees clients in {loc.city} by video, in{' '}
-                    {o.languages.map((l) => l.name).join(' or ')}:{' '}
-                    <Link href={`/practitioners/${o.slug}/${loc.slug}`}>{o.name.split(' ')[0]}’s page for {loc.city}</Link>.
-                  </p>
-                ))}
+                {compare && (
+                  <CounsellorCompare roster={practitioners} catalog={catalog} location="counsellor-compare" collapsed brief citySlug={loc.slug} />
+                )}
               </div>
             );
           })()}

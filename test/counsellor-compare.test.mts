@@ -151,3 +151,17 @@ test('the comparison names each colleague once for everything she covers', () =>
   assert.deepEqual(groups[0]!.labels, ['couples counselling', 'EMDR', 'family counselling']);
   assert.deepEqual(groups[0]!.by.map((b) => b.slug), ['camille-granda']);
 });
+
+/* ---------- 572, 16 Oct 2026: focus and who she sees, from the roster ---------- */
+
+test('"often works with" and "who she sees" are derived from her roster, cell by cell', () => {
+  for (const c of compareColumns(recordedPractitioners, FALLBACK_CATALOG)) {
+    const p = by(c.slug);
+    assert.equal(c.worksWith.toLowerCase(), p.focus.map((f) => f.label.toLowerCase()).join('; '));
+    assert.ok(c.seesWords && p.intro[0]!.startsWith(c.seesWords), `${c.slug}: her own first sentence`);
+    assert.ok(c.sees.startsWith('Individuals'));
+  }
+  const rows = src('components/CounsellorCompare.tsx');
+  assert.match(rows, /label: 'Often works with', cell: \(c\) => c\.worksWith/);
+  assert.match(rows, /label: 'Who she sees'/);
+});

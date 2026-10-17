@@ -14,7 +14,8 @@ import BookLink from '@/components/BookLink';
 import CounsellorCompare from '@/components/CounsellorCompare';
 import { readCatalog } from '@/lib/cliniko-catalog';
 import { FirstOpen } from '@/components/NextConsultSlot';
-import { lowestFee, consultLine, rosterOrder } from '@/lib/practitioner-facts';
+import { lowestFee, consultLine, rosterOrder, sessionInHerWords, chooserLines, orList, type ChooserLine } from '@/lib/practitioner-facts';
+import { bookHrefFor } from '@/lib/city-service-page';
 import { rosterDescription } from '@/lib/snippet-facts';
 
 const TITLE = 'Our Counsellors | Westpeak Wellness';
@@ -104,6 +105,13 @@ export default async function PractitionersPage() {
         </h2>
         <p className="practitioner-row-role">{p.role}{p.postNominals ? ` · ${p.postNominals}` : ''}</p>
         <p className="practitioner-row-tagline">{p.tagline}</p>
+        {/* Her own one-line description of a session, the first sentence of
+            her published answer to "What is it actually like to sit with
+            you for an hour?" (item 572, 16 Oct 2026). Her words, labelled
+            so; never a client's. */}
+        {p.acceptingNewClients && sessionInHerWords(p) && (
+          <p className="practitioner-row-langs">In her words: &ldquo;{sessionInHerWords(p)}&rdquo;</p>
+        )}
         <p className="practitioner-row-langs" style={{ color: 'var(--ink)', fontWeight: 600 }}>
           {p.acceptingNewClients ? 'Taking new clients' : 'Not taking new clients'}
         </p>
@@ -156,6 +164,19 @@ export default async function PractitionersPage() {
   const open = roster.filter((p) => p.acceptingNewClients);
   const closed = roster.filter((p) => !p.acceptingNewClients);
 
+  /* "IF YOU WANT …, BOOK …" — 16 Oct 2026 (item 573). The paragraph on
+     choosing named neither counsellor. Every line is generated from the
+     roster and OFFERINGS (chooserLines, lib/practitioner-facts.ts) and ends
+     in the booking it describes; the line both counsellors fit books no one
+     in particular. */
+  const chooser = chooserLines(roster, catalog);
+  const chooserLead = (l: ChooserLine) =>
+    l.kind === 'language' ? `Sessions in ${l.terms[0]}`
+      : l.kind === 'service' ? orList(l.terms).replace(/^./, (c) => c.toUpperCase())
+        : l.kind === 'focus' ? `${orList(l.terms).replace(/^./, (c) => c.toUpperCase())}, which ${l.first} names among her focus areas`
+          : `${orList(l.terms).replace(/^./, (c) => c.toUpperCase())}, listed by ${open.length === 2 ? 'both' : 'each of them'}`;
+  const chooserHref = (l: ChooserLine) => bookHrefFor(roster.filter((p) => p.slug === l.slug), l.service);
+
   return (
     <>
       <section className="hero" style={{ paddingBottom: 40 }}>
@@ -206,6 +227,21 @@ export default async function PractitionersPage() {
               right-click target all stay on the real anchor. A div with an
               onClick would have needed a keyboard handler, a role and a
               tabindex to be equivalent, and would still not be a link. */}
+          {chooser.length > 0 && (
+            <div className="prose" style={{ marginBottom: 12 }}>
+              <h2 id="choose" style={{ fontSize: '1.25rem' }}>Who to book, by what you want</h2>
+              <ul className="checklist">
+                {chooser.map((l) => (
+                  <li key={`${l.kind}:${l.terms.join()}`}>
+                    {chooserLead(l)}:{' '}
+                    <BookLink location="practitioners-row" className="" href={chooserHref(l)}>
+                      {l.first ? `book with ${l.first}` : `book a free consultation with ${open.length === 2 ? 'either' : 'any of them'}`}
+                    </BookLink>.
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           <div className="practitioner-list">
             {open.map(row)}
           </div>
