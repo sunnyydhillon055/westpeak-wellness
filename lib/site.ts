@@ -1,7 +1,19 @@
-/* The canonical origin. Defaults to the production domain; override with
- * NEXT_PUBLIC_SITE_URL if the canonical host ever changes. */
-const CANONICAL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.westpeakwellness.com')
-  .replace(/\/+$/, '');
+/* The browser's share of this file lives in lib/site-client.ts since 16 Oct
+ * 2026 (item 599): the origin, the Cliniko bookings host, the consultation and
+ * business IDs (with the notes on how each was verified), and every `site`
+ * field a client component reads. Client components import that file and
+ * never this one, so nothing below reaches the layout chunk. */
+import {
+  site as clientSite,
+  CANONICAL_ORIGIN as CANONICAL,
+  CLINIKO_BOOKINGS,
+  CONSULT_TYPE,
+  CLINIKO_BUSINESS,
+  CONSULT_BOOKINGS_URL,
+  bookingsUrlFor,
+} from './site-client.ts';
+
+export { CONSULT_TYPE, CLINIKO_BUSINESS };
 
 /* The origin this particular deployment is actually served from. Until DNS is
  * moved, that is the Vercel URL rather than the canonical domain — and robots.txt
@@ -12,46 +24,6 @@ const DEPLOY =
   (process.env.VERCEL_PROJECT_PRODUCTION_URL
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : CANONICAL);
-
-/* Cliniko online bookings. `ca1` is the Canadian shard — the account really is
- * westpeak-wellness.ca1.cliniko.com, not the westpeakwellness.cliniko.com that
- * was guessed here before it could be checked. */
-const CLINIKO_BOOKINGS = (
-  process.env.NEXT_PUBLIC_CLINIKO_URL || 'https://westpeak-wellness.ca1.cliniko.com/bookings'
-).replace(/\/+$/, '');
-
-/* Cliniko appointment type IDs, each verified by loading its own filtered
- * booking URL and reading back the service name, price and duration — the DOM
- * order on the unfiltered page is not a safe thing to infer a mapping from, and
- * getting one wrong would put the wrong service on the wrong page.
- *
- *   2013349744314681520  Initial Consultation      $0     15 min (30 until 3 Oct 2026)
- *   1466854657459489533  Individual Counselling  $140     50 min
- *   1909558292636502700  Couples Counselling     $175     50 min
- *   2013350310713493681  Couples Extended        $340    110 min
- *   2013356655093221554  EMDR Intensive          $190     90 min
- *
- * `?appointment_type_id=` takes a comma-separated list and restricts the page to
- * exactly those services. It is what lets the public page offer the free
- * consultation and nothing else. */
-/* Exported because it is the ONLY reliable way to tell a free consultation
- * from a paid session. lib/booking-notify.ts used to infer it from the
- * appointment's duration, which the /v1/appointments endpoint does not return
- * — see the note there. Identity comes from the appointment type. */
-export const CONSULT_TYPE = '2013349744314681520';
-
-/* THE BUSINESS ONLINE BOOKINGS ATTACH TO — 6 Sep 2026.
- *
- * Cliniko holds two "businesses": the founder's original one ("Westpeak
- * Wellness, Amandeep Bains", 1466854657870531165, with her registration
- * number and a White Rock street address on every booking summary), and the
- * practice itself ("Westpeak Wellness", 2029887882486877088), created when
- * the practice stopped being one person. Camille's availability and the
- * Stripe account are on the practice business, so that is the one every
- * public link names. Read off the public booking page's bookingsStart() call
- * rather than guessed, and the practice-wide URL carries it too so a bare
- * /book never lands on the founder's business by default. */
-export const CLINIKO_BUSINESS = '2029887882486877088';
 
 /* THE EMBED FLAG FROM CLINIKO'S OWN SNIPPET — 1 Oct 2026. Cliniko's "embed
  * online bookings" code loads the page with ?embedded=true; with it the page
@@ -68,7 +40,10 @@ const PAID_TYPES = [
 ].join(',');
 
 export const site = {
-  name: "Westpeak Wellness",
+  /* name, email, phone, phoneTel, bookingPath, portalPath, bookingReady,
+     bookingsFallbackUrl, domain, languages, languagesNative and
+     directFirstSession come from lib/site-client.ts. */
+  ...clientSite,
   legalName: "Westpeak Wellness Counselling",
   tagline: "Counselling that meets you where you are.",
   // The counsellor's personal name lives ONLY in app/about/page.tsx.
@@ -77,10 +52,15 @@ export const site = {
   counsellor: {
     credentials: "MA, RCC",
     title: "Registered Clinical Counsellor",
-    /* The BCACC registration number, and the register it can be checked in.
+    /* The register a counsellor's number can be checked in.
      *
-     * The most load-bearing fact on the site, and it appeared nowhere on it
-     * until 2026-08-14. It was on the consent form and on every receipt — and
+     * NO NUMBER HERE since 16 Oct 2026 (item 599). The founder's
+     * `registration` sat here unread (her profile reads lib/practitioners.ts)
+     * and, because client components imported this file, shipped in five
+     * browser chunks. The rest of this note is why the register matters.
+     *
+     * Her number was the most load-bearing fact on the site, and it appeared
+     * nowhere on it until 2026-08-14. It was on the consent form and on every receipt — and
      * nobody sees either of those before deciding whether to book.
      *
      * It matters more here than on an ordinary professional site. BCACC
@@ -94,12 +74,11 @@ export const site = {
      * Stated with the register beside it rather than alone. A number nobody
      * can check is just a claim; a number with the register next to it is an
      * invitation to check, and making that easy is the entire point. */
-    registration: "20111",
     registerName: "BC Association of Clinical Counsellors",
-    /* The RCC Register, not the opt-in Find a Counsellor directory (1 Oct 2026). */
-    registerUrl: "https://bcacc.ca/search-our-member-register/",
+    /* The RCC Register, not the opt-in Find a Counsellor directory (1 Oct
+       2026). The value is in lib/site-client.ts, which /book reads. */
+    registerUrl: clientSite.counsellor.registerUrl,
   },
-  email: "info@westpeakwellness.com",
   /* ---- Phone (dark until a number exists) --------------------------------
    * The practice currently publishes NO number — a deliberate decision
    * recorded in OFFSITE_KIT_2026-08-27.md, with callback-request capture on
@@ -113,7 +92,8 @@ export const site = {
    *
    * phone      — display form, exactly as typed in the env var
    * phoneTel   — tel: form, digits and leading + only */
-  /* The practice's number, set 23 Sep 2026 by the owner: "(604) 259-0810".
+  /* The practice's number, set 23 Sep 2026 by the owner: "(604) 259-0810"
+     (phone and phoneTel are written in lib/site-client.ts).
      Committed here rather than left to the environment variable because a
      public phone number is not a secret and the Vercel CLI in the working
      session was logged out; the env var still wins if one is ever set. The
@@ -124,8 +104,6 @@ export const site = {
      logged out; the env var still wins if one is ever set. Google loads only
      after a visitor accepts the consent banner (components/ConsentGate.tsx). */
   gaId: process.env.NEXT_PUBLIC_GA_ID || "G-4CQTET5S1J",
-  phone: process.env.NEXT_PUBLIC_PHONE || "(604) 259-0810",
-  phoneTel: (() => { const d = (process.env.NEXT_PUBLIC_PHONE || "(604) 259-0810").replace(/[^+\d]/g, ""); return d.startsWith("+") ? d : `+1${d.replace(/^1/, "")}`; })(),
   instagram: "@westpeakwellness",
   instagramUrl: "https://www.instagram.com/westpeakwellness",
   /* ---- Booking & payments (Cliniko) -----------------------------------
@@ -176,11 +154,10 @@ export const site = {
    * /client-portal is behind sign-in and only reachable by current clients, who
    * already have a relationship and an invoicing arrangement. That is where the
    * paid work belongs. */
-  bookingsUrl: `${CLINIKO_BOOKINGS}?business_id=${CLINIKO_BUSINESS}&appointment_type_id=${CONSULT_TYPE}`,
+  bookingsUrl: CONSULT_BOOKINGS_URL,
   bookingsPaidUrl: `${CLINIKO_BOOKINGS}?business_id=${CLINIKO_BUSINESS}&appointment_type_id=${PAID_TYPES}`,
-  bookingsFallbackUrl: `${CLINIKO_BOOKINGS}?business_id=${CLINIKO_BUSINESS}&appointment_type_id=${CONSULT_TYPE}`,
-  bookingPath: "/book",
-  portalPath: "/client-portal",
+  /* bookingsFallbackUrl (the same consultation URL), bookingPath and
+     portalPath are in lib/site-client.ts. */
   /* Two gates, not one, because the two pages promise different things.
    *
    * /book offers the FREE 15-minute consultation. Nothing is charged, so it can
@@ -195,8 +172,8 @@ export const site = {
    * online_payments_mode="required". The NEXT_PUBLIC_CLINIKO_PAID flag that
    * gated the portal until this was real has been removed rather than left set,
    * because a flag whose only job was to track a finished transition is a
-   * standing invitation to wonder whether it is still needed. */
-  bookingReady: Boolean(CLINIKO_BOOKINGS),
+   * standing invitation to wonder whether it is still needed. `bookingReady`
+   * is in lib/site-client.ts. */
   /* Hours of free cancellation. Put the same number in Cliniko's "terms of
    * use" for online bookings so clients agree to it as they book. */
   cancellationHours: 24,
@@ -208,7 +185,7 @@ export const site = {
      LeadCapture one-pager carry their own wording and must be changed with it. */
   icbcVendor: false as boolean,
 
-  domain: CANONICAL,
+  /* `domain` (the canonical origin) is in lib/site-client.ts. */
   /* Where this build is actually reachable. Used only by robots.txt. */
   deployOrigin: DEPLOY,
   /* Vercel sets this on preview deployments only. Previews are excluded from
@@ -232,29 +209,22 @@ export const site = {
      Tagalog arrived with Camille Granda and reached the organisation schema and
      the root metadata that week; this constant was missed, and it feeds the GP
      referral sheet, the vCard and llms.txt — so the practice was still
-     under-describing itself in three places a machine reads. */
-  languages: "English, Punjabi & Tagalog",
-  languagesNative: "English · ਪੰਜਾਬੀ · Tagalog",
+     under-describing itself in three places a machine reads. `languages`
+     and `languagesNative` are in lib/site-client.ts (the header and /book
+     read them). */
   /* "ALREADY SURE? START WITH A FIRST SESSION" — built 1 Oct 2026, OFF.
      When true, /book and each accepting counsellor's profile carry a second
      row that books a paid first session directly (lib/first-session.ts), and
      the individual-therapy answer says the consultation is recommended
      rather than required. Stays false until the owner's decision is recorded
      in DECISIONS.md; test/first-session.test.mts holds it there and requires
-     a data/changes.json entry the day it flips. */
-  directFirstSession: false as boolean,
+     a data/changes.json entry the day it flips. The flag itself is in
+     lib/site-client.ts, because /book's island reads it. */
 } as const;
 
-/* A counsellor's own booking calendar. Cliniko honours `practitioner_id` on
- * the public bookings URL and opens on that person's times ("Select a time
- * with Camille Granda"), which is what lets /book embed one counsellor's
- * calendar rather than a list that also shows one who is not taking new
- * clients. Still filtered to the free consultation, like site.bookingsUrl.
- * No id means the ordinary practice-wide consultation URL. */
-export const bookingsUrlFor = (practitionerId?: string): string =>
-  practitionerId
-    ? `${CLINIKO_BOOKINGS}?business_id=${CLINIKO_BUSINESS}&appointment_type_id=${CONSULT_TYPE}&practitioner_id=${practitionerId}`
-    : site.bookingsUrl;
+/* A counsellor's own consultation calendar: lib/site-client.ts, because the
+ * error boundary (lib/error-routes.ts) builds it in the browser. */
+export { bookingsUrlFor };
 
 /* The paid calendar for ONE counsellor, for the client portal. Same shape as
    bookingsUrlFor(): Cliniko honours practitioner_id, so a current client who

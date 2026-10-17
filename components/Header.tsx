@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState, type CSSProperties, type ReactNode } from 'react';
-import { site } from '@/lib/site';
+import { site } from '@/lib/site-client';
 import { TAGALOG_READY } from '@/lib/practitioner-tl';
 import { TL_CHROME } from '@/lib/practitioner-places-tl';
 import { track } from '@/lib/analytics';
@@ -182,6 +182,7 @@ export default function Header({ roster, mark }: { roster: NavPractitioner[]; ma
 
   const isActive = (href: string) =>
     pathname === href || (href !== '/' && pathname?.startsWith(`${href}/`));
+  const bookHref = bookHrefFor(pathname, roster, site.bookingPath);
 
   return (
     <>
@@ -198,7 +199,8 @@ export default function Header({ roster, mark }: { roster: NavPractitioner[]; ma
             reader came for, and each one is a request against the Vercel
             checkpoint. These links are prefetch={false}; the Book button below
             and every BookLink keep the default, since that is the navigation
-            worth having ready. */}
+            worth having ready — for bare /book; a ?with= link does not
+            prefetch, since its payload is /book's again (16 Oct 2026). */}
         <Link prefetch={false} href="/" className="brand" aria-label={`${site.name}, home`}>
           <span className="brand-mark" aria-hidden="true">{mark}</span>
           <span className="brand-word">Westpeak <span>Wellness</span></span>
@@ -361,12 +363,15 @@ export default function Header({ roster, mark }: { roster: NavPractitioner[]; ma
           <li className="nav-cta" style={{ '--i': NAV.length + 4 } as CSSProperties}>
             <Link
               className="btn btn--primary"
-              href={bookHrefFor(pathname, roster, site.bookingPath)}
+              href={bookHref}
+              /* Bare /book only: /book?with= is the same static payload,
+                 cached per URL (item 575, 16 Oct 2026). */
+              prefetch={bookHref === site.bookingPath ? undefined : false}
               onClick={() => {
                 setOpen(false);
                 track('book_click', {
                   location: 'header',
-                  detail: bookClickDetail('header', withSlugOf(bookHrefFor(pathname, roster, site.bookingPath))),
+                  detail: bookClickDetail('header', withSlugOf(bookHref)),
                 });
               }}
             >

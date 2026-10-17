@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { site } from '@/lib/site';
+import { site } from '@/lib/site-client';
 import { track } from '@/lib/analytics';
 import { bookClickDetail, withSlugOf } from '@/lib/conversion-detail-client';
 import { ResultDays } from '@/components/NextConsultSlot';

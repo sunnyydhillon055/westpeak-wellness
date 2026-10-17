@@ -145,6 +145,18 @@ const nextConfig = {
        polyfill (scripts/bundle-composition.mjs). */
     NEXT_PUBLIC_GA_ID: process.env.NEXT_PUBLIC_GA_ID || '',
   },
+  /* THE OPTIMISED IMAGES — 16 Oct 2026 (item 597). /_next/image answered
+   * `public, max-age=0, must-revalidate`, because the TTL is the source's
+   * (the /img header above did not exist) and the default floor is 60 s.
+   * Thirty days, since a changed photograph gets a new file name in practice
+   * and the URL carries the width and quality anyway. 480 joins the widths
+   * between 384 and 640: the home hero is drawn about 160px wide on a phone
+   * (app/page.tsx) and fetched the 640 file at a 2.6x density. The other
+   * values are Next's defaults, restated so adding one keeps them. */
+  images: {
+    minimumCacheTTL: 2592000,
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384, 480],
+  },
   /* /admin and the monthly report read the committed Search Console exports
    * and the change register from disk (lib/gsc-summary.ts,
    * lib/change-register.ts). The file tracer cannot see a directory read,
@@ -240,6 +252,15 @@ const nextConfig = {
         headers: [
           { key: 'Link', value: LINKS('/:path.md') },
         ],
+      },
+      /* THE PICTURES MAY BE KEPT FOR A DAY — 16 Oct 2026 (item 597). /img/*
+       * went out as `public, max-age=0, must-revalidate` (curl, band-leaf.svg),
+       * so every page view asked again for every photograph and SVG band.
+       * The file names are not hashed, so not immutable: a day fresh, then a
+       * week served stale while the browser checks. */
+      {
+        source: '/img/:path*',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=86400, stale-while-revalidate=604800' }],
       },
       /* Last, so it wins every key it shares with the rules above. */
       { source: '/embed/:path+', headers: EMBED_HEADERS },

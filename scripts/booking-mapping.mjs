@@ -40,12 +40,12 @@ const ROOT = new URL('..', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '
 const fails = [];
 
 const { durationOf, isConsultAppointment } = await import('../lib/booking-shape.ts');
-/* The one id the mapping needs, read from lib/site.ts as text so this gate
+/* The one id the mapping needs, read from lib/site-client.ts as text so this gate
    stays free of the app's module graph. */
-const CONSULT = readFileSync(`${ROOT}lib/site.ts`, 'utf8')
+const CONSULT = readFileSync(`${ROOT}lib/site-client.ts`, 'utf8')
   .match(/export const CONSULT_TYPE = '(\d+)'/)?.[1];
 if (!CONSULT) {
-  console.log('\n  FAIL  CONSULT_TYPE is no longer exported from lib/site.ts\n');
+  console.log('\n  FAIL  CONSULT_TYPE is no longer exported from lib/site-client.ts\n');
   process.exit(1);
 }
 

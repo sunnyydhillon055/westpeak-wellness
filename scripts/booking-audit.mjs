@@ -64,9 +64,9 @@ if (!shard) {
 const daysArg = process.argv.indexOf('--days');
 const DAYS = daysArg > -1 ? Number(process.argv[daysArg + 1]) || 365 : 365;
 
-/* The one id that decides consult-or-not, read from lib/site.ts so this script
+/* The one id that decides consult-or-not, read from lib/site-client.ts so this script
    and the running site can never disagree about which type is the consult. */
-const CONSULT = readFileSync(`${ROOT}lib/site.ts`, 'utf8')
+const CONSULT = readFileSync(`${ROOT}lib/site-client.ts`, 'utf8')
   .match(/export const CONSULT_TYPE = '(\d+)'/)?.[1];
 
 class Bail extends Error {}

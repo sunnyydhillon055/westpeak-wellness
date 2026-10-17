@@ -113,6 +113,21 @@ export function clusterAlternates(
   return { alternates, conflicts };
 }
 
+/* THE DAY, NOT UTC MIDNIGHT — 16 Oct 2026 (item 566).
+ *
+ * Every page date here is a day (lib/url-dates.ts, lib/page-dates.ts, a
+ * collection's `updated`), and it was written as `${day}T00:00:00.000Z`,
+ * which is 17:00 Pacific on the PREVIOUS day. Production on 16 Oct: all seven
+ * children of /sitemap.xml said 2026-10-15T00:00:00.000Z, while dfb5c44 went
+ * out at 23:26 PDT on the 15th (06:26Z on the 16th); a crawler that fetched
+ * in between was told nothing had changed since before it last looked. The
+ * W3C date alone ('YYYY-MM-DD') is valid lastmod and claims no hour. Only a
+ * UTC-midnight stamp is shortened: a value with a real time is written as
+ * given. Applied where the XML is written, so every source keeps its shape
+ * and newest() still compares like with like. */
+export const w3cDate = (lastmod: string): string =>
+  /^\d{4}-\d{2}-\d{2}T00:00:00(?:\.000)?Z$/.test(lastmod) ? lastmod.slice(0, 10) : lastmod;
+
 export const esc = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
@@ -128,7 +143,7 @@ export function renderUrlset(
       const image = f
         ? `\n    <image:image>\n      <image:loc>${esc(f.loc)}</image:loc>\n      <image:title>${esc(f.title)}</image:title>\n      <image:caption>${esc(f.caption)}</image:caption>\n    </image:image>`
         : '';
-      const lastmod = e.lastmod ? `\n    <lastmod>${e.lastmod}</lastmod>` : '';
+      const lastmod = e.lastmod ? `\n    <lastmod>${w3cDate(e.lastmod)}</lastmod>` : '';
       const xhtml = (alternates.get(e.path) ?? [])
         .map((a) => `\n    <xhtml:link rel="alternate" hreflang="${a.lang}" href="${esc(a.href)}"/>`)
         .join('');
@@ -151,7 +166,7 @@ export function newest(entries: SitemapEntry[]): string | null {
 
 export function renderIndex(children: { loc: string; lastmod: string | null }[]): string {
   const rows = children
-    .map((c) => `  <sitemap>\n    <loc>${esc(c.loc)}</loc>${c.lastmod ? `\n    <lastmod>${c.lastmod}</lastmod>` : ''}\n  </sitemap>`)
+    .map((c) => `  <sitemap>\n    <loc>${esc(c.loc)}</loc>${c.lastmod ? `\n    <lastmod>${w3cDate(c.lastmod)}</lastmod>` : ''}\n  </sitemap>`)
     .join('\n');
   return `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

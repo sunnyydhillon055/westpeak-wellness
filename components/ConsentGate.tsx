@@ -17,17 +17,21 @@ import { useEffect, useState, type ComponentType } from 'react';
  * the layout chunk (2,917 B) to do what one effect does here: this component
  * never renders on the server anyway, so there was nothing for it to bail
  * out of. The import still happens only after "granted", and a failed one
- * renders nothing, which is the declined behaviour. */
-type GA = ComponentType<{ gaId: string }>;
+ * renders nothing, which is the declined behaviour.
+ *
+ * THE BANNER IS FETCHED THE SAME WAY — 16 Oct 2026 (item 551). Its markup
+ * is components/ConsentBanner.tsx, imported only while no choice is stored:
+ * this component is in the root layout's chunk, and a returning visitor who
+ * has answered either way needs none of the banner. One effect fetches
+ * whichever part the choice calls for; `part.for` keeps a part from
+ * rendering for a choice it was not fetched for. */
+type Part = ComponentType<{ gaId: string; onDecide: (c: 'granted' | 'declined') => void }>;
 
 /* Consent before Google Analytics — nothing loads until a person says yes.
  *
  * PIPEDA consent works on knowledge and choice, so the banner appears only
  * when there is actually something to consent to: this component is rendered
- * by the layout only when NEXT_PUBLIC_GA_ID is set. While that variable is
- * unset (the current state) no banner shows and no Google request is made,
- * because a cookie banner on a site setting no analytics cookies trains
- * people to dismiss banners and nothing else.
+ * by the layout only when a GA ID is set (lib/site.ts, site.gaId).
  *
  * Two equal buttons, no pre-selection, no nagging on later visits either way,
  * and decline is remembered exactly as long as accept. The first-party
@@ -53,22 +57,23 @@ const read = (): Choice => {
 };
 
 export default function ConsentGate({ gaId }: { gaId: string }) {
-  /* null until mounted so the server render carries no banner and no GA —
-   * the choice is only knowable in the browser. */
+  /* 'unset' until mounted so the server render carries no banner and no
+   * GA — the choice is only knowable in the browser. */
   const [choice, setChoice] = useState<Choice | 'unset'>('unset');
-
-  const [Ga, setGa] = useState<GA | null>(null);
+  const [part, setPart] = useState<{ for: Choice; C: Part } | null>(null);
 
   useEffect(() => {
     setChoice(read());
   }, []);
 
   useEffect(() => {
-    if (choice !== 'granted') return;
+    if (choice === 'unset' || choice === 'declined') return;
     let live = true;
-    import('@next/third-parties/google')
-      .then((m) => { if (live) setGa(() => m.GoogleAnalytics); })
-      .catch(() => { /* no analytics, never a broken page */ });
+    (choice === 'granted'
+      ? import('@next/third-parties/google').then((m) => m.GoogleAnalytics as Part)
+      : import('@/components/ConsentBanner').then((m) => m.default as Part))
+      .then((C) => { if (live) setPart({ for: choice, C }); })
+      .catch(() => { /* no analytics and no banner, never a broken page */ });
     return () => { live = false; };
   }, [choice]);
 
@@ -81,44 +86,6 @@ export default function ConsentGate({ gaId }: { gaId: string }) {
     setChoice(c);
   };
 
-  if (choice === 'unset') return null;
-  if (choice === 'granted') return Ga ? <Ga gaId={gaId} /> : null;
-  if (choice === 'declined') return null;
-
-  return (
-    <div
-      role="region"
-      aria-label="Analytics consent"
-      style={{
-        position: 'fixed',
-        insetInline: 0,
-        bottom: 0,
-        zIndex: 60,
-        background: 'var(--surface, var(--bg))',
-        borderTop: '1px solid var(--line)',
-        padding: '14px 18px',
-        boxShadow: '0 -4px 18px rgba(0,0,0,.08)',
-      }}
-    >
-      <div
-        className="container"
-        style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'center' }}
-      >
-        <p style={{ margin: 0, flex: '1 1 320px', fontSize: '.95em' }}>
-          May this site use Google Analytics to understand which pages help people? Anonymous
-          usage only. Nothing you type in a form is ever sent to it, and declining changes
-          nothing about how the site works. Details in the{' '}
-          <a href="/privacy">privacy policy</a>.
-        </p>
-        <div style={{ display: 'flex', gap: 10 }}>
-          <button type="button" className="btn btn--ghost" onClick={() => decide('declined')}>
-            No thanks
-          </button>
-          <button type="button" className="btn btn--primary" onClick={() => decide('granted')}>
-            That&rsquo;s fine
-          </button>
-        </div>
-      </div>
-    </div>
-  );
+  if (choice === 'unset' || choice === 'declined' || !part || part.for !== choice) return null;
+  return <part.C gaId={gaId} onDecide={decide} />;
 }

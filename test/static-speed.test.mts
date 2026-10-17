@@ -210,7 +210,11 @@ test('chrome links do not prefetch; the header Book button does', () => {
   const tags = header.match(/<Link\b[\s\S]*?>/g) ?? [];
   const book = tags.filter((t) => /btn btn--primary/.test(t));
   assert.equal(book.length, 1);
-  assert.doesNotMatch(book[0]!, /prefetch/, 'the booking button keeps the default prefetch');
+  /* Default for bare /book; off for /book?with=, the same payload (item 575). */
+  assert.doesNotMatch(
+    book[0]!.replace('prefetch={bookHref === site.bookingPath ? undefined : false}', ''),
+    /prefetch/, 'the booking button keeps the default prefetch for bare /book',
+  );
   for (const t of tags.filter((x) => !/btn btn--primary/.test(x))) assert.match(t, /prefetch=\{false\}/, t);
   assert.doesNotMatch(src('components/BookLink.tsx'), /prefetch=\{false\}/);
 });

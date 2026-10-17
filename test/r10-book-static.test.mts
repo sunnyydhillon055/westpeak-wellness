@@ -90,10 +90,11 @@ test('the islands import no large data module and no image component', () => {
   }
   assert.match(src('components/BookChoice.tsx'), /^'use client';/);
   assert.match(src('components/SentInboundForm.tsx'), /^'use client';/);
-  /* lib/site sits in the root layout's chunk: a new export read in the
-     browser is a byte on every page (layoutJs). Only `site`, which the
-     layout already ships, is read there. */
-  assert.match(src('components/BookChoice.tsx'), /^import \{ site \} from '@\/lib\/site';$/m);
+  /* What the browser reads from the practice's constants is in
+     lib/site-client.ts (item 599, 16 Oct 2026), which sits in the root
+     layout's chunk: a new export read there is a byte on every page
+     (layoutJs). Only `site`, which the layout already ships, is read. */
+  assert.match(src('components/BookChoice.tsx'), /^import \{ site \} from '@\/lib\/site-client';$/m);
   assert.doesNotMatch(src('components/SchedulerEmbedView.tsx'), /lib\/site'/);
 });
 

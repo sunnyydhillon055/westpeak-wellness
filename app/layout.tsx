@@ -410,7 +410,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* GA4 only when an ID is configured, so local runs and preview
           * deployments send nothing — and even then only after the visitor
           * consents (see ConsentGate: banner, equal buttons, decline
-          * remembered). Read the env directly here: this is a server
+          * remembered). The banner stands on top of StickyBook below 1020px
+          * (--sticky-h, app/globals.css), never over it. Read the env directly here: this is a server
           * component, and importing GA_ID from the 'use client' analytics
           * module hands back a client-reference proxy — truthy even with the
           * env var unset, which shipped gtag/js?id=undefined on every page. */}

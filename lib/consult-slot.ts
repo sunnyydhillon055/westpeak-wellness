@@ -1,3 +1,4 @@
+import type { ClientAvailability } from './availability-fetch.ts';
 import { nextConsultEntries, nextConsultNoneOpen, noConsultSentence, type NextConsult, type NoConsult } from './next-consult.ts';
 
 /* THE NEXT CONSULTATION, FILLED IN BY THE BROWSER — 3 Oct 2026 (item 429).
@@ -20,9 +21,7 @@ import { nextConsultEntries, nextConsultNoneOpen, noConsultSentence, type NextCo
  * a client component that imports lib/practitioners.ts ships the roster to
  * every visitor (the perf rule of 1 Oct 2026). */
 
-/** What /api/availability returns: one entry per counsellor Cliniko was read
- *  for successfully. An entry missing means unknown, never "nothing open". */
-export type ClientAvailability = Record<string, { first: string; next: string[]; count: number }>;
+export type { ClientAvailability };
 
 /** A counsellor a slot may name, decided on the server. */
 export type SlotPerson = { slug: string; first: string; href: string };
@@ -87,38 +86,11 @@ export function openDays(all: ClientAvailability | null | undefined, slug: strin
   return a && a.count > 0 && Array.isArray(a.next) ? a.next : [];
 }
 
-/* ONE REQUEST PER PAGE VIEW. The sticky bar and every slot on the page share
-   this promise, so a page with three slots still asks once. Kept ten minutes
-   across client navigations, then asked again: the API is cached thirty
-   minutes at the edge, so a fresh ask is cheap and the times stay current
-   for someone who keeps a tab open. A failure resolves to {} (print
-   nothing) and is not kept. */
-const KEEP_MS = 10 * 60_000;
-let pending: { at: number; p: Promise<ClientAvailability> } | null = null;
-
-export function loadAvailability(
-  fetcher: (url: string) => Promise<{ ok: boolean; json: () => Promise<unknown> }> = (u) => fetch(u),
-  now: number = Date.now(),
-): Promise<ClientAvailability> {
-  if (pending && now - pending.at < KEEP_MS) return pending.p;
-  const p = fetcher('/api/availability')
-    .then((r) => {
-      if (!r.ok) throw new Error('availability');
-      return r.json();
-    })
-    .then((j) => (j && typeof j === 'object' ? (j as ClientAvailability) : {}))
-    .catch(() => {
-      pending = null;
-      return {} as ClientAvailability;
-    });
-  pending = { at: now, p };
-  return p;
-}
-
-/** Tests only: forget the shared request. */
-export function resetAvailabilityForTests(): void {
-  pending = null;
-}
+/* The shared request lives in lib/availability-fetch.ts (16 Oct 2026, item
+   599), which imports nothing, so the sticky bar can take it without
+   lib/next-consult.ts. Re-exported here so the slots and /book keep one
+   import and share the same promise. */
+export { loadAvailability, resetAvailabilityForTests, KEEP_MS } from './availability-fetch.ts';
 
 /** One counsellor's entry, in the shape lib/availability-summary.ts's
  *  sentences read (availabilityLine, shortAvailabilityLine), for /book's

@@ -1,4 +1,4 @@
-import { bookingsUrlFor, site } from '@/lib/site';
+import { bookingsUrlFor, site } from '@/lib/site-client';
 
 /* WHERE A CRASHED PAGE CAN STILL SEND SOMEBODY — 2 Oct 2026
  * (wf/services-cards, item 399).

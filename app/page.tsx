@@ -225,8 +225,15 @@ export default function Home() {
                      displayed at 207×165 on a 375 px viewport while the sizes
                      hint said 92vw, so the browser fetched the 384 px file for
                      a 207 px slot: 21 KB wasted on the LCP element. 56vw is
-                     what the layout actually gives it on a phone. */
-                  sizes="(max-width: 900px) 56vw, 44vw"
+                     what the layout actually gives it on a phone.
+                     16 Oct 2026 (item 597): no longer. Since the 620px float
+                     rule (app/premium.css) it is 44% of the column on a
+                     phone, measured at 165x165 on a 375px screen, so 56vw
+                     fetched the 640 file. Each band now matches its rule:
+                     44% under 620px, min(42%, 300px) to 900px, then
+                     min(46%, 420px), each of a column narrower than the
+                     viewport. */
+                  sizes="(max-width: 620px) 42vw, (max-width: 900px) min(40vw, 300px), min(44vw, 420px)"
                   credit="Fairy Lake, Vancouver Island"
                 />
               </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { site } from '@/lib/site';
+import { site } from '@/lib/site-client';
 import { track } from '@/lib/analytics';
 import { bookClickDetail, withSlugOf } from '@/lib/conversion-detail-client';
 
@@ -25,10 +25,18 @@ export default function BookLink({
   className?: string;
   href?: string;
 }) {
+  /* ONE PREFETCH OF /book, NOT THREE — 16 Oct 2026 (item 575). /book is
+     prerendered and reads ?with= in the browser, so /book?with=camille-granda
+     returns the same RSC payload as /book (about 13.8 KB), and the router
+     caches it per URL: Lighthouse counted four /book* prefetches on the home
+     page and five on Surrey. The bare /book keeps its prefetch (decision
+     441); a link with a query does not. A click still navigates as before. */
+  const to = href ?? site.bookingPath;
   return (
     <Link
       className={className}
-      href={href ?? site.bookingPath}
+      href={to}
+      prefetch={to.includes('?') ? false : undefined}
       onClick={() => track('book_click', { location, detail: bookClickDetail(location, withSlugOf(href)) })}
     >
       {children}
