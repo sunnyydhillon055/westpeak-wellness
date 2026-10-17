@@ -3903,6 +3903,48 @@ No noindex, redirect or consolidation.
 
 *Enforced by:* `test/referrer-hosts-oct3.test.mts`, `test/waiting-on-you.test.mts`, `test/snippet-ledger.test.mts`, `test/refer-free-resources.test.mts`, `test/leave-pay-figures-csv.test.mts`, `test/season-capacity.test.mts`.
 
+### /book names its booking form, shows days past two weeks, counts each scheduler step, and keeps a reversible time-request floor (16 Oct 2026)
+Decided 16 Oct 2026 (branch `wf/r11-booking-telemetry-forms`, items 553, 554, 555, 560, 569, 577, 588, 589).
+
+- **553. The booking form, as it is.** `bookingFormLine()` (lib/practice-facts.ts) is printed under the /book calendar heading. While `consultPaymentStepOff` (lib/site.ts, a named export kept out of the layout chunk) is false, the chips read 'Free' and 'One short booking form' and the line says to choose Pay later. Flipping it to true, once the owner turns Cliniko's payment step off, restores 'No card' and 'No intake form'. A WaitingOnYou row is tied to the flag.
+- **554.** With nothing open in 14 days, Cliniko is read for days 15 to 34, one week at a time, stopping at the first week with a time. The first open day is shown instead of dropping the counsellor. A failed longer read leaves the 14-day answer as it was.
+- **555.** Each Cliniko scheduler step is counted once per frame as `scheduler_step` (`<step>/<slug>`), capped at 12 step details, and shown on /admin under '/book, stage by stage'. `scheduler_step` sits in COUNTED before `email_click`, which stays last.
+- **560.** On bare /book the counsellor cards come straight after the fact chips, before the 15-minute explainer. Nothing goes behind a disclosure (the rule of 1 Oct).
+- **569.** On Cliniko's confirmation a role=status panel above the frame says who it is booked with, that the confirmation and video link come by email, and that moving or cancelling is free, in the /book chip's wording. There is no fee in the panel. The portal shows nothing.
+- **577. The /book ask-for-a-time word floor (deferred candidate 53, made reversible, not decided).** lib/sentences.ts holds ENQUIRY_FLOORS: 'enquiry' (2 sentences, about 20 words, the 25 Sep rule) and 'time-request' (1 sentence, about 10 words). TIME_REQUEST_FLOOR ships as 'enquiry', so no behaviour has changed. Only the #ask-for-a-time form on /book sends form=time-request, and lib/inbound-submit.ts applies the floor only to posts whose source is /book, the same pattern as the /punjabi exemption. Every other form and page keeps the 25 Sep rule. *Review rule:* review between 30 Oct and 13 Nov 2026 on /admin. If the 'short' plus 'one-sentence' rows of 'Sends the browser stopped' (enquiry_blocked) on /book, plus the stamped 'detail' refusals on /book (enquiry_refused), equal or exceed the /book enquiries stored (enquiry_submit on /book) over the same window, the owner may set TIME_REQUEST_FLOOR = 'time-request'. Record the flip here with the counts and add a data/changes.json entry. If they stay below, leave it at 'enquiry'. Either way, the owner's sign-off is the decision.
+- **588.** A completed enquiry, /message-sent and a /book Cliniko confirmation each send GA `generate_lead` once per form per address, never to /api/track and never from a browser /admin has excluded. ConsentGate reads an excluded browser as declined: no banner, no GA.
+- **589.** The honeypot is read before every other rule. A filled honeypot on an enquiry is counted as enquiry_refused 'bot' and given the same silent success; nothing is stored or mailed. Refusal counts from 16 Oct on are therefore not comparable with earlier 'email' and 'detail' counts, which included script posts. Leads are unchanged.
+
+No noindex, redirect or consolidation.
+
+*Enforced by:* `test/availability-later.test.mts`, `test/book-page.test.mts`, `scripts/perf-budget.mjs`.
+
+### Profiles book by service, the not-offered line books the colleague, and place pages carry a four-row comparison (16 Oct 2026)
+Decided 16 Oct 2026 (branch `wf/r11-profiles-choice`, items 557, 561, 562, 572, 573, 582, 583).
+
+- **557.** Counsellor profiles show what each counsellor offers as service cards right after her focus areas, one per roster service. Each card gives her catalogue fee and a button that books that service. No service her roster lacks is ever a card.
+- **561.** The not-offered sentence books the colleague for the missing service, with couples going to the couples consultation, only when exactly one bookable colleague offers it. Clicks count as book_click 'not-offered-alt', appended to BOOK_LOCATIONS.
+- **562, 582.** The collapsed Camille-or-Savneet comparison sits under the fact strip, with a #compare link in the hero and a small inline hash-opener (page markup, not layout JS). The hero's second button is 'Fees: from $X' and jumps to #fees.
+- **572, 573.** The comparison gains 'Often works with' and 'Who she sees'. /practitioners rows and CounsellorCards show the first sentence of her own 'what is it like to sit with you' answer, labelled as her words; this is not a testimonial. /practitioners gains a roster-generated 'Who to book, by what you want' list.
+- **583. Place-page comparison rule, measured on this build.** The full table pushed each city's Camille/Savneet pair to 64% similarity against the 62% ceiling, so place pages carry only Languages, What she offers, Often works with and Next free consultation (59%). On the city x service matrix the cards omit her session sentence, because it took /online-counselling/vancouver/anxiety-counselling and depression-counselling to 24.9% unique against the 25% floor.
+
+No noindex, redirect or consolidation.
+
+*Enforced by:* `test/profiles-choice.test.mts`, `test/booking-measurement.test.mts`.
+
+### Alberta reach is read from the gated roster, no shift-timing or local-scarcity claims, and the EAP page says what happens when sessions run out (16 Oct 2026)
+Decided 16 Oct 2026 (branch `wf/r11-claims-accuracy-copy`, items 556, 563, 571, 586, 590, 592).
+
+- **556.** Alberta reach in /llms.txt, /llms-full.txt, /for and the Tagalog-words FAQ is built from reachesAlberta()/servedProvinces() over the gated roster. It is never typed, and it reverts when the gate reopens. scripts/coverage-claims.mjs has an empty ALBERTA_PENDING and scans both AI routes for ungated Alberta reach phrases. While the gate is shut, the Alberta coverage page's hero leads with 'Where to start in Alberta' (#where-to-start), and the BC booking link is second and ghost-styled.
+- **563. Session timing.** No 'around shifts', 'around your shifts' or 'outside school/work hours'. The voice-audit shift-timing FACT enforces this.
+- **571, 590. Local scarcity.** No claim about how many counsellors work in a language or a modality in a region. Say that availability and openings vary, that BCACC's Find a Counsellor directory filters by language (verified 16 Oct 2026 on bc-counsellors.org/counsellors), and that video works anywhere in BC. Census counts stay. resolvePlace() appends the rebuilt language FAQ only when no kept FAQ already asks about the counsellor's second language. The Hindi/Urdu answer is built from the accepting roster's language tags.
+- **586.** On city hubs, 'How private is the video?' sits below the counsellor cards, and the hero has at most two buttons.
+- **592.** The EAP comparison answers how many sessions an EAP covers in the page's own wording, with no invented figure, and whether an EAP is the same as therapy.
+
+No noindex, redirect or consolidation.
+
+*Enforced by:* `test/city-scarcity-snippets.test.mts`, `scripts/coverage-claims.mjs`.
+
 ## How the site behaves when things go wrong (continued)
 
 ### Every private Blob read is a consistent read, and shared ledgers are written with `ifMatch`
