@@ -18,14 +18,14 @@ import { urlLastmod } from './url-dates';
 export { urlLastmod };
 
 export const PAGE_DATES: Record<string, string> = {
-  "": "2026-10-15",
+  "": "2026-10-16",
   "/about": "2026-10-15",
   "/services": "2026-10-15",
   "/approaches": "2026-10-03",
   "/pricing": "2026-10-15",
   "/contact": "2026-10-15",
   "/faq": "2026-10-03",
-  "/online-counselling": "2026-10-15",
+  "/online-counselling": "2026-10-16",
   "/guides": "2026-10-15",
   "/compare": "2026-10-03",
   "/for": "2026-10-04",
@@ -34,7 +34,7 @@ export const PAGE_DATES: Record<string, string> = {
   "/book": "2026-10-15",
   "/tools": "2026-10-13",
   "/reviews": "2026-08-09",
-  "/refer": "2026-10-04",
+  "/refer": "2026-10-16",
   "/refer/doctor": "2026-10-04",
   "/refer/handout": "2026-10-04",
   "/refer/counsellors": "2026-10-04",
@@ -49,7 +49,7 @@ export const PAGE_DATES: Record<string, string> = {
 
 /** Collections whose items share one source module and so one honest date. */
 export const COLLECTION_DATES: Record<string, string> = {
-  "services": "2026-10-13",
+  "services": "2026-10-16",
   "tools": "2026-10-13",
   "locations": "2026-10-15",
   "punjabiRegions": "2026-10-15",
