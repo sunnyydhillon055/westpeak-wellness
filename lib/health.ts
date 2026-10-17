@@ -1,5 +1,6 @@
 import { mailConfigured } from '@/lib/portal-mail';
 import { clinikoConfigured } from '@/lib/cliniko';
+import { site } from '@/lib/site';
 
 /* IS THE PRACTICE ACTUALLY REACHABLE? — a configuration check for /admin.
  *
@@ -94,7 +95,7 @@ export function healthChecks(): Check[] {
     },
     {
       id: 'analytics',
-      ok: set(process.env.NEXT_PUBLIC_GA_ID),
+      ok: set(site.gaId),
       severity: 'info',
       title: 'Analytics is recording',
       consequence:

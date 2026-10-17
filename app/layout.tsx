@@ -414,8 +414,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           * component, and importing GA_ID from the 'use client' analytics
           * module hands back a client-reference proxy — truthy even with the
           * env var unset, which shipped gtag/js?id=undefined on every page. */}
-        {process.env.NEXT_PUBLIC_GA_ID && (
-          <ConsentGate gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        {site.gaId && (
+          <ConsentGate gaId={site.gaId} />
         )}
       </body>
     </html>

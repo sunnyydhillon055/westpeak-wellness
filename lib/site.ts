@@ -118,6 +118,12 @@ export const site = {
      public phone number is not a secret and the Vercel CLI in the working
      session was logged out; the env var still wins if one is ever set. The
      practice still prefers email, and every page says so first. */
+  /* The GA4 measurement ID, from the owner 16 Oct 2026 ("G-4CQTET5S1J").
+     Committed for the same reason as the phone number: a measurement ID is
+     public (it is in every page that loads the tag) and the Vercel CLI was
+     logged out; the env var still wins if one is ever set. Google loads only
+     after a visitor accepts the consent banner (components/ConsentGate.tsx). */
+  gaId: process.env.NEXT_PUBLIC_GA_ID || "G-4CQTET5S1J",
   phone: process.env.NEXT_PUBLIC_PHONE || "(604) 259-0810",
   phoneTel: (() => { const d = (process.env.NEXT_PUBLIC_PHONE || "(604) 259-0810").replace(/[^+\d]/g, ""); return d.startsWith("+") ? d : `+1${d.replace(/^1/, "")}`; })(),
   instagram: "@westpeakwellness",

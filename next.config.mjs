@@ -140,6 +140,10 @@ const nextConfig = {
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL || '',
     NEXT_PUBLIC_PHONE: process.env.NEXT_PUBLIC_PHONE || '',
     NEXT_PUBLIC_CLINIKO_URL: process.env.NEXT_PUBLIC_CLINIKO_URL || '',
+    /* 16 Oct 2026: lib/site.ts reads it (site.gaId), and lib/site.ts reaches
+       client chunks; an env read Next does not inline pulls in the process
+       polyfill (scripts/bundle-composition.mjs). */
+    NEXT_PUBLIC_GA_ID: process.env.NEXT_PUBLIC_GA_ID || '',
   },
   /* /admin and the monthly report read the committed Search Console exports
    * and the change register from disk (lib/gsc-summary.ts,
