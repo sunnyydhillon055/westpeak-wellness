@@ -18,6 +18,7 @@ import { PROVINCE_NAME, type Province } from '@/lib/crisis';
 import { services } from '@/lib/services';
 import { approaches } from '@/lib/approaches';
 import { guides } from '@/lib/guides';
+import { reachesAlberta } from '@/lib/practice-facts';
 import { comparisons } from '@/lib/comparisons';
 import { resources } from '@/lib/resources';
 import { audiences } from '@/lib/audiences';
@@ -79,6 +80,15 @@ function page({
 
 export function GET() {
   const chunks: string[] = [];
+  /* ALBERTA FROM THE GATED ROSTER — 16 Oct 2026 (item 556). These lines were
+     typed, and went on telling AI assistants an Alberta client could be seen
+     after the 15 Oct gate closed. They read the same gated roster the
+     layout's areaServed does, and return on their own when the gate reopens. */
+  const AB = reachesAlberta(practitioners);
+  const abReach = AB
+    ? 'and can see clients located in Alberta as well as British Columbia.'
+    : 'and sees clients located in British Columbia. No counsellor here is currently insured to see clients located in Alberta.';
+  const abArea = AB ? '; Alberta through one counsellor of the two' : '; Alberta is not currently served';
 
   chunks.push(`# ${site.name}: full text
 
@@ -87,14 +97,12 @@ video sessions only, no office, no phone sessions. Two Registered Clinical
 Counsellors, both registered with the BC Association of Clinical Counsellors.
 One works in English and Punjabi; the other holds the national Canadian
 Certified Counsellor certification alongside the BC registration, works in
-English and Tagalog, and can see clients located in Alberta as well as British
-Columbia. Which counsellor works in which language and which province is stated
-on each of their own pages, below.
+English and Tagalog, ${abReach} Which counsellor works in which language and
+which province is stated on each of their own pages, below.
 
 Languages across the practice: ${site.languages}.
 
-Service area: British Columbia province-wide; Alberta through one counsellor of
-the two. Session length: 50 minutes. First consultation: 15 minutes, free.
+Service area: British Columbia province-wide${abArea}. Session length: 50 minutes. First consultation: 15 minutes, free.
 Booking: ${site.domain}${site.bookingPath}. Contact: ${site.email}.
 
 Not covered by MSP in BC, and not covered by AHCIP in Alberta. Many BC extended

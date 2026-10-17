@@ -21,7 +21,7 @@ import { FALLBACK_CATALOG, CONSULT_MINUTES } from '@/lib/cliniko-catalog';
 import { tagalogGuides } from '@/lib/tagalog-guides';
 import { missingUrls } from '@/lib/machine-facts';
 import { sitemapPageUrls } from '@/lib/sitemap';
-import { reachPhrase, practiceReach, bookingPathFor } from '@/lib/practice-facts';
+import { reachPhrase, practiceReach, bookingPathFor, reachesAlberta } from '@/lib/practice-facts';
 
 export const dynamic = 'force-static';
 
@@ -80,6 +80,9 @@ export async function GET() {
      numbers belong on each counsellor's own profile page and nowhere else;
      the founder appears only on /about, /practitioners and her own profile. */
   const accepting = practitioners.filter((p) => p.acceptingNewClients);
+  /* The Alberta section and answer 5 were typed, and still told assistants
+     Alberta clients were seen after the 15 Oct gate closed (item 556). */
+  const AB = reachesAlberta(practitioners);
   const nl = String.fromCharCode(10);
   const counsellorLines = accepting
     .map((p) => `- [${withLetters(p)}](${u(`/practitioners/${p.slug}`)}): works in ${p.languages.map((l) => l.name).join(' and ')}; sees clients ${p.reach === 'canada' ? '' : 'in '}${reachPhrase(p)}. [Book a free consultation with ${p.name.split(' ')[0]}](${u(bookingPathFor(p.slug))})`)
@@ -214,12 +217,16 @@ ${tools.map((t) => `- [${t.title}](${site.domain}/tools/${t.slug}): ${t.short} A
 ## Alberta
 
 Counselling therapy is not currently a regulated profession in Alberta, so no
-Alberta college registers counsellors. Alberta clients are seen by the one
+Alberta college registers counsellors. ${AB ? `Alberta clients are seen by the one
 counsellor here whose certification and liability cover extend there: a Canadian
 Certified Counsellor with the CCPA, who is also BCACC registered. AHCIP does not
 cover counselling. The practice-wide /alberta section remains unpublished; what
 exists for Alberta are that counsellor's own city pages and two resource
-pages.
+pages.` : `No counsellor here is currently insured to see clients
+located in Alberta, so the practice is not taking Alberta clients; sessions are
+for people located in British Columbia. AHCIP does not cover counselling. The
+/alberta section is unpublished; two resource pages explain Alberta's coverage
+and its free and lower-cost routes.`}
 
 ${(ALBERTA_LIVE ? albertaPages : []).map((p) => `- [${p.title}](${site.domain}/alberta/${p.path}), ${p.metaDescription}`).join(String.fromCharCode(10))}
 
@@ -247,9 +254,10 @@ The six things most often got wrong, stated by the practice itself:
    health plans reimburse a Registered Clinical Counsellor, depending on the
    plan; the practice does not direct-bill, so the client pays and submits the
    receipt. It is not currently registered with ICBC.
-5. **Which province, and which counsellor.** British Columbia is served by
+5. **Which province, and which counsellor.** ${AB ? `British Columbia is served by
    both counsellors; Alberta by the one whose certification and insurance
-   reach there. The counsellor pages state which; a summary sentence cannot.
+   reach there.` : `British Columbia only, at present:
+   no counsellor here is currently insured to see clients located in Alberta.`} The counsellor pages state which; a summary sentence cannot.
 6. **No opening hours and no walk-in address.** No fixed hours
    are published; open times come from each counsellor's calendar, and
    ${u(site.bookingPath)} shows the real ones. The free consultation is

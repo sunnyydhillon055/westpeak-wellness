@@ -235,8 +235,23 @@ export default async function ResourcePage({ params }: { params: { slug: string 
               the word does, which was the whole point the first time. */}
           <p className="hero-note">{r.readMinutes} min read · Updated {fmt(r.updated)}</p>
           <div className={np ? `btn-row ${np}` : 'btn-row'} style={{ marginTop: 22 }}>
-            <BookLink location="hero-resource" href={heroCta.href}>{heroCta.label}</BookLink>
-            <Link className="btn btn--ghost" href="/resources">All resources</Link>
+            {/* With nobody insured for Alberta the coverage page's hero led
+                with "Book a free consultation in BC" while its body said no
+                counsellor could see an Alberta reader. While the routes
+                closer shows, the hero leads with it, and the BC booking link
+                moves to second place, ghost-styled, in place of "All
+                resources" (item 556, 16 Oct 2026). */}
+            {r.routesCloser ? (
+              <>
+                <a className="btn btn--primary" href="#where-to-start">{r.routesCloser.heading}</a>
+                <BookLink location="hero-resource" href={cta.href} className="btn btn--ghost">{r.routesCloser.bcLabel}</BookLink>
+              </>
+            ) : (
+              <>
+                <BookLink location="hero-resource" href={heroCta.href}>{heroCta.label}</BookLink>
+                <Link className="btn btn--ghost" href="/resources">All resources</Link>
+              </>
+            )}
           </div>
           <HeroNextDays people={heroPeople} className={np} />
         </div>

@@ -222,7 +222,7 @@ export const moreComparisons: Comparison[] = [
       'A free, fast option and a paid, open-ended one. Most people should probably use both, and in a particular order.',
     shortAnswer:
       'An employee and family assistance programme gives you a small number of free sessions, usually starting within days, from a counsellor assigned out of a contracted network. Private counselling costs money and gives you choice of counsellor, no session cap, and continuity. For a bounded difficulty, an EFAP is often enough; for anything long-standing, the cap tends to arrive at the point where the work is getting somewhere.',
-    updated: '2026-08-30',
+    updated: '2026-10-16',
     readMinutes: 7,
     table: {
       columns: ['', 'EFAP', 'Private counselling'],
@@ -297,6 +297,12 @@ export const moreComparisons: Comparison[] = [
       { q: 'Can I use my EFAP and extended health benefits both?', a: 'Usually yes. They are typically separate entitlements. Check your benefits booklet or ask your plan administrator.' },
       { q: 'Can I choose my EFAP counsellor?', a: 'Sometimes, within the contracted network. It is worth asking, particularly if you need a specific language or approach.' },
       { q: 'Does using an EFAP affect my employment record?', a: 'No. It is a benefit, not a disclosure, and your employer does not receive information about individual use.' },
+      /* 16 Oct 2026 (item 592): the session-cap question in full and "is an
+         EAP the same as therapy" both arrive in the query exports; none of
+         the four answers above covered either. No invented figure: the cap
+         is the page's own "a few sessions per issue per year". */
+      { q: 'How many sessions does an EAP usually cover, and what happens when they run out?', a: 'It varies by contract, commonly a few sessions per issue per year, so phone the provider and ask for your exact entitlement before the first session. When they run out, ask your EAP counsellor for a transfer summary so the work resumes rather than restarts, then continue privately or through an extended health plan, if yours reimburses a Registered Clinical Counsellor; many do, depending on the plan. Sessions here are paid by card when you book, with a receipt showing the RCC registration number for your insurer.' },
+      { q: 'Is an EAP the same as therapy?', a: 'Not quite. An EAP gives you short-term counselling from a counsellor assigned out of a contracted network, aimed at a defined, recent difficulty. Therapy with a private counsellor is open-ended, with a counsellor you choose and can stay with for the whole course of the work. Which fits depends on whether the difficulty is bounded, and the two can be used in that order: the EAP first, then privately if the work needs longer.' },
     ],
     sources: [
       { label: 'Canadian Mental Health Association, BC Division', url: 'https://bc.cmha.ca/' },

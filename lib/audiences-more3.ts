@@ -24,7 +24,7 @@ export const moreAudiences3: Audience[] = [
     readMinutes: 6,
     opening: [
       'Teaching has a strain profile most jobs do not: a performance that cannot be phoned in, delivered to an audience whose needs exceed the resources in the room, on a calendar that resets every September regardless of what last June cost you. The profession also runs on a myth of vocation that makes admitting struggle feel like betraying the calling, which is how burnout in teachers gets narrated, by teachers, as personal failure.',
-      'Sessions here run outside school hours by design, and nothing said in them reaches a district, a principal, or a professional registry. The limits of confidentiality are the ordinary legal ones, stated before you share anything. A bar teachers, of all people, will recognise the shape of.',
+      'Sessions are booked from the times the calendar actually shows, and nothing said in them reaches a district, a principal, or a professional registry. The limits of confidentiality are the ordinary legal ones, stated before you share anything. A bar teachers, of all people, will recognise the shape of.',
     ],
     whatComesUp: [
       { label: 'The September cliff', detail: 'August dread that starts mid-July, the first-week adrenaline, and the October crash. A yearly cycle so predictable it can be planned for, which almost nobody does.' },

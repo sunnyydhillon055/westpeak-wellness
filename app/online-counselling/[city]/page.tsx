@@ -269,7 +269,11 @@ export default async function CityPage({ params }: { params: { city: string } })
                 {paCta.label}
               </BookLink>
             )}
-            <Link className="btn btn--ghost" href="/services">See all services</Link>
+            {/* Two hero buttons, not three: with the Punjabi button showing,
+                "See all services" goes (item 586, 16 Oct 2026). */}
+            {!paCta?.practitioner && (
+              <Link className="btn btn--ghost" href="/services">See all services</Link>
+            )}
           </div>
           {/* The next free consultation with this hub's counsellors, from the
               Cliniko cache. Prints nothing when there is none. 1 Oct 2026. */}
@@ -302,13 +306,6 @@ export default async function CityPage({ params }: { params: { city: string } })
               </p>
             </>
           )}
-          {/* The /privacy sentence, read from lib/policies.ts, so a city page
-              cannot claim more about the video than the policy does. */}
-          <h2>How private is the video?</h2>
-          <p>
-            {rich(SESSION_SECURITY_MD)}{' '}
-            The <Link href="/privacy">privacy policy</Link> sets out the rest.
-          </p>
         </div>
       </section>
 
@@ -342,6 +339,20 @@ export default async function CityPage({ params }: { params: { city: string } })
           ) : undefined;
         })()}
       />
+
+      {/* The /privacy sentence, read from lib/policies.ts, so a city page
+          cannot claim more about the video than the policy does. Below the
+          counsellors since 16 Oct 2026 (item 586): it sat between the intro
+          and "Who you'd see", so the people came after a policy paragraph. */}
+      <section className="section" style={{ paddingTop: 0 }}>
+        <div className="container prose">
+          <h2>How private is the video?</h2>
+          <p>
+            {rich(SESSION_SECURITY_MD)}{' '}
+            The <Link href="/privacy">privacy policy</Link> sets out the rest.
+          </p>
+        </div>
+      </section>
 
       {alsoFor.length > 0 && (
         <section className="section" style={{ paddingTop: 0 }}>

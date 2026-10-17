@@ -97,12 +97,12 @@ export const moreAudiences6: Audience[] = [
     title: 'Counselling for first responders in BC',
     metaTitle: 'Counselling for First Responders in BC | Westpeak Wellness',
     metaDescription:
-      'Counselling for BC police, firefighters, paramedics, dispatchers and corrections staff, online around shifts. Trauma, EMDR and the WorkSafeBC presumption.',
+      'Counselling for BC police, firefighters, paramedics, dispatchers and corrections staff, by secure video. Trauma, EMDR and the WorkSafeBC presumption.',
     eyebrow: 'For · First responders',
     lede:
       'The job gives you a hundred things a year that a civilian gets once in a life, and a culture that says none of them should count. Both of those are true at once, and the second one is the problem.',
     shortAnswer:
-      'Counselling for first responders in BC, online by secure video, scheduled around shift rotations, with a Registered Clinical Counsellor trained in EMDR. Covers cumulative exposure and the call that will not file itself away, sleep after nights, the home that gets the leftovers, and the decision about whether to make a WorkSafeBC claim under the mental-disorder presumption for first responders. Nothing said in a session reaches an employer or a file without written consent.',
+      'Counselling for first responders in BC, online by secure video, with a Registered Clinical Counsellor trained in EMDR. Covers cumulative exposure and the call that will not file itself away, sleep after nights, the home that gets the leftovers, and the decision about whether to make a WorkSafeBC claim under the mental-disorder presumption for first responders. Nothing said in a session reaches an employer or a file without written consent.',
     updated: '2026-09-25',
     readMinutes: 7,
     opening: [

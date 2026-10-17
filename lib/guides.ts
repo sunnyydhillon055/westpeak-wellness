@@ -118,7 +118,7 @@ const coreGuides: Guide[] = [
         h2: "What this means in British Columbia specifically",
         body: [
           "In BC the argument for virtual counselling is not mainly about convenience. It is about access. Counsellors cluster in the Lower Mainland and the southern Island. If you live in the north or the Interior, the realistic local choice may be a short list with waitlists rather than a genuine choice at all; the practical reality of that is set out on the [Prince George page](/online-counselling/prince-george).",
-          "It matters even more if you need therapy in a language other than English. Punjabi-speaking clinicians in BC are heavily concentrated in the Lower Mainland, so for most of the province [therapy in Punjabi](/services/punjabi-counselling) is only realistically available by video.",
+          "It matters even more if you need therapy in a language other than English. Availability of counsellors who work in a given language varies, and BCACC’s Find a Counsellor directory filters by language; by video, [therapy in Punjabi](/services/punjabi-counselling) works the same anywhere in the province.",
           "On cost: BC's Medical Services Plan does not cover counselling, whatever the format. Extended health plans that cover Registered Clinical Counsellors generally treat a virtual session exactly as they treat an in-person one. The [fees and coverage page](/pricing) sets out how reimbursement works.",
         ],
       },

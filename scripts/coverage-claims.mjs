@@ -83,11 +83,9 @@ export const PENDING = [
      belongs to another change. Say "which many student plans reimburse,
      depending on the plan". */
   { file: 'lib/guides-drafts.ts', fragment: 'often partly covered by the student plan' },
-  /* 15 Oct 2026: found by the "commonly" shape (item 530); the trades
-     page is item 525's. Say "Many union and employer plans … reimburse a
-     Registered Clinical Counsellor, depending on the plan". */
-  { file: 'lib/audiences-more6.ts', fragment: 'in the BC trades commonly reimburse' },
-  { file: 'lib/audiences-more6.ts', fragment: 'through a union or employer commonly reimburses' },
+  /* The two lib/audiences-more6.ts trades entries (15 Oct, item 530) were
+     removed 16 Oct: the wording they waited on has been fixed and they had
+     gone stale. */
 ];
 
 /* What a line looks like once the markup between words is gone: JSX spacers
@@ -194,10 +192,37 @@ export const ALBERTA_ALLOWED = [
   { file: 'lib/inbound-mail.ts', fragment: 'outside BC and Alberta', why: 'a label in the practice’s own notification email, describing the form option' },
 ];
 
-export const ALBERTA_PENDING = [
-  { file: 'app/for/page.tsx', fragment: 'fit around it, across BC and Alberta' },
-  { file: 'lib/resources-tagalog-words.ts', fragment: 'in British Columbia and Alberta' },
-];
+/* Emptied 16 Oct 2026 (item 556): /for and the Tagalog-words FAQ now read
+   servedProvinces() over the gated roster. */
+export const ALBERTA_PENDING = [];
+
+/* THE AI ROUTES — 16 Oct 2026 (item 556). /llms.txt and /llms-full.txt never
+ * typed "BC and Alberta", so the scan above passed them, yet after the 15 Oct
+ * gate closed they still told assistants "Alberta clients are seen by the one
+ * counsellor". Their reach sentences are now branches on AB =
+ * reachesAlberta(practitioners). This fails on any Alberta reach phrase in
+ * either route that is not on, or within two lines below, a line naming AB,
+ * and on either route that no longer calls reachesAlberta(). */
+export const AI_ROUTES = ['app/llms.txt/route.ts', 'app/llms-full.txt/route.ts'];
+export const AI_ALBERTA_REACH = /Alberta clients are seen|clients located in Alberta as well|Alberta through one counsellor|Alberta by the one|for the counsellor certified there/;
+
+export function scanAiAlberta(root, files = AI_ROUTES) {
+  const problems = [];
+  for (const rel of files) {
+    const src = readFileSync(join(root, rel), 'utf8');
+    if (!src.includes('reachesAlberta(')) {
+      problems.push({ file: rel, line: 1, match: 'Alberta reach is not read from reachesAlberta() over the gated roster' });
+    }
+    const lines = stripComments(src).split('\n');
+    lines.forEach((line, i) => {
+      const m = line.match(AI_ALBERTA_REACH);
+      if (!m) return;
+      const gated = lines.slice(Math.max(0, i - 2), i + 1).some((l) => /\bAB\b/.test(l));
+      if (!gated) problems.push({ file: rel, line: i + 1, match: `typed "${m[0]}" outside an AB = reachesAlberta() branch` });
+    });
+  }
+  return problems;
+}
 
 /* Block comments blanked (newlines kept, so line numbers hold) and whole-line
    // comments dropped, as test/reach-copy.test.mts does. */
@@ -233,6 +258,7 @@ export function scanTypedAlberta(root, allowed = ALBERTA_ALLOWED, pending = ALBE
       }
     }
   }
+  problems.push(...scanAiAlberta(root));
   return { problems, stale: pending.filter((_, i) => !used.has(i)) };
 }
 

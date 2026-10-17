@@ -21,7 +21,7 @@ export const tagalogAudiences: Audience[] = [
     title: 'Counselling for Filipino healthcare workers and caregivers in BC',
     metaTitle: 'Counselling for Filipino Healthcare Workers in BC | Westpeak',
     metaDescription:
-      'Counselling in Tagalog or English for Filipino nurses, care aides and caregivers in BC, online around shifts. Burnout, family abroad, being the one who copes.',
+      'Counselling in Tagalog or English for Filipino nurses, care aides and caregivers in BC, by secure video. Burnout, family abroad, being the one who copes.',
     eyebrow: 'For · Filipino healthcare workers and caregivers',
     lede:
       'You look after everyone: patients, residents, the family here, the family there. The question of who looks after you tends to get answered with a shrug and another shift.',
