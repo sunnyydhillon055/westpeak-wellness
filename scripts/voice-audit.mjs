@@ -113,7 +113,11 @@ const FACTS = [
      survived it: a session time the calendar may not hold, said another way.
      The one allowed use is a symptom, not a time (the anxiety service-city
      angle, "long after the shift ends"). */
-  { id: 'shift-timing', re: /\b(after the shift|around the shift)\b/i, unless: /after the shift ends/i,
+  /* 16 Oct 2026 (item 563): the plural and possessive forms ("online around
+     shifts", "around your shifts") and "outside school hours" shipped in two
+     meta descriptions, a location label and a teachers' page; the singular
+     regex never saw them. "Between shifts" is context, not a time, and stays. */
+  { id: 'shift-timing', re: /\b(after the shift|around the shift|around (?:your )?shifts|outside (?:of )?(?:school|work) hours)\b/i, unless: /after the shift ends/i,
     fix: 'point to the calendar’s real open times, or say nothing about when' },
 ];
 const factHits = [];

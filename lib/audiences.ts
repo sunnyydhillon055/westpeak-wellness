@@ -418,7 +418,7 @@ const coreAudiences: Audience[] = [
         body: [
           "People who are fluent in English often assume the option of therapy in Punjabi is not for them. In practice, first language and emotional language are frequently not the same thing.",
           "You may be entirely comfortable presenting in English at work and still find that the words for grief, shame, obligation, or the particular texture of a family argument only exist properly in Punjabi. Some things get flattened in translation (the most common [Punjabi word for counselling](/resources/counselling-in-punjabi-what-the-words-mean) is the English one, written in Gurmukhi), and if you spend a session translating, you spend it at one remove from what you are actually feeling.",
-          "Sessions here can be in Punjabi, English, or moving between them mid-sentence, which is how many people actually think. [Punjabi-speaking counselling](/services/punjabi-counselling) covers the practical detail. It also matters that Punjabi-speaking clinicians in BC are heavily concentrated in the Lower Mainland, for most of the province, virtual sessions are the only realistic route to therapy in Punjabi at all.",
+          "Sessions here can be in Punjabi, English, or moving between them mid-sentence, which is how many people actually think. [Punjabi-speaking counselling](/services/punjabi-counselling) covers the practical detail. Availability of Punjabi-speaking counsellors varies from place to place; BCACC’s Find a Counsellor directory filters by language, and video works anywhere in BC.",
         ],
       },
       {

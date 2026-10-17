@@ -4,10 +4,16 @@ import { readFileSync } from 'node:fs';
 import { pairs } from '../lib/city-services.ts';
 import { getCityTopic } from '../lib/conditions.ts';
 import { cityContexts, getCityContext } from '../lib/city-context.ts';
-import { getLocation } from '../lib/locations.ts';
-import { getPunjabiRegion } from '../lib/punjabi-regions.ts';
+import { getLocation, locations } from '../lib/locations.ts';
+import { getPunjabiRegion, punjabiRegions } from '../lib/punjabi-regions.ts';
 import { FALLBACK_CATALOG, CONSULT_MINUTES } from '../lib/cliniko-catalog.ts';
-import { withLetters } from '../lib/practitioners.ts';
+import { withLetters, practitioners } from '../lib/practitioners.ts';
+import { services } from '../lib/services.ts';
+import { TAGALOG_CITIES } from '../lib/tagalog.ts';
+import { audiences } from '../lib/audiences.ts';
+import { guides } from '../lib/guides.ts';
+import { comparisons } from '../lib/comparisons.ts';
+import { placesFor, resolvePlace } from '../lib/practitioner-places.ts';
 import {
   cityServiceDescription, counsellorsFor, hubDirectAnswer, midSentence, serviceDirectAnswer,
 } from '../lib/city-service-page.ts';
@@ -171,4 +177,84 @@ test('#526 five depression pages link the winter guide from a body paragraph, ea
   }
   assert.equal(anchors.size, linked.length, 'two pages share an anchor');
   assert.match(readFileSync('lib/depth-services.ts', 'utf8'), /\[the darkest weeks of a BC winter\]\(\/guides\/low-mood-through-a-bc-winter\)/);
+});
+
+/* THE LANGUAGE, HUB AND PLACE PAGES — 16 Oct 2026 (item 571).
+ *
+ * The 15 Oct round held city-service data only. The same uncited claims went
+ * on shipping on the language pages ("realistically the only route to
+ * therapy in Punjabi", an FAQ asking whether there is "really nobody in the
+ * Comox Valley who counsels in Punjabi"), on every hub's copy, and on the
+ * per-counsellor place pages built from it. Nobody here has counted the
+ * counsellors in a language by region, so none of that is said. What is said:
+ * availability varies, the BCACC directory filters by language, and video
+ * works anywhere in BC. Census counts are sourced and stay. */
+const LANGUAGE_SCARCITY = new RegExp(
+  `${SCARCITY.source}|realistically the only|the only route|nobody .* counsels|concentrated (?:\\w+ )?in (?:the Lower Mainland|Metro Vancouver)|thins the field|field narrows|still short of|in the depth the`,
+  'i',
+);
+
+/* Clinical or non-local uses, each checked by hand. A stale entry fails. */
+const WIDE_ALLOWED: string[] = [
+  'in a handful of processing sessions',
+  'a handful per issue per year',
+  'A psychiatrist’s scarce time',
+  'the absence of an accountable human',
+  'the absence of skills nobody ever taught you',
+  'Adoptive parents are largely absent from the public conversation',
+  'run it thinly across six months',
+  'does not have any role in medical fitness',
+  'feel unavailable',
+  'felt as waitlists rather than as absence',
+  'is not scarcity in Kamloops',
+  'What the Shore does not have is a short way to anywhere else',
+  'without explaining an absence',
+  'explain an absence',
+  'only a handful of households to talk to',
+  'does not argue that Punjabi-speaking counselling is unavailable nearby',
+];
+
+const hits: string[] = [];
+const scarceWide = (where: string, texts: string[], used: Set<string>) => {
+  for (const t of texts) {
+    if (!LANGUAGE_SCARCITY.test(t)) continue;
+    const ok = [...ALLOWED, ...WIDE_ALLOWED].find((a) => t.includes(a));
+    if (ok) { used.add(ok); continue; }
+    const at = `${where}: ${t.match(new RegExp(`.{0,60}(${LANGUAGE_SCARCITY.source}).{0,60}`, 'i'))?.[0]}`;
+    if (!hits.includes(at)) hits.push(at);
+  }
+};
+
+test('#571 no language, hub, audience or place page claims local scarcity', () => {
+  const used = new Set<string>();
+  hits.length = 0;
+  after571(used);
+  assert.deepEqual(hits, [], `local-scarcity claims:\n${hits.join('\n')}`);
+  for (const a of WIDE_ALLOWED) assert.ok(used.has(a), `stale allow-list entry: ${a}`);
+});
+
+function after571(used: Set<string>) {
+  for (const s of services) scarceWide(`/services/${s.slug}`, strings(s), used);
+  for (const r of punjabiRegions) scarceWide(`/punjabi-counselling/${r.slug}`, strings(r), used);
+  for (const c of TAGALOG_CITIES) scarceWide(`/tagalog-counselling/${c.slug}`, strings(c), used);
+  for (const a of audiences) scarceWide(`/for/${a.slug}`, strings(a), used);
+  for (const l of locations) scarceWide(`/online-counselling/${l.slug}`, strings(l), used);
+  for (const g of guides.filter((x) => x.slug === 'is-online-therapy-as-effective-as-in-person')) scarceWide(`/guides/${g.slug}`, strings(g), used);
+  for (const c of comparisons) scarceWide(`/compare/${c.slug}`, strings(c), used);
+  for (const p of practitioners) {
+    for (const place of placesFor(p.provinces)) {
+      scarceWide(`/practitioners/${p.slug}/${place.slug}`, strings(resolvePlace(place, p)), used);
+    }
+  }
+}
+
+test('#571 a place page asks about the counsellor’s second language once', () => {
+  for (const p of practitioners) {
+    const second = p.languages[1]?.name;
+    if (!second) continue;
+    for (const place of placesFor(p.provinces)) {
+      const asks = resolvePlace(place, p).faqs.filter((f) => new RegExp(`\\bsessions (?:be )?in ${second}\\b`, 'i').test(f.q));
+      assert.ok(asks.length <= 1, `/practitioners/${p.slug}/${place.slug} asks about ${second} ${asks.length} times`);
+    }
+  }
 });

@@ -10,6 +10,12 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 import { ogBase } from '@/lib/og-meta';
 import { webPage } from '@/lib/schema';
 import { COLLECTION_DATES, latestOf } from '@/lib/page-dates';
+import { practitioners } from '@/lib/practitioners';
+import { servedProvinces } from '@/lib/practice-facts';
+
+/* Read from the gated roster, not typed (item 556): "across BC and Alberta"
+   outlived the 15 Oct Alberta gate. It returns on its own if the gate reopens. */
+const PROVINCES = servedProvinces(practitioners.filter((p) => p.acceptingNewClients));
 
 export const metadata: Metadata = {
   /* Its own og:url. Without an openGraph object this page inherited the
@@ -53,7 +59,7 @@ export default function ForHub() {
             from the situation rather than the symptom.
           </p>
           <p className="direct-answer">
-            Counselling pages written for specific situations rather than diagnoses: healthcare and shift workers, teachers, new parents, students, first responders, tech workers, immigrants and newcomers, employers and HR, and more. Each describes what that situation tends to bring to therapy and how online sessions with a Registered Clinical Counsellor fit around it, across BC and Alberta.
+            Counselling pages written for specific situations rather than diagnoses: healthcare and shift workers, teachers, new parents, students, first responders, tech workers, immigrants and newcomers, employers and HR, and more. Each describes what that situation tends to bring to therapy and how online sessions with a Registered Clinical Counsellor fit around it, across {PROVINCES}.
           </p>
           <Updated iso={latestOf(audiences)} />
           <div className="btn-row" style={{ marginTop: 24 }}>

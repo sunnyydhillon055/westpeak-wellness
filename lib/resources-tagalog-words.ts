@@ -1,4 +1,13 @@
 import type { Resource } from './resources';
+import { counsellorForLanguage } from '@/lib/booking-cta';
+import { servedProvinces } from '@/lib/practice-facts';
+import { CONSULT_MINUTES } from '@/lib/cliniko-catalog';
+
+/* Where the Tagalog counsellor may see people, from the gated roster (item
+   556). The FAQ typed "British Columbia and Alberta", fed FAQPage, and
+   outlived the 15 Oct Alberta gate. */
+const TL = counsellorForLanguage('tl');
+const TL_PROVINCES = TL ? servedProvinces([TL], 'long') : 'British Columbia';
 
 /* WHAT "COUNSELLING" MEANS IN TAGALOG — added 26 Sep 2026, on the owner's
  * instruction that Tagalog be carried as far as Punjabi is.
@@ -94,7 +103,7 @@ export const tagalogWordsResource: Resource[] = [
       { q: 'Is there a Tagalog word for anxiety?', a: 'Pagkabalisa is the closest to the clinical sense, and kaba, nervousness, is the everyday word. Most people use either for both. A counsellor who works in Tagalog hears which one is meant.' },
       { q: 'Is there a Tagalog word for depression?', a: 'Depresyon, borrowed from English, carries the clinical meaning. Kalungkutan means sadness and is the word most families use, and it sounds like something that will lift on its own, which is one reason a depressive episode in a Filipino family is often heard as ordinary sadness for a long time.' },
       { q: 'Do I have to speak Tagalog in the session?', a: 'No. Most people move between Tagalog and English in the same sentence, Taglish, and that is normal here rather than something to apologise for. You can also book in English entirely and switch when a word only exists in one of them.' },
-      { q: 'Who provides counselling in Tagalog at Westpeak?', a: 'Camille Granda, a Registered Clinical Counsellor and Canadian Certified Counsellor who works in Tagalog and English, in British Columbia and Alberta. Sessions are online and the first 15-minute consultation is free.' },
+      { q: 'Who provides counselling in Tagalog at Westpeak?', a: 'Camille Granda, a Registered Clinical Counsellor and Canadian Certified Counsellor who works in Tagalog and English, in ' + TL_PROVINCES + '. Sessions are online and the first ' + CONSULT_MINUTES + '-minute consultation is free.' },
       { q: 'Will my family find out?', a: 'No. What is said in a session is confidential, with the narrow legal exceptions every counsellor has: a serious risk of harm, abuse of a minor, a court order. Sessions are by video, so there is no clinic anybody could be seen entering.' },
     ],
     sources: [

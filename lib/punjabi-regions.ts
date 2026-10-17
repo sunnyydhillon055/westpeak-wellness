@@ -268,7 +268,7 @@ export const punjabiRegions: PunjabiRegion[] = [
     region: 'Kelowna',
     wider: 'the Okanagan',
     blurb:
-      'Kelowna\'s Punjabi-speaking population has grown by half in five years. The number of Punjabi-speaking counsellors in the Okanagan has not moved.',
+      'Kelowna\'s Punjabi-speaking population has grown by half in five years. Sessions in Punjabi by video work anywhere in the valley.',
     metaDescription:
       'Punjabi-speaking online counselling for Kelowna and the Okanagan. Sessions in Punjabi, English, or both, with an RCC. Free 15-minute consultation.',
     demography: {
@@ -276,7 +276,7 @@ export const punjabiRegions: PunjabiRegion[] = [
       body: [
         'Kelowna is often described as one of the most English-speaking cities in BC, and by provincial standards that is true. It is also, quietly, one of the faster-changing ones: **Punjabi speakers went from 1.2% of the population in 2016 to 1.8% in 2021**, growing by roughly half in five years.',
         'In a metro area of Kelowna\'s size that is thousands of people, concentrated in the same agricultural and trades economies that have drawn Punjabi families to the Okanagan for decades.',
-        'Counselling supply has not tracked that growth. The Okanagan has plenty of counsellors; it does not have Punjabi-speaking ones, and the population that needs them is the part that grew.',
+        'Nobody publishes a count of Punjabi-speaking counsellors by region, so this page does not guess one. Availability and openings vary; BCACC’s Find a Counsellor directory filters by language, and video works anywhere in BC.',
       ],
     },
     localReality: {
@@ -653,8 +653,8 @@ export const punjabiRegions: PunjabiRegion[] = [
            behind it say "punjabi therapist vancouver" (position 13.5), a word
            the page never used. Same question, the searched word, and one
            sentence saying who would see a Vancouver client. */
-        q: 'Are there really few Punjabi-speaking counsellors or therapists in Vancouver itself?',
-        a: 'Fewer than the city\'s reputation for diversity would suggest, and the reason is arithmetic rather than neglect. Punjabi is the fifth mother tongue here at 2.0%; Cantonese and Mandarin are several times larger. Services follow the numbers, so Vancouver\'s multilingual mental-health provision is genuinely strong and mostly not in Punjabi. Therapist and counsellor describe the same work here; this practice’s Punjabi-speaking counsellor is a Registered Clinical Counsellor who sees Vancouver clients by secure video.',
+        q: 'How do I find a Punjabi-speaking counsellor or therapist in Vancouver itself?',
+        a: 'Nobody publishes a count by city, and availability and openings vary. BCACC’s Find a Counsellor directory filters by language, which is the quickest way to see who is listed. For context, Punjabi is the fifth mother tongue here at 2.0%; Cantonese and Mandarin are several times larger. Therapist and counsellor describe the same work here; this practice’s Punjabi-speaking counsellor is a Registered Clinical Counsellor who sees Vancouver clients by secure video.',
       },
       {
         q: 'Can the whole session be in Punjabi?',
@@ -919,7 +919,7 @@ export const punjabiRegions: PunjabiRegion[] = [
       body: [
         'Interior Health runs mental-health and substance-use services from its Vernon centre on 14th Avenue, and anyone can self-refer through 310-MHSU (6478). For young people aged 12 to 24, CMHA Vernon’s Youth Integrated Services Hub offers free drop-in counselling. Both are real options and worth using.',
         'Neither lists counselling sessions in Punjabi on its public pages. If a local service can offer Punjabi when you ask, that may suit you better, and it is worth asking.',
-        'Kelowna is the next place most people look, and [Punjabi-speaking counselling for Kelowna](/punjabi-counselling/kelowna) sets out what the Central Okanagan does and does not have. The wider picture for Vernon, from the specialist line down Highway 97 to the 2021 fire, is on [online counselling for Vernon](/online-counselling/vernon).',
+        'Kelowna is the next place most people look, and [Punjabi-speaking counselling for Kelowna](/punjabi-counselling/kelowna) sets out what the Central Okanagan offers. The wider picture for Vernon, from the specialist line down Highway 97 to the 2021 fire, is on [online counselling for Vernon](/online-counselling/vernon).',
         'One limit, stated plainly: sessions in Punjabi are individual counselling. Couples work and EMDR currently run in English or Tagalog.',
       ],
     },
@@ -1082,7 +1082,7 @@ export const punjabiRegions: PunjabiRegion[] = [
       body: [
         'That is a small community, about three in every thousand residents of the Courtenay census agglomeration, which centres on Courtenay, Comox and Cumberland, and this page does not pretend otherwise. In the same census 625 residents identified as South Asian. The figures are in the Statistics Canada 2021 Census Profile cited below.',
         'Small does not make the need smaller. It changes its shape. In Surrey the difficulty is anonymity inside a large community; here it is the opposite, visibility inside a small one, where the few families who share a language are likely to know each other.',
-        'Punjabi-speaking counsellors in BC are concentrated in the Lower Mainland. From the Comox Valley, seeing one in person has meant the highway south and a ferry each way, for a fifty-minute appointment.',
+        'From the Comox Valley, seeing a counsellor in person further afield can mean the highway south and a ferry each way, for a fifty-minute appointment. By video, the session happens wherever you have a private room.',
       ],
     },
     localReality: {
@@ -1101,7 +1101,7 @@ export const punjabiRegions: PunjabiRegion[] = [
       { label: 'Individual counselling', detail: 'Sessions in Punjabi are one-to-one. Couples counselling and EMDR currently run in English or Tagalog, and that is said plainly before anybody books.' },
     ],
     faqs: [
-      { q: 'Is there really nobody in the Comox Valley who counsels in Punjabi?', a: 'Not one this page can point to. Punjabi-speaking counsellors in BC are concentrated in the Lower Mainland, which is why a video session is the realistic route from Courtenay, Comox or Cumberland rather than a second-best one.' },
+      { q: 'How do I find a Punjabi-speaking counsellor in the Comox Valley?', a: 'BCACC’s Find a Counsellor directory filters by language, and is the quickest way to see who is listed nearby; availability and openings vary. A video session works from Courtenay, Comox or Cumberland on the same terms as anywhere else in BC.' },
       { q: 'Can my spouse and I come together in Punjabi?', a: 'Not for couples work at the moment: couples sessions currently run in English or Tagalog. Individual counselling is available in Punjabi, and the free 15-minute consultation is the place to talk through what would help most.' },
       { q: 'Will my extended health cover this?', a: ONLINE_COVERAGE },
     ],
@@ -1147,8 +1147,8 @@ export const punjabiRegions: PunjabiRegion[] = [
       stat: 'In the 2021 Census, 535 Langford residents reported Punjabi as their mother tongue, about 1.2% of the city.',
       body: [
         'That is a small community, and this page does not pretend otherwise. Across the Victoria census metropolitan area the same census counted **4,340 people whose mother tongue is Punjabi**, about 1.1% of the region, and 670 Langford residents said they could hold a conversation in it. Set beside Surrey or Abbotsford, those are small numbers. Most of the region’s speakers live in Saanich, a highway drive away, and [Punjabi-speaking counselling for Saanich](/punjabi-counselling/saanich) sets out that community.',
-        'Small is the point. In a community of a few hundred people in one city, the chance that a counsellor, a receptionist or somebody in a waiting room knows your family is not remote. And the counsellors who can hold a session in Punjabi are concentrated in the Lower Mainland, a ferry away.',
-        'So the case here is scarcity, made sharper by size: there is no realistic local option in the language, and the privacy a large community provides simply by numbers is not available in a small one. A session by video answers both.',
+        'Small is the point. In a community of a few hundred people in one city, the chance that a counsellor, a receptionist or somebody in a waiting room knows your family is not remote.',
+        'So the case here is privacy, made sharper by size: the privacy a large community provides simply by numbers is not available in a small one. A session by video, from any private room in BC, answers it. Availability of counsellors who work in Punjabi varies, and BCACC’s Find a Counsellor directory filters by language.',
       ],
     },
     localReality: {
@@ -1267,7 +1267,7 @@ export const punjabiRegions: PunjabiRegion[] = [
       stat: 'Punjabi is the mother tongue of about 155 people in Campbell River, under half of one percent of the city, in the 2021 Census.',
       body: [
         'This page states that number plainly because it is small. In the 2021 Census about **155 Campbell River residents** reported Punjabi as their mother tongue, about 95 spoke it most often at home, and about 225 could hold a conversation in it. Around 535 people identified as South Asian. Those are real people and real households, and they are not a large community.',
-        'A community of that size is unlikely to sustain a Punjabi-speaking counsellor in town. The Punjabi-speaking counsellors with offices in BC are concentrated in the Lower Mainland, which from Campbell River means the length of the Island Highway and then a ferry.',
+        'In a community of that size, an in-person appointment further afield can mean the length of the Island Highway and then a ferry. Availability of counsellors who work in Punjabi varies; BCACC’s Find a Counsellor directory filters by language, and video works anywhere in BC.',
         'Small also changes the privacy question. Where only a few hundred people share a language, the chance that someone in a waiting room knows your family is not remote, and for some people that alone is the reason they have not looked for help.',
       ],
     },
@@ -1281,7 +1281,7 @@ export const punjabiRegions: PunjabiRegion[] = [
       ],
     },
     access: [
-      { label: 'No ferry to the Lower Mainland', detail: 'The Punjabi-speaking counsellors with offices in BC are concentrated in the Lower Mainland. Sessions here happen wherever you have a private room and a connection, on the North Island or anywhere else in BC.' },
+      { label: 'No ferry to the Lower Mainland', detail: 'Sessions here happen wherever you have a private room and a connection, on the North Island or anywhere else in BC.' },
       { label: 'Punjabi, English, or both', detail: 'Nobody fixes the language at the start. A worry about a parent may come out in one and a question about a claim in the other, and either is fine.' },
       { label: 'Privacy in a very small community', detail: 'Where only a few hundred people share the language, being recognised is the real risk. A video session has no waiting room.' },
       { label: 'Individual sessions', detail: 'Sessions in Punjabi are individual counselling. Couples work and EMDR currently run in English or Tagalog.' },

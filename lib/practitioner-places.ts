@@ -272,7 +272,7 @@ const LOCAL_OVERRIDES: Record<string, Record<string, {
           a: "For many people there is no reason to, and you would be told so on the consultation. The reason people write in from Surrey is narrower: in a community this interconnected, the counsellor who comes recommended is often connected to the very people you would least want to know you are going. Confidentiality is a legal duty everywhere, distance is what makes it feel true.",
         },
       ],
-      blurb: 'A city big enough to have counsellors, and still short of the ones people are actually looking for.',
+      blurb: 'A city big enough to have counsellors, where the one who fits may still be somewhere else in BC.',
       local: [
         'Surrey is one of the fastest-growing cities in Canada, and the counselling here has not grown with it at the same rate. The lists are long, and the people who get seen quickest are usually the ones who can take a weekday afternoon off to do it.',
         'It is also a city that works shifts: healthcare, the airport, warehousing, care work. A standing Tuesday at two does not survive a rotating roster, and an appointment you keep missing turns into an appointment you stop booking. Sessions by video, at a time picked from what the counsellor has open, remove the part that was breaking.',
@@ -294,7 +294,7 @@ const LOCAL_OVERRIDES: Record<string, Record<string, {
       faqs: [
         {
           q: "Why not simply see somebody in Kamloops?",
-          a: "If a local counsellor is taking clients and suits you, that is the better option and you would be told so. It matters when what you need is specific, a particular approach, or a session in a language other than English, because the local list for that is short and fills quickly.",
+          a: "If a local counsellor is taking clients and suits you, that is the better option and you would be told so. It matters when what you need is specific, a particular approach, or a session in a language other than English, and availability for that varies; video widens the search to the whole province.",
         },
       ],
     },
@@ -302,11 +302,11 @@ const LOCAL_OVERRIDES: Record<string, Record<string, {
       faqs: [
         {
           q: "Richmond has real counselling capacity. Why look further?",
-          a: "It does, and much of it is built around the city's Chinese-speaking communities, which is a genuine local strength. If that is not the fit you need the field narrows quickly, and a virtual practice makes the whole province available rather than only the part within driving distance.",
+          a: "It does, and much of it is built around the city's Chinese-speaking communities, which is a genuine local strength. If that is not the fit you need, a virtual practice makes the whole province available rather than only the part within driving distance.",
         },
       ],
       local: [
-        "Richmond has real counselling capacity, and much of it is built, correctly: around the city's Chinese-speaking communities. If that is not what you are looking for, the field narrows fast, and people routinely end up searching Vancouver or Surrey instead.",
+        "Richmond has real counselling capacity, and much of it is built, correctly: around the city's Chinese-speaking communities. If that is not what you are looking for, the search can widen to Vancouver or Surrey, or by video to the whole province.",
         'The airport and the port are also large local employers, on rosters that change. A session you can attend from home between shifts is worth more than one you could theoretically drive to and keep missing.',
       ],
     },
@@ -338,9 +338,16 @@ export function resolvePlace(place: PractitionerPlace, p: Speaker): Practitioner
      without a replacement: the fact strip above already says what she does
      not offer and who does (notOffered, lib/practitioner-facts.ts). */
   const keptFaqs = place.faqs.filter((f) => !isForeign(`${f.q} ${f.a}`));
+  /* Only when no kept question already asks about her second language
+     (item 571, 16 Oct 2026): Savneet's Richmond page kept the shared
+     "sessions in Punjabi" question and then had the rebuilt one appended,
+     asking it twice. */
+  const lang = languageFaq(p);
+  const second = p.languages[1]?.name ?? p.languages[0]?.name;
+  const asked = second ? keptFaqs.some((f) => f.q.includes(second)) : false;
   const faqs = (keptFaqs.length === place.faqs.length
     ? keptFaqs
-    : [...keptFaqs, languageFaq(p), ...(ov?.faqs ?? [])]
+    : [...keptFaqs, ...(asked ? [] : [lang]), ...(ov?.faqs ?? [])]
   ).filter((f) => !unoffered(f.q));
 
   return { ...place, blurb, local, access, faqs };

@@ -1,7 +1,7 @@
-import { fallbackFee } from '@/lib/cliniko-catalog';
+import { fallbackFee, CONSULT_MINUTES } from '@/lib/cliniko-catalog';
 import type { GatedLink } from '@/lib/seasonal';
 import { site } from '@/lib/site';
-import { withLetters, type Practitioner } from '@/lib/practitioners';
+import { practitioners, withLetters, type Practitioner } from '@/lib/practitioners';
 import { counsellorsFor, languagePhrase, languagesOf, listOf } from '@/lib/city-service-page';
 import { counsellorForLanguage } from '@/lib/booking-cta';
 import { PROVINCE_NAME, type Province } from '@/lib/crisis';
@@ -40,6 +40,20 @@ const TL_ALBERTA = TL ? reachesAlberta([TL]) : false;
 /* What a session costs and whether a plan pays, for the cost FAQs on the
    individual and language pages (item 413). Fee from the catalogue; coverage
    in the house words; the receipt is how pay-and-submit works. */
+/* "Punjabi therapist near me" and "Hindi or Urdu?" (item 590, 16 Oct 2026;
+   Search Console: "punjabi therapist near me" 6 at 7.0, "hindi speaking
+   counsellor" 3 at 16, no clicks). Both answers are built from the roster,
+   so a language added or a counsellor who stops accepting changes them, and
+   neither says anything about what exists locally. */
+const ROSTER_LANGUAGES = [...new Set(
+  practitioners.filter((p) => p.acceptingNewClients).flatMap((p) => p.languages.map((l) => l.name)),
+)];
+const HI_UR = practitioners.filter((p) => p.acceptingNewClients && p.bookable && p.languages.some((l) => l.tag === 'hi' || l.tag === 'ur'));
+const PUNJABI_NEAR_ME = `Sessions here are by secure video, so they work from any private room in ${PA ? provincesOf(PA) : 'British Columbia'}${PA ? `, with ${withLetters(PA)}, who works in ${listOf(languagesOf(PA), 'and')}` : ''}. The first ${CONSULT_MINUTES}-minute consultation is free. If you would rather see someone in person, BCACC’s Find a Counsellor directory filters by language and city; availability and openings vary.`;
+const HINDI_URDU = HI_UR.length
+  ? `Yes: ${listOf(HI_UR.map((p) => withLetters(p)), 'and')}. BCACC’s Find a Counsellor directory also filters by language.`
+  : `Not at present. Sessions here are in ${listOf(ROSTER_LANGUAGES, 'or')}. BCACC’s Find a Counsellor directory filters by language, so it is the place to look for a counsellor who works in Hindi or Urdu; availability and openings vary.`;
+
 const COST_AND_COVER = `MSP does not cover private counselling. ${PLAN_COVERAGE} This practice is pay-and-submit: you pay at booking and submit the receipt, which carries the counsellor’s registration number, to your plan. [Does my plan cover counselling?](/resources/does-my-plan-cover-counselling-bc) gives the one question to ask your insurer.`;
 const COUPLES_LANGS = languagePhrase(counsellorsFor({ bookingService: 'couples-therapy' }));
 const EMDR_LANGS = languagePhrase(counsellorsFor({ bookingService: 'emdr-therapy' }));
@@ -515,7 +529,7 @@ export const services: Service[] = [
       h2: "How sessions work",
       body: [
         "Sessions run in Punjabi, in English, or moving between them. You do not have to decide in advance, and most people end up doing both without planning it. Sessions are 50 minutes, fully virtual, anywhere in British Columbia.",
-        "That province-wide reach matters more here than for most services. **Punjabi-speaking clinicians in BC are heavily concentrated in the Lower Mainland**, which means that for anyone in the Interior, the North, or on the Island, virtual sessions are not a convenience. They are realistically the only route to therapy in Punjabi at all. [Punjabi counselling in Kelowna](/punjabi-counselling/kelowna) and [Punjabi counselling in Prince George](/punjabi-counselling/prince-george) set out what that gap looks like locally.",
+        "That province-wide reach matters here. **Availability of Punjabi-speaking counsellors, and their openings, varies from place to place**, and BCACC’s [Find a Counsellor](https://bc-counsellors.org/counsellors/) directory filters by language if you would like to see who is listed near you. By video, the session works the same in the Interior, the North or on the Island as in Surrey. [Punjabi counselling in Kelowna](/punjabi-counselling/kelowna) and [Punjabi counselling in Prince George](/punjabi-counselling/prince-george) set out the local picture, census figures included.",
         "**On what the work is not:** it is not therapy that treats your family as the diagnosis and distance as the cure. Most people arriving here want something harder, to stay in relationship with their family and stop carrying the parts that are not theirs. That is a legitimate goal and it is workable, and any decision about distance stays yours.",
         `**On confidentiality:** nothing is shared with your family without your consent, and because sessions are virtual there is no clinic to be seen entering. The only limits are ${CONFIDENTIALITY_LIMITS}.`,
       ],
@@ -531,6 +545,9 @@ export const services: Service[] = [
          the language-access resource; this points there and names whoever on
          the roster works in Punjabi and is accepting. */
       { q: "How do I find a Punjabi-speaking counsellor in BC?", a: `Filter BCACC’s Find a Counsellor directory by language, then check the name on the RCC Register before the first session. The free Punjabi-speaking options, each with the date it was checked, and the steps in order are on our guide to [finding a Punjabi- or Tagalog-speaking counsellor in BC](/resources/finding-a-counsellor-in-punjabi-or-tagalog-in-bc).${PA ? ` At this practice, ${PA.name} works in Punjabi and English by video.` : ''}` },
+      /* 16 Oct 2026 (item 590): English only, no new Gurmukhi. */
+      { q: "Is there a Punjabi-speaking therapist near me?", a: PUNJABI_NEAR_ME },
+      { q: "Do you offer counselling in Hindi or Urdu?", a: HINDI_URDU },
       /* 3 Oct 2026 (item 413): the page answered nothing about cost. */
       { q: "What does counselling in Punjabi cost, and is it covered?", a: `An individual session in Punjabi is ${individualFeePhrase()}, the same fee as in English, after a free 15-minute consultation. ${COST_AND_COVER}` },
       { q: "Do sessions have to be entirely in Punjabi?", a: "No. Most people move between Punjabi and English within a single session, which is how a lot of people actually think. You do not have to choose a language in advance or stick to it." },
@@ -609,7 +626,7 @@ export const services: Service[] = [
       h2: "How sessions work",
       body: [
         `Sessions run in Tagalog, in English, or moving between them. You do not have to decide in advance, and most people end up doing both without planning it. Sessions are 50 minutes, fully virtual, anywhere in ${TL_PROVINCES_LONG}.`,
-        `That reach matters more here than for most services. **Tagalog-speaking counsellors in BC are few and concentrated in Metro Vancouver**, which means that for anyone in the Interior, the North${TL_ALBERTA ? ', on the Island, or in Alberta' : ' or on the Island'}, virtual sessions are not a convenience. They are realistically the only route to therapy in Tagalog at all. The [Tagalog counselling by city](/tagalog-counselling) pages set out what that gap looks like locally.`,
+        `That reach matters here. **Availability of Tagalog-speaking counsellors, and their openings, varies from place to place**, and BCACC’s [Find a Counsellor](https://bc-counsellors.org/counsellors/) directory filters by language if you would like to see who is listed near you. By video, the session works the same in the Interior, the North${TL_ALBERTA ? ', on the Island, or in Alberta' : ' or on the Island'} as in Metro Vancouver. The [Tagalog counselling by city](/tagalog-counselling) pages set out the local picture, census figures included.`,
         "**On shift work:** a great deal of Filipino employment in BC is in healthcare, care work and hospitality, on rosters that change. Booking in blocks around a rotation, with gaps between blocks, is an ordinary pattern here, and the calendar shows real open times. The [page for Filipino healthcare workers and caregivers](/for/filipino-healthcare-workers-and-caregivers) goes into this.",
         "**On what the work is not:** it is not therapy that treats your family as the diagnosis and distance as the cure. Most people arriving here want something harder, to stay in relationship with their family and stop carrying the parts that are not theirs. That is a legitimate goal and it is workable, and any decision about distance stays yours.",
         `**On confidentiality:** nothing is shared with your family, your church or your employer without your consent, and because sessions are virtual there is no clinic to be seen entering. The only limits are ${CONFIDENTIALITY_LIMITS}.`,

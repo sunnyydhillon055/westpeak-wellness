@@ -161,7 +161,7 @@ export const TAGALOG_CITIES: TagalogCity[] = [
     angle: 'Food processing and agriculture employ a large Filipino workforce on shifts that do not fit a weekday appointment.',
     body: [
       'Abbotsford runs on agriculture, food processing and transport, and a substantial part of that workforce is Filipino. Those are jobs with early starts, long days and seasonal peaks, and none of that arranges itself around a counsellor with weekday afternoon availability. The appointment that assumes a free Tuesday is the appointment missed twice and then abandoned.',
-      'The distance compounds it. Tagalog-speaking counsellors in BC are concentrated in the Lower Mainland, so the local answer has usually been a drive west at the end of a shift, which is why so many people here start and stop rather than never start.',
+      'The distance compounds it. When the counsellor who fits is further west, the answer has been a drive at the end of a shift, and an appointment that depends on a drive is easy to start and stop. By video, the session happens wherever you have a private room; availability of Tagalog-speaking counsellors varies, and BCACC’s Find a Counsellor directory filters by language.',
     ],
     faqs: [
       { q: 'Are there Tagalog-speaking counsellors in Abbotsford?', a: 'Very few. Most in the province are in the Lower Mainland, and video is what removes the drive rather than the shortage.' },
@@ -200,7 +200,7 @@ export const TAGALOG_CITIES: TagalogCity[] = [
   {
     slug: 'kelowna',
     city: 'Kelowna',
-    angle: 'Agricultural work in the Okanagan brings people here for seasons, sometimes a long way from anybody who speaks the language.',
+    angle: 'Agricultural work in the Okanagan brings people here for seasons, often far from family and from the friends they would usually talk to.',
     body: [
       'The Okanagan\'s agricultural sector draws workers seasonally, including people here on work permits and a long way from home. That combination: temporary, working hard, isolated by language: is one of the harder ones there is, and it is also the one least likely to reach counselling, because everything about the situation says this is temporary and will be endured.',
       'There is very little counselling delivered in Tagalog anywhere in the Interior. Video does not fix the isolation, but it does mean the person you talk to does not have to be found locally, which in the Okanagan is the difference between an option and none.',

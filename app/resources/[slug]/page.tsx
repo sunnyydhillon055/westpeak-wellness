@@ -235,9 +235,24 @@ export default async function ResourcePage({ params }: { params: { slug: string 
               the word does, which was the whole point the first time. */}
           <p className="hero-note">{r.readMinutes} min read · Updated {fmt(r.updated)}</p>
           <div className={np ? `btn-row ${np}` : 'btn-row'} style={{ marginTop: 22 }}>
-            <BookLink location="hero-resource" href={heroCta.href}>{heroCta.label}</BookLink>
-            {/* Resource.heroSecondary, item 570. */}
-            <Link className="btn btn--ghost" href={r.heroSecondary?.href ?? '/resources'}>{r.heroSecondary?.label ?? 'All resources'}</Link>
+            {/* With nobody insured for Alberta the coverage page's hero led
+                with "Book a free consultation in BC" while its body said no
+                counsellor could see an Alberta reader. While the routes
+                closer shows, the hero leads with it, and the BC booking link
+                moves to second place, ghost-styled, in place of the
+                secondary link (item 556, 16 Oct 2026). */}
+            {r.routesCloser ? (
+              <>
+                <a className="btn btn--primary" href="#where-to-start">{r.routesCloser.heading}</a>
+                <BookLink location="hero-resource" href={cta.href} className="btn btn--ghost">{r.routesCloser.bcLabel}</BookLink>
+              </>
+            ) : (
+              <>
+                <BookLink location="hero-resource" href={heroCta.href}>{heroCta.label}</BookLink>
+                {/* Resource.heroSecondary, item 570. */}
+                <Link className="btn btn--ghost" href={r.heroSecondary?.href ?? '/resources'}>{r.heroSecondary?.label ?? 'All resources'}</Link>
+              </>
+            )}
           </div>
           <HeroNextDays people={heroPeople} className={np} />
         </div>
